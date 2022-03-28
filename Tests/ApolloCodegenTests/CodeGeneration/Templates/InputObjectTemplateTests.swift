@@ -20,44 +20,11 @@ class InputObjectTemplateTests: XCTestCase {
     )
   }
 
+  private func renderSubject() -> String {
+    subject.template.description
+  }
+
   // MARK: Boilerplate Tests
-
-  func test_render_generatesHeaderComment() {
-    // given
-    buildSubject(fields: [
-      GraphQLInputField.mock("field", type: .scalar(.integer()), defaultValue: nil)
-    ])
-
-    let expected = """
-    // @generated
-    // This file was automatically generated and should not be edited.
-    
-    """
-
-    // when
-    let actual = subject.render()
-
-    // then
-    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
-  }
-
-  func test_render_generatesImportStatement() {
-    // given
-    buildSubject(fields: [
-      GraphQLInputField.mock("field", type: .scalar(.integer()), defaultValue: nil)
-    ])
-
-    let expected = """
-    import ApolloAPI
-
-    """
-
-    // when
-    let actual = subject.render()
-
-    // then
-    expect(actual).to(equalLineByLine(expected, atLine: 4, ignoringExtraLines: true))
-  }
 
   func test__render__generatesDefinitionWithInputDictVariableAndInitializer() throws {
     // given
@@ -76,10 +43,10 @@ class InputObjectTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = subject.render()
+    let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
   // MARK: Casing Tests
@@ -94,10 +61,10 @@ class InputObjectTemplateTests: XCTestCase {
     let expected = "public struct MockInput: InputObject {"
 
     // when
-    let actual = subject.render()
+    let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
   func test__render__givenUppercasedInputObjectField__generatesCorrectlyCasedSwiftDefinition() throws {
@@ -110,10 +77,10 @@ class InputObjectTemplateTests: XCTestCase {
     let expected = "public struct MOCKInput: InputObject {"
 
     // when
-    let actual = subject.render()
+    let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
   func test__render__givenMixedCaseInputObjectField__generatesCorrectlyCasedSwiftDefinition() throws {
@@ -126,10 +93,10 @@ class InputObjectTemplateTests: XCTestCase {
     let expected = "public struct MOcK_Input: InputObject {"
 
     // when
-    let actual = subject.render()
+    let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
   // MARK: Field Type Tests
@@ -157,10 +124,10 @@ class InputObjectTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = subject.render()
+    let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: false))
+    expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: false))
   }
 
   func test__render__givenAllPossibleSchemaInputFieldTypes__generatesCorrectParametersAndInitializer() throws {
@@ -266,10 +233,10 @@ class InputObjectTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = subject.render()
+    let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
   }
 
   // MARK: Nullable Field Tests
@@ -293,10 +260,10 @@ class InputObjectTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = subject.render()
+    let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
   }
 
   func test__render__given_NullableField_WithDefault__generates_NullableParameter_NoInitializerDefault() throws {
@@ -318,10 +285,10 @@ class InputObjectTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = subject.render()
+    let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
   }
 
   func test__render__given_NonNullableField_NoDefault__generates_NonNullableNonOptionalParameter_NoInitializerDefault() throws {
@@ -343,10 +310,10 @@ class InputObjectTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = subject.render()
+    let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
   }
 
   func test__render__given_NonNullableField_WithDefault__generates_OptionalParameter_NoInitializerDefault() throws {
@@ -368,10 +335,10 @@ class InputObjectTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = subject.render()
+    let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
   }
 
   func test__render__given_NullableList_NullableItem_NoDefault__generates_NullableParameter_OptionalItem_InitializerNilDefault() throws {
@@ -393,10 +360,10 @@ class InputObjectTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = subject.render()
+    let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
   }
 
   func test__render__given_NullableList_NullableItem_WithDefault__generates_NullableParameter_OptionalItem_NoInitializerDefault() throws {
@@ -420,10 +387,10 @@ class InputObjectTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = subject.render()
+    let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
   }
 
   func test__render__given_NullableList_NonNullableItem_NoDefault__generates_NullableParameter_NonOptionalItem_InitializerNilDefault() throws {
@@ -445,10 +412,10 @@ class InputObjectTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = subject.render()
+    let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
   }
 
   func test__render__given_NullableList_NonNullableItem_WithDefault__generates_NullableParameter_NonOptionalItem_NoInitializerDefault() throws {
@@ -472,10 +439,10 @@ class InputObjectTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = subject.render()
+    let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
   }
 
   func test__render__given_NonNullableList_NullableItem_NoDefault__generates_NonNullableNonOptionalParameter_OptionalItem_NoInitializerDefault() throws {
@@ -497,10 +464,10 @@ class InputObjectTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = subject.render()
+    let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
   }
 
   func test__render__given_NonNullableList_NullableItem_WithDefault__generates_OptionalParameter_OptionalItem_NoInitializerDefault() throws {
@@ -524,10 +491,10 @@ class InputObjectTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = subject.render()
+    let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
   }
 
   func test__render__given_NonNullableList_NonNullableItem_NoDefault__generates_NonNullableNonOptionalParameter_NonOptionalItem_NoInitializerDefault() throws {
@@ -549,10 +516,10 @@ class InputObjectTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = subject.render()
+    let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
   }
 
   func test__render__given_NonNullableList_NonNullableItem_WithDefault__generates_OptionalParameter_NonOptionalItem_NoInitializerDefault() throws {
@@ -576,10 +543,10 @@ class InputObjectTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = subject.render()
+    let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
   }
 
   func test__render__given_NullableListOfNullableEnum_NoDefault__generates_NullableParameter_OptionalItem_InitializerNilDefault() throws {
@@ -603,9 +570,9 @@ class InputObjectTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = subject.render()
+    let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
   }
 }
