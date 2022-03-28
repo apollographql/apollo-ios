@@ -43,7 +43,7 @@ class FragmentTemplateTests: XCTestCase {
 
   // MARK: - Helpers
 
-  func buildSubjectAndFragment(named fragmentName: String = "TestFragment") throws {
+  private func buildSubjectAndFragment(named fragmentName: String = "TestFragment") throws {
     ir = try .mock(schema: schemaSDL, document: document)
     let fragmentDefinition = try XCTUnwrap(ir.compilationResult[fragment: fragmentName])
     fragment = ir.build(fragment: fragmentDefinition)
@@ -51,6 +51,10 @@ class FragmentTemplateTests: XCTestCase {
       fragment: fragment,
       schema: ir.schema
     )
+  }
+
+  private func renderSubject() -> String {
+    subject.template.description
   }
 
   // MARK: - Fragment Definition
@@ -75,7 +79,7 @@ class FragmentTemplateTests: XCTestCase {
     // when
     try buildSubjectAndFragment()
 
-    let actual = subject.template.description
+    let actual = renderSubject()
 
     // then
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
@@ -106,7 +110,7 @@ class FragmentTemplateTests: XCTestCase {
 
     // when
     try buildSubjectAndFragment(named: "Test_Fragment")
-    let actual = subject.template.description
+    let actual = renderSubject()
 
     // then
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
@@ -136,7 +140,7 @@ class FragmentTemplateTests: XCTestCase {
 
     // when
     try buildSubjectAndFragment()
-    let actual = subject.template.description
+    let actual = renderSubject()
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
@@ -166,7 +170,7 @@ class FragmentTemplateTests: XCTestCase {
 
     // when
     try buildSubjectAndFragment()
-    let actual = subject.template.description
+    let actual = renderSubject()
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
@@ -200,7 +204,7 @@ class FragmentTemplateTests: XCTestCase {
 
     // when
     try buildSubjectAndFragment()
-    let actual = subject.template.description
+    let actual = renderSubject()
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))

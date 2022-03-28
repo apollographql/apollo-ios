@@ -12,10 +12,16 @@ class EnumTemplateTests: XCTestCase {
     super.tearDown()
   }
 
+  // MARK: Helpers
+
   private func buildSubject(name: String = "TestEnum", values: [String] = ["ONE", "TWO"]) {
     subject = EnumTemplate(
       graphqlEnum: GraphQLEnumType.mock(name: name, values: values)
     )
+  }
+
+  private func renderSubject() -> String {
+    subject.template.description
   }
 
   // MARK: Enum Tests
@@ -32,7 +38,7 @@ class EnumTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = subject.template.description
+    let actual = renderSubject()
 
     // then
     expect(actual).to(equalLineByLine(expected))
@@ -49,7 +55,7 @@ class EnumTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = subject.template.description
+    let actual = renderSubject()
 
     // then
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
@@ -68,7 +74,7 @@ class EnumTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = subject.template.description
+    let actual = renderSubject()
 
     // then
     expect(actual).to(equalLineByLine(expected))

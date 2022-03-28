@@ -49,7 +49,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
 
   // MARK: - Helpers
 
-  func buildSubjectAndOperation(named operationName: String = "TestOperation") throws {
+  private func buildSubjectAndOperation(named operationName: String = "TestOperation") throws {
     ir = try .mock(schema: schemaSDL, document: document)
     let operationDefinition = try XCTUnwrap(ir.compilationResult[operation: operationName])
     operation = ir.build(operation: operationDefinition)
@@ -58,6 +58,10 @@ class OperationDefinitionTemplateTests: XCTestCase {
       schema: ir.schema,
       config: ReferenceWrapped(value: config)
     )
+  }
+
+  private func renderSubject() -> String {
+    subject.template.description
   }
 
   // MARK: - Operation Definition
@@ -73,7 +77,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
     // when
     try buildSubjectAndOperation()
 
-    let actual = subject.template.description
+    let actual = renderSubject()
 
     // then
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
@@ -98,7 +102,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
     // when
     try buildSubjectAndOperation(named: "TestOperationQuery")
 
-    let actual = subject.template.description
+    let actual = renderSubject()
 
     // then
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
@@ -137,7 +141,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
     // when
     try buildSubjectAndOperation(named: "TestOperationQuery")
 
-    let actual = subject.template.description
+    let actual = renderSubject()
 
     // then
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
@@ -176,7 +180,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
     // when
     try buildSubjectAndOperation()
 
-    let actual = subject.template.description
+    let actual = renderSubject()
 
     // then
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
@@ -215,7 +219,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
     // when
     try buildSubjectAndOperation()
 
-    let actual = subject.template.description
+    let actual = renderSubject()
 
     // then
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
@@ -259,7 +263,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
      // when
      try buildSubjectAndOperation()
 
-     let actual = subject.template.description
+     let actual = renderSubject()
 
      // then
      expect(actual).to(equalLineByLine(expected, atLine: 14, ignoringExtraLines: true))
@@ -312,7 +316,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
     // when
     try buildSubjectAndOperation()
 
-    let actual = subject.template.description
+    let actual = renderSubject()
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 14, ignoringExtraLines: true))
@@ -354,7 +358,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
     // when
     try buildSubjectAndOperation()
 
-    let actual = subject.template.description
+    let actual = renderSubject()
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 14, ignoringExtraLines: true))
