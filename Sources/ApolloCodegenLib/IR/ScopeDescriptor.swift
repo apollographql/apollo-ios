@@ -14,7 +14,9 @@ extension IR {
     }
 
     var debugDescription: String {
-      "\(type.debugDescription) \(conditions?.debugDescription ?? "")"
+      [type?.debugDescription, conditions?.debugDescription]
+        .compactMap { $0 }
+        .joined(separator: " ")
     }
 
   }
