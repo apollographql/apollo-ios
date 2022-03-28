@@ -12,45 +12,16 @@ class InterfaceTemplateTests: XCTestCase {
     super.tearDown()
   }
 
+  // MARK: Helpers
+
   private func buildSubject() {
     subject = InterfaceTemplate(
       graphqlInterface: GraphQLInterfaceType.mock("MockInterface", fields: [:], interfaces: [])
     )
   }
 
-  // MARK: Boilerplate Tests
-
-  func test_render_generatesHeaderComment() {
-    // given
-    buildSubject()
-
-    let expected = """
-    // @generated
-    // This file was automatically generated and should not be edited.
-
-    """
-
-    // when
-    let actual = subject.render()
-
-    // then
-    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
-  }
-
-  func test_render_generatesImportStatement() {
-    // given
-    buildSubject()
-
-    let expected = """
-    import ApolloAPI
-
-    """
-
-    // when
-    let actual = subject.render()
-
-    // then
-    expect(actual).to(equalLineByLine(expected, atLine: 4, ignoringExtraLines: true))
+  private func renderSubject() -> String {
+    subject.template.description
   }
 
   // MARK: Class Definition Tests
@@ -64,7 +35,7 @@ class InterfaceTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = subject.render()
+    let actual = renderSubject()
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 6))

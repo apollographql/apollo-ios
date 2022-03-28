@@ -1,9 +1,11 @@
 import Foundation
 
-struct InterfaceTemplate {
+struct InterfaceTemplate: TemplateRenderer {
   let graphqlInterface: GraphQLInterfaceType
 
-  func render() -> String {
+  var target: TemplateTarget = .schemaFile
+
+  var template: TemplateString {
     TemplateString(
     """
     \(HeaderCommentTemplate.render())
@@ -12,6 +14,6 @@ struct InterfaceTemplate {
 
     public final class \(graphqlInterface.name): Interface { }
     """
-    ).description
+    )
   }
 }
