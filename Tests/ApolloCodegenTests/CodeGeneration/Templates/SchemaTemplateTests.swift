@@ -12,44 +12,17 @@ class SchemaTemplateTests: XCTestCase {
     super.tearDown()
   }
 
+  // MARK: Helpers
+
   private func buildSubject(name: String = "TestSchema", referencedTypes: IR.Schema.ReferencedTypes = .init([])) {
     subject = SchemaTemplate(schema: IR.Schema(name: name, referencedTypes: referencedTypes))
   }
 
+  private func renderSubject() -> String {
+    subject.template.description
+  }
+
   // MARK: Boilerplate Tests
-
-  func test__render__generatesHeaderComment() {
-    // given
-    buildSubject()
-
-    let expected = """
-    // @generated
-    // This file was automatically generated and should not be edited.
-
-    """
-
-    // when
-    let actual = subject.render()
-
-    // then
-    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
-  }
-
-  func test__render__generatesImportStatement() {
-    // given
-    buildSubject()
-
-    let expected = """
-    import ApolloAPI
-
-    """
-
-    // when
-    let actual = subject.render()
-
-    // then
-    expect(actual).to(equalLineByLine(expected, atLine: 4, ignoringExtraLines: true))
-  }
 
   func test__render__generatesIDTypeAlias() {
     // given
@@ -61,15 +34,13 @@ class SchemaTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = subject.render()
+    let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
   // MARK: Protocol Tests
-
-
 
   func test__render__givenSchemaName_generatesSelectionSetProtocol() {
     // given
@@ -82,10 +53,10 @@ class SchemaTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = subject.render()
+    let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 3, ignoringExtraLines: true))
   }
 
   func test__render__givenSchemaName_generatesTypeCaseProtocol() {
@@ -99,10 +70,10 @@ class SchemaTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = subject.render()
+    let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
   }
 
   // MARK: Schema Tests
@@ -116,10 +87,10 @@ class SchemaTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = subject.render()
+    let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 14, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 9, ignoringExtraLines: true))
   }
 
   func test__render__givenWithReferencedObjects_generatesObjectTypeFunction() {
@@ -146,10 +117,10 @@ class SchemaTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = subject.render()
+    let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 15))
+    expect(actual).to(equalLineByLine(expected, atLine: 10))
   }
 
   func test__render__givenWithReferencedOtherTypes_generatesObjectTypeNotIncludingNonObjectTypesFunction() {
@@ -177,9 +148,9 @@ class SchemaTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = subject.render()
+    let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 15))
+    expect(actual).to(equalLineByLine(expected, atLine: 10))
   }
 }

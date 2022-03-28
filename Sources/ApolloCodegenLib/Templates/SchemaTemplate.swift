@@ -1,14 +1,13 @@
-struct SchemaTemplate {
+import Foundation
 
+struct SchemaTemplate: TemplateRenderer {
   let schema: IR.Schema
 
-  func render() -> String {
+  var target: TemplateTarget = .schemaFile
+
+  var template: TemplateString {
     TemplateString(
     """
-    \(HeaderCommentTemplate.render())
-
-    \(ImportStatementTemplate.SchemaType.render())
-
     public typealias ID = String
 
     public protocol SelectionSet: ApolloAPI.SelectionSet & ApolloAPI.RootSelectionSet
@@ -28,6 +27,6 @@ struct SchemaTemplate {
       }
     }
     """
-    ).description
+    )
   }
 }
