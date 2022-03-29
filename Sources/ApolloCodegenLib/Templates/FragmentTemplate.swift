@@ -1,3 +1,5 @@
+import Foundation
+
 struct FragmentTemplate: TemplateRenderer {
   let fragment: IR.NamedFragment
   let schema: IR.Schema

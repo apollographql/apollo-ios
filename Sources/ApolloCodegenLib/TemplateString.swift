@@ -57,6 +57,10 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
       }
     }
 
+    mutating func appendInterpolation(_ string: StaticString) {
+      appendInterpolation(string.description)
+    }
+
     mutating func appendInterpolation(_ template: TemplateString) {
       if template.isEmpty {
         removeLineIfEmpty()
@@ -168,6 +172,8 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
 func +(lhs: String, rhs: TemplateString) -> TemplateString {
   TemplateString(lhs + rhs.description)
 }
+
+// MARK: - Extensions
 
 fileprivate extension Array where Element == Substring {
   func joinedAsLines(withIndent indent: String) -> String {
