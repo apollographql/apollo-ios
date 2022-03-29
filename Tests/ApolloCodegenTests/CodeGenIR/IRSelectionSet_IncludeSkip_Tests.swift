@@ -1860,29 +1860,49 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
     let FragmentA = try XCTUnwrap(ir.compilationResult[fragment: "FragmentA"])
 
     let allAnimals = self.subject[field: "allAnimals"]
+    let fragmentASpread: ShallowSelectionMatcher = .fragmentSpread(
+      FragmentA,
+      inclusionConditions: AnyOf([
+        .init(.include(if: "a")),
+        .init(.include(if: "b"))
+      ]))
 
     let expected_allAnimal = SelectionSetMatcher(
       parentType: Interface_Animal,
       inclusionConditions: nil,
       directSelections: [
-        .fragmentSpread(FragmentA, inclusionConditions: [.include(if: "a"), .include(if: "b")]),
+        fragmentASpread
       ],
       mergedSelections: [
         .inlineFragment(parentType: Interface_Animal,
-                              inclusionConditions: [.include(if: "a")]),
+                        inclusionConditions: [.include(if: "a")]),
         .inlineFragment(parentType: Interface_Animal,
-                              inclusionConditions: [.include(if: "b")]),
+                        inclusionConditions: [.include(if: "b")]),
       ],
       mergedSources: []
     )
 
-    let expected_allAnimal_ifAOrB = try SelectionSetMatcher(
+    let expected_allAnimal_ifA = try SelectionSetMatcher(
       parentType: Interface_Animal,
-      inclusionConditions: [.include(if: "a"), .include(if: "b")],
+      inclusionConditions: [.include(if: "a")],
       directSelections: nil,
       mergedSelections: [
         .field("a", type: .nonNull(.scalar(.string()))),
-        .fragmentSpread(FragmentA, inclusionConditions: [.include(if: "a"), .include(if: "b")]),
+        fragmentASpread
+      ],
+      mergedSources: [
+        .mock(allAnimals),
+        .mock(allAnimals?[fragment: "FragmentA"]),
+      ]
+    )
+
+    let expected_allAnimal_ifB = try SelectionSetMatcher(
+      parentType: Interface_Animal,
+      inclusionConditions: [.include(if: "b")],
+      directSelections: nil,
+      mergedSelections: [
+        .field("a", type: .nonNull(.scalar(.string()))),
+        fragmentASpread
       ],
       mergedSources: [
         .mock(allAnimals),
@@ -1892,8 +1912,8 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
 
     // then
     expect(allAnimals?.selectionSet).to(shallowlyMatch(expected_allAnimal))
-
-    expect(allAnimals?[if: "a"]).to(shallowlyMatch(expected_allAnimal_ifAOrB))
+    expect(allAnimals?[if: "a"]).to(shallowlyMatch(expected_allAnimal_ifA))
+    expect(allAnimals?[if: "b"]).to(shallowlyMatch(expected_allAnimal_ifB))
   }
 
 //  func test__selections__givenDuplicateNamedFragmentWithDifferentConditions_createsDeduplicatedInclusionCondition() throws {
