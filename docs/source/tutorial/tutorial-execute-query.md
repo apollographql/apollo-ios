@@ -107,7 +107,7 @@ You're now ready to generate code from the combination of your saved query and s
 
 2. _Uncomment_ the line you previously commented out (that includes `codegen:generate`).
 
-3. Build your project. When the build completes, an `API.swift` file appears in the same folder  as `schema.graphqls`.
+3. Build your project. When the build completes, an `API.swift` file appears in the same folder  as `schema.json`.
 
 4. Drag the `API.swift` file into Xcode. This time, **do** check the **Add to target** box for the `RocketReserver` app. You include this file in your application's bundle to enable you to execute the query you defined.
 
