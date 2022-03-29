@@ -65,6 +65,13 @@ public extension GraphQLScalarType {
   }
 }
 
+public extension GraphQLType {
+  static func string() -> Self { .scalar(GraphQLScalarType.mock(name: "String")) }
+  static func integer() -> Self { .scalar(GraphQLScalarType.mock(name: "Int")) }
+  static func boolean() -> Self { .scalar(GraphQLScalarType.mock(name: "Boolean")) }
+  static func float() -> Self { .scalar(GraphQLScalarType.mock(name: "Float")) }
+}
+
 public extension GraphQLEnumType {
   class func skinCovering() -> Self {
     mock(name: "SkinCovering", values: ["FUR", "HAIR", "FEATHERS", "SCALES"])
