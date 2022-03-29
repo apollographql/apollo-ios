@@ -44,9 +44,10 @@ extension IR {
         entity: rootEntity,
         scopePath: LinkedList(rootTypePath)
       )
-      
-      buildSortedSelections(
-        forSelectionSet: rootIrSelectionSet,
+
+      buildDirectSelections(
+        into: rootIrSelectionSet.selections.direct.unsafelyUnwrapped,
+        atTypePath: rootIrSelectionSet.typeInfo,
         inFragmentSpread: nil,
         from: rootSelectionSet
       )
@@ -57,67 +58,72 @@ extension IR {
       )
     }
 
-    private func buildSortedSelections(
-      forSelectionSet selectionSet: SelectionSet,
+    private func buildDirectSelections(
+      into target: DirectSelections,
+      atTypePath typeInfo: SelectionSet.TypeInfo,
       inFragmentSpread fragmentSpread: FragmentSpread?,
       from selections: [CompilationResult.Selection]
     ) {
       add(
-        directSelections: selections,
-        to: selectionSet,
+        selections,
+        to: target,
+        atTypePath: typeInfo,
         inFragmentSpread: fragmentSpread
       )
 
-      selectionSet.typeInfo.entity.selectionTree.mergeIn(
-        selectionSet: selectionSet,
+      typeInfo.entity.selectionTree.mergeIn(
+        selections: target,
+        with: typeInfo,
         inFragmentSpread: fragmentSpread
       )
     }
 
     private func add(
-      directSelections selections: [CompilationResult.Selection],
-      to selectionSet: SelectionSet,
-      inFragmentSpread containingFragmentSpread: FragmentSpread?
+      _ selections: [CompilationResult.Selection],
+      to target: DirectSelections,
+      atTypePath typeInfo: SelectionSet.TypeInfo,
+      inFragmentSpread enclosingFragmentSpread: FragmentSpread?
     ) {
       for selection in selections {
         switch selection {
         case let .field(field):
           if let irField = buildField(
             from: field,
-            on: selectionSet,
-            inFragmentSpread: containingFragmentSpread
+            atTypePath: typeInfo,
+            inFragmentSpread: enclosingFragmentSpread
           ) {
-            selectionSet.selections.direct!.mergeIn(irField)
+            target.mergeIn(irField)
           }
 
         case let .inlineFragment(inlineFragment):
           let inlineSelectionSet = inlineFragment.selectionSet
-          guard let scope = scopeCondition(for: inlineFragment, in: selectionSet) else {
+          guard let scope = scopeCondition(for: inlineFragment, in: typeInfo) else {
             continue
           }
 
-          if selectionSet.typeInfo.scope.matches(scope) {
+          if typeInfo.scope.matches(scope) {
             add(
-              directSelections: inlineSelectionSet.selections,
-              to: selectionSet,
-              inFragmentSpread: containingFragmentSpread
+              inlineSelectionSet.selections,
+              to: target,
+              atTypePath: typeInfo,
+              inFragmentSpread: enclosingFragmentSpread
             )
 
           } else {
             let irTypeCase = buildConditionalSelectionSet(
               from: inlineSelectionSet,
               with: scope,
-              inFragmentSpread: containingFragmentSpread,
-              onParent: selectionSet
+              inParentTypePath: typeInfo,
+              inFragmentSpread: enclosingFragmentSpread
             )
-            selectionSet.selections.direct!.mergeIn(irTypeCase)
+            target.mergeIn(irTypeCase)
           }
 
         case let .fragmentSpread(fragmentSpread):
-          guard let scope = scopeCondition(for: fragmentSpread, in: selectionSet) else {
+          guard let scope = scopeCondition(for: fragmentSpread, in: typeInfo) else {
             continue
           }
-          let selectionSetScope = selectionSet.typeInfo.scope
+          let selectionSetScope = typeInfo.scope
 
           var matchesType: Bool {
             guard let typeCondition = scope.type else { return true }
@@ -128,9 +134,9 @@ extension IR {
             let irFragmentSpread = buildFragmentSpread(
               fromFragment: fragmentSpread,
               with: scope,
-              spreadIntoParent: selectionSet
+              spreadIntoParentWithTypePath: typeInfo
             )
-            selectionSet.selections.direct!.mergeIn(irFragmentSpread)
+            target.mergeIn(irFragmentSpread)
 
           } else {
             let irTypeCaseEnclosingFragment = buildConditionalSelectionSet(
@@ -139,11 +145,11 @@ extension IR {
                 selections: [selection]
               ),
               with: scope,
-              inFragmentSpread: containingFragmentSpread,
-              onParent: selectionSet
+              inParentTypePath: typeInfo,
+              inFragmentSpread: enclosingFragmentSpread
             )
 
-            selectionSet.selections.direct!.mergeIn(irTypeCaseEnclosingFragment)
+            target.mergeIn(irTypeCaseEnclosingFragment)
           }
         }
       }
@@ -151,14 +157,14 @@ extension IR {
 
     private func scopeCondition(
       for conditionalSelectionSet: ConditionallyIncludable,
-      in parent: IR.SelectionSet
+      in parentTypePath: SelectionSet.TypeInfo
     ) -> ScopeCondition? {
       let inclusionResult = inclusionResult(for: conditionalSelectionSet.inclusionConditions)
       guard inclusionResult != .skipped else {
         return nil
       }
 
-      let type = parent.parentType == conditionalSelectionSet.parentType ?
+      let type = parentTypePath.parentType == conditionalSelectionSet.parentType ?
       nil : conditionalSelectionSet.parentType
 
       return ScopeCondition(type: type, conditions: inclusionResult.conditions)
@@ -176,7 +182,7 @@ extension IR {
 
     private func buildField(
       from field: CompilationResult.Field,
-      on selectionSet: SelectionSet,
+      atTypePath enclosingTypeInfo: SelectionSet.TypeInfo,
       inFragmentSpread fragmentSpread: FragmentSpread?
     ) -> Field? {
       let inclusionResult = inclusionResult(for: field.inclusionConditions)
@@ -189,7 +195,7 @@ extension IR {
         let irSelectionSet = buildSelectionSet(
           forField: field,
           with: inclusionConditions,
-          on: selectionSet,
+          atTypePath: enclosingTypeInfo,
           inFragmentSpread: fragmentSpread
         )
 
@@ -207,29 +213,30 @@ extension IR {
     private func buildSelectionSet(
       forField field: CompilationResult.Field,
       with inclusionConditions: InclusionConditions?,
-      on enclosingSelectionSet: SelectionSet,
-      inFragmentSpread fragmentSpread: FragmentSpread?
+      atTypePath enclosingTypeInfo: SelectionSet.TypeInfo,
+      inFragmentSpread enclosingFragmentSpread: FragmentSpread?
     ) -> SelectionSet {
       guard let fieldSelectionSet = field.selectionSet else {
         fatalError("SelectionSet cannot be created for non-entity type field \(field).")
       }
 
-      let entity = entity(for: field, on: enclosingSelectionSet.typeInfo.entity)
+      let entity = entity(for: field, on: enclosingTypeInfo.entity)
 
       let typeScope = ScopeDescriptor.descriptor(
         forType: fieldSelectionSet.parentType,
         inclusionConditions: inclusionConditions,
         givenAllTypesInSchema: schema.referencedTypes
       )
-      let typePath = enclosingSelectionSet.typeInfo.scopePath.appending(typeScope)
+      let typePath = enclosingTypeInfo.scopePath.appending(typeScope)
 
       let irSelectionSet = SelectionSet(
         entity: entity,
         scopePath: typePath
       )
-      buildSortedSelections(
-        forSelectionSet: irSelectionSet,
-        inFragmentSpread: fragmentSpread,
+      buildDirectSelections(
+        into: irSelectionSet.selections.direct.unsafelyUnwrapped,
+        atTypePath: irSelectionSet.typeInfo,
+        inFragmentSpread: enclosingFragmentSpread,
         from: fieldSelectionSet.selections
       )
       return irSelectionSet
@@ -262,22 +269,23 @@ extension IR {
     private func buildConditionalSelectionSet(
       from selectionSet: CompilationResult.SelectionSet?,
       with scopeCondition: ScopeCondition,
-      inFragmentSpread fragmentSpread: FragmentSpread?,
-      onParent parentSelectionSet: SelectionSet
+      inParentTypePath enclosingTypeInfo: SelectionSet.TypeInfo,
+      inFragmentSpread enclosingFragmentSpread: FragmentSpread?
     ) -> SelectionSet {
-      let typePath = parentSelectionSet.typeInfo.scopePath.mutatingLast {
+      let typePath = enclosingTypeInfo.scopePath.mutatingLast {
         $0.appending(scopeCondition)
       }
 
       let irSelectionSet = SelectionSet(
-        entity: parentSelectionSet.typeInfo.entity,
+        entity: enclosingTypeInfo.entity,
         scopePath: typePath
       )
 
       if let selections = selectionSet?.selections {
-        buildSortedSelections(
-          forSelectionSet: irSelectionSet,
-          inFragmentSpread: fragmentSpread,
+        buildDirectSelections(
+          into: irSelectionSet.selections.direct.unsafelyUnwrapped,
+          atTypePath: irSelectionSet.typeInfo,
+          inFragmentSpread: enclosingFragmentSpread,
           from: selections
         )
       }
@@ -287,29 +295,30 @@ extension IR {
     private func buildFragmentSpread(
       fromFragment fragmentSpread: CompilationResult.FragmentSpread,
       with scopeCondition: ScopeCondition,
-      spreadIntoParent parentSelectionSet: SelectionSet
+      spreadIntoParentWithTypePath parentTypeInfo: SelectionSet.TypeInfo
     ) -> FragmentSpread {
       let fragment = fragmentSpread.fragment
       referencedFragments.append(fragment)
 
       let scopePath = scopeCondition.isEmpty ?
-      parentSelectionSet.typeInfo.scopePath :
-      parentSelectionSet.typeInfo.scopePath.mutatingLast {
+      parentTypeInfo.scopePath :
+      parentTypeInfo.scopePath.mutatingLast {
         $0.appending(scopeCondition)
       }
 
-      let irSelectionSet = SelectionSet(
-        entity: parentSelectionSet.typeInfo.entity,        
+      let typeInfo = SelectionSet.TypeInfo(
+        entity: parentTypeInfo.entity,
         scopePath: scopePath
       )
 
       let fragmentSpread = FragmentSpread(
         fragmentSpread: fragmentSpread,
-        selectionSet: irSelectionSet,
+        typeInfo: typeInfo,
         inclusionConditions: AnyOf(scopeCondition.conditions)
       )
-      buildSortedSelections(
-        forSelectionSet: fragmentSpread.selectionSet,
+      buildDirectSelections(
+        into: fragmentSpread.selections,
+        atTypePath: typeInfo,
         inFragmentSpread: fragmentSpread,
         from: fragment.selectionSet.selections
       )

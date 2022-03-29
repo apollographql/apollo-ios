@@ -33,7 +33,7 @@ extension IR.MergedSelections.MergedSource {
   ) throws -> Self {
     let fragment = try XCTUnwrap(fragment, file: file, line: line)
     return self.init(
-      typeInfo: fragment.selectionSet.typeInfo,
+      typeInfo: fragment.typeInfo,
       fragment: fragment
     )
   }

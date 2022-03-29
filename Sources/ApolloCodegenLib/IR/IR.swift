@@ -86,9 +86,12 @@ class IR {
 
     let underlyingFragmentSpread: CompilationResult.FragmentSpread
 
+    #warning("TODO: Update Docs")
     /// The selection set for the fragment in the operation it has been "spread into".
     /// It's `typePath` and `entity` reference are scoped to the operation it belongs to.
-    let selectionSet: SelectionSet
+    let typeInfo: SelectionSet.TypeInfo
+
+    let selections = DirectSelections()
 
     var inclusionConditions: AnyOf<InclusionConditions>?
 
@@ -96,24 +99,26 @@ class IR {
 
     init(
       fragmentSpread: CompilationResult.FragmentSpread,
-      selectionSet: SelectionSet,
+      typeInfo: SelectionSet.TypeInfo,
       inclusionConditions: AnyOf<InclusionConditions>?
     ) {
       self.underlyingFragmentSpread = fragmentSpread
-      self.selectionSet = selectionSet
+      self.typeInfo = typeInfo
       self.inclusionConditions = inclusionConditions
     }
 
     static func == (lhs: IR.FragmentSpread, rhs: IR.FragmentSpread) -> Bool {
       lhs.underlyingFragmentSpread == rhs.underlyingFragmentSpread &&
       lhs.inclusionConditions == rhs.inclusionConditions &&
-      lhs.selectionSet == rhs.selectionSet
+      lhs.typeInfo == rhs.typeInfo &&
+      lhs.selections == rhs.selections
     }
 
     func hash(into hasher: inout Hasher) {
       hasher.combine(underlyingFragmentSpread)
       hasher.combine(inclusionConditions)
-      hasher.combine(ObjectIdentifier(selectionSet))
+      hasher.combine(typeInfo)
+      hasher.combine(ObjectIdentifier(selections))
     }
 
     var debugDescription: String {
