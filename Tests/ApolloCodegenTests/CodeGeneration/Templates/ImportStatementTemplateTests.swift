@@ -2,10 +2,11 @@ import XCTest
 @testable import ApolloCodegenLib
 import Nimble
 import ApolloCodegenTestSupport
+import ApolloUtils
 
 class ImportStatementTemplateTests: XCTestCase {
 
-  var config: ApolloCodegenConfiguration.FileOutput!
+  var config: ReferenceWrapped<ApolloCodegenConfiguration>!
 
   override func tearDown() {
     config = nil
@@ -19,11 +20,13 @@ class ImportStatementTemplateTests: XCTestCase {
     moduleType: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType,
     operations: ApolloCodegenConfiguration.OperationsFileOutput
   ) {
-    config = .mock(
-      moduleType: moduleType,
-      schemaName: "ImportStatementTestsSchema",
-      operations: operations
-    )
+    config = ReferenceWrapped(value: ApolloCodegenConfiguration.mock(
+      output: .mock(
+        moduleType: moduleType,
+        schemaName: "ImportStatementTestsSchema",
+        operations: operations
+      )
+    ))
   }
 
   // MARK: Tests for operations generated into the schema module (schema module import not expected)
@@ -41,7 +44,7 @@ class ImportStatementTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = ImportStatementTemplate.Operation.render(config).description
+    let actual = ImportStatementTemplate.Operation.template(forConfig: config).description
 
     // then
     expect(actual).to(equalLineByLine(expected))
@@ -60,7 +63,7 @@ class ImportStatementTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = ImportStatementTemplate.Operation.render(config).description
+    let actual = ImportStatementTemplate.Operation.template(forConfig: config).description
 
     // then
     expect(actual).to(equalLineByLine(expected))
@@ -79,7 +82,7 @@ class ImportStatementTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = ImportStatementTemplate.Operation.render(config).description
+    let actual = ImportStatementTemplate.Operation.template(forConfig: config).description
 
     // then
     expect(actual).to(equalLineByLine(expected))
@@ -100,7 +103,7 @@ class ImportStatementTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = ImportStatementTemplate.Operation.render(config).description
+    let actual = ImportStatementTemplate.Operation.template(forConfig: config).description
 
     // then
     expect(actual).to(equalLineByLine(expected))
@@ -120,7 +123,7 @@ class ImportStatementTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = ImportStatementTemplate.Operation.render(config).description
+    let actual = ImportStatementTemplate.Operation.template(forConfig: config).description
 
     // then
     expect(actual).to(equalLineByLine(expected))
@@ -140,7 +143,7 @@ class ImportStatementTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = ImportStatementTemplate.Operation.render(config).description
+    let actual = ImportStatementTemplate.Operation.template(forConfig: config).description
 
     // then
     expect(actual).to(equalLineByLine(expected))
@@ -159,7 +162,7 @@ class ImportStatementTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = ImportStatementTemplate.Operation.render(config).description
+    let actual = ImportStatementTemplate.Operation.template(forConfig: config).description
 
     // then
     expect(actual).to(equalLineByLine(expected))
@@ -179,7 +182,7 @@ class ImportStatementTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = ImportStatementTemplate.Operation.render(config).description
+    let actual = ImportStatementTemplate.Operation.template(forConfig: config).description
 
     // then
     expect(actual).to(equalLineByLine(expected))
@@ -199,7 +202,7 @@ class ImportStatementTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = ImportStatementTemplate.Operation.render(config).description
+    let actual = ImportStatementTemplate.Operation.template(forConfig: config).description
 
     // then
     expect(actual).to(equalLineByLine(expected))
