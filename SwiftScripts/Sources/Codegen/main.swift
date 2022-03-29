@@ -40,7 +40,7 @@ struct Codegen: ParsableCommand {
       throw ArgumentError.invalidTargetName(name: targetName)
     }
 
-    guard let module = Module(module: packageManager, name: target.moduleName) else {
+    guard let module = Module(module: packageManager) else {
       throw ArgumentError.invalidPackageType(name: packageManager)
     }
 
@@ -55,7 +55,7 @@ struct Codegen: ParsableCommand {
 
     let targetURL = target.targetRootURL(fromSourceRoot: sourceRootURL)
     let inputConfig = target.inputConfig(fromSourceRoot: sourceRootURL)
-    let outputConfig = module.outputConfig(toTargetRoot: targetURL)
+    let outputConfig = module.outputConfig(toTargetRoot: targetURL, schemaName: target.moduleName)
 
     // This more necessary if you're using a sub-folder, but make sure
     // there's actually a place to write out what you're doing.
