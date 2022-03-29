@@ -2622,7 +2622,7 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     ])
 
     // then
-    expect(actual?.selectionSet.typeInfo.scopePath).to(equal(expectedTypePath))
+    expect(actual?.typeInfo.scopePath).to(equal(expectedTypePath))
   }
 
   func test__mergedSelections__givenChildIsNamedFragmentOnMoreSpecificType_doesNotMergeFragmentFields_hasTypeCaseForNamedFragmentType() throws {

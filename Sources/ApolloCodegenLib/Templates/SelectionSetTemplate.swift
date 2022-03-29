@@ -333,7 +333,7 @@ fileprivate extension IR.MergedSelections.MergedSource {
   }
 
   private func generatedSelectionSetNameForMergedEntity(in fragment: IR.FragmentSpread) -> String {
-    var fragmentTypePathCurrentNode = fragment.selectionSet.typeInfo.scopePath.head
+    var fragmentTypePathCurrentNode = fragment.typeInfo.scopePath.head
     var sourceTypePathCurrentNode = typeInfo.scopePath.head
     var nodesToFragment = 0
 

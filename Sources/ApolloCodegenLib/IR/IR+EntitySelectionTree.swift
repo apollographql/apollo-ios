@@ -24,27 +24,27 @@ extension IR {
     // MARK: - Merge Selection Sets Into Tree
     
     func mergeIn(
-      selectionSet: SelectionSet,
+      selections: DirectSelections,
+      with typeInfo: SelectionSet.TypeInfo,
       inFragmentSpread fragmentSpread: FragmentSpread? = nil
     ) {
       let source = MergedSelections.MergedSource(
-        typeInfo: selectionSet.typeInfo,
+        typeInfo: typeInfo,
         fragment: fragmentSpread
       )
-      mergeIn(selectionSet: selectionSet, from: source)
+      mergeIn(selections: selections, from: source)
     }
 
-    private func mergeIn(selectionSet: SelectionSet, from source: MergedSelections.MergedSource) {
-      guard let directSelections = selectionSet.selections.direct,
-            (!directSelections.fields.isEmpty || !directSelections.fragments.isEmpty) else {
-              return
-            }
+    private func mergeIn(selections: DirectSelections, from source: MergedSelections.MergedSource) {
+      guard (!selections.fields.isEmpty || !selections.fragments.isEmpty) else {
+        return
+      }
 
       mergeIn(
-        selections: directSelections,
+        selections: selections,
         from: source,
-        atEnclosingEntityScope: selectionSet.typeInfo.scopePath.head,
-        withEntityScopePath: selectionSet.typeInfo.scopePath.head.value.scopePath.head,
+        atEnclosingEntityScope: source.typeInfo.scopePath.head,
+        withEntityScopePath: source.typeInfo.scopePath.head.value.scopePath.head,
         to: rootNode,
         withCondition: ScopeCondition(type: rootTypePath.head.value),
         withRootTypePath: rootTypePath.head

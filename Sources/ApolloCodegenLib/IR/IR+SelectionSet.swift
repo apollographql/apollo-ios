@@ -1,5 +1,6 @@
 import ApolloUtils
 
+#warning("TODO: update Docs")
 extension IR {
   @dynamicMemberLookup
   class SelectionSet: Equatable, CustomDebugStringConvertible {

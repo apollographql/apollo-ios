@@ -2,6 +2,7 @@ import Foundation
 import OrderedCollections
 import ApolloUtils
 
+#warning("TODO: Update Docs")
 extension IR {
 
   struct ScopeCondition: Hashable, CustomDebugStringConvertible {
