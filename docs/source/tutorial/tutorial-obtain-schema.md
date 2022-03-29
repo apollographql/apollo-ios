@@ -54,9 +54,9 @@ To use the Apollo CLI from Xcode, add a **Run Script** build phase to your app:
     "${SCRIPT_PATH}"/run-bundled-codegen.sh schema:download --endpoint="https://apollo-fullstack-tutorial.herokuapp.com/graphql"
     ```
 
-    This line runs the Apollo CLI's `schema:download` command, which downloads the schema to a `schema.graphqls` file at the same level of your project as the `AppDelegate.swift` file.
+    This line runs the Apollo CLI's `schema:download` command, which downloads the schema to a `schema.json` file at the same level of your project as the `AppDelegate.swift` file.
 
-8. Build your project to execute the script. In Finder, navigate to the folder that contains your `AppDelegate.swift` file. The folder should now include the downloaded `schema.graphqls` file. Drag this file from Finder into Xcode. When Xcode offers to add the schema file, make sure **all targets are unchecked** to reduce the size of your application bundle:
+8. Build your project to execute the script. In Finder, navigate to the folder that contains your `AppDelegate.swift` file. The folder should now include the downloaded `schema.json` file. Drag this file from Finder into Xcode. When Xcode offers to add the schema file, make sure **all targets are unchecked** to reduce the size of your application bundle:
 
     <img src="images/dont_add_to_target.png" alt="All targets unchecked in dialog" class="screenshot"/>
 
