@@ -1,42 +1,74 @@
 import ApolloUtils
+import GitHubAPI
+
+// MARK: TemplateRenderer
+
+enum TemplateTarget {
+  case schemaFile
+  case operationFile
+  case moduleFile
+}
 
 protocol TemplateRenderer {
+  var target: TemplateTarget { get }
   var template: TemplateString { get }
 
   func render(forConfig config: ReferenceWrapped<ApolloCodegenConfiguration>) -> String
 }
 
+// MARK: Extensions
+
 extension TemplateRenderer {
   func render(forConfig config: ReferenceWrapped<ApolloCodegenConfiguration>) -> String {
-    if config.value.output.schemaTypes.isModule {
-      return render()
-
-    } else {
-      return render(wrappedInNamespace: config.value.output.schemaTypes.schemaName)
+    switch target {
+    case .schemaFile: return renderSchemaFile(forConfig: config)
+    case .operationFile: return renderOperationFile(forConfig: config)
+    case .moduleFile: return renderModuleFile(forConfig: config)
     }
   }
 
-  private func render() -> String {
+  private func renderSchemaFile(
+    forConfig config: ReferenceWrapped<ApolloCodegenConfiguration>
+  ) -> String {
     TemplateString(
     """
-    \(HeaderCommentTemplate.render())
+    \(HeaderCommentTemplate.template)
 
-    \(ImportStatementTemplate.SchemaType.render())
+    \(ImportStatementTemplate.SchemaType.template)
 
-    \(template)
+    \(if: config.output.schemaTypes.isInModule, template,
+    else: template.wrappedInNamespace(config.output.schemaTypes.schemaName))
     """
     ).description
-
   }
 
-  private func render(wrappedInNamespace namespace: String) -> String {
+  private func renderOperationFile(
+    forConfig config: ReferenceWrapped<ApolloCodegenConfiguration>
+  ) -> String {
     TemplateString(
     """
-    \(HeaderCommentTemplate.render())
+    \(HeaderCommentTemplate.template)
 
-    \(ImportStatementTemplate.SchemaType.render())
+    \(ImportStatementTemplate.Operation.template(forConfig: config))
 
-    \(template.wrappedInNamespace(namespace))
+    \(if: config.output.operations.isInModule && !config.output.schemaTypes.isInModule,
+      template.wrappedInNamespace(config.output.schemaTypes.schemaName),
+    else:
+      template)
+    """
+    ).description
+  }
+
+  private func renderModuleFile(
+    forConfig config: ReferenceWrapped<ApolloCodegenConfiguration>
+  ) -> String {
+    TemplateString(
+    """
+    \(if: !config.output.schemaTypes.isInModule, """
+    \(HeaderCommentTemplate.template)
+
+    """)
+    \(template)
     """
     ).description
   }
@@ -54,11 +86,3 @@ extension TemplateString {
   }
 }
 
-extension ApolloCodegenConfiguration.SchemaTypesFileOutput {
-  fileprivate var isModule: Bool {
-    switch moduleType {
-    case .swiftPackageManager, .other: return true
-    case .none: return false
-    }
-  }
-}

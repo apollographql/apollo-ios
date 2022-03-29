@@ -419,3 +419,23 @@ extension ApolloCodegenConfiguration {
     }
   }
 }
+
+// MARK: Helpers
+
+extension ApolloCodegenConfiguration.SchemaTypesFileOutput {
+  var isInModule: Bool {
+    switch moduleType {
+    case .none: return false
+    case .swiftPackageManager, .other: return true
+    }
+  }
+}
+
+extension ApolloCodegenConfiguration.OperationsFileOutput {
+  var isInModule: Bool {
+    switch self {
+    case .inSchemaModule: return true
+    case .absolute, .relative: return false
+    }
+  }
+}
