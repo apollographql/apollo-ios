@@ -91,7 +91,7 @@ Now that your query is fetching the right data, head back to Xcode.
 
 <img src="images/empty_file_template.png" class="screenshot" alt="Empty file template"/>
 
-2. Click **Next** and name the file `LaunchList.graphql`. Make sure it's saved at the same level as your `schema.graphqls` file. As previously, don't add it to any target.
+2. Click **Next** and name the file `LaunchList.graphql`. Make sure it's saved at the same level as your `schema.json` file. As previously, don't add it to any target.
 
 3. Copy your final operation from Sandbox Explorer by selecting the three dot (aka "meatball") menu to the right of your operation name and selecting "Copy Operation":
 
@@ -107,7 +107,7 @@ You're now ready to generate code from the combination of your saved query and s
 
 2. _Uncomment_ the line you previously commented out (that includes `codegen:generate`).
 
-3. Build your project. When the build completes, an `API.swift` file appears in the same folder  as `schema.graphqls`.
+3. Build your project. When the build completes, an `API.swift` file appears in the same folder  as `schema.json`.
 
 4. Drag the `API.swift` file into Xcode. This time, **do** check the **Add to target** box for the `RocketReserver` app. You include this file in your application's bundle to enable you to execute the query you defined.
 
