@@ -230,6 +230,12 @@ struct AnyOf<T: Hashable>: Hashable {
   }
 }
 
+extension AnyOf where T == IR.InclusionConditions {
+  init(_ condition: IR.InclusionCondition) {
+    self.init(IR.InclusionConditions(condition))
+  }
+}
+
 extension AnyOf: CustomDebugStringConvertible where T: CustomDebugStringConvertible {
   var debugDescription: String {
     let wrapInParens = elements.count > 1
