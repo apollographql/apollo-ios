@@ -1,8 +1,9 @@
+import Foundation
+
 struct HeaderCommentTemplate {
-  static func render() -> String {
+  static let template: StaticString =
     """
     // @generated
     // This file was automatically generated and should not be edited.
     """
-  }
 }
