@@ -1,6 +1,9 @@
 import Foundation
 
+/// Provides the format to define a schema in Swift code. The schema represents metadata used by
+/// the GraphQL executor at runtime to convert response data into corresponding Swift types.
 struct SchemaTemplate: TemplateRenderer {
+  // IR representation of source GraphQL schema.
   let schema: IR.Schema
 
   var target: TemplateTarget = .schemaFile
