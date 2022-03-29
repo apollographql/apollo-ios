@@ -1,5 +1,6 @@
 import ApolloUtils
 
+/// Provides the format to import Swift modules required by the template type.
 struct ImportStatementTemplate {
   static let template: StaticString =
     """

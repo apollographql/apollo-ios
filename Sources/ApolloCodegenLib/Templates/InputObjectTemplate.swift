@@ -1,6 +1,9 @@
 import Foundation
 
+/// Provides the format to convert a [GraphQL Input Object](https://spec.graphql.org/draft/#sec-Input-Objects)
+/// into Swift code.
 struct InputObjectTemplate: TemplateRenderer {
+  /// IR representation of source [GraphQL Input Object](https://spec.graphql.org/draft/#sec-Input-Objects).
   let graphqlInputObject: GraphQLInputObjectType
 
   var target: TemplateTarget = .schemaFile

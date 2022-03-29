@@ -1,18 +1,33 @@
 import ApolloUtils
-import GitHubAPI
 
 // MARK: TemplateRenderer
 
+/// Defines the file target of the template.
 enum TemplateTarget {
+  /// Used in schema types files; enum, input object, union, etc.
   case schemaFile
+  /// Used in operation files; query, mutation, fragment, etc.
   case operationFile
+  /// Used in files that define a module; Swift Package Manager, etc.
   case moduleFile
 }
 
+/// A protocol to handle the rendering of a file template based on the target file type and
+/// codegen configuration.
+///
+/// All templates that output to a file should conform to this protocol, this does not include
+/// templates that are used by others such as `HeaderCommentTemplate` or `ImportStatementTemplate`.
 protocol TemplateRenderer {
+  /// File target of the template.
   var target: TemplateTarget { get }
+  /// The swift code format.
   var template: TemplateString { get }
 
+  /// Renders the template converting all input values and generating a final String representation
+  /// of the template.
+  ///
+  /// - Parameter config: Shared codegen configuration.
+  /// - Returns: Swift code derived from the template format.
   func render(forConfig config: ReferenceWrapped<ApolloCodegenConfiguration>) -> String
 }
 
@@ -75,6 +90,7 @@ extension TemplateRenderer {
 }
 
 extension TemplateString {
+  /// Wraps `namespace` in a public `enum` extension.
   fileprivate func wrappedInNamespace(_ namespace: String) -> Self {
     TemplateString(
     """

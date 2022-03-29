@@ -1,10 +1,14 @@
 import OrderedCollections
 import ApolloUtils
 
+/// Provides the format to convert a [GraphQL Operation](https://spec.graphql.org/draft/#sec-Language.Operations)
+/// into Swift code.
 struct OperationDefinitionTemplate: TemplateRenderer {
-
+  /// IR representation of source [GraphQL Operation](https://spec.graphql.org/draft/#sec-Language.Operations).
   let operation: IR.Operation
+  /// IR representation of source GraphQL schema.
   let schema: IR.Schema
+  /// Shared codegen configuration.
   let config: ReferenceWrapped<ApolloCodegenConfiguration>
 
   var target: TemplateTarget = .operationFile
