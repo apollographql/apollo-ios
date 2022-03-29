@@ -340,7 +340,7 @@ fileprivate func shallowlyMatch(expected: ShallowFieldMatcher, actual: IR.Field)
 
 // MARK: - Shallow InlineFragment Matcher
 
-public struct ShallowInlineFragmentMatcher: Equatable {
+public struct ShallowInlineFragmentMatcher: Equatable, CustomDebugStringConvertible {
   let parentType: GraphQLCompositeType
   let inclusionConditions: IR.InclusionConditions?
 
@@ -361,6 +361,12 @@ public struct ShallowInlineFragmentMatcher: Equatable {
     inclusionConditions: [IR.InclusionCondition]? = nil
   ) -> ShallowInlineFragmentMatcher {
     self.init(parentType: parentType, inclusionConditions: inclusionConditions)
+  }
+
+  public var debugDescription: String {
+    TemplateString("""
+      ... on \(parentType.debugDescription)\(ifLet: inclusionConditions, { " \($0.debugDescription)"})
+      """).description
   }
 }
 
@@ -403,7 +409,7 @@ fileprivate func shallowlyMatch(expected: ShallowInlineFragmentMatcher, actual: 
 
 // MARK: - Shallow Fragment Spread Matcher
 
-public struct ShallowFragmentSpreadMatcher: Equatable {
+public struct ShallowFragmentSpreadMatcher: Equatable, CustomDebugStringConvertible {
   let name: String
   let type: GraphQLCompositeType
   let inclusionConditions: AnyOf<IR.InclusionConditions>?
@@ -446,6 +452,14 @@ public struct ShallowFragmentSpreadMatcher: Equatable {
     inclusionConditions: AnyOf<IR.InclusionConditions>? = nil
   ) -> ShallowFragmentSpreadMatcher {
     self.init(name: fragment.name, type: fragment.type, inclusionConditions: inclusionConditions)
+  }
+
+  public var debugDescription: String {
+    TemplateString("""
+    fragment \(name) on \(type.debugDescription)\(ifLet: inclusionConditions, {
+      " \($0.debugDescription)"
+      })
+    """).description
   }
 }
 
