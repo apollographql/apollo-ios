@@ -136,7 +136,7 @@ extension IR {
 
     var debugDescription: String {
       TemplateString("""
-      SelectionSet on \(typeInfo.parentType.debugDescription) \(ifLet: typeInfo.inclusionConditions, { " \($0.debugDescription)"})  {
+      SelectionSet on \(typeInfo.parentType.debugDescription)\(ifLet: typeInfo.inclusionConditions, { " \($0.debugDescription)"})  {
         \(self.selections.debugDescription)
       }
       """).description
