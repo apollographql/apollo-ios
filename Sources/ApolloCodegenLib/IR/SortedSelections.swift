@@ -189,7 +189,7 @@ extension IR {
 
       /// The `FragmentSpread` that the merged selections were contained in.
       ///
-      /// - Note: If `fragment` is present, the `typeInfo` is relative to the spread in fragment,
+      /// - Note: If `fragment` is present, the `typeInfo` is relative to the spread-in fragment,
       /// instead of the operation directly.
       unowned let fragment: FragmentSpread?
     }
