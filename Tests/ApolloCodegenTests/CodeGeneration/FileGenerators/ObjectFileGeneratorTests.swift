@@ -27,7 +27,7 @@ class ObjectFileGeneratorTests: XCTestCase {
     expect(self.subject.target).to(equal(.object))
   }
 
-  func test__properties__givenGraphQLEnum_shouldReturnFileName_matchingEnumName() {
+  func test__properties__givenGraphQLEnum_shouldReturnFileName_matchingObjectName() {
     // given
     buildSubject()
 

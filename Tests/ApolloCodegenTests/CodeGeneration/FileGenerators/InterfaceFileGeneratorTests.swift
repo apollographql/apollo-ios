@@ -19,7 +19,7 @@ class InterfaceFileGeneratorTests: XCTestCase {
 
   // MARK: Property Tests
 
-  func test__properties__shouldReturnTargetType_object() {
+  func test__properties__shouldReturnTargetType_interface() {
     // given
     buildSubject()
 
@@ -27,7 +27,7 @@ class InterfaceFileGeneratorTests: XCTestCase {
     expect(self.subject.target).to(equal(.interface))
   }
 
-  func test__properties__givenGraphQLEnum_shouldReturnFileName_matchingEnumName() {
+  func test__properties__givenGraphQLEnum_shouldReturnFileName_matchingInterfaceName() {
     // given
     buildSubject()
 
