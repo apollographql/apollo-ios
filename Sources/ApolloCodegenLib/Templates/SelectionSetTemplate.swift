@@ -333,25 +333,14 @@ fileprivate extension IR.MergedSelections.MergedSource {
   }
 
   private func generatedSelectionSetNameForMergedEntity(in fragment: IR.FragmentSpread) -> String {
-    var fragmentTypePathCurrentNode = fragment.typeInfo.scopePath.head
-    var sourceTypePathCurrentNode = typeInfo.scopePath.head
-    var nodesToFragment = 0
-
-    while let nextNode = fragmentTypePathCurrentNode.next {
-      fragmentTypePathCurrentNode = nextNode
-      sourceTypePathCurrentNode = sourceTypePathCurrentNode.next!
-      nodesToFragment += 1
-    }
-
-    let fieldPath = Array(typeInfo.entity.fieldPath.toArray().suffix(from: nodesToFragment + 1))
     let selectionSetName = ApolloCodegenLib.generatedSelectionSetName(
-      from: sourceTypePathCurrentNode.next!,
-      withFieldPath: fieldPath
+      from: typeInfo.scopePath.head.next!,
+      withFieldPath: Array(typeInfo.entity.fieldPath.toArray().dropFirst())
     )
 
     return "\(fragment.definition.name).\(selectionSetName)"
   }
-
+  
 }
 
 private func generatedSelectionSetName(
