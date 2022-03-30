@@ -78,6 +78,23 @@ extension IR {
       )
     }
 
+    private func merge(
+      _ fragment: NamedFragment,
+      intoEntitySelectionTreesAtTypePath typeInfo: SelectionSet.TypeInfo
+    ) {
+//      let directRootSelections = fragment.rootField.selectionSet.selections.direct.unsafelyUnwrapped
+//      typeInfo.entity.selectionTree.mergeIn(
+//        selections: directRootSelections,
+//        with: typeInfo,
+//        inFragmentSpread: nil // TODO
+//      )
+      for selection in fragment.rootField.selectionSet.selections.direct.unsafelyUnwrapped {
+        switch selection {
+
+        }
+      }
+    }
+
     private func add(
       _ selections: [CompilationResult.Selection],
       to target: DirectSelections,
@@ -120,38 +137,54 @@ extension IR {
           }
 
         case let .fragmentSpread(fragmentSpread):
-          guard let scope = scopeCondition(for: fragmentSpread, in: typeInfo) else {
-            continue
-          }
-          let selectionSetScope = typeInfo.scope
-
-          var matchesType: Bool {
-            guard let typeCondition = scope.type else { return true }
-            return selectionSetScope.matches(typeCondition)
-          }
-
-          if matchesType {
-            let irFragmentSpread = buildFragmentSpread(
-              fromFragment: fragmentSpread,
-              with: scope,
-              spreadIntoParentWithTypePath: typeInfo
-            )
-            target.mergeIn(irFragmentSpread)
+          if let existingFragmentSpread =
+              target.fragments[fragmentSpread.hashForSelectionSetScope] {
+            merge(fragmentSpread, into: existingFragmentSpread)
 
           } else {
-            let irTypeCaseEnclosingFragment = buildConditionalSelectionSet(
-              from: CompilationResult.SelectionSet(
-                parentType: fragmentSpread.parentType,
-                selections: [selection]
-              ),
-              with: scope,
-              inParentTypePath: typeInfo,
-              inFragmentSpread: enclosingFragmentSpread
-            )
 
-            target.mergeIn(irTypeCaseEnclosingFragment)
+            guard let scope = scopeCondition(for: fragmentSpread, in: typeInfo) else {
+              continue
+            }
+            let selectionSetScope = typeInfo.scope
+
+            var matchesType: Bool {
+              guard let typeCondition = scope.type else { return true }
+              return selectionSetScope.matches(typeCondition)
+            }
+
+            if matchesType {
+              let irFragmentSpread = buildFragmentSpread(
+                fromFragment: fragmentSpread,
+                with: scope,
+                spreadIntoParentWithTypePath: typeInfo
+              )
+              target.mergeIn(irFragmentSpread)
+
+            } else {
+              let irTypeCaseEnclosingFragment = buildConditionalSelectionSet(
+                from: CompilationResult.SelectionSet(
+                  parentType: fragmentSpread.parentType,
+                  selections: [selection]
+                ),
+                with: scope,
+                inParentTypePath: typeInfo,
+                inFragmentSpread: enclosingFragmentSpread
+              )
+
+              target.mergeIn(irTypeCaseEnclosingFragment)
+            }
           }
         }
+      }
+    }
+
+    private func merge(
+      _ fragmentSpread: CompilationResult.FragmentSpread,
+      into existingFragmentSpread: IR.FragmentSpread
+    ) {
+      guard let scope = scopeCondition(for: fragmentSpread, in: typeInfo) else {
+        continue
       }
     }
 

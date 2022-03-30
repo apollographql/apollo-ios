@@ -91,6 +91,7 @@ class IR {
     /// It's `typePath` and `entity` reference are scoped to the operation it belongs to.
     let typeInfo: SelectionSet.TypeInfo
 
+    #warning("TODO: Make Fragment Spread use Direct selections from already built NamedFragment.")
     let selections = DirectSelections()
 
     var inclusionConditions: AnyOf<InclusionConditions>?

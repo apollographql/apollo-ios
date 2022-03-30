@@ -183,9 +183,9 @@ extension IR {
           child.mergeSelections(matchingScopePath: nextTypePathNode, into: selections)
         }
 
-        if let typeCases = scopeConditions {
-          for (typeCase, node) in typeCases {
-            if typePath.value.matches(typeCase) {
+        if let scopeConditions = scopeConditions {
+          for (condition, node) in scopeConditions {
+            if typePath.value.matches(condition) {
               node.mergeSelections(matchingScopePath: typePath, into: selections)
             }
           }
@@ -200,7 +200,7 @@ extension IR {
         }
 
         guard case let .enclosingEntity(child) = child else {
-          fatalError()
+          preconditionFailure()
         }
 
         return child
@@ -246,9 +246,9 @@ extension IR {
         _ selections: DirectSelections,
         from source: IR.MergedSelections.MergedSource
       ) {
-        var selectionsFromSource = self.selections[source] ?? EntityTreeScopeSelections()
-        selectionsFromSource.mergeIn(selections)
-        self.selections[source] = selectionsFromSource
+        self.selections.updateValue(forKey: source, default: EntityTreeScopeSelections()) {
+          $0.mergeIn(selections)
+        }
       }
 
       func mergeSelections(
@@ -290,7 +290,8 @@ extension IR {
     }
   }
 
-  struct EntityTreeScopeSelections: Equatable, CustomDebugStringConvertible {
+  class EntityTreeScopeSelections: Equatable, CustomDebugStringConvertible {
+
     fileprivate(set) var fields: OrderedDictionary<String, Field> = [:]
     fileprivate(set) var fragments: OrderedDictionary<String, FragmentSpread> = [:]
 
@@ -300,25 +301,36 @@ extension IR {
       fields.isEmpty && fragments.isEmpty
     }
 
-    private mutating func mergeIn(_ field: Field) {
+    private func mergeIn(_ field: Field) {
       fields[field.hashForSelectionSetScope] = field
     }
 
-    private mutating func mergeIn<T: Sequence>(_ fields: T) where T.Element == Field {
+    private func mergeIn<T: Sequence>(_ fields: T) where T.Element == Field {
       fields.forEach { mergeIn($0) }
     }
 
-    private mutating func mergeIn(_ fragment: FragmentSpread) {
+    private func mergeIn(_ fragment: FragmentSpread) {
       fragments[fragment.hashForSelectionSetScope] = fragment
     }
 
-    private mutating func mergeIn<T: Sequence>(_ fragments: T) where T.Element == FragmentSpread {
+    private func mergeIn<T: Sequence>(_ fragments: T) where T.Element == FragmentSpread {
       fragments.forEach { mergeIn($0) }
     }
 
-    mutating func mergeIn(_ selections: DirectSelections) {
+    func mergeIn(_ selections: DirectSelections) {
       mergeIn(selections.fields.values)
       mergeIn(selections.fragments.values)
+    }
+
+    func mergeIn(_ selections: EntityTreeScopeSelections) -> Self {
+      mergeIn(selections.fields.values)
+      mergeIn(selections.fragments.values)
+      return self
+    }
+
+    static func == (lhs: IR.EntityTreeScopeSelections, rhs: IR.EntityTreeScopeSelections) -> Bool {
+      lhs.fields == rhs.fields &&
+      lhs.fragments == rhs.fragments
     }
 
     var debugDescription: String {
@@ -329,6 +341,86 @@ extension IR {
     }
   }
 }
+
+// MARK: - Merge In Other Entity Trees
+
+extension IR.EntitySelectionTree {
+
+  fileprivate func mergeIn(
+    _ otherTree: IR.EntitySelectionTree,
+    from source: IR.MergedSelections.MergedSource
+  ) {
+    #warning("TODO: make count more efficient!")
+    let otherTreeCount = Array(otherTree.rootTypePath).count
+    let diffToRoot = Array(rootTypePath).count - otherTreeCount
+
+    precondition(diffToRoot >= 0, "Cannot merge in tree shallower than current tree.")
+
+    var rootToStartMerge: EnclosingEntityNode = rootNode
+
+    for _ in 0..<diffToRoot {
+      guard case let .enclosingEntity(nextNode) = rootToStartMerge.child else {
+        preconditionFailure()
+      }
+      rootToStartMerge = nextNode
+    }
+
+    rootToStartMerge.mergeIn(otherTree.rootNode, from: source)
+  }
+
+}
+
+extension IR.EntitySelectionTree.EnclosingEntityNode {
+
+  fileprivate func mergeIn(
+    _ otherNode: IR.EntitySelectionTree.EnclosingEntityNode,
+    from source: IR.MergedSelections.MergedSource
+  ) {
+    switch otherNode.child {
+    case let .enclosingEntity(otherNextNode):
+      guard case let .enclosingEntity(nextNode) = self.child else { preconditionFailure() }
+      nextNode.mergeIn(otherNextNode, from: source)
+
+    case let .fieldScope(otherNextNode):
+      guard case let .fieldScope(nextNode) = self.child else { preconditionFailure() }
+      nextNode.mergeIn(otherNextNode, from: source)
+
+    case .none:
+      break
+    }
+
+    if let otherConditions = otherNode.scopeConditions {
+      for (otherCondition, otherNode) in otherConditions {
+        let conditionNode = self.scopeConditionNode(for: otherCondition)
+        conditionNode.mergeIn(otherNode, from: source)
+      }
+    }
+  }
+
+}
+
+extension IR.EntitySelectionTree.FieldScopeNode {
+
+  fileprivate func mergeIn(
+    _ otherNode: IR.EntitySelectionTree.FieldScopeNode,
+    from source: IR.MergedSelections.MergedSource
+  ) {
+    #warning("TODO: either use or remove source parameter from this and related functions.")
+    selections.merge(otherNode.selections) { current, new in
+      current.mergeIn(new)
+    }
+
+    if let otherConditions = otherNode.scopeConditions {
+      for (otherCondition, otherNode) in otherConditions {
+        let conditionNode = self.scopeConditionNode(for: otherCondition)
+        conditionNode.mergeIn(otherNode, from: source)
+      }
+    }
+  }
+
+}
+
+// MARK: - CustomDebugStringConvertible
 
 extension IR.EntitySelectionTree: CustomDebugStringConvertible {
   var debugDescription: String {
