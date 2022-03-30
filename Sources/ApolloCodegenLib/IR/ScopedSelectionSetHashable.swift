@@ -25,9 +25,16 @@ extension IR.Field: ScopedSelectionSetHashable {
   }
 }
 
+extension CompilationResult.FragmentSpread: ScopedSelectionSetHashable {
+  var hashForSelectionSetScope: String {
+    fragment.name
+  }
+}
+
+
 extension IR.FragmentSpread: ScopedSelectionSetHashable {
   var hashForSelectionSetScope: String {
-    definition.name
+    underlyingFragmentSpread.hashForSelectionSetScope
   }
 }
 
