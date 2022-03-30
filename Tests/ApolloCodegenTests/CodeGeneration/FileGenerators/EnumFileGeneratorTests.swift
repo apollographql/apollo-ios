@@ -3,7 +3,7 @@ import Nimble
 @testable import ApolloCodegenLib
 
 class EnumFileGeneratorTests: XCTestCase {
-  let graphQLEnum = GraphQLEnumType.mock(name: "MockEnum")
+  let graphqlEnum = GraphQLEnumType.mock(name: "MockEnum")
 
   var subject: EnumFileGenerator!
 
@@ -14,7 +14,7 @@ class EnumFileGeneratorTests: XCTestCase {
   // MARK: Test Helpers
 
   private func buildSubject() {
-    subject = EnumFileGenerator(graphqlEnum: graphQLEnum)
+    subject = EnumFileGenerator(graphqlEnum: graphqlEnum)
   }
 
   // MARK: Property Tests
@@ -31,7 +31,7 @@ class EnumFileGeneratorTests: XCTestCase {
     // given
     buildSubject()
 
-    let expected = "\(graphQLEnum.name).swift"
+    let expected = "\(graphqlEnum.name).swift"
 
     // then
     expect(self.subject.fileName).to(equal(expected))

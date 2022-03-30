@@ -3,7 +3,7 @@ import Nimble
 @testable import ApolloCodegenLib
 
 class InterfaceFileGeneratorTests: XCTestCase {
-  let graphQLInterface = GraphQLInterfaceType.mock("MockInterface", fields: [:], interfaces: [])
+  let graphqlInterface = GraphQLInterfaceType.mock("MockInterface", fields: [:], interfaces: [])
 
   var subject: InterfaceFileGenerator!
 
@@ -14,7 +14,7 @@ class InterfaceFileGeneratorTests: XCTestCase {
   // MARK: Test Helpers
 
   private func buildSubject() {
-    subject = InterfaceFileGenerator(graphqlInterface: graphQLInterface)
+    subject = InterfaceFileGenerator(graphqlInterface: graphqlInterface)
   }
 
   // MARK: Property Tests
@@ -31,7 +31,7 @@ class InterfaceFileGeneratorTests: XCTestCase {
     // given
     buildSubject()
 
-    let expected = "\(graphQLInterface.name).swift"
+    let expected = "\(graphqlInterface.name).swift"
 
     // then
     expect(self.subject.fileName).to(equal(expected))

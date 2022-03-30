@@ -3,7 +3,7 @@ import Nimble
 @testable import ApolloCodegenLib
 
 class ObjectFileGeneratorTests: XCTestCase {
-  let graphQLObject = GraphQLObjectType.mock("MockObject", fields: [:], interfaces: [])
+  let graphqlObject = GraphQLObjectType.mock("MockObject", fields: [:], interfaces: [])
 
   var subject: ObjectFileGenerator!
 
@@ -14,7 +14,7 @@ class ObjectFileGeneratorTests: XCTestCase {
   // MARK: Test Helpers
 
   private func buildSubject() {
-    subject = ObjectFileGenerator(graphqlObject: graphQLObject)
+    subject = ObjectFileGenerator(graphqlObject: graphqlObject)
   }
 
   // MARK: Property Tests
@@ -31,7 +31,7 @@ class ObjectFileGeneratorTests: XCTestCase {
     // given
     buildSubject()
 
-    let expected = "\(graphQLObject.name).swift"
+    let expected = "\(graphqlObject.name).swift"
 
     // then
     expect(self.subject.fileName).to(equal(expected))

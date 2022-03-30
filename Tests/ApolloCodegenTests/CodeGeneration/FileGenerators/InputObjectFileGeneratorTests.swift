@@ -1,36 +1,39 @@
 import XCTest
 import Nimble
 @testable import ApolloCodegenLib
-import ApolloCodegenTestSupport
 
 class InputObjectFileGeneratorTests: XCTestCase {
-  override func tearDown() {
-    CodegenTestHelper.deleteExistingOutputFolder()
+  let graphqlInputObject = GraphQLInputObjectType.mock("MockInputObject")
 
-    super.tearDown()
+  var subject: InputObjectFileGenerator!
+
+  override func tearDown() {
+    subject = nil
   }
 
-  func test_generate_givenSchemaType_shouldWriteToCorrectFilePath() throws {
+  // MARK: Test Helpers
+
+  private func buildSubject() {
+    subject = InputObjectFileGenerator(graphqlInputObject: graphqlInputObject)
+  }
+
+  // MARK: Property Tests
+
+  func test__properties__shouldReturnTargetType_inputObject() {
     // given
-    let graphQLInputObject = GraphQLInputObjectType.mock("MockInputObject")
-    let fileManager = MockFileManager(strict: false)
-
-    let rootURL = URL(fileURLWithPath: CodegenTestHelper.outputFolderURL().path)
-    let fileURL = rootURL.appendingPathComponent("MockInputObject.swift")
-
-    fileManager.mock(closure: .createFile({ path, data, attributes in
-      expect(path).to(equal(fileURL.path))
-
-      return true
-    }))
+    buildSubject()
 
     // then
-    try InputObjectFileGenerator.generate(
-      graphQLInputObject,
-      directoryPath: rootURL.path,
-      fileManager: fileManager
-    )
+    expect(self.subject.target).to(equal(.inputObject))
+  }
 
-    expect(fileManager.allClosuresCalled).to(beTrue())
+  func test__properties__givenGraphQLEnum_shouldReturnFileName_matchingInputObjectName() {
+    // given
+    buildSubject()
+
+    let expected = "\(graphqlInputObject.name).swift"
+
+    // then
+    expect(self.subject.fileName).to(equal(expected))
   }
 }
