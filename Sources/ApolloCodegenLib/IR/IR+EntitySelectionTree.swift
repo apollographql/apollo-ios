@@ -358,15 +358,18 @@ extension IR.EntitySelectionTree {
     precondition(diffToRoot >= 0, "Cannot merge in tree shallower than current tree.")
 
     var rootEntityToStartMerge: EnclosingEntityNode = rootNode
+    var nodeRootType = rootTypePath.head
 
     for _ in 0..<diffToRoot {
       let nextNode = rootEntityToStartMerge.childAsEnclosingEntityNode()
       rootEntityToStartMerge = nextNode
+      nodeRootType = nodeRootType.next!
     }
 
     rootEntityToStartMerge.mergeIn(
-      otherTree.rootNode,      
+      otherTree,
       from: fragment,
+      withNodeRootType: nodeRootType.value,
       using: entityStorage
     )
   }
@@ -374,6 +377,40 @@ extension IR.EntitySelectionTree {
 }
 
 extension IR.EntitySelectionTree.EnclosingEntityNode {
+
+  fileprivate func mergeIn(
+    _ otherTree: IR.EntitySelectionTree,
+    from fragment: IR.FragmentSpread,
+    withNodeRootType nodeRootType: GraphQLCompositeType,
+    using entityStorage: IR.RootFieldEntityStorage
+  ) {
+    switch otherTree.rootNode.child {
+    case let .enclosingEntity(otherNextNode):
+      let fragmentType = fragment.typeInfo.parentType
+      let nextNode = nodeRootType == fragmentType ?
+      self.childAsEnclosingEntityNode() :
+      self.scopeConditionNode(for: IR.ScopeCondition(type: fragmentType))
+
+      nextNode.mergeIn(
+        otherNextNode,
+        from: fragment,
+        using: entityStorage
+      )
+
+    case let .fieldScope(otherNextNode):
+      let nextNode = self.childAsFieldScopeNode()
+
+      nextNode.mergeIn(
+        fragmentRootFieldNode: otherNextNode,
+        from: fragment,
+        withScopePath: fragment.typeInfo.scopePath.last.value.scopePath.head,
+        using: entityStorage
+      )
+
+    case .none:
+      break
+    }
+  }
 
   fileprivate func mergeIn(
     _ otherNode: IR.EntitySelectionTree.EnclosingEntityNode,
@@ -395,12 +432,11 @@ extension IR.EntitySelectionTree.EnclosingEntityNode {
       nextNode.mergeIn(
         otherNextNode,
         from: fragment,
-        withScopePath: fragment.typeInfo.scopePath.last.value.scopePath.head,
         using: entityStorage
       )
 
     case .none:
-      preconditionFailure()
+      break
     }
 
     if let otherConditions = otherNode.scopeConditions {
@@ -420,7 +456,7 @@ extension IR.EntitySelectionTree.EnclosingEntityNode {
 extension IR.EntitySelectionTree.FieldScopeNode {
 
   fileprivate func mergeIn(
-    _ otherNode: IR.EntitySelectionTree.FieldScopeNode,
+    fragmentRootFieldNode otherNode: IR.EntitySelectionTree.FieldScopeNode,
     from fragment: IR.FragmentSpread,
     withScopePath fragmentScopePath: LinkedList<IR.ScopeCondition>.Node,
     using entityStorage: IR.RootFieldEntityStorage
@@ -436,16 +472,16 @@ extension IR.EntitySelectionTree.FieldScopeNode {
       return
     }
 
-    let nextEntityNode = self.scopeConditionNode(for: nextFragmentScope.value)
-    nextEntityNode.mergeIn(
-      otherNode,
+    let nextFieldNode = self.scopeConditionNode(for: nextFragmentScope.value)
+    nextFieldNode.mergeIn(
+      fragmentRootFieldNode: otherNode,
       from: fragment,
       withScopePath: nextFragmentScope,
       using: entityStorage
     )
   }
 
-  private func mergeIn(
+  fileprivate func mergeIn(
     _ otherNode: IR.EntitySelectionTree.FieldScopeNode,
     from fragment: IR.FragmentSpread,
     using entityStorage: IR.RootFieldEntityStorage

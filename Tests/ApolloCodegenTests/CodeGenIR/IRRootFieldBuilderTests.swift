@@ -628,8 +628,8 @@ class IRRootFieldBuilderTests: XCTestCase {
 
     query Test {
       aField {
-        ... FragmentB1
-        ... FragmentB2
+        ...FragmentB1
+        ...FragmentB2
       }
     }
     """
@@ -3897,7 +3897,7 @@ class IRRootFieldBuilderTests: XCTestCase {
     let allAnimals_predator = try XCTUnwrap(
       subject?[field: "allAnimals"]?[field: "predator"] as? IR.EntityField
     )
-    
+
     let Fragment_PredatorDetails = subject?[field: "allAnimals"]?[fragment: "PredatorDetails"]
     let PredatorDetails_predator = try XCTUnwrap(
       Fragment_PredatorDetails?.fragment[field: "predator"] as? IR.EntityField
