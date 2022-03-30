@@ -42,12 +42,12 @@ class IR {
     let rootField: EntityField
 
     /// All of the fragments that are referenced by this operation's selection set.
-    let referencedFragments: OrderedSet<CompilationResult.FragmentDefinition>
+    let referencedFragments: OrderedSet<NamedFragment>
 
     init(
       definition: CompilationResult.OperationDefinition,
       rootField: EntityField,
-      referencedFragments: OrderedSet<CompilationResult.FragmentDefinition>
+      referencedFragments: OrderedSet<NamedFragment>
     ) {
       self.definition = definition
       self.rootField = rootField
@@ -55,19 +55,38 @@ class IR {
     }
   }
 
-  class NamedFragment {
+  class NamedFragment: Hashable, CustomDebugStringConvertible {
     let definition: CompilationResult.FragmentDefinition
     let rootField: EntityField
+
+    /// All of the fragments that are referenced by this fragment's selection set.
+    let referencedFragments: OrderedSet<NamedFragment>
 
     var name: String { definition.name }
     var type: GraphQLCompositeType { definition.type }
 
     init(
       definition: CompilationResult.FragmentDefinition,
-      rootField: EntityField
+      rootField: EntityField,
+      referencedFragments: OrderedSet<NamedFragment>
     ) {
       self.definition = definition
       self.rootField = rootField
+      self.referencedFragments = referencedFragments
+    }
+
+    static func == (lhs: IR.NamedFragment, rhs: IR.NamedFragment) -> Bool {
+      lhs.definition == rhs.definition &&
+      lhs.rootField === rhs.rootField
+    }
+
+    func hash(into hasher: inout Hasher) {
+      hasher.combine(definition)
+      hasher.combine(ObjectIdentifier(rootField))
+    }
+
+    var debugDescription: String {
+      definition.debugDescription
     }
   }
 
@@ -126,7 +145,7 @@ class IR {
     }
 
     static func == (lhs: IR.FragmentSpread, rhs: IR.FragmentSpread) -> Bool {
-      ObjectIdentifier(lhs.fragment) == ObjectIdentifier(rhs.fragment) &&
+      lhs.fragment === rhs.fragment &&
       lhs.typeInfo == rhs.typeInfo &&
       lhs.inclusionConditions == rhs.inclusionConditions
     }
@@ -138,7 +157,7 @@ class IR {
     }
 
     var debugDescription: String {
-      definition.name
+      fragment.debugDescription
     }
   }
   

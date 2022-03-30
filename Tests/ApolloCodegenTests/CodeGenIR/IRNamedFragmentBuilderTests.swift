@@ -129,4 +129,44 @@ class IRNamedFragmentBuilderTests: XCTestCase {
     expect(actual).to(beIdenticalTo(self.subject))
   }
 
+  func test__referencedFragments__givenUsesFragmentsReferencingOtherFragment_includesBothFragments() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String
+      name: String
+    }
+    """
+
+    document = """
+    fragment AnimalDetails on Animal {
+      species
+      ...AnimalName
+    }
+
+    fragment AnimalName on Animal {
+      name
+    }
+
+    fragment TestFragment on Animal {
+      ...AnimalDetails
+    }
+    """
+
+    // when
+    try buildSubjectFragment()
+
+    let expected: OrderedSet = [
+      try ir.builtFragments["AnimalDetails"].xctUnwrapped(),
+      try ir.builtFragments["AnimalName"].xctUnwrapped(),
+    ]
+
+    // then
+    expect(self.subject.referencedFragments).to(equal(expected))
+  }
+
 }

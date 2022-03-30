@@ -8,7 +8,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
 
   var config: ApolloCodegenConfiguration!
   var definition: CompilationResult.OperationDefinition!
-  var referencedFragments: OrderedSet<CompilationResult.FragmentDefinition>!
+  var referencedFragments: OrderedSet<IR.NamedFragment>!
 
   override func setUp() {
     super.setUp()
@@ -61,7 +61,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
   func test__generate__givenIncludesFragment_generatesWithOperationDefinitionAndFragment() throws {
     // given
     referencedFragments = [
-      CompilationResult.FragmentDefinition.mock("NameFragment")
+      .mock("NameFragment"),
     ]
 
     definition.source =
@@ -95,11 +95,11 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
   func test__generate__givenIncludesManyFragments_generatesWithOperationDefinitionAndFragment() throws {
     // given
     referencedFragments = [
-      CompilationResult.FragmentDefinition.mock("Fragment1"),
-      CompilationResult.FragmentDefinition.mock("Fragment2"),
-      CompilationResult.FragmentDefinition.mock("Fragment3"),
-      CompilationResult.FragmentDefinition.mock("Fragment4"),
-      CompilationResult.FragmentDefinition.mock("FragmentWithLongName1234123412341234123412341234"),
+      .mock("Fragment1"),
+      .mock("Fragment2"),
+      .mock("Fragment3"),
+      .mock("Fragment4"),
+      .mock("FragmentWithLongName1234123412341234123412341234"),
     ]
     
     definition.source =
