@@ -2658,24 +2658,122 @@ class IRRootFieldBuilderTests: XCTestCase {
     // when
     try buildSubjectRootField()
 
+    let Interface_Animal = try XCTUnwrap(schema[interface: "Animal"])
     let Object_Bird = try XCTUnwrap(schema[object: "Bird"])
     let Fragment_BirdDetails = try XCTUnwrap(ir.compilationResult[fragment: "BirdDetails"])
 
-    let expected = SelectionsMatcher(
-      direct: [
+    let allAnimals = subject[field: "allAnimals"]
+
+    let allAnimals_expected = SelectionSetMatcher(
+      parentType: Interface_Animal,
+      directSelections: [
         .inlineFragment(parentType: Object_Bird)
       ],
-      merged: [
+      mergedSelections: [],
+      mergedSources: []
+    )
+
+    let allAnimals_asBird_expected = SelectionSetMatcher(
+      parentType: Object_Bird,
+      directSelections: [
+        .fragmentSpread(Fragment_BirdDetails)
+      ],
+      mergedSelections: [
+        .field("species", type: .string()),
+      ],
+      mergedSources: [
+        try .mock(allAnimals?[as: "Bird"]?[fragment: "BirdDetails"])
       ]
     )
 
-    let allAnimals = subject[field: "allAnimals"]
     let actual = allAnimals?.selectionSet
 
     // then
-    expect(actual).to(shallowlyMatch(expected))
-    expect(actual?[as: "Bird"]?.selections.direct)
-      .to(shallowlyMatch([.fragmentSpread(Fragment_BirdDetails)]))
+    expect(actual).to(shallowlyMatch(allAnimals_expected))
+    expect(actual?[as: "Bird"]).to(shallowlyMatch(allAnimals_asBird_expected))
+  }
+
+  func test__mergedSelections__givenChildIsNamedFragmentOnMultipleNestedMoreSpecificTypes_doesNotMergeFragmentFields_hasTypeCaseForNamedFragmentType() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String
+    }
+
+    interface Pet {
+      species: String
+    }
+
+    type Bird implements Animal & Pet {
+      species: String
+    }
+    """
+
+    document = """
+    query Test {
+      allAnimals {
+        ... on Pet {
+          ...BirdDetails
+        }
+      }
+    }
+
+    fragment BirdDetails on Bird {
+      species
+    }
+    """
+
+    // when
+    try buildSubjectRootField()
+
+    let Interface_Animal = try XCTUnwrap(schema[interface: "Animal"])
+    let Interface_Pet = try XCTUnwrap(schema[interface: "Pet"])
+    let Object_Bird = try XCTUnwrap(schema[object: "Bird"])
+    let Fragment_BirdDetails = try XCTUnwrap(ir.compilationResult[fragment: "BirdDetails"])
+
+    let allAnimals = subject[field: "allAnimals"]
+
+    let allAnimals_expected = SelectionSetMatcher(
+      parentType: Interface_Animal,
+      directSelections: [
+        .inlineFragment(parentType: Interface_Pet)
+      ],
+      mergedSelections: [],
+      mergedSources: []
+    )
+
+    let allAnimals_asPet_expected = SelectionSetMatcher(
+      parentType: Interface_Pet,
+      directSelections: [
+        .inlineFragment(parentType: Object_Bird)
+      ],
+      mergedSelections: [],
+      mergedSources: []
+    )
+
+    let allAnimals_asPet_asBird_expected = SelectionSetMatcher(
+      parentType: Object_Bird,
+      directSelections: [
+        .fragmentSpread(Fragment_BirdDetails)
+      ],
+      mergedSelections: [
+        .field("species", type: .string()),
+      ],
+      mergedSources: [
+        try .mock(allAnimals?[as: "Pet"]?[as: "Bird"]?[fragment: "BirdDetails"])
+      ]
+    )
+
+    let actual = allAnimals?.selectionSet
+
+    // then
+    expect(actual).to(shallowlyMatch(allAnimals_expected))
+    expect(actual?[as: "Pet"]).to(shallowlyMatch(allAnimals_asPet_expected))
+    expect(actual?[as: "Pet"]?[as: "Bird"]).to(shallowlyMatch(allAnimals_asPet_asBird_expected))
   }
 
   func test__mergedSelections__givenIsObjectType_childIsNamedFragmentOnLessSpecificMatchingType_mergesFragmentFields() throws {
@@ -3799,10 +3897,14 @@ class IRRootFieldBuilderTests: XCTestCase {
     let allAnimals_predator = try XCTUnwrap(
       subject?[field: "allAnimals"]?[field: "predator"] as? IR.EntityField
     )
+    
     let Fragment_PredatorDetails = subject?[field: "allAnimals"]?[fragment: "PredatorDetails"]
+    let PredatorDetails_predator = try XCTUnwrap(
+      Fragment_PredatorDetails?.fragment[field: "predator"] as? IR.EntityField
+    )
 
     let expected: IR.MergedSelections.MergedSources = [
-      try .mock(for: allAnimals_predator, from: Fragment_PredatorDetails)
+      try .mock(for: PredatorDetails_predator, from: Fragment_PredatorDetails)
     ]
 
     // then
