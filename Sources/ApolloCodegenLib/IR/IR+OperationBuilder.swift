@@ -13,7 +13,7 @@ extension IR {
       selectionSet: operationDefinition.selectionSet
     )
 
-    let (irRootField, referencedFragments) = RootFieldBuilder.buildRootEntityField(
+    let result = RootFieldBuilder.buildRootEntityField(
       forRootField: rootField,
       onRootEntity: rootEntity,
       inIR: self
@@ -21,8 +21,8 @@ extension IR {
 
     return IR.Operation(
       definition: operationDefinition,
-      rootField: irRootField,
-      referencedFragments: referencedFragments
+      rootField: result.rootField,
+      referencedFragments: result.referencedFragments
     )
   }
 

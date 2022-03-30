@@ -37,7 +37,7 @@ class IRRootFieldBuilderTests: XCTestCase {
     ir = try .mock(schema: schemaSDL, document: document)
     operation = try XCTUnwrap(ir.compilationResult.operations.first)
 
-    (subject, computedReferencedFragments) = IR.RootFieldBuilder.buildRootEntityField(
+    let result = IR.RootFieldBuilder.buildRootEntityField(
       forRootField: .mock(
         "query",
         type: .nonNull(.entity(operation.rootType)),
@@ -49,6 +49,8 @@ class IRRootFieldBuilderTests: XCTestCase {
       ),
       inIR: ir
     )
+    subject = result.rootField
+    computedReferencedFragments = result.referencedFragments
   }
 
   // MARK: - Children Computation

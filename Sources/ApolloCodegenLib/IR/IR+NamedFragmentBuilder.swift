@@ -20,7 +20,7 @@ extension IR {
       selectionSet: fragmentDefinition.selectionSet
     )
 
-    let (irRootField, referencedFragments) = RootFieldBuilder.buildRootEntityField(
+    let result = RootFieldBuilder.buildRootEntityField(
       forRootField: rootField,
       onRootEntity: rootEntity,
       inIR: self
@@ -28,8 +28,9 @@ extension IR {
 
     let irFragment = IR.NamedFragment(
       definition: fragmentDefinition,
-      rootField: irRootField,
-      referencedFragments: referencedFragments
+      rootField: result.rootField,
+      referencedFragments: result.referencedFragments,
+      entities: result.entities
     )
 
     builtFragments[irFragment.name] = irFragment
