@@ -83,6 +83,10 @@ public struct LinkedList<T>: ExpressibleByArrayLiteral {
     self.init(array: segments)
   }
 
+  private func copy() -> Self {
+    return Self.init(head: headNode.copy())
+  }
+
   public mutating func append(_ value: T) {
     append(Node(value: value))
   }
@@ -93,6 +97,19 @@ public struct LinkedList<T>: ExpressibleByArrayLiteral {
     headNode.last = node
   }
 
+  public mutating func append<S: Sequence>(_ sequence: S) where S.Element == T {
+    copyOnWriteIfNeeded()
+    var last: Node = last
+
+    for element in sequence {
+      let node = Node(value: element)
+      last.next = node
+      last = node
+    }
+
+    headNode.last = last
+  }
+
   private mutating func copyOnWriteIfNeeded() {
     if !isKnownUniquelyReferenced(&headNode) {
       headNode = headNode.copy()
@@ -100,9 +117,16 @@ public struct LinkedList<T>: ExpressibleByArrayLiteral {
   }
 
   public func appending(_ value: T) -> LinkedList<T> {
-    let copiedHead = headNode.copy()
-    var copy = Self.init(head: copiedHead)
+    var copy = self.copy()
     copy.append(value)
+    return copy
+  }
+
+  public func appending<S: Sequence>(
+    _ sequence: S
+  ) -> LinkedList<T> where S.Element == T {
+    var copy = self.copy()
+    copy.append(sequence)
     return copy
   }
 
@@ -120,8 +144,7 @@ public struct LinkedList<T>: ExpressibleByArrayLiteral {
   }
 
   public func mutatingLast(_ mutate: (T) -> T) -> LinkedList<T> {
-    let copiedHead = headNode.copy()
-    var copy = Self.init(head: copiedHead)
+    var copy = self.copy()
     copy.mutateLast(mutate)
     return copy
   }
