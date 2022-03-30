@@ -350,6 +350,17 @@ extension IR {
 
 extension IR.EntitySelectionTree {
 
+  func mergeIn(
+    _ otherTree: IR.EntitySelectionTree,
+    in fragment: IR.FragmentSpread
+  ) {
+    let source = IR.MergedSelections.MergedSource(
+      typeInfo: fragment.typeInfo,
+      fragment: fragment
+    )
+    mergeIn(otherTree, from: source)
+  }
+
   fileprivate func mergeIn(
     _ otherTree: IR.EntitySelectionTree,
     from source: IR.MergedSelections.MergedSource

@@ -34,6 +34,32 @@ class IR {
     )
   }
 
+  /// Represents a concrete entity in an operation that fields are selected upon.
+  ///
+  /// Multiple `SelectionSet`s may select fields on the same `Entity`. All `SelectionSet`s that will
+  /// be selected on the same object share the same `Entity`.
+  class Entity {
+    /// The selections that are selected for the entity across all type scopes in the operation.
+    /// Represented as a tree.
+    let selectionTree: EntitySelectionTree
+
+    /// A list of path components indicating the path to the field containing the `Entity` in
+    /// an operation or fragment.
+    let fieldPath: ResponsePath
+
+    var rootTypePath: LinkedList<GraphQLCompositeType> { selectionTree.rootTypePath }
+
+    var rootType: GraphQLCompositeType { rootTypePath.last.value }
+
+    init(
+      rootTypePath: LinkedList<GraphQLCompositeType>,
+      fieldPath: ResponsePath
+    ) {
+      self.selectionTree = EntitySelectionTree(rootTypePath: rootTypePath)
+      self.fieldPath = fieldPath
+    }
+  }
+
   class Operation {
     let definition: CompilationResult.OperationDefinition
 
@@ -87,32 +113,6 @@ class IR {
 
     var debugDescription: String {
       definition.debugDescription
-    }
-  }
-
-  /// Represents a concrete entity in an operation that fields are selected upon.
-  ///
-  /// Multiple `SelectionSet`s may select fields on the same `Entity`. All `SelectionSet`s that will
-  /// be selected on the same object share the same `Entity`.
-  class Entity {
-    /// The selections that are selected for the entity across all type scopes in the operation.
-    /// Represented as a tree.
-    let selectionTree: EntitySelectionTree
-
-    /// A list of path components indicating the path to the field containing the `Entity` in
-    /// an operation.
-    let fieldPath: ResponsePath
-
-    var rootTypePath: LinkedList<GraphQLCompositeType> { selectionTree.rootTypePath }
-
-    var rootType: GraphQLCompositeType { rootTypePath.last.value }
-
-    init(
-      rootTypePath: LinkedList<GraphQLCompositeType>,
-      fieldPath: ResponsePath
-    ) {
-      self.selectionTree = EntitySelectionTree(rootTypePath: rootTypePath)
-      self.fieldPath = fieldPath
     }
   }
 

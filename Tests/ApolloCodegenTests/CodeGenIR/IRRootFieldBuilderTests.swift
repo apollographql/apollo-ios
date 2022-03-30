@@ -3636,6 +3636,94 @@ class IRRootFieldBuilderTests: XCTestCase {
       .to(equal(allAnimals_asCat_predator_height_expectedTypePath))
   }
 
+  // MARK: - Nested Entity In Fragments - Merged Selections
+
+  func test__mergedSelections__givenEntityField_DirectSelectionsAndMergedFromNestedEntityInFragmentAndFragmentInFragment_nestedEntityFieldHasFragmentMergedSources() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+      predator: Animal!
+      height: Height!
+    }
+
+    type Height {
+      feet: Int!
+      meters: Int!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        predator {
+          species
+        }
+        ...PredatorDetails
+      }
+    }
+
+    fragment PredatorDetails on Animal {
+      predator {
+        height {
+          feet
+          ...HeightInMeters
+        }
+      }
+    }
+
+    fragment HeightInMeters on Height {
+      meters
+    }
+    """
+
+    // when
+    try buildSubjectRootField()
+
+    let Interface_Animal = try XCTUnwrap(schema[interface: "Animal"])
+    let Object_Height = try XCTUnwrap(schema[object: "Height"])
+
+    let allAnimals_predator = try XCTUnwrap(
+      subject?[field: "allAnimals"]?[field: "predator"] as? IR.EntityField
+    )
+    let Fragment_PredatorDetails = subject?[field: "allAnimals"]?[fragment: "PredatorDetails"]
+
+    let predator_expected = SelectionSetMatcher(
+      parentType: Interface_Animal,
+      directSelections: [
+        .field("species", type: .string()),
+      ],
+      mergedSelections: [
+        .field("height", type: .entity(Object_Height))
+      ],
+      mergedSources: [
+        try .mock(for: allAnimals_predator, from: Fragment_PredatorDetails)
+      ]
+    )
+
+    let predator_height_expected = SelectionSetMatcher(
+      parentType: Object_Height,
+      directSelections: [],
+      mergedSelections: [
+        .field("feet", type: .integer()),
+        .field("meters", type: .integer()),
+        .fragmentSpread(Fragment_PredatorDetails!.definition),
+      ],
+      mergedSources: [
+        try .mock(for: allAnimals_predator, from: Fragment_PredatorDetails)
+      ]
+    )
+
+    // then
+    expect(allAnimals_predator.selectionSet).to(shallowlyMatch(predator_expected))
+    expect(allAnimals_predator[field: "height"]?.selectionSet)
+      .to(shallowlyMatch(predator_height_expected))
+  }
+
   // MARK: - Nested Entity In Fragments - Merged Sources
 
   func test__mergedSources__givenEntityField_DirectSelectonsAndMergedFromNestedEntityInFragment_nestedEntityFieldHasFragmentMergedSources() throws {

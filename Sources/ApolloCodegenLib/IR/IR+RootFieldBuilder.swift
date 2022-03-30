@@ -79,23 +79,6 @@ extension IR {
       )
     }
 
-//    private func merge(
-//      _ fragment: NamedFragment,
-//      intoEntitySelectionTreesAtTypePath typeInfo: SelectionSet.TypeInfo
-//    ) {
-////      let directRootSelections = fragment.rootField.selectionSet.selections.direct.unsafelyUnwrapped
-////      typeInfo.entity.selectionTree.mergeIn(
-////        selections: directRootSelections,
-////        with: typeInfo,
-////        inFragmentSpread: nil // TODO
-////      )
-//      for selection in fragment.rootField.selectionSet.selections.direct.unsafelyUnwrapped {
-//        switch selection {
-//
-//        }
-//      }
-//    }
-
     private func add(
       _ selections: [CompilationResult.Selection],
       to target: DirectSelections,
@@ -276,30 +259,6 @@ extension IR {
       return irSelectionSet
     }
 
-    private func entity(
-      for field: CompilationResult.Field,
-      on enclosingEntity: Entity
-    ) -> Entity {
-      let responsePath = enclosingEntity
-        .fieldPath
-        .appending(field.responseKey)
-
-      if let entity = entitiesForFields[responsePath] {
-        return entity
-      }
-
-      guard let fieldType = field.selectionSet?.parentType else {
-        fatalError("Entity cannot be created for non-entity type field \(field).")
-      }
-
-      let rootTypePath = enclosingEntity.rootTypePath.appending(fieldType)
-      let entity = Entity(rootTypePath: rootTypePath, fieldPath: responsePath)
-
-      entitiesForFields[responsePath] = entity
-
-      return entity
-    }
-
     private func buildConditionalSelectionSet(
       from selectionSet: CompilationResult.SelectionSet?,
       with scopeCondition: ScopeCondition,
@@ -352,17 +311,67 @@ extension IR {
         inclusionConditions: AnyOf(scopeCondition.conditions)
       )
 
-      let fragmentSelections =
-      fragmentSpread.fragment.rootField.selectionSet.selections.direct.unsafelyUnwrapped
-
-      typeInfo.entity.selectionTree.mergeIn(
-        selections: fragmentSelections,
-        with: typeInfo,
-        inFragmentSpread: fragmentSpread
-      )
+      mergeAllSelectionsIntoEntitySelectionTrees(from: fragmentSpread)
       
       return fragmentSpread
     }
+
+    private func mergeAllSelectionsIntoEntitySelectionTrees(from fragmentSpread: FragmentSpread) {
+      #warning("TODO: get entities from fragment spread")
+      let entitiesInFragment: [ResponsePath: IR.Entity] = [:]
+
+      for (_, fragmentEntity) in entitiesInFragment {
+        let entity = entity(for: fragmentEntity, inFragmentSpreadAtTypePath: fragmentSpread.typeInfo)
+        entity.selectionTree.mergeIn(fragmentEntity.selectionTree, in: fragmentSpread)
+      }
+    }
+
+    // MARK: - Entity Creation Helpers
+
+    private func entity(
+      for field: CompilationResult.Field,
+      on enclosingEntity: Entity
+    ) -> Entity {
+      let fieldPath = enclosingEntity
+        .fieldPath
+        .appending(field.responseKey)
+
+      var rootTypePath: LinkedList<GraphQLCompositeType> {
+        guard let fieldType = field.selectionSet?.parentType else {
+          fatalError("Entity cannot be created for non-entity type field \(field).")
+        }
+        return enclosingEntity.rootTypePath.appending(fieldType)
+      }
+
+      return entitiesForFields[fieldPath] ??
+      createEntity(fieldPath: fieldPath, rootTypePath: rootTypePath)
+    }
+
+    private func createEntity(
+      fieldPath: ResponsePath,
+      rootTypePath: LinkedList<GraphQLCompositeType>
+    ) -> Entity {
+      let entity = Entity(rootTypePath: rootTypePath, fieldPath: fieldPath)
+      entitiesForFields[fieldPath] = entity
+      return entity
+    }
+
+    private func entity(
+      for otherEntity: IR.Entity,
+      inFragmentSpreadAtTypePath fragmentSpreadTypeInfo: SelectionSet.TypeInfo
+    ) -> Entity {
+      let fieldPath = fragmentSpreadTypeInfo.entity.fieldPath +
+      otherEntity.fieldPath.toArray().dropFirst()
+
+      var rootTypePath: LinkedList<GraphQLCompositeType> {
+        let otherRootTypePath = otherEntity.rootTypePath.dropFirst()
+        return fragmentSpreadTypeInfo.entity.rootTypePath.appending(otherRootTypePath)
+      }
+
+      return entitiesForFields[fieldPath] ??
+      createEntity(fieldPath: fieldPath, rootTypePath: rootTypePath)
+    }
+
   }
 }
 
