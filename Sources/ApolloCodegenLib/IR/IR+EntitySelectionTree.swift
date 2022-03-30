@@ -25,12 +25,11 @@ extension IR {
     
     func mergeIn(
       selections: DirectSelections,
-      with typeInfo: SelectionSet.TypeInfo,
-      inFragmentSpread fragmentSpread: FragmentSpread?
+      with typeInfo: SelectionSet.TypeInfo
     ) {
       let source = MergedSelections.MergedSource(
         typeInfo: typeInfo,
-        fragment: fragmentSpread
+        fragment: nil
       )
       mergeIn(selections: selections, from: source)
     }
