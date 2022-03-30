@@ -45,7 +45,7 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
         rootTypePath: LinkedList(operation.rootType),
         fieldPath: ResponsePath("query")
       ),
-      inSchema: ir.schema
+      inIR: ir
     )
   }
 

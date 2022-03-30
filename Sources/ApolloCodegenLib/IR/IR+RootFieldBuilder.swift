@@ -9,24 +9,25 @@ extension IR {
     static func buildRootEntityField(
       forRootField rootField: CompilationResult.Field,
       onRootEntity rootEntity: Entity,
-      inSchema schema: Schema
+      inIR ir: IR
     ) -> (IR.EntityField, referencedFragments: ReferencedFragments) {
-      return RootFieldBuilder(schema: schema)
-        .build(rootField: rootField, rootEntity: rootEntity, schema: schema)
+      return RootFieldBuilder(ir: ir)
+        .build(rootField: rootField, rootEntity: rootEntity)
     }
 
-    private let schema: Schema
+    private let ir: IR
     private var entitiesForFields: OrderedDictionary<ResponsePath, IR.Entity> = [:]
     private var referencedFragments: ReferencedFragments = []
 
-    private init(schema: Schema) {
-      self.schema = schema
+    private var schema: Schema { ir.schema }
+
+    private init(ir: IR) {
+      self.ir = ir
     }
 
     private func build(
       rootField: CompilationResult.Field,
-      rootEntity: Entity,
-      schema: Schema
+      rootEntity: Entity
     ) -> (IR.EntityField, referencedFragments: ReferencedFragments) {
       guard let rootSelectionSet = rootField.selectionSet?.selections else {
         fatalError("Root field must have a selection set.")
@@ -78,22 +79,22 @@ extension IR {
       )
     }
 
-    private func merge(
-      _ fragment: NamedFragment,
-      intoEntitySelectionTreesAtTypePath typeInfo: SelectionSet.TypeInfo
-    ) {
-//      let directRootSelections = fragment.rootField.selectionSet.selections.direct.unsafelyUnwrapped
-//      typeInfo.entity.selectionTree.mergeIn(
-//        selections: directRootSelections,
-//        with: typeInfo,
-//        inFragmentSpread: nil // TODO
-//      )
-      for selection in fragment.rootField.selectionSet.selections.direct.unsafelyUnwrapped {
-        switch selection {
-
-        }
-      }
-    }
+//    private func merge(
+//      _ fragment: NamedFragment,
+//      intoEntitySelectionTreesAtTypePath typeInfo: SelectionSet.TypeInfo
+//    ) {
+////      let directRootSelections = fragment.rootField.selectionSet.selections.direct.unsafelyUnwrapped
+////      typeInfo.entity.selectionTree.mergeIn(
+////        selections: directRootSelections,
+////        with: typeInfo,
+////        inFragmentSpread: nil // TODO
+////      )
+//      for selection in fragment.rootField.selectionSet.selections.direct.unsafelyUnwrapped {
+//        switch selection {
+//
+//        }
+//      }
+//    }
 
     private func add(
       _ selections: [CompilationResult.Selection],
@@ -183,9 +184,9 @@ extension IR {
       _ fragmentSpread: CompilationResult.FragmentSpread,
       into existingFragmentSpread: IR.FragmentSpread
     ) {
-      guard let scope = scopeCondition(for: fragmentSpread, in: typeInfo) else {
-        continue
-      }
+//      guard let scope = scopeCondition(for: fragmentSpread, in: typeInfo) else {
+//        continue
+//      }
     }
 
     private func scopeCondition(
@@ -345,17 +346,20 @@ extension IR {
       )
 
       let fragmentSpread = FragmentSpread(
-        fragmentSpread: fragmentSpread,
+        fragment: ir.build(fragment: fragment),
         typeInfo: typeInfo,
         inclusionConditions: AnyOf(scopeCondition.conditions)
       )
-      buildDirectSelections(
-        into: fragmentSpread.selections,
-        atTypePath: typeInfo,
-        inFragmentSpread: fragmentSpread,
-        from: fragment.selectionSet.selections
-      )
 
+      let fragmentSelections =
+      fragmentSpread.fragment.rootField.selectionSet.selections.direct.unsafelyUnwrapped
+
+      typeInfo.entity.selectionTree.mergeIn(
+        selections: fragmentSelections,
+        with: typeInfo,
+        inFragmentSpread: fragmentSpread
+      )
+      
       return fragmentSpread
     }
   }

@@ -292,6 +292,10 @@ extension IR {
 
   class EntityTreeScopeSelections: Equatable, CustomDebugStringConvertible {
 
+    #warning("""
+    TODO: Since this is now merging in selections from NamedFragments outside of the operation,
+    these should really be shallow selection structs/classes.
+    """)
     fileprivate(set) var fields: OrderedDictionary<String, Field> = [:]
     fileprivate(set) var fragments: OrderedDictionary<String, FragmentSpread> = [:]
 

@@ -47,7 +47,7 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
         rootTypePath: LinkedList(operation.rootType),
         fieldPath: ResponsePath("query")
       ),
-      inSchema: ir.schema
+      inIR: ir
     )
   }
 
