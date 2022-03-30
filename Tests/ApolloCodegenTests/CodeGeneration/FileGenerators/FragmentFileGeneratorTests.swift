@@ -4,12 +4,12 @@ import Nimble
 import ApolloCodegenTestSupport
 
 class FragmentFileGeneratorTests: XCTestCase {
-  var namedFragment: IR.NamedFragment!
+  var irFragment: IR.NamedFragment!
   var subject: FragmentFileGenerator!
 
   override func tearDown() {
     subject = nil
-    namedFragment = nil
+    irFragment = nil
   }
 
   // MARK: Test Helpers
@@ -38,8 +38,9 @@ class FragmentFileGeneratorTests: XCTestCase {
     """
 
     let ir = try IR.mock(schema: schemaSDL, document: operationDocument)
-    namedFragment = ir.build(fragment: ir.compilationResult.fragments[0])
-    subject = FragmentFileGenerator(namedFragment: namedFragment, schema: ir.schema)
+    irFragment = ir.build(fragment: ir.compilationResult.fragments[0])
+    
+    subject = FragmentFileGenerator(irFragment: irFragment, schema: ir.schema)
   }
 
   // MARK: Property Tests
@@ -48,7 +49,7 @@ class FragmentFileGeneratorTests: XCTestCase {
     // given
     try buildSubject()
 
-    let expected: FileTarget = .fragment(namedFragment.definition)
+    let expected: FileTarget = .fragment(irFragment.definition)
 
     // then
     expect(self.subject.target).to(equal(expected))
@@ -58,7 +59,7 @@ class FragmentFileGeneratorTests: XCTestCase {
     // given
     try buildSubject()
 
-    let expected = "\(namedFragment.definition.name).swift"
+    let expected = "\(irFragment.definition.name).swift"
 
     // then
     expect(self.subject.fileName).to(equal(expected))
