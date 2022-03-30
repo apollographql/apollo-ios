@@ -46,13 +46,6 @@ extension IR {
       createEntity(fieldPath: fieldPath, rootTypePath: rootTypePath)
     }
 
-    fileprivate func mergeAllSelectionsIntoEntitySelectionTrees(from fragmentSpread: FragmentSpread) {
-      for (_, fragmentEntity) in fragmentSpread.fragment.entities {
-        let entity = entity(for: fragmentEntity, inFragmentSpreadAtTypePath: fragmentSpread.typeInfo)
-        entity.selectionTree.mergeIn(fragmentEntity.selectionTree, from: fragmentSpread, using: self)
-      }
-    }
-
     private func createEntity(
       fieldPath: ResponsePath,
       rootTypePath: LinkedList<GraphQLCompositeType>
@@ -60,6 +53,13 @@ extension IR {
       let entity = Entity(rootTypePath: rootTypePath, fieldPath: fieldPath)
       entitiesForFields[fieldPath] = entity
       return entity
+    }
+
+    fileprivate func mergeAllSelectionsIntoEntitySelectionTrees(from fragmentSpread: FragmentSpread) {
+      for (_, fragmentEntity) in fragmentSpread.fragment.entities {
+        let entity = entity(for: fragmentEntity, inFragmentSpreadAtTypePath: fragmentSpread.typeInfo)
+        entity.selectionTree.mergeIn(fragmentEntity.selectionTree, from: fragmentSpread, using: self)
+      }
     }
   }
 
