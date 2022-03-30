@@ -1,11 +1,30 @@
 import OrderedCollections
 import ApolloUtils
 
+#warning("TODO: finish or kill?")
+protocol KeyedSetElement {
+  associatedtype KeyedSetKey: Hashable
+  var keyedSetKey: KeyedSetKey { get }
+}
+
+struct KeyedSet<Key: Hashable, Value> {
+
+  private let keyResolver: (Value) -> Key
+  private let _storage: Dictionary<Key, Value> = [:]
+
+  init(keyResolver: @escaping (Value) -> Key) {
+    self.keyResolver = keyResolver
+  }
+  
+}
+
 class IR {
 
   let compilationResult: CompilationResult
 
   let schema: Schema
+
+  var builtFragments: [String: NamedFragment] = [:]
 
   init(schemaName: String, compilationResult: CompilationResult) {
     self.compilationResult = compilationResult
@@ -41,6 +60,7 @@ class IR {
     let rootField: EntityField
 
     var name: String { definition.name }
+    var type: GraphQLCompositeType { definition.type }
 
     init(
       definition: CompilationResult.FragmentDefinition,
@@ -84,42 +104,37 @@ class IR {
   /// `NamedFragment` included in a specific operation.
   class FragmentSpread: Hashable, CustomDebugStringConvertible {
 
-    let underlyingFragmentSpread: CompilationResult.FragmentSpread
+    let fragment: NamedFragment
 
     #warning("TODO: Update Docs")
     /// The selection set for the fragment in the operation it has been "spread into".
     /// It's `typePath` and `entity` reference are scoped to the operation it belongs to.
     let typeInfo: SelectionSet.TypeInfo
 
-    #warning("TODO: Make Fragment Spread use Direct selections from already built NamedFragment.")
-    let selections = DirectSelections()
-
     var inclusionConditions: AnyOf<InclusionConditions>?
 
-    var definition: CompilationResult.FragmentDefinition { underlyingFragmentSpread.fragment }
+    var definition: CompilationResult.FragmentDefinition { fragment.definition }
 
     init(
-      fragmentSpread: CompilationResult.FragmentSpread,
+      fragment: NamedFragment,
       typeInfo: SelectionSet.TypeInfo,
       inclusionConditions: AnyOf<InclusionConditions>?
     ) {
-      self.underlyingFragmentSpread = fragmentSpread
+      self.fragment = fragment
       self.typeInfo = typeInfo
       self.inclusionConditions = inclusionConditions
     }
 
     static func == (lhs: IR.FragmentSpread, rhs: IR.FragmentSpread) -> Bool {
-      lhs.underlyingFragmentSpread == rhs.underlyingFragmentSpread &&
-      lhs.inclusionConditions == rhs.inclusionConditions &&
+      ObjectIdentifier(lhs.fragment) == ObjectIdentifier(rhs.fragment) &&
       lhs.typeInfo == rhs.typeInfo &&
-      lhs.selections == rhs.selections
+      lhs.inclusionConditions == rhs.inclusionConditions
     }
 
     func hash(into hasher: inout Hasher) {
-      hasher.combine(underlyingFragmentSpread)
-      hasher.combine(inclusionConditions)
+      hasher.combine(ObjectIdentifier(fragment))
       hasher.combine(typeInfo)
-      hasher.combine(ObjectIdentifier(selections))
+      hasher.combine(inclusionConditions)
     }
 
     var debugDescription: String {

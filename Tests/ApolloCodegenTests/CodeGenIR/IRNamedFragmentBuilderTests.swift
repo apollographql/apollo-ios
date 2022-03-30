@@ -75,4 +75,58 @@ class IRNamedFragmentBuilderTests: XCTestCase {
     expect(self.subject.rootField.selectionSet.entity.fieldPath).to(equal(ResponsePath("TestFragment")))
   }
 
+  func test__buildFragment__givenFragment_hasNamedFragmentInBuiltFragments() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    fragment TestFragment on Animal {
+      species
+    }
+    """
+
+    // when
+    try buildSubjectFragment()
+
+    let actual = ir.builtFragments["TestFragment"]
+
+    // then
+    expect(actual).to(beIdenticalTo(self.subject))
+  }
+
+  func test__buildFragment__givenAlreadyBuiltFragment_returnsExistingBuiltFragment() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    fragment TestFragment on Animal {
+      species
+    }
+    """
+
+    // when
+    try buildSubjectFragment()
+
+    let actual = ir.build(fragment: fragment)
+
+    // then
+    expect(actual).to(beIdenticalTo(self.subject))
+  }
+
 }

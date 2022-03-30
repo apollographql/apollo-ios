@@ -504,8 +504,8 @@ fileprivate func shallowlyMatch<T: Collection>(
 }
 
 fileprivate func shallowlyMatch(expected: ShallowFragmentSpreadMatcher, actual: IR.FragmentSpread) -> Bool {
-  return expected.name == actual.underlyingFragmentSpread.fragment.name &&
-  expected.type == actual.underlyingFragmentSpread.fragment.type &&
+  return expected.name == actual.fragment.name &&
+  expected.type == actual.fragment.type &&
   expected.inclusionConditions == actual.inclusionConditions
 }
 
