@@ -1,23 +1,6 @@
 import OrderedCollections
 import ApolloUtils
 
-#warning("TODO: finish or kill?")
-protocol KeyedSetElement {
-  associatedtype KeyedSetKey: Hashable
-  var keyedSetKey: KeyedSetKey { get }
-}
-
-struct KeyedSet<Key: Hashable, Value> {
-
-  private let keyResolver: (Value) -> Key
-  private let _storage: Dictionary<Key, Value> = [:]
-
-  init(keyResolver: @escaping (Value) -> Key) {
-    self.keyResolver = keyResolver
-  }
-  
-}
-
 class IR {
 
   let compilationResult: CompilationResult
@@ -34,7 +17,7 @@ class IR {
     )
   }
 
-  /// Represents a concrete entity in an operation that fields are selected upon.
+  /// Represents a concrete entity in an operation or fragment that fields are selected upon.
   ///
   /// Multiple `SelectionSet`s may select fields on the same `Entity`. All `SelectionSet`s that will
   /// be selected on the same object share the same `Entity`.
@@ -88,17 +71,27 @@ class IR {
     /// All of the fragments that are referenced by this fragment's selection set.
     let referencedFragments: OrderedSet<NamedFragment>
 
+    /// All of the Entities that exist in the fragment's selection set,
+    /// keyed by their relative response path within the fragment.
+    ///
+    /// - Note: The ResponsePath for an entity within a fragment will begin with a path component
+    /// equal to the fragment's name.
+    let entities: [ResponsePath: IR.Entity]
+    #warning("TODO: Look into removing the fragment name as the beginning of the response path?")
+
     var name: String { definition.name }
     var type: GraphQLCompositeType { definition.type }
 
     init(
       definition: CompilationResult.FragmentDefinition,
       rootField: EntityField,
-      referencedFragments: OrderedSet<NamedFragment>
+      referencedFragments: OrderedSet<NamedFragment>,
+      entities: [ResponsePath: IR.Entity]
     ) {
       self.definition = definition
       self.rootField = rootField
       self.referencedFragments = referencedFragments
+      self.entities = entities
     }
 
     static func == (lhs: IR.NamedFragment, rhs: IR.NamedFragment) -> Bool {

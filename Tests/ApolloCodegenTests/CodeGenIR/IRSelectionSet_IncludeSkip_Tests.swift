@@ -35,7 +35,7 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
     ir = try .mock(schema: schemaSDL, document: document)
     operation = try XCTUnwrap(ir.compilationResult.operations.first)
 
-    (subject, _) = IR.RootFieldBuilder.buildRootEntityField(
+    let result = IR.RootFieldBuilder.buildRootEntityField(
       forRootField: .mock(
         "query",
         type: .nonNull(.entity(operation.rootType)),
@@ -47,6 +47,7 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
       ),
       inIR: ir
     )
+    subject = result.rootField
   }
 
   // MARK: - Scalar Fields

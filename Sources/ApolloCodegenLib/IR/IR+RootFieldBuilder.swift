@@ -4,19 +4,25 @@ import ApolloUtils
 
 extension IR {
   class RootFieldBuilder {
+    struct Result {
+      let rootField: IR.EntityField
+      let referencedFragments: ReferencedFragments
+      let entities: [ResponsePath: IR.Entity]
+    }
+
     typealias ReferencedFragments = OrderedSet<NamedFragment>
 
     static func buildRootEntityField(
       forRootField rootField: CompilationResult.Field,
       onRootEntity rootEntity: Entity,
       inIR ir: IR
-    ) -> (IR.EntityField, referencedFragments: ReferencedFragments) {
+    ) -> Result {
       return RootFieldBuilder(ir: ir)
         .build(rootField: rootField, rootEntity: rootEntity)
     }
 
     private let ir: IR
-    private var entitiesForFields: OrderedDictionary<ResponsePath, IR.Entity> = [:]
+    private var entitiesForFields: [ResponsePath: IR.Entity] = [:]
     private var referencedFragments: ReferencedFragments = []
 
     private var schema: Schema { ir.schema }
@@ -28,7 +34,7 @@ extension IR {
     private func build(
       rootField: CompilationResult.Field,
       rootEntity: Entity
-    ) -> (IR.EntityField, referencedFragments: ReferencedFragments) {
+    ) -> Result {
       guard let rootSelectionSet = rootField.selectionSet?.selections else {
         fatalError("Root field must have a selection set.")
       }
@@ -53,9 +59,10 @@ extension IR {
         from: rootSelectionSet
       )
 
-      return (
-        EntityField(rootField, selectionSet: rootIrSelectionSet),
-        referencedFragments
+      return Result(
+        rootField: EntityField(rootField, selectionSet: rootIrSelectionSet),
+        referencedFragments: referencedFragments,
+        entities: entitiesForFields
       )
     }
 
@@ -317,10 +324,7 @@ extension IR {
     }
 
     private func mergeAllSelectionsIntoEntitySelectionTrees(from fragmentSpread: FragmentSpread) {
-      #warning("TODO: get entities from fragment spread")
-      let entitiesInFragment: [ResponsePath: IR.Entity] = [:]
-
-      for (_, fragmentEntity) in entitiesInFragment {
+      for (_, fragmentEntity) in fragmentSpread.fragment.entities {
         let entity = entity(for: fragmentEntity, inFragmentSpreadAtTypePath: fragmentSpread.typeInfo)
         entity.selectionTree.mergeIn(fragmentEntity.selectionTree, in: fragmentSpread)
       }
