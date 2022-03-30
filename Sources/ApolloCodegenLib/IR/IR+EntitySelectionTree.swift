@@ -26,7 +26,7 @@ extension IR {
     func mergeIn(
       selections: DirectSelections,
       with typeInfo: SelectionSet.TypeInfo,
-      inFragmentSpread fragmentSpread: FragmentSpread? = nil
+      inFragmentSpread fragmentSpread: FragmentSpread?
     ) {
       let source = MergedSelections.MergedSource(
         typeInfo: typeInfo,
@@ -301,6 +301,14 @@ extension IR {
 
     init() {}
 
+    fileprivate init(
+      fields: OrderedDictionary<String, Field>,
+      fragments: OrderedDictionary<String, FragmentSpread>
+    ) {
+      self.fields = fields
+      self.fragments = fragments
+    }
+
     var isEmpty: Bool {
       fields.isEmpty && fragments.isEmpty
     }
@@ -350,20 +358,16 @@ extension IR {
 
 extension IR.EntitySelectionTree {
 
+  /// Merges an `EntitySelectionTree` from a matching `Entity` in the given `FragmentSpread`
+  /// into the receiver.
+  ///
+  /// - Precondition: This function assumes that the `EntitySelectionTree` being merged in
+  /// represents the same entity in the response. Passing a non-matching entity is a serious
+  /// programming error and will result in undefined behavior.
   func mergeIn(
     _ otherTree: IR.EntitySelectionTree,
-    in fragment: IR.FragmentSpread
-  ) {
-    let source = IR.MergedSelections.MergedSource(
-      typeInfo: fragment.typeInfo,
-      fragment: fragment
-    )
-    mergeIn(otherTree, from: source)
-  }
-
-  fileprivate func mergeIn(
-    _ otherTree: IR.EntitySelectionTree,
-    from source: IR.MergedSelections.MergedSource
+    from fragment: IR.FragmentSpread,
+    using entityStorage: IR.RootFieldEntityStorage
   ) {
     #warning("TODO: make count more efficient!")
     let otherTreeCount = Array(otherTree.rootTypePath).count
@@ -378,7 +382,7 @@ extension IR.EntitySelectionTree {
       rootToStartMerge = nextNode
     }
 
-    rootToStartMerge.mergeIn(otherTree.rootNode, from: source)
+    rootToStartMerge.mergeIn(otherTree.rootNode, from: fragment, using: entityStorage)
   }
 
 }
@@ -387,25 +391,26 @@ extension IR.EntitySelectionTree.EnclosingEntityNode {
 
   fileprivate func mergeIn(
     _ otherNode: IR.EntitySelectionTree.EnclosingEntityNode,
-    from source: IR.MergedSelections.MergedSource
+    from fragment: IR.FragmentSpread,
+    using entityStorage: IR.RootFieldEntityStorage
   ) {
     switch otherNode.child {
     case let .enclosingEntity(otherNextNode):
       let nextNode = self.childAsEnclosingEntityNode()
-      nextNode.mergeIn(otherNextNode, from: source)
+      nextNode.mergeIn(otherNextNode, from: fragment, using: entityStorage)
 
     case let .fieldScope(otherNextNode):
       let nextNode = self.childAsFieldScopeNode()
-      nextNode.mergeIn(otherNextNode, from: source)
+      nextNode.mergeIn(otherNextNode, from: fragment, using: entityStorage)
 
     case .none:
-      break
+      preconditionFailure()
     }
 
     if let otherConditions = otherNode.scopeConditions {
       for (otherCondition, otherNode) in otherConditions {
         let conditionNode = self.scopeConditionNode(for: otherCondition)
-        conditionNode.mergeIn(otherNode, from: source)
+        conditionNode.mergeIn(otherNode, from: fragment, using: entityStorage)
       }
     }
   }
@@ -416,17 +421,58 @@ extension IR.EntitySelectionTree.FieldScopeNode {
 
   fileprivate func mergeIn(
     _ otherNode: IR.EntitySelectionTree.FieldScopeNode,
-    from source: IR.MergedSelections.MergedSource
+    from fragment: IR.FragmentSpread,
+    using entityStorage: IR.RootFieldEntityStorage
   ) {
-    #warning("TODO: either use or remove source parameter from this and related functions.")
-    selections.merge(otherNode.selections) { current, new in
-      current.mergeIn(new)
+    for (source, selections) in otherNode.selections {
+      let newSource = source.fragment != nil ?
+      source :
+      IR.MergedSelections.MergedSource(
+        typeInfo: source.typeInfo, fragment: fragment
+      )
+
+      let fields = selections.fields.mapValues { oldField -> IR.Field in
+        if let oldField = oldField as? IR.EntityField {
+          let entity = entityStorage.entity(
+            for: oldField.entity,
+            inFragmentSpreadAtTypePath: fragment.typeInfo
+          )
+
+          return IR.EntityField(
+            oldField.underlyingField,
+            inclusionConditions: oldField.inclusionConditions,
+            selectionSet: IR.SelectionSet(
+              entity: entity,
+              scopePath: oldField.selectionSet.scopePath,
+              mergedSelectionsOnly: true)
+          )
+
+        } else {
+          return oldField
+        }
+      }
+
+      let fragments = selections.fragments.mapValues { oldFragment -> IR.FragmentSpread in
+        let entity = entityStorage.entity(
+          for: oldFragment.typeInfo.entity,
+          inFragmentSpreadAtTypePath: fragment.typeInfo
+        )
+        return IR.FragmentSpread(
+          fragment: oldFragment.fragment,
+          typeInfo: IR.SelectionSet.TypeInfo(
+            entity: entity,
+            scopePath: oldFragment.typeInfo.scopePath
+          ),
+          inclusionConditions: oldFragment.inclusionConditions
+        )
+      }
+      self.selections[newSource] = IR.EntityTreeScopeSelections(fields: fields, fragments: fragments)
     }
 
     if let otherConditions = otherNode.scopeConditions {
       for (otherCondition, otherNode) in otherConditions {
         let conditionNode = self.scopeConditionNode(for: otherCondition)
-        conditionNode.mergeIn(otherNode, from: source)
+        conditionNode.mergeIn(otherNode, from: fragment, using: entityStorage)
       }
     }
   }

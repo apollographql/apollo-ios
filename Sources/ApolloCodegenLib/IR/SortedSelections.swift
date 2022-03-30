@@ -186,6 +186,11 @@ extension IR {
 
     struct MergedSource: Hashable {
       let typeInfo: SelectionSet.TypeInfo
+
+      /// The `FragmentSpread` that the merged selections were contained in.
+      ///
+      /// - Note: If `fragment` is present, the `typeInfo` is relative to the spread in fragment,
+      /// instead of the operation directly.
       unowned let fragment: FragmentSpread?
     }
 
@@ -315,5 +320,11 @@ fileprivate extension IR.SelectionSet {
       string += " \(conditions.debugDescription)"
     }
     return string    
+  }
+}
+
+extension IR.MergedSelections.MergedSource: CustomDebugStringConvertible {
+  var debugDescription: String {
+    typeInfo.debugDescription + ", fragment: \(fragment?.debugDescription ?? "nil")"
   }
 }

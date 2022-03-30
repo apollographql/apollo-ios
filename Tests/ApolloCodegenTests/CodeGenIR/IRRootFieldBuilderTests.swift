@@ -3648,14 +3648,14 @@ class IRRootFieldBuilderTests: XCTestCase {
     }
 
     interface Animal {
-      species: String!
+      species: String
       predator: Animal!
       height: Height!
     }
 
     type Height {
-      feet: Int!
-      meters: Int!
+      feet: Int
+      meters: Int
     }
     """
 
@@ -3689,10 +3689,36 @@ class IRRootFieldBuilderTests: XCTestCase {
     let Interface_Animal = try XCTUnwrap(schema[interface: "Animal"])
     let Object_Height = try XCTUnwrap(schema[object: "Height"])
 
-    let allAnimals_predator = try XCTUnwrap(
-      subject?[field: "allAnimals"]?[field: "predator"] as? IR.EntityField
+    let allAnimals = try XCTUnwrap(
+      subject?[field: "allAnimals"] as? IR.EntityField
     )
-    let Fragment_PredatorDetails = subject?[field: "allAnimals"]?[fragment: "PredatorDetails"]
+    let allAnimals_predator = try XCTUnwrap(
+      allAnimals[field: "predator"] as? IR.EntityField
+    )
+
+    let Fragment_PredatorDetails = try XCTUnwrap(
+      subject?[field: "allAnimals"]?[fragment: "PredatorDetails"]
+    )
+    let PredatorDetails_Predator = try XCTUnwrap(
+      Fragment_PredatorDetails.fragment[field: "predator"]
+    )
+    let PredatorDetails_Predator_Height = try XCTUnwrap(
+      PredatorDetails_Predator[field: "height"]
+    )
+
+    let Fragment_PredatorDetails_HeightInMeters = try XCTUnwrap(
+      PredatorDetails_Predator_Height[fragment: "HeightInMeters"]
+    )
+
+    let allAnimals_expected = SelectionSetMatcher(
+      parentType: Interface_Animal,
+      directSelections: [
+        .field("predator", type: .nonNull(.entity(Interface_Animal))),
+        .fragmentSpread(Fragment_PredatorDetails.definition),
+      ],
+      mergedSelections: [],
+      mergedSources: []
+    )
 
     let predator_expected = SelectionSetMatcher(
       parentType: Interface_Animal,
@@ -3700,27 +3726,29 @@ class IRRootFieldBuilderTests: XCTestCase {
         .field("species", type: .string()),
       ],
       mergedSelections: [
-        .field("height", type: .entity(Object_Height))
+        .field("height", type: .nonNull(.entity(Object_Height)))
       ],
       mergedSources: [
-        try .mock(for: allAnimals_predator, from: Fragment_PredatorDetails)
+        try .mock(for: PredatorDetails_Predator, from: Fragment_PredatorDetails)
       ]
     )
 
     let predator_height_expected = SelectionSetMatcher(
       parentType: Object_Height,
-      directSelections: [],
+      directSelections: nil,
       mergedSelections: [
-        .field("feet", type: .integer()),
         .field("meters", type: .integer()),
-        .fragmentSpread(Fragment_PredatorDetails!.definition),
+        .field("feet", type: .integer()),
+        .fragmentSpread(Fragment_PredatorDetails_HeightInMeters.definition),
       ],
       mergedSources: [
-        try .mock(for: allAnimals_predator, from: Fragment_PredatorDetails)
+        try .mock(for: PredatorDetails_Predator_Height, from: Fragment_PredatorDetails),
+        try .mock(for: Fragment_PredatorDetails_HeightInMeters.fragment.rootField, from: Fragment_PredatorDetails_HeightInMeters)
       ]
     )
 
     // then
+    expect(allAnimals.selectionSet).to(shallowlyMatch(allAnimals_expected))
     expect(allAnimals_predator.selectionSet).to(shallowlyMatch(predator_expected))
     expect(allAnimals_predator[field: "height"]?.selectionSet)
       .to(shallowlyMatch(predator_height_expected))
