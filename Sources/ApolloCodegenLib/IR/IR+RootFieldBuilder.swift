@@ -4,7 +4,7 @@ import ApolloUtils
 
 extension IR {
   class RootFieldBuilder {
-    typealias ReferencedFragments = OrderedSet<CompilationResult.FragmentDefinition>
+    typealias ReferencedFragments = OrderedSet<NamedFragment>
 
     static func buildRootEntityField(
       forRootField rootField: CompilationResult.Field,
@@ -331,8 +331,9 @@ extension IR {
       with scopeCondition: ScopeCondition,
       spreadIntoParentWithTypePath parentTypeInfo: SelectionSet.TypeInfo
     ) -> FragmentSpread {
-      let fragment = fragmentSpread.fragment
+      let fragment = ir.build(fragment: fragmentSpread.fragment)
       referencedFragments.append(fragment)
+      referencedFragments.append(contentsOf: fragment.referencedFragments)
 
       let scopePath = scopeCondition.isEmpty ?
       parentTypeInfo.scopePath :
@@ -346,7 +347,7 @@ extension IR {
       )
 
       let fragmentSpread = FragmentSpread(
-        fragment: ir.build(fragment: fragment),
+        fragment: fragment,
         typeInfo: typeInfo,
         inclusionConditions: AnyOf(scopeCondition.conditions)
       )

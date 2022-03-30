@@ -3748,7 +3748,7 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     try buildSubjectRootField()
 
     let expected: OrderedSet = [
-      try ir.compilationResult[fragment: "QueryDetails"].xctUnwrapped()
+      try ir.builtFragments["QueryDetails"].xctUnwrapped()
     ]
 
     // then
@@ -3783,7 +3783,7 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     try buildSubjectRootField()
 
     let expected: OrderedSet = [
-      try ir.compilationResult[fragment: "AnimalDetails"].xctUnwrapped()
+      try ir.builtFragments["AnimalDetails"].xctUnwrapped()
     ]
 
     // then
@@ -3824,8 +3824,8 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     try buildSubjectRootField()
 
     let expected: OrderedSet = [
-      try ir.compilationResult[fragment: "AnimalDetails"].xctUnwrapped(),
-      try ir.compilationResult[fragment: "AnimalName"].xctUnwrapped(),
+      try ir.builtFragments["AnimalDetails"].xctUnwrapped(),
+      try ir.builtFragments["AnimalName"].xctUnwrapped(),
     ]
 
     // then
@@ -3866,8 +3866,8 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     try buildSubjectRootField()
 
     let expected: OrderedSet = [
-      try ir.compilationResult[fragment: "AnimalDetails"].xctUnwrapped(),
-      try ir.compilationResult[fragment: "AnimalName"].xctUnwrapped(),
+      try ir.builtFragments["AnimalDetails"].xctUnwrapped(),
+      try ir.builtFragments["AnimalName"].xctUnwrapped(),
     ]
 
     // then

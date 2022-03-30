@@ -1,4 +1,5 @@
 @testable import ApolloCodegenLib
+import ApolloUtils
 
 extension IR {
 
@@ -21,4 +22,26 @@ extension IR {
     return IR(schemaName: schemaName, compilationResult: compilationResult)
   }
 
+}
+
+extension IR.NamedFragment {
+
+  public static func mock(
+    _ name: String,
+    type: GraphQLCompositeType = .mock("MockType")
+  ) -> IR.NamedFragment {
+    return IR.NamedFragment(
+      definition: .mock(name, type: type),
+      rootField: IR.EntityField.init(
+        .mock(),
+        inclusionConditions: nil,
+        selectionSet: .init(
+          entity: .init(
+            rootTypePath: LinkedList(type),
+            fieldPath: ResponsePath(name)),
+          scopePath: LinkedList(.descriptor(forType: type, inclusionConditions: nil, givenAllTypesInSchema: .init([type])))
+        )),
+      referencedFragments: []
+    )
+  }
 }

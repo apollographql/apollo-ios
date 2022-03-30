@@ -37,7 +37,7 @@ struct OperationDefinitionTemplate {
   enum DocumentType {
     static func render(
       _ operation: CompilationResult.OperationDefinition,
-      fragments: OrderedSet<CompilationResult.FragmentDefinition>,
+      fragments: OrderedSet<IR.NamedFragment>,
       apq: ApolloCodegenConfiguration.APQConfig
     ) -> TemplateString {
       let includeFragments = !fragments.isEmpty
