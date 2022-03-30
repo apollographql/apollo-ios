@@ -374,9 +374,7 @@ extension IR.EntitySelectionTree {
     var rootToStartMerge: EnclosingEntityNode = rootNode
 
     for _ in 0..<diffToRoot {
-      guard case let .enclosingEntity(nextNode) = rootToStartMerge.child else {
-        preconditionFailure()
-      }
+      let nextNode = rootToStartMerge.childAsEnclosingEntityNode()
       rootToStartMerge = nextNode
     }
 
@@ -393,11 +391,11 @@ extension IR.EntitySelectionTree.EnclosingEntityNode {
   ) {
     switch otherNode.child {
     case let .enclosingEntity(otherNextNode):
-      guard case let .enclosingEntity(nextNode) = self.child else { preconditionFailure() }
+      let nextNode = self.childAsEnclosingEntityNode()
       nextNode.mergeIn(otherNextNode, from: source)
 
     case let .fieldScope(otherNextNode):
-      guard case let .fieldScope(nextNode) = self.child else { preconditionFailure() }
+      let nextNode = self.childAsFieldScopeNode()
       nextNode.mergeIn(otherNextNode, from: source)
 
     case .none:

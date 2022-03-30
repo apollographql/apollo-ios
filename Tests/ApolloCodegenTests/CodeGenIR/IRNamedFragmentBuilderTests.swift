@@ -245,17 +245,24 @@ fileprivate func match(
 ) -> Predicate<[ResponsePath: IR.Entity]> {
   return Predicate.define { actual in
     let message: ExpectationMessage = .expectedActualValueTo("equal \(expectedValue)")
-    guard let actual = try actual.evaluate(),
+    guard var actual = try actual.evaluate(),
           actual.count == expectedValue.count else {
       return PredicateResult(status: .fail, message: message)
     }
 
-    for (expected, actual) in zip(expectedValue, actual) {
-      if expected.key != actual.key ||
-          expected.value.rootTypePath != actual.value.rootTypePath ||
-          expected.value.fieldPath != actual.value.fieldPath {
+    for expected in expectedValue {
+      guard let actual = actual.removeValue(forKey: expected.key) else {
         return PredicateResult(status: .fail, message: message)
       }
+
+      if expected.value.rootTypePath != actual.rootTypePath ||
+          expected.value.fieldPath != actual.fieldPath {
+        return PredicateResult(status: .fail, message: message)
+      }
+    }
+
+    guard actual.isEmpty else {
+      return PredicateResult(status: .fail, message: message)
     }
 
     return PredicateResult(status: .matches, message: message)
