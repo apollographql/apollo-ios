@@ -7,7 +7,7 @@ import ApolloCodegenTestSupport
 import ApolloAPI
 import ApolloUtils
 
-class IRRootEntityFieldBuilderTests: XCTestCase {
+class IRRootFieldBuilderTests: XCTestCase {
 
   var schemaSDL: String!
   var document: String!
