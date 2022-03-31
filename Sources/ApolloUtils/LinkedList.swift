@@ -7,6 +7,8 @@
 public struct LinkedList<T>: ExpressibleByArrayLiteral {
   public class Node {
     public let value: T
+    fileprivate let index: Int
+
     public fileprivate(set) weak var previous: Node?
     public fileprivate(set) var next: Node? {
       didSet {
@@ -15,8 +17,9 @@ public struct LinkedList<T>: ExpressibleByArrayLiteral {
       }
     }
 
-    init(value: T) {
+    fileprivate init(value: T, index: Int) {
       self.value = value
+      self.index = index
     }
   }
 
@@ -33,6 +36,10 @@ public struct LinkedList<T>: ExpressibleByArrayLiteral {
       }
     }
 
+    fileprivate init(value: T) {
+      super.init(value: value, index: 0)
+    }
+
     func copy() -> HeadNode {
       let copiedHead = HeadNode(value: self.value)
 
@@ -40,7 +47,7 @@ public struct LinkedList<T>: ExpressibleByArrayLiteral {
       var currentCopy: Node? = copiedHead
 
       while let nextNode = currentNode?.next {
-        let nextCopy = Node(value: nextNode.value)
+        let nextCopy = Node(value: nextNode.value, index: nextNode.index)
         currentCopy?.next = nextCopy
 
         currentNode = nextNode
@@ -88,10 +95,10 @@ public struct LinkedList<T>: ExpressibleByArrayLiteral {
   }
 
   public mutating func append(_ value: T) {
-    append(Node(value: value))
+    append(Node(value: value, index: last.index + 1))
   }
 
-  public mutating func append(_ node: Node) {
+  private mutating func append(_ node: Node) {
     copyOnWriteIfNeeded()
     last.next = node
     headNode.last = node
@@ -102,7 +109,7 @@ public struct LinkedList<T>: ExpressibleByArrayLiteral {
     var last: Node = last
 
     for element in sequence {
-      let node = Node(value: element)
+      let node = Node(value: element, index: last.index + 1)
       last.next = node
       last = node
     }
@@ -134,7 +141,7 @@ public struct LinkedList<T>: ExpressibleByArrayLiteral {
     copyOnWriteIfNeeded()
 
     if let last = headNode.lastPointer {
-      let newLast = Node(value: mutate(last.value))
+      let newLast = Node(value: mutate(last.value), index: last.index)
       last.previous!.next = newLast
       headNode.last = newLast
 
@@ -176,6 +183,39 @@ extension LinkedList: Hashable where T: Hashable {
     hasher.combine(headNode)
   }
 }
+
+// MARK: - Collection Conformance
+
+extension LinkedList: Collection {
+
+  public var startIndex: Int { 0 }
+
+  public var endIndex: Int { last.index + 1 }
+
+  public var count: Int { endIndex }
+
+  public var isEmpty: Bool { false }
+
+  public subscript(position: Int) -> T {
+    _read {
+      let traverseFromFront = position <= last.index / 2
+      let numberOfIndiciesToTarget = traverseFromFront ? position : last.index - position
+
+      var node = traverseFromFront ? head : last
+      for _ in 0..<numberOfIndiciesToTarget {
+        node = traverseFromFront ? node.next.unsafelyUnwrapped : node.previous.unsafelyUnwrapped
+      }
+      yield node.value
+    }
+  }
+
+  public func index(after i: Int) -> Int {
+    i + 1
+  }
+
+}
+
+// MARK: - Sequence Conformance
 
 extension LinkedList: Sequence {
   public typealias Element = T

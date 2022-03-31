@@ -350,10 +350,9 @@ extension IR.EntitySelectionTree {
     _ otherTree: IR.EntitySelectionTree,
     from fragment: IR.FragmentSpread,
     using entityStorage: IR.RootFieldEntityStorage
-  ) {
-    #warning("TODO: make count more efficient!")
-    let otherTreeCount = Array(otherTree.rootTypePath).count
-    let diffToRoot = Array(rootTypePath).count - otherTreeCount
+  ) {    
+    let otherTreeCount = otherTree.rootTypePath.count
+    let diffToRoot = rootTypePath.count - otherTreeCount
 
     precondition(diffToRoot >= 0, "Cannot merge in tree shallower than current tree.")
 
