@@ -8,7 +8,7 @@ public class CompilationResult: JavaScriptObject {
 
   lazy var fragments: [FragmentDefinition] = self["fragments"]
   
-  public class OperationDefinition: JavaScriptObject {
+  public class OperationDefinition: JavaScriptObject, Equatable {
     lazy var name: String = self["name"]
     
     lazy var operationType: OperationType = self["operationType"]
@@ -29,6 +29,10 @@ public class CompilationResult: JavaScriptObject {
 
     override public var debugDescription: String {
       "\(name) on \(rootType.debugDescription)"
+    }
+
+    public static func ==(lhs: OperationDefinition, rhs: OperationDefinition) -> Bool {
+      return lhs.name == rhs.name
     }
 
     lazy var nameWithSuffix: String = {
