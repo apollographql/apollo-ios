@@ -76,8 +76,7 @@ class IR {
     ///
     /// - Note: The ResponsePath for an entity within a fragment will begin with a path component
     /// equal to the fragment's name.
-    let entities: [ResponsePath: IR.Entity]
-    #warning("TODO: Look into removing the fragment name as the beginning of the response path?")
+    let entities: [ResponsePath: IR.Entity]    
 
     var name: String { definition.name }
     var type: GraphQLCompositeType { definition.type }
