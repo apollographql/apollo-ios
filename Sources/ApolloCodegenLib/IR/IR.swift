@@ -116,11 +116,17 @@ class IR {
   /// `NamedFragment` included in a specific operation.
   class FragmentSpread: Hashable, CustomDebugStringConvertible {
 
+    /// The `NamedFragment` that this fragment refers to.
+    ///
+    /// This is a fragment that has already been built. To "spread" the fragment in, it's entity
+    /// selection trees are merged into the entity selection trees of the operation/fragment it is
+    /// being spread into. This allows merged field calculations to include the fields merged in
+    /// from the fragment.
     let fragment: NamedFragment
-
-    #warning("TODO: Update Docs")
-    /// The selection set for the fragment in the operation it has been "spread into".
-    /// It's `typePath` and `entity` reference are scoped to the operation it belongs to.
+    
+    /// Indicates the location where the fragment has been "spread into" its enclosing
+    /// operation/fragment. It's `scopePath` and `entity` reference are scoped to the operation it
+    /// belongs to.
     let typeInfo: SelectionSet.TypeInfo
 
     var inclusionConditions: AnyOf<InclusionConditions>?
