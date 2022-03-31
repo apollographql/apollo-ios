@@ -1,6 +1,5 @@
 import ApolloUtils
 
-#warning("TODO: update Docs")
 extension IR {
   @dynamicMemberLookup
   class SelectionSet: Equatable, CustomDebugStringConvertible {
@@ -10,12 +9,12 @@ extension IR {
       /// Multiple `SelectionSet`s may reference the same `Entity`
       let entity: Entity
 
-      /// A list of the type scopes for the `SelectionSet` and its enclosing entities.
+      /// A list of the scopes for the `SelectionSet` and its enclosing entities.
       ///
-      /// The selection set's type scope is the last element in the list.
+      /// The selection set's `scope` is the last element in the list.
       let scopePath: LinkedList<ScopeDescriptor>
 
-      /// Describes all of the types the selection set matches.
+      /// Describes all of the types and inclusion conditions the selection set matches.
       /// Derived from all the selection set's parents.
       var scope: ScopeDescriptor { scopePath.last.value }
 

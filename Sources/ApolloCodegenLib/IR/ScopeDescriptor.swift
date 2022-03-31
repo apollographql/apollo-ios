@@ -2,7 +2,6 @@ import Foundation
 import OrderedCollections
 import ApolloUtils
 
-#warning("TODO: Update Docs")
 extension IR {
 
   struct ScopeCondition: Hashable, CustomDebugStringConvertible {
@@ -34,12 +33,11 @@ extension IR {
 
     /// The parentType of the `SelectionSet`.
     ///
-    /// Should always be equivalent to the last "type" value of the `typePath`.
+    /// Should always be equivalent to the last "type" value of the `scopePath`.
     let type: GraphQLCompositeType
 
-    /// A list of the parent types for the selection set and it's parents on the same entity.
-    ///
-    /// The last element in the list is equal to the parent type for the `SelectionSet`
+    /// A list of the parent types/conditions for the selection set and it's parents
+    /// on the same entity.
     ///
     /// For example, given the set of nested selections sets:
     /// ```
@@ -60,7 +58,9 @@ extension IR {
     /// `typePath`, all of those types implemented interfaces, and all unions that include
     /// those types.
     let matchingTypes: TypeScope
-    
+
+    /// All of the inclusion conditions on the entity that must be included for the `SelectionSet`
+    /// to be included.
     let matchingConditions: InclusionConditions?
 
     let allTypesInSchema: IR.Schema.ReferencedTypes
@@ -87,6 +87,7 @@ extension IR {
     ///
     /// - Parameters:
     ///   - forType: The parentType for the entity.
+    ///   - inclusionConditions: The `InclusionConditions` for the `SelectionSet` to be included.
     ///   - givenAllTypesInSchema: The `ReferencedTypes` object that provides information on all of
     ///                            the types in the schema.
     static func descriptor(
@@ -125,11 +126,12 @@ extension IR {
       return newScope
     }
 
-    /// Returns a new `ScopeDescriptor` appending the new `ScopeCondition` to the `scopePath` and
-    /// any new types added to the `matchingTypes`.
+    /// Returns a new `ScopeDescriptor` appending the new `ScopeCondition` to the `scopePath`.
+    /// Any new types are added to the `matchingTypes`, and any new conditions are added to the
+    /// `matchingConditions`.
     ///
-    /// This should be used to create a `ScopeDescriptor` for a type case `SelectionSet` inside
-    /// of an entity, by appending the type case's type to the parent `SelectionSet`'s `typeScope`.
+    /// This should be used to create a `ScopeDescriptor` for a conditional `SelectionSet` inside
+    /// of an entity, by appending the conditions to the parent `SelectionSet`'s `ScopeDescriptor`.
     func appending(_ scopeCondition: ScopeCondition) -> ScopeDescriptor {
       let matchingTypes: TypeScope
       if let newType = scopeCondition.type {
@@ -157,14 +159,19 @@ extension IR {
     }
 
     /// Returns a new `ScopeDescriptor` appending the new type to the `scopePath` and
-    /// `matchingTypes`.
+    /// `matchingConditions`.
     ///
-    /// This should be used to create a `ScopeDescriptor` for a type case `SelectionSet` inside
-    /// of an entity, by appending the type case's type to the parent `SelectionSet`'s `typeScope`.
+    /// This should be used to create a `ScopeDescriptor` for a conditional `SelectionSet` inside
+    /// of an entity, by appending the conditions to the parent `SelectionSet`'s `ScopeDescriptor`.
     func appending(_ newType: GraphQLCompositeType) -> ScopeDescriptor {
       self.appending(.init(type: newType))
     }
 
+    /// Returns a new `ScopeDescriptor` appending the new conditions to the `scopePath` and
+    /// `matchingTypes`.
+    ///
+    /// This should be used to create a `ScopeDescriptor` for a conditional `SelectionSet` inside
+    /// of an entity, by appending the conditions to the parent `SelectionSet`'s `ScopeDescriptor`.
     func appending(_ conditions: InclusionConditions) -> ScopeDescriptor {
       self.appending(.init(conditions: conditions))
     }
