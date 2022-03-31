@@ -22,18 +22,16 @@ protocol TemplateRenderer {
   var target: TemplateTarget { get }
   /// The swift code format.
   var template: TemplateString { get }
-
-  /// Renders the template converting all input values and generating a final String representation
-  /// of the template.
-  ///
-  /// - Parameter config: Shared codegen configuration.
-  /// - Returns: Swift code derived from the template format.
-  func render(forConfig config: ReferenceWrapped<ApolloCodegenConfiguration>) -> String
 }
 
 // MARK: Extensions
 
 extension TemplateRenderer {
+  /// Renders the template converting all input values and generating a final String representation
+  /// of the template.
+  ///
+  /// - Parameter config: Shared codegen configuration.
+  /// - Returns: Swift code derived from the template format.
   func render(forConfig config: ReferenceWrapped<ApolloCodegenConfiguration>) -> String {
     switch target {
     case .schemaFile: return renderSchemaFile(forConfig: config)
