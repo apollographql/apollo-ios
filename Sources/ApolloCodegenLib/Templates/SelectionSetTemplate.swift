@@ -332,7 +332,7 @@ fileprivate extension IR.MergedSelections.MergedSource {
     return selectionSetName
   }
 
-  private func generatedSelectionSetNameForMergedEntity(in fragment: IR.FragmentSpread) -> String {
+  private func generatedSelectionSetNameForMergedEntity(in fragment: IR.NamedFragment) -> String {
     let selectionSetName = ApolloCodegenLib.generatedSelectionSetName(
       from: typeInfo.scopePath.head.next!,
       withFieldPath: Array(typeInfo.entity.fieldPath.toArray().dropFirst())
@@ -340,7 +340,7 @@ fileprivate extension IR.MergedSelections.MergedSource {
 
     return "\(fragment.definition.name).\(selectionSetName)"
   }
-  
+
 }
 
 private func generatedSelectionSetName(

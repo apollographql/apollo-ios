@@ -135,6 +135,12 @@ extension IR {
     }
 
     func mergeIn(_ fragment: FragmentSpread) {
+      if let existingFragment = fragments[fragment.hashForSelectionSetScope] {
+        existingFragment.inclusionConditions =
+        (existingFragment.inclusionConditions || fragment.inclusionConditions)
+        return
+      }
+
       fragments[fragment.hashForSelectionSetScope] = fragment
     }
 
@@ -187,11 +193,11 @@ extension IR {
     struct MergedSource: Hashable {
       let typeInfo: SelectionSet.TypeInfo
 
-      /// The `FragmentSpread` that the merged selections were contained in.
+      /// The `NamedFragment` that the merged selections were contained in.
       ///
-      /// - Note: If `fragment` is present, the `typeInfo` is relative to the spread-in fragment,
+      /// - Note: If `fragment` is present, the `typeInfo` is relative to the fragment,
       /// instead of the operation directly.
-      unowned let fragment: FragmentSpread?
+      unowned let fragment: NamedFragment?
     }
 
     typealias MergedSources = Set<MergedSource>

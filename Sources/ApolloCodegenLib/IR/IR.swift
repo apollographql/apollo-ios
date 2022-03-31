@@ -155,7 +155,11 @@ class IR {
     }
 
     var debugDescription: String {
-      fragment.debugDescription
+      var description = fragment.debugDescription
+      if let inclusionConditions = inclusionConditions {
+        description += " \(inclusionConditions.debugDescription)"
+      }
+      return description
     }
   }
   

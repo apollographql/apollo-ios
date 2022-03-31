@@ -200,14 +200,13 @@ export function compileToIR(
 
   function compileSelectionSet(
     selectionSetNode: SelectionSetNode,
-    parentType: GraphQLCompositeType,
-    visitedFragments: Set<string> = new Set()
+    parentType: GraphQLCompositeType    
   ): ir.SelectionSet {
     return {
       parentType,
       selections: selectionSetNode.selections
         .map((selectionNode) =>
-          compileSelection(selectionNode, parentType, visitedFragments)
+          compileSelection(selectionNode, parentType)
         )
         .filter(isNotNullOrUndefined),
     };
@@ -215,8 +214,7 @@ export function compileToIR(
 
   function compileSelection(
     selectionNode: SelectionNode,
-    parentType: GraphQLCompositeType,
-    visitedFragments: Set<string>
+    parentType: GraphQLCompositeType    
   ): ir.Selection | undefined {
     const [directives, inclusionConditions] = compileDirectives(selectionNode.directives) ?? [undefined, undefined];
 
@@ -291,9 +289,7 @@ export function compileToIR(
         };
       }
       case Kind.FRAGMENT_SPREAD: {
-        const fragmentName = selectionNode.name.value;
-        if (visitedFragments.has(fragmentName)) return undefined;
-        visitedFragments.add(fragmentName);
+        const fragmentName = selectionNode.name.value;                        
 
         const fragment = getFragment(fragmentName);
         if (!fragment) {

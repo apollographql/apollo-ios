@@ -489,7 +489,7 @@ extension IR.EntitySelectionTree.FieldScopeNode {
       let newSource = source.fragment != nil ?
       source :
       IR.MergedSelections.MergedSource(
-        typeInfo: source.typeInfo, fragment: fragment
+        typeInfo: source.typeInfo, fragment: fragment.fragment
       )
 
       let fields = selections.fields.mapValues { oldField -> IR.Field in

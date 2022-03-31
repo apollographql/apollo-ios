@@ -34,7 +34,7 @@ extension IR.MergedSelections.MergedSource {
     let fragment = try XCTUnwrap(fragment, file: file, line: line)
     return self.init(
       typeInfo: fragment.fragment.rootField.selectionSet.typeInfo,
-      fragment: fragment
+      fragment: fragment.fragment
     )
   }
 
@@ -46,7 +46,7 @@ extension IR.MergedSelections.MergedSource {
   ) throws -> Self {
     self.init(
       typeInfo: try XCTUnwrap(field?.selectionSet?.typeInfo, file: file, line: line),
-      fragment: try XCTUnwrap(fragment, file: file, line: line)
+      fragment: try XCTUnwrap(fragment?.fragment, file: file, line: line)
     )
   }
 }

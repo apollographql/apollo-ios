@@ -114,7 +114,7 @@ extension IR {
 
       buildDirectSelections(
         into: rootIrSelectionSet.selections.direct.unsafelyUnwrapped,
-        atTypePath: rootIrSelectionSet.typeInfo,        
+        atTypePath: rootIrSelectionSet.typeInfo,
         from: rootSelectionSet
       )
 
@@ -180,56 +180,39 @@ extension IR {
           }
 
         case let .fragmentSpread(fragmentSpread):
-          #warning("TODO: dedupe fields?")
-//          if let existingFragmentSpread =
-//              target.fragments[fragmentSpread.hashForSelectionSetScope] {
-//            merge(fragmentSpread, into: existingFragmentSpread)
-//
-//          } else {
+          guard let scope = scopeCondition(for: fragmentSpread, in: typeInfo) else {
+            continue
+          }
+          let selectionSetScope = typeInfo.scope
 
-            guard let scope = scopeCondition(for: fragmentSpread, in: typeInfo) else {
-              continue
-            }
-            let selectionSetScope = typeInfo.scope
+          var matchesType: Bool {
+            guard let typeCondition = scope.type else { return true }
+            return selectionSetScope.matches(typeCondition)
+          }
 
-            var matchesType: Bool {
-              guard let typeCondition = scope.type else { return true }
-              return selectionSetScope.matches(typeCondition)
-            }
+          if matchesType {
+            let irFragmentSpread = buildFragmentSpread(
+              fromFragment: fragmentSpread,
+              with: scope,
+              spreadIntoParentWithTypePath: typeInfo
+            )
+            target.mergeIn(irFragmentSpread)
 
-            if matchesType {
-              let irFragmentSpread = buildFragmentSpread(
-                fromFragment: fragmentSpread,
-                with: scope,
-                spreadIntoParentWithTypePath: typeInfo
-              )
-              target.mergeIn(irFragmentSpread)
+          } else {
+            let irTypeCaseEnclosingFragment = buildConditionalSelectionSet(
+              from: CompilationResult.SelectionSet(
+                parentType: fragmentSpread.parentType,
+                selections: [selection]
+              ),
+              with: scope,
+              inParentTypePath: typeInfo
+            )
 
-            } else {
-              let irTypeCaseEnclosingFragment = buildConditionalSelectionSet(
-                from: CompilationResult.SelectionSet(
-                  parentType: fragmentSpread.parentType,
-                  selections: [selection]
-                ),
-                with: scope,
-                inParentTypePath: typeInfo
-              )
-
-              target.mergeIn(irTypeCaseEnclosingFragment)
-            }
-//          }
+            target.mergeIn(irTypeCaseEnclosingFragment)
+          }
         }
       }
     }
-
-//    private func merge(
-//      _ fragmentSpread: CompilationResult.FragmentSpread,
-//      into existingFragmentSpread: IR.FragmentSpread
-//    ) {
-////      guard let scope = scopeCondition(for: fragmentSpread, in: typeInfo) else {
-////        continue
-////      }
-//    }
 
     private func scopeCondition(
       for conditionalSelectionSet: ConditionallyIncludable,
@@ -368,7 +351,7 @@ extension IR {
       
       return fragmentSpread
     }
-
+    
   }
 }
 
