@@ -6,7 +6,7 @@ import Nimble
 
 class TemplateRenderer_SchemaFile_Tests: XCTestCase {
   private var config: ReferenceWrapped<ApolloCodegenConfiguration>!
-  private var subject: MockTemplate = .mock(target: .schemaFile)
+  private var subject: MockFileTemplate = .mock(target: .schemaFile)
 
   override func tearDown() {
     config = nil
