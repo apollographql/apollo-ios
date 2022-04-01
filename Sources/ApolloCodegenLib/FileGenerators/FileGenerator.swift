@@ -1,19 +1,30 @@
 import Foundation
 import ApolloUtils
 
+// MARK: FileGenerator (protocol and extension)
+
 /// The methods to conform to when building a code generation Swift file generator.
 protocol FileGenerator {
-  /// The output path that the file will be written to.
-  var path: String { get }
-  /// The file content in UTF-8 encoding.
-  var data: Data? { get }
-
-  /// Writes `data` to a file at the designated `path`. If the file already exists it will be overwritten.
-  func generateFile(fileManager: FileManager) throws
+  var fileName: String { get }
+  var template: TemplateRenderer { get }
+  var target: FileTarget { get }
 }
 
 extension FileGenerator {
-  func generateFile(fileManager: FileManager = FileManager.default) throws {
-    try fileManager.apollo.createFile(atPath: path, data: data)
+  /// Generates the file writing the template content to the specified config output paths.
+  ///
+  /// - Parameters:
+  ///   - config: Shared codegen configuration.
+  ///   - fileManager: The `FileManager` object used to create the file. Defaults to `FileManager.default`.
+  func generate(
+    forConfig config: ReferenceWrapped<ApolloCodegenConfiguration>,
+    fileManager: FileManager = FileManager.default
+  ) throws {
+    let directoryPath = target.resolvePath(forConfig: config)
+    let filePath = URL(fileURLWithPath: directoryPath).appendingPathComponent(fileName).path
+
+    let rendered: String = template.render(forConfig: config)
+
+    try fileManager.apollo.createFile(atPath: filePath, data: rendered.data(using: .utf8))
   }
 }
