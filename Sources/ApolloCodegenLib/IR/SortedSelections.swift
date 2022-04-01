@@ -179,6 +179,18 @@ extension IR {
       var fragments: OrderedDictionary<String, FragmentSpread> { value.fragments }
     }
 
+    struct GroupedByInclusionCondition {
+
+      let unconditionalSelections: DirectSelections.ReadOnly
+      let inclusionConditionGroups: OrderedDictionary<AnyOf<IR.InclusionConditions>, DirectSelections.ReadOnly>
+
+      init(_ directSelections: DirectSelections) {
+        #warning("TODO")
+        unconditionalSelections = directSelections.readOnlyView
+        inclusionConditionGroups = [:]
+      }
+    }
+
   }
 
   class MergedSelections: Equatable, CustomDebugStringConvertible {
