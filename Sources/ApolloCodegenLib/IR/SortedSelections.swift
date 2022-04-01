@@ -116,13 +116,6 @@ extension IR {
     }
 
     func mergeIn(_ conditionalSelectionSet: SelectionSet) {
-      #warning("""
-      TODO: I think this is wrong. TDD.
-
-      The last Scope Condition i think is not enough info.
-      You'll need the parentType no matter what,
-      PLUS (I think) ALL the nested inclusion conditions combined.
-      """)
       let scopeCondition = conditionalSelectionSet.scope.scopePath.last.value
 
       if let existingTypeCase = conditionalSelectionSets[scopeCondition] {
@@ -170,7 +163,7 @@ extension IR {
       """
       Fields: \(fields.values.elements)
       InlineFragments: \(conditionalSelectionSets.values.elements.map(\.conditionalSelectionSetDebugDescription))
-      Fragments: \(fragments.values.elements.map(\.definition.name))
+      Fragments: \(fragments.values.elements.map(\.debugDescription))
       """
     }
 
@@ -216,6 +209,22 @@ extension IR {
     ) {
       self.directSelections = directSelections
       self.typeInfo = typeInfo
+
+      createConditionalSelectionSetsForConditionalFragmentSpreads(in: directSelections)
+    }
+
+    private func createConditionalSelectionSetsForConditionalFragmentSpreads(
+      in directSelections: DirectSelections.ReadOnly?
+    ) {
+      directSelections?.fragments.values.forEach { fragment in
+        if let anyOfConditions = fragment.inclusionConditions {
+          for conditions in anyOfConditions.elements {
+            createShallowlyMergedConditionalSelectionSetIfNeeded(
+              with: ScopeCondition(conditions: conditions)
+            )
+          }
+        }
+      }
     }
 
     func mergeIn(_ selections: EntityTreeScopeSelections, from source: MergedSource) {
@@ -275,24 +284,25 @@ extension IR {
     func addMergedConditionalSelectionSet(with condition: ScopeCondition) {
       guard typeInfo.isEntityRoot else { return }
 
+      createShallowlyMergedConditionalSelectionSetIfNeeded(with: condition)
+    }
+
+    private func createShallowlyMergedConditionalSelectionSetIfNeeded(
+      with condition: ScopeCondition
+    ) {
       if let directSelections = directSelections,
          directSelections.conditionalSelectionSets.keys.contains(condition) {
         return
       }
 
-      conditionalSelectionSets[condition] = createShallowlyMergedConditionalSelectionSet(
-        with: condition
-      )
-    }
+      guard !conditionalSelectionSets.keys.contains(condition) else { return }
 
-    private func createShallowlyMergedConditionalSelectionSet(
-      with condition: ScopeCondition
-    ) -> SelectionSet {
-      return IR.SelectionSet(
+      let selectionSet = IR.SelectionSet(
         entity: self.typeInfo.entity,        
         scopePath: self.typeInfo.scopePath.mutatingLast { $0.appending(condition) },
         mergedSelectionsOnly: true
       )
+      conditionalSelectionSets[condition] = selectionSet
     }
 
     var isEmpty: Bool {

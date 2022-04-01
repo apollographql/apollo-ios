@@ -1917,74 +1917,95 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
     expect(allAnimals?[if: "b"]).to(shallowlyMatch(expected_allAnimal_ifB))
   }
 
-//  func test__selections__givenDuplicateNamedFragmentWithDifferentConditions_createsDeduplicatedInclusionCondition() throws {
-//    // given
-//    schemaSDL = """
-//    type Query {
-//      allAnimals: [Animal!]
-//    }
-//
-//    interface Animal {
-//      a: String!
-//      friend: Animal!
-//    }
-//    """
-//
-//    document = """
-//    query Test($a: Boolean!) {
-//      allAnimals {
-//        ...FragmentA @include(if: $a) @include(if: $b)
-//        ...FragmentA @include(if: $c)
-//      }
-//    }
-//
-//    fragment FragmentA on Animal {
-//      a
-//    }
-//    """
-//
-//    // when
-//    try buildSubjectRootField()
-//
-//    let Interface_Animal = try XCTUnwrap(schema[interface: "Animal"])
-//    let FragmentA = try XCTUnwrap(ir.compilationResult[fragment: "FragmentA"])
-//
-//    let allAnimals = self.subject[field: "allAnimals"]
-//
-//    let expected_allAnimal = SelectionSetMatcher(
-//      parentType: Interface_Animal,
-//      inclusionConditions: nil,
-//      directSelections: [
-//        .fragmentSpread(FragmentA, inclusionConditions: [.include(if: "a"), .include(if: "b")]),
-//      ],
-//      mergedSelections: [
-//        .inlineFragment(parentType: Interface_Animal,
-//                              inclusionConditions: [.include(if: "a")])),
-//        .inlineFragment(parentType: Interface_Animal,
-//                              inclusionConditions: [.include(if: "b")])),
-//      ],
-//      mergedSources: []
-//    )
-//
-//    let expected_allAnimal_ifAOrB = try SelectionSetMatcher(
-//      parentType: Interface_Animal,
-//      inclusionConditions: [.include(if: "a"), .include(if: "b")],
-//      directSelections: nil,
-//      mergedSelections: [
-//        .field("a", type: .nonNull(.scalar(.string())))),
-//        .fragmentSpread(FragmentA, inclusionConditions: [.include(if: "a"), .include(if: "b")]),
-//      ],
-//      mergedSources: [
-//        .mock(allAnimals),
-//        .mock(allAnimals?[fragment: "FragmentA"]),
-//      ]
-//    )
-//
-//    // then
-//    expect(allAnimals?.selectionSet).to(shallowlyMatch(expected_allAnimal))
-//
-//    expect(allAnimals?[if: "a" && "b"]).to(shallowlyMatch(expected_allAnimal_ifAOrB))
-//  }
+  func test__selections__givenNamedFragmentWithCompoundConditionsAndDuplicateWithDifferentConditions_createsDeduplicatedInclusionCondition() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      a: String!
+      friend: Animal!
+    }
+    """
+
+    document = """
+    query Test($a: Boolean!) {
+      allAnimals {
+        ...FragmentA @include(if: $a) @include(if: $b)
+        ...FragmentA @include(if: $c)
+      }
+    }
+
+    fragment FragmentA on Animal {
+      a
+    }
+    """
+
+    // when
+    try buildSubjectRootField()
+
+    let Interface_Animal = try XCTUnwrap(schema[interface: "Animal"])
+    let FragmentA = try XCTUnwrap(ir.compilationResult[fragment: "FragmentA"])
+
+    let allAnimals = self.subject[field: "allAnimals"]
+    let fragmentASpread: ShallowSelectionMatcher = .fragmentSpread(
+      FragmentA,
+      inclusionConditions: AnyOf([
+        try .allOf([IR.InclusionCondition.include(if: "a"),
+                    IR.InclusionCondition.include(if: "b")]).conditions.xctUnwrapped(),
+        .init(.include(if: "c"))
+      ]))
+
+    let expected_allAnimal = SelectionSetMatcher(
+      parentType: Interface_Animal,
+      inclusionConditions: nil,
+      directSelections: [
+        fragmentASpread
+      ],
+      mergedSelections: [
+        .inlineFragment(parentType: Interface_Animal,
+                        inclusionConditions: [.include(if: "a"), .include(if: "b")]),
+        .inlineFragment(parentType: Interface_Animal,
+                        inclusionConditions: [.include(if: "c")]),
+      ],
+      mergedSources: []
+    )
+
+    let expected_allAnimal_ifAAndB = try SelectionSetMatcher(
+      parentType: Interface_Animal,
+      inclusionConditions: [.include(if: "a"), .include(if: "b")],
+      directSelections: nil,
+      mergedSelections: [
+        .field("a", type: .nonNull(.scalar(.string()))),
+        fragmentASpread
+      ],
+      mergedSources: [
+        .mock(allAnimals),
+        .mock(allAnimals?[fragment: "FragmentA"]),
+      ]
+    )
+
+    let expected_allAnimal_ifC = try SelectionSetMatcher(
+      parentType: Interface_Animal,
+      inclusionConditions: [.include(if: "c")],
+      directSelections: nil,
+      mergedSelections: [
+        .field("a", type: .nonNull(.scalar(.string()))),
+        fragmentASpread
+      ],
+      mergedSources: [
+        .mock(allAnimals),
+        .mock(allAnimals?[fragment: "FragmentA"]),
+      ]
+    )
+
+    // then
+    expect(allAnimals?.selectionSet).to(shallowlyMatch(expected_allAnimal))
+    expect(allAnimals?[if: "a" && "b"]).to(shallowlyMatch(expected_allAnimal_ifAAndB))
+    expect(allAnimals?[if: "c"]).to(shallowlyMatch(expected_allAnimal_ifC))
+  }
 
   func test__selections__givenTwoIncludeIfNamedFragments_withSameCondition_createsSelectionWithInclusionCondition() throws {
     // given
@@ -2063,84 +2084,100 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
     expect(allAnimals?[if: "a"]).to(shallowlyMatch(expected_allAnimal_ifA))
   }
 
-//  func test__selections__namedFragmentWithConditionInInlineFragment_withMatchingConditions_mergesNamedFragmentWithInclusionCondition() throws {
-//    // given
-//    schemaSDL = """
-//    type Query {
-//      allAnimals: [Animal!]
-//    }
-//
-//    interface Animal {
-//      a: String!
-//      b: String!
-//      friend: Animal!
-//    }
-//    """
-//
-//    document = """
-//    query Test($a: Boolean!) {
-//      allAnimals {
-//        ... @include(if: $b) {
-//          ...FragmentA @include(if: $a)
-//        }
-//        ...FragmentB @include(if: $b)
-//      }
-//    }
-//
-//    fragment FragmentA on Animal {
-//      a
-//    }
-//
-//    fragment FragmentB on Animal {
-//      b
-//    }
-//    """
-//
-//    // when
-//    try buildSubjectRootField()
-//
-//    let Interface_Animal = try XCTUnwrap(schema[interface: "Animal"])
-//    let FragmentA = try XCTUnwrap(ir.compilationResult[fragment: "FragmentA"])
-//    let FragmentB = try XCTUnwrap(ir.compilationResult[fragment: "FragmentB"])
-//
-//    let allAnimals = self.subject[field: "allAnimals"]
-//
-//    let expected_allAnimal = SelectionSetMatcher(
-//      parentType: Interface_Animal,
-//      inclusionConditions: nil,
-//      directSelections: [
-//        .inlineFragment(parentType: Interface_Animal,
-//                              inclusionConditions: [.include(if: "b")])),
-//        .fragmentSpread(FragmentB, inclusionConditions: [.include(if: "b")]),
-//      ],
-//      mergedSelections: [
-//        .inlineFragment(parentType: Interface_Animal,
-//                              inclusionConditions: [.include(if: "a")])),
-//      ],
-//      mergedSources: []
-//    )
-//
-//    let expected_allAnimal_ifA = try SelectionSetMatcher(
-//      parentType: Interface_Animal,
-//      inclusionConditions: [.include(if: "a")],
-//      directSelections: nil,
-//      mergedSelections: [
-//        .field("a", type: .nonNull(.scalar(.string())))),
-//        .field("b", type: .nonNull(.scalar(.string())))),
-//        .fragmentSpread(FragmentA, inclusionConditions: [.include(if: "a")]),
-//        .fragmentSpread(FragmentB, inclusionConditions: [.include(if: "a")]),
-//      ],
-//      mergedSources: [
-//        .mock(allAnimals),
-//        .mock(allAnimals?[fragment: "FragmentA"]),
-//        .mock(allAnimals?[fragment: "FragmentB"]),
-//      ]
-//    )
-//
-//    // then
-//    expect(allAnimals?.selectionSet).to(shallowlyMatch(expected_allAnimal))
-//
-//    expect(allAnimals?[if: "a"]).to(shallowlyMatch(expected_allAnimal_ifA))
-//  }
+  func test__selections__namedFragmentWithConditionInInlineFragment_withMatchingConditions_mergesNamedFragmentWithInclusionCondition() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      a: String!
+      b: String!
+      friend: Animal!
+    }
+    """
+
+    document = """
+    query Test($a: Boolean!) {
+      allAnimals {
+        ... @include(if: $b) {
+          ...FragmentA @include(if: $a)
+        }
+        ...FragmentB @include(if: $b)
+      }
+    }
+
+    fragment FragmentA on Animal {
+      a
+    }
+
+    fragment FragmentB on Animal {
+      b
+    }
+    """
+
+    // when
+    try buildSubjectRootField()
+
+    let Interface_Animal = try XCTUnwrap(schema[interface: "Animal"])
+    let FragmentA = try XCTUnwrap(ir.compilationResult[fragment: "FragmentA"])
+    let FragmentB = try XCTUnwrap(ir.compilationResult[fragment: "FragmentB"])
+
+    let allAnimals = self.subject[field: "allAnimals"]
+
+    let expected_allAnimal = SelectionSetMatcher(
+      parentType: Interface_Animal,
+      inclusionConditions: nil,
+      directSelections: [
+        .inlineFragment(parentType: Interface_Animal,
+                        inclusionConditions: [.include(if: "b")]),
+        .fragmentSpread(FragmentB, inclusionConditions: [.include(if: "b")]),
+      ],
+      mergedSelections: [],
+      mergedSources: []
+    )
+
+    let expected_allAnimal_ifB = try SelectionSetMatcher(
+      parentType: Interface_Animal,
+      inclusionConditions: [.include(if: "b")],
+      directSelections: [
+        .fragmentSpread(FragmentA, inclusionConditions: [.include(if: "a")]),
+      ],
+      mergedSelections: [
+        .field("b", type: .nonNull(.scalar(.string()))),
+        .fragmentSpread(FragmentB, inclusionConditions: [.include(if: "b")]),
+        .inlineFragment(parentType: Interface_Animal,
+                        inclusionConditions: [.include(if: "a")]),
+      ],
+      mergedSources: [
+        .mock(allAnimals?[fragment: "FragmentB"]),
+        .mock(allAnimals),
+      ]
+    )
+
+    let expected_allAnimal_ifB_IfA = try SelectionSetMatcher(
+      parentType: Interface_Animal,
+      inclusionConditions: [.include(if: "a")],
+      directSelections: nil,
+      mergedSelections: [
+        .field("b", type: .nonNull(.scalar(.string()))),
+        .field("a", type: .nonNull(.scalar(.string()))),
+        .fragmentSpread(FragmentB, inclusionConditions: [.include(if: "b")]),
+        .fragmentSpread(FragmentA, inclusionConditions: [.include(if: "a")]),
+      ],
+      mergedSources: [
+        .mock(allAnimals),
+        .mock(allAnimals?[if: "b"]),
+        .mock(allAnimals?[if: "b"]?[fragment: "FragmentA"]),
+        .mock(allAnimals?[fragment: "FragmentB"]),
+      ]
+    )
+
+    // then
+    expect(allAnimals?.selectionSet).to(shallowlyMatch(expected_allAnimal))
+    expect(allAnimals?[if: "b"]).to(shallowlyMatch(expected_allAnimal_ifB))
+    expect(allAnimals?[if: "b"]?[if: "a"]).to(shallowlyMatch(expected_allAnimal_ifB_IfA))
+  }
 
 }
