@@ -6,7 +6,7 @@ extension IR {
   class DirectSelections: Equatable, CustomDebugStringConvertible {
 
     fileprivate(set) var fields: OrderedDictionary<String, Field> = [:]
-    fileprivate(set) var conditionalSelectionSets: OrderedDictionary<ScopeCondition, SelectionSet> = [:]
+    fileprivate(set) var inlineFragments: OrderedDictionary<ScopeCondition, SelectionSet> = [:]
     fileprivate(set) var fragments: OrderedDictionary<String, FragmentSpread> = [:]
 
     init() {}
@@ -33,7 +33,7 @@ extension IR {
 
     func mergeIn(_ selections: DirectSelections) {
       mergeIn(selections.fields.values)
-      mergeIn(selections.conditionalSelectionSets.values)
+      mergeIn(selections.inlineFragments.values)
       mergeIn(selections.fragments.values)
     }
 
@@ -118,12 +118,12 @@ extension IR {
     func mergeIn(_ conditionalSelectionSet: SelectionSet) {
       let scopeCondition = conditionalSelectionSet.scope.scopePath.last.value
 
-      if let existingTypeCase = conditionalSelectionSets[scopeCondition] {
+      if let existingTypeCase = inlineFragments[scopeCondition] {
         existingTypeCase.selections.direct!
           .mergeIn(conditionalSelectionSet.selections.direct!)
 
       } else {
-        conditionalSelectionSets[scopeCondition] = conditionalSelectionSet
+        inlineFragments[scopeCondition] = conditionalSelectionSet
       }
     }
 
@@ -150,19 +150,19 @@ extension IR {
     }
 
     var isEmpty: Bool {
-      fields.isEmpty && conditionalSelectionSets.isEmpty && fragments.isEmpty
+      fields.isEmpty && inlineFragments.isEmpty && fragments.isEmpty
     }
 
     static func == (lhs: DirectSelections, rhs: DirectSelections) -> Bool {
       lhs.fields == rhs.fields &&
-      lhs.conditionalSelectionSets == rhs.conditionalSelectionSets &&
+      lhs.inlineFragments == rhs.inlineFragments &&
       lhs.fragments == rhs.fragments
     }
 
     var debugDescription: String {
       """
       Fields: \(fields.values.elements)
-      InlineFragments: \(conditionalSelectionSets.values.elements.map(\.conditionalSelectionSetDebugDescription))
+      InlineFragments: \(inlineFragments.values.elements.map(\.inlineFragmentDebugDescription))
       Fragments: \(fragments.values.elements.map(\.debugDescription))
       """
     }
@@ -175,7 +175,7 @@ extension IR {
       fileprivate let value: DirectSelections
 
       var fields: OrderedDictionary<String, Field> { value.fields }
-      var conditionalSelectionSets: OrderedDictionary<ScopeCondition, SelectionSet> { value.conditionalSelectionSets }
+      var inlineFragments: OrderedDictionary<ScopeCondition, SelectionSet> { value.inlineFragments }
       var fragments: OrderedDictionary<String, FragmentSpread> { value.fragments }
     }
 
@@ -200,7 +200,7 @@ extension IR {
     
     fileprivate(set) var mergedSources: MergedSources = []
     fileprivate(set) var fields: OrderedDictionary<String, Field> = [:]
-    fileprivate(set) var conditionalSelectionSets: OrderedDictionary<ScopeCondition, SelectionSet> = [:]
+    fileprivate(set) var inlineFragments: OrderedDictionary<ScopeCondition, SelectionSet> = [:]
     fileprivate(set) var fragments: OrderedDictionary<String, FragmentSpread> = [:]
 
     init(
@@ -219,7 +219,7 @@ extension IR {
       directSelections?.fragments.values.forEach { fragment in
         if let anyOfConditions = fragment.inclusionConditions {
           for conditions in anyOfConditions.elements {
-            createShallowlyMergedConditionalSelectionSetIfNeeded(
+            createShallowlyMergedInlineFragmentIfNeeded(
               with: ScopeCondition(conditions: conditions)
             )
           }
@@ -281,38 +281,38 @@ extension IR {
       return true
     }
 
-    func addMergedConditionalSelectionSet(with condition: ScopeCondition) {
+    func addMergedInlineFragment(with condition: ScopeCondition) {
       guard typeInfo.isEntityRoot else { return }
 
-      createShallowlyMergedConditionalSelectionSetIfNeeded(with: condition)
+      createShallowlyMergedInlineFragmentIfNeeded(with: condition)
     }
 
-    private func createShallowlyMergedConditionalSelectionSetIfNeeded(
+    private func createShallowlyMergedInlineFragmentIfNeeded(
       with condition: ScopeCondition
     ) {
       if let directSelections = directSelections,
-         directSelections.conditionalSelectionSets.keys.contains(condition) {
+         directSelections.inlineFragments.keys.contains(condition) {
         return
       }
 
-      guard !conditionalSelectionSets.keys.contains(condition) else { return }
+      guard !inlineFragments.keys.contains(condition) else { return }
 
       let selectionSet = IR.SelectionSet(
         entity: self.typeInfo.entity,        
         scopePath: self.typeInfo.scopePath.mutatingLast { $0.appending(condition) },
         mergedSelectionsOnly: true
       )
-      conditionalSelectionSets[condition] = selectionSet
+      inlineFragments[condition] = selectionSet
     }
 
     var isEmpty: Bool {
-      fields.isEmpty && conditionalSelectionSets.isEmpty && fragments.isEmpty
+      fields.isEmpty && inlineFragments.isEmpty && fragments.isEmpty
     }
 
     static func == (lhs: MergedSelections, rhs: MergedSelections) -> Bool {
       lhs.mergedSources == rhs.mergedSources &&
       lhs.fields == rhs.fields &&
-      lhs.conditionalSelectionSets == rhs.conditionalSelectionSets &&
+      lhs.inlineFragments == rhs.inlineFragments &&
       lhs.fragments == rhs.fragments
     }
 
@@ -320,7 +320,7 @@ extension IR {
       """
       Merged Sources: \(mergedSources)
       Fields: \(fields.values.elements)
-      InlineFragments: \(conditionalSelectionSets.values.elements.map(\.conditionalSelectionSetDebugDescription))
+      InlineFragments: \(inlineFragments.values.elements.map(\.inlineFragmentDebugDescription))
       Fragments: \(fragments.values.elements.map(\.debugDescription))
       """
     }
@@ -330,7 +330,7 @@ extension IR {
 }
 
 fileprivate extension IR.SelectionSet {
-  var conditionalSelectionSetDebugDescription: String {
+  var inlineFragmentDebugDescription: String {
     var string = typeInfo.parentType.debugDescription
     if let conditions = typeInfo.inclusionConditions {
       string += " \(conditions.debugDescription)"

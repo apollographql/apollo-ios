@@ -247,7 +247,7 @@ extension IR {
               node.mergeSelections(matchingScopePath: typePathNode, into: selections)
 
             } else {
-              selections.addMergedConditionalSelectionSet(with: condition)
+              selections.addMergedInlineFragment(with: condition)
             }
           }
         }

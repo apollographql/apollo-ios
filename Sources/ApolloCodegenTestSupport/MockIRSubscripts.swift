@@ -79,7 +79,7 @@ extension IR.DirectSelections: ScopeConditionalSubscriptAccessing {
   }
 
   public subscript(conditions: IR.ScopeCondition) -> IR.SelectionSet? {
-    conditionalSelectionSets[conditions]
+    inlineFragments[conditions]
   }
 
   public subscript(fragment fragment: String) -> IR.FragmentSpread? {
@@ -93,7 +93,7 @@ extension IR.MergedSelections: ScopeConditionalSubscriptAccessing {
   }
 
   public subscript(conditions: IR.ScopeCondition) -> IR.SelectionSet? {
-    conditionalSelectionSets[conditions]
+    inlineFragments[conditions]
   }
 
   public subscript(fragment fragment: String) -> IR.FragmentSpread? {
@@ -151,7 +151,7 @@ extension IR.SelectionSet.Selections: ScopeConditionalSubscriptAccessing {
   }
 
   public subscript(conditions: IR.ScopeCondition) -> IR.SelectionSet? {
-    return direct?.conditionalSelectionSets[conditions] ?? merged.conditionalSelectionSets[conditions]
+    return direct?.inlineFragments[conditions] ?? merged.inlineFragments[conditions]
   }
 
   public subscript(fragment fragment: String) -> IR.FragmentSpread? {
