@@ -26,7 +26,7 @@ extension IR {
 
   typealias TypeScope = Set<GraphQLCompositeType>
 
-  /// Defines the scope for an `IR.SelectionSet`. The "scope" indicates where in the entity the
+  /// Defines the scope for an `IR.SelectionSet`. The "scope" indicates where in the entity the
   /// selection set is located, what types the `SelectionSet` implements, and what inclusion
   /// conditions it requires.
   struct ScopeDescriptor: Hashable {
