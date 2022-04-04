@@ -383,12 +383,14 @@
 		E68D824727A228A80040A46F /* SchemaModuleFileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68D824627A228A80040A46F /* SchemaModuleFileGenerator.swift */; };
 		E69BEDA52798B86D00000D10 /* InputObjectTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69BEDA42798B86D00000D10 /* InputObjectTemplate.swift */; };
 		E69BEDA72798B89600000D10 /* InputObjectTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69BEDA62798B89600000D10 /* InputObjectTemplateTests.swift */; };
+		E6A6866427F63AEF008A1D13 /* FileGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A6866327F63AEF008A1D13 /* FileGeneratorTests.swift */; };
 		E6A6866627F63BDC008A1D13 /* FileGenerator_ResolvePath_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A6866527F63BDC008A1D13 /* FileGenerator_ResolvePath_Tests.swift */; };
 		E6B42D0927A472A700A3BD58 /* SwiftPackageManagerModuleTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B42D0827A472A700A3BD58 /* SwiftPackageManagerModuleTemplate.swift */; };
 		E6B42D0B27A4746800A3BD58 /* SchemaModuleFileGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B42D0A27A4746800A3BD58 /* SchemaModuleFileGeneratorTests.swift */; };
 		E6B42D0D27A4749100A3BD58 /* SwiftPackageManagerModuleTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B42D0C27A4749100A3BD58 /* SwiftPackageManagerModuleTemplateTests.swift */; };
 		E6B4E9982798A8C6004EC8C4 /* FragmentTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5FD60C2769711E0033EE23 /* FragmentTemplateTests.swift */; };
 		E6B4E9992798A8CB004EC8C4 /* InterfaceTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E623FD2B2797A700008B4CED /* InterfaceTemplateTests.swift */; };
+		E6BEEFA627FAB1C700D94FF4 /* MockFileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BEEFA527FAB1C700D94FF4 /* MockFileGenerator.swift */; };
 		E6BF98FC272C8FFC00C1FED8 /* MockFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BF98FB272C8FFC00C1FED8 /* MockFileManager.swift */; };
 		E6C4267B26F16CB400904AD2 /* introspection_response.json in Resources */ = {isa = PBXBuildFile; fileRef = E6C4267A26F16CB400904AD2 /* introspection_response.json */; };
 		E6C9849327929EBE009481BE /* EnumTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C9849227929EBE009481BE /* EnumTemplate.swift */; };
@@ -1119,10 +1121,12 @@
 		E68D824627A228A80040A46F /* SchemaModuleFileGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaModuleFileGenerator.swift; sourceTree = "<group>"; };
 		E69BEDA42798B86D00000D10 /* InputObjectTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputObjectTemplate.swift; sourceTree = "<group>"; };
 		E69BEDA62798B89600000D10 /* InputObjectTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputObjectTemplateTests.swift; sourceTree = "<group>"; };
+		E6A6866327F63AEF008A1D13 /* FileGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileGeneratorTests.swift; sourceTree = "<group>"; };
 		E6A6866527F63BDC008A1D13 /* FileGenerator_ResolvePath_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileGenerator_ResolvePath_Tests.swift; sourceTree = "<group>"; };
 		E6B42D0827A472A700A3BD58 /* SwiftPackageManagerModuleTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftPackageManagerModuleTemplate.swift; sourceTree = "<group>"; };
 		E6B42D0A27A4746800A3BD58 /* SchemaModuleFileGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaModuleFileGeneratorTests.swift; sourceTree = "<group>"; };
 		E6B42D0C27A4749100A3BD58 /* SwiftPackageManagerModuleTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftPackageManagerModuleTemplateTests.swift; sourceTree = "<group>"; };
+		E6BEEFA527FAB1C700D94FF4 /* MockFileGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFileGenerator.swift; sourceTree = "<group>"; };
 		E6BF98FB272C8FFC00C1FED8 /* MockFileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockFileManager.swift; sourceTree = "<group>"; };
 		E6C4267A26F16CB400904AD2 /* introspection_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = introspection_response.json; sourceTree = "<group>"; };
 		E6C9849227929EBE009481BE /* EnumTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumTemplate.swift; sourceTree = "<group>"; };
@@ -2293,6 +2297,7 @@
 				DEAFB78227064F6900BE02F3 /* MockGraphQLType.swift */,
 				E6BF98FB272C8FFC00C1FED8 /* MockFileManager.swift */,
 				DE5FD5FE276922AA0033EE23 /* MockApolloCodegenConfiguration.swift */,
+				E6BEEFA527FAB1C700D94FF4 /* MockFileGenerator.swift */,
 				E6EFDD0C27E8377200B17FE5 /* MockFileTemplate.swift */,
 				DE5B313F27A482C80051C9D3 /* Resources.swift */,
 				DECD490E262F81BF00924527 /* Info.plist */,
@@ -2451,6 +2456,7 @@
 			isa = PBXGroup;
 			children = (
 				E610D8D8278EA2560023E495 /* EnumFileGeneratorTests.swift */,
+				E6A6866327F63AEF008A1D13 /* FileGeneratorTests.swift */,
 				E6A6866527F63BDC008A1D13 /* FileGenerator_ResolvePath_Tests.swift */,
 				E61F4BF727A8FC8E0049886A /* FragmentFileGeneratorTests.swift */,
 				E6D90D08278FA5C3009CAC5D /* InputObjectFileGeneratorTests.swift */,
@@ -3355,6 +3361,7 @@
 				E64F7EBF27A11B110059C021 /* GraphQLNamedType+SwiftTests.swift in Sources */,
 				DE79642F2769A1EB00978A03 /* IROperationBuilderTests.swift in Sources */,
 				E68D824527A1D8A60040A46F /* ObjectTemplateTests.swift in Sources */,
+				E6A6866427F63AEF008A1D13 /* FileGeneratorTests.swift in Sources */,
 				DE29653B279B3B8200BF9B49 /* SelectionSetTemplate_RenderOperation_Tests.swift in Sources */,
 				E61F4BF827A8FC8E0049886A /* FragmentFileGeneratorTests.swift in Sources */,
 				E657CDBA26FD01D4005834D6 /* ApolloSchemaInternalTests.swift in Sources */,
@@ -3641,6 +3648,7 @@
 				DE363CB327640FBA001EC05B /* GraphQLJSFrontend+TestHelpers.swift in Sources */,
 				DE09F9C3270269E800795949 /* MockJavaScriptObject.swift in Sources */,
 				E6BF98FC272C8FFC00C1FED8 /* MockFileManager.swift in Sources */,
+				E6BEEFA627FAB1C700D94FF4 /* MockFileGenerator.swift in Sources */,
 				DECD4921262F81CE00924527 /* CodegenTestHelper.swift in Sources */,
 				DEAFB78327064F6900BE02F3 /* MockGraphQLType.swift in Sources */,
 				DE12B2D9273C4338003371CC /* MockIRSubscripts.swift in Sources */,
