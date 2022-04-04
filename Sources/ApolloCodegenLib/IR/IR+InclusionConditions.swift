@@ -110,42 +110,6 @@ extension IR {
       Result.conditional(lhs) && rhs
     }
 
-#warning("TODO: Use or remove")
-//    static func ||(_ lhs: Self, rhs: CompilationResult.InclusionCondition) -> Self {
-//      switch rhs {
-//      case .included:
-//        return .included
-//
-//      case .skipped:
-//        return lhs
-//
-//      case let .variable(variable, isInverted):
-//        let newCondition = InclusionCondition(variable, isInverted: isInverted)
-//        return lhs || AllOf.conditions([newCondition])
-//      }
-//    }
-//
-//    fileprivate static func ||(_ lhs: Self, rhs: AllOf) -> Self {
-//      switch (lhs, rhs) {
-//      case (.included, _), (_, .included):
-//        return .included
-//
-//      case (.skipped, .skipped):
-//        return .skipped
-//
-//      case let (.skipped, .conditions(conditions)):
-//        return .conditions([conditions])
-//
-//      case (.conditions, .skipped):
-//        return lhs
-//
-//      case (.conditions(var conditions), .conditions(let newConditions)):
-//        conditions.append(newConditions)
-//        return .conditions(conditions)
-//      }
-//    }
-//
-
     // MARK: - InclusionConditions.Result
 
     enum Result: Hashable {
