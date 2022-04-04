@@ -38,6 +38,6 @@ class InterfaceTemplateTests: XCTestCase {
     let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 6))
+    expect(actual).to(equalLineByLine(expected))
   }
 }
