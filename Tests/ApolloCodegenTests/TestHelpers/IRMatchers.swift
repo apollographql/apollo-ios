@@ -17,10 +17,15 @@ protocol SelectionShallowMatchable {
 }
 
 extension IR.DirectSelections: SelectionShallowMatchable { }
+extension IR.DirectSelections.ReadOnly: SelectionShallowMatchable {}
 extension IR.MergedSelections: SelectionShallowMatchable { }
 extension IR.EntityTreeScopeSelections: SelectionShallowMatchable {
   var inlineFragments: OrderedDictionary<IR.ScopeCondition, TypeCase> { [:] }
 }
+
+typealias SelectionMatcherTuple = (fields: [ShallowFieldMatcher],
+                                   typeCases: [ShallowInlineFragmentMatcher],
+                                   fragments: [ShallowFragmentSpreadMatcher])
 
 // MARK - Custom Matchers
 
@@ -35,9 +40,7 @@ func beEmpty<T: SelectionShallowMatchable>() -> Predicate<T> {
 /// selection sets of the `fields`, `typeCases`, and `fragments`. This is used for conveniently
 /// checking the `MergedSelections` without having to mock out the entire nested selection sets.
 func shallowlyMatch<T: SelectionShallowMatchable>(
-  _ expectedValue: (fields: [ShallowFieldMatcher],
-                    typeCases: [ShallowInlineFragmentMatcher],
-                    fragments: [ShallowFragmentSpreadMatcher])
+  _ expectedValue: SelectionMatcherTuple
 ) -> Predicate<T> {
   return satisfyAllOf([
     shallowlyMatch(expectedValue.fields).mappingActualTo { $0?.fields.values },
@@ -75,7 +78,7 @@ struct SelectionsMatcher {
 
   public init(
     direct: [ShallowSelectionMatcher]?,
-    merged: [ShallowSelectionMatcher],
+    merged: [ShallowSelectionMatcher] = [],
     mergedSources: Set<IR.MergedSelections.MergedSource> = [],
     ignoreMergedSelections: Bool = false
   ) {

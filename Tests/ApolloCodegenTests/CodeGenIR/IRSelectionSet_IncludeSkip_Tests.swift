@@ -2180,4 +2180,167 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
     expect(allAnimals?[if: "b"]?[if: "a"]).to(shallowlyMatch(expected_allAnimal_ifB_IfA))
   }
 
+  // MARK: - Group By Inclusion Conditions
+
+  func test__groupedByInclusionConditions__groupsInclusionConditionsCorrectly() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      a: String
+      b: String
+      c: String
+      d: String
+      e: String
+      f: String
+      g: String
+      h: String
+      i: String
+      j: String
+      k: String
+      l: String
+    }
+
+    interface Pet {
+      pet1: String
+      pet2: String
+      pet3: String
+    }
+    """
+
+    document = """
+    fragment FragB on Animal {
+      b
+    }
+
+    fragment FragG on Animal {
+      g
+    }
+
+    query Test {
+      allAnimals {
+        a @include(if: $a)
+        ...FragB @include(if: $a)
+        ... on Pet @include(if: $a) {
+          pet1
+        }
+        c @include(if: $c)
+        d @include(if: $d)
+        ... on Pet @include(if: $e) {
+          pet2
+        }
+        f
+        ...FragG
+        ... on Pet {
+          pet3
+        }
+        h @include(if: $h1)
+        h @include(if: $h2)
+        i @include(if: $i1) @skip(if: $i2)
+        i @skip(if: $i3)
+        j @include(if: $j) @skip(if: $j)
+        k
+        k @include(if: $k)
+        l @skip(if: $l)
+      }
+    }
+    """
+
+    // when
+    try buildSubjectRootField()
+
+    let Interface_Pet = try XCTUnwrap(schema[interface: "Pet"])
+    let FragmentB = try XCTUnwrap(ir.compilationResult[fragment: "FragB"])
+    let FragmentG = try XCTUnwrap(ir.compilationResult[fragment: "FragG"])
+    let allAnimals = self.subject[field: "allAnimals"]
+
+    let expectedUnconditional: SelectionMatcherTuple = (
+      fields: [
+        .mock("f", type: .string()),
+        .mock("k", type: .string())
+      ],
+      typeCases: [
+        .mock(parentType: Interface_Pet)
+      ],
+      fragments: [
+        .mock(FragmentG)
+      ]
+    )
+
+    let h1Orh2Condition: AnyOf<IR.InclusionConditions> = AnyOf([
+      .init(.include(if: "h1")),
+      .init(.include(if: "h2"))
+    ])
+
+    let i1Andi2Ori3Condition: AnyOf<IR.InclusionConditions> = try AnyOf([
+      (.include(if: "i1") && .skip(if: "i2")).conditions.xctUnwrapped(),
+      .init(.skip(if: "i3"))
+    ])
+
+    let expectedInclusionGroups:
+    OrderedDictionary<AnyOf<IR.InclusionConditions>, SelectionMatcherTuple> = [
+      AnyOf(.include(if: "a")): (
+        fields: [
+          .mock("a", type: .string(), inclusionConditions: AnyOf(.include(if: "a"))),
+        ],
+        typeCases: [
+          .mock(parentType: Interface_Pet, inclusionConditions: [.include(if: "a")])
+        ],
+        fragments: [
+          .mock(FragmentB, inclusionConditions: AnyOf(.include(if: "a")))
+        ]),
+      AnyOf(.include(if: "c")): (
+        fields: [
+          .mock("c", type: .string(), inclusionConditions: AnyOf(.include(if: "c"))),
+        ],
+        typeCases: [],
+        fragments: []),
+      AnyOf(.include(if: "d")): (
+        fields: [
+          .mock("d", type: .string(), inclusionConditions: AnyOf(.include(if: "d"))),
+        ],
+        typeCases: [],
+        fragments: []),
+      AnyOf(.include(if: "e")): (
+        fields: [],
+        typeCases: [
+          .mock(parentType: Interface_Pet, inclusionConditions: [.include(if: "e")])
+        ],
+        fragments: []),
+      h1Orh2Condition: (
+        fields: [
+          .mock("h", type: .string(), inclusionConditions: h1Orh2Condition),
+        ],
+        typeCases: [],
+        fragments: []),
+      i1Andi2Ori3Condition: (
+        fields: [
+          .mock("i", type: .string(), inclusionConditions: i1Andi2Ori3Condition),
+        ],
+        typeCases: [],
+        fragments: []),
+      AnyOf(.skip(if: "l")): (
+        fields: [
+          .mock("l", type: .string(), inclusionConditions: AnyOf(.skip(if: "l"))),
+        ],
+        typeCases: [],
+        fragments: []),
+    ]
+
+    let actual = allAnimals?.selectionSet?.selections.direct?.groupedByInclusionCondition
+
+    // then
+    expect(actual?.unconditionalSelections).to(shallowlyMatch(expectedUnconditional))
+
+    expect(actual?.inclusionConditionGroups.count).to(equal(expectedInclusionGroups.count))
+    for conditionGroup in expectedInclusionGroups.keys {
+      let expectedGroup = try expectedInclusionGroups[conditionGroup].xctUnwrapped()
+      let actualGroup = try actual?.inclusionConditionGroups[conditionGroup].xctUnwrapped()
+      expect(actualGroup).to(shallowlyMatch(expectedGroup))
+    }
+  }
+
 }

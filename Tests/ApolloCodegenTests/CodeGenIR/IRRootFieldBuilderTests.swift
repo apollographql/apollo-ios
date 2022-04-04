@@ -4093,4 +4093,5 @@ class IRRootFieldBuilderTests: XCTestCase {
     // then
     expect(self.computedReferencedFragments).to(equal(expected))
   }
+
 }

@@ -3,6 +3,7 @@ import OrderedCollections
 import ApolloUtils
 
 extension IR {
+
   class DirectSelections: Equatable, CustomDebugStringConvertible {
 
     fileprivate(set) var fields: OrderedDictionary<String, Field> = [:]
@@ -171,23 +172,71 @@ extension IR {
       ReadOnly(value: self)
     }
 
-    struct ReadOnly {
+    struct ReadOnly: Equatable {
       fileprivate let value: DirectSelections
 
       var fields: OrderedDictionary<String, Field> { value.fields }
       var inlineFragments: OrderedDictionary<ScopeCondition, SelectionSet> { value.inlineFragments }
       var fragments: OrderedDictionary<String, FragmentSpread> { value.fragments }
+      var isEmpty: Bool { value.isEmpty }
     }
 
-    struct GroupedByInclusionCondition {
+    var groupedByInclusionCondition: GroupedByInclusionCondition {
+      GroupedByInclusionCondition(self)
+    }
 
-      let unconditionalSelections: DirectSelections.ReadOnly
-      let inclusionConditionGroups: OrderedDictionary<AnyOf<IR.InclusionConditions>, DirectSelections.ReadOnly>
+    class GroupedByInclusionCondition: Equatable {
+
+      private(set) var unconditionalSelections:
+      DirectSelections.ReadOnly = .init(value: DirectSelections())
+
+      private(set) var inclusionConditionGroups:
+      OrderedDictionary<AnyOf<IR.InclusionConditions>, DirectSelections.ReadOnly> = [:]
 
       init(_ directSelections: DirectSelections) {
-        #warning("TODO")
-        unconditionalSelections = directSelections.readOnlyView
-        inclusionConditionGroups = [:]
+        for selection in directSelections.fields {
+          if let condition = selection.value.inclusionConditions {
+            inclusionConditionGroups.updateValue(
+              forKey: condition,
+              default: .init(value: DirectSelections())) { selections in
+                selections.value.fields[selection.key] = selection.value
+              }
+
+          } else {
+            unconditionalSelections.value.fields[selection.key] = selection.value
+          }
+        }
+
+        for selection in directSelections.inlineFragments {
+          if let condition = selection.value.inclusionConditions {
+            inclusionConditionGroups.updateValue(
+              forKey: AnyOf(condition),
+              default: .init(value: DirectSelections())) { selections in
+                selections.value.inlineFragments[selection.key] = selection.value
+              }
+
+          } else {
+            unconditionalSelections.value.inlineFragments[selection.key] = selection.value
+          }
+        }
+
+        for selection in directSelections.fragments {
+          if let condition = selection.value.inclusionConditions {
+            inclusionConditionGroups.updateValue(
+              forKey: condition,
+              default: .init(value: DirectSelections())) { selections in
+                selections.value.fragments[selection.key] = selection.value
+              }
+
+          } else {
+            unconditionalSelections.value.fragments[selection.key] = selection.value
+          }
+        }
+      }
+
+      static func == (lhs: IR.DirectSelections.GroupedByInclusionCondition, rhs: IR.DirectSelections.GroupedByInclusionCondition) -> Bool {
+        lhs.unconditionalSelections == rhs.unconditionalSelections &&
+        lhs.inclusionConditionGroups == rhs.inclusionConditionGroups
       }
     }
 
