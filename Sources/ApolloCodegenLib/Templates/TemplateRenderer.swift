@@ -102,3 +102,42 @@ extension TemplateString {
   }
 }
 
+// MARK: - Header Comment Template
+
+/// Provides the format to identify a file as automatically generated.
+private struct HeaderCommentTemplate {
+  static let template: StaticString =
+    """
+    // @generated
+    // This file was automatically generated and should not be edited.
+    """
+}
+
+// MARK: Import Statement Template
+
+/// Provides the format to import Swift modules required by the template type.
+private struct ImportStatementTemplate {
+  static let template: StaticString =
+    """
+    import ApolloAPI
+    """
+
+  enum SchemaType {
+    static let template: StaticString = ImportStatementTemplate.template
+  }
+
+  enum Operation {
+    static func template(forConfig config: ReferenceWrapped<ApolloCodegenConfiguration>) -> TemplateString {
+      """
+      \(ImportStatementTemplate.template)
+      \(if: shouldImportSchemaModule(config.output), "import \(config.output.schemaTypes.schemaName)")
+      """
+    }
+
+    private static func shouldImportSchemaModule(
+      _ config: ApolloCodegenConfiguration.FileOutput
+    ) -> Bool {
+      config.operations != .inSchemaModule && config.schemaTypes.isInModule
+    }
+  }
+}
