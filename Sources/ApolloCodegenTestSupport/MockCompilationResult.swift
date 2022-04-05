@@ -10,7 +10,7 @@ public extension CompilationResult.OperationDefinition {
     let mock = Self.emptyMockObject()
     mock.operationType = type
     mock.rootType = type.mockRootType()
-    mock.selectionSet = CompilationResult.SelectionSet.mock(
+    mock.selectionSet = CompilationResult.SelectionSet(
       parentType: mock.rootType,
       selections: selections
     )
@@ -25,16 +25,33 @@ public extension CompilationResult.OperationType {
   }
 }
 
+public extension CompilationResult.InlineFragment {
+
+  class func mock(
+    parentType: GraphQLCompositeType = GraphQLObjectType.mock(),
+    inclusionConditions: [CompilationResult.InclusionCondition]? = nil,
+    selections: [CompilationResult.Selection] = []
+  ) -> Self {
+    let mock = Self.emptyMockObject()
+    mock.selectionSet = CompilationResult.SelectionSet(
+      parentType: parentType,
+      selections: selections
+    )
+    mock.inclusionConditions = inclusionConditions
+    return mock
+  }
+}
+
 public extension CompilationResult.SelectionSet {
 
   class func mock(
     parentType: GraphQLCompositeType = GraphQLObjectType.mock(),
     selections: [CompilationResult.Selection] = []
   ) -> Self {
-    let mock = Self(nil)
-    mock.parentType = parentType
-    mock.selections = selections
-    return mock
+    Self(
+      parentType: parentType,
+      selections: selections
+    )
   }
 }
 
@@ -53,6 +70,8 @@ public extension CompilationResult.Field {
     mock.arguments = arguments
     mock.type = type
     mock.selectionSet = selectionSet
+    mock.directives = nil
+    mock.inclusionConditions = nil
     return mock
   }
 
@@ -95,6 +114,31 @@ public extension CompilationResult.FragmentDefinition {
     return mock
   }
 }
+
+public extension CompilationResult.FragmentSpread {
+  class func mock(
+    _ fragment: CompilationResult.FragmentDefinition = .mock(),
+    inclusionConditions: [CompilationResult.InclusionCondition]? = nil
+  ) -> Self {
+    let mock = Self.emptyMockObject()
+    mock.fragment = fragment
+    mock.inclusionConditions = inclusionConditions
+    return mock
+  }
+}
+
+public extension CompilationResult.Selection {
+  static func fragmentSpread(
+  _ fragment: CompilationResult.FragmentDefinition,
+  inclusionConditions: [CompilationResult.InclusionCondition]? = nil
+  ) -> CompilationResult.Selection {
+    .fragmentSpread(CompilationResult.FragmentSpread.mock(
+      fragment,
+      inclusionConditions: inclusionConditions
+    ))
+  }
+}
+
 
 public extension CompilationResult.VariableDefinition {
   class func mock(

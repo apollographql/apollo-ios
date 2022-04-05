@@ -45,7 +45,7 @@ struct SelectionSetTemplate {
   func SelectionSetNameDocumentation(_ selectionSet: IR.SelectionSet) -> TemplateString {
     """
     /// \(generatedSelectionSetName(
-    from: selectionSet.typePath.head,
+    from: selectionSet.scopePath.head,
     withFieldPath: selectionSet.entity.fieldPath.toArray(),
     removingFirst: true))
     """
@@ -88,8 +88,8 @@ struct SelectionSetTemplate {
       \(if: !selections.fields.values.isEmpty, """
         \(selections.fields.values.map { FieldSelectionTemplate($0) }),
         """)
-      \(if: !selections.typeCases.values.isEmpty, """
-        \(selections.typeCases.values.map { TypeCaseSelectionTemplate($0.typeInfo) }),
+      \(if: !selections.inlineFragments.values.isEmpty, """
+        \(selections.inlineFragments.values.map { TypeCaseSelectionTemplate($0.typeInfo) }),
         """)
       \(if: !selections.fragments.values.isEmpty, """
         \(selections.fragments.values.map { FragmentSelectionTemplate($0) }),
@@ -160,10 +160,10 @@ struct SelectionSetTemplate {
     _ selections: IR.SelectionSet.Selections
   ) -> TemplateString {
     """
-    \(ifLet: selections.direct?.typeCases.values, {
+    \(ifLet: selections.direct?.inlineFragments.values, {
         "\($0.map { TypeCaseAccessorTemplate($0) }, separator: "\n")"
       })
-    \(selections.merged.typeCases.values.map { TypeCaseAccessorTemplate($0) }, separator: "\n")
+    \(selections.merged.inlineFragments.values.map { TypeCaseAccessorTemplate($0) }, separator: "\n")
     """
   }
 
@@ -219,10 +219,10 @@ struct SelectionSetTemplate {
 
   private func ChildTypeCaseSelectionSets(_ selections: IR.SelectionSet.Selections) -> TemplateString {
     """
-    \(ifLet: selections.direct?.typeCases.values, {
+    \(ifLet: selections.direct?.inlineFragments.values, {
         "\($0.map { render(typeCase: $0) }, separator: "\n\n")"
       })
-    \(selections.merged.typeCases.values.map { render(typeCase: $0) }, separator: "\n\n")
+    \(selections.merged.inlineFragments.values.map { render(typeCase: $0) }, separator: "\n\n")
     """    
   }
 
@@ -304,8 +304,8 @@ fileprivate extension IR.MergedSelections.MergedSource {
       return generatedSelectionSetNameForMergedEntity(in: fragment)
     }
 
-    var targetTypePathCurrentNode = selectionSet.typeInfo.typePath.last
-    var sourceTypePathCurrentNode = typeInfo.typePath.last
+    var targetTypePathCurrentNode = selectionSet.typeInfo.scopePath.last
+    var sourceTypePathCurrentNode = typeInfo.scopePath.last
     var nodesToSharedRoot = 0
 
     while targetTypePathCurrentNode.value == sourceTypePathCurrentNode.value {
@@ -332,21 +332,10 @@ fileprivate extension IR.MergedSelections.MergedSource {
     return selectionSetName
   }
 
-  private func generatedSelectionSetNameForMergedEntity(in fragment: IR.FragmentSpread) -> String {
-    var fragmentTypePathCurrentNode = fragment.selectionSet.typeInfo.typePath.head
-    var sourceTypePathCurrentNode = typeInfo.typePath.head
-    var nodesToFragment = 0
-
-    while let nextNode = fragmentTypePathCurrentNode.next {
-      fragmentTypePathCurrentNode = nextNode
-      sourceTypePathCurrentNode = sourceTypePathCurrentNode.next!
-      nodesToFragment += 1
-    }
-
-    let fieldPath = Array(typeInfo.entity.fieldPath.toArray().suffix(from: nodesToFragment + 1))
+  private func generatedSelectionSetNameForMergedEntity(in fragment: IR.NamedFragment) -> String {
     let selectionSetName = ApolloCodegenLib.generatedSelectionSetName(
-      from: sourceTypePathCurrentNode.next!,
-      withFieldPath: fieldPath
+      from: typeInfo.scopePath.head.next!,
+      withFieldPath: Array(typeInfo.entity.fieldPath.toArray().dropFirst())
     )
 
     return "\(fragment.definition.name).\(selectionSetName)"
@@ -355,7 +344,7 @@ fileprivate extension IR.MergedSelections.MergedSource {
 }
 
 private func generatedSelectionSetName(
-  from typePathNode: LinkedList<TypeScopeDescriptor>.Node,
+  from typePathNode: LinkedList<IR.ScopeDescriptor>.Node,
   withFieldPath fieldPath: [String],
   removingFirst: Bool = false
 ) -> String {
@@ -368,9 +357,9 @@ private func generatedSelectionSetName(
     let fieldName = fieldPath[fieldPathIndex]
     components.append(StringInflector.default.singularize(fieldName.firstUppercased))
 
-    var currentTypeScopeNode = currentNode.unsafelyUnwrapped.value.typePath.head
+    var currentTypeScopeNode = currentNode.unsafelyUnwrapped.value.scopePath.head
     while let typeCaseNode = currentTypeScopeNode.next {
-      components.append("As\(typeCaseNode.value.name.firstUppercased)")
+      components.append(typeCaseNode.value.selectionSetNameComponent)
       currentTypeScopeNode = typeCaseNode
     }
 
@@ -381,4 +370,12 @@ private func generatedSelectionSetName(
   if removingFirst { components.removeFirst() }
 
   return components.joined(separator: ".")
+}
+
+fileprivate extension IR.ScopeCondition {
+
+  var selectionSetNameComponent: String {
+    "As\(type!.name.firstUppercased)"
+  }
+  
 }

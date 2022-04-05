@@ -3,28 +3,19 @@ version: 2.1
 parameters:
   xcode_version:
     type: string
-    default: "13.2.1"
+    default: "13.3.0"
   ios_current_version:
     type: string
     default: "15.2"
   ios_previous_version:
     type: string
     default: "14.5"
-  ios_sdk:
-    type: string
-    default: "iphonesimulator15.2"
   macos_version: # The user-facing version string for macOS builds
     type: string
     default: "11.6.2"
-  macos_sdk: # The full SDK string to use for macOS builds
-    type: string
-    default: "macosx12.1"
   tvos_version: # The user-facing version string of tvOS builds
     type: string
     default: "15.2"
-  tvos_sdk:
-    type: string
-    default: "appletvsimulator15.2"
 
 commands:
   integration_test_setup:
@@ -71,10 +62,10 @@ commands:
   build_and_run_tests:
     steps:
       - run:
-          command: xcodebuild clean build build-for-testing -project "Apollo.xcodeproj" -scheme "${CIRCLE_XCODE_SCHEME}" -sdk "${CIRCLE_XCODE_SDK}" -destination "${DESTINATION}" -testPlan "${CIRCLE_XCODE_TEST_PLAN}" | xcpretty
+          command: xcodebuild clean build-for-testing -project "Apollo.xcodeproj" -scheme "${CIRCLE_XCODE_SCHEME}" -destination "${DESTINATION}" -testPlan "${CIRCLE_XCODE_TEST_PLAN}" | xcpretty
           name: Clean and build for testing
       - run:
-          command: xcodebuild test-without-building -resultBundlePath ~/TestResults/ResultBundle.xcresult -project "Apollo.xcodeproj" -scheme "${CIRCLE_XCODE_SCHEME}" -sdk "${CIRCLE_XCODE_SDK}" -destination "${DESTINATION}" -testPlan "${CIRCLE_XCODE_TEST_PLAN}" | xcpretty
+          command: xcodebuild test-without-building -resultBundlePath ~/TestResults/ResultBundle.xcresult -project "Apollo.xcodeproj" -scheme "${CIRCLE_XCODE_SCHEME}" -destination "${DESTINATION}" -testPlan "${CIRCLE_XCODE_TEST_PLAN}" | xcpretty
           name: Run tests
       - save-xcodebuild-artifacts
   save-xcodebuild-artifacts:
@@ -116,7 +107,6 @@ jobs:
       DESTINATION: platform=macOS,arch=x86_64
       CIRCLE_XCODE_SCHEME: Apollo
       CIRCLE_XCODE_TEST_PLAN: Apollo-IntegrationTestPlan
-      CIRCLE_XCODE_SDK: << pipeline.parameters.macos_sdk >>
     steps:
       - integration_test_setup
       - build_and_run_tests
@@ -129,7 +119,6 @@ jobs:
       DESTINATION: platform=macOS,arch=x86_64
       CIRCLE_XCODE_SCHEME: Apollo
       CIRCLE_XCODE_TEST_PLAN: Apollo-CITestPlan
-      CIRCLE_XCODE_SDK: << pipeline.parameters.macos_sdk >>
     steps:
       - common_test_setup
       - build_and_run_tests
@@ -141,7 +130,6 @@ jobs:
       DESTINATION: platform=iOS Simulator,OS=<< pipeline.parameters.ios_current_version >>,name=iPhone 12
       CIRCLE_XCODE_SCHEME: Apollo
       CIRCLE_XCODE_TEST_PLAN: Apollo-CITestPlan
-      CIRCLE_XCODE_SDK: << pipeline.parameters.ios_sdk >>
     steps:
       - common_test_setup
       - build_and_run_tests
@@ -153,7 +141,6 @@ jobs:
       DESTINATION: platform=iOS Simulator,OS=<< pipeline.parameters.ios_previous_version >>,name=iPhone 12
       CIRCLE_XCODE_SCHEME: Apollo
       CIRCLE_XCODE_TEST_PLAN: Apollo-CITestPlan
-      CIRCLE_XCODE_SDK: << pipeline.parameters.ios_sdk >>
     steps:
       - common_test_setup
       - build_and_run_tests
@@ -165,7 +152,6 @@ jobs:
       DESTINATION: platform=tvOS Simulator,OS=<< pipeline.parameters.tvos_version >>,name=Apple TV
       CIRCLE_XCODE_SCHEME: Apollo
       CIRCLE_XCODE_TEST_PLAN: Apollo-CITestPlan
-      CIRCLE_XCODE_SDK: << pipeline.parameters.tvos_sdk >>
     steps:
       - common_test_setup
       - build_and_run_tests
@@ -177,7 +163,6 @@ jobs:
       DESTINATION: platform=macOS,arch=x86_64
       CIRCLE_XCODE_SCHEME: ApolloCodegenLib
       CIRCLE_XCODE_TEST_PLAN: Apollo-CodegenTestPlan
-      CIRCLE_XCODE_SDK: << pipeline.parameters.macos_sdk >>
     steps:
       - common_test_setup
       - build_and_run_tests

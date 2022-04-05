@@ -7,7 +7,7 @@ import ApolloCodegenTestSupport
 import ApolloAPI
 import ApolloUtils
 
-class IRRootEntityFieldBuilderTests: XCTestCase {
+class IRRootFieldBuilderTests: XCTestCase {
 
   var schemaSDL: String!
   var document: String!
@@ -37,7 +37,7 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     ir = try .mock(schema: schemaSDL, document: document)
     operation = try XCTUnwrap(ir.compilationResult.operations.first)
 
-    (subject, computedReferencedFragments) = IR.RootFieldBuilder.buildRootEntityField(
+    let result = IR.RootFieldBuilder.buildRootEntityField(
       forRootField: .mock(
         "query",
         type: .nonNull(.entity(operation.rootType)),
@@ -47,8 +47,10 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
         rootTypePath: LinkedList(operation.rootType),
         fieldPath: ResponsePath("query")
       ),
-      inSchema: ir.schema
+      inIR: ir
     )
+    subject = result.rootField
+    computedReferencedFragments = result.referencedFragments
   }
 
   // MARK: - Children Computation
@@ -85,7 +87,7 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let allAnimals = self.subject[field: "allAnimals"]?.selectionSet
 
     // then
-    expect(allAnimals?.selections.direct?.typeCases).to(beEmpty())
+    expect(allAnimals?.selections.direct?.inlineFragments).to(beEmpty())
   }
 
   func test__children__initWithNamedFragmentOnMoreSpecificType_hasChildTypeCase() throws {
@@ -125,11 +127,11 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let allAnimals = self.subject[field: "allAnimals"]?.selectionSet
 
     // then
-    expect(allAnimals?.selections.direct?.typeCases.count).to(equal(1))
+    expect(allAnimals?.selections.direct?.inlineFragments.count).to(equal(1))
 
     let child = allAnimals?[as: "Bird"]
     expect(child?.parentType).to(equal(Object_Bird))
-    expect(child?.selections.direct?.fragments).to(shallowlyMatch([Fragment_BirdDetails]))
+    expect(child?.selections.direct?.fragments.values).to(shallowlyMatch([Fragment_BirdDetails]))
   }
 
   func test__children__isObjectType_initWithNamedFragmentOnLessSpecificMatchingType_hasNoChildTypeCase() throws {
@@ -166,7 +168,7 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let birds = self.subject[field: "birds"]?.selectionSet
 
     // then
-    expect(birds?.selections.direct?.typeCases).to(beEmpty())
+    expect(birds?.selections.direct?.inlineFragments).to(beEmpty())
   }
 
   func test__children__isInterfaceType_initWithNamedFragmentOnLessSpecificMatchingType_hasNoChildTypeCase() throws {
@@ -203,7 +205,7 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let flyingAnimals = self.subject[field: "flyingAnimals"]?.selectionSet
 
     // then
-    expect(flyingAnimals?.selections.direct?.typeCases).to(beEmpty())
+    expect(flyingAnimals?.selections.direct?.inlineFragments).to(beEmpty())
   }
 
   func test__children__initWithNamedFragmentOnUnrelatedType_hasChildTypeCase() throws {
@@ -243,7 +245,7 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let rocks = self.subject[field: "rocks"]?.selectionSet
 
     // then
-    expect(rocks?.selections.direct?.typeCases.count).to(equal(1))
+    expect(rocks?.selections.direct?.inlineFragments.count).to(equal(1))
 
     let child = rocks?[as: "Animal"]
     expect(child?.parentType).to(equal(Interface_Animal))
@@ -290,8 +292,8 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let Union_ClassroomPet = try XCTUnwrap(schema[union: "ClassroomPet"])
 
     let Scalar_String = try XCTUnwrap(schema[scalar: "String"])
-    let Field_Species: CompilationResult.Selection = .field(.mock(
-      "species", type: .nonNull(.scalar(Scalar_String)))
+    let Field_Species: ShallowFieldMatcher = .mock(
+      "species", type: .nonNull(.scalar(Scalar_String))
     )
 
     let onClassroomPet = subject[field: "allAnimals"]?[as: "ClassroomPet"]
@@ -299,10 +301,10 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
 
     // then
     expect(onClassroomPet?.parentType).to(beIdenticalTo(Union_ClassroomPet))
-    expect(onClassroomPet?.selections.direct?.typeCases.count).to(equal(1))
+    expect(onClassroomPet?.selections.direct?.inlineFragments.count).to(equal(1))
 
     expect(onClassroomPet_onBird?.parentType).to(beIdenticalTo(Object_Bird))
-    expect(onClassroomPet_onBird?.selections.direct?.fields).to(shallowlyMatch([Field_Species]))
+    expect(onClassroomPet_onBird?.selections.direct?.fields.values).to(shallowlyMatch([Field_Species]))
   }
 
   // MARK: Children - Type Cases
@@ -337,7 +339,7 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let aField = subject[field: "aField"]
 
     // then
-    expect(aField?.selectionSet?.selections.direct?.typeCases).to(beEmpty())
+    expect(aField?.selectionSet?.selections.direct?.inlineFragments).to(beEmpty())
   }
 
   func test__children__givenInlineFragment_onMatchingType_mergesTypeCaseIn_doesNotHaveTypeCaseChild() throws {
@@ -375,7 +377,7 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let bField = subject[field: "bField"]
 
     // then
-    expect(bField?.selectionSet?.selections.direct?.typeCases).to(beEmpty())
+    expect(bField?.selectionSet?.selections.direct?.inlineFragments).to(beEmpty())
   }
 
   func test__children__givenInlineFragment_onNonMatchingType_doesNotMergeTypeCaseIn_hasChildTypeCase() throws {
@@ -410,21 +412,30 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     // when
     try buildSubjectRootField()
 
+    let Interface_A = try XCTUnwrap(schema[interface: "A"])
     let Object_B = try XCTUnwrap(schema[object: "B"])
     let Scalar_String = try XCTUnwrap(schema[scalar: "String"])
 
     let aField = subject[field: "aField"] as? IR.EntityField
 
-    let expected = [
-      CompilationResult.SelectionSet.mock(
-        parentType: Object_B,
-        selections: [
-          .field(.mock("B", type: .scalar(Scalar_String))),
-        ])
-    ]
+    let expected = SelectionSetMatcher(
+      parentType: Interface_A,
+      directSelections: [
+        .field("A", type: .nonNull(.scalar(Scalar_String))),
+        .inlineFragment(parentType: Object_B)
+      ]
+    )
+
+    let asB_expected = SelectionSetMatcher.directOnly(
+      parentType: Object_B,
+      directSelections: [
+        .field("B", type: .scalar(Scalar_String)),
+      ]
+    )
 
     // then
-    expect(aField?.selectionSet.selections.direct?.typeCases).to(shallowlyMatch(expected))
+    expect(aField?.selectionSet).to(shallowlyMatch(expected))
+    expect(aField?[as: "B"]).to(shallowlyMatch(asB_expected))
   }
 
   // MARK: Children - Group Duplicate Type Cases
@@ -462,20 +473,31 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     // when
     try buildSubjectRootField()
 
+    let Object_B = try XCTUnwrap(schema[object: "B"])
+    let Interface_A = try XCTUnwrap(schema[interface: "InterfaceA"])
     let Scalar_String = try XCTUnwrap(schema[scalar: "String"])
-
-    let expectedChildren: [CompilationResult.Selection] = [
-      .field(.mock("A", type: .scalar(Scalar_String))),
-      .field(.mock("B", type: .scalar(Scalar_String))),
-    ]
 
     let bField = subject[field: "bField"] as? IR.EntityField
     let bField_asInterfaceA = bField?[as: "InterfaceA"]
 
+    let bField_expected = SelectionSetMatcher(
+      parentType: Object_B,
+      directSelections: [
+        .inlineFragment(parentType: Interface_A),
+      ]
+    )
+
+    let bField_asA_expected = SelectionSetMatcher(
+      parentType: Interface_A,
+      directSelections: [
+        .field("A", type: .scalar(Scalar_String)),
+        .field("B", type: .scalar(Scalar_String)),
+      ]
+    )
+
     // then
-    expect(bField?.selectionSet.selections.direct?.typeCases.count).to(equal(1))
-    expect(bField_asInterfaceA?.parentType).to(equal(GraphQLInterfaceType.mock("InterfaceA")))
-    expect(bField_asInterfaceA?.selections.direct).to(shallowlyMatch(expectedChildren))
+    expect(bField?.selectionSet).to(shallowlyMatch(bField_expected))
+    expect(bField_asInterfaceA).to(shallowlyMatch(bField_asA_expected))
   }
 
   func test__children__givenInlineFragmentsWithDifferentType_hasSeperateChildTypeCases() throws {
@@ -515,15 +537,15 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     try buildSubjectRootField()
 
     let Scalar_String = try XCTUnwrap(schema[scalar: "String"])
-    let Field_A: CompilationResult.Selection = .field(.mock("A", type: .scalar(Scalar_String)))
-    let Field_B: CompilationResult.Selection = .field(.mock("B", type: .scalar(Scalar_String)))
+    let Field_A: ShallowSelectionMatcher = .field("A", type: .scalar(Scalar_String))
+    let Field_B: ShallowSelectionMatcher = .field("B", type: .scalar(Scalar_String))
 
     let aField = subject[field: "aField"] as? IR.EntityField
     let aField_asInterfaceA = aField?[as: "InterfaceA"]
     let aField_asInterfaceB = aField?[as: "InterfaceB"]
 
     // then
-    expect(aField?.selectionSet.selections.direct?.typeCases.count).to(equal(2))
+    expect(aField?.selectionSet.selections.direct?.inlineFragments.count).to(equal(2))
 
     expect(aField_asInterfaceA?.parentType).to(equal(GraphQLInterfaceType.mock("InterfaceA")))
     expect(aField_asInterfaceA?.selections.direct).to(shallowlyMatch([Field_A]))
@@ -572,7 +594,7 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let aField_asInterfaceB = aField?[as: "InterfaceB"]
 
     // then
-    expect(aField?.selectionSet.selections.direct?.typeCases.count).to(equal(1))
+    expect(aField?.selectionSet.selections.direct?.inlineFragments.count).to(equal(1))
 
     expect(aField_asInterfaceB?.parentType).to(equal(InterfaceB))
     expect(aField_asInterfaceB?.selections.direct).to(shallowlyMatch([.fragmentSpread(FragmentB)]))
@@ -606,8 +628,8 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
 
     query Test {
       aField {
-        ... FragmentB1
-        ... FragmentB2
+        ...FragmentB1
+        ...FragmentB2
       }
     }
     """
@@ -623,7 +645,7 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let aField_asInterfaceB = aField?[as: "InterfaceB"]
 
     // then
-    expect(aField?.selectionSet.selections.direct?.typeCases.count).to(equal(1))
+    expect(aField?.selectionSet.selections.direct?.inlineFragments.count).to(equal(1))
 
     expect(aField_asInterfaceB?.parentType).to(equal(InterfaceB))
     expect(aField_asInterfaceB?.selections.direct).to(shallowlyMatch([
@@ -657,8 +679,8 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     }
     """
 
-    let expected: [CompilationResult.Selection] = [
-      .field(.mock("a", type: .scalar(.string())))
+    let expected: [ShallowSelectionMatcher] = [
+      .field("a", type: .string())
     ]
 
     // when
@@ -691,9 +713,9 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     }
     """
 
-    let expected: [CompilationResult.Selection] = [
-      .field(.mock("a", alias: "b", type: .scalar(.string()))),
-      .field(.mock("a", alias: "c", type: .scalar(.string())))
+    let expected: [ShallowSelectionMatcher] = [
+      .field("a", alias: "b", type: .string()),
+      .field("a", alias: "c", type: .string())
     ]
 
     // when
@@ -732,9 +754,9 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     }
     """
 
-    let expectedAFields: [CompilationResult.Selection] = [
-      .field(.mock("b", type: .scalar(.string()))),
-      .field(.mock("c", type: .scalar(.integer())))
+    let expectedAFields: [ShallowSelectionMatcher] = [
+      .field("b", type: .string()),
+      .field("c", type: .integer())
     ]
 
     // when
@@ -782,10 +804,10 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     }
     """
 
-    let expectedAFields: [CompilationResult.Selection] = [
-      .field(.mock("b", type: GraphQLScalarType.integer())),
-      .field(.mock("c", type: GraphQLScalarType.boolean())),
-      .field(.mock("d", type: GraphQLScalarType.string())),
+    let expectedAFields: [ShallowSelectionMatcher] = [
+      .field("b", type: .integer()),
+      .field("c", type: .boolean()),
+      .field("d", type: .string()),
     ]
 
     // when
@@ -829,9 +851,9 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     }
     """
 
-    let expected: [CompilationResult.Selection] = [
-      .field(.mock("a", type: GraphQLScalarType.string())),
-      .field(.mock("b", type: GraphQLScalarType.integer())),
+    let expected: [ShallowSelectionMatcher] = [
+      .field("a", type: .string()),
+      .field("b", type: .integer()),
     ]
 
     // when
@@ -871,9 +893,9 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     }
     """
 
-    let expected: [CompilationResult.Selection] = [
-      .field(.mock("b", type: GraphQLScalarType.integer())),
-      .field(.mock("a", type: GraphQLScalarType.string())),
+    let expected: [ShallowSelectionMatcher] = [
+      .field("b", type: .integer()),
+      .field("a", type: .string()),
     ]
 
     // when
@@ -920,13 +942,13 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let aField_asB = aField?[as: "B"]
 
     // then
-    expect(aField?.selectionSet.selections.direct?.fields).to(shallowlyMatch([
-      .field(.mock("a", type: .string()))
+    expect(aField?.selectionSet.selections.direct?.fields.values).to(shallowlyMatch([
+      .field("a", type: .string())
     ]))
-    expect(aField?.selectionSet.selections.direct?.typeCases.count).to(equal(1))
+    expect(aField?.selectionSet.selections.direct?.inlineFragments.count).to(equal(1))
 
     expect(aField_asB?.selections.direct).to(shallowlyMatch([
-      .field(.mock("b", type: .integer()))
+      .field("b", type: .integer())
     ]))
   }
 
@@ -962,8 +984,8 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
 
     let Interface_A = try XCTUnwrap(schema[interface: "A"])
 
-    let expected: [CompilationResult.Selection] = [
-      .inlineFragment(.mock(parentType: Interface_A))
+    let expected: [ShallowSelectionMatcher] = [
+      .inlineFragment(parentType: Interface_A)
     ]
 
     let bField = subject[field: "bField"] as? IR.EntityField
@@ -1001,9 +1023,9 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     // when
     try buildSubjectRootField()
 
-    let expected: [CompilationResult.Selection] = [
-      .field(.mock("a", type: .string())),
-      .field(.mock("b", type: .integer()))
+    let expected: [ShallowSelectionMatcher] = [
+      .field("a", type: .string()),
+      .field("b", type: .integer())
     ]
 
     let actual = subject[field: "bField"]?[as: "A"]
@@ -1042,8 +1064,8 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
 
     let Object_A = try XCTUnwrap(schema[object: "A"])
 
-    let expected: [CompilationResult.Selection] = [
-      .inlineFragment(.mock(parentType: Object_A))
+    let expected: [ShallowSelectionMatcher] = [
+      .inlineFragment(parentType: Object_A)
     ]
 
     let bField = subject[field: "bField"] as? IR.EntityField
@@ -1085,8 +1107,8 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
 
     let Union_A = try XCTUnwrap(schema[union: "UnionA"])
 
-    let expected: [CompilationResult.Selection] = [
-      .inlineFragment(.mock(parentType: Union_A))
+    let expected: [ShallowSelectionMatcher] = [
+      .inlineFragment(parentType: Union_A)
     ]
 
     let bField = subject[field: "bField"] as? IR.EntityField
@@ -1129,9 +1151,9 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let Interface_A = try XCTUnwrap(schema[interface: "A"])
     let Interface_B = try XCTUnwrap(schema[interface: "B"])
 
-    let expected: [CompilationResult.Selection] = [
-      .inlineFragment(.mock(parentType: Interface_A)),
-      .inlineFragment(.mock(parentType: Interface_B)),
+    let expected: [ShallowSelectionMatcher] = [
+      .inlineFragment(parentType: Interface_A),
+      .inlineFragment(parentType: Interface_B),
     ]
 
     let objField = subject[field: "objField"] as? IR.EntityField
@@ -1173,10 +1195,10 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     }
     """
 
-    let expected: [CompilationResult.Selection] = [
-      .field(.mock("b", type: GraphQLScalarType.integer())),
-      .field(.mock("c", type: GraphQLScalarType.boolean())),
-      .field(.mock("d", type: GraphQLScalarType.string())),
+    let expected: [ShallowSelectionMatcher] = [
+      .field("b", type: .integer()),
+      .field("c", type: .boolean()),
+      .field("d", type: .string()),
     ]
 
     // when
@@ -1223,8 +1245,8 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
 
     let Object_A = try XCTUnwrap(schema[object: "A"])
 
-    let expected: [CompilationResult.Selection] = [
-      .fragmentSpread(.mock("FragmentA", type: Object_A)),
+    let expected: [ShallowSelectionMatcher] = [
+      .fragmentSpread("FragmentA", type: Object_A),
     ]
 
     let aField = subject[field: "aField"] as? IR.EntityField
@@ -1265,8 +1287,8 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
 
     let Object_A = try XCTUnwrap(schema[object: "A"])
 
-    let expected: [CompilationResult.Selection] = [
-      .fragmentSpread(.mock("FragmentA", type: Object_A)),
+    let expected: [ShallowSelectionMatcher] = [
+      .fragmentSpread("FragmentA", type: Object_A),
     ]
 
     let aField = subject[field: "aField"] as? IR.EntityField
@@ -1310,9 +1332,9 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
 
     let Object_A = try XCTUnwrap(schema[object: "A"])
 
-    let expected: [CompilationResult.Selection] = [
-      .fragmentSpread(.mock("FragmentA1", type: Object_A)),
-      .fragmentSpread(.mock("FragmentA2", type: Object_A)),
+    let expected: [ShallowSelectionMatcher] = [
+      .fragmentSpread("FragmentA1", type: Object_A),
+      .fragmentSpread("FragmentA2", type: Object_A),
     ]
 
     let aField = subject[field: "aField"] as? IR.EntityField
@@ -1356,15 +1378,15 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
 
     let Interface_B = try XCTUnwrap(schema[interface: "B"])
 
-    let expected: [CompilationResult.Selection] = [
-      .fragmentSpread(.mock("FragmentB", type: Interface_B))
+    let expected: [ShallowSelectionMatcher] = [
+      .fragmentSpread("FragmentB", type: Interface_B)
     ]
 
     let aField = subject[field: "aField"] as? IR.EntityField
 
     // then
     expect(aField?.selectionSet.selections.direct?.fields.count).to(equal(0))
-    expect(aField?.selectionSet.selections.direct?.typeCases.count).to(equal(1))
+    expect(aField?.selectionSet.selections.direct?.inlineFragments.count).to(equal(1))
     expect(aField?[as: "B"]?.selections.direct).to(shallowlyMatch(expected))
   }
 
@@ -1408,7 +1430,7 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let Fragment_B1 = try XCTUnwrap(ir.compilationResult[fragment: "FragmentB1"])
     let Fragment_B2 = try XCTUnwrap(ir.compilationResult[fragment: "FragmentB2"])
 
-    let expected: [CompilationResult.Selection] = [
+    let expected: [ShallowSelectionMatcher] = [
       .fragmentSpread(Fragment_B1),
       .fragmentSpread(Fragment_B2),
     ]
@@ -1417,7 +1439,7 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
 
     // then
     expect(aField?.selectionSet.selections.direct?.fields.count).to(equal(0))
-    expect(aField?.selectionSet.selections.direct?.typeCases.count).to(equal(1))
+    expect(aField?.selectionSet.selections.direct?.inlineFragments.count).to(equal(1))
     expect(aField?[as: "B"]?.selections.direct).to(shallowlyMatch(expected))
   }
 
@@ -1468,7 +1490,7 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
 
     // then
     expect(aField?.selectionSet.selections.direct?.fields.count).to(equal(0))
-    expect(aField?.selectionSet.selections.direct?.typeCases.count).to(equal(2))
+    expect(aField?.selectionSet.selections.direct?.inlineFragments.count).to(equal(2))
     expect(aField?[as: "B"]?.selections.direct).to(shallowlyMatch([.fragmentSpread(Fragment_B)]))
     expect(aField?[as: "C"]?.selections.direct).to(shallowlyMatch([.fragmentSpread(Fragment_C)]))
   }
@@ -1514,8 +1536,8 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     // when
     try buildSubjectRootField()
 
-    let expected: [CompilationResult.Selection] = [
-      .field(.mock("b", type: .scalar(.integer())))
+    let expected: [ShallowSelectionMatcher] = [
+      .field("b", type: .integer())
     ]
 
     let asRoot_child = subject[field: "childContainer"]?[as: "Root"]?[field: "child"] as? IR.EntityField
@@ -1549,10 +1571,10 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     // when
     try buildSubjectRootField()
 
-    let expected_direct: [CompilationResult.Selection] = [
-      .field(.mock("a", type: .scalar(.integer())))
+    let expected_direct: [ShallowSelectionMatcher] = [
+      .field("a", type: .scalar(.integer()))
     ]
-    let expected_merged: [CompilationResult.Selection] = [
+    let expected_merged: [ShallowSelectionMatcher] = [
     ]
 
     let aField = subject[field: "aField"] as? IR.EntityField
@@ -1592,12 +1614,12 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     // when
     try buildSubjectRootField()
 
-    let expected = SelectionMatcher(
+    let expected = SelectionsMatcher(
       direct: [
-        .field(.mock("b", type: .scalar(.integer()))),
+        .field("b", type: .integer()),
       ],
       merged: [
-        .field(.mock("a", type: .scalar(.integer()))),
+        .field("a", type: .integer()),
       ],
       mergedSources: [
         try .mock(subject[field: "aField"])
@@ -1651,11 +1673,11 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     // when
     try buildSubjectRootField()
 
-    let asBirdExpected: [CompilationResult.Selection] = [
-      .field(.mock("wingspan", type: .scalar(.integer()))),
+    let asBirdExpected: [ShallowSelectionMatcher] = [
+      .field("wingspan", type: .integer()),
     ]
-    let asCatExpected: [CompilationResult.Selection] = [
-      .field(.mock("species", type: .scalar(.string()))),
+    let asCatExpected: [ShallowSelectionMatcher] = [
+      .field("species", type: .string()),
     ]
 
     let allAnimals = subject[field: "allAnimals"]
@@ -1712,21 +1734,21 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let asBird = allAnimals?[as: "Bird"]
     let asPet = allAnimals?[as: "Pet"]
 
-    let asBirdExpected = SelectionMatcher(
+    let asBirdExpected = SelectionsMatcher(
       direct: [
-        .field(.mock("wingspan", type: .scalar(.integer()))),
+        .field("wingspan", type: .integer()),
       ],
       merged: [
-        .field(.mock("species", type: .scalar(.string()))),
+        .field("species", type: .string()),
       ],
       mergedSources: [
         try .mock(asPet)
       ]
     )
 
-    let asPetExpected = SelectionMatcher(
+    let asPetExpected = SelectionsMatcher(
       direct: [
-        .field(.mock("species", type: .scalar(.string()))),
+        .field("species", type: .string()),
       ],
       merged: [
       ]
@@ -1772,17 +1794,17 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     }
     """
 
-    let asBirdExpected = SelectionMatcher(
+    let asBirdExpected = SelectionsMatcher(
       direct: [
-        .field(.mock("wingspan", type: .scalar(.integer()))),
+        .field("wingspan", type: .integer()),
       ],
       merged: [
       ]
     )
 
-    let asPetExpected = SelectionMatcher(
+    let asPetExpected = SelectionsMatcher(
       direct: [
-        .field(.mock("species", type: .scalar(.string()))),
+        .field("species", type: .string()),
       ],
       merged: [
       ]
@@ -1843,21 +1865,21 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let asHousePet = allAnimals?[as: "HousePet"]
     let asPet = allAnimals?[as: "Pet"]
 
-    let asHousePetExpected = SelectionMatcher(
+    let asHousePetExpected = SelectionsMatcher(
       direct: [
-        .field(.mock("humanName", type: .scalar(.string()))),
+        .field("humanName", type: .string()),
       ],
       merged: [
-        .field(.mock("species", type: .scalar(.string()))),
+        .field("species", type: .string()),
       ],
       mergedSources: [
         try .mock(asPet)
       ]
     )
 
-    let asPetExpected = SelectionMatcher(
+    let asPetExpected = SelectionsMatcher(
       direct: [
-        .field(.mock("species", type: .scalar(.string()))),
+        .field("species", type: .string()),
       ],
       merged: [
       ]
@@ -1901,17 +1923,17 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     }
     """
 
-    let asHousePetExpected = SelectionMatcher(
+    let asHousePetExpected = SelectionsMatcher(
       direct: [
-        .field(.mock("humanName", type: .scalar(.string()))),
+        .field("humanName", type: .string()),
       ],
       merged: [
       ]
     )
 
-    let asPetExpected = SelectionMatcher(
+    let asPetExpected = SelectionsMatcher(
       direct: [
-        .field(.mock("species", type: .scalar(.string()))),
+        .field("species", type: .string()),
       ],
       merged: [
       ]
@@ -1974,21 +1996,21 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let asWarmBlooded_asPet_actual = allAnimals?[as:"WarmBlooded"]?[as: "Pet"]
     let asPet_actual = allAnimals?[as: "Pet"]
 
-    let onWarmBlooded_onPet_expected = SelectionMatcher(
+    let onWarmBlooded_onPet_expected = SelectionsMatcher(
       direct: [
-        .field(.mock("humanName", type: .string())),
+        .field("humanName", type: .string()),
       ],
       merged: [
-        .field(.mock("species", type: .scalar(.string()))),
+        .field("species", type: .string()),
       ],
       mergedSources: [
         try .mock(asPet_actual)
       ]
     )
 
-    let onPet_expected = SelectionMatcher(
+    let onPet_expected = SelectionsMatcher(
       direct: [
-        .field(.mock("species", type: .scalar(.string()))),
+        .field("species", type: .string()),
       ],
       merged: [
       ]
@@ -2048,21 +2070,21 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let asWarmBlooded_asBird_actual = allAnimals?[as: "WarmBlooded"]?[as: "Bird"]
     let asPet_actual = allAnimals?[as: "Pet"]
 
-    let onWarmBlooded_onBird_expected = SelectionMatcher(
+    let onWarmBlooded_onBird_expected = SelectionsMatcher(
       direct: [
-        .field(.mock("wingspan", type: .integer())),
+        .field("wingspan", type: .integer()),
       ],
       merged: [
-        .field(.mock("species", type: .scalar(.string()))),
+        .field("species", type: .string()),
       ],
       mergedSources: [
         try .mock(asPet_actual)
       ]
     )
 
-    let onPet_expected = SelectionMatcher(
+    let onPet_expected = SelectionsMatcher(
       direct: [
-        .field(.mock("species", type: .scalar(.string()))),
+        .field("species", type: .string()),
       ],
       merged: [
       ]
@@ -2120,17 +2142,17 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let asWarmBlooded_asBird_actual = allAnimals?[as: "WarmBlooded"]?[as: "Bird"]
     let asPet_actual = allAnimals?[as: "Pet"]
 
-    let asWarmBlooded_asBird_expected = SelectionMatcher(
+    let asWarmBlooded_asBird_expected = SelectionsMatcher(
       direct: [
-        .field(.mock("wingspan", type: .integer())),
+        .field("wingspan", type: .integer()),
       ],
       merged: [
       ]
     )
 
-    let asPet_expected = SelectionMatcher(
+    let asPet_expected = SelectionsMatcher(
       direct: [
-        .field(.mock("species", type: .scalar(.string()))),
+        .field("species", type: .string()),
       ],
       merged: [
       ]
@@ -2184,24 +2206,24 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let asBirdActual = allAnimals?[as: "Bird"]
     let asClassroomPet_asBirdActual = allAnimals?[as: "ClassroomPet"]?[as: "Bird"]
 
-    let asBirdExpected = SelectionMatcher(
+    let asBirdExpected = SelectionsMatcher(
       direct: [
-        .field(.mock("wingspan", type: .integer()))
+        .field("wingspan", type: .integer())
       ],
       merged: [
-        .field(.mock("species", type: .scalar(.string()))),
+        .field("species", type: .string()),
       ],
       mergedSources: [
         try .mock(asClassroomPet_asBirdActual)
       ]
     )
 
-    let asClassroomPet_asBirdExpected = SelectionMatcher(
+    let asClassroomPet_asBirdExpected = SelectionsMatcher(
       direct: [
-        .field(.mock("species", type: .scalar(.string()))),
+        .field("species", type: .string()),
       ],
       merged: [
-        .field(.mock("wingspan", type: .integer()))
+        .field("wingspan", type: .integer())
       ],
       mergedSources: [
         try .mock(asBirdActual)
@@ -2251,17 +2273,17 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     }
     """
 
-    let asBirdExpected = SelectionMatcher(
+    let asBirdExpected = SelectionsMatcher(
       direct: [
-        .field(.mock("wingspan", type: .integer()))
+        .field("wingspan", type: .integer())
       ],
       merged: [
       ]
     )
 
-    let asClassroomPet_asCatExpected = SelectionMatcher(
+    let asClassroomPet_asCatExpected = SelectionsMatcher(
       direct: [
-        .field(.mock("species", type: .scalar(.string()))),
+        .field("species", type: .string()),
       ],
       merged: [
       ]
@@ -2328,20 +2350,20 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let asWarmBlooded_actual = allAnimals?[as: "WarmBlooded"]
     let asClassroomPet_asWarmBlooded_actual = allAnimals?[as: "ClassroomPet"]?[as: "WarmBlooded"]
 
-    let asWarmBlooded_expected = SelectionMatcher(
+    let asWarmBlooded_expected = SelectionsMatcher(
       direct: [
-        .field(.mock("bodyTemperature", type: .integer())),
+        .field("bodyTemperature", type: .integer()),
       ],
       merged: [
       ]
     )
 
-    let asClassroomPet_asWarmBlooded_expected = SelectionMatcher(
+    let asClassroomPet_asWarmBlooded_expected = SelectionsMatcher(
       direct: [
-        .field(.mock("species", type: .scalar(.string()))),
+        .field("species", type: .string()),
       ],
       merged: [
-        .field(.mock("bodyTemperature", type: .integer())),
+        .field("bodyTemperature", type: .integer()),
       ],
       mergedSources: [
         try .mock(asWarmBlooded_actual)
@@ -2406,20 +2428,20 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let asPet_actual = allAnimals?[as: "Pet"]
     let asClassroomPet_asWarmBloodedPet_actual = allAnimals?[as: "ClassroomPet"]?[as: "WarmBloodedPet"]
 
-    let asPet_expected = SelectionMatcher(
+    let asPet_expected = SelectionsMatcher(
       direct: [
-        .field(.mock("humanName", type: .string())),
+        .field("humanName", type: .string()),
       ],
       merged: [
       ]
     )
 
-    let asClassroomPet_asWarmBloodedPet_expected = SelectionMatcher(
+    let asClassroomPet_asWarmBloodedPet_expected = SelectionsMatcher(
       direct: [
-        .field(.mock("species", type: .scalar(.string()))),
+        .field("species", type: .string()),
       ],
       merged: [
-        .field(.mock("humanName", type: .string())),
+        .field("humanName", type: .string()),
       ],
       mergedSources: [
         try .mock(asPet_actual)
@@ -2486,17 +2508,17 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
 
     let asClassroomPet_asPet_actual = allAnimals?[as: "ClassroomPet"]?[as: "Pet"]
 
-    let asWarmBlooded_expected = SelectionMatcher(
+    let asWarmBlooded_expected = SelectionsMatcher(
       direct: [
-        .field(.mock("bodyTemperature", type: .integer())),
+        .field("bodyTemperature", type: .integer()),
       ],
       merged: [
       ]
     )
 
-    let asClassroomPet_asPet_expected = SelectionMatcher(
+    let asClassroomPet_asPet_expected = SelectionsMatcher(
       direct: [
-        .field(.mock("species", type: .scalar(.string()))),
+        .field("species", type: .string()),
       ],
       merged: [
       ]
@@ -2540,12 +2562,12 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let Fragment_AnimalDetails = try XCTUnwrap(allAnimals?[fragment: "AnimalDetails"])
     let actual = allAnimals?.selectionSet
 
-    let expected = SelectionMatcher(
+    let expected = SelectionsMatcher(
       direct: [
         .fragmentSpread(Fragment_AnimalDetails.definition)
       ],
       merged: [
-        .field(.mock("species", type: .scalar(.string()))),
+        .field("species", type: .string()),
       ],
       mergedSources: [
         try .mock(Fragment_AnimalDetails)
@@ -2585,12 +2607,14 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
 
     let actual = subject[field: "allAnimals"]?[fragment: "AnimalDetails"]
 
-    let query_TypeScope = TypeScopeDescriptor.descriptor(
+    let query_TypeScope = IR.ScopeDescriptor.descriptor(
       forType: operation.rootType,
+      inclusionConditions: nil,
       givenAllTypesInSchema: schema.referencedTypes)
 
-    let allAnimals_TypeScope = TypeScopeDescriptor.descriptor(
+    let allAnimals_TypeScope = IR.ScopeDescriptor.descriptor(
       forType: schema[interface: "Animal"]!,
+      inclusionConditions: nil,
       givenAllTypesInSchema: schema.referencedTypes
     )
 
@@ -2600,7 +2624,7 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     ])
 
     // then
-    expect(actual?.selectionSet.typeInfo.typePath).to(equal(expectedTypePath))
+    expect(actual?.typeInfo.scopePath).to(equal(expectedTypePath))
   }
 
   func test__mergedSelections__givenChildIsNamedFragmentOnMoreSpecificType_doesNotMergeFragmentFields_hasTypeCaseForNamedFragmentType() throws {
@@ -2634,23 +2658,122 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     // when
     try buildSubjectRootField()
 
+    let Interface_Animal = try XCTUnwrap(schema[interface: "Animal"])
     let Object_Bird = try XCTUnwrap(schema[object: "Bird"])
     let Fragment_BirdDetails = try XCTUnwrap(ir.compilationResult[fragment: "BirdDetails"])
 
-    let expected = SelectionMatcher(
-      direct: [
-        .inlineFragment(.init(parentType: Object_Bird,
-                              selections: [.fragmentSpread(Fragment_BirdDetails)]))
+    let allAnimals = subject[field: "allAnimals"]
+
+    let allAnimals_expected = SelectionSetMatcher(
+      parentType: Interface_Animal,
+      directSelections: [
+        .inlineFragment(parentType: Object_Bird)
       ],
-      merged: [
+      mergedSelections: [],
+      mergedSources: []
+    )
+
+    let allAnimals_asBird_expected = SelectionSetMatcher(
+      parentType: Object_Bird,
+      directSelections: [
+        .fragmentSpread(Fragment_BirdDetails)
+      ],
+      mergedSelections: [
+        .field("species", type: .string()),
+      ],
+      mergedSources: [
+        try .mock(allAnimals?[as: "Bird"]?[fragment: "BirdDetails"])
       ]
     )
 
-    let allAnimals = subject[field: "allAnimals"]
     let actual = allAnimals?.selectionSet
 
     // then
-    expect(actual).to(shallowlyMatch(expected))
+    expect(actual).to(shallowlyMatch(allAnimals_expected))
+    expect(actual?[as: "Bird"]).to(shallowlyMatch(allAnimals_asBird_expected))
+  }
+
+  func test__mergedSelections__givenChildIsNamedFragmentOnMultipleNestedMoreSpecificTypes_doesNotMergeFragmentFields_hasTypeCaseForNamedFragmentType() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String
+    }
+
+    interface Pet {
+      species: String
+    }
+
+    type Bird implements Animal & Pet {
+      species: String
+    }
+    """
+
+    document = """
+    query Test {
+      allAnimals {
+        ... on Pet {
+          ...BirdDetails
+        }
+      }
+    }
+
+    fragment BirdDetails on Bird {
+      species
+    }
+    """
+
+    // when
+    try buildSubjectRootField()
+
+    let Interface_Animal = try XCTUnwrap(schema[interface: "Animal"])
+    let Interface_Pet = try XCTUnwrap(schema[interface: "Pet"])
+    let Object_Bird = try XCTUnwrap(schema[object: "Bird"])
+    let Fragment_BirdDetails = try XCTUnwrap(ir.compilationResult[fragment: "BirdDetails"])
+
+    let allAnimals = subject[field: "allAnimals"]
+
+    let allAnimals_expected = SelectionSetMatcher(
+      parentType: Interface_Animal,
+      directSelections: [
+        .inlineFragment(parentType: Interface_Pet)
+      ],
+      mergedSelections: [],
+      mergedSources: []
+    )
+
+    let allAnimals_asPet_expected = SelectionSetMatcher(
+      parentType: Interface_Pet,
+      directSelections: [
+        .inlineFragment(parentType: Object_Bird)
+      ],
+      mergedSelections: [],
+      mergedSources: []
+    )
+
+    let allAnimals_asPet_asBird_expected = SelectionSetMatcher(
+      parentType: Object_Bird,
+      directSelections: [
+        .fragmentSpread(Fragment_BirdDetails)
+      ],
+      mergedSelections: [
+        .field("species", type: .string()),
+      ],
+      mergedSources: [
+        try .mock(allAnimals?[as: "Pet"]?[as: "Bird"]?[fragment: "BirdDetails"])
+      ]
+    )
+
+    let actual = allAnimals?.selectionSet
+
+    // then
+    expect(actual).to(shallowlyMatch(allAnimals_expected))
+    expect(actual?[as: "Pet"]).to(shallowlyMatch(allAnimals_asPet_expected))
+    expect(actual?[as: "Pet"]?[as: "Bird"]).to(shallowlyMatch(allAnimals_asPet_asBird_expected))
   }
 
   func test__mergedSelections__givenIsObjectType_childIsNamedFragmentOnLessSpecificMatchingType_mergesFragmentFields() throws {
@@ -2688,15 +2811,14 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let birds = subject[field: "birds"]
     let actual = birds?.selectionSet
 
-    let Field_Species = CompilationResult.Field.mock("species", type: .string())
     let Fragment_AnimalDetails = try XCTUnwrap(birds?[fragment: "AnimalDetails"])
 
-    let expected = SelectionMatcher(
+    let expected = SelectionsMatcher(
       direct: [
         .fragmentSpread(Fragment_AnimalDetails.definition)
       ],
       merged: [
-        .field(Field_Species),
+        .field("species", type: .string())
       ],
       mergedSources: [
         try .mock(Fragment_AnimalDetails)
@@ -2742,15 +2864,14 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let flyingAnimals = subject[field: "flyingAnimals"]
     let actual = flyingAnimals?.selectionSet
 
-    let Field_Species = CompilationResult.Field.mock("species", type: .string())
     let Fragment_AnimalDetails = try XCTUnwrap(flyingAnimals?[fragment: "AnimalDetails"])
 
-    let expected = SelectionMatcher(
+    let expected = SelectionsMatcher(
       direct: [
         .fragmentSpread(Fragment_AnimalDetails.definition)
       ],
       merged: [
-        .field(Field_Species),
+        .field("species", type: .string()),
       ],
       mergedSources: [
         try .mock(Fragment_AnimalDetails)
@@ -2800,10 +2921,9 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
 
     let Fragment_BirdDetails = try XCTUnwrap(ir.compilationResult[fragment: "BirdDetails"])
 
-    let expected = SelectionMatcher(
+    let expected = SelectionsMatcher(
       direct: [
-        .inlineFragment(.init(parentType: Object_Bird,
-                              selections: [.fragmentSpread(Fragment_BirdDetails)]))
+        .inlineFragment(parentType: Object_Bird)
       ],
       merged: [
       ]
@@ -2814,6 +2934,8 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
 
     // then
     expect(actual).to(shallowlyMatch(expected))
+    expect(actual?[as: "Bird"]?.selections.direct)
+      .to(shallowlyMatch([.fragmentSpread(Fragment_BirdDetails)]))
   }
 
   // MARK: - Nested Entity Field - Merged Selections
@@ -2861,20 +2983,20 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let allAnimals_height_actual = allAnimals?[field: "height"]?.selectionSet
     let allAnimals_asPet_height_actual = allAnimals?[as: "Pet"]?[field: "height"]?.selectionSet
 
-    let allAnimals_height_expected = SelectionMatcher(
+    let allAnimals_height_expected = SelectionsMatcher(
       direct: [
-        .field(.mock("feet", type: .integer()))
+        .field("feet", type: .integer())
       ],
       merged: [
       ]
     )
 
-    let allAnimals_asPet_height_expected = SelectionMatcher(
+    let allAnimals_asPet_height_expected = SelectionsMatcher(
       direct: [
-        .field(.mock("meters", type: .integer())),
+        .field("meters", type: .integer()),
       ],
       merged: [
-        .field(.mock("feet", type: .integer())),
+        .field("feet", type: .integer()),
       ],
       mergedSources: [
         try .mock(allAnimals_height_actual)
@@ -2924,17 +3046,17 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
 
     let allAnimals = subject[field: "allAnimals"]
 
-    let allAnimals_expected = SelectionMatcher(
+    let allAnimals_expected = SelectionsMatcher(
       direct: [
-        .field(.mock("feet", type: .integer()))
+        .field("feet", type: .integer())
       ],
       merged: [
       ]
     )
 
-    let predators_expected = SelectionMatcher(
+    let predators_expected = SelectionsMatcher(
       direct: [
-        .field(.mock("meters", type: .integer())),
+        .field("meters", type: .integer()),
       ],
       merged: [
       ]
@@ -3000,11 +3122,11 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let allAnimals = subject[field: "allAnimals"]
     let allAnimals_asCat_height_actual = allAnimals?[as: "Cat"]?[field: "height"]?.selectionSet
 
-    let allAnimals_asCat_height_expected = SelectionMatcher(
+    let allAnimals_asCat_height_expected = SelectionsMatcher(
       direct: nil,
       merged: [
-        .field(.mock("feet", type: .integer())),
-        .field(.mock("meters", type: .integer())),
+        .field("feet", type: .integer()),
+        .field("meters", type: .integer()),
       ],
       mergedSources: [
         try .mock(allAnimals?[field: "height"]),
@@ -3067,10 +3189,10 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
 
     let allAnimals = subject[field: "allAnimals"]
 
-    let allAnimals_asElephant_height_expected = SelectionMatcher(
+    let allAnimals_asElephant_height_expected = SelectionsMatcher(
       direct: nil,
       merged: [
-        .field(.mock("feet", type: .integer()))
+        .field("feet", type: .integer())
       ],
       mergedSources: [
         try .mock(allAnimals?[field: "height"])
@@ -3145,34 +3267,34 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let allAnimals_asPet_height = allAnimals?[as: "Pet"]?[field: "height"]
     let allAnimals_asWarmBlooded_height = allAnimals?[as: "WarmBlooded"]?[field: "height"]
 
-    let allAnimals_height_expected = SelectionMatcher(
+    let allAnimals_height_expected = SelectionsMatcher(
       direct: [
-        .field(.mock("feet", type: .integer()))
+        .field("feet", type: .integer())
       ],
       merged: [
       ]
     )
 
-    let allAnimals_asPet_height_expected = SelectionMatcher(
+    let allAnimals_asPet_height_expected = SelectionsMatcher(
       direct: [
-        .field(.mock("meters", type: .integer())),
+        .field("meters", type: .integer()),
       ],
       merged: [
-        .field(.mock("feet", type: .integer())),
+        .field("feet", type: .integer()),
       ],
       mergedSources: [
         try .mock(allAnimals_height)
       ]
     )
 
-    let allAnimals_asPet_asWarmBlooded_height_expected = SelectionMatcher(
+    let allAnimals_asPet_asWarmBlooded_height_expected = SelectionsMatcher(
       direct: [
-        .field(.mock("inches", type: .integer())),
+        .field("inches", type: .integer()),
       ],
       merged: [
-        .field(.mock("feet", type: .integer())),
-        .field(.mock("meters", type: .integer())),
-        .field(.mock("yards", type: .integer())),
+        .field("feet", type: .integer()),
+        .field("meters", type: .integer()),
+        .field("yards", type: .integer()),
       ],
       mergedSources: [
         try .mock(allAnimals_height),
@@ -3181,12 +3303,12 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
       ]
     )
 
-    let allAnimals_asWarmBlooded_height_expected = SelectionMatcher(
+    let allAnimals_asWarmBlooded_height_expected = SelectionsMatcher(
       direct: [
-        .field(.mock("yards", type: .integer())),
+        .field("yards", type: .integer()),
       ],
       merged: [
-        .field(.mock("feet", type: .integer())),
+        .field("feet", type: .integer()),
       ],
       mergedSources: [
         try .mock(allAnimals_height)
@@ -3461,21 +3583,25 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
 
     let allAnimals = subject[field: "allAnimals"]
 
-    let query_TypeScope = TypeScopeDescriptor.descriptor(
+    let query_TypeScope = IR.ScopeDescriptor.descriptor(
       forType: operation.rootType,
+      inclusionConditions: nil,
       givenAllTypesInSchema: schema.referencedTypes)
 
-    let allAnimals_asCat_TypeScope = TypeScopeDescriptor.descriptor(
+    let allAnimals_asCat_TypeScope = IR.ScopeDescriptor.descriptor(
       forType: schema[interface: "Animal"]!,
+      inclusionConditions: nil,
       givenAllTypesInSchema: schema.referencedTypes
     ).appending(schema[object: "Cat"]!)
 
-    let allAnimals_asCat_predator_TypeScope = TypeScopeDescriptor.descriptor(
+    let allAnimals_asCat_predator_TypeScope = IR.ScopeDescriptor.descriptor(
       forType: schema[interface: "Animal"]!,
+      inclusionConditions: nil,
       givenAllTypesInSchema: schema.referencedTypes)
 
-    let allAnimals_asCat_predator_height_TypeScope = TypeScopeDescriptor.descriptor(
+    let allAnimals_asCat_predator_height_TypeScope = IR.ScopeDescriptor.descriptor(
       forType: schema[object: "Height"]!,
+      inclusionConditions: nil,
       givenAllTypesInSchema: schema.referencedTypes)
 
     let allAnimals_asCat_predator_expectedTypePath = LinkedList(array: [
@@ -3496,9 +3622,9 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let allAnimals_asCat_predator_height_actual = allAnimals?[as: "Cat"]?[field: "predator"]?[field: "height"]?.selectionSet
 
     // then
-    expect(allAnimals_asCat_predator_actual?.typePath).to(equal(allAnimals_asCat_predator_expectedTypePath))
+    expect(allAnimals_asCat_predator_actual?.scopePath).to(equal(allAnimals_asCat_predator_expectedTypePath))
 
-    expect(allAnimals_asCat_predator_height_actual?.typePath).to(equal(allAnimals_asCat_predator_height_expectedTypePath))
+    expect(allAnimals_asCat_predator_height_actual?.scopePath).to(equal(allAnimals_asCat_predator_height_expectedTypePath))
   }
 
   func test__mergedSelections__givenEntityFieldInMatchingTypeCaseOnTypeWithOnlyMergedSelections_mergedOnlyEntityFieldHasCorrectTypePath() throws {
@@ -3556,27 +3682,32 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
 
     let allAnimals = subject[field: "allAnimals"]
 
-    let query_TypeScope = TypeScopeDescriptor.descriptor(
+    let query_TypeScope = IR.ScopeDescriptor.descriptor(
       forType: operation.rootType,
+      inclusionConditions: nil,
       givenAllTypesInSchema: schema.referencedTypes)
 
-    let allAnimals_asCat_TypeScope = TypeScopeDescriptor.descriptor(
+    let allAnimals_asCat_TypeScope = IR.ScopeDescriptor.descriptor(
       forType: schema[interface: "Animal"]!,
+      inclusionConditions: nil,
       givenAllTypesInSchema: schema.referencedTypes
     ).appending(schema[object: "Cat"]!)
 
-    let allAnimals_asCat_predator_TypeScope = TypeScopeDescriptor.descriptor(
+    let allAnimals_asCat_predator_TypeScope = IR.ScopeDescriptor.descriptor(
       forType: schema[interface: "Animal"]!,
+      inclusionConditions: nil,
       givenAllTypesInSchema: schema.referencedTypes
     )
 
-    let allAnimals_asCat_predator_asPet_TypeScope = TypeScopeDescriptor.descriptor(
+    let allAnimals_asCat_predator_asPet_TypeScope = IR.ScopeDescriptor.descriptor(
       forType: schema[interface: "Animal"]!,
+      inclusionConditions: nil,
       givenAllTypesInSchema: schema.referencedTypes
     ).appending(schema[interface: "Pet"]!)
 
-    let allAnimals_asCat_predator_asPet_height_TypeScope = TypeScopeDescriptor.descriptor(
+    let allAnimals_asCat_predator_asPet_height_TypeScope = IR.ScopeDescriptor.descriptor(
       forType: schema[object: "Height"]!,
+      inclusionConditions: nil,
       givenAllTypesInSchema: schema.referencedTypes
     )
 
@@ -3598,11 +3729,127 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let allAnimals_asCat_predator_height_actual = allAnimals?[as: "Cat"]?[field: "predator"]?[as: "Pet"]?[field: "height"]?.selectionSet
 
     // then
-    expect(allAnimals_asCat_predator_actual?.typePath)
+    expect(allAnimals_asCat_predator_actual?.scopePath)
       .to(equal(allAnimals_asCat_predator_expectedTypePath))
 
-    expect(allAnimals_asCat_predator_height_actual?.typePath)
+    expect(allAnimals_asCat_predator_height_actual?.scopePath)
       .to(equal(allAnimals_asCat_predator_height_expectedTypePath))
+  }
+
+  // MARK: - Nested Entity In Fragments - Merged Selections
+
+  func test__mergedSelections__givenEntityField_DirectSelectionsAndMergedFromNestedEntityInFragmentAndFragmentInFragment_nestedEntityFieldHasFragmentMergedSources() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String
+      predator: Animal!
+      height: Height!
+    }
+
+    type Height {
+      feet: Int
+      meters: Int
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        predator {
+          species
+        }
+        ...PredatorDetails
+      }
+    }
+
+    fragment PredatorDetails on Animal {
+      predator {
+        height {
+          feet
+          ...HeightInMeters
+        }
+      }
+    }
+
+    fragment HeightInMeters on Height {
+      meters
+    }
+    """
+
+    // when
+    try buildSubjectRootField()
+
+    let Interface_Animal = try XCTUnwrap(schema[interface: "Animal"])
+    let Object_Height = try XCTUnwrap(schema[object: "Height"])
+
+    let allAnimals = try XCTUnwrap(
+      subject?[field: "allAnimals"] as? IR.EntityField
+    )
+    let allAnimals_predator = try XCTUnwrap(
+      allAnimals[field: "predator"] as? IR.EntityField
+    )
+
+    let Fragment_PredatorDetails = try XCTUnwrap(
+      subject?[field: "allAnimals"]?[fragment: "PredatorDetails"]
+    )
+    let PredatorDetails_Predator = try XCTUnwrap(
+      Fragment_PredatorDetails.fragment[field: "predator"]
+    )
+    let PredatorDetails_Predator_Height = try XCTUnwrap(
+      PredatorDetails_Predator[field: "height"]
+    )
+
+    let Fragment_PredatorDetails_HeightInMeters = try XCTUnwrap(
+      PredatorDetails_Predator_Height[fragment: "HeightInMeters"]
+    )
+
+    let allAnimals_expected = SelectionSetMatcher(
+      parentType: Interface_Animal,
+      directSelections: [
+        .field("predator", type: .nonNull(.entity(Interface_Animal))),
+        .fragmentSpread(Fragment_PredatorDetails.definition),
+      ],
+      mergedSelections: [],
+      mergedSources: []
+    )
+
+    let predator_expected = SelectionSetMatcher(
+      parentType: Interface_Animal,
+      directSelections: [
+        .field("species", type: .string()),
+      ],
+      mergedSelections: [
+        .field("height", type: .nonNull(.entity(Object_Height)))
+      ],
+      mergedSources: [
+        try .mock(for: PredatorDetails_Predator, from: Fragment_PredatorDetails)
+      ]
+    )
+
+    let predator_height_expected = SelectionSetMatcher(
+      parentType: Object_Height,
+      directSelections: nil,
+      mergedSelections: [
+        .field("meters", type: .integer()),
+        .field("feet", type: .integer()),
+        .fragmentSpread(Fragment_PredatorDetails_HeightInMeters.definition),
+      ],
+      mergedSources: [
+        try .mock(for: PredatorDetails_Predator_Height, from: Fragment_PredatorDetails),
+        try .mock(for: Fragment_PredatorDetails_HeightInMeters.fragment.rootField, from: Fragment_PredatorDetails_HeightInMeters)
+      ]
+    )
+
+    // then
+    expect(allAnimals.selectionSet).to(shallowlyMatch(allAnimals_expected))
+    expect(allAnimals_predator.selectionSet).to(shallowlyMatch(predator_expected))
+    expect(allAnimals_predator[field: "height"]?.selectionSet)
+      .to(shallowlyMatch(predator_height_expected))
   }
 
   // MARK: - Nested Entity In Fragments - Merged Sources
@@ -3650,10 +3897,14 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let allAnimals_predator = try XCTUnwrap(
       subject?[field: "allAnimals"]?[field: "predator"] as? IR.EntityField
     )
+
     let Fragment_PredatorDetails = subject?[field: "allAnimals"]?[fragment: "PredatorDetails"]
+    let PredatorDetails_predator = try XCTUnwrap(
+      Fragment_PredatorDetails?.fragment[field: "predator"] as? IR.EntityField
+    )
 
     let expected: IR.MergedSelections.MergedSources = [
-      try .mock(for: allAnimals_predator, from: Fragment_PredatorDetails)
+      try .mock(for: PredatorDetails_predator, from: Fragment_PredatorDetails)
     ]
 
     // then
@@ -3717,7 +3968,7 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     try buildSubjectRootField()
 
     let expected: OrderedSet = [
-      try ir.compilationResult[fragment: "QueryDetails"].xctUnwrapped()
+      try ir.builtFragments["QueryDetails"].xctUnwrapped()
     ]
 
     // then
@@ -3752,7 +4003,7 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     try buildSubjectRootField()
 
     let expected: OrderedSet = [
-      try ir.compilationResult[fragment: "AnimalDetails"].xctUnwrapped()
+      try ir.builtFragments["AnimalDetails"].xctUnwrapped()
     ]
 
     // then
@@ -3793,8 +4044,8 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     try buildSubjectRootField()
 
     let expected: OrderedSet = [
-      try ir.compilationResult[fragment: "AnimalDetails"].xctUnwrapped(),
-      try ir.compilationResult[fragment: "AnimalName"].xctUnwrapped(),
+      try ir.builtFragments["AnimalDetails"].xctUnwrapped(),
+      try ir.builtFragments["AnimalName"].xctUnwrapped(),
     ]
 
     // then
@@ -3835,11 +4086,12 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     try buildSubjectRootField()
 
     let expected: OrderedSet = [
-      try ir.compilationResult[fragment: "AnimalDetails"].xctUnwrapped(),
-      try ir.compilationResult[fragment: "AnimalName"].xctUnwrapped(),
+      try ir.builtFragments["AnimalDetails"].xctUnwrapped(),
+      try ir.builtFragments["AnimalName"].xctUnwrapped(),
     ]
 
     // then
     expect(self.computedReferencedFragments).to(equal(expected))
   }
+
 }

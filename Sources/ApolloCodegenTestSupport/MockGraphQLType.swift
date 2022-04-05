@@ -1,6 +1,17 @@
 @testable import ApolloCodegenLib
 import OrderedCollections
 
+public extension GraphQLCompositeType {
+  class func mock(
+    _ name: String = ""
+  ) -> Self {
+    let mock = Self.emptyMockObject()
+    mock.name = name
+    return mock
+  }
+}
+
+
 public extension GraphQLObjectType {
   class func mock(
     _ name: String = "",
@@ -52,6 +63,13 @@ public extension GraphQLScalarType {
     mock.name = name
     return mock
   }
+}
+
+public extension GraphQLType {
+  static func string() -> Self { .scalar(GraphQLScalarType.mock(name: "String")) }
+  static func integer() -> Self { .scalar(GraphQLScalarType.mock(name: "Int")) }
+  static func boolean() -> Self { .scalar(GraphQLScalarType.mock(name: "Boolean")) }
+  static func float() -> Self { .scalar(GraphQLScalarType.mock(name: "Float")) }
 }
 
 public extension GraphQLEnumType {

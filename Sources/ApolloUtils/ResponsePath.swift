@@ -69,6 +69,20 @@ public struct ResponsePath: ExpressibleByArrayLiteral {
   public static func + (lhs: ResponsePath, rhs: Key) -> ResponsePath {
     lhs.appending(rhs)
   }
+
+  public static func + (lhs: ResponsePath, rhs: ResponsePath) -> ResponsePath {
+    lhs + rhs.toArray()
+  }
+
+  public static func + <T: Sequence>(
+    lhs: ResponsePath, rhs: T
+  ) -> ResponsePath where T.Element == Key {
+    var new = lhs
+    for component in rhs {
+      new.append(component)
+    }
+    return new
+  }
 }
 
 extension ResponsePath: CustomStringConvertible {

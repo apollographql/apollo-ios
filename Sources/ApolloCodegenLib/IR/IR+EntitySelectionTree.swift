@@ -2,13 +2,6 @@ import ApolloUtils
 import Darwin
 import OrderedCollections
 
-fileprivate protocol EntitySelectionTreeNode {
-  func mergeSelections(
-    matchingTypePath typePath: LinkedList<TypeScopeDescriptor>.Node,
-    into selections: IR.MergedSelections
-  )
-}
-
 extension IR {
 
   /// Represents the selections for an entity at different nested type scopes in a tree.
@@ -31,166 +24,151 @@ extension IR {
     // MARK: - Merge Selection Sets Into Tree
     
     func mergeIn(
-      selectionSet: SelectionSet,
-      inFragmentSpread fragmentSpread: FragmentSpread? = nil
+      selections: DirectSelections,
+      with typeInfo: SelectionSet.TypeInfo
     ) {
       let source = MergedSelections.MergedSource(
-        typeInfo: selectionSet.typeInfo,
-        fragment: fragmentSpread
+        typeInfo: typeInfo,
+        fragment: nil
       )
-      mergeIn(selectionSet: selectionSet, from: source)
+      mergeIn(selections: selections, from: source)
     }
 
-    private func mergeIn(selectionSet: SelectionSet, from source: MergedSelections.MergedSource) {
-      guard let directSelections = selectionSet.selections.direct,
-            (!directSelections.fields.isEmpty || !directSelections.fragments.isEmpty) else {
-              return
-            }
-
-      mergeIn(
-        selections: directSelections,
-        from: source,
-        atEnclosingEntityScope: selectionSet.typeInfo.typePath.head,
-        withEntityTypePath: selectionSet.typeInfo.typePath.head.value.typePath.head,
-        to: rootNode,
-        ofType: rootTypePath.head.value,
-        withRootTypePath: rootTypePath.head
-      )
-    }
-
-    private func mergeIn(
-      selections: DirectSelections,
-      from source: MergedSelections.MergedSource,
-      atEnclosingEntityScope currentEntityScope: LinkedList<TypeScopeDescriptor>.Node,
-      withEntityTypePath currentEntityTypePath: LinkedList<GraphQLCompositeType>.Node,
-      to node: EnclosingEntityNode,
-      ofType currentNodeType: GraphQLCompositeType,
-      withRootTypePath currentNodeRootTypePath: LinkedList<GraphQLCompositeType>.Node
-    ) {
-      guard let nextEntityTypePath = currentNodeRootTypePath.next else {
-        // Advance to field node in current entity & type case
-        let fieldNode = node.childAsFieldScopeNode()
-        mergeIn(
-          selections: selections,
-          from: source,
-          withTypeScope: currentEntityScope.value.typePath.head,
-          toFieldNode: fieldNode,
-          ofType: currentNodeRootTypePath.value
-        )
+    private func mergeIn(selections: DirectSelections, from source: MergedSelections.MergedSource) {
+      guard (!selections.fields.isEmpty || !selections.fragments.isEmpty) else {
         return
       }
 
-      guard let nextTypePathForCurrentEntity = currentEntityTypePath.next else {
+      let fieldNode = fieldNode(
+        atEnclosingEntityScope: source.typeInfo.scopePath.head,
+        withEntityScopePath: source.typeInfo.scopePath.head.value.scopePath.head,
+        from: rootNode,
+        withCondition: ScopeCondition(type: rootTypePath.head.value),
+        withRootTypePath: rootTypePath.head
+      )
+
+      fieldNode.mergeIn(selections, from: source)
+    }
+
+    fileprivate func fieldNode(
+      atEnclosingEntityScope currentEntityScope: LinkedList<ScopeDescriptor>.Node,
+      withEntityScopePath currentEntityConditionPath: LinkedList<ScopeCondition>.Node,
+      from node: EnclosingEntityNode,
+      withCondition currentNodeCondition: ScopeCondition,
+      withRootTypePath currentNodeRootTypePath: LinkedList<GraphQLCompositeType>.Node
+    ) -> FieldScopeNode {
+      guard let nextEntityTypePath = currentNodeRootTypePath.next else {
+        // Advance to field node in current entity & type case
+        let currentEntityRootFieldNode = node.childAsFieldScopeNode()
+        return fieldNode(
+          withConditionScopePath: currentEntityScope.value.scopePath.head,
+          fromFieldNode: currentEntityRootFieldNode,
+          withCondition: ScopeCondition(type: currentNodeRootTypePath.value)
+        )
+      }
+
+      guard let nextConditionPathForCurrentEntity = currentEntityConditionPath.next else {
         // Advance to next entity
         guard let nextEntityScope = currentEntityScope.next else { fatalError() }
         let nextEntityNode = node.childAsEnclosingEntityNode()
 
-        mergeIn(
-          selections: selections,
-          from: source,
+        return fieldNode(
           atEnclosingEntityScope: nextEntityScope,
-          withEntityTypePath: nextEntityScope.value.typePath.head,
-          to: nextEntityNode,
-          ofType: nextEntityTypePath.value,
+          withEntityScopePath: nextEntityScope.value.scopePath.head,
+          from: nextEntityNode,
+          withCondition: ScopeCondition(type: nextEntityTypePath.value),
           withRootTypePath: nextEntityTypePath
         )
-        return
       }
 
       // Advance to next type case in current entity
-      let nextTypeForCurrentEntity = nextTypePathForCurrentEntity.value
-      let nextNodeForCurrentEntity = currentNodeType != nextTypeForCurrentEntity
-      ? node.typeCaseNode(forType: nextTypeForCurrentEntity) : node
+      let nextCondition = nextConditionPathForCurrentEntity.value
 
-      mergeIn(
-        selections: selections,
-        from: source,
+      let nextNodeForCurrentEntity = currentNodeCondition != nextCondition
+      ? node.scopeConditionNode(for: nextCondition) : node
+
+      return fieldNode(
         atEnclosingEntityScope: currentEntityScope,
-        withEntityTypePath: nextTypePathForCurrentEntity,
-        to: nextNodeForCurrentEntity,
-        ofType: nextTypeForCurrentEntity,
+        withEntityScopePath: nextConditionPathForCurrentEntity,
+        from: nextNodeForCurrentEntity,
+        withCondition: nextCondition,
         withRootTypePath: currentNodeRootTypePath
       )
     }
 
-    private func mergeIn(
-      selections: DirectSelections,
-      from source: IR.MergedSelections.MergedSource,
-      withTypeScope currentSelectionScopeTypeCase: LinkedList<GraphQLCompositeType>.Node,
-      toFieldNode node: FieldScopeNode,
-      ofType fieldNodeType: GraphQLCompositeType
-    ) {
-      guard let nextTypeCaseInScope = currentSelectionScopeTypeCase.next else {
-        let typeForSelections = currentSelectionScopeTypeCase.value
-
-        if fieldNodeType == typeForSelections {
-          node.mergeIn(selections, from: source)
-          return
+    private func fieldNode(
+      withConditionScopePath selectionsScopePath: LinkedList<ScopeCondition>.Node,
+      fromFieldNode node: FieldScopeNode,
+      withCondition fieldNodeCondition: ScopeCondition
+    ) -> FieldScopeNode {
+      guard let nextConditionInScopePath = selectionsScopePath.next else {
+        // Last condition in field scope path
+        let selectionsCondition = selectionsScopePath.value
+        if fieldNodeCondition == selectionsCondition {
+          return node
 
         } else {
-          let fieldTypeCaseNode = node.typeCaseNode(forType: typeForSelections)
-          fieldTypeCaseNode.mergeIn(selections, from: source)
-          return
+          return node.scopeConditionNode(for: selectionsCondition)
         }
       }
 
-      let nextNodeForField = fieldNodeType != nextTypeCaseInScope.value
-      ? node.typeCaseNode(forType: nextTypeCaseInScope.value) : node
+      let nextCondition = nextConditionInScopePath.value
+      let nextNodeForField = fieldNodeCondition != nextCondition
+      ? node.scopeConditionNode(for: nextCondition) : node
 
-      mergeIn(
-        selections: selections,
-        from: source,
-        withTypeScope: nextTypeCaseInScope,
-        toFieldNode: nextNodeForField,
-        ofType: nextTypeCaseInScope.value
+      return fieldNode(
+        withConditionScopePath: nextConditionInScopePath,
+        fromFieldNode: nextNodeForField,
+        withCondition: nextCondition
       )
     }
 
     // MARK: - Calculate Merged Selections From Tree
 
     func addMergedSelections(into selections: IR.MergedSelections) {
-      let rootTypePath = selections.typeInfo.typePath.head
-      rootNode.mergeSelections(matchingTypePath: rootTypePath, into: selections)
+      let rootTypePath = selections.typeInfo.scopePath.head
+      rootNode.mergeSelections(matchingScopePath: rootTypePath, into: selections)
     }
 
-    class EnclosingEntityNode: EntitySelectionTreeNode {
-      enum Child: EntitySelectionTreeNode {
+    class EnclosingEntityNode {
+      enum Child {
         case enclosingEntity(EnclosingEntityNode)
         case fieldScope(FieldScopeNode)
 
         func mergeSelections(
-          matchingTypePath typePath: LinkedList<TypeScopeDescriptor>.Node,
+          matchingScopePath typePath: LinkedList<ScopeDescriptor>.Node,
           into selections: IR.MergedSelections
         ) {
           switch self {
-          case let .enclosingEntity(node as EntitySelectionTreeNode),
-            let .fieldScope(node as EntitySelectionTreeNode):
-            node.mergeSelections(matchingTypePath: typePath, into: selections)
+          case let .enclosingEntity(node):
+            node.mergeSelections(matchingScopePath: typePath, into: selections)
+          case let .fieldScope(node):
+            node.mergeSelections(matchingScopePath: typePath, into: selections)
           }
         }
       }
 
       var child: Child?
-      var typeCases: OrderedDictionary<GraphQLCompositeType, EnclosingEntityNode>?
+      var scopeConditions: OrderedDictionary<ScopeCondition, EnclosingEntityNode>?
 
       func mergeSelections(
-        matchingTypePath typePath: LinkedList<TypeScopeDescriptor>.Node,
+        matchingScopePath typePath: LinkedList<ScopeDescriptor>.Node,
         into selections: IR.MergedSelections
       ) {
         guard let nextTypePathNode = typePath.next else {
           guard case let .fieldScope(node) = child else { fatalError() }
-          node.mergeSelections(matchingTypePath: typePath, into: selections)
+          node.mergeSelections(matchingScopePath: typePath, into: selections)
           return
         }
 
         if let child = child {
-          child.mergeSelections(matchingTypePath: nextTypePathNode, into: selections)
+          child.mergeSelections(matchingScopePath: nextTypePathNode, into: selections)
         }
 
-        if let typeCases = typeCases {
-          for (typeCase, node) in typeCases {
-            if typePath.value.matches(typeCase) {
-              node.mergeSelections(matchingTypePath: typePath, into: selections)
+        if let scopeConditions = scopeConditions {
+          for (condition, node) in scopeConditions {
+            if typePath.value.matches(condition) {
+              node.mergeSelections(matchingScopePath: typePath, into: selections)
             }
           }
         }
@@ -204,7 +182,7 @@ extension IR {
         }
 
         guard case let .enclosingEntity(child) = child else {
-          fatalError()
+          preconditionFailure()
         }
 
         return child
@@ -224,17 +202,17 @@ extension IR {
         return child
       }
 
-      fileprivate func typeCaseNode(forType type: GraphQLCompositeType) -> EnclosingEntityNode {
-        guard var typeCases = typeCases else {
+      fileprivate func scopeConditionNode(for condition: ScopeCondition) -> EnclosingEntityNode {
+        guard var scopeConditions = scopeConditions else {
           let node = EnclosingEntityNode()
-          self.typeCases = [type: node]
+          self.scopeConditions = [condition: node]
           return node
         }
 
-        guard let node = typeCases[type] else {
+        guard let node = scopeConditions[condition] else {
           let node = EnclosingEntityNode()
-          typeCases[type] = node
-          self.typeCases = typeCases
+          scopeConditions[condition] = node
+          self.scopeConditions = scopeConditions
           return node
         }
 
@@ -242,50 +220,50 @@ extension IR {
       }
     }
 
-    class FieldScopeNode: EntitySelectionTreeNode {
+    class FieldScopeNode {
       var selections: OrderedDictionary<MergedSelections.MergedSource, EntityTreeScopeSelections> = [:]
-      var typeCases: OrderedDictionary<GraphQLCompositeType, FieldScopeNode>?
+      var scopeConditions: OrderedDictionary<ScopeCondition, FieldScopeNode>?
 
       fileprivate func mergeIn(
         _ selections: DirectSelections,
         from source: IR.MergedSelections.MergedSource
       ) {
-        var selectionsFromSource = self.selections[source] ?? EntityTreeScopeSelections()
-        selectionsFromSource.mergeIn(selections)
-        self.selections[source] = selectionsFromSource
+        self.selections.updateValue(forKey: source, default: EntityTreeScopeSelections()) {
+          $0.mergeIn(selections)
+        }
       }
 
       func mergeSelections(
-        matchingTypePath typePath: LinkedList<TypeScopeDescriptor>.Node,
+        matchingScopePath typePathNode: LinkedList<ScopeDescriptor>.Node,
         into selections: IR.MergedSelections
       ) {
         for (source, scopeSelections) in self.selections {
           selections.mergeIn(scopeSelections, from: source)
         }
 
-        if let typeCases = typeCases {
-          for (typeCase, node) in typeCases {
-            if typePath.value.matches(typeCase) {
-              node.mergeSelections(matchingTypePath: typePath, into: selections)
+        if let conditionalScopes = scopeConditions {
+          for (condition, node) in conditionalScopes {
+            if typePathNode.value.matches(condition) {
+              node.mergeSelections(matchingScopePath: typePathNode, into: selections)
 
             } else {
-              selections.addMergedTypeCase(withType: typeCase)
+              selections.addMergedInlineFragment(with: condition)
             }
           }
         }
       }
 
-      fileprivate func typeCaseNode(forType type: GraphQLCompositeType) -> FieldScopeNode {
-        guard var typeCases = typeCases else {
+      fileprivate func scopeConditionNode(for condition: ScopeCondition) -> FieldScopeNode {
+        guard var scopeConditions = scopeConditions else {
           let node = FieldScopeNode()
-          self.typeCases = [type: node]
+          self.scopeConditions = [condition: node]
           return node
         }
 
-        guard let node = typeCases[type] else {
+        guard let node = scopeConditions[condition] else {
           let node = FieldScopeNode()
-          typeCases[type] = node
-          self.typeCases = typeCases
+          scopeConditions[condition] = node
+          self.scopeConditions = scopeConditions
           return node
         }
 
@@ -294,36 +272,55 @@ extension IR {
     }
   }
 
-  struct EntityTreeScopeSelections: Equatable, CustomDebugStringConvertible
-  {
+  class EntityTreeScopeSelections: Equatable, CustomDebugStringConvertible {
+
     fileprivate(set) var fields: OrderedDictionary<String, Field> = [:]
     fileprivate(set) var fragments: OrderedDictionary<String, FragmentSpread> = [:]
 
     init() {}
 
+    fileprivate init(
+      fields: OrderedDictionary<String, Field>,
+      fragments: OrderedDictionary<String, FragmentSpread>
+    ) {
+      self.fields = fields
+      self.fragments = fragments
+    }
+
     var isEmpty: Bool {
       fields.isEmpty && fragments.isEmpty
     }
 
-    private mutating func mergeIn(_ field: Field) {
+    private func mergeIn(_ field: Field) {
       fields[field.hashForSelectionSetScope] = field
     }
 
-    private mutating func mergeIn<T: Sequence>(_ fields: T) where T.Element == Field {
+    private func mergeIn<T: Sequence>(_ fields: T) where T.Element == Field {
       fields.forEach { mergeIn($0) }
     }
 
-    private mutating func mergeIn(_ fragment: FragmentSpread) {
+    private func mergeIn(_ fragment: FragmentSpread) {
       fragments[fragment.hashForSelectionSetScope] = fragment
     }
 
-    private mutating func mergeIn<T: Sequence>(_ fragments: T) where T.Element == FragmentSpread {
+    private func mergeIn<T: Sequence>(_ fragments: T) where T.Element == FragmentSpread {
       fragments.forEach { mergeIn($0) }
     }
 
-    mutating func mergeIn(_ selections: DirectSelections) {
+    func mergeIn(_ selections: DirectSelections) {
       mergeIn(selections.fields.values)
       mergeIn(selections.fragments.values)
+    }
+
+    func mergeIn(_ selections: EntityTreeScopeSelections) -> Self {
+      mergeIn(selections.fields.values)
+      mergeIn(selections.fragments.values)
+      return self
+    }
+
+    static func == (lhs: IR.EntityTreeScopeSelections, rhs: IR.EntityTreeScopeSelections) -> Bool {
+      lhs.fields == rhs.fields &&
+      lhs.fragments == rhs.fragments
     }
 
     var debugDescription: String {
@@ -334,6 +331,212 @@ extension IR {
     }
   }
 }
+
+// MARK: - Merge In Other Entity Trees
+
+extension IR.EntitySelectionTree {
+
+  /// Merges an `EntitySelectionTree` from a matching `Entity` in the given `FragmentSpread`
+  /// into the receiver.
+  ///
+  /// - Precondition: This function assumes that the `EntitySelectionTree` being merged in
+  /// represents the same entity in the response. Passing a non-matching entity is a serious
+  /// programming error and will result in undefined behavior.
+  func mergeIn(
+    _ otherTree: IR.EntitySelectionTree,
+    from fragment: IR.FragmentSpread,
+    using entityStorage: IR.RootFieldEntityStorage
+  ) {    
+    let otherTreeCount = otherTree.rootTypePath.count
+    let diffToRoot = rootTypePath.count - otherTreeCount
+
+    precondition(diffToRoot >= 0, "Cannot merge in tree shallower than current tree.")
+
+    var rootEntityToStartMerge: EnclosingEntityNode = rootNode
+    var nodeRootType = rootTypePath.head
+
+    for _ in 0..<diffToRoot {
+      let nextNode = rootEntityToStartMerge.childAsEnclosingEntityNode()
+      rootEntityToStartMerge = nextNode
+      nodeRootType = nodeRootType.next!
+    }
+
+    rootEntityToStartMerge.mergeIn(
+      otherTree,
+      from: fragment,
+      withNodeRootType: nodeRootType.value,
+      using: entityStorage
+    )
+  }
+
+}
+
+extension IR.EntitySelectionTree.EnclosingEntityNode {
+
+  fileprivate func mergeIn(
+    _ otherTree: IR.EntitySelectionTree,
+    from fragment: IR.FragmentSpread,
+    withNodeRootType nodeRootType: GraphQLCompositeType,
+    using entityStorage: IR.RootFieldEntityStorage
+  ) {
+    switch otherTree.rootNode.child {
+    case let .enclosingEntity(otherNextNode):
+      let fragmentType = fragment.typeInfo.parentType
+      let nextNode = nodeRootType == fragmentType ?
+      self.childAsEnclosingEntityNode() :
+      self.scopeConditionNode(for: IR.ScopeCondition(type: fragmentType))
+
+      nextNode.mergeIn(
+        otherNextNode,
+        from: fragment,
+        using: entityStorage
+      )
+
+    case let .fieldScope(otherNextNode):
+      let nextNode = self.childAsFieldScopeNode()
+
+      nextNode.mergeIn(
+        fragmentRootFieldNode: otherNextNode,
+        from: fragment,
+        withScopePath: fragment.typeInfo.scopePath.last.value.scopePath.head,
+        using: entityStorage
+      )
+
+    case .none:
+      break
+    }
+  }
+
+  fileprivate func mergeIn(
+    _ otherNode: IR.EntitySelectionTree.EnclosingEntityNode,
+    from fragment: IR.FragmentSpread,
+    using entityStorage: IR.RootFieldEntityStorage
+  ) {
+    switch otherNode.child {
+    case let .enclosingEntity(otherNextNode):
+      let nextNode = self.childAsEnclosingEntityNode()
+      nextNode.mergeIn(
+        otherNextNode,
+        from: fragment,
+        using: entityStorage
+      )
+
+    case let .fieldScope(otherNextNode):
+      let nextNode = self.childAsFieldScopeNode()
+
+      nextNode.mergeIn(
+        otherNextNode,
+        from: fragment,
+        using: entityStorage
+      )
+
+    case .none:
+      break
+    }
+
+    if let otherConditions = otherNode.scopeConditions {
+      for (otherCondition, otherNode) in otherConditions {
+        let conditionNode = self.scopeConditionNode(for: otherCondition)
+        conditionNode.mergeIn(
+          otherNode,
+          from: fragment,
+          using: entityStorage
+        )
+      }
+    }
+  }
+
+}
+
+extension IR.EntitySelectionTree.FieldScopeNode {
+
+  fileprivate func mergeIn(
+    fragmentRootFieldNode otherNode: IR.EntitySelectionTree.FieldScopeNode,
+    from fragment: IR.FragmentSpread,
+    withScopePath fragmentScopePath: LinkedList<IR.ScopeCondition>.Node,
+    using entityStorage: IR.RootFieldEntityStorage
+  ) {
+
+    guard let nextFragmentScope = fragmentScopePath.next else {
+      // Merge fragment entity tree in at current scope.
+      mergeIn(
+        otherNode,
+        from: fragment,
+        using: entityStorage
+      )
+      return
+    }
+
+    let nextFieldNode = self.scopeConditionNode(for: nextFragmentScope.value)
+    nextFieldNode.mergeIn(
+      fragmentRootFieldNode: otherNode,
+      from: fragment,
+      withScopePath: nextFragmentScope,
+      using: entityStorage
+    )
+  }
+
+  fileprivate func mergeIn(
+    _ otherNode: IR.EntitySelectionTree.FieldScopeNode,
+    from fragment: IR.FragmentSpread,
+    using entityStorage: IR.RootFieldEntityStorage
+  ) {
+    for (source, selections) in otherNode.selections {
+      let newSource = source.fragment != nil ?
+      source :
+      IR.MergedSelections.MergedSource(
+        typeInfo: source.typeInfo, fragment: fragment.fragment
+      )
+
+      let fields = selections.fields.mapValues { oldField -> IR.Field in
+        if let oldField = oldField as? IR.EntityField {
+          let entity = entityStorage.entity(
+            for: oldField.entity,
+            inFragmentSpreadAtTypePath: fragment.typeInfo
+          )
+
+          return IR.EntityField(
+            oldField.underlyingField,
+            inclusionConditions: oldField.inclusionConditions,
+            selectionSet: IR.SelectionSet(
+              entity: entity,
+              scopePath: oldField.selectionSet.scopePath,
+              mergedSelectionsOnly: true)
+          )
+
+        } else {
+          return oldField
+        }
+      }
+
+      let fragments = selections.fragments.mapValues { oldFragment -> IR.FragmentSpread in
+        let entity = entityStorage.entity(
+          for: oldFragment.typeInfo.entity,
+          inFragmentSpreadAtTypePath: fragment.typeInfo
+        )
+        return IR.FragmentSpread(
+          fragment: oldFragment.fragment,
+          typeInfo: IR.SelectionSet.TypeInfo(
+            entity: entity,
+            scopePath: oldFragment.typeInfo.scopePath
+          ),
+          inclusionConditions: oldFragment.inclusionConditions
+        )
+      }
+      self.selections[newSource] = IR.EntityTreeScopeSelections(fields: fields, fragments: fragments)
+    }
+
+    if let otherConditions = otherNode.scopeConditions {
+      for (otherCondition, otherNode) in otherConditions {
+        let conditionNode = self.scopeConditionNode(for: otherCondition)
+        conditionNode.mergeIn(otherNode, from: fragment, using: entityStorage)
+      }
+    }
+  }
+
+}
+
+// MARK: - CustomDebugStringConvertible
 
 extension IR.EntitySelectionTree: CustomDebugStringConvertible {
   var debugDescription: String {
@@ -350,8 +553,8 @@ extension IR.EntitySelectionTree.EnclosingEntityNode: CustomDebugStringConvertib
     {
       child:
         \(indented: child?.debugDescription ?? "nil")
-      typeCases:
-        \(indented: typeCases?.debugDescription ?? "[]")
+      conditionalScopes:
+        \(indented: scopeConditions?.debugDescription ?? "[]")
     }
     """
   }
@@ -363,8 +566,8 @@ extension IR.EntitySelectionTree.FieldScopeNode: CustomDebugStringConvertible {
     {
       selections:
         \(indented: selections.debugDescription)
-      typeCases:
-        \(indented: typeCases?.debugDescription ?? "[]")
+      conditionalScopes:
+        \(indented: scopeConditions?.debugDescription ?? "[]")
     }
     """
   }

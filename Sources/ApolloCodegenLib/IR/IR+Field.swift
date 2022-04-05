@@ -1,18 +1,24 @@
 import Foundation
+import OrderedCollections
 
 extension IR {
 
   class Field: Equatable, CustomDebugStringConvertible {
     let underlyingField: CompilationResult.Field
+    var inclusionConditions: AnyOf<InclusionConditions>?
 
     var name: String { underlyingField.name }
     var alias: String? { underlyingField.alias }
     var responseKey: String { underlyingField.responseKey }
     var type: GraphQLType { underlyingField.type }
     var arguments: [CompilationResult.Argument]? { underlyingField.arguments }
-
-    fileprivate init(_ field: CompilationResult.Field) {
+    
+    fileprivate init(
+      _ field: CompilationResult.Field,
+      inclusionConditions: AnyOf<InclusionConditions>? = nil
+    ) {
       self.underlyingField = field
+      self.inclusionConditions = inclusionConditions
     }
 
     static func ==(lhs: Field, rhs: Field) -> Bool {
@@ -20,13 +26,20 @@ extension IR {
     }
 
     var debugDescription: String {
-      underlyingField.debugDescription
+      TemplateString("""
+      \(name): \(type.debugDescription)\(ifLet: inclusionConditions, {
+        " \($0.debugDescription)"
+        })
+      """).description
     }
   }
 
   final class ScalarField: Field {
-    override init(_ field: CompilationResult.Field) {
-      super.init(field)
+    override init(
+      _ field: CompilationResult.Field,
+      inclusionConditions: AnyOf<InclusionConditions>? = nil
+    ) {
+      super.init(field, inclusionConditions: inclusionConditions)
     }
   }
 
@@ -34,9 +47,13 @@ extension IR {
     let selectionSet: SelectionSet
     var entity: Entity { selectionSet.typeInfo.entity }
 
-    init(_ field: CompilationResult.Field, selectionSet: SelectionSet) {
+    init(
+      _ field: CompilationResult.Field,
+      inclusionConditions: AnyOf<InclusionConditions>? = nil,
+      selectionSet: SelectionSet
+    ) {
       self.selectionSet = selectionSet
-      super.init(field)
+      super.init(field, inclusionConditions: inclusionConditions)
     }
 
     static func ==(lhs: EntityField, rhs: EntityField) -> Bool {

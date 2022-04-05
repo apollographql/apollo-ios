@@ -9,46 +9,45 @@ extension IR {
       /// Multiple `SelectionSet`s may reference the same `Entity`
       let entity: Entity
 
-      let parentType: GraphQLCompositeType
-
-      /// A list of the type scopes for the `SelectionSet` and its enclosing entities.
+      /// A list of the scopes for the `SelectionSet` and its enclosing entities.
       ///
-      /// The selection set's type scope is the last element in the list.
-      let typePath: LinkedList<TypeScopeDescriptor>
+      /// The selection set's `scope` is the last element in the list.
+      let scopePath: LinkedList<ScopeDescriptor>
 
-      /// Describes all of the types the selection set matches.
+      /// Describes all of the types and inclusion conditions the selection set matches.
       /// Derived from all the selection set's parents.
-      var typeScope: TypeScopeDescriptor { typePath.last.value }
+      var scope: ScopeDescriptor { scopePath.last.value }
 
-      /// Indicates if the `SelectionSet` represents a type case.
-      /// If `true`, the `SelectionSet` belongs to a type case enclosed in a field's `SelectionSet`.
-      /// If `false`, the `SelectionSet` belongs to a field directly.
-      var isTypeCase: Bool { typeScope.typePath.head.next != nil }
+      var parentType: GraphQLCompositeType { scope.type }
+
+      var inclusionConditions: InclusionConditions? { scope.scopePath.last.value.conditions }
+
+      /// Indicates if the `SelectionSet` represents a root selection set.
+      /// If `true`, the `SelectionSet` belongs to a field directly.
+      /// If `false`, the `SelectionSet` belongs to a conditional selection set enclosed
+      /// in a field's `SelectionSet`.
+      var isEntityRoot: Bool { scope.scopePath.head.next == nil }
 
       init(
         entity: Entity,
-        parentType: GraphQLCompositeType,
-        typePath: LinkedList<TypeScopeDescriptor>
+        scopePath: LinkedList<ScopeDescriptor>
       ) {
         self.entity = entity
-        self.parentType = parentType
-        self.typePath = typePath
+        self.scopePath = scopePath
       }
 
       static func == (lhs: TypeInfo, rhs: TypeInfo) -> Bool {
         lhs.entity === rhs.entity &&
-        lhs.parentType == rhs.parentType &&
-        lhs.typePath == rhs.typePath
+        lhs.scopePath == rhs.scopePath
       }
 
       func hash(into hasher: inout Hasher) {
         hasher.combine(ObjectIdentifier(entity))
-        hasher.combine(parentType)
-        hasher.combine(typePath)
+        hasher.combine(scopePath)
       }
 
       var debugDescription: String {
-        typePath.debugDescription
+        scopePath.debugDescription
       }
     }
 
@@ -82,16 +81,16 @@ extension IR {
 
       fileprivate init(
         typeInfo: TypeInfo,
-        mergedSelectionsOnly: Bool = false
+        directSelections: DirectSelections?
       ) {
         self.typeInfo = typeInfo
-        self.direct = mergedSelectionsOnly ? nil : DirectSelections()
+        self.direct = directSelections
       }
 
       var debugDescription: String {
         """
         direct: {
-          \(indented: direct.debugDescription)
+          \(indented: direct?.debugDescription ?? "nil")
         }
         merged: {
           \(indented: merged.debugDescription)
@@ -100,38 +99,52 @@ extension IR {
       }
     }
 
+    // MARK:  - SelectionSet
+
     let typeInfo: TypeInfo
     let selections: Selections
 
     init(
       entity: Entity,
-      parentType: GraphQLCompositeType,
-      typePath: LinkedList<TypeScopeDescriptor>,
+      scopePath: LinkedList<ScopeDescriptor>,
       mergedSelectionsOnly: Bool = false
     ) {
       self.typeInfo = TypeInfo(
         entity: entity,
-        parentType: parentType,
-        typePath: typePath
+        scopePath: scopePath
       )
       self.selections = Selections(
         typeInfo: self.typeInfo,
-        mergedSelectionsOnly: mergedSelectionsOnly
+        directSelections: mergedSelectionsOnly ? nil : DirectSelections()
+      )
+    }
+
+    init(
+      entity: Entity,
+      scopePath: LinkedList<ScopeDescriptor>,
+      selections: DirectSelections
+    ) {
+      self.typeInfo = TypeInfo(
+        entity: entity,
+        scopePath: scopePath
+      )
+      self.selections = Selections(
+        typeInfo: self.typeInfo,
+        directSelections: selections
       )
     }
 
     var debugDescription: String {
-      """
-      SelectionSet on \(typeInfo.parentType) {
-        \(indented: self.selections.debugDescription)
+      TemplateString("""
+      SelectionSet on \(typeInfo.parentType.debugDescription)\(ifLet: typeInfo.inclusionConditions, { " \($0.debugDescription)"})  {
+        \(self.selections.debugDescription)
       }
-      """
+      """).description
     }
 
     static func ==(lhs: IR.SelectionSet, rhs: IR.SelectionSet) -> Bool {
-      lhs.typeInfo.entity == rhs.typeInfo.entity &&
-      lhs.typeInfo.parentType == rhs.typeInfo.parentType &&
-      lhs.typeInfo.typePath == rhs.typeInfo.typePath &&
+      lhs.typeInfo.entity === rhs.typeInfo.entity &&
+      lhs.typeInfo.scopePath == rhs.typeInfo.scopePath &&
       lhs.selections.direct == rhs.selections.direct
     }
 

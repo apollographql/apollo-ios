@@ -37,8 +37,7 @@ public class GraphQLNamedType: JavaScriptObject, Hashable {
   }
 
   public static func ==(lhs: GraphQLNamedType, rhs: GraphQLNamedType) -> Bool {
-    return lhs.name == rhs.name &&
-    type(of: lhs) == type(of: rhs)
+    return lhs.name == rhs.name
   }
 }
 

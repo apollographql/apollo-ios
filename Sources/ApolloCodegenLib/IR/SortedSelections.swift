@@ -3,68 +3,138 @@ import OrderedCollections
 import ApolloUtils
 
 extension IR {
+
   class DirectSelections: Equatable, CustomDebugStringConvertible {
-    typealias TypeCase = IR.SelectionSet
 
     fileprivate(set) var fields: OrderedDictionary<String, Field> = [:]
-    fileprivate(set) var typeCases: OrderedDictionary<String, TypeCase> = [:]
+    fileprivate(set) var inlineFragments: OrderedDictionary<ScopeCondition, SelectionSet> = [:]
     fileprivate(set) var fragments: OrderedDictionary<String, FragmentSpread> = [:]
 
     init() {}
 
     init(
       fields: [Field] = [],
-      typeCases: [TypeCase] = [],
+      conditionalSelectionSets: [SelectionSet] = [],
       fragments: [FragmentSpread] = []
     ) {
       mergeIn(fields)
-      mergeIn(typeCases)
+      mergeIn(conditionalSelectionSets)
       mergeIn(fragments)
     }
 
     init(
       fields: OrderedDictionary<String, Field> = [:],
-      typeCases: OrderedDictionary<String, TypeCase> = [:],
+      conditionalSelectionSets: OrderedDictionary<ScopeCondition, SelectionSet> = [:],
       fragments: OrderedDictionary<String, FragmentSpread> = [:]
     ) {
       mergeIn(fields.values)
-      mergeIn(typeCases.values)
+      mergeIn(conditionalSelectionSets.values)
       mergeIn(fragments.values)
     }
 
     func mergeIn(_ selections: DirectSelections) {
       mergeIn(selections.fields.values)
-      mergeIn(selections.typeCases.values)
+      mergeIn(selections.inlineFragments.values)
       mergeIn(selections.fragments.values)
     }
 
     func mergeIn(_ field: Field) {
       let keyInScope = field.hashForSelectionSetScope
 
-      if let existingField = fields[keyInScope] as? EntityField {
-        if let field = field as? EntityField {
-          existingField.selectionSet.selections.direct!
-            .mergeIn(field.selectionSet.selections.direct!)
-        }
+      if let existingField = fields[keyInScope] {
 
+        if let existingField = existingField as? EntityField, let field = field as? EntityField {
+          fields[keyInScope] = merge(field, with: existingField)
+
+        } else {
+          existingField.inclusionConditions =
+          (existingField.inclusionConditions || field.inclusionConditions)
+
+        }
       } else {
         fields[keyInScope] = field
       }
     }
 
-    func mergeIn(_ typeCase: TypeCase) {
-      let keyInScope = typeCase.hashForSelectionSetScope
+    private func merge(_ newField: EntityField, with existingField: EntityField) -> EntityField {
+      var mergedField = existingField
 
-      if let existingTypeCase = typeCases[keyInScope] {
-        existingTypeCase.selections.direct!
-          .mergeIn(typeCase.selections.direct!)
+      if existingField.inclusionConditions == newField.inclusionConditions {
+        mergedField.selectionSet.selections.direct!
+          .mergeIn(newField.selectionSet.selections.direct!)
+
+      } else if existingField.inclusionConditions != nil {
+        mergedField = createInclusionWrapperField(wrapping: existingField, mergingIn: newField)
 
       } else {
-        typeCases[keyInScope] = typeCase
+        merge(field: newField, intoInclusionWrapperField: existingField)
+      }
+
+      return mergedField
+    }
+
+    private func createInclusionWrapperField(
+      wrapping existingField: EntityField,
+      mergingIn newField: EntityField
+    ) -> EntityField {
+      let wrapperScope = existingField.selectionSet.scopePath.mutatingLast { _ in
+        ScopeDescriptor.descriptor(
+          forType: existingField.selectionSet.parentType,
+          inclusionConditions: nil,
+          givenAllTypesInSchema: existingField.selectionSet.scope.allTypesInSchema
+        )
+      }
+
+      let wrapperField = EntityField(
+        existingField.underlyingField,
+        inclusionConditions: (existingField.inclusionConditions || newField.inclusionConditions),
+        selectionSet: SelectionSet(
+          entity: existingField.entity,
+          scopePath: wrapperScope
+        )
+      )
+
+      merge(field: existingField, intoInclusionWrapperField: wrapperField)
+      merge(field: newField, intoInclusionWrapperField: wrapperField)
+
+      return wrapperField
+    }
+
+    private func merge(field newField: EntityField, intoInclusionWrapperField wrapperField: EntityField) {
+      if let newFieldConditions = newField.selectionSet.inclusionConditions {
+        let newFieldSelectionSet = SelectionSet(
+          entity: newField.entity,
+          scopePath: wrapperField.selectionSet.scopePath.mutatingLast {
+            $0.appending(newFieldConditions)
+          },
+          selections: newField.selectionSet.selections.direct.unsafelyUnwrapped
+        )
+        wrapperField.selectionSet.selections.direct?.mergeIn(newFieldSelectionSet)
+
+      } else {
+        wrapperField.selectionSet.selections.direct?.mergeIn(newField.selectionSet.selections.direct.unsafelyUnwrapped)
+      }
+    }
+
+    func mergeIn(_ conditionalSelectionSet: SelectionSet) {
+      let scopeCondition = conditionalSelectionSet.scope.scopePath.last.value
+
+      if let existingTypeCase = inlineFragments[scopeCondition] {
+        existingTypeCase.selections.direct!
+          .mergeIn(conditionalSelectionSet.selections.direct!)
+
+      } else {
+        inlineFragments[scopeCondition] = conditionalSelectionSet
       }
     }
 
     func mergeIn(_ fragment: FragmentSpread) {
+      if let existingFragment = fragments[fragment.hashForSelectionSetScope] {
+        existingFragment.inclusionConditions =
+        (existingFragment.inclusionConditions || fragment.inclusionConditions)
+        return
+      }
+
       fragments[fragment.hashForSelectionSetScope] = fragment
     }
 
@@ -72,8 +142,8 @@ extension IR {
       fields.forEach { mergeIn($0) }
     }
 
-    func mergeIn<T: Sequence>(_ typeCases: T) where T.Element == TypeCase {
-      typeCases.forEach { mergeIn($0) }
+    func mergeIn<T: Sequence>(_ conditionalSelectionSets: T) where T.Element == SelectionSet {
+      conditionalSelectionSets.forEach { mergeIn($0) }
     }
 
     func mergeIn<T: Sequence>(_ fragments: T) where T.Element == FragmentSpread {
@@ -81,20 +151,20 @@ extension IR {
     }
 
     var isEmpty: Bool {
-      fields.isEmpty && typeCases.isEmpty && fragments.isEmpty
+      fields.isEmpty && inlineFragments.isEmpty && fragments.isEmpty
     }
 
     static func == (lhs: DirectSelections, rhs: DirectSelections) -> Bool {
       lhs.fields == rhs.fields &&
-      lhs.typeCases == rhs.typeCases &&
+      lhs.inlineFragments == rhs.inlineFragments &&
       lhs.fragments == rhs.fragments
     }
 
     var debugDescription: String {
       """
       Fields: \(fields.values.elements)
-      TypeCases: \(typeCases.values.elements.map(\.typeInfo.parentType))
-      Fragments: \(fragments.values.elements.map(\.definition.name))
+      InlineFragments: \(inlineFragments.values.elements.map(\.inlineFragmentDebugDescription))
+      Fragments: \(fragments.values.elements.map(\.debugDescription))
       """
     }
 
@@ -102,32 +172,96 @@ extension IR {
       ReadOnly(value: self)
     }
 
-    struct ReadOnly {
+    struct ReadOnly: Equatable {
       fileprivate let value: DirectSelections
 
       var fields: OrderedDictionary<String, Field> { value.fields }
-      var typeCases: OrderedDictionary<String, TypeCase> { value.typeCases }
+      var inlineFragments: OrderedDictionary<ScopeCondition, SelectionSet> { value.inlineFragments }
       var fragments: OrderedDictionary<String, FragmentSpread> { value.fragments }
+      var isEmpty: Bool { value.isEmpty }
+    }
+
+    var groupedByInclusionCondition: GroupedByInclusionCondition {
+      GroupedByInclusionCondition(self)
+    }
+
+    class GroupedByInclusionCondition: Equatable {
+
+      private(set) var unconditionalSelections:
+      DirectSelections.ReadOnly = .init(value: DirectSelections())
+
+      private(set) var inclusionConditionGroups:
+      OrderedDictionary<AnyOf<IR.InclusionConditions>, DirectSelections.ReadOnly> = [:]
+
+      init(_ directSelections: DirectSelections) {
+        for selection in directSelections.fields {
+          if let condition = selection.value.inclusionConditions {
+            inclusionConditionGroups.updateValue(
+              forKey: condition,
+              default: .init(value: DirectSelections())) { selections in
+                selections.value.fields[selection.key] = selection.value
+              }
+
+          } else {
+            unconditionalSelections.value.fields[selection.key] = selection.value
+          }
+        }
+
+        for selection in directSelections.inlineFragments {
+          if let condition = selection.value.inclusionConditions {
+            inclusionConditionGroups.updateValue(
+              forKey: AnyOf(condition),
+              default: .init(value: DirectSelections())) { selections in
+                selections.value.inlineFragments[selection.key] = selection.value
+              }
+
+          } else {
+            unconditionalSelections.value.inlineFragments[selection.key] = selection.value
+          }
+        }
+
+        for selection in directSelections.fragments {
+          if let condition = selection.value.inclusionConditions {
+            inclusionConditionGroups.updateValue(
+              forKey: condition,
+              default: .init(value: DirectSelections())) { selections in
+                selections.value.fragments[selection.key] = selection.value
+              }
+
+          } else {
+            unconditionalSelections.value.fragments[selection.key] = selection.value
+          }
+        }
+      }
+
+      static func == (lhs: IR.DirectSelections.GroupedByInclusionCondition, rhs: IR.DirectSelections.GroupedByInclusionCondition) -> Bool {
+        lhs.unconditionalSelections == rhs.unconditionalSelections &&
+        lhs.inclusionConditionGroups == rhs.inclusionConditionGroups
+      }
     }
 
   }
 
   class MergedSelections: Equatable, CustomDebugStringConvertible {
 
-    typealias TypeCase = IR.SelectionSet
-
     struct MergedSource: Hashable {
       let typeInfo: SelectionSet.TypeInfo
-      unowned let fragment: FragmentSpread?
+
+      /// The `NamedFragment` that the merged selections were contained in.
+      ///
+      /// - Note: If `fragment` is present, the `typeInfo` is relative to the fragment,
+      /// instead of the operation directly.
+      unowned let fragment: NamedFragment?
     }
 
     typealias MergedSources = Set<MergedSource>
 
-    let directSelections: DirectSelections.ReadOnly?
+    private let directSelections: DirectSelections.ReadOnly?
     let typeInfo: SelectionSet.TypeInfo
+    
     fileprivate(set) var mergedSources: MergedSources = []
     fileprivate(set) var fields: OrderedDictionary<String, Field> = [:]
-    fileprivate(set) var typeCases: OrderedDictionary<String, TypeCase> = [:]
+    fileprivate(set) var inlineFragments: OrderedDictionary<ScopeCondition, SelectionSet> = [:]
     fileprivate(set) var fragments: OrderedDictionary<String, FragmentSpread> = [:]
 
     init(
@@ -136,6 +270,22 @@ extension IR {
     ) {
       self.directSelections = directSelections
       self.typeInfo = typeInfo
+
+      createConditionalSelectionSetsForConditionalFragmentSpreads(in: directSelections)
+    }
+
+    private func createConditionalSelectionSetsForConditionalFragmentSpreads(
+      in directSelections: DirectSelections.ReadOnly?
+    ) {
+      directSelections?.fragments.values.forEach { fragment in
+        if let anyOfConditions = fragment.inclusionConditions {
+          for conditions in anyOfConditions.elements {
+            createShallowlyMergedInlineFragmentIfNeeded(
+              with: ScopeCondition(conditions: conditions)
+            )
+          }
+        }
+      }
     }
 
     func mergeIn(_ selections: EntityTreeScopeSelections, from source: MergedSource) {
@@ -171,11 +321,13 @@ extension IR {
     private func createShallowlyMergedNestedEntityField(from field: IR.EntityField) -> IR.EntityField {
       let newSelectionSet = IR.SelectionSet(
         entity: field.entity,
-        parentType: field.selectionSet.typeInfo.parentType,
-        typePath: self.typeInfo.typePath.appending(field.selectionSet.typeInfo.typeScope),
+        scopePath: self.typeInfo.scopePath.appending(field.selectionSet.typeInfo.scope),
         mergedSelectionsOnly: true
       )
-      return IR.EntityField(field.underlyingField, selectionSet: newSelectionSet)
+      return IR.EntityField(
+        field.underlyingField,        
+        selectionSet: newSelectionSet
+      )
     }
 
     private func mergeIn(_ fragment: IR.FragmentSpread) -> Bool {
@@ -190,37 +342,38 @@ extension IR {
       return true
     }
 
-    func addMergedTypeCase(withType type: GraphQLCompositeType) {
-      guard !typeInfo.isTypeCase else {
-        return
-      }
+    func addMergedInlineFragment(with condition: ScopeCondition) {
+      guard typeInfo.isEntityRoot else { return }
 
-      let keyInScope = type.hashForSelectionSetScope
-      if let directSelections = directSelections,
-         directSelections.typeCases.keys.contains(keyInScope) {
-        return
-      }
-
-      typeCases[keyInScope] = createShallowlyMergedTypeCase(withType: type)
+      createShallowlyMergedInlineFragmentIfNeeded(with: condition)
     }
 
-    private func createShallowlyMergedTypeCase(withType type: GraphQLCompositeType) -> TypeCase {
-      IR.SelectionSet(
-        entity: self.typeInfo.entity,
-        parentType: type,
-        typePath: self.typeInfo.typePath.mutatingLast { $0.appending(type) },
+    private func createShallowlyMergedInlineFragmentIfNeeded(
+      with condition: ScopeCondition
+    ) {
+      if let directSelections = directSelections,
+         directSelections.inlineFragments.keys.contains(condition) {
+        return
+      }
+
+      guard !inlineFragments.keys.contains(condition) else { return }
+
+      let selectionSet = IR.SelectionSet(
+        entity: self.typeInfo.entity,        
+        scopePath: self.typeInfo.scopePath.mutatingLast { $0.appending(condition) },
         mergedSelectionsOnly: true
       )
+      inlineFragments[condition] = selectionSet
     }
 
     var isEmpty: Bool {
-      fields.isEmpty && typeCases.isEmpty && fragments.isEmpty
+      fields.isEmpty && inlineFragments.isEmpty && fragments.isEmpty
     }
 
     static func == (lhs: MergedSelections, rhs: MergedSelections) -> Bool {
       lhs.mergedSources == rhs.mergedSources &&
       lhs.fields == rhs.fields &&
-      lhs.typeCases == rhs.typeCases &&
+      lhs.inlineFragments == rhs.inlineFragments &&
       lhs.fragments == rhs.fragments
     }
 
@@ -228,11 +381,27 @@ extension IR {
       """
       Merged Sources: \(mergedSources)
       Fields: \(fields.values.elements)
-      TypeCases: \(typeCases.values.elements.map(\.typeInfo.parentType))
-      Fragments: \(fragments.values.elements.map(\.definition.name))
+      InlineFragments: \(inlineFragments.values.elements.map(\.inlineFragmentDebugDescription))
+      Fragments: \(fragments.values.elements.map(\.debugDescription))
       """
     }
 
   }
 
+}
+
+fileprivate extension IR.SelectionSet {
+  var inlineFragmentDebugDescription: String {
+    var string = typeInfo.parentType.debugDescription
+    if let conditions = typeInfo.inclusionConditions {
+      string += " \(conditions.debugDescription)"
+    }
+    return string    
+  }
+}
+
+extension IR.MergedSelections.MergedSource: CustomDebugStringConvertible {
+  var debugDescription: String {
+    typeInfo.debugDescription + ", fragment: \(fragment?.debugDescription ?? "nil")"
+  }
 }

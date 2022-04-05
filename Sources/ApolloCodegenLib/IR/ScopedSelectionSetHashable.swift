@@ -13,12 +13,6 @@ protocol ScopedSelectionSetHashable {
   var hashForSelectionSetScope: String { get }
 }
 
-extension IR.SelectionSet: ScopedSelectionSetHashable {
-  var hashForSelectionSetScope: String {
-    typeInfo.parentType.hashForSelectionSetScope
-  }
-}
-
 extension GraphQLCompositeType: ScopedSelectionSetHashable {
   var hashForSelectionSetScope: String {
     name
@@ -31,8 +25,14 @@ extension IR.Field: ScopedSelectionSetHashable {
   }
 }
 
+extension CompilationResult.FragmentSpread: ScopedSelectionSetHashable {
+  var hashForSelectionSetScope: String {
+    fragment.name
+  }
+}
+
 extension IR.FragmentSpread: ScopedSelectionSetHashable {
   var hashForSelectionSetScope: String {
-    definition.name
+    fragment.definition.name
   }
 }
