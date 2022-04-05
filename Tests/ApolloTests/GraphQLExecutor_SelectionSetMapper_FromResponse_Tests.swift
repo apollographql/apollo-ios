@@ -774,14 +774,16 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
       }
     }
 
-    class GivenSelectionSet: MockSelectionSet, HasFragments {
+    class GivenSelectionSet: MockSelectionSet, SelectionSet {
+      typealias Schema = MockSchemaConfiguration
+      
       override class var __parentType: ParentType { .Object(MockChildObject.self) }
       override class var selections: [Selection] {[
         .fragment(GivenFragment.self)
       ]}
 
-      struct Fragments: ResponseObject {
-        let data: ResponseDict
+      struct Fragments: FragmentContainer {
+        let data: DataDict
         var childFragment: GivenFragment { _toFragment() }
       }
     }
