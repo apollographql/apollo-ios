@@ -55,7 +55,10 @@ struct Codegen: ParsableCommand {
 
     let targetURL = target.targetRootURL(fromSourceRoot: sourceRootURL)
     let inputConfig = target.inputConfig(fromSourceRoot: sourceRootURL)
-    let outputConfig = module.outputConfig(toTargetRoot: targetURL, schemaName: target.moduleName)
+    let outputConfig = try target.outputConfig(
+      fromSourceRoot: sourceRootURL,
+      forModuleType: module.moduleType
+    )
 
     // This more necessary if you're using a sub-folder, but make sure
     // there's actually a place to write out what you're doing.

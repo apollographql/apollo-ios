@@ -2,31 +2,15 @@ import Foundation
 import ApolloCodegenLib
 
 struct Module {
-  private let module: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType
+  let moduleType: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType
 
   init?(module: String) {
     switch module.lowercased() {
-    case "none": self.module = .none
-    case "swiftpackagemanager", "spm": self.module = .swiftPackageManager
-    case "other": self.module = .other
+    case "none": self.moduleType = .none
+    case "swiftpackagemanager", "spm": self.moduleType = .swiftPackageManager
+    case "other": self.moduleType = .other
     default: return nil
     }
   }
 
-  func outputConfig(
-    toTargetRoot targetRootURL: Foundation.URL,
-    schemaName: String
-  ) -> ApolloCodegenConfiguration.FileOutput {
-    let targetPath = targetRootURL.appendingPathComponent("Generated").path
-
-    return ApolloCodegenConfiguration.FileOutput(
-      schemaTypes: .init(
-        path: targetPath,
-        schemaName: schemaName,
-        moduleType: module
-      ),
-      operations: .inSchemaModule,
-      operationIdentifiersPath: nil
-    )
-  }
 }
