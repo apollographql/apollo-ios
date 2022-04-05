@@ -1,18 +1,21 @@
 import OrderedCollections
+import ApolloUtils
 
-struct OperationDefinitionTemplate {
-
+/// Provides the format to convert a [GraphQL Operation](https://spec.graphql.org/draft/#sec-Language.Operations)
+/// into Swift code.
+struct OperationDefinitionTemplate: TemplateRenderer {
+  /// IR representation of source [GraphQL Operation](https://spec.graphql.org/draft/#sec-Language.Operations).
   let operation: IR.Operation
+  /// IR representation of source GraphQL schema.
   let schema: IR.Schema
-  let config: ApolloCodegenConfiguration
+  /// Shared codegen configuration.
+  let config: ReferenceWrapped<ApolloCodegenConfiguration>
 
-  func render() -> String {
+  var target: TemplateTarget = .operationFile
+
+  var template: TemplateString {
     TemplateString(
     """
-    \(HeaderCommentTemplate.render())
-
-    \(ImportStatementTemplate.Operation.render(config.output))
-
     \(OperationDeclaration(operation.definition))
       \(DocumentType.render(operation.definition, fragments: operation.referencedFragments, apq: config.apqs))
 
@@ -24,10 +27,10 @@ struct OperationDefinitionTemplate {
 
       \(SelectionSetTemplate(schema: schema).render(for: operation))
     }
-    """).description
+    """)
   }
 
-  func OperationDeclaration(_ operation: CompilationResult.OperationDefinition) -> TemplateString {
+  private func OperationDeclaration(_ operation: CompilationResult.OperationDefinition) -> TemplateString {
     return """
     public class \(operation.nameWithSuffix): \(operation.operationType.renderedProtocolName) {
       public let operationName: String = "\(operation.name)"

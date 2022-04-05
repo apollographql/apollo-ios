@@ -1,36 +1,39 @@
 import XCTest
 import Nimble
 @testable import ApolloCodegenLib
-import ApolloCodegenTestSupport
 
 class InterfaceFileGeneratorTests: XCTestCase {
-  override func tearDown() {
-    CodegenTestHelper.deleteExistingOutputFolder()
+  let graphqlInterface = GraphQLInterfaceType.mock("MockInterface", fields: [:], interfaces: [])
 
-    super.tearDown()
+  var subject: InterfaceFileGenerator!
+
+  override func tearDown() {
+    subject = nil
   }
 
-  func test_generate_givenSchemaType_shouldWriteToCorrectFilePath() throws {
+  // MARK: Test Helpers
+
+  private func buildSubject() {
+    subject = InterfaceFileGenerator(graphqlInterface: graphqlInterface)
+  }
+
+  // MARK: Property Tests
+
+  func test__properties__shouldReturnTargetType_interface() {
     // given
-    let graphQLInterface = GraphQLInterfaceType.mock("MockInterface", fields: [:], interfaces: [])
-    let fileManager = MockFileManager(strict: false)
-
-    let rootURL = URL(fileURLWithPath: CodegenTestHelper.outputFolderURL().path)
-    let fileURL = rootURL.appendingPathComponent("MockInterface.swift")
-
-    fileManager.mock(closure: .createFile({ path, data, attributes in
-      expect(path).to(equal(fileURL.path))
-
-      return true
-    }))
+    buildSubject()
 
     // then
-    try InterfaceFileGenerator.generate(
-      graphQLInterface,
-      directoryPath: rootURL.path,
-      fileManager: fileManager
-    )
+    expect(self.subject.target).to(equal(.interface))
+  }
 
-    expect(fileManager.allClosuresCalled).to(beTrue())
+  func test__properties__givenGraphQLEnum_shouldReturnFileName_matchingInterfaceName() {
+    // given
+    buildSubject()
+
+    let expected = "\(graphqlInterface.name).swift"
+
+    // then
+    expect(self.subject.fileName).to(equal(expected))
   }
 }

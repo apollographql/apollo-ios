@@ -5,6 +5,12 @@ import Nimble
 class SwiftPackageManagerModuleTemplateTests: XCTestCase {
   let subject = SwiftPackageManagerModuleTemplate(moduleName: "TestModule")
 
+  // MARK: Helpers
+
+  private func renderSubject() -> String {
+    subject.template.description
+  }
+
   // MARK: Boilerplate Tests
 
   func test__boilerplate__generatesCorrectSwiftToolsVersion() {
@@ -14,20 +20,20 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = subject.render()
+    let actual = renderSubject()
 
     // then
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
-  func test_boilerplate__generatesRequiredImports() {
+  func test__boilerplate__generatesRequiredImports() {
     // given
     let expected = """
     import PackageDescription
     """
 
     // when
-    let actual = subject.render()
+    let actual = renderSubject()
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 3, ignoringExtraLines: true))
@@ -43,7 +49,7 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = subject.render()
+    let actual = renderSubject()
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 5, ignoringExtraLines: true))
@@ -61,7 +67,7 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = subject.render()
+    let actual = renderSubject()
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
@@ -76,7 +82,7 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = subject.render()
+    let actual = renderSubject()
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
@@ -90,7 +96,7 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
       ],
     """
     // when
-    let actual = subject.render()
+    let actual = renderSubject()
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 16, ignoringExtraLines: true))
@@ -111,7 +117,7 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = subject.render()
+    let actual = renderSubject()
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 19, ignoringExtraLines: true))

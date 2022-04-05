@@ -1,14 +1,18 @@
-struct UnionTemplate {
+import Foundation
+
+/// Provides the format to convert a [GraphQL Union](https://spec.graphql.org/draft/#sec-Unions)
+/// into Swift code.
+struct UnionTemplate: TemplateRenderer {
+  /// Module name.
   let moduleName: String
+  /// IR representation of source [GraphQL Union](https://spec.graphql.org/draft/#sec-Unions).
   let graphqlUnion: GraphQLUnionType
 
-  func render() -> String {
+  var target: TemplateTarget = .schemaFile
+
+  var template: TemplateString {
     TemplateString(
     """
-    \(HeaderCommentTemplate.render())
-
-    \(ImportStatementTemplate.SchemaType.render())
-
     public enum \(graphqlUnion.name): UnionType, Equatable {
       \(graphqlUnion.types.map({ type in
       "case \(type.name.firstUppercased)(\(type.name.firstUppercased))"
@@ -39,6 +43,6 @@ struct UnionTemplate {
       ]
     }
     """
-    ).description
+    )
   }
 }

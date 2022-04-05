@@ -1,37 +1,39 @@
 import XCTest
 import Nimble
 @testable import ApolloCodegenLib
-import ApolloCodegenTestSupport
 
 class UnionFileGeneratorTests: XCTestCase {
-  override func tearDown() {
-    CodegenTestHelper.deleteExistingOutputFolder()
+  let graphqlUnion = GraphQLUnionType.mock("MockUnion", types: [])
 
-    super.tearDown()
+  var subject: UnionFileGenerator!
+
+  override func tearDown() {
+    subject = nil
   }
 
-  func test_generate_givenSchemaType_shouldOutputToPath() throws {
+  // MARK: Test Helpers
+
+  private func buildSubject() {
+    subject = UnionFileGenerator(graphqlUnion: graphqlUnion, schemaName: "MockSchema")
+  }
+
+  // MARK: Property Tests
+
+  func test__properties__shouldReturnTargetType_union() {
     // given
-    let graphQLUnion = GraphQLUnionType.mock("MockUnion", types: [])
-    let fileManager = MockFileManager(strict: false)
-
-    let rootURL = URL(fileURLWithPath: CodegenTestHelper.outputFolderURL().path)
-    let fileURL = rootURL.appendingPathComponent("MockUnion.swift")
-
-    fileManager.mock(closure: .createFile({ path, data, attributes in
-      expect(path).to(equal(fileURL.path))
-
-      return true
-    }))
+    buildSubject()
 
     // then
-    try UnionFileGenerator.generate(
-      graphQLUnion,
-      moduleName: "ModuleAPI",
-      directoryPath: rootURL.path,
-      fileManager: fileManager
-    )
+    expect(self.subject.target).to(equal(.union))
+  }
 
-    expect(fileManager.allClosuresCalled).to(beTrue())
+  func test__properties__givenGraphQLEnum_shouldReturnFileName_matchingUnionName() {
+    // given
+    buildSubject()
+
+    let expected = "\(graphqlUnion.name).swift"
+
+    // then
+    expect(self.subject.fileName).to(equal(expected))
   }
 }

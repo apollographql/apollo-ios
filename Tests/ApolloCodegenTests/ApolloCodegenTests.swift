@@ -2,6 +2,7 @@ import XCTest
 @testable import ApolloCodegenTestSupport
 @testable import ApolloCodegenLib
 import Nimble
+import ApolloUtils
 
 class ApolloCodegenTests: XCTestCase {
   override func setUpWithError() throws {
@@ -87,10 +88,10 @@ class ApolloCodegenTests: XCTestCase {
       """.data(using: .utf8)!
     createFile(containing: operationData, named: "operation.graphql")
 
-    let config = ApolloCodegenConfiguration.FileInput(
+    let config = ReferenceWrapped(value: ApolloCodegenConfiguration.mock(input: .init(
       schemaPath: schemaPath,
       searchPaths: [directoryURL.appendingPathComponent("*.graphql").path]
-    )
+    )))
 
     // with
     //
@@ -132,10 +133,10 @@ class ApolloCodegenTests: XCTestCase {
       """.data(using: .utf8)!
     createFile(containing: authorsData, named: "authors-operation.graphql")
 
-    let config = ApolloCodegenConfiguration.FileInput(
+    let config = ReferenceWrapped(value: ApolloCodegenConfiguration.mock(input: .init(
       schemaPath: schemaPath,
       searchPaths: [directoryURL.appendingPathComponent("*.graphql").path]
-    )
+    )))
 
     // then
     expect(try ApolloCodegen.compileGraphQLResult(config).operations).to(haveCount(2))
@@ -145,10 +146,10 @@ class ApolloCodegenTests: XCTestCase {
     // given
     let schemaPath = createFile(containing: schemaData, named: "schema.graphqls")
 
-    let config = ApolloCodegenConfiguration.FileInput(
+    let config = ReferenceWrapped(value: ApolloCodegenConfiguration.mock(input: .init(
       schemaPath: schemaPath,
       searchPaths: [directoryURL.appendingPathComponent("*.graphql").path]
-    )
+    )))
 
     // then
     expect(try ApolloCodegen.compileGraphQLResult(config).operations).to(beEmpty())
@@ -162,15 +163,18 @@ class ApolloCodegenTests: XCTestCase {
     let operationsPath = ApolloCodegenTestSupport.Resources.url
       .appendingPathComponent("**/*.graphql").path
 
-    let config = ApolloCodegenConfiguration(
-      input: .init(schemaPath: schemaPath, searchPaths: [operationsPath]),
+    let config = ReferenceWrapped(value: ApolloCodegenConfiguration.mock(
+      input: .init(
+        schemaPath: schemaPath,
+        searchPaths: [operationsPath]
+      ),
       output: .mock(
         moduleType: .swiftPackageManager,
         schemaName: "AnimalKingdomAPI",
         operations: .inSchemaModule,
         path: directoryURL.path
       )
-    )
+    ))
 
     let fileManager = MockFileManager(strict: false)
 
@@ -206,7 +210,7 @@ class ApolloCodegenTests: XCTestCase {
     ]
 
     // when
-    let compilationResult = try ApolloCodegen.compileGraphQLResult(config.input)
+    let compilationResult = try ApolloCodegen.compileGraphQLResult(config)
 
     let ir = IR(
       schemaName: config.output.schemaTypes.schemaName,

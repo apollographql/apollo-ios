@@ -1,15 +1,16 @@
 import Foundation
 
-struct ObjectTemplate {
+/// Provides the format to convert a [GraphQL Object](https://spec.graphql.org/draft/#sec-Objects)
+/// into Swift code.
+struct ObjectTemplate: TemplateRenderer {
+  /// IR representation of source [GraphQL Object](https://spec.graphql.org/draft/#sec-Objects).
   let graphqlObject: GraphQLObjectType
 
-  func render() -> String {
+  var target: TemplateTarget = .schemaFile
+
+  var template: TemplateString {
     TemplateString(
     """
-    \(HeaderCommentTemplate.render())
-
-    \(ImportStatementTemplate.SchemaType.render())
-    
     public final class \(graphqlObject.name.firstUppercased): Object {
       override public class var __typename: String { \"\(graphqlObject.name.firstUppercased)\" }
 
@@ -20,6 +21,6 @@ struct ObjectTemplate {
         }), separator: ",\n")
       ])
     }
-    """).description
+    """)
   }
 }

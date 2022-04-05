@@ -1,9 +1,14 @@
 import Foundation
 
-struct SwiftPackageManagerModuleTemplate {
+/// Provides the format to define a Swift Package Manager module in Swift code. The output must
+/// conform to the [configuration definition of a Swift package](https://docs.swift.org/package-manager/PackageDescription/PackageDescription.html#).
+struct SwiftPackageManagerModuleTemplate: TemplateRenderer {
+  /// Module name used to name the generated package.
   let moduleName: String
 
-  func render() -> String {
+  var target: TemplateTarget = .moduleFile
+
+  var template: TemplateString {
     TemplateString("""
     // swift-tools-version:5.3
 
@@ -33,6 +38,6 @@ struct SwiftPackageManagerModuleTemplate {
         ),
       ]
     )
-    """).description
+    """)
   }
 }

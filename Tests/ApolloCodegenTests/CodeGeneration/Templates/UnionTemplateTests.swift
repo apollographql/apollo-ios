@@ -12,6 +12,8 @@ class UnionTemplateTests: XCTestCase {
     super.tearDown()
   }
 
+  // MARK: Helpers
+
   private func buildSubject() {
     subject = UnionTemplate(
       moduleName: "ModuleAPI",
@@ -27,47 +29,18 @@ class UnionTemplateTests: XCTestCase {
     )
   }
 
+  private func renderSubject() -> String {
+    subject.template.description
+  }
+
   // MARK: Boilerplate tests
-
-  func test_render_generatesHeaderComment() throws {
-    // given
-    buildSubject()
-
-    let expected = """
-    // @generated
-    // This file was automatically generated and should not be edited.
-
-    """
-
-    // when
-    let actual = subject.render()
-
-    // then
-    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
-  }
-
-  func test_render_generatesImportStatement() throws {
-    // given
-    buildSubject()
-
-    let expected = """
-    import ApolloAPI
-
-    """
-
-    // when
-    let actual = subject.render()
-
-    // then
-    expect(actual).to(equalLineByLine(expected, atLine: 4, ignoringExtraLines: true))
-  }
 
   func test_render_generatesClosingBrace() throws {
     // given
     buildSubject()
 
     // when
-    let actual = subject.render()
+    let actual = renderSubject()
 
     // then
     expect(String(actual.reversed())).to(equalLineByLine("}", ignoringExtraLines: true))
@@ -84,10 +57,10 @@ class UnionTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = subject.render()
+    let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
   func test_render_givenSchemaUnion_generatesEnumCases() throws {
@@ -102,10 +75,10 @@ class UnionTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = subject.render()
+    let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 2, ignoringExtraLines: true))
   }
 
   func test_render_givenSchemaUnion_generatesEnumInitializer() throws {
@@ -125,10 +98,10 @@ class UnionTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = subject.render()
+    let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
   }
 
   func test_render_givenSchemaUnion_generatesObjectProperty() throws {
@@ -148,10 +121,10 @@ class UnionTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = subject.render()
+    let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 22, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 17, ignoringExtraLines: true))
   }
 
   func test_render_givenSchemaUnion_generatesPossibleTypesProperty() throws {
@@ -168,9 +141,9 @@ class UnionTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = subject.render()
+    let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 32, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 27, ignoringExtraLines: true))
   }
 }

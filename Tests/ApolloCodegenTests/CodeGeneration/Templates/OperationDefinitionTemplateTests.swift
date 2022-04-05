@@ -3,6 +3,7 @@ import Nimble
 import OrderedCollections
 @testable import ApolloCodegenLib
 import ApolloCodegenTestSupport
+import ApolloUtils
 
 class OperationDefinitionTemplateTests: XCTestCase {
 
@@ -48,34 +49,19 @@ class OperationDefinitionTemplateTests: XCTestCase {
 
   // MARK: - Helpers
 
-  func buildSubjectAndOperation(named operationName: String = "TestOperation") throws {
+  private func buildSubjectAndOperation(named operationName: String = "TestOperation") throws {
     ir = try .mock(schema: schemaSDL, document: document)
     let operationDefinition = try XCTUnwrap(ir.compilationResult[operation: operationName])
     operation = ir.build(operation: operationDefinition)
     subject = OperationDefinitionTemplate(
       operation: operation,
       schema: ir.schema,
-      config: config
+      config: ReferenceWrapped(value: config)
     )
   }
 
-  // MARK: - Boilerplate Tests
-
-  func test__render__generatesHeaderComment() throws {
-    // given
-    let expected = """
-    // @generated
-    // This file was automatically generated and should not be edited.
-
-    """
-
-    // when
-    try buildSubjectAndOperation()
-
-    let actual = subject.render()
-
-    // then
-    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  private func renderSubject() -> String {
+    subject.template.description
   }
 
   // MARK: - Operation Definition
@@ -91,10 +77,10 @@ class OperationDefinitionTemplateTests: XCTestCase {
     // when
     try buildSubjectAndOperation()
 
-    let actual = subject.render()
+    let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
   func test__generate__givenQueryWithNameEndingInQuery_generatesQueryOperationWithoutDoubledTypeSuffix() throws {
@@ -116,10 +102,10 @@ class OperationDefinitionTemplateTests: XCTestCase {
     // when
     try buildSubjectAndOperation(named: "TestOperationQuery")
 
-    let actual = subject.render()
+    let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
   func test__generate__givenMutationWithNameEndingInQuery_generatesQueryOperationWithBothSuffixes() throws {
@@ -155,10 +141,10 @@ class OperationDefinitionTemplateTests: XCTestCase {
     // when
     try buildSubjectAndOperation(named: "TestOperationQuery")
 
-    let actual = subject.render()
+    let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
   func test__generate__givenMutation_generatesMutationOperation() throws {
@@ -194,10 +180,10 @@ class OperationDefinitionTemplateTests: XCTestCase {
     // when
     try buildSubjectAndOperation()
 
-    let actual = subject.render()
+    let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
   func test__generate__givenSubscription_generatesSubscriptionOperation() throws {
@@ -233,10 +219,10 @@ class OperationDefinitionTemplateTests: XCTestCase {
     // when
     try buildSubjectAndOperation()
 
-    let actual = subject.render()
+    let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
   // MARK: - Variables
@@ -277,10 +263,10 @@ class OperationDefinitionTemplateTests: XCTestCase {
      // when
      try buildSubjectAndOperation()
 
-     let actual = subject.render()
+     let actual = renderSubject()
 
      // then
-     expect(actual).to(equalLineByLine(expected, atLine: 19, ignoringExtraLines: true))
+     expect(actual).to(equalLineByLine(expected, atLine: 14, ignoringExtraLines: true))
    }
 
   func test__generate__givenQueryWithMutlipleScalarVariables_generatesQueryOperationWithVariables() throws {
@@ -330,10 +316,10 @@ class OperationDefinitionTemplateTests: XCTestCase {
     // when
     try buildSubjectAndOperation()
 
-    let actual = subject.render()
+    let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 19, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 14, ignoringExtraLines: true))
   }
 
   func test__generate__givenQueryWithNullableScalarVariable_generatesQueryOperationWithVariable() throws {
@@ -372,10 +358,10 @@ class OperationDefinitionTemplateTests: XCTestCase {
     // when
     try buildSubjectAndOperation()
 
-    let actual = subject.render()
+    let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 19, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 14, ignoringExtraLines: true))
   }
 
 }

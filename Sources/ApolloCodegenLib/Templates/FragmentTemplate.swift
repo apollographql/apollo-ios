@@ -1,16 +1,18 @@
-struct FragmentTemplate {
+import Foundation
 
+/// Provides the format to convert a [GraphQL Fragment](https://spec.graphql.org/draft/#sec-Language.Fragments)
+/// into Swift code.
+struct FragmentTemplate: TemplateRenderer {
+  /// IR representation of source [GraphQL Fragment](https://spec.graphql.org/draft/#sec-Language.Fragments).
   let fragment: IR.NamedFragment
+  /// IR representation of source GraphQL schema.
   let schema: IR.Schema
-  let config: ApolloCodegenConfiguration.FileOutput
 
-  func render() -> String {
+  var target: TemplateTarget { .operationFile }
+
+  var template: TemplateString {
     TemplateString(
     """
-    \(HeaderCommentTemplate.render())
-
-    \(ImportStatementTemplate.Operation.render(config))
-
     public struct \(fragment.name): \(schema.name).SelectionSet, Fragment {
       public static var fragmentDefinition: StaticString { ""\"
         \(fragment.definition.source)
@@ -18,7 +20,6 @@ struct FragmentTemplate {
 
       \(SelectionSetTemplate(schema: schema).BodyTemplate(fragment.rootField.selectionSet))
     }
-    """).description
+    """)
   }
-
 }

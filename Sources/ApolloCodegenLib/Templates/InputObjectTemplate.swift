@@ -1,16 +1,16 @@
 import Foundation
-import JavaScriptCore
 
-struct InputObjectTemplate {
+/// Provides the format to convert a [GraphQL Input Object](https://spec.graphql.org/draft/#sec-Input-Objects)
+/// into Swift code.
+struct InputObjectTemplate: TemplateRenderer {
+  /// IR representation of source [GraphQL Input Object](https://spec.graphql.org/draft/#sec-Input-Objects).
   let graphqlInputObject: GraphQLInputObjectType
 
-  func render() -> String {
+  var target: TemplateTarget = .schemaFile
+
+  var template: TemplateString {
     TemplateString(
     """
-    \(HeaderCommentTemplate.render())
-
-    \(ImportStatementTemplate.SchemaType.render())
-
     public struct \(graphqlInputObject.name.firstUppercased): InputObject {
       public private(set) var data: InputDict
     
@@ -29,7 +29,7 @@ struct InputObjectTemplate {
       \(graphqlInputObject.fields.map({ "\(FieldPropertyTemplate($1))" }), separator: "\n\n")
     }
     """
-    ).description
+    )
   }
 
   private func InitializerParametersTemplate() -> TemplateString {

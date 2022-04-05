@@ -1,14 +1,16 @@
-struct SchemaTemplate {
+import Foundation
 
+/// Provides the format to define a schema in Swift code. The schema represents metadata used by
+/// the GraphQL executor at runtime to convert response data into corresponding Swift types.
+struct SchemaTemplate: TemplateRenderer {
+  // IR representation of source GraphQL schema.
   let schema: IR.Schema
 
-  func render() -> String {
+  var target: TemplateTarget = .schemaFile
+
+  var template: TemplateString {
     TemplateString(
     """
-    \(HeaderCommentTemplate.render())
-
-    \(ImportStatementTemplate.SchemaType.render())
-
     public typealias ID = String
 
     public protocol SelectionSet: ApolloAPI.SelectionSet & ApolloAPI.RootSelectionSet
@@ -28,6 +30,6 @@ struct SchemaTemplate {
       }
     }
     """
-    ).description
+    )
   }
 }

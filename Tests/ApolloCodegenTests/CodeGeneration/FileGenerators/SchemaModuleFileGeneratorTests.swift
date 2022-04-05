@@ -2,50 +2,85 @@ import XCTest
 @testable import ApolloCodegenLib
 import ApolloCodegenTestSupport
 import Nimble
+import ApolloUtils
 
 class SchemaModuleFileGeneratorTests: XCTestCase {
+  let rootURL = URL(fileURLWithPath: CodegenTestHelper.outputFolderURL().path)
+  let mockFileManager = MockFileManager(strict: false)
+
   override func tearDown() {
     CodegenTestHelper.deleteExistingOutputFolder()
 
     super.tearDown()
   }
 
-  func test__generate__givenSwiftPackageManagerConfiguration_shouldGenerateManifest() throws {
+  // MARK: - Tests
+
+  func test__generate__givenModuleType_swiftPackageManager_shouldGeneratePackageFile() throws {
     // given
-    let rootURL = URL(fileURLWithPath: CodegenTestHelper.outputFolderURL().path)
     let fileURL = rootURL.appendingPathComponent("Package.swift")
 
-    let configuration = ApolloCodegenConfiguration.mock(
+    let configuration = ReferenceWrapped(value: ApolloCodegenConfiguration.mock(
       .swiftPackageManager,
-      schemaName: "TestModule",
       to: rootURL.path
-    )
-    let mockFileManager = MockFileManager(strict: false)
+    ))
 
     mockFileManager.mock(closure: .createFile({ path, data, attributes in
+      // then
       expect(path).to(equal(fileURL.path))
 
       return true
     }))
 
+    // when
+    try SchemaModuleFileGenerator.generate(configuration, fileManager: mockFileManager)
+
     // then
-    try SchemaModuleFileGenerator.generate(
-      configuration.output.schemaTypes,
-      fileManager: mockFileManager
-    )
-
-    expect(mockFileManager.allClosuresCalled).to(beTrue())
+    expect(self.mockFileManager.allClosuresCalled).to(beTrue())
   }
 
-  func test__generate__givenOtherConfiguration_shouldReturn() throws {
-    expect(try SchemaModuleFileGenerator.generate(
-      ApolloCodegenConfiguration.mock(.other, schemaName: "TestModule").output.schemaTypes
-    )).notTo(throwError())
+  func test__generate__givenModuleType_none_shouldGenerateNamespaceFile() throws {
+    // given
+    let fileURL = rootURL.appendingPathComponent("ModuleTestSchema.swift")
+
+    let configuration = ReferenceWrapped(value: ApolloCodegenConfiguration.mock(
+      .none,
+      schemaName: "ModuleTestSchema",
+      to: rootURL.path
+    ))
+
+    mockFileManager.mock(closure: .createFile({ path, data, attributes in
+      // then
+      expect(path).to(equal(fileURL.path))
+
+      return true
+    }))
+
+    // when
+    try SchemaModuleFileGenerator.generate(configuration, fileManager: mockFileManager)
+
+    // then
+    expect(self.mockFileManager.allClosuresCalled).to(beTrue())
   }
 
-  func test__generate__givenUnimplementedConfigurations_shouldThrow() throws {
-    expect(try SchemaModuleFileGenerator.generate(
-      ApolloCodegenConfiguration.mock(.none, schemaName: "TestModule").output.schemaTypes
-    )).to(throwError())
+  func test__generate__givenModuleType_other_shouldNotGenerateFile() throws {
+    // given
+    let configuration = ReferenceWrapped(value: ApolloCodegenConfiguration.mock(
+      .other,
+      to: rootURL.path
+    ))
+
+    mockFileManager.mock(closure: .createFile({ path, data, attributes in
+      // then
+      fail("Unexpected module file created at \(path)")
+
+      return true
+    }))
+
+    // when
+    try SchemaModuleFileGenerator.generate(configuration, fileManager: mockFileManager)
+
+    // then
+    expect(self.mockFileManager.allClosuresCalled).to(beFalse())
   }
 }
