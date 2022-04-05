@@ -1,36 +1,39 @@
 import XCTest
 import Nimble
 @testable import ApolloCodegenLib
-import ApolloCodegenTestSupport
 
 class SchemaFileGeneratorTests: XCTestCase {
-  override func tearDown() {
-    CodegenTestHelper.deleteExistingOutputFolder()
+  let irSchema = IR.Schema(name: "MockSchema", referencedTypes: .init([]))
 
-    super.tearDown()
+  var subject: SchemaFileGenerator!
+
+  override func tearDown() {
+    subject = nil
   }
 
-  func test_generate_givenSchemaTypes_shouldOutputToPath() throws {
+  // MARK: Test Helpers
+
+  private func buildSubject() {
+    subject = SchemaFileGenerator(schema: irSchema)
+  }
+
+  // MARK: Property Tests
+
+  func test__properties__shouldReturnTargetType_schema() {
     // given
-    let irSchema = IR.Schema(name: "MockSchema", referencedTypes: .init([]))
-    let fileManager = MockFileManager(strict: false)
-
-    let rootURL = URL(fileURLWithPath: CodegenTestHelper.outputFolderURL().path)
-    let fileURL = rootURL.appendingPathComponent("Schema.swift")
-
-    fileManager.mock(closure: .createFile({ path, data, attributes in
-      expect(path).to(equal(fileURL.path))
-
-      return true
-    }))
+    buildSubject()
 
     // then
-    try SchemaFileGenerator.generate(
-      irSchema,
-      directoryPath: rootURL.path,
-      fileManager: fileManager
-    )
+    expect(self.subject.target).to(equal(.schema))
+  }
 
-    expect(fileManager.allClosuresCalled).to(beTrue())
+  func test__properties__givenGraphQLEnum_shouldReturnFileName_matchingName() {
+    // given
+    buildSubject()
+
+    let expected = "Schema.swift"
+
+    // then
+    expect(self.subject.fileName).to(equal(expected))
   }
 }

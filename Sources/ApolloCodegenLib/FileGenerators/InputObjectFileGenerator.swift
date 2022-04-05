@@ -1,25 +1,11 @@
 import Foundation
 
 /// Generates a file containing the Swift representation of a [GraphQL Input Object](https://spec.graphql.org/draft/#sec-Input-Objects).
-struct InputObjectFileGenerator {
-  /// Converts `graphQLInputObject` into Swift code and writes the result to a file in `directoryPath`.
-  ///
-  /// - Parameters:
-  ///   - graphQLInputObject: The `GraphQLInputObjectType` object used to build the file content.
-  ///   - directoryPath: The **directory** path that the file should be written to, used to build the `path` property value.
-  ///   - fileManager: The `FileManager` object used to create the file. Defaults to `FileManager.default`.
-  static func generate(
-    _ graphqlInputObject: GraphQLInputObjectType,
-    directoryPath: String,
-    fileManager: FileManager = FileManager.default
-  ) throws {
-    let filePath = URL(fileURLWithPath: directoryPath)
-      .appendingPathComponent("\(graphqlInputObject.name).swift").path
+struct InputObjectFileGenerator: FileGenerator {
+  /// Source GraphQL input object.
+  let graphqlInputObject: GraphQLInputObjectType
 
-    let data = InputObjectTemplate(
-      graphqlInputObject: graphqlInputObject
-    ).render().data(using: .utf8)
-
-    try fileManager.apollo.createFile(atPath: filePath, data: data)
-  }
+  var template: TemplateRenderer { InputObjectTemplate(graphqlInputObject: graphqlInputObject) }
+  var target: FileTarget { .inputObject }
+  var fileName: String { "\(graphqlInputObject.name).swift" }
 }

@@ -1,25 +1,11 @@
 import Foundation
 
 /// Generates a file containing the Swift representation of a [GraphQL Object](https://spec.graphql.org/draft/#sec-Objects).
-struct ObjectFileGenerator {
-  /// Converts `graphQLObject` into Swift code and writes teh result to a file in `directoryPath`.
-  ///
-  /// - Parameters:
-  ///   - graphQLObject: The `GraphQLObjectType` object used to build the file content.
-  ///   - directoryPath: The output path that the file will be written to.
-  ///   - fileManager: The `FileManager` object used to create the file. Defaults to `FileManager.default`.
-  static func generate(
-    _ graphqlObject: GraphQLObjectType,
-    directoryPath: String,
-    fileManager: FileManager = FileManager.default
-  ) throws {
-    let filePath = URL(fileURLWithPath: directoryPath)
-      .appendingPathComponent("\(graphqlObject.name).swift").path
-
-    let data = ObjectTemplate(
-      graphqlObject: graphqlObject
-    ).render().data(using: .utf8)
-
-    try fileManager.apollo.createFile(atPath: filePath, data: data)
-  }
+struct ObjectFileGenerator: FileGenerator {
+  /// Source GraphQL object.
+  let graphqlObject: GraphQLObjectType
+  
+  var template: TemplateRenderer { ObjectTemplate(graphqlObject: graphqlObject) }
+  var target: FileTarget { .object }
+  var fileName: String { "\(graphqlObject.name).swift" }
 }

@@ -1,36 +1,39 @@
 import XCTest
 import Nimble
 @testable import ApolloCodegenLib
-import ApolloCodegenTestSupport
 
 class EnumFileGeneratorTests: XCTestCase {
-  override func tearDown() {
-    CodegenTestHelper.deleteExistingOutputFolder()
+  let graphqlEnum = GraphQLEnumType.mock(name: "MockEnum")
 
-    super.tearDown()
+  var subject: EnumFileGenerator!
+
+  override func tearDown() {
+    subject = nil
   }
 
-  func test_generate_givenSchemaType_shouldWriteToCorrectFilePath() throws {
+  // MARK: Test Helpers
+
+  private func buildSubject() {
+    subject = EnumFileGenerator(graphqlEnum: graphqlEnum)
+  }
+
+  // MARK: Property Tests
+
+  func test__properties__shouldReturnTargetType_enum() {
     // given
-    let graphQLEnum = GraphQLEnumType.mock(name: "MockEnum")
-    let fileManager = MockFileManager(strict: false)
-
-    let rootURL = URL(fileURLWithPath: CodegenTestHelper.outputFolderURL().path)
-    let fileURL = rootURL.appendingPathComponent("MockEnum.swift")
-
-    fileManager.mock(closure: .createFile({ path, data, attributes in
-      expect(path).to(equal(fileURL.path))
-
-      return true
-    }))
+    buildSubject()
 
     // then
-    try EnumFileGenerator.generate(
-      graphQLEnum,
-      directoryPath: rootURL.path,
-      fileManager: fileManager
-    )
+    expect(self.subject.target).to(equal(.enum))
+  }
 
-    expect(fileManager.allClosuresCalled).to(beTrue())
+  func test__properties__givenGraphQLEnum_shouldReturnFileName_matchingEnumName() {
+    // given
+    buildSubject()
+
+    let expected = "\(graphqlEnum.name).swift"
+
+    // then
+    expect(self.subject.fileName).to(equal(expected))
   }
 }

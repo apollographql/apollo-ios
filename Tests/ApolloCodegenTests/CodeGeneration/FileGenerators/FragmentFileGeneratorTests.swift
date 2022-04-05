@@ -4,14 +4,17 @@ import Nimble
 import ApolloCodegenTestSupport
 
 class FragmentFileGeneratorTests: XCTestCase {
-  override func tearDown() {
-    CodegenTestHelper.deleteExistingOutputFolder()
+  var irFragment: IR.NamedFragment!
+  var subject: FragmentFileGenerator!
 
-    super.tearDown()
+  override func tearDown() {
+    subject = nil
+    irFragment = nil
   }
 
-  func test_generate_givenSchemaType_shouldWriteToCorrectFilePath() throws {
-    // given
+  // MARK: Test Helpers
+
+  private func buildSubject() throws {
     let schemaSDL = """
     type Animal {
       species: String
@@ -35,28 +38,30 @@ class FragmentFileGeneratorTests: XCTestCase {
     """
 
     let ir = try IR.mock(schema: schemaSDL, document: operationDocument)
-    let irFragment = ir.build(fragment: ir.compilationResult.fragments[0])
-    let config = ApolloCodegenConfiguration.mock()
+    irFragment = ir.build(fragment: ir.compilationResult.fragments[0])
+    
+    subject = FragmentFileGenerator(irFragment: irFragment, schema: ir.schema)
+  }
 
-    let fileManager = MockFileManager(strict: false)
-    let rootURL = URL(fileURLWithPath: CodegenTestHelper.outputFolderURL().path)
-    let fileURL = rootURL.appendingPathComponent("AnimalDetails.swift")
+  // MARK: Property Tests
 
-    fileManager.mock(closure: .createFile({ path, data, attributes in
-      expect(path).to(equal(fileURL.path))
+  func test__properties__shouldReturnTargetType_fragment() throws {
+    // given
+    try buildSubject()
 
-      return true
-    }))
+    let expected: FileTarget = .fragment(irFragment.definition)
 
     // then
-    try FragmentFileGenerator.generate(
-      irFragment,
-      schema: ir.schema,
-      config: config.output,
-      directoryPath: rootURL.path,
-      fileManager: fileManager
-    )
+    expect(self.subject.target).to(equal(expected))
+  }
 
-    expect(fileManager.allClosuresCalled).to(beTrue())
+  func test__properties__givenGraphQLEnum_shouldReturnFileName_matchingFragmentDefinitionName() throws {
+    // given
+    try buildSubject()
+
+    let expected = "\(irFragment.definition.name).swift"
+
+    // then
+    expect(self.subject.fileName).to(equal(expected))
   }
 }

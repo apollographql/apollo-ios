@@ -2,16 +2,20 @@ import XCTest
 import Nimble
 @testable import ApolloCodegenLib
 import ApolloCodegenTestSupport
+import ApolloUtils
 
 class OperationFileGeneratorTests: XCTestCase {
-  override func tearDown() {
-    CodegenTestHelper.deleteExistingOutputFolder()
+  var irOperation: IR.Operation!
+  var subject: OperationFileGenerator!
 
-    super.tearDown()
+  override func tearDown() {
+    subject = nil
+    irOperation = nil
   }
 
-  func test_generate_givenSchemaType_shouldWriteToCorrectFilePath() throws {
-    // given
+  // MARK: Test Helpers
+
+  private func buildSubject() throws {
     let schemaSDL = """
     type Animal {
       species: String
@@ -31,28 +35,32 @@ class OperationFileGeneratorTests: XCTestCase {
     """
 
     let ir = try IR.mock(schema: schemaSDL, document: operationDocument)
-    let irOperation = ir.build(operation: ir.compilationResult.operations[0])
-    let config = ApolloCodegenConfiguration.mock()
+    irOperation = ir.build(operation: ir.compilationResult.operations[0])
 
-    let fileManager = MockFileManager(strict: false)
-    let rootURL = URL(fileURLWithPath: CodegenTestHelper.outputFolderURL().path)
-    let fileURL = rootURL.appendingPathComponent("AllAnimalsQuery.swift")
+    let config = ReferenceWrapped(value: ApolloCodegenConfiguration.mock())
+    
+    subject = OperationFileGenerator(irOperation: irOperation, schema: ir.schema, config: config)
+  }
 
-    fileManager.mock(closure: .createFile({ path, data, attributes in
-      expect(path).to(equal(fileURL.path))
+  // MARK: Property Tests
 
-      return true
-    }))
+  func test__properties__shouldReturnTargetType_operation() throws {
+    // given
+    try buildSubject()
+
+    let expected: FileTarget = .operation(irOperation.definition)
 
     // then
-    try OperationFileGenerator.generate(
-      irOperation,
-      schema: ir.schema,
-      config: config,
-      directoryPath: rootURL.path,
-      fileManager: fileManager
-    )
+    expect(self.subject.target).to(equal(expected))
+  }
 
-    expect(fileManager.allClosuresCalled).to(beTrue())
+  func test__properties__givenGraphQLEnum_shouldReturnFileName_matchingOperationDefinitionName() throws {
+    // given
+    try buildSubject()
+
+    let expected = "\(irOperation.definition.nameWithSuffix).swift"
+
+    // then
+    expect(self.subject.fileName).to(equal(expected))
   }
 }
