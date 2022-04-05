@@ -53,23 +53,6 @@ enum FileTarget: Equatable {
     }
   }
 
-  static func ==(lhs: FileTarget, rhs: FileTarget) -> Bool {
-    switch (lhs, rhs) {
-    case (.object, .object), (.enum, .enum), (.interface, .interface), (.union, .union),
-      (.inputObject, .inputObject), (.schema, .schema):
-      return true
-
-    case let (.fragment(lhsDefinition), .fragment(rhsDefinition)):
-      return lhsDefinition == rhsDefinition
-
-    case let (.operation(lhsDefinition), .operation(rhsDefinition)):
-      return lhsDefinition == rhsDefinition
-
-    default:
-      return false
-    }
-  }
-
   func resolvePath(
     forConfig config: ReferenceWrapped<ApolloCodegenConfiguration>
   ) -> String {
