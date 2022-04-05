@@ -776,7 +776,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
 
     class GivenSelectionSet: MockSelectionSet, SelectionSet {
       typealias Schema = MockSchemaConfiguration
-      
+
       override class var __parentType: ParentType { .Object(MockChildObject.self) }
       override class var selections: [Selection] {[
         .fragment(GivenFragment.self)
@@ -1252,11 +1252,10 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     // given
     class GivenSelectionSet: MockSelectionSet {
       override class var selections: [Selection] {[
-        .skip(if: "skip",
-          .include(if: "include", [
-            .field("name", String.self),
-            .field("id", String.self),
-        ]))
+        .include(if: !"skip" && "include", [
+          .field("name", String.self),
+          .field("id", String.self),
+        ])
       ]}
     }
     let object: JSONObject = ["name": "Luke Skywalker", "id": "1234"]
@@ -1275,11 +1274,10 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     // given
     class GivenSelectionSet: MockSelectionSet {
       override class var selections: [Selection] {[
-        .skip(if: "skip",
-          .include(if: "include", [
-            .field("name", String.self),
-            .field("id", String.self),
-        ]))
+        .include(if: !"skip" && "include", [
+          .field("name", String.self),
+          .field("id", String.self),
+        ])
       ]}
     }
     let object: JSONObject = ["name": "Luke Skywalker", "id": "1234"]
@@ -1298,11 +1296,10 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     // given
     class GivenSelectionSet: MockSelectionSet {
       override class var selections: [Selection] {[
-        .skip(if: "skip",
-          .include(if: "include", [
-            .field("name", String.self),
-            .field("id", String.self),
-        ]))
+        .include(if: !"skip" && "include", [
+          .field("name", String.self),
+          .field("id", String.self),
+        ])
       ]}
     }
     let object: JSONObject = ["name": "Luke Skywalker", "id": "1234"]
@@ -1321,11 +1318,10 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     // given
     class GivenSelectionSet: MockSelectionSet {
       override class var selections: [Selection] {[
-        .skip(if: "skip",
-          .include(if: "include", [
-            .field("name", String.self),
-            .field("id", String.self),
-        ]))
+        .include(if: !"skip" && "include", [
+          .field("name", String.self),
+          .field("id", String.self),
+        ])
       ]}
     }
     let object: JSONObject = ["name": "Luke Skywalker", "id": "1234"]
@@ -1359,12 +1355,48 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     expect(data.name).to(equal("Luke Skywalker"))
   }
 
+  func test__booleanCondition_bothSkipAndInclude_onSeperateFieldsForSameSelectionMergedAsOrCondition__givenSkipIsTrue_includeIsTrue_getsValuesForField() throws {
+    // given
+    class GivenSelectionSet: MockSelectionSet {
+      override class var selections: [Selection] {[
+        .include(if: "include" || !"skip", .field("name", String.self))
+      ]}
+    }
+    let object: JSONObject = ["name": "Luke Skywalker", "id": "1234"]
+    let variables = ["skip": true,
+                     "include": true]
+
+    // when
+    let data = try readValues(GivenSelectionSet.self, from: object, variables: variables)
+
+    // then
+    expect(data.name).to(equal("Luke Skywalker"))
+  }
+
   func test__booleanCondition_bothSkipAndInclude_onSeperateFieldsForSameSelection__givenSkipIsFalse_includeIsFalse_getsValuesForField() throws {
     // given
     class GivenSelectionSet: MockSelectionSet {
       override class var selections: [Selection] {[
         .skip(if: "skip", .field("name", String.self)),
         .include(if: "include", .field("name", String.self))
+      ]}
+    }
+    let object: JSONObject = ["name": "Luke Skywalker", "id": "1234"]
+    let variables = ["skip": false,
+                     "include": false]
+
+    // when
+    let data = try readValues(GivenSelectionSet.self, from: object, variables: variables)
+
+    // then
+    expect(data.name).to(equal("Luke Skywalker"))
+  }
+
+  func test__booleanCondition_bothSkipAndInclude_onSeperateFieldsForSameSelectionMergedAsOrCondition__givenSkipIsFalse_includeIsFalse_getsValuesForField() throws {
+    // given
+    class GivenSelectionSet: MockSelectionSet {
+      override class var selections: [Selection] {[
+        .include(if: "include" || !"skip", .field("name", String.self))
       ]}
     }
     let object: JSONObject = ["name": "Luke Skywalker", "id": "1234"]
@@ -1397,6 +1429,24 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     expect(data.name).to(equal("Luke Skywalker"))
   }
 
+  func test__booleanCondition_bothSkipAndInclude_onSeperateFieldsForSameSelectionMergedAsOrCondition__givenSkipIsFalse_includeIsTrue_getsValuesForField() throws {
+    // given
+    class GivenSelectionSet: MockSelectionSet {
+      override class var selections: [Selection] {[
+        .include(if: "include" || !"skip", .field("name", String.self))
+      ]}
+    }
+    let object: JSONObject = ["name": "Luke Skywalker", "id": "1234"]
+    let variables = ["skip": false,
+                     "include": true]
+
+    // when
+    let data = try readValues(GivenSelectionSet.self, from: object, variables: variables)
+
+    // then
+    expect(data.name).to(equal("Luke Skywalker"))
+  }
+
   func test__booleanCondition_bothSkipAndInclude_onSeperateFieldsForSameSelection__givenSkipIsTrue_includeIsFalse_doesNotGetValuesForConditionalFields() throws {
     // given
     class GivenSelectionSet: MockSelectionSet {
@@ -1416,4 +1466,53 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     expect(data.name).to(beNil())
   }
 
+  func test__booleanCondition_bothSkipAndInclude_onSeperateFieldsForSameSelectionMergedAsOrCondition__givenSkipIsTrue_includeIsFalse_doesNotGetValuesForConditionalFields() throws {
+    // given
+    class GivenSelectionSet: MockSelectionSet {
+      override class var selections: [Selection] {[
+        .include(if: "include" || !"skip", .field("name", String.self))
+      ]}
+    }
+    let object: JSONObject = ["name": "Luke Skywalker", "id": "1234"]
+    let variables = ["skip": true,
+                     "include": false]
+
+    // when
+    let data = try readValues(GivenSelectionSet.self, from: object, variables: variables)
+
+    // then
+    expect(data.name).to(beNil())
+  }
+
+  func test__booleanCondition_bothSkipAndInclude_mergedAsComplexLogicalCondition_correctlyEvaluatesConditionalSelections() throws {
+    // given
+    class GivenSelectionSet: MockSelectionSet {
+      override class var selections: [Selection] {[
+        .include(if: ("a" && !"b" && "c") || "d" || !"e", .field("name", String.self))
+      ]}
+    }
+    let tests: [(variables: [String: Bool], expectedResult: Bool)] = [
+      (["a": true,  "b": false, "c": true,  "d": true,  "e": true],  true),  // a && b && c -> true
+      (["a": false, "b": false, "c": true,  "d": true,  "e": true],  false), // a is false
+      (["a": true,  "b": true,  "c": true,  "d": true,  "e": true],  false), // b is true
+      (["a": true,  "b": false, "c": false, "d": true,  "e": true],  false), // c is false
+      (["a": false, "b": false, "c": false, "d": true,  "e": true],  true),  // d is true
+      (["a": false, "b": false, "c": false, "d": false, "e": false], true),  // e is false
+      (["a": false, "b": false, "c": false, "d": false, "e": true],  false), // e is true
+    ]
+
+    let object: JSONObject = ["name": "Luke Skywalker", "id": "1234"]
+
+    for test in tests {
+      // when
+      let data = try readValues(GivenSelectionSet.self, from: object, variables: test.variables)
+
+      // then
+      if test.expectedResult {
+        expect(data.name).to(equal("Luke Skywalker"))
+      } else {
+        expect(data.name).to(beNil())
+      }
+    }
+  }
 }
