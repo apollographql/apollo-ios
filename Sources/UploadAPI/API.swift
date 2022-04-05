@@ -63,8 +63,8 @@ public final class UploadMultipleFilesToTheSameParameterMutation: GraphQLMutatio
   }
 
   public struct Data: SelectionSet {
-    public let data: ResponseDict
-    public init(data: ResponseDict) { self.data = data }
+    public let data: DataDict
+    public init(data: DataDict) { self.data = data }
 
     public static var __parentType: ParentType { .Object(Mutation.self) }
     public static var selections: [Selection] { [
@@ -74,8 +74,8 @@ public final class UploadMultipleFilesToTheSameParameterMutation: GraphQLMutatio
     public var multipleUpload: [MultipleUpload] { data["multipleUpload"] }
 
     public struct MultipleUpload: SelectionSet {
-      public let data: ResponseDict
-      public init(data: ResponseDict) { self.data = data }
+      public let data: DataDict
+      public init(data: DataDict) { self.data = data }
 
       public static var __parentType: ParentType { .Object(File.self) }
       public static var selections: [Selection] { [
@@ -129,7 +129,7 @@ public final class UploadMultipleFilesToDifferentParametersMutation: GraphQLMuta
   }
 
   public struct Data: SelectionSet {
-    public let data: ResponseDict; public init(data: ResponseDict) { self.data = data }
+    public let data: DataDict; public init(data: ResponseDict) { self.data = data }
 
     public static var __parentType: ParentType { .Object(Mutation.self) }
     public static var selections: [Selection] { [
@@ -148,8 +148,8 @@ public final class UploadMultipleFilesToDifferentParametersMutation: GraphQLMuta
     public var multipleParameterUpload: [MultipleParameterUpload] { data["multipleParameterUpload"] }
 
     public struct MultipleParameterUpload: SelectionSet {
-      public let data: ResponseDict;
-      public init(data: ResponseDict) { self.data = data }
+      public let data: DataDict;
+      public init(data: DataDict) { self.data = data }
 
       public static var __parentType: ParentType { .Object(File.self) }
       public static var selections: [Selection] { [
@@ -202,7 +202,7 @@ public final class UploadOneFileMutation: GraphQLMutation {
   }
 
   public struct Data: SelectionSet {
-    public let data: ResponseDict; public init(data: ResponseDict) { self.data = data }
+    public let data: DataDict; public init(data: DataDict) { self.data = data }
 
     public static var __parentType: ParentType { .Object(Mutation.self) }
     public static var selections: [Selection] { [
@@ -216,7 +216,7 @@ public final class UploadOneFileMutation: GraphQLMutation {
     public var singleUpload: SingleUpload { data["singleUpload"] }
 
     public struct SingleUpload: SelectionSet {
-      public let data: ResponseDict; public init(data: ResponseDict) { self.data = data }
+      public let data: DataDict; public init(data: DataDict) { self.data = data }
       public static var __parentType: ParentType { .Object(File.self) }
 
       public static var selections: [Selection] {
