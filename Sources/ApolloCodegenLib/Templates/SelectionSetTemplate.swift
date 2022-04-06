@@ -58,7 +58,7 @@ struct SelectionSetTemplate {
     \(Self.DataFieldAndInitializerTemplate)
 
     \(ParentTypeTemplate(selectionSet.parentType))
-    \(ifLet: selections.direct, SelectionsTemplate )
+    \(ifLet: selections.direct?.groupedByInclusionCondition, SelectionsTemplate )
 
     \(section: FieldAccessorsTemplate(selections))
 
@@ -82,19 +82,33 @@ struct SelectionSetTemplate {
   }
 
   // MARK: - Selections
-  private func SelectionsTemplate(_ selections: IR.DirectSelections) -> TemplateString {
+  private func SelectionsTemplate(
+    _ groupedSelections: IR.DirectSelections.GroupedByInclusionCondition
+  ) -> TemplateString {
     """
     public static var selections: [Selection] { [
-      \(if: !selections.fields.values.isEmpty, """
-        \(selections.fields.values.map { FieldSelectionTemplate($0) }),
-        """)
-      \(if: !selections.inlineFragments.values.isEmpty, """
-        \(selections.inlineFragments.values.map { TypeCaseSelectionTemplate($0.typeInfo) }),
-        """)
-      \(if: !selections.fragments.values.isEmpty, """
-        \(selections.fragments.values.map { FragmentSelectionTemplate($0) }),
-        """)
+      \(renderedSelections(groupedSelections.unconditionalSelections), terminator: ",")
+      \(groupedSelections.inclusionConditionGroups.map(renderedConditionalSelectionGroup), terminator: ",")
     ] }
+    """
+  }
+
+  private func renderedSelections(
+    _ selections: IR.DirectSelections.ReadOnly
+  ) -> [TemplateString] {
+    selections.fields.values.map { FieldSelectionTemplate($0) } +
+    selections.inlineFragments.values.map { TypeCaseSelectionTemplate($0.typeInfo) } +
+    selections.fragments.values.map { FragmentSelectionTemplate($0) }
+  }
+
+  private func renderedConditionalSelectionGroup(
+    _ conditions: AnyOf<IR.InclusionConditions>,
+    _ selections: IR.DirectSelections.ReadOnly
+  ) -> TemplateString {
+    let renderedSelections = self.renderedSelections(selections)
+    let isSelectionGroup = renderedSelections.count > 1
+    return """
+    .include(if: \(conditions.conditionVariableExpression), \(if: isSelectionGroup, "[")\(list: renderedSelections)\(if: isSelectionGroup, "]"))
     """
   }
 
@@ -375,7 +389,34 @@ private func generatedSelectionSetName(
 fileprivate extension IR.ScopeCondition {
 
   var selectionSetNameComponent: String {
-    "As\(type!.name.firstUppercased)"
+    "As\(type?.name.firstUppercased ?? "")"
   }
   
+}
+
+fileprivate extension AnyOf where T == IR.InclusionConditions {
+  var conditionVariableExpression: TemplateString {
+    """
+    \(elements.map {
+      $0.conditionVariableExpression(wrapInParenthesisIfMultiple: elements.count > 1)
+    }, separator: " || ")
+    """
+  }
+}
+
+fileprivate extension IR.InclusionConditions {
+  func conditionVariableExpression(wrapInParenthesisIfMultiple: Bool) -> TemplateString {
+    let shouldWrap = wrapInParenthesisIfMultiple && count > 1
+    return """
+    \(if: shouldWrap, "(")\(map(\.conditionVariableExpression), separator: " && ")\(if: shouldWrap, ")")
+    """
+  }
+}
+
+fileprivate extension IR.InclusionCondition {
+  var conditionVariableExpression: TemplateString {
+    """
+    \(if: isInverted, "!")"\(variable)"
+    """
+  }
 }

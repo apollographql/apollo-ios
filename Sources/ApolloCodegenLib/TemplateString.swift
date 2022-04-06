@@ -98,7 +98,8 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
 
     mutating func appendInterpolation<T>(
       _ sequence: T,
-      separator: String = ",\n"
+      separator: String = ",\n",
+      terminator: String? = nil
     )
     where T: Sequence, T.Element: CustomStringConvertible {
       var iterator = sequence.makeIterator()
@@ -112,24 +113,31 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
       }
 
       appendInterpolation(elementsString)
+      if let terminator = terminator {
+        appendInterpolation(terminator)
+      }
     }
 
-    mutating func appendInterpolation<T>(list: T)
+    mutating func appendInterpolation<T>(
+      list: T,
+      separator: String = ",\n",
+      terminator: String? = nil
+    )
     where T: Collection, T.Element: CustomStringConvertible {
       let shouldWrapInNewlines = list.count > 1
       if shouldWrapInNewlines { appendLiteral("\n  ") }
-      appendInterpolation(list)
+      appendInterpolation(list, separator: separator, terminator: terminator)
       if shouldWrapInNewlines { appendInterpolation("\n") }
     }
 
     mutating func appendInterpolation(
       if bool: Bool,
       _ template: @autoclosure () -> TemplateString,
-      else: TemplateString? = nil
+      else: @autoclosure () -> TemplateString? = nil
     ) {
       if bool {
         appendInterpolation(template())
-      } else if let elseTemplate = `else` {
+      } else if let elseTemplate = `else`() {
         appendInterpolation(elseTemplate)
       } else {
         removeLineIfEmpty()
@@ -140,11 +148,11 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
     ifLet optional: Optional<T>,
     where whereBlock: ((T) -> Bool)? = nil,
     _ includeBlock: (T) -> TemplateString,
-    else: TemplateString? = nil
+    else: @autoclosure () -> TemplateString? = nil
     ) {
       if let element = optional, whereBlock?(element) ?? true {
         appendInterpolation(includeBlock(element))
-      } else if let elseTemplate = `else` {
+      } else if let elseTemplate = `else`() {
         appendInterpolation(elseTemplate.description)
       } else {
         removeLineIfEmpty()
