@@ -125,17 +125,25 @@ struct SelectionSetTemplate {
     """
   }
 
-  private func typeName(for field: IR.Field) -> String {
+  private func typeName(for field: IR.Field, forceOptional: Bool = false) -> String {
+    let fieldName: String
     switch field {
     case let scalarField as IR.ScalarField:
-      return scalarField.type.rendered
+      fieldName = scalarField.type.rendered
 
     case let entityField as IR.EntityField:
-      return self.nameCache.selectionSetType(for: entityField)
+      fieldName = self.nameCache.selectionSetType(for: entityField)
 
     default:
       fatalError()
     }
+
+    if case .nonNull = field.type, forceOptional {
+      return "\(fieldName)?"
+    } else {
+      return fieldName
+    }
+
   }
 
   private func renderValue(for arguments: [CompilationResult.Argument]) -> TemplateString {
@@ -166,7 +174,7 @@ struct SelectionSetTemplate {
 
   private func FieldAccessorTemplate(_ field: IR.Field) -> TemplateString {
     """
-    public var \(field.responseKey.firstLowercased): \(typeName(for: field)) { data["\(field.responseKey)"] }
+    public var \(field.responseKey.firstLowercased): \(typeName(for: field, forceOptional: field.inclusionConditions != nil)) { data["\(field.responseKey)"] }
     """
   }
 

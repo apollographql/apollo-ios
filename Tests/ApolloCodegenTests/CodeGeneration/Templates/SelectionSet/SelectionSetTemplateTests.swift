@@ -1938,9 +1938,83 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
   }
 
-  // MARK: - Type Case Accessors
+  // MARK: Field Accessors - Include/Skip
 
-  func test__render_typeCaseAccessors__givenDirectTypeCases_rendersTypeCaseAccessorWithCorrectName() throws {
+  func test__render_fieldAccessor__givenNonNullFieldWithIncludeCondition_rendersAsOptional() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      fieldName: String!
+    }
+    """
+
+    document = """
+    query TestOperation($a: Boolean!) {
+      allAnimals {
+        fieldName @include(if: $a)
+      }
+    }
+    """
+
+    let expected = """
+      public var fieldName: String? { data["fieldName"] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+  }
+
+  func test__render_fieldAccessor__givenNonNullFieldWithSkipCondition_rendersAsOptional() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      fieldName: String!
+    }
+    """
+
+    document = """
+    query TestOperation($a: Boolean!) {
+      allAnimals {
+        fieldName @skip(if: $a)
+      }
+    }
+    """
+
+    let expected = """
+      public var fieldName: String? { data["fieldName"] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+  }
+
+  // MARK: - Inline Fragment Accessors
+
+  func test__render_inlineFragmentAccessors__givenDirectTypeCases_rendersTypeCaseAccessorWithCorrectName() throws {
     // given
     schemaSDL = """
     type Query {
@@ -1996,7 +2070,7 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
   }
 
-  func test__render_typeCaseAccessors__givenMergedTypeCasesFromSingleMergedTypeCaseSource_rendersTypeCaseAccessorWithCorrectName() throws {
+  func test__render_inlineFragmentAccessors__givenMergedTypeCasesFromSingleMergedTypeCaseSource_rendersTypeCaseAccessorWithCorrectName() throws {
     // given
     schemaSDL = """
     type Query {
@@ -2055,6 +2129,45 @@ class SelectionSetTemplateTests: XCTestCase {
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
   }
+
+  // MARK: Inline Fragment Accessors - Include/Skip
+
+  #warning("TODO")
+//  func test__render_inlineFragmentAccessors__givenInlineFragmentOnDifferentTypeWithCondition_rendersWithConditionInTypeCaseConversionFunction() throws {
+//    // given
+//    schemaSDL = """
+//    type Query {
+//      allAnimals: [Animal!]
+//    }
+//
+//    type Animal {
+//      fieldName: String!
+//    }
+//    """
+//
+//    document = """
+//    query TestOperation($a: Boolean!) {
+//      allAnimals {
+//        fieldName @include(if: $a)
+//      }
+//    }
+//    """
+//
+//    let expected = """
+//      public var fieldName: String? { data["fieldName"] }
+//    """
+//
+//    // when
+//    try buildSubjectAndOperation()
+//    let allAnimals = try XCTUnwrap(
+//      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+//    )
+//
+//    let actual = subject.render(field: allAnimals)
+//
+//    // then
+//    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+//  }
 
   // MARK: - Fragment Accessors
 
