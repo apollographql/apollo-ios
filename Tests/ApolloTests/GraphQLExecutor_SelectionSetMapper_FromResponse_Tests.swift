@@ -1488,16 +1488,20 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     // given
     class GivenSelectionSet: MockSelectionSet {
       override class var selections: [Selection] {[
-        .include(if: ("a" && !"b" && "c") || "d" || !"e", .field("name", String.self))
+        .include(if: ("a" && !"b" && "c") || "d" || !"e", .field("name", String?.self))
       ]}
+
+      var name: String? { data["name"] }
     }
-    let tests: [(variables: [String: Bool], expectedResult: Bool)] = [
+
+    let tests: [(variables: [String: Bool], expectedResult: Bool)] = [      
       (["a": true,  "b": false, "c": true,  "d": true,  "e": true],  true),  // a && b && c -> true
-      (["a": false, "b": false, "c": true,  "d": true,  "e": true],  false), // a is false
-      (["a": true,  "b": true,  "c": true,  "d": true,  "e": true],  false), // b is true
-      (["a": true,  "b": false, "c": false, "d": true,  "e": true],  false), // c is false
+      (["a": false, "b": false, "c": true,  "d": false, "e": true],  false), // a is false
+      (["a": true,  "b": true,  "c": true,  "d": false, "e": true],  false), // b is true
+      (["a": true,  "b": false, "c": false, "d": false, "e": true],  false), // c is false
       (["a": false, "b": false, "c": false, "d": true,  "e": true],  true),  // d is true
       (["a": false, "b": false, "c": false, "d": false, "e": false], true),  // e is false
+      (["a": false, "b": false, "c": false, "d": true,  "e": true],  true),  // d is true
       (["a": false, "b": false, "c": false, "d": false, "e": true],  false), // e is true
     ]
 
@@ -1505,7 +1509,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
 
     for test in tests {
       // when
-      let data = try readValues(GivenSelectionSet.self, from: object, variables: test.variables)
+      let data = try readValues(GivenSelectionSet.self, from: object, variables: test.variables)      
 
       // then
       if test.expectedResult {
