@@ -2132,42 +2132,173 @@ class SelectionSetTemplateTests: XCTestCase {
 
   // MARK: Inline Fragment Accessors - Include/Skip
 
-  #warning("TODO")
-//  func test__render_inlineFragmentAccessors__givenInlineFragmentOnDifferentTypeWithCondition_rendersWithConditionInTypeCaseConversionFunction() throws {
-//    // given
-//    schemaSDL = """
-//    type Query {
-//      allAnimals: [Animal!]
-//    }
-//
-//    type Animal {
-//      fieldName: String!
-//    }
-//    """
-//
-//    document = """
-//    query TestOperation($a: Boolean!) {
-//      allAnimals {
-//        fieldName @include(if: $a)
-//      }
-//    }
-//    """
-//
-//    let expected = """
-//      public var fieldName: String? { data["fieldName"] }
-//    """
-//
-//    // when
-//    try buildSubjectAndOperation()
-//    let allAnimals = try XCTUnwrap(
-//      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
-//    )
-//
-//    let actual = subject.render(field: allAnimals)
-//
-//    // then
-//    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
-//  }
+  func test__render_inlineFragmentAccessors__givenInlineFragmentOnDifferentTypeWithCondition_rendersWithConditionInTypeCaseConversionFunction() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      fieldA: String!
+    }
+
+    interface Pet {
+      fieldA: String!
+    }
+    """
+
+    document = """
+    query TestOperation($a: Boolean!) {
+      allAnimals {
+        ... on Pet @include(if: $a) {
+          fieldA
+        }
+      }
+    }
+    """
+
+    let expected = """
+      public var asPet: AsPet? { _asType(if: "a") }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+  }
+
+  func test__render_inlineFragmentAccessors__givenInlineFragmentOnDifferentTypeWithSkipCondition_rendersWithConditionInTypeCaseConversionFunction() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      fieldA: String!
+    }
+
+    interface Pet {
+      fieldA: String!
+    }
+    """
+
+    document = """
+    query TestOperation($a: Boolean!) {
+      allAnimals {
+        ... on Pet @skip(if: $a) {
+          fieldA
+        }
+      }
+    }
+    """
+
+    let expected = """
+      public var asPet: AsPet? { _asType(if: !"a") }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+  }
+
+  func test__render_inlineFragmentAccessors__givenInlineFragmentOnDifferentTypeWithMultipleConditions_rendersWithConditionInTypeCaseConversionFunction() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      fieldA: String!
+    }
+
+    interface Pet {
+      fieldA: String!
+    }
+    """
+
+    document = """
+    query TestOperation($a: Boolean!) {
+      allAnimals {
+        ... on Pet @include(if: $a) @skip(if: $b) {
+          fieldA
+        }
+      }
+    }
+    """
+
+    let expected = """
+      public var asPet: AsPet? { _asType(if: "a" && !"b") }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+  }
+
+  func test__render_inlineFragmentAccessors__givenInlineFragmentOnSameTypeWithMultipleConditions_rendersConditionalSelectionSetAccessor() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      fieldA: String!
+    }
+
+    interface Pet {
+      fieldA: String!
+    }
+    """
+
+    document = """
+    query TestOperation($a: Boolean!) {
+      allAnimals {
+        ... on Animal @include(if: $a) @skip(if: $b) {
+          fieldA
+        }
+      }
+    }
+    """
+
+    let expected = """
+      public var ifAAndNotB: IfAAndNotB? { _asInlineFragment(if: "a" && !"b") }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+  }
 
   // MARK: - Fragment Accessors
 

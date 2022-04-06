@@ -192,7 +192,9 @@ struct SelectionSetTemplate {
   private func TypeCaseAccessorTemplate(_ typeCase: IR.SelectionSet) -> TemplateString {
     let typeName = typeCase.renderedTypeName
     return """
-    public var as\(typeName): As\(typeName)? { _asType() }
+    public var as\(typeName): As\(typeName)? { _asType(\(ifLet: typeCase.inclusionConditions, {
+    "if: \($0.conditionVariableExpression())"
+    })) }
     """
   }
 
@@ -413,7 +415,7 @@ fileprivate extension AnyOf where T == IR.InclusionConditions {
 }
 
 fileprivate extension IR.InclusionConditions {
-  func conditionVariableExpression(wrapInParenthesisIfMultiple: Bool) -> TemplateString {
+  func conditionVariableExpression(wrapInParenthesisIfMultiple: Bool = false) -> TemplateString {
     let shouldWrap = wrapInParenthesisIfMultiple && count > 1
     return """
     \(if: shouldWrap, "(")\(map(\.conditionVariableExpression), separator: " && ")\(if: shouldWrap, ")")
