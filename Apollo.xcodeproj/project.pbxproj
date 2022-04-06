@@ -304,6 +304,7 @@
 		DE90FD2527FCC8570084CC79 /* Animal.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE90FD0A27FCC8570084CC79 /* Animal.swift */; };
 		DE90FD2627FCC8570084CC79 /* Pet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE90FD0B27FCC8570084CC79 /* Pet.swift */; };
 		DE90FD2727FCC8570084CC79 /* WarmBlooded.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE90FD0C27FCC8570084CC79 /* WarmBlooded.swift */; };
+		DE90FD2927FCE7120084CC79 /* SelectionCondition+Evaluation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE90FD2827FCE7120084CC79 /* SelectionCondition+Evaluation.swift */; };
 		DE9C04AC26EAAE4400EC35E7 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC4B91F1D2A6F8D0046A641 /* JSON.swift */; };
 		DE9C04AD26EAAE5400EC35E7 /* JSONStandardTypeConversions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F27D4631D40379500715680 /* JSONStandardTypeConversions.swift */; };
 		DE9C04AF26EAAEE800EC35E7 /* CacheReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9C04AE26EAAEE800EC35E7 /* CacheReference.swift */; };
@@ -1072,6 +1073,7 @@
 		DE90FD0A27FCC8570084CC79 /* Animal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animal.swift; sourceTree = "<group>"; };
 		DE90FD0B27FCC8570084CC79 /* Pet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pet.swift; sourceTree = "<group>"; };
 		DE90FD0C27FCC8570084CC79 /* WarmBlooded.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WarmBlooded.swift; sourceTree = "<group>"; };
+		DE90FD2827FCE7120084CC79 /* SelectionCondition+Evaluation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SelectionCondition+Evaluation.swift"; sourceTree = "<group>"; };
 		DE9C04AE26EAAEE800EC35E7 /* CacheReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheReference.swift; sourceTree = "<group>"; };
 		DE9C04B026EAAFF900EC35E7 /* JSONDecodingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDecodingError.swift; sourceTree = "<group>"; };
 		DEA34AF6260E821F00F95F86 /* Apollo-Target-AnimalKingdomAPI.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-AnimalKingdomAPI.xcconfig"; sourceTree = "<group>"; };
@@ -1757,6 +1759,7 @@
 				9FF90A5C1DDDEB100034C3B6 /* GraphQLExecutor.swift */,
 				9FA6F3671E65DF4700BF8D73 /* GraphQLResultAccumulator.swift */,
 				DE0586322669948500265760 /* InputValue+Evaluation.swift */,
+				DE90FD2827FCE7120084CC79 /* SelectionCondition+Evaluation.swift */,
 			);
 			name = Execution;
 			sourceTree = "<group>";
@@ -3496,6 +3499,7 @@
 				DE0586392669985000265760 /* Dictionary+Helpers.swift in Sources */,
 				9F295E381E277B2A00A24949 /* GraphQLResultNormalizer.swift in Sources */,
 				9F8E0BE325668559000D9FA5 /* PossiblyDeferred.swift in Sources */,
+				DE90FD2927FCE7120084CC79 /* SelectionCondition+Evaluation.swift in Sources */,
 				9F86B68B1E6438D700B885FF /* GraphQLSelectionSetMapper.swift in Sources */,
 				9F55347B1DE1DB2100E54264 /* ApolloStore.swift in Sources */,
 				9BDE43D122C6655300FD7C7F /* Cancellable.swift in Sources */,

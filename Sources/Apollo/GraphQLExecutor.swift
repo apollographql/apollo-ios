@@ -246,12 +246,9 @@ final class GraphQLExecutor {
       case let .field(field):
         groupedFields.append(field: field, withInfo: info)
 
-      case let .booleanCondition(booleanCondition):
-        guard let boolValue = info.variables?[booleanCondition.variableName] as? Bool else {
-          throw GraphQLError("Variable \"\(booleanCondition.variableName)\" was not provided.")
-        }
-        if boolValue == !booleanCondition.inverted {
-          try groupFields(booleanCondition.selections,
+      case let .conditional(conditions, selections):
+        if try conditions.evaluate(with: info.variables) {
+          try groupFields(selections,
                           for: object,
                           into: &groupedFields,
                           info: info)
