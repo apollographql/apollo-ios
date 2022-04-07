@@ -2234,6 +2234,107 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
   }
 
+  func test__render_fieldAccessor__givenNonNullFieldMergedFromNestedEntityInNamedFragmentWithIncludeCondition_doesNotRenderField() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      child: Child!
+    }
+
+    type Child {
+      a: String!
+      b: String!
+    }
+    """
+
+    document = """
+    query TestOperation($a: Boolean!) {
+      allAnimals {
+        ...ChildFragment @include(if: $a)
+        child {
+          a
+        }
+      }
+    }
+
+    fragment ChildFragment on Animal {
+      child {
+        b
+      }
+    }
+    """
+
+    let expected = """
+      public var a: String { data["a"] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals_child = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"]?[field: "child"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals_child)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+  }
+
+  func test__render_fieldAccessor__givenNonNullFieldMergedFromNestedEntityInNamedFragmentWithIncludeCondition_inConditionalFragment_rendersFieldAsNonOptional() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      child: Child!
+    }
+
+    type Child {
+      a: String!
+      b: String!
+    }
+    """
+
+    document = """
+    query TestOperation($a: Boolean!) {
+      allAnimals {
+        ...ChildFragment @include(if: $a)
+        child {
+          a
+        }
+      }
+    }
+
+    fragment ChildFragment on Animal {
+      child {
+        b
+      }
+    }
+    """
+
+    let expected = """
+      public var a: String { data["a"] }
+      public var b: String { data["b"] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals_child = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"]?[if: "a"]?[field: "child"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals_child)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
+  }
+
   // MARK: - Inline Fragment Accessors
 
   func test__render_inlineFragmentAccessors__givenDirectTypeCases_rendersTypeCaseAccessorWithCorrectName() throws {

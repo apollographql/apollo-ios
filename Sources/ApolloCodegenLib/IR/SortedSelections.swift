@@ -234,7 +234,10 @@ extension IR {
         }
       }
 
-      static func == (lhs: IR.DirectSelections.GroupedByInclusionCondition, rhs: IR.DirectSelections.GroupedByInclusionCondition) -> Bool {
+      static func == (
+        lhs: IR.DirectSelections.GroupedByInclusionCondition,
+        rhs: IR.DirectSelections.GroupedByInclusionCondition
+      ) -> Bool {
         lhs.unconditionalSelections == rhs.unconditionalSelections &&
         lhs.inclusionConditionGroups == rhs.inclusionConditionGroups
       }

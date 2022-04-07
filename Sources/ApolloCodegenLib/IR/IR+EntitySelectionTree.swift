@@ -59,11 +59,12 @@ extension IR {
     ) -> FieldScopeNode {
       guard let nextEntityTypePath = currentNodeRootTypePath.next else {
         // Advance to field node in current entity & type case
-        let currentEntityRootFieldNode = node.childAsFieldScopeNode()
+        let currentEntityRootFieldNode = node.childAsFieldScopeNode(
+          scope: ScopeCondition(type: currentNodeRootTypePath.value)
+        )
         return fieldNode(
           withConditionScopePath: currentEntityScope.value.scopePath.head,
-          fromFieldNode: currentEntityRootFieldNode,
-          withCondition: ScopeCondition(type: currentNodeRootTypePath.value)
+          fromFieldNode: currentEntityRootFieldNode
         )
       }
 
@@ -98,28 +99,20 @@ extension IR {
 
     private func fieldNode(
       withConditionScopePath selectionsScopePath: LinkedList<ScopeCondition>.Node,
-      fromFieldNode node: FieldScopeNode,
-      withCondition fieldNodeCondition: ScopeCondition
+      fromFieldNode node: FieldScopeNode
     ) -> FieldScopeNode {
       guard let nextConditionInScopePath = selectionsScopePath.next else {
         // Last condition in field scope path
         let selectionsCondition = selectionsScopePath.value
-        if fieldNodeCondition == selectionsCondition {
-          return node
-
-        } else {
-          return node.scopeConditionNode(for: selectionsCondition)
-        }
+        return node.scopeConditionNode(for: selectionsCondition)
       }
 
       let nextCondition = nextConditionInScopePath.value
-      let nextNodeForField = fieldNodeCondition != nextCondition
-      ? node.scopeConditionNode(for: nextCondition) : node
+      let nextNodeForField = node.scopeConditionNode(for: nextCondition)
 
       return fieldNode(
         withConditionScopePath: nextConditionInScopePath,
-        fromFieldNode: nextNodeForField,
-        withCondition: nextCondition
+        fromFieldNode: nextNodeForField
       )
     }
 
@@ -188,14 +181,14 @@ extension IR {
         return child
       }
 
-      fileprivate func childAsFieldScopeNode() -> FieldScopeNode {
+      fileprivate func childAsFieldScopeNode(scope: ScopeCondition) -> FieldScopeNode {
         guard let child = child else {
-          let node = FieldScopeNode()
+          let node = FieldScopeNode(scope: scope)
           self.child = .fieldScope(node)
           return node
         }
 
-        guard case let .fieldScope(child) = child else {
+        guard case let .fieldScope(child) = child, child.scope == scope else {
           fatalError()
         }
 
@@ -221,8 +214,13 @@ extension IR {
     }
 
     class FieldScopeNode {
+      let scope: ScopeCondition
       var selections: OrderedDictionary<MergedSelections.MergedSource, EntityTreeScopeSelections> = [:]
       var scopeConditions: OrderedDictionary<ScopeCondition, FieldScopeNode>?
+
+      fileprivate init(scope: ScopeCondition) {
+        self.scope = scope
+      }
 
       fileprivate func mergeIn(
         _ selections: DirectSelections,
@@ -253,22 +251,57 @@ extension IR {
         }
       }
 
-      fileprivate func scopeConditionNode(for condition: ScopeCondition) -> FieldScopeNode {
-        guard var scopeConditions = scopeConditions else {
-          let node = FieldScopeNode()
-          self.scopeConditions = [condition: node]
-          return node
-        }
+      fileprivate func nextConditionNode(
+        forSelectionsCondition selectionsCondition: ScopeCondition,
+        after node: FieldScopeNode
+      ) -> FieldScopeNode {
+        let fieldNodeCondition = node.scope
+        if fieldNodeCondition.type == selectionsCondition.type {
+          if fieldNodeCondition.conditions == selectionsCondition.conditions {
+            return node
 
-        guard let node = scopeConditions[condition] else {
-          let node = FieldScopeNode()
-          scopeConditions[condition] = node
-          self.scopeConditions = scopeConditions
-          return node
+          } else {
+            return node.scopeConditionNode(
+              for: ScopeCondition(conditions: selectionsCondition.conditions)
+            )
+          }
+        } else {
+          return node.scopeConditionNode(for: selectionsCondition)
         }
-
-        return node
       }
+
+      fileprivate func scopeConditionNode(for condition: ScopeCondition) -> FieldScopeNode {
+        func createChildFieldScopeNode(for condition: ScopeCondition) -> FieldScopeNode {
+          guard var scopeConditions = scopeConditions else {
+            let node = FieldScopeNode(scope: condition)
+            self.scopeConditions = [condition: node]
+            return node
+          }
+
+          guard let node = scopeConditions[condition] else {
+            let node = FieldScopeNode(scope: condition)
+            scopeConditions[condition] = node
+            self.scopeConditions = scopeConditions
+            return node
+          }
+
+          return node
+        }
+
+        if scope.type == condition.type {
+          if scope.conditions == condition.conditions {
+            return self
+
+          } else {
+            return createChildFieldScopeNode(
+              for: ScopeCondition(conditions: condition.conditions)
+            )
+          }
+        } else {
+          return createChildFieldScopeNode(for: condition)
+        }
+      }
+
     }
   }
 
@@ -346,7 +379,7 @@ extension IR.EntitySelectionTree {
     _ otherTree: IR.EntitySelectionTree,
     from fragment: IR.FragmentSpread,
     using entityStorage: IR.RootFieldEntityStorage
-  ) {    
+  ) {
     let otherTreeCount = otherTree.rootTypePath.count
     let diffToRoot = rootTypePath.count - otherTreeCount
 
@@ -364,6 +397,7 @@ extension IR.EntitySelectionTree {
     rootEntityToStartMerge.mergeIn(
       otherTree,
       from: fragment,
+      with: fragment.inclusionConditions,
       withNodeRootType: nodeRootType.value,
       using: entityStorage
     )
@@ -372,6 +406,36 @@ extension IR.EntitySelectionTree {
 }
 
 extension IR.EntitySelectionTree.EnclosingEntityNode {
+
+  fileprivate func mergeIn(
+    _ otherTree: IR.EntitySelectionTree,
+    from fragment: IR.FragmentSpread,
+    with inclusionConditions: AnyOf<IR.InclusionConditions>?,
+    withNodeRootType nodeRootType: GraphQLCompositeType,
+    using entityStorage: IR.RootFieldEntityStorage
+  ) {
+    switch (otherTree.rootNode.child, fragment.inclusionConditions) {
+    case let (.enclosingEntity, inclusionConditions?):
+      for conditionGroup in inclusionConditions.elements {
+        let nextNode = self.scopeConditionNode(for: IR.ScopeCondition(conditions: conditionGroup))
+
+        nextNode.mergeIn(
+          otherTree,
+          from: fragment,
+          withNodeRootType: nodeRootType,
+          using: entityStorage
+        )
+      }
+
+    default:
+      self.mergeIn(
+        otherTree,
+        from: fragment,
+        withNodeRootType: nodeRootType,
+        using: entityStorage
+      )
+    }
+  }
 
   fileprivate func mergeIn(
     _ otherTree: IR.EntitySelectionTree,
@@ -393,7 +457,7 @@ extension IR.EntitySelectionTree.EnclosingEntityNode {
       )
 
     case let .fieldScope(otherNextNode):
-      let nextNode = self.childAsFieldScopeNode()
+      let nextNode = self.childAsFieldScopeNode(scope: IR.ScopeCondition(type: nodeRootType))
 
       nextNode.mergeIn(
         fragmentRootFieldNode: otherNextNode,
@@ -422,7 +486,7 @@ extension IR.EntitySelectionTree.EnclosingEntityNode {
       )
 
     case let .fieldScope(otherNextNode):
-      let nextNode = self.childAsFieldScopeNode()
+      let nextNode = self.childAsFieldScopeNode(scope: otherNextNode.scope)
 
       nextNode.mergeIn(
         otherNextNode,
@@ -456,7 +520,6 @@ extension IR.EntitySelectionTree.FieldScopeNode {
     withScopePath fragmentScopePath: LinkedList<IR.ScopeCondition>.Node,
     using entityStorage: IR.RootFieldEntityStorage
   ) {
-
     guard let nextFragmentScope = fragmentScopePath.next else {
       // Merge fragment entity tree in at current scope.
       mergeIn(
