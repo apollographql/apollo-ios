@@ -1269,7 +1269,7 @@ class SelectionSetTemplateTests: XCTestCase {
       operation[field: "query"]?[field: "allAnimals"]?[as: "Dog"]
     )
 
-    let actual = subject.render(typeCase: dog)
+    let actual = subject.render(inlineFragment: dog)
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
@@ -1698,7 +1698,7 @@ class SelectionSetTemplateTests: XCTestCase {
     let allAnimals_predator_asPet = try XCTUnwrap(allAnimals_predator[as: "Pet"])
 
     let allAnimals_predator_actual = subject.render(field: allAnimals_predator)
-    let allAnimals_predator_asPet_actual = subject.render(typeCase: allAnimals_predator_asPet)
+    let allAnimals_predator_asPet_actual = subject.render(inlineFragment: allAnimals_predator_asPet)
 
     // then
     expect(allAnimals_predator_actual).to(equalLineByLine(predator_expected, atLine: 11, ignoringExtraLines: true))
@@ -1750,7 +1750,7 @@ class SelectionSetTemplateTests: XCTestCase {
       operation[field: "query"]?[field: "allAnimals"]?[as: "Dog"]
     )
 
-    let actual = subject.render(typeCase: allAnimals_asDog)
+    let actual = subject.render(inlineFragment: allAnimals_asDog)
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
@@ -1806,7 +1806,7 @@ class SelectionSetTemplateTests: XCTestCase {
       operation[field: "query"]?[field: "allAnimals"]?[as: "Dog"]
     )
 
-    let actual = subject.render(typeCase: allAnimals_asDog)
+    let actual = subject.render(inlineFragment: allAnimals_asDog)
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
@@ -2406,7 +2406,7 @@ class SelectionSetTemplateTests: XCTestCase {
       operation[field: "query"]?[field: "allAnimals"]?[as: "Cat"]
     )
 
-    let actual = subject.render(typeCase: allAnimals_asCat)
+    let actual = subject.render(inlineFragment: allAnimals_asCat)
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 14, ignoringExtraLines: true))
@@ -2707,6 +2707,51 @@ class SelectionSetTemplateTests: XCTestCase {
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
+  }
+
+  func test__render_nestedSelectionSet__givenInlineFragmentOnSameTypeWithMultipleConditions_rendersConditionalSelectionSet() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      fieldA: String!
+    }
+
+    interface Pet {
+      fieldA: String!
+    }
+    """
+
+    document = """
+    query TestOperation($a: Boolean!) {
+      allAnimals {
+        ... on Animal @include(if: $a) @skip(if: $b) {
+          fieldA
+        }
+      }
+    }
+    """
+
+    let expected = """
+      public var ifAAndNotB: IfAAndNotB? { _asInlineFragment(if: "a" && !"b") }
+
+      /// AllAnimal.IfAAndNotB
+      public struct IfAAndNotB: TestSchema.TypeCase {
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
   }
 
 }

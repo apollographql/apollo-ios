@@ -29,13 +29,13 @@ struct SelectionSetTemplate {
     ).description
   }
 
-  // MARK: - Type Case
-  func render(typeCase: IR.SelectionSet) -> String {
+  // MARK: - Inline Fragment
+  func render(inlineFragment: IR.SelectionSet) -> String {
     TemplateString(
     """
-    \(SelectionSetNameDocumentation(typeCase))
-    public struct \(typeCase.renderedTypeName): \(schema.name).TypeCase {
-      \(BodyTemplate(typeCase))
+    \(SelectionSetNameDocumentation(inlineFragment))
+    public struct \(inlineFragment.renderedTypeName): \(schema.name).TypeCase {
+      \(BodyTemplate(inlineFragment))
     }
     """
     ).description
@@ -247,9 +247,9 @@ struct SelectionSetTemplate {
   private func ChildTypeCaseSelectionSets(_ selections: IR.SelectionSet.Selections) -> TemplateString {
     """
     \(ifLet: selections.direct?.inlineFragments.values, {
-        "\($0.map { render(typeCase: $0) }, separator: "\n\n")"
+        "\($0.map { render(inlineFragment: $0) }, separator: "\n\n")"
       })
-    \(selections.merged.inlineFragments.values.map { render(typeCase: $0) }, separator: "\n\n")
+    \(selections.merged.inlineFragments.values.map { render(inlineFragment: $0) }, separator: "\n\n")
     """    
   }
 
@@ -311,16 +311,7 @@ fileprivate extension IR.SelectionSet {
   }
 
   var renderedTypeName: String {
-    let scopeCondition = self.scope.scopePath.last.value
-    if let type = scopeCondition.type {
-      return "As\(type.name.firstUppercased)"
-    }
-
-    if let conditions = scopeCondition.conditions {
-      return "If\(conditions.typeNameComponents)"
-    }
-
-    return self.parentType.name.firstUppercased
+    self.scope.scopePath.last.value.selectionSetNameComponent
   }
 
 }
@@ -411,7 +402,15 @@ private func generatedSelectionSetName(
 fileprivate extension IR.ScopeCondition {
 
   var selectionSetNameComponent: String {
-    "As\(type?.name.firstUppercased ?? "")"
+    if let type = type {
+      return "As\(type.name.firstUppercased)"
+    }
+
+    if let conditions = conditions {
+      return "If\(conditions.typeNameComponents)"
+    }
+
+    fatalError("ScopeCondition is empty!")
   }
   
 }
