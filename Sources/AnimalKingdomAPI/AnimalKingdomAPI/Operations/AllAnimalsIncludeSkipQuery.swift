@@ -60,7 +60,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
   }
 
   public struct Data: AnimalKingdomAPI.SelectionSet {
-    public let data: DataDict    
+    public let data: DataDict
     public init(data: DataDict) { self.data = data }
 
     public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Query.self) }
@@ -93,7 +93,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
       public var skinCovering: GraphQLEnum<SkinCovering>? { data["skinCovering"] }
       public var predators: [Predator] { data["predators"] }
 
-      public var asWarmBlooded: AsWarmBlooded? { _asType(if: "a") }
+      public var asWarmBlooded: AsWarmBlooded? { _asType() }
       public var asPet: AsPet? { _asType() }
       public var asCat: AsCat? { _asType() }
       public var asClassroomPet: AsClassroomPet? { _asType() }
@@ -172,7 +172,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         ] }
 
         public var height: Height { data["height"] }
-        public var species: String { data["species"] }
+        public var species: String? { data["species"] }
         public var skinCovering: GraphQLEnum<SkinCovering>? { data["skinCovering"] }
         public var predators: [Predator] { data["predators"] }
         public var bodyTemperature: Int { data["bodyTemperature"] }
@@ -212,7 +212,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         ] }
 
         public var height: Height { data["height"] }
-        public var species: String { data["species"] }
+        public var species: String? { data["species"] }
         public var skinCovering: GraphQLEnum<SkinCovering>? { data["skinCovering"] }
         public var predators: [Predator] { data["predators"] }
         public var humanName: String? { data["humanName"] }
@@ -258,7 +258,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           ] }
 
           public var height: Height { data["height"] }
-          public var species: String { data["species"] }
+          public var species: String? { data["species"] }
           public var skinCovering: GraphQLEnum<SkinCovering>? { data["skinCovering"] }
           public var predators: [Predator] { data["predators"] }
           public var bodyTemperature: Int { data["bodyTemperature"] }
@@ -304,7 +304,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
 
         public var isJellicle: Bool { data["isJellicle"] }
         public var height: Height { data["height"] }
-        public var species: String { data["species"] }
+        public var species: String? { data["species"] }
         public var skinCovering: GraphQLEnum<SkinCovering>? { data["skinCovering"] }
         public var predators: [Predator] { data["predators"] }
         public var bodyTemperature: Int { data["bodyTemperature"] }
@@ -348,7 +348,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         ] }
 
         public var height: Height { data["height"] }
-        public var species: String { data["species"] }
+        public var species: String? { data["species"] }
         public var skinCovering: GraphQLEnum<SkinCovering>? { data["skinCovering"] }
         public var predators: [Predator] { data["predators"] }
 
@@ -385,7 +385,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
 
           public var wingspan: Float { data["wingspan"] }
           public var height: Height { data["height"] }
-          public var species: String { data["species"] }
+          public var species: String? { data["species"] }
           public var skinCovering: GraphQLEnum<SkinCovering>? { data["skinCovering"] }
           public var predators: [Predator] { data["predators"] }
           public var bodyTemperature: Int { data["bodyTemperature"] }

@@ -34,7 +34,7 @@ struct SelectionSetTemplate {
     TemplateString(
     """
     \(SelectionSetNameDocumentation(typeCase))
-    public struct As\(typeCase.renderedTypeName): \(schema.name).TypeCase {
+    public struct \(typeCase.renderedTypeName): \(schema.name).TypeCase {
       \(BodyTemplate(typeCase))
     }
     """
@@ -62,7 +62,7 @@ struct SelectionSetTemplate {
 
     \(section: FieldAccessorsTemplate(selections))
 
-    \(section: TypeCaseAccessorsTemplate(selections))
+    \(section: InlineFragmentAccessorsTemplate(selections))
 
     \(section: FragmentAccessorsTemplate(selections))
 
@@ -178,21 +178,24 @@ struct SelectionSetTemplate {
     """
   }
 
-  private func TypeCaseAccessorsTemplate(
+  private func InlineFragmentAccessorsTemplate(
     _ selections: IR.SelectionSet.Selections
   ) -> TemplateString {
     """
     \(ifLet: selections.direct?.inlineFragments.values, {
-        "\($0.map { TypeCaseAccessorTemplate($0) }, separator: "\n")"
+        "\($0.map { InlineFragmentAccessorTemplate($0) }, separator: "\n")"
       })
-    \(selections.merged.inlineFragments.values.map { TypeCaseAccessorTemplate($0) }, separator: "\n")
+    \(selections.merged.inlineFragments.values.map { InlineFragmentAccessorTemplate($0) }, separator: "\n")
     """
   }
 
-  private func TypeCaseAccessorTemplate(_ typeCase: IR.SelectionSet) -> TemplateString {
-    let typeName = typeCase.renderedTypeName
+  private func InlineFragmentAccessorTemplate(_ inlineFragment: IR.SelectionSet) -> TemplateString {
+    let typeName = inlineFragment.renderedTypeName
+    let isTypeCase = inlineFragment.scope.scopePath.last.value.type != nil
     return """
-    public var as\(typeName): As\(typeName)? { _asType(\(ifLet: typeCase.inclusionConditions, {
+    public var \(typeName.firstLowercased): \(typeName)? \
+    { _\(isTypeCase ? "asType" : "asInlineFragment")\
+    (\(ifLet: inlineFragment.inclusionConditions, {
     "if: \($0.conditionVariableExpression())"
     })) }
     """
@@ -308,7 +311,16 @@ fileprivate extension IR.SelectionSet {
   }
 
   var renderedTypeName: String {
-    self.parentType.name.firstUppercased
+    let scopeCondition = self.scope.scopePath.last.value
+    if let type = scopeCondition.type {
+      return "As\(type.name.firstUppercased)"
+    }
+
+    if let conditions = scopeCondition.conditions {
+      return "If\(conditions.typeNameComponents)"
+    }
+
+    return self.parentType.name.firstUppercased
   }
 
 }
@@ -421,12 +433,24 @@ fileprivate extension IR.InclusionConditions {
     \(if: shouldWrap, "(")\(map(\.conditionVariableExpression), separator: " && ")\(if: shouldWrap, ")")
     """
   }
+
+  var typeNameComponents: TemplateString {
+    """
+    \(map(\.typeNameComponent), separator: "And")
+    """
+  }
 }
 
 fileprivate extension IR.InclusionCondition {
   var conditionVariableExpression: TemplateString {
     """
     \(if: isInverted, "!")"\(variable)"
+    """
+  }
+
+  var typeNameComponent: TemplateString {
+    """
+    \(if: isInverted, "Not")\(variable.firstUppercased)
     """
   }
 }
