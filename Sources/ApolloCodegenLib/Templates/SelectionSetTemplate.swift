@@ -224,7 +224,9 @@ struct SelectionSetTemplate {
   private func FragmentAccessorTemplate(_ fragment: IR.FragmentSpread) -> TemplateString {
     let name = fragment.definition.name
     return """
-    public var \(name.firstLowercased): \(name.firstUppercased) { _toFragment() }
+    public var \(name.firstLowercased): \(name.firstUppercased)\
+    \(if: fragment.inclusionConditions != nil, "?") \
+    { _toFragment() }
     """
   }
 
