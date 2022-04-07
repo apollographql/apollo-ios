@@ -60,7 +60,7 @@ open class AbstractMockSelectionSet: AnySelectionSet {
   open class var selections: [Selection] { [] }
   open class var __parentType: ParentType { .Object(Object.self) }
 
-  public var data: DataDict = DataDict([:])
+  public var data: DataDict = DataDict([:], variables: nil)
 
   public required init(data: DataDict) {
     self.data = data

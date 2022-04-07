@@ -40,7 +40,7 @@ final class GraphQLSelectionSetMapper<SelectionSet: AnySelectionSet>: GraphQLRes
     return .init(fieldEntries, uniquingKeysWith: { (_, last) in last })
   }
 
-  func finish(rootValue: JSONObject) -> SelectionSet {
-    return SelectionSet.init(data: DataDict(rootValue))
+  func finish(rootValue: JSONObject, info: ObjectExecutionInfo) -> SelectionSet {
+    return SelectionSet.init(data: DataDict(rootValue, variables: info.variables))
   }
 }

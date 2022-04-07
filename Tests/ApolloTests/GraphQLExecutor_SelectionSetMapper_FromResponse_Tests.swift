@@ -1149,7 +1149,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     // given
     class GivenSelectionSet: MockSelectionSet {
       override class var selections: [Selection] {[
-        .skip(if: "variable", .field("name", String.self))
+        .include(if: !"variable", .field("name", String.self))
       ]}
     }
     let object: JSONObject = ["name": "Luke Skywalker"]
@@ -1166,7 +1166,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     // given
     class GivenSelectionSet: MockSelectionSet {
       override class var selections: [Selection] {[
-        .skip(if: "variable", .field("name", String.self))
+        .include(if: !"variable", .field("name", String.self))
       ]}
     }
     let object: JSONObject = ["name": "Luke Skywalker"]
@@ -1183,7 +1183,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     // given
     class GivenSelectionSet: MockSelectionSet {
       override class var selections: [Selection] {[
-        .skip(if: "variable", [
+        .include(if: !"variable", [
           .field("name", String.self),
           .field("id", String.self),
         ])
@@ -1204,7 +1204,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     // given
     class GivenSelectionSet: MockSelectionSet {
       override class var selections: [Selection] {[
-        .skip(if: "variable", [
+        .include(if: !"variable", [
           .field("name", String.self),
           .field("id", String.self),
         ])
@@ -1231,7 +1231,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
 
     class GivenSelectionSet: MockSelectionSet {
       override class var selections: [Selection] {[
-        .skip(if: "variable", .field("name", String.self)),
+        .include(if: !"variable", .field("name", String.self)),
         .fragment(GivenFragment.self)
       ]}
     }
@@ -1340,7 +1340,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     // given
     class GivenSelectionSet: MockSelectionSet {
       override class var selections: [Selection] {[
-        .skip(if: "skip", .field("name", String.self)),
+        .include(if: !"skip", .field("name", String.self)),
         .include(if: "include", .field("name", String.self))
       ]}
     }
@@ -1377,7 +1377,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     // given
     class GivenSelectionSet: MockSelectionSet {
       override class var selections: [Selection] {[
-        .skip(if: "skip", .field("name", String.self)),
+        .include(if: !"skip", .field("name", String.self)),
         .include(if: "include", .field("name", String.self))
       ]}
     }
@@ -1414,7 +1414,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     // given
     class GivenSelectionSet: MockSelectionSet {
       override class var selections: [Selection] {[
-        .skip(if: "skip", .field("name", String.self)),
+        .include(if: !"skip", .field("name", String.self)),
         .include(if: "include", .field("name", String.self))
       ]}
     }
@@ -1451,7 +1451,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     // given
     class GivenSelectionSet: MockSelectionSet {
       override class var selections: [Selection] {[
-        .skip(if: "skip", .field("name", String.self)),
+        .include(if: !"skip", .field("name", String.self)),
         .include(if: "include", .field("name", String.self))
       ]}
     }

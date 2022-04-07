@@ -54,85 +54,6 @@ public enum Selection {
     }
   }
 
-  /// The conditions representing a group of `@include/@skip` directives.
-  ///
-  /// The conditions are a two-dimensional array of `Selection.Condition`s.
-  /// The outer array represents groups of conditions joined together with a logical "or".
-  /// Conditions in the same inner array are joined together with a logical "and".
-  public struct Conditions: ExpressibleByArrayLiteral {
-    public let value: [[Condition]]
-
-    @inlinable
-    public init(_ value: [[Condition]]) {
-      self.value = value
-    }
-
-    @inlinable
-    public init(arrayLiteral elements: [Condition]...) {
-      self.value = Array(elements)
-    }
-
-    @inlinable
-    public static func ||(_ lhs: Conditions, rhs: [Condition]) -> Conditions {
-      var newValue = lhs.value
-      newValue.append(rhs)
-      return .init(newValue)
-    }
-
-    @inlinable
-    public static func ||(_ lhs: Conditions, rhs: Condition) -> Conditions {
-      lhs || [rhs]
-    }
-  }
-
-  public struct Condition: ExpressibleByStringLiteral {
-    public let variableName: String
-    public let inverted: Bool
-
-    @inlinable
-    public init(
-      variableName: String,
-      inverted: Bool
-    ) {
-      self.variableName = variableName
-      self.inverted = inverted;
-    }
-
-    @inlinable
-    public init(stringLiteral value: StringLiteralType) {
-      self.variableName = value
-      self.inverted = false
-    }
-
-    @inlinable
-    public static prefix func !(value: Condition) -> Condition {
-      .init(variableName: value.variableName, inverted: !value.inverted)
-    }
-
-    @inlinable
-    public static func &&(_ lhs: Condition, rhs: Condition) -> [Condition] {
-      [lhs, rhs]
-    }
-
-    @inlinable
-    public static func &&(_ lhs: [Condition], rhs: Condition) -> [Condition] {
-      var newValue = lhs
-      newValue.append(rhs)
-      return newValue
-    }
-
-    @inlinable
-    public static func ||(_ lhs: Condition, rhs: Condition) -> Conditions {
-      .init([[lhs], [rhs]])
-    }
-
-    @inlinable
-    public static func ||(_ lhs: [Condition], rhs: Condition) -> Conditions {
-      .init([lhs, [rhs]])
-    }
-
-  }
-
   // MARK: - Convenience Initializers
 
   static public func field(
@@ -143,20 +64,6 @@ public enum Selection {
   ) -> Selection {
     .field(.init(name, alias: alias, type: type.asOutputType, arguments: arguments))
   }  
-
-  static public func include(
-    if variableName: String,
-    _ selection: Selection
-  ) -> Selection {
-    .conditional([[.init(variableName: variableName, inverted: false)]], [selection])
-  }
-
-  static public func include(
-    if variableName: String,
-    _ selections: [Selection]
-  ) -> Selection {
-    .conditional([[.init(variableName: variableName, inverted: false)]], selections)
-  }
 
   static public func include(
     if conditions: Conditions,
@@ -173,6 +80,20 @@ public enum Selection {
   }
 
   static public func include(
+    if condition: Condition,
+    _ selection: Selection
+  ) -> Selection {
+    .conditional([[condition]], [selection])
+  }
+
+  static public func include(
+    if condition: Condition,
+    _ selections: [Selection]
+  ) -> Selection {
+    .conditional([[condition]], selections)
+  }
+
+  static public func include(
     if conditions: [Condition],
     _ selection: Selection
   ) -> Selection {
@@ -186,17 +107,4 @@ public enum Selection {
     .conditional([conditions], selections)
   }
 
-  static public func skip(
-    if variableName: String,
-    _ selection: Selection
-  ) -> Selection {
-    .conditional([[.init(variableName: variableName, inverted: true)]], [selection])
-  }
-
-  static public func skip(
-    if variableName: String,
-    _ selections: [Selection]
-  ) -> Selection {
-    .conditional([[.init(variableName: variableName, inverted: true)]], selections)
-  }
 }

@@ -73,12 +73,49 @@ extension SelectionSet {
   /// - Warning: This function is not supported for use outside of generated call sites.
   /// Generated call sites are guaranteed by the GraphQL compiler to be safe.
   /// Unsupported usage may result in unintended consequences including crashes.
-  public func _asType<T: SelectionSet>() -> T? where T.Schema == Schema {
+  public func _asType<T: SelectionSet>(
+    if conditions: @autoclosure () -> Selection.Conditions? = nil
+  ) -> T? where T.Schema == Schema {
     guard let __objectType = __objectType,
           __objectType._canBeConverted(to: T.__parentType) else { return nil }
 
-    return T.init(data: data)
+    return _asInlineFragment(if: conditions())
   }
+
+  public func _asType<T: SelectionSet>(
+    if conditions: @autoclosure () -> [Selection.Condition]
+  ) -> T? where T.Schema == Schema {
+    _asType(if: Selection.Conditions(conditions()))
+  }
+
+  public func _asType<T: SelectionSet>(
+    if conditions: @autoclosure () -> Selection.Condition
+  ) -> T? where T.Schema == Schema {
+    _asType(if: Selection.Conditions([conditions()]))
+  }
+
+  public func _asInlineFragment<T: SelectionSet>(
+    if conditions: Selection.Conditions?
+  ) -> T? where T.Schema == Schema {
+    guard let conditions = conditions else {
+      return T.init(data: data)
+    }
+
+    return conditions.evaluate(with: data.variables) ? T.init(data: data) : nil
+  }
+
+  public func _asInlineFragment<T: SelectionSet>(
+    if conditions: [Selection.Condition]
+  ) -> T? where T.Schema == Schema {
+    _asInlineFragment(if: Selection.Conditions([conditions]))
+  }
+
+  public func _asInlineFragment<T: SelectionSet>(
+    if condition: Selection.Condition
+  ) -> T? where T.Schema == Schema {
+    _asInlineFragment(if: Selection.Conditions(condition))
+  }
+  
 }
 
 extension SelectionSet where Fragments: FragmentContainer {

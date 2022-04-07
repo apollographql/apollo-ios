@@ -277,7 +277,7 @@
 		DE90FCE427FCC6DD0084CC79 /* Mutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE90FCE127FCC6DD0084CC79 /* Mutation.swift */; };
 		DE90FCE527FCC6DD0084CC79 /* Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE90FCE227FCC6DD0084CC79 /* Schema.swift */; };
 		DE90FCEA27FCC7B00084CC79 /* Upload.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE90FCE927FCC7B00084CC79 /* Upload.swift */; };
-		DE90FD2927FCE7120084CC79 /* SelectionCondition+Evaluation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE90FD2827FCE7120084CC79 /* SelectionCondition+Evaluation.swift */; };
+		DE90FDBA27FE405F0084CC79 /* Selection+Conditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE90FDB927FE405F0084CC79 /* Selection+Conditions.swift */; };
 		DE9C04AC26EAAE4400EC35E7 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC4B91F1D2A6F8D0046A641 /* JSON.swift */; };
 		DE9C04AD26EAAE5400EC35E7 /* JSONStandardTypeConversions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F27D4631D40379500715680 /* JSONStandardTypeConversions.swift */; };
 		DE9C04AF26EAAEE800EC35E7 /* CacheReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9C04AE26EAAEE800EC35E7 /* CacheReference.swift */; };
@@ -1046,7 +1046,7 @@
 		DE90FCE127FCC6DD0084CC79 /* Mutation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mutation.swift; sourceTree = "<group>"; };
 		DE90FCE227FCC6DD0084CC79 /* Schema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Schema.swift; sourceTree = "<group>"; };
 		DE90FCE927FCC7B00084CC79 /* Upload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Upload.swift; sourceTree = "<group>"; };
-		DE90FD2827FCE7120084CC79 /* SelectionCondition+Evaluation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SelectionCondition+Evaluation.swift"; sourceTree = "<group>"; };
+		DE90FDB927FE405F0084CC79 /* Selection+Conditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Selection+Conditions.swift"; sourceTree = "<group>"; };
 		DE9C04AE26EAAEE800EC35E7 /* CacheReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheReference.swift; sourceTree = "<group>"; };
 		DE9C04B026EAAFF900EC35E7 /* JSONDecodingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDecodingError.swift; sourceTree = "<group>"; };
 		DEA34AF6260E821F00F95F86 /* Apollo-Target-AnimalKingdomAPI.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-AnimalKingdomAPI.xcconfig"; sourceTree = "<group>"; };
@@ -1759,7 +1759,6 @@
 				9FF90A5C1DDDEB100034C3B6 /* GraphQLExecutor.swift */,
 				9FA6F3671E65DF4700BF8D73 /* GraphQLResultAccumulator.swift */,
 				DE0586322669948500265760 /* InputValue+Evaluation.swift */,
-				DE90FD2827FCE7120084CC79 /* SelectionCondition+Evaluation.swift */,
 			);
 			name = Execution;
 			sourceTree = "<group>";
@@ -2002,6 +2001,7 @@
 				DE03FDDA2784D0B2007425BD /* DataDict.swift */,
 				DE2FCF1C26E806710057EA67 /* SchemaConfiguration.swift */,
 				DE664ED326602AF60054DB4F /* Selection.swift */,
+				DE90FDB927FE405F0084CC79 /* Selection+Conditions.swift */,
 				DECD53CE26EC0EE50059A639 /* OutputTypeConvertible.swift */,
 				DE2FCF2026E807EF0057EA67 /* Cacheable.swift */,
 				9FC750601D2A59C300458D91 /* GraphQLOperation.swift */,
@@ -3501,7 +3501,6 @@
 				DE0586392669985000265760 /* Dictionary+Helpers.swift in Sources */,
 				9F295E381E277B2A00A24949 /* GraphQLResultNormalizer.swift in Sources */,
 				9F8E0BE325668559000D9FA5 /* PossiblyDeferred.swift in Sources */,
-				DE90FD2927FCE7120084CC79 /* SelectionCondition+Evaluation.swift in Sources */,
 				9F86B68B1E6438D700B885FF /* GraphQLSelectionSetMapper.swift in Sources */,
 				9F55347B1DE1DB2100E54264 /* ApolloStore.swift in Sources */,
 				9BDE43D122C6655300FD7C7F /* Cancellable.swift in Sources */,
@@ -3643,6 +3642,7 @@
 				DE9C04AD26EAAE5400EC35E7 /* JSONStandardTypeConversions.swift in Sources */,
 				DE058616266978A100265760 /* GraphQLEnum.swift in Sources */,
 				DE2FCF2726E8083A0057EA67 /* Union.swift in Sources */,
+				DE90FDBA27FE405F0084CC79 /* Selection+Conditions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
