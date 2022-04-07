@@ -191,6 +191,13 @@ extension IR {
       otherConditions.isSubset(of: self.matchingConditions)
     }
 
+    func matches(_ otherConditions: AnyOf<InclusionConditions>) -> Bool {
+      for conditionGroup in otherConditions.elements {
+        if conditionGroup.isSubset(of: self.matchingConditions) { return true }
+      }
+      return false
+    }
+
     /// Indicates if the receiver is of the given type. If the receiver matches a given type,
     /// then selections for a `SelectionSet` of that type can be merged in to the receiver's
     /// `SelectionSet`.

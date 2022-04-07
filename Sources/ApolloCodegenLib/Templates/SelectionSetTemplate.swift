@@ -54,17 +54,18 @@ struct SelectionSetTemplate {
   // MARK: - Body
   func BodyTemplate(_ selectionSet: IR.SelectionSet) -> TemplateString {
     let selections = selectionSet.selections
+    let scope = selectionSet.typeInfo.scope
     return """
     \(Self.DataFieldAndInitializerTemplate)
 
     \(ParentTypeTemplate(selectionSet.parentType))
     \(ifLet: selections.direct?.groupedByInclusionCondition, SelectionsTemplate )
 
-    \(section: FieldAccessorsTemplate(selections))
+    \(section: FieldAccessorsTemplate(selections, in: scope))
 
     \(section: InlineFragmentAccessorsTemplate(selections))
 
-    \(section: FragmentAccessorsTemplate(selections))
+    \(section: FragmentAccessorsTemplate(selections, in: scope))
 
     \(section: ChildEntityFieldSelectionSets(selections))
 
@@ -163,18 +164,30 @@ struct SelectionSetTemplate {
   }
 
   // MARK: - Accessors
-  private func FieldAccessorsTemplate(_ selections: IR.SelectionSet.Selections) -> TemplateString {
+  private func FieldAccessorsTemplate(
+    _ selections: IR.SelectionSet.Selections,
+    in scope: IR.ScopeDescriptor
+  ) -> TemplateString {
     """
     \(ifLet: selections.direct?.fields.values, {
-        "\($0.map { FieldAccessorTemplate($0) }, separator: "\n")"
+      "\($0.map { FieldAccessorTemplate($0, in: scope) }, separator: "\n")"
       })
-    \(selections.merged.fields.values.map { FieldAccessorTemplate($0) }, separator: "\n")
+    \(selections.merged.fields.values.map { FieldAccessorTemplate($0, in: scope) }, separator: "\n")
     """
   }
 
-  private func FieldAccessorTemplate(_ field: IR.Field) -> TemplateString {
-    """
-    public var \(field.responseKey.firstLowercased): \(typeName(for: field, forceOptional: field.inclusionConditions != nil)) { data["\(field.responseKey)"] }
+  private func FieldAccessorTemplate(
+    _ field: IR.Field,
+    in scope: IR.ScopeDescriptor
+  ) -> TemplateString {
+    let isConditionallyIncluded: Bool = {
+      guard let conditions = field.inclusionConditions else { return false }
+      return !scope.matches(conditions)
+    }()
+    return """
+    public var \(field.responseKey.firstLowercased): \
+    \(typeName(for: field, forceOptional: isConditionallyIncluded)) \
+    { data["\(field.responseKey)"] }
     """
   }
 
@@ -202,7 +215,8 @@ struct SelectionSetTemplate {
   }
 
   private func FragmentAccessorsTemplate(
-    _ selections: IR.SelectionSet.Selections
+    _ selections: IR.SelectionSet.Selections,
+    in scope: IR.ScopeDescriptor
   ) -> TemplateString {
     guard !(selections.direct?.fragments.isEmpty ?? true) ||
             !selections.merged.fragments.isEmpty else {
@@ -214,18 +228,21 @@ struct SelectionSetTemplate {
       \(Self.DataFieldAndInitializerTemplate)
 
       \(ifLet: selections.direct?.fragments.values, {
-          "\($0.map { FragmentAccessorTemplate($0) }, separator: "\n")"
+        "\($0.map { FragmentAccessorTemplate($0, in: scope) }, separator: "\n")"
         })
-      \(selections.merged.fragments.values.map { FragmentAccessorTemplate($0) }, separator: "\n")
+      \(selections.merged.fragments.values.map { FragmentAccessorTemplate($0, in: scope) }, separator: "\n")
     }
     """
   }
 
-  private func FragmentAccessorTemplate(_ fragment: IR.FragmentSpread) -> TemplateString {
+  private func FragmentAccessorTemplate(
+    _ fragment: IR.FragmentSpread,
+    in scope: IR.ScopeDescriptor
+  ) -> TemplateString {
     let name = fragment.definition.name
     return """
     public var \(name.firstLowercased): \(name.firstUppercased)\
-    \(if: fragment.inclusionConditions != nil, "?") \
+    \(ifLet: fragment.inclusionConditions, where: { !scope.matches($0) }, { _ in "?" }) \
     { _toFragment() }
     """
   }

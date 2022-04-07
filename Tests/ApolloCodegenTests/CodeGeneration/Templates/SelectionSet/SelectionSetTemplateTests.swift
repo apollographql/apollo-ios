@@ -1017,6 +1017,47 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
   }
 
+  func test__render_fieldAccessor__givenNonNullFieldMergedFromParentWithIncludeConditionThatMatchesScope_rendersAsNotOptional() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      fieldName: String!
+      a: String!
+    }
+    """
+
+    document = """
+    query TestOperation($a: Boolean!) {
+      allAnimals {
+        fieldName @include(if: $a)
+        ... @include(if: $a) {
+          a
+        }
+      }
+    }
+    """
+
+    let expected = """
+      public var a: String { data["a"] }
+      public var fieldName: String { data["fieldName"] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals_ifA = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"]?[if: "a"]
+    )
+
+    let actual = subject.render(inlineFragment: allAnimals_ifA)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+  }
+
   // MARK: - Field Accessors - Scalar
 
   func test__render_fieldAccessors__givenScalarFields_rendersAllFieldAccessors() throws {
@@ -2012,6 +2053,91 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
   }
 
+  func test__render_fieldAccessors__givenEntityFieldMergedFromParentWithInclusionCondition_rendersFieldAccessorAsOptional() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+      predator: Animal!
+    }
+
+    type Dog implements Animal {
+      species: String!
+      predator: Animal!
+      name: String!
+    }
+    """
+
+    document = """
+    query TestOperation($a: Boolean!) {
+      allAnimals {
+        predator @include(if: $a) {
+          species
+        }
+        ... on Dog {
+          name
+        }
+      }
+    }
+    """
+
+    let expected = """
+      public var name: String { data["name"] }
+      public var predator: Predator? { data["predator"] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals_asDog = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"]?[as: "Dog"]
+    )
+
+    let actual = subject.render(inlineFragment: allAnimals_asDog)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+  }
+
+  func test__render_fieldAccessor__givenNonNullFieldWithIncludeConditionThatMatchesScope_rendersAsNotOptional() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      fieldName: String!
+    }
+    """
+
+    document = """
+    query TestOperation($a: Boolean!) {
+      allAnimals @include(if: $a) {
+        fieldName @include(if: $a)
+      }
+    }
+    """
+
+    let expected = """
+      public var fieldName: String { data["fieldName"] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+  }
+
   // MARK: - Inline Fragment Accessors
 
   func test__render_inlineFragmentAccessors__givenDirectTypeCases_rendersTypeCaseAccessorWithCorrectName() throws {
@@ -2505,6 +2631,98 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 16, ignoringExtraLines: true))
   }
 
+  func test__render_fragmentAccessor__givenFragmentWithInclusionConditionThatMatchesScope_rendersFragmentAccessorAsNotOptional() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      string: String!
+      int: Int!
+    }
+    """
+
+    document = """
+    query TestOperation($a: Boolean!) {
+      allAnimals @include(if: $a) {
+        ...FragmentA @include(if: $a)
+      }
+    }
+
+    fragment FragmentA on Animal {
+      int
+    }
+    """
+
+    let expected = """
+      public struct Fragments: FragmentContainer {
+        public let data: DataDict
+        public init(data: DataDict) { self.data = data }
+
+        public var fragmentA: FragmentA { _toFragment() }
+      }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
+  }
+
+  func test__render_fragmentAccessor__givenFragmentMergedFromParent_withInclusionConditionThatMatchesScope_rendersFragmentAccessorAsNotOptional() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      string: String!
+      int: Int!
+    }
+    """
+
+    document = """
+    query TestOperation($a: Boolean!) {
+      allAnimals {
+        ...FragmentA @include(if: $a)
+      }
+    }
+
+    fragment FragmentA on Animal {
+      int
+    }
+    """
+
+    let expected = """
+      public struct Fragments: FragmentContainer {
+        public let data: DataDict
+        public init(data: DataDict) { self.data = data }
+
+        public var fragmentA: FragmentA { _toFragment() }
+      }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals_ifA = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"]?[if: "a"]
+    )
+
+    let actual = subject.render(inlineFragment: allAnimals_ifA)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 10, ignoringExtraLines: true))
+  }
+
   // MARK: - Nested Selection Sets
 
   func test__render_nestedSelectionSets__givenDirectEntityFieldAsList_rendersNestedSelectionSet() throws {
@@ -2821,7 +3039,7 @@ class SelectionSetTemplateTests: XCTestCase {
     document = """
     query TestOperation($a: Boolean!) {
       allAnimals {
-        ... on Animal @include(if: $a) @skip(if: $b) {
+        ... @include(if: $a) @skip(if: $b) {
           fieldA
         }
       }

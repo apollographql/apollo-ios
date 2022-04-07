@@ -323,10 +323,10 @@ extension IR {
         entity: field.entity,
         scopePath: self.typeInfo.scopePath.appending(field.selectionSet.typeInfo.scope),
         mergedSelectionsOnly: true
-      )
-      #warning("Test this - Merged Field not respecting inclusion conditions")
+      )      
       return IR.EntityField(
         field.underlyingField,        
+        inclusionConditions: field.inclusionConditions,
         selectionSet: newSelectionSet
       )
     }
