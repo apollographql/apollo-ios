@@ -59,7 +59,7 @@ struct SelectionSetTemplate {
     \(Self.DataFieldAndInitializerTemplate)
 
     \(ParentTypeTemplate(selectionSet.parentType))
-    \(ifLet: selections.direct?.groupedByInclusionCondition, SelectionsTemplate )
+    \(ifLet: selections.direct?.groupedByInclusionCondition, { SelectionsTemplate($0, in: scope) })
 
     \(section: FieldAccessorsTemplate(selections, in: scope))
 
@@ -84,12 +84,15 @@ struct SelectionSetTemplate {
 
   // MARK: - Selections
   private func SelectionsTemplate(
-    _ groupedSelections: IR.DirectSelections.GroupedByInclusionCondition
+    _ groupedSelections: IR.DirectSelections.GroupedByInclusionCondition,
+    in scope: IR.ScopeDescriptor
   ) -> TemplateString {
     """
     public static var selections: [Selection] { [
       \(renderedSelections(groupedSelections.unconditionalSelections), terminator: ",")
-      \(groupedSelections.inclusionConditionGroups.map(renderedConditionalSelectionGroup), terminator: ",")
+      \(groupedSelections.inclusionConditionGroups.map {
+        renderedConditionalSelectionGroup($0, $1, in: scope)
+      }, terminator: ",")
     ] }
     """
   }
@@ -104,12 +107,17 @@ struct SelectionSetTemplate {
 
   private func renderedConditionalSelectionGroup(
     _ conditions: AnyOf<IR.InclusionConditions>,
-    _ selections: IR.DirectSelections.ReadOnly
+    _ selections: IR.DirectSelections.ReadOnly,
+    in scope: IR.ScopeDescriptor
   ) -> TemplateString {
     let renderedSelections = self.renderedSelections(selections)
+    guard !scope.matches(conditions) else {
+      return "\(renderedSelections)"
+    }
+
     let isSelectionGroup = renderedSelections.count > 1
     return """
-    .include(if: \(conditions.conditionVariableExpression), \(if: isSelectionGroup, "[")\(list: renderedSelections)\(if: isSelectionGroup, "]"))
+    .include(if: \(conditions.conditionVariableExpression), \(if: isSelectionGroup, "[")\(list: renderedSelections, terminator: isSelectionGroup ? "," : nil)\(if: isSelectionGroup, "]"))
     """
   }
 

@@ -66,6 +66,20 @@ public enum Selection {
   }  
 
   static public func include(
+    if condition: String,
+    _ selection: Selection
+  ) -> Selection {
+    .conditional([[Selection.Condition(stringLiteral: condition)]], [selection])
+  }
+
+  static public func include(
+    if condition: String,
+    _ selections: [Selection]
+  ) -> Selection {
+    .conditional([[Selection.Condition(stringLiteral: condition)]], selections)
+  }
+  
+  static public func include(
     if conditions: Conditions,
     _ selection: Selection
   ) -> Selection {
