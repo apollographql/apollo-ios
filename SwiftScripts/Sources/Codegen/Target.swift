@@ -106,7 +106,7 @@ enum Target {
 
     return ApolloCodegenConfiguration.FileOutput(
       schemaTypes: .init(
-        path: targetRootURL.path,
+        path: targetRootURL.appendingPathComponent(moduleName).path,
         schemaName: self.moduleName,
         moduleType: moduleType
       ),
