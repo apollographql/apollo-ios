@@ -95,6 +95,7 @@ final class AnimalKingdomIRCreationTests: XCTestCase {
         .mock(parentType: GraphQLInterfaceType.mock("Pet")),
         .mock(parentType: GraphQLObjectType.mock("Cat")),
         .mock(parentType: GraphQLUnionType.mock("ClassroomPet")),
+        .mock(parentType: GraphQLObjectType.mock("Dog")),
       ],
       fragments: [
         .mock("HeightInMeters", type: Interface_Animal)
