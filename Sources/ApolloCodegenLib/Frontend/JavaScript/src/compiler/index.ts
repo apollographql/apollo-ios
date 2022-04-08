@@ -30,7 +30,8 @@ import {
   print,
   SelectionNode,
   SelectionSetNode,
-  typeFromAST
+  typeFromAST,
+  isObjectType
 } from "graphql";
 import * as ir from "./ir";
 import { valueFromValueNode } from "./values";
@@ -83,6 +84,8 @@ export function compileToIR(
   };
 
   function addReferencedType(type: GraphQLNamedType) {
+    if (referencedTypes.has(type)) { return }
+
     referencedTypes.add(type)
     
     if (isUnionType(type)) {
@@ -94,6 +97,12 @@ export function compileToIR(
 
     if (isInputObjectType(type)) {
       addReferencedTypesFromInputObject(type)
+    }
+
+    if (isObjectType(type)) {
+      for (type of type.getInterfaces()) {
+        referencedTypes.add(getNamedType(type))
+      }
     }
   }
 
