@@ -36,6 +36,9 @@ public class AllAnimalsQuery: GraphQLQuery {
               wingspan
             }
           }
+          ... on Dog {
+            favoriteToy
+          }
           predators {
             species
             ... on WarmBlooded {
@@ -77,6 +80,7 @@ public class AllAnimalsQuery: GraphQLQuery {
         .typeCase(AsPet.self),
         .typeCase(AsCat.self),
         .typeCase(AsClassroomPet.self),
+        .typeCase(AsDog.self),
         .fragment(HeightInMeters.self),
       ] }
 
@@ -89,6 +93,7 @@ public class AllAnimalsQuery: GraphQLQuery {
       public var asPet: AsPet? { _asType() }
       public var asCat: AsCat? { _asType() }
       public var asClassroomPet: AsClassroomPet? { _asType() }
+      public var asDog: AsDog? { _asType() }
 
       public struct Fragments: FragmentContainer {
         public let data: DataDict
@@ -408,6 +413,50 @@ public class AllAnimalsQuery: GraphQLQuery {
             public var relativeSize: GraphQLEnum<RelativeSize> { data["relativeSize"] }
             public var centimeters: Int { data["centimeters"] }
           }
+        }
+      }
+
+      /// AllAnimal.AsDog
+      public struct AsDog: AnimalKingdomAPI.TypeCase {
+        public let data: DataDict
+        public init(data: DataDict) { self.data = data }
+
+        public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Dog.self) }
+        public static var selections: [Selection] { [
+          .field("favoriteToy", String.self),
+        ] }
+
+        public var favoriteToy: String { data["favoriteToy"] }
+        public var height: Height { data["height"] }
+        public var species: String { data["species"] }
+        public var skinCovering: GraphQLEnum<SkinCovering>? { data["skinCovering"] }
+        public var predators: [Predator] { data["predators"] }
+        public var bodyTemperature: Int { data["bodyTemperature"] }
+        public var humanName: String? { data["humanName"] }
+        public var owner: PetDetails.Owner? { data["owner"] }
+
+        public struct Fragments: FragmentContainer {
+          public let data: DataDict
+          public init(data: DataDict) { self.data = data }
+
+          public var heightInMeters: HeightInMeters { _toFragment() }
+          public var warmBloodedDetails: WarmBloodedDetails { _toFragment() }
+          public var petDetails: PetDetails { _toFragment() }
+        }
+
+        /// AllAnimal.AsDog.Height
+        public struct Height: AnimalKingdomAPI.SelectionSet {
+          public let data: DataDict
+          public init(data: DataDict) { self.data = data }
+
+          public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Height.self) }
+
+          public var feet: Int { data["feet"] }
+          public var inches: Int { data["inches"] }
+          public var meters: Int { data["meters"] }
+          public var yards: Int { data["yards"] }
+          public var relativeSize: GraphQLEnum<RelativeSize> { data["relativeSize"] }
+          public var centimeters: Int { data["centimeters"] }
         }
       }
     }

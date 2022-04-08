@@ -22,6 +22,7 @@ public enum Schema: SchemaConfiguration {
     case "Rat": return AnimalKingdomAPI.Rat.self
     case "PetRock": return AnimalKingdomAPI.PetRock.self
     case "Mutation": return AnimalKingdomAPI.Mutation.self
+    case "Dog": return AnimalKingdomAPI.Dog.self
     default: return nil
     }
   }
