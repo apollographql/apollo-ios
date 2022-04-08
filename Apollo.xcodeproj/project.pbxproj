@@ -389,6 +389,8 @@
 		E66F8899276C15580000BDA8 /* ObjectFileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66F8898276C15580000BDA8 /* ObjectFileGenerator.swift */; };
 		E674DB41274C0A9B009BB90E /* Glob.swift in Sources */ = {isa = PBXBuildFile; fileRef = E674DB40274C0A9B009BB90E /* Glob.swift */; };
 		E674DB43274C0AD9009BB90E /* GlobTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E674DB42274C0AD9009BB90E /* GlobTests.swift */; };
+		E676333227FF856700D8B953 /* Dog.swift in Sources */ = {isa = PBXBuildFile; fileRef = E676333127FF856700D8B953 /* Dog.swift */; };
+		E676333427FF857D00D8B953 /* HousePet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E676333327FF857D00D8B953 /* HousePet.swift */; };
 		E68D824527A1D8A60040A46F /* ObjectTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64F7EC227A1243A0059C021 /* ObjectTemplateTests.swift */; };
 		E68D824727A228A80040A46F /* SchemaModuleFileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68D824627A228A80040A46F /* SchemaModuleFileGenerator.swift */; };
 		E69BEDA52798B86D00000D10 /* InputObjectTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69BEDA42798B86D00000D10 /* InputObjectTemplate.swift */; };
@@ -1137,6 +1139,8 @@
 		E66F8898276C15580000BDA8 /* ObjectFileGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectFileGenerator.swift; sourceTree = "<group>"; };
 		E674DB40274C0A9B009BB90E /* Glob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Glob.swift; sourceTree = "<group>"; };
 		E674DB42274C0AD9009BB90E /* GlobTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobTests.swift; sourceTree = "<group>"; };
+		E676333127FF856700D8B953 /* Dog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dog.swift; sourceTree = "<group>"; };
+		E676333327FF857D00D8B953 /* HousePet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HousePet.swift; sourceTree = "<group>"; };
 		E68D824627A228A80040A46F /* SchemaModuleFileGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaModuleFileGenerator.swift; sourceTree = "<group>"; };
 		E69BEDA42798B86D00000D10 /* InputObjectTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputObjectTemplate.swift; sourceTree = "<group>"; };
 		E69BEDA62798B89600000D10 /* InputObjectTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputObjectTemplateTests.swift; sourceTree = "<group>"; };
@@ -2474,14 +2478,15 @@
 		E66C015A27FEB86800FF5FA1 /* Objects */ = {
 			isa = PBXGroup;
 			children = (
-				E66C015B27FEB86800FF5FA1 /* Query.swift */,
 				E66C015C27FEB86800FF5FA1 /* Bird.swift */,
-				E66C015D27FEB86800FF5FA1 /* Human.swift */,
 				E66C015E27FEB86800FF5FA1 /* Cat.swift */,
-				E66C015F27FEB86800FF5FA1 /* Mutation.swift */,
-				E66C016027FEB86800FF5FA1 /* Rat.swift */,
+				E676333127FF856700D8B953 /* Dog.swift */,
 				E66C016127FEB86800FF5FA1 /* Height.swift */,
+				E66C015D27FEB86800FF5FA1 /* Human.swift */,
+				E66C015F27FEB86800FF5FA1 /* Mutation.swift */,
 				E66C016227FEB86800FF5FA1 /* PetRock.swift */,
+				E66C015B27FEB86800FF5FA1 /* Query.swift */,
+				E66C016027FEB86800FF5FA1 /* Rat.swift */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -2500,6 +2505,7 @@
 			isa = PBXGroup;
 			children = (
 				E66C016927FEB86800FF5FA1 /* Animal.swift */,
+				E676333327FF857D00D8B953 /* HousePet.swift */,
 				E66C016A27FEB86800FF5FA1 /* Pet.swift */,
 				E66C016B27FEB86800FF5FA1 /* WarmBlooded.swift */,
 			);
@@ -3658,6 +3664,7 @@
 				E66C014B27FEB84F00FF5FA1 /* PetAdoptionMutation.swift in Sources */,
 				E66C017827FEB86800FF5FA1 /* PetSearchFilters.swift in Sources */,
 				E66C017727FEB86800FF5FA1 /* Schema.swift in Sources */,
+				E676333227FF856700D8B953 /* Dog.swift in Sources */,
 				E66C015127FEB84F00FF5FA1 /* WarmBloodedDetails.swift in Sources */,
 				E66C014C27FEB84F00FF5FA1 /* PetDetails.swift in Sources */,
 				E66C016E27FEB86800FF5FA1 /* RelativeSize.swift in Sources */,
@@ -3671,6 +3678,7 @@
 				E66C015327FEB84F00FF5FA1 /* AllAnimalsIncludeSkipQuery.swift in Sources */,
 				E66C015027FEB84F00FF5FA1 /* AllAnimalsQuery.swift in Sources */,
 				E66C014F27FEB84F00FF5FA1 /* ClassroomPetsQuery.swift in Sources */,
+				E676333427FF857D00D8B953 /* HousePet.swift in Sources */,
 				E66C014E27FEB84F00FF5FA1 /* ClassroomPetDetails.swift in Sources */,
 				E66C016D27FEB86800FF5FA1 /* SkinCovering.swift in Sources */,
 				E66C017427FEB86800FF5FA1 /* Rat.swift in Sources */,
