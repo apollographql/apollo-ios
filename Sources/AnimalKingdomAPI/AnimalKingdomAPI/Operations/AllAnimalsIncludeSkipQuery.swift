@@ -138,7 +138,6 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
 
         public var feet: Int { data["feet"] }
         public var inches: Int { data["inches"] }
-        public var meters: Int { data["meters"] }
       }
 
       /// AllAnimal.Predator
@@ -304,7 +303,6 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public var centimeters: Int? { data["centimeters"] }
           public var feet: Int { data["feet"] }
           public var inches: Int { data["inches"] }
-          public var meters: Int { data["meters"] }
         }
 
         /// AllAnimal.AsPet.AsWarmBlooded
@@ -419,18 +417,6 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public init(data: DataDict) { self.data = data }
 
           public var heightInMeters: HeightInMeters? { _toFragment() }
-        }
-
-        /// AllAnimal.AsClassroomPet.Height
-        public struct Height: AnimalKingdomAPI.SelectionSet {
-          public let data: DataDict
-          public init(data: DataDict) { self.data = data }
-
-          public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Height.self) }
-
-          public var feet: Int { data["feet"] }
-          public var inches: Int { data["inches"] }
-          public var meters: Int { data["meters"] }
         }
 
         /// AllAnimal.AsClassroomPet.AsBird
