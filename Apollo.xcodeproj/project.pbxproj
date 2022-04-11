@@ -360,6 +360,8 @@
 		E6630B8E26F071F9002D9E41 /* SchemaRegistryApolloSchemaDownloaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6630B8D26F071F9002D9E41 /* SchemaRegistryApolloSchemaDownloaderTests.swift */; };
 		E669352B2803EE11004E1FFC /* CustomScalarTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E669352A2803EE11004E1FFC /* CustomScalarTemplate.swift */; };
 		E669352D2803EF67004E1FFC /* CustomScalarTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E669352C2803EF67004E1FFC /* CustomScalarTemplateTests.swift */; };
+		E669352F2803F09C004E1FFC /* CustomScalarFileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E669352E2803F09C004E1FFC /* CustomScalarFileGenerator.swift */; };
+		E66935312803F2B0004E1FFC /* CustomScalarFileGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66935302803F2B0004E1FFC /* CustomScalarFileGeneratorTests.swift */; };
 		E66935332804AFE5004E1FFC /* IRCustomScalarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66935322804AFE5004E1FFC /* IRCustomScalarTests.swift */; };
 		E66C014B27FEB84F00FF5FA1 /* PetAdoptionMutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66C014227FEB84F00FF5FA1 /* PetAdoptionMutation.swift */; };
 		E66C014C27FEB84F00FF5FA1 /* PetDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66C014327FEB84F00FF5FA1 /* PetDetails.swift */; };
@@ -1113,6 +1115,8 @@
 		E6630B8D26F071F9002D9E41 /* SchemaRegistryApolloSchemaDownloaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaRegistryApolloSchemaDownloaderTests.swift; sourceTree = "<group>"; };
 		E669352A2803EE11004E1FFC /* CustomScalarTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomScalarTemplate.swift; sourceTree = "<group>"; };
 		E669352C2803EF67004E1FFC /* CustomScalarTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomScalarTemplateTests.swift; sourceTree = "<group>"; };
+		E669352E2803F09C004E1FFC /* CustomScalarFileGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomScalarFileGenerator.swift; sourceTree = "<group>"; };
+		E66935302803F2B0004E1FFC /* CustomScalarFileGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomScalarFileGeneratorTests.swift; sourceTree = "<group>"; };
 		E66935322804AFE5004E1FFC /* IRCustomScalarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IRCustomScalarTests.swift; sourceTree = "<group>"; };
 		E66C014227FEB84F00FF5FA1 /* PetAdoptionMutation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetAdoptionMutation.swift; sourceTree = "<group>"; };
 		E66C014327FEB84F00FF5FA1 /* PetDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetDetails.swift; sourceTree = "<group>"; };
@@ -2526,6 +2530,7 @@
 		E66F8895276C13330000BDA8 /* FileGenerators */ = {
 			isa = PBXGroup;
 			children = (
+				E66935302803F2B0004E1FFC /* CustomScalarFileGeneratorTests.swift */,
 				E610D8D8278EA2560023E495 /* EnumFileGeneratorTests.swift */,
 				E6A6866327F63AEF008A1D13 /* FileGeneratorTests.swift */,
 				E6A6866527F63BDC008A1D13 /* FileGenerator_ResolvePath_Tests.swift */,
@@ -2564,6 +2569,7 @@
 		E6E3BBDC276A8D6200E5218B /* FileGenerators */ = {
 			isa = PBXGroup;
 			children = (
+				E669352E2803F09C004E1FFC /* CustomScalarFileGenerator.swift */,
 				E610D8D6278EA2390023E495 /* EnumFileGenerator.swift */,
 				E6E3BBDD276A8D6200E5218B /* FileGenerator.swift */,
 				DE4D54E827A3518100D26B68 /* FragmentFileGenerator.swift */,
@@ -3344,6 +3350,7 @@
 				DE6B650C27C4293D00970E4E /* FieldArgumentRendering.swift in Sources */,
 				DE5EEC8527988F1A00AF5913 /* IR+SelectionSet.swift in Sources */,
 				DE3484622746FF8F0065B77E /* IR+OperationBuilder.swift in Sources */,
+				E669352F2803F09C004E1FFC /* CustomScalarFileGenerator.swift in Sources */,
 				E610D8DF278F8F1E0023E495 /* UnionFileGenerator.swift in Sources */,
 				DEE2DAA227BAF00500EC0607 /* GraphQLType+Rendered.swift in Sources */,
 				DE223C2D2721FCE8004A0148 /* ScopedSelectionSetHashable.swift in Sources */,
@@ -3419,6 +3426,7 @@
 				E674DB43274C0AD9009BB90E /* GlobTests.swift in Sources */,
 				DE223C1C271F3288004A0148 /* AnimalKingdomIRCreationTests.swift in Sources */,
 				9BAEEC17234C275600808306 /* ApolloSchemaPublicTests.swift in Sources */,
+				E66935312803F2B0004E1FFC /* CustomScalarFileGeneratorTests.swift in Sources */,
 				E610D8DD278EB1500023E495 /* InterfaceFileGeneratorTests.swift in Sources */,
 				9F62DFAE2590557F00E6E808 /* DocumentParsingAndValidationTests.swift in Sources */,
 				E66935332804AFE5004E1FFC /* IRCustomScalarTests.swift in Sources */,

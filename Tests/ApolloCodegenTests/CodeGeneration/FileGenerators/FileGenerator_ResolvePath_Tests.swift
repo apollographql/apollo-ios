@@ -83,6 +83,7 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     case .interface: subpath = "Interfaces"
     case .union: subpath = "Unions"
     case .inputObject: subpath = "InputObjects"
+    case .customScalar: subpath = "CustomScalars"
     case .fragment, .operation: subpath = "Operations"
     case .schema: break
     }
@@ -1008,6 +1009,188 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
   func test__resolvePath__givenFileTargetInputObject_when_moduleOther_operationsRelativeSubpath_shouldReturnInputObjectsSubpath() {
     // given
     subject = .inputObject
+
+    // when
+    buildConfig(module: .other, operations: .relative(subpath: "NewPath"))
+
+    let expected = buildPath(subject)
+
+    // then
+    let actual = resolvePath()
+
+    expect(actual).to(equal(expected))
+  }
+
+  // MARK: .customScalar
+
+  func test__resolvePath__givenFileTargetCustomScalar_when_moduleSwiftPackageManager_operationsInSchemaModule_shouldReturnSchemaInputObjectsSubpath() {
+    // given
+    subject = .customScalar
+
+    // when
+    buildConfig(module: .swiftPackageManager, operations: .inSchemaModule)
+
+    let expected = buildPath(subject, prefix: "Schema")
+
+    // then
+    let actual = resolvePath()
+
+    expect(actual).to(equal(expected))
+  }
+
+  func test__resolvePath__givenFileTargetCustomScalar_when_moduleSwiftPackageManager_operationsAbsolutePath_shouldReturnInputObjectsSubpath() {
+    // given
+    subject = .customScalar
+
+    // when
+    buildConfig(module: .swiftPackageManager, operations: .absolute(path: "NewPath"))
+
+    let expected = buildPath(subject)
+
+    // then
+    let actual = resolvePath()
+
+    expect(actual).to(equal(expected))
+  }
+
+  func test__resolvePath__givenFileTargetCustomScalar_when_moduleSwiftPackageManager_operationsRelativeSubpathNil_shouldReturnInputObjectsSubpath() {
+    // given
+    subject = .customScalar
+
+    // when
+    buildConfig(module: .swiftPackageManager, operations: .relative(subpath: nil))
+
+    let expected = buildPath(subject)
+
+    // then
+    let actual = resolvePath()
+
+    expect(actual).to(equal(expected))
+  }
+
+  func test__resolvePath__givenFileTargetCustomScalar_when_moduleSwiftPackageManager_operationsRelativeSubpath_shouldReturnInputObjectsSubpath() {
+    // given
+    subject = .customScalar
+
+    // when
+    buildConfig(module: .swiftPackageManager, operations: .relative(subpath: "NewPath"))
+
+    let expected = buildPath(subject)
+
+    // then
+    let actual = resolvePath()
+
+    expect(actual).to(equal(expected))
+  }
+
+  func test__resolvePath__givenFileTargetCustomScalar_when_moduleNone_operationsInSchemaModule_shouldReturnSchemaInputObjectsSubpath() {
+    // given
+    subject = .customScalar
+
+    // when
+    buildConfig(module: .none, operations: .inSchemaModule)
+
+    let expected = buildPath(subject, prefix: "Schema")
+
+    // then
+    let actual = resolvePath()
+
+    expect(actual).to(equal(expected))
+  }
+
+  func test__resolvePath__givenFileTargetCustomScalar_when_moduleNone_operationsAbsolutePath_shouldReturnInputObjectsSubpath() {
+    // given
+    subject = .customScalar
+
+    // when
+    buildConfig(module: .none, operations: .absolute(path: "NewPath"))
+
+    let expected = buildPath(subject)
+
+    // then
+    let actual = resolvePath()
+
+    expect(actual).to(equal(expected))
+  }
+
+  func test__resolvePath__givenFileTargetCustomScalar_when_moduleNone_operationsRelativeSubpathNil_shouldReturnInputObjectsSubpath() {
+    // given
+    subject = .customScalar
+
+    // when
+    buildConfig(module: .none, operations: .relative(subpath: nil))
+
+    let expected = buildPath(subject)
+
+    // then
+    let actual = resolvePath()
+
+    expect(actual).to(equal(expected))
+  }
+
+  func test__resolvePath__givenFileTargetCustomScalar_when_moduleNone_operationsRelativeSubpath_shouldReturnInputObjectsSubpath() {
+    // given
+    subject = .customScalar
+
+    // when
+    buildConfig(module: .none, operations: .relative(subpath: "NewPath"))
+
+    let expected = buildPath(subject)
+
+    // then
+    let actual = resolvePath()
+
+    expect(actual).to(equal(expected))
+  }
+
+  func test__resolvePath__givenFileTargetCustomScalar_when_moduleOther_operationsInSchemaModule_shouldReturnSchemaInputObjectsSubpath() {
+    // given
+    subject = .customScalar
+
+    // when
+    buildConfig(module: .other, operations: .inSchemaModule)
+
+    let expected = buildPath(subject, prefix: "Schema")
+
+    // then
+    let actual = resolvePath()
+
+    expect(actual).to(equal(expected))
+  }
+
+  func test__resolvePath__givenFileTargetCustomScalar_when_moduleOther_operationsAbsolutePath_shouldReturnInputObjectsSubpath() {
+    // given
+    subject = .customScalar
+
+    // when
+    buildConfig(module: .other, operations: .absolute(path: "NewPath"))
+
+    let expected = buildPath(subject)
+
+    // then
+    let actual = resolvePath()
+
+    expect(actual).to(equal(expected))
+  }
+
+  func test__resolvePath__givenFileTargetCustomScalar_when_moduleOther_operationsRelativeSubpathNil_shouldReturnInputObjectsSubpath() {
+    // given
+    subject = .customScalar
+
+    // when
+    buildConfig(module: .other, operations: .relative(subpath: nil))
+
+    let expected = buildPath(subject)
+
+    // then
+    let actual = resolvePath()
+
+    expect(actual).to(equal(expected))
+  }
+
+  func test__resolvePath__givenFileTargetCustomScalar_when_moduleOther_operationsRelativeSubpath_shouldReturnInputObjectsSubpath() {
+    // given
+    subject = .customScalar
 
     // when
     buildConfig(module: .other, operations: .relative(subpath: "NewPath"))

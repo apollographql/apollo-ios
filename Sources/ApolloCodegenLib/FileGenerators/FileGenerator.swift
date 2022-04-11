@@ -37,6 +37,7 @@ enum FileTarget: Equatable {
   case interface
   case union
   case inputObject
+  case customScalar
   case fragment(CompilationResult.FragmentDefinition)
   case operation(CompilationResult.OperationDefinition)
   case schema
@@ -48,6 +49,7 @@ enum FileTarget: Equatable {
     case .interface: return "Interfaces"
     case .union: return "Unions"
     case .inputObject: return "InputObjects"
+    case .customScalar: return "CustomScalars"
     case .fragment, .operation: return "Operations"
     case .schema: return ""
     }
@@ -57,7 +59,7 @@ enum FileTarget: Equatable {
     forConfig config: ReferenceWrapped<ApolloCodegenConfiguration>
   ) -> String {
     switch self {
-    case .object, .enum, .interface, .union, .inputObject, .schema:
+    case .object, .enum, .interface, .union, .inputObject, .customScalar, .schema:
       return resolveSchemaPath(forConfig: config)
 
     case let .fragment(fragmentDefinition):
