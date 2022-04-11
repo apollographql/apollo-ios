@@ -76,11 +76,11 @@ public class AllAnimalsQuery: GraphQLQuery {
         .field("species", String.self),
         .field("skinCovering", GraphQLEnum<SkinCovering>?.self),
         .field("predators", [Predator].self),
-        .typeCase(AsWarmBlooded.self),
-        .typeCase(AsPet.self),
-        .typeCase(AsCat.self),
-        .typeCase(AsClassroomPet.self),
-        .typeCase(AsDog.self),
+        .inlineFragment(AsWarmBlooded.self),
+        .inlineFragment(AsPet.self),
+        .inlineFragment(AsCat.self),
+        .inlineFragment(AsClassroomPet.self),
+        .inlineFragment(AsDog.self),
         .fragment(HeightInMeters.self),
       ] }
 
@@ -89,11 +89,11 @@ public class AllAnimalsQuery: GraphQLQuery {
       public var skinCovering: GraphQLEnum<SkinCovering>? { data["skinCovering"] }
       public var predators: [Predator] { data["predators"] }
 
-      public var asWarmBlooded: AsWarmBlooded? { _asType() }
-      public var asPet: AsPet? { _asType() }
-      public var asCat: AsCat? { _asType() }
-      public var asClassroomPet: AsClassroomPet? { _asType() }
-      public var asDog: AsDog? { _asType() }
+      public var asWarmBlooded: AsWarmBlooded? { _asInlineFragment() }
+      public var asPet: AsPet? { _asInlineFragment() }
+      public var asCat: AsCat? { _asInlineFragment() }
+      public var asClassroomPet: AsClassroomPet? { _asInlineFragment() }
+      public var asDog: AsDog? { _asInlineFragment() }
 
       public struct Fragments: FragmentContainer {
         public let data: DataDict
@@ -126,15 +126,15 @@ public class AllAnimalsQuery: GraphQLQuery {
         public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Animal.self) }
         public static var selections: [Selection] { [
           .field("species", String.self),
-          .typeCase(AsWarmBlooded.self),
+          .inlineFragment(AsWarmBlooded.self),
         ] }
 
         public var species: String { data["species"] }
 
-        public var asWarmBlooded: AsWarmBlooded? { _asType() }
+        public var asWarmBlooded: AsWarmBlooded? { _asInlineFragment() }
 
         /// AllAnimal.Predator.AsWarmBlooded
-        public struct AsWarmBlooded: AnimalKingdomAPI.TypeCase {
+        public struct AsWarmBlooded: AnimalKingdomAPI.InlineFragment {
           public let data: DataDict
           public init(data: DataDict) { self.data = data }
 
@@ -159,7 +159,7 @@ public class AllAnimalsQuery: GraphQLQuery {
       }
 
       /// AllAnimal.AsWarmBlooded
-      public struct AsWarmBlooded: AnimalKingdomAPI.TypeCase {
+      public struct AsWarmBlooded: AnimalKingdomAPI.InlineFragment {
         public let data: DataDict
         public init(data: DataDict) { self.data = data }
 
@@ -197,14 +197,14 @@ public class AllAnimalsQuery: GraphQLQuery {
       }
 
       /// AllAnimal.AsPet
-      public struct AsPet: AnimalKingdomAPI.TypeCase {
+      public struct AsPet: AnimalKingdomAPI.InlineFragment {
         public let data: DataDict
         public init(data: DataDict) { self.data = data }
 
         public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Pet.self) }
         public static var selections: [Selection] { [
           .field("height", Height.self),
-          .typeCase(AsWarmBlooded.self),
+          .inlineFragment(AsWarmBlooded.self),
           .fragment(PetDetails.self),
         ] }
 
@@ -216,7 +216,7 @@ public class AllAnimalsQuery: GraphQLQuery {
         public var favoriteToy: String { data["favoriteToy"] }
         public var owner: PetDetails.Owner? { data["owner"] }
 
-        public var asWarmBlooded: AsWarmBlooded? { _asType() }
+        public var asWarmBlooded: AsWarmBlooded? { _asInlineFragment() }
 
         public struct Fragments: FragmentContainer {
           public let data: DataDict
@@ -245,7 +245,7 @@ public class AllAnimalsQuery: GraphQLQuery {
         }
 
         /// AllAnimal.AsPet.AsWarmBlooded
-        public struct AsWarmBlooded: AnimalKingdomAPI.TypeCase {
+        public struct AsWarmBlooded: AnimalKingdomAPI.InlineFragment {
           public let data: DataDict
           public init(data: DataDict) { self.data = data }
 
@@ -290,7 +290,7 @@ public class AllAnimalsQuery: GraphQLQuery {
       }
 
       /// AllAnimal.AsCat
-      public struct AsCat: AnimalKingdomAPI.TypeCase {
+      public struct AsCat: AnimalKingdomAPI.InlineFragment {
         public let data: DataDict
         public init(data: DataDict) { self.data = data }
 
@@ -335,13 +335,13 @@ public class AllAnimalsQuery: GraphQLQuery {
       }
 
       /// AllAnimal.AsClassroomPet
-      public struct AsClassroomPet: AnimalKingdomAPI.TypeCase {
+      public struct AsClassroomPet: AnimalKingdomAPI.InlineFragment {
         public let data: DataDict
         public init(data: DataDict) { self.data = data }
 
         public static var __parentType: ParentType { .Union(AnimalKingdomAPI.ClassroomPet.self) }
         public static var selections: [Selection] { [
-          .typeCase(AsBird.self),
+          .inlineFragment(AsBird.self),
         ] }
 
         public var height: Height { data["height"] }
@@ -349,7 +349,7 @@ public class AllAnimalsQuery: GraphQLQuery {
         public var skinCovering: GraphQLEnum<SkinCovering>? { data["skinCovering"] }
         public var predators: [Predator] { data["predators"] }
 
-        public var asBird: AsBird? { _asType() }
+        public var asBird: AsBird? { _asInlineFragment() }
 
         public struct Fragments: FragmentContainer {
           public let data: DataDict
@@ -371,7 +371,7 @@ public class AllAnimalsQuery: GraphQLQuery {
         }
 
         /// AllAnimal.AsClassroomPet.AsBird
-        public struct AsBird: AnimalKingdomAPI.TypeCase {
+        public struct AsBird: AnimalKingdomAPI.InlineFragment {
           public let data: DataDict
           public init(data: DataDict) { self.data = data }
 
@@ -417,7 +417,7 @@ public class AllAnimalsQuery: GraphQLQuery {
       }
 
       /// AllAnimal.AsDog
-      public struct AsDog: AnimalKingdomAPI.TypeCase {
+      public struct AsDog: AnimalKingdomAPI.InlineFragment {
         public let data: DataDict
         public init(data: DataDict) { self.data = data }
 
