@@ -27,11 +27,11 @@ class EnumFileGeneratorTests: XCTestCase {
     expect(self.subject.target).to(equal(.enum))
   }
 
-  func test__properties__givenGraphQLEnum_shouldReturnFileName_matchingEnumName() {
+  func test__properties__givenGraphQLEnum_shouldReturnFileName_matchingEnumNameFirstUppercased() {
     // given
     buildSubject()
 
-    let expected = "\(graphqlEnum.name).swift"
+    let expected = "\(graphqlEnum.name.firstUppercased).swift"
 
     // then
     expect(self.subject.fileName).to(equal(expected))

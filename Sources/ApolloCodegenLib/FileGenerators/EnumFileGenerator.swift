@@ -7,5 +7,5 @@ struct EnumFileGenerator: FileGenerator {
 
   var template: TemplateRenderer { EnumTemplate(graphqlEnum: graphqlEnum) }
   var target: FileTarget { .enum }
-  var fileName: String { "\(graphqlEnum.name).swift" }
+  var fileName: String { "\(graphqlEnum.name.firstUppercased).swift" }
 }
