@@ -960,7 +960,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
       override class var selections: [Selection] {[
         .field("__typename", String.self),
         .field("id", String.self),
-        .include(if: "variable", .typeCase(AsPerson.self))
+        .include(if: "variable", .inlineFragment(AsPerson.self))
       ]}
 
       class AsPerson: MockTypeCase {
@@ -991,7 +991,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
       override class var selections: [Selection] {[
         .field("__typename", String.self),
         .field("id", String.self),
-        .include(if: "variable", .typeCase(AsPerson.self))
+        .include(if: "variable", .inlineFragment(AsPerson.self))
       ]}
 
       class AsPerson: MockTypeCase {
@@ -1022,7 +1022,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
       override class var selections: [Selection] {[
         .field("__typename", String.self),
         .field("id", String.self),
-        .include(if: "variable", .typeCase(AsPerson.self))
+        .include(if: "variable", .inlineFragment(AsPerson.self))
       ]}
 
       class AsPerson: MockTypeCase {
@@ -1053,7 +1053,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
       override class var selections: [Selection] {[
         .field("__typename", String.self),
         .field("id", String.self),
-        .typeCase(AsPerson.self)
+        .inlineFragment(AsPerson.self)
       ]}
 
       class AsPerson: MockTypeCase {
@@ -1084,7 +1084,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
       override class var selections: [Selection] {[
         .field("__typename", String.self),
         .field("id", String.self),
-        .typeCase(AsPerson.self)
+        .inlineFragment(AsPerson.self)
       ]}
 
       class AsPerson: MockTypeCase {
@@ -1120,7 +1120,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
       override class var selections: [Selection] {[
         .field("__typename", String.self),
         .field("id", String.self),
-        .include(if: "variable", .typeCase(AsPerson.self))
+        .include(if: "variable", .inlineFragment(AsPerson.self))
       ]}
 
       class AsPerson: MockTypeCase {

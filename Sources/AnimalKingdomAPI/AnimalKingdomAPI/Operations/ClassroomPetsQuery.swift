@@ -40,12 +40,12 @@ public class ClassroomPetsQuery: GraphQLQuery {
         .fragment(ClassroomPetDetails.self),
       ] }
 
-      public var asAnimal: AsAnimal? { _asType() }
-      public var asPet: AsPet? { _asType() }
-      public var asWarmBlooded: AsWarmBlooded? { _asType() }
-      public var asCat: AsCat? { _asType() }
-      public var asBird: AsBird? { _asType() }
-      public var asPetRock: AsPetRock? { _asType() }
+      public var asAnimal: AsAnimal? { _asInlineFragment() }
+      public var asPet: AsPet? { _asInlineFragment() }
+      public var asWarmBlooded: AsWarmBlooded? { _asInlineFragment() }
+      public var asCat: AsCat? { _asInlineFragment() }
+      public var asBird: AsBird? { _asInlineFragment() }
+      public var asPetRock: AsPetRock? { _asInlineFragment() }
 
       public struct Fragments: FragmentContainer {
         public let data: DataDict
@@ -55,7 +55,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
       }
 
       /// ClassroomPet.AsAnimal
-      public struct AsAnimal: AnimalKingdomAPI.TypeCase {
+      public struct AsAnimal: AnimalKingdomAPI.InlineFragment {
         public let data: DataDict
         public init(data: DataDict) { self.data = data }
 
@@ -72,7 +72,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
       }
 
       /// ClassroomPet.AsPet
-      public struct AsPet: AnimalKingdomAPI.TypeCase {
+      public struct AsPet: AnimalKingdomAPI.InlineFragment {
         public let data: DataDict
         public init(data: DataDict) { self.data = data }
 
@@ -89,7 +89,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
       }
 
       /// ClassroomPet.AsWarmBlooded
-      public struct AsWarmBlooded: AnimalKingdomAPI.TypeCase {
+      public struct AsWarmBlooded: AnimalKingdomAPI.InlineFragment {
         public let data: DataDict
         public init(data: DataDict) { self.data = data }
 
@@ -107,7 +107,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
       }
 
       /// ClassroomPet.AsCat
-      public struct AsCat: AnimalKingdomAPI.TypeCase {
+      public struct AsCat: AnimalKingdomAPI.InlineFragment {
         public let data: DataDict
         public init(data: DataDict) { self.data = data }
 
@@ -128,7 +128,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
       }
 
       /// ClassroomPet.AsBird
-      public struct AsBird: AnimalKingdomAPI.TypeCase {
+      public struct AsBird: AnimalKingdomAPI.InlineFragment {
         public let data: DataDict
         public init(data: DataDict) { self.data = data }
 
@@ -148,7 +148,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
       }
 
       /// ClassroomPet.AsPetRock
-      public struct AsPetRock: AnimalKingdomAPI.TypeCase {
+      public struct AsPetRock: AnimalKingdomAPI.InlineFragment {
         public let data: DataDict
         public init(data: DataDict) { self.data = data }
 

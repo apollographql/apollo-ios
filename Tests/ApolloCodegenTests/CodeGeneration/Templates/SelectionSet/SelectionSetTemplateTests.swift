@@ -735,8 +735,8 @@ class SelectionSetTemplateTests: XCTestCase {
 
     let expected = """
       public static var selections: [Selection] { [
-        .typeCase(AsPet.self),
-        .typeCase(AsLowercaseInterface.self),
+        .inlineFragment(AsPet.self),
+        .inlineFragment(AsLowercaseInterface.self),
       ] }
     """
 
@@ -999,7 +999,7 @@ class SelectionSetTemplateTests: XCTestCase {
         .include(if: "a", [
           .field("fieldA", String.self),
           .field("fieldB", String.self),
-          .typeCase(AsPet.self),
+          .inlineFragment(AsPet.self),
           .fragment(FragmentA.self),
         ]),
       ] }
@@ -1049,7 +1049,7 @@ class SelectionSetTemplateTests: XCTestCase {
 
     let expected = """
       public static var selections: [Selection] { [
-        .include(if: "a", .typeCase(AsPet.self)),
+        .include(if: "a", .inlineFragment(AsPet.self)),
       ] }
     """
 
@@ -2377,8 +2377,8 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public var asPet: AsPet? { _asType() }
-      public var asDog: AsDog? { _asType() }
+      public var asPet: AsPet? { _asInlineFragment() }
+      public var asDog: AsDog? { _asInlineFragment() }
     """
 
     // when
@@ -2438,7 +2438,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public var asPet: AsPet? { _asType() }
+      public var asPet: AsPet? { _asInlineFragment() }
     """
 
     // when
@@ -2482,7 +2482,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public var asPet: AsPet? { _asType(if: "a") }
+      public var asPet: AsPet? { _asInlineFragment(if: "a") }
     """
 
     // when
@@ -2524,7 +2524,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public var asPet: AsPet? { _asType(if: !"a") }
+      public var asPet: AsPet? { _asInlineFragment(if: !"a") }
     """
 
     // when
@@ -2566,7 +2566,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public var asPet: AsPet? { _asType(if: "a" && !"b") }
+      public var asPet: AsPet? { _asInlineFragment(if: "a" && !"b") }
     """
 
     // when
@@ -3136,10 +3136,10 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public var asPet: AsPet? { _asType() }
+      public var asPet: AsPet? { _asInlineFragment() }
 
       /// AllAnimal.AsPet
-      public struct AsPet: TestSchema.TypeCase {
+      public struct AsPet: TestSchema.InlineFragment {
     """
 
     // when
@@ -3199,10 +3199,10 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public var asPet: AsPet? { _asType() }
+      public var asPet: AsPet? { _asInlineFragment() }
 
       /// AllAnimal.AsDog.Predator.AsPet
-      public struct AsPet: TestSchema.TypeCase {
+      public struct AsPet: TestSchema.InlineFragment {
     """
 
     // when
@@ -3247,7 +3247,7 @@ class SelectionSetTemplateTests: XCTestCase {
       public var ifAAndNotB: IfAAndNotB? { _asInlineFragment(if: "a" && !"b") }
 
       /// AllAnimal.IfAAndNotB
-      public struct IfAAndNotB: TestSchema.TypeCase {
+      public struct IfAAndNotB: TestSchema.InlineFragment {
     """
 
     // when
@@ -3289,7 +3289,7 @@ class SelectionSetTemplateTests: XCTestCase {
 
     let expected = """
       /// AllAnimal.IfA
-      public struct IfA: TestSchema.TypeCase {
+      public struct IfA: TestSchema.InlineFragment {
     """
 
     // when

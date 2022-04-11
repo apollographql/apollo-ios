@@ -34,7 +34,7 @@ struct SelectionSetTemplate {
     TemplateString(
     """
     \(SelectionSetNameDocumentation(inlineFragment))
-    public struct \(inlineFragment.renderedTypeName): \(schema.name).TypeCase {
+    public struct \(inlineFragment.renderedTypeName): \(schema.name).InlineFragment {
       \(BodyTemplate(inlineFragment))
     }
     """
@@ -101,7 +101,7 @@ struct SelectionSetTemplate {
     _ selections: IR.DirectSelections.ReadOnly
   ) -> [TemplateString] {
     selections.fields.values.map { FieldSelectionTemplate($0) } +
-    selections.inlineFragments.values.map { TypeCaseSelectionTemplate($0.typeInfo) } +
+    selections.inlineFragments.values.map { InlineFragmentSelectionTemplate($0.typeInfo) } +
     selections.fragments.values.map { FragmentSelectionTemplate($0) }
   }
 
@@ -159,9 +159,9 @@ struct SelectionSetTemplate {
     "[\(list: arguments.map{ "\"\($0.name)\": " + $0.value.renderInputValueLiteral() })]"
   }
 
-  private func TypeCaseSelectionTemplate(_ typeCase: IR.SelectionSet.TypeInfo) -> TemplateString {
+  private func InlineFragmentSelectionTemplate(_ typeCase: IR.SelectionSet.TypeInfo) -> TemplateString {
     """
-    .typeCase(As\(typeCase.parentType.name.firstUppercased).self)
+    .inlineFragment(As\(typeCase.parentType.name.firstUppercased).self)
     """
   }
 
@@ -212,10 +212,8 @@ struct SelectionSetTemplate {
 
   private func InlineFragmentAccessorTemplate(_ inlineFragment: IR.SelectionSet) -> TemplateString {
     let typeName = inlineFragment.renderedTypeName
-    let isTypeCase = inlineFragment.scope.scopePath.last.value.type != nil
     return """
-    public var \(typeName.firstLowercased): \(typeName)? \
-    { _\(isTypeCase ? "asType" : "asInlineFragment")\
+    public var \(typeName.firstLowercased): \(typeName)? { _asInlineFragment\
     (\(ifLet: inlineFragment.inclusionConditions, {
     "if: \($0.conditionVariableExpression())"
     })) }

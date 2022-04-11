@@ -97,4 +97,4 @@ open class MockFragment: AbstractMockSelectionSet, RootSelectionSet, Fragment {
   open class var fragmentDefinition: StaticString { "" }
 }
 
-open class MockTypeCase: AbstractMockSelectionSet, TypeCase { }
+open class MockTypeCase: AbstractMockSelectionSet, InlineFragment { }

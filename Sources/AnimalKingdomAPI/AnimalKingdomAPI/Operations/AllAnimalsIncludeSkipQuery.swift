@@ -99,11 +99,11 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         .field("height", Height.self),
         .field("skinCovering", GraphQLEnum<SkinCovering>?.self),
         .field("predators", [Predator].self),
-        .typeCase(AsPet.self),
-        .typeCase(AsClassroomPet.self),
+        .inlineFragment(AsPet.self),
+        .inlineFragment(AsClassroomPet.self),
         .include(if: "includeSpecies", .field("species", String.self)),
-        .include(if: "getWarmBlooded", .typeCase(AsWarmBlooded.self)),
-        .include(if: "getCat", .typeCase(AsCat.self)),
+        .include(if: "getWarmBlooded", .inlineFragment(AsWarmBlooded.self)),
+        .include(if: "getCat", .inlineFragment(AsCat.self)),
         .include(if: !"skipHeightInMeters", .fragment(HeightInMeters.self)),
       ] }
 
@@ -112,10 +112,10 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
       public var skinCovering: GraphQLEnum<SkinCovering>? { data["skinCovering"] }
       public var predators: [Predator] { data["predators"] }
 
-      public var asWarmBlooded: AsWarmBlooded? { _asType(if: "getWarmBlooded") }
-      public var asPet: AsPet? { _asType() }
-      public var asCat: AsCat? { _asType(if: "getCat") }
-      public var asClassroomPet: AsClassroomPet? { _asType() }
+      public var asWarmBlooded: AsWarmBlooded? { _asInlineFragment(if: "getWarmBlooded") }
+      public var asPet: AsPet? { _asInlineFragment() }
+      public var asCat: AsCat? { _asInlineFragment(if: "getCat") }
+      public var asClassroomPet: AsClassroomPet? { _asInlineFragment() }
       public var ifNotSkipHeightInMeters: IfNotSkipHeightInMeters? { _asInlineFragment(if: !"skipHeightInMeters") }
 
       public struct Fragments: FragmentContainer {
@@ -148,15 +148,15 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Animal.self) }
         public static var selections: [Selection] { [
           .include(if: "includeSpecies", .field("species", String.self)),
-          .include(if: "getWarmBlooded", .typeCase(AsWarmBlooded.self)),
+          .include(if: "getWarmBlooded", .inlineFragment(AsWarmBlooded.self)),
         ] }
 
         public var species: String? { data["species"] }
 
-        public var asWarmBlooded: AsWarmBlooded? { _asType(if: "getWarmBlooded") }
+        public var asWarmBlooded: AsWarmBlooded? { _asInlineFragment(if: "getWarmBlooded") }
 
         /// AllAnimal.Predator.AsWarmBlooded
-        public struct AsWarmBlooded: AnimalKingdomAPI.TypeCase {
+        public struct AsWarmBlooded: AnimalKingdomAPI.InlineFragment {
           public let data: DataDict
           public init(data: DataDict) { self.data = data }
 
@@ -182,7 +182,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
       }
 
       /// AllAnimal.AsWarmBlooded
-      public struct AsWarmBlooded: AnimalKingdomAPI.TypeCase {
+      public struct AsWarmBlooded: AnimalKingdomAPI.InlineFragment {
         public let data: DataDict
         public init(data: DataDict) { self.data = data }
 
@@ -221,7 +221,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         }
 
         /// AllAnimal.AsWarmBlooded.IfGetWarmBlooded
-        public struct IfGetWarmBlooded: AnimalKingdomAPI.TypeCase {
+        public struct IfGetWarmBlooded: AnimalKingdomAPI.InlineFragment {
           public let data: DataDict
           public init(data: DataDict) { self.data = data }
 
@@ -257,14 +257,14 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
       }
 
       /// AllAnimal.AsPet
-      public struct AsPet: AnimalKingdomAPI.TypeCase {
+      public struct AsPet: AnimalKingdomAPI.InlineFragment {
         public let data: DataDict
         public init(data: DataDict) { self.data = data }
 
         public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Pet.self) }
         public static var selections: [Selection] { [
           .field("height", Height.self),
-          .typeCase(AsWarmBlooded.self),
+          .inlineFragment(AsWarmBlooded.self),
           .fragment(PetDetails.self),
         ] }
 
@@ -276,7 +276,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         public var favoriteToy: String { data["favoriteToy"] }
         public var owner: PetDetails.Owner? { data["owner"] }
 
-        public var asWarmBlooded: AsWarmBlooded? { _asType() }
+        public var asWarmBlooded: AsWarmBlooded? { _asInlineFragment() }
 
         public struct Fragments: FragmentContainer {
           public let data: DataDict
@@ -306,7 +306,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         }
 
         /// AllAnimal.AsPet.AsWarmBlooded
-        public struct AsWarmBlooded: AnimalKingdomAPI.TypeCase {
+        public struct AsWarmBlooded: AnimalKingdomAPI.InlineFragment {
           public let data: DataDict
           public init(data: DataDict) { self.data = data }
 
@@ -351,7 +351,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
       }
 
       /// AllAnimal.AsCat
-      public struct AsCat: AnimalKingdomAPI.TypeCase {
+      public struct AsCat: AnimalKingdomAPI.InlineFragment {
         public let data: DataDict
         public init(data: DataDict) { self.data = data }
 
@@ -396,13 +396,13 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
       }
 
       /// AllAnimal.AsClassroomPet
-      public struct AsClassroomPet: AnimalKingdomAPI.TypeCase {
+      public struct AsClassroomPet: AnimalKingdomAPI.InlineFragment {
         public let data: DataDict
         public init(data: DataDict) { self.data = data }
 
         public static var __parentType: ParentType { .Union(AnimalKingdomAPI.ClassroomPet.self) }
         public static var selections: [Selection] { [
-          .typeCase(AsBird.self),
+          .inlineFragment(AsBird.self),
         ] }
 
         public var height: Height { data["height"] }
@@ -410,7 +410,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         public var skinCovering: GraphQLEnum<SkinCovering>? { data["skinCovering"] }
         public var predators: [Predator] { data["predators"] }
 
-        public var asBird: AsBird? { _asType() }
+        public var asBird: AsBird? { _asInlineFragment() }
 
         public struct Fragments: FragmentContainer {
           public let data: DataDict
@@ -420,7 +420,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         }
 
         /// AllAnimal.AsClassroomPet.AsBird
-        public struct AsBird: AnimalKingdomAPI.TypeCase {
+        public struct AsBird: AnimalKingdomAPI.InlineFragment {
           public let data: DataDict
           public init(data: DataDict) { self.data = data }
 
@@ -465,7 +465,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         }
       }
       /// AllAnimal.IfNotSkipHeightInMeters
-      public struct IfNotSkipHeightInMeters: AnimalKingdomAPI.TypeCase {
+      public struct IfNotSkipHeightInMeters: AnimalKingdomAPI.InlineFragment {
         public let data: DataDict
         public init(data: DataDict) { self.data = data }
 

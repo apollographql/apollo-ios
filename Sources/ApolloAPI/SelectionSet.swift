@@ -35,19 +35,18 @@ public extension AnySelectionSet {
 /// into the `ResponseDict` for the `SelectionSet`'s data.
 public protocol RootSelectionSet: AnySelectionSet, OutputTypeConvertible { }
 
-/// A selection set that represents a more specific type nested inside a `RootSelectionSet`.
+/// A selection set that represents an inline fragment nested inside a `RootSelectionSet`.
 ///
-/// A `TypeCase` can only ever exist as a nested selection set within a `RootSelectionSet`.
-/// Each `TypeCase` represents additional fields to be selected if the underlying type of the
-/// object data returned for the selection set at runtime is compatible with the type case's
-/// `__parentType`.
+/// An `InlineFragment` can only ever exist as a nested selection set within a `RootSelectionSet`.
+/// Each `InlineFragment` represents additional fields to be selected if the underlying
+/// type.inclusion condition of the object data returned for the selection set is met.
 ///
-/// A `TypeCase` will only include the specific `selections` that should be selected for that
-/// `TypeCase`. But the code generation engine will create accessor fields for any fields from the
-/// type case's parent `RootSelectionSet` that will be selected. This includes fields from the
-/// parent selection set, as well as any other child selections sets that are compatible with the
-/// `TypeCase`'s `__parentType`.
-public protocol TypeCase: AnySelectionSet { }
+/// An `InlineFragment` will only include the specific `selections` that should be selected for that
+/// `InlineFragment`. But the code generation engine will create accessor fields for any fields
+/// from the fragment's parent `RootSelectionSet` that will be selected. This includes fields from
+/// the parent selection set, as well as any other child selections sets that are compatible with
+/// the `InlineFragment`'s `__parentType` and the operation's inclusion condition.
+public protocol InlineFragment: AnySelectionSet { }
 
 // MARK: - SelectionSet
 public protocol SelectionSet: AnySelectionSet {
@@ -65,37 +64,16 @@ extension SelectionSet {
 
   var __objectType: Object.Type? { Schema.objectType(forTypename: __typename) }
 
-  @inlinable var __typename: String { data["__typename"] }
+  @inlinable public var __typename: String { data["__typename"] }
 
-  /// Verifies if a `SelectionSet` may be converted to a different `SelectionSet` and performs
+  /// Verifies if a `SelectionSet` may be converted to an `InlineFragment` and performs
   /// the conversion.
   ///
   /// - Warning: This function is not supported for use outside of generated call sites.
   /// Generated call sites are guaranteed by the GraphQL compiler to be safe.
   /// Unsupported usage may result in unintended consequences including crashes.
-  public func _asType<T: SelectionSet>(
-    if conditions: @autoclosure () -> Selection.Conditions? = nil
-  ) -> T? where T.Schema == Schema {
-    guard let __objectType = __objectType,
-          __objectType._canBeConverted(to: T.__parentType) else { return nil }
-
-    return _asInlineFragment(if: conditions())
-  }
-
-  public func _asType<T: SelectionSet>(
-    if conditions: @autoclosure () -> [Selection.Condition]
-  ) -> T? where T.Schema == Schema {
-    _asType(if: Selection.Conditions(conditions()))
-  }
-
-  public func _asType<T: SelectionSet>(
-    if conditions: @autoclosure () -> Selection.Condition
-  ) -> T? where T.Schema == Schema {
-    _asType(if: Selection.Conditions([conditions()]))
-  }
-
   public func _asInlineFragment<T: SelectionSet>(
-    if conditions: Selection.Conditions?
+    if conditions: Selection.Conditions? = nil
   ) -> T? where T.Schema == Schema {
     guard let conditions = conditions else {
       return T.init(data: data)
