@@ -119,6 +119,13 @@ public class ApolloCodegen {
       }
     }
 
+    for graphQLScalar in ir.schema.referencedTypes.customScalars {
+      try autoreleasepool {
+        try CustomScalarFileGenerator(graphqlScalar: graphQLScalar)
+          .generate(forConfig: config, fileManager: fileManager)
+      }
+    }
+
     try SchemaFileGenerator(schema: ir.schema)
       .generate(forConfig: config, fileManager: fileManager)
 
