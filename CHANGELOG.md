@@ -1,4 +1,41 @@
-# Change log
+# Change Log
+
+## v1.0.0-alpha.3
+
+This is the third Alpha Release of Apollo iOS 1.0. This first major version will include a new code generation engine, better generated models, and many syntax and performance improvements across the entire library. The primary goal of Apollo iOS 1.0 is to stabilize the API of the model layer and provide a foundation for future feature additions and evolution of the library.
+
+* **Include/Skip Directives are now supported!**
+  * Adding `@include/@skip` directives to fields, inline fragments, or fragment spreads will now generate code that respects the optionality of these conditionally included selections.
+* **Changed - Generated TypeCase renamed to InlineFragment** These are now used for both type cases and inline fragments that are conditionally included using `@include/@skip` directives. 
+* **Custom Scalars are now supported!**
+  * Template Files will be generated for custom scalars. The template files `typealias` each custom scalar to a `String` by default. These generated files can be edited to provide custom functionality for advanced custom scalars. Custom scalar template files that have been edited will not be overwritten on later code generation executions.    
+* **Improved multi-module support** 
+  * Including your generated code using package managers other than SPM can be done using the `.other` option for `moduleType` in your code generation configuration.  
+* **Nil Coalescing Operator added to `GraphQLNullable`
+  * This allows for optional variables to easily be used with `GraphQLNullable` parameters and a default value
+
+```swift
+class MyQuery: GraphQLQuery {
+
+  var myVar: GraphQLNullable<String>
+
+  init(myVar: GraphQLNullable<String> { ... }
+ // ...
+}
+
+let optionalString: String?
+
+// Before
+
+let query = MyQuery(myVar: optionalString.map { .some($0) } ?? .none)
+
+// After
+let query = MyQuery(myVar: optionalString ?? .none)
+```
+* **Fixed - `fragments` not accessible on generated `SelectionSet`s.
+* **Fixed - `__typename` is now added to all operation and fragment definitions.
+* **Fixed - Missing Generated Interface Types** 
+  * Interface types that were only referenced as an implemented interface of a referenced concrete type were not being generated previously.
 
 ## v1.0.0-alpha.2
 
