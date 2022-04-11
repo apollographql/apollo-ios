@@ -266,7 +266,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
      let actual = renderSubject()
 
      // then
-     expect(actual).to(equalLineByLine(expected, atLine: 14, ignoringExtraLines: true))
+     expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
    }
 
   func test__generate__givenQueryWithMutlipleScalarVariables_generatesQueryOperationWithVariables() throws {
@@ -319,7 +319,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
     let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 14, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
   }
 
   func test__generate__givenQueryWithNullableScalarVariable_generatesQueryOperationWithVariable() throws {
@@ -361,7 +361,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
     let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 14, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
   }
 
 }
