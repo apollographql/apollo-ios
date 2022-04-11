@@ -379,7 +379,7 @@ class FileManagerExtensionTests: XCTestCase {
 
     // then
     expect(
-      try mocked.apollo.createFile(atPath: self.uniquePath, data:self.uniqueData)
+      try mocked.apollo.createFile(atPath: self.uniquePath, data:self.uniqueData, overwrite: true)
     ).notTo(throwError())
     expect(mocked.allClosuresCalled).to(beTrue())
   }
@@ -408,8 +408,8 @@ class FileManagerExtensionTests: XCTestCase {
 
     // then
     expect(
-      try mocked.apollo.createFile(atPath: self.uniquePath, data:self.uniqueData)
-    ).to(throwError(MockFileManager.apollo.PathError.cannotCreateFile(at: self.uniquePath)))
+      try mocked.apollo.createFile(atPath: self.uniquePath, data:self.uniqueData, overwrite: true
+    )).to(throwError(MockFileManager.apollo.PathError.cannotCreateFile(at: self.uniquePath)))
     expect(mocked.allClosuresCalled).to(beTrue())
   }
 
@@ -442,7 +442,7 @@ class FileManagerExtensionTests: XCTestCase {
 
     // then
     expect(
-      try mocked.apollo.createFile(atPath: self.uniquePath, data:self.uniqueData)
+      try mocked.apollo.createFile(atPath: self.uniquePath, data:self.uniqueData, overwrite: true)
     ).notTo(throwError())
     expect(mocked.allClosuresCalled).to(beTrue())
   }
@@ -476,7 +476,7 @@ class FileManagerExtensionTests: XCTestCase {
 
     // then
     expect(
-      try mocked.apollo.createFile(atPath: self.uniquePath, data:self.uniqueData)
+      try mocked.apollo.createFile(atPath: self.uniquePath, data:self.uniqueData, overwrite: true)
     ).to(throwError(MockFileManager.apollo.PathError.cannotCreateFile(at: self.uniquePath)))
     expect(mocked.allClosuresCalled).to(beTrue())
   }
@@ -503,8 +503,11 @@ class FileManagerExtensionTests: XCTestCase {
     }))
 
     // then
-    expect(try mocked.apollo.createFile(atPath: self.uniquePath, data:self.uniqueData))
-      .to(throwError(self.uniqueError))
+    expect(try mocked.apollo.createFile(
+      atPath: self.uniquePath,
+      data:self.uniqueData,
+      overwrite: true
+    )).to(throwError(self.uniqueError))
     expect(mocked.allClosuresCalled).to(beTrue())
   }
 

@@ -132,7 +132,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
     buildConfig()
 
     // when
-    try FileManager.default.apollo.createFile(atPath: fileURL.path)
+    try FileManager.default.apollo.createFile(atPath: fileURL.path, overwrite: true)
 
     // then
     expect { try self.config.validate() }.to(
@@ -148,7 +148,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
     buildConfig()
 
     // when
-    try FileManager.default.apollo.createFile(atPath: fileURL.path)
+    try FileManager.default.apollo.createFile(atPath: fileURL.path, overwrite: true)
 
     // then
     expect { try self.config.validate() }.to(
@@ -173,7 +173,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
     buildConfig()
 
     // when
-    try FileManager.default.apollo.createFile(atPath: fileURL.path)
+    try FileManager.default.apollo.createFile(atPath: fileURL.path, overwrite: true)
 
     // then
     expect { try self.config.validate() }.to(
@@ -193,7 +193,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
     buildConfig()
 
     // when
-    try FileManager.default.apollo.createFile(atPath: fileURL.path)
+    try FileManager.default.apollo.createFile(atPath: fileURL.path, overwrite: true)
 
     // then
     expect { try self.config.validate() }.to(
@@ -220,7 +220,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
     buildConfig()
 
     // when
-    try FileManager.default.apollo.createFile(atPath: fileURL.path)
+    try FileManager.default.apollo.createFile(atPath: fileURL.path, overwrite: true)
 
     // then
     expect { try self.config.validate() }.to(
