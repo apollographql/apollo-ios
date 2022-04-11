@@ -6,7 +6,7 @@ parameters:
     default: "13.3.0"
   ios_current_version:
     type: string
-    default: "15.2"
+    default: "15.4"
   ios_previous_version:
     type: string
     default: "14.5"
@@ -15,7 +15,7 @@ parameters:
     default: "11.6.2"
   tvos_version: # The user-facing version string of tvOS builds
     type: string
-    default: "15.2"
+    default: "15.4"
 
 commands:
   integration_test_setup:
