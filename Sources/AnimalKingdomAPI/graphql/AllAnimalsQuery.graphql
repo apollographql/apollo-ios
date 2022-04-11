@@ -26,6 +26,9 @@ query AllAnimalsQuery {
         wingspan
       }
     }
+    ... on Dog {
+      favoriteToy
+    }
     predators {
       species
       ... on WarmBlooded {

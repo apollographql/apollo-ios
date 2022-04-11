@@ -207,6 +207,8 @@ class ApolloCodegenTests: XCTestCase {
       directoryURL.appendingPathComponent("Schema/Objects/Query.swift").path,
       directoryURL.appendingPathComponent("Schema/Schema.swift").path,
       directoryURL.appendingPathComponent("Package.swift").path,
+      directoryURL.appendingPathComponent("Schema/Objects/Dog.swift").path,
+      directoryURL.appendingPathComponent("Schema/Interfaces/HousePet.swift").path,
     ]
 
     // when
