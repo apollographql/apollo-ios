@@ -424,7 +424,6 @@
 		E6EFDD0927E5624600B17FE5 /* ReferenceWrapped.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EFDD0827E5624600B17FE5 /* ReferenceWrapped.swift */; };
 		E6EFDD0B27E8328E00B17FE5 /* TemplateRenderer_SchemaFile_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EFDD0A27E8328E00B17FE5 /* TemplateRenderer_SchemaFile_Tests.swift */; };
 		E6EFDD0D27E8377200B17FE5 /* MockFileTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EFDD0C27E8377200B17FE5 /* MockFileTemplate.swift */; };
-		E6EFDD1427EAB55B00B17FE5 /* TemplateRenderer_ModuleFile_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EFDD1227EAB55B00B17FE5 /* TemplateRenderer_ModuleFile_Tests.swift */; };
 		E6EFDD1527EAB55B00B17FE5 /* TemplateRenderer_OperationFile_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EFDD1327EAB55B00B17FE5 /* TemplateRenderer_OperationFile_Tests.swift */; };
 		E86D8E05214B32FD0028EFE1 /* JSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E86D8E03214B32DA0028EFE1 /* JSONTests.swift */; };
 		F16D083C21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16D083B21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift */; };
@@ -1178,7 +1177,6 @@
 		E6EFDD0827E5624600B17FE5 /* ReferenceWrapped.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceWrapped.swift; sourceTree = "<group>"; };
 		E6EFDD0A27E8328E00B17FE5 /* TemplateRenderer_SchemaFile_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateRenderer_SchemaFile_Tests.swift; sourceTree = "<group>"; };
 		E6EFDD0C27E8377200B17FE5 /* MockFileTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFileTemplate.swift; sourceTree = "<group>"; };
-		E6EFDD1227EAB55B00B17FE5 /* TemplateRenderer_ModuleFile_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateRenderer_ModuleFile_Tests.swift; sourceTree = "<group>"; };
 		E6EFDD1327EAB55B00B17FE5 /* TemplateRenderer_OperationFile_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateRenderer_OperationFile_Tests.swift; sourceTree = "<group>"; };
 		E86D8E03214B32DA0028EFE1 /* JSONTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONTests.swift; sourceTree = "<group>"; };
 		F16D083B21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryFromJSONBuildingTests.swift; sourceTree = "<group>"; };
@@ -2150,7 +2148,6 @@
 				E6EE62F227DBE75A00627257 /* SchemaModuleNamespaceTemplateTests.swift */,
 				DE5FD608276956C70033EE23 /* SchemaTemplateTests.swift */,
 				E6B42D0C27A4749100A3BD58 /* SwiftPackageManagerModuleTemplateTests.swift */,
-				E6EFDD1227EAB55B00B17FE5 /* TemplateRenderer_ModuleFile_Tests.swift */,
 				E6EFDD1327EAB55B00B17FE5 /* TemplateRenderer_OperationFile_Tests.swift */,
 				E6EFDD0A27E8328E00B17FE5 /* TemplateRenderer_SchemaFile_Tests.swift */,
 				E64F7EB927A085D90059C021 /* UnionTemplateTests.swift */,
@@ -3447,7 +3444,6 @@
 				E6B42D0D27A4749100A3BD58 /* SwiftPackageManagerModuleTemplateTests.swift in Sources */,
 				9F62DFBF2590560000E6E808 /* Helpers.swift in Sources */,
 				DE296539279B3B8200BF9B49 /* SelectionSetTemplateTests.swift in Sources */,
-				E6EFDD1427EAB55B00B17FE5 /* TemplateRenderer_ModuleFile_Tests.swift in Sources */,
 				E66F8897276C136B0000BDA8 /* ObjectFileGeneratorTests.swift in Sources */,
 				DE79642B276999E700978A03 /* IRNamedFragmentBuilderTests.swift in Sources */,
 				E69BEDA72798B89600000D10 /* InputObjectTemplateTests.swift in Sources */,

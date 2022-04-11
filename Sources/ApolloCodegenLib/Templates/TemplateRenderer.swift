@@ -20,6 +20,10 @@ enum TemplateTarget {
 protocol TemplateRenderer {
   /// File target of the template.
   var target: TemplateTarget { get }
+
+  /// The template for the header to render.
+  var headerTemplate: TemplateString? { get }
+
   /// The swift code format.
   var template: TemplateString { get }
 }
@@ -27,6 +31,9 @@ protocol TemplateRenderer {
 // MARK: Extensions
 
 extension TemplateRenderer {
+
+  var headerTemplate: TemplateString? { TemplateString(HeaderCommentTemplate.template.description) }
+
   /// Renders the template converting all input values and generating a final String representation
   /// of the template.
   ///
@@ -45,9 +52,8 @@ extension TemplateRenderer {
   ) -> String {
     TemplateString(
     """
-    \(HeaderCommentTemplate.template)
-
-    \(ImportStatementTemplate.SchemaType.template)
+    \(ifLet: headerTemplate, { "\($0)\n" })
+    \(TemplateString(ImportStatementTemplate.SchemaType.template.description))
 
     \(if: config.output.schemaTypes.isInModule, template,
     else: template.wrappedInNamespace(config.output.schemaTypes.schemaName))
@@ -60,8 +66,7 @@ extension TemplateRenderer {
   ) -> String {
     TemplateString(
     """
-    \(HeaderCommentTemplate.template)
-
+    \(ifLet: headerTemplate, { "\($0)\n" })
     \(ImportStatementTemplate.Operation.template(forConfig: config))
 
     \(if: config.output.operations.isInModule && !config.output.schemaTypes.isInModule,
@@ -77,10 +82,7 @@ extension TemplateRenderer {
   ) -> String {
     TemplateString(
     """
-    \(if: !config.output.schemaTypes.isInModule, """
-    \(HeaderCommentTemplate.template)
-
-    """)
+    \(ifLet: headerTemplate, { "\($0)\n" })
     \(template)
     """
     ).description
