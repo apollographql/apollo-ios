@@ -91,10 +91,10 @@ extension ApolloExtension where Base: FileManager {
   ///   - path: Path to the file.
   ///   - data: [optional] Data to write to the file path.
   ///   - overwrite: `true` will overwrite the contents of the file at `path`. `false` will not.
-  public func createFile(atPath path: String, data: Data? = nil, overwrite: Bool? = nil) throws {
+  public func createFile(atPath path: String, data: Data? = nil, overwrite: Bool = true) throws {
     try createContainingDirectoryIfNeeded(forPath: path)
 
-    if let overwrite = overwrite, !overwrite && doesFileExist(atPath: path) { return }
+    if !overwrite && doesFileExist(atPath: path) { return }
 
     guard base.createFile(atPath: path, contents: data, attributes: nil) else {
       throw PathError.cannotCreateFile(at: path)
