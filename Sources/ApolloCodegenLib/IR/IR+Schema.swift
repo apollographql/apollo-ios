@@ -13,6 +13,7 @@ extension IR {
       let interfaces: OrderedSet<GraphQLInterfaceType>
       let unions: OrderedSet<GraphQLUnionType>
       let scalars: OrderedSet<GraphQLScalarType>
+      let customScalars: OrderedSet<GraphQLScalarType>
       let enums: OrderedSet<GraphQLEnumType>
       let inputObjects: OrderedSet<GraphQLInputObjectType>
 
@@ -23,6 +24,7 @@ extension IR {
         var interfaces = OrderedSet<GraphQLInterfaceType>()
         var unions = OrderedSet<GraphQLUnionType>()
         var scalars = OrderedSet<GraphQLScalarType>()
+        var customScalars = OrderedSet<GraphQLScalarType>()
         var enums = OrderedSet<GraphQLEnumType>()
         var inputObjects = OrderedSet<GraphQLInputObjectType>()
 
@@ -31,7 +33,9 @@ extension IR {
           case let type as GraphQLObjectType: objects.append(type)
           case let type as GraphQLInterfaceType: interfaces.append(type)
           case let type as GraphQLUnionType: unions.append(type)
-          case let type as GraphQLScalarType: scalars.append(type)
+          case let type as GraphQLScalarType:
+            if type.isCustom { customScalars.append(type) }
+            else { scalars.append(type) }
           case let type as GraphQLEnumType: enums.append(type)
           case let type as GraphQLInputObjectType: inputObjects.append(type)
           default: continue
@@ -42,6 +46,7 @@ extension IR {
         self.interfaces = interfaces
         self.unions = unions
         self.scalars = scalars
+        self.customScalars = customScalars
         self.enums = enums
         self.inputObjects = inputObjects
       }
@@ -59,4 +64,18 @@ extension IR {
       }
     }
   }
+}
+
+private extension GraphQLScalarType {
+  var isCustom: Bool {
+    if let _ = self.specifiedByURL { return true }
+
+    return !isString && !isInt && !isBool && !isFloat && !isID
+  }
+
+  var isString: Bool { self.name == String(describing: String.self) }
+  var isInt: Bool { self.name == String(describing: Int.self) }
+  var isBool: Bool { self.name == "Boolean" }
+  var isFloat: Bool { self.name == String(describing: Float.self) }
+  var isID: Bool { self.name == "ID" }
 }

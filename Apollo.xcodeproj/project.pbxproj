@@ -358,6 +358,7 @@
 		E657CDBA26FD01D4005834D6 /* ApolloSchemaInternalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E657CDB926FD01D4005834D6 /* ApolloSchemaInternalTests.swift */; };
 		E6630B8C26F0639B002D9E41 /* MockNetworkSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D79AB926EC05290094434A /* MockNetworkSession.swift */; };
 		E6630B8E26F071F9002D9E41 /* SchemaRegistryApolloSchemaDownloaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6630B8D26F071F9002D9E41 /* SchemaRegistryApolloSchemaDownloaderTests.swift */; };
+		E66935332804AFE5004E1FFC /* IRCustomScalarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66935322804AFE5004E1FFC /* IRCustomScalarTests.swift */; };
 		E66C014B27FEB84F00FF5FA1 /* PetAdoptionMutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66C014227FEB84F00FF5FA1 /* PetAdoptionMutation.swift */; };
 		E66C014C27FEB84F00FF5FA1 /* PetDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66C014327FEB84F00FF5FA1 /* PetDetails.swift */; };
 		E66C014D27FEB84F00FF5FA1 /* HeightInMeters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66C014427FEB84F00FF5FA1 /* HeightInMeters.swift */; };
@@ -1108,6 +1109,7 @@
 		E64F7EC227A1243A0059C021 /* ObjectTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTemplateTests.swift; sourceTree = "<group>"; };
 		E657CDB926FD01D4005834D6 /* ApolloSchemaInternalTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApolloSchemaInternalTests.swift; sourceTree = "<group>"; };
 		E6630B8D26F071F9002D9E41 /* SchemaRegistryApolloSchemaDownloaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaRegistryApolloSchemaDownloaderTests.swift; sourceTree = "<group>"; };
+		E66935322804AFE5004E1FFC /* IRCustomScalarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IRCustomScalarTests.swift; sourceTree = "<group>"; };
 		E66C014227FEB84F00FF5FA1 /* PetAdoptionMutation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetAdoptionMutation.swift; sourceTree = "<group>"; };
 		E66C014327FEB84F00FF5FA1 /* PetDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetDetails.swift; sourceTree = "<group>"; };
 		E66C014427FEB84F00FF5FA1 /* HeightInMeters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeightInMeters.swift; sourceTree = "<group>"; };
@@ -2306,6 +2308,7 @@
 				DE79642E2769A1EB00978A03 /* IROperationBuilderTests.swift */,
 				DE79642A276999E700978A03 /* IRNamedFragmentBuilderTests.swift */,
 				DEA9A22F27CD990500F96C36 /* IRSelectionSet_IncludeSkip_Tests.swift */,
+				E66935322804AFE5004E1FFC /* IRCustomScalarTests.swift */,
 			);
 			path = CodeGenIR;
 			sourceTree = "<group>";
@@ -3410,6 +3413,7 @@
 				9BAEEC17234C275600808306 /* ApolloSchemaPublicTests.swift in Sources */,
 				E610D8DD278EB1500023E495 /* InterfaceFileGeneratorTests.swift in Sources */,
 				9F62DFAE2590557F00E6E808 /* DocumentParsingAndValidationTests.swift in Sources */,
+				E66935332804AFE5004E1FFC /* IRCustomScalarTests.swift in Sources */,
 				9F62E0102590728000E6E808 /* CompilationTests.swift in Sources */,
 				DEAFB77B2706444B00BE02F3 /* IRRootFieldBuilderTests.swift in Sources */,
 				E6EFDD1527EAB55B00B17FE5 /* TemplateRenderer_OperationFile_Tests.swift in Sources */,
