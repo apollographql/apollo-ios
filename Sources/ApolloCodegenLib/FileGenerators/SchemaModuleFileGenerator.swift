@@ -32,8 +32,7 @@ struct SchemaModuleFileGenerator {
 
     try fileManager.apollo.createFile(
       atPath: filePath,
-      data: rendered.data(using: .utf8),
-      overwrite: true
+      data: rendered.data(using: .utf8)
     )
   }
 }

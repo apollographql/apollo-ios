@@ -12,7 +12,7 @@ protocol FileGenerator {
 }
 
 extension FileGenerator {
-  var overwrite: Bool { return true }
+  var overwrite: Bool { true }
 
   /// Generates the file writing the template content to the specified config output paths.
   ///

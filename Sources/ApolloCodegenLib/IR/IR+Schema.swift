@@ -34,8 +34,11 @@ extension IR {
           case let type as GraphQLInterfaceType: interfaces.append(type)
           case let type as GraphQLUnionType: unions.append(type)
           case let type as GraphQLScalarType:
-            if type.isCustom { customScalars.append(type) }
-            else { scalars.append(type) }
+            if type.isCustomScalar {
+              customScalars.append(type)
+            } else {
+              scalars.append(type)              
+            }
           case let type as GraphQLEnumType: enums.append(type)
           case let type as GraphQLInputObjectType: inputObjects.append(type)
           default: continue
@@ -64,18 +67,4 @@ extension IR {
       }
     }
   }
-}
-
-extension GraphQLScalarType {
-  var isCustom: Bool {
-    if let _ = self.specifiedByURL { return true }
-
-    return !isString && !isInt && !isBool && !isFloat && !isID
-  }
-
-  var isString: Bool { self.name == String(describing: String.self) }
-  var isInt: Bool { self.name == String(describing: Int.self) }
-  var isBool: Bool { self.name == "Boolean" }
-  var isFloat: Bool { self.name == String(describing: Float.self) }
-  var isID: Bool { self.name == "ID" }
 }

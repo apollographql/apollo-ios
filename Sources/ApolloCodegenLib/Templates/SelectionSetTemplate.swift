@@ -483,7 +483,7 @@ fileprivate extension IR.Field {
   var isCustomScalar: Bool {
     guard let scalar = self.type.namedType as? GraphQLScalarType else { return false }
 
-    return scalar.isCustom
+    return scalar.isCustomScalar
   }
 }
 
