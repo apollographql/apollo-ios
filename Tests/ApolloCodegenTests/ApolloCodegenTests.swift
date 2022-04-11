@@ -209,6 +209,7 @@ class ApolloCodegenTests: XCTestCase {
       directoryURL.appendingPathComponent("Package.swift").path,
       directoryURL.appendingPathComponent("Schema/Objects/Dog.swift").path,
       directoryURL.appendingPathComponent("Schema/Interfaces/HousePet.swift").path,
+      directoryURL.appendingPathComponent("Schema/CustomScalars/CustomDate.swift").path,
     ]
 
     // when

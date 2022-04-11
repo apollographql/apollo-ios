@@ -8,6 +8,8 @@ type Mutation {
   adoptPet(input: PetAdoptionInput!): Pet!
 }
 
+scalar CustomDate
+
 input PetAdoptionInput {
   ownerID: ID!
   petID: ID!
@@ -57,6 +59,7 @@ interface HousePet implements Animal & Pet {
   bestFriend: Pet
   rival: Pet
   livesWith: ClassroomPet
+  birthdate: CustomDate
 }
 
 interface WarmBlooded implements Animal {
@@ -117,6 +120,7 @@ type Dog implements Animal & Pet & HousePet & WarmBlooded {
   bestFriend: HousePet
   rival: Cat
   livesWith: Bird
+  birthdate: CustomDate
 }
 
 type Bird implements Animal & Pet & WarmBlooded {

@@ -28,6 +28,7 @@ query AllAnimalsQuery {
     }
     ... on Dog {
       favoriteToy
+      birthdate
     }
     predators {
       species

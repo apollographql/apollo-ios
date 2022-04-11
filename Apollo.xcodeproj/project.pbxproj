@@ -356,6 +356,7 @@
 		E64F7EBF27A11B110059C021 /* GraphQLNamedType+SwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64F7EBE27A11B110059C021 /* GraphQLNamedType+SwiftTests.swift */; };
 		E64F7EC127A122300059C021 /* ObjectTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64F7EC027A122300059C021 /* ObjectTemplate.swift */; };
 		E657CDBA26FD01D4005834D6 /* ApolloSchemaInternalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E657CDB926FD01D4005834D6 /* ApolloSchemaInternalTests.swift */; };
+		E661199F2800CCB200E4CF11 /* CustomDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E661199E2800CCB200E4CF11 /* CustomDate.swift */; };
 		E6630B8C26F0639B002D9E41 /* MockNetworkSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D79AB926EC05290094434A /* MockNetworkSession.swift */; };
 		E6630B8E26F071F9002D9E41 /* SchemaRegistryApolloSchemaDownloaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6630B8D26F071F9002D9E41 /* SchemaRegistryApolloSchemaDownloaderTests.swift */; };
 		E669352B2803EE11004E1FFC /* CustomScalarTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E669352A2803EE11004E1FFC /* CustomScalarTemplate.swift */; };
@@ -1112,6 +1113,7 @@
 		E64F7EC027A122300059C021 /* ObjectTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTemplate.swift; sourceTree = "<group>"; };
 		E64F7EC227A1243A0059C021 /* ObjectTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTemplateTests.swift; sourceTree = "<group>"; };
 		E657CDB926FD01D4005834D6 /* ApolloSchemaInternalTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApolloSchemaInternalTests.swift; sourceTree = "<group>"; };
+		E661199E2800CCB200E4CF11 /* CustomDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDate.swift; sourceTree = "<group>"; };
 		E6630B8D26F071F9002D9E41 /* SchemaRegistryApolloSchemaDownloaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaRegistryApolloSchemaDownloaderTests.swift; sourceTree = "<group>"; };
 		E669352A2803EE11004E1FFC /* CustomScalarTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomScalarTemplate.swift; sourceTree = "<group>"; };
 		E669352C2803EF67004E1FFC /* CustomScalarTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomScalarTemplateTests.swift; sourceTree = "<group>"; };
@@ -2442,6 +2444,14 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		E661199D2800CC9E00E4CF11 /* CustomScalars */ = {
+			isa = PBXGroup;
+			children = (
+				E661199E2800CCB200E4CF11 /* CustomDate.swift */,
+			);
+			path = CustomScalars;
+			sourceTree = "<group>";
+		};
 		E66C014127FEB84F00FF5FA1 /* Operations */ = {
 			isa = PBXGroup;
 			children = (
@@ -2462,6 +2472,7 @@
 		E66C015427FEB86800FF5FA1 /* Schema */ = {
 			isa = PBXGroup;
 			children = (
+				E661199D2800CC9E00E4CF11 /* CustomScalars */,
 				E66C015527FEB86800FF5FA1 /* Unions */,
 				E66C015727FEB86800FF5FA1 /* Enums */,
 				E66C015A27FEB86800FF5FA1 /* Objects */,
@@ -3683,6 +3694,7 @@
 				E66C017A27FEB86800FF5FA1 /* PetAdoptionInput.swift in Sources */,
 				E66C017B27FEB86800FF5FA1 /* Animal.swift in Sources */,
 				E66C017027FEB86800FF5FA1 /* Bird.swift in Sources */,
+				E661199F2800CCB200E4CF11 /* CustomDate.swift in Sources */,
 				E66C014B27FEB84F00FF5FA1 /* PetAdoptionMutation.swift in Sources */,
 				E66C017827FEB86800FF5FA1 /* PetSearchFilters.swift in Sources */,
 				E66C017727FEB86800FF5FA1 /* Schema.swift in Sources */,
