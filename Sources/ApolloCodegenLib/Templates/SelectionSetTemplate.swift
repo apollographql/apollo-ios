@@ -194,7 +194,7 @@ struct SelectionSetTemplate {
     }()
     return """
     public var \(field.responseKey.firstLowercased): \
-    \(typeName(for: field, forceOptional: isConditionallyIncluded)) \
+    \(if: field.isCustomScalar, "\(schema.name).")\(typeName(for: field, forceOptional: isConditionallyIncluded)) \
     { data["\(field.responseKey)"] }
     """
   }
@@ -478,3 +478,12 @@ fileprivate extension IR.InclusionCondition {
     """
   }
 }
+
+fileprivate extension IR.Field {
+  var isCustomScalar: Bool {
+    guard let scalar = self.type.namedType as? GraphQLScalarType else { return false }
+
+    return scalar.isCustom
+  }
+}
+
