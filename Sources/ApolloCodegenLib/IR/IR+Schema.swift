@@ -66,7 +66,7 @@ extension IR {
   }
 }
 
-private extension GraphQLScalarType {
+extension GraphQLScalarType {
   var isCustom: Bool {
     if let _ = self.specifiedByURL { return true }
 

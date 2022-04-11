@@ -125,7 +125,7 @@ struct SelectionSetTemplate {
     """
     .field("\(field.name)"\
     \(ifLet: field.alias, {", alias: \"\($0)\""})\
-    , \(typeName(for: field)).self\
+    , \(if: field.isCustomScalar, "\(schema.name).")\(typeName(for: field)).self\
     \(ifLet: field.arguments,
       where: { !$0.isEmpty }, { args in
         ", arguments: " + renderValue(for: args)

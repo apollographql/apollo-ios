@@ -307,8 +307,8 @@ class SelectionSetTemplateTests: XCTestCase {
         .field("boolean_optional", Bool?.self),
         .field("int", Int.self),
         .field("int_optional", Int?.self),
-        .field("custom", Custom.self),
-        .field("custom_optional", Custom?.self),
+        .field("custom", TestSchema.Custom.self),
+        .field("custom_optional", TestSchema.Custom?.self),
         .field("list_required_required", [String].self),
         .field("list_optional_required", [String]?.self),
         .field("list_required_optional", [String?].self),
@@ -1176,8 +1176,8 @@ class SelectionSetTemplateTests: XCTestCase {
       public var string_optional: String? { data["string_optional"] }
       public var int: Int { data["int"] }
       public var int_optional: Int? { data["int_optional"] }
-      public var custom: Custom { data["custom"] }
-      public var custom_optional: Custom? { data["custom_optional"] }
+      public var custom: TestSchema.Custom { data["custom"] }
+      public var custom_optional: TestSchema.Custom? { data["custom_optional"] }
       public var list_required_required: [String] { data["list_required_required"] }
       public var list_optional_required: [String]? { data["list_optional_required"] }
       public var list_required_optional: [String?] { data["list_required_optional"] }
