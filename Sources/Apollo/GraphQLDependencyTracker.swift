@@ -24,7 +24,7 @@ final class GraphQLDependencyTracker: GraphQLResultAccumulator {
   func accept(fieldEntries: [Void], info: ObjectExecutionInfo) {
   }
 
-  func finish(rootValue: Void) -> Set<CacheKey> {
+  func finish(rootValue: Void, info: ObjectExecutionInfo) -> Set<CacheKey> {
     return dependentKeys
   }
 }

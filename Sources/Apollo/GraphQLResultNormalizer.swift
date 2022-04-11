@@ -38,7 +38,7 @@ final class GraphQLResultNormalizer: GraphQLResultAccumulator {
     return CacheReference(cachePath)
   }
 
-  func finish(rootValue: CacheReference) throws -> RecordSet {
+  func finish(rootValue: CacheReference, info: ObjectExecutionInfo) throws -> RecordSet {
     return records
   }
 }

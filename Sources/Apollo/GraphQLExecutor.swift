@@ -185,7 +185,7 @@ final class GraphQLExecutor {
                             info: info,
                             accumulator: accumulator)
 
-    return try accumulator.finish(rootValue: try rootValue.get())
+    return try accumulator.finish(rootValue: try rootValue.get(), info: info)
   }
 
   private func execute<Accumulator: GraphQLResultAccumulator>(
@@ -247,7 +247,7 @@ final class GraphQLExecutor {
         groupedFields.append(field: field, withInfo: info)
 
       case let .conditional(conditions, selections):
-        if try conditions.evaluate(with: info.variables) {
+        if conditions.evaluate(with: info.variables) {
           try groupFields(selections,
                           for: object,
                           into: &groupedFields,
@@ -260,7 +260,7 @@ final class GraphQLExecutor {
                         into: &groupedFields,
                         info: info)
 
-      case let .typeCase(typeCase):
+      case let .inlineFragment(typeCase):
         if let runtimeType = runtimeObjectType(for: object, schema: info.schema),
            runtimeType._canBeConverted(to: typeCase.__parentType) {
           try groupFields(typeCase.selections,

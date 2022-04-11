@@ -16,7 +16,7 @@ struct SchemaTemplate: TemplateRenderer {
     public protocol SelectionSet: ApolloAPI.SelectionSet & ApolloAPI.RootSelectionSet
     where Schema == \(schema.name).Schema {}
     
-    public protocol TypeCase: ApolloAPI.SelectionSet & ApolloAPI.TypeCase
+    public protocol InlineFragment: ApolloAPI.SelectionSet & ApolloAPI.InlineFragment
     where Schema == \(schema.name).Schema {}
 
     public enum Schema: SchemaConfiguration {

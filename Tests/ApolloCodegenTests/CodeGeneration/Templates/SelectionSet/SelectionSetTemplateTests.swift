@@ -735,8 +735,8 @@ class SelectionSetTemplateTests: XCTestCase {
 
     let expected = """
       public static var selections: [Selection] { [
-        .typeCase(AsPet.self),
-        .typeCase(AsLowercaseInterface.self),
+        .inlineFragment(AsPet.self),
+        .inlineFragment(AsLowercaseInterface.self),
       ] }
     """
 
@@ -798,6 +798,316 @@ class SelectionSetTemplateTests: XCTestCase {
     )
 
     let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
+  }
+
+  // MARK: Selections - Include/Skip
+
+  func test__render_selections__givenFieldWithIncludeCondition_rendersFieldSelections() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      fieldName: String!
+    }
+    """
+
+    document = """
+    query TestOperation($a: Boolean!) {
+      allAnimals {
+        fieldName @include(if: $a)
+      }
+    }
+    """
+
+    let expected = """
+      public static var selections: [Selection] { [
+        .include(if: "a", .field("fieldName", String.self)),
+      ] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
+  }
+
+  func test__render_selections__givenFieldWithSkipCondition_rendersFieldSelections() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      fieldName: String!
+    }
+    """
+
+    document = """
+    query TestOperation($b: Boolean!) {
+      allAnimals {
+        fieldName @skip(if: $b)
+      }
+    }
+    """
+
+    let expected = """
+      public static var selections: [Selection] { [
+        .include(if: !"b", .field("fieldName", String.self)),
+      ] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
+  }
+
+  func test__render_selections__givenFieldWithMultipleConditions_rendersFieldSelections() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      fieldName: String!
+    }
+    """
+
+    document = """
+    query TestOperation($b: Boolean!) {
+      allAnimals {
+        fieldName @skip(if: $b) @include(if: $a)
+      }
+    }
+    """
+
+    let expected = """
+      public static var selections: [Selection] { [
+        .include(if: !"b" && "a", .field("fieldName", String.self)),
+      ] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
+  }
+
+  func test__render_selections__givenMergedFieldsWithMultipleConditions_rendersFieldSelections() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      fieldName: String!
+    }
+    """
+
+    document = """
+    query TestOperation($b: Boolean!) {
+      allAnimals {
+        fieldName @skip(if: $b) @include(if: $a)
+        fieldName @skip(if: $c)
+        fieldName @include(if: $d) @skip(if: $e)
+        fieldName @include(if: $f)
+      }
+    }
+    """
+
+    let expected = """
+      public static var selections: [Selection] { [
+        .include(if: (!"b" && "a") || !"c" || ("d" && !"e") || "f", .field("fieldName", String.self)),
+      ] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
+  }
+
+  func test__render_selections__givenMultipleSelectionsWithSameIncludeConditions_rendersFieldSelections() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      fieldA: String!
+      fieldB: String!
+    }
+
+    interface Pet {
+      fieldA: String!
+    }
+    """
+
+    document = """
+    query TestOperation($a: Boolean!) {
+      allAnimals {
+        fieldA @include(if: $a)
+        fieldB @include(if: $a)
+        ... on Pet @include(if: $a) {
+          fieldA
+        }
+        ...FragmentA @include(if: $a)
+      }
+    }
+
+    fragment FragmentA on Animal {
+      fieldA
+    }
+    """
+
+    let expected = """
+      public static var selections: [Selection] { [
+        .include(if: "a", [
+          .field("fieldA", String.self),
+          .field("fieldB", String.self),
+          .inlineFragment(AsPet.self),
+          .fragment(FragmentA.self),
+        ]),
+      ] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
+  }
+
+  func test__render_selections__givenFragmentWithNonMatchingTypeAndInclusionCondition_rendersTypeCaseSelectionWithInclusionCondition() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      string: String!
+      int: Int!
+    }
+
+    type Pet {
+      string: String!
+      int: Int!
+    }
+    """
+
+    document = """
+    query TestOperation($a: Boolean!) {
+      allAnimals {
+        ...FragmentA @include(if: $a)
+      }
+    }
+
+    fragment FragmentA on Pet {
+      int
+    }
+    """
+
+    let expected = """
+      public static var selections: [Selection] { [
+        .include(if: "a", .inlineFragment(AsPet.self)),
+      ] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
+  }
+
+  func test__render_selections__givenFragmentWithInclusionConditionThatMatchesScope_rendersFragmentSelectionWithoutInclusionCondition() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      string: String!
+      int: Int!
+    }
+
+    type Pet {
+      string: String!
+      int: Int!
+    }
+    """
+
+    document = """
+    query TestOperation($a: Boolean!) {
+      allAnimals {
+        ...FragmentA @include(if: $a)
+      }
+    }
+
+    fragment FragmentA on Pet {
+      int
+    }
+    """
+
+    let expected = """
+      public static var selections: [Selection] { [
+        .fragment(FragmentA.self),
+      ] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals_asPet = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"]?[as: "Pet", if: "a"]
+    )
+
+    let actual = subject.render(inlineFragment: allAnimals_asPet)
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
@@ -1055,7 +1365,7 @@ class SelectionSetTemplateTests: XCTestCase {
       operation[field: "query"]?[field: "allAnimals"]?[as: "Dog"]
     )
 
-    let actual = subject.render(typeCase: dog)
+    let actual = subject.render(inlineFragment: dog)
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
@@ -1484,7 +1794,7 @@ class SelectionSetTemplateTests: XCTestCase {
     let allAnimals_predator_asPet = try XCTUnwrap(allAnimals_predator[as: "Pet"])
 
     let allAnimals_predator_actual = subject.render(field: allAnimals_predator)
-    let allAnimals_predator_asPet_actual = subject.render(typeCase: allAnimals_predator_asPet)
+    let allAnimals_predator_asPet_actual = subject.render(inlineFragment: allAnimals_predator_asPet)
 
     // then
     expect(allAnimals_predator_actual).to(equalLineByLine(predator_expected, atLine: 11, ignoringExtraLines: true))
@@ -1536,7 +1846,7 @@ class SelectionSetTemplateTests: XCTestCase {
       operation[field: "query"]?[field: "allAnimals"]?[as: "Dog"]
     )
 
-    let actual = subject.render(typeCase: allAnimals_asDog)
+    let actual = subject.render(inlineFragment: allAnimals_asDog)
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
@@ -1592,7 +1902,7 @@ class SelectionSetTemplateTests: XCTestCase {
       operation[field: "query"]?[field: "allAnimals"]?[as: "Dog"]
     )
 
-    let actual = subject.render(typeCase: allAnimals_asDog)
+    let actual = subject.render(inlineFragment: allAnimals_asDog)
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
@@ -1724,9 +2034,310 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
   }
 
-  // MARK: - Type Case Accessors
+  // MARK: Field Accessors - Include/Skip
 
-  func test__render_typeCaseAccessors__givenDirectTypeCases_rendersTypeCaseAccessorWithCorrectName() throws {
+  func test__render_fieldAccessor__givenNonNullFieldWithIncludeCondition_rendersAsOptional() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      fieldName: String!
+    }
+    """
+
+    document = """
+    query TestOperation($a: Boolean!) {
+      allAnimals {
+        fieldName @include(if: $a)
+      }
+    }
+    """
+
+    let expected = """
+      public var fieldName: String? { data["fieldName"] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+  }
+
+  func test__render_fieldAccessor__givenNonNullFieldWithSkipCondition_rendersAsOptional() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      fieldName: String!
+    }
+    """
+
+    document = """
+    query TestOperation($a: Boolean!) {
+      allAnimals {
+        fieldName @skip(if: $a)
+      }
+    }
+    """
+
+    let expected = """
+      public var fieldName: String? { data["fieldName"] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+  }
+
+  func test__render_fieldAccessors__givenEntityFieldMergedFromParentWithInclusionCondition_rendersFieldAccessorAsOptional() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+      predator: Animal!
+    }
+
+    type Dog implements Animal {
+      species: String!
+      predator: Animal!
+      name: String!
+    }
+    """
+
+    document = """
+    query TestOperation($a: Boolean!) {
+      allAnimals {
+        predator @include(if: $a) {
+          species
+        }
+        ... on Dog {
+          name
+        }
+      }
+    }
+    """
+
+    let expected = """
+      public var name: String { data["name"] }
+      public var predator: Predator? { data["predator"] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals_asDog = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"]?[as: "Dog"]
+    )
+
+    let actual = subject.render(inlineFragment: allAnimals_asDog)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+  }
+
+  func test__render_fieldAccessor__givenNonNullFieldMergedFromParentWithIncludeConditionThatMatchesScope_rendersAsNotOptional() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      fieldName: String!
+      a: String!
+    }
+    """
+
+    document = """
+    query TestOperation($a: Boolean!) {
+      allAnimals {
+        fieldName @include(if: $a)
+        ... @include(if: $a) {
+          a
+        }
+      }
+    }
+    """
+
+    let expected = """
+      public var a: String { data["a"] }
+      public var fieldName: String { data["fieldName"] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals_ifA = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"]?[if: "a"]
+    )
+
+    let actual = subject.render(inlineFragment: allAnimals_ifA)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+  }
+
+  func test__render_fieldAccessor__givenNonNullFieldWithIncludeConditionThatMatchesScope_rendersAsNotOptional() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      fieldName: String!
+    }
+    """
+
+    document = """
+    query TestOperation($a: Boolean!) {
+      allAnimals @include(if: $a) {
+        fieldName @include(if: $a)
+      }
+    }
+    """
+
+    let expected = """
+      public var fieldName: String { data["fieldName"] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+  }
+
+  func test__render_fieldAccessor__givenNonNullFieldMergedFromNestedEntityInNamedFragmentWithIncludeCondition_doesNotRenderField() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      child: Child!
+    }
+
+    type Child {
+      a: String!
+      b: String!
+    }
+    """
+
+    document = """
+    query TestOperation($a: Boolean!) {
+      allAnimals {
+        ...ChildFragment @include(if: $a)
+        child {
+          a
+        }
+      }
+    }
+
+    fragment ChildFragment on Animal {
+      child {
+        b
+      }
+    }
+    """
+
+    let expected = """
+      public var a: String { data["a"] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals_child = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"]?[field: "child"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals_child)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+  }
+
+  func test__render_fieldAccessor__givenNonNullFieldMergedFromNestedEntityInNamedFragmentWithIncludeCondition_inConditionalFragment_rendersFieldAsNonOptional() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      child: Child!
+    }
+
+    type Child {
+      a: String!
+      b: String!
+    }
+    """
+
+    document = """
+    query TestOperation($a: Boolean!) {
+      allAnimals {
+        ...ChildFragment @include(if: $a)
+        child {
+          a
+        }
+      }
+    }
+
+    fragment ChildFragment on Animal {
+      child {
+        b
+      }
+    }
+    """
+
+    let expected = """
+      public var a: String { data["a"] }
+      public var b: String { data["b"] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals_child = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"]?[if: "a"]?[field: "child"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals_child)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
+  }
+
+  // MARK: - Inline Fragment Accessors
+
+  func test__render_inlineFragmentAccessors__givenDirectTypeCases_rendersTypeCaseAccessorWithCorrectName() throws {
     // given
     schemaSDL = """
     type Query {
@@ -1766,8 +2377,8 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public var asPet: AsPet? { _asType() }
-      public var asDog: AsDog? { _asType() }
+      public var asPet: AsPet? { _asInlineFragment() }
+      public var asDog: AsDog? { _asInlineFragment() }
     """
 
     // when
@@ -1782,7 +2393,7 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
   }
 
-  func test__render_typeCaseAccessors__givenMergedTypeCasesFromSingleMergedTypeCaseSource_rendersTypeCaseAccessorWithCorrectName() throws {
+  func test__render_inlineFragmentAccessors__givenMergedTypeCasesFromSingleMergedTypeCaseSource_rendersTypeCaseAccessorWithCorrectName() throws {
     // given
     schemaSDL = """
     type Query {
@@ -1827,7 +2438,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public var asPet: AsPet? { _asType() }
+      public var asPet: AsPet? { _asInlineFragment() }
     """
 
     // when
@@ -1840,6 +2451,217 @@ class SelectionSetTemplateTests: XCTestCase {
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
+  }
+
+  // MARK: Inline Fragment Accessors - Include/Skip
+
+  func test__render_inlineFragmentAccessors__givenInlineFragmentOnDifferentTypeWithCondition_rendersWithConditionInTypeCaseConversionFunction() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      fieldA: String!
+    }
+
+    interface Pet {
+      fieldA: String!
+    }
+    """
+
+    document = """
+    query TestOperation($a: Boolean!) {
+      allAnimals {
+        ... on Pet @include(if: $a) {
+          fieldA
+        }
+      }
+    }
+    """
+
+    let expected = """
+      public var asPet: AsPet? { _asInlineFragment(if: "a") }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+  }
+
+  func test__render_inlineFragmentAccessors__givenInlineFragmentOnDifferentTypeWithSkipCondition_rendersWithConditionInTypeCaseConversionFunction() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      fieldA: String!
+    }
+
+    interface Pet {
+      fieldA: String!
+    }
+    """
+
+    document = """
+    query TestOperation($a: Boolean!) {
+      allAnimals {
+        ... on Pet @skip(if: $a) {
+          fieldA
+        }
+      }
+    }
+    """
+
+    let expected = """
+      public var asPet: AsPet? { _asInlineFragment(if: !"a") }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+  }
+
+  func test__render_inlineFragmentAccessors__givenInlineFragmentOnDifferentTypeWithMultipleConditions_rendersWithConditionInTypeCaseConversionFunction() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      fieldA: String!
+    }
+
+    interface Pet {
+      fieldA: String!
+    }
+    """
+
+    document = """
+    query TestOperation($a: Boolean!) {
+      allAnimals {
+        ... on Pet @include(if: $a) @skip(if: $b) {
+          fieldA
+        }
+      }
+    }
+    """
+
+    let expected = """
+      public var asPet: AsPet? { _asInlineFragment(if: "a" && !"b") }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+  }
+
+  func test__render_inlineFragmentAccessors__givenInlineFragmentOnSameTypeWithMultipleConditions_rendersConditionalSelectionSetAccessor() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      fieldA: String!
+    }
+
+    interface Pet {
+      fieldA: String!
+    }
+    """
+
+    document = """
+    query TestOperation($a: Boolean!) {
+      allAnimals {
+        ... on Animal @include(if: $a) @skip(if: $b) {
+          fieldA
+        }
+      }
+    }
+    """
+
+    let expected = """
+      public var ifAAndNotB: IfAAndNotB? { _asInlineFragment(if: "a" && !"b") }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+  }
+
+  func test__render_inlineFragmentAccessor__givenNamedFragmentOnSameTypeWithInclusionCondition_rendersConditionalSelectionSetAccessor() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      string: String!
+      int: Int!
+    }
+    """
+
+    document = """
+    query TestOperation($a: Boolean!) {
+      allAnimals {
+        ...FragmentA @include(if: $a)
+      }
+    }
+
+    fragment FragmentA on Animal {
+      int
+    }
+    """
+
+    let expected = """
+      public var ifA: IfA? { _asInlineFragment(if: "a") }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
   }
 
   // MARK: - Fragment Accessors
@@ -1948,10 +2770,154 @@ class SelectionSetTemplateTests: XCTestCase {
       operation[field: "query"]?[field: "allAnimals"]?[as: "Cat"]
     )
 
-    let actual = subject.render(typeCase: allAnimals_asCat)
+    let actual = subject.render(inlineFragment: allAnimals_asCat)
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 14, ignoringExtraLines: true))
+  }
+
+  func test__render_fragmentAccessor__givenFragmentOnSameTypeWithInclusionCondition_rendersFragmentAccessorAsOptional() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      string: String!
+      int: Int!
+    }
+    """
+
+    document = """
+    query TestOperation($a: Boolean!) {
+      allAnimals {
+        ...FragmentA @include(if: $a)
+        ...lowercaseFragment
+      }
+    }
+
+    fragment FragmentA on Animal {
+      int
+    }
+
+    fragment lowercaseFragment on Animal {
+      string
+    }
+    """
+
+    let expected = """
+      public struct Fragments: FragmentContainer {
+        public let data: DataDict
+        public init(data: DataDict) { self.data = data }
+
+        public var fragmentA: FragmentA? { _toFragment() }
+        public var lowercaseFragment: LowercaseFragment { _toFragment() }
+      }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 16, ignoringExtraLines: true))
+  }
+
+  func test__render_fragmentAccessor__givenFragmentWithInclusionConditionThatMatchesScope_rendersFragmentAccessorAsNotOptional() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      string: String!
+      int: Int!
+    }
+    """
+
+    document = """
+    query TestOperation($a: Boolean!) {
+      allAnimals @include(if: $a) {
+        ...FragmentA @include(if: $a)
+      }
+    }
+
+    fragment FragmentA on Animal {
+      int
+    }
+    """
+
+    let expected = """
+      public struct Fragments: FragmentContainer {
+        public let data: DataDict
+        public init(data: DataDict) { self.data = data }
+
+        public var fragmentA: FragmentA { _toFragment() }
+      }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
+  }
+
+  func test__render_fragmentAccessor__givenFragmentMergedFromParent_withInclusionConditionThatMatchesScope_rendersFragmentAccessorAsNotOptional() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      string: String!
+      int: Int!
+    }
+    """
+
+    document = """
+    query TestOperation($a: Boolean!) {
+      allAnimals {
+        ...FragmentA @include(if: $a)
+      }
+    }
+
+    fragment FragmentA on Animal {
+      int
+    }
+    """
+
+    let expected = """
+      public struct Fragments: FragmentContainer {
+        public let data: DataDict
+        public init(data: DataDict) { self.data = data }
+
+        public var fragmentA: FragmentA { _toFragment() }
+      }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals_ifA = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"]?[if: "a"]
+    )
+
+    let actual = subject.render(inlineFragment: allAnimals_ifA)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 10, ignoringExtraLines: true))
   }
 
   // MARK: - Nested Selection Sets
@@ -2170,10 +3136,10 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public var asPet: AsPet? { _asType() }
+      public var asPet: AsPet? { _asInlineFragment() }
 
       /// AllAnimal.AsPet
-      public struct AsPet: TestSchema.TypeCase {
+      public struct AsPet: TestSchema.InlineFragment {
     """
 
     // when
@@ -2233,10 +3199,10 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public var asPet: AsPet? { _asType() }
+      public var asPet: AsPet? { _asInlineFragment() }
 
       /// AllAnimal.AsDog.Predator.AsPet
-      public struct AsPet: TestSchema.TypeCase {
+      public struct AsPet: TestSchema.InlineFragment {
     """
 
     // when
@@ -2249,6 +3215,93 @@ class SelectionSetTemplateTests: XCTestCase {
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
+  }
+
+  func test__render_nestedSelectionSet__givenInlineFragmentOnSameTypeWithMultipleConditions_rendersConditionalSelectionSet() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      fieldA: String!
+    }
+
+    interface Pet {
+      fieldA: String!
+    }
+    """
+
+    document = """
+    query TestOperation($a: Boolean!) {
+      allAnimals {
+        ... @include(if: $a) @skip(if: $b) {
+          fieldA
+        }
+      }
+    }
+    """
+
+    let expected = """
+      public var ifAAndNotB: IfAAndNotB? { _asInlineFragment(if: "a" && !"b") }
+
+      /// AllAnimal.IfAAndNotB
+      public struct IfAAndNotB: TestSchema.InlineFragment {
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+  }
+
+  func test__render_nestedSelectionSet__givenNamedFragmentOnSameTypeWithInclusionCondition_rendersConditionalSelectionSet() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      string: String!
+      int: Int!
+    }
+    """
+
+    document = """
+    query TestOperation($a: Boolean!) {
+      allAnimals {
+        ...FragmentA @include(if: $a)
+      }
+    }
+
+    fragment FragmentA on Animal {
+      int
+    }
+    """
+
+    let expected = """
+      /// AllAnimal.IfA
+      public struct IfA: TestSchema.InlineFragment {
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 20, ignoringExtraLines: true))
   }
 
 }

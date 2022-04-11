@@ -234,7 +234,10 @@ extension IR {
         }
       }
 
-      static func == (lhs: IR.DirectSelections.GroupedByInclusionCondition, rhs: IR.DirectSelections.GroupedByInclusionCondition) -> Bool {
+      static func == (
+        lhs: IR.DirectSelections.GroupedByInclusionCondition,
+        rhs: IR.DirectSelections.GroupedByInclusionCondition
+      ) -> Bool {
         lhs.unconditionalSelections == rhs.unconditionalSelections &&
         lhs.inclusionConditionGroups == rhs.inclusionConditionGroups
       }
@@ -323,9 +326,10 @@ extension IR {
         entity: field.entity,
         scopePath: self.typeInfo.scopePath.appending(field.selectionSet.typeInfo.scope),
         mergedSelectionsOnly: true
-      )
+      )      
       return IR.EntityField(
         field.underlyingField,        
+        inclusionConditions: field.inclusionConditions,
         selectionSet: newSelectionSet
       )
     }

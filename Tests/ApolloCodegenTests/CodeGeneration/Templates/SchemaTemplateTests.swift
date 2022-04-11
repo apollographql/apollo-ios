@@ -64,7 +64,7 @@ class SchemaTemplateTests: XCTestCase {
     buildSubject()
 
     let expected = """
-    public protocol TypeCase: ApolloAPI.SelectionSet & ApolloAPI.TypeCase
+    public protocol InlineFragment: ApolloAPI.SelectionSet & ApolloAPI.InlineFragment
     where Schema == TestSchema.Schema {}
 
     """

@@ -33,23 +33,23 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
 
   public static var __parentType: ParentType { .Union(AnimalKingdomAPI.ClassroomPet.self) }
   public static var selections: [Selection] { [
-    .typeCase(AsAnimal.self),
-    .typeCase(AsPet.self),
-    .typeCase(AsWarmBlooded.self),
-    .typeCase(AsCat.self),
-    .typeCase(AsBird.self),
-    .typeCase(AsPetRock.self),
+    .inlineFragment(AsAnimal.self),
+    .inlineFragment(AsPet.self),
+    .inlineFragment(AsWarmBlooded.self),
+    .inlineFragment(AsCat.self),
+    .inlineFragment(AsBird.self),
+    .inlineFragment(AsPetRock.self),
   ] }
 
-  public var asAnimal: AsAnimal? { _asType() }
-  public var asPet: AsPet? { _asType() }
-  public var asWarmBlooded: AsWarmBlooded? { _asType() }
-  public var asCat: AsCat? { _asType() }
-  public var asBird: AsBird? { _asType() }
-  public var asPetRock: AsPetRock? { _asType() }
+  public var asAnimal: AsAnimal? { _asInlineFragment() }
+  public var asPet: AsPet? { _asInlineFragment() }
+  public var asWarmBlooded: AsWarmBlooded? { _asInlineFragment() }
+  public var asCat: AsCat? { _asInlineFragment() }
+  public var asBird: AsBird? { _asInlineFragment() }
+  public var asPetRock: AsPetRock? { _asInlineFragment() }
 
   /// AsAnimal
-  public struct AsAnimal: AnimalKingdomAPI.TypeCase {
+  public struct AsAnimal: AnimalKingdomAPI.InlineFragment {
     public let data: DataDict
     public init(data: DataDict) { self.data = data }
 
@@ -62,7 +62,7 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
   }
 
   /// AsPet
-  public struct AsPet: AnimalKingdomAPI.TypeCase {
+  public struct AsPet: AnimalKingdomAPI.InlineFragment {
     public let data: DataDict
     public init(data: DataDict) { self.data = data }
 
@@ -75,7 +75,7 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
   }
 
   /// AsWarmBlooded
-  public struct AsWarmBlooded: AnimalKingdomAPI.TypeCase {
+  public struct AsWarmBlooded: AnimalKingdomAPI.InlineFragment {
     public let data: DataDict
     public init(data: DataDict) { self.data = data }
 
@@ -89,7 +89,7 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
   }
 
   /// AsCat
-  public struct AsCat: AnimalKingdomAPI.TypeCase {
+  public struct AsCat: AnimalKingdomAPI.InlineFragment {
     public let data: DataDict
     public init(data: DataDict) { self.data = data }
 
@@ -107,7 +107,7 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
   }
 
   /// AsBird
-  public struct AsBird: AnimalKingdomAPI.TypeCase {
+  public struct AsBird: AnimalKingdomAPI.InlineFragment {
     public let data: DataDict
     public init(data: DataDict) { self.data = data }
 
@@ -123,7 +123,7 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
   }
 
   /// AsPetRock
-  public struct AsPetRock: AnimalKingdomAPI.TypeCase {
+  public struct AsPetRock: AnimalKingdomAPI.InlineFragment {
     public let data: DataDict
     public init(data: DataDict) { self.data = data }
 

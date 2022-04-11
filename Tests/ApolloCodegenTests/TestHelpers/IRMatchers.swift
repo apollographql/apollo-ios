@@ -312,7 +312,7 @@ public func shallowlyMatch<T: Collection>(
 
   guard let actual = actual,
         expected.count == actual.count else {
-    return PredicateResult(status: .fail, message: message)
+    return PredicateResult(status: .fail, message: message.appended(details: "Fields Did Not Match!"))
   }
 
   for (index, field) in zip(expected, actual).enumerated() {
@@ -388,7 +388,7 @@ fileprivate func shallowlyMatch<T: Collection>(
   let message: ExpectationMessage = .expectedActualValueTo("have typeCases equal to \(expected)")
   guard let actual = actual,
         expected.count == actual.count else {
-    return PredicateResult(status: .fail, message: message)
+    return PredicateResult(status: .fail, message: message.appended(details: "Inline Fragments Did Not Match!"))
   }
 
   for (index, typeCase) in zip(expected, actual).enumerated() {
@@ -489,7 +489,7 @@ fileprivate func shallowlyMatch<T: Collection>(
   let message: ExpectationMessage = .expectedActualValueTo("have fragments equal to \(expected)")
   guard let actual = actual,
         expected.count == actual.count else {
-    return PredicateResult(status: .fail, message: message)
+    return PredicateResult(status: .fail, message: message.appended(details: "Fragments Did Not Match!"))
   }
 
   for (index, fragment) in zip(expected, actual).enumerated() {

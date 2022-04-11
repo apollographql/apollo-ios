@@ -12,7 +12,7 @@ protocol GraphQLResultAccumulator: AnyObject {
   func accept(fieldEntry: PartialResult, info: FieldExecutionInfo) throws -> FieldEntry?
   func accept(fieldEntries: [FieldEntry], info: ObjectExecutionInfo) throws -> ObjectResult
 
-  func finish(rootValue: ObjectResult) throws -> FinalResult
+  func finish(rootValue: ObjectResult, info: ObjectExecutionInfo) throws -> FinalResult
 }
 
 func zip<Accumulator1: GraphQLResultAccumulator, Accumulator2: GraphQLResultAccumulator>(_ accumulator1: Accumulator1, _ accumulator2: Accumulator2) -> Zip2Accumulator<Accumulator1, Accumulator2> {
@@ -69,9 +69,9 @@ final class Zip2Accumulator<Accumulator1: GraphQLResultAccumulator, Accumulator2
             try accumulator2.accept(fieldEntries: fieldEntries2, info: info))
   }
 
-  func finish(rootValue: ObjectResult) throws -> FinalResult {
-    return (try accumulator1.finish(rootValue: rootValue.0),
-            try accumulator2.finish(rootValue: rootValue.1))
+  func finish(rootValue: ObjectResult, info: ObjectExecutionInfo) throws -> FinalResult {
+    return (try accumulator1.finish(rootValue: rootValue.0, info: info),
+            try accumulator2.finish(rootValue: rootValue.1, info: info))
   }
 }
 
@@ -132,9 +132,9 @@ final class Zip3Accumulator<Accumulator1: GraphQLResultAccumulator, Accumulator2
             try accumulator3.accept(fieldEntries: fieldEntries3, info: info))
   }
 
-  func finish(rootValue: ObjectResult) throws -> FinalResult {
-    return (try accumulator1.finish(rootValue: rootValue.0),
-            try accumulator2.finish(rootValue: rootValue.1),
-            try accumulator3.finish(rootValue: rootValue.2))
+  func finish(rootValue: ObjectResult, info: ObjectExecutionInfo) throws -> FinalResult {
+    return (try accumulator1.finish(rootValue: rootValue.0, info: info),
+            try accumulator2.finish(rootValue: rootValue.1, info: info),
+            try accumulator3.finish(rootValue: rootValue.2, info: info))
   }
 }

@@ -276,8 +276,7 @@
 		DE90FCE327FCC6DD0084CC79 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE90FCE027FCC6DD0084CC79 /* File.swift */; };
 		DE90FCE427FCC6DD0084CC79 /* Mutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE90FCE127FCC6DD0084CC79 /* Mutation.swift */; };
 		DE90FCE527FCC6DD0084CC79 /* Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE90FCE227FCC6DD0084CC79 /* Schema.swift */; };
-		DE90FCEA27FCC7B00084CC79 /* Upload.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE90FCE927FCC7B00084CC79 /* Upload.swift */; };
-		DE90FD2927FCE7120084CC79 /* SelectionCondition+Evaluation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE90FD2827FCE7120084CC79 /* SelectionCondition+Evaluation.swift */; };
+		DE90FDBA27FE405F0084CC79 /* Selection+Conditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE90FDB927FE405F0084CC79 /* Selection+Conditions.swift */; };
 		DE9C04AC26EAAE4400EC35E7 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC4B91F1D2A6F8D0046A641 /* JSON.swift */; };
 		DE9C04AD26EAAE5400EC35E7 /* JSONStandardTypeConversions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F27D4631D40379500715680 /* JSONStandardTypeConversions.swift */; };
 		DE9C04AF26EAAEE800EC35E7 /* CacheReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9C04AE26EAAEE800EC35E7 /* CacheReference.swift */; };
@@ -335,6 +334,7 @@
 		DED46051261CEAD20086EF63 /* StarWarsAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FCE2CFA1E6C213D00E34457 /* StarWarsAPI.framework */; };
 		DEE2060B27E14498002B4B82 /* IR+InclusionConditionsMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE2060A27E14498002B4B82 /* IR+InclusionConditionsMock.swift */; };
 		DEE2DAA227BAF00500EC0607 /* GraphQLType+Rendered.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE2DAA127BAF00500EC0607 /* GraphQLType+Rendered.swift */; };
+		DEF191D22804A8470029786C /* Upload.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF191D12804A8470029786C /* Upload.swift */; };
 		DEFBBC86273470F70088AABC /* IR+Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEFBBC85273470F70088AABC /* IR+Field.swift */; };
 		DEFE0FC52748822900FFA440 /* IR+EntitySelectionTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEFE0FC42748822900FFA440 /* IR+EntitySelectionTree.swift */; };
 		E607AD8E27A88F340026742A /* OperationFileGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607AD8D27A88F340026742A /* OperationFileGeneratorTests.swift */; };
@@ -1047,8 +1047,7 @@
 		DE90FCE027FCC6DD0084CC79 /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		DE90FCE127FCC6DD0084CC79 /* Mutation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mutation.swift; sourceTree = "<group>"; };
 		DE90FCE227FCC6DD0084CC79 /* Schema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Schema.swift; sourceTree = "<group>"; };
-		DE90FCE927FCC7B00084CC79 /* Upload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Upload.swift; sourceTree = "<group>"; };
-		DE90FD2827FCE7120084CC79 /* SelectionCondition+Evaluation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SelectionCondition+Evaluation.swift"; sourceTree = "<group>"; };
+		DE90FDB927FE405F0084CC79 /* Selection+Conditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Selection+Conditions.swift"; sourceTree = "<group>"; };
 		DE9C04AE26EAAEE800EC35E7 /* CacheReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheReference.swift; sourceTree = "<group>"; };
 		DE9C04B026EAAFF900EC35E7 /* JSONDecodingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDecodingError.swift; sourceTree = "<group>"; };
 		DEA34AF6260E821F00F95F86 /* Apollo-Target-AnimalKingdomAPI.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-AnimalKingdomAPI.xcconfig"; sourceTree = "<group>"; };
@@ -1084,6 +1083,7 @@
 		DEE1B3F5273B08D8007350E5 /* WarmBloodedDetails.graphql.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmBloodedDetails.graphql.swift; sourceTree = "<group>"; };
 		DEE2060A27E14498002B4B82 /* IR+InclusionConditionsMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IR+InclusionConditionsMock.swift"; sourceTree = "<group>"; };
 		DEE2DAA127BAF00500EC0607 /* GraphQLType+Rendered.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraphQLType+Rendered.swift"; sourceTree = "<group>"; };
+		DEF191D12804A8470029786C /* Upload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Upload.swift; sourceTree = "<group>"; };
 		DEFBBC85273470F70088AABC /* IR+Field.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IR+Field.swift"; sourceTree = "<group>"; };
 		DEFE0FC42748822900FFA440 /* IR+EntitySelectionTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IR+EntitySelectionTree.swift"; sourceTree = "<group>"; };
 		E607AD8D27A88F340026742A /* OperationFileGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationFileGeneratorTests.swift; sourceTree = "<group>"; };
@@ -1763,7 +1763,6 @@
 				9FF90A5C1DDDEB100034C3B6 /* GraphQLExecutor.swift */,
 				9FA6F3671E65DF4700BF8D73 /* GraphQLResultAccumulator.swift */,
 				DE0586322669948500265760 /* InputValue+Evaluation.swift */,
-				DE90FD2827FCE7120084CC79 /* SelectionCondition+Evaluation.swift */,
 			);
 			name = Execution;
 			sourceTree = "<group>";
@@ -2006,6 +2005,7 @@
 				DE03FDDA2784D0B2007425BD /* DataDict.swift */,
 				DE2FCF1C26E806710057EA67 /* SchemaConfiguration.swift */,
 				DE664ED326602AF60054DB4F /* Selection.swift */,
+				DE90FDB927FE405F0084CC79 /* Selection+Conditions.swift */,
 				DECD53CE26EC0EE50059A639 /* OutputTypeConvertible.swift */,
 				DE2FCF2026E807EF0057EA67 /* Cacheable.swift */,
 				9FC750601D2A59C300458D91 /* GraphQLOperation.swift */,
@@ -2264,7 +2264,8 @@
 				DE90FCD927FCC6D20084CC79 /* UploadMultipleFilesToTheSameParameterMutation.swift */,
 				DE90FCDA27FCC6D20084CC79 /* UploadMultipleFilesToDifferentParametersMutation.swift */,
 			);
-			path = Operations;
+			name = Operations;
+			path = UploadAPI/Operations;
 			sourceTree = "<group>";
 		};
 		DE90FCDE27FCC6DD0084CC79 /* Schema */ = {
@@ -2272,9 +2273,10 @@
 			children = (
 				DE90FCDF27FCC6DD0084CC79 /* Objects */,
 				DE90FCE227FCC6DD0084CC79 /* Schema.swift */,
-				DE90FCE827FCC7990084CC79 /* CustomScalarTypes */,
+				DEF191D02804A8470029786C /* CustomScalarTypes */,
 			);
-			path = Schema;
+			name = Schema;
+			path = UploadAPI/Schema;
 			sourceTree = "<group>";
 		};
 		DE90FCDF27FCC6DD0084CC79 /* Objects */ = {
@@ -2284,14 +2286,6 @@
 				DE90FCE127FCC6DD0084CC79 /* Mutation.swift */,
 			);
 			path = Objects;
-			sourceTree = "<group>";
-		};
-		DE90FCE827FCC7990084CC79 /* CustomScalarTypes */ = {
-			isa = PBXGroup;
-			children = (
-				DE90FCE927FCC7B00084CC79 /* Upload.swift */,
-			);
-			path = CustomScalarTypes;
 			sourceTree = "<group>";
 		};
 		DE9C04AB26EA763E00EC35E7 /* Accumulators */ = {
@@ -2417,6 +2411,14 @@
 				DEE1B3F5273B08D8007350E5 /* WarmBloodedDetails.graphql.swift */,
 			);
 			path = LegacyGenerated;
+			sourceTree = "<group>";
+		};
+		DEF191D02804A8470029786C /* CustomScalarTypes */ = {
+			isa = PBXGroup;
+			children = (
+				DEF191D12804A8470029786C /* Upload.swift */,
+			);
+			path = CustomScalarTypes;
 			sourceTree = "<group>";
 		};
 		E64F7EBD27A11AEA0059C021 /* Extensions */ = {
@@ -3273,10 +3275,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE90FCEA27FCC7B00084CC79 /* Upload.swift in Sources */,
 				DE90FCE527FCC6DD0084CC79 /* Schema.swift in Sources */,
 				DE90FCDC27FCC6D20084CC79 /* UploadMultipleFilesToTheSameParameterMutation.swift in Sources */,
 				DE90FCE327FCC6DD0084CC79 /* File.swift in Sources */,
+				DEF191D22804A8470029786C /* Upload.swift in Sources */,
 				DE90FCDD27FCC6D20084CC79 /* UploadMultipleFilesToDifferentParametersMutation.swift in Sources */,
 				DE90FCDB27FCC6D20084CC79 /* UploadOneFileMutation.swift in Sources */,
 				DE90FCE427FCC6DD0084CC79 /* Mutation.swift in Sources */,
@@ -3507,7 +3509,6 @@
 				DE0586392669985000265760 /* Dictionary+Helpers.swift in Sources */,
 				9F295E381E277B2A00A24949 /* GraphQLResultNormalizer.swift in Sources */,
 				9F8E0BE325668559000D9FA5 /* PossiblyDeferred.swift in Sources */,
-				DE90FD2927FCE7120084CC79 /* SelectionCondition+Evaluation.swift in Sources */,
 				9F86B68B1E6438D700B885FF /* GraphQLSelectionSetMapper.swift in Sources */,
 				9F55347B1DE1DB2100E54264 /* ApolloStore.swift in Sources */,
 				9BDE43D122C6655300FD7C7F /* Cancellable.swift in Sources */,
@@ -3649,6 +3650,7 @@
 				DE9C04AD26EAAE5400EC35E7 /* JSONStandardTypeConversions.swift in Sources */,
 				DE058616266978A100265760 /* GraphQLEnum.swift in Sources */,
 				DE2FCF2726E8083A0057EA67 /* Union.swift in Sources */,
+				DE90FDBA27FE405F0084CC79 /* Selection+Conditions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

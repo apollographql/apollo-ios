@@ -8,7 +8,7 @@ public typealias ID = String
 public protocol SelectionSet: ApolloAPI.SelectionSet & ApolloAPI.RootSelectionSet
 where Schema == UploadAPI.Schema {}
 
-public protocol TypeCase: ApolloAPI.SelectionSet & ApolloAPI.TypeCase
+public protocol InlineFragment: ApolloAPI.SelectionSet & ApolloAPI.InlineFragment
 where Schema == UploadAPI.Schema {}
 
 public enum Schema: SchemaConfiguration {

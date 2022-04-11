@@ -301,8 +301,8 @@ class GraphQLExecutor_ResultNormalizer_FromResponse_Tests: XCTestCase {
       class Hero: MockSelectionSet {
         override class var selections: [Selection] {[
           .field("__typename", String.self),
-          .typeCase(AsHuman.self),
-          .typeCase(AsDroid.self),
+          .inlineFragment(AsHuman.self),
+          .inlineFragment(AsDroid.self),
         ]}
 
         class AsHuman: MockTypeCase {
@@ -355,8 +355,8 @@ class GraphQLExecutor_ResultNormalizer_FromResponse_Tests: XCTestCase {
 
       class Hero: MockSelectionSet {
         override class var selections: [Selection] {[
-          .typeCase(AsHuman.self),
-          .typeCase(AsDroid.self),
+          .inlineFragment(AsHuman.self),
+          .inlineFragment(AsDroid.self),
         ]}
 
         class AsHuman: MockTypeCase {
@@ -412,8 +412,8 @@ class GraphQLExecutor_ResultNormalizer_FromResponse_Tests: XCTestCase {
       class Hero: MockSelectionSet {
         override class var selections: [Selection] {[
           .field("__typename", String.self),
-          .typeCase(AsHuman.self),
-          .typeCase(AsDroid.self),
+          .inlineFragment(AsHuman.self),
+          .inlineFragment(AsDroid.self),
         ]}
 
         class AsHuman: MockTypeCase {
@@ -483,8 +483,8 @@ class GraphQLExecutor_ResultNormalizer_FromResponse_Tests: XCTestCase {
       class Hero: MockSelectionSet {
         override class var selections: [Selection] {[
           .field("__typename", String.self),
-          .typeCase(AsHuman.self),
-          .typeCase(AsDroid.self),
+          .inlineFragment(AsHuman.self),
+          .inlineFragment(AsDroid.self),
         ]}
 
         class AsHuman: MockTypeCase {

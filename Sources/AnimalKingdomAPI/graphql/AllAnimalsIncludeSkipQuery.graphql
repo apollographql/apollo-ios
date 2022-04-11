@@ -1,24 +1,30 @@
-query AllAnimalsIncludeSkipQuery($a: Boolean!) {
+query AllAnimalsIncludeSkipQuery(
+  $includeSpecies: Boolean!,
+  $skipHeightInMeters: Boolean!,
+  $getCat: Boolean!,
+  $getWarmBlooded: Boolean!,
+  $varA: Boolean!,
+) {
   allAnimals {
     height {
       feet
       inches
     }
-    ...HeightInMeters
-    ...WarmBloodedDetails
-    species @include(if: $a)
+    ...HeightInMeters @skip(if: $skipHeightInMeters)
+    ...WarmBloodedDetails @include(if: $getWarmBlooded)
+    species @include(if: $includeSpecies)
     skinCovering
     ... on Pet {
       ...PetDetails
       ...WarmBloodedDetails
       ... on Animal {
         height {
-          relativeSize
-          centimeters
+          relativeSize @include(if: $varA)
+          centimeters @include(if: $varA)
         }
       }
     }
-    ... on Cat {
+    ... on Cat @include(if: $getCat) {
       isJellicle
     }
     ... on ClassroomPet {
@@ -27,10 +33,11 @@ query AllAnimalsIncludeSkipQuery($a: Boolean!) {
       }
     }
     predators {
-      species
-      ... on WarmBlooded {
+      species @include(if: $includeSpecies)
+      ... on WarmBlooded @include(if: $getWarmBlooded) {
+        species
         ...WarmBloodedDetails
-        laysEggs
+        laysEggs @include(if: $getWarmBlooded)
       }
     }
   }
