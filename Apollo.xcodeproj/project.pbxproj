@@ -358,6 +358,8 @@
 		E657CDBA26FD01D4005834D6 /* ApolloSchemaInternalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E657CDB926FD01D4005834D6 /* ApolloSchemaInternalTests.swift */; };
 		E6630B8C26F0639B002D9E41 /* MockNetworkSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D79AB926EC05290094434A /* MockNetworkSession.swift */; };
 		E6630B8E26F071F9002D9E41 /* SchemaRegistryApolloSchemaDownloaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6630B8D26F071F9002D9E41 /* SchemaRegistryApolloSchemaDownloaderTests.swift */; };
+		E669352B2803EE11004E1FFC /* CustomScalarTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E669352A2803EE11004E1FFC /* CustomScalarTemplate.swift */; };
+		E669352D2803EF67004E1FFC /* CustomScalarTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E669352C2803EF67004E1FFC /* CustomScalarTemplateTests.swift */; };
 		E66935332804AFE5004E1FFC /* IRCustomScalarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66935322804AFE5004E1FFC /* IRCustomScalarTests.swift */; };
 		E66C014B27FEB84F00FF5FA1 /* PetAdoptionMutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66C014227FEB84F00FF5FA1 /* PetAdoptionMutation.swift */; };
 		E66C014C27FEB84F00FF5FA1 /* PetDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66C014327FEB84F00FF5FA1 /* PetDetails.swift */; };
@@ -1109,6 +1111,8 @@
 		E64F7EC227A1243A0059C021 /* ObjectTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTemplateTests.swift; sourceTree = "<group>"; };
 		E657CDB926FD01D4005834D6 /* ApolloSchemaInternalTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApolloSchemaInternalTests.swift; sourceTree = "<group>"; };
 		E6630B8D26F071F9002D9E41 /* SchemaRegistryApolloSchemaDownloaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaRegistryApolloSchemaDownloaderTests.swift; sourceTree = "<group>"; };
+		E669352A2803EE11004E1FFC /* CustomScalarTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomScalarTemplate.swift; sourceTree = "<group>"; };
+		E669352C2803EF67004E1FFC /* CustomScalarTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomScalarTemplateTests.swift; sourceTree = "<group>"; };
 		E66935322804AFE5004E1FFC /* IRCustomScalarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IRCustomScalarTests.swift; sourceTree = "<group>"; };
 		E66C014227FEB84F00FF5FA1 /* PetAdoptionMutation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetAdoptionMutation.swift; sourceTree = "<group>"; };
 		E66C014327FEB84F00FF5FA1 /* PetDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetDetails.swift; sourceTree = "<group>"; };
@@ -2107,6 +2111,7 @@
 			isa = PBXGroup;
 			children = (
 				DE6D07FC27BC3C81009F5F33 /* RenderingHelpers */,
+				E669352A2803EE11004E1FFC /* CustomScalarTemplate.swift */,
 				E6C9849227929EBE009481BE /* EnumTemplate.swift */,
 				DE5FD60A276970FC0033EE23 /* FragmentTemplate.swift */,
 				E69BEDA42798B86D00000D10 /* InputObjectTemplate.swift */,
@@ -2127,6 +2132,7 @@
 			isa = PBXGroup;
 			children = (
 				DE296535279B3B8200BF9B49 /* SelectionSet */,
+				E669352C2803EF67004E1FFC /* CustomScalarTemplateTests.swift */,
 				E6C9849427929FED009481BE /* EnumTemplateTests.swift */,
 				DE5FD60C2769711E0033EE23 /* FragmentTemplateTests.swift */,
 				E69BEDA62798B89600000D10 /* InputObjectTemplateTests.swift */,
@@ -3314,6 +3320,7 @@
 				E66F8899276C15580000BDA8 /* ObjectFileGenerator.swift in Sources */,
 				9BAEEBEF2346644B00808306 /* ApolloSchemaDownloader.swift in Sources */,
 				DE5FD601276923620033EE23 /* TemplateString.swift in Sources */,
+				E669352B2803EE11004E1FFC /* CustomScalarTemplate.swift in Sources */,
 				E6EE62F127DBE6F200627257 /* SchemaModuleNamespaceTemplate.swift in Sources */,
 				DE6D07FF27BC7F78009F5F33 /* InputVariableRenderable.swift in Sources */,
 				DE796429276998B000978A03 /* IR+RootFieldBuilder.swift in Sources */,
@@ -3406,6 +3413,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E669352D2803EF67004E1FFC /* CustomScalarTemplateTests.swift in Sources */,
 				9BAEEC10234BB95B00808306 /* FileManagerExtensionsTests.swift in Sources */,
 				E6D90D09278FA5C3009CAC5D /* InputObjectFileGeneratorTests.swift in Sources */,
 				E674DB43274C0AD9009BB90E /* GlobTests.swift in Sources */,

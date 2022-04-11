@@ -44,7 +44,7 @@ public class GraphQLNamedType: JavaScriptObject, Hashable {
 public class GraphQLScalarType: GraphQLNamedType {
   private(set) lazy var description: String? = self["description"]
   
-  private(set) lazy var specifiedByURL: String? = self["specifiedByUrl"]
+  lazy var specifiedByURL: String? = self["specifiedByUrl"]
 }
 
 public class GraphQLEnumType: GraphQLNamedType {
