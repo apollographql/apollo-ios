@@ -10,6 +10,7 @@ public class PetSearchQuery: GraphQLQuery {
       """
       query PetSearch($filters: PetSearchFilters = {species: ["Dog", "Cat"], size: SMALL, measurements: {height: 10.5, weight: 5.0}}) {
         pets(filters: $filters) {
+          __typename
           id
           humanName
         }

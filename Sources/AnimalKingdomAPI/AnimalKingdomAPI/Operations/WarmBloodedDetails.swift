@@ -6,8 +6,10 @@ import ApolloAPI
 public struct WarmBloodedDetails: AnimalKingdomAPI.SelectionSet, Fragment {
   public static var fragmentDefinition: StaticString { """
     fragment WarmBloodedDetails on WarmBlooded {
+      __typename
       bodyTemperature
       height {
+        __typename
         meters
         yards
       }

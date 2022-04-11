@@ -66,7 +66,9 @@ class FragmentTemplateTests: XCTestCase {
     public struct TestFragment: TestSchema.SelectionSet, Fragment {
       public static var fragmentDefinition: StaticString { ""\"
         fragment TestFragment on Query {
+          __typename
           allAnimals {
+            __typename
             species
           }
         }
@@ -143,7 +145,7 @@ class FragmentTemplateTests: XCTestCase {
     let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))
   }
 
   func test__render_parentType__givenFragmentTypeConditionAs_Interface_rendersParentType() throws {
@@ -173,7 +175,7 @@ class FragmentTemplateTests: XCTestCase {
     let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))
   }
 
   func test__render_parentType__givenFragmentTypeConditionAs_Union_rendersParentType() throws {
@@ -207,7 +209,7 @@ class FragmentTemplateTests: XCTestCase {
     let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 14, ignoringExtraLines: true))
   }
 
 }

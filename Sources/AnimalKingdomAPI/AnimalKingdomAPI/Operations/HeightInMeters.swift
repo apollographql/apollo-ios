@@ -6,7 +6,9 @@ import ApolloAPI
 public struct HeightInMeters: AnimalKingdomAPI.SelectionSet, Fragment {
   public static var fragmentDefinition: StaticString { """
     fragment HeightInMeters on Animal {
+      __typename
       height {
+        __typename
         meters
       }
     }

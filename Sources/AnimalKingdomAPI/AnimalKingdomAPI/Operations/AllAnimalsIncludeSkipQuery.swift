@@ -10,7 +10,9 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
       """
       query AllAnimalsIncludeSkipQuery($includeSpecies: Boolean!, $skipHeightInMeters: Boolean!, $getCat: Boolean!, $getWarmBlooded: Boolean!, $varA: Boolean!) {
         allAnimals {
+          __typename
           height {
+            __typename
             feet
             inches
           }
@@ -23,6 +25,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
             ...WarmBloodedDetails
             ... on Animal {
               height {
+                __typename
                 relativeSize @include(if: $varA)
                 centimeters @include(if: $varA)
               }
@@ -37,6 +40,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
             }
           }
           predators {
+            __typename
             species @include(if: $includeSpecies)
             ... on WarmBlooded @include(if: $getWarmBlooded) {
               species

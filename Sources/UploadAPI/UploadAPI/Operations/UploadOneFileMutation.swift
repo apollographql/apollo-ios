@@ -10,6 +10,7 @@ public class UploadOneFileMutation: GraphQLMutation {
       """
       mutation UploadOneFile($file: Upload!) {
         singleUpload(file: $file) {
+          __typename
           id
           path
           filename

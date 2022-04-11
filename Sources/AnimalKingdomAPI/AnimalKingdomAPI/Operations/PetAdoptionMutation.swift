@@ -10,6 +10,7 @@ public class PetAdoptionMutation: GraphQLMutation {
       """
       mutation PetAdoptionMutation($input: PetAdoptionInput!) {
         adoptPet(input: $input) {
+          __typename
           id
           humanName
         }
