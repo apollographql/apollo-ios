@@ -10,7 +10,9 @@ public class AllAnimalsQuery: GraphQLQuery {
       """
       query AllAnimalsQuery {
         allAnimals {
+          __typename
           height {
+            __typename
             feet
             inches
           }
@@ -23,6 +25,7 @@ public class AllAnimalsQuery: GraphQLQuery {
             ...WarmBloodedDetails
             ... on Animal {
               height {
+                __typename
                 relativeSize
                 centimeters
               }
@@ -40,6 +43,7 @@ public class AllAnimalsQuery: GraphQLQuery {
             favoriteToy
           }
           predators {
+            __typename
             species
             ... on WarmBlooded {
               ...WarmBloodedDetails
@@ -94,7 +98,7 @@ public class AllAnimalsQuery: GraphQLQuery {
       public var asCat: AsCat? { _asInlineFragment() }
       public var asClassroomPet: AsClassroomPet? { _asInlineFragment() }
       public var asDog: AsDog? { _asInlineFragment() }
-      
+
       public struct Fragments: FragmentContainer {
         public let data: DataDict
         public init(data: DataDict) { self.data = data }

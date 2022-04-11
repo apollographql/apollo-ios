@@ -6,6 +6,7 @@ import ApolloAPI
 public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
   public static var fragmentDefinition: StaticString { """
     fragment ClassroomPetDetails on ClassroomPet {
+      __typename
       ... on Animal {
         species
       }

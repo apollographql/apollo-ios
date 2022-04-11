@@ -2,6 +2,7 @@ import {
   getFieldDef,
   isMetaFieldName,
   isNotNullOrUndefined,
+  withTypenameFieldAddedWhereNeeded,
 } from "../utilities";
 import {
   ArgumentNode,
@@ -161,7 +162,7 @@ export function compileToIR(
       }
     );
 
-    const source = print(operationDefinition);
+    const source = print(withTypenameFieldAddedWhereNeeded(operationDefinition));
     const rootType = schema.getRootType(operationType) as GraphQLObjectType;
 
     referencedTypes.add(getNamedType(rootType));
@@ -186,7 +187,7 @@ export function compileToIR(
     const name = fragmentDefinition.name.value;
 
     const filePath = filePathForNode(fragmentDefinition);
-    const source = print(fragmentDefinition);
+    const source = print(withTypenameFieldAddedWhereNeeded(fragmentDefinition));
 
     const typeCondition = typeFromAST(
       schema,

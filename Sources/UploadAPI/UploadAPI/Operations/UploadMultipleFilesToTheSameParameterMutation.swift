@@ -10,6 +10,7 @@ public class UploadMultipleFilesToTheSameParameterMutation: GraphQLMutation {
       """
       mutation UploadMultipleFilesToTheSameParameter($files: [Upload!]!) {
         multipleUpload(files: $files) {
+          __typename
           id
           path
           filename

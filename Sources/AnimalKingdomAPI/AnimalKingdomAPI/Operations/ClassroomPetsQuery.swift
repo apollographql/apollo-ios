@@ -10,6 +10,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
       """
       query ClassroomPets {
         classroomPets {
+          __typename
           ...ClassroomPetDetails
         }
       }
