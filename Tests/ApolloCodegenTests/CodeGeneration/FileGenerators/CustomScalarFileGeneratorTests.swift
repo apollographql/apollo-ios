@@ -36,4 +36,12 @@ class CustomScalarFileGeneratorTests: XCTestCase {
     // then
     expect(self.subject.fileName).to(equal(expected))
   }
+
+  func test__properties__givenGraphQLScalar_shouldNotOverwrite() {
+    // given
+    buildSubject()
+
+    // then
+    expect(self.subject.overwrite).to(beFalse())
+  }
 }

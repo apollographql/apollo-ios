@@ -36,4 +36,12 @@ class EnumFileGeneratorTests: XCTestCase {
     // then
     expect(self.subject.fileName).to(equal(expected))
   }
+
+  func test__properties__givenGraphQLEnum_shouldOverwrite() {
+    // given
+    buildSubject()
+
+    // then
+    expect(self.subject.overwrite).to(beTrue())
+  }
 }

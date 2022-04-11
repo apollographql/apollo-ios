@@ -54,7 +54,7 @@ class OperationFileGeneratorTests: XCTestCase {
     expect(self.subject.target).to(equal(expected))
   }
 
-  func test__properties__givenGraphQLEnum_shouldReturnFileName_matchingOperationDefinitionName() throws {
+  func test__properties__givenIrOperation_shouldReturnFileName_matchingOperationDefinitionName() throws {
     // given
     try buildSubject()
 
@@ -62,5 +62,13 @@ class OperationFileGeneratorTests: XCTestCase {
 
     // then
     expect(self.subject.fileName).to(equal(expected))
+  }
+
+  func test__properties__givenIrOperation_shouldOverwrite() throws {
+    // given
+    try buildSubject()
+
+    // then
+    expect(self.subject.overwrite).to(beTrue())
   }
 }

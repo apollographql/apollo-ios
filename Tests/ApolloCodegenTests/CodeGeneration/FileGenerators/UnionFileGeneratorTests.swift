@@ -27,7 +27,7 @@ class UnionFileGeneratorTests: XCTestCase {
     expect(self.subject.target).to(equal(.union))
   }
 
-  func test__properties__givenGraphQLEnum_shouldReturnFileName_matchingUnionName() {
+  func test__properties__givenGraphQLUnion_shouldReturnFileName_matchingUnionName() {
     // given
     buildSubject()
 
@@ -35,5 +35,13 @@ class UnionFileGeneratorTests: XCTestCase {
 
     // then
     expect(self.subject.fileName).to(equal(expected))
+  }
+
+  func test__properties__givenGraphQLUnion_shouldOverwrite() {
+    // given
+    buildSubject()
+
+    // then
+    expect(self.subject.overwrite).to(beTrue())
   }
 }

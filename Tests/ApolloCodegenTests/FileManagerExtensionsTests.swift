@@ -508,6 +508,38 @@ class FileManagerExtensionTests: XCTestCase {
     expect(mocked.allClosuresCalled).to(beTrue())
   }
 
+  func test_createFile_givenOverwriteFalse_whenFileExists_shouldNotThrow_shouldNotOverwrite() throws {
+    // given
+    let filePath = URL(fileURLWithPath: self.uniquePath).path
+    let directoryPath = URL(fileURLWithPath: self.uniquePath).deletingLastPathComponent().path
+    let mocked = MockFileManager(strict: true)
+
+    mocked.mock(closure: .fileExists({ path, isDirectory in
+      switch path {
+      case directoryPath: isDirectory?.pointee = true
+      case filePath: isDirectory?.pointee = false
+      default: fail("Unknown path - \(path)")
+      }
+
+      return true
+
+    }))
+    mocked.mock(closure: .createFile({ path, data, attr in
+      fail("Tried to create file when overwrite was false")
+
+      return false
+    }))
+
+    // then
+    expect(
+      try mocked.apollo.createFile(
+        atPath: self.uniquePath,
+        data:self.uniqueData,
+        overwrite: false
+      )
+    ).notTo(throwError())
+  }
+
   func test_createContainingDirectory_givenFileExistsAndIsDirectory_shouldReturnEarly() throws {
     // given
     let parentPath = URL(fileURLWithPath: self.uniquePath).deletingLastPathComponent().path

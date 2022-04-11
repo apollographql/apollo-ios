@@ -6,11 +6,14 @@ import ApolloUtils
 /// The methods to conform to when building a code generation Swift file generator.
 protocol FileGenerator {
   var fileName: String { get }
+  var overwrite: Bool { get }
   var template: TemplateRenderer { get }
   var target: FileTarget { get }
 }
 
 extension FileGenerator {
+  var overwrite: Bool { return true }
+
   /// Generates the file writing the template content to the specified config output paths.
   ///
   /// - Parameters:

@@ -8,4 +8,5 @@ struct CustomScalarFileGenerator: FileGenerator {
   var template: TemplateRenderer { CustomScalarTemplate(graphqlScalar: graphqlScalar) }
   var target: FileTarget { .customScalar }
   var fileName: String { "\(graphqlScalar.name.firstUppercased).swift" }
+  var overwrite: Bool { return false }
 }
