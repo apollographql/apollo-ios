@@ -70,12 +70,9 @@ extension GraphQLScalarType {
   var isCustom: Bool {
     if let _ = self.specifiedByURL { return true }
 
-    return !isString && !isInt && !isBool && !isFloat && !isID
+    switch name {
+    case "String", "Int", "Boolean", "Float", "ID": return false
+    default: return true
+    }
   }
-
-  var isString: Bool { self.name == String(describing: String.self) }
-  var isInt: Bool { self.name == String(describing: Int.self) }
-  var isBool: Bool { self.name == "Boolean" }
-  var isFloat: Bool { self.name == String(describing: Float.self) }
-  var isID: Bool { self.name == "ID" }
 }
