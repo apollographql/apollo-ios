@@ -379,7 +379,7 @@ class FileManagerExtensionTests: XCTestCase {
 
     // then
     expect(
-      try mocked.apollo.createFile(atPath: self.uniquePath, data:self.uniqueData, overwrite: true)
+      try mocked.apollo.createFile(atPath: self.uniquePath, data:self.uniqueData)
     ).notTo(throwError())
     expect(mocked.allClosuresCalled).to(beTrue())
   }
@@ -408,7 +408,7 @@ class FileManagerExtensionTests: XCTestCase {
 
     // then
     expect(
-      try mocked.apollo.createFile(atPath: self.uniquePath, data:self.uniqueData, overwrite: true
+      try mocked.apollo.createFile(atPath: self.uniquePath, data:self.uniqueData
     )).to(throwError(MockFileManager.apollo.PathError.cannotCreateFile(at: self.uniquePath)))
     expect(mocked.allClosuresCalled).to(beTrue())
   }
@@ -442,7 +442,7 @@ class FileManagerExtensionTests: XCTestCase {
 
     // then
     expect(
-      try mocked.apollo.createFile(atPath: self.uniquePath, data:self.uniqueData, overwrite: true)
+      try mocked.apollo.createFile(atPath: self.uniquePath, data:self.uniqueData)
     ).notTo(throwError())
     expect(mocked.allClosuresCalled).to(beTrue())
   }
@@ -476,7 +476,7 @@ class FileManagerExtensionTests: XCTestCase {
 
     // then
     expect(
-      try mocked.apollo.createFile(atPath: self.uniquePath, data:self.uniqueData, overwrite: true)
+      try mocked.apollo.createFile(atPath: self.uniquePath, data:self.uniqueData)
     ).to(throwError(MockFileManager.apollo.PathError.cannotCreateFile(at: self.uniquePath)))
     expect(mocked.allClosuresCalled).to(beTrue())
   }
@@ -505,8 +505,7 @@ class FileManagerExtensionTests: XCTestCase {
     // then
     expect(try mocked.apollo.createFile(
       atPath: self.uniquePath,
-      data:self.uniqueData,
-      overwrite: true
+      data:self.uniqueData
     )).to(throwError(self.uniqueError))
     expect(mocked.allClosuresCalled).to(beTrue())
   }

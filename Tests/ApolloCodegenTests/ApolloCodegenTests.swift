@@ -52,7 +52,7 @@ class ApolloCodegenTests: XCTestCase {
   private func createFile(containing data: Data, named filename: String) -> String {
     let path = directoryURL.appendingPathComponent(filename).path
     expect(
-      try FileManager.default.apollo.createFile(atPath: path, data: data, overwrite: true)
+      try FileManager.default.apollo.createFile(atPath: path, data: data)
     ).notTo(throwError())
 
     return path

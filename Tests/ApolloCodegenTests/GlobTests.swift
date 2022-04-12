@@ -25,7 +25,7 @@ class GlobTests: XCTestCase {
 
   private func create(files: [String]) throws {
     for file in files {
-      try self.fileManager.createFile(atPath: file, overwrite: true)
+      try self.fileManager.createFile(atPath: file)
     }
   }
 

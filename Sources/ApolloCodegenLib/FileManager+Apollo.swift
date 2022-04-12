@@ -94,7 +94,7 @@ extension ApolloExtension where Base: FileManager {
   ///       If `false` the function will exit without writing the file if it already exists.
   ///       This will not throw an error.
   ///       Defaults to `false.
-  public func createFile(atPath path: String, data: Data? = nil, overwrite: Bool = false) throws {
+  public func createFile(atPath path: String, data: Data? = nil, overwrite: Bool = true) throws {
     try createContainingDirectoryIfNeeded(forPath: path)
 
     if !overwrite && doesFileExist(atPath: path) { return }
