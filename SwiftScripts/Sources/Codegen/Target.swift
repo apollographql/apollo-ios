@@ -65,16 +65,13 @@ enum Target {
       )
       
     case .starWars:
-      fatalError()
-//      let outputFileURL = try!  targetRootURL.apollo.childFileURL(fileName: "API.swift")
-//
-//      let graphQLFolderURL = targetRootURL.apollo.childFolderURL(folderName: "graphql")
-//      let operationIDsURL = try! graphQLFolderURL.apollo.childFileURL(fileName: "operationIDs.json")
-//      let schema = try! graphQLFolderURL.apollo.childFileURL(fileName: "schema.json")
-//
-//      return ApolloCodegenOptions(operationIDsURL: operationIDsURL,
-//                                  outputFormat: .singleFile(atFileURL: outputFileURL),
-//                                  urlToSchemaFile: schema)
+      let graphQLFolder = targetRootURL.apollo.childFolderURL(folderName: "graphql")
+
+      return ApolloCodegenConfiguration.FileInput(
+        schemaPath: graphQLFolder.appendingPathComponent("schema.json").path,
+        searchPaths: [graphQLFolder.appendingPathComponent("**/*.graphql").path]
+      )
+
     case .gitHub:
       fatalError()
 //      let outputFileURL = try!  targetRootURL.apollo.childFileURL(fileName: "API.swift")
@@ -121,7 +118,7 @@ enum Target {
 
   private var includeOperationIdentifiers: Bool {
     switch self {
-    case .upload: return true
+    case .upload, .starWars: return true
     default: return false
     }
   }
