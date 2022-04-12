@@ -68,7 +68,7 @@ enum Target {
       let graphQLFolder = targetRootURL.apollo.childFolderURL(folderName: "graphql")
 
       return ApolloCodegenConfiguration.FileInput(
-        schemaPath: graphQLFolder.appendingPathComponent("schema.json").path,
+        schemaPath: graphQLFolder.appendingPathComponent("schema.graphqls").path,
         searchPaths: [graphQLFolder.appendingPathComponent("**/*.graphql").path]
       )
 
