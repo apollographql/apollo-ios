@@ -20,9 +20,9 @@ public class UploadMultipleFilesToTheSameParameterMutation: GraphQLMutation {
       """
     ))
 
-  public var files: [Upload]
+  public var files: [UploadAPI.Upload]
 
-  public init(files: [Upload]) {
+  public init(files: [UploadAPI.Upload]) {
     self.files = files
   }
 

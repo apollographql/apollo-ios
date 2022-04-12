@@ -15,8 +15,10 @@ class InputObjectTemplateTests: XCTestCase {
   }
 
   private func buildSubject(name: String = "MockInput", fields: [GraphQLInputField] = []) {
+    let schema = IR.Schema(name: "TestSchema", referencedTypes: .init([]))
     subject = InputObjectTemplate(
-      graphqlInputObject: GraphQLInputObjectType.mock(name, fields: fields)
+      graphqlInputObject: GraphQLInputObjectType.mock(name, fields: fields),
+      schema: schema
     )
   }
 

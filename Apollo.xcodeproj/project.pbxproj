@@ -356,8 +356,14 @@
 		E64F7EBF27A11B110059C021 /* GraphQLNamedType+SwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64F7EBE27A11B110059C021 /* GraphQLNamedType+SwiftTests.swift */; };
 		E64F7EC127A122300059C021 /* ObjectTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64F7EC027A122300059C021 /* ObjectTemplate.swift */; };
 		E657CDBA26FD01D4005834D6 /* ApolloSchemaInternalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E657CDB926FD01D4005834D6 /* ApolloSchemaInternalTests.swift */; };
+		E661199F2800CCB200E4CF11 /* CustomDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E661199E2800CCB200E4CF11 /* CustomDate.swift */; };
 		E6630B8C26F0639B002D9E41 /* MockNetworkSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D79AB926EC05290094434A /* MockNetworkSession.swift */; };
 		E6630B8E26F071F9002D9E41 /* SchemaRegistryApolloSchemaDownloaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6630B8D26F071F9002D9E41 /* SchemaRegistryApolloSchemaDownloaderTests.swift */; };
+		E669352B2803EE11004E1FFC /* CustomScalarTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E669352A2803EE11004E1FFC /* CustomScalarTemplate.swift */; };
+		E669352D2803EF67004E1FFC /* CustomScalarTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E669352C2803EF67004E1FFC /* CustomScalarTemplateTests.swift */; };
+		E669352F2803F09C004E1FFC /* CustomScalarFileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E669352E2803F09C004E1FFC /* CustomScalarFileGenerator.swift */; };
+		E66935312803F2B0004E1FFC /* CustomScalarFileGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66935302803F2B0004E1FFC /* CustomScalarFileGeneratorTests.swift */; };
+		E66935332804AFE5004E1FFC /* IRCustomScalarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66935322804AFE5004E1FFC /* IRCustomScalarTests.swift */; };
 		E66C014B27FEB84F00FF5FA1 /* PetAdoptionMutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66C014227FEB84F00FF5FA1 /* PetAdoptionMutation.swift */; };
 		E66C014C27FEB84F00FF5FA1 /* PetDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66C014327FEB84F00FF5FA1 /* PetDetails.swift */; };
 		E66C014D27FEB84F00FF5FA1 /* HeightInMeters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66C014427FEB84F00FF5FA1 /* HeightInMeters.swift */; };
@@ -418,7 +424,6 @@
 		E6EFDD0927E5624600B17FE5 /* ReferenceWrapped.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EFDD0827E5624600B17FE5 /* ReferenceWrapped.swift */; };
 		E6EFDD0B27E8328E00B17FE5 /* TemplateRenderer_SchemaFile_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EFDD0A27E8328E00B17FE5 /* TemplateRenderer_SchemaFile_Tests.swift */; };
 		E6EFDD0D27E8377200B17FE5 /* MockFileTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EFDD0C27E8377200B17FE5 /* MockFileTemplate.swift */; };
-		E6EFDD1427EAB55B00B17FE5 /* TemplateRenderer_ModuleFile_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EFDD1227EAB55B00B17FE5 /* TemplateRenderer_ModuleFile_Tests.swift */; };
 		E6EFDD1527EAB55B00B17FE5 /* TemplateRenderer_OperationFile_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EFDD1327EAB55B00B17FE5 /* TemplateRenderer_OperationFile_Tests.swift */; };
 		E86D8E05214B32FD0028EFE1 /* JSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E86D8E03214B32DA0028EFE1 /* JSONTests.swift */; };
 		F16D083C21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16D083B21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift */; };
@@ -1107,7 +1112,13 @@
 		E64F7EC027A122300059C021 /* ObjectTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTemplate.swift; sourceTree = "<group>"; };
 		E64F7EC227A1243A0059C021 /* ObjectTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTemplateTests.swift; sourceTree = "<group>"; };
 		E657CDB926FD01D4005834D6 /* ApolloSchemaInternalTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApolloSchemaInternalTests.swift; sourceTree = "<group>"; };
+		E661199E2800CCB200E4CF11 /* CustomDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDate.swift; sourceTree = "<group>"; };
 		E6630B8D26F071F9002D9E41 /* SchemaRegistryApolloSchemaDownloaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaRegistryApolloSchemaDownloaderTests.swift; sourceTree = "<group>"; };
+		E669352A2803EE11004E1FFC /* CustomScalarTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomScalarTemplate.swift; sourceTree = "<group>"; };
+		E669352C2803EF67004E1FFC /* CustomScalarTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomScalarTemplateTests.swift; sourceTree = "<group>"; };
+		E669352E2803F09C004E1FFC /* CustomScalarFileGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomScalarFileGenerator.swift; sourceTree = "<group>"; };
+		E66935302803F2B0004E1FFC /* CustomScalarFileGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomScalarFileGeneratorTests.swift; sourceTree = "<group>"; };
+		E66935322804AFE5004E1FFC /* IRCustomScalarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IRCustomScalarTests.swift; sourceTree = "<group>"; };
 		E66C014227FEB84F00FF5FA1 /* PetAdoptionMutation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetAdoptionMutation.swift; sourceTree = "<group>"; };
 		E66C014327FEB84F00FF5FA1 /* PetDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetDetails.swift; sourceTree = "<group>"; };
 		E66C014427FEB84F00FF5FA1 /* HeightInMeters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeightInMeters.swift; sourceTree = "<group>"; };
@@ -1166,7 +1177,6 @@
 		E6EFDD0827E5624600B17FE5 /* ReferenceWrapped.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceWrapped.swift; sourceTree = "<group>"; };
 		E6EFDD0A27E8328E00B17FE5 /* TemplateRenderer_SchemaFile_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateRenderer_SchemaFile_Tests.swift; sourceTree = "<group>"; };
 		E6EFDD0C27E8377200B17FE5 /* MockFileTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFileTemplate.swift; sourceTree = "<group>"; };
-		E6EFDD1227EAB55B00B17FE5 /* TemplateRenderer_ModuleFile_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateRenderer_ModuleFile_Tests.swift; sourceTree = "<group>"; };
 		E6EFDD1327EAB55B00B17FE5 /* TemplateRenderer_OperationFile_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateRenderer_OperationFile_Tests.swift; sourceTree = "<group>"; };
 		E86D8E03214B32DA0028EFE1 /* JSONTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONTests.swift; sourceTree = "<group>"; };
 		F16D083B21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryFromJSONBuildingTests.swift; sourceTree = "<group>"; };
@@ -2105,6 +2115,7 @@
 			isa = PBXGroup;
 			children = (
 				DE6D07FC27BC3C81009F5F33 /* RenderingHelpers */,
+				E669352A2803EE11004E1FFC /* CustomScalarTemplate.swift */,
 				E6C9849227929EBE009481BE /* EnumTemplate.swift */,
 				DE5FD60A276970FC0033EE23 /* FragmentTemplate.swift */,
 				E69BEDA42798B86D00000D10 /* InputObjectTemplate.swift */,
@@ -2125,6 +2136,7 @@
 			isa = PBXGroup;
 			children = (
 				DE296535279B3B8200BF9B49 /* SelectionSet */,
+				E669352C2803EF67004E1FFC /* CustomScalarTemplateTests.swift */,
 				E6C9849427929FED009481BE /* EnumTemplateTests.swift */,
 				DE5FD60C2769711E0033EE23 /* FragmentTemplateTests.swift */,
 				E69BEDA62798B89600000D10 /* InputObjectTemplateTests.swift */,
@@ -2136,7 +2148,6 @@
 				E6EE62F227DBE75A00627257 /* SchemaModuleNamespaceTemplateTests.swift */,
 				DE5FD608276956C70033EE23 /* SchemaTemplateTests.swift */,
 				E6B42D0C27A4749100A3BD58 /* SwiftPackageManagerModuleTemplateTests.swift */,
-				E6EFDD1227EAB55B00B17FE5 /* TemplateRenderer_ModuleFile_Tests.swift */,
 				E6EFDD1327EAB55B00B17FE5 /* TemplateRenderer_OperationFile_Tests.swift */,
 				E6EFDD0A27E8328E00B17FE5 /* TemplateRenderer_SchemaFile_Tests.swift */,
 				E64F7EB927A085D90059C021 /* UnionTemplateTests.swift */,
@@ -2306,6 +2317,7 @@
 				DE79642E2769A1EB00978A03 /* IROperationBuilderTests.swift */,
 				DE79642A276999E700978A03 /* IRNamedFragmentBuilderTests.swift */,
 				DEA9A22F27CD990500F96C36 /* IRSelectionSet_IncludeSkip_Tests.swift */,
+				E66935322804AFE5004E1FFC /* IRCustomScalarTests.swift */,
 			);
 			path = CodeGenIR;
 			sourceTree = "<group>";
@@ -2429,6 +2441,14 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		E661199D2800CC9E00E4CF11 /* CustomScalars */ = {
+			isa = PBXGroup;
+			children = (
+				E661199E2800CCB200E4CF11 /* CustomDate.swift */,
+			);
+			path = CustomScalars;
+			sourceTree = "<group>";
+		};
 		E66C014127FEB84F00FF5FA1 /* Operations */ = {
 			isa = PBXGroup;
 			children = (
@@ -2449,6 +2469,7 @@
 		E66C015427FEB86800FF5FA1 /* Schema */ = {
 			isa = PBXGroup;
 			children = (
+				E661199D2800CC9E00E4CF11 /* CustomScalars */,
 				E66C015527FEB86800FF5FA1 /* Unions */,
 				E66C015727FEB86800FF5FA1 /* Enums */,
 				E66C015A27FEB86800FF5FA1 /* Objects */,
@@ -2517,6 +2538,7 @@
 		E66F8895276C13330000BDA8 /* FileGenerators */ = {
 			isa = PBXGroup;
 			children = (
+				E66935302803F2B0004E1FFC /* CustomScalarFileGeneratorTests.swift */,
 				E610D8D8278EA2560023E495 /* EnumFileGeneratorTests.swift */,
 				E6A6866327F63AEF008A1D13 /* FileGeneratorTests.swift */,
 				E6A6866527F63BDC008A1D13 /* FileGenerator_ResolvePath_Tests.swift */,
@@ -2555,6 +2577,7 @@
 		E6E3BBDC276A8D6200E5218B /* FileGenerators */ = {
 			isa = PBXGroup;
 			children = (
+				E669352E2803F09C004E1FFC /* CustomScalarFileGenerator.swift */,
 				E610D8D6278EA2390023E495 /* EnumFileGenerator.swift */,
 				E6E3BBDD276A8D6200E5218B /* FileGenerator.swift */,
 				DE4D54E827A3518100D26B68 /* FragmentFileGenerator.swift */,
@@ -3311,6 +3334,7 @@
 				E66F8899276C15580000BDA8 /* ObjectFileGenerator.swift in Sources */,
 				9BAEEBEF2346644B00808306 /* ApolloSchemaDownloader.swift in Sources */,
 				DE5FD601276923620033EE23 /* TemplateString.swift in Sources */,
+				E669352B2803EE11004E1FFC /* CustomScalarTemplate.swift in Sources */,
 				E6EE62F127DBE6F200627257 /* SchemaModuleNamespaceTemplate.swift in Sources */,
 				DE6D07FF27BC7F78009F5F33 /* InputVariableRenderable.swift in Sources */,
 				DE796429276998B000978A03 /* IR+RootFieldBuilder.swift in Sources */,
@@ -3334,6 +3358,7 @@
 				DE6B650C27C4293D00970E4E /* FieldArgumentRendering.swift in Sources */,
 				DE5EEC8527988F1A00AF5913 /* IR+SelectionSet.swift in Sources */,
 				DE3484622746FF8F0065B77E /* IR+OperationBuilder.swift in Sources */,
+				E669352F2803F09C004E1FFC /* CustomScalarFileGenerator.swift in Sources */,
 				E610D8DF278F8F1E0023E495 /* UnionFileGenerator.swift in Sources */,
 				DEE2DAA227BAF00500EC0607 /* GraphQLType+Rendered.swift in Sources */,
 				DE223C2D2721FCE8004A0148 /* ScopedSelectionSetHashable.swift in Sources */,
@@ -3403,20 +3428,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E669352D2803EF67004E1FFC /* CustomScalarTemplateTests.swift in Sources */,
 				9BAEEC10234BB95B00808306 /* FileManagerExtensionsTests.swift in Sources */,
 				E6D90D09278FA5C3009CAC5D /* InputObjectFileGeneratorTests.swift in Sources */,
 				E674DB43274C0AD9009BB90E /* GlobTests.swift in Sources */,
 				DE223C1C271F3288004A0148 /* AnimalKingdomIRCreationTests.swift in Sources */,
 				9BAEEC17234C275600808306 /* ApolloSchemaPublicTests.swift in Sources */,
+				E66935312803F2B0004E1FFC /* CustomScalarFileGeneratorTests.swift in Sources */,
 				E610D8DD278EB1500023E495 /* InterfaceFileGeneratorTests.swift in Sources */,
 				9F62DFAE2590557F00E6E808 /* DocumentParsingAndValidationTests.swift in Sources */,
+				E66935332804AFE5004E1FFC /* IRCustomScalarTests.swift in Sources */,
 				9F62E0102590728000E6E808 /* CompilationTests.swift in Sources */,
 				DEAFB77B2706444B00BE02F3 /* IRRootFieldBuilderTests.swift in Sources */,
 				E6EFDD1527EAB55B00B17FE5 /* TemplateRenderer_OperationFile_Tests.swift in Sources */,
 				E6B42D0D27A4749100A3BD58 /* SwiftPackageManagerModuleTemplateTests.swift in Sources */,
 				9F62DFBF2590560000E6E808 /* Helpers.swift in Sources */,
 				DE296539279B3B8200BF9B49 /* SelectionSetTemplateTests.swift in Sources */,
-				E6EFDD1427EAB55B00B17FE5 /* TemplateRenderer_ModuleFile_Tests.swift in Sources */,
 				E66F8897276C136B0000BDA8 /* ObjectFileGeneratorTests.swift in Sources */,
 				DE79642B276999E700978A03 /* IRNamedFragmentBuilderTests.swift in Sources */,
 				E69BEDA72798B89600000D10 /* InputObjectTemplateTests.swift in Sources */,
@@ -3663,6 +3690,7 @@
 				E66C017A27FEB86800FF5FA1 /* PetAdoptionInput.swift in Sources */,
 				E66C017B27FEB86800FF5FA1 /* Animal.swift in Sources */,
 				E66C017027FEB86800FF5FA1 /* Bird.swift in Sources */,
+				E661199F2800CCB200E4CF11 /* CustomDate.swift in Sources */,
 				E66C014B27FEB84F00FF5FA1 /* PetAdoptionMutation.swift in Sources */,
 				E66C017827FEB86800FF5FA1 /* PetSearchFilters.swift in Sources */,
 				E66C017727FEB86800FF5FA1 /* Schema.swift in Sources */,

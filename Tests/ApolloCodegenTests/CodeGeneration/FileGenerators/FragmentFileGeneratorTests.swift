@@ -55,7 +55,7 @@ class FragmentFileGeneratorTests: XCTestCase {
     expect(self.subject.target).to(equal(expected))
   }
 
-  func test__properties__givenGraphQLEnum_shouldReturnFileName_matchingFragmentDefinitionName() throws {
+  func test__properties__givenGraphQLFragment_shouldReturnFileName_matchingFragmentDefinitionName() throws {
     // given
     try buildSubject()
 
@@ -63,5 +63,13 @@ class FragmentFileGeneratorTests: XCTestCase {
 
     // then
     expect(self.subject.fileName).to(equal(expected))
+  }
+
+  func test__properties__givenGraphQLFragment_shouldOverwrite() throws {
+    // given
+    try buildSubject()
+
+    // then
+    expect(self.subject.overwrite).to(beTrue())
   }
 }

@@ -14,7 +14,8 @@ class InputObjectFileGeneratorTests: XCTestCase {
   // MARK: Test Helpers
 
   private func buildSubject() {
-    subject = InputObjectFileGenerator(graphqlInputObject: graphqlInputObject)
+    let schema = IR.Schema(name: "TestSchema", referencedTypes: .init([]))    
+    subject = InputObjectFileGenerator(graphqlInputObject: graphqlInputObject, schema: schema)
   }
 
   // MARK: Property Tests
@@ -27,7 +28,7 @@ class InputObjectFileGeneratorTests: XCTestCase {
     expect(self.subject.target).to(equal(.inputObject))
   }
 
-  func test__properties__givenGraphQLEnum_shouldReturnFileName_matchingInputObjectName() {
+  func test__properties__givenGraphQLInputObject_shouldReturnFileName_matchingInputObjectName() {
     // given
     buildSubject()
 
@@ -35,5 +36,13 @@ class InputObjectFileGeneratorTests: XCTestCase {
 
     // then
     expect(self.subject.fileName).to(equal(expected))
+  }
+
+  func test__properties__givenGraphQLInputObject_shouldOverwrite() {
+    // given
+    buildSubject()
+
+    // then
+    expect(self.subject.overwrite).to(beTrue())
   }
 }

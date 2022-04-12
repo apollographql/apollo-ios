@@ -6,12 +6,22 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
 
   var subject: CompilationResult.VariableDefinition!
 
+  var template: OperationDefinitionTemplate!
+
   override func setUp() {
     super.setUp()
+
+    let schema = IR.Schema(name: "TestSchema", referencedTypes: .init([]))
+
+    template = OperationDefinitionTemplate(
+      operation: .mock(),
+      schema: schema,
+      config: .init(value: .mock()))
   }
 
   override func tearDown() {
     subject = nil
+    template = nil
 
     super.tearDown()
   }
@@ -23,7 +33,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
     let expected = "public var variable: GraphQLNullable<String>"
 
     // when
-    let actual = OperationDefinitionTemplate.Variables.Properties([subject]).description
+    let actual = template.VariableProperties([subject]).description
 
     // then
     expect(actual).to(equal(expected))
@@ -97,7 +107,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
 
     for test in tests {
       // when
-      let actual = OperationDefinitionTemplate.Variables.Parameter(test.variable).description
+      let actual = template.VariableParameter(test.variable).description
 
       // then
       expect(actual).to(equal(test.expected))
@@ -202,7 +212,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
 
     for test in tests {
       // when
-      let actual = OperationDefinitionTemplate.Variables.Parameter(test.variable).description
+      let actual = template.VariableParameter(test.variable).description
 
       // then
       expect(actual).to(equal(test.expected))
@@ -270,7 +280,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
     """
 
     // when
-    let actual = OperationDefinitionTemplate.Variables.Parameter(subject).description
+    let actual = template.VariableParameter(subject).description
 
     // then
     expect(actual).to(equalLineByLine(expected))
@@ -333,7 +343,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
     """
 
     // when
-    let actual = OperationDefinitionTemplate.Variables.Parameter(subject).description
+    let actual = template.VariableParameter(subject).description
 
     // then
     expect(actual).to(equalLineByLine(expected))
@@ -348,7 +358,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
     let expected = "nullable: GraphQLNullable<Int>"
 
     // when
-    let actual = OperationDefinitionTemplate.Variables.Parameter(subject).description
+    let actual = template.VariableParameter(subject).description
 
     // then
     expect(actual).to(equal(expected))
@@ -361,7 +371,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
     let expected = "nullableWithDefault: GraphQLNullable<Int> = 3"
 
     // when
-    let actual = OperationDefinitionTemplate.Variables.Parameter(subject).description
+    let actual = template.VariableParameter(subject).description
 
     // then
     expect(actual).to(equal(expected))
@@ -374,7 +384,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
     let expected = "nonNullable: Int"
 
     // when
-    let actual = OperationDefinitionTemplate.Variables.Parameter(subject).description
+    let actual = template.VariableParameter(subject).description
 
     // then
     expect(actual).to(equal(expected))
@@ -387,7 +397,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
     let expected = "nonNullableWithDefault: Int = 3"
     
     // when
-    let actual = OperationDefinitionTemplate.Variables.Parameter(subject).description
+    let actual = template.VariableParameter(subject).description
 
     // then
     expect(actual).to(equal(expected))
@@ -400,7 +410,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
     let expected = "nullableListNullableItem: GraphQLNullable<[String?]>"
 
     // when
-    let actual = OperationDefinitionTemplate.Variables.Parameter(subject).description
+    let actual = template.VariableParameter(subject).description
 
     // then
     expect(actual).to(equal(expected))
@@ -415,7 +425,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
     let expected = "nullableListNullableItemWithDefault: GraphQLNullable<[String?]> = [\"val\"]"
 
     // when
-    let actual = OperationDefinitionTemplate.Variables.Parameter(subject).description
+    let actual = template.VariableParameter(subject).description
 
     // then
     expect(actual).to(equal(expected))
@@ -430,7 +440,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
     let expected = "nullableListNullableItemWithDefault: GraphQLNullable<[String?]> = [\"val\", nil]"
 
     // when
-    let actual = OperationDefinitionTemplate.Variables.Parameter(subject).description
+    let actual = template.VariableParameter(subject).description
 
     // then
     expect(actual).to(equal(expected))
@@ -445,7 +455,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
     let expected = "nullableListNonNullableItem: GraphQLNullable<[String]>"
 
     // when
-    let actual = OperationDefinitionTemplate.Variables.Parameter(subject).description
+    let actual = template.VariableParameter(subject).description
 
     // then
     expect(actual).to(equal(expected))
@@ -458,7 +468,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
     let expected = "nullableListNonNullableItemWithDefault: GraphQLNullable<[String]> = [\"val\"]"
 
     // when
-    let actual = OperationDefinitionTemplate.Variables.Parameter(subject).description
+    let actual = template.VariableParameter(subject).description
 
     // then
     expect(actual).to(equal(expected))
@@ -471,7 +481,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
     let expected = "nonNullableListNullableItem: [String?]"
 
     // when
-    let actual = OperationDefinitionTemplate.Variables.Parameter(subject).description
+    let actual = template.VariableParameter(subject).description
 
     // then
     expect(actual).to(equal(expected))
@@ -486,7 +496,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
     let expected = "nonNullableListNullableItemWithDefault: [String?] = [\"val\"]"
 
     // when
-    let actual = OperationDefinitionTemplate.Variables.Parameter(subject).description
+    let actual = template.VariableParameter(subject).description
 
     // then
     expect(actual).to(equal(expected))
@@ -501,7 +511,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
     let expected = "nonNullableListNonNullableItem: [String]"
 
     // when
-    let actual = OperationDefinitionTemplate.Variables.Parameter(subject).description
+    let actual = template.VariableParameter(subject).description
 
     // then
     expect(actual).to(equal(expected))
@@ -516,7 +526,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
     let expected = "nonNullableListNonNullableItemWithDefault: [String] = [\"val\"]"
 
     // when
-    let actual = OperationDefinitionTemplate.Variables.Parameter(subject).description
+    let actual = template.VariableParameter(subject).description
 
     // then
     expect(actual).to(equal(expected))
@@ -531,7 +541,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
     let expected = "nullableListNullableItem: GraphQLNullable<[GraphQLEnum<EnumValue>?]>"
 
     // when
-    let actual = OperationDefinitionTemplate.Variables.Parameter(subject).description
+    let actual = template.VariableParameter(subject).description
 
     // then
     expect(actual).to(equal(expected))

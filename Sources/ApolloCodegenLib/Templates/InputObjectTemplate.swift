@@ -6,6 +6,8 @@ struct InputObjectTemplate: TemplateRenderer {
   /// IR representation of source [GraphQL Input Object](https://spec.graphql.org/draft/#sec-Input-Objects).
   let graphqlInputObject: GraphQLInputObjectType
 
+  let schema: IR.Schema
+
   var target: TemplateTarget = .schemaFile
 
   var template: TemplateString {
@@ -35,7 +37,7 @@ struct InputObjectTemplate: TemplateRenderer {
   private func InitializerParametersTemplate() -> TemplateString {
     TemplateString("""
     \(graphqlInputObject.fields.map({
-      "\($1.name): \($1.renderInputValueType(includeDefault: true))"
+      "\($1.name): \($1.renderInputValueType(includeDefault: true, in: schema))"
     }), separator: ",\n")
     """)
   }
@@ -48,7 +50,7 @@ struct InputObjectTemplate: TemplateRenderer {
 
   private func FieldPropertyTemplate(_ field: GraphQLInputField) -> String {
     """
-    public var \(field.name): \(field.renderInputValueType()) {
+    public var \(field.name): \(field.renderInputValueType(in: schema)) {
       get { data.\(field.name) }
       set { data.\(field.name) = newValue }
     }

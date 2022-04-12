@@ -41,6 +41,7 @@ public class AllAnimalsQuery: GraphQLQuery {
           }
           ... on Dog {
             favoriteToy
+            birthdate
           }
           predators {
             __typename
@@ -428,9 +429,11 @@ public class AllAnimalsQuery: GraphQLQuery {
         public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Dog.self) }
         public static var selections: [Selection] { [
           .field("favoriteToy", String.self),
+          .field("birthdate", AnimalKingdomAPI.CustomDate?.self),
         ] }
 
         public var favoriteToy: String { data["favoriteToy"] }
+        public var birthdate: AnimalKingdomAPI.CustomDate? { data["birthdate"] }
         public var height: Height { data["height"] }
         public var species: String { data["species"] }
         public var skinCovering: GraphQLEnum<SkinCovering>? { data["skinCovering"] }

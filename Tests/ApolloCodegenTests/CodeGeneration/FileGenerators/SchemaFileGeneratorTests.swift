@@ -27,7 +27,7 @@ class SchemaFileGeneratorTests: XCTestCase {
     expect(self.subject.target).to(equal(.schema))
   }
 
-  func test__properties__givenGraphQLEnum_shouldReturnFileName_matchingName() {
+  func test__properties__givenIrSchema_shouldReturnFileName_matchingName() {
     // given
     buildSubject()
 
@@ -35,5 +35,13 @@ class SchemaFileGeneratorTests: XCTestCase {
 
     // then
     expect(self.subject.fileName).to(equal(expected))
+  }
+
+  func test__properties__givenGraphIrSchema_shouldOverwrite() {
+    // given
+    buildSubject()
+
+    // then
+    expect(self.subject.overwrite).to(beTrue())
   }
 }

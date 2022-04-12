@@ -30,6 +30,9 @@ struct SchemaModuleFileGenerator {
       return
     }
 
-    try fileManager.apollo.createFile(atPath: filePath, data: rendered.data(using: .utf8))
+    try fileManager.apollo.createFile(
+      atPath: filePath,
+      data: rendered.data(using: .utf8)
+    )
   }
 }

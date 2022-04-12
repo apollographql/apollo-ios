@@ -58,9 +58,11 @@ public extension GraphQLScalarType {
   class func boolean() -> Self { mock(name: "Boolean") }
   class func float() -> Self { mock(name: "Float") }
 
-  class func mock(name: String) -> Self {
+  class func mock(name: String, specifiedByURL: String? = nil) -> Self {
     let mock = Self.emptyMockObject()
     mock.name = name
+    mock.specifiedByURL = specifiedByURL
+
     return mock
   }
 }

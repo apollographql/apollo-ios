@@ -255,6 +255,8 @@ class SelectionSetTemplateTests: XCTestCase {
       int_optional: Int
       custom: Custom!
       custom_optional: Custom
+      custom_required_list: [Custom!]!
+      custom_optional_list: [Custom!]
       list_required_required: [String!]!
       list_optional_required: [String!]
       list_required_optional: [String]!
@@ -283,6 +285,8 @@ class SelectionSetTemplateTests: XCTestCase {
         int_optional
         custom
         custom_optional
+        custom_required_list
+        custom_optional_list
         list_required_required
         list_optional_required
         list_required_optional
@@ -307,8 +311,10 @@ class SelectionSetTemplateTests: XCTestCase {
         .field("boolean_optional", Bool?.self),
         .field("int", Int.self),
         .field("int_optional", Int?.self),
-        .field("custom", Custom.self),
-        .field("custom_optional", Custom?.self),
+        .field("custom", TestSchema.Custom.self),
+        .field("custom_optional", TestSchema.Custom?.self),
+        .field("custom_required_list", [TestSchema.Custom].self),
+        .field("custom_optional_list", [TestSchema.Custom]?.self),
         .field("list_required_required", [String].self),
         .field("list_optional_required", [String]?.self),
         .field("list_required_optional", [String?].self),
@@ -1129,6 +1135,8 @@ class SelectionSetTemplateTests: XCTestCase {
       int_optional: Int
       custom: Custom!
       custom_optional: Custom
+      custom_required_list: [Custom!]!
+      custom_optional_list: [Custom!]
       list_required_required: [String!]!
       list_optional_required: [String!]
       list_required_optional: [String]!
@@ -1155,6 +1163,8 @@ class SelectionSetTemplateTests: XCTestCase {
         int_optional
         custom
         custom_optional
+        custom_required_list
+        custom_optional_list
         list_required_required
         list_optional_required
         list_required_optional
@@ -1176,8 +1186,10 @@ class SelectionSetTemplateTests: XCTestCase {
       public var string_optional: String? { data["string_optional"] }
       public var int: Int { data["int"] }
       public var int_optional: Int? { data["int_optional"] }
-      public var custom: Custom { data["custom"] }
-      public var custom_optional: Custom? { data["custom_optional"] }
+      public var custom: TestSchema.Custom { data["custom"] }
+      public var custom_optional: TestSchema.Custom? { data["custom_optional"] }
+      public var custom_required_list: [TestSchema.Custom] { data["custom_required_list"] }
+      public var custom_optional_list: [TestSchema.Custom]? { data["custom_optional_list"] }
       public var list_required_required: [String] { data["list_required_required"] }
       public var list_optional_required: [String]? { data["list_optional_required"] }
       public var list_required_optional: [String?] { data["list_required_optional"] }
@@ -1201,7 +1213,7 @@ class SelectionSetTemplateTests: XCTestCase {
     let actual = subject.render(field: allAnimals)
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 28, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 30, ignoringExtraLines: true))
   }
 
   func test__render_fieldAccessors__givenEnumField_rendersFieldAccessors() throws {

@@ -2,9 +2,14 @@ import Foundation
 import OrderedCollections
 
 extension IR {
-  struct Schema {
+  final class Schema {
     let name: String
     let referencedTypes: ReferencedTypes
+
+    init(name: String, referencedTypes: IR.Schema.ReferencedTypes) {
+      self.name = name
+      self.referencedTypes = referencedTypes
+    }
 
     public final class ReferencedTypes {
       let allTypes: OrderedSet<GraphQLNamedType>
@@ -13,6 +18,7 @@ extension IR {
       let interfaces: OrderedSet<GraphQLInterfaceType>
       let unions: OrderedSet<GraphQLUnionType>
       let scalars: OrderedSet<GraphQLScalarType>
+      let customScalars: OrderedSet<GraphQLScalarType>
       let enums: OrderedSet<GraphQLEnumType>
       let inputObjects: OrderedSet<GraphQLInputObjectType>
 
@@ -23,6 +29,7 @@ extension IR {
         var interfaces = OrderedSet<GraphQLInterfaceType>()
         var unions = OrderedSet<GraphQLUnionType>()
         var scalars = OrderedSet<GraphQLScalarType>()
+        var customScalars = OrderedSet<GraphQLScalarType>()
         var enums = OrderedSet<GraphQLEnumType>()
         var inputObjects = OrderedSet<GraphQLInputObjectType>()
 
@@ -31,7 +38,12 @@ extension IR {
           case let type as GraphQLObjectType: objects.append(type)
           case let type as GraphQLInterfaceType: interfaces.append(type)
           case let type as GraphQLUnionType: unions.append(type)
-          case let type as GraphQLScalarType: scalars.append(type)
+          case let type as GraphQLScalarType:
+            if type.isCustomScalar {
+              customScalars.append(type)
+            } else {
+              scalars.append(type)              
+            }
           case let type as GraphQLEnumType: enums.append(type)
           case let type as GraphQLInputObjectType: inputObjects.append(type)
           default: continue
@@ -42,6 +54,7 @@ extension IR {
         self.interfaces = interfaces
         self.unions = unions
         self.scalars = scalars
+        self.customScalars = customScalars
         self.enums = enums
         self.inputObjects = inputObjects
       }

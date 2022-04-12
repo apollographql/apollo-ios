@@ -1,8 +1,12 @@
 import JavaScriptCore
 
 extension GraphQLInputField {
-  func renderInputValueType(includeDefault: Bool = false) -> String {
-    "\(type.renderAsInputValue())\(isSwiftOptional ? "?" : "")\(includeDefault && hasSwiftNilDefault ? " = nil" : "")"
+  func renderInputValueType(includeDefault: Bool = false, in schema: IR.Schema) -> String {
+    """
+    \(type.renderAsInputValue(in: schema))\
+    \(isSwiftOptional ? "?" : "")\
+    \(includeDefault && hasSwiftNilDefault ? " = nil" : "")
+    """
   }
 
   private var isSwiftOptional: Bool {

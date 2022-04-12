@@ -27,7 +27,7 @@ class ObjectFileGeneratorTests: XCTestCase {
     expect(self.subject.target).to(equal(.object))
   }
 
-  func test__properties__givenGraphQLEnum_shouldReturnFileName_matchingObjectName() {
+  func test__properties__givenGraphQLObject_shouldReturnFileName_matchingObjectName() {
     // given
     buildSubject()
 
@@ -35,5 +35,13 @@ class ObjectFileGeneratorTests: XCTestCase {
 
     // then
     expect(self.subject.fileName).to(equal(expected))
+  }
+
+  func test__properties__givenGraphQLObject_shouldOverwrite() {
+    // given
+    buildSubject()
+
+    // then
+    expect(self.subject.overwrite).to(beTrue())
   }
 }

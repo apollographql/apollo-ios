@@ -8,6 +8,8 @@ struct SwiftPackageManagerModuleTemplate: TemplateRenderer {
 
   var target: TemplateTarget = .moduleFile
 
+  var headerTemplate: TemplateString? { nil }
+
   var template: TemplateString {
     TemplateString("""
     // swift-tools-version:5.3

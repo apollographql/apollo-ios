@@ -6,11 +6,14 @@ import ApolloUtils
 /// The methods to conform to when building a code generation Swift file generator.
 protocol FileGenerator {
   var fileName: String { get }
+  var overwrite: Bool { get }
   var template: TemplateRenderer { get }
   var target: FileTarget { get }
 }
 
 extension FileGenerator {
+  var overwrite: Bool { true }
+
   /// Generates the file writing the template content to the specified config output paths.
   ///
   /// - Parameters:
@@ -25,7 +28,11 @@ extension FileGenerator {
 
     let rendered: String = template.render(forConfig: config)
 
-    try fileManager.apollo.createFile(atPath: filePath, data: rendered.data(using: .utf8))
+    try fileManager.apollo.createFile(
+      atPath: filePath,
+      data: rendered.data(using: .utf8),
+      overwrite: self.overwrite
+    )
   }
 }
 
@@ -37,6 +44,7 @@ enum FileTarget: Equatable {
   case interface
   case union
   case inputObject
+  case customScalar
   case fragment(CompilationResult.FragmentDefinition)
   case operation(CompilationResult.OperationDefinition)
   case schema
@@ -48,6 +56,7 @@ enum FileTarget: Equatable {
     case .interface: return "Interfaces"
     case .union: return "Unions"
     case .inputObject: return "InputObjects"
+    case .customScalar: return "CustomScalars"
     case .fragment, .operation: return "Operations"
     case .schema: return ""
     }
@@ -57,7 +66,7 @@ enum FileTarget: Equatable {
     forConfig config: ReferenceWrapped<ApolloCodegenConfiguration>
   ) -> String {
     switch self {
-    case .object, .enum, .interface, .union, .inputObject, .schema:
+    case .object, .enum, .interface, .union, .inputObject, .customScalar, .schema:
       return resolveSchemaPath(forConfig: config)
 
     case let .fragment(fragmentDefinition):

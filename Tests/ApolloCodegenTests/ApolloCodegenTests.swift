@@ -52,7 +52,7 @@ class ApolloCodegenTests: XCTestCase {
   private func createFile(containing data: Data, named filename: String) -> String {
     let path = directoryURL.appendingPathComponent(filename).path
     expect(
-      try FileManager.default.apollo.createFile(atPath: path, data: data)
+      try FileManager.default.apollo.createFile(atPath: path, data: data, overwrite: true)
     ).notTo(throwError())
 
     return path
@@ -209,6 +209,7 @@ class ApolloCodegenTests: XCTestCase {
       directoryURL.appendingPathComponent("Package.swift").path,
       directoryURL.appendingPathComponent("Schema/Objects/Dog.swift").path,
       directoryURL.appendingPathComponent("Schema/Interfaces/HousePet.swift").path,
+      directoryURL.appendingPathComponent("Schema/CustomScalars/CustomDate.swift").path,
     ]
 
     // when
