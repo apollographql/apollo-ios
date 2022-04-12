@@ -54,3 +54,24 @@ extension IR.NamedFragment {
     )
   }
 }
+
+extension IR.Operation {
+
+  public static func mock() -> IR.Operation {
+    IR.Operation.init(
+      definition: .mock(),
+      rootField: .init(.mock(),
+                       inclusionConditions: nil,
+                       selectionSet: .init(
+                        entity: .init(
+                          rootTypePath: [.mock()],
+                          fieldPath: []),
+                        scopePath: [.descriptor(
+                          forType: .mock(),
+                          inclusionConditions: nil,
+                          givenAllTypesInSchema: .init([]))
+                        ])
+                      ),
+      referencedFragments: [])
+  }
+}

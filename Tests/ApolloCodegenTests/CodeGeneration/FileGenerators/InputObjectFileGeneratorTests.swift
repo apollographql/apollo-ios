@@ -14,7 +14,8 @@ class InputObjectFileGeneratorTests: XCTestCase {
   // MARK: Test Helpers
 
   private func buildSubject() {
-    subject = InputObjectFileGenerator(graphqlInputObject: graphqlInputObject)
+    let schema = IR.Schema(name: "TestSchema", referencedTypes: .init([]))    
+    subject = InputObjectFileGenerator(graphqlInputObject: graphqlInputObject, schema: schema)
   }
 
   // MARK: Property Tests

@@ -95,7 +95,7 @@ public class AllAnimalsQuery: GraphQLQuery {
       public var asCat: AsCat? { _asInlineFragment() }
       public var asClassroomPet: AsClassroomPet? { _asInlineFragment() }
       public var asDog: AsDog? { _asInlineFragment() }
-      
+
       public struct Fragments: FragmentContainer {
         public let data: DataDict
         public init(data: DataDict) { self.data = data }

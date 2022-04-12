@@ -2,9 +2,14 @@ import Foundation
 import OrderedCollections
 
 extension IR {
-  struct Schema {
+  final class Schema {
     let name: String
     let referencedTypes: ReferencedTypes
+
+    init(name: String, referencedTypes: IR.Schema.ReferencedTypes) {
+      self.name = name
+      self.referencedTypes = referencedTypes
+    }
 
     public final class ReferencedTypes {
       let allTypes: OrderedSet<GraphQLNamedType>

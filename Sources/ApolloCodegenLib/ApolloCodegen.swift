@@ -114,7 +114,7 @@ public class ApolloCodegen {
 
     for graphQLInputObject in ir.schema.referencedTypes.inputObjects {
       try autoreleasepool {
-        try InputObjectFileGenerator(graphqlInputObject: graphQLInputObject)
+        try InputObjectFileGenerator(graphqlInputObject: graphQLInputObject, schema: ir.schema)
           .generate(forConfig: config, fileManager: fileManager)
       }
     }

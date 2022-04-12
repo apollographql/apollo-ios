@@ -11,7 +11,7 @@ struct OperationDefinitionTemplate: TemplateRenderer {
   /// Shared codegen configuration.
   let config: ReferenceWrapped<ApolloCodegenConfiguration>
 
-  var target: TemplateTarget = .operationFile
+  let target: TemplateTarget = .operationFile
 
   var template: TemplateString {
     TemplateString(
@@ -19,11 +19,11 @@ struct OperationDefinitionTemplate: TemplateRenderer {
     \(OperationDeclaration(operation.definition))
       \(DocumentType.render(operation.definition, fragments: operation.referencedFragments, apq: config.apqs))
 
-      \(section: Variables.Properties(operation.definition.variables))
+      \(section: VariableProperties(operation.definition.variables))
 
       \(Initializer(operation.definition.variables))
 
-      \(section: Variables.Accessors(operation.definition.variables))
+      \(section: VariableAccessors(operation.definition.variables))
 
       \(SelectionSetTemplate(schema: schema).render(for: operation))
     }
@@ -77,41 +77,40 @@ struct OperationDefinitionTemplate: TemplateRenderer {
     }
 
     return """
-    \(`init`)(\(list: variables.map(Variables.Parameter))) {
+    \(`init`)(\(list: variables.map(VariableParameter))) {
       \(variables.map { "self.\($0.name) = \($0.name)" }, separator: "\n")
     }
     """
   }
 
-  enum Variables {
-    static func Properties(
-      _ variables: [CompilationResult.VariableDefinition]
-    ) -> TemplateString {
-    """
-    \(variables.map { "public var \($0.name): \($0.type.renderAsInputValue())"}, separator: "\n")
-    """
-    }
 
-    static func Parameter(_ variable: CompilationResult.VariableDefinition) -> TemplateString {
+  func VariableProperties(
+    _ variables: [CompilationResult.VariableDefinition]
+  ) -> TemplateString {
+    """
+    \(variables.map { "public var \($0.name): \($0.type.renderAsInputValue(in: schema))"}, separator: "\n")
+    """
+  }
+
+  func VariableParameter(_ variable: CompilationResult.VariableDefinition) -> TemplateString {
       """
-      \(variable.name): \(variable.type.renderAsInputValue())\
+      \(variable.name): \(variable.type.renderAsInputValue(in: schema))\
       \(if: variable.defaultValue != nil, " = " + variable.renderVariableDefaultValue())
       """
+  }
+
+  func VariableAccessors(
+    _ variables: [CompilationResult.VariableDefinition]
+  ) -> TemplateString {
+    guard !variables.isEmpty else {
+      return ""
     }
 
-    static func Accessors(
-      _ variables: [CompilationResult.VariableDefinition]
-    ) -> TemplateString {
-      guard !variables.isEmpty else {
-        return ""
-      }
-
-      return """
+    return """
       public var variables: Variables? {
         [\(variables.map { "\"\($0.name)\": \($0.name)"}, separator: ",\n   ")]
       }
       """
-    }
   }
 
 }

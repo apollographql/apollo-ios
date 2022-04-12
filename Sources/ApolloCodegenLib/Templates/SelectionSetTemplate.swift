@@ -4,7 +4,12 @@ import InflectorKit
 struct SelectionSetTemplate {
 
   let schema: IR.Schema
-  private let nameCache = SelectionSetNameCache()
+  private let nameCache: SelectionSetNameCache
+
+  init(schema: IR.Schema) {
+    self.schema = schema
+    self.nameCache = SelectionSetNameCache(schema: schema)
+  }
 
   // MARK: - Operation
   func render(for operation: IR.Operation) -> String {
@@ -125,7 +130,7 @@ struct SelectionSetTemplate {
     """
     .field("\(field.name)"\
     \(ifLet: field.alias, {", alias: \"\($0)\""})\
-    , \(if: field.isCustomScalar, "\(schema.name).")\(typeName(for: field)).self\
+    , \(typeName(for: field)).self\
     \(ifLet: field.arguments,
       where: { !$0.isEmpty }, { args in
         ", arguments: " + renderValue(for: args)
@@ -138,7 +143,7 @@ struct SelectionSetTemplate {
     let fieldName: String
     switch field {
     case let scalarField as IR.ScalarField:
-      fieldName = scalarField.type.rendered
+      fieldName = scalarField.type.rendered(in: schema)
 
     case let entityField as IR.EntityField:
       fieldName = self.nameCache.selectionSetType(for: entityField)
@@ -194,7 +199,7 @@ struct SelectionSetTemplate {
     }()
     return """
     public var \(field.responseKey.firstLowercased): \
-    \(if: field.isCustomScalar, "\(schema.name).")\(typeName(for: field, forceOptional: isConditionallyIncluded)) \
+    \(typeName(for: field, forceOptional: isConditionallyIncluded)) \
     { data["\(field.responseKey)"] }
     """
   }
@@ -283,6 +288,12 @@ struct SelectionSetTemplate {
 fileprivate class SelectionSetNameCache {
   private var generatedSelectionSetNames: [ObjectIdentifier: String] = [:]
 
+  unowned let schema: IR.Schema
+
+  init(schema: IR.Schema) {
+    self.schema = schema
+  }
+
   // MARK: Entity Field
   func selectionSetName(for field: IR.EntityField) -> String {
     let objectId = ObjectIdentifier(field)
@@ -294,7 +305,7 @@ fileprivate class SelectionSetNameCache {
   }
 
   func selectionSetType(for field: IR.EntityField) -> String {
-    field.type.rendered(replacingNamedTypeWith: selectionSetName(for: field))
+    field.type.rendered(replacingNamedTypeWith: selectionSetName(for: field), in: schema)
   }
 
   // MARK: Name Computation
