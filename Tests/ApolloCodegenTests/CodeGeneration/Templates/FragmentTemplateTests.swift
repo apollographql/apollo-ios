@@ -88,6 +88,42 @@ class FragmentTemplateTests: XCTestCase {
     expect(String(actual.reversed())).to(equalLineByLine("}", ignoringExtraLines: true))
   }
 
+  func test__render__givenLowercaseFragment_generatesTitleCaseTypeName() throws {
+    // given
+    document = """
+    fragment testFragment on Query {
+      allAnimals {
+        species
+      }
+    }
+    """
+
+    let expected =
+    """
+    public struct TestFragment: TestSchema.SelectionSet, Fragment {
+      public static var fragmentDefinition: StaticString { ""\"
+        fragment testFragment on Query {
+          __typename
+          allAnimals {
+            __typename
+            species
+          }
+        }
+        ""\" }
+
+      public let data: DataDict
+      public init(data: DataDict) { self.data = data }
+    """
+
+    // when
+    try buildSubjectAndFragment(named: "testFragment")
+
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
   func test__render__givenFragmentWithUnderscoreInName_rendersDeclarationWithName() throws {
     // given
     schemaSDL = """
