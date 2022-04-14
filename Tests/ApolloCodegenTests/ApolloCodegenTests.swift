@@ -204,7 +204,7 @@ class ApolloCodegenTests: XCTestCase {
     // then
     expect(try ApolloCodegen.compileGraphQLResult(config).operations).to(throwError { error in
       guard let error = error as? GraphQLError else {
-        fail("Expected .graphQLSourceValidationFailure, got .\(error)")
+        fail("Expected .graphQLSourceValidationFailure because we attempted to compile a document that uses CCN without CCN enabled, got \(error)")
         return
       }
       expect(error.message).to(equal("Syntax Error: Expected Name, found \"!\"."))
