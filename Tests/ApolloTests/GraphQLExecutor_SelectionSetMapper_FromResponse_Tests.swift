@@ -690,7 +690,13 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
         ]}
       }
     }
-    let object: JSONObject = ["child": ["name": "Luke Skywalker"]]
+    let object: JSONObject = [
+      "child":
+        [
+          "__typename": "Child",
+          "name": "Luke Skywalker"
+        ]
+    ]
 
     // when
     let data = try readValues(GivenSelectionSet.self, from: object)
@@ -739,7 +745,12 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
         ]}
       }
     }
-    let object: JSONObject = ["child": ["name": NSNull()]]
+    let object: JSONObject = [
+      "child": [
+        "__typename": "Child",
+        "name": NSNull()
+      ]
+    ]
 
     // when
     XCTAssertThrowsError(try readValues(GivenSelectionSet.self, from: object)) { (error) in
@@ -751,6 +762,67 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
         XCTFail("Unexpected error: \(error)")
       }
     }
+  }
+
+  // MARK: - Inline Fragments
+
+  func test__inlineFragment__withoutExplicitTypeNameSelection_selectsTypenameField() throws {
+    // given
+    class MockChildObject: Object {
+      override class var __typename: String { "MockChildObject" }
+    }
+
+    class Human: Object {
+      override class var __typename: String { "Human" }
+    }
+
+    class GivenSelectionSet: MockSelectionSet, SelectionSet {
+      typealias Schema = MockSchemaConfiguration
+      override class var __parentType: ParentType { .Object(Object.self) }
+      override class var selections: [Selection] {[
+        .field("child", Child.self),
+      ]}
+
+      class Child: MockSelectionSet, SelectionSet {
+        typealias Schema = MockSchemaConfiguration
+
+        override class var __parentType: ParentType { .Object(MockChildObject.self) }
+        override class var selections: [Selection] {[
+          .inlineFragment(AsHuman.self)
+        ]}
+
+        class AsHuman: MockTypeCase {
+          override class var __parentType: ParentType { .Object(Human.self)}
+          override class var selections: [Selection] {[
+            .field("name", String.self),
+          ]}
+        }
+      }
+    }
+
+    MockSchemaConfiguration.stub_objectTypeForTypeName =  { typeName in
+      switch typeName {
+      case "Human":
+        return Human.self
+      default:
+        fail()
+        return nil
+      }
+    }
+
+    let object: JSONObject = [
+      "child": [
+        "__typename": "Human",
+        "name": "Han Solo"
+      ]
+    ]
+
+    // when
+    let data = try readValues(GivenSelectionSet.self, from: object)
+
+    // then
+    XCTAssertEqual(data.child?.__typename, "Human")
+    XCTAssertEqual(data.child?.name, "Han Solo")
   }
 
   // MARK: - Fragments
@@ -793,6 +865,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     let object: JSONObject = [
       "__typename": "MockChildObject",
       "child": [
+        "__typename": "Human",
         "name": "Han Solo"
       ]
     ]
