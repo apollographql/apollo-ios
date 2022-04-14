@@ -57,11 +57,13 @@ class CachePersistenceTests: XCTestCase {
           return
         case .success(let graphQLResult):
           XCTAssertEqual(graphQLResult.data?.hero?.name, "Luke Skywalker")
+
           // Do another fetch from cache to ensure that data is cached before creating new cache
           client.fetch(query: query, cachePolicy: .returnCacheDataDontFetch) { innerResult in
             try! SQLiteTestCacheProvider.withCache(fileURL: sqliteFileURL) { cache in
               let newStore = ApolloStore(cache: cache)
               let newClient = ApolloClient(networkTransport: networkTransport, store: newStore)
+
               newClient.fetch(query: query, cachePolicy: .returnCacheDataDontFetch) { newClientResult in
                 defer { newCacheExpectation.fulfill() }
                 switch newClientResult {
@@ -82,7 +84,22 @@ class CachePersistenceTests: XCTestCase {
   }
 
   func testFetchAndPersistWithPeriodArguments() throws {
-    let query = SearchQuery(term: "Luke.Skywalker")
+    // given
+    class GivenSelectionSet: MockSelectionSet {
+      override class var selections: [Selection] { [
+        .field("hero", Hero.self, arguments: ["text": .variable("term")])
+      ]}
+
+      class Hero: MockSelectionSet {
+        override class var selections: [Selection] {[
+          .field("name", String.self)
+        ]}
+      }
+    }
+
+    let query = MockQuery<GivenSelectionSet>()
+    query.variables = ["term": "Luke.Skywalker"]
+
     let sqliteFileURL = SQLiteTestCacheProvider.temporarySQLiteFileURL()
 
     try SQLiteTestCacheProvider.withCache(fileURL: sqliteFileURL) { (cache) in
@@ -93,19 +110,17 @@ class CachePersistenceTests: XCTestCase {
 
       let client = ApolloClient(networkTransport: networkTransport, store: store)
 
-      _ = server.expect(SearchQuery.self) { request in
+      _ = server.expect(MockQuery<GivenSelectionSet>.self) { request in
         [
           "data": [
-            "search": [
-              [
-                "id": "1000",
-                "name": "Luke Skywalker",
-                "__typename": "Human"
-              ]
+            "hero": [
+              "name": "Luke Skywalker",
+              "__typename": "Human"
             ]
           ]
         ]
       }
+
       let networkExpectation = self.expectation(description: "Fetching query from network")
       let newCacheExpectation = self.expectation(description: "Fetch query from new cache")
 
@@ -117,17 +132,19 @@ class CachePersistenceTests: XCTestCase {
           XCTFail("Unexpected error: \(error)")
           return
         case .success(let graphQLResult):
-          XCTAssertEqual(graphQLResult.data?.search?.first??.asHuman?.name, "Luke Skywalker")
+          XCTAssertEqual(graphQLResult.data?.hero?.name, "Luke Skywalker")
+
           // Do another fetch from cache to ensure that data is cached before creating new cache
           client.fetch(query: query, cachePolicy: .returnCacheDataDontFetch) { innerResult in
             try! SQLiteTestCacheProvider.withCache(fileURL: sqliteFileURL) { cache in
               let newStore = ApolloStore(cache: cache)
               let newClient = ApolloClient(networkTransport: networkTransport, store: newStore)
+
               newClient.fetch(query: query, cachePolicy: .returnCacheDataDontFetch) { newClientResult in
                 defer { newCacheExpectation.fulfill() }
                 switch newClientResult {
                 case .success(let newClientGraphQLResult):
-                  XCTAssertEqual(newClientGraphQLResult.data?.search?.first??.asHuman?.name, "Luke Skywalker")
+                  XCTAssertEqual(newClientGraphQLResult.data?.hero?.name, "Luke Skywalker")
                 case .failure(let error):
                   XCTFail("Unexpected error with new client: \(error)")
                 }
@@ -238,4 +255,5 @@ class CachePersistenceTests: XCTestCase {
       self.waitForExpectations(timeout: 2, handler: nil)
     }
   }
+
 }
