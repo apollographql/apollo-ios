@@ -6,7 +6,6 @@ public enum Target: CaseIterable {
   case gitHub
   case upload
   case animalKingdom
-  case ccnAnimalKingdom
 
   public init?(name: String) {
     switch name {
@@ -18,8 +17,6 @@ public enum Target: CaseIterable {
       self = .upload
     case "AnimalKingdom":
       self = .animalKingdom
-    case "CCNAnimalKingdom":
-      self = .ccnAnimalKingdom
     default:
       return nil
     }
@@ -31,14 +28,13 @@ public enum Target: CaseIterable {
     case .gitHub: return "GitHubAPI"
     case .upload: return "UploadAPI"
     case .animalKingdom: return "AnimalKingdomAPI"
-    case .ccnAnimalKingdom: return "AnimalKingdomAPI"
     }
   }
 
   var ccnEnabled: Bool {
     switch self {
-    case .starWars, .gitHub, .upload, .animalKingdom: return false
-    case .ccnAnimalKingdom: return true
+    case .starWars, .gitHub, .upload: return false
+    case .animalKingdom: return true
     }
   }
 
@@ -58,10 +54,6 @@ public enum Target: CaseIterable {
         .apollo.childFolderURL(folderName: "Sources")
         .apollo.childFolderURL(folderName: moduleName)
     case .animalKingdom:
-      return sourceRootURL
-        .apollo.childFolderURL(folderName: "Sources")
-        .apollo.childFolderURL(folderName: moduleName)
-    case .ccnAnimalKingdom:
       return sourceRootURL
         .apollo.childFolderURL(folderName: "Sources")
         .apollo.childFolderURL(folderName: moduleName)
@@ -105,17 +97,10 @@ public enum Target: CaseIterable {
       let graphQLFolder = targetRootURL.apollo.childFolderURL(folderName: "graphql")
 
       return ApolloCodegenConfiguration.FileInput(
-        schemaPath: schemaURL(fromTargetRoot: targetRootURL).path,
-        searchPaths: [graphQLFolder.appendingPathComponent("**/*.graphql").path]
-      )
-    case .ccnAnimalKingdom:
-      let graphQLFolder = targetRootURL.apollo.childFolderURL(folderName: "graphql")
-
-      return ApolloCodegenConfiguration.FileInput(
         schemaPath: graphQLFolder.appendingPathComponent("AnimalSchema.graphqls").path,
         // There is a subdirectory that contains CCN enabled operations in the same `graphQLFolder` as
         //   the .animalKingdom target. We want to include those operations when we generate for
-        //   .ccnAnimalKingdom, but not for .animalKingdom
+        //   .animalKingdom.
         searchPaths: [graphQLFolder.appendingPathComponent("**/*.graphql").path]
       )
     }
