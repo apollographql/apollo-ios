@@ -42,12 +42,6 @@ public enum Target: CaseIterable {
     }
   }
 
-  var packageName: String {
-    switch self {
-    case .starWars, .gitHub, .upload, .animalKingdom: return "Generated"
-    case .ccnAnimalKingdom: return "GeneratedCCN"
-    }
-  }
 
   public func targetRootURL(fromSourceRoot sourceRootURL: Foundation.URL) -> Foundation.URL {
     switch self {
