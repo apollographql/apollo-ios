@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "Commandant",
+        "repositoryURL": "https://github.com/Carthage/Commandant.git",
+        "state": {
+          "branch": null,
+          "revision": "ab68611013dec67413628ac87c1f29e8427bc8e4",
+          "version": "0.17.0"
+        }
+      },
+      {
         "package": "InflectorKit",
         "repositoryURL": "https://github.com/mattt/InflectorKit",
         "state": {
@@ -20,6 +29,15 @@
         }
       },
       {
+        "package": "Nimble",
+        "repositoryURL": "https://github.com/Quick/Nimble.git",
+        "state": {
+          "branch": null,
+          "revision": "72f5a90d573f7f7d70aa6b8ad84b3e1e02eabb4d",
+          "version": "8.0.9"
+        }
+      },
+      {
         "package": "ProcessRunner",
         "repositoryURL": "https://github.com/eneko/ProcessRunner.git",
         "state": {
@@ -29,12 +47,21 @@
         }
       },
       {
+        "package": "Quick",
+        "repositoryURL": "https://github.com/Quick/Quick.git",
+        "state": {
+          "branch": null,
+          "revision": "09b3becb37cb2163919a3842a4c5fa6ec7130792",
+          "version": "2.2.1"
+        }
+      },
+      {
         "package": "Rainbow",
         "repositoryURL": "https://github.com/onevcat/Rainbow",
         "state": {
           "branch": null,
-          "revision": "626c3d4b6b55354b4af3aa309f998fae9b31a3d9",
-          "version": "3.2.0"
+          "revision": "9c52c1952e9b2305d4507cf473392ac2d7c9b155",
+          "version": "3.1.5"
         }
       },
       {
@@ -42,8 +69,8 @@
         "repositoryURL": "https://github.com/eneko/SourceDocs.git",
         "state": {
           "branch": null,
-          "revision": "fb0e489e3a26c789aad3adbe43e2169f50f485e8",
-          "version": "2.0.1"
+          "revision": "3a38adfe18ca73dfc2136b4b8c49407d1a812d50",
+          "version": "2.0.0"
         }
       },
       {
@@ -51,8 +78,8 @@
         "repositoryURL": "https://github.com/jpsim/SourceKitten.git",
         "state": {
           "branch": null,
-          "revision": "817dfa6f2e09b0476f3a6c9dbc035991f02f0241",
-          "version": "0.32.0"
+          "revision": "77a4dbbb477a8110eb8765e3c44c70fb4929098f",
+          "version": "0.29.0"
         }
       },
       {
@@ -60,8 +87,8 @@
         "repositoryURL": "https://github.com/stephencelis/SQLite.swift.git",
         "state": {
           "branch": null,
-          "revision": "4d543d811ee644fa4cc4bfa0be996b4dd6ba0f54",
-          "version": "0.13.3"
+          "revision": "60a65015f6402b7c34b9a924f755ca0a73afeeaa",
+          "version": "0.13.1"
         }
       },
       {
@@ -69,8 +96,8 @@
         "repositoryURL": "https://github.com/apple/swift-argument-parser.git",
         "state": {
           "branch": null,
-          "revision": "f3c9084a71ef4376f2fabbdf1d3d90a49f1fabdb",
-          "version": "1.1.2"
+          "revision": "e394bf350e38cb100b6bc4172834770ede1b7232",
+          "version": "1.0.3"
         }
       },
       {
@@ -78,8 +105,8 @@
         "repositoryURL": "https://github.com/apple/swift-collections",
         "state": {
           "branch": null,
-          "revision": "48254824bb4248676bf7ce56014ff57b142b77eb",
-          "version": "1.0.2"
+          "revision": "2d33a0ea89c961dcb2b3da2157963d9c0370347e",
+          "version": "1.0.1"
         }
       },
       {
@@ -87,8 +114,8 @@
         "repositoryURL": "https://github.com/drmohundro/SWXMLHash.git",
         "state": {
           "branch": null,
-          "revision": "6469881a3f30417c5bb02404ea4b69207f297592",
-          "version": "6.0.0"
+          "revision": "a4931e5c3bafbedeb1601d3bb76bbe835c6d475a",
+          "version": "5.0.1"
         }
       },
       {
@@ -96,8 +123,8 @@
         "repositoryURL": "https://github.com/jpsim/Yams.git",
         "state": {
           "branch": null,
-          "revision": "9ff1cc9327586db4e0c8f46f064b6a82ec1566fa",
-          "version": "4.0.6"
+          "revision": "c947a306d2e80ecb2c0859047b35c73b8e1ca27f",
+          "version": "2.0.0"
         }
       }
     ]
