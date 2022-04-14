@@ -1,10 +1,10 @@
 import Foundation
 import ApolloCodegenLib
 
-struct Module {
-  let moduleType: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType
+public struct Module {
+  public let moduleType: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType
 
-  init?(module: String) {
+  public init?(module: String) {
     switch module.lowercased() {
     case "none": self.moduleType = .none
     case "swiftpackagemanager", "spm": self.moduleType = .swiftPackageManager
