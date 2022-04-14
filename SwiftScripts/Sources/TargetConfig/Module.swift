@@ -23,7 +23,7 @@ public struct Module {
       schemaTypes: .init(
         path: targetPath,
         schemaName: schemaName,
-        moduleType: module
+        moduleType: moduleType
       ),
       operations: .inSchemaModule,
       operationIdentifiersPath: nil
