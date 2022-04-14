@@ -2,7 +2,6 @@ import XCTest
 @testable import Apollo
 import ApolloAPI
 import ApolloTestSupport
-import StarWarsAPI
 
 class GraphQLExecutor_ResultNormalizer_FromResponse_Tests: XCTestCase {
 

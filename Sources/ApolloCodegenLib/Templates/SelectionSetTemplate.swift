@@ -106,7 +106,7 @@ struct SelectionSetTemplate {
     _ selections: IR.DirectSelections.ReadOnly
   ) -> [TemplateString] {
     selections.fields.values.map { FieldSelectionTemplate($0) } +
-    selections.inlineFragments.values.map { InlineFragmentSelectionTemplate($0.typeInfo) } +
+    selections.inlineFragments.values.map { InlineFragmentSelectionTemplate($0) } +
     selections.fragments.values.map { FragmentSelectionTemplate($0) }
   }
 
@@ -164,9 +164,9 @@ struct SelectionSetTemplate {
     "[\(list: arguments.map{ "\"\($0.name)\": " + $0.value.renderInputValueLiteral() })]"
   }
 
-  private func InlineFragmentSelectionTemplate(_ typeCase: IR.SelectionSet.TypeInfo) -> TemplateString {
+  private func InlineFragmentSelectionTemplate(_ inlineFragment: IR.SelectionSet) -> TemplateString {
     """
-    .inlineFragment(As\(typeCase.parentType.name.firstUppercased).self)
+    .inlineFragment(\(inlineFragment.renderedTypeName).self)
     """
   }
 

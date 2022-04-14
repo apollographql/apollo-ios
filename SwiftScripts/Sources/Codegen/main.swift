@@ -1,6 +1,7 @@
 import Foundation
 import ApolloCodegenLib
 import ArgumentParser
+import TargetConfig
 
 // In a typical app, you'll only need to do this for one target, so you'd
 // set these up directly within this file. Here, we're using more than one

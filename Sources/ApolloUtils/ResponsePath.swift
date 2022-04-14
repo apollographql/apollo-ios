@@ -66,6 +66,10 @@ public struct ResponsePath: ExpressibleByArrayLiteral {
     return copy
   }
 
+  public var isEmpty: Bool {
+    head == nil
+  }
+
   public static func + (lhs: ResponsePath, rhs: Key) -> ResponsePath {
     lhs.appending(rhs)
   }

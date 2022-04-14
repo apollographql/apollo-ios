@@ -1,13 +1,13 @@
 import Foundation
 import ApolloCodegenLib
 
-enum Target {
+public enum Target: CaseIterable {
   case starWars
   case gitHub
   case upload
   case animalKingdom
 
-  init?(name: String) {
+  public init?(name: String) {
     switch name {
     case "StarWars":
       self = .starWars
@@ -22,7 +22,7 @@ enum Target {
     }
   }
 
-  var moduleName: String {
+  public var moduleName: String {
     switch self {
     case .starWars: return "StarWarsAPI"
     case .gitHub: return "GitHubAPI"
@@ -31,7 +31,7 @@ enum Target {
     }
   }
 
-  func targetRootURL(fromSourceRoot sourceRootURL: Foundation.URL) -> Foundation.URL {
+  public func targetRootURL(fromSourceRoot sourceRootURL: Foundation.URL) -> Foundation.URL {
     switch self {
     case .gitHub:
       return sourceRootURL
@@ -52,7 +52,7 @@ enum Target {
     }
   }
 
-  func inputConfig(fromSourceRoot sourceRootURL: Foundation.URL) -> ApolloCodegenConfiguration.FileInput {
+  public func inputConfig(fromSourceRoot sourceRootURL: Foundation.URL) -> ApolloCodegenConfiguration.FileInput {
     let targetRootURL = self.targetRootURL(fromSourceRoot: sourceRootURL)
 
     switch self {
@@ -60,21 +60,18 @@ enum Target {
       let graphQLFolder = targetRootURL.apollo.childFolderURL(folderName: "graphql")
 
       return ApolloCodegenConfiguration.FileInput(
-        schemaPath: graphQLFolder.appendingPathComponent("schema.json").path,
+        schemaPath: schemaURL(fromTargetRoot: targetRootURL).path,
         searchPaths: [graphQLFolder.appendingPathComponent("**/*.graphql").path]
       )
       
     case .starWars:
-      fatalError()
-//      let outputFileURL = try!  targetRootURL.apollo.childFileURL(fileName: "API.swift")
-//
-//      let graphQLFolderURL = targetRootURL.apollo.childFolderURL(folderName: "graphql")
-//      let operationIDsURL = try! graphQLFolderURL.apollo.childFileURL(fileName: "operationIDs.json")
-//      let schema = try! graphQLFolderURL.apollo.childFileURL(fileName: "schema.json")
-//
-//      return ApolloCodegenOptions(operationIDsURL: operationIDsURL,
-//                                  outputFormat: .singleFile(atFileURL: outputFileURL),
-//                                  urlToSchemaFile: schema)
+      let graphQLFolder = targetRootURL.apollo.childFolderURL(folderName: "graphql")
+
+      return ApolloCodegenConfiguration.FileInput(
+        schemaPath: schemaURL(fromTargetRoot: targetRootURL).path,
+        searchPaths: [graphQLFolder.appendingPathComponent("**/*.graphql").path]
+      )
+
     case .gitHub:
       fatalError()
 //      let outputFileURL = try!  targetRootURL.apollo.childFileURL(fileName: "API.swift")
@@ -92,13 +89,28 @@ enum Target {
       let graphQLFolder = targetRootURL.apollo.childFolderURL(folderName: "graphql")
 
       return ApolloCodegenConfiguration.FileInput(
-        schemaPath: graphQLFolder.appendingPathComponent("AnimalSchema.graphqls").path,
+        schemaPath: schemaURL(fromTargetRoot: targetRootURL).path,
         searchPaths: [graphQLFolder.appendingPathComponent("**/*.graphql").path]
       )
     }
   }
 
-  func outputConfig(
+  public func schemaURL(fromTargetRoot targetRootURL: Foundation.URL) -> Foundation.URL {
+    let graphQLFolder = targetRootURL.apollo.childFolderURL(folderName: "graphql")
+
+    switch self {
+    case .starWars:
+      return graphQLFolder.appendingPathComponent("schema.graphqls")
+    case .upload:
+      return graphQLFolder.appendingPathComponent("schema.json")
+    case .gitHub:
+      fatalError("Implement!")
+    case .animalKingdom:
+      return graphQLFolder.appendingPathComponent("AnimalSchema.graphqls")
+    }
+  }
+
+  public func outputConfig(
     fromSourceRoot sourceRootURL: Foundation.URL,
     forModuleType moduleType: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType
   ) throws -> ApolloCodegenConfiguration.FileOutput {
@@ -121,7 +133,7 @@ enum Target {
 
   private var includeOperationIdentifiers: Bool {
     switch self {
-    case .upload: return true
+    case .upload, .starWars: return true
     default: return false
     }
   }

@@ -222,6 +222,11 @@ final class GraphQLExecutor {
     info: ObjectExecutionInfo
   ) throws -> FieldSelectionGrouping {
     var grouping = FieldSelectionGrouping()
+
+    // Add __typename field to all selection sets other than the root of the operation.
+    if !info.responsePath.isEmpty {
+      grouping.append(field: .init("__typename", type: .scalar(String.self)), withInfo: info)
+    }
     try groupFields(selections,
                     for: object,
                     into: &grouping,

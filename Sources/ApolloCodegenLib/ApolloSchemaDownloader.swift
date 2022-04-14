@@ -323,6 +323,7 @@ public struct ApolloSchemaDownloader {
     jsonFileURL: URL,
     configuration: ApolloSchemaDownloadConfiguration
   ) throws {
+    defer { try? FileManager.default.removeItem(at: jsonFileURL) }
     let frontend = try GraphQLJSFrontend()
     let schema: GraphQLSchema
     do {

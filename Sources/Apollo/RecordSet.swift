@@ -90,6 +90,12 @@ extension RecordSet: CustomStringConvertible {
   }
 }
 
+extension RecordSet: CustomDebugStringConvertible {
+  public var debugDescription: String {
+    return description
+  }
+}
+
 extension RecordSet: CustomPlaygroundDisplayConvertible {
   public var playgroundDescription: Any {
     return description

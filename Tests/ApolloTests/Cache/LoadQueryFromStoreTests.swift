@@ -5,7 +5,6 @@ import ApolloAPI
 import ApolloSQLite
 #endif
 import ApolloTestSupport
-import StarWarsAPI
 
 class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
   var cacheType: TestCacheProvider.Type {

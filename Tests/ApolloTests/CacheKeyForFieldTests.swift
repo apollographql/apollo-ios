@@ -2,7 +2,6 @@ import XCTest
 import Apollo
 import ApolloAPI
 import ApolloTestSupport
-import StarWarsAPI
 
 fileprivate extension Selection.Field {
   var test_cacheKey: String {
