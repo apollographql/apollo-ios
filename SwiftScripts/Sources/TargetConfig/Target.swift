@@ -31,7 +31,7 @@ public enum Target: CaseIterable {
     }
   }
 
-  var ccnEnabled: Bool {
+  public var ccnEnabled: Bool {
     switch self {
     case .starWars, .gitHub, .upload: return false
     case .animalKingdom: return true
