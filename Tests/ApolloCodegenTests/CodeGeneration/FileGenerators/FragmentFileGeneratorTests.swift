@@ -55,11 +55,11 @@ class FragmentFileGeneratorTests: XCTestCase {
     expect(self.subject.target).to(equal(expected))
   }
 
-  func test__properties__givenGraphQLFragment_shouldReturnFileName_matchingFragmentDefinitionName() throws {
+  func test__properties__givenGraphQLFragment_shouldReturnFileName_firstUppercasedFragmentDefinitionName() throws {
     // given
     try buildSubject()
 
-    let expected = "\(irFragment.definition.name).swift"
+    let expected = "\(irFragment.definition.name.firstUppercased).swift"
 
     // then
     expect(self.subject.fileName).to(equal(expected))
