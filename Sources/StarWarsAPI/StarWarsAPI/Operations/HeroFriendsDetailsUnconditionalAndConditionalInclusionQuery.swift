@@ -68,7 +68,7 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
         public static var __parentType: ParentType { .Interface(StarWarsAPI.Character.self) }
         public static var selections: [Selection] { [
           .field("name", String.self),
-          .include(if: "includeFriendsDetails", .inlineFragment(AsCharacter.self)),
+          .include(if: "includeFriendsDetails", .inlineFragment(IfIncludeFriendsDetails.self)),
         ] }
 
         public var name: String { data["name"] }

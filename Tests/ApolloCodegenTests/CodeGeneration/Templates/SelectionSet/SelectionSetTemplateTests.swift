@@ -1071,6 +1071,48 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
   }
 
+  func test__render_selections__givenInlineFragmentOnSameTypeWithConditions_rendersInlineFragmentSelectionSetAccessorWithCorrectName() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      fieldA: String!
+    }
+
+    interface Pet {
+      fieldA: String!
+    }
+    """
+
+    document = """
+    query TestOperation($a: Boolean!) {
+      allAnimals {
+        ... on Animal @include(if: $a) {
+          fieldA
+        }
+      }
+    }
+    """
+
+    let expected = """
+      public var ifA: IfA? { _asInlineFragment(if: "a") }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+  }
+
   func test__render_selections__givenFragmentWithInclusionConditionThatMatchesScope_rendersFragmentSelectionWithoutInclusionCondition() throws {
     // given
     schemaSDL = """

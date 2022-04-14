@@ -48,7 +48,7 @@ public class HeroDetailsInlineConditionalInclusionQuery: GraphQLQuery {
 
       public static var __parentType: ParentType { .Interface(StarWarsAPI.Character.self) }
       public static var selections: [Selection] { [
-        .include(if: "includeDetails", .inlineFragment(AsCharacter.self)),
+        .include(if: "includeDetails", .inlineFragment(IfIncludeDetails.self)),
       ] }
 
       public var ifIncludeDetails: IfIncludeDetails? { _asInlineFragment(if: "includeDetails") }
