@@ -13,7 +13,7 @@ struct FragmentTemplate: TemplateRenderer {
   var template: TemplateString {
     TemplateString(
     """
-    public struct \(fragment.name): \(schema.name).SelectionSet, Fragment {
+    public struct \(fragment.name.firstUppercased): \(schema.name).SelectionSet, Fragment {
       public static var fragmentDefinition: StaticString { ""\"
         \(fragment.definition.source)
         ""\" }

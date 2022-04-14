@@ -9,5 +9,5 @@ struct FragmentFileGenerator: FileGenerator {
   
   var template: TemplateRenderer { FragmentTemplate(fragment: irFragment, schema: schema) }
   var target: FileTarget { .fragment(irFragment.definition) }
-  var fileName: String { "\(irFragment.definition.name).swift" }
+  var fileName: String { "\(irFragment.definition.name.firstUppercased).swift" }
 }
