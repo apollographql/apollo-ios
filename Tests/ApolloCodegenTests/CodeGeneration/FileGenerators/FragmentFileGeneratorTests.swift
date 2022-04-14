@@ -28,11 +28,11 @@ class FragmentFileGeneratorTests: XCTestCase {
     let operationDocument = """
     query AllAnimals {
       animals {
-        ...AnimalDetails
+        ...animalDetails
       }
     }
 
-    fragment AnimalDetails on Animal {
+    fragment animalDetails on Animal {
       species
     }
     """
