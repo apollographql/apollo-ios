@@ -255,6 +255,8 @@ class ApolloCodegenTests: XCTestCase {
     }))
 
     let expectedPaths: Set<String> = [
+      directoryURL.appendingPathComponent("Schema/Schema.swift").path,
+
       directoryURL.appendingPathComponent("Operations/AllAnimalsIncludeSkipQuery.swift").path,
       directoryURL.appendingPathComponent("Operations/AllAnimalsQuery.swift").path,
       directoryURL.appendingPathComponent("Schema/Objects/Height.swift").path,
@@ -326,7 +328,7 @@ class ApolloCodegenTests: XCTestCase {
       .appendingPathComponent("graphql")
       .appendingPathComponent("**/*.graphql").path
 
-    let config = ApolloCodegenConfiguration(
+    let config =  ReferenceWrapped(value: ApolloCodegenConfiguration(
       input: .init(schemaPath: schemaPath, searchPaths: [operationsPath]),
       output: .mock(
         moduleType: .swiftPackageManager,
@@ -334,7 +336,7 @@ class ApolloCodegenTests: XCTestCase {
         operations: .inSchemaModule,
         path: directoryURL.path
       )
-    )
+    ))
 
     let fileManager = MockFileManager(strict: false)
 
@@ -350,6 +352,7 @@ class ApolloCodegenTests: XCTestCase {
       directoryURL.appendingPathComponent("Schema/Interfaces/Pet.swift").path,
       directoryURL.appendingPathComponent("Schema/Interfaces/Animal.swift").path,
       directoryURL.appendingPathComponent("Schema/Interfaces/WarmBlooded.swift").path,
+      directoryURL.appendingPathComponent("Schema/Interfaces/HousePet.swift").path,
 
       directoryURL.appendingPathComponent("Schema/Enums/SkinCovering.swift").path,
       directoryURL.appendingPathComponent("Schema/Enums/RelativeSize.swift").path,
@@ -368,6 +371,9 @@ class ApolloCodegenTests: XCTestCase {
       directoryURL.appendingPathComponent("Schema/Objects/Rat.swift").path,
       directoryURL.appendingPathComponent("Schema/Objects/PetRock.swift").path,
       directoryURL.appendingPathComponent("Schema/Objects/Mutation.swift").path,
+      directoryURL.appendingPathComponent("Schema/Objects/Dog.swift").path,
+
+      directoryURL.appendingPathComponent("Schema/CustomScalars/CustomDate.swift").path,
 
       directoryURL.appendingPathComponent("Operations/AllAnimalsQuery.swift").path,
       directoryURL.appendingPathComponent("Operations/PetDetails.swift").path,
@@ -378,6 +384,7 @@ class ApolloCodegenTests: XCTestCase {
       directoryURL.appendingPathComponent("Operations/HeightInMeters.swift").path,
       directoryURL.appendingPathComponent("Operations/WarmBloodedDetails.swift").path,
       directoryURL.appendingPathComponent("Operations/PetSearchQuery.swift").path,
+      directoryURL.appendingPathComponent("Operations/AllAnimalsIncludeSkipQuery.swift").path,
 
       directoryURL.appendingPathComponent("Operations/AllAnimalsCCNQuery.swift").path,
       directoryURL.appendingPathComponent("Operations/ClassroomPetsCCNQuery.swift").path,
@@ -388,7 +395,7 @@ class ApolloCodegenTests: XCTestCase {
 
     // when
     let compilationResult = try ApolloCodegen.compileGraphQLResult(
-      config.input,
+      config,
       experimentalFeatures: .init(clientControlledNullability: true)
     )
 

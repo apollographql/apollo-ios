@@ -108,7 +108,7 @@ class CompilationTests: XCTestCase {
     XCTAssertEqual(appearsInField.type.typeReference, "[Episode!]")
 
     XCTAssertEqualUnordered(compilationResult.referencedTypes.map(\.name),
-                            ["ID", "Query", "Human", "String", "Float", "Episode"])
+                            ["ID", "Query", "Human", "String", "Float", "Episode", "Character"])
   }
 }
 
