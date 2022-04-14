@@ -1098,7 +1098,9 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public var ifA: IfA? { _asInlineFragment(if: "a") }
+      public static var selections: [Selection] { [
+        .include(if: "a", .inlineFragment(IfA.self)),
+      ] }
     """
 
     // when
@@ -1110,7 +1112,7 @@ class SelectionSetTemplateTests: XCTestCase {
     let actual = subject.render(field: allAnimals)
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
   }
 
   func test__render_selections__givenFragmentWithInclusionConditionThatMatchesScope_rendersFragmentSelectionWithoutInclusionCondition() throws {
