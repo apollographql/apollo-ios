@@ -9,12 +9,14 @@ class FileGeneratorTests: XCTestCase {
   let directoryURL = CodegenTestHelper.outputFolderURL()
 
   var config: ReferenceWrapped<ApolloCodegenConfiguration>!
+  var fileTarget: FileTarget!
   var template: MockFileTemplate!
   var subject: MockFileGenerator!
 
   override func tearDown() {
     template = nil
     subject = nil
+    fileTarget = nil
     config = nil
 
     super.tearDown()
@@ -35,7 +37,8 @@ class FileGeneratorTests: XCTestCase {
 
   private func buildSubject() {
     template = MockFileTemplate(target: .schemaFile)
-    subject = .init(template: template, target: .object, fileName: "Type.swift")
+    fileTarget = .object
+    subject = .init(template: template, target: fileTarget, fileName: "lowercasedType.swift")
   }
 
   // MARK: - Tests
@@ -45,11 +48,34 @@ class FileGeneratorTests: XCTestCase {
     buildConfig()
     buildSubject()
 
-    let expectedPath = directoryURL.appendingPathComponent("Schema/Objects/Type.swift").path
+    fileManager.mock(closure: .createFile({ path, data, attributes in
+      let expected = self.fileTarget.resolvePath(forConfig: self.config)
+
+      // then
+      let actual = URL(fileURLWithPath: path).deletingLastPathComponent().path
+      expect(actual).to(equal(expected))
+
+      return true
+    }))
+
+    // when
+    try subject.generate(forConfig: config, fileManager: fileManager)
+
+    // then
+    expect(self.fileManager.allClosuresCalled).to(beTrue())
+  }
+
+  func test__generate__shouldFirstUppercaseFilename() throws {
+    // given
+    buildConfig()
+    buildSubject()
 
     fileManager.mock(closure: .createFile({ path, data, attributes in
+      let expected = "LowercasedType.swift"
+
       // then
-      expect(path).to(equal(expectedPath))
+      let actual = URL(fileURLWithPath: path).lastPathComponent
+      expect(actual).to(equal(expected))
 
       return true
     }))

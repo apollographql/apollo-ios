@@ -24,7 +24,8 @@ extension FileGenerator {
     fileManager: FileManager = FileManager.default
   ) throws {
     let directoryPath = target.resolvePath(forConfig: config)
-    let filePath = URL(fileURLWithPath: directoryPath).appendingPathComponent(fileName).path
+    let filePath = URL(fileURLWithPath: directoryPath)
+      .appendingPathComponent(fileName.firstUppercased).path
 
     let rendered: String = template.render(forConfig: config)
 
