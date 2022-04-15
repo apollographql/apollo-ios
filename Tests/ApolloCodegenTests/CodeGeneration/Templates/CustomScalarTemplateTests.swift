@@ -24,7 +24,7 @@ class CustomScalarTemplateTests: XCTestCase {
   func test__render__givenCustomScalar_shouldGeneratePublicTypealias() throws {
     // given
     subject = CustomScalarTemplate(
-      graphqlScalar: GraphQLScalarType.mock(name: "MyCustomScalar")
+      graphqlScalar: GraphQLScalarType.mock(name: "myCustomScalar")
     )
 
     let expected = """

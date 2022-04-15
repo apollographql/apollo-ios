@@ -11,7 +11,7 @@ struct InterfaceTemplate: TemplateRenderer {
   var template: TemplateString {
     TemplateString(
     """
-    public final class \(graphqlInterface.name): Interface { }
+    public final class \(graphqlInterface.name.firstUppercased): Interface { }
     """
     )
   }

@@ -14,16 +14,16 @@ struct SchemaTemplate: TemplateRenderer {
     public typealias ID = String
 
     public protocol SelectionSet: ApolloAPI.SelectionSet & ApolloAPI.RootSelectionSet
-    where Schema == \(schema.name).Schema {}
+    where Schema == \(schema.name.firstUppercased).Schema {}
     
     public protocol InlineFragment: ApolloAPI.SelectionSet & ApolloAPI.InlineFragment
-    where Schema == \(schema.name).Schema {}
+    where Schema == \(schema.name.firstUppercased).Schema {}
 
     public enum Schema: SchemaConfiguration {
       public static func objectType(forTypename __typename: String) -> Object.Type? {
         switch __typename {
         \(schema.referencedTypes.objects.map {
-        "case \"\($0.name)\": return \(schema.name).\($0.name).self"
+          "case \"\($0.name.firstUppercased)\": return \(schema.name.firstUppercased).\($0.name.firstUppercased).self"
         }, separator: "\n")
         default: return nil
         }

@@ -3,7 +3,7 @@ import XCTest
 import Nimble
 
 class SwiftPackageManagerModuleTemplateTests: XCTestCase {
-  let subject = SwiftPackageManagerModuleTemplate(moduleName: "TestModule")
+  let subject = SwiftPackageManagerModuleTemplate(moduleName: "testModule")
 
   // MARK: Helpers
 

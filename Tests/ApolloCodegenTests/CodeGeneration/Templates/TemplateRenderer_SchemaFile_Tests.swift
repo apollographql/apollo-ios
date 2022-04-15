@@ -18,7 +18,7 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
 
   private func buildConfig(
     moduleType: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType,
-    schemaName: String = "TestSchema",
+    schemaName: String = "testSchema",
     operations: ApolloCodegenConfiguration.OperationsFileOutput
   ) {
     config = ReferenceWrapped(

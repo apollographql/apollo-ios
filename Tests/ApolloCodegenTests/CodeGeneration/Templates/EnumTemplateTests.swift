@@ -14,7 +14,7 @@ class EnumTemplateTests: XCTestCase {
 
   // MARK: Helpers
 
-  private func buildSubject(name: String = "TestEnum", values: [String] = ["ONE", "TWO"]) {
+  private func buildSubject(name: String = "testEnum", values: [String] = ["ONE", "TWO"]) {
     subject = EnumTemplate(
       graphqlEnum: GraphQLEnumType.mock(name: name, values: values)
     )

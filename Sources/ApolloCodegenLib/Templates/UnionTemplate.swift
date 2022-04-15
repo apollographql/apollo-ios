@@ -13,7 +13,7 @@ struct UnionTemplate: TemplateRenderer {
   var template: TemplateString {
     TemplateString(
     """
-    public enum \(graphqlUnion.name): UnionType, Equatable {
+    public enum \(graphqlUnion.name.firstUppercased): UnionType, Equatable {
       \(graphqlUnion.types.map({ type in
       "case \(type.name.firstUppercased)(\(type.name.firstUppercased))"
       }), separator: "\n")
@@ -38,7 +38,7 @@ struct UnionTemplate: TemplateRenderer {
 
       public static let possibleTypes: [Object.Type] = [
         \(graphqlUnion.types.map({ type in
-          "\(moduleName).\(type.name.firstUppercased).self"
+          "\(moduleName.firstUppercased).\(type.name.firstUppercased).self"
         }), separator: ",\n")
       ]
     }

@@ -15,7 +15,7 @@ struct SelectionSetTemplate {
   func render(for operation: IR.Operation) -> String {
     TemplateString(
     """
-    public struct Data: \(schema.name).SelectionSet {
+    public struct Data: \(schema.name.firstUppercased).SelectionSet {
       \(BodyTemplate(operation.rootField.selectionSet))
     }
     """
@@ -27,7 +27,7 @@ struct SelectionSetTemplate {
     TemplateString(
     """
     \(SelectionSetNameDocumentation(field.selectionSet))
-    public struct \(field.formattedFieldName): \(schema.name).SelectionSet {
+    public struct \(field.formattedFieldName): \(schema.name.firstUppercased).SelectionSet {
       \(BodyTemplate(field.selectionSet))
     }
     """
@@ -39,7 +39,7 @@ struct SelectionSetTemplate {
     TemplateString(
     """
     \(SelectionSetNameDocumentation(inlineFragment))
-    public struct \(inlineFragment.renderedTypeName): \(schema.name).InlineFragment {
+    public struct \(inlineFragment.renderedTypeName): \(schema.name.firstUppercased).InlineFragment {
       \(BodyTemplate(inlineFragment))
     }
     """
@@ -84,7 +84,7 @@ struct SelectionSetTemplate {
     """
 
   private func ParentTypeTemplate(_ type: GraphQLCompositeType) -> String {
-    "public static var __parentType: ParentType { .\(type.parentTypeEnumType)(\(schema.name).\(type.name).self) }"
+    "public static var __parentType: ParentType { .\(type.parentTypeEnumType)(\(schema.name.firstUppercased).\(type.name.firstUppercased).self) }"
   }
 
   // MARK: - Selections

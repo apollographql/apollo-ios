@@ -94,7 +94,7 @@ extension TemplateString {
   fileprivate func wrappedInNamespace(_ namespace: String) -> Self {
     TemplateString(
     """
-    public extension \(namespace) {
+    public extension \(namespace.firstUppercased) {
       \(self)
     }
     """
@@ -130,7 +130,7 @@ private struct ImportStatementTemplate {
     static func template(forConfig config: ReferenceWrapped<ApolloCodegenConfiguration>) -> TemplateString {
       """
       \(ImportStatementTemplate.template)
-      \(if: shouldImportSchemaModule(config.output), "import \(config.output.schemaTypes.schemaName)")
+      \(if: shouldImportSchemaModule(config.output), "import \(config.output.schemaTypes.schemaName.firstUppercased)")
       """
     }
 

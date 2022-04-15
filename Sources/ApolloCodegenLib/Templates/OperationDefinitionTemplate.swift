@@ -32,7 +32,7 @@ struct OperationDefinitionTemplate: TemplateRenderer {
 
   private func OperationDeclaration(_ operation: CompilationResult.OperationDefinition) -> TemplateString {
     return """
-    public class \(operation.nameWithSuffix): \(operation.operationType.renderedProtocolName) {
+    public class \(operation.nameWithSuffix.firstUppercased): \(operation.operationType.renderedProtocolName) {
       public let operationName: String = "\(operation.name)"
     """
   }
