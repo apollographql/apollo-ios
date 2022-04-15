@@ -115,11 +115,11 @@ public class AllAnimalsQuery: GraphQLQuery {
         public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Height.self) }
         public static var selections: [Selection] { [
           .field("feet", Int.self),
-          .field("inches", Int.self),
+          .field("inches", Int?.self),
         ] }
 
         public var feet: Int { data["feet"] }
-        public var inches: Int { data["inches"] }
+        public var inches: Int? { data["inches"] }
         public var meters: Int { data["meters"] }
       }
 
@@ -195,7 +195,7 @@ public class AllAnimalsQuery: GraphQLQuery {
           public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Height.self) }
 
           public var feet: Int { data["feet"] }
-          public var inches: Int { data["inches"] }
+          public var inches: Int? { data["inches"] }
           public var meters: Int { data["meters"] }
           public var yards: Int { data["yards"] }
         }
@@ -245,7 +245,7 @@ public class AllAnimalsQuery: GraphQLQuery {
           public var relativeSize: GraphQLEnum<RelativeSize> { data["relativeSize"] }
           public var centimeters: Int { data["centimeters"] }
           public var feet: Int { data["feet"] }
-          public var inches: Int { data["inches"] }
+          public var inches: Int? { data["inches"] }
           public var meters: Int { data["meters"] }
         }
 
@@ -285,7 +285,7 @@ public class AllAnimalsQuery: GraphQLQuery {
             public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Height.self) }
 
             public var feet: Int { data["feet"] }
-            public var inches: Int { data["inches"] }
+            public var inches: Int? { data["inches"] }
             public var meters: Int { data["meters"] }
             public var yards: Int { data["yards"] }
             public var relativeSize: GraphQLEnum<RelativeSize> { data["relativeSize"] }
@@ -331,7 +331,7 @@ public class AllAnimalsQuery: GraphQLQuery {
           public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Height.self) }
 
           public var feet: Int { data["feet"] }
-          public var inches: Int { data["inches"] }
+          public var inches: Int? { data["inches"] }
           public var meters: Int { data["meters"] }
           public var yards: Int { data["yards"] }
           public var relativeSize: GraphQLEnum<RelativeSize> { data["relativeSize"] }
@@ -371,7 +371,7 @@ public class AllAnimalsQuery: GraphQLQuery {
           public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Height.self) }
 
           public var feet: Int { data["feet"] }
-          public var inches: Int { data["inches"] }
+          public var inches: Int? { data["inches"] }
           public var meters: Int { data["meters"] }
         }
 
@@ -412,7 +412,7 @@ public class AllAnimalsQuery: GraphQLQuery {
             public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Height.self) }
 
             public var feet: Int { data["feet"] }
-            public var inches: Int { data["inches"] }
+            public var inches: Int? { data["inches"] }
             public var meters: Int { data["meters"] }
             public var yards: Int { data["yards"] }
             public var relativeSize: GraphQLEnum<RelativeSize> { data["relativeSize"] }
@@ -459,7 +459,7 @@ public class AllAnimalsQuery: GraphQLQuery {
           public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Height.self) }
 
           public var feet: Int { data["feet"] }
-          public var inches: Int { data["inches"] }
+          public var inches: Int? { data["inches"] }
           public var meters: Int { data["meters"] }
           public var yards: Int { data["yards"] }
           public var relativeSize: GraphQLEnum<RelativeSize> { data["relativeSize"] }

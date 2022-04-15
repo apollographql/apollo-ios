@@ -12,5 +12,4 @@ public struct Module {
     default: return nil
     }
   }
-
 }

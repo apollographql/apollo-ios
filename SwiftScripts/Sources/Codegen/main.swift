@@ -66,7 +66,13 @@ struct Codegen: ParsableCommand {
     try FileManager.default.apollo.createDirectoryIfNeeded(atPath: targetURL.path)
 
     // Actually attempt to generate code.
-    try ApolloCodegen.build(with: ApolloCodegenConfiguration(input: inputConfig, output: outputConfig))
+    try ApolloCodegen.build(
+      with: ApolloCodegenConfiguration(
+        input: inputConfig,
+        output: outputConfig,
+        experimentalFeatures: .init(clientControlledNullability: target.ccnEnabled)
+      )
+    )
   }
 }
 

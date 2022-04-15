@@ -31,7 +31,10 @@ public class ApolloCodegen {
     try configuration.validate()
 
     let referenceConfig = ReferenceWrapped(value: configuration)
-    let compilationResult = try compileGraphQLResult(referenceConfig)
+    let compilationResult = try compileGraphQLResult(
+      referenceConfig,
+      experimentalFeatures: configuration.experimentalFeatures
+    )
 
     let ir = IR(
       schemaName: referenceConfig.output.schemaTypes.schemaName,
@@ -49,7 +52,8 @@ public class ApolloCodegen {
 
   /// Performs GraphQL source validation and compiles the schema and operation source documents. 
   static func compileGraphQLResult(
-    _ config: ReferenceWrapped<ApolloCodegenConfiguration>
+    _ config: ReferenceWrapped<ApolloCodegenConfiguration>,
+    experimentalFeatures: ApolloCodegenConfiguration.ExperimentalFeatures = .init()
   ) throws -> CompilationResult {
     let frontend = try GraphQLJSFrontend()
 
@@ -58,7 +62,10 @@ public class ApolloCodegen {
 
     let matches = try Glob(config.input.searchPaths).match()
     let documents = try matches.map({ path in
-      return try frontend.parseDocument(from: URL(fileURLWithPath: path))
+      return try frontend.parseDocument(
+        from: URL(fileURLWithPath: path),
+        experimentalClientControlledNullability: experimentalFeatures.clientControlledNullability
+      )
     })
     let mergedDocument = try frontend.mergeDocuments(documents)
 

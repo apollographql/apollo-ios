@@ -31,6 +31,14 @@ public enum Target: CaseIterable {
     }
   }
 
+  public var ccnEnabled: Bool {
+    switch self {
+    case .starWars, .gitHub, .upload: return false
+    case .animalKingdom: return true
+    }
+  }
+
+
   public func targetRootURL(fromSourceRoot sourceRootURL: Foundation.URL) -> Foundation.URL {
     switch self {
     case .gitHub:
@@ -89,7 +97,10 @@ public enum Target: CaseIterable {
       let graphQLFolder = targetRootURL.apollo.childFolderURL(folderName: "graphql")
 
       return ApolloCodegenConfiguration.FileInput(
-        schemaPath: schemaURL(fromTargetRoot: targetRootURL).path,
+        schemaPath: graphQLFolder.appendingPathComponent("AnimalSchema.graphqls").path,
+        // There is a subdirectory that contains CCN enabled operations in the same `graphQLFolder` as
+        //   the .animalKingdom target. We want to include those operations when we generate for
+        //   .animalKingdom.
         searchPaths: [graphQLFolder.appendingPathComponent("**/*.graphql").path]
       )
     }

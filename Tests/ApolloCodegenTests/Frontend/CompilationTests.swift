@@ -64,6 +64,52 @@ class CompilationTests: XCTestCase {
     XCTAssertEqualUnordered(compilationResult.referencedTypes.map(\.name),
                             ["Query", "Episode", "Character", "String"])
   }
+
+  func testCompileSingleQueryCCN() throws {
+    let source = try codegenFrontend.makeSource("""
+      query HeroAndFriendsNames($id: ID) {
+        human(id: $id) {
+          name
+          mass!
+          appearsIn[!]?
+        }
+      }
+      """, filePath: "HeroAndFriendsNames.graphql")
+
+    let document = try codegenFrontend.parseDocument(
+      source,
+      experimentalClientControlledNullability: true
+    )
+
+    let compilationResult = try codegenFrontend.compile(schema: schema, document: document)
+
+    let operation = try XCTUnwrap(compilationResult.operations.first)
+    XCTAssertEqual(operation.name, "HeroAndFriendsNames")
+    XCTAssertEqual(operation.operationType, .query)
+    XCTAssertEqual(operation.rootType.name, "Query")
+
+    XCTAssertEqual(operation.variables[0].name, "id")
+    XCTAssertEqual(operation.variables[0].type.typeReference, "ID")
+
+    let heroField = try XCTUnwrap(operation.selectionSet.firstField(for: "human"))
+    XCTAssertEqual(heroField.name, "human")
+    XCTAssertEqual(heroField.type.typeReference, "Human")
+
+    let episodeArgument = try XCTUnwrap(heroField.arguments?.first)
+    XCTAssertEqual(episodeArgument.name, "id")
+    XCTAssertEqual(episodeArgument.value, .variable("id"))
+
+    let friendsField = try XCTUnwrap(heroField.selectionSet?.firstField(for: "mass"))
+    XCTAssertEqual(friendsField.name, "mass")
+    XCTAssertEqual(friendsField.type.typeReference, "Float!")
+
+    let appearsInField = try XCTUnwrap(heroField.selectionSet?.firstField(for: "appearsIn"))
+    XCTAssertEqual(appearsInField.name, "appearsIn")
+    XCTAssertEqual(appearsInField.type.typeReference, "[Episode!]")
+
+    XCTAssertEqualUnordered(compilationResult.referencedTypes.map(\.name),
+                            ["ID", "Query", "Human", "String", "Float", "Episode", "Character"])
+  }
 }
 
 fileprivate extension CompilationResult.SelectionSet {

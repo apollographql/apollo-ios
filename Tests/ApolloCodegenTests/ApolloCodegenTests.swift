@@ -142,6 +142,75 @@ class ApolloCodegenTests: XCTestCase {
     expect(try ApolloCodegen.compileGraphQLResult(config).operations).to(haveCount(2))
   }
 
+  func test_CCN_compileResults_givenOperations_withNoErrors_shouldReturn() throws {
+    let schemaData: Data = {
+      """
+      type Query {
+        author: Author
+      }
+
+      type Author {
+        name: String
+        age: Int
+      }
+      """
+    }().data(using: .utf8)!
+    // given
+    let schemaPath = createFile(containing: schemaData, named: "schema.graphqls")
+
+    let authorsData: Data =
+      """
+      query getAuthors {
+        author! {
+          name!
+        }
+      }
+      """.data(using: .utf8)!
+    createFile(containing: authorsData, named: "authors-operation.graphql")
+
+    let config = ReferenceWrapped(value: ApolloCodegenConfiguration.mock(input: .init(
+      schemaPath: schemaPath,
+      searchPaths: [directoryURL.appendingPathComponent("*.graphql").path]
+    )))
+
+    let compiledDocument = try ApolloCodegen.compileGraphQLResult(
+      config,
+      experimentalFeatures: .init(clientControlledNullability: true)
+    )
+
+    // then
+    expect(compiledDocument.operations).to(haveCount(1))
+  }
+
+  func test_CCN_compileResults_givenOperations_withErrors_shouldError() throws {
+    // given
+    let schemaPath = createFile(containing: schemaData, named: "schema.graphqls")
+
+    let authorsData: Data =
+      """
+      query getAuthors {
+        authors {
+          name!
+        }
+      }
+      """.data(using: .utf8)!
+    createFile(containing: authorsData, named: "authors-operation.graphql")
+
+    let config = ReferenceWrapped(value: ApolloCodegenConfiguration.mock(input: .init(
+      schemaPath: schemaPath,
+      searchPaths: [directoryURL.appendingPathComponent("*.graphql").path]
+    )))
+
+    // then
+    expect(try ApolloCodegen.compileGraphQLResult(config).operations).to(throwError { error in
+      guard let error = error as? GraphQLError else {
+        fail("Expected .graphQLSourceValidationFailure because we attempted to compile a document that uses CCN without CCN enabled, got \(error)")
+        return
+      }
+      expect(error.message).to(equal("Syntax Error: Expected Name, found \"!\"."))
+    })
+  }
+
   func test_compileResults_givenSchema_withNoOperations_shouldReturnEmpty() throws {
     // given
     let schemaPath = createFile(containing: schemaData, named: "schema.graphqls")
@@ -161,7 +230,8 @@ class ApolloCodegenTests: XCTestCase {
     // given
     let schemaPath = ApolloCodegenTestSupport.Resources.AnimalKingdomSchema.path
     let operationsPath = ApolloCodegenTestSupport.Resources.url
-      .appendingPathComponent("**/*.graphql").path
+      .appendingPathComponent("graphql")
+      .appendingPathComponent("*.graphql").path
 
     let config = ReferenceWrapped(value: ApolloCodegenConfiguration.mock(
       input: .init(
@@ -185,6 +255,8 @@ class ApolloCodegenTests: XCTestCase {
     }))
 
     let expectedPaths: Set<String> = [
+      directoryURL.appendingPathComponent("Schema/Schema.swift").path,
+
       directoryURL.appendingPathComponent("Operations/AllAnimalsIncludeSkipQuery.swift").path,
       directoryURL.appendingPathComponent("Operations/AllAnimalsQuery.swift").path,
       directoryURL.appendingPathComponent("Schema/Objects/Height.swift").path,
@@ -192,20 +264,37 @@ class ApolloCodegenTests: XCTestCase {
       directoryURL.appendingPathComponent("Operations/WarmBloodedDetails.swift").path,
       directoryURL.appendingPathComponent("Schema/Enums/SkinCovering.swift").path,
       directoryURL.appendingPathComponent("Schema/Interfaces/Pet.swift").path,
-      directoryURL.appendingPathComponent("Operations/PetDetails.swift").path,
       directoryURL.appendingPathComponent("Schema/Interfaces/Animal.swift").path,
-      directoryURL.appendingPathComponent("Schema/Enums/RelativeSize.swift").path,
-      directoryURL.appendingPathComponent("Schema/Objects/Human.swift").path,
-      directoryURL.appendingPathComponent("Schema/Objects/Cat.swift").path,
       directoryURL.appendingPathComponent("Schema/Interfaces/WarmBlooded.swift").path,
+
+      directoryURL.appendingPathComponent("Schema/Enums/SkinCovering.swift").path,
+      directoryURL.appendingPathComponent("Schema/Enums/RelativeSize.swift").path,
+
       directoryURL.appendingPathComponent("Schema/Unions/ClassroomPet.swift").path,
+
+      directoryURL.appendingPathComponent("Schema/InputObjects/PetAdoptionInput.swift").path,
+      directoryURL.appendingPathComponent("Schema/InputObjects/PetSearchFilters.swift").path,
+      directoryURL.appendingPathComponent("Schema/InputObjects/MeasurementsInput.swift").path,
+
+      directoryURL.appendingPathComponent("Schema/Objects/Height.swift").path,
+      directoryURL.appendingPathComponent("Schema/Objects/Query.swift").path,
+      directoryURL.appendingPathComponent("Schema/Objects/Cat.swift").path,
+      directoryURL.appendingPathComponent("Schema/Objects/Human.swift").path,
       directoryURL.appendingPathComponent("Schema/Objects/Bird.swift").path,
       directoryURL.appendingPathComponent("Schema/Objects/Rat.swift").path,
       directoryURL.appendingPathComponent("Schema/Objects/PetRock.swift").path,
+      directoryURL.appendingPathComponent("Schema/Objects/Mutation.swift").path,
+
+      directoryURL.appendingPathComponent("Operations/AllAnimalsQuery.swift").path,
+      directoryURL.appendingPathComponent("Operations/PetDetails.swift").path,
       directoryURL.appendingPathComponent("Operations/ClassroomPetsQuery.swift").path,
       directoryURL.appendingPathComponent("Operations/ClassroomPetDetails.swift").path,
-      directoryURL.appendingPathComponent("Schema/Objects/Query.swift").path,
-      directoryURL.appendingPathComponent("Schema/Schema.swift").path,
+      directoryURL.appendingPathComponent("Operations/PetSearchQuery.swift").path,
+      directoryURL.appendingPathComponent("Operations/PetAdoptionMutation.swift").path,
+      directoryURL.appendingPathComponent("Operations/HeightInMeters.swift").path,
+      directoryURL.appendingPathComponent("Operations/WarmBloodedDetails.swift").path,
+      directoryURL.appendingPathComponent("Operations/PetSearchQuery.swift").path,
+
       directoryURL.appendingPathComponent("Package.swift").path,
       directoryURL.appendingPathComponent("Schema/Objects/Dog.swift").path,
       directoryURL.appendingPathComponent("Schema/Interfaces/HousePet.swift").path,
@@ -214,6 +303,101 @@ class ApolloCodegenTests: XCTestCase {
 
     // when
     let compilationResult = try ApolloCodegen.compileGraphQLResult(config)
+
+    let ir = IR(
+      schemaName: config.output.schemaTypes.schemaName,
+      compilationResult: compilationResult
+    )
+
+    try ApolloCodegen.generateFiles(
+      compilationResult: compilationResult,
+      ir: ir,
+      config: config,
+      fileManager: fileManager
+    )
+
+    // then
+    expect(filePaths).to(equal(expectedPaths))
+    expect(fileManager.allClosuresCalled).to(beTrue())
+  }
+
+  func test_fileGenerators_givenSchemaAndMultipleOperationDocuments_shouldGenerateSchemaAndOperationsFiles_CCN() throws {
+    // given
+    let schemaPath = ApolloCodegenTestSupport.Resources.AnimalKingdomSchema.path
+    let operationsPath = ApolloCodegenTestSupport.Resources.url
+      .appendingPathComponent("graphql")
+      .appendingPathComponent("**/*.graphql").path
+
+    let config =  ReferenceWrapped(value: ApolloCodegenConfiguration(
+      input: .init(schemaPath: schemaPath, searchPaths: [operationsPath]),
+      output: .mock(
+        moduleType: .swiftPackageManager,
+        schemaName: "AnimalKingdomAPI",
+        operations: .inSchemaModule,
+        path: directoryURL.path
+      )
+    ))
+
+    let fileManager = MockFileManager(strict: false)
+
+    var filePaths: Set<String> = []
+    fileManager.mock(closure: .createFile({ path, data, attributes in
+      filePaths.insert(path)
+      return true
+    }))
+
+    let expectedPaths: Set<String> = [
+      directoryURL.appendingPathComponent("Schema/Schema.swift").path,
+
+      directoryURL.appendingPathComponent("Schema/Interfaces/Pet.swift").path,
+      directoryURL.appendingPathComponent("Schema/Interfaces/Animal.swift").path,
+      directoryURL.appendingPathComponent("Schema/Interfaces/WarmBlooded.swift").path,
+      directoryURL.appendingPathComponent("Schema/Interfaces/HousePet.swift").path,
+
+      directoryURL.appendingPathComponent("Schema/Enums/SkinCovering.swift").path,
+      directoryURL.appendingPathComponent("Schema/Enums/RelativeSize.swift").path,
+
+      directoryURL.appendingPathComponent("Schema/Unions/ClassroomPet.swift").path,
+
+      directoryURL.appendingPathComponent("Schema/InputObjects/PetAdoptionInput.swift").path,
+      directoryURL.appendingPathComponent("Schema/InputObjects/PetSearchFilters.swift").path,
+      directoryURL.appendingPathComponent("Schema/InputObjects/MeasurementsInput.swift").path,
+
+      directoryURL.appendingPathComponent("Schema/Objects/Height.swift").path,
+      directoryURL.appendingPathComponent("Schema/Objects/Query.swift").path,
+      directoryURL.appendingPathComponent("Schema/Objects/Cat.swift").path,
+      directoryURL.appendingPathComponent("Schema/Objects/Human.swift").path,
+      directoryURL.appendingPathComponent("Schema/Objects/Bird.swift").path,
+      directoryURL.appendingPathComponent("Schema/Objects/Rat.swift").path,
+      directoryURL.appendingPathComponent("Schema/Objects/PetRock.swift").path,
+      directoryURL.appendingPathComponent("Schema/Objects/Mutation.swift").path,
+      directoryURL.appendingPathComponent("Schema/Objects/Dog.swift").path,
+
+      directoryURL.appendingPathComponent("Schema/CustomScalars/CustomDate.swift").path,
+
+      directoryURL.appendingPathComponent("Operations/AllAnimalsQuery.swift").path,
+      directoryURL.appendingPathComponent("Operations/PetDetails.swift").path,
+      directoryURL.appendingPathComponent("Operations/ClassroomPetsQuery.swift").path,
+      directoryURL.appendingPathComponent("Operations/ClassroomPetDetails.swift").path,
+      directoryURL.appendingPathComponent("Operations/PetSearchQuery.swift").path,
+      directoryURL.appendingPathComponent("Operations/PetAdoptionMutation.swift").path,
+      directoryURL.appendingPathComponent("Operations/HeightInMeters.swift").path,
+      directoryURL.appendingPathComponent("Operations/WarmBloodedDetails.swift").path,
+      directoryURL.appendingPathComponent("Operations/PetSearchQuery.swift").path,
+      directoryURL.appendingPathComponent("Operations/AllAnimalsIncludeSkipQuery.swift").path,
+
+      directoryURL.appendingPathComponent("Operations/AllAnimalsCCNQuery.swift").path,
+      directoryURL.appendingPathComponent("Operations/ClassroomPetsCCNQuery.swift").path,
+      directoryURL.appendingPathComponent("Operations/ClassroomPetDetailsCCN.swift").path,
+
+      directoryURL.appendingPathComponent("Package.swift").path,
+    ]
+
+    // when
+    let compilationResult = try ApolloCodegen.compileGraphQLResult(
+      config,
+      experimentalFeatures: .init(clientControlledNullability: true)
+    )
 
     let ir = IR(
       schemaName: config.output.schemaTypes.schemaName,

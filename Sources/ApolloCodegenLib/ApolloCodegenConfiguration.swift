@@ -177,6 +177,33 @@ public struct ApolloCodegenConfiguration {
     case persistedOperationsOnly
   }
 
+  public struct ExperimentalFeatures {
+    /**
+     * EXPERIMENTAL: If enabled, the parser will understand and parse Client Controlled Nullability
+     * Designators contained in Fields. They'll be represented in the
+     * `required` field of the FieldNode.
+     *
+     * The syntax looks like the following:
+     *
+     * ```graphql
+     *   {
+     *     nullableField!
+     *     nonNullableField?
+     *     nonNullableSelectionSet? {
+     *       childField!
+     *     }
+     *   }
+     * ```
+     * Note: this feature is experimental and may change or be removed in the
+     * future.
+     */
+    public let clientControlledNullability: Bool
+
+    public init(clientControlledNullability: Bool = false) {
+      self.clientControlledNullability = clientControlledNullability
+    }
+  }
+
   // MARK: Properties
 
   /// The input files required for code generation.
@@ -198,6 +225,8 @@ public struct ApolloCodegenConfiguration {
   ///
   /// See `APQConfig` for more information on Automatic Persisted Queries.
   public let apqs: APQConfig
+  /// Options to pass to the GraphQL parser. Allows users to enable experimental features.
+  public let experimentalFeatures: ExperimentalFeatures
 
   // MARK: Initializers
 
@@ -226,7 +255,8 @@ public struct ApolloCodegenConfiguration {
     customScalarFormat: CustomScalarFormat = .defaultAsString,
     deprecatedEnumCases: Composition = .include,
     schemaDocumentation: Composition = .include,
-    apqs: APQConfig = .disabled
+    apqs: APQConfig = .disabled,
+    experimentalFeatures: ExperimentalFeatures = ExperimentalFeatures()
   ) {
     self.input = input
     self.output = output
@@ -236,6 +266,7 @@ public struct ApolloCodegenConfiguration {
     self.deprecatedEnumCases = deprecatedEnumCases
     self.schemaDocumentation = schemaDocumentation
     self.apqs = apqs
+    self.experimentalFeatures = experimentalFeatures
   }
 
 }

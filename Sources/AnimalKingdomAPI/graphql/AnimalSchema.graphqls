@@ -1,6 +1,6 @@
 type Query {
   allAnimals: [Animal!]!
-  classroomPets: [ClassroomPet!]!
+  classroomPets: [ClassroomPet]
   pets(filters: PetSearchFilters!): [Pet!]!
 }
 
@@ -77,7 +77,7 @@ type Height {
   centimeters: Int!
   meters: Int!
   feet: Int!
-  inches: Int!
+  inches: Int
   yards: Int!
 }
 
