@@ -8,6 +8,16 @@ public struct CodegenLogger
 
 Helper to get logs printing to stdout so they can be read from the command line.
 
+## Properties
+### `level`
+
+```swift
+public static var level = LogLevel.debug
+```
+
+The `LogLevel` at which to print logs. Higher raw values than this will
+be ignored. Defaults to `debug`.
+
 ## Methods
 ### `log(_:logLevel:file:line:)`
 

@@ -11,12 +11,24 @@ open class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
   public let autoPersistQueries: Bool
   public let useGETForQueries: Bool
   public let useGETForPersistedQueryRetry: Bool
-  public var isPersistedQueryRetry = false
+  public var isPersistedQueryRetry = false {
+    didSet {
+      _body = nil
+    }
+  }
+
+  private var _body: JSONEncodableDictionary?
+  public var body: JSONEncodableDictionary {
+      if _body == nil {
+        _body = createBody()
+      }
+      return _body!
+  }
   
   public let serializationFormat = JSONSerializationFormat.self
   
   /// Designated initializer
-  /// 
+  ///
   /// - Parameters:
   ///   - operation: The GraphQL Operation to execute
   ///   - graphQLEndpoint: The endpoint to make a GraphQL request to
@@ -29,69 +41,54 @@ open class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
   ///   - useGETForQueries: `true` if Queries should use `GET` instead of `POST` for HTTP requests. Defaults to `false`.
   ///   - useGETForPersistedQueryRetry: `true` if when an Auto-Persisted query is retried, it should use `GET` instead of `POST` to send the query. Defaults to `false`.
   ///   - requestBodyCreator: An object conforming to the `RequestBodyCreator` protocol to assist with creating the request body. Defaults to the provided `ApolloRequestBodyCreator` implementation.
-  public init(operation: Operation,
-              graphQLEndpoint: URL,
-              contextIdentifier: UUID? = nil,
-              clientName: String,
-              clientVersion: String,
-              additionalHeaders: [String: String] = [:],
-              cachePolicy: CachePolicy = .default,
-              autoPersistQueries: Bool = false,
-              useGETForQueries: Bool = false,
-              useGETForPersistedQueryRetry: Bool = false,
-              requestBodyCreator: RequestBodyCreator = ApolloRequestBodyCreator()) {
+  public init(
+    operation: Operation,
+    graphQLEndpoint: URL,
+    contextIdentifier: UUID? = nil,
+    clientName: String,
+    clientVersion: String,
+    additionalHeaders: [String: String] = [:],
+    cachePolicy: CachePolicy = .default,
+    autoPersistQueries: Bool = false,
+    useGETForQueries: Bool = false,
+    useGETForPersistedQueryRetry: Bool = false,
+    requestBodyCreator: RequestBodyCreator = ApolloRequestBodyCreator()
+  ) {
     self.autoPersistQueries = autoPersistQueries
     self.useGETForQueries = useGETForQueries
     self.useGETForPersistedQueryRetry = useGETForPersistedQueryRetry
     self.requestBodyCreator = requestBodyCreator
-    
-    super.init(graphQLEndpoint: graphQLEndpoint,
-               operation: operation,
-               contextIdentifier: contextIdentifier,
-               contentType: "application/json",
-               clientName: clientName,
-               clientVersion: clientVersion,
-               additionalHeaders: additionalHeaders,
-               cachePolicy: cachePolicy)
+
+    super.init(
+      graphQLEndpoint: graphQLEndpoint,
+      operation: operation,
+      contextIdentifier: contextIdentifier,
+      contentType: "application/json",
+      clientName: clientName,
+      clientVersion: clientVersion,
+      additionalHeaders: additionalHeaders,
+      cachePolicy: cachePolicy
+    )
   }
-  
+
   open override func toURLRequest() throws -> URLRequest {
     var request = try super.toURLRequest()
-        
     let useGetMethod: Bool
-    let sendQueryDocument: Bool
-    let autoPersistQueries: Bool
+    let body = self.body
+    
     switch operation.operationType {
     case .query:
       if isPersistedQueryRetry {
         useGetMethod = self.useGETForPersistedQueryRetry
-        sendQueryDocument = true
-        autoPersistQueries = true
       } else {
         useGetMethod = self.useGETForQueries || (self.autoPersistQueries && self.useGETForPersistedQueryRetry)
-        sendQueryDocument = !self.autoPersistQueries
-        autoPersistQueries = self.autoPersistQueries
-      }
-    case .mutation:
-      useGetMethod = false
-      if isPersistedQueryRetry {
-        sendQueryDocument = true
-        autoPersistQueries = true
-      } else {
-        sendQueryDocument = !self.autoPersistQueries
-        autoPersistQueries = self.autoPersistQueries
       }
     default:
       useGetMethod = false
-      sendQueryDocument = true
-      autoPersistQueries = false
     }
     
-    let body = self.requestBodyCreator.requestBody(for: operation,
-                                                   sendQueryDocument: sendQueryDocument,
-                                                   autoPersistQuery: autoPersistQueries)
-    
     let httpMethod: GraphQLHTTPMethod = useGetMethod ? .GET : .POST
+    
     switch httpMethod {
     case .GET:
       let transformer = GraphQLGETTransformer(body: body, url: self.graphQLEndpoint)
@@ -99,7 +96,7 @@ open class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
         request.url = urlForGet
         request.httpMethod = GraphQLHTTPMethod.GET.rawValue
         
-        // GET requests shouldn't have a content-type since they do not provide actual content. 
+        // GET requests shouldn't have a content-type since they do not provide actual content.
         request.allHTTPHeaderFields?.removeValue(forKey: "Content-Type")
       } else {
         throw GraphQLHTTPRequestError.serializedQueryParamsMessageError
@@ -114,5 +111,39 @@ open class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
     }
     
     return request
+  }
+
+  private func createBody() -> JSONEncodableDictionary {
+    let sendQueryDocument: Bool
+    let autoPersistQueries: Bool
+    switch operation.operationType {
+    case .query:
+      if isPersistedQueryRetry {
+        sendQueryDocument = true
+        autoPersistQueries = true
+      } else {
+        sendQueryDocument = !self.autoPersistQueries
+        autoPersistQueries = self.autoPersistQueries
+      }
+    case .mutation:
+      if isPersistedQueryRetry {
+        sendQueryDocument = true
+        autoPersistQueries = true
+      } else {
+        sendQueryDocument = !self.autoPersistQueries
+        autoPersistQueries = self.autoPersistQueries
+      }
+    default:
+      sendQueryDocument = true
+      autoPersistQueries = false
+    }
+    
+    let body = self.requestBodyCreator.requestBody(
+      for: operation,
+      sendQueryDocument: sendQueryDocument,
+      autoPersistQuery: autoPersistQueries
+    )
+    
+    return body
   }
 }

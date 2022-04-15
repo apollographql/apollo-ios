@@ -273,7 +273,7 @@ cell.detailTextLabel?.text = nil
 
 Next, in the same method, go down to where you're setting up the cell based on the section. Update the code to use the launch mission name as the primary text label, the launch site as the detail text label, and to load the mission patch if it exists:
     
-```swift title="LaunchesViewController.swift" 
+```swift title="LaunchesViewController.swift"
 switch listSection {
 case .launches:
   let launch = self.launches[indexPath.row]

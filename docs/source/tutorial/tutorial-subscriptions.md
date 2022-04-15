@@ -61,6 +61,8 @@ Build your project, and the subscription will be picked up and added to your `AP
 
 ## Configure your ApolloClient to use subscriptions
 
+> This tutorial uses the [`graphql-ws`](https://github.com/apollographql/subscriptions-transport-ws/blob/master/PROTOCOL.md) protocol, implemented by the [`subscriptions-transport-ws`](https://github.com/apollographql/subscriptions-transport-ws) library. **That library is no longer actively maintained.** We recommend using the [`graphql-ws`](https://www.npmjs.com/package/graphql-ws) library instead, which implements its own WebSocket subprotocol, `graphql-transport-ws`. Note that the two libraries do not use the same WebSocket subprotocol and you need to ensure that your servers, clients, and tools use the **same library and subprotocol**. For more information and examples, see [GraphQL over WebSocket protocols](../subscriptions#graphql-over-websocket-protocols).
+
 In `Network.swift`, you'll need to set up a transport which supports subscriptions in addition to general network usage. In practice, this means adding a `WebSocketTransport` which will allow real-time communication with your server.
 
 First, at the top of the file, add an import for the **ApolloWebSocket** framework to get access to the classes you'll need:
@@ -73,14 +75,19 @@ Next, in the lazy declaration of the `apollo` variable, immediately after `trans
 
 ```swift title="Network.swift"
 // 1
-let webSocket = WebSocket(url: URL(string: "wss://apollo-fullstack-tutorial.herokuapp.com/graphql")!)
+let webSocket = WebSocket(
+  url: URL(string: "wss://apollo-fullstack-tutorial.herokuapp.com/graphql")!,
+  protocol: .graphql_ws
+)
 
 // 2
 let webSocketTransport = WebSocketTransport(websocket: webSocket)
 
 // 3
-let splitTransport = SplitNetworkTransport(uploadingNetworkTransport: transport,
-                                                   webSocketNetworkTransport: webSocketTransport)
+let splitTransport = SplitNetworkTransport(
+  uploadingNetworkTransport: transport,
+  webSocketNetworkTransport: webSocketTransport
+)
 
 // 4
 return ApolloClient(networkTransport: splitTransport, store: store)

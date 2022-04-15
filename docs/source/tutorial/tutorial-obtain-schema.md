@@ -46,7 +46,7 @@ To use the Apollo CLI from Xcode, add a **Run Script** build phase to your app:
 
     <img src="images/rename_run_script.png" alt="UI for renaming" class="screenshot"/>
 
-6. Expand the Apollo phase. Paste the **Swift Package Manager Run Script** from [Adding a code generation build step](../installation/#5-add-a-code-generation-build-step) into the text area. This script uses your schema to generate the code that the Apollo iOS SDK uses to interact with your server.
+6. Expand the Apollo phase. Paste the **Swift Package Manager Run Script** from [Add a code generation build step](../installation/#5-add-a-code-generation-build-step) into the text area. This script uses your schema to generate the code that the Apollo iOS SDK uses to interact with your server.
 
 7. Before the script can generate code, it needs a local copy of your GraphQL server's schema. For now, using a `#`, **comment out the last line** of the script you pasted and add the following line below it:
 
@@ -56,11 +56,7 @@ To use the Apollo CLI from Xcode, add a **Run Script** build phase to your app:
 
     This line runs the Apollo CLI's `schema:download` command, which downloads the schema to a `schema.json` file at the same level of your project as the `AppDelegate.swift` file.
 
-8. Build your project to execute the script. In Finder, navigate to the folder that contains your `AppDelegate.swift` file. The folder should now include the downloaded `schema.json` file. Drag this file from Finder into Xcode:
-
-    <img src="images/drag_schema_into_xcode.png" alt="Where to drag the schema file" class="screenshot" width="300"/>
-
-    When Xcode offers to add the schema file, make sure **all targets are unchecked** to reduce the size of your application bundle:
+8. Build your project to execute the script. In Finder, navigate to the folder that contains your `AppDelegate.swift` file. The folder should now include the downloaded `schema.json` file. Drag this file from Finder into Xcode. When Xcode offers to add the schema file, make sure **all targets are unchecked** to reduce the size of your application bundle:
 
     <img src="images/dont_add_to_target.png" alt="All targets unchecked in dialog" class="screenshot"/>
 

@@ -16,3 +16,12 @@ case typescript
 ```
 
 The default, tried and true code generation engine
+
+## Properties
+### `default`
+
+```swift
+public static var `default`: CodeGenerationEngine
+```
+
+The current default for the code generation engine.

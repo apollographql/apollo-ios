@@ -19,3 +19,11 @@ var apollo: ApolloExtension<Base>
 ```
 
 The `ApolloExtension` object for an instance
+
+### `apollo`
+
+```swift
+static var apollo: ApolloExtension<Base>.Type
+```
+
+The `ApolloExtension` object for a type

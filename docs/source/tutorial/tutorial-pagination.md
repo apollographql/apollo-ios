@@ -147,7 +147,7 @@ Luckily, you can use `UIViewController`'s  `shouldPerformSegue(withIdentifier:se
 This method was already overridden in the starter project. Update the code within it to perform the segue for anything in the `.launches` section and _not_ perform it (instead loading more launches if needed) for the `.loading` section. Replace the `TODO` and everything below it with: 
 
 
-```swift title="LaunchesViewController.swift"     
+```swift title="LaunchesViewController.swift"
  guard let listSection = ListSection(rawValue: selectedIndexPath.section) else {
   assertionFailure("Invalid section")
   return false

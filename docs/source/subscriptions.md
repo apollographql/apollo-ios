@@ -19,6 +19,14 @@ There are two different classes which conform to the [`NetworkTransport` protoco
 
 Typically, you'll want to use `SplitNetworkTransport`, since this allows you to retain the single `NetworkTransport` setup and avoids any potential issues of using multiple client objects. 
 
+## GraphQL over WebSocket protocols
+
+There are two protocols supported by apollo-ios:
+1. [`graphql-ws`](https://github.com/apollographql/subscriptions-transport-ws/blob/master/PROTOCOL.md) protocol which is implemented in the [subscriptions-transport-ws](https://github.com/apollographql/subscriptions-transport-ws) and [AWS AppSync](https://docs.aws.amazon.com/appsync/latest/devguide/real-time-websocket-client.html#handshake-details-to-establish-the-websocket-connection) libraries.
+2. [`graphql-transport-ws`](https://github.com/enisdenjo/graphql-ws/blob/master/PROTOCOL.md) protocol which is implemented in the [graphql-ws](https://github.com/enisdenjo/graphql-ws) library.
+
+It is important to note that the protocols are not cross-compatible and you will need to know which is implemented in the service you're connecting to. All `WebSocket` initializers allow you to specify which GraphQL over WebSocket protocol should be used.
+
 ## Sample subscription-supporting initializer 
 
 Here is an example of setting up a singleton similar to the [Example Advanced Client Setup](initialization/#advanced-client-creation), but which uses a `SplitNetworkTransport` to support both subscriptions and queries: 
@@ -36,8 +44,7 @@ class Apollo {
   /// A web socket transport to use for subscriptions  
   private lazy var webSocketTransport: WebSocketTransport = {
     let url = URL(string: "ws://localhost:8080/websocket")!
-    let request = URLRequest(url: url)
-    let webSocketClient = WebSocket(request: request)
+    let webSocketClient = WebSocket(url: url, protocol: .graphql_transport_ws)
     return WebSocketTransport(websocket: webSocketClient)
   }()
   
@@ -161,8 +168,7 @@ class Apollo {
   // initializes the connection as an authorized channel.
   private lazy var webSocketTransport: WebSocketTransport = {
     let url = URL(string: "ws://localhost:8080/websocket")!
-    let request = URLRequest(url: url)
-    let webSocketClient = WebSocket(request: request)
+    let webSocketClient = WebSocket(url: url, protocol: .graphql_transport_ws)
     let authPayload = ["authToken": magicToken]
     return WebSocketTransport(websocket: webSocketClient, connectingPayload: authPayload)
   }()

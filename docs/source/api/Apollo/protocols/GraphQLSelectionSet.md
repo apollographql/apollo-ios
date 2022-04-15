@@ -7,6 +7,12 @@ public protocol GraphQLSelectionSet
 ```
 
 ## Properties
+### `selections`
+
+```swift
+static var selections: [GraphQLSelection]
+```
+
 ### `resultMap`
 
 ```swift

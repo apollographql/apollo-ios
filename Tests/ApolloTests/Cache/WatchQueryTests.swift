@@ -925,6 +925,94 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
 //      wait(for: [updatedWatcherResultExpectation], timeout: Self.defaultWaitTimeout)
 //    }
 //  }
+
+  #warning("Fix this test after mutable cache is implemented.")
+//  func testWatchedQuery_givenCachePolicyReturnCacheDataDontFetch_doesNotRefetchFromServerAfterOtherQueryUpdatesListWithIncompleteObject() throws {
+//    client.store.cacheKeyForObject = { $0["id"] }
+//
+//    let watchedQuery = HeroAndFriendsNamesWithIDsQuery()
+//
+//    let resultObserver = makeResultObserver(for: watchedQuery)
+//
+//    let watcher = GraphQLQueryWatcher(client: client, query: watchedQuery, resultHandler: resultObserver.handler)
+//    addTeardownBlock { watcher.cancel() }
+//
+//    runActivity("Write data to cache") { _ in
+//      let writeToStoreExpectation = expectation(description: "Initial Data written to store")
+//
+//      client.store.withinReadWriteTransaction({ transaction in
+//        let data = HeroAndFriendsNamesWithIDsQuery.Data(
+//          unsafeResultMap: [
+//            "hero": [
+//              "id": "2001",
+//              "name": "R2-D2",
+//              "__typename": "Droid",
+//              "friends": [
+//                ["__typename": "Human", "id": "1000", "name": "Luke Skywalker"],
+//                ["__typename": "Human", "id": "1002", "name": "Han Solo"],
+//                ["__typename": "Human", "id": "1003", "name": "Leia Organa"],
+//              ]
+//            ]
+//          ])
+//
+//        try transaction.write(data: data, forQuery: HeroAndFriendsNamesWithIDsQuery())
+//      }) { result in
+//        XCTAssertSuccessResult(result)
+//        writeToStoreExpectation.fulfill()
+//      }
+//
+//      wait(for: [writeToStoreExpectation], timeout: Self.defaultWaitTimeout)
+//    }
+//
+//    runActivity("Initial fetch from cache") { _ in
+//      let initialWatcherResultExpectation = resultObserver.expectation(description: "Watcher received initial result from cache") { result in
+//        try XCTAssertSuccessResult(result) { graphQLResult in
+//          XCTAssertEqual(graphQLResult.source, .cache)
+//          XCTAssertNil(graphQLResult.errors)
+//
+//          let data = try XCTUnwrap(graphQLResult.data)
+//          XCTAssertEqual(data.hero?.name, "R2-D2")
+//          let friendsNames = data.hero?.friends?.compactMap { $0?.name }
+//          XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
+//        }
+//      }
+//
+//      watcher.fetch(cachePolicy: .returnCacheDataDontFetch)
+//
+//      wait(for: [initialWatcherResultExpectation], timeout: Self.defaultWaitTimeout)
+//    }
+//
+//    runActivity("Fetch other query with list of updated keys from server") { _ in
+//      let serverRequestExpectation = server.expect(HeroAndFriendsIDsQuery.self) { request in
+//        [
+//          "data": [
+//            "hero": [
+//              "id": "2001",
+//              "name": "Artoo",
+//              "__typename": "Droid",
+//              "friends": [
+//                ["__typename": "Human", "id": "1003"],
+//                ["__typename": "Human", "id": "1004"],
+//                ["__typename": "Human", "id": "1000"],
+//              ]
+//            ]
+//          ]
+//        ]
+//      }
+//
+//      let noRefetchExpectation = resultObserver.expectation(description: "Initial query shouldn't trigger refetch") { _ in }
+//      noRefetchExpectation.isInverted = true
+//
+//      let otherFetchCompletedExpectation = expectation(description: "Other fetch completed")
+//
+//      client.fetch(query: HeroAndFriendsIDsQuery(), cachePolicy: .fetchIgnoringCacheData) { result in
+//        defer { otherFetchCompletedExpectation.fulfill() }
+//        XCTAssertSuccessResult(result)
+//      }
+//
+//      wait(for: [serverRequestExpectation, otherFetchCompletedExpectation, noRefetchExpectation], timeout: Self.defaultWaitTimeout)
+//    }
+//  }
   
   func testWatchedQueryIsOnlyUpdatedOnceIfConcurrentFetchesAllReturnTheSameResult() throws {
     class HeroNameSelectionSet: MockSelectionSet {
