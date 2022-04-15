@@ -103,16 +103,6 @@ class FragmentTemplateTests: XCTestCase {
     public struct TestFragment: TestSchema.SelectionSet, Fragment {
       public static var fragmentDefinition: StaticString { ""\"
         fragment testFragment on Query {
-          __typename
-          allAnimals {
-            __typename
-            species
-          }
-        }
-        ""\" }
-
-      public let data: DataDict
-      public init(data: DataDict) { self.data = data }
     """
 
     // when

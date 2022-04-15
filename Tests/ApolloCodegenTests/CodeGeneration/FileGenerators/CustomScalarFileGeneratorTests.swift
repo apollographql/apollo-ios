@@ -27,11 +27,11 @@ class CustomScalarFileGeneratorTests: XCTestCase {
     expect(self.subject.target).to(equal(.customScalar))
   }
 
-  func test__properties__givenGraphQLScalar_shouldReturnFileName_matchingScalarNameFirstUppercased() {
+  func test__properties__givenGraphQLScalar_shouldReturnFileName_matchingScalarName() {
     // given
     buildSubject()
 
-    let expected = "\(graphqlScalar.name.firstUppercased).swift"
+    let expected = "\(graphqlScalar.name).swift"
 
     // then
     expect(self.subject.fileName).to(equal(expected))

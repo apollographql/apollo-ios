@@ -14,7 +14,7 @@ class ObjectTemplateTests: XCTestCase {
 
   // MARK: Helpers
 
-  private func buildSubject(name: String = "Dog", interfaces: [GraphQLInterfaceType] = []) {
+  private func buildSubject(name: String = "dog", interfaces: [GraphQLInterfaceType] = []) {
     subject = ObjectTemplate(
       graphqlObject: GraphQLObjectType.mock(name, interfaces: interfaces)
     )
@@ -39,7 +39,7 @@ class ObjectTemplateTests: XCTestCase {
 
   // MARK: Class Definition Tests
 
-  func test_render_givenSchemaType_generatesSwiftClassDefinition() {
+  func test_render_givenSchemaType_generatesSwiftClassDefinitionCorrectlyCased() {
     // given
     buildSubject()
 

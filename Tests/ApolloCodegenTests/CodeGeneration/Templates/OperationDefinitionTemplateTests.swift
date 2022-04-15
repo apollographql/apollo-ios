@@ -364,4 +364,44 @@ class OperationDefinitionTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
   }
 
+  func test__generate__givenQueryWithLowercasing_generatesCorrectlyCasedQueryOperation() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query lowercaseOperation($variable: String = "TestVar") {
+      allAnimals {
+        species
+      }
+    }
+    """
+
+    let expected =
+    """
+    public class LowercaseOperationQuery: GraphQLQuery {
+      public let operationName: String = "lowercaseOperation"
+      public let document: DocumentType = .notPersisted(
+        definition: .init(
+          \"\"\"
+          query lowercaseOperation($variable: String = "TestVar") {
+    """
+
+    // when
+    try buildSubjectAndOperation(named: "lowercaseOperation")
+
+    let actual = renderSubject()
+
+//    print(actual)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
 }

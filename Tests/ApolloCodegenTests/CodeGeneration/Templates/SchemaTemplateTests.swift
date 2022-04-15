@@ -14,7 +14,7 @@ class SchemaTemplateTests: XCTestCase {
 
   // MARK: Helpers
 
-  private func buildSubject(name: String = "TestSchema", referencedTypes: IR.Schema.ReferencedTypes = .init([])) {
+  private func buildSubject(name: String = "testSchema", referencedTypes: IR.Schema.ReferencedTypes = .init([])) {
     subject = SchemaTemplate(schema: IR.Schema(name: name, referencedTypes: referencedTypes))
   }
 
@@ -42,7 +42,7 @@ class SchemaTemplateTests: XCTestCase {
 
   // MARK: Protocol Tests
 
-  func test__render__givenSchemaName_generatesSelectionSetProtocol() {
+  func test__render__givenSchemaName_generatesSelectionSetProtocolCorrectlyCased() {
     // given
     buildSubject()
 
@@ -59,7 +59,7 @@ class SchemaTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 3, ignoringExtraLines: true))
   }
 
-  func test__render__givenSchemaName_generatesTypeCaseProtocol() {
+  func test__render__givenSchemaName_generatesTypeCaseProtocolCorrectlyCased() {
     // given
     buildSubject()
 
@@ -93,14 +93,14 @@ class SchemaTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 9, ignoringExtraLines: true))
   }
 
-  func test__render__givenWithReferencedObjects_generatesObjectTypeFunction() {
+  func test__render__givenWithReferencedObjects_generatesObjectTypeFunctionCorrectlyCased() {
     // given
     buildSubject(
-      name: "ObjectSchema",
+      name: "objectSchema",
       referencedTypes: .init([
-        GraphQLObjectType.mock("ObjA"),
-        GraphQLObjectType.mock("ObjB"),
-        GraphQLObjectType.mock("ObjC"),
+        GraphQLObjectType.mock("objA"),
+        GraphQLObjectType.mock("objB"),
+        GraphQLObjectType.mock("objC"),
       ])
     )
 

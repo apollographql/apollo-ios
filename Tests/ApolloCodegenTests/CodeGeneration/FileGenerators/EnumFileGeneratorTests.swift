@@ -27,7 +27,7 @@ class EnumFileGeneratorTests: XCTestCase {
     expect(self.subject.target).to(equal(.enum))
   }
 
-  func test__properties__givenGraphQLEnum_shouldReturnFileName_matchingEnumNameFirstUppercased() {
+  func test__properties__givenGraphQLEnum_shouldReturnFileName_matchingEnumName() {
     // given
     buildSubject()
 

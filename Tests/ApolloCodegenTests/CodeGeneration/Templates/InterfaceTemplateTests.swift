@@ -16,7 +16,7 @@ class InterfaceTemplateTests: XCTestCase {
 
   private func buildSubject() {
     subject = InterfaceTemplate(
-      graphqlInterface: GraphQLInterfaceType.mock("MockInterface", fields: [:], interfaces: [])
+      graphqlInterface: GraphQLInterfaceType.mock("mockInterface", fields: [:], interfaces: [])
     )
   }
 
@@ -26,7 +26,7 @@ class InterfaceTemplateTests: XCTestCase {
 
   // MARK: Class Definition Tests
 
-  func test_render_givenSchemaInterface_generatesSwiftClass() throws {
+  func test_render_givenSchemaInterface_generatesSwiftClassCorrectlyCased() throws {
     // given
     buildSubject()
 

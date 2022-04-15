@@ -17,7 +17,7 @@ struct SwiftPackageManagerModuleTemplate: TemplateRenderer {
     import PackageDescription
 
     let package = Package(
-      name: "\(moduleName)",
+      name: "\(moduleName.firstUppercased)",
       platforms: [
         .iOS(.v12),
         .macOS(.v10_14),
@@ -25,14 +25,14 @@ struct SwiftPackageManagerModuleTemplate: TemplateRenderer {
         .watchOS(.v5),
       ],
       products: [
-        .library(name: "\(moduleName)", targets: ["\(moduleName)"]),
+        .library(name: "\(moduleName.firstUppercased)", targets: ["\(moduleName.firstUppercased)"]),
       ],
       dependencies: [
         .package(url: "https://github.com/apollographql/apollo-ios.git", from: "1.0.0-alpha.3"),
       ],
       targets: [
         .target(
-          name: "\(moduleName)",
+          name: "\(moduleName.firstUppercased)",
           dependencies: [
             .product(name: "ApolloAPI", package: "apollo-ios"),
           ],

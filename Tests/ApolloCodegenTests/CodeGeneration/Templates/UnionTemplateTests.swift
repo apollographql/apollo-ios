@@ -16,14 +16,14 @@ class UnionTemplateTests: XCTestCase {
 
   private func buildSubject() {
     subject = UnionTemplate(
-      moduleName: "ModuleAPI",
+      moduleName: "moduleAPI",
       graphqlUnion: GraphQLUnionType.mock(
-        "ClassroomPet",
+        "classroomPet",
         types: [
-          GraphQLObjectType.mock("Cat"),
-          GraphQLObjectType.mock("Bird"),
-          GraphQLObjectType.mock("Rat"),
-          GraphQLObjectType.mock("PetRock")
+          GraphQLObjectType.mock("cat"),
+          GraphQLObjectType.mock("bird"),
+          GraphQLObjectType.mock("rat"),
+          GraphQLObjectType.mock("petRock")
         ]
       )
     )

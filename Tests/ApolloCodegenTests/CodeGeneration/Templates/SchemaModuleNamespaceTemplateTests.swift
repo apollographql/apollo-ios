@@ -7,14 +7,14 @@ class SchemaModuleNamespaceTemplateTests: XCTestCase {
 
   // MARK: Definition Tests
 
-  func test__boilerplate__generatesPublicEnum() throws {
+  func test__boilerplate__generatesPublicEnumCorectlyCased() throws {
     // given
     let expected = """
     public enum NamespacedModule { }
     """
 
     // when
-    let subject = SchemaModuleNamespaceTemplate(namespace: "NamespacedModule")
+    let subject = SchemaModuleNamespaceTemplate(namespace: "namespacedModule")
     let actual = subject.template.description
 
     // then
