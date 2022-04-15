@@ -1,5 +1,18 @@
 # Change Log
 
+## v1.0.0-alpha.4
+
+This is the fourth Alpha Release of Apollo iOS 1.0. This first major version will include a new code generation engine, better generated models, and many syntax and performance improvements across the entire library. The primary goal of Apollo iOS 1.0 is to stabilize the API of the model layer and provide a foundation for future feature additions and evolution of the library.
+
+* **Client Controlled Nullability (CCN) is now supported!**
+  * CCN is an experimental new feature addition to GraphQL. This feature allows you to override the optionality of fields from a schema in your client operations. CCN can help you create cleaner generated models that require less optional unwrapping.
+  * You can read more about CCN [here](https://github.com/graphql/graphql-spec/issues/867). 
+  * Because CCN is an experimental feature, the API is subject to change before its final release.
+  * Apollo iOS 1.0.0 is the first client to provide support for this new functionality! Huge thanks to [@twof](https://github.com/twof)!
+* **Fixed - Names of generated objects are now correctly uppercased.**
+* **Fixed - Names of inline fragments with inclusion conditions were sometimes generated incorrectly.**
+* **Fixed - `__typename` field is now selected by executor on all entities automatically.**
+
 ## v1.0.0-alpha.3
 
 This is the third Alpha Release of Apollo iOS 1.0. This first major version will include a new code generation engine, better generated models, and many syntax and performance improvements across the entire library. The primary goal of Apollo iOS 1.0 is to stabilize the API of the model layer and provide a foundation for future feature additions and evolution of the library.
