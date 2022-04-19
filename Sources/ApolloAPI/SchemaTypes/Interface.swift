@@ -49,8 +49,4 @@ open class Interface: CacheEntity, Cacheable {
     }
   }
 
-  public final func set<T: Cacheable>(value: T?, forKey key: StaticString) throws {
-    try object.set(value: value, forKey: key)
-  }
-
 }

@@ -1,16 +1,16 @@
 @propertyWrapper
-public struct Field<T: Cacheable, E: CacheEntity> {
+public struct Field<T: Cacheable> {
 
   let key: StaticString
 
-  private var _enclosingInstance: Unmanaged<E>!
-  private var enclosingInstance: E { _enclosingInstance.takeUnretainedValue() }
+  private var _enclosingInstance: Unmanaged<Object>!
+  private var enclosingInstance: Object { _enclosingInstance.takeUnretainedValue() }
 
   public init(_ field: StaticString) {
     self.key = field
   }
 
-  public mutating func _link(to enclosingInstance: Unmanaged<E>) {
+  public mutating func _link(to enclosingInstance: Unmanaged<Object>) {
     self._enclosingInstance = enclosingInstance
   }
 
@@ -63,7 +63,7 @@ public struct Field<T: Cacheable, E: CacheEntity> {
   private func replace(
     data: Any,
     with parsedValue: T,
-    on instance: E
+    on instance: Object
   ) throws {
     /// Only need to do this for Object, Enums, and custom scalars.
     /// DO NOT DO THIS when value is a CacheInterface ON a CacheInterface instance
@@ -71,14 +71,10 @@ public struct Field<T: Cacheable, E: CacheEntity> {
     /// TODO: Write tests for this.
     switch (parsedValue) {
     case is Object where !(data is Object),
-      is Interface where instance is Object,
+      is Interface,
       is CustomScalarType:
       try instance.set(value: parsedValue, forKey: key)
       // TODO: This should not trigger objects to become dirty.
-
-      //    case let interface as Interface where instance is Interface:
-      //      try instance.set(value: object, forField: self)
-      //      break // TODO
 
     case is Interface, is ScalarType: break
     default: break

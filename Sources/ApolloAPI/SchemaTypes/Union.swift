@@ -69,10 +69,6 @@ public enum Union<T: UnionType>: AnyUnion, Equatable {
 
   public var _transaction: CacheTransaction { object._transaction }
   public var data: [String : Any] { object.data }
-
-  public func set<T: Cacheable>(value: T?, forKey key: StaticString) throws {
-    try object.set(value: value, forKey: key)
-  }
 }
 
 // MARK: Union Equatable
