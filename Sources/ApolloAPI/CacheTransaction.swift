@@ -51,7 +51,7 @@ struct CacheError: Error, Equatable {
   enum Reason: Error {
     case unrecognizedCacheData(_ data: Any, forType: Any.Type)
     case invalidObjectType(_ type: Object.Type, forExpectedType: Cacheable.Type)
-    case invalidValue(_ value: Cacheable?, forCovariantFieldOfType: ObjectType.Type)
+    case invalidValue(_ value: Cacheable?, forCovariantFieldOfType: CacheEntity.Type)
     case objectNotFound(forCacheKey: CacheReference)
   }
 
@@ -62,7 +62,7 @@ struct CacheError: Error, Equatable {
   let reason: Reason
   let type: Type
   let field: String
-  let object: ObjectType?
+  let object: CacheEntity?
 
   var message: String {
     switch self.reason {

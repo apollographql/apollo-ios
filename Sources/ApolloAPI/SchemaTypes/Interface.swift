@@ -1,4 +1,4 @@
-open class Interface: ObjectType, Cacheable {
+open class Interface: CacheEntity, Cacheable {
 
   final let object: Object
   final var underlyingType: Object.Type { Swift.type(of: object) } // TODO: Delete?
@@ -49,8 +49,8 @@ open class Interface: ObjectType, Cacheable {
     }
   }
 
-  public final func set<T: Cacheable>(value: T?, forField field: Field<T>) throws {
-    try object.set(value: value, forField: field)
+  public final func set<T: Cacheable>(value: T?, forKey key: StaticString) throws {
+    try object.set(value: value, forKey: key)
   }
 
 }

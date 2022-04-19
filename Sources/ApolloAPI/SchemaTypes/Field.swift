@@ -1,43 +1,43 @@
 @propertyWrapper
-public struct Field<T: Cacheable> {
+public struct Field<T: Cacheable, E: CacheEntity> {
 
-  let field: StaticString
+  let key: StaticString
+
+  private var _enclosingInstance: Unmanaged<E>!
+  private var enclosingInstance: E { _enclosingInstance.takeUnretainedValue() }
 
   public init(_ field: StaticString) {
-    self.field = field
+    self.key = field
   }
 
-  public static subscript<E: ObjectType>(
-    _enclosingInstance instance: E,
-    wrapped wrappedKeyPath: ReferenceWritableKeyPath<E, T?>,
-    storage storageKeyPath: ReferenceWritableKeyPath<E, Self>
-  ) -> T? {
+  public mutating func _link(to enclosingInstance: Unmanaged<E>) {
+    self._enclosingInstance = enclosingInstance
+  }
+
+  public var wrappedValue: T? {
     get {
-      let wrapper = instance[keyPath: storageKeyPath]
-      let field = wrapper.field.description
-      guard let data = instance.data[field] else {
+      let instance = enclosingInstance
+      guard let data = instance.data[key.description] else {
         return nil
       }
 
       do {
         let value = try T.value(with: data, in: instance._transaction)
-        try wrapper.replace(data: data, with: value, on: instance)
+        try replace(data: data, with: value, on: instance)
         return value
 
       } catch {
         instance._transaction.log(error)
         return nil
       }
-    }
-    set {
-      let wrapper = instance[keyPath: storageKeyPath]
-      let field = wrapper.field.description
+    } set {
+      let instance = enclosingInstance
       do {
 //
 //      switch newValue {
 //      case .none: // TODO
 //      case is ScalarType:
-        try instance.set(value: newValue, forField: wrapper)
+        try instance.set(value: newValue, forKey: key)
 //      case let object as Object:
 //
 //
@@ -49,8 +49,8 @@ public struct Field<T: Cacheable> {
         let error = CacheError(
           reason: error,
           type: .write,
-          field: field,
-          object: object(for: instance)
+          field: key.description,
+          object: instance
         )
         instance._transaction.log(error)
 
@@ -63,7 +63,7 @@ public struct Field<T: Cacheable> {
   private func replace(
     data: Any,
     with parsedValue: T,
-    on instance: ObjectType
+    on instance: E
   ) throws {
     /// Only need to do this for Object, Enums, and custom scalars.
     /// DO NOT DO THIS when value is a CacheInterface ON a CacheInterface instance
@@ -71,33 +71,18 @@ public struct Field<T: Cacheable> {
     /// TODO: Write tests for this.
     switch (parsedValue) {
     case is Object where !(data is Object),
-         is Interface where instance is Object,
-         is CustomScalarType:
-      try instance.set(value: parsedValue, forField: self)
-    // TODO: This should not trigger objects to become dirty.
+      is Interface where instance is Object,
+      is CustomScalarType:
+      try instance.set(value: parsedValue, forKey: key)
+      // TODO: This should not trigger objects to become dirty.
 
-//    case let interface as Interface where instance is Interface:
-//      try instance.set(value: object, forField: self)
-//      break // TODO
+      //    case let interface as Interface where instance is Interface:
+      //      try instance.set(value: object, forField: self)
+      //      break // TODO
 
     case is Interface, is ScalarType: break
     default: break
     }
   }
 
-  private static func object(for instance: ObjectType) -> Object {
-    switch instance {
-    case let object as Object: return object
-    case let interface as Interface: return interface.object
-
-    default: fatalError("AnyCacheObject can only be an Object or a Interface.")
-    }
-  }
-
-//  public var projectedValue: CacheField { self }
-
-  @available(*, unavailable,
-  message: "This property wrapper can only be applied to ObjectType."
-  )
-  public var wrappedValue: T? { get { fatalError() } set { fatalError() } }
 }

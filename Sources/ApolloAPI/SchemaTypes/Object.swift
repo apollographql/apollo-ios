@@ -1,4 +1,4 @@
-open class Object: ObjectType, Cacheable {
+open class Object: CacheEntity, Cacheable {
   public final let _transaction: CacheTransaction
   public internal(set) final var data: [String: Any]
   open class var __metadata: Metadata { Metadata.Empty }
@@ -57,8 +57,8 @@ open class Object: ObjectType, Cacheable {
     }
   }
 
-  public final func set<T: Cacheable>(value: T?, forField field: Field<T>) throws {
-    let fieldName = field.field.description
+  public final func set<T: Cacheable>(value: T?, forKey key: StaticString) throws {
+    let fieldName = key.description
 
     guard let value = value else {
       data[fieldName] = nil
@@ -66,7 +66,7 @@ open class Object: ObjectType, Cacheable {
     }
 
     switch T.self {
-    case is ObjectType.Type:
+    case is CacheEntity.Type:
       // Check for field covariance
       if let covariantFieldType = Self.__metadata.fieldTypeIfCovariant(forField: fieldName) {
         try set(value: value, forCovariantField: fieldName, convertingToType: covariantFieldType)
@@ -88,7 +88,7 @@ open class Object: ObjectType, Cacheable {
   private func set(
     value: Cacheable,
     forCovariantField fieldName: String,
-    convertingToType covariantFieldType: ObjectType.Type
+    convertingToType covariantFieldType: CacheEntity.Type
   ) throws {
     do {
       switch covariantFieldType {
@@ -110,17 +110,17 @@ open class Object: ObjectType, Cacheable {
 extension Object {
   public struct Metadata {
     private let implementedInterfaces: [Interface.Type]?
-    private let covariantFields: [String: ObjectType.Type]?
+    private let covariantFields: [String: CacheEntity.Type]?
 
     fileprivate static let Empty = Metadata()
 
     public init(implements: [Interface.Type]? = nil,
-                covariantFields: [String: ObjectType.Type]? = nil) {
+                covariantFields: [String: CacheEntity.Type]? = nil) {
       self.implementedInterfaces = implements
       self.covariantFields = covariantFields
     }
 
-    func fieldTypeIfCovariant(forField field: String) -> ObjectType.Type? {
+    func fieldTypeIfCovariant(forField field: String) -> CacheEntity.Type? {
       covariantFields?[field]
     }
 
