@@ -134,8 +134,6 @@ public struct ApolloCodegenConfiguration {
     /// Formatting of the GraphQL query string literal that is included in each
     /// generated operation object.
     public let queryStringLiteralFormat: QueryStringLiteralFormat
-    /// How to handle properties using a custom scalar from the schema.
-    public let customScalarFormat: CustomScalarFormat
     /// How deprecated enum cases from the schema should be handled.
     public let deprecatedEnumCases: Composition
     /// Whether schema documentation is added to the generated files.
@@ -159,14 +157,12 @@ public struct ApolloCodegenConfiguration {
     public init(
       additionalInflectionRules: [InflectionRule] = [],
       queryStringLiteralFormat: QueryStringLiteralFormat = .multiline,
-      customScalarFormat: CustomScalarFormat = .defaultAsString,
       deprecatedEnumCases: Composition = .include,
       schemaDocumentation: Composition = .include,
       apqs: APQConfig = .disabled
     ) {
       self.additionalInflectionRules = additionalInflectionRules
       self.queryStringLiteralFormat = queryStringLiteralFormat
-      self.customScalarFormat = customScalarFormat
       self.deprecatedEnumCases = deprecatedEnumCases
       self.schemaDocumentation = schemaDocumentation
       self.apqs = apqs
