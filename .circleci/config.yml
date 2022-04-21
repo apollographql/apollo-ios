@@ -3,7 +3,7 @@ version: 2.1
 parameters:
   xcode_version:
     type: string
-    default: "13.3.0"
+    default: "13.3.1"
   ios_current_version:
     type: string
     default: "15.4"
@@ -12,7 +12,7 @@ parameters:
     default: "14.5"
   macos_version: # The user-facing version string for macOS builds
     type: string
-    default: "12.2.1"
+    default: "12.3.1"
   tvos_version: # The user-facing version string of tvOS builds
     type: string
     default: "15.4"
