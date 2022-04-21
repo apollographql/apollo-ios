@@ -12,7 +12,7 @@ In this section, you'll add the ability to log in to the example server and obta
 
 A **mutation** is an operation that changes state on your server. In this case, the mutation changes back-end state by creating a session tied to a particular user of your client.
 
-Open [your Sandbox Explorer](https://studio.apollographql.com/sandbox/explorer?endpoint=https%3A%2F%2Fapollo-fullstack-tutorial.herokuapp.com) and click on the plus symbol to add a new tab. Next, click on the Schema icon to get back to looking at your schema, and select "Mutation" to look at your list of mutations: 
+Open [your Sandbox Explorer](https://studio.apollographql.com/sandbox/explorer?endpoint=https%3A%2F%2Fapollo-fullstack-tutorial.herokuapp.com%2Fgraphql) and click on the plus symbol to add a new tab. Next, click on the Schema icon to get back to looking at your schema, and select "Mutation" to look at your list of mutations:
 
 <img alt="The list of available mutations" class="screenshot" src="images/sandbox_schema_mutations.png"/>
 
