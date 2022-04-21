@@ -3,7 +3,7 @@ version: 2.1
 parameters:
   xcode_version:
     type: string
-    default: "13.3.0"
+    default: "13.3.1"
   ios_current_version:
     type: string
     default: "15.4"
@@ -15,7 +15,7 @@ parameters:
     default: "iphonesimulator15.4"
   macos_version: # The user-facing version string for macOS builds
     type: string
-    default: "12.2.1"
+    default: "12.3.1"
   macos_sdk: # The full SDK string to use for macOS builds
     type: string
     default: "macosx12.3"
