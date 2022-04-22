@@ -86,9 +86,13 @@ public class ApolloCodegen {
     config: ReferenceWrapped<ApolloCodegenConfiguration>,
     fileManager: FileManager = FileManager.default
   ) throws {
+    #warning("TODO: generated objects and interfaces after operations and fragments")
     for graphQLObject in ir.schema.referencedTypes.objects {
       try autoreleasepool {
-        try ObjectFileGenerator(graphqlObject: graphQLObject)
+        try ObjectFileGenerator(
+          graphqlObject: graphQLObject,
+          ir: ir
+        )
           .generate(forConfig: config, fileManager: fileManager)
       }
     }

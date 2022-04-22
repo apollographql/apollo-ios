@@ -4,10 +4,13 @@ import Nimble
 import ApolloCodegenInternalTestHelpers
 
 class ObjectTemplateTests: XCTestCase {
+
+  var ir: IR!
   var subject: ObjectTemplate!
 
   override func tearDown() {
     subject = nil
+    ir = nil
 
     super.tearDown()
   }
@@ -15,8 +18,11 @@ class ObjectTemplateTests: XCTestCase {
   // MARK: Helpers
 
   private func buildSubject(name: String = "Dog", interfaces: [GraphQLInterfaceType] = []) {
+    ir = IR.mock(compilationResult: .mock())
+
     subject = ObjectTemplate(
-      graphqlObject: GraphQLObjectType.mock(name, interfaces: interfaces)
+      graphqlObject: GraphQLObjectType.mock(name, interfaces: interfaces),
+      ir: ir
     )
   }
 
@@ -68,10 +74,12 @@ class ObjectTemplateTests: XCTestCase {
 
     let expected = """
       override public class var __metadata: Metadata { _metadata }
-      private static let _metadata: Metadata = Metadata(implements: [
-        Animal.self,
-        Pet.self
-      ])
+      private static let _metadata: Metadata = Metadata(
+        implements: [
+          Animal.self,
+          Pet.self
+        ]
+      )
     """
 
     // when
@@ -80,4 +88,37 @@ class ObjectTemplateTests: XCTestCase {
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 4, ignoringExtraLines: true))
   }
+
+  func test_render_givenNoImplementedInterfacesOrCovariantFields_doesNotGenerateTypeMetadata() {
+    // given
+    buildSubject()
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine("}", atLine: 4, ignoringExtraLines: false))
+  }
+
+  // MARK: Field Accessor Tests
+
+  func test_render_givenSchemaType_generatesFieldAccessors() {
+    // given
+    buildSubject()
+
+    subject.graphqlObject.fields = ["fieldA": .mock("fieldA", type: .string())]
+
+    ir.fieldCollector.add(field: .mock("fieldA", type: .string()), to: .mock("Dog"))
+
+    let expected = """
+      @Field("fieldA") public var fieldA: String?
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 4, ignoringExtraLines: true))
+  }
+
 }
