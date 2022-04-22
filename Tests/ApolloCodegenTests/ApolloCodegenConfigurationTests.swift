@@ -83,12 +83,11 @@ class ApolloCodegenConfigurationTests: XCTestCase {
     )
 
     // then
-    expect(config.additionalInflectionRules).to(beEmpty())
-    expect(config.queryStringLiteralFormat).to(equal(.multiline))
-    expect(config.customScalarFormat).to(equal(.defaultAsString))
-    expect(config.deprecatedEnumCases).to(equal(.include))
-    expect(config.schemaDocumentation).to(equal(.include))
-    expect(config.apqs).to(equal(.disabled))
+    expect(config.options.additionalInflectionRules).to(beEmpty())
+    expect(config.options.queryStringLiteralFormat).to(equal(.multiline))
+    expect(config.options.deprecatedEnumCases).to(equal(.include))
+    expect(config.options.schemaDocumentation).to(equal(.include))
+    expect(config.options.apqs).to(equal(.disabled))
   }
 
   // MARK: Validation Tests

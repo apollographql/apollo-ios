@@ -128,7 +128,45 @@ public struct ApolloCodegenConfiguration {
     case absolute(path: String)
   }
 
-  // MARK: General Types
+  public struct OutputOptions {
+    /// Any non-default rules for pluralization or singularization you wish to include.
+    public let additionalInflectionRules: [InflectionRule]
+    /// Formatting of the GraphQL query string literal that is included in each
+    /// generated operation object.
+    public let queryStringLiteralFormat: QueryStringLiteralFormat
+    /// How deprecated enum cases from the schema should be handled.
+    public let deprecatedEnumCases: Composition
+    /// Whether schema documentation is added to the generated files.
+    public let schemaDocumentation: Composition
+    /// Whether the generated operations should use Automatic Persisted Queries.
+    ///
+    /// See `APQConfig` for more information on Automatic Persisted Queries.
+    public let apqs: APQConfig
+
+    /// Designated initializer.
+    ///
+    /// - Parameters:
+    ///  - additionalInflectionRules: Any non-default rules for pluralization or singularization
+    ///  you wish to include.
+    ///  - queryStringLiteralFormat: Formatting of the GraphQL query string literal that is
+    ///  included in each generated operation object.
+    ///  - deprecatedEnumCases: How deprecated enum cases from the schema should be handled.
+    ///  - schemaDocumentation: Whether schema documentation is added to the generated files.
+    ///  - apqs: Whether the generated operations should use Automatic Persisted Queries.
+    public init(
+      additionalInflectionRules: [InflectionRule] = [],
+      queryStringLiteralFormat: QueryStringLiteralFormat = .multiline,
+      deprecatedEnumCases: Composition = .include,
+      schemaDocumentation: Composition = .include,
+      apqs: APQConfig = .disabled
+    ) {
+      self.additionalInflectionRules = additionalInflectionRules
+      self.queryStringLiteralFormat = queryStringLiteralFormat
+      self.deprecatedEnumCases = deprecatedEnumCases
+      self.schemaDocumentation = schemaDocumentation
+      self.apqs = apqs
+    }
+  }
 
   /// Specify the formatting of the GraphQL query string literal.
   public enum QueryStringLiteralFormat {
@@ -141,16 +179,6 @@ public struct ApolloCodegenConfiguration {
   public enum Composition {
     case include
     case exclude
-  }
-
-  /// Enum to select how to handle properties using a custom scalar from the schema.
-  public enum CustomScalarFormat: Equatable {
-    /// Uses the default type of String.
-    case defaultAsString
-    /// Use your own types for custom scalars. These will be taken from the associated schema.
-    case passthrough
-    /// Use your own types for custom scalars with a prefix.
-    case passthroughWithPrefix(String)
   }
 
   /// Enum to enable using
@@ -176,6 +204,8 @@ public struct ApolloCodegenConfiguration {
     /// method should only be used if you are manually persisting your queries to an Apollo Server.
     case persistedOperationsOnly
   }
+
+  // MARK: Other Types
 
   public struct ExperimentalFeatures {
     /**
@@ -210,22 +240,12 @@ public struct ApolloCodegenConfiguration {
   public let input: FileInput
   /// The paths and files output by code generation.
   public let output: FileOutput
-  /// Any non-default rules for pluralization or singularization you wish to include.
-  public let additionalInflectionRules: [InflectionRule]
-  /// Formatting of the GraphQL query string literal that is included in each
-  /// generated operation object.
-  public let queryStringLiteralFormat: QueryStringLiteralFormat
-  /// How to handle properties using a custom scalar from the schema.
-  public let customScalarFormat: CustomScalarFormat
-  /// How deprecated enum cases from the schema should be handled.
-  public let deprecatedEnumCases: Composition
-  /// Whether schema documentation is added to the generated files.
-  public let schemaDocumentation: Composition
-  /// Whether the generated operations should use Automatic Persisted Queries.
+  /// Rules and options to customize the generated code.
+  public let options: OutputOptions
+  /// Allows users to enable experimental features.
   ///
-  /// See `APQConfig` for more information on Automatic Persisted Queries.
-  public let apqs: APQConfig
-  /// Options to pass to the GraphQL parser. Allows users to enable experimental features.
+  /// Note: These features could change at any time and they are not guaranteed to always be
+  /// available.
   public let experimentalFeatures: ExperimentalFeatures
 
   // MARK: Initializers
@@ -235,43 +255,23 @@ public struct ApolloCodegenConfiguration {
   /// - Parameters:
   ///  - input: The input files required for code generation.
   ///  - output: The paths and files output by code generation.
-  ///  - additionalInflectionRules: Any non-default rules for pluralization or singularization you
-  ///  wish to include. Defaults to an empty array.
-  ///  - queryStringLiteralFormat: Formatting of the GraphQL query string literal that is included
-  ///  in each generated operation object. Defaults to `.multiline`.
-  ///  - customScalarFormat: How to handle properties using a custom scalar from the schema. Defaults to `.defaultAsString`.
-  ///  - deprecatedEnumCases: How deprecated enum cases from the schema should be handled. The
-  ///  default of `.include` will cause the generated code to include the deprecated enum cases.
-  ///  - schemaDocumentation: Whether schema documentation is added to the generated files.
-  ///  The default of `.include` will cause the schema documentation comments to be copied over
-  ///  into the generated schema types files.
-  ///  - apqs: Whether the generated operations should use Automatic Persisted Queries.
-  ///  Defaults to `.disabled`.
+  ///  - options: Rules and options to customize the generated code.
+  ///  - experimentalFeatures: Allows users to enable experimental features.
   public init(
     input: FileInput,
     output: FileOutput,
-    additionalInflectionRules: [InflectionRule] = [],
-    queryStringLiteralFormat: QueryStringLiteralFormat = .multiline,
-    customScalarFormat: CustomScalarFormat = .defaultAsString,
-    deprecatedEnumCases: Composition = .include,
-    schemaDocumentation: Composition = .include,
-    apqs: APQConfig = .disabled,
+    options: OutputOptions = OutputOptions(),
     experimentalFeatures: ExperimentalFeatures = ExperimentalFeatures()
   ) {
     self.input = input
     self.output = output
-    self.additionalInflectionRules = additionalInflectionRules
-    self.queryStringLiteralFormat = queryStringLiteralFormat
-    self.customScalarFormat = customScalarFormat
-    self.deprecatedEnumCases = deprecatedEnumCases
-    self.schemaDocumentation = schemaDocumentation
-    self.apqs = apqs
+    self.options = options
     self.experimentalFeatures = experimentalFeatures
   }
 
 }
 
-// MARK: Validation Extension
+// MARK: - Validation Extension
 
 extension ApolloCodegenConfiguration {
   public enum PathType {
@@ -380,7 +380,7 @@ extension ApolloCodegenConfiguration {
   }
 }
 
-// MARK: Helpers
+// MARK: - Helpers
 
 extension ApolloCodegenConfiguration.SchemaTypesFileOutput {
   /// Determine whether the schema types files are output to a module.

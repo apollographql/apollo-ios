@@ -17,7 +17,11 @@ struct OperationDefinitionTemplate: TemplateRenderer {
     TemplateString(
     """
     \(OperationDeclaration(operation.definition))
-      \(DocumentType.render(operation.definition, fragments: operation.referencedFragments, apq: config.apqs))
+      \(DocumentType.render(
+        operation.definition,
+        fragments: operation.referencedFragments,
+        apq: config.options.apqs)
+      )
 
       \(section: VariableProperties(operation.definition.variables))
 

@@ -26,7 +26,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     OperationDefinitionTemplate.DocumentType.render(
       try XCTUnwrap(definition),
       fragments: referencedFragments ?? [],
-      apq: try XCTUnwrap(config.apqs)
+      apq: try XCTUnwrap(config.options.apqs)
     ).description
   }
 
@@ -38,7 +38,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
       name
     }
     """
-    config = .mock(apqs: .disabled)
+    config = .mock(options: .init(apqs: .disabled))
 
     // when
     let actual = try renderDocumentType()
@@ -71,7 +71,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     }
     """
 
-    config = .mock(apqs: .disabled)
+    config = .mock(options: .init(apqs: .disabled))
 
     // when
     let actual = try renderDocumentType()
@@ -113,7 +113,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     }
     """
 
-    config = .mock(apqs: .disabled)
+    config = .mock(options: .init(apqs: .disabled))
 
     // when
     let actual = try renderDocumentType()
@@ -148,7 +148,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     }
     """
 
-    config = .mock(apqs: .automaticallyPersist)
+    config = .mock(options: .init(apqs: .automaticallyPersist))
 
     // when
     let actual = try renderDocumentType()
@@ -179,7 +179,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     }
     """
 
-    config = .mock(apqs: .persistedOperationsOnly)
+    config = .mock(options: .init(apqs: .persistedOperationsOnly))
 
     // when
     let actual = try renderDocumentType()
