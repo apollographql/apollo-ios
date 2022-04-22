@@ -19,6 +19,7 @@ class IRFieldCollectorTests: XCTestCase {
   override func tearDown() {
     schemaSDL = nil
     document = nil
+    ir = nil
     subject = nil
     super.tearDown()
   }

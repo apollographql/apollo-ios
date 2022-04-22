@@ -14,7 +14,7 @@ class ObjectTemplateTests: XCTestCase {
 
   // MARK: Helpers
 
-  private func buildSubject(name: String = "dog", interfaces: [GraphQLInterfaceType] = []) {
+  private func buildSubject(name: String = "Dog", interfaces: [GraphQLInterfaceType] = []) {
     subject = ObjectTemplate(
       graphqlObject: GraphQLObjectType.mock(name, interfaces: interfaces)
     )
@@ -41,7 +41,7 @@ class ObjectTemplateTests: XCTestCase {
 
   func test_render_givenSchemaType_generatesSwiftClassDefinitionCorrectlyCased() {
     // given
-    buildSubject()
+    buildSubject(name: "dog")
 
     let expected = """
     public final class Dog: Object {
@@ -54,7 +54,7 @@ class ObjectTemplateTests: XCTestCase {
 
     // then
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
-  }
+  }  
 
   // MARK: Metadata Tests
 
