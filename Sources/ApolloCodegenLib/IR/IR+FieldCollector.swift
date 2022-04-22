@@ -1,10 +1,8 @@
-import OrderedCollections
-
 extension IR {
 
   class FieldCollector {
 
-    typealias ReferencedFields = OrderedSet<String>
+    typealias ReferencedFields = Set<String>
 
     private var collectedFields: [GraphQLCompositeType: ReferencedFields] = [:]
 
@@ -37,7 +35,7 @@ extension IR {
       fieldNamed name: String,
       to referencedFields: inout ReferencedFields
     ) {
-      referencedFields.append(name)
+      referencedFields.insert(name)
     }
 
     func collectedFields(for type: GraphQLCompositeType) -> ReferencedFields? {
@@ -46,7 +44,7 @@ extension IR {
       if let type = type as? GraphQLInterfaceImplementingType {
         for interface in type.interfaces {
           if let interfaceFields = collectedFields[interface] {
-            fields.append(contentsOf: interfaceFields)
+            fields.formUnion(interfaceFields)
           }
         }
       }

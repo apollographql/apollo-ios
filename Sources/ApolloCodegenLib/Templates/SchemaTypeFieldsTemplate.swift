@@ -1,4 +1,5 @@
 import OrderedCollections
+import Foundation
 struct SchemaTypeFieldsTemplate {
 
   let ir: IR
@@ -37,7 +38,7 @@ struct SchemaTypeFieldsTemplate {
       fieldsToRender.append(schemaFields[fieldName].unsafelyUnwrapped)
     }
 
-    return fieldsToRender
+    return fieldsToRender.sorted { $0.name < $1.name }
   }
   
 }
