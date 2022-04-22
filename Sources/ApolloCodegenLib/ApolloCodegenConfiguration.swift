@@ -150,7 +150,6 @@ public struct ApolloCodegenConfiguration {
     ///  you wish to include.
     ///  - queryStringLiteralFormat: Formatting of the GraphQL query string literal that is
     ///  included in each generated operation object.
-    ///  - customScalarFormat: How to handle properties using a custom scalar from the schema.
     ///  - deprecatedEnumCases: How deprecated enum cases from the schema should be handled.
     ///  - schemaDocumentation: Whether schema documentation is added to the generated files.
     ///  - apqs: Whether the generated operations should use Automatic Persisted Queries.
@@ -180,16 +179,6 @@ public struct ApolloCodegenConfiguration {
   public enum Composition {
     case include
     case exclude
-  }
-
-  /// Enum to select how to handle properties using a custom scalar from the schema.
-  public enum CustomScalarFormat: Equatable {
-    /// Uses the default type of String.
-    case defaultAsString
-    /// Use your own types for custom scalars. These will be taken from the associated schema.
-    case passthrough
-    /// Use your own types for custom scalars with a prefix.
-    case passthroughWithPrefix(String)
   }
 
   /// Enum to enable using
