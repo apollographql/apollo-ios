@@ -247,6 +247,9 @@ extension IR {
       guard inclusionResult != .skipped else {
         return nil
       }
+
+      ir.fieldCollector.add(field: field, to: enclosingTypeInfo.parentType)
+
       let inclusionConditions = inclusionResult.conditions
 
       if field.type.namedType is GraphQLCompositeType {

@@ -146,7 +146,8 @@ public class GraphQLUnionType: GraphQLAbstractType {
   }
 }
 
-public class GraphQLField: JavaScriptObject {
+public class GraphQLField: JavaScriptObject, Equatable {
+
   lazy var name: String = self["name"]
   
   lazy var type: GraphQLType = self["type"]
@@ -156,9 +157,16 @@ public class GraphQLField: JavaScriptObject {
   lazy var description: String? = self["description"]
   
   lazy var deprecationReason: String? = self["deprecationReason"]
+
+  public static func == (lhs: GraphQLField, rhs: GraphQLField) -> Bool {
+    lhs.name == rhs.name &&
+    lhs.type == rhs.type &&
+    lhs.arguments == rhs.arguments
+  }
 }
 
-public class GraphQLFieldArgument: JavaScriptObject {
+public class GraphQLFieldArgument: JavaScriptObject, Equatable {
+
   lazy var name: String = self["name"]
 
   lazy var type: GraphQLType = self["type"]
@@ -166,4 +174,10 @@ public class GraphQLFieldArgument: JavaScriptObject {
   lazy var description: String? = self["description"]
 
   lazy var deprecationReason: String? = self["deprecationReason"]
+
+  public static func == (lhs: GraphQLFieldArgument, rhs: GraphQLFieldArgument) -> Bool {
+    lhs.name == rhs.name &&
+    lhs.type == rhs.type
+  }
+  
 }

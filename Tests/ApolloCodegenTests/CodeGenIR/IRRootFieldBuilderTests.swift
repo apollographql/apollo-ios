@@ -31,7 +31,7 @@ class IRRootFieldBuilderTests: XCTestCase {
     super.tearDown()
   }
 
-  // MARK: = Helpers
+  // MARK: - Helpers
 
   func buildSubjectRootField() throws {
     ir = try .mock(schema: schemaSDL, document: document)
