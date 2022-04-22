@@ -1,12 +1,12 @@
 open class Interface: CacheEntity, Cacheable {
 
-  final let object: Object
-  final var underlyingType: Object.Type { Swift.type(of: object) } // TODO: Delete?
+  public final let _object: Object
+  final var underlyingType: Object.Type { Swift.type(of: _object) } // TODO: Delete?
 
   public static var fields: [String : Cacheable.Type] { [:] }
 
-  public final var _transaction: CacheTransaction { object._transaction }
-  public final var data: [String: Any] { object.data }
+  public final var _transaction: CacheTransaction { _object._transaction }
+  public final var data: [String: Any] { _object.data }
 
   public required init(_ object: Object) throws {
     let objectType = type(of: object)
@@ -14,11 +14,11 @@ open class Interface: CacheEntity, Cacheable {
       throw CacheError.Reason.invalidObjectType(objectType, forExpectedType: Self.self)
     }
 
-    self.object = object
+    self._object = object
   }
 
   public required convenience init(_ interface: Interface) throws {
-    try self.init(interface.object)
+    try self.init(interface._object)
   }
 
   public static func value(

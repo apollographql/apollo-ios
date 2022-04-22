@@ -1,5 +1,5 @@
 protocol AnyUnion: Cacheable {
-  var object: Object { get }
+  var _object: Object { get }
 }
 
 // MARK: - UnionType
@@ -46,7 +46,7 @@ public enum Union<T: UnionType>: AnyUnion, Equatable {
   ) -> Object? {
     switch cacheData {
     case let object as Object: return object
-    case let interface as Interface: return interface.object
+    case let interface as Interface: return interface._object
     case let key as CacheReference: return transaction.object(for: key)
     case let data as [String: Any]: return transaction.object(withData: data)
     default: return nil
@@ -60,68 +60,68 @@ public enum Union<T: UnionType>: AnyUnion, Equatable {
     }
   }
 
-  var object: Object {
+  var _object: Object {
     switch self {
     case let .case(value): return value.object
     case let .__unknown(object): return object
     }
   }
 
-  public var _transaction: CacheTransaction { object._transaction }
-  public var data: [String : Any] { object.data }
+  public var _transaction: CacheTransaction { _object._transaction }
+  public var data: [String : Any] { _object.data }
 }
 
 // MARK: Union Equatable
 extension Union {
   public static func ==(lhs: Union<T>, rhs: Union<T>) -> Bool {
-    return lhs.object === rhs.object
+    return lhs._object === rhs._object
   }
 
   public static func ==(lhs: Union<T>, rhs: T) -> Bool {
-    return lhs.object === rhs.object
+    return lhs._object === rhs.object
   }
 
   public static func ==(lhs: Union<T>, rhs: Object) -> Bool {
-    return lhs.object === rhs
+    return lhs._object === rhs
   }
 
   public static func !=(lhs: Union<T>, rhs: Union<T>) -> Bool {
-    return lhs.object !== rhs.object
+    return lhs._object !== rhs._object
   }
 
   public static func !=(lhs: Union<T>, rhs: T) -> Bool {
-    return lhs.object !== rhs.object
+    return lhs._object !== rhs.object
   }
 
   public static func !=(lhs: Union<T>, rhs: Object) -> Bool {
-    return lhs.object !== rhs
+    return lhs._object !== rhs
   }
 }
 
 // MARK: Optional<Union<T>> Equatable
 
 public func ==<T: UnionType>(lhs: Union<T>?, rhs: Union<T>) -> Bool {
-  return lhs?.object === rhs.object
+  return lhs?._object === rhs._object
 }
 
 public func ==<T: UnionType>(lhs: Union<T>?, rhs: T) -> Bool {
-  return lhs?.object === rhs.object
+  return lhs?._object === rhs.object
 }
 
 public func ==<T: UnionType>(lhs: Union<T>?, rhs: Object) -> Bool {
-  return lhs?.object === rhs
+  return lhs?._object === rhs
 }
 
 public func !=<T: UnionType>(lhs: Union<T>?, rhs: Union<T>) -> Bool {
-  return lhs?.object !== rhs.object
+  return lhs?._object !== rhs._object
 }
 
 public func !=<T: UnionType>(lhs: Union<T>?, rhs: T) -> Bool {
-  return lhs?.object !== rhs.object
+  return lhs?._object !== rhs.object
 }
 
 public func !=<T: UnionType>(lhs: Union<T>?, rhs: Object) -> Bool {
-  return lhs?.object !== rhs
+  return lhs?._object !== rhs
 }
 
 // MARK: Union Pattern Matching Helpers

@@ -1,4 +1,5 @@
 open class Object: CacheEntity, Cacheable {
+
   public final let _transaction: CacheTransaction
   public internal(set) final var data: [String: Any]
   open class var __metadata: Metadata { Metadata.Empty }
@@ -8,6 +9,8 @@ open class Object: CacheEntity, Cacheable {
   static let UnknownTypeName: StaticString = "∅__UnknownType"
 
   final var __typename: String { data["__typename"] as! String } // TODO: delete?
+
+  public var _object: Object { self }
 
   public required init(transaction: CacheTransaction, data: [String: Any] = [:]) {
     self._transaction = transaction
@@ -47,10 +50,10 @@ open class Object: CacheEntity, Cacheable {
       return transaction.object(withData: data)
 
     case let interface as Interface:
-      return interface.object
+      return interface._object
 
     case let union as AnyUnion:
-      return union.object
+      return union._object
 
     default:
       throw CacheError.Reason.unrecognizedCacheData(cacheData, forType: Self.self)
