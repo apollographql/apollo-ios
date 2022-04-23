@@ -53,7 +53,7 @@ class UnionTemplateTests: XCTestCase {
     buildSubject()
 
     let expected = """
-    public enum ClassroomPet: UnionType, Equatable {
+    public enum ClassroomPet: Union, Equatable {
     """
 
     // when
@@ -72,6 +72,7 @@ class UnionTemplateTests: XCTestCase {
       case Bird(Bird)
       case Rat(Rat)
       case PetRock(PetRock)
+      case __unknown(Object)
     """
 
     // when
@@ -86,13 +87,13 @@ class UnionTemplateTests: XCTestCase {
     buildSubject()
 
     let expected = """
-      public init?(_ object: Object) {
+      public init(_ object: Object) {
         switch object {
         case let entity as Cat: self = .Cat(entity)
         case let entity as Bird: self = .Bird(entity)
         case let entity as Rat: self = .Rat(entity)
         case let entity as PetRock: self = .PetRock(entity)
-        default: return nil
+        default: self = .__unknown(object)
         }
       }
     """
@@ -101,7 +102,7 @@ class UnionTemplateTests: XCTestCase {
     let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
   }
 
   func test_render_givenSchemaUnion_generatesObjectProperty() throws {
@@ -114,7 +115,8 @@ class UnionTemplateTests: XCTestCase {
         case let .Cat(object as Object),
           let .Bird(object as Object),
           let .Rat(object as Object),
-          let .PetRock(object as Object):
+          let .PetRock(object as Object),
+          let .__unknown(object):
             return object
         }
       }
@@ -124,7 +126,7 @@ class UnionTemplateTests: XCTestCase {
     let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 17, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 18, ignoringExtraLines: true))
   }
 
   func test_render_givenSchemaUnion_generatesPossibleTypesProperty() throws {
@@ -144,6 +146,6 @@ class UnionTemplateTests: XCTestCase {
     let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 27, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 29, ignoringExtraLines: true))
   }
 }

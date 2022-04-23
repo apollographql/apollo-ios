@@ -1,7 +1,7 @@
 public enum ParentType {
   case Object(Object.Type)
   case Interface(Interface.Type)
-  case Union(UnionType.Type)
+  case Union(Union.Type)
 }
 
 // MARK: - ParentTypeConvertible
@@ -18,6 +18,6 @@ extension Interface: ParentTypeConvertible {
   @inlinable public static var asParentType: ParentType { .Interface(Self.self) }
 }
 
-extension UnionType {
+extension Union {
   @inlinable public static var asParentType: ParentType { .Union(Self.self) }
 }

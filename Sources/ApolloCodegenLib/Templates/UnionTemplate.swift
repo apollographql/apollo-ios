@@ -13,17 +13,18 @@ struct UnionTemplate: TemplateRenderer {
   var template: TemplateString {
     TemplateString(
     """
-    public enum \(graphqlUnion.name.firstUppercased): UnionType, Equatable {
+    public enum \(graphqlUnion.name.firstUppercased): Union, Equatable {
       \(graphqlUnion.types.map({ type in
       "case \(type.name.firstUppercased)(\(type.name.firstUppercased))"
       }), separator: "\n")
+      case __unknown(Object)
 
-      public init?(_ object: Object) {
+      public init(_ object: Object) {
         switch object {
         \(graphqlUnion.types.map({ type in
         "case let entity as \(type.name.firstUppercased): self = .\(type.name.firstUppercased)(entity)"
         }), separator: "\n")
-        default: return nil
+        default: self = .__unknown(object)
         }
       }
 
@@ -31,7 +32,8 @@ struct UnionTemplate: TemplateRenderer {
         switch self {
         case \(graphqlUnion.types.map({ type in
         "let .\(type.name.firstUppercased)(object as Object)"
-        }), separator: ",\n     "):
+        }), separator: ",\n     ", terminator: ",")
+          let .__unknown(object):
             return object
         }
       }

@@ -1,45 +1,25 @@
-protocol AnyUnion: Cacheable {
-  var _object: Object { get }
-}
-
-// MARK: - UnionType
-public protocol UnionType: ParentTypeConvertible {
+public protocol Union: Cacheable, ParentTypeConvertible {
   static var possibleTypes: [Object.Type] { get }
   var object: Object { get }
 
-  init?(_ object: Object)
+  init(_ object: Object)
 }
 
-public enum Union<T: UnionType>: AnyUnion, Equatable {
+extension Union {
 
-  case `case`(T)
-  case __unknown(Object)
-
-  init(_ object: Object) throws {
-    guard let value = T.init(object) else {
-      let objectType = type(of: object)
-      guard objectType != Object.self else {
-        self = .__unknown(object)
-        return
-      }
-
-      throw CacheError.Reason.invalidObjectType(type(of: object), forExpectedType: Self.self)
-    }
-
-    self = .case(value)
-  }
-
+  #warning("TODO: Unit Test")
   public static func value(
-    with cacheData: Any,
+    with cacheData: JSONValue,
     in transaction: CacheTransaction
   ) throws -> Self {
     guard let object = object(with: cacheData, in: transaction) else {
-      throw CacheError.Reason.unrecognizedCacheData(cacheData, forType: T.self)
+      throw CacheError.Reason.unrecognizedCacheData(cacheData, forType: Self.self)
     }
 
-    return try Self(object)
+    return Self(object)
   }
 
+  #warning("TODO: Unit Test")
   private static func object(
     with cacheData: Any,
     in transaction: CacheTransaction
@@ -53,121 +33,8 @@ public enum Union<T: UnionType>: AnyUnion, Equatable {
     }
   }
 
-  var value: T? {
-    switch self {
-    case let .case(value): return value
-    default: return nil
-    }
-  }
-
-  var _object: Object {
-    switch self {
-    case let .case(value): return value.object
-    case let .__unknown(object): return object
-    }
-  }
-
-  public var _transaction: CacheTransaction { _object._transaction }
-  public var data: [String : Any] { _object.data }
-}
-
-// MARK: Union Equatable
-extension Union {
-  public static func ==(lhs: Union<T>, rhs: Union<T>) -> Bool {
-    return lhs._object === rhs._object
-  }
-
-  public static func ==(lhs: Union<T>, rhs: T) -> Bool {
-    return lhs._object === rhs.object
-  }
-
-  public static func ==(lhs: Union<T>, rhs: Object) -> Bool {
-    return lhs._object === rhs
-  }
-
-  public static func !=(lhs: Union<T>, rhs: Union<T>) -> Bool {
-    return lhs._object !== rhs._object
-  }
-
-  public static func !=(lhs: Union<T>, rhs: T) -> Bool {
-    return lhs._object !== rhs.object
-  }
-
-  public static func !=(lhs: Union<T>, rhs: Object) -> Bool {
-    return lhs._object !== rhs
-  }
-}
-
-// MARK: Optional<Union<T>> Equatable
-
-public func ==<T: UnionType>(lhs: Union<T>?, rhs: Union<T>) -> Bool {
-  return lhs?._object === rhs._object
-}
-
-public func ==<T: UnionType>(lhs: Union<T>?, rhs: T) -> Bool {
-  return lhs?._object === rhs.object
-}
-
-public func ==<T: UnionType>(lhs: Union<T>?, rhs: Object) -> Bool {
-  return lhs?._object === rhs
-}
-
-public func !=<T: UnionType>(lhs: Union<T>?, rhs: Union<T>) -> Bool {
-  return lhs?._object !== rhs._object
-}
-
-public func !=<T: UnionType>(lhs: Union<T>?, rhs: T) -> Bool {
-  return lhs?._object !== rhs.object
-}
-
-public func !=<T: UnionType>(lhs: Union<T>?, rhs: Object) -> Bool {
-  return lhs?._object !== rhs
-}
-
-// MARK: Union Pattern Matching Helpers
-extension Union {
-  public static func ~=(lhs: T, rhs: Union<T>) -> Bool {
-    switch rhs {
-    case let .case(rhs) where rhs.object === lhs.object: return true
-    case let .__unknown(rhsObject) where rhsObject === lhs.object: return true
-    default: return false
-    }
-  }
-}
-
-// MARK: UnionType Equatable
-extension UnionType where Self: Equatable {
   public static func ==(lhs: Self, rhs: Self) -> Bool {
-    lhs.object === rhs.object
+    return lhs.object === rhs.object
   }
 
-  public static func ==(lhs: Self, rhs: Object) -> Bool {
-    lhs.object === rhs
-  }
-
-  public static func !=(lhs: Self, rhs: Self) -> Bool {
-    lhs.object !== rhs.object
-  }
-
-  public static func !=(lhs: Self, rhs: Object) -> Bool {
-    lhs.object !== rhs
-  }
-}
-
-// MARK: Optional<UnionType> Equatable
-
-public func ==<T: UnionType>(lhs: T?, rhs: T) -> Bool {
-  return lhs?.object === rhs.object
-}
-
-public func !=<T: UnionType>(lhs: T?, rhs: T) -> Bool {
-  return lhs?.object !== rhs.object
-}
-
-public func ==<T: UnionType>(lhs: T?, rhs: Object) -> Bool {
-  return lhs?.object === rhs
-}
-
-public func !=<T: UnionType>(lhs: T?, rhs: Object) -> Bool {
-  return lhs?.object !== rhs
 }

@@ -73,7 +73,7 @@ struct CacheError: Error, Equatable {
       switch expectedType {
       case is Interface.Type:
         return "Object of type '\(type)' does not implement interface '\(expectedType)'."
-      case is AnyUnion.Type:
+      case is Union.Type:
         return "Object of type '\(type)' is not a valid type for union '\(expectedType)'."
       default:
         return "Object of type '\(type)' is not a valid type for '\(expectedType)'."
