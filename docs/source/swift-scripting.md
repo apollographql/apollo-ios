@@ -189,6 +189,8 @@ This is best achieved with a Run Script Build Phase.
     ```
     # Don't run this during index builds
     if [ $ACTION = "indexbuild" ]; then exit 0; fi
+    # Don't run during SwiftUI previews
+    if [ $ENABLE_PREVIEWS = "YES" ]; then exit 0; fi
 
     cd "${SRCROOT}"/ApolloCodegen
     xcrun -sdk macosx swift run ApolloCodegen generate
