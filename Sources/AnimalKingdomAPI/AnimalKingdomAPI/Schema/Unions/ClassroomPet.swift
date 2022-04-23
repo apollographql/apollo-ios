@@ -3,19 +3,20 @@
 
 import ApolloAPI
 
-public enum ClassroomPet: UnionType, Equatable {
+public enum ClassroomPet: Union, Equatable {
   case Cat(Cat)
   case Bird(Bird)
   case Rat(Rat)
   case PetRock(PetRock)
+  case __unknown(Object)
 
-  public init?(_ object: Object) {
+  public init(_ object: Object) {
     switch object {
     case let entity as Cat: self = .Cat(entity)
     case let entity as Bird: self = .Bird(entity)
     case let entity as Rat: self = .Rat(entity)
     case let entity as PetRock: self = .PetRock(entity)
-    default: return nil
+    default: self = .__unknown(object)
     }
   }
 
@@ -24,7 +25,8 @@ public enum ClassroomPet: UnionType, Equatable {
     case let .Cat(object as Object),
       let .Bird(object as Object),
       let .Rat(object as Object),
-      let .PetRock(object as Object):
+      let .PetRock(object as Object),
+      let .__unknown(object):
         return object
     }
   }
