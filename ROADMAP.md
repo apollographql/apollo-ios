@@ -43,7 +43,7 @@ These are the major initiatives planned for 2.0/2.x:
 
 These are the major initiatives planned for 3.0/3.x:
 
-- **Cache Improvements**: Here we are looking at bringing across some features inspired by Apollo Client 3 and Apollo Android
+- **Cache Improvements**: Here we are looking at bringing across some features inspired by Apollo Client 3 and Apollo Kotlin
     - Better pagination support. Better support for caching and updating paginated lists of objects.
     - Reducing over-normalization. Only separating out results into individual records when something that can identify them is present
     - Real cache eviction & dangling reference collection. There's presently a way to manually remove objects for a given key or pattern, but Apollo Client 3 has given us a roadmap for how to handle some of this stuff much more thoroughly and safely.
