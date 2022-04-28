@@ -11,20 +11,22 @@ struct ObjectTemplate: TemplateRenderer {
   let target: TemplateTarget = .schemaFile
 
   var template: TemplateString {
-    TemplateString(
+    let collectedFields = ir.fieldCollector.collectedFields(for: graphqlObject)
+
+    return TemplateString(
     """
     public final class \(graphqlObject.name.firstUppercased): Object {
       override public class var __typename: StaticString { \"\(graphqlObject.name.firstUppercased)\" }
 
-      \(section: MetadataTemplate())
+      \(section: MetadataTemplate(covariantFields: collectedFields.covariantFields))
 
-      \(section: SchemaTypeFieldsTemplate(ir: ir).render(type: graphqlObject))
+      \(section: SchemaTypeFieldsTemplate.render(fields: collectedFields.0, schemaName: ir.schema.name))
     
     }
     """)
   }
 
-  private func MetadataTemplate() -> TemplateString {
+  private func MetadataTemplate(covariantFields: Set<GraphQLField>) -> TemplateString {
     guard !graphqlObject.interfaces.isEmpty else {
       return ""
     }
@@ -36,7 +38,14 @@ struct ObjectTemplate: TemplateRenderer {
         \(graphqlObject.interfaces.map({ interface in
           "\(interface.name.firstUppercased).self"
       }), separator: ",\n")
+      ]\(if: !covariantFields.isEmpty, """
+    ,
+      covariantFields: [
+        \(covariantFields.map {
+          "\"\($0.name)\": \($0.type.innerType.rendered(containedInNonNull: true, inSchemaNamed: ir.schema.name)).self"
+        })
       ]
+    """)
     )
     """
   }

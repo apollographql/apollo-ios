@@ -169,6 +169,10 @@ public class GraphQLField: JavaScriptObject, Hashable {
     lhs.type == rhs.type &&
     lhs.arguments == rhs.arguments
   }
+
+  public override var debugDescription: String {
+    "\(name): \(type.debugDescription)"
+  }
 }
 
 public class GraphQLFieldArgument: JavaScriptObject, Hashable {

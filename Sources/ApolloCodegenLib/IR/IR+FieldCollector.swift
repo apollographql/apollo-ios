@@ -9,9 +9,7 @@ extension IR {
 
   class FieldCollector {
 
-    typealias ReferencedFields = Set<GraphQLField>
-
-    private var collectedFields: [GraphQLCompositeType: ReferencedFields] = [:]
+    private var collectedFields: [GraphQLCompositeType: [FieldHashKey: GraphQLField]] = [:]
 
     func add<T: Sequence>(
       fields: T,
@@ -33,7 +31,7 @@ extension IR {
       fieldNamed name: String,
       to type: FieldCollectable
     ) {
-      var fields = collectedFields[type] ?? []
+      var fields = collectedFields[type] ?? [:]
       guard let field = type.fields[name] else { return }
       add(field, to: &fields)
       collectedFields.updateValue(fields, forKey: type)
@@ -41,23 +39,67 @@ extension IR {
 
     private func add(
       _ field: GraphQLField,
-      to referencedFields: inout ReferencedFields
+    to referencedFields: inout [FieldHashKey: GraphQLField]
     ) {
-      referencedFields.insert(field)
+      let key = FieldHashKey(field)
+      if !referencedFields.keys.contains(key) {
+        referencedFields[key] = field
+      }
     }
 
-    func collectedFields(for type: FieldCollectable) -> ReferencedFields? {
-      var fields = collectedFields[type] ?? []
+    func collectedFields(
+      for type: GraphQLObjectType
+    ) -> ([GraphQLField], covariantFields: Set<GraphQLField>) {
+      var covariantFields: Set<GraphQLField> = []
+
+      let fields = collectFields(for: type, handleMergedInterfaceFields: { field, interfaceField in
+        if field.type != interfaceField.type {
+          covariantFields.insert(field)
+        }
+      })
+
+      return (fields, covariantFields)
+    }
+
+    func collectedFields(
+      for type: FieldCollectable
+    ) -> [GraphQLField] {
+      collectFields(for: type, handleMergedInterfaceFields: nil)
+    }
+
+    private func collectFields(
+      for type: FieldCollectable,
+      handleMergedInterfaceFields: ((GraphQLField, GraphQLField) -> Void)?
+    ) -> [GraphQLField] {
+      var fields = collectedFields[type] ?? [:]
 
       for interface in type.interfaces {
         if let interfaceFields = collectedFields[interface] {
-          fields.formUnion(interfaceFields)
+          fields.merge(interfaceFields) { field, interfaceField in
+            handleMergedInterfaceFields?(field, interfaceField)
+            return field
+          }
         }
       }
 
-      return fields
+      return fields.values.sorted { $0.name < $1.name }
     }
-    
+
+  }
+
+  fileprivate struct FieldHashKey: Hashable {
+    let hash: Int
+
+    init(_ field: GraphQLField) {
+      var hasher = Hasher()
+      hasher.combine(field.name)
+      hasher.combine(field.arguments)
+      self.hash = hasher.finalize()
+    }
+
+    func hash(into hasher: inout Hasher) {
+      hasher.combine(hash)
+    }
   }
 
 }

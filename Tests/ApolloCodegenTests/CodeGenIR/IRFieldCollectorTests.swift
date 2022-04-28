@@ -5,6 +5,8 @@ import OrderedCollections
 
 class IRFieldCollectorTests: XCTestCase {
 
+  typealias ReferencedFields = ([GraphQLField], covariantFields: Set<GraphQLField>)
+
   var schemaSDL: String!
   var document: String!
   var ir: IR!
@@ -67,12 +69,14 @@ class IRFieldCollectorTests: XCTestCase {
     let Dog = try schema[object: "Dog"].xctUnwrapped()
     let actual = subject.collectedFields(for: Dog)
 
-    let expected: IR.FieldCollector.ReferencedFields = try [
-      Dog.fields["a"].xctUnwrapped(),
-      Dog.fields["b"].xctUnwrapped(),
-    ]
+    let expected: ReferencedFields = try (
+      [
+        Dog.fields["a"].xctUnwrapped(),
+        Dog.fields["b"].xctUnwrapped(),
+      ],
+      []
+    )
 
-    print(subject.collectedFields)
     expect(actual).to(equal(expected))
   }
 
@@ -105,12 +109,52 @@ class IRFieldCollectorTests: XCTestCase {
     let Dog = try schema[interface: "Dog"].xctUnwrapped()
     let actual = subject.collectedFields(for: Dog)
 
-    let expected: IR.FieldCollector.ReferencedFields = try [
-      Dog.fields["a"].xctUnwrapped(),
-      Dog.fields["b"].xctUnwrapped(),
-    ]
+    let expected: [GraphQLField] = try (
+      [
+        Dog.fields["a"].xctUnwrapped(),
+        Dog.fields["b"].xctUnwrapped(),
+      ]
+    )
 
-    print(subject.collectedFields)
+    expect(actual).to(equal(expected))
+  }
+
+  func test__collectedFields__givenFieldsInNonAlphabeticalOrder_retrurnsReferencedFieldsSortedAlphabetically() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      dog: Dog!
+    }
+
+    type Dog {
+      a: String
+      b: String
+    }
+    """
+
+    document = """
+    query Test {
+      dog {
+        b
+        a
+      }
+    }
+    """
+
+    // when
+    try buildIR()
+
+    let Dog = try schema[object: "Dog"].xctUnwrapped()
+    let actual = subject.collectedFields(for: Dog)
+
+    let expected: ReferencedFields = try (
+      [
+        Dog.fields["a"].xctUnwrapped(),
+        Dog.fields["b"].xctUnwrapped(),
+      ],
+      []
+    )
+
     expect(actual).to(equal(expected))
   }
 
@@ -149,13 +193,264 @@ class IRFieldCollectorTests: XCTestCase {
     let Dog = try schema[object: "Dog"].xctUnwrapped()
     let actual = subject.collectedFields(for: Dog)
 
-    let expected: IR.FieldCollector.ReferencedFields = try [
-      Dog.fields["b"].xctUnwrapped(),
-      Dog.fields["a"].xctUnwrapped(),
-    ]
+    let expected: ReferencedFields = try (
+      [
+        Dog.fields["a"].xctUnwrapped(),
+        Dog.fields["b"].xctUnwrapped(),
+      ],
+      []
+    )
 
-    print(subject.collectedFields)
     expect(actual).to(equal(expected))
   }
 
+  func test__collectedFields__givenFieldsFromFragment_collectsFieldsReferencedInFragment() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      dog: Dog!
+    }
+
+    type Dog {
+      a: String
+      b: String
+      c: String
+    }
+    """
+
+    document = """
+    query Test {
+      dog {
+        ...FragmentB
+        a
+      }
+    }
+
+    fragment FragmentB on Dog {
+      b
+    }
+    """
+
+    // when
+    try buildIR()
+
+    let Dog = try schema[object: "Dog"].xctUnwrapped()
+    let actual = subject.collectedFields(for: Dog)
+
+    let expected: ReferencedFields = try (
+      [
+        Dog.fields["a"].xctUnwrapped(),
+        Dog.fields["b"].xctUnwrapped(),
+      ],
+      []
+    )
+
+    expect(actual).to(equal(expected))
+  }
+
+  func test__collectedFields__givenFieldsFromFragmentOnInterface_collectsFieldsReferencedInFragment() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      animal: Animal!
+    }
+
+    interface Animal {
+      a: String
+    }
+
+    type Dog implements Animal {
+      a: String
+      b: String
+      c: String
+    }
+    """
+
+    document = """
+    query Test {
+      animal {
+        a
+        ... on Dog {
+          ...FragmentB
+        }
+      }
+    }
+
+    fragment FragmentB on Dog {
+      b
+    }
+    """
+
+    // when
+    try buildIR()
+
+    let Dog = try schema[object: "Dog"].xctUnwrapped()
+    let actual = subject.collectedFields(for: Dog)
+
+    let expected: ReferencedFields = try (
+      [
+        Dog.fields["a"].xctUnwrapped(),
+        Dog.fields["b"].xctUnwrapped(),
+      ],
+      []
+    )
+
+    expect(actual).to(equal(expected))
+  }
+
+  func test__collectedFields__givenFieldsFromQueryOnImplementedInterface_collectsFieldsReferencedInQueryOnInterface() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      animal: Animal!
+      dog: Dog!
+    }
+
+    interface Animal {
+      a: String
+    }
+
+    type Dog implements Animal {
+      a: String
+      b: String
+      c: String
+    }
+    """
+
+    document = """
+    query Test1 {
+      animal {
+        a
+      }
+    }
+
+    query Test2 {
+      dog {
+        b
+      }
+    }
+    """
+
+    // when
+    try buildIR()
+
+    let Dog = try schema[object: "Dog"].xctUnwrapped()
+    let actual = subject.collectedFields(for: Dog)
+
+    let expected: ReferencedFields = try (
+      [
+        Dog.fields["a"].xctUnwrapped(),
+        Dog.fields["b"].xctUnwrapped(),
+      ],
+      []
+    )
+
+    expect(actual).to(equal(expected))
+  }
+
+  // MARK: Covariant Fields
+
+  func test__render__givenObject_withFieldOfDifferentTypeThanImplementedInterface_generatesCovariantFieldInMetadata() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      animal: Animal!
+      dog: Dog!
+    }
+
+    interface Animal {
+      a: Animal
+      b: String!
+    }
+
+    type Dog implements Animal {
+      a: Dog
+      b: String!
+    }
+    """
+
+    document = """
+    query Test1 {
+      animal {
+        a {
+          b
+        }
+      }
+    }
+
+    query Test2 {
+      dog {
+        a {
+          b
+        }
+      }
+    }
+    """
+
+    // when
+    try buildIR()
+
+    let Dog = try schema[object: "Dog"].xctUnwrapped()
+    let actual = subject.collectedFields(for: Dog)
+
+    let expected: ReferencedFields = try (
+      [
+        Dog.fields["a"].xctUnwrapped(),
+        Dog.fields["b"].xctUnwrapped(),
+      ],
+      [
+        Dog.fields["a"].xctUnwrapped(),
+      ]
+    )
+
+    // then
+    expect(actual).to(equal(expected))
+  }
+
+  func test__render__givenObject_withFieldOfDifferentTypeThanImplementedInterface_interfaceFieldNotReferenced_doesNotGenerateCovariantFieldInMetadata() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      animal: Animal!
+      dog: Dog!
+    }
+
+    interface Animal {
+      a: Animal
+      b: String!
+    }
+
+    type Dog implements Animal {
+      a: Dog
+      b: String!
+    }
+    """
+
+    document = """
+    query Test1 {
+      dog {
+        a {
+          b
+        }
+      }
+    }
+    """
+
+    // when
+    try buildIR()
+
+    let Dog = try schema[object: "Dog"].xctUnwrapped()
+    let actual = subject.collectedFields(for: Dog)
+
+    let expected: ReferencedFields = try (
+      [
+        Dog.fields["a"].xctUnwrapped(),
+        Dog.fields["b"].xctUnwrapped(),
+      ],
+      []
+    )
+
+    // then
+    expect(actual).to(equal(expected))
+  }
 }
