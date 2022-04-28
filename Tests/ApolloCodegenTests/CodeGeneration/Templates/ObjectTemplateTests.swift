@@ -100,6 +100,64 @@ class ObjectTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine("}", atLine: 4, ignoringExtraLines: false))
   }
 
+  func test__render__givenObject_withFieldOfDifferentTypeThanImplementedInterface_generatesCovariantFieldsInMetadata() throws {
+    // given
+    let schemaSDL = """
+    type Query {
+      animal: Animal!
+      dog: Dog!
+    }
+
+    interface Animal {
+      a: Animal
+      b: String!
+    }
+
+    type Dog implements Animal {
+      a: Dog
+      b: String!
+    }
+    """
+
+    let document = """
+    query Test1 {
+      dog {
+        a {
+          b
+        }
+      }
+    }
+    """
+
+    let expected = """
+      override public class var __metadata: Metadata { _metadata }
+      private static let _metadata: Metadata = Metadata(
+        implements: [
+          Animal.self
+        ],
+        covariantFields: [
+          "a": Dog.self
+        ]
+      )
+    """
+
+    // when
+    ir = try .mock(schema: schemaSDL, document: document)
+
+    for operation in ir.compilationResult.operations {
+      _ = ir.build(operation: operation)
+    }
+
+    let Dog = try ir.schema[object: "Dog"].xctUnwrapped()
+
+    subject = ObjectTemplate(graphqlObject: Dog, ir: ir)
+
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 4, ignoringExtraLines: true))
+  }
+
   // MARK: Field Accessor Tests
 
   func test_render_givenSchemaType_generatesFieldAccessors() {

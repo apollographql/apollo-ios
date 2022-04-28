@@ -40,7 +40,8 @@ struct SchemaTypeFieldsTemplate {
       }
     }
 
-    return fieldsToRender.sorted { $0.name < $1.name }
+    fieldsToRender.sort { $0.name < $1.name }
+    return fieldsToRender
   }
   
 }
