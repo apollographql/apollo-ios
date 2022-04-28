@@ -248,7 +248,9 @@ extension IR {
         return nil
       }
 
-      ir.fieldCollector.add(field: field, to: enclosingTypeInfo.parentType)
+      if let parentType = enclosingTypeInfo.parentType as? FieldCollectable {
+        ir.fieldCollector.add(field: field, to: parentType)
+      }
 
       let inclusionConditions = inclusionResult.conditions
 

@@ -166,7 +166,8 @@ class ObjectTemplateTests: XCTestCase {
 
     subject.graphqlObject.fields = ["fieldA": .mock("fieldA", type: .string())]
 
-    ir.fieldCollector.add(field: .mock("fieldA", type: .string()), to: .mock("Dog"))
+    ir.fieldCollector.add(field: .mock("fieldA", type: .string()),
+                          to: subject.graphqlObject)
 
     let expected = """
       @Field("fieldA") public var fieldA: String?

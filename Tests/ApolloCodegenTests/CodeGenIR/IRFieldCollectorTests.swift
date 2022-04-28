@@ -67,8 +67,9 @@ class IRFieldCollectorTests: XCTestCase {
     let Dog = try schema[object: "Dog"].xctUnwrapped()
     let actual = subject.collectedFields(for: Dog)
 
-    let expected: IR.FieldCollector.ReferencedFields = [
-      "a", "b"
+    let expected: IR.FieldCollector.ReferencedFields = try [
+      Dog.fields["a"].xctUnwrapped(),
+      Dog.fields["b"].xctUnwrapped(),
     ]
 
     print(subject.collectedFields)
@@ -104,8 +105,9 @@ class IRFieldCollectorTests: XCTestCase {
     let Dog = try schema[interface: "Dog"].xctUnwrapped()
     let actual = subject.collectedFields(for: Dog)
 
-    let expected: IR.FieldCollector.ReferencedFields = [
-      "a", "b"
+    let expected: IR.FieldCollector.ReferencedFields = try [
+      Dog.fields["a"].xctUnwrapped(),
+      Dog.fields["b"].xctUnwrapped(),
     ]
 
     print(subject.collectedFields)
@@ -147,8 +149,9 @@ class IRFieldCollectorTests: XCTestCase {
     let Dog = try schema[object: "Dog"].xctUnwrapped()
     let actual = subject.collectedFields(for: Dog)
 
-    let expected: IR.FieldCollector.ReferencedFields = [
-      "b", "a"
+    let expected: IR.FieldCollector.ReferencedFields = try [
+      Dog.fields["b"].xctUnwrapped(),
+      Dog.fields["a"].xctUnwrapped(),
     ]
 
     print(subject.collectedFields)
