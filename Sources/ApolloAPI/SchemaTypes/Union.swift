@@ -7,7 +7,7 @@ public protocol Union: Cacheable, ParentTypeConvertible {
 
 extension Union {
 
-//  #warning("TODO: Unit Test")
+  #warning("TODO: Unit Test")
   public static func value(
     with cacheData: JSONValue,
     in transaction: CacheTransaction
@@ -19,7 +19,7 @@ extension Union {
     return Self(object)
   }
 
-//  #warning("TODO: Unit Test")
+  #warning("TODO: Unit Test")
   private static func object(
     with cacheData: Any,
     in transaction: CacheTransaction

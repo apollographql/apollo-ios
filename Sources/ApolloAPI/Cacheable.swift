@@ -14,7 +14,7 @@ public protocol Cacheable {
 
 extension Array: Cacheable where Element: Cacheable {
 
-//  #warning("TODO: Unit Test")
+  #warning("TODO: Unit Test")
   public static func value(
     with cacheData: JSONValue,
     in transaction: CacheTransaction
@@ -30,7 +30,7 @@ extension Array: Cacheable where Element: Cacheable {
 
 extension Optional: Cacheable where Wrapped: Cacheable {
 
-//  #warning("TODO: Unit Test")
+  #warning("TODO: Unit Test")
   public static func value(
     with cacheData: JSONValue,
     in transaction: CacheTransaction
