@@ -170,10 +170,10 @@ class SelectionSetTests: XCTestCase {
       override class var __typename: StaticString { "Human" }
     }
 
-    struct Character: UnionType {
+    struct Character: Union {
       let object: Object
 
-      init?(_ object: Object) {
+      init(_ object: Object) {
         self.object = object
       }
 
@@ -225,10 +225,10 @@ class SelectionSetTests: XCTestCase {
       override class var __typename: StaticString { "Human" }
     }
 
-    struct Character: UnionType {
+    struct Character: Union {
       let object: Object
 
-      init?(_ object: Object) {
+      init(_ object: Object) {
         self.object = object
       }
 
