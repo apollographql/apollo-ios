@@ -150,8 +150,20 @@ public class GraphQLField: JavaScriptObject {
   lazy var name: String = self["name"]
   
   lazy var type: GraphQLType = self["type"]
+
+  var arguments: [GraphQLFieldArgument] { self["args"] }
   
   lazy var description: String? = self["description"]
   
+  lazy var deprecationReason: String? = self["deprecationReason"]
+}
+
+public class GraphQLFieldArgument: JavaScriptObject {
+  lazy var name: String = self["name"]
+
+  lazy var type: GraphQLType = self["type"]
+
+  lazy var description: String? = self["description"]
+
   lazy var deprecationReason: String? = self["deprecationReason"]
 }
