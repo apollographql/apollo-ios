@@ -76,10 +76,17 @@ extension SelectionSet {
     if conditions: Selection.Conditions? = nil
   ) -> T? where T.Schema == Schema {
     guard let conditions = conditions else {
-      return T.init(data: data)
+      return _asType()
     }
 
-    return conditions.evaluate(with: data.variables) ? T.init(data: data) : nil
+    return conditions.evaluate(with: data.variables) ? _asType() : nil
+  }
+
+  private func _asType<T: SelectionSet>() -> T? where T.Schema == Schema {
+    guard let __objectType = __objectType,
+          __objectType._canBeConverted(to: T.__parentType) else { return nil }
+
+    return T.init(data: data)
   }
 
   public func _asInlineFragment<T: SelectionSet>(
@@ -93,7 +100,6 @@ extension SelectionSet {
   ) -> T? where T.Schema == Schema {
     _asInlineFragment(if: Selection.Conditions(condition))
   }
-  
 }
 
 extension SelectionSet where Fragments: FragmentContainer {
