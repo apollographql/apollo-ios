@@ -9,10 +9,10 @@ class SelectionSetTests: XCTestCase {
   func test__asInlineFragment_givenObjectType_returnsTypeIfCorrectType() {
     // given
     class Human: Object {
-      override class var __typename: String { "Human" }
+      override class var __typename: StaticString { "Human" }
     }
     class Droid: Object {
-      override class var __typename: String { "Droid" }
+      override class var __typename: StaticString { "Droid" }
     }
 
     MockSchemaConfiguration.stub_objectTypeForTypeName = {
@@ -71,7 +71,7 @@ class SelectionSetTests: XCTestCase {
     // given
     class Humanoid: Interface { }
     class Human: Object {
-      override class var __typename: String { "Human" }
+      override class var __typename: StaticString { "Human" }
       override class var __metadata: Object.Metadata {
         .init(implements: [Humanoid.self], covariantFields: nil)
       }
@@ -121,7 +121,7 @@ class SelectionSetTests: XCTestCase {
     // given
     class Humanoid: Interface { }
     class Droid: Object {
-      override class var __typename: String { "Droid" }
+      override class var __typename: StaticString { "Droid" }
     }
 
     MockSchemaConfiguration.stub_objectTypeForTypeName = {
@@ -167,7 +167,7 @@ class SelectionSetTests: XCTestCase {
   func test__asInlineFragment_givenUnionType_typeNameIsTypeInUnionPossibleTypes_returnsType() {
     // given
     class Human: Object {
-      override class var __typename: String { "Human" }
+      override class var __typename: StaticString { "Human" }
     }
 
     struct Character: UnionType {
@@ -222,7 +222,7 @@ class SelectionSetTests: XCTestCase {
   func test__asInlineFragment_givenUnionType_typeNameNotIsTypeInUnionPossibleTypes_returnsNil() {
     // given
     class Human: Object {
-      override class var __typename: String { "Human" }
+      override class var __typename: StaticString { "Human" }
     }
 
     struct Character: UnionType {

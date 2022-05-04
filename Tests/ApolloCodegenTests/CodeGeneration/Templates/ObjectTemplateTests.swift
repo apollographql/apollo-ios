@@ -45,7 +45,7 @@ class ObjectTemplateTests: XCTestCase {
 
     let expected = """
     public final class Dog: Object {
-      override public class var __typename: String { "Dog" }
+      override public class var __typename: StaticString { "Dog" }
 
     """
 
