@@ -2,9 +2,9 @@ open class Object: ObjectType, Cacheable {
   public final let _transaction: CacheTransaction
   public internal(set) final var data: [String: Any]
   open class var __metadata: Metadata { Metadata.Empty }
-  open class var __typename: String { UnknownTypeName }
+  open class var __typename: StaticString { UnknownTypeName }
 
-  static let UnknownTypeName: String = "∅__UnknownType"
+  static let UnknownTypeName: StaticString = "∅__UnknownType"
 
   final var __typename: String { data["__typename"] as! String } // TODO: delete?
 

@@ -718,7 +718,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
         ]}
       }
     }
-    let object: JSONObject = ["child": [:]]
+    let object: JSONObject = ["child": ["__typename": "Child"]]
 
     // when
     XCTAssertThrowsError(try readValues(GivenSelectionSet.self, from: object)) { (error) in
@@ -769,11 +769,11 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
   func test__inlineFragment__withoutExplicitTypeNameSelection_selectsTypenameField() throws {
     // given
     class MockChildObject: Object {
-      override class var __typename: String { "MockChildObject" }
+      override class var __typename: StaticString { "MockChildObject" }
     }
 
     class Human: Object {
-      override class var __typename: String { "Human" }
+      override class var __typename: StaticString { "Human" }
     }
 
     class GivenSelectionSet: MockSelectionSet, SelectionSet {
@@ -830,7 +830,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
   func test__fragment__asObjectType_matchingParentType_selectsFragmentFields() throws {
     // given
     class MockChildObject: Object {
-      override class var __typename: String { "MockChildObject" }
+      override class var __typename: StaticString { "MockChildObject" }
     }
 
     class GivenFragment: MockFragment {

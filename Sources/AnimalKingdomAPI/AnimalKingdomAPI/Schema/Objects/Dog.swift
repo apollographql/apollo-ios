@@ -4,7 +4,7 @@
 import ApolloAPI
 
 public final class Dog: Object {
-  override public class var __typename: String { "Dog" }
+  override public class var __typename: StaticString { "Dog" }
 
   override public class var __metadata: Metadata { _metadata }
   private static let _metadata: Metadata = Metadata(implements: [
