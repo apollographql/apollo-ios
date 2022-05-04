@@ -203,7 +203,7 @@ class GraphQLExecutor_ResultNormalizer_FromResponse_Tests: XCTestCase {
       }
     }
 
-    MockSchemaConfiguration.stub_cacheKeyForUnknownType = { $1["id"] as? String }
+    MockSchemaConfiguration.stub_cacheKeyProviderForUnknownType = { _, _ in IDCacheKeyProvider.self }
 
     let object: JSONObject = [
       "hero": [

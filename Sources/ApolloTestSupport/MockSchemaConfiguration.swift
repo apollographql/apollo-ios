@@ -5,7 +5,7 @@ public class MockSchemaConfiguration: SchemaConfiguration, SchemaUnknownTypeCach
 
   private static let testObserver = TestObserver() { _ in
     stub_objectTypeForTypeName = nil
-    stub_cacheKeyForUnknownType = nil
+    stub_cacheKeyProviderForUnknownType = nil
   }
 
   static public var stub_objectTypeForTypeName: ((String) -> Object.Type?)? {
@@ -14,9 +14,11 @@ public class MockSchemaConfiguration: SchemaConfiguration, SchemaUnknownTypeCach
     }
   }
 
-  static public var stub_cacheKeyForUnknownType: ((String, JSONObject) -> String?)? {
+  static public var stub_cacheKeyProviderForUnknownType:
+  ((String, JSONObject) -> CacheKeyProvider.Type?)?
+  {
     didSet {
-      if stub_cacheKeyForUnknownType != nil { testObserver.start() }
+      if stub_cacheKeyProviderForUnknownType != nil { testObserver.start() }
     }
   }
 
@@ -24,8 +26,17 @@ public class MockSchemaConfiguration: SchemaConfiguration, SchemaUnknownTypeCach
     stub_objectTypeForTypeName?(__typename) ?? Object.self
   }
 
-  public static func cacheKeyForUnknownType(withTypename: String, data: JSONObject) -> String? {
-    stub_cacheKeyForUnknownType?(withTypename, data)
+  public static func cacheKeyProviderForUnknownType(
+    withTypename: String,
+    data: JSONObject
+  ) -> CacheKeyProvider.Type? {
+    stub_cacheKeyProviderForUnknownType?(withTypename, data)
   }
 
+}
+
+public enum IDCacheKeyProvider: CacheKeyProvider {
+  public static func cacheKey(for data: JSONObject) -> String? {
+    data["id"] as? String
+  }
 }

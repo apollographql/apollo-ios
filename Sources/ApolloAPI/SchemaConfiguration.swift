@@ -8,7 +8,7 @@ extension SchemaConfiguration {
           let keyString = cacheKeyString(for: data, withTypename: __typename) else {
       return nil
     }
-    return CacheReference("\(__typename):\(keyString)")      
+    return CacheReference(keyString)
   }
 
   private static func cacheKeyString(
@@ -16,23 +16,45 @@ extension SchemaConfiguration {
     withTypename __typename: String
   ) -> String? {
     if let objectType = objectType(forTypename: __typename),
-       let resolver = objectType as? CacheKeyProvider.Type {
-      return resolver.cacheKey(for: data)
+       let resolver = objectType.__cacheKeyProvider {
+      return resolver.cacheReferenceString(for: data, typename: __typename)
     }
 
-    if let unknownTypeMapper = self as? SchemaUnknownTypeCacheKeyProvider.Type {
-      return unknownTypeMapper.cacheKeyForUnknownType(withTypename: __typename, data: data)
+    if let unknownTypeMapper = self as? SchemaUnknownTypeCacheKeyProvider.Type,
+       let resolver = unknownTypeMapper.cacheKeyProviderForUnknownType(withTypename: __typename,
+                                                                       data: data) {
+      return resolver.cacheReferenceString(for: data, typename: __typename)
     }
 
     return nil
   }
 }
 
-public protocol CacheKeyProvider: Object {
+public protocol CacheKeyProvider {
+  static var uniqueKeyGroupId: StaticString? { get }
   static func cacheKey(for data: JSONObject) -> String?
 }
 
-public protocol SchemaUnknownTypeCacheKeyProvider {
-  static func cacheKeyForUnknownType(withTypename: String, data: JSONObject) -> String?
+extension CacheKeyProvider {
+
+  public static var uniqueKeyGroupId: StaticString? { nil }
+
+  fileprivate static func cacheReferenceString(
+    for data: JSONObject,
+    typename: String
+  ) -> String? {
+    guard let key = cacheKey(for: data) else {
+      return nil
+    }
+
+    return "\(uniqueKeyGroupId?.description ?? typename):\(key)"
+  }
+
 }
 
+public protocol SchemaUnknownTypeCacheKeyProvider {
+  static func cacheKeyProviderForUnknownType(
+    withTypename: String,
+    data: JSONObject
+  ) -> CacheKeyProvider.Type?
+}
