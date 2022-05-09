@@ -38,4 +38,9 @@ Pod::Spec.new do |s|
     ss.dependency 'Apollo/Core'
   end
 
+  s.subspec 'ApolloTestSupport' do |ss|
+    ss.source_files = 'Sources/ApolloTestSupport/*.swift'
+    ss.dependency 'Apollo/Core'    
+  end
+
 end
