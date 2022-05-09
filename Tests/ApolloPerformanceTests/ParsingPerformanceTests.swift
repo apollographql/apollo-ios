@@ -1,6 +1,6 @@
 import XCTest
 @testable import Apollo
-import ApolloTestSupport
+import ApolloInternalTestHelpers
 //import GitHubAPI
 
 #warning("TODO: Fix these and test them against old metrics!")

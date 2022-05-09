@@ -1,0 +1,3 @@
+#include "../Shared/Workspace-Target-TestHelpers.xcconfig"
+
+INFOPLIST_FILE = Tests/ApolloInternalTestHelpers/Info.plist

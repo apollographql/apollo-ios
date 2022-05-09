@@ -1,6 +1,6 @@
 import XCTest
 @testable import Apollo
-import ApolloTestSupport
+import ApolloInternalTestHelpers
 import StarWarsAPI
 
 #warning("TODO: Implement and test new way to create manual fragments.")

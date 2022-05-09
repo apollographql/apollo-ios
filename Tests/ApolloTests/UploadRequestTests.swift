@@ -1,7 +1,7 @@
 import XCTest
 import Nimble
 @testable import Apollo
-import ApolloTestSupport
+import ApolloInternalTestHelpers
 import UploadAPI
 
 class UploadRequestTests: XCTestCase {

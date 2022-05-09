@@ -1,6 +1,6 @@
 import XCTest
-import ApolloTestSupport
-import ApolloCodegenTestSupport
+import ApolloInternalTestHelpers
+import ApolloCodegenInternalTestHelpers
 @testable import ApolloCodegenLib
 
 class SchemaLoadingTests: XCTestCase {

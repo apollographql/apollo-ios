@@ -8,7 +8,7 @@
 
 import XCTest
 import Nimble
-import ApolloTestSupport
+import ApolloInternalTestHelpers
 @testable import Apollo
 @testable import ApolloAPI
 

@@ -4,7 +4,7 @@ import ApolloAPI
 #if canImport(ApolloSQLite)
 import ApolloSQLite
 #endif
-import ApolloTestSupport
+import ApolloInternalTestHelpers
 
 class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
   var cacheType: TestCacheProvider.Type {

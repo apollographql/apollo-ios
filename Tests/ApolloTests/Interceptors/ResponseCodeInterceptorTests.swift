@@ -1,6 +1,6 @@
 import Apollo
 import ApolloAPI
-import ApolloTestSupport
+import ApolloInternalTestHelpers
 import XCTest
 
 class ResponseCodeInterceptorTests: XCTestCase {

@@ -1,7 +1,7 @@
 import XCTest
 @testable import Apollo
 import ApolloAPI
-import ApolloTestSupport
+import ApolloInternalTestHelpers
 
 private final class MockBatchedNormalizedCache: NormalizedCache {
   private var records: RecordSet

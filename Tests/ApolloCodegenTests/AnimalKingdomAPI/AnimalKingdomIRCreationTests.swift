@@ -3,17 +3,17 @@ import XCTest
 import Nimble
 import OrderedCollections
 @testable import ApolloCodegenLib
-import ApolloCodegenTestSupport
+import ApolloCodegenInternalTestHelpers
 
 final class AnimalKingdomIRCreationTests: XCTestCase {
 
   static let frontend = try! GraphQLJSFrontend()
 
-  static let schema = try! frontend.loadSchema(from: ApolloCodegenTestSupport.Resources.AnimalKingdomSchema)
+  static let schema = try! frontend.loadSchema(from: ApolloCodegenInternalTestHelpers.Resources.AnimalKingdomSchema)
 
   static func operationDocuments(experimentalClientControlledNullability: Bool = false) -> GraphQLDocument {
     try! frontend.mergeDocuments(
-      ApolloCodegenTestSupport.Resources.GraphQLOperations.map {
+      ApolloCodegenInternalTestHelpers.Resources.GraphQLOperations.map {
         try! frontend.parseDocument(
           from: $0,
           experimentalClientControlledNullability: experimentalClientControlledNullability
@@ -24,7 +24,7 @@ final class AnimalKingdomIRCreationTests: XCTestCase {
 
   static func operationCCNDocuments(experimentalClientControlledNullability: Bool = false) -> GraphQLDocument {
     try! frontend.mergeDocuments(
-      ApolloCodegenTestSupport.Resources.CCNGraphQLOperations.map {
+      ApolloCodegenInternalTestHelpers.Resources.CCNGraphQLOperations.map {
         try! frontend.parseDocument(
           from: $0,
           experimentalClientControlledNullability: experimentalClientControlledNullability

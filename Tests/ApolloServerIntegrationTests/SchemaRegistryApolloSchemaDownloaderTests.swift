@@ -1,7 +1,7 @@
 #if os(macOS)
 import XCTest
-import ApolloTestSupport
-import ApolloCodegenTestSupport
+import ApolloInternalTestHelpers
+import ApolloCodegenInternalTestHelpers
 @testable import ApolloCodegenLib
 
 class SchemaRegistryApolloSchemaDownloaderTests: XCTestCase {

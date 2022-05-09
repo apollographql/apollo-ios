@@ -1,6 +1,6 @@
 import XCTest
 import Apollo
-import ApolloTestSupport
+import ApolloInternalTestHelpers
 @testable import ApolloWebSocket
 import StarWarsAPI
 

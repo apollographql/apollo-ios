@@ -1,6 +1,6 @@
 import XCTest
-import ApolloTestSupport
-import ApolloCodegenTestSupport
+import ApolloInternalTestHelpers
+import ApolloCodegenInternalTestHelpers
 import ApolloCodegenLib // Do not use @testable with this import! Plain `import` ensures the correct access modifiers are used.
 
 class ApolloSchemaPublicTests: XCTestCase {
