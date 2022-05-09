@@ -1,28 +1,20 @@
 import XCTest
+import Nimble
 @testable import Apollo
+import ApolloTestSupport
 import ApolloAPI
 import AnimalKingdomAPI
 
 class TestMockTests: XCTestCase {
 
-
-}
-
-public class Mock<O: Object> {
-  public var data: JSONObject
-
-  init(_ object: O) {
-    data = ["__typename": O.__typename.description]
+  func test__MockDog__() throws {
+    let mock = Mock<Dog>()
   }
 
 }
 
-protocol Mockable {
-  associatedtype MockFields
-}
-
 extension Dog: Mockable {
-  typealias MockFields = MockFields_Dog
+  public typealias MockFields = MockFields_Dog
 }
 
 public class MockFields_Dog {

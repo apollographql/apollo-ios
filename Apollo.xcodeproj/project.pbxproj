@@ -210,7 +210,6 @@
 		DE2FCF2726E8083A0057EA67 /* Union.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2FCF2326E8083A0057EA67 /* Union.swift */; };
 		DE2FCF2826E8083A0057EA67 /* Interface.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2FCF2426E8083A0057EA67 /* Interface.swift */; };
 		DE2FCF2926E8083A0057EA67 /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2FCF2526E8083A0057EA67 /* Object.swift */; };
-		DE2FCF2A26E8083A0057EA67 /* Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2FCF2626E8083A0057EA67 /* Field.swift */; };
 		DE2FCF2C26E808560057EA67 /* CacheEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2FCF2B26E808560057EA67 /* CacheEntity.swift */; };
 		DE2FCF4526E80CF10057EA67 /* GraphQLOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC750601D2A59C300458D91 /* GraphQLOperation.swift */; };
 		DE2FCF4926E94D150057EA67 /* TestMockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2FCF4826E94D150057EA67 /* TestMockTests.swift */; };
@@ -272,6 +271,9 @@
 		DE9C04B226EAB02C00EC35E7 /* JSONDecodingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9C04B026EAAFF900EC35E7 /* JSONDecodingError.swift */; };
 		DE9CEAE028299F1100959AF9 /* ApolloTestSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = DE9CEADF28299F0A00959AF9 /* ApolloTestSupport.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DE9CEAE42829A01C00959AF9 /* ApolloAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE058621266978A100265760 /* ApolloAPI.framework */; };
+		DE9CEAE62829A2FE00959AF9 /* MockObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9CEAE52829A2FE00959AF9 /* MockObject.swift */; };
+		DE9CEAE92829A3C800959AF9 /* ApolloTestSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE9CEADC28299E8500959AF9 /* ApolloTestSupport.framework */; };
+		DE9CEAEA2829A45500959AF9 /* Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2FCF2626E8083A0057EA67 /* Field.swift */; };
 		DEA6A83426F298660091AF8A /* ParentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA6A83326F298660091AF8A /* ParentType.swift */; };
 		DEA9A23027CD990500F96C36 /* IRSelectionSet_IncludeSkip_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA9A22F27CD990500F96C36 /* IRSelectionSet_IncludeSkip_Tests.swift */; };
 		DEA9A23227D822E600F96C36 /* IR+InclusionConditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA9A23127D822E600F96C36 /* IR+InclusionConditions.swift */; };
@@ -664,6 +666,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = DE058606266978A100265760;
 			remoteInfo = ApolloAPI;
+		};
+		DE9CEAE72829A3C100959AF9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9FC7503B1D2A532C00458D91 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DE9CEAB328299E8500959AF9;
+			remoteInfo = ApolloTestSupport;
 		};
 		DECD46F9262F659100924527 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1136,6 +1145,7 @@
 		DE9CEADD28299E8500959AF9 /* ApolloInternalTestHelpers copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "ApolloInternalTestHelpers copy-Info.plist"; path = "/Users/amdev/Documents/repos/apollo-ios/ApolloInternalTestHelpers copy-Info.plist"; sourceTree = "<absolute>"; };
 		DE9CEADF28299F0A00959AF9 /* ApolloTestSupport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApolloTestSupport.h; sourceTree = "<group>"; };
 		DE9CEAE128299F6900959AF9 /* Apollo-Target-TestSupport.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-TestSupport.xcconfig"; sourceTree = "<group>"; };
+		DE9CEAE52829A2FE00959AF9 /* MockObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockObject.swift; sourceTree = "<group>"; };
 		DEA34AF6260E821F00F95F86 /* Apollo-Target-AnimalKingdomAPI.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-AnimalKingdomAPI.xcconfig"; sourceTree = "<group>"; };
 		DEA6A83326F298660091AF8A /* ParentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentType.swift; sourceTree = "<group>"; };
 		DEA9A22F27CD990500F96C36 /* IRSelectionSet_IncludeSkip_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IRSelectionSet_IncludeSkip_Tests.swift; sourceTree = "<group>"; };
@@ -1439,6 +1449,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE9CEAE92829A3C800959AF9 /* ApolloTestSupport.framework in Frameworks */,
 				DE5EB9C526EFD4D10004176A /* Nimble in Frameworks */,
 				9B2DFBCD24E201A800ED3AE6 /* UploadAPI.framework in Frameworks */,
 				9FC7504F1D2A532D00458D91 /* Apollo.framework in Frameworks */,
@@ -2257,7 +2268,6 @@
 		DE2FCF2226E8082A0057EA67 /* SchemaTypes */ = {
 			isa = PBXGroup;
 			children = (
-				DE2FCF2626E8083A0057EA67 /* Field.swift */,
 				DE2FCF2426E8083A0057EA67 /* Interface.swift */,
 				DE2FCF2526E8083A0057EA67 /* Object.swift */,
 				DE2FCF2326E8083A0057EA67 /* Union.swift */,
@@ -2495,6 +2505,8 @@
 			isa = PBXGroup;
 			children = (
 				DE9CEADF28299F0A00959AF9 /* ApolloTestSupport.h */,
+				DE9CEAE52829A2FE00959AF9 /* MockObject.swift */,
+				DE2FCF2626E8083A0057EA67 /* Field.swift */,
 			);
 			name = ApolloTestSupport;
 			path = Sources/ApolloTestSupport;
@@ -3279,6 +3291,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				DE9CEAE82829A3C100959AF9 /* PBXTargetDependency */,
 				9B2DFBCC24E201A000ED3AE6 /* PBXTargetDependency */,
 				9FC750511D2A532D00458D91 /* PBXTargetDependency */,
 				9F8A958C1EC0FF9F00304A2D /* PBXTargetDependency */,
@@ -3500,6 +3513,9 @@
 					};
 					DE6B15AB26152BE10068D642 = {
 						CreatedOnToolsVersion = 12.4;
+					};
+					DE9CEAB328299E8500959AF9 = {
+						LastSwiftMigration = 1330;
 					};
 					DECD490A262F81BF00924527 = {
 						CreatedOnToolsVersion = 12.4;
@@ -4151,7 +4167,6 @@
 				DE2FCF4526E80CF10057EA67 /* GraphQLOperation.swift in Sources */,
 				DE2FCF2C26E808560057EA67 /* CacheEntity.swift in Sources */,
 				DE05860C266978A100265760 /* FragmentProtocols.swift in Sources */,
-				DE2FCF2A26E8083A0057EA67 /* Field.swift in Sources */,
 				DE05860D266978A100265760 /* ScalarTypes.swift in Sources */,
 				DE9C04AF26EAAEE800EC35E7 /* CacheReference.swift in Sources */,
 				DE05860E266978A100265760 /* GraphQLNullable.swift in Sources */,
@@ -4234,6 +4249,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE9CEAEA2829A45500959AF9 /* Field.swift in Sources */,
+				DE9CEAE62829A2FE00959AF9 /* MockObject.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4388,6 +4405,11 @@
 			isa = PBXTargetDependency;
 			target = DE058606266978A100265760 /* ApolloAPI */;
 			targetProxy = DE9CEAE22829A01A00959AF9 /* PBXContainerItemProxy */;
+		};
+		DE9CEAE82829A3C100959AF9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DE9CEAB328299E8500959AF9 /* ApolloTestSupport */;
+			targetProxy = DE9CEAE72829A3C100959AF9 /* PBXContainerItemProxy */;
 		};
 		DECD46FA262F659100924527 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -4805,8 +4827,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 90690D2522433CAF00FC2E54 /* Apollo-Target-InternalTestHelpers.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "ApolloInternalTestHelpers copy-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
@@ -4814,8 +4834,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 90690D2522433CAF00FC2E54 /* Apollo-Target-InternalTestHelpers.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "ApolloInternalTestHelpers copy-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -4823,8 +4841,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 90690D2522433CAF00FC2E54 /* Apollo-Target-InternalTestHelpers.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "ApolloInternalTestHelpers copy-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = PerformanceTesting;
 		};

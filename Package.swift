@@ -105,7 +105,7 @@ let package = Package(
       ]),
     .target(
       name: "ApolloTestSupport",
-      dependencies: [ApolloAPI],
+      dependencies: ["ApolloAPI"],
       exclude: [
         "Info.plist"
       ]),
