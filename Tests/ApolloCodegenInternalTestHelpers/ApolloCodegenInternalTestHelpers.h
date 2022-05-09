@@ -1,11 +1,3 @@
-//
-//  ApolloCodegenInternalTestHelpers.h
-//  ApolloCodegenInternalTestHelpers
-//
-//  Created by Anthony Miller on 4/20/21.
-//  Copyright © 2021 Apollo GraphQL. All rights reserved.
-//
-
 #import <Foundation/Foundation.h>
 
 //! Project version number for ApolloCodegenInternalTestHelpers.
