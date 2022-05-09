@@ -1,7 +1,7 @@
 import XCTest
 import Apollo
 import ApolloAPI
-import ApolloTestSupport
+import ApolloInternalTestHelpers
 
 fileprivate extension Selection.Field {
   var test_cacheKey: String {

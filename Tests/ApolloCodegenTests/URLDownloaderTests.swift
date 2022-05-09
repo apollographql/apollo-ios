@@ -1,6 +1,6 @@
 @testable import ApolloCodegenLib
-import ApolloTestSupport
-import ApolloCodegenTestSupport
+import ApolloInternalTestHelpers
+import ApolloCodegenInternalTestHelpers
 import XCTest
 
 fileprivate class FailingNetworkSession: NetworkSession {

@@ -1,6 +1,6 @@
 import Foundation
 import XCTest
-import ApolloCodegenTestSupport
+import ApolloCodegenInternalTestHelpers
 import ApolloCodegenLib
 import ApolloUtils
 import Nimble

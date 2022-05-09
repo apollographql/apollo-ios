@@ -1,7 +1,7 @@
 import XCTest
 @testable import Apollo
 @testable import ApolloAPI
-import ApolloTestSupport
+import ApolloInternalTestHelpers
 import Nimble
 
 class SelectionSetTests: XCTestCase {

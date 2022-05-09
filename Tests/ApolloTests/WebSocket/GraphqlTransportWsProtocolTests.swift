@@ -1,6 +1,6 @@
 import XCTest
 @testable import ApolloWebSocket
-import ApolloTestSupport
+import ApolloInternalTestHelpers
 import Nimble
 import Apollo
 // import SubscriptionAPI

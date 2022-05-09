@@ -1,7 +1,7 @@
 import XCTest
 @testable import Apollo
 import ApolloAPI
-import ApolloTestSupport
+import ApolloInternalTestHelpers
 
 class GraphQLExecutor_ResultNormalizer_FromResponse_Tests: XCTestCase {
 

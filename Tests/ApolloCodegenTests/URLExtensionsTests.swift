@@ -8,7 +8,7 @@
 
 import Foundation
 import XCTest
-import ApolloCodegenTestSupport
+import ApolloCodegenInternalTestHelpers
 @testable import ApolloCodegenLib
 import ApolloUtils
 

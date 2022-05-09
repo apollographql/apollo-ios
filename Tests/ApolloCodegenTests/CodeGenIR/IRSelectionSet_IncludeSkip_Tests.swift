@@ -2,8 +2,8 @@ import XCTest
 import Nimble
 import OrderedCollections
 @testable import ApolloCodegenLib
-import ApolloTestSupport
-import ApolloCodegenTestSupport
+import ApolloInternalTestHelpers
+import ApolloCodegenInternalTestHelpers
 import ApolloAPI
 import ApolloUtils
 

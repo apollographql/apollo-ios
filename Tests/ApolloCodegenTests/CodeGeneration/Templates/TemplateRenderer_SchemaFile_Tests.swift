@@ -1,6 +1,6 @@
 import XCTest
 @testable import ApolloCodegenLib
-@testable import ApolloCodegenTestSupport
+@testable import ApolloCodegenInternalTestHelpers
 import ApolloUtils
 import Nimble
 

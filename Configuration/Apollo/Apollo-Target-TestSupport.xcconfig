@@ -1,3 +1,0 @@
-#include "../Shared/Workspace-Target-TestSupport.xcconfig"
-
-INFOPLIST_FILE = Sources/ApolloTestSupport/Info.plist

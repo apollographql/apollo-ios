@@ -1,7 +1,7 @@
 import XCTest
 @testable import Apollo
 import ApolloAPI
-import ApolloTestSupport
+import ApolloInternalTestHelpers
 import StarWarsAPI
 
 #warning("TODO: Do we refactor these for [String: InputValue] or delete them?")

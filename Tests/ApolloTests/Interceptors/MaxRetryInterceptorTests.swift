@@ -1,7 +1,7 @@
 import XCTest
 import Apollo
 import ApolloAPI
-import ApolloTestSupport
+import ApolloInternalTestHelpers
 
 class MaxRetryInterceptorTests: XCTestCase {
   

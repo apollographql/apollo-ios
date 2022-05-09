@@ -2,7 +2,7 @@ import Foundation
 import Nimble
 import OrderedCollections
 @testable import ApolloCodegenLib
-import ApolloTestSupport
+import ApolloInternalTestHelpers
 
 protocol SelectionShallowMatchable {
   typealias Field = IR.Field

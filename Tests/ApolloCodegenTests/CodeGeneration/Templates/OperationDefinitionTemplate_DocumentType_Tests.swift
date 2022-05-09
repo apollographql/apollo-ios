@@ -2,7 +2,7 @@ import XCTest
 import Nimble
 import OrderedCollections
 @testable import ApolloCodegenLib
-import ApolloCodegenTestSupport
+import ApolloCodegenInternalTestHelpers
 
 class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
 

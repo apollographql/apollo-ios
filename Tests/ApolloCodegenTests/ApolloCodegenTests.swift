@@ -1,5 +1,5 @@
 import XCTest
-@testable import ApolloCodegenTestSupport
+@testable import ApolloCodegenInternalTestHelpers
 @testable import ApolloCodegenLib
 import Nimble
 import ApolloUtils
@@ -228,8 +228,8 @@ class ApolloCodegenTests: XCTestCase {
 
   func test_fileGenerators_givenSchemaAndMultipleOperationDocuments_shouldGenerateSchemaAndOperationsFiles() throws {
     // given
-    let schemaPath = ApolloCodegenTestSupport.Resources.AnimalKingdomSchema.path
-    let operationsPath = ApolloCodegenTestSupport.Resources.url
+    let schemaPath = ApolloCodegenInternalTestHelpers.Resources.AnimalKingdomSchema.path
+    let operationsPath = ApolloCodegenInternalTestHelpers.Resources.url
       .appendingPathComponent("graphql")
       .appendingPathComponent("*.graphql").path
 
@@ -323,8 +323,8 @@ class ApolloCodegenTests: XCTestCase {
 
   func test_fileGenerators_givenSchemaAndMultipleOperationDocuments_shouldGenerateSchemaAndOperationsFiles_CCN() throws {
     // given
-    let schemaPath = ApolloCodegenTestSupport.Resources.AnimalKingdomSchema.path
-    let operationsPath = ApolloCodegenTestSupport.Resources.url
+    let schemaPath = ApolloCodegenInternalTestHelpers.Resources.AnimalKingdomSchema.path
+    let operationsPath = ApolloCodegenInternalTestHelpers.Resources.url
       .appendingPathComponent("graphql")
       .appendingPathComponent("**/*.graphql").path
 

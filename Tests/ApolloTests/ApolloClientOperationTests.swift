@@ -1,6 +1,6 @@
 @testable import Apollo
 import ApolloAPI
-import ApolloTestSupport
+import ApolloInternalTestHelpers
 import XCTest
 import Nimble
 

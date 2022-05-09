@@ -1,7 +1,7 @@
 import XCTest
 import Nimble
 @testable import ApolloCodegenLib
-import ApolloCodegenTestSupport
+import ApolloCodegenInternalTestHelpers
 import ApolloUtils
 
 class FileGenerator_ResolvePath_Tests: XCTestCase {

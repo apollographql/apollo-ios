@@ -1,6 +1,6 @@
 import XCTest
 @testable import ApolloCodegenLib
-import ApolloCodegenTestSupport
+import ApolloCodegenInternalTestHelpers
 import Nimble
 
 class GraphQLNamedType_SwiftTests: XCTestCase {

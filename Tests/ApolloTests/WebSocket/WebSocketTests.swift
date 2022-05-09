@@ -2,7 +2,7 @@ import XCTest
 import Nimble
 import Apollo
 import ApolloAPI
-import ApolloTestSupport
+import ApolloInternalTestHelpers
 @testable import ApolloWebSocket
 
 extension WebSocketTransport {

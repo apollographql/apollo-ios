@@ -1,6 +1,6 @@
 import XCTest
 @testable import Apollo
-import ApolloTestSupport
+import ApolloInternalTestHelpers
 
 class DataLoaderTests: XCTestCase {
   func testSingleLoad() throws {

@@ -1,6 +1,6 @@
 import XCTest
-import ApolloTestSupport
-import ApolloCodegenTestSupport
+import ApolloInternalTestHelpers
+import ApolloCodegenInternalTestHelpers
 @testable import ApolloCodegenLib
 
 class ApolloSchemaInternalTests: XCTestCase {
@@ -31,7 +31,7 @@ class ApolloSchemaInternalTests: XCTestCase {
   }
 
   func testRequest_givenIntrospectionGETDownload_shouldOutputGETRequest() throws {
-    let url = ApolloTestSupport.TestURL.mockServer.url
+    let url = ApolloInternalTestHelpers.TestURL.mockServer.url
     let queryParameterName = "customParam"
     let headers: [ApolloSchemaDownloadConfiguration.HTTPHeader] = [
       .init(key: "key1", value: "value1"),
@@ -58,7 +58,7 @@ class ApolloSchemaInternalTests: XCTestCase {
   }
 
   func testRequest_givenIntrospectionPOSTDownload_shouldOutputPOSTRequest() throws {
-    let url = ApolloTestSupport.TestURL.mockServer.url
+    let url = ApolloInternalTestHelpers.TestURL.mockServer.url
     let headers: [ApolloSchemaDownloadConfiguration.HTTPHeader] = [
       .init(key: "key1", value: "value1"),
       .init(key: "key2", value: "value2")
