@@ -1093,7 +1093,6 @@
 		DE6B15FF26152D210068D642 /* Workspace-Universal-Test.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Workspace-Universal-Test.xcconfig"; sourceTree = "<group>"; };
 		DE6B160026152D210068D642 /* Workspace-Universal-Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Workspace-Universal-Framework.xcconfig"; sourceTree = "<group>"; };
 		DE6B160126152D210068D642 /* Workspace-Target-Test.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Workspace-Target-Test.xcconfig"; sourceTree = "<group>"; };
-		DE6B160226152D210068D642 /* Workspace-Code-Generation.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Workspace-Code-Generation.xcconfig"; sourceTree = "<group>"; };
 		DE6B160326152D210068D642 /* Workspace-Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Workspace-Release.xcconfig"; sourceTree = "<group>"; };
 		DE6B160426152D210068D642 /* Project-Version.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Project-Version.xcconfig"; sourceTree = "<group>"; };
 		DE6B160526152D210068D642 /* Workspace-Warnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Workspace-Warnings.xcconfig"; sourceTree = "<group>"; };
@@ -2398,7 +2397,6 @@
 				DECD4930262F824B00924527 /* Workspace-Target-TestHelpers.xcconfig */,
 				DE6B160126152D210068D642 /* Workspace-Target-Test.xcconfig */,
 				DECD493E262F82D600924527 /* Workspace-Target-Codegen.xcconfig */,
-				DE6B160226152D210068D642 /* Workspace-Code-Generation.xcconfig */,
 				DE6B160326152D210068D642 /* Workspace-Release.xcconfig */,
 				DE6B160426152D210068D642 /* Project-Version.xcconfig */,
 				DE6B160526152D210068D642 /* Workspace-Warnings.xcconfig */,
