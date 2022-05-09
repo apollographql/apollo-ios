@@ -1,8 +1,8 @@
 import ApolloAPI
 
 @dynamicMemberLookup
-public class Mock<O: Mockable> {
-  public var _data: [String: Any]
+public class Mock<O: Mockable>: JSONEncodable {
+  public var _data: JSONEncodableDictionary
 
   public init() {
     _data = ["__typename": O.__typename.description]
@@ -10,7 +10,7 @@ public class Mock<O: Mockable> {
 
   public var __typename: String { _data["__typename"] as! String }
 
-  public subscript<T: Cacheable>(dynamicMember keyPath: KeyPath<O.MockFields, Field<T>>) -> T? {
+  public subscript<T: JSONEncodable>(dynamicMember keyPath: KeyPath<O.MockFields, Field<T>>) -> T? {
     get {
       let field = O.__mockFields[keyPath: keyPath]
       return _data[field.key.description] as? T
@@ -31,6 +31,10 @@ public class Mock<O: Mockable> {
       _data[field.key.description] = newValue
     }
   }
+
+  // MARK: JSONEncodable
+
+  public var jsonValue: JSONValue { "" } // TODO 
 
 }
 

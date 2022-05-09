@@ -1,7 +1,7 @@
 import ApolloAPI
 
 @propertyWrapper
-public struct Field<T: Cacheable> {
+public struct Field<T: JSONEncodable> {
 
   let key: StaticString
 

@@ -205,12 +205,9 @@
 		DE296BA527A07C37004F571F /* MockMergedSelections.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE296BA427A07C37004F571F /* MockMergedSelections.swift */; };
 		DE296BA727A09A11004F571F /* IsEverTrue.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE296BA627A09A11004F571F /* IsEverTrue.swift */; };
 		DE2FCF1D26E806710057EA67 /* SchemaConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2FCF1C26E806710057EA67 /* SchemaConfiguration.swift */; };
-		DE2FCF1F26E807CC0057EA67 /* CacheTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2FCF1E26E807CC0057EA67 /* CacheTransaction.swift */; };
-		DE2FCF2126E807EF0057EA67 /* Cacheable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2FCF2026E807EF0057EA67 /* Cacheable.swift */; };
 		DE2FCF2726E8083A0057EA67 /* Union.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2FCF2326E8083A0057EA67 /* Union.swift */; };
 		DE2FCF2826E8083A0057EA67 /* Interface.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2FCF2426E8083A0057EA67 /* Interface.swift */; };
 		DE2FCF2926E8083A0057EA67 /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2FCF2526E8083A0057EA67 /* Object.swift */; };
-		DE2FCF2C26E808560057EA67 /* CacheEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2FCF2B26E808560057EA67 /* CacheEntity.swift */; };
 		DE2FCF4526E80CF10057EA67 /* GraphQLOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC750601D2A59C300458D91 /* GraphQLOperation.swift */; };
 		DE2FCF4926E94D150057EA67 /* TestMockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2FCF4826E94D150057EA67 /* TestMockTests.swift */; };
 		DE3484622746FF8F0065B77E /* IR+OperationBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3484612746FF8F0065B77E /* IR+OperationBuilder.swift */; };
@@ -1051,13 +1048,10 @@
 		DE296BA427A07C37004F571F /* MockMergedSelections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockMergedSelections.swift; sourceTree = "<group>"; };
 		DE296BA627A09A11004F571F /* IsEverTrue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsEverTrue.swift; sourceTree = "<group>"; };
 		DE2FCF1C26E806710057EA67 /* SchemaConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchemaConfiguration.swift; sourceTree = "<group>"; };
-		DE2FCF1E26E807CC0057EA67 /* CacheTransaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheTransaction.swift; sourceTree = "<group>"; };
-		DE2FCF2026E807EF0057EA67 /* Cacheable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cacheable.swift; sourceTree = "<group>"; };
 		DE2FCF2326E8083A0057EA67 /* Union.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Union.swift; sourceTree = "<group>"; };
 		DE2FCF2426E8083A0057EA67 /* Interface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interface.swift; sourceTree = "<group>"; };
 		DE2FCF2526E8083A0057EA67 /* Object.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Object.swift; sourceTree = "<group>"; };
 		DE2FCF2626E8083A0057EA67 /* Field.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Field.swift; sourceTree = "<group>"; };
-		DE2FCF2B26E808560057EA67 /* CacheEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheEntity.swift; sourceTree = "<group>"; };
 		DE2FCF3626E809BB0057EA67 /* PetDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetDetails.swift; sourceTree = "<group>"; };
 		DE2FCF3726E809BB0057EA67 /* HeightInMeters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeightInMeters.swift; sourceTree = "<group>"; };
 		DE2FCF3826E809BB0057EA67 /* ClassroomPetDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassroomPetDetails.swift; sourceTree = "<group>"; };
@@ -2210,7 +2204,6 @@
 				9F27D4631D40379500715680 /* JSONStandardTypeConversions.swift */,
 				DE9C04B026EAAFF900EC35E7 /* JSONDecodingError.swift */,
 				DE2FCF2226E8082A0057EA67 /* SchemaTypes */,
-				DE2FCF1E26E807CC0057EA67 /* CacheTransaction.swift */,
 				DE9C04AE26EAAEE800EC35E7 /* CacheReference.swift */,
 				9B68F06E241C649E00E97318 /* GraphQLNullable.swift */,
 				DE3C7B12260A6FC900D2F4FF /* FragmentProtocols.swift */,
@@ -2223,7 +2216,6 @@
 				DE664ED326602AF60054DB4F /* Selection.swift */,
 				DE90FDB927FE405F0084CC79 /* Selection+Conditions.swift */,
 				DECD53CE26EC0EE50059A639 /* OutputTypeConvertible.swift */,
-				DE2FCF2026E807EF0057EA67 /* Cacheable.swift */,
 				9FC750601D2A59C300458D91 /* GraphQLOperation.swift */,
 				DE05862426697A8C00265760 /* Info.plist */,
 			);
@@ -2271,7 +2263,6 @@
 				DE2FCF2426E8083A0057EA67 /* Interface.swift */,
 				DE2FCF2526E8083A0057EA67 /* Object.swift */,
 				DE2FCF2326E8083A0057EA67 /* Union.swift */,
-				DE2FCF2B26E808560057EA67 /* CacheEntity.swift */,
 			);
 			path = SchemaTypes;
 			sourceTree = "<group>";
@@ -4165,15 +4156,12 @@
 				DE9C04AC26EAAE4400EC35E7 /* JSON.swift in Sources */,
 				DE2FCF1D26E806710057EA67 /* SchemaConfiguration.swift in Sources */,
 				DE2FCF4526E80CF10057EA67 /* GraphQLOperation.swift in Sources */,
-				DE2FCF2C26E808560057EA67 /* CacheEntity.swift in Sources */,
 				DE05860C266978A100265760 /* FragmentProtocols.swift in Sources */,
 				DE05860D266978A100265760 /* ScalarTypes.swift in Sources */,
 				DE9C04AF26EAAEE800EC35E7 /* CacheReference.swift in Sources */,
 				DE05860E266978A100265760 /* GraphQLNullable.swift in Sources */,
 				DECD53CF26EC0EE50059A639 /* OutputTypeConvertible.swift in Sources */,
-				DE2FCF2126E807EF0057EA67 /* Cacheable.swift in Sources */,
 				DEA6A83426F298660091AF8A /* ParentType.swift in Sources */,
-				DE2FCF1F26E807CC0057EA67 /* CacheTransaction.swift in Sources */,
 				DE03FDDB2784D0B2007425BD /* DataDict.swift in Sources */,
 				DE2FCF2826E8083A0057EA67 /* Interface.swift in Sources */,
 				DE09F9BD27024FEA00795949 /* InputObject.swift in Sources */,

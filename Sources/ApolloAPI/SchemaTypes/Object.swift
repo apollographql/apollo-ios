@@ -1,113 +1,12 @@
-open class Object: CacheEntity, Cacheable {
+public protocol CacheEntity: AnyObject {}
 
-  public final let _transaction: CacheTransaction
-  public internal(set) final var data: [String: Any]
+open class Object: CacheEntity {
+
   open class var __metadata: Metadata { Metadata.Empty }
   open class var __typename: StaticString { UnknownTypeName }
   open class var __cacheKeyProvider: CacheKeyProvider.Type? { nil }
 
   static let UnknownTypeName: StaticString = "∅__UnknownType"
-
-  final var __typename: String { data["__typename"] as! String } // TODO: delete?
-
-  public var _object: Object { self }
-
-  public required init(transaction: CacheTransaction, data: [String: Any] = [:]) {
-    self._transaction = transaction
-    self.data = data
-
-    if self.data["__typename"] == nil {
-      self.data["__typename"] = Self.__typename
-    }
-  }
-
-  public static func value(
-    with cacheData: Any,
-    in transaction: CacheTransaction
-  ) throws -> Self {
-    let object = try getObject(with: cacheData, in: transaction)
-    guard let objectAsSelf = object as? Self else {
-      throw CacheError.Reason.invalidObjectType(type(of: object), forExpectedType: Self.self)
-    }
-    return objectAsSelf
-  }
-
-  private static func getObject(
-    with cacheData: Any,
-    in transaction: CacheTransaction
-  ) throws -> Object {
-    switch cacheData {
-    case let object as Object:
-      return object
-
-    case let key as CacheReference:
-      guard let object = transaction.object(for: key) else {
-        throw CacheError.Reason.objectNotFound(forCacheKey: key)
-      }
-      return object
-
-    case let data as [String: Any]:
-      return transaction.object(withData: data)
-
-    case let interface as Interface:
-      return interface._object
-
-    case let union as Union:
-      return union.object
-
-    default:
-      throw CacheError.Reason.unrecognizedCacheData(cacheData, forType: Self.self)
-    }
-  }
-
-  final func set<T: Cacheable>(value: T?, forKey key: StaticString) throws {
-    let fieldName = key.description
-
-    guard let value = value else {
-      data[fieldName] = nil
-      return
-    }
-
-    switch T.self {
-    case is CacheEntity.Type:
-      // Check for field covariance
-      if let covariantFieldType = Self.__metadata.fieldTypeIfCovariant(forField: fieldName) {
-        try set(value: value, forCovariantField: fieldName, convertingToType: covariantFieldType)
-
-      } else {
-        data[fieldName] = value // TODO: write tests
-      }
-
-    //    case is ScalarType.Type:
-    //    break
-    //    case is CustomScalarType.Type:
-    //    break
-    //    case is GraphQLEnum.Type:
-    //    break
-    default: break
-    }
-  }
-
-  private func set(
-    value: Cacheable,
-    forCovariantField fieldName: String,
-    convertingToType covariantFieldType: CacheEntity.Type
-  ) throws {
-    do {
-      switch covariantFieldType {
-      case let interfaceType as Interface.Type:
-        data[fieldName] = try interfaceType.value(with: value, in: _transaction)
-
-      case let objectType as Object.Type:
-        data[fieldName] = try objectType.value(with: value, in: _transaction)
-
-      default: break // TODO: throw error or fatal error?
-      }
-
-    } catch {
-      throw CacheError.Reason.invalidValue(value, forCovariantFieldOfType: covariantFieldType)
-    }
-  }
 }
 
 extension Object {
@@ -144,8 +43,4 @@ extension Object {
       return union.possibleTypes.contains(where: { $0 == self })
     }
   }
-}
-
-public enum MockError: Error {
-  case mock // TODO
 }
