@@ -93,7 +93,7 @@ class TestMockTests: XCTestCase {
     let cat3 = Mock<Cat>()
 
     // when
-    mock.nestedListOfObjects = [cat1, cat2, cat3]
+    mock.nestedListOfObjects = [[cat1, cat2, cat3]]
 
     // then
 //    expect(mock._data["bestFriend"] as? Mock<Cat>).to(beIdenticalTo(cat))
@@ -121,7 +121,7 @@ class TestMockTests: XCTestCase {
     let cat3 = Mock<Cat>()
 
     // when
-//    mock.listOfInterfaces = [cat1, cat2, cat3]
+    mock.listOfInterfaces = [cat1, cat2, cat3]
 
     // then
 //    expect(mock._data["bestFriend"] as? Mock<Cat>).to(beIdenticalTo(cat))
@@ -182,7 +182,7 @@ extension Dog: Mockable {
     @Field<[String]>("listOfStrings") public var listOfStrings
     @Field<Animal>("bestFriend") public var bestFriend
     @Field<[Animal]>("listOfInterfaces") public var listOfInterfaces
-    @Field<[Animal]>("nestedListOfInterfaces") public var nestedListOfInterfaces
+    @Field<[[Animal]]>("nestedListOfInterfaces") public var nestedListOfInterfaces
     @Field<[Cat]>("listOfObjects") public var listOfObjects
     @Field<[[Cat]]>("nestedListOfObjects") public var nestedListOfObjects
     @Field<String>("species") public var species

@@ -1,1 +1,1 @@
-public protocol Interface: CacheEntity, ParentTypeConvertible { }
+open class Interface: CacheEntity, ParentTypeConvertible { }
