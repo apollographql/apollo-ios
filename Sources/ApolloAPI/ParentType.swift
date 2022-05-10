@@ -14,7 +14,7 @@ extension Object: ParentTypeConvertible {
   @inlinable public static var asParentType: ParentType { .Object(Self.self) }
 }
 
-extension Interface: ParentTypeConvertible {
+extension Interface {
   @inlinable public static var asParentType: ParentType { .Interface(Self.self) }
 }
 

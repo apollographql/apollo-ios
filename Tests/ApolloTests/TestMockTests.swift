@@ -40,6 +40,18 @@ class TestMockTests: XCTestCase {
     expect(mock.species).to(beNil())
   }
 
+  func test__mock__setListOfScalarField__fieldIsSet() throws {
+    // given
+    let mock = Mock<Dog>()
+
+    // when
+    mock.listOfStrings = ["a", "b", "c"]
+
+    // then
+    expect(mock._data["listOfStrings"] as? [String]).to(equal(["a", "b", "c"]))
+    expect(mock.listOfStrings).to(equal(["a", "b", "c"]))
+  }
+
   func test__mock__setObjectField__fieldIsSet() throws {
     // given
     let mock = Mock<Dog>()
@@ -58,6 +70,36 @@ class TestMockTests: XCTestCase {
     expect(mock.height?.yards).to(equal(3))
   }
 
+  func test__mock__setListOfObjectsField__fieldIsSet() throws {
+    // given
+    let mock = Mock<Dog>(id: "1")
+    let cat1 = Mock<Cat>()
+    let cat2 = Mock<Cat>()
+    let cat3 = Mock<Cat>()
+
+    // when
+    mock.listOfObjects = [cat1, cat2, cat3]
+
+    // then
+//    expect(mock._data["bestFriend"] as? Mock<Cat>).to(beIdenticalTo(cat))
+//    expect(mock.bestFriend as? Mock<Cat>).to(beIdenticalTo(cat))
+  }
+
+  func test__mock__setNestedListOfObjectsField__fieldIsSet() throws {
+    // given
+    let mock = Mock<Dog>(id: "1")
+    let cat1 = Mock<Cat>()
+    let cat2 = Mock<Cat>()
+    let cat3 = Mock<Cat>()
+
+    // when
+    mock.nestedListOfObjects = [cat1, cat2, cat3]
+
+    // then
+//    expect(mock._data["bestFriend"] as? Mock<Cat>).to(beIdenticalTo(cat))
+//    expect(mock.bestFriend as? Mock<Cat>).to(beIdenticalTo(cat))
+  }
+
   func test__mock__setInterfaceField__fieldIsSet() throws {
     // given
     let mock = Mock<Dog>(id: "1")
@@ -69,6 +111,36 @@ class TestMockTests: XCTestCase {
     // then
     expect(mock._data["bestFriend"] as? Mock<Cat>).to(beIdenticalTo(cat))
     expect(mock.bestFriend as? Mock<Cat>).to(beIdenticalTo(cat))
+  }
+
+  func test__mock__setListOfInterfacesField__fieldIsSet() throws {
+    // given
+    let mock = Mock<Dog>(id: "1")
+    let cat1 = Mock<Cat>()
+    let cat2 = Mock<Cat>()
+    let cat3 = Mock<Cat>()
+
+    // when
+//    mock.listOfInterfaces = [cat1, cat2, cat3]
+
+    // then
+//    expect(mock._data["bestFriend"] as? Mock<Cat>).to(beIdenticalTo(cat))
+//    expect(mock.bestFriend as? Mock<Cat>).to(beIdenticalTo(cat))
+  }
+
+  func test__mock__setNestedListOfInterfacesField__fieldIsSet() throws {
+    // given
+    let mock = Mock<Dog>(id: "1")
+    let cat1 = Mock<Cat>()
+    let cat2 = Mock<Cat>()
+    let cat3 = Mock<Cat>()
+
+    // when
+//    mock.nestedListOfInterfaces = [cat1, cat2, cat3]
+
+    // then
+//    expect(mock._data["bestFriend"] as? Mock<Cat>).to(beIdenticalTo(cat))
+//    expect(mock.bestFriend as? Mock<Cat>).to(beIdenticalTo(cat))
   }
 
 }
@@ -107,8 +179,12 @@ extension Dog: Mockable {
   struct MockFields {
     @Field<String>("id") public var id
     @Field<Height>("height") public var height
+    @Field<[String]>("listOfStrings") public var listOfStrings
     @Field<Animal>("bestFriend") public var bestFriend
-    @Field<[Animal]>("predators") public var predators
+    @Field<[Animal]>("listOfInterfaces") public var listOfInterfaces
+    @Field<[Animal]>("nestedListOfInterfaces") public var nestedListOfInterfaces
+    @Field<[Cat]>("listOfObjects") public var listOfObjects
+    @Field<[[Cat]]>("nestedListOfObjects") public var nestedListOfObjects
     @Field<String>("species") public var species
   }
 }
@@ -116,7 +192,7 @@ extension Dog: Mockable {
 extension Mock where O == Dog {
   convenience init(
     id: String? = nil,
-    height: Height? = nil
+    height: Mock<Height>? = nil
   ) {
     self.init()
     self.id = id
