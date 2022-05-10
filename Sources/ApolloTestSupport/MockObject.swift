@@ -60,7 +60,7 @@ public class Mock<O: Mockable>: AnyMock {
 
   public subscript<S: Sequence, MS: Sequence & JSONEncodable>(
     dynamicMember keyPath: KeyPath<O.MockFields, Field<S>>
-  ) -> MS? where S.Element: MockFieldValue, MS.Element == S.Element.MockValueType {
+  ) -> MS? where S.Element: MockFieldValue, MS.Element == S.Element.MockValueCollectionType.Element {
     get {
       let field = O.__mockFields[keyPath: keyPath]
       return _data[field.key.description] as? MS
@@ -71,18 +71,18 @@ public class Mock<O: Mockable>: AnyMock {
     }
   }
 
-  public subscript<S: Sequence, MS: Sequence & JSONEncodable>(
-    dynamicMember keyPath: KeyPath<O.MockFields, Field<S>>
-  ) -> MS? where S.Element: MockInterfaceFieldValue, MS.Element == S.Element.MockCollectionType.Element {
-    get {
-      let field = O.__mockFields[keyPath: keyPath]
-      return _data[field.key.description] as? MS
-    }
-    set {
-      let field = O.__mockFields[keyPath: keyPath]
-      _data[field.key.description] = newValue
-    }
-  }
+//  public subscript<S: Sequence, MS: Sequence & JSONEncodable>(
+//    dynamicMember keyPath: KeyPath<O.MockFields, Field<S>>
+//  ) -> MS? where S.Element: MockInterfaceFieldValue, MS.Element == S.Element.MockCollectionType.Element {
+//    get {
+//      let field = O.__mockFields[keyPath: keyPath]
+//      return _data[field.key.description] as? MS
+//    }
+//    set {
+//      let field = O.__mockFields[keyPath: keyPath]
+//      _data[field.key.description] = newValue
+//    }
+//  }
 
   // MARK: JSONEncodable
 
@@ -94,28 +94,19 @@ public protocol AnyMock: JSONEncodable {}
 
 public protocol Mockable: Object, MockFieldValue {
   associatedtype MockFields
-  associatedtype MockValueType = Mock<Self>
+  associatedtype MockValueCollectionType = Array<Mock<Self>>
 
   static var __mockFields: MockFields { get }
 }
 
 public protocol MockFieldValue {
-  associatedtype MockValueType: JSONEncodable
+  associatedtype MockValueCollectionType: Collection, JSONEncodable
 }
 
-public protocol MockInterfaceFieldValue {
-  associatedtype MockCollectionType: Collection, JSONEncodable
+extension Interface: MockFieldValue {
+  public typealias MockValueCollectionType = Array<AnyMock>
 }
 
-extension Interface: MockInterfaceFieldValue {
-  public typealias MockCollectionType = [AnyMock]
-}
-
-extension Array: AnyMock where Array.Element == AnyMock {}
-extension Array: MockFieldValue where Array.Element: MockFieldValue & JSONEncodable {
-  public typealias MockValueType = Array<Element.MockValueType>
-}
-
-extension Array: MockInterfaceFieldValue where Array.Element: MockInterfaceFieldValue {
-  public typealias MockCollectionType = Array<Element.MockCollectionType>
+extension Array: MockFieldValue where Array.Element: MockFieldValue {
+  public typealias MockValueCollectionType = Array<Element.MockValueCollectionType>
 }
