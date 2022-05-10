@@ -118,10 +118,10 @@ class TestMockTests: XCTestCase {
     let mock = Mock<Dog>(id: "1")
     let cat1 = Mock<Cat>()
     let cat2 = Mock<Cat>()
-    let cat3 = Mock<Cat>()
+    let dog1 = Mock<Dog>()
 
     // when
-    mock.listOfInterfaces = [cat1, cat2, cat3]
+    mock.listOfInterfaces = [cat1, cat2, dog1]
 
     // then
 //    expect(mock._data["bestFriend"] as? Mock<Cat>).to(beIdenticalTo(cat))
@@ -133,10 +133,10 @@ class TestMockTests: XCTestCase {
     let mock = Mock<Dog>(id: "1")
     let cat1 = Mock<Cat>()
     let cat2 = Mock<Cat>()
-    let cat3 = Mock<Cat>()
+    let dog1 = Mock<Dog>()
 
     // when
-//    mock.nestedListOfInterfaces = [cat1, cat2, cat3]
+    mock.nestedListOfInterfaces = [[cat1, cat2, dog1]]
 
     // then
 //    expect(mock._data["bestFriend"] as? Mock<Cat>).to(beIdenticalTo(cat))
