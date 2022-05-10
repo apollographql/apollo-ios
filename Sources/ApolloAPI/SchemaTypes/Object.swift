@@ -1,12 +1,14 @@
 public protocol CacheEntity: AnyObject {}
 
-open class Object: CacheEntity {
+open class Object: CacheEntity, JSONEncodable {
 
   open class var __metadata: Metadata { Metadata.Empty }
   open class var __typename: StaticString { UnknownTypeName }
   open class var __cacheKeyProvider: CacheKeyProvider.Type? { nil }
 
   static let UnknownTypeName: StaticString = "∅__UnknownType"
+
+  public var jsonValue: JSONValue { "" }
 }
 
 extension Object {

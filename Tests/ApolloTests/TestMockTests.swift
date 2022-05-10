@@ -60,15 +60,15 @@ class TestMockTests: XCTestCase {
 
   func test__mock__setInterfaceField__fieldIsSet() throws {
     // given
-    let mock = Mock<Dog>()
+    let mock = Mock<Dog>(id: "1")
     let cat = Mock<Cat>()
 
     // when
-//    mock.bestFriend = cat
+    mock.bestFriend = cat
 
     // then
-//    expect(mock._data["height"] as? Mock<Height>).to(beIdenticalTo(height))
-//    expect(mock.height?.meters).to(equal(1))
+    expect(mock._data["bestFriend"] as? Mock<Cat>).to(beIdenticalTo(cat))
+    expect(mock.bestFriend as? Mock<Cat>).to(beIdenticalTo(cat))
   }
 
 }
@@ -110,6 +110,17 @@ extension Dog: Mockable {
     @Field<Animal>("bestFriend") public var bestFriend
     @Field<[Animal]>("predators") public var predators
     @Field<String>("species") public var species
+  }
+}
+
+extension Mock where O == Dog {
+  convenience init(
+    id: String? = nil,
+    height: Height? = nil
+  ) {
+    self.init()
+    self.id = id
+    self.height = height
   }
 }
 

@@ -32,6 +32,19 @@ public class Mock<O: Mockable>: JSONEncodable {
     }
   }
 
+  public subscript<T: Mockable, I: Interface>(
+    dynamicMember keyPath: KeyPath<O.MockFields, Field<I>>
+  ) -> Mock<T>? {
+    get {
+      let field = O.__mockFields[keyPath: keyPath]
+      return _data[field.key.description] as? Mock<T>
+    }
+    set {
+      let field = O.__mockFields[keyPath: keyPath]
+      _data[field.key.description] = newValue
+    }
+  }
+
   // MARK: JSONEncodable
 
   public var jsonValue: JSONValue { "" } // TODO 
