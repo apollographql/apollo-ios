@@ -81,8 +81,8 @@ class TestMockTests: XCTestCase {
     mock.listOfObjects = [cat1, cat2, cat3]
 
     // then
-//    expect(mock._data["bestFriend"] as? Mock<Cat>).to(beIdenticalTo(cat))
-//    expect(mock.bestFriend as? Mock<Cat>).to(beIdenticalTo(cat))
+    expect(mock._data["listOfObjects"] as? [Mock<Cat>]).to(equal([cat1, cat2, cat3]))
+    expect(mock.listOfObjects).to(equal([cat1, cat2, cat3]))
   }
 
   func test__mock__setNestedListOfObjectsField__fieldIsSet() throws {
@@ -96,8 +96,8 @@ class TestMockTests: XCTestCase {
     mock.nestedListOfObjects = [[cat1, cat2, cat3]]
 
     // then
-//    expect(mock._data["bestFriend"] as? Mock<Cat>).to(beIdenticalTo(cat))
-//    expect(mock.bestFriend as? Mock<Cat>).to(beIdenticalTo(cat))
+    expect(mock._data["nestedListOfObjects"] as? [[Mock<Cat>]]).to(equal([[cat1, cat2, cat3]]))
+    expect(mock.nestedListOfObjects).to(equal([[cat1, cat2, cat3]]))
   }
 
   func test__mock__setInterfaceField__fieldIsSet() throws {
@@ -120,12 +120,15 @@ class TestMockTests: XCTestCase {
     let cat2 = Mock<Cat>()
     let dog1 = Mock<Dog>()
 
+    let list: [AnyMock] = [cat1, cat2, dog1]
+    let expected = NSArray(array: list)
+
     // when
-    mock.listOfInterfaces = [cat1, cat2, dog1]
+    mock.listOfInterfaces = list
 
     // then
-//    expect(mock._data["bestFriend"] as? Mock<Cat>).to(beIdenticalTo(cat))
-//    expect(mock.bestFriend as? Mock<Cat>).to(beIdenticalTo(cat))
+    expect(expected.isEqual(to: mock._data["listOfInterfaces"] as? [AnyMock])).to(beTrue())
+    expect(expected.isEqual(to: mock.listOfInterfaces as [AnyMock]?)).to(beTrue())
   }
 
   func test__mock__setNestedListOfInterfacesField__fieldIsSet() throws {
@@ -135,12 +138,15 @@ class TestMockTests: XCTestCase {
     let cat2 = Mock<Cat>()
     let dog1 = Mock<Dog>()
 
+    let list: [[AnyMock]] = [[cat1, cat2, dog1]]
+    let expected = NSArray(array: list)
+
     // when
-    mock.nestedListOfInterfaces = [[cat1, cat2, dog1]]
+    mock.nestedListOfInterfaces = list
 
     // then
-//    expect(mock._data["bestFriend"] as? Mock<Cat>).to(beIdenticalTo(cat))
-//    expect(mock.bestFriend as? Mock<Cat>).to(beIdenticalTo(cat))
+    expect(expected.isEqual(to: mock._data["nestedListOfInterfaces"] as? [[AnyMock]])).to(beTrue())
+    expect(expected.isEqual(to: mock.nestedListOfInterfaces as [[AnyMock]]?)).to(beTrue())
   }
 
 }

@@ -1,7 +1,8 @@
 import ApolloAPI
 
 @dynamicMemberLookup
-public class Mock<O: Mockable>: AnyMock {
+public class Mock<O: Mockable>: AnyMock, Equatable {
+
   public var _data: JSONEncodableDictionary
 
   public init() {
@@ -21,76 +22,31 @@ public class Mock<O: Mockable>: AnyMock {
     }
   }
 
-//  public subscript<T: MockFieldValue>(
-//    dynamicMember keyPath: KeyPath<O.MockFields, Field<T>>
-//  ) -> T.MockValueType? {
-//    get {
-//      let field = O.__mockFields[keyPath: keyPath]
-//      return _data[field.key.description] as? T.MockValueType
-//    }
-//    set {
-//      let field = O.__mockFields[keyPath: keyPath]
-//      _data[field.key.description] = newValue
-//    }
-//  }
-
-  public subscript<T: Mockable>(dynamicMember keyPath: KeyPath<O.MockFields, Field<T>>) -> Mock<T>? {
+  public subscript<T: MockFieldValue>(
+    dynamicMember keyPath: KeyPath<O.MockFields, Field<T>>
+  ) -> T.MockValueCollectionType.Element? {
     get {
       let field = O.__mockFields[keyPath: keyPath]
-      return _data[field.key.description] as? Mock<T>
+      return _data[field.key.description] as? T.MockValueCollectionType.Element
     }
     set {
       let field = O.__mockFields[keyPath: keyPath]
-      _data[field.key.description] = newValue
+      _data[field.key.description] = (newValue as! JSONEncodable)
     }
   }
-
-  public subscript<T: Mockable, I: Interface>(
-    dynamicMember keyPath: KeyPath<O.MockFields, Field<I>>
-  ) -> Mock<T>? {
-    get {
-      let field = O.__mockFields[keyPath: keyPath]
-      return _data[field.key.description] as? Mock<T>
-    }
-    set {
-      let field = O.__mockFields[keyPath: keyPath]
-      _data[field.key.description] = newValue
-    }
-  }
-
-  public subscript<S: Sequence, MS: Sequence & JSONEncodable>(
-    dynamicMember keyPath: KeyPath<O.MockFields, Field<S>>
-  ) -> MS? where S.Element: MockFieldValue, MS.Element == S.Element.MockValueCollectionType.Element {
-    get {
-      let field = O.__mockFields[keyPath: keyPath]
-      return _data[field.key.description] as? MS
-    }
-    set {
-      let field = O.__mockFields[keyPath: keyPath]
-      _data[field.key.description] = newValue
-    }
-  }
-
-//  public subscript<S: Sequence, MS: Sequence & JSONEncodable>(
-//    dynamicMember keyPath: KeyPath<O.MockFields, Field<S>>
-//  ) -> MS? where S.Element: MockInterfaceFieldValue, MS.Element == S.Element.MockCollectionType.Element {
-//    get {
-//      let field = O.__mockFields[keyPath: keyPath]
-//      return _data[field.key.description] as? MS
-//    }
-//    set {
-//      let field = O.__mockFields[keyPath: keyPath]
-//      _data[field.key.description] = newValue
-//    }
-//  }
 
   // MARK: JSONEncodable
 
   public var jsonValue: JSONValue { "" } // TODO 
 
+  // MARK: Equatable
+
+  public static func ==(lhs: Mock<O>, rhs: Mock<O>) -> Bool {
+    NSDictionary(dictionary: lhs._data).isEqual(to: rhs._data)
+  }
 }
 
-public protocol AnyMock: JSONEncodable {}
+public protocol AnyMock {}
 
 public protocol Mockable: Object, MockFieldValue {
   associatedtype MockFields
@@ -100,7 +56,7 @@ public protocol Mockable: Object, MockFieldValue {
 }
 
 public protocol MockFieldValue {
-  associatedtype MockValueCollectionType: Collection, JSONEncodable
+  associatedtype MockValueCollectionType: Collection
 }
 
 extension Interface: MockFieldValue {
