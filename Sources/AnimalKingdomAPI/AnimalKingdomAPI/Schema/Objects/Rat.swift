@@ -6,11 +6,9 @@ import ApolloAPI
 public final class Rat: Object {
   override public class var __typename: StaticString { "Rat" }
 
-  override public class var __metadata: Metadata { _metadata }
-  private static let _metadata: Metadata = Metadata(
-    implements: [
-      Animal.self,
-      Pet.self
-    ]
-  )
+  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
+  private static let _implementedInterfaces: [Interface.Type]? = [
+    Animal.self,
+    Pet.self
+  ]
 }

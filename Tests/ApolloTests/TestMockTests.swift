@@ -153,22 +153,18 @@ class TestMockTests: XCTestCase {
 
 class Dog: Object {
   override public class var __typename: StaticString { "Dog" }
-  override public class var __metadata: Metadata { _metadata }
-  private static let _metadata: Metadata = Metadata(
-    implements: [
-      Animal.self
-    ]
-  )
+  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
+  private static let _implementedInterfaces: [Interface.Type]? = [
+    Animal.self
+  ]
 }
 
 class Cat: Object {
   override public class var __typename: StaticString { "Dog" }
-  override public class var __metadata: Metadata { _metadata }
-  private static let _metadata: Metadata = Metadata(
-    implements: [
-      Animal.self
-    ]
-  )
+  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
+  private static let _implementedInterfaces: [Interface.Type]? = [
+    Animal.self
+  ]  
 }
 
 class Height: Object {

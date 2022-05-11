@@ -6,44 +6,32 @@ struct ObjectTemplate: TemplateRenderer {
   /// IR representation of source [GraphQL Object](https://spec.graphql.org/draft/#sec-Objects).
   let graphqlObject: GraphQLObjectType
 
-  let ir: IR
-
   let target: TemplateTarget = .schemaFile
 
   var template: TemplateString {
-    let collectedFields = ir.fieldCollector.collectedFields(for: graphqlObject)
 
     return TemplateString(
     """
     public final class \(graphqlObject.name.firstUppercased): Object {
       override public class var __typename: StaticString { \"\(graphqlObject.name.firstUppercased)\" }
 
-      \(section: MetadataTemplate(covariantFields: collectedFields.covariantFields))
+      \(section: ImplementedInterfacesTemplate())
     }
     """)
   }
 
-  private func MetadataTemplate(covariantFields: Set<GraphQLField>) -> TemplateString {
+  private func ImplementedInterfacesTemplate() -> TemplateString {
     guard !graphqlObject.interfaces.isEmpty else {
       return ""
     }
 
     return """
-    override public class var __metadata: Metadata { _metadata }
-    private static let _metadata: Metadata = Metadata(
-      implements: [
-        \(graphqlObject.interfaces.map({ interface in
+    override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
+    private static let _implementedInterfaces: [Interface.Type]? = [
+      \(graphqlObject.interfaces.map({ interface in
           "\(interface.name.firstUppercased).self"
       }), separator: ",\n")
-      ]\(if: !covariantFields.isEmpty, """
-    ,
-      covariantFields: [
-        \(covariantFields.map {
-          "\"\($0.name)\": \($0.type.innerType.rendered(containedInNonNull: true, inSchemaNamed: ir.schema.name)).self"
-        })
-      ]
-    """)
-    )
+    ]
     """
   }
 }

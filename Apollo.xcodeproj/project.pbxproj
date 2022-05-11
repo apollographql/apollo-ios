@@ -1140,6 +1140,7 @@
 		DE9CEADF28299F0A00959AF9 /* ApolloTestSupport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApolloTestSupport.h; sourceTree = "<group>"; };
 		DE9CEAE128299F6900959AF9 /* Apollo-Target-TestSupport.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-TestSupport.xcconfig"; sourceTree = "<group>"; };
 		DE9CEAE52829A2FE00959AF9 /* MockObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockObject.swift; sourceTree = "<group>"; };
+		DE9CEAED282C207F00959AF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DEA34AF6260E821F00F95F86 /* Apollo-Target-AnimalKingdomAPI.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-AnimalKingdomAPI.xcconfig"; sourceTree = "<group>"; };
 		DEA6A83326F298660091AF8A /* ParentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentType.swift; sourceTree = "<group>"; };
 		DEA9A22F27CD990500F96C36 /* IRSelectionSet_IncludeSkip_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IRSelectionSet_IncludeSkip_Tests.swift; sourceTree = "<group>"; };
@@ -2495,6 +2496,7 @@
 		DE9CEADE28299EEE00959AF9 /* ApolloTestSupport */ = {
 			isa = PBXGroup;
 			children = (
+				DE9CEAED282C207F00959AF9 /* Info.plist */,
 				DE9CEADF28299F0A00959AF9 /* ApolloTestSupport.h */,
 				DE9CEAE52829A2FE00959AF9 /* MockObject.swift */,
 				DE2FCF2626E8083A0057EA67 /* Field.swift */,
@@ -4813,7 +4815,7 @@
 		};
 		DE9CEAD928299E8500959AF9 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 90690D2522433CAF00FC2E54 /* Apollo-Target-InternalTestHelpers.xcconfig */;
+			baseConfigurationReference = DE9CEAE128299F6900959AF9 /* Apollo-Target-TestSupport.xcconfig */;
 			buildSettings = {
 			};
 			name = Debug;

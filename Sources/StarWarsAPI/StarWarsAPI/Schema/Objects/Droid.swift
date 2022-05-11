@@ -6,10 +6,8 @@ import ApolloAPI
 public final class Droid: Object {
   override public class var __typename: StaticString { "Droid" }
 
-  override public class var __metadata: Metadata { _metadata }
-  private static let _metadata: Metadata = Metadata(
-    implements: [
-      Character.self
-    ]
-  )
+  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
+  private static let _implementedInterfaces: [Interface.Type]? = [
+    Character.self
+  ]
 }

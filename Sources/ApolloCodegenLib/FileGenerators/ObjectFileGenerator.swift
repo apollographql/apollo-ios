@@ -8,7 +8,7 @@ struct ObjectFileGenerator: FileGenerator {
   let ir: IR
   
   var template: TemplateRenderer {
-    ObjectTemplate(graphqlObject: graphqlObject, ir: ir)
+    ObjectTemplate(graphqlObject: graphqlObject)
   }
 
   var target: FileTarget { .object }

@@ -47,7 +47,7 @@ extension IR {
       }
     }
 
-    func collectedFields(
+    func collectedFieldsWithCovariantFields(
       for type: GraphQLObjectType
     ) -> ([GraphQLField], covariantFields: Set<GraphQLField>) {
       var covariantFields: Set<GraphQLField> = []

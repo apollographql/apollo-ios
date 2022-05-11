@@ -72,9 +72,10 @@ class SelectionSetTests: XCTestCase {
     class Humanoid: Interface { }
     class Human: Object {
       override class var __typename: StaticString { "Human" }
-      override class var __metadata: Object.Metadata {
-        .init(implements: [Humanoid.self], covariantFields: nil)
-      }
+      override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
+      private static let _implementedInterfaces: [Interface.Type]? = [
+        Humanoid.self
+      ]
     }
 
     MockSchemaConfiguration.stub_objectTypeForTypeName = {

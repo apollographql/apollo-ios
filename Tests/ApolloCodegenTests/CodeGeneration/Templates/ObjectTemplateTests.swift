@@ -21,8 +21,7 @@ class ObjectTemplateTests: XCTestCase {
     ir = IR.mock(compilationResult: .mock())
 
     subject = ObjectTemplate(
-      graphqlObject: GraphQLObjectType.mock(name, interfaces: interfaces),
-      ir: ir
+      graphqlObject: GraphQLObjectType.mock(name, interfaces: interfaces)
     )
   }
 
@@ -52,7 +51,6 @@ class ObjectTemplateTests: XCTestCase {
     let expected = """
     public final class Dog: Object {
       override public class var __typename: StaticString { "Dog" }
-
     """
 
     // when
@@ -64,7 +62,7 @@ class ObjectTemplateTests: XCTestCase {
 
   // MARK: Metadata Tests
 
-  func test_render_givenSchemaType_generatesTypeMetadata() {
+  func test_render_givenSchemaTypeImplementsInterfaces_generatesImplementedInterfaces() {
     // given
     buildSubject(interfaces: [
         GraphQLInterfaceType.mock("Animal", fields: ["species": GraphQLField.mock("species", type: .scalar(.string()))]),
@@ -73,13 +71,11 @@ class ObjectTemplateTests: XCTestCase {
     )
 
     let expected = """
-      override public class var __metadata: Metadata { _metadata }
-      private static let _metadata: Metadata = Metadata(
-        implements: [
-          Animal.self,
-          Pet.self
-        ]
-      )
+      override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
+      private static let _implementedInterfaces: [Interface.Type]? = [
+        Animal.self,
+        Pet.self
+      ]
     """
 
     // when
@@ -97,227 +93,7 @@ class ObjectTemplateTests: XCTestCase {
     let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine("}", atLine: 4, ignoringExtraLines: false))
+    expect(actual).to(equalLineByLine("}", atLine: 3, ignoringExtraLines: false))
   }
-
-  func test__render__givenObject_withNullableField_ofDifferentTypeThanImplementedInterface_generatesCovariantFieldsInMetadataAsNonNull() throws {
-    // given
-    let schemaSDL = """
-    type Query {
-      animal: Animal!
-      dog: Dog!
-    }
-
-    interface Animal {
-      a: Animal
-      b: String!
-    }
-
-    type Dog implements Animal {
-      a: Dog
-      b: String!
-    }
-    """
-
-    let document = """
-    query Test1 {
-      dog {
-        a {
-          b
-        }
-      }
-    }
-
-    query Test2 {
-      animal {
-        a {
-          b
-        }
-      }
-    }
-    """
-
-    let expected = """
-      override public class var __metadata: Metadata { _metadata }
-      private static let _metadata: Metadata = Metadata(
-        implements: [
-          Animal.self
-        ],
-        covariantFields: [
-          "a": Dog.self
-        ]
-      )
-    """
-
-    // when
-    ir = try .mock(schema: schemaSDL, document: document)
-
-    for operation in ir.compilationResult.operations {
-      _ = ir.build(operation: operation)
-    }
-
-    let Dog = try ir.schema[object: "Dog"].xctUnwrapped()
-
-    subject = ObjectTemplate(graphqlObject: Dog, ir: ir)
-
-    let actual = renderSubject()
-
-    // then
-    expect(actual).to(equalLineByLine(expected, atLine: 4, ignoringExtraLines: true))
-  }
-
-  func test__render__givenObject_withNonNullField_ofDifferentTypeThanImplementedInterface_generatesCovariantFieldsInMetadataAsNonNull() throws {
-    // given
-    let schemaSDL = """
-    type Query {
-      animal: Animal!
-      dog: Dog!
-    }
-
-    interface Animal {
-      a: Animal!
-      b: String!
-    }
-
-    type Dog implements Animal {
-      a: Dog!
-      b: String!
-    }
-    """
-
-    let document = """
-    query Test1 {
-      dog {
-        a {
-          b
-        }
-      }
-    }
-
-    query Test2 {
-      animal {
-        a {
-          b
-        }
-      }
-    }
-    """
-
-    let expected = """
-      override public class var __metadata: Metadata { _metadata }
-      private static let _metadata: Metadata = Metadata(
-        implements: [
-          Animal.self
-        ],
-        covariantFields: [
-          "a": Dog.self
-        ]
-      )
-    """
-
-    // when
-    ir = try .mock(schema: schemaSDL, document: document)
-
-    for operation in ir.compilationResult.operations {
-      _ = ir.build(operation: operation)
-    }
-
-    let Dog = try ir.schema[object: "Dog"].xctUnwrapped()
-
-    subject = ObjectTemplate(graphqlObject: Dog, ir: ir)
-
-    let actual = renderSubject()
-
-    // then
-    expect(actual).to(equalLineByLine(expected, atLine: 4, ignoringExtraLines: true))
-  }
-
-  func test__render__givenObject_withListOfNullableElementsField_ofDifferentTypeThanImplementedInterface_generatesCovariantFieldsInMetadataAsNonNullElements() throws {
-    // given
-    let schemaSDL = """
-    type Query {
-      animal: Animal!
-      dog: Dog!
-    }
-
-    interface Animal {
-      a: [Animal]!
-      b: String!
-    }
-
-    type Dog implements Animal {
-      a: [Dog]!
-      b: String!
-    }
-    """
-
-    let document = """
-    query Test1 {
-      dog {
-        a {
-          b
-        }
-      }
-    }
-
-    query Test2 {
-      animal {
-        a {
-          b
-        }
-      }
-    }
-    """
-
-    let expected = """
-      override public class var __metadata: Metadata { _metadata }
-      private static let _metadata: Metadata = Metadata(
-        implements: [
-          Animal.self
-        ],
-        covariantFields: [
-          "a": Dog.self
-        ]
-      )
-    """
-
-    // when
-    ir = try .mock(schema: schemaSDL, document: document)
-
-    for operation in ir.compilationResult.operations {
-      _ = ir.build(operation: operation)
-    }
-
-    let Dog = try ir.schema[object: "Dog"].xctUnwrapped()
-
-    subject = ObjectTemplate(graphqlObject: Dog, ir: ir)
-
-    let actual = renderSubject()
-
-    // then
-    expect(actual).to(equalLineByLine(expected, atLine: 4, ignoringExtraLines: true))
-  }
-
-  // MARK: Field Accessor Tests
-
-  func test_render_givenSchemaType_generatesFieldAccessors() {
-    // given
-    buildSubject()
-
-    subject.graphqlObject.fields = ["fieldA": .mock("fieldA", type: .string())]
-
-    ir.fieldCollector.add(field: .mock("fieldA", type: .string()),
-                          to: subject.graphqlObject)
-
-    let expected = """
-      @Field("fieldA") public var fieldA: String?
-    """
-
-    // when
-    let actual = renderSubject()
-
-    // then
-    expect(actual).to(equalLineByLine(expected, atLine: 4, ignoringExtraLines: true))
-  }
-
+  
 }

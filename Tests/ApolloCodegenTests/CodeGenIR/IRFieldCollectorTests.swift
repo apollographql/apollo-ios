@@ -67,7 +67,7 @@ class IRFieldCollectorTests: XCTestCase {
     try buildIR()
 
     let Dog = try schema[object: "Dog"].xctUnwrapped()
-    let actual = subject.collectedFields(for: Dog)
+    let actual = subject.collectedFieldsWithCovariantFields(for: Dog)
 
     let expected: ReferencedFields = try (
       [
@@ -145,7 +145,7 @@ class IRFieldCollectorTests: XCTestCase {
     try buildIR()
 
     let Dog = try schema[object: "Dog"].xctUnwrapped()
-    let actual = subject.collectedFields(for: Dog)
+    let actual = subject.collectedFieldsWithCovariantFields(for: Dog)
 
     let expected: ReferencedFields = try (
       [
@@ -191,7 +191,7 @@ class IRFieldCollectorTests: XCTestCase {
     try buildIR()
 
     let Dog = try schema[object: "Dog"].xctUnwrapped()
-    let actual = subject.collectedFields(for: Dog)
+    let actual = subject.collectedFieldsWithCovariantFields(for: Dog)
 
     let expected: ReferencedFields = try (
       [
@@ -235,7 +235,7 @@ class IRFieldCollectorTests: XCTestCase {
     try buildIR()
 
     let Dog = try schema[object: "Dog"].xctUnwrapped()
-    let actual = subject.collectedFields(for: Dog)
+    let actual = subject.collectedFieldsWithCovariantFields(for: Dog)
 
     let expected: ReferencedFields = try (
       [
@@ -285,7 +285,7 @@ class IRFieldCollectorTests: XCTestCase {
     try buildIR()
 
     let Dog = try schema[object: "Dog"].xctUnwrapped()
-    let actual = subject.collectedFields(for: Dog)
+    let actual = subject.collectedFieldsWithCovariantFields(for: Dog)
 
     let expected: ReferencedFields = try (
       [
@@ -335,7 +335,7 @@ class IRFieldCollectorTests: XCTestCase {
     try buildIR()
 
     let Dog = try schema[object: "Dog"].xctUnwrapped()
-    let actual = subject.collectedFields(for: Dog)
+    let actual = subject.collectedFieldsWithCovariantFields(for: Dog)
 
     let expected: ReferencedFields = try (
       [
@@ -391,7 +391,7 @@ class IRFieldCollectorTests: XCTestCase {
     try buildIR()
 
     let Dog = try schema[object: "Dog"].xctUnwrapped()
-    let actual = subject.collectedFields(for: Dog)
+    let actual = subject.collectedFieldsWithCovariantFields(for: Dog)
 
     let expected: ReferencedFields = try (
       [
@@ -440,7 +440,7 @@ class IRFieldCollectorTests: XCTestCase {
     try buildIR()
 
     let Dog = try schema[object: "Dog"].xctUnwrapped()
-    let actual = subject.collectedFields(for: Dog)
+    let actual = subject.collectedFieldsWithCovariantFields(for: Dog)
 
     let expected: ReferencedFields = try (
       [
