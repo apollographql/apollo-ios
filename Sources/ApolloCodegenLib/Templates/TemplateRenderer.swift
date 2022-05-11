@@ -9,7 +9,7 @@ enum TemplateTarget {
   /// Used in operation files; query, mutation, fragment, etc.
   case operationFile
   /// Used in files that define a module; Swift Package Manager, etc.
-  case moduleFile
+  case moduleFile  
 }
 
 /// A protocol to handle the rendering of a file template based on the target file type and

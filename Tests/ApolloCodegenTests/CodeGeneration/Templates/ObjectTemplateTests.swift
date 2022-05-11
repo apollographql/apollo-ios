@@ -5,12 +5,10 @@ import ApolloCodegenInternalTestHelpers
 
 class ObjectTemplateTests: XCTestCase {
 
-  var ir: IR!
   var subject: ObjectTemplate!
 
   override func tearDown() {
     subject = nil
-    ir = nil
 
     super.tearDown()
   }
@@ -18,8 +16,6 @@ class ObjectTemplateTests: XCTestCase {
   // MARK: Helpers
 
   private func buildSubject(name: String = "Dog", interfaces: [GraphQLInterfaceType] = []) {
-    ir = IR.mock(compilationResult: .mock())
-
     subject = ObjectTemplate(
       graphqlObject: GraphQLObjectType.mock(name, interfaces: interfaces)
     )
@@ -95,5 +91,5 @@ class ObjectTemplateTests: XCTestCase {
     // then
     expect(actual).to(equalLineByLine("}", atLine: 3, ignoringExtraLines: false))
   }
-  
+
 }

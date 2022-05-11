@@ -9,8 +9,7 @@ struct ObjectTemplate: TemplateRenderer {
   let target: TemplateTarget = .schemaFile
 
   var template: TemplateString {
-
-    return TemplateString(
+    TemplateString(
     """
     public final class \(graphqlObject.name.firstUppercased): Object {
       override public class var __typename: StaticString { \"\(graphqlObject.name.firstUppercased)\" }
