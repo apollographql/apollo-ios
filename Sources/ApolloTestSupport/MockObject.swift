@@ -1,4 +1,5 @@
 import ApolloAPI
+import Foundation
 
 @dynamicMemberLookup
 public class Mock<O: Mockable>: AnyMock, Equatable {
