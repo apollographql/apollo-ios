@@ -66,3 +66,7 @@ extension Interface: MockFieldValue {
 extension Array: MockFieldValue where Array.Element: MockFieldValue {
   public typealias MockValueCollectionType = Array<Element.MockValueCollectionType>
 }
+
+extension Optional: MockFieldValue where Wrapped: MockFieldValue {
+  public typealias MockValueCollectionType = Array<Optional<Wrapped.MockValueCollectionType.Element>>
+}

@@ -100,6 +100,20 @@ class TestMockTests: XCTestCase {
     expect(mock.nestedListOfObjects).to(equal([[cat1, cat2, cat3]]))
   }
 
+  func test__mock__setListOfOptionalObjectsField__fieldIsSet() throws {
+    // given
+    let mock = Mock<Dog>(id: "1")
+    let cat1 = Mock<Cat>()
+    let cat2 = Mock<Cat>()
+
+    // when
+    mock.listOfOptionalObjects = [cat1, nil, cat2, nil]
+
+    // then
+    expect(mock._data["listOfOptionalObjects"] as? [Mock<Cat>?]).to(equal([cat1, nil, cat2, nil]))
+    expect(mock.listOfOptionalObjects).to(equal([cat1, nil, cat2, nil]))
+  }
+
   func test__mock__setInterfaceField__fieldIsSet() throws {
     // given
     let mock = Mock<Dog>(id: "1")
@@ -149,6 +163,24 @@ class TestMockTests: XCTestCase {
     expect(expected.isEqual(to: mock.nestedListOfInterfaces as [[AnyMock]]?)).to(beTrue())
   }
 
+
+  func test__mock__setListOfOptionalInterfacesField__fieldIsSet() throws {
+    // given
+    let mock = Mock<Dog>(id: "1")
+    let cat1 = Mock<Cat>()
+    let cat2 = Mock<Cat>()
+
+    let list: [AnyMock?] = [cat1, nil, cat2, nil]
+    let expected = NSArray(array: list as [Any])
+
+    // when
+    mock.listOfOptionalInterfaces = list
+
+    // then
+    expect(expected.isEqual(to: mock._data["listOfOptionalInterfaces"] as? [AnyMock?])).to(beTrue())
+    expect(expected.isEqual(to: mock.listOfOptionalInterfaces as [AnyMock?]?)).to(beTrue())
+  }
+
 }
 
 class Dog: Object {
@@ -180,14 +212,16 @@ extension Dog: Mockable {
 
   struct MockFields {
     @Field<String>("id") public var id
+    @Field<String>("species") public var species
     @Field<Height>("height") public var height
     @Field<[String]>("listOfStrings") public var listOfStrings
     @Field<Animal>("bestFriend") public var bestFriend
-    @Field<[Animal]>("listOfInterfaces") public var listOfInterfaces
-    @Field<[[Animal]]>("nestedListOfInterfaces") public var nestedListOfInterfaces
     @Field<[Cat]>("listOfObjects") public var listOfObjects
     @Field<[[Cat]]>("nestedListOfObjects") public var nestedListOfObjects
-    @Field<String>("species") public var species
+    @Field<[Cat?]>("listOfOptionalObjects") public var listOfOptionalObjects
+    @Field<[Animal]>("listOfInterfaces") public var listOfInterfaces
+    @Field<[[Animal]]>("nestedListOfInterfaces") public var nestedListOfInterfaces
+    @Field<[Animal?]>("listOfOptionalInterfaces") public var listOfOptionalInterfaces
   }
 }
 
