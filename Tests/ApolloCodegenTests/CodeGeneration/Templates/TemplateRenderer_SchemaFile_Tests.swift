@@ -23,8 +23,9 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
   ) {
     config = ReferenceWrapped(
       value: ApolloCodegenConfiguration.mock(
+        schemaName: schemaName,
         input: .init(schemaPath: "MockInputPath", searchPaths: []),
-        output: .mock(moduleType: moduleType, schemaName: schemaName, operations: operations)
+        output: .mock(moduleType: moduleType, operations: operations)
       )
     )
   }
@@ -53,9 +54,9 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
       (schemaTypes: .other, operations: .relative(subpath: nil)),
       (schemaTypes: .other, operations: .absolute(path: "path")),
       (schemaTypes: .other, operations: .inSchemaModule),
-      (schemaTypes: .none, operations: .relative(subpath: nil)),
-      (schemaTypes: .none, operations: .absolute(path: "path")),
-      (schemaTypes: .none, operations: .inSchemaModule)
+      (schemaTypes: .embeddedInTarget(name: "MockApplication"), operations: .relative(subpath: nil)),
+      (schemaTypes: .embeddedInTarget(name: "MockApplication"), operations: .absolute(path: "path")),
+      (schemaTypes: .embeddedInTarget(name: "MockApplication"), operations: .inSchemaModule)
     ]
 
     for test in tests {
@@ -105,15 +106,15 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
         operations: .inSchemaModule
       ),
       (
-        schemaTypes: .none,
+        schemaTypes: .embeddedInTarget(name: "MockApplication"),
         operations: .relative(subpath: nil)
       ),
       (
-        schemaTypes: .none,
+        schemaTypes: .embeddedInTarget(name: "MockApplication"),
         operations: .absolute(path: "path")
       ),
       (
-        schemaTypes: .none,
+        .embeddedInTarget(name: "MockApplication"),
         operations: .inSchemaModule
       )
     ]
@@ -188,19 +189,19 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
         atLine: 6
       ),
       (
-        schemaTypes: .none,
+        schemaTypes: .embeddedInTarget(name: "MockApplication"),
         operations: .relative(subpath: nil),
         expectation: expectedNamespace,
         atLine: 6
       ),
       (
-        schemaTypes: .none,
+        schemaTypes: .embeddedInTarget(name: "MockApplication"),
         operations: .absolute(path: "path"),
         expectation: expectedNamespace,
         atLine: 6
       ),
       (
-        schemaTypes: .none,
+        schemaTypes: .embeddedInTarget(name: "MockApplication"),
         operations: .inSchemaModule,
         expectation: expectedNamespace,
         atLine: 6

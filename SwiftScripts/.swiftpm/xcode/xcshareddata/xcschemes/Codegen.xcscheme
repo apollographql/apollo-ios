@@ -76,15 +76,19 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "-t AnimalKingdom --package-type SPM"
+            argument = "-t AnimalKingdom"
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "-t Upload --package-type SPM"
+            argument = "-t Upload"
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "-t StarWars --package-type SPM"
+            argument = "-t StarWars"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "--package-type SPM"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

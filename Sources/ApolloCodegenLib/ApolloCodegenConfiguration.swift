@@ -9,9 +9,10 @@ public struct ApolloCodegenConfiguration {
   public struct FileInput {
     /// Local path to the GraphQL schema file. Can be in JSON or SDL format.
     public let schemaPath: String
-    /// An array of path matching pattern strings used to find files, such as GraphQL operations (queries, mutations, etc.), to be
-    /// included for code generation. You can use absolute or relative paths for the path portion of the pattern. Relative paths will be
-    /// based off the current working directory from `FileManager`.
+    /// An array of path matching pattern strings used to find files, such as GraphQL operations
+    /// (queries, mutations, etc.), to be included for code generation. You can use absolute or
+    /// relative paths for the path portion of the pattern. Relative paths will be based off the
+    /// current working directory from `FileManager`.
     ///
     /// Each path matching pattern can include the following characters:
     /// - `*` matches everything but the directory separator (shallow), eg: `*.graphql`
@@ -24,16 +25,16 @@ public struct ApolloCodegenConfiguration {
     ///
     /// - Parameters:
     ///  - schemaPath: Local path to the GraphQL schema file. Can be in JSON or SDL format.
-    ///  - searchPaths: An array of path matching pattern strings used to find files, such as GraphQL operations (queries, mutations,
-    ///  etc.), included for code generation. You can use absolute or relative paths for the path portion of the pattern. Relative paths
-    ///  will be based off the current working directory from `FileManager`. Each path matching pattern can include the following
-    ///  characters:
-    ///     - `*` matches everything but the directory separator (shallow), eg: `*.graphql`
-    ///     - `?` matches any single character, eg: `file-?.graphql`
-    ///     - `**` matches all subdirectories (deep), eg: `**/*.graphql`
-    ///     - `!` excludes any match only if the pattern starts with a `!` character, eg: `!file.graphql`
+    ///  - searchPaths: An array of path matching pattern strings used to find files, such as
+    ///  GraphQL operations (queries, mutations, etc.), included for code generation. You can use
+    ///  absolute or relative paths for the path portion of the pattern. Relative paths will be
+    ///  based off the current working directory from `FileManager`. Defaults to ["**/*.graphql"].
     ///
-    ///     Defaults to ["**/*.graphql"].
+    ///  Each path matching pattern can include the following characters:
+    ///   - `*` matches everything but the directory separator (shallow), eg: `*.graphql`
+    ///   - `?` matches any single character, eg: `file-?.graphql`
+    ///   - `**` matches all subdirectories (deep), eg: `**/*.graphql`
+    ///   - `!` excludes any match only if the pattern starts with a `!` character, eg: `!file.graphql`
     public init(schemaPath: String, searchPaths: [String] = ["**/*.graphql"]) {
       self.schemaPath = schemaPath
       self.searchPaths = searchPaths
@@ -48,37 +49,67 @@ public struct ApolloCodegenConfiguration {
     public let schemaTypes: SchemaTypesFileOutput
     /// The local path structure for the generated operation object files.
     public let operations: OperationsFileOutput
-    /// An absolute location to an operation id JSON map file. If specified, also stores the operation IDs (hashes) as properties on
-    /// operation types.
+    /// The local path structure for the test mock operation object files.
+    public let testMocks: TestMockFileOutput
+    /// An absolute location to an operation id JSON map file. If specified, also stores the
+    /// operation IDs (hashes) as properties on operation types.
     public let operationIdentifiersPath: String?
-
+    
     /// Designated initializer.
     ///
     /// - Parameters:
     ///  - schemaTypes: The local path structure for the generated schema types files.
-    ///  - operations: The local path structure for the generated operation object files. Defaults to `.relative` with a
-    ///  `subpath` of `nil`.
-    ///  - operationIdentifiersPath: An absolute location to an operation id JSON map file. If specified, also stores the
-    ///  operation IDs (hashes) as properties on operation types. Defaults to `nil`.
-    public init(schemaTypes: SchemaTypesFileOutput,
-                operations: OperationsFileOutput = .relative(subpath: nil),
-                operationIdentifiersPath: String? = nil) {
+    ///  - operations: The local path structure for the generated operation object files.
+    ///  Defaults to `.relative` with a `subpath` of `nil`.
+    ///  - testMocks: The local path structure for the test mock operation object files.
+    ///  If `.none`, test mocks will not be generated. Defaults to `.none`.
+    ///  - operationIdentifiersPath: An absolute location to an operation id JSON map file.
+    ///  If specified, also stores the operation IDs (hashes) as properties on operation types.
+    ///  Defaults to `nil`.
+    public init(
+      schemaTypes: SchemaTypesFileOutput,
+      operations: OperationsFileOutput = .relative(subpath: nil),
+      testMocks: TestMockFileOutput = .none,
+      operationIdentifiersPath: String? = nil
+    ) {
       self.schemaTypes = schemaTypes
       self.operations = operations
+      self.testMocks = testMocks
       self.operationIdentifiersPath = operationIdentifiersPath
     }
   }
 
   /// The local path structure for the generated schema types files.
   public struct SchemaTypesFileOutput {
+    /// Local path where the generated schema types files should be stored.
+    public let path: String
+    /// Automation to ease the integration of the generated schema types file with compatible
+    /// dependency managers.
+    public let moduleType: ModuleType
+
+    /// Designated initializer.
+    ///
+    /// - Parameters:
+    ///  - path: Local path where the generated schema type files should be stored.
+    ///  - moduleType: Type of module that will be created for the schema types files.
+    public init(
+      path: String,
+      moduleType: ModuleType
+    ) {
+      self.path = path
+      self.moduleType = moduleType
+    }
+
     /// Compatible dependency manager automation.
-    public enum ModuleType {
+    public enum ModuleType: Equatable {
+      /// Generated schema types will be manually embedded in a target with the specified `name`.
       /// No module will be created for the generated schema types.
       ///
-      /// Generated files must be manually added to your application target. The generated schema
-      /// types files will be namespaced with the value of `schemaName` to prevent naming conflicts.
-      case none
-      /// Generates a `package.swift` file that is suitable for linking the generated schema types
+      /// - Note: Generated files must be manually added to your application target. The generated
+      /// schema types files will be namespaced with the value of your configuration's `schemaName`
+      /// to prevent naming conflicts.
+      case embeddedInTarget(name: String)
+      /// Generates a `Package.swift` file that is suitable for linking the generated schema types
       /// files to your project using Swift Package Manager.
       case swiftPackageManager
       /// No module will be created for the generated types and you are required to create the
@@ -91,43 +122,46 @@ public struct ApolloCodegenConfiguration {
       /// is expecting the generated files in the configured output location.
       case other
     }
-
-    /// Local path where the generated schema types files should be stored.
-    public let path: String
-    /// Automation to ease the integration of the generated schema types file with compatible dependency managers.
-    public let moduleType: ModuleType
-    /// Name used to scope the generated schema type files.
-    public let schemaName: String
-
-    /// Designated initializer.
-    ///
-    /// - Parameters:
-    ///  - path: Local path where the generated schema type files should be stored.
-    ///  - schemaName: Name used to scope the generated schema type files.
-    ///  - moduleType: Type of module that will be created for the schema types files. Defaults to `.none`.
-    public init(
-      path: String,
-      schemaName: String,
-      moduleType: ModuleType = .none
-    ) {
-      self.path = path
-      self.schemaName = schemaName
-      self.moduleType = moduleType
-    }
   }
 
   /// The local path structure for the generated operation object files.
   public enum OperationsFileOutput: Equatable {
     /// All operation object files will be located in the module with the schema types.
     case inSchemaModule
-    /// Operation object files will be co-located relative to the defining operation `.graphql` file. If `subpath` is specified a subfolder
-    /// will be created relative to the `.graphql` file and the operation object files will be generated there. If no `subpath` is
-    /// defined then all operation object files will be generated alongside the `.graphql` file.
+    /// Operation object files will be co-located relative to the defining operation `.graphql`
+    /// file. If `subpath` is specified a subfolder will be created relative to the `.graphql` file
+    /// and the operation object files will be generated there. If no `subpath` is defined then all
+    /// operation object files will be generated alongside the `.graphql` file.
     case relative(subpath: String?)
     /// All operation object files will be located in the specified path.
     case absolute(path: String)
   }
 
+  /// The local path structure for the generated test mock object files.
+  public enum TestMockFileOutput: Equatable {
+    /// Test mocks will not be generated. This is the default value.
+    case none
+    /// Generated test mock files will be located in the specified path.
+    /// No module will be created for the generated test mocks.
+    ///
+    ///- Note: Generated files must be manually added to your test target. Test mocks generated
+    /// this way may also be manually embedded in a test utility module that is imported by your
+    /// test target.
+    case absolute(path: String)
+    /// Generated test mock files will be included in a target defined in the generated
+    /// `Package.swift` file that is suitable for linking the generated test mock files to your
+    /// test target using Swift Package Manager.
+    ///
+    /// The name of the test mock target can be specified with the `targetName` value.
+    /// If no target name is provided, the target name defaults to "\(schemaName)TestMocks".
+    ///
+    /// - Note: This requires your `SchemaTypesFileOutput.ModuleType` to be `.swiftPackageManager`.
+    /// If this option is provided without the `.swiftPackageManager` module type, code generation
+    /// will fail.
+    case swiftPackage(targetName: String? = nil)
+  }
+
+  // MARK: - Output Options
   public struct OutputOptions {
     /// Any non-default rules for pluralization or singularization you wish to include.
     public let additionalInflectionRules: [InflectionRule]
@@ -205,7 +239,7 @@ public struct ApolloCodegenConfiguration {
     case persistedOperationsOnly
   }
 
-  // MARK: Other Types
+  // MARK: - Other Types
 
   public struct ExperimentalFeatures {
     /**
@@ -236,6 +270,8 @@ public struct ApolloCodegenConfiguration {
 
   // MARK: Properties
 
+  /// Name used to scope the generated schema type files.
+  public let schemaName: String
   /// The input files required for code generation.
   public let input: FileInput
   /// The paths and files output by code generation.
@@ -253,16 +289,19 @@ public struct ApolloCodegenConfiguration {
   /// Designated initializer.
   ///
   /// - Parameters:
+  ///  - schemaName: Name used to scope the generated schema type files.
   ///  - input: The input files required for code generation.
   ///  - output: The paths and files output by code generation.
   ///  - options: Rules and options to customize the generated code.
   ///  - experimentalFeatures: Allows users to enable experimental features.
   public init(
+    schemaName: String,
     input: FileInput,
     output: FileOutput,
     options: OutputOptions = OutputOptions(),
     experimentalFeatures: ExperimentalFeatures = ExperimentalFeatures()
   ) {
+    self.schemaName = schemaName
     self.input = input
     self.output = output
     self.options = options
@@ -386,7 +425,7 @@ extension ApolloCodegenConfiguration.SchemaTypesFileOutput {
   /// Determine whether the schema types files are output to a module.
   var isInModule: Bool {
     switch moduleType {
-    case .none: return false
+    case .embeddedInTarget: return false
     case .swiftPackageManager, .other: return true
     }
   }

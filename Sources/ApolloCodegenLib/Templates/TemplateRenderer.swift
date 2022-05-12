@@ -56,7 +56,7 @@ extension TemplateRenderer {
     \(TemplateString(ImportStatementTemplate.SchemaType.template.description))
 
     \(if: config.output.schemaTypes.isInModule, template,
-    else: template.wrappedInNamespace(config.output.schemaTypes.schemaName))
+    else: template.wrappedInNamespace(config.schemaName))
     """
     ).description
   }
@@ -70,7 +70,7 @@ extension TemplateRenderer {
     \(ImportStatementTemplate.Operation.template(forConfig: config))
 
     \(if: config.output.operations.isInModule && !config.output.schemaTypes.isInModule,
-      template.wrappedInNamespace(config.output.schemaTypes.schemaName),
+      template.wrappedInNamespace(config.schemaName),
     else:
       template)
     """
@@ -130,7 +130,7 @@ private struct ImportStatementTemplate {
     static func template(forConfig config: ReferenceWrapped<ApolloCodegenConfiguration>) -> TemplateString {
       """
       \(ImportStatementTemplate.template)
-      \(if: shouldImportSchemaModule(config.output), "import \(config.output.schemaTypes.schemaName.firstUppercased)")
+      \(if: shouldImportSchemaModule(config.output), "import \(config.schemaName.firstUppercased)")
       """
     }
 

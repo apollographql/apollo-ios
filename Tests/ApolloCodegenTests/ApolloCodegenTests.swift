@@ -62,7 +62,7 @@ class ApolloCodegenTests: XCTestCase {
 
   func test_build_givenInvalidConfiguration_shouldThrow() throws {
     // given
-    let config = ApolloCodegenConfiguration(
+    let config = ApolloCodegenConfiguration.mock(
       input: .init(schemaPath: "not_a_path", searchPaths: []),
       output: .mock(operations: .inSchemaModule)
     )
@@ -234,13 +234,13 @@ class ApolloCodegenTests: XCTestCase {
       .appendingPathComponent("*.graphql").path
 
     let config = ReferenceWrapped(value: ApolloCodegenConfiguration.mock(
+      schemaName: "AnimalKingdomAPI",
       input: .init(
         schemaPath: schemaPath,
         searchPaths: [operationsPath]
       ),
       output: .mock(
         moduleType: .swiftPackageManager,
-        schemaName: "AnimalKingdomAPI",
         operations: .inSchemaModule,
         path: directoryURL.path
       )
@@ -305,7 +305,7 @@ class ApolloCodegenTests: XCTestCase {
     let compilationResult = try ApolloCodegen.compileGraphQLResult(config)
 
     let ir = IR(
-      schemaName: config.output.schemaTypes.schemaName,
+      schemaName: config.schemaName,
       compilationResult: compilationResult
     )
 
@@ -329,10 +329,10 @@ class ApolloCodegenTests: XCTestCase {
       .appendingPathComponent("**/*.graphql").path
 
     let config =  ReferenceWrapped(value: ApolloCodegenConfiguration(
+      schemaName: "AnimalKingdomAPI",
       input: .init(schemaPath: schemaPath, searchPaths: [operationsPath]),
       output: .mock(
         moduleType: .swiftPackageManager,
-        schemaName: "AnimalKingdomAPI",
         operations: .inSchemaModule,
         path: directoryURL.path
       )
@@ -400,7 +400,7 @@ class ApolloCodegenTests: XCTestCase {
     )
 
     let ir = IR(
-      schemaName: config.output.schemaTypes.schemaName,
+      schemaName: config.schemaName,
       compilationResult: compilationResult
     )
 

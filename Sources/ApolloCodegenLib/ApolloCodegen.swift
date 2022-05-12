@@ -37,7 +37,7 @@ public class ApolloCodegen {
     )
 
     let ir = IR(
-      schemaName: referenceConfig.output.schemaTypes.schemaName,
+      schemaName: referenceConfig.schemaName,
       compilationResult: compilationResult
     )
 
@@ -111,7 +111,7 @@ public class ApolloCodegen {
       try autoreleasepool {
         try UnionFileGenerator(
           graphqlUnion: graphQLUnion,
-          schemaName: config.output.schemaTypes.schemaName
+          schemaName: config.schemaName
         ).generate(
           forConfig: config,
           fileManager: fileManager

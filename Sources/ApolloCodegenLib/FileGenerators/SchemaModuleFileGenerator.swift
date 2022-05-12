@@ -19,11 +19,11 @@ struct SchemaModuleFileGenerator {
     switch config.output.schemaTypes.moduleType {
     case .swiftPackageManager:
       filePath = pathURL.appendingPathComponent("Package.swift").path
-      rendered = SwiftPackageManagerModuleTemplate(moduleName: config.output.schemaTypes.schemaName).render(forConfig: config)
+      rendered = SwiftPackageManagerModuleTemplate(moduleName: config.schemaName).render(forConfig: config)
 
-    case .none:
-      filePath = pathURL.appendingPathComponent("\(config.output.schemaTypes.schemaName).swift").path
-      rendered = SchemaModuleNamespaceTemplate(namespace: config.output.schemaTypes.schemaName).render(forConfig: config)
+    case .embeddedInTarget:
+      filePath = pathURL.appendingPathComponent("\(config.schemaName).swift").path
+      rendered = SchemaModuleNamespaceTemplate(namespace: config.schemaName).render(forConfig: config)
 
     case .other:
       // no-op - the implementation is import statements in the generated operation files

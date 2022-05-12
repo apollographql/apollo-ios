@@ -44,7 +44,7 @@ class SchemaModuleFileGeneratorTests: XCTestCase {
     let fileURL = rootURL.appendingPathComponent("ModuleTestSchema.swift")
 
     let configuration = ReferenceWrapped(value: ApolloCodegenConfiguration.mock(
-      .none,
+      .embeddedInTarget(name: "MockApplication"),
       schemaName: "ModuleTestSchema",
       to: rootURL.path
     ))
