@@ -61,7 +61,7 @@ class MockObjectTemplateTests: XCTestCase {
 
   func test_render_givenConfig_SchemaTypeOutputNone_generatesExtensionWithSchemaNamespace() {
     // given
-    buildSubject(name: "Dog", moduleType: .none)
+    buildSubject(name: "Dog", moduleType: .embeddedInTarget(name: "MockApplication"))
 
     let expected = """
     public extension TestSchema.Dog: Mockable {

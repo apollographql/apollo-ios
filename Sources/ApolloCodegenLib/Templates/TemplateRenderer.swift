@@ -161,7 +161,7 @@ private struct ImportStatementTemplate {
       """
       import ApolloTestSupport
       \(if: config.output.schemaTypes.isInModule,
-        "import \(config.output.schemaTypes.schemaName.firstUppercased)"
+        "import \(config.schemaName.firstUppercased)"
       )
       """
     }
