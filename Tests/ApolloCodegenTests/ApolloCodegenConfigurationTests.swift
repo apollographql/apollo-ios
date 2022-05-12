@@ -21,7 +21,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
     fileURL = directoryURL.appendingPathComponent(filename)
 
     input = .init(schemaPath: fileURL.path)
-    output = .init(schemaTypes: .init(path: directoryURL.path, schemaName: "TestSchema"))
+    output = .init(schemaTypes: .init(path: directoryURL.path, moduleType: .embeddedInTarget(name: "MockApplication")))
   }
 
   override func tearDownWithError() throws {
@@ -37,7 +37,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
   // MARK: Test Helpers
 
   func buildConfig() {
-    config = ApolloCodegenConfiguration(
+    config = ApolloCodegenConfiguration.mock(      
       input: input,
       output: output
     )
@@ -53,21 +53,10 @@ class ApolloCodegenConfigurationTests: XCTestCase {
     expect(input.searchPaths).to(equal(["**/*.graphql"]))
   }
 
-  func test__initializer__givenMinimalSchemaTypesFileOutput_buildsDefaults() {
-    // given
-    let schemaTypes = ApolloCodegenConfiguration.SchemaTypesFileOutput(
-      path: directoryURL.path,
-      schemaName: "MockSchema"
-    )
-
-    // then
-    expect(schemaTypes.moduleType).to(equal(ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType.none))
-  }
-
   func test__initializer__givenMinimalFileOutput_buildsCorrectDefaults() {
     // given
     let output = ApolloCodegenConfiguration.FileOutput(
-      schemaTypes: .init(path: directoryURL.path, schemaName: "MockAPI", moduleType: .other)
+      schemaTypes: .init(path: directoryURL.path, moduleType: .other)
     )
 
     // then
@@ -78,8 +67,9 @@ class ApolloCodegenConfigurationTests: XCTestCase {
   func test__initializer__givenMinimalApolloCodegenConfiguration_buildsCorrectDefaults() {
     // given
     let config = ApolloCodegenConfiguration(
+      schemaName: "MockSchema",
       input: .init(schemaPath: fileURL.path),
-      output: .init(schemaTypes: .init(path: directoryURL.path, schemaName: "MockAPI", moduleType: .other))
+      output: .init(schemaTypes: .init(path: directoryURL.path, moduleType: .other))
     )
 
     // then
@@ -126,7 +116,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
 
   func test_validation_givenSchemaTypesPath_isFile_shouldThrow() throws {
     // given
-    output = .init(schemaTypes: .init(path: fileURL.path, schemaName: "TestSchema"))
+    output = .init(schemaTypes: .init(path: fileURL.path, moduleType: .embeddedInTarget(name: "MockApplication")))
 
     buildConfig()
 
@@ -142,7 +132,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
   func test_validation_givenSchemaTypesPath_isInvalidPath_shouldThrow() throws {
     // given
     let invalidURL = fileURL.appendingPathComponent("nested")
-    output = .init(schemaTypes: .init(path: invalidURL.path, schemaName: "TestSchema"))
+    output = .init(schemaTypes: .init(path: invalidURL.path, moduleType: .embeddedInTarget(name: "MockApplication")))
 
     buildConfig()
 
@@ -165,7 +155,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
   func test_validation_givenOperations_absolutePath_isFile_shouldThrow() throws {
     // given
     output = .init(
-      schemaTypes: .init(path: directoryURL.path, schemaName: "TestSchema"),
+      schemaTypes: .init(path: directoryURL.path, moduleType: .embeddedInTarget(name: "MockApplication")),
       operations: .absolute(path: fileURL.path)
     )
 
@@ -185,7 +175,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
     let invalidURL = fileURL.appendingPathComponent("nested")
 
     output = .init(
-      schemaTypes: .init(path: directoryURL.path, schemaName: "TestSchema"),
+      schemaTypes: .init(path: directoryURL.path, moduleType: .embeddedInTarget(name: "MockApplication")),
       operations: .absolute(path: invalidURL.path)
     )
 
@@ -211,7 +201,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
   func test_validation_givenOperationIdentifiersPath_isDirectory_shouldThrow() throws {
     // given
     output = .init(
-      schemaTypes: .init(path: directoryURL.path, schemaName: "TestSchema"),
+      schemaTypes: .init(path: directoryURL.path, moduleType: .embeddedInTarget(name: "MockApplication")),
       operations: .relative(subpath: nil),
       operationIdentifiersPath: directoryURL.path
     )

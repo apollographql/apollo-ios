@@ -63,7 +63,6 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
   ) {
   config = .mock(output: .mock(
       moduleType: module,
-      schemaName: "TestSchema",
       operations: operations,
       path: directoryURL.path
     ))
@@ -178,7 +177,7 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     subject = .object
 
     // when
-    buildConfig(module: .none, operations: .inSchemaModule)
+    buildConfig(module: .embeddedInTarget(name: "MockApplication"), operations: .inSchemaModule)
 
     let expected = buildPath(subject, prefix: "Schema")
 
@@ -193,7 +192,7 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     subject = .object
 
     // when
-    buildConfig(module: .none, operations: .absolute(path: "NewPath"))
+    buildConfig(module: .embeddedInTarget(name: "MockApplication"), operations: .absolute(path: "NewPath"))
 
     let expected = buildPath(subject)
 
@@ -208,7 +207,7 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     subject = .object
 
     // when
-    buildConfig(module: .none, operations: .relative(subpath: nil))
+    buildConfig(module: .embeddedInTarget(name: "MockApplication"), operations: .relative(subpath: nil))
 
     let expected = buildPath(subject)
 
@@ -223,7 +222,7 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     subject = .object
 
     // when
-    buildConfig(module: .none, operations: .relative(subpath: "NewPath"))
+    buildConfig(module: .embeddedInTarget(name: "MockApplication"), operations: .relative(subpath: "NewPath"))
 
     let expected = buildPath(subject)
 
@@ -360,7 +359,7 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     subject = .enum
 
     // when
-    buildConfig(module: .none, operations: .inSchemaModule)
+    buildConfig(module: .embeddedInTarget(name: "MockApplication"), operations: .inSchemaModule)
 
     let expected = buildPath(subject, prefix: "Schema")
 
@@ -375,7 +374,7 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     subject = .enum
 
     // when
-    buildConfig(module: .none, operations: .absolute(path: "NewPath"))
+    buildConfig(module: .embeddedInTarget(name: "MockApplication"), operations: .absolute(path: "NewPath"))
 
     let expected = buildPath(subject)
 
@@ -390,7 +389,7 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     subject = .enum
 
     // when
-    buildConfig(module: .none, operations: .relative(subpath: nil))
+    buildConfig(module: .embeddedInTarget(name: "MockApplication"), operations: .relative(subpath: nil))
 
     let expected = buildPath(subject)
 
@@ -405,7 +404,7 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     subject = .enum
 
     // when
-    buildConfig(module: .none, operations: .relative(subpath: "NewPath"))
+    buildConfig(module: .embeddedInTarget(name: "MockApplication"), operations: .relative(subpath: "NewPath"))
 
     let expected = buildPath(subject)
 
@@ -542,7 +541,7 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     subject = .interface
 
     // when
-    buildConfig(module: .none, operations: .inSchemaModule)
+    buildConfig(module: .embeddedInTarget(name: "MockApplication"), operations: .inSchemaModule)
 
     let expected = buildPath(subject, prefix: "Schema")
 
@@ -557,7 +556,7 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     subject = .interface
 
     // when
-    buildConfig(module: .none, operations: .absolute(path: "NewPath"))
+    buildConfig(module: .embeddedInTarget(name: "MockApplication"), operations: .absolute(path: "NewPath"))
 
     let expected = buildPath(subject)
 
@@ -572,7 +571,7 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     subject = .interface
 
     // when
-    buildConfig(module: .none, operations: .relative(subpath: nil))
+    buildConfig(module: .embeddedInTarget(name: "MockApplication"), operations: .relative(subpath: nil))
 
     let expected = buildPath(subject)
 
@@ -587,7 +586,7 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     subject = .interface
 
     // when
-    buildConfig(module: .none, operations: .relative(subpath: "NewPath"))
+    buildConfig(module: .embeddedInTarget(name: "MockApplication"), operations: .relative(subpath: "NewPath"))
 
     let expected = buildPath(subject)
 
@@ -724,7 +723,7 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     subject = .union
 
     // when
-    buildConfig(module: .none, operations: .inSchemaModule)
+    buildConfig(module: .embeddedInTarget(name: "MockApplication"), operations: .inSchemaModule)
 
     let expected = buildPath(subject, prefix: "Schema")
 
@@ -739,7 +738,7 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     subject = .union
 
     // when
-    buildConfig(module: .none, operations: .absolute(path: "NewPath"))
+    buildConfig(module: .embeddedInTarget(name: "MockApplication"), operations: .absolute(path: "NewPath"))
 
     let expected = buildPath(subject)
 
@@ -754,7 +753,7 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     subject = .union
 
     // when
-    buildConfig(module: .none, operations: .relative(subpath: nil))
+    buildConfig(module: .embeddedInTarget(name: "MockApplication"), operations: .relative(subpath: nil))
 
     let expected = buildPath(subject)
 
@@ -769,7 +768,7 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     subject = .union
 
     // when
-    buildConfig(module: .none, operations: .relative(subpath: "NewPath"))
+    buildConfig(module: .embeddedInTarget(name: "MockApplication"), operations: .relative(subpath: "NewPath"))
 
     let expected = buildPath(subject)
 
@@ -906,7 +905,7 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     subject = .inputObject
 
     // when
-    buildConfig(module: .none, operations: .inSchemaModule)
+    buildConfig(module: .embeddedInTarget(name: "MockApplication"), operations: .inSchemaModule)
 
     let expected = buildPath(subject, prefix: "Schema")
 
@@ -921,7 +920,7 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     subject = .inputObject
 
     // when
-    buildConfig(module: .none, operations: .absolute(path: "NewPath"))
+    buildConfig(module: .embeddedInTarget(name: "MockApplication"), operations: .absolute(path: "NewPath"))
 
     let expected = buildPath(subject)
 
@@ -936,7 +935,7 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     subject = .inputObject
 
     // when
-    buildConfig(module: .none, operations: .relative(subpath: nil))
+    buildConfig(module: .embeddedInTarget(name: "MockApplication"), operations: .relative(subpath: nil))
 
     let expected = buildPath(subject)
 
@@ -951,7 +950,7 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     subject = .inputObject
 
     // when
-    buildConfig(module: .none, operations: .relative(subpath: "NewPath"))
+    buildConfig(module: .embeddedInTarget(name: "MockApplication"), operations: .relative(subpath: "NewPath"))
 
     let expected = buildPath(subject)
 
@@ -1088,7 +1087,7 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     subject = .customScalar
 
     // when
-    buildConfig(module: .none, operations: .inSchemaModule)
+    buildConfig(module: .embeddedInTarget(name: "MockApplication"), operations: .inSchemaModule)
 
     let expected = buildPath(subject, prefix: "Schema")
 
@@ -1103,7 +1102,7 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     subject = .customScalar
 
     // when
-    buildConfig(module: .none, operations: .absolute(path: "NewPath"))
+    buildConfig(module: .embeddedInTarget(name: "MockApplication"), operations: .absolute(path: "NewPath"))
 
     let expected = buildPath(subject)
 
@@ -1118,7 +1117,7 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     subject = .customScalar
 
     // when
-    buildConfig(module: .none, operations: .relative(subpath: nil))
+    buildConfig(module: .embeddedInTarget(name: "MockApplication"), operations: .relative(subpath: nil))
 
     let expected = buildPath(subject)
 
@@ -1133,7 +1132,7 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     subject = .customScalar
 
     // when
-    buildConfig(module: .none, operations: .relative(subpath: "NewPath"))
+    buildConfig(module: .embeddedInTarget(name: "MockApplication"), operations: .relative(subpath: "NewPath"))
 
     let expected = buildPath(subject)
 
@@ -1270,7 +1269,7 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     subject = .schema
 
     // when
-    buildConfig(module: .none, operations: .inSchemaModule)
+    buildConfig(module: .embeddedInTarget(name: "MockApplication"), operations: .inSchemaModule)
 
     let expected = buildPath(subject, prefix: "Schema")
 
@@ -1285,7 +1284,7 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     subject = .schema
 
     // when
-    buildConfig(module: .none, operations: .absolute(path: "NewPath"))
+    buildConfig(module: .embeddedInTarget(name: "MockApplication"), operations: .absolute(path: "NewPath"))
 
     let expected = buildPath(subject)
 
@@ -1300,7 +1299,7 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     subject = .schema
 
     // when
-    buildConfig(module: .none, operations: .relative(subpath: nil))
+    buildConfig(module: .embeddedInTarget(name: "MockApplication"), operations: .relative(subpath: nil))
 
     let expected = buildPath(subject)
 
@@ -1315,7 +1314,7 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     subject = .schema
 
     // when
-    buildConfig(module: .none, operations: .relative(subpath: "NewPath"))
+    buildConfig(module: .embeddedInTarget(name: "MockApplication"), operations: .relative(subpath: "NewPath"))
 
     let expected = buildPath(subject)
 
@@ -1457,7 +1456,7 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     subject = .fragment(irFragment.definition)
 
     // when
-    buildConfig(module: .none, operations: .inSchemaModule)
+    buildConfig(module: .embeddedInTarget(name: "MockApplication"), operations: .inSchemaModule)
 
     let expected = buildPath(subject)
 
@@ -1474,7 +1473,7 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
 
     // when
     let path = "New/Path"
-    buildConfig(module: .none, operations: .absolute(path: path))
+    buildConfig(module: .embeddedInTarget(name: "MockApplication"), operations: .absolute(path: path))
 
     // then
     let actual = resolvePath()
@@ -1488,7 +1487,7 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     subject = .fragment(irFragment.definition)
 
     // when
-    buildConfig(module: .none, operations: .relative(subpath: nil))
+    buildConfig(module: .embeddedInTarget(name: "MockApplication"), operations: .relative(subpath: nil))
 
     let expected = deleteLastPathComponent(irFragment.definition.filePath)
 
@@ -1506,7 +1505,7 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     // when
     let path = "NewPath"
 
-    buildConfig(module: .none, operations: .relative(subpath: path))
+    buildConfig(module: .embeddedInTarget(name: "MockApplication"), operations: .relative(subpath: path))
 
     let expected = deleteLastPathComponent(irFragment.definition.filePath, appending: path)
 
@@ -1654,7 +1653,7 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     subject = .operation(irOperation.definition)
 
     // when
-    buildConfig(module: .none, operations: .inSchemaModule)
+    buildConfig(module: .embeddedInTarget(name: "MockApplication"), operations: .inSchemaModule)
 
     let expected = buildPath(subject)
 
@@ -1671,7 +1670,7 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
 
     // when
     let path = "New/Path"
-    buildConfig(module: .none, operations: .absolute(path: path))
+    buildConfig(module: .embeddedInTarget(name: "MockApplication"), operations: .absolute(path: path))
 
     // then
     let actual = resolvePath()
@@ -1685,7 +1684,7 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     subject = .operation(irOperation.definition)
 
     // when
-    buildConfig(module: .none, operations: .relative(subpath: nil))
+    buildConfig(module: .embeddedInTarget(name: "MockApplication"), operations: .relative(subpath: nil))
 
     let expected = deleteLastPathComponent(irOperation.definition.filePath)
 
@@ -1703,7 +1702,7 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     // when
     let path = "NewPath"
 
-    buildConfig(module: .none, operations: .relative(subpath: path))
+    buildConfig(module: .embeddedInTarget(name: "MockApplication"), operations: .relative(subpath: path))
 
     let expected = deleteLastPathComponent(irOperation.definition.filePath, appending: path)
 

@@ -2,11 +2,13 @@
 
 extension ApolloCodegenConfiguration {
   public static func mock(
+    schemaName: String = "MockSchemaTypes",
     input: FileInput = .init(schemaPath: "MockSchemaPath", searchPaths: []),
-    output: FileOutput = .init(schemaTypes: .init(path: "MockSchemaTypes", schemaName: "MockSchemaTypes")),
+    output: FileOutput = .init(schemaTypes: .init(path: "MockSchemaTypes",
+                                                  moduleType: .embeddedInTarget(name: "MockApplication"))),
     options: OutputOptions = .init()
   ) -> Self {
-    .init(input: input, output: output, options: options)
+    .init(schemaName: schemaName, input: input, output: output, options: options)
   }
 
   public static func mock(
@@ -15,10 +17,10 @@ extension ApolloCodegenConfiguration {
     to path: String = "MockModulePath"
   ) -> Self {
     .init(
+      schemaName: schemaName,
       input: .init(schemaPath: "schema.graphqls",
                    searchPaths: ["*.graphql"]),
       output: .init(schemaTypes: .init(path: path,
-                                       schemaName: schemaName,
                                        moduleType: moduleType))
     )
   }
@@ -26,15 +28,13 @@ extension ApolloCodegenConfiguration {
 
 extension ApolloCodegenConfiguration.FileOutput {
   public static func mock(
-    moduleType: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType = .none,
-    schemaName: String = "MockSchemaTypes",
+    moduleType: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType = .embeddedInTarget(name: "MockApplication"),
     operations: ApolloCodegenConfiguration.OperationsFileOutput,
     path: String = ""
   ) -> Self {
     .init(
       schemaTypes: .init(
         path: path,
-        schemaName: schemaName,
         moduleType: moduleType
       ),
       operations: operations
