@@ -13,22 +13,37 @@ struct MockObjectTemplate: TemplateRenderer {
   let target: TemplateTarget = .schemaFile
 
   var template: TemplateString {
-    """
+    let objectName = graphqlObject.name.firstUppercased
+    let fields: [(name: String, type: String)] = ir.fieldCollector
+      .collectedFields(for: graphqlObject)
+      .map {
+        (
+          name: $0.name,
+          type: $0.type.rendered(containedInNonNull: true, inSchemaNamed: ir.schema.name)
+        )
+      }
+
+    return """
     public extension \
     \(if: !config.output.schemaTypes.isInModule, "\(ir.schema.name.firstUppercased).")\
-    \(graphqlObject.name.firstUppercased): Mockable {
+    \(objectName): Mockable {
       public static let __mockFields = MockFields()
     
       public struct MockFields {
-        \(ir.fieldCollector.collectedFields(for: graphqlObject).map { field -> String in
-          let type = field.type.rendered(
-            containedInNonNull: true,
-            inSchemaNamed: ir.schema.name
-          )
+        \(fields.map {
           return """
-          @Field<\(type)>("\(field.name)") public var \(field.name)
+          @Field<\($0.type)>("\($0.name)") public var \($0.name)
           """
         }, separator: "\n")
+      }
+    }
+
+    public extension Mock where O == \(objectName) {
+      public convenience init(
+        \(fields.map { "\($0.name): \($0.type)? = nil" }, separator: ",\n")
+      ) {
+        self.init()
+        \(fields.map { "self.\($0.name) = \($0.name)" }, separator: "\n")
       }
     }
     """

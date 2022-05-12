@@ -139,4 +139,60 @@ class MockObjectTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 4, ignoringExtraLines: true))
   }
 
+  // MARK: Convenience Initializer Tests
+
+  func test_render_givenSchemaType_generatesConvenienceInitializer() {
+    // given
+    buildSubject()
+
+    let Cat: GraphQLType = .entity(.mock("Cat"))
+
+    subject.graphqlObject.fields = [
+      "string": .mock("string", type: .nonNull(.string())),
+      "customScalar": .mock("customScalar", type: .nonNull(.scalar(.mock(name: "CustomScalar")))),
+      "optionalString": .mock("optionalString", type: .string()),
+      "object": .mock("object", type: Cat),
+      "objectList": .mock("objectList", type: .list(.nonNull(Cat))),
+      "objectNestedList": .mock("objectNestedList", type: .list(.nonNull(.list(.nonNull(Cat))))),
+      "objectOptionalList": .mock("objectOptionalList", type: .list(Cat)),
+    ]
+
+    ir.fieldCollector.add(
+      fields: subject.graphqlObject.fields.values.map {
+        .mock($0.name, type: $0.type)
+      },
+      to: subject.graphqlObject
+    )
+
+    let expected = """
+    }
+
+    public extension Mock where O == Dog {
+      public convenience init(
+        customScalar: TestSchema.CustomScalar? = nil,
+        object: Cat? = nil,
+        objectList: [Cat]? = nil,
+        objectNestedList: [[Cat]]? = nil,
+        objectOptionalList: [Cat?]? = nil,
+        optionalString: String? = nil,
+        string: String? = nil
+      ) {
+        self.init()
+        self.customScalar = customScalar
+        self.object = object
+        self.objectList = objectList
+        self.objectNestedList = objectNestedList
+        self.objectOptionalList = objectOptionalList
+        self.optionalString = optionalString
+        self.string = string
+      }
+    }
+    """
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
+  }
+
 }

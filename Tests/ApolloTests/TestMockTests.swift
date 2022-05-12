@@ -258,4 +258,3 @@ extension Height: Mockable {
     @Field<Int>("inches") public var inches
   }
 }
-
