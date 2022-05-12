@@ -3,29 +3,29 @@ import ApolloCodegenLib
 
 public enum Target: CaseIterable {
   case starWars
-  case gitHub
+//  case gitHub
   case upload
   case animalKingdom
 
-  public init?(name: String) {
+  public init(name: String) throws {
     switch name {
     case "StarWars":
       self = .starWars
-    case "GitHub":
-      self = .gitHub
+//    case "GitHub":
+//      self = .gitHub
     case "Upload":
       self = .upload
     case "AnimalKingdom":
       self = .animalKingdom
     default:
-      return nil
+      throw ArgumentError.invalidTargetName(name: name)
     }
   }
 
   public var moduleName: String {
     switch self {
     case .starWars: return "StarWarsAPI"
-    case .gitHub: return "GitHubAPI"
+//    case .gitHub: return "GitHubAPI"
     case .upload: return "UploadAPI"
     case .animalKingdom: return "AnimalKingdomAPI"
     }
@@ -33,18 +33,19 @@ public enum Target: CaseIterable {
 
   public var ccnEnabled: Bool {
     switch self {
-    case .starWars, .gitHub, .upload: return false
+    case .starWars,
+//        .gitHub,
+        .upload: return false
     case .animalKingdom: return true
     }
   }
 
-
   public func targetRootURL(fromSourceRoot sourceRootURL: Foundation.URL) -> Foundation.URL {
     switch self {
-    case .gitHub:
-      return sourceRootURL
-        .apollo.childFolderURL(folderName: "Sources")
-        .apollo.childFolderURL(folderName: moduleName)
+//    case .gitHub:
+//      return sourceRootURL
+//        .apollo.childFolderURL(folderName: "Sources")
+//        .apollo.childFolderURL(folderName: moduleName)
     case .starWars:
       return sourceRootURL
         .apollo.childFolderURL(folderName: "Sources")
@@ -80,8 +81,7 @@ public enum Target: CaseIterable {
         searchPaths: [graphQLFolder.appendingPathComponent("**/*.graphql").path]
       )
 
-    case .gitHub:
-      fatalError()
+//    case .gitHub:
 //      let outputFileURL = try!  targetRootURL.apollo.childFileURL(fileName: "API.swift")
 //
 //      let graphQLFolderURL = targetRootURL.apollo.childFolderURL(folderName: "graphql")
@@ -114,8 +114,8 @@ public enum Target: CaseIterable {
       return graphQLFolder.appendingPathComponent("schema.graphqls")
     case .upload:
       return graphQLFolder.appendingPathComponent("schema.json")
-    case .gitHub:
-      fatalError("Implement!")
+//    case .gitHub:
+//      fatalError("Implement!")
     case .animalKingdom:
       return graphQLFolder.appendingPathComponent("AnimalSchema.graphqls")
     }
@@ -130,7 +130,6 @@ public enum Target: CaseIterable {
     return ApolloCodegenConfiguration.FileOutput(
       schemaTypes: .init(
         path: targetRootURL.appendingPathComponent(moduleName).path,
-        schemaName: self.moduleName,
         moduleType: moduleType
       ),
       operations: .inSchemaModule,

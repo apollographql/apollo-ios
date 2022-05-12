@@ -8,27 +8,13 @@ import TargetConfig
 // target, so we're using an arg parser to figure out which one to build,
 // and an enum to hold related options.
 struct Codegen: ParsableCommand {
-
-  enum ArgumentError: Error, LocalizedError {
-    case invalidTargetName(name: String)
-    case invalidPackageType(name: String)
-
-    var errorDescription: String? {
-      switch self {
-      case let .invalidTargetName(name):
-        return "The target \"\(name)\" is invalid. Please try again."
-
-      case let .invalidPackageType(name):
-        return "The package type \"\(name)\" is invalid. Please try again."
-      }
-    }
-  }
-
   @Option(
+    wrappedValue: [],
     name: [.customLong("target"), .customShort("t")],
-    help: "The target to generate code for - Required."
+    parsing: .upToNextOption,
+    help: "The target to generate code for."
   )
-  var targetName: String
+  var targetNames: [String]
 
   @Option(
     name: [.customLong("package-type"), .customShort("p")],
@@ -37,9 +23,9 @@ struct Codegen: ParsableCommand {
   var packageManager: String
 
   mutating func run() throws {
-    guard let target = Target(name: targetName) else {
-      throw ArgumentError.invalidTargetName(name: targetName)
-    }
+    let targets = targetNames.isEmpty ?
+    Target.allCases :
+    try targetNames.map { try Target(name: $0) }
 
     guard let module = Module(module: packageManager) else {
       throw ArgumentError.invalidPackageType(name: packageManager)
@@ -54,25 +40,28 @@ struct Codegen: ParsableCommand {
       .apollo.parentFolderURL() // SwiftScripts
       .apollo.parentFolderURL() // apollo-ios
 
-    let targetURL = target.targetRootURL(fromSourceRoot: sourceRootURL)
-    let inputConfig = target.inputConfig(fromSourceRoot: sourceRootURL)
-    let outputConfig = try target.outputConfig(
-      fromSourceRoot: sourceRootURL,
-      forModuleType: module.moduleType
-    )
-
-    // This more necessary if you're using a sub-folder, but make sure
-    // there's actually a place to write out what you're doing.
-    try FileManager.default.apollo.createDirectoryIfNeeded(atPath: targetURL.path)
-
-    // Actually attempt to generate code.
-    try ApolloCodegen.build(
-      with: ApolloCodegenConfiguration(
-        input: inputConfig,
-        output: outputConfig,
-        experimentalFeatures: .init(clientControlledNullability: target.ccnEnabled)
+    for target in targets {
+      let targetURL = target.targetRootURL(fromSourceRoot: sourceRootURL)
+      let inputConfig = target.inputConfig(fromSourceRoot: sourceRootURL)
+      let outputConfig = try target.outputConfig(
+        fromSourceRoot: sourceRootURL,
+        forModuleType: module.moduleType
       )
-    )
+
+      // This more necessary if you're using a sub-folder, but make sure
+      // there's actually a place to write out what you're doing.
+      try FileManager.default.apollo.createDirectoryIfNeeded(atPath: targetURL.path)
+
+      // Actually attempt to generate code.
+      try ApolloCodegen.build(
+        with: ApolloCodegenConfiguration(
+          schemaName: target.moduleName,
+          input: inputConfig,
+          output: outputConfig,
+          experimentalFeatures: .init(clientControlledNullability: target.ccnEnabled)
+        )
+      )
+    }
   }
 }
 
