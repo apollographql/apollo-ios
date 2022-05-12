@@ -79,7 +79,7 @@ extension SelectionSet {
       return _asType()
     }
 
-    return conditions.evaluate(with: data.variables) ? _asType() : nil
+    return conditions.evaluate(with: data._variables) ? _asType() : nil
   }
 
   private func _asType<T: SelectionSet>() -> T? where T.Schema == Schema {

@@ -6,6 +6,36 @@ import Nimble
 
 class SelectionSetTests: XCTestCase {
 
+  func test__getOptionalField_givenNilValue__returnsNil() {
+    // given
+    class Human: Object {
+      override class var __typename: StaticString { "Human" }
+    }
+
+    class Hero: MockSelectionSet, SelectionSet {
+      typealias Schema = MockSchemaConfiguration
+
+      override class var selections: [Selection] {[
+        .field("__typename", String.self),
+        .field("name", String?.self)
+      ]}
+
+      var name: String? { data["name"] }
+    }
+
+    let object: JSONObject = [
+      "__typename": "Human"
+    ]
+
+    // when
+    let actual = Hero(data: DataDict(object, variables: nil))
+
+    // then
+    expect(actual.name).to(beNil())
+  }
+
+  // MARK: TypeCase Conversion Tests
+
   func test__asInlineFragment_givenObjectType_returnsTypeIfCorrectType() {
     // given
     class Human: Object {

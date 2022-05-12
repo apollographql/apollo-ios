@@ -70,21 +70,21 @@ open class AbstractMockSelectionSet: AnySelectionSet {
     data[key]
   }
 
-  public subscript<T: AnyScalarType>(dynamicMember key: String) -> [T]? {
-    data[key]
-  }
-
-  public subscript<T: AnyScalarType>(dynamicMember key: String) -> [T?]? {
-    data[key]
-  }
-
-  public subscript<T: AnyScalarType>(dynamicMember key: String) -> [[T]]? {
-    data[key]
-  }
-
-  public subscript<T: AnyScalarType>(dynamicMember key: String) -> [[T?]]? {
-    data[key]
-  }
+//  public subscript<T: AnyScalarType>(dynamicMember key: String) -> [T]? {
+//    data[key]
+//  }
+//
+//  public subscript<T: AnyScalarType>(dynamicMember key: String) -> [T?]? {
+//    data[key]
+//  }
+//
+//  public subscript<T: AnyScalarType>(dynamicMember key: String) -> [[T]]? {
+//    data[key]
+//  }
+//
+//  public subscript<T: AnyScalarType>(dynamicMember key: String) -> [[T?]]? {
+//    data[key]
+//  }
 
   public subscript<T: MockSelectionSet>(dynamicMember key: String) -> T? {
     data[key]

@@ -72,7 +72,7 @@ class TestMockTests: XCTestCase {
 
   func test__mock__setListOfObjectsField__fieldIsSet() throws {
     // given
-    let mock = Mock<Dog>(id: "1")
+    let mock = Mock<Dog>()
     let cat1 = Mock<Cat>()
     let cat2 = Mock<Cat>()
     let cat3 = Mock<Cat>()
@@ -87,7 +87,7 @@ class TestMockTests: XCTestCase {
 
   func test__mock__setNestedListOfObjectsField__fieldIsSet() throws {
     // given
-    let mock = Mock<Dog>(id: "1")
+    let mock = Mock<Dog>()
     let cat1 = Mock<Cat>()
     let cat2 = Mock<Cat>()
     let cat3 = Mock<Cat>()
@@ -102,7 +102,7 @@ class TestMockTests: XCTestCase {
 
   func test__mock__setListOfOptionalObjectsField__fieldIsSet() throws {
     // given
-    let mock = Mock<Dog>(id: "1")
+    let mock = Mock<Dog>()
     let cat1 = Mock<Cat>()
     let cat2 = Mock<Cat>()
 
@@ -116,7 +116,7 @@ class TestMockTests: XCTestCase {
 
   func test__mock__setInterfaceField__fieldIsSet() throws {
     // given
-    let mock = Mock<Dog>(id: "1")
+    let mock = Mock<Dog>()
     let cat = Mock<Cat>()
 
     // when
@@ -129,7 +129,7 @@ class TestMockTests: XCTestCase {
 
   func test__mock__setListOfInterfacesField__fieldIsSet() throws {
     // given
-    let mock = Mock<Dog>(id: "1")
+    let mock = Mock<Dog>()
     let cat1 = Mock<Cat>()
     let cat2 = Mock<Cat>()
     let dog1 = Mock<Dog>()
@@ -147,7 +147,7 @@ class TestMockTests: XCTestCase {
 
   func test__mock__setNestedListOfInterfacesField__fieldIsSet() throws {
     // given
-    let mock = Mock<Dog>(id: "1")
+    let mock = Mock<Dog>()
     let cat1 = Mock<Cat>()
     let cat2 = Mock<Cat>()
     let dog1 = Mock<Dog>()
@@ -166,7 +166,7 @@ class TestMockTests: XCTestCase {
 
   func test__mock__setListOfOptionalInterfacesField__fieldIsSet() throws {
     // given
-    let mock = Mock<Dog>(id: "1")
+    let mock = Mock<Dog>()
     let cat1 = Mock<Cat>()
     let cat2 = Mock<Cat>()
 
@@ -181,6 +181,28 @@ class TestMockTests: XCTestCase {
     expect(expected.isEqual(to: mock.listOfOptionalInterfaces as [AnyMock?]?)).to(beTrue())
   }
 
+  // MARK: JSONEncodable Tests
+
+  func test__jsonValue__givenObjectFieldSetToOtherObject__convertsObjectToJSONDict() throws {
+    // given
+    let mock = Mock<Dog>()
+    let height = Mock<Height>()
+
+    // when
+    height.meters = 1
+    height.feet = 2
+    mock.height = height
+    mock.height?.yards = 3
+
+    let actual = mock.jsonValue as? JSONObject
+    let heightDict = actual?["height"] as? JSONObject
+
+    // then
+    expect(actual?["height"]).to(beAKindOf(JSONObject.self))
+    expect(heightDict?["meters"] as? Int).to(equal(1))
+    expect(heightDict?["feet"] as? Int).to(equal(2))
+    expect(heightDict?["yards"] as? Int).to(equal(3))
+  }
 }
 
 class Dog: Object {
@@ -222,17 +244,6 @@ extension Dog: Mockable {
     @Field<[Animal]>("listOfInterfaces") public var listOfInterfaces
     @Field<[[Animal]]>("nestedListOfInterfaces") public var nestedListOfInterfaces
     @Field<[Animal?]>("listOfOptionalInterfaces") public var listOfOptionalInterfaces
-  }
-}
-
-extension Mock where O == Dog {
-  convenience init(
-    id: String? = nil,
-    height: Mock<Height>? = nil
-  ) {
-    self.init()
-    self.id = id
-    self.height = height
   }
 }
 

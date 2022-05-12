@@ -1,7 +1,7 @@
 import Foundation
 
 extension String: JSONDecodable, JSONEncodable {
-  public init(jsonValue value: JSONValue) throws {
+  @inlinable public init(jsonValue value: JSONValue) throws {
     switch value {
     case let string as String:
         self = string
@@ -12,69 +12,69 @@ extension String: JSONDecodable, JSONEncodable {
     }
   }
 
-  public var jsonValue: JSONValue {
+  @inlinable public var jsonValue: JSONValue {
     return self
   }
 }
 
 extension Int: JSONDecodable, JSONEncodable {
-  public init(jsonValue value: JSONValue) throws {
+  @inlinable public init(jsonValue value: JSONValue) throws {
     guard let number = value as? NSNumber else {
       throw JSONDecodingError.couldNotConvert(value: value, to: Int.self)
     }
     self = number.intValue
   }
 
-  public var jsonValue: JSONValue {
+  @inlinable public var jsonValue: JSONValue {
     return self
   }
 }
 
 extension Float: JSONDecodable, JSONEncodable {
-  public init(jsonValue value: JSONValue) throws {
+  @inlinable public init(jsonValue value: JSONValue) throws {
     guard let number = value as? NSNumber else {
       throw JSONDecodingError.couldNotConvert(value: value, to: Float.self)
     }
     self = number.floatValue
   }
 
-  public var jsonValue: JSONValue {
+  @inlinable public var jsonValue: JSONValue {
     return self
   }
 }
 
 extension Double: JSONDecodable, JSONEncodable {
-  public init(jsonValue value: JSONValue) throws {
+  @inlinable public init(jsonValue value: JSONValue) throws {
     guard let number = value as? NSNumber else {
       throw JSONDecodingError.couldNotConvert(value: value, to: Double.self)
     }
     self = number.doubleValue
   }
 
-  public var jsonValue: JSONValue {
+  @inlinable public var jsonValue: JSONValue {
     return self
   }
 }
 
 extension Bool: JSONDecodable, JSONEncodable {
-  public init(jsonValue value: JSONValue) throws {
+  @inlinable public init(jsonValue value: JSONValue) throws {
     guard let bool = value as? Bool else {
         throw JSONDecodingError.couldNotConvert(value: value, to: Bool.self)
     }
     self = bool
   }
 
-  public var jsonValue: JSONValue {
+  @inlinable public var jsonValue: JSONValue {
     return self
   }
 }
 
 extension EnumType {
-  public var jsonValue: JSONValue { rawValue }
+  @inlinable public var jsonValue: JSONValue { rawValue }
 }
 
 extension RawRepresentable where RawValue: JSONDecodable {
-  public init(jsonValue value: JSONValue) throws {
+  @inlinable public init(jsonValue value: JSONValue) throws {
     let rawValue = try RawValue(jsonValue: value)
     if let tempSelf = Self(rawValue: rawValue) {
       self = tempSelf
@@ -85,13 +85,13 @@ extension RawRepresentable where RawValue: JSONDecodable {
 }
 
 extension RawRepresentable where RawValue: JSONEncodable {
-  public var jsonValue: JSONValue {
+  @inlinable public var jsonValue: JSONValue {
     return rawValue.jsonValue
   }
 }
 
 extension Optional where Wrapped: JSONDecodable {
-  public init(jsonValue value: JSONValue) throws {
+  @inlinable public init(jsonValue value: JSONValue) throws {
     if value is NSNull {
       self = .none
     } else {
@@ -103,7 +103,7 @@ extension Optional where Wrapped: JSONDecodable {
 // Once [conditional conformances](https://github.com/apple/swift-evolution/blob/master/proposals/0143-conditional-conformances.md) have been implemented, we should be able to replace these runtime type checks with proper static typing
 
 extension Optional: JSONEncodable {
-  public var jsonValue: JSONValue {
+  @inlinable public var jsonValue: JSONValue {
     switch self {
     case .none:
       return NSNull()
@@ -116,35 +116,33 @@ extension Optional: JSONEncodable {
 }
 
 extension NSDictionary: JSONEncodable {
-  public var jsonValue: JSONValue { self }
+  @inlinable public var jsonValue: JSONValue { self }
 }
 
 extension NSNull: JSONEncodable {
-  public var jsonValue: JSONValue { self }
+  @inlinable public var jsonValue: JSONValue { self }
 }
 
 extension JSONEncodableDictionary: JSONEncodable {
-  public var jsonValue: JSONValue {
-    return jsonObject
-  }
+  @inlinable public var jsonValue: JSONValue { jsonObject }
 
-  public var jsonObject: JSONObject {
+  @inlinable public var jsonObject: JSONObject {
     mapValues(\.jsonValue)
   }
 }
 
 extension Dictionary: JSONDecodable {
-    public init(jsonValue value: JSONValue) throws {
-        guard let dictionary = value as? Dictionary else {
-            throw JSONDecodingError.couldNotConvert(value: value, to: Dictionary.self)
-        }
-        
-        self = dictionary
+  @inlinable public init(jsonValue value: JSONValue) throws {
+    guard let dictionary = value as? Dictionary else {
+      throw JSONDecodingError.couldNotConvert(value: value, to: Dictionary.self)
     }
+
+    self = dictionary
+  }
 }
 
 extension Array: JSONEncodable {
-  public var jsonValue: JSONValue {
+  @inlinable public var jsonValue: JSONValue {
     return map { element -> JSONValue in
       if case let element as JSONEncodable = element {
         return element.jsonValue
@@ -158,7 +156,7 @@ extension Array: JSONEncodable {
 // Example custom scalar
 
 extension URL: JSONDecodable, JSONEncodable {
-  public init(jsonValue value: JSONValue) throws {
+  @inlinable public init(jsonValue value: JSONValue) throws {
     guard let string = value as? String else {
       throw JSONDecodingError.couldNotConvert(value: value, to: URL.self)
     }
@@ -170,7 +168,7 @@ extension URL: JSONDecodable, JSONEncodable {
     }
   }
 
-  public var jsonValue: JSONValue {
+  @inlinable public var jsonValue: JSONValue {
     return self.absoluteString
   }
 }

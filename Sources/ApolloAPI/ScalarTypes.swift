@@ -1,9 +1,8 @@
-public protocol AnyScalarType {}
+public protocol AnyScalarType: JSONEncodable {}
 
 public protocol ScalarType:
   AnyScalarType,
   JSONDecodable,
-  JSONEncodable,
   GraphQLOperationVariableValue {}
 
 extension String: ScalarType {}
@@ -15,7 +14,6 @@ extension Double: ScalarType {}
 public protocol CustomScalarType:
   AnyScalarType,
   JSONDecodable,
-  JSONEncodable,
   OutputTypeConvertible,
   GraphQLOperationVariableValue
 {
@@ -27,3 +25,7 @@ extension CustomScalarType {
     .nonNull(.customScalar(self))
   }
 }
+
+extension Array: AnyScalarType where Array.Element: AnyScalarType {}
+
+extension Optional: AnyScalarType where Wrapped: AnyScalarType {}
