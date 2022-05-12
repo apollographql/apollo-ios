@@ -273,6 +273,7 @@
 		DE9CEAEA2829A45500959AF9 /* Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2FCF2626E8083A0057EA67 /* Field.swift */; };
 		DE9CEAEF282C62B700959AF9 /* MockObjectTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9CEAEE282C62B700959AF9 /* MockObjectTemplate.swift */; };
 		DE9CEAF1282C632B00959AF9 /* MockObjectTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9CEAF0282C632B00959AF9 /* MockObjectTemplateTests.swift */; };
+		DE9CEAF3282C6AC300959AF9 /* TemplateRenderer_TestMockFile_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9CEAF2282C6AC300959AF9 /* TemplateRenderer_TestMockFile_Tests.swift */; };
 		DEA6A83426F298660091AF8A /* ParentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA6A83326F298660091AF8A /* ParentType.swift */; };
 		DEA9A23027CD990500F96C36 /* IRSelectionSet_IncludeSkip_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA9A22F27CD990500F96C36 /* IRSelectionSet_IncludeSkip_Tests.swift */; };
 		DEA9A23227D822E600F96C36 /* IR+InclusionConditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA9A23127D822E600F96C36 /* IR+InclusionConditions.swift */; };
@@ -852,7 +853,6 @@
 		9B68F06E241C649E00E97318 /* GraphQLNullable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLNullable.swift; sourceTree = "<group>"; };
 		9B6CB23D238077B60007259D /* Atomic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Atomic.swift; sourceTree = "<group>"; };
 		9B708AAC2305884500604A11 /* ApolloClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloClientProtocol.swift; sourceTree = "<group>"; };
-		9B74BCBE2333F4ED00508F84 /* run-bundled-codegen.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = "run-bundled-codegen.sh"; path = "scripts/run-bundled-codegen.sh"; sourceTree = SOURCE_ROOT; };
 		9B78C71B2326E859000C8C32 /* ErrorGenerationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorGenerationTests.swift; sourceTree = "<group>"; };
 		9B7B6F47233C26D100F32205 /* ApolloCodegenLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ApolloCodegenLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B7B6F51233C26E400F32205 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1143,6 +1143,7 @@
 		DE9CEAED282C207F00959AF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DE9CEAEE282C62B700959AF9 /* MockObjectTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockObjectTemplate.swift; sourceTree = "<group>"; };
 		DE9CEAF0282C632B00959AF9 /* MockObjectTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockObjectTemplateTests.swift; sourceTree = "<group>"; };
+		DE9CEAF2282C6AC300959AF9 /* TemplateRenderer_TestMockFile_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateRenderer_TestMockFile_Tests.swift; sourceTree = "<group>"; };
 		DEA34AF6260E821F00F95F86 /* Apollo-Target-AnimalKingdomAPI.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-AnimalKingdomAPI.xcconfig"; sourceTree = "<group>"; };
 		DEA6A83326F298660091AF8A /* ParentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentType.swift; sourceTree = "<group>"; };
 		DEA9A22F27CD990500F96C36 /* IRSelectionSet_IncludeSkip_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IRSelectionSet_IncludeSkip_Tests.swift; sourceTree = "<group>"; };
@@ -2191,7 +2192,6 @@
 			children = (
 				9FC750471D2A532C00458D91 /* Apollo.h */,
 				9FC750491D2A532C00458D91 /* Info.plist */,
-				9B74BCBE2333F4ED00508F84 /* run-bundled-codegen.sh */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -2349,6 +2349,7 @@
 				E6B42D0C27A4749100A3BD58 /* SwiftPackageManagerModuleTemplateTests.swift */,
 				E6EFDD1327EAB55B00B17FE5 /* TemplateRenderer_OperationFile_Tests.swift */,
 				E6EFDD0A27E8328E00B17FE5 /* TemplateRenderer_SchemaFile_Tests.swift */,
+				DE9CEAF2282C6AC300959AF9 /* TemplateRenderer_TestMockFile_Tests.swift */,
 				E64F7EB927A085D90059C021 /* UnionTemplateTests.swift */,
 			);
 			path = Templates;
@@ -3881,6 +3882,7 @@
 				E64F7EBF27A11B110059C021 /* GraphQLNamedType+SwiftTests.swift in Sources */,
 				DE79642F2769A1EB00978A03 /* IROperationBuilderTests.swift in Sources */,
 				DEA9A23027CD990500F96C36 /* IRSelectionSet_IncludeSkip_Tests.swift in Sources */,
+				DE9CEAF3282C6AC300959AF9 /* TemplateRenderer_TestMockFile_Tests.swift in Sources */,
 				E68D824527A1D8A60040A46F /* ObjectTemplateTests.swift in Sources */,
 				E6A6866427F63AEF008A1D13 /* FileGeneratorTests.swift in Sources */,
 				DE29653B279B3B8200BF9B49 /* SelectionSetTemplate_RenderOperation_Tests.swift in Sources */,

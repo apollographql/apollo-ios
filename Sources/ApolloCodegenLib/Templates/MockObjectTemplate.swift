@@ -1,8 +1,12 @@
 import Foundation
+import ApolloUtils
 
 struct MockObjectTemplate: TemplateRenderer {
   /// IR representation of source [GraphQL Object](https://spec.graphql.org/draft/#sec-Objects).
   let graphqlObject: GraphQLObjectType
+
+  /// Shared codegen configuration.
+  let config: ReferenceWrapped<ApolloCodegenConfiguration>
 
   let ir: IR
 
@@ -10,7 +14,9 @@ struct MockObjectTemplate: TemplateRenderer {
 
   var template: TemplateString {
     """
-    public extension \(graphqlObject.name.firstUppercased): Mockable {
+    public extension \
+    \(if: !config.output.schemaTypes.isInModule, "\(ir.schema.name.firstUppercased).")\
+    \(graphqlObject.name.firstUppercased): Mockable {
       public static let __mockFields = MockFields()
     
       public struct MockFields {

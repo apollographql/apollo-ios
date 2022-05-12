@@ -2,6 +2,7 @@ import XCTest
 import Nimble
 @testable import ApolloCodegenLib
 import ApolloCodegenInternalTestHelpers
+import ApolloUtils
 
 class MockObjectTemplateTests: XCTestCase {
 
@@ -17,11 +18,17 @@ class MockObjectTemplateTests: XCTestCase {
 
   // MARK: Helpers
 
-  private func buildSubject(name: String = "Dog", interfaces: [GraphQLInterfaceType] = []) {
+  private func buildSubject(
+    name: String = "Dog",
+    interfaces: [GraphQLInterfaceType] = [],
+    moduleType: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType = .swiftPackageManager
+  ) {
+    let config = ApolloCodegenConfiguration.mock(moduleType)
     ir = IR.mock(compilationResult: .mock())
 
     subject = MockObjectTemplate(
       graphqlObject: GraphQLObjectType.mock(name, interfaces: interfaces),
+      config: ReferenceWrapped(value: config),
       ir: ir
     )
   }
@@ -32,7 +39,7 @@ class MockObjectTemplateTests: XCTestCase {
 
   // MARK: Boilerplate tests
 
-  func test_render_givenSchemaType_generatesSwiftClassExtension() {
+  func test_render_givenSchemaType_generatesExtension() {
     // given
     buildSubject(name: "Dog")
 
@@ -52,9 +59,29 @@ class MockObjectTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
+  func test_render_givenConfig_SchemaTypeOutputNone_generatesExtensionWithSchemaNamespace() {
+    // given
+    buildSubject(name: "Dog", moduleType: .none)
+
+    let expected = """
+    public extension TestSchema.Dog: Mockable {
+      public static let __mockFields = MockFields()
+
+      public struct MockFields {
+      }
+    }
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
   // MARK: Class Definition Tests
 
-  func test_render_givenSchemaType_generatesSwiftClassExtensionCorrectlyCased() {
+  func test_render_givenSchemaType_generatesExtensionCorrectlyCased() {
     // given
     buildSubject(name: "dog")
 
