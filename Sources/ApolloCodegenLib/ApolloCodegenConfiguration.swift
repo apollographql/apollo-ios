@@ -152,7 +152,7 @@ public struct ApolloCodegenConfiguration {
     /// `Package.swift` file that is suitable for linking the generated test mock files to your
     /// test target using Swift Package Manager.
     ///
-    /// The name of the test mock target can be specified with the `name` value.
+    /// The name of the test mock target can be specified with the `targetName` value.
     /// If no target name is provided, the target name defaults to "\(schemaName)TestMocks".
     ///
     /// - Note: This requires your `SchemaTypesFileOutput.ModuleType` to be `.swiftPackageManager`.
