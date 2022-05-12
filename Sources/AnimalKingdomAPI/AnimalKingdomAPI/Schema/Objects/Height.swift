@@ -6,7 +6,11 @@ import ApolloAPI
 public final class Height: Object {
   override public class var __typename: StaticString { "Height" }
 
-  override public class var __metadata: Metadata { _metadata }
-  private static let _metadata: Metadata = Metadata(implements: [
-  ])
+  @Field("centimeters") public var centimeters: Int?
+  @Field("feet") public var feet: Int?
+  @Field("inches") public var inches: Int?
+  @Field("meters") public var meters: Int?
+  @Field("relativeSize") public var relativeSize: GraphQLEnum<RelativeSize>?
+  @Field("yards") public var yards: Int?
+
 }

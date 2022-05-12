@@ -35,7 +35,9 @@ struct SchemaTypeFieldsTemplate {
     var fieldsToRender: [GraphQLField] = []
 
     for fieldName in referencedFields {
-      fieldsToRender.append(schemaFields[fieldName].unsafelyUnwrapped)
+      if let field = schemaFields[fieldName] {
+        fieldsToRender.append(field)
+      }
     }
 
     return fieldsToRender.sorted { $0.name < $1.name }
