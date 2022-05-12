@@ -12,7 +12,6 @@ public struct DataDict {
     self.variables = variables
   }
 
-  #warning("TODO: Can we combine these in a way that also allows any nesting level of arrays? See ApolloTestSupport.MockObject")
   public subscript<T: AnyScalarType>(_ key: String) -> T {
     data[key] as! T
   }

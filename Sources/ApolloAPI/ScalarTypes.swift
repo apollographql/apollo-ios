@@ -12,7 +12,6 @@ extension Bool: ScalarType {}
 extension Float: ScalarType {}
 extension Double: ScalarType {}
 
-#warning("TODO: combine scalar and custom scalar type")
 public protocol CustomScalarType:
   AnyScalarType,
   JSONDecodable,
