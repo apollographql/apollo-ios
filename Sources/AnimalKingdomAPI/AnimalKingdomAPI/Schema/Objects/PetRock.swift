@@ -12,10 +12,4 @@ public final class PetRock: Object {
       Pet.self
     ]
   )
-
-  @Field("favoriteToy") public var favoriteToy: String?
-  @Field("humanName") public var humanName: String?
-  @Field("id") public var id: ID?
-  @Field("owner") public var owner: Human?
-
 }

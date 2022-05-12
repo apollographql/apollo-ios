@@ -82,17 +82,13 @@ public struct Field<T: Cacheable> {
 //    }
 //  }
 
-
-  @available(*, unavailable,
-  message: "This property wrapper can only be applied to ObjectType."
-  )
-  public var wrappedValue: T? {
-    get { preconditionFailure() }
+  public var wrappedValue: Self {
+    get { self }
     set { preconditionFailure() }
   }
 
-  public var projectedValue: StaticString {
-    key
-  }
+//  public var projectedValue: StaticString {
+//    key
+//  }
 
 }

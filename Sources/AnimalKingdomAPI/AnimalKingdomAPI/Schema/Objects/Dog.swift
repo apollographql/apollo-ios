@@ -15,5 +15,4 @@ public final class Dog: Object {
       WarmBlooded.self
     ]
   )
-
 }

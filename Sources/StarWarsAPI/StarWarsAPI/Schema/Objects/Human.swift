@@ -12,13 +12,4 @@ public final class Human: Object {
       Character.self
     ]
   )
-
-  @Field("appearsIn") public var appearsIn: [GraphQLEnum<Episode>?]?
-  @Field("friends") public var friends: [Character?]?
-  @Field("height") public var height: Float?
-  @Field("homePlanet") public var homePlanet: String?
-  @Field("id") public var id: ID?
-  @Field("mass") public var mass: Float?
-  @Field("name") public var name: String?
-
 }

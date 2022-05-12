@@ -1,14 +1,30 @@
 import ApolloAPI
 
-public class Mock<O: Object> {
-  public var data: JSONObject
+@dynamicMemberLookup
+public class Mock<O: Mockable> {
+  public var _data: JSONObject
 
   public init() {
-    data = ["__typename": O.__typename.description]
+    _data = ["__typename": O.__typename.description]
+  }
+
+  public var __typename: String { _data["__typename"] as! String }
+
+  public subscript<T: Cacheable>(dynamicMember keyPath: KeyPath<O.MockFields, Field<T>>) -> T? {
+    get {
+      let field = O.__mockFields[keyPath: keyPath]
+      return _data[field.key.description] as? T
+    }
+    set {
+      let field = O.__mockFields[keyPath: keyPath]
+      _data[field.key.description] = newValue
+    }
   }
 
 }
 
-public protocol Mockable {
+public protocol Mockable: Object {
   associatedtype MockFields
+
+  static var __mockFields: MockFields { get }
 }

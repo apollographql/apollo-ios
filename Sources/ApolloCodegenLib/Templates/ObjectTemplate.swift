@@ -19,9 +19,6 @@ struct ObjectTemplate: TemplateRenderer {
       override public class var __typename: StaticString { \"\(graphqlObject.name.firstUppercased)\" }
 
       \(section: MetadataTemplate(covariantFields: collectedFields.covariantFields))
-
-      \(section: SchemaTypeFieldsTemplate.render(fields: collectedFields.0, schemaName: ir.schema.name))
-    
     }
     """)
   }
