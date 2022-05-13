@@ -111,7 +111,7 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
           dependencies: [
             .product(name: "ApolloAPI", package: "apollo-ios"),
           ],
-          path: "."
+          path: "./Sources"
         ),
       ]
     """
