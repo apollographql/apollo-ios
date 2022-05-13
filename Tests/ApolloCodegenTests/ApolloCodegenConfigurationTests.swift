@@ -88,7 +88,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
 
     // then
     expect { try self.config.validate() }.to(
-      throwError(ApolloCodegenConfiguration.PathError.notAFile(.schema))
+      throwError(ApolloCodegenConfiguration.Error.notAFile(.schema))
     )
   }
 
@@ -98,7 +98,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
 
     // then
     expect { try self.config.validate() }.to(
-      throwError(ApolloCodegenConfiguration.PathError.notAFile(.schema))
+      throwError(ApolloCodegenConfiguration.Error.notAFile(.schema))
     )
   }
 
@@ -110,7 +110,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
 
     // then
     expect { try self.config.validate() }.to(
-      throwError(ApolloCodegenConfiguration.PathError.notAFile(.schema))
+      throwError(ApolloCodegenConfiguration.Error.notAFile(.schema))
     )
   }
 
@@ -125,7 +125,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
 
     // then
     expect { try self.config.validate() }.to(
-      throwError(ApolloCodegenConfiguration.PathError.notADirectory(.schemaTypes))
+      throwError(ApolloCodegenConfiguration.Error.notADirectory(.schemaTypes))
     )
   }
 
@@ -142,7 +142,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
     // then
     expect { try self.config.validate() }.to(
       throwError { error in
-        guard case let ApolloCodegenConfiguration.PathError
+        guard case let ApolloCodegenConfiguration.Error
                 .folderCreationFailed(pathType, _) = error else {
                   fail()
                   return
@@ -166,7 +166,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
 
     // then
     expect { try self.config.validate() }.to(
-      throwError(ApolloCodegenConfiguration.PathError.notADirectory(.operations))
+      throwError(ApolloCodegenConfiguration.Error.notADirectory(.operations))
     )
   }
 
@@ -187,7 +187,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
     // then
     expect { try self.config.validate() }.to(
       throwError { error in
-        guard case let ApolloCodegenConfiguration.PathError
+        guard case let ApolloCodegenConfiguration.Error
                 .folderCreationFailed(pathType, _) = error else {
                   fail()
                   return
@@ -213,7 +213,27 @@ class ApolloCodegenConfigurationTests: XCTestCase {
 
     // then
     expect { try self.config.validate() }.to(
-      throwError(ApolloCodegenConfiguration.PathError.notAFile(.operationIdentifiers))
+      throwError(ApolloCodegenConfiguration.Error.notAFile(.operationIdentifiers))
+    )
+  }
+
+  // failing - test mocks in swift package with no swift package schema module
+  func test_validation_givenTestMocks_swiftPackage_schemaModuleTypeNotSwiftPackageManager_shouldThrow() throws {
+    // given
+    output = .init(
+      schemaTypes: .init(path: directoryURL.path, moduleType: .embeddedInTarget(name: "MockApplication")),
+      operations: .relative(subpath: nil),
+      testMocks: .swiftPackage()
+    )
+
+    buildConfig()
+
+    // when
+    try FileManager.default.apollo.createFile(atPath: fileURL.path)
+
+    // then
+    expect { try self.config.validate() }.to(
+      throwError(ApolloCodegenConfiguration.Error.testMocksInvalidSwiftPackageConfiguration)
     )
   }
 }

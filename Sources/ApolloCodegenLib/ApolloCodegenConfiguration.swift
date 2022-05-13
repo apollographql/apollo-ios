@@ -334,10 +334,11 @@ extension ApolloCodegenConfiguration {
   }
 
   /// Errors which can happen with code generation
-  public enum PathError: Swift.Error, LocalizedError, Equatable {
+  public enum Error: Swift.Error, LocalizedError, Equatable {
     case notAFile(PathType)
     case notADirectory(PathType)
-    case folderCreationFailed(PathType, underlyingError: Error)
+    case folderCreationFailed(PathType, underlyingError: Swift.Error)
+    case testMocksInvalidSwiftPackageConfiguration
 
     public var errorDescription: String {
       switch self {
@@ -347,6 +348,8 @@ extension ApolloCodegenConfiguration {
         return "\(pathType) path must be a folder!"
       case let .folderCreationFailed(pathType, underlyingError):
         return "\(pathType) folder cannot be created! Error: \(underlyingError)"
+      case .testMocksInvalidSwiftPackageConfiguration:
+        return "Invalid Configuration: Test mocks swift package without schema types swift package generated!"
       }
     }
 
@@ -356,10 +359,12 @@ extension ApolloCodegenConfiguration {
         let .notADirectory(pathType),
         let .folderCreationFailed(pathType, _):
         return pathType.errorRecoverySuggestion
+      case .testMocksInvalidSwiftPackageConfiguration:
+        return "Schema Types must be generated with module type 'swiftPackageManager' to generate a swift package for test mocks."
       }
     }
 
-    public func logging(withPath path: String) -> PathError {
+    public func logging(withPath path: String) -> Error {
       CodegenLogger.log(self.logMessage(forPath: path), logLevel: .error)
       CodegenLogger.log(self.recoverySuggestion, logLevel: .debug)
       return self
@@ -369,7 +374,7 @@ extension ApolloCodegenConfiguration {
       self.errorDescription + "Path: \(path)"
     }
 
-    public static func == (lhs: PathError, rhs: PathError) -> Bool {
+    public static func == (lhs: Error, rhs: Error) -> Bool {
       lhs.errorDescription == rhs.errorDescription
     }
   }
@@ -377,13 +382,15 @@ extension ApolloCodegenConfiguration {
   /// Validates paths within the configuration ensuring that required files exist and that output
   /// directories can be created.
   func validate() throws {
+    try validateTestMocksConfiguration()
+
     let fileManager = FileManager.default.apollo
 
     CodegenLogger.log("Validating \(String(describing: self))", logLevel: .debug)
 
     // File inputs
     guard fileManager.doesFileExist(atPath: input.schemaPath) else {
-      throw PathError.notAFile(.schema).logging(withPath: input.schemaPath)
+      throw Error.notAFile(.schema).logging(withPath: input.schemaPath)
     }
 
     // File outputs - schema types
@@ -397,8 +404,15 @@ extension ApolloCodegenConfiguration {
     // File outputs - operation identifiers
     if let operationIdentifiersPath = output.operationIdentifiersPath {
       if fileManager.doesDirectoryExist(atPath: operationIdentifiersPath) {
-        throw PathError.notAFile(.operationIdentifiers).logging(withPath: operationIdentifiersPath)
+        throw Error.notAFile(.operationIdentifiers).logging(withPath: operationIdentifiersPath)
       }
+    }
+  }
+
+  private func validateTestMocksConfiguration() throws {
+    if case .swiftPackage = output.testMocks,
+        output.schemaTypes.moduleType != .swiftPackageManager {
+      throw Error.testMocksInvalidSwiftPackageConfiguration
     }
   }
 
@@ -407,13 +421,13 @@ extension ApolloCodegenConfiguration {
     let fileManager = FileManager.default.apollo
 
     if fileManager.doesFileExist(atPath: path) {
-      throw PathError.notADirectory(pathType).logging(withPath: path)
+      throw Error.notADirectory(pathType).logging(withPath: path)
     }
 
     do {
       try fileManager.createDirectoryIfNeeded(atPath: path)
     } catch (let underlyingError) {
-      throw PathError.folderCreationFailed(pathType, underlyingError: underlyingError)
+      throw Error.folderCreationFailed(pathType, underlyingError: underlyingError)
         .logging(withPath: path)
     }
   }
