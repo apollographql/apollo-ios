@@ -22,7 +22,7 @@ let package = Package(
       dependencies: [
         .product(name: "ApolloAPI", package: "apollo-ios"),
       ],
-      path: "."
+      path: "./Sources"
     ),
   ]
 )

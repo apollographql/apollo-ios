@@ -24,5 +24,12 @@ let package = Package(
       ],
       path: "./Sources"
     ),
+    .target(
+      name: "AnimalKingdomAPITestMocks",
+      dependencies: [
+        .product(name: "ApolloTestSupport", package: "apollo-ios"),
+      ],
+      path: "./TestMocks"
+    ),
   ]
 )
