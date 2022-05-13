@@ -1,12 +1,12 @@
 import Foundation
 
 /// A configuration object that defines behavior for code generation.
-public struct ApolloCodegenConfiguration {
+public struct ApolloCodegenConfiguration: Codable, Equatable {
 
   // MARK: Input Types
 
   /// The input paths and files required for code generation.
-  public struct FileInput {
+  public struct FileInput: Codable, Equatable {
     /// Local path to the GraphQL schema file. Can be in JSON or SDL format.
     public let schemaPath: String
     /// An array of path matching pattern strings used to find files, such as GraphQL operations
@@ -44,7 +44,7 @@ public struct ApolloCodegenConfiguration {
   // MARK: Output Types
 
   /// The paths and files output by code generation.
-  public struct FileOutput {
+  public struct FileOutput: Codable, Equatable {
     /// The local path structure for the generated schema types files.
     public let schemaTypes: SchemaTypesFileOutput
     /// The local path structure for the generated operation object files.
@@ -80,7 +80,7 @@ public struct ApolloCodegenConfiguration {
   }
 
   /// The local path structure for the generated schema types files.
-  public struct SchemaTypesFileOutput {
+  public struct SchemaTypesFileOutput: Codable, Equatable {
     /// Local path where the generated schema types files should be stored.
     public let path: String
     /// Automation to ease the integration of the generated schema types file with compatible
@@ -101,7 +101,7 @@ public struct ApolloCodegenConfiguration {
     }
 
     /// Compatible dependency manager automation.
-    public enum ModuleType: Equatable {
+    public enum ModuleType: Codable, Equatable {
       /// Generated schema types will be manually embedded in a target with the specified `name`.
       /// No module will be created for the generated schema types.
       ///
@@ -125,7 +125,7 @@ public struct ApolloCodegenConfiguration {
   }
 
   /// The local path structure for the generated operation object files.
-  public enum OperationsFileOutput: Equatable {
+  public enum OperationsFileOutput: Codable, Equatable {
     /// All operation object files will be located in the module with the schema types.
     case inSchemaModule
     /// Operation object files will be co-located relative to the defining operation `.graphql`
@@ -138,7 +138,7 @@ public struct ApolloCodegenConfiguration {
   }
 
   /// The local path structure for the generated test mock object files.
-  public enum TestMockFileOutput: Equatable {
+  public enum TestMockFileOutput: Codable, Equatable {
     /// Test mocks will not be generated. This is the default value.
     case none
     /// Generated test mock files will be located in the specified path.
@@ -162,7 +162,7 @@ public struct ApolloCodegenConfiguration {
   }
 
   // MARK: - Output Options
-  public struct OutputOptions {
+  public struct OutputOptions: Codable, Equatable {
     /// Any non-default rules for pluralization or singularization you wish to include.
     public let additionalInflectionRules: [InflectionRule]
     /// Formatting of the GraphQL query string literal that is included in each
@@ -203,14 +203,15 @@ public struct ApolloCodegenConfiguration {
   }
 
   /// Specify the formatting of the GraphQL query string literal.
-  public enum QueryStringLiteralFormat {
+  public enum QueryStringLiteralFormat: String, Codable, Equatable {
     /// The query string will be copied into the operation object with all line break formatting removed.
     case singleLine
     /// The query string will be copied with original formatting into the operation object.
     case multiline
   }
 
-  public enum Composition {
+  #warning("Needs documentation!")
+  public enum Composition: String, Codable, Equatable {
     case include
     case exclude
   }
@@ -221,7 +222,7 @@ public struct ApolloCodegenConfiguration {
   ///
   /// APQs are an Apollo Server feature. When using Apollo iOS to connect to any other GraphQL server,
   /// `APQConfig` should be set to `.disabled`
-  public enum APQConfig {
+  public enum APQConfig: String, Codable, Equatable {
     /// The default value. Disables APQs.
     /// The operation document is sent to the server with each operation request.
     case disabled
@@ -241,7 +242,7 @@ public struct ApolloCodegenConfiguration {
 
   // MARK: - Other Types
 
-  public struct ExperimentalFeatures {
+  public struct ExperimentalFeatures: Codable, Equatable {
     /**
      * EXPERIMENTAL: If enabled, the parser will understand and parse Client Controlled Nullability
      * Designators contained in Fields. They'll be represented in the
