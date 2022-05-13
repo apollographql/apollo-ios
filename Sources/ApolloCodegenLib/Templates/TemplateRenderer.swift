@@ -158,11 +158,16 @@ private struct ImportStatementTemplate {
 
   enum TestMock {
     static func template(forConfig config: ReferenceWrapped<ApolloCodegenConfiguration>) -> TemplateString {
-      """
+      let schemaModuleName: String = {
+        switch config.output.schemaTypes.moduleType {
+        case let .embeddedInTarget(targetName): return targetName
+        case .swiftPackageManager, .other: return config.schemaName.firstUppercased
+        }
+      }()
+
+      return """
       import ApolloTestSupport
-      \(if: config.output.schemaTypes.isInModule,
-        "import \(config.schemaName.firstUppercased)"
-      )
+      import \(schemaModuleName)
       """
     }
   }

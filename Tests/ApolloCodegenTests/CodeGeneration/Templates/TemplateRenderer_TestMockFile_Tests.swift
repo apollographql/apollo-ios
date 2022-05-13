@@ -75,64 +75,61 @@ class TemplateRenderer_TestMockFile_Tests: XCTestCase {
     let tests: [(
       schemaTypes: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType,
       operations: ApolloCodegenConfiguration.OperationsFileOutput,
-      importSchemaModule: Bool
+      importModuleName: String
     )] = [
       (
         schemaTypes: .swiftPackageManager,
         operations: .relative(subpath: nil),
-        importSchemaModule: true
+        importModuleName: "TestSchema"
       ),
       (
         schemaTypes: .swiftPackageManager,
         operations: .absolute(path: "path"),
-        importSchemaModule: true
+        importModuleName: "TestSchema"
       ),
       (
         schemaTypes: .swiftPackageManager,
         operations: .inSchemaModule,
-        importSchemaModule: true
+        importModuleName: "TestSchema"
       ),
       (
         schemaTypes: .other,
         operations: .relative(subpath: nil),
-        importSchemaModule: true
+        importModuleName: "TestSchema"
       ),
       (
         schemaTypes: .other,
         operations: .absolute(path: "path"),
-        importSchemaModule: true
+        importModuleName: "TestSchema"
       ),
       (
         schemaTypes: .other,
         operations: .inSchemaModule,
-        importSchemaModule: true
+        importModuleName: "TestSchema"
       ),
       (
         schemaTypes: .embeddedInTarget(name: "MockApplication"),
         operations: .relative(subpath: nil),
-        importSchemaModule: false
+        importModuleName: "MockApplication"
       ),
       (
         schemaTypes: .embeddedInTarget(name: "MockApplication"),
         operations: .absolute(path: "path"),
-        importSchemaModule: false
+        importModuleName: "MockApplication"
       ),
       (
         schemaTypes: .embeddedInTarget(name: "MockApplication"),
         operations: .inSchemaModule,
-        importSchemaModule: false
+        importModuleName: "MockApplication"
       )
     ]
 
     for test in tests {
-      var expected = """
+      let expected = """
       import ApolloTestSupport
-      """
-      if test.importSchemaModule {
-        expected += "\nimport TestSchema"
-      }
-      expected += "\n"
+      import \(test.importModuleName)
 
+      """
       buildConfig(moduleType: test.schemaTypes, operations: test.operations)
 
       // when

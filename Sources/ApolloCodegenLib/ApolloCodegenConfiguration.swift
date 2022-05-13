@@ -428,7 +428,7 @@ extension ApolloCodegenConfiguration.SchemaTypesFileOutput {
     case .embeddedInTarget: return false
     case .swiftPackageManager, .other: return true
     }
-  }
+  }  
 }
 
 extension ApolloCodegenConfiguration.OperationsFileOutput {
