@@ -6,9 +6,11 @@ struct SwiftPackageManagerModuleTemplate: TemplateRenderer {
   /// Module name used to name the generated package.
   let moduleName: String
 
-  var target: TemplateTarget = .moduleFile
+  let testMockConfig: ApolloCodegenConfiguration.TestMockFileOutput
 
-  var headerTemplate: TemplateString? { nil }
+  let target: TemplateTarget = .moduleFile
+
+  let headerTemplate: TemplateString? = nil
 
   var template: TemplateString {
     TemplateString("""
@@ -38,8 +40,30 @@ struct SwiftPackageManagerModuleTemplate: TemplateRenderer {
           ],
           path: "./Sources"
         ),
+        \(ifLet: testMockTarget(), { """
+        .target(
+          name: "\($0.targetName)",
+          dependencies: [
+            .product(name: "ApolloTestSupport", package: "apollo-ios"),
+          ],
+          path: "\($0.path)"
+        ),
+        """})
       ]
     )
     """)
+  }
+
+  private func testMockTarget() -> (targetName: String, path: String)? {
+    switch testMockConfig {
+    case .none, .absolute:
+      return nil
+    case let .swiftPackage(targetName):
+      if let targetName = targetName {
+        return (targetName.firstUppercased, "./\(targetName.firstUppercased)")
+      } else {
+        return ("\(moduleName.firstUppercased)TestMocks", "./TestMocks")
+      }
+    }
   }
 }
