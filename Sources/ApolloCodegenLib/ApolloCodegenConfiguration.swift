@@ -210,7 +210,9 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     case multiline
   }
 
-  #warning("Needs documentation!")
+  /// Composition is used as a substitute for a boolean where context is better placed in the value
+  /// instead of the parameter name, e.g.: `includeDeprecatedEnumCases = true` vs.
+  /// `deprecatedEnumCases = .include`.
   public enum Composition: String, Codable, Equatable {
     case include
     case exclude
