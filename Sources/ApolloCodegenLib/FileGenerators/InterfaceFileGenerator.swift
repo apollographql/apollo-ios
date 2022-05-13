@@ -7,5 +7,5 @@ struct InterfaceFileGenerator: FileGenerator {
 
   var template: TemplateRenderer { InterfaceTemplate(graphqlInterface: graphqlInterface) }
   var target: FileTarget { .interface }
-  var fileName: String { "\(graphqlInterface.name.firstUppercased).swift" }
+  var fileName: String { "\(graphqlInterface.name).swift" }
 }

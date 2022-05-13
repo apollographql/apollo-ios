@@ -3,6 +3,8 @@ import Nimble
 @testable import ApolloCodegenLib
 
 class InterfaceFileGeneratorTests: XCTestCase {
+  let graphqlInterface = GraphQLInterfaceType.mock("MockInterface", fields: [:], interfaces: [])
+
   var subject: InterfaceFileGenerator!
 
   override func tearDown() {
@@ -11,7 +13,7 @@ class InterfaceFileGeneratorTests: XCTestCase {
 
   // MARK: Test Helpers
 
-  private func buildSubject(interface: GraphQLInterfaceType = .mock("MockInterface", fields: [:], interfaces: [])) {
+  private func buildSubject() {
     subject = InterfaceFileGenerator(graphqlInterface: graphqlInterface)
   }
 
@@ -29,17 +31,7 @@ class InterfaceFileGeneratorTests: XCTestCase {
     // given
     buildSubject()
 
-    let expected = "MockInterface.swift"
-
-    // then
-    expect(self.subject.fileName).to(equal(expected))
-  }
-
-  func test__properties__givenGraphQLInterfaceWithLowercaseName_shouldReturnFileName_matchingObjectNameUppercased() {
-    // given
-    buildSubject(interface: .mock("mockInterface", fields: [:], interfaces: []))
-
-    let expected = "MockInterface.swift"
+    let expected = "\(graphqlInterface.name).swift"
 
     // then
     expect(self.subject.fileName).to(equal(expected))
