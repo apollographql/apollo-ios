@@ -59,11 +59,13 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
 
   private func buildConfig(
     module: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType,
-    operations: ApolloCodegenConfiguration.OperationsFileOutput
+    operations: ApolloCodegenConfiguration.OperationsFileOutput,
+    testMocks: ApolloCodegenConfiguration.TestMockFileOutput = .none
   ) {
   config = .mock(output: .mock(
       moduleType: module,
       operations: operations,
+      testMocks: testMocks,
       path: directoryURL.path
     ))
   }  
@@ -599,7 +601,6 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     buildConfig(module: .embeddedInTarget(name: "MockApplication"), operations: .absolute(path: "NewPath"))
 
     let expected = directoryURL
-      .appendingPathComponent("Schema")
       .appendingPathComponent("Interfaces")
       .standardizedFileURL.path
 
@@ -1940,4 +1941,47 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
 
     expect(actual).to(equal(expected))
   }
+
+  // MARK: .testMock
+
+  func test__resolvePath__givenFileTargetTestMock_when_moduleSwiftPackageManager_mocksInSwiftPackage_shouldReturn_____________() {
+    fail()
+//    // given
+//    subject = .testMock
+//
+//    // when
+//    buildConfig(module: .swiftPackageManager, operations: .inSchemaModule)
+//
+//    let expected = directoryURL
+//      .appendingPathComponent("Schema")
+//      .appendingPathComponent("Objects")
+//      .standardizedFileURL.path
+//
+//    // then
+//    let actual = resolvePath()
+//
+//    expect(actual).to(equal(expected))
+  }
+
+  func test__resolvePath__givenFileTargetTestMock_mocksAbsolutePath_shouldReturnPath() {
+    // given
+    subject = .testMock
+
+    let expected = directoryURL
+      .appendingPathComponent("AbsoluteTestMocks")
+      .standardizedFileURL.path
+
+    // when
+    buildConfig(
+      module: .embeddedInTarget(name: "MockApplication"),
+      operations: .inSchemaModule,
+      testMocks: .absolute(path: expected)
+    )
+
+    // then
+    let actual = resolvePath()
+
+    expect(actual).to(equal(expected))
+  }
+
 }

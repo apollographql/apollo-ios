@@ -415,4 +415,68 @@ class ApolloCodegenTests: XCTestCase {
     expect(filePaths).to(equal(expectedPaths))
     expect(fileManager.allClosuresCalled).to(beTrue())
   }
+
+  func test_fileGenerators_givenTestMockOutput_absolutePath_shouldGenerateTestMocks() throws {
+    // given
+    let schemaPath = ApolloCodegenInternalTestHelpers.Resources.AnimalKingdomSchema.path
+    let operationsPath = ApolloCodegenInternalTestHelpers.Resources.url
+      .appendingPathComponent("graphql")
+      .appendingPathComponent("**/*.graphql").path
+
+    let config =  ReferenceWrapped(value: ApolloCodegenConfiguration(
+      schemaName: "AnimalKingdomAPI",
+      input: .init(schemaPath: schemaPath, searchPaths: [operationsPath]),
+      output: .init(
+        schemaTypes: .init(path: directoryURL.path,
+                           moduleType: .swiftPackageManager),
+        operations: .inSchemaModule,
+        testMocks: .absolute(path: directoryURL.appendingPathComponent("TestMocks").path)
+      )
+    ))
+
+    let fileManager = MockFileManager(strict: false)
+
+    var filePaths: Set<String> = []
+    fileManager.mock(closure: .createFile({ path, data, attributes in
+      if path.contains("TestMocks/") {
+        filePaths.insert(path)
+      }
+      return true
+    }))
+
+    let expectedPaths: Set<String> = [
+      directoryURL.appendingPathComponent("TestMocks/Height+Mock.swift").path,
+      directoryURL.appendingPathComponent("TestMocks/Query+Mock.swift").path,
+      directoryURL.appendingPathComponent("TestMocks/Cat+Mock.swift").path,
+      directoryURL.appendingPathComponent("TestMocks/Human+Mock.swift").path,
+      directoryURL.appendingPathComponent("TestMocks/Bird+Mock.swift").path,
+      directoryURL.appendingPathComponent("TestMocks/Rat+Mock.swift").path,
+      directoryURL.appendingPathComponent("TestMocks/PetRock+Mock.swift").path,
+      directoryURL.appendingPathComponent("TestMocks/Mutation+Mock.swift").path,
+      directoryURL.appendingPathComponent("TestMocks/Dog+Mock.swift").path,
+    ]
+
+    // when
+    let compilationResult = try ApolloCodegen.compileGraphQLResult(
+      config,
+      experimentalFeatures: .init(clientControlledNullability: true)
+    )
+
+    let ir = IR(
+      schemaName: config.schemaName,
+      compilationResult: compilationResult
+    )
+
+    try ApolloCodegen.generateFiles(
+      compilationResult: compilationResult,
+      ir: ir,
+      config: config,
+      fileManager: fileManager
+    )
+
+    // then
+    expect(filePaths).to(equal(expectedPaths))
+    expect(fileManager.allClosuresCalled).to(beTrue())
+  }
+
 }

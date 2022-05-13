@@ -30,6 +30,7 @@ extension ApolloCodegenConfiguration.FileOutput {
   public static func mock(
     moduleType: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType = .embeddedInTarget(name: "MockApplication"),
     operations: ApolloCodegenConfiguration.OperationsFileOutput,
+    testMocks: ApolloCodegenConfiguration.TestMockFileOutput = .none,
     path: String = ""
   ) -> Self {
     .init(
@@ -37,7 +38,8 @@ extension ApolloCodegenConfiguration.FileOutput {
         path: path,
         moduleType: moduleType
       ),
-      operations: operations
+      operations: operations,
+      testMocks: testMocks
     )
   }
 }

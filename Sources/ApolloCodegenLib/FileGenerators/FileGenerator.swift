@@ -49,6 +49,7 @@ enum FileTarget: Equatable {
   case fragment(CompilationResult.FragmentDefinition)
   case operation(CompilationResult.OperationDefinition)
   case schema
+  case testMock
 
   private var subpath: String {
     switch self {
@@ -59,7 +60,7 @@ enum FileTarget: Equatable {
     case .inputObject: return "InputObjects"
     case .customScalar: return "CustomScalars"
     case .fragment, .operation: return "Operations"
-    case .schema: return ""
+    case .schema, .testMock: return ""
     }
   }
 
@@ -81,6 +82,8 @@ enum FileTarget: Equatable {
         forConfig: config,
         filePath: NSString(string: operationDefinition.filePath).deletingLastPathComponent
       )
+    case .testMock:
+      return resolveTestMockPath(forConfig: config)
     }
   }
 
@@ -116,6 +119,19 @@ enum FileTarget: Equatable {
       }
 
       return relativeURL.path
+    }
+  }
+
+  private func resolveTestMockPath(
+    forConfig config: ReferenceWrapped<ApolloCodegenConfiguration>
+  ) -> String {
+    switch config.output.testMocks {
+    case .none:
+      return ""
+    case .swiftPackage:
+      return ""
+    case let .absolute(path):
+      return path
     }
   }
 }
