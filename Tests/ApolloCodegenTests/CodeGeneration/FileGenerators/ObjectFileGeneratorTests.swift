@@ -3,8 +3,6 @@ import Nimble
 @testable import ApolloCodegenLib
 
 class ObjectFileGeneratorTests: XCTestCase {
-  let graphqlObject = GraphQLObjectType.mock("MockObject", fields: [:], interfaces: [])
-
   var subject: ObjectFileGenerator!
 
   override func tearDown() {
@@ -13,8 +11,8 @@ class ObjectFileGeneratorTests: XCTestCase {
 
   // MARK: Test Helpers
 
-  private func buildSubject() {
-    subject = ObjectFileGenerator(graphqlObject: graphqlObject, ir: .mock(compilationResult: .mock()))
+  private func buildSubject(object: GraphQLObjectType = .mock("MockObject", fields: [:], interfaces: [])) {
+    subject = ObjectFileGenerator(graphqlObject: object, ir: .mock(compilationResult: .mock()))
   }
 
   // MARK: Property Tests
@@ -31,7 +29,17 @@ class ObjectFileGeneratorTests: XCTestCase {
     // given
     buildSubject()
 
-    let expected = "\(graphqlObject.name).swift"
+    let expected = "MockObject.swift"
+
+    // then
+    expect(self.subject.fileName).to(equal(expected))
+  }
+
+  func test__properties__givenGraphQLObjectWithLowercaseName_shouldReturnFileName_matchingObjectNameUppercased() {
+    // given
+    buildSubject(object: .mock("mockObject", fields: [:], interfaces: []))
+
+    let expected = "MockObject.swift"
 
     // then
     expect(self.subject.fileName).to(equal(expected))
