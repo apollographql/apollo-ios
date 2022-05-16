@@ -133,6 +133,7 @@ public enum Target: CaseIterable {
         moduleType: moduleType
       ),
       operations: .inSchemaModule,
+      testMocks: includeTestMocks ? .swiftPackage() : .none,
       operationIdentifiersPath: includeOperationIdentifiers ?
       try targetRootURL
         .apollo.childFolderURL(folderName: "graphql")
@@ -144,6 +145,13 @@ public enum Target: CaseIterable {
   private var includeOperationIdentifiers: Bool {
     switch self {
     case .upload, .starWars: return true
+    default: return false
+    }
+  }
+
+  private var includeTestMocks: Bool {
+    switch self {
+    case .animalKingdom: return true
     default: return false
     }
   }

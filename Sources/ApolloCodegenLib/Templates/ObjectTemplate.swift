@@ -6,7 +6,7 @@ struct ObjectTemplate: TemplateRenderer {
   /// IR representation of source [GraphQL Object](https://spec.graphql.org/draft/#sec-Objects).
   let graphqlObject: GraphQLObjectType
 
-  var target: TemplateTarget = .schemaFile
+  let target: TemplateTarget = .schemaFile
 
   var template: TemplateString {
     TemplateString(
@@ -14,13 +14,23 @@ struct ObjectTemplate: TemplateRenderer {
     public final class \(graphqlObject.name.firstUppercased): Object {
       override public class var __typename: StaticString { \"\(graphqlObject.name.firstUppercased)\" }
 
-      override public class var __metadata: Metadata { _metadata }
-      private static let _metadata: Metadata = Metadata(implements: [
-        \(graphqlObject.interfaces.map({ interface in
-      "\(interface.name.firstUppercased).self"
-        }), separator: ",\n")
-      ])
+      \(section: ImplementedInterfacesTemplate())
     }
     """)
+  }
+
+  private func ImplementedInterfacesTemplate() -> TemplateString {
+    guard !graphqlObject.interfaces.isEmpty else {
+      return ""
+    }
+
+    return """
+    override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
+    private static let _implementedInterfaces: [Interface.Type]? = [
+      \(graphqlObject.interfaces.map({ interface in
+          "\(interface.name.firstUppercased).self"
+      }), separator: ",\n")
+    ]
+    """
   }
 }

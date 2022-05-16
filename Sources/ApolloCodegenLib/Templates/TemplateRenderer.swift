@@ -10,6 +10,8 @@ enum TemplateTarget {
   case operationFile
   /// Used in files that define a module; Swift Package Manager, etc.
   case moduleFile
+  /// Used in test mock files; schema object `Mockable` extensions
+  case testMockFile
 }
 
 /// A protocol to handle the rendering of a file template based on the target file type and
@@ -44,6 +46,7 @@ extension TemplateRenderer {
     case .schemaFile: return renderSchemaFile(forConfig: config)
     case .operationFile: return renderOperationFile(forConfig: config)
     case .moduleFile: return renderModuleFile(forConfig: config)
+    case .testMockFile: return renderTestMockFile(forConfig: config)
     }
   }
 
@@ -53,7 +56,7 @@ extension TemplateRenderer {
     TemplateString(
     """
     \(ifLet: headerTemplate, { "\($0)\n" })
-    \(TemplateString(ImportStatementTemplate.SchemaType.template.description))
+    \(ImportStatementTemplate.SchemaType.template)
 
     \(if: config.output.schemaTypes.isInModule, template,
     else: template.wrappedInNamespace(config.schemaName))
@@ -84,6 +87,18 @@ extension TemplateRenderer {
     """
     \(ifLet: headerTemplate, { "\($0)\n" })
     \(template)
+    """
+    ).description
+  }
+
+  private func renderTestMockFile(
+    forConfig config: ReferenceWrapped<ApolloCodegenConfiguration>
+  ) -> String {
+    TemplateString(
+    """
+    \(ifLet: headerTemplate, { "\($0)\n" })
+    \(ImportStatementTemplate.TestMock.template(forConfig: config))
+    
     """
     ).description
   }
@@ -130,14 +145,30 @@ private struct ImportStatementTemplate {
     static func template(forConfig config: ReferenceWrapped<ApolloCodegenConfiguration>) -> TemplateString {
       """
       \(ImportStatementTemplate.template)
-      \(if: shouldImportSchemaModule(config.output), "import \(config.schemaName.firstUppercased)")
+      \(if: shouldImportSchemaModule(config), "import \(config.schemaName.firstUppercased)")
       """
     }
 
     private static func shouldImportSchemaModule(
-      _ config: ApolloCodegenConfiguration.FileOutput
+      _ config: ReferenceWrapped<ApolloCodegenConfiguration>
     ) -> Bool {
-      config.operations != .inSchemaModule && config.schemaTypes.isInModule
+      config.output.operations != .inSchemaModule && config.output.schemaTypes.isInModule
+    }
+  }
+
+  enum TestMock {
+    static func template(forConfig config: ReferenceWrapped<ApolloCodegenConfiguration>) -> TemplateString {
+      let schemaModuleName: String = {
+        switch config.output.schemaTypes.moduleType {
+        case let .embeddedInTarget(targetName): return targetName
+        case .swiftPackageManager, .other: return config.schemaName.firstUppercased
+        }
+      }()
+
+      return """
+      import ApolloTestSupport
+      import \(schemaModuleName)
+      """
     }
   }
 }

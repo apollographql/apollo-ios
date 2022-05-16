@@ -22,7 +22,14 @@ let package = Package(
       dependencies: [
         .product(name: "ApolloAPI", package: "apollo-ios"),
       ],
-      path: "."
+      path: "./Sources"
+    ),
+    .target(
+      name: "AnimalKingdomAPITestMocks",
+      dependencies: [
+        .product(name: "ApolloTestSupport", package: "apollo-ios"),
+      ],
+      path: "./TestMocks"
     ),
   ]
 )

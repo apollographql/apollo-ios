@@ -6,6 +6,36 @@ import Nimble
 
 class SelectionSetTests: XCTestCase {
 
+  func test__getOptionalField_givenNilValue__returnsNil() {
+    // given
+    class Human: Object {
+      override class var __typename: StaticString { "Human" }
+    }
+
+    class Hero: MockSelectionSet, SelectionSet {
+      typealias Schema = MockSchemaConfiguration
+
+      override class var selections: [Selection] {[
+        .field("__typename", String.self),
+        .field("name", String?.self)
+      ]}
+
+      var name: String? { data["name"] }
+    }
+
+    let object: JSONObject = [
+      "__typename": "Human"
+    ]
+
+    // when
+    let actual = Hero(data: DataDict(object, variables: nil))
+
+    // then
+    expect(actual.name).to(beNil())
+  }
+
+  // MARK: TypeCase Conversion Tests
+
   func test__asInlineFragment_givenObjectType_returnsTypeIfCorrectType() {
     // given
     class Human: Object {
@@ -72,9 +102,10 @@ class SelectionSetTests: XCTestCase {
     class Humanoid: Interface { }
     class Human: Object {
       override class var __typename: StaticString { "Human" }
-      override class var __metadata: Object.Metadata {
-        .init(implements: [Humanoid.self], covariantFields: nil)
-      }
+      override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
+      private static let _implementedInterfaces: [Interface.Type]? = [
+        Humanoid.self
+      ]
     }
 
     MockSchemaConfiguration.stub_objectTypeForTypeName = {
@@ -170,10 +201,10 @@ class SelectionSetTests: XCTestCase {
       override class var __typename: StaticString { "Human" }
     }
 
-    struct Character: UnionType {
+    struct Character: Union {
       let object: Object
 
-      init?(_ object: Object) {
+      init(_ object: Object) {
         self.object = object
       }
 
@@ -225,10 +256,10 @@ class SelectionSetTests: XCTestCase {
       override class var __typename: StaticString { "Human" }
     }
 
-    struct Character: UnionType {
+    struct Character: Union {
       let object: Object
 
-      init?(_ object: Object) {
+      init(_ object: Object) {
         self.object = object
       }
 

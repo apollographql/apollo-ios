@@ -146,12 +146,53 @@ public class GraphQLUnionType: GraphQLAbstractType {
   }
 }
 
-public class GraphQLField: JavaScriptObject {
+public class GraphQLField: JavaScriptObject, Hashable {
+
   lazy var name: String = self["name"]
   
   lazy var type: GraphQLType = self["type"]
+
+  lazy var arguments: [GraphQLFieldArgument] = self["args"]
   
   lazy var description: String? = self["description"]
   
   lazy var deprecationReason: String? = self["deprecationReason"]
+
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(name)
+    hasher.combine(type)
+    hasher.combine(arguments)
+  }
+
+  public static func == (lhs: GraphQLField, rhs: GraphQLField) -> Bool {
+    lhs.name == rhs.name &&
+    lhs.type == rhs.type &&
+    lhs.arguments == rhs.arguments
+  }
+
+  public override var debugDescription: String {
+    "\(name): \(type.debugDescription)"
+  }
+}
+
+public class GraphQLFieldArgument: JavaScriptObject, Hashable {
+
+  lazy var name: String = self["name"]
+
+  lazy var type: GraphQLType = self["type"]
+
+  lazy var description: String? = self["description"]
+
+  lazy var deprecationReason: String? = self["deprecationReason"]
+
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(name)
+    hasher.combine(type)
+  }
+
+  public static func == (lhs: GraphQLFieldArgument, rhs: GraphQLFieldArgument) -> Bool {
+    lhs.name == rhs.name &&
+    lhs.type == rhs.type
+  }
+  
 }

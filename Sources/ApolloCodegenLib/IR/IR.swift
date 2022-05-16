@@ -7,6 +7,8 @@ class IR {
 
   let schema: Schema
 
+  let fieldCollector = FieldCollector()
+
   var builtFragments: [String: NamedFragment] = [:]
 
   init(schemaName: String, compilationResult: CompilationResult) {

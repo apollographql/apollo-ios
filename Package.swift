@@ -34,6 +34,9 @@ let package = Package(
     .library(
       name: "ApolloWebSocket",
       targets: ["ApolloWebSocket"]),
+    .library(
+      name: "ApolloTestSupport",
+      targets: ["ApolloTestSupport"]),
   ],
   dependencies: [
     .package(
@@ -99,6 +102,12 @@ let package = Package(
       ],
       exclude: [
         "Info.plist"
-      ])
+      ]),
+    .target(
+      name: "ApolloTestSupport",
+      dependencies: ["ApolloAPI"],
+      exclude: [
+        "Info.plist"
+      ]),
   ]
 )

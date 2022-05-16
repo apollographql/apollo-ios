@@ -255,50 +255,50 @@ class ApolloCodegenTests: XCTestCase {
     }))
 
     let expectedPaths: Set<String> = [
-      directoryURL.appendingPathComponent("Schema/Schema.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema/Schema.swift").path,
 
-      directoryURL.appendingPathComponent("Operations/AllAnimalsIncludeSkipQuery.swift").path,
-      directoryURL.appendingPathComponent("Operations/AllAnimalsQuery.swift").path,
-      directoryURL.appendingPathComponent("Schema/Objects/Height.swift").path,
-      directoryURL.appendingPathComponent("Operations/HeightInMeters.swift").path,
-      directoryURL.appendingPathComponent("Operations/WarmBloodedDetails.swift").path,
-      directoryURL.appendingPathComponent("Schema/Enums/SkinCovering.swift").path,
-      directoryURL.appendingPathComponent("Schema/Interfaces/Pet.swift").path,
-      directoryURL.appendingPathComponent("Schema/Interfaces/Animal.swift").path,
-      directoryURL.appendingPathComponent("Schema/Interfaces/WarmBlooded.swift").path,
+      directoryURL.appendingPathComponent("Sources/Operations/AllAnimalsIncludeSkipQuery.swift").path,
+      directoryURL.appendingPathComponent("Sources/Operations/AllAnimalsQuery.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema/Objects/Height.swift").path,
+      directoryURL.appendingPathComponent("Sources/Operations/HeightInMeters.swift").path,
+      directoryURL.appendingPathComponent("Sources/Operations/WarmBloodedDetails.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema/Enums/SkinCovering.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema/Interfaces/Pet.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema/Interfaces/Animal.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema/Interfaces/WarmBlooded.swift").path,
 
-      directoryURL.appendingPathComponent("Schema/Enums/SkinCovering.swift").path,
-      directoryURL.appendingPathComponent("Schema/Enums/RelativeSize.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema/Enums/SkinCovering.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema/Enums/RelativeSize.swift").path,
 
-      directoryURL.appendingPathComponent("Schema/Unions/ClassroomPet.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema/Unions/ClassroomPet.swift").path,
 
-      directoryURL.appendingPathComponent("Schema/InputObjects/PetAdoptionInput.swift").path,
-      directoryURL.appendingPathComponent("Schema/InputObjects/PetSearchFilters.swift").path,
-      directoryURL.appendingPathComponent("Schema/InputObjects/MeasurementsInput.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema/InputObjects/PetAdoptionInput.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema/InputObjects/PetSearchFilters.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema/InputObjects/MeasurementsInput.swift").path,
 
-      directoryURL.appendingPathComponent("Schema/Objects/Height.swift").path,
-      directoryURL.appendingPathComponent("Schema/Objects/Query.swift").path,
-      directoryURL.appendingPathComponent("Schema/Objects/Cat.swift").path,
-      directoryURL.appendingPathComponent("Schema/Objects/Human.swift").path,
-      directoryURL.appendingPathComponent("Schema/Objects/Bird.swift").path,
-      directoryURL.appendingPathComponent("Schema/Objects/Rat.swift").path,
-      directoryURL.appendingPathComponent("Schema/Objects/PetRock.swift").path,
-      directoryURL.appendingPathComponent("Schema/Objects/Mutation.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema/Objects/Height.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema/Objects/Query.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema/Objects/Cat.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema/Objects/Human.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema/Objects/Bird.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema/Objects/Rat.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema/Objects/PetRock.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema/Objects/Mutation.swift").path,
 
-      directoryURL.appendingPathComponent("Operations/AllAnimalsQuery.swift").path,
-      directoryURL.appendingPathComponent("Operations/PetDetails.swift").path,
-      directoryURL.appendingPathComponent("Operations/ClassroomPetsQuery.swift").path,
-      directoryURL.appendingPathComponent("Operations/ClassroomPetDetails.swift").path,
-      directoryURL.appendingPathComponent("Operations/PetSearchQuery.swift").path,
-      directoryURL.appendingPathComponent("Operations/PetAdoptionMutation.swift").path,
-      directoryURL.appendingPathComponent("Operations/HeightInMeters.swift").path,
-      directoryURL.appendingPathComponent("Operations/WarmBloodedDetails.swift").path,
-      directoryURL.appendingPathComponent("Operations/PetSearchQuery.swift").path,
+      directoryURL.appendingPathComponent("Sources/Operations/AllAnimalsQuery.swift").path,
+      directoryURL.appendingPathComponent("Sources/Operations/PetDetails.swift").path,
+      directoryURL.appendingPathComponent("Sources/Operations/ClassroomPetsQuery.swift").path,
+      directoryURL.appendingPathComponent("Sources/Operations/ClassroomPetDetails.swift").path,
+      directoryURL.appendingPathComponent("Sources/Operations/PetSearchQuery.swift").path,
+      directoryURL.appendingPathComponent("Sources/Operations/PetAdoptionMutation.swift").path,
+      directoryURL.appendingPathComponent("Sources/Operations/HeightInMeters.swift").path,
+      directoryURL.appendingPathComponent("Sources/Operations/WarmBloodedDetails.swift").path,
+      directoryURL.appendingPathComponent("Sources/Operations/PetSearchQuery.swift").path,
 
       directoryURL.appendingPathComponent("Package.swift").path,
-      directoryURL.appendingPathComponent("Schema/Objects/Dog.swift").path,
-      directoryURL.appendingPathComponent("Schema/Interfaces/HousePet.swift").path,
-      directoryURL.appendingPathComponent("Schema/CustomScalars/CustomDate.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema/Objects/Dog.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema/Interfaces/HousePet.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema/CustomScalars/CustomDate.swift").path,
     ]
 
     // when
@@ -347,48 +347,48 @@ class ApolloCodegenTests: XCTestCase {
     }))
 
     let expectedPaths: Set<String> = [
-      directoryURL.appendingPathComponent("Schema/Schema.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema/Schema.swift").path,
 
-      directoryURL.appendingPathComponent("Schema/Interfaces/Pet.swift").path,
-      directoryURL.appendingPathComponent("Schema/Interfaces/Animal.swift").path,
-      directoryURL.appendingPathComponent("Schema/Interfaces/WarmBlooded.swift").path,
-      directoryURL.appendingPathComponent("Schema/Interfaces/HousePet.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema/Interfaces/Pet.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema/Interfaces/Animal.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema/Interfaces/WarmBlooded.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema/Interfaces/HousePet.swift").path,
 
-      directoryURL.appendingPathComponent("Schema/Enums/SkinCovering.swift").path,
-      directoryURL.appendingPathComponent("Schema/Enums/RelativeSize.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema/Enums/SkinCovering.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema/Enums/RelativeSize.swift").path,
 
-      directoryURL.appendingPathComponent("Schema/Unions/ClassroomPet.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema/Unions/ClassroomPet.swift").path,
 
-      directoryURL.appendingPathComponent("Schema/InputObjects/PetAdoptionInput.swift").path,
-      directoryURL.appendingPathComponent("Schema/InputObjects/PetSearchFilters.swift").path,
-      directoryURL.appendingPathComponent("Schema/InputObjects/MeasurementsInput.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema/InputObjects/PetAdoptionInput.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema/InputObjects/PetSearchFilters.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema/InputObjects/MeasurementsInput.swift").path,
 
-      directoryURL.appendingPathComponent("Schema/Objects/Height.swift").path,
-      directoryURL.appendingPathComponent("Schema/Objects/Query.swift").path,
-      directoryURL.appendingPathComponent("Schema/Objects/Cat.swift").path,
-      directoryURL.appendingPathComponent("Schema/Objects/Human.swift").path,
-      directoryURL.appendingPathComponent("Schema/Objects/Bird.swift").path,
-      directoryURL.appendingPathComponent("Schema/Objects/Rat.swift").path,
-      directoryURL.appendingPathComponent("Schema/Objects/PetRock.swift").path,
-      directoryURL.appendingPathComponent("Schema/Objects/Mutation.swift").path,
-      directoryURL.appendingPathComponent("Schema/Objects/Dog.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema/Objects/Height.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema/Objects/Query.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema/Objects/Cat.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema/Objects/Human.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema/Objects/Bird.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema/Objects/Rat.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema/Objects/PetRock.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema/Objects/Mutation.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema/Objects/Dog.swift").path,
 
-      directoryURL.appendingPathComponent("Schema/CustomScalars/CustomDate.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema/CustomScalars/CustomDate.swift").path,
 
-      directoryURL.appendingPathComponent("Operations/AllAnimalsQuery.swift").path,
-      directoryURL.appendingPathComponent("Operations/PetDetails.swift").path,
-      directoryURL.appendingPathComponent("Operations/ClassroomPetsQuery.swift").path,
-      directoryURL.appendingPathComponent("Operations/ClassroomPetDetails.swift").path,
-      directoryURL.appendingPathComponent("Operations/PetSearchQuery.swift").path,
-      directoryURL.appendingPathComponent("Operations/PetAdoptionMutation.swift").path,
-      directoryURL.appendingPathComponent("Operations/HeightInMeters.swift").path,
-      directoryURL.appendingPathComponent("Operations/WarmBloodedDetails.swift").path,
-      directoryURL.appendingPathComponent("Operations/PetSearchQuery.swift").path,
-      directoryURL.appendingPathComponent("Operations/AllAnimalsIncludeSkipQuery.swift").path,
+      directoryURL.appendingPathComponent("Sources/Operations/AllAnimalsQuery.swift").path,
+      directoryURL.appendingPathComponent("Sources/Operations/PetDetails.swift").path,
+      directoryURL.appendingPathComponent("Sources/Operations/ClassroomPetsQuery.swift").path,
+      directoryURL.appendingPathComponent("Sources/Operations/ClassroomPetDetails.swift").path,
+      directoryURL.appendingPathComponent("Sources/Operations/PetSearchQuery.swift").path,
+      directoryURL.appendingPathComponent("Sources/Operations/PetAdoptionMutation.swift").path,
+      directoryURL.appendingPathComponent("Sources/Operations/HeightInMeters.swift").path,
+      directoryURL.appendingPathComponent("Sources/Operations/WarmBloodedDetails.swift").path,
+      directoryURL.appendingPathComponent("Sources/Operations/PetSearchQuery.swift").path,
+      directoryURL.appendingPathComponent("Sources/Operations/AllAnimalsIncludeSkipQuery.swift").path,
 
-      directoryURL.appendingPathComponent("Operations/AllAnimalsCCNQuery.swift").path,
-      directoryURL.appendingPathComponent("Operations/ClassroomPetsCCNQuery.swift").path,
-      directoryURL.appendingPathComponent("Operations/ClassroomPetDetailsCCN.swift").path,
+      directoryURL.appendingPathComponent("Sources/Operations/AllAnimalsCCNQuery.swift").path,
+      directoryURL.appendingPathComponent("Sources/Operations/ClassroomPetsCCNQuery.swift").path,
+      directoryURL.appendingPathComponent("Sources/Operations/ClassroomPetDetailsCCN.swift").path,
 
       directoryURL.appendingPathComponent("Package.swift").path,
     ]
@@ -415,4 +415,68 @@ class ApolloCodegenTests: XCTestCase {
     expect(filePaths).to(equal(expectedPaths))
     expect(fileManager.allClosuresCalled).to(beTrue())
   }
+
+  func test_fileGenerators_givenTestMockOutput_absolutePath_shouldGenerateTestMocks() throws {
+    // given
+    let schemaPath = ApolloCodegenInternalTestHelpers.Resources.AnimalKingdomSchema.path
+    let operationsPath = ApolloCodegenInternalTestHelpers.Resources.url
+      .appendingPathComponent("graphql")
+      .appendingPathComponent("**/*.graphql").path
+
+    let config =  ReferenceWrapped(value: ApolloCodegenConfiguration(
+      schemaName: "AnimalKingdomAPI",
+      input: .init(schemaPath: schemaPath, searchPaths: [operationsPath]),
+      output: .init(
+        schemaTypes: .init(path: directoryURL.path,
+                           moduleType: .swiftPackageManager),
+        operations: .inSchemaModule,
+        testMocks: .absolute(path: directoryURL.appendingPathComponent("TestMocks").path)
+      )
+    ))
+
+    let fileManager = MockFileManager(strict: false)
+
+    var filePaths: Set<String> = []
+    fileManager.mock(closure: .createFile({ path, data, attributes in
+      if path.contains("TestMocks/") {
+        filePaths.insert(path)
+      }
+      return true
+    }))
+
+    let expectedPaths: Set<String> = [
+      directoryURL.appendingPathComponent("TestMocks/Height+Mock.swift").path,
+      directoryURL.appendingPathComponent("TestMocks/Query+Mock.swift").path,
+      directoryURL.appendingPathComponent("TestMocks/Cat+Mock.swift").path,
+      directoryURL.appendingPathComponent("TestMocks/Human+Mock.swift").path,
+      directoryURL.appendingPathComponent("TestMocks/Bird+Mock.swift").path,
+      directoryURL.appendingPathComponent("TestMocks/Rat+Mock.swift").path,
+      directoryURL.appendingPathComponent("TestMocks/PetRock+Mock.swift").path,
+      directoryURL.appendingPathComponent("TestMocks/Mutation+Mock.swift").path,
+      directoryURL.appendingPathComponent("TestMocks/Dog+Mock.swift").path,
+    ]
+
+    // when
+    let compilationResult = try ApolloCodegen.compileGraphQLResult(
+      config,
+      experimentalFeatures: .init(clientControlledNullability: true)
+    )
+
+    let ir = IR(
+      schemaName: config.schemaName,
+      compilationResult: compilationResult
+    )
+
+    try ApolloCodegen.generateFiles(
+      compilationResult: compilationResult,
+      ir: ir,
+      config: config,
+      fileManager: fileManager
+    )
+
+    // then
+    expect(filePaths).to(equal(expectedPaths))
+    expect(fileManager.allClosuresCalled).to(beTrue())
+  }
+
 }

@@ -2,7 +2,7 @@
 import OrderedCollections
 
 public extension GraphQLCompositeType {
-  class func mock(
+  @objc class func mock(
     _ name: String = ""
   ) -> Self {
     let mock = Self.emptyMockObject()
@@ -13,6 +13,12 @@ public extension GraphQLCompositeType {
 
 
 public extension GraphQLObjectType {
+  class override func mock(
+    _ name: String = ""
+  ) -> Self {
+    Self.mock(name, fields: [:], interfaces: [])
+  }
+
   class func mock(
     _ name: String = "",
     fields: [String: GraphQLField] = [:],
@@ -27,6 +33,12 @@ public extension GraphQLObjectType {
 }
 
 public extension GraphQLInterfaceType {
+  class override func mock(
+    _ name: String = ""
+  ) -> Self {
+    Self.mock(name, fields: [:], interfaces: [])
+  }
+
   class func mock(
     _ name: String = "",
     fields: [String: GraphQLField] = [:],
@@ -136,6 +148,7 @@ public extension GraphQLField {
     let mock = Self.emptyMockObject()
     mock.name = name
     mock.type = type
+    mock.arguments = []
     return mock
   }
 }

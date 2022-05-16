@@ -49,6 +49,7 @@ enum FileTarget: Equatable {
   case fragment(CompilationResult.FragmentDefinition)
   case operation(CompilationResult.OperationDefinition)
   case schema
+  case testMock
 
   private var subpath: String {
     switch self {
@@ -59,7 +60,7 @@ enum FileTarget: Equatable {
     case .inputObject: return "InputObjects"
     case .customScalar: return "CustomScalars"
     case .fragment, .operation: return "Operations"
-    case .schema: return ""
+    case .schema, .testMock: return ""
     }
   }
 
@@ -81,19 +82,24 @@ enum FileTarget: Equatable {
         forConfig: config,
         filePath: NSString(string: operationDefinition.filePath).deletingLastPathComponent
       )
+    case .testMock:
+      return resolveTestMockPath(forConfig: config)
     }
   }
 
   private func resolveSchemaPath(
     forConfig config: ReferenceWrapped<ApolloCodegenConfiguration>
   ) -> String {
-    var moduleSubpath: String = ""
+    var moduleSubpath: String = "/"
+    if config.output.schemaTypes.moduleType == .swiftPackageManager {
+      moduleSubpath += "Sources/"
+    }
     if config.output.operations.isInModule {
-      moduleSubpath = "Schema"
+      moduleSubpath += "Schema/"
     }
 
     return URL(fileURLWithPath: config.output.schemaTypes.path)
-      .appendingPathComponent("\(moduleSubpath)/\(subpath)").standardizedFileURL.path
+      .appendingPathComponent("\(moduleSubpath)\(subpath)").standardizedFileURL.path
   }
 
   private func resolveOperationPath(
@@ -102,8 +108,12 @@ enum FileTarget: Equatable {
   ) -> String {
     switch config.output.operations {
     case .inSchemaModule:
-      return URL(fileURLWithPath: config.output.schemaTypes.path)
-        .appendingPathComponent(subpath).path
+      var url = URL(fileURLWithPath: config.output.schemaTypes.path)
+      if config.output.schemaTypes.moduleType == .swiftPackageManager {
+        url = url.appendingPathComponent("Sources")
+      }
+
+      return url.appendingPathComponent(subpath).path
 
     case let .absolute(path):
       return path
@@ -116,6 +126,19 @@ enum FileTarget: Equatable {
       }
 
       return relativeURL.path
+    }
+  }
+
+  private func resolveTestMockPath(
+    forConfig config: ReferenceWrapped<ApolloCodegenConfiguration>
+  ) -> String {
+    switch config.output.testMocks {
+    case .none:
+      return ""
+    case let .swiftPackage(targetName):
+      return "\(config.output.schemaTypes.path)/\(targetName ?? "TestMocks")"
+    case let .absolute(path):
+      return path
     }
   }
 }

@@ -50,7 +50,7 @@ public class ApolloCodegen {
 
   // MARK: Internal
 
-  /// Performs GraphQL source validation and compiles the schema and operation source documents. 
+  /// Performs GraphQL source validation and compiles the schema and operation source documents.
   static func compileGraphQLResult(
     _ config: ReferenceWrapped<ApolloCodegenConfiguration>,
     experimentalFeatures: ApolloCodegenConfiguration.ExperimentalFeatures = .init()
@@ -86,10 +86,41 @@ public class ApolloCodegen {
     config: ReferenceWrapped<ApolloCodegenConfiguration>,
     fileManager: FileManager = FileManager.default
   ) throws {
+    for fragment in compilationResult.fragments {
+      try autoreleasepool {
+        let irFragment = ir.build(fragment: fragment)
+        try FragmentFileGenerator(irFragment: irFragment, schema: ir.schema)
+          .generate(forConfig: config, fileManager: fileManager)
+      }
+    }
+
+    for operation in compilationResult.operations {
+      try autoreleasepool {
+        let irOperation = ir.build(operation: operation)
+        try OperationFileGenerator(irOperation: irOperation, schema: ir.schema, config: config)
+          .generate(forConfig: config, fileManager: fileManager)
+      }
+    }
+
     for graphQLObject in ir.schema.referencedTypes.objects {
       try autoreleasepool {
-        try ObjectFileGenerator(graphqlObject: graphQLObject)
-          .generate(forConfig: config, fileManager: fileManager)
+        try ObjectFileGenerator(
+          graphqlObject: graphQLObject          
+        ).generate(
+          forConfig: config,
+          fileManager: fileManager
+        )
+
+        if config.output.testMocks != .none {
+          try MockObjectFileGenerator(
+            graphqlObject: graphQLObject,
+            ir: ir,
+            config: config
+          ).generate(
+            forConfig: config,
+            fileManager: fileManager
+          )
+        }
       }
     }
 
@@ -135,22 +166,6 @@ public class ApolloCodegen {
 
     try SchemaFileGenerator(schema: ir.schema)
       .generate(forConfig: config, fileManager: fileManager)
-
-    for fragment in compilationResult.fragments {
-      try autoreleasepool {
-        let irFragment = ir.build(fragment: fragment)
-        try FragmentFileGenerator(irFragment: irFragment, schema: ir.schema)
-          .generate(forConfig: config, fileManager: fileManager)
-      }
-    }
-
-    for operation in compilationResult.operations {
-      try autoreleasepool {
-        let irOperation = ir.build(operation: operation)
-        try OperationFileGenerator(irOperation: irOperation, schema: ir.schema, config: config)
-          .generate(forConfig: config, fileManager: fileManager)
-      }
-    }
 
     try SchemaModuleFileGenerator.generate(config, fileManager: fileManager)
   }

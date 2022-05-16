@@ -38,6 +38,17 @@ public indirect enum GraphQLType: Hashable {
       return innerType.namedType
     }
   }
+
+  public var innerType: GraphQLType {
+    switch self {
+    case .entity, .scalar, .enum, .inputObject:
+      return self
+
+    case let .nonNull(innerType),
+      let .list(innerType):
+      return innerType.innerType
+    }
+  }
 }
 
 extension GraphQLType: CustomDebugStringConvertible {

@@ -19,7 +19,10 @@ struct SchemaModuleFileGenerator {
     switch config.output.schemaTypes.moduleType {
     case .swiftPackageManager:
       filePath = pathURL.appendingPathComponent("Package.swift").path
-      rendered = SwiftPackageManagerModuleTemplate(moduleName: config.schemaName).render(forConfig: config)
+      rendered = SwiftPackageManagerModuleTemplate(
+        moduleName: config.schemaName,
+        testMockConfig: config.output.testMocks
+      ).render(forConfig: config)
 
     case .embeddedInTarget:
       filePath = pathURL.appendingPathComponent("\(config.schemaName).swift").path
