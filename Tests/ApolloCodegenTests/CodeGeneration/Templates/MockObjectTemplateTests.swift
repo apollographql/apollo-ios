@@ -39,6 +39,12 @@ class MockObjectTemplateTests: XCTestCase {
 
   // MARK: Boilerplate tests
 
+  func test__target__isTestMockFile() {
+    buildSubject()
+
+    expect(self.subject.target).to(equal(.testMockFile))
+  }
+
   func test_render_givenSchemaType_generatesExtension() {
     // given
     buildSubject(name: "Dog")

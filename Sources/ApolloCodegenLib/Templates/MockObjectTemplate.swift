@@ -10,7 +10,7 @@ struct MockObjectTemplate: TemplateRenderer {
 
   let ir: IR
 
-  let target: TemplateTarget = .schemaFile
+  let target: TemplateTarget = .testMockFile
 
   var template: TemplateString {
     let objectName = graphqlObject.name.firstUppercased

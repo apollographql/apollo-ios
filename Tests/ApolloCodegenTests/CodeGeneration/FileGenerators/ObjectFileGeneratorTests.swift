@@ -14,7 +14,7 @@ class ObjectFileGeneratorTests: XCTestCase {
   // MARK: Test Helpers
 
   private func buildSubject() {
-    subject = ObjectFileGenerator(graphqlObject: graphqlObject, ir: .mock(compilationResult: .mock()))
+    subject = ObjectFileGenerator(graphqlObject: graphqlObject)
   }
 
   // MARK: Property Tests

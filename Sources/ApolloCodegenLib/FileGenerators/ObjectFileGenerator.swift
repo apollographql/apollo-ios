@@ -4,8 +4,6 @@ import Foundation
 struct ObjectFileGenerator: FileGenerator {
   /// Source GraphQL object.
   let graphqlObject: GraphQLObjectType
-
-  let ir: IR
   
   var template: TemplateRenderer {
     ObjectTemplate(graphqlObject: graphqlObject)
