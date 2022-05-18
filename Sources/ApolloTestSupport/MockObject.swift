@@ -47,7 +47,20 @@ public class Mock<O: Mockable>: AnyMock, JSONEncodable, Equatable {
   }
 }
 
-public protocol AnyMock {}
+// MARK: - Selection Set Conversion
+
+public extension SelectionSet {
+  static func from(
+    mock: AnyMock,
+    withVariables variables: GraphQLOperation.Variables? = nil
+  ) -> Self {
+    Self.init(data: DataDict(mock.jsonValue as! JSONObject, variables: variables))
+  }
+}
+
+// MARK: - Helper Protocols
+
+public protocol AnyMock: JSONEncodable {}
 
 public protocol Mockable: Object, MockFieldValue {
   associatedtype MockFields
