@@ -248,7 +248,7 @@ extension IR {
         return nil
       }
 
-      if let parentType = enclosingTypeInfo.parentType as? FieldCollectable {
+      if let parentType = enclosingTypeInfo.parentType as? GraphQLInterfaceImplementingType {
         ir.fieldCollector.add(field: field, to: parentType)
       }
 

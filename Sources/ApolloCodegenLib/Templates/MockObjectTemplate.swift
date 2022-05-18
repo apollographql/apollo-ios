@@ -18,8 +18,8 @@ struct MockObjectTemplate: TemplateRenderer {
       .collectedFields(for: graphqlObject)
       .map {
         (
-          name: $0.name,
-          type: $0.type.rendered(containedInNonNull: true, inSchemaNamed: ir.schema.name)
+          name: $0.0,
+          type: $0.1.rendered(containedInNonNull: true, inSchemaNamed: ir.schema.name)
         )
       }
 
