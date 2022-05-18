@@ -431,6 +431,128 @@ class IRFieldCollectorTests: XCTestCase {
     expect(actual).to(equal(expected))
   }
 
+  func test__collectedFields__givenFieldsOnNestedInlineFragmentWithRedundantType_referenceFieldOnNestedTypeNotMatchingTargetType_doesNotCollectsField() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      animal: Animal!
+    }
+
+    interface Animal {
+      a: String
+    }
+
+    interface Pet {
+      b: String
+    }
+
+    type PetRock implements Pet {
+      b: String
+    }
+
+    type Dog implements Animal & Pet {
+      a: String
+      b: String
+    }
+    """
+
+    document = """
+    query Test1 {
+      animal {
+        ... on Pet {
+          ... on Animal {
+            a
+          }
+          b
+        }
+      }
+    }
+    """
+
+    // when
+    try buildIR()
+
+    let PetRock = try schema[object: "PetRock"].xctUnwrapped()
+    let petRockActual = subject.collectedFields(for: PetRock)
+
+    let petRockExpected: ReferencedFields = [
+      ("b", .string()),
+    ]
+
+    let Dog = try schema[object: "Dog"].xctUnwrapped()
+    let dogActual = subject.collectedFields(for: Dog)
+
+    let dogExpected: ReferencedFields = [
+      ("a", .string()),
+      ("b", .string()),
+    ]
+
+    expect(petRockActual).to(equal(petRockExpected))
+    expect(dogActual).to(equal(dogExpected))
+  }
+
+  func test__collectedFields__givenFieldsOnNestedNamedFragmentWithRedundantType_referenceFieldOnNestedTypeNotMatchingTargetType_doesNotCollectsField() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      animal: Animal!
+    }
+
+    interface Animal {
+      a: String
+    }
+
+    interface Pet {
+      b: String
+    }
+
+    type PetRock implements Pet {
+      b: String
+    }
+
+    type Dog implements Animal & Pet {
+      a: String
+      b: String
+    }
+    """
+
+    document = """
+    query Test1 {
+      animal {
+        ... on Pet {
+          ...FragA
+          b
+        }
+      }
+    }
+
+    fragment FragA on Animal {
+      a
+    }
+    """
+
+    // when
+    try buildIR()
+
+    let PetRock = try schema[object: "PetRock"].xctUnwrapped()
+    let petRockActual = subject.collectedFields(for: PetRock)
+
+    let petRockExpected: ReferencedFields = [
+      ("b", .string()),
+    ]
+
+    let Dog = try schema[object: "Dog"].xctUnwrapped()
+    let dogActual = subject.collectedFields(for: Dog)
+
+    let dogExpected: ReferencedFields = [
+      ("a", .string()),
+      ("b", .string()),
+    ]
+
+    expect(petRockActual).to(equal(petRockExpected))
+    expect(dogActual).to(equal(dogExpected))
+  }
+
   /// MARK: - Custom Matchers
   func equal(
     _ expected: ReferencedFields

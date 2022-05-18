@@ -283,6 +283,8 @@ class ApolloCodegenTests: XCTestCase {
       directoryURL.appendingPathComponent("Sources/Schema/Objects/Bird.swift").path,
       directoryURL.appendingPathComponent("Sources/Schema/Objects/Rat.swift").path,
       directoryURL.appendingPathComponent("Sources/Schema/Objects/PetRock.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema/Objects/Fish.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema/Objects/Crocodile.swift").path,
       directoryURL.appendingPathComponent("Sources/Schema/Objects/Mutation.swift").path,
 
       directoryURL.appendingPathComponent("Sources/Operations/AllAnimalsQuery.swift").path,
@@ -372,6 +374,8 @@ class ApolloCodegenTests: XCTestCase {
       directoryURL.appendingPathComponent("Sources/Schema/Objects/PetRock.swift").path,
       directoryURL.appendingPathComponent("Sources/Schema/Objects/Mutation.swift").path,
       directoryURL.appendingPathComponent("Sources/Schema/Objects/Dog.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema/Objects/Fish.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema/Objects/Crocodile.swift").path,
 
       directoryURL.appendingPathComponent("Sources/Schema/CustomScalars/CustomDate.swift").path,
 
@@ -454,6 +458,8 @@ class ApolloCodegenTests: XCTestCase {
       directoryURL.appendingPathComponent("TestMocks/PetRock+Mock.swift").path,
       directoryURL.appendingPathComponent("TestMocks/Mutation+Mock.swift").path,
       directoryURL.appendingPathComponent("TestMocks/Dog+Mock.swift").path,
+      directoryURL.appendingPathComponent("TestMocks/Fish+Mock.swift").path,
+      directoryURL.appendingPathComponent("TestMocks/Crocodile+Mock.swift").path,
     ]
 
     // when

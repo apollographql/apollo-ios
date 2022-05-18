@@ -4,6 +4,13 @@ extension IR {
 
     private var collectedFields: [GraphQLCompositeType: [String: GraphQLType]] = [:]
 
+    func collectFields(from selectionSet: CompilationResult.SelectionSet) {
+      guard let type = selectionSet.parentType as? GraphQLInterfaceImplementingType else { return }
+      for case let .field(field) in selectionSet.selections {
+        add(field: field, to: type)
+      }
+    }
+
     func add<T: Sequence>(
       fields: T,
       to type: GraphQLInterfaceImplementingType
@@ -45,8 +52,6 @@ extension IR {
 
       return fields.sorted { $0.0 < $1.0 }
     }
-
-
   }
 
 }

@@ -97,7 +97,7 @@ extension IR {
     private func build(
       rootField: CompilationResult.Field
     ) -> Result {
-      guard let rootSelectionSet = rootField.selectionSet?.selections else {
+      guard let rootSelectionSet = rootField.selectionSet else {
         fatalError("Root field must have a selection set.")
       }
 
@@ -128,13 +128,9 @@ extension IR {
     private func buildDirectSelections(
       into target: DirectSelections,
       atTypePath typeInfo: SelectionSet.TypeInfo,
-      from selections: [CompilationResult.Selection]
+      from selectionSet: CompilationResult.SelectionSet
     ) {
-      add(
-        selections,
-        to: target,
-        atTypePath: typeInfo
-      )
+      addSelections(from: selectionSet, to: target, atTypePath: typeInfo)
 
       typeInfo.entity.selectionTree.mergeIn(
         selections: target,
@@ -142,12 +138,14 @@ extension IR {
       )
     }
 
-    private func add(
-      _ selections: [CompilationResult.Selection],
+    private func addSelections(
+      from selectionSet: CompilationResult.SelectionSet,
       to target: DirectSelections,
       atTypePath typeInfo: SelectionSet.TypeInfo
     ) {
-      for selection in selections {
+      ir.fieldCollector.collectFields(from: selectionSet)
+      
+      for selection in selectionSet.selections {
         switch selection {
         case let .field(field):
           if let irField = buildField(
@@ -164,8 +162,8 @@ extension IR {
           }
 
           if typeInfo.scope.matches(scope) {
-            add(
-              inlineSelectionSet.selections,
+            addSelections(
+              from: inlineSelectionSet,
               to: target,
               atTypePath: typeInfo
             )
@@ -248,10 +246,6 @@ extension IR {
         return nil
       }
 
-      if let parentType = enclosingTypeInfo.parentType as? GraphQLInterfaceImplementingType {
-        ir.fieldCollector.add(field: field, to: parentType)
-      }
-
       let inclusionConditions = inclusionResult.conditions
 
       if field.type.namedType is GraphQLCompositeType {
@@ -278,7 +272,7 @@ extension IR {
       atTypePath enclosingTypeInfo: SelectionSet.TypeInfo
     ) -> SelectionSet {
       guard let fieldSelectionSet = field.selectionSet else {
-        fatalError("SelectionSet cannot be created for non-entity type field \(field).")
+        preconditionFailure("SelectionSet cannot be created for non-entity type field \(field).")
       }
 
       let entity = entityStorage.entity(for: field, on: enclosingTypeInfo.entity)
@@ -297,7 +291,7 @@ extension IR {
       buildDirectSelections(
         into: irSelectionSet.selections.direct.unsafelyUnwrapped,
         atTypePath: irSelectionSet.typeInfo,
-        from: fieldSelectionSet.selections
+        from: fieldSelectionSet
       )
       return irSelectionSet
     }
@@ -316,11 +310,11 @@ extension IR {
         scopePath: typePath
       )
 
-      if let selections = selectionSet?.selections {
+      if let selectionSet = selectionSet {
         buildDirectSelections(
           into: irSelectionSet.selections.direct.unsafelyUnwrapped,
           atTypePath: irSelectionSet.typeInfo,
-          from: selections
+          from: selectionSet
         )
       }
       return irSelectionSet
