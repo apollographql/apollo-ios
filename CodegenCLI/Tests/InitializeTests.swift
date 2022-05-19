@@ -5,9 +5,13 @@ import Nimble
 
 class InitializeTests: XCTestCase {
 
+  // MARK: - Test Helpers
+
   func parse(options: [String]?) throws -> Initialize {
     try XCTUnwrap(CodegenCLI.parseAsRoot(options) as? Initialize)
   }
+
+  // MARK: - Parsing Tests
 
   func test__parsing__givenNoOptions_shouldNotThrow() throws {
     // when

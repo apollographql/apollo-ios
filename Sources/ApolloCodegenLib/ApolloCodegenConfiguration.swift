@@ -384,7 +384,7 @@ extension ApolloCodegenConfiguration {
 
   /// Validates paths within the configuration ensuring that required files exist and that output
   /// directories can be created.
-  func validate() throws {
+  public func validate() throws {
     try validateTestMocksConfiguration()
 
     let fileManager = FileManager.default.apollo
