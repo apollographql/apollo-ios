@@ -2,6 +2,7 @@
 // This file was automatically generated and should not be edited.
 
 import ApolloAPI
+@_exported import enum ApolloAPI.GraphQLNullable
 
 public struct DroidPrimaryFunction: StarWarsAPI.SelectionSet, Fragment {
   public static var fragmentDefinition: StaticString { """

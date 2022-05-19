@@ -74,11 +74,13 @@ class TemplateRenderer_OperationFile_Tests: XCTestCase {
     // given
     let expectedAPI = """
     import ApolloAPI
+    @_exported import enum ApolloAPI.GraphQLNullable
 
     """
 
     let expectedAPIAndSchema = """
     import ApolloAPI
+    @_exported import enum ApolloAPI.GraphQLNullable
     import TestSchema
 
     """
@@ -172,55 +174,55 @@ class TemplateRenderer_OperationFile_Tests: XCTestCase {
         schemaTypes: .swiftPackageManager,
         operations: .relative(subpath: nil),
         expectation: expectedNoNamespace,
-        atLine: 7
+        atLine: 8
       ),
       (
         schemaTypes: .swiftPackageManager,
         operations: .absolute(path: "path"),
         expectation: expectedNoNamespace,
-        atLine: 7
+        atLine: 8
       ),
       (
         schemaTypes: .swiftPackageManager,
         operations: .inSchemaModule,
         expectation: expectedNoNamespace,
-        atLine: 6
+        atLine: 7
       ),
       (
         schemaTypes: .other,
         operations: .relative(subpath: nil),
         expectation: expectedNoNamespace,
-        atLine: 7
+        atLine: 8
       ),
       (
         schemaTypes: .other,
         operations: .absolute(path: "path"),
         expectation: expectedNoNamespace,
-        atLine: 7
+        atLine: 8
       ),
       (
         schemaTypes: .other,
         operations: .inSchemaModule,
         expectation: expectedNoNamespace,
-        atLine: 6
+        atLine: 7
       ),
       (
         schemaTypes: .embeddedInTarget(name: "MockApplication"),
         operations: .relative(subpath: nil),
         expectation: expectedNoNamespace,
-        atLine: 6
+        atLine: 7
       ),
       (
         schemaTypes: .embeddedInTarget(name: "MockApplication"),
         operations: .absolute(path: "path"),
         expectation: expectedNoNamespace,
-        atLine: 6
+        atLine: 7
       ),
       (
         schemaTypes: .embeddedInTarget(name: "MockApplication"),
         operations: .inSchemaModule,
         expectation: expectedNamespace,
-        atLine: 6
+        atLine: 7
       )
     ]
 

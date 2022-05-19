@@ -2,6 +2,7 @@
 // This file was automatically generated and should not be edited.
 
 import ApolloAPI
+@_exported import enum ApolloAPI.GraphQLNullable
 
 public class UploadMultipleFilesToTheSameParameterMutation: GraphQLMutation {
   public let operationName: String = "UploadMultipleFilesToTheSameParameter"
