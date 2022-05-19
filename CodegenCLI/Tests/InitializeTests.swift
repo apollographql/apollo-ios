@@ -50,14 +50,17 @@ class InitializeTests: XCTestCase {
     let options = ["init"]
 
     // then
-    expect(try self.parse(options: options))
-      .to(throwError(CommandError(
-        commandStack: [
-          CodegenCLI.self,
-          Initialize.self
-        ],
-        parserError: .userValidationError(ValidationError("You must specify at least one option."))
-      )))
+    expect(
+      try self.parse(options: options)
+    ).to(throwError { error in
+          guard
+            let commandError = error as? CommandError,
+            case ArgumentParser.ParserError.userValidationError = commandError.parserError
+          else {
+            fail("Expected ParserError.userValidationError, got \(error)")
+            return
+          }
+    })
   }
 
   func test__parsing__givenShortFormat_shouldThrow() throws {
@@ -68,14 +71,17 @@ class InitializeTests: XCTestCase {
     ]
 
     // then
-    expect(try self.parse(options: options))
-      .to(throwError(CommandError(
-        commandStack: [
-          CodegenCLI.self,
-          Initialize.self
-        ],
-        parserError: .userValidationError(ValidationError("You must specify at least one option."))
-      )))
+    expect(
+      try self.parse(options: options)
+    ).to(throwError { error in
+          guard
+            let commandError = error as? CommandError,
+            case ArgumentParser.ParserError.userValidationError = commandError.parserError
+          else {
+            fail("Expected ParserError.userValidationError, got \(error)")
+            return
+          }
+    })
   }
 
 #warning("Should we have tests for FileManager - validate path, etc.")

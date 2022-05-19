@@ -59,7 +59,7 @@ struct Initialize: ParsableCommand {
 
     guard let json = String(data: data, encoding: .utf8) else {
       throw FormatError(
-        errorDescription: "Could not print the configuration, the JSON was not valid UTF-8"
+        errorDescription: "Could not print the configuration, the JSON was not valid UTF-8."
       )
     }
 

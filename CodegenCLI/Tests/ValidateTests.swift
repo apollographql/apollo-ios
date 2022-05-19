@@ -8,19 +8,10 @@ class ValidateTests: XCTestCase {
   // MARK: - Test Helpers
 
   func parse(options: [String]?) throws -> Validate {
-    try XCTUnwrap(CodegenCLI.parseAsRoot(options) as? Validate)
+    try CodegenCLI.parseAsRoot(options) as! Validate
   }
 
   // MARK: - Parsing Tests
-
-  func test__parsing__givenNoOptions_shouldNotThrow() throws {
-    // when
-    let command = try parse(options: ["validate"])
-
-    // then
-    expect(command.path).to(beNil())
-    expect(command.json).to(beNil())
-  }
 
   func test__parsing__givenPathShortFormat_shouldParse() throws {
     // given
@@ -28,7 +19,7 @@ class ValidateTests: XCTestCase {
 
     let options = [
       "validate",
-      "--path=\(path)"
+      "-p=\(path)"
     ]
 
     // when
@@ -88,6 +79,24 @@ class ValidateTests: XCTestCase {
     // then
     expect(command.path).to(beNil())
     expect(command.json).to(equal(json))
+  }
+
+  func test__parsing__givenNoOptions_shouldThrow() throws {
+    // given
+    let options = ["validate"]
+
+    // then
+    expect(
+      try self.parse(options: options)
+    ).to(throwError { error in
+          guard
+            let commandError = error as? CommandError,
+            case ArgumentParser.ParserError.userValidationError = commandError.parserError
+          else {
+            fail("Expected ParserError.userValidationError, got \(error)")
+            return
+          }
+    })
   }
 
 }
