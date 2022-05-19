@@ -2,6 +2,8 @@
 // This file was automatically generated and should not be edited.
 
 import ApolloAPI
+@_exported import enum ApolloAPI.GraphQLEnum
+@_exported import enum ApolloAPI.GraphQLNullable
 
 public class HeroNameQuery: GraphQLQuery {
   public let operationName: String = "HeroName"
