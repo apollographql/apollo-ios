@@ -145,6 +145,7 @@ private struct ImportStatementTemplate {
     static func template(forConfig config: ReferenceWrapped<ApolloCodegenConfiguration>) -> TemplateString {
       """
       \(ImportStatementTemplate.template)
+      @_exported import enum ApolloAPI.GraphQLEnum
       @_exported import enum ApolloAPI.GraphQLNullable
       \(if: shouldImportSchemaModule(config), "import \(config.schemaName.firstUppercased)")
       """
