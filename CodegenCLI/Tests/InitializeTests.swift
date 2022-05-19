@@ -8,19 +8,10 @@ class InitializeTests: XCTestCase {
   // MARK: - Test Helpers
 
   func parse(options: [String]?) throws -> Initialize {
-    try XCTUnwrap(CodegenCLI.parseAsRoot(options) as? Initialize)
+    try CodegenCLI.parseAsRoot(options) as! Initialize
   }
 
   // MARK: - Parsing Tests
-
-  func test__parsing__givenNoOptions_shouldNotThrow() throws {
-    // when
-    let command = try parse(options: ["init"])
-
-    // then
-    expect(command.path).to(beNil())
-    expect(command.print).to(beFalse())
-  }
 
   func test__parsing__givenPath_shouldParse() throws {
     // given
@@ -54,6 +45,21 @@ class InitializeTests: XCTestCase {
     expect(command.print).to(beTrue())
   }
 
+  func test__parsing__givenNoOptions_shouldThrow() throws {
+    // given
+    let options = ["init"]
+
+    // then
+    expect(try self.parse(options: options))
+      .to(throwError(CommandError(
+        commandStack: [
+          CodegenCLI.self,
+          Initialize.self
+        ],
+        parserError: .userValidationError(ValidationError("You must specify at least one option."))
+      )))
+  }
+
   func test__parsing__givenShortFormat_shouldThrow() throws {
     // given
     let options = [
@@ -62,19 +68,16 @@ class InitializeTests: XCTestCase {
     ]
 
     // then
-    expect(
-      try CodegenCLI.parseAsRoot(options)
-    ).to(throwError { error in
-      guard
-        let commandError = error as? CommandError,
-        case ArgumentParser.ParserError.unknownOption = commandError.parserError
-      else {
-        fail("Expected ParserError.unknownOption, got \(error)")
-        return
-      }
-    })
+    expect(try self.parse(options: options))
+      .to(throwError(CommandError(
+        commandStack: [
+          CodegenCLI.self,
+          Initialize.self
+        ],
+        parserError: .userValidationError(ValidationError("You must specify at least one option."))
+      )))
   }
 
-#warning("Do we need tests for FileManager - validate path, etc.")
+#warning("Should we have tests for FileManager - validate path, etc.")
 
 }
