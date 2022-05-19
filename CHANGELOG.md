@@ -1,5 +1,36 @@
 # Change Log
 
+## v1.0.0-alpha.5
+
+This is the fifth Alpha Release of Apollo iOS 1.0. This first major version will include a new code generation engine, better generated models, and many syntax and performance improvements across the entire library. The primary goal of Apollo iOS 1.0 is to stabilize the API of the model layer and provide a foundation for future feature additions and evolution of the library.
+
+* **Test Mocks are now supported!**
+  * Test mocks can be generated to make it much easier to create mocks of your generated selection sets for unit testing.
+  * This long requested feature can be enabled in your code generation config with the option `config.output.testMocks`.
+  * Once you've generated test mocks, import the new `ApolloTestSupport` target (as well as your generated mocks) in your unit tests to start.
+  * More documentation for test mocks will be coming soon. In the mean time, here is some example usage: 
+
+```swift
+let mockDog = Mock<Dog>()
+mock.species = "Canine"
+mock.height = Mock<Height>(feet: 3, inches: 6)
+
+// To mock an object in a generated operation:
+let generatedDogMock: AnimalQuery.Data.Animal = AnimalQuery.Data.Animal.mock(from: mockDog)
+
+// To mock an entire query:
+let queryMock = Mock<Query>()
+queryMock.animals = [mockDog]
+let generatedSelectionSetMock: AnimalQuery.Data = AnimalQuery.Data.mock(from: queryMock)
+```
+
+* `GraphQLNullable` and `GraphQLEnum` from the `ApolloAPI` target are now exported by your generated operations. This prevents you from having to `import ApolloAPI` everywhere that you are consuming your generated models.
+* `CacheKeyProvider` now supports grouping multiple types that share key uniqueness.   
+* Lots of performance improvements
+  * Using `StaticString` instead of `String` in generated files.
+  * Added `@inlinable` to many `ApolloAPI` functions consumed by generated code.
+  * And more!
+
 ## v1.0.0-alpha.4
 
 This is the fourth Alpha Release of Apollo iOS 1.0. This first major version will include a new code generation engine, better generated models, and many syntax and performance improvements across the entire library. The primary goal of Apollo iOS 1.0 is to stabilize the API of the model layer and provide a foundation for future feature additions and evolution of the library.

@@ -30,7 +30,7 @@ struct SwiftPackageManagerModuleTemplate: TemplateRenderer {
         .library(name: "\(moduleName.firstUppercased)", targets: ["\(moduleName.firstUppercased)"]),
       ],
       dependencies: [
-        .package(url: "https://github.com/apollographql/apollo-ios.git", from: "1.0.0-alpha.4"),
+        .package(url: "https://github.com/apollographql/apollo-ios.git", from: "1.0.0-alpha.5"),
       ],
       targets: [
         .target(
