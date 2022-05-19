@@ -1,19 +1,19 @@
-protocol FieldCollectable: GraphQLInterfaceImplementingType {
-  var fields: [String: GraphQLField] { get }
-}
-
-extension GraphQLObjectType: FieldCollectable {}
-extension GraphQLInterfaceType: FieldCollectable {}
-
 extension IR {
 
   class FieldCollector {
 
-    private var collectedFields: [GraphQLCompositeType: [FieldHashKey: GraphQLField]] = [:]
+    private var collectedFields: [GraphQLCompositeType: [String: GraphQLType]] = [:]
+
+    func collectFields(from selectionSet: CompilationResult.SelectionSet) {
+      guard let type = selectionSet.parentType as? GraphQLInterfaceImplementingType else { return }
+      for case let .field(field) in selectionSet.selections {
+        add(field: field, to: type)
+      }
+    }
 
     func add<T: Sequence>(
       fields: T,
-      to type: FieldCollectable
+      to type: GraphQLInterfaceImplementingType
     ) where T.Element == CompilationResult.Field {
       for field in fields {
         add(field: field, to: type)
@@ -22,83 +22,35 @@ extension IR {
 
     func add(
       field: CompilationResult.Field,
-      to type: FieldCollectable
-    ) {
-      add(fieldNamed: field.name, to: type)
-    }
-
-    private func add(
-      fieldNamed name: String,
-      to type: FieldCollectable
+      to type: GraphQLInterfaceImplementingType
     ) {
       var fields = collectedFields[type] ?? [:]
-      guard let field = type.fields[name] else { return }
       add(field, to: &fields)
       collectedFields.updateValue(fields, forKey: type)
     }
 
     private func add(
-      _ field: GraphQLField,
-    to referencedFields: inout [FieldHashKey: GraphQLField]
+      _ field: CompilationResult.Field,
+    to referencedFields: inout [String: GraphQLType]
     ) {
-      let key = FieldHashKey(field)
+      let key = field.responseKey
       if !referencedFields.keys.contains(key) {
-        referencedFields[key] = field
+        referencedFields[key] = field.type
       }
     }
 
-    func collectedFieldsWithCovariantFields(
-      for type: GraphQLObjectType
-    ) -> ([GraphQLField], covariantFields: Set<GraphQLField>) {
-      var covariantFields: Set<GraphQLField> = []
-
-      let fields = collectFields(for: type, handleMergedInterfaceFields: { field, interfaceField in
-        if field.type != interfaceField.type {
-          covariantFields.insert(field)
-        }
-      })
-
-      return (fields, covariantFields)
-    }
-
     func collectedFields(
-      for type: FieldCollectable
-    ) -> [GraphQLField] {
-      collectFields(for: type, handleMergedInterfaceFields: nil)
-    }
-
-    private func collectFields(
-      for type: FieldCollectable,
-      handleMergedInterfaceFields: ((GraphQLField, GraphQLField) -> Void)?
-    ) -> [GraphQLField] {
+      for type: GraphQLInterfaceImplementingType
+    ) -> [(String, GraphQLType)] {
       var fields = collectedFields[type] ?? [:]
 
       for interface in type.interfaces {
         if let interfaceFields = collectedFields[interface] {
-          fields.merge(interfaceFields) { field, interfaceField in
-            handleMergedInterfaceFields?(field, interfaceField)
-            return field
-          }
+          fields.merge(interfaceFields) { field, _ in field }
         }
       }
 
-      return fields.values.sorted { $0.name < $1.name }
-    }
-
-  }
-
-  fileprivate struct FieldHashKey: Hashable {
-    let hash: Int
-
-    init(_ field: GraphQLField) {
-      var hasher = Hasher()
-      hasher.combine(field.name)
-      hasher.combine(field.arguments)
-      self.hash = hasher.finalize()
-    }
-
-    func hash(into hasher: inout Hasher) {
-      hasher.combine(hash)
+      return fields.sorted { $0.0 < $1.0 }
     }
   }
 

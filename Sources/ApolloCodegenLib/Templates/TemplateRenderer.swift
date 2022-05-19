@@ -98,7 +98,8 @@ extension TemplateRenderer {
     """
     \(ifLet: headerTemplate, { "\($0)\n" })
     \(ImportStatementTemplate.TestMock.template(forConfig: config))
-    
+
+    \(template)
     """
     ).description
   }

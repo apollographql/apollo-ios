@@ -62,7 +62,7 @@ class CompilationTests: XCTestCase {
     XCTAssertEqual(friendsField.type.typeReference, "[Character]")
     
     XCTAssertEqualUnordered(compilationResult.referencedTypes.map(\.name),
-                            ["Query", "Episode", "Character", "String"])
+                            ["Human", "Droid", "Query", "Episode", "Character", "String"])
   }
 
   func testCompileSingleQueryCCN() throws {
@@ -108,7 +108,7 @@ class CompilationTests: XCTestCase {
     XCTAssertEqual(appearsInField.type.typeReference, "[Episode!]")
 
     XCTAssertEqualUnordered(compilationResult.referencedTypes.map(\.name),
-                            ["ID", "Query", "Human", "String", "Float", "Episode", "Character"])
+                            ["ID", "Query", "Human", "Droid", "String", "Float", "Episode", "Character"])
   }
 }
 

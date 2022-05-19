@@ -32,7 +32,8 @@ import {
   SelectionNode,
   SelectionSetNode,
   typeFromAST,
-  isObjectType
+  isObjectType,
+  isInterfaceType
 } from "graphql";
 import * as ir from "./ir";
 import { valueFromValueNode } from "./values";
@@ -89,11 +90,17 @@ export function compileToIR(
     if (referencedTypes.has(type)) { return }
 
     referencedTypes.add(type)
+
+    if (isInterfaceType(type)) {
+      for (const objectType of schema.getPossibleTypes(type)) {
+        addReferencedType(getNamedType(objectType))
+      }
+    }
     
     if (isUnionType(type)) {
       const unionReferencedTypes = type.getTypes()
       for (type of unionReferencedTypes) {
-        referencedTypes.add(getNamedType(type))
+        addReferencedType(getNamedType(type))
       }      
     }
 
@@ -102,9 +109,21 @@ export function compileToIR(
     }
 
     if (isObjectType(type)) {
-      for (type of type.getInterfaces()) {
-        referencedTypes.add(getNamedType(type))
+      for (const interfaceType of type.getInterfaces()) {        
+        addReferencedType(getNamedType(interfaceType))
       }
+    }
+  }
+
+  function addReferencedTypesFromInputObject(
+    inputObject: GraphQLInputObjectType
+  ) {
+    const fields = inputObject.astNode?.fields
+    if (fields) {
+      for (const field of fields) {
+        const type = typeFromAST(schema, field.type) as GraphQLType
+        addReferencedType(getNamedType(type))
+      }    
     }
   }
 
@@ -422,18 +441,6 @@ export function compileToIR(
     } else {
       return undefined
     }    
-  }
-
-  function addReferencedTypesFromInputObject(
-    inputObject: GraphQLInputObjectType
-  ) {
-    const fields = inputObject.astNode?.fields
-    if (fields) {
-      for (const field of fields) {
-        const type = typeFromAST(schema, field.type) as GraphQLType
-        addReferencedType(getNamedType(type))
-      }    
-    }
   }
 
 }

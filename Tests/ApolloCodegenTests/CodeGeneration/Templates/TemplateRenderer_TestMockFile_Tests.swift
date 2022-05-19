@@ -136,7 +136,7 @@ class TemplateRenderer_TestMockFile_Tests: XCTestCase {
       let actual = renderSubject()
 
       // then
-      expect(actual).to(equalLineByLine(expected, atLine: 4))
+      expect(actual).to(equalLineByLine(expected, atLine: 4, ignoringExtraLines: true))
     }
   }
 }

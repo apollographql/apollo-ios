@@ -200,6 +200,8 @@
 		DE223C292720B897004A0148 /* StringInterpolation+NestedIndentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE223C282720B897004A0148 /* StringInterpolation+NestedIndentation.swift */; };
 		DE223C2D2721FCE8004A0148 /* ScopedSelectionSetHashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE223C2C2721FCE8004A0148 /* ScopedSelectionSetHashable.swift */; };
 		DE223C3327221144004A0148 /* IRMatchers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE223C2A2721FAD6004A0148 /* IRMatchers.swift */; };
+		DE225F472835A96A005415AA /* Crocodile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE225F452835A96A005415AA /* Crocodile.swift */; };
+		DE225F482835A96A005415AA /* Fish.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE225F462835A96A005415AA /* Fish.swift */; };
 		DE2739112769AEBA00B886EF /* SelectionSetTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2739102769AEBA00B886EF /* SelectionSetTemplate.swift */; };
 		DE296539279B3B8200BF9B49 /* SelectionSetTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE296536279B3B8200BF9B49 /* SelectionSetTemplateTests.swift */; };
 		DE29653B279B3B8200BF9B49 /* SelectionSetTemplate_RenderOperation_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE296538279B3B8200BF9B49 /* SelectionSetTemplate_RenderOperation_Tests.swift */; };
@@ -1046,6 +1048,8 @@
 		DE223C282720B897004A0148 /* StringInterpolation+NestedIndentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StringInterpolation+NestedIndentation.swift"; sourceTree = "<group>"; };
 		DE223C2A2721FAD6004A0148 /* IRMatchers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IRMatchers.swift; sourceTree = "<group>"; };
 		DE223C2C2721FCE8004A0148 /* ScopedSelectionSetHashable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScopedSelectionSetHashable.swift; sourceTree = "<group>"; };
+		DE225F452835A96A005415AA /* Crocodile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Crocodile.swift; sourceTree = "<group>"; };
+		DE225F462835A96A005415AA /* Fish.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fish.swift; sourceTree = "<group>"; };
 		DE2739102769AEBA00B886EF /* SelectionSetTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionSetTemplate.swift; sourceTree = "<group>"; };
 		DE296536279B3B8200BF9B49 /* SelectionSetTemplateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionSetTemplateTests.swift; sourceTree = "<group>"; };
 		DE296538279B3B8200BF9B49 /* SelectionSetTemplate_RenderOperation_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionSetTemplate_RenderOperation_Tests.swift; sourceTree = "<group>"; };
@@ -2868,6 +2872,8 @@
 				E66C016227FEB86800FF5FA1 /* PetRock.swift */,
 				E66C015B27FEB86800FF5FA1 /* Query.swift */,
 				E66C016027FEB86800FF5FA1 /* Rat.swift */,
+				DE225F452835A96A005415AA /* Crocodile.swift */,
+				DE225F462835A96A005415AA /* Fish.swift */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -3457,7 +3463,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1240;
-				LastUpgradeCheck = 1330;
+				LastUpgradeCheck = 1340;
 				ORGANIZATIONNAME = "Apollo GraphQL";
 				TargetAttributes = {
 					9B2DFBB524E1FA0D00ED3AE6 = {
@@ -4198,6 +4204,7 @@
 				E66C017027FEB86800FF5FA1 /* Bird.swift in Sources */,
 				E661199F2800CCB200E4CF11 /* CustomDate.swift in Sources */,
 				E66C014B27FEB84F00FF5FA1 /* PetAdoptionMutation.swift in Sources */,
+				DE225F482835A96A005415AA /* Fish.swift in Sources */,
 				E66C017827FEB86800FF5FA1 /* PetSearchFilters.swift in Sources */,
 				E66C017727FEB86800FF5FA1 /* Schema.swift in Sources */,
 				E676333227FF856700D8B953 /* Dog.swift in Sources */,
@@ -4221,6 +4228,7 @@
 				E66C017527FEB86800FF5FA1 /* Height.swift in Sources */,
 				E66C017227FEB86800FF5FA1 /* Cat.swift in Sources */,
 				E66C017327FEB86800FF5FA1 /* Mutation.swift in Sources */,
+				DE225F472835A96A005415AA /* Crocodile.swift in Sources */,
 				E66C017127FEB86800FF5FA1 /* Human.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

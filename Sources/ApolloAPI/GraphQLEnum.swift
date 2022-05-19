@@ -22,11 +22,11 @@ public enum GraphQLEnum<T: EnumType>: CaseIterable, Equatable, RawRepresentable 
   /// The associated value exposes the raw `String` data from the response.
   case __unknown(String)
 
-  public init(_ caseValue: T) {
+  @inlinable public init(_ caseValue: T) {
     self = .case(caseValue)
   }
 
-  public init(rawValue: String) {
+  @inlinable public init(rawValue: String) {
     guard let caseValue = T(rawValue: rawValue) else {
       self = .__unknown(rawValue)
       return
@@ -34,19 +34,19 @@ public enum GraphQLEnum<T: EnumType>: CaseIterable, Equatable, RawRepresentable 
     self = .case(caseValue)
   }
 
-  public init(_ rawValue: String) {
+  @inlinable public init(_ rawValue: String) {
     self.init(rawValue: rawValue)
   }
 
   /// The underlying enum case. If the value is `__unknown`, this will be `nil`.
-  public var value: T? {
+  @inlinable public var value: T? {
     switch self {
     case let .case(value): return value
     default: return nil
     }
   }
 
-  public var rawValue: String {
+  @inlinable public var rawValue: String {
     switch self {
     case let .case(value): return value.rawValue
     case let .__unknown(value): return value
@@ -55,53 +55,53 @@ public enum GraphQLEnum<T: EnumType>: CaseIterable, Equatable, RawRepresentable 
 
   /// A collection of all known values of the wrapped enum.
   /// This collection does not include the `__unknown` case.
-  public static var allCases: [GraphQLEnum<T>] {
+  @inlinable public static var allCases: [GraphQLEnum<T>] {
     return T.allCases.map { .case($0) }
   }
 }
 
 // MARK: CustomScalarType
 extension GraphQLEnum: CustomScalarType {
-  public init(jsonValue: JSONValue) throws {
+  @inlinable public init(jsonValue: JSONValue) throws {
     guard let stringData = jsonValue as? String else {
       throw JSONDecodingError.couldNotConvert(value: jsonValue, to: String.self)      
     }
     self.init(rawValue: stringData)
   }
 
-  public var jsonValue: Any { rawValue }
+  @inlinable public var jsonValue: Any { rawValue }
 }
 
 // MARK: Equatable
 extension GraphQLEnum {
-  public static func ==(lhs: GraphQLEnum<T>, rhs: GraphQLEnum<T>) -> Bool {
+  @inlinable public static func ==(lhs: GraphQLEnum<T>, rhs: GraphQLEnum<T>) -> Bool {
     return lhs.rawValue == rhs.rawValue
   }
 
-  public static func ==(lhs: GraphQLEnum<T>, rhs: T) -> Bool {
+  @inlinable public static func ==(lhs: GraphQLEnum<T>, rhs: T) -> Bool {
     return lhs.rawValue == rhs.rawValue
   }
 
-  public static func !=(lhs: GraphQLEnum<T>, rhs: T) -> Bool {
+  @inlinable public static func !=(lhs: GraphQLEnum<T>, rhs: T) -> Bool {
     return lhs.rawValue != rhs.rawValue
   }
 }
 
 // MARK: Optional<GraphQLEnum<T>> Equatable
 
-public func ==<T: RawRepresentable & CaseIterable>(lhs: GraphQLEnum<T>?, rhs: T) -> Bool
+@inlinable public func ==<T: RawRepresentable & CaseIterable>(lhs: GraphQLEnum<T>?, rhs: T) -> Bool
 where T.RawValue == String {
   return lhs?.rawValue == rhs.rawValue
 }
 
-public func !=<T: RawRepresentable & CaseIterable>(lhs: GraphQLEnum<T>?, rhs: T) -> Bool
+@inlinable public func !=<T: RawRepresentable & CaseIterable>(lhs: GraphQLEnum<T>?, rhs: T) -> Bool
 where T.RawValue == String {
   return lhs?.rawValue != rhs.rawValue
 }
 
 // MARK: Pattern Matching
 extension GraphQLEnum {
-  public static func ~=(lhs: T, rhs: GraphQLEnum<T>) -> Bool {
+  @inlinable public static func ~=(lhs: T, rhs: GraphQLEnum<T>) -> Bool {
     switch rhs {
     case let .case(rhs) where rhs == lhs: return true
     case let .__unknown(rhsRawValue) where rhsRawValue == lhs.rawValue: return true
