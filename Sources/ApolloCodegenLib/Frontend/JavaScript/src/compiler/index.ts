@@ -91,8 +91,8 @@ export function compileToIR(
 
     referencedTypes.add(type)
 
-    if(isInterfaceType(type)) {
-      for(const objectType of schema.getPossibleTypes(type)) {
+    if (isInterfaceType(type)) {
+      for (const objectType of schema.getPossibleTypes(type)) {
         addReferencedType(getNamedType(objectType))
       }
     }
