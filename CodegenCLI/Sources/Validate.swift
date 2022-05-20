@@ -7,7 +7,7 @@ struct Validate: ParsableCommand {
   // MARK: - Configuration
   
   static var configuration = CommandConfiguration(
-    abstract: "Validate a configuration file or JSON string."
+    abstract: "Validate a configuration file or JSON formatted string."
   )
 
   @Option(
@@ -26,7 +26,7 @@ struct Validate: ParsableCommand {
 
   func validate() throws {
     if path == nil && json == nil {
-      throw ValidationError("You must specify at least one option.")
+      throw ValidationError("You must specify at least one valid option.")
     }
   }
   
@@ -47,11 +47,7 @@ struct Validate: ParsableCommand {
   }
 
   func validate(json: String) throws {
-    guard let data = json.data(using: .utf8) else {
-      throw ValidationError("Badly encoded JSON string, should be UTF-8.")
-    }
-
-    try validate(data: data)
+    try validate(data: try json.asData())
 
     print("The configuration string is valid.")
   }
@@ -60,15 +56,5 @@ struct Validate: ParsableCommand {
     let config = try JSONDecoder().decode(ApolloCodegenConfiguration.self, from: data)
 
     try config.validate()
-  }
-}
-
-extension String {
-  func asData() throws -> Data {
-    guard let data = self.data(using: .utf8) else {
-      throw ValidationError("Badly encoded string, should be UTF-8!")
-    }
-
-    return data
   }
 }

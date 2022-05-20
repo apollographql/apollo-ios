@@ -50,17 +50,10 @@ class InitializeTests: XCTestCase {
     let options = ["init"]
 
     // then
-    expect(
-      try self.parse(options: options)
-    ).to(throwError { error in
-          guard
-            let commandError = error as? CommandError,
-            case ArgumentParser.ParserError.userValidationError = commandError.parserError
-          else {
-            fail("Expected ParserError.userValidationError, got \(error)")
-            return
-          }
-    })
+    expect(try self.parse(options: options))
+      .to(throwUserValidationError(
+        ValidationError("You must specify at least one valid option.")
+      ))
   }
 
   func test__parsing__givenShortFormat_shouldThrow() throws {
@@ -71,19 +64,10 @@ class InitializeTests: XCTestCase {
     ]
 
     // then
-    expect(
-      try self.parse(options: options)
-    ).to(throwError { error in
-          guard
-            let commandError = error as? CommandError,
-            case ArgumentParser.ParserError.userValidationError = commandError.parserError
-          else {
-            fail("Expected ParserError.userValidationError, got \(error)")
-            return
-          }
-    })
+    expect(try self.parse(options: options))
+      .to(throwUserValidationError(
+        ValidationError("You must specify at least one valid option.")
+      ))
   }
-
 #warning("Should we have tests for FileManager - validate path, etc.")
-
 }

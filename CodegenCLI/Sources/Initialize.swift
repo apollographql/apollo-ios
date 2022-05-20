@@ -27,7 +27,7 @@ struct Initialize: ParsableCommand {
   
   func validate() throws {
     if path == nil && print == false {
-      throw ValidationError("You must specify at least one option.")
+      throw ValidationError("You must specify at least one valid option.")
     }
   }
 
