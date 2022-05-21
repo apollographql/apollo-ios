@@ -45,8 +45,8 @@ struct Initialize: ParsableCommand {
     }
   }
 
-  func write(data: Data, toPath path: String, fileManager: FileManager = FileManager.default) throws {
-    try fileManager.apollo.createFile(
+  func write(data: Data, toPath path: String) throws {
+    try FileManager.default.apollo.createFile(
       atPath: path,
       data: data
     )
@@ -83,6 +83,9 @@ fileprivate extension ApolloCodegenConfiguration {
   }
 
   func encoded() throws -> Data {
-    try JSONEncoder().encode(self)
+    let encoder = JSONEncoder()
+    encoder.outputFormatting = [.prettyPrinted]
+
+    return try encoder.encode(self)
   }
 }
