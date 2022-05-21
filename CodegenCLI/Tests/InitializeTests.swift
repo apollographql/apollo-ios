@@ -11,11 +11,19 @@ class InitializeTests: XCTestCase {
     try CodegenCLI.parseAsRoot(options) as! Initialize
   }
 
+  func buildProcess(arguments: [String]?) -> Process {
+    let process = Process()
+    process.executableURL = TestSupport.productsDirectory.appendingPathComponent("apollo-ios-codegen")
+    process.arguments = arguments
+
+    return process
+  }
+
   // MARK: - Parsing Tests
 
   func test__parsing__givenPath_shouldParse() throws {
     // given
-    let path = "./config.json"
+    let path = "./configuration.json"
 
     let options = [
       "init",
@@ -69,5 +77,93 @@ class InitializeTests: XCTestCase {
         ValidationError("You must specify at least one valid option.")
       ))
   }
-#warning("Should we have tests for FileManager - validate path, etc.")
+
+  // MARK: - Output Tests
+
+  let expectedJSON = """
+  {
+    "schemaName" : "GraphQLSchemaName",
+    "options" : {
+      "schemaDocumentation" : "include",
+      "deprecatedEnumCases" : "include",
+      "apqs" : "disabled",
+      "additionalInflectionRules" : [
+
+      ],
+      "queryStringLiteralFormat" : "multiline"
+    },
+    "input" : {
+      "searchPaths" : [
+        "**\\/*.graphql"
+      ],
+      "schemaPath" : "schema.graphqls"
+    },
+    "output" : {
+      "testMocks" : {
+        "none" : {
+
+        }
+      },
+      "schemaTypes" : {
+        "path" : ".\\/",
+        "moduleType" : {
+          "swiftPackageManager" : {
+
+          }
+        }
+      },
+      "operations" : {
+        "relative" : {
+
+        }
+      }
+    },
+    "experimentalFeatures" : {
+      "clientControlledNullability" : false
+    }
+  }
+  """
+
+  func test__output__givenPath_shouldWriteToFile() throws {
+    // given
+    let path = TestSupport.productsDirectory.appendingPathComponent("test-configuration.json").path
+
+    let subject = buildProcess(arguments: [
+      "init",
+      "--path=\(path)"
+    ])
+
+    // when
+    try subject.run()
+    subject.waitUntilExit()
+
+    let output = try String(contentsOfFile: path)
+
+    // then
+    expect(output).to(equal(expectedJSON))
+  }
+
+  func test__output__givenPrint_shouldPrintToStandardOutput() throws {
+    // given
+    let subject = buildProcess(arguments: [
+      "init",
+      "--print"
+    ])
+
+    let pipe = Pipe()
+    subject.standardOutput = pipe
+
+    // when
+    try subject.run()
+    subject.waitUntilExit()
+
+    let data = pipe.fileHandleForReading.readDataToEndOfFile()
+    let output = String(data: data, encoding: .utf8)
+
+    // Printing to STDOUT appends a newline
+    let expected = expectedJSON + "\n"
+
+    // then
+    expect(output).to(equal(expected))
+  }
 }
