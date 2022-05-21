@@ -52,9 +52,9 @@ struct Generate: ParsableCommand {
     try generate(data: try json.asData())
   }
 
-  func generate(data: Data) throws {
-    let config = try JSONDecoder().decode(ApolloCodegenConfiguration.self, from: data)
+  private func generate(data: Data) throws {
+    let configuration = try JSONDecoder().decode(ApolloCodegenConfiguration.self, from: data)
 
-    try ApolloCodegen.build(with: config)
+    try ApolloCodegen.build(with: configuration)
   }
 }

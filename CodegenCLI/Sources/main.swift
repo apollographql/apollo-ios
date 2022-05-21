@@ -1,7 +1,5 @@
 import ArgumentParser
 
-#warning("is it possible to use xcconfig files with SPM? Version, etc.")
-
 struct CodegenCLI: ParsableCommand {
   static var configuration = CommandConfiguration(
     commandName: "apollo-ios-codegen",

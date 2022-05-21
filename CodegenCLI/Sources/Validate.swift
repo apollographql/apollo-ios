@@ -53,8 +53,8 @@ struct Validate: ParsableCommand {
   }
 
   private func validate(data: Data) throws {
-    let config = try JSONDecoder().decode(ApolloCodegenConfiguration.self, from: data)
+    let configuration = try JSONDecoder().decode(ApolloCodegenConfiguration.self, from: data)
 
-    try config.validate()
+    try configuration.validate()
   }
 }

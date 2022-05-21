@@ -91,5 +91,4 @@ class ValidateTests: XCTestCase {
         ValidationError("You must specify at least one valid option.")
       ))
   }
-#warning("Should we have tests for data validation?")
 }
