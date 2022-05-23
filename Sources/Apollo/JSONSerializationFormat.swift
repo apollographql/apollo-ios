@@ -3,7 +3,7 @@ import Foundation
 import ApolloAPI
 #endif
 
-public typealias JSONValue = Any
+public typealias JSONValue = AnyHashable
 public typealias JSONObject = [String: JSONValue]
 
 public final class JSONSerializationFormat {
@@ -16,6 +16,6 @@ public final class JSONSerializationFormat {
   }
 
   public class func deserialize(data: Data) throws -> JSONValue {
-    return try JSONSerialization.jsonObject(with: data, options: [])
+    return try JSONSerialization.jsonObject(with: data, options: []) as! AnyHashable
   }
 }

@@ -69,7 +69,7 @@ extension GraphQLEnum: CustomScalarType {
     self.init(rawValue: stringData)
   }
 
-  @inlinable public var jsonValue: Any { rawValue }
+  @inlinable public var jsonValue: AnyHashable { rawValue }
 }
 
 // MARK: Equatable

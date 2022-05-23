@@ -1,6 +1,6 @@
 import Foundation
 
-public typealias JSONValue = Any
+public typealias JSONValue = AnyHashable
 public typealias JSONObject = [String: JSONValue]
 public typealias JSONEncodableDictionary = [String: JSONEncodable]
 

@@ -11,7 +11,7 @@ extension ApolloStore {
 
 /// A `NormalizedCache` that does not cache any data. Used for tests that don't require testing
 /// caching behavior.
-public struct NoCache: NormalizedCache {
+public class NoCache: NormalizedCache {
 
   public init() { }
 

@@ -41,7 +41,7 @@ extension InputValue {
       return value.jsonEncodableValue?.jsonValue
 
     case let .scalar(value):
-      return value
+      return value.jsonValue
 
     case let .list(array):
       return try InputValue.evaluate(array, with: variables)

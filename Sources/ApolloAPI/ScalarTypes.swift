@@ -17,7 +17,7 @@ public protocol CustomScalarType:
   OutputTypeConvertible,
   GraphQLOperationVariableValue
 {
-  var jsonValue: Any { get }
+  var jsonValue: AnyHashable { get }
 }
 
 extension CustomScalarType {
