@@ -1,5 +1,10 @@
 /// A structure that wraps the underlying data dictionary used by `SelectionSet`s.
 public struct DataDict {
+//  public static func == (lhs: DataDict, rhs: DataDict) -> Bool {
+//    lhs._data == rhs._data &&
+//    lhs._variables.jsonValue == rhs._variables.jsonValue
+//  }
+
 
   public let _data: JSONObject
   public let _variables: GraphQLOperation.Variables?
