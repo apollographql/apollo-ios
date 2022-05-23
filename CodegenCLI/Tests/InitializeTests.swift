@@ -21,7 +21,7 @@ class InitializeTests: XCTestCase {
 
   // MARK: - Parsing Tests
 
-  func test__parsing__givenPath_shouldParse() throws {
+  func test__parsing__givenPathLongFormat_shouldParse() throws {
     // given
     let path = "./configuration.json"
 
@@ -38,7 +38,7 @@ class InitializeTests: XCTestCase {
     expect(command.print).to(beFalse())
   }
 
-  func test__parsing__givenPrint_shouldParse() throws {
+  func test__parsing__givenPrintLongFormat_shouldParse() throws {
     // given
     let options = [
       "init",
@@ -53,9 +53,12 @@ class InitializeTests: XCTestCase {
     expect(command.print).to(beTrue())
   }
 
-  func test__parsing__givenNoOptions_shouldThrow() throws {
+  func test__parsing__givenShortFormat_shouldThrow() throws {
     // given
-    let options = ["init"]
+    let options = [
+      "init",
+      "-p"
+    ]
 
     // then
     expect(try self.parse(options: options))
@@ -63,13 +66,10 @@ class InitializeTests: XCTestCase {
         ValidationError("You must specify at least one valid option.")
       ))
   }
-
-  func test__parsing__givenShortFormat_shouldThrow() throws {
+  
+  func test__parsing__givenNoOptions_shouldThrow() throws {
     // given
-    let options = [
-      "init",
-      "-p"
-    ]
+    let options = ["init"]
 
     // then
     expect(try self.parse(options: options))

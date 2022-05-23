@@ -13,23 +13,6 @@ class GenerateTests: XCTestCase {
 
   // MARK: - Parsing Tests
 
-  func test__parsing__givenPathShortFormat_shouldParse() throws {
-    // given
-    let path = "file.json"
-
-    let options = [
-      "generate",
-      "-p=\(path)"
-    ]
-
-    // when
-    let command = try parse(options: options)
-
-    // then
-    expect(command.path).to(equal(path))
-    expect(command.json).to(beNil())
-  }
-
   func test__parsing__givenPathLongFormat_shouldParse() throws {
     // given
     let path = "file.json"
@@ -47,13 +30,30 @@ class GenerateTests: XCTestCase {
     expect(command.json).to(beNil())
   }
 
-  func test__parsing__givenJsonShortFormat_shouldParse() throws {
+  func test__parsing__givenPathShortFormat_shouldParse() throws {
+    // given
+    let path = "file.json"
+
+    let options = [
+      "generate",
+      "-p=\(path)"
+    ]
+
+    // when
+    let command = try parse(options: options)
+
+    // then
+    expect(command.path).to(equal(path))
+    expect(command.json).to(beNil())
+  }
+
+  func test__parsing__givenJsonLongFormat_shouldParse() throws {
     // given
     let json = "a_string_of_json"
 
     let options = [
       "generate",
-      "-j=\(json)"
+      "--json=\(json)"
     ]
 
     // when
@@ -64,13 +64,13 @@ class GenerateTests: XCTestCase {
     expect(command.json).to(equal(json))
   }
 
-  func test__parsing__givenJsonLongFormat_shouldParse() throws {
+  func test__parsing__givenJsonShortFormat_shouldParse() throws {
     // given
     let json = "a_string_of_json"
 
     let options = [
       "generate",
-      "--json=\(json)"
+      "-j=\(json)"
     ]
 
     // when
