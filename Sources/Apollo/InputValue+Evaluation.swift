@@ -22,10 +22,12 @@ extension Selection.Field {
         return "[\($0.key):\(orderIndependentKey(for: object))]"
       case let array as [JSONObject]:
         return "\($0.key):[\(array.map { orderIndependentKey(for: $0) }.joined(separator: ","))]"
+      case let array as [AnyHashable]:
+        return "\($0.key):[\(array.map { String(describing: $0.base) }.joined(separator: ", "))]"
       case is NSNull:
         return "\($0.key):null"
       default:
-        return "\($0.key):\($0.value)"
+        return "\($0.key):\($0.value.base)"
       }
     }.joined(separator: ",")
   }

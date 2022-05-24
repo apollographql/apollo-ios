@@ -148,8 +148,8 @@ class GraphQLExecutor_ResultNormalizer_FromResponse_Tests: XCTestCase {
           ]}
         }
       }
-    }
-    
+    }    
+
     let object: JSONObject = [
       "hero": [
         "__typename": "Droid",

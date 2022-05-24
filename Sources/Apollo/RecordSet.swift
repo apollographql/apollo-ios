@@ -1,7 +1,3 @@
-#if !COCOAPODS
-import struct ApolloAPI.JSONValueMatcher
-#endif
-
 /// A set of cache records.
 public struct RecordSet {
   public private(set) var storage: [CacheKey: Record] = [:]
@@ -63,7 +59,7 @@ public struct RecordSet {
       var changedKeys: Set<CacheKey> = Set()
 
       for (key, value) in record.fields {
-        if let oldValue = oldRecord.fields[key], JSONValueMatcher.equals(oldValue, value) {
+        if let oldValue = oldRecord.fields[key], oldValue == value {
           continue
         }
         oldRecord[key] = value

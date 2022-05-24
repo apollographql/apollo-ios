@@ -2,7 +2,7 @@ import Foundation
 
 extension String: JSONDecodable, JSONEncodable {
   @inlinable public init(jsonValue value: JSONValue) throws {
-    switch value {
+    switch value.base {
     case let string as String:
         self = string
     case let int as Int:
