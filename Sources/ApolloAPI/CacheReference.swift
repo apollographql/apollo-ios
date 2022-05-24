@@ -11,7 +11,7 @@ public struct CacheReference: Hashable {
   public static func rootCacheReference<Operation: GraphQLOperation>(
     for operation: Operation
   ) -> CacheReference {
-    switch operation.operationType {
+    switch Operation.operationType {
     case .query:
       return RootQuery
     case .mutation:

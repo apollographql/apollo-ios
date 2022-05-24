@@ -6,8 +6,8 @@ import ApolloAPI
 @_exported import enum ApolloAPI.GraphQLNullable
 
 public class SearchQuery: GraphQLQuery {
-  public let operationName: String = "Search"
-  public let document: DocumentType = .notPersisted(
+  public static let operationName: String = "Search"
+  public static let document: DocumentType = .notPersisted(
     definition: .init(
       """
       query Search($term: String) {

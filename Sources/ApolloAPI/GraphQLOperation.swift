@@ -64,9 +64,9 @@ public struct OperationDefinition {
 public protocol GraphQLOperation: AnyObject {
   typealias Variables = [String: GraphQLOperationVariableValue]
 
-  var operationName: String { get }
-  var operationType: GraphQLOperationType { get }
-  var document: DocumentType { get }
+  static var operationName: String { get }
+  static var operationType: GraphQLOperationType { get }
+  static var document: DocumentType { get }
 
   var variables: Variables? { get }
 
@@ -78,7 +78,7 @@ public extension GraphQLOperation {
     return nil
   }
 
-  var definition: OperationDefinition? {
+  static var definition: OperationDefinition? {
     switch self.document {
     case let .automaticallyPersisted(_, definition),
       let .notPersisted(definition):
@@ -87,7 +87,7 @@ public extension GraphQLOperation {
     }
   }
   
-  var operationIdentifier: String? {
+  static var operationIdentifier: String? {
     switch self.document {
     case let .automaticallyPersisted(identifier, _),
       let .persistedOperationsOnly(identifier):
@@ -99,17 +99,17 @@ public extension GraphQLOperation {
 
 public protocol GraphQLQuery: GraphQLOperation {}
 public extension GraphQLQuery {
-  @inlinable var operationType: GraphQLOperationType { return .query }
+  @inlinable static var operationType: GraphQLOperationType { return .query }
 }
 
 public protocol GraphQLMutation: GraphQLOperation {}
 public extension GraphQLMutation {
-  @inlinable var operationType: GraphQLOperationType { return .mutation }
+  @inlinable static var operationType: GraphQLOperationType { return .mutation }
 }
 
 public protocol GraphQLSubscription: GraphQLOperation {}
 public extension GraphQLSubscription {
-  @inlinable var operationType: GraphQLOperationType { return .subscription }
+  @inlinable static var operationType: GraphQLOperationType { return .subscription }
 }
 
 // MARK: - GraphQLOperationVariableValue

@@ -6,8 +6,8 @@ import ApolloAPI
 @_exported import enum ApolloAPI.GraphQLNullable
 
 public class CreateReviewForEpisodeMutation: GraphQLMutation {
-  public let operationName: String = "CreateReviewForEpisode"
-  public let document: DocumentType = .notPersisted(
+  public static let operationName: String = "CreateReviewForEpisode"
+  public static let document: DocumentType = .notPersisted(
     definition: .init(
       """
       mutation CreateReviewForEpisode($episode: Episode!, $review: ReviewInput!) {

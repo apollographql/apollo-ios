@@ -6,8 +6,8 @@ import ApolloAPI
 @_exported import enum ApolloAPI.GraphQLNullable
 
 public class HeroDetailsInlineConditionalInclusionQuery: GraphQLQuery {
-  public let operationName: String = "HeroDetailsInlineConditionalInclusion"
-  public let document: DocumentType = .notPersisted(
+  public static let operationName: String = "HeroDetailsInlineConditionalInclusion"
+  public static let document: DocumentType = .notPersisted(
     definition: .init(
       """
       query HeroDetailsInlineConditionalInclusion($includeDetails: Boolean!) {

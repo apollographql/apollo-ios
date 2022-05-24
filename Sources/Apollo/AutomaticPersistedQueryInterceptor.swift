@@ -66,7 +66,7 @@ public struct AutomaticPersistedQueryInterceptor: ApolloInterceptor {
     
     guard !jsonRequest.isPersistedQueryRetry else {
       // We already retried this and it didn't work.
-      chain.handleErrorAsync(APQError.persistedQueryRetryFailed(operationName: jsonRequest.operation.operationName),
+      chain.handleErrorAsync(APQError.persistedQueryRetryFailed(operationName: Operation.operationName),
                              request: jsonRequest,
                              response: response,
                              completion: completion)

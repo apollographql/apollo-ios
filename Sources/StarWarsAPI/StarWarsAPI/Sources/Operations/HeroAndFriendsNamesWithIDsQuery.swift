@@ -6,8 +6,8 @@ import ApolloAPI
 @_exported import enum ApolloAPI.GraphQLNullable
 
 public class HeroAndFriendsNamesWithIDsQuery: GraphQLQuery {
-  public let operationName: String = "HeroAndFriendsNamesWithIDs"
-  public let document: DocumentType = .notPersisted(
+  public static let operationName: String = "HeroAndFriendsNamesWithIDs"
+  public static let document: DocumentType = .notPersisted(
     definition: .init(
       """
       query HeroAndFriendsNamesWithIDs($episode: Episode) {

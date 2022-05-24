@@ -29,7 +29,7 @@ extension RequestBodyCreator {
     autoPersistQuery: Bool
   ) -> JSONEncodableDictionary {
     var body: JSONEncodableDictionary = [
-      "operationName": operation.operationName,
+      "operationName": Operation.operationName,
     ]
 
     if let variables = operation.variables {
@@ -37,14 +37,14 @@ extension RequestBodyCreator {
     }
 
     if sendQueryDocument {
-      guard let document = operation.definition?.queryDocument else {
+      guard let document = Operation.definition?.queryDocument else {
         preconditionFailure("To send query documents, Apollo types must be generated with `OperationDefinition`s.")
       }
       body["query"] = document
     }
 
     if autoPersistQuery {
-      guard let operationIdentifier = operation.operationIdentifier else {
+      guard let operationIdentifier = Operation.operationIdentifier else {
         preconditionFailure("To enable `autoPersistQueries`, Apollo types must be generated with operationIdentifiers")
       }
 

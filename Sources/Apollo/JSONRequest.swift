@@ -76,7 +76,7 @@ open class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
     let useGetMethod: Bool
     let body = self.body
     
-    switch operation.operationType {
+    switch Operation.operationType {
     case .query:
       if isPersistedQueryRetry {
         useGetMethod = self.useGETForPersistedQueryRetry
@@ -116,7 +116,7 @@ open class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
   private func createBody() -> JSONEncodableDictionary {
     let sendQueryDocument: Bool
     let autoPersistQueries: Bool
-    switch operation.operationType {
+    switch Operation.operationType {
     case .query:
       if isPersistedQueryRetry {
         sendQueryDocument = true

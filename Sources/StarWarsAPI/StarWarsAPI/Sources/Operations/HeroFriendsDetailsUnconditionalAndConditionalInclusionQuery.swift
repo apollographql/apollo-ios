@@ -6,8 +6,8 @@ import ApolloAPI
 @_exported import enum ApolloAPI.GraphQLNullable
 
 public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQLQuery {
-  public let operationName: String = "HeroFriendsDetailsUnconditionalAndConditionalInclusion"
-  public let document: DocumentType = .notPersisted(
+  public static let operationName: String = "HeroFriendsDetailsUnconditionalAndConditionalInclusion"
+  public static let document: DocumentType = .notPersisted(
     definition: .init(
       """
       query HeroFriendsDetailsUnconditionalAndConditionalInclusion($includeFriendsDetails: Boolean!) {

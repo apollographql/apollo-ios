@@ -6,8 +6,8 @@ import ApolloAPI
 @_exported import enum ApolloAPI.GraphQLNullable
 
 public class HeroNameConditionalBothSeparateQuery: GraphQLQuery {
-  public let operationName: String = "HeroNameConditionalBothSeparate"
-  public let document: DocumentType = .notPersisted(
+  public static let operationName: String = "HeroNameConditionalBothSeparate"
+  public static let document: DocumentType = .notPersisted(
     definition: .init(
       """
       query HeroNameConditionalBothSeparate($skipName: Boolean!, $includeName: Boolean!) {

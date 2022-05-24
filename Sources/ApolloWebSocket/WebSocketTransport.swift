@@ -320,7 +320,7 @@ public class WebSocketTransport {
       self.write(message)
 
       self.subscribers[identifier] = resultHandler
-      if operation.operationType == .subscription {
+      if Operation.operationType == .subscription {
         self.subscriptions[identifier] = message
       }
     }

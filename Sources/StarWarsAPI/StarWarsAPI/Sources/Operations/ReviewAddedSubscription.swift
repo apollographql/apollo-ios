@@ -6,8 +6,8 @@ import ApolloAPI
 @_exported import enum ApolloAPI.GraphQLNullable
 
 public class ReviewAddedSubscription: GraphQLSubscription {
-  public let operationName: String = "ReviewAdded"
-  public let document: DocumentType = .notPersisted(
+  public static let operationName: String = "ReviewAdded"
+  public static let document: DocumentType = .notPersisted(
     definition: .init(
       """
       subscription ReviewAdded($episode: Episode) {

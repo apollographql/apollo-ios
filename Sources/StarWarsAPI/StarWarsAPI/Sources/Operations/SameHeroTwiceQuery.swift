@@ -6,8 +6,8 @@ import ApolloAPI
 @_exported import enum ApolloAPI.GraphQLNullable
 
 public class SameHeroTwiceQuery: GraphQLQuery {
-  public let operationName: String = "SameHeroTwice"
-  public let document: DocumentType = .notPersisted(
+  public static let operationName: String = "SameHeroTwice"
+  public static let document: DocumentType = .notPersisted(
     definition: .init(
       """
       query SameHeroTwice {

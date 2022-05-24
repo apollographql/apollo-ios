@@ -6,8 +6,8 @@ import ApolloAPI
 @_exported import enum ApolloAPI.GraphQLNullable
 
 public class PetSearchQuery: GraphQLQuery {
-  public let operationName: String = "PetSearch"
-  public let document: DocumentType = .notPersisted(
+  public static let operationName: String = "PetSearch"
+  public static let document: DocumentType = .notPersisted(
     definition: .init(
       """
       query PetSearch($filters: PetSearchFilters = {species: ["Dog", "Cat"], size: SMALL, measurements: {height: 10.5, weight: 5.0}}) {

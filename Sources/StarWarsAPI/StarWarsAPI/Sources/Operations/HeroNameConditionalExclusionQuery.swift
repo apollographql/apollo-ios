@@ -6,8 +6,8 @@ import ApolloAPI
 @_exported import enum ApolloAPI.GraphQLNullable
 
 public class HeroNameConditionalExclusionQuery: GraphQLQuery {
-  public let operationName: String = "HeroNameConditionalExclusion"
-  public let document: DocumentType = .notPersisted(
+  public static let operationName: String = "HeroNameConditionalExclusion"
+  public static let document: DocumentType = .notPersisted(
     definition: .init(
       """
       query HeroNameConditionalExclusion($skipName: Boolean!) {
