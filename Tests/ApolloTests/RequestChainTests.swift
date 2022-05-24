@@ -15,7 +15,7 @@ class RequestChainTests: XCTestCase {
     let transport = RequestChainNetworkTransport(interceptorProvider: TestProvider(),
                                                  endpointURL: TestURL.mockServer.url)
     let expectation = self.expectation(description: "kickoff failed")
-    _ = transport.send(operation: MockOperation.mock()) { result in
+    _ = transport.send(operation: MockQuery.mock()) { result in
       defer {
         expectation.fulfill()
       }
@@ -56,7 +56,7 @@ class RequestChainTests: XCTestCase {
                                                  endpointURL: TestURL.mockServer.url)
     let expectation = self.expectation(description: "Send succeeded")
     expectation.isInverted = true
-    let cancellable = transport.send(operation: MockOperation.mock()) { _ in
+    let cancellable = transport.send(operation: MockQuery.mock()) { _ in
       XCTFail("This should not have gone through")
       expectation.fulfill()
     }
@@ -103,7 +103,7 @@ class RequestChainTests: XCTestCase {
                                                  autoPersistQueries: true)
     
     let expectation = self.expectation(description: "Hero name query complete")
-    _ = transport.send(operation: MockOperation.mock()) { result in
+    _ = transport.send(operation: MockQuery.mock()) { result in
       defer {
         expectation.fulfill()
       }
@@ -174,7 +174,7 @@ class RequestChainTests: XCTestCase {
                                                  autoPersistQueries: true)
     
     let expectation = self.expectation(description: "Hero name query complete")
-    _ = transport.send(operation: MockOperation.mock()) { result in
+    _ = transport.send(operation: MockQuery.mock()) { result in
       defer {
         expectation.fulfill()
       }

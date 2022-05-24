@@ -27,18 +27,22 @@ class GETTransformerTests: XCTestCase {
   }
 
   func test__createGetURL__queryWithSingleParameterAndVariable_encodesURL() {
-    let operation = MockOperation.mock()
-    operation.operationName = "TestOpName"
-    operation.document = .notPersisted(definition: .init(
-    """
-    query MockQuery($param: String) {
-      testField(param: $param) {
-        __typename
-        name
+    class GivenMockOperation: MockOperation<MockSelectionSet> {
+      override class var operationName: String { "TestOpName" }
+      override class var document: DocumentType {
+        .notPersisted(definition: .init(
+        """
+        query MockQuery($param: String) {
+          testField(param: $param) {
+            __typename
+            name
+          }
+        }
+        """))
       }
     }
-    """))
 
+    let operation = GivenMockOperation()
     operation.variables = ["param": "TestParamValue"]
 
     let body = requestBodyCreator.requestBody(for: operation,
@@ -55,17 +59,22 @@ class GETTransformerTests: XCTestCase {
   }
 
   func test__createGetURL__query_withEnumParameterAndVariable_encodesURL() {
-    let operation = MockOperation.mock()
-    operation.operationName = "TestOpName"
-    operation.document = .notPersisted(definition: .init(
-    """
-    query MockQuery($param: MockEnum) {
-      testField(param: $param) {
-        __typename
-        name
+    class GivenMockOperation: MockOperation<MockSelectionSet> {
+      override class var operationName: String { "TestOpName" }
+      override class var document: DocumentType {
+        .notPersisted(definition: .init(
+        """
+        query MockQuery($param: MockEnum) {
+          testField(param: $param) {
+            __typename
+            name
+          }
+        }
+        """))
       }
     }
-    """))
+
+    let operation = GivenMockOperation()
     operation.variables = ["param": MockEnum.LARGE]
 
     let body = requestBodyCreator.requestBody(for: operation,
@@ -82,18 +91,22 @@ class GETTransformerTests: XCTestCase {
   }
   
   func test__createGetURL__queryWithMoreThanOneParameter_withIncludeDirective_encodesURL() throws {
-    let operation = MockOperation.mock()
-    operation.operationName = "TestOpName"
-    operation.document = .notPersisted(definition: .init(
-    """
-    query MockQuery($a: String, $b: Boolean!) {
-      testField(param: $a) {
-        __typename
-        nestedField @include(if: $b)
+    class GivenMockOperation: MockOperation<MockSelectionSet> {
+      override class var operationName: String { "TestOpName" }
+      override class var document: DocumentType {
+        .notPersisted(definition: .init(
+        """
+        query MockQuery($a: String, $b: Boolean!) {
+          testField(param: $a) {
+            __typename
+            nestedField @include(if: $b)
+          }
+        }
+        """))
       }
     }
-    """))
 
+    let operation = GivenMockOperation()
     operation.variables = ["a": "TestParamValue", "b": true]
 
     let body = requestBodyCreator.requestBody(for: operation,
@@ -110,15 +123,18 @@ class GETTransformerTests: XCTestCase {
   }
   
   func test__createGetURL__queryWith2DParameter_encodesURL_withBodyComponentsInAlphabeticalOrder() throws {
-    let operation = MockOperation.mock()
-    operation.operationName = "TestOpName"
-    operation.document = .automaticallyPersisted(
-      operationIdentifier: "4d465fbc6e3731d01102504850",
-      definition: .init("query MockQuery {}"))
-    
+    class GivenMockOperation: MockOperation<MockSelectionSet> {
+      override class var operationName: String { "TestOpName" }
+      override class var document: DocumentType {
+        .automaticallyPersisted(
+          operationIdentifier: "4d465fbc6e3731d01102504850",
+          definition: .init("query MockQuery {}"))
+      }
+    }
+
     let persistedQuery: JSONEncodableDictionary = [
       "version": 1,
-      "sha256Hash": operation.operationIdentifier!
+      "sha256Hash": GivenMockOperation.operationIdentifier!
     ]
     
     let extensions: JSONEncodableDictionary = [
@@ -126,7 +142,7 @@ class GETTransformerTests: XCTestCase {
     ]
     
     let body: JSONEncodableDictionary = [
-      "query": operation.definition?.queryDocument,
+      "query": GivenMockOperation.definition?.queryDocument,
       "extensions": extensions
     ]
     
@@ -140,14 +156,12 @@ class GETTransformerTests: XCTestCase {
   }
 
   func test__createGetURL__queryWithParameter_withPlusSign_encodesPlusSign() throws {
-    let operation = MockOperation.mock()
-
     let extensions: JSONEncodableDictionary = [
       "testParam": "+Test+Test"
     ]
 
     let body: JSONEncodableDictionary = [
-      "query": operation.definition?.queryDocument,
+      "query": MockOperation<MockSelectionSet>.definition?.queryDocument,
       "extensions": extensions
     ]
 
@@ -161,14 +175,12 @@ class GETTransformerTests: XCTestCase {
   }
 
   func test__createGetURL__queryWithParameter_withAmpersand_encodesAmpersand() throws {
-    let operation = MockOperation.mock()
-
     let extensions: JSONEncodableDictionary = [
       "testParam": "Test&Test"
     ]
 
     let body: JSONEncodableDictionary = [
-      "query": operation.definition?.queryDocument,
+      "query": MockOperation<MockSelectionSet>.definition?.queryDocument,
       "extensions": extensions
     ]
 
@@ -181,13 +193,16 @@ class GETTransformerTests: XCTestCase {
   }
   
   func test__createGetURL__queryWithPersistedQueryID_withoutQueryParameter_encodesURL() throws {
-    let operation = MockOperation.mock()
-    operation.operationName = "TestOpName"
-    operation.document = .persistedOperationsOnly(operationIdentifier: "4d465fbc6e3731d01102504850")
+    class GivenMockOperation: MockOperation<MockSelectionSet> {
+      override class var operationName: String { "TestOpName" }
+      override class var document: DocumentType {
+        .persistedOperationsOnly(operationIdentifier: "4d465fbc6e3731d01102504850")
+      }
+    }
     
     let persistedQuery: JSONEncodableDictionary = [
       "version": 1,
-      "sha256Hash": operation.operationIdentifier!
+      "sha256Hash": GivenMockOperation.operationIdentifier!
     ]
     
     let extensions: JSONEncodableDictionary = [
@@ -208,17 +223,22 @@ class GETTransformerTests: XCTestCase {
   }
   
   func test__createGetURL__queryWithNullValueForVariable_encodesVariableWithNull() {
-    let operation = MockOperation.mock()
-    operation.operationName = "TestOpName"
-    operation.document = .notPersisted(definition: .init(
-    """
-    query MockQuery($param: String) {
-      testField(param: $param) {
-        __typename
-        name
+    class GivenMockOperation: MockOperation<MockSelectionSet> {
+      override class var operationName: String { "TestOpName" }
+      override class var document: DocumentType {
+        .notPersisted(definition: .init(
+        """
+        query MockQuery($param: String) {
+          testField(param: $param) {
+            __typename
+            name
+          }
+        }
+        """))
       }
     }
-    """))
+
+    let operation = GivenMockOperation()
     operation.variables = ["param": GraphQLNullable<String>.null]
 
     let body = requestBodyCreator.requestBody(for: operation,
@@ -235,14 +255,12 @@ class GETTransformerTests: XCTestCase {
   }
 
   func test__createGetURL__urlHasExistingParameters_encodesURLIncludingExistingParameters_atStartOfQueryParameters() throws {
-    let operation = MockOperation.mock()
-
     let extensions: JSONEncodableDictionary = [
       "testParam": "Test&Test"
     ]
 
     let body: JSONEncodableDictionary = [
-      "query": operation.definition?.queryDocument,
+      "query": MockOperation<MockSelectionSet>.definition?.queryDocument,
       "extensions": extensions
     ]
 

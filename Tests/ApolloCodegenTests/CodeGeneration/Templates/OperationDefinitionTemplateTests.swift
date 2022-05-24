@@ -71,7 +71,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
     let expected =
     """
     public class TestOperationQuery: GraphQLQuery {
-      public let operationName: String = "TestOperation"
+      public static let operationName: String = "TestOperation"
     """
 
     // when
@@ -96,7 +96,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
     let expected =
     """
     public class TestOperationQuery: GraphQLQuery {
-      public let operationName: String = "TestOperationQuery"
+      public static let operationName: String = "TestOperationQuery"
     """
 
     // when
@@ -135,7 +135,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
     let expected =
     """
     public class TestOperationQueryMutation: GraphQLMutation {
-      public let operationName: String = "TestOperationQuery"
+      public static let operationName: String = "TestOperationQuery"
     """
 
     // when
@@ -174,7 +174,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
     let expected =
     """
     public class TestOperationMutation: GraphQLMutation {
-      public let operationName: String = "TestOperation"
+      public static let operationName: String = "TestOperation"
     """
 
     // when
@@ -213,7 +213,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
     let expected =
     """
     public class TestOperationSubscription: GraphQLSubscription {
-      public let operationName: String = "TestOperation"
+      public static let operationName: String = "TestOperation"
     """
 
     // when
@@ -387,8 +387,8 @@ class OperationDefinitionTemplateTests: XCTestCase {
     let expected =
     """
     public class LowercaseOperationQuery: GraphQLQuery {
-      public let operationName: String = "lowercaseOperation"
-      public let document: DocumentType = .notPersisted(
+      public static let operationName: String = "lowercaseOperation"
+      public static let document: DocumentType = .notPersisted(
         definition: .init(
           \"\"\"
           query lowercaseOperation($variable: String = "TestVar") {

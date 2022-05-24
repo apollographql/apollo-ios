@@ -6,8 +6,8 @@ import ApolloAPI
 @_exported import enum ApolloAPI.GraphQLNullable
 
 public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
-  public let operationName: String = "AllAnimalsIncludeSkipQuery"
-  public let document: DocumentType = .notPersisted(
+  public static let operationName: String = "AllAnimalsIncludeSkipQuery"
+  public static let document: DocumentType = .notPersisted(
     definition: .init(
       """
       query AllAnimalsIncludeSkipQuery($includeSpecies: Boolean!, $skipHeightInMeters: Boolean!, $getCat: Boolean!, $getWarmBlooded: Boolean!, $varA: Boolean!) {

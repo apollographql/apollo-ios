@@ -6,8 +6,8 @@ import ApolloAPI
 @_exported import enum ApolloAPI.GraphQLNullable
 
 public class StarshipCoordinatesQuery: GraphQLQuery {
-  public let operationName: String = "StarshipCoordinates"
-  public let document: DocumentType = .notPersisted(
+  public static let operationName: String = "StarshipCoordinates"
+  public static let document: DocumentType = .notPersisted(
     definition: .init(
       """
       query StarshipCoordinates($coordinates: [[Float!]!]) {

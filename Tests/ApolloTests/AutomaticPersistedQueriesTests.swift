@@ -33,6 +33,12 @@ class AutomaticPersistedQueriesTests: XCTestCase {
   }
 
   fileprivate class MockHeroNameQuery: MockQuery<HeroNameSelectionSet> {
+    override class var document: DocumentType {
+      .automaticallyPersisted(
+        operationIdentifier: "f6e76545cd03aa21368d9969cb39447f6e836a16717823281803778e7805d671",
+        definition: .init("MockHeroNameQuery - Operation Definition"))
+    }
+
     var episode: GraphQLNullable<MockEnum> {
       didSet {
         self.variables = ["episode": episode]
@@ -43,25 +49,21 @@ class AutomaticPersistedQueriesTests: XCTestCase {
       self.episode = episode
       super.init()
       self.variables = ["episode": episode]
-      self.document = .automaticallyPersisted(
-        operationIdentifier: "f6e76545cd03aa21368d9969cb39447f6e836a16717823281803778e7805d671",
-        definition: .init("MockHeroNameQuery - Operation Definition"))
     }
   }
 
   fileprivate class APQMockMutation: MockMutation<MockSelectionSet> {
-    override init() {
-      super.init()
-      self.document = .automaticallyPersisted(
-        operationIdentifier: "4a1250de93ebcb5cad5870acf15001112bf27bb963e8709555b5ff67a1405374",
-        definition: .init("APQMockMutation - Operation Definition"))
+    override class var document: DocumentType {
+      .automaticallyPersisted(
+      operationIdentifier: "4a1250de93ebcb5cad5870acf15001112bf27bb963e8709555b5ff67a1405374",
+      definition: .init("APQMockMutation - Operation Definition"))
     }
   }
 
   // MARK: - Helper Methods
   
-  private func validatePostBody<T: MockSelectionSet>(with request: URLRequest,
-                                operation: MockOperation<T>,
+  private func validatePostBody<O: GraphQLOperation>(with request: URLRequest,
+                                operation: O,
                                 queryDocument: Bool = false,
                                 persistedQuery: Bool = false,
                                 file: StaticString = #filePath,
@@ -79,7 +81,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     let queryString = jsonBody["query"] as? String
     if queryDocument {
       XCTAssertEqual(queryString,
-                     operation.definition?.queryDocument,
+                     O.definition?.queryDocument,
                      file: file,
                      line: line)
     }
@@ -123,7 +125,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
                      file: file,
                      line: line)
       XCTAssertEqual(sha256Hash,
-                     operation.operationIdentifier,
+                     O.operationIdentifier,
                      file: file,
                      line: line)
     } else {
@@ -148,7 +150,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     let queryString = url.queryItemDictionary?["query"]
     if queryDocument {
       XCTAssertEqual(queryString,
-                     query.definition?.queryDocument,
+                     MockHeroNameQuery.definition?.queryDocument,
                      file: file,
                      line: line)
     } else {
@@ -208,7 +210,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
       XCTAssertEqual(version, 1,
                      file: file,
                      line: line)
-      XCTAssertEqual(sha256Hash, query.operationIdentifier,
+      XCTAssertEqual(sha256Hash, MockHeroNameQuery.operationIdentifier,
                      file: file,
                      line: line)
     } else {

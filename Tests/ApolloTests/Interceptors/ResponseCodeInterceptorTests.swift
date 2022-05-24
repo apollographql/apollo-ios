@@ -30,7 +30,7 @@ class ResponseCodeInterceptorTests: XCTestCase {
 
     let expectation = self.expectation(description: "Request sent")
 
-    _ = network.send(operation: MockOperation.mock()) { result in
+    _ = network.send(operation: MockQuery.mock()) { result in
       defer {
         expectation.fulfill()
       }
@@ -86,7 +86,7 @@ class ResponseCodeInterceptorTests: XCTestCase {
 
     let expectation = self.expectation(description: "Request sent")
 
-    _ = network.send(operation: MockOperation.mock()) { result in
+    _ = network.send(operation: MockQuery.mock()) { result in
       defer {
         expectation.fulfill()
       }

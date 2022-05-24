@@ -6,8 +6,8 @@ import ApolloAPI
 @_exported import enum ApolloAPI.GraphQLNullable
 
 public class UploadMultipleFilesToDifferentParametersMutation: GraphQLMutation {
-  public let operationName: String = "UploadMultipleFilesToDifferentParameters"
-  public let document: DocumentType = .notPersisted(
+  public static let operationName: String = "UploadMultipleFilesToDifferentParameters"
+  public static let document: DocumentType = .notPersisted(
     definition: .init(
       """
       mutation UploadMultipleFilesToDifferentParameters($singleFile: Upload!, $multipleFiles: [Upload!]!) {

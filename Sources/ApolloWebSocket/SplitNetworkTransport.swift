@@ -49,7 +49,7 @@ extension SplitNetworkTransport: NetworkTransport {
                                                 contextIdentifier: UUID? = nil,
                                                 callbackQueue: DispatchQueue = .main,
                                                 completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) -> Cancellable {
-    if operation.operationType == .subscription {
+    if Operation.operationType == .subscription {
       return webSocketNetworkTransport.send(operation: operation,
                                             cachePolicy: cachePolicy,
                                             contextIdentifier: contextIdentifier,

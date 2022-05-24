@@ -37,7 +37,7 @@ struct OperationDefinitionTemplate: TemplateRenderer {
   private func OperationDeclaration(_ operation: CompilationResult.OperationDefinition) -> TemplateString {
     return """
     public class \(operation.nameWithSuffix.firstUppercased): \(operation.operationType.renderedProtocolName) {
-      public let operationName: String = "\(operation.name)"
+      public static let operationName: String = "\(operation.name)"
     """
   }
 
@@ -51,7 +51,7 @@ struct OperationDefinitionTemplate: TemplateRenderer {
       let includeDefinition = apq != .persistedOperationsOnly
 
       return TemplateString("""
-      public let document: DocumentType = .\(apq.rendered)(
+      public static let document: DocumentType = .\(apq.rendered)(
       \(if: apq != .disabled, """
         operationIdentifier: \"\(operation.operationIdentifier)\"\(if: includeDefinition, ",")
       """)

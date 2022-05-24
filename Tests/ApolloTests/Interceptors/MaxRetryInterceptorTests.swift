@@ -23,7 +23,7 @@ class MaxRetryInterceptorTests: XCTestCase {
     
     let expectation = self.expectation(description: "Request sent")
     
-    let operation = MockOperation.mock()
+    let operation = MockQuery.mock()
     _ = network.send(operation: operation) { result in
       defer {
         expectation.fulfill()
@@ -38,7 +38,7 @@ class MaxRetryInterceptorTests: XCTestCase {
           XCTAssertEqual(count, testProvider.retryCount)
           // There should be one more hit than retries since it will be hit on the original call
           XCTAssertEqual(testProvider.testInterceptor.hitCount, testProvider.retryCount + 1)
-          XCTAssertEqual(operationName, operation.operationName)
+          XCTAssertEqual(operationName, MockQuery<MockSelectionSet>.operationName)
         default:
           XCTFail("Unexpected error type: \(error)")
         }
@@ -79,7 +79,7 @@ class MaxRetryInterceptorTests: XCTestCase {
     
     let expectation = self.expectation(description: "Request sent")
     
-    let operation = MockOperation.mock()
+    let operation = MockQuery.mock()
     _ = network.send(operation: operation) { result in
       defer {
         expectation.fulfill()

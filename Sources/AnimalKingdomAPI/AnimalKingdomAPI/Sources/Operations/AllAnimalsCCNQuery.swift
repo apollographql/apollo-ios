@@ -6,8 +6,8 @@ import ApolloAPI
 @_exported import enum ApolloAPI.GraphQLNullable
 
 public class AllAnimalsCCNQuery: GraphQLQuery {
-  public let operationName: String = "AllAnimalsCCN"
-  public let document: DocumentType = .notPersisted(
+  public static let operationName: String = "AllAnimalsCCN"
+  public static let document: DocumentType = .notPersisted(
     definition: .init(
       """
       query AllAnimalsCCN {

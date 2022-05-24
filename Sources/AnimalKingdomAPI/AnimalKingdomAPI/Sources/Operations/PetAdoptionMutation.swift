@@ -6,8 +6,8 @@ import ApolloAPI
 @_exported import enum ApolloAPI.GraphQLNullable
 
 public class PetAdoptionMutation: GraphQLMutation {
-  public let operationName: String = "PetAdoptionMutation"
-  public let document: DocumentType = .notPersisted(
+  public static let operationName: String = "PetAdoptionMutation"
+  public static let document: DocumentType = .notPersisted(
     definition: .init(
       """
       mutation PetAdoptionMutation($input: PetAdoptionInput!) {

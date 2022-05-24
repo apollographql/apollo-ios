@@ -6,8 +6,8 @@ import ApolloAPI
 @_exported import enum ApolloAPI.GraphQLNullable
 
 public class UploadMultipleFilesToTheSameParameterMutation: GraphQLMutation {
-  public let operationName: String = "UploadMultipleFilesToTheSameParameter"
-  public let document: DocumentType = .notPersisted(
+  public static let operationName: String = "UploadMultipleFilesToTheSameParameter"
+  public static let document: DocumentType = .notPersisted(
     definition: .init(
       """
       mutation UploadMultipleFilesToTheSameParameter($files: [Upload!]!) {

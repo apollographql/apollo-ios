@@ -6,8 +6,8 @@ import ApolloAPI
 @_exported import enum ApolloAPI.GraphQLNullable
 
 public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
-  public let operationName: String = "HeroAndFriendsNamesWithFragmentTwice"
-  public let document: DocumentType = .notPersisted(
+  public static let operationName: String = "HeroAndFriendsNamesWithFragmentTwice"
+  public static let document: DocumentType = .notPersisted(
     definition: .init(
       """
       query HeroAndFriendsNamesWithFragmentTwice($episode: Episode) {

@@ -6,8 +6,8 @@ import ApolloAPI
 @_exported import enum ApolloAPI.GraphQLNullable
 
 public class UploadOneFileMutation: GraphQLMutation {
-  public let operationName: String = "UploadOneFile"
-  public let document: DocumentType = .notPersisted(
+  public static let operationName: String = "UploadOneFile"
+  public static let document: DocumentType = .notPersisted(
     definition: .init(
       """
       mutation UploadOneFile($file: Upload!) {

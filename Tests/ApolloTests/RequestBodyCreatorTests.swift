@@ -27,10 +27,13 @@ class RequestBodyCreatorTests: XCTestCase {
   
   func testRequestBodyWithApolloRequestBodyCreator() {
     // given
-    let operation = MockOperation.mock()
-    operation.operationName = "Test Operation Name"
+    class GivenMockOperation: MockOperation<MockSelectionSet> {
+      override class var operationName: String { "Test Operation Name" }
+      override class var document: DocumentType { .notPersisted(definition: .init("Test Query Document")) }
+    }
+
+    let operation = GivenMockOperation()
     operation.variables = ["TestVar": 123]
-    operation.document = .notPersisted(definition: .init("Test Query Document"))
 
     let creator = ApolloRequestBodyCreator()
 
@@ -49,7 +52,7 @@ class RequestBodyCreatorTests: XCTestCase {
     let expected = creator.stubbedRequestBody
 
     // when
-    let actual = self.create(with: creator, for: MockOperation.mock())
+    let actual = self.create(with: creator, for: MockQuery.mock())
 
     // then
     expect(actual).to(equalJSONValue(expected))

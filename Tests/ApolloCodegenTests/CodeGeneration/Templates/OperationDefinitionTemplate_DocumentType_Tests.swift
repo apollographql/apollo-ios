@@ -46,7 +46,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     // then
     let expected =
     """
-    public let document: DocumentType = .notPersisted(
+    public static let document: DocumentType = .notPersisted(
       definition: .init(
         ""\"
         query NameQuery {
@@ -79,7 +79,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     // then
     let expected =
     """
-    public let document: DocumentType = .notPersisted(
+    public static let document: DocumentType = .notPersisted(
       definition: .init(
         ""\"
         query NameQuery {
@@ -121,7 +121,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     // then
     let expected =
     """
-    public let document: DocumentType = .notPersisted(
+    public static let document: DocumentType = .notPersisted(
       definition: .init(
         ""\"
         query NameQuery {
@@ -156,7 +156,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     // then
     let expected =
     """
-    public let document: DocumentType = .automaticallyPersisted(
+    public static let document: DocumentType = .automaticallyPersisted(
       operationIdentifier: "1ec89997a185c50bacc5f62ad41f27f3070f4a950d72e4a1510a4c64160812d5",
       definition: .init(
         ""\"
@@ -187,7 +187,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     // then
     let expected =
     """
-    public let document: DocumentType = .persistedOperationsOnly(
+    public static let document: DocumentType = .persistedOperationsOnly(
       operationIdentifier: "1ec89997a185c50bacc5f62ad41f27f3070f4a950d72e4a1510a4c64160812d5"
     )
     """

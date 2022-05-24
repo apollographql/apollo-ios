@@ -6,8 +6,8 @@ import ApolloAPI
 @_exported import enum ApolloAPI.GraphQLNullable
 
 public class CreateReviewWithNullFieldMutation: GraphQLMutation {
-  public let operationName: String = "CreateReviewWithNullField"
-  public let document: DocumentType = .notPersisted(
+  public static let operationName: String = "CreateReviewWithNullField"
+  public static let document: DocumentType = .notPersisted(
     definition: .init(
       """
       mutation CreateReviewWithNullField {
