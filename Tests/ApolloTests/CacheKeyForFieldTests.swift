@@ -63,13 +63,15 @@ class CacheKeyForFieldTests: XCTestCase {
   }
   
   func testFieldWithDictionaryArgument() throws {
-    let field = Selection.Field("hero", type: .scalar(String.self), arguments: ["nested": ["foo": 1, "bar": 2]])
+    let field = Selection.Field("hero",
+                                type: .scalar(String.self),
+                                arguments: ["nested": ["foo": 1, "bar": "2"]])
     XCTAssertEqual(field.test_cacheKey, "hero([nested:bar:2,foo:1])")
   }
   
   func testFieldWithDictionaryArgumentWithVariables() throws {
     let field = Selection.Field("hero", type: .scalar(String.self), arguments: ["nested": ["foo": InputValue.variable("a"), "bar": InputValue.variable("b")]])
-    let variables = ["a": 1, "b": 2]
+    let variables: GraphQLOperation.Variables = ["a": 1, "b": "2"]
     XCTAssertEqual(try field.cacheKey(with: variables), "hero([nested:bar:2,foo:1])")
   }
   

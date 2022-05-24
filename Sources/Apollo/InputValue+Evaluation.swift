@@ -22,10 +22,12 @@ extension Selection.Field {
         return "[\($0.key):\(orderIndependentKey(for: object))]"
       case let array as [JSONObject]:
         return "\($0.key):[\(array.map { orderIndependentKey(for: $0) }.joined(separator: ","))]"
+      case let array as [JSONValue]:
+        return "\($0.key):[\(array.map { String(describing: $0.base) }.joined(separator: ", "))]"
       case is NSNull:
         return "\($0.key):null"
       default:
-        return "\($0.key):\($0.value)"
+        return "\($0.key):\($0.value.base)"
       }
     }.joined(separator: ",")
   }
@@ -41,7 +43,7 @@ extension InputValue {
       return value.jsonEncodableValue?.jsonValue
 
     case let .scalar(value):
-      return value
+      return value.jsonValue
 
     case let .list(array):
       return try InputValue.evaluate(array, with: variables)

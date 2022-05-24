@@ -5,7 +5,7 @@ public typealias CacheKey = String
 public struct Record {
   public let key: CacheKey
 
-  public typealias Value = Any
+  public typealias Value = AnyHashable
   public typealias Fields = [CacheKey: Value]
   public private(set) var fields: Fields
 

@@ -409,7 +409,7 @@ class FetchQueryTests: XCTestCase, CacheDependentTesting {
     queue.setSpecific(key: key, value: ())
     
     let query = MockQuery.mock()
-    
+
     let serverRequestExpectation = server.expect(MockQuery<MockSelectionSet>.self) { request in
       ["data": [:]]
     }

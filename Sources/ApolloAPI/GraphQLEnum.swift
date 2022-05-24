@@ -12,7 +12,7 @@ where RawValue == String {}
 /// `GraphQLEnum` provides an `__unknown` case that is used when the response returns a value that
 /// is not recognized as a valid enum case. This is usually caused by future cases added to the enum
 /// on the schema after code generation.
-public enum GraphQLEnum<T: EnumType>: CaseIterable, Equatable, RawRepresentable {
+public enum GraphQLEnum<T: EnumType>: CaseIterable, Hashable, RawRepresentable {
   public typealias RawValue = String
 
   /// A recognized case of the wrapped enum.
@@ -69,7 +69,7 @@ extension GraphQLEnum: CustomScalarType {
     self.init(rawValue: stringData)
   }
 
-  @inlinable public var jsonValue: Any { rawValue }
+  @inlinable public var jsonValue: AnyHashable { rawValue }
 }
 
 // MARK: Equatable
