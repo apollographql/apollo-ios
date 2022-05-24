@@ -61,7 +61,7 @@ public struct OperationDefinition {
   }
 }
 
-public protocol GraphQLOperation: AnyObject {
+public protocol GraphQLOperation: AnyObject, Hashable {
   typealias Variables = [String: GraphQLOperationVariableValue]
 
   static var operationName: String { get }
@@ -94,6 +94,14 @@ public extension GraphQLOperation {
       return identifier
     default: return nil
     }
+  }
+
+  static func ==(lhs: Self, rhs: Self) -> Bool {
+    lhs.variables?.jsonEncodableValue?.jsonValue == rhs.variables?.jsonEncodableValue?.jsonValue
+  }
+
+  func hash(into hasher: inout Hasher) {
+    hasher.combine(variables?.jsonEncodableValue?.jsonValue)
   }
 }
 
