@@ -49,7 +49,7 @@ public protocol RootSelectionSet: AnySelectionSet, OutputTypeConvertible { }
 public protocol InlineFragment: AnySelectionSet { }
 
 // MARK: - SelectionSet
-public protocol SelectionSet: AnySelectionSet {
+public protocol SelectionSet: AnySelectionSet, Hashable {
   associatedtype Schema: SchemaConfiguration
 
   /// A type representing all of the fragments the `SelectionSet` can be converted to.
@@ -99,6 +99,14 @@ extension SelectionSet {
     if condition: Selection.Condition
   ) -> T? where T.Schema == Schema {
     _asInlineFragment(if: Selection.Conditions(condition))
+  }
+
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(data)
+  }
+
+  static func ==(lhs: Self, rhs: Self) -> Bool {
+    return lhs.data == rhs.data
   }
 }
 

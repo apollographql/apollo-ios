@@ -99,17 +99,17 @@ public extension GraphQLOperation {
 
 public protocol GraphQLQuery: GraphQLOperation {}
 public extension GraphQLQuery {
-  var operationType: GraphQLOperationType { return .query }
+  @inlinable var operationType: GraphQLOperationType { return .query }
 }
 
 public protocol GraphQLMutation: GraphQLOperation {}
 public extension GraphQLMutation {
-  var operationType: GraphQLOperationType { return .mutation }
+  @inlinable var operationType: GraphQLOperationType { return .mutation }
 }
 
 public protocol GraphQLSubscription: GraphQLOperation {}
 public extension GraphQLSubscription {
-  var operationType: GraphQLOperationType { return .subscription }
+  @inlinable var operationType: GraphQLOperationType { return .subscription }
 }
 
 // MARK: - GraphQLOperationVariableValue
@@ -121,14 +121,14 @@ public protocol GraphQLOperationVariableValue {
 extension Array: GraphQLOperationVariableValue where Element: GraphQLOperationVariableValue {}
 
 extension Dictionary: GraphQLOperationVariableValue where Key == String, Value == GraphQLOperationVariableValue {
-  public var jsonEncodableValue: JSONEncodable? { jsonEncodableObject }
-  public var jsonEncodableObject: JSONEncodableDictionary {
+  @inlinable public var jsonEncodableValue: JSONEncodable? { jsonEncodableObject }
+  @inlinable public var jsonEncodableObject: JSONEncodableDictionary {
     compactMapValues { $0.jsonEncodableValue }
   }
 }
 
 extension GraphQLNullable: GraphQLOperationVariableValue where Wrapped: GraphQLOperationVariableValue {
-  public var jsonEncodableValue: JSONEncodable? {
+  @inlinable public var jsonEncodableValue: JSONEncodable? {
     switch self {
     case .none: return nil
     case .null: return NSNull()
@@ -138,7 +138,7 @@ extension GraphQLNullable: GraphQLOperationVariableValue where Wrapped: GraphQLO
 }
 
 extension Optional: GraphQLOperationVariableValue where Wrapped: GraphQLOperationVariableValue {
-  public var jsonEncodableValue: JSONEncodable? {
+  @inlinable public var jsonEncodableValue: JSONEncodable? {
     switch self {
     case .none: return nil    
     case let .some(value): return value.jsonEncodableValue
@@ -147,5 +147,5 @@ extension Optional: GraphQLOperationVariableValue where Wrapped: GraphQLOperatio
 }
 
 extension JSONEncodable where Self: GraphQLOperationVariableValue {
-  public var jsonEncodableValue: JSONEncodable? { self }
+  @inlinable public var jsonEncodableValue: JSONEncodable? { self }
 }
