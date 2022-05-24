@@ -43,6 +43,6 @@ public struct DataDict: Hashable {
 
   public static func == (lhs: DataDict, rhs: DataDict) -> Bool {
     lhs._data == rhs._data &&
-    lhs._variables?.jsonEncodableValue.jsonValue == rhs._variables?.jsonEncodableValue.jsonValue
+    lhs._variables?.jsonEncodableValue?.jsonValue == rhs._variables?.jsonEncodableValue?.jsonValue
   }
 }
