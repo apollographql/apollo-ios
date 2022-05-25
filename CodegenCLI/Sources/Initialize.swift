@@ -4,6 +4,11 @@ import Foundation
 
 struct Initialize: ParsableCommand {
 
+  /// Destination for the new configuration
+  enum OutputMode: String, ExpressibleByArgument, EnumerableFlag {
+    case file, print
+  }
+
   // MARK: - Configuration
 
   static var configuration = CommandConfiguration(
@@ -13,52 +18,70 @@ struct Initialize: ParsableCommand {
 
   @Option(
     name: .long,
+    help: "Destination for the new configuration."
+  )
+  var output: OutputMode = .file
+
+  @Option(
+    name: .shortAndLong,
     help: "Write the configuration to a file at the path."
   )
-  var path: String?
+  var path: String = Constants.defaultFilePath
 
   @Flag(
     name: .long,
-    help: "Print the configuration in JSON format to standard output."
+    help: "Overwrite any file at --path."
   )
-  var print = false
+  var overwrite = false
 
   // MARK: - Implementation
   
-  func validate() throws {
-    if path == nil && print == false {
-      throw ValidationError("You must specify at least one valid option.")
-    }
+  func run() throws {
+    try _run()
   }
 
-  func run() throws {
+  func _run(fileManager: FileManager = FileManager.default) throws {
     let encoded = try ApolloCodegenConfiguration
       .default
       .encoded()
 
-    if let path = path {
-      try write(data: encoded, toPath: path)
-    }
+    switch self.output {
+    case .file:
+      try write(
+        data: encoded,
+        toPath: self.path,
+        overwrite: self.overwrite,
+        fileManager: fileManager
+      )
 
-    if print {
+    case .print:
       try print(data: encoded)
     }
   }
 
-  func write(data: Data, toPath path: String) throws {
-    try FileManager.default.apollo.createFile(
+  private func write(
+    data: Data,
+    toPath path: String,
+    overwrite: Bool,
+    fileManager: FileManager
+  ) throws {
+    if !overwrite && fileManager.apollo.doesFileExist(atPath: path) {
+      throw Error(
+        errorDescription: "File already exists at \(path). Hint: use --overwrite to overwrite any existing file at the path."
+      )
+    }
+
+    try fileManager.apollo.createFile(
       atPath: path,
       data: data
     )
+
+    Swift.print("New configuration output to \(path)")
   }
 
-  func print(data: Data) throws {
-    struct FormatError: LocalizedError {
-      var errorDescription: String?
-    }
-
+  private func print(data: Data) throws {
     guard let json = String(data: data, encoding: .utf8) else {
-      throw FormatError(
+      throw Error(
         errorDescription: "Could not print the configuration, the JSON was not valid UTF-8."
       )
     }

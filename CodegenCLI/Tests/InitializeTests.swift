@@ -5,23 +5,70 @@ import Nimble
 
 class InitializeTests: XCTestCase {
 
+  var mockFileManager: MockFileManager!
+
+  override func setUp() {
+    super.setUp()
+
+    mockFileManager = MockFileManager(strict: true)
+  }
+
+  override func tearDown() {
+    mockFileManager = nil
+
+    super.tearDown()
+  }
+
   // MARK: - Test Helpers
 
   func parse(options: [String]?) throws -> Initialize {
     try CodegenCLI.parseAsRoot(options) as! Initialize
   }
 
-  func buildProcess(arguments: [String]?) -> Process {
-    let process = Process()
-    process.executableURL = TestSupport.productsDirectory.appendingPathComponent("apollo-ios-codegen")
-    process.arguments = arguments
-
-    return process
-  }
-
   // MARK: - Parsing Tests
 
-  func test__parsing__givenPathLongFormat_shouldParse() throws {
+  func test__parsing__givenParameters_none_shouldUseDefaults() throws {
+    // given
+    let options = ["init"]
+
+    // when
+    let command = try parse(options: options)
+
+    // then
+    expect(command.output).to(equal(.file))
+    expect(command.path).to(equal(Constants.defaultFilePath))
+    expect(command.overwrite).to(beFalse())
+  }
+
+  func test__parsing__givenParameters_outputFile_shouldParse() throws {
+    // given
+    let options = [
+      "init",
+      "--output=file"
+    ]
+
+    // when
+    let command = try parse(options: options)
+
+    // then
+    expect(command.output).to(equal(.file))
+  }
+
+  func test__parsing__givenParameters_outputPrint_shouldParse() throws {
+    // given
+    let options = [
+      "init",
+      "--output=print"
+    ]
+
+    // when
+    let command = try parse(options: options)
+
+    // then
+    expect(command.output).to(equal(.print))
+  }
+
+  func test__parsing__givenParameters_pathLongFormat_shouldParse() throws {
     // given
     let path = "./configuration.json"
 
@@ -35,47 +82,48 @@ class InitializeTests: XCTestCase {
 
     // then
     expect(command.path).to(equal(path))
-    expect(command.print).to(beFalse())
   }
 
-  func test__parsing__givenPrintLongFormat_shouldParse() throws {
+  func test__parsing__givenParameters_pathShortFormat_shouldParse() throws {
     // given
+    let path = "./configuration.json"
+
     let options = [
       "init",
-      "--print"
+      "-p=\(path)"
     ]
 
     // when
     let command = try parse(options: options)
 
     // then
-    expect(command.path).to(beNil())
-    expect(command.print).to(beTrue())
+    expect(command.path).to(equal(path))
   }
 
-  func test__parsing__givenShortFormat_shouldThrow() throws {
+  func test__parsing__givenParameters_overwrite_shouldParse() throws {
     // given
     let options = [
       "init",
-      "-p"
+      "--overwrite"
+    ]
+
+    // when
+    let command = try parse(options: options)
+
+    // then
+    expect(command.overwrite).to(beTrue())
+  }
+
+  func test__parsing__givenParameters_unknown_shouldThrow() throws {
+    // given
+    let options = [
+      "init",
+      "--unknown"
     ]
 
     // then
     expect(try self.parse(options: options))
-      .to(throwUserValidationError(
-        ValidationError("You must specify at least one valid option.")
-      ))
-  }
-  
-  func test__parsing__givenNoOptions_shouldThrow() throws {
-    // given
-    let options = ["init"]
-
-    // then
-    expect(try self.parse(options: options))
-      .to(throwUserValidationError(
-        ValidationError("You must specify at least one valid option.")
-      ))
+      .to(throwUnknownOptionError())
   }
 
   // MARK: - Output Tests
@@ -124,31 +172,135 @@ class InitializeTests: XCTestCase {
   }
   """
 
-  func test__output__givenPath_shouldWriteToFile() throws {
+  func test__output__givenParameters_outputFile_pathCustom_whenNoExistingFile_shouldWriteToPath() throws {
     // given
-    let path = TestSupport.productsDirectory.appendingPathComponent("test-configuration.json").path
+    let outputPath = "./path/to/output.file"
 
-    let subject = buildProcess(arguments: [
+    let options = [
       "init",
-      "--path=\(path)"
-    ])
+      "--output=file",
+      "--path=\(outputPath)"
+    ]
+
+    let subject = try parse(options: options)
 
     // when
-    try subject.run()
-    subject.waitUntilExit()
+    mockFileManager.mock(closure: .fileExists({ path, isDirectory in
+      return false
+    }))
 
-    let output = try String(contentsOfFile: path)
+    mockFileManager.mock(closure: .createDirectory({ path, intermediateDirectories, fileAttributes in
+      // no-op
+    }))
+
+    mockFileManager.mock(closure: .createFile({ path, data, fileAttributes in
+      let actualPath = URL(fileURLWithPath: path)
+        .standardizedFileURL
+        .path
+
+      let expectedPath = TestSupport.productsDirectory
+        .appendingPathComponent(outputPath)
+        .standardizedFileURL
+        .path
+
+      expect(actualPath).to(equal(expectedPath))
+
+      expect(data).to(equal(self.expectedJSON.data(using: .utf8)!))
+
+      return true
+    }))
+
+    try subject._run(fileManager: mockFileManager)
 
     // then
-    expect(output).to(equal(expectedJSON))
+    expect(self.mockFileManager.allClosuresCalled).toEventually(beTrue())
   }
 
-  func test__output__givenPrint_shouldPrintToStandardOutput() throws {
+  func test__output__givenParameters_outputFile_pathCustom_whenFileExists_shouldThrow() throws {
     // given
-    let subject = buildProcess(arguments: [
+    let outputPath = "./path/to/output.file"
+
+    let options = [
       "init",
-      "--print"
-    ])
+      "--output=file",
+      "--path=\(outputPath)"
+    ]
+
+    let subject = try parse(options: options)
+
+    // when
+    mockFileManager.mock(closure: .fileExists({ path, isDirectory in
+      return true
+    }))
+
+    mockFileManager.mock(closure: .createDirectory({ path, intermediateDirectories, fileAttributes in
+      // no-op
+    }))
+
+    // then
+    expect(
+      try subject._run(fileManager: self.mockFileManager)
+    ).to(throwError() { error in
+      expect(error.localizedDescription.starts(with: "File already exists at \(outputPath)."))
+        .to(beTrue())
+    })
+  }
+
+  func test__output__givenParameters_outputFile_pathCustom_overwriteTrue_whenFileExists_shouldWriteToPath() throws {
+    // given
+    let outputPath = "./path/to/output.file"
+
+    let options = [
+      "init",
+      "--output=file",
+      "--path=\(outputPath)",
+      "--overwrite"
+    ]
+
+    let subject = try parse(options: options)
+
+    // when
+    mockFileManager.mock(closure: .fileExists({ path, isDirectory in
+      return true
+    }))
+
+    mockFileManager.mock(closure: .createDirectory({ path, intermediateDirectories, fileAttributes in
+      // no-op
+    }))
+
+    mockFileManager.mock(closure: .createFile({ path, data, fileAttributes in
+      let actualPath = URL(fileURLWithPath: path)
+        .standardizedFileURL
+        .path
+
+      let expectedPath = TestSupport.productsDirectory
+        .appendingPathComponent(outputPath)
+        .standardizedFileURL
+        .path
+
+      expect(actualPath).to(equal(expectedPath))
+
+      expect(data).to(equal(self.expectedJSON.data(using: .utf8)!))
+
+      return true
+    }))
+
+    try subject._run(fileManager: mockFileManager)
+
+    // then
+    expect(self.mockFileManager.allClosuresCalled).toEventually(beTrue())
+  }
+
+  func test__output__givenParameters_outputPrint_shouldPrintToStandardOutput() throws {
+    // given
+    let executable = TestSupport.productsDirectory.appendingPathComponent("apollo-ios-codegen")
+
+    let subject = Process()
+    subject.executableURL = executable
+    subject.arguments = [
+      "init",
+      "--output=print"
+    ]
 
     let pipe = Pipe()
     subject.standardOutput = pipe
