@@ -148,7 +148,7 @@ class GenerateTests: XCTestCase {
       .to(throwUnknownOptionError())
   }
 
-  // MARK: Generation Tests
+  // MARK: - Generate Tests
 
   func test__generate__givenParameters_inputFile_pathCustom_shouldBuildWithFileData() throws {
     // given
@@ -223,6 +223,8 @@ class GenerateTests: XCTestCase {
     expect(didCallBuild).to(beTrue())
   }
 }
+
+// MARK: - Private Extensions
 
 fileprivate extension ApolloCodegenConfiguration {
   static func mock() -> Self {

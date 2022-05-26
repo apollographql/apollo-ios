@@ -12,7 +12,13 @@ struct Validate: ParsableCommand {
 
   @Option(
     name: .shortAndLong,
-    help: "Path to a configuration file."
+    help: "Configuration source."
+  )
+  var input: InputMode
+
+  @Option(
+    name: .shortAndLong,
+    help: "Read the configuration from a file at the path."
   )
   var path: String?
 
@@ -20,41 +26,49 @@ struct Validate: ParsableCommand {
     name: .shortAndLong,
     help: "Configuration string in JSON format."
   )
-  var json: String?
+  var string: String?
 
   // MARK: - Implementation
 
   func validate() throws {
-    if path == nil && json == nil {
-      throw ValidationError("You must specify at least one valid option.")
+    switch (input, path, string) {
+    case (.file, nil, _):
+      throw ValidationError("Missing input file. Hint: --path cannot be empty and must be a JSON formatted configuration file.")
+    case (.string, _, nil):
+      throw ValidationError("Missing input string. Hint: --string cannot be empty and must be in JSON format.")
+    default:
+      break
     }
   }
   
   func run() throws {
-    if let path = path {
-      try validate(path: path)
-    }
-
-    if let json = json {
-      try validate(json: json)
-    }
+    try _run()
   }
 
-  func validate(path: String) throws {
-    try validate(data: try String(contentsOfFile: path).asData())
+  func _run(fileManager: FileManager = .default) throws {
+    switch self.input {
+    case .file:
+      guard
+        let path = self.path,
+        let data = fileManager.contents(atPath: path)
+      else {
+        throw Error(errorDescription: "Cannot read configuration file.")
+      }
 
-    print("The configuration file is valid.")
-  }
+      try validate(data: data)
 
-  func validate(json: String) throws {
-    try validate(data: try json.asData())
-
-    print("The configuration string is valid.")
+    case .string:
+      if let string = self.string {
+        try validate(data: try string.asData())
+      }
+    }
   }
 
   private func validate(data: Data) throws {
     let configuration = try JSONDecoder().decode(ApolloCodegenConfiguration.self, from: data)
 
     try configuration.validate()
+
+    print("The configuration is valid.")
   }
 }
