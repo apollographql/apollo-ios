@@ -65,6 +65,8 @@ struct Generate: ParsableCommand {
   private func generate(data: Data, codegenProvider: CodegenProvider.Type) throws {
     let configuration = try JSONDecoder().decode(ApolloCodegenConfiguration.self, from: data)
 
+    CodegenLogger.level = .warning
+    
     try codegenProvider.build(with: configuration)
   }
 }

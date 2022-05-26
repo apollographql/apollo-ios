@@ -67,6 +67,8 @@ struct Validate: ParsableCommand {
   private func validate(data: Data) throws {
     let configuration = try JSONDecoder().decode(ApolloCodegenConfiguration.self, from: data)
 
+    CodegenLogger.level = .warning
+
     try configuration.validate()
 
     print("The configuration is valid.")
