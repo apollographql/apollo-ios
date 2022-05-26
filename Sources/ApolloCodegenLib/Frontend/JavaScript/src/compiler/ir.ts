@@ -13,6 +13,7 @@ export interface OperationDefinition {
   variables: VariableDefinition[];
   rootType: GraphQLObjectType;
   selectionSet: SelectionSet;
+  directives?: Directive[];
   source: string;
   filePath?: string;
 }

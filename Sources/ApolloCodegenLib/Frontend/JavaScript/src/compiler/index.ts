@@ -16,12 +16,10 @@ import {
   GraphQLDirective,
   GraphQLError,
   GraphQLField,
-  GraphQLIncludeDirective,
   GraphQLInputObjectType,  
   GraphQLNamedType,
   GraphQLObjectType,
   GraphQLSchema,
-  GraphQLSkipDirective,
   GraphQLType,
   isCompositeType,
   isInputObjectType,
@@ -184,20 +182,22 @@ export function compileToIR(
 
     const source = print(withTypenameFieldAddedWhereNeeded(operationDefinition));
     const rootType = schema.getRootType(operationType) as GraphQLObjectType;
+    const [directives,] = compileDirectives(operationDefinition.directives) ?? [undefined, undefined];
 
     referencedTypes.add(getNamedType(rootType));
 
     return {
-      filePath,
       name,
       operationType,
-      rootType,
       variables,
-      source,
+      rootType,
       selectionSet: compileSelectionSet(
         operationDefinition.selectionSet,
         rootType
       ),
+      directives: directives,
+      source,
+      filePath
     };
   }
 
@@ -413,9 +413,9 @@ export function compileToIR(
     directiveNode: DirectiveNode,
     directiveDef: GraphQLDirective
   ): ir.InclusionCondition | undefined {
-    if (directiveDef == GraphQLIncludeDirective || directiveDef == GraphQLSkipDirective) {      
+    if (directiveDef.name == "include" || directiveDef.name == "skip") {      
       const condition = directiveNode.arguments?.[0].value;
-      const isInverted = directiveDef == GraphQLSkipDirective;
+      const isInverted = directiveDef.name == "skip";
 
       switch (condition?.kind) {
         case Kind.BOOLEAN:

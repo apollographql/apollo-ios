@@ -9,10 +9,12 @@ import {
   validate,
   buildASTSchema,
   printSchema,
+  extendSchema,
 } from "graphql";
 import { defaultValidationRules } from "./validationRules";
 import { compileToIR, CompilationResult } from "./compiler";
 import { assertValidSchema, assertValidSDL } from "./utilities/graphql";
+import { apolloCodegenSchemaExtension } from "./utilities/apolloCodegenSchemaExtension";
 
 // We need to export all the classes we want to map to native objects,
 // so we have access to the constructor functions for type checks.
@@ -47,7 +49,7 @@ export function loadSchemaFromIntrospectionResult(
 
 export function loadSchemaFromSDL(source: Source): GraphQLSchema {
   const document = parse(source);
-
+  
   assertValidSDL(document);
 
   const schema = buildASTSchema(document, { assumeValidSDL: true });
@@ -69,16 +71,30 @@ export function mergeDocuments(documents: DocumentNode[]): DocumentNode {
   return concatAST(documents);
 }
 
+function buildSchemaExtensions(userExtensions?: readonly [DocumentNode]): DocumentNode {
+  let documents = [apolloCodegenSchemaExtension];
+  if (userExtensions) {
+    documents = documents.concat(userExtensions);
+  }
+  return mergeDocuments(documents)
+}
+
+function mergeSchemaExtensions(extensions: DocumentNode, schema: GraphQLSchema): GraphQLSchema {
+  return extendSchema(schema, extensions)
+}
+
 export function validateDocument(
   schema: GraphQLSchema,
   document: DocumentNode
 ): readonly GraphQLError[] {
-  return validate(schema, document, defaultValidationRules);
+  const codegenSchema = mergeSchemaExtensions(buildSchemaExtensions(), schema)
+  return validate(codegenSchema, document, defaultValidationRules);
 }
 
 export function compileDocument(
   schema: GraphQLSchema,
   document: DocumentNode
 ): CompilationResult {
-  return compileToIR(schema, document);
+  const codegenSchema = mergeSchemaExtensions(buildSchemaExtensions(), schema)
+  return compileToIR(codegenSchema, document);
 }

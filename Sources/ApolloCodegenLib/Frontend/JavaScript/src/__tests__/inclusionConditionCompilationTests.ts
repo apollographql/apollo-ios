@@ -42,7 +42,10 @@ describe("given schema", () => {
     }
     `;
 
-    const document: DocumentNode = parseDocument(new Source(documentString, "Test Query", { line: 1, column: 1 }));
+    const document: DocumentNode = parseDocument(
+      new Source(documentString, "Test Query", { line: 1, column: 1 }),
+      false
+    );
 
     it("should compile inline fragment with inclusion condition", () => {
       const compilationResult: CompilationResult = compileDocument(schema, document);

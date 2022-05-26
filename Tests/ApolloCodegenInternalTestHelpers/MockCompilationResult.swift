@@ -163,3 +163,15 @@ public extension CompilationResult.VariableDefinition {
     return mock
   }
 }
+
+public extension CompilationResult.Directive {
+  class func mock(
+    _ name: String,
+    arguments: [CompilationResult.Argument]? = nil
+  ) -> Self {
+    let mock = Self.emptyMockObject()
+    mock.name = name
+    mock.arguments = arguments    
+    return mock
+  }
+}
