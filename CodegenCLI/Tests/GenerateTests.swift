@@ -164,12 +164,8 @@ class GenerateTests: XCTestCase {
     let mockFileManager = MockFileManager(strict: true)
 
     mockFileManager.mock(closure: .contents({ path in
-      let actualPath = URL(fileURLWithPath: path).path
-
-      let expectedPath = TestSupport.productsDirectory
-        .appendingPathComponent(inputPath)
-        .standardizedFileURL
-        .path
+      let actualPath = URL(fileURLWithPath: path).standardizedFileURL.path
+      let expectedPath = URL(fileURLWithPath: inputPath).standardizedFileURL.path
 
       expect(actualPath).to(equal(expectedPath))
 

@@ -222,14 +222,8 @@ class InitializeTests: XCTestCase {
     }))
 
     mockFileManager.mock(closure: .createFile({ path, data, fileAttributes in
-      let actualPath = URL(fileURLWithPath: path)
-        .standardizedFileURL
-        .path
-
-      let expectedPath = TestSupport.productsDirectory
-        .appendingPathComponent(outputPath)
-        .standardizedFileURL
-        .path
+      let actualPath = URL(fileURLWithPath: path).standardizedFileURL.path
+      let expectedPath = URL(fileURLWithPath: outputPath).standardizedFileURL.path
 
       expect(actualPath).to(equal(expectedPath))
       expect(data).to(equal(self.expectedJSON.data(using: .utf8)!))
@@ -296,14 +290,8 @@ class InitializeTests: XCTestCase {
     }))
 
     mockFileManager.mock(closure: .createFile({ path, data, fileAttributes in
-      let actualPath = URL(fileURLWithPath: path)
-        .standardizedFileURL
-        .path
-
-      let expectedPath = TestSupport.productsDirectory
-        .appendingPathComponent(outputPath)
-        .standardizedFileURL
-        .path
+      let actualPath = URL(fileURLWithPath: path).standardizedFileURL.path
+      let expectedPath = URL(fileURLWithPath: outputPath).standardizedFileURL.path
 
       expect(actualPath).to(equal(expectedPath))
       expect(data).to(equal(self.expectedJSON.data(using: .utf8)!))
