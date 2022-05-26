@@ -225,9 +225,9 @@ public class ApolloStore {
       super.init(store: store)
     }
 
-    public func update<Query: GraphQLQuery>(
-      query: Query,
-      _ body: (inout Query.Data) throws -> Void
+    public func update<CacheMutation: LocalCacheMutation>(
+      _ cacheMutation: CacheMutation,
+      _ body: (inout CacheMutation.Data) throws -> Void
     ) throws {
       fatalError("TODO: Write Transactions not yet working!")
 //      var data = try read(query: query)
@@ -235,10 +235,10 @@ public class ApolloStore {
 //      try write(data: data, forQuery: query)
     }
 
-    public func updateObject<SelectionSet: ApolloAPI.SelectionSet>(
+    public func updateObject<SelectionSet: ApolloAPI.MutableSelectionSet>(
       ofType type: SelectionSet.Type,
       withKey key: CacheKey,
-      variables: [String: InputValue]? = nil,
+      variables: GraphQLOperation.Variables? = nil,
       _ body: (inout SelectionSet) throws -> Void
     ) throws {
       fatalError("TODO: Write Transactions not yet working!")
@@ -276,19 +276,26 @@ public class ApolloStore {
       try self.cache.removeRecords(matching: pattern)
     }
 
-//    public func write<Query: GraphQLQuery>(data: Query.Data, forQuery query: Query) throws {
+    public func write<CacheMutation: LocalCacheMutation>(
+      data: CacheMutation.Data,
+      for cacheMutation: CacheMutation
+    ) throws {
+      fatalError("TODO: Write Transactions not yet working!")
 //      try write(object: data,
 //                withKey: rootCacheKey(for: query),
 //                variables: query.variables)
-//    }
-//
-//    public func write(object: GraphQLSelectionSet,
-//                      withKey key: CacheKey,
-//                      variables: GraphQLMap? = nil) throws {
+    }
+
+    public func write<SelectionSet: MutableSelectionSet>(
+      object: SelectionSet,
+      withKey key: CacheKey,
+      variables: GraphQLOperation.Variables? = nil
+    ) throws {
+      fatalError("TODO: Write Transactions not yet working!")
 //      try write(object: object.jsonObject,
 //                forSelections: type(of: object).selections,
 //                withKey: key, variables: variables)
-//    }
+    }
 //
 //    private func write(object: JSONObject,
 //                       forSelections selections: [GraphQLSelection],
