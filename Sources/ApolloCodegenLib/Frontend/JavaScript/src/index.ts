@@ -48,7 +48,7 @@ export function loadSchemaFromIntrospectionResult(
 }
 
 export function loadSchemaFromSDL(source: Source): GraphQLSchema {
-  let document = parse(source);
+  const document = parse(source);
   
   assertValidSDL(document);
 
@@ -95,7 +95,6 @@ export function compileDocument(
   schema: GraphQLSchema,
   document: DocumentNode
 ): CompilationResult {
-  console.log(schema.getDirectives());
   const codegenSchema = mergeSchemaExtensions(buildSchemaExtensions(), schema)
   return compileToIR(codegenSchema, document);
 }
