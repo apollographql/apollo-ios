@@ -53,7 +53,7 @@ class IR {
     let rootField: EntityField
 
     /// All of the fragments that are referenced by this operation's selection set.
-    let referencedFragments: OrderedSet<NamedFragment>
+    let referencedFragments: OrderedSet<NamedFragment>    
 
     init(
       definition: CompilationResult.OperationDefinition,

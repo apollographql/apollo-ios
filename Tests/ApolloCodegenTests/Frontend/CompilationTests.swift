@@ -1,32 +1,63 @@
 import XCTest
+import Nimble
 import ApolloInternalTestHelpers
 import ApolloCodegenInternalTestHelpers
 @testable import ApolloCodegenLib
 
 class CompilationTests: XCTestCase {
 
-  var codegenFrontend: GraphQLJSFrontend!
-  var schema: GraphQLSchema!
+  var schemaSDL: String!
+  var schemaJSON: String!
+  var document: String!
   
   override func setUpWithError() throws {
     try super.setUpWithError()
-    
-    codegenFrontend = try GraphQLJSFrontend()
-    
-    let introspectionResult = try String(contentsOf: XCTUnwrap(starWarsAPIBundle.url(forResource: "schema", withExtension: "json")))
-        
-    schema = try codegenFrontend.loadSchemaFromIntrospectionResult(introspectionResult)
+
   }
 
   override func tearDown() {
-    codegenFrontend = nil
-    schema = nil
+    schemaSDL = nil
+    schemaJSON = nil
+    document = nil
 
     super.tearDown()
   }
+
+  // MARK: - Helpers
+
+  func useStarWarsSchema() throws {
+    schemaJSON = try String(
+      contentsOf: XCTUnwrap(starWarsAPIBundle.url(
+        forResource: "schema",
+        withExtension: "json")))
+  }
+
+  func compileFrontend(enableCCN: Bool = false) throws -> CompilationResult {
+    let frontend = try GraphQLJSFrontend()
+    if let schemaSDL = schemaSDL {
+      return try frontend.compile(
+        schema: schemaSDL,
+        document: document,
+        enableCCN: enableCCN
+      )
+    } else if let schemaJSON = schemaJSON {
+      return try frontend.compile(
+        schemaJSON: schemaJSON,
+        document: document,
+        enableCCN: enableCCN
+      )
+    } else {
+      throw TestError("No Schema!")
+    }
+  }
+
+  // MARK: - Tests
   
   func testCompileSingleQuery() throws {
-    let source = try codegenFrontend.makeSource("""
+    // given
+    try useStarWarsSchema()
+
+    document = """
       query HeroAndFriendsNames($episode: Episode) {
         hero(episode: $episode) {
           name
@@ -35,11 +66,9 @@ class CompilationTests: XCTestCase {
           }
         }
       }
-      """, filePath: "HeroAndFriendsNames.graphql")
-    
-    let document = try codegenFrontend.parseDocument(source)
-    
-    let compilationResult = try codegenFrontend.compile(schema: schema, document: document)
+      """
+
+    let compilationResult = try compileFrontend()
     
     let operation = try XCTUnwrap(compilationResult.operations.first)
     XCTAssertEqual(operation.name, "HeroAndFriendsNames")
@@ -66,7 +95,10 @@ class CompilationTests: XCTestCase {
   }
 
   func testCompileSingleQueryCCN() throws {
-    let source = try codegenFrontend.makeSource("""
+    // given
+    try useStarWarsSchema()
+
+    document = """
       query HeroAndFriendsNames($id: ID) {
         human(id: $id) {
           name
@@ -74,14 +106,9 @@ class CompilationTests: XCTestCase {
           appearsIn[!]?
         }
       }
-      """, filePath: "HeroAndFriendsNames.graphql")
+      """
 
-    let document = try codegenFrontend.parseDocument(
-      source,
-      experimentalClientControlledNullability: true
-    )
-
-    let compilationResult = try codegenFrontend.compile(schema: schema, document: document)
+    let compilationResult = try compileFrontend(enableCCN: true)
 
     let operation = try XCTUnwrap(compilationResult.operations.first)
     XCTAssertEqual(operation.name, "HeroAndFriendsNames")
@@ -109,6 +136,38 @@ class CompilationTests: XCTestCase {
 
     XCTAssertEqualUnordered(compilationResult.referencedTypes.map(\.name),
                             ["ID", "Query", "Human", "Droid", "String", "Float", "Episode", "Character"])
+  }
+
+  func testCompile_givenOperationWithRecognizedDirective_hasDirective() throws {
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+
+    directive @testDirective on QUERY
+    """
+
+    document = """
+    query Test @testDirective {
+      allAnimals {
+        species
+      }
+    }
+    """
+
+    let expectedDirectives: [CompilationResult.Directive] = [
+      .mock("testDirective")
+    ]
+
+    let compilationResult = try compileFrontend(enableCCN: true)
+
+
+    let operation = try XCTUnwrap(compilationResult.operations.first)
+    expect(operation.directives).to(equal(expectedDirectives))
   }
 }
 

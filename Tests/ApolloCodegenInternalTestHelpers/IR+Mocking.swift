@@ -3,15 +3,31 @@ import ApolloUtils
 
 extension IR {
 
-  public static func mock(schema: String, document: String) throws -> IR {
+  public static func mock(
+    schema: String,
+    document: String,
+    enableCCN: Bool = false
+  ) throws -> IR {
     let frontend = try GraphQLJSFrontend()
-    let compilationResult = try frontend.compile(schema: schema, document: document)
+    let compilationResult = try frontend.compile(
+      schema: schema,
+      document: document,
+      enableCCN: enableCCN
+    )
     return .mock(compilationResult: compilationResult)
   }
 
-  public static func mock(schema: String, documents: [String]) throws -> IR {
+  public static func mock(
+    schema: String,
+    documents: [String],
+    enableCCN: Bool = false
+  ) throws -> IR {
     let frontend = try GraphQLJSFrontend()
-    let compilationResult = try frontend.compile(schema: schema, documents: documents)
+    let compilationResult = try frontend.compile(
+      schema: schema,
+      documents: documents,
+      enableCCN: enableCCN
+    )
     return .mock(compilationResult: compilationResult)
   }
 
