@@ -1,7 +1,7 @@
 {
   "extends": "./tsconfig.base",
   "compilerOptions": {
-    "types": [],
+    "types": ["node"],
     "rootDir": "./src",
     "outDir": "./lib"
   },

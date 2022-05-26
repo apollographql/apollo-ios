@@ -16,12 +16,10 @@ import {
   GraphQLDirective,
   GraphQLError,
   GraphQLField,
-  GraphQLIncludeDirective,
   GraphQLInputObjectType,  
   GraphQLNamedType,
   GraphQLObjectType,
   GraphQLSchema,
-  GraphQLSkipDirective,
   GraphQLType,
   isCompositeType,
   isInputObjectType,
@@ -415,9 +413,9 @@ export function compileToIR(
     directiveNode: DirectiveNode,
     directiveDef: GraphQLDirective
   ): ir.InclusionCondition | undefined {
-    if (directiveDef == GraphQLIncludeDirective || directiveDef == GraphQLSkipDirective) {      
+    if (directiveDef.name == "include" || directiveDef.name == "skip") {      
       const condition = directiveNode.arguments?.[0].value;
-      const isInverted = directiveDef == GraphQLSkipDirective;
+      const isInverted = directiveDef.name == "skip";
 
       switch (condition?.kind) {
         case Kind.BOOLEAN:

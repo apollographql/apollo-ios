@@ -95,6 +95,7 @@ export function compileDocument(
   schema: GraphQLSchema,
   document: DocumentNode
 ): CompilationResult {
+  console.log(schema.getDirectives());
   const codegenSchema = mergeSchemaExtensions(buildSchemaExtensions(), schema)
   return compileToIR(codegenSchema, document);
 }
