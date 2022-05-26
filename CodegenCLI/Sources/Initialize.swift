@@ -1,6 +1,6 @@
+import Foundation
 import ArgumentParser
 import ApolloCodegenLib
-import Foundation
 
 struct Initialize: ParsableCommand {
 
@@ -40,7 +40,7 @@ struct Initialize: ParsableCommand {
     try _run()
   }
 
-  func _run(fileManager: FileManager = FileManager.default) throws {
+  func _run(fileManager: FileManager = .default) throws {
     let encoded = try ApolloCodegenConfiguration
       .default
       .encoded()

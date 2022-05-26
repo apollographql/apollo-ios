@@ -21,7 +21,7 @@ class InitializeTests: XCTestCase {
 
   // MARK: - Test Helpers
 
-  func parse(options: [String]?) throws -> Initialize {
+  func parseAsRoot(options: [String]?) throws -> Initialize {
     try CodegenCLI.parseAsRoot(options) as! Initialize
   }
 
@@ -32,7 +32,7 @@ class InitializeTests: XCTestCase {
     let options = ["init"]
 
     // when
-    let command = try parse(options: options)
+    let command = try parseAsRoot(options: options)
 
     // then
     expect(command.output).to(equal(.file))
@@ -48,7 +48,7 @@ class InitializeTests: XCTestCase {
     ]
 
     // when
-    let command = try parse(options: options)
+    let command = try parseAsRoot(options: options)
 
     // then
     expect(command.output).to(equal(.file))
@@ -62,7 +62,7 @@ class InitializeTests: XCTestCase {
     ]
 
     // when
-    let command = try parse(options: options)
+    let command = try parseAsRoot(options: options)
 
     // then
     expect(command.output).to(equal(.print))
@@ -78,7 +78,7 @@ class InitializeTests: XCTestCase {
     ]
 
     // when
-    let command = try parse(options: options)
+    let command = try parseAsRoot(options: options)
 
     // then
     expect(command.path).to(equal(path))
@@ -94,7 +94,7 @@ class InitializeTests: XCTestCase {
     ]
 
     // when
-    let command = try parse(options: options)
+    let command = try parseAsRoot(options: options)
 
     // then
     expect(command.path).to(equal(path))
@@ -108,7 +108,7 @@ class InitializeTests: XCTestCase {
     ]
 
     // when
-    let command = try parse(options: options)
+    let command = try parseAsRoot(options: options)
 
     // then
     expect(command.overwrite).to(beTrue())
@@ -122,7 +122,7 @@ class InitializeTests: XCTestCase {
     ]
 
     // then
-    expect(try self.parse(options: options))
+    expect(try self.parseAsRoot(options: options))
       .to(throwUnknownOptionError())
   }
 
@@ -182,7 +182,7 @@ class InitializeTests: XCTestCase {
       "--path=\(outputPath)"
     ]
 
-    let subject = try parse(options: options)
+    let subject = try parseAsRoot(options: options)
 
     // when
     mockFileManager.mock(closure: .fileExists({ path, isDirectory in
@@ -226,7 +226,7 @@ class InitializeTests: XCTestCase {
       "--path=\(outputPath)"
     ]
 
-    let subject = try parse(options: options)
+    let subject = try parseAsRoot(options: options)
 
     // when
     mockFileManager.mock(closure: .fileExists({ path, isDirectory in
@@ -257,7 +257,7 @@ class InitializeTests: XCTestCase {
       "--overwrite"
     ]
 
-    let subject = try parse(options: options)
+    let subject = try parseAsRoot(options: options)
 
     // when
     mockFileManager.mock(closure: .fileExists({ path, isDirectory in
