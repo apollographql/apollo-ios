@@ -127,7 +127,7 @@ class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     loadFromStore(query: query) { result in
       // then
       XCTAssertThrowsError(try result.get()) { error in
-        if let error = error as? GraphQLResultError {
+        if let error = error as? GraphQLExecutionError {
           XCTAssertEqual(error.path, ["hero", "name"])
           XCTAssertMatch(error.underlying, JSONDecodingError.missingValue)
         } else {
@@ -163,7 +163,7 @@ class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     loadFromStore(query: query) { result in
       // then
       XCTAssertThrowsError(try result.get()) { error in
-        if let error = error as? GraphQLResultError {
+        if let error = error as? GraphQLExecutionError {
           XCTAssertEqual(error.path, ["hero", "name"])
           XCTAssertMatch(error.underlying, JSONDecodingError.nullValue)
         } else {
@@ -379,7 +379,7 @@ class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     loadFromStore(query: query) { result in
       // then
       XCTAssertThrowsError(try result.get()) { error in
-        if let error = error as? GraphQLResultError {
+        if let error = error as? GraphQLExecutionError {
           XCTAssertEqual(error.path, ["hero", "friends"])
           XCTAssertMatch(error.underlying, JSONDecodingError.missingValue)
         } else {
@@ -438,7 +438,7 @@ class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     loadFromStore(query: query) { result in
       XCTAssertThrowsError(try result.get()) { error in
         // then
-        if let error = error as? GraphQLResultError,
+        if let error = error as? GraphQLExecutionError,
            case JSONDecodingError.couldNotConvert(_, let expectedType) = error.underlying {
           XCTAssertEqual(error.path, ["hero", "friends", "0", "name"])
           XCTAssertTrue(expectedType == String.self)

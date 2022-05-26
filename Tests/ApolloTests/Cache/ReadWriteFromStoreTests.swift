@@ -1,235 +1,225 @@
 import XCTest
+import Nimble
 @testable import Apollo
+import ApolloUtils
 import ApolloAPI
 import ApolloInternalTestHelpers
-import StarWarsAPI
 
 #warning("TODO fix these after refactoring cache transactions")
-//class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
-//
-//  var cacheType: TestCacheProvider.Type {
-//    InMemoryTestCacheProvider.self
-//  }
-//
-//  static let defaultWaitTimeout: TimeInterval = 5.0
-//
-//  var cache: NormalizedCache!
-//  var store: ApolloStore!
-//
-//  override func setUpWithError() throws {
-//    try super.setUpWithError()
-//
-//    cache = try makeNormalizedCache()
-//    store = ApolloStore(cache: cache)
-//  }
-//
-//  override func tearDownWithError() throws {
-//    cache = nil
-//    store = nil
-//
-//    try super.tearDownWithError()
-//  }
-//
-//  func testReadHeroNameQuery() throws {
-//    mergeRecordsIntoCache([
-//      "QUERY_ROOT": ["hero": CacheReference("hero")],
-//      "hero": ["__typename": "Droid", "name": "R2-D2"]
-//    ])
-//
-//    let query = HeroNameQuery()
-//
-//    let readCompletedExpectation = expectation(description: "Read completed")
-//
-//    store.withinReadTransaction({ transaction in
-//      let data = try transaction.read(query: query)
-//
-//      XCTAssertEqual(data.hero?.__typename, "Droid")
-//      XCTAssertEqual(data.hero?.name, "R2-D2")
-//    }, completion: { result in
-//      defer { readCompletedExpectation.fulfill() }
-//      XCTAssertSuccessResult(result)
-//    })
-//
-//    self.wait(for: [readCompletedExpectation], timeout: Self.defaultWaitTimeout)
-//  }
-//
-//  func testReadHeroNameQueryAfterRemovingRecord() throws {
-//    mergeRecordsIntoCache([
-//      "QUERY_ROOT": ["hero": CacheReference("hero")],
-//      "hero": ["__typename": "Droid", "name": "R2-D2"]
-//    ])
-//
-//    let query = HeroNameQuery()
-//
-//    let readCompletedExpectation = expectation(description: "Read completed")
-//
-//    store.withinReadWriteTransaction({ transaction in
-//      let data = try transaction.read(query: query)
-//
-//      XCTAssertEqual(data.hero?.__typename, "Droid")
-//      XCTAssertEqual(data.hero?.name, "R2-D2")
-//
-//    }, completion: { result in
-//      defer { readCompletedExpectation.fulfill() }
-//      XCTAssertSuccessResult(result)
-//    })
-//
-//    self.wait(for: [readCompletedExpectation], timeout: Self.defaultWaitTimeout)
-//
-//    let removeCompletedExpectation = expectation(description: "Remove completed")
-//
-//    store.withinReadWriteTransaction({ transaction in
-//      try transaction.removeObject(for: "hero")
-//    }, completion: { result in
-//      defer { removeCompletedExpectation.fulfill() }
-//      XCTAssertSuccessResult(result)
-//    })
-//
-//    self.wait(for: [removeCompletedExpectation], timeout: Self.defaultWaitTimeout)
-//
-//    let refetchExpectation = expectation(description: "Refetch completed")
-//
-//    store.withinReadWriteTransaction({ transaction in
-//      _ = try transaction.read(query: query)
-//    }, completion: { result in
-//      defer { refetchExpectation.fulfill() }
-//      XCTAssertFailureResult(result) { refetchError in
-//        guard let error = refetchError as? GraphQLResultError else {
-//          XCTFail("Unexpected error trying to load a removed record: \(refetchError)")
-//          return
-//        }
-//
-//        XCTAssertEqual(error.path, ["hero"])
-//
-//        switch error.underlying {
-//        case JSONDecodingError.missingValue:
-//          // This is correct.
-//          break
-//        default:
-//          XCTFail("Unexpected error trying to load a removed record: \(refetchError)")
-//        }
-//      }
-//    })
-//
-//    self.wait(for: [refetchExpectation], timeout: Self.defaultWaitTimeout)
-//  }
-//
-//  func testHeroNameQueryStillLoadsAfterAttemptingToDeleteFieldKey() throws {
-//    mergeRecordsIntoCache([
-//      "QUERY_ROOT": ["hero": CacheReference("hero")],
-//      "hero": ["__typename": "Droid", "name": "R2-D2"]
-//    ])
-//
-//    let query = HeroNameQuery()
-//
-//    let readCompletedExpectation = expectation(description: "Read completed")
-//
-//    store.withinReadWriteTransaction({ transaction in
-//      let data = try transaction.read(query: query)
-//
-//      XCTAssertEqual(data.hero?.__typename, "Droid")
-//      XCTAssertEqual(data.hero?.name, "R2-D2")
-//
-//    }, completion: { result in
-//      defer { readCompletedExpectation.fulfill() }
-//      XCTAssertSuccessResult(result)
-//    })
-//
-//    self.wait(for: [readCompletedExpectation], timeout: Self.defaultWaitTimeout)
-//
-//    let removeCompletedExpectation = expectation(description: "Remove completed")
-//
-//    store.withinReadWriteTransaction({ transaction in
-//      try transaction.removeObject(for: "hero.name")
-//    }, completion: { result in
-//      defer { removeCompletedExpectation.fulfill() }
-//      XCTAssertSuccessResult(result)
-//    })
-//
-//    self.wait(for: [removeCompletedExpectation], timeout: Self.defaultWaitTimeout)
-//
-//    let refetchExpectation = expectation(description: "Refetch completed")
-//
-//    store.withinReadWriteTransaction({ transaction in
-//      _ = try transaction.read(query: query)
-//    }, completion: { result in
-//      defer { refetchExpectation.fulfill() }
-//      XCTAssertSuccessResult(result)
-//    })
-//
-//    self.wait(for: [refetchExpectation], timeout: Self.defaultWaitTimeout)
-//  }
-//
-//  func testReadHeroNameQueryWithVariable() throws {
-//    mergeRecordsIntoCache([
-//      "QUERY_ROOT": ["hero(episode:JEDI)": CacheReference("hero(episode:JEDI)")],
-//      "hero(episode:JEDI)": ["__typename": "Droid", "name": "R2-D2"]
-//    ])
-//
-//    let query = HeroNameQuery(episode: .jedi)
-//
-//    let readCompletedExpectation = expectation(description: "Read completed")
-//
-//    store.withinReadTransaction({ transaction in
-//      let data = try transaction.read(query: query)
-//
-//      XCTAssertEqual(data.hero?.__typename, "Droid")
-//      XCTAssertEqual(data.hero?.name, "R2-D2")
-//    }, completion: { result in
-//      defer { readCompletedExpectation.fulfill() }
-//      XCTAssertSuccessResult(result)
-//    })
-//
-//    self.wait(for: [readCompletedExpectation], timeout: Self.defaultWaitTimeout)
-//  }
-//
-//  func testReadHeroNameQueryWithMissingName() throws {
-//    mergeRecordsIntoCache([
-//      "QUERY_ROOT": ["hero": CacheReference("hero")],
-//      "hero": ["__typename": "Droid"]
-//    ])
-//
-//    let query = HeroNameQuery()
-//
-//    let readCompletedExpectation = expectation(description: "Read completed")
-//
-//    store.withinReadTransaction({ transaction in
-//      XCTAssertThrowsError(try transaction.read(query: query)) { error in
-//        if case let error as GraphQLResultError = error {
-//          XCTAssertEqual(error.path, ["hero", "name"])
-//          XCTAssertMatch(error.underlying, JSONDecodingError.missingValue)
-//        } else {
-//          XCTFail("Unexpected error: \(error)")
-//        }
-//      }
-//    }, completion: { result in
-//      defer { readCompletedExpectation.fulfill() }
-//      XCTAssertSuccessResult(result)
-//    })
-//
-//    self.wait(for: [readCompletedExpectation], timeout: Self.defaultWaitTimeout)
-//  }
-//
+class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
+
+  var cacheType: TestCacheProvider.Type {
+    InMemoryTestCacheProvider.self
+  }
+
+  static let defaultWaitTimeout: TimeInterval = 5.0
+
+  var cache: NormalizedCache!
+  var store: ApolloStore!
+
+  override func setUpWithError() throws {
+    try super.setUpWithError()
+
+    cache = try makeNormalizedCache()
+    store = ApolloStore(cache: cache)
+  }
+
+  override func tearDownWithError() throws {
+    cache = nil
+    store = nil
+
+    try super.tearDownWithError()
+  }
+
+  // MARK: - Read Query Tests
+
+  func test_readQuery_givenQueryDataInCache_returnsData() throws {
+    class HeroNameSelectionSet: MockSelectionSet {
+      override class var selections: [Selection] { [
+        .field("hero", Hero.self)
+      ]}
+
+      class Hero: MockSelectionSet {
+        override class var selections: [Selection] {[
+          .field("__typename", String.self),
+          .field("name", String.self)
+        ]}
+      }
+    }
+
+    let query = MockQuery<HeroNameSelectionSet>()
+
+    mergeRecordsIntoCache([
+      "QUERY_ROOT": ["hero": CacheReference("hero")],
+      "hero": ["__typename": "Droid", "name": "R2-D2"]
+    ])
+
+    let readCompletedExpectation = expectation(description: "Read completed")
+
+    store.withinReadTransaction({ transaction in
+      let data = try transaction.read(query: query)
+
+      expect(data.hero?.__typename).to(equal("Droid"))
+      expect(data.hero?.name).to(equal("R2-D2"))
+    }, completion: { result in
+      defer { readCompletedExpectation.fulfill() }
+      XCTAssertSuccessResult(result)
+    })
+
+    self.wait(for: [readCompletedExpectation], timeout: Self.defaultWaitTimeout)
+  }
+
+  func test_readQuery_givenQueryDataDoesNotExist_throwsMissingValueError() throws {
+    // given
+    class GivenSelectionSet: MockSelectionSet {
+      override class var selections: [Selection] { [
+        .field("name", String.self)
+      ]}
+    }
+
+    let query = MockQuery<GivenSelectionSet>()
+
+    mergeRecordsIntoCache([
+      "QUERY_ROOT": [:],
+    ])
+
+    // when
+    let readCompletedExpectation = expectation(description: "Read completed")
+
+    store.withinReadWriteTransaction({ transaction in
+      _ = try transaction.read(query: query)
+    }, completion: { result in
+      defer { readCompletedExpectation.fulfill() }
+
+      // then
+      expectJSONMissingValueError(result, atPath: ["name"])
+    })
+
+    self.wait(for: [readCompletedExpectation], timeout: Self.defaultWaitTimeout)
+  }
+
+  func test_readQuery_givenQueryDataWithVariableInCache_readsQuery() throws {
+    // given
+    enum Episode: String, EnumType {
+      case JEDI
+    }
+
+    class HeroNameSelectionSet: MockSelectionSet {
+      override class var selections: [Selection] { [
+        .field("hero", Hero.self, arguments: ["episode": .variable("episode")])
+      ]}
+
+      class Hero: MockSelectionSet {
+        override class var selections: [Selection] {[
+          .field("__typename", String.self),
+          .field("name", String.self)
+        ]}
+      }
+    }
+
+    let query = MockQuery<HeroNameSelectionSet>()
+    query.variables = ["episode": Episode.JEDI]
+
+    mergeRecordsIntoCache([
+      "QUERY_ROOT": ["hero(episode:JEDI)": CacheReference("hero(episode:JEDI)")],
+      "hero(episode:JEDI)": ["__typename": "Droid", "name": "R2-D2"]
+    ])
+
+    // when
+    runActivity("read query") { _ in
+      let readCompletedExpectation = expectation(description: "Read completed")
+      store.withinReadTransaction({ transaction in
+        let data = try transaction.read(query: query)
+
+        // then
+        expect(data.hero?.__typename).to(equal("Droid"))
+        expect(data.hero?.name).to(equal("R2-D2"))
+
+      }, completion: { result in
+        defer { readCompletedExpectation.fulfill() }
+        XCTAssertSuccessResult(result)
+      })
+
+      self.wait(for: [readCompletedExpectation], timeout: Self.defaultWaitTimeout)
+    }
+  }
+
+  func test_readQuery_givenQueryDataWithOtherVariableValueInCache_throwsMissingValueError() throws {
+    // given
+    enum Episode: String, EnumType {
+      case JEDI
+      case PHANTOM_MENACE
+    }
+
+    class HeroNameSelectionSet: MockSelectionSet {
+      override class var selections: [Selection] { [
+        .field("hero", Hero.self, arguments: ["episode": .variable("episode")])
+      ]}
+
+      class Hero: MockSelectionSet {
+        override class var selections: [Selection] {[
+          .field("__typename", String.self),
+          .field("name", String.self)
+        ]}
+      }
+    }
+
+    let query = MockQuery<HeroNameSelectionSet>()
+    query.variables = ["episode": Episode.PHANTOM_MENACE]
+
+    mergeRecordsIntoCache([
+      "QUERY_ROOT": ["hero(episode:JEDI)": CacheReference("hero(episode:JEDI)")],
+      "hero(episode:JEDI)": ["__typename": "Droid", "name": "R2-D2"]
+    ])
+
+    // when
+    runActivity("read query") { _ in
+      let readCompletedExpectation = expectation(description: "Read completed")
+      store.withinReadTransaction({ transaction in
+        _ = try transaction.read(query: query)
+      }, completion: { result in
+        defer { readCompletedExpectation.fulfill() }
+
+        // then
+        expectJSONMissingValueError(result, atPath: ["hero"])
+      })
+
+      self.wait(for: [readCompletedExpectation], timeout: Self.defaultWaitTimeout)
+    }
+  }
+
+  // MARK: - Write Local Cache Mutation Tests
+
 //  func testUpdateHeroNameQuery() throws {
+//    // given
+//    class GivenSelectionSet: MockMutableSelectionSet {
+//      override class var selections: [Selection] { [
+//        .field("name", String.self)
+//      ]}
+//    }
+//
+//    let cacheMutation = MockLocalCacheMutation<GivenSelectionSet>()
+//
 //    mergeRecordsIntoCache([
 //      "QUERY_ROOT": ["hero": CacheReference("QUERY_ROOT.hero")],
 //      "QUERY_ROOT.hero": ["__typename": "Droid", "name": "R2-D2"]
 //    ])
 //
-//    let query = HeroNameQuery()
 //
-//    let updateCompletedExpectation = expectation(description: "Update completed")
+//    runActivity("update mutation") { _ in
+//      let updateCompletedExpectation = expectation(description: "Update completed")
 //
-//    store.withinReadWriteTransaction({ transaction in
-//      try transaction.update(query: query) { data in
-//        data.hero?.name = "Artoo"
-//      }
-//    }, completion: { result in
-//      defer { updateCompletedExpectation.fulfill() }
-//      XCTAssertSuccessResult(result)
-//    })
+//      store.withinReadWriteTransaction({ transaction in
+//        try transaction.update(cacheMutation: cacheMutation) { data in
+//          data.hero?.name = "Artoo"
+//        }
+//      }, completion: { result in
+//        defer { updateCompletedExpectation.fulfill() }
+//        XCTAssertSuccessResult(result)
+//      })
 //
-//    self.wait(for: [updateCompletedExpectation], timeout: Self.defaultWaitTimeout)
+//      self.wait(for: [updateCompletedExpectation], timeout: Self.defaultWaitTimeout)
+//    }
 //
 //    loadFromStore(query: query) { result in
 //      try XCTAssertSuccessResult(result) { graphQLResult in
@@ -853,4 +843,30 @@ import StarWarsAPI
 //
 //    waitForExpectations(timeout: Self.defaultWaitTimeout)
 //  }
-//}
+}
+
+// MARK: Helpers
+
+fileprivate func expectJSONMissingValueError(
+  _ result: Result<(), Error>,
+  atPath path: ResponsePath,
+  file: FileString = #file, line: UInt = #line
+) {
+  guard case let .failure(readError) = result,
+          let error = readError as? GraphQLExecutionError else {
+    fail("Expected JSON Missing Value Error: \(result)",
+         file: file, line: line)
+    return
+  }
+
+  expect(file: file, line: line, error.path).to(equal(path))
+
+  switch error.underlying {
+  case JSONDecodingError.missingValue:
+    // This is correct.
+    break
+  default:
+    fail("Expected JSON Missing Value Error: \(result)",
+         file: file, line: line)
+  }
+}

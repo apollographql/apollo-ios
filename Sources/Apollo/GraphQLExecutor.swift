@@ -127,8 +127,8 @@ fileprivate struct FieldSelectionGrouping: Sequence {
   }
 }
 
-/// An error which has occurred in processing a GraphQLResult
-public struct GraphQLResultError: Error, LocalizedError {
+/// An error which has occurred during GraphQL execution.
+public struct GraphQLExecutionError: Error, LocalizedError {
   let path: ResponsePath
 
   /// The error that occurred during parsing.
@@ -318,8 +318,8 @@ final class GraphQLExecutor {
     }.map {
       try accumulator.accept(fieldEntry: $0, info: fieldInfo)
     }.mapError { error in
-      if !(error is GraphQLResultError) {
-        return GraphQLResultError(path: fieldInfo.responsePath, underlying: error)
+      if !(error is GraphQLExecutionError) {
+        return GraphQLExecutionError(path: fieldInfo.responsePath, underlying: error)
       } else {
         return error
       }
@@ -386,8 +386,8 @@ final class GraphQLExecutor {
                       asType: innerType,
                       accumulator: accumulator)
             .mapError { error in
-              if !(error is GraphQLResultError) {
-                return GraphQLResultError(path: elementFieldInfo.responsePath, underlying: error)
+              if !(error is GraphQLExecutionError) {
+                return GraphQLExecutionError(path: elementFieldInfo.responsePath, underlying: error)
               } else {
                 return error
               }
