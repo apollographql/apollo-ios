@@ -4,11 +4,6 @@ import ApolloCodegenLib
 
 struct Generate: ParsableCommand {
 
-  /// Destination for the new configuration
-  enum InputMode: String, ExpressibleByArgument, EnumerableFlag {
-    case file, string
-  }
-
   // MARK: - Configuration
   
   static var configuration = CommandConfiguration(
@@ -58,17 +53,11 @@ struct Generate: ParsableCommand {
         throw Error(errorDescription: "Cannot read configuration file at \(self.path)")
       }
 
-      try generate(
-        data: data,
-        codegenProvider: codegenProvider
-      )
+      try generate(data: data, codegenProvider: codegenProvider)
 
     case .string:
       if let string = self.string {
-        try generate(
-          data: try string.asData(),
-          codegenProvider: codegenProvider
-        )
+        try generate(data: try string.asData(), codegenProvider: codegenProvider)
       }
     }
   }

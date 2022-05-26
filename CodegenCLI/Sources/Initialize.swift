@@ -4,11 +4,6 @@ import ApolloCodegenLib
 
 struct Initialize: ParsableCommand {
 
-  /// Destination for the new configuration
-  enum OutputMode: String, ExpressibleByArgument, EnumerableFlag {
-    case file, print
-  }
-
   // MARK: - Configuration
 
   static var configuration = CommandConfiguration(
