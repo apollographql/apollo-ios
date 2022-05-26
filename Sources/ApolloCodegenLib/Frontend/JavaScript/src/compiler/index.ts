@@ -184,20 +184,22 @@ export function compileToIR(
 
     const source = print(withTypenameFieldAddedWhereNeeded(operationDefinition));
     const rootType = schema.getRootType(operationType) as GraphQLObjectType;
+    const [directives,] = compileDirectives(operationDefinition.directives) ?? [undefined, undefined];
 
     referencedTypes.add(getNamedType(rootType));
 
     return {
-      filePath,
       name,
       operationType,
-      rootType,
       variables,
-      source,
+      rootType,
       selectionSet: compileSelectionSet(
         operationDefinition.selectionSet,
         rootType
       ),
+      directives: directives,
+      source,
+      filePath
     };
   }
 

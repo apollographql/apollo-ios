@@ -18,6 +18,8 @@ public class CompilationResult: JavaScriptObject {
     lazy var rootType: GraphQLCompositeType = self["rootType"]
     
     lazy var selectionSet: SelectionSet = self["selectionSet"]
+
+    lazy var directives: [Directive]? = self["directives"]
     
     lazy var source: String = self["source"]
     
