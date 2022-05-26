@@ -163,7 +163,65 @@ class CompilationTests: XCTestCase {
       .mock("testDirective")
     ]
 
-    let compilationResult = try compileFrontend(enableCCN: true)
+    let compilationResult = try compileFrontend()
+
+
+    let operation = try XCTUnwrap(compilationResult.operations.first)
+    expect(operation.directives).to(equal(expectedDirectives))
+  }
+
+  /// Tests that we automatically add the local cache mutation directive to the schema
+  /// during codegen.
+  func testCompile_givenSchemaSDL_queryWithLocalCacheMutationDirective_notInSchema_hasDirective() throws {
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query Test @apollo_client_ios_localCacheMutation {
+      allAnimals {
+        species
+      }
+    }
+    """
+
+    let expectedDirectives: [CompilationResult.Directive] = [
+      .mock("apollo_client_ios_localCacheMutation")
+    ]
+
+    let compilationResult = try compileFrontend()
+
+
+    let operation = try XCTUnwrap(compilationResult.operations.first)
+    expect(operation.directives).to(equal(expectedDirectives))
+  }
+
+  /// Tests that we automatically add the local cache mutation directive to the schema
+  /// during codegen.
+  func testCompile_givenSchemaJSON_queryWithLocalCacheMutationDirective_notInSchema_hasDirective() throws {
+    try useStarWarsSchema()
+
+    document = """
+      query HeroAndFriendsNames($id: ID) @apollo_client_ios_localCacheMutation {
+        human(id: $id) {
+          name
+          mass
+          appearsIn
+        }
+      }
+      """
+
+    let expectedDirectives: [CompilationResult.Directive] = [
+      .mock("apollo_client_ios_localCacheMutation")
+    ]
+
+    let compilationResult = try compileFrontend()
 
 
     let operation = try XCTUnwrap(compilationResult.operations.first)
