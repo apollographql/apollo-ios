@@ -1,5 +1,4 @@
 import Foundation
-import ArgumentParser
 
 extension String {
   func asData() throws -> Data {

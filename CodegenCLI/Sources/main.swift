@@ -1,3 +1,4 @@
+import Foundation
 import ArgumentParser
 
 struct CodegenCLI: ParsableCommand {

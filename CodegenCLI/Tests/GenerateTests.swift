@@ -1,8 +1,8 @@
 import XCTest
 import Nimble
 @testable import apollo_ios_codegen
-@testable import ArgumentParser
-@testable import ApolloCodegenLib
+import ArgumentParser
+import ApolloCodegenLib
 
 class GenerateTests: XCTestCase {
 

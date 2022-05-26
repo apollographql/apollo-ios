@@ -1,7 +1,6 @@
 import Foundation
 import apollo_ios_codegen
 import ApolloCodegenLib
-import Nimble
 
 class MockApolloCodegen: CodegenProvider {
   static var buildHandler: ((ApolloCodegenConfiguration) throws -> Void)? = nil
