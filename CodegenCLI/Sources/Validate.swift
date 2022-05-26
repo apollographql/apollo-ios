@@ -1,5 +1,5 @@
-import ArgumentParser
 import Foundation
+import ArgumentParser
 import ApolloCodegenLib
 
 struct Validate: ParsableCommand {

@@ -11,6 +11,7 @@ public class MockFileManager: FileManager {
     case removeItem(_ handler: (String) throws -> Void)
     case createFile(_ handler: (String, Data?, FileAttributes?) -> Bool)
     case createDirectory(_ handler: (String, Bool, FileAttributes?) throws -> Void)
+    case contents(_ handler: (String) -> Data?)
 
     // These are based on the return string from the #function macro. They are used in overriden
     // functions to lookup the provided closure. Be aware that if the function signature changes
@@ -21,6 +22,7 @@ public class MockFileManager: FileManager {
       case .removeItem(_): return "removeItem(atPath:)"
       case .createFile(_): return "createFile(atPath:contents:attributes:)"
       case .createDirectory(_): return "createDirectory(atPath:withIntermediateDirectories:attributes:)"
+      case .contents(_): return "contents(atPath:)"
       }
     }
   }
@@ -158,5 +160,27 @@ public class MockFileManager: FileManager {
     }
 
     try handler(path, createIntermediates, attributes)
+  }
+
+  public override func contents(atPath path: String) -> Data? {
+    let key = #function
+
+    guard
+      let closure = closures[key],
+      case let .contents(handler) = closure
+    else {
+      if strict {
+        fail(missingClosureMessage(key))
+        return nil
+      } else {
+        return super.contents(atPath: path)
+      }
+    }
+
+    defer {
+      didCall(closure: closure)
+    }
+
+    return handler(path)
   }
 }

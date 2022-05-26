@@ -1,8 +1,13 @@
-import ArgumentParser
 import Foundation
+import ArgumentParser
 import ApolloCodegenLib
 
 struct Generate: ParsableCommand {
+
+  /// Destination for the new configuration
+  enum InputMode: String, ExpressibleByArgument, EnumerableFlag {
+    case file, string
+  }
 
   // MARK: - Configuration
   
@@ -12,49 +17,65 @@ struct Generate: ParsableCommand {
 
   @Option(
     name: .shortAndLong,
-    help: "Path to a configuration file."
+    help: "Configuration source."
   )
-  var path: String?
+  var input: InputMode = .file
+
+  @Option(
+    name: .shortAndLong,
+    help: "Read the configuration from a file at the path."
+  )
+  var path: String = Constants.defaultFilePath
 
   @Option(
     name: .shortAndLong,
     help: "Configuration string in JSON format."
   )
-  var json: String?
+  var string: String?
 
   // MARK: - Implementation
 
   func validate() throws {
-    if path == nil && json == nil {
-      throw ValidationError("You must specify a configuration source.")
-    }
-
-    if let _ = path, let _ = json {
-      throw ValidationError("You can only specify one configuration source.")
+    switch (input, string) {
+    case (.string, nil):
+      throw ValidationError("Missing input string. Hint: --string cannot be empty and must be in JSON format.")
+    default:
+      break
     }
   }
 
   func run() throws {
-    if let path = path {
-      try generate(path: path)
+    try _run()
+  }
+
+  func _run(
+    fileManager: FileManager = .default,
+    codegenProvider: CodegenProvider.Type = ApolloCodegen.self
+  ) throws {
+    switch self.input {
+    case .file:
+      guard let data = fileManager.contents(atPath: self.path) else {
+        throw Error(errorDescription: "Cannot read configuration file at \(self.path)")
+      }
+
+      try generate(
+        data: data,
+        codegenProvider: codegenProvider
+      )
+
+    case .string:
+      if let string = self.string {
+        try generate(
+          data: try string.asData(),
+          codegenProvider: codegenProvider
+        )
+      }
     }
-
-    if let json = json {
-      try generate(json: json)
-    }
   }
 
-  func generate(path: String) throws {
-    try generate(data: try String(contentsOfFile: path).asData())
-  }
-
-  func generate(json: String) throws {
-    try generate(data: try json.asData())
-  }
-
-  private func generate(data: Data) throws {
+  private func generate(data: Data, codegenProvider: CodegenProvider.Type) throws {
     let configuration = try JSONDecoder().decode(ApolloCodegenConfiguration.self, from: data)
 
-    try ApolloCodegen.build(with: configuration)
+    try codegenProvider.build(with: configuration)
   }
 }
