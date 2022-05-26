@@ -47,7 +47,7 @@ class GenerateTests: XCTestCase {
     let options = [
       "generate",
       "-i=string",
-      "-s=text"
+      "--string=text"
     ]
 
     // when
@@ -131,9 +131,9 @@ class GenerateTests: XCTestCase {
     // then
     expect(
       try self.parseAsRoot(options: options)
-    ).to(
-      throwUserValidationError(ValidationError("Missing input string. Hint: --string cannot be empty and must be in JSON format."))
-    )
+    ).to(throwUserValidationError(
+      ValidationError("Missing input string. Hint: --string cannot be empty and must be in JSON format.")
+    ))
   }
 
   func test__parsing__givenParameters_unknown_shouldThrow() throws {

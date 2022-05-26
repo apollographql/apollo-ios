@@ -17,7 +17,7 @@ struct Initialize: ParsableCommand {
   )
 
   @Option(
-    name: .long,
+    name: .shortAndLong,
     help: "Destination for the new configuration."
   )
   var output: OutputMode = .file
@@ -29,7 +29,7 @@ struct Initialize: ParsableCommand {
   var path: String = Constants.defaultFilePath
 
   @Flag(
-    name: .long,
+    name: [.long, .customShort("w")],
     help: "Overwrite any file at --path."
   )
   var overwrite = false

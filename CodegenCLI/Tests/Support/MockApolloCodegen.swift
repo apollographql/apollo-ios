@@ -8,8 +8,7 @@ class MockApolloCodegen: CodegenProvider {
 
   static func build(with configuration: ApolloCodegenConfiguration) throws {
     guard let handler = buildHandler else {
-      fail("You must set buildHandler before calling \(#function)!")
-      return
+      fatalError("You must set buildHandler before calling \(#function)!")
     }
 
     defer {

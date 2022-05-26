@@ -40,7 +40,7 @@ class InitializeTests: XCTestCase {
     expect(command.overwrite).to(beFalse())
   }
 
-  func test__parsing__givenParameters_outputFile_shouldParse() throws {
+  func test__parsing__givenParameters_outputLongFormatFile_shouldParse() throws {
     // given
     let options = [
       "init",
@@ -54,11 +54,25 @@ class InitializeTests: XCTestCase {
     expect(command.output).to(equal(.file))
   }
 
-  func test__parsing__givenParameters_outputPrint_shouldParse() throws {
+  func test__parsing__givenParameters_outputLongFormatPrint_shouldParse() throws {
     // given
     let options = [
       "init",
       "--output=print"
+    ]
+
+    // when
+    let command = try parseAsRoot(options: options)
+
+    // then
+    expect(command.output).to(equal(.print))
+  }
+
+  func test__parsing__givenParameters_outputShortFormat_shouldParse() throws {
+    // given
+    let options = [
+      "init",
+      "-o=print"
     ]
 
     // when
@@ -100,11 +114,25 @@ class InitializeTests: XCTestCase {
     expect(command.path).to(equal(path))
   }
 
-  func test__parsing__givenParameters_overwrite_shouldParse() throws {
+  func test__parsing__givenParameters_overwriteLongFormat_shouldParse() throws {
     // given
     let options = [
       "init",
       "--overwrite"
+    ]
+
+    // when
+    let command = try parseAsRoot(options: options)
+
+    // then
+    expect(command.overwrite).to(beTrue())
+  }
+
+  func test__parsing__givenParameters_overwriteShortFormat_shouldParse() throws {
+    // given
+    let options = [
+      "init",
+      "-w"
     ]
 
     // when
@@ -204,7 +232,6 @@ class InitializeTests: XCTestCase {
         .path
 
       expect(actualPath).to(equal(expectedPath))
-
       expect(data).to(equal(self.expectedJSON.data(using: .utf8)!))
 
       return true
@@ -213,10 +240,10 @@ class InitializeTests: XCTestCase {
     try subject._run(fileManager: mockFileManager)
 
     // then
-    expect(self.mockFileManager.allClosuresCalled).toEventually(beTrue())
+    expect(self.mockFileManager.allClosuresCalled).to(beTrue())
   }
 
-  func test__output__givenParameters_outputFile_pathCustom_whenFileExists_shouldThrow() throws {
+  func test__output__givenParameters_outputFile_pathCustom_overwriteDefault_whenFileExists_shouldThrow() throws {
     // given
     let outputPath = "./path/to/output.file"
 
@@ -279,7 +306,6 @@ class InitializeTests: XCTestCase {
         .path
 
       expect(actualPath).to(equal(expectedPath))
-
       expect(data).to(equal(self.expectedJSON.data(using: .utf8)!))
 
       return true
@@ -288,7 +314,7 @@ class InitializeTests: XCTestCase {
     try subject._run(fileManager: mockFileManager)
 
     // then
-    expect(self.mockFileManager.allClosuresCalled).toEventually(beTrue())
+    expect(self.mockFileManager.allClosuresCalled).to(beTrue())
   }
 
   func test__output__givenParameters_outputPrint_shouldPrintToStandardOutput() throws {
