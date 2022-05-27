@@ -194,11 +194,11 @@ class TestMockTests: XCTestCase {
     mock.height = height
     mock.height?.yards = 3
 
-    let actual = mock.jsonValue as? JSONObject
-    let heightDict = actual?["height"] as? JSONObject
+    let actual = mock._jsonObject
+    let heightDict = actual["height"] as? JSONObject
 
     // then
-    expect(actual?["height"]).to(beAKindOf(JSONObject.self))
+    expect(actual["height"]).to(beAKindOf(JSONObject.self))
     expect(heightDict?["meters"] as? Int).to(equal(1))
     expect(heightDict?["feet"] as? Int).to(equal(2))
     expect(heightDict?["yards"] as? Int).to(equal(3))

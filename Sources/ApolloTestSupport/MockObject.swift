@@ -2,7 +2,7 @@ import ApolloAPI
 import Foundation
 
 @dynamicMemberLookup
-public class Mock<O: Mockable>: AnyMock, JSONEncodable, Equatable {
+public class Mock<O: Mockable>: AnyMock, JSONEncodable, Hashable {
 
   public var _data: JSONEncodableDictionary
 
@@ -38,12 +38,17 @@ public class Mock<O: Mockable>: AnyMock, JSONEncodable, Equatable {
 
   // MARK: JSONEncodable
 
-  public var jsonValue: JSONValue { _data.jsonValue }
+  public var _jsonObject: JSONObject { _data.jsonObject }
+  public var jsonValue: JSONValue { _jsonObject }
 
   // MARK: Equatable
 
   public static func ==(lhs: Mock<O>, rhs: Mock<O>) -> Bool {
     NSDictionary(dictionary: lhs._data).isEqual(to: rhs._data)
+  }
+
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(_data.asAnyHashable)
   }
 }
 
@@ -51,16 +56,18 @@ public class Mock<O: Mockable>: AnyMock, JSONEncodable, Equatable {
 
 public extension SelectionSet {
   static func from(
-    mock: AnyMock,
+    _ mock: AnyMock,
     withVariables variables: GraphQLOperation.Variables? = nil
   ) -> Self {
-    Self.init(data: DataDict(mock.jsonValue as! JSONObject, variables: variables))
+    Self.init(data: DataDict(mock._jsonObject, variables: variables))
   }
 }
 
 // MARK: - Helper Protocols
 
-public protocol AnyMock: JSONEncodable {}
+public protocol AnyMock: JSONEncodable {
+  var _jsonObject: JSONObject { get }
+}
 
 public protocol Mockable: Object, MockFieldValue {
   associatedtype MockFields

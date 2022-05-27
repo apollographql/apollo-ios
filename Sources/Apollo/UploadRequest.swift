@@ -75,11 +75,10 @@ open class UploadRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
                                                      autoPersistQuery: false)
     var variables = fields["variables"] as? JSONEncodableDictionary ?? JSONEncodableDictionary()
     for fieldName in fieldsForFiles {
-      if
-        let value = variables[fieldName],
-        let arrayValue = value as? [JSONEncodable] {
-        let arrayOfNils: [JSONEncodable?] = arrayValue.map { _ in NSNull() }
-          variables.updateValue(arrayOfNils, forKey: fieldName)
+      if let value = variables[fieldName],
+         let arrayValue = value as? [JSONEncodable] {
+        let arrayOfNils: [NSNull?] = arrayValue.map { _ in NSNull() }
+        variables.updateValue(arrayOfNils, forKey: fieldName)
       } else {
         variables.updateValue(NSNull(), forKey: fieldName)
       }

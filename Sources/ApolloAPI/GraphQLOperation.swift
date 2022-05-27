@@ -126,9 +126,11 @@ public protocol GraphQLOperationVariableValue {
   var jsonEncodableValue: JSONEncodable? { get }
 }
 
-extension Array: GraphQLOperationVariableValue where Element: GraphQLOperationVariableValue {}
+extension Array: GraphQLOperationVariableValue
+where Element: GraphQLOperationVariableValue & JSONEncodable & Hashable {}
 
-extension Dictionary: GraphQLOperationVariableValue where Key == String, Value == GraphQLOperationVariableValue {
+extension Dictionary: GraphQLOperationVariableValue
+where Key == String, Value == GraphQLOperationVariableValue {
   @inlinable public var jsonEncodableValue: JSONEncodable? { jsonEncodableObject }
   @inlinable public var jsonEncodableObject: JSONEncodableDictionary {
     compactMapValues { $0.jsonEncodableValue }
