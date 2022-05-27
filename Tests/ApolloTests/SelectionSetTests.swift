@@ -6,12 +6,33 @@ import Nimble
 
 class SelectionSetTests: XCTestCase {
 
-  func test__getOptionalField_givenNilValue__returnsNil() {
+  func test__selection_givenOptionalField_givenValue__returnsValue() {
     // given
-    class Human: Object {
-      override class var __typename: StaticString { "Human" }
+    class Hero: MockSelectionSet, SelectionSet {
+      typealias Schema = MockSchemaConfiguration
+
+      override class var selections: [Selection] {[
+        .field("__typename", String.self),
+        .field("name", String?.self)
+      ]}
+
+      var name: String? { data["name"] }
     }
 
+    let object: JSONObject = [
+      "__typename": "Human",
+      "name": "Johnny Tsunami"
+    ]
+
+    // when
+    let actual = Hero(data: DataDict(object, variables: nil))
+
+    // then
+    expect(actual.name).to(equal("Johnny Tsunami"))
+  }
+
+  func test__selection_givenOptionalField_givenNilValue__returnsNil() {
+    // given
     class Hero: MockSelectionSet, SelectionSet {
       typealias Schema = MockSchemaConfiguration
 
@@ -33,6 +54,492 @@ class SelectionSetTests: XCTestCase {
     // then
     expect(actual.name).to(beNil())
   }
+
+  // MARK: Scalar - Nested Array Tests
+
+  func test__selection__nestedArrayOfScalar_nonNull_givenValue__returnsValue() {
+    // given
+    class Hero: MockSelectionSet, SelectionSet {
+      typealias Schema = MockSchemaConfiguration
+
+      override class var selections: [Selection] {[
+        .field("__typename", String.self),
+        .field("nestedList", [[String]].self)
+      ]}
+
+      var nestedList: [[String]] { data["nestedList"] }
+    }
+
+    let object: JSONObject = [
+      "__typename": "Human",
+      "nestedList": [["A"]]
+    ]
+
+    // when
+    let actual = Hero(data: DataDict(object, variables: nil))
+
+    // then
+    expect(actual.nestedList).to(equal([["A"]]))
+  }
+
+  // MARK: Entity
+
+  func test__selection_givenRequiredEntityField_givenValue__returnsValue() {
+    // given
+    class Hero: MockSelectionSet, SelectionSet {
+      typealias Schema = MockSchemaConfiguration
+
+      override class var selections: [Selection] {[
+        .field("__typename", String.self),
+        .field("friend", Friend.self)
+      ]}
+
+      var friend: Friend { data["friend"] }
+
+      class Friend: MockSelectionSet, SelectionSet {
+        typealias Schema = MockSchemaConfiguration
+
+        override class var selections: [Selection] {[
+          .field("__typename", String.self),
+        ]}
+      }
+    }
+
+    let friendData: JSONObject = ["__typename": "Human"]
+
+    let object: JSONObject = [
+      "__typename": "Human",
+      "friend": friendData
+    ]
+
+    let expected = Hero.Friend(data: DataDict(friendData, variables: nil))
+
+    // when
+    let actual = Hero(data: DataDict(object, variables: nil))
+
+    // then
+    expect(actual.friend).to(equal(expected))
+  }
+
+  func test__selection_givenOptionalEntityField_givenValue__returnsValue() {
+    // given
+    class Hero: MockSelectionSet, SelectionSet {
+      typealias Schema = MockSchemaConfiguration
+
+      override class var selections: [Selection] {[
+        .field("__typename", String.self),
+        .field("friend", Hero?.self)
+      ]}
+
+      var friend: Hero? { data["friend"] }
+    }
+
+    let friendData: JSONObject = ["__typename": "Human"]
+
+    let object: JSONObject = [
+      "__typename": "Human",
+      "friend": friendData
+    ]
+
+    let expected = Hero(data: DataDict(friendData, variables: nil))
+
+    // when
+    let actual = Hero(data: DataDict(object, variables: nil))
+
+    // then
+    expect(actual.friend).to(equal(expected))
+  }
+
+  func test__selection_givenOptionalEntityField_givenNilValue__returnsNil() {
+    // given
+    class Hero: MockSelectionSet, SelectionSet {
+      typealias Schema = MockSchemaConfiguration
+
+      override class var selections: [Selection] {[
+        .field("__typename", String.self),
+        .field("friend", Hero?.self)
+      ]}
+
+      var friend: Hero? { data["friend"] }
+    }
+
+    let object: JSONObject = [
+      "__typename": "Human"
+    ]
+
+    // when
+    let actual = Hero(data: DataDict(object, variables: nil))
+
+    // then
+    expect(actual.friend).to(beNil())
+  }
+
+  // MARK: Entity - Array Tests
+
+  func test__selection__arrayOfEntity_nonNull_givenValue__returnsValue() {
+    // given
+    class Hero: MockSelectionSet, SelectionSet {
+      typealias Schema = MockSchemaConfiguration
+
+      override class var selections: [Selection] {[
+        .field("__typename", String.self),
+        .field("friends", [Hero].self)
+      ]}
+
+      var friends: [Hero] { data["friends"] }
+    }
+
+    let object: JSONObject = [
+      "__typename": "Human",
+      "friends": [
+        [
+          "__typename": "Human",
+          "friends": []
+        ]
+      ]
+    ]
+
+    let expected = Hero(data: DataDict(
+      [
+        "__typename": "Human",
+        "friends": []
+      ],
+      variables: nil
+    ))
+
+    // when
+    let actual = Hero(data: DataDict(object, variables: nil))
+
+    // then
+    expect(actual.friends).to(equal([expected]))
+  }
+
+  func test__selection__arrayOfEntity_nullableEntity_givenValue__returnsValue() {
+    // given
+    class Hero: MockSelectionSet, SelectionSet {
+      typealias Schema = MockSchemaConfiguration
+
+      override class var selections: [Selection] {[
+        .field("__typename", String.self),
+        .field("friends", [Hero?].self)
+      ]}
+
+      var friends: [Hero?] { data["friends"] }
+    }
+
+    let object: JSONObject = [
+      "__typename": "Human",
+      "friends": [
+        [
+          "__typename": "Human",
+          "friends": []
+        ]
+      ]
+    ]
+
+    let expected = Hero(data: DataDict(
+      [
+        "__typename": "Human",
+        "friends": []
+      ],
+      variables: nil
+    ))
+
+    // when
+    let actual = Hero(data: DataDict(object, variables: nil))
+
+    // then
+    expect(actual.friends).to(equal([expected]))
+  }
+
+  func test__selection__arrayOfEntity_nullableEntity_givenNilValueInList__returnsArrayWithNil() {
+    // given
+    class Hero: MockSelectionSet, SelectionSet {
+      typealias Schema = MockSchemaConfiguration
+
+      override class var selections: [Selection] {[
+        .field("__typename", String.self),
+        .field("friends", [Hero?].self)
+      ]}
+
+      var friends: [Hero?] { data["friends"] }
+    }
+
+    let object: JSONObject = [
+      "__typename": "Human",
+      "friends": [
+        Hero?.none,
+        ["__typename": "Human", "friends": []],
+        Hero?.none
+      ]
+    ]
+
+    let expected = Hero(data: DataDict(
+      [
+        "__typename": "Human",
+        "friends": []
+      ],
+      variables: nil
+    ))
+
+    // when
+    let actual = Hero(data: DataDict(object, variables: nil))
+
+    // then
+    expect(actual.friends).to(equal([Hero?.none, expected, Hero?.none]))
+  }
+
+  func test__selection__arrayOfEntity_nullableList_givenValue__returnsValue() {
+    // given
+    class Hero: MockSelectionSet, SelectionSet {
+      typealias Schema = MockSchemaConfiguration
+
+      override class var selections: [Selection] {[
+        .field("__typename", String.self),
+        .field("friends", [Hero]?.self)
+      ]}
+
+      var friends: [Hero]? { data["friends"] }
+    }
+
+    let object: JSONObject = [
+      "__typename": "Human",
+      "friends": [
+        [
+          "__typename": "Human",
+          "friends": []
+        ]
+      ]
+    ]
+
+    let expected = Hero(data: DataDict(
+      [
+        "__typename": "Human",
+        "friends": []
+      ],
+      variables: nil
+    ))
+
+    // when
+    let actual = Hero(data: DataDict(object, variables: nil))
+
+    // then
+    expect(actual.friends).to(equal([expected]))
+  }
+
+  func test__selection__arrayOfEntity_nullableList_givenNoListValue__returnsNil() {
+    // given
+    class Hero: MockSelectionSet, SelectionSet {
+      typealias Schema = MockSchemaConfiguration
+
+      override class var selections: [Selection] {[
+        .field("__typename", String.self),
+        .field("friends", [Hero]?.self)
+      ]}
+
+      var friends: [Hero]? { data["friends"] }
+    }
+
+    let object: JSONObject = [
+      "__typename": "Human"
+    ]
+
+    // when
+    let actual = Hero(data: DataDict(object, variables: nil))
+
+    // then
+    expect(actual.friends).to(beNil())
+  }
+
+  // MARK: Entity - Nested Array Tests
+
+  func test__selection__nestedArrayOfEntity_nonNull_givenValue__returnsValue() {
+    // given
+    class Hero: MockSelectionSet, SelectionSet {
+      typealias Schema = MockSchemaConfiguration
+
+      override class var selections: [Selection] {[
+        .field("__typename", String.self),
+        .field("nestedList", [[Hero]].self)
+      ]}
+
+      var nestedList: [[Hero]] { data["nestedList"] }
+    }
+
+    let object: JSONObject = [
+      "__typename": "Human",
+      "nestedList": [[
+        [
+          "__typename": "Human",
+          "nestedList": [[]]
+        ]
+      ]]
+    ]
+
+    let expected = Hero(data: DataDict(
+      [
+        "__typename": "Human",
+        "nestedList": [[]]
+      ],
+      variables: nil
+    ))
+
+    // when
+    let actual = Hero(data: DataDict(object, variables: nil))
+
+    // then
+    expect(actual.nestedList).to(equal([[expected]]))
+  }
+
+  func test__selection__nestedArrayOfEntity_nullableInnerList_givenValue__returnsValue() {
+    // given
+    class Hero: MockSelectionSet, SelectionSet {
+      typealias Schema = MockSchemaConfiguration
+
+      override class var selections: [Selection] {[
+        .field("__typename", String.self),
+        .field("nestedList", [[Hero]?].self)
+      ]}
+
+      var nestedList: [[Hero]?] { data["nestedList"] }
+    }
+
+    let object: JSONObject = [
+      "__typename": "Human",
+      "nestedList": [[
+        [
+          "__typename": "Human",
+          "nestedList": [[]]
+        ]
+      ]]
+    ]
+
+    let expected = Hero(data: DataDict(
+      [
+        "__typename": "Human",
+        "nestedList": [[]]
+      ],
+      variables: nil
+    ))
+
+    // when
+    let actual = Hero(data: DataDict(object, variables: nil))
+
+    // then
+    expect(actual.nestedList).to(equal([[expected]]))
+  }
+
+  func test__selection__nestedArrayOfEntity_nullableInnerList_givenNilValues__returnsListWithNils() {
+    // given
+    class Hero: MockSelectionSet, SelectionSet {
+      typealias Schema = MockSchemaConfiguration
+
+      override class var selections: [Selection] {[
+        .field("__typename", String.self),
+        .field("nestedList", [[Hero]?].self)
+      ]}
+
+      var nestedList: [[Hero]?] { data["nestedList"] }
+    }
+
+    let nestedObjectData: JSONObject = [
+      "__typename": "Human",
+      "nestedList": [[]]
+    ]
+
+    let object: JSONObject = [
+      "__typename": "Human",
+      "nestedList": [
+        [Hero]?.none,
+        [nestedObjectData],
+        [Hero]?.none,
+      ]
+    ]
+
+    let expectedItem = Hero(data: DataDict(nestedObjectData, variables: nil))
+
+    // when
+    let actual = Hero(data: DataDict(object, variables: nil))
+
+    // then
+    expect(actual.nestedList).to(equal([[Hero]?.none, [expectedItem], [Hero]?.none]))
+  }
+
+  func test__selection__nestedArrayOfEntity_nullableEntity_givenValue__returnsValue() {
+    // given
+    class Hero: MockSelectionSet, SelectionSet {
+      typealias Schema = MockSchemaConfiguration
+
+      override class var selections: [Selection] {[
+        .field("__typename", String.self),
+        .field("nestedList", [[Hero?]].self)
+      ]}
+
+      var nestedList: [[Hero?]] { data["nestedList"] }
+    }
+
+    let object: JSONObject = [
+      "__typename": "Human",
+      "nestedList": [[
+        [
+          "__typename": "Human",
+          "nestedList": [[]]
+        ]
+      ]]
+    ]
+
+    let expected = Hero(data: DataDict(
+      [
+        "__typename": "Human",
+        "nestedList": [[]]
+      ],
+      variables: nil
+    ))
+
+    // when
+    let actual = Hero(data: DataDict(object, variables: nil))
+
+    // then
+    expect(actual.nestedList).to(equal([[expected]]))
+  }
+
+  func test__selection__nestedArrayOfEntity_nullableOuterList_givenValue__returnsValue() {
+    // given
+    class Hero: MockSelectionSet, SelectionSet {
+      typealias Schema = MockSchemaConfiguration
+
+      override class var selections: [Selection] {[
+        .field("__typename", String.self),
+        .field("nestedList", [[Hero]]?.self)
+      ]}
+
+      var nestedList: [[Hero]]? { data["nestedList"] }
+    }
+
+    let object: JSONObject = [
+      "__typename": "Human",
+      "nestedList": [[
+        [
+          "__typename": "Human",
+          "nestedList": [[]]
+        ]
+      ]]
+    ]
+
+    let expected = Hero(data: DataDict(
+      [
+        "__typename": "Human",
+        "nestedList": [[]]
+      ],
+      variables: nil
+    ))
+
+    // when
+    let actual = Hero(data: DataDict(object, variables: nil))
+
+    // then
+    expect(actual.nestedList).to(equal([[expected]]))
+  }  
 
   // MARK: TypeCase Conversion Tests
 

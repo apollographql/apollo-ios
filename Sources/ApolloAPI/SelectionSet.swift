@@ -1,6 +1,6 @@
 // MARK: - Type Erased SelectionSets
 
-public protocol AnySelectionSet {
+public protocol AnySelectionSet: SelectionSetEntityValue {
   static var schema: SchemaConfiguration.Type { get }
 
   static var selections: [Selection] { get }
