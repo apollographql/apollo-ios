@@ -13,12 +13,6 @@ struct Initialize: ParsableCommand {
 
   @Option(
     name: .shortAndLong,
-    help: "Destination for the new configuration."
-  )
-  var output: OutputMode = .file
-
-  @Option(
-    name: .shortAndLong,
     help: "Write the configuration to a file at the path."
   )
   var path: String = Constants.defaultFilePath
@@ -30,7 +24,13 @@ struct Initialize: ParsableCommand {
       already exists at --path, the command will fail.
       """
   )
-  var overwrite = false
+  var overwrite: Bool = false
+
+  @Flag(
+    name: [.long, .customShort("s")],
+    help: "Print the configuration to stdout."
+  )
+  var print: Bool = false
 
   // MARK: - Implementation
   
@@ -43,18 +43,17 @@ struct Initialize: ParsableCommand {
       .default
       .encoded()
 
-    switch self.output {
-    case .file:
-      try write(
-        data: encoded,
-        toPath: self.path,
-        overwrite: self.overwrite,
-        fileManager: fileManager
-      )
-
-    case .print:
+    if self.print {
       try print(data: encoded)
+      return
     }
+
+    try write(
+      data: encoded,
+      toPath: self.path,
+      overwrite: self.overwrite,
+      fileManager: fileManager
+    )
   }
 
   private func write(

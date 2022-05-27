@@ -35,51 +35,9 @@ class InitializeTests: XCTestCase {
     let command = try parseAsRoot(options: options)
 
     // then
-    expect(command.output).to(equal(.file))
     expect(command.path).to(equal(Constants.defaultFilePath))
     expect(command.overwrite).to(beFalse())
-  }
-
-  func test__parsing__givenParameters_outputLongFormatFile_shouldParse() throws {
-    // given
-    let options = [
-      "init",
-      "--output=file"
-    ]
-
-    // when
-    let command = try parseAsRoot(options: options)
-
-    // then
-    expect(command.output).to(equal(.file))
-  }
-
-  func test__parsing__givenParameters_outputLongFormatPrint_shouldParse() throws {
-    // given
-    let options = [
-      "init",
-      "--output=print"
-    ]
-
-    // when
-    let command = try parseAsRoot(options: options)
-
-    // then
-    expect(command.output).to(equal(.print))
-  }
-
-  func test__parsing__givenParameters_outputShortFormat_shouldParse() throws {
-    // given
-    let options = [
-      "init",
-      "-o=print"
-    ]
-
-    // when
-    let command = try parseAsRoot(options: options)
-
-    // then
-    expect(command.output).to(equal(.print))
+    expect(command.print).to(beFalse())
   }
 
   func test__parsing__givenParameters_pathLongFormat_shouldParse() throws {
@@ -142,6 +100,34 @@ class InitializeTests: XCTestCase {
     expect(command.overwrite).to(beTrue())
   }
 
+  func test__parsing__givenParameters_printLongFormat_shouldParse() throws {
+    // given
+    let options = [
+      "init",
+      "--print"
+    ]
+
+    // when
+    let command = try parseAsRoot(options: options)
+
+    // then
+    expect(command.print).to(beTrue())
+  }
+
+  func test__parsing__givenParameters_printShortFormat_shouldParse() throws {
+    // given
+    let options = [
+      "init",
+      "-s"
+    ]
+
+    // when
+    let command = try parseAsRoot(options: options)
+
+    // then
+    expect(command.print).to(beTrue())
+  }
+
   func test__parsing__givenParameters_unknown_shouldThrow() throws {
     // given
     let options = [
@@ -200,13 +186,12 @@ class InitializeTests: XCTestCase {
   }
   """
 
-  func test__output__givenParameters_outputFile_pathCustom_whenNoExistingFile_shouldWriteToPath() throws {
+  func test__output__givenParameters_pathCustom_whenNoExistingFile_shouldWriteToPath() throws {
     // given
     let outputPath = "./path/to/output.file"
 
     let options = [
       "init",
-      "--output=file",
       "--path=\(outputPath)"
     ]
 
@@ -237,13 +222,12 @@ class InitializeTests: XCTestCase {
     expect(self.mockFileManager.allClosuresCalled).to(beTrue())
   }
 
-  func test__output__givenParameters_outputFile_pathCustom_overwriteDefault_whenFileExists_shouldThrow() throws {
+  func test__output__givenParameters_pathCustom_overwriteDefault_whenFileExists_shouldThrow() throws {
     // given
     let outputPath = "./path/to/output.file"
 
     let options = [
       "init",
-      "--output=file",
       "--path=\(outputPath)"
     ]
 
@@ -267,13 +251,12 @@ class InitializeTests: XCTestCase {
     })
   }
 
-  func test__output__givenParameters_outputFile_pathCustom_overwriteTrue_whenFileExists_shouldWriteToPath() throws {
+  func test__output__givenParameters_pathCustom_overwriteTrue_whenFileExists_shouldWriteToPath() throws {
     // given
     let outputPath = "./path/to/output.file"
 
     let options = [
       "init",
-      "--output=file",
       "--path=\(outputPath)",
       "--overwrite"
     ]
@@ -313,7 +296,7 @@ class InitializeTests: XCTestCase {
     subject.executableURL = executable
     subject.arguments = [
       "init",
-      "--output=print"
+      "--print"
     ]
 
     let pipe = Pipe()
