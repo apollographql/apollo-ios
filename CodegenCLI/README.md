@@ -1,9 +1,9 @@
-# CodegenCLI
+# Apollo iOS CLI
 
 ```
 OVERVIEW: A command line utility for Apollo iOS code generation.
 
-USAGE: apollo-ios-codegen <subcommand>
+USAGE: apollo-ios-cli <subcommand>
 
 OPTIONS:
   --version               Show the version.
@@ -14,14 +14,14 @@ SUBCOMMANDS:
   validate                Validate a configuration file or JSON formatted string.
   generate                Generate Swift source code based on a code generation configuration.
 
-  See 'apollo-ios-codegen help <subcommand>' for detailed help.
+  See 'apollo-ios-cli help <subcommand>' for detailed help.
 ```
 
 ## Initialize
 ```
 OVERVIEW: Initialize a new configuration with defaults.
 
-USAGE: apollo-ios-codegen init [--output <output>] [--path <path>] [--overwrite]
+USAGE: apollo-ios-cli init [--output <output>] [--path <path>] [--overwrite]
 
 OPTIONS:
   -o, --output <output>   Destination for the new configuration. (default: file)
@@ -35,7 +35,7 @@ OPTIONS:
 ```
 OVERVIEW: Validate a configuration file or JSON formatted string.
 
-USAGE: apollo-ios-codegen validate --input <input> [--path <path>] [--string <string>]
+USAGE: apollo-ios-cli validate --input <input> [--path <path>] [--string <string>]
 
 OPTIONS:
   -i, --input <input>     Configuration source.
@@ -49,7 +49,7 @@ OPTIONS:
 ```
 OVERVIEW: Generate Swift source code based on a code generation configuration.
 
-USAGE: apollo-ios-codegen generate [--input <input>] [--path <path>] [--string <string>]
+USAGE: apollo-ios-cli generate [--input <input>] [--path <path>] [--string <string>]
 
 OPTIONS:
   -i, --input <input>     Configuration source. (default: file)

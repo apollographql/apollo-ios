@@ -1,6 +1,6 @@
 import XCTest
 import Nimble
-@testable import apollo_ios_codegen
+@testable import apollo_ios_cli
 import ArgumentParser
 
 class InitializeTests: XCTestCase {
@@ -307,7 +307,7 @@ class InitializeTests: XCTestCase {
 
   func test__output__givenParameters_outputPrint_shouldPrintToStandardOutput() throws {
     // given
-    let executable = TestSupport.productsDirectory.appendingPathComponent("apollo-ios-codegen")
+    let executable = TestSupport.productsDirectory.appendingPathComponent("apollo-ios-cli")
 
     let subject = Process()
     subject.executableURL = executable

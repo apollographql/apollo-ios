@@ -15,7 +15,7 @@ let package = Package(
   ],
   targets: [
     .executableTarget(
-      name: "apollo-ios-codegen",
+      name: "apollo-ios-cli",
       dependencies: [
         .product(name: "ApolloCodegenLib", package: "Apollo"),
         .product(name: "ArgumentParser", package: "swift-argument-parser"),
@@ -25,7 +25,7 @@ let package = Package(
     .testTarget(
       name: "CodegenCLITests",
       dependencies: [
-        "apollo-ios-codegen",
+        "apollo-ios-cli",
         "Nimble",
       ],
       path: "./Tests"

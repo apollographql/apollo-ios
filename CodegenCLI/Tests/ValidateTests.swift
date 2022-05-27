@@ -1,6 +1,6 @@
 import XCTest
 import Nimble
-@testable import apollo_ios_codegen
+@testable import apollo_ios_cli
 import ArgumentParser
 
 class ValidateTests: XCTestCase {
