@@ -4,7 +4,7 @@ public typealias JSONValue = AnyHashable
 public typealias JSONObject = [String: JSONValue]
 public typealias JSONEncodableDictionary = [String: JSONEncodable]
 
-public protocol JSONDecodable {
+public protocol JSONDecodable: AnyHashableConvertible {
   init(jsonValue value: JSONValue) throws
 }
 

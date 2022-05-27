@@ -100,7 +100,7 @@ extension Optional where Wrapped: JSONDecodable {
   }
 }
 
-extension Optional: JSONEncodable where Wrapped: JSONEncodable {
+extension Optional: JSONEncodable where Wrapped: JSONEncodable & Hashable {
   @inlinable public var jsonValue: JSONValue {
     switch self {
     case .none: return NSNull()
@@ -127,7 +127,7 @@ extension JSONEncodableDictionary: JSONEncodable {
 
 // Once [conditional conformances](https://github.com/apple/swift-evolution/blob/master/proposals/0143-conditional-conformances.md) have been implemented, we should be able to replace these runtime type checks with proper static typing
 
-extension Dictionary: JSONDecodable {
+extension Dictionary: JSONDecodable where Key == String {
   @inlinable public init(jsonValue value: JSONValue) throws {
     guard let dictionary = value as? Dictionary else {
       throw JSONDecodingError.couldNotConvert(value: value, to: Dictionary.self)
