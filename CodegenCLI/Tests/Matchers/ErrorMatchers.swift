@@ -2,7 +2,9 @@ import Foundation
 import Nimble
 @testable import ArgumentParser
 
-public func throwUserValidationError(_ expectedError: ValidationError) -> Predicate<ParsableCommand> {
+public func throwUserValidationError(
+  _ expectedError: ValidationError
+) -> Predicate<ParsableCommand> {
   return Predicate { actualExpression in
     var actualError: Error?
     do {
@@ -26,7 +28,9 @@ public func throwUserValidationError(_ expectedError: ValidationError) -> Predic
     else {
       return PredicateResult(
         status: .fail,
-        message: .expectedTo("equal ValidationError(\"\(expectedError.self)\"), got \(actualError)")
+        message: .expectedTo(
+          "equal ValidationError(\"\(expectedError.self)\"), got \(actualError)"
+        )
       )
     }
 

@@ -25,7 +25,10 @@ struct Initialize: ParsableCommand {
 
   @Flag(
     name: [.long, .customShort("w")],
-    help: "Overwrite any file at --path."
+    help: """
+      Overwrite any file at --path. If init is called without --overwrite and a config file \
+      already exists at --path, the command will fail.
+      """
   )
   var overwrite = false
 
@@ -62,7 +65,10 @@ struct Initialize: ParsableCommand {
   ) throws {
     if !overwrite && fileManager.apollo.doesFileExist(atPath: path) {
       throw Error(
-        errorDescription: "File already exists at \(path). Hint: use --overwrite to overwrite any existing file at the path."
+        errorDescription: """
+          File already exists at \(path). Hint: use --overwrite to overwrite any existing \
+          file at the path.
+          """
       )
     }
 

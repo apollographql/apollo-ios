@@ -33,7 +33,11 @@ class ValidateTests: XCTestCase {
     expect(
       try self.parseAsRoot(options: options)
     ).to(throwUserValidationError(
-      ValidationError("Missing input file. Hint: --path cannot be empty and must be a JSON formatted configuration file.")
+      ValidationError("""
+        Missing input file. Hint: --path cannot be empty and must be a JSON formatted \
+        configuration file.
+        """
+      )
     ))
   }
 
@@ -48,7 +52,9 @@ class ValidateTests: XCTestCase {
     expect(
       try self.parseAsRoot(options: options)
     ).to(throwUserValidationError(
-      ValidationError("Missing input string. Hint: --string cannot be empty and must be in JSON format.")
+      ValidationError(
+        "Missing input string. Hint: --string cannot be empty and must be in JSON format."
+      )
     ))
   }
 

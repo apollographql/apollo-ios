@@ -33,7 +33,9 @@ struct Generate: ParsableCommand {
   func validate() throws {
     switch (input, string) {
     case (.string, nil):
-      throw ValidationError("Missing input string. Hint: --string cannot be empty and must be in JSON format.")
+      throw ValidationError(
+        "Missing input string. Hint: --string cannot be empty and must be in JSON format."
+      )
     default:
       break
     }

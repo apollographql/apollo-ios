@@ -33,9 +33,15 @@ struct Validate: ParsableCommand {
   func validate() throws {
     switch (input, path, string) {
     case (.file, nil, _):
-      throw ValidationError("Missing input file. Hint: --path cannot be empty and must be a JSON formatted configuration file.")
+      throw ValidationError("""
+        Missing input file. Hint: --path cannot be empty and must be a JSON formatted \
+        configuration file.
+        """
+      )
     case (.string, _, nil):
-      throw ValidationError("Missing input string. Hint: --string cannot be empty and must be in JSON format.")
+      throw ValidationError(
+        "Missing input string. Hint: --string cannot be empty and must be in JSON format."
+      )
     default:
       break
     }

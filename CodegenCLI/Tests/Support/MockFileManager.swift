@@ -3,7 +3,8 @@ import Nimble
 
 public typealias FileAttributes = [FileAttributeKey : Any]
 
-/// Used to mock a `FileManager` instance that is compatible with the `.apollo` namespace extension.
+/// Used to mock a `FileManager` instance that is compatible with the `.apollo` namespace
+/// extension.
 public class MockFileManager: FileManager {
   /// Translates to the `FileManager` functions that can be mocked.
   public enum Closure: CustomStringConvertible {
@@ -18,11 +19,16 @@ public class MockFileManager: FileManager {
     // these should be updated so the mocked closures can still be looked up.
     public var description: String {
       switch self {
-      case .fileExists(_): return "fileExists(atPath:isDirectory:)"
-      case .removeItem(_): return "removeItem(atPath:)"
-      case .createFile(_): return "createFile(atPath:contents:attributes:)"
-      case .createDirectory(_): return "createDirectory(atPath:withIntermediateDirectories:attributes:)"
-      case .contents(_): return "contents(atPath:)"
+      case .fileExists(_):
+        return "fileExists(atPath:isDirectory:)"
+      case .removeItem(_):
+        return "removeItem(atPath:)"
+      case .createFile(_):
+        return "createFile(atPath:contents:attributes:)"
+      case .createDirectory(_):
+        return "createDirectory(atPath:withIntermediateDirectories:attributes:)"
+      case .contents(_):
+        return "contents(atPath:)"
       }
     }
   }
@@ -30,24 +36,28 @@ public class MockFileManager: FileManager {
   private var closures: [String: Closure] = [:]
   private var closuresToBeCalled: Set<String> = []
 
-  /// If `true` then all called closures must be mocked otherwise the call will fail. When `false` any called closure
-  /// that is not mocked will fall through to `super`. As a byproduct of `false`, all mocked closures must be called otherwise
-  /// the test will fail.
+  /// If `true` then all called closures must be mocked otherwise the call will fail. When
+  /// `false` any called closure that is not mocked will fall through to `super`. As a byproduct
+  /// of `false`, all mocked closures must be called otherwise the test will fail.
   let strict: Bool
 
   /// Designated initializer.
   ///
   /// - Parameters:
-  ///  - strict: If `true` then all called closures must be mocked otherwise the call will fail. When `false` any called closure
-  ///  that is not mocked will fall through to `super`. As a byproduct of `false`, all mocked closures must be called otherwise
-  ///  the test will fail.
+  ///  - strict: If `true` then all called closures must be mocked otherwise the call will fail.
+  ///  When `false` any called closure that is not mocked will fall through to `super`. As a
+  ///  byproduct of `false`, all mocked closures must be called otherwise the test will fail.
   public init(strict: Bool = true) {
     self.strict = strict
   }
 
   deinit {
     if strict == false && allClosuresCalled == false {
-      fail("Non-strict mode requires that all mocked closures are called! Check \(closuresToBeCalled) in your MockFileManager instance.")
+      fail("""
+        Non-strict mode requires that all mocked closures are called! Check \
+        \(closuresToBeCalled) in your MockFileManager instance.
+        """
+      )
     }
   }
 
@@ -71,10 +81,15 @@ public class MockFileManager: FileManager {
   // MARK: FileManager overrides
 
   private func missingClosureMessage(_ function: String) -> String {
-    return "\(function) closure must be mocked before calling it! Check your MockFileManager instance."
+    return """
+      \(function) closure must be mocked before calling it! Check your MockFileManager instance.
+      """
   }
 
-  public override func fileExists(atPath path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) -> Bool {
+  public override func fileExists(
+    atPath path: String,
+    isDirectory: UnsafeMutablePointer<ObjCBool>?
+  ) -> Bool {
     let key = #function
 
     guard
@@ -116,7 +131,11 @@ public class MockFileManager: FileManager {
     try handler(path)
   }
 
-  public override func createFile(atPath path: String, contents data: Data?, attributes attr: FileAttributes?) -> Bool {
+  public override func createFile(
+    atPath path: String,
+    contents data: Data?,
+    attributes attr: FileAttributes?
+  ) -> Bool {
     let key = #function
 
     guard
@@ -137,7 +156,10 @@ public class MockFileManager: FileManager {
     return handler(path, data, attr)
   }
 
-  public override func createDirectory(atPath path: String, withIntermediateDirectories createIntermediates: Bool, attributes: FileAttributes?) throws {
+  public override func createDirectory(
+    atPath path: String,
+    withIntermediateDirectories createIntermediates: Bool,
+    attributes: FileAttributes?) throws {
     let key = #function
 
     guard
