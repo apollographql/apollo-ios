@@ -1,7 +1,8 @@
 {
   "packageFiles": ["docs/package.json"],
   "extends": [
-    "apollo-docs"
+    "apollo-docs",
+    "helpers:pinGitHubActionDigests"
   ],
   "labels": ["dependency-management"]
 }
