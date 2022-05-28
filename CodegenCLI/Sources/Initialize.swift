@@ -43,15 +43,15 @@ struct Initialize: ParsableCommand {
       .default
       .encoded()
 
-    if self.print {
+    if print {
       try print(data: encoded)
       return
     }
 
     try write(
       data: encoded,
-      toPath: self.path,
-      overwrite: self.overwrite,
+      toPath: path,
+      overwrite: overwrite,
       fileManager: fileManager
     )
   }

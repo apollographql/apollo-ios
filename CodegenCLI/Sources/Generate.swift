@@ -32,13 +32,13 @@ struct Generate: ParsableCommand {
     fileManager: FileManager = .default,
     codegenProvider: CodegenProvider.Type = ApolloCodegen.self
   ) throws {
-    if let string = self.string {
+    if let string = string {
       try generate(data: try string.asData(), codegenProvider: codegenProvider)
       return
     }
 
-    guard let data = fileManager.contents(atPath: self.path) else {
-      throw Error(errorDescription: "Cannot read configuration file at \(self.path)")
+    guard let data = fileManager.contents(atPath: path) else {
+      throw Error(errorDescription: "Cannot read configuration file at \(path)")
     }
 
     try generate(data: data, codegenProvider: codegenProvider)

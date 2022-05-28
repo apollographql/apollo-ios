@@ -39,7 +39,7 @@ struct Validate: ParsableCommand {
   }
 
   func _run(fileManager: FileManager = .default) throws {
-    if let path = self.path {
+    if let path = path {
       guard let data = fileManager.contents(atPath: path) else {
         throw Error(errorDescription: "Cannot read configuration file.")
       }
@@ -49,7 +49,7 @@ struct Validate: ParsableCommand {
       print("--path configuration is valid.")
     }
 
-    if let string = self.string {
+    if let string = string {
       try validate(data: try string.asData())
 
       print("--string configuration is valid.")
