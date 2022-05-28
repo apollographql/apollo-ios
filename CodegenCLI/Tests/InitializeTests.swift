@@ -186,7 +186,7 @@ class InitializeTests: XCTestCase {
   }
   """
 
-  func test__output__givenParameters_pathCustom_whenNoExistingFile_shouldWriteToPath() throws {
+  func test__output__givenParameters_pathCustom_overwriteDefault_whenNoExistingFile_shouldWriteToPath() throws {
     // given
     let outputPath = "./path/to/output.file"
 
@@ -288,7 +288,7 @@ class InitializeTests: XCTestCase {
     expect(self.mockFileManager.allClosuresCalled).to(beTrue())
   }
 
-  func test__output__givenParameters_outputPrint_shouldPrintToStandardOutput() throws {
+  func test__output__givenParameters_printTrue_shouldPrintToStandardOutput() throws {
     // given
     let executable = TestSupport.productsDirectory.appendingPathComponent("apollo-ios-cli")
 
@@ -296,6 +296,35 @@ class InitializeTests: XCTestCase {
     subject.executableURL = executable
     subject.arguments = [
       "init",
+      "--print"
+    ]
+
+    let pipe = Pipe()
+    subject.standardOutput = pipe
+
+    // when
+    try subject.run()
+    subject.waitUntilExit()
+
+    let data = pipe.fileHandleForReading.readDataToEndOfFile()
+    let output = String(data: data, encoding: .utf8)
+
+    // Printing to STDOUT appends a newline
+    let expected = expectedJSON + "\n"
+
+    // then
+    expect(output).to(equal(expected))
+  }
+
+  func test__output__givenParameters_bothPathAndPrint_shouldPrintToStandardOutput() throws {
+    // given
+    let executable = TestSupport.productsDirectory.appendingPathComponent("apollo-ios-cli")
+
+    let subject = Process()
+    subject.executableURL = executable
+    subject.arguments = [
+      "init",
+      "--path=./path/to/file",
       "--print"
     ]
 

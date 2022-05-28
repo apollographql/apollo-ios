@@ -22,39 +22,8 @@ class GenerateTests: XCTestCase {
     let command = try parseAsRoot(options: options)
 
     // then
-    expect(command.input).to(equal(.file))
     expect(command.path).to(equal(Constants.defaultFilePath))
     expect(command.string).to(beNil())
-  }
-
-  func test__parsing__givenParameters_inputLongFormat_shouldParse() throws {
-    // given
-    let options = [
-      "generate",
-      "--input=string",
-      "--string=text"
-    ]
-
-    // when
-    let command = try parseAsRoot(options: options)
-
-    // then
-    expect(command.input).to(equal(.string))
-  }
-
-  func test__parsing__givenParameters_inputShortFormat_shouldParse() throws {
-    // given
-    let options = [
-      "generate",
-      "-i=string",
-      "--string=text"
-    ]
-
-    // when
-    let command = try parseAsRoot(options: options)
-
-    // then
-    expect(command.input).to(equal(.string))
   }
 
   func test__parsing__givenParameters_pathLongFormat_shouldParse() throws {
@@ -121,23 +90,6 @@ class GenerateTests: XCTestCase {
     expect(command.string).to(equal(string))
   }
 
-  func test__parsing__givenParameters_inputString_stringNone_shouldThrow() throws {
-    // given
-    let options = [
-      "generate",
-      "--input=string"
-    ]
-
-    // then
-    expect(
-      try self.parseAsRoot(options: options)
-    ).to(throwUserValidationError(
-      ValidationError(
-        "Missing input string. Hint: --string cannot be empty and must be in JSON format."
-      )
-    ))
-  }
-
   func test__parsing__givenParameters_unknown_shouldThrow() throws {
     // given
     let options = [
@@ -152,13 +104,12 @@ class GenerateTests: XCTestCase {
 
   // MARK: - Generate Tests
 
-  func test__generate__givenParameters_inputFile_pathCustom_shouldBuildWithFileData() throws {
+  func test__generate__givenParameters_pathCustom_shouldBuildWithFileData() throws {
     // given
     let inputPath = "./config.json"
 
     let options = [
       "generate",
-      "--input=file",
       "--path=\(inputPath)"
     ]
 
@@ -190,7 +141,7 @@ class GenerateTests: XCTestCase {
     expect(didCallBuild).to(beTrue())
   }
 
-  func test__generate__givenParameters_inputString_shouldBuildWithStringData() throws {
+  func test__generate__givenParameters_stringCustom_shouldBuildWithStringData() throws {
     // given
     let mockConfiguration = ApolloCodegenConfiguration.mock()
 
@@ -201,7 +152,6 @@ class GenerateTests: XCTestCase {
 
     let options = [
       "generate",
-      "--input=string",
       "--string=\(jsonString)"
     ]
 
@@ -220,16 +170,35 @@ class GenerateTests: XCTestCase {
     // then
     expect(didCallBuild).to(beTrue())
   }
-}
 
-// MARK: - Private Extensions
+  func test__generate__givenParameters_bothPathAndString_shouldBuildWithStringData() throws {
+    // given
+    let mockConfiguration = ApolloCodegenConfiguration.mock()
 
-fileprivate extension ApolloCodegenConfiguration {
-  static func mock() -> Self {
-    return self.init(
-      schemaName: "MockSchema",
-      input: .init(schemaPath: "./schema.graphqls"),
-      output: .init(schemaTypes: .init(path: ".", moduleType: .swiftPackageManager))
-    )
+    let jsonString = String(
+      data: try! JSONEncoder().encode(mockConfiguration),
+      encoding: .utf8
+    )!
+
+    let options = [
+      "generate",
+      "--path=./path/to/file",
+      "--string=\(jsonString)"
+    ]
+
+    var didCallBuild = false
+    MockApolloCodegen.buildHandler = { configuration in
+      expect(configuration).to(equal(mockConfiguration))
+
+      didCallBuild = true
+    }
+
+    // when
+    let command = try parseAsRoot(options: options)
+
+    try command._run(codegenProvider: MockApolloCodegen.self)
+
+    // then
+    expect(didCallBuild).to(beTrue())
   }
 }

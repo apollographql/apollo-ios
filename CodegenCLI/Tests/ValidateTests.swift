@@ -2,6 +2,7 @@ import XCTest
 import Nimble
 @testable import apollo_ios_cli
 import ArgumentParser
+import ApolloCodegenLib
 
 class ValidateTests: XCTestCase {
 
@@ -19,73 +20,11 @@ class ValidateTests: XCTestCase {
 
     // then
     expect(try self.parseAsRoot(options: options))
-      .to(throwError())
-  }
-
-  func test__parsing__givenParameters_inputFile_pathNone_shouldThrow() throws {
-    // given
-    let options = [
-      "validate",
-      "--input=file"
-    ]
-
-    // then
-    expect(
-      try self.parseAsRoot(options: options)
-    ).to(throwUserValidationError(
-      ValidationError("""
-        Missing input file. Hint: --path cannot be empty and must be a JSON formatted \
-        configuration file.
+      .to(throwUserValidationError(ValidationError("""
+        Missing input path and string. Hint: Use --path to specify a configuration file in JSON \
+        format or --string to specify a JSON formatted configuration string.
         """
-      )
-    ))
-  }
-
-  func test__parsing__givenParameters_inputString_stringNone_shouldThrow() throws {
-    // given
-    let options = [
-      "validate",
-      "--input=string"
-    ]
-
-    // then
-    expect(
-      try self.parseAsRoot(options: options)
-    ).to(throwUserValidationError(
-      ValidationError(
-        "Missing input string. Hint: --string cannot be empty and must be in JSON format."
-      )
-    ))
-  }
-
-  func test__parsing__givenParameters_inputLongFormat_shouldParse() throws {
-    // given
-    let options = [
-      "validate",
-      "--input=string",
-      "--string=text"
-    ]
-
-    // when
-    let command = try parseAsRoot(options: options)
-
-    // then
-    expect(command.input).to(equal(.string))
-  }
-
-  func test__parsing__givenParameters_inputShortFormat_shouldParse() throws {
-    // given
-    let options = [
-      "validate",
-      "-i=string",
-      "--string=text"
-    ]
-
-    // when
-    let command = try parseAsRoot(options: options)
-
-    // then
-    expect(command.input).to(equal(.string))
+      )))
   }
 
   func test__parsing__givenParameters_pathLongFormat_shouldParse() throws {
@@ -94,7 +33,6 @@ class ValidateTests: XCTestCase {
 
     let options = [
       "validate",
-      "--input=file",
       "--path=\(path)"
     ]
 
@@ -111,7 +49,6 @@ class ValidateTests: XCTestCase {
 
     let options = [
       "validate",
-      "--input=file",
       "-p=\(path)"
     ]
 
@@ -128,7 +65,6 @@ class ValidateTests: XCTestCase {
 
     let options = [
       "validate",
-      "--input=string",
       "--string=\(string)"
     ]
 
@@ -145,7 +81,6 @@ class ValidateTests: XCTestCase {
 
     let options = [
       "validate",
-      "--input=string",
       "-s=\(string)"
     ]
 
@@ -166,5 +101,46 @@ class ValidateTests: XCTestCase {
     // then
     expect(try self.parseAsRoot(options: options))
       .to(throwUnknownOptionError())
+  }
+
+  // MARK: - Generate Tests
+
+  func test__validate__givenParameters_pathCustom_shouldReadContentsFromPath() throws {
+    // given
+    let inputPath = "./config.file"
+
+    let options = [
+      "validate",
+      "--path=\(inputPath)"
+    ]
+
+    let mockConfiguration = ApolloCodegenConfiguration.mock()
+    let mockFileManager = MockFileManager(strict: true)
+
+    mockFileManager.mock(closure: .contents({ path in
+      let actualPath = URL(fileURLWithPath: path).standardizedFileURL.path
+      let expectedPath = URL(fileURLWithPath: inputPath).standardizedFileURL.path
+
+      expect(actualPath).to(equal(expectedPath))
+
+      return try! JSONEncoder().encode(mockConfiguration)
+    }))
+
+    // when
+    let command = try parseAsRoot(options: options)
+
+    // then
+    expect(try command._run(fileManager: mockFileManager))
+      .to(throwError { error in
+        guard
+          case let ApolloCodegenLib.ApolloCodegenConfiguration.Error.notAFile(path) = error,
+          case ApolloCodegenLib.ApolloCodegenConfiguration.PathType.schema = path
+        else {
+          fail("Expected notAFile(schema) error, got \(error)")
+          return
+        }
+      })
+
+    expect(mockFileManager.allClosuresCalled).to(beTrue())
   }
 }

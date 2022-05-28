@@ -12,12 +12,6 @@ struct Validate: ParsableCommand {
 
   @Option(
     name: .shortAndLong,
-    help: "Configuration source."
-  )
-  var input: InputMode
-
-  @Option(
-    name: .shortAndLong,
     help: "Read the configuration from a file at the path."
   )
   var path: String?
@@ -31,19 +25,12 @@ struct Validate: ParsableCommand {
   // MARK: - Implementation
 
   func validate() throws {
-    switch (input, path, string) {
-    case (.file, nil, _):
+    if path == nil && string == nil {
       throw ValidationError("""
-        Missing input file. Hint: --path cannot be empty and must be a JSON formatted \
-        configuration file.
+        Missing input path and string. Hint: Use --path to specify a configuration file in JSON \
+        format or --string to specify a JSON formatted configuration string.
         """
       )
-    case (.string, _, nil):
-      throw ValidationError(
-        "Missing input string. Hint: --string cannot be empty and must be in JSON format."
-      )
-    default:
-      break
     }
   }
   
@@ -52,21 +39,20 @@ struct Validate: ParsableCommand {
   }
 
   func _run(fileManager: FileManager = .default) throws {
-    switch self.input {
-    case .file:
-      guard
-        let path = self.path,
-        let data = fileManager.contents(atPath: path)
-      else {
+    if let path = self.path {
+      guard let data = fileManager.contents(atPath: path) else {
         throw Error(errorDescription: "Cannot read configuration file.")
       }
 
       try validate(data: data)
 
-    case .string:
-      if let string = self.string {
-        try validate(data: try string.asData())
-      }
+      print("--path configuration is valid.")
+    }
+
+    if let string = self.string {
+      try validate(data: try string.asData())
+
+      print("--string configuration is valid.")
     }
   }
 
@@ -76,7 +62,5 @@ struct Validate: ParsableCommand {
     CodegenLogger.level = .warning
 
     try configuration.validate()
-
-    print("The configuration is valid.")
   }
 }

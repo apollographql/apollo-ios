@@ -33,7 +33,7 @@ struct Initialize: ParsableCommand {
   var print: Bool = false
 
   // MARK: - Implementation
-  
+
   func run() throws {
     try _run()
   }
