@@ -2004,7 +2004,6 @@ class SelectionSetTemplateTests: XCTestCase {
       allAnimals {
         predator {
           ...PredatorDetails
-          species
         }
       }
     }
@@ -2023,7 +2022,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let predator_asPet_expected = """
-      public var favoriteToy: PetToy? { data["favoriteToy"] }
+      public var favoriteToy: PredatorDetails.FavoriteToy? { data["favoriteToy"] }
     """
 
     // when
@@ -2036,8 +2035,8 @@ class SelectionSetTemplateTests: XCTestCase {
 
     // then
     expect(predator_asPet_actual)
-      .to(equalLineByLine(predator_asPet_expected, atLine: 9, ignoringExtraLines: true))
-  }  
+      .to(equalLineByLine(predator_asPet_expected, atLine: 8, ignoringExtraLines: true))
+  }
 
   // MARK: Field Accessors - Merged From Parent
 
@@ -3337,6 +3336,105 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
   }
 
+  func test__render_nestedSelectionSet__givenEntityFieldMergedFromNestedFragmentInTypeCase_withNoOtherMergedFields_doesNotRendersSelectionSet() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+      predator: Animal!
+      height: Height!
+    }
+
+    interface WarmBlooded implements Animal {
+      species: String!
+      predator: Animal!
+      height: Height!
+    }
+
+    type Height {
+      meters: Int!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        predator {
+          ...WarmBloodedDetails
+        }
+      }
+    }
+
+    fragment WarmBloodedDetails on WarmBlooded {
+      species
+      ...HeightInMeters
+    }
+
+    fragment HeightInMeters on Animal {
+      height {
+        meters
+      }
+    }
+    """
+
+    let allAnimals_expected = """
+      public var predator: Predator { data["predator"] }
+
+      /// AllAnimal.Predator
+      public struct Predator: TestSchema.SelectionSet {
+    """
+
+    let allAnimals_predator_expected = """
+      public var asWarmBlooded: AsWarmBlooded? { _asInlineFragment() }
+
+      /// AllAnimal.Predator.AsWarmBlooded
+      public struct AsWarmBlooded: TestSchema.InlineFragment {
+    """
+
+    let allAnimals_predator_asWarmBlooded_expected = """
+      public var species: String { data["species"] }
+      public var height: HeightInMeters.Height { data["height"] }
+
+      public struct Fragments: FragmentContainer {
+        public let data: DataDict
+        public init(data: DataDict) { self.data = data }
+
+        public var warmBloodedDetails: WarmBloodedDetails { _toFragment() }
+        public var heightInMeters: HeightInMeters { _toFragment() }
+      }
+    }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+    let allAnimals_predator = try XCTUnwrap(
+      allAnimals[field: "predator"] as? IR.EntityField
+    )
+    let allAnimals_predator_asWarmBlooded = try XCTUnwrap(
+      allAnimals_predator[as: "WarmBlooded"]
+    )
+
+    let allAnimals_actual = subject.render(field: allAnimals)
+    let allAnimals_predator_actual = subject.render(field: allAnimals_predator)
+    let allAnimals_predator_asWarmBlooded_actual = subject
+      .render(inlineFragment: allAnimals_predator_asWarmBlooded)
+
+    // then
+    expect(allAnimals_actual)
+      .to(equalLineByLine(allAnimals_expected, atLine: 11, ignoringExtraLines: true))
+    expect(allAnimals_predator_actual)
+      .to(equalLineByLine(allAnimals_predator_expected, atLine: 11, ignoringExtraLines: true))
+    expect(allAnimals_predator_asWarmBlooded_actual)
+      .to(equalLineByLine(allAnimals_predator_asWarmBlooded_expected, atLine: 11, ignoringExtraLines: true))
+  }
+
   func test__render_nestedSelectionSets__givenDirectSelection_typeCase_rendersNestedSelectionSet() throws {
     // given
     schemaSDL = """
@@ -3604,7 +3702,7 @@ class SelectionSetTemplateTests: XCTestCase {
       .to(equalLineByLine(predator_expected, atLine: 23, ignoringExtraLines: true))
   }
 
-  func test__render_nestedSelectionSet__givenTypeCaseMergedFromFragmentWithNoOtherMergedFields_doesNotRenderTypeCase() throws {
+  func test__render_nestedSelectionSet__givenTypeCaseMergedFromFragmentWithNoOtherMergedFields_rendersTypeCase() throws {
     // given
     schemaSDL = """
     type Query {
@@ -3664,4 +3762,6 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(predator_actual)
       .to(equalLineByLine(predator_expected, atLine: 20, ignoringExtraLines: true))
   }
+
+
 }

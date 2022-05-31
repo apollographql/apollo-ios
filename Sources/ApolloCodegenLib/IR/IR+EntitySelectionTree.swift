@@ -443,7 +443,29 @@ extension IR.EntitySelectionTree.EnclosingEntityNode {
     withNodeRootType nodeRootType: GraphQLCompositeType,
     using entityStorage: IR.RootFieldEntityStorage
   ) {
-    switch otherTree.rootNode.child {
+    let rootNode = otherTree.rootNode
+    self.mergeIn(
+      rootNode: rootNode,
+      from: fragment,
+      withNodeRootType: nodeRootType,
+      using: entityStorage
+    )
+
+    if let otherConditions = rootNode.scopeConditions {
+      for (otherCondition, otherNode) in otherConditions {
+        let conditionNode = self.scopeConditionNode(for: otherCondition)
+        conditionNode.mergeIn(otherNode, from: fragment, using: entityStorage)
+      }
+    }
+  }
+
+  fileprivate func mergeIn(
+    rootNode: IR.EntitySelectionTree.EnclosingEntityNode,
+    from fragment: IR.FragmentSpread,
+    withNodeRootType nodeRootType: GraphQLCompositeType,
+    using entityStorage: IR.RootFieldEntityStorage
+  ) {
+    switch rootNode.child {
     case let .enclosingEntity(otherNextNode):
       let fragmentType = fragment.typeInfo.parentType
       let nextNode = nodeRootType == fragmentType ?
