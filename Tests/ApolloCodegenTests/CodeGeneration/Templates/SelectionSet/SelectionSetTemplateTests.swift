@@ -1857,6 +1857,65 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(allAnimals_predator_asPet_actual).to(equalLineByLine(predator_asPet_expected, atLine: 8, ignoringExtraLines: true))
   }
 
+  func test__render_fieldAccessors__givenEntityFieldMergedAsRootOfFragment_rendersFieldAccessor() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+      predator: Animal!
+    }
+
+    interface Pet {
+      favoriteToy: Item
+    }
+
+    type Item {
+      name: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        predator {
+          ...PredatorDetails
+        }
+      }
+    }
+
+    fragment PredatorDetails on Animal {
+      ... on Pet {
+        favoriteToy {
+          ...PetToy
+        }
+      }
+    }
+
+    fragment PetToy on Item {
+      name
+    }
+    """
+
+    let expected = """
+      public var favoriteToy: PetToy? { data["favoriteToy"] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let predator_asPet = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"]?[field: "predator"]?[as: "Pet"]
+    )
+
+    let actual = subject.render(inlineFragment: predator_asPet)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
+  }
+
   // MARK: Field Accessors - Merged From Parent
 
   func test__render_fieldAccessors__givenEntityFieldMergedFromParent_rendersFieldAccessorWithDirectName() throws {
