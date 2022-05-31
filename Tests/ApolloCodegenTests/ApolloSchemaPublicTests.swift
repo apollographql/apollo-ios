@@ -8,11 +8,11 @@ class ApolloSchemaPublicTests: XCTestCase {
   func testCreatingSchemaDownloadConfiguration_forIntrospectionDownload_usingDefaultParameters() throws {
     let configuration = ApolloSchemaDownloadConfiguration(
       using: .introspection(endpointURL: TestURL.mockPort8080.url),
-      outputURL: CodegenTestHelper.schemaOutputURL()
+      outputPath: CodegenTestHelper.schemaOutputURL().path
     )
 
     XCTAssertEqual(configuration.downloadMethod, .introspection(endpointURL: TestURL.mockPort8080.url))
-    XCTAssertEqual(configuration.outputURL, CodegenTestHelper.schemaOutputURL())
+    XCTAssertEqual(configuration.outputPath, CodegenTestHelper.schemaOutputURL().path)
     XCTAssertTrue(configuration.headers.isEmpty)
   }
 
@@ -24,21 +24,29 @@ class ApolloSchemaPublicTests: XCTestCase {
     
     let configuration = ApolloSchemaDownloadConfiguration(
       using: .apolloRegistry(settings),
-      outputURL: CodegenTestHelper.schemaOutputURL()
+      outputPath: CodegenTestHelper.schemaOutputURL().path
     )
 
     XCTAssertEqual(configuration.downloadMethod, .apolloRegistry(settings))
-    XCTAssertEqual(configuration.outputURL, CodegenTestHelper.schemaOutputURL())
+    XCTAssertEqual(configuration.outputPath, CodegenTestHelper.schemaOutputURL().path)
     XCTAssertTrue(configuration.headers.isEmpty)
   }
 
   func testCreatingSchemaDownloadConfiguration_forRegistryDownload_usingAllParameters() throws {
-    let settings = ApolloSchemaDownloadConfiguration.DownloadMethod.ApolloRegistrySettings(apiKey: "Fake_API_Key",
-                                                                                           graphID: "Fake_Graph_ID",
-                                                                                           variant: "Fake_Variant")
+    let settings = ApolloSchemaDownloadConfiguration.DownloadMethod.ApolloRegistrySettings(
+      apiKey: "Fake_API_Key",
+      graphID: "Fake_Graph_ID",
+      variant: "Fake_Variant"
+    )
     let headers = [
-      ApolloSchemaDownloadConfiguration.HTTPHeader(key: "Authorization", value: "Bearer tokenGoesHere"),
-      ApolloSchemaDownloadConfiguration.HTTPHeader(key: "Custom-Header",  value: "Custom_Customer")
+      ApolloSchemaDownloadConfiguration.HTTPHeader(
+        key: "Authorization",
+        value: "Bearer tokenGoesHere"
+      ),
+      ApolloSchemaDownloadConfiguration.HTTPHeader(
+        key: "Custom-Header",
+        value: "Custom_Customer"
+      )
     ]
 
     let schemaFileName = "different_name"
@@ -47,13 +55,12 @@ class ApolloSchemaPublicTests: XCTestCase {
     let configuration = ApolloSchemaDownloadConfiguration(
       using: .apolloRegistry(settings),
       headers: headers,
-      outputURL: outputURL
+      outputPath: outputURL.path
     )
 
     XCTAssertEqual(configuration.downloadMethod, .apolloRegistry(settings))
     XCTAssertEqual(configuration.headers, headers)
-
-    XCTAssertEqual(configuration.outputURL, outputURL)
+    XCTAssertEqual(configuration.outputPath, outputURL.path)
   }
   
 }
