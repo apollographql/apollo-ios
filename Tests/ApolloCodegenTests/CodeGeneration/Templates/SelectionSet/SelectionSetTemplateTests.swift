@@ -1788,6 +1788,73 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 9, ignoringExtraLines: true))
   }
 
+  func test__render_fieldAccessors__givenEntityFieldMergedFromTypeCaseInFragment_rendersFieldAccessor() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+      predator: Animal!
+      height: Height!
+    }
+
+    interface Pet {
+      height: Height!
+    }
+
+    type Height {
+      feet: Int!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        predator {
+          species
+          ...PredatorDetails
+        }
+      }
+    }
+
+    fragment PredatorDetails on Animal {
+      ... on Pet {
+        height {
+          feet
+        }
+      }
+    }
+    """
+
+    let predator_expected = """
+      public var species: String { data["species"] }
+
+    """
+
+    let predator_asPet_expected = """
+      public var species: String { data["species"] }
+      public var height: PredatorDetails.AsPet.Height { data["height"] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals_predator = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"]?[field: "predator"] as? IR.EntityField
+    )
+
+    let allAnimals_predator_asPet = try XCTUnwrap(allAnimals_predator[as: "Pet"])
+
+    let allAnimals_predator_actual = subject.render(field: allAnimals_predator)
+    let allAnimals_predator_asPet_actual = subject.render(inlineFragment: allAnimals_predator_asPet)
+
+    // then
+    expect(allAnimals_predator_actual).to(equalLineByLine(predator_expected, atLine: 12, ignoringExtraLines: true))
+    expect(allAnimals_predator_asPet_actual).to(equalLineByLine(predator_asPet_expected, atLine: 8, ignoringExtraLines: true))
+  }
+
   func test__render_fieldAccessors__givenEntityFieldMergedFromFragmentWithEntityNestedInEntityTypeCase_rendersFieldAccessor() throws {
     // given
     schemaSDL = """

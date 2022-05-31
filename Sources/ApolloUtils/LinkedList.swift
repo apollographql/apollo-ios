@@ -221,10 +221,30 @@ extension LinkedList: Sequence {
   public typealias Element = T
 
   public class Iterator: IteratorProtocol {
-    var currentNode: Node?
+    var nodeIterator: LinkedList.Node.Iterator?
 
     init(_ list: LinkedList) {
-      currentNode = list.headNode
+      nodeIterator = .init(list.head)
+    }
+
+    public func next() -> Element? {
+      return nodeIterator?.next()
+    }
+  }
+
+  public func makeIterator() -> Iterator {
+    Iterator(self)
+  }
+}
+
+extension LinkedList.Node: Sequence {
+  public typealias Element = T
+
+  public class Iterator: IteratorProtocol {
+    var currentNode: LinkedList.Node?
+
+    init(_ node: LinkedList.Node) {
+      currentNode = node
     }
 
     public func next() -> Element? {

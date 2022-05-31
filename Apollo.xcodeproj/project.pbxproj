@@ -196,6 +196,8 @@
 		DE181A3426C5D8D4000C0B9C /* CompressionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE181A3326C5D8D4000C0B9C /* CompressionTests.swift */; };
 		DE181A3626C5DE4F000C0B9C /* WebSocketStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE181A3526C5DE4F000C0B9C /* WebSocketStream.swift */; };
 		DE1C6F00284161DE0050164B /* AnyHashableConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1C6EFF284161DE0050164B /* AnyHashableConvertible.swift */; };
+		DE1C6F032846C84D0050164B /* ClassroomPetsCCNQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1C6F012846C84D0050164B /* ClassroomPetsCCNQuery.swift */; };
+		DE1C6F042846C84D0050164B /* ClassroomPetDetailsCCN.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1C6F022846C84D0050164B /* ClassroomPetDetailsCCN.swift */; };
 		DE223C1C271F3288004A0148 /* AnimalKingdomIRCreationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE223C1B271F3288004A0148 /* AnimalKingdomIRCreationTests.swift */; };
 		DE223C24271F335D004A0148 /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE223C23271F335D004A0148 /* Resources.swift */; };
 		DE223C292720B897004A0148 /* StringInterpolation+NestedIndentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE223C282720B897004A0148 /* StringInterpolation+NestedIndentation.swift */; };
@@ -1045,6 +1047,8 @@
 		DE181A3326C5D8D4000C0B9C /* CompressionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompressionTests.swift; sourceTree = "<group>"; };
 		DE181A3526C5DE4F000C0B9C /* WebSocketStream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketStream.swift; sourceTree = "<group>"; };
 		DE1C6EFF284161DE0050164B /* AnyHashableConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyHashableConvertible.swift; sourceTree = "<group>"; };
+		DE1C6F012846C84D0050164B /* ClassroomPetsCCNQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassroomPetsCCNQuery.swift; sourceTree = "<group>"; };
+		DE1C6F022846C84D0050164B /* ClassroomPetDetailsCCN.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassroomPetDetailsCCN.swift; sourceTree = "<group>"; };
 		DE223C1B271F3288004A0148 /* AnimalKingdomIRCreationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalKingdomIRCreationTests.swift; sourceTree = "<group>"; };
 		DE223C23271F335D004A0148 /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
 		DE223C282720B897004A0148 /* StringInterpolation+NestedIndentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StringInterpolation+NestedIndentation.swift"; sourceTree = "<group>"; };
@@ -2826,6 +2830,8 @@
 				E66C014827FEB84F00FF5FA1 /* WarmBloodedDetails.swift */,
 				E66C014927FEB84F00FF5FA1 /* PetSearchQuery.swift */,
 				E66C014A27FEB84F00FF5FA1 /* AllAnimalsIncludeSkipQuery.swift */,
+				DE1C6F022846C84D0050164B /* ClassroomPetDetailsCCN.swift */,
+				DE1C6F012846C84D0050164B /* ClassroomPetsCCNQuery.swift */,
 			);
 			name = Operations;
 			path = AnimalKingdomAPI/Sources/Operations;
@@ -4218,6 +4224,7 @@
 				DE223C24271F335D004A0148 /* Resources.swift in Sources */,
 				E66C017C27FEB86800FF5FA1 /* Pet.swift in Sources */,
 				E66C014D27FEB84F00FF5FA1 /* HeightInMeters.swift in Sources */,
+				DE1C6F042846C84D0050164B /* ClassroomPetDetailsCCN.swift in Sources */,
 				E66C017927FEB86800FF5FA1 /* MeasurementsInput.swift in Sources */,
 				E66C016C27FEB86800FF5FA1 /* ClassroomPet.swift in Sources */,
 				E66C017D27FEB86800FF5FA1 /* WarmBlooded.swift in Sources */,
@@ -4230,6 +4237,7 @@
 				E66C016D27FEB86800FF5FA1 /* SkinCovering.swift in Sources */,
 				E66C017427FEB86800FF5FA1 /* Rat.swift in Sources */,
 				E66C017527FEB86800FF5FA1 /* Height.swift in Sources */,
+				DE1C6F032846C84D0050164B /* ClassroomPetsCCNQuery.swift in Sources */,
 				E66C017227FEB86800FF5FA1 /* Cat.swift in Sources */,
 				E66C017327FEB86800FF5FA1 /* Mutation.swift in Sources */,
 				DE225F472835A96A005415AA /* Crocodile.swift in Sources */,

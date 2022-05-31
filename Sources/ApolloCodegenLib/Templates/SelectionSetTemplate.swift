@@ -49,7 +49,7 @@ struct SelectionSetTemplate {
   // MARK: - Selection Set Name Documentation
   func SelectionSetNameDocumentation(_ selectionSet: IR.SelectionSet) -> TemplateString {
     """
-    /// \(generatedSelectionSetName(
+    /// \(SelectionSetNameGenerator.generatedSelectionSetName(
     from: selectionSet.scopePath.head,
     withFieldPath: selectionSet.entity.fieldPath.toArray(),
     removingFirst: true))
@@ -386,7 +386,7 @@ fileprivate extension IR.MergedSelections.MergedSource {
                             .toArray()
                             .suffix(nodesToSharedRoot + 1))
 
-    let selectionSetName = ApolloCodegenLib.generatedSelectionSetName(
+    let selectionSetName = SelectionSetNameGenerator.generatedSelectionSetName(
       from: sourceTypePathCurrentNode,
       withFieldPath: fieldPath,
       removingFirst: nodesToSharedRoot <= 1
@@ -396,47 +396,72 @@ fileprivate extension IR.MergedSelections.MergedSource {
   }
 
   private func generatedSelectionSetNameForMergedEntity(in fragment: IR.NamedFragment) -> String {
-    guard let fragmentNestedTypePath = typeInfo.scopePath.head.next else {
-      return fragment.definition.name
+    var selectionSetNameComponents: [String] = [fragment.definition.name]
+
+    let rootEntityScopePath = typeInfo.scopePath.head
+    if let rootEntityTypeConditionPath = rootEntityScopePath.value.scopePath.head.next {
+      selectionSetNameComponents.append(
+        SelectionSetNameGenerator.ConditionPath.path(for: rootEntityTypeConditionPath)
+      )
     }
 
-    let selectionSetName = ApolloCodegenLib.generatedSelectionSetName(
-      from: fragmentNestedTypePath,
-      withFieldPath: Array(typeInfo.entity.fieldPath.toArray().dropFirst())
-    )
+    if let fragmentNestedTypePath = rootEntityScopePath.next {
+      selectionSetNameComponents.append(
+        SelectionSetNameGenerator.generatedSelectionSetName(
+          from: fragmentNestedTypePath,
+          withFieldPath: Array(typeInfo.entity.fieldPath.toArray().dropFirst())
+        )
+      )
+    }
 
-    return "\(fragment.definition.name).\(selectionSetName)"
+    return selectionSetNameComponents.joined(separator: ".")
   }
 
 }
 
-private func generatedSelectionSetName(
-  from typePathNode: LinkedList<IR.ScopeDescriptor>.Node,
-  withFieldPath fieldPath: [String],
-  removingFirst: Bool = false
-) -> String {
-  var currentNode = Optional(typePathNode)
-  var fieldPathIndex = 0
+fileprivate struct SelectionSetNameGenerator {
 
-  var components: [String] = []
+  static func generatedSelectionSetName(
+    from typePathNode: LinkedList<IR.ScopeDescriptor>.Node,
+    withFieldPath fieldPath: [String],
+    removingFirst: Bool = false
+  ) -> String {
+    var currentNode = Optional(typePathNode)
+    var fieldPathIndex = 0
 
-  repeat {
-    let fieldName = fieldPath[fieldPathIndex]
-    components.append(StringInflector.default.singularize(fieldName.firstUppercased))
+    var components: [String] = []
 
-    var currentTypeScopeNode = currentNode.unsafelyUnwrapped.value.scopePath.head
-    while let typeCaseNode = currentTypeScopeNode.next {
-      components.append(typeCaseNode.value.selectionSetNameComponent)
-      currentTypeScopeNode = typeCaseNode
+    repeat {
+      let fieldName = fieldPath[fieldPathIndex]
+      components.append(StringInflector.default.singularize(fieldName.firstUppercased))
+
+      if let conditionNodes = currentNode.unsafelyUnwrapped.value.scopePath.head.next {
+        ConditionPath.add(conditionNodes, to: &components)
+      }
+
+      fieldPathIndex += 1
+      currentNode = currentNode.unsafelyUnwrapped.next
+    } while currentNode !== nil
+
+    if removingFirst { components.removeFirst() }
+
+    return components.joined(separator: ".")
+  }
+
+  fileprivate struct ConditionPath {
+    static func path(for conditions: LinkedList<IR.ScopeCondition>.Node) -> String {
+      conditions.map(\.selectionSetNameComponent).joined(separator: ".")
     }
 
-    fieldPathIndex += 1
-    currentNode = currentNode.unsafelyUnwrapped.next
-  } while currentNode !== nil
-
-  if removingFirst { components.removeFirst() }
-
-  return components.joined(separator: ".")
+    static func add(
+      _ conditionNodes: LinkedList<IR.ScopeCondition>.Node,
+      to components: inout [String]
+    ) {
+      for condition in conditionNodes {
+        components.append(condition.selectionSetNameComponent)
+      }
+    }
+  }
 }
 
 fileprivate extension IR.ScopeCondition {
