@@ -41,7 +41,7 @@ class URLDownloaderTests: XCTestCase {
     setRequestHandler(statusCode: statusCode, error: error)
 
     do {
-      try downloader.downloadSynchronously(with: urlRequest, to: downloadURL, timeout: defaultTimeout)
+      try downloader.downloadSynchronously(urlRequest, to: downloadURL, timeout: defaultTimeout)
     } catch (let error as NSError) {
       XCTAssertEqual(error.domain, domain)
       XCTAssertEqual(error.code, NSURLErrorNotConnectedToInternet)
@@ -55,7 +55,7 @@ class URLDownloaderTests: XCTestCase {
     setRequestHandler(statusCode: statusCode, data: responseString.data(using: .utf8))
 
     do {
-      try downloader.downloadSynchronously(with: urlRequest, to: downloadURL, timeout: defaultTimeout)
+      try downloader.downloadSynchronously(urlRequest, to: downloadURL, timeout: defaultTimeout)
     } catch URLDownloader.DownloadError.badResponse(let code, let response) {
       XCTAssertEqual(code, statusCode)
       XCTAssertEqual(response, responseString)
@@ -68,7 +68,7 @@ class URLDownloaderTests: XCTestCase {
     setRequestHandler(statusCode: 200, data: Data())
 
     do {
-      try downloader.downloadSynchronously(with: urlRequest, to: downloadURL, timeout: defaultTimeout)
+      try downloader.downloadSynchronously(urlRequest, to: downloadURL, timeout: defaultTimeout)
     } catch URLDownloader.DownloadError.emptyDataReceived {
       // Expected response
     } catch {
@@ -80,7 +80,7 @@ class URLDownloaderTests: XCTestCase {
     setRequestHandler(statusCode: 200)
 
     do {
-      try downloader.downloadSynchronously(with: urlRequest, to: downloadURL, timeout: defaultTimeout)
+      try downloader.downloadSynchronously(urlRequest, to: downloadURL, timeout: defaultTimeout)
     } catch URLDownloader.DownloadError.noDataReceived {
       // Expected response
     } catch {
@@ -92,7 +92,7 @@ class URLDownloaderTests: XCTestCase {
     setRequestHandler(statusCode: 200, abandon: true)
 
     do {
-      try downloader.downloadSynchronously(with: urlRequest, to: downloadURL, timeout: defaultTimeout)
+      try downloader.downloadSynchronously(urlRequest, to: downloadURL, timeout: defaultTimeout)
     } catch URLDownloader.DownloadError.downloadTimedOut(let timeout) {
       XCTAssertEqual(timeout, defaultTimeout)
     } catch {
@@ -112,7 +112,7 @@ class URLDownloaderTests: XCTestCase {
     let downloader = URLDownloader(session: CustomNetworkSession())
 
     do {
-      try downloader.downloadSynchronously(with: urlRequest, to: downloadURL, timeout: defaultTimeout)
+      try downloader.downloadSynchronously(urlRequest, to: downloadURL, timeout: defaultTimeout)
     } catch URLDownloader.DownloadError.responseNotHTTPResponse {
       // Expected response
     } catch {
@@ -128,7 +128,7 @@ class URLDownloaderTests: XCTestCase {
     setRequestHandler(statusCode: statusCode, data: responseString.data(using: .utf8))
 
     do {
-      try downloader.downloadSynchronously(with: urlRequest, to: downloadURL, timeout: defaultTimeout)
+      try downloader.downloadSynchronously(urlRequest, to: downloadURL, timeout: defaultTimeout)
     } catch {
       XCTFail("Unexpected error received: \(error)")
     }

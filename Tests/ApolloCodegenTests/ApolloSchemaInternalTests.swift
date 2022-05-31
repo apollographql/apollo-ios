@@ -13,14 +13,14 @@ class ApolloSchemaInternalTests: XCTestCase {
     try FileManager.default.apollo.createDirectoryIfNeeded(atPath: CodegenTestHelper.outputFolderURL().path)
     let configuration = ApolloSchemaDownloadConfiguration(
       using: .introspection(endpointURL: TestURL.mockPort8080.url),
-      outputURL: CodegenTestHelper.schemaOutputURL()
+      outputPath: CodegenTestHelper.schemaOutputURL().path
     )
 
     try ApolloSchemaDownloader.convertFromIntrospectionJSONToSDLFile(jsonFileURL: jsonURL, configuration: configuration)
-    XCTAssertTrue(FileManager.default.apollo.doesFileExist(atPath: configuration.outputURL.path))
+    XCTAssertTrue(FileManager.default.apollo.doesFileExist(atPath: configuration.outputPath))
 
     let frontend = try GraphQLJSFrontend()
-    let source = try frontend.makeSource(from: configuration.outputURL)
+    let source = try frontend.makeSource(from: URL(fileURLWithPath: configuration.outputPath))
     let schema = try frontend.loadSchemaFromSDL(source)
 
     let authorType = try schema.getType(named: "Author")

@@ -24,23 +24,22 @@ public struct ApolloSchemaDownloadConfiguration {
       /// - Parameters:
       ///   - apiKey: The API key to use when retrieving your schema.
       ///   - graphID: The identifier of the graph to fetch. Can be found in Apollo Studio.
-      ///   - variant: The variant of the graph to fetch. Defaults to "current", which will return whatever is set to the current variant.
-      public init(apiKey: String,
-                  graphID: String,
-                  variant: String = "current") {
+      ///   - variant: The variant of the graph to fetch. Defaults to "current", which will return
+      ///   whatever is set to the current variant.
+      public init(apiKey: String, graphID: String, variant: String = "current") {
         self.apiKey = apiKey
         self.graphID = graphID
         self.variant = variant
       }
     }
 
-    /// The HTTP request method. This is an option on Introspection schema downloads only. Apollo Registry downloads are always
-    /// POST requests.
+    /// The HTTP request method. This is an option on Introspection schema downloads only.
+    /// Apollo Registry downloads are always POST requests.
     public enum HTTPMethod: Equatable, CustomStringConvertible {
       /// Use POST for HTTP requests. This is the default for GraphQL.
       case POST
-      /// Use GET for HTTP requests with the GraphQL query being sent in the query string parameter named in
-      /// `queryParameterName`.
+      /// Use GET for HTTP requests with the GraphQL query being sent in the query string
+      /// parameter named in `queryParameterName`.
       case GET(queryParameterName: String)
 
       public var description: String {
@@ -55,9 +54,9 @@ public struct ApolloSchemaDownloadConfiguration {
     
     public static func == (lhs: DownloadMethod, rhs: DownloadMethod) -> Bool {
       switch (lhs, rhs) {
-      case (.introspection(let lhsURL, let lhsHTTPMethod), .introspection(let rhsURL, let rhsHTTPMethod)):
+      case let (.introspection(lhsURL, lhsHTTPMethod), .introspection(rhsURL, rhsHTTPMethod)):
         return lhsURL == rhsURL && lhsHTTPMethod == rhsHTTPMethod
-      case (.apolloRegistry(let lhsSettings), .apolloRegistry(let rhsSettings)):
+      case let (.apolloRegistry(lhsSettings), .apolloRegistry(rhsSettings)):
         return lhsSettings == rhsSettings
       default:
         return false
@@ -82,28 +81,31 @@ public struct ApolloSchemaDownloadConfiguration {
 
   /// How to download your schema. Supports the Apollo Registry and GraphQL Introspection methods.
   public let downloadMethod: DownloadMethod
-  /// The maximum time to wait before indicating that the download timed out, in seconds. Defaults to 30 seconds.
+  /// The maximum time (in seconds) to wait before indicating that the download timed out.
+  /// Defaults to 30 seconds.
   public let downloadTimeout: Double
   /// Any additional headers to include when retrieving your schema. Defaults to nil.
   public let headers: [HTTPHeader]
-  /// The URL where the downloaded schema should be written to.
-  public let outputURL: URL
+  /// The local path where the downloaded schema should be written to.
+  public let outputPath: String
 
   /// Designated Initializer
   ///
   /// - Parameters:
   ///   - downloadMethod: How to download your schema.
-  ///   - downloadTimeout: The maximum time to wait before indicating that the download timed out, in seconds. Defaults to 30 seconds.
-  ///   - headers: [optional] Any additional headers to include when retrieving your schema. Defaults to nil
-  ///   - outputURL: The URL where the downloaded schema should be written to.
+  ///   - downloadTimeout: The maximum time (in seconds) to wait before indicating that the
+  ///   download timed out. Defaults to 30 seconds.
+  ///   - headers: [optional] Any additional headers to include when retrieving your schema.
+  ///   Defaults to nil
+  ///   - outputPath: The local path where the downloaded schema should be written to.
   public init(using downloadMethod: DownloadMethod,
               timeout downloadTimeout: Double = 30.0,
               headers: [HTTPHeader] = [],
-              outputURL: URL) {
+              outputPath: String) {
     self.downloadMethod = downloadMethod
     self.downloadTimeout = downloadTimeout
     self.headers = headers
-    self.outputURL = outputURL
+    self.outputPath = outputPath
   }
 }
 
@@ -113,7 +115,7 @@ extension ApolloSchemaDownloadConfiguration: CustomDebugStringConvertible {
       downloadMethod: \(self.downloadMethod)
       downloadTimeout: \(self.downloadTimeout)
       headers: \(self.headers)
-      outputURL: \(self.outputURL)
+      outputPath: \(self.outputPath)
       """
   }
 }

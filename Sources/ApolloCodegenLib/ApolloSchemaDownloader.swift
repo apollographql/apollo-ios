@@ -43,24 +43,36 @@ public struct ApolloSchemaDownloader {
   /// Downloads your schema using the specified configuration object.
   ///
   /// - Parameters:
-  ///   - configuration: The `ApolloSchemaDownloadConfiguration` object to use to download the schema.
-  /// - Returns: Output from a successful run
-  public static func fetch(with configuration: ApolloSchemaDownloadConfiguration) throws {
-    try FileManager.default.apollo.createContainingDirectoryIfNeeded(forPath: configuration.outputURL.path)
+  ///   - configuration: The `ApolloSchemaDownloadConfiguration` used to download the schema.
+  /// - Returns: Output from a successful fetch or throws an error.
+  /// - Throws: Any error which occurs during the fetch.
+  public static func fetch(configuration: ApolloSchemaDownloadConfiguration) throws {
+    try FileManager.default.apollo.createContainingDirectoryIfNeeded(
+      forPath: configuration.outputPath
+    )
 
     switch configuration.downloadMethod {
     case .introspection(let endpointURL, let httpMethod):
-      try self.downloadViaIntrospection(from: endpointURL, httpMethod: httpMethod, configuration: configuration)
+      try self.downloadFrom(
+        introspection: endpointURL,
+        httpMethod: httpMethod,
+        configuration: configuration
+      )
+
     case .apolloRegistry(let settings):
-      try self.downloadFromRegistry(with: settings, configuration: configuration)
+      try self.downloadFrom(
+        registry: settings,
+        configuration: configuration
+      )
     }
   }
 
-  private static func request(url: URL,
-                              httpMethod: ApolloSchemaDownloadConfiguration.DownloadMethod.HTTPMethod,
-                              headers: [ApolloSchemaDownloadConfiguration.HTTPHeader],
-                              bodyData: Data? = nil) -> URLRequest {
-
+  private static func request(
+    url: URL,
+    httpMethod: ApolloSchemaDownloadConfiguration.DownloadMethod.HTTPMethod,
+    headers: [ApolloSchemaDownloadConfiguration.HTTPHeader],
+    bodyData: Data? = nil
+  ) -> URLRequest {
     var request = URLRequest(url: url)
 
     request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -91,51 +103,70 @@ public struct ApolloSchemaDownloader {
             }
           }
       """
-    
-  
-  static func downloadFromRegistry(with settings: ApolloSchemaDownloadConfiguration.DownloadMethod.ApolloRegistrySettings,
-                                   configuration: ApolloSchemaDownloadConfiguration) throws {
 
+  static func downloadFrom(
+    registry: ApolloSchemaDownloadConfiguration.DownloadMethod.ApolloRegistrySettings,
+    configuration: ApolloSchemaDownloadConfiguration
+  ) throws {
     CodegenLogger.log("Downloading schema from registry", logLevel: .debug)
 
-    let urlRequest = try registryRequest(with: settings, headers: configuration.headers)
-    let jsonOutputURL = configuration.outputURL.apollo.parentFolderURL().appendingPathComponent("registry_response.json")
+    let urlRequest = try registryRequest(with: registry, headers: configuration.headers)
+    let jsonOutputURL = URL(fileURLWithPath: configuration.outputPath)
+      .apollo
+      .parentFolderURL()
+      .appendingPathComponent("registry_response.json")
 
-    try URLDownloader().downloadSynchronously(with: urlRequest,
-                                              to: jsonOutputURL,
-                                              timeout: configuration.downloadTimeout)
-    
-    try self.convertFromRegistryJSONToSDLFile(jsonFileURL: jsonOutputURL, configuration: configuration)
-    
+    try URLDownloader().downloadSynchronously(
+      urlRequest,
+      to: jsonOutputURL,
+      timeout: configuration.downloadTimeout
+    )
+
+    try self.convertFromRegistryJSONToSDLFile(
+      jsonFileURL: jsonOutputURL,
+      configuration: configuration
+    )
+
     CodegenLogger.log("Successfully downloaded schema from registry", logLevel: .debug)
   }
 
-  static func registryRequest(with settings: ApolloSchemaDownloadConfiguration.DownloadMethod.ApolloRegistrySettings,
-                              headers: [ApolloSchemaDownloadConfiguration.HTTPHeader]) throws -> URLRequest {
-
+  static func registryRequest(
+    with settings: ApolloSchemaDownloadConfiguration.DownloadMethod.ApolloRegistrySettings,
+    headers: [ApolloSchemaDownloadConfiguration.HTTPHeader]
+  ) throws -> URLRequest {
     var variables = [String: String]()
     variables["graphID"] = settings.graphID
     if let variant = settings.variant {
       variables["variant"] = variant
     }
 
-    let requestBody = UntypedGraphQLRequestBodyCreator.requestBody(for: self.RegistryDownloadQuery,
-                                                                   variables: variables,
-                                                                   operationName: "DownloadSchema")
+    let requestBody = UntypedGraphQLRequestBodyCreator.requestBody(
+      for: self.RegistryDownloadQuery,
+      variables: variables,
+      operationName: "DownloadSchema"
+    )
     let bodyData = try JSONSerialization.data(withJSONObject: requestBody, options: [.sortedKeys])
 
     var allHeaders = headers
-    allHeaders.append(ApolloSchemaDownloadConfiguration.HTTPHeader(key: "x-api-key", value: settings.apiKey))
+    allHeaders.append(ApolloSchemaDownloadConfiguration.HTTPHeader(
+      key: "x-api-key",
+      value: settings.apiKey
+    ))
 
-    let urlRequest = request(url: self.RegistryEndpoint,
-                             httpMethod: .POST,
-                             headers: allHeaders,
-                             bodyData: bodyData)
+    let urlRequest = request(
+      url: self.RegistryEndpoint,
+      httpMethod: .POST,
+      headers: allHeaders,
+      bodyData: bodyData
+    )
 
     return urlRequest
   }
 
-  static func convertFromRegistryJSONToSDLFile(jsonFileURL: URL, configuration: ApolloSchemaDownloadConfiguration) throws {
+  static func convertFromRegistryJSONToSDLFile(
+    jsonFileURL: URL,
+    configuration: ApolloSchemaDownloadConfiguration
+  ) throws {
     let jsonData: Data
 
     do {
@@ -161,15 +192,17 @@ public struct ApolloSchemaDownloader {
       let variant = service["variant"] as? [String: Any],
       let asp = variant["activeSchemaPublish"] as? [String: Any],
       let schemaDict = asp["schema"] as? [String: Any],
-      let sdlSchema = schemaDict["document"] as? String else {
-        throw SchemaDownloadError.couldNotExtractSDLFromRegistryJSON
+      let sdlSchema = schemaDict["document"] as? String
+    else {
+      throw SchemaDownloadError.couldNotExtractSDLFromRegistryJSON
     }
 
     guard let sdlData = sdlSchema.data(using: .utf8) else {
       throw SchemaDownloadError.couldNotCreateSDLDataToWrite(schema: sdlSchema)
     }
 
-    try sdlData.write(to: configuration.outputURL)
+    let outputURL = URL(fileURLWithPath: configuration.outputPath)
+    try sdlData.write(to: outputURL)
   }
 
   // MARK: - Schema Introspection
@@ -266,22 +299,34 @@ public struct ApolloSchemaDownloader {
     """
   
   
-  static func downloadViaIntrospection(
-    from endpointURL: URL,
+  static func downloadFrom(
+    introspection endpoint: URL,
     httpMethod: ApolloSchemaDownloadConfiguration.DownloadMethod.HTTPMethod,
     configuration: ApolloSchemaDownloadConfiguration
   ) throws {
 
-    CodegenLogger.log("Downloading schema via introspection from \(endpointURL)", logLevel: .debug)
+    CodegenLogger.log("Downloading schema via introspection from \(endpoint)", logLevel: .debug)
 
-    let urlRequest = try introspectionRequest(from: endpointURL, httpMethod: httpMethod, headers: configuration.headers)
-    let jsonOutputURL = configuration.outputURL.apollo.parentFolderURL().appendingPathComponent("introspection_response.json")
+    let urlRequest = try introspectionRequest(
+      from: endpoint,
+      httpMethod: httpMethod,
+      headers: configuration.headers
+    )
+    let jsonOutputURL = URL(fileURLWithPath: configuration.outputPath)
+      .apollo
+      .parentFolderURL()
+      .appendingPathComponent("introspection_response.json")
     
-    try URLDownloader().downloadSynchronously(with: urlRequest,
-                                              to: jsonOutputURL,
-                                              timeout: configuration.downloadTimeout)
+    try URLDownloader().downloadSynchronously(
+      urlRequest,
+      to: jsonOutputURL,
+      timeout: configuration.downloadTimeout
+    )
 
-    try convertFromIntrospectionJSONToSDLFile(jsonFileURL: jsonOutputURL, configuration: configuration)
+    try convertFromIntrospectionJSONToSDLFile(
+      jsonFileURL: jsonOutputURL,
+      configuration: configuration
+    )
     
     CodegenLogger.log("Successfully downloaded schema via introspection", logLevel: .debug)
   }
@@ -295,16 +340,23 @@ public struct ApolloSchemaDownloader {
 
     switch httpMethod {
     case .POST:
-      let requestBody = UntypedGraphQLRequestBodyCreator.requestBody(for: self.IntrospectionQuery,
-                                                              variables: nil,
-                                                              operationName: "IntrospectionQuery")
-      let bodyData = try JSONSerialization.data(withJSONObject: requestBody, options: [.sortedKeys])
-      urlRequest = request(url: endpointURL,
-                           httpMethod: httpMethod,
-                           headers: headers,
-                           bodyData: bodyData)
+      let requestBody = UntypedGraphQLRequestBodyCreator.requestBody(
+        for: self.IntrospectionQuery,
+        variables: nil,
+        operationName: "IntrospectionQuery"
+      )
+      let bodyData = try JSONSerialization.data(
+        withJSONObject: requestBody,
+        options: [.sortedKeys]
+      )
+      urlRequest = request(
+        url: endpointURL,
+        httpMethod: httpMethod,
+        headers: headers,
+        bodyData: bodyData
+      )
 
-    case .GET(let queryParameterName):
+    case let .GET(queryParameterName):
       guard var components = URLComponents(url: endpointURL, resolvingAgainstBaseURL: true) else {
         throw SchemaDownloadError.couldNotCreateURLComponentsFromEndpointURL(url: endpointURL)
       }
@@ -323,9 +375,14 @@ public struct ApolloSchemaDownloader {
     jsonFileURL: URL,
     configuration: ApolloSchemaDownloadConfiguration
   ) throws {
-    defer { try? FileManager.default.removeItem(at: jsonFileURL) }
+
+    defer {
+      try? FileManager.default.removeItem(at: jsonFileURL)
+    }
+
     let frontend = try GraphQLJSFrontend()
     let schema: GraphQLSchema
+
     do {
       schema = try frontend.loadSchema(from: jsonFileURL)
     } catch {
@@ -333,15 +390,19 @@ public struct ApolloSchemaDownloader {
     }
     
     let sdlSchema: String
+
     do {
       sdlSchema = try frontend.printSchemaAsSDL(schema: schema)
     } catch {
       throw SchemaDownloadError.couldNotConvertIntrospectionJSONToSDL(underlying: error)
     }
-    
-    try sdlSchema.write(to: configuration.outputURL,
-                        atomically: true,
-                        encoding: .utf8)
+
+    let outputURL = URL(fileURLWithPath: configuration.outputPath)
+    try sdlSchema.write(
+      to: outputURL,
+      atomically: true,
+      encoding: .utf8
+    )
   }
 }
 #endif
