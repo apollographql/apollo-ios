@@ -16,24 +16,8 @@ public struct DataDict: Hashable {
     _data[key] as! T
   }
   
-  @inlinable public subscript<T: AnySelectionSet>(_ key: String) -> T {
-    let objectData = _data[key] as! JSONObject
-    return T.init(data: DataDict(objectData, variables: _variables))
-  }
-
-  @inlinable public subscript<T: AnySelectionSet>(_ key: String) -> T? {
-    guard let objectData = _data[key] as? JSONObject else { return nil }
-    return T.init(data: DataDict(objectData, variables: _variables))
-  }
-
-  @inlinable public subscript<T: AnySelectionSet>(_ key: String) -> [T] {
-    let objectData = _data[key] as! [JSONObject]
-    return objectData.map { T.init(data: DataDict($0, variables: _variables)) }
-  }
-
-  @inlinable public subscript<T: AnySelectionSet>(_ key: String) -> [T]? {
-    guard let objectData = _data[key] as? [JSONObject] else { return nil }
-    return objectData.map { T.init(data: DataDict($0, variables: _variables)) }
+  @inlinable public subscript<T: SelectionSetEntityValue>(_ key: String) -> T {
+    T.init(fieldData: _data[key], variables: _variables)
   }
 
   public func hash(into hasher: inout Hasher) {
@@ -44,5 +28,37 @@ public struct DataDict: Hashable {
   public static func == (lhs: DataDict, rhs: DataDict) -> Bool {
     lhs._data == rhs._data &&
     lhs._variables?.jsonEncodableValue?.jsonValue == rhs._variables?.jsonEncodableValue?.jsonValue
+  }
+}
+
+public protocol SelectionSetEntityValue {
+  init(fieldData: AnyHashable?, variables: GraphQLOperation.Variables?)
+}
+
+extension AnySelectionSet {
+  @inlinable public init(fieldData: AnyHashable?, variables: GraphQLOperation.Variables?) {
+    guard let fieldData = fieldData as? JSONObject else {
+      fatalError("\(Self.self) expected data for entity.")
+    }
+    self.init(data: DataDict(fieldData, variables: variables))
+  }
+}
+
+extension Optional: SelectionSetEntityValue where Wrapped: SelectionSetEntityValue {
+  @inlinable public init(fieldData: AnyHashable?, variables: GraphQLOperation.Variables?) {
+    guard case let .some(fieldData) = fieldData else {
+      self = .none
+      return
+    }
+    self = .some(Wrapped.init(fieldData: fieldData, variables: variables))
+  }
+}
+
+extension Array: SelectionSetEntityValue where Element: SelectionSetEntityValue {
+  @inlinable public init(fieldData: AnyHashable?, variables: GraphQLOperation.Variables?) {
+    guard let fieldData = fieldData as? [AnyHashable?] else {
+      fatalError("\(Self.self) expected list of data for entity.")
+    }
+    self = fieldData.map { Element.init(fieldData:$0, variables: variables) }
   }
 }
