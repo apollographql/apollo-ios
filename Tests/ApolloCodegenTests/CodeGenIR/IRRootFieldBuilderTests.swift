@@ -3852,6 +3852,125 @@ class IRRootFieldBuilderTests: XCTestCase {
       .to(shallowlyMatch(predator_height_expected))
   }
 
+  func test__mergedSelections__givenEntityFieldMergedFromNestedFragmentInTypeCase_withNoOtherMergedFields_hasNestedEntityMergedFields() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+      predator: Animal!
+      height: Height!
+    }
+
+    interface WarmBlooded implements Animal {
+      species: String!
+      predator: Animal!
+      height: Height!
+    }
+
+    type Height {
+      meters: Int!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        predator {
+          ...WarmBloodedDetails
+        }
+      }
+    }
+
+    fragment WarmBloodedDetails on WarmBlooded {
+      species
+      ...HeightInMeters
+    }
+
+    fragment HeightInMeters on Animal {
+      height {
+        meters
+      }
+    }
+    """
+
+    // when
+    try buildSubjectRootField()
+
+
+    let Interface_Animal = try XCTUnwrap(schema[interface: "Animal"])
+    let Interface_WarmBlooded = try XCTUnwrap(schema[interface: "WarmBlooded"])
+    let Object_Height = try XCTUnwrap(schema[object: "Height"])
+
+    let allAnimals = try XCTUnwrap(
+      subject?[field: "allAnimals"] as? IR.EntityField
+    )
+    let allAnimals_predator = try XCTUnwrap(
+      allAnimals[field: "predator"] as? IR.EntityField
+    )
+    let allAnimals_predator_asWarmBlooded = try XCTUnwrap(
+      allAnimals_predator[as: "WarmBlooded"]
+    )
+
+    let Fragment_WarmBloodedDetails = try XCTUnwrap(
+      allAnimals_predator_asWarmBlooded[fragment: "WarmBloodedDetails"]
+    )
+
+    let WarmBloodedDetails_HeightInMeters = try XCTUnwrap(
+      Fragment_WarmBloodedDetails.fragment[fragment: "HeightInMeters"]
+    )
+
+    let HeightInMeters_Height = try XCTUnwrap(
+      WarmBloodedDetails_HeightInMeters.fragment[field: "height"] as? IR.EntityField
+    )
+
+    let predator_expected = SelectionSetMatcher(
+      parentType: Interface_Animal,
+      directSelections: [
+        .inlineFragment(parentType: Interface_WarmBlooded)
+      ],
+      mergedSelections: [],
+      mergedSources: []
+    )
+
+    let predator_asWarmBlooded_expected = SelectionSetMatcher(
+      parentType: Interface_WarmBlooded,
+      directSelections: [
+        .fragmentSpread(Fragment_WarmBloodedDetails.definition)
+      ],
+      mergedSelections: [
+        .field("species", type: .nonNull(.string())),
+        .field("height", type: .nonNull(.entity(Object_Height))),
+        .fragmentSpread(WarmBloodedDetails_HeightInMeters.definition)
+      ],
+      mergedSources: [
+        try .mock(Fragment_WarmBloodedDetails),
+        try .mock(WarmBloodedDetails_HeightInMeters)
+      ]
+    )
+
+    let predator_asWarmBlooded_height_expected = SelectionSetMatcher(
+      parentType: Object_Height,
+      directSelections: nil,
+      mergedSelections: [
+        .field("meters", type: .nonNull(.integer())),
+      ],
+      mergedSources: [
+        try .mock(for: HeightInMeters_Height, from: WarmBloodedDetails_HeightInMeters)
+      ]
+    )
+
+    // then
+    expect(allAnimals_predator.selectionSet).to(shallowlyMatch(predator_expected))
+    expect(allAnimals_predator_asWarmBlooded)
+      .to(shallowlyMatch(predator_asWarmBlooded_expected))
+    expect(allAnimals_predator_asWarmBlooded[field: "height"]?.selectionSet)
+      .to(shallowlyMatch(predator_asWarmBlooded_height_expected))
+  }
+
   // MARK: - Nested Entity In Fragments - Merged Sources
 
   func test__mergedSources__givenEntityField_DirectSelectonsAndMergedFromNestedEntityInFragment_nestedEntityFieldHasFragmentMergedSources() throws {

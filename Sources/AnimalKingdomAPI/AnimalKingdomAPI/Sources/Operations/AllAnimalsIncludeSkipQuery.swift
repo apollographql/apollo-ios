@@ -144,6 +144,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
 
         public var feet: Int { data["feet"] }
         public var inches: Int? { data["inches"] }
+        public var meters: Int { data["meters"] }
       }
 
       /// AllAnimal.Predator
@@ -176,13 +177,14 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public var species: String { data["species"] }
           public var laysEggs: Bool { data["laysEggs"] }
           public var bodyTemperature: Int { data["bodyTemperature"] }
-          public var height: WarmBloodedDetails.Height { data["height"] }
+          public var height: HeightInMeters.Height { data["height"] }
 
           public struct Fragments: FragmentContainer {
             public let data: DataDict
             public init(data: DataDict) { self.data = data }
 
             public var warmBloodedDetails: WarmBloodedDetails { _toFragment() }
+            public var heightInMeters: HeightInMeters { _toFragment() }
           }
         }
       }
@@ -210,7 +212,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public init(data: DataDict) { self.data = data }
 
           public var warmBloodedDetails: WarmBloodedDetails { _toFragment() }
-          public var heightInMeters: HeightInMeters? { _toFragment() }
+          public var heightInMeters: HeightInMeters { _toFragment() }
         }
 
         /// AllAnimal.AsWarmBlooded.Height
@@ -223,7 +225,6 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public var feet: Int { data["feet"] }
           public var inches: Int? { data["inches"] }
           public var meters: Int { data["meters"] }
-          public var yards: Int { data["yards"] }
         }
 
         /// AllAnimal.AsWarmBlooded.IfGetWarmBlooded
@@ -243,7 +244,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
             public let data: DataDict
             public init(data: DataDict) { self.data = data }
 
-            public var heightInMeters: HeightInMeters? { _toFragment() }
+            public var heightInMeters: HeightInMeters { _toFragment() }
             public var warmBloodedDetails: WarmBloodedDetails { _toFragment() }
           }
 
@@ -257,7 +258,6 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
             public var feet: Int { data["feet"] }
             public var inches: Int? { data["inches"] }
             public var meters: Int { data["meters"] }
-            public var yards: Int { data["yards"] }
           }
         }
       }
@@ -309,6 +309,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public var centimeters: Int? { data["centimeters"] }
           public var feet: Int { data["feet"] }
           public var inches: Int? { data["inches"] }
+          public var meters: Int { data["meters"] }
         }
 
         /// AllAnimal.AsPet.AsWarmBlooded
@@ -335,7 +336,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
             public init(data: DataDict) { self.data = data }
 
             public var warmBloodedDetails: WarmBloodedDetails { _toFragment() }
-            public var heightInMeters: HeightInMeters? { _toFragment() }
+            public var heightInMeters: HeightInMeters { _toFragment() }
             public var petDetails: PetDetails { _toFragment() }
           }
 
@@ -349,7 +350,6 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
             public var feet: Int { data["feet"] }
             public var inches: Int? { data["inches"] }
             public var meters: Int { data["meters"] }
-            public var yards: Int { data["yards"] }
             public var relativeSize: GraphQLEnum<RelativeSize>? { data["relativeSize"] }
             public var centimeters: Int? { data["centimeters"] }
           }
@@ -380,7 +380,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public let data: DataDict
           public init(data: DataDict) { self.data = data }
 
-          public var heightInMeters: HeightInMeters? { _toFragment() }
+          public var heightInMeters: HeightInMeters { _toFragment() }
           public var petDetails: PetDetails { _toFragment() }
           public var warmBloodedDetails: WarmBloodedDetails { _toFragment() }
         }
@@ -395,7 +395,6 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public var feet: Int { data["feet"] }
           public var inches: Int? { data["inches"] }
           public var meters: Int { data["meters"] }
-          public var yards: Int { data["yards"] }
           public var relativeSize: GraphQLEnum<RelativeSize>? { data["relativeSize"] }
           public var centimeters: Int? { data["centimeters"] }
         }
@@ -425,6 +424,18 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public var heightInMeters: HeightInMeters? { _toFragment() }
         }
 
+        /// AllAnimal.AsClassroomPet.Height
+        public struct Height: AnimalKingdomAPI.SelectionSet {
+          public let data: DataDict
+          public init(data: DataDict) { self.data = data }
+
+          public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Height.self) }
+
+          public var feet: Int { data["feet"] }
+          public var inches: Int? { data["inches"] }
+          public var meters: Int { data["meters"] }
+        }
+
         /// AllAnimal.AsClassroomPet.AsBird
         public struct AsBird: AnimalKingdomAPI.InlineFragment {
           public let data: DataDict
@@ -449,7 +460,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
             public let data: DataDict
             public init(data: DataDict) { self.data = data }
 
-            public var heightInMeters: HeightInMeters? { _toFragment() }
+            public var heightInMeters: HeightInMeters { _toFragment() }
             public var petDetails: PetDetails { _toFragment() }
             public var warmBloodedDetails: WarmBloodedDetails { _toFragment() }
           }
@@ -464,7 +475,6 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
             public var feet: Int { data["feet"] }
             public var inches: Int? { data["inches"] }
             public var meters: Int { data["meters"] }
-            public var yards: Int { data["yards"] }
             public var relativeSize: GraphQLEnum<RelativeSize>? { data["relativeSize"] }
             public var centimeters: Int? { data["centimeters"] }
           }

@@ -154,13 +154,14 @@ public class AllAnimalsQuery: GraphQLQuery {
           public var laysEggs: Bool { data["laysEggs"] }
           public var species: String { data["species"] }
           public var bodyTemperature: Int { data["bodyTemperature"] }
-          public var height: WarmBloodedDetails.Height { data["height"] }
+          public var height: HeightInMeters.Height { data["height"] }
 
           public struct Fragments: FragmentContainer {
             public let data: DataDict
             public init(data: DataDict) { self.data = data }
 
             public var warmBloodedDetails: WarmBloodedDetails { _toFragment() }
+            public var heightInMeters: HeightInMeters { _toFragment() }
           }
         }
       }
@@ -199,7 +200,6 @@ public class AllAnimalsQuery: GraphQLQuery {
           public var feet: Int { data["feet"] }
           public var inches: Int? { data["inches"] }
           public var meters: Int { data["meters"] }
-          public var yards: Int { data["yards"] }
         }
       }
 
@@ -289,7 +289,6 @@ public class AllAnimalsQuery: GraphQLQuery {
             public var feet: Int { data["feet"] }
             public var inches: Int? { data["inches"] }
             public var meters: Int { data["meters"] }
-            public var yards: Int { data["yards"] }
             public var relativeSize: GraphQLEnum<RelativeSize> { data["relativeSize"] }
             public var centimeters: Int { data["centimeters"] }
           }
@@ -335,7 +334,6 @@ public class AllAnimalsQuery: GraphQLQuery {
           public var feet: Int { data["feet"] }
           public var inches: Int? { data["inches"] }
           public var meters: Int { data["meters"] }
-          public var yards: Int { data["yards"] }
           public var relativeSize: GraphQLEnum<RelativeSize> { data["relativeSize"] }
           public var centimeters: Int { data["centimeters"] }
         }
@@ -416,7 +414,6 @@ public class AllAnimalsQuery: GraphQLQuery {
             public var feet: Int { data["feet"] }
             public var inches: Int? { data["inches"] }
             public var meters: Int { data["meters"] }
-            public var yards: Int { data["yards"] }
             public var relativeSize: GraphQLEnum<RelativeSize> { data["relativeSize"] }
             public var centimeters: Int { data["centimeters"] }
           }
@@ -463,7 +460,6 @@ public class AllAnimalsQuery: GraphQLQuery {
           public var feet: Int { data["feet"] }
           public var inches: Int? { data["inches"] }
           public var meters: Int { data["meters"] }
-          public var yards: Int { data["yards"] }
           public var relativeSize: GraphQLEnum<RelativeSize> { data["relativeSize"] }
           public var centimeters: Int { data["centimeters"] }
         }
