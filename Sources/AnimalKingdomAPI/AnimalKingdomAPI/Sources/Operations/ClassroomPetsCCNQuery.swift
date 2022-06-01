@@ -59,21 +59,13 @@ public class ClassroomPetsCCNQuery: GraphQLQuery {
 
         public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Animal.self) }
 
-        public var height: Height { data["height"] }
+        public var height: ClassroomPetDetailsCCN.AsAnimal.Height { data["height"] }
 
         public struct Fragments: FragmentContainer {
           public let data: DataDict
           public init(data: DataDict) { self.data = data }
 
           public var classroomPetDetailsCCN: ClassroomPetDetailsCCN { _toFragment() }
-        }
-
-        /// ClassroomPet.AsAnimal.Height
-        public struct Height: AnimalKingdomAPI.SelectionSet {
-          public let data: DataDict
-          public init(data: DataDict) { self.data = data }
-
-          public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Height.self) }
         }
       }
     }

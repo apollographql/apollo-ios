@@ -2089,7 +2089,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let predator_asPet_expected = """
-      public var favoriteToy: PredatorDetails.FavoriteToy? { data["favoriteToy"] }
+      public var favoriteToy: FavoriteToy? { data["favoriteToy"] }
     """
 
     // when
@@ -3829,6 +3829,5 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(predator_actual)
       .to(equalLineByLine(predator_expected, atLine: 20, ignoringExtraLines: true))
   }
-
 
 }
