@@ -9,7 +9,8 @@ struct CodegenCLI: ParsableCommand {
     subcommands: [
       Initialize.self,
       Validate.self,
-      Generate.self
+      Generate.self,
+      FetchSchema.self,
     ]
   )
 }
