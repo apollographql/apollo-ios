@@ -13,6 +13,7 @@ SUBCOMMANDS:
   init                    Initialize a new configuration with defaults.
   validate                Validate a configuration file or JSON formatted string.
   generate                Generate Swift source code based on a code generation configuration.
+  fetch-schema            Download a GraphQL schema from the Apollo Registry or GraphQL introspection.
 
   See 'apollo-ios-cli help <subcommand>' for detailed help.
 ```
@@ -49,7 +50,21 @@ OPTIONS:
 ```
 OVERVIEW: Generate Swift source code based on a code generation configuration.
 
-USAGE: apollo-ios-cli generate [--path <path>] [--string <string>]
+USAGE: apollo-ios-cli generate [--path <path>] [--string <string>] [--fetch-schema]
+
+OPTIONS:
+  -p, --path <path>       Read the configuration from a file at the path. (default: ./apollo-codegen-config.json)
+  -s, --string <string>   Configuration string in JSON format.
+  -f, --fetch-schema      Fetch the GraphQL schema before Swift code generation.
+  --version               Show the version.
+  -h, --help              Show help information.
+```
+
+## Fetch Schema
+```
+OVERVIEW: Download a GraphQL schema from the Apollo Registry or GraphQL introspection.
+
+USAGE: apollo-ios-cli fetch-schema [--path <path>] [--string <string>]
 
 OPTIONS:
   -p, --path <path>       Read the configuration from a file at the path. (default: ./apollo-codegen-config.json)
