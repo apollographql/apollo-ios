@@ -190,48 +190,60 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
   // MARK: - Write Local Cache Mutation Tests
 
-//  func testUpdateHeroNameQuery() throws {
-//    // given
-//    class GivenSelectionSet: MockMutableSelectionSet {
-//      override class var selections: [Selection] { [
-//        .field("name", String.self)
-//      ]}
-//    }
-//
-//    let cacheMutation = MockLocalCacheMutation<GivenSelectionSet>()
-//
-//    mergeRecordsIntoCache([
-//      "QUERY_ROOT": ["hero": CacheReference("QUERY_ROOT.hero")],
-//      "QUERY_ROOT.hero": ["__typename": "Droid", "name": "R2-D2"]
-//    ])
-//
-//
-//    runActivity("update mutation") { _ in
-//      let updateCompletedExpectation = expectation(description: "Update completed")
-//
-//      store.withinReadWriteTransaction({ transaction in
-//        try transaction.update(cacheMutation: cacheMutation) { data in
-//          data.hero?.name = "Artoo"
-//        }
-//      }, completion: { result in
-//        defer { updateCompletedExpectation.fulfill() }
-//        XCTAssertSuccessResult(result)
-//      })
-//
-//      self.wait(for: [updateCompletedExpectation], timeout: Self.defaultWaitTimeout)
-//    }
-//
-//    loadFromStore(query: query) { result in
-//      try XCTAssertSuccessResult(result) { graphQLResult in
-//        XCTAssertEqual(graphQLResult.source, .cache)
-//        XCTAssertNil(graphQLResult.errors)
-//
-//        let data = try XCTUnwrap(graphQLResult.data)
-//        XCTAssertEqual(data.hero?.name, "Artoo")
-//      }
-//    }
-//  }
-//
+  func testUpdateHeroNameQuery() throws {
+    // given
+    class GivenSelectionSet: MockMutableSelectionSet {
+      override class var selections: [Selection] { [
+        .field("hero", Hero.self)
+      ]}
+
+//      var hero: Hero? { get { self[dynamicMember: "hero"] }
+//        set { self[dynamicMember: "hero"] = newValue } }
+
+      class Hero: MockMutableSelectionSet {
+        override class var selections: [Selection] { [
+          .field("name", String.self)
+        ]}
+      }
+    }
+
+    let cacheMutation = MockLocalCacheMutation<GivenSelectionSet>()
+
+    mergeRecordsIntoCache([
+      "QUERY_ROOT": ["hero": CacheReference("QUERY_ROOT.hero")],
+      "QUERY_ROOT.hero": ["__typename": "Droid", "name": "R2-D2"]
+    ])
+
+    runActivity("update mutation") { _ in
+      let updateCompletedExpectation = expectation(description: "Update completed")
+
+      store.withinReadWriteTransaction({ transaction in
+        try transaction.update(cacheMutation) { data in
+          data.hero?.name = "Artoo"
+//          hero?.name = "Artoo"
+//          data.hero = hero
+        }
+      }, completion: { result in
+        defer { updateCompletedExpectation.fulfill() }
+        XCTAssertSuccessResult(result)
+      })
+
+      self.wait(for: [updateCompletedExpectation], timeout: Self.defaultWaitTimeout)
+    }
+
+    let query = MockQuery<GivenSelectionSet>()
+
+    loadFromStore(query: query) { result in
+      try XCTAssertSuccessResult(result) { graphQLResult in
+        XCTAssertEqual(graphQLResult.source, .cache)
+        XCTAssertNil(graphQLResult.errors)
+
+        let data = try XCTUnwrap(graphQLResult.data)
+        XCTAssertEqual(data.hero?.name, "Artoo")
+      }
+    }
+  }
+
 //  func testWriteHeroNameQueryWhenErrorIsThrown() throws {
 //    let writeCompletedExpectation = expectation(description: "Write completed")
 //
