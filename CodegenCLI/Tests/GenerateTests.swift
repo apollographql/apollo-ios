@@ -357,10 +357,10 @@ class GenerateTests: XCTestCase {
     expect(try command._run(
       codegenProvider: MockApolloCodegen.self,
       schemaDownloadProvider: MockApolloSchemaDownloader.self
-    )).to(throwError() { error in
-      expect(error.localizedDescription.starts(with: "Missing schema download configuration."))
-        .to(beTrue())
-    })
+    )).to(throwError(
+      localizedDescription: "Missing schema download configuration.",
+      ignoringExtraCharacters: true
+    ))
 
     expect(didCallBuild).to(beFalse())
     expect(didCallFetch).to(beFalse())

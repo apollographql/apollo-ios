@@ -245,10 +245,10 @@ class InitializeTests: XCTestCase {
     // then
     expect(
       try subject._run(fileManager: self.mockFileManager)
-    ).to(throwError() { error in
-      expect(error.localizedDescription.starts(with: "File already exists at \(outputPath)."))
-        .to(beTrue())
-    })
+    ).to(throwError(
+      localizedDescription: "File already exists at \(outputPath).",
+      ignoringExtraCharacters: true
+    ))
   }
 
   func test__output__givenParameters_pathCustom_overwriteTrue_whenFileExists_shouldWriteToPath() throws {
