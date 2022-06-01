@@ -3852,7 +3852,7 @@ class IRRootFieldBuilderTests: XCTestCase {
       .to(shallowlyMatch(predator_height_expected))
   }
 
-  func test__mergedSelections__givenEntityFieldMergedFromNestedFragmentInTypeCase_withNoOtherMergedFields_hasFAIL() throws {
+  func test__mergedSelections__givenEntityFieldMergedFromNestedFragmentInTypeCase_withNoOtherMergedFields_hasNestedEntityMergedFields() throws {
     // given
     schemaSDL = """
     type Query {
