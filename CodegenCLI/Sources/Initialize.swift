@@ -76,7 +76,7 @@ struct Initialize: ParsableCommand {
       data: data
     )
 
-    Swift.print("New configuration output to \(path)")
+    Swift.print("New configuration output to \(path).")
   }
 
   private func print(data: Data) throws {

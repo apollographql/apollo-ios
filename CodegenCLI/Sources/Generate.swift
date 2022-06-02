@@ -10,17 +10,7 @@ struct Generate: ParsableCommand {
     abstract: "Generate Swift source code based on a code generation configuration."
   )
 
-  @Option(
-    name: .shortAndLong,
-    help: "Read the configuration from a file at the path."
-  )
-  var path: String = Constants.defaultFilePath
-
-  @Option(
-    name: .shortAndLong,
-    help: "Configuration string in JSON format."
-  )
-  var string: String?
+  @OptionGroup var inputs: InputOptions
 
   @Flag(
     name: .shortAndLong,
@@ -39,24 +29,22 @@ struct Generate: ParsableCommand {
     codegenProvider: CodegenProvider.Type = ApolloCodegen.self,
     schemaDownloadProvider: SchemaDownloadProvider.Type = ApolloSchemaDownloader.self
   ) throws {
-    if let string = string {
+    switch (inputs.string, inputs.path) {
+    case let (.some(string), _):
       try generate(
         data: try string.asData(),
         codegenProvider: codegenProvider,
         schemaDownloadProvider: schemaDownloadProvider
       )
-      return
-    }
 
-    guard let data = fileManager.contents(atPath: path) else {
-      throw Error(errorDescription: "Cannot read configuration file at \(path)")
+    case let (nil, path):
+      let data = try fileManager.unwrappedContents(atPath: path)
+      try generate(
+        data: data,
+        codegenProvider: codegenProvider,
+        schemaDownloadProvider: schemaDownloadProvider
+      )
     }
-
-    try generate(
-      data: data,
-      codegenProvider: codegenProvider,
-      schemaDownloadProvider: schemaDownloadProvider
-    )
   }
 
   private func generate(

@@ -1,0 +1,16 @@
+import ArgumentParser
+
+/// Shared group of common arguments used in commands for input parameters.
+struct InputOptions: ParsableArguments {
+  @Option(
+    name: .shortAndLong,
+    help: "Read the configuration from a file at the path."
+  )
+  var path: String = Constants.defaultFilePath
+
+  @Option(
+    name: .shortAndLong,
+    help: "Configuration string in JSON format."
+  )
+  var string: String?
+}

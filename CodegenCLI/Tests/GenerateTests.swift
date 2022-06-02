@@ -22,8 +22,8 @@ class GenerateTests: XCTestCase {
     let command = try parseAsRoot(options: options)
 
     // then
-    expect(command.path).to(equal(Constants.defaultFilePath))
-    expect(command.string).to(beNil())
+    expect(command.inputs.path).to(equal(Constants.defaultFilePath))
+    expect(command.inputs.string).to(beNil())
   }
 
   func test__parsing__givenParameters_pathLongFormat_shouldParse() throws {
@@ -39,7 +39,7 @@ class GenerateTests: XCTestCase {
     let command = try parseAsRoot(options: options)
 
     // then
-    expect(command.path).to(equal(path))
+    expect(command.inputs.path).to(equal(path))
   }
 
   func test__parsing__givenParameters_pathShortFormat_shouldParse() throws {
@@ -55,7 +55,7 @@ class GenerateTests: XCTestCase {
     let command = try parseAsRoot(options: options)
 
     // then
-    expect(command.path).to(equal(path))
+    expect(command.inputs.path).to(equal(path))
   }
 
   func test__parsing__givenParameters_stringLongFormat_shouldParse() throws {
@@ -71,7 +71,7 @@ class GenerateTests: XCTestCase {
     let command = try parseAsRoot(options: options)
 
     // then
-    expect(command.string).to(equal(string))
+    expect(command.inputs.string).to(equal(string))
   }
 
   func test__parsing__givenParameters_stringShortFormat_shouldParse() throws {
@@ -87,7 +87,7 @@ class GenerateTests: XCTestCase {
     let command = try parseAsRoot(options: options)
 
     // then
-    expect(command.string).to(equal(string))
+    expect(command.inputs.string).to(equal(string))
   }
 
   func test__parsing__givenParameters_fetchSchemaLongFormat_shouldParse() throws {

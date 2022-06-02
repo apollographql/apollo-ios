@@ -14,17 +14,16 @@ class ValidateTests: XCTestCase {
 
   // MARK: - Parsing Tests
 
-  func test__parsing__givenParameters_none_shouldThrow() throws {
+  func test__parsing__givenParameters_none_shouldUseDefaults() throws {
     // given
     let options = ["validate"]
 
+    // when
+    let command = try parseAsRoot(options: options)
+
     // then
-    expect(try self.parseAsRoot(options: options))
-      .to(throwUserValidationError(ValidationError("""
-        Missing input path and string. Hint: Use --path to specify a configuration file in JSON \
-        format or --string to specify a JSON formatted configuration string.
-        """
-      )))
+    expect(command.inputs.path).to(equal(Constants.defaultFilePath))
+    expect(command.inputs.string).to(beNil())
   }
 
   func test__parsing__givenParameters_pathLongFormat_shouldParse() throws {
@@ -40,7 +39,7 @@ class ValidateTests: XCTestCase {
     let command = try parseAsRoot(options: options)
 
     // then
-    expect(command.path).to(equal(path))
+    expect(command.inputs.path).to(equal(path))
   }
 
   func test__parsing__givenParameters_pathShortFormat_shouldParse() throws {
@@ -56,7 +55,7 @@ class ValidateTests: XCTestCase {
     let command = try parseAsRoot(options: options)
 
     // then
-    expect(command.path).to(equal(path))
+    expect(command.inputs.path).to(equal(path))
   }
 
   func test__parsing__givenParameters_stringLongFormat_shouldParse() throws {
@@ -72,7 +71,7 @@ class ValidateTests: XCTestCase {
     let command = try parseAsRoot(options: options)
 
     // then
-    expect(command.string).to(equal(string))
+    expect(command.inputs.string).to(equal(string))
   }
 
   func test__parsing__givenParameters_stringShortFormat_shouldParse() throws {
@@ -88,13 +87,13 @@ class ValidateTests: XCTestCase {
     let command = try parseAsRoot(options: options)
 
     // then
-    expect(command.string).to(equal(string))
+    expect(command.inputs.string).to(equal(string))
   }
 
   func test__parsing__givenParameters_unknown_shouldThrow() throws {
     // given
     let options = [
-      "generate",
+      "validate",
       "--unknown"
     ]
 
