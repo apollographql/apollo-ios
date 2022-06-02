@@ -102,7 +102,7 @@ class ValidateTests: XCTestCase {
       .to(throwUnknownOptionError())
   }
 
-  // MARK: - Generate Tests
+  // MARK: - Validate Tests
 
   func test__validate__givenParameters_pathCustom_shouldReadContentsFromPath() throws {
     // given
@@ -141,5 +141,66 @@ class ValidateTests: XCTestCase {
       })
 
     expect(mockFileManager.allClosuresCalled).to(beTrue())
+  }
+
+  func test__generate__givenParameters_stringCustom_shouldUseString() throws {
+    // given
+    let mockConfiguration = ApolloCodegenConfiguration.mock()
+
+    let jsonString = String(
+      data: try! JSONEncoder().encode(mockConfiguration),
+      encoding: .utf8
+    )!
+
+    let options = [
+      "validate",
+      "--string=\(jsonString)"
+    ]
+
+    // when
+    let command = try parseAsRoot(options: options)
+
+    // then
+    expect(try command._run())
+      .to(throwError { error in
+        guard
+          case let ApolloCodegenLib.ApolloCodegenConfiguration.Error.notAFile(path) = error,
+          case ApolloCodegenLib.ApolloCodegenConfiguration.PathType.schema = path
+        else {
+          fail("Expected notAFile(schema) error, got \(error)")
+          return
+        }
+      })
+  }
+
+  func test__generate__givenParameters_bothPathAndString_shouldUseString() throws {
+    // given
+    let mockConfiguration = ApolloCodegenConfiguration.mock()
+
+    let jsonString = String(
+      data: try! JSONEncoder().encode(mockConfiguration),
+      encoding: .utf8
+    )!
+
+    let options = [
+      "validate",
+      "--path=./path/to/file",
+      "--string=\(jsonString)"
+    ]
+
+    // when
+    let command = try parseAsRoot(options: options)
+
+    // then
+    expect(try command._run())
+      .to(throwError { error in
+        guard
+          case let ApolloCodegenLib.ApolloCodegenConfiguration.Error.notAFile(path) = error,
+          case ApolloCodegenLib.ApolloCodegenConfiguration.PathType.schema = path
+        else {
+          fail("Expected notAFile(schema) error, got \(error)")
+          return
+        }
+      })
   }
 }
