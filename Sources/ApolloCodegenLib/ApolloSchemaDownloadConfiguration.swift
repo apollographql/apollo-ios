@@ -1,17 +1,17 @@
 import Foundation
 
 /// A configuration object that defines behavior for schema download.
-public struct ApolloSchemaDownloadConfiguration {
+public struct ApolloSchemaDownloadConfiguration: Equatable, Codable {
   
   /// How to attempt to download your schema
-  public enum DownloadMethod: Equatable {
+  public enum DownloadMethod: Equatable, Codable {
 
     /// The Apollo Schema Registry, which serves as a central hub for managing your graph.
     case apolloRegistry(_ settings: ApolloRegistrySettings)
     /// GraphQL Introspection connecting to the specified URL.
     case introspection(endpointURL: URL, httpMethod: HTTPMethod = .POST)
 
-    public struct ApolloRegistrySettings: Equatable {
+    public struct ApolloRegistrySettings: Equatable, Codable {
       /// The API key to use when retrieving your schema from the Apollo Registry.
       public let apiKey: String
       /// The identifier of the graph to fetch. Can be found in Apollo Studio.
@@ -35,7 +35,7 @@ public struct ApolloSchemaDownloadConfiguration {
 
     /// The HTTP request method. This is an option on Introspection schema downloads only.
     /// Apollo Registry downloads are always POST requests.
-    public enum HTTPMethod: Equatable, CustomStringConvertible {
+    public enum HTTPMethod: Equatable, CustomStringConvertible, Codable {
       /// Use POST for HTTP requests. This is the default for GraphQL.
       case POST
       /// Use GET for HTTP requests with the GraphQL query being sent in the query string
@@ -65,7 +65,7 @@ public struct ApolloSchemaDownloadConfiguration {
 
   }
   
-  public struct HTTPHeader: Equatable, CustomDebugStringConvertible {
+  public struct HTTPHeader: Equatable, CustomDebugStringConvertible, Codable {
     let key: String
     let value: String
     
@@ -98,10 +98,12 @@ public struct ApolloSchemaDownloadConfiguration {
   ///   - headers: [optional] Any additional headers to include when retrieving your schema.
   ///   Defaults to nil
   ///   - outputPath: The local path where the downloaded schema should be written to.
-  public init(using downloadMethod: DownloadMethod,
-              timeout downloadTimeout: Double = 30.0,
-              headers: [HTTPHeader] = [],
-              outputPath: String) {
+  public init(
+    using downloadMethod: DownloadMethod,
+    timeout downloadTimeout: Double = 30.0,
+    headers: [HTTPHeader] = [],
+    outputPath: String
+  ) {
     self.downloadMethod = downloadMethod
     self.downloadTimeout = downloadTimeout
     self.headers = headers

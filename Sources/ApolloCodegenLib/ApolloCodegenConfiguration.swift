@@ -286,6 +286,8 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
   /// Note: These features could change at any time and they are not guaranteed to always be
   /// available.
   public let experimentalFeatures: ExperimentalFeatures
+  /// Schema download configuration.
+  public let schemaDownloadConfiguration: ApolloSchemaDownloadConfiguration?
 
   // MARK: Initializers
 
@@ -302,13 +304,15 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     input: FileInput,
     output: FileOutput,
     options: OutputOptions = OutputOptions(),
-    experimentalFeatures: ExperimentalFeatures = ExperimentalFeatures()
+    experimentalFeatures: ExperimentalFeatures = ExperimentalFeatures(),
+    schemaDownloadConfiguration: ApolloSchemaDownloadConfiguration? = nil
   ) {
     self.schemaName = schemaName
     self.input = input
     self.output = output
     self.options = options
     self.experimentalFeatures = experimentalFeatures
+    self.schemaDownloadConfiguration = schemaDownloadConfiguration
   }
 
 }
@@ -384,7 +388,7 @@ extension ApolloCodegenConfiguration {
 
   /// Validates paths within the configuration ensuring that required files exist and that output
   /// directories can be created.
-  func validate() throws {
+  public func validate() throws {
     try validateTestMocksConfiguration()
 
     let fileManager = FileManager.default.apollo

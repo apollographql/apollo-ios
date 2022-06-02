@@ -101,6 +101,11 @@ commands:
           name: Save test results
           path: ~/TestResults/ResultBundle.zip
           destination: results
+  codegen_cli_run_tests:
+    steps:
+      - run:
+          command: cd ./CodegenCLI && swift test
+          name: Run tests
 
 # Important! When adding a new job to `jobs`, make sure to define when it
 # executes by also adding it to the `workflows` section below!
@@ -179,6 +184,13 @@ jobs:
     steps:
       - common_test_setup
       - build_and_run_tests
+  
+  CodegenCLI_macOS_current:
+    macos:
+      xcode: << pipeline.parameters.xcode_version >>
+    steps:
+      - common_test_setup
+      - codegen_cli_run_tests
 
   CocoaPodsTrunk:
     macos:
@@ -230,6 +242,8 @@ workflows:
               ignore: /.*1.0.*/
       - CodegenLib_macOS_current:
           name: Swift Code Generation
+      - CodegenCLI_macOS_current:
+          name: CodegenCLI
       - CocoaPodsTrunk:
           name: Push Podspec to CocoaPods Trunk
           requires:

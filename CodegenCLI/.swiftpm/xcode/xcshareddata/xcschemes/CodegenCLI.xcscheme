@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1130"
+   LastUpgradeVersion = "1340"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,9 +14,23 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "ApolloSQLite"
-               BuildableName = "ApolloSQLite"
-               BlueprintName = "ApolloSQLite"
+               BlueprintIdentifier = "apollo-ios-cli"
+               BuildableName = "apollo-ios-cli"
+               BlueprintName = "apollo-ios-cli"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "CodegenCLITests"
+               BuildableName = "CodegenCLITests"
+               BlueprintName = "CodegenCLITests"
                ReferencedContainer = "container:">
             </BuildableReference>
          </BuildActionEntry>
@@ -26,60 +40,17 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "NO">
-      <EnvironmentVariables>
-         <EnvironmentVariable
-            key = "APOLLO_TEST_CACHE_PROVIDER"
-            value = "ApolloSQLiteTestSupport.SQLiteTestCacheProvider"
-            isEnabled = "YES">
-         </EnvironmentVariable>
-      </EnvironmentVariables>
+      shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
          <TestableReference
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "ApolloSQLiteTests"
-               BuildableName = "ApolloSQLiteTests"
-               BlueprintName = "ApolloSQLiteTests"
+               BlueprintIdentifier = "CodegenCLITests"
+               BuildableName = "CodegenCLITests"
+               BlueprintName = "CodegenCLITests"
                ReferencedContainer = "container:">
             </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "ApolloCacheDependentTests"
-               BuildableName = "ApolloCacheDependentTests"
-               BlueprintName = "ApolloCacheDependentTests"
-               ReferencedContainer = "container:">
-            </BuildableReference>
-            <SkippedTests>
-               <Test
-                  Identifier = "FetchQueryTests">
-               </Test>
-               <Test
-                  Identifier = "LoadQueryFromStoreTests">
-               </Test>
-               <Test
-                  Identifier = "ReadWriteFromStoreTests">
-               </Test>
-               <Test
-                  Identifier = "StarWarsServerAPQsGetMethodTests">
-               </Test>
-               <Test
-                  Identifier = "StarWarsServerAPQsTests">
-               </Test>
-               <Test
-                  Identifier = "StarWarsServerCachingRoundtripTests">
-               </Test>
-               <Test
-                  Identifier = "StarWarsServerTests">
-               </Test>
-               <Test
-                  Identifier = "WatchQueryTests">
-               </Test>
-            </SkippedTests>
          </TestableReference>
       </Testables>
    </TestAction>
@@ -93,6 +64,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "apollo-ios-cli"
+            BuildableName = "apollo-ios-cli"
+            BlueprintName = "apollo-ios-cli"
+            ReferencedContainer = "container:">
+         </BuildableReference>
+      </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -100,15 +81,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "ApolloSQLite"
-            BuildableName = "ApolloSQLite"
-            BlueprintName = "ApolloSQLite"
+            BlueprintIdentifier = "apollo-ios-cli"
+            BuildableName = "apollo-ios-cli"
+            BlueprintName = "apollo-ios-cli"
             ReferencedContainer = "container:">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
