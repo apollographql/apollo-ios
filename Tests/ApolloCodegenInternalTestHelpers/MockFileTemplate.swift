@@ -14,6 +14,16 @@ public struct MockFileTemplate: TemplateRenderer {
     )
   }
 
+  public var detachedTemplate: TemplateString? {
+    TemplateString(
+    """
+    detached {
+      nested
+    }
+    """
+    )
+  }
+
   public static func mock(target: TemplateTarget) -> Self {
     MockFileTemplate(target: target)
   }

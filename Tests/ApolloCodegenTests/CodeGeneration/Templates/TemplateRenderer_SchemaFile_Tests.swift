@@ -133,12 +133,20 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
   func test__renderTargetSchemaFile__givenAllSchemaTypesOperationsCombinations_conditionallyWrapInNamespace() {
     // given
     let expectedNoNamespace = """
+    detached {
+      nested
+    }
+
     root {
       nested
     }
     """
 
     let expectedNamespace = """
+    detached {
+      nested
+    }
+
     public extension TestSchema {
       root {
         nested
