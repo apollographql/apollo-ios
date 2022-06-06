@@ -56,7 +56,12 @@ struct MockObjectTemplate: TemplateRenderer {
     func nameReplacement(for type: GraphQLType) -> String? {
       switch type {
       case .entity(let graphQLCompositeType):
-        return "Mock<\(graphQLCompositeType.name)>"
+        switch graphQLCompositeType {
+        case is GraphQLInterfaceType, is GraphQLUnionType:
+          return "AnyMock"
+        default:
+          return "Mock<\(graphQLCompositeType.name)>"
+        }
       case .scalar,
           .enum,
           .inputObject:

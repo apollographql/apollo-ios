@@ -155,7 +155,7 @@ class MockObjectTemplateTests: XCTestCase {
     // given
     buildSubject()
 
-    let Cat: GraphQLType = .entity(.mock("Cat"))
+    let Cat: GraphQLType = .entity(GraphQLObjectType.mock("Cat"))
 
     subject.graphqlObject.fields = [
       "string": .mock("string", type: .nonNull(.string())),
@@ -195,6 +195,114 @@ class MockObjectTemplateTests: XCTestCase {
         self.objectOptionalList = objectOptionalList
         self.optionalString = optionalString
         self.string = string
+      }
+    }
+    """
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
+  }
+
+  func test_render_givenSchemaType_withInterfaceTypedFields_generatesConvenienceInitializer() {
+    // given
+    buildSubject()
+
+    let Animal: GraphQLType = .entity(GraphQLInterfaceType.mock("Animal"))
+
+    subject.graphqlObject.fields = [
+      "string": .mock("string", type: .nonNull(.string())),
+      "customScalar": .mock("customScalar", type: .nonNull(.scalar(.mock(name: "CustomScalar")))),
+      "optionalString": .mock("optionalString", type: .string()),
+      "interface": .mock("interface", type: Animal),
+      "interfaceList": .mock("interfaceList", type: .list(.nonNull(Animal))),
+      "interfaceNestedList": .mock("interfaceNestedList", type: .list(.nonNull(.list(.nonNull(Animal))))),
+      "interfaceOptionalList": .mock("interfaceOptionalList", type: .list(Animal)),
+    ]
+
+    ir.fieldCollector.add(
+      fields: subject.graphqlObject.fields.values.map {
+        .mock($0.name, type: $0.type)
+      },
+      to: subject.graphqlObject
+    )
+
+    let expected = """
+    }
+
+    public extension Mock where O == Dog {
+      convenience init(
+        customScalar: TestSchema.CustomScalar? = nil,
+        interface: AnyMock? = nil,
+        interfaceList: [AnyMock]? = nil,
+        interfaceNestedList: [[AnyMock]]? = nil,
+        interfaceOptionalList: [AnyMock?]? = nil,
+        optionalString: String? = nil,
+        string: String? = nil
+      ) {
+        self.init()
+        self.customScalar = customScalar
+        self.interface = interface
+        self.interfaceList = interfaceList
+        self.interfaceNestedList = interfaceNestedList
+        self.interfaceOptionalList = interfaceOptionalList
+        self.optionalString = optionalString
+        self.string = string
+      }
+    }
+    """
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
+  }
+
+  func test_render_givenSchemaType_withUnionTypedFields_generatesConvenienceInitializer() {
+    // given
+    buildSubject()
+
+    let Animal: GraphQLType = .entity(GraphQLUnionType.mock("Animal"))
+
+    subject.graphqlObject.fields = [
+      "string": .mock("string", type: .nonNull(.string())),
+      "customScalar": .mock("customScalar", type: .nonNull(.scalar(.mock(name: "CustomScalar")))),
+      "optionalString": .mock("optionalString", type: .string()),
+      "union": .mock("union", type: Animal),
+      "unionList": .mock("unionList", type: .list(.nonNull(Animal))),
+      "unionNestedList": .mock("unionNestedList", type: .list(.nonNull(.list(.nonNull(Animal))))),
+      "unionOptionalList": .mock("unionOptionalList", type: .list(Animal)),
+    ]
+
+    ir.fieldCollector.add(
+      fields: subject.graphqlObject.fields.values.map {
+        .mock($0.name, type: $0.type)
+      },
+      to: subject.graphqlObject
+    )
+
+    let expected = """
+    }
+
+    public extension Mock where O == Dog {
+      convenience init(
+        customScalar: TestSchema.CustomScalar? = nil,
+        optionalString: String? = nil,
+        string: String? = nil,
+        union: AnyMock? = nil,
+        unionList: [AnyMock]? = nil,
+        unionNestedList: [[AnyMock]]? = nil,
+        unionOptionalList: [AnyMock?]? = nil
+      ) {
+        self.init()
+        self.customScalar = customScalar
+        self.optionalString = optionalString
+        self.string = string
+        self.union = union
+        self.unionList = unionList
+        self.unionNestedList = unionNestedList
+        self.unionOptionalList = unionOptionalList
       }
     }
     """
