@@ -4,7 +4,7 @@
 import ApolloTestSupport
 import AnimalKingdomAPI
 
-public extension Mutation: Mockable {
+extension Mutation: Mockable {
   public static let __mockFields = MockFields()
 
   public struct MockFields {
@@ -13,7 +13,7 @@ public extension Mutation: Mockable {
 }
 
 public extension Mock where O == Mutation {
-  public convenience init(
+  convenience init(
     adoptPet: Pet? = nil
   ) {
     self.init()

@@ -4,7 +4,7 @@
 import ApolloTestSupport
 import AnimalKingdomAPI
 
-public extension Fish: Mockable {
+extension Fish: Mockable {
   public static let __mockFields = MockFields()
 
   public struct MockFields {
@@ -20,7 +20,7 @@ public extension Fish: Mockable {
 }
 
 public extension Mock where O == Fish {
-  public convenience init(
+  convenience init(
     favoriteToy: String? = nil,
     height: Height? = nil,
     humanName: String? = nil,

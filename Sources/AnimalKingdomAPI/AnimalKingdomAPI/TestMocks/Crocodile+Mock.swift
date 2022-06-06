@@ -4,7 +4,7 @@
 import ApolloTestSupport
 import AnimalKingdomAPI
 
-public extension Crocodile: Mockable {
+extension Crocodile: Mockable {
   public static let __mockFields = MockFields()
 
   public struct MockFields {
@@ -16,7 +16,7 @@ public extension Crocodile: Mockable {
 }
 
 public extension Mock where O == Crocodile {
-  public convenience init(
+  convenience init(
     height: Height? = nil,
     predators: [Animal]? = nil,
     skinCovering: GraphQLEnum<SkinCovering>? = nil,

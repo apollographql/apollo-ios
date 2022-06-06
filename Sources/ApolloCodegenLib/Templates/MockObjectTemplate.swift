@@ -24,7 +24,7 @@ struct MockObjectTemplate: TemplateRenderer {
       }
 
     return """
-    public extension \
+    extension \
     \(if: !config.output.schemaTypes.isInModule, "\(ir.schema.name.firstUppercased).")\
     \(objectName): Mockable {
       public static let __mockFields = MockFields()
@@ -39,7 +39,7 @@ struct MockObjectTemplate: TemplateRenderer {
     }
 
     public extension Mock where O == \(objectName) {
-      public convenience init(
+      convenience init(
         \(fields.map { "\($0.name): \($0.type)? = nil" }, separator: ",\n")
       ) {
         self.init()
