@@ -1,5 +1,16 @@
 # Change Log
 
+## v1.0.0-alpha.6
+
+This is the sixth Alpha Release of Apollo iOS 1.0. This first major version will include a new code generation engine, better generated models, and many syntax and performance improvements across the entire library. The primary goal of Apollo iOS 1.0 is to stabilize the API of the model layer and provide a foundation for future feature additions and evolution of the library.
+
+* **New: Objects and InputObjects are now equatable:** Many objects now conform to `AnyHashable` bringing with them the ability to conform to `Equatable`, this should make tests easier to write.
+* **Change: GraphQLOperation fields are now static:** Previously an instance of a GraphQLOperation was required to query any of it's properties, you can do that on the type now.
+* **Fixed - Nested fragment type cases:** Nested fragment type cases were not being generated causing a crash in selection set generation.
+* **New - Code generation now has a CLI:** A new command line executable has been built and will be available on Homebrew very soon! Check it out [here](https://github.com/apollographql/apollo-ios/tree/release/1.0/CodegenCLI).
+* **Fixed - SelectionSet and InlineFragment protocol definitions:** These were incorrectly being generated within the namespace when a module of type `.embeddedInTarget` was being used.
+* **Fixed - Test mock convenience initializers:** These were incorrectly definining parameter types for Interface and Union fields and the generated package could not successfully build.
+
 ## v1.0.0-alpha.5
 
 This is the fifth Alpha Release of Apollo iOS 1.0. This first major version will include a new code generation engine, better generated models, and many syntax and performance improvements across the entire library. The primary goal of Apollo iOS 1.0 is to stabilize the API of the model layer and provide a foundation for future feature additions and evolution of the library.
