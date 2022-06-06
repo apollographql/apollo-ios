@@ -4,8 +4,10 @@
 import ApolloTestSupport
 import AnimalKingdomAPI
 
-public extension Query: Mockable {
+extension Query: Mockable {
   public static let __mockFields = MockFields()
+
+  public typealias MockValueCollectionType = Array<Mock<Query>>
 
   public struct MockFields {
     @Field<[Animal]>("allAnimals") public var allAnimals
@@ -15,10 +17,10 @@ public extension Query: Mockable {
 }
 
 public extension Mock where O == Query {
-  public convenience init(
-    allAnimals: [Animal]? = nil,
-    classroomPets: [ClassroomPet?]? = nil,
-    pets: [Pet]? = nil
+  convenience init(
+    allAnimals: [AnyMock]? = nil,
+    classroomPets: [AnyMock?]? = nil,
+    pets: [AnyMock]? = nil
   ) {
     self.init()
     self.allAnimals = allAnimals

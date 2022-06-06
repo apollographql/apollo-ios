@@ -4,8 +4,10 @@
 import ApolloTestSupport
 import AnimalKingdomAPI
 
-public extension PetRock: Mockable {
+extension PetRock: Mockable {
   public static let __mockFields = MockFields()
+
+  public typealias MockValueCollectionType = Array<Mock<PetRock>>
 
   public struct MockFields {
     @Field<String>("favoriteToy") public var favoriteToy
@@ -16,11 +18,11 @@ public extension PetRock: Mockable {
 }
 
 public extension Mock where O == PetRock {
-  public convenience init(
+  convenience init(
     favoriteToy: String? = nil,
     humanName: String? = nil,
     id: ID? = nil,
-    owner: Human? = nil
+    owner: Mock<Human>? = nil
   ) {
     self.init()
     self.favoriteToy = favoriteToy

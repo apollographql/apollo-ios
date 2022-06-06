@@ -14,20 +14,23 @@ struct MockObjectTemplate: TemplateRenderer {
 
   var template: TemplateString {
     let objectName = graphqlObject.name.firstUppercased
-    let fields: [(name: String, type: String)] = ir.fieldCollector
+    let fields: [(name: String, type: String, mockType: String)] = ir.fieldCollector
       .collectedFields(for: graphqlObject)
       .map {
         (
           name: $0.0,
-          type: $0.1.rendered(containedInNonNull: true, inSchemaNamed: ir.schema.name)
+          type: $0.1.rendered(containedInNonNull: true, inSchemaNamed: ir.schema.name),
+          mockType: mockTypeName(for: $0.1)
         )
       }
 
     return """
-    public extension \
+    extension \
     \(if: !config.output.schemaTypes.isInModule, "\(ir.schema.name.firstUppercased).")\
     \(objectName): Mockable {
       public static let __mockFields = MockFields()
+
+      public typealias MockValueCollectionType = Array<Mock<\(objectName)>>
     
       public struct MockFields {
         \(fields.map {
@@ -39,8 +42,8 @@ struct MockObjectTemplate: TemplateRenderer {
     }
 
     public extension Mock where O == \(objectName) {
-      public convenience init(
-        \(fields.map { "\($0.name): \($0.type)? = nil" }, separator: ",\n")
+      convenience init(
+        \(fields.map { "\($0.name): \($0.mockType)? = nil" }, separator: ",\n")
       ) {
         self.init()
         \(fields.map { "self.\($0.name) = \($0.name)" }, separator: "\n")
@@ -49,5 +52,31 @@ struct MockObjectTemplate: TemplateRenderer {
     """
   }
 
+  private func mockTypeName(for type: GraphQLType) -> String {
+    func nameReplacement(for type: GraphQLType) -> String? {
+      switch type {
+      case .entity(let graphQLCompositeType):
+        switch graphQLCompositeType {
+        case is GraphQLInterfaceType, is GraphQLUnionType:
+          return "AnyMock"
+        default:
+          return "Mock<\(graphQLCompositeType.name)>"
+        }
+      case .scalar,
+          .enum,
+          .inputObject:
+        return nil
+      case .nonNull(let graphQLType),
+          .list(let graphQLType):
+        return nameReplacement(for: graphQLType)
+      }
+    }
+
+    return type.rendered(
+      containedInNonNull: true,
+      replacingNamedTypeWith: nameReplacement(for: type),
+      inSchemaNamed: ir.schema.name
+    )
+  }
   
 }

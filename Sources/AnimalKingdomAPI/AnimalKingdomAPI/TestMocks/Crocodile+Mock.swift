@@ -4,8 +4,10 @@
 import ApolloTestSupport
 import AnimalKingdomAPI
 
-public extension Crocodile: Mockable {
+extension Crocodile: Mockable {
   public static let __mockFields = MockFields()
+
+  public typealias MockValueCollectionType = Array<Mock<Crocodile>>
 
   public struct MockFields {
     @Field<Height>("height") public var height
@@ -16,9 +18,9 @@ public extension Crocodile: Mockable {
 }
 
 public extension Mock where O == Crocodile {
-  public convenience init(
-    height: Height? = nil,
-    predators: [Animal]? = nil,
+  convenience init(
+    height: Mock<Height>? = nil,
+    predators: [AnyMock]? = nil,
     skinCovering: GraphQLEnum<SkinCovering>? = nil,
     species: String? = nil
   ) {

@@ -4,8 +4,10 @@
 import ApolloTestSupport
 import AnimalKingdomAPI
 
-public extension Height: Mockable {
+extension Height: Mockable {
   public static let __mockFields = MockFields()
+
+  public typealias MockValueCollectionType = Array<Mock<Height>>
 
   public struct MockFields {
     @Field<Int>("centimeters") public var centimeters
@@ -17,7 +19,7 @@ public extension Height: Mockable {
 }
 
 public extension Mock where O == Height {
-  public convenience init(
+  convenience init(
     centimeters: Int? = nil,
     feet: Int? = nil,
     inches: Int? = nil,

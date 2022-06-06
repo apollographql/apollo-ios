@@ -4,8 +4,10 @@
 import ApolloTestSupport
 import AnimalKingdomAPI
 
-public extension Fish: Mockable {
+extension Fish: Mockable {
   public static let __mockFields = MockFields()
+
+  public typealias MockValueCollectionType = Array<Mock<Fish>>
 
   public struct MockFields {
     @Field<String>("favoriteToy") public var favoriteToy
@@ -20,13 +22,13 @@ public extension Fish: Mockable {
 }
 
 public extension Mock where O == Fish {
-  public convenience init(
+  convenience init(
     favoriteToy: String? = nil,
-    height: Height? = nil,
+    height: Mock<Height>? = nil,
     humanName: String? = nil,
     id: ID? = nil,
-    owner: Human? = nil,
-    predators: [Animal]? = nil,
+    owner: Mock<Human>? = nil,
+    predators: [AnyMock]? = nil,
     skinCovering: GraphQLEnum<SkinCovering>? = nil,
     species: String? = nil
   ) {
