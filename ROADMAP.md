@@ -1,6 +1,6 @@
 # 🔮 Apollo iOS Roadmap
 
-**Last updated: April 2022**
+**Last updated: June 2022**
 
 For up to date release notes, refer to the project's [Change Log](https://github.com/apollographql/apollo-ios/blob/main/CHANGELOG.md).
 
@@ -24,12 +24,14 @@ These are the three guiding principles we aim for in each major release:
 
 ## 1.0 - _Continuing with Alpha releases_
 
-[Alpha 4 is available](https://github.com/apollographql/apollo-ios/releases/tag/1.0.0-alpha.4), please try it and give us your feedback.
+[Alpha 5 is available](https://github.com/apollographql/apollo-ios/releases/tag/1.0.0-alpha.5), please try it and give us your feedback.
 
 These are the major initiatives planned for 1.0/1.x:
 
 - **Swift-based Codegen**: The code generation is being rewritten with a Swift-first approach instead of relying on scripting and Typescript. This will allow easier community contribution to code generation and provide the opportunity to improve various characteristics such as generated code size and performance.
 - **Modularized GraphQL Code Generation Output**: To support advanced usage of Apollo iOS for modular code bases in a format this is highly configurable and agnostic of the dependency management and build system used. This should be achieved while maintaining the streamlined process for the default usage in unified code bases.
+
+See Github [1.0 Milestone](https://github.com/apollographql/apollo-ios/milestone/61) for more details.
 
 ## 2.0
 
@@ -38,6 +40,8 @@ These are the major initiatives planned for 2.0/2.x:
 - **Networking Stack Improvements**: The goal is to simplify and stabilise the networking stack.
     - The [updated network stack](https://github.com/apollographql/apollo-ios/issues/1340) solved a number of long standing issues with the old barebones NetworkTransport but still has limitations and is complicated to use. Adopting patterns that have proven useful for the web client, such as Apollo Link, will provide more flexibility and give developers full control over the steps that are invoked to satisfy requests.
     - We would love to bring some of the new Swift concurrency features, such as async/await, to Apollo iOS but that depends on the Swift team's work for backwards deployment of the concurrency library. It may involve Apollo iOS dropping support for macOS 10.14 and iOS 12.
+
+See Github [2.0 Milestone](https://github.com/apollographql/apollo-ios/milestone/60) for more details.
 
 ## 3.0
 
@@ -48,6 +52,8 @@ These are the major initiatives planned for 3.0/3.x:
     - Reducing over-normalization. Only separating out results into individual records when something that can identify them is present
     - Real cache eviction & dangling reference collection. There's presently a way to manually remove objects for a given key or pattern, but Apollo Client 3 has given us a roadmap for how to handle some of this stuff much more thoroughly and safely.
     - Cache metadata. Ability to add per-field metadata if needed, to allow for TTL and time-based invalidation, etc.
+
+This major release is still in pre-planning, more details will come in the future.
 
 ## Future
 
