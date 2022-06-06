@@ -50,8 +50,10 @@ class MockObjectTemplateTests: XCTestCase {
     buildSubject(name: "Dog")
 
     let expected = """
-    public extension Dog: Mockable {
+    extension Dog: Mockable {
       public static let __mockFields = MockFields()
+
+      public typealias MockValueCollectionType = Array<Mock<Dog>>
 
       public struct MockFields {
       }
@@ -70,8 +72,10 @@ class MockObjectTemplateTests: XCTestCase {
     buildSubject(name: "Dog", moduleType: .embeddedInTarget(name: "MockApplication"))
 
     let expected = """
-    public extension TestSchema.Dog: Mockable {
+    extension TestSchema.Dog: Mockable {
       public static let __mockFields = MockFields()
+
+      public typealias MockValueCollectionType = Array<Mock<Dog>>
 
       public struct MockFields {
       }
@@ -92,7 +96,7 @@ class MockObjectTemplateTests: XCTestCase {
     buildSubject(name: "dog")
 
     let expected = """
-    public extension Dog: Mockable {
+    extension Dog: Mockable {
     """
 
     // when
@@ -142,7 +146,7 @@ class MockObjectTemplateTests: XCTestCase {
     let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 4, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
   }
 
   // MARK: Convenience Initializer Tests
@@ -174,7 +178,7 @@ class MockObjectTemplateTests: XCTestCase {
     }
 
     public extension Mock where O == Dog {
-      public convenience init(
+      convenience init(
         customScalar: TestSchema.CustomScalar? = nil,
         object: Cat? = nil,
         objectList: [Cat]? = nil,
@@ -198,7 +202,7 @@ class MockObjectTemplateTests: XCTestCase {
     let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
   }
 
 }
