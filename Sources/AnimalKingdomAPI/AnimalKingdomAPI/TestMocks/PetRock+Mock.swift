@@ -7,6 +7,8 @@ import AnimalKingdomAPI
 extension PetRock: Mockable {
   public static let __mockFields = MockFields()
 
+  public typealias MockValueCollectionType = Array<Mock<PetRock>>
+
   public struct MockFields {
     @Field<String>("favoriteToy") public var favoriteToy
     @Field<String>("humanName") public var humanName
@@ -20,7 +22,7 @@ public extension Mock where O == PetRock {
     favoriteToy: String? = nil,
     humanName: String? = nil,
     id: ID? = nil,
-    owner: Human? = nil
+    owner: Mock<Human>? = nil
   ) {
     self.init()
     self.favoriteToy = favoriteToy

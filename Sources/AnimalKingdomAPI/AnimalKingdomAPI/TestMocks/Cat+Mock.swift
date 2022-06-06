@@ -7,6 +7,8 @@ import AnimalKingdomAPI
 extension Cat: Mockable {
   public static let __mockFields = MockFields()
 
+  public typealias MockValueCollectionType = Array<Mock<Cat>>
+
   public struct MockFields {
     @Field<Int>("bodyTemperature") public var bodyTemperature
     @Field<String>("favoriteToy") public var favoriteToy
@@ -26,13 +28,13 @@ public extension Mock where O == Cat {
   convenience init(
     bodyTemperature: Int? = nil,
     favoriteToy: String? = nil,
-    height: Height? = nil,
+    height: Mock<Height>? = nil,
     humanName: String? = nil,
     id: ID? = nil,
     isJellicle: Bool? = nil,
     laysEggs: Bool? = nil,
-    owner: Human? = nil,
-    predators: [Animal]? = nil,
+    owner: Mock<Human>? = nil,
+    predators: [AnyMock]? = nil,
     skinCovering: GraphQLEnum<SkinCovering>? = nil,
     species: String? = nil
   ) {

@@ -7,6 +7,8 @@ import AnimalKingdomAPI
 extension Crocodile: Mockable {
   public static let __mockFields = MockFields()
 
+  public typealias MockValueCollectionType = Array<Mock<Crocodile>>
+
   public struct MockFields {
     @Field<Height>("height") public var height
     @Field<[Animal]>("predators") public var predators
@@ -17,8 +19,8 @@ extension Crocodile: Mockable {
 
 public extension Mock where O == Crocodile {
   convenience init(
-    height: Height? = nil,
-    predators: [Animal]? = nil,
+    height: Mock<Height>? = nil,
+    predators: [AnyMock]? = nil,
     skinCovering: GraphQLEnum<SkinCovering>? = nil,
     species: String? = nil
   ) {

@@ -7,6 +7,8 @@ import AnimalKingdomAPI
 extension Height: Mockable {
   public static let __mockFields = MockFields()
 
+  public typealias MockValueCollectionType = Array<Mock<Height>>
+
   public struct MockFields {
     @Field<Int>("centimeters") public var centimeters
     @Field<Int>("feet") public var feet

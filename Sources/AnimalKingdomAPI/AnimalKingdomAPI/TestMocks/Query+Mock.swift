@@ -7,6 +7,8 @@ import AnimalKingdomAPI
 extension Query: Mockable {
   public static let __mockFields = MockFields()
 
+  public typealias MockValueCollectionType = Array<Mock<Query>>
+
   public struct MockFields {
     @Field<[Animal]>("allAnimals") public var allAnimals
     @Field<[ClassroomPet?]>("classroomPets") public var classroomPets
@@ -16,9 +18,9 @@ extension Query: Mockable {
 
 public extension Mock where O == Query {
   convenience init(
-    allAnimals: [Animal]? = nil,
-    classroomPets: [ClassroomPet?]? = nil,
-    pets: [Pet]? = nil
+    allAnimals: [AnyMock]? = nil,
+    classroomPets: [AnyMock?]? = nil,
+    pets: [AnyMock]? = nil
   ) {
     self.init()
     self.allAnimals = allAnimals

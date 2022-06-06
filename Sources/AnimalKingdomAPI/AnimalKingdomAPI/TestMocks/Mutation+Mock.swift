@@ -7,6 +7,8 @@ import AnimalKingdomAPI
 extension Mutation: Mockable {
   public static let __mockFields = MockFields()
 
+  public typealias MockValueCollectionType = Array<Mock<Mutation>>
+
   public struct MockFields {
     @Field<Pet>("adoptPet") public var adoptPet
   }
@@ -14,7 +16,7 @@ extension Mutation: Mockable {
 
 public extension Mock where O == Mutation {
   convenience init(
-    adoptPet: Pet? = nil
+    adoptPet: AnyMock? = nil
   ) {
     self.init()
     self.adoptPet = adoptPet
