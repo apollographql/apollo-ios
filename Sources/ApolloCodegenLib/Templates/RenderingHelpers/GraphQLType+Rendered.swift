@@ -34,7 +34,7 @@ extension GraphQLType {
 
       return containedInNonNull ? inner : "\(inner)?"
     }
-  }  
+  }
 
   // MARK: Input Value
 

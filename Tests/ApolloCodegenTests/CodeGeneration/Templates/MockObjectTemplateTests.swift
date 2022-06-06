@@ -180,10 +180,10 @@ class MockObjectTemplateTests: XCTestCase {
     public extension Mock where O == Dog {
       convenience init(
         customScalar: TestSchema.CustomScalar? = nil,
-        object: Cat? = nil,
-        objectList: [Cat]? = nil,
-        objectNestedList: [[Cat]]? = nil,
-        objectOptionalList: [Cat?]? = nil,
+        object: Mock<Cat>? = nil,
+        objectList: [Mock<Cat>]? = nil,
+        objectNestedList: [[Mock<Cat>]]? = nil,
+        objectOptionalList: [Mock<Cat>?]? = nil,
         optionalString: String? = nil,
         string: String? = nil
       ) {
