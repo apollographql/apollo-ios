@@ -28,6 +28,8 @@ struct MockObjectTemplate: TemplateRenderer {
     \(if: !config.output.schemaTypes.isInModule, "\(ir.schema.name.firstUppercased).")\
     \(objectName): Mockable {
       public static let __mockFields = MockFields()
+
+      public typealias MockValueCollectionType = Array<Mock<\(objectName)>>
     
       public struct MockFields {
         \(fields.map {
