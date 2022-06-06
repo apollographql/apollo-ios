@@ -2,6 +2,7 @@ import XCTest
 import Nimble
 @testable import ApolloCodegenLib
 import ApolloCodegenInternalTestHelpers
+import ApolloUtils
 
 class SchemaTemplateTests: XCTestCase {
   var subject: SchemaTemplate!
@@ -14,19 +15,30 @@ class SchemaTemplateTests: XCTestCase {
 
   // MARK: Helpers
 
-  private func buildSubject(name: String = "testSchema", referencedTypes: IR.Schema.ReferencedTypes = .init([])) {
-    subject = SchemaTemplate(schema: IR.Schema(name: name, referencedTypes: referencedTypes))
+  private func buildSubject(
+    name: String = "testSchema",
+    referencedTypes: IR.Schema.ReferencedTypes = .init([]),
+    config: ApolloCodegenConfiguration = ApolloCodegenConfiguration.mock()
+  ) {
+    subject = SchemaTemplate(
+      schema: IR.Schema(name: name, referencedTypes: referencedTypes),
+      config: ReferenceWrapped(value: config)
+    )
   }
 
-  private func renderSubject() -> String {
+  private func renderTemplate() -> String {
     subject.template.description
   }
 
-  // MARK: Boilerplate Tests
+  private func renderDetachedTemplate() -> String? {
+    subject.detachedTemplate?.description
+  }
 
-  func test__render__generatesIDTypeAlias() {
+  // MARK: Typealias & Protocol Tests
+
+  func test__render__givenModuleEmbeddedInTarget_shouldGenerateIDTypealias() {
     // given
-    buildSubject()
+    buildSubject(config: .mock(.embeddedInTarget(name: "CustomTarget")))
 
     let expected = """
     public typealias ID = String
@@ -34,46 +46,127 @@ class SchemaTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = renderSubject()
+    let actual = renderTemplate()
 
     // then
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
-  // MARK: Protocol Tests
-
-  func test__render__givenSchemaName_generatesSelectionSetProtocolCorrectlyCased() {
+  func test__render__givenModuleSwiftPackageManager_shouldGenerateIDTypealias() {
     // given
-    buildSubject()
+    buildSubject(config: .mock(.swiftPackageManager))
 
     let expected = """
-    public protocol SelectionSet: ApolloAPI.SelectionSet & ApolloAPI.RootSelectionSet
-    where Schema == TestSchema.Schema {}
+    public typealias ID = String
 
     """
 
     // when
-    let actual = renderSubject()
+    let actual = renderTemplate()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 3, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
-  func test__render__givenSchemaName_generatesTypeCaseProtocolCorrectlyCased() {
+  func test__render__givenModuleOther_shouldGenerateIDTypealias() {
     // given
-    buildSubject()
+    buildSubject(config: .mock(.other))
 
     let expected = """
-    public protocol InlineFragment: ApolloAPI.SelectionSet & ApolloAPI.InlineFragment
-    where Schema == TestSchema.Schema {}
+    public typealias ID = String
 
     """
 
     // when
-    let actual = renderSubject()
+    let actual = renderTemplate()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test__render__givenModuleEmbeddedInTarget_shouldGenerateDetachedProtocols_withTypealias_withCorrectCasing() {
+    // given
+    buildSubject(
+      name: "aName",
+      config: .mock(.embeddedInTarget(name: "CustomTarget"))
+    )
+
+    let expectedTemplate = """
+    public typealias SelectionSet = AName_SelectionSet
+
+    public typealias InlineFragment = AName_InlineFragment
+
+    """
+
+    let expectedDetached = """
+    public protocol AName_SelectionSet: ApolloAPI.SelectionSet & ApolloAPI.RootSelectionSet
+    where Schema == AName.Schema {}
+
+    public protocol AName_InlineFragment: ApolloAPI.SelectionSet & ApolloAPI.InlineFragment
+    where Schema == AName.Schema {}
+    """
+
+    // when
+    let actualTemplate = renderTemplate()
+    let actualDetached = renderDetachedTemplate()
+
+    // then
+    expect(actualTemplate)
+      .to(equalLineByLine(expectedTemplate, atLine: 3, ignoringExtraLines: true))
+    expect(actualDetached)
+      .to(equalLineByLine(expectedDetached))
+  }
+
+  func test__render__givenModuleSwiftPackageManager_shouldGenerateEmbeddedProtocols_noTypealias_withCorrectCasing() {
+    // given
+    buildSubject(
+      name: "aName",
+      config: .mock(.swiftPackageManager)
+    )
+
+    let expectedTemplate = """
+    public protocol SelectionSet: ApolloAPI.SelectionSet & ApolloAPI.RootSelectionSet
+    where Schema == AName.Schema {}
+
+    public protocol InlineFragment: ApolloAPI.SelectionSet & ApolloAPI.InlineFragment
+    where Schema == AName.Schema {}
+    """
+
+    // when
+    let actualTemplate = renderTemplate()
+    let actualDetached = renderDetachedTemplate()
+
+    // then
+    expect(actualTemplate)
+      .to(equalLineByLine(expectedTemplate, atLine: 3, ignoringExtraLines: true))
+    expect(actualDetached)
+      .to(beNil())
+  }
+
+  func test__render__givenModuleOther_shouldGenerateEmbeddedProtocols_noTypealias_withCorrectCasing() {
+    // given
+    buildSubject(
+      name: "aName",
+      config: .mock(.other)
+    )
+
+    let expectedTemplate = """
+    public protocol SelectionSet: ApolloAPI.SelectionSet & ApolloAPI.RootSelectionSet
+    where Schema == AName.Schema {}
+
+    public protocol InlineFragment: ApolloAPI.SelectionSet & ApolloAPI.InlineFragment
+    where Schema == AName.Schema {}
+    """
+
+    // when
+    let actualTemplate = renderTemplate()
+    let actualDetached = renderDetachedTemplate()
+
+    // then
+    expect(actualTemplate)
+      .to(equalLineByLine(expectedTemplate, atLine: 3, ignoringExtraLines: true))
+    expect(actualDetached)
+      .to(beNil())
   }
 
   // MARK: Schema Tests
@@ -87,10 +180,10 @@ class SchemaTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = renderSubject()
+    let actual = renderTemplate()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 9, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
   }
 
   func test__render__givenWithReferencedObjects_generatesObjectTypeFunctionCorrectlyCased() {
@@ -117,10 +210,10 @@ class SchemaTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = renderSubject()
+    let actual = renderTemplate()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 10))
+    expect(actual).to(equalLineByLine(expected, atLine: 8))
   }
 
   func test__render__givenWithReferencedOtherTypes_generatesObjectTypeNotIncludingNonObjectTypesFunction() {
@@ -148,9 +241,9 @@ class SchemaTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = renderSubject()
+    let actual = renderTemplate()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 10))
+    expect(actual).to(equalLineByLine(expected, atLine: 8))
   }
 }

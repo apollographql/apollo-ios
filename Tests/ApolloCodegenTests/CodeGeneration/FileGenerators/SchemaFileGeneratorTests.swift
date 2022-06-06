@@ -1,6 +1,7 @@
 import XCTest
 import Nimble
 @testable import ApolloCodegenLib
+import ApolloUtils
 
 class SchemaFileGeneratorTests: XCTestCase {
   let irSchema = IR.Schema(name: "MockSchema", referencedTypes: .init([]))
@@ -14,7 +15,10 @@ class SchemaFileGeneratorTests: XCTestCase {
   // MARK: Test Helpers
 
   private func buildSubject() {
-    subject = SchemaFileGenerator(schema: irSchema)
+    subject = SchemaFileGenerator(
+      schema: irSchema,
+      config: ReferenceWrapped(value: ApolloCodegenConfiguration.mock())
+    )
   }
 
   // MARK: Property Tests

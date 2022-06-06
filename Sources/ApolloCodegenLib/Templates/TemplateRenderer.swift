@@ -26,7 +26,10 @@ protocol TemplateRenderer {
   /// The template for the header to render.
   var headerTemplate: TemplateString? { get }
 
-  /// The swift code format.
+  /// A template that must be rendered outside of any namespace wrapping.
+  var detachedTemplate: TemplateString? { get }
+
+  /// A template that can be rendered within any namespace wrapping.
   var template: TemplateString { get }
 }
 
@@ -34,10 +37,14 @@ protocol TemplateRenderer {
 
 extension TemplateRenderer {
 
-  var headerTemplate: TemplateString? { TemplateString(HeaderCommentTemplate.template.description) }
+  var headerTemplate: TemplateString? {
+    TemplateString(HeaderCommentTemplate.template.description)
+  }
 
-  /// Renders the template converting all input values and generating a final String representation
-  /// of the template.
+  var detachedTemplate: TemplateString? { nil }
+
+  /// Renders the template converting all input values and generating a final String
+  /// representation of the template.
   ///
   /// - Parameter config: Shared codegen configuration.
   /// - Returns: Swift code derived from the template format.
@@ -58,6 +65,7 @@ extension TemplateRenderer {
     \(ifLet: headerTemplate, { "\($0)\n" })
     \(ImportStatementTemplate.SchemaType.template)
 
+    \(ifLet: detachedTemplate, { "\($0)\n" })
     \(if: config.output.schemaTypes.isInModule, template,
     else: template.wrappedInNamespace(config.schemaName))
     """
