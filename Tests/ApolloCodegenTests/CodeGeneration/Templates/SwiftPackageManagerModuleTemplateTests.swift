@@ -182,6 +182,7 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
           name: "TestModuleTestMocks",
           dependencies: [
             .product(name: "ApolloTestSupport", package: "apollo-ios"),
+            .target(name: "TestModule"),
           ],
           path: "./TestMocks"
         ),
@@ -212,6 +213,7 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
           name: "CustomMocks",
           dependencies: [
             .product(name: "ApolloTestSupport", package: "apollo-ios"),
+            .target(name: "TestModule"),
           ],
           path: "./CustomMocks"
         ),

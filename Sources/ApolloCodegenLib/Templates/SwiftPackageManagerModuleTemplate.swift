@@ -13,13 +13,15 @@ struct SwiftPackageManagerModuleTemplate: TemplateRenderer {
   let headerTemplate: TemplateString? = nil
 
   var template: TemplateString {
-    TemplateString("""
+    let casedModuleName = moduleName.firstUppercased
+
+    return TemplateString("""
     // swift-tools-version:5.3
 
     import PackageDescription
 
     let package = Package(
-      name: "\(moduleName.firstUppercased)",
+      name: "\(casedModuleName)",
       platforms: [
         .iOS(.v12),
         .macOS(.v10_14),
@@ -27,14 +29,14 @@ struct SwiftPackageManagerModuleTemplate: TemplateRenderer {
         .watchOS(.v5),
       ],
       products: [
-        .library(name: "\(moduleName.firstUppercased)", targets: ["\(moduleName.firstUppercased)"]),
+        .library(name: "\(casedModuleName)", targets: ["\(casedModuleName)"]),
       ],
       dependencies: [
         .package(url: "https://github.com/apollographql/apollo-ios.git", from: "1.0.0-alpha.6"),
       ],
       targets: [
         .target(
-          name: "\(moduleName.firstUppercased)",
+          name: "\(casedModuleName)",
           dependencies: [
             .product(name: "ApolloAPI", package: "apollo-ios"),
           ],
@@ -45,6 +47,7 @@ struct SwiftPackageManagerModuleTemplate: TemplateRenderer {
           name: "\($0.targetName)",
           dependencies: [
             .product(name: "ApolloTestSupport", package: "apollo-ios"),
+            .target(name: "\(casedModuleName)"),
           ],
           path: "\($0.path)"
         ),
