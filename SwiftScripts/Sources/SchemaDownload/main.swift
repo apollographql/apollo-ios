@@ -18,12 +18,12 @@ for target in Target.allCases {
     .deletingLastPathComponent() // apollo-ios
 
   let targetURL = target.targetRootURL(fromSourceRoot: sourceRootURL)
-
   let outputURL = target.schemaURL(fromTargetRoot: targetURL)
 
   // Introspection download:
-  let configuration = ApolloSchemaDownloadConfiguration(using: .introspection(endpointURL: endpoint),
-                                                        outputURL: outputURL)
+  let configuration = ApolloSchemaDownloadConfiguration(
+    using: .introspection(endpointURL: endpoint),
+    outputPath: outputURL.path)
 
   // Registry download:
   //let registrySettings = ApolloSchemaDownloadConfiguration.DownloadMethod.RegistrySettings(apiKey: <#Replace Me For Testing#>,
@@ -33,7 +33,7 @@ for target in Target.allCases {
   //                                                      outputFolderURL: output)
 
   do {
-    try ApolloSchemaDownloader.fetch(with: configuration)
+    try ApolloSchemaDownloader.fetch(configuration: configuration)
   } catch {
     print(error)
     continue
@@ -49,8 +49,8 @@ extension Target {
       return URL(string: "http://localhost:4000/")!
     case .starWars:
       return URL(string: "http://localhost:8080/graphql")!
-    case .gitHub:
-      return nil
+//    case .gitHub:
+//      return nil
     case .animalKingdom:
       return nil
     }
