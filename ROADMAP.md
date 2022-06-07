@@ -15,7 +15,7 @@ These are the three guiding principles we aim for in each major release:
 
 ## 1.0 - _Continuing with Alpha releases_
 
-[Alpha 1 is available](https://github.com/apollographql/apollo-ios/releases/tag/1.0.0-alpha.1), please try it and give us your feedback.
+Check out the [latest alpha release](https://github.com/apollographql/apollo-ios/releases), try it and give us your feedback.
 
 These are the major initiatives planned for 1.0/1.x:
 - **Swift-based Codegen**: The code generation is being rewritten with a Swift-first approach instead of relying on scripting and Typescript. This will allow easier community contribution to code generation and provide the opportunity to improve various characteristics such as generated code size and performance.
