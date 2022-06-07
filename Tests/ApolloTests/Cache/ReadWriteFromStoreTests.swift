@@ -192,18 +192,41 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
   func testUpdateHeroNameQuery() throws {
     // given
-    class GivenSelectionSet: MockMutableSelectionSet {
-      override class var selections: [Selection] { [
+    struct GivenSelectionSet: MutableRootSelectionSet {
+      static var schema: SchemaConfiguration.Type { MockSchemaConfiguration.self }
+      static var __parentType: ParentType { .Object(Object.self) }
+      public var data: DataDict = DataDict([:], variables: nil)
+
+      public init(data: DataDict) {
+        self.data = data
+      }
+
+      static var selections: [Selection] { [
         .field("hero", Hero.self)
       ]}
 
-//      var hero: Hero? { get { self[dynamicMember: "hero"] }
-//        set { self[dynamicMember: "hero"] = newValue } }
+      var hero: Hero? {
+        get { data["hero"] }
+        set { data["hero"] = newValue }
+      }
 
-      class Hero: MockMutableSelectionSet {
-        override class var selections: [Selection] { [
+      struct Hero: MutableRootSelectionSet {
+        static var schema: SchemaConfiguration.Type { MockSchemaConfiguration.self }
+        static var __parentType: ParentType { .Object(Object.self) }
+        public var data: DataDict = DataDict([:], variables: nil)
+
+        public init(data: DataDict) {
+          self.data = data
+        }
+        
+        static var selections: [Selection] { [
           .field("name", String.self)
         ]}
+
+        var name: String? {
+          get { data["name"] }
+          set { data["name"] = newValue }
+        }
       }
     }
 
@@ -220,8 +243,6 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       store.withinReadWriteTransaction({ transaction in
         try transaction.update(cacheMutation) { data in
           data.hero?.name = "Artoo"
-//          hero?.name = "Artoo"
-//          data.hero = hero
         }
       }, completion: { result in
         defer { updateCompletedExpectation.fulfill() }
