@@ -15,11 +15,21 @@ public struct DataDict: Hashable {
   @inlinable public subscript<T: AnyScalarType & Hashable>(_ key: String) -> T {
     get { _data[key] as! T }
     set { _data[key] = newValue }
+    _modify {
+      var value = _data[key] as! T
+      defer { _data[key] = value }
+      yield &value
+    }
   }
   
   @inlinable public subscript<T: SelectionSetEntityValue>(_ key: String) -> T {
     get { T.init(fieldData: _data[key], variables: _variables) }
     set { _data[key] = newValue._fieldData }
+    _modify {
+      var value = T.init(fieldData: _data[key], variables: _variables)
+      defer { _data[key] = value._fieldData }
+      yield &value
+    }
   }
 
   @inlinable public func hash(into hasher: inout Hasher) {
