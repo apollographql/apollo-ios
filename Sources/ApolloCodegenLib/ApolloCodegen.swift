@@ -147,6 +147,17 @@ public class ApolloCodegen {
           forConfig: config,
           fileManager: fileManager
         )
+
+        if config.output.testMocks != .none {
+          try MockUnionFileGenerator(
+            graphqlUnion: graphQLUnion,
+            ir: ir,
+            config: config
+          ).generate(
+            forConfig: config,
+            fileManager: fileManager
+          )
+        }
       }
     }
 

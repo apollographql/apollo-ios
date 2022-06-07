@@ -425,6 +425,10 @@
 		E61DD76526D60C1800C41614 /* SQLiteDotSwiftDatabaseBehaviorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61DD76426D60C1800C41614 /* SQLiteDotSwiftDatabaseBehaviorTests.swift */; };
 		E61EF713275EC99A00191DA7 /* ApolloCodegenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61EF712275EC99A00191DA7 /* ApolloCodegenTests.swift */; };
 		E61F4BF827A8FC8E0049886A /* FragmentFileGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61F4BF727A8FC8E0049886A /* FragmentFileGeneratorTests.swift */; };
+		E6203342284F1C9600A291D1 /* MockUnionFileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6203341284F1C9600A291D1 /* MockUnionFileGenerator.swift */; };
+		E6203344284F1D1100A291D1 /* MockUnionTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6203343284F1D1100A291D1 /* MockUnionTemplate.swift */; };
+		E6203346284F252A00A291D1 /* MockUnionFileGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6203345284F252A00A291D1 /* MockUnionFileGeneratorTests.swift */; };
+		E6203348284F25DF00A291D1 /* MockUnionTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6203347284F25DF00A291D1 /* MockUnionTemplateTests.swift */; };
 		E623FD2A2797A6F4008B4CED /* InterfaceTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E623FD292797A6F4008B4CED /* InterfaceTemplate.swift */; };
 		E64F7EB827A0854E0059C021 /* UnionTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64F7EB727A0854E0059C021 /* UnionTemplate.swift */; };
 		E64F7EBA27A085D90059C021 /* UnionTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64F7EB927A085D90059C021 /* UnionTemplateTests.swift */; };
@@ -1287,6 +1291,10 @@
 		E61DD76426D60C1800C41614 /* SQLiteDotSwiftDatabaseBehaviorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteDotSwiftDatabaseBehaviorTests.swift; sourceTree = "<group>"; };
 		E61EF712275EC99A00191DA7 /* ApolloCodegenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloCodegenTests.swift; sourceTree = "<group>"; };
 		E61F4BF727A8FC8E0049886A /* FragmentFileGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FragmentFileGeneratorTests.swift; sourceTree = "<group>"; };
+		E6203341284F1C9600A291D1 /* MockUnionFileGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUnionFileGenerator.swift; sourceTree = "<group>"; };
+		E6203343284F1D1100A291D1 /* MockUnionTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUnionTemplate.swift; sourceTree = "<group>"; };
+		E6203345284F252A00A291D1 /* MockUnionFileGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUnionFileGeneratorTests.swift; sourceTree = "<group>"; };
+		E6203347284F25DF00A291D1 /* MockUnionTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUnionTemplateTests.swift; sourceTree = "<group>"; };
 		E623FD292797A6F4008B4CED /* InterfaceTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterfaceTemplate.swift; sourceTree = "<group>"; };
 		E623FD2B2797A700008B4CED /* InterfaceTemplateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterfaceTemplateTests.swift; sourceTree = "<group>"; };
 		E64F7EB727A0854E0059C021 /* UnionTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnionTemplate.swift; sourceTree = "<group>"; };
@@ -2332,6 +2340,8 @@
 				DE5FD60A276970FC0033EE23 /* FragmentTemplate.swift */,
 				E69BEDA42798B86D00000D10 /* InputObjectTemplate.swift */,
 				E623FD292797A6F4008B4CED /* InterfaceTemplate.swift */,
+				DE9CEAEE282C62B700959AF9 /* MockObjectTemplate.swift */,
+				E6203343284F1D1100A291D1 /* MockUnionTemplate.swift */,
 				E64F7EC027A122300059C021 /* ObjectTemplate.swift */,
 				DE5FD5FC2769222D0033EE23 /* OperationDefinitionTemplate.swift */,
 				E6EE62F027DBE6F200627257 /* SchemaModuleNamespaceTemplate.swift */,
@@ -2340,7 +2350,6 @@
 				E6B42D0827A472A700A3BD58 /* SwiftPackageManagerModuleTemplate.swift */,
 				E60AE2ED27E3FC6C003C093A /* TemplateRenderer.swift */,
 				E64F7EB727A0854E0059C021 /* UnionTemplate.swift */,
-				DE9CEAEE282C62B700959AF9 /* MockObjectTemplate.swift */,
 			);
 			path = Templates;
 			sourceTree = "<group>";
@@ -2356,6 +2365,7 @@
 				E623FD2B2797A700008B4CED /* InterfaceTemplateTests.swift */,
 				E64F7EC227A1243A0059C021 /* ObjectTemplateTests.swift */,
 				DE9CEAF0282C632B00959AF9 /* MockObjectTemplateTests.swift */,
+				E6203347284F25DF00A291D1 /* MockUnionTemplateTests.swift */,
 				DE6D07FA27BC3BE9009F5F33 /* OperationDefinition_VariableDefinition_Tests.swift */,
 				DE09F9C5270269F800795949 /* OperationDefinitionTemplate_DocumentType_Tests.swift */,
 				DE09066E27A4713F00211300 /* OperationDefinitionTemplateTests.swift */,
@@ -2920,6 +2930,7 @@
 				E610D8DC278EB1500023E495 /* InterfaceFileGeneratorTests.swift */,
 				E66F8896276C136B0000BDA8 /* ObjectFileGeneratorTests.swift */,
 				DE0D38F1282ECF9700AFCC84 /* MockObjectFileGeneratorTests.swift */,
+				E6203345284F252A00A291D1 /* MockUnionFileGeneratorTests.swift */,
 				E607AD8D27A88F340026742A /* OperationFileGeneratorTests.swift */,
 				E6D90D0C278FFE35009CAC5D /* SchemaFileGeneratorTests.swift */,
 				E6B42D0A27A4746800A3BD58 /* SchemaModuleFileGeneratorTests.swift */,
@@ -2957,8 +2968,9 @@
 				DE4D54E827A3518100D26B68 /* FragmentFileGenerator.swift */,
 				E6D90D06278FA595009CAC5D /* InputObjectFileGenerator.swift */,
 				E610D8DA278EB0900023E495 /* InterfaceFileGenerator.swift */,
-				E66F8898276C15580000BDA8 /* ObjectFileGenerator.swift */,
 				DE0D38EF282ECA6D00AFCC84 /* MockObjectFileGenerator.swift */,
+				E6203341284F1C9600A291D1 /* MockUnionFileGenerator.swift */,
+				E66F8898276C15580000BDA8 /* ObjectFileGenerator.swift */,
 				DE4D54E627A3504B00D26B68 /* OperationFileGenerator.swift */,
 				E6D90D0A278FFDDA009CAC5D /* SchemaFileGenerator.swift */,
 				E68D824627A228A80040A46F /* SchemaModuleFileGenerator.swift */,
@@ -3810,6 +3822,7 @@
 				E610D8DF278F8F1E0023E495 /* UnionFileGenerator.swift in Sources */,
 				DEE2DAA227BAF00500EC0607 /* GraphQLType+Rendered.swift in Sources */,
 				DE223C2D2721FCE8004A0148 /* ScopedSelectionSetHashable.swift in Sources */,
+				E6203344284F1D1100A291D1 /* MockUnionTemplate.swift in Sources */,
 				DE79642D27699A6A00978A03 /* IR+NamedFragmentBuilder.swift in Sources */,
 				9B47518D2575AA850001FB87 /* Pluralizer.swift in Sources */,
 				E6D90D0B278FFDDA009CAC5D /* SchemaFileGenerator.swift in Sources */,
@@ -3824,6 +3837,7 @@
 				E610D8DB278EB0900023E495 /* InterfaceFileGenerator.swift in Sources */,
 				9B7B6F69233C2C0C00F32205 /* FileManager+Apollo.swift in Sources */,
 				E674DB41274C0A9B009BB90E /* Glob.swift in Sources */,
+				E6203342284F1C9600A291D1 /* MockUnionFileGenerator.swift in Sources */,
 				DE6D07F927BC3B6D009F5F33 /* GraphQLInputField+Rendered.swift in Sources */,
 				9F1A966C258F34BB00A06EEB /* GraphQLSchema.swift in Sources */,
 				9BE74D3D23FB4A8E006D354F /* FileFinder.swift in Sources */,
@@ -3900,7 +3914,9 @@
 				9B8C3FB5248DA3E000707B13 /* URLExtensionsTests.swift in Sources */,
 				E64F7EBA27A085D90059C021 /* UnionTemplateTests.swift in Sources */,
 				E610D8D9278EA2560023E495 /* EnumFileGeneratorTests.swift in Sources */,
+				E6203348284F25DF00A291D1 /* MockUnionTemplateTests.swift in Sources */,
 				9FDE0731258F3AA100DC0CA5 /* SchemaLoadingTests.swift in Sources */,
+				E6203346284F252A00A291D1 /* MockUnionFileGeneratorTests.swift in Sources */,
 				E6908E55282694630054682B /* ApolloCodegenConfigurationCodableTests.swift in Sources */,
 				DE223C3327221144004A0148 /* IRMatchers.swift in Sources */,
 				E64F7EBF27A11B110059C021 /* GraphQLNamedType+SwiftTests.swift in Sources */,
