@@ -254,7 +254,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
   // MARK: - Write Local Cache Mutation Tests
 
-  func test_updateObject_updateNestedField_updatesObjects() throws {
+  func test_updateCacheMutation_updateNestedField_updatesObjects() throws {
     // given
     struct GivenSelectionSet: MockMutableRootSelectionSet {
       public var data: DataDict = DataDict([:], variables: nil)
@@ -263,7 +263,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
         .field("hero", Hero.self)
       ]}
 
-      var hero: Hero? {
+      var hero: Hero {
         get { data["hero"] }
         set { data["hero"] = newValue }
       }
@@ -275,7 +275,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
           .field("name", String.self)
         ]}
 
-        var name: String? {
+        var name: String {
           get { data["name"] }
           set { data["name"] = newValue }
         }
@@ -294,7 +294,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
       store.withinReadWriteTransaction({ transaction in
         try transaction.update(cacheMutation) { data in
-          data.hero?.name = "Artoo"
+          data.hero.name = "Artoo"
         }
       }, completion: { result in
         defer { updateCompletedExpectation.fulfill() }
@@ -312,8 +312,122 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
         XCTAssertNil(graphQLResult.errors)
 
         let data = try XCTUnwrap(graphQLResult.data)
-        XCTAssertEqual(data.hero?.name, "Artoo")
+        XCTAssertEqual(data.hero.name, "Artoo")
       }
+    }
+  }
+
+  func test_updateCacheMutation_givenAddNewReferencedEntity_entityIsIncludedOnRead() throws {
+    /// given
+    struct GivenSelectionSet: MockMutableRootSelectionSet {
+      public var data: DataDict = DataDict([:], variables: nil)
+
+      static var selections: [Selection] { [
+        .field("hero", Hero.self)
+      ]}
+
+      var hero: Hero {
+        get { data["hero"] }
+        set { data["hero"] = newValue }
+      }
+
+      struct Hero: MockMutableRootSelectionSet {
+        public var data: DataDict = DataDict([:], variables: nil)
+
+        static var selections: [Selection] { [
+          .field("id", String.self),
+          .field("name", String.self),
+          .field("friends", [Friend].self),
+        ]}
+
+        var name: String {
+          get { data["name"] }
+          set { data["name"] = newValue }
+        }
+
+        var friends: [Friend] {
+          get { data["friends"] }
+          set { data["friends"] = newValue }
+        }
+
+        struct Friend: MockMutableRootSelectionSet {
+          public var data: DataDict = DataDict([:], variables: nil)
+
+          static var selections: [Selection] { [
+            .field("id", String.self),
+            .field("name", String.self),
+          ]}
+
+          var id: String {
+            get { data["id"] }
+            set { data["id"] = newValue }
+          }
+
+          var name: String {
+            get { data["name"] }
+            set { data["name"] = newValue }
+          }
+        }
+      }
+    }
+
+    mergeRecordsIntoCache([
+      "QUERY_ROOT": ["hero": CacheReference("2001")],
+      "2001": [
+        "name": "R2-D2",
+        "id": "2001",
+        "__typename": "Droid",
+        "friends": [
+          CacheReference("1000"),
+          CacheReference("1002"),
+          CacheReference("1003")
+        ]
+      ],
+      "1000": ["__typename": "Human", "name": "Luke Skywalker", "id": "1000"],
+      "1002": ["__typename": "Human", "name": "Han Solo", "id": "1002"],
+      "1003": ["__typename": "Human", "name": "Leia Organa", "id": "1003"],
+    ])
+
+    runActivity("Add C-3PO Entity and Reference") { _ in
+      let updateCompletedExpectation = expectation(description: "Update completed")
+      let cacheMutation = MockLocalCacheMutation<GivenSelectionSet>()
+
+      store.withinReadWriteTransaction({ transaction in
+        try transaction.update(cacheMutation) { data in
+          var c3po = GivenSelectionSet.Hero.Friend()
+          c3po.__typename = "Droid"
+          c3po.id = "1004"
+          c3po.name = "C-3PO"
+
+          data.hero.friends.append(c3po)
+        }
+      }, completion: { result in
+        defer { updateCompletedExpectation.fulfill() }
+        XCTAssertSuccessResult(result)
+      })
+
+      self.wait(for: [updateCompletedExpectation], timeout: Self.defaultWaitTimeout)
+    }
+
+    runActivity("read query") { _ in
+      let readCompletedExpectation = expectation(description: "Read completed")
+      let query = MockQuery<GivenSelectionSet>()
+
+      loadFromStore(query: query) { result in
+        try XCTAssertSuccessResult(result) { graphQLResult in
+          XCTAssertEqual(graphQLResult.source, .cache)
+          XCTAssertNil(graphQLResult.errors)
+
+          let data = try XCTUnwrap(graphQLResult.data)
+          XCTAssertEqual(data.hero.name, "R2-D2")
+          let friendsNames = data.hero.friends.compactMap { $0.name }
+          XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa", "C-3PO"])
+
+          readCompletedExpectation.fulfill()
+        }
+      }
+
+      self.wait(for: [readCompletedExpectation], timeout: Self.defaultWaitTimeout)
     }
   }
 
@@ -368,14 +482,10 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     self.wait(for: [writeCompletedExpectation], timeout: Self.defaultWaitTimeout)
   }
 
-  func test_writeDataForCacheMutation_givenDeleteRecordReferencedByOtherRecord_thenReadQueryReferencingRemovedRecord_throwsError() throws {
+  func test_removeObject_givenReferencedByOtherRecord_thenReadQueryReferencingRemovedRecord_throwsError() throws {
     /// given
     struct GivenSelectionSet: MockMutableRootSelectionSet {
       public var data: DataDict = DataDict([:], variables: nil)
-
-      public init(data: DataDict) {
-        self.data = data
-      }
 
       static var selections: [Selection] { [
         .field("hero", Hero.self)
@@ -388,10 +498,6 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
       struct Hero: MockMutableRootSelectionSet {
         public var data: DataDict = DataDict([:], variables: nil)
-
-        public init(data: DataDict) {
-          self.data = data
-        }
 
         static var selections: [Selection] { [
           .field("id", String.self),
@@ -411,10 +517,6 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
         struct Friend: MockMutableRootSelectionSet {
           public var data: DataDict = DataDict([:], variables: nil)
-
-          public init(data: DataDict) {
-            self.data = data
-          }
 
           static var selections: [Selection] { [
             .field("id", String.self),
@@ -482,51 +584,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       self.wait(for: [readCompletedExpectation], timeout: Self.defaultWaitTimeout)
     }
   }
-//
-//  func testUpdateHeroAndFriendsNamesQuery() throws {
-//    mergeRecordsIntoCache([
-//      "QUERY_ROOT": ["hero": CacheReference("2001")],
-//      "2001": [
-//        "name": "R2-D2",
-//        "__typename": "Droid",
-//        "friends": [
-//          CacheReference("1000"),
-//          CacheReference("1002"),
-//          CacheReference("1003")
-//        ]
-//      ],
-//      "1000": ["__typename": "Human", "name": "Luke Skywalker"],
-//      "1002": ["__typename": "Human", "name": "Han Solo"],
-//      "1003": ["__typename": "Human", "name": "Leia Organa"],
-//    ])
-//
-//    let query = HeroAndFriendsNamesQuery()
-//
-//    let updateCompletedExpectation = expectation(description: "Update completed")
-//
-//    store.withinReadWriteTransaction({ transaction in
-//      try transaction.update(query: query) { data in
-//        data.hero?.friends?.append(.makeDroid(name: "C-3PO"))
-//      }
-//    }, completion: { result in
-//      defer { updateCompletedExpectation.fulfill() }
-//      XCTAssertSuccessResult(result)
-//    })
-//
-//    self.wait(for: [updateCompletedExpectation], timeout: Self.defaultWaitTimeout)
-//
-//    loadFromStore(query: query) { result in
-//      try XCTAssertSuccessResult(result) { graphQLResult in
-//        XCTAssertEqual(graphQLResult.source, .cache)
-//        XCTAssertNil(graphQLResult.errors)
-//
-//        let data = try XCTUnwrap(graphQLResult.data)
-//        XCTAssertEqual(data.hero?.name, "R2-D2")
-//        let friendsNames = data.hero?.friends?.compactMap { $0?.name }
-//        XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa", "C-3PO"])
-//      }
-//    }
-//  }
+
 //
 //  func testUpdateHeroAndFriendsNamesQueryWithVariable() throws {
 //    mergeRecordsIntoCache([
