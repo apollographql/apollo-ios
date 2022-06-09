@@ -15,12 +15,11 @@ class SQLiteLoadQueryFromStoreTests: LoadQueryFromStoreTests {
   }
 }
 
-#warning("TODO fix these after refactoring cache transactions")
-//class SQLiteReadWriteFromStoreTests: ReadWriteFromStoreTests {
-//  override var cacheType: TestCacheProvider.Type {
-//    SQLiteTestCacheProvider.self
-//  }
-//}
+class SQLiteReadWriteFromStoreTests: ReadWriteFromStoreTests {
+  override var cacheType: TestCacheProvider.Type {
+    SQLiteTestCacheProvider.self
+  }
+}
 
 class SQLiteWatchQueryTests: WatchQueryTests {
   override var cacheType: TestCacheProvider.Type {

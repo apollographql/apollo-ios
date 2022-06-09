@@ -1192,21 +1192,23 @@ fileprivate func expectJSONMissingValueError(
   atPath path: ResponsePath,
   file: FileString = #file, line: UInt = #line
 ) {
-  guard case let .failure(readError) = result,
-          let error = readError as? GraphQLExecutionError else {
+  guard case let .failure(readError) = result else {
     fail("Expected JSON Missing Value Error: \(result)",
          file: file, line: line)
     return
   }
 
-  expect(file: file, line: line, error.path).to(equal(path))
-
-  switch error.underlying {
-  case JSONDecodingError.missingValue:
-    // This is correct.
-    break
-  default:
-    fail("Expected JSON Missing Value Error: \(result)",
-         file: file, line: line)
+  if let error = readError as? GraphQLExecutionError {
+    expect(file: file, line: line, error.path).to(equal(path))
+    switch error.underlying {
+    case JSONDecodingError.missingValue:
+      // This is correct.
+      break
+    default:
+      fail("Expected JSON Missing Value Error: \(result)",
+           file: file, line: line)
+    }
+  } else {
+    expect(readError as? JSONDecodingError).to(equal(.missingValue))
   }
 }
