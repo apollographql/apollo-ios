@@ -368,123 +368,120 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     self.wait(for: [writeCompletedExpectation], timeout: Self.defaultWaitTimeout)
   }
 
-//  func test_writeDataForCacheMutation_givenDeleteRecordReferencedByOtherRecord_thenReadQueryReferencingRemovedRecord_throwsError() throws {
-//    /// given
-//    struct GivenSelectionSet: MockMutableRootSelectionSet {
-//      public var data: DataDict = DataDict([:], variables: nil)
-//
-//      public init(data: DataDict) {
-//        self.data = data
-//      }
-//
-//      static var selections: [Selection] { [
-//        .field("hero", Hero.self)
-//      ]}
-//
-//      var hero: Hero? {
-//        get { data["hero"] }
-//        set { data["hero"] = newValue }
-//      }
-//
-//      struct Hero: MockMutableRootSelectionSet {
-//        public var data: DataDict = DataDict([:], variables: nil)
-//
-//        public init(data: DataDict) {
-//          self.data = data
-//        }
-//
-//        static var selections: [Selection] { [
-//          .field("id", String.self),
-//          .field("name", String.self),
-//        ]}
-//
-//        var name: String? {
-//          get { data["name"] }
-//          set { data["name"] = newValue }
-//        }
-//
-//        struct Friend: MockMutableRootSelectionSet {
-//          public var data: DataDict = DataDict([:], variables: nil)
-//
-//          public init(data: DataDict) {
-//            self.data = data
-//          }
-//
-//          static var selections: [Selection] { [
-//            .field("id", String.self),
-//            .field("name", String.self),
-//          ]}
-//
-//          var name: String? {
-//            get { data["name"] }
-//            set { data["name"] = newValue }
-//          }
-//        }
-//      }
-//    }
-//
-//    mergeRecordsIntoCache([
-//      "QUERY_ROOT": ["hero": CacheReference("2001")],
-//      "2001": [
-//        "name": "R2-D2",
-//        "__typename": "Droid",
-//        "friends": [
-//          CacheReference("1000"),
-//          CacheReference("1002"),
-//          CacheReference("1003")
-//        ]
-//      ],
-//      "1000": ["__typename": "Human", "name": "Luke Skywalker"],
-//      "1002": ["__typename": "Human", "name": "Han Solo"],
-//      "1003": ["__typename": "Human", "name": "Leia Organa"],
-//    ])
-//
-//    let query = HeroAndFriendsNamesQuery()
-//
-//    let readWriteCompletedExpectation = expectation(description: "ReadWrite completed")
-//
-//    store.withinReadWriteTransaction({ transaction in
-//      let data = try transaction.read(query: query)
-//
-//      XCTAssertEqual(data.hero?.name, "R2-D2")
-//      let friendsNames = data.hero?.friends?.compactMap { $0?.name }
-//      XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
-//
-//      try transaction.removeObject(for: "1003")
-//    }, completion: { result in
-//      defer { readWriteCompletedExpectation.fulfill() }
-//      XCTAssertSuccessResult(result)
-//    })
-//
-//    self.wait(for: [readWriteCompletedExpectation], timeout: Self.defaultWaitTimeout)
-//
-//    let readCompletedExpectation = expectation(description: "Read completed")
-//
-//    store.withinReadTransaction({ transaction in
-//      _ = try transaction.read(query: query)
-//    }, completion: { result in
-//      defer { readCompletedExpectation.fulfill() }
-//      XCTAssertFailureResult(result) { readError in
-//        guard let error = readError as? GraphQLResultError else {
-//          XCTFail("Unexpected error for reading removed record: \(readError)")
-//          return
-//        }
-//
-//        /// The error should occur when trying to load all the hero's friend references, since one has been deleted
-//        XCTAssertEqual(error.path, ["hero", "friends"])
-//
-//        switch error.underlying {
-//        case JSONDecodingError.missingValue:
-//          // This is what we want
-//          return
-//        default:
-//          XCTFail("Unexpected error for reading removed record: \(error.underlying)")
-//        }
-//      }
-//    })
-//
-//    self.wait(for: [readCompletedExpectation], timeout: Self.defaultWaitTimeout)
-//  }
+  func test_writeDataForCacheMutation_givenDeleteRecordReferencedByOtherRecord_thenReadQueryReferencingRemovedRecord_throwsError() throws {
+    /// given
+    struct GivenSelectionSet: MockMutableRootSelectionSet {
+      public var data: DataDict = DataDict([:], variables: nil)
+
+      public init(data: DataDict) {
+        self.data = data
+      }
+
+      static var selections: [Selection] { [
+        .field("hero", Hero.self)
+      ]}
+
+      var hero: Hero? {
+        get { data["hero"] }
+        set { data["hero"] = newValue }
+      }
+
+      struct Hero: MockMutableRootSelectionSet {
+        public var data: DataDict = DataDict([:], variables: nil)
+
+        public init(data: DataDict) {
+          self.data = data
+        }
+
+        static var selections: [Selection] { [
+          .field("id", String.self),
+          .field("name", String.self),
+          .field("friends", [Friend].self),
+        ]}
+
+        var name: String? {
+          get { data["name"] }
+          set { data["name"] = newValue }
+        }
+
+        var friends: [Friend]? {
+          get { data["friend"] }
+          set { data["friend"] = newValue }
+        }
+
+        struct Friend: MockMutableRootSelectionSet {
+          public var data: DataDict = DataDict([:], variables: nil)
+
+          public init(data: DataDict) {
+            self.data = data
+          }
+
+          static var selections: [Selection] { [
+            .field("id", String.self),
+            .field("name", String.self),
+          ]}
+
+          var name: String? {
+            get { data["name"] }
+            set { data["name"] = newValue }
+          }
+        }
+      }
+    }
+
+    mergeRecordsIntoCache([
+      "QUERY_ROOT": ["hero": CacheReference("2001")],
+      "2001": [
+        "name": "R2-D2",
+        "id": "2001",
+        "__typename": "Droid",
+        "friends": [
+          CacheReference("1000"),
+          CacheReference("1002"),
+          CacheReference("1003")
+        ]
+      ],
+      "1000": ["__typename": "Human", "name": "Luke Skywalker", "id": "1000"],
+      "1002": ["__typename": "Human", "name": "Han Solo", "id": "1002"],
+      "1003": ["__typename": "Human", "name": "Leia Organa", "id": "1003"],
+    ])
+
+    runActivity("delete record for Leia Organa") { _ in
+      let readWriteCompletedExpectation = expectation(description: "ReadWrite completed")
+
+      store.withinReadWriteTransaction({ transaction in
+        try transaction.removeObject(for: "1003")
+      }, completion: { result in
+        defer { readWriteCompletedExpectation.fulfill() }
+        XCTAssertSuccessResult(result)
+      })
+
+      self.wait(for: [readWriteCompletedExpectation], timeout: Self.defaultWaitTimeout)
+    }
+
+    runActivity("Read query with deleted record reference") { _ in
+      let query = MockQuery<GivenSelectionSet>()
+      let readCompletedExpectation = expectation(description: "Read completed")
+
+      store.withinReadTransaction({ transaction in
+        _ = try transaction.read(query: query)
+      }, completion: { result in
+        defer { readCompletedExpectation.fulfill() }
+        XCTAssertFailureResult(result) { readError in
+          guard let error = readError as? GraphQLExecutionError else {
+            XCTFail("Unexpected error for reading removed record: \(readError)")
+            return
+          }
+          
+          /// The error should occur when trying to load all the hero's friend references, since one has been deleted
+          XCTAssertEqual(error.path, ["hero", "friends", "2"])
+          expect(error.underlying as? JSONDecodingError).to(equal(JSONDecodingError.missingValue))
+        }
+      })
+
+      self.wait(for: [readCompletedExpectation], timeout: Self.defaultWaitTimeout)
+    }
+  }
 //
 //  func testUpdateHeroAndFriendsNamesQuery() throws {
 //    mergeRecordsIntoCache([
