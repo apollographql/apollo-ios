@@ -256,14 +256,8 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
   func test_updateObject_updateNestedField_updatesObjects() throws {
     // given
-    struct GivenSelectionSet: MutableRootSelectionSet {
-      static var schema: SchemaConfiguration.Type { MockSchemaConfiguration.self }
-      static var __parentType: ParentType { .Object(Object.self) }
+    struct GivenSelectionSet: MockMutableRootSelectionSet {
       public var data: DataDict = DataDict([:], variables: nil)
-
-      public init(data: DataDict) {
-        self.data = data
-      }
 
       static var selections: [Selection] { [
         .field("hero", Hero.self)
@@ -274,14 +268,8 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
         set { data["hero"] = newValue }
       }
 
-      struct Hero: MutableRootSelectionSet {
-        static var schema: SchemaConfiguration.Type { MockSchemaConfiguration.self }
-        static var __parentType: ParentType { .Object(Object.self) }
+      struct Hero: MockMutableRootSelectionSet {
         public var data: DataDict = DataDict([:], variables: nil)
-
-        public init(data: DataDict) {
-          self.data = data
-        }
         
         static var selections: [Selection] { [
           .field("name", String.self)
@@ -329,16 +317,10 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     }
   }
 
-  func test_writeDataForCacheMutation_givenInvalidData_errorIsThrown() throws {
+  func test_writeDataForCacheMutation_givenInvalidData_throwsError() throws {
     // given
-    struct GivenSelectionSet: MutableRootSelectionSet {
-      static var schema: SchemaConfiguration.Type { MockSchemaConfiguration.self }
-      static var __parentType: ParentType { .Object(Object.self) }
+    struct GivenSelectionSet: MockMutableRootSelectionSet {
       public var data: DataDict = DataDict([:], variables: nil)
-
-      public init(data: DataDict) {
-        self.data = data
-      }
 
       static var selections: [Selection] { [
         .field("hero", Hero.self)
@@ -349,14 +331,8 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
         set { data["hero"] = newValue }
       }
 
-      struct Hero: MutableRootSelectionSet {
-        static var schema: SchemaConfiguration.Type { MockSchemaConfiguration.self }
-        static var __parentType: ParentType { .Object(Object.self) }
+      struct Hero: MockMutableRootSelectionSet {
         public var data: DataDict = DataDict([:], variables: nil)
-
-        public init(data: DataDict) {
-          self.data = data
-        }
 
         static var selections: [Selection] { [
           .field("name", String.self)
@@ -392,8 +368,61 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     self.wait(for: [writeCompletedExpectation], timeout: Self.defaultWaitTimeout)
   }
 
+//  func test_writeDataForCacheMutation_givenDeleteRecordReferencedByOtherRecord_thenReadQueryReferencingRemovedRecord_throwsError() throws {
+//    /// given
+//    struct GivenSelectionSet: MockMutableRootSelectionSet {
+//      public var data: DataDict = DataDict([:], variables: nil)
 //
-//  func testReadHeroAndFriendsNamesQueryFailsAfterRemovingFriendRecord() throws {
+//      public init(data: DataDict) {
+//        self.data = data
+//      }
+//
+//      static var selections: [Selection] { [
+//        .field("hero", Hero.self)
+//      ]}
+//
+//      var hero: Hero? {
+//        get { data["hero"] }
+//        set { data["hero"] = newValue }
+//      }
+//
+//      struct Hero: MockMutableRootSelectionSet {
+//        public var data: DataDict = DataDict([:], variables: nil)
+//
+//        public init(data: DataDict) {
+//          self.data = data
+//        }
+//
+//        static var selections: [Selection] { [
+//          .field("id", String.self),
+//          .field("name", String.self),
+//        ]}
+//
+//        var name: String? {
+//          get { data["name"] }
+//          set { data["name"] = newValue }
+//        }
+//
+//        struct Friend: MockMutableRootSelectionSet {
+//          public var data: DataDict = DataDict([:], variables: nil)
+//
+//          public init(data: DataDict) {
+//            self.data = data
+//          }
+//
+//          static var selections: [Selection] { [
+//            .field("id", String.self),
+//            .field("name", String.self),
+//          ]}
+//
+//          var name: String? {
+//            get { data["name"] }
+//            set { data["name"] = newValue }
+//          }
+//        }
+//      }
+//    }
+//
 //    mergeRecordsIntoCache([
 //      "QUERY_ROOT": ["hero": CacheReference("2001")],
 //      "2001": [

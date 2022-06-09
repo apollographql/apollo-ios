@@ -9,3 +9,10 @@ open class MockLocalCacheMutation<SelectionSet: MutableRootSelectionSet>: LocalC
   public init() {}
 
 }
+
+public protocol MockMutableRootSelectionSet: MutableRootSelectionSet {}
+
+public extension MockMutableRootSelectionSet {
+  static var schema: SchemaConfiguration.Type { MockSchemaConfiguration.self }
+  static var __parentType: ParentType { .Object(Object.self) }
+}

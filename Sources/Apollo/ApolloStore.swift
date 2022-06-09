@@ -257,8 +257,6 @@ public class ApolloStore {
         variables: cacheMutation.variables,
         body
       )
-//      try body(&data)
-//      try write(data: data, forQuery: query)
     }
 
     public func updateObject<SelectionSet: ApolloAPI.MutableRootSelectionSet>(
