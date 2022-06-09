@@ -274,6 +274,15 @@ public class ApolloStore {
       try write(selectionSet: object, withKey: key, variables: variables)
     }
 
+    public func write<CacheMutation: LocalCacheMutation>(
+      data: CacheMutation.Data,
+      for cacheMutation: CacheMutation
+    ) throws {
+      try write(selectionSet: data,
+                withKey: CacheReference.RootQuery.key,
+                variables: cacheMutation.variables)
+    }
+
     public func write<SelectionSet: MutableRootSelectionSet>(
       selectionSet: SelectionSet,
       withKey key: CacheKey,
@@ -328,16 +337,6 @@ public class ApolloStore {
     ///   - pattern: The pattern that will be applied to find matching keys.
     public func removeObjects(matching pattern: CacheKey) throws {
       try self.cache.removeRecords(matching: pattern)
-    }
-
-    public func write<CacheMutation: LocalCacheMutation>(
-      data: CacheMutation.Data,
-      for cacheMutation: CacheMutation
-    ) throws {
-      fatalError("TODO: Write Transactions not yet working!")
-//      try write(object: data,
-//                withKey: rootCacheKey(for: query),
-//                variables: query.variables)
     }
 
   }

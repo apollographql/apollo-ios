@@ -62,6 +62,7 @@ open class AbstractMockSelectionSet: AnySelectionSet {
   public subscript<T: MockSelectionSet>(dynamicMember key: String) -> T? {
     data[key]
   }
+  
 }
 
 open class MockSelectionSet: AbstractMockSelectionSet, RootSelectionSet, Hashable {

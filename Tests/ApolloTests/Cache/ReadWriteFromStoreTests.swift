@@ -188,9 +188,73 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     }
   }
 
+  func test_readQuery_withCacheReferencesByCustomKey_resolvesReferences() throws {
+    // given
+    class HeroFriendsSelectionSet: MockSelectionSet {
+      override class var selections: [Selection] { [
+        .field("hero", Hero.self)
+      ]}
+
+      var hero: Hero { data["hero"] }
+
+      class Hero: MockSelectionSet {
+        override class var selections: [Selection] {[
+          .field("__typename", String.self),
+          .field("id", String.self),
+          .field("name", String.self),
+          .field("friends", [Friend].self)
+        ]}
+
+        var friends: [Friend] { data["friends"] }
+
+        class Friend: MockSelectionSet {
+          override class var selections: [Selection] {[
+            .field("__typename", String.self),
+            .field("id", String.self),
+            .field("name", String.self),
+          ]}
+        }
+      }
+    }
+
+    let query = MockQuery<HeroFriendsSelectionSet>()
+    mergeRecordsIntoCache([
+      "QUERY_ROOT": ["hero": CacheReference("2001")],
+      "2001": [
+        "name": "R2-D2",
+        "id": "2001",
+        "__typename": "Droid",
+        "friends": [
+          CacheReference("1000"),
+          CacheReference("1002"),
+          CacheReference("1003")
+        ]
+      ],
+      "1000": ["__typename": "Human", "name": "Luke Skywalker", "id": "1000"],
+      "1002": ["__typename": "Human", "name": "Han Solo", "id": "1002"],
+      "1003": ["__typename": "Human", "name": "Leia Organa", "id": "1003"],
+    ])
+
+
+    let readCompletedExpectation = expectation(description: "Read completed")
+
+    store.withinReadTransaction({ transaction in
+      let data = try transaction.read(query: query)
+
+      XCTAssertEqual(data.hero.name, "R2-D2")
+      let friendsNames: [String] = data.hero.friends.compactMap { $0.name }
+      XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
+    }, completion: { result in
+      defer { readCompletedExpectation.fulfill() }
+      XCTAssertSuccessResult(result)
+    })
+
+    self.wait(for: [readCompletedExpectation], timeout: Self.defaultWaitTimeout)
+  }
+
   // MARK: - Write Local Cache Mutation Tests
 
-  func testUpdateHeroNameQuery() throws {
+  func test_updateObject_updateNestedField_updatesObjects() throws {
     // given
     struct GivenSelectionSet: MutableRootSelectionSet {
       static var schema: SchemaConfiguration.Type { MockSchemaConfiguration.self }
@@ -265,62 +329,69 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     }
   }
 
-//  func testWriteHeroNameQueryWhenErrorIsThrown() throws {
-//    let writeCompletedExpectation = expectation(description: "Write completed")
-//
-//    store.withinReadWriteTransaction({ transaction in
-//      let data = HeroNameQuery.Data(unsafeResultMap: [:])
-//      try transaction.write(data: data, forQuery: HeroNameQuery(episode: nil))
-//    }, completion: { result in
-//      defer { writeCompletedExpectation.fulfill() }
-//
-//      XCTAssertFailureResult(result) { error in
-//        if let error = error as? GraphQLResultError {
-//          XCTAssertEqual(error.path, ["hero"])
-//          XCTAssertMatch(error.underlying, JSONDecodingError.missingValue)
-//        } else {
-//          XCTFail("Unexpected error: \(error)")
-//        }
-//      }
-//    })
-//
-//    self.wait(for: [writeCompletedExpectation], timeout: Self.defaultWaitTimeout)
-//  }
-//
-//  func testReadHeroAndFriendsNamesQuery() throws {
-//    mergeRecordsIntoCache([
-//      "QUERY_ROOT": ["hero": CacheReference("2001")],
-//      "2001": [
-//        "name": "R2-D2",
-//        "__typename": "Droid",
-//        "friends": [
-//          CacheReference("1000"),
-//          CacheReference("1002"),
-//          CacheReference("1003")
-//        ]
-//      ],
-//      "1000": ["__typename": "Human", "name": "Luke Skywalker"],
-//      "1002": ["__typename": "Human", "name": "Han Solo"],
-//      "1003": ["__typename": "Human", "name": "Leia Organa"],
-//    ])
-//
-//    let query = HeroAndFriendsNamesQuery()
-//
-//    let readCompletedExpectation = expectation(description: "Read completed")
-//
-//    store.withinReadTransaction({ transaction in
-//      let data = try transaction.read(query: query)
-//
-//      XCTAssertEqual(data.hero?.name, "R2-D2")
-//      let friendsNames = data.hero?.friends?.compactMap { $0?.name }
-//      XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
-//    }, completion: { result in
-//      defer { readCompletedExpectation.fulfill() }
-//      XCTAssertSuccessResult(result)
-//    })
-//
-//    self.wait(for: [readCompletedExpectation], timeout: Self.defaultWaitTimeout)
-//  }
+  func test_writeDataForCacheMutation_givenInvalidData_errorIsThrown() throws {
+    // given
+    struct GivenSelectionSet: MutableRootSelectionSet {
+      static var schema: SchemaConfiguration.Type { MockSchemaConfiguration.self }
+      static var __parentType: ParentType { .Object(Object.self) }
+      public var data: DataDict = DataDict([:], variables: nil)
+
+      public init(data: DataDict) {
+        self.data = data
+      }
+
+      static var selections: [Selection] { [
+        .field("hero", Hero.self)
+      ]}
+
+      var hero: Hero? {
+        get { data["hero"] }
+        set { data["hero"] = newValue }
+      }
+
+      struct Hero: MutableRootSelectionSet {
+        static var schema: SchemaConfiguration.Type { MockSchemaConfiguration.self }
+        static var __parentType: ParentType { .Object(Object.self) }
+        public var data: DataDict = DataDict([:], variables: nil)
+
+        public init(data: DataDict) {
+          self.data = data
+        }
+
+        static var selections: [Selection] { [
+          .field("name", String.self)
+        ]}
+
+        var name: String? {
+          get { data["name"] }
+          set { data["name"] = newValue }
+        }
+      }
+    }
+
+    // when
+    let writeCompletedExpectation = expectation(description: "Write completed")
+
+    store.withinReadWriteTransaction({ transaction in
+      let data = GivenSelectionSet(data: DataDict([:], variables: nil))
+      let cacheMutation = MockLocalCacheMutation<GivenSelectionSet>()
+      try transaction.write(data: data, for: cacheMutation)
+    }, completion: { result in
+      defer { writeCompletedExpectation.fulfill() }
+
+      XCTAssertFailureResult(result) { error in
+        if let error = error as? GraphQLExecutionError {
+          XCTAssertEqual(error.path, ["hero"])
+          XCTAssertMatch(error.underlying, JSONDecodingError.missingValue)
+        } else {
+          XCTFail("Unexpected error: \(error)")
+        }
+      }
+    })
+
+    self.wait(for: [writeCompletedExpectation], timeout: Self.defaultWaitTimeout)
+  }
+
 //
 //  func testReadHeroAndFriendsNamesQueryFailsAfterRemovingFriendRecord() throws {
 //    mergeRecordsIntoCache([
