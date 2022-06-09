@@ -1,6 +1,8 @@
 import Foundation
 
 public protocol LocalCacheMutation: AnyObject, Hashable {
+  static var operationType: GraphQLOperationType { get }
+
   var variables: GraphQLOperation.Variables? { get }
 
   associatedtype Data: MutableRootSelectionSet
