@@ -105,7 +105,8 @@ public class ApolloCodegen {
     for graphQLObject in ir.schema.referencedTypes.objects {
       try autoreleasepool {
         try ObjectFileGenerator(
-          graphqlObject: graphQLObject          
+          graphqlObject: graphQLObject,
+          config: config
         ).generate(
           forConfig: config,
           fileManager: fileManager
