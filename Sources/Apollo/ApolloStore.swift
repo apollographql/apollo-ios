@@ -158,12 +158,12 @@ public class ApolloStore {
   /// - Parameters:
   ///   - query: The query to load results for
   ///   - resultHandler: The completion handler to execute on success or error
-  public func load<Operation: GraphQLOperation>(query: Operation, callbackQueue: DispatchQueue? = nil, resultHandler: @escaping GraphQLResultHandler<Operation.Data>) {
+  public func load<Operation: GraphQLOperation>(_ operation: Operation, callbackQueue: DispatchQueue? = nil, resultHandler: @escaping GraphQLResultHandler<Operation.Data>) {
     withinReadTransaction({ transaction in
       let (data, dependentKeys) = try transaction.readObject(
         ofType: Operation.Data.self,
-        withKey: CacheReference.rootCacheReference(for: query).key,
-        variables: query.variables,
+        withKey: CacheReference.rootCacheReference(for: Operation.operationType).key,
+        variables: operation.variables,
         accumulator: zip(GraphQLSelectionSetMapper<Operation.Data>(),
                          GraphQLDependencyTracker())
       )
@@ -195,7 +195,7 @@ public class ApolloStore {
     public func read<Query: GraphQLQuery>(query: Query) throws -> Query.Data {
       return try readObject(
         ofType: Query.Data.self,
-        withKey: CacheReference.rootCacheReference(for: query).key,
+        withKey: CacheReference.rootCacheReference(for: Query.operationType).key,
         variables: query.variables
       )
     }
@@ -253,7 +253,7 @@ public class ApolloStore {
     ) throws {
       try updateObject(
         ofType: CacheMutation.Data.self,
-        withKey: CacheReference.RootQuery.key,
+        withKey: CacheReference.rootCacheReference(for: CacheMutation.operationType).key,
         variables: cacheMutation.variables,
         body
       )
@@ -277,7 +277,7 @@ public class ApolloStore {
       for cacheMutation: CacheMutation
     ) throws {
       try write(selectionSet: data,
-                withKey: CacheReference.RootQuery.key,
+                withKey: CacheReference.rootCacheReference(for: CacheMutation.operationType).key,
                 variables: cacheMutation.variables)
     }
 

@@ -100,7 +100,7 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
     
     if !dependentKeys.isDisjoint(with: changedKeys) {
       // First, attempt to reload the query from the cache directly, in order not to interrupt any in-flight server-side fetch.
-      store.load(query: self.query) { [weak self] result in
+      store.load(self.query) { [weak self] result in
         guard let self = self else { return }
         
         switch result {
