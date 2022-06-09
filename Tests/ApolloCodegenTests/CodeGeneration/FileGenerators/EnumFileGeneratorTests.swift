@@ -1,6 +1,7 @@
 import XCTest
 import Nimble
 @testable import ApolloCodegenLib
+import ApolloUtils
 
 class EnumFileGeneratorTests: XCTestCase {
   let graphqlEnum = GraphQLEnumType.mock(name: "MockEnum")
@@ -14,7 +15,10 @@ class EnumFileGeneratorTests: XCTestCase {
   // MARK: Test Helpers
 
   private func buildSubject() {
-    subject = EnumFileGenerator(graphqlEnum: graphqlEnum)
+    subject = EnumFileGenerator(
+      graphqlEnum: graphqlEnum,
+      config: ReferenceWrapped(value: ApolloCodegenConfiguration.mock())
+    )
   }
 
   // MARK: Property Tests
