@@ -18,4 +18,15 @@ public extension LocalCacheMutation {
 
 public protocol MutableSelectionSet: AnySelectionSet {}
 
-public protocol MutableRootSelectionSet: RootSelectionSet, MutableSelectionSet {}
+public protocol MutableRootSelectionSet: RootSelectionSet, MutableSelectionSet {
+  var data: DataDict { get set }
+}
+
+extension MutableRootSelectionSet {
+
+  @inlinable public var __typename: String {
+    get { data["__typename"] }
+    set { data["__typename"] = newValue }
+  }
+
+}
