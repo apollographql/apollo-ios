@@ -1,7 +1,7 @@
 /// A structure that wraps the underlying data dictionary used by `SelectionSet`s.
 public struct DataDict: Hashable {
 
-  public let _data: JSONObject
+  public var _data: JSONObject
   public let _variables: GraphQLOperation.Variables?
 
   @inlinable public init(
@@ -12,20 +12,32 @@ public struct DataDict: Hashable {
     self._variables = variables
   }
 
-  @inlinable public subscript<T: AnyScalarType>(_ key: String) -> T {
-    _data[key] as! T
+  @inlinable public subscript<T: AnyScalarType & Hashable>(_ key: String) -> T {
+    get { _data[key] as! T }
+    set { _data[key] = newValue }
+    _modify {
+      var value = _data[key] as! T
+      defer { _data[key] = value }
+      yield &value
+    }
   }
   
   @inlinable public subscript<T: SelectionSetEntityValue>(_ key: String) -> T {
-    T.init(fieldData: _data[key], variables: _variables)
+    get { T.init(fieldData: _data[key], variables: _variables) }
+    set { _data[key] = newValue._fieldData }
+    _modify {
+      var value = T.init(fieldData: _data[key], variables: _variables)
+      defer { _data[key] = value._fieldData }
+      yield &value
+    }
   }
 
-  public func hash(into hasher: inout Hasher) {
+  @inlinable public func hash(into hasher: inout Hasher) {
     hasher.combine(_data)
     hasher.combine(_variables?.jsonEncodableValue?.jsonValue)
   }
 
-  public static func == (lhs: DataDict, rhs: DataDict) -> Bool {
+  @inlinable public static func ==(lhs: DataDict, rhs: DataDict) -> Bool {
     lhs._data == rhs._data &&
     lhs._variables?.jsonEncodableValue?.jsonValue == rhs._variables?.jsonEncodableValue?.jsonValue
   }
@@ -33,6 +45,7 @@ public struct DataDict: Hashable {
 
 public protocol SelectionSetEntityValue {
   init(fieldData: AnyHashable?, variables: GraphQLOperation.Variables?)
+  var _fieldData: AnyHashable { get }
 }
 
 extension AnySelectionSet {
@@ -42,6 +55,8 @@ extension AnySelectionSet {
     }
     self.init(data: DataDict(fieldData, variables: variables))
   }
+
+  @inlinable public var _fieldData: AnyHashable { data._data }
 }
 
 extension Optional: SelectionSetEntityValue where Wrapped: SelectionSetEntityValue {
@@ -52,6 +67,8 @@ extension Optional: SelectionSetEntityValue where Wrapped: SelectionSetEntityVal
     }
     self = .some(Wrapped.init(fieldData: fieldData, variables: variables))
   }
+
+  @inlinable public var _fieldData: AnyHashable { map(\._fieldData) }
 }
 
 extension Array: SelectionSetEntityValue where Element: SelectionSetEntityValue {
@@ -61,4 +78,6 @@ extension Array: SelectionSetEntityValue where Element: SelectionSetEntityValue 
     }
     self = fieldData.map { Element.init(fieldData:$0, variables: variables) }
   }
+
+  @inlinable public var _fieldData: AnyHashable { map(\._fieldData) }
 }

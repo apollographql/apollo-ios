@@ -55,16 +55,25 @@ open class AbstractMockSelectionSet: AnySelectionSet {
     self.data = data
   }
 
-  public subscript<T: AnyScalarType>(dynamicMember key: String) -> T? {
+  public subscript<T: AnyScalarType & Hashable>(dynamicMember key: String) -> T? {
     data[key]
   }
 
   public subscript<T: MockSelectionSet>(dynamicMember key: String) -> T? {
     data[key]
   }
+  
 }
 
-open class MockSelectionSet: AbstractMockSelectionSet, RootSelectionSet { }
+open class MockSelectionSet: AbstractMockSelectionSet, RootSelectionSet, Hashable {
+  public static func == (lhs: MockSelectionSet, rhs: MockSelectionSet) -> Bool {
+    lhs.data == rhs.data
+  }
+
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(data)
+  }
+}
 
 open class MockFragment: AbstractMockSelectionSet, RootSelectionSet, Fragment {
   open class var fragmentDefinition: StaticString { "" }

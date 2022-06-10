@@ -50,9 +50,11 @@ public class ApolloStore {
   public func clearCache(callbackQueue: DispatchQueue = .main, completion: ((Result<Void, Error>) -> Void)? = nil) {
     queue.async(flags: .barrier) {
       let result = Result { try self.cache.clear() }
-      DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
-                                                     action: completion,
-                                                     result: result)
+      DispatchQueue.apollo.returnResultAsyncIfNeeded(
+        on: callbackQueue,
+        action: completion,
+        result: result
+      )
     }
   }
 
@@ -68,13 +70,17 @@ public class ApolloStore {
       do {
         let changedKeys = try self.cache.merge(records: records)
         self.didChangeKeys(changedKeys, identifier: identifier)
-        DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
-                                                       action: completion,
-                                                       result: .success(()))
+        DispatchQueue.apollo.returnResultAsyncIfNeeded(
+          on: callbackQueue,
+          action: completion,
+          result: .success(())
+        )
       } catch {
-        DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
-                                                       action: completion,
-                                                       result: .failure(error))
+        DispatchQueue.apollo.returnResultAsyncIfNeeded(
+          on: callbackQueue,
+          action: completion,
+          result: .failure(error)
+        )
       }
     }
   }
@@ -104,13 +110,17 @@ public class ApolloStore {
       do {
         let returnValue = try body(ReadTransaction(store: self))
         
-        DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
-                                                       action: completion,
-                                                       result: .success(returnValue))
+        DispatchQueue.apollo.returnResultAsyncIfNeeded(
+          on: callbackQueue,
+          action: completion,
+          result: .success(returnValue)
+        )
       } catch {
-        DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
-                                                       action: completion,
-                                                       result: .failure(error))
+        DispatchQueue.apollo.returnResultAsyncIfNeeded(
+          on: callbackQueue,
+          action: completion,
+          result: .failure(error)
+        )
       }
     }
   }
@@ -128,13 +138,17 @@ public class ApolloStore {
       do {
         let returnValue = try body(ReadWriteTransaction(store: self))
         
-        DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
-                                                       action: completion,
-                                                       result: .success(returnValue))
+        DispatchQueue.apollo.returnResultAsyncIfNeeded(
+          on: callbackQueue,
+          action: completion,
+          result: .success(returnValue)
+        )
       } catch {
-        DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
-                                                       action: completion,
-                                                       result: .failure(error))
+        DispatchQueue.apollo.returnResultAsyncIfNeeded(
+          on: callbackQueue,
+          action: completion,
+          result: .failure(error)
+        )
       }
     }
   }
@@ -154,11 +168,13 @@ public class ApolloStore {
                          GraphQLDependencyTracker())
       )
       
-      return GraphQLResult(data: data,
-                           extensions: nil,
-                           errors: nil,
-                           source:.cache,
-                           dependentKeys: dependentKeys)
+      return GraphQLResult(
+        data: data,
+        extensions: nil,
+        errors: nil,
+        source:.cache,
+        dependentKeys: dependentKeys
+      )
     }, callbackQueue: callbackQueue, completion: resultHandler)
   }
 
@@ -177,9 +193,11 @@ public class ApolloStore {
     }
 
     public func read<Query: GraphQLQuery>(query: Query) throws -> Query.Data {
-      return try readObject(ofType: Query.Data.self,
-                            withKey: CacheReference.rootCacheReference(for: query).key,
-                            variables: query.variables)
+      return try readObject(
+        ofType: Query.Data.self,
+        withKey: CacheReference.rootCacheReference(for: query).key,
+        variables: query.variables
+      )
     }
 
     public func readObject<SelectionSet: RootSelectionSet>(
@@ -187,10 +205,12 @@ public class ApolloStore {
       withKey key: CacheKey,
       variables: GraphQLOperation.Variables? = nil
     ) throws -> SelectionSet {
-      return try self.readObject(ofType: type,
-                                 withKey: key,
-                                 variables: variables,
-                                 accumulator: GraphQLSelectionSetMapper<SelectionSet>())
+      return try self.readObject(
+        ofType: type,
+        withKey: key,
+        variables: variables,
+        accumulator: GraphQLSelectionSetMapper<SelectionSet>()
+      )
     }
 
     func readObject<SelectionSet: RootSelectionSet, Accumulator: GraphQLResultAccumulator>(
@@ -201,11 +221,13 @@ public class ApolloStore {
     ) throws -> Accumulator.FinalResult {
       let object = try loadObject(forKey: key).get()
 
-      return try executor.execute(selectionSet: type,
-                                  on: object,
-                                  withRootCacheReference: CacheReference(key),
-                                  variables: variables,
-                                  accumulator: accumulator)
+      return try executor.execute(
+        selectionSet: type,
+        on: object,
+        withRootCacheReference: CacheReference(key),
+        variables: variables,
+        accumulator: accumulator
+      )
     }
     
     private final func loadObject(forKey key: CacheKey) -> PossiblyDeferred<JSONObject> {
@@ -225,28 +247,67 @@ public class ApolloStore {
       super.init(store: store)
     }
 
-    public func update<Query: GraphQLQuery>(
-      query: Query,
-      _ body: (inout Query.Data) throws -> Void
+    public func update<CacheMutation: LocalCacheMutation>(
+      _ cacheMutation: CacheMutation,
+      _ body: (inout CacheMutation.Data) throws -> Void
     ) throws {
-      fatalError("TODO: Write Transactions not yet working!")
-//      var data = try read(query: query)
-//      try body(&data)
-//      try write(data: data, forQuery: query)
+      try updateObject(
+        ofType: CacheMutation.Data.self,
+        withKey: CacheReference.RootQuery.key,
+        variables: cacheMutation.variables,
+        body
+      )
     }
 
-    public func updateObject<SelectionSet: ApolloAPI.SelectionSet>(
+    public func updateObject<SelectionSet: ApolloAPI.MutableRootSelectionSet>(
       ofType type: SelectionSet.Type,
       withKey key: CacheKey,
-      variables: [String: InputValue]? = nil,
+      variables: GraphQLOperation.Variables? = nil,
       _ body: (inout SelectionSet) throws -> Void
     ) throws {
-      fatalError("TODO: Write Transactions not yet working!")
-//      var object = try readObject(ofType: type,
-//                                  withKey: key,
-//                                  variables: variables)
-//      try body(&object)
-//      try write(object: object, withKey: key, variables: variables)
+      var object = try readObject(ofType: type,
+                                  withKey: key,
+                                  variables: variables)
+      try body(&object)
+      try write(selectionSet: object, withKey: key, variables: variables)
+    }
+
+    public func write<CacheMutation: LocalCacheMutation>(
+      data: CacheMutation.Data,
+      for cacheMutation: CacheMutation
+    ) throws {
+      try write(selectionSet: data,
+                withKey: CacheReference.RootQuery.key,
+                variables: cacheMutation.variables)
+    }
+
+    public func write<SelectionSet: MutableRootSelectionSet>(
+      selectionSet: SelectionSet,
+      withKey key: CacheKey,
+      variables: GraphQLOperation.Variables? = nil
+    ) throws {
+      let normalizer = GraphQLResultNormalizer()
+      let executor = GraphQLExecutor { object, info in
+        return object[info.responseKeyForField]
+      }
+
+      let records = try executor.execute(
+        selectionSet: SelectionSet.self,
+        on: selectionSet.data._data,
+        withRootCacheReference: CacheReference(key),
+        variables: variables,
+        accumulator: normalizer
+      )
+
+      let changedKeys = try self.cache.merge(records: records)
+
+      // Remove cached records, so subsequent reads
+      // within the same transaction will reload the updated value.
+      loader.removeAll()
+
+      if let didChangeKeysFunc = self.updateChangedKeysFunc {
+        didChangeKeysFunc(changedKeys, nil)
+      }
     }
     
     /// Removes the object for the specified cache key. Does not cascade
@@ -276,45 +337,5 @@ public class ApolloStore {
       try self.cache.removeRecords(matching: pattern)
     }
 
-//    public func write<Query: GraphQLQuery>(data: Query.Data, forQuery query: Query) throws {
-//      try write(object: data,
-//                withKey: rootCacheKey(for: query),
-//                variables: query.variables)
-//    }
-//
-//    public func write(object: GraphQLSelectionSet,
-//                      withKey key: CacheKey,
-//                      variables: GraphQLMap? = nil) throws {
-//      try write(object: object.jsonObject,
-//                forSelections: type(of: object).selections,
-//                withKey: key, variables: variables)
-//    }
-//
-//    private func write(object: JSONObject,
-//                       forSelections selections: [GraphQLSelection],
-//                       withKey key: CacheKey,
-//                       variables: GraphQLMap?) throws {
-//      let normalizer = GraphQLResultNormalizer()
-//      let executor = GraphQLExecutor { object, info in
-//        return object[info.responseKeyForField]
-//      }
-//
-//      executor.cacheKeyForObject = self.cacheKeyForObject
-//
-//      let records = try executor.execute(selections: selections,
-//                                         on: object,
-//                                         withKey: key,
-//                                         variables: variables,
-//                                         accumulator: normalizer)
-//      let changedKeys = try self.cache.merge(records: records)
-//
-//      // Remove cached records, so subsequent reads
-//      // within the same transaction will reload the updated value.
-//      loader.removeAll()
-//
-//      if let didChangeKeysFunc = self.updateChangedKeysFunc {
-//        didChangeKeysFunc(changedKeys, nil)
-//      }
-//    }
   }
 }

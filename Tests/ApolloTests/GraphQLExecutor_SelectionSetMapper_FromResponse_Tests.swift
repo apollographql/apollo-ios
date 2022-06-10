@@ -58,7 +58,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     // when
     XCTAssertThrowsError(try readValues(GivenSelectionSet.self, from: object)) { (error) in
       // then
-      if case let error as GraphQLResultError = error {
+      if case let error as GraphQLExecutionError = error {
         XCTAssertEqual(error.path, ["name"])
         XCTAssertMatch(error.underlying, JSONDecodingError.missingValue)
       } else {
@@ -77,7 +77,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     // when
     XCTAssertThrowsError(try readValues(GivenSelectionSet.self, from: object)) { (error) in
       // then
-      if case let error as GraphQLResultError = error {
+      if case let error as GraphQLExecutionError = error {
         XCTAssertEqual(error.path, ["name"])
         XCTAssertMatch(error.underlying, JSONDecodingError.nullValue)
       } else {
@@ -110,7 +110,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     // when
     XCTAssertThrowsError(try readValues(GivenSelectionSet.self, from: object)) { (error) in
       // then
-      if let error = error as? GraphQLResultError, case JSONDecodingError.couldNotConvert(let value, let expectedType) = error.underlying {
+      if let error = error as? GraphQLExecutionError, case JSONDecodingError.couldNotConvert(let value, let expectedType) = error.underlying {
         XCTAssertEqual(error.path, ["name"])
         XCTAssertEqual(value as? Double, 10.0)
         XCTAssertTrue(expectedType == String.self)
@@ -146,7 +146,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     // when
     XCTAssertThrowsError(try readValues(GivenSelectionSet.self, from: object)) { (error) in
       // then
-      if case let error as GraphQLResultError = error {
+      if case let error as GraphQLExecutionError = error {
         XCTAssertEqual(error.path, ["name"])
         XCTAssertMatch(error.underlying, JSONDecodingError.missingValue)
       } else {
@@ -193,7 +193,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     // when
     XCTAssertThrowsError(try readValues(GivenSelectionSet.self, from: object)) { (error) in
       // then
-      if let error = error as? GraphQLResultError, case JSONDecodingError.couldNotConvert(let value, let expectedType) = error.underlying {
+      if let error = error as? GraphQLExecutionError, case JSONDecodingError.couldNotConvert(let value, let expectedType) = error.underlying {
         XCTAssertEqual(error.path, ["name"])
         XCTAssertEqual(value as? Double, 10.0)
         XCTAssertTrue(expectedType == String.self)
@@ -249,7 +249,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     // when
     XCTAssertThrowsError(try readValues(GivenSelectionSet.self, from: object)) { (error) in
       // then
-      if case let error as GraphQLResultError = error {
+      if case let error as GraphQLExecutionError = error {
         XCTAssertEqual(error.path, ["size"])
         XCTAssertMatch(error.underlying, JSONDecodingError.missingValue)
       } else {
@@ -270,7 +270,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     // when
     XCTAssertThrowsError(try readValues(GivenSelectionSet.self, from: object)) { (error) in
       // then
-      if case let error as GraphQLResultError = error {
+      if case let error as GraphQLExecutionError = error {
         XCTAssertEqual(error.path, ["size"])
         XCTAssertMatch(error.underlying, JSONDecodingError.nullValue)
       } else {
@@ -289,7 +289,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     // when
     XCTAssertThrowsError(try readValues(GivenSelectionSet.self, from: object)) { (error) in
       // then
-      if let error = error as? GraphQLResultError, case JSONDecodingError.couldNotConvert(let value, let expectedType) = error.underlying {
+      if let error = error as? GraphQLExecutionError, case JSONDecodingError.couldNotConvert(let value, let expectedType) = error.underlying {
         XCTAssertEqual(error.path, ["size"])
         XCTAssertEqual(value as? Int, 10)
         XCTAssertTrue(expectedType == String.self)
@@ -309,7 +309,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     // when
     XCTAssertThrowsError(try readValues(GivenSelectionSet.self, from: object)) { (error) in
       // then
-      if let error = error as? GraphQLResultError, case JSONDecodingError.couldNotConvert(let value, let expectedType) = error.underlying {
+      if let error = error as? GraphQLExecutionError, case JSONDecodingError.couldNotConvert(let value, let expectedType) = error.underlying {
         XCTAssertEqual(error.path, ["size"])
         XCTAssertEqual(value as? Double, 10.0)
         XCTAssertTrue(expectedType == String.self)
@@ -359,7 +359,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     // when
     XCTAssertThrowsError(try readValues(GivenSelectionSet.self, from: object)) { (error) in
       // then
-      if case let error as GraphQLResultError = error {
+      if case let error as GraphQLExecutionError = error {
         XCTAssertEqual(error.path, ["favorites"])
         XCTAssertMatch(error.underlying, JSONDecodingError.missingValue)
       } else {
@@ -378,7 +378,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     // when
     XCTAssertThrowsError(try readValues(GivenSelectionSet.self, from: object)) { (error) in
       // then
-      if case let error as GraphQLResultError = error {
+      if case let error as GraphQLExecutionError = error {
         XCTAssertEqual(error.path, ["favorites"])
         XCTAssertMatch(error.underlying, JSONDecodingError.nullValue)
       } else {
@@ -430,7 +430,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     // when
     XCTAssertThrowsError(try readValues(GivenSelectionSet.self, from: object)) { (error) in
       // then
-      if let error = error as? GraphQLResultError,
+      if let error = error as? GraphQLExecutionError,
          case JSONDecodingError.couldNotConvert(let value, let expectedType) = error.underlying {
         XCTAssertEqual(error.path, ["favorites", "0"])
         XCTAssertEqual(value as? Double, 10.0)
@@ -481,7 +481,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     // when
     XCTAssertThrowsError(try readValues(GivenSelectionSet.self, from: object)) { (error) in
       // then
-      if case let error as GraphQLResultError = error {
+      if case let error as GraphQLExecutionError = error {
         XCTAssertEqual(error.path, ["favorites"])
         XCTAssertMatch(error.underlying, JSONDecodingError.missingValue)
       } else {
@@ -528,7 +528,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     // when
     XCTAssertThrowsError(try readValues(GivenSelectionSet.self, from: object)) { (error) in
       // then
-      if let error = error as? GraphQLResultError,
+      if let error = error as? GraphQLExecutionError,
          case JSONDecodingError.couldNotConvert(let value, let expectedType) = error.underlying {
         XCTAssertEqual(error.path, ["favorites", "0"])
         XCTAssertEqual(value as? Double, 4.0)
@@ -579,7 +579,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     // when
     XCTAssertThrowsError(try readValues(GivenSelectionSet.self, from: object)) { (error) in
       // then
-      if case let error as GraphQLResultError = error {
+      if case let error as GraphQLExecutionError = error {
         XCTAssertEqual(error.path, ["favorites"])
         XCTAssertMatch(error.underlying, JSONDecodingError.missingValue)
       } else {
@@ -598,7 +598,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     // when
     XCTAssertThrowsError(try readValues(GivenSelectionSet.self, from: object)) { (error) in
       // then
-      if case let error as GraphQLResultError = error {
+      if case let error as GraphQLExecutionError = error {
         XCTAssertEqual(error.path, ["favorites"])
         XCTAssertMatch(error.underlying, JSONDecodingError.nullValue)
       } else {
@@ -664,7 +664,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     // when
     XCTAssertThrowsError(try readValues(GivenSelectionSet.self, from: object)) { (error) in
       // then
-      if let error = error as? GraphQLResultError,
+      if let error = error as? GraphQLExecutionError,
          case JSONDecodingError.couldNotConvert(let value, let expectedType) = error.underlying {
         XCTAssertEqual(error.path, ["favorites", "0"])
         XCTAssertEqual(value as? Int, 10)
@@ -723,7 +723,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     // when
     XCTAssertThrowsError(try readValues(GivenSelectionSet.self, from: object)) { (error) in
       // then
-      if case let error as GraphQLResultError = error {
+      if case let error as GraphQLExecutionError = error {
         XCTAssertEqual(error.path, ["child", "name"])
         XCTAssertMatch(error.underlying, JSONDecodingError.missingValue)
       } else {
@@ -755,7 +755,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     // when
     XCTAssertThrowsError(try readValues(GivenSelectionSet.self, from: object)) { (error) in
       // then
-      if case let error as GraphQLResultError = error {
+      if case let error as GraphQLExecutionError = error {
         XCTAssertEqual(error.path, ["child", "name"])
         XCTAssertMatch(error.underlying, JSONDecodingError.nullValue)
       } else {

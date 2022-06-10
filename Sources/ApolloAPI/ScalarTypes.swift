@@ -1,4 +1,4 @@
-public protocol AnyScalarType: JSONEncodable {}
+public protocol AnyScalarType: JSONEncodable, AnyHashableConvertible {}
 
 public protocol ScalarType:
   AnyScalarType,
