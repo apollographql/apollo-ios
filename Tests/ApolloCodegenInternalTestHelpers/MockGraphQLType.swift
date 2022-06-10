@@ -1,5 +1,6 @@
 @testable import ApolloCodegenLib
 import OrderedCollections
+import AppKit
 
 public extension GraphQLCompositeType {
   @objc class func mock(
@@ -99,17 +100,28 @@ public extension GraphQLEnumType {
     name: String,
     values: [String] = []
   ) -> Self {
+    return self.mock(
+      name: name,
+      values: values.map { GraphQLEnumValue.mock(name: $0) }
+    )
+  }
+
+  class func mock(
+    name: String,
+    values: [GraphQLEnumValue]
+  ) -> Self {
     let mock = Self.emptyMockObject()
     mock.name = name
-    mock.values = values.map { GraphQLEnumValue.mock(name: $0) }
+    mock.values = values
     return mock
   }
 }
 
 public extension GraphQLEnumValue {
-  class func mock(name: String) -> Self {
+  class func mock(name: String, deprecationReason: String? = nil) -> Self {
     let mock = Self.emptyMockObject()
     mock.name = name
+    mock.deprecationReason = deprecationReason
     return mock
   }
 }

@@ -69,7 +69,7 @@ public class GraphQLEnumValue: JavaScriptObject {
   
   private(set) lazy var description: String? = self["description"]
     
-  private(set) lazy var deprecationReason: String? = self["deprecationReason"]
+  lazy var deprecationReason: String? = self["deprecationReason"]
 }
 
 public class GraphQLInputObjectType: GraphQLNamedType {

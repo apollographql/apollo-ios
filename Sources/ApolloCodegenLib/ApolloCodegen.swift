@@ -126,7 +126,7 @@ public class ApolloCodegen {
 
     for graphQLEnum in ir.schema.referencedTypes.enums {
       try autoreleasepool {
-        try EnumFileGenerator(graphqlEnum: graphQLEnum)
+        try EnumFileGenerator(graphqlEnum: graphQLEnum, config: config)
           .generate(forConfig: config, fileManager: fileManager)
       }
     }
