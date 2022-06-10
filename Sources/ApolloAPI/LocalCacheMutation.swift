@@ -22,13 +22,13 @@ public extension LocalCacheMutation {
   }
 }
 
-public protocol MutableSelectionSet: AnySelectionSet {}
-
-public protocol MutableRootSelectionSet: RootSelectionSet, MutableSelectionSet {
+public protocol MutableSelectionSet: SelectionSet {
   var data: DataDict { get set }
 }
 
-extension MutableRootSelectionSet {
+public protocol MutableRootSelectionSet: RootSelectionSet, MutableSelectionSet {}
+
+extension MutableSelectionSet {
 
   @inlinable public var __typename: String {
     get { data["__typename"] }
