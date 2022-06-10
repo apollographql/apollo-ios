@@ -91,7 +91,7 @@ public struct CacheReadInterceptor: ApolloInterceptor {
     chain: RequestChain,
     completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
 
-      self.store.load(query: request.operation) { loadResult in
+      self.store.load(request.operation) { loadResult in
         guard chain.isNotCancelled else {
           return
         }

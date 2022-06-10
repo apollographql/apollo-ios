@@ -53,7 +53,7 @@ class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     // when
     let query = MockQuery<GivenSelectionSet>()
     
-    loadFromStore(query: query) { result in
+    loadFromStore(operation: query) { result in
       // then
       try XCTAssertSuccessResult(result) { graphQLResult in
         XCTAssertEqual(graphQLResult.source, .cache)
@@ -89,7 +89,7 @@ class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     let query = MockQuery<GivenSelectionSet>()
     query.variables = ["episode": "JEDI"]
     
-    loadFromStore(query: query) { result in
+    loadFromStore(operation: query) { result in
       // then
       try XCTAssertSuccessResult(result) { graphQLResult in
         XCTAssertEqual(graphQLResult.source, .cache)
@@ -124,7 +124,7 @@ class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     // when
     let query = MockQuery<GivenSelectionSet>()
     
-    loadFromStore(query: query) { result in
+    loadFromStore(operation: query) { result in
       // then
       XCTAssertThrowsError(try result.get()) { error in
         if let error = error as? GraphQLExecutionError {
@@ -160,7 +160,7 @@ class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     // when
     let query = MockQuery<GivenSelectionSet>()
     
-    loadFromStore(query: query) { result in
+    loadFromStore(operation: query) { result in
       // then
       XCTAssertThrowsError(try result.get()) { error in
         if let error = error as? GraphQLExecutionError {
@@ -218,7 +218,7 @@ class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     // when
     let query = MockQuery<GivenSelectionSet>()
 
-    loadFromStore(query: query) { result in
+    loadFromStore(operation: query) { result in
       // then
       try XCTAssertSuccessResult(result) { graphQLResult in
         XCTAssertEqual(graphQLResult.source, .cache)
@@ -277,7 +277,7 @@ class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     // when
     let query = MockQuery<GivenSelectionSet>()
 
-    loadFromStore(query: query) { result in
+    loadFromStore(operation: query) { result in
       // then
       try XCTAssertSuccessResult(result) { graphQLResult in
         XCTAssertEqual(graphQLResult.source, .cache)
@@ -329,7 +329,7 @@ class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     // when
     let query = MockQuery<GivenSelectionSet>()
     
-    loadFromStore(query: query) { result in
+    loadFromStore(operation: query) { result in
       // then
       try XCTAssertSuccessResult(result) { graphQLResult in
         XCTAssertEqual(graphQLResult.source, .cache)
@@ -376,7 +376,7 @@ class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     // when
     let query = MockQuery<GivenSelectionSet>()
     
-    loadFromStore(query: query) { result in
+    loadFromStore(operation: query) { result in
       // then
       XCTAssertThrowsError(try result.get()) { error in
         if let error = error as? GraphQLExecutionError {
@@ -435,7 +435,7 @@ class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     // when
     let query = MockQuery<GivenSelectionSet>()
     
-    loadFromStore(query: query) { result in
+    loadFromStore(operation: query) { result in
       XCTAssertThrowsError(try result.get()) { error in
         // then
         if let error = error as? GraphQLExecutionError,
@@ -480,7 +480,7 @@ class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     // when
     let query = MockQuery<GivenSelectionSet>()
     
-    loadFromStore(query: query) { result in
+    loadFromStore(operation: query) { result in
       // then
       try XCTAssertSuccessResult(result) { graphQLResult in
         XCTAssertEqual(graphQLResult.source, .cache)

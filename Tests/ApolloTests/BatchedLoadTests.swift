@@ -121,7 +121,7 @@ class BatchedLoadTests: XCTestCase {
     // when
     let expectation = self.expectation(description: "Loading query from store")
 
-    store.load(query: query) { result in
+    store.load(query) { result in
       defer {
         expectation.fulfill()
       }
@@ -201,7 +201,7 @@ class BatchedLoadTests: XCTestCase {
     (1...10).forEach { number in
       let expectation = self.expectation(description: "Loading query #\(number) from store")
       
-      store.load(query: query) { result in
+      store.load(query) { result in
         defer {
           expectation.fulfill()
         }

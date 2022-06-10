@@ -414,7 +414,70 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
     let query = MockQuery<GivenSelectionSet>()
 
-    loadFromStore(query: query) { result in
+    loadFromStore(operation: query) { result in
+      try XCTAssertSuccessResult(result) { graphQLResult in
+        XCTAssertEqual(graphQLResult.source, .cache)
+        XCTAssertNil(graphQLResult.errors)
+
+        let data = try XCTUnwrap(graphQLResult.data)
+        XCTAssertEqual(data.hero.name, "Artoo")
+      }
+    }
+  }
+
+  func test_updateCacheMutation_givenMutationOperation_updateNestedField_updatesObjectAtMutationRoot() throws {
+    // given
+    struct GivenSelectionSet: MockMutableRootSelectionSet {
+      public var data: DataDict = DataDict([:], variables: nil)
+
+      static var selections: [Selection] { [
+        .field("hero", Hero.self)
+      ]}
+
+      var hero: Hero {
+        get { data["hero"] }
+        set { data["hero"] = newValue }
+      }
+
+      struct Hero: MockMutableRootSelectionSet {
+        public var data: DataDict = DataDict([:], variables: nil)
+
+        static var selections: [Selection] { [
+          .field("name", String.self)
+        ]}
+
+        var name: String {
+          get { data["name"] }
+          set { data["name"] = newValue }
+        }
+      }
+    }
+
+    let cacheMutation = MockLocalCacheMutationFromMutation<GivenSelectionSet>()
+
+    mergeRecordsIntoCache([
+      "MUTATION_ROOT": ["hero": CacheReference("MUTATION_ROOT.hero")],
+      "MUTATION_ROOT.hero": ["__typename": "Droid", "name": "R2-D2"]
+    ])
+
+    runActivity("update mutation") { _ in
+      let updateCompletedExpectation = expectation(description: "Update completed")
+
+      store.withinReadWriteTransaction({ transaction in
+        try transaction.update(cacheMutation) { data in
+          data.hero.name = "Artoo"
+        }
+      }, completion: { result in
+        defer { updateCompletedExpectation.fulfill() }
+        XCTAssertSuccessResult(result)
+      })
+
+      self.wait(for: [updateCompletedExpectation], timeout: Self.defaultWaitTimeout)
+    }
+
+    let mutation = MockMutation<GivenSelectionSet>()
+
+    loadFromStore(operation: mutation) { result in
       try XCTAssertSuccessResult(result) { graphQLResult in
         XCTAssertEqual(graphQLResult.source, .cache)
         XCTAssertNil(graphQLResult.errors)
@@ -491,7 +554,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       let query = MockQuery<GivenSelectionSet>()
       query.variables = ["episode": Episode.JEDI]
 
-      loadFromStore(query: query) { result in
+      loadFromStore(operation: query) { result in
         try XCTAssertSuccessResult(result) { graphQLResult in
           XCTAssertEqual(graphQLResult.source, .cache)
           XCTAssertNil(graphQLResult.errors)
@@ -505,7 +568,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
       query.variables = ["episode": Episode.PHANTOM_MENACE]
 
-      loadFromStore(query: query) { result in
+      loadFromStore(operation: query) { result in
         try XCTAssertSuccessResult(result) { graphQLResult in
           XCTAssertEqual(graphQLResult.source, .cache)
           XCTAssertNil(graphQLResult.errors)
@@ -617,7 +680,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       let readCompletedExpectation = expectation(description: "Read completed")
       let query = MockQuery<GivenSelectionSet>()
 
-      loadFromStore(query: query) { result in
+      loadFromStore(operation: query) { result in
         try XCTAssertSuccessResult(result) { graphQLResult in
           XCTAssertEqual(graphQLResult.source, .cache)
           XCTAssertNil(graphQLResult.errors)
@@ -632,6 +695,70 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       }
 
       self.wait(for: [readCompletedExpectation], timeout: Self.defaultWaitTimeout)
+    }
+  }
+
+  func test_writeDataForCacheMutation_givenMutationOperation_updateNestedField_updatesObjectAtMutationRoot() throws {
+    // given
+    struct GivenSelectionSet: MockMutableRootSelectionSet {
+      public var data: DataDict = DataDict([:], variables: nil)
+
+      static var selections: [Selection] { [
+        .field("hero", Hero.self)
+      ]}
+
+      var hero: Hero {
+        get { data["hero"] }
+        set { data["hero"] = newValue }
+      }
+
+      struct Hero: MockMutableRootSelectionSet {
+        public var data: DataDict = DataDict([:], variables: nil)
+
+        static var selections: [Selection] { [
+          .field("name", String.self)
+        ]}
+
+        var name: String {
+          get { data["name"] }
+          set { data["name"] = newValue }
+        }
+      }
+    }
+
+    runActivity("update mutation") { _ in
+      let updateCompletedExpectation = expectation(description: "Update completed")
+
+      store.withinReadWriteTransaction({ transaction in
+        let data = GivenSelectionSet(data: DataDict(
+          ["hero": [
+            "__typename": "Droid",
+            "name": "Artoo"
+          ]],
+          variables: nil)
+        )
+        let cacheMutation = MockLocalCacheMutationFromMutation<GivenSelectionSet>()
+
+        try transaction.write(data: data, for: cacheMutation)
+
+      }, completion: { result in
+        defer { updateCompletedExpectation.fulfill() }
+        XCTAssertSuccessResult(result)
+      })
+
+      self.wait(for: [updateCompletedExpectation], timeout: Self.defaultWaitTimeout)
+    }
+
+    let mutation = MockMutation<GivenSelectionSet>()
+
+    loadFromStore(operation: mutation) { result in
+      try XCTAssertSuccessResult(result) { graphQLResult in
+        XCTAssertEqual(graphQLResult.source, .cache)
+        XCTAssertNil(graphQLResult.errors)
+
+        let data = try XCTUnwrap(graphQLResult.data)
+        XCTAssertEqual(data.hero.name, "Artoo")
+      }
     }
   }
 
@@ -684,6 +811,71 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     })
 
     self.wait(for: [writeCompletedExpectation], timeout: Self.defaultWaitTimeout)
+  }
+
+  func test_writeDataForSelectionSet_givenFragment_updateNestedField_updatesObject() throws {
+    // given
+    struct GivenFragment: MockMutableRootSelectionSet, Fragment {
+      static var fragmentDefinition: StaticString { "" }
+
+      public var data: DataDict = DataDict([:], variables: nil)
+
+      static var selections: [Selection] { [
+        .field("hero", Hero.self)
+      ]}
+
+      var hero: Hero {
+        get { data["hero"] }
+        set { data["hero"] = newValue }
+      }
+
+      struct Hero: MockMutableRootSelectionSet {
+        public var data: DataDict = DataDict([:], variables: nil)
+
+        static var selections: [Selection] { [
+          .field("name", String.self)
+        ]}
+
+        var name: String {
+          get { data["name"] }
+          set { data["name"] = newValue }
+        }
+      }
+    }
+
+    runActivity("update fragment") { _ in
+      let updateCompletedExpectation = expectation(description: "Update completed")
+
+      store.withinReadWriteTransaction({ transaction in
+        let fragment = GivenFragment(data: DataDict(
+          ["hero": [
+            "__typename": "Droid",
+            "name": "Artoo"
+          ]],
+          variables: nil)
+        )
+
+        try transaction.write(selectionSet: fragment, withKey: CacheReference.RootQuery.key)
+
+      }, completion: { result in
+        defer { updateCompletedExpectation.fulfill() }
+        XCTAssertSuccessResult(result)
+      })
+
+      self.wait(for: [updateCompletedExpectation], timeout: Self.defaultWaitTimeout)
+    }
+
+    let query = MockQuery<GivenFragment>()
+
+    loadFromStore(operation: query) { result in
+      try XCTAssertSuccessResult(result) { graphQLResult in
+        XCTAssertEqual(graphQLResult.source, .cache)
+        XCTAssertNil(graphQLResult.errors)
+
+        let data = try XCTUnwrap(graphQLResult.data)
+        XCTAssertEqual(data.hero.name, "Artoo")
+      }
+    }
   }
 
   func test_updateObjectWithKey_readAfterUpdateWithinSameTransaction_hasUpdatedValue() throws {
@@ -847,7 +1039,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     }
 
     let query = MockQuery<HeroFriendsSelectionSet>()
-    loadFromStore(query: query) { result in
+    loadFromStore(operation: query) { result in
       try XCTAssertSuccessResult(result) { graphQLResult in
         XCTAssertEqual(graphQLResult.source, .cache)
         XCTAssertNil(graphQLResult.errors)

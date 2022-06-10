@@ -8,10 +8,10 @@ public struct CacheReference: Hashable {
   /// A CacheReference referencing the root subscription object.
   public static let RootSubscription: CacheReference = CacheReference("SUBSCRIPTION_ROOT")
 
-  public static func rootCacheReference<Operation: GraphQLOperation>(
-    for operation: Operation
+  public static func rootCacheReference(
+    for operationType: GraphQLOperationType
   ) -> CacheReference {
-    switch Operation.operationType {
+    switch operationType {
     case .query:
       return RootQuery
     case .mutation:

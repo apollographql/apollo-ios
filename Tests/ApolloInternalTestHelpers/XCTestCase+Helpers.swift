@@ -64,16 +64,16 @@ public extension StoreLoading {
 
 extension StoreLoading where Self: XCTestCase {
   public func loadFromStore<Operation: GraphQLOperation>(
-    query: Operation,
+    operation: Operation,
     file: StaticString = #filePath,
     line: UInt = #line,
     resultHandler: @escaping AsyncResultObserver<GraphQLResult<Operation.Data>, Error>.ResultHandler
   ) {
-    let resultObserver = makeResultObserver(for: query, file: file, line: line)
+    let resultObserver = makeResultObserver(for: operation, file: file, line: line)
         
     let expectation = resultObserver.expectation(description: "Loaded query from store", file: file, line: line, resultHandler: resultHandler)
     
-    store.load(query: query, resultHandler: resultObserver.handler)
+    store.load(operation, resultHandler: resultObserver.handler)
     
     wait(for: [expectation], timeout: Self.defaultWaitTimeout)
   }
