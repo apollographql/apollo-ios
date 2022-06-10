@@ -134,7 +134,7 @@ public class ApolloCodegen {
 
     for graphQLInterface in ir.schema.referencedTypes.interfaces {
       try autoreleasepool {
-        try InterfaceFileGenerator(graphqlInterface: graphQLInterface)
+        try InterfaceFileGenerator(graphqlInterface: graphQLInterface, config: config)
           .generate(forConfig: config, fileManager: fileManager)
       }
     }
