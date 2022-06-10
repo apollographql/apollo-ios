@@ -18,17 +18,23 @@ public extension LocalCacheMutation {
   }
 }
 
-public protocol MutableSelectionSet: AnySelectionSet {}
-
-public protocol MutableRootSelectionSet: RootSelectionSet, MutableSelectionSet {
+public protocol MutableSelectionSet: SelectionSet {
   var data: DataDict { get set }
 }
 
-extension MutableRootSelectionSet {
-
-  @inlinable public var __typename: String {
+public extension MutableSelectionSet {
+  @inlinable var __typename: String {
     get { data["__typename"] }
     set { data["__typename"] = newValue }
   }
-
 }
+
+public extension MutableSelectionSet where Fragments: FragmentContainer {
+  @inlinable var fragments: Fragments {
+    get { Self.Fragments(data: data) }
+    set { data._data = newValue.data._data}
+  }
+}
+
+public protocol MutableRootSelectionSet: RootSelectionSet, MutableSelectionSet {}
+
