@@ -29,7 +29,7 @@ class InterfaceTemplateTests: XCTestCase {
     subject.template.description
   }
 
-  // MARK: Class Definition Tests
+  // MARK: Casing Tests
 
   func test_render_givenSchemaInterface_generatesSwiftClassDefinitionCorrectlyCased() throws {
     // given
@@ -45,6 +45,8 @@ class InterfaceTemplateTests: XCTestCase {
     // then
     expect(actual).to(equalLineByLine(expected))
   }
+
+  // MARK: Class Definition Tests
 
   func test_render_givenModuleType_swiftPackageManager_generatesSwiftClassDefinition_withPublicModifier() {
     // given
