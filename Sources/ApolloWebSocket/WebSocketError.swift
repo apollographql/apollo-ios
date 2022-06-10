@@ -12,6 +12,7 @@ public struct WebSocketError: Error, LocalizedError {
     case serializedMessageError
     case neitherErrorNorPayloadReceived
     case upgradeError(code: Int)
+    case badAckMessage
 
     var description: String {
       switch self {
@@ -27,6 +28,8 @@ public struct WebSocketError: Error, LocalizedError {
         return "Websocket error: Did not receive an error or a payload."
       case .upgradeError:
         return "Websocket error: Invalid HTTP upgrade."
+      case .badAckMessage:
+        return "Websocket error: Acknowledge message doesn't contain proper timeout value"
       }
     }
   }
