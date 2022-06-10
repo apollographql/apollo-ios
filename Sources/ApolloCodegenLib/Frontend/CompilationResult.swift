@@ -37,13 +37,24 @@ public class CompilationResult: JavaScriptObject {
       return lhs.name == rhs.name
     }
 
+    lazy var isLocalCacheMutation: Bool = {
+      directives?.contains { $0.name == "apollo_client_ios_localCacheMutation" } ?? false
+    }()
+
     lazy var nameWithSuffix: String = {
-      let suffix: String
-      switch operationType {
-        case .query: suffix = "Query"
-        case .mutation: suffix = "Mutation"
-        case .subscription: suffix = "Subscription"
+      func getSuffix() -> String {
+        if isLocalCacheMutation {
+          return "LocalCacheMutation"
+        }
+
+        switch operationType {
+          case .query: return "Query"
+          case .mutation: return "Mutation"
+          case .subscription: return "Subscription"
+        }
       }
+
+      let suffix = getSuffix()
 
       guard !name.hasSuffix(suffix) else {
         return name

@@ -9,12 +9,16 @@ public protocol LocalCacheMutation: AnyObject, Hashable {
 }
 
 public extension LocalCacheMutation {
-  static func ==(lhs: Self, rhs: Self) -> Bool {
-    lhs.variables?.jsonEncodableValue?.jsonValue == rhs.variables?.jsonEncodableValue?.jsonValue
+  var variables: GraphQLOperation.Variables? {
+    return nil
   }
 
   func hash(into hasher: inout Hasher) {
     hasher.combine(variables?.jsonEncodableValue?.jsonValue)
+  }
+
+  static func ==(lhs: Self, rhs: Self) -> Bool {
+    lhs.variables?.jsonEncodableValue?.jsonValue == rhs.variables?.jsonEncodableValue?.jsonValue
   }
 }
 
