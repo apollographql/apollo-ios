@@ -340,7 +340,10 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
     """
 
     let expected = """
-    
+        public var animalDetails: AnimalDetails {
+          get { _toFragment() }
+          set { data._data = newValue.data._data }
+        }
     """
 
     // when
@@ -352,6 +355,6 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
     let actual = subject.render(field: allAnimals)
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 20, ignoringExtraLines: true))
   }
 }

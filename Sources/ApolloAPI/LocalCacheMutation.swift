@@ -36,9 +36,16 @@ public extension MutableSelectionSet {
 public extension MutableSelectionSet where Fragments: FragmentContainer {
   @inlinable var fragments: Fragments {
     get { Self.Fragments(data: data) }
-    set { data._data = newValue.data._data}
+    _modify {
+      var f = Self.Fragments(data: data)
+      yield &f
+      self.data._data = f.data._data
+    }
+    @available(*, unavailable, message: "mutate properties of the fragment instead.")
+    set { preconditionFailure("") }
   }
 }
 
 public protocol MutableRootSelectionSet: RootSelectionSet, MutableSelectionSet {}
 
+#warning("!! TODO: Conditionally included fragments are optional but will always be created and crash on field access !!")

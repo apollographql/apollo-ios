@@ -298,8 +298,16 @@ struct SelectionSetTemplate {
     let name = fragment.definition.name
     return """
     public var \(name.firstLowercased): \(name.firstUppercased)\
-    \(ifLet: fragment.inclusionConditions, where: { !scope.matches($0) }, { _ in "?" }) \
-    { _toFragment() }
+    \(ifLet: fragment.inclusionConditions, where: { !scope.matches($0) }, "?") {\
+    \(if: isMutable,
+      """
+
+        get { _toFragment() }
+        set { data._data = newValue.data._data }
+      }
+      """,
+      else: " _toFragment() }"
+    )
     """
   }
 

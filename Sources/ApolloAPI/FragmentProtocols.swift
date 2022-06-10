@@ -23,7 +23,7 @@ public extension FragmentContainer {
   /// Unsupported usage may result in unintended consequences including crashes.
   func _toFragment<T: Fragment>() -> T {
     return T.init(data: data)
-  }
+  }  
 }
 
 /// A `FragmentContainer` to be used by `SelectionSet`s that have no fragments.
