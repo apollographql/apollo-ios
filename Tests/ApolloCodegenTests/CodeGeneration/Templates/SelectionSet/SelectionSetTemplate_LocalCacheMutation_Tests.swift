@@ -148,7 +148,7 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
     let actual = subject.render(field: allAnimals)
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 14, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 17, ignoringExtraLines: true))
   }
 
   func test__render_dataDict__rendersDataDictAsVar() throws {
@@ -235,19 +235,17 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
     // given
     schemaSDL = """
     type Query {
-      AllAnimals: [Animal!]
+      allAnimals: [Animal!]
     }
 
     type Animal {
       fieldName: String!
     }
-
-    scalar Custom
     """
 
     document = """
     query TestOperation {
-      AllAnimals {
+      allAnimals {
         fieldName
       }
     }
@@ -263,7 +261,92 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
     // when
     try buildSubjectAndOperation()
     let allAnimals = try XCTUnwrap(
-      operation[field: "query"]?[field: "AllAnimals"] as? IR.EntityField
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+  }
+
+  func test__render_inlineFragmentAccessors__rendersAccessorWithGetterAndSetter() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+
+    type Dog {
+      name: String!
+    }
+    """
+
+    document = """
+    query TestOperation @apollo_client_ios_localCacheMutation {
+      allAnimals {
+        ... on Dog {
+          name
+        }
+      }
+    }
+    """
+
+    let expected = """
+      public var asDog: AsDog? {
+        get { _asInlineFragment() }
+        set { if let newData = newValue?.data._data { data._data = newData }}
+      }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+  }
+
+  func test__render_namedFragmentAccessors__givenFragmentWithNoConditions_rendersAccessorWithGetterAndSetter() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation @apollo_client_ios_localCacheMutation {
+      allAnimals {
+        ...AnimalDetails
+      }
+    }
+
+    fragment AnimalDetails on Animal {
+      species
+    }
+    """
+
+    let expected = """
+    
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
     )
 
     let actual = subject.render(field: allAnimals)

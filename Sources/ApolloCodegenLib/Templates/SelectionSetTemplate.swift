@@ -220,16 +220,17 @@ struct SelectionSetTemplate {
     }()
     return """
     public var \(field.responseKey.firstLowercased): \
-    \(typeName(for: field, forceOptional: isConditionallyIncluded)) {\(if: isMutable,
-    """
+    \(typeName(for: field, forceOptional: isConditionallyIncluded)) {\
+    \(if: isMutable,
+      """
 
-      get { data["\(field.responseKey)"] }
-      set { data["\(field.responseKey)"] = newValue }
-    }
-    """, else:
-    """
-     data["\(field.responseKey)"] }
-    """)
+        get { data["\(field.responseKey)"] }
+        set { data["\(field.responseKey)"] = newValue }
+      }
+      """, else:
+      """
+       data["\(field.responseKey)"] }
+      """)
     """
   }
 
@@ -247,10 +248,25 @@ struct SelectionSetTemplate {
   private func InlineFragmentAccessorTemplate(_ inlineFragment: IR.SelectionSet) -> TemplateString {
     let typeName = inlineFragment.renderedTypeName
     return """
-    public var \(typeName.firstLowercased): \(typeName)? { _asInlineFragment\
+    public var \(typeName.firstLowercased): \(typeName)? {\
+    \(if: isMutable,
+      """
+
+        get { \(InlineFragmentGetter(inlineFragment)) }
+        set { if let newData = newValue?.data._data { data._data = newData }}
+      }
+      """,
+      else: " \(InlineFragmentGetter(inlineFragment)) }"
+    )
+    """
+  }
+
+  private func InlineFragmentGetter(_ inlineFragment: IR.SelectionSet) -> TemplateString {
+    """
+    _asInlineFragment\
     (\(ifLet: inlineFragment.inclusionConditions, {
-    "if: \($0.conditionVariableExpression())"
-    })) }
+      "if: \($0.conditionVariableExpression())"
+    }))
     """
   }
 
