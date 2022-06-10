@@ -28,3 +28,6 @@ where Schema == MockSchemaConfiguration {}
 public extension MockMutableRootSelectionSet {
   static var __parentType: ParentType { .Object(Object.self) }
 }
+
+public protocol MockMutableInlineFragment: MutableSelectionSet, InlineFragment
+where Schema == MockSchemaConfiguration {}

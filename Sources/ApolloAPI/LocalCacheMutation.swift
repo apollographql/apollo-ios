@@ -26,13 +26,19 @@ public protocol MutableSelectionSet: SelectionSet {
   var data: DataDict { get set }
 }
 
-public protocol MutableRootSelectionSet: RootSelectionSet, MutableSelectionSet {}
-
-extension MutableSelectionSet {
-
-  @inlinable public var __typename: String {
+public extension MutableSelectionSet {
+  @inlinable var __typename: String {
     get { data["__typename"] }
     set { data["__typename"] = newValue }
   }
-
 }
+
+public extension MutableSelectionSet where Fragments: FragmentContainer {
+  @inlinable var fragments: Fragments {
+    get { Self.Fragments(data: data) }
+    set { data._data = newValue.data._data}
+  }
+}
+
+public protocol MutableRootSelectionSet: RootSelectionSet, MutableSelectionSet {}
+
