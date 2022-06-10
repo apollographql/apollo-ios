@@ -584,6 +584,98 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     }
   }
 
+  func test_updateCacheMutation_updateNestedFieldOnTypeCase_updatesObjects() throws {
+    // given
+    class Droid: Object {}
+    MockSchemaConfiguration.stub_objectTypeForTypeName = { typename in
+      switch typename {
+      case "Droid": return Droid.self
+      default: return nil
+      }
+    }
+
+    struct GivenSelectionSet: MockMutableRootSelectionSet {
+      public var data: DataDict = DataDict([:], variables: nil)
+
+      static var selections: [Selection] { [
+        .field("hero", Hero.self)
+      ]}
+
+      var hero: Hero {
+        get { data["hero"] }
+        set { data["hero"] = newValue }
+      }
+
+      struct Hero: MockMutableRootSelectionSet {
+        public var data: DataDict = DataDict([:], variables: nil)
+
+        static var selections: [Selection] { [
+          .field("__typename", String.self),
+          .field("name", String.self),
+          .inlineFragment(AsDroid.self),
+        ]}
+
+        var name: String {
+          get { data["name"] }
+          set { data["name"] = newValue }
+        }
+
+        var asDroid: AsDroid? {
+          get { _asInlineFragment() }
+          _modify { yield &self[asInlineFragment:()] }
+        }
+
+        struct AsDroid: MockMutableInlineFragment {
+          public var data: DataDict = DataDict([:], variables: nil)
+          static let __parentType: ParentType = .Object(Droid.self)
+
+          static var selections: [Selection] { [
+            .field("primaryFunction", String.self),
+          ]}
+
+          var primaryFunction: String {
+            get { data["primaryFunction"] }
+            set { data["primaryFunction"] = newValue }
+          }
+        }
+      }
+    }
+
+    mergeRecordsIntoCache([
+      "QUERY_ROOT": ["hero": CacheReference("QUERY_ROOT.hero")],
+      "QUERY_ROOT.hero": ["__typename": "Droid", "name": "R2-D2", "primaryFunction": "Protocol"]
+    ])
+
+    let cacheMutation = MockLocalCacheMutation<GivenSelectionSet>()
+
+    runActivity("update mutation") { _ in
+      let updateCompletedExpectation = expectation(description: "Update completed")
+
+      store.withinReadWriteTransaction({ transaction in
+        try transaction.update(cacheMutation) { data in
+          data.hero.asDroid?.primaryFunction = "Combat"          
+        }
+      }, completion: { result in
+        defer { updateCompletedExpectation.fulfill() }
+        XCTAssertSuccessResult(result)
+      })
+
+      self.wait(for: [updateCompletedExpectation], timeout: Self.defaultWaitTimeout)
+    }
+
+    let query = MockQuery<GivenSelectionSet>()
+
+    loadFromStore(operation: query) { result in
+      try XCTAssertSuccessResult(result) { graphQLResult in
+        XCTAssertEqual(graphQLResult.source, .cache)
+        XCTAssertNil(graphQLResult.errors)
+
+        let data = try XCTUnwrap(graphQLResult.data)
+        XCTAssertEqual(data.hero.asDroid?.primaryFunction, "Combat")
+      }
+    }
+  }
+
   func test_updateCacheMutation_givenAddNewReferencedEntity_entityIsIncludedOnRead() throws {
     /// given
     struct GivenSelectionSet: MockMutableRootSelectionSet {

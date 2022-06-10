@@ -60,9 +60,9 @@ public protocol SelectionSet: AnySelectionSet, Hashable {
 
 extension SelectionSet {
 
-  public static var schema: SchemaConfiguration.Type { Schema.self }
+  @inlinable public static var schema: SchemaConfiguration.Type { Schema.self }
 
-  var __objectType: Object.Type? { Schema.objectType(forTypename: __typename) }
+  @usableFromInline var __objectType: Object.Type? { Schema.objectType(forTypename: __typename) }
 
   @inlinable public var __typename: String { data["__typename"] }
 
@@ -72,7 +72,7 @@ extension SelectionSet {
   /// - Warning: This function is not supported for use outside of generated call sites.
   /// Generated call sites are guaranteed by the GraphQL compiler to be safe.
   /// Unsupported usage may result in unintended consequences including crashes.
-  public func _asInlineFragment<T: SelectionSet>(
+  @inlinable public func _asInlineFragment<T: SelectionSet>(
     if conditions: Selection.Conditions? = nil
   ) -> T? where T.Schema == Schema {
     guard let conditions = conditions else {
@@ -82,30 +82,30 @@ extension SelectionSet {
     return conditions.evaluate(with: data._variables) ? _asType() : nil
   }
 
-  private func _asType<T: SelectionSet>() -> T? where T.Schema == Schema {
+  @usableFromInline func _asType<T: SelectionSet>() -> T? where T.Schema == Schema {
     guard let __objectType = __objectType,
           __objectType._canBeConverted(to: T.__parentType) else { return nil }
 
     return T.init(data: data)
   }
 
-  public func _asInlineFragment<T: SelectionSet>(
+  @inlinable public func _asInlineFragment<T: SelectionSet>(
     if conditions: [Selection.Condition]
   ) -> T? where T.Schema == Schema {
     _asInlineFragment(if: Selection.Conditions([conditions]))
   }
 
-  public func _asInlineFragment<T: SelectionSet>(
+  @inlinable public func _asInlineFragment<T: SelectionSet>(
     if condition: Selection.Condition
   ) -> T? where T.Schema == Schema {
     _asInlineFragment(if: Selection.Conditions(condition))
   }
 
-  public func hash(into hasher: inout Hasher) {
+  @inlinable public func hash(into hasher: inout Hasher) {
     hasher.combine(data)
   }
 
-  public static func ==(lhs: Self, rhs: Self) -> Bool {
+  @inlinable public static func ==(lhs: Self, rhs: Self) -> Bool {
     return lhs.data == rhs.data
   }
 }

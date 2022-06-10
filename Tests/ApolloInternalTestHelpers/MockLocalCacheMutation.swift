@@ -22,9 +22,12 @@ open class MockLocalCacheMutationFromSubscription<SelectionSet: MutableRootSelec
   override open class var operationType: GraphQLOperationType { .subscription }
 }
 
-public protocol MockMutableRootSelectionSet: MutableRootSelectionSet {}
+public protocol MockMutableRootSelectionSet: MutableRootSelectionSet
+where Schema == MockSchemaConfiguration {}
 
 public extension MockMutableRootSelectionSet {
-  static var schema: SchemaConfiguration.Type { MockSchemaConfiguration.self }
   static var __parentType: ParentType { .Object(Object.self) }
 }
+
+public protocol MockMutableInlineFragment: MutableSelectionSet, InlineFragment
+where Schema == MockSchemaConfiguration {}
