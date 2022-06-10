@@ -259,6 +259,7 @@
 		DE71FDBE2853B6D3005FA9CC /* LocalCacheMutationDefinitionTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE71FDBD2853B6D3005FA9CC /* LocalCacheMutationDefinitionTemplateTests.swift */; };
 		DE71FDC02853C242005FA9CC /* OperationTemplateRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE71FDBF2853C242005FA9CC /* OperationTemplateRenderer.swift */; };
 		DE71FDC22853C4C8005FA9CC /* MockLocalCacheMutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE71FDC12853C4C8005FA9CC /* MockLocalCacheMutation.swift */; };
+		DE71FDC42853D681005FA9CC /* SelectionSetTemplate_LocalCacheMutation_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE71FDC32853D681005FA9CC /* SelectionSetTemplate_LocalCacheMutation_Tests.swift */; };
 		DE736F4626FA6EE6007187F2 /* InflectorKit in Frameworks */ = {isa = PBXBuildFile; productRef = E6E4209126A7DF4200B82624 /* InflectorKit */; };
 		DE796429276998B000978A03 /* IR+RootFieldBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE796428276998B000978A03 /* IR+RootFieldBuilder.swift */; };
 		DE79642B276999E700978A03 /* IRNamedFragmentBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE79642A276999E700978A03 /* IRNamedFragmentBuilderTests.swift */; };
@@ -1148,6 +1149,7 @@
 		DE71FDBD2853B6D3005FA9CC /* LocalCacheMutationDefinitionTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalCacheMutationDefinitionTemplateTests.swift; sourceTree = "<group>"; };
 		DE71FDBF2853C242005FA9CC /* OperationTemplateRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationTemplateRenderer.swift; sourceTree = "<group>"; };
 		DE71FDC12853C4C8005FA9CC /* MockLocalCacheMutation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockLocalCacheMutation.swift; sourceTree = "<group>"; };
+		DE71FDC32853D681005FA9CC /* SelectionSetTemplate_LocalCacheMutation_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionSetTemplate_LocalCacheMutation_Tests.swift; sourceTree = "<group>"; };
 		DE796428276998B000978A03 /* IR+RootFieldBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IR+RootFieldBuilder.swift"; sourceTree = "<group>"; };
 		DE79642A276999E700978A03 /* IRNamedFragmentBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IRNamedFragmentBuilderTests.swift; sourceTree = "<group>"; };
 		DE79642C27699A6A00978A03 /* IR+NamedFragmentBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IR+NamedFragmentBuilder.swift"; sourceTree = "<group>"; };
@@ -2288,6 +2290,7 @@
 			isa = PBXGroup;
 			children = (
 				DE296536279B3B8200BF9B49 /* SelectionSetTemplateTests.swift */,
+				DE71FDC32853D681005FA9CC /* SelectionSetTemplate_LocalCacheMutation_Tests.swift */,
 				DE296538279B3B8200BF9B49 /* SelectionSetTemplate_RenderOperation_Tests.swift */,
 			);
 			path = SelectionSet;
@@ -3957,6 +3960,7 @@
 				E6EFDD0B27E8328E00B17FE5 /* TemplateRenderer_SchemaFile_Tests.swift in Sources */,
 				E6A6866627F63BDC008A1D13 /* FileGenerator_ResolvePath_Tests.swift in Sources */,
 				9F62DF8E2590539A00E6E808 /* SchemaIntrospectionTests.swift in Sources */,
+				DE71FDC42853D681005FA9CC /* SelectionSetTemplate_LocalCacheMutation_Tests.swift in Sources */,
 				E6D90D0D278FFE35009CAC5D /* SchemaFileGeneratorTests.swift in Sources */,
 				E6B42D0B27A4746800A3BD58 /* SchemaModuleFileGeneratorTests.swift in Sources */,
 				9B68F0552416B33300E97318 /* LineByLineComparison.swift in Sources */,

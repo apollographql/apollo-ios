@@ -4,10 +4,12 @@ import InflectorKit
 struct SelectionSetTemplate {
 
   let schema: IR.Schema
+  let isMutable: Bool
   private let nameCache: SelectionSetNameCache
 
-  init(schema: IR.Schema) {
+  init(schema: IR.Schema, mutable: Bool = false) {
     self.schema = schema
+    self.isMutable = mutable
     self.nameCache = SelectionSetNameCache(schema: schema)
   }
 
@@ -15,7 +17,7 @@ struct SelectionSetTemplate {
   func render(for operation: IR.Operation) -> String {
     TemplateString(
     """
-    public struct Data: \(schema.name.firstUppercased).SelectionSet {
+    public struct Data: \(SelectionSetType()) {
       \(BodyTemplate(operation.rootField.selectionSet))
     }
     """
@@ -27,7 +29,7 @@ struct SelectionSetTemplate {
     TemplateString(
     """
     \(SelectionSetNameDocumentation(field.selectionSet))
-    public struct \(field.formattedFieldName): \(schema.name.firstUppercased).SelectionSet {
+    public struct \(field.formattedFieldName): \(SelectionSetType()) {
       \(BodyTemplate(field.selectionSet))
     }
     """
@@ -39,11 +41,28 @@ struct SelectionSetTemplate {
     TemplateString(
     """
     \(SelectionSetNameDocumentation(inlineFragment))
-    public struct \(inlineFragment.renderedTypeName): \(schema.name.firstUppercased).InlineFragment {
+    public struct \(inlineFragment.renderedTypeName): \(SelectionSetType(asInlineFragment: true)) {
       \(BodyTemplate(inlineFragment))
     }
     """
     ).description
+  }
+
+  // MARK: - Selection Set Type
+  private func SelectionSetType(asInlineFragment: Bool = false) -> TemplateString {
+    let selectionSetTypeName: String
+    switch (isMutable, asInlineFragment) {
+    case (false, false):
+      selectionSetTypeName = "SelectionSet"
+    case (false, true):
+      selectionSetTypeName = "InlineFragment"
+    case (true, false):
+      selectionSetTypeName = "MutableSelectionSet"
+    case (true, true):
+      selectionSetTypeName = "MutableInlineFragment"
+    }
+
+    return "\(schema.name.firstUppercased).\(selectionSetTypeName)"
   }
 
   // MARK: - Selection Set Name Documentation

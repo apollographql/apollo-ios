@@ -11,6 +11,12 @@ where Schema == AnimalKingdomAPI.Schema {}
 public protocol InlineFragment: ApolloAPI.SelectionSet & ApolloAPI.InlineFragment
 where Schema == AnimalKingdomAPI.Schema {}
 
+public protocol MutableSelectionSet: ApolloAPI.MutableRootSelectionSet
+where Schema == AnimalKingdomAPI.Schema {}
+
+public protocol MutableInlineFragment: ApolloAPI.MutableSelectionSet & ApolloAPI.InlineFragment
+where Schema == AnimalKingdomAPI.Schema {}
+
 public enum Schema: SchemaConfiguration {
   public static func objectType(forTypename __typename: String) -> Object.Type? {
     switch __typename {

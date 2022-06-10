@@ -35,7 +35,7 @@ class SelectionSetTemplate_RenderOperation_Tests: XCTestCase {
 
   // MARK: - Tests
 
-  func test__render__givenOperationWithName_rendersDeclarationWithName() throws {
+  func test__render__givenOperationWithName_rendersDeclaration() throws {
     // given
     schemaSDL = """
     type Query {
