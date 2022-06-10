@@ -80,7 +80,7 @@ struct SelectionSetTemplate {
     let selections = selectionSet.selections
     let scope = selectionSet.typeInfo.scope
     return """
-    \(Self.DataFieldAndInitializerTemplate)
+    \(DataFieldAndInitializerTemplate())
 
     \(ParentTypeTemplate(selectionSet.parentType))
     \(ifLet: selections.direct?.groupedByInclusionCondition, { SelectionsTemplate($0, in: scope) })
@@ -97,10 +97,12 @@ struct SelectionSetTemplate {
     """
   }
 
-  private static let DataFieldAndInitializerTemplate = """
-    public let data: DataDict
+  private func DataFieldAndInitializerTemplate() -> String {
+    """
+    public \(isMutable ? "var" : "let") data: DataDict
     public init(data: DataDict) { self.data = data }
     """
+  }
 
   private func ParentTypeTemplate(_ type: GraphQLCompositeType) -> String {
     "public static var __parentType: ParentType { .\(type.parentTypeEnumType)(\(schema.name.firstUppercased).\(type.name.firstUppercased).self) }"
@@ -218,8 +220,16 @@ struct SelectionSetTemplate {
     }()
     return """
     public var \(field.responseKey.firstLowercased): \
-    \(typeName(for: field, forceOptional: isConditionallyIncluded)) \
-    { data["\(field.responseKey)"] }
+    \(typeName(for: field, forceOptional: isConditionallyIncluded)) {\(if: isMutable,
+    """
+
+      get { data["\(field.responseKey)"] }
+      set { data["\(field.responseKey)"] = newValue }
+    }
+    """, else:
+    """
+     data["\(field.responseKey)"] }
+    """)
     """
   }
 
@@ -255,7 +265,7 @@ struct SelectionSetTemplate {
 
     return """
     public struct Fragments: FragmentContainer {
-      \(Self.DataFieldAndInitializerTemplate)
+      \(DataFieldAndInitializerTemplate())
 
       \(ifLet: selections.direct?.fragments.values, {
         "\($0.map { FragmentAccessorTemplate($0, in: scope) }, separator: "\n")"
