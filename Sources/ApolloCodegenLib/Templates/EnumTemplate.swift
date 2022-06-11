@@ -6,15 +6,16 @@ import ApolloUtils
 struct EnumTemplate: TemplateRenderer {
   /// IR representation of source [GraphQL Enum](https://spec.graphql.org/draft/#sec-Enums).
   let graphqlEnum: GraphQLEnumType
-  /// Shared codegen configuration
-  var config: ReferenceWrapped<ApolloCodegenConfiguration>
+  /// Shared codegen configuration.
+  let config: ReferenceWrapped<ApolloCodegenConfiguration>
 
   var target: TemplateTarget { .schemaFile }
 
   var template: TemplateString {
     TemplateString(
     """
-    public enum \(graphqlEnum.name.firstUppercased): String, EnumType {
+    \(embeddedAccessControlModifier(config: config) ?? "")\
+    enum \(graphqlEnum.name.firstUppercased): String, EnumType {
       \(graphqlEnum.values.compactMap({
         evaluateDeprecation(graphqlEnumValue: $0, config: config)
       }), separator: "\n")

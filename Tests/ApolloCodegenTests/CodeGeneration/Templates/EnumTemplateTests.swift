@@ -22,7 +22,7 @@ class EnumTemplateTests: XCTestCase {
   ///   - values: A tuple that combines the value name and optional deprecation reason.
   ///   - config: Code generation configuration.
   private func buildSubject(
-    name: String = "testEnum",
+    name: String = "TestEnum",
     values: [(String, String?)] = [("ONE", nil), ("TWO", nil)],
     config: ApolloCodegenConfiguration = ApolloCodegenConfiguration.mock()
   ) {
@@ -41,29 +41,9 @@ class EnumTemplateTests: XCTestCase {
 
   // MARK: Enum Tests
 
-  func test_render_givenSchemaEnum_generatesSwiftEnum() throws {
+  func test_render_givenModuleType_swiftPackageManager_generatesSwiftEnum_withPublicModifier() {
     // given
-    buildSubject()
-
-    let expected = """
-    public enum TestEnum: String, EnumType {
-      case ONE
-      case TWO
-    }
-    """
-
-    // when
-    let actual = renderSubject()
-
-    // then
-    expect(actual).to(equalLineByLine(expected))
-  }
-
-  // MARK: Casing Tests
-
-  func test_render_givenSchemaEnum_generatesSwiftEnumNameFirstUppercased() throws {
-    // given
-    buildSubject(name: "testEnum")
+    buildSubject(config: .mock(.swiftPackageManager))
 
     let expected = """
     public enum TestEnum: String, EnumType {
@@ -76,7 +56,54 @@ class EnumTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
-  func test_render_givenSchemaEnum_generatesSwiftEnumRespectingCase() throws {
+  func test_render_givenModuleType_other_generatesSwiftEnum_withPublicModifier() {
+    // given
+    buildSubject(config: .mock(.other))
+
+    let expected = """
+    public enum TestEnum: String, EnumType {
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test_render_givenModuleType_embeddedInTarget_generatesSwiftEnum_noPublicModifier() {
+    // given
+    buildSubject(config: .mock(.embeddedInTarget(name: "TestTarget")))
+
+    let expected = """
+    enum TestEnum: String, EnumType {
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  // MARK: Casing Tests
+
+  func test_render_givenSchemaEnum_generatesSwiftEnumNameFirstUppercased() throws {
+    // given
+    buildSubject(name: "anEnum")
+
+    let expected = """
+    enum AnEnum: String, EnumType {
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test_render_givenSchemaEnum_generatesSwiftEnumRespectingValueCasing() throws {
     // given
     buildSubject(
       name: "CasedEnum",
@@ -88,7 +115,7 @@ class EnumTemplateTests: XCTestCase {
     )
 
     let expected = """
-    public enum CasedEnum: String, EnumType {
+    enum CasedEnum: String, EnumType {
       case lower
       case UPPER
       case Capitalized
