@@ -36,6 +36,8 @@ struct GraphQLResolveInfo {
 public struct GraphQLResultError: Error, LocalizedError {
   let path: ResponsePath
 
+  public var pathString: String { path.description }
+
   /// The error that occurred during parsing.
   public let underlying: Error
 
