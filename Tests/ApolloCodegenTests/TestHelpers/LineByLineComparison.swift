@@ -17,9 +17,11 @@ public func equalLineByLine(
   ignoringExtraLines: Bool = false
 ) -> Predicate<String> {
   return Predicate.define() { actual in
-    guard let actualLines = try actual.evaluate()?.lines(startingAt: startLine) else {
-      return PredicateResult(
-        status: .fail,
+    let actualString = try actual.evaluate()
+
+    guard let actualLines = actualString?.lines(startingAt: startLine) else {
+      return PrettyPrintedFailureResult(
+        actual: actualString,
         message: .fail("Insufficient Lines. Check `atLine` value.")
       )
     }
@@ -37,16 +39,16 @@ public func equalLineByLine(
             message: .expectedTo("be equal")
           )
         } else {
-          return PredicateResult(
-            status: .fail,
+          return PrettyPrintedFailureResult(
+            actual: actualString,
             message: .fail("Expected \(expectedLines.count), actual ended at line \(actualLines.count)")
           )
         }
       }
 
       if actualLine != expectedLine {
-        return PredicateResult(
-          status: .fail,
+        return PrettyPrintedFailureResult(
+          actual: actualString,
           message: .fail("Line \(index + 1) did not match. Expected \"\(expectedLine)\", got \"\(actualLine)\".")
         )
       }
@@ -64,6 +66,20 @@ public func equalLineByLine(
       message: .expectedTo("be equal")
     )
   }
+}
+
+fileprivate func PrettyPrintedFailureResult(
+  actual: String?,
+  message: ExpectationMessage
+) -> PredicateResult {
+  if let actual = actual {
+    print ("Actual Document:")
+    print(actual)
+  }
+  return PredicateResult(
+    status: .fail,
+    message: message
+  )
 }
 
 extension String {
