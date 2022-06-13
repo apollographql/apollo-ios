@@ -143,7 +143,7 @@ class EnumTemplateTests: XCTestCase {
     )
 
     let expected = """
-    public enum TestEnum: String, EnumType {
+    enum TestEnum: String, EnumType {
       case ONE
       case TWO
       case THREE
@@ -169,7 +169,7 @@ class EnumTemplateTests: XCTestCase {
     )
 
     let expected = """
-    public enum TestEnum: String, EnumType {
+    enum TestEnum: String, EnumType {
       case TWO
     }
     """
