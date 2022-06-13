@@ -113,6 +113,43 @@ class FragmentTemplateTests: XCTestCase {
     expect(String(actual.reversed())).to(equalLineByLine("}", ignoringExtraLines: true))
   }
 
+  func test__render__givenFragment__asLocalCacheMutation_generatesFragmentDefinitionStrippingLocalCacheMutationDirective() throws {
+    // given
+    document = """
+    fragment TestFragment on Query @apollo_client_ios_localCacheMutation {
+      allAnimals {
+        species
+      }
+    }
+    """
+
+    let expected =
+    """
+    public struct TestFragment: TestSchema.MutableSelectionSet, Fragment {
+      public static var fragmentDefinition: StaticString { ""\"
+        fragment TestFragment on Query {
+          __typename
+          allAnimals {
+            __typename
+            species
+          }
+        }
+        ""\" }
+
+      public let data: DataDict
+      public init(data: DataDict) { self.data = data }
+    """
+
+    // when
+    try buildSubjectAndFragment()
+
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+    expect(String(actual.reversed())).to(equalLineByLine("}", ignoringExtraLines: true))
+  }
+
   func test__render__givenLowercaseFragment_generatesTitleCaseTypeName() throws {
     // given
     document = """
@@ -258,9 +295,9 @@ class FragmentTemplateTests: XCTestCase {
     // when
     try buildSubjectAndFragment()
     let actual = renderSubject()
-
+    
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 14, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
   }
 
 }

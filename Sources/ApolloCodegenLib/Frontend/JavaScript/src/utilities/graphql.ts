@@ -17,8 +17,11 @@ import {
   visit,
   GraphQLError,
   DocumentNode,
+  DirectiveNode,
 } from "graphql";
+import { isNode } from "graphql/language/ast";
 import { validateSDL } from "graphql/validation/validate";
+import { directive_apollo_client_ios_localCacheMutation } from "./apolloCodegenSchemaExtension";
 
 export class GraphQLSchemaValidationError extends Error {
   constructor(public validationErrors: readonly GraphQLError[]) {
@@ -61,8 +64,9 @@ const typenameField: FieldNode = {
 
 export function transformToNetworkRequestSourceDefinition(ast: ASTNode) {
   return visit(ast, {    
-    SelectionSet: {      
-      leave(node: SelectionSetNode) {
+    SelectionSet: {           
+      leave(node: SelectionSetNode, _, parent) { 
+        if (isNode(parent) && parent.kind == Kind.OPERATION_DEFINITION) { return node }
         return addTypenameFieldToSelectionSetIfNeeded(node) 
       }
     },
@@ -70,11 +74,16 @@ export function transformToNetworkRequestSourceDefinition(ast: ASTNode) {
       enter(node: FieldNode) {
         return transformTypenameFieldIfNeeded(node)
       }
+    },
+    Directive: {
+      enter(node: DirectiveNode) {
+        return stripLocalCacheMutationCustomClientDirective(node)
+      }
     }
   });
 }
 
-function addTypenameFieldToSelectionSetIfNeeded(node: SelectionSetNode): SelectionSetNode {
+function addTypenameFieldToSelectionSetIfNeeded(node: SelectionSetNode): SelectionSetNode {    
   const hasTypenameField = node.selections.find((selection) => 
     selection.kind == typenameField.kind && selection.name.value == typenameField.name.value
   );
@@ -99,6 +108,10 @@ function transformTypenameFieldIfNeeded(node: FieldNode): FieldNode {
   } else {
     return node;
   }
+}
+
+function stripLocalCacheMutationCustomClientDirective(node: DirectiveNode): DirectiveNode | null {
+  return (node.name.value == directive_apollo_client_ios_localCacheMutation.name.value) ? null : node;
 }
 
 // Utility functions extracted from graphql-js

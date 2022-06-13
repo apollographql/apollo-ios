@@ -46,13 +46,12 @@ interface Pet {
       false
     );
 
-    it("operation definition should have source including __typename field ", () => {
+    it("operation definition should have source including __typename field.", () => {
       const compilationResult: CompilationResult = compileDocument(schema, document);
       const operation = compilationResult.operations[0];
 
       const expected: string = 
 `query Test {
-  __typename
   allAnimals {
     __typename
     species
@@ -70,7 +69,43 @@ interface Pet {
   describe("given query including __typename field with directive", () => {
     const documentString: string = 
 `query Test {
-  __typename @include(if: true)
+  allAnimals {        
+    __typename @include(if: true)
+    species
+    ... on Pet {
+      name
+    }
+  }
+}`;
+
+    const document: DocumentNode = parseDocument(
+      new Source(documentString, "Test Query", { line: 1, column: 1 }),
+      false
+    );
+
+    it("operation definition should have source including __typename field with no directives.", () => {
+      const compilationResult: CompilationResult = compileDocument(schema, document);
+      const operation = compilationResult.operations[0];
+
+      const expected: string = 
+`query Test {
+  allAnimals {
+    __typename
+    species
+    ... on Pet {
+      __typename
+      name
+    }
+  }
+}`;
+            
+      expect(operation.source).toEqual(expected);
+    });
+  });
+
+  describe("given query with local cache mutation directive", () => {
+    const documentString: string = 
+`query Test @apollo_client_ios_localCacheMutation {
   allAnimals {        
     species
     ... on Pet {
@@ -84,13 +119,12 @@ interface Pet {
       false
     );
 
-    it("operation definition should have source including __typename field with no directives", () => {
+    it("operation definition should have source not including local cache mutation directive.", () => {
       const compilationResult: CompilationResult = compileDocument(schema, document);
       const operation = compilationResult.operations[0];
 
       const expected: string = 
 `query Test {
-  __typename
   allAnimals {
     __typename
     species
