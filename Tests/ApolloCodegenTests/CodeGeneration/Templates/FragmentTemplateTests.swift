@@ -43,13 +43,17 @@ class FragmentTemplateTests: XCTestCase {
 
   // MARK: - Helpers
 
-  private func buildSubjectAndFragment(named fragmentName: String = "TestFragment") throws {
+  private func buildSubjectAndFragment(
+    named fragmentName: String = "TestFragment",
+    isMutable: Bool = false
+  ) throws {
     ir = try .mock(schema: schemaSDL, document: document)
     let fragmentDefinition = try XCTUnwrap(ir.compilationResult[fragment: fragmentName])
     fragment = ir.build(fragment: fragmentDefinition)
     subject = FragmentTemplate(
       fragment: fragment,
-      schema: ir.schema
+      schema: ir.schema,
+      isMutable: isMutable
     )
   }
 
@@ -80,6 +84,35 @@ class FragmentTemplateTests: XCTestCase {
 
     // when
     try buildSubjectAndFragment()
+
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+    expect(String(actual.reversed())).to(equalLineByLine("}", ignoringExtraLines: true))
+  }
+
+  func test__render__givenFragment__asLocalCacheMutation_generatesFragmentDeclarationDefinitionAndBoilerplate() throws {
+    // given
+    let expected =
+    """
+    public struct TestFragment: TestSchema.MutableSelectionSet, Fragment {
+      public static var fragmentDefinition: StaticString { ""\"
+        fragment TestFragment on Query {
+          __typename
+          allAnimals {
+            __typename
+            species
+          }
+        }
+        ""\" }
+
+      public let data: DataDict
+      public init(data: DataDict) { self.data = data }
+    """
+
+    // when
+    try buildSubjectAndFragment(isMutable: true)
 
     let actual = renderSubject()
 
