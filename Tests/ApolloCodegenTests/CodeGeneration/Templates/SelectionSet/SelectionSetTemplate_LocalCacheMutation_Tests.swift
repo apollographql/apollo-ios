@@ -386,7 +386,7 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
 
     let expected = """
         public var animalDetails: AnimalDetails? {
-          get { _toFragment() }
+          get { _toFragment(if: "a") }
           _modify { var f = animalDetails; yield &f; if let newData = f?.data { data = newData } }
           @available(*, unavailable, message: "mutate properties of the fragment instead.")
           set { preconditionFailure() }
