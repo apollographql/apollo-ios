@@ -812,4 +812,70 @@ class SelectionSetTests: XCTestCase {
     expect(actual.asCharacter).to(beNil())
   }
 
+  // MARK: - To Fragment Conversion Tests
+
+  func test__toFragment_givenInclusionCondition_true_returnsFragment() {
+    // given
+    class GivenFragment: MockFragment { }
+
+    class Hero: MockSelectionSet, SelectionSet {
+      typealias Schema = MockSchemaConfiguration
+
+      override class var selections: [Selection] {[
+        .field("__typename", String.self),
+        .include(if: "includeFragment", .fragment(GivenFragment.self))
+      ]}
+
+      public struct Fragments: FragmentContainer {
+        public let data: DataDict
+        public init(data: DataDict) { self.data = data }
+
+        public var givenFragment: GivenFragment? { _toFragment(if: "includeFragment") }
+      }
+    }
+
+    let object: JSONObject = [
+      "__typename": "Human",
+      "name": "Han Solo"
+    ]
+
+    // when
+    let actual = Hero(data: DataDict(object, variables: ["includeFragment": true]))
+
+    // then
+    expect(actual.fragments.givenFragment).toNot(beNil())
+  }
+
+  func test__toFragment_givenInclusionCondition_false_returnsNil() {
+    // given
+    class GivenFragment: MockFragment { }
+
+    class Hero: MockSelectionSet, SelectionSet {
+      typealias Schema = MockSchemaConfiguration
+
+      override class var selections: [Selection] {[
+        .field("__typename", String.self),
+        .include(if: "includeFragment", .fragment(GivenFragment.self))
+      ]}
+
+      public struct Fragments: FragmentContainer {
+        public let data: DataDict
+        public init(data: DataDict) { self.data = data }
+
+        public var givenFragment: GivenFragment? { _toFragment(if: "includeFragment") }
+      }
+    }
+
+    let object: JSONObject = [
+      "__typename": "Human",
+      "name": "Han Solo"
+    ]
+
+    // when
+    let actual = Hero(data: DataDict(object, variables: ["includeFragment": false]))
+
+    // then
+    expect(actual.fragments.givenFragment).to(beNil())
+  }
+
 }
