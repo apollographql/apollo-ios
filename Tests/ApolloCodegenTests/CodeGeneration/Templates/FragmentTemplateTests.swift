@@ -43,17 +43,13 @@ class FragmentTemplateTests: XCTestCase {
 
   // MARK: - Helpers
 
-  private func buildSubjectAndFragment(
-    named fragmentName: String = "TestFragment",
-    isMutable: Bool = false
-  ) throws {
+  private func buildSubjectAndFragment(named fragmentName: String = "TestFragment") throws {
     ir = try .mock(schema: schemaSDL, document: document)
     let fragmentDefinition = try XCTUnwrap(ir.compilationResult[fragment: fragmentName])
     fragment = ir.build(fragment: fragmentDefinition)
     subject = FragmentTemplate(
       fragment: fragment,
-      schema: ir.schema,
-      isMutable: isMutable
+      schema: ir.schema
     )
   }
 
@@ -92,27 +88,23 @@ class FragmentTemplateTests: XCTestCase {
     expect(String(actual.reversed())).to(equalLineByLine("}", ignoringExtraLines: true))
   }
 
-  func test__render__givenFragment__asLocalCacheMutation_generatesFragmentDeclarationDefinitionAndBoilerplate() throws {
+  func test__render__givenFragment__asLocalCacheMutation_generatesFragmentDeclarationDefinitionAsMutableSelectionSetAndBoilerplate() throws {
     // given
+    document = """
+    fragment TestFragment on Query @apollo_client_ios_localCacheMutation {
+      allAnimals {
+        species
+      }
+    }
+    """
+
     let expected =
     """
     public struct TestFragment: TestSchema.MutableSelectionSet, Fragment {
-      public static var fragmentDefinition: StaticString { ""\"
-        fragment TestFragment on Query {
-          __typename
-          allAnimals {
-            __typename
-            species
-          }
-        }
-        ""\" }
-
-      public let data: DataDict
-      public init(data: DataDict) { self.data = data }
     """
 
     // when
-    try buildSubjectAndFragment(isMutable: true)
+    try buildSubjectAndFragment()
 
     let actual = renderSubject()
 

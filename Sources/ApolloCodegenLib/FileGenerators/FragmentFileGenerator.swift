@@ -7,7 +7,7 @@ struct FragmentFileGenerator: FileGenerator {
   /// Source IR schema.
   let schema: IR.Schema
   
-  var template: TemplateRenderer { FragmentTemplate(fragment: irFragment, schema: schema, isMutable: false) }
+  var template: TemplateRenderer { FragmentTemplate(fragment: irFragment, schema: schema) }
   var target: FileTarget { .fragment(irFragment.definition) }
   var fileName: String { "\(irFragment.definition.name).swift" }
 }

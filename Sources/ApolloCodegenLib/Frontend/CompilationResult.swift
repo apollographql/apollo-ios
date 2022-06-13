@@ -2,6 +2,9 @@ import JavaScriptCore
 
 /// The output of the frontend compiler.
 public class CompilationResult: JavaScriptObject {
+  private enum Constants {
+    static let LocalCacheMutationDirectiveName = "apollo_client_ios_localCacheMutation"
+  }
   lazy var referencedTypes: [GraphQLNamedType] = self["referencedTypes"]
 
   lazy var operations: [OperationDefinition] = self["operations"]
@@ -38,7 +41,7 @@ public class CompilationResult: JavaScriptObject {
     }
 
     lazy var isLocalCacheMutation: Bool = {
-      directives?.contains { $0.name == "apollo_client_ios_localCacheMutation" } ?? false
+      directives?.contains { $0.name == Constants.LocalCacheMutationDirectiveName } ?? false
     }()
 
     lazy var nameWithSuffix: String = {
@@ -97,6 +100,12 @@ public class CompilationResult: JavaScriptObject {
     lazy var source: String = self["source"]
     
     lazy var filePath: String = self["filePath"]
+
+    lazy var directives: [Directive]? = self["directives"]
+
+    lazy var isLocalCacheMutation: Bool = {
+      directives?.contains { $0.name == Constants.LocalCacheMutationDirectiveName } ?? false
+    }()
 
     public override var debugDescription: String {
       "\(name) on \(type.debugDescription)"

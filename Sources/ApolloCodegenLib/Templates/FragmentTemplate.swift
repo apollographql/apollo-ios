@@ -10,12 +10,11 @@ struct FragmentTemplate: TemplateRenderer {
 
   var target: TemplateTarget { .operationFile }
 
-  var isMutable: Bool
-
   var template: TemplateString {
     TemplateString(
     """
-    public struct \(fragment.name.firstUppercased): \(schema.name).\(if: isMutable, "Mutable")SelectionSet, Fragment {
+    public struct \(fragment.name.firstUppercased): \(schema.name)\
+    .\(if: isMutable, "Mutable")SelectionSet, Fragment {
       public static var fragmentDefinition: StaticString { ""\"
         \(fragment.definition.source)
         ""\" }
@@ -23,5 +22,9 @@ struct FragmentTemplate: TemplateRenderer {
       \(SelectionSetTemplate(schema: schema).BodyTemplate(fragment.rootField.selectionSet))
     }
     """)
+  }
+
+  private var isMutable: Bool {
+    fragment.definition.isLocalCacheMutation
   }
 }

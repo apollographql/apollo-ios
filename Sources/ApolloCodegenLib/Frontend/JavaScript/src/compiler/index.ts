@@ -214,6 +214,8 @@ export function compileToIR(
       fragmentDefinition.typeCondition
     ) as GraphQLCompositeType;
 
+    const [directives,] = compileDirectives(fragmentDefinition.directives) ?? [undefined, undefined];
+
     addReferencedType(getNamedType(typeCondition));
 
     return {
@@ -225,6 +227,7 @@ export function compileToIR(
         fragmentDefinition.selectionSet,
         typeCondition
       ),
+      directives: directives
     };
   }
 
