@@ -16,7 +16,7 @@ struct UnionTemplate: TemplateRenderer {
   var template: TemplateString {
     TemplateString(
     """
-    \(embeddedAccessControlModifier(config: config) ?? "")\
+    \(embeddedAccessControlModifier(config: config))\
     enum \(graphqlUnion.name.firstUppercased): Union {
       public static let possibleTypes: [Object.Type] = [
         \(graphqlUnion.types.map({ type in

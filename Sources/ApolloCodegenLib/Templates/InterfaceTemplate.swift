@@ -14,7 +14,7 @@ struct InterfaceTemplate: TemplateRenderer {
   var template: TemplateString {
     TemplateString(
     """
-    \(embeddedAccessControlModifier(config: config) ?? "")\
+    \(embeddedAccessControlModifier(config: config))\
     final class \(graphqlInterface.name.firstUppercased): Interface { }
     """
     )

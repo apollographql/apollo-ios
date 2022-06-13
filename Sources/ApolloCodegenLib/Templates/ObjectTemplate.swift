@@ -14,7 +14,7 @@ struct ObjectTemplate: TemplateRenderer {
   var template: TemplateString {
     TemplateString(
     """
-    \(embeddedAccessControlModifier(config: config) ?? "")\
+    \(embeddedAccessControlModifier(config: config))\
     final class \(graphqlObject.name.firstUppercased): Object {
       override public class var __typename: StaticString { \"\(graphqlObject.name.firstUppercased)\" }
 

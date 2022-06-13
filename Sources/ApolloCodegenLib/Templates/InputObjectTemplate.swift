@@ -16,7 +16,7 @@ struct InputObjectTemplate: TemplateRenderer {
   var template: TemplateString {
     TemplateString(
     """
-    \(embeddedAccessControlModifier(config: config) ?? "")\
+    \(embeddedAccessControlModifier(config: config))\
     struct \(graphqlInputObject.name.firstUppercased): InputObject {
       public private(set) var data: InputDict
     

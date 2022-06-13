@@ -17,20 +17,20 @@ struct SchemaTemplate: TemplateRenderer {
   var embeddableTemplate: TemplateString {
     TemplateString(
     """
-    \(embeddedAccessControlModifier(config: config) ?? "")\
+    \(embeddedAccessControlModifier(config: config))\
     typealias ID = String
 
     \(if: !config.output.schemaTypes.isInModule,
       TemplateString("""
-      \(embeddedAccessControlModifier(config: config) ?? "")\
+      \(embeddedAccessControlModifier(config: config))\
       typealias SelectionSet = \(schemaName)_SelectionSet
 
-      \(embeddedAccessControlModifier(config: config) ?? "")\
+      \(embeddedAccessControlModifier(config: config))\
       typealias InlineFragment = \(schemaName)_InlineFragment
       """),
     else: protocolDefinition(prefix: nil, schemaName: schemaName))
 
-    \(embeddedAccessControlModifier(config: config) ?? "")\
+    \(embeddedAccessControlModifier(config: config))\
     enum Schema: SchemaConfiguration {
       public static func objectType(forTypename __typename: String) -> Object.Type? {
         switch __typename {
