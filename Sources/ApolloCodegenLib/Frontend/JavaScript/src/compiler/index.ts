@@ -2,7 +2,7 @@ import {
   getFieldDef,
   isMetaFieldName,
   isNotNullOrUndefined,
-  withTypenameFieldAddedWhereNeeded,
+  transformToNetworkRequestSourceDefinition,
 } from "../utilities";
 import {
   ArgumentNode,
@@ -180,7 +180,7 @@ export function compileToIR(
       }
     );
 
-    const source = print(withTypenameFieldAddedWhereNeeded(operationDefinition));
+    const source = print(transformToNetworkRequestSourceDefinition(operationDefinition));
     const rootType = schema.getRootType(operationType) as GraphQLObjectType;
     const [directives,] = compileDirectives(operationDefinition.directives) ?? [undefined, undefined];
 
@@ -207,7 +207,7 @@ export function compileToIR(
     const name = fragmentDefinition.name.value;
 
     const filePath = filePathForNode(fragmentDefinition);
-    const source = print(withTypenameFieldAddedWhereNeeded(fragmentDefinition));
+    const source = print(transformToNetworkRequestSourceDefinition(fragmentDefinition));
 
     const typeCondition = typeFromAST(
       schema,

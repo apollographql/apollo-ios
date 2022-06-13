@@ -54,39 +54,51 @@ export function isMetaFieldName(name: string) {
   return name.startsWith("__");
 }
 
-const typenameField = {
+const typenameField: FieldNode = {
   kind: Kind.FIELD,
   name: { kind: Kind.NAME, value: "__typename" },
 };
 
-export function withTypenameFieldAddedWhereNeeded(ast: ASTNode) {
+export function transformToNetworkRequestSourceDefinition(ast: ASTNode) {
   return visit(ast, {    
-    SelectionSet(node: SelectionSetNode) {
-      return {
-        ...node,
-        selections: node.selections.filter(
-          (selection) =>
-            !(
-              selection.kind === "Field" &&
-              (selection as FieldNode).name.value === "__typename"
-            )
-        ),
-      };
+    SelectionSet: {      
+      leave(node: SelectionSetNode) {
+        return addTypenameFieldToSelectionSetIfNeeded(node) 
+      }
     },
-    leave(node: ASTNode) {
-      if (!(node.kind === "Field" || node.kind === "FragmentDefinition"))
-        return undefined;
-      if (!node.selectionSet) return undefined;
-
-      return {
-        ...node,
-        selectionSet: {
-          ...node.selectionSet,
-          selections: [typenameField, ...node.selectionSet.selections],
-        },
-      };
-    },
+    Field: {
+      enter(node: FieldNode) {
+        return transformTypenameFieldIfNeeded(node)
+      }
+    }
   });
+}
+
+function addTypenameFieldToSelectionSetIfNeeded(node: SelectionSetNode): SelectionSetNode {
+  const hasTypenameField = node.selections.find((selection) => 
+    selection.kind == typenameField.kind && selection.name.value == typenameField.name.value
+  );
+
+  if (hasTypenameField) { 
+    return node
+  } else {
+    return {
+      ...node,        
+      selections: [typenameField, ...node.selections],      
+    };
+  }
+}
+
+function transformTypenameFieldIfNeeded(node: FieldNode): FieldNode {
+  if (node.name.value == typenameField.name.value) {
+    return {
+      ...node,
+      alias: undefined,
+      directives: undefined      
+    }
+  } else {
+    return node;
+  }
 }
 
 // Utility functions extracted from graphql-js
