@@ -295,9 +295,9 @@ class FragmentTemplateTests: XCTestCase {
     // when
     try buildSubjectAndFragment()
     let actual = renderSubject()
-    
+
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 14, ignoringExtraLines: true))
   }
 
 }

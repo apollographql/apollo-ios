@@ -56,7 +56,6 @@ interface Pet {
     __typename
     species
     ... on Pet {
-      __typename
       name
     }
   }
@@ -93,7 +92,6 @@ interface Pet {
     __typename
     species
     ... on Pet {
-      __typename
       name
     }
   }
@@ -129,13 +127,37 @@ interface Pet {
     __typename
     species
     ... on Pet {
-      __typename
       name
     }
   }
 }`;
             
       expect(operation.source).toEqual(expected);
+    });
+  });
+
+  describe("given fragment not including __typename field", () => {
+    const documentString: string = 
+`fragment Test on Animal {  
+  species  
+}`;
+
+    const document: DocumentNode = parseDocument(
+      new Source(documentString, "Test Fragment", { line: 1, column: 1 }),
+      false
+    );
+
+    it("fragment definition should have source including __typename field.", () => {
+      const compilationResult: CompilationResult = compileDocument(schema, document);
+      const fragment = compilationResult.fragments[0];
+
+      const expected: string = 
+`fragment Test on Animal {
+  __typename
+  species
+}`;
+            
+      expect(fragment.source).toEqual(expected);
     });
   });
 });

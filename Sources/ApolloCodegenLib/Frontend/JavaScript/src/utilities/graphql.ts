@@ -63,10 +63,12 @@ const typenameField: FieldNode = {
 };
 
 export function transformToNetworkRequestSourceDefinition(ast: ASTNode) {
-  return visit(ast, {    
+  return visit(ast, {
     SelectionSet: {           
       leave(node: SelectionSetNode, _, parent) { 
-        if (isNode(parent) && parent.kind == Kind.OPERATION_DEFINITION) { return node }
+        if (isNode(parent) && ![Kind.FIELD, Kind.FRAGMENT_DEFINITION].includes(parent.kind)) {
+          return node 
+        }
         return addTypenameFieldToSelectionSetIfNeeded(node) 
       }
     },
