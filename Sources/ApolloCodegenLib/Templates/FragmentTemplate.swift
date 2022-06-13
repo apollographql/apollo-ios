@@ -19,7 +19,10 @@ struct FragmentTemplate: TemplateRenderer {
         \(fragment.definition.source)
         ""\" }
 
-      \(SelectionSetTemplate(schema: schema).BodyTemplate(fragment.rootField.selectionSet))
+      \(SelectionSetTemplate(
+        schema: schema,
+        mutable: isMutable
+      ).BodyTemplate(fragment.rootField.selectionSet))
     }
     """)
   }
