@@ -89,7 +89,7 @@ public class ApolloCodegen {
     for fragment in compilationResult.fragments {
       try autoreleasepool {
         let irFragment = ir.build(fragment: fragment)
-        try FragmentFileGenerator(irFragment: irFragment, schema: ir.schema)
+        try FragmentFileGenerator(irFragment: irFragment, schema: ir.schema, config: config)
           .generate(forConfig: config, fileManager: fileManager)
       }
     }

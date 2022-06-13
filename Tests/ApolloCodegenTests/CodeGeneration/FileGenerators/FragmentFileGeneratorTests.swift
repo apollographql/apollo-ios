@@ -2,6 +2,7 @@ import XCTest
 import Nimble
 @testable import ApolloCodegenLib
 import ApolloCodegenInternalTestHelpers
+import ApolloUtils
 
 class FragmentFileGeneratorTests: XCTestCase {
   var irFragment: IR.NamedFragment!
@@ -47,7 +48,11 @@ class FragmentFileGeneratorTests: XCTestCase {
     let ir = try IR.mock(schema: schemaSDL, document: operationDocument)
     irFragment = ir.build(fragment: ir.compilationResult.fragments[0])
     
-    subject = FragmentFileGenerator(irFragment: irFragment, schema: ir.schema)
+    subject = FragmentFileGenerator(
+      irFragment: irFragment,
+      schema: ir.schema,
+      config: ReferenceWrapped(value: ApolloCodegenConfiguration.mock())
+    )
   }
 
   // MARK: Property Tests
