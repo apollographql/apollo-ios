@@ -260,6 +260,8 @@
 		DE71FDC02853C242005FA9CC /* OperationTemplateRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE71FDBF2853C242005FA9CC /* OperationTemplateRenderer.swift */; };
 		DE71FDC22853C4C8005FA9CC /* MockLocalCacheMutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE71FDC12853C4C8005FA9CC /* MockLocalCacheMutation.swift */; };
 		DE71FDC42853D681005FA9CC /* SelectionSetTemplate_LocalCacheMutation_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE71FDC32853D681005FA9CC /* SelectionSetTemplate_LocalCacheMutation_Tests.swift */; };
+		DE71FDC82857CF1E005FA9CC /* AllAnimalsLocalCacheMutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE71FDC62857CF1E005FA9CC /* AllAnimalsLocalCacheMutation.swift */; };
+		DE71FDC92857CF1E005FA9CC /* PetDetailsMutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE71FDC72857CF1E005FA9CC /* PetDetailsMutation.swift */; };
 		DE736F4626FA6EE6007187F2 /* InflectorKit in Frameworks */ = {isa = PBXBuildFile; productRef = E6E4209126A7DF4200B82624 /* InflectorKit */; };
 		DE796429276998B000978A03 /* IR+RootFieldBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE796428276998B000978A03 /* IR+RootFieldBuilder.swift */; };
 		DE79642B276999E700978A03 /* IRNamedFragmentBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE79642A276999E700978A03 /* IRNamedFragmentBuilderTests.swift */; };
@@ -1150,6 +1152,8 @@
 		DE71FDBF2853C242005FA9CC /* OperationTemplateRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationTemplateRenderer.swift; sourceTree = "<group>"; };
 		DE71FDC12853C4C8005FA9CC /* MockLocalCacheMutation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockLocalCacheMutation.swift; sourceTree = "<group>"; };
 		DE71FDC32853D681005FA9CC /* SelectionSetTemplate_LocalCacheMutation_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionSetTemplate_LocalCacheMutation_Tests.swift; sourceTree = "<group>"; };
+		DE71FDC62857CF1E005FA9CC /* AllAnimalsLocalCacheMutation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllAnimalsLocalCacheMutation.swift; sourceTree = "<group>"; };
+		DE71FDC72857CF1E005FA9CC /* PetDetailsMutation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetDetailsMutation.swift; sourceTree = "<group>"; };
 		DE796428276998B000978A03 /* IR+RootFieldBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IR+RootFieldBuilder.swift"; sourceTree = "<group>"; };
 		DE79642A276999E700978A03 /* IRNamedFragmentBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IRNamedFragmentBuilderTests.swift; sourceTree = "<group>"; };
 		DE79642C27699A6A00978A03 /* IR+NamedFragmentBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IR+NamedFragmentBuilder.swift"; sourceTree = "<group>"; };
@@ -2401,6 +2405,7 @@
 			isa = PBXGroup;
 			children = (
 				E66C014127FEB84F00FF5FA1 /* Operations */,
+				DE71FDC52857CF1E005FA9CC /* LocalCacheMutations */,
 				E66C015427FEB86800FF5FA1 /* Schema */,
 				96F32D3A27CCD16B00F3383C /* graphql */,
 				DE3C79A9260A6ACD00D2F4FF /* AnimalKingdomAPI.h */,
@@ -2493,6 +2498,16 @@
 				DE71FDBF2853C242005FA9CC /* OperationTemplateRenderer.swift */,
 			);
 			path = RenderingHelpers;
+			sourceTree = "<group>";
+		};
+		DE71FDC52857CF1E005FA9CC /* LocalCacheMutations */ = {
+			isa = PBXGroup;
+			children = (
+				DE71FDC62857CF1E005FA9CC /* AllAnimalsLocalCacheMutation.swift */,
+				DE71FDC72857CF1E005FA9CC /* PetDetailsMutation.swift */,
+			);
+			name = LocalCacheMutations;
+			path = AnimalKingdomAPI/Sources/LocalCacheMutations;
 			sourceTree = "<group>";
 		};
 		DE90FCD727FCC6D20084CC79 /* Operations */ = {
@@ -4261,6 +4276,7 @@
 				E66C015127FEB84F00FF5FA1 /* WarmBloodedDetails.swift in Sources */,
 				E66C014C27FEB84F00FF5FA1 /* PetDetails.swift in Sources */,
 				E66C016E27FEB86800FF5FA1 /* RelativeSize.swift in Sources */,
+				DE71FDC92857CF1E005FA9CC /* PetDetailsMutation.swift in Sources */,
 				DE223C24271F335D004A0148 /* Resources.swift in Sources */,
 				E66C017C27FEB86800FF5FA1 /* Pet.swift in Sources */,
 				E66C014D27FEB84F00FF5FA1 /* HeightInMeters.swift in Sources */,
@@ -4274,6 +4290,7 @@
 				E66C014F27FEB84F00FF5FA1 /* ClassroomPetsQuery.swift in Sources */,
 				E676333427FF857D00D8B953 /* HousePet.swift in Sources */,
 				E66C014E27FEB84F00FF5FA1 /* ClassroomPetDetails.swift in Sources */,
+				DE71FDC82857CF1E005FA9CC /* AllAnimalsLocalCacheMutation.swift in Sources */,
 				E66C016D27FEB86800FF5FA1 /* SkinCovering.swift in Sources */,
 				E66C017427FEB86800FF5FA1 /* Rat.swift in Sources */,
 				E66C017527FEB86800FF5FA1 /* Height.swift in Sources */,

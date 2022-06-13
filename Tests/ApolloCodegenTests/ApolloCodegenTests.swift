@@ -297,6 +297,9 @@ class ApolloCodegenTests: XCTestCase {
       directoryURL.appendingPathComponent("Sources/Operations/WarmBloodedDetails.swift").path,
       directoryURL.appendingPathComponent("Sources/Operations/PetSearchQuery.swift").path,
 
+      directoryURL.appendingPathComponent("Sources/LocalCacheMutations/AllAnimalsLocalCacheMutation.swift").path,
+      directoryURL.appendingPathComponent("Sources/LocalCacheMutations/PetDetailsMutation.swift").path,
+
       directoryURL.appendingPathComponent("Package.swift").path,
       directoryURL.appendingPathComponent("Sources/Schema/Objects/Dog.swift").path,
       directoryURL.appendingPathComponent("Sources/Schema/Interfaces/HousePet.swift").path,
@@ -393,6 +396,9 @@ class ApolloCodegenTests: XCTestCase {
       directoryURL.appendingPathComponent("Sources/Operations/AllAnimalsCCNQuery.swift").path,
       directoryURL.appendingPathComponent("Sources/Operations/ClassroomPetsCCNQuery.swift").path,
       directoryURL.appendingPathComponent("Sources/Operations/ClassroomPetDetailsCCN.swift").path,
+
+      directoryURL.appendingPathComponent("Sources/LocalCacheMutations/AllAnimalsLocalCacheMutation.swift").path,
+      directoryURL.appendingPathComponent("Sources/LocalCacheMutations/PetDetailsMutation.swift").path,
 
       directoryURL.appendingPathComponent("Package.swift").path,
     ]

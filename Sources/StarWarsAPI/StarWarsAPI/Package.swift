@@ -1,3 +1,6 @@
+import ApolloTestSupport
+import StarWarsAPI
+
 // swift-tools-version:5.3
 
 import PackageDescription
@@ -14,7 +17,7 @@ let package = Package(
     .library(name: "StarWarsAPI", targets: ["StarWarsAPI"]),
   ],
   dependencies: [
-    .package(url: "https://github.com/apollographql/apollo-ios.git", from: "1.0.0-alpha.5"),
+    .package(url: "https://github.com/apollographql/apollo-ios.git", from: "1.0.0-alpha.6"),
   ],
   targets: [
     .target(

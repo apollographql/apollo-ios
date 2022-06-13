@@ -47,5 +47,3 @@ public extension MutableSelectionSet where Fragments: FragmentContainer {
 }
 
 public protocol MutableRootSelectionSet: RootSelectionSet, MutableSelectionSet {}
-
-#warning("!! TODO: Conditionally included fragments are optional but will always be created and crash on field access !!")
