@@ -315,7 +315,7 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
   }
 
-  func test__render_namedFragmentAccessors__givenFragmentWithNoConditions_rendersAccessorWithGetterAndSetter() throws {
+  func test__render_namedFragmentAccessors__givenFragmentWithNoConditions_rendersAccessorWithGetterModifierAndSetterUnavailable() throws {
     // given
     schemaSDL = """
     type Query {
@@ -342,7 +342,54 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
     let expected = """
         public var animalDetails: AnimalDetails {
           get { _toFragment() }
-          set { data._data = newValue.data._data }
+          _modify { var f = animalDetails; yield &f; data = f.data }
+          @available(*, unavailable, message: "mutate properties of the fragment instead.")
+          set { preconditionFailure() }
+        }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 20, ignoringExtraLines: true))
+  }
+
+  func test__render_namedFragmentAccessors__givenFragmentWithConditions_rendersAccessorWithGetterAndSetter() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation($a: Boolean!) @apollo_client_ios_localCacheMutation {
+      allAnimals {
+        ...AnimalDetails @include(if: $a)
+      }
+    }
+
+    fragment AnimalDetails on Animal {
+      species
+    }
+    """
+
+    let expected = """
+        public var animalDetails: AnimalDetails? {
+          get { _toFragment() }
+          _modify { var f = animalDetails; yield &f; if let newData = f?.data { data = newData } }
+          @available(*, unavailable, message: "mutate properties of the fragment instead.")
+          set { preconditionFailure() }
         }
     """
 

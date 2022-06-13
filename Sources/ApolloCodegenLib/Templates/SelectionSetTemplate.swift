@@ -296,14 +296,25 @@ struct SelectionSetTemplate {
     in scope: IR.ScopeDescriptor
   ) -> TemplateString {
     let name = fragment.definition.name
+    let propertyName = name.firstLowercased
+    let typeName = name.firstUppercased
+    let isOptional = fragment.inclusionConditions != nil &&
+    !scope.matches(fragment.inclusionConditions.unsafelyUnwrapped)
+
     return """
-    public var \(name.firstLowercased): \(name.firstUppercased)\
-    \(ifLet: fragment.inclusionConditions, where: { !scope.matches($0) }, "?") {\
+    public var \(propertyName): \(typeName)\
+    \(if: isOptional, "?") {\
     \(if: isMutable,
       """
 
         get { _toFragment() }
-        set { data._data = newValue.data._data }
+        _modify { var f = \(propertyName); yield &f; \(
+          if: isOptional,
+            "if let newData = f?.data { data = newData }",
+          else: "data = f.data"
+        ) }
+        @available(*, unavailable, message: "mutate properties of the fragment instead.")
+        set { preconditionFailure() }
       }
       """,
       else: " _toFragment() }"
