@@ -1,4 +1,5 @@
 import Foundation
+import ApolloUtils
 
 /// Generates a file containing the Swift representation of a [GraphQL Union](https://spec.graphql.org/draft/#sec-Unions).
 struct UnionFileGenerator: FileGenerator {
@@ -6,10 +7,13 @@ struct UnionFileGenerator: FileGenerator {
   let graphqlUnion: GraphQLUnionType
   /// Schema name
   let schemaName: String
+  /// Shared codegen configuration.
+  let config: ReferenceWrapped<ApolloCodegenConfiguration>
 
   var template: TemplateRenderer { UnionTemplate(
     moduleName: schemaName,
-    graphqlUnion: graphqlUnion
+    graphqlUnion: graphqlUnion,
+    config: config
   ) }
   var target: FileTarget { .union }
   var fileName: String { "\(graphqlUnion.name).swift" }
