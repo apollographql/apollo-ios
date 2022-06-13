@@ -1,6 +1,7 @@
 import XCTest
 import Nimble
 @testable import ApolloCodegenLib
+import ApolloUtils
 
 class InputObjectTemplateTests: XCTestCase {
   var subject: InputObjectTemplate!
@@ -14,11 +15,16 @@ class InputObjectTemplateTests: XCTestCase {
     super.tearDown()
   }
 
-  private func buildSubject(name: String = "MockInput", fields: [GraphQLInputField] = []) {
+  private func buildSubject(
+    name: String = "MockInput",
+    fields: [GraphQLInputField] = [],
+    config: ApolloCodegenConfiguration = .mock()
+  ) {
     let schema = IR.Schema(name: "TestSchema", referencedTypes: .init([]))
     subject = InputObjectTemplate(
       graphqlInputObject: GraphQLInputObjectType.mock(name, fields: fields),
-      schema: schema
+      schema: schema,
+      config: ReferenceWrapped(value: config)
     )
   }
 
@@ -26,9 +32,9 @@ class InputObjectTemplateTests: XCTestCase {
     subject.template.description
   }
 
-  // MARK: Boilerplate Tests
+  // MARK: Definition Tests
 
-  func test__render__generatesDefinitionWithInputDictVariableAndInitializer() throws {
+  func test__render__generatesInputObject_withInputDictVariableAndInitializer() throws {
     // given
     buildSubject(
       name: "mockInput",
@@ -36,12 +42,57 @@ class InputObjectTemplateTests: XCTestCase {
     )
 
     let expected = """
-    public struct MockInput: InputObject {
+    struct MockInput: InputObject {
       public private(set) var data: InputDict
 
       public init(_ data: InputDict) {
         self.data = data
       }
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test_render_givenModuleType_swiftPackageManager_generatesInputObject_withPublicModifier() {
+    // given
+    buildSubject(config: .mock(.swiftPackageManager))
+
+    let expected = """
+    public struct MockInput: InputObject {
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test_render_givenModuleType_other_generatesInputObject_withPublicModifier() {
+    // given
+    buildSubject(config: .mock(.other))
+
+    let expected = """
+    public struct MockInput: InputObject {
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test_render_givenModuleType_embeddedInTarget_generatesInputObject_noPublicModifier() {
+    // given
+    buildSubject(config: .mock(.embeddedInTarget(name: "TestTarget")))
+
+    let expected = """
+    struct MockInput: InputObject {
     """
 
     // when
@@ -60,7 +111,7 @@ class InputObjectTemplateTests: XCTestCase {
       fields: [GraphQLInputField.mock("field", type: .scalar(.integer()), defaultValue: nil)]
     )
 
-    let expected = "public struct MockInput: InputObject {"
+    let expected = "struct MockInput: InputObject {"
 
     // when
     let actual = renderSubject()
@@ -76,7 +127,7 @@ class InputObjectTemplateTests: XCTestCase {
       fields: [GraphQLInputField.mock("field", type: .scalar(.integer()), defaultValue: nil)]
     )
 
-    let expected = "public struct MOCKInput: InputObject {"
+    let expected = "struct MOCKInput: InputObject {"
 
     // when
     let actual = renderSubject()
@@ -92,7 +143,7 @@ class InputObjectTemplateTests: XCTestCase {
       fields: [GraphQLInputField.mock("field", type: .scalar(.integer()), defaultValue: nil)]
     )
 
-    let expected = "public struct MOcK_Input: InputObject {"
+    let expected = "struct MOcK_Input: InputObject {"
 
     // when
     let actual = renderSubject()

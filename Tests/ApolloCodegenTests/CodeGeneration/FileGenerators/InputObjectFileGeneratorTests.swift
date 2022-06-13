@@ -1,6 +1,7 @@
 import XCTest
 import Nimble
 @testable import ApolloCodegenLib
+import ApolloUtils
 
 class InputObjectFileGeneratorTests: XCTestCase {
   let graphqlInputObject = GraphQLInputObjectType.mock("MockInputObject")
@@ -15,7 +16,11 @@ class InputObjectFileGeneratorTests: XCTestCase {
 
   private func buildSubject() {
     let schema = IR.Schema(name: "TestSchema", referencedTypes: .init([]))    
-    subject = InputObjectFileGenerator(graphqlInputObject: graphqlInputObject, schema: schema)
+    subject = InputObjectFileGenerator(
+      graphqlInputObject: graphqlInputObject,
+      schema: schema,
+      config: ReferenceWrapped(value: ApolloCodegenConfiguration.mock())
+    )
   }
 
   // MARK: Property Tests

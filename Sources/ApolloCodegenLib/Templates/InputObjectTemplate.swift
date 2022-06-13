@@ -1,19 +1,23 @@
 import Foundation
+import ApolloUtils
 
 /// Provides the format to convert a [GraphQL Input Object](https://spec.graphql.org/draft/#sec-Input-Objects)
 /// into Swift code.
 struct InputObjectTemplate: TemplateRenderer {
   /// IR representation of source [GraphQL Input Object](https://spec.graphql.org/draft/#sec-Input-Objects).
   let graphqlInputObject: GraphQLInputObjectType
-
+  /// IR representation of a GraphQL schema.
   let schema: IR.Schema
+  /// Shared codegen configuration.
+  let config: ReferenceWrapped<ApolloCodegenConfiguration>
 
   var target: TemplateTarget = .schemaFile
 
   var template: TemplateString {
     TemplateString(
     """
-    public struct \(graphqlInputObject.name.firstUppercased): InputObject {
+    \(embeddedAccessControlModifier(config: config) ?? "")\
+    struct \(graphqlInputObject.name.firstUppercased): InputObject {
       public private(set) var data: InputDict
     
       public init(_ data: InputDict) {
