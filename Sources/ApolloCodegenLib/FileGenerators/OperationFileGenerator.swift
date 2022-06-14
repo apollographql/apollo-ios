@@ -10,11 +10,20 @@ struct OperationFileGenerator: FileGenerator {
   /// Shared codegen configuration
   let config: ReferenceWrapped<ApolloCodegenConfiguration>
   
-  var template: TemplateRenderer { OperationDefinitionTemplate(
-    operation: irOperation,
-    schema: schema,
-    config: config
-  ) }
+  var template: TemplateRenderer {
+    irOperation.definition.isLocalCacheMutation ?
+    LocalCacheMutationDefinitionTemplate(
+      operation: irOperation,
+      schema: schema,
+      config: config
+    ) :
+    OperationDefinitionTemplate(
+      operation: irOperation,
+      schema: schema,
+      config: config
+    )
+  }
+
   var target: FileTarget { .operation(irOperation.definition) }
   var fileName: String { "\(irOperation.definition.nameWithSuffix).swift" }
 }

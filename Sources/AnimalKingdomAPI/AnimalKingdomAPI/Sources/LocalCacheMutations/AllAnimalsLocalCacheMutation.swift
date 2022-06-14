@@ -5,28 +5,13 @@ import ApolloAPI
 @_exported import enum ApolloAPI.GraphQLEnum
 @_exported import enum ApolloAPI.GraphQLNullable
 
-public class AllAnimalsLocalCacheMutation: GraphQLQuery {
-  public static let operationName: String = "AllAnimalsLocalCacheMutation"
-  public static let document: DocumentType = .notPersisted(
-    definition: .init(
-      """
-      query AllAnimalsLocalCacheMutation {
-        allAnimals {
-          __typename
-          species
-          skinCovering
-          ... on Bird {
-            wingspan
-          }
-        }
-      }
-      """
-    ))
+public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
+  public static let operationType: GraphQLOperationType = .query
 
   public init() {}
 
-  public struct Data: AnimalKingdomAPI.SelectionSet {
-    public let data: DataDict
+  public struct Data: AnimalKingdomAPI.MutableSelectionSet {
+    public var data: DataDict
     public init(data: DataDict) { self.data = data }
 
     public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Query.self) }
@@ -34,11 +19,14 @@ public class AllAnimalsLocalCacheMutation: GraphQLQuery {
       .field("allAnimals", [AllAnimal].self),
     ] }
 
-    public var allAnimals: [AllAnimal] { data["allAnimals"] }
+    public var allAnimals: [AllAnimal] {
+      get { data["allAnimals"] }
+      set { data["allAnimals"] = newValue }
+    }
 
     /// AllAnimal
-    public struct AllAnimal: AnimalKingdomAPI.SelectionSet {
-      public let data: DataDict
+    public struct AllAnimal: AnimalKingdomAPI.MutableSelectionSet {
+      public var data: DataDict
       public init(data: DataDict) { self.data = data }
 
       public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Animal.self) }
@@ -48,14 +36,23 @@ public class AllAnimalsLocalCacheMutation: GraphQLQuery {
         .inlineFragment(AsBird.self),
       ] }
 
-      public var species: String { data["species"] }
-      public var skinCovering: GraphQLEnum<SkinCovering>? { data["skinCovering"] }
+      public var species: String {
+        get { data["species"] }
+        set { data["species"] = newValue }
+      }
+      public var skinCovering: GraphQLEnum<SkinCovering>? {
+        get { data["skinCovering"] }
+        set { data["skinCovering"] = newValue }
+      }
 
-      public var asBird: AsBird? { _asInlineFragment() }
+      public var asBird: AsBird? {
+        get { _asInlineFragment() }
+        set { if let newData = newValue?.data._data { data._data = newData }}
+      }
 
       /// AllAnimal.AsBird
-      public struct AsBird: AnimalKingdomAPI.InlineFragment {
-        public let data: DataDict
+      public struct AsBird: AnimalKingdomAPI.MutableInlineFragment {
+        public var data: DataDict
         public init(data: DataDict) { self.data = data }
 
         public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Bird.self) }
@@ -63,9 +60,18 @@ public class AllAnimalsLocalCacheMutation: GraphQLQuery {
           .field("wingspan", Float.self),
         ] }
 
-        public var wingspan: Float { data["wingspan"] }
-        public var species: String { data["species"] }
-        public var skinCovering: GraphQLEnum<SkinCovering>? { data["skinCovering"] }
+        public var wingspan: Float {
+          get { data["wingspan"] }
+          set { data["wingspan"] = newValue }
+        }
+        public var species: String {
+          get { data["species"] }
+          set { data["species"] = newValue }
+        }
+        public var skinCovering: GraphQLEnum<SkinCovering>? {
+          get { data["skinCovering"] }
+          set { data["skinCovering"] = newValue }
+        }
       }
     }
   }

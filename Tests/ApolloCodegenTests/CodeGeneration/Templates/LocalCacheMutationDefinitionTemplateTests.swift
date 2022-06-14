@@ -226,6 +226,23 @@ class LocalCacheMutationDefinitionTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
+  func test__generate__givenQuery_generatesSelectionSetsAsMutable() throws {
+    // given
+    let expected =
+    """
+      public struct Data: TestSchema.MutableSelectionSet {
+        public var data: DataDict
+    """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
+  }
+
   // MARK: - Variables
 
    func test__generate__givenQueryWithScalarVariable_generatesQueryOperationWithVariable() throws {
