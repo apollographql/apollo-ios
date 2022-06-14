@@ -301,7 +301,7 @@ class FragmentTemplateTests: XCTestCase {
 
     let expected =
     """
-    public struct TestFragment: TestSchema.MutableSelectionSet, Fragment {
+    struct TestFragment: TestSchema.MutableSelectionSet, Fragment {
     """
 
     // when
@@ -326,7 +326,7 @@ class FragmentTemplateTests: XCTestCase {
 
     let expected =
     """
-    public struct TestFragment: TestSchema.MutableSelectionSet, Fragment {
+    struct TestFragment: TestSchema.MutableSelectionSet, Fragment {
       public static var fragmentDefinition: StaticString { ""\"
         fragment TestFragment on Query {
           __typename
