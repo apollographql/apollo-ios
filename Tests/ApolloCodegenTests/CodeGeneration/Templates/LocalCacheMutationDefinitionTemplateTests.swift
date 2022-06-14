@@ -70,7 +70,7 @@ class LocalCacheMutationDefinitionTemplateTests: XCTestCase {
     // given
     let expected =
     """
-    public class TestOperationLocalCacheMutation: LocalCacheMutation {
+    class TestOperationLocalCacheMutation: LocalCacheMutation {
       public static let operationType: GraphQLOperationType = .query
 
     """
@@ -106,7 +106,7 @@ class LocalCacheMutationDefinitionTemplateTests: XCTestCase {
 
     let expected =
     """
-    public class LowercaseOperationLocalCacheMutation: LocalCacheMutation {
+    class LowercaseOperationLocalCacheMutation: LocalCacheMutation {
       public static let operationType: GraphQLOperationType = .query
 
     """
@@ -132,7 +132,7 @@ class LocalCacheMutationDefinitionTemplateTests: XCTestCase {
 
     let expected =
     """
-    public class TestOperationLocalCacheMutation: LocalCacheMutation {
+    class TestOperationLocalCacheMutation: LocalCacheMutation {
       public static let operationType: GraphQLOperationType = .query
 
     """
@@ -172,7 +172,7 @@ class LocalCacheMutationDefinitionTemplateTests: XCTestCase {
 
     let expected =
     """
-    public class TestOperationLocalCacheMutation: LocalCacheMutation {
+    class TestOperationLocalCacheMutation: LocalCacheMutation {
       public static let operationType: GraphQLOperationType = .mutation
 
     """
@@ -212,7 +212,7 @@ class LocalCacheMutationDefinitionTemplateTests: XCTestCase {
 
     let expected =
     """
-    public class TestOperationLocalCacheMutation: LocalCacheMutation {
+    class TestOperationLocalCacheMutation: LocalCacheMutation {
       public static let operationType: GraphQLOperationType = .subscription
 
     """
@@ -241,6 +241,54 @@ class LocalCacheMutationDefinitionTemplateTests: XCTestCase {
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
+  }
+
+  func test_render_givenModuleType_swiftPackageManager_generatesClassDefinition_withPublicModifier() throws {
+    // given
+    config = .mock(.swiftPackageManager)
+    try buildSubjectAndOperation()
+
+    let expected = """
+    public class TestOperationLocalCacheMutation: LocalCacheMutation {
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test_render_givenModuleType_other_generatesClassDefinition_withPublicModifier() throws {
+    // given
+    config  = .mock(.other)
+    try buildSubjectAndOperation()
+
+    let expected = """
+    public class TestOperationLocalCacheMutation: LocalCacheMutation {
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test_render_givenModuleType_embeddedInTarget_generatesClassDefinition_noPublicModifier() throws {
+    // given
+    config = .mock(.embeddedInTarget(name: "MyOtherProject"))
+    try buildSubjectAndOperation()
+
+    let expected = """
+    class TestOperationLocalCacheMutation: LocalCacheMutation {
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
   // MARK: - Variables
