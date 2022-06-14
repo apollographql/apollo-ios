@@ -74,7 +74,7 @@
 		9BAEEBF32346DDAD00808306 /* CodegenLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAEEBF22346DDAD00808306 /* CodegenLogger.swift */; };
 		9BAEEBF72346F0A000808306 /* StaticString+Apollo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAEEBF62346F0A000808306 /* StaticString+Apollo.swift */; };
 		9BAEEC01234BB8FD00808306 /* ApolloCodegenLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B7B6F47233C26D100F32205 /* ApolloCodegenLib.framework */; };
-		9BAEEC10234BB95B00808306 /* FileManagerExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAEEC0D234BB95B00808306 /* FileManagerExtensionsTests.swift */; };
+		9BAEEC10234BB95B00808306 /* FileManagerExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAEEC0D234BB95B00808306 /* FileManagerExtensionTests.swift */; };
 		9BAEEC17234C275600808306 /* ApolloSchemaPublicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAEEC16234C275600808306 /* ApolloSchemaPublicTests.swift */; };
 		9BAEEC19234C297800808306 /* ApolloCodegenConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAEEC18234C297800808306 /* ApolloCodegenConfigurationTests.swift */; };
 		9BC139A424EDCA6C00876D29 /* MaxRetryInterceptorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC139A224EDCA4400876D29 /* MaxRetryInterceptorTests.swift */; };
@@ -924,7 +924,7 @@
 		9BAEEBF62346F0A000808306 /* StaticString+Apollo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StaticString+Apollo.swift"; sourceTree = "<group>"; };
 		9BAEEBFC234BB8FD00808306 /* ApolloCodegenTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ApolloCodegenTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BAEEC0C234BB95B00808306 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9BAEEC0D234BB95B00808306 /* FileManagerExtensionsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerExtensionsTests.swift; sourceTree = "<group>"; };
+		9BAEEC0D234BB95B00808306 /* FileManagerExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerExtensionTests.swift; sourceTree = "<group>"; };
 		9BAEEC11234BBA9200808306 /* CodegenTestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodegenTestHelper.swift; sourceTree = "<group>"; };
 		9BAEEC16234C275600808306 /* ApolloSchemaPublicTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloSchemaPublicTests.swift; sourceTree = "<group>"; };
 		9BAEEC18234C297800808306 /* ApolloCodegenConfigurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloCodegenConfigurationTests.swift; sourceTree = "<group>"; };
@@ -1867,7 +1867,7 @@
 				E61EF712275EC99A00191DA7 /* ApolloCodegenTests.swift */,
 				9BAEEC18234C297800808306 /* ApolloCodegenConfigurationTests.swift */,
 				E6908E54282694630054682B /* ApolloCodegenConfigurationCodableTests.swift */,
-				9BAEEC0D234BB95B00808306 /* FileManagerExtensionsTests.swift */,
+				9BAEEC0D234BB95B00808306 /* FileManagerExtensionTests.swift */,
 				9B4751AC2575B5070001FB87 /* PluralizerTests.swift */,
 				9B8C3FB4248DA3E000707B13 /* URLExtensionsTests.swift */,
 				9BAEEC0C234BB95B00808306 /* Info.plist */,
@@ -3926,7 +3926,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E669352D2803EF67004E1FFC /* CustomScalarTemplateTests.swift in Sources */,
-				9BAEEC10234BB95B00808306 /* FileManagerExtensionsTests.swift in Sources */,
+				9BAEEC10234BB95B00808306 /* FileManagerExtensionTests.swift in Sources */,
 				E6D90D09278FA5C3009CAC5D /* InputObjectFileGeneratorTests.swift in Sources */,
 				E674DB43274C0AD9009BB90E /* GlobTests.swift in Sources */,
 				DE223C1C271F3288004A0148 /* AnimalKingdomIRCreationTests.swift in Sources */,
