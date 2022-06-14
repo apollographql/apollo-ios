@@ -63,7 +63,7 @@ class InterfaceTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
-  func test_render_givenModuleType_other_generatesSwiftClassDefinition_withPublicModifier_correctlyCased() {
+  func test_render_givenModuleType_other_generatesSwiftClassDefinition_withPublicModifier() {
     // given
     buildSubject(config: .mock(.other))
 
@@ -78,7 +78,7 @@ class InterfaceTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
-  func test_render_givenModuleType_embeddedInTarget_generatesSwiftClassDefinition_noPublicModifier_correctlyCased() {
+  func test_render_givenModuleType_embeddedInTarget_generatesSwiftClassDefinition_noPublicModifier() {
     // given
     buildSubject(config: .mock(.embeddedInTarget(name: "TestTarget")))
 
