@@ -5,14 +5,14 @@ import OrderedCollections
 import ApolloCodegenInternalTestHelpers
 import ApolloUtils
 
-class OperationDefinitionTemplateTests: XCTestCase {
+class LocalCacheMutationDefinitionTemplateTests: XCTestCase {
 
   var schemaSDL: String!
   var document: String!
   var ir: IR!
   var operation: IR.Operation!
   var config: ApolloCodegenConfiguration!
-  var subject: OperationDefinitionTemplate!
+  var subject: LocalCacheMutationDefinitionTemplate!
 
   override func setUp() {
     super.setUp()
@@ -27,7 +27,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
     """
 
     document = """
-    query TestOperation {
+    query TestOperation @apollo_client_ios_localCacheMutation {
       allAnimals {
         species
       }
@@ -53,7 +53,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
     ir = try .mock(schema: schemaSDL, document: document)
     let operationDefinition = try XCTUnwrap(ir.compilationResult[operation: operationName])
     operation = ir.build(operation: operationDefinition)
-    subject = OperationDefinitionTemplate(
+    subject = LocalCacheMutationDefinitionTemplate(
       operation: operation,
       schema: ir.schema,
       config: ReferenceWrapped(value: config)
@@ -66,12 +66,13 @@ class OperationDefinitionTemplateTests: XCTestCase {
 
   // MARK: - Operation Definition
 
-  func test__generate__givenQuery_generatesQueryOperation() throws {
+  func test__generate__givenQuery_generatesLocalCacheMutation() throws {
     // given
     let expected =
     """
-    public class TestOperationQuery: GraphQLQuery {
-      public static let operationName: String = "TestOperation"
+    public class TestOperationLocalCacheMutation: LocalCacheMutation {
+      public static let operationType: GraphQLOperationType = .query
+
     """
 
     // when
@@ -83,10 +84,20 @@ class OperationDefinitionTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
-  func test__generate__givenQueryWithNameEndingInQuery_generatesQueryOperationWithoutDoubledTypeSuffix() throws {
+  func test__generate__givenQueryWithLowercasing_generatesCorrectlyCasedLocalCacheMutation() throws {
     // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      species: String!
+    }
+    """
+
     document = """
-    query TestOperationQuery {
+    query lowercaseOperation($variable: String = "TestVar") @apollo_client_ios_localCacheMutation {
       allAnimals {
         species
       }
@@ -95,12 +106,13 @@ class OperationDefinitionTemplateTests: XCTestCase {
 
     let expected =
     """
-    public class TestOperationQuery: GraphQLQuery {
-      public static let operationName: String = "TestOperationQuery"
+    public class LowercaseOperationLocalCacheMutation: LocalCacheMutation {
+      public static let operationType: GraphQLOperationType = .query
+
     """
 
     // when
-    try buildSubjectAndOperation(named: "TestOperationQuery")
+    try buildSubjectAndOperation(named: "lowercaseOperation")
 
     let actual = renderSubject()
 
@@ -108,7 +120,33 @@ class OperationDefinitionTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
-  func test__generate__givenMutationWithNameEndingInQuery_generatesQueryOperationWithBothSuffixes() throws {
+  func test__generate__givenQueryWithNameEndingInLocalCacheMutation_generatesLocalCacheMutationWithoutDoubledTypeSuffix() throws {
+    // given
+    document = """
+    query TestOperationLocalCacheMutation @apollo_client_ios_localCacheMutation {
+      allAnimals {
+        species
+      }
+    }
+    """
+
+    let expected =
+    """
+    public class TestOperationLocalCacheMutation: LocalCacheMutation {
+      public static let operationType: GraphQLOperationType = .query
+
+    """
+
+    // when
+    try buildSubjectAndOperation(named: "TestOperationLocalCacheMutation")
+
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test__generate__givenMutation_generatesLocalCacheMutation() throws {
     // given
     schemaSDL = """
     type Query {
@@ -125,7 +163,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
     """
 
     document = """
-    mutation TestOperationQuery {
+    mutation TestOperation @apollo_client_ios_localCacheMutation {
       addAnimal {
         species
       }
@@ -134,47 +172,9 @@ class OperationDefinitionTemplateTests: XCTestCase {
 
     let expected =
     """
-    public class TestOperationQueryMutation: GraphQLMutation {
-      public static let operationName: String = "TestOperationQuery"
-    """
+    public class TestOperationLocalCacheMutation: LocalCacheMutation {
+      public static let operationType: GraphQLOperationType = .mutation
 
-    // when
-    try buildSubjectAndOperation(named: "TestOperationQuery")
-
-    let actual = renderSubject()
-
-    // then
-    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
-  }
-
-  func test__generate__givenMutation_generatesMutationOperation() throws {
-    // given
-    schemaSDL = """
-    type Query {
-      allAnimals: [Animal!]
-    }
-
-    type Mutation {
-      addAnimal: Animal!
-    }
-
-    type Animal {
-      species: String!
-    }
-    """
-
-    document = """
-    mutation TestOperation {
-      addAnimal {
-        species
-      }
-    }
-    """
-
-    let expected =
-    """
-    public class TestOperationMutation: GraphQLMutation {
-      public static let operationName: String = "TestOperation"
     """
 
     // when
@@ -203,7 +203,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
     """
 
     document = """
-    subscription TestOperation {
+    subscription TestOperation @apollo_client_ios_localCacheMutation {
       streamAnimals {
         species
       }
@@ -212,8 +212,9 @@ class OperationDefinitionTemplateTests: XCTestCase {
 
     let expected =
     """
-    public class TestOperationSubscription: GraphQLSubscription {
-      public static let operationName: String = "TestOperation"
+    public class TestOperationLocalCacheMutation: LocalCacheMutation {
+      public static let operationType: GraphQLOperationType = .subscription
+
     """
 
     // when
@@ -240,7 +241,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
      """
 
      document = """
-     query TestOperation($variable: String!) {
+     query TestOperation($variable: String!) @apollo_client_ios_localCacheMutation {
        allAnimals {
          species
        }
@@ -266,7 +267,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
      let actual = renderSubject()
 
      // then
-     expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
+     expect(actual).to(equalLineByLine(expected, atLine: 4, ignoringExtraLines: true))
    }
 
   func test__generate__givenQueryWithMutlipleScalarVariables_generatesQueryOperationWithVariables() throws {
@@ -283,7 +284,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
     """
 
     document = """
-    query TestOperation($variable1: String!, $variable2: Boolean!, $variable3: Int!) {
+    query TestOperation($variable1: String!, $variable2: Boolean!, $variable3: Int!) @apollo_client_ios_localCacheMutation {
       allAnimals {
         species
       }
@@ -319,7 +320,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
     let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 4, ignoringExtraLines: true))
   }
 
   func test__generate__givenQueryWithNullableScalarVariable_generatesQueryOperationWithVariable() throws {
@@ -335,7 +336,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
     """
 
     document = """
-    query TestOperation($variable: String = "TestVar") {
+    query TestOperation($variable: String = "TestVar") @apollo_client_ios_localCacheMutation {
       allAnimals {
         species
       }
@@ -345,7 +346,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
     let expected =
     """
       public var variable: GraphQLNullable<String>
-    
+
       public init(variable: GraphQLNullable<String> = "TestVar") {
         self.variable = variable
       }
@@ -361,45 +362,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
     let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 4, ignoringExtraLines: true))
   }
 
-  func test__generate__givenQueryWithLowercasing_generatesCorrectlyCasedQueryOperation() throws {
-    // given
-    schemaSDL = """
-    type Query {
-      allAnimals: [Animal!]
-    }
-
-    type Animal {
-      species: String!
-    }
-    """
-
-    document = """
-    query lowercaseOperation($variable: String = "TestVar") {
-      allAnimals {
-        species
-      }
-    }
-    """
-
-    let expected =
-    """
-    public class LowercaseOperationQuery: GraphQLQuery {
-      public static let operationName: String = "lowercaseOperation"
-      public static let document: DocumentType = .notPersisted(
-        definition: .init(
-          \"\"\"
-          query lowercaseOperation($variable: String = "TestVar") {
-    """
-
-    // when
-    try buildSubjectAndOperation(named: "lowercaseOperation")
-
-    let actual = renderSubject()
-
-    // then
-    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
-  }
 }

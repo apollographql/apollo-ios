@@ -3080,7 +3080,9 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 14, ignoringExtraLines: true))
   }
 
-  func test__render_fragmentAccessor__givenFragmentOnSameTypeWithInclusionCondition_rendersFragmentAccessorAsOptional() throws {
+  // MARK: - Fragment Accessors - Include Skip
+
+  func test__render_fragmentAccessor__givenFragmentOnSameTypeWithInclusionCondition_rendersFragmentAccessorAsOptionalWithInclusionCondition() throws {
     // given
     schemaSDL = """
     type Query {
@@ -3115,7 +3117,7 @@ class SelectionSetTemplateTests: XCTestCase {
         public let data: DataDict
         public init(data: DataDict) { self.data = data }
 
-        public var fragmentA: FragmentA? { _toFragment() }
+        public var fragmentA: FragmentA? { _toFragment(if: "a") }
         public var lowercaseFragment: LowercaseFragment { _toFragment() }
       }
     """
@@ -3132,7 +3134,7 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 16, ignoringExtraLines: true))
   }
 
-  func test__render_fragmentAccessor__givenFragmentWithInclusionConditionThatMatchesScope_rendersFragmentAccessorAsNotOptional() throws {
+  func test__render_fragmentAccessor__givenFragmentOnSameTypeWithInclusionConditionThatMatchesScope_rendersFragmentAccessorAsNotOptional() throws {
     // given
     schemaSDL = """
     type Query {
@@ -3176,6 +3178,52 @@ class SelectionSetTemplateTests: XCTestCase {
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
+  }
+
+  func test__render_fragmentAccessor__givenFragmentOnSameTypeWithInclusionConditionThatPartiallyMatchesScope_rendersFragmentAccessorAsOptionalWithConditions() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      string: String!
+      int: Int!
+    }
+    """
+
+    document = """
+    query TestOperation($a: Boolean!, $b: Boolean!) {
+      allAnimals @include(if: $a) {
+        ...FragmentA @include(if: $a) @include(if: $b)
+      }
+    }
+
+    fragment FragmentA on Animal {
+      int
+    }
+    """
+
+    let expected = """
+      public struct Fragments: FragmentContainer {
+        public let data: DataDict
+        public init(data: DataDict) { self.data = data }
+
+        public var fragmentA: FragmentA? { _toFragment(if: "a" && "b") }
+      }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
   }
 
   func test__render_fragmentAccessor__givenFragmentMergedFromParent_withInclusionConditionThatMatchesScope_rendersFragmentAccessorAsNotOptional() throws {

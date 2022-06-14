@@ -4,10 +4,12 @@ import InflectorKit
 struct SelectionSetTemplate {
 
   let schema: IR.Schema
+  let isMutable: Bool
   private let nameCache: SelectionSetNameCache
 
-  init(schema: IR.Schema) {
+  init(schema: IR.Schema, mutable: Bool = false) {
     self.schema = schema
+    self.isMutable = mutable
     self.nameCache = SelectionSetNameCache(schema: schema)
   }
 
@@ -15,7 +17,7 @@ struct SelectionSetTemplate {
   func render(for operation: IR.Operation) -> String {
     TemplateString(
     """
-    public struct Data: \(schema.name.firstUppercased).SelectionSet {
+    public struct Data: \(SelectionSetType()) {
       \(BodyTemplate(operation.rootField.selectionSet))
     }
     """
@@ -27,7 +29,7 @@ struct SelectionSetTemplate {
     TemplateString(
     """
     \(SelectionSetNameDocumentation(field.selectionSet))
-    public struct \(field.formattedFieldName): \(schema.name.firstUppercased).SelectionSet {
+    public struct \(field.formattedFieldName): \(SelectionSetType()) {
       \(BodyTemplate(field.selectionSet))
     }
     """
@@ -39,11 +41,28 @@ struct SelectionSetTemplate {
     TemplateString(
     """
     \(SelectionSetNameDocumentation(inlineFragment))
-    public struct \(inlineFragment.renderedTypeName): \(schema.name.firstUppercased).InlineFragment {
+    public struct \(inlineFragment.renderedTypeName): \(SelectionSetType(asInlineFragment: true)) {
       \(BodyTemplate(inlineFragment))
     }
     """
     ).description
+  }
+
+  // MARK: - Selection Set Type
+  private func SelectionSetType(asInlineFragment: Bool = false) -> TemplateString {
+    let selectionSetTypeName: String
+    switch (isMutable, asInlineFragment) {
+    case (false, false):
+      selectionSetTypeName = "SelectionSet"
+    case (false, true):
+      selectionSetTypeName = "InlineFragment"
+    case (true, false):
+      selectionSetTypeName = "MutableSelectionSet"
+    case (true, true):
+      selectionSetTypeName = "MutableInlineFragment"
+    }
+
+    return "\(schema.name.firstUppercased).\(selectionSetTypeName)"
   }
 
   // MARK: - Selection Set Name Documentation
@@ -61,7 +80,7 @@ struct SelectionSetTemplate {
     let selections = selectionSet.selections
     let scope = selectionSet.typeInfo.scope
     return """
-    \(Self.DataFieldAndInitializerTemplate)
+    \(DataFieldAndInitializerTemplate())
 
     \(ParentTypeTemplate(selectionSet.parentType))
     \(ifLet: selections.direct?.groupedByInclusionCondition, { SelectionsTemplate($0, in: scope) })
@@ -78,10 +97,12 @@ struct SelectionSetTemplate {
     """
   }
 
-  private static let DataFieldAndInitializerTemplate = """
-    public let data: DataDict
+  private func DataFieldAndInitializerTemplate() -> String {
+    """
+    public \(isMutable ? "var" : "let") data: DataDict
     public init(data: DataDict) { self.data = data }
     """
+  }
 
   private func ParentTypeTemplate(_ type: GraphQLCompositeType) -> String {
     "public static var __parentType: ParentType { .\(type.parentTypeEnumType)(\(schema.name.firstUppercased).\(type.name.firstUppercased).self) }"
@@ -199,8 +220,17 @@ struct SelectionSetTemplate {
     }()
     return """
     public var \(field.responseKey.firstLowercased): \
-    \(typeName(for: field, forceOptional: isConditionallyIncluded)) \
-    { data["\(field.responseKey)"] }
+    \(typeName(for: field, forceOptional: isConditionallyIncluded)) {\
+    \(if: isMutable,
+      """
+
+        get { data["\(field.responseKey)"] }
+        set { data["\(field.responseKey)"] = newValue }
+      }
+      """, else:
+      """
+       data["\(field.responseKey)"] }
+      """)
     """
   }
 
@@ -218,10 +248,25 @@ struct SelectionSetTemplate {
   private func InlineFragmentAccessorTemplate(_ inlineFragment: IR.SelectionSet) -> TemplateString {
     let typeName = inlineFragment.renderedTypeName
     return """
-    public var \(typeName.firstLowercased): \(typeName)? { _asInlineFragment\
+    public var \(typeName.firstLowercased): \(typeName)? {\
+    \(if: isMutable,
+      """
+
+        get { \(InlineFragmentGetter(inlineFragment)) }
+        set { if let newData = newValue?.data._data { data._data = newData }}
+      }
+      """,
+      else: " \(InlineFragmentGetter(inlineFragment)) }"
+    )
+    """
+  }
+
+  private func InlineFragmentGetter(_ inlineFragment: IR.SelectionSet) -> TemplateString {
+    """
+    _asInlineFragment\
     (\(ifLet: inlineFragment.inclusionConditions, {
-    "if: \($0.conditionVariableExpression())"
-    })) }
+      "if: \($0.conditionVariableExpression())"
+    }))
     """
   }
 
@@ -236,7 +281,7 @@ struct SelectionSetTemplate {
 
     return """
     public struct Fragments: FragmentContainer {
-      \(Self.DataFieldAndInitializerTemplate)
+      \(DataFieldAndInitializerTemplate())
 
       \(ifLet: selections.direct?.fragments.values, {
         "\($0.map { FragmentAccessorTemplate($0, in: scope) }, separator: "\n")"
@@ -251,10 +296,46 @@ struct SelectionSetTemplate {
     in scope: IR.ScopeDescriptor
   ) -> TemplateString {
     let name = fragment.definition.name
+    let propertyName = name.firstLowercased
+    let typeName = name.firstUppercased
+    let isOptional = fragment.inclusionConditions != nil &&
+    !scope.matches(fragment.inclusionConditions.unsafelyUnwrapped)
+
+    let getter = FragmentGetter(
+      fragment,
+      if: isOptional ? fragment.inclusionConditions.unsafelyUnwrapped : nil
+    )
+
     return """
-    public var \(name.firstLowercased): \(name.firstUppercased)\
-    \(ifLet: fragment.inclusionConditions, where: { !scope.matches($0) }, { _ in "?" }) \
-    { _toFragment() }
+    public var \(propertyName): \(typeName)\
+    \(if: isOptional, "?") {\
+    \(if: isMutable,
+      """
+
+        get { \(getter) }
+        _modify { var f = \(propertyName); yield &f; \(
+          if: isOptional,
+            "if let newData = f?.data { data = newData }",
+          else: "data = f.data"
+        ) }
+        @available(*, unavailable, message: "mutate properties of the fragment instead.")
+        set { preconditionFailure() }
+      }
+      """,
+      else: " \(getter) }"
+    )
+    """
+  }
+
+  private func FragmentGetter(
+    _ fragment: IR.FragmentSpread,
+    if inclusionConditions: AnyOf<IR.InclusionConditions>?
+  ) -> TemplateString {
+    """
+    _toFragment(\
+    \(ifLet: inclusionConditions, {
+      "if: \($0.conditionVariableExpression)"
+    }))
     """
   }
 

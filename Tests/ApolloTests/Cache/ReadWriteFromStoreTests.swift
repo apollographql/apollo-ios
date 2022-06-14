@@ -755,7 +755,9 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
           var givenFragment: GivenFragment {
             get { _toFragment() }
-            set { data._data = newValue.data._data }
+            _modify { var f = givenFragment; yield &f; data = f.data }
+            @available(*, unavailable, message: "mutate properties of the fragment instead.")
+            set { preconditionFailure() }
           }
         }
       }
@@ -871,13 +873,34 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
           set { data["name"] = newValue }
         }
 
+        var asDroid: AsDroid? {
+          get { _asInlineFragment() }
+          set { if let newData = newValue?.data._data { data._data = newData }}
+        }
+
+        struct AsDroid: MockMutableInlineFragment {
+          public var data: DataDict = DataDict([:], variables: nil)
+          static let __parentType: ParentType = .Object(Droid.self)
+
+          static var selections: [Selection] { [
+            .field("primaryFunction", String.self),
+          ]}
+
+          var primaryFunction: String {
+            get { data["primaryFunction"] }
+            set { data["primaryFunction"] = newValue }
+          }
+        }
+
         struct Fragments: FragmentContainer {
           var data: DataDict
           init(data: DataDict) { self.data = data }
 
           var givenFragment: GivenFragment? {
             get { _toFragment() }
-            set { if let newData = newValue?.data._data { data._data = newData } }
+            _modify { var f = givenFragment; yield &f; if let newData = f?.data { data = newData } }
+            @available(*, unavailable, message: "mutate properties of the fragment instead.")
+            set { preconditionFailure() }
           }
         }
       }

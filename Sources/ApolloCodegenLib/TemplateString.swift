@@ -159,6 +159,20 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
       }
     }
 
+    mutating func appendInterpolation<T>(
+    ifLet optional: Optional<T>,
+    where whereBlock: ((T) -> Bool)? = nil,
+    _ includeBlock: @autoclosure () -> TemplateString,
+    else: @autoclosure () -> TemplateString? = nil
+    ) {
+      appendInterpolation(
+        ifLet: optional,
+        where: whereBlock,
+        { _ in includeBlock() },
+        else: `else`()
+      )
+    }
+
     private mutating func removeLineIfEmpty() {
       let slice = substringToStartOfLine()
       if slice.allSatisfy(\.isWhitespace) {

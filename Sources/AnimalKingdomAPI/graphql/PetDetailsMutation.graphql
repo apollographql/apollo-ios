@@ -1,0 +1,5 @@
+fragment PetDetailsMutation on Pet @apollo_client_ios_localCacheMutation {
+  owner {
+    firstName
+  }
+}

@@ -30,6 +30,7 @@ export interface FragmentDefinition {
   name: string;
   typeCondition: GraphQLCompositeType;
   selectionSet: SelectionSet;
+  directives?: Directive[];
   source: string;
   filePath?: string;
 }

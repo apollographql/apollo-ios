@@ -3,7 +3,7 @@ import ApolloUtils
 
 /// Provides the format to convert a [GraphQL Operation](https://spec.graphql.org/draft/#sec-Language.Operations)
 /// into Swift code.
-struct OperationDefinitionTemplate: TemplateRenderer {
+struct OperationDefinitionTemplate: OperationTemplateRenderer {
   /// IR representation of source [GraphQL Operation](https://spec.graphql.org/draft/#sec-Language.Operations).
   let operation: IR.Operation
   /// IR representation of source GraphQL schema.
@@ -70,51 +70,6 @@ struct OperationDefinitionTemplate: TemplateRenderer {
       """
       )
     }
-  }
-
-  private func Initializer(
-    _ variables: [CompilationResult.VariableDefinition]
-  ) -> TemplateString {
-    let `init` = "public init"
-    if variables.isEmpty {
-      return "\(`init`)() {}"
-    }
-
-    return """
-    \(`init`)(\(list: variables.map(VariableParameter))) {
-      \(variables.map { "self.\($0.name) = \($0.name)" }, separator: "\n")
-    }
-    """
-  }
-
-
-  func VariableProperties(
-    _ variables: [CompilationResult.VariableDefinition]
-  ) -> TemplateString {
-    """
-    \(variables.map { "public var \($0.name): \($0.type.renderAsInputValue(inSchemaNamed: schema.name))"}, separator: "\n")
-    """
-  }
-
-  func VariableParameter(_ variable: CompilationResult.VariableDefinition) -> TemplateString {
-      """
-      \(variable.name): \(variable.type.renderAsInputValue(inSchemaNamed: schema.name))\
-      \(if: variable.defaultValue != nil, " = " + variable.renderVariableDefaultValue())
-      """
-  }
-
-  func VariableAccessors(
-    _ variables: [CompilationResult.VariableDefinition]
-  ) -> TemplateString {
-    guard !variables.isEmpty else {
-      return ""
-    }
-
-    return """
-      public var variables: Variables? {
-        [\(variables.map { "\"\($0.name)\": \($0.name)"}, separator: ",\n   ")]
-      }
-      """
   }
 
 }

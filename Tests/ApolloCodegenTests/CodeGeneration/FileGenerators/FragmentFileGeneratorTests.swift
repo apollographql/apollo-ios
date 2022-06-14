@@ -6,10 +6,29 @@ import ApolloCodegenInternalTestHelpers
 class FragmentFileGeneratorTests: XCTestCase {
   var irFragment: IR.NamedFragment!
   var subject: FragmentFileGenerator!
+  var operationDocument: String!
+
+  override func setUp() {
+    super.setUp()
+    operationDocument = """
+    query AllAnimals {
+      animals {
+        ...animalDetails
+      }
+    }
+
+    fragment animalDetails on Animal {
+      species
+    }
+    """
+  }
 
   override func tearDown() {
     subject = nil
     irFragment = nil
+    operationDocument = nil
+    
+    super.tearDown()
   }
 
   // MARK: Test Helpers
@@ -22,18 +41,6 @@ class FragmentFileGeneratorTests: XCTestCase {
 
     type Query {
       animals: [Animal]
-    }
-    """
-
-    let operationDocument = """
-    query AllAnimals {
-      animals {
-        ...animalDetails
-      }
-    }
-
-    fragment animalDetails on Animal {
-      species
     }
     """
 
@@ -72,4 +79,5 @@ class FragmentFileGeneratorTests: XCTestCase {
     // then
     expect(self.subject.overwrite).to(beTrue())
   }
+  
 }

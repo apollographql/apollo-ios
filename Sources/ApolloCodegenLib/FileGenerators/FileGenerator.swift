@@ -59,6 +59,10 @@ enum FileTarget: Equatable {
     case .union: return "Unions"
     case .inputObject: return "InputObjects"
     case .customScalar: return "CustomScalars"
+    case let .operation(operation) where operation.isLocalCacheMutation:
+      return "LocalCacheMutations"
+    case let .fragment(fragment) where fragment.isLocalCacheMutation:
+      return "LocalCacheMutations"
     case .fragment, .operation: return "Operations"
     case .schema, .testMock: return ""
     }

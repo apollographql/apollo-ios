@@ -64,6 +64,12 @@ struct SchemaTemplate: TemplateRenderer {
 
       public protocol \(prefix ?? "")InlineFragment: ApolloAPI.SelectionSet & ApolloAPI.InlineFragment
       where Schema == \(schemaName).Schema {}
+
+      public protocol \(prefix ?? "")MutableSelectionSet: ApolloAPI.MutableRootSelectionSet
+      where Schema == \(schemaName).Schema {}
+
+      public protocol \(prefix ?? "")MutableInlineFragment: ApolloAPI.MutableSelectionSet & ApolloAPI.InlineFragment
+      where Schema == \(schemaName).Schema {}
       """
     )
   }

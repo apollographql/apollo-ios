@@ -1,6 +1,6 @@
 import { DirectiveDefinitionNode, DocumentNode, Kind, NameNode, StringValueNode } from "graphql";
 
-const directive_apollo_client_ios_localCacheMutation: DirectiveDefinitionNode = {
+export const directive_apollo_client_ios_localCacheMutation: DirectiveDefinitionNode = {
   kind: Kind.DIRECTIVE_DEFINITION,
   description: stringNode("A directive used by the Apollo iOS client to annotate operations or fragments that should be used exclusively for generating local cache mutations instead of as standard operations."),
   name: nameNode("apollo_client_ios_localCacheMutation"),
