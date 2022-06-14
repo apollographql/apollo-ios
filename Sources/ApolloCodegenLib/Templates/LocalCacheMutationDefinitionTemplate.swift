@@ -29,23 +29,3 @@ struct LocalCacheMutationDefinitionTemplate: OperationTemplateRenderer {
   }
 
 }
-
-fileprivate extension ApolloCodegenConfiguration.APQConfig {
-  var rendered: String {    
-    switch self {
-    case .disabled: return "notPersisted"
-    case .automaticallyPersist: return "automaticallyPersisted"
-    case .persistedOperationsOnly: return "persistedOperationsOnly"
-    }
-  }
-}
-
-fileprivate extension CompilationResult.OperationType {
-  var renderedProtocolName: String {
-    switch self {
-    case .query: return "GraphQLQuery"
-    case .mutation: return "GraphQLMutation"
-    case .subscription: return "GraphQLSubscription"
-    }
-  }
-}

@@ -50,4 +50,5 @@ extension OperationTemplateRenderer {
       }
       """
   }
+
 }

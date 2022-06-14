@@ -24,10 +24,11 @@ class FragmentFileGeneratorTests: XCTestCase {
   }
 
   override func tearDown() {
-    super.tearDown()
     subject = nil
     irFragment = nil
     operationDocument = nil
+    
+    super.tearDown()
   }
 
   // MARK: Test Helpers
