@@ -1,6 +1,6 @@
 # Change Log
 
-## v1.0.0-alpha.6
+## v1.0.0-alpha.7
 
 This is the seventh Alpha Release of Apollo iOS 1.0. This first major version will include a new code generation engine, better generated models, and many syntax and performance improvements across the entire library. The primary goal of Apollo iOS 1.0 is to stabilize the API of the model layer and provide a foundation for future feature additions and evolution of the library.
 
@@ -8,7 +8,7 @@ This is the seventh Alpha Release of Apollo iOS 1.0. This first major version wi
   * **Note: Local Cache Mutation operations cannot be used for fetching from the network!** You should define separate GraphQL operations for network operations and local cache mutations.
   * Example Usage:
   
-  ```graphql
+```graphql
 /// SampleLocalCacheMutation.graphql
 query SampleLocalCacheMutation @apollo_client_ios_localCacheMutation {
   allAnimals {
