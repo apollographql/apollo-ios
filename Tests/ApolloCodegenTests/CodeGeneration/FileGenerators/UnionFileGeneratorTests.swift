@@ -1,6 +1,7 @@
 import XCTest
 import Nimble
 @testable import ApolloCodegenLib
+import ApolloUtils
 
 class UnionFileGeneratorTests: XCTestCase {
   let graphqlUnion = GraphQLUnionType.mock("MockUnion", types: [])
@@ -14,7 +15,11 @@ class UnionFileGeneratorTests: XCTestCase {
   // MARK: Test Helpers
 
   private func buildSubject() {
-    subject = UnionFileGenerator(graphqlUnion: graphqlUnion, schemaName: "MockSchema")
+    subject = UnionFileGenerator(
+      graphqlUnion: graphqlUnion,
+      schemaName: "MockSchema",
+      config: ReferenceWrapped(value: ApolloCodegenConfiguration.mock())
+    )
   }
 
   // MARK: Property Tests

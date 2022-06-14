@@ -70,7 +70,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
     // given
     let expected =
     """
-    public class TestOperationQuery: GraphQLQuery {
+    class TestOperationQuery: GraphQLQuery {
       public static let operationName: String = "TestOperation"
     """
 
@@ -95,7 +95,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
 
     let expected =
     """
-    public class TestOperationQuery: GraphQLQuery {
+    class TestOperationQuery: GraphQLQuery {
       public static let operationName: String = "TestOperationQuery"
     """
 
@@ -134,7 +134,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
 
     let expected =
     """
-    public class TestOperationQueryMutation: GraphQLMutation {
+    class TestOperationQueryMutation: GraphQLMutation {
       public static let operationName: String = "TestOperationQuery"
     """
 
@@ -173,7 +173,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
 
     let expected =
     """
-    public class TestOperationMutation: GraphQLMutation {
+    class TestOperationMutation: GraphQLMutation {
       public static let operationName: String = "TestOperation"
     """
 
@@ -212,7 +212,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
 
     let expected =
     """
-    public class TestOperationSubscription: GraphQLSubscription {
+    class TestOperationSubscription: GraphQLSubscription {
       public static let operationName: String = "TestOperation"
     """
 
@@ -386,7 +386,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
 
     let expected =
     """
-    public class LowercaseOperationQuery: GraphQLQuery {
+    class LowercaseOperationQuery: GraphQLQuery {
       public static let operationName: String = "lowercaseOperation"
       public static let document: DocumentType = .notPersisted(
         definition: .init(

@@ -36,12 +36,12 @@ class SchemaTemplateTests: XCTestCase {
 
   // MARK: Typealias & Protocol Tests
 
-  func test__render__givenModuleEmbeddedInTarget_shouldGenerateIDTypealias() {
+  func test__render__givenModuleEmbeddedInTarget_shouldGenerateIDTypealias_noPublicModifier() {
     // given
     buildSubject(config: .mock(.embeddedInTarget(name: "CustomTarget")))
 
     let expected = """
-    public typealias ID = String
+    typealias ID = String
 
     """
 
@@ -52,7 +52,7 @@ class SchemaTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
-  func test__render__givenModuleSwiftPackageManager_shouldGenerateIDTypealias() {
+  func test__render__givenModuleSwiftPackageManager_shouldGenerateIDTypealias_withPublicModifier() {
     // given
     buildSubject(config: .mock(.swiftPackageManager))
 
@@ -68,7 +68,7 @@ class SchemaTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
-  func test__render__givenModuleOther_shouldGenerateIDTypealias() {
+  func test__render__givenModuleOther_shouldGenerateIDTypealias_withPublicModifier() {
     // given
     buildSubject(config: .mock(.other))
 
@@ -84,7 +84,7 @@ class SchemaTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
-  func test__render__givenModuleEmbeddedInTarget_shouldGenerateDetachedProtocols_withTypealias_withCorrectCasing() {
+  func test__render__givenModuleEmbeddedInTarget_shouldGenerateDetachedProtocols_withTypealias_withCorrectCasing_noPublicModifier() {
     // given
     buildSubject(
       name: "aName",
@@ -92,9 +92,13 @@ class SchemaTemplateTests: XCTestCase {
     )
 
     let expectedTemplate = """
-    public typealias SelectionSet = AName_SelectionSet
+    typealias SelectionSet = AName_SelectionSet
 
-    public typealias InlineFragment = AName_InlineFragment
+    typealias InlineFragment = AName_InlineFragment
+
+    typealias MutableSelectionSet = AName_MutableSelectionSet
+
+    typealias MutableInlineFragment = AName_MutableInlineFragment
 
     """
 
@@ -123,7 +127,7 @@ class SchemaTemplateTests: XCTestCase {
       .to(equalLineByLine(expectedDetached))
   }
 
-  func test__render__givenModuleSwiftPackageManager_shouldGenerateEmbeddedProtocols_noTypealias_withCorrectCasing() {
+  func test__render__givenModuleSwiftPackageManager_shouldGenerateEmbeddedProtocols_noTypealias_withCorrectCasing_withPublicModifier() {
     // given
     buildSubject(
       name: "aName",
@@ -155,7 +159,7 @@ class SchemaTemplateTests: XCTestCase {
       .to(beNil())
   }
 
-  func test__render__givenModuleOther_shouldGenerateEmbeddedProtocols_noTypealias_withCorrectCasing() {
+  func test__render__givenModuleOther_shouldGenerateEmbeddedProtocols_noTypealias_withCorrectCasing_withPublicModifier() {
     // given
     buildSubject(
       name: "aName",
@@ -189,9 +193,24 @@ class SchemaTemplateTests: XCTestCase {
 
   // MARK: Schema Tests
 
-  func test__render__generatesEnumDefinition() {
+  func test__render__givenModuleSwiftPackageManager_shouldGenerateEnumDefinition_noPublicModifier() {
     // given
-    buildSubject()
+    buildSubject(config: .mock(.embeddedInTarget(name: "MockTarget")))
+
+    let expected = """
+    enum Schema: SchemaConfiguration {
+    """
+
+    // when
+    let actual = renderTemplate()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+  }
+
+  func test__render__givenModuleSwiftPackageManager_shouldGenerateEnumDefinition_withPublicModifier() {
+    // given
+    buildSubject(config: .mock(.swiftPackageManager))
 
     let expected = """
     public enum Schema: SchemaConfiguration {
@@ -201,7 +220,22 @@ class SchemaTemplateTests: XCTestCase {
     let actual = renderTemplate()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
+  }
+
+  func test__render__givenModuleOther_shouldGenerateEnumDefinition_withPublicModifier() {
+    // given
+    buildSubject(config: .mock(.other))
+
+    let expected = """
+    public enum Schema: SchemaConfiguration {
+    """
+
+    // when
+    let actual = renderTemplate()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
   }
 
   func test__render__givenWithReferencedObjects_generatesObjectTypeFunctionCorrectlyCased() {
@@ -231,7 +265,7 @@ class SchemaTemplateTests: XCTestCase {
     let actual = renderTemplate()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 8))
+    expect(actual).to(equalLineByLine(expected, atLine: 12))
   }
 
   func test__render__givenWithReferencedOtherTypes_generatesObjectTypeNotIncludingNonObjectTypesFunction() {
@@ -262,6 +296,6 @@ class SchemaTemplateTests: XCTestCase {
     let actual = renderTemplate()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 8))
+    expect(actual).to(equalLineByLine(expected, atLine: 12))
   }
 }

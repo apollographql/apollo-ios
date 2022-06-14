@@ -2,6 +2,7 @@ import XCTest
 import Nimble
 @testable import ApolloCodegenLib
 import ApolloCodegenInternalTestHelpers
+import ApolloUtils
 
 class ObjectTemplateTests: XCTestCase {
 
@@ -15,9 +16,14 @@ class ObjectTemplateTests: XCTestCase {
 
   // MARK: Helpers
 
-  private func buildSubject(name: String = "Dog", interfaces: [GraphQLInterfaceType] = []) {
+  private func buildSubject(
+    name: String = "Dog",
+    interfaces: [GraphQLInterfaceType] = [],
+    config: ApolloCodegenConfiguration = .mock()
+  ) {
     subject = ObjectTemplate(
-      graphqlObject: GraphQLObjectType.mock(name, interfaces: interfaces)
+      graphqlObject: GraphQLObjectType.mock(name, interfaces: interfaces),
+      config: ReferenceWrapped(value: config)
     )
   }
 
@@ -45,6 +51,22 @@ class ObjectTemplateTests: XCTestCase {
     buildSubject(name: "dog")
 
     let expected = """
+    final class Dog: Object {
+      override public class var __typename: StaticString { "Dog" }
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test_render_givenModuleType_swiftPackageManager_generatesSwiftClassDefinition_withPublicModifier() {
+    // given
+    buildSubject(config: .mock(.swiftPackageManager))
+
+    let expected = """
     public final class Dog: Object {
       override public class var __typename: StaticString { "Dog" }
     """
@@ -54,7 +76,39 @@ class ObjectTemplateTests: XCTestCase {
 
     // then
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
-  }  
+  }
+
+  func test_render_givenModuleType_other_generatesSwiftClassDefinition_withPublicModifier() {
+    // given
+    buildSubject(config: .mock(.other))
+
+    let expected = """
+    public final class Dog: Object {
+      override public class var __typename: StaticString { "Dog" }
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test_render_givenModuleType_embeddedInTarget_generatesSwiftClassDefinition_noPublicModifier() {
+    // given
+    buildSubject(config: .mock(.embeddedInTarget(name: "TestTarget")))
+
+    let expected = """
+    final class Dog: Object {
+      override public class var __typename: StaticString { "Dog" }
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
 
   // MARK: Metadata Tests
 

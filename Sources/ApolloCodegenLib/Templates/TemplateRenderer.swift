@@ -111,6 +111,14 @@ extension TemplateRenderer {
     """
     ).description
   }
+
+  func embeddedAccessControlModifier(
+    config: ReferenceWrapped<ApolloCodegenConfiguration>
+  ) -> String {
+    guard config.output.schemaTypes.isInModule else { return "" }
+
+    return "public "
+  }
 }
 
 extension TemplateString {

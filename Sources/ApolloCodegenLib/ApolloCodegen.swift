@@ -89,7 +89,7 @@ public class ApolloCodegen {
     for fragment in compilationResult.fragments {
       try autoreleasepool {
         let irFragment = ir.build(fragment: fragment)
-        try FragmentFileGenerator(irFragment: irFragment, schema: ir.schema)
+        try FragmentFileGenerator(irFragment: irFragment, schema: ir.schema, config: config)
           .generate(forConfig: config, fileManager: fileManager)
       }
     }
@@ -105,7 +105,8 @@ public class ApolloCodegen {
     for graphQLObject in ir.schema.referencedTypes.objects {
       try autoreleasepool {
         try ObjectFileGenerator(
-          graphqlObject: graphQLObject          
+          graphqlObject: graphQLObject,
+          config: config
         ).generate(
           forConfig: config,
           fileManager: fileManager
@@ -133,7 +134,7 @@ public class ApolloCodegen {
 
     for graphQLInterface in ir.schema.referencedTypes.interfaces {
       try autoreleasepool {
-        try InterfaceFileGenerator(graphqlInterface: graphQLInterface)
+        try InterfaceFileGenerator(graphqlInterface: graphQLInterface, config: config)
           .generate(forConfig: config, fileManager: fileManager)
       }
     }
@@ -142,7 +143,8 @@ public class ApolloCodegen {
       try autoreleasepool {
         try UnionFileGenerator(
           graphqlUnion: graphQLUnion,
-          schemaName: config.schemaName
+          schemaName: config.schemaName,
+          config: config
         ).generate(
           forConfig: config,
           fileManager: fileManager
@@ -163,14 +165,20 @@ public class ApolloCodegen {
 
     for graphQLInputObject in ir.schema.referencedTypes.inputObjects {
       try autoreleasepool {
-        try InputObjectFileGenerator(graphqlInputObject: graphQLInputObject, schema: ir.schema)
-          .generate(forConfig: config, fileManager: fileManager)
+        try InputObjectFileGenerator(
+          graphqlInputObject: graphQLInputObject,
+          schema: ir.schema,
+          config: config
+        ).generate(
+          forConfig: config,
+          fileManager: fileManager
+        )
       }
     }
 
     for graphQLScalar in ir.schema.referencedTypes.customScalars {
       try autoreleasepool {
-        try CustomScalarFileGenerator(graphqlScalar: graphQLScalar)
+        try CustomScalarFileGenerator(graphqlScalar: graphQLScalar, config: config)
           .generate(forConfig: config, fileManager: fileManager)
       }
     }

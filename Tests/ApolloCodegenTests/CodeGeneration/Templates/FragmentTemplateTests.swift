@@ -2,6 +2,7 @@ import XCTest
 import Nimble
 @testable import ApolloCodegenLib
 import ApolloCodegenInternalTestHelpers
+import ApolloUtils
 
 class FragmentTemplateTests: XCTestCase {
 
@@ -43,13 +44,17 @@ class FragmentTemplateTests: XCTestCase {
 
   // MARK: - Helpers
 
-  private func buildSubjectAndFragment(named fragmentName: String = "TestFragment") throws {
+  private func buildSubjectAndFragment(
+    named fragmentName: String = "TestFragment",
+    config: ApolloCodegenConfiguration = .mock()
+  ) throws {
     ir = try .mock(schema: schemaSDL, document: document)
     let fragmentDefinition = try XCTUnwrap(ir.compilationResult[fragment: fragmentName])
     fragment = ir.build(fragment: fragmentDefinition)
     subject = FragmentTemplate(
       fragment: fragment,
-      schema: ir.schema
+      schema: ir.schema,
+      config: ReferenceWrapped(value: config)
     )
   }
 
@@ -63,7 +68,7 @@ class FragmentTemplateTests: XCTestCase {
     // given
     let expected =
     """
-    public struct TestFragment: TestSchema.SelectionSet, Fragment {
+    struct TestFragment: TestSchema.SelectionSet, Fragment {
       public static var fragmentDefinition: StaticString { ""\"
         fragment TestFragment on Query {
           __typename
@@ -88,6 +93,51 @@ class FragmentTemplateTests: XCTestCase {
     expect(String(actual.reversed())).to(equalLineByLine("}", ignoringExtraLines: true))
   }
 
+  func test__render__givenModuleType_swiftPackageManager_generatesFragmentDefinition_withPublicModifier() throws {
+    // given
+    try buildSubjectAndFragment(config: .mock(.swiftPackageManager))
+
+    let expected = """
+    public struct TestFragment: TestSchema.SelectionSet, Fragment {
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test__render__givenModuleType_other_generatesFragmentDefinition_withPublicModifier() throws {
+    // given
+    try buildSubjectAndFragment(config: .mock(.other))
+
+    let expected = """
+    public struct TestFragment: TestSchema.SelectionSet, Fragment {
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test__render__givenModuleType_embeddedInTarget_generatesFragmentDefinition_noPublicModifier() throws {
+    // given
+    try buildSubjectAndFragment(config: .mock(.embeddedInTarget(name: "TestTarget")))
+
+    let expected = """
+    struct TestFragment: TestSchema.SelectionSet, Fragment {
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
   func test__render__givenLowercaseFragment_generatesTitleCaseTypeName() throws {
     // given
     document = """
@@ -100,7 +150,7 @@ class FragmentTemplateTests: XCTestCase {
 
     let expected =
     """
-    public struct TestFragment: TestSchema.SelectionSet, Fragment {
+    struct TestFragment: TestSchema.SelectionSet, Fragment {
       public static var fragmentDefinition: StaticString { ""\"
         fragment testFragment on Query {
     """
@@ -133,7 +183,7 @@ class FragmentTemplateTests: XCTestCase {
     """
 
     let expected = """
-    public struct Test_Fragment: TestSchema.SelectionSet, Fragment {
+    struct Test_Fragment: TestSchema.SelectionSet, Fragment {
     """
 
     // when
@@ -251,7 +301,7 @@ class FragmentTemplateTests: XCTestCase {
 
     let expected =
     """
-    public struct TestFragment: TestSchema.MutableSelectionSet, Fragment {
+    struct TestFragment: TestSchema.MutableSelectionSet, Fragment {
     """
 
     // when
@@ -276,7 +326,7 @@ class FragmentTemplateTests: XCTestCase {
 
     let expected =
     """
-    public struct TestFragment: TestSchema.MutableSelectionSet, Fragment {
+    struct TestFragment: TestSchema.MutableSelectionSet, Fragment {
       public static var fragmentDefinition: StaticString { ""\"
         fragment TestFragment on Query {
           __typename

@@ -5,10 +5,13 @@ import ApolloUtils
 struct EnumFileGenerator: FileGenerator {
   /// Source GraphQL enum.
   let graphqlEnum: GraphQLEnumType
-  /// Shared codegen configuration
+  /// Shared codegen configuration.
   let config: ReferenceWrapped<ApolloCodegenConfiguration>
 
-  var template: TemplateRenderer { EnumTemplate(graphqlEnum: graphqlEnum, config: config) }
+  var template: TemplateRenderer {
+    EnumTemplate(graphqlEnum: graphqlEnum, config: config)
+  }
+
   var target: FileTarget { .enum }
   var fileName: String { "\(graphqlEnum.name).swift" }
 }

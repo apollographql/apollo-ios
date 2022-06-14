@@ -2,6 +2,7 @@ import XCTest
 import Nimble
 @testable import ApolloCodegenLib
 import ApolloAPI
+import ApolloUtils
 
 class UnionTemplateTests: XCTestCase {
   var subject: UnionTemplate!
@@ -14,7 +15,9 @@ class UnionTemplateTests: XCTestCase {
 
   // MARK: Helpers
 
-  private func buildSubject() {
+  private func buildSubject(
+    config: ApolloCodegenConfiguration = .mock()
+  ) {
     subject = UnionTemplate(
       moduleName: "moduleAPI",
       graphqlUnion: GraphQLUnionType.mock(
@@ -25,7 +28,8 @@ class UnionTemplateTests: XCTestCase {
           GraphQLObjectType.mock("rat"),
           GraphQLObjectType.mock("petRock")
         ]
-      )
+      ),
+      config: ReferenceWrapped(value: config)
     )
   }
 
@@ -53,7 +57,7 @@ class UnionTemplateTests: XCTestCase {
     buildSubject()
 
     let expected = """
-    public enum ClassroomPet: Union {
+    enum ClassroomPet: Union {
     """
 
     // when
@@ -81,5 +85,50 @@ class UnionTemplateTests: XCTestCase {
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 2, ignoringExtraLines: true))
+  }
+
+  func test_render_givenModuleType_swiftPackageManager_generatesSwiftEnum_withPublicModifier() {
+    // given
+    buildSubject(config: .mock(.swiftPackageManager))
+
+    let expected = """
+    public enum ClassroomPet: Union {
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test_render_givenModuleType_other_generatesSwiftEnum_withPublicModifier() {
+    // given
+    buildSubject(config: .mock(.other))
+
+    let expected = """
+    public enum ClassroomPet: Union {
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test_render_givenModuleType_embeddedInTarget_generatesSwiftEnum_noPublicModifier() {
+    // given
+    buildSubject(config: .mock(.embeddedInTarget(name: "TestTarget")))
+
+    let expected = """
+    enum ClassroomPet: Union {
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 }

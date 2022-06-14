@@ -6,31 +6,38 @@ import ApolloUtils
 struct SchemaTemplate: TemplateRenderer {
   // IR representation of source GraphQL schema.
   let schema: IR.Schema
-
   /// Shared codegen configuration.
   let config: ReferenceWrapped<ApolloCodegenConfiguration>
 
   let schemaName: String
-
   var target: TemplateTarget = .schemaFile
-
   var template: TemplateString { embeddableTemplate }
 
   /// Swift code that can be embedded within a namespace.
   var embeddableTemplate: TemplateString {
     TemplateString(
     """
-    public typealias ID = String
+    \(embeddedAccessControlModifier(config: config))\
+    typealias ID = String
 
     \(if: !config.output.schemaTypes.isInModule,
       TemplateString("""
-      public typealias SelectionSet = \(schemaName)_SelectionSet
+      \(embeddedAccessControlModifier(config: config))\
+      typealias SelectionSet = \(schemaName)_SelectionSet
 
-      public typealias InlineFragment = \(schemaName)_InlineFragment
+      \(embeddedAccessControlModifier(config: config))\
+      typealias InlineFragment = \(schemaName)_InlineFragment
+
+      \(embeddedAccessControlModifier(config: config))\
+      typealias MutableSelectionSet = \(schemaName)_MutableSelectionSet
+
+      \(embeddedAccessControlModifier(config: config))\
+      typealias MutableInlineFragment = \(schemaName)_MutableInlineFragment
       """),
     else: protocolDefinition(prefix: nil, schemaName: schemaName))
 
-    public enum Schema: SchemaConfiguration {
+    \(embeddedAccessControlModifier(config: config))\
+    enum Schema: SchemaConfiguration {
       public static func objectType(forTypename __typename: String) -> Object.Type? {
         switch __typename {
         \(schema.referencedTypes.objects.map {

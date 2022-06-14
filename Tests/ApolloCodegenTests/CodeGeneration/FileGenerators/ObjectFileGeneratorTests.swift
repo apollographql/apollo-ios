@@ -1,6 +1,7 @@
 import XCTest
 import Nimble
 @testable import ApolloCodegenLib
+import ApolloUtils
 
 class ObjectFileGeneratorTests: XCTestCase {
   let graphqlObject = GraphQLObjectType.mock("MockObject", fields: [:], interfaces: [])
@@ -14,7 +15,10 @@ class ObjectFileGeneratorTests: XCTestCase {
   // MARK: Test Helpers
 
   private func buildSubject() {
-    subject = ObjectFileGenerator(graphqlObject: graphqlObject)
+    subject = ObjectFileGenerator(
+      graphqlObject: graphqlObject,
+      config: ReferenceWrapped(value: ApolloCodegenConfiguration.mock())
+    )
   }
 
   // MARK: Property Tests

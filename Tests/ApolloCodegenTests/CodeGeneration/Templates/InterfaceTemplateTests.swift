@@ -2,6 +2,7 @@ import XCTest
 import Nimble
 @testable import ApolloCodegenLib
 import ApolloCodegenInternalTestHelpers
+import ApolloUtils
 
 class InterfaceTemplateTests: XCTestCase {
   var subject: InterfaceTemplate!
@@ -14,9 +15,13 @@ class InterfaceTemplateTests: XCTestCase {
 
   // MARK: Helpers
 
-  private func buildSubject() {
+  private func buildSubject(
+    name: String = "Dog",
+    config: ApolloCodegenConfiguration = .mock()
+  ) {
     subject = InterfaceTemplate(
-      graphqlInterface: GraphQLInterfaceType.mock("mockInterface", fields: [:], interfaces: [])
+      graphqlInterface: GraphQLInterfaceType.mock(name, fields: [:], interfaces: []),
+      config: ReferenceWrapped(value: config)
     )
   }
 
@@ -24,14 +29,14 @@ class InterfaceTemplateTests: XCTestCase {
     subject.template.description
   }
 
-  // MARK: Class Definition Tests
+  // MARK: Casing Tests
 
-  func test_render_givenSchemaInterface_generatesSwiftClassCorrectlyCased() throws {
+  func test_render_givenSchemaInterface_generatesSwiftClassDefinitionCorrectlyCased() throws {
     // given
-    buildSubject()
+    buildSubject(name: "aDog")
 
     let expected = """
-    public final class MockInterface: Interface { }
+    final class ADog: Interface { }
     """
 
     // when
@@ -39,5 +44,52 @@ class InterfaceTemplateTests: XCTestCase {
 
     // then
     expect(actual).to(equalLineByLine(expected))
+  }
+
+  // MARK: Class Definition Tests
+
+  func test_render_givenModuleType_swiftPackageManager_generatesSwiftClassDefinition_withPublicModifier() {
+    // given
+    buildSubject(config: .mock(.swiftPackageManager))
+
+    let expected = """
+    public final class Dog: Interface { }
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test_render_givenModuleType_other_generatesSwiftClassDefinition_withPublicModifier() {
+    // given
+    buildSubject(config: .mock(.other))
+
+    let expected = """
+    public final class Dog: Interface { }
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test_render_givenModuleType_embeddedInTarget_generatesSwiftClassDefinition_noPublicModifier() {
+    // given
+    buildSubject(config: .mock(.embeddedInTarget(name: "TestTarget")))
+
+    let expected = """
+    final class Dog: Interface { }
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 }
