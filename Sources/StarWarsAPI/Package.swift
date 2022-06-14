@@ -1,6 +1,6 @@
 // swift-tools-version:5.3
 
-import PackageDescription
+import PackageDescriptio
 
 let package = Package(
   name: "StarWarsAPI",
