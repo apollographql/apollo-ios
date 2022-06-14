@@ -2,6 +2,39 @@
 
 ## v1.0.0-alpha.6
 
+This is the seventh Alpha Release of Apollo iOS 1.0. This first major version will include a new code generation engine, better generated models, and many syntax and performance improvements across the entire library. The primary goal of Apollo iOS 1.0 is to stabilize the API of the model layer and provide a foundation for future feature additions and evolution of the library.
+
+* **New: Local Cache Mutations are now supported:** In order to perform a local cache mutation, define a `.graphql` file with an operation or a fragment and mark it with the directive `@apollo_client_ios_localCacheMutation`. This will ensure the code generator generates a mutable cache mutation operation.
+  * **Note: Local Cache Mutation operations cannot be used for fetching from the network!** You should define separate GraphQL operations for network operations and local cache mutations.
+  * Example Usage:
+  
+  ```graphql
+/// SampleLocalCacheMutation.graphql
+query SampleLocalCacheMutation @apollo_client_ios_localCacheMutation {
+  allAnimals {
+    species
+    skinCovering
+    ... on Bird {
+      wingspan
+    }
+  }
+}
+
+/// SampleLocalCacheMutationFragment.graphql
+fragment SampleLocalCacheMutationFragment on Pet @apollo_client_ios_localCacheMutation {
+  owner {
+    firstName
+  }
+}
+```
+  
+* **New: Support Code Generation Configuration Option: `deprecatedEnumCases`:** If `deprecatedEnumCases` is set to `exclude`, deprecated cases in graphql enums from your schema will not be generated and will be treated as unknown enum values.  
+* **Fixed - Compilation Errors in Generated Code When Schema was Embedded In Target:** When embedding the generated schema in your own target, rather than generating a separate module for it, there were compilation errors due to access control and namespacing issues. These are resolved. This fixes #2301 & #2302. Thanks [@kimdv](https://github.com/kimdv) for calling attention to these bugs!
+  * **Note: Compilation Errors for Test Mocks are still present.** We are aware of ongoing issues with generated test mocks. We are actively working on fixing these issues and they will be resolved in a future alpha release soon.
+* **Fixed: Crash When Accessing a Conditionally Included Fragment That is Nil.** This is fixed now and will return `nil` as it should. This fixes #2310.
+
+## v1.0.0-alpha.6
+
 This is the sixth Alpha Release of Apollo iOS 1.0. This first major version will include a new code generation engine, better generated models, and many syntax and performance improvements across the entire library. The primary goal of Apollo iOS 1.0 is to stabilize the API of the model layer and provide a foundation for future feature additions and evolution of the library.
 
 * **New: Objects and InputObjects are now equatable:** Many objects now conform to `AnyHashable` bringing with them the ability to conform to `Equatable`, this should make tests easier to write.
