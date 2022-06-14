@@ -128,7 +128,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         public let data: DataDict
         public init(data: DataDict) { self.data = data }
 
-        public var heightInMeters: HeightInMeters? { _toFragment() }
+        public var heightInMeters: HeightInMeters? { _toFragment(if: !"skipHeightInMeters") }
       }
 
       /// AllAnimal.Height
@@ -289,7 +289,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public init(data: DataDict) { self.data = data }
 
           public var petDetails: PetDetails { _toFragment() }
-          public var heightInMeters: HeightInMeters? { _toFragment() }
+          public var heightInMeters: HeightInMeters? { _toFragment(if: !"skipHeightInMeters") }
         }
 
         /// AllAnimal.AsPet.Height
@@ -421,7 +421,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public let data: DataDict
           public init(data: DataDict) { self.data = data }
 
-          public var heightInMeters: HeightInMeters? { _toFragment() }
+          public var heightInMeters: HeightInMeters? { _toFragment(if: !"skipHeightInMeters") }
         }
 
         /// AllAnimal.AsClassroomPet.Height

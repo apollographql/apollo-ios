@@ -57,7 +57,7 @@ public class HeroDetailsFragmentConditionalInclusionQuery: GraphQLQuery {
         public let data: DataDict
         public init(data: DataDict) { self.data = data }
 
-        public var heroDetails: HeroDetails? { _toFragment() }
+        public var heroDetails: HeroDetails? { _toFragment(if: "includeDetails") }
       }
 
       /// Hero.IfIncludeDetails

@@ -301,13 +301,18 @@ struct SelectionSetTemplate {
     let isOptional = fragment.inclusionConditions != nil &&
     !scope.matches(fragment.inclusionConditions.unsafelyUnwrapped)
 
+    let getter = FragmentGetter(
+      fragment,
+      if: isOptional ? fragment.inclusionConditions.unsafelyUnwrapped : nil
+    )
+
     return """
     public var \(propertyName): \(typeName)\
     \(if: isOptional, "?") {\
     \(if: isMutable,
       """
 
-        get { _toFragment() }
+        get { \(getter) }
         _modify { var f = \(propertyName); yield &f; \(
           if: isOptional,
             "if let newData = f?.data { data = newData }",
@@ -317,8 +322,20 @@ struct SelectionSetTemplate {
         set { preconditionFailure() }
       }
       """,
-      else: " _toFragment() }"
+      else: " \(getter) }"
     )
+    """
+  }
+
+  private func FragmentGetter(
+    _ fragment: IR.FragmentSpread,
+    if inclusionConditions: AnyOf<IR.InclusionConditions>?
+  ) -> TemplateString {
+    """
+    _toFragment(\
+    \(ifLet: inclusionConditions, {
+      "if: \($0.conditionVariableExpression)"
+    }))
     """
   }
 
