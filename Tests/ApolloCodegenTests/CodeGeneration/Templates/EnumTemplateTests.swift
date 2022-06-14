@@ -106,7 +106,7 @@ class EnumTemplateTests: XCTestCase {
   func test_render_givenSchemaEnum_generatesSwiftEnumRespectingValueCasing() throws {
     // given
     buildSubject(
-      name: "CasedEnum",
+      name: "casedEnum",
       values: [
         ("lower", nil),
         ("UPPER", nil),
