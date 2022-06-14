@@ -1,6 +1,3 @@
-import ApolloTestSupport
-import UploadAPI
-
 // swift-tools-version:5.3
 
 import PackageDescription

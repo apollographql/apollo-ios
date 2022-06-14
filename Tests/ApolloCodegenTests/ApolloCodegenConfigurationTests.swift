@@ -15,6 +15,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
   // MARK: Lifecycle
 
   override func setUpWithError() throws {
+    try super.setUpWithError()
     try FileManager.default.apollo.createDirectoryIfNeeded(atPath: directoryURL.path)
 
     filename = UUID().uuidString
@@ -32,6 +33,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
     filename = nil
 
     try FileManager.default.apollo.deleteDirectory(atPath: directoryURL.path)
+    try super.tearDownWithError()
   }
 
   // MARK: Test Helpers

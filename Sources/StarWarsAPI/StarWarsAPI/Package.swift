@@ -1,6 +1,3 @@
-import ApolloTestSupport
-import StarWarsAPI
-
 // swift-tools-version:5.3
 
 import PackageDescription

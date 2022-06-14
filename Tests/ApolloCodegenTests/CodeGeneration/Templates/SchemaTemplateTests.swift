@@ -104,6 +104,12 @@ class SchemaTemplateTests: XCTestCase {
 
     public protocol AName_InlineFragment: ApolloAPI.SelectionSet & ApolloAPI.InlineFragment
     where Schema == AName.Schema {}
+
+    public protocol AName_MutableSelectionSet: ApolloAPI.MutableRootSelectionSet
+    where Schema == AName.Schema {}
+
+    public protocol AName_MutableInlineFragment: ApolloAPI.MutableSelectionSet & ApolloAPI.InlineFragment
+    where Schema == AName.Schema {}
     """
 
     // when
@@ -130,6 +136,12 @@ class SchemaTemplateTests: XCTestCase {
 
     public protocol InlineFragment: ApolloAPI.SelectionSet & ApolloAPI.InlineFragment
     where Schema == AName.Schema {}
+
+    public protocol MutableSelectionSet: ApolloAPI.MutableRootSelectionSet
+    where Schema == AName.Schema {}
+
+    public protocol MutableInlineFragment: ApolloAPI.MutableSelectionSet & ApolloAPI.InlineFragment
+    where Schema == AName.Schema {}
     """
 
     // when
@@ -155,6 +167,12 @@ class SchemaTemplateTests: XCTestCase {
     where Schema == AName.Schema {}
 
     public protocol InlineFragment: ApolloAPI.SelectionSet & ApolloAPI.InlineFragment
+    where Schema == AName.Schema {}
+
+    public protocol MutableSelectionSet: ApolloAPI.MutableRootSelectionSet
+    where Schema == AName.Schema {}
+
+    public protocol MutableInlineFragment: ApolloAPI.MutableSelectionSet & ApolloAPI.InlineFragment
     where Schema == AName.Schema {}
     """
 
