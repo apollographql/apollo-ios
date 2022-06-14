@@ -96,6 +96,10 @@ class SchemaTemplateTests: XCTestCase {
 
     typealias InlineFragment = AName_InlineFragment
 
+    typealias MutableSelectionSet = AName_MutableSelectionSet
+
+    typealias MutableInlineFragment = AName_MutableInlineFragment
+
     """
 
     let expectedDetached = """
@@ -201,7 +205,7 @@ class SchemaTemplateTests: XCTestCase {
     let actual = renderTemplate()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
   }
 
   func test__render__givenModuleSwiftPackageManager_shouldGenerateEnumDefinition_withPublicModifier() {
@@ -216,7 +220,7 @@ class SchemaTemplateTests: XCTestCase {
     let actual = renderTemplate()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 9, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
   }
 
   func test__render__givenModuleOther_shouldGenerateEnumDefinition_withPublicModifier() {
@@ -231,7 +235,7 @@ class SchemaTemplateTests: XCTestCase {
     let actual = renderTemplate()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 9, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
   }
 
   func test__render__givenWithReferencedObjects_generatesObjectTypeFunctionCorrectlyCased() {
@@ -261,7 +265,7 @@ class SchemaTemplateTests: XCTestCase {
     let actual = renderTemplate()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 8))
+    expect(actual).to(equalLineByLine(expected, atLine: 12))
   }
 
   func test__render__givenWithReferencedOtherTypes_generatesObjectTypeNotIncludingNonObjectTypesFunction() {
@@ -292,6 +296,6 @@ class SchemaTemplateTests: XCTestCase {
     let actual = renderTemplate()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 8))
+    expect(actual).to(equalLineByLine(expected, atLine: 12))
   }
 }

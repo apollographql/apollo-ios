@@ -27,6 +27,12 @@ struct SchemaTemplate: TemplateRenderer {
 
       \(embeddedAccessControlModifier(config: config))\
       typealias InlineFragment = \(schemaName)_InlineFragment
+
+      \(embeddedAccessControlModifier(config: config))\
+      typealias MutableSelectionSet = \(schemaName)_MutableSelectionSet
+
+      \(embeddedAccessControlModifier(config: config))\
+      typealias MutableInlineFragment = \(schemaName)_MutableInlineFragment
       """),
     else: protocolDefinition(prefix: nil, schemaName: schemaName))
 
