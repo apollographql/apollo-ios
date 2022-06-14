@@ -7,10 +7,25 @@ import ApolloUtils
 class OperationFileGeneratorTests: XCTestCase {
   var irOperation: IR.Operation!
   var subject: OperationFileGenerator!
+  var operationDocument: String!
+
+  override func setUp() {
+    super.setUp()
+
+    operationDocument = """
+    query AllAnimals {
+      animals {
+        species
+      }
+    }
+    """
+  }
 
   override func tearDown() {
     subject = nil
     irOperation = nil
+    operationDocument = nil
+    super.tearDown()
   }
 
   // MARK: Test Helpers
@@ -23,14 +38,6 @@ class OperationFileGeneratorTests: XCTestCase {
 
     type Query {
       animals: [Animal]
-    }
-    """
-
-    let operationDocument = """
-    query AllAnimals {
-      animals {
-        species
-      }
     }
     """
 
@@ -70,5 +77,39 @@ class OperationFileGeneratorTests: XCTestCase {
 
     // then
     expect(self.subject.overwrite).to(beTrue())
+  }
+
+  func test__template__givenNotLocalCacheMutationOperation_shouldBeOperationTemplate() throws {
+    // given
+    operationDocument = """
+    query AllAnimals {
+      animals {
+        species
+      }
+    }
+    """
+
+    // when
+    try buildSubject()
+
+    // then
+    expect(self.subject.template).to(beAKindOf(OperationDefinitionTemplate.self))
+  }
+
+  func test__template__givenLocalCacheMutationOperation_shouldBeLocalCacheMutationOperationTemplate() throws {
+    // given
+    operationDocument = """
+    query AllAnimals @apollo_client_ios_localCacheMutation {
+      animals {
+        species
+      }
+    }
+    """
+
+    // when
+    try buildSubject()
+
+    // then
+    expect(self.subject.template).to(beAKindOf(LocalCacheMutationDefinitionTemplate.self))
   }
 }
