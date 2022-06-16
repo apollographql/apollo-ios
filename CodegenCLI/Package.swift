@@ -9,7 +9,7 @@ let package = Package(
     .macOS(.v10_15)
   ],
   dependencies: [
-    .package(name: "Apollo", path: ".."),
+    .package(url: "https://github.com/apollographql/apollo-ios.git", branch: "release/1.0"),
     .package(url: "https://github.com/apple/swift-argument-parser.git", .upToNextMajor(from: "1.1.2")),
     .package(url: "https://github.com/Quick/Nimble.git", .upToNextMajor(from: "10.0.0")),
   ],
@@ -17,7 +17,7 @@ let package = Package(
     .executableTarget(
       name: "apollo-ios-cli",
       dependencies: [
-        .product(name: "ApolloCodegenLib", package: "Apollo"),
+        .product(name: "ApolloCodegenLib", package: "apollo-ios"),
         .product(name: "ArgumentParser", package: "swift-argument-parser"),
       ],
       path: "./Sources"

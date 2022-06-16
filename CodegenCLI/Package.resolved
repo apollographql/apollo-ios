@@ -1,6 +1,15 @@
 {
   "pins" : [
     {
+      "identity" : "apollo-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apollographql/apollo-ios.git",
+      "state" : {
+        "branch" : "release/1.0",
+        "revision" : "12505179e122df9eb2fecb0c5fcff93334460373"
+      }
+    },
+    {
       "identity" : "cwlcatchexception",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/mattgallagher/CwlCatchException.git",
