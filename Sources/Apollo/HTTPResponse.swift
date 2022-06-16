@@ -33,3 +33,25 @@ public class HTTPResponse<Operation: GraphQLOperation> {
     self.parsedResponse = parsedResponse
   }
 }
+
+// MARK: - Equatable Conformance
+
+extension HTTPResponse: Equatable where Operation.Data: Equatable {
+  public static func == (lhs: HTTPResponse<Operation>, rhs: HTTPResponse<Operation>) -> Bool {
+    lhs.httpResponse == rhs.httpResponse &&
+    lhs.rawData == rhs.rawData &&
+    lhs.parsedResponse == rhs.parsedResponse &&
+    lhs.legacyResponse == rhs.legacyResponse
+  }
+}
+
+// MARK: - Hashable Conformance
+
+extension HTTPResponse: Hashable where Operation.Data: Hashable {
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(httpResponse)
+    hasher.combine(rawData)
+    hasher.combine(parsedResponse)
+    hasher.combine(legacyResponse)
+  }
+}

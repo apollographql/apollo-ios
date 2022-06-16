@@ -125,3 +125,58 @@ public enum Selection {
   }
 
 }
+
+// MARK: - Hashable Conformance
+
+extension Selection: Hashable {
+  public static func == (lhs: Selection, rhs: Selection) -> Bool {
+    switch (lhs, rhs) {
+    case let (.field(lhs), .field(rhs)):
+      return lhs == rhs
+    case let (.fragment(lhs), .fragment(rhs)):
+      return lhs == rhs
+    case let (.inlineFragment(lhs), .inlineFragment(rhs)):
+      return lhs == rhs
+    case let (.conditional(lhsConditions, lhsSelections),
+              .conditional(rhsConditions, rhsSelections)):
+      return lhsConditions == rhsConditions &&
+      lhsSelections == rhsSelections
+    default: return false
+    }
+  }
+
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(self)
+  }
+}
+
+extension Selection.Field: Hashable {
+  public static func == (lhs: Selection.Field, rhs: Selection.Field) -> Bool {
+    lhs.name == rhs.name &&
+    lhs.alias == rhs.alias &&
+    lhs.arguments == rhs.arguments &&
+    lhs.type == rhs.type
+  }
+}
+
+extension Selection.Field.OutputType: Hashable {
+  public static func == (lhs: Selection.Field.OutputType, rhs: Selection.Field.OutputType) -> Bool {
+    switch (lhs, rhs) {
+    case let (.scalar(lhs), .scalar(rhs)):
+      return lhs == rhs
+    case let (.customScalar(lhs), .customScalar(rhs)):
+      return lhs == rhs
+    case let (.object(lhs), .object(rhs)):
+      return lhs == rhs
+    case let (.nonNull(lhs), .nonNull(rhs)):
+      return lhs == rhs
+    case let (.list(lhs), .list(rhs)):
+      return lhs == rhs
+    default: return false
+    }
+  }
+
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(self)
+  }
+}

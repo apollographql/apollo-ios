@@ -56,3 +56,17 @@ public struct GraphQLGETTransformer {
     return components.url
   }
 }
+
+// MARK: - Hashable Conformance
+
+extension GraphQLGETTransformer: Hashable {
+  public static func == (lhs: GraphQLGETTransformer, rhs: GraphQLGETTransformer) -> Bool {
+    lhs.body.jsonValue == rhs.body.jsonValue &&
+    lhs.url == rhs.url
+  }
+
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(body.jsonValue)
+    hasher.combine(url)
+  }
+}

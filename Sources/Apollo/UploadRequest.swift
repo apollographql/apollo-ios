@@ -124,4 +124,20 @@ open class UploadRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
 
     return formData
   }
+
+  // MARK: - Equtable/Hashable Conformance
+
+  public static func == (lhs: UploadRequest<Operation>, rhs: UploadRequest<Operation>) -> Bool {
+    lhs as HTTPRequest<Operation> == rhs as HTTPRequest<Operation> &&
+    type(of: lhs.requestBodyCreator) == type(of: rhs.requestBodyCreator) &&
+    lhs.files == rhs.files &&
+    lhs.manualBoundary == rhs.manualBoundary
+  }
+
+  public override func hash(into hasher: inout Hasher) {
+    super.hash(into: &hasher)
+    hasher.combine("\(type(of: requestBodyCreator))")
+    hasher.combine(files)
+    hasher.combine(manualBoundary)    
+  }
 }

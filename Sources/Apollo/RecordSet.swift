@@ -1,5 +1,5 @@
 /// A set of cache records.
-public struct RecordSet {
+public struct RecordSet: Hashable {
   public private(set) var storage: [CacheKey: Record] = [:]
 
   public init<S: Sequence>(records: S) where S.Iterator.Element == Record {

@@ -129,3 +129,8 @@ public extension GraphQLNullable {
   return rhs
 }
 
+
+// MARK: - Hashable/Equatable Conformance
+
+extension GraphQLNullable: Equatable where Wrapped: Equatable {}
+extension GraphQLNullable: Hashable where Wrapped: Hashable {}

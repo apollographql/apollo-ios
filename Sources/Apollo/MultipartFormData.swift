@@ -1,7 +1,7 @@
 import Foundation
 
 /// A helper for building out multi-part form data for upload
-public class MultipartFormData {
+public final class MultipartFormData {
 
   enum FormDataError: Error, LocalizedError {
     case encodingStringToDataFailed(_ string: String)
@@ -145,10 +145,24 @@ public class MultipartFormData {
   }
 }
 
+// MARK: - Hashable Conformance
+
+extension MultipartFormData: Hashable {
+  public static func == (lhs: MultipartFormData, rhs: MultipartFormData) -> Bool {
+    lhs.boundary == rhs.boundary &&
+    lhs.bodyParts == rhs.bodyParts
+  }
+
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(boundary)
+    hasher.combine(bodyParts)
+  }
+}
+
 /// MARK: - BodyPart
 
 /// A structure representing a single part of multi-part form data.
-fileprivate struct BodyPart {
+fileprivate struct BodyPart: Hashable {
   let name: String
   let inputStream: InputStream
   let contentLength: UInt64

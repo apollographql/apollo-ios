@@ -3,7 +3,7 @@ import Foundation
 /// Represents an error encountered during the execution of a GraphQL operation.
 ///
 ///  - SeeAlso: [The Response Format section in the GraphQL specification](https://facebook.github.io/graphql/#sec-Response-Format)
-public struct GraphQLError: Error {
+public struct GraphQLError: Error, Hashable {
   private let object: JSONObject
 
   public init(_ object: JSONObject) {
