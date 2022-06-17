@@ -280,12 +280,14 @@ public class WebSocketTransport {
                                               autoPersistQuery: false)
     let identifier = operationMessageIdCreator.requestId()
 
-    var type: OperationMessage.Types = .start
-    if case WebSocket.WSProtocol.graphql_transport_ws.description = websocket.request.value(forHTTPHeaderField: WebSocket.Constants.headerWSProtocolName) {
-      type = .subscribe
+    let messageType: OperationMessage.Types
+    switch websocket.request.wsProtocol {
+    case .graphql_ws: messageType = .start
+    case .graphql_transport_ws: messageType = .subscribe
+    default: return nil
     }
 
-    guard let message = OperationMessage(payload: body, id: identifier, type: type).rawMessage else {
+    guard let message = OperationMessage(payload: body, id: identifier, type: messageType).rawMessage else {
       return nil
     }
 
@@ -302,7 +304,13 @@ public class WebSocketTransport {
   }
 
   public func unsubscribe(_ subscriptionId: String) {
-    let str = OperationMessage(id: subscriptionId, type: .stop).rawMessage
+    let messageType: OperationMessage.Types
+    switch websocket.request.wsProtocol {
+    case .graphql_transport_ws: messageType = .complete
+    default: messageType = .stop
+    }
+
+    let str = OperationMessage(id: subscriptionId, type: messageType).rawMessage
 
     processingQueue.async {
       if let str = str {
@@ -356,6 +364,20 @@ public class WebSocketTransport {
   public func resumeWebSocketConnection(autoReconnect: Bool = true) {
     self.reconnect.mutate { $0 = autoReconnect }
     self.websocket.connect()
+  }
+}
+
+extension URLRequest {
+  fileprivate var wsProtocol: WebSocket.WSProtocol? {
+    guard let header = value(forHTTPHeaderField: WebSocket.Constants.headerWSProtocolName) else {
+      return nil
+    }
+
+    switch header {
+    case WebSocket.WSProtocol.graphql_transport_ws.description: return .graphql_transport_ws
+    case WebSocket.WSProtocol.graphql_ws.description: return .graphql_ws
+    default: return nil
+    }
   }
 }
 
