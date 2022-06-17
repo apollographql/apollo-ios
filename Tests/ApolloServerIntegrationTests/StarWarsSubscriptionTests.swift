@@ -411,7 +411,8 @@ class StarWarsSubscriptionTests: XCTestCase {
   func testConcurrentConnectAndCloseConnection() {
     let webSocketTransport = WebSocketTransport(
       websocket: MockWebSocket(
-        request: URLRequest(url: TestServerURL.starWarsWebSocket.url)
+        request: URLRequest(url: TestServerURL.starWarsWebSocket.url),
+        protocol: .graphql_ws
       ),
       store: ApolloStore()
     )
