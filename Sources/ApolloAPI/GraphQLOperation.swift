@@ -127,7 +127,7 @@ public protocol GraphQLOperationVariableValue {
 }
 
 extension Array: GraphQLOperationVariableValue
-where Element: GraphQLOperationVariableValue & JSONEncodable & Hashable {}
+where Element: GraphQLOperationVariableValue & Hashable {}
 
 extension Dictionary: GraphQLOperationVariableValue
 where Key == String, Value == GraphQLOperationVariableValue {
