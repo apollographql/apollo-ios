@@ -16,6 +16,10 @@ class GraphqlTransportWsProtocolTests: WSProtocolTestsBase {
     return request
   }
 
+  private func buildWebSocket() {
+    buildWebSocket(protocol: .graphql_transport_ws)
+  }
+
   // MARK: Initializer Tests
 
   func test__designatedInitializer__shouldSetRequestProtocolHeader() {
