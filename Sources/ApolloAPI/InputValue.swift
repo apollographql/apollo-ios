@@ -68,9 +68,9 @@ extension InputValue: ExpressibleByDictionaryLiteral {
   }
 }
 
-// MARK: Equatable Conformance
+// MARK: Hashable Conformance
 
-extension InputValue: Equatable {
+extension InputValue: Hashable {
   public static func == (lhs: InputValue, rhs: InputValue) -> Bool {
     switch (lhs, rhs) {
     case let (.variable(lhsValue), .variable(rhsValue)),
@@ -92,5 +92,9 @@ extension InputValue: Equatable {
       return true
     default: return false
     }
+  }
+
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(self)
   }
 }

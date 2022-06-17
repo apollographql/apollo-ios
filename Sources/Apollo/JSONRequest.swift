@@ -146,4 +146,27 @@ open class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
     
     return body
   }
+
+  // MARK: - Equtable/Hashable Conformance
+
+  public static func == (lhs: JSONRequest<Operation>, rhs: JSONRequest<Operation>) -> Bool {
+    lhs as HTTPRequest<Operation> == rhs as HTTPRequest<Operation> &&
+    type(of: lhs.requestBodyCreator) == type(of: rhs.requestBodyCreator) &&
+    lhs.autoPersistQueries == rhs.autoPersistQueries &&
+    lhs.useGETForQueries == rhs.useGETForQueries &&
+    lhs.useGETForPersistedQueryRetry == rhs.useGETForPersistedQueryRetry &&
+    lhs.isPersistedQueryRetry == rhs.isPersistedQueryRetry &&
+    lhs.body.jsonObject == rhs.body.jsonObject
+  }
+
+  public override func hash(into hasher: inout Hasher) {
+    super.hash(into: &hasher)
+    hasher.combine("\(type(of: requestBodyCreator))")
+    hasher.combine(autoPersistQueries)
+    hasher.combine(useGETForQueries)
+    hasher.combine(useGETForPersistedQueryRetry)
+    hasher.combine(isPersistedQueryRetry)
+    hasher.combine(body.jsonObject)
+  }
+
 }

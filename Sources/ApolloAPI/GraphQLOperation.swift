@@ -1,6 +1,6 @@
 import Foundation
 
-public enum GraphQLOperationType {
+public enum GraphQLOperationType: Hashable {
   case query
   case mutation
   case subscription

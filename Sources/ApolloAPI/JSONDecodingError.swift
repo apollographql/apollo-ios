@@ -1,6 +1,6 @@
 import Foundation
 
-public enum JSONDecodingError: Error, LocalizedError, Equatable {
+public enum JSONDecodingError: Error, LocalizedError, Hashable {
   case missingValue
   case nullValue
   case wrongType
@@ -33,5 +33,9 @@ public enum JSONDecodingError: Error, LocalizedError, Equatable {
     default:
       return false
     }
+  }
+
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(self)
   }
 }

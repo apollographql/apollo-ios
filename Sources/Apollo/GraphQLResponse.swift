@@ -82,3 +82,23 @@ public final class GraphQLResponse<Data: RootSelectionSet> {
     return makeResult(data: data, dependentKeys: nil)    
   }
 }
+
+// MARK: - Equatable Conformance
+
+extension GraphQLResponse: Equatable where Data: Equatable {
+  public static func == (lhs: GraphQLResponse<Data>, rhs: GraphQLResponse<Data>) -> Bool {
+    lhs.body == rhs.body &&
+    lhs.rootKey == rhs.rootKey &&
+    lhs.variables?.jsonEncodableObject.jsonValue == rhs.variables?.jsonEncodableObject.jsonValue
+  }
+}
+
+// MARK: - Hashable Conformance
+
+extension GraphQLResponse: Hashable where Data: Hashable {
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(body)
+    hasher.combine(rootKey)
+    hasher.combine(variables?.jsonEncodableValue?.jsonValue)
+  }
+}

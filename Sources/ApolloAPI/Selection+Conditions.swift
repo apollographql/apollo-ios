@@ -6,7 +6,7 @@ public extension Selection {
   /// The conditions are a two-dimensional array of `Selection.Condition`s.
   /// The outer array represents groups of conditions joined together with a logical "or".
   /// Conditions in the same inner array are joined together with a logical "and".
-  struct Conditions: ExpressibleByArrayLiteral, ExpressibleByStringLiteral {
+  struct Conditions: ExpressibleByArrayLiteral, ExpressibleByStringLiteral, Hashable {
     public let value: [[Condition]]
 
     @inlinable
@@ -47,7 +47,7 @@ public extension Selection {
     }
   }
 
-  struct Condition: ExpressibleByStringLiteral {
+  struct Condition: ExpressibleByStringLiteral, Hashable {
     public let variableName: String
     public let inverted: Bool
 
