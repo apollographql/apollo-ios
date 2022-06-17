@@ -28,7 +28,10 @@ class WebSocketTests: XCTestCase {
     super.setUp()
 
     let store = ApolloStore()
-    let websocket = MockWebSocket(request:URLRequest(url: TestURL.mockServer.url))
+    let websocket = MockWebSocket(
+      request:URLRequest(url: TestURL.mockServer.url),
+      protocol: .graphql_ws
+    )
     networkTransport = WebSocketTransport(websocket: websocket, store: store)
     client = ApolloClient(networkTransport: networkTransport!, store: store)
   }
@@ -133,7 +136,10 @@ class WebSocketTests: XCTestCase {
     let expectation = self.expectation(description: "Single Subscription with Custom Operation Message Id Creator")
     
     let store = ApolloStore()
-    let websocket = MockWebSocket(request:URLRequest(url: TestURL.mockServer.url))
+    let websocket = MockWebSocket(
+      request:URLRequest(url: TestURL.mockServer.url),
+      protocol: .graphql_ws
+    )
     networkTransport = WebSocketTransport(websocket: websocket, store: store, operationMessageIdCreator: CustomOperationMessageIdCreator())
     client = ApolloClient(networkTransport: networkTransport!, store: store)
     
