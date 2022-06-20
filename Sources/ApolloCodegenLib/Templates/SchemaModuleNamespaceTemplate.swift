@@ -9,7 +9,7 @@ struct SchemaModuleNamespaceTemplate: TemplateRenderer {
 
   let config: ReferenceWrapped<ApolloCodegenConfiguration>
 
-  var target: TemplateTarget { .moduleFile }
+  let target: TemplateTarget = .moduleFile
 
   var template: TemplateString {
     TemplateString("""

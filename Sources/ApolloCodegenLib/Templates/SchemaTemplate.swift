@@ -11,7 +11,7 @@ struct SchemaTemplate: TemplateRenderer {
 
   let schemaName: String
 
-  var target: TemplateTarget = .schemaFile
+  let target: TemplateTarget = .schemaFile
 
   var template: TemplateString { embeddableTemplate }
 

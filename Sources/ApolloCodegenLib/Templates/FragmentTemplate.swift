@@ -11,7 +11,7 @@ struct FragmentTemplate: TemplateRenderer {
 
   let config: ReferenceWrapped<ApolloCodegenConfiguration>
 
-  var target: TemplateTarget { .operationFile }
+  let target: TemplateTarget = .operationFile
 
   var template: TemplateString {
     TemplateString(

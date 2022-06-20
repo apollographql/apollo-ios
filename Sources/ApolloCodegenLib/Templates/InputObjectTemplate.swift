@@ -11,7 +11,7 @@ struct InputObjectTemplate: TemplateRenderer {
 
   let config: ReferenceWrapped<ApolloCodegenConfiguration>
 
-  var target: TemplateTarget = .schemaFile
+  let target: TemplateTarget = .schemaFile
 
   var template: TemplateString {
     TemplateString(
