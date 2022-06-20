@@ -8,7 +8,7 @@ struct InputObjectTemplate: TemplateRenderer {
   let graphqlInputObject: GraphQLInputObjectType
   /// IR representation of a GraphQL schema.
   let schema: IR.Schema
-  /// Shared codegen configuration.
+
   let config: ReferenceWrapped<ApolloCodegenConfiguration>
 
   var target: TemplateTarget = .schemaFile

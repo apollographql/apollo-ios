@@ -14,7 +14,10 @@ class SchemaModuleNamespaceTemplateTests: XCTestCase {
     """
 
     // when
-    let subject = SchemaModuleNamespaceTemplate(namespace: "namespacedModule")
+    let subject = SchemaModuleNamespaceTemplate(
+      namespace: "namespacedModule",
+      config: .init(value: .mock())
+    )
     let actual = subject.template.description
 
     // then

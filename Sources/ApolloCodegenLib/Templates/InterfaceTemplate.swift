@@ -6,7 +6,7 @@ import ApolloUtils
 struct InterfaceTemplate: TemplateRenderer {
   /// IR representation of source [GraphQL Interface](https://spec.graphql.org/draft/#sec-Interfaces).
   let graphqlInterface: GraphQLInterfaceType
-  /// Shared codegen configuration.
+
   let config: ReferenceWrapped<ApolloCodegenConfiguration>
 
   var target: TemplateTarget = .schemaFile

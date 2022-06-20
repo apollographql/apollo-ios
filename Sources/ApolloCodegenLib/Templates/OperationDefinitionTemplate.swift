@@ -8,7 +8,7 @@ struct OperationDefinitionTemplate: OperationTemplateRenderer {
   let operation: IR.Operation
   /// IR representation of source GraphQL schema.
   let schema: IR.Schema
-  /// Shared codegen configuration.
+
   let config: ReferenceWrapped<ApolloCodegenConfiguration>
 
   let target: TemplateTarget = .operationFile

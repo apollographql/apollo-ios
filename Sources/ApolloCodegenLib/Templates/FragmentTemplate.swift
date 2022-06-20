@@ -8,7 +8,7 @@ struct FragmentTemplate: TemplateRenderer {
   let fragment: IR.NamedFragment
   /// IR representation of source GraphQL schema.
   let schema: IR.Schema
-  /// Shared codegen configuration.
+
   let config: ReferenceWrapped<ApolloCodegenConfiguration>
 
   var target: TemplateTarget { .operationFile }

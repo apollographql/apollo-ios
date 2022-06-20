@@ -1,8 +1,10 @@
 import Foundation
 @testable import ApolloCodegenLib
+import ApolloUtils
 
 public struct MockFileTemplate: TemplateRenderer {
   public var target: TemplateTarget
+  public var config: ReferenceWrapped<ApolloCodegenConfiguration>
 
   public var template: TemplateString {
     TemplateString(
@@ -24,7 +26,10 @@ public struct MockFileTemplate: TemplateRenderer {
     )
   }
 
-  public static func mock(target: TemplateTarget) -> Self {
-    MockFileTemplate(target: target)
+  public static func mock(
+    target: TemplateTarget,
+    config: ApolloCodegenConfiguration = .mock()
+  ) -> Self {
+    MockFileTemplate(target: target, config: .init(value: config))
   }
 }

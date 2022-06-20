@@ -8,7 +8,7 @@ struct UnionTemplate: TemplateRenderer {
   let moduleName: String
   /// IR representation of source [GraphQL Union](https://spec.graphql.org/draft/#sec-Unions).
   let graphqlUnion: GraphQLUnionType
-  /// Shared codegen configuration.
+
   let config: ReferenceWrapped<ApolloCodegenConfiguration>
 
   var target: TemplateTarget = .schemaFile

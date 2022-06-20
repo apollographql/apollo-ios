@@ -22,15 +22,14 @@ enum TemplateTarget {
 protocol TemplateRenderer {
   /// File target of the template.
   var target: TemplateTarget { get }
-
   /// The template for the header to render.
   var headerTemplate: TemplateString? { get }
-
   /// A template that must be rendered outside of any namespace wrapping.
   var detachedTemplate: TemplateString? { get }
-
   /// A template that can be rendered within any namespace wrapping.
   var template: TemplateString { get }
+  /// Shared codegen configuration.
+  var config: ReferenceWrapped<ApolloCodegenConfiguration> { get }
 }
 
 // MARK: Extensions

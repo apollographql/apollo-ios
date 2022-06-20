@@ -35,9 +35,13 @@ class FileGeneratorTests: XCTestCase {
   }
 
   private func buildSubject() {
-    template = MockFileTemplate(target: .schemaFile)
+    template = MockFileTemplate.mock(target: .schemaFile)
     fileTarget = .object
-    subject = .init(template: template, target: fileTarget, fileName: "lowercasedType.swift")
+    subject = MockFileGenerator.mock(
+      template: template,
+      target: fileTarget,
+      filename: "lowercasedType.swift"
+    )
   }
 
   // MARK: - Tests

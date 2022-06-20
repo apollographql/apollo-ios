@@ -12,6 +12,8 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
 
   // MARK: Helpers
 
+#warning("use a buildSubject() function here to cut down on repetition.")
+
   private func renderSubject() -> String {
     subject.template.description
   }
@@ -20,7 +22,7 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
 
   func test__boilerplate__generatesCorrectSwiftToolsVersion() {
     // given
-    subject = .init(moduleName: "testModule", testMockConfig: .none)
+    subject = .init(moduleName: "testModule", testMockConfig: .none, config: .init(value: .mock()))
 
     let expected = """
     // swift-tools-version:5.3
@@ -35,7 +37,7 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
 
   func test__boilerplate__generatesRequiredImports() {
     // given
-    subject = .init(moduleName: "testModule", testMockConfig: .none)
+    subject = .init(moduleName: "testModule", testMockConfig: .none, config: .init(value: .mock()))
 
     let expected = """
     import PackageDescription
@@ -52,7 +54,7 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
 
   func test__packageDescription__generatesPackageDefinition() {
     // given
-    subject = .init(moduleName: "testModule", testMockConfig: .none)
+    subject = .init(moduleName: "testModule", testMockConfig: .none, config: .init(value: .mock()))
 
     let expected = """
     let package = Package(
@@ -68,7 +70,7 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
 
   func test__packageDescription__generatesPlatforms() {
     // given
-    subject = .init(moduleName: "testModule", testMockConfig: .none)
+    subject = .init(moduleName: "testModule", testMockConfig: .none, config: .init(value: .mock()))
 
     let expected = """
       platforms: [
@@ -88,7 +90,7 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
 
   func test__packageDescription__generatesProducts() {
     // given
-    subject = .init(moduleName: "testModule", testMockConfig: .none)
+    subject = .init(moduleName: "testModule", testMockConfig: .none, config: .init(value: .mock()))
 
     let expected = """
       products: [
@@ -105,7 +107,7 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
 
   func test__packageDescription__generatesNoDependencies() {
     // given
-    subject = .init(moduleName: "testModule", testMockConfig: .none)
+    subject = .init(moduleName: "testModule", testMockConfig: .none, config: .init(value: .mock()))
 
     let expected = """
       dependencies: [
@@ -121,7 +123,7 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
 
   func test__packageDescription__givenTestMockConfig_none_generatesTargets() {
     // given
-    subject = .init(moduleName: "testModule", testMockConfig: .none)
+    subject = .init(moduleName: "testModule", testMockConfig: .none, config: .init(value: .mock()))
 
     let expected = """
       targets: [
@@ -144,7 +146,7 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
 
   func test__packageDescription__givenTestMockConfig_absolute_generatesTargets() {
     // given
-    subject = .init(moduleName: "testModule", testMockConfig: .absolute(path: "path"))
+    subject = .init(moduleName: "testModule", testMockConfig: .absolute(path: "path"), config: .init(value: .mock()))
 
     let expected = """
       targets: [
@@ -167,7 +169,7 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
 
   func test__packageDescription__givenTestMockConfig_swiftPackage_noTargetName_generatesTargets() {
     // given
-    subject = .init(moduleName: "testModule", testMockConfig: .swiftPackage())
+    subject = .init(moduleName: "testModule", testMockConfig: .swiftPackage(), config: .init(value: .mock()))
 
     let expected = """
       targets: [
@@ -198,7 +200,7 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
 
   func test__packageDescription__givenTestMockConfig_swiftPackage_withTargetName_generatesTargets() {
     // given
-    subject = .init(moduleName: "testModule", testMockConfig: .swiftPackage(targetName: "CustomMocks"))
+    subject = .init(moduleName: "testModule", testMockConfig: .swiftPackage(targetName: "CustomMocks"), config: .init(value: .mock()))
 
     let expected = """
       targets: [

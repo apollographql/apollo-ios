@@ -6,11 +6,13 @@ import ApolloUtils
 struct SchemaTemplate: TemplateRenderer {
   // IR representation of source GraphQL schema.
   let schema: IR.Schema
-  /// Shared codegen configuration.
+
   let config: ReferenceWrapped<ApolloCodegenConfiguration>
 
   let schemaName: String
+
   var target: TemplateTarget = .schemaFile
+
   var template: TemplateString { embeddableTemplate }
 
   /// Swift code that can be embedded within a namespace.
