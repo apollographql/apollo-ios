@@ -14,7 +14,7 @@ struct LocalCacheMutationDefinitionTemplate: OperationTemplateRenderer {
   var template: TemplateString {
     TemplateString(
     """
-    \(embeddedAccessControlModifier(config: config))\
+    \(embeddedAccessControlModifier)\
     class \(operation.definition.nameWithSuffix.firstUppercased): LocalCacheMutation {
       public static let operationType: GraphQLOperationType = .\(operation.definition.operationType.rawValue)
 

@@ -19,26 +19,26 @@ struct SchemaTemplate: TemplateRenderer {
   var embeddableTemplate: TemplateString {
     TemplateString(
     """
-    \(embeddedAccessControlModifier(config: config))\
+    \(embeddedAccessControlModifier)\
     typealias ID = String
 
     \(if: !config.output.schemaTypes.isInModule,
       TemplateString("""
-      \(embeddedAccessControlModifier(config: config))\
+      \(embeddedAccessControlModifier)\
       typealias SelectionSet = \(schemaName)_SelectionSet
 
-      \(embeddedAccessControlModifier(config: config))\
+      \(embeddedAccessControlModifier)\
       typealias InlineFragment = \(schemaName)_InlineFragment
 
-      \(embeddedAccessControlModifier(config: config))\
+      \(embeddedAccessControlModifier)\
       typealias MutableSelectionSet = \(schemaName)_MutableSelectionSet
 
-      \(embeddedAccessControlModifier(config: config))\
+      \(embeddedAccessControlModifier)\
       typealias MutableInlineFragment = \(schemaName)_MutableInlineFragment
       """),
     else: protocolDefinition(prefix: nil, schemaName: schemaName))
 
-    \(embeddedAccessControlModifier(config: config))\
+    \(embeddedAccessControlModifier)\
     enum Schema: SchemaConfiguration {
       public static func objectType(forTypename __typename: String) -> Object.Type? {
         switch __typename {
