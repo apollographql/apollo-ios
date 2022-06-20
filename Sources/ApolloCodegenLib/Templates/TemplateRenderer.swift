@@ -148,7 +148,9 @@ private struct ImportStatementTemplate {
   }
 
   enum Operation {
-    static func template(forConfig config: ReferenceWrapped<ApolloCodegenConfiguration>) -> TemplateString {
+    static func template(
+      forConfig config: ReferenceWrapped<ApolloCodegenConfiguration>
+    ) -> TemplateString {
       """
       \(ImportStatementTemplate.template)
       @_exported import enum ApolloAPI.GraphQLEnum
@@ -160,7 +162,7 @@ private struct ImportStatementTemplate {
     private static func shouldImportSchemaModule(
       _ config: ReferenceWrapped<ApolloCodegenConfiguration>
     ) -> Bool {
-      config.output.operations != .inSchemaModule && config.output.schemaTypes.isInModule
+      config.output.operations != .inSchemaModule
     }
   }
 
