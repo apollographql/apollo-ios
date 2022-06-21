@@ -6,10 +6,10 @@ import ApolloUtils
 struct CustomScalarTemplate: TemplateRenderer {
   /// IR representation of source [GraphQL Custom Scalar](https://spec.graphql.org/draft/#sec-Scalars.Custom-Scalars).
   let graphqlScalar: GraphQLScalarType
-  /// Shared codegen configuration.
+
   let config: ReferenceWrapped<ApolloCodegenConfiguration>
 
-  var target: TemplateTarget { .schemaFile }
+  let target: TemplateTarget = .schemaFile
 
   var headerTemplate: TemplateString? {
     TemplateString(
@@ -27,7 +27,7 @@ struct CustomScalarTemplate: TemplateRenderer {
   var template: TemplateString {
     TemplateString(
     """
-    \(embeddedAccessControlModifier(config: config))\
+    \(embeddedAccessControlModifier)\
     typealias \(graphqlScalar.name.firstUppercased) = String
     """
     )

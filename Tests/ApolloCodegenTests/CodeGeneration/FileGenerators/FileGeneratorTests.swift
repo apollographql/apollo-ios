@@ -35,9 +35,13 @@ class FileGeneratorTests: XCTestCase {
   }
 
   private func buildSubject() {
-    template = MockFileTemplate(target: .schemaFile)
+    template = MockFileTemplate.mock(target: .schemaFile)
     fileTarget = .object
-    subject = .init(template: template, target: fileTarget, fileName: "lowercasedType.swift")
+    subject = MockFileGenerator.mock(
+      template: template,
+      target: fileTarget,
+      filename: "lowercasedType.swift"
+    )
   }
 
   // MARK: - Tests
@@ -91,7 +95,7 @@ class FileGeneratorTests: XCTestCase {
     buildConfig()
     buildSubject()
 
-    let expectedData = template.render(forConfig: config).data(using: .utf8)
+    let expectedData = template.render().data(using: .utf8)
 
     fileManager.mock(closure: .createFile({ path, data, attributes in
       // then

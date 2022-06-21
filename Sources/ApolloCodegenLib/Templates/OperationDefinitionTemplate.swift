@@ -8,7 +8,7 @@ struct OperationDefinitionTemplate: OperationTemplateRenderer {
   let operation: IR.Operation
   /// IR representation of source GraphQL schema.
   let schema: IR.Schema
-  /// Shared codegen configuration.
+
   let config: ReferenceWrapped<ApolloCodegenConfiguration>
 
   let target: TemplateTarget = .operationFile
@@ -36,7 +36,7 @@ struct OperationDefinitionTemplate: OperationTemplateRenderer {
 
   private func OperationDeclaration(_ operation: CompilationResult.OperationDefinition) -> TemplateString {
     return """
-    \(embeddedAccessControlModifier(config: config))\
+    \(embeddedAccessControlModifier)\
     class \(operation.nameWithSuffix.firstUppercased): \(operation.operationType.renderedProtocolName) {
       public static let operationName: String = "\(operation.name)"
     """

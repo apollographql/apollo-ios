@@ -6,7 +6,7 @@ import ApolloUtils
 struct ObjectTemplate: TemplateRenderer {
   /// IR representation of source [GraphQL Object](https://spec.graphql.org/draft/#sec-Objects).
   let graphqlObject: GraphQLObjectType
-  /// Shared codegen configuration.
+
   let config: ReferenceWrapped<ApolloCodegenConfiguration>
 
   let target: TemplateTarget = .schemaFile
@@ -14,7 +14,7 @@ struct ObjectTemplate: TemplateRenderer {
   var template: TemplateString {
     TemplateString(
     """
-    \(embeddedAccessControlModifier(config: config))\
+    \(embeddedAccessControlModifier)\
     final class \(graphqlObject.name.firstUppercased): Object {
       override public class var __typename: StaticString { \"\(graphqlObject.name.firstUppercased)\" }
 

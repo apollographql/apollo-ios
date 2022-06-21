@@ -27,7 +27,7 @@ extension FileGenerator {
     let filePath = URL(fileURLWithPath: directoryPath)
       .appendingPathComponent(fileName.firstUppercased).path
 
-    let rendered: String = template.render(forConfig: config)
+    let rendered: String = template.render()
 
     try fileManager.apollo.createFile(
       atPath: filePath,

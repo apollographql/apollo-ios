@@ -8,15 +8,15 @@ struct UnionTemplate: TemplateRenderer {
   let moduleName: String
   /// IR representation of source [GraphQL Union](https://spec.graphql.org/draft/#sec-Unions).
   let graphqlUnion: GraphQLUnionType
-  /// Shared codegen configuration.
+
   let config: ReferenceWrapped<ApolloCodegenConfiguration>
 
-  var target: TemplateTarget = .schemaFile
+  let target: TemplateTarget = .schemaFile
 
   var template: TemplateString {
     TemplateString(
     """
-    \(embeddedAccessControlModifier(config: config))\
+    \(embeddedAccessControlModifier)\
     enum \(graphqlUnion.name.firstUppercased): Union {
       public static let possibleTypes: [Object.Type] = [
         \(graphqlUnion.types.map({ type in

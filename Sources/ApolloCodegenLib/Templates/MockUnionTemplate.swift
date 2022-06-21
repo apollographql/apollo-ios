@@ -5,7 +5,6 @@ struct MockUnionTemplate: TemplateRenderer {
   /// IR representation of source [GraphQL Union](https://spec.graphql.org/draft/#sec-Unions).
   let graphqlUnion: GraphQLUnionType
 
-  /// Shared codegen configuration.
   let config: ReferenceWrapped<ApolloCodegenConfiguration>
 
   let ir: IR

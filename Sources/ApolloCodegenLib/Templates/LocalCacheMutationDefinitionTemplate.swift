@@ -6,7 +6,7 @@ struct LocalCacheMutationDefinitionTemplate: OperationTemplateRenderer {
   let operation: IR.Operation
   /// IR representation of source GraphQL schema.
   let schema: IR.Schema
-  /// Shared codegen configuration.
+
   let config: ReferenceWrapped<ApolloCodegenConfiguration>
 
   let target: TemplateTarget = .operationFile
@@ -14,7 +14,7 @@ struct LocalCacheMutationDefinitionTemplate: OperationTemplateRenderer {
   var template: TemplateString {
     TemplateString(
     """
-    \(embeddedAccessControlModifier(config: config))\
+    \(embeddedAccessControlModifier)\
     class \(operation.definition.nameWithSuffix.firstUppercased): LocalCacheMutation {
       public static let operationType: GraphQLOperationType = .\(operation.definition.operationType.rawValue)
 

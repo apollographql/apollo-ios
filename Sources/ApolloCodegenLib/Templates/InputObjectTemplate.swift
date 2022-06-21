@@ -8,15 +8,15 @@ struct InputObjectTemplate: TemplateRenderer {
   let graphqlInputObject: GraphQLInputObjectType
   /// IR representation of a GraphQL schema.
   let schema: IR.Schema
-  /// Shared codegen configuration.
+
   let config: ReferenceWrapped<ApolloCodegenConfiguration>
 
-  var target: TemplateTarget = .schemaFile
+  let target: TemplateTarget = .schemaFile
 
   var template: TemplateString {
     TemplateString(
     """
-    \(embeddedAccessControlModifier(config: config))\
+    \(embeddedAccessControlModifier)\
     struct \(graphqlInputObject.name.firstUppercased): InputObject {
       public private(set) var data: InputDict
     

@@ -8,15 +8,15 @@ struct FragmentTemplate: TemplateRenderer {
   let fragment: IR.NamedFragment
   /// IR representation of source GraphQL schema.
   let schema: IR.Schema
-  /// Shared codegen configuration.
+
   let config: ReferenceWrapped<ApolloCodegenConfiguration>
 
-  var target: TemplateTarget { .operationFile }
+  let target: TemplateTarget = .operationFile
 
   var template: TemplateString {
     TemplateString(
     """
-    \(embeddedAccessControlModifier(config: config))\
+    \(embeddedAccessControlModifier)\
     struct \(fragment.name.firstUppercased): \(schema.name)\
     .\(if: isMutable, "Mutable")SelectionSet, Fragment {
       public static var fragmentDefinition: StaticString { ""\"

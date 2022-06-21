@@ -12,6 +12,18 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
 
   // MARK: Helpers
 
+  private func buildSubject(
+    moduleName: String = "testModule",
+    testMockConfig: ApolloCodegenConfiguration.TestMockFileOutput = .none,
+    config: ApolloCodegenConfiguration = .mock()
+  ) {
+    subject = .init(
+      moduleName: moduleName,
+      testMockConfig: testMockConfig,
+      config: .init(value: config)
+    )
+  }
+
   private func renderSubject() -> String {
     subject.template.description
   }
@@ -20,7 +32,7 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
 
   func test__boilerplate__generatesCorrectSwiftToolsVersion() {
     // given
-    subject = .init(moduleName: "testModule", testMockConfig: .none)
+    buildSubject()
 
     let expected = """
     // swift-tools-version:5.3
@@ -35,7 +47,7 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
 
   func test__boilerplate__generatesRequiredImports() {
     // given
-    subject = .init(moduleName: "testModule", testMockConfig: .none)
+    buildSubject()
 
     let expected = """
     import PackageDescription
@@ -52,7 +64,7 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
 
   func test__packageDescription__generatesPackageDefinition() {
     // given
-    subject = .init(moduleName: "testModule", testMockConfig: .none)
+    buildSubject()
 
     let expected = """
     let package = Package(
@@ -68,7 +80,7 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
 
   func test__packageDescription__generatesPlatforms() {
     // given
-    subject = .init(moduleName: "testModule", testMockConfig: .none)
+    buildSubject()
 
     let expected = """
       platforms: [
@@ -88,7 +100,7 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
 
   func test__packageDescription__generatesProducts() {
     // given
-    subject = .init(moduleName: "testModule", testMockConfig: .none)
+    buildSubject()
 
     let expected = """
       products: [
@@ -105,7 +117,7 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
 
   func test__packageDescription__generatesNoDependencies() {
     // given
-    subject = .init(moduleName: "testModule", testMockConfig: .none)
+    buildSubject()
 
     let expected = """
       dependencies: [
@@ -121,7 +133,7 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
 
   func test__packageDescription__givenTestMockConfig_none_generatesTargets() {
     // given
-    subject = .init(moduleName: "testModule", testMockConfig: .none)
+    buildSubject()
 
     let expected = """
       targets: [
@@ -144,7 +156,7 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
 
   func test__packageDescription__givenTestMockConfig_absolute_generatesTargets() {
     // given
-    subject = .init(moduleName: "testModule", testMockConfig: .absolute(path: "path"))
+    buildSubject(testMockConfig: .absolute(path: "path"))
 
     let expected = """
       targets: [
@@ -167,7 +179,7 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
 
   func test__packageDescription__givenTestMockConfig_swiftPackage_noTargetName_generatesTargets() {
     // given
-    subject = .init(moduleName: "testModule", testMockConfig: .swiftPackage())
+    buildSubject(testMockConfig: .swiftPackage())
 
     let expected = """
       targets: [
@@ -198,7 +210,7 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
 
   func test__packageDescription__givenTestMockConfig_swiftPackage_withTargetName_generatesTargets() {
     // given
-    subject = .init(moduleName: "testModule", testMockConfig: .swiftPackage(targetName: "CustomMocks"))
+    buildSubject(testMockConfig: .swiftPackage(targetName: "CustomMocks"))
 
     let expected = """
       targets: [

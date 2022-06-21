@@ -1,4 +1,5 @@
 import Foundation
+import ApolloUtils
 
 /// Provides the format to define a Swift Package Manager module in Swift code. The output must
 /// conform to the [configuration definition of a Swift package](https://docs.swift.org/package-manager/PackageDescription/PackageDescription.html#).
@@ -11,6 +12,8 @@ struct SwiftPackageManagerModuleTemplate: TemplateRenderer {
   let target: TemplateTarget = .moduleFile
 
   let headerTemplate: TemplateString? = nil
+
+  let config: ReferenceWrapped<ApolloCodegenConfiguration>
 
   var template: TemplateString {
     let casedModuleName = moduleName.firstUppercased

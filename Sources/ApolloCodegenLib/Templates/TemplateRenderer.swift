@@ -22,15 +22,14 @@ enum TemplateTarget {
 protocol TemplateRenderer {
   /// File target of the template.
   var target: TemplateTarget { get }
-
   /// The template for the header to render.
   var headerTemplate: TemplateString? { get }
-
   /// A template that must be rendered outside of any namespace wrapping.
   var detachedTemplate: TemplateString? { get }
-
   /// A template that can be rendered within any namespace wrapping.
   var template: TemplateString { get }
+  /// Shared codegen configuration.
+  var config: ReferenceWrapped<ApolloCodegenConfiguration> { get }
 }
 
 // MARK: Extensions
@@ -48,18 +47,16 @@ extension TemplateRenderer {
   ///
   /// - Parameter config: Shared codegen configuration.
   /// - Returns: Swift code derived from the template format.
-  func render(forConfig config: ReferenceWrapped<ApolloCodegenConfiguration>) -> String {
+  func render() -> String {
     switch target {
-    case .schemaFile: return renderSchemaFile(forConfig: config)
-    case .operationFile: return renderOperationFile(forConfig: config)
-    case .moduleFile: return renderModuleFile(forConfig: config)
-    case .testMockFile: return renderTestMockFile(forConfig: config)
+    case .schemaFile: return renderSchemaFile()
+    case .operationFile: return renderOperationFile()
+    case .moduleFile: return renderModuleFile()
+    case .testMockFile: return renderTestMockFile()
     }
   }
 
-  private func renderSchemaFile(
-    forConfig config: ReferenceWrapped<ApolloCodegenConfiguration>
-  ) -> String {
+  private func renderSchemaFile() -> String {
     TemplateString(
     """
     \(ifLet: headerTemplate, { "\($0)\n" })
@@ -72,9 +69,7 @@ extension TemplateRenderer {
     ).description
   }
 
-  private func renderOperationFile(
-    forConfig config: ReferenceWrapped<ApolloCodegenConfiguration>
-  ) -> String {
+  private func renderOperationFile() -> String {
     TemplateString(
     """
     \(ifLet: headerTemplate, { "\($0)\n" })
@@ -88,9 +83,7 @@ extension TemplateRenderer {
     ).description
   }
 
-  private func renderModuleFile(
-    forConfig config: ReferenceWrapped<ApolloCodegenConfiguration>
-  ) -> String {
+  private func renderModuleFile() -> String {
     TemplateString(
     """
     \(ifLet: headerTemplate, { "\($0)\n" })
@@ -99,9 +92,7 @@ extension TemplateRenderer {
     ).description
   }
 
-  private func renderTestMockFile(
-    forConfig config: ReferenceWrapped<ApolloCodegenConfiguration>
-  ) -> String {
+  private func renderTestMockFile() -> String {
     TemplateString(
     """
     \(ifLet: headerTemplate, { "\($0)\n" })
@@ -112,9 +103,7 @@ extension TemplateRenderer {
     ).description
   }
 
-  func embeddedAccessControlModifier(
-    config: ReferenceWrapped<ApolloCodegenConfiguration>
-  ) -> String {
+  var embeddedAccessControlModifier: String {
     guard config.output.schemaTypes.isInModule else { return "" }
 
     return "public "

@@ -5,14 +5,6 @@ import ApolloUtils
 import Nimble
 
 class TemplateRenderer_OperationFile_Tests: XCTestCase {
-  private var config: ReferenceWrapped<ApolloCodegenConfiguration>!
-  private var subject: MockFileTemplate = .mock(target: .operationFile)
-
-  override func tearDown() {
-    config = nil
-
-    super.tearDown()
-  }
 
   // MARK: Helpers
 
@@ -20,18 +12,16 @@ class TemplateRenderer_OperationFile_Tests: XCTestCase {
     moduleType: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType,
     schemaName: String = "testSchema",
     operations: ApolloCodegenConfiguration.OperationsFileOutput
-  ) {
-    config = ReferenceWrapped(
-      value: ApolloCodegenConfiguration.mock(
-        schemaName: schemaName,
-        input: .init(schemaPath: "MockInputPath", searchPaths: []),
-        output: .mock(moduleType: moduleType, operations: operations)
-      )
+  ) -> ApolloCodegenConfiguration {
+    ApolloCodegenConfiguration.mock(
+      schemaName: schemaName,
+      input: .init(schemaPath: "MockInputPath", searchPaths: []),
+      output: .mock(moduleType: moduleType, operations: operations)
     )
   }
 
-  private func renderSubject() -> String {
-    subject.render(forConfig: config)
+  private func buildSubject(config: ApolloCodegenConfiguration = .mock()) -> MockFileTemplate {
+    MockFileTemplate(target: .operationFile, config: ReferenceWrapped(value: config))
   }
 
   // MARK: Render Target .operationFile Tests
@@ -60,10 +50,11 @@ class TemplateRenderer_OperationFile_Tests: XCTestCase {
     ]
 
     for test in tests {
-      buildConfig(moduleType: test.schemaTypes, operations: test.operations)
+      let config = buildConfig(moduleType: test.schemaTypes, operations: test.operations)
+      let subject = buildSubject(config: config)
 
       // when
-      let actual = renderSubject()
+      let actual = subject.render()
 
       // then
       expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
@@ -140,10 +131,11 @@ class TemplateRenderer_OperationFile_Tests: XCTestCase {
     ]
 
     for test in tests {
-      buildConfig(moduleType: test.schemaTypes, operations: test.operations)
+      let config = buildConfig(moduleType: test.schemaTypes, operations: test.operations)
+      let subject = buildSubject(config: config)
 
       // when
-      let actual = renderSubject()
+      let actual = subject.render()
 
       // then
       expect(actual).to(equalLineByLine(test.expectation, atLine: 4, ignoringExtraLines: true))
@@ -229,10 +221,11 @@ class TemplateRenderer_OperationFile_Tests: XCTestCase {
     ]
 
     for test in tests {
-      buildConfig(moduleType: test.schemaTypes, operations: test.operations)
+      let config = buildConfig(moduleType: test.schemaTypes, operations: test.operations)
+      let subject = buildSubject(config: config)
 
       // when
-      let actual = renderSubject()
+      let actual = subject.render()
 
       // then
       expect(actual).to(equalLineByLine(test.expectation, atLine: test.atLine))

@@ -21,12 +21,16 @@ struct SchemaModuleFileGenerator {
       filePath = pathURL.appendingPathComponent("Package.swift").path
       rendered = SwiftPackageManagerModuleTemplate(
         moduleName: config.schemaName,
-        testMockConfig: config.output.testMocks
-      ).render(forConfig: config)
+        testMockConfig: config.output.testMocks,
+        config: config
+      ).render()
 
     case .embeddedInTarget:
       filePath = pathURL.appendingPathComponent("\(config.schemaName).swift").path
-      rendered = SchemaModuleNamespaceTemplate(namespace: config.schemaName).render(forConfig: config)
+      rendered = SchemaModuleNamespaceTemplate(
+        namespace: config.schemaName,
+        config: config
+        ).render()
 
     case .other:
       // no-op - the implementation is import statements in the generated operation files
