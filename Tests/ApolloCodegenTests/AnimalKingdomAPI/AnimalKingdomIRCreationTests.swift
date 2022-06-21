@@ -507,7 +507,7 @@ final class AnimalKingdomIRCreationTests: XCTestCase {
         .mock("relativeSize",
               type: .nonNull(.enum(GraphQLEnumType.relativeSize()))),
         .mock("centimeters",
-              type: .nonNull(.scalar(GraphQLScalarType.integer()))),
+              type: .nonNull(.scalar(GraphQLScalarType.float()))),
       ],
       typeCases: [],
       fragments: []
@@ -661,7 +661,7 @@ final class AnimalKingdomIRCreationTests: XCTestCase {
         .mock("relativeSize",
               type: .nonNull(.enum(GraphQLEnumType.relativeSize()))),
         .mock("centimeters",
-              type: .nonNull(.scalar(GraphQLScalarType.integer()))),
+              type: .nonNull(.scalar(GraphQLScalarType.float()))),
       ],
       typeCases: [],
       fragments: []
@@ -786,7 +786,7 @@ final class AnimalKingdomIRCreationTests: XCTestCase {
         .mock("relativeSize",
               type: .nonNull(.enum(GraphQLEnumType.relativeSize()))),
         .mock("centimeters",
-              type: .nonNull(.scalar(GraphQLScalarType.integer()))),
+              type: .nonNull(.scalar(GraphQLScalarType.float()))),
       ],
       typeCases: [],
       fragments: []
@@ -973,7 +973,7 @@ final class AnimalKingdomIRCreationTests: XCTestCase {
         .mock("relativeSize",
               type: .nonNull(.enum(GraphQLEnumType.relativeSize()))),
         .mock("centimeters",
-              type: .nonNull(.scalar(GraphQLScalarType.integer()))),
+              type: .nonNull(.scalar(GraphQLScalarType.float()))),
       ],
       typeCases: [],
       fragments: []

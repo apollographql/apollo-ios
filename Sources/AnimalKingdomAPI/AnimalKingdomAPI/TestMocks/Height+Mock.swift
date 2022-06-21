@@ -10,7 +10,7 @@ extension Height: Mockable {
   public typealias MockValueCollectionType = Array<Mock<Height>>
 
   public struct MockFields {
-    @Field<Int>("centimeters") public var centimeters
+    @Field<Double>("centimeters") public var centimeters
     @Field<Int>("feet") public var feet
     @Field<Int>("inches") public var inches
     @Field<Int>("meters") public var meters
@@ -20,7 +20,7 @@ extension Height: Mockable {
 
 public extension Mock where O == Height {
   convenience init(
-    centimeters: Int? = nil,
+    centimeters: Double? = nil,
     feet: Int? = nil,
     inches: Int? = nil,
     meters: Int? = nil,

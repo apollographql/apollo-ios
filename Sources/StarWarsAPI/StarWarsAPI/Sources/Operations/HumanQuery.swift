@@ -49,11 +49,11 @@ public class HumanQuery: GraphQLQuery {
       public static var __parentType: ParentType { .Object(StarWarsAPI.Human.self) }
       public static var selections: [Selection] { [
         .field("name", String.self),
-        .field("mass", Float?.self),
+        .field("mass", Double?.self),
       ] }
 
       public var name: String { data["name"] }
-      public var mass: Float? { data["mass"] }
+      public var mass: Double? { data["mass"] }
     }
   }
 }

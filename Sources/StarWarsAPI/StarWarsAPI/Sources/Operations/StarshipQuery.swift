@@ -41,11 +41,11 @@ public class StarshipQuery: GraphQLQuery {
       public static var __parentType: ParentType { .Object(StarWarsAPI.Starship.self) }
       public static var selections: [Selection] { [
         .field("name", String.self),
-        .field("coordinates", [[Float]]?.self),
+        .field("coordinates", [[Double]]?.self),
       ] }
 
       public var name: String { data["name"] }
-      public var coordinates: [[Float]]? { data["coordinates"] }
+      public var coordinates: [[Double]]? { data["coordinates"] }
     }
   }
 }

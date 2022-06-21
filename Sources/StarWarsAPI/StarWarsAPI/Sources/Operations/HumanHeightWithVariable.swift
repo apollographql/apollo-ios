@@ -18,8 +18,8 @@ public struct HumanHeightWithVariable: StarWarsAPI.SelectionSet, Fragment {
 
   public static var __parentType: ParentType { .Object(StarWarsAPI.Human.self) }
   public static var selections: [Selection] { [
-    .field("height", Float?.self, arguments: ["unit": .variable("heightUnit")]),
+    .field("height", Double?.self, arguments: ["unit": .variable("heightUnit")]),
   ] }
 
-  public var height: Float? { data["height"] }
+  public var height: Double? { data["height"] }
 }

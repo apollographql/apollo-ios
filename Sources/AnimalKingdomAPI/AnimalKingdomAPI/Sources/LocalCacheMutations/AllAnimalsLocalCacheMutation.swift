@@ -57,10 +57,10 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
 
         public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Bird.self) }
         public static var selections: [Selection] { [
-          .field("wingspan", Float.self),
+          .field("wingspan", Double.self),
         ] }
 
-        public var wingspan: Float {
+        public var wingspan: Double {
           get { data["wingspan"] }
           set { data["wingspan"] = newValue }
         }

@@ -71,7 +71,7 @@ public class HeroDetailsWithFragmentQuery: GraphQLQuery {
         public static var __parentType: ParentType { .Object(StarWarsAPI.Human.self) }
 
         public var name: String { data["name"] }
-        public var height: Float? { data["height"] }
+        public var height: Double? { data["height"] }
 
         public struct Fragments: FragmentContainer {
           public let data: DataDict

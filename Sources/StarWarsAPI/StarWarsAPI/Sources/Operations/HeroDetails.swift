@@ -41,10 +41,10 @@ public struct HeroDetails: StarWarsAPI.SelectionSet, Fragment {
 
     public static var __parentType: ParentType { .Object(StarWarsAPI.Human.self) }
     public static var selections: [Selection] { [
-      .field("height", Float?.self),
+      .field("height", Double?.self),
     ] }
 
-    public var height: Float? { data["height"] }
+    public var height: Double? { data["height"] }
     public var name: String { data["name"] }
   }
 

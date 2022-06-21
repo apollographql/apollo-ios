@@ -248,11 +248,13 @@ class SelectionSetTemplateTests: XCTestCase {
 
     type Animal {
       string: String!
-      string_optional: String
-      boolean: Boolean!
-      boolean_optional: Boolean
+      string_optional: String      
       int: Int!
       int_optional: Int
+      float: Float!
+      float_optional: Float
+      boolean: Boolean!
+      boolean_optional: Boolean
       custom: Custom!
       custom_optional: Custom
       custom_required_list: [Custom!]!
@@ -279,10 +281,12 @@ class SelectionSetTemplateTests: XCTestCase {
       allAnimals {
         string
         string_optional
-        boolean
-        boolean_optional
         int
         int_optional
+        float
+        float_optional
+        boolean
+        boolean_optional
         custom
         custom_optional
         custom_required_list
@@ -307,10 +311,12 @@ class SelectionSetTemplateTests: XCTestCase {
       public static var selections: [Selection] { [
         .field("string", String.self),
         .field("string_optional", String?.self),
-        .field("boolean", Bool.self),
-        .field("boolean_optional", Bool?.self),
         .field("int", Int.self),
         .field("int_optional", Int?.self),
+        .field("float", Double.self),
+        .field("float_optional", Double?.self),
+        .field("boolean", Bool.self),
+        .field("boolean_optional", Bool?.self),
         .field("custom", TestSchema.Custom.self),
         .field("custom_optional", TestSchema.Custom?.self),
         .field("custom_required_list", [TestSchema.Custom].self),
@@ -1177,6 +1183,10 @@ class SelectionSetTemplateTests: XCTestCase {
       string_optional: String
       int: Int!
       int_optional: Int
+      float: Float!
+      float_optional: Float
+      boolean: Boolean!
+      boolean_optional: Boolean
       custom: Custom!
       custom_optional: Custom
       custom_required_list: [Custom!]!
@@ -1205,6 +1215,10 @@ class SelectionSetTemplateTests: XCTestCase {
         string_optional
         int
         int_optional
+        float
+        float_optional
+        boolean
+        boolean_optional
         custom
         custom_optional
         custom_required_list
@@ -1230,6 +1244,10 @@ class SelectionSetTemplateTests: XCTestCase {
       public var string_optional: String? { data["string_optional"] }
       public var int: Int { data["int"] }
       public var int_optional: Int? { data["int_optional"] }
+      public var float: Double { data["float"] }
+      public var float_optional: Double? { data["float_optional"] }
+      public var boolean: Bool { data["boolean"] }
+      public var boolean_optional: Bool? { data["boolean_optional"] }
       public var custom: TestSchema.Custom { data["custom"] }
       public var custom_optional: TestSchema.Custom? { data["custom_optional"] }
       public var custom_required_list: [TestSchema.Custom] { data["custom_required_list"] }
@@ -1257,7 +1275,7 @@ class SelectionSetTemplateTests: XCTestCase {
     let actual = subject.render(field: allAnimals)
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 30, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 34, ignoringExtraLines: true))
   }
 
   func test__render_fieldAccessors__givenEnumField_rendersFieldAccessors() throws {

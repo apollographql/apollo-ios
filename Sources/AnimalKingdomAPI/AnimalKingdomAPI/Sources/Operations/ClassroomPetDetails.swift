@@ -116,10 +116,10 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
 
     public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Bird.self) }
     public static var selections: [Selection] { [
-      .field("wingspan", Float.self),
+      .field("wingspan", Double.self),
     ] }
 
-    public var wingspan: Float { data["wingspan"] }
+    public var wingspan: Double { data["wingspan"] }
     public var species: String { data["species"] }
     public var humanName: String? { data["humanName"] }
     public var laysEggs: Bool { data["laysEggs"] }
