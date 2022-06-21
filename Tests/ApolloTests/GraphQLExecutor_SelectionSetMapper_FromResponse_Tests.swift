@@ -120,6 +120,40 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     }
   }
 
+  // MARK: Custom Scalar
+
+  func test__nonnull_customScalar_asString__givenDataAsInt_getsValue() throws {
+    // given
+    typealias GivenCustomScalar = String
+
+    class GivenSelectionSet: MockSelectionSet {
+      override class var selections: [Selection] { [.field("customScalar", GivenCustomScalar.self)] }
+    }
+    let object: JSONObject = ["customScalar": Int(12345678)]
+
+    // when
+    let data = try readValues(GivenSelectionSet.self, from: object)
+
+    // then
+    XCTAssertEqual(data.customScalar, "12345678")
+  }
+
+  func test__nonnull_customScalar_asString__givenDataAsDouble_getsValue() throws {
+    // given
+    typealias GivenCustomScalar = String
+
+    class GivenSelectionSet: MockSelectionSet {
+      override class var selections: [Selection] { [.field("customScalar", GivenCustomScalar.self)] }
+    }
+    let object: JSONObject = ["customScalar": Double(1234.5678)]
+
+    // when
+    let data = try readValues(GivenSelectionSet.self, from: object)
+
+    // then
+    XCTAssertEqual(data.customScalar, "1234.5678")
+  }
+
   // MARK: Optional Scalar
   
   func test__optional_scalar__givenData_getsValue() throws {
