@@ -95,7 +95,7 @@ class FileGeneratorTests: XCTestCase {
     buildConfig()
     buildSubject()
 
-    let expectedData = template.render(forConfig: config).data(using: .utf8)
+    let expectedData = template.render().data(using: .utf8)
 
     fileManager.mock(closure: .createFile({ path, data, attributes in
       // then
