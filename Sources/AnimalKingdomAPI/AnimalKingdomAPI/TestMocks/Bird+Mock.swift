@@ -20,7 +20,7 @@ extension Bird: Mockable {
     @Field<[Animal]>("predators") public var predators
     @Field<GraphQLEnum<SkinCovering>>("skinCovering") public var skinCovering
     @Field<String>("species") public var species
-    @Field<Float>("wingspan") public var wingspan
+    @Field<Double>("wingspan") public var wingspan
   }
 }
 
@@ -36,7 +36,7 @@ public extension Mock where O == Bird {
     predators: [AnyMock]? = nil,
     skinCovering: GraphQLEnum<SkinCovering>? = nil,
     species: String? = nil,
-    wingspan: Float? = nil
+    wingspan: Double? = nil
   ) {
     self.init()
     self.bodyTemperature = bodyTemperature

@@ -110,10 +110,10 @@ public class HeroParentTypeDependentFieldQuery: GraphQLQuery {
 
             public static var __parentType: ParentType { .Object(StarWarsAPI.Human.self) }
             public static var selections: [Selection] { [
-              .field("height", Float?.self, arguments: ["unit": "FOOT"]),
+              .field("height", Double?.self, arguments: ["unit": "FOOT"]),
             ] }
 
-            public var height: Float? { data["height"] }
+            public var height: Double? { data["height"] }
             public var name: String { data["name"] }
           }
         }
@@ -154,10 +154,10 @@ public class HeroParentTypeDependentFieldQuery: GraphQLQuery {
 
             public static var __parentType: ParentType { .Object(StarWarsAPI.Human.self) }
             public static var selections: [Selection] { [
-              .field("height", Float?.self, arguments: ["unit": "METER"]),
+              .field("height", Double?.self, arguments: ["unit": "METER"]),
             ] }
 
-            public var height: Float? { data["height"] }
+            public var height: Double? { data["height"] }
             public var name: String { data["name"] }
           }
         }

@@ -74,7 +74,7 @@ interface WarmBlooded implements Animal {
 
 type Height {
   relativeSize: RelativeSize!
-  centimeters: Int!
+  centimeters: Float!
   meters: Int!
   feet: Int!
   inches: Int

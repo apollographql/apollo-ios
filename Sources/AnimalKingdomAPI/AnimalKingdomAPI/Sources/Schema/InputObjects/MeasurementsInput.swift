@@ -11,9 +11,9 @@ public struct MeasurementsInput: InputObject {
   }
 
   public init(
-    height: Float,
-    weight: Float,
-    wingspan: GraphQLNullable<Float> = nil
+    height: Double,
+    weight: Double,
+    wingspan: GraphQLNullable<Double> = nil
   ) {
     data = InputDict([
       "height": height,
@@ -22,17 +22,17 @@ public struct MeasurementsInput: InputObject {
     ])
   }
 
-  public var height: Float {
+  public var height: Double {
     get { data.height }
     set { data.height = newValue }
   }
 
-  public var weight: Float {
+  public var weight: Double {
     get { data.weight }
     set { data.weight = newValue }
   }
 
-  public var wingspan: GraphQLNullable<Float> {
+  public var wingspan: GraphQLNullable<Double> {
     get { data.wingspan }
     set { data.wingspan = newValue }
   }

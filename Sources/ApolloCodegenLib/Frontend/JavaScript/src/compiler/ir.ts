@@ -62,8 +62,7 @@ export interface Argument {
 }
 
 export interface InlineFragment {
-  kind: "InlineFragment";
-  typeCondition?: GraphQLCompositeType;
+  kind: "InlineFragment";  
   selectionSet: SelectionSet;
   inclusionConditions?: InclusionCondition[];
   directives?: Directive[];

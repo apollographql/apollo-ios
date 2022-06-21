@@ -301,12 +301,12 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public static var selections: [Selection] { [
             .include(if: "varA", [
               .field("relativeSize", GraphQLEnum<RelativeSize>.self),
-              .field("centimeters", Int.self),
+              .field("centimeters", Double.self),
             ]),
           ] }
 
           public var relativeSize: GraphQLEnum<RelativeSize>? { data["relativeSize"] }
-          public var centimeters: Int? { data["centimeters"] }
+          public var centimeters: Double? { data["centimeters"] }
           public var feet: Int { data["feet"] }
           public var inches: Int? { data["inches"] }
           public var meters: Int { data["meters"] }
@@ -351,7 +351,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
             public var inches: Int? { data["inches"] }
             public var meters: Int { data["meters"] }
             public var relativeSize: GraphQLEnum<RelativeSize>? { data["relativeSize"] }
-            public var centimeters: Int? { data["centimeters"] }
+            public var centimeters: Double? { data["centimeters"] }
           }
         }
       }
@@ -396,7 +396,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public var inches: Int? { data["inches"] }
           public var meters: Int { data["meters"] }
           public var relativeSize: GraphQLEnum<RelativeSize>? { data["relativeSize"] }
-          public var centimeters: Int? { data["centimeters"] }
+          public var centimeters: Double? { data["centimeters"] }
         }
       }
 
@@ -443,10 +443,10 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
 
           public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Bird.self) }
           public static var selections: [Selection] { [
-            .field("wingspan", Float.self),
+            .field("wingspan", Double.self),
           ] }
 
-          public var wingspan: Float { data["wingspan"] }
+          public var wingspan: Double { data["wingspan"] }
           public var height: Height { data["height"] }
           public var species: String? { data["species"] }
           public var skinCovering: GraphQLEnum<SkinCovering>? { data["skinCovering"] }
@@ -476,7 +476,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
             public var inches: Int? { data["inches"] }
             public var meters: Int { data["meters"] }
             public var relativeSize: GraphQLEnum<RelativeSize>? { data["relativeSize"] }
-            public var centimeters: Int? { data["centimeters"] }
+            public var centimeters: Double? { data["centimeters"] }
           }
         }
       }

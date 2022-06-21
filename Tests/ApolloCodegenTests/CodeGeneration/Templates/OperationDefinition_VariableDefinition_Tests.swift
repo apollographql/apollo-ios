@@ -72,7 +72,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
           type: .scalar(.float()),
           defaultValue: nil
         ),
-        "floatField: GraphQLNullable<Float>"
+        "floatField: GraphQLNullable<Double>"
       ),
       (
         .mock(
@@ -163,7 +163,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
           type: .scalar(.float()),
           defaultValue: .float(12.3943)
         ),
-        "floatField: GraphQLNullable<Float> = 12.3943"
+        "floatField: GraphQLNullable<Double> = 12.3943"
       ),
       (
         .mock(

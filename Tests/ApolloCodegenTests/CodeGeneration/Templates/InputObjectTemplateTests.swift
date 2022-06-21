@@ -233,7 +233,7 @@ class InputObjectTemplateTests: XCTestCase {
         stringField: GraphQLNullable<String> = nil,
         intField: GraphQLNullable<Int> = nil,
         boolField: GraphQLNullable<Bool> = nil,
-        floatField: GraphQLNullable<Float> = nil,
+        floatField: GraphQLNullable<Double> = nil,
         enumField: GraphQLNullable<GraphQLEnum<EnumValue>> = nil,
         inputField: GraphQLNullable<InnerInputObject> = nil,
         listField: GraphQLNullable<[String?]> = nil
@@ -264,7 +264,7 @@ class InputObjectTemplateTests: XCTestCase {
         set { data.boolField = newValue }
       }
 
-      public var floatField: GraphQLNullable<Float> {
+      public var floatField: GraphQLNullable<Double> {
         get { data.floatField }
         set { data.floatField = newValue }
       }

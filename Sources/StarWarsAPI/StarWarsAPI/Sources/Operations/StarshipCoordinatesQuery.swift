@@ -21,9 +21,9 @@ public class StarshipCoordinatesQuery: GraphQLQuery {
       """
     ))
 
-  public var coordinates: GraphQLNullable<[[Float]]>
+  public var coordinates: GraphQLNullable<[[Double]]>
 
-  public init(coordinates: GraphQLNullable<[[Float]]>) {
+  public init(coordinates: GraphQLNullable<[[Double]]>) {
     self.coordinates = coordinates
   }
 
@@ -50,13 +50,13 @@ public class StarshipCoordinatesQuery: GraphQLQuery {
       public static var __parentType: ParentType { .Object(StarWarsAPI.Starship.self) }
       public static var selections: [Selection] { [
         .field("name", String.self),
-        .field("coordinates", [[Float]]?.self),
-        .field("length", Float?.self),
+        .field("coordinates", [[Double]]?.self),
+        .field("length", Double?.self),
       ] }
 
       public var name: String { data["name"] }
-      public var coordinates: [[Float]]? { data["coordinates"] }
-      public var length: Float? { data["length"] }
+      public var coordinates: [[Double]]? { data["coordinates"] }
+      public var length: Double? { data["length"] }
     }
   }
 }
