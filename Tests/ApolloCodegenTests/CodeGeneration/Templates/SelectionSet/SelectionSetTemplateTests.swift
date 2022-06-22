@@ -2,6 +2,7 @@ import XCTest
 import Nimble
 @testable import ApolloCodegenLib
 import ApolloCodegenInternalTestHelpers
+import ApolloUtils
 
 class SelectionSetTemplateTests: XCTestCase {
 
@@ -26,11 +27,15 @@ class SelectionSetTemplateTests: XCTestCase {
 
   // MARK: - Helpers
 
-  func buildSubjectAndOperation(named operationName: String = "TestOperation") throws {
+  func buildSubjectAndOperation(
+    named operationName: String = "TestOperation",
+    configOutput: ApolloCodegenConfiguration.FileOutput = .mock()
+  ) throws {
     ir = try .mock(schema: schemaSDL, document: document)
     let operationDefinition = try XCTUnwrap(ir.compilationResult[operation: operationName])
     operation = ir.build(operation: operationDefinition)
-    subject = SelectionSetTemplate(schema: ir.schema)
+    let config = ApolloCodegenConfiguration.mock(output: configOutput)
+    subject = SelectionSetTemplate(schema: ir.schema, config: ReferenceWrapped(value: config))
   }
 
   // MARK: - Tests
@@ -346,6 +351,78 @@ class SelectionSetTemplateTests: XCTestCase {
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
+  }
+
+  func test__render_selections__givenCustomScalar_rendersFieldSelections_withNamespaceWhenRequired() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      custom: Custom!
+      custom_optional: Custom
+      custom_required_list: [Custom!]!
+      custom_optional_list: [Custom!]
+    }
+
+    scalar Custom
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        custom
+        custom_optional
+        custom_required_list
+        custom_optional_list
+      }
+    }
+    """
+
+    let expectedNamespaced = """
+      public static var selections: [Selection] { [
+        .field("custom", TestSchema.Custom.self),
+        .field("custom_optional", TestSchema.Custom?.self),
+        .field("custom_required_list", [TestSchema.Custom].self),
+        .field("custom_optional_list", [TestSchema.Custom]?.self),
+      ] }
+    """
+
+    let expectedNoNamespace = """
+      public static var selections: [Selection] { [
+        .field("custom", Custom.self),
+        .field("custom_optional", Custom?.self),
+        .field("custom_required_list", [Custom].self),
+        .field("custom_optional_list", [Custom]?.self),
+      ] }
+    """
+
+    let tests: [(config: ApolloCodegenConfiguration.FileOutput, expected: String)] = [
+      (.mock(moduleType: .swiftPackageManager, operations: .relative(subpath: nil)), expectedNamespaced),
+      (.mock(moduleType: .swiftPackageManager, operations: .absolute(path: "custom")), expectedNamespaced),
+      (.mock(moduleType: .swiftPackageManager, operations: .inSchemaModule), expectedNoNamespace),
+      (.mock(moduleType: .other, operations: .relative(subpath: nil)), expectedNamespaced),
+      (.mock(moduleType: .other, operations: .absolute(path: "custom")), expectedNamespaced),
+      (.mock(moduleType: .other, operations: .inSchemaModule), expectedNoNamespace),
+      (.mock(moduleType: .embeddedInTarget(name: "CustomTarget"), operations: .relative(subpath: nil)), expectedNamespaced),
+      (.mock(moduleType: .embeddedInTarget(name: "CustomTarget"), operations: .absolute(path: "custom")), expectedNamespaced),
+      (.mock(moduleType: .embeddedInTarget(name: "CustomTarget"), operations: .inSchemaModule), expectedNoNamespace)
+    ]
+
+    for test in tests {
+      // when
+      try buildSubjectAndOperation(configOutput: test.config)
+      let allAnimals = try XCTUnwrap(
+        operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+      )
+
+      let actual = subject.render(field: allAnimals)
+
+      // then
+      expect(actual).to(equalLineByLine(test.expected, atLine: 7, ignoringExtraLines: true))
+    }
   }
 
   func test__render_selections__givenEnumField_rendersFieldSelections() throws {
