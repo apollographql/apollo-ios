@@ -5,11 +5,19 @@ struct SelectionSetTemplate {
 
   let schema: IR.Schema
   let isMutable: Bool
+  let config: ReferenceWrapped<ApolloCodegenConfiguration>
+
   private let nameCache: SelectionSetNameCache
 
-  init(schema: IR.Schema, mutable: Bool = false) {
+  init(
+    schema: IR.Schema,
+    mutable: Bool = false,
+    config: ReferenceWrapped<ApolloCodegenConfiguration>
+  ) {
     self.schema = schema
     self.isMutable = mutable
+    self.config = config
+
     self.nameCache = SelectionSetNameCache(schema: schema)
   }
 

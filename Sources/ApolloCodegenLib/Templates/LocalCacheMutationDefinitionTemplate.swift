@@ -24,7 +24,7 @@ struct LocalCacheMutationDefinitionTemplate: OperationTemplateRenderer {
 
       \(section: VariableAccessors(operation.definition.variables))
 
-      \(SelectionSetTemplate(schema: schema, mutable: true).render(for: operation))
+      \(SelectionSetTemplate(schema: schema, mutable: true, config: config).render(for: operation))
     }
     """)
   }

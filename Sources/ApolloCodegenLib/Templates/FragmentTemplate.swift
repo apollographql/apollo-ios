@@ -25,7 +25,8 @@ struct FragmentTemplate: TemplateRenderer {
 
       \(SelectionSetTemplate(
         schema: schema,
-        mutable: isMutable
+        mutable: isMutable,
+        config: config
       ).BodyTemplate(fragment.rootField.selectionSet))
     }
     """)
