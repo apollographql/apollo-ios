@@ -322,10 +322,10 @@ class SelectionSetTemplateTests: XCTestCase {
         .field("float_optional", Double?.self),
         .field("boolean", Bool.self),
         .field("boolean_optional", Bool?.self),
-        .field("custom", TestSchema.Custom.self),
-        .field("custom_optional", TestSchema.Custom?.self),
-        .field("custom_required_list", [TestSchema.Custom].self),
-        .field("custom_optional_list", [TestSchema.Custom]?.self),
+        .field("custom", MockSchemaTypes.Custom.self),
+        .field("custom_optional", MockSchemaTypes.Custom?.self),
+        .field("custom_required_list", [MockSchemaTypes.Custom].self),
+        .field("custom_optional_list", [MockSchemaTypes.Custom]?.self),
         .field("list_required_required", [String].self),
         .field("list_optional_required", [String]?.self),
         .field("list_required_optional", [String?].self),
@@ -383,10 +383,10 @@ class SelectionSetTemplateTests: XCTestCase {
 
     let expectedNamespaced = """
       public static var selections: [Selection] { [
-        .field("custom", TestSchema.Custom.self),
-        .field("custom_optional", TestSchema.Custom?.self),
-        .field("custom_required_list", [TestSchema.Custom].self),
-        .field("custom_optional_list", [TestSchema.Custom]?.self),
+        .field("custom", MockSchemaTypes.Custom.self),
+        .field("custom_optional", MockSchemaTypes.Custom?.self),
+        .field("custom_required_list", [MockSchemaTypes.Custom].self),
+        .field("custom_optional_list", [MockSchemaTypes.Custom]?.self),
       ] }
     """
 
@@ -464,8 +464,8 @@ class SelectionSetTemplateTests: XCTestCase {
 
     let expectedNamespaced = """
       public static var selections: [Selection] { [
-        .field("testEnum", GraphQLEnum<TestSchema.TestEnum>.self),
-        .field("testEnumOptional", GraphQLEnum<TestSchema.TestEnumOptional>?.self),
+        .field("testEnum", GraphQLEnum<MockSchemaTypes.TestEnum>.self),
+        .field("testEnumOptional", GraphQLEnum<MockSchemaTypes.TestEnumOptional>?.self),
       ] }
     """
 

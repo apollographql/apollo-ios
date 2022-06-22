@@ -80,7 +80,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
           type: .enum(.mock(name: "EnumValue")),
           defaultValue: nil
         ),
-        "enumField: GraphQLNullable<GraphQLEnum<EnumValue>>"
+        "enumField: GraphQLNullable<GraphQLEnum<MockSchemaTypes.EnumValue>>"
       ),
       (
         .mock(
@@ -171,7 +171,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
           type: .enum(.mock(name: "EnumValue")),
           defaultValue: .enum("CaseONE")
         ),
-        "enumField: GraphQLNullable<GraphQLEnum<EnumValue>> = .init(.CaseONE)"
+        "enumField: GraphQLNullable<GraphQLEnum<MockSchemaTypes.EnumValue>> = .init(.CaseONE)"
       ),
       (
         .mock(
@@ -179,7 +179,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
           type: .nonNull(.enum(.mock(name: "EnumValue"))),
           defaultValue: .enum("CaseONE")
         ),
-        "enumField: GraphQLEnum<EnumValue> = .init(.CaseONE)"
+        "enumField: GraphQLEnum<MockSchemaTypes.EnumValue> = .init(.CaseONE)"
       ),
       (
         .mock(
@@ -538,7 +538,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
                     type: .list(.enum(.mock(name: "EnumValue"))),
                     defaultValue: nil)
 
-    let expected = "nullableListNullableItem: GraphQLNullable<[GraphQLEnum<EnumValue>?]>"
+    let expected = "nullableListNullableItem: GraphQLNullable<[GraphQLEnum<MockSchemaTypes.EnumValue>?]>"
 
     // when
     let actual = template.VariableParameter(subject).description

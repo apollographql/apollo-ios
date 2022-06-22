@@ -234,7 +234,7 @@ class InputObjectTemplateTests: XCTestCase {
         intField: GraphQLNullable<Int> = nil,
         boolField: GraphQLNullable<Bool> = nil,
         floatField: GraphQLNullable<Double> = nil,
-        enumField: GraphQLNullable<GraphQLEnum<EnumValue>> = nil,
+        enumField: GraphQLNullable<GraphQLEnum<MockSchemaTypes.EnumValue>> = nil,
         inputField: GraphQLNullable<InnerInputObject> = nil,
         listField: GraphQLNullable<[String?]> = nil
       ) {
@@ -612,14 +612,14 @@ class InputObjectTemplateTests: XCTestCase {
 
     let expected = """
       public init(
-        nullableListNullableItem: GraphQLNullable<[GraphQLEnum<EnumValue>?]> = nil
+        nullableListNullableItem: GraphQLNullable<[GraphQLEnum<MockSchemaTypes.EnumValue>?]> = nil
       ) {
         __data = InputDict([
           "nullableListNullableItem": nullableListNullableItem
         ])
       }
 
-      public var nullableListNullableItem: GraphQLNullable<[GraphQLEnum<EnumValue>?]> {
+      public var nullableListNullableItem: GraphQLNullable<[GraphQLEnum<MockSchemaTypes.EnumValue>?]> {
     """
 
     // when

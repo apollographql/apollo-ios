@@ -133,7 +133,7 @@ class MockObjectTemplateTests: XCTestCase {
 
     let expected = """
       public struct MockFields {
-        @Field<TestSchema.CustomScalar>("customScalar") public var customScalar
+        @Field<MockSchemaTypes.CustomScalar>("customScalar") public var customScalar
         @Field<Cat>("object") public var object
         @Field<[Cat]>("objectList") public var objectList
         @Field<[[Cat]]>("objectNestedList") public var objectNestedList
@@ -179,7 +179,7 @@ class MockObjectTemplateTests: XCTestCase {
 
     public extension Mock where O == Dog {
       convenience init(
-        customScalar: TestSchema.CustomScalar? = nil,
+        customScalar: MockSchemaTypes.CustomScalar? = nil,
         object: Mock<Cat>? = nil,
         objectList: [Mock<Cat>]? = nil,
         objectNestedList: [[Mock<Cat>]]? = nil,
@@ -233,7 +233,7 @@ class MockObjectTemplateTests: XCTestCase {
 
     public extension Mock where O == Dog {
       convenience init(
-        customScalar: TestSchema.CustomScalar? = nil,
+        customScalar: MockSchemaTypes.CustomScalar? = nil,
         interface: AnyMock? = nil,
         interfaceList: [AnyMock]? = nil,
         interfaceNestedList: [[AnyMock]]? = nil,
@@ -287,7 +287,7 @@ class MockObjectTemplateTests: XCTestCase {
 
     public extension Mock where O == Dog {
       convenience init(
-        customScalar: TestSchema.CustomScalar? = nil,
+        customScalar: MockSchemaTypes.CustomScalar? = nil,
         optionalString: String? = nil,
         string: String? = nil,
         union: AnyMock? = nil,
