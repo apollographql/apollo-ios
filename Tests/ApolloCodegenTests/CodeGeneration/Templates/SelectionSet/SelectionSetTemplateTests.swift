@@ -455,23 +455,44 @@ class SelectionSetTemplateTests: XCTestCase {
     }
     """
 
-    let expected = """
+    let expectedNoNamespace = """
       public static var selections: [Selection] { [
         .field("testEnum", GraphQLEnum<TestEnum>.self),
         .field("testEnumOptional", GraphQLEnum<TestEnumOptional>?.self),
       ] }
     """
 
-    // when
-    try buildSubjectAndOperation()
-    let allAnimals = try XCTUnwrap(
-      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
-    )
+    let expectedNamespaced = """
+      public static var selections: [Selection] { [
+        .field("testEnum", GraphQLEnum<TestSchema.TestEnum>.self),
+        .field("testEnumOptional", GraphQLEnum<TestSchema.TestEnumOptional>?.self),
+      ] }
+    """
 
-    let actual = subject.render(field: allAnimals)
+    let tests: [(config: ApolloCodegenConfiguration.FileOutput, expected: String)] = [
+      (.mock(moduleType: .swiftPackageManager, operations: .relative(subpath: nil)), expectedNamespaced),
+      (.mock(moduleType: .swiftPackageManager, operations: .absolute(path: "custom")), expectedNamespaced),
+      (.mock(moduleType: .swiftPackageManager, operations: .inSchemaModule), expectedNoNamespace),
+      (.mock(moduleType: .other, operations: .relative(subpath: nil)), expectedNamespaced),
+      (.mock(moduleType: .other, operations: .absolute(path: "custom")), expectedNamespaced),
+      (.mock(moduleType: .other, operations: .inSchemaModule), expectedNoNamespace),
+      (.mock(moduleType: .embeddedInTarget(name: "CustomTarget"), operations: .relative(subpath: nil)), expectedNamespaced),
+      (.mock(moduleType: .embeddedInTarget(name: "CustomTarget"), operations: .absolute(path: "custom")), expectedNamespaced),
+      (.mock(moduleType: .embeddedInTarget(name: "CustomTarget"), operations: .inSchemaModule), expectedNoNamespace)
+    ]
 
-    // then
-    expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
+    for test in tests {
+      // when
+      try buildSubjectAndOperation(configOutput: test.config)
+      let allAnimals = try XCTUnwrap(
+        operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+      )
+
+      let actual = subject.render(field: allAnimals)
+
+      // then
+      expect(actual).to(equalLineByLine(test.expected, atLine: 7, ignoringExtraLines: true))
+    }
   }
 
   func test__render_selections__givenFieldWithUppercasedName_rendersFieldSelections() throws {
@@ -1355,7 +1376,7 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 34, ignoringExtraLines: true))
   }
 
-  func test__render_fieldAccessors__givenEnumField_rendersFieldAccessors() throws {
+  func test__render_fieldAccessors__givenEnumField_rendersFieldAccessors_namespacedWhenRequired() throws {
     // given
     schemaSDL = """
     type Query {
@@ -1385,9 +1406,9 @@ class SelectionSetTemplateTests: XCTestCase {
     }
     """
 
-    let expected = """
-      public var testEnum: GraphQLEnum<TestEnum> { __data["testEnum"] }
-      public var testEnumOptional: GraphQLEnum<TestEnumOptional>? { __data["testEnumOptional"] }
+    let expectedNamespaced = """
+      public var testEnum: GraphQLEnum<TestSchema.TestEnum> { __data["testEnum"] }
+      public var testEnumOptional: GraphQLEnum<TestSchema.TestEnumOptional>? { __data["testEnumOptional"] }
     """
 
     // when
@@ -1395,11 +1416,35 @@ class SelectionSetTemplateTests: XCTestCase {
     let allAnimals = try XCTUnwrap(
       operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
     )
+    let expectedNoNamespace = """
+      public var testEnum: GraphQLEnum<TestEnum> { data["testEnum"] }
+      public var testEnumOptional: GraphQLEnum<TestEnumOptional>? { data["testEnumOptional"] }
+    """
 
-    let actual = subject.render(field: allAnimals)
+    let tests: [(config: ApolloCodegenConfiguration.FileOutput, expected: String)] = [
+      (.mock(moduleType: .swiftPackageManager, operations: .relative(subpath: nil)), expectedNamespaced),
+      (.mock(moduleType: .swiftPackageManager, operations: .absolute(path: "custom")), expectedNamespaced),
+      (.mock(moduleType: .swiftPackageManager, operations: .inSchemaModule), expectedNoNamespace),
+      (.mock(moduleType: .other, operations: .relative(subpath: nil)), expectedNamespaced),
+      (.mock(moduleType: .other, operations: .absolute(path: "custom")), expectedNamespaced),
+      (.mock(moduleType: .other, operations: .inSchemaModule), expectedNoNamespace),
+      (.mock(moduleType: .embeddedInTarget(name: "CustomTarget"), operations: .relative(subpath: nil)), expectedNamespaced),
+      (.mock(moduleType: .embeddedInTarget(name: "CustomTarget"), operations: .absolute(path: "custom")), expectedNamespaced),
+      (.mock(moduleType: .embeddedInTarget(name: "CustomTarget"), operations: .inSchemaModule), expectedNoNamespace)
+    ]
 
-    // then
-    expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))
+    for test in tests {
+      // when
+      try buildSubjectAndOperation(configOutput: test.config)
+      let allAnimals = try XCTUnwrap(
+        operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+      )
+
+      let actual = subject.render(field: allAnimals)
+
+      // then
+      expect(actual).to(equalLineByLine(test.expected, atLine: 12, ignoringExtraLines: true))
+    }
   }
 
   func test__render_fieldAccessors__givenFieldWithUpperCaseName_rendersFieldAccessorWithLowercaseName() throws {

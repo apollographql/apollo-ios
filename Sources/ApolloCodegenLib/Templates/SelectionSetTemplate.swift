@@ -172,9 +172,11 @@ struct SelectionSetTemplate {
     let fieldName: String
     switch field {
     case let scalarField as IR.ScalarField:
-      var schemaName: String? = nil
-      if field.isCustomScalar && !config.output.operations.isInModule {
-        schemaName = schema.name
+      let schemaName: String?
+      switch (field.isScalar, field.isCustomScalar, config.output.operations.isInModule) {
+      case (true, true, false): schemaName = schema.name
+      case (false, _, false): schemaName = schema.name
+      default: schemaName = nil
       }
 
       fieldName = scalarField.type.rendered(inSchemaNamed: schemaName)
@@ -618,6 +620,13 @@ fileprivate extension IR.Field {
     guard let scalar = self.type.namedType as? GraphQLScalarType else { return false }
 
     return scalar.isCustomScalar
+  }
+
+  var isScalar: Bool {
+    switch self.type.namedType {
+    case is GraphQLScalarType: return true
+    default: return false
+    }
   }
 }
 
