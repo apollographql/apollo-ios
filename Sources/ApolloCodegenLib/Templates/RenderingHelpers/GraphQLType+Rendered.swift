@@ -3,7 +3,7 @@ extension GraphQLType {
   func rendered(
     containedInNonNull: Bool = false,
     replacingNamedTypeWith newTypeName: String? = nil,
-    inSchemaNamed schemaName: String
+    inSchemaNamed schemaName: String?
   ) -> String {
     switch self {
     case let .entity(type as GraphQLNamedType),
@@ -15,9 +15,14 @@ extension GraphQLType {
 
     case let .scalar(type):
       let typeName = newTypeName ?? type.swiftName
+      var schemaModuleName = ""
+
+      if let schemaName = schemaName {
+        schemaModuleName = "\(schemaName)."
+      }
 
       return TemplateString(
-        "\(if: type.isCustomScalar, "\(schemaName).")\(typeName)\(if: !containedInNonNull, "?")"
+        "\(schemaModuleName)\(typeName)\(if: !containedInNonNull, "?")"
       ).description
 
     case let .enum(type as GraphQLNamedType):

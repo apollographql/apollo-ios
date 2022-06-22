@@ -172,7 +172,12 @@ struct SelectionSetTemplate {
     let fieldName: String
     switch field {
     case let scalarField as IR.ScalarField:
-      fieldName = scalarField.type.rendered(inSchemaNamed: schema.name)
+      var schemaName: String? = nil
+      if field.isCustomScalar && !config.output.operations.isInModule {
+        schemaName = schema.name
+      }
+
+      fieldName = scalarField.type.rendered(inSchemaNamed: schemaName)
 
     case let entityField as IR.EntityField:
       fieldName = self.nameCache.selectionSetType(for: entityField)
