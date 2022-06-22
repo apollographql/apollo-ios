@@ -18,7 +18,7 @@ struct MockObjectTemplate: TemplateRenderer {
       .map {
         (
           name: $0.0,
-          type: $0.1.rendered(containedInNonNull: true, inSchemaNamed: ir.schema.name),
+          type: $0.1.rendered(containedInNonNull: true, config: config),
           mockType: mockTypeName(for: $0.1)
         )
       }
@@ -74,7 +74,7 @@ struct MockObjectTemplate: TemplateRenderer {
     return type.rendered(
       containedInNonNull: true,
       replacingNamedTypeWith: nameReplacement(for: type),
-      inSchemaNamed: ir.schema.name
+      config: config
     )
   }
   

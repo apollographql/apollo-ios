@@ -1,9 +1,13 @@
 import JavaScriptCore
+import ApolloUtils
 
 extension GraphQLInputField {
-  func renderInputValueType(includeDefault: Bool = false, inSchemaNamed schemaName: String) -> String {
+  func renderInputValueType(
+    includeDefault: Bool = false,
+    config: ReferenceWrapped<ApolloCodegenConfiguration>
+  ) -> String {
     """
-    \(type.renderAsInputValue(inSchemaNamed: schemaName))\
+    \(type.renderAsInputValue(config: config))\
     \(isSwiftOptional ? "?" : "")\
     \(includeDefault && hasSwiftNilDefault ? " = nil" : "")
     """

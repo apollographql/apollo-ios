@@ -24,7 +24,7 @@ extension OperationTemplateRenderer {
     _ variables: [CompilationResult.VariableDefinition]
   ) -> TemplateString {
     """
-    \(variables.map { "public var \($0.name): \($0.type.renderAsInputValue(inSchemaNamed: schema.name))"}, separator: "\n")
+    \(variables.map { "public var \($0.name): \($0.type.renderAsInputValue(config: config))"}, separator: "\n")
     """
   }
 
@@ -32,7 +32,7 @@ extension OperationTemplateRenderer {
     _ variable: CompilationResult.VariableDefinition
   ) -> TemplateString {
       """
-      \(variable.name): \(variable.type.renderAsInputValue(inSchemaNamed: schema.name))\
+      \(variable.name): \(variable.type.renderAsInputValue(config: config))\
       \(if: variable.defaultValue != nil, " = " + variable.renderVariableDefaultValue())
       """
   }
