@@ -56,6 +56,15 @@ public class GraphQLScalarType: GraphQLNamedType {
       return true
     }    
   }
+
+  var isSwiftType: Bool {
+    switch name {
+    case "String", "Int", "Float", "Boolean":
+      return true
+    default:
+      return false
+    }
+  }
 }
 
 public class GraphQLEnumType: GraphQLNamedType {

@@ -18,7 +18,7 @@ extension GraphQLType {
       return containedInNonNull ? typeName : "\(typeName)?"
 
     case let .scalar(type):
-      if type.isCustomScalar && !config.output.operations.isInModule {
+      if !type.isSwiftType && !config.output.operations.isInModule {
         schemaModuleName = "\(config.schemaName)."
       }
 
