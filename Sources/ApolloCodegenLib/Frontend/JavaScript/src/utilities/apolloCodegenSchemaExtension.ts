@@ -1,4 +1,4 @@
-import { DirectiveDefinitionNode, DocumentNode, Kind, NameNode, StringValueNode } from "graphql";
+import { DirectiveDefinitionNode, DocumentNode, Kind, NameNode, StringValueNode, concatAST } from "graphql";
 
 export const directive_apollo_client_ios_localCacheMutation: DirectiveDefinitionNode = {
   kind: Kind.DIRECTIVE_DEFINITION,
@@ -27,4 +27,13 @@ export const apolloCodegenSchemaExtension: DocumentNode = {
   definitions: [
     directive_apollo_client_ios_localCacheMutation
   ]
+}
+
+export function addApolloCodegenSchemaExtensionToDocument(document: DocumentNode): DocumentNode {
+  return document.definitions.some(definition => 
+    definition.kind == Kind.DIRECTIVE_DEFINITION && 
+    definition.name.value == directive_apollo_client_ios_localCacheMutation.name.value
+  ) ?
+    document :
+    concatAST([document, apolloCodegenSchemaExtension])
 }

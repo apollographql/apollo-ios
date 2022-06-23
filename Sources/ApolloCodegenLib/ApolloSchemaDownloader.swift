@@ -384,7 +384,7 @@ public struct ApolloSchemaDownloader {
     let schema: GraphQLSchema
 
     do {
-      schema = try frontend.loadSchema(from: jsonFileURL)
+      schema = try frontend.loadSchema(from: [try frontend.makeSource(from: jsonFileURL)])
     } catch {
       throw SchemaDownloadError.downloadedIntrospectionJSONFileNotFound(underlying: error)
     }

@@ -5,17 +5,22 @@ import Nimble
 import ApolloUtils
 
 class ApolloCodegenTests: XCTestCase {
+  private var directoryURL: URL!
+
   override func setUpWithError() throws {
+    directoryURL = CodegenTestHelper.outputFolderURL()
+      .appendingPathComponent("Codegen")
+      .appendingPathComponent(UUID().uuidString)      
+
     try FileManager.default.apollo.createDirectoryIfNeeded(atPath: directoryURL.path)
   }
 
   override func tearDownWithError() throws {
     try cleanTestOutput()
+    directoryURL = nil
   }
 
   // MARK: Helpers
-
-  private let directoryURL = CodegenTestHelper.outputFolderURL().appendingPathComponent("Codegen")
 
   private let schemaData: Data = {
     """
@@ -63,7 +68,7 @@ class ApolloCodegenTests: XCTestCase {
   func test_build_givenInvalidConfiguration_shouldThrow() throws {
     // given
     let config = ApolloCodegenConfiguration.mock(
-      input: .init(schemaPath: "not_a_path", searchPaths: []),
+      input: .init(schemaPath: "not_a_path", operationSearchPaths: []),
       output: .mock(operations: .inSchemaModule)
     )
 
@@ -90,7 +95,7 @@ class ApolloCodegenTests: XCTestCase {
 
     let config = ReferenceWrapped(value: ApolloCodegenConfiguration.mock(input: .init(
       schemaPath: schemaPath,
-      searchPaths: [directoryURL.appendingPathComponent("*.graphql").path]
+      operationSearchPaths: [directoryURL.appendingPathComponent("*.graphql").path]
     )))
 
     // with
@@ -135,7 +140,7 @@ class ApolloCodegenTests: XCTestCase {
 
     let config = ReferenceWrapped(value: ApolloCodegenConfiguration.mock(input: .init(
       schemaPath: schemaPath,
-      searchPaths: [directoryURL.appendingPathComponent("*.graphql").path]
+      operationSearchPaths: [directoryURL.appendingPathComponent("*.graphql").path]
     )))
 
     // then
@@ -170,7 +175,7 @@ class ApolloCodegenTests: XCTestCase {
 
     let config = ReferenceWrapped(value: ApolloCodegenConfiguration.mock(input: .init(
       schemaPath: schemaPath,
-      searchPaths: [directoryURL.appendingPathComponent("*.graphql").path]
+      operationSearchPaths: [directoryURL.appendingPathComponent("*.graphql").path]
     )))
 
     let compiledDocument = try ApolloCodegen.compileGraphQLResult(
@@ -198,7 +203,7 @@ class ApolloCodegenTests: XCTestCase {
 
     let config = ReferenceWrapped(value: ApolloCodegenConfiguration.mock(input: .init(
       schemaPath: schemaPath,
-      searchPaths: [directoryURL.appendingPathComponent("*.graphql").path]
+      operationSearchPaths: [directoryURL.appendingPathComponent("*.graphql").path]
     )))
 
     // then
@@ -217,7 +222,7 @@ class ApolloCodegenTests: XCTestCase {
 
     let config = ReferenceWrapped(value: ApolloCodegenConfiguration.mock(input: .init(
       schemaPath: schemaPath,
-      searchPaths: [directoryURL.appendingPathComponent("*.graphql").path]
+      operationSearchPaths: [directoryURL.appendingPathComponent("*.graphql").path]
     )))
 
     // then
@@ -237,7 +242,7 @@ class ApolloCodegenTests: XCTestCase {
       schemaName: "AnimalKingdomAPI",
       input: .init(
         schemaPath: schemaPath,
-        searchPaths: [operationsPath]
+        operationSearchPaths: [operationsPath]
       ),
       output: .mock(
         moduleType: .swiftPackageManager,
@@ -335,7 +340,7 @@ class ApolloCodegenTests: XCTestCase {
 
     let config =  ReferenceWrapped(value: ApolloCodegenConfiguration(
       schemaName: "AnimalKingdomAPI",
-      input: .init(schemaPath: schemaPath, searchPaths: [operationsPath]),
+      input: .init(schemaPath: schemaPath, operationSearchPaths: [operationsPath]),
       output: .mock(
         moduleType: .swiftPackageManager,
         operations: .inSchemaModule,
@@ -435,7 +440,7 @@ class ApolloCodegenTests: XCTestCase {
 
     let config =  ReferenceWrapped(value: ApolloCodegenConfiguration(
       schemaName: "AnimalKingdomAPI",
-      input: .init(schemaPath: schemaPath, searchPaths: [operationsPath]),
+      input: .init(schemaPath: schemaPath, operationSearchPaths: [operationsPath]),
       output: .init(
         schemaTypes: .init(path: directoryURL.path,
                            moduleType: .swiftPackageManager),

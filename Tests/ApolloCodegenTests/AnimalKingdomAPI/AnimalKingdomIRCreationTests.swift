@@ -9,7 +9,9 @@ final class AnimalKingdomIRCreationTests: XCTestCase {
 
   static let frontend = try! GraphQLJSFrontend()
 
-  static let schema = try! frontend.loadSchema(from: ApolloCodegenInternalTestHelpers.Resources.AnimalKingdomSchema)
+  static let schema = try! frontend.loadSchema(from: [
+    try! frontend.makeSource(from: ApolloCodegenInternalTestHelpers.Resources.AnimalKingdomSchema)
+  ])
 
   static func operationDocuments(experimentalClientControlledNullability: Bool = false) -> GraphQLDocument {
     try! frontend.mergeDocuments(

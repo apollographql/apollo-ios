@@ -21,7 +21,7 @@ class ApolloSchemaInternalTests: XCTestCase {
 
     let frontend = try GraphQLJSFrontend()
     let source = try frontend.makeSource(from: URL(fileURLWithPath: configuration.outputPath))
-    let schema = try frontend.loadSchemaFromSDL(source)
+    let schema = try frontend.loadSchema(from: [source])
 
     let authorType = try schema.getType(named: "Author")
     XCTAssertEqual(authorType?.name, "Author")

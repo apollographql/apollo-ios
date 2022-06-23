@@ -12,7 +12,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
         schemaName: "SerializedSchema",
         input: .init(
           schemaPath: "/path/to/schema.graphqls",
-          searchPaths: [
+          operationSearchPaths: [
             "/search/path/**/*.graphql"
           ]
         ),
@@ -41,7 +41,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
     }
 
     static var encoded: String {
-      "{\"schemaName\":\"SerializedSchema\",\"options\":{\"schemaDocumentation\":\"include\",\"deprecatedEnumCases\":\"exclude\",\"apqs\":\"disabled\",\"additionalInflectionRules\":[{\"pluralization\":{\"singularRegex\":\"animal\",\"replacementRegex\":\"animals\"}}],\"queryStringLiteralFormat\":\"multiline\"},\"input\":{\"searchPaths\":[\"\\/search\\/path\\/**\\/*.graphql\"],\"schemaPath\":\"\\/path\\/to\\/schema.graphqls\"},\"output\":{\"testMocks\":{\"swiftPackage\":{\"targetName\":\"SchemaTestMocks\"}},\"schemaTypes\":{\"path\":\"\\/output\\/path\",\"moduleType\":{\"swiftPackageManager\":{}}},\"operations\":{\"relative\":{\"subpath\":\"\\/relative\\/subpath\"}}},\"experimentalFeatures\":{\"clientControlledNullability\":true}}"
+      "{\"schemaName\":\"SerializedSchema\",\"options\":{\"schemaDocumentation\":\"include\",\"deprecatedEnumCases\":\"exclude\",\"apqs\":\"disabled\",\"additionalInflectionRules\":[{\"pluralization\":{\"singularRegex\":\"animal\",\"replacementRegex\":\"animals\"}}],\"queryStringLiteralFormat\":\"multiline\"},\"input\":{\"operationSearchPaths\":[\"\\/search\\/path\\/**\\/*.graphql\"],\"schemaSearchPaths\":[\"\\/path\\/to\\/schema.graphqls\"]},\"output\":{\"testMocks\":{\"swiftPackage\":{\"targetName\":\"SchemaTestMocks\"}},\"schemaTypes\":{\"path\":\"\\/output\\/path\",\"moduleType\":{\"swiftPackageManager\":{}}},\"operations\":{\"relative\":{\"subpath\":\"\\/relative\\/subpath\"}}},\"experimentalFeatures\":{\"clientControlledNullability\":true}}"
     }
   }
 

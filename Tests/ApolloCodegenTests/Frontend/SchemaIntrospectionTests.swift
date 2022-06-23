@@ -14,7 +14,9 @@ class SchemaIntrospectionTests: XCTestCase {
     codegenFrontend = try GraphQLJSFrontend()
     
     let introspectionResult = try String(contentsOf: XCTUnwrap(starWarsAPIBundle.url(forResource: "schema", withExtension: "json")))
-    schema = try codegenFrontend.loadSchemaFromIntrospectionResult(introspectionResult)
+    schema = try codegenFrontend.loadSchema(
+      from: [try codegenFrontend.makeSource(introspectionResult, filePath: "schema.json")]
+    )
   }
 
   override func tearDown() {

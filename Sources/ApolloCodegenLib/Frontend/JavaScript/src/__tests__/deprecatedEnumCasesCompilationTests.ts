@@ -1,7 +1,7 @@
 import { 
   compileDocument,
-  parseDocument,
-  loadSchemaFromSDL
+  parseOperationDocument,
+  loadSchemaFromSources,
 } from "../index"
 import { 
   CompilationResult
@@ -32,7 +32,7 @@ describe("given schema", () => {
   }
   `;
 
-  const schema: GraphQLSchema = loadSchemaFromSDL(new Source(schemaSDL, "Test Schema", { line: 1, column: 1 }));
+  const schema: GraphQLSchema = loadSchemaFromSources([new Source(schemaSDL, "Test Schema", { line: 1, column: 1 })]);
 
   describe("query includes enum with deprecated values", () => {
     const documentString: string = `
@@ -43,7 +43,7 @@ describe("given schema", () => {
     }
     `;
 
-    const document: DocumentNode = parseDocument(
+    const document: DocumentNode = parseOperationDocument(
       new Source(documentString, "Test Query", { line: 1, column: 1 }),
       false
     );

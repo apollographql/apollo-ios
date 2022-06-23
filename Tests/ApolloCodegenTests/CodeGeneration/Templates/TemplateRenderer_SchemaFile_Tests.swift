@@ -15,7 +15,7 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
   ) -> ApolloCodegenConfiguration {
     ApolloCodegenConfiguration.mock(
       schemaName: schemaName,
-      input: .init(schemaPath: "MockInputPath", searchPaths: []),
+      input: .init(schemaPath: "MockInputPath", operationSearchPaths: []),
       output: .mock(moduleType: moduleType, operations: operations)
     )
   }

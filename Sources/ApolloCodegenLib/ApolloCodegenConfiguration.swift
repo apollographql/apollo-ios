@@ -29,6 +29,8 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     ///  - `?` matches any single character, eg: `file-?.graphql`
     ///  - `**` matches all subdirectories (deep), eg: `**/*.graphql`
     ///  - `!` excludes any match only if the pattern starts with a `!` character, eg: `!file.graphql`
+    ///
+    /// - Precondition: JSON format schema files must have the file extension ".json".
     public let schemaSearchPaths: [String]
 
     /// An array of path matching pattern strings used to find GraphQL
@@ -90,6 +92,8 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     ///   - `?` matches any single character, eg: `file-?.graphql`
     ///   - `**` matches all subdirectories (deep), eg: `**/*.graphql`
     ///   - `!` excludes any match only if the pattern starts with a `!` character, eg: `!file.graphql`
+    ///
+    /// - Precondition: JSON format schema files must have the file extension ".json".
     public init(
       schemaSearchPaths: [String] = ["**/*.graphqls"],
       operationSearchPaths: [String] = ["**/*.graphql"]
@@ -133,6 +137,8 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     ///   - `?` matches any single character, eg: `file-?.graphql`
     ///   - `**` matches all subdirectories (deep), eg: `**/*.graphql`
     ///   - `!` excludes any match only if the pattern starts with a `!` character, eg: `!file.graphql`
+    ///
+    /// - Precondition: JSON format schema files must have the file extension ".json".
     public init(
       schemaPath: String,
       operationSearchPaths: [String] = ["**/*.graphql"]
@@ -497,8 +503,11 @@ extension ApolloCodegenConfiguration {
     CodegenLogger.log("Validating \(String(describing: self))", logLevel: .debug)
 
     // File inputs
-    guard fileManager.doesFileExist(atPath: input.schemaPath) else {
-      throw Error.notAFile(.schema).logging(withPath: input.schemaPath)
+    if input.schemaSearchPaths.count == 1 {
+      let schemaPath = input.schemaSearchPaths[0]
+      guard fileManager.doesFileExist(atPath: schemaPath) else {
+        throw Error.notAFile(.schema).logging(withPath: schemaPath)
+      }
     }
 
     // File outputs - schema types
