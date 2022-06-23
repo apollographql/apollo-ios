@@ -18,7 +18,7 @@ struct MockObjectTemplate: TemplateRenderer {
       .map {
         (
           name: $0.0,
-          type: $0.1.rendered(containedInNonNull: true, config: config),
+          type: $0.1.rendered(as: .selectionSetField(forceNonNull: true), config: config.value),
           mockType: mockTypeName(for: $0.1)
         )
       }
@@ -72,9 +72,9 @@ struct MockObjectTemplate: TemplateRenderer {
     }
 
     return type.rendered(
-      containedInNonNull: true,
+      as: .selectionSetField(forceNonNull: true),
       replacingNamedTypeWith: nameReplacement(for: type),
-      config: config
+      config: config.value
     )
   }
   

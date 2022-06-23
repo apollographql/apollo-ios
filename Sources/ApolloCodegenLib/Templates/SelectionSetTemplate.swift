@@ -172,7 +172,7 @@ struct SelectionSetTemplate {
     let fieldName: String
     switch field {
     case let scalarField as IR.ScalarField:
-      fieldName = scalarField.type.rendered(config: config)
+      fieldName = scalarField.type.rendered(as: .selectionSetField(), config: config.value)
 
     case let entityField as IR.EntityField:
       fieldName = self.nameCache.selectionSetType(for: entityField)
@@ -394,9 +394,13 @@ fileprivate class SelectionSetNameCache {
     generatedSelectionSetNames[objectId] = name
     return name
   }
-
+  
   func selectionSetType(for field: IR.EntityField) -> String {
-    field.type.rendered(replacingNamedTypeWith: selectionSetName(for: field), config: config)
+    field.type.rendered(
+      as: .selectionSetField(),
+      replacingNamedTypeWith: selectionSetName(for: field),
+      config: config.value
+    )
   }
 
   // MARK: Name Computation

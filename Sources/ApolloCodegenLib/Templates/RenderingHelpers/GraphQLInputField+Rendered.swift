@@ -4,10 +4,10 @@ import ApolloUtils
 extension GraphQLInputField {
   func renderInputValueType(
     includeDefault: Bool = false,
-    config: ReferenceWrapped<ApolloCodegenConfiguration>
+    config: ApolloCodegenConfiguration
   ) -> String {
     """
-    \(type.renderAsInputValue(config: config))\
+    \(type.rendered(as: .inputValue, config: config))\
     \(isSwiftOptional ? "?" : "")\
     \(includeDefault && hasSwiftNilDefault ? " = nil" : "")
     """

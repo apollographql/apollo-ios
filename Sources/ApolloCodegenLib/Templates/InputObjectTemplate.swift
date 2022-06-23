@@ -41,7 +41,7 @@ struct InputObjectTemplate: TemplateRenderer {
   private func InitializerParametersTemplate() -> TemplateString {
     TemplateString("""
     \(graphqlInputObject.fields.map({
-      "\($1.name): \($1.renderInputValueType(includeDefault: true, config: config))"
+      "\($1.name): \($1.renderInputValueType(includeDefault: true, config: config.value))"
     }), separator: ",\n")
     """)
   }
