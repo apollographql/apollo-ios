@@ -47,6 +47,15 @@ open class HTTPRequest<Operation: GraphQLOperation>: Hashable {
     self.cachePolicy = cachePolicy
     
     self.addHeader(name: "Content-Type", value: contentType)
+    // Note: in addition to this being a generally useful header to send, Apollo
+    // Server's CSRF prevention feature (introduced in AS3.7 and intended to be
+    // the default in AS4) includes this in the set of headers that indicate
+    // that a GET request couldn't have been a non-preflighted simple request
+    // and thus is safe to execute. If this project is changed to not always
+    // send this header, its GET requests may be blocked by Apollo Server with
+    // CSRF prevention enabled. See
+    // https://www.apollographql.com/docs/apollo-server/security/cors/#preventing-cross-site-request-forgery-csrf
+    // for details.
     self.addHeader(name: "X-APOLLO-OPERATION-NAME", value: Operation.operationName)
     self.addHeader(name: "X-APOLLO-OPERATION-TYPE", value: String(describing: Operation.operationType))
     if let operationID = Operation.operationIdentifier {

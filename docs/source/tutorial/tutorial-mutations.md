@@ -102,7 +102,7 @@ Build and run the application. Whenever a network request goes out, that breakpo
 
 ## Add the `BookTrip` mutation
 
-In [Sandbox](https://studio.apollographql.com/sandbox/explorer?endpoint=https%3A%2F%2Fapollo-fullstack-tutorial.herokuapp.com), open the Schema tab by clicking its icon, select the `Mutations`, and take a look at the `bookTrips` mutation:
+In [Sandbox](https://studio.apollographql.com/sandbox/explorer?endpoint=https%3A%2F%2Fapollo-fullstack-tutorial.herokuapp.com%2Fgraphql), open the Schema tab by clicking its icon, select the `Mutations`, and take a look at the `bookTrips` mutation:
 
 <img alt="The docs for book trips" class="screenshot" src="images/sandbox_schema_book_trips.png"/>
 

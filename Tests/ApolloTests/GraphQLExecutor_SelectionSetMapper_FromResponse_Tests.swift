@@ -105,14 +105,14 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     class GivenSelectionSet: MockSelectionSet {
       override class var selections: [Selection] { [.field("name", String.self)] }
     }
-    let object: JSONObject = ["name": 10.0]
+    let object: JSONObject = ["name": false]
 
     // when
     XCTAssertThrowsError(try readValues(GivenSelectionSet.self, from: object)) { (error) in
       // then
       if let error = error as? GraphQLExecutionError, case JSONDecodingError.couldNotConvert(let value, let expectedType) = error.underlying {
         XCTAssertEqual(error.path, ["name"])
-        XCTAssertEqual(value as? Double, 10.0)
+        XCTAssertEqual(value as? Bool, false)
         XCTAssertTrue(expectedType == String.self)
       } else {
         XCTFail("Unexpected error: \(error)")
@@ -222,14 +222,14 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     class GivenSelectionSet: MockSelectionSet {
       override class var selections: [Selection] { [.field("name", String?.self)] }
     }
-    let object: JSONObject = ["name": 10.0]
+    let object: JSONObject = ["name": false]
 
     // when
     XCTAssertThrowsError(try readValues(GivenSelectionSet.self, from: object)) { (error) in
       // then
       if let error = error as? GraphQLExecutionError, case JSONDecodingError.couldNotConvert(let value, let expectedType) = error.underlying {
         XCTAssertEqual(error.path, ["name"])
-        XCTAssertEqual(value as? Double, 10.0)
+        XCTAssertEqual(value as? Bool, false)
         XCTAssertTrue(expectedType == String.self)
       } else {
         XCTFail("Unexpected error: \(error)")
@@ -459,7 +459,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     class GivenSelectionSet: MockSelectionSet {
       override class var selections: [Selection] { [.field("favorites", [String].self)] }
     }
-    let object: JSONObject = ["favorites": [10.0, 20.0, 30]]
+    let object: JSONObject = ["favorites": [true, false, true]]
 
     // when
     XCTAssertThrowsError(try readValues(GivenSelectionSet.self, from: object)) { (error) in
@@ -467,7 +467,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
       if let error = error as? GraphQLExecutionError,
          case JSONDecodingError.couldNotConvert(let value, let expectedType) = error.underlying {
         XCTAssertEqual(error.path, ["favorites", "0"])
-        XCTAssertEqual(value as? Double, 10.0)
+        XCTAssertEqual(value as? Bool, true)
         XCTAssertTrue(expectedType == String.self)
       } else {
         XCTFail("Unexpected error: \(error)")
@@ -557,7 +557,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     class GivenSelectionSet: MockSelectionSet {
       override class var selections: [Selection] { [.field("favorites", [String]?.self)] }
     }
-    let object: JSONObject = ["favorites": [4.0, 20.0, 30]]
+    let object: JSONObject = ["favorites": [true, false, false]]
 
     // when
     XCTAssertThrowsError(try readValues(GivenSelectionSet.self, from: object)) { (error) in
@@ -565,7 +565,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
       if let error = error as? GraphQLExecutionError,
          case JSONDecodingError.couldNotConvert(let value, let expectedType) = error.underlying {
         XCTAssertEqual(error.path, ["favorites", "0"])
-        XCTAssertEqual(value as? Double, 4.0)
+        XCTAssertEqual(value as? Bool, true)
         XCTAssertTrue(expectedType == String.self)
       } else {
         XCTFail("Unexpected error: \(error)")

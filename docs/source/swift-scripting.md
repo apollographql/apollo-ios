@@ -178,6 +178,10 @@ This is best achieved with a Run Script Build Phase.
 
     cd "${SRCROOT}"/ApolloCodegen
     xcrun -sdk macosx swift run ApolloCodegen generate
+    
+    # propagate the xcrun call's return code to Xcode
+    exit $? 
+    
     ```
 
     >**Note**: If your package ever seems to have problems with caching, run `swift package clean` before `swift run` for a totally clean build. Do not do this by default, because it substantially increases build time.
