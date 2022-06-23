@@ -10,12 +10,15 @@ extension GraphQLType {
     var schemaModuleName = ""
 
     switch self {
-    case let .entity(type as GraphQLNamedType),
-      let .inputObject(type as GraphQLNamedType):
+    case let .inputObject(type as GraphQLNamedType):
+      if !config.output.operations.isInModule {
+        schemaModuleName = "\(config.schemaName)."
+      }
+      fallthrough
 
+    case let .entity(type as GraphQLNamedType):
       let typeName = newTypeName ?? type.swiftName
-
-      return containedInNonNull ? typeName : "\(typeName)?"
+      return containedInNonNull ? "\(schemaModuleName)\(typeName)" : "\(schemaModuleName)\(typeName)?"
 
     case let .scalar(type):
       if !type.isSwiftType && !config.output.operations.isInModule {
