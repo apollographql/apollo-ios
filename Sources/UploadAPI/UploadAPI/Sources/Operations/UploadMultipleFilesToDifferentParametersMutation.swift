@@ -39,8 +39,8 @@ public class UploadMultipleFilesToDifferentParametersMutation: GraphQLMutation {
   }
 
   public struct Data: UploadAPI.SelectionSet {
-    public let data: DataDict
-    public init(data: DataDict) { self.data = data }
+    public let __data: DataDict
+    public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { .Object(UploadAPI.Mutation.self) }
     public static var selections: [Selection] { [
@@ -50,12 +50,12 @@ public class UploadMultipleFilesToDifferentParametersMutation: GraphQLMutation {
       ]),
     ] }
 
-    public var multipleParameterUpload: [MultipleParameterUpload] { data["multipleParameterUpload"] }
+    public var multipleParameterUpload: [MultipleParameterUpload] { __data["multipleParameterUpload"] }
 
     /// MultipleParameterUpload
     public struct MultipleParameterUpload: UploadAPI.SelectionSet {
-      public let data: DataDict
-      public init(data: DataDict) { self.data = data }
+      public let __data: DataDict
+      public init(data: DataDict) { __data = data }
 
       public static var __parentType: ParentType { .Object(UploadAPI.File.self) }
       public static var selections: [Selection] { [
@@ -65,10 +65,10 @@ public class UploadMultipleFilesToDifferentParametersMutation: GraphQLMutation {
         .field("mimetype", String.self),
       ] }
 
-      public var id: ID { data["id"] }
-      public var path: String { data["path"] }
-      public var filename: String { data["filename"] }
-      public var mimetype: String { data["mimetype"] }
+      public var id: ID { __data["id"] }
+      public var path: String { __data["path"] }
+      public var filename: String { __data["filename"] }
+      public var mimetype: String { __data["mimetype"] }
     }
   }
 }

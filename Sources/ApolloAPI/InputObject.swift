@@ -2,18 +2,18 @@
 ///
 /// - See: [GraphQLSpec - Input Objects](https://spec.graphql.org/draft/#sec-Input-Objects)
 public protocol InputObject: GraphQLOperationVariableValue, Hashable {
-  var data: InputDict { get }
+  var __data: InputDict { get }
 }
 
 extension InputObject {
-  public var jsonEncodableValue: JSONEncodable? { data.jsonEncodableValue }
+  public var jsonEncodableValue: JSONEncodable? { __data.jsonEncodableValue }
 
   public static func == (lhs: Self, rhs: Self) -> Bool {
-    lhs.data == rhs.data
+    lhs.__data == rhs.__data
   }
 
   public func hash(into hasher: inout Hasher) {
-    hasher.combine(data)
+    hasher.combine(__data)
   }
 }
 

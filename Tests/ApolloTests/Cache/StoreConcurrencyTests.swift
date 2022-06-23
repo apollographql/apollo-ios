@@ -35,7 +35,7 @@ class StoreConcurrencyTests: XCTestCase, CacheDependentTesting {
       .field("hero", Hero?.self)
     ]}
 
-    var hero: Hero? { data["hero"] }
+    var hero: Hero? { __data["hero"] }
 
     class Hero: MockSelectionSet {
       override class var selections: [Selection] {[
@@ -44,7 +44,7 @@ class StoreConcurrencyTests: XCTestCase, CacheDependentTesting {
         .field("friends", [Friend]?.self),
       ]}
 
-      var friends: [Friend]? { data["friends"] }
+      var friends: [Friend]? { __data["friends"] }
 
       class Friend: MockSelectionSet {
         override class var selections: [Selection] {[
@@ -52,7 +52,7 @@ class StoreConcurrencyTests: XCTestCase, CacheDependentTesting {
           .field("name", String.self),
         ]}
 
-        var name: String { data["name"] }
+        var name: String { __data["name"] }
       }
     }
   }
@@ -142,19 +142,21 @@ class StoreConcurrencyTests: XCTestCase, CacheDependentTesting {
   func testConcurrentUpdatesInitiatedFromMainThread() throws {
     /// given
     struct GivenSelectionSet: MockMutableRootSelectionSet {
-      public var data: DataDict = DataDict([:], variables: nil)
+      public var __data: DataDict = DataDict([:], variables: nil)
+      init(data: DataDict) { __data = data }
 
       static var selections: [Selection] { [
         .field("hero", Hero.self)
       ]}
 
       var hero: Hero {
-        get { data["hero"] }
-        set { data["hero"] = newValue }
+        get { __data["hero"] }
+        set { __data["hero"] = newValue }
       }
 
       struct Hero: MockMutableRootSelectionSet {
-        public var data: DataDict = DataDict([:], variables: nil)
+        public var __data: DataDict = DataDict([:], variables: nil)
+        init(data: DataDict) { __data = data }
 
         static var selections: [Selection] { [
           .field("id", String.self),
@@ -163,22 +165,23 @@ class StoreConcurrencyTests: XCTestCase, CacheDependentTesting {
         ]}
 
         var id: String {
-          get { data["id"] }
-          set { data["id"] = newValue }
+          get { __data["id"] }
+          set { __data["id"] = newValue }
         }
 
         var name: String? {
-          get { data["name"] }
-          set { data["name"] = newValue }
+          get { __data["name"] }
+          set { __data["name"] = newValue }
         }
 
         var friends: [Friend] {
-          get { data["friends"] }
-          set { data["friends"] = newValue }
+          get { __data["friends"] }
+          set { __data["friends"] = newValue }
         }
 
         struct Friend: MockMutableRootSelectionSet {
-          public var data: DataDict = DataDict([:], variables: nil)
+          public var __data: DataDict = DataDict([:], variables: nil)
+          init(data: DataDict) { __data = data }
 
           static var selections: [Selection] { [
             .field("id", String.self),
@@ -186,13 +189,13 @@ class StoreConcurrencyTests: XCTestCase, CacheDependentTesting {
           ]}
 
           var id: String {
-            get { data["id"] }
-            set { data["id"] = newValue }
+            get { __data["id"] }
+            set { __data["id"] = newValue }
           }
 
           var name: String {
-            get { data["name"] }
-            set { data["name"] = newValue }
+            get { __data["name"] }
+            set { __data["name"] = newValue }
           }
         }
       }
@@ -263,19 +266,21 @@ class StoreConcurrencyTests: XCTestCase, CacheDependentTesting {
   func testConcurrentUpdatesInitiatedFromBackgroundThreads() throws {
     /// given
     struct GivenSelectionSet: MockMutableRootSelectionSet {
-      public var data: DataDict = DataDict([:], variables: nil)
+      public var __data: DataDict = DataDict([:], variables: nil)
+      init(data: DataDict) { __data = data }
 
       static var selections: [Selection] { [
         .field("hero", Hero.self)
       ]}
 
       var hero: Hero {
-        get { data["hero"] }
-        set { data["hero"] = newValue }
+        get { __data["hero"] }
+        set { __data["hero"] = newValue }
       }
 
       struct Hero: MockMutableRootSelectionSet {
-        public var data: DataDict = DataDict([:], variables: nil)
+        public var __data: DataDict = DataDict([:], variables: nil)
+        init(data: DataDict) { __data = data }
 
         static var selections: [Selection] { [
           .field("id", String.self),
@@ -284,22 +289,23 @@ class StoreConcurrencyTests: XCTestCase, CacheDependentTesting {
         ]}
 
         var id: String {
-          get { data["id"] }
-          set { data["id"] = newValue }
+          get { __data["id"] }
+          set { __data["id"] = newValue }
         }
 
         var name: String? {
-          get { data["name"] }
-          set { data["name"] = newValue }
+          get { __data["name"] }
+          set { __data["name"] = newValue }
         }
 
         var friends: [Friend] {
-          get { data["friends"] }
-          set { data["friends"] = newValue }
+          get { __data["friends"] }
+          set { __data["friends"] = newValue }
         }
 
         struct Friend: MockMutableRootSelectionSet {
-          public var data: DataDict = DataDict([:], variables: nil)
+          public var __data: DataDict = DataDict([:], variables: nil)
+          init(data: DataDict) { __data = data }
 
           static var selections: [Selection] { [
             .field("id", String.self),
@@ -307,13 +313,13 @@ class StoreConcurrencyTests: XCTestCase, CacheDependentTesting {
           ]}
 
           var id: String {
-            get { data["id"] }
-            set { data["id"] = newValue }
+            get { __data["id"] }
+            set { __data["id"] = newValue }
           }
 
           var name: String {
-            get { data["name"] }
-            set { data["name"] = newValue }
+            get { __data["name"] }
+            set { __data["name"] = newValue }
           }
         }
       }

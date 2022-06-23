@@ -889,8 +889,10 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
       ]}
 
       struct Fragments: FragmentContainer {
-        let data: DataDict
+        let __data: DataDict
         var childFragment: GivenFragment { _toFragment() }
+
+        init(data: DataDict) { __data = data }
       }
     }
 
@@ -1598,7 +1600,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
         .include(if: ("a" && !"b" && "c") || "d" || !"e", .field("name", String?.self))
       ]}
 
-      var name: String? { data["name"] }
+      var name: String? { __data["name"] }
     }
 
     let tests: [(variables: [String: Bool], expectedResult: Bool)] = [      

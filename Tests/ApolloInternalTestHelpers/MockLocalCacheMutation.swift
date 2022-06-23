@@ -27,6 +27,10 @@ where Schema == MockSchemaConfiguration {}
 
 public extension MockMutableRootSelectionSet {
   static var __parentType: ParentType { .Object(Object.self) }
+
+  init() {
+    self.init(data: DataDict([:], variables: nil))
+  }
 }
 
 public protocol MockMutableInlineFragment: MutableSelectionSet, InlineFragment

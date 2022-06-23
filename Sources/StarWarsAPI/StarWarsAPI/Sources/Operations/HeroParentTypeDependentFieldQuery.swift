@@ -48,20 +48,20 @@ public class HeroParentTypeDependentFieldQuery: GraphQLQuery {
   }
 
   public struct Data: StarWarsAPI.SelectionSet {
-    public let data: DataDict
-    public init(data: DataDict) { self.data = data }
+    public let __data: DataDict
+    public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { .Object(StarWarsAPI.Query.self) }
     public static var selections: [Selection] { [
       .field("hero", Hero?.self, arguments: ["episode": .variable("episode")]),
     ] }
 
-    public var hero: Hero? { data["hero"] }
+    public var hero: Hero? { __data["hero"] }
 
     /// Hero
     public struct Hero: StarWarsAPI.SelectionSet {
-      public let data: DataDict
-      public init(data: DataDict) { self.data = data }
+      public let __data: DataDict
+      public init(data: DataDict) { __data = data }
 
       public static var __parentType: ParentType { .Interface(StarWarsAPI.Character.self) }
       public static var selections: [Selection] { [
@@ -70,28 +70,28 @@ public class HeroParentTypeDependentFieldQuery: GraphQLQuery {
         .inlineFragment(AsDroid.self),
       ] }
 
-      public var name: String { data["name"] }
+      public var name: String { __data["name"] }
 
       public var asHuman: AsHuman? { _asInlineFragment() }
       public var asDroid: AsDroid? { _asInlineFragment() }
 
       /// Hero.AsHuman
       public struct AsHuman: StarWarsAPI.InlineFragment {
-        public let data: DataDict
-        public init(data: DataDict) { self.data = data }
+        public let __data: DataDict
+        public init(data: DataDict) { __data = data }
 
         public static var __parentType: ParentType { .Object(StarWarsAPI.Human.self) }
         public static var selections: [Selection] { [
           .field("friends", [Friend?]?.self),
         ] }
 
-        public var friends: [Friend?]? { data["friends"] }
-        public var name: String { data["name"] }
+        public var friends: [Friend?]? { __data["friends"] }
+        public var name: String { __data["name"] }
 
         /// Hero.AsHuman.Friend
         public struct Friend: StarWarsAPI.SelectionSet {
-          public let data: DataDict
-          public init(data: DataDict) { self.data = data }
+          public let __data: DataDict
+          public init(data: DataDict) { __data = data }
 
           public static var __parentType: ParentType { .Interface(StarWarsAPI.Character.self) }
           public static var selections: [Selection] { [
@@ -99,43 +99,43 @@ public class HeroParentTypeDependentFieldQuery: GraphQLQuery {
             .inlineFragment(AsHuman.self),
           ] }
 
-          public var name: String { data["name"] }
+          public var name: String { __data["name"] }
 
           public var asHuman: AsHuman? { _asInlineFragment() }
 
           /// Hero.AsHuman.Friend.AsHuman
           public struct AsHuman: StarWarsAPI.InlineFragment {
-            public let data: DataDict
-            public init(data: DataDict) { self.data = data }
+            public let __data: DataDict
+            public init(data: DataDict) { __data = data }
 
             public static var __parentType: ParentType { .Object(StarWarsAPI.Human.self) }
             public static var selections: [Selection] { [
               .field("height", Double?.self, arguments: ["unit": "FOOT"]),
             ] }
 
-            public var height: Double? { data["height"] }
-            public var name: String { data["name"] }
+            public var height: Double? { __data["height"] }
+            public var name: String { __data["name"] }
           }
         }
       }
 
       /// Hero.AsDroid
       public struct AsDroid: StarWarsAPI.InlineFragment {
-        public let data: DataDict
-        public init(data: DataDict) { self.data = data }
+        public let __data: DataDict
+        public init(data: DataDict) { __data = data }
 
         public static var __parentType: ParentType { .Object(StarWarsAPI.Droid.self) }
         public static var selections: [Selection] { [
           .field("friends", [Friend?]?.self),
         ] }
 
-        public var friends: [Friend?]? { data["friends"] }
-        public var name: String { data["name"] }
+        public var friends: [Friend?]? { __data["friends"] }
+        public var name: String { __data["name"] }
 
         /// Hero.AsDroid.Friend
         public struct Friend: StarWarsAPI.SelectionSet {
-          public let data: DataDict
-          public init(data: DataDict) { self.data = data }
+          public let __data: DataDict
+          public init(data: DataDict) { __data = data }
 
           public static var __parentType: ParentType { .Interface(StarWarsAPI.Character.self) }
           public static var selections: [Selection] { [
@@ -143,22 +143,22 @@ public class HeroParentTypeDependentFieldQuery: GraphQLQuery {
             .inlineFragment(AsHuman.self),
           ] }
 
-          public var name: String { data["name"] }
+          public var name: String { __data["name"] }
 
           public var asHuman: AsHuman? { _asInlineFragment() }
 
           /// Hero.AsDroid.Friend.AsHuman
           public struct AsHuman: StarWarsAPI.InlineFragment {
-            public let data: DataDict
-            public init(data: DataDict) { self.data = data }
+            public let __data: DataDict
+            public init(data: DataDict) { __data = data }
 
             public static var __parentType: ParentType { .Object(StarWarsAPI.Human.self) }
             public static var selections: [Selection] { [
               .field("height", Double?.self, arguments: ["unit": "METER"]),
             ] }
 
-            public var height: Double? { data["height"] }
-            public var name: String { data["name"] }
+            public var height: Double? { __data["height"] }
+            public var name: String { __data["name"] }
           }
         }
       }

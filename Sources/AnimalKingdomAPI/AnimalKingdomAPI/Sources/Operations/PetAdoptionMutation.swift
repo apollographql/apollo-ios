@@ -31,20 +31,20 @@ public class PetAdoptionMutation: GraphQLMutation {
   }
 
   public struct Data: AnimalKingdomAPI.SelectionSet {
-    public let data: DataDict
-    public init(data: DataDict) { self.data = data }
+    public let __data: DataDict
+    public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Mutation.self) }
     public static var selections: [Selection] { [
       .field("adoptPet", AdoptPet.self, arguments: ["input": .variable("input")]),
     ] }
 
-    public var adoptPet: AdoptPet { data["adoptPet"] }
+    public var adoptPet: AdoptPet { __data["adoptPet"] }
 
     /// AdoptPet
     public struct AdoptPet: AnimalKingdomAPI.SelectionSet {
-      public let data: DataDict
-      public init(data: DataDict) { self.data = data }
+      public let __data: DataDict
+      public init(data: DataDict) { __data = data }
 
       public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Pet.self) }
       public static var selections: [Selection] { [
@@ -52,8 +52,8 @@ public class PetAdoptionMutation: GraphQLMutation {
         .field("humanName", String?.self),
       ] }
 
-      public var id: ID { data["id"] }
-      public var humanName: String? { data["humanName"] }
+      public var id: ID { __data["id"] }
+      public var humanName: String? { __data["humanName"] }
     }
   }
 }

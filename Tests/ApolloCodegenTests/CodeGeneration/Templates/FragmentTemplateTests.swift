@@ -79,8 +79,8 @@ class FragmentTemplateTests: XCTestCase {
         }
         ""\" }
 
-      public let data: DataDict
-      public init(data: DataDict) { self.data = data }
+      public let __data: DataDict
+      public init(data: DataDict) { __data = data }
     """
 
     // when
@@ -360,8 +360,8 @@ class FragmentTemplateTests: XCTestCase {
 
     let expected =
     """
-      public var data: DataDict
-      public init(data: DataDict) { self.data = data }
+      public var __data: DataDict
+      public init(data: DataDict) { __data = data }
 
       public static var __parentType: ParentType { .Object(TestSchema.Query.self) }
       public static var selections: [Selection] { [
@@ -369,8 +369,8 @@ class FragmentTemplateTests: XCTestCase {
       ] }
 
       public var allAnimals: [AllAnimal]? {
-        get { data["allAnimals"] }
-        set { data["allAnimals"] = newValue }
+        get { __data["allAnimals"] }
+        set { __data["allAnimals"] = newValue }
       }
     """
 

@@ -31,8 +31,8 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
     }
     """ }
 
-  public let data: DataDict
-  public init(data: DataDict) { self.data = data }
+  public let __data: DataDict
+  public init(data: DataDict) { __data = data }
 
   public static var __parentType: ParentType { .Union(AnimalKingdomAPI.ClassroomPet.self) }
   public static var selections: [Selection] { [
@@ -53,48 +53,48 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
 
   /// AsAnimal
   public struct AsAnimal: AnimalKingdomAPI.InlineFragment {
-    public let data: DataDict
-    public init(data: DataDict) { self.data = data }
+    public let __data: DataDict
+    public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Animal.self) }
     public static var selections: [Selection] { [
       .field("species", String.self),
     ] }
 
-    public var species: String { data["species"] }
+    public var species: String { __data["species"] }
   }
 
   /// AsPet
   public struct AsPet: AnimalKingdomAPI.InlineFragment {
-    public let data: DataDict
-    public init(data: DataDict) { self.data = data }
+    public let __data: DataDict
+    public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Pet.self) }
     public static var selections: [Selection] { [
       .field("humanName", String?.self),
     ] }
 
-    public var humanName: String? { data["humanName"] }
+    public var humanName: String? { __data["humanName"] }
   }
 
   /// AsWarmBlooded
   public struct AsWarmBlooded: AnimalKingdomAPI.InlineFragment {
-    public let data: DataDict
-    public init(data: DataDict) { self.data = data }
+    public let __data: DataDict
+    public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.WarmBlooded.self) }
     public static var selections: [Selection] { [
       .field("laysEggs", Bool.self),
     ] }
 
-    public var laysEggs: Bool { data["laysEggs"] }
-    public var species: String { data["species"] }
+    public var laysEggs: Bool { __data["laysEggs"] }
+    public var species: String { __data["species"] }
   }
 
   /// AsCat
   public struct AsCat: AnimalKingdomAPI.InlineFragment {
-    public let data: DataDict
-    public init(data: DataDict) { self.data = data }
+    public let __data: DataDict
+    public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Cat.self) }
     public static var selections: [Selection] { [
@@ -102,40 +102,40 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
       .field("isJellicle", Bool.self),
     ] }
 
-    public var bodyTemperature: Int { data["bodyTemperature"] }
-    public var isJellicle: Bool { data["isJellicle"] }
-    public var species: String { data["species"] }
-    public var humanName: String? { data["humanName"] }
-    public var laysEggs: Bool { data["laysEggs"] }
+    public var bodyTemperature: Int { __data["bodyTemperature"] }
+    public var isJellicle: Bool { __data["isJellicle"] }
+    public var species: String { __data["species"] }
+    public var humanName: String? { __data["humanName"] }
+    public var laysEggs: Bool { __data["laysEggs"] }
   }
 
   /// AsBird
   public struct AsBird: AnimalKingdomAPI.InlineFragment {
-    public let data: DataDict
-    public init(data: DataDict) { self.data = data }
+    public let __data: DataDict
+    public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Bird.self) }
     public static var selections: [Selection] { [
       .field("wingspan", Double.self),
     ] }
 
-    public var wingspan: Double { data["wingspan"] }
-    public var species: String { data["species"] }
-    public var humanName: String? { data["humanName"] }
-    public var laysEggs: Bool { data["laysEggs"] }
+    public var wingspan: Double { __data["wingspan"] }
+    public var species: String { __data["species"] }
+    public var humanName: String? { __data["humanName"] }
+    public var laysEggs: Bool { __data["laysEggs"] }
   }
 
   /// AsPetRock
   public struct AsPetRock: AnimalKingdomAPI.InlineFragment {
-    public let data: DataDict
-    public init(data: DataDict) { self.data = data }
+    public let __data: DataDict
+    public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { .Object(AnimalKingdomAPI.PetRock.self) }
     public static var selections: [Selection] { [
       .field("favoriteToy", String.self),
     ] }
 
-    public var favoriteToy: String { data["favoriteToy"] }
-    public var humanName: String? { data["humanName"] }
+    public var favoriteToy: String { __data["favoriteToy"] }
+    public var humanName: String? { __data["humanName"] }
   }
 }

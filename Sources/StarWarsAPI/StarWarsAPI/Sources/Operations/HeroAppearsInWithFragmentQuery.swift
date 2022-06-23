@@ -31,31 +31,31 @@ public class HeroAppearsInWithFragmentQuery: GraphQLQuery {
   }
 
   public struct Data: StarWarsAPI.SelectionSet {
-    public let data: DataDict
-    public init(data: DataDict) { self.data = data }
+    public let __data: DataDict
+    public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { .Object(StarWarsAPI.Query.self) }
     public static var selections: [Selection] { [
       .field("hero", Hero?.self, arguments: ["episode": .variable("episode")]),
     ] }
 
-    public var hero: Hero? { data["hero"] }
+    public var hero: Hero? { __data["hero"] }
 
     /// Hero
     public struct Hero: StarWarsAPI.SelectionSet {
-      public let data: DataDict
-      public init(data: DataDict) { self.data = data }
+      public let __data: DataDict
+      public init(data: DataDict) { __data = data }
 
       public static var __parentType: ParentType { .Interface(StarWarsAPI.Character.self) }
       public static var selections: [Selection] { [
         .fragment(CharacterAppearsIn.self),
       ] }
 
-      public var appearsIn: [GraphQLEnum<Episode>?] { data["appearsIn"] }
+      public var appearsIn: [GraphQLEnum<Episode>?] { __data["appearsIn"] }
 
       public struct Fragments: FragmentContainer {
-        public let data: DataDict
-        public init(data: DataDict) { self.data = data }
+        public let __data: DataDict
+        public init(data: DataDict) { __data = data }
 
         public var characterAppearsIn: CharacterAppearsIn { _toFragment() }
       }

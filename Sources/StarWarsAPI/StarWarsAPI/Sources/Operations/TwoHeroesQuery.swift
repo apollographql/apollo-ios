@@ -26,8 +26,8 @@ public class TwoHeroesQuery: GraphQLQuery {
   public init() {}
 
   public struct Data: StarWarsAPI.SelectionSet {
-    public let data: DataDict
-    public init(data: DataDict) { self.data = data }
+    public let __data: DataDict
+    public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { .Object(StarWarsAPI.Query.self) }
     public static var selections: [Selection] { [
@@ -35,33 +35,33 @@ public class TwoHeroesQuery: GraphQLQuery {
       .field("hero", alias: "luke", Luke?.self, arguments: ["episode": "EMPIRE"]),
     ] }
 
-    public var r2: R2? { data["r2"] }
-    public var luke: Luke? { data["luke"] }
+    public var r2: R2? { __data["r2"] }
+    public var luke: Luke? { __data["luke"] }
 
     /// R2
     public struct R2: StarWarsAPI.SelectionSet {
-      public let data: DataDict
-      public init(data: DataDict) { self.data = data }
+      public let __data: DataDict
+      public init(data: DataDict) { __data = data }
 
       public static var __parentType: ParentType { .Interface(StarWarsAPI.Character.self) }
       public static var selections: [Selection] { [
         .field("name", String.self),
       ] }
 
-      public var name: String { data["name"] }
+      public var name: String { __data["name"] }
     }
 
     /// Luke
     public struct Luke: StarWarsAPI.SelectionSet {
-      public let data: DataDict
-      public init(data: DataDict) { self.data = data }
+      public let __data: DataDict
+      public init(data: DataDict) { __data = data }
 
       public static var __parentType: ParentType { .Interface(StarWarsAPI.Character.self) }
       public static var selections: [Selection] { [
         .field("name", String.self),
       ] }
 
-      public var name: String { data["name"] }
+      public var name: String { __data["name"] }
     }
   }
 }

@@ -23,20 +23,20 @@ public class ClassroomPetsCCNQuery: GraphQLQuery {
   public init() {}
 
   public struct Data: AnimalKingdomAPI.SelectionSet {
-    public let data: DataDict
-    public init(data: DataDict) { self.data = data }
+    public let __data: DataDict
+    public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Query.self) }
     public static var selections: [Selection] { [
       .field("classroomPets", [ClassroomPet]?.self),
     ] }
 
-    public var classroomPets: [ClassroomPet]? { data["classroomPets"] }
+    public var classroomPets: [ClassroomPet]? { __data["classroomPets"] }
 
     /// ClassroomPet
     public struct ClassroomPet: AnimalKingdomAPI.SelectionSet {
-      public let data: DataDict
-      public init(data: DataDict) { self.data = data }
+      public let __data: DataDict
+      public init(data: DataDict) { __data = data }
 
       public static var __parentType: ParentType { .Union(AnimalKingdomAPI.ClassroomPet.self) }
       public static var selections: [Selection] { [
@@ -46,24 +46,24 @@ public class ClassroomPetsCCNQuery: GraphQLQuery {
       public var asAnimal: AsAnimal? { _asInlineFragment() }
 
       public struct Fragments: FragmentContainer {
-        public let data: DataDict
-        public init(data: DataDict) { self.data = data }
+        public let __data: DataDict
+        public init(data: DataDict) { __data = data }
 
         public var classroomPetDetailsCCN: ClassroomPetDetailsCCN { _toFragment() }
       }
 
       /// ClassroomPet.AsAnimal
       public struct AsAnimal: AnimalKingdomAPI.InlineFragment {
-        public let data: DataDict
-        public init(data: DataDict) { self.data = data }
+        public let __data: DataDict
+        public init(data: DataDict) { __data = data }
 
         public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Animal.self) }
 
-        public var height: ClassroomPetDetailsCCN.AsAnimal.Height { data["height"] }
+        public var height: ClassroomPetDetailsCCN.AsAnimal.Height { __data["height"] }
 
         public struct Fragments: FragmentContainer {
-          public let data: DataDict
-          public init(data: DataDict) { self.data = data }
+          public let __data: DataDict
+          public init(data: DataDict) { __data = data }
 
           public var classroomPetDetailsCCN: ClassroomPetDetailsCCN { _toFragment() }
         }

@@ -10,7 +10,7 @@ public protocol AnySelectionSet: SelectionSetEntityValue {
   /// This may be a concrete type (`Object`) or an abstract type (`Interface`, or `Union`).
   static var __parentType: ParentType { get }
 
-  var data: DataDict { get }
+  var __data: DataDict { get }
 
   init(data: DataDict)
 }
@@ -64,7 +64,7 @@ extension SelectionSet {
 
   @usableFromInline var __objectType: Object.Type? { Schema.objectType(forTypename: __typename) }
 
-  @inlinable public var __typename: String { data["__typename"] }
+  @inlinable public var __typename: String { __data["__typename"] }
 
   /// Verifies if a `SelectionSet` may be converted to an `InlineFragment` and performs
   /// the conversion.
@@ -79,14 +79,14 @@ extension SelectionSet {
       return _asType()
     }
 
-    return conditions.evaluate(with: data._variables) ? _asType() : nil
+    return conditions.evaluate(with: __data._variables) ? _asType() : nil
   }
 
   @usableFromInline func _asType<T: SelectionSet>() -> T? where T.Schema == Schema {
     guard let __objectType = __objectType,
           __objectType._canBeConverted(to: T.__parentType) else { return nil }
 
-    return T.init(data: data)
+    return T.init(data: __data)
   }
 
   @inlinable public func _asInlineFragment<T: SelectionSet>(
@@ -102,15 +102,15 @@ extension SelectionSet {
   }
 
   @inlinable public func hash(into hasher: inout Hasher) {
-    hasher.combine(data)
+    hasher.combine(__data)
   }
 
   @inlinable public static func ==(lhs: Self, rhs: Self) -> Bool {
-    return lhs.data == rhs.data
+    return lhs.__data == rhs.__data
   }
 }
 
 extension SelectionSet where Fragments: FragmentContainer {
   /// Contains accessors for all of the fragments the `SelectionSet` can be converted to.
-  public var fragments: Fragments { Fragments(data: data) }
+  public var fragments: Fragments { Fragments(data: __data) }
 }

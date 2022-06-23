@@ -33,20 +33,20 @@ public class HeroDetailsInlineConditionalInclusionQuery: GraphQLQuery {
   }
 
   public struct Data: StarWarsAPI.SelectionSet {
-    public let data: DataDict
-    public init(data: DataDict) { self.data = data }
+    public let __data: DataDict
+    public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { .Object(StarWarsAPI.Query.self) }
     public static var selections: [Selection] { [
       .field("hero", Hero?.self),
     ] }
 
-    public var hero: Hero? { data["hero"] }
+    public var hero: Hero? { __data["hero"] }
 
     /// Hero
     public struct Hero: StarWarsAPI.SelectionSet {
-      public let data: DataDict
-      public init(data: DataDict) { self.data = data }
+      public let __data: DataDict
+      public init(data: DataDict) { __data = data }
 
       public static var __parentType: ParentType { .Interface(StarWarsAPI.Character.self) }
       public static var selections: [Selection] { [
@@ -57,8 +57,8 @@ public class HeroDetailsInlineConditionalInclusionQuery: GraphQLQuery {
 
       /// Hero.IfIncludeDetails
       public struct IfIncludeDetails: StarWarsAPI.InlineFragment {
-        public let data: DataDict
-        public init(data: DataDict) { self.data = data }
+        public let __data: DataDict
+        public init(data: DataDict) { __data = data }
 
         public static var __parentType: ParentType { .Interface(StarWarsAPI.Character.self) }
         public static var selections: [Selection] { [
@@ -66,8 +66,8 @@ public class HeroDetailsInlineConditionalInclusionQuery: GraphQLQuery {
           .field("appearsIn", [GraphQLEnum<Episode>?].self),
         ] }
 
-        public var name: String { data["name"] }
-        public var appearsIn: [GraphQLEnum<Episode>?] { data["appearsIn"] }
+        public var name: String { __data["name"] }
+        public var appearsIn: [GraphQLEnum<Episode>?] { __data["appearsIn"] }
       }
     }
   }

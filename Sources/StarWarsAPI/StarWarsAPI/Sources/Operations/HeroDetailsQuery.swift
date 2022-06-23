@@ -36,20 +36,20 @@ public class HeroDetailsQuery: GraphQLQuery {
   }
 
   public struct Data: StarWarsAPI.SelectionSet {
-    public let data: DataDict
-    public init(data: DataDict) { self.data = data }
+    public let __data: DataDict
+    public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { .Object(StarWarsAPI.Query.self) }
     public static var selections: [Selection] { [
       .field("hero", Hero?.self, arguments: ["episode": .variable("episode")]),
     ] }
 
-    public var hero: Hero? { data["hero"] }
+    public var hero: Hero? { __data["hero"] }
 
     /// Hero
     public struct Hero: StarWarsAPI.SelectionSet {
-      public let data: DataDict
-      public init(data: DataDict) { self.data = data }
+      public let __data: DataDict
+      public init(data: DataDict) { __data = data }
 
       public static var __parentType: ParentType { .Interface(StarWarsAPI.Character.self) }
       public static var selections: [Selection] { [
@@ -58,37 +58,37 @@ public class HeroDetailsQuery: GraphQLQuery {
         .inlineFragment(AsDroid.self),
       ] }
 
-      public var name: String { data["name"] }
+      public var name: String { __data["name"] }
 
       public var asHuman: AsHuman? { _asInlineFragment() }
       public var asDroid: AsDroid? { _asInlineFragment() }
 
       /// Hero.AsHuman
       public struct AsHuman: StarWarsAPI.InlineFragment {
-        public let data: DataDict
-        public init(data: DataDict) { self.data = data }
+        public let __data: DataDict
+        public init(data: DataDict) { __data = data }
 
         public static var __parentType: ParentType { .Object(StarWarsAPI.Human.self) }
         public static var selections: [Selection] { [
           .field("height", Double?.self),
         ] }
 
-        public var height: Double? { data["height"] }
-        public var name: String { data["name"] }
+        public var height: Double? { __data["height"] }
+        public var name: String { __data["name"] }
       }
 
       /// Hero.AsDroid
       public struct AsDroid: StarWarsAPI.InlineFragment {
-        public let data: DataDict
-        public init(data: DataDict) { self.data = data }
+        public let __data: DataDict
+        public init(data: DataDict) { __data = data }
 
         public static var __parentType: ParentType { .Object(StarWarsAPI.Droid.self) }
         public static var selections: [Selection] { [
           .field("primaryFunction", String?.self),
         ] }
 
-        public var primaryFunction: String? { data["primaryFunction"] }
-        public var name: String { data["name"] }
+        public var primaryFunction: String? { __data["primaryFunction"] }
+        public var name: String { __data["name"] }
       }
     }
   }

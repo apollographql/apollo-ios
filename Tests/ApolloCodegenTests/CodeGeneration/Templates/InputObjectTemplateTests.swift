@@ -43,10 +43,10 @@ class InputObjectTemplateTests: XCTestCase {
 
     let expected = """
     struct MockInput: InputObject {
-      public private(set) var data: InputDict
+      public private(set) var __data: InputDict
 
       public init(_ data: InputDict) {
-        self.data = data
+        __data = data
       }
     """
 
@@ -164,14 +164,14 @@ class InputObjectTemplateTests: XCTestCase {
       public init(
         field: GraphQLNullable<String> = nil
       ) {
-        data = InputDict([
+        __data = InputDict([
           "field": field
         ])
       }
 
       public var field: GraphQLNullable<String> {
-        get { data.field }
-        set { data.field = newValue }
+        get { __data.field }
+        set { __data.field = newValue }
       }
     }
     """
@@ -238,7 +238,7 @@ class InputObjectTemplateTests: XCTestCase {
         inputField: GraphQLNullable<InnerInputObject> = nil,
         listField: GraphQLNullable<[String?]> = nil
       ) {
-        data = InputDict([
+        __data = InputDict([
           "stringField": stringField,
           "intField": intField,
           "boolField": boolField,
@@ -250,38 +250,38 @@ class InputObjectTemplateTests: XCTestCase {
       }
 
       public var stringField: GraphQLNullable<String> {
-        get { data.stringField }
-        set { data.stringField = newValue }
+        get { __data.stringField }
+        set { __data.stringField = newValue }
       }
 
       public var intField: GraphQLNullable<Int> {
-        get { data.intField }
-        set { data.intField = newValue }
+        get { __data.intField }
+        set { __data.intField = newValue }
       }
 
       public var boolField: GraphQLNullable<Bool> {
-        get { data.boolField }
-        set { data.boolField = newValue }
+        get { __data.boolField }
+        set { __data.boolField = newValue }
       }
 
       public var floatField: GraphQLNullable<Double> {
-        get { data.floatField }
-        set { data.floatField = newValue }
+        get { __data.floatField }
+        set { __data.floatField = newValue }
       }
 
       public var enumField: GraphQLNullable<GraphQLEnum<EnumValue>> {
-        get { data.enumField }
-        set { data.enumField = newValue }
+        get { __data.enumField }
+        set { __data.enumField = newValue }
       }
 
       public var inputField: GraphQLNullable<InnerInputObject> {
-        get { data.inputField }
-        set { data.inputField = newValue }
+        get { __data.inputField }
+        set { __data.inputField = newValue }
       }
 
       public var listField: GraphQLNullable<[String?]> {
-        get { data.listField }
-        set { data.listField = newValue }
+        get { __data.listField }
+        set { __data.listField = newValue }
       }
     """
 
@@ -304,7 +304,7 @@ class InputObjectTemplateTests: XCTestCase {
       public init(
         nullable: GraphQLNullable<Int> = nil
       ) {
-        data = InputDict([
+        __data = InputDict([
           "nullable": nullable
         ])
       }
@@ -329,7 +329,7 @@ class InputObjectTemplateTests: XCTestCase {
       public init(
         nullableWithDefault: GraphQLNullable<Int>
       ) {
-        data = InputDict([
+        __data = InputDict([
           "nullableWithDefault": nullableWithDefault
         ])
       }
@@ -354,7 +354,7 @@ class InputObjectTemplateTests: XCTestCase {
       public init(
         nonNullable: Int
       ) {
-        data = InputDict([
+        __data = InputDict([
           "nonNullable": nonNullable
         ])
       }
@@ -379,7 +379,7 @@ class InputObjectTemplateTests: XCTestCase {
       public init(
         nonNullableWithDefault: Int?
       ) {
-        data = InputDict([
+        __data = InputDict([
           "nonNullableWithDefault": nonNullableWithDefault
         ])
       }
@@ -404,7 +404,7 @@ class InputObjectTemplateTests: XCTestCase {
       public init(
         nullableListNullableItem: GraphQLNullable<[String?]> = nil
       ) {
-        data = InputDict([
+        __data = InputDict([
           "nullableListNullableItem": nullableListNullableItem
         ])
       }
@@ -431,7 +431,7 @@ class InputObjectTemplateTests: XCTestCase {
       public init(
         nullableListNullableItemWithDefault: GraphQLNullable<[String?]>
       ) {
-        data = InputDict([
+        __data = InputDict([
           "nullableListNullableItemWithDefault": nullableListNullableItemWithDefault
         ])
       }
@@ -456,7 +456,7 @@ class InputObjectTemplateTests: XCTestCase {
       public init(
         nullableListNonNullableItem: GraphQLNullable<[String]> = nil
       ) {
-        data = InputDict([
+        __data = InputDict([
           "nullableListNonNullableItem": nullableListNonNullableItem
         ])
       }
@@ -483,7 +483,7 @@ class InputObjectTemplateTests: XCTestCase {
       public init(
         nullableListNonNullableItemWithDefault: GraphQLNullable<[String]>
       ) {
-        data = InputDict([
+        __data = InputDict([
           "nullableListNonNullableItemWithDefault": nullableListNonNullableItemWithDefault
         ])
       }
@@ -508,7 +508,7 @@ class InputObjectTemplateTests: XCTestCase {
       public init(
         nonNullableListNullableItem: [String?]
       ) {
-        data = InputDict([
+        __data = InputDict([
           "nonNullableListNullableItem": nonNullableListNullableItem
         ])
       }
@@ -535,7 +535,7 @@ class InputObjectTemplateTests: XCTestCase {
       public init(
         nonNullableListNullableItemWithDefault: [String?]?
       ) {
-        data = InputDict([
+        __data = InputDict([
           "nonNullableListNullableItemWithDefault": nonNullableListNullableItemWithDefault
         ])
       }
@@ -560,7 +560,7 @@ class InputObjectTemplateTests: XCTestCase {
       public init(
         nonNullableListNonNullableItem: [String]
       ) {
-        data = InputDict([
+        __data = InputDict([
           "nonNullableListNonNullableItem": nonNullableListNonNullableItem
         ])
       }
@@ -587,7 +587,7 @@ class InputObjectTemplateTests: XCTestCase {
       public init(
         nonNullableListNonNullableItemWithDefault: [String]?
       ) {
-        data = InputDict([
+        __data = InputDict([
           "nonNullableListNonNullableItemWithDefault": nonNullableListNonNullableItemWithDefault
         ])
       }
@@ -614,7 +614,7 @@ class InputObjectTemplateTests: XCTestCase {
       public init(
         nullableListNullableItem: GraphQLNullable<[GraphQLEnum<EnumValue>?]> = nil
       ) {
-        data = InputDict([
+        __data = InputDict([
           "nullableListNullableItem": nullableListNullableItem
         ])
       }

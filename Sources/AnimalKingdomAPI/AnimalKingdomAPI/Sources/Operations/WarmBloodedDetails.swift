@@ -14,8 +14,8 @@ public struct WarmBloodedDetails: AnimalKingdomAPI.SelectionSet, Fragment {
     }
     """ }
 
-  public let data: DataDict
-  public init(data: DataDict) { self.data = data }
+  public let __data: DataDict
+  public init(data: DataDict) { __data = data }
 
   public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.WarmBlooded.self) }
   public static var selections: [Selection] { [
@@ -23,12 +23,12 @@ public struct WarmBloodedDetails: AnimalKingdomAPI.SelectionSet, Fragment {
     .fragment(HeightInMeters.self),
   ] }
 
-  public var bodyTemperature: Int { data["bodyTemperature"] }
-  public var height: HeightInMeters.Height { data["height"] }
+  public var bodyTemperature: Int { __data["bodyTemperature"] }
+  public var height: HeightInMeters.Height { __data["height"] }
 
   public struct Fragments: FragmentContainer {
-    public let data: DataDict
-    public init(data: DataDict) { self.data = data }
+    public let __data: DataDict
+    public init(data: DataDict) { __data = data }
 
     public var heightInMeters: HeightInMeters { _toFragment() }
   }

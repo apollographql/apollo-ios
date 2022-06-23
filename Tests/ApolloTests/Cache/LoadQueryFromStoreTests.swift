@@ -179,7 +179,7 @@ class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       override class var selections: [Selection] { [
         .field("hero", Hero.self)
       ]}
-      var hero: Hero { data["hero"] }
+      var hero: Hero { __data["hero"] }
 
       class Hero: MockSelectionSet {
         override class var selections: [Selection] {[
@@ -187,14 +187,14 @@ class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
           .field("name", String.self),
           .field("friends", [Friend].self)
         ]}
-        var friends: [Friend] { data["friends"] }
+        var friends: [Friend] { __data["friends"] }
 
         class Friend: MockSelectionSet {
           override class var selections: [Selection] {[
             .field("__typename", String.self),
             .field("name", String.self)
           ]}
-          var name: String { data["name"] }
+          var name: String { __data["name"] }
         }
       }
     }
@@ -238,7 +238,7 @@ class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       override class var selections: [Selection] { [
         .field("hero", Hero.self)
       ]}
-      var hero: Hero { data["hero"] }
+      var hero: Hero { __data["hero"] }
 
       class Hero: MockSelectionSet {
         override class var selections: [Selection] {[
@@ -246,14 +246,14 @@ class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
           .field("name", String.self),
           .field("friends", [Friend].self)
         ]}
-        var friends: [Friend] { data["friends"] }
+        var friends: [Friend] { __data["friends"] }
 
         class Friend: MockSelectionSet {
           override class var selections: [Selection] {[
             .field("__typename", String.self),
             .field("name", String.self)
           ]}
-          var name: String { data["name"] }
+          var name: String { __data["name"] }
         }
       }
     }
@@ -297,7 +297,7 @@ class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       override class var selections: [Selection] { [
         .field("hero", Hero.self)
       ]}
-      var hero: Hero { data["hero"] }
+      var hero: Hero { __data["hero"] }
 
       class Hero: MockSelectionSet {
         override class var selections: [Selection] {[
@@ -305,14 +305,14 @@ class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
           .field("name", String.self),
           .field("friends", [Friend]?.self)
         ]}
-        var friends: [Friend]? { data["friends"] }
+        var friends: [Friend]? { __data["friends"] }
 
         class Friend: MockSelectionSet {
           override class var selections: [Selection] {[
             .field("__typename", String.self),
             .field("name", String.self)
           ]}
-          var name: String { data["name"] }
+          var name: String { __data["name"] }
         }
       }
     }
@@ -348,7 +348,7 @@ class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       override class var selections: [Selection] { [
         .field("hero", Hero.self)
       ]}
-      var hero: Hero { data["hero"] }
+      var hero: Hero { __data["hero"] }
 
       class Hero: MockSelectionSet {
         override class var selections: [Selection] {[
@@ -356,14 +356,14 @@ class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
           .field("name", String.self),
           .field("friends", [Friend]?.self)
         ]}
-        var friends: [Friend]? { data["friends"] }
+        var friends: [Friend]? { __data["friends"] }
 
         class Friend: MockSelectionSet {
           override class var selections: [Selection] {[
             .field("__typename", String.self),
             .field("name", String.self)
           ]}
-          var name: String { data["name"] }
+          var name: String { __data["name"] }
         }
       }
     }
@@ -395,7 +395,7 @@ class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       override class var selections: [Selection] { [
         .field("hero", Hero.self)
       ]}
-      var hero: Hero { data["hero"] }
+      var hero: Hero { __data["hero"] }
 
       class Hero: MockSelectionSet {
         override class var selections: [Selection] {[
@@ -403,14 +403,14 @@ class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
           .field("name", String.self),
           .field("friends", [Friend]?.self)
         ]}
-        var friends: [Friend]? { data["friends"] }
+        var friends: [Friend]? { __data["friends"] }
 
         class Friend: MockSelectionSet {
           override class var selections: [Selection] {[
             .field("__typename", String.self),
             .field("name", String.self)
           ]}
-          var name: String { data["name"] }
+          var name: String { __data["name"] }
         }
       }
     }

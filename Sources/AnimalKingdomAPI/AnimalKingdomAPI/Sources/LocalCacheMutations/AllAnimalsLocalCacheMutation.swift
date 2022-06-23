@@ -11,8 +11,8 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
   public init() {}
 
   public struct Data: AnimalKingdomAPI.MutableSelectionSet {
-    public var data: DataDict
-    public init(data: DataDict) { self.data = data }
+    public var __data: DataDict
+    public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Query.self) }
     public static var selections: [Selection] { [
@@ -20,14 +20,14 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
     ] }
 
     public var allAnimals: [AllAnimal] {
-      get { data["allAnimals"] }
-      set { data["allAnimals"] = newValue }
+      get { __data["allAnimals"] }
+      set { __data["allAnimals"] = newValue }
     }
 
     /// AllAnimal
     public struct AllAnimal: AnimalKingdomAPI.MutableSelectionSet {
-      public var data: DataDict
-      public init(data: DataDict) { self.data = data }
+      public var __data: DataDict
+      public init(data: DataDict) { __data = data }
 
       public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Animal.self) }
       public static var selections: [Selection] { [
@@ -37,23 +37,23 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
       ] }
 
       public var species: String {
-        get { data["species"] }
-        set { data["species"] = newValue }
+        get { __data["species"] }
+        set { __data["species"] = newValue }
       }
       public var skinCovering: GraphQLEnum<SkinCovering>? {
-        get { data["skinCovering"] }
-        set { data["skinCovering"] = newValue }
+        get { __data["skinCovering"] }
+        set { __data["skinCovering"] = newValue }
       }
 
       public var asBird: AsBird? {
         get { _asInlineFragment() }
-        set { if let newData = newValue?.data._data { data._data = newData }}
+        set { if let newData = newValue?.__data._data { __data._data = newData }}
       }
 
       /// AllAnimal.AsBird
       public struct AsBird: AnimalKingdomAPI.MutableInlineFragment {
-        public var data: DataDict
-        public init(data: DataDict) { self.data = data }
+        public var __data: DataDict
+        public init(data: DataDict) { __data = data }
 
         public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Bird.self) }
         public static var selections: [Selection] { [
@@ -61,16 +61,16 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
         ] }
 
         public var wingspan: Double {
-          get { data["wingspan"] }
-          set { data["wingspan"] = newValue }
+          get { __data["wingspan"] }
+          set { __data["wingspan"] = newValue }
         }
         public var species: String {
-          get { data["species"] }
-          set { data["species"] = newValue }
+          get { __data["species"] }
+          set { __data["species"] = newValue }
         }
         public var skinCovering: GraphQLEnum<SkinCovering>? {
-          get { data["skinCovering"] }
-          set { data["skinCovering"] = newValue }
+          get { __data["skinCovering"] }
+          set { __data["skinCovering"] = newValue }
         }
       }
     }

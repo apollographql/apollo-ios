@@ -16,26 +16,26 @@ public struct FriendsNames: StarWarsAPI.SelectionSet, Fragment {
     }
     """ }
 
-  public let data: DataDict
-  public init(data: DataDict) { self.data = data }
+  public let __data: DataDict
+  public init(data: DataDict) { __data = data }
 
   public static var __parentType: ParentType { .Interface(StarWarsAPI.Character.self) }
   public static var selections: [Selection] { [
     .field("friends", [Friend?]?.self),
   ] }
 
-  public var friends: [Friend?]? { data["friends"] }
+  public var friends: [Friend?]? { __data["friends"] }
 
   /// Friend
   public struct Friend: StarWarsAPI.SelectionSet {
-    public let data: DataDict
-    public init(data: DataDict) { self.data = data }
+    public let __data: DataDict
+    public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { .Interface(StarWarsAPI.Character.self) }
     public static var selections: [Selection] { [
       .field("name", String.self),
     ] }
 
-    public var name: String { data["name"] }
+    public var name: String { __data["name"] }
   }
 }

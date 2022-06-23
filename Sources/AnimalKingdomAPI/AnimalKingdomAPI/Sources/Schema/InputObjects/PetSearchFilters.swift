@@ -4,10 +4,10 @@
 import ApolloAPI
 
 public struct PetSearchFilters: InputObject {
-  public private(set) var data: InputDict
+  public private(set) var __data: InputDict
 
   public init(_ data: InputDict) {
-    self.data = data
+    __data = data
   }
 
   public init(
@@ -15,7 +15,7 @@ public struct PetSearchFilters: InputObject {
     size: GraphQLNullable<GraphQLEnum<RelativeSize>> = nil,
     measurements: GraphQLNullable<MeasurementsInput> = nil
   ) {
-    data = InputDict([
+    __data = InputDict([
       "species": species,
       "size": size,
       "measurements": measurements
@@ -23,17 +23,17 @@ public struct PetSearchFilters: InputObject {
   }
 
   public var species: [String] {
-    get { data.species }
-    set { data.species = newValue }
+    get { __data.species }
+    set { __data.species = newValue }
   }
 
   public var size: GraphQLNullable<GraphQLEnum<RelativeSize>> {
-    get { data.size }
-    set { data.size = newValue }
+    get { __data.size }
+    set { __data.size = newValue }
   }
 
   public var measurements: GraphQLNullable<MeasurementsInput> {
-    get { data.measurements }
-    set { data.measurements = newValue }
+    get { __data.measurements }
+    set { __data.measurements = newValue }
   }
 }

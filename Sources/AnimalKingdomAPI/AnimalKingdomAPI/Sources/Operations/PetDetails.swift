@@ -18,8 +18,8 @@ public struct PetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
     }
     """ }
 
-  public let data: DataDict
-  public init(data: DataDict) { self.data = data }
+  public let __data: DataDict
+  public init(data: DataDict) { __data = data }
 
   public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Pet.self) }
   public static var selections: [Selection] { [
@@ -28,20 +28,20 @@ public struct PetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
     .field("owner", Owner?.self),
   ] }
 
-  public var humanName: String? { data["humanName"] }
-  public var favoriteToy: String { data["favoriteToy"] }
-  public var owner: Owner? { data["owner"] }
+  public var humanName: String? { __data["humanName"] }
+  public var favoriteToy: String { __data["favoriteToy"] }
+  public var owner: Owner? { __data["owner"] }
 
   /// Owner
   public struct Owner: AnimalKingdomAPI.SelectionSet {
-    public let data: DataDict
-    public init(data: DataDict) { self.data = data }
+    public let __data: DataDict
+    public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Human.self) }
     public static var selections: [Selection] { [
       .field("firstName", String.self),
     ] }
 
-    public var firstName: String { data["firstName"] }
+    public var firstName: String { __data["firstName"] }
   }
 }
