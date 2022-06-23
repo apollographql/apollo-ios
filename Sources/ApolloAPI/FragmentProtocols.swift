@@ -9,7 +9,7 @@ public protocol Fragment: AnySelectionSet {
 }
 
 public protocol FragmentContainer {
-  var data: DataDict { get }
+  var __data: DataDict { get }
 
   init(data: DataDict)
 }
@@ -26,7 +26,7 @@ extension FragmentContainer {
   }
 
   @usableFromInline func _convertToFragment<T: Fragment>()-> T {
-    return T.init(data: data)
+    return T.init(data: __data)
   }
 
   @inlinable public func _toFragment<T: Fragment>(
@@ -36,7 +36,7 @@ extension FragmentContainer {
       return _convertToFragment()
     }
 
-    return conditions.evaluate(with: data._variables) ? _convertToFragment() : nil
+    return conditions.evaluate(with: __data._variables) ? _convertToFragment() : nil
   }
 
   @inlinable public func _toFragment<T: Fragment>(

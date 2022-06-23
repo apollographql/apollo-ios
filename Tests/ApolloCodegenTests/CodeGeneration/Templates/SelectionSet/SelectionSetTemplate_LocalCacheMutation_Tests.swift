@@ -172,8 +172,8 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
     """
 
     let expected = """
-      public var data: DataDict
-      public init(data: DataDict) { self.data = data }
+      public var __data: DataDict
+      public init(data: DataDict) { __data = data }
     """
 
     // when
@@ -215,8 +215,8 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
 
     let expected = """
       public struct Fragments: FragmentContainer {
-        public var data: DataDict
-        public init(data: DataDict) { self.data = data }
+        public var __data: DataDict
+        public init(data: DataDict) { __data = data }
     """
 
     // when
@@ -253,8 +253,8 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
 
     let expected = """
       public var fieldName: String {
-        get { data["fieldName"] }
-        set { data["fieldName"] = newValue }
+        get { __data["fieldName"] }
+        set { __data["fieldName"] = newValue }
       }
     """
 
@@ -299,7 +299,7 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
     let expected = """
       public var asDog: AsDog? {
         get { _asInlineFragment() }
-        set { if let newData = newValue?.data._data { data._data = newData }}
+        set { if let newData = newValue?.__data._data { __data._data = newData }}
       }
     """
 
@@ -342,7 +342,7 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
     let expected = """
         public var animalDetails: AnimalDetails {
           get { _toFragment() }
-          _modify { var f = animalDetails; yield &f; data = f.data }
+          _modify { var f = animalDetails; yield &f; __data = f.__data }
           @available(*, unavailable, message: "mutate properties of the fragment instead.")
           set { preconditionFailure() }
         }
@@ -387,7 +387,7 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
     let expected = """
         public var animalDetails: AnimalDetails? {
           get { _toFragment(if: "a") }
-          _modify { var f = animalDetails; yield &f; if let newData = f?.data { data = newData } }
+          _modify { var f = animalDetails; yield &f; if let newData = f?.__data { __data = newData } }
           @available(*, unavailable, message: "mutate properties of the fragment instead.")
           set { preconditionFailure() }
         }

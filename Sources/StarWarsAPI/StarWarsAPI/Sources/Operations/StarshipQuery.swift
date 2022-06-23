@@ -23,20 +23,20 @@ public class StarshipQuery: GraphQLQuery {
   public init() {}
 
   public struct Data: StarWarsAPI.SelectionSet {
-    public let data: DataDict
-    public init(data: DataDict) { self.data = data }
+    public let __data: DataDict
+    public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { .Object(StarWarsAPI.Query.self) }
     public static var selections: [Selection] { [
       .field("starship", Starship?.self, arguments: ["id": 3000]),
     ] }
 
-    public var starship: Starship? { data["starship"] }
+    public var starship: Starship? { __data["starship"] }
 
     /// Starship
     public struct Starship: StarWarsAPI.SelectionSet {
-      public let data: DataDict
-      public init(data: DataDict) { self.data = data }
+      public let __data: DataDict
+      public init(data: DataDict) { __data = data }
 
       public static var __parentType: ParentType { .Object(StarWarsAPI.Starship.self) }
       public static var selections: [Selection] { [
@@ -44,8 +44,8 @@ public class StarshipQuery: GraphQLQuery {
         .field("coordinates", [[Double]]?.self),
       ] }
 
-      public var name: String { data["name"] }
-      public var coordinates: [[Double]]? { data["coordinates"] }
+      public var name: String { __data["name"] }
+      public var coordinates: [[Double]]? { __data["coordinates"] }
     }
   }
 }

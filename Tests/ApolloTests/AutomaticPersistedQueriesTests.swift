@@ -14,7 +14,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
       .field("hero", Hero.self, arguments: ["episode": .variable("episode")])
     ]}
 
-    var hero: Hero? { data["hero"] }
+    var hero: Hero? { __data["hero"] }
 
     class Hero: MockSelectionSet {
       override class var selections: [Selection] {[
@@ -22,7 +22,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
         .field("name", String.self),
       ]}
 
-      var name: String { data["name"] }
+      var name: String { __data["name"] }
     }
   }
 

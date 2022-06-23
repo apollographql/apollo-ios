@@ -78,7 +78,7 @@ class BatchedLoadTests: XCTestCase {
         .field("hero", Hero.self)
       ]}
 
-      var hero: Hero? { data["hero"] }
+      var hero: Hero? { __data["hero"] }
 
       class Hero: MockSelectionSet {
         override class var selections: [Selection] {[
@@ -87,7 +87,7 @@ class BatchedLoadTests: XCTestCase {
           .field("friends", [Friend]?.self),
         ]}
 
-        var friends: [Friend]? { data["friends"] }
+        var friends: [Friend]? { __data["friends"] }
 
         class Friend: MockSelectionSet {
           override class var selections: [Selection] {[
@@ -95,7 +95,7 @@ class BatchedLoadTests: XCTestCase {
             .field("name", String.self),
           ]}
 
-          var name: String { data["name"] }
+          var name: String { __data["name"] }
         }
       }
     }
@@ -155,7 +155,7 @@ class BatchedLoadTests: XCTestCase {
         .field("hero", Hero.self)
       ]}
 
-      var hero: Hero? { data["hero"] }
+      var hero: Hero? { __data["hero"] }
 
       class Hero: MockSelectionSet {
         override class var selections: [Selection] {[
@@ -164,7 +164,7 @@ class BatchedLoadTests: XCTestCase {
           .field("friends", [Friend]?.self),
         ]}
 
-        var friends: [Friend]? { data["friends"] }
+        var friends: [Friend]? { __data["friends"] }
 
         class Friend: MockSelectionSet {
           override class var selections: [Selection] {[
@@ -172,7 +172,7 @@ class BatchedLoadTests: XCTestCase {
             .field("name", String.self),
           ]}
 
-          var name: String { data["name"] }
+          var name: String { __data["name"] }
         }
       }
     }

@@ -23,20 +23,20 @@ public class ClassroomPetsQuery: GraphQLQuery {
   public init() {}
 
   public struct Data: AnimalKingdomAPI.SelectionSet {
-    public let data: DataDict
-    public init(data: DataDict) { self.data = data }
+    public let __data: DataDict
+    public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Query.self) }
     public static var selections: [Selection] { [
       .field("classroomPets", [ClassroomPet?]?.self),
     ] }
 
-    public var classroomPets: [ClassroomPet?]? { data["classroomPets"] }
+    public var classroomPets: [ClassroomPet?]? { __data["classroomPets"] }
 
     /// ClassroomPet
     public struct ClassroomPet: AnimalKingdomAPI.SelectionSet {
-      public let data: DataDict
-      public init(data: DataDict) { self.data = data }
+      public let __data: DataDict
+      public init(data: DataDict) { __data = data }
 
       public static var __parentType: ParentType { .Union(AnimalKingdomAPI.ClassroomPet.self) }
       public static var selections: [Selection] { [
@@ -51,24 +51,24 @@ public class ClassroomPetsQuery: GraphQLQuery {
       public var asPetRock: AsPetRock? { _asInlineFragment() }
 
       public struct Fragments: FragmentContainer {
-        public let data: DataDict
-        public init(data: DataDict) { self.data = data }
+        public let __data: DataDict
+        public init(data: DataDict) { __data = data }
 
         public var classroomPetDetails: ClassroomPetDetails { _toFragment() }
       }
 
       /// ClassroomPet.AsAnimal
       public struct AsAnimal: AnimalKingdomAPI.InlineFragment {
-        public let data: DataDict
-        public init(data: DataDict) { self.data = data }
+        public let __data: DataDict
+        public init(data: DataDict) { __data = data }
 
         public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Animal.self) }
 
-        public var species: String { data["species"] }
+        public var species: String { __data["species"] }
 
         public struct Fragments: FragmentContainer {
-          public let data: DataDict
-          public init(data: DataDict) { self.data = data }
+          public let __data: DataDict
+          public init(data: DataDict) { __data = data }
 
           public var classroomPetDetails: ClassroomPetDetails { _toFragment() }
         }
@@ -76,16 +76,16 @@ public class ClassroomPetsQuery: GraphQLQuery {
 
       /// ClassroomPet.AsPet
       public struct AsPet: AnimalKingdomAPI.InlineFragment {
-        public let data: DataDict
-        public init(data: DataDict) { self.data = data }
+        public let __data: DataDict
+        public init(data: DataDict) { __data = data }
 
         public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Pet.self) }
 
-        public var humanName: String? { data["humanName"] }
+        public var humanName: String? { __data["humanName"] }
 
         public struct Fragments: FragmentContainer {
-          public let data: DataDict
-          public init(data: DataDict) { self.data = data }
+          public let __data: DataDict
+          public init(data: DataDict) { __data = data }
 
           public var classroomPetDetails: ClassroomPetDetails { _toFragment() }
         }
@@ -93,17 +93,17 @@ public class ClassroomPetsQuery: GraphQLQuery {
 
       /// ClassroomPet.AsWarmBlooded
       public struct AsWarmBlooded: AnimalKingdomAPI.InlineFragment {
-        public let data: DataDict
-        public init(data: DataDict) { self.data = data }
+        public let __data: DataDict
+        public init(data: DataDict) { __data = data }
 
         public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.WarmBlooded.self) }
 
-        public var species: String { data["species"] }
-        public var laysEggs: Bool { data["laysEggs"] }
+        public var species: String { __data["species"] }
+        public var laysEggs: Bool { __data["laysEggs"] }
 
         public struct Fragments: FragmentContainer {
-          public let data: DataDict
-          public init(data: DataDict) { self.data = data }
+          public let __data: DataDict
+          public init(data: DataDict) { __data = data }
 
           public var classroomPetDetails: ClassroomPetDetails { _toFragment() }
         }
@@ -111,20 +111,20 @@ public class ClassroomPetsQuery: GraphQLQuery {
 
       /// ClassroomPet.AsCat
       public struct AsCat: AnimalKingdomAPI.InlineFragment {
-        public let data: DataDict
-        public init(data: DataDict) { self.data = data }
+        public let __data: DataDict
+        public init(data: DataDict) { __data = data }
 
         public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Cat.self) }
 
-        public var species: String { data["species"] }
-        public var humanName: String? { data["humanName"] }
-        public var laysEggs: Bool { data["laysEggs"] }
-        public var bodyTemperature: Int { data["bodyTemperature"] }
-        public var isJellicle: Bool { data["isJellicle"] }
+        public var species: String { __data["species"] }
+        public var humanName: String? { __data["humanName"] }
+        public var laysEggs: Bool { __data["laysEggs"] }
+        public var bodyTemperature: Int { __data["bodyTemperature"] }
+        public var isJellicle: Bool { __data["isJellicle"] }
 
         public struct Fragments: FragmentContainer {
-          public let data: DataDict
-          public init(data: DataDict) { self.data = data }
+          public let __data: DataDict
+          public init(data: DataDict) { __data = data }
 
           public var classroomPetDetails: ClassroomPetDetails { _toFragment() }
         }
@@ -132,19 +132,19 @@ public class ClassroomPetsQuery: GraphQLQuery {
 
       /// ClassroomPet.AsBird
       public struct AsBird: AnimalKingdomAPI.InlineFragment {
-        public let data: DataDict
-        public init(data: DataDict) { self.data = data }
+        public let __data: DataDict
+        public init(data: DataDict) { __data = data }
 
         public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Bird.self) }
 
-        public var species: String { data["species"] }
-        public var humanName: String? { data["humanName"] }
-        public var laysEggs: Bool { data["laysEggs"] }
-        public var wingspan: Double { data["wingspan"] }
+        public var species: String { __data["species"] }
+        public var humanName: String? { __data["humanName"] }
+        public var laysEggs: Bool { __data["laysEggs"] }
+        public var wingspan: Double { __data["wingspan"] }
 
         public struct Fragments: FragmentContainer {
-          public let data: DataDict
-          public init(data: DataDict) { self.data = data }
+          public let __data: DataDict
+          public init(data: DataDict) { __data = data }
 
           public var classroomPetDetails: ClassroomPetDetails { _toFragment() }
         }
@@ -152,17 +152,17 @@ public class ClassroomPetsQuery: GraphQLQuery {
 
       /// ClassroomPet.AsPetRock
       public struct AsPetRock: AnimalKingdomAPI.InlineFragment {
-        public let data: DataDict
-        public init(data: DataDict) { self.data = data }
+        public let __data: DataDict
+        public init(data: DataDict) { __data = data }
 
         public static var __parentType: ParentType { .Object(AnimalKingdomAPI.PetRock.self) }
 
-        public var humanName: String? { data["humanName"] }
-        public var favoriteToy: String { data["favoriteToy"] }
+        public var humanName: String? { __data["humanName"] }
+        public var favoriteToy: String { __data["favoriteToy"] }
 
         public struct Fragments: FragmentContainer {
-          public let data: DataDict
-          public init(data: DataDict) { self.data = data }
+          public let __data: DataDict
+          public init(data: DataDict) { __data = data }
 
           public var classroomPetDetails: ClassroomPetDetails { _toFragment() }
         }

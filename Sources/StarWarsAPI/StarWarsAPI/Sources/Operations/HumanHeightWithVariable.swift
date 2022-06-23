@@ -13,13 +13,13 @@ public struct HumanHeightWithVariable: StarWarsAPI.SelectionSet, Fragment {
     }
     """ }
 
-  public let data: DataDict
-  public init(data: DataDict) { self.data = data }
+  public let __data: DataDict
+  public init(data: DataDict) { __data = data }
 
   public static var __parentType: ParentType { .Object(StarWarsAPI.Human.self) }
   public static var selections: [Selection] { [
     .field("height", Double?.self, arguments: ["unit": .variable("heightUnit")]),
   ] }
 
-  public var height: Double? { data["height"] }
+  public var height: Double? { __data["height"] }
 }

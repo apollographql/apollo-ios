@@ -4,8 +4,8 @@ import XCTest
 import Nimble
 
 class ApolloCodegenConfigurationTests: XCTestCase {
-  let directoryURL = CodegenTestHelper.outputFolderURL().appendingPathComponent("Configuration")
 
+  var directoryURL: URL!
   var filename: String!
   var fileURL: URL!
   var input: ApolloCodegenConfiguration.FileInput!
@@ -16,6 +16,10 @@ class ApolloCodegenConfigurationTests: XCTestCase {
 
   override func setUpWithError() throws {
     try super.setUpWithError()
+    directoryURL = CodegenTestHelper.outputFolderURL()
+      .appendingPathComponent("Configuration")
+      .appendingPathComponent(self.testRun!.test.name)
+
     try FileManager.default.apollo.createDirectoryIfNeeded(atPath: directoryURL.path)
 
     filename = UUID().uuidString
@@ -26,13 +30,15 @@ class ApolloCodegenConfigurationTests: XCTestCase {
   }
 
   override func tearDownWithError() throws {
+    try FileManager.default.apollo.deleteDirectory(atPath: directoryURL.path)
+
     config = nil
     output = nil
     input = nil
+    directoryURL = nil
     fileURL = nil
     filename = nil
 
-    try FileManager.default.apollo.deleteDirectory(atPath: directoryURL.path)
     try super.tearDownWithError()
   }
 

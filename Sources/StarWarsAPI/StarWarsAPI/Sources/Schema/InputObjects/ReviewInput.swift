@@ -4,10 +4,10 @@
 import ApolloAPI
 
 public struct ReviewInput: InputObject {
-  public private(set) var data: InputDict
+  public private(set) var __data: InputDict
 
   public init(_ data: InputDict) {
-    self.data = data
+    __data = data
   }
 
   public init(
@@ -15,7 +15,7 @@ public struct ReviewInput: InputObject {
     commentary: GraphQLNullable<String> = nil,
     favorite_color: GraphQLNullable<ColorInput> = nil
   ) {
-    data = InputDict([
+    __data = InputDict([
       "stars": stars,
       "commentary": commentary,
       "favorite_color": favorite_color
@@ -23,17 +23,17 @@ public struct ReviewInput: InputObject {
   }
 
   public var stars: Int {
-    get { data.stars }
-    set { data.stars = newValue }
+    get { __data.stars }
+    set { __data.stars = newValue }
   }
 
   public var commentary: GraphQLNullable<String> {
-    get { data.commentary }
-    set { data.commentary = newValue }
+    get { __data.commentary }
+    set { __data.commentary = newValue }
   }
 
   public var favorite_color: GraphQLNullable<ColorInput> {
-    get { data.favorite_color }
-    set { data.favorite_color = newValue }
+    get { __data.favorite_color }
+    set { __data.favorite_color = newValue }
   }
 }

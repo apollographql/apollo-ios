@@ -4,10 +4,10 @@
 import ApolloAPI
 
 public struct ColorInput: InputObject {
-  public private(set) var data: InputDict
+  public private(set) var __data: InputDict
 
   public init(_ data: InputDict) {
-    self.data = data
+    __data = data
   }
 
   public init(
@@ -15,7 +15,7 @@ public struct ColorInput: InputObject {
     green: Int,
     blue: Int
   ) {
-    data = InputDict([
+    __data = InputDict([
       "red": red,
       "green": green,
       "blue": blue
@@ -23,17 +23,17 @@ public struct ColorInput: InputObject {
   }
 
   public var red: Int {
-    get { data.red }
-    set { data.red = newValue }
+    get { __data.red }
+    set { __data.red = newValue }
   }
 
   public var green: Int {
-    get { data.green }
-    set { data.green = newValue }
+    get { __data.green }
+    set { __data.green = newValue }
   }
 
   public var blue: Int {
-    get { data.blue }
-    set { data.blue = newValue }
+    get { __data.blue }
+    set { __data.blue = newValue }
   }
 }

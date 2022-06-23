@@ -13,20 +13,20 @@ public struct CharacterNameAndAppearsInWithNestedFragments: StarWarsAPI.Selectio
     }
     """ }
 
-  public let data: DataDict
-  public init(data: DataDict) { self.data = data }
+  public let __data: DataDict
+  public init(data: DataDict) { __data = data }
 
   public static var __parentType: ParentType { .Interface(StarWarsAPI.Character.self) }
   public static var selections: [Selection] { [
     .fragment(CharacterNameWithNestedAppearsInFragment.self),
   ] }
 
-  public var appearsIn: [GraphQLEnum<Episode>?] { data["appearsIn"] }
-  public var name: String { data["name"] }
+  public var appearsIn: [GraphQLEnum<Episode>?] { __data["appearsIn"] }
+  public var name: String { __data["name"] }
 
   public struct Fragments: FragmentContainer {
-    public let data: DataDict
-    public init(data: DataDict) { self.data = data }
+    public let __data: DataDict
+    public init(data: DataDict) { __data = data }
 
     public var characterNameWithNestedAppearsInFragment: CharacterNameWithNestedAppearsInFragment { _toFragment() }
     public var characterAppearsIn: CharacterAppearsIn { _toFragment() }

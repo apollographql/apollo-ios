@@ -16,8 +16,8 @@ public struct CharacterNameAndDroidAppearsIn: StarWarsAPI.SelectionSet, Fragment
     }
     """ }
 
-  public let data: DataDict
-  public init(data: DataDict) { self.data = data }
+  public let __data: DataDict
+  public init(data: DataDict) { __data = data }
 
   public static var __parentType: ParentType { .Interface(StarWarsAPI.Character.self) }
   public static var selections: [Selection] { [
@@ -25,21 +25,21 @@ public struct CharacterNameAndDroidAppearsIn: StarWarsAPI.SelectionSet, Fragment
     .inlineFragment(AsDroid.self),
   ] }
 
-  public var name: String { data["name"] }
+  public var name: String { __data["name"] }
 
   public var asDroid: AsDroid? { _asInlineFragment() }
 
   /// AsDroid
   public struct AsDroid: StarWarsAPI.InlineFragment {
-    public let data: DataDict
-    public init(data: DataDict) { self.data = data }
+    public let __data: DataDict
+    public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { .Object(StarWarsAPI.Droid.self) }
     public static var selections: [Selection] { [
       .field("appearsIn", [GraphQLEnum<Episode>?].self),
     ] }
 
-    public var appearsIn: [GraphQLEnum<Episode>?] { data["appearsIn"] }
-    public var name: String { data["name"] }
+    public var appearsIn: [GraphQLEnum<Episode>?] { __data["appearsIn"] }
+    public var name: String { __data["name"] }
   }
 }

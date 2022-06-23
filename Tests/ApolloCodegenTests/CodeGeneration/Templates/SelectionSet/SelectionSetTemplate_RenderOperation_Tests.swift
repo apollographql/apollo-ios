@@ -57,8 +57,8 @@ class SelectionSetTemplate_RenderOperation_Tests: XCTestCase {
 
     let expected = """
     public struct Data: TestSchema.SelectionSet {
-      public let data: DataDict
-      public init(data: DataDict) { self.data = data }
+      public let __data: DataDict
+      public init(data: DataDict) { __data = data }
 
       public static var __parentType: ParentType { .Object(TestSchema.Query.self) }
     """

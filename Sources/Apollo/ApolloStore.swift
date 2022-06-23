@@ -293,7 +293,7 @@ public class ApolloStore {
 
       let records = try executor.execute(
         selectionSet: SelectionSet.self,
-        on: selectionSet.data._data,
+        on: selectionSet.__data._data,
         withRootCacheReference: CacheReference(key),
         variables: variables,
         accumulator: normalizer

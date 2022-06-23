@@ -1240,30 +1240,30 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public var string: String { data["string"] }
-      public var string_optional: String? { data["string_optional"] }
-      public var int: Int { data["int"] }
-      public var int_optional: Int? { data["int_optional"] }
-      public var float: Double { data["float"] }
-      public var float_optional: Double? { data["float_optional"] }
-      public var boolean: Bool { data["boolean"] }
-      public var boolean_optional: Bool? { data["boolean_optional"] }
-      public var custom: TestSchema.Custom { data["custom"] }
-      public var custom_optional: TestSchema.Custom? { data["custom_optional"] }
-      public var custom_required_list: [TestSchema.Custom] { data["custom_required_list"] }
-      public var custom_optional_list: [TestSchema.Custom]? { data["custom_optional_list"] }
-      public var list_required_required: [String] { data["list_required_required"] }
-      public var list_optional_required: [String]? { data["list_optional_required"] }
-      public var list_required_optional: [String?] { data["list_required_optional"] }
-      public var list_optional_optional: [String?]? { data["list_optional_optional"] }
-      public var nestedList_required_required_required: [[String]] { data["nestedList_required_required_required"] }
-      public var nestedList_required_required_optional: [[String?]] { data["nestedList_required_required_optional"] }
-      public var nestedList_required_optional_optional: [[String?]?] { data["nestedList_required_optional_optional"] }
-      public var nestedList_required_optional_required: [[String]?] { data["nestedList_required_optional_required"] }
-      public var nestedList_optional_required_required: [[String]]? { data["nestedList_optional_required_required"] }
-      public var nestedList_optional_required_optional: [[String?]]? { data["nestedList_optional_required_optional"] }
-      public var nestedList_optional_optional_required: [[String]?]? { data["nestedList_optional_optional_required"] }
-      public var nestedList_optional_optional_optional: [[String?]?]? { data["nestedList_optional_optional_optional"] }
+      public var string: String { __data["string"] }
+      public var string_optional: String? { __data["string_optional"] }
+      public var int: Int { __data["int"] }
+      public var int_optional: Int? { __data["int_optional"] }
+      public var float: Double { __data["float"] }
+      public var float_optional: Double? { __data["float_optional"] }
+      public var boolean: Bool { __data["boolean"] }
+      public var boolean_optional: Bool? { __data["boolean_optional"] }
+      public var custom: TestSchema.Custom { __data["custom"] }
+      public var custom_optional: TestSchema.Custom? { __data["custom_optional"] }
+      public var custom_required_list: [TestSchema.Custom] { __data["custom_required_list"] }
+      public var custom_optional_list: [TestSchema.Custom]? { __data["custom_optional_list"] }
+      public var list_required_required: [String] { __data["list_required_required"] }
+      public var list_optional_required: [String]? { __data["list_optional_required"] }
+      public var list_required_optional: [String?] { __data["list_required_optional"] }
+      public var list_optional_optional: [String?]? { __data["list_optional_optional"] }
+      public var nestedList_required_required_required: [[String]] { __data["nestedList_required_required_required"] }
+      public var nestedList_required_required_optional: [[String?]] { __data["nestedList_required_required_optional"] }
+      public var nestedList_required_optional_optional: [[String?]?] { __data["nestedList_required_optional_optional"] }
+      public var nestedList_required_optional_required: [[String]?] { __data["nestedList_required_optional_required"] }
+      public var nestedList_optional_required_required: [[String]]? { __data["nestedList_optional_required_required"] }
+      public var nestedList_optional_required_optional: [[String?]]? { __data["nestedList_optional_required_optional"] }
+      public var nestedList_optional_optional_required: [[String]?]? { __data["nestedList_optional_optional_required"] }
+      public var nestedList_optional_optional_optional: [[String?]?]? { __data["nestedList_optional_optional_optional"] }
     """
 
     // when
@@ -1309,8 +1309,8 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public var testEnum: GraphQLEnum<TestEnum> { data["testEnum"] }
-      public var testEnumOptional: GraphQLEnum<TestEnumOptional>? { data["testEnumOptional"] }
+      public var testEnum: GraphQLEnum<TestEnum> { __data["testEnum"] }
+      public var testEnumOptional: GraphQLEnum<TestEnumOptional>? { __data["testEnumOptional"] }
     """
 
     // when
@@ -1348,7 +1348,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public var fieldName: String { data["FieldName"] }
+      public var fieldName: String { __data["FieldName"] }
     """
 
     // when
@@ -1386,7 +1386,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public var aliasedFieldName: String { data["aliasedFieldName"] }
+      public var aliasedFieldName: String { __data["aliasedFieldName"] }
     """
 
     // when
@@ -1429,8 +1429,8 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public var b: String { data["b"] }
-      public var a: String { data["a"] }
+      public var b: String { __data["b"] }
+      public var a: String { __data["a"] }
     """
 
     // when
@@ -1471,7 +1471,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public var predator: Predator { data["predator"] }
+      public var predator: Predator { __data["predator"] }
     """
 
     // when
@@ -1510,7 +1510,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public var aliasedPredator: AliasedPredator { data["aliasedPredator"] }
+      public var aliasedPredator: AliasedPredator { __data["aliasedPredator"] }
     """
 
     // when
@@ -1549,7 +1549,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public var predator: Predator? { data["predator"] }
+      public var predator: Predator? { __data["predator"] }
     """
 
     // when
@@ -1588,7 +1588,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public var predators: [Predator]? { data["predators"] }
+      public var predators: [Predator]? { __data["predators"] }
     """
 
     // when
@@ -1635,7 +1635,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public var predator: Predator { data["predator"] }
+      public var predator: Predator { __data["predator"] }
     """
 
     // when
@@ -1680,7 +1680,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public var predator: PredatorDetails.Predator { data["predator"] }
+      public var predator: PredatorDetails.Predator { __data["predator"] }
     """
 
     // when
@@ -1733,8 +1733,8 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public var species: String { data["species"] }
-      public var height: PredatorDetails.Predator.Height { data["height"] }
+      public var species: String { __data["species"] }
+      public var height: PredatorDetails.Predator.Height { __data["height"] }
     """
 
     // when
@@ -1791,7 +1791,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public var height: PredatorDetails.Predator.Height { data["height"] }
+      public var height: PredatorDetails.Predator.Height { __data["height"] }
     """
 
     // when
@@ -1848,13 +1848,13 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let predator_expected = """
-      public var species: String { data["species"] }
+      public var species: String { __data["species"] }
 
     """
 
     let predator_asPet_expected = """
-      public var species: String { data["species"] }
-      public var height: PredatorDetails.AsPet.Height { data["height"] }
+      public var species: String { __data["species"] }
+      public var height: PredatorDetails.AsPet.Height { __data["height"] }
     """
 
     // when
@@ -1917,13 +1917,13 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let predator_expected = """
-      public var species: String { data["species"] }
+      public var species: String { __data["species"] }
 
     """
 
     let predator_asPet_expected = """
-      public var species: String { data["species"] }
-      public var height: PredatorDetails.Predator.AsPet.Height { data["height"] }
+      public var species: String { __data["species"] }
+      public var height: PredatorDetails.Predator.AsPet.Height { __data["height"] }
     """
 
     // when
@@ -2107,7 +2107,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let predator_asPet_expected = """
-      public var favoriteToy: FavoriteToy? { data["favoriteToy"] }
+      public var favoriteToy: FavoriteToy? { __data["favoriteToy"] }
     """
 
     // when
@@ -2158,8 +2158,8 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public var name: String { data["name"] }
-      public var predator: Predator { data["predator"] }
+      public var name: String { __data["name"] }
+      public var predator: Predator { __data["predator"] }
     """
 
     // when
@@ -2214,8 +2214,8 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public var name: String { data["name"] }
-      public var predator: AsPet.Predator { data["predator"] }
+      public var name: String { __data["name"] }
+      public var predator: AsPet.Predator { __data["predator"] }
     """
 
     // when
@@ -2273,8 +2273,8 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public var species: String { data["species"] }
-      public var height: AllAnimal.Predator.Height { data["height"] }
+      public var species: String { __data["species"] }
+      public var height: AllAnimal.Predator.Height { __data["height"] }
     """
 
     // when
@@ -2340,8 +2340,8 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public var species: String { data["species"] }
-      public var height: AllAnimal.AsPet.Predator.Height { data["height"] }
+      public var species: String { __data["species"] }
+      public var height: AllAnimal.AsPet.Predator.Height { __data["height"] }
     """
 
     // when
@@ -2379,7 +2379,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public var fieldName: String? { data["fieldName"] }
+      public var fieldName: String? { __data["fieldName"] }
     """
 
     // when
@@ -2415,7 +2415,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public var fieldName: String? { data["fieldName"] }
+      public var fieldName: String? { __data["fieldName"] }
     """
 
     // when
@@ -2463,8 +2463,8 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public var name: String { data["name"] }
-      public var predator: Predator? { data["predator"] }
+      public var name: String { __data["name"] }
+      public var predator: Predator? { __data["predator"] }
     """
 
     // when
@@ -2504,8 +2504,8 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public var a: String { data["a"] }
-      public var fieldName: String { data["fieldName"] }
+      public var a: String { __data["a"] }
+      public var fieldName: String { __data["fieldName"] }
     """
 
     // when
@@ -2541,7 +2541,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public var fieldName: String { data["fieldName"] }
+      public var fieldName: String { __data["fieldName"] }
     """
 
     // when
@@ -2591,7 +2591,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public var a: String { data["a"] }
+      public var a: String { __data["a"] }
     """
 
     // when
@@ -2641,8 +2641,8 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public var a: String { data["a"] }
-      public var b: String { data["b"] }
+      public var a: String { __data["a"] }
+      public var b: String { __data["b"] }
     """
 
     // when
@@ -3020,8 +3020,8 @@ class SelectionSetTemplateTests: XCTestCase {
 
     let expected = """
       public struct Fragments: FragmentContainer {
-        public let data: DataDict
-        public init(data: DataDict) { self.data = data }
+        public let __data: DataDict
+        public init(data: DataDict) { __data = data }
 
         public var fragmentA: FragmentA { _toFragment() }
         public var lowercaseFragment: LowercaseFragment { _toFragment() }
@@ -3079,8 +3079,8 @@ class SelectionSetTemplateTests: XCTestCase {
 
     let expected = """
       public struct Fragments: FragmentContainer {
-        public let data: DataDict
-        public init(data: DataDict) { self.data = data }
+        public let __data: DataDict
+        public init(data: DataDict) { __data = data }
 
         public var fragmentA: FragmentA { _toFragment() }
       }
@@ -3132,8 +3132,8 @@ class SelectionSetTemplateTests: XCTestCase {
 
     let expected = """
       public struct Fragments: FragmentContainer {
-        public let data: DataDict
-        public init(data: DataDict) { self.data = data }
+        public let __data: DataDict
+        public init(data: DataDict) { __data = data }
 
         public var fragmentA: FragmentA? { _toFragment(if: "a") }
         public var lowercaseFragment: LowercaseFragment { _toFragment() }
@@ -3179,8 +3179,8 @@ class SelectionSetTemplateTests: XCTestCase {
 
     let expected = """
       public struct Fragments: FragmentContainer {
-        public let data: DataDict
-        public init(data: DataDict) { self.data = data }
+        public let __data: DataDict
+        public init(data: DataDict) { __data = data }
 
         public var fragmentA: FragmentA { _toFragment() }
       }
@@ -3225,8 +3225,8 @@ class SelectionSetTemplateTests: XCTestCase {
 
     let expected = """
       public struct Fragments: FragmentContainer {
-        public let data: DataDict
-        public init(data: DataDict) { self.data = data }
+        public let __data: DataDict
+        public init(data: DataDict) { __data = data }
 
         public var fragmentA: FragmentA? { _toFragment(if: "a" && "b") }
       }
@@ -3271,8 +3271,8 @@ class SelectionSetTemplateTests: XCTestCase {
 
     let expected = """
       public struct Fragments: FragmentContainer {
-        public let data: DataDict
-        public init(data: DataDict) { self.data = data }
+        public let __data: DataDict
+        public init(data: DataDict) { __data = data }
 
         public var fragmentA: FragmentA { _toFragment() }
       }
@@ -3316,7 +3316,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public var predators: [Predator]? { data["predators"] }
+      public var predators: [Predator]? { __data["predators"] }
 
       /// AllAnimal.Predator
       public struct Predator: TestSchema.SelectionSet {
@@ -3399,8 +3399,8 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public var species: String { data["species"] }
-      public var height: Height { data["height"] }
+      public var species: String { __data["species"] }
+      public var height: Height { __data["height"] }
 
       /// AllAnimal.AsDog.Predator.Height
       public struct Height: TestSchema.SelectionSet {
@@ -3446,11 +3446,11 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public var predator: PredatorDetails.Predator { data["predator"] }
+      public var predator: PredatorDetails.Predator { __data["predator"] }
 
       public struct Fragments: FragmentContainer {
-        public let data: DataDict
-        public init(data: DataDict) { self.data = data }
+        public let __data: DataDict
+        public init(data: DataDict) { __data = data }
 
         public var predatorDetails: PredatorDetails { _toFragment() }
       }
@@ -3515,7 +3515,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let allAnimals_expected = """
-      public var predator: Predator { data["predator"] }
+      public var predator: Predator { __data["predator"] }
 
       /// AllAnimal.Predator
       public struct Predator: TestSchema.SelectionSet {
@@ -3529,12 +3529,12 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let allAnimals_predator_asWarmBlooded_expected = """
-      public var species: String { data["species"] }
-      public var height: HeightInMeters.Height { data["height"] }
+      public var species: String { __data["species"] }
+      public var height: HeightInMeters.Height { __data["height"] }
 
       public struct Fragments: FragmentContainer {
-        public let data: DataDict
-        public init(data: DataDict) { self.data = data }
+        public let __data: DataDict
+        public init(data: DataDict) { __data = data }
 
         public var warmBloodedDetails: WarmBloodedDetails { _toFragment() }
         public var heightInMeters: HeightInMeters { _toFragment() }

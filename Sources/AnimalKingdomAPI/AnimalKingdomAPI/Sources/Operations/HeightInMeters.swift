@@ -16,26 +16,26 @@ public struct HeightInMeters: AnimalKingdomAPI.SelectionSet, Fragment {
     }
     """ }
 
-  public let data: DataDict
-  public init(data: DataDict) { self.data = data }
+  public let __data: DataDict
+  public init(data: DataDict) { __data = data }
 
   public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Animal.self) }
   public static var selections: [Selection] { [
     .field("height", Height.self),
   ] }
 
-  public var height: Height { data["height"] }
+  public var height: Height { __data["height"] }
 
   /// Height
   public struct Height: AnimalKingdomAPI.SelectionSet {
-    public let data: DataDict
-    public init(data: DataDict) { self.data = data }
+    public let __data: DataDict
+    public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Height.self) }
     public static var selections: [Selection] { [
       .field("meters", Int.self),
     ] }
 
-    public var meters: Int { data["meters"] }
+    public var meters: Int { __data["meters"] }
   }
 }

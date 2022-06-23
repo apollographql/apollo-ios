@@ -23,23 +23,23 @@ public extension LocalCacheMutation {
 }
 
 public protocol MutableSelectionSet: SelectionSet {
-  var data: DataDict { get set }
+  var __data: DataDict { get set }
 }
 
 public extension MutableSelectionSet {
   @inlinable var __typename: String {
-    get { data["__typename"] }
-    set { data["__typename"] = newValue }
+    get { __data["__typename"] }
+    set { __data["__typename"] = newValue }
   }
 }
 
 public extension MutableSelectionSet where Fragments: FragmentContainer {
   @inlinable var fragments: Fragments {
-    get { Self.Fragments(data: data) }
+    get { Self.Fragments(data: __data) }
     _modify {
-      var f = Self.Fragments(data: data)
+      var f = Self.Fragments(data: __data)
       yield &f
-      self.data._data = f.data._data
+      self.__data._data = f.__data._data
     }
     @available(*, unavailable, message: "mutate properties of the fragment instead.")
     set { preconditionFailure("") }

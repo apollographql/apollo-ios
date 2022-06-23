@@ -58,7 +58,7 @@ class ErrorGenerationTests: XCTestCase {
     let response = GraphQLResponse(operation: MockQuery.mock(), body: jsonObject)
     let result = try response.parseResultFast()
     XCTAssertNotNil(result.data)
-    expect(result.data?.data._data["hero"]).to(beNil())
+    expect(result.data?.__data._data["hero"]).to(beNil())
     
     XCTAssertEqual(result.errors?.count, 1)
     let error = try XCTUnwrap(result.errors?.first)
@@ -99,7 +99,7 @@ class ErrorGenerationTests: XCTestCase {
     let response = GraphQLResponse(operation: MockQuery.mock(), body: jsonObject)
     let result = try response.parseResultFast()
     XCTAssertNotNil(result.data)
-    expect(result.data?.data._data["hero"]).to(beNil())
+    expect(result.data?.__data._data["hero"]).to(beNil())
     
     let errors = try XCTUnwrap(result.errors)
     

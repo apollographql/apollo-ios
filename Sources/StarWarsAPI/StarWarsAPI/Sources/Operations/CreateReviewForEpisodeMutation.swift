@@ -37,8 +37,8 @@ public class CreateReviewForEpisodeMutation: GraphQLMutation {
   }
 
   public struct Data: StarWarsAPI.SelectionSet {
-    public let data: DataDict
-    public init(data: DataDict) { self.data = data }
+    public let __data: DataDict
+    public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { .Object(StarWarsAPI.Mutation.self) }
     public static var selections: [Selection] { [
@@ -48,12 +48,12 @@ public class CreateReviewForEpisodeMutation: GraphQLMutation {
       ]),
     ] }
 
-    public var createReview: CreateReview? { data["createReview"] }
+    public var createReview: CreateReview? { __data["createReview"] }
 
     /// CreateReview
     public struct CreateReview: StarWarsAPI.SelectionSet {
-      public let data: DataDict
-      public init(data: DataDict) { self.data = data }
+      public let __data: DataDict
+      public init(data: DataDict) { __data = data }
 
       public static var __parentType: ParentType { .Object(StarWarsAPI.Review.self) }
       public static var selections: [Selection] { [
@@ -61,8 +61,8 @@ public class CreateReviewForEpisodeMutation: GraphQLMutation {
         .field("commentary", String?.self),
       ] }
 
-      public var stars: Int { data["stars"] }
-      public var commentary: String? { data["commentary"] }
+      public var stars: Int { __data["stars"] }
+      public var commentary: String? { __data["commentary"] }
     }
   }
 }

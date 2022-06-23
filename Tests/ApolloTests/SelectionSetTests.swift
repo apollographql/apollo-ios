@@ -16,7 +16,7 @@ class SelectionSetTests: XCTestCase {
         .field("name", String?.self)
       ]}
 
-      var name: String? { data["name"] }
+      var name: String? { __data["name"] }
     }
 
     let object: JSONObject = [
@@ -41,7 +41,7 @@ class SelectionSetTests: XCTestCase {
         .field("name", String?.self)
       ]}
 
-      var name: String? { data["name"] }
+      var name: String? { __data["name"] }
     }
 
     let object: JSONObject = [
@@ -67,7 +67,7 @@ class SelectionSetTests: XCTestCase {
         .field("nestedList", [[String]].self)
       ]}
 
-      var nestedList: [[String]] { data["nestedList"] }
+      var nestedList: [[String]] { __data["nestedList"] }
     }
 
     let object: JSONObject = [
@@ -94,7 +94,7 @@ class SelectionSetTests: XCTestCase {
         .field("friend", Friend.self)
       ]}
 
-      var friend: Friend { data["friend"] }
+      var friend: Friend { __data["friend"] }
 
       class Friend: MockSelectionSet, SelectionSet {
         typealias Schema = MockSchemaConfiguration
@@ -131,7 +131,7 @@ class SelectionSetTests: XCTestCase {
         .field("friend", Hero?.self)
       ]}
 
-      var friend: Hero? { data["friend"] }
+      var friend: Hero? { __data["friend"] }
     }
 
     let friendData: JSONObject = ["__typename": "Human"]
@@ -160,7 +160,7 @@ class SelectionSetTests: XCTestCase {
         .field("friend", Hero?.self)
       ]}
 
-      var friend: Hero? { data["friend"] }
+      var friend: Hero? { __data["friend"] }
     }
 
     let object: JSONObject = [
@@ -186,7 +186,7 @@ class SelectionSetTests: XCTestCase {
         .field("friends", [Hero].self)
       ]}
 
-      var friends: [Hero] { data["friends"] }
+      var friends: [Hero] { __data["friends"] }
     }
 
     let object: JSONObject = [
@@ -224,7 +224,7 @@ class SelectionSetTests: XCTestCase {
         .field("friends", [Hero?].self)
       ]}
 
-      var friends: [Hero?] { data["friends"] }
+      var friends: [Hero?] { __data["friends"] }
     }
 
     let object: JSONObject = [
@@ -262,7 +262,7 @@ class SelectionSetTests: XCTestCase {
         .field("friends", [Hero?].self)
       ]}
 
-      var friends: [Hero?] { data["friends"] }
+      var friends: [Hero?] { __data["friends"] }
     }
 
     let object: JSONObject = [
@@ -299,7 +299,7 @@ class SelectionSetTests: XCTestCase {
         .field("friends", [Hero]?.self)
       ]}
 
-      var friends: [Hero]? { data["friends"] }
+      var friends: [Hero]? { __data["friends"] }
     }
 
     let object: JSONObject = [
@@ -337,7 +337,7 @@ class SelectionSetTests: XCTestCase {
         .field("friends", [Hero]?.self)
       ]}
 
-      var friends: [Hero]? { data["friends"] }
+      var friends: [Hero]? { __data["friends"] }
     }
 
     let object: JSONObject = [
@@ -363,7 +363,7 @@ class SelectionSetTests: XCTestCase {
         .field("nestedList", [[Hero]].self)
       ]}
 
-      var nestedList: [[Hero]] { data["nestedList"] }
+      var nestedList: [[Hero]] { __data["nestedList"] }
     }
 
     let object: JSONObject = [
@@ -401,7 +401,7 @@ class SelectionSetTests: XCTestCase {
         .field("nestedList", [[Hero]?].self)
       ]}
 
-      var nestedList: [[Hero]?] { data["nestedList"] }
+      var nestedList: [[Hero]?] { __data["nestedList"] }
     }
 
     let object: JSONObject = [
@@ -439,7 +439,7 @@ class SelectionSetTests: XCTestCase {
         .field("nestedList", [[Hero]?].self)
       ]}
 
-      var nestedList: [[Hero]?] { data["nestedList"] }
+      var nestedList: [[Hero]?] { __data["nestedList"] }
     }
 
     let nestedObjectData: JSONObject = [
@@ -475,7 +475,7 @@ class SelectionSetTests: XCTestCase {
         .field("nestedList", [[Hero?]].self)
       ]}
 
-      var nestedList: [[Hero?]] { data["nestedList"] }
+      var nestedList: [[Hero?]] { __data["nestedList"] }
     }
 
     let object: JSONObject = [
@@ -513,7 +513,7 @@ class SelectionSetTests: XCTestCase {
         .field("nestedList", [[Hero]]?.self)
       ]}
 
-      var nestedList: [[Hero]]? { data["nestedList"] }
+      var nestedList: [[Hero]]? { __data["nestedList"] }
     }
 
     let object: JSONObject = [
@@ -827,8 +827,8 @@ class SelectionSetTests: XCTestCase {
       ]}
 
       public struct Fragments: FragmentContainer {
-        public let data: DataDict
-        public init(data: DataDict) { self.data = data }
+        public let __data: DataDict
+        public init(data: DataDict) { __data = data }
 
         public var givenFragment: GivenFragment? { _toFragment(if: "includeFragment") }
       }
@@ -859,8 +859,8 @@ class SelectionSetTests: XCTestCase {
       ]}
 
       public struct Fragments: FragmentContainer {
-        public let data: DataDict
-        public init(data: DataDict) { self.data = data }
+        public let __data: DataDict
+        public init(data: DataDict) { __data = data }
 
         public var givenFragment: GivenFragment? { _toFragment(if: "includeFragment") }
       }

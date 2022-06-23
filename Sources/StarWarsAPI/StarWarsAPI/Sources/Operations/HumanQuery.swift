@@ -31,20 +31,20 @@ public class HumanQuery: GraphQLQuery {
   }
 
   public struct Data: StarWarsAPI.SelectionSet {
-    public let data: DataDict
-    public init(data: DataDict) { self.data = data }
+    public let __data: DataDict
+    public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { .Object(StarWarsAPI.Query.self) }
     public static var selections: [Selection] { [
       .field("human", Human?.self, arguments: ["id": .variable("id")]),
     ] }
 
-    public var human: Human? { data["human"] }
+    public var human: Human? { __data["human"] }
 
     /// Human
     public struct Human: StarWarsAPI.SelectionSet {
-      public let data: DataDict
-      public init(data: DataDict) { self.data = data }
+      public let __data: DataDict
+      public init(data: DataDict) { __data = data }
 
       public static var __parentType: ParentType { .Object(StarWarsAPI.Human.self) }
       public static var selections: [Selection] { [
@@ -52,8 +52,8 @@ public class HumanQuery: GraphQLQuery {
         .field("mass", Double?.self),
       ] }
 
-      public var name: String { data["name"] }
-      public var mass: Double? { data["mass"] }
+      public var name: String { __data["name"] }
+      public var mass: Double? { __data["mass"] }
     }
   }
 }

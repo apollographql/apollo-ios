@@ -18,8 +18,8 @@ public struct ClassroomPetDetailsCCN: AnimalKingdomAPI.SelectionSet, Fragment {
     }
     """ }
 
-  public let data: DataDict
-  public init(data: DataDict) { self.data = data }
+  public let __data: DataDict
+  public init(data: DataDict) { __data = data }
 
   public static var __parentType: ParentType { .Union(AnimalKingdomAPI.ClassroomPet.self) }
   public static var selections: [Selection] { [
@@ -30,27 +30,27 @@ public struct ClassroomPetDetailsCCN: AnimalKingdomAPI.SelectionSet, Fragment {
 
   /// AsAnimal
   public struct AsAnimal: AnimalKingdomAPI.InlineFragment {
-    public let data: DataDict
-    public init(data: DataDict) { self.data = data }
+    public let __data: DataDict
+    public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Animal.self) }
     public static var selections: [Selection] { [
       .field("height", Height.self),
     ] }
 
-    public var height: Height { data["height"] }
+    public var height: Height { __data["height"] }
 
     /// AsAnimal.Height
     public struct Height: AnimalKingdomAPI.SelectionSet {
-      public let data: DataDict
-      public init(data: DataDict) { self.data = data }
+      public let __data: DataDict
+      public init(data: DataDict) { __data = data }
 
       public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Height.self) }
       public static var selections: [Selection] { [
         .field("inches", Int.self),
       ] }
 
-      public var inches: Int { data["inches"] }
+      public var inches: Int { __data["inches"] }
     }
   }
 }

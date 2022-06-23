@@ -99,8 +99,8 @@ struct SelectionSetTemplate {
 
   private func DataFieldAndInitializerTemplate() -> String {
     """
-    public \(isMutable ? "var" : "let") data: DataDict
-    public init(data: DataDict) { self.data = data }
+    public \(isMutable ? "var" : "let") __data: DataDict
+    public init(data: DataDict) { __data = data }
     """
   }
 
@@ -224,12 +224,12 @@ struct SelectionSetTemplate {
     \(if: isMutable,
       """
 
-        get { data["\(field.responseKey)"] }
-        set { data["\(field.responseKey)"] = newValue }
+        get { __data["\(field.responseKey)"] }
+        set { __data["\(field.responseKey)"] = newValue }
       }
       """, else:
       """
-       data["\(field.responseKey)"] }
+       __data["\(field.responseKey)"] }
       """)
     """
   }
@@ -253,7 +253,7 @@ struct SelectionSetTemplate {
       """
 
         get { \(InlineFragmentGetter(inlineFragment)) }
-        set { if let newData = newValue?.data._data { data._data = newData }}
+        set { if let newData = newValue?.__data._data { __data._data = newData }}
       }
       """,
       else: " \(InlineFragmentGetter(inlineFragment)) }"
@@ -315,8 +315,8 @@ struct SelectionSetTemplate {
         get { \(getter) }
         _modify { var f = \(propertyName); yield &f; \(
           if: isOptional,
-            "if let newData = f?.data { data = newData }",
-          else: "data = f.data"
+            "if let newData = f?.__data { __data = newData }",
+          else: "__data = f.__data"
         ) }
         @available(*, unavailable, message: "mutate properties of the fragment instead.")
         set { preconditionFailure() }

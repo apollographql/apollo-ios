@@ -41,20 +41,20 @@ public class SearchQuery: GraphQLQuery {
   }
 
   public struct Data: StarWarsAPI.SelectionSet {
-    public let data: DataDict
-    public init(data: DataDict) { self.data = data }
+    public let __data: DataDict
+    public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { .Object(StarWarsAPI.Query.self) }
     public static var selections: [Selection] { [
       .field("search", [Search?]?.self, arguments: ["text": .variable("term")]),
     ] }
 
-    public var search: [Search?]? { data["search"] }
+    public var search: [Search?]? { __data["search"] }
 
     /// Search
     public struct Search: StarWarsAPI.SelectionSet {
-      public let data: DataDict
-      public init(data: DataDict) { self.data = data }
+      public let __data: DataDict
+      public init(data: DataDict) { __data = data }
 
       public static var __parentType: ParentType { .Union(StarWarsAPI.SearchResult.self) }
       public static var selections: [Selection] { [
@@ -69,8 +69,8 @@ public class SearchQuery: GraphQLQuery {
 
       /// Search.AsHuman
       public struct AsHuman: StarWarsAPI.InlineFragment {
-        public let data: DataDict
-        public init(data: DataDict) { self.data = data }
+        public let __data: DataDict
+        public init(data: DataDict) { __data = data }
 
         public static var __parentType: ParentType { .Object(StarWarsAPI.Human.self) }
         public static var selections: [Selection] { [
@@ -78,14 +78,14 @@ public class SearchQuery: GraphQLQuery {
           .field("name", String.self),
         ] }
 
-        public var id: ID { data["id"] }
-        public var name: String { data["name"] }
+        public var id: ID { __data["id"] }
+        public var name: String { __data["name"] }
       }
 
       /// Search.AsDroid
       public struct AsDroid: StarWarsAPI.InlineFragment {
-        public let data: DataDict
-        public init(data: DataDict) { self.data = data }
+        public let __data: DataDict
+        public init(data: DataDict) { __data = data }
 
         public static var __parentType: ParentType { .Object(StarWarsAPI.Droid.self) }
         public static var selections: [Selection] { [
@@ -93,14 +93,14 @@ public class SearchQuery: GraphQLQuery {
           .field("name", String.self),
         ] }
 
-        public var id: ID { data["id"] }
-        public var name: String { data["name"] }
+        public var id: ID { __data["id"] }
+        public var name: String { __data["name"] }
       }
 
       /// Search.AsStarship
       public struct AsStarship: StarWarsAPI.InlineFragment {
-        public let data: DataDict
-        public init(data: DataDict) { self.data = data }
+        public let __data: DataDict
+        public init(data: DataDict) { __data = data }
 
         public static var __parentType: ParentType { .Object(StarWarsAPI.Starship.self) }
         public static var selections: [Selection] { [
@@ -108,8 +108,8 @@ public class SearchQuery: GraphQLQuery {
           .field("name", String.self),
         ] }
 
-        public var id: ID { data["id"] }
-        public var name: String { data["name"] }
+        public var id: ID { __data["id"] }
+        public var name: String { __data["name"] }
       }
     }
   }

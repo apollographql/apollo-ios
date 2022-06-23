@@ -42,20 +42,20 @@ public class PetSearchQuery: GraphQLQuery {
   }
 
   public struct Data: AnimalKingdomAPI.SelectionSet {
-    public let data: DataDict
-    public init(data: DataDict) { self.data = data }
+    public let __data: DataDict
+    public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Query.self) }
     public static var selections: [Selection] { [
       .field("pets", [Pet].self, arguments: ["filters": .variable("filters")]),
     ] }
 
-    public var pets: [Pet] { data["pets"] }
+    public var pets: [Pet] { __data["pets"] }
 
     /// Pet
     public struct Pet: AnimalKingdomAPI.SelectionSet {
-      public let data: DataDict
-      public init(data: DataDict) { self.data = data }
+      public let __data: DataDict
+      public init(data: DataDict) { __data = data }
 
       public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Pet.self) }
       public static var selections: [Selection] { [
@@ -63,8 +63,8 @@ public class PetSearchQuery: GraphQLQuery {
         .field("humanName", String?.self),
       ] }
 
-      public var id: ID { data["id"] }
-      public var humanName: String? { data["humanName"] }
+      public var id: ID { __data["id"] }
+      public var humanName: String? { __data["humanName"] }
     }
   }
 }

@@ -49,29 +49,29 @@ open class AbstractMockSelectionSet: AnySelectionSet {
   open class var selections: [Selection] { [] }
   open class var __parentType: ParentType { .Object(Object.self) }
 
-  public var data: DataDict = DataDict([:], variables: nil)
+  public var __data: DataDict = DataDict([:], variables: nil)
 
   public required init(data: DataDict) {
-    self.data = data
+    self.__data = data
   }
 
   public subscript<T: AnyScalarType & Hashable>(dynamicMember key: String) -> T? {
-    data[key]
+    __data[key]
   }
 
   public subscript<T: MockSelectionSet>(dynamicMember key: String) -> T? {
-    data[key]
+    __data[key]
   }
   
 }
 
 open class MockSelectionSet: AbstractMockSelectionSet, RootSelectionSet, Hashable {
   public static func == (lhs: MockSelectionSet, rhs: MockSelectionSet) -> Bool {
-    lhs.data == rhs.data
+    lhs.__data == rhs.__data
   }
 
   public func hash(into hasher: inout Hasher) {
-    hasher.combine(data)
+    hasher.combine(__data)
   }
 }
 

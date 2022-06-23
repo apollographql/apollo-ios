@@ -56,7 +56,7 @@ extension AnySelectionSet {
     self.init(data: DataDict(fieldData, variables: variables))
   }
 
-  @inlinable public var _fieldData: AnyHashable { data._data }
+  @inlinable public var _fieldData: AnyHashable { __data._data }
 }
 
 extension Optional: SelectionSetEntityValue where Wrapped: SelectionSetEntityValue {

@@ -16,8 +16,8 @@ public struct PetDetailsMutation: AnimalKingdomAPI.MutableSelectionSet, Fragment
     }
     """ }
 
-  public var data: DataDict
-  public init(data: DataDict) { self.data = data }
+  public var __data: DataDict
+  public init(data: DataDict) { __data = data }
 
   public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Pet.self) }
   public static var selections: [Selection] { [
@@ -25,14 +25,14 @@ public struct PetDetailsMutation: AnimalKingdomAPI.MutableSelectionSet, Fragment
   ] }
 
   public var owner: Owner? {
-    get { data["owner"] }
-    set { data["owner"] = newValue }
+    get { __data["owner"] }
+    set { __data["owner"] = newValue }
   }
 
   /// Owner
   public struct Owner: AnimalKingdomAPI.MutableSelectionSet {
-    public var data: DataDict
-    public init(data: DataDict) { self.data = data }
+    public var __data: DataDict
+    public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Human.self) }
     public static var selections: [Selection] { [
@@ -40,8 +40,8 @@ public struct PetDetailsMutation: AnimalKingdomAPI.MutableSelectionSet, Fragment
     ] }
 
     public var firstName: String {
-      get { data["firstName"] }
-      set { data["firstName"] = newValue }
+      get { __data["firstName"] }
+      set { __data["firstName"] = newValue }
     }
   }
 }

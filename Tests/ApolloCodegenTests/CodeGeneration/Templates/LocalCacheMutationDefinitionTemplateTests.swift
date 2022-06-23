@@ -231,7 +231,7 @@ class LocalCacheMutationDefinitionTemplateTests: XCTestCase {
     let expected =
     """
       public struct Data: TestSchema.MutableSelectionSet {
-        public var data: DataDict
+        public var __data: DataDict
     """
 
     // when

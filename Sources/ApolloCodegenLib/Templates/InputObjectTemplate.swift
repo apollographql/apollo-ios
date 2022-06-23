@@ -18,16 +18,16 @@ struct InputObjectTemplate: TemplateRenderer {
     """
     \(embeddedAccessControlModifier)\
     struct \(graphqlInputObject.name.firstUppercased): InputObject {
-      public private(set) var data: InputDict
+      public private(set) var __data: InputDict
     
       public init(_ data: InputDict) {
-        self.data = data
+        __data = data
       }
 
       public init(
         \(InitializerParametersTemplate())
       ) {
-        data = InputDict([
+        __data = InputDict([
           \(InputDictInitializerTemplate())
         ])
       }
@@ -55,8 +55,8 @@ struct InputObjectTemplate: TemplateRenderer {
   private func FieldPropertyTemplate(_ field: GraphQLInputField) -> String {
     """
     public var \(field.name): \(field.renderInputValueType(inSchemaNamed: schema.name)) {
-      get { data.\(field.name) }
-      set { data.\(field.name) = newValue }
+      get { __data.\(field.name) }
+      set { __data.\(field.name) = newValue }
     }
     """
   }
