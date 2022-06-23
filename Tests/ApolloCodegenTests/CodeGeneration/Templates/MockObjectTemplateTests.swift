@@ -134,10 +134,10 @@ class MockObjectTemplateTests: XCTestCase {
     let expected = """
       public struct MockFields {
         @Field<MockSchemaTypes.CustomScalar>("customScalar") public var customScalar
-        @Field<Cat>("object") public var object
-        @Field<[Cat]>("objectList") public var objectList
-        @Field<[[Cat]]>("objectNestedList") public var objectNestedList
-        @Field<[Cat?]>("objectOptionalList") public var objectOptionalList
+        @Field<MockSchemaTypes.Cat>("object") public var object
+        @Field<[MockSchemaTypes.Cat]>("objectList") public var objectList
+        @Field<[[MockSchemaTypes.Cat]]>("objectNestedList") public var objectNestedList
+        @Field<[MockSchemaTypes.Cat?]>("objectOptionalList") public var objectOptionalList
         @Field<String>("optionalString") public var optionalString
         @Field<String>("string") public var string
       }

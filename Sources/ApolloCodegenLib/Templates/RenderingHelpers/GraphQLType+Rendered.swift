@@ -7,35 +7,27 @@ extension GraphQLType {
     config: ReferenceWrapped<ApolloCodegenConfiguration>
   ) -> String {
 
-    var schemaModuleName = ""
+    lazy var schemaModuleName: String = {
+      !config.output.operations.isInModule ? "\(config.schemaName)." : ""
+    }()
 
     switch self {
-    case let .inputObject(type as GraphQLNamedType):
-      if !config.output.operations.isInModule {
-        schemaModuleName = "\(config.schemaName)."
-      }
-      fallthrough
-
     case let .entity(type as GraphQLNamedType):
+      let typeName = newTypeName ?? type.swiftName
+      return containedInNonNull ? typeName : "\(typeName)?"
+
+    case let .inputObject(type as GraphQLNamedType):
       let typeName = newTypeName ?? type.swiftName
       return containedInNonNull ? "\(schemaModuleName)\(typeName)" : "\(schemaModuleName)\(typeName)?"
 
     case let .scalar(type):
-      if !type.isSwiftType && !config.output.operations.isInModule {
-        schemaModuleName = "\(config.schemaName)."
-      }
-
       let typeName = newTypeName ?? type.swiftName
 
       return TemplateString(
-        "\(schemaModuleName)\(typeName)\(if: !containedInNonNull, "?")"
+        "\(if: !type.isSwiftType, "\(schemaModuleName)")\(typeName)\(if: !containedInNonNull, "?")"
       ).description
 
     case let .enum(type as GraphQLNamedType):
-      if !config.output.operations.isInModule {
-        schemaModuleName = "\(config.schemaName)."
-      }
-
       let typeName = newTypeName ?? type.name
       let enumType = "GraphQLEnum<\(schemaModuleName)\(typeName)>"
 
@@ -66,7 +58,10 @@ extension GraphQLType {
     config: ReferenceWrapped<ApolloCodegenConfiguration>
   ) -> String {
     switch self {
-    case .entity, .enum, .scalar, .inputObject:
+    case .entity:
+      preconditionFailure("Entities cannot be used as input values")
+
+    case .enum, .scalar, .inputObject:
       let typeName = self.rendered(containedInNonNull: true, config: config)
       return inNullable ? "GraphQLNullable<\(typeName)>" : typeName
 

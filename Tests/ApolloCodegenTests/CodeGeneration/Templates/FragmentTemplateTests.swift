@@ -365,7 +365,7 @@ class FragmentTemplateTests: XCTestCase {
 
       public static var __parentType: ParentType { .Object(TestSchema.Query.self) }
       public static var selections: [Selection] { [
-        .field("allAnimals", [AllAnimal]?.self),
+        .field("allAnimals", [MockSchemaTypes.AllAnimal]?.self),
       ] }
 
       public var allAnimals: [AllAnimal]? {

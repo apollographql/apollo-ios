@@ -1,8 +1,10 @@
 import OrderedCollections
+import ApolloUtils
 
 protocol InputVariableRenderable {
   var type: GraphQLType { get }
   var defaultValue: GraphQLValue? { get }
+//  var config: ReferenceWrapped<ApolloCodegenConfiguration> { get }
 }
 
 extension CompilationResult.VariableDefinition: InputVariableRenderable {}
@@ -10,6 +12,7 @@ extension CompilationResult.VariableDefinition: InputVariableRenderable {}
 struct InputVariable: InputVariableRenderable {
   let type: GraphQLType
   let defaultValue: GraphQLValue?
+//  let config: ReferenceWrapped<ApolloCodegenConfiguration>
 }
 
 extension InputVariableRenderable {

@@ -34,7 +34,7 @@ class SelectionSetTemplateTests: XCTestCase {
     ir = try .mock(schema: schemaSDL, document: document)
     let operationDefinition = try XCTUnwrap(ir.compilationResult[operation: operationName])
     operation = ir.build(operation: operationDefinition)
-    let config = ApolloCodegenConfiguration.mock(output: configOutput)
+    let config = ApolloCodegenConfiguration.mock(schemaName: "TestSchema", output: configOutput)
     subject = SelectionSetTemplate(schema: ir.schema, config: ReferenceWrapped(value: config))
   }
 
@@ -147,6 +147,70 @@ class SelectionSetTemplateTests: XCTestCase {
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
   }
+
+//  func test__render() throws {
+//    // given
+//    schemaSDL = """
+//    type Query {
+//      pets(filters: PetSearchFilters!): [Pet!]!
+//    }
+//
+//    input MeasurementsInput {
+//      height: Float!
+//      weight: Float!
+//      wingspan: Float
+//    }
+//
+//    input PetSearchFilters {
+//      species: [String!]!
+//      size: RelativeSize
+//      measurements: MeasurementsInput
+//    }
+//
+//    interface Pet {
+//      id: ID!
+//      humanName: String
+//      favoriteToy: String!
+//    }
+//
+//    enum RelativeSize {
+//      LARGE
+//      AVERAGE
+//      SMALL
+//    }
+//    """
+//
+//    document = """
+//    query PetSearch($filters: PetSearchFilters = {
+//      species: ["Dog", "Cat"],
+//      size: SMALL,
+//      measurements: {
+//        height: 10.5,
+//        weight: 5.0
+//        }
+//      }
+//    ) {
+//      pets(filters: $filters) {
+//        id
+//        humanName
+//      }
+//    }
+//    """
+//
+//    let expected = """
+//    """
+//
+//    // when
+//    ir = try .mock(schema: schemaSDL, document: document)
+//    let operationDefinition = try XCTUnwrap(ir.compilationResult[operation: "PetSearch"])
+//    let operation = ir.build(operation: operationDefinition)
+//    let template = OperationDefinitionTemplate(operation: operation, schema: ir.schema, config: ReferenceWrapped(value: .mock()))
+//
+//    let actual = template.render()
+//
+//    // then
+//    expect(actual).to(equalLineByLine(expected))
+//  }
 
   func test__render_parentType__givenParentTypeAs_Union_rendersParentType() throws {
     // given
@@ -596,7 +660,7 @@ class SelectionSetTemplateTests: XCTestCase {
 
     let expected = """
       public static var selections: [Selection] { [
-        .field("predator", Predator.self),
+        .field("predator", MockSchemaTypes.Predator.self),
       ] }
     """
 
@@ -3640,14 +3704,14 @@ class SelectionSetTemplateTests: XCTestCase {
       public var predator: Predator { __data["predator"] }
 
       /// AllAnimal.Predator
-      public struct Predator: TestSchema.SelectionSet {
+      public struct Predator: MockSchemaTypes..SelectionSet {
     """
 
     let allAnimals_predator_expected = """
-      public var asWarmBlooded: AsWarmBlooded? { _asInlineFragment() }
+      public var asWarmBlooded: MockSchemaTypes.AsWarmBlooded? { _asInlineFragment() }
 
       /// AllAnimal.Predator.AsWarmBlooded
-      public struct AsWarmBlooded: TestSchema.InlineFragment {
+      public struct AsWarmBlooded: MockSchemaTypes..InlineFragment {
     """
 
     let allAnimals_predator_asWarmBlooded_expected = """
