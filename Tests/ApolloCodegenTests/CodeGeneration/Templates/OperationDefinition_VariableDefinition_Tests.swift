@@ -93,7 +93,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
           )),
           defaultValue: nil
         ),
-        "inputField: GraphQLNullable<InnerInputObject>"
+        "inputField: GraphQLNullable<MockSchemaTypes.InnerInputObject>"
       ),
       (
         .mock(
@@ -203,7 +203,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
           defaultValue: .object(["innerStringField": .string("Value")])
         ),
         """
-        inputField: GraphQLNullable<InnerInputObject> = .init(
+        inputField: GraphQLNullable<MockSchemaTypes.InnerInputObject> = .init(
           InnerInputObject(innerStringField: "Value")
         )
         """
@@ -261,7 +261,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
     )
 
     let expected = """
-    inputField: GraphQLNullable<InputObject> = .init(
+    inputField: GraphQLNullable<MockSchemaTypes.InputObject> = .init(
       InputObject(
         innerStringField: "ABCD",
         innerIntField: 123,
@@ -328,7 +328,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
     )
 
     let expected = """
-    inputField: InputObject = InputObject(
+    inputField: MockSchemaTypes.InputObject = InputObject(
       innerStringField: "ABCD",
       innerIntField: 123,
       innerFloatField: 12.3456,

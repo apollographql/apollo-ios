@@ -235,7 +235,7 @@ class InputObjectTemplateTests: XCTestCase {
         boolField: GraphQLNullable<Bool> = nil,
         floatField: GraphQLNullable<Double> = nil,
         enumField: GraphQLNullable<GraphQLEnum<MockSchemaTypes.EnumValue>> = nil,
-        inputField: GraphQLNullable<InnerInputObject> = nil,
+        inputField: GraphQLNullable<MockSchemaTypes.InnerInputObject> = nil,
         listField: GraphQLNullable<[String?]> = nil
       ) {
         __data = InputDict([
