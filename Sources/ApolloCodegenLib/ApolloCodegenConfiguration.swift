@@ -31,6 +31,8 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     ///  - `!` excludes any match only if the pattern starts with a `!` character, eg: `!file.graphql`
     ///
     /// - Precondition: JSON format schema files must have the file extension ".json".
+    /// When using a JSON format schema file, only a single JSON schema can be provided with any
+    /// number of additional SDL schema extension files.
     public let schemaSearchPaths: [String]
 
     /// An array of path matching pattern strings used to find GraphQL
@@ -94,6 +96,8 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     ///   - `!` excludes any match only if the pattern starts with a `!` character, eg: `!file.graphql`
     ///
     /// - Precondition: JSON format schema files must have the file extension ".json".
+    /// When using a JSON format schema file, only a single JSON schema can be provided with any
+    /// number of additional SDL schema extension files.
     public init(
       schemaSearchPaths: [String] = ["**/*.graphqls"],
       operationSearchPaths: [String] = ["**/*.graphql"]
@@ -139,6 +143,8 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     ///   - `!` excludes any match only if the pattern starts with a `!` character, eg: `!file.graphql`
     ///
     /// - Precondition: JSON format schema files must have the file extension ".json".
+    /// When using a JSON format schema file, only a single JSON schema can be provided with any
+    /// number of additional SDL schema extension files.
     public init(
       schemaPath: String,
       operationSearchPaths: [String] = ["**/*.graphql"]
