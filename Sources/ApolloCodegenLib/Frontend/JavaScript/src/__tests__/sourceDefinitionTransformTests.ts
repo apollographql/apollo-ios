@@ -1,8 +1,8 @@
 
 import { 
   compileDocument,
-  parseDocument,
-  loadSchemaFromSDL
+  parseOperationDocument,
+  loadSchemaFromSources,
 } from "../index"
 import { 
   CompilationResult
@@ -28,7 +28,7 @@ interface Pet {
   name: String!
 }`;
 
-  const schema: GraphQLSchema = loadSchemaFromSDL(new Source(schemaSDL, "Test Schema", { line: 1, column: 1 }));
+  const schema: GraphQLSchema = loadSchemaFromSources([new Source(schemaSDL, "Test Schema", { line: 1, column: 1 })]);
 
   describe("given query not including __typename fields", () => {
     const documentString: string = 
@@ -41,7 +41,7 @@ interface Pet {
   }
 }`;
 
-    const document: DocumentNode = parseDocument(
+    const document: DocumentNode = parseOperationDocument(
       new Source(documentString, "Test Query", { line: 1, column: 1 }),
       false
     );
@@ -77,7 +77,7 @@ interface Pet {
   }
 }`;
 
-    const document: DocumentNode = parseDocument(
+    const document: DocumentNode = parseOperationDocument(
       new Source(documentString, "Test Query", { line: 1, column: 1 }),
       false
     );
@@ -112,7 +112,7 @@ interface Pet {
   }
 }`;
 
-    const document: DocumentNode = parseDocument(
+    const document: DocumentNode = parseOperationDocument(
       new Source(documentString, "Test Query", { line: 1, column: 1 }),
       false
     );
@@ -142,7 +142,7 @@ interface Pet {
   species  
 }`;
 
-    const document: DocumentNode = parseDocument(
+    const document: DocumentNode = parseOperationDocument(
       new Source(documentString, "Test Fragment", { line: 1, column: 1 }),
       false
     );

@@ -11,7 +11,7 @@ extension GraphQLJSFrontend {
     let schemaSource = try makeSource(schema, filePath: "")
     let documentSource = try makeSource(document, filePath: "")
 
-    let schema = try loadSchemaFromSDL(schemaSource)
+    let schema = try loadSchema(from: [schemaSource])
     let document = try parseDocument(documentSource,
                                      experimentalClientControlledNullability: enableCCN)
 
@@ -24,7 +24,7 @@ extension GraphQLJSFrontend {
     enableCCN: Bool = false
   ) throws -> CompilationResult {
     let schemaSource = try makeSource(schema, filePath: "")
-    let schema = try loadSchemaFromSDL(schemaSource)
+    let schema = try loadSchema(from: [schemaSource])
 
     let documents: [GraphQLDocument] = try documents.enumerated().map {
       let source = try makeSource($0.element, filePath: "Doc_\($0.offset)")
@@ -41,8 +41,9 @@ extension GraphQLJSFrontend {
     enableCCN: Bool = false
   ) throws -> CompilationResult {    
     let documentSource = try makeSource(document, filePath: "")
-
-    let schema = try loadSchemaFromIntrospectionResult(schemaJSON)
+    let schemaSource = try makeSource(schemaJSON, filePath: "schema.json")
+    
+    let schema = try loadSchema(from: [schemaSource])
     let document = try parseDocument(documentSource,
                                      experimentalClientControlledNullability: enableCCN)
 

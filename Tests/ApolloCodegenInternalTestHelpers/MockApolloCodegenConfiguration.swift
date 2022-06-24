@@ -5,7 +5,7 @@ extension ApolloCodegenConfiguration {
     schemaName: String = "TestSchema",
     input: FileInput = .init(
       schemaPath: "MockSchemaPath",
-      searchPaths: []
+      operationSearchPaths: []
     ),
     output: FileOutput = .init(
       schemaTypes: .init(
@@ -27,7 +27,7 @@ extension ApolloCodegenConfiguration {
       schemaName: schemaName,
       input: .init(
         schemaPath: "schema.graphqls",
-        searchPaths: ["*.graphql"]
+        operationSearchPaths: ["*.graphql"]
       ),
       output: .init(
         schemaTypes: .init(path: path, moduleType: moduleType)

@@ -22,7 +22,9 @@ class SchemaLoadingTests: XCTestCase {
   func testParseSchemaFromIntrospectionResult() throws {
     let introspectionResult = try String(contentsOf: XCTUnwrap(starWarsAPIBundle.url(forResource: "schema", withExtension: "json")))
     
-    let schema = try codegenFrontend.loadSchemaFromIntrospectionResult(introspectionResult)
+    let schema = try codegenFrontend.loadSchema(
+      from: [try codegenFrontend.makeSource(introspectionResult, filePath: "schema.json")]
+    )
     
     let characterType = try XCTUnwrap(schema.getType(named: "Character"))
     XCTAssertEqual(characterType.name, "Character")
@@ -30,7 +32,7 @@ class SchemaLoadingTests: XCTestCase {
   
   func testParseSchemaFromSDL() throws {
     let source = try codegenFrontend.makeSource(from: XCTUnwrap(starWarsAPIBundle.url(forResource: "schema", withExtension: "graphqls")))
-    let schema = try codegenFrontend.loadSchemaFromSDL(source)
+    let schema = try codegenFrontend.loadSchema(from: [source])
     
     let characterType = try XCTUnwrap(schema.getType(named: "Character"))
     XCTAssertEqual(characterType.name, "Character")
@@ -43,7 +45,7 @@ class SchemaLoadingTests: XCTestCase {
       }
       """, filePath: "schema.graphqls")
         
-    XCTAssertThrowsError(try codegenFrontend.loadSchemaFromSDL(source)) { error in
+    XCTAssertThrowsError(try codegenFrontend.loadSchema(from: [source])) { error in
       whileRecordingErrors {
         let error = try XCTDowncast(error as AnyObject, to: GraphQLError.self)
         XCTAssert(try XCTUnwrap(error.message).starts(with: "Syntax Error"))
@@ -63,8 +65,12 @@ class SchemaLoadingTests: XCTestCase {
       }
       """, filePath: "schema.graphqls")
             
-    XCTAssertThrowsError(try codegenFrontend.loadSchemaFromSDL(source)) { error in
+    XCTAssertThrowsError(try codegenFrontend.loadSchema(from: [source])) { error in
       whileRecordingErrors {
+        print(error)
+        if let error1 = error as? GraphQLSchemaValidationError {
+          print(error1)
+        }
         let error = try XCTDowncast(error as AnyObject, to: GraphQLSchemaValidationError.self)
         
         let validationErrors = error.validationErrors

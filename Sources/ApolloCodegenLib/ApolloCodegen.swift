@@ -57,26 +57,45 @@ public class ApolloCodegen {
   ) throws -> CompilationResult {
     let frontend = try GraphQLJSFrontend()
 
-    let schemaURL = URL(fileURLWithPath: config.input.schemaPath)
-    let graphqlSchema = try frontend.loadSchema(from: schemaURL)
+    let graphQLSchema = try createSchema(config, frontend)
+    let operationsDocument = try createOperationsDocument(config, frontend, experimentalFeatures)
 
-    let matches = try Glob(config.input.searchPaths).match()
-    let documents = try matches.map({ path in
-      return try frontend.parseDocument(
-        from: URL(fileURLWithPath: path),
-        experimentalClientControlledNullability: experimentalFeatures.clientControlledNullability
-      )
-    })
-    let mergedDocument = try frontend.mergeDocuments(documents)
+    let graphqlErrors = try frontend.validateDocument(
+      schema: graphQLSchema,
+      document: operationsDocument
+    )
 
-    let graphqlErrors = try frontend.validateDocument(schema: graphqlSchema, document: mergedDocument)
     guard graphqlErrors.isEmpty else {
       let errorlines = graphqlErrors.flatMap({ $0.logLines })
       CodegenLogger.log(String(describing: errorlines), logLevel: .error)
       throw Error.graphQLSourceValidationFailure(atLines: errorlines)
     }
 
-    return try frontend.compile(schema: graphqlSchema, document: mergedDocument)
+    return try frontend.compile(schema: graphQLSchema, document: operationsDocument)
+  }
+
+  private static func createSchema(
+    _ config: ReferenceWrapped<ApolloCodegenConfiguration>,
+    _ frontend: GraphQLJSFrontend
+  ) throws -> GraphQLSchema {
+    let matches = try Glob(config.input.schemaSearchPaths).match()
+    let sources = try matches.map { try frontend.makeSource(from: URL(fileURLWithPath: $0)) }
+    return try frontend.loadSchema(from: sources)
+  }
+
+  private static func createOperationsDocument(
+    _ config: ReferenceWrapped<ApolloCodegenConfiguration>,
+    _ frontend: GraphQLJSFrontend,
+    _ experimentalFeatures: ApolloCodegenConfiguration.ExperimentalFeatures
+  ) throws -> GraphQLDocument {
+    let matches = try Glob(config.input.operationSearchPaths).match()
+    let documents = try matches.map({ path in
+      return try frontend.parseDocument(
+        from: URL(fileURLWithPath: path),
+        experimentalClientControlledNullability: experimentalFeatures.clientControlledNullability
+      )
+    })
+    return try frontend.mergeDocuments(documents)
   }
 
   /// Generates Swift files for the compiled schema, ir and configured output structure.

@@ -55,10 +55,11 @@ class ApolloCodegenConfigurationTests: XCTestCase {
 
   func test__initializer__givenMinimalFileInput_buildsDefaults() {
     // given
-    let input = ApolloCodegenConfiguration.FileInput(schemaPath: fileURL.path)
+    let input = ApolloCodegenConfiguration.FileInput()
 
     // then
-    expect(input.searchPaths).to(equal(["**/*.graphql"]))
+    expect(input.schemaSearchPaths).to(equal(["**/*.graphqls"]))
+    expect(input.operationSearchPaths).to(equal(["**/*.graphql"]))
   }
 
   func test__initializer__givenMinimalFileOutput_buildsCorrectDefaults() {

@@ -7,37 +7,144 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
 
   /// The input paths and files required for code generation.
   public struct FileInput: Codable, Equatable {
-    /// Local path to the GraphQL schema file. Can be in JSON or SDL format.
-    public let schemaPath: String
-    /// An array of path matching pattern strings used to find files, such as GraphQL operations
-    /// (queries, mutations, etc.), to be included for code generation. You can use absolute or
-    /// relative paths for the path portion of the pattern. Relative paths will be based off the
-    /// current working directory from `FileManager`.
+    /// An array of path matching pattern strings used to find GraphQL schema
+    /// files to be included for code generation.
+    ///
+    /// Schema files may contain only spec-compliant
+    /// [`TypeSystemDocument`](https://spec.graphql.org/draft/#sec-Type-System) or
+    /// [`TypeSystemExtension`](https://spec.graphql.org/draft/#sec-Type-System-Extensions)
+    /// definitions in SDL or JSON format.
+    /// This includes:
+    ///   - [Schema Definitions](https://spec.graphql.org/draft/#SchemaDefinition)
+    ///   - [Type Definitions](https://spec.graphql.org/draft/#TypeDefinition)
+    ///   - [Directive Definitions](https://spec.graphql.org/draft/#DirectiveDefinition)
+    ///   - [Schema Extensions](https://spec.graphql.org/draft/#SchemaExtension)
+    ///   - [Type Extensions](https://spec.graphql.org/draft/#TypeExtension)
+    ///
+    /// You can use absolute or relative paths in path matching patterns. Relative paths will be
+    /// based off the current working directory from `FileManager`.
     ///
     /// Each path matching pattern can include the following characters:
-    /// - `*` matches everything but the directory separator (shallow), eg: `*.graphql`
-    /// - `?` matches any single character, eg: `file-?.graphql`
-    /// - `**` matches all subdirectories (deep), eg: `**/*.graphql`
-    /// - `!` excludes any match only if the pattern starts with a `!` character, eg: `!file.graphql`
-    public let searchPaths: [String]
+    ///  - `*` matches everything but the directory separator (shallow), eg: `*.graphql`
+    ///  - `?` matches any single character, eg: `file-?.graphql`
+    ///  - `**` matches all subdirectories (deep), eg: `**/*.graphql`
+    ///  - `!` excludes any match only if the pattern starts with a `!` character, eg: `!file.graphql`
+    ///
+    /// - Precondition: JSON format schema files must have the file extension ".json".
+    public let schemaSearchPaths: [String]
+
+    /// An array of path matching pattern strings used to find GraphQL
+    /// operation files to be included for code generation.
+    ///
+    ///  Operation files may contain only spec-compliant
+    ///  [`ExecutableDocument`](https://spec.graphql.org/draft/#ExecutableDocument)
+    ///  definitions in SDL format.
+    ///  This includes:
+    ///    - [Operation Definitions](https://spec.graphql.org/draft/#sec-Language.Operations)
+    ///    (ie. `query`, `mutation`, or `subscription`)
+    ///    - [Fragment Definitions](https://spec.graphql.org/draft/#sec-Language.Fragments)
+    ///
+    /// You can use absolute or relative paths in path matching patterns. Relative paths will be
+    /// based off the current working directory from `FileManager`.
+    ///
+    /// Each path matching pattern can include the following characters:
+    ///  - `*` matches everything but the directory separator (shallow), eg: `*.graphql`
+    ///  - `?` matches any single character, eg: `file-?.graphql`
+    ///  - `**` matches all subdirectories (deep), eg: `**/*.graphql`
+    ///  - `!` excludes any match only if the pattern starts with a `!` character, eg: `!file.graphql`
+    public let operationSearchPaths: [String]
 
     /// Designated initializer.
     ///
     /// - Parameters:
-    ///  - schemaPath: Local path to the GraphQL schema file. Can be in JSON or SDL format.
-    ///  - searchPaths: An array of path matching pattern strings used to find files, such as
-    ///  GraphQL operations (queries, mutations, etc.), included for code generation. You can use
-    ///  absolute or relative paths for the path portion of the pattern. Relative paths will be
-    ///  based off the current working directory from `FileManager`. Defaults to ["**/*.graphql"].
+    ///   - schemaSearchPaths: An array of path matching pattern strings used to find GraphQL schema
+    ///   files to be included for code generation.
+    ///   Schema files may contain only spec-compliant
+    ///   [`TypeSystemDocument`](https://spec.graphql.org/draft/#sec-Type-System) or
+    ///   [`TypeSystemExtension`](https://spec.graphql.org/draft/#sec-Type-System-Extensions)
+    ///   definitions in SDL or JSON format.
+    ///   This includes:
+    ///     - [Schema Definitions](https://spec.graphql.org/draft/#SchemaDefinition)
+    ///     - [Type Definitions](https://spec.graphql.org/draft/#TypeDefinition)
+    ///     - [Directive Definitions](https://spec.graphql.org/draft/#DirectiveDefinition)
+    ///     - [Schema Extensions](https://spec.graphql.org/draft/#SchemaExtension)
+    ///     - [Type Extensions](https://spec.graphql.org/draft/#TypeExtension)
+    ///
+    ///     Defaults to `["**/*.graphqls"]`.
+    ///
+    ///   - operationSearchPaths: An array of path matching pattern strings used to find GraphQL
+    ///   operation files to be included for code generation.
+    ///   Operation files may contain only spec-compliant
+    ///   [`ExecutableDocument`](https://spec.graphql.org/draft/#ExecutableDocument)
+    ///   definitions in SDL format.
+    ///   This includes:
+    ///     - [Operation Definitions](https://spec.graphql.org/draft/#sec-Language.Operations)
+    ///     (ie. `query`, `mutation`, or `subscription`)
+    ///     - [Fragment Definitions](https://spec.graphql.org/draft/#sec-Language.Fragments)
+    ///
+    ///     Defaults to `["**/*.graphql"]`.
+    ///
+    ///  You can use absolute or relative paths in path matching patterns. Relative paths will be
+    ///  based off the current working directory from `FileManager`.
     ///
     ///  Each path matching pattern can include the following characters:
     ///   - `*` matches everything but the directory separator (shallow), eg: `*.graphql`
     ///   - `?` matches any single character, eg: `file-?.graphql`
     ///   - `**` matches all subdirectories (deep), eg: `**/*.graphql`
     ///   - `!` excludes any match only if the pattern starts with a `!` character, eg: `!file.graphql`
-    public init(schemaPath: String, searchPaths: [String] = ["**/*.graphql"]) {
-      self.schemaPath = schemaPath
-      self.searchPaths = searchPaths
+    ///
+    /// - Precondition: JSON format schema files must have the file extension ".json".
+    public init(
+      schemaSearchPaths: [String] = ["**/*.graphqls"],
+      operationSearchPaths: [String] = ["**/*.graphql"]
+    ) {
+      self.schemaSearchPaths = schemaSearchPaths
+      self.operationSearchPaths = operationSearchPaths
+    }
+
+    /// Convenience initializer.
+    ///
+    /// - Parameters:
+    ///   - schemaPath: The path to a local GraphQL schema file to be used for code generation.
+    ///   Schema files may contain only spec-compliant
+    ///   [`TypeSystemDocument`](https://spec.graphql.org/draft/#sec-Type-System) or
+    ///   [`TypeSystemExtension`](https://spec.graphql.org/draft/#sec-Type-System-Extensions)
+    ///   definitions in SDL or JSON format.
+    ///   This includes:
+    ///     - [Schema Definitions](https://spec.graphql.org/draft/#SchemaDefinition)
+    ///     - [Type Definitions](https://spec.graphql.org/draft/#TypeDefinition)
+    ///     - [Directive Definitions](https://spec.graphql.org/draft/#DirectiveDefinition)
+    ///     - [Schema Extensions](https://spec.graphql.org/draft/#SchemaExtension)
+    ///     - [Type Extensions](https://spec.graphql.org/draft/#TypeExtension)
+    ///
+    ///   - operationSearchPaths: An array of path matching pattern strings used to find GraphQL
+    ///   operation files to be included for code generation.
+    ///   Operation files may contain only spec-compliant
+    ///   [`ExecutableDocument`](https://spec.graphql.org/draft/#ExecutableDocument)
+    ///   definitions in SDL format.
+    ///   This includes:
+    ///     - [Operation Definitions](https://spec.graphql.org/draft/#sec-Language.Operations)
+    ///     (ie. `query`, `mutation`, or `subscription`)
+    ///     - [Fragment Definitions](https://spec.graphql.org/draft/#sec-Language.Fragments)
+    ///
+    ///     Defaults to `["**/*.graphql"]`.
+    ///
+    ///  You can use absolute or relative paths in path matching patterns. Relative paths will be
+    ///  based off the current working directory from `FileManager`.
+    ///
+    ///  Each path matching pattern can include the following characters:
+    ///   - `*` matches everything but the directory separator (shallow), eg: `*.graphql`
+    ///   - `?` matches any single character, eg: `file-?.graphql`
+    ///   - `**` matches all subdirectories (deep), eg: `**/*.graphql`
+    ///   - `!` excludes any match only if the pattern starts with a `!` character, eg: `!file.graphql`
+    ///
+    /// - Precondition: JSON format schema files must have the file extension ".json".
+    public init(
+      schemaPath: String,
+      operationSearchPaths: [String] = ["**/*.graphql"]
+    ) {
+      self.schemaSearchPaths = [schemaPath]
+      self.operationSearchPaths = operationSearchPaths
     }
   }
 
@@ -396,8 +503,11 @@ extension ApolloCodegenConfiguration {
     CodegenLogger.log("Validating \(String(describing: self))", logLevel: .debug)
 
     // File inputs
-    guard fileManager.doesFileExist(atPath: input.schemaPath) else {
-      throw Error.notAFile(.schema).logging(withPath: input.schemaPath)
+    if input.schemaSearchPaths.count == 1 {
+      let schemaPath = input.schemaSearchPaths[0]
+      guard fileManager.doesFileExist(atPath: schemaPath) else {
+        throw Error.notAFile(.schema).logging(withPath: schemaPath)
+      }
     }
 
     // File outputs - schema types

@@ -38,29 +38,11 @@ public final class GraphQLJSFrontend {
     bridge.register(GraphQLObjectType.self, from: library)
     bridge.register(GraphQLInterfaceType.self, from: library)
     bridge.register(GraphQLUnionType.self, from: library)
-  }
-
-  /// Load a schema by parsing either an introspection result or SDL based on the file extension.
-  public func loadSchema(from fileURL: URL) throws -> GraphQLSchema {
-    precondition(fileURL.isFileURL)
-
-    if fileURL.pathExtension == "json" {
-      let introspectionResult = try String(contentsOf: fileURL)
-      return try loadSchemaFromIntrospectionResult(introspectionResult)
-    } else {
-      let source = try makeSource(from: fileURL)
-      return try loadSchemaFromSDL(source)
-    }
-  }
+  }  
 
   /// Load a schema by parsing  an introspection result.
-  public func loadSchemaFromIntrospectionResult(_ introspectionResult: String) throws -> GraphQLSchema {
-    return try library.call("loadSchemaFromIntrospectionResult", with: introspectionResult)
-  }
-
-  /// Load a schema by parsing SDL.
-  public func loadSchemaFromSDL(_ source: GraphQLSource) throws -> GraphQLSchema {
-    return try library.call("loadSchemaFromSDL", with: source)
+  public func loadSchema(from sources: [GraphQLSource]) throws -> GraphQLSchema {
+    return try library.call("loadSchemaFromSources", with: sources)
   }
 
   /// Take a loaded GQL schema and print it as SDL.
@@ -92,7 +74,7 @@ public final class GraphQLJSFrontend {
     experimentalClientControlledNullability: Bool = false
   ) throws -> GraphQLDocument {
     return try library.call(
-      "parseDocument",
+      "parseOperationDocument",
       with: source,
       experimentalClientControlledNullability
     )
@@ -104,10 +86,9 @@ public final class GraphQLJSFrontend {
     from fileURL: URL,
     experimentalClientControlledNullability: Bool = false
   ) throws -> GraphQLDocument {
-    return try library.call(
-      "parseDocument",
-      with: makeSource(from: fileURL),
-      experimentalClientControlledNullability
+    return try parseDocument(
+      try makeSource(from: fileURL),
+      experimentalClientControlledNullability: experimentalClientControlledNullability
     )
   }
 
