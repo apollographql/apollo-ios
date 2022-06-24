@@ -2,6 +2,7 @@ import XCTest
 import Nimble
 @testable import ApolloCodegenLib
 import ApolloUtils
+import Apollo
 
 class InputObjectTemplateTests: XCTestCase {
   var subject: InputObjectTemplate!
@@ -286,6 +287,94 @@ class InputObjectTemplateTests: XCTestCase {
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
+  }
+
+  func test__render__givenSchemaModuleInputFieldTypes__generatesCorrectParametersAndInitializer_withNamespaceWhenRequired() throws {
+    // given
+    let fields: [GraphQLInputField] = [
+      GraphQLInputField.mock(
+        "enumField",
+        type: .enum(.mock(name: "EnumValue")),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "inputField",
+        type: .inputObject(.mock(
+          "InnerInputObject",
+          fields: [
+            GraphQLInputField.mock("innerStringField", type: .scalar(.string()), defaultValue: nil)
+          ]
+        )),
+        defaultValue: nil
+      )
+    ]
+
+    let expectedNoNamespace = """
+      public init(
+        enumField: GraphQLNullable<GraphQLEnum<EnumValue>> = nil,
+        inputField: GraphQLNullable<InnerInputObject> = nil
+      ) {
+        __data = InputDict([
+          "enumField": enumField,
+          "inputField": inputField
+        ])
+      }
+
+      public var enumField: GraphQLNullable<GraphQLEnum<EnumValue>> {
+        get { __data.enumField }
+        set { __data.enumField = newValue }
+      }
+
+      public var inputField: GraphQLNullable<InnerInputObject> {
+        get { __data.inputField }
+        set { __data.inputField = newValue }
+      }
+    """
+
+    let expectedWithNamespace = """
+      public init(
+        enumField: GraphQLNullable<GraphQLEnum<TestSchema.EnumValue>> = nil,
+        inputField: GraphQLNullable<TestSchema.InnerInputObject> = nil
+      ) {
+        __data = InputDict([
+          "enumField": enumField,
+          "inputField": inputField
+        ])
+      }
+
+      public var enumField: GraphQLNullable<GraphQLEnum<TestSchema.EnumValue>> {
+        get { __data.enumField }
+        set { __data.enumField = newValue }
+      }
+
+      public var inputField: GraphQLNullable<TestSchema.InnerInputObject> {
+        get { __data.inputField }
+        set { __data.inputField = newValue }
+      }
+    """
+
+    let tests: [(config: ApolloCodegenConfiguration.FileOutput, expected: String)] = [
+      (.mock(moduleType: .swiftPackageManager, operations: .relative(subpath: nil)), expectedWithNamespace),
+      (.mock(moduleType: .swiftPackageManager, operations: .absolute(path: "custom")), expectedWithNamespace),
+      (.mock(moduleType: .swiftPackageManager, operations: .inSchemaModule), expectedNoNamespace),
+      (.mock(moduleType: .other, operations: .relative(subpath: nil)), expectedWithNamespace),
+      (.mock(moduleType: .other, operations: .absolute(path: "custom")), expectedWithNamespace),
+      (.mock(moduleType: .other, operations: .inSchemaModule), expectedNoNamespace),
+      (.mock(moduleType: .embeddedInTarget(name: "CustomTarget"), operations: .relative(subpath: nil)), expectedWithNamespace),
+      (.mock(moduleType: .embeddedInTarget(name: "CustomTarget"), operations: .absolute(path: "custom")), expectedWithNamespace),
+      (.mock(moduleType: .embeddedInTarget(name: "CustomTarget"), operations: .inSchemaModule), expectedNoNamespace)
+    ]
+
+    for test in tests {
+      // given
+      buildSubject(fields: fields, config: .mock(output: test.config))
+
+      // when
+      let actual = renderSubject()
+
+      // then
+      expect(actual).to(equalLineByLine(test.expected, atLine: 8, ignoringExtraLines: true))
+    }
   }
 
   // MARK: Nullable Field Tests

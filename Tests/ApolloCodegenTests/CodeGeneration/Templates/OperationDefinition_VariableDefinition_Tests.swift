@@ -5,25 +5,23 @@ import Nimble
 class OperationDefinition_VariableDefinition_Tests: XCTestCase {
 
   var subject: CompilationResult.VariableDefinition!
-
   var template: OperationDefinitionTemplate!
-
-  override func setUp() {
-    super.setUp()
-
-    let schema = IR.Schema(name: "TestSchema", referencedTypes: .init([]))
-
-    template = OperationDefinitionTemplate(
-      operation: .mock(),
-      schema: schema,
-      config: .init(value: .mock()))
-  }
 
   override func tearDown() {
     subject = nil
     template = nil
 
     super.tearDown()
+  }
+
+  private func buildTemplate(configOutput: ApolloCodegenConfiguration.FileOutput = .mock()) {
+    let schema = IR.Schema(name: "TestSchema", referencedTypes: .init([]))
+
+    template = OperationDefinitionTemplate(
+      operation: .mock(),
+      schema: schema,
+      config: .init(value: .mock(output: configOutput))
+    )
   }
 
   func test__renderOperationVariableProperty_givenDefaultValue_generatesCorrectParameterNoInitializerDefault() throws {
@@ -33,6 +31,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
     let expected = "public var variable: GraphQLNullable<String>"
 
     // when
+    buildTemplate()
     let actual = template.VariableProperties([subject]).description
 
     // then
@@ -107,6 +106,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
 
     for test in tests {
       // when
+      buildTemplate()
       let actual = template.VariableParameter(test.variable).description
 
       // then
@@ -212,7 +212,55 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
 
     for test in tests {
       // when
+      buildTemplate()
       let actual = template.VariableParameter(test.variable).description
+
+      // then
+      expect(actual).to(equal(test.expected))
+    }
+  }
+
+  func test__renderOperationVariableParameter__givenInputFieldType_withDefaultValue__generatesCorrectParametersWithInitializer_withNamespaceWhenRequired() throws {
+    // given
+    let variable: CompilationResult.VariableDefinition = .mock(
+      "inputField",
+      type: .inputObject(.mock(
+        "InnerInputObject",
+        fields: [
+          .mock("innerStringField", type: .scalar(.string()), defaultValue: nil)
+        ]
+      )),
+      defaultValue: .object(["innerStringField": .string("Value")])
+    )
+
+    let expectedWithNamespace = """
+      inputField: GraphQLNullable<TestSchema.InnerInputObject> = .init(
+        TestSchema.InnerInputObject(innerStringField: "Value")
+      )
+      """
+
+    let expectedNoNamespace = """
+      inputField: GraphQLNullable<InnerInputObject> = .init(
+        InnerInputObject(innerStringField: "Value")
+      )
+      """
+
+    let tests: [(config: ApolloCodegenConfiguration.FileOutput, expected: String)] = [
+      (.mock(moduleType: .swiftPackageManager, operations: .relative(subpath: nil)), expectedWithNamespace),
+      (.mock(moduleType: .swiftPackageManager, operations: .absolute(path: "custom")), expectedWithNamespace),
+      (.mock(moduleType: .swiftPackageManager, operations: .inSchemaModule), expectedNoNamespace),
+      (.mock(moduleType: .other, operations: .relative(subpath: nil)), expectedWithNamespace),
+      (.mock(moduleType: .other, operations: .absolute(path: "custom")), expectedWithNamespace),
+      (.mock(moduleType: .other, operations: .inSchemaModule), expectedNoNamespace),
+      (.mock(moduleType: .embeddedInTarget(name: "CustomTarget"), operations: .relative(subpath: nil)), expectedWithNamespace),
+      (.mock(moduleType: .embeddedInTarget(name: "CustomTarget"), operations: .absolute(path: "custom")), expectedWithNamespace),
+      (.mock(moduleType: .embeddedInTarget(name: "CustomTarget"), operations: .inSchemaModule), expectedNoNamespace)
+    ]
+
+    for test in tests {
+      // when
+      buildTemplate(configOutput: test.config)
+      let actual = template.VariableParameter(variable).description
 
       // then
       expect(actual).to(equal(test.expected))
@@ -280,6 +328,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
     """
 
     // when
+    buildTemplate()
     let actual = template.VariableParameter(subject).description
 
     // then
@@ -343,6 +392,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
     """
 
     // when
+    buildTemplate()
     let actual = template.VariableParameter(subject).description
 
     // then
@@ -358,6 +408,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
     let expected = "nullable: GraphQLNullable<Int>"
 
     // when
+    buildTemplate()
     let actual = template.VariableParameter(subject).description
 
     // then
@@ -371,6 +422,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
     let expected = "nullableWithDefault: GraphQLNullable<Int> = 3"
 
     // when
+    buildTemplate()
     let actual = template.VariableParameter(subject).description
 
     // then
@@ -384,6 +436,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
     let expected = "nonNullable: Int"
 
     // when
+    buildTemplate()
     let actual = template.VariableParameter(subject).description
 
     // then
@@ -397,6 +450,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
     let expected = "nonNullableWithDefault: Int = 3"
     
     // when
+    buildTemplate()
     let actual = template.VariableParameter(subject).description
 
     // then
@@ -410,6 +464,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
     let expected = "nullableListNullableItem: GraphQLNullable<[String?]>"
 
     // when
+    buildTemplate()
     let actual = template.VariableParameter(subject).description
 
     // then
@@ -425,6 +480,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
     let expected = "nullableListNullableItemWithDefault: GraphQLNullable<[String?]> = [\"val\"]"
 
     // when
+    buildTemplate()
     let actual = template.VariableParameter(subject).description
 
     // then
@@ -440,6 +496,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
     let expected = "nullableListNullableItemWithDefault: GraphQLNullable<[String?]> = [\"val\", nil]"
 
     // when
+    buildTemplate()
     let actual = template.VariableParameter(subject).description
 
     // then
@@ -455,6 +512,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
     let expected = "nullableListNonNullableItem: GraphQLNullable<[String]>"
 
     // when
+    buildTemplate()
     let actual = template.VariableParameter(subject).description
 
     // then
@@ -468,6 +526,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
     let expected = "nullableListNonNullableItemWithDefault: GraphQLNullable<[String]> = [\"val\"]"
 
     // when
+    buildTemplate()
     let actual = template.VariableParameter(subject).description
 
     // then
@@ -481,6 +540,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
     let expected = "nonNullableListNullableItem: [String?]"
 
     // when
+    buildTemplate()
     let actual = template.VariableParameter(subject).description
 
     // then
@@ -496,6 +556,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
     let expected = "nonNullableListNullableItemWithDefault: [String?] = [\"val\"]"
 
     // when
+    buildTemplate()
     let actual = template.VariableParameter(subject).description
 
     // then
@@ -511,6 +572,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
     let expected = "nonNullableListNonNullableItem: [String]"
 
     // when
+    buildTemplate()
     let actual = template.VariableParameter(subject).description
 
     // then
@@ -526,6 +588,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
     let expected = "nonNullableListNonNullableItemWithDefault: [String] = [\"val\"]"
 
     // when
+    buildTemplate()
     let actual = template.VariableParameter(subject).description
 
     // then
@@ -541,6 +604,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
     let expected = "nullableListNullableItem: GraphQLNullable<[GraphQLEnum<TestSchema.EnumValue>?]>"
 
     // when
+    buildTemplate()
     let actual = template.VariableParameter(subject).description
 
     // then
