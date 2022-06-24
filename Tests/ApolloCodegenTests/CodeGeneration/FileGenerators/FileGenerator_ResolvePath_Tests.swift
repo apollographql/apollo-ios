@@ -1566,7 +1566,7 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
 
   // MARK: .fragment
 
-  func test__resolvePath__givenFileTargetFragment_when_moduleSwiftPackageManager_operationsInSchemaModule_shouldReturnOperationsSubpath() throws {
+  func test__resolvePath__givenFileTargetFragment_when_moduleSwiftPackageManager_operationsInSchemaModule_shouldReturnFragmentsSubpath() throws {
     // given
     try buildIR()
     subject = .fragment(irFragment.definition)
@@ -1576,7 +1576,7 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
 
     let expected = directoryURL
       .appendingPathComponent("Sources")
-      .appendingPathComponent("Operations")
+      .appendingPathComponent("Fragments")
       .standardizedFileURL.path
 
     // then
@@ -1585,7 +1585,7 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     expect(actual).to(equal(expected))
   }
 
-  func test__resolvePath__givenFileTargetFragment_when_moduleSwiftPackageManager_operationsAbsolutePath_shouldReturnAbsolutePath() throws {
+  func test__resolvePath__givenFileTargetFragment_when_moduleSwiftPackageManager_operationsAbsolutePath_shouldReturnAbsolutePathFragmentsDirectory() throws {
     // given
     try buildIR()
     subject = .fragment(irFragment.definition)
@@ -1594,10 +1594,12 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     let path = "New/Path"
     buildConfig(module: .swiftPackageManager, operations: .absolute(path: path))
 
+    let expected = path + "/Fragments"
+
     // then
     let actual = resolvePath()
 
-    expect(actual).to(equal(path))
+    expect(actual).to(equal(expected))
   }
 
   func test__resolvePath__givenFileTargetFragment_when_moduleSwiftPackageManager_operationsRelativeSubpathNil_shouldReturnFilePath() throws {
@@ -1633,7 +1635,7 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     expect(actual).to(equal(expected))
   }
 
-  func test__resolvePath__givenFileTargetFragment_when_moduleNone_operationsInSchemaModule_shouldReturnOperationsSubpath() throws {
+  func test__resolvePath__givenFileTargetFragment_when_moduleNone_operationsInSchemaModule_shouldReturnFragmentsSubpath() throws {
     // given
     try buildIR()
     subject = .fragment(irFragment.definition)
@@ -1642,7 +1644,7 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     buildConfig(module: .embeddedInTarget(name: "MockApplication"), operations: .inSchemaModule)
 
     let expected = directoryURL
-      .appendingPathComponent("Operations")
+      .appendingPathComponent("Fragments")
       .standardizedFileURL.path
 
     // then
@@ -1651,7 +1653,7 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     expect(actual).to(equal(expected))
   }
 
-  func test__resolvePath__givenFileTargetFragment_when_moduleNone_operationsAbsolutePath_shouldReturnAbsoluteSubpath() throws {
+  func test__resolvePath__givenFileTargetFragment_when_moduleNone_operationsAbsolutePath_shouldReturnAbsoluteSubpathFragmentsDirectory() throws {
     // given
     try buildIR()
     subject = .fragment(irFragment.definition)
@@ -1660,10 +1662,12 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     let path = "New/Path"
     buildConfig(module: .embeddedInTarget(name: "MockApplication"), operations: .absolute(path: path))
 
+    let expected = path + "/Fragments"
+
     // then
     let actual = resolvePath()
 
-    expect(actual).to(equal(path))
+    expect(actual).to(equal(expected))
   }
 
   func test__resolvePath__givenFileTargetFragment_when_moduleNone_operationsRelativeSubpathNil_shouldReturnFilePath() throws {
@@ -1700,7 +1704,7 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     expect(actual).to(equal(expected))
   }
 
-  func test__resolvePath__givenFileTargetFragment_when_moduleOther_operationsInSchemaModule_shouldReturnOperationsSubpath() throws {
+  func test__resolvePath__givenFileTargetFragment_when_moduleOther_operationsInSchemaModule_shouldReturnFragmentsSubpath() throws {
     // given
     try buildIR()
     subject = .fragment(irFragment.definition)
@@ -1709,7 +1713,7 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     buildConfig(module: .other, operations: .inSchemaModule)
 
     let expected = directoryURL
-      .appendingPathComponent("Operations")
+      .appendingPathComponent("Fragments")
       .standardizedFileURL.path
 
     // then
@@ -1718,7 +1722,7 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     expect(actual).to(equal(expected))
   }
 
-  func test__resolvePath__givenFileTargetFragment_when_moduleOther_operationsAbsolutePath_shouldReturnAbsoluteSubpath() throws {
+  func test__resolvePath__givenFileTargetFragment_when_moduleOther_operationsAbsolutePath_shouldReturnAbsoluteSubpathFragmentsDirectory() throws {
     // given
     try buildIR()
     subject = .fragment(irFragment.definition)
@@ -1728,10 +1732,12 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
 
     buildConfig(module: .other, operations: .absolute(path: path))
 
+    let expected = path + "/Fragments"
+
     // then
     let actual = resolvePath()
 
-    expect(actual).to(equal(path))
+    expect(actual).to(equal(expected))
   }
 
   func test__resolvePath__givenFileTargetFragment_when_moduleOther_operationsRelativeSubpathNil_shouldReturnFilePath() throws {
@@ -1770,9 +1776,10 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
 
   // MARK: .operation
 
-  func test__resolvePath__givenFileTargetOperation_when_moduleSwiftPackageManager_operationsInSchemaModule_shouldReturnOperationsSubpath() throws {
+  func test__resolvePath__givenFileTargetQuery_when_moduleSwiftPackageManager_operationsInSchemaModule_shouldReturnOperationsQuerySubpath() throws {
     // given
     try buildIR()
+    irOperation.definition.operationType = .query
     subject = .operation(irOperation.definition)
 
     // when
@@ -1781,6 +1788,7 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     let expected = directoryURL
       .appendingPathComponent("Sources")
       .appendingPathComponent("Operations")
+      .appendingPathComponent("Queries")
       .standardizedFileURL.path
 
     // then
@@ -1789,19 +1797,100 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     expect(actual).to(equal(expected))
   }
 
-  func test__resolvePath__givenFileTargetOperation_when_moduleSwiftPackageManager_operationsAbsolutePath_shouldReturnAbsolutePath() throws {
+  func test__resolvePath__givenFileTargetMutation_when_moduleSwiftPackageManager_operationsInSchemaModule_shouldReturnOperationsMutationSubpath() throws {
     // given
     try buildIR()
+    irOperation.definition.operationType = .mutation
+    subject = .operation(irOperation.definition)
+
+    // when
+    buildConfig(module: .swiftPackageManager, operations: .inSchemaModule)
+
+    let expected = directoryURL
+      .appendingPathComponent("Sources")
+      .appendingPathComponent("Operations")
+      .appendingPathComponent("Mutations")
+      .standardizedFileURL.path
+
+    // then
+    let actual = resolvePath()
+
+    expect(actual).to(equal(expected))
+  }
+
+  func test__resolvePath__givenFileTargetSubscription_when_moduleSwiftPackageManager_operationsInSchemaModule_shouldReturnOperationsSubscriptionsSubpath() throws {
+    // given
+    try buildIR()
+    irOperation.definition.operationType = .subscription
+    subject = .operation(irOperation.definition)
+
+    // when
+    buildConfig(module: .swiftPackageManager, operations: .inSchemaModule)
+
+    let expected = directoryURL
+      .appendingPathComponent("Sources")
+      .appendingPathComponent("Operations")
+      .appendingPathComponent("Subscriptions")
+      .standardizedFileURL.path
+
+    // then
+    let actual = resolvePath()
+
+    expect(actual).to(equal(expected))
+  }
+
+  func test__resolvePath__givenFileTargetQuery_when_moduleSwiftPackageManager_operationsAbsolutePath_shouldReturnAbsolutePathQueryDirectory() throws {
+    // given
+    try buildIR()
+    irOperation.definition.operationType = .query
     subject = .operation(irOperation.definition)
 
     // when
     let path = "New/Path"
     buildConfig(module: .swiftPackageManager, operations: .absolute(path: path))
 
+    let expected = path + "/Queries"
+
     // then
     let actual = resolvePath()
 
-    expect(actual).to(equal(path))
+    expect(actual).to(equal(expected))
+  }
+
+  func test__resolvePath__givenFileTargetMutation_when_moduleSwiftPackageManager_operationsAbsolutePath_shouldReturnAbsolutePathMutationDirectory() throws {
+    // given
+    try buildIR()
+    irOperation.definition.operationType = .mutation
+    subject = .operation(irOperation.definition)
+
+    // when
+    let path = "New/Path"
+    buildConfig(module: .swiftPackageManager, operations: .absolute(path: path))
+
+    let expected = path + "/Mutations"
+
+    // then
+    let actual = resolvePath()
+
+    expect(actual).to(equal(expected))
+  }
+
+  func test__resolvePath__givenFileTargetSubscription_when_moduleSwiftPackageManager_operationsAbsolutePath_shouldReturnAbsolutePathQueryDirectory() throws {
+    // given
+    try buildIR()
+    irOperation.definition.operationType = .subscription
+    subject = .operation(irOperation.definition)
+
+    // when
+    let path = "New/Path"
+    buildConfig(module: .swiftPackageManager, operations: .absolute(path: path))
+
+    let expected = path + "/Subscriptions"
+
+    // then
+    let actual = resolvePath()
+
+    expect(actual).to(equal(expected))
   }
 
   func test__resolvePath__givenFileTargetOperation_when_moduleSwiftPackageManager_operationsRelativeSubpathNil_shouldReturnFilePath() throws {
@@ -1837,9 +1926,10 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     expect(actual).to(equal(expected))
   }
 
-  func test__resolvePath__givenFileTargetOperation_when_moduleNone_operationsInSchemaModule_shouldReturnOperationsSubpath() throws {
+  func test__resolvePath__givenFileTargetQuery_when_moduleNone_operationsInSchemaModule_shouldReturnOperationsQuerySubpath() throws {
     // given
     try buildIR()
+    irOperation.definition.operationType = .query
     subject = .operation(irOperation.definition)
 
     // when
@@ -1847,6 +1937,7 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
 
     let expected = directoryURL
       .appendingPathComponent("Operations")
+      .appendingPathComponent("Queries")
       .standardizedFileURL.path
 
     // then
@@ -1855,19 +1946,98 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     expect(actual).to(equal(expected))
   }
 
-  func test__resolvePath__givenFileTargetOperation_when_moduleNone_operationsAbsolutePath_shouldReturnAbsoluteSubpath() throws {
+  func test__resolvePath__givenFileTargetMutation_when_moduleNone_operationsInSchemaModule_shouldReturnOperationsMutationSubpath() throws {
     // given
     try buildIR()
+    irOperation.definition.operationType = .mutation
+    subject = .operation(irOperation.definition)
+
+    // when
+    buildConfig(module: .embeddedInTarget(name: "MockApplication"), operations: .inSchemaModule)
+
+    let expected = directoryURL
+      .appendingPathComponent("Operations")
+      .appendingPathComponent("Mutations")
+      .standardizedFileURL.path
+
+    // then
+    let actual = resolvePath()
+
+    expect(actual).to(equal(expected))
+  }
+
+  func test__resolvePath__givenFileTargetSubscription_when_moduleNone_operationsInSchemaModule_shouldReturnOperationsSubscriptionsSubpath() throws {
+    // given
+    try buildIR()
+    irOperation.definition.operationType = .subscription
+    subject = .operation(irOperation.definition)
+
+    // when
+    buildConfig(module: .embeddedInTarget(name: "MockApplication"), operations: .inSchemaModule)
+
+    let expected = directoryURL
+      .appendingPathComponent("Operations")
+      .appendingPathComponent("Subscriptions")
+      .standardizedFileURL.path
+
+    // then
+    let actual = resolvePath()
+
+    expect(actual).to(equal(expected))
+  }
+
+  func test__resolvePath__givenFileTargetQuery_when_moduleNone_operationsAbsolutePath_shouldReturnAbsoluteSubpathQueryDirectory() throws {
+    // given
+    try buildIR()
+    irOperation.definition.operationType = .query
     subject = .operation(irOperation.definition)
 
     // when
     let path = "New/Path"
     buildConfig(module: .embeddedInTarget(name: "MockApplication"), operations: .absolute(path: path))
 
+    let expected = path + "/Queries"
+
     // then
     let actual = resolvePath()
 
-    expect(actual).to(equal(path))
+    expect(actual).to(equal(expected))
+  }
+
+  func test__resolvePath__givenFileTargetMutation_when_moduleNone_operationsAbsolutePath_shouldReturnAbsoluteSubpathMutationDirectory() throws {
+    // given
+    try buildIR()
+    irOperation.definition.operationType = .mutation
+    subject = .operation(irOperation.definition)
+
+    // when
+    let path = "New/Path"
+    buildConfig(module: .embeddedInTarget(name: "MockApplication"), operations: .absolute(path: path))
+
+    let expected = path + "/Mutations"
+
+    // then
+    let actual = resolvePath()
+
+    expect(actual).to(equal(expected))
+  }
+
+  func test__resolvePath__givenFileTargetSubscription_when_moduleNone_operationsAbsolutePath_shouldReturnAbsoluteSubpathMutationDirectory() throws {
+    // given
+    try buildIR()
+    irOperation.definition.operationType = .subscription
+    subject = .operation(irOperation.definition)
+
+    // when
+    let path = "New/Path"
+    buildConfig(module: .embeddedInTarget(name: "MockApplication"), operations: .absolute(path: path))
+
+    let expected = path + "/Subscriptions"
+
+    // then
+    let actual = resolvePath()
+
+    expect(actual).to(equal(expected))
   }
 
   func test__resolvePath__givenFileTargetOperation_when_moduleNone_operationsRelativeSubpathNil_shouldReturnFilePath() throws {
@@ -1904,9 +2074,10 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     expect(actual).to(equal(expected))
   }
 
-  func test__resolvePath__givenFileTargetOperation_when_moduleOther_operationsInSchemaModule_shouldReturnOperationsSubpath() throws {
+  func test__resolvePath__givenFileTargetQuery_when_moduleOther_operationsInSchemaModule_shouldReturnOperationsQuerySubpath() throws {
     // given
     try buildIR()
+    irOperation.definition.operationType = .query
     subject = .operation(irOperation.definition)
 
     // when
@@ -1914,6 +2085,7 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
 
     let expected = directoryURL
       .appendingPathComponent("Operations")
+      .appendingPathComponent("Queries")
       .standardizedFileURL.path
 
     // then
@@ -1922,9 +2094,50 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
     expect(actual).to(equal(expected))
   }
 
-  func test__resolvePath__givenFileTargetOperation_when_moduleOther_operationsAbsolutePath_shouldReturnAbsoluteSubpath() throws {
+  func test__resolvePath__givenFileTargetMutation_when_moduleOther_operationsInSchemaModule_shouldReturnOperationsMutationSubpath() throws {
     // given
     try buildIR()
+    irOperation.definition.operationType = .mutation
+    subject = .operation(irOperation.definition)
+
+    // when
+    buildConfig(module: .other, operations: .inSchemaModule)
+
+    let expected = directoryURL
+      .appendingPathComponent("Operations")
+      .appendingPathComponent("Mutations")
+      .standardizedFileURL.path
+
+    // then
+    let actual = resolvePath()
+
+    expect(actual).to(equal(expected))
+  }
+
+  func test__resolvePath__givenFileTargetSubscription_when_moduleOther_operationsInSchemaModule_shouldReturnOperationsQuerySubpath() throws {
+    // given
+    try buildIR()
+    irOperation.definition.operationType = .subscription
+    subject = .operation(irOperation.definition)
+
+    // when
+    buildConfig(module: .other, operations: .inSchemaModule)
+
+    let expected = directoryURL
+      .appendingPathComponent("Operations")
+      .appendingPathComponent("Subscriptions")
+      .standardizedFileURL.path
+
+    // then
+    let actual = resolvePath()
+
+    expect(actual).to(equal(expected))
+  }
+
+  func test__resolvePath__givenFileTargetQuery_when_moduleOther_operationsAbsolutePath_shouldReturnAbsoluteSubpathQueryDirectory() throws {
+    // given
+    try buildIR()
+    irOperation.definition.operationType = .query
     subject = .operation(irOperation.definition)
 
     // when
@@ -1932,10 +2145,50 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
 
     buildConfig(module: .other, operations: .absolute(path: path))
 
+    let expected = path + "/Queries"
+
     // then
     let actual = resolvePath()
 
-    expect(actual).to(equal(path))
+    expect(actual).to(equal(expected))
+  }
+
+  func test__resolvePath__givenFileTargetMutation_when_moduleOther_operationsAbsolutePath_shouldReturnAbsoluteSubpathMutationDirectory() throws {
+    // given
+    try buildIR()
+    irOperation.definition.operationType = .mutation
+    subject = .operation(irOperation.definition)
+
+    // when
+    let path = "New/Path"
+
+    buildConfig(module: .other, operations: .absolute(path: path))
+
+    let expected = path + "/Mutations"
+
+    // then
+    let actual = resolvePath()
+
+    expect(actual).to(equal(expected))
+  }
+
+  func test__resolvePath__givenFileTargetSubscription_when_moduleOther_operationsAbsolutePath_shouldReturnAbsoluteSubpathSubscriptionDirectory() throws {
+    // given
+    try buildIR()
+    irOperation.definition.operationType = .subscription
+    subject = .operation(irOperation.definition)
+
+    // when
+    let path = "New/Path"
+
+    buildConfig(module: .other, operations: .absolute(path: path))
+
+    let expected = path + "/Subscriptions"
+
+    // then
+    let actual = resolvePath()
+
+    expect(actual).to(equal(expected))
   }
 
   func test__resolvePath__givenFileTargetOperation_when_moduleOther_operationsRelativeSubpathNil_shouldReturnFilePath() throws {
