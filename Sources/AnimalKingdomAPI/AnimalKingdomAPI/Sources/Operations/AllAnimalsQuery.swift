@@ -428,11 +428,11 @@ public class AllAnimalsQuery: GraphQLQuery {
         public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Dog.self) }
         public static var selections: [Selection] { [
           .field("favoriteToy", String.self),
-          .field("birthdate", AnimalKingdomAPI.CustomDate?.self),
+          .field("birthdate", CustomDate?.self),
         ] }
 
         public var favoriteToy: String { __data["favoriteToy"] }
-        public var birthdate: AnimalKingdomAPI.CustomDate? { __data["birthdate"] }
+        public var birthdate: CustomDate? { __data["birthdate"] }
         public var height: Height { __data["height"] }
         public var species: String { __data["species"] }
         public var skinCovering: GraphQLEnum<SkinCovering>? { __data["skinCovering"] }
