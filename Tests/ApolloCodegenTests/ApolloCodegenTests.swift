@@ -538,7 +538,7 @@ class ApolloCodegenTests: XCTestCase {
       schemaName: "AnimalKingdomAPI",
       input: .init(
         schemaPath: schemaPath,
-        searchPaths: [operationsPath]
+        operationSearchPaths: [operationsPath]
       ),
       output: .mock(
         moduleType: .swiftPackageManager,
