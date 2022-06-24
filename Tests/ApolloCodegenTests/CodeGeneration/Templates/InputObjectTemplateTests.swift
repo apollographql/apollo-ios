@@ -6,10 +6,6 @@ import ApolloUtils
 class InputObjectTemplateTests: XCTestCase {
   var subject: InputObjectTemplate!
 
-  override func setUp() {
-    super.setUp()
-  }
-
   override func tearDown() {
     subject = nil
     super.tearDown()
@@ -226,7 +222,7 @@ class InputObjectTemplateTests: XCTestCase {
         type: .list(.scalar(.string())),
         defaultValue: nil
       )
-    ])
+    ], config: .mock(schemaName: "TestSchema"))
 
     let expected = """
       public init(
@@ -234,8 +230,8 @@ class InputObjectTemplateTests: XCTestCase {
         intField: GraphQLNullable<Int> = nil,
         boolField: GraphQLNullable<Bool> = nil,
         floatField: GraphQLNullable<Double> = nil,
-        enumField: GraphQLNullable<GraphQLEnum<MockSchemaTypes.EnumValue>> = nil,
-        inputField: GraphQLNullable<MockSchemaTypes.InnerInputObject> = nil,
+        enumField: GraphQLNullable<GraphQLEnum<TestSchema.EnumValue>> = nil,
+        inputField: GraphQLNullable<TestSchema.InnerInputObject> = nil,
         listField: GraphQLNullable<[String?]> = nil
       ) {
         __data = InputDict([
@@ -269,12 +265,12 @@ class InputObjectTemplateTests: XCTestCase {
         set { __data.floatField = newValue }
       }
 
-      public var enumField: GraphQLNullable<GraphQLEnum<EnumValue>> {
+      public var enumField: GraphQLNullable<GraphQLEnum<TestSchema.EnumValue>> {
         get { __data.enumField }
         set { __data.enumField = newValue }
       }
 
-      public var inputField: GraphQLNullable<InnerInputObject> {
+      public var inputField: GraphQLNullable<TestSchema.InnerInputObject> {
         get { __data.inputField }
         set { __data.inputField = newValue }
       }
@@ -612,14 +608,14 @@ class InputObjectTemplateTests: XCTestCase {
 
     let expected = """
       public init(
-        nullableListNullableItem: GraphQLNullable<[GraphQLEnum<MockSchemaTypes.EnumValue>?]> = nil
+        nullableListNullableItem: GraphQLNullable<[GraphQLEnum<TestSchema.EnumValue>?]> = nil
       ) {
         __data = InputDict([
           "nullableListNullableItem": nullableListNullableItem
         ])
       }
 
-      public var nullableListNullableItem: GraphQLNullable<[GraphQLEnum<MockSchemaTypes.EnumValue>?]> {
+      public var nullableListNullableItem: GraphQLNullable<[GraphQLEnum<TestSchema.EnumValue>?]> {
     """
 
     // when

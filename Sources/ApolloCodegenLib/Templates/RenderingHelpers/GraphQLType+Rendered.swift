@@ -1,4 +1,3 @@
-import ApolloUtils
 extension GraphQLType {
 
   enum RenderContext {

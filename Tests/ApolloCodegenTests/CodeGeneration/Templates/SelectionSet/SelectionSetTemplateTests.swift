@@ -148,70 +148,6 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
   }
 
-//  func test__render() throws {
-//    // given
-//    schemaSDL = """
-//    type Query {
-//      pets(filters: PetSearchFilters!): [Pet!]!
-//    }
-//
-//    input MeasurementsInput {
-//      height: Float!
-//      weight: Float!
-//      wingspan: Float
-//    }
-//
-//    input PetSearchFilters {
-//      species: [String!]!
-//      size: RelativeSize
-//      measurements: MeasurementsInput
-//    }
-//
-//    interface Pet {
-//      id: ID!
-//      humanName: String
-//      favoriteToy: String!
-//    }
-//
-//    enum RelativeSize {
-//      LARGE
-//      AVERAGE
-//      SMALL
-//    }
-//    """
-//
-//    document = """
-//    query PetSearch($filters: PetSearchFilters = {
-//      species: ["Dog", "Cat"],
-//      size: SMALL,
-//      measurements: {
-//        height: 10.5,
-//        weight: 5.0
-//        }
-//      }
-//    ) {
-//      pets(filters: $filters) {
-//        id
-//        humanName
-//      }
-//    }
-//    """
-//
-//    let expected = """
-//    """
-//
-//    // when
-//    ir = try .mock(schema: schemaSDL, document: document)
-//    let operationDefinition = try XCTUnwrap(ir.compilationResult[operation: "PetSearch"])
-//    let operation = ir.build(operation: operationDefinition)
-//    let template = OperationDefinitionTemplate(operation: operation, schema: ir.schema, config: ReferenceWrapped(value: .mock()))
-//
-//    let actual = template.render()
-//
-//    // then
-//    expect(actual).to(equalLineByLine(expected))
-//  }
-
   func test__render_parentType__givenParentTypeAs_Union_rendersParentType() throws {
     // given
     schemaSDL = """
@@ -386,10 +322,10 @@ class SelectionSetTemplateTests: XCTestCase {
         .field("float_optional", Double?.self),
         .field("boolean", Bool.self),
         .field("boolean_optional", Bool?.self),
-        .field("custom", MockSchemaTypes.Custom.self),
-        .field("custom_optional", MockSchemaTypes.Custom?.self),
-        .field("custom_required_list", [MockSchemaTypes.Custom].self),
-        .field("custom_optional_list", [MockSchemaTypes.Custom]?.self),
+        .field("custom", TestSchema.Custom.self),
+        .field("custom_optional", TestSchema.Custom?.self),
+        .field("custom_required_list", [TestSchema.Custom].self),
+        .field("custom_optional_list", [TestSchema.Custom]?.self),
         .field("list_required_required", [String].self),
         .field("list_optional_required", [String]?.self),
         .field("list_required_optional", [String?].self),
@@ -445,12 +381,12 @@ class SelectionSetTemplateTests: XCTestCase {
     }
     """
 
-    let expectedNamespaced = """
+    let expectedWithNamespace = """
       public static var selections: [Selection] { [
-        .field("custom", MockSchemaTypes.Custom.self),
-        .field("custom_optional", MockSchemaTypes.Custom?.self),
-        .field("custom_required_list", [MockSchemaTypes.Custom].self),
-        .field("custom_optional_list", [MockSchemaTypes.Custom]?.self),
+        .field("custom", TestSchema.Custom.self),
+        .field("custom_optional", TestSchema.Custom?.self),
+        .field("custom_required_list", [TestSchema.Custom].self),
+        .field("custom_optional_list", [TestSchema.Custom]?.self),
       ] }
     """
 
@@ -464,14 +400,14 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let tests: [(config: ApolloCodegenConfiguration.FileOutput, expected: String)] = [
-      (.mock(moduleType: .swiftPackageManager, operations: .relative(subpath: nil)), expectedNamespaced),
-      (.mock(moduleType: .swiftPackageManager, operations: .absolute(path: "custom")), expectedNamespaced),
+      (.mock(moduleType: .swiftPackageManager, operations: .relative(subpath: nil)), expectedWithNamespace),
+      (.mock(moduleType: .swiftPackageManager, operations: .absolute(path: "custom")), expectedWithNamespace),
       (.mock(moduleType: .swiftPackageManager, operations: .inSchemaModule), expectedNoNamespace),
-      (.mock(moduleType: .other, operations: .relative(subpath: nil)), expectedNamespaced),
-      (.mock(moduleType: .other, operations: .absolute(path: "custom")), expectedNamespaced),
+      (.mock(moduleType: .other, operations: .relative(subpath: nil)), expectedWithNamespace),
+      (.mock(moduleType: .other, operations: .absolute(path: "custom")), expectedWithNamespace),
       (.mock(moduleType: .other, operations: .inSchemaModule), expectedNoNamespace),
-      (.mock(moduleType: .embeddedInTarget(name: "CustomTarget"), operations: .relative(subpath: nil)), expectedNamespaced),
-      (.mock(moduleType: .embeddedInTarget(name: "CustomTarget"), operations: .absolute(path: "custom")), expectedNamespaced),
+      (.mock(moduleType: .embeddedInTarget(name: "CustomTarget"), operations: .relative(subpath: nil)), expectedWithNamespace),
+      (.mock(moduleType: .embeddedInTarget(name: "CustomTarget"), operations: .absolute(path: "custom")), expectedWithNamespace),
       (.mock(moduleType: .embeddedInTarget(name: "CustomTarget"), operations: .inSchemaModule), expectedNoNamespace)
     ]
 
@@ -489,7 +425,7 @@ class SelectionSetTemplateTests: XCTestCase {
     }
   }
 
-  func test__render_selections__givenEnumField_rendersFieldSelections() throws {
+  func test__render_selections__givenEnumField_rendersFieldSelections_withNamespaceWhenRequired() throws {
     // given
     schemaSDL = """
     type Query {
@@ -526,22 +462,22 @@ class SelectionSetTemplateTests: XCTestCase {
       ] }
     """
 
-    let expectedNamespaced = """
+    let expectedWithNamespace = """
       public static var selections: [Selection] { [
-        .field("testEnum", GraphQLEnum<MockSchemaTypes.TestEnum>.self),
-        .field("testEnumOptional", GraphQLEnum<MockSchemaTypes.TestEnumOptional>?.self),
+        .field("testEnum", GraphQLEnum<TestSchema.TestEnum>.self),
+        .field("testEnumOptional", GraphQLEnum<TestSchema.TestEnumOptional>?.self),
       ] }
     """
 
     let tests: [(config: ApolloCodegenConfiguration.FileOutput, expected: String)] = [
-      (.mock(moduleType: .swiftPackageManager, operations: .relative(subpath: nil)), expectedNamespaced),
-      (.mock(moduleType: .swiftPackageManager, operations: .absolute(path: "custom")), expectedNamespaced),
+      (.mock(moduleType: .swiftPackageManager, operations: .relative(subpath: nil)), expectedWithNamespace),
+      (.mock(moduleType: .swiftPackageManager, operations: .absolute(path: "custom")), expectedWithNamespace),
       (.mock(moduleType: .swiftPackageManager, operations: .inSchemaModule), expectedNoNamespace),
-      (.mock(moduleType: .other, operations: .relative(subpath: nil)), expectedNamespaced),
-      (.mock(moduleType: .other, operations: .absolute(path: "custom")), expectedNamespaced),
+      (.mock(moduleType: .other, operations: .relative(subpath: nil)), expectedWithNamespace),
+      (.mock(moduleType: .other, operations: .absolute(path: "custom")), expectedWithNamespace),
       (.mock(moduleType: .other, operations: .inSchemaModule), expectedNoNamespace),
-      (.mock(moduleType: .embeddedInTarget(name: "CustomTarget"), operations: .relative(subpath: nil)), expectedNamespaced),
-      (.mock(moduleType: .embeddedInTarget(name: "CustomTarget"), operations: .absolute(path: "custom")), expectedNamespaced),
+      (.mock(moduleType: .embeddedInTarget(name: "CustomTarget"), operations: .relative(subpath: nil)), expectedWithNamespace),
+      (.mock(moduleType: .embeddedInTarget(name: "CustomTarget"), operations: .absolute(path: "custom")), expectedWithNamespace),
       (.mock(moduleType: .embeddedInTarget(name: "CustomTarget"), operations: .inSchemaModule), expectedNoNamespace)
     ]
 
@@ -660,7 +596,7 @@ class SelectionSetTemplateTests: XCTestCase {
 
     let expected = """
       public static var selections: [Selection] { [
-        .field("predator", MockSchemaTypes.Predator.self),
+        .field("predator", Predator.self),
       ] }
     """
 
@@ -1440,6 +1376,74 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 34, ignoringExtraLines: true))
   }
 
+  func test__render_fieldAccessors__givenCustomScalarFields_rendersFieldAccessors_withNamespaceWhenRequired() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      custom: Custom!
+      custom_optional: Custom
+      custom_required_list: [Custom!]!
+      custom_optional_list: [Custom!]
+    }
+
+    scalar Custom
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        custom
+        custom_optional
+        custom_required_list
+        custom_optional_list
+      }
+    }
+    """
+
+    let expectedWithNamespace = """
+      public var custom: TestSchema.Custom { __data["custom"] }
+      public var custom_optional: TestSchema.Custom? { __data["custom_optional"] }
+      public var custom_required_list: [TestSchema.Custom] { __data["custom_required_list"] }
+      public var custom_optional_list: [TestSchema.Custom]? { __data["custom_optional_list"] }
+    """
+
+    let expectedNoNamespace = """
+      public var custom: Custom { __data["custom"] }
+      public var custom_optional: Custom? { __data["custom_optional"] }
+      public var custom_required_list: [Custom] { __data["custom_required_list"] }
+      public var custom_optional_list: [Custom]? { __data["custom_optional_list"] }
+    """
+
+    let tests: [(config: ApolloCodegenConfiguration.FileOutput, expected: String)] = [
+      (.mock(moduleType: .swiftPackageManager, operations: .relative(subpath: nil)), expectedWithNamespace),
+      (.mock(moduleType: .swiftPackageManager, operations: .absolute(path: "custom")), expectedWithNamespace),
+      (.mock(moduleType: .swiftPackageManager, operations: .inSchemaModule), expectedNoNamespace),
+      (.mock(moduleType: .other, operations: .relative(subpath: nil)), expectedWithNamespace),
+      (.mock(moduleType: .other, operations: .absolute(path: "custom")), expectedWithNamespace),
+      (.mock(moduleType: .other, operations: .inSchemaModule), expectedNoNamespace),
+      (.mock(moduleType: .embeddedInTarget(name: "CustomTarget"), operations: .relative(subpath: nil)), expectedWithNamespace),
+      (.mock(moduleType: .embeddedInTarget(name: "CustomTarget"), operations: .absolute(path: "custom")), expectedWithNamespace),
+      (.mock(moduleType: .embeddedInTarget(name: "CustomTarget"), operations: .inSchemaModule), expectedNoNamespace)
+    ]
+
+    for test in tests {
+      // when
+      try buildSubjectAndOperation(configOutput: test.config)
+      let allAnimals = try XCTUnwrap(
+        operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+      )
+
+      let actual = subject.render(field: allAnimals)
+
+      // then
+      expect(actual).to(equalLineByLine(test.expected, atLine: 14, ignoringExtraLines: true))
+    }
+  }
+
   func test__render_fieldAccessors__givenEnumField_rendersFieldAccessors_namespacedWhenRequired() throws {
     // given
     schemaSDL = """
@@ -1470,30 +1474,25 @@ class SelectionSetTemplateTests: XCTestCase {
     }
     """
 
-    let expectedNamespaced = """
+    let expectedWithNamespace = """
       public var testEnum: GraphQLEnum<TestSchema.TestEnum> { __data["testEnum"] }
       public var testEnumOptional: GraphQLEnum<TestSchema.TestEnumOptional>? { __data["testEnumOptional"] }
     """
 
-    // when
-    try buildSubjectAndOperation()
-    let allAnimals = try XCTUnwrap(
-      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
-    )
     let expectedNoNamespace = """
-      public var testEnum: GraphQLEnum<TestEnum> { data["testEnum"] }
-      public var testEnumOptional: GraphQLEnum<TestEnumOptional>? { data["testEnumOptional"] }
+      public var testEnum: GraphQLEnum<TestEnum> { __data["testEnum"] }
+      public var testEnumOptional: GraphQLEnum<TestEnumOptional>? { __data["testEnumOptional"] }
     """
 
     let tests: [(config: ApolloCodegenConfiguration.FileOutput, expected: String)] = [
-      (.mock(moduleType: .swiftPackageManager, operations: .relative(subpath: nil)), expectedNamespaced),
-      (.mock(moduleType: .swiftPackageManager, operations: .absolute(path: "custom")), expectedNamespaced),
+      (.mock(moduleType: .swiftPackageManager, operations: .relative(subpath: nil)), expectedWithNamespace),
+      (.mock(moduleType: .swiftPackageManager, operations: .absolute(path: "custom")), expectedWithNamespace),
       (.mock(moduleType: .swiftPackageManager, operations: .inSchemaModule), expectedNoNamespace),
-      (.mock(moduleType: .other, operations: .relative(subpath: nil)), expectedNamespaced),
-      (.mock(moduleType: .other, operations: .absolute(path: "custom")), expectedNamespaced),
+      (.mock(moduleType: .other, operations: .relative(subpath: nil)), expectedWithNamespace),
+      (.mock(moduleType: .other, operations: .absolute(path: "custom")), expectedWithNamespace),
       (.mock(moduleType: .other, operations: .inSchemaModule), expectedNoNamespace),
-      (.mock(moduleType: .embeddedInTarget(name: "CustomTarget"), operations: .relative(subpath: nil)), expectedNamespaced),
-      (.mock(moduleType: .embeddedInTarget(name: "CustomTarget"), operations: .absolute(path: "custom")), expectedNamespaced),
+      (.mock(moduleType: .embeddedInTarget(name: "CustomTarget"), operations: .relative(subpath: nil)), expectedWithNamespace),
+      (.mock(moduleType: .embeddedInTarget(name: "CustomTarget"), operations: .absolute(path: "custom")), expectedWithNamespace),
       (.mock(moduleType: .embeddedInTarget(name: "CustomTarget"), operations: .inSchemaModule), expectedNoNamespace)
     ]
 
@@ -3704,14 +3703,14 @@ class SelectionSetTemplateTests: XCTestCase {
       public var predator: Predator { __data["predator"] }
 
       /// AllAnimal.Predator
-      public struct Predator: MockSchemaTypes..SelectionSet {
+      public struct Predator: TestSchema.SelectionSet {
     """
 
     let allAnimals_predator_expected = """
-      public var asWarmBlooded: MockSchemaTypes.AsWarmBlooded? { _asInlineFragment() }
+      public var asWarmBlooded: AsWarmBlooded? { _asInlineFragment() }
 
       /// AllAnimal.Predator.AsWarmBlooded
-      public struct AsWarmBlooded: MockSchemaTypes..InlineFragment {
+      public struct AsWarmBlooded: TestSchema.InlineFragment {
     """
 
     let allAnimals_predator_asWarmBlooded_expected = """

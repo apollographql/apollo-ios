@@ -133,11 +133,11 @@ class MockObjectTemplateTests: XCTestCase {
 
     let expected = """
       public struct MockFields {
-        @Field<MockSchemaTypes.CustomScalar>("customScalar") public var customScalar
-        @Field<MockSchemaTypes.Cat>("object") public var object
-        @Field<[MockSchemaTypes.Cat]>("objectList") public var objectList
-        @Field<[[MockSchemaTypes.Cat]]>("objectNestedList") public var objectNestedList
-        @Field<[MockSchemaTypes.Cat?]>("objectOptionalList") public var objectOptionalList
+        @Field<TestSchema.CustomScalar>("customScalar") public var customScalar
+        @Field<Cat>("object") public var object
+        @Field<[Cat]>("objectList") public var objectList
+        @Field<[[Cat]]>("objectNestedList") public var objectNestedList
+        @Field<[Cat?]>("objectOptionalList") public var objectOptionalList
         @Field<String>("optionalString") public var optionalString
         @Field<String>("string") public var string
       }
@@ -179,7 +179,7 @@ class MockObjectTemplateTests: XCTestCase {
 
     public extension Mock where O == Dog {
       convenience init(
-        customScalar: MockSchemaTypes.CustomScalar? = nil,
+        customScalar: TestSchema.CustomScalar? = nil,
         object: Mock<Cat>? = nil,
         objectList: [Mock<Cat>]? = nil,
         objectNestedList: [[Mock<Cat>]]? = nil,
@@ -233,7 +233,7 @@ class MockObjectTemplateTests: XCTestCase {
 
     public extension Mock where O == Dog {
       convenience init(
-        customScalar: MockSchemaTypes.CustomScalar? = nil,
+        customScalar: TestSchema.CustomScalar? = nil,
         interface: AnyMock? = nil,
         interfaceList: [AnyMock]? = nil,
         interfaceNestedList: [[AnyMock]]? = nil,
@@ -287,7 +287,7 @@ class MockObjectTemplateTests: XCTestCase {
 
     public extension Mock where O == Dog {
       convenience init(
-        customScalar: MockSchemaTypes.CustomScalar? = nil,
+        customScalar: TestSchema.CustomScalar? = nil,
         optionalString: String? = nil,
         string: String? = nil,
         union: AnyMock? = nil,

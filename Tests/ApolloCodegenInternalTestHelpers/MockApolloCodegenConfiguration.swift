@@ -2,7 +2,7 @@
 
 extension ApolloCodegenConfiguration {
   public static func mock(
-    schemaName: String = "MockSchemaTypes",
+    schemaName: String = "TestSchema",
     input: FileInput = .init(
       schemaPath: "MockSchemaPath",
       searchPaths: []
@@ -20,7 +20,7 @@ extension ApolloCodegenConfiguration {
 
   public static func mock(
     _ moduleType: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType,
-    schemaName: String = "MockSchemaTypes",
+    schemaName: String = "TestSchema",
     to path: String = "MockModulePath"
   ) -> Self {
     .init(

@@ -27,15 +27,11 @@ class SelectionSetTemplate_RenderOperation_Tests: XCTestCase {
 
   // MARK: - Helpers
 
-  func buildSubjectAndOperation(
-    named operationName: String = "TestOperation",
-    moduleType: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType = .swiftPackageManager
-  ) throws {
+  func buildSubjectAndOperation(named operationName: String = "TestOperation") throws {
     ir = try .mock(schema: schemaSDL, document: document)
     let operationDefinition = try XCTUnwrap(ir.compilationResult[operation: operationName])
     operation = ir.build(operation: operationDefinition)
-    let config = ApolloCodegenConfiguration.mock(moduleType)
-    subject = SelectionSetTemplate(schema: ir.schema, config: ReferenceWrapped(value: config))
+    subject = SelectionSetTemplate(schema: ir.schema, config: ReferenceWrapped(value: .mock()))
   }
 
   // MARK: - Tests

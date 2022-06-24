@@ -1,5 +1,4 @@
 import JavaScriptCore
-import ApolloUtils
 
 extension GraphQLInputField {
   func renderInputValueType(

@@ -10,7 +10,6 @@ extension CompilationResult.VariableDefinition: InputVariableRenderable {}
 struct InputVariable: InputVariableRenderable {
   let type: GraphQLType
   let defaultValue: GraphQLValue?
-  let config: ApolloCodegenConfiguration
 }
 
 extension InputVariableRenderable {
@@ -36,7 +35,7 @@ extension InputVariableRenderable {
         let .list(listInnerType):
         return """
         [\(list.compactMap {
-          InputVariable(type: listInnerType, defaultValue: $0, config: config).renderVariableDefaultValue(inList: true, config: config)
+          InputVariable(type: listInnerType, defaultValue: $0).renderVariableDefaultValue(inList: true, config: config)
         }, separator: ", ")]
         """
 
@@ -76,7 +75,7 @@ fileprivate extension GraphQLInputObjectType {
         preconditionFailure("Field \(entry.0) not found on input object.")
       }
 
-      let variable = InputVariable(type: field.type, defaultValue: entry.value, config: config)
+      let variable = InputVariable(type: field.type, defaultValue: entry.value)
 
       return "\(entry.0): " + variable.renderVariableDefaultValue(config: config)
     }

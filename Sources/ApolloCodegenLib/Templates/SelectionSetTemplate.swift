@@ -394,7 +394,7 @@ fileprivate class SelectionSetNameCache {
     generatedSelectionSetNames[objectId] = name
     return name
   }
-  
+
   func selectionSetType(for field: IR.EntityField) -> String {
     field.type.rendered(
       as: .selectionSetField(),
@@ -619,13 +619,6 @@ fileprivate extension IR.Field {
     guard let scalar = self.type.namedType as? GraphQLScalarType else { return false }
 
     return scalar.isCustomScalar
-  }
-
-  var isScalar: Bool {
-    switch self.type.namedType {
-    case is GraphQLScalarType: return true
-    default: return false
-    }
   }
 }
 
