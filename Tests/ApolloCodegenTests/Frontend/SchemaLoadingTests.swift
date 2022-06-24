@@ -67,6 +67,10 @@ class SchemaLoadingTests: XCTestCase {
             
     XCTAssertThrowsError(try codegenFrontend.loadSchema(from: [source])) { error in
       whileRecordingErrors {
+        print(error)
+        if let error1 = error as? GraphQLSchemaValidationError {
+          print(error1)
+        }
         let error = try XCTDowncast(error as AnyObject, to: GraphQLSchemaValidationError.self)
         
         let validationErrors = error.validationErrors

@@ -10,7 +10,7 @@ class ApolloCodegenTests: XCTestCase {
   override func setUpWithError() throws {
     directoryURL = CodegenTestHelper.outputFolderURL()
       .appendingPathComponent("Codegen")
-      .appendingPathComponent(UUID().uuidString)      
+      .appendingPathComponent(UUID().uuidString)
 
     try FileManager.default.apollo.createDirectoryIfNeeded(atPath: directoryURL.path)
   }
@@ -61,6 +61,11 @@ class ApolloCodegenTests: XCTestCase {
     ).notTo(throwError())
 
     return path
+  }
+
+  @discardableResult
+  private func createFile(body: String, named filename: String) -> String {
+    return createFile(containing: body.data(using: .utf8)!, named: filename)
   }
 
   // MARK: Configuration Tests
@@ -227,6 +232,197 @@ class ApolloCodegenTests: XCTestCase {
 
     // then
     expect(try ApolloCodegen.compileGraphQLResult(config).operations).to(beEmpty())
+  }
+
+  func test__compileResults__givenMultipleSchemaFiles_withDependentTypes_compilesResult() throws {
+    // given
+    createFile(
+      body: """
+      type Query {
+        books: [Book!]!
+        authors: [Author!]!
+      }
+      """,
+      named: "schema1.graphqls")
+
+    createFile(
+      body: """
+      type Book {
+        title: String!
+        author: Author!
+      }
+
+      type Author {
+        name: String!
+        books: [Book!]!
+      }
+      """,
+      named: "schema2.graphqls")
+
+    createFile(
+      body: """
+      query getAuthors {
+        authors {
+          name
+        }
+      }
+      """,
+      named: "TestQuery.graphql")
+
+    // when
+    let config = ReferenceWrapped(value: ApolloCodegenConfiguration.mock(input: .init(
+      schemaSearchPaths: [directoryURL.appendingPathComponent("schema*.graphqls").path],
+      operationSearchPaths: [directoryURL.appendingPathComponent("*.graphql").path]
+    )))
+
+    // then
+    expect(try ApolloCodegen.compileGraphQLResult(config).referencedTypes.count).to(equal(3))
+  }
+
+  func test__compileResults__givenMultipleSchemaFiles_withDifferentRootTypes_compilesResult() throws {
+    // given
+    createFile(
+      body: """
+      type Query {
+        string: String!
+      }
+      """,
+      named: "schema1.graphqls")
+
+    createFile(
+      body: """
+      type Subscription {
+        bool: Boolean!
+      }
+      """,
+      named: "schema2.graphqls")
+
+    createFile(
+      body: """
+      query TestQuery {
+        string
+      }
+      """,
+      named: "TestQuery.graphql")
+
+    createFile(
+      body: """
+      subscription TestSubscription {
+        bool
+      }
+      """,
+      named: "TestSubscription.graphql")
+
+    // when
+    let config = ReferenceWrapped(value: ApolloCodegenConfiguration.mock(input: .init(
+      schemaSearchPaths: [directoryURL.appendingPathComponent("schema*.graphqls").path],
+      operationSearchPaths: [directoryURL.appendingPathComponent("*.graphql").path]
+    )))
+
+    let result = try ApolloCodegen.compileGraphQLResult(config)
+
+    // then
+    expect(result.operations.count).to(equal(2))
+  }
+
+  func test__compileResults__givenMultipleSchemaFiles_withSchemaTypeExtension_compilesResultWithExtension() throws {
+    // given
+    createFile(
+      body: """
+      type Query {
+        string: String!
+      }
+      """,
+      named: "schema1.graphqls")
+
+    createFile(
+      body: """
+      extend type Query {
+        bool: Boolean!
+      }
+      """,
+      named: "schemaExtension.graphqls")
+
+    createFile(
+      body: """
+      query TestQuery {
+        string
+        bool
+      }
+      """,
+      named: "TestQuery.graphql")
+
+    // when
+    let config = ReferenceWrapped(value: ApolloCodegenConfiguration.mock(input: .init(
+      schemaSearchPaths: [directoryURL.appendingPathComponent("schema*.graphqls").path],
+      operationSearchPaths: [directoryURL.appendingPathComponent("*.graphql").path]
+    )))
+
+    let result = try ApolloCodegen.compileGraphQLResult(config)
+
+    // then
+    expect(result.operations.count).to(equal(1))
+  }
+
+  func test__compileResults__givenMultipleSchemaFilesWith_introspectionJSONSchema_withSchemaTypeExtension_compilesResultWithExtension() throws {
+    // given
+    let introspectionJSON = try String(contentsOf: XCTUnwrap(starWarsAPIBundle.url(
+      forResource: "schema", withExtension: "json"
+    )))
+
+    createFile(body: introspectionJSON, named: "schemaJSON.json")
+
+    createFile(
+      body: """
+      extend type Query {
+        testExtensionField: Boolean!
+      }
+      """,
+      named: "schemaExtension.graphqls")
+
+    createFile(
+      body: """
+      query TestQuery {
+        testExtensionField
+      }
+      """,
+      named: "TestQuery.graphql")
+
+    // when
+    let config = ReferenceWrapped(value: ApolloCodegenConfiguration.mock(input: .init(
+      schemaSearchPaths: [
+        directoryURL.appendingPathComponent("schema*.graphqls").path,
+        directoryURL.appendingPathComponent("schema*.json").path,
+      ],
+      operationSearchPaths: [directoryURL.appendingPathComponent("*.graphql").path]
+    )))
+
+    let result = try ApolloCodegen.compileGraphQLResult(config)
+
+    // then
+    expect(result.operations.count).to(equal(1))
+  }
+
+  func test__compileResults__givenMultipleIntrospectionJSONSchemaFiles_throwsError() throws {
+    // given
+    let introspectionJSON = try String(contentsOf: XCTUnwrap(starWarsAPIBundle.url(
+      forResource: "schema", withExtension: "json"
+    )))
+
+    createFile(body: introspectionJSON, named: "schemaJSON1.json")
+    createFile(body: introspectionJSON, named: "schemaJSON2.json")
+
+    // when
+    let config = ReferenceWrapped(value: ApolloCodegenConfiguration.mock(input: .init(
+      schemaSearchPaths: [
+        directoryURL.appendingPathComponent("schema*.graphqls").path,
+        directoryURL.appendingPathComponent("schema*.json").path,
+      ],
+      operationSearchPaths: [directoryURL.appendingPathComponent("*.graphql").path]
+    )))
+
+    // then
+    expect(try ApolloCodegen.compileGraphQLResult(config)).to(throwError())
   }
 
   // MARK: File Generator Tests

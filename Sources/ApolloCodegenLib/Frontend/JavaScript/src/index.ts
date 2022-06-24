@@ -51,14 +51,13 @@ export function loadSchemaFromSources(sources: Source[]): GraphQLSchema {
   }
   
   var document = addApolloCodegenSchemaExtensionToDocument(concatAST(documents))
-  
-  assertValidSDL(document)
-  
-  const schema = introspectionJSONResult ? 
-    extendSchema(loadSchemaFromIntrospectionResult(introspectionJSONResult.body), document, { assumeValidSDL: true }) :
-    buildASTSchema(document, { assumeValidSDL: true })
 
-  // if schema.getDirectives().includes(apolloCodegenSchemaExtension.definitions)
+  if (!introspectionJSONResult) { assertValidSDL(document) }
+
+  const schema = introspectionJSONResult ? 
+    extendSchema(loadSchemaFromIntrospectionResult(introspectionJSONResult.body), document, { assumeValid: true, assumeValidSDL: true }) :
+    buildASTSchema(document, { assumeValid: true, assumeValidSDL: true })
+  
   assertValidSchema(schema)
 
   return schema
