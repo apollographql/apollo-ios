@@ -13,11 +13,14 @@ struct InputVariable: InputVariableRenderable {
 }
 
 extension InputVariableRenderable {
-  func renderVariableDefaultValue() -> TemplateString {
-    renderVariableDefaultValue(inList: false)
+  func renderVariableDefaultValue(config: ApolloCodegenConfiguration) -> TemplateString {
+    renderVariableDefaultValue(inList: false, config: config)
   }
 
-  private func renderVariableDefaultValue(inList: Bool) -> TemplateString {
+  private func renderVariableDefaultValue(
+    inList: Bool,
+    config: ApolloCodegenConfiguration
+  ) -> TemplateString {
     switch defaultValue {
     case .none: return ""
     case .null: return inList ? "nil" : ".null"
@@ -32,7 +35,7 @@ extension InputVariableRenderable {
         let .list(listInnerType):
         return """
         [\(list.compactMap {
-          InputVariable(type: listInnerType, defaultValue: $0).renderVariableDefaultValue(inList: true)
+          InputVariable(type: listInnerType, defaultValue: $0).renderVariableDefaultValue(inList: true, config: config)
         }, separator: ", ")]
         """
 
@@ -43,12 +46,12 @@ extension InputVariableRenderable {
     case let .object(object):
       switch type {
       case let .nonNull(.inputObject(inputObjectType)):
-        return inputObjectType.renderInitializer(values: object)
+        return inputObjectType.renderInitializer(values: object, config: config)
 
       case let .inputObject(inputObjectType):
         return """
         .init(
-          \(inputObjectType.renderInitializer(values: object))
+          \(inputObjectType.renderInitializer(values: object, config: config))
         )
         """
 
@@ -63,7 +66,10 @@ extension InputVariableRenderable {
 }
 
 fileprivate extension GraphQLInputObjectType {
-  func renderInitializer(values: OrderedDictionary<String, GraphQLValue>) -> TemplateString {
+  func renderInitializer(
+    values: OrderedDictionary<String, GraphQLValue>,
+    config: ApolloCodegenConfiguration
+  ) -> TemplateString {
     let entries = values.compactMap { entry -> TemplateString in
       guard let field = self.fields[entry.0] else {
         preconditionFailure("Field \(entry.0) not found on input object.")
@@ -71,11 +77,11 @@ fileprivate extension GraphQLInputObjectType {
 
       let variable = InputVariable(type: field.type, defaultValue: entry.value)
 
-      return "\(entry.0): " + variable.renderVariableDefaultValue()
+      return "\(entry.0): " + variable.renderVariableDefaultValue(config: config)
     }
 
     return """
-    \(name)(\(list: entries))
+    \(if: !config.output.operations.isInModule, "\(config.schemaName).")\(name)(\(list: entries))
     """
   }
 }

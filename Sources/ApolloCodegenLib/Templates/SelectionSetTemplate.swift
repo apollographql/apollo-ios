@@ -5,12 +5,20 @@ struct SelectionSetTemplate {
 
   let schema: IR.Schema
   let isMutable: Bool
+  let config: ReferenceWrapped<ApolloCodegenConfiguration>
+
   private let nameCache: SelectionSetNameCache
 
-  init(schema: IR.Schema, mutable: Bool = false) {
+  init(
+    schema: IR.Schema,
+    mutable: Bool = false,
+    config: ReferenceWrapped<ApolloCodegenConfiguration>
+  ) {
     self.schema = schema
     self.isMutable = mutable
-    self.nameCache = SelectionSetNameCache(schema: schema)
+    self.config = config
+
+    self.nameCache = SelectionSetNameCache(schema: schema, config: config)
   }
 
   // MARK: - Operation
@@ -164,7 +172,7 @@ struct SelectionSetTemplate {
     let fieldName: String
     switch field {
     case let scalarField as IR.ScalarField:
-      fieldName = scalarField.type.rendered(inSchemaNamed: schema.name)
+      fieldName = scalarField.type.rendered(as: .selectionSetField(), config: config.value)
 
     case let entityField as IR.EntityField:
       fieldName = self.nameCache.selectionSetType(for: entityField)
@@ -370,9 +378,11 @@ fileprivate class SelectionSetNameCache {
   private var generatedSelectionSetNames: [ObjectIdentifier: String] = [:]
 
   unowned let schema: IR.Schema
+  let config: ReferenceWrapped<ApolloCodegenConfiguration>
 
-  init(schema: IR.Schema) {
+  init(schema: IR.Schema, config: ReferenceWrapped<ApolloCodegenConfiguration>) {
     self.schema = schema
+    self.config = config
   }
 
   // MARK: Entity Field
@@ -386,7 +396,11 @@ fileprivate class SelectionSetNameCache {
   }
 
   func selectionSetType(for field: IR.EntityField) -> String {
-    field.type.rendered(replacingNamedTypeWith: selectionSetName(for: field), inSchemaNamed: schema.name)
+    field.type.rendered(
+      as: .selectionSetField(),
+      replacingNamedTypeWith: selectionSetName(for: field),
+      config: config.value
+    )
   }
 
   // MARK: Name Computation

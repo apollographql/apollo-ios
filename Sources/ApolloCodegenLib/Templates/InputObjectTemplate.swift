@@ -41,7 +41,7 @@ struct InputObjectTemplate: TemplateRenderer {
   private func InitializerParametersTemplate() -> TemplateString {
     TemplateString("""
     \(graphqlInputObject.fields.map({
-      "\($1.name): \($1.renderInputValueType(includeDefault: true, inSchemaNamed: schema.name))"
+      "\($1.name): \($1.renderInputValueType(includeDefault: true, config: config.value))"
     }), separator: ",\n")
     """)
   }
@@ -54,7 +54,7 @@ struct InputObjectTemplate: TemplateRenderer {
 
   private func FieldPropertyTemplate(_ field: GraphQLInputField) -> String {
     """
-    public var \(field.name): \(field.renderInputValueType(inSchemaNamed: schema.name)) {
+    public var \(field.name): \(field.renderInputValueType(config: config.value)) {
       get { __data.\(field.name) }
       set { __data.\(field.name) = newValue }
     }

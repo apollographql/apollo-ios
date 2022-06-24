@@ -116,12 +116,12 @@ class TemplateRenderer_OperationFile_Tests: XCTestCase {
       (
         schemaTypes: .embeddedInTarget(name: "MockApplication"),
         operations: .relative(subpath: nil),
-        expectation: expectedAPI
+        expectation: expectedAPIAndSchema
       ),
       (
         schemaTypes: .embeddedInTarget(name: "MockApplication"),
         operations: .absolute(path: "path"),
-        expectation: expectedAPI
+        expectation: expectedAPIAndSchema
       ),
       (
         schemaTypes: .embeddedInTarget(name: "MockApplication"),
@@ -204,13 +204,13 @@ class TemplateRenderer_OperationFile_Tests: XCTestCase {
         schemaTypes: .embeddedInTarget(name: "MockApplication"),
         operations: .relative(subpath: nil),
         expectation: expectedNoNamespace,
-        atLine: 8
+        atLine: 9
       ),
       (
         schemaTypes: .embeddedInTarget(name: "MockApplication"),
         operations: .absolute(path: "path"),
         expectation: expectedNoNamespace,
-        atLine: 8
+        atLine: 9
       ),
       (
         schemaTypes: .embeddedInTarget(name: "MockApplication"),

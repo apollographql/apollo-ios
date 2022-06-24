@@ -10,7 +10,7 @@ extension Dog: Mockable {
   public typealias MockValueCollectionType = Array<Mock<Dog>>
 
   public struct MockFields {
-    @Field<AnimalKingdomAPI.CustomDate>("birthdate") public var birthdate
+    @Field<CustomDate>("birthdate") public var birthdate
     @Field<Int>("bodyTemperature") public var bodyTemperature
     @Field<String>("favoriteToy") public var favoriteToy
     @Field<Height>("height") public var height
@@ -26,7 +26,7 @@ extension Dog: Mockable {
 
 public extension Mock where O == Dog {
   convenience init(
-    birthdate: AnimalKingdomAPI.CustomDate? = nil,
+    birthdate: CustomDate? = nil,
     bodyTemperature: Int? = nil,
     favoriteToy: String? = nil,
     height: Mock<Height>? = nil,

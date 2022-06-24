@@ -2,7 +2,7 @@
 
 extension ApolloCodegenConfiguration {
   public static func mock(
-    schemaName: String = "MockSchemaTypes",
+    schemaName: String = "TestSchema",
     input: FileInput = .init(
       schemaPath: "MockSchemaPath",
       searchPaths: []
@@ -20,7 +20,7 @@ extension ApolloCodegenConfiguration {
 
   public static func mock(
     _ moduleType: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType,
-    schemaName: String = "MockSchemaTypes",
+    schemaName: String = "TestSchema",
     to path: String = "MockModulePath"
   ) -> Self {
     .init(
@@ -39,7 +39,7 @@ extension ApolloCodegenConfiguration {
 extension ApolloCodegenConfiguration.FileOutput {
   public static func mock(
     moduleType: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType = .embeddedInTarget(name: "MockApplication"),
-    operations: ApolloCodegenConfiguration.OperationsFileOutput,
+    operations: ApolloCodegenConfiguration.OperationsFileOutput = .relative(subpath: nil),
     testMocks: ApolloCodegenConfiguration.TestMockFileOutput = .none,
     path: String = ""
   ) -> Self {

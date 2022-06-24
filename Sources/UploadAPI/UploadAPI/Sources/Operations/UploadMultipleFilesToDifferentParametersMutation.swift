@@ -22,12 +22,12 @@ public class UploadMultipleFilesToDifferentParametersMutation: GraphQLMutation {
       """
     ))
 
-  public var singleFile: UploadAPI.Upload
-  public var multipleFiles: [UploadAPI.Upload]
+  public var singleFile: Upload
+  public var multipleFiles: [Upload]
 
   public init(
-    singleFile: UploadAPI.Upload,
-    multipleFiles: [UploadAPI.Upload]
+    singleFile: Upload,
+    multipleFiles: [Upload]
   ) {
     self.singleFile = singleFile
     self.multipleFiles = multipleFiles

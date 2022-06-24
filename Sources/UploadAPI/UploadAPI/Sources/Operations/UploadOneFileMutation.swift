@@ -22,9 +22,9 @@ public class UploadOneFileMutation: GraphQLMutation {
       """
     ))
 
-  public var file: UploadAPI.Upload
+  public var file: Upload
 
-  public init(file: UploadAPI.Upload) {
+  public init(file: Upload) {
     self.file = file
   }
 
