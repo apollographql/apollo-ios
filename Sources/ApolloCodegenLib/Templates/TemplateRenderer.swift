@@ -155,30 +155,26 @@ private struct ImportStatementTemplate {
       \(ImportStatementTemplate.template)
       @_exported import enum ApolloAPI.GraphQLEnum
       @_exported import enum ApolloAPI.GraphQLNullable
-      \(if: shouldImportSchemaModule(config), "import \(config.schemaName.firstUppercased)")
+      \(if: config.output.operations != .inSchemaModule, "import \(config.schemaModuleName)")
       """
-    }
-
-    private static func shouldImportSchemaModule(
-      _ config: ReferenceWrapped<ApolloCodegenConfiguration>
-    ) -> Bool {
-      config.output.operations != .inSchemaModule
     }
   }
 
   enum TestMock {
     static func template(forConfig config: ReferenceWrapped<ApolloCodegenConfiguration>) -> TemplateString {
-      let schemaModuleName: String = {
-        switch config.output.schemaTypes.moduleType {
-        case let .embeddedInTarget(targetName): return targetName
-        case .swiftPackageManager, .other: return config.schemaName.firstUppercased
-        }
-      }()
-
       return """
       import ApolloTestSupport
-      import \(schemaModuleName)
+      import \(config.schemaModuleName)
       """
+    }
+  }
+}
+
+fileprivate extension ApolloCodegenConfiguration {
+  var schemaModuleName: String {
+    switch output.schemaTypes.moduleType {
+    case let .embeddedInTarget(targetName): return targetName
+    case .swiftPackageManager, .other: return schemaName.firstUppercased
     }
   }
 }
