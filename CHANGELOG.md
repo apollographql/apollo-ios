@@ -1,5 +1,19 @@
 # Change Log
 
+## v1.0.0-alpha.8
+
+This is the eighth Alpha Release of Apollo iOS 1.0. This first major version will include a new code generation engine, better generated models, and many syntax and performance improvements across the entire library. The primary goal of Apollo iOS 1.0 is to stabilize the API of the model layer and provide a foundation for future feature additions and evolution of the library.
+
+* **New: Added `Equatable` and `Hashable` Conformance to public API Models:** Object's like `GraphQLRequest` and `GraphQLError` now can be compared!
+* **New: Code Generation now supports Schema Extensions**.
+* **Fixed: Namespacing and Access Control on Generated Models:** Generated models were failing to compile due to namespacing and access control issues in certain code generation configurations. This is fixed now!
+* **Improved: Custom Scalar Default Float Behavior:** If the response for a custom scalar is provided as a `Float`, it will automatically be converetd to a `String` (just like it's always done for `Int`).
+* **Improved: GraphQL Float now treated as Swift Double:** The `Float` defined in the GraphQL spec is actually compliant with a Swift `Double`. Generated code will now generate Swift code with fields of type `Double` for GraphQL `Float`.
+* **Improved: Rename `SelectionSet.data` to `SelectionSet.__data`:** This is to prevent naming conflicts with GraphQL fields named `data`.
+* **Fixed: `graphql_transport_ws` protocol now sends 'complete' to end subscription:** The protocol implementation was previously sending the wrong message to close the connection.
+* **Improved: Generated Operations Folder Structure:** The generated output folder structure for fragments and operations are now organized into sub-folders.
+* **New: Introspection Schema Download can output JSON:** Schema downloads via Introspection now support output as JSON instead of only SDL. Note that Apollo Registry schema downloads still only support SDL as the output.
+
 ## v1.0.0-alpha.7
 
 This is the seventh Alpha Release of Apollo iOS 1.0. This first major version will include a new code generation engine, better generated models, and many syntax and performance improvements across the entire library. The primary goal of Apollo iOS 1.0 is to stabilize the API of the model layer and provide a foundation for future feature additions and evolution of the library.

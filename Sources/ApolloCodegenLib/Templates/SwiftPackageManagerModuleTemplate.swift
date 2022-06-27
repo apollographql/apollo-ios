@@ -35,7 +35,7 @@ struct SwiftPackageManagerModuleTemplate: TemplateRenderer {
         .library(name: "\(casedModuleName)", targets: ["\(casedModuleName)"]),
       ],
       dependencies: [
-        .package(url: "https://github.com/apollographql/apollo-ios.git", from: "1.0.0-alpha.7"),
+        .package(url: "https://github.com/apollographql/apollo-ios.git", from: "1.0.0-alpha.8"),
       ],
       targets: [
         .target(
