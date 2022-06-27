@@ -27,9 +27,8 @@ class CompilationTests: XCTestCase {
 
   func useStarWarsSchema() throws {
     schemaJSON = try String(
-      contentsOf: XCTUnwrap(starWarsAPIBundle.url(
-        forResource: "schema",
-        withExtension: "json")))
+      contentsOf: ApolloCodegenInternalTestHelpers.Resources.StarWars.JSONSchema
+    )
   }
 
   func compileFrontend(enableCCN: Bool = false) throws -> CompilationResult {

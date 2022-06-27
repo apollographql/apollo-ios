@@ -12,8 +12,11 @@ class SchemaIntrospectionTests: XCTestCase {
     try super.setUpWithError()
 
     codegenFrontend = try GraphQLJSFrontend()
-    
-    let introspectionResult = try String(contentsOf: XCTUnwrap(starWarsAPIBundle.url(forResource: "schema", withExtension: "json")))
+
+    let introspectionResult = try String(
+      contentsOf: ApolloCodegenInternalTestHelpers.Resources.StarWars.JSONSchema
+    )
+
     schema = try codegenFrontend.loadSchema(
       from: [try codegenFrontend.makeSource(introspectionResult, filePath: "schema.json")]
     )

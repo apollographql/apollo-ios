@@ -161,4 +161,7 @@ class IROperationBuilderTests: XCTestCase {
       .to(equal(LinkedList(Object_Mutation)))
     expect(self.subject.rootField.selectionSet.entity.fieldPath).to(equal(ResponsePath("mutation")))
   }
+
+  // MARK: - Operation Identifier Computation
+  
 }

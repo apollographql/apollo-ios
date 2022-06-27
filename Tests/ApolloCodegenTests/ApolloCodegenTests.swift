@@ -366,10 +366,10 @@ class ApolloCodegenTests: XCTestCase {
 
   func test__compileResults__givenMultipleSchemaFilesWith_introspectionJSONSchema_withSchemaTypeExtension_compilesResultWithExtension() throws {
     // given
-    let introspectionJSON = try String(contentsOf: XCTUnwrap(starWarsAPIBundle.url(
-      forResource: "schema", withExtension: "json"
-    )))
-
+    let introspectionJSON = try String(
+      contentsOf: ApolloCodegenInternalTestHelpers.Resources.StarWars.JSONSchema
+    )
+    
     createFile(body: introspectionJSON, named: "schemaJSON.json")
 
     createFile(
@@ -405,9 +405,9 @@ class ApolloCodegenTests: XCTestCase {
 
   func test__compileResults__givenMultipleIntrospectionJSONSchemaFiles_throwsError() throws {
     // given
-    let introspectionJSON = try String(contentsOf: XCTUnwrap(starWarsAPIBundle.url(
-      forResource: "schema", withExtension: "json"
-    )))
+    let introspectionJSON = try String(
+      contentsOf: ApolloCodegenInternalTestHelpers.Resources.StarWars.JSONSchema
+    )
 
     createFile(body: introspectionJSON, named: "schemaJSON1.json")
     createFile(body: introspectionJSON, named: "schemaJSON2.json")
@@ -429,9 +429,9 @@ class ApolloCodegenTests: XCTestCase {
 
   func test_fileGenerators_givenSchemaAndMultipleOperationDocuments_operations_inSchemaModule_shouldGenerateSchemaAndOperationsFiles() throws {
     // given
-    let schemaPath = ApolloCodegenInternalTestHelpers.Resources.AnimalKingdomSchema.path
+    let schemaPath = ApolloCodegenInternalTestHelpers.Resources.AnimalKingdom.Schema.path
     let operationsPath = ApolloCodegenInternalTestHelpers.Resources.url
-      .appendingPathComponent("graphql")
+      .appendingPathComponent("animalkingdom-graphql")
       .appendingPathComponent("*.graphql").path
 
     let config = ReferenceWrapped(value: ApolloCodegenConfiguration.mock(
@@ -527,9 +527,9 @@ class ApolloCodegenTests: XCTestCase {
 
   func test_fileGenerators_givenSchemaAndMultipleOperationDocuments_operations_absolute_shouldGenerateSchemaAndOperationsFiles() throws {
     // given
-    let schemaPath = ApolloCodegenInternalTestHelpers.Resources.AnimalKingdomSchema.path
+    let schemaPath = ApolloCodegenInternalTestHelpers.Resources.AnimalKingdom.Schema.path
     let operationsPath = ApolloCodegenInternalTestHelpers.Resources.url
-      .appendingPathComponent("graphql")
+      .appendingPathComponent("animalkingdom-graphql")
       .appendingPathComponent("*.graphql").path
 
     let operationsOutputURL = directoryURL.appendingPathComponent("AbsoluteSources")
@@ -621,9 +621,9 @@ class ApolloCodegenTests: XCTestCase {
 
   func test_fileGenerators_givenSchemaAndMultipleOperationDocuments_shouldGenerateSchemaAndOperationsFiles_CCN() throws {
     // given
-    let schemaPath = ApolloCodegenInternalTestHelpers.Resources.AnimalKingdomSchema.path
+    let schemaPath = ApolloCodegenInternalTestHelpers.Resources.AnimalKingdom.Schema.path
     let operationsPath = ApolloCodegenInternalTestHelpers.Resources.url
-      .appendingPathComponent("graphql")
+      .appendingPathComponent("animalkingdom-graphql")
       .appendingPathComponent("**/*.graphql").path
 
     let config =  ReferenceWrapped(value: ApolloCodegenConfiguration(
@@ -722,9 +722,9 @@ class ApolloCodegenTests: XCTestCase {
 
   func test_fileGenerators_givenTestMockOutput_absolutePath_shouldGenerateTestMocks() throws {
     // given
-    let schemaPath = ApolloCodegenInternalTestHelpers.Resources.AnimalKingdomSchema.path
+    let schemaPath = ApolloCodegenInternalTestHelpers.Resources.AnimalKingdom.Schema.path
     let operationsPath = ApolloCodegenInternalTestHelpers.Resources.url
-      .appendingPathComponent("graphql")
+      .appendingPathComponent("animalkingdom-graphql")
       .appendingPathComponent("**/*.graphql").path
 
     let config =  ReferenceWrapped(value: ApolloCodegenConfiguration(
