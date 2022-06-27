@@ -45,9 +45,9 @@ class MockObjectTemplateTests: XCTestCase {
     expect(self.subject.target).to(equal(.testMockFile))
   }
 
-  func test_render_givenSchemaType_generatesExtension() {
+  func test_render_givenModuleType_swiftPackageManager_generatesExtension_noNamespace() {
     // given
-    buildSubject(name: "Dog")
+    buildSubject(name: "Dog", moduleType: .swiftPackageManager)
 
     let expected = """
     extension Dog: Mockable {
@@ -67,7 +67,29 @@ class MockObjectTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
-  func test_render_givenConfig_SchemaTypeOutputNone_generatesExtensionWithSchemaNamespace() {
+  func test_render_givenModuleType_other_generatesExtension_noNamespace() {
+    // given
+    buildSubject(name: "Dog", moduleType: .other)
+
+    let expected = """
+    extension Dog: Mockable {
+      public static let __mockFields = MockFields()
+
+      public typealias MockValueCollectionType = Array<Mock<Dog>>
+
+      public struct MockFields {
+      }
+    }
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test_render_givenModuleType_embeddedInTarget_generatesExtension_withNamespace() {
     // given
     buildSubject(name: "Dog", moduleType: .embeddedInTarget(name: "MockApplication"))
 
@@ -75,7 +97,7 @@ class MockObjectTemplateTests: XCTestCase {
     extension TestSchema.Dog: Mockable {
       public static let __mockFields = MockFields()
 
-      public typealias MockValueCollectionType = Array<Mock<Dog>>
+      public typealias MockValueCollectionType = Array<Mock<TestSchema.Dog>>
 
       public struct MockFields {
       }

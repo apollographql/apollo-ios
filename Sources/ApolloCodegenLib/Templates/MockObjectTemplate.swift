@@ -25,11 +25,11 @@ struct MockObjectTemplate: TemplateRenderer {
 
     return """
     extension \
-    \(if: !config.output.schemaTypes.isInModule, "\(ir.schema.name.firstUppercased).")\
+    \(schemaModuleName)\
     \(objectName): Mockable {
       public static let __mockFields = MockFields()
 
-      public typealias MockValueCollectionType = Array<Mock<\(objectName)>>
+      public typealias MockValueCollectionType = Array<Mock<\(schemaModuleName)\(objectName)>>
     
       public struct MockFields {
         \(fields.map {
@@ -40,7 +40,7 @@ struct MockObjectTemplate: TemplateRenderer {
       }
     }
 
-    public extension Mock where O == \(objectName) {
+    public extension Mock where O == \(schemaModuleName)\(objectName) {
       convenience init(
         \(fields.map { "\($0.name): \($0.mockType)? = nil" }, separator: ",\n")
       ) {
@@ -49,6 +49,14 @@ struct MockObjectTemplate: TemplateRenderer {
       }
     }
     """
+  }
+
+  private var schemaModuleName: String {
+    if !config.output.schemaTypes.isInModule {
+      return "\(config.schemaName)."
+    } else {
+      return ""
+    }
   }
 
   private func mockTypeName(for type: GraphQLType) -> String {
