@@ -1,7 +1,10 @@
 extension GraphQLType {
 
   enum RenderContext {
+    /// Renders the type for use in an operation selection set.
     case selectionSetField(forceNonNull: Bool = false)
+    /// Renders the type for use in a test mock object.
+    case testMockField(forceNonNull: Bool = false)
     /// Renders the type for use as an input value.
     ///
     /// If the outermost type is nullable, it will be wrapped in a `GraphQLNullable` instead of
@@ -15,12 +18,20 @@ extension GraphQLType {
     config: ApolloCodegenConfiguration
   ) -> String {
     switch context {
-    case .selectionSetField(let forceNonNull):
+    case let .selectionSetField(forceNonNull):
       return renderedAsSelectionSetField(
         containedInNonNull: forceNonNull,
         replacingNamedTypeWith: newTypeName,
         config: config
       )
+
+    case let .testMockField(forceNonNull):
+      return renderedAsTestMockField(
+        containedInNonNull: forceNonNull,
+        replacingNamedTypeWith: newTypeName,
+        config: config
+      )
+
     case .inputValue:
       return renderAsInputValue(inNullable: true, config: config)
     }
@@ -69,6 +80,55 @@ extension GraphQLType {
 
     case let .list(ofType):
       let rendered = ofType.renderedAsSelectionSetField(
+        containedInNonNull: false,
+        replacingNamedTypeWith: newTypeName,
+        config: config
+      )
+      let inner = "[\(rendered)]"
+
+      return containedInNonNull ? inner : "\(inner)?"
+    }
+  }
+
+  // MARK: Mock Object Field
+
+  private func renderedAsTestMockField(
+    containedInNonNull: Bool,
+    replacingNamedTypeWith newTypeName: String? = nil,
+    config: ApolloCodegenConfiguration
+  ) -> String {
+
+    lazy var schemaModuleName: String = {
+      !config.output.schemaTypes.isInModule ? "\(config.schemaName)." : ""
+    }()
+
+    switch self {
+    case let .entity(type as GraphQLNamedType), let .inputObject(type as GraphQLNamedType):
+      let typeName = newTypeName ?? type.swiftName
+      return TemplateString("\(schemaModuleName)\(typeName)\(if: !containedInNonNull, "?")").description
+
+    case let .scalar(type):
+      let typeName = newTypeName ?? type.swiftName
+
+      return TemplateString(
+        "\(if: !type.isSwiftType, "\(schemaModuleName)")\(typeName)\(if: !containedInNonNull, "?")"
+      ).description
+
+    case let .enum(type as GraphQLNamedType):
+      let typeName = newTypeName ?? type.name
+      let enumType = "GraphQLEnum<\(schemaModuleName)\(typeName)>"
+
+      return containedInNonNull ? enumType : "\(enumType)?"
+
+    case let .nonNull(ofType):
+      return ofType.renderedAsTestMockField(
+        containedInNonNull: true,
+        replacingNamedTypeWith: newTypeName,
+        config: config
+      )
+
+    case let .list(ofType):
+      let rendered = ofType.renderedAsTestMockField(
         containedInNonNull: false,
         replacingNamedTypeWith: newTypeName,
         config: config

@@ -1,4 +1,4 @@
-import ApolloAPI
+@_exported import ApolloAPI
 import Foundation
 
 @dynamicMemberLookup

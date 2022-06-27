@@ -78,6 +78,14 @@ class TemplateRenderer_OperationFile_Tests: XCTestCase {
 
     """
 
+    let expectedAPIAndTarget = """
+    import ApolloAPI
+    @_exported import enum ApolloAPI.GraphQLEnum
+    @_exported import enum ApolloAPI.GraphQLNullable
+    import MockApplication
+
+    """
+
     let tests: [(
       schemaTypes: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType,
       operations: ApolloCodegenConfiguration.OperationsFileOutput,
@@ -116,12 +124,12 @@ class TemplateRenderer_OperationFile_Tests: XCTestCase {
       (
         schemaTypes: .embeddedInTarget(name: "MockApplication"),
         operations: .relative(subpath: nil),
-        expectation: expectedAPIAndSchema
+        expectation: expectedAPIAndTarget
       ),
       (
         schemaTypes: .embeddedInTarget(name: "MockApplication"),
         operations: .absolute(path: "path"),
-        expectation: expectedAPIAndSchema
+        expectation: expectedAPIAndTarget
       ),
       (
         schemaTypes: .embeddedInTarget(name: "MockApplication"),
