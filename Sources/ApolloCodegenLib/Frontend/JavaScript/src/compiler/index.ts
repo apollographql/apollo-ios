@@ -49,7 +49,8 @@ export interface CompilationResult {
 
 export function compileToIR(
   schema: GraphQLSchema,
-  document: DocumentNode
+  document: DocumentNode,
+  legacySafelistingCompatibleOperations: boolean
 ): CompilationResult {
   // Collect fragment definition nodes upfront so we can compile these as we encounter them.
   const fragmentNodeMap = new Map<String, FragmentDefinitionNode>();
@@ -141,7 +142,7 @@ export function compileToIR(
   }
 
   function compileOperation(
-    operationDefinition: OperationDefinitionNode
+    operationDefinition: OperationDefinitionNode    
   ): ir.OperationDefinition {
     if (!operationDefinition.name) {
       throw new GraphQLError("Operations should be named", { nodes: operationDefinition });
@@ -180,7 +181,10 @@ export function compileToIR(
       }
     );
 
-    const source = print(transformToNetworkRequestSourceDefinition(operationDefinition));
+    const source = print(transformToNetworkRequestSourceDefinition(
+      operationDefinition,
+      legacySafelistingCompatibleOperations
+    ));
     const rootType = schema.getRootType(operationType) as GraphQLObjectType;
     const [directives,] = compileDirectives(operationDefinition.directives) ?? [undefined, undefined];
 
@@ -207,7 +211,10 @@ export function compileToIR(
     const name = fragmentDefinition.name.value;
 
     const filePath = filePathForNode(fragmentDefinition);
-    const source = print(transformToNetworkRequestSourceDefinition(fragmentDefinition));
+    const source = print(transformToNetworkRequestSourceDefinition(
+      fragmentDefinition,
+      legacySafelistingCompatibleOperations
+    ));
 
     const typeCondition = typeFromAST(
       schema,

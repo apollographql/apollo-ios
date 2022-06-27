@@ -8,7 +8,7 @@ import ApolloAPI
 public class HeroDetailsQuery: GraphQLQuery {
   public static let operationName: String = "HeroDetails"
   public static let document: DocumentType = .automaticallyPersisted(
-    operationIdentifier: "2b67111fd3a1c6b2ac7d1ef7764e5cefa41d3f4218e1d60cb67c22feafbd43ec",
+    operationIdentifier: "207d29944f5822bff08a07db4a55274ea14035bacfe20699da41a47454f1181e",
     definition: .init(
       """
       query HeroDetails($episode: Episode) {
@@ -16,9 +16,11 @@ public class HeroDetailsQuery: GraphQLQuery {
           __typename
           name
           ... on Human {
+            __typename
             height
           }
           ... on Droid {
+            __typename
             primaryFunction
           }
         }

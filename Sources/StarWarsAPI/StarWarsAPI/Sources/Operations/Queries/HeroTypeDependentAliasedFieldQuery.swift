@@ -8,16 +8,18 @@ import ApolloAPI
 public class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
   public static let operationName: String = "HeroTypeDependentAliasedField"
   public static let document: DocumentType = .automaticallyPersisted(
-    operationIdentifier: "b5838c22bac1c5626023dac4412ca9b86bebfe16608991fb632a37c44e12811e",
+    operationIdentifier: "eac5a52f9020fc2e9b5dc5facfd6a6295683b8d57ea62ee84254069fcd5e504c",
     definition: .init(
       """
       query HeroTypeDependentAliasedField($episode: Episode) {
         hero(episode: $episode) {
           __typename
           ... on Human {
+            __typename
             property: homePlanet
           }
           ... on Droid {
+            __typename
             property: primaryFunction
           }
         }

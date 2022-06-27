@@ -8,7 +8,7 @@ import ApolloAPI
 public class HeroNameTypeSpecificConditionalInclusionQuery: GraphQLQuery {
   public static let operationName: String = "HeroNameTypeSpecificConditionalInclusion"
   public static let document: DocumentType = .automaticallyPersisted(
-    operationIdentifier: "4d465fbc6e3731d011025048502f16278307d73300ea9329a709d7e2b6815e40",
+    operationIdentifier: "76aecc75265295818d3990000b17e32d5524ca85a4bc159ae8a3f8ec7ce91cc3",
     definition: .init(
       """
       query HeroNameTypeSpecificConditionalInclusion($episode: Episode, $includeName: Boolean!) {
@@ -16,6 +16,7 @@ public class HeroNameTypeSpecificConditionalInclusionQuery: GraphQLQuery {
           __typename
           name @include(if: $includeName)
           ... on Droid {
+            __typename
             name
           }
         }

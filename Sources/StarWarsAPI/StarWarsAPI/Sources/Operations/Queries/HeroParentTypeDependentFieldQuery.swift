@@ -8,7 +8,7 @@ import ApolloAPI
 public class HeroParentTypeDependentFieldQuery: GraphQLQuery {
   public static let operationName: String = "HeroParentTypeDependentField"
   public static let document: DocumentType = .automaticallyPersisted(
-    operationIdentifier: "561e22ac4da5209f254779b70e01557fb2fc57916b9914088429ec809e166cad",
+    operationIdentifier: "39eb41b5a9477c36fa529c23d6f0de6ebcc0312daf5bdcfe208d5baec752dc5b",
     definition: .init(
       """
       query HeroParentTypeDependentField($episode: Episode) {
@@ -16,19 +16,23 @@ public class HeroParentTypeDependentFieldQuery: GraphQLQuery {
           __typename
           name
           ... on Human {
+            __typename
             friends {
               __typename
               name
               ... on Human {
+                __typename
                 height(unit: FOOT)
               }
             }
           }
           ... on Droid {
+            __typename
             friends {
               __typename
               name
               ... on Human {
+                __typename
                 height(unit: METER)
               }
             }

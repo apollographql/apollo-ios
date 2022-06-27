@@ -8,13 +8,14 @@ import ApolloAPI
 public class HeroDetailsInlineConditionalInclusionQuery: GraphQLQuery {
   public static let operationName: String = "HeroDetailsInlineConditionalInclusion"
   public static let document: DocumentType = .automaticallyPersisted(
-    operationIdentifier: "fcd9d7acb4e7c97e3ae5ad3cbf4e83556626149de589f0c2fce2f8ede31b0d90",
+    operationIdentifier: "3091d9d3f1d2374e2f835ce05d332e50b3fe61502d73213b9aa511f0f94f091c",
     definition: .init(
       """
       query HeroDetailsInlineConditionalInclusion($includeDetails: Boolean!) {
         hero {
           __typename
           ... @include(if: $includeDetails) {
+            __typename
             name
             appearsIn
           }

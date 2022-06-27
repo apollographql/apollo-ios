@@ -8,7 +8,7 @@ import ApolloAPI
 public class HeroDetailsWithFragmentQuery: GraphQLQuery {
   public static let operationName: String = "HeroDetailsWithFragment"
   public static let document: DocumentType = .automaticallyPersisted(
-    operationIdentifier: "d20fa2f460058b8eec3d227f2f6088a708cf35dfa2b5ebf1414e34f9674ecfce",
+    operationIdentifier: "b55bd9d56d1b5972345412b6adb88ceb64d6086c8051d2588d8ab701f0ee7c2f",
     definition: .init(
       """
       query HeroDetailsWithFragment($episode: Episode) {

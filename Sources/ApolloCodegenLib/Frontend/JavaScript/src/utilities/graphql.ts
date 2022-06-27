@@ -22,6 +22,7 @@ import {
 import { isNode } from "graphql/language/ast";
 import { validateSDL } from "graphql/validation/validate";
 import { directive_apollo_client_ios_localCacheMutation } from "./apolloCodegenSchemaExtension";
+import { addTypeNameFieldForLegacySafelisting } from "./legacySafelistingTransform";
 
 export class GraphQLSchemaValidationError extends Error {
   constructor(public validationErrors: readonly GraphQLError[]) {
@@ -62,7 +63,14 @@ const typenameField: FieldNode = {
   name: { kind: Kind.NAME, value: "__typename" },
 };
 
-export function transformToNetworkRequestSourceDefinition(ast: ASTNode) {
+export function transformToNetworkRequestSourceDefinition(
+  ast: ASTNode,
+  legacySafelistingCompatibleOperations: boolean
+) {
+  if (legacySafelistingCompatibleOperations) {
+    ast = addTypeNameFieldForLegacySafelisting(ast)
+  }
+
   return visit(ast, {
     SelectionSet: {           
       leave(node: SelectionSetNode, _, parent) { 

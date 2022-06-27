@@ -8,7 +8,7 @@ import ApolloAPI
 public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQLQuery {
   public static let operationName: String = "HeroFriendsDetailsUnconditionalAndConditionalInclusion"
   public static let document: DocumentType = .automaticallyPersisted(
-    operationIdentifier: "501fcb710e5ffeeab2c65b7935fbded394ffea92e7b5dd904d05d5deab6f39c6",
+    operationIdentifier: "65381a20574db4b458a0821328252deb0da1a107f9ab77c99fb2467e66a5f12d",
     definition: .init(
       """
       query HeroFriendsDetailsUnconditionalAndConditionalInclusion($includeFriendsDetails: Boolean!) {
@@ -22,6 +22,7 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
             __typename
             name
             ... on Droid {
+              __typename
               primaryFunction
             }
           }

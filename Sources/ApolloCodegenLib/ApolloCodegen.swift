@@ -71,7 +71,11 @@ public class ApolloCodegen {
       throw Error.graphQLSourceValidationFailure(atLines: errorlines)
     }
 
-    return try frontend.compile(schema: graphQLSchema, document: operationsDocument)
+    return try frontend.compile(
+      schema: graphQLSchema,
+      document: operationsDocument,
+      experimentalLegacySafelistingCompatibleOperations: experimentalFeatures.legacySafelistingCompatibleOperations
+    )
   }
 
   private static func createSchema(

@@ -46,11 +46,13 @@ interface Pet {
       false
     );
 
-    it("operation definition should have source including __typename field.", () => {
-      const compilationResult: CompilationResult = compileDocument(schema, document);
-      const operation = compilationResult.operations[0];
+    describe("compile document", () => {
+      const compilationResult: CompilationResult = compileDocument(schema, document, false);
 
-      const expected: string = 
+      it("operation definition should have source including __typename field.", () => {
+        const operation = compilationResult.operations[0];
+  
+        const expected: string = 
 `query Test {
   allAnimals {
     __typename
@@ -60,10 +62,34 @@ interface Pet {
     }
   }
 }`;
-            
-      expect(operation.source).toEqual(expected);
+              
+        expect(operation.source).toEqual(expected);
+      });
+    });
+
+    describe("compile document for legacy compatible safelisting", () => {
+      const compilationResult: CompilationResult = compileDocument(schema, document, true);
+
+      it("operation definition should have source including __typename field in each selection set.", () => {
+        const operation = compilationResult.operations[0];
+  
+        const expected: string = 
+`query Test {
+  allAnimals {
+    __typename
+    species
+    ... on Pet {
+      __typename
+      name
+    }
+  }
+}`;
+              
+        expect(operation.source).toEqual(expected);
+      });
     });
   });
+    
 
   describe("given query including __typename field with directive", () => {
     const documentString: string = 
@@ -83,7 +109,7 @@ interface Pet {
     );
 
     it("operation definition should have source including __typename field with no directives.", () => {
-      const compilationResult: CompilationResult = compileDocument(schema, document);
+      const compilationResult: CompilationResult = compileDocument(schema, document, false);
       const operation = compilationResult.operations[0];
 
       const expected: string = 
@@ -118,7 +144,7 @@ interface Pet {
     );
 
     it("operation definition should have source not including local cache mutation directive.", () => {
-      const compilationResult: CompilationResult = compileDocument(schema, document);
+      const compilationResult: CompilationResult = compileDocument(schema, document, false);
       const operation = compilationResult.operations[0];
 
       const expected: string = 
@@ -148,7 +174,7 @@ interface Pet {
     );
 
     it("fragment definition should have source including __typename field.", () => {
-      const compilationResult: CompilationResult = compileDocument(schema, document);
+      const compilationResult: CompilationResult = compileDocument(schema, document, false);
       const fragment = compilationResult.fragments[0];
 
       const expected: string = 

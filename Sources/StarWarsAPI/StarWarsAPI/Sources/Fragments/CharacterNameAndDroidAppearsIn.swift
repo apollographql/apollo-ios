@@ -11,6 +11,7 @@ public struct CharacterNameAndDroidAppearsIn: StarWarsAPI.SelectionSet, Fragment
       __typename
       name
       ... on Droid {
+        __typename
         appearsIn
       }
     }

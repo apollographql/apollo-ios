@@ -386,7 +386,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
      * for registering persisted operation to a safelist.
      *
      * - Note: Safelisting queries is a deprecated feature of Apollo Server that has reduced
-     * support for legacy use cases.
+     * support for legacy use cases. This option may not work as intended in all situations.
      */
     public let legacySafelistingCompatibleOperations: Bool
 

@@ -8,21 +8,24 @@ import ApolloAPI
 public class SearchQuery: GraphQLQuery {
   public static let operationName: String = "Search"
   public static let document: DocumentType = .automaticallyPersisted(
-    operationIdentifier: "73536da2eec4d83e6e1003e674cb2299d9da2798f7bd310e57339a6bcd713b77",
+    operationIdentifier: "477b77c476899915498a56ae7bb835667b1e875cb94f6daa7f75e05018be2c3a",
     definition: .init(
       """
       query Search($term: String) {
         search(text: $term) {
           __typename
           ... on Human {
+            __typename
             id
             name
           }
           ... on Droid {
+            __typename
             id
             name
           }
           ... on Starship {
+            __typename
             id
             name
           }
