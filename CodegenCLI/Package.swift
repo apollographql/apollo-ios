@@ -9,7 +9,7 @@ let package = Package(
     .macOS(.v10_15)
   ],
   dependencies: [
-    .package(url: "https://github.com/apollographql/apollo-ios.git", from: "1.0.0-alpha.8"),
+    .package(name: "apollo-ios", path: ".."),
     .package(url: "https://github.com/apple/swift-argument-parser.git", .upToNextMajor(from: "1.1.2")),
     .package(url: "https://github.com/Quick/Nimble.git", .upToNextMajor(from: "10.0.0")),
   ],

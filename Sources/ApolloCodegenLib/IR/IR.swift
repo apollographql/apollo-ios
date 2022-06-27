@@ -57,23 +57,28 @@ class IR {
     let referencedFragments: OrderedSet<NamedFragment>
 
     lazy var operationIdentifier: String = {
-      var hasher = SHA256()
-      func updateHash(with source: inout String) {
-        source.withUTF8({ buffer in
-          hasher.update(bufferPointer: UnsafeRawBufferPointer(buffer))
-        })
-      }
-      updateHash(with: &definition.source)
-      
-      var newline: String
-      for fragment in referencedFragments {
-        newline = "\n"
-        updateHash(with: &newline)
-        updateHash(with: &fragment.definition.source)
-      }
+      if #available(macOS 10.15, *) {
+        var hasher = SHA256()
+        func updateHash(with source: inout String) {
+          source.withUTF8({ buffer in
+            hasher.update(bufferPointer: UnsafeRawBufferPointer(buffer))
+          })
+        }
+        updateHash(with: &definition.source)
 
-      let digest = hasher.finalize()
-      return digest.compactMap { String(format: "%02x", $0) }.joined()
+        var newline: String
+        for fragment in referencedFragments {
+          newline = "\n"
+          updateHash(with: &newline)
+          updateHash(with: &fragment.definition.source)
+        }
+
+        let digest = hasher.finalize()
+        return digest.compactMap { String(format: "%02x", $0) }.joined()
+
+      } else {
+        fatalError("Code Generation must be run on macOS 10.15+.")
+      }
     }()
 
     init(

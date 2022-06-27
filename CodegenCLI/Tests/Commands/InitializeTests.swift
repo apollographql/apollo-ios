@@ -155,10 +155,12 @@ class InitializeTests: XCTestCase {
       "queryStringLiteralFormat" : "multiline"
     },
     "input" : {
-      "searchPaths" : [
+      "operationSearchPaths" : [
         "**\\/*.graphql"
       ],
-      "schemaPath" : "schema.graphqls"
+      "schemaSearchPaths" : [
+        "schema.graphqls"
+      ]
     },
     "output" : {
       "testMocks" : {
@@ -181,7 +183,8 @@ class InitializeTests: XCTestCase {
       }
     },
     "experimentalFeatures" : {
-      "clientControlledNullability" : false
+      "clientControlledNullability" : false,
+      "legacySafelistingCompatibleOperations" : false
     }
   }
   """
