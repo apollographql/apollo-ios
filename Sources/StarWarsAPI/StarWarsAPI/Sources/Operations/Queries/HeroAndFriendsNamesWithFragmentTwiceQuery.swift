@@ -7,7 +7,8 @@ import ApolloAPI
 
 public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
   public static let operationName: String = "HeroAndFriendsNamesWithFragmentTwice"
-  public static let document: DocumentType = .notPersisted(
+  public static let document: DocumentType = .automaticallyPersisted(
+    operationIdentifier: "e02ef22e116ad1ca35f0298ed3badb60eeb986203f0088575a5f137768c322fc",
     definition: .init(
       """
       query HeroAndFriendsNamesWithFragmentTwice($episode: Episode) {

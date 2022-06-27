@@ -359,7 +359,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
 
   public struct ExperimentalFeatures: Codable, Equatable {
     /**
-     * EXPERIMENTAL: If enabled, the parser will understand and parse Client Controlled Nullability
+     * **EXPERIMENTAL**: If enabled, the parser will understand and parse Client Controlled Nullability
      * Designators contained in Fields. They'll be represented in the
      * `required` field of the FieldNode.
      *
@@ -374,13 +374,28 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
      *     }
      *   }
      * ```
-     * Note: this feature is experimental and may change or be removed in the
+     * - Note: This feature is experimental and may change or be removed in the
      * future.
      */
     public let clientControlledNullability: Bool
 
-    public init(clientControlledNullability: Bool = false) {
+    /**
+     * **EXPERIMENTAL**: If enabled, the generated operations will be transformed using a method
+     * that attempts to maintain compatibility with the legacy behavior from
+     * [`apollo-tooling`](https://github.dev/apollographql/apollo-tooling)
+     * for registering persisted operation to a safelist.
+     *
+     * - Note: Safelisting queries is a deprecated feature of Apollo Server that has reduced
+     * support for legacy use cases.
+     */
+    public let legacySafelistingCompatibleOperations: Bool
+
+    public init(
+      clientControlledNullability: Bool = false,
+      legacySafelistingCompatibleOperations: Bool = false
+    ) {
       self.clientControlledNullability = clientControlledNullability
+      self.legacySafelistingCompatibleOperations = legacySafelistingCompatibleOperations
     }
   }
 

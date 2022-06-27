@@ -7,7 +7,8 @@ import ApolloAPI
 
 public class StarshipCoordinatesQuery: GraphQLQuery {
   public static let operationName: String = "StarshipCoordinates"
-  public static let document: DocumentType = .notPersisted(
+  public static let document: DocumentType = .automaticallyPersisted(
+    operationIdentifier: "8dd77d4bc7494c184606da092a665a7c2ca3c2a3f14d3b23fa5e469e207b3406",
     definition: .init(
       """
       query StarshipCoordinates($coordinates: [[Float!]!]) {

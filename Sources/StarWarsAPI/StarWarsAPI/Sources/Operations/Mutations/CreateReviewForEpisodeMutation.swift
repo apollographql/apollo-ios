@@ -7,7 +7,8 @@ import ApolloAPI
 
 public class CreateReviewForEpisodeMutation: GraphQLMutation {
   public static let operationName: String = "CreateReviewForEpisode"
-  public static let document: DocumentType = .notPersisted(
+  public static let document: DocumentType = .automaticallyPersisted(
+    operationIdentifier: "9bbf5b4074d0635fb19d17c621b7b04ebfb1920d468a94266819e149841e7d5d",
     definition: .init(
       """
       mutation CreateReviewForEpisode($episode: Episode!, $review: ReviewInput!) {

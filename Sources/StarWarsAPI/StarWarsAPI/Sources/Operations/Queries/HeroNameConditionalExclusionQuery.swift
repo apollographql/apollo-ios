@@ -7,7 +7,8 @@ import ApolloAPI
 
 public class HeroNameConditionalExclusionQuery: GraphQLQuery {
   public static let operationName: String = "HeroNameConditionalExclusion"
-  public static let document: DocumentType = .notPersisted(
+  public static let document: DocumentType = .automaticallyPersisted(
+    operationIdentifier: "3dd42259adf2d0598e89e0279bee2c128a7913f02b1da6aa43f3b5def6a8a1f8",
     definition: .init(
       """
       query HeroNameConditionalExclusion($skipName: Boolean!) {

@@ -7,7 +7,8 @@ import ApolloAPI
 
 public class SameHeroTwiceQuery: GraphQLQuery {
   public static let operationName: String = "SameHeroTwice"
-  public static let document: DocumentType = .notPersisted(
+  public static let document: DocumentType = .automaticallyPersisted(
+    operationIdentifier: "2a8ad85a703add7d64622aaf6be76b58a1134caf28e4ff6b34dd00ba89541364",
     definition: .init(
       """
       query SameHeroTwice {

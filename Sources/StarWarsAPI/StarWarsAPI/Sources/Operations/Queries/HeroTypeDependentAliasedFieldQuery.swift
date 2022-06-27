@@ -7,7 +7,8 @@ import ApolloAPI
 
 public class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
   public static let operationName: String = "HeroTypeDependentAliasedField"
-  public static let document: DocumentType = .notPersisted(
+  public static let document: DocumentType = .automaticallyPersisted(
+    operationIdentifier: "b5838c22bac1c5626023dac4412ca9b86bebfe16608991fb632a37c44e12811e",
     definition: .init(
       """
       query HeroTypeDependentAliasedField($episode: Episode) {

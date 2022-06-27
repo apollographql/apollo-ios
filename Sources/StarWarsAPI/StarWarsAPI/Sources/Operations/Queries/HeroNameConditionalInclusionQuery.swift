@@ -7,7 +7,8 @@ import ApolloAPI
 
 public class HeroNameConditionalInclusionQuery: GraphQLQuery {
   public static let operationName: String = "HeroNameConditionalInclusion"
-  public static let document: DocumentType = .notPersisted(
+  public static let document: DocumentType = .automaticallyPersisted(
+    operationIdentifier: "338081aea3acc83d04af0741ecf0da1ec2ee8e6468a88383476b681015905ef8",
     definition: .init(
       """
       query HeroNameConditionalInclusion($includeName: Boolean!) {

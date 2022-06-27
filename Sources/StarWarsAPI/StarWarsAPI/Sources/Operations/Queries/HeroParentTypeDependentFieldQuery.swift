@@ -7,7 +7,8 @@ import ApolloAPI
 
 public class HeroParentTypeDependentFieldQuery: GraphQLQuery {
   public static let operationName: String = "HeroParentTypeDependentField"
-  public static let document: DocumentType = .notPersisted(
+  public static let document: DocumentType = .automaticallyPersisted(
+    operationIdentifier: "561e22ac4da5209f254779b70e01557fb2fc57916b9914088429ec809e166cad",
     definition: .init(
       """
       query HeroParentTypeDependentField($episode: Episode) {
