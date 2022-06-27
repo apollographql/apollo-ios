@@ -18,7 +18,7 @@ struct MockObjectTemplate: TemplateRenderer {
       .map {
         (
           name: $0.0,
-          type: $0.1.rendered(as: .selectionSetField(forceNonNull: true), config: config.value),
+          type: $0.1.rendered(as: .testMockField(forceNonNull: true), config: config.value),
           mockType: mockTypeName(for: $0.1)
         )
       }
@@ -60,30 +60,29 @@ struct MockObjectTemplate: TemplateRenderer {
   }
 
   private func mockTypeName(for type: GraphQLType) -> String {
-    func nameReplacement(for type: GraphQLType) -> String? {
+    func nameReplacement(for type: GraphQLType, forceNonNull: Bool) -> String {
       switch type {
       case .entity(let graphQLCompositeType):
+        let mockType: String
         switch graphQLCompositeType {
         case is GraphQLInterfaceType, is GraphQLUnionType:
-          return "AnyMock"
+          mockType = "AnyMock"
         default:
-          return "Mock<\(graphQLCompositeType.name)>"
+          mockType = "Mock<\(schemaModuleName)\(graphQLCompositeType.name)>"
         }
+        return TemplateString("\(mockType)\(if: !forceNonNull, "?")").description
       case .scalar,
           .enum,
           .inputObject:
-        return nil
-      case .nonNull(let graphQLType),
-          .list(let graphQLType):
-        return nameReplacement(for: graphQLType)
+        return type.rendered(as: .testMockField(forceNonNull: true), config: config.value)
+      case .nonNull(let graphQLType):
+        return nameReplacement(for: graphQLType, forceNonNull: true)
+      case .list(let graphQLType):
+        return "[\(nameReplacement(for: graphQLType, forceNonNull: false))]"
       }
     }
 
-    return type.rendered(
-      as: .selectionSetField(forceNonNull: true),
-      replacingNamedTypeWith: nameReplacement(for: type),
-      config: config.value
-    )
+    return nameReplacement(for: type, forceNonNull: true)
   }
   
 }
