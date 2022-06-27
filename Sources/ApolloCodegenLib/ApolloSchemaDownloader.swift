@@ -52,7 +52,7 @@ public struct ApolloSchemaDownloader {
     )
 
     switch configuration.downloadMethod {
-    case .introspection(let endpointURL, let httpMethod):
+    case .introspection(let endpointURL, let httpMethod, _):
       try self.downloadFrom(
         introspection: endpointURL,
         httpMethod: httpMethod,
@@ -312,10 +312,18 @@ public struct ApolloSchemaDownloader {
       httpMethod: httpMethod,
       headers: configuration.headers
     )
-    let jsonOutputURL = URL(fileURLWithPath: configuration.outputPath)
-      .apollo
-      .parentFolderURL()
-      .appendingPathComponent("introspection_response.json")
+
+    let jsonOutputURL: URL = {
+      switch configuration.outputFormat {
+      case .SDL: return URL(fileURLWithPath: configuration.outputPath)
+          .apollo
+          .parentFolderURL()
+          .appendingPathComponent("introspection_response.json")
+
+      case .JSON: return URL(fileURLWithPath: configuration.outputPath)
+      }
+    }()
+
     
     try URLDownloader().downloadSynchronously(
       urlRequest,
@@ -323,10 +331,12 @@ public struct ApolloSchemaDownloader {
       timeout: configuration.downloadTimeout
     )
 
-    try convertFromIntrospectionJSONToSDLFile(
-      jsonFileURL: jsonOutputURL,
-      configuration: configuration
-    )
+    if configuration.outputFormat == .SDL {
+      try convertFromIntrospectionJSONToSDLFile(
+        jsonFileURL: jsonOutputURL,
+        configuration: configuration
+      )
+    }
     
     CodegenLogger.log("Successfully downloaded schema via introspection", logLevel: .debug)
   }
