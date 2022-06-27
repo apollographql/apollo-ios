@@ -59,11 +59,20 @@ enum FileTarget: Equatable {
     case .union: return "Unions"
     case .inputObject: return "InputObjects"
     case .customScalar: return "CustomScalars"
+
     case let .operation(operation) where operation.isLocalCacheMutation:
       return "LocalCacheMutations"
     case let .fragment(fragment) where fragment.isLocalCacheMutation:
       return "LocalCacheMutations"
-    case .fragment, .operation: return "Operations"
+
+    case .fragment: return "Fragments"
+    case let .operation(operation):
+      switch operation.operationType {
+      case .query: return "Queries"
+      case .mutation: return "Mutations"
+      case .subscription: return "Subscriptions"
+      }
+
     case .schema, .testMock: return ""
     }
   }
@@ -76,16 +85,17 @@ enum FileTarget: Equatable {
       return resolveSchemaPath(forConfig: config)
 
     case let .fragment(fragmentDefinition):
-      return resolveOperationPath(
+      return resolveFragmentPath(
         forConfig: config,
-        filePath: NSString(string: fragmentDefinition.filePath).deletingLastPathComponent
+        fragment: fragmentDefinition
       )
 
     case let .operation(operationDefinition):
       return resolveOperationPath(
         forConfig: config,
-        filePath: NSString(string: operationDefinition.filePath).deletingLastPathComponent
+        operation: operationDefinition
       )
+
     case .testMock:
       return resolveTestMockPath(forConfig: config)
     }
@@ -106,9 +116,9 @@ enum FileTarget: Equatable {
       .appendingPathComponent("\(moduleSubpath)\(subpath)").standardizedFileURL.path
   }
 
-  private func resolveOperationPath(
+  private func resolveFragmentPath(
     forConfig config: ReferenceWrapped<ApolloCodegenConfiguration>,
-    filePath: String
+    fragment: CompilationResult.FragmentDefinition
   ) -> String {
     switch config.output.operations {
     case .inSchemaModule:
@@ -120,16 +130,52 @@ enum FileTarget: Equatable {
       return url.appendingPathComponent(subpath).path
 
     case let .absolute(path):
-      return path
+      return "\(path)/\(subpath)"
 
     case let .relative(subpath):
-      let relativeURL = URL(fileURLWithPath: filePath)
+      return resolveRelativePath(
+        sourceURL: URL(fileURLWithPath: fragment.filePath),
+        withSubpath: subpath
+      )
+    }
+  }
 
-      if let subpath = subpath {
-        return relativeURL.appendingPathComponent(subpath).path
+  private func resolveRelativePath(sourceURL: URL, withSubpath subpath: String?) -> String {
+    let relativeURL = sourceURL.deletingLastPathComponent()
+
+    if let subpath = subpath {
+      return relativeURL.appendingPathComponent(subpath).path
+    }
+
+    return relativeURL.path
+  }
+
+  private func resolveOperationPath(
+    forConfig config: ReferenceWrapped<ApolloCodegenConfiguration>,
+    operation: CompilationResult.OperationDefinition
+  ) -> String {
+    switch config.output.operations {
+    case .inSchemaModule:
+      var url = URL(fileURLWithPath: config.output.schemaTypes.path)
+      if config.output.schemaTypes.moduleType == .swiftPackageManager {
+        url = url.appendingPathComponent("Sources")
+      }
+      if !operation.isLocalCacheMutation {
+        url = url.appendingPathComponent("Operations")
       }
 
-      return relativeURL.path
+      return url
+        .appendingPathComponent(subpath)
+        .path
+
+    case let .absolute(path):
+      return "\(path)/\(subpath)"
+
+    case let .relative(subpath):
+      return resolveRelativePath(
+        sourceURL: URL(fileURLWithPath: operation.filePath),
+        withSubpath: subpath
+      )
     }
   }
 
