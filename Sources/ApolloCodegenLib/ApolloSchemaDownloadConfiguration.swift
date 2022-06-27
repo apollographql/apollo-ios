@@ -9,7 +9,11 @@ public struct ApolloSchemaDownloadConfiguration: Equatable, Codable {
     /// The Apollo Schema Registry, which serves as a central hub for managing your graph.
     case apolloRegistry(_ settings: ApolloRegistrySettings)
     /// GraphQL Introspection connecting to the specified URL.
-    case introspection(endpointURL: URL, httpMethod: HTTPMethod = .POST)
+    case introspection(
+      endpointURL: URL,
+      httpMethod: HTTPMethod = .POST,
+      outputFormat: OutputFormat = .SDL
+    )
 
     public struct ApolloRegistrySettings: Equatable, Codable {
       /// The API key to use when retrieving your schema from the Apollo Registry.
@@ -51,11 +55,28 @@ public struct ApolloSchemaDownloadConfiguration: Equatable, Codable {
         }
       }
     }
+
+    /// The output format for the downloaded schema. This is an option on Introspection schema
+    /// downloads only. For Apollo Registry schema downloads, the schema will always be output as
+    /// an SDL document
+    public enum OutputFormat: String, Equatable, CustomStringConvertible, Codable {
+      /// A Schema Definition Language (SDL) document defining the schema as described in
+      /// the [GraphQL Specification](https://spec.graphql.org/draft/#sec-Schema)
+      case SDL
+      /// A JSON schema definition provided as the result of a schema introspection query.
+      case JSON
+
+      public var description: String { return rawValue }
+    }
     
     public static func == (lhs: DownloadMethod, rhs: DownloadMethod) -> Bool {
       switch (lhs, rhs) {
-      case let (.introspection(lhsURL, lhsHTTPMethod), .introspection(rhsURL, rhsHTTPMethod)):
-        return lhsURL == rhsURL && lhsHTTPMethod == rhsHTTPMethod
+      case let (.introspection(lhsURL, lhsHTTPMethod, lhsOutputFormat),
+                .introspection(rhsURL, rhsHTTPMethod, rhsOutputFormat)):
+        return lhsURL == rhsURL &&
+        lhsHTTPMethod == rhsHTTPMethod &&
+        lhsOutputFormat == rhsOutputFormat
+
       case let (.apolloRegistry(lhsSettings), .apolloRegistry(rhsSettings)):
         return lhsSettings == rhsSettings
       default:
@@ -108,6 +129,13 @@ public struct ApolloSchemaDownloadConfiguration: Equatable, Codable {
     self.downloadTimeout = downloadTimeout
     self.headers = headers
     self.outputPath = outputPath
+  }
+
+  public var outputFormat: DownloadMethod.OutputFormat {
+    switch self.downloadMethod {
+    case .apolloRegistry: return .SDL
+    case let .introspection(_, _, outputFormat): return outputFormat
+    }
   }
 }
 
