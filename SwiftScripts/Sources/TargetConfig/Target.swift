@@ -70,7 +70,7 @@ public enum Target: CaseIterable {
 
       return ApolloCodegenConfiguration.FileInput(
         schemaPath: schemaURL(fromTargetRoot: targetRootURL).path,
-        searchPaths: [graphQLFolder.appendingPathComponent("**/*.graphql").path]
+        operationSearchPaths: [graphQLFolder.appendingPathComponent("**/*.graphql").path]
       )
       
     case .starWars:
@@ -78,7 +78,7 @@ public enum Target: CaseIterable {
 
       return ApolloCodegenConfiguration.FileInput(
         schemaPath: schemaURL(fromTargetRoot: targetRootURL).path,
-        searchPaths: [graphQLFolder.appendingPathComponent("**/*.graphql").path]
+        operationSearchPaths: [graphQLFolder.appendingPathComponent("**/*.graphql").path]
       )
 
 //    case .gitHub:
@@ -101,7 +101,7 @@ public enum Target: CaseIterable {
         // There is a subdirectory that contains CCN enabled operations in the same `graphQLFolder` as
         //   the .animalKingdom target. We want to include those operations when we generate for
         //   .animalKingdom.
-        searchPaths: [graphQLFolder.appendingPathComponent("**/*.graphql").path]
+        operationSearchPaths: [graphQLFolder.appendingPathComponent("**/*.graphql").path]
       )
     }
   }
