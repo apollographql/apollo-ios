@@ -27,10 +27,6 @@ public class CompilationResult: JavaScriptObject {
     lazy var source: String = self["source"]
     
     lazy var filePath: String = self["filePath"]
-    
-    lazy var operationIdentifier: String = {
-      return ""
-    }()    
 
     override public var debugDescription: String {
       "\(name) on \(rootType.debugDescription)"

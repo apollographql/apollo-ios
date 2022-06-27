@@ -57,7 +57,7 @@ public struct Resources {
       subdirectory: "starwars-graphql"
     )!
 
-    private static func GraphQLOperation(named name: String) -> URL {
+    public static func GraphQLOperation(named name: String) -> URL {
       Resources.GraphQLOperation(named: name, subdirectory: "starwars-graphql")
     }
   }

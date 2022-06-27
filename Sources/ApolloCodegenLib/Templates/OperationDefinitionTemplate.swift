@@ -19,6 +19,7 @@ struct OperationDefinitionTemplate: OperationTemplateRenderer {
     \(OperationDeclaration(operation.definition))
       \(DocumentType.render(
         operation.definition,
+        identifier: operation.operationIdentifier,
         fragments: operation.referencedFragments,
         apq: config.options.apqs)
       )
@@ -45,6 +46,7 @@ struct OperationDefinitionTemplate: OperationTemplateRenderer {
   enum DocumentType {
     static func render(
       _ operation: CompilationResult.OperationDefinition,
+      identifier: @autoclosure () -> String,
       fragments: OrderedSet<IR.NamedFragment>,
       apq: ApolloCodegenConfiguration.APQConfig
     ) -> TemplateString {
@@ -54,7 +56,7 @@ struct OperationDefinitionTemplate: OperationTemplateRenderer {
       return TemplateString("""
       public static let document: DocumentType = .\(apq.rendered)(
       \(if: apq != .disabled, """
-        operationIdentifier: \"\(operation.operationIdentifier)\"\(if: includeDefinition, ",")
+        operationIdentifier: \"\(identifier())\"\(if: includeDefinition, ",")
       """)
       \(if: includeDefinition, """
         definition: .init(
