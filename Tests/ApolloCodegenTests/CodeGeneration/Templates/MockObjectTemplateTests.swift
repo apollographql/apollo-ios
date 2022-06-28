@@ -28,7 +28,7 @@ class MockObjectTemplateTests: XCTestCase {
 
     subject = MockObjectTemplate(
       graphqlObject: GraphQLObjectType.mock(name, interfaces: interfaces),
-      config: ReferenceWrapped(value: config),
+      config: ApolloCodegen.ConfigurationContext(config: config),
       ir: ir
     )
   }

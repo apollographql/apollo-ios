@@ -18,7 +18,7 @@ class MockObjectFileGeneratorTests: XCTestCase {
     subject = MockObjectFileGenerator(
       graphqlObject: graphqlObject,
       ir: .mock(compilationResult: .mock()),
-      config: ReferenceWrapped(value: .mock(.other))
+      config: ApolloCodegen.ConfigurationContext(config: .mock(.other))
     )
   }
 

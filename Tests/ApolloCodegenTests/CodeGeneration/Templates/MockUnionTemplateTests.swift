@@ -26,7 +26,7 @@ class MockUnionTemplateTests: XCTestCase {
 
     subject = MockUnionTemplate(
       graphqlUnion: GraphQLUnionType.mock(name, types: types),
-      config: ReferenceWrapped(value: config),
+      config: ApolloCodegen.ConfigurationContext(config: config),
       ir: ir
     )
   }

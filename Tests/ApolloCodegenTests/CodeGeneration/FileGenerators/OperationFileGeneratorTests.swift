@@ -44,7 +44,7 @@ class OperationFileGeneratorTests: XCTestCase {
     let ir = try IR.mock(schema: schemaSDL, document: operationDocument)
     irOperation = ir.build(operation: ir.compilationResult.operations[0])
 
-    let config = ReferenceWrapped(value: ApolloCodegenConfiguration.mock())
+    let config = ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration.mock())
     
     subject = OperationFileGenerator(irOperation: irOperation, schema: ir.schema, config: config)
   }

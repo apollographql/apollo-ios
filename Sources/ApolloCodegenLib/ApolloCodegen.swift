@@ -30,29 +30,44 @@ public class ApolloCodegen {
   public static func build(with configuration: ApolloCodegenConfiguration) throws {
     try configuration.validate()
 
-    let referenceConfig = ReferenceWrapped(value: configuration)
+    let configContext = ConfigurationContext(config: configuration)
     let compilationResult = try compileGraphQLResult(
-      referenceConfig,
+      configContext,
       experimentalFeatures: configuration.experimentalFeatures
     )
 
     let ir = IR(
-      schemaName: referenceConfig.schemaName,
+      schemaName: configContext.schemaName,
       compilationResult: compilationResult
     )
 
     try generateFiles(
       compilationResult: compilationResult,
       ir: ir,
-      config: referenceConfig
+      config: configContext
     )
   }
 
   // MARK: Internal
 
+  @dynamicMemberLookup
+  class ConfigurationContext {
+    let config: ApolloCodegenConfiguration
+    let pluralizer: Pluralizer
+
+    init(config: ApolloCodegenConfiguration) {
+      self.config = config
+      self.pluralizer = Pluralizer(rules: config.options.additionalInflectionRules)
+    }
+
+    subscript<T>(dynamicMember keyPath: KeyPath<ApolloCodegenConfiguration, T>) -> T {
+      config[keyPath: keyPath]
+    }
+  }
+
   /// Performs GraphQL source validation and compiles the schema and operation source documents.
   static func compileGraphQLResult(
-    _ config: ReferenceWrapped<ApolloCodegenConfiguration>,
+    _ config: ConfigurationContext,
     experimentalFeatures: ApolloCodegenConfiguration.ExperimentalFeatures = .init()
   ) throws -> CompilationResult {
     let frontend = try GraphQLJSFrontend()
@@ -79,7 +94,7 @@ public class ApolloCodegen {
   }
 
   private static func createSchema(
-    _ config: ReferenceWrapped<ApolloCodegenConfiguration>,
+    _ config: ConfigurationContext,
     _ frontend: GraphQLJSFrontend
   ) throws -> GraphQLSchema {
     let matches = try Glob(config.input.schemaSearchPaths).match()
@@ -88,7 +103,7 @@ public class ApolloCodegen {
   }
 
   private static func createOperationsDocument(
-    _ config: ReferenceWrapped<ApolloCodegenConfiguration>,
+    _ config: ConfigurationContext,
     _ frontend: GraphQLJSFrontend,
     _ experimentalFeatures: ApolloCodegenConfiguration.ExperimentalFeatures
   ) throws -> GraphQLDocument {
@@ -106,7 +121,7 @@ public class ApolloCodegen {
   static func generateFiles(
     compilationResult: CompilationResult,
     ir: IR,
-    config: ReferenceWrapped<ApolloCodegenConfiguration>,
+    config: ConfigurationContext,
     fileManager: FileManager = FileManager.default
   ) throws {
     for fragment in compilationResult.fragments {

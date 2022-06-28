@@ -17,7 +17,7 @@ class SchemaFileGeneratorTests: XCTestCase {
   private func buildSubject() {
     subject = SchemaFileGenerator(
       schema: irSchema,
-      config: ReferenceWrapped(value: ApolloCodegenConfiguration.mock())
+      config: ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration.mock())
     )
   }
 

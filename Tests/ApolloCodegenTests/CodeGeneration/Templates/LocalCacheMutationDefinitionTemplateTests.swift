@@ -56,7 +56,7 @@ class LocalCacheMutationDefinitionTemplateTests: XCTestCase {
     subject = LocalCacheMutationDefinitionTemplate(
       operation: operation,
       schema: ir.schema,
-      config: ReferenceWrapped(value: config)
+      config: ApolloCodegen.ConfigurationContext(config: config)
     )
   }
 

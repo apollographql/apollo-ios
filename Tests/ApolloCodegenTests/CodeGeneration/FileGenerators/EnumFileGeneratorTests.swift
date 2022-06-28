@@ -17,7 +17,7 @@ class EnumFileGeneratorTests: XCTestCase {
   private func buildSubject() {
     subject = EnumFileGenerator(
       graphqlEnum: graphqlEnum,
-      config: ReferenceWrapped(value: ApolloCodegenConfiguration.mock())
+      config: ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration.mock())
     )
   }
 

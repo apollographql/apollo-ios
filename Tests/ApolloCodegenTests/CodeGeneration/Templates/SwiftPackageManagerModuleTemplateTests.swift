@@ -20,7 +20,7 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
     subject = .init(
       moduleName: moduleName,
       testMockConfig: testMockConfig,
-      config: .init(value: config)
+      config: .init(config: config)
     )
   }
 

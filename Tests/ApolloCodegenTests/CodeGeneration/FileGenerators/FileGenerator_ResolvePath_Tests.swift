@@ -81,7 +81,7 @@ class FileGenerator_ResolvePath_Tests: XCTestCase {
   }
 
   private func resolvePath() -> String {
-    subject.resolvePath(forConfig: ReferenceWrapped(value: config))
+    subject.resolvePath(forConfig: ApolloCodegen.ConfigurationContext(config: config))
   }
 
   // MARK: - Resolving Schema Path Tests

@@ -7,7 +7,7 @@ struct SchemaModuleNamespaceTemplate: TemplateRenderer {
   /// Module namespace.
   let namespace: String
 
-  let config: ReferenceWrapped<ApolloCodegenConfiguration>
+  let config: ApolloCodegen.ConfigurationContext
 
   let target: TemplateTarget = .moduleFile
 

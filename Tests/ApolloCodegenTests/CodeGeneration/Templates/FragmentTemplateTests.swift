@@ -54,7 +54,7 @@ class FragmentTemplateTests: XCTestCase {
     subject = FragmentTemplate(
       fragment: fragment,
       schema: ir.schema,
-      config: ReferenceWrapped(value: config)
+      config: ApolloCodegen.ConfigurationContext(config: config)
     )
   }
 

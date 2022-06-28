@@ -34,7 +34,7 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
     subject = SelectionSetTemplate(
       schema: ir.schema,
       mutable: true,
-      config: ReferenceWrapped(value: .mock())
+      config: .init(config: .mock())
     )
   }
 

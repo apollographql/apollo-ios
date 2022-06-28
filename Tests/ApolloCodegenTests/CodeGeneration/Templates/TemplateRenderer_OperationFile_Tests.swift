@@ -21,7 +21,7 @@ class TemplateRenderer_OperationFile_Tests: XCTestCase {
   }
 
   private func buildSubject(config: ApolloCodegenConfiguration = .mock()) -> MockFileTemplate {
-    MockFileTemplate(target: .operationFile, config: ReferenceWrapped(value: config))
+    MockFileTemplate(target: .operationFile, config: ApolloCodegen.ConfigurationContext(config: config))
   }
 
   // MARK: Render Target .operationFile Tests

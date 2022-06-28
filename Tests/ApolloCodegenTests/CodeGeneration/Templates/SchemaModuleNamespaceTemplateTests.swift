@@ -16,7 +16,7 @@ class SchemaModuleNamespaceTemplateTests: XCTestCase {
     // when
     let subject = SchemaModuleNamespaceTemplate(
       namespace: "namespacedModule",
-      config: .init(value: .mock())
+      config: .init(config: .mock())
     )
     let actual = subject.template.description
 

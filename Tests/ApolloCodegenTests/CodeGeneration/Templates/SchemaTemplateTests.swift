@@ -22,7 +22,7 @@ class SchemaTemplateTests: XCTestCase {
   ) {
     subject = SchemaTemplate(
       schema: IR.Schema(name: name, referencedTypes: referencedTypes),
-      config: ReferenceWrapped(value: config)
+      config: ApolloCodegen.ConfigurationContext(config: config)
     )
   }
 

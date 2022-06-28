@@ -5,7 +5,7 @@ struct MockObjectTemplate: TemplateRenderer {
   /// IR representation of source [GraphQL Object](https://spec.graphql.org/draft/#sec-Objects).
   let graphqlObject: GraphQLObjectType
 
-  let config: ReferenceWrapped<ApolloCodegenConfiguration>
+  let config: ApolloCodegen.ConfigurationContext
 
   let ir: IR
 
@@ -18,7 +18,7 @@ struct MockObjectTemplate: TemplateRenderer {
       .map {
         (
           name: $0.0,
-          type: $0.1.rendered(as: .testMockField(forceNonNull: true), config: config.value),
+          type: $0.1.rendered(as: .testMockField(forceNonNull: true), config: config.config),
           mockType: mockTypeName(for: $0.1)
         )
       }
@@ -74,7 +74,7 @@ struct MockObjectTemplate: TemplateRenderer {
       case .scalar,
           .enum,
           .inputObject:
-        return type.rendered(as: .testMockField(forceNonNull: true), config: config.value)
+        return type.rendered(as: .testMockField(forceNonNull: true), config: config.config)
       case .nonNull(let graphQLType):
         return nameReplacement(for: graphQLType, forceNonNull: true)
       case .list(let graphQLType):

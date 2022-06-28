@@ -7,7 +7,7 @@ struct EnumTemplate: TemplateRenderer {
   /// IR representation of source [GraphQL Enum](https://spec.graphql.org/draft/#sec-Enums).
   let graphqlEnum: GraphQLEnumType
 
-  let config: ReferenceWrapped<ApolloCodegenConfiguration>
+  let config: ApolloCodegen.ConfigurationContext
 
   let target: TemplateTarget = .schemaFile
 

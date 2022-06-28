@@ -6,7 +6,7 @@ struct EnumFileGenerator: FileGenerator {
   /// Source GraphQL enum.
   let graphqlEnum: GraphQLEnumType
   /// Shared codegen configuration.
-  let config: ReferenceWrapped<ApolloCodegenConfiguration>
+  let config: ApolloCodegen.ConfigurationContext
 
   var template: TemplateRenderer {
     EnumTemplate(graphqlEnum: graphqlEnum, config: config)

@@ -20,7 +20,7 @@ extension FileGenerator {
   ///   - config: Shared codegen configuration.
   ///   - fileManager: The `FileManager` object used to create the file. Defaults to `FileManager.default`.
   func generate(
-    forConfig config: ReferenceWrapped<ApolloCodegenConfiguration>,
+    forConfig config: ApolloCodegen.ConfigurationContext,
     fileManager: FileManager = FileManager.default
   ) throws {
     let directoryPath = target.resolvePath(forConfig: config)
@@ -78,7 +78,7 @@ enum FileTarget: Equatable {
   }
 
   func resolvePath(
-    forConfig config: ReferenceWrapped<ApolloCodegenConfiguration>
+    forConfig config: ApolloCodegen.ConfigurationContext
   ) -> String {
     switch self {
     case .object, .enum, .interface, .union, .inputObject, .customScalar, .schema:
@@ -102,7 +102,7 @@ enum FileTarget: Equatable {
   }
 
   private func resolveSchemaPath(
-    forConfig config: ReferenceWrapped<ApolloCodegenConfiguration>
+    forConfig config: ApolloCodegen.ConfigurationContext
   ) -> String {
     var moduleSubpath: String = "/"
     if config.output.schemaTypes.moduleType == .swiftPackageManager {
@@ -117,7 +117,7 @@ enum FileTarget: Equatable {
   }
 
   private func resolveFragmentPath(
-    forConfig config: ReferenceWrapped<ApolloCodegenConfiguration>,
+    forConfig config: ApolloCodegen.ConfigurationContext,
     fragment: CompilationResult.FragmentDefinition
   ) -> String {
     switch config.output.operations {
@@ -151,7 +151,7 @@ enum FileTarget: Equatable {
   }
 
   private func resolveOperationPath(
-    forConfig config: ReferenceWrapped<ApolloCodegenConfiguration>,
+    forConfig config: ApolloCodegen.ConfigurationContext,
     operation: CompilationResult.OperationDefinition
   ) -> String {
     switch config.output.operations {
@@ -180,7 +180,7 @@ enum FileTarget: Equatable {
   }
 
   private func resolveTestMockPath(
-    forConfig config: ReferenceWrapped<ApolloCodegenConfiguration>
+    forConfig config: ApolloCodegen.ConfigurationContext
   ) -> String {
     switch config.output.testMocks {
     case .none:

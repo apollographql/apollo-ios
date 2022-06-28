@@ -17,7 +17,7 @@ class CustomScalarFileGeneratorTests: XCTestCase {
   private func buildSubject() {
     subject = CustomScalarFileGenerator(
       graphqlScalar: graphqlScalar,
-      config: ReferenceWrapped(value: ApolloCodegenConfiguration.mock())
+      config: ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration.mock())
     )
   }
 
