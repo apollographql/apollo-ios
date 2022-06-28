@@ -289,6 +289,12 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     ///
     /// See `APQConfig` for more information on Automatic Persisted Queries.
     public let apqs: APQConfig
+    /// Annotate generated Swift code with the Swift `available` attribute and `deprecated`
+    /// argument for parts of the GraphQL schema annotated with the built-in `@deprecated`
+    /// directive.
+    ///
+    /// This is currently limited to enum values.
+    public let warningsOnDeprecatedUsage: Composition
 
     /// Designated initializer.
     ///
@@ -305,13 +311,15 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       queryStringLiteralFormat: QueryStringLiteralFormat = .multiline,
       deprecatedEnumCases: Composition = .include,
       schemaDocumentation: Composition = .include,
-      apqs: APQConfig = .disabled
+      apqs: APQConfig = .disabled,
+      warningsOnDeprecatedUsage: Composition = .include
     ) {
       self.additionalInflectionRules = additionalInflectionRules
       self.queryStringLiteralFormat = queryStringLiteralFormat
       self.deprecatedEnumCases = deprecatedEnumCases
       self.schemaDocumentation = schemaDocumentation
       self.apqs = apqs
+      self.warningsOnDeprecatedUsage = warningsOnDeprecatedUsage
     }
   }
 

@@ -147,6 +147,7 @@ class InitializeTests: XCTestCase {
     "schemaName" : "GraphQLSchemaName",
     "options" : {
       "schemaDocumentation" : "include",
+      "warningsOnDeprecatedUsage" : "include",
       "deprecatedEnumCases" : "include",
       "apqs" : "disabled",
       "additionalInflectionRules" : [
@@ -214,7 +215,7 @@ class InitializeTests: XCTestCase {
       let expectedPath = URL(fileURLWithPath: outputPath).standardizedFileURL.path
 
       expect(actualPath).to(equal(expectedPath))
-      expect(data).to(equal(self.expectedJSON.data(using: .utf8)!))
+      expect(data?.asString).to(equal(self.expectedJSON))
 
       return true
     }))
@@ -280,7 +281,7 @@ class InitializeTests: XCTestCase {
       let expectedPath = URL(fileURLWithPath: outputPath).standardizedFileURL.path
 
       expect(actualPath).to(equal(expectedPath))
-      expect(data).to(equal(self.expectedJSON.data(using: .utf8)!))
+      expect(data?.asString).to(equal(self.expectedJSON))
 
       return true
     }))
@@ -310,13 +311,12 @@ class InitializeTests: XCTestCase {
     subject.waitUntilExit()
 
     let data = pipe.fileHandleForReading.readDataToEndOfFile()
-    let output = String(data: data, encoding: .utf8)
 
     // Printing to STDOUT appends a newline
     let expected = expectedJSON + "\n"
 
     // then
-    expect(output).to(equal(expected))
+    expect(data.asString).to(equal(expected))
   }
 
   func test__output__givenParameters_bothPathAndPrint_shouldPrintToStandardOutput() throws {
@@ -339,12 +339,17 @@ class InitializeTests: XCTestCase {
     subject.waitUntilExit()
 
     let data = pipe.fileHandleForReading.readDataToEndOfFile()
-    let output = String(data: data, encoding: .utf8)
 
     // Printing to STDOUT appends a newline
     let expected = expectedJSON + "\n"
 
     // then
-    expect(output).to(equal(expected))
+    expect(data.asString).to(equal(expected))
+  }
+}
+
+extension Data {
+  fileprivate var asString: String? {
+    return String(data: self, encoding: .utf8)
   }
 }
