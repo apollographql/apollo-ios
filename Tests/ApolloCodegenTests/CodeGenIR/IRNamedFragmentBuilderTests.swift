@@ -72,7 +72,8 @@ class IRNamedFragmentBuilderTests: XCTestCase {
     expect(self.subject.rootField.selectionSet.entity.rootType).to(equal(Object_Animal))
     expect(self.subject.rootField.selectionSet.entity.rootTypePath)
       .to(equal(LinkedList(Object_Animal)))
-    expect(self.subject.rootField.selectionSet.entity.fieldPath).to(equal(ResponsePath("TestFragment")))
+    expect(self.subject.rootField.selectionSet.entity.fieldPath)
+      .to(equal([.init(name: "TestFragment", type: .nonNull(.entity(Object_Animal)))]))
   }
 
   func test__buildFragment__givenFragment_hasNamedFragmentInBuiltFragments() throws {
@@ -206,13 +207,27 @@ class IRNamedFragmentBuilderTests: XCTestCase {
 
     let Interface_Animal = try schema[interface: "Animal"].xctUnwrapped()
 
-    let rootFieldPath: ResponsePath = ["TestFragment"]
-    let test1FieldPath: ResponsePath = ["TestFragment", "test1"]
-    let test2FieldPath: ResponsePath = ["TestFragment", "test1", "test2"]
-    let test_details1FieldPath: ResponsePath = ["TestFragment", "test1", "test2", "details1"]
-    let test_details2FieldPath: ResponsePath = ["TestFragment", "test1", "test2", "details1", "details2"]
-    let root_details1FieldPath: ResponsePath = ["TestFragment", "details1"]
-    let root_details2FieldPath: ResponsePath = ["TestFragment", "details1", "details2"]
+    let field_root = subject.rootField
+    let field_test1 = try field_root[field: "test1"].xctUnwrapped()
+    let field_test1_test2 = try field_test1[field: "test2"].xctUnwrapped()
+
+    let field_test1_test2_details1 = try field_test1_test2[field: "details1"].xctUnwrapped()
+    let field_test1_test2_details1_details2 = try field_test1_test2_details1[field: "details2"].xctUnwrapped()
+
+    let field_root_details1 = try field_root[field: "details1"].xctUnwrapped()
+    let field_root_details1_details2 = try field_root_details1[field: "details2"].xctUnwrapped()
+
+    let rootFieldPath: IR.Entity.FieldPath = [.init(subject.rootField.underlyingField)]
+    let test1FieldPath: IR.Entity.FieldPath = rootFieldPath + [.init(field_test1.underlyingField)]
+    let test2FieldPath: IR.Entity.FieldPath = test1FieldPath + [.init(field_test1_test2.underlyingField)]
+    let test_details1FieldPath: IR.Entity.FieldPath =
+    test2FieldPath + [.init(field_test1_test2_details1.underlyingField)]
+    let test_details2FieldPath: IR.Entity.FieldPath =
+    test_details1FieldPath + [.init(field_test1_test2_details1_details2.underlyingField)]
+    let root_details1FieldPath: IR.Entity.FieldPath =
+    rootFieldPath + [.init(field_root_details1.underlyingField)]
+    let root_details2FieldPath: IR.Entity.FieldPath =
+    root_details1FieldPath + [.init(field_root_details1_details2.underlyingField)]
 
     let rootTypePath: LinkedList<GraphQLCompositeType> = [Interface_Animal]
     let test1TypePath: LinkedList<GraphQLCompositeType> = [Interface_Animal, Interface_Animal]
@@ -222,7 +237,7 @@ class IRNamedFragmentBuilderTests: XCTestCase {
     let root_details1TypePath: LinkedList<GraphQLCompositeType> = [Interface_Animal, Interface_Animal]
     let root_details2TypePath: LinkedList<GraphQLCompositeType> = [Interface_Animal, Interface_Animal, Interface_Animal]
 
-    let expected: [ResponsePath: IR.Entity] = [
+    let expected: [IR.Entity.FieldPath: IR.Entity] = [
       rootFieldPath: IR.Entity(rootTypePath: rootTypePath, fieldPath: rootFieldPath),
       test1FieldPath: IR.Entity(rootTypePath: test1TypePath, fieldPath: test1FieldPath),
       test2FieldPath: IR.Entity(rootTypePath: test2TypePath, fieldPath: test2FieldPath),
@@ -238,11 +253,19 @@ class IRNamedFragmentBuilderTests: XCTestCase {
 
 }
 
+// MARK: - Helpers
+
+extension IR.Entity.FieldPathComponent {
+  init(_ field: CompilationResult.Field) {
+    self.init(name: field.responseKey, type: field.type)    
+  }
+}
+
 // MARK: - Custom Matchers
 
 fileprivate func match(
-  _ expectedValue: [ResponsePath: IR.Entity]
-) -> Predicate<[ResponsePath: IR.Entity]> {
+  _ expectedValue: [IR.Entity.FieldPath: IR.Entity]
+) -> Predicate<[IR.Entity.FieldPath: IR.Entity]> {
   return Predicate.define { actual in
     let message: ExpectationMessage = .expectedActualValueTo("equal \(expectedValue)")
     guard var actual = try actual.evaluate(),

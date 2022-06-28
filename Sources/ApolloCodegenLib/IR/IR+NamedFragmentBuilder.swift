@@ -9,15 +9,15 @@ extension IR {
       return fragment
     }
 
-    let rootEntity = Entity(
-      rootTypePath: LinkedList(fragmentDefinition.type),
-      fieldPath: ResponsePath(fragmentDefinition.name)
-    )
-
     let rootField = CompilationResult.Field(
       name: fragmentDefinition.name,
       type: .nonNull(.entity(fragmentDefinition.type)),
       selectionSet: fragmentDefinition.selectionSet
+    )
+
+    let rootEntity = Entity(
+      rootTypePath: LinkedList(fragmentDefinition.type),
+      fieldPath: [.init(name: rootField.name, type: rootField.type)]
     )
 
     let result = RootFieldBuilder.buildRootEntityField(

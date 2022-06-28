@@ -78,7 +78,7 @@ struct SelectionSetTemplate {
     """
     /// \(SelectionSetNameGenerator.generatedSelectionSetName(
     from: selectionSet.scopePath.head,
-    withFieldPath: selectionSet.entity.fieldPath.toArray(),
+    withFieldPath: selectionSet.entity.fieldPath.head,
     removingFirst: true,
     pluralizer: config.pluralizer))
     """
@@ -451,9 +451,35 @@ fileprivate extension IR.SelectionSet {
 fileprivate extension IR.EntityField {
 
   func formattedFieldName(with pluralizer: Pluralizer) -> String {
-    return pluralizer.singularize(responseKey.firstUppercased)
+    IR.Entity.FieldPathComponent(name: responseKey, type: type)
+      .formattedFieldName(with: pluralizer)
   }
 
+}
+
+fileprivate extension IR.Entity.FieldPathComponent {
+
+  func formattedFieldName(with pluralizer: Pluralizer) -> String {
+    let fieldName = name.firstUppercased
+    if type.isListType {
+      return pluralizer.singularize(fieldName)
+    } else {
+      return fieldName
+    }
+  }
+
+}
+
+fileprivate extension GraphQLType {
+
+  var isListType: Bool {
+    switch self {
+    case .list: return true
+    case let .nonNull(innerType): return innerType.isListType
+    case .entity, .enum, .inputObject, .scalar: return false
+    }
+  }
+  
 }
 
 fileprivate extension IR.MergedSelections.MergedSource {
@@ -481,9 +507,9 @@ fileprivate extension IR.MergedSelections.MergedSource {
       nodesToSharedRoot += 1
     }
 
-    let fieldPath = Array(typeInfo.entity.fieldPath
-                            .toArray()
-                            .suffix(nodesToSharedRoot + 1))
+    let fieldPath = typeInfo.entity.fieldPath.node(
+      at: typeInfo.entity.fieldPath.count - (nodesToSharedRoot + 1)
+    )
 
     let selectionSetName = SelectionSetNameGenerator.generatedSelectionSetName(
       from: sourceTypePathCurrentNode,
@@ -512,7 +538,7 @@ fileprivate extension IR.MergedSelections.MergedSource {
       selectionSetNameComponents.append(
         SelectionSetNameGenerator.generatedSelectionSetName(
           from: fragmentNestedTypePath,
-          withFieldPath: Array(typeInfo.entity.fieldPath.toArray().dropFirst()),
+          withFieldPath: typeInfo.entity.fieldPath.head.next.unsafelyUnwrapped,
           pluralizer: pluralizer
         )
       )
@@ -527,26 +553,29 @@ fileprivate struct SelectionSetNameGenerator {
 
   static func generatedSelectionSetName(
     from typePathNode: LinkedList<IR.ScopeDescriptor>.Node,
-    withFieldPath fieldPath: [String],
+    withFieldPath fieldPathNode: IR.Entity.FieldPath.Node,
     removingFirst: Bool = false,
     pluralizer: Pluralizer
   ) -> String {
-    var currentNode = Optional(typePathNode)
+    var currentTypePathNode = Optional(typePathNode)
+    var currentFieldPathNode = Optional(fieldPathNode)
     var fieldPathIndex = 0
 
     var components: [String] = []
 
     repeat {
-      let fieldName = fieldPath[fieldPathIndex]
-      components.append(pluralizer.singularize(fieldName.firstUppercased))
+      let fieldName = currentFieldPathNode.unsafelyUnwrapped.value
+        .formattedFieldName(with: pluralizer)
+      components.append(fieldName)
 
-      if let conditionNodes = currentNode.unsafelyUnwrapped.value.scopePath.head.next {
+      if let conditionNodes = currentTypePathNode.unsafelyUnwrapped.value.scopePath.head.next {
         ConditionPath.add(conditionNodes, to: &components)
       }
 
       fieldPathIndex += 1
-      currentNode = currentNode.unsafelyUnwrapped.next
-    } while currentNode !== nil
+      currentTypePathNode = currentTypePathNode.unsafelyUnwrapped.next
+      currentFieldPathNode = currentFieldPathNode.unsafelyUnwrapped.next
+    } while currentTypePathNode !== nil
 
     if removingFirst { components.removeFirst() }
 

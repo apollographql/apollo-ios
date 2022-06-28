@@ -60,12 +60,13 @@ extension IR.NamedFragment {
     _ name: String,
     type: GraphQLCompositeType = .mock("MockType")
   ) -> IR.NamedFragment {
+    let rootField = CompilationResult.Field.mock(name, type: .entity(type))
     let rootEntity = IR.Entity(
       rootTypePath: LinkedList(type),
-      fieldPath: ResponsePath(name)
+      fieldPath: [.init(name: name, type: .entity(type))]
     )
-    let rootField = IR.EntityField.init(
-      CompilationResult.Field.mock(),
+    let rootEntityField = IR.EntityField.init(
+      rootField,
       inclusionConditions: nil,
       selectionSet: .init(
         entity: rootEntity,
@@ -78,7 +79,7 @@ extension IR.NamedFragment {
 
     return IR.NamedFragment(
       definition: CompilationResult.FragmentDefinition.mock(name, type: type),
-      rootField: rootField,
+      rootField: rootEntityField,
       referencedFragments: [],
       entities: [rootEntity.fieldPath: rootEntity]
     )
@@ -95,7 +96,7 @@ extension IR.Operation {
                        selectionSet: .init(
                         entity: .init(
                           rootTypePath: [.mock()],
-                          fieldPath: []),
+                          fieldPath: [.init(name: "mock", type: .entity(.mock("name")))]),
                         scopePath: [.descriptor(
                           forType: .mock(),
                           inclusionConditions: nil,

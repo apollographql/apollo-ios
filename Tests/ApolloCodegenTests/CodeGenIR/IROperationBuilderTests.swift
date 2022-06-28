@@ -83,7 +83,8 @@ class IROperationBuilderTests: XCTestCase {
     expect(self.subject.rootField.selectionSet.entity.rootType).to(equal(Object_Query))
     expect(self.subject.rootField.selectionSet.entity.rootTypePath)
       .to(equal(LinkedList(Object_Query)))
-    expect(self.subject.rootField.selectionSet.entity.fieldPath).to(equal(ResponsePath("query")))
+    expect(self.subject.rootField.selectionSet.entity.fieldPath)
+      .to(equal([.init(name: "query", type: .nonNull(.entity(Object_Query)))]))
   }
 
   func test__buildOperation__givenSubscription_hasRootFieldAsSubscription() throws {
@@ -126,7 +127,8 @@ class IROperationBuilderTests: XCTestCase {
     expect(self.subject.rootField.selectionSet.entity.rootType).to(equal(Object_Subscription))
     expect(self.subject.rootField.selectionSet.entity.rootTypePath)
       .to(equal(LinkedList(Object_Subscription)))
-    expect(self.subject.rootField.selectionSet.entity.fieldPath).to(equal(ResponsePath("subscription")))
+    expect(self.subject.rootField.selectionSet.entity.fieldPath)
+      .to(equal([.init(name: "subscription", type: .nonNull(.entity(Object_Subscription)))]))      
   }
 
   func test__buildOperation__givenMutation_hasRootFieldAsMutation() throws {
@@ -169,7 +171,8 @@ class IROperationBuilderTests: XCTestCase {
     expect(self.subject.rootField.selectionSet.entity.rootType).to(equal(Object_Mutation))
     expect(self.subject.rootField.selectionSet.entity.rootTypePath)
       .to(equal(LinkedList(Object_Mutation)))
-    expect(self.subject.rootField.selectionSet.entity.fieldPath).to(equal(ResponsePath("mutation")))
+    expect(self.subject.rootField.selectionSet.entity.fieldPath)
+      .to(equal([.init(name: "mutation", type: .nonNull(.entity(Object_Mutation)))]))
   }
 
   // MARK: - Operation Identifier Computation
