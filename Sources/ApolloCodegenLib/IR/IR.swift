@@ -25,13 +25,19 @@ class IR {
   /// Multiple `SelectionSet`s may select fields on the same `Entity`. All `SelectionSet`s that will
   /// be selected on the same object share the same `Entity`.
   class Entity {
+    struct FieldPathComponent: Hashable {
+      let name: String
+      let type: GraphQLType
+    }
+    typealias FieldPath = LinkedList<FieldPathComponent>
+
     /// The selections that are selected for the entity across all type scopes in the operation.
     /// Represented as a tree.
     let selectionTree: EntitySelectionTree
 
     /// A list of path components indicating the path to the field containing the `Entity` in
     /// an operation or fragment.
-    let fieldPath: ResponsePath
+    let fieldPath: FieldPath
 
     var rootTypePath: LinkedList<GraphQLCompositeType> { selectionTree.rootTypePath }
 
@@ -39,7 +45,7 @@ class IR {
 
     init(
       rootTypePath: LinkedList<GraphQLCompositeType>,
-      fieldPath: ResponsePath
+      fieldPath: FieldPath
     ) {
       self.selectionTree = EntitySelectionTree(rootTypePath: rootTypePath)
       self.fieldPath = fieldPath
@@ -104,7 +110,7 @@ class IR {
     ///
     /// - Note: The ResponsePath for an entity within a fragment will begin with a path component
     /// equal to the fragment's name.
-    let entities: [ResponsePath: IR.Entity]    
+    let entities: [IR.Entity.FieldPath: IR.Entity]
 
     var name: String { definition.name }
     var type: GraphQLCompositeType { definition.type }
@@ -113,7 +119,7 @@ class IR {
       definition: CompilationResult.FragmentDefinition,
       rootField: EntityField,
       referencedFragments: OrderedSet<NamedFragment>,
-      entities: [ResponsePath: IR.Entity]
+      entities: [IR.Entity.FieldPath: IR.Entity]
     ) {
       self.definition = definition
       self.rootField = rootField

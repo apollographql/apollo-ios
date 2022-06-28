@@ -76,6 +76,7 @@ public struct LinkedList<T>: ExpressibleByArrayLiteral {
   }
 
   public init(array: [T]) {
+    precondition(!array.isEmpty, "Cannot initialize LinkedList with an empty array. LinkedList must have at least one element.")
     var segments = array
     let headNode = HeadNode(value: segments.removeFirst())
 
@@ -156,6 +157,22 @@ public struct LinkedList<T>: ExpressibleByArrayLiteral {
     return copy
   }
 
+  // MARK: - Operators
+
+  public static func +<S: Sequence>(
+    lhs: LinkedList<T>,
+    rhs: S
+  ) -> LinkedList<T> where S.Element == T {
+    return lhs.appending(rhs)
+  }
+
+  public static func +=<S: Sequence>(
+    lhs: inout LinkedList<T>,
+    rhs: S
+  ) where S.Element == T {
+    lhs.append(rhs)
+  }
+
 }
 
 extension LinkedList.Node: Equatable where T: Equatable {
@@ -196,16 +213,20 @@ extension LinkedList: Collection {
 
   public var isEmpty: Bool { false }
 
+  public func node(at position: Int) -> Node {
+    let traverseFromFront = position <= last.index / 2
+    let numberOfIndiciesToTarget = traverseFromFront ? position : last.index - position
+
+    var node = traverseFromFront ? head : last
+    for _ in 0..<numberOfIndiciesToTarget {
+      node = traverseFromFront ? node.next.unsafelyUnwrapped : node.previous.unsafelyUnwrapped
+    }
+    return node
+  }
+
   public subscript(position: Int) -> T {
     _read {
-      let traverseFromFront = position <= last.index / 2
-      let numberOfIndiciesToTarget = traverseFromFront ? position : last.index - position
-
-      var node = traverseFromFront ? head : last
-      for _ in 0..<numberOfIndiciesToTarget {
-        node = traverseFromFront ? node.next.unsafelyUnwrapped : node.previous.unsafelyUnwrapped
-      }
-      yield node.value
+      yield node(at: position).value
     }
   }
 

@@ -3569,6 +3569,48 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
   }
 
+  func test__render_nestedSelectionSets__givenDirectEntityFieldAsNonNullList_withIrregularPluralizationRule_rendersNestedSelectionSetWithCorrectSingularName() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+      people: [Animal!]!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        people {
+          species
+        }
+      }
+    }
+    """
+
+    let expected = """
+      public var people: [Person] { __data["people"] }
+
+      /// AllAnimal.Person
+      public struct Person: TestSchema.SelectionSet {
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+  }
+
   func test__render_nestedSelectionSets__givenDirectEntityFieldAsList_withCustomIrregularPluralizationRule_rendersNestedSelectionSetWithCorrectSingularName() throws {
     // given
     schemaSDL = """
@@ -3612,6 +3654,154 @@ class SelectionSetTemplateTests: XCTestCase {
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+  }
+
+  /// Explicit test for edge case surfaced in issue
+  /// [#1825](https://github.com/apollographql/apollo-ios/issues/1825)
+  func test__render_nestedSelectionSets__givenDirectEntityField_withTwoObjects_oneWithPluralizedNameAsObject_oneWithSingularNameAsList_rendersNestedSelectionSetsWithCorrectNames() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      badge: [Badge]
+      badges: ProductBadge
+    }
+
+    type Badge {
+      a: String
+    }
+
+    type ProductBadge {
+      b: String
+    }
+    """
+
+    document = """
+    query TestOperation {
+      badge {
+        a
+      }
+      badges {
+        b
+      }
+    }
+    """
+
+    let expected = """
+      public var badge: [Badge?]? { __data["badge"] }
+      public var badges: Badges? { __data["badges"] }
+
+      /// Badge
+      public struct Badge: TestSchema.SelectionSet {
+        public let __data: DataDict
+        public init(data: DataDict) { __data = data }
+
+        public static var __parentType: ParentType { .Object(TestSchema.Badge.self) }
+        public static var selections: [Selection] { [
+          .field("a", String?.self),
+        ] }
+
+        public var a: String? { __data["a"] }
+      }
+
+      /// Badges
+      public struct Badges: TestSchema.SelectionSet {
+        public let __data: DataDict
+        public init(data: DataDict) { __data = data }
+
+        public static var __parentType: ParentType { .Object(TestSchema.ProductBadge.self) }
+        public static var selections: [Selection] { [
+          .field("b", String?.self),
+        ] }
+
+        public var b: String? { __data["b"] }
+      }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let query = try XCTUnwrap(
+      operation[field: "query"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: query)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))
+  }
+
+  /// Explicit test for edge case surfaced in issue
+  /// [#1825](https://github.com/apollographql/apollo-ios/issues/1825)
+  func test__render_nestedSelectionSets__givenDirectEntityField_withTwoObjectsNonNullFields_oneWithPluralizedNameAsObject_oneWithSingularNameAsList_rendersNestedSelectionSetsWithCorrectNames() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      badge: [Badge!]!
+      badges: ProductBadge!
+    }
+
+    type Badge {
+      a: String
+    }
+
+    type ProductBadge {
+      b: String
+    }
+    """
+
+    document = """
+    query TestOperation {
+      badge {
+        a
+      }
+      badges {
+        b
+      }
+    }
+    """
+
+    let expected = """
+      public var badge: [Badge] { __data["badge"] }
+      public var badges: Badges { __data["badges"] }
+
+      /// Badge
+      public struct Badge: TestSchema.SelectionSet {
+        public let __data: DataDict
+        public init(data: DataDict) { __data = data }
+
+        public static var __parentType: ParentType { .Object(TestSchema.Badge.self) }
+        public static var selections: [Selection] { [
+          .field("a", String?.self),
+        ] }
+
+        public var a: String? { __data["a"] }
+      }
+
+      /// Badges
+      public struct Badges: TestSchema.SelectionSet {
+        public let __data: DataDict
+        public init(data: DataDict) { __data = data }
+
+        public static var __parentType: ParentType { .Object(TestSchema.ProductBadge.self) }
+        public static var selections: [Selection] { [
+          .field("b", String?.self),
+        ] }
+
+        public var b: String? { __data["b"] }
+      }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let query = try XCTUnwrap(
+      operation[field: "query"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: query)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))
   }
 
   func test__render_nestedSelectionSets__givenEntityFieldMergedFromTwoSources_rendersMergedSelectionSet() throws {

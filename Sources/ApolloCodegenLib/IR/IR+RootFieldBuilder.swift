@@ -5,7 +5,7 @@ import ApolloUtils
 extension IR {
 
   class RootFieldEntityStorage {
-    private(set) var entitiesForFields: [ResponsePath: IR.Entity] = [:]
+    private(set) var entitiesForFields: [Entity.FieldPath: IR.Entity] = [:]
 
     init(rootEntity: Entity) {
       entitiesForFields[rootEntity.fieldPath] = rootEntity
@@ -17,7 +17,7 @@ extension IR {
     ) -> Entity {
       let fieldPath = enclosingEntity
         .fieldPath
-        .appending(field.responseKey)
+        .appending(.init(name: field.responseKey, type: field.type))
 
       var rootTypePath: LinkedList<GraphQLCompositeType> {
         guard let fieldType = field.selectionSet?.parentType else {
@@ -35,7 +35,7 @@ extension IR {
       inFragmentSpreadAtTypePath fragmentSpreadTypeInfo: SelectionSet.TypeInfo
     ) -> Entity {
       let fieldPath = fragmentSpreadTypeInfo.entity.fieldPath +
-      otherEntity.fieldPath.toArray().dropFirst()
+      otherEntity.fieldPath.dropFirst()
 
       var rootTypePath: LinkedList<GraphQLCompositeType> {
         let otherRootTypePath = otherEntity.rootTypePath.dropFirst()
@@ -47,7 +47,7 @@ extension IR {
     }
 
     private func createEntity(
-      fieldPath: ResponsePath,
+      fieldPath: Entity.FieldPath,
       rootTypePath: LinkedList<GraphQLCompositeType>
     ) -> Entity {
       let entity = Entity(rootTypePath: rootTypePath, fieldPath: fieldPath)
@@ -67,7 +67,7 @@ extension IR {
     struct Result {
       let rootField: IR.EntityField
       let referencedFragments: ReferencedFragments
-      let entities: [ResponsePath: IR.Entity]
+      let entities: [Entity.FieldPath: IR.Entity]
     }
 
     typealias ReferencedFragments = OrderedSet<NamedFragment>
