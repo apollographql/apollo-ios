@@ -25,9 +25,22 @@ struct EnumTemplate: TemplateRenderer {
   }
 
   private func evaluateDeprecation(graphqlEnumValue: GraphQLEnumValue) -> String? {
-    switch (config.options.deprecatedEnumCases, graphqlEnumValue.deprecationReason) {
-    case (.exclude, .some): return nil
-    default: return "case \(graphqlEnumValue.name)"
+    switch (
+      config.options.deprecatedEnumCases,
+      graphqlEnumValue.deprecationReason,
+      config.options.warningsOnDeprecatedUsage
+    ) {
+    case (.exclude, .some, _):
+      return nil
+
+    case let (.include, .some(reason), .include):
+      return TemplateString("""
+        @available(*, deprecated, message: \"\(reason)\")
+        case \(graphqlEnumValue.name)
+        """).description
+
+    default:
+      return "case \(graphqlEnumValue.name)"
     }
   }
 }
