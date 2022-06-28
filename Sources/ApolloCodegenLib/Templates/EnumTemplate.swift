@@ -17,14 +17,14 @@ struct EnumTemplate: TemplateRenderer {
     \(embeddedAccessControlModifier)\
     enum \(graphqlEnum.name.firstUppercased): String, EnumType {
       \(graphqlEnum.values.compactMap({
-        evaluateDeprecation(graphqlEnumValue: $0)
+        enumCase(for: $0)
       }), separator: "\n")
     }
     """
     )
   }
 
-  private func evaluateDeprecation(graphqlEnumValue: GraphQLEnumValue) -> String? {
+  private func enumCase(for graphqlEnumValue: GraphQLEnumValue) -> String? {
     switch (
       config.options.deprecatedEnumCases,
       graphqlEnumValue.deprecationReason,
