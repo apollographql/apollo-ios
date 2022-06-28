@@ -32,7 +32,8 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
           queryStringLiteralFormat: .multiline,
           deprecatedEnumCases: .exclude,
           schemaDocumentation: .include,
-          apqs: .disabled
+          apqs: .disabled,
+          warningsOnDeprecatedUsage: .include
         ),
         experimentalFeatures: .init(
           clientControlledNullability: true,
@@ -42,7 +43,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
     }
 
     static var encoded: String {
-      "{\"schemaName\":\"SerializedSchema\",\"options\":{\"schemaDocumentation\":\"include\",\"deprecatedEnumCases\":\"exclude\",\"apqs\":\"disabled\",\"additionalInflectionRules\":[{\"pluralization\":{\"singularRegex\":\"animal\",\"replacementRegex\":\"animals\"}}],\"queryStringLiteralFormat\":\"multiline\"},\"input\":{\"operationSearchPaths\":[\"\\/search\\/path\\/**\\/*.graphql\"],\"schemaSearchPaths\":[\"\\/path\\/to\\/schema.graphqls\"]},\"output\":{\"testMocks\":{\"swiftPackage\":{\"targetName\":\"SchemaTestMocks\"}},\"schemaTypes\":{\"path\":\"\\/output\\/path\",\"moduleType\":{\"swiftPackageManager\":{}}},\"operations\":{\"relative\":{\"subpath\":\"\\/relative\\/subpath\"}}},\"experimentalFeatures\":{\"clientControlledNullability\":true,\"legacySafelistingCompatibleOperations\":true}}"
+      "{\"schemaName\":\"SerializedSchema\",\"options\":{\"schemaDocumentation\":\"include\",\"warningsOnDeprecatedUsage\":\"include\",\"deprecatedEnumCases\":\"exclude\",\"apqs\":\"disabled\",\"additionalInflectionRules\":[{\"pluralization\":{\"singularRegex\":\"animal\",\"replacementRegex\":\"animals\"}}],\"queryStringLiteralFormat\":\"multiline\"},\"input\":{\"operationSearchPaths\":[\"\\/search\\/path\\/**\\/*.graphql\"],\"schemaSearchPaths\":[\"\\/path\\/to\\/schema.graphqls\"]},\"output\":{\"testMocks\":{\"swiftPackage\":{\"targetName\":\"SchemaTestMocks\"}},\"schemaTypes\":{\"path\":\"\\/output\\/path\",\"moduleType\":{\"swiftPackageManager\":{}}},\"operations\":{\"relative\":{\"subpath\":\"\\/relative\\/subpath\"}}},\"experimentalFeatures\":{\"clientControlledNullability\":true,\"legacySafelistingCompatibleOperations\":true}}"
     }
   }
 
