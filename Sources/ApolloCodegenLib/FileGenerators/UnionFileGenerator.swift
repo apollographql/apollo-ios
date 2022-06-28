@@ -8,7 +8,7 @@ struct UnionFileGenerator: FileGenerator {
   /// Schema name
   let schemaName: String
   /// Shared codegen configuration.
-  let config: ReferenceWrapped<ApolloCodegenConfiguration>
+  let config: ApolloCodegen.ConfigurationContext
 
   var template: TemplateRenderer { UnionTemplate(
     moduleName: schemaName,

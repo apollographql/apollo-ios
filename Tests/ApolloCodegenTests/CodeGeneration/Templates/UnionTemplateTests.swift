@@ -29,7 +29,7 @@ class UnionTemplateTests: XCTestCase {
           GraphQLObjectType.mock("petRock")
         ]
       ),
-      config: ReferenceWrapped(value: config)
+      config: ApolloCodegen.ConfigurationContext(config: config)
     )
   }
 

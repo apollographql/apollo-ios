@@ -17,7 +17,7 @@ class ObjectFileGeneratorTests: XCTestCase {
   private func buildSubject() {
     subject = ObjectFileGenerator(
       graphqlObject: graphqlObject,
-      config: ReferenceWrapped(value: ApolloCodegenConfiguration.mock())
+      config: ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration.mock())
     )
   }
 

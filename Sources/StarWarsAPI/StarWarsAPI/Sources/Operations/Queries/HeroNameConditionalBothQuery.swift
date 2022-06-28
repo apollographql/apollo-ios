@@ -7,7 +7,8 @@ import ApolloAPI
 
 public class HeroNameConditionalBothQuery: GraphQLQuery {
   public static let operationName: String = "HeroNameConditionalBoth"
-  public static let document: DocumentType = .notPersisted(
+  public static let document: DocumentType = .automaticallyPersisted(
+    operationIdentifier: "66f4dc124b6374b1912b22a2a208e34a4b1997349402a372b95bcfafc7884064",
     definition: .init(
       """
       query HeroNameConditionalBoth($skipName: Boolean!, $includeName: Boolean!) {

@@ -8,7 +8,7 @@ class FileGeneratorTests: XCTestCase {
   let fileManager = MockFileManager(strict: false)
   let directoryURL = CodegenTestHelper.outputFolderURL()
 
-  var config: ReferenceWrapped<ApolloCodegenConfiguration>!
+  var config: ApolloCodegen.ConfigurationContext!
   var fileTarget: FileTarget!
   var template: MockFileTemplate!
   var subject: MockFileGenerator!
@@ -31,7 +31,7 @@ class FileGeneratorTests: XCTestCase {
       path: directoryURL.path
     ))
 
-    config = ReferenceWrapped(value: mockedConfig)
+    config = ApolloCodegen.ConfigurationContext(config: mockedConfig)
   }
 
   private func buildSubject() {

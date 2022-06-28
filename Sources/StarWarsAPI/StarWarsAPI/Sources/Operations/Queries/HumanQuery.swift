@@ -7,7 +7,8 @@ import ApolloAPI
 
 public class HumanQuery: GraphQLQuery {
   public static let operationName: String = "Human"
-  public static let document: DocumentType = .notPersisted(
+  public static let document: DocumentType = .automaticallyPersisted(
+    operationIdentifier: "b37eb69b82fd52358321e49453769750983be1c286744dbf415735d7bcf12f1e",
     definition: .init(
       """
       query Human($id: ID!) {

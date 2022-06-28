@@ -6,7 +6,7 @@ struct ObjectFileGenerator: FileGenerator {
   /// Source GraphQL object.
   let graphqlObject: GraphQLObjectType
   /// Shared codegen configuration.
-  let config: ReferenceWrapped<ApolloCodegenConfiguration>
+  let config: ApolloCodegen.ConfigurationContext
   
   var template: TemplateRenderer {
     ObjectTemplate(graphqlObject: graphqlObject, config: config)

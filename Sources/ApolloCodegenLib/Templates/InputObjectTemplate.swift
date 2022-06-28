@@ -9,7 +9,7 @@ struct InputObjectTemplate: TemplateRenderer {
   /// IR representation of a GraphQL schema.
   let schema: IR.Schema
 
-  let config: ReferenceWrapped<ApolloCodegenConfiguration>
+  let config: ApolloCodegen.ConfigurationContext
 
   let target: TemplateTarget = .schemaFile
 
@@ -41,7 +41,7 @@ struct InputObjectTemplate: TemplateRenderer {
   private func InitializerParametersTemplate() -> TemplateString {
     TemplateString("""
     \(graphqlInputObject.fields.map({
-      "\($1.name): \($1.renderInputValueType(includeDefault: true, config: config.value))"
+      "\($1.name): \($1.renderInputValueType(includeDefault: true, config: config.config))"
     }), separator: ",\n")
     """)
   }
@@ -54,7 +54,7 @@ struct InputObjectTemplate: TemplateRenderer {
 
   private func FieldPropertyTemplate(_ field: GraphQLInputField) -> String {
     """
-    public var \(field.name): \(field.renderInputValueType(config: config.value)) {
+    public var \(field.name): \(field.renderInputValueType(config: config.config)) {
       get { __data.\(field.name) }
       set { __data.\(field.name) = newValue }
     }

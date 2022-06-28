@@ -103,7 +103,14 @@ public final class GraphQLJSFrontend {
   }
 
   /// Compiles a GraphQL document into an intermediate representation that is more suitable for analysis and code generation.
-  public func compile(schema: GraphQLSchema, document: GraphQLDocument) throws -> CompilationResult {
-    return try library.call("compileDocument", with: schema, document)
+  public func compile(
+    schema: GraphQLSchema,
+    document: GraphQLDocument,
+    experimentalLegacySafelistingCompatibleOperations: Bool = false
+  ) throws -> CompilationResult {
+    return try library.call(
+      "compileDocument",
+      with: schema, document, experimentalLegacySafelistingCompatibleOperations
+    )
   }
 }

@@ -5,14 +5,14 @@ struct SelectionSetTemplate {
 
   let schema: IR.Schema
   let isMutable: Bool
-  let config: ReferenceWrapped<ApolloCodegenConfiguration>
+  let config: ApolloCodegen.ConfigurationContext
 
   private let nameCache: SelectionSetNameCache
 
   init(
     schema: IR.Schema,
     mutable: Bool = false,
-    config: ReferenceWrapped<ApolloCodegenConfiguration>
+    config: ApolloCodegen.ConfigurationContext
   ) {
     self.schema = schema
     self.isMutable = mutable
@@ -37,7 +37,7 @@ struct SelectionSetTemplate {
     TemplateString(
     """
     \(SelectionSetNameDocumentation(field.selectionSet))
-    public struct \(field.formattedFieldName): \(SelectionSetType()) {
+    public struct \(field.formattedFieldName(with: config.pluralizer)): \(SelectionSetType()) {
       \(BodyTemplate(field.selectionSet))
     }
     """
@@ -79,7 +79,8 @@ struct SelectionSetTemplate {
     /// \(SelectionSetNameGenerator.generatedSelectionSetName(
     from: selectionSet.scopePath.head,
     withFieldPath: selectionSet.entity.fieldPath.toArray(),
-    removingFirst: true))
+    removingFirst: true,
+    pluralizer: config.pluralizer))
     """
   }
 
@@ -172,7 +173,7 @@ struct SelectionSetTemplate {
     let fieldName: String
     switch field {
     case let scalarField as IR.ScalarField:
-      fieldName = scalarField.type.rendered(as: .selectionSetField(), config: config.value)
+      fieldName = scalarField.type.rendered(as: .selectionSetField(), config: config.config)
 
     case let entityField as IR.EntityField:
       fieldName = self.nameCache.selectionSetType(for: entityField)
@@ -378,9 +379,9 @@ fileprivate class SelectionSetNameCache {
   private var generatedSelectionSetNames: [ObjectIdentifier: String] = [:]
 
   unowned let schema: IR.Schema
-  let config: ReferenceWrapped<ApolloCodegenConfiguration>
+  let config: ApolloCodegen.ConfigurationContext
 
-  init(schema: IR.Schema, config: ReferenceWrapped<ApolloCodegenConfiguration>) {
+  init(schema: IR.Schema, config: ApolloCodegen.ConfigurationContext) {
     self.schema = schema
     self.config = config
   }
@@ -399,7 +400,7 @@ fileprivate class SelectionSetNameCache {
     field.type.rendered(
       as: .selectionSetField(),
       replacingNamedTypeWith: selectionSetName(for: field),
-      config: config.value
+      config: config.config
     )
   }
 
@@ -407,12 +408,12 @@ fileprivate class SelectionSetNameCache {
   func computeGeneratedSelectionSetName(for field: IR.EntityField) -> String {
     let selectionSet = field.selectionSet
     if selectionSet.shouldBeRendered {
-      return field.formattedFieldName
+      return field.formattedFieldName(with: config.pluralizer)
 
     } else {
       return selectionSet.selections.merged.mergedSources
         .first.unsafelyUnwrapped
-        .generatedSelectionSetName(for: selectionSet)
+        .generatedSelectionSetName(for: selectionSet, pluralizer: config.pluralizer)
     }
   }
 }
@@ -449,17 +450,20 @@ fileprivate extension IR.SelectionSet {
 
 fileprivate extension IR.EntityField {
 
-  var formattedFieldName: String {
-    return StringInflector.default.singularize(responseKey.firstUppercased)
+  func formattedFieldName(with pluralizer: Pluralizer) -> String {
+    return pluralizer.singularize(responseKey.firstUppercased)
   }
 
 }
 
 fileprivate extension IR.MergedSelections.MergedSource {
 
-  func generatedSelectionSetName(for selectionSet: IR.SelectionSet) -> String {
+  func generatedSelectionSetName(
+    for selectionSet: IR.SelectionSet,
+    pluralizer: Pluralizer
+  ) -> String {
     if let fragment = fragment {
-      return generatedSelectionSetNameForMergedEntity(in: fragment)
+      return generatedSelectionSetNameForMergedEntity(in: fragment, pluralizer: pluralizer)
     }
 
     var targetTypePathCurrentNode = selectionSet.typeInfo.scopePath.last
@@ -484,13 +488,17 @@ fileprivate extension IR.MergedSelections.MergedSource {
     let selectionSetName = SelectionSetNameGenerator.generatedSelectionSetName(
       from: sourceTypePathCurrentNode,
       withFieldPath: fieldPath,
-      removingFirst: nodesToSharedRoot <= 1
+      removingFirst: nodesToSharedRoot <= 1,
+      pluralizer: pluralizer
     )
 
     return selectionSetName
   }
 
-  private func generatedSelectionSetNameForMergedEntity(in fragment: IR.NamedFragment) -> String {
+  private func generatedSelectionSetNameForMergedEntity(
+    in fragment: IR.NamedFragment,
+    pluralizer: Pluralizer
+  ) -> String {
     var selectionSetNameComponents: [String] = [fragment.definition.name]
 
     let rootEntityScopePath = typeInfo.scopePath.head
@@ -504,7 +512,8 @@ fileprivate extension IR.MergedSelections.MergedSource {
       selectionSetNameComponents.append(
         SelectionSetNameGenerator.generatedSelectionSetName(
           from: fragmentNestedTypePath,
-          withFieldPath: Array(typeInfo.entity.fieldPath.toArray().dropFirst())
+          withFieldPath: Array(typeInfo.entity.fieldPath.toArray().dropFirst()),
+          pluralizer: pluralizer
         )
       )
     }
@@ -519,7 +528,8 @@ fileprivate struct SelectionSetNameGenerator {
   static func generatedSelectionSetName(
     from typePathNode: LinkedList<IR.ScopeDescriptor>.Node,
     withFieldPath fieldPath: [String],
-    removingFirst: Bool = false
+    removingFirst: Bool = false,
+    pluralizer: Pluralizer
   ) -> String {
     var currentNode = Optional(typePathNode)
     var fieldPathIndex = 0
@@ -528,7 +538,7 @@ fileprivate struct SelectionSetNameGenerator {
 
     repeat {
       let fieldName = fieldPath[fieldPathIndex]
-      components.append(StringInflector.default.singularize(fieldName.firstUppercased))
+      components.append(pluralizer.singularize(fieldName.firstUppercased))
 
       if let conditionNodes = currentNode.unsafelyUnwrapped.value.scopePath.head.next {
         ConditionPath.add(conditionNodes, to: &components)

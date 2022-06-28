@@ -32,6 +32,20 @@ extension IR {
   }
 
   public static func mock(
+    schemaJSON: String,
+    document: String,
+    enableCCN: Bool = false
+  ) throws -> IR {
+    let frontend = try GraphQLJSFrontend()
+    let compilationResult = try frontend.compile(
+      schemaJSON: schemaJSON,
+      document: document,
+      enableCCN: enableCCN
+    )
+    return .mock(compilationResult: compilationResult)
+  }
+
+  public static func mock(
     schemaName: String = "TestSchema",
     compilationResult: CompilationResult
   ) -> IR {

@@ -10,12 +10,14 @@ public struct CharacterNameWithInlineFragment: StarWarsAPI.SelectionSet, Fragmen
     fragment CharacterNameWithInlineFragment on Character {
       __typename
       ... on Human {
+        __typename
         friends {
           __typename
           appearsIn
         }
       }
       ... on Droid {
+        __typename
         ...CharacterName
         ...FriendsNames
       }

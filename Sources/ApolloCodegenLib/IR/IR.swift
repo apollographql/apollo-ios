@@ -1,5 +1,6 @@
 import OrderedCollections
 import ApolloUtils
+import CryptoKit
 
 class IR {
 
@@ -53,7 +54,32 @@ class IR {
     let rootField: EntityField
 
     /// All of the fragments that are referenced by this operation's selection set.
-    let referencedFragments: OrderedSet<NamedFragment>    
+    let referencedFragments: OrderedSet<NamedFragment>
+
+    lazy var operationIdentifier: String = {
+      if #available(macOS 10.15, *) {
+        var hasher = SHA256()
+        func updateHash(with source: inout String) {
+          source.withUTF8({ buffer in
+            hasher.update(bufferPointer: UnsafeRawBufferPointer(buffer))
+          })
+        }
+        updateHash(with: &definition.source)
+
+        var newline: String
+        for fragment in referencedFragments {
+          newline = "\n"
+          updateHash(with: &newline)
+          updateHash(with: &fragment.definition.source)
+        }
+
+        let digest = hasher.finalize()
+        return digest.compactMap { String(format: "%02x", $0) }.joined()
+
+      } else {
+        fatalError("Code Generation must be run on macOS 10.15+.")
+      }
+    }()
 
     init(
       definition: CompilationResult.OperationDefinition,

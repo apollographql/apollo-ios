@@ -7,7 +7,7 @@ struct LocalCacheMutationDefinitionTemplate: OperationTemplateRenderer {
   /// IR representation of source GraphQL schema.
   let schema: IR.Schema
 
-  let config: ReferenceWrapped<ApolloCodegenConfiguration>
+  let config: ApolloCodegen.ConfigurationContext
 
   let target: TemplateTarget = .operationFile
 

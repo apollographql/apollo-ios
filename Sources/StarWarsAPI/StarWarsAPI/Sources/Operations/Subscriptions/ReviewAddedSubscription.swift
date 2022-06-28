@@ -7,7 +7,8 @@ import ApolloAPI
 
 public class ReviewAddedSubscription: GraphQLSubscription {
   public static let operationName: String = "ReviewAdded"
-  public static let document: DocumentType = .notPersisted(
+  public static let document: DocumentType = .automaticallyPersisted(
+    operationIdentifier: "38644c5e7cf4fd506b91d2e7010cabf84e63dfcd33cf1deb443b4b32b55e2cbe",
     definition: .init(
       """
       subscription ReviewAdded($episode: Episode) {

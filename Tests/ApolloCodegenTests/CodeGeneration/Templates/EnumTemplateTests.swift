@@ -31,7 +31,7 @@ class EnumTemplateTests: XCTestCase {
         name: name,
         values: values.map({ GraphQLEnumValue.mock(name: $0.0, deprecationReason: $0.1) })
       ),
-      config: ReferenceWrapped(value: config)
+      config: ApolloCodegen.ConfigurationContext(config: config)
     )
   }
 
@@ -131,7 +131,7 @@ class EnumTemplateTests: XCTestCase {
 
   // MARK: Deprecation Tests
 
-  func test__render__givenOption_deprecatedEnumCasesIncluded_whenEnumValueIsDeprecated_shouldGenerateEnumCase() throws {
+  func test__render__givenOption_deprecatedInclude_warningsExclude_whenDeprecation_shouldGenerateEnumCase_noAvailableAttribute() throws {
     // given / when
     buildSubject(
       values: [
@@ -139,7 +139,10 @@ class EnumTemplateTests: XCTestCase {
         ("TWO", "Deprecated for tests"),
         ("THREE", nil)
       ],
-      config: ApolloCodegenConfiguration.mock(options: .init(deprecatedEnumCases: .include))
+      config: ApolloCodegenConfiguration.mock(options: .init(
+        deprecatedEnumCases: .include,
+        warningsOnDeprecatedUsage: .exclude
+      ))
     )
 
     let expected = """
@@ -157,7 +160,37 @@ class EnumTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected))
   }
 
-  func test__render__givenOption_deprecatedEnumCasesExcluded_whenEnumValueIsDeprecated_shouldNotGenerateEnumCase() throws {
+  func test__render__givenOption_deprecatedInclude_warningsInclude_whenDeprecation_shouldGenerateEnumCase_withAvailableAttribute() throws {
+    // given / when
+    buildSubject(
+      values: [
+        ("ONE", nil),
+        ("TWO", "Deprecated for tests"),
+        ("THREE", nil)
+      ],
+      config: ApolloCodegenConfiguration.mock(options: .init(
+        deprecatedEnumCases: .include,
+        warningsOnDeprecatedUsage: .include
+      ))
+    )
+
+    let expected = """
+    enum TestEnum: String, EnumType {
+      case ONE
+      @available(*, deprecated, message: "Deprecated for tests")
+      case TWO
+      case THREE
+    }
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected))
+  }
+
+  func test__render__givenOption_deprecatedExclude_warningsInclude_whenDeprecation_shouldNotGenerateEnumCase() throws {
     // given / when
     buildSubject(
       values: [
@@ -165,7 +198,37 @@ class EnumTemplateTests: XCTestCase {
         ("TWO", nil),
         ("THREE", "Deprecated for tests")
       ],
-      config: ApolloCodegenConfiguration.mock(options: .init(deprecatedEnumCases: .exclude))
+      config: ApolloCodegenConfiguration.mock(options: .init(
+        deprecatedEnumCases: .exclude,
+        warningsOnDeprecatedUsage: .include
+      ))
+    )
+
+    let expected = """
+    enum TestEnum: String, EnumType {
+      case TWO
+    }
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected))
+  }
+
+  func test__render__givenOption_deprecatedExclude_warningsExclude_whenDeprecation_shouldNotGenerateEnumCase() throws {
+    // given / when
+    buildSubject(
+      values: [
+        ("ONE", "Deprecated for tests"),
+        ("TWO", nil),
+        ("THREE", "Deprecated for tests")
+      ],
+      config: ApolloCodegenConfiguration.mock(options: .init(
+        deprecatedEnumCases: .exclude,
+        warningsOnDeprecatedUsage: .exclude
+      ))
     )
 
     let expected = """

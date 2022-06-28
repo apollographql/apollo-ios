@@ -7,7 +7,7 @@ struct EnumTemplate: TemplateRenderer {
   /// IR representation of source [GraphQL Enum](https://spec.graphql.org/draft/#sec-Enums).
   let graphqlEnum: GraphQLEnumType
 
-  let config: ReferenceWrapped<ApolloCodegenConfiguration>
+  let config: ApolloCodegen.ConfigurationContext
 
   let target: TemplateTarget = .schemaFile
 
@@ -17,17 +17,30 @@ struct EnumTemplate: TemplateRenderer {
     \(embeddedAccessControlModifier)\
     enum \(graphqlEnum.name.firstUppercased): String, EnumType {
       \(graphqlEnum.values.compactMap({
-        evaluateDeprecation(graphqlEnumValue: $0)
+        enumCase(for: $0)
       }), separator: "\n")
     }
     """
     )
   }
 
-  private func evaluateDeprecation(graphqlEnumValue: GraphQLEnumValue) -> String? {
-    switch (config.options.deprecatedEnumCases, graphqlEnumValue.deprecationReason) {
-    case (.exclude, .some): return nil
-    default: return "case \(graphqlEnumValue.name)"
+  private func enumCase(for graphqlEnumValue: GraphQLEnumValue) -> String? {
+    switch (
+      config.options.deprecatedEnumCases,
+      graphqlEnumValue.deprecationReason,
+      config.options.warningsOnDeprecatedUsage
+    ) {
+    case (.exclude, .some, _):
+      return nil
+
+    case let (.include, .some(reason), .include):
+      return TemplateString("""
+        @available(*, deprecated, message: \"\(reason)\")
+        case \(graphqlEnumValue.name)
+        """).description
+
+    default:
+      return "case \(graphqlEnumValue.name)"
     }
   }
 }

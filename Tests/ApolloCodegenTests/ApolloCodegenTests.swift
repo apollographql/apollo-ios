@@ -98,7 +98,7 @@ class ApolloCodegenTests: XCTestCase {
       """.data(using: .utf8)!
     createFile(containing: operationData, named: "operation.graphql")
 
-    let config = ReferenceWrapped(value: ApolloCodegenConfiguration.mock(input: .init(
+    let config = ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration.mock(input: .init(
       schemaPath: schemaPath,
       operationSearchPaths: [directoryURL.appendingPathComponent("*.graphql").path]
     )))
@@ -143,7 +143,7 @@ class ApolloCodegenTests: XCTestCase {
       """.data(using: .utf8)!
     createFile(containing: authorsData, named: "authors-operation.graphql")
 
-    let config = ReferenceWrapped(value: ApolloCodegenConfiguration.mock(input: .init(
+    let config = ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration.mock(input: .init(
       schemaPath: schemaPath,
       operationSearchPaths: [directoryURL.appendingPathComponent("*.graphql").path]
     )))
@@ -178,7 +178,7 @@ class ApolloCodegenTests: XCTestCase {
       """.data(using: .utf8)!
     createFile(containing: authorsData, named: "authors-operation.graphql")
 
-    let config = ReferenceWrapped(value: ApolloCodegenConfiguration.mock(input: .init(
+    let config = ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration.mock(input: .init(
       schemaPath: schemaPath,
       operationSearchPaths: [directoryURL.appendingPathComponent("*.graphql").path]
     )))
@@ -206,7 +206,7 @@ class ApolloCodegenTests: XCTestCase {
       """.data(using: .utf8)!
     createFile(containing: authorsData, named: "authors-operation.graphql")
 
-    let config = ReferenceWrapped(value: ApolloCodegenConfiguration.mock(input: .init(
+    let config = ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration.mock(input: .init(
       schemaPath: schemaPath,
       operationSearchPaths: [directoryURL.appendingPathComponent("*.graphql").path]
     )))
@@ -225,7 +225,7 @@ class ApolloCodegenTests: XCTestCase {
     // given
     let schemaPath = createFile(containing: schemaData, named: "schema.graphqls")
 
-    let config = ReferenceWrapped(value: ApolloCodegenConfiguration.mock(input: .init(
+    let config = ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration.mock(input: .init(
       schemaPath: schemaPath,
       operationSearchPaths: [directoryURL.appendingPathComponent("*.graphql").path]
     )))
@@ -270,7 +270,7 @@ class ApolloCodegenTests: XCTestCase {
       named: "TestQuery.graphql")
 
     // when
-    let config = ReferenceWrapped(value: ApolloCodegenConfiguration.mock(input: .init(
+    let config = ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration.mock(input: .init(
       schemaSearchPaths: [directoryURL.appendingPathComponent("schema*.graphqls").path],
       operationSearchPaths: [directoryURL.appendingPathComponent("*.graphql").path]
     )))
@@ -314,7 +314,7 @@ class ApolloCodegenTests: XCTestCase {
       named: "TestSubscription.graphql")
 
     // when
-    let config = ReferenceWrapped(value: ApolloCodegenConfiguration.mock(input: .init(
+    let config = ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration.mock(input: .init(
       schemaSearchPaths: [directoryURL.appendingPathComponent("schema*.graphqls").path],
       operationSearchPaths: [directoryURL.appendingPathComponent("*.graphql").path]
     )))
@@ -353,7 +353,7 @@ class ApolloCodegenTests: XCTestCase {
       named: "TestQuery.graphql")
 
     // when
-    let config = ReferenceWrapped(value: ApolloCodegenConfiguration.mock(input: .init(
+    let config = ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration.mock(input: .init(
       schemaSearchPaths: [directoryURL.appendingPathComponent("schema*.graphqls").path],
       operationSearchPaths: [directoryURL.appendingPathComponent("*.graphql").path]
     )))
@@ -366,10 +366,10 @@ class ApolloCodegenTests: XCTestCase {
 
   func test__compileResults__givenMultipleSchemaFilesWith_introspectionJSONSchema_withSchemaTypeExtension_compilesResultWithExtension() throws {
     // given
-    let introspectionJSON = try String(contentsOf: XCTUnwrap(starWarsAPIBundle.url(
-      forResource: "schema", withExtension: "json"
-    )))
-
+    let introspectionJSON = try String(
+      contentsOf: ApolloCodegenInternalTestHelpers.Resources.StarWars.JSONSchema
+    )
+    
     createFile(body: introspectionJSON, named: "schemaJSON.json")
 
     createFile(
@@ -389,7 +389,7 @@ class ApolloCodegenTests: XCTestCase {
       named: "TestQuery.graphql")
 
     // when
-    let config = ReferenceWrapped(value: ApolloCodegenConfiguration.mock(input: .init(
+    let config = ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration.mock(input: .init(
       schemaSearchPaths: [
         directoryURL.appendingPathComponent("schema*.graphqls").path,
         directoryURL.appendingPathComponent("schema*.json").path,
@@ -405,15 +405,15 @@ class ApolloCodegenTests: XCTestCase {
 
   func test__compileResults__givenMultipleIntrospectionJSONSchemaFiles_throwsError() throws {
     // given
-    let introspectionJSON = try String(contentsOf: XCTUnwrap(starWarsAPIBundle.url(
-      forResource: "schema", withExtension: "json"
-    )))
+    let introspectionJSON = try String(
+      contentsOf: ApolloCodegenInternalTestHelpers.Resources.StarWars.JSONSchema
+    )
 
     createFile(body: introspectionJSON, named: "schemaJSON1.json")
     createFile(body: introspectionJSON, named: "schemaJSON2.json")
 
     // when
-    let config = ReferenceWrapped(value: ApolloCodegenConfiguration.mock(input: .init(
+    let config = ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration.mock(input: .init(
       schemaSearchPaths: [
         directoryURL.appendingPathComponent("schema*.graphqls").path,
         directoryURL.appendingPathComponent("schema*.json").path,
@@ -429,12 +429,12 @@ class ApolloCodegenTests: XCTestCase {
 
   func test_fileGenerators_givenSchemaAndMultipleOperationDocuments_operations_inSchemaModule_shouldGenerateSchemaAndOperationsFiles() throws {
     // given
-    let schemaPath = ApolloCodegenInternalTestHelpers.Resources.AnimalKingdomSchema.path
+    let schemaPath = ApolloCodegenInternalTestHelpers.Resources.AnimalKingdom.Schema.path
     let operationsPath = ApolloCodegenInternalTestHelpers.Resources.url
-      .appendingPathComponent("graphql")
+      .appendingPathComponent("animalkingdom-graphql")
       .appendingPathComponent("*.graphql").path
 
-    let config = ReferenceWrapped(value: ApolloCodegenConfiguration.mock(
+    let config = ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration.mock(
       schemaName: "AnimalKingdomAPI",
       input: .init(
         schemaPath: schemaPath,
@@ -527,14 +527,14 @@ class ApolloCodegenTests: XCTestCase {
 
   func test_fileGenerators_givenSchemaAndMultipleOperationDocuments_operations_absolute_shouldGenerateSchemaAndOperationsFiles() throws {
     // given
-    let schemaPath = ApolloCodegenInternalTestHelpers.Resources.AnimalKingdomSchema.path
+    let schemaPath = ApolloCodegenInternalTestHelpers.Resources.AnimalKingdom.Schema.path
     let operationsPath = ApolloCodegenInternalTestHelpers.Resources.url
-      .appendingPathComponent("graphql")
+      .appendingPathComponent("animalkingdom-graphql")
       .appendingPathComponent("*.graphql").path
 
     let operationsOutputURL = directoryURL.appendingPathComponent("AbsoluteSources")
 
-    let config = ReferenceWrapped(value: ApolloCodegenConfiguration.mock(
+    let config = ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration.mock(
       schemaName: "AnimalKingdomAPI",
       input: .init(
         schemaPath: schemaPath,
@@ -621,12 +621,12 @@ class ApolloCodegenTests: XCTestCase {
 
   func test_fileGenerators_givenSchemaAndMultipleOperationDocuments_shouldGenerateSchemaAndOperationsFiles_CCN() throws {
     // given
-    let schemaPath = ApolloCodegenInternalTestHelpers.Resources.AnimalKingdomSchema.path
+    let schemaPath = ApolloCodegenInternalTestHelpers.Resources.AnimalKingdom.Schema.path
     let operationsPath = ApolloCodegenInternalTestHelpers.Resources.url
-      .appendingPathComponent("graphql")
+      .appendingPathComponent("animalkingdom-graphql")
       .appendingPathComponent("**/*.graphql").path
 
-    let config =  ReferenceWrapped(value: ApolloCodegenConfiguration(
+    let config =  ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration(
       schemaName: "AnimalKingdomAPI",
       input: .init(schemaPath: schemaPath, operationSearchPaths: [operationsPath]),
       output: .mock(
@@ -722,12 +722,12 @@ class ApolloCodegenTests: XCTestCase {
 
   func test_fileGenerators_givenTestMockOutput_absolutePath_shouldGenerateTestMocks() throws {
     // given
-    let schemaPath = ApolloCodegenInternalTestHelpers.Resources.AnimalKingdomSchema.path
+    let schemaPath = ApolloCodegenInternalTestHelpers.Resources.AnimalKingdom.Schema.path
     let operationsPath = ApolloCodegenInternalTestHelpers.Resources.url
-      .appendingPathComponent("graphql")
+      .appendingPathComponent("animalkingdom-graphql")
       .appendingPathComponent("**/*.graphql").path
 
-    let config =  ReferenceWrapped(value: ApolloCodegenConfiguration(
+    let config =  ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration(
       schemaName: "AnimalKingdomAPI",
       input: .init(schemaPath: schemaPath, operationSearchPaths: [operationsPath]),
       output: .init(

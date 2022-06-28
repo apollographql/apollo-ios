@@ -21,7 +21,7 @@ class InterfaceTemplateTests: XCTestCase {
   ) {
     subject = InterfaceTemplate(
       graphqlInterface: GraphQLInterfaceType.mock(name, fields: [:], interfaces: []),
-      config: ReferenceWrapped(value: config)
+      config: ApolloCodegen.ConfigurationContext(config: config)
     )
   }
 

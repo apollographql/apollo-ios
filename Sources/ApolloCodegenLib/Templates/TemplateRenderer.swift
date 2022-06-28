@@ -29,7 +29,7 @@ protocol TemplateRenderer {
   /// A template that can be rendered within any namespace wrapping.
   var template: TemplateString { get }
   /// Shared codegen configuration.
-  var config: ReferenceWrapped<ApolloCodegenConfiguration> { get }
+  var config: ApolloCodegen.ConfigurationContext { get }
 }
 
 // MARK: Extensions
@@ -149,7 +149,7 @@ private struct ImportStatementTemplate {
 
   enum Operation {
     static func template(
-      forConfig config: ReferenceWrapped<ApolloCodegenConfiguration>
+      forConfig config: ApolloCodegen.ConfigurationContext
     ) -> TemplateString {
       """
       \(ImportStatementTemplate.template)
@@ -161,7 +161,7 @@ private struct ImportStatementTemplate {
   }
 
   enum TestMock {
-    static func template(forConfig config: ReferenceWrapped<ApolloCodegenConfiguration>) -> TemplateString {
+    static func template(forConfig config: ApolloCodegen.ConfigurationContext) -> TemplateString {
       return """
       import ApolloTestSupport
       import \(config.schemaModuleName)

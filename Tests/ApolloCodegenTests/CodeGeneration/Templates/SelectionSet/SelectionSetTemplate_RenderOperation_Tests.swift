@@ -31,7 +31,10 @@ class SelectionSetTemplate_RenderOperation_Tests: XCTestCase {
     ir = try .mock(schema: schemaSDL, document: document)
     let operationDefinition = try XCTUnwrap(ir.compilationResult[operation: operationName])
     operation = ir.build(operation: operationDefinition)
-    subject = SelectionSetTemplate(schema: ir.schema, config: ReferenceWrapped(value: .mock()))
+    subject = SelectionSetTemplate(
+      schema: ir.schema,
+      config: ApolloCodegen.ConfigurationContext(config: .mock())
+    )
   }
 
   // MARK: - Tests

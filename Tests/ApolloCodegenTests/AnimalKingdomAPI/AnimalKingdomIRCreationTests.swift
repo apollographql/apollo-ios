@@ -10,12 +10,12 @@ final class AnimalKingdomIRCreationTests: XCTestCase {
   static let frontend = try! GraphQLJSFrontend()
 
   static let schema = try! frontend.loadSchema(from: [
-    try! frontend.makeSource(from: ApolloCodegenInternalTestHelpers.Resources.AnimalKingdomSchema)
+    try! frontend.makeSource(from: ApolloCodegenInternalTestHelpers.Resources.AnimalKingdom.Schema)
   ])
 
   static func operationDocuments(experimentalClientControlledNullability: Bool = false) -> GraphQLDocument {
     try! frontend.mergeDocuments(
-      ApolloCodegenInternalTestHelpers.Resources.GraphQLOperations.map {
+      ApolloCodegenInternalTestHelpers.Resources.AnimalKingdom.GraphQLOperations.map {
         try! frontend.parseDocument(
           from: $0,
           experimentalClientControlledNullability: experimentalClientControlledNullability
@@ -26,7 +26,7 @@ final class AnimalKingdomIRCreationTests: XCTestCase {
 
   static func operationCCNDocuments(experimentalClientControlledNullability: Bool = false) -> GraphQLDocument {
     try! frontend.mergeDocuments(
-      ApolloCodegenInternalTestHelpers.Resources.CCNGraphQLOperations.map {
+      ApolloCodegenInternalTestHelpers.Resources.AnimalKingdom.CCNGraphQLOperations.map {
         try! frontend.parseDocument(
           from: $0,
           experimentalClientControlledNullability: experimentalClientControlledNullability

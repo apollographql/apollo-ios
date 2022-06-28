@@ -13,7 +13,7 @@ struct SwiftPackageManagerModuleTemplate: TemplateRenderer {
 
   let headerTemplate: TemplateString? = nil
 
-  let config: ReferenceWrapped<ApolloCodegenConfiguration>
+  let config: ApolloCodegen.ConfigurationContext
 
   var template: TemplateString {
     let casedModuleName = moduleName.firstUppercased

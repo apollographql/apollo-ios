@@ -7,7 +7,8 @@ import ApolloAPI
 
 public class StarshipQuery: GraphQLQuery {
   public static let operationName: String = "Starship"
-  public static let document: DocumentType = .notPersisted(
+  public static let document: DocumentType = .automaticallyPersisted(
+    operationIdentifier: "a3734516185da9919e3e66d74fe92b60d65292a1943dc54913f7332637dfdd2a",
     definition: .init(
       """
       query Starship {

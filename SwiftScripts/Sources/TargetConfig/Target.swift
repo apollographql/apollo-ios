@@ -31,15 +31,6 @@ public enum Target: CaseIterable {
     }
   }
 
-  public var ccnEnabled: Bool {
-    switch self {
-    case .starWars,
-//        .gitHub,
-        .upload: return false
-    case .animalKingdom: return true
-    }
-  }
-
   public func targetRootURL(fromSourceRoot sourceRootURL: Foundation.URL) -> Foundation.URL {
     switch self {
 //    case .gitHub:
@@ -63,19 +54,16 @@ public enum Target: CaseIterable {
 
   public func inputConfig(fromSourceRoot sourceRootURL: Foundation.URL) -> ApolloCodegenConfiguration.FileInput {
     let targetRootURL = self.targetRootURL(fromSourceRoot: sourceRootURL)
+    let graphQLFolder = graphQLFolder(fromTargetRoot: targetRootURL)
 
     switch self {
     case .upload:
-      let graphQLFolder = targetRootURL.apollo.childFolderURL(folderName: "graphql")
-
       return ApolloCodegenConfiguration.FileInput(
         schemaPath: schemaURL(fromTargetRoot: targetRootURL).path,
         operationSearchPaths: [graphQLFolder.appendingPathComponent("**/*.graphql").path]
       )
       
     case .starWars:
-      let graphQLFolder = targetRootURL.apollo.childFolderURL(folderName: "graphql")
-
       return ApolloCodegenConfiguration.FileInput(
         schemaPath: schemaURL(fromTargetRoot: targetRootURL).path,
         operationSearchPaths: [graphQLFolder.appendingPathComponent("**/*.graphql").path]
@@ -84,7 +72,6 @@ public enum Target: CaseIterable {
 //    case .gitHub:
 //      let outputFileURL = try!  targetRootURL.apollo.childFileURL(fileName: "API.swift")
 //
-//      let graphQLFolderURL = targetRootURL.apollo.childFolderURL(folderName: "graphql")
 //      let schema = try! graphQLFolderURL.apollo.childFileURL(fileName: "schema.docs.graphql")
 //      let operationIDsURL = try! graphQLFolderURL.apollo.childFileURL(fileName: "operationIDs.json")
 //      return ApolloCodegenOptions(includes: "graphql/Queries/**/*.graphql",
@@ -94,8 +81,6 @@ public enum Target: CaseIterable {
 //                                  suppressSwiftMultilineStringLiterals: true,
 //                                  urlToSchemaFile: schema)
     case .animalKingdom:
-      let graphQLFolder = targetRootURL.apollo.childFolderURL(folderName: "graphql")
-
       return ApolloCodegenConfiguration.FileInput(
         schemaPath: graphQLFolder.appendingPathComponent("AnimalSchema.graphqls").path,
         // There is a subdirectory that contains CCN enabled operations in the same `graphQLFolder` as
@@ -106,8 +91,19 @@ public enum Target: CaseIterable {
     }
   }
 
+  private func graphQLFolder(fromTargetRoot targetRootURL: Foundation.URL) -> URL {
+    switch self {
+    case .starWars:
+      return targetRootURL.apollo.childFolderURL(folderName: "starwars-graphql")
+    case .animalKingdom:
+      return targetRootURL.apollo.childFolderURL(folderName: "animalkingdom-graphql")
+    default:
+      return targetRootURL.apollo.childFolderURL(folderName: "graphql")
+    }
+  }
+
   public func schemaURL(fromTargetRoot targetRootURL: Foundation.URL) -> Foundation.URL {
-    let graphQLFolder = targetRootURL.apollo.childFolderURL(folderName: "graphql")
+    let graphQLFolder = graphQLFolder(fromTargetRoot: targetRootURL)
 
     switch self {
     case .starWars:
@@ -135,8 +131,7 @@ public enum Target: CaseIterable {
       operations: .inSchemaModule,
       testMocks: includeTestMocks ? .swiftPackage() : .none,
       operationIdentifiersPath: includeOperationIdentifiers ?
-      try targetRootURL
-        .apollo.childFolderURL(folderName: "graphql")
+      try graphQLFolder(fromTargetRoot: targetRootURL)
         .apollo.childFileURL(fileName: "operationIDs.json")
         .path : nil
     )
@@ -153,6 +148,29 @@ public enum Target: CaseIterable {
     switch self {
     case .animalKingdom: return true
     default: return false
+    }
+  }
+
+  public func options() -> ApolloCodegenConfiguration.OutputOptions {
+    switch self {
+    case .starWars:
+      return .init(apqs: .automaticallyPersist)
+      
+    default:
+      return .init()
+    }
+  }
+
+  public func experimentalFeatures() -> ApolloCodegenConfiguration.ExperimentalFeatures {
+    switch self {
+    case .starWars:
+      return .init(legacySafelistingCompatibleOperations: true)
+
+    case .animalKingdom:
+      return .init(clientControlledNullability: true)
+
+    default:
+      return .init()
     }
   }
 }

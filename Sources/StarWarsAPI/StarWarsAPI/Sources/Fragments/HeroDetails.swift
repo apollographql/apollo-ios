@@ -11,9 +11,11 @@ public struct HeroDetails: StarWarsAPI.SelectionSet, Fragment {
       __typename
       name
       ... on Human {
+        __typename
         height
       }
       ... on Droid {
+        __typename
         primaryFunction
       }
     }

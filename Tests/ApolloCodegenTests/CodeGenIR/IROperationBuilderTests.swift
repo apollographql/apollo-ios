@@ -31,9 +31,19 @@ class IROperationBuilderTests: XCTestCase {
 
   // MARK: = Helpers
 
-  func buildSubjectOperation() throws {
-    ir = try .mock(schema: schemaSDL, document: document)
-    operation = try XCTUnwrap(ir.compilationResult.operations.first)
+  func buildSubjectOperation(
+    named operationName: String? = nil,
+    fromJSONSchema json: Bool = false
+  ) throws {
+    ir = json ?
+    try .mock(schemaJSON: schemaSDL, document: document) :
+    try .mock(schema: schemaSDL, document: document)
+
+    if let operationName = operationName {
+      operation = try XCTUnwrap(ir.compilationResult.operations.first {$0.name == operationName})
+    } else {
+      operation = try XCTUnwrap(ir.compilationResult.operations.first)
+    }
     subject = ir.build(operation: operation)
   }
 
@@ -161,4 +171,45 @@ class IROperationBuilderTests: XCTestCase {
       .to(equal(LinkedList(Object_Mutation)))
     expect(self.subject.rootField.selectionSet.entity.fieldPath).to(equal(ResponsePath("mutation")))
   }
+
+  // MARK: - Operation Identifier Computation
+
+  func test__buildOperation__givenOperationWithNoFragments__hasCorrectOperationIdentifier() throws {
+    // given
+    document = try String(
+      contentsOf: ApolloCodegenInternalTestHelpers.Resources.StarWars.GraphQLOperation(named: "HeroAndFriendsNames")
+    )
+
+    schemaSDL = try String(
+      contentsOf: ApolloCodegenInternalTestHelpers.Resources.StarWars.JSONSchema)
+
+    let expected = "fe3f21394eb861aa515c4d582e645469045793c9cbbeca4b5d4ce4d7dd617556"
+
+    // when
+    try buildSubjectOperation(named: "HeroAndFriendsNames", fromJSONSchema: true)
+
+    // then
+    expect(self.subject.operationIdentifier).to(equal(expected))
+  }
+
+  func test__buildOperation__givenOperationWithFragment__hasCorrectOperationIdentifier() throws {
+    // given
+    document = try String(
+      contentsOf: ApolloCodegenInternalTestHelpers.Resources.StarWars.GraphQLOperation(named: "HeroAndFriendsNamesWithFragment")
+    ) + "\n" + String(
+      contentsOf: ApolloCodegenInternalTestHelpers.Resources.StarWars.GraphQLOperation(named: "HeroName")
+    )
+
+    schemaSDL = try String(
+      contentsOf: ApolloCodegenInternalTestHelpers.Resources.StarWars.JSONSchema)
+
+    let expected = "1d3ad903dad146ff9d7aa09813fc01becd017489bfc1af8ffd178498730a5a26"
+
+    // when
+    try buildSubjectOperation(named: "HeroAndFriendsNamesWithFragment", fromJSONSchema: true)
+
+    // then
+    expect(self.subject.operationIdentifier).to(equal(expected))
+  }
+  
 }

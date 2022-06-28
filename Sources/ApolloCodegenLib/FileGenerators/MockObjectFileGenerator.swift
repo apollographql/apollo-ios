@@ -8,7 +8,7 @@ struct MockObjectFileGenerator: FileGenerator {
 
   let ir: IR
 
-  let config: ReferenceWrapped<ApolloCodegenConfiguration>
+  let config: ApolloCodegen.ConfigurationContext
 
   var template: TemplateRenderer {
     MockObjectTemplate(

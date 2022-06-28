@@ -7,7 +7,8 @@ import ApolloAPI
 
 public class TwoHeroesQuery: GraphQLQuery {
   public static let operationName: String = "TwoHeroes"
-  public static let document: DocumentType = .notPersisted(
+  public static let document: DocumentType = .automaticallyPersisted(
+    operationIdentifier: "b868fa9c48f19b8151c08c09f46831e3b9cd09f5c617d328647de785244b52bb",
     definition: .init(
       """
       query TwoHeroes {

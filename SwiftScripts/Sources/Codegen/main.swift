@@ -58,7 +58,8 @@ struct Codegen: ParsableCommand {
           schemaName: target.moduleName,
           input: inputConfig,
           output: outputConfig,
-          experimentalFeatures: .init(clientControlledNullability: target.ccnEnabled)
+          options: target.options(),
+          experimentalFeatures: target.experimentalFeatures()
         )
       )
     }

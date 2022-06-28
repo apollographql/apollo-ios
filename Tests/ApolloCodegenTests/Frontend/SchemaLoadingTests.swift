@@ -20,7 +20,9 @@ class SchemaLoadingTests: XCTestCase {
   }
   
   func testParseSchemaFromIntrospectionResult() throws {
-    let introspectionResult = try String(contentsOf: XCTUnwrap(starWarsAPIBundle.url(forResource: "schema", withExtension: "json")))
+    let introspectionResult = try String(
+      contentsOf: ApolloCodegenInternalTestHelpers.Resources.StarWars.JSONSchema
+    )
     
     let schema = try codegenFrontend.loadSchema(
       from: [try codegenFrontend.makeSource(introspectionResult, filePath: "schema.json")]
@@ -31,7 +33,9 @@ class SchemaLoadingTests: XCTestCase {
   }
   
   func testParseSchemaFromSDL() throws {
-    let source = try codegenFrontend.makeSource(from: XCTUnwrap(starWarsAPIBundle.url(forResource: "schema", withExtension: "graphqls")))
+    let source = try codegenFrontend.makeSource(
+      from: ApolloCodegenInternalTestHelpers.Resources.StarWars.JSONSchema
+    )
     let schema = try codegenFrontend.loadSchema(from: [source])
     
     let characterType = try XCTUnwrap(schema.getType(named: "Character"))

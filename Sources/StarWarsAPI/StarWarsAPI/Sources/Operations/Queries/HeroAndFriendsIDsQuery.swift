@@ -7,7 +7,8 @@ import ApolloAPI
 
 public class HeroAndFriendsIDsQuery: GraphQLQuery {
   public static let operationName: String = "HeroAndFriendsIDs"
-  public static let document: DocumentType = .notPersisted(
+  public static let document: DocumentType = .automaticallyPersisted(
+    operationIdentifier: "117d0f6831d8f4abe5b61ed1dbb8071b0825e19649916c0fe0906a6f578bb088",
     definition: .init(
       """
       query HeroAndFriendsIDs($episode: Episode) {

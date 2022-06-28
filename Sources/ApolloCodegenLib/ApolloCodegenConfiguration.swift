@@ -289,6 +289,12 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     ///
     /// See `APQConfig` for more information on Automatic Persisted Queries.
     public let apqs: APQConfig
+    /// Annotate generated Swift code with the Swift `available` attribute and `deprecated`
+    /// argument for parts of the GraphQL schema annotated with the built-in `@deprecated`
+    /// directive.
+    ///
+    /// This is currently limited to enum values.
+    public let warningsOnDeprecatedUsage: Composition
 
     /// Designated initializer.
     ///
@@ -305,13 +311,15 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       queryStringLiteralFormat: QueryStringLiteralFormat = .multiline,
       deprecatedEnumCases: Composition = .include,
       schemaDocumentation: Composition = .include,
-      apqs: APQConfig = .disabled
+      apqs: APQConfig = .disabled,
+      warningsOnDeprecatedUsage: Composition = .include
     ) {
       self.additionalInflectionRules = additionalInflectionRules
       self.queryStringLiteralFormat = queryStringLiteralFormat
       self.deprecatedEnumCases = deprecatedEnumCases
       self.schemaDocumentation = schemaDocumentation
       self.apqs = apqs
+      self.warningsOnDeprecatedUsage = warningsOnDeprecatedUsage
     }
   }
 
@@ -359,7 +367,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
 
   public struct ExperimentalFeatures: Codable, Equatable {
     /**
-     * EXPERIMENTAL: If enabled, the parser will understand and parse Client Controlled Nullability
+     * **EXPERIMENTAL**: If enabled, the parser will understand and parse Client Controlled Nullability
      * Designators contained in Fields. They'll be represented in the
      * `required` field of the FieldNode.
      *
@@ -374,13 +382,28 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
      *     }
      *   }
      * ```
-     * Note: this feature is experimental and may change or be removed in the
+     * - Note: This feature is experimental and may change or be removed in the
      * future.
      */
     public let clientControlledNullability: Bool
 
-    public init(clientControlledNullability: Bool = false) {
+    /**
+     * **EXPERIMENTAL**: If enabled, the generated operations will be transformed using a method
+     * that attempts to maintain compatibility with the legacy behavior from
+     * [`apollo-tooling`](https://github.dev/apollographql/apollo-tooling)
+     * for registering persisted operation to a safelist.
+     *
+     * - Note: Safelisting queries is a deprecated feature of Apollo Server that has reduced
+     * support for legacy use cases. This option may not work as intended in all situations.
+     */
+    public let legacySafelistingCompatibleOperations: Bool
+
+    public init(
+      clientControlledNullability: Bool = false,
+      legacySafelistingCompatibleOperations: Bool = false
+    ) {
       self.clientControlledNullability = clientControlledNullability
+      self.legacySafelistingCompatibleOperations = legacySafelistingCompatibleOperations
     }
   }
 
