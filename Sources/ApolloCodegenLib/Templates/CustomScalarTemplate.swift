@@ -7,7 +7,7 @@ struct CustomScalarTemplate: TemplateRenderer {
   /// IR representation of source [GraphQL Custom Scalar](https://spec.graphql.org/draft/#sec-Scalars.Custom-Scalars).
   let graphqlScalar: GraphQLScalarType
 
-  let config: ReferenceWrapped<ApolloCodegenConfiguration>
+  let config: ApolloCodegen.ConfigurationContext
 
   let target: TemplateTarget = .schemaFile
 

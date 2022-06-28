@@ -19,7 +19,7 @@ class InputObjectFileGeneratorTests: XCTestCase {
     subject = InputObjectFileGenerator(
       graphqlInputObject: graphqlInputObject,
       schema: schema,
-      config: ReferenceWrapped(value: ApolloCodegenConfiguration.mock())
+      config: ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration.mock())
     )
   }
 

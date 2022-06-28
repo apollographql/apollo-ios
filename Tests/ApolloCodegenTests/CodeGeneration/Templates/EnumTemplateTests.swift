@@ -31,7 +31,7 @@ class EnumTemplateTests: XCTestCase {
         name: name,
         values: values.map({ GraphQLEnumValue.mock(name: $0.0, deprecationReason: $0.1) })
       ),
-      config: ReferenceWrapped(value: config)
+      config: ApolloCodegen.ConfigurationContext(config: config)
     )
   }
 

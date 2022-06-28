@@ -6,7 +6,7 @@ struct CustomScalarFileGenerator: FileGenerator {
   /// Source GraphQL Custom Scalar..
   let graphqlScalar: GraphQLScalarType
   /// Shared codegen configuration.
-  let config: ReferenceWrapped<ApolloCodegenConfiguration>
+  let config: ApolloCodegen.ConfigurationContext
 
   var template: TemplateRenderer {
     CustomScalarTemplate(graphqlScalar: graphqlScalar, config: config)

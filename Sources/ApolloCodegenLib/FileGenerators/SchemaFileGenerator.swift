@@ -7,7 +7,7 @@ struct SchemaFileGenerator: FileGenerator {
   /// Source IR schema.
   let schema: IR.Schema
   /// Shared codegen configuration
-  let config: ReferenceWrapped<ApolloCodegenConfiguration>
+  let config: ApolloCodegen.ConfigurationContext
 
   var template: TemplateRenderer { SchemaTemplate(schema: schema, config: config) }
   var target: FileTarget { .schema }

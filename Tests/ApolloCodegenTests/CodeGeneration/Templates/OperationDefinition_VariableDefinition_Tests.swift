@@ -20,7 +20,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
     template = OperationDefinitionTemplate(
       operation: .mock(),
       schema: schema,
-      config: .init(value: .mock(output: configOutput))
+      config: .init(config: .mock(output: configOutput))
     )
   }
 

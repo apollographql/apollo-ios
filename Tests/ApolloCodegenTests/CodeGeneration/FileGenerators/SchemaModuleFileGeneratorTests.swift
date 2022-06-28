@@ -20,7 +20,7 @@ class SchemaModuleFileGeneratorTests: XCTestCase {
     // given
     let fileURL = rootURL.appendingPathComponent("Package.swift")
 
-    let configuration = ReferenceWrapped(value: ApolloCodegenConfiguration.mock(
+    let configuration = ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration.mock(
       .swiftPackageManager,
       to: rootURL.path
     ))
@@ -43,7 +43,7 @@ class SchemaModuleFileGeneratorTests: XCTestCase {
     // given
     let fileURL = rootURL.appendingPathComponent("ModuleTestSchema.swift")
 
-    let configuration = ReferenceWrapped(value: ApolloCodegenConfiguration.mock(
+    let configuration = ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration.mock(
       .embeddedInTarget(name: "MockApplication"),
       schemaName: "ModuleTestSchema",
       to: rootURL.path
@@ -65,7 +65,7 @@ class SchemaModuleFileGeneratorTests: XCTestCase {
 
   func test__generate__givenModuleType_other_shouldNotGenerateFile() throws {
     // given
-    let configuration = ReferenceWrapped(value: ApolloCodegenConfiguration.mock(
+    let configuration = ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration.mock(
       .other,
       to: rootURL.path
     ))

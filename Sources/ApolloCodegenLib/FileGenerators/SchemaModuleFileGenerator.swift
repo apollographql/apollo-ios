@@ -8,7 +8,7 @@ struct SchemaModuleFileGenerator {
   ///   - config: A configuration object specifying output behavior.
   ///   - fileManager: `FileManager` object used to create the file. Defaults to `FileManager.default`.
   static func generate(
-    _ config: ReferenceWrapped<ApolloCodegenConfiguration>,
+    _ config: ApolloCodegen.ConfigurationContext,
     fileManager: FileManager = FileManager.default
   ) throws {
 

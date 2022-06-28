@@ -4,7 +4,7 @@ import ApolloUtils
 
 public struct MockFileTemplate: TemplateRenderer {
   public var target: TemplateTarget
-  public var config: ReferenceWrapped<ApolloCodegenConfiguration>
+  public var config: ApolloCodegen.ConfigurationContext
 
   public var template: TemplateString {
     TemplateString(
@@ -30,6 +30,6 @@ public struct MockFileTemplate: TemplateRenderer {
     target: TemplateTarget,
     config: ApolloCodegenConfiguration = .mock()
   ) -> Self {
-    MockFileTemplate(target: target, config: .init(value: config))
+    MockFileTemplate(target: target, config: .init(config: config))
   }
 }

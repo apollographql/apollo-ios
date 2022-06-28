@@ -6,7 +6,7 @@ struct InterfaceFileGenerator: FileGenerator {
   /// Source GraphQL interface.
   let graphqlInterface: GraphQLInterfaceType
   /// Shared codegen configuration.
-  let config: ReferenceWrapped<ApolloCodegenConfiguration>
+  let config: ApolloCodegen.ConfigurationContext
 
   var template: TemplateRenderer {
     InterfaceTemplate(graphqlInterface: graphqlInterface, config: config)

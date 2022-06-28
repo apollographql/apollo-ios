@@ -51,7 +51,7 @@ class FragmentFileGeneratorTests: XCTestCase {
     subject = FragmentFileGenerator(
       irFragment: irFragment,
       schema: ir.schema,
-      config: ReferenceWrapped(value: ApolloCodegenConfiguration.mock())
+      config: ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration.mock())
     )
   }
 

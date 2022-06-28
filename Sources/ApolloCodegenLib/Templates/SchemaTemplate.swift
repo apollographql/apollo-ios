@@ -7,7 +7,7 @@ struct SchemaTemplate: TemplateRenderer {
   // IR representation of source GraphQL schema.
   let schema: IR.Schema
 
-  let config: ReferenceWrapped<ApolloCodegenConfiguration>
+  let config: ApolloCodegen.ConfigurationContext
 
   let schemaName: String
 
@@ -60,7 +60,7 @@ struct SchemaTemplate: TemplateRenderer {
     return protocolDefinition(prefix: "\(schemaName)_", schemaName: schemaName)
   }
 
-  init(schema: IR.Schema, config: ReferenceWrapped<ApolloCodegenConfiguration>) {
+  init(schema: IR.Schema, config: ApolloCodegen.ConfigurationContext) {
     self.schema = schema
     self.schemaName = schema.name.firstUppercased
     self.config = config

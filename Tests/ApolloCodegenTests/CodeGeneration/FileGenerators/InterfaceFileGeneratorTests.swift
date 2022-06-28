@@ -17,7 +17,7 @@ class InterfaceFileGeneratorTests: XCTestCase {
   private func buildSubject() {
     subject = InterfaceFileGenerator(
       graphqlInterface: graphqlInterface,
-      config: ReferenceWrapped(value: ApolloCodegenConfiguration.mock())
+      config: ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration.mock())
     )
   }
 

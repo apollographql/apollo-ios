@@ -18,7 +18,7 @@ class MockUnionFileGeneratorTests: XCTestCase {
     subject = MockUnionFileGenerator(
       graphqlUnion: graphqlUnion,
       ir: .mock(compilationResult: .mock()),
-      config: ReferenceWrapped(value: .mock(.other))
+      config: ApolloCodegen.ConfigurationContext(config: .mock(.other))
     )
   }
 

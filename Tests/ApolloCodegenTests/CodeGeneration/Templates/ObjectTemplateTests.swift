@@ -23,7 +23,7 @@ class ObjectTemplateTests: XCTestCase {
   ) {
     subject = ObjectTemplate(
       graphqlObject: GraphQLObjectType.mock(name, interfaces: interfaces),
-      config: ReferenceWrapped(value: config)
+      config: ApolloCodegen.ConfigurationContext(config: config)
     )
   }
 

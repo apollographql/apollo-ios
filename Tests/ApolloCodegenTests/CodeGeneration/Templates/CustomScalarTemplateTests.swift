@@ -22,7 +22,7 @@ class CustomScalarTemplateTests: XCTestCase {
   ) {
     subject = CustomScalarTemplate(
       graphqlScalar: GraphQLScalarType.mock(name: name),
-      config: ReferenceWrapped(value: config)
+      config: ApolloCodegen.ConfigurationContext(config: config)
     )
   }
 

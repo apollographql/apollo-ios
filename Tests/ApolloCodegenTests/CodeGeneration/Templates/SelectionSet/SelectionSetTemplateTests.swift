@@ -29,13 +29,21 @@ class SelectionSetTemplateTests: XCTestCase {
 
   func buildSubjectAndOperation(
     named operationName: String = "TestOperation",
-    configOutput: ApolloCodegenConfiguration.FileOutput = .mock()
+    configOutput: ApolloCodegenConfiguration.FileOutput = .mock(),
+    inflectionRules: [ApolloCodegenLib.InflectionRule] = []
   ) throws {
     ir = try .mock(schema: schemaSDL, document: document)
     let operationDefinition = try XCTUnwrap(ir.compilationResult[operation: operationName])
     operation = ir.build(operation: operationDefinition)
-    let config = ApolloCodegenConfiguration.mock(schemaName: "TestSchema", output: configOutput)
-    subject = SelectionSetTemplate(schema: ir.schema, config: ReferenceWrapped(value: config))
+    let config = ApolloCodegenConfiguration.mock(
+      schemaName: "TestSchema",
+      output: configOutput,
+      options: .init(additionalInflectionRules: inflectionRules)
+    )
+    subject = SelectionSetTemplate(
+      schema: ir.schema,
+      config: ApolloCodegen.ConfigurationContext(config: config)
+    )
   }
 
   // MARK: - Tests
@@ -3509,6 +3517,93 @@ class SelectionSetTemplateTests: XCTestCase {
 
     // when
     try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+  }
+
+  func test__render_nestedSelectionSets__givenDirectEntityFieldAsList_withIrregularPluralizationRule_rendersNestedSelectionSetWithCorrectSingularName() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+      people: [Animal!]
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        people {
+          species
+        }
+      }
+    }
+    """
+
+    let expected = """
+      public var people: [Person]? { __data["people"] }
+
+      /// AllAnimal.Person
+      public struct Person: TestSchema.SelectionSet {
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+  }
+
+  func test__render_nestedSelectionSets__givenDirectEntityFieldAsList_withCustomIrregularPluralizationRule_rendersNestedSelectionSetWithCorrectSingularName() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+      people: [Animal!]
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        people {
+          species
+        }
+      }
+    }
+    """
+
+    let expected = """
+      public var people: [Peep]? { __data["people"] }
+
+      /// AllAnimal.Peep
+      public struct Peep: TestSchema.SelectionSet {
+    """
+
+    // when
+    try buildSubjectAndOperation(inflectionRules: [
+      ApolloCodegenLib.InflectionRule.irregular(singular: "Peep", plural: "people")
+    ])
+
     let allAnimals = try XCTUnwrap(
       operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
     )
