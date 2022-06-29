@@ -4,32 +4,31 @@ import ApolloUtils
 /// Provides the format to output a file used for APQ registration.
 struct OperationIdentifiersTemplate {
   /// Collection of operation identifiers to be serialized.
-  let operationIdentifiers: [OperationIdentifier]
+  let operationIdentifiers: OperationIdentifierList
 
-  var template: TemplateString {
-    TemplateString(
+  private func template() throws -> TemplateString {
+    let encoder = JSONEncoder()
+    encoder.outputFormatting = .prettyPrinted
+
+    return TemplateString(
     """
     {
-      \(operationIdentifiers.map({ operation in
+      \(try operationIdentifiers.map({ key, value in
       """
-      "\(operation.hash)": {
-        "name": "\(operation.name)",
-        "source": "\(operation.source.jsonEscaped())"
-      }
+      "\(key)" : \(json: try encoder.encode(value))
       """}), separator: ",\n")
     }
     """
     )
   }
 
-  func render() -> String {
-    template.description
+  func render() throws -> String {
+    try template().description
   }
 }
 
-fileprivate extension String {
-  func jsonEscaped() -> String {
-    return replacingOccurrences(of: "\"", with: "\\\"")
-        .replacingOccurrences(of: "\n", with: "\\n")
+fileprivate extension String.StringInterpolation {
+  mutating func appendInterpolation(json jsonData: Data) {
+    appendInterpolation(String(decoding: jsonData, as: UTF8.self))
   }
 }

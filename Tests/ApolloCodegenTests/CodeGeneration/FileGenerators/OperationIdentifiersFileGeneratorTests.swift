@@ -141,9 +141,9 @@ class OperationIdentifierFileGeneratorTests: XCTestCase {
       expect(String(data: data!, encoding: .utf8)).to(equal(
         """
         {
-          "b02d2d734060114f64b24338486748f4f1f00838e07a293cc4e0f73f98fe3dad": {
-            "name": "TestQuery",
-            "source": "query TestQuery {\\n  test\\n}"
+          "b02d2d734060114f64b24338486748f4f1f00838e07a293cc4e0f73f98fe3dad" : {
+            "name" : "TestQuery",
+            "source" : "query TestQuery {\\n  test\\n}"
           }
         }
         """

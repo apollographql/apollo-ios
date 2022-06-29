@@ -17,9 +17,8 @@ class OperationIdentifiersTemplateTests: XCTestCase {
 
   func test__render__givenSingleOperation_shouldOutputJSONFormat() throws {
     // given
-    let operations: [OperationIdentifier] = [
-      OperationIdentifier(
-        hash: "b02d2d734060114f64b24338486748f4f1f00838e07a293cc4e0f73f98fe3dad",
+    let operations: OperationIdentifierList = [
+      "b02d2d734060114f64b24338486748f4f1f00838e07a293cc4e0f73f98fe3dad": OperationDetail(
         name: "TestQuery",
         source: """
         query TestQuery {
@@ -31,9 +30,9 @@ class OperationIdentifiersTemplateTests: XCTestCase {
 
     let expected = """
       {
-        "b02d2d734060114f64b24338486748f4f1f00838e07a293cc4e0f73f98fe3dad": {
-          "name": "TestQuery",
-          "source": "query TestQuery {\\n  test\\n}"
+        "b02d2d734060114f64b24338486748f4f1f00838e07a293cc4e0f73f98fe3dad" : {
+          "name" : "TestQuery",
+          "source" : "query TestQuery {\\n  test\\n}"
         }
       }
       """
@@ -41,16 +40,15 @@ class OperationIdentifiersTemplateTests: XCTestCase {
     subject = OperationIdentifiersTemplate(operationIdentifiers: operations)
 
     // when
-    let rendered = subject.render()
+    let rendered = try subject.render()
 
     expect(rendered).to(equal(expected))
   }
 
   func test__render__givenMultipleOperations_shouldOutputJSONFormat() throws {
     // given
-    let operations: [OperationIdentifier] = [
-      OperationIdentifier(
-        hash: "b02d2d734060114f64b24338486748f4f1f00838e07a293cc4e0f73f98fe3dad",
+    let operations: OperationIdentifierList = [
+      "b02d2d734060114f64b24338486748f4f1f00838e07a293cc4e0f73f98fe3dad": OperationDetail(
         name: "TestQuery",
         source: """
         query TestQuery {
@@ -58,8 +56,7 @@ class OperationIdentifiersTemplateTests: XCTestCase {
         }
         """
       ),
-      OperationIdentifier(
-        hash: "50ed8cda22910b3b708bc69402626f9fe4f1bbaeafb40df9084d029fade5bab1",
+      "50ed8cda22910b3b708bc69402626f9fe4f1bbaeafb40df9084d029fade5bab1": OperationDetail(
         name: "TestMutation",
         source: """
         mutation TestMutation {
@@ -69,8 +66,7 @@ class OperationIdentifiersTemplateTests: XCTestCase {
         }
         """
       ),
-      OperationIdentifier(
-        hash: "55f75259c34f0ccc6b131d23545d9fa79885c93ec785176bd9b6d3c4062fcaed",
+      "55f75259c34f0ccc6b131d23545d9fa79885c93ec785176bd9b6d3c4062fcaed": OperationDetail(
         name: "TestSubscription",
         source: """
         subscription TestSubscription {
@@ -82,17 +78,17 @@ class OperationIdentifiersTemplateTests: XCTestCase {
 
     let expected = """
       {
-        "b02d2d734060114f64b24338486748f4f1f00838e07a293cc4e0f73f98fe3dad": {
-          "name": "TestQuery",
-          "source": "query TestQuery {\\n  test\\n}"
+        "b02d2d734060114f64b24338486748f4f1f00838e07a293cc4e0f73f98fe3dad" : {
+          "name" : "TestQuery",
+          "source" : "query TestQuery {\\n  test\\n}"
         },
-        "50ed8cda22910b3b708bc69402626f9fe4f1bbaeafb40df9084d029fade5bab1": {
-          "name": "TestMutation",
-          "source": "mutation TestMutation {\\n  update {\\n    result\\n  }\\n}"
+        "50ed8cda22910b3b708bc69402626f9fe4f1bbaeafb40df9084d029fade5bab1" : {
+          "name" : "TestMutation",
+          "source" : "mutation TestMutation {\\n  update {\\n    result\\n  }\\n}"
         },
-        "55f75259c34f0ccc6b131d23545d9fa79885c93ec785176bd9b6d3c4062fcaed": {
-          "name": "TestSubscription",
-          "source": "subscription TestSubscription {\\n  watched\\n}"
+        "55f75259c34f0ccc6b131d23545d9fa79885c93ec785176bd9b6d3c4062fcaed" : {
+          "name" : "TestSubscription",
+          "source" : "subscription TestSubscription {\\n  watched\\n}"
         }
       }
       """
@@ -100,34 +96,7 @@ class OperationIdentifiersTemplateTests: XCTestCase {
     subject = OperationIdentifiersTemplate(operationIdentifiers: operations)
 
     // when
-    let rendered = subject.render()
-
-    expect(rendered).to(equal(expected))
-  }
-
-  func test__render__givenOperationSourceNeedsEscapedCharacters_shouldOutputValidJSON() throws {
-    // given
-    let operations: [OperationIdentifier] = [
-      OperationIdentifier(
-        hash: "4a1250de93ebcb5cad5870acf15001112bf27bb963e8709555b5ff67a1405374",
-        name: "CreateAwesomeReview",
-        source: "mutation CreateAwesomeReview {\n  createReview(episode: JEDI, review: {stars: 10, commentary: \"This is awesome! \\o/ \"}) {\n    __typename\n    stars\n    commentary\n  }\n}"
-      )
-    ]
-
-    let expected = """
-      {
-        "4a1250de93ebcb5cad5870acf15001112bf27bb963e8709555b5ff67a1405374": {
-          "name": "CreateAwesomeReview",
-          "source": "mutation CreateAwesomeReview {\\n  createReview(episode: JEDI, review: {stars: 10, commentary: \\"This is awesome! \\o/ \\"}) {\\n    __typename\\n    stars\\n    commentary\\n  }\\n}"
-        }
-      }
-      """
-
-    subject = OperationIdentifiersTemplate(operationIdentifiers: operations)
-
-    // when
-    let rendered = subject.render()
+    let rendered = try subject.render()
 
     expect(rendered).to(equal(expected))
   }
