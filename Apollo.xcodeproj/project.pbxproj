@@ -493,6 +493,8 @@
 		E69BEDA72798B89600000D10 /* InputObjectTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69BEDA62798B89600000D10 /* InputObjectTemplateTests.swift */; };
 		E6A6866427F63AEF008A1D13 /* FileGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A6866327F63AEF008A1D13 /* FileGeneratorTests.swift */; };
 		E6A6866627F63BDC008A1D13 /* FileGenerator_ResolvePath_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A6866527F63BDC008A1D13 /* FileGenerator_ResolvePath_Tests.swift */; };
+		E6AAA739286C87EA00F4659D /* OperationIdentifiersTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AAA738286C87EA00F4659D /* OperationIdentifiersTemplate.swift */; };
+		E6AAA73B286CC7EF00F4659D /* OperationIdentifiersTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AAA73A286CC7EF00F4659D /* OperationIdentifiersTemplateTests.swift */; };
 		E6B42D0927A472A700A3BD58 /* SwiftPackageManagerModuleTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B42D0827A472A700A3BD58 /* SwiftPackageManagerModuleTemplate.swift */; };
 		E6B42D0B27A4746800A3BD58 /* SchemaModuleFileGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B42D0A27A4746800A3BD58 /* SchemaModuleFileGeneratorTests.swift */; };
 		E6B42D0D27A4749100A3BD58 /* SwiftPackageManagerModuleTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B42D0C27A4749100A3BD58 /* SwiftPackageManagerModuleTemplateTests.swift */; };
@@ -1347,6 +1349,8 @@
 		E69BEDA62798B89600000D10 /* InputObjectTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputObjectTemplateTests.swift; sourceTree = "<group>"; };
 		E6A6866327F63AEF008A1D13 /* FileGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileGeneratorTests.swift; sourceTree = "<group>"; };
 		E6A6866527F63BDC008A1D13 /* FileGenerator_ResolvePath_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileGenerator_ResolvePath_Tests.swift; sourceTree = "<group>"; };
+		E6AAA738286C87EA00F4659D /* OperationIdentifiersTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationIdentifiersTemplate.swift; sourceTree = "<group>"; };
+		E6AAA73A286CC7EF00F4659D /* OperationIdentifiersTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationIdentifiersTemplateTests.swift; sourceTree = "<group>"; };
 		E6B42D0827A472A700A3BD58 /* SwiftPackageManagerModuleTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftPackageManagerModuleTemplate.swift; sourceTree = "<group>"; };
 		E6B42D0A27A4746800A3BD58 /* SchemaModuleFileGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaModuleFileGeneratorTests.swift; sourceTree = "<group>"; };
 		E6B42D0C27A4749100A3BD58 /* SwiftPackageManagerModuleTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftPackageManagerModuleTemplateTests.swift; sourceTree = "<group>"; };
@@ -2291,11 +2295,12 @@
 				DE5FD60A276970FC0033EE23 /* FragmentTemplate.swift */,
 				E69BEDA42798B86D00000D10 /* InputObjectTemplate.swift */,
 				E623FD292797A6F4008B4CED /* InterfaceTemplate.swift */,
+				DE71FDBB2853B67C005FA9CC /* LocalCacheMutationDefinitionTemplate.swift */,
 				DE9CEAEE282C62B700959AF9 /* MockObjectTemplate.swift */,
 				E6203343284F1D1100A291D1 /* MockUnionTemplate.swift */,
 				E64F7EC027A122300059C021 /* ObjectTemplate.swift */,
 				DE5FD5FC2769222D0033EE23 /* OperationDefinitionTemplate.swift */,
-				DE71FDBB2853B67C005FA9CC /* LocalCacheMutationDefinitionTemplate.swift */,
+				E6AAA738286C87EA00F4659D /* OperationIdentifiersTemplate.swift */,
 				E6EE62F027DBE6F200627257 /* SchemaModuleNamespaceTemplate.swift */,
 				DE5FD60427694FA70033EE23 /* SchemaTemplate.swift */,
 				DE2739102769AEBA00B886EF /* SelectionSetTemplate.swift */,
@@ -2315,13 +2320,14 @@
 				DE5FD60C2769711E0033EE23 /* FragmentTemplateTests.swift */,
 				E69BEDA62798B89600000D10 /* InputObjectTemplateTests.swift */,
 				E623FD2B2797A700008B4CED /* InterfaceTemplateTests.swift */,
-				E64F7EC227A1243A0059C021 /* ObjectTemplateTests.swift */,
+				DE71FDBD2853B6D3005FA9CC /* LocalCacheMutationDefinitionTemplateTests.swift */,
 				DE9CEAF0282C632B00959AF9 /* MockObjectTemplateTests.swift */,
 				E6203347284F25DF00A291D1 /* MockUnionTemplateTests.swift */,
+				E64F7EC227A1243A0059C021 /* ObjectTemplateTests.swift */,
 				DE6D07FA27BC3BE9009F5F33 /* OperationDefinition_VariableDefinition_Tests.swift */,
 				DE09F9C5270269F800795949 /* OperationDefinitionTemplate_DocumentType_Tests.swift */,
 				DE09066E27A4713F00211300 /* OperationDefinitionTemplateTests.swift */,
-				DE71FDBD2853B6D3005FA9CC /* LocalCacheMutationDefinitionTemplateTests.swift */,
+				E6AAA73A286CC7EF00F4659D /* OperationIdentifiersTemplateTests.swift */,
 				E6EE62F227DBE75A00627257 /* SchemaModuleNamespaceTemplateTests.swift */,
 				DE5FD608276956C70033EE23 /* SchemaTemplateTests.swift */,
 				E6B42D0C27A4749100A3BD58 /* SwiftPackageManagerModuleTemplateTests.swift */,
@@ -3848,6 +3854,7 @@
 				DE5FD5FD2769222D0033EE23 /* OperationDefinitionTemplate.swift in Sources */,
 				DE6B650C27C4293D00970E4E /* FieldArgumentRendering.swift in Sources */,
 				DE5EEC8527988F1A00AF5913 /* IR+SelectionSet.swift in Sources */,
+				E6AAA739286C87EA00F4659D /* OperationIdentifiersTemplate.swift in Sources */,
 				DE3484622746FF8F0065B77E /* IR+OperationBuilder.swift in Sources */,
 				E669352F2803F09C004E1FFC /* CustomScalarFileGenerator.swift in Sources */,
 				E610D8DF278F8F1E0023E495 /* UnionFileGenerator.swift in Sources */,
@@ -3968,6 +3975,7 @@
 				E61EF713275EC99A00191DA7 /* ApolloCodegenTests.swift in Sources */,
 				DE6D07FD27BC3D53009F5F33 /* OperationDefinition_VariableDefinition_Tests.swift in Sources */,
 				E6B4E9992798A8CB004EC8C4 /* InterfaceTemplateTests.swift in Sources */,
+				E6AAA73B286CC7EF00F4659D /* OperationIdentifiersTemplateTests.swift in Sources */,
 				DE71FDBE2853B6D3005FA9CC /* LocalCacheMutationDefinitionTemplateTests.swift in Sources */,
 				E6EFDD0B27E8328E00B17FE5 /* TemplateRenderer_SchemaFile_Tests.swift in Sources */,
 				E6A6866627F63BDC008A1D13 /* FileGenerator_ResolvePath_Tests.swift in Sources */,
