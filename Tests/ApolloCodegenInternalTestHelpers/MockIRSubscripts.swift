@@ -215,6 +215,10 @@ extension IR.Schema {
 
 extension CompilationResult {
 
+  public subscript(type name: String) -> GraphQLNamedType? {
+    return referencedTypes.first { $0.name == name }
+  }
+
   public subscript(operation name: String) -> CompilationResult.OperationDefinition? {
     return operations.first { $0.name == name }
   }

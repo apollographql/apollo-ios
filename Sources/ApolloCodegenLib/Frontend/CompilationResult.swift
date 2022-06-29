@@ -10,6 +10,8 @@ public class CompilationResult: JavaScriptObject {
   lazy var operations: [OperationDefinition] = self["operations"]
 
   lazy var fragments: [FragmentDefinition] = self["fragments"]
+
+  lazy var schemaDocumentation: String? = self["schemaDocumentation"]
   
   public class OperationDefinition: JavaScriptObject, Equatable {
     lazy var name: String = self["name"]
