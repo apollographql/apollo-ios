@@ -140,11 +140,13 @@ public extension GraphQLEnumValue {
 public extension GraphQLInputObjectType {
   class func mock(
     _ name: String,
-    fields: [GraphQLInputField] = []
+    fields: [GraphQLInputField] = [],
+    documentation: String? = nil
   ) -> Self {
     let mock = Self.emptyMockObject()
     mock.name = name
     mock.fields = OrderedDictionary.init(uniqueKeysWithValues: fields.map({ ($0.name, $0) }))
+    mock.documentation = documentation
     return mock
   }
 }
@@ -153,12 +155,14 @@ public extension GraphQLInputField {
   class func mock(
     _ name: String,
     type: GraphQLType,
-    defaultValue: GraphQLValue?
+    defaultValue: GraphQLValue?,
+    documentation: String? = nil
   ) -> Self {
     let mock = Self.emptyMockObject()
     mock.name = name
     mock.type = type
     mock.defaultValue = defaultValue
+    mock.documentation = documentation
     return mock
   }
 }

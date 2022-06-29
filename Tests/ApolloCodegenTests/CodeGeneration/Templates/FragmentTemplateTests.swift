@@ -382,4 +382,5 @@ class FragmentTemplateTests: XCTestCase {
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))
   }
+
 }
