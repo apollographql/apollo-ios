@@ -27,6 +27,19 @@ public extension CompilationResult.OperationDefinition {
     mock.filePath = path
     return mock
   }
+
+  class func mock(
+    name: String,
+    type: CompilationResult.OperationType,
+    source: String
+  ) -> Self {
+    let mock = Self.emptyMockObject()
+    mock.name = name
+    mock.operationType = type
+    mock.source = source
+
+    return mock
+  }
 }
 
 public extension CompilationResult.OperationType {
