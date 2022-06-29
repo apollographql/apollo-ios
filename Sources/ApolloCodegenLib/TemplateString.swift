@@ -173,6 +173,23 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
       )
     }
 
+    mutating func appendInterpolation(
+      documentation: String?
+    ) {
+      guard let documentation = documentation else {
+        removeLineIfEmpty()
+        return
+      }
+
+      let components = documentation
+        .split(separator: "\n", omittingEmptySubsequences: false)
+        .joined(separator: "\n/// ")
+
+      appendInterpolation("/// \(components)")
+    }
+
+    // MARK: - Helpers
+
     private mutating func removeLineIfEmpty() {
       let slice = substringToStartOfLine()
       if slice.allSatisfy(\.isWhitespace) {
