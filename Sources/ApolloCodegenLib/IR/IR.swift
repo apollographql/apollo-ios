@@ -16,7 +16,8 @@ class IR {
     self.compilationResult = compilationResult
     self.schema = Schema(
       name: schemaName,
-      referencedTypes: .init(compilationResult.referencedTypes)
+      referencedTypes: .init(compilationResult.referencedTypes),
+      documentation: compilationResult.schemaDocumentation
     )
   }
 

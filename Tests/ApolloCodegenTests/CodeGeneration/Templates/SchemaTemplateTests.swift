@@ -18,10 +18,11 @@ class SchemaTemplateTests: XCTestCase {
   private func buildSubject(
     name: String = "testSchema",
     referencedTypes: IR.Schema.ReferencedTypes = .init([]),
+    documentation: String? = nil,
     config: ApolloCodegenConfiguration = ApolloCodegenConfiguration.mock()
   ) {
     subject = SchemaTemplate(
-      schema: IR.Schema(name: name, referencedTypes: referencedTypes),
+      schema: IR.Schema(name: name, referencedTypes: referencedTypes, documentation: documentation),
       config: ApolloCodegen.ConfigurationContext(config: config)
     )
   }
@@ -298,4 +299,47 @@ class SchemaTemplateTests: XCTestCase {
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 12))
   }
+
+  // MARK: Documentation Tests
+
+  func test__render__givenSchemaDocumentation_include_hasDocumentation_shouldGenerateDocumentationComment() throws {
+    // given
+    let documentation = "This is some great documentation!"
+    buildSubject(
+      documentation: documentation,
+      config: .mock(options: .init(schemaDocumentation: .include))
+    )
+
+    let expected = """
+    /// \(documentation)
+    enum Schema: SchemaConfiguration {
+    """
+
+    // when
+    let rendered = renderTemplate()
+
+    // then
+    expect(rendered).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+  }
+
+  func test__render__givenSchemaDocumentation_exclude_hasDocumentation_shouldNotGenerateDocumentationComment() throws {
+    // given
+    // given
+    let documentation = "This is some great documentation!"
+    buildSubject(
+      documentation: documentation,
+      config: .mock(options: .init(schemaDocumentation: .exclude))
+    )
+
+    let expected = """
+    enum Schema: SchemaConfiguration {
+    """
+
+    // when
+    let rendered = renderTemplate()
+
+    // then
+    expect(rendered).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+  }
+
 }

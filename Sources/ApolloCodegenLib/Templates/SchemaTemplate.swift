@@ -38,6 +38,7 @@ struct SchemaTemplate: TemplateRenderer {
       """),
     else: protocolDefinition(prefix: nil, schemaName: schemaName))
 
+    \(documentation: schema.documentation, config: config)
     \(embeddedAccessControlModifier)\
     enum Schema: SchemaConfiguration {
       public static func objectType(forTypename __typename: String) -> Object.Type? {
