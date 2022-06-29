@@ -32,7 +32,7 @@ public class GraphQLSchema: JavaScriptObject {
 public class GraphQLNamedType: JavaScriptObject, Hashable {
   lazy var name: String = self["name"]
 
-  lazy var description: String? = self["description"]
+  lazy var documentation: String? = self["description"]
 
   public func hash(into hasher: inout Hasher) {
     hasher.combine(name)
@@ -75,7 +75,7 @@ public class GraphQLEnumType: GraphQLNamedType {
 public class GraphQLEnumValue: JavaScriptObject {
   lazy var name: String = self["name"]
   
-  private(set) lazy var description: String? = self["description"]
+  lazy var documentation: String? = self["description"]
     
   lazy var deprecationReason: String? = self["deprecationReason"]
 }
@@ -89,7 +89,7 @@ public class GraphQLInputField: JavaScriptObject {
   
   lazy var type: GraphQLType = self["type"]
   
-  private(set) lazy var description: String? = self["description"]
+  lazy var documentation: String? = self["description"]
   
   lazy var defaultValue: GraphQLValue? = {
     let node: JavaScriptObject? = self["astNode"]
@@ -156,7 +156,7 @@ public class GraphQLField: JavaScriptObject, Hashable {
 
   lazy var arguments: [GraphQLFieldArgument] = self["args"]
   
-  lazy var description: String? = self["description"]
+  lazy var documentation: String? = self["description"]
   
   lazy var deprecationReason: String? = self["deprecationReason"]
 
@@ -183,7 +183,7 @@ public class GraphQLFieldArgument: JavaScriptObject, Hashable {
 
   lazy var type: GraphQLType = self["type"]
 
-  lazy var description: String? = self["description"]
+  lazy var documentation: String? = self["description"]
 
   lazy var deprecationReason: String? = self["deprecationReason"]
 
