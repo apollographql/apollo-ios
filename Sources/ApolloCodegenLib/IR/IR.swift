@@ -108,8 +108,8 @@ class IR {
     /// All of the Entities that exist in the fragment's selection set,
     /// keyed by their relative response path within the fragment.
     ///
-    /// - Note: The ResponsePath for an entity within a fragment will begin with a path component
-    /// equal to the fragment's name.
+    /// - Note: The FieldPath for an entity within a fragment will begin with a path component
+    /// with the fragment's name and type.
     let entities: [IR.Entity.FieldPath: IR.Entity]
 
     var name: String { definition.name }

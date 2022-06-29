@@ -13,12 +13,6 @@ protocol ScopedSelectionSetHashable {
   var hashForSelectionSetScope: String { get }
 }
 
-extension GraphQLCompositeType: ScopedSelectionSetHashable {
-  var hashForSelectionSetScope: String {
-    name
-  }
-}
-
 extension IR.Field: ScopedSelectionSetHashable {
   var hashForSelectionSetScope: String {
     underlyingField.responseKey
