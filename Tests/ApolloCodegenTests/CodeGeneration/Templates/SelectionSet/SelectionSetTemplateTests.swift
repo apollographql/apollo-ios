@@ -30,7 +30,8 @@ class SelectionSetTemplateTests: XCTestCase {
   func buildSubjectAndOperation(
     named operationName: String = "TestOperation",
     configOutput: ApolloCodegenConfiguration.FileOutput = .mock(),
-    inflectionRules: [ApolloCodegenLib.InflectionRule] = []
+    inflectionRules: [ApolloCodegenLib.InflectionRule] = [],
+    schemaDocumentation: ApolloCodegenConfiguration.Composition = .exclude
   ) throws {
     ir = try .mock(schema: schemaSDL, document: document)
     let operationDefinition = try XCTUnwrap(ir.compilationResult[operation: operationName])
@@ -38,7 +39,10 @@ class SelectionSetTemplateTests: XCTestCase {
     let config = ApolloCodegenConfiguration.mock(
       schemaName: "TestSchema",
       output: configOutput,
-      options: .init(additionalInflectionRules: inflectionRules)
+      options: .init(
+        additionalInflectionRules: inflectionRules,
+        schemaDocumentation: schemaDocumentation
+      )
     )
     subject = SelectionSetTemplate(
       schema: ir.schema,
@@ -4366,4 +4370,169 @@ class SelectionSetTemplateTests: XCTestCase {
       .to(equalLineByLine(predator_expected, atLine: 20, ignoringExtraLines: true))
   }
 
+  // MARK: Documentation Tests
+
+  func test__render_nestedSelectionSet__givenSchemaDocumentation_include_hasDocumentation_shouldGenerateDocumentationComment() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+      predators: [Animal!]
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        predators {
+          species
+        }
+      }
+    }
+    """
+
+    let expected = """
+      public var predators: [Predator]? { __data["predators"] }
+
+      /// AllAnimal.Predator
+      ///
+      /// Parent Type: `Animal`
+      public struct Predator: TestSchema.SelectionSet {
+    """
+
+    // when
+    try buildSubjectAndOperation(schemaDocumentation: .include)
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
+  }
+
+  func test__render_nestedSelectionSet_givenSchemaDocumentation_exclude_hasDocumentation_shouldNotGenerateDocumentationComment() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+      predators: [Animal!]
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        predators {
+          species
+        }
+      }
+    }
+    """
+
+    let expected = """
+      public var predators: [Predator]? { __data["predators"] }
+
+      /// AllAnimal.Predator
+      public struct Predator: TestSchema.SelectionSet {
+    """
+
+    // when
+    try buildSubjectAndOperation(schemaDocumentation: .exclude)
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+  }
+
+  func test__render_fieldAccessors__givenSchemaDocumentation_include_hasDocumentation_shouldGenerateDocumentationComment() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      "This field is a string."
+      string: String!
+    }
+
+    scalar Custom
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        string
+      }
+    }
+    """
+
+    let expected = """
+      /// This field is a string.
+      public var string: String { __data["string"] }
+    """
+
+    // when
+    try buildSubjectAndOperation(schemaDocumentation: .include)
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
+  }
+
+  func test__render_fieldAccessors__givenSchemaDocumentation_exclude_hasDocumentation_shouldNotGenerateDocumentationComment() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      string: String!
+    }
+
+    scalar Custom
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        string
+      }
+    }
+    """
+
+    let expected = """
+      public var string: String { __data["string"] }
+    """
+
+    // when
+    try buildSubjectAndOperation(schemaDocumentation: .exclude)
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+  }
 }

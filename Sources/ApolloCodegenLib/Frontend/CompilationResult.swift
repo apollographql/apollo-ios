@@ -265,7 +265,7 @@ public class CompilationResult: JavaScriptObject {
       return deprecationReason != nil
     }
     
-    lazy var description: String? = self["description"]
+    lazy var documentation: String? = self["description"]
 
     required convenience init(
       name: String,
@@ -276,7 +276,7 @@ public class CompilationResult: JavaScriptObject {
       type: GraphQLType,
       selectionSet: SelectionSet? = nil,
       deprecationReason: String? = nil,
-      description: String? = nil
+      documentation: String? = nil
     ) {
       self.init(nil)
       self.name = name
@@ -287,7 +287,7 @@ public class CompilationResult: JavaScriptObject {
       self.directives = directives
       self.selectionSet = selectionSet
       self.deprecationReason = deprecationReason
-      self.description = description
+      self.documentation = documentation
     }
 
     public var debugDescription: String {

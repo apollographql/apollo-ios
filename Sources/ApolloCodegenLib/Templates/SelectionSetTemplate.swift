@@ -81,6 +81,10 @@ struct SelectionSetTemplate {
     withFieldPath: selectionSet.entity.fieldPath.head,
     removingFirst: true,
     pluralizer: config.pluralizer))
+    \(if: config.options.schemaDocumentation == .include, """
+      ///
+      /// Parent Type: `\(selectionSet.parentType.name.firstUppercased)`
+      """)
     """
   }
 
@@ -228,6 +232,7 @@ struct SelectionSetTemplate {
       return !scope.matches(conditions)
     }()
     return """
+    \(documentation: field.underlyingField.documentation, config: config)
     public var \(field.responseKey.firstLowercased): \
     \(typeName(for: field, forceOptional: isConditionallyIncluded)) {\
     \(if: isMutable,
