@@ -17,10 +17,16 @@ class InterfaceTemplateTests: XCTestCase {
 
   private func buildSubject(
     name: String = "Dog",
+    documentation: String? = nil,
     config: ApolloCodegenConfiguration = .mock()
   ) {
     subject = InterfaceTemplate(
-      graphqlInterface: GraphQLInterfaceType.mock(name, fields: [:], interfaces: []),
+      graphqlInterface: GraphQLInterfaceType.mock(
+        name,
+        fields: [:],
+        interfaces: [],
+        documentation: documentation
+      ),
       config: ApolloCodegen.ConfigurationContext(config: config)
     )
   }
@@ -91,5 +97,47 @@ class InterfaceTemplateTests: XCTestCase {
 
     // then
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  // MARK: Documentation Tests
+
+  func test__render__givenSchemaDocumentation_include_hasDocumentation_shouldGenerateDocumentationComment() throws {
+    // given
+    let documentation = "This is some great documentation!"
+    buildSubject(
+      documentation: documentation,
+      config: .mock(options: .init(schemaDocumentation: .include))
+    )
+
+    let expected = """
+    /// \(documentation)
+    final class Dog: Interface { }
+    """
+
+    // when
+    let rendered = renderSubject()
+
+    // then
+    expect(rendered).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test__render__givenSchemaDocumentation_exclude_hasDocumentation_shouldNotGenerateDocumentationComment() throws {
+    // given
+    // given
+    let documentation = "This is some great documentation!"
+    buildSubject(
+      documentation: documentation,
+      config: .mock(options: .init(schemaDocumentation: .exclude))
+    )
+
+    let expected = """
+    final class Dog: Interface { }
+    """
+
+    // when
+    let rendered = renderSubject()
+
+    // then
+    expect(rendered).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 }
