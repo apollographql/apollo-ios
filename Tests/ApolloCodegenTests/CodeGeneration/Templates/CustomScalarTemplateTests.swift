@@ -48,6 +48,7 @@ class CustomScalarTemplateTests: XCTestCase {
 
     let expected = """
     typealias ACustomScalar = String
+
     """
 
     // when
@@ -65,6 +66,7 @@ class CustomScalarTemplateTests: XCTestCase {
 
     let expected = """
     typealias MyCustomScalar = String
+
     """
 
     // when
@@ -136,6 +138,7 @@ class CustomScalarTemplateTests: XCTestCase {
     let expected = """
     /// \(documentation)
     typealias CustomScalar = String
+
     """
 
     // when
@@ -162,6 +165,7 @@ class CustomScalarTemplateTests: XCTestCase {
     ///
     /// Specified by: [](http://www.apollographql.com/scalarSpec)
     typealias CustomScalar = String
+
     """
 
     // when
@@ -185,6 +189,7 @@ class CustomScalarTemplateTests: XCTestCase {
 
     let expected = """
     typealias CustomScalar = String
+    
     """
 
     // when

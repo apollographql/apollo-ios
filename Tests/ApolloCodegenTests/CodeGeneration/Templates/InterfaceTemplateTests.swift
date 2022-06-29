@@ -43,6 +43,7 @@ class InterfaceTemplateTests: XCTestCase {
 
     let expected = """
     final class ADog: Interface { }
+    
     """
 
     // when

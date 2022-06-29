@@ -49,7 +49,7 @@ class UnionTemplateTests: XCTestCase {
     let actual = renderSubject()
 
     // then
-    expect(String(actual.reversed())).to(equalLineByLine("}", ignoringExtraLines: true))
+    expect(String(actual.reversed())).to(equalLineByLine("\n}", ignoringExtraLines: true))
   }
 
   // MARK: Enum Generation Tests

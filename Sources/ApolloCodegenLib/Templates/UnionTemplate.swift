@@ -25,6 +25,7 @@ struct UnionTemplate: TemplateRenderer {
         }), separator: ",\n")
       ]
     }
+    
     """
     )
   }

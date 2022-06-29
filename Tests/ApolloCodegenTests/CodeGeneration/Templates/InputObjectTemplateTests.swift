@@ -176,6 +176,7 @@ class InputObjectTemplateTests: XCTestCase {
         set { __data.field = newValue }
       }
     }
+    
     """
 
     // when

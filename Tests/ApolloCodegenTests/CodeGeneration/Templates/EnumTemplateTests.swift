@@ -128,6 +128,7 @@ class EnumTemplateTests: XCTestCase {
       case UPPER
       case Capitalized
     }
+    
     """
 
     // when
@@ -159,6 +160,7 @@ class EnumTemplateTests: XCTestCase {
       case TWO
       case THREE
     }
+
     """
 
     // when
@@ -189,6 +191,7 @@ class EnumTemplateTests: XCTestCase {
       case TWO
       case THREE
     }
+
     """
 
     // when
@@ -216,6 +219,7 @@ class EnumTemplateTests: XCTestCase {
     enum TestEnum: String, EnumType {
       case TWO
     }
+
     """
 
     // when
@@ -243,6 +247,7 @@ class EnumTemplateTests: XCTestCase {
     enum TestEnum: String, EnumType {
       case TWO
     }
+
     """
 
     // when
@@ -282,6 +287,7 @@ class EnumTemplateTests: XCTestCase {
       @available(*, deprecated, message: "Deprecated for tests")
       case THREE
     }
+
     """
 
     // when
@@ -317,6 +323,7 @@ class EnumTemplateTests: XCTestCase {
       case TWO
       case THREE
     }
+
     """
 
     // when
@@ -349,6 +356,7 @@ class EnumTemplateTests: XCTestCase {
       case TWO
       case THREE
     }
+    
     """
 
     // when

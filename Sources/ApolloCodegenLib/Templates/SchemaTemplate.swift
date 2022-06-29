@@ -50,6 +50,7 @@ struct SchemaTemplate: TemplateRenderer {
         }
       }
     }
+    
     """
     )
   }

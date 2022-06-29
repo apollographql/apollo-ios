@@ -29,6 +29,7 @@ struct FragmentTemplate: TemplateRenderer {
         config: config
       ).BodyTemplate(fragment.rootField.selectionSet))
     }
+
     """)
   }
 

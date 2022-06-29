@@ -32,6 +32,7 @@ struct OperationDefinitionTemplate: OperationTemplateRenderer {
 
       \(SelectionSetTemplate(schema: schema, config: config).render(for: operation))
     }
+
     """)
   }
 

@@ -11,6 +11,7 @@ class SchemaModuleNamespaceTemplateTests: XCTestCase {
     // given
     let expected = """
     public enum NamespacedModule { }
+    
     """
 
     // when

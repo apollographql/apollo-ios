@@ -48,6 +48,7 @@ struct MockObjectTemplate: TemplateRenderer {
         \(fields.map { "self.\($0.name) = \($0.name)" }, separator: "\n")
       }
     }
+    
     """
   }
 

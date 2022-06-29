@@ -35,6 +35,7 @@ struct InputObjectTemplate: TemplateRenderer {
 
       \(graphqlInputObject.fields.map({ "\(FieldPropertyTemplate($1))" }), separator: "\n\n")
     }
+
     """
     )
   }

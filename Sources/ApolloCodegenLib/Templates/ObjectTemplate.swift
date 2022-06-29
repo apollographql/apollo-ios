@@ -20,6 +20,7 @@ struct ObjectTemplate: TemplateRenderer {
 
       \(section: ImplementedInterfacesTemplate())
     }
+
     """
   }
 

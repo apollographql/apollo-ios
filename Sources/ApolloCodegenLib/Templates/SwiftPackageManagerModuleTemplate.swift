@@ -57,6 +57,7 @@ struct SwiftPackageManagerModuleTemplate: TemplateRenderer {
         """})
       ]
     )
+    
     """)
   }
 

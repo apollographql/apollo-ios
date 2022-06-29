@@ -30,6 +30,7 @@ struct CustomScalarTemplate: TemplateRenderer {
     \(documentation: documentationTemplate, config: config)
     \(embeddedAccessControlModifier)\
     typealias \(graphqlScalar.name.firstUppercased) = String
+    
     """
     )
   }

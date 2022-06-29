@@ -16,6 +16,7 @@ struct InterfaceTemplate: TemplateRenderer {
     \(documentation: graphqlInterface.documentation, config: config)
     \(embeddedAccessControlModifier)\
     final class \(graphqlInterface.name.firstUppercased): Interface { }
+
     """
   }
 }

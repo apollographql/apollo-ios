@@ -46,7 +46,7 @@ class ObjectTemplateTests: XCTestCase {
     let actual = renderSubject()
 
     // then
-    expect(String(actual.reversed())).to(equalLineByLine("}", ignoringExtraLines: true))
+    expect(String(actual.reversed())).to(equalLineByLine("\n}", ignoringExtraLines: true))
   }
 
   // MARK: Class Definition Tests
@@ -148,7 +148,7 @@ class ObjectTemplateTests: XCTestCase {
     let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine("}", atLine: 3, ignoringExtraLines: false))
+    expect(actual).to(equalLineByLine("}\n", atLine: 3, ignoringExtraLines: false))
   }
 
   // MARK: Documentation Tests

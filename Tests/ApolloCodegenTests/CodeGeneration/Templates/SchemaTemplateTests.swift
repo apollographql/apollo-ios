@@ -260,6 +260,7 @@ class SchemaTemplateTests: XCTestCase {
         }
       }
     }
+    
     """
 
     // when
@@ -291,6 +292,7 @@ class SchemaTemplateTests: XCTestCase {
         }
       }
     }
+    
     """
 
     // when

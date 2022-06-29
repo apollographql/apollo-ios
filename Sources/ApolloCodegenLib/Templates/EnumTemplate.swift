@@ -21,6 +21,7 @@ struct EnumTemplate: TemplateRenderer {
         enumCase(for: $0)
       }), separator: "\n")
     }
+    
     """
     )
   }

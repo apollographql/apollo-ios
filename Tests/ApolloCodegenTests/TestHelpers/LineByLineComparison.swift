@@ -41,7 +41,7 @@ public func equalLineByLine(
         } else {
           return PrettyPrintedFailureResult(
             actual: actualString,
-            message: .fail("Expected \(expectedLines.count), actual ended at line \(actualLines.count)")
+            message: .fail("Expected \(expectedLines.count + startLine - 1) lines, actual ended at line \(actualLines.count + startLine - 1)")
           )
         }
       }

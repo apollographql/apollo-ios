@@ -51,6 +51,7 @@ class MockUnionTemplateTests: XCTestCase {
     extension Pet: MockFieldValue {
       public typealias MockValueCollectionType = Array<AnyMock>
     }
+    
     """
 
     // when
