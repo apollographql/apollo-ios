@@ -12,15 +12,15 @@ struct ObjectTemplate: TemplateRenderer {
   let target: TemplateTarget = .schemaFile
 
   var template: TemplateString {
-    TemplateString(
     """
+    \(documentation: graphqlObject.documentation, config: config)
     \(embeddedAccessControlModifier)\
     final class \(graphqlObject.name.firstUppercased): Object {
       override public class var __typename: StaticString { \"\(graphqlObject.name.firstUppercased)\" }
 
       \(section: ImplementedInterfacesTemplate())
     }
-    """)
+    """
   }
 
   private func ImplementedInterfacesTemplate() -> TemplateString {

@@ -23,12 +23,14 @@ public extension GraphQLObjectType {
   class func mock(
     _ name: String = "",
     fields: [String: GraphQLField] = [:],
-    interfaces: [GraphQLInterfaceType] = []
+    interfaces: [GraphQLInterfaceType] = [],
+    documentation: String? = nil
   ) -> Self {
     let mock = Self.emptyMockObject()
     mock.name = name
     mock.fields = fields
     mock.interfaces = interfaces
+    mock.documentation = documentation
     return mock
   }
 }
