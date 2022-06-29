@@ -135,7 +135,7 @@ struct CLIExtractor {
   /// - Parameter expected: The expected SHASUM. Defaults to the real expected SHASUM. This parameter exists mostly for testing.
   static func validateZipFileSHASUM(at zipFileURL: URL, expected: String = CLIExtractor.expectedSHASUM) throws {
     let shasum = try FileManager.default.apollo.shasum(at: zipFileURL)
-    print("SHASUM of downloaded file: \(shasum)")
+    CodegenLogger.log("SHASUM of downloaded file: \(shasum)")
     guard shasum == expected else {
       throw CLIExtractorError.zipFileHasInvalidSHASUM(expectedSHASUM: expected, gotSHASUM: shasum)
     }
