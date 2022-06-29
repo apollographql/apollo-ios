@@ -14,7 +14,7 @@ struct OperationIdentifiersTemplate {
       """
       "\(operation.hash)": {
         "name": "\(operation.name)",
-        "source": "\(operation.source.replacingOccurrences(of: "\n", with: "\\n"))"
+        "source": "\(operation.source.jsonEscaped())"
       }
       """}), separator: ",\n")
     }
@@ -24,5 +24,12 @@ struct OperationIdentifiersTemplate {
 
   func render() -> String {
     template.description
+  }
+}
+
+fileprivate extension String {
+  func jsonEscaped() -> String {
+    return replacingOccurrences(of: "\"", with: "\\\"")
+        .replacingOccurrences(of: "\n", with: "\\n")
   }
 }

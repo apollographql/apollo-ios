@@ -104,4 +104,31 @@ class OperationIdentifiersTemplateTests: XCTestCase {
 
     expect(rendered).to(equal(expected))
   }
+
+  func test__render__givenOperationSourceNeedsEscapedCharacters_shouldOutputValidJSON() throws {
+    // given
+    let operations: [OperationIdentifier] = [
+      OperationIdentifier(
+        hash: "4a1250de93ebcb5cad5870acf15001112bf27bb963e8709555b5ff67a1405374",
+        name: "CreateAwesomeReview",
+        source: "mutation CreateAwesomeReview {\n  createReview(episode: JEDI, review: {stars: 10, commentary: \"This is awesome! \\o/ \"}) {\n    __typename\n    stars\n    commentary\n  }\n}"
+      )
+    ]
+
+    let expected = """
+      {
+        "4a1250de93ebcb5cad5870acf15001112bf27bb963e8709555b5ff67a1405374": {
+          "name": "CreateAwesomeReview",
+          "source": "mutation CreateAwesomeReview {\\n  createReview(episode: JEDI, review: {stars: 10, commentary: \\"This is awesome! \\o/ \\"}) {\\n    __typename\\n    stars\\n    commentary\\n  }\\n}"
+        }
+      }
+      """
+
+    subject = OperationIdentifiersTemplate(operationIdentifiers: operations)
+
+    // when
+    let rendered = subject.render()
+
+    expect(rendered).to(equal(expected))
+  }
 }
