@@ -183,14 +183,14 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
 
       let components = documentation
         .split(separator: "\n", omittingEmptySubsequences: false)
-        .joined(separator: "\n/// ")
+        .joinedAsDocumentationLines()
 
-      appendInterpolation("/// \(components)")
+      appendInterpolation(components)
     }
 
     // MARK: - Helpers
 
-    private mutating func removeLineIfEmpty() {
+    mutating func removeLineIfEmpty() {
       let slice = substringToStartOfLine()
       if slice.allSatisfy(\.isWhitespace) {
         buffer.removeLast(slice.count)
@@ -224,6 +224,27 @@ fileprivate extension Array where Element == Substring {
       if !nextLine.isEmpty {
         string += indent + nextLine
       }
+    }
+
+    return string
+  }
+
+  func joinedAsDocumentationLines() -> String {
+    var string = ""
+
+    func add(line: Substring) {
+      string += "///"
+      if !line.isEmpty {
+        string += " "
+        string += line
+      }
+    }
+    var iterator = self.makeIterator()
+    if let firstLine = iterator.next() { add(line: firstLine) }
+
+    while let nextLine = iterator.next() {
+      string += "\n"
+      add(line: nextLine)
     }
 
     return string

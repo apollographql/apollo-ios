@@ -132,4 +132,29 @@ class TemplateString_Documentation_Tests: XCTestCase {
     expect(actual).to(equalLineByLine(expected))
   }
 
+  func test__appendInterpolation_documentation__givenMultilineStringWithEmptyLine_returnsStringInMultilineDocComment() throws {
+    // given
+    let documentation = """
+    This is some great documentation!
+
+    With empty line!
+    """
+
+    let expected = """
+    /// This is some great documentation!
+    ///
+    /// With empty line!
+    var test: String = "Test"
+    """
+
+    // when
+    let actual = TemplateString("""
+    \(documentation: documentation)
+    var test: String = "Test"
+    """).description
+
+    // then
+    expect(actual).to(equalLineByLine(expected))
+  }
+
 }

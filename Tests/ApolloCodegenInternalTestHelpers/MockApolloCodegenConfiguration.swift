@@ -13,7 +13,7 @@ extension ApolloCodegenConfiguration {
         moduleType: .embeddedInTarget(name: "MockApplication")
       )
     ),
-    options: OutputOptions = .init()
+    options: OutputOptions = .init(schemaDocumentation: .exclude)
   ) -> Self {
     .init(schemaName: schemaName, input: input, output: output, options: options)
   }

@@ -401,6 +401,7 @@
 		DED5B355286CCAFF00AE6BFF /* ResponsePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7BA89822927A3700999B3B /* ResponsePath.swift */; };
 		DED5B357286CD34000AE6BFF /* CompilationResultSchemaDocumentationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED5B356286CD34000AE6BFF /* CompilationResultSchemaDocumentationTests.swift */; };
 		DED5B359286CEA0900AE6BFF /* TemplateString_Documentation_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED5B358286CEA0900AE6BFF /* TemplateString_Documentation_Tests.swift */; };
+		DED5B35B286CF16600AE6BFF /* TemplateString+CodegenConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED5B35A286CF16600AE6BFF /* TemplateString+CodegenConfiguration.swift */; };
 		DEE2060B27E14498002B4B82 /* IR+InclusionConditionsMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE2060A27E14498002B4B82 /* IR+InclusionConditionsMock.swift */; };
 		DEE2DAA227BAF00500EC0607 /* GraphQLType+Rendered.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE2DAA127BAF00500EC0607 /* GraphQLType+Rendered.swift */; };
 		DEF191D22804A8470029786C /* Upload.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF191D12804A8470029786C /* Upload.swift */; };
@@ -1246,6 +1247,7 @@
 		DED45FB3261CDEC60086EF63 /* Apollo-CodegenTestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Apollo-CodegenTestPlan.xctestplan"; sourceTree = "<group>"; };
 		DED5B356286CD34000AE6BFF /* CompilationResultSchemaDocumentationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompilationResultSchemaDocumentationTests.swift; sourceTree = "<group>"; };
 		DED5B358286CEA0900AE6BFF /* TemplateString_Documentation_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateString_Documentation_Tests.swift; sourceTree = "<group>"; };
+		DED5B35A286CF16600AE6BFF /* TemplateString+CodegenConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TemplateString+CodegenConfiguration.swift"; sourceTree = "<group>"; };
 		DEE1B3F0273B08D8007350E5 /* PetDetails.graphql.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetDetails.graphql.swift; sourceTree = "<group>"; };
 		DEE1B3F1273B08D8007350E5 /* ClassroomPets.graphql.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassroomPets.graphql.swift; sourceTree = "<group>"; };
 		DEE1B3F2273B08D8007350E5 /* HeightInMeters.graphql.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeightInMeters.graphql.swift; sourceTree = "<group>"; };
@@ -1889,6 +1891,7 @@
 				9B7B6F58233C287100F32205 /* ApolloCodegenConfiguration.swift */,
 				E674DB40274C0A9B009BB90E /* Glob.swift */,
 				DE5FD600276923620033EE23 /* TemplateString.swift */,
+				DED5B35A286CF16600AE6BFF /* TemplateString+CodegenConfiguration.swift */,
 				DE31A437276A78140020DC44 /* Templates */,
 				E6E3BBDC276A8D6200E5218B /* FileGenerators */,
 			);
@@ -3857,6 +3860,7 @@
 				DE3484622746FF8F0065B77E /* IR+OperationBuilder.swift in Sources */,
 				E669352F2803F09C004E1FFC /* CustomScalarFileGenerator.swift in Sources */,
 				E610D8DF278F8F1E0023E495 /* UnionFileGenerator.swift in Sources */,
+				DED5B35B286CF16600AE6BFF /* TemplateString+CodegenConfiguration.swift in Sources */,
 				DEE2DAA227BAF00500EC0607 /* GraphQLType+Rendered.swift in Sources */,
 				DE223C2D2721FCE8004A0148 /* ScopedSelectionSetHashable.swift in Sources */,
 				E6203344284F1D1100A291D1 /* MockUnionTemplate.swift in Sources */,
