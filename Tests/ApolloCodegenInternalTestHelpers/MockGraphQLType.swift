@@ -112,20 +112,27 @@ public extension GraphQLEnumType {
 
   class func mock(
     name: String,
-    values: [GraphQLEnumValue]
+    values: [GraphQLEnumValue],
+    documentation: String? = nil
   ) -> Self {
     let mock = Self.emptyMockObject()
     mock.name = name
     mock.values = values
+    mock.documentation = documentation
     return mock
   }
 }
 
 public extension GraphQLEnumValue {
-  class func mock(name: String, deprecationReason: String? = nil) -> Self {
+  class func mock(
+    name: String,
+    deprecationReason: String? = nil,
+    documentation: String? = nil
+  ) -> Self {
     let mock = Self.emptyMockObject()
     mock.name = name
     mock.deprecationReason = deprecationReason
+    mock.documentation = documentation
     return mock
   }
 }
