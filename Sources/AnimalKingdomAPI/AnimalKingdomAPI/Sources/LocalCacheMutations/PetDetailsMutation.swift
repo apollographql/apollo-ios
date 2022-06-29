@@ -30,6 +30,8 @@ public struct PetDetailsMutation: AnimalKingdomAPI.MutableSelectionSet, Fragment
   }
 
   /// Owner
+  ///
+  /// Parent Type: `Human`
   public struct Owner: AnimalKingdomAPI.MutableSelectionSet {
     public var __data: DataDict
     public init(data: DataDict) { __data = data }

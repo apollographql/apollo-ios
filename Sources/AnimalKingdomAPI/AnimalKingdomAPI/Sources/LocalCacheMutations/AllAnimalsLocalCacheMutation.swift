@@ -25,6 +25,8 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
     }
 
     /// AllAnimal
+    ///
+    /// Parent Type: `Animal`
     public struct AllAnimal: AnimalKingdomAPI.MutableSelectionSet {
       public var __data: DataDict
       public init(data: DataDict) { __data = data }
@@ -51,6 +53,8 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
       }
 
       /// AllAnimal.AsBird
+      ///
+      /// Parent Type: `Bird`
       public struct AsBird: AnimalKingdomAPI.MutableInlineFragment {
         public var __data: DataDict
         public init(data: DataDict) { __data = data }

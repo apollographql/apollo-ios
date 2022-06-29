@@ -23,7 +23,9 @@ public struct DroidNameAndPrimaryFunction: StarWarsAPI.SelectionSet, Fragment {
     .fragment(DroidPrimaryFunction.self),
   ] }
 
+  /// This droid's primary function
   public var primaryFunction: String? { __data["primaryFunction"] }
+  /// The name of the character
   public var name: String { __data["name"] }
 
   public struct Fragments: FragmentContainer {

@@ -3,6 +3,7 @@
 
 import ApolloAPI
 
+/// Represents a review for a movie
 public final class Review: Object {
   override public class var __typename: StaticString { "Review" }
 }

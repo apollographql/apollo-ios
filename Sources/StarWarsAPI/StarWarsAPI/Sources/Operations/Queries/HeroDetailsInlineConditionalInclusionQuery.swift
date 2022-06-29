@@ -46,6 +46,8 @@ public class HeroDetailsInlineConditionalInclusionQuery: GraphQLQuery {
     public var hero: Hero? { __data["hero"] }
 
     /// Hero
+    ///
+    /// Parent Type: `Character`
     public struct Hero: StarWarsAPI.SelectionSet {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
@@ -58,6 +60,8 @@ public class HeroDetailsInlineConditionalInclusionQuery: GraphQLQuery {
       public var ifIncludeDetails: IfIncludeDetails? { _asInlineFragment(if: "includeDetails") }
 
       /// Hero.IfIncludeDetails
+      ///
+      /// Parent Type: `Character`
       public struct IfIncludeDetails: StarWarsAPI.InlineFragment {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
@@ -68,7 +72,9 @@ public class HeroDetailsInlineConditionalInclusionQuery: GraphQLQuery {
           .field("appearsIn", [GraphQLEnum<Episode>?].self),
         ] }
 
+        /// The name of the character
         public var name: String { __data["name"] }
+        /// The movies this character appears in
         public var appearsIn: [GraphQLEnum<Episode>?] { __data["appearsIn"] }
       }
     }

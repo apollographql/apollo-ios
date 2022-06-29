@@ -53,6 +53,8 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
     public var hero: Hero? { __data["hero"] }
 
     /// Hero
+    ///
+    /// Parent Type: `Character`
     public struct Hero: StarWarsAPI.SelectionSet {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
@@ -62,9 +64,12 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
         .field("friends", [Friend?]?.self),
       ] }
 
+      /// The friends of the character, or an empty list if they have none
       public var friends: [Friend?]? { __data["friends"] }
 
       /// Hero.Friend
+      ///
+      /// Parent Type: `Character`
       public struct Friend: StarWarsAPI.SelectionSet {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
@@ -75,12 +80,15 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
           .include(if: "includeFriendsDetails", .inlineFragment(IfIncludeFriendsDetails.self)),
         ] }
 
+        /// The name of the character
         public var name: String { __data["name"] }
 
         public var ifIncludeFriendsDetails: IfIncludeFriendsDetails? { _asInlineFragment(if: "includeFriendsDetails") }
         public var asDroid: AsDroid? { _asInlineFragment() }
 
         /// Hero.Friend.IfIncludeFriendsDetails
+        ///
+        /// Parent Type: `Character`
         public struct IfIncludeFriendsDetails: StarWarsAPI.InlineFragment {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
@@ -91,11 +99,14 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
             .inlineFragment(AsDroid.self),
           ] }
 
+          /// The name of the character
           public var name: String { __data["name"] }
 
           public var asDroid: AsDroid? { _asInlineFragment() }
 
           /// Hero.Friend.AsDroid
+          ///
+          /// Parent Type: `Droid`
           public struct AsDroid: StarWarsAPI.InlineFragment {
             public let __data: DataDict
             public init(data: DataDict) { __data = data }
@@ -105,18 +116,24 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
               .field("primaryFunction", String?.self),
             ] }
 
+            /// This droid's primary function
             public var primaryFunction: String? { __data["primaryFunction"] }
+            /// The name of the character
             public var name: String { __data["name"] }
           }
         }
         /// Hero.Friend.AsDroid
+        ///
+        /// Parent Type: `Droid`
         public struct AsDroid: StarWarsAPI.InlineFragment {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
           public static var __parentType: ParentType { .Object(StarWarsAPI.Droid.self) }
 
+          /// The name of the character
           public var name: String { __data["name"] }
+          /// This droid's primary function
           public var primaryFunction: String? { __data["primaryFunction"] }
         }
       }

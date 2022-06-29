@@ -43,6 +43,8 @@ public class HeroNameWithIDQuery: GraphQLQuery {
     public var hero: Hero? { __data["hero"] }
 
     /// Hero
+    ///
+    /// Parent Type: `Character`
     public struct Hero: StarWarsAPI.SelectionSet {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
@@ -53,7 +55,9 @@ public class HeroNameWithIDQuery: GraphQLQuery {
         .field("name", String.self),
       ] }
 
+      /// The ID of the character
       public var id: ID { __data["id"] }
+      /// The name of the character
       public var name: String { __data["name"] }
     }
   }

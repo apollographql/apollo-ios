@@ -3,6 +3,7 @@
 
 import ApolloAPI
 
+/// An autonomous mechanical character in the Star Wars universe
 public final class Droid: Object {
   override public class var __typename: StaticString { "Droid" }
 

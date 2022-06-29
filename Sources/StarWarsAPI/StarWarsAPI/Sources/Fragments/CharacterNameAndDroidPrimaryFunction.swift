@@ -23,6 +23,7 @@ public struct CharacterNameAndDroidPrimaryFunction: StarWarsAPI.SelectionSet, Fr
     .fragment(CharacterName.self),
   ] }
 
+  /// The name of the character
   public var name: String { __data["name"] }
 
   public var asDroid: AsDroid? { _asInlineFragment() }
@@ -35,6 +36,8 @@ public struct CharacterNameAndDroidPrimaryFunction: StarWarsAPI.SelectionSet, Fr
   }
 
   /// AsDroid
+  ///
+  /// Parent Type: `Droid`
   public struct AsDroid: StarWarsAPI.InlineFragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
@@ -44,7 +47,9 @@ public struct CharacterNameAndDroidPrimaryFunction: StarWarsAPI.SelectionSet, Fr
       .fragment(DroidPrimaryFunction.self),
     ] }
 
+    /// The name of the character
     public var name: String { __data["name"] }
+    /// This droid's primary function
     public var primaryFunction: String? { __data["primaryFunction"] }
 
     public struct Fragments: FragmentContainer {

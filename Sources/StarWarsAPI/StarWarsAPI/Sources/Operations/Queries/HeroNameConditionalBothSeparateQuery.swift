@@ -49,6 +49,8 @@ public class HeroNameConditionalBothSeparateQuery: GraphQLQuery {
     public var hero: Hero? { __data["hero"] }
 
     /// Hero
+    ///
+    /// Parent Type: `Character`
     public struct Hero: StarWarsAPI.SelectionSet {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
@@ -58,6 +60,7 @@ public class HeroNameConditionalBothSeparateQuery: GraphQLQuery {
         .include(if: !"skipName" || "includeName", .field("name", String.self)),
       ] }
 
+      /// The name of the character
       public var name: String? { __data["name"] }
     }
   }

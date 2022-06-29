@@ -34,6 +34,8 @@ public class ClassroomPetsQuery: GraphQLQuery {
     public var classroomPets: [ClassroomPet?]? { __data["classroomPets"] }
 
     /// ClassroomPet
+    ///
+    /// Parent Type: `ClassroomPet`
     public struct ClassroomPet: AnimalKingdomAPI.SelectionSet {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
@@ -58,6 +60,8 @@ public class ClassroomPetsQuery: GraphQLQuery {
       }
 
       /// ClassroomPet.AsAnimal
+      ///
+      /// Parent Type: `Animal`
       public struct AsAnimal: AnimalKingdomAPI.InlineFragment {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
@@ -75,6 +79,8 @@ public class ClassroomPetsQuery: GraphQLQuery {
       }
 
       /// ClassroomPet.AsPet
+      ///
+      /// Parent Type: `Pet`
       public struct AsPet: AnimalKingdomAPI.InlineFragment {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
@@ -92,6 +98,8 @@ public class ClassroomPetsQuery: GraphQLQuery {
       }
 
       /// ClassroomPet.AsWarmBlooded
+      ///
+      /// Parent Type: `WarmBlooded`
       public struct AsWarmBlooded: AnimalKingdomAPI.InlineFragment {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
@@ -110,6 +118,8 @@ public class ClassroomPetsQuery: GraphQLQuery {
       }
 
       /// ClassroomPet.AsCat
+      ///
+      /// Parent Type: `Cat`
       public struct AsCat: AnimalKingdomAPI.InlineFragment {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
@@ -131,6 +141,8 @@ public class ClassroomPetsQuery: GraphQLQuery {
       }
 
       /// ClassroomPet.AsBird
+      ///
+      /// Parent Type: `Bird`
       public struct AsBird: AnimalKingdomAPI.InlineFragment {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
@@ -151,6 +163,8 @@ public class ClassroomPetsQuery: GraphQLQuery {
       }
 
       /// ClassroomPet.AsPetRock
+      ///
+      /// Parent Type: `PetRock`
       public struct AsPetRock: AnimalKingdomAPI.InlineFragment {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }

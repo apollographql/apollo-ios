@@ -52,6 +52,8 @@ public class CreateReviewForEpisodeMutation: GraphQLMutation {
     public var createReview: CreateReview? { __data["createReview"] }
 
     /// CreateReview
+    ///
+    /// Parent Type: `Review`
     public struct CreateReview: StarWarsAPI.SelectionSet {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
@@ -62,7 +64,9 @@ public class CreateReviewForEpisodeMutation: GraphQLMutation {
         .field("commentary", String?.self),
       ] }
 
+      /// The number of stars this review gave, 1-5
       public var stars: Int { __data["stars"] }
+      /// Comment about the movie
       public var commentary: String? { __data["commentary"] }
     }
   }

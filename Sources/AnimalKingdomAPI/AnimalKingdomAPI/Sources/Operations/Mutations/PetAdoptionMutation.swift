@@ -42,6 +42,8 @@ public class PetAdoptionMutation: GraphQLMutation {
     public var adoptPet: AdoptPet { __data["adoptPet"] }
 
     /// AdoptPet
+    ///
+    /// Parent Type: `Pet`
     public struct AdoptPet: AnimalKingdomAPI.SelectionSet {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }

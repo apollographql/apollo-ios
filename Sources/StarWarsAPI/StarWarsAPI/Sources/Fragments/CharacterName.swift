@@ -21,5 +21,6 @@ public struct CharacterName: StarWarsAPI.SelectionSet, Fragment {
     .field("name", String.self),
   ] }
 
+  /// The name of the character
   public var name: String { __data["name"] }
 }

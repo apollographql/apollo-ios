@@ -24,9 +24,12 @@ public struct FriendsNames: StarWarsAPI.SelectionSet, Fragment {
     .field("friends", [Friend?]?.self),
   ] }
 
+  /// The friends of the character, or an empty list if they have none
   public var friends: [Friend?]? { __data["friends"] }
 
   /// Friend
+  ///
+  /// Parent Type: `Character`
   public struct Friend: StarWarsAPI.SelectionSet {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
@@ -36,6 +39,7 @@ public struct FriendsNames: StarWarsAPI.SelectionSet, Fragment {
       .field("name", String.self),
     ] }
 
+    /// The name of the character
     public var name: String { __data["name"] }
   }
 }

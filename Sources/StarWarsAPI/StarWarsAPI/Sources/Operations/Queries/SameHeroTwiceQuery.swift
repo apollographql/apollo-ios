@@ -40,6 +40,8 @@ public class SameHeroTwiceQuery: GraphQLQuery {
     public var r2: R2? { __data["r2"] }
 
     /// Hero
+    ///
+    /// Parent Type: `Character`
     public struct Hero: StarWarsAPI.SelectionSet {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
@@ -49,10 +51,13 @@ public class SameHeroTwiceQuery: GraphQLQuery {
         .field("name", String.self),
       ] }
 
+      /// The name of the character
       public var name: String { __data["name"] }
     }
 
     /// R2
+    ///
+    /// Parent Type: `Character`
     public struct R2: StarWarsAPI.SelectionSet {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
@@ -62,6 +67,7 @@ public class SameHeroTwiceQuery: GraphQLQuery {
         .field("appearsIn", [GraphQLEnum<Episode>?].self),
       ] }
 
+      /// The movies this character appears in
       public var appearsIn: [GraphQLEnum<Episode>?] { __data["appearsIn"] }
     }
   }

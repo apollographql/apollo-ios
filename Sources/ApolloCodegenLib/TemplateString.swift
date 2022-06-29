@@ -176,7 +176,7 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
     mutating func appendInterpolation(
       documentation: String?
     ) {
-      guard let documentation = documentation else {
+      guard let documentation = documentation, !documentation.isEmpty else {
         removeLineIfEmpty()
         return
       }

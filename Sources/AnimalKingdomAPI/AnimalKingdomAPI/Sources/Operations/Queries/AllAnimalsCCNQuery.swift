@@ -37,6 +37,8 @@ public class AllAnimalsCCNQuery: GraphQLQuery {
     public var allAnimals: [AllAnimal] { __data["allAnimals"] }
 
     /// AllAnimal
+    ///
+    /// Parent Type: `Animal`
     public struct AllAnimal: AnimalKingdomAPI.SelectionSet {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
@@ -49,6 +51,8 @@ public class AllAnimalsCCNQuery: GraphQLQuery {
       public var height: Height? { __data["height"] }
 
       /// AllAnimal.Height
+      ///
+      /// Parent Type: `Height`
       public struct Height: AnimalKingdomAPI.SelectionSet {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }

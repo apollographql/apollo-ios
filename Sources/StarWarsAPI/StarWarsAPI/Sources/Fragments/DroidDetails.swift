@@ -23,6 +23,8 @@ public struct DroidDetails: StarWarsAPI.SelectionSet, Fragment {
     .field("primaryFunction", String?.self),
   ] }
 
+  /// What others call this droid
   public var name: String { __data["name"] }
+  /// This droid's primary function
   public var primaryFunction: String? { __data["primaryFunction"] }
 }

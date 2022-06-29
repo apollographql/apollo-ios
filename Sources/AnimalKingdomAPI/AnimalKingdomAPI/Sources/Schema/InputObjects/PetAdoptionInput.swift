@@ -38,6 +38,7 @@ public struct PetAdoptionInput: InputObject {
     set { __data.petID = newValue }
   }
 
+  /// The given name the pet is called by its human.
   public var humanName: GraphQLNullable<String> {
     get { __data.humanName }
     set { __data.humanName = newValue }

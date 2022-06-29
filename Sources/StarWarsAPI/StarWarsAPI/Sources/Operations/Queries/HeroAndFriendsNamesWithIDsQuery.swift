@@ -48,6 +48,8 @@ public class HeroAndFriendsNamesWithIDsQuery: GraphQLQuery {
     public var hero: Hero? { __data["hero"] }
 
     /// Hero
+    ///
+    /// Parent Type: `Character`
     public struct Hero: StarWarsAPI.SelectionSet {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
@@ -59,11 +61,16 @@ public class HeroAndFriendsNamesWithIDsQuery: GraphQLQuery {
         .field("friends", [Friend?]?.self),
       ] }
 
+      /// The ID of the character
       public var id: ID { __data["id"] }
+      /// The name of the character
       public var name: String { __data["name"] }
+      /// The friends of the character, or an empty list if they have none
       public var friends: [Friend?]? { __data["friends"] }
 
       /// Hero.Friend
+      ///
+      /// Parent Type: `Character`
       public struct Friend: StarWarsAPI.SelectionSet {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
@@ -74,7 +81,9 @@ public class HeroAndFriendsNamesWithIDsQuery: GraphQLQuery {
           .field("name", String.self),
         ] }
 
+        /// The ID of the character
         public var id: ID { __data["id"] }
+        /// The name of the character
         public var name: String { __data["name"] }
       }
     }

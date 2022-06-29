@@ -44,6 +44,8 @@ public class HeroNameWithFragmentAndIDQuery: GraphQLQuery {
     public var hero: Hero? { __data["hero"] }
 
     /// Hero
+    ///
+    /// Parent Type: `Character`
     public struct Hero: StarWarsAPI.SelectionSet {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
@@ -54,7 +56,9 @@ public class HeroNameWithFragmentAndIDQuery: GraphQLQuery {
         .fragment(CharacterName.self),
       ] }
 
+      /// The ID of the character
       public var id: ID { __data["id"] }
+      /// The name of the character
       public var name: String { __data["name"] }
 
       public struct Fragments: FragmentContainer {

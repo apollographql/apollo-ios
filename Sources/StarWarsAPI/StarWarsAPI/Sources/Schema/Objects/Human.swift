@@ -3,6 +3,7 @@
 
 import ApolloAPI
 
+/// A humanoid creature from the Star Wars universe
 public final class Human: Object {
   override public class var __typename: StaticString { "Human" }
 

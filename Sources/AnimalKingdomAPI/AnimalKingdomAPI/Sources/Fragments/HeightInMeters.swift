@@ -27,6 +27,8 @@ public struct HeightInMeters: AnimalKingdomAPI.SelectionSet, Fragment {
   public var height: Height { __data["height"] }
 
   /// Height
+  ///
+  /// Parent Type: `Height`
   public struct Height: AnimalKingdomAPI.SelectionSet {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }

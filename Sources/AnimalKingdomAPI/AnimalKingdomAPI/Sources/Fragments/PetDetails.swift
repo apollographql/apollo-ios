@@ -33,6 +33,8 @@ public struct PetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
   public var owner: Owner? { __data["owner"] }
 
   /// Owner
+  ///
+  /// Parent Type: `Human`
   public struct Owner: AnimalKingdomAPI.SelectionSet {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }

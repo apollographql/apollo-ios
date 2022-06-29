@@ -52,6 +52,8 @@ public class HeroNameTypeSpecificConditionalInclusionQuery: GraphQLQuery {
     public var hero: Hero? { __data["hero"] }
 
     /// Hero
+    ///
+    /// Parent Type: `Character`
     public struct Hero: StarWarsAPI.SelectionSet {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
@@ -62,11 +64,14 @@ public class HeroNameTypeSpecificConditionalInclusionQuery: GraphQLQuery {
         .include(if: "includeName", .field("name", String.self)),
       ] }
 
+      /// The name of the character
       public var name: String? { __data["name"] }
 
       public var asDroid: AsDroid? { _asInlineFragment() }
 
       /// Hero.AsDroid
+      ///
+      /// Parent Type: `Droid`
       public struct AsDroid: StarWarsAPI.InlineFragment {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
@@ -76,6 +81,7 @@ public class HeroNameTypeSpecificConditionalInclusionQuery: GraphQLQuery {
           .field("name", String.self),
         ] }
 
+        /// What others call this droid
         public var name: String { __data["name"] }
       }
     }

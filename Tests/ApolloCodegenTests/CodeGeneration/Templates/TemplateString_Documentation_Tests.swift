@@ -66,6 +66,24 @@ class TemplateString_Documentation_Tests: XCTestCase {
     expect(actual).to(equalLineByLine(expected))
   }
 
+  func test__appendInterpolation_documentation__givenEmpty_removesDocumentationLine() throws {
+    // given
+    let expected = """
+    var testA: String = "TestA"
+    var testB: String = "TestB"
+    """
+
+    // when
+    let actual = TemplateString("""
+    var testA: String = "TestA"
+    \(documentation: "")
+    var testB: String = "TestB"
+    """).description
+
+    // then
+    expect(actual).to(equalLineByLine(expected))
+  }
+
   func test__appendInterpolation_documentation__givenStringWithNewlineCharacter_returnsStringInMultilineDocComment() throws {
     // given
     let documentation = "This is some great documentation!\nWith two lines!"

@@ -43,6 +43,8 @@ public class HeroNameAndAppearsInWithFragmentQuery: GraphQLQuery {
     public var hero: Hero? { __data["hero"] }
 
     /// Hero
+    ///
+    /// Parent Type: `Character`
     public struct Hero: StarWarsAPI.SelectionSet {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
@@ -52,7 +54,9 @@ public class HeroNameAndAppearsInWithFragmentQuery: GraphQLQuery {
         .fragment(CharacterNameAndAppearsIn.self),
       ] }
 
+      /// The name of the character
       public var name: String { __data["name"] }
+      /// The movies this character appears in
       public var appearsIn: [GraphQLEnum<Episode>?] { __data["appearsIn"] }
 
       public struct Fragments: FragmentContainer {
