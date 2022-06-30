@@ -32,20 +32,6 @@ class OperationIdentifierFileGeneratorTests: XCTestCase {
     ).xctUnwrapped()
   }
 
-  private func buildOperation(
-    name: String,
-    type: CompilationResult.OperationType,
-    source: String
-  ) -> IR.Operation {
-    let definition = CompilationResult.OperationDefinition.mock(
-      name: name,
-      type: type,
-      source: source
-    )
-
-    return IR.Operation.mock(definition: definition)
-  }
-
   // MARK: Initializer Tests
 
   func test__initializer__givenPath_shouldReturnInstance() {
@@ -83,7 +69,7 @@ class OperationIdentifierFileGeneratorTests: XCTestCase {
     let filePath = "path/to/match"
     try buildSubject(path: filePath)
 
-    subject.collectOperationIdentifier(buildOperation(
+    subject.collectOperationIdentifier(.mock(
       name: "TestQuery",
       type: .query,
       source: """
@@ -118,7 +104,7 @@ class OperationIdentifierFileGeneratorTests: XCTestCase {
     let filePath = "path/that/exists"
     try buildSubject(path: filePath)
 
-    subject.collectOperationIdentifier(buildOperation(
+    subject.collectOperationIdentifier(.mock(
       name: "TestQuery",
       type: .query,
       source: """
@@ -129,10 +115,11 @@ class OperationIdentifierFileGeneratorTests: XCTestCase {
     ))
 
     fileManager.mock(closure: .fileExists({ path, isDirectory in
-      expect(path).to(equal(URL(fileURLWithPath: filePath).deletingLastPathComponent().path))
-      isDirectory?.pointee = true
-
       return true
+    }))
+
+    fileManager.mock(closure: .createDirectory({ path, intermediateDirectories, attributes in
+      // no-op
     }))
 
     fileManager.mock(closure: .createFile({ path, data, attributes in

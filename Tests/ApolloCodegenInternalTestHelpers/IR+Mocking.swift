@@ -1,5 +1,6 @@
 @testable import ApolloCodegenLib
 import ApolloUtils
+import OrderedCollections
 
 extension IR {
 
@@ -58,7 +59,8 @@ extension IR.NamedFragment {
 
   public static func mock(
     _ name: String,
-    type: GraphQLCompositeType = .mock("MockType")
+    type: GraphQLCompositeType = .mock("MockType"),
+    source: String? = nil
   ) -> IR.NamedFragment {
     let rootField = CompilationResult.Field.mock(name, type: .entity(type))
     let rootEntity = IR.Entity(
@@ -78,7 +80,7 @@ extension IR.NamedFragment {
           ))))
 
     return IR.NamedFragment(
-      definition: CompilationResult.FragmentDefinition.mock(name, type: type),
+      definition: CompilationResult.FragmentDefinition.mock(name, type: type, source: source),
       rootField: rootEntityField,
       referencedFragments: [],
       entities: [rootEntity.fieldPath: rootEntity]
@@ -89,7 +91,8 @@ extension IR.NamedFragment {
 extension IR.Operation {
 
   public static func mock(
-    definition: CompilationResult.OperationDefinition? = nil
+    definition: CompilationResult.OperationDefinition? = nil,
+    referencedFragments: OrderedSet<IR.NamedFragment> = []
   ) -> IR.Operation {
     IR.Operation.init(
       definition: definition ?? .mock(),
@@ -106,6 +109,22 @@ extension IR.Operation {
             givenAllTypesInSchema: .init([]))
           ])
       ),
-      referencedFragments: [])
+      referencedFragments: referencedFragments
+    )
+  }
+
+  public static func mock(
+    name: String,
+    type: CompilationResult.OperationType,
+    source: String,
+    referencedFragments: OrderedSet<IR.NamedFragment> = []
+  ) -> IR.Operation {
+    let definition = CompilationResult.OperationDefinition.mock(
+      name: name,
+      type: type,
+      source: source
+    )
+
+    return IR.Operation.mock(definition: definition, referencedFragments: referencedFragments)
   }
 }

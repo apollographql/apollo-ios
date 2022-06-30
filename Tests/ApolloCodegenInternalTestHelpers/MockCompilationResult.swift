@@ -126,13 +126,14 @@ public extension CompilationResult.FragmentDefinition {
     _ name: String = "NameFragment",
     type: GraphQLCompositeType = .emptyMockObject(),
     selections: [CompilationResult.Selection] = [],
-    path: String = ""
+    path: String = "",
+    source: String? = nil
   ) -> Self {
     let mock = Self.emptyMockObject()
     mock.name = name
     mock.type = type
     mock.selectionSet = .mock(parentType: type, selections: selections)
-    mock.source = Self.mockDefinition(name: name)
+    mock.source = source ?? Self.mockDefinition(name: name)
     mock.filePath = path
     return mock
   }

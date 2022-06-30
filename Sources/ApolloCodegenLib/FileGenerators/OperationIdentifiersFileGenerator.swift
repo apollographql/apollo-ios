@@ -1,23 +1,12 @@
 import Foundation
 import ApolloUtils
-import OrderedCollections
-
-/// Representation of an operation that supports Automatic Persisted Queries
-struct OperationDetail: Codable {
-  let name: String
-  let source: String
-}
-
-/// Ordered dictionary of operation details keyed by the computed hash.
-typealias OperationIdentifierList = OrderedDictionary<String, OperationDetail>
 
 /// File generator to create a JSON formatted file of operation identifiers.
 struct OperationIdentifiersFileGenerator {
   /// File path of the generated target.
   let filePath: String
 
-  /// `OperationIdentifier` objects to be written to `path`.
-  private var operationIdentifiers: OperationIdentifierList = [:]
+  private var template: OperationIdentifiersTemplate
 
   /// Designated initializer.
   ///
@@ -29,14 +18,12 @@ struct OperationIdentifiersFileGenerator {
     }
 
     self.filePath = path
+    self.template = OperationIdentifiersTemplate()
   }
 
   /// Appends the operation to the collection of identifiers to be written to `path`.
   mutating func collectOperationIdentifier(_ operation: IR.Operation) {
-    operationIdentifiers[operation.operationIdentifier] = OperationDetail(
-      name: operation.definition.name,
-      source: operation.definition.source
-    )
+    template.collectOperationIdentifier(operation)
   }
 
   /// Generates a file containing the operation identifiers.
@@ -45,7 +32,6 @@ struct OperationIdentifiersFileGenerator {
   ///  - fileManager: `FileManager` object used to create the file. Defaults to
   ///  `FileManager.default`.
   func generate(fileManager: FileManager = .default) throws {
-    let template = OperationIdentifiersTemplate(operationIdentifiers: operationIdentifiers)
     let rendered: String = try template.render()
 
     try fileManager.apollo.createFile(
