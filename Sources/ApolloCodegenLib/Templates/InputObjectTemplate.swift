@@ -40,7 +40,9 @@ struct InputObjectTemplate: TemplateRenderer {
     )
   }
 
-  private func InitializerParametersTemplate() -> TemplateString {
+  private func InitializerParametersTemplate(
+    _ fields:
+  ) -> TemplateString {
     TemplateString("""
     \(graphqlInputObject.fields.map({
       "\($1.name): \($1.renderInputValueType(includeDefault: true, config: config.config))"
@@ -57,6 +59,10 @@ struct InputObjectTemplate: TemplateRenderer {
   private func FieldPropertyTemplate(_ field: GraphQLInputField) -> TemplateString {
     """
     \(documentation: field.documentation, config: config)
+    \(ifLet: field.deprecationReason,
+      where: config.options.warningsOnDeprecatedUsage == .include, {
+        "@available(*, deprecated, message: \"\($0)\")"
+      })
     public var \(field.name): \(field.renderInputValueType(config: config.config)) {
       get { __data.\(field.name) }
       set { __data.\(field.name) = newValue }

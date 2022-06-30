@@ -766,7 +766,6 @@ class InputObjectTemplateTests: XCTestCase {
 
   func test__render__givenSchemaDocumentation_exclude_hasDocumentation_shouldNotGenerateDocumentationComment() throws {
     // given
-    // given
     let documentation = "This is some great documentation!"
     buildSubject(
       fields: [
@@ -795,6 +794,190 @@ class InputObjectTemplateTests: XCTestCase {
         ])
       }
 
+      public var fieldOne: String {
+    """
+
+    // when
+    let rendered = renderSubject()
+
+    // then
+    expect(rendered).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  // MARK: Deprecation Tests
+
+  func test__render__givenDeprecatedField_includeDeprecationWarnings_shouldGenerateWarning() throws {
+    // given
+    buildSubject(
+      fields: [
+        GraphQLInputField.mock(
+          "fieldOne",
+          type: .nonNull(.string()),
+          defaultValue: nil,
+          deprecationReason: "Not used anymore!"
+        )
+      ],
+      config: .mock(options: .init(
+        schemaDocumentation: .include,
+        warningsOnDeprecatedUsage: .include
+      ))
+    )
+
+    let expected = """
+    struct MockInput: InputObject {
+      public private(set) var __data: InputDict
+
+      public init(_ data: InputDict) {
+        __data = data
+      }
+
+      public init(
+        fieldOne: String
+      ) {
+        __data = InputDict([
+          "fieldOne": fieldOne
+        ])
+      }
+
+      @available(*, deprecated, message: "Not used anymore!")
+      public var fieldOne: String {
+    """
+
+    // when
+    let rendered = renderSubject()
+
+    // then
+    expect(rendered).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test__render__givenDeprecatedField_excludeDeprecationWarnings_shouldNotGenerateWarning() throws {
+    // given
+    buildSubject(
+      fields: [
+        GraphQLInputField.mock(
+          "fieldOne",
+          type: .nonNull(.string()),
+          defaultValue: nil,
+          deprecationReason: "Not used anymore!"
+        )
+      ],
+      config: .mock(options: .init(
+        schemaDocumentation: .include,
+        warningsOnDeprecatedUsage: .exclude
+      ))
+    )
+
+    let expected = """
+    struct MockInput: InputObject {
+      public private(set) var __data: InputDict
+
+      public init(_ data: InputDict) {
+        __data = data
+      }
+
+      public init(
+        fieldOne: String
+      ) {
+        __data = InputDict([
+          "fieldOne": fieldOne
+        ])
+      }
+
+      public var fieldOne: String {
+    """
+
+    // when
+    let rendered = renderSubject()
+
+    // then
+    expect(rendered).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test__render__givenDeprecatedField_andDocumentation_includeDeprecationWarnings_shouldGenerateWarning_afterDocumentation() throws {
+    // given
+    let documentation = "This is some great documentation!"
+    buildSubject(
+      fields: [
+        GraphQLInputField.mock(
+          "fieldOne",
+          type: .nonNull(.string()),
+          defaultValue: nil,
+          documentation: "Field Documentation!",
+          deprecationReason: "Not used anymore!"
+        )
+      ],
+      documentation: documentation,
+      config: .mock(options: .init(
+        schemaDocumentation: .include,
+        warningsOnDeprecatedUsage: .include
+      ))
+    )
+
+    let expected = """
+    /// This is some great documentation!
+    struct MockInput: InputObject {
+      public private(set) var __data: InputDict
+
+      public init(_ data: InputDict) {
+        __data = data
+      }
+
+      public init(
+        fieldOne: String
+      ) {
+        __data = InputDict([
+          "fieldOne": fieldOne
+        ])
+      }
+
+      /// Field Documentation!
+      @available(*, deprecated, message: "Not used anymore!")
+      public var fieldOne: String {
+    """
+
+    // when
+    let rendered = renderSubject()
+
+    // then
+    expect(rendered).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test__render__givenDeprecatedField_andDocumentation_excludeDeprecationWarnings_shouldNotGenerateWarning_afterDocumentation() throws {
+    // given
+    let documentation = "This is some great documentation!"
+    buildSubject(
+      fields: [
+        GraphQLInputField.mock(
+          "fieldOne",
+          type: .nonNull(.string()),
+          defaultValue: nil,
+          documentation: "Field Documentation!")
+      ],
+      documentation: documentation,
+      config: .mock(options: .init(
+        schemaDocumentation: .include,
+        warningsOnDeprecatedUsage: .exclude
+      ))
+    )
+
+    let expected = """
+    /// This is some great documentation!
+    struct MockInput: InputObject {
+      public private(set) var __data: InputDict
+
+      public init(_ data: InputDict) {
+        __data = data
+      }
+
+      public init(
+        fieldOne: String
+      ) {
+        __data = InputDict([
+          "fieldOne": fieldOne
+        ])
+      }
+
+      /// Field Documentation!
       public var fieldOne: String {
     """
 
