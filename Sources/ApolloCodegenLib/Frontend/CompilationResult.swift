@@ -324,6 +324,8 @@ public class CompilationResult: JavaScriptObject {
 
     lazy var value: GraphQLValue = self["value"]
 
+    lazy var deprecationReason: String? = self["deprecationReason"]
+
     public func hash(into hasher: inout Hasher) {
       hasher.combine(name)
       hasher.combine(type)
