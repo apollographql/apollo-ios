@@ -27,8 +27,18 @@ struct InputObjectTemplate: TemplateRenderer {
         __data = data
       }
 
-      \(if: !deprecatedFields.isEmpty,
-        where: config.options.warningsOnDeprecatedUsage == .include, """
+      \(if: !deprecatedFields.isEmpty && !validFields.isEmpty && shouldIncludeDeprecatedWarnings, """
+      public init(
+        \(InitializerParametersTemplate(validFields))
+      ) {
+        __data = InputDict([
+          \(InputDictInitializerTemplate(validFields))
+        ])
+      }
+
+      """
+      )
+      \(if: !deprecatedFields.isEmpty && shouldIncludeDeprecatedWarnings, """
       @available(*, deprecated, message: "\(deprecatedMessage(for: deprecatedFields))")
       """)
       public init(
@@ -44,6 +54,10 @@ struct InputObjectTemplate: TemplateRenderer {
 
     """
     )
+  }
+
+  private var shouldIncludeDeprecatedWarnings: Bool {
+    config.options.warningsOnDeprecatedUsage == .include
   }
 
   private func filterFields(

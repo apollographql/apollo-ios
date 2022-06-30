@@ -824,13 +824,6 @@ class InputObjectTemplateTests: XCTestCase {
     )
 
     let expected = """
-    struct MockInput: InputObject {
-      public private(set) var __data: InputDict
-
-      public init(_ data: InputDict) {
-        __data = data
-      }
-
       @available(*, deprecated, message: "Argument 'fieldOne' is deprecated.")
       public init(
         fieldOne: String
@@ -848,7 +841,7 @@ class InputObjectTemplateTests: XCTestCase {
     let rendered = renderSubject()
 
     // then
-    expect(rendered).to(equalLineByLine(expected, ignoringExtraLines: true))
+    expect(rendered).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
   }
 
   func test__render__givenDeprecatedField_excludeDeprecationWarnings_shouldNotGenerateWarning() throws {
@@ -869,13 +862,6 @@ class InputObjectTemplateTests: XCTestCase {
     )
 
     let expected = """
-    struct MockInput: InputObject {
-      public private(set) var __data: InputDict
-
-      public init(_ data: InputDict) {
-        __data = data
-      }
-
       public init(
         fieldOne: String
       ) {
@@ -891,7 +877,7 @@ class InputObjectTemplateTests: XCTestCase {
     let rendered = renderSubject()
 
     // then
-    expect(rendered).to(equalLineByLine(expected, ignoringExtraLines: true))
+    expect(rendered).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
   }
 
   func test__render__givenDeprecatedField_andDocumentation_includeDeprecationWarnings_shouldGenerateWarning_afterDocumentation() throws {
@@ -990,7 +976,7 @@ class InputObjectTemplateTests: XCTestCase {
     expect(rendered).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
-  func test__render__givenDeprecatedAndValidFields_includeDeprecationWarnings_shouldGenerateWarnings() throws {
+  func test__render__givenDeprecatedAndValidFields_includeDeprecationWarnings_shouldGenerateWarnings_withValidInitializer() throws {
     // given
     buildSubject(
       fields: [
@@ -1007,6 +993,11 @@ class InputObjectTemplateTests: XCTestCase {
         ),
         GraphQLInputField.mock(
           "fieldThree",
+          type: .nonNull(.string()),
+          defaultValue: nil
+        ),
+        GraphQLInputField.mock(
+          "fieldFour",
           type: .nonNull(.string()),
           defaultValue: nil,
           deprecationReason: "Stop using this field!"
@@ -1026,16 +1017,28 @@ class InputObjectTemplateTests: XCTestCase {
         __data = data
       }
 
-      @available(*, deprecated, message: "Arguments 'fieldOne, fieldThree' are deprecated.")
       public init(
-        fieldOne: String,
         fieldTwo: String,
         fieldThree: String
       ) {
         __data = InputDict([
-          "fieldOne": fieldOne,
           "fieldTwo": fieldTwo,
           "fieldThree": fieldThree
+        ])
+      }
+
+      @available(*, deprecated, message: "Arguments 'fieldOne, fieldFour' are deprecated.")
+      public init(
+        fieldOne: String,
+        fieldTwo: String,
+        fieldThree: String,
+        fieldFour: String
+      ) {
+        __data = InputDict([
+          "fieldOne": fieldOne,
+          "fieldTwo": fieldTwo,
+          "fieldThree": fieldThree,
+          "fieldFour": fieldFour
         ])
       }
 
@@ -1050,10 +1053,15 @@ class InputObjectTemplateTests: XCTestCase {
         set { __data.fieldTwo = newValue }
       }
 
-      @available(*, deprecated, message: "Stop using this field!")
       public var fieldThree: String {
         get { __data.fieldThree }
         set { __data.fieldThree = newValue }
+      }
+
+      @available(*, deprecated, message: "Stop using this field!")
+      public var fieldFour: String {
+        get { __data.fieldFour }
+        set { __data.fieldFour = newValue }
       }
     """
 
@@ -1064,7 +1072,7 @@ class InputObjectTemplateTests: XCTestCase {
     expect(rendered).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
-  func test__render__givenDeprecatedAndValidFields_excludeDeprecationWarnings_shouldNotGenerateWarning_afterDocumentation() throws {
+  func test__render__givenDeprecatedAndValidFields_excludeDeprecationWarnings_shouldNotGenerateWarning_afterDocumentation_withOnlyOneInitializer() throws {
     // given
     buildSubject(
       fields: [
