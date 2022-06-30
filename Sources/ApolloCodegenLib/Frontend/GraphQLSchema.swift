@@ -80,8 +80,10 @@ public class GraphQLEnumValue: JavaScriptObject {
   lazy var deprecationReason: String? = self["deprecationReason"]
 }
 
+typealias GraphQLInputFieldDictionary = OrderedDictionary<String, GraphQLInputField>
+
 public class GraphQLInputObjectType: GraphQLNamedType {
-  lazy var fields: OrderedDictionary<String, GraphQLInputField> = try! invokeMethod("getFields")
+  lazy var fields: GraphQLInputFieldDictionary = try! invokeMethod("getFields")
 }
 
 public class GraphQLInputField: JavaScriptObject {
@@ -96,7 +98,7 @@ public class GraphQLInputField: JavaScriptObject {
     return node?["defaultValue"]
   }()
     
-  private(set) lazy var deprecationReason: String? = self["deprecationReason"]
+  lazy var deprecationReason: String? = self["deprecationReason"]
 }
 
 public class GraphQLCompositeType: GraphQLNamedType {

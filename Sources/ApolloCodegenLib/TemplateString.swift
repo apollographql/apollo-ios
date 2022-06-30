@@ -144,6 +144,21 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
       }
     }
 
+    mutating func appendInterpolation(
+      if bool: Bool,
+      where whereBlock: @autoclosure @escaping () -> Bool = true,
+      _ template: @autoclosure () -> TemplateString,
+      else: @autoclosure () -> TemplateString? = nil
+    ) {
+      if bool && whereBlock() {
+        appendInterpolation(template())
+      } else if let elseTemplate = `else`() {
+        appendInterpolation(elseTemplate)
+      } else {
+        removeLineIfEmpty()
+      }
+    }
+
     /// MARK: If Let
 
     mutating func appendInterpolation<T>(

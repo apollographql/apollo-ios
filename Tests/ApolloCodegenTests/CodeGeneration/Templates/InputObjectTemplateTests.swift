@@ -831,6 +831,7 @@ class InputObjectTemplateTests: XCTestCase {
         __data = data
       }
 
+      @available(*, deprecated, message: "Argument 'fieldOne' is deprecated.")
       public init(
         fieldOne: String
       ) {
@@ -922,6 +923,7 @@ class InputObjectTemplateTests: XCTestCase {
         __data = data
       }
 
+      @available(*, deprecated, message: "Argument 'fieldOne' is deprecated.")
       public init(
         fieldOne: String
       ) {
@@ -979,6 +981,151 @@ class InputObjectTemplateTests: XCTestCase {
 
       /// Field Documentation!
       public var fieldOne: String {
+    """
+
+    // when
+    let rendered = renderSubject()
+
+    // then
+    expect(rendered).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test__render__givenDeprecatedAndValidFields_includeDeprecationWarnings_shouldGenerateWarnings() throws {
+    // given
+    buildSubject(
+      fields: [
+        GraphQLInputField.mock(
+          "fieldOne",
+          type: .nonNull(.string()),
+          defaultValue: nil,
+          deprecationReason: "Not used anymore!"
+        ),
+        GraphQLInputField.mock(
+          "fieldTwo",
+          type: .nonNull(.string()),
+          defaultValue: nil
+        ),
+        GraphQLInputField.mock(
+          "fieldThree",
+          type: .nonNull(.string()),
+          defaultValue: nil,
+          deprecationReason: "Stop using this field!"
+        )
+      ],
+      config: .mock(options: .init(
+        schemaDocumentation: .include,
+        warningsOnDeprecatedUsage: .include
+      ))
+    )
+
+    let expected = """
+    struct MockInput: InputObject {
+      public private(set) var __data: InputDict
+
+      public init(_ data: InputDict) {
+        __data = data
+      }
+
+      @available(*, deprecated, message: "Arguments 'fieldOne, fieldThree' are deprecated.")
+      public init(
+        fieldOne: String,
+        fieldTwo: String,
+        fieldThree: String
+      ) {
+        __data = InputDict([
+          "fieldOne": fieldOne,
+          "fieldTwo": fieldTwo,
+          "fieldThree": fieldThree
+        ])
+      }
+
+      @available(*, deprecated, message: "Not used anymore!")
+      public var fieldOne: String {
+        get { __data.fieldOne }
+        set { __data.fieldOne = newValue }
+      }
+
+      public var fieldTwo: String {
+        get { __data.fieldTwo }
+        set { __data.fieldTwo = newValue }
+      }
+
+      @available(*, deprecated, message: "Stop using this field!")
+      public var fieldThree: String {
+        get { __data.fieldThree }
+        set { __data.fieldThree = newValue }
+      }
+    """
+
+    // when
+    let rendered = renderSubject()
+
+    // then
+    expect(rendered).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test__render__givenDeprecatedAndValidFields_excludeDeprecationWarnings_shouldNotGenerateWarning_afterDocumentation() throws {
+    // given
+    buildSubject(
+      fields: [
+        GraphQLInputField.mock(
+          "fieldOne",
+          type: .nonNull(.string()),
+          defaultValue: nil,
+          deprecationReason: "Not used anymore!"
+        ),
+        GraphQLInputField.mock(
+          "fieldTwo",
+          type: .nonNull(.string()),
+          defaultValue: nil
+        ),
+        GraphQLInputField.mock(
+          "fieldThree",
+          type: .nonNull(.string()),
+          defaultValue: nil,
+          deprecationReason: "Stop using this field!"
+        )
+      ],
+      config: .mock(options: .init(
+        schemaDocumentation: .include,
+        warningsOnDeprecatedUsage: .exclude
+      ))
+    )
+
+    let expected = """
+    struct MockInput: InputObject {
+      public private(set) var __data: InputDict
+
+      public init(_ data: InputDict) {
+        __data = data
+      }
+
+      public init(
+        fieldOne: String,
+        fieldTwo: String,
+        fieldThree: String
+      ) {
+        __data = InputDict([
+          "fieldOne": fieldOne,
+          "fieldTwo": fieldTwo,
+          "fieldThree": fieldThree
+        ])
+      }
+
+      public var fieldOne: String {
+        get { __data.fieldOne }
+        set { __data.fieldOne = newValue }
+      }
+
+      public var fieldTwo: String {
+        get { __data.fieldTwo }
+        set { __data.fieldTwo = newValue }
+      }
+
+      public var fieldThree: String {
+        get { __data.fieldThree }
+        set { __data.fieldThree = newValue }
+      }
     """
 
     // when
