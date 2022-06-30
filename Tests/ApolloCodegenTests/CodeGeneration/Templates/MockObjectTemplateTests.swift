@@ -21,9 +21,13 @@ class MockObjectTemplateTests: XCTestCase {
   private func buildSubject(
     name: String = "Dog",
     interfaces: [GraphQLInterfaceType] = [],
-    moduleType: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType = .swiftPackageManager
+    moduleType: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType = .swiftPackageManager,
+    warningsOnDeprecatedUsage: ApolloCodegenConfiguration.Composition = .exclude
   ) {
-    let config = ApolloCodegenConfiguration.mock(moduleType)
+    let config = ApolloCodegenConfiguration.mock(
+      moduleType,
+      warningsOnDeprecatedUsage: warningsOnDeprecatedUsage
+    )
     ir = IR.mock(compilationResult: .mock())
 
     subject = MockObjectTemplate(
@@ -493,6 +497,64 @@ class MockObjectTemplateTests: XCTestCase {
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 23, ignoringExtraLines: true))
+  }
+
+  // MARK: - Deprecation Warnings
+
+  func test__render_fieldAccessors__givenWarningsOnDeprecatedUsage_include_hasDeprecatedField_shouldGenerateWarning() throws {
+    // given
+    buildSubject(moduleType: .swiftPackageManager, warningsOnDeprecatedUsage: .include)
+
+    subject.graphqlObject.fields = [
+      "string": .mock("string", type: .nonNull(.string()), deprecationReason: "Cause I said so!"),
+    ]
+
+    ir.fieldCollector.add(
+      fields: subject.graphqlObject.fields.values.map {
+        .mock($0.name, type: $0.type, deprecationReason: $0.deprecationReason)
+      },
+      to: subject.graphqlObject
+    )
+
+    let expected = """
+      public struct MockFields {
+        @available(*, deprecated, message: "Cause I said so!")
+        @Field<String>("string") public var string
+      }
+    """
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
+  }
+
+  func test__render_fieldAccessors__givenWarningsOnDeprecatedUsage_exclude_hasDeprecatedField_shouldNotGenerateWarning() throws {
+    // given
+    buildSubject(moduleType: .swiftPackageManager, warningsOnDeprecatedUsage: .exclude)
+
+    subject.graphqlObject.fields = [
+      "string": .mock("string", type: .nonNull(.string()), deprecationReason: "Cause I said so!"),
+    ]
+
+    ir.fieldCollector.add(
+      fields: subject.graphqlObject.fields.values.map {
+        .mock($0.name, type: $0.type, deprecationReason: $0.deprecationReason)
+      },
+      to: subject.graphqlObject
+    )
+
+    let expected = """
+      public struct MockFields {
+        @Field<String>("string") public var string
+      }
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
   }
 
 }

@@ -377,6 +377,7 @@ export function compileToIR(
           name,
           value: valueFromValueNode(arg.value),
           type: argDefType,
+          deprecationReason: argDef.deprecationReason ?? undefined
         };
       })
       : undefined;

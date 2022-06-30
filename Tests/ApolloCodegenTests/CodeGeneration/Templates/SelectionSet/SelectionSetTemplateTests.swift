@@ -31,7 +31,8 @@ class SelectionSetTemplateTests: XCTestCase {
     named operationName: String = "TestOperation",
     configOutput: ApolloCodegenConfiguration.FileOutput = .mock(),
     inflectionRules: [ApolloCodegenLib.InflectionRule] = [],
-    schemaDocumentation: ApolloCodegenConfiguration.Composition = .exclude
+    schemaDocumentation: ApolloCodegenConfiguration.Composition = .exclude,
+    warningsOnDeprecatedUsage: ApolloCodegenConfiguration.Composition = .exclude
   ) throws {
     ir = try .mock(schema: schemaSDL, document: document)
     let operationDefinition = try XCTUnwrap(ir.compilationResult[operation: operationName])
@@ -41,7 +42,8 @@ class SelectionSetTemplateTests: XCTestCase {
       output: configOutput,
       options: .init(
         additionalInflectionRules: inflectionRules,
-        schemaDocumentation: schemaDocumentation
+        schemaDocumentation: schemaDocumentation,
+        warningsOnDeprecatedUsage: warningsOnDeprecatedUsage
       )
     )
     subject = SelectionSetTemplate(
@@ -4506,6 +4508,7 @@ class SelectionSetTemplateTests: XCTestCase {
     }
 
     type Animal {
+      "This field is a string."
       string: String!
     }
 
@@ -4534,5 +4537,276 @@ class SelectionSetTemplateTests: XCTestCase {
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+  }
+
+  // MARK: - Deprecation Warnings
+
+  func test__render_fieldAccessors__givenWarningsOnDeprecatedUsage_include_hasDeprecatedField_withDocumentation_shouldGenerateWarningBelowDocumentation() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      "This field is a string."
+      string: String! @deprecated(reason: "Cause I said so!")
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        string
+      }
+    }
+    """
+
+    let expected = """
+      /// This field is a string.
+      @available(*, deprecated, message: "Cause I said so!")
+      public var string: String { __data["string"] }
+    """
+
+    // when
+    try buildSubjectAndOperation(
+      schemaDocumentation: .include,
+      warningsOnDeprecatedUsage: .include
+    )
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
+  }
+
+  func test__render_fieldAccessors__givenWarningsOnDeprecatedUsage_exclude_hasDeprecatedField_shouldNotGenerateWarning() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      string: String! @deprecated
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        string
+      }
+    }
+    """
+
+    let expected = """
+      public var string: String { __data["string"] }
+    """
+
+    // when
+    try buildSubjectAndOperation(warningsOnDeprecatedUsage: .exclude)
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+  }
+
+  func test__render_selections__givenWarningsOnDeprecatedUsage_include_usesDeprecatedArgument__shouldGenerateWarning() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      animal: Animal
+    }
+
+    type Animal {
+      friend(name: String, species: String @deprecated(reason: "Who cares?")): Animal
+      species: String
+    }
+    """
+
+    document = """
+    query TestOperation($name: String, $species: String) {
+      animal {
+        friend(name: $name, species: $species) {
+          species
+        }
+      }
+    }
+    """
+
+    let expected = """
+      #warning("Argument 'species' of field 'friend' is deprecated. Reason: 'Who cares?'")
+      public static var selections: [Selection] { [
+        .field("friend", Friend?.self, arguments: [
+          "name": .variable("name"),
+          "species": .variable("species")
+        ]),
+      ] }
+    """
+
+    // when
+    try buildSubjectAndOperation(
+      warningsOnDeprecatedUsage: .include
+    )
+    let animal = try XCTUnwrap(
+      operation[field: "query"]?[field: "animal"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: animal)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
+  }
+
+  func test__render_selections__givenWarningsOnDeprecatedUsage_exclude_usesDeprecatedArgument__shouldNotGenerateWarning() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      animal: Animal
+    }
+
+    type Animal {
+      friend(name: String, species: String @deprecated(reason: "Who cares?")): Animal
+      species: String
+    }
+    """
+
+    document = """
+    query TestOperation($name: String, $species: String) {
+      animal {
+        friend(name: $name, species: $species) {
+          species
+        }
+      }
+    }
+    """
+
+    let expected = """
+      public static var selections: [Selection] { [
+        .field("friend", Friend?.self, arguments: [
+          "name": .variable("name"),
+          "species": .variable("species")
+        ]),
+      ] }
+    """
+
+    // when
+    try buildSubjectAndOperation(
+      warningsOnDeprecatedUsage: .exclude
+    )
+    let animal = try XCTUnwrap(
+      operation[field: "query"]?[field: "animal"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: animal)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
+  }
+
+  func test__render_selections__givenWarningsOnDeprecatedUsage_include_usesMultipleDeprecatedArgumentsSameField__shouldGenerateWarningAllWarnings() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      animal: Animal
+    }
+
+    type Animal {
+      friend(
+        name: String @deprecated(reason: "Someone broke it."),
+        species: String @deprecated(reason: "Who cares?")
+      ): Animal
+      species: String
+    }
+    """
+
+    document = """
+    query TestOperation($name: String, $species: String) {
+      animal {
+        friend(name: $name, species: $species) {
+          species
+        }
+      }
+    }
+    """
+
+    let expected = """
+      #warning("Argument 'name' of field 'friend' is deprecated. Reason: 'Someone broke it.'"),
+      #warning("Argument 'species' of field 'friend' is deprecated. Reason: 'Who cares?'")
+      public static var selections: [Selection] { [
+        .field("friend", Friend?.self, arguments: [
+          "name": .variable("name"),
+          "species": .variable("species")
+        ]),
+      ] }
+    """
+
+    // when
+    try buildSubjectAndOperation(
+      warningsOnDeprecatedUsage: .include
+    )
+    let animal = try XCTUnwrap(
+      operation[field: "query"]?[field: "animal"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: animal)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
+  }
+
+  func test__render_selections__givenWarningsOnDeprecatedUsage_include_usesMultipleDeprecatedArgumentsDifferentFields__shouldGenerateWarningAllWarnings() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      animal: Animal
+    }
+
+    type Animal {
+      friend(name: String @deprecated(reason: "Someone broke it.")): Animal
+      species(species: String @deprecated(reason: "Redundant")): String
+    }
+    """
+
+    document = """
+    query TestOperation($name: String, $species: String) {
+      animal {
+        friend(name: $name) {
+          species
+        }
+        species(species: $species)
+      }
+    }
+    """
+
+    let expected = """
+      #warning("Argument 'name' of field 'friend' is deprecated. Reason: 'Someone broke it.'"),
+      #warning("Argument 'species' of field 'species' is deprecated. Reason: 'Redundant'")
+      public static var selections: [Selection] { [
+        .field("friend", Friend?.self, arguments: ["name": .variable("name")]),
+        .field("species", String?.self, arguments: ["species": .variable("species")]),
+      ] }
+    """
+
+    // when
+    try buildSubjectAndOperation(
+      warningsOnDeprecatedUsage: .include
+    )
+    let animal = try XCTUnwrap(
+      operation[field: "query"]?[field: "animal"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: animal)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
   }
 }

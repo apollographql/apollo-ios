@@ -122,24 +122,39 @@ struct SelectionSetTemplate {
   }
 
   // MARK: - Selections
+  typealias DeprecatedArgument = (field: String, arg: String, reason: String)
+
   private func SelectionsTemplate(
     _ groupedSelections: IR.DirectSelections.GroupedByInclusionCondition,
     in scope: IR.ScopeDescriptor
   ) -> TemplateString {
-    """
+    var deprecatedArguments: [DeprecatedArgument]? =
+    config.options.warningsOnDeprecatedUsage == .include ? [] : nil
+
+    let selectionsTemplate = TemplateString("""
     public static var selections: [Selection] { [
-      \(renderedSelections(groupedSelections.unconditionalSelections), terminator: ",")
+      \(renderedSelections(groupedSelections.unconditionalSelections, &deprecatedArguments), terminator: ",")
       \(groupedSelections.inclusionConditionGroups.map {
-        renderedConditionalSelectionGroup($0, $1, in: scope)
+        renderedConditionalSelectionGroup($0, $1, in: scope, &deprecatedArguments)
       }, terminator: ",")
     ] }
+    """)
+    return """
+    \(if: deprecatedArguments != nil && !deprecatedArguments.unsafelyUnwrapped.isEmpty, """
+      \(deprecatedArguments.unsafelyUnwrapped.map { """
+        #warning("Argument '\($0.arg)' of field '\($0.field)' is deprecated. \
+        Reason: '\($0.reason)'")
+        """})
+      """)
+    \(selectionsTemplate)
     """
   }
 
   private func renderedSelections(
-    _ selections: IR.DirectSelections.ReadOnly
+    _ selections: IR.DirectSelections.ReadOnly,
+    _ deprecatedArguments: inout [DeprecatedArgument]?
   ) -> [TemplateString] {
-    selections.fields.values.map { FieldSelectionTemplate($0) } +
+    selections.fields.values.map { FieldSelectionTemplate($0, &deprecatedArguments) } +
     selections.inlineFragments.values.map { InlineFragmentSelectionTemplate($0) } +
     selections.fragments.values.map { FragmentSelectionTemplate($0) }
   }
@@ -147,9 +162,10 @@ struct SelectionSetTemplate {
   private func renderedConditionalSelectionGroup(
     _ conditions: AnyOf<IR.InclusionConditions>,
     _ selections: IR.DirectSelections.ReadOnly,
-    in scope: IR.ScopeDescriptor
+    in scope: IR.ScopeDescriptor,
+    _ deprecatedArguments: inout [DeprecatedArgument]?
   ) -> TemplateString {
-    let renderedSelections = self.renderedSelections(selections)
+    let renderedSelections = self.renderedSelections(selections, &deprecatedArguments)
     guard !scope.matches(conditions) else {
       return "\(renderedSelections)"
     }
@@ -160,14 +176,17 @@ struct SelectionSetTemplate {
     """
   }
 
-  private func FieldSelectionTemplate(_ field: IR.Field) -> TemplateString {
+  private func FieldSelectionTemplate(
+    _ field: IR.Field,
+    _ deprecatedArguments: inout [DeprecatedArgument]?
+  ) -> TemplateString {
     """
     .field("\(field.name)"\
     \(ifLet: field.alias, {", alias: \"\($0)\""})\
     , \(typeName(for: field)).self\
     \(ifLet: field.arguments,
       where: { !$0.isEmpty }, { args in
-        ", arguments: " + renderValue(for: args)
+        ", arguments: " + renderValue(for: args, onFieldNamed: field.name, &deprecatedArguments)
     })\
     )
     """
@@ -194,8 +213,19 @@ struct SelectionSetTemplate {
 
   }
 
-  private func renderValue(for arguments: [CompilationResult.Argument]) -> TemplateString {
-    "[\(list: arguments.map{ "\"\($0.name)\": " + $0.value.renderInputValueLiteral() })]"
+  private func renderValue(
+    for arguments: [CompilationResult.Argument],
+    onFieldNamed fieldName: String,
+    _ deprecatedArguments: inout [DeprecatedArgument]?
+  ) -> TemplateString {
+    """
+    [\(list: arguments.map { arg -> TemplateString in
+      if let deprecationReason = arg.deprecationReason {
+        deprecatedArguments?.append((field: fieldName, arg: arg.name, reason: deprecationReason))
+      }
+      return "\"\(arg.name)\": " + arg.value.renderInputValueLiteral()
+    })]
+    """
   }
 
   private func InlineFragmentSelectionTemplate(_ inlineFragment: IR.SelectionSet) -> TemplateString {
@@ -233,6 +263,10 @@ struct SelectionSetTemplate {
     }()
     return """
     \(documentation: field.underlyingField.documentation, config: config)
+    \(ifLet: field.underlyingField.deprecationReason,
+      where: config.options.warningsOnDeprecatedUsage == .include, {
+        "@available(*, deprecated, message: \"\($0)\")"
+      })
     public var \(field.responseKey.firstLowercased): \
     \(typeName(for: field, forceOptional: isConditionallyIncluded)) {\
     \(if: isMutable,
