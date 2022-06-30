@@ -176,11 +176,13 @@ public extension GraphQLInputField {
 public extension GraphQLField {
   class func mock(
     _ name: String,
-    type: GraphQLType
+    type: GraphQLType,
+    deprecationReason: String? = nil
   ) -> Self {
     let mock = Self.emptyMockObject()
     mock.name = name
     mock.type = type
+    mock.deprecationReason = deprecationReason
     mock.arguments = []
     return mock
   }

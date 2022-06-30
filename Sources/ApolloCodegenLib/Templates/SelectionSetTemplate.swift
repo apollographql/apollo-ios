@@ -233,6 +233,10 @@ struct SelectionSetTemplate {
     }()
     return """
     \(documentation: field.underlyingField.documentation, config: config)
+    \(ifLet: field.underlyingField.deprecationReason,
+      where: config.options.warningsOnDeprecatedUsage == .include, {
+        "@available(*, deprecated, message: \"\($0)\")"
+      })
     public var \(field.responseKey.firstLowercased): \
     \(typeName(for: field, forceOptional: isConditionallyIncluded)) {\
     \(if: isMutable,

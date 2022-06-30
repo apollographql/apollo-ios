@@ -31,7 +31,8 @@ class SelectionSetTemplateTests: XCTestCase {
     named operationName: String = "TestOperation",
     configOutput: ApolloCodegenConfiguration.FileOutput = .mock(),
     inflectionRules: [ApolloCodegenLib.InflectionRule] = [],
-    schemaDocumentation: ApolloCodegenConfiguration.Composition = .exclude
+    schemaDocumentation: ApolloCodegenConfiguration.Composition = .exclude,
+    warningsOnDeprecatedUsage: ApolloCodegenConfiguration.Composition = .exclude
   ) throws {
     ir = try .mock(schema: schemaSDL, document: document)
     let operationDefinition = try XCTUnwrap(ir.compilationResult[operation: operationName])
@@ -41,7 +42,8 @@ class SelectionSetTemplateTests: XCTestCase {
       output: configOutput,
       options: .init(
         additionalInflectionRules: inflectionRules,
-        schemaDocumentation: schemaDocumentation
+        schemaDocumentation: schemaDocumentation,
+        warningsOnDeprecatedUsage: warningsOnDeprecatedUsage
       )
     )
     subject = SelectionSetTemplate(
@@ -4506,6 +4508,7 @@ class SelectionSetTemplateTests: XCTestCase {
     }
 
     type Animal {
+      "This field is a string."
       string: String!
     }
 
@@ -4535,4 +4538,89 @@ class SelectionSetTemplateTests: XCTestCase {
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
   }
+
+  // MARK: - Deprecation Warnings
+
+  func test__render_fieldAccessors__givenWarningsOnDeprecatedUsage_include_hasDeprecatedField_withDocumentation_shouldGenerateWarningBelowDocumentation() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      "This field is a string."
+      string: String! @deprecated(reason: "Cause I said so!")
+    }
+
+    scalar Custom
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        string
+      }
+    }
+    """
+
+    let expected = """
+      /// This field is a string.
+      @available(*, deprecated, message: "Cause I said so!")
+      public var string: String { __data["string"] }
+    """
+
+    // when
+    try buildSubjectAndOperation(
+      schemaDocumentation: .include,
+      warningsOnDeprecatedUsage: .include
+    )
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
+  }
+
+  func test__render_fieldAccessors__givenWarningsOnDeprecatedUsage_exclude_hasDeprecatedField_shouldNotGenerateWarning() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      string: String! @deprecated
+    }
+
+    scalar Custom
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        string
+      }
+    }
+    """
+
+    let expected = """
+      public var string: String { __data["string"] }
+    """
+
+    // when
+    try buildSubjectAndOperation(warningsOnDeprecatedUsage: .exclude)
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+  }
+
 }
