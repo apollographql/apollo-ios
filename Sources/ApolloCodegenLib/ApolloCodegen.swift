@@ -132,13 +132,20 @@ public class ApolloCodegen {
       }
     }
 
+    var operationIDsFileGenerator = OperationIdentifiersFileGenerator(config: config)
+
     for operation in compilationResult.operations {
       try autoreleasepool {
         let irOperation = ir.build(operation: operation)
         try OperationFileGenerator(irOperation: irOperation, schema: ir.schema, config: config)
           .generate(forConfig: config, fileManager: fileManager)
+
+        operationIDsFileGenerator?.collectOperationIdentifier(irOperation)
       }
     }
+
+    try operationIDsFileGenerator?.generate(fileManager: fileManager)
+    operationIDsFileGenerator = nil
 
     for graphQLObject in ir.schema.referencedTypes.objects {
       try autoreleasepool {
