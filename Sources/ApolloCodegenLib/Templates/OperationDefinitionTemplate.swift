@@ -21,8 +21,9 @@ struct OperationDefinitionTemplate: OperationTemplateRenderer {
         operation.definition,
         identifier: operation.operationIdentifier,
         fragments: operation.referencedFragments,
-        apq: config.options.apqs)
-      )
+        apq: config.options.apqs,
+        queryStringLiteralFormat: config.options.queryStringLiteralFormat
+      ))
 
       \(section: VariableProperties(operation.definition.variables))
 
@@ -48,7 +49,8 @@ struct OperationDefinitionTemplate: OperationTemplateRenderer {
       _ operation: CompilationResult.OperationDefinition,
       identifier: @autoclosure () -> String,
       fragments: OrderedSet<IR.NamedFragment>,
-      apq: ApolloCodegenConfiguration.APQConfig
+      apq: ApolloCodegenConfiguration.APQConfig,
+      queryStringLiteralFormat: ApolloCodegenConfiguration.QueryStringLiteralFormat
     ) -> TemplateString {
       let includeFragments = !fragments.isEmpty
       let includeDefinition = apq != .persistedOperationsOnly
@@ -60,9 +62,7 @@ struct OperationDefinitionTemplate: OperationTemplateRenderer {
       """)
       \(if: includeDefinition, """
         definition: .init(
-          ""\"
-          \(operation.source)
-          ""\"\(if: includeFragments, ",")
+          \(operation.source.formatted(for: queryStringLiteralFormat))\(if: includeFragments, ",")
           \(if: includeFragments,
                             "fragments: [\(fragments.map { "\($0.name).self" }, separator: ", ")]")
         ))
@@ -93,6 +93,22 @@ fileprivate extension CompilationResult.OperationType {
     case .query: return "GraphQLQuery"
     case .mutation: return "GraphQLMutation"
     case .subscription: return "GraphQLSubscription"
+    }
+  }
+}
+
+fileprivate extension String {
+  func formatted(for format: ApolloCodegenConfiguration.QueryStringLiteralFormat) -> Self {
+    switch format {
+    case .multiline:
+      return """
+        ""\"
+        \(self)
+        ""\"
+        """
+
+    case .singleLine:
+      return "\"\(components(separatedBy: .newlines).joined(separator: ""))\""
     }
   }
 }
