@@ -44,6 +44,8 @@ public class UploadMultipleFilesToTheSameParameterMutation: GraphQLMutation {
     public var multipleUpload: [MultipleUpload] { __data["multipleUpload"] }
 
     /// MultipleUpload
+    ///
+    /// Parent Type: `File`
     public struct MultipleUpload: UploadAPI.SelectionSet {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }

@@ -44,6 +44,8 @@ public class UploadOneFileMutation: GraphQLMutation {
     public var singleUpload: SingleUpload { __data["singleUpload"] }
 
     /// SingleUpload
+    ///
+    /// Parent Type: `File`
     public struct SingleUpload: UploadAPI.SelectionSet {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }

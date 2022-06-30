@@ -43,6 +43,8 @@ public class HeroDetailsFragmentConditionalInclusionQuery: GraphQLQuery {
     public var hero: Hero? { __data["hero"] }
 
     /// Hero
+    ///
+    /// Parent Type: `Character`
     public struct Hero: StarWarsAPI.SelectionSet {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
@@ -62,12 +64,15 @@ public class HeroDetailsFragmentConditionalInclusionQuery: GraphQLQuery {
       }
 
       /// Hero.IfIncludeDetails
+      ///
+      /// Parent Type: `Character`
       public struct IfIncludeDetails: StarWarsAPI.InlineFragment {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
         public static var __parentType: ParentType { .Interface(StarWarsAPI.Character.self) }
 
+        /// The name of the character
         public var name: String { __data["name"] }
 
         public struct Fragments: FragmentContainer {

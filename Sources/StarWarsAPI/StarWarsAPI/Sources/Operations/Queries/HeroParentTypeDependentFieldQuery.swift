@@ -64,6 +64,8 @@ public class HeroParentTypeDependentFieldQuery: GraphQLQuery {
     public var hero: Hero? { __data["hero"] }
 
     /// Hero
+    ///
+    /// Parent Type: `Character`
     public struct Hero: StarWarsAPI.SelectionSet {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
@@ -75,12 +77,15 @@ public class HeroParentTypeDependentFieldQuery: GraphQLQuery {
         .inlineFragment(AsDroid.self),
       ] }
 
+      /// The name of the character
       public var name: String { __data["name"] }
 
       public var asHuman: AsHuman? { _asInlineFragment() }
       public var asDroid: AsDroid? { _asInlineFragment() }
 
       /// Hero.AsHuman
+      ///
+      /// Parent Type: `Human`
       public struct AsHuman: StarWarsAPI.InlineFragment {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
@@ -90,10 +95,14 @@ public class HeroParentTypeDependentFieldQuery: GraphQLQuery {
           .field("friends", [Friend?]?.self),
         ] }
 
+        /// This human's friends, or an empty list if they have none
         public var friends: [Friend?]? { __data["friends"] }
+        /// The name of the character
         public var name: String { __data["name"] }
 
         /// Hero.AsHuman.Friend
+        ///
+        /// Parent Type: `Character`
         public struct Friend: StarWarsAPI.SelectionSet {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
@@ -104,11 +113,14 @@ public class HeroParentTypeDependentFieldQuery: GraphQLQuery {
             .inlineFragment(AsHuman.self),
           ] }
 
+          /// The name of the character
           public var name: String { __data["name"] }
 
           public var asHuman: AsHuman? { _asInlineFragment() }
 
           /// Hero.AsHuman.Friend.AsHuman
+          ///
+          /// Parent Type: `Human`
           public struct AsHuman: StarWarsAPI.InlineFragment {
             public let __data: DataDict
             public init(data: DataDict) { __data = data }
@@ -118,13 +130,17 @@ public class HeroParentTypeDependentFieldQuery: GraphQLQuery {
               .field("height", Double?.self, arguments: ["unit": "FOOT"]),
             ] }
 
+            /// Height in the preferred unit, default is meters
             public var height: Double? { __data["height"] }
+            /// The name of the character
             public var name: String { __data["name"] }
           }
         }
       }
 
       /// Hero.AsDroid
+      ///
+      /// Parent Type: `Droid`
       public struct AsDroid: StarWarsAPI.InlineFragment {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
@@ -134,10 +150,14 @@ public class HeroParentTypeDependentFieldQuery: GraphQLQuery {
           .field("friends", [Friend?]?.self),
         ] }
 
+        /// This droid's friends, or an empty list if they have none
         public var friends: [Friend?]? { __data["friends"] }
+        /// The name of the character
         public var name: String { __data["name"] }
 
         /// Hero.AsDroid.Friend
+        ///
+        /// Parent Type: `Character`
         public struct Friend: StarWarsAPI.SelectionSet {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
@@ -148,11 +168,14 @@ public class HeroParentTypeDependentFieldQuery: GraphQLQuery {
             .inlineFragment(AsHuman.self),
           ] }
 
+          /// The name of the character
           public var name: String { __data["name"] }
 
           public var asHuman: AsHuman? { _asInlineFragment() }
 
           /// Hero.AsDroid.Friend.AsHuman
+          ///
+          /// Parent Type: `Human`
           public struct AsHuman: StarWarsAPI.InlineFragment {
             public let __data: DataDict
             public init(data: DataDict) { __data = data }
@@ -162,7 +185,9 @@ public class HeroParentTypeDependentFieldQuery: GraphQLQuery {
               .field("height", Double?.self, arguments: ["unit": "METER"]),
             ] }
 
+            /// Height in the preferred unit, default is meters
             public var height: Double? { __data["height"] }
+            /// The name of the character
             public var name: String { __data["name"] }
           }
         }

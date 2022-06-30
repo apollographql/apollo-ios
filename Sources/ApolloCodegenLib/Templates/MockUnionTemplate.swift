@@ -18,6 +18,7 @@ struct MockUnionTemplate: TemplateRenderer {
     \(graphqlUnion.name.firstUppercased): MockFieldValue {
       public typealias MockValueCollectionType = Array<AnyMock>
     }
+    
     """)
   }
 }

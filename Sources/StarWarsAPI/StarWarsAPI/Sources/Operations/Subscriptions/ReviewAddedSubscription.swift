@@ -44,6 +44,8 @@ public class ReviewAddedSubscription: GraphQLSubscription {
     public var reviewAdded: ReviewAdded? { __data["reviewAdded"] }
 
     /// ReviewAdded
+    ///
+    /// Parent Type: `Review`
     public struct ReviewAdded: StarWarsAPI.SelectionSet {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
@@ -55,8 +57,11 @@ public class ReviewAddedSubscription: GraphQLSubscription {
         .field("commentary", String?.self),
       ] }
 
+      /// The movie
       public var episode: GraphQLEnum<Episode>? { __data["episode"] }
+      /// The number of stars this review gave, 1-5
       public var stars: Int { __data["stars"] }
+      /// Comment about the movie
       public var commentary: String? { __data["commentary"] }
     }
   }

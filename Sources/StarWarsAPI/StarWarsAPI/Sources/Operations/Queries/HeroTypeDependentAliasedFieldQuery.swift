@@ -49,6 +49,8 @@ public class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
     public var hero: Hero? { __data["hero"] }
 
     /// Hero
+    ///
+    /// Parent Type: `Character`
     public struct Hero: StarWarsAPI.SelectionSet {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
@@ -63,6 +65,8 @@ public class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
       public var asDroid: AsDroid? { _asInlineFragment() }
 
       /// Hero.AsHuman
+      ///
+      /// Parent Type: `Human`
       public struct AsHuman: StarWarsAPI.InlineFragment {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
@@ -72,10 +76,13 @@ public class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
           .field("homePlanet", alias: "property", String?.self),
         ] }
 
+        /// The home planet of the human, or null if unknown
         public var property: String? { __data["property"] }
       }
 
       /// Hero.AsDroid
+      ///
+      /// Parent Type: `Droid`
       public struct AsDroid: StarWarsAPI.InlineFragment {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
@@ -85,6 +92,7 @@ public class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
           .field("primaryFunction", alias: "property", String?.self),
         ] }
 
+        /// This droid's primary function
         public var property: String? { __data["property"] }
       }
     }

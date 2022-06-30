@@ -23,12 +23,14 @@ public extension GraphQLObjectType {
   class func mock(
     _ name: String = "",
     fields: [String: GraphQLField] = [:],
-    interfaces: [GraphQLInterfaceType] = []
+    interfaces: [GraphQLInterfaceType] = [],
+    documentation: String? = nil
   ) -> Self {
     let mock = Self.emptyMockObject()
     mock.name = name
     mock.fields = fields
     mock.interfaces = interfaces
+    mock.documentation = documentation
     return mock
   }
 }
@@ -43,12 +45,14 @@ public extension GraphQLInterfaceType {
   class func mock(
     _ name: String = "",
     fields: [String: GraphQLField] = [:],
-    interfaces: [GraphQLInterfaceType] = []
+    interfaces: [GraphQLInterfaceType] = [],
+    documentation: String? = nil
   ) -> Self {
     let mock = Self.emptyMockObject()
     mock.name = name
     mock.fields = fields
     mock.interfaces = interfaces
+    mock.documentation = documentation
     return mock
   }
 }
@@ -56,11 +60,13 @@ public extension GraphQLInterfaceType {
 public extension GraphQLUnionType {
   class func mock(
     _ name: String = "",
-    types: [GraphQLObjectType] = []
+    types: [GraphQLObjectType] = [],
+    documentation: String? = nil
   ) -> Self {
     let mock = Self.emptyMockObject()
     mock.name = name
     mock.types = types
+    mock.documentation = documentation
     return mock
   }
 }
@@ -71,11 +77,15 @@ public extension GraphQLScalarType {
   class func boolean() -> Self { mock(name: "Boolean") }
   class func float() -> Self { mock(name: "Float") }
 
-  class func mock(name: String, specifiedByURL: String? = nil) -> Self {
+  class func mock(
+    name: String,
+    specifiedByURL: String? = nil,
+    documentation: String? = nil
+  ) -> Self {
     let mock = Self.emptyMockObject()
     mock.name = name
     mock.specifiedByURL = specifiedByURL
-
+    mock.documentation = documentation
     return mock
   }
 }
@@ -108,20 +118,27 @@ public extension GraphQLEnumType {
 
   class func mock(
     name: String,
-    values: [GraphQLEnumValue]
+    values: [GraphQLEnumValue],
+    documentation: String? = nil
   ) -> Self {
     let mock = Self.emptyMockObject()
     mock.name = name
     mock.values = values
+    mock.documentation = documentation
     return mock
   }
 }
 
 public extension GraphQLEnumValue {
-  class func mock(name: String, deprecationReason: String? = nil) -> Self {
+  class func mock(
+    name: String,
+    deprecationReason: String? = nil,
+    documentation: String? = nil
+  ) -> Self {
     let mock = Self.emptyMockObject()
     mock.name = name
     mock.deprecationReason = deprecationReason
+    mock.documentation = documentation
     return mock
   }
 }
@@ -129,11 +146,13 @@ public extension GraphQLEnumValue {
 public extension GraphQLInputObjectType {
   class func mock(
     _ name: String,
-    fields: [GraphQLInputField] = []
+    fields: [GraphQLInputField] = [],
+    documentation: String? = nil
   ) -> Self {
     let mock = Self.emptyMockObject()
     mock.name = name
     mock.fields = OrderedDictionary.init(uniqueKeysWithValues: fields.map({ ($0.name, $0) }))
+    mock.documentation = documentation
     return mock
   }
 }
@@ -142,12 +161,14 @@ public extension GraphQLInputField {
   class func mock(
     _ name: String,
     type: GraphQLType,
-    defaultValue: GraphQLValue?
+    defaultValue: GraphQLValue?,
+    documentation: String? = nil
   ) -> Self {
     let mock = Self.emptyMockObject()
     mock.name = name
     mock.type = type
     mock.defaultValue = defaultValue
+    mock.documentation = documentation
     return mock
   }
 }
@@ -155,11 +176,13 @@ public extension GraphQLInputField {
 public extension GraphQLField {
   class func mock(
     _ name: String,
-    type: GraphQLType
+    type: GraphQLType,
+    deprecationReason: String? = nil
   ) -> Self {
     let mock = Self.emptyMockObject()
     mock.name = name
     mock.type = type
+    mock.deprecationReason = deprecationReason
     mock.arguments = []
     return mock
   }

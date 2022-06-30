@@ -15,11 +15,16 @@ class InputObjectTemplateTests: XCTestCase {
   private func buildSubject(
     name: String = "MockInput",
     fields: [GraphQLInputField] = [],
+    documentation: String? = nil,
     config: ApolloCodegenConfiguration = .mock()
   ) {
     let schema = IR.Schema(name: "TestSchema", referencedTypes: .init([]))
     subject = InputObjectTemplate(
-      graphqlInputObject: GraphQLInputObjectType.mock(name, fields: fields),
+      graphqlInputObject: GraphQLInputObjectType.mock(
+        name,
+        fields: fields,
+        documentation: documentation
+      ),
       schema: schema,
       config: ApolloCodegen.ConfigurationContext(config: config)
     )
@@ -171,6 +176,7 @@ class InputObjectTemplateTests: XCTestCase {
         set { __data.field = newValue }
       }
     }
+    
     """
 
     // when
@@ -712,5 +718,90 @@ class InputObjectTemplateTests: XCTestCase {
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
+  }
+
+  // MARK: Documentation Tests
+
+  func test__render__givenSchemaDocumentation_include_hasDocumentation_shouldGenerateDocumentationComment() throws {
+    // given
+    let documentation = "This is some great documentation!"
+    buildSubject(
+      fields: [
+        GraphQLInputField.mock("fieldOne",
+                               type: .nonNull(.string()),
+                               defaultValue: nil,
+                               documentation: "Field Documentation!")
+      ],
+      documentation: documentation,
+      config: .mock(options: .init(schemaDocumentation: .include))
+    )
+
+    let expected = """
+    /// \(documentation)
+    struct MockInput: InputObject {
+      public private(set) var __data: InputDict
+
+      public init(_ data: InputDict) {
+        __data = data
+      }
+
+      public init(
+        fieldOne: String
+      ) {
+        __data = InputDict([
+          "fieldOne": fieldOne
+        ])
+      }
+
+      /// Field Documentation!
+      public var fieldOne: String {
+    """
+
+    // when
+    let rendered = renderSubject()
+
+    // then
+    expect(rendered).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test__render__givenSchemaDocumentation_exclude_hasDocumentation_shouldNotGenerateDocumentationComment() throws {
+    // given
+    // given
+    let documentation = "This is some great documentation!"
+    buildSubject(
+      fields: [
+        GraphQLInputField.mock("fieldOne",
+                               type: .nonNull(.string()),
+                               defaultValue: nil,
+                               documentation: "Field Documentation!")
+      ],
+      documentation: documentation,
+      config: .mock(options: .init(schemaDocumentation: .exclude))
+    )
+
+    let expected = """
+    struct MockInput: InputObject {
+      public private(set) var __data: InputDict
+
+      public init(_ data: InputDict) {
+        __data = data
+      }
+
+      public init(
+        fieldOne: String
+      ) {
+        __data = InputDict([
+          "fieldOne": fieldOne
+        ])
+      }
+
+      public var fieldOne: String {
+    """
+
+    // when
+    let rendered = renderSubject()
+
+    // then
+    expect(rendered).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 }

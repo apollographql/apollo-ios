@@ -5,10 +5,16 @@ extension IR {
   final class Schema {
     let name: String
     let referencedTypes: ReferencedTypes
+    let documentation: String?
 
-    init(name: String, referencedTypes: IR.Schema.ReferencedTypes) {
+    init(
+      name: String,
+      referencedTypes: IR.Schema.ReferencedTypes,
+      documentation: String? = nil
+    ) {
       self.name = name
       self.referencedTypes = referencedTypes
+      self.documentation = documentation
     }
 
     public final class ReferencedTypes {

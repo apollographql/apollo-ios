@@ -43,6 +43,8 @@ public class HeroDetailsWithFragmentQuery: GraphQLQuery {
     public var hero: Hero? { __data["hero"] }
 
     /// Hero
+    ///
+    /// Parent Type: `Character`
     public struct Hero: StarWarsAPI.SelectionSet {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
@@ -52,6 +54,7 @@ public class HeroDetailsWithFragmentQuery: GraphQLQuery {
         .fragment(HeroDetails.self),
       ] }
 
+      /// The name of the character
       public var name: String { __data["name"] }
 
       public var asHuman: AsHuman? { _asInlineFragment() }
@@ -65,13 +68,17 @@ public class HeroDetailsWithFragmentQuery: GraphQLQuery {
       }
 
       /// Hero.AsHuman
+      ///
+      /// Parent Type: `Human`
       public struct AsHuman: StarWarsAPI.InlineFragment {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
         public static var __parentType: ParentType { .Object(StarWarsAPI.Human.self) }
 
+        /// The name of the character
         public var name: String { __data["name"] }
+        /// Height in the preferred unit, default is meters
         public var height: Double? { __data["height"] }
 
         public struct Fragments: FragmentContainer {
@@ -83,13 +90,17 @@ public class HeroDetailsWithFragmentQuery: GraphQLQuery {
       }
 
       /// Hero.AsDroid
+      ///
+      /// Parent Type: `Droid`
       public struct AsDroid: StarWarsAPI.InlineFragment {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
         public static var __parentType: ParentType { .Object(StarWarsAPI.Droid.self) }
 
+        /// The name of the character
         public var name: String { __data["name"] }
+        /// This droid's primary function
         public var primaryFunction: String? { __data["primaryFunction"] }
 
         public struct Fragments: FragmentContainer {

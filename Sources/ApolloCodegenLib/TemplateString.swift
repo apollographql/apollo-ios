@@ -100,8 +100,7 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
       _ sequence: T,
       separator: String = ",\n",
       terminator: String? = nil
-    )
-    where T: Sequence, T.Element: CustomStringConvertible {
+    ) where T: Sequence, T.Element: CustomStringConvertible {
       var iterator = sequence.makeIterator()
       guard var elementsString = iterator.next()?.description else {
         removeLineIfEmpty()
@@ -122,13 +121,14 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
       list: T,
       separator: String = ",\n",
       terminator: String? = nil
-    )
-    where T: Collection, T.Element: CustomStringConvertible {
+    ) where T: Collection, T.Element: CustomStringConvertible {
       let shouldWrapInNewlines = list.count > 1
       if shouldWrapInNewlines { appendLiteral("\n  ") }
       appendInterpolation(list, separator: separator, terminator: terminator)
       if shouldWrapInNewlines { appendInterpolation("\n") }
     }
+
+    // MARK: If
 
     mutating func appendInterpolation(
       if bool: Bool,
@@ -144,11 +144,25 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
       }
     }
 
+    /// MARK: If Let
+
     mutating func appendInterpolation<T>(
-    ifLet optional: Optional<T>,
-    where whereBlock: ((T) -> Bool)? = nil,
-    _ includeBlock: (T) -> TemplateString,
-    else: @autoclosure () -> TemplateString? = nil
+      ifLet optional: Optional<T>,
+      _ includeBlock: (T) -> TemplateString
+    ) {
+      if let element = optional {
+        appendInterpolation(includeBlock(element))
+      } else {
+        removeLineIfEmpty()
+      }
+    }
+
+    @_disfavoredOverload
+    mutating func appendInterpolation<T>(
+      ifLet optional: Optional<T>,
+      where whereBlock: ((T) -> Bool)? = nil,
+      _ includeBlock: (T) -> TemplateString,
+      else: @autoclosure () -> TemplateString? = nil
     ) {
       if let element = optional, whereBlock?(element) ?? true {
         appendInterpolation(includeBlock(element))
@@ -159,11 +173,27 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
       }
     }
 
+    @_disfavoredOverload
     mutating func appendInterpolation<T>(
-    ifLet optional: Optional<T>,
-    where whereBlock: ((T) -> Bool)? = nil,
-    _ includeBlock: @autoclosure () -> TemplateString,
-    else: @autoclosure () -> TemplateString? = nil
+      ifLet optional: Optional<T>,
+      where whereBlock: @autoclosure @escaping () -> Bool = true,
+      _ includeBlock: (T) -> TemplateString,
+      else: @autoclosure () -> TemplateString? = nil
+    ) {
+      appendInterpolation(
+        ifLet: optional,
+        where: { _ in whereBlock() },
+        includeBlock,
+        else: `else`()
+      )
+    }
+
+    @_disfavoredOverload
+    mutating func appendInterpolation<T>(
+      ifLet optional: Optional<T>,
+      where whereBlock: ((T) -> Bool)? = nil,
+      _ includeBlock: @autoclosure () -> TemplateString,
+      else: @autoclosure () -> TemplateString? = nil
     ) {
       appendInterpolation(
         ifLet: optional,
@@ -173,7 +203,24 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
       )
     }
 
-    private mutating func removeLineIfEmpty() {
+    mutating func appendInterpolation(
+      documentation: String?
+    ) {
+      guard let documentation = documentation, !documentation.isEmpty else {
+        removeLineIfEmpty()
+        return
+      }
+
+      let components = documentation
+        .split(separator: "\n", omittingEmptySubsequences: false)
+        .joinedAsDocumentationLines()
+
+      appendInterpolation(components)
+    }
+
+    // MARK: - Helpers
+
+    mutating func removeLineIfEmpty() {
       let slice = substringToStartOfLine()
       if slice.allSatisfy(\.isWhitespace) {
         buffer.removeLast(slice.count)
@@ -207,6 +254,27 @@ fileprivate extension Array where Element == Substring {
       if !nextLine.isEmpty {
         string += indent + nextLine
       }
+    }
+
+    return string
+  }
+
+  func joinedAsDocumentationLines() -> String {
+    var string = ""
+
+    func add(line: Substring) {
+      string += "///"
+      if !line.isEmpty {
+        string += " "
+        string += line
+      }
+    }
+    var iterator = self.makeIterator()
+    if let firstLine = iterator.next() { add(line: firstLine) }
+
+    while let nextLine = iterator.next() {
+      string += "\n"
+      add(line: nextLine)
     }
 
     return string

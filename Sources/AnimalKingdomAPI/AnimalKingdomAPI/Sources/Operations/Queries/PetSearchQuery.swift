@@ -53,6 +53,8 @@ public class PetSearchQuery: GraphQLQuery {
     public var pets: [Pet] { __data["pets"] }
 
     /// Pet
+    ///
+    /// Parent Type: `Pet`
     public struct Pet: AnimalKingdomAPI.SelectionSet {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }

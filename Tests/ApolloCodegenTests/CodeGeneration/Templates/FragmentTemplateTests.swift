@@ -90,7 +90,7 @@ class FragmentTemplateTests: XCTestCase {
 
     // then
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
-    expect(String(actual.reversed())).to(equalLineByLine("}", ignoringExtraLines: true))
+    expect(String(actual.reversed())).to(equalLineByLine("\n}", ignoringExtraLines: true))
   }
 
   func test__render__givenModuleType_swiftPackageManager_generatesFragmentDefinition_withPublicModifier() throws {
@@ -311,7 +311,7 @@ class FragmentTemplateTests: XCTestCase {
 
     // then
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
-    expect(String(actual.reversed())).to(equalLineByLine("}", ignoringExtraLines: true))
+    expect(String(actual.reversed())).to(equalLineByLine("\n}", ignoringExtraLines: true))
   }
 
   func test__render__givenFragment__asLocalCacheMutation_generatesFragmentDefinitionStrippingLocalCacheMutationDirective() throws {
@@ -345,7 +345,7 @@ class FragmentTemplateTests: XCTestCase {
 
     // then
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
-    expect(String(actual.reversed())).to(equalLineByLine("}", ignoringExtraLines: true))
+    expect(String(actual.reversed())).to(equalLineByLine("\n}", ignoringExtraLines: true))
   }
 
   func test__render__givenFragment__asLocalCacheMutation_generatesFragmentDefinitionAsMutableSelectionSet() throws {
@@ -382,4 +382,5 @@ class FragmentTemplateTests: XCTestCase {
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))
   }
+
 }

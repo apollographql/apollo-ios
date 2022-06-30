@@ -34,6 +34,8 @@ public class HeroAppearsInQuery: GraphQLQuery {
     public var hero: Hero? { __data["hero"] }
 
     /// Hero
+    ///
+    /// Parent Type: `Character`
     public struct Hero: StarWarsAPI.SelectionSet {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
@@ -43,6 +45,7 @@ public class HeroAppearsInQuery: GraphQLQuery {
         .field("appearsIn", [GraphQLEnum<Episode>?].self),
       ] }
 
+      /// The movies this character appears in
       public var appearsIn: [GraphQLEnum<Episode>?] { __data["appearsIn"] }
     }
   }

@@ -11,15 +11,23 @@ struct MockObjectTemplate: TemplateRenderer {
 
   let target: TemplateTarget = .testMockFile
 
+  typealias TemplateField = (
+    name: String,
+    type: String,
+    mockType: String,
+    deprecationReason: String?
+  )
+
   var template: TemplateString {
     let objectName = graphqlObject.name.firstUppercased
-    let fields: [(name: String, type: String, mockType: String)] = ir.fieldCollector
+    let fields: [TemplateField] = ir.fieldCollector
       .collectedFields(for: graphqlObject)
       .map {
         (
           name: $0.0,
           type: $0.1.rendered(as: .testMockField(forceNonNull: true), config: config.config),
-          mockType: mockTypeName(for: $0.1)
+          mockType: mockTypeName(for: $0.1),
+          deprecationReason: $0.deprecationReason
         )
       }
 
@@ -33,9 +41,13 @@ struct MockObjectTemplate: TemplateRenderer {
     
       public struct MockFields {
         \(fields.map {
-          return """
+          TemplateString("""
+          \(ifLet: $0.deprecationReason,
+            where: config.options.warningsOnDeprecatedUsage == .include, {
+              "@available(*, deprecated, message: \"\($0)\")"
+            })
           @Field<\($0.type)>("\($0.name)") public var \($0.name)
-          """
+          """)
         }, separator: "\n")
       }
     }
@@ -48,6 +60,7 @@ struct MockObjectTemplate: TemplateRenderer {
         \(fields.map { "self.\($0.name) = \($0.name)" }, separator: "\n")
       }
     }
+    
     """
   }
 

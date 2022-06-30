@@ -29,6 +29,8 @@ public struct ClassroomPetDetailsCCN: AnimalKingdomAPI.SelectionSet, Fragment {
   public var asAnimal: AsAnimal? { _asInlineFragment() }
 
   /// AsAnimal
+  ///
+  /// Parent Type: `Animal`
   public struct AsAnimal: AnimalKingdomAPI.InlineFragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
@@ -41,6 +43,8 @@ public struct ClassroomPetDetailsCCN: AnimalKingdomAPI.SelectionSet, Fragment {
     public var height: Height { __data["height"] }
 
     /// AsAnimal.Height
+    ///
+    /// Parent Type: `Height`
     public struct Height: AnimalKingdomAPI.SelectionSet {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }

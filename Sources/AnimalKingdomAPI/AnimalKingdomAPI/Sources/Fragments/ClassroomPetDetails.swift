@@ -52,6 +52,8 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
   public var asPetRock: AsPetRock? { _asInlineFragment() }
 
   /// AsAnimal
+  ///
+  /// Parent Type: `Animal`
   public struct AsAnimal: AnimalKingdomAPI.InlineFragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
@@ -65,6 +67,8 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
   }
 
   /// AsPet
+  ///
+  /// Parent Type: `Pet`
   public struct AsPet: AnimalKingdomAPI.InlineFragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
@@ -78,6 +82,8 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
   }
 
   /// AsWarmBlooded
+  ///
+  /// Parent Type: `WarmBlooded`
   public struct AsWarmBlooded: AnimalKingdomAPI.InlineFragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
@@ -92,6 +98,8 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
   }
 
   /// AsCat
+  ///
+  /// Parent Type: `Cat`
   public struct AsCat: AnimalKingdomAPI.InlineFragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
@@ -110,6 +118,8 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
   }
 
   /// AsBird
+  ///
+  /// Parent Type: `Bird`
   public struct AsBird: AnimalKingdomAPI.InlineFragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
@@ -126,6 +136,8 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
   }
 
   /// AsPetRock
+  ///
+  /// Parent Type: `PetRock`
   public struct AsPetRock: AnimalKingdomAPI.InlineFragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }

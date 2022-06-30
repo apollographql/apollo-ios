@@ -34,6 +34,8 @@ public class ClassroomPetsCCNQuery: GraphQLQuery {
     public var classroomPets: [ClassroomPet]? { __data["classroomPets"] }
 
     /// ClassroomPet
+    ///
+    /// Parent Type: `ClassroomPet`
     public struct ClassroomPet: AnimalKingdomAPI.SelectionSet {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
@@ -53,6 +55,8 @@ public class ClassroomPetsCCNQuery: GraphQLQuery {
       }
 
       /// ClassroomPet.AsAnimal
+      ///
+      /// Parent Type: `Animal`
       public struct AsAnimal: AnimalKingdomAPI.InlineFragment {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }

@@ -21,5 +21,6 @@ public struct CharacterAppearsIn: StarWarsAPI.SelectionSet, Fragment {
     .field("appearsIn", [GraphQLEnum<Episode>?].self),
   ] }
 
+  /// The movies this character appears in
   public var appearsIn: [GraphQLEnum<Episode>?] { __data["appearsIn"] }
 }

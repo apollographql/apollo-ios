@@ -85,7 +85,8 @@ public extension CompilationResult.Field {
     alias: String? = nil,
     arguments: [CompilationResult.Argument]? = nil,
     type: GraphQLType = .entity(GraphQLObjectType.mock("MOCK")),
-    selectionSet: CompilationResult.SelectionSet = .mock()
+    selectionSet: CompilationResult.SelectionSet = .mock(),
+    deprecationReason: String? = nil
   ) -> Self {
     let mock = Self(nil)
     mock.name = name
@@ -95,6 +96,7 @@ public extension CompilationResult.Field {
     mock.selectionSet = selectionSet
     mock.directives = nil
     mock.inclusionConditions = nil
+    mock.deprecationReason = deprecationReason
     return mock
   }
 

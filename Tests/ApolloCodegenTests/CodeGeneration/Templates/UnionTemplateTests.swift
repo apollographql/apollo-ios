@@ -16,6 +16,7 @@ class UnionTemplateTests: XCTestCase {
   // MARK: Helpers
 
   private func buildSubject(
+    documentation: String? = nil,
     config: ApolloCodegenConfiguration = .mock()
   ) {
     subject = UnionTemplate(
@@ -27,7 +28,8 @@ class UnionTemplateTests: XCTestCase {
           GraphQLObjectType.mock("bird"),
           GraphQLObjectType.mock("rat"),
           GraphQLObjectType.mock("petRock")
-        ]
+        ],
+        documentation: documentation
       ),
       config: ApolloCodegen.ConfigurationContext(config: config)
     )
@@ -47,7 +49,7 @@ class UnionTemplateTests: XCTestCase {
     let actual = renderSubject()
 
     // then
-    expect(String(actual.reversed())).to(equalLineByLine("}", ignoringExtraLines: true))
+    expect(String(actual.reversed())).to(equalLineByLine("\n}", ignoringExtraLines: true))
   }
 
   // MARK: Enum Generation Tests
@@ -120,6 +122,48 @@ class UnionTemplateTests: XCTestCase {
   func test_render_givenModuleType_embeddedInTarget_generatesSwiftEnum_noPublicModifier() {
     // given
     buildSubject(config: .mock(.embeddedInTarget(name: "TestTarget")))
+
+    let expected = """
+    enum ClassroomPet: Union {
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  // MARK: Documentation Tests
+
+  func test__render__givenSchemaDocumentation_include_hasDocumentation_shouldGenerateDocumentationComment() throws {
+    // given
+    let documentation = "This is some great documentation!"
+    buildSubject(
+      documentation: documentation,
+      config: .mock(options: .init(schemaDocumentation: .include))
+    )
+
+    let expected = """
+    /// \(documentation)
+    enum ClassroomPet: Union {
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test__render__givenSchemaDocumentation_exclude_hasDocumentation_shouldNotGenerateDocumentationComment() throws {
+    // given
+    // given
+    let documentation = "This is some great documentation!"
+    buildSubject(
+      documentation: documentation,
+      config: .mock(options: .init(schemaDocumentation: .exclude))
+    )
 
     let expected = """
     enum ClassroomPet: Union {

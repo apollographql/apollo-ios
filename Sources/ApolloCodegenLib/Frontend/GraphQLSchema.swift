@@ -32,6 +32,8 @@ public class GraphQLSchema: JavaScriptObject {
 public class GraphQLNamedType: JavaScriptObject, Hashable {
   lazy var name: String = self["name"]
 
+  lazy var documentation: String? = self["description"]
+
   public func hash(into hasher: inout Hasher) {
     hasher.combine(name)
   }
@@ -42,7 +44,6 @@ public class GraphQLNamedType: JavaScriptObject, Hashable {
 }
 
 public class GraphQLScalarType: GraphQLNamedType {
-  private(set) lazy var description: String? = self["description"]
   
   lazy var specifiedByURL: String? = self["specifiedByUrl"]
 
@@ -68,22 +69,18 @@ public class GraphQLScalarType: GraphQLNamedType {
 }
 
 public class GraphQLEnumType: GraphQLNamedType {
-  private(set) lazy var description: String? = self["description"]
-  
   lazy var values: [GraphQLEnumValue] = try! invokeMethod("getValues")
 }
 
 public class GraphQLEnumValue: JavaScriptObject {
   lazy var name: String = self["name"]
   
-  private(set) lazy var description: String? = self["description"]
+  lazy var documentation: String? = self["description"]
     
   lazy var deprecationReason: String? = self["deprecationReason"]
 }
 
 public class GraphQLInputObjectType: GraphQLNamedType {
-  private(set) lazy var description: String? = self["description"]
-
   lazy var fields: OrderedDictionary<String, GraphQLInputField> = try! invokeMethod("getFields")
 }
 
@@ -92,7 +89,7 @@ public class GraphQLInputField: JavaScriptObject {
   
   lazy var type: GraphQLType = self["type"]
   
-  private(set) lazy var description: String? = self["description"]
+  lazy var documentation: String? = self["description"]
   
   lazy var defaultValue: GraphQLValue? = {
     let node: JavaScriptObject? = self["astNode"]
@@ -119,8 +116,6 @@ extension GraphQLInterfaceImplementingType {
 }
 
 public class GraphQLObjectType: GraphQLCompositeType, GraphQLInterfaceImplementingType {
-  lazy var description: String? = self["description"]
-  
   lazy var fields: [String: GraphQLField] = try! invokeMethod("getFields")
   
   lazy var interfaces: [GraphQLInterfaceType] = try! invokeMethod("getInterfaces")
@@ -133,9 +128,7 @@ public class GraphQLObjectType: GraphQLCompositeType, GraphQLInterfaceImplementi
 public class GraphQLAbstractType: GraphQLCompositeType {
 }
 
-public class GraphQLInterfaceType: GraphQLAbstractType, GraphQLInterfaceImplementingType {
-  lazy var description: String? = self["description"]
-  
+public class GraphQLInterfaceType: GraphQLAbstractType, GraphQLInterfaceImplementingType {  
   lazy var deprecationReason: String? = self["deprecationReason"]
   
   lazy var fields: [String: GraphQLField] = try! invokeMethod("getFields")
@@ -163,7 +156,7 @@ public class GraphQLField: JavaScriptObject, Hashable {
 
   lazy var arguments: [GraphQLFieldArgument] = self["args"]
   
-  lazy var description: String? = self["description"]
+  lazy var documentation: String? = self["description"]
   
   lazy var deprecationReason: String? = self["deprecationReason"]
 
@@ -190,7 +183,7 @@ public class GraphQLFieldArgument: JavaScriptObject, Hashable {
 
   lazy var type: GraphQLType = self["type"]
 
-  lazy var description: String? = self["description"]
+  lazy var documentation: String? = self["description"]
 
   lazy var deprecationReason: String? = self["deprecationReason"]
 

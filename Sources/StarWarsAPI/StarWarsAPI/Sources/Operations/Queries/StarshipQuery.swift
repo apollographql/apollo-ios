@@ -35,6 +35,8 @@ public class StarshipQuery: GraphQLQuery {
     public var starship: Starship? { __data["starship"] }
 
     /// Starship
+    ///
+    /// Parent Type: `Starship`
     public struct Starship: StarWarsAPI.SelectionSet {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
@@ -45,6 +47,7 @@ public class StarshipQuery: GraphQLQuery {
         .field("coordinates", [[Double]]?.self),
       ] }
 
+      /// The name of the starship
       public var name: String { __data["name"] }
       public var coordinates: [[Double]]? { __data["coordinates"] }
     }

@@ -56,6 +56,8 @@ public class SearchQuery: GraphQLQuery {
     public var search: [Search?]? { __data["search"] }
 
     /// Search
+    ///
+    /// Parent Type: `SearchResult`
     public struct Search: StarWarsAPI.SelectionSet {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
@@ -72,6 +74,8 @@ public class SearchQuery: GraphQLQuery {
       public var asStarship: AsStarship? { _asInlineFragment() }
 
       /// Search.AsHuman
+      ///
+      /// Parent Type: `Human`
       public struct AsHuman: StarWarsAPI.InlineFragment {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
@@ -82,11 +86,15 @@ public class SearchQuery: GraphQLQuery {
           .field("name", String.self),
         ] }
 
+        /// The ID of the human
         public var id: ID { __data["id"] }
+        /// What this human calls themselves
         public var name: String { __data["name"] }
       }
 
       /// Search.AsDroid
+      ///
+      /// Parent Type: `Droid`
       public struct AsDroid: StarWarsAPI.InlineFragment {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
@@ -97,11 +105,15 @@ public class SearchQuery: GraphQLQuery {
           .field("name", String.self),
         ] }
 
+        /// The ID of the droid
         public var id: ID { __data["id"] }
+        /// What others call this droid
         public var name: String { __data["name"] }
       }
 
       /// Search.AsStarship
+      ///
+      /// Parent Type: `Starship`
       public struct AsStarship: StarWarsAPI.InlineFragment {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
@@ -112,7 +124,9 @@ public class SearchQuery: GraphQLQuery {
           .field("name", String.self),
         ] }
 
+        /// The ID of the starship
         public var id: ID { __data["id"] }
+        /// The name of the starship
         public var name: String { __data["name"] }
       }
     }

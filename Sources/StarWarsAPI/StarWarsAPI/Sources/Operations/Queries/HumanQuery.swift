@@ -43,6 +43,8 @@ public class HumanQuery: GraphQLQuery {
     public var human: Human? { __data["human"] }
 
     /// Human
+    ///
+    /// Parent Type: `Human`
     public struct Human: StarWarsAPI.SelectionSet {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
@@ -53,7 +55,9 @@ public class HumanQuery: GraphQLQuery {
         .field("mass", Double?.self),
       ] }
 
+      /// What this human calls themselves
       public var name: String { __data["name"] }
+      /// Mass in kilograms, or null if unknown
       public var mass: Double? { __data["mass"] }
     }
   }

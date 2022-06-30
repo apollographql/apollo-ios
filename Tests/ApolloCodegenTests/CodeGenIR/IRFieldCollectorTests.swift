@@ -5,7 +5,7 @@ import OrderedCollections
 
 class IRFieldCollectorTests: XCTestCase {
 
-  typealias ReferencedFields = [(String, GraphQLType)]
+  typealias ReferencedFields = [(String, GraphQLType, deprecationReason: String?)]
 
   var schemaSDL: String!
   var document: String!
@@ -70,8 +70,8 @@ class IRFieldCollectorTests: XCTestCase {
     let actual = subject.collectedFields(for: Dog)
 
     let expected: ReferencedFields = [
-      ("a", .string()),
-      ("b", .string())
+      ("a", .string(), nil),
+      ("b", .string(), nil)
     ]
 
     expect(actual).to(equal(expected))
@@ -107,8 +107,8 @@ class IRFieldCollectorTests: XCTestCase {
     let actual = subject.collectedFields(for: Dog)
 
     let expected: ReferencedFields = [
-      ("a", .string()),
-      ("b", .string())
+      ("a", .string(), nil),
+      ("b", .string(), nil)
     ]
 
     expect(actual).to(equal(expected))
@@ -143,8 +143,8 @@ class IRFieldCollectorTests: XCTestCase {
     let actual = subject.collectedFields(for: Dog)
 
     let expected: ReferencedFields = [
-      ("a", .string()),
-      ("b", .string())
+      ("a", .string(), nil),
+      ("b", .string(), nil)
     ]
 
     expect(actual).to(equal(expected))
@@ -186,8 +186,8 @@ class IRFieldCollectorTests: XCTestCase {
     let actual = subject.collectedFields(for: Dog)
 
     let expected: ReferencedFields = [
-      ("a", .string()),
-      ("b", .string())
+      ("a", .string(), nil),
+      ("b", .string(), nil)
     ]
 
     expect(actual).to(equal(expected))
@@ -227,8 +227,8 @@ class IRFieldCollectorTests: XCTestCase {
     let actual = subject.collectedFields(for: Dog)
 
     let expected: ReferencedFields = [
-      ("a", .string()),
-      ("b", .string())
+      ("a", .string(), nil),
+      ("b", .string(), nil)
     ]
 
     expect(actual).to(equal(expected))
@@ -274,8 +274,8 @@ class IRFieldCollectorTests: XCTestCase {
     let actual = subject.collectedFields(for: Dog)
 
     let expected: ReferencedFields = [
-      ("a", .string()),
-      ("b", .string())
+      ("a", .string(), nil),
+      ("b", .string(), nil)
     ]
 
     expect(actual).to(equal(expected))
@@ -321,8 +321,8 @@ class IRFieldCollectorTests: XCTestCase {
     let actual = subject.collectedFields(for: Dog)
 
     let expected: ReferencedFields = [
-      ("a", .string()),
-      ("b", .string())
+      ("a", .string(), nil),
+      ("b", .string(), nil)
     ]
 
     expect(actual).to(equal(expected))
@@ -357,7 +357,7 @@ class IRFieldCollectorTests: XCTestCase {
     let actual = subject.collectedFields(for: Dog)
 
     let expected: ReferencedFields = [
-      ("aliasedA", .string()),
+      ("aliasedA", .string(), nil),
     ]
 
     expect(actual).to(equal(expected))
@@ -390,7 +390,7 @@ class IRFieldCollectorTests: XCTestCase {
     let actual = subject.collectedFields(for: Dog)
 
     let expected: ReferencedFields = [
-      ("a", .string()),
+      ("a", .string(), nil),
     ]
 
     expect(actual).to(equal(expected))
@@ -424,8 +424,8 @@ class IRFieldCollectorTests: XCTestCase {
     let actual = subject.collectedFields(for: Dog)
 
     let expected: ReferencedFields = [
-      ("field1", .string()),
-      ("field2", .string()),
+      ("field1", .string(), nil),
+      ("field2", .string(), nil),
     ]
 
     expect(actual).to(equal(expected))
@@ -476,15 +476,15 @@ class IRFieldCollectorTests: XCTestCase {
     let petRockActual = subject.collectedFields(for: PetRock)
 
     let petRockExpected: ReferencedFields = [
-      ("b", .string()),
+      ("b", .string(), nil),
     ]
 
     let Dog = try schema[object: "Dog"].xctUnwrapped()
     let dogActual = subject.collectedFields(for: Dog)
 
     let dogExpected: ReferencedFields = [
-      ("a", .string()),
-      ("b", .string()),
+      ("a", .string(), nil),
+      ("b", .string(), nil),
     ]
 
     expect(petRockActual).to(equal(petRockExpected))
@@ -538,15 +538,15 @@ class IRFieldCollectorTests: XCTestCase {
     let petRockActual = subject.collectedFields(for: PetRock)
 
     let petRockExpected: ReferencedFields = [
-      ("b", .string()),
+      ("b", .string(), nil),
     ]
 
     let Dog = try schema[object: "Dog"].xctUnwrapped()
     let dogActual = subject.collectedFields(for: Dog)
 
     let dogExpected: ReferencedFields = [
-      ("a", .string()),
-      ("b", .string()),
+      ("a", .string(), nil),
+      ("b", .string(), nil),
     ]
 
     expect(petRockActual).to(equal(petRockExpected))

@@ -53,6 +53,8 @@ public class UploadMultipleFilesToDifferentParametersMutation: GraphQLMutation {
     public var multipleParameterUpload: [MultipleParameterUpload] { __data["multipleParameterUpload"] }
 
     /// MultipleParameterUpload
+    ///
+    /// Parent Type: `File`
     public struct MultipleParameterUpload: UploadAPI.SelectionSet {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }

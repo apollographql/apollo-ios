@@ -26,6 +26,16 @@ class CustomScalarTemplateTests: XCTestCase {
     )
   }
 
+  private func buildSubject(
+    type: GraphQLScalarType,
+    config: ApolloCodegenConfiguration = .mock()
+  ) {
+    subject = CustomScalarTemplate(
+      graphqlScalar: type,
+      config: ApolloCodegen.ConfigurationContext(config: config)
+    )
+  }
+
   private func renderSubject() -> String {
     subject.template.description
   }
@@ -38,6 +48,7 @@ class CustomScalarTemplateTests: XCTestCase {
 
     let expected = """
     typealias ACustomScalar = String
+
     """
 
     // when
@@ -55,6 +66,7 @@ class CustomScalarTemplateTests: XCTestCase {
 
     let expected = """
     typealias MyCustomScalar = String
+
     """
 
     // when
@@ -107,5 +119,83 @@ class CustomScalarTemplateTests: XCTestCase {
 
     // then
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  // MARK: Documentation Tests
+
+  func test__render__givenSchemaDocumentation_include_hasDocumentation_shouldGenerateDocumentationComment() throws {
+    // given
+    let documentation = "This is some great documentation!"
+    buildSubject(
+      type: .mock(
+        name: "CustomScalar",
+        specifiedByURL: nil,
+        documentation: documentation
+      ),
+      config: .mock(options: .init(schemaDocumentation: .include))
+    )
+
+    let expected = """
+    /// \(documentation)
+    typealias CustomScalar = String
+
+    """
+
+    // when
+    let rendered = renderSubject()
+
+    // then
+    expect(rendered).to(equalLineByLine(expected))
+  }
+
+  func test__render__givenSchemaDocumentation_include_hasDocumentationAndSpecifiedByURL_shouldGenerateDocumentationCommentWithSpecifiedBy() throws {
+    // given
+    let documentation = "This is some great documentation!"
+    buildSubject(
+      type: .mock(
+        name: "CustomScalar",
+        specifiedByURL: "http://www.apollographql.com/scalarSpec",
+        documentation: documentation
+      ),
+      config: .mock(options: .init(schemaDocumentation: .include))
+    )
+
+    let expected = """
+    /// \(documentation)
+    ///
+    /// Specified by: [](http://www.apollographql.com/scalarSpec)
+    typealias CustomScalar = String
+
+    """
+
+    // when
+    let rendered = renderSubject()
+
+    // then
+    expect(rendered).to(equalLineByLine(expected))
+  }
+
+  func test__render__givenSchemaDocumentation_exclude_hasDocumentation_shouldNotGenerateDocumentationComment() throws {
+    // given
+    let documentation = "This is some great documentation!"
+    buildSubject(
+      type: .mock(
+        name: "CustomScalar",
+        specifiedByURL: nil,
+        documentation: documentation
+      ),
+      config: .mock(options: .init(schemaDocumentation: .exclude))
+    )
+
+    let expected = """
+    typealias CustomScalar = String
+    
+    """
+
+    // when
+    let rendered = renderSubject()
+
+    // then
+    expect(rendered).to(equalLineByLine(expected))
   }
 }

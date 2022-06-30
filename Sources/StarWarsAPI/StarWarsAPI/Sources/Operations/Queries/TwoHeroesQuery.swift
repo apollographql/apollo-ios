@@ -40,6 +40,8 @@ public class TwoHeroesQuery: GraphQLQuery {
     public var luke: Luke? { __data["luke"] }
 
     /// R2
+    ///
+    /// Parent Type: `Character`
     public struct R2: StarWarsAPI.SelectionSet {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
@@ -49,10 +51,13 @@ public class TwoHeroesQuery: GraphQLQuery {
         .field("name", String.self),
       ] }
 
+      /// The name of the character
       public var name: String { __data["name"] }
     }
 
     /// Luke
+    ///
+    /// Parent Type: `Character`
     public struct Luke: StarWarsAPI.SelectionSet {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
@@ -62,6 +67,7 @@ public class TwoHeroesQuery: GraphQLQuery {
         .field("name", String.self),
       ] }
 
+      /// The name of the character
       public var name: String { __data["name"] }
     }
   }

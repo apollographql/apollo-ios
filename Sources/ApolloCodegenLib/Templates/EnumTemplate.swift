@@ -14,17 +14,19 @@ struct EnumTemplate: TemplateRenderer {
   var template: TemplateString {
     TemplateString(
     """
+    \(documentation: graphqlEnum.documentation, config: config)
     \(embeddedAccessControlModifier)\
     enum \(graphqlEnum.name.firstUppercased): String, EnumType {
       \(graphqlEnum.values.compactMap({
         enumCase(for: $0)
       }), separator: "\n")
     }
+    
     """
     )
   }
 
-  private func enumCase(for graphqlEnumValue: GraphQLEnumValue) -> String? {
+  private func enumCase(for graphqlEnumValue: GraphQLEnumValue) -> TemplateString? {
     switch (
       config.options.deprecatedEnumCases,
       graphqlEnumValue.deprecationReason,
@@ -34,13 +36,17 @@ struct EnumTemplate: TemplateRenderer {
       return nil
 
     case let (.include, .some(reason), .include):
-      return TemplateString("""
+      return """
+        \(documentation: graphqlEnumValue.documentation, config: config)
         @available(*, deprecated, message: \"\(reason)\")
         case \(graphqlEnumValue.name)
-        """).description
+        """
 
     default:
-      return "case \(graphqlEnumValue.name)"
+      return """
+        \(documentation: graphqlEnumValue.documentation, config: config)
+        case \(graphqlEnumValue.name)
+        """
     }
   }
 }

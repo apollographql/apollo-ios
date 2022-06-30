@@ -53,6 +53,8 @@ public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
     public var hero: Hero? { __data["hero"] }
 
     /// Hero
+    ///
+    /// Parent Type: `Character`
     public struct Hero: StarWarsAPI.SelectionSet {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
@@ -63,11 +65,14 @@ public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
         .inlineFragment(AsDroid.self),
       ] }
 
+      /// The friends of the character, or an empty list if they have none
       public var friends: [Friend?]? { __data["friends"] }
 
       public var asDroid: AsDroid? { _asInlineFragment() }
 
       /// Hero.Friend
+      ///
+      /// Parent Type: `Character`
       public struct Friend: StarWarsAPI.SelectionSet {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
@@ -77,6 +82,7 @@ public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
           .fragment(CharacterName.self),
         ] }
 
+        /// The name of the character
         public var name: String { __data["name"] }
 
         public struct Fragments: FragmentContainer {
@@ -88,6 +94,8 @@ public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
       }
 
       /// Hero.AsDroid
+      ///
+      /// Parent Type: `Droid`
       public struct AsDroid: StarWarsAPI.InlineFragment {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
@@ -97,9 +105,12 @@ public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
           .field("friends", [Friend?]?.self),
         ] }
 
+        /// This droid's friends, or an empty list if they have none
         public var friends: [Friend?]? { __data["friends"] }
 
         /// Hero.AsDroid.Friend
+        ///
+        /// Parent Type: `Character`
         public struct Friend: StarWarsAPI.SelectionSet {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
@@ -109,6 +120,7 @@ public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
             .fragment(CharacterName.self),
           ] }
 
+          /// The name of the character
           public var name: String { __data["name"] }
 
           public struct Fragments: FragmentContainer {

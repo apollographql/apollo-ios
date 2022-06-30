@@ -10,6 +10,8 @@ public class CompilationResult: JavaScriptObject {
   lazy var operations: [OperationDefinition] = self["operations"]
 
   lazy var fragments: [FragmentDefinition] = self["fragments"]
+
+  lazy var schemaDocumentation: String? = self["schemaDocumentation"]
   
   public class OperationDefinition: JavaScriptObject, Equatable {
     lazy var name: String = self["name"]
@@ -263,7 +265,7 @@ public class CompilationResult: JavaScriptObject {
       return deprecationReason != nil
     }
     
-    lazy var description: String? = self["description"]
+    lazy var documentation: String? = self["description"]
 
     required convenience init(
       name: String,
@@ -274,7 +276,7 @@ public class CompilationResult: JavaScriptObject {
       type: GraphQLType,
       selectionSet: SelectionSet? = nil,
       deprecationReason: String? = nil,
-      description: String? = nil
+      documentation: String? = nil
     ) {
       self.init(nil)
       self.name = name
@@ -285,7 +287,7 @@ public class CompilationResult: JavaScriptObject {
       self.directives = directives
       self.selectionSet = selectionSet
       self.deprecationReason = deprecationReason
-      self.description = description
+      self.documentation = documentation
     }
 
     public var debugDescription: String {
@@ -321,6 +323,8 @@ public class CompilationResult: JavaScriptObject {
     lazy var type: GraphQLType = self["type"]
 
     lazy var value: GraphQLValue = self["value"]
+
+    lazy var deprecationReason: String? = self["deprecationReason"]
 
     public func hash(into hasher: inout Hasher) {
       hasher.combine(name)

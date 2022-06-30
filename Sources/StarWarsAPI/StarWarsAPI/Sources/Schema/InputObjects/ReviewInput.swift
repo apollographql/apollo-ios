@@ -3,6 +3,7 @@
 
 import ApolloAPI
 
+/// The input object sent when someone is creating a new review
 public struct ReviewInput: InputObject {
   public private(set) var __data: InputDict
 
@@ -22,16 +23,19 @@ public struct ReviewInput: InputObject {
     ])
   }
 
+  /// 0-5 stars
   public var stars: Int {
     get { __data.stars }
     set { __data.stars = newValue }
   }
 
+  /// Comment about the movie, optional
   public var commentary: GraphQLNullable<String> {
     get { __data.commentary }
     set { __data.commentary = newValue }
   }
 
+  /// Favorite color, optional
   public var favorite_color: GraphQLNullable<ColorInput> {
     get { __data.favorite_color }
     set { __data.favorite_color = newValue }

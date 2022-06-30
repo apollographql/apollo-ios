@@ -45,6 +45,7 @@ export interface CompilationResult {
   operations: ir.OperationDefinition[];
   fragments: ir.FragmentDefinition[];
   referencedTypes: GraphQLNamedType[];
+  schemaDocumentation: string | undefined;
 }
 
 export function compileToIR(
@@ -83,6 +84,7 @@ export function compileToIR(
     operations,
     fragments: Array.from(fragmentMap.values()),
     referencedTypes: Array.from(referencedTypes.values()),
+    schemaDocumentation: schema.description ?? undefined
   };
 
   function addReferencedType(type: GraphQLNamedType) {
@@ -375,6 +377,7 @@ export function compileToIR(
           name,
           value: valueFromValueNode(arg.value),
           type: argDefType,
+          deprecationReason: argDef.deprecationReason ?? undefined
         };
       })
       : undefined;

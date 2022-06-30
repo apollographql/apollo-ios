@@ -59,6 +59,7 @@ export interface Argument {
   name: string;
   value: GraphQLValue;
   type: GraphQLInputType;
+  deprecationReason?: string;
 }
 
 export interface InlineFragment {

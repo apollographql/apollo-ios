@@ -13,13 +13,14 @@ extension ApolloCodegenConfiguration {
         moduleType: .embeddedInTarget(name: "MockApplication")
       )
     ),
-    options: OutputOptions = .init()
+    options: OutputOptions = .init(schemaDocumentation: .exclude)
   ) -> Self {
     .init(schemaName: schemaName, input: input, output: output, options: options)
   }
 
   public static func mock(
     _ moduleType: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType,
+    warningsOnDeprecatedUsage: ApolloCodegenConfiguration.Composition = .exclude,
     schemaName: String = "TestSchema",
     to path: String = "MockModulePath"
   ) -> Self {
@@ -31,6 +32,9 @@ extension ApolloCodegenConfiguration {
       ),
       output: .init(
         schemaTypes: .init(path: path, moduleType: moduleType)
+      ),
+      options: .init(
+        warningsOnDeprecatedUsage: warningsOnDeprecatedUsage
       )
     )
   }

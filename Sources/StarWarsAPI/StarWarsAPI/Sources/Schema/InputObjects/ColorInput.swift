@@ -3,6 +3,7 @@
 
 import ApolloAPI
 
+/// The input object sent when passing in a color
 public struct ColorInput: InputObject {
   public private(set) var __data: InputDict
 

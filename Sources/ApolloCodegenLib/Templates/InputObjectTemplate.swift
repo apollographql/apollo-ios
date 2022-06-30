@@ -16,6 +16,7 @@ struct InputObjectTemplate: TemplateRenderer {
   var template: TemplateString {
     TemplateString(
     """
+    \(documentation: graphqlInputObject.documentation, config: config)
     \(embeddedAccessControlModifier)\
     struct \(graphqlInputObject.name.firstUppercased): InputObject {
       public private(set) var __data: InputDict
@@ -34,6 +35,7 @@ struct InputObjectTemplate: TemplateRenderer {
 
       \(graphqlInputObject.fields.map({ "\(FieldPropertyTemplate($1))" }), separator: "\n\n")
     }
+
     """
     )
   }
@@ -52,8 +54,9 @@ struct InputObjectTemplate: TemplateRenderer {
     """)
   }
 
-  private func FieldPropertyTemplate(_ field: GraphQLInputField) -> String {
+  private func FieldPropertyTemplate(_ field: GraphQLInputField) -> TemplateString {
     """
+    \(documentation: field.documentation, config: config)
     public var \(field.name): \(field.renderInputValueType(config: config.config)) {
       get { __data.\(field.name) }
       set { __data.\(field.name) = newValue }

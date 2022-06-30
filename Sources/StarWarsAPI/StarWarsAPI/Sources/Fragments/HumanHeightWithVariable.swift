@@ -21,5 +21,6 @@ public struct HumanHeightWithVariable: StarWarsAPI.SelectionSet, Fragment {
     .field("height", Double?.self, arguments: ["unit": .variable("heightUnit")]),
   ] }
 
+  /// Height in the preferred unit, default is meters
   public var height: Double? { __data["height"] }
 }

@@ -96,6 +96,8 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
     public var allAnimals: [AllAnimal] { __data["allAnimals"] }
 
     /// AllAnimal
+    ///
+    /// Parent Type: `Animal`
     public struct AllAnimal: AnimalKingdomAPI.SelectionSet {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
@@ -132,6 +134,8 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
       }
 
       /// AllAnimal.Height
+      ///
+      /// Parent Type: `Height`
       public struct Height: AnimalKingdomAPI.SelectionSet {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
@@ -148,6 +152,8 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
       }
 
       /// AllAnimal.Predator
+      ///
+      /// Parent Type: `Animal`
       public struct Predator: AnimalKingdomAPI.SelectionSet {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
@@ -163,6 +169,8 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         public var asWarmBlooded: AsWarmBlooded? { _asInlineFragment(if: "getWarmBlooded") }
 
         /// AllAnimal.Predator.AsWarmBlooded
+        ///
+        /// Parent Type: `WarmBlooded`
         public struct AsWarmBlooded: AnimalKingdomAPI.InlineFragment {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
@@ -190,6 +198,8 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
       }
 
       /// AllAnimal.AsWarmBlooded
+      ///
+      /// Parent Type: `WarmBlooded`
       public struct AsWarmBlooded: AnimalKingdomAPI.InlineFragment {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
@@ -216,6 +226,8 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         }
 
         /// AllAnimal.AsWarmBlooded.Height
+        ///
+        /// Parent Type: `Height`
         public struct Height: AnimalKingdomAPI.SelectionSet {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
@@ -228,6 +240,8 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         }
 
         /// AllAnimal.AsWarmBlooded.IfGetWarmBlooded
+        ///
+        /// Parent Type: `WarmBlooded`
         public struct IfGetWarmBlooded: AnimalKingdomAPI.InlineFragment {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
@@ -249,6 +263,8 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           }
 
           /// AllAnimal.AsWarmBlooded.IfGetWarmBlooded.Height
+          ///
+          /// Parent Type: `Height`
           public struct Height: AnimalKingdomAPI.SelectionSet {
             public let __data: DataDict
             public init(data: DataDict) { __data = data }
@@ -263,6 +279,8 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
       }
 
       /// AllAnimal.AsPet
+      ///
+      /// Parent Type: `Pet`
       public struct AsPet: AnimalKingdomAPI.InlineFragment {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
@@ -293,6 +311,8 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         }
 
         /// AllAnimal.AsPet.Height
+        ///
+        /// Parent Type: `Height`
         public struct Height: AnimalKingdomAPI.SelectionSet {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
@@ -313,6 +333,8 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         }
 
         /// AllAnimal.AsPet.AsWarmBlooded
+        ///
+        /// Parent Type: `WarmBlooded`
         public struct AsWarmBlooded: AnimalKingdomAPI.InlineFragment {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
@@ -341,6 +363,8 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           }
 
           /// AllAnimal.AsPet.AsWarmBlooded.Height
+          ///
+          /// Parent Type: `Height`
           public struct Height: AnimalKingdomAPI.SelectionSet {
             public let __data: DataDict
             public init(data: DataDict) { __data = data }
@@ -357,6 +381,8 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
       }
 
       /// AllAnimal.AsCat
+      ///
+      /// Parent Type: `Cat`
       public struct AsCat: AnimalKingdomAPI.InlineFragment {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
@@ -386,6 +412,8 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         }
 
         /// AllAnimal.AsCat.Height
+        ///
+        /// Parent Type: `Height`
         public struct Height: AnimalKingdomAPI.SelectionSet {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
@@ -401,6 +429,8 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
       }
 
       /// AllAnimal.AsClassroomPet
+      ///
+      /// Parent Type: `ClassroomPet`
       public struct AsClassroomPet: AnimalKingdomAPI.InlineFragment {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
@@ -425,6 +455,8 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         }
 
         /// AllAnimal.AsClassroomPet.Height
+        ///
+        /// Parent Type: `Height`
         public struct Height: AnimalKingdomAPI.SelectionSet {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
@@ -437,6 +469,8 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         }
 
         /// AllAnimal.AsClassroomPet.AsBird
+        ///
+        /// Parent Type: `Bird`
         public struct AsBird: AnimalKingdomAPI.InlineFragment {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
@@ -466,6 +500,8 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           }
 
           /// AllAnimal.AsClassroomPet.AsBird.Height
+          ///
+          /// Parent Type: `Height`
           public struct Height: AnimalKingdomAPI.SelectionSet {
             public let __data: DataDict
             public init(data: DataDict) { __data = data }
@@ -481,6 +517,8 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         }
       }
       /// AllAnimal.IfNotSkipHeightInMeters
+      ///
+      /// Parent Type: `Animal`
       public struct IfNotSkipHeightInMeters: AnimalKingdomAPI.InlineFragment {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
@@ -500,6 +538,8 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         }
 
         /// AllAnimal.IfNotSkipHeightInMeters.Height
+        ///
+        /// Parent Type: `Height`
         public struct Height: AnimalKingdomAPI.SelectionSet {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }

@@ -27,9 +27,20 @@ struct CustomScalarTemplate: TemplateRenderer {
   var template: TemplateString {
     TemplateString(
     """
+    \(documentation: documentationTemplate, config: config)
     \(embeddedAccessControlModifier)\
     typealias \(graphqlScalar.name.firstUppercased) = String
+    
     """
     )
+  }
+
+  private var documentationTemplate: String? {
+    var string = graphqlScalar.documentation
+    if let specifiedByURL = graphqlScalar.specifiedByURL {
+      let specifiedByDocs = "Specified by: [](\(specifiedByURL))"
+      string = string?.appending("\n\n\(specifiedByDocs)") ?? specifiedByDocs
+    }
+    return string
   }
 }
