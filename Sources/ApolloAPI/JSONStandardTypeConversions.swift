@@ -144,7 +144,8 @@ extension Array: JSONEncodable {
     return map { element -> JSONValue in
       if case let element as JSONEncodable = element {
         return element.jsonValue
-      } else {
+      } if case let element as 
+      else {
         fatalError("Array is only JSONEncodable if Element is")
       }
     }
