@@ -12,6 +12,17 @@ public struct MeasurementsInput: InputObject {
 
   public init(
     height: Double,
+    weight: Double
+  ) {
+    __data = InputDict([
+      "height": height,
+      "weight": weight
+    ])
+  }
+
+  @available(*, deprecated, message: "Argument 'wingspan' is deprecated.")
+  public init(
+    height: Double,
     weight: Double,
     wingspan: GraphQLNullable<Double> = nil
   ) {
@@ -32,6 +43,7 @@ public struct MeasurementsInput: InputObject {
     set { __data.weight = newValue }
   }
 
+  @available(*, deprecated, message: "No longer valid.")
   public var wingspan: GraphQLNullable<Double> {
     get { __data.wingspan }
     set { __data.wingspan = newValue }

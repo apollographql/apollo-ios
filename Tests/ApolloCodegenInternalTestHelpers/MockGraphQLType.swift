@@ -162,13 +162,15 @@ public extension GraphQLInputField {
     _ name: String,
     type: GraphQLType,
     defaultValue: GraphQLValue?,
-    documentation: String? = nil
+    documentation: String? = nil,
+    deprecationReason: String? = nil
   ) -> Self {
     let mock = Self.emptyMockObject()
     mock.name = name
     mock.type = type
     mock.defaultValue = defaultValue
     mock.documentation = documentation
+    mock.deprecationReason = deprecationReason
     return mock
   }
 }

@@ -14,7 +14,9 @@ struct InputObjectTemplate: TemplateRenderer {
   let target: TemplateTarget = .schemaFile
 
   var template: TemplateString {
-    TemplateString(
+    let (validFields, deprecatedFields) = filterFields(graphqlInputObject.fields)
+
+    return TemplateString(
     """
     \(documentation: graphqlInputObject.documentation, config: config)
     \(embeddedAccessControlModifier)\
@@ -25,11 +27,25 @@ struct InputObjectTemplate: TemplateRenderer {
         __data = data
       }
 
+      \(if: !deprecatedFields.isEmpty && !validFields.isEmpty && shouldIncludeDeprecatedWarnings, """
       public init(
-        \(InitializerParametersTemplate())
+        \(InitializerParametersTemplate(validFields))
       ) {
         __data = InputDict([
-          \(InputDictInitializerTemplate())
+          \(InputDictInitializerTemplate(validFields))
+        ])
+      }
+
+      """
+      )
+      \(if: !deprecatedFields.isEmpty && shouldIncludeDeprecatedWarnings, """
+      @available(*, deprecated, message: "\(deprecatedMessage(for: deprecatedFields))")
+      """)
+      public init(
+        \(InitializerParametersTemplate(graphqlInputObject.fields))
+      ) {
+        __data = InputDict([
+          \(InputDictInitializerTemplate(graphqlInputObject.fields))
         ])
       }
 
@@ -40,23 +56,64 @@ struct InputObjectTemplate: TemplateRenderer {
     )
   }
 
-  private func InitializerParametersTemplate() -> TemplateString {
+  private var shouldIncludeDeprecatedWarnings: Bool {
+    config.options.warningsOnDeprecatedUsage == .include
+  }
+
+  private func filterFields(
+    _ fields: GraphQLInputFieldDictionary
+  ) -> (valid: GraphQLInputFieldDictionary, deprecated: GraphQLInputFieldDictionary) {
+    var valid: GraphQLInputFieldDictionary = [:]
+    var deprecated: GraphQLInputFieldDictionary = [:]
+
+    for (key, value) in fields {
+      if let _ = value.deprecationReason {
+        deprecated[key] = value
+      } else {
+        valid[key] = value
+      }
+    }
+
+    return (valid: valid, deprecated: deprecated)
+  }
+
+  private func deprecatedMessage(for fields: GraphQLInputFieldDictionary) -> String {
+    guard !fields.isEmpty else { return "" }
+
+    let names: String = fields.values.map({ $0.name }).joined(separator: ", ")
+
+    if fields.count > 1 {
+      return "Arguments '\(names)' are deprecated."
+    } else {
+      return "Argument '\(names)' is deprecated."
+    }
+  }
+
+  private func InitializerParametersTemplate(
+    _ fields: GraphQLInputFieldDictionary
+  ) -> TemplateString {
     TemplateString("""
-    \(graphqlInputObject.fields.map({
+    \(fields.map({
       "\($1.name): \($1.renderInputValueType(includeDefault: true, config: config.config))"
     }), separator: ",\n")
     """)
   }
 
-  private func InputDictInitializerTemplate() -> TemplateString {
+  private func InputDictInitializerTemplate(
+    _ fields: GraphQLInputFieldDictionary
+  ) -> TemplateString {
     TemplateString("""
-    \(graphqlInputObject.fields.map({ "\"\($1.name)\": \($1.name)" }), separator: ",\n")
+    \(fields.map({ "\"\($1.name)\": \($1.name)" }), separator: ",\n")
     """)
   }
 
   private func FieldPropertyTemplate(_ field: GraphQLInputField) -> TemplateString {
     """
     \(documentation: field.documentation, config: config)
+    \(ifLet: field.deprecationReason,
+      where: config.options.warningsOnDeprecatedUsage == .include, {
+        "@available(*, deprecated, message: \"\($0)\")"
+      })
     public var \(field.name): \(field.renderInputValueType(config: config.config)) {
       get { __data.\(field.name) }
       set { __data.\(field.name) = newValue }
