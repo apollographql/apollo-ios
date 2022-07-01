@@ -23,7 +23,7 @@ input PetAdoptionInput {
 input MeasurementsInput {
   height: Float!
   weight: Float!
-  wingspan: Float
+  wingspan: Float @deprecated(reason: "No longer valid.")
 }
 
 input PetSearchFilters {
