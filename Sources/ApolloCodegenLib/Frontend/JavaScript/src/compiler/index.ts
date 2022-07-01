@@ -263,6 +263,7 @@ export function compileToIR(
     switch (selectionNode.kind) {
       case Kind.FIELD: {
         const name = selectionNode.name.value;
+        if (name == "__typename") { return undefined }
         const alias = selectionNode.alias?.value;
 
         const fieldDef = getFieldDef(schema, parentType, name);

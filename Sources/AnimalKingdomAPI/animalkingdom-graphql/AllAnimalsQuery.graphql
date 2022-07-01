@@ -1,5 +1,6 @@
 query AllAnimalsQuery {
   allAnimals {
+    __typename
     height {
       feet
       inches
