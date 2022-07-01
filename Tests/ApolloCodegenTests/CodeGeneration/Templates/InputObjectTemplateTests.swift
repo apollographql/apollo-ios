@@ -844,6 +844,51 @@ class InputObjectTemplateTests: XCTestCase {
     expect(rendered).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
   }
 
+  func test__render__givenOnlyDeprecatedFields_includeDeprecationWarnings_shouldGenerateWarning_withoutValidInitializer() throws {
+    // given
+    buildSubject(
+      fields: [
+        GraphQLInputField.mock(
+          "fieldOne",
+          type: .nonNull(.string()),
+          defaultValue: nil,
+          deprecationReason: "Not used anymore!"
+        )
+      ],
+      config: .mock(options: .init(
+        schemaDocumentation: .include,
+        warningsOnDeprecatedUsage: .include
+      ))
+    )
+
+    let expected = """
+    struct MockInput: InputObject {
+      public private(set) var __data: InputDict
+
+      public init(_ data: InputDict) {
+        __data = data
+      }
+
+      @available(*, deprecated, message: "Argument 'fieldOne' is deprecated.")
+      public init(
+        fieldOne: String
+      ) {
+        __data = InputDict([
+          "fieldOne": fieldOne
+        ])
+      }
+
+      @available(*, deprecated, message: "Not used anymore!")
+      public var fieldOne: String {
+    """
+
+    // when
+    let rendered = renderSubject()
+
+    // then
+    expect(rendered).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
   func test__render__givenDeprecatedField_excludeDeprecationWarnings_shouldNotGenerateWarning() throws {
     // given
     buildSubject(
