@@ -149,7 +149,7 @@ extension IR {
         into selections: IR.MergedSelections
       ) {
         guard let nextTypePathNode = typePath.next else {
-          guard case let .fieldScope(node) = child else { fatalError() }
+          guard case let .fieldScope(node) = child else { return }
           node.mergeSelections(matchingScopePath: typePath, into: selections)
           return
         }

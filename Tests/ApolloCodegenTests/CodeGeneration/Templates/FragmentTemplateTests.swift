@@ -288,6 +288,41 @@ class FragmentTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 14, ignoringExtraLines: true))
   }
 
+  func test__render__givenFragmentWithOnlyTypenameField_generatesFragmentDefinition_withNoSelections() throws {
+    // given
+    document = """
+    fragment TestFragment on Animal {
+      __typename
+    }
+    """
+
+    try buildSubjectAndFragment()
+
+    let expected = """
+    struct TestFragment: TestSchema.SelectionSet, Fragment {
+      public static var fragmentDefinition: StaticString { ""\"
+        fragment TestFragment on Animal {
+          __typename
+        }
+        ""\" }
+
+      public let __data: DataDict
+      public init(data: DataDict) { __data = data }
+
+      public static var __parentType: ParentType { .Object(TestSchema.Animal.self) }
+      public static var selections: [Selection] { [
+      ] }
+    }
+
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected))
+  }
+
   /// MARK: - Local Cache Mutation Tests
   func test__render__givenFragment__asLocalCacheMutation_generatesFragmentDeclarationDefinitionAsMutableSelectionSetAndBoilerplate() throws {
     // given
