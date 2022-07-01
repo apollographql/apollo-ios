@@ -292,8 +292,6 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     /// Annotate generated Swift code with the Swift `available` attribute and `deprecated`
     /// argument for parts of the GraphQL schema annotated with the built-in `@deprecated`
     /// directive.
-    ///
-    /// This is currently limited to enum values.
     public let warningsOnDeprecatedUsage: Composition
 
     /// Designated initializer.
@@ -306,6 +304,9 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     ///  - deprecatedEnumCases: How deprecated enum cases from the schema should be handled.
     ///  - schemaDocumentation: Whether schema documentation is added to the generated files.
     ///  - apqs: Whether the generated operations should use Automatic Persisted Queries.
+    ///  - warningsOnDeprecatedUsage: Annotate generated Swift code with the Swift `available`
+    ///  attribute and `deprecated` argument for parts of the GraphQL schema annotated with the
+    ///  built-in `@deprecated` directive.
     public init(
       additionalInflectionRules: [InflectionRule] = [],
       queryStringLiteralFormat: QueryStringLiteralFormat = .multiline,
