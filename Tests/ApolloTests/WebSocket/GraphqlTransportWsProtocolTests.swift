@@ -16,6 +16,10 @@ class GraphqlTransportWsProtocolTests: WSProtocolTestsBase {
     return request
   }
 
+  private func buildWebSocket() {
+    buildWebSocket(protocol: .graphql_transport_ws)
+  }
+
   // MARK: Initializer Tests
 
   func test__designatedInitializer__shouldSetRequestProtocolHeader() {
@@ -123,7 +127,7 @@ class GraphqlTransportWsProtocolTests: WSProtocolTestsBase {
     }
   }
 
-  func test__messaging__givenSubscriptionCancel_shouldSendStop() {
+  func test__messaging__givenSubscriptionCancel_shouldSendComplete() {
     // given
     buildWebSocket()
     buildClient()
@@ -136,7 +140,7 @@ class GraphqlTransportWsProtocolTests: WSProtocolTestsBase {
     waitUntil { done in
       self.mockWebSocketDelegate.didReceiveMessage = { message in
         // then
-        let expected = OperationMessage(id: "1", type: .stop).rawMessage!
+        let expected = OperationMessage(id: "1", type: .complete).rawMessage!
         if message == expected {
           done()
         }
