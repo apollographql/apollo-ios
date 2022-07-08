@@ -2153,7 +2153,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9FC750581D2A532D00458D91 /* Build configuration list for PBXNativeTarget "Apollo" */;
 			buildPhases = (
-				90690D322243442F00FC2E54 /* Ensure no build settings are in the Xcode project */,
 				9FC7503F1D2A532C00458D91 /* Sources */,
 				9FC750411D2A532C00458D91 /* Headers */,
 				9FC750421D2A532C00458D91 /* Resources */,
@@ -2524,24 +2523,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		90690D322243442F00FC2E54 /* Ensure no build settings are in the Xcode project */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Ensure no build settings are in the Xcode project";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"$SRCROOT\"/scripts/ensure-no-build-settings-in-pbxproj.sh \"${PROJECT_FILE_PATH}\"\n";
-		};
 		9FACA9BA1F42E67200AE2DBD /* Generate Apollo Client API */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3083,6 +3064,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9B2DFBC824E1FA7E00ED3AE6 /* Apollo-Target-UploadAPI.xcconfig */;
 			buildSettings = {
+				ENABLE_BITCODE = NO;
 			};
 			name = Debug;
 		};
@@ -3090,6 +3072,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9B2DFBC824E1FA7E00ED3AE6 /* Apollo-Target-UploadAPI.xcconfig */;
 			buildSettings = {
+				ENABLE_BITCODE = NO;
 			};
 			name = Release;
 		};
@@ -3097,6 +3080,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9B2DFBC824E1FA7E00ED3AE6 /* Apollo-Target-UploadAPI.xcconfig */;
 			buildSettings = {
+				ENABLE_BITCODE = NO;
 			};
 			name = PerformanceTesting;
 		};
@@ -3104,6 +3088,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9B68354A2463498D00337AE6 /* Apollo-Target-ApolloUtils.xcconfig */;
 			buildSettings = {
+				ENABLE_BITCODE = NO;
 			};
 			name = Debug;
 		};
@@ -3111,6 +3096,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9B68354A2463498D00337AE6 /* Apollo-Target-ApolloUtils.xcconfig */;
 			buildSettings = {
+				ENABLE_BITCODE = NO;
 			};
 			name = Release;
 		};
@@ -3118,6 +3104,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9B68354A2463498D00337AE6 /* Apollo-Target-ApolloUtils.xcconfig */;
 			buildSettings = {
+				ENABLE_BITCODE = NO;
 			};
 			name = PerformanceTesting;
 		};
@@ -3125,6 +3112,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9B7B6F55233C27A000F32205 /* Apollo-Target-ApolloCodegenLib.xcconfig */;
 			buildSettings = {
+				ENABLE_BITCODE = NO;
 			};
 			name = Debug;
 		};
@@ -3132,6 +3120,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9B7B6F55233C27A000F32205 /* Apollo-Target-ApolloCodegenLib.xcconfig */;
 			buildSettings = {
+				ENABLE_BITCODE = NO;
 			};
 			name = Release;
 		};
@@ -3139,6 +3128,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9B7B6F55233C27A000F32205 /* Apollo-Target-ApolloCodegenLib.xcconfig */;
 			buildSettings = {
+				ENABLE_BITCODE = NO;
 			};
 			name = PerformanceTesting;
 		};
@@ -3146,6 +3136,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9B7BDAA423FDE98C00ACD198 /* ApolloWebSocket-Target-Framework.xcconfig */;
 			buildSettings = {
+				ENABLE_BITCODE = NO;
 			};
 			name = Debug;
 		};
@@ -3153,6 +3144,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9B7BDAA423FDE98C00ACD198 /* ApolloWebSocket-Target-Framework.xcconfig */;
 			buildSettings = {
+				ENABLE_BITCODE = NO;
 			};
 			name = Release;
 		};
@@ -3160,6 +3152,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9B7BDAA423FDE98C00ACD198 /* ApolloWebSocket-Target-Framework.xcconfig */;
 			buildSettings = {
+				ENABLE_BITCODE = NO;
 			};
 			name = PerformanceTesting;
 		};
@@ -3167,6 +3160,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9B7BDAD823FDECB300ACD198 /* ApolloSQLite-Target-Framework.xcconfig */;
 			buildSettings = {
+				ENABLE_BITCODE = NO;
 			};
 			name = Debug;
 		};
@@ -3174,6 +3168,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9B7BDAD823FDECB300ACD198 /* ApolloSQLite-Target-Framework.xcconfig */;
 			buildSettings = {
+				ENABLE_BITCODE = NO;
 			};
 			name = Release;
 		};
@@ -3181,6 +3176,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9B7BDAD823FDECB300ACD198 /* ApolloSQLite-Target-Framework.xcconfig */;
 			buildSettings = {
+				ENABLE_BITCODE = NO;
 			};
 			name = PerformanceTesting;
 		};
@@ -3230,6 +3226,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 90690D2522433CAF00FC2E54 /* Apollo-Target-TestSupport.xcconfig */;
 			buildSettings = {
+				ENABLE_BITCODE = NO;
 			};
 			name = Debug;
 		};
@@ -3237,6 +3234,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 90690D2522433CAF00FC2E54 /* Apollo-Target-TestSupport.xcconfig */;
 			buildSettings = {
+				ENABLE_BITCODE = NO;
 			};
 			name = Release;
 		};
@@ -3244,6 +3242,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 90690D2522433CAF00FC2E54 /* Apollo-Target-TestSupport.xcconfig */;
 			buildSettings = {
+				ENABLE_BITCODE = NO;
 			};
 			name = PerformanceTesting;
 		};
@@ -3251,6 +3250,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 90690D2222433C2800FC2E54 /* Apollo-Target-GitHubAPI.xcconfig */;
 			buildSettings = {
+				ENABLE_BITCODE = NO;
 			};
 			name = Debug;
 		};
@@ -3258,6 +3258,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 90690D2222433C2800FC2E54 /* Apollo-Target-GitHubAPI.xcconfig */;
 			buildSettings = {
+				ENABLE_BITCODE = NO;
 			};
 			name = Release;
 		};
@@ -3265,6 +3266,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 90690D2222433C2800FC2E54 /* Apollo-Target-GitHubAPI.xcconfig */;
 			buildSettings = {
+				ENABLE_BITCODE = NO;
 			};
 			name = PerformanceTesting;
 		};
@@ -3286,6 +3288,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 90690D06224333DA00FC2E54 /* Apollo-Target-Framework.xcconfig */;
 			buildSettings = {
+				ENABLE_BITCODE = NO;
 			};
 			name = Debug;
 		};
@@ -3293,6 +3296,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 90690D06224333DA00FC2E54 /* Apollo-Target-Framework.xcconfig */;
 			buildSettings = {
+				ENABLE_BITCODE = NO;
 			};
 			name = Release;
 		};
@@ -3314,6 +3318,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 90690D2122433C1900FC2E54 /* Apollo-Target-StarWarsAPI.xcconfig */;
 			buildSettings = {
+				ENABLE_BITCODE = NO;
 			};
 			name = Debug;
 		};
@@ -3321,6 +3326,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 90690D2122433C1900FC2E54 /* Apollo-Target-StarWarsAPI.xcconfig */;
 			buildSettings = {
+				ENABLE_BITCODE = NO;
 			};
 			name = Release;
 		};
@@ -3335,6 +3341,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 90690D06224333DA00FC2E54 /* Apollo-Target-Framework.xcconfig */;
 			buildSettings = {
+				ENABLE_BITCODE = NO;
 			};
 			name = PerformanceTesting;
 		};
@@ -3349,6 +3356,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 90690D2122433C1900FC2E54 /* Apollo-Target-StarWarsAPI.xcconfig */;
 			buildSettings = {
+				ENABLE_BITCODE = NO;
 			};
 			name = PerformanceTesting;
 		};
@@ -3356,6 +3364,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DE0586222669793200265760 /* Apollo-Target-ApolloAPI.xcconfig */;
 			buildSettings = {
+				ENABLE_BITCODE = NO;
 			};
 			name = Debug;
 		};
@@ -3363,6 +3372,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DE0586222669793200265760 /* Apollo-Target-ApolloAPI.xcconfig */;
 			buildSettings = {
+				ENABLE_BITCODE = NO;
 			};
 			name = Release;
 		};
@@ -3370,6 +3380,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DE0586222669793200265760 /* Apollo-Target-ApolloAPI.xcconfig */;
 			buildSettings = {
+				ENABLE_BITCODE = NO;
 			};
 			name = PerformanceTesting;
 		};
@@ -3398,6 +3409,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DECD492F262F820500924527 /* Apollo-Target-CodegenTestSupport.xcconfig */;
 			buildSettings = {
+				ENABLE_BITCODE = NO;
 			};
 			name = Debug;
 		};
@@ -3405,6 +3417,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DECD492F262F820500924527 /* Apollo-Target-CodegenTestSupport.xcconfig */;
 			buildSettings = {
+				ENABLE_BITCODE = NO;
 			};
 			name = Release;
 		};
@@ -3412,6 +3425,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DECD492F262F820500924527 /* Apollo-Target-CodegenTestSupport.xcconfig */;
 			buildSettings = {
+				ENABLE_BITCODE = NO;
 			};
 			name = PerformanceTesting;
 		};
@@ -3419,6 +3433,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E661C2D427BDAC500078BEBD /* Apollo-Target-SubscriptionAPI.xcconfig */;
 			buildSettings = {
+				ENABLE_BITCODE = NO;
 			};
 			name = Debug;
 		};
@@ -3426,6 +3441,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E661C2D427BDAC500078BEBD /* Apollo-Target-SubscriptionAPI.xcconfig */;
 			buildSettings = {
+				ENABLE_BITCODE = NO;
 			};
 			name = Release;
 		};
@@ -3433,6 +3449,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E661C2D427BDAC500078BEBD /* Apollo-Target-SubscriptionAPI.xcconfig */;
 			buildSettings = {
+				ENABLE_BITCODE = NO;
 			};
 			name = PerformanceTesting;
 		};
