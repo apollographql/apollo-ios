@@ -19,14 +19,3 @@ TARGETED_DEVICE_FAMILY[sdk=watch*] = 4
 SDKROOT[sdk=macosx*] = macosx
 SUPPORTS_MACCATALYST = YES
 
-// Enable Bitcode only for actual devices, not for macOS or simulators
-ENABLE_BITCODE[sdk=watchos*][config=Release] = YES
-ENABLE_BITCODE[sdk=iphoneos*][config=Release] = YES
-ENABLE_BITCODE[sdk=appletvos*][config=Release] = YES
-
-// By default, BITCODE_GENERATION_MODE is "marker".
-// Based on Realm's fix for Bitcode, this needs to be "bitcode"
-// Source: https://github.com/realm/realm-cocoa/pull/2567
-BITCODE_GENERATION_MODE[sdk=watchos*][config=Release] = bitcode
-BITCODE_GENERATION_MODE[sdk=iphoneos*][config=Release] = bitcode
-BITCODE_GENERATION_MODE[sdk=appletvos*][config=Release] = bitcode
