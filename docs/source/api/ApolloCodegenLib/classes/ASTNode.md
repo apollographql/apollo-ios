@@ -6,4 +6,4 @@
 public class ASTNode: JavaScriptObject
 ```
 
-An AST node.
+An AST node...

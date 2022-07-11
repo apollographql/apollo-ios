@@ -22,7 +22,7 @@ public struct GraphQLSourceLocation {
 // But since we don't need to access these directly, we haven't defined specific wrapper types except for
 // `GraphQLDocument`.
 
-/// An AST node.
+/// An AST node...
 public class ASTNode: JavaScriptObject {
   lazy var kind: String = self["kind"]
       
