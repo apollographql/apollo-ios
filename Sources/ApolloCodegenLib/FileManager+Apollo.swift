@@ -11,23 +11,6 @@ extension FileManager: ApolloCompatible {}
 
 extension ApolloExtension where Base: FileManager {
 
-  public enum PathError: Swift.Error, LocalizedError, Equatable {
-    case notAFile(path: String)
-    case notADirectory(path: String)
-    case cannotCreateFile(at: String)
-
-    public var errorDescription: String {
-      switch self {
-      case .notAFile(let path):
-        return "\(path) is not a file!"
-      case .notADirectory(let path):
-        return "\(path) is not a directory!"
-      case .cannotCreateFile(let path):
-        return "Cannot create file at \(path)"
-      }
-    }
-  }
-
   // MARK: Presence
 
   /// Checks if the path exists and is a file, not a directory.
@@ -62,7 +45,7 @@ extension ApolloExtension where Base: FileManager {
     let exists = base.fileExists(atPath: path, isDirectory: &isDirectory)
 
     if exists && isDirectory.boolValue {
-      throw PathError.notAFile(path: path)
+      throw FileManagerPathError.notAFile(path: path)
     }
 
     guard exists else { return }
@@ -77,7 +60,7 @@ extension ApolloExtension where Base: FileManager {
     let exists = base.fileExists(atPath: path, isDirectory: &isDirectory)
 
     if exists && !isDirectory.boolValue {
-      throw PathError.notADirectory(path: path)
+      throw FileManagerPathError.notADirectory(path: path)
     }
 
     guard exists else { return }
@@ -100,7 +83,7 @@ extension ApolloExtension where Base: FileManager {
     if !overwrite && doesFileExist(atPath: path) { return }
 
     guard base.createFile(atPath: path, contents: data, attributes: nil) else {
-      throw PathError.cannotCreateFile(at: path)
+      throw FileManagerPathError.cannotCreateFile(at: path)
     }
   }
 
@@ -120,5 +103,24 @@ extension ApolloExtension where Base: FileManager {
   public func createDirectoryIfNeeded(atPath path: String) throws {
     if doesDirectoryExist(atPath: path) { return }
     try base.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
+  }
+}
+
+// MARK: - FileManagerPathError
+
+public enum FileManagerPathError: Swift.Error, LocalizedError, Equatable {
+  case notAFile(path: String)
+  case notADirectory(path: String)
+  case cannotCreateFile(at: String)
+
+  public var errorDescription: String {
+    switch self {
+    case .notAFile(let path):
+      return "\(path) is not a file!"
+    case .notADirectory(let path):
+      return "\(path) is not a directory!"
+    case .cannotCreateFile(let path):
+      return "Cannot create file at \(path)"
+    }
   }
 }
