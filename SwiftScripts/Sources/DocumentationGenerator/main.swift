@@ -57,6 +57,10 @@ for target in Target.allCases {
 
   do {
     try SourceDocsLib.DocumentationGenerator(options: options).run()
+
+    try FileManager.default.moveItem(
+      at: outputURL.appendingPathComponent("README.md"),
+      to: outputURL.appendingPathComponent("toc.md"))
     CodegenLogger.log("Generated docs for \(target.name)")
   } catch {
     CodegenLogger.log("Error generating docs for \(target.name): \(error)", logLevel: .error)

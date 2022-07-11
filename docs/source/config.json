@@ -7,7 +7,14 @@
   "sidebar": {
     "Introduction": "/",
     "Installation": "/installation",
-    "API Reference": "/api-reference",
+    "API Reference": {
+      "Apollo Client": "/api/Apollo/toc",
+      "ApolloAPI": "/api/ApolloAPI/toc",
+      "ApolloWebSocket": "/api/ApolloWebSocket/toc",
+      "ApolloSQLite": "/api/ApolloSQLite/toc",
+      "ApolloUtils": "/api/ApolloUtils/toc",
+      "ApolloCodegenLib": "/api/ApolloCodegenLib/toc"
+    },
     "Tutorial": {
       "0. Introduction": "/tutorial/tutorial-introduction",
       "1. Add the Apollo SDK": "/tutorial/tutorial-add-sdk",
