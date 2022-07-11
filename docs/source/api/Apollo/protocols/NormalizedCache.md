@@ -3,7 +3,7 @@
 # `NormalizedCache`
 
 ```swift
-public protocol NormalizedCache
+public protocol NormalizedCache: AnyObject
 ```
 
 ## Methods

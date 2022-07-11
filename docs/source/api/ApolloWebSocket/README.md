@@ -15,6 +15,7 @@
 -   [SSLSettings](structs/SSLSettings/)
 -   [WebSocket.WSError](structs/WebSocket.WSError/)
 -   [WebSocketError](structs/WebSocketError/)
+-   [WebSocketTransport.Configuration](structs/WebSocketTransport.Configuration/)
 
 ## Classes
 

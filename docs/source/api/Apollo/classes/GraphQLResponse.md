@@ -3,7 +3,7 @@
 # `GraphQLResponse`
 
 ```swift
-public final class GraphQLResponse<Data: GraphQLSelectionSet>
+public final class GraphQLResponse<Data: RootSelectionSet>
 ```
 
 Represents a GraphQL response received from a server.
@@ -22,32 +22,24 @@ public let body: JSONObject
 public init<Operation: GraphQLOperation>(operation: Operation, body: JSONObject) where Operation.Data == Data
 ```
 
-### `parseResult(cacheKeyForObject:)`
+### `parseResult()`
 
 ```swift
-public func parseResult(cacheKeyForObject: CacheKeyForObject? = nil) throws -> (GraphQLResult<Data>, RecordSet?)
+public func parseResult() throws -> (GraphQLResult<Data>, RecordSet?)
 ```
 
 Parses a response into a `GraphQLResult` and a `RecordSet`.
 The result can be sent to a completion block for a request.
 The `RecordSet` can be merged into a local cache.
-- Parameter cacheKeyForObject: See `CacheKeyForObject`
 - Returns: A `GraphQLResult` and a `RecordSet`.
-
-#### Parameters
-
-| Name | Description |
-| ---- | ----------- |
-| cacheKeyForObject | See `CacheKeyForObject` |
-
-### `parseErrorsOnlyFast()`
-
-```swift
-public func parseErrorsOnlyFast() -> [GraphQLError]?
-```
 
 ### `parseResultFast()`
 
 ```swift
 public func parseResultFast() throws -> GraphQLResult<Data>
 ```
+
+Parses a response into a `GraphQLResult` for use without the cache. This parsing does not
+create dependent keys or a `RecordSet` for the cache.
+
+This is faster than `parseResult()` and should be used when cache the response is not needed.

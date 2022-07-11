@@ -5,13 +5,6 @@
 extension ApolloClient: ApolloClientProtocol
 ```
 
-## Properties
-### `cacheKeyForObject`
-
-```swift
-public var cacheKeyForObject: CacheKeyForObject?
-```
-
 ## Methods
 ### `clearCache(callbackQueue:completion:)`
 

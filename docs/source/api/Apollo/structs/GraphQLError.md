@@ -3,7 +3,7 @@
 # `GraphQLError`
 
 ```swift
-public struct GraphQLError: Error
+public struct GraphQLError: Error, Hashable
 ```
 
 Represents an error encountered during the execution of a GraphQL operation.

@@ -3,8 +3,7 @@
 # `GraphQLEnum`
 
 ```swift
-public enum GraphQLEnum<T>: CaseIterable, Equatable, RawRepresentable
-where T: RawRepresentable & CaseIterable, T.RawValue == String
+public enum GraphQLEnum<T: EnumType>: CaseIterable, Hashable, RawRepresentable
 ```
 
 A generic enum that wraps a generated enum from a GraphQL Schema.
@@ -35,7 +34,7 @@ The associated value exposes the raw `String` data from the response.
 ### `value`
 
 ```swift
-public var value: T?
+@inlinable public var value: T?
 ```
 
 The underlying enum case. If the value is `__unknown`, this will be `nil`.
@@ -43,13 +42,13 @@ The underlying enum case. If the value is `__unknown`, this will be `nil`.
 ### `rawValue`
 
 ```swift
-public var rawValue: String
+@inlinable public var rawValue: String
 ```
 
 ### `allCases`
 
 ```swift
-public static var allCases: [GraphQLEnum<T>]
+@inlinable public static var allCases: [GraphQLEnum<T>]
 ```
 
 A collection of all known values of the wrapped enum.
@@ -59,13 +58,13 @@ This collection does not include the `__unknown` case.
 ### `init(_:)`
 
 ```swift
-public init(_ caseValue: T)
+@inlinable public init(_ caseValue: T)
 ```
 
 ### `init(rawValue:)`
 
 ```swift
-public init(rawValue: String)
+@inlinable public init(rawValue: String)
 ```
 
 #### Parameters
@@ -73,3 +72,9 @@ public init(rawValue: String)
 | Name | Description |
 | ---- | ----------- |
 | rawValue | The raw value to use for the new instance. |
+
+### `init(_:)`
+
+```swift
+@inlinable public init(_ rawValue: String)
+```

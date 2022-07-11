@@ -9,26 +9,19 @@ public class ApolloCodegen
 A class to facilitate running code generation
 
 ## Methods
-### `run(from:with:options:)`
+### `build(with:)`
 
 ```swift
-public static func run(from folder: URL,
-                       with cliFolderURL: URL,
-                       options: ApolloCodegenOptions) throws -> String
+public static func build(with configuration: ApolloCodegenConfiguration) throws
 ```
 
-Runs code generation from the given folder with the passed-in options
+Executes the code generation engine with a specified configuration.
 
 - Parameters:
-  - folder: The folder to run the script from. Should be the folder that at some depth, contains all `.graphql` files.
-  - cliFolderURL: The folder where the Apollo CLI is/should be downloaded.
-  - options: The options object to use to run the code generation.
-- Returns: Output from a successful run
+  - configuration: A configuration object that specifies inputs, outputs and behaviours used during code generation.
 
 #### Parameters
 
 | Name | Description |
 | ---- | ----------- |
-| folder | The folder to run the script from. Should be the folder that at some depth, contains all `.graphql` files. |
-| cliFolderURL | The folder where the Apollo CLI is/should be downloaded. |
-| options | The options object to use to run the code generation. |
+| configuration | A configuration object that specifies inputs, outputs and behaviours used during code generation. |

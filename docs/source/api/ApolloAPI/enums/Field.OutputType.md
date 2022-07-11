@@ -10,13 +10,19 @@ public indirect enum OutputType
 ### `scalar(_:)`
 
 ```swift
-case scalar(Any.Type)
+case scalar(ScalarType.Type)
+```
+
+### `customScalar(_:)`
+
+```swift
+case customScalar(CustomScalarType.Type)
 ```
 
 ### `object(_:)`
 
 ```swift
-case object([Selection])
+case object(RootSelectionSet.Type)
 ```
 
 ### `nonNull(_:)`
@@ -29,4 +35,17 @@ case nonNull(OutputType)
 
 ```swift
 case list(OutputType)
+```
+
+## Properties
+### `namedType`
+
+```swift
+public var namedType: OutputType
+```
+
+### `isNullable`
+
+```swift
+public var isNullable: Bool
 ```

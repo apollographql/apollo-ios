@@ -3,7 +3,7 @@
 # `CompilationResult.Selection`
 
 ```swift
-public enum Selection: JavaScriptValueDecodable
+public enum Selection: JavaScriptValueDecodable, CustomDebugStringConvertible, Hashable
 ```
 
 ## Cases
@@ -23,4 +23,11 @@ case inlineFragment(InlineFragment)
 
 ```swift
 case fragmentSpread(FragmentSpread)
+```
+
+## Properties
+### `debugDescription`
+
+```swift
+public var debugDescription: String
 ```

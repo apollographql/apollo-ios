@@ -3,7 +3,7 @@
 # `CachePolicy`
 
 ```swift
-public enum CachePolicy
+public enum CachePolicy: Hashable
 ```
 
 A cache policy that specifies whether results should be fetched from the server or loaded from the local cache.

@@ -10,20 +10,20 @@ public struct GraphQLGETTransformer
 ### `init(body:url:)`
 
 ```swift
-public init(body: GraphQLMap, url: URL)
+public init(body: JSONEncodableDictionary, url: URL)
 ```
 
-A helper for transforming a GraphQLMap that can be sent with a `POST` request into a URL with query parameters for a `GET` request.
+A helper for transforming a `JSONEncodableDictionary` that can be sent with a `POST` request into a URL with query parameters for a `GET` request.
 
 - Parameters:
-  - body: The GraphQLMap to transform from the body of a `POST` request
+  - body: The `JSONEncodableDictionary` to transform from the body of a `POST` request
   - url: The base url to append the query to.
 
 #### Parameters
 
 | Name | Description |
 | ---- | ----------- |
-| body | The GraphQLMap to transform from the body of a `POST` request |
+| body | The `JSONEncodableDictionary` to transform from the body of a `POST` request |
 | url | The base url to append the query to. |
 
 ### `createGetURL()`

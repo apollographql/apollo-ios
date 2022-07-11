@@ -3,5 +3,8 @@
 # `ScalarType`
 
 ```swift
-public protocol ScalarType
+public protocol ScalarType:
+  AnyScalarType,
+  JSONDecodable,
+  GraphQLOperationVariableValue
 ```

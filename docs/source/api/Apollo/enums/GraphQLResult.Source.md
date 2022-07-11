@@ -3,7 +3,7 @@
 # `GraphQLResult.Source`
 
 ```swift
-public enum Source
+public enum Source: Hashable
 ```
 
 Represents source of data

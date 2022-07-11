@@ -3,7 +3,7 @@
 # `GraphQLFile`
 
 ```swift
-public struct GraphQLFile
+public struct GraphQLFile: Hashable
 ```
 
 A file which can be uploaded to a GraphQL server

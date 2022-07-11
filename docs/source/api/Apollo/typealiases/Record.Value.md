@@ -3,5 +3,5 @@
 # `Record.Value`
 
 ```swift
-public typealias Value = Any
+public typealias Value = AnyHashable
 ```

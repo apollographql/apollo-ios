@@ -2,16 +2,10 @@
 
 # `InputValue`
 ```swift
-extension InputValue: ExpressibleByNilLiteral
+extension InputValue: ExpressibleByStringLiteral
 ```
 
 ## Methods
-### `init(nilLiteral:)`
-
-```swift
-@inlinable public init(nilLiteral: ())
-```
-
 ### `init(stringLiteral:)`
 
 ```swift
@@ -69,5 +63,30 @@ extension InputValue: ExpressibleByNilLiteral
 ### `init(dictionaryLiteral:)`
 
 ```swift
-public init(dictionaryLiteral elements: (String, InputValue)...)
+@inlinable public init(dictionaryLiteral elements: (String, InputValue)...)
 ```
+
+### `==(_:_:)`
+
+```swift
+public static func == (lhs: InputValue, rhs: InputValue) -> Bool
+```
+
+#### Parameters
+
+| Name | Description |
+| ---- | ----------- |
+| lhs | A value to compare. |
+| rhs | Another value to compare. |
+
+### `hash(into:)`
+
+```swift
+public func hash(into hasher: inout Hasher)
+```
+
+#### Parameters
+
+| Name | Description |
+| ---- | ----------- |
+| hasher | The hasher to use when combining the components of this instance. |

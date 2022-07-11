@@ -3,7 +3,7 @@
 # `ApolloClient.ApolloClientError`
 
 ```swift
-public enum ApolloClientError: Error, LocalizedError
+public enum ApolloClientError: Error, LocalizedError, Hashable
 ```
 
 ## Cases
