@@ -8,12 +8,12 @@
     "Introduction": "/",
     "Installation": "/installation",
     "API Reference": {
-      "Apollo Client": "/api/Apollo/toc",
-      "ApolloAPI": "/api/ApolloAPI/toc",
-      "ApolloWebSocket": "/api/ApolloWebSocket/toc",
-      "ApolloSQLite": "/api/ApolloSQLite/toc",
-      "ApolloUtils": "/api/ApolloUtils/toc",
-      "ApolloCodegenLib": "/api/ApolloCodegenLib/toc"
+      "Apollo Client": "/documentation/Apollo",
+      "ApolloAPI": "/documentation/ApolloAPI",
+      "ApolloWebSocket": "/documentation/ApolloWebSocket",
+      "ApolloSQLite": "/documentation/ApolloSQLite",
+      "ApolloUtils": "/documentation/ApolloUtils",
+      "ApolloCodegenLib": "/documentation/ApolloCodegenLib"
     },
     "Tutorial": {
       "0. Introduction": "/tutorial/tutorial-introduction",
