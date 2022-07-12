@@ -1,1 +1,660 @@
-{"primaryContentSections":[{"kind":"declarations","declarations":[{"tokens":[{"kind":"keyword","text":"class"},{"kind":"text","text":" "},{"kind":"identifier","text":"SSLSecurity"}],"languages":["swift"],"platforms":["macOS"]}]}],"schemaVersion":{"major":0,"minor":2,"patch":0},"sections":[],"variants":[{"paths":["\/documentation\/apollowebsocket\/sslsecurity"],"traits":[{"interfaceLanguage":"swift"}]}],"relationshipsSections":[{"identifiers":["doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLTrustValidator"],"kind":"relationships","title":"Conforms To","type":"conformsTo"}],"identifier":{"url":"doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSecurity","interfaceLanguage":"swift"},"abstract":[{"type":"text","text":"No overview available."}],"kind":"symbol","metadata":{"fragments":[{"kind":"keyword","text":"class"},{"kind":"text","text":" "},{"kind":"identifier","text":"SSLSecurity"}],"title":"SSLSecurity","roleHeading":"Class","role":"symbol","symbolKind":"class","externalID":"s:15ApolloWebSocket11SSLSecurityC","modules":[{"name":"ApolloWebSocket"}],"navigatorTitle":[{"kind":"identifier","text":"SSLSecurity"}]},"hierarchy":{"paths":[["doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket"]]},"topicSections":[{"title":"Initializers","identifiers":["doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSecurity\/init(certs:usePublicKeys:)","doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSecurity\/init(usePublicKeys:)"]},{"title":"Instance Properties","identifiers":["doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSecurity\/validateEntireChain","doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSecurity\/validatedDN"]},{"title":"Instance Methods","identifiers":["doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSecurity\/certificateChain(_:)","doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSecurity\/extractPublicKey(_:)","doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSecurity\/extractPublicKey(_:policy:)","doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSecurity\/isValid(_:domain:)","doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSecurity\/publicKeyChain(_:)"]}],"references":{"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SSLSecurity/extractPublicKey(_:)":{"role":"symbol","title":"extractPublicKey(_:)","fragments":[{"kind":"keyword","text":"func"},{"kind":"text","text":" "},{"kind":"identifier","text":"extractPublicKey"},{"kind":"text","text":"("},{"kind":"typeIdentifier","text":"Data","preciseIdentifier":"s:10Foundation4DataV"},{"kind":"text","text":") -> "},{"kind":"typeIdentifier","text":"SecKey","preciseIdentifier":"c:@T@SecKeyRef"},{"kind":"text","text":"?"}],"abstract":[{"type":"text","text":"Get the public key from a certificate data"}],"identifier":"doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSecurity\/extractPublicKey(_:)","kind":"symbol","type":"topic","url":"\/documentation\/apollowebsocket\/sslsecurity\/extractpublickey(_:)"},"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SSLSecurity":{"role":"symbol","title":"SSLSecurity","fragments":[{"kind":"keyword","text":"class"},{"kind":"text","text":" "},{"kind":"identifier","text":"SSLSecurity"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSecurity","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"SSLSecurity"}],"url":"\/documentation\/apollowebsocket\/sslsecurity"},"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SSLSecurity/extractPublicKey(_:policy:)":{"role":"symbol","title":"extractPublicKey(_:policy:)","fragments":[{"kind":"keyword","text":"func"},{"kind":"text","text":" "},{"kind":"identifier","text":"extractPublicKey"},{"kind":"text","text":"("},{"kind":"typeIdentifier","text":"SecCertificate","preciseIdentifier":"c:@T@SecCertificateRef"},{"kind":"text","text":", "},{"kind":"externalParam","text":"policy"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"SecPolicy","preciseIdentifier":"c:@T@SecPolicyRef"},{"kind":"text","text":") -> "},{"kind":"typeIdentifier","text":"SecKey","preciseIdentifier":"c:@T@SecKeyRef"},{"kind":"text","text":"?"}],"abstract":[{"type":"text","text":"Get the public key from a certificate"}],"identifier":"doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSecurity\/extractPublicKey(_:policy:)","kind":"symbol","type":"topic","url":"\/documentation\/apollowebsocket\/sslsecurity\/extractpublickey(_:policy:)"},"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SSLSecurity/init(usePublicKeys:)":{"role":"symbol","title":"init(usePublicKeys:)","fragments":[{"kind":"identifier","text":"init"},{"kind":"text","text":"("},{"kind":"externalParam","text":"usePublicKeys"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"Bool","preciseIdentifier":"s:Sb"},{"kind":"text","text":")"}],"abstract":[{"type":"text","text":"Use certs from main app bundle"}],"identifier":"doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSecurity\/init(usePublicKeys:)","kind":"symbol","type":"topic","url":"\/documentation\/apollowebsocket\/sslsecurity\/init(usepublickeys:)"},"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SSLSecurity/publicKeyChain(_:)":{"role":"symbol","title":"publicKeyChain(_:)","fragments":[{"kind":"keyword","text":"func"},{"kind":"text","text":" "},{"kind":"identifier","text":"publicKeyChain"},{"kind":"text","text":"("},{"kind":"typeIdentifier","text":"SecTrust","preciseIdentifier":"c:@T@SecTrustRef"},{"kind":"text","text":") -> ["},{"kind":"typeIdentifier","text":"SecKey","preciseIdentifier":"c:@T@SecKeyRef"},{"kind":"text","text":"]"}],"abstract":[{"type":"text","text":"Get the public key chain for the trust"}],"identifier":"doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSecurity\/publicKeyChain(_:)","kind":"symbol","type":"topic","url":"\/documentation\/apollowebsocket\/sslsecurity\/publickeychain(_:)"},"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SSLSecurity/validatedDN":{"role":"symbol","title":"validatedDN","fragments":[{"kind":"keyword","text":"var"},{"kind":"text","text":" "},{"kind":"identifier","text":"validatedDN"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"Bool","preciseIdentifier":"s:Sb"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSecurity\/validatedDN","kind":"symbol","type":"topic","url":"\/documentation\/apollowebsocket\/sslsecurity\/validateddn"},"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SSLSecurity/isValid(_:domain:)":{"role":"symbol","title":"isValid(_:domain:)","fragments":[{"kind":"keyword","text":"func"},{"kind":"text","text":" "},{"kind":"identifier","text":"isValid"},{"kind":"text","text":"("},{"kind":"typeIdentifier","text":"SecTrust","preciseIdentifier":"c:@T@SecTrustRef"},{"kind":"text","text":", "},{"kind":"externalParam","text":"domain"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"String","preciseIdentifier":"s:SS"},{"kind":"text","text":"?) -> "},{"kind":"typeIdentifier","text":"Bool","preciseIdentifier":"s:Sb"}],"abstract":[{"type":"text","text":"Valid the trust and domain name."}],"identifier":"doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSecurity\/isValid(_:domain:)","kind":"symbol","type":"topic","url":"\/documentation\/apollowebsocket\/sslsecurity\/isvalid(_:domain:)"},"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SSLTrustValidator":{"role":"symbol","title":"SSLTrustValidator","fragments":[{"kind":"keyword","text":"protocol"},{"kind":"text","text":" "},{"kind":"identifier","text":"SSLTrustValidator"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLTrustValidator","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"SSLTrustValidator"}],"url":"\/documentation\/apollowebsocket\/ssltrustvalidator"},"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket":{"role":"collection","title":"ApolloWebSocket","abstract":[],"identifier":"doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket","kind":"symbol","type":"topic","url":"\/documentation\/apollowebsocket"},"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SSLSecurity/init(certs:usePublicKeys:)":{"role":"symbol","title":"init(certs:usePublicKeys:)","fragments":[{"kind":"identifier","text":"init"},{"kind":"text","text":"("},{"kind":"externalParam","text":"certs"},{"kind":"text","text":": ["},{"kind":"typeIdentifier","text":"SSLCert","preciseIdentifier":"s:15ApolloWebSocket7SSLCertC"},{"kind":"text","text":"], "},{"kind":"externalParam","text":"usePublicKeys"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"Bool","preciseIdentifier":"s:Sb"},{"kind":"text","text":")"}],"abstract":[{"type":"text","text":"Designated init"}],"identifier":"doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSecurity\/init(certs:usePublicKeys:)","kind":"symbol","type":"topic","url":"\/documentation\/apollowebsocket\/sslsecurity\/init(certs:usepublickeys:)"},"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SSLSecurity/validateEntireChain":{"role":"symbol","title":"validateEntireChain","fragments":[{"kind":"keyword","text":"var"},{"kind":"text","text":" "},{"kind":"identifier","text":"validateEntireChain"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"Bool","preciseIdentifier":"s:Sb"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSecurity\/validateEntireChain","kind":"symbol","type":"topic","url":"\/documentation\/apollowebsocket\/sslsecurity\/validateentirechain"},"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SSLSecurity/certificateChain(_:)":{"role":"symbol","title":"certificateChain(_:)","fragments":[{"kind":"keyword","text":"func"},{"kind":"text","text":" "},{"kind":"identifier","text":"certificateChain"},{"kind":"text","text":"("},{"kind":"typeIdentifier","text":"SecTrust","preciseIdentifier":"c:@T@SecTrustRef"},{"kind":"text","text":") -> ["},{"kind":"typeIdentifier","text":"Data","preciseIdentifier":"s:10Foundation4DataV"},{"kind":"text","text":"]"}],"abstract":[{"type":"text","text":"Get the certificate chain for the trust"}],"identifier":"doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSecurity\/certificateChain(_:)","kind":"symbol","type":"topic","url":"\/documentation\/apollowebsocket\/sslsecurity\/certificatechain(_:)"}}}
+{
+  "abstract" : [
+    {
+      "text" : "No overview available.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSecurity"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:15ApolloWebSocket11SSLSecurityC",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "class"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "SSLSecurity"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "ApolloWebSocket"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "SSLSecurity"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Class",
+    "symbolKind" : "class",
+    "title" : "SSLSecurity"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "class"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "SSLSecurity"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLTrustValidator"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSecurity\/init(certs:usePublicKeys:)",
+        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSecurity\/init(usePublicKeys:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSecurity\/validateEntireChain",
+        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSecurity\/validatedDN"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSecurity\/certificateChain(_:)",
+        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSecurity\/extractPublicKey(_:)",
+        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSecurity\/extractPublicKey(_:policy:)",
+        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSecurity\/isValid(_:domain:)",
+        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSecurity\/publicKeyChain(_:)"
+      ],
+      "title" : "Instance Methods"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollowebsocket\/sslsecurity"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "ApolloWebSocket",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket"
+},
+"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SSLSecurity": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SSLSecurity"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSecurity",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SSLSecurity"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SSLSecurity",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/sslsecurity"
+},
+"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SSLSecurity/certificateChain(_:)": {
+  "abstract" : [
+    {
+      "text" : "Get the certificate chain for the trust",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "certificateChain"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:@T@SecTrustRef",
+      "text" : "SecTrust"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation4DataV",
+      "text" : "Data"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSecurity\/certificateChain(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "certificateChain(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/sslsecurity\/certificatechain(_:)"
+},
+"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SSLSecurity/extractPublicKey(_:)": {
+  "abstract" : [
+    {
+      "text" : "Get the public key from a certificate data",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "extractPublicKey"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation4DataV",
+      "text" : "Data"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:@T@SecKeyRef",
+      "text" : "SecKey"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSecurity\/extractPublicKey(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "extractPublicKey(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/sslsecurity\/extractpublickey(_:)"
+},
+"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SSLSecurity/extractPublicKey(_:policy:)": {
+  "abstract" : [
+    {
+      "text" : "Get the public key from a certificate",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "extractPublicKey"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:@T@SecCertificateRef",
+      "text" : "SecCertificate"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "policy"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:@T@SecPolicyRef",
+      "text" : "SecPolicy"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:@T@SecKeyRef",
+      "text" : "SecKey"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSecurity\/extractPublicKey(_:policy:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "extractPublicKey(_:policy:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/sslsecurity\/extractpublickey(_:policy:)"
+},
+"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SSLSecurity/init(certs:usePublicKeys:)": {
+  "abstract" : [
+    {
+      "text" : "Designated init",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "certs"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:15ApolloWebSocket7SSLCertC",
+      "text" : "SSLCert"
+    },
+    {
+      "kind" : "text",
+      "text" : "], "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "usePublicKeys"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSecurity\/init(certs:usePublicKeys:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(certs:usePublicKeys:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/sslsecurity\/init(certs:usepublickeys:)"
+},
+"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SSLSecurity/init(usePublicKeys:)": {
+  "abstract" : [
+    {
+      "text" : "Use certs from main app bundle",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "usePublicKeys"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSecurity\/init(usePublicKeys:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(usePublicKeys:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/sslsecurity\/init(usepublickeys:)"
+},
+"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SSLSecurity/isValid(_:domain:)": {
+  "abstract" : [
+    {
+      "text" : "Valid the trust and domain name.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isValid"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:@T@SecTrustRef",
+      "text" : "SecTrust"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "domain"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSecurity\/isValid(_:domain:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isValid(_:domain:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/sslsecurity\/isvalid(_:domain:)"
+},
+"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SSLSecurity/publicKeyChain(_:)": {
+  "abstract" : [
+    {
+      "text" : "Get the public key chain for the trust",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "publicKeyChain"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:@T@SecTrustRef",
+      "text" : "SecTrust"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:@T@SecKeyRef",
+      "text" : "SecKey"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSecurity\/publicKeyChain(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "publicKeyChain(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/sslsecurity\/publickeychain(_:)"
+},
+"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SSLSecurity/validateEntireChain": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "validateEntireChain"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSecurity\/validateEntireChain",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "validateEntireChain",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/sslsecurity\/validateentirechain"
+},
+"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SSLSecurity/validatedDN": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "validatedDN"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSecurity\/validatedDN",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "validatedDN",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/sslsecurity\/validateddn"
+},
+"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SSLTrustValidator": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SSLTrustValidator"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLTrustValidator",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SSLTrustValidator"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SSLTrustValidator",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/ssltrustvalidator"
+}
+}
+}

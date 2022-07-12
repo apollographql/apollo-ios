@@ -1,1 +1,281 @@
-{"primaryContentSections":[{"kind":"declarations","declarations":[{"tokens":[{"kind":"keyword","text":"func"},{"kind":"text","text":" "},{"kind":"identifier","text":"makeIterator"},{"kind":"text","text":"() -> "},{"kind":"typeIdentifier","identifier":"doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/Iterator","preciseIdentifier":"s:11ApolloUtils10LinkedListV4NodeC8IteratorC","text":"Iterator"}],"languages":["swift"],"platforms":["macOS"]}]}],"schemaVersion":{"major":0,"minor":2,"patch":0},"sections":[],"variants":[{"paths":["\/documentation\/apolloutils\/linkedlist\/node\/makeiterator()"],"traits":[{"interfaceLanguage":"swift"}]}],"identifier":{"url":"doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/makeIterator()","interfaceLanguage":"swift"},"abstract":[{"type":"text","text":"Inherited from "},{"type":"codeVoice","code":"Sequence.makeIterator()"},{"type":"text","text":"."}],"kind":"symbol","metadata":{"role":"symbol","title":"makeIterator()","roleHeading":"Instance Method","fragments":[{"kind":"keyword","text":"func"},{"kind":"text","text":" "},{"kind":"identifier","text":"makeIterator"},{"kind":"text","text":"() -> "},{"kind":"typeIdentifier","text":"Iterator","preciseIdentifier":"s:11ApolloUtils10LinkedListV4NodeC8IteratorC"}],"symbolKind":"method","externalID":"s:11ApolloUtils10LinkedListV4NodeC12makeIteratorAE0G0Cyx__GyF","extendedModule":"ApolloUtils","modules":[{"name":"ApolloUtils"}]},"hierarchy":{"paths":[["doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils","doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList","doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node","doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/Sequence-Implementations"]]},"references":{"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList":{"role":"symbol","title":"LinkedList","fragments":[{"kind":"keyword","text":"struct"},{"kind":"text","text":" "},{"kind":"identifier","text":"LinkedList"}],"abstract":[{"type":"text","text":"A doubly linked list implementation."}],"identifier":"doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"LinkedList"}],"url":"\/documentation\/apolloutils\/linkedlist"},"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/Iterator":{"role":"symbol","title":"LinkedList.Node.Iterator","fragments":[{"kind":"keyword","text":"class"},{"kind":"text","text":" "},{"kind":"identifier","text":"Iterator"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/Iterator","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"Iterator"}],"url":"\/documentation\/apolloutils\/linkedlist\/node\/iterator"},"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/makeIterator()":{"role":"symbol","title":"makeIterator()","fragments":[{"kind":"keyword","text":"func"},{"kind":"text","text":" "},{"kind":"identifier","text":"makeIterator"},{"kind":"text","text":"() -> "},{"kind":"typeIdentifier","text":"Iterator","preciseIdentifier":"s:11ApolloUtils10LinkedListV4NodeC8IteratorC"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/makeIterator()","kind":"symbol","type":"topic","url":"\/documentation\/apolloutils\/linkedlist\/node\/makeiterator()"},"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/Sequence-Implementations":{"role":"collectionGroup","title":"Sequence Implementations","abstract":[],"identifier":"doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/Sequence-Implementations","kind":"article","type":"topic","url":"\/documentation\/apolloutils\/linkedlist\/node\/sequence-implementations"},"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils":{"role":"collection","title":"ApolloUtils","abstract":[],"identifier":"doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils","kind":"symbol","type":"topic","url":"\/documentation\/apolloutils"},"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node":{"role":"symbol","title":"LinkedList.Node","fragments":[{"kind":"keyword","text":"class"},{"kind":"text","text":" "},{"kind":"identifier","text":"Node"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"Node"}],"url":"\/documentation\/apolloutils\/linkedlist\/node"}}}
+{
+  "abstract" : [
+    {
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "Sequence.makeIterator()",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils",
+        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList",
+        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node",
+        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/Sequence-Implementations"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/makeIterator()"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "extendedModule" : "ApolloUtils",
+    "externalID" : "s:11ApolloUtils10LinkedListV4NodeC12makeIteratorAE0G0Cyx__GyF",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "func"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "makeIterator"
+      },
+      {
+        "kind" : "text",
+        "text" : "() -> "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:11ApolloUtils10LinkedListV4NodeC8IteratorC",
+        "text" : "Iterator"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "ApolloUtils"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Instance Method",
+    "symbolKind" : "method",
+    "title" : "makeIterator()"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "func"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "makeIterator"
+            },
+            {
+              "kind" : "text",
+              "text" : "() -> "
+            },
+            {
+              "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/Iterator",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:11ApolloUtils10LinkedListV4NodeC8IteratorC",
+              "text" : "Iterator"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apolloutils\/linkedlist\/node\/makeiterator()"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "ApolloUtils",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloutils"
+},
+"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList": {
+  "abstract" : [
+    {
+      "text" : "A doubly linked list implementation.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "LinkedList"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "LinkedList"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "LinkedList",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloutils\/linkedlist"
+},
+"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Node"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Node"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "LinkedList.Node",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloutils\/linkedlist\/node"
+},
+"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/Iterator": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Iterator"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/Iterator",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Iterator"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "LinkedList.Node.Iterator",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloutils\/linkedlist\/node\/iterator"
+},
+"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/Sequence-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/Sequence-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Sequence Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloutils\/linkedlist\/node\/sequence-implementations"
+},
+"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/makeIterator()": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "makeIterator"
+    },
+    {
+      "kind" : "text",
+      "text" : "() -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11ApolloUtils10LinkedListV4NodeC8IteratorC",
+      "text" : "Iterator"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/makeIterator()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "makeIterator()",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloutils\/linkedlist\/node\/makeiterator()"
+}
+}
+}

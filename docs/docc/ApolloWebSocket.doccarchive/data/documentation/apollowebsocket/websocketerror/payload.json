@@ -1,1 +1,219 @@
-{"primaryContentSections":[{"kind":"declarations","declarations":[{"tokens":[{"kind":"keyword","text":"let"},{"kind":"text","text":" "},{"kind":"identifier","text":"payload"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"JSONObject","preciseIdentifier":"s:6Apollo10JSONObjecta"},{"kind":"text","text":"?"}],"languages":["swift"],"platforms":["macOS"]}]}],"schemaVersion":{"major":0,"minor":2,"patch":0},"sections":[],"variants":[{"paths":["\/documentation\/apollowebsocket\/websocketerror\/payload"],"traits":[{"interfaceLanguage":"swift"}]}],"identifier":{"url":"doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketError\/payload","interfaceLanguage":"swift"},"abstract":[{"type":"text","text":"The payload of the response."}],"kind":"symbol","metadata":{"fragments":[{"kind":"keyword","text":"let"},{"kind":"text","text":" "},{"kind":"identifier","text":"payload"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"JSONObject","preciseIdentifier":"s:6Apollo10JSONObjecta"},{"kind":"text","text":"?"}],"title":"payload","roleHeading":"Instance Property","role":"symbol","symbolKind":"property","externalID":"s:15ApolloWebSocket0bC5ErrorV7payloadSDySSs11AnyHashableVGSgvp","modules":[{"name":"ApolloWebSocket"}]},"hierarchy":{"paths":[["doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket","doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketError"]]},"references":{"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketError/payload":{"role":"symbol","title":"payload","fragments":[{"kind":"keyword","text":"let"},{"kind":"text","text":" "},{"kind":"identifier","text":"payload"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"JSONObject","preciseIdentifier":"s:6Apollo10JSONObjecta"},{"kind":"text","text":"?"}],"abstract":[{"type":"text","text":"The payload of the response."}],"identifier":"doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketError\/payload","kind":"symbol","type":"topic","url":"\/documentation\/apollowebsocket\/websocketerror\/payload"},"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketError":{"role":"symbol","title":"WebSocketError","fragments":[{"kind":"keyword","text":"struct"},{"kind":"text","text":" "},{"kind":"identifier","text":"WebSocketError"}],"abstract":[{"type":"text","text":"A structure for capturing problems and any associated errors from a "},{"type":"codeVoice","code":"WebSocketTransport"},{"type":"text","text":"."}],"identifier":"doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketError","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"WebSocketError"}],"url":"\/documentation\/apollowebsocket\/websocketerror"},"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket":{"role":"collection","title":"ApolloWebSocket","abstract":[],"identifier":"doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket","kind":"symbol","type":"topic","url":"\/documentation\/apollowebsocket"}}}
+{
+  "abstract" : [
+    {
+      "text" : "The payload of the response.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
+        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketError"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketError\/payload"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:15ApolloWebSocket0bC5ErrorV7payloadSDySSs11AnyHashableVGSgvp",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "let"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "payload"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:6Apollo10JSONObjecta",
+        "text" : "JSONObject"
+      },
+      {
+        "kind" : "text",
+        "text" : "?"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "ApolloWebSocket"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Instance Property",
+    "symbolKind" : "property",
+    "title" : "payload"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "let"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "payload"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:6Apollo10JSONObjecta",
+              "text" : "JSONObject"
+            },
+            {
+              "kind" : "text",
+              "text" : "?"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollowebsocket\/websocketerror\/payload"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "ApolloWebSocket",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket"
+},
+"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketError": {
+  "abstract" : [
+    {
+      "text" : "A structure for capturing problems and any associated errors from a ",
+      "type" : "text"
+    },
+    {
+      "code" : "WebSocketTransport",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "WebSocketError"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "WebSocketError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "WebSocketError",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/websocketerror"
+},
+"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketError/payload": {
+  "abstract" : [
+    {
+      "text" : "The payload of the response.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "payload"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo10JSONObjecta",
+      "text" : "JSONObject"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketError\/payload",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "payload",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/websocketerror\/payload"
+}
+}
+}

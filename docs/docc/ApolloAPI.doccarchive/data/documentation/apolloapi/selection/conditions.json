@@ -1,1 +1,752 @@
-{"primaryContentSections":[{"kind":"declarations","declarations":[{"tokens":[{"kind":"keyword","text":"struct"},{"kind":"text","text":" "},{"kind":"identifier","text":"Conditions"}],"languages":["swift"],"platforms":["macOS"]}]},{"kind":"content","content":[{"anchor":"overview","level":2,"type":"heading","text":"Overview"},{"type":"paragraph","inlineContent":[{"type":"text","text":"The conditions are a two-dimensional array of "},{"type":"codeVoice","code":"Selection.Condition"},{"type":"text","text":"s."},{"type":"text","text":" "},{"type":"text","text":"The outer array represents groups of conditions joined together with a logical “or”."},{"type":"text","text":" "},{"type":"text","text":"Conditions in the same inner array are joined together with a logical “and”."}]}]}],"schemaVersion":{"major":0,"minor":2,"patch":0},"sections":[],"variants":[{"paths":["\/documentation\/apolloapi\/selection\/conditions"],"traits":[{"interfaceLanguage":"swift"}]}],"relationshipsSections":[{"identifiers":["doc:\/\/com.apollographql.ApolloAPI.macosx\/SQ","doc:\/\/com.apollographql.ApolloAPI.macosx\/s25ExpressibleByArrayLiteralP","doc:\/\/com.apollographql.ApolloAPI.macosx\/s43ExpressibleByExtendedGraphemeClusterLiteralP","doc:\/\/com.apollographql.ApolloAPI.macosx\/s26ExpressibleByStringLiteralP","doc:\/\/com.apollographql.ApolloAPI.macosx\/s33ExpressibleByUnicodeScalarLiteralP","doc:\/\/com.apollographql.ApolloAPI.macosx\/SH"],"kind":"relationships","title":"Conforms To","type":"conformsTo"}],"identifier":{"url":"doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions","interfaceLanguage":"swift"},"abstract":[{"type":"text","text":"The conditions representing a group of "},{"type":"codeVoice","code":"@include\/@skip"},{"type":"text","text":" directives."}],"kind":"symbol","metadata":{"navigatorTitle":[{"kind":"identifier","text":"Conditions"}],"role":"symbol","title":"Selection.Conditions","roleHeading":"Structure","fragments":[{"kind":"keyword","text":"struct"},{"kind":"text","text":" "},{"kind":"identifier","text":"Conditions"}],"symbolKind":"struct","externalID":"s:9ApolloAPI9SelectionO10ConditionsV","extendedModule":"ApolloAPI","modules":[{"name":"ApolloAPI"}]},"hierarchy":{"paths":[["doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI","doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection"]]},"topicSections":[{"title":"Operators","identifiers":["doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/__(_:_:)-hgiy","doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/__(_:_:)-zhqx"]},{"title":"Initializers","identifiers":["doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/init(_:)-1zuhd","doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/init(_:)-3r2o7","doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/init(_:)-zqgr","doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/init(arrayLiteral:)","doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/init(stringLiteral:)"]},{"title":"Instance Properties","identifiers":["doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/value"]},{"title":"Instance Methods","identifiers":["doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/evaluate(with:)"]},{"title":"Default Implementations","identifiers":["doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/Equatable-Implementations","doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/ExpressibleByExtendedGraphemeClusterLiteral-Implementations","doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/ExpressibleByUnicodeScalarLiteral-Implementations"],"generated":true}],"references":{"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Selection/Conditions/ExpressibleByUnicodeScalarLiteral-Implementations":{"role":"collectionGroup","title":"ExpressibleByUnicodeScalarLiteral Implementations","abstract":[],"identifier":"doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/ExpressibleByUnicodeScalarLiteral-Implementations","kind":"article","type":"topic","url":"\/documentation\/apolloapi\/selection\/conditions\/expressiblebyunicodescalarliteral-implementations"},"doc://com.apollographql.ApolloAPI.macosx/s33ExpressibleByUnicodeScalarLiteralP":{"type":"unresolvable","title":"Swift.ExpressibleByUnicodeScalarLiteral","identifier":"doc:\/\/com.apollographql.ApolloAPI.macosx\/s33ExpressibleByUnicodeScalarLiteralP"},"doc://com.apollographql.ApolloAPI.macosx/s43ExpressibleByExtendedGraphemeClusterLiteralP":{"type":"unresolvable","title":"Swift.ExpressibleByExtendedGraphemeClusterLiteral","identifier":"doc:\/\/com.apollographql.ApolloAPI.macosx\/s43ExpressibleByExtendedGraphemeClusterLiteralP"},"doc://com.apollographql.ApolloAPI.macosx/s26ExpressibleByStringLiteralP":{"type":"unresolvable","title":"Swift.ExpressibleByStringLiteral","identifier":"doc:\/\/com.apollographql.ApolloAPI.macosx\/s26ExpressibleByStringLiteralP"},"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Selection/Conditions/value":{"role":"symbol","title":"value","fragments":[{"kind":"keyword","text":"let"},{"kind":"text","text":" "},{"kind":"identifier","text":"value"},{"kind":"text","text":": [["},{"kind":"typeIdentifier","text":"Condition","preciseIdentifier":"s:9ApolloAPI9SelectionO9ConditionV"},{"kind":"text","text":"]]"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/value","kind":"symbol","type":"topic","url":"\/documentation\/apolloapi\/selection\/conditions\/value"},"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Selection/Conditions/init(_:)-zqgr":{"role":"symbol","title":"init(_:)","fragments":[{"kind":"identifier","text":"init"},{"kind":"text","text":"("},{"kind":"typeIdentifier","text":"Condition","preciseIdentifier":"s:9ApolloAPI9SelectionO9ConditionV"},{"kind":"text","text":")"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/init(_:)-zqgr","kind":"symbol","type":"topic","url":"\/documentation\/apolloapi\/selection\/conditions\/init(_:)-zqgr"},"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Selection/Conditions/init(_:)-3r2o7":{"role":"symbol","title":"init(_:)","fragments":[{"kind":"identifier","text":"init"},{"kind":"text","text":"(["},{"kind":"typeIdentifier","text":"Condition","preciseIdentifier":"s:9ApolloAPI9SelectionO9ConditionV"},{"kind":"text","text":"]...)"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/init(_:)-3r2o7","kind":"symbol","type":"topic","url":"\/documentation\/apolloapi\/selection\/conditions\/init(_:)-3r2o7"},"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Selection/Conditions":{"role":"symbol","title":"Selection.Conditions","fragments":[{"kind":"keyword","text":"struct"},{"kind":"text","text":" "},{"kind":"identifier","text":"Conditions"}],"abstract":[{"type":"text","text":"The conditions representing a group of "},{"type":"codeVoice","code":"@include\/@skip"},{"type":"text","text":" directives."}],"identifier":"doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"Conditions"}],"url":"\/documentation\/apolloapi\/selection\/conditions"},"doc://com.apollographql.ApolloAPI.macosx/SQ":{"type":"unresolvable","title":"Swift.Equatable","identifier":"doc:\/\/com.apollographql.ApolloAPI.macosx\/SQ"},"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Selection/Conditions/evaluate(with:)":{"role":"symbol","title":"evaluate(with:)","fragments":[{"kind":"keyword","text":"func"},{"kind":"text","text":" "},{"kind":"identifier","text":"evaluate"},{"kind":"text","text":"("},{"kind":"externalParam","text":"with"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"GraphQLOperation","preciseIdentifier":"s:9ApolloAPI16GraphQLOperationP"},{"kind":"text","text":"."},{"kind":"typeIdentifier","text":"Variables","preciseIdentifier":"s:9ApolloAPI16GraphQLOperationP9Variablesa"},{"kind":"text","text":"?) -> "},{"kind":"typeIdentifier","text":"Bool","preciseIdentifier":"s:Sb"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/evaluate(with:)","kind":"symbol","type":"topic","url":"\/documentation\/apolloapi\/selection\/conditions\/evaluate(with:)"},"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Selection":{"role":"symbol","title":"Selection","fragments":[{"kind":"keyword","text":"enum"},{"kind":"text","text":" "},{"kind":"identifier","text":"Selection"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"Selection"}],"url":"\/documentation\/apolloapi\/selection"},"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Selection/Conditions/__(_:_:)-zhqx":{"role":"symbol","title":"||(_:_:)","fragments":[{"kind":"keyword","text":"static"},{"kind":"text","text":" "},{"kind":"keyword","text":"func"},{"kind":"text","text":" "},{"kind":"identifier","text":"||"},{"kind":"text","text":" "},{"kind":"text","text":"("},{"kind":"typeIdentifier","text":"Conditions","preciseIdentifier":"s:9ApolloAPI9SelectionO10ConditionsV"},{"kind":"text","text":", "},{"kind":"typeIdentifier","text":"Condition","preciseIdentifier":"s:9ApolloAPI9SelectionO9ConditionV"},{"kind":"text","text":") -> "},{"kind":"typeIdentifier","text":"Conditions","preciseIdentifier":"s:9ApolloAPI9SelectionO10ConditionsV"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/__(_:_:)-zhqx","kind":"symbol","type":"topic","url":"\/documentation\/apolloapi\/selection\/conditions\/__(_:_:)-zhqx"},"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Selection/Conditions/ExpressibleByExtendedGraphemeClusterLiteral-Implementations":{"role":"collectionGroup","title":"ExpressibleByExtendedGraphemeClusterLiteral Implementations","abstract":[],"identifier":"doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/ExpressibleByExtendedGraphemeClusterLiteral-Implementations","kind":"article","type":"topic","url":"\/documentation\/apolloapi\/selection\/conditions\/expressiblebyextendedgraphemeclusterliteral-implementations"},"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Selection/Conditions/init(arrayLiteral:)":{"role":"symbol","title":"init(arrayLiteral:)","fragments":[{"kind":"identifier","text":"init"},{"kind":"text","text":"("},{"kind":"externalParam","text":"arrayLiteral"},{"kind":"text","text":": ["},{"kind":"typeIdentifier","text":"Condition","preciseIdentifier":"s:9ApolloAPI9SelectionO9ConditionV"},{"kind":"text","text":"]...)"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/init(arrayLiteral:)","kind":"symbol","type":"topic","url":"\/documentation\/apolloapi\/selection\/conditions\/init(arrayliteral:)"},"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Selection/Conditions/init(_:)-1zuhd":{"role":"symbol","title":"init(_:)","fragments":[{"kind":"identifier","text":"init"},{"kind":"text","text":"([["},{"kind":"typeIdentifier","text":"Condition","preciseIdentifier":"s:9ApolloAPI9SelectionO9ConditionV"},{"kind":"text","text":"]])"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/init(_:)-1zuhd","kind":"symbol","type":"topic","url":"\/documentation\/apolloapi\/selection\/conditions\/init(_:)-1zuhd"},"doc://com.apollographql.ApolloAPI.macosx/SH":{"type":"unresolvable","title":"Swift.Hashable","identifier":"doc:\/\/com.apollographql.ApolloAPI.macosx\/SH"},"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Selection/Conditions/init(stringLiteral:)":{"role":"symbol","title":"init(stringLiteral:)","fragments":[{"kind":"identifier","text":"init"},{"kind":"text","text":"("},{"kind":"externalParam","text":"stringLiteral"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"String","preciseIdentifier":"s:SS"},{"kind":"text","text":")"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/init(stringLiteral:)","kind":"symbol","type":"topic","url":"\/documentation\/apolloapi\/selection\/conditions\/init(stringliteral:)"},"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI":{"role":"collection","title":"ApolloAPI","abstract":[],"identifier":"doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI","kind":"symbol","type":"topic","url":"\/documentation\/apolloapi"},"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Selection/Conditions/__(_:_:)-hgiy":{"role":"symbol","title":"||(_:_:)","fragments":[{"kind":"keyword","text":"static"},{"kind":"text","text":" "},{"kind":"keyword","text":"func"},{"kind":"text","text":" "},{"kind":"identifier","text":"||"},{"kind":"text","text":" "},{"kind":"text","text":"("},{"kind":"typeIdentifier","text":"Conditions","preciseIdentifier":"s:9ApolloAPI9SelectionO10ConditionsV"},{"kind":"text","text":", ["},{"kind":"typeIdentifier","text":"Condition","preciseIdentifier":"s:9ApolloAPI9SelectionO9ConditionV"},{"kind":"text","text":"]) -> "},{"kind":"typeIdentifier","text":"Conditions","preciseIdentifier":"s:9ApolloAPI9SelectionO10ConditionsV"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/__(_:_:)-hgiy","kind":"symbol","type":"topic","url":"\/documentation\/apolloapi\/selection\/conditions\/__(_:_:)-hgiy"},"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Selection/Conditions/Equatable-Implementations":{"role":"collectionGroup","title":"Equatable Implementations","abstract":[],"identifier":"doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/Equatable-Implementations","kind":"article","type":"topic","url":"\/documentation\/apolloapi\/selection\/conditions\/equatable-implementations"},"doc://com.apollographql.ApolloAPI.macosx/s25ExpressibleByArrayLiteralP":{"type":"unresolvable","title":"Swift.ExpressibleByArrayLiteral","identifier":"doc:\/\/com.apollographql.ApolloAPI.macosx\/s25ExpressibleByArrayLiteralP"}}}
+{
+  "abstract" : [
+    {
+      "text" : "The conditions representing a group of ",
+      "type" : "text"
+    },
+    {
+      "code" : "@include\/@skip",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " directives.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
+        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "extendedModule" : "ApolloAPI",
+    "externalID" : "s:9ApolloAPI9SelectionO10ConditionsV",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "struct"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "Conditions"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "ApolloAPI"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "Conditions"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Structure",
+    "symbolKind" : "struct",
+    "title" : "Selection.Conditions"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "struct"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "Conditions"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "The conditions are a two-dimensional array of ",
+              "type" : "text"
+            },
+            {
+              "code" : "Selection.Condition",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : "s.",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "The outer array represents groups of conditions joined together with a logical “or”.",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "Conditions in the same inner array are joined together with a logical “and”.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.ApolloAPI.macosx\/SQ",
+        "doc:\/\/com.apollographql.ApolloAPI.macosx\/s25ExpressibleByArrayLiteralP",
+        "doc:\/\/com.apollographql.ApolloAPI.macosx\/s43ExpressibleByExtendedGraphemeClusterLiteralP",
+        "doc:\/\/com.apollographql.ApolloAPI.macosx\/s26ExpressibleByStringLiteralP",
+        "doc:\/\/com.apollographql.ApolloAPI.macosx\/s33ExpressibleByUnicodeScalarLiteralP",
+        "doc:\/\/com.apollographql.ApolloAPI.macosx\/SH"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/__(_:_:)-hgiy",
+        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/__(_:_:)-zhqx"
+      ],
+      "title" : "Operators"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/init(_:)-1zuhd",
+        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/init(_:)-3r2o7",
+        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/init(_:)-zqgr",
+        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/init(arrayLiteral:)",
+        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/init(stringLiteral:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/value"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/evaluate(with:)"
+      ],
+      "title" : "Instance Methods"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/Equatable-Implementations",
+        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/ExpressibleByExtendedGraphemeClusterLiteral-Implementations",
+        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/ExpressibleByUnicodeScalarLiteral-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apolloapi\/selection\/conditions"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://com.apollographql.ApolloAPI.macosx/SH": {
+  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/SH",
+  "title" : "Swift.Hashable",
+  "type" : "unresolvable"
+},
+"doc://com.apollographql.ApolloAPI.macosx/SQ": {
+  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/SQ",
+  "title" : "Swift.Equatable",
+  "type" : "unresolvable"
+},
+"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "ApolloAPI",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi"
+},
+"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Selection": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Selection"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Selection"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Selection",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/selection"
+},
+"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Selection/Conditions": {
+  "abstract" : [
+    {
+      "text" : "The conditions representing a group of ",
+      "type" : "text"
+    },
+    {
+      "code" : "@include\/@skip",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " directives.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Conditions"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Conditions"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Selection.Conditions",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/selection\/conditions"
+},
+"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Selection/Conditions/Equatable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/Equatable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Equatable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/selection\/conditions\/equatable-implementations"
+},
+"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Selection/Conditions/ExpressibleByExtendedGraphemeClusterLiteral-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/ExpressibleByExtendedGraphemeClusterLiteral-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "ExpressibleByExtendedGraphemeClusterLiteral Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/selection\/conditions\/expressiblebyextendedgraphemeclusterliteral-implementations"
+},
+"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Selection/Conditions/ExpressibleByUnicodeScalarLiteral-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/ExpressibleByUnicodeScalarLiteral-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "ExpressibleByUnicodeScalarLiteral Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/selection\/conditions\/expressiblebyunicodescalarliteral-implementations"
+},
+"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Selection/Conditions/__(_:_:)-hgiy": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "||"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI9SelectionO10ConditionsV",
+      "text" : "Conditions"
+    },
+    {
+      "kind" : "text",
+      "text" : ", ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI9SelectionO9ConditionV",
+      "text" : "Condition"
+    },
+    {
+      "kind" : "text",
+      "text" : "]) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI9SelectionO10ConditionsV",
+      "text" : "Conditions"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/__(_:_:)-hgiy",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "||(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/selection\/conditions\/__(_:_:)-hgiy"
+},
+"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Selection/Conditions/__(_:_:)-zhqx": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "||"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI9SelectionO10ConditionsV",
+      "text" : "Conditions"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI9SelectionO9ConditionV",
+      "text" : "Condition"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI9SelectionO10ConditionsV",
+      "text" : "Conditions"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/__(_:_:)-zhqx",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "||(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/selection\/conditions\/__(_:_:)-zhqx"
+},
+"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Selection/Conditions/evaluate(with:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "evaluate"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "with"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP",
+      "text" : "GraphQLOperation"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP9Variablesa",
+      "text" : "Variables"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/evaluate(with:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "evaluate(with:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/selection\/conditions\/evaluate(with:)"
+},
+"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Selection/Conditions/init(_:)-1zuhd": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "([["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI9SelectionO9ConditionV",
+      "text" : "Condition"
+    },
+    {
+      "kind" : "text",
+      "text" : "]])"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/init(_:)-1zuhd",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/selection\/conditions\/init(_:)-1zuhd"
+},
+"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Selection/Conditions/init(_:)-3r2o7": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "(["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI9SelectionO9ConditionV",
+      "text" : "Condition"
+    },
+    {
+      "kind" : "text",
+      "text" : "]...)"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/init(_:)-3r2o7",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/selection\/conditions\/init(_:)-3r2o7"
+},
+"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Selection/Conditions/init(_:)-zqgr": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI9SelectionO9ConditionV",
+      "text" : "Condition"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/init(_:)-zqgr",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/selection\/conditions\/init(_:)-zqgr"
+},
+"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Selection/Conditions/init(arrayLiteral:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "arrayLiteral"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI9SelectionO9ConditionV",
+      "text" : "Condition"
+    },
+    {
+      "kind" : "text",
+      "text" : "]...)"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/init(arrayLiteral:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(arrayLiteral:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/selection\/conditions\/init(arrayliteral:)"
+},
+"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Selection/Conditions/init(stringLiteral:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "stringLiteral"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/init(stringLiteral:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(stringLiteral:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/selection\/conditions\/init(stringliteral:)"
+},
+"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Selection/Conditions/value": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "value"
+    },
+    {
+      "kind" : "text",
+      "text" : ": [["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI9SelectionO9ConditionV",
+      "text" : "Condition"
+    },
+    {
+      "kind" : "text",
+      "text" : "]]"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/value",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "value",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/selection\/conditions\/value"
+},
+"doc://com.apollographql.ApolloAPI.macosx/s25ExpressibleByArrayLiteralP": {
+  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/s25ExpressibleByArrayLiteralP",
+  "title" : "Swift.ExpressibleByArrayLiteral",
+  "type" : "unresolvable"
+},
+"doc://com.apollographql.ApolloAPI.macosx/s26ExpressibleByStringLiteralP": {
+  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/s26ExpressibleByStringLiteralP",
+  "title" : "Swift.ExpressibleByStringLiteral",
+  "type" : "unresolvable"
+},
+"doc://com.apollographql.ApolloAPI.macosx/s33ExpressibleByUnicodeScalarLiteralP": {
+  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/s33ExpressibleByUnicodeScalarLiteralP",
+  "title" : "Swift.ExpressibleByUnicodeScalarLiteral",
+  "type" : "unresolvable"
+},
+"doc://com.apollographql.ApolloAPI.macosx/s43ExpressibleByExtendedGraphemeClusterLiteralP": {
+  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/s43ExpressibleByExtendedGraphemeClusterLiteralP",
+  "title" : "Swift.ExpressibleByExtendedGraphemeClusterLiteral",
+  "type" : "unresolvable"
+}
+}
+}

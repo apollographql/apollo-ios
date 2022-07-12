@@ -1,1 +1,226 @@
-{"primaryContentSections":[{"kind":"declarations","declarations":[{"tokens":[{"kind":"keyword","text":"var"},{"kind":"text","text":" "},{"kind":"identifier","text":"playgroundDescription"},{"kind":"text","text":": "},{"kind":"keyword","text":"Any"},{"kind":"text","text":" { "},{"kind":"keyword","text":"get"},{"kind":"text","text":" }"}],"languages":["swift"],"platforms":["macOS"]}]}],"schemaVersion":{"major":0,"minor":2,"patch":0},"sections":[],"variants":[{"paths":["\/documentation\/apollo\/recordset\/playgrounddescription"],"traits":[{"interfaceLanguage":"swift"}]}],"identifier":{"url":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/playgroundDescription","interfaceLanguage":"swift"},"abstract":[{"type":"text","text":"Inherited from "},{"type":"codeVoice","code":"CustomPlaygroundDisplayConvertible.playgroundDescription"},{"type":"text","text":"."}],"kind":"symbol","metadata":{"role":"symbol","title":"playgroundDescription","roleHeading":"Instance Property","fragments":[{"kind":"keyword","text":"var"},{"kind":"text","text":" "},{"kind":"identifier","text":"playgroundDescription"},{"kind":"text","text":": "},{"kind":"keyword","text":"Any"}],"symbolKind":"property","externalID":"s:6Apollo9RecordSetV21playgroundDescriptionypvp","extendedModule":"Apollo","modules":[{"name":"Apollo"}]},"hierarchy":{"paths":[["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo","doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet","doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/CustomPlaygroundDisplayConvertible-Implementations"]]},"references":{"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet/playgroundDescription":{"role":"symbol","title":"playgroundDescription","fragments":[{"kind":"keyword","text":"var"},{"kind":"text","text":" "},{"kind":"identifier","text":"playgroundDescription"},{"kind":"text","text":": "},{"kind":"keyword","text":"Any"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/playgroundDescription","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/recordset\/playgrounddescription"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo":{"role":"collection","title":"Apollo","abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo","kind":"symbol","type":"topic","url":"\/documentation\/apollo"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet":{"role":"symbol","title":"RecordSet","fragments":[{"kind":"keyword","text":"struct"},{"kind":"text","text":" "},{"kind":"identifier","text":"RecordSet"}],"abstract":[{"type":"text","text":"A set of cache records."}],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"RecordSet"}],"url":"\/documentation\/apollo\/recordset"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet/CustomPlaygroundDisplayConvertible-Implementations":{"role":"collectionGroup","title":"CustomPlaygroundDisplayConvertible Implementations","abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/CustomPlaygroundDisplayConvertible-Implementations","kind":"article","type":"topic","url":"\/documentation\/apollo\/recordset\/customplaygrounddisplayconvertible-implementations"}}}
+{
+  "abstract" : [
+    {
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "CustomPlaygroundDisplayConvertible.playgroundDescription",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet",
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/CustomPlaygroundDisplayConvertible-Implementations"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/playgroundDescription"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "extendedModule" : "Apollo",
+    "externalID" : "s:6Apollo9RecordSetV21playgroundDescriptionypvp",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "var"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "playgroundDescription"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "keyword",
+        "text" : "Any"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Apollo"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Instance Property",
+    "symbolKind" : "property",
+    "title" : "playgroundDescription"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "var"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "playgroundDescription"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "Any"
+            },
+            {
+              "kind" : "text",
+              "text" : " { "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "get"
+            },
+            {
+              "kind" : "text",
+              "text" : " }"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollo\/recordset\/playgrounddescription"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Apollo",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet": {
+  "abstract" : [
+    {
+      "text" : "A set of cache records.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RecordSet"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RecordSet"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "RecordSet",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/recordset"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet/CustomPlaygroundDisplayConvertible-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/CustomPlaygroundDisplayConvertible-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "CustomPlaygroundDisplayConvertible Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/recordset\/customplaygrounddisplayconvertible-implementations"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet/playgroundDescription": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "playgroundDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "Any"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/playgroundDescription",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "playgroundDescription",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/recordset\/playgrounddescription"
+}
+}
+}

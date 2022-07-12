@@ -1,1 +1,393 @@
-{"primaryContentSections":[{"kind":"declarations","declarations":[{"tokens":[{"kind":"keyword","text":"init"},{"kind":"text","text":"("},{"kind":"externalParam","text":"dictionaryLiteral"},{"kind":"text","text":" "},{"kind":"internalParam","text":"elements"},{"kind":"text","text":": ("},{"kind":"typeIdentifier","identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheKey","preciseIdentifier":"s:6Apollo8CacheKeya","text":"CacheKey"},{"kind":"text","text":", "},{"kind":"typeIdentifier","identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record","preciseIdentifier":"s:6Apollo6RecordV","text":"Record"},{"kind":"text","text":"."},{"kind":"typeIdentifier","identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record\/Fields-swift.typealias","preciseIdentifier":"s:6Apollo6RecordV6Fieldsa","text":"Fields"},{"kind":"text","text":")...)"}],"languages":["swift"],"platforms":["macOS"]}]}],"schemaVersion":{"major":0,"minor":2,"patch":0},"sections":[],"variants":[{"paths":["\/documentation\/apollo\/recordset\/init(dictionaryliteral:)"],"traits":[{"interfaceLanguage":"swift"}]}],"identifier":{"url":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/init(dictionaryLiteral:)","interfaceLanguage":"swift"},"abstract":[{"type":"text","text":"Inherited from "},{"type":"codeVoice","code":"ExpressibleByDictionaryLiteral.init(dictionaryLiteral:)"},{"type":"text","text":"."}],"kind":"symbol","metadata":{"role":"symbol","title":"init(dictionaryLiteral:)","roleHeading":"Initializer","fragments":[{"kind":"identifier","text":"init"},{"kind":"text","text":"("},{"kind":"externalParam","text":"dictionaryLiteral"},{"kind":"text","text":": ("},{"kind":"typeIdentifier","text":"CacheKey","preciseIdentifier":"s:6Apollo8CacheKeya"},{"kind":"text","text":", "},{"kind":"typeIdentifier","text":"Record","preciseIdentifier":"s:6Apollo6RecordV"},{"kind":"text","text":"."},{"kind":"typeIdentifier","text":"Fields","preciseIdentifier":"s:6Apollo6RecordV6Fieldsa"},{"kind":"text","text":")...)"}],"symbolKind":"init","externalID":"s:6Apollo9RecordSetV17dictionaryLiteralACSS_SDySSs11AnyHashableVGtd_tcfc","extendedModule":"Apollo","modules":[{"name":"Apollo"}]},"hierarchy":{"paths":[["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo","doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet","doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/ExpressibleByDictionaryLiteral-Implementations"]]},"references":{"doc://com.apollographql.Apollo.macosx/documentation/Apollo/Record":{"role":"symbol","title":"Record","fragments":[{"kind":"keyword","text":"struct"},{"kind":"text","text":" "},{"kind":"identifier","text":"Record"}],"abstract":[{"type":"text","text":"A cache record."}],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"Record"}],"url":"\/documentation\/apollo\/record"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo":{"role":"collection","title":"Apollo","abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo","kind":"symbol","type":"topic","url":"\/documentation\/apollo"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet/init(dictionaryLiteral:)":{"role":"symbol","title":"init(dictionaryLiteral:)","fragments":[{"kind":"identifier","text":"init"},{"kind":"text","text":"("},{"kind":"externalParam","text":"dictionaryLiteral"},{"kind":"text","text":": ("},{"kind":"typeIdentifier","text":"CacheKey","preciseIdentifier":"s:6Apollo8CacheKeya"},{"kind":"text","text":", "},{"kind":"typeIdentifier","text":"Record","preciseIdentifier":"s:6Apollo6RecordV"},{"kind":"text","text":"."},{"kind":"typeIdentifier","text":"Fields","preciseIdentifier":"s:6Apollo6RecordV6Fieldsa"},{"kind":"text","text":")...)"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/init(dictionaryLiteral:)","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/recordset\/init(dictionaryliteral:)"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet/ExpressibleByDictionaryLiteral-Implementations":{"role":"collectionGroup","title":"ExpressibleByDictionaryLiteral Implementations","abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/ExpressibleByDictionaryLiteral-Implementations","kind":"article","type":"topic","url":"\/documentation\/apollo\/recordset\/expressiblebydictionaryliteral-implementations"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/Record/Fields-swift.typealias":{"role":"symbol","title":"Record.Fields","fragments":[{"kind":"keyword","text":"typealias"},{"kind":"text","text":" "},{"kind":"identifier","text":"Fields"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record\/Fields-swift.typealias","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"Fields"}],"url":"\/documentation\/apollo\/record\/fields-swift.typealias"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/CacheKey":{"role":"symbol","title":"CacheKey","fragments":[{"kind":"keyword","text":"typealias"},{"kind":"text","text":" "},{"kind":"identifier","text":"CacheKey"}],"abstract":[{"type":"text","text":"A cache key for a record."}],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheKey","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"CacheKey"}],"url":"\/documentation\/apollo\/cachekey"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet":{"role":"symbol","title":"RecordSet","fragments":[{"kind":"keyword","text":"struct"},{"kind":"text","text":" "},{"kind":"identifier","text":"RecordSet"}],"abstract":[{"type":"text","text":"A set of cache records."}],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"RecordSet"}],"url":"\/documentation\/apollo\/recordset"}}}
+{
+  "abstract" : [
+    {
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "ExpressibleByDictionaryLiteral.init(dictionaryLiteral:)",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet",
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/ExpressibleByDictionaryLiteral-Implementations"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/init(dictionaryLiteral:)"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "extendedModule" : "Apollo",
+    "externalID" : "s:6Apollo9RecordSetV17dictionaryLiteralACSS_SDySSs11AnyHashableVGtd_tcfc",
+    "fragments" : [
+      {
+        "kind" : "identifier",
+        "text" : "init"
+      },
+      {
+        "kind" : "text",
+        "text" : "("
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "dictionaryLiteral"
+      },
+      {
+        "kind" : "text",
+        "text" : ": ("
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:6Apollo8CacheKeya",
+        "text" : "CacheKey"
+      },
+      {
+        "kind" : "text",
+        "text" : ", "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:6Apollo6RecordV",
+        "text" : "Record"
+      },
+      {
+        "kind" : "text",
+        "text" : "."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:6Apollo6RecordV6Fieldsa",
+        "text" : "Fields"
+      },
+      {
+        "kind" : "text",
+        "text" : ")...)"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Apollo"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Initializer",
+    "symbolKind" : "init",
+    "title" : "init(dictionaryLiteral:)"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "init"
+            },
+            {
+              "kind" : "text",
+              "text" : "("
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "dictionaryLiteral"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "internalParam",
+              "text" : "elements"
+            },
+            {
+              "kind" : "text",
+              "text" : ": ("
+            },
+            {
+              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheKey",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:6Apollo8CacheKeya",
+              "text" : "CacheKey"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:6Apollo6RecordV",
+              "text" : "Record"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record\/Fields-swift.typealias",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:6Apollo6RecordV6Fieldsa",
+              "text" : "Fields"
+            },
+            {
+              "kind" : "text",
+              "text" : ")...)"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollo\/recordset\/init(dictionaryliteral:)"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Apollo",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/CacheKey": {
+  "abstract" : [
+    {
+      "text" : "A cache key for a record.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CacheKey"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheKey",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CacheKey"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CacheKey",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/cachekey"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/Record": {
+  "abstract" : [
+    {
+      "text" : "A cache record.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Record"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Record"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Record",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/record"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/Record/Fields-swift.typealias": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Fields"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record\/Fields-swift.typealias",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Fields"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Record.Fields",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/record\/fields-swift.typealias"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet": {
+  "abstract" : [
+    {
+      "text" : "A set of cache records.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RecordSet"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RecordSet"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "RecordSet",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/recordset"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet/ExpressibleByDictionaryLiteral-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/ExpressibleByDictionaryLiteral-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "ExpressibleByDictionaryLiteral Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/recordset\/expressiblebydictionaryliteral-implementations"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet/init(dictionaryLiteral:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "dictionaryLiteral"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo8CacheKeya",
+      "text" : "CacheKey"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo6RecordV",
+      "text" : "Record"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo6RecordV6Fieldsa",
+      "text" : "Fields"
+    },
+    {
+      "kind" : "text",
+      "text" : ")...)"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/init(dictionaryLiteral:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(dictionaryLiteral:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/recordset\/init(dictionaryliteral:)"
+}
+}
+}

@@ -1,1 +1,1100 @@
-{"primaryContentSections":[{"kind":"declarations","declarations":[{"tokens":[{"kind":"keyword","text":"class"},{"kind":"text","text":" "},{"kind":"identifier","text":"JSONRequest"},{"kind":"text","text":"<"},{"kind":"genericParameter","text":"Operation"},{"kind":"text","text":"> "},{"kind":"keyword","text":"where"},{"kind":"text","text":" "},{"kind":"typeIdentifier","text":"Operation"},{"kind":"text","text":" : "},{"kind":"typeIdentifier","text":"GraphQLOperation","preciseIdentifier":"s:9ApolloAPI16GraphQLOperationP"}],"languages":["swift"],"platforms":["macOS"]}]}],"schemaVersion":{"major":0,"minor":2,"patch":0},"sections":[],"variants":[{"paths":["\/documentation\/apollo\/jsonrequest"],"traits":[{"interfaceLanguage":"swift"}]}],"relationshipsSections":[{"identifiers":["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPRequest"],"kind":"relationships","title":"Inherits From","type":"inheritsFrom"},{"identifiers":["doc:\/\/com.apollographql.Apollo.macosx\/s28CustomDebugStringConvertibleP","doc:\/\/com.apollographql.Apollo.macosx\/SQ","doc:\/\/com.apollographql.Apollo.macosx\/SH"],"kind":"relationships","title":"Conforms To","type":"conformsTo"}],"identifier":{"url":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest","interfaceLanguage":"swift"},"abstract":[{"type":"text","text":"A request which sends JSON related to a GraphQL operation."}],"kind":"symbol","metadata":{"fragments":[{"kind":"keyword","text":"class"},{"kind":"text","text":" "},{"kind":"identifier","text":"JSONRequest"}],"title":"JSONRequest","roleHeading":"Class","role":"symbol","symbolKind":"class","externalID":"s:6Apollo11JSONRequestC","modules":[{"name":"Apollo"}],"navigatorTitle":[{"kind":"identifier","text":"JSONRequest"}]},"hierarchy":{"paths":[["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"]]},"topicSections":[{"title":"Operators","identifiers":["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/==(_:_:)"]},{"title":"Initializers","identifiers":["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/init(graphQLEndpoint:operation:contextIdentifier:contentType:clientName:clientVersion:additionalHeaders:cachePolicy:)","doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/init(operation:graphQLEndpoint:contextIdentifier:clientName:clientVersion:additionalHeaders:cachePolicy:autoPersistQueries:useGETForQueries:useGETForPersistedQueryRetry:requestBodyCreator:)"]},{"title":"Instance Properties","identifiers":["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/autoPersistQueries","doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/body","doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/isPersistedQueryRetry","doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/requestBodyCreator","doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/serializationFormat","doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/useGETForPersistedQueryRetry","doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/useGETForQueries"]},{"title":"Instance Methods","identifiers":["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/hash(into:)","doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/toURLRequest()"]}],"references":{"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONRequest/autoPersistQueries":{"role":"symbol","title":"autoPersistQueries","fragments":[{"kind":"keyword","text":"let"},{"kind":"text","text":" "},{"kind":"identifier","text":"autoPersistQueries"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"Bool","preciseIdentifier":"s:Sb"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/autoPersistQueries","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/jsonrequest\/autopersistqueries"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONRequest/useGETForQueries":{"role":"symbol","title":"useGETForQueries","fragments":[{"kind":"keyword","text":"let"},{"kind":"text","text":" "},{"kind":"identifier","text":"useGETForQueries"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"Bool","preciseIdentifier":"s:Sb"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/useGETForQueries","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/jsonrequest\/usegetforqueries"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONRequest/requestBodyCreator":{"role":"symbol","title":"requestBodyCreator","fragments":[{"kind":"keyword","text":"let"},{"kind":"text","text":" "},{"kind":"identifier","text":"requestBodyCreator"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"RequestBodyCreator","preciseIdentifier":"s:6Apollo18RequestBodyCreatorP"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/requestBodyCreator","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/jsonrequest\/requestbodycreator"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONRequest/isPersistedQueryRetry":{"role":"symbol","title":"isPersistedQueryRetry","fragments":[{"kind":"keyword","text":"var"},{"kind":"text","text":" "},{"kind":"identifier","text":"isPersistedQueryRetry"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"Bool","preciseIdentifier":"s:Sb"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/isPersistedQueryRetry","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/jsonrequest\/ispersistedqueryretry"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONRequest/init(graphQLEndpoint:operation:contextIdentifier:contentType:clientName:clientVersion:additionalHeaders:cachePolicy:)":{"role":"symbol","title":"init(graphQLEndpoint:operation:contextIdentifier:contentType:clientName:clientVersion:additionalHeaders:cachePolicy:)","fragments":[{"kind":"identifier","text":"init"},{"kind":"text","text":"("},{"kind":"externalParam","text":"graphQLEndpoint"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"URL","preciseIdentifier":"s:10Foundation3URLV"},{"kind":"text","text":", "},{"kind":"externalParam","text":"operation"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"Operation"},{"kind":"text","text":", "},{"kind":"externalParam","text":"contextIdentifier"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"UUID","preciseIdentifier":"s:10Foundation4UUIDV"},{"kind":"text","text":"?, "},{"kind":"externalParam","text":"contentType"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"String","preciseIdentifier":"s:SS"},{"kind":"text","text":", "},{"kind":"externalParam","text":"clientName"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"String","preciseIdentifier":"s:SS"},{"kind":"text","text":", "},{"kind":"externalParam","text":"clientVersion"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"String","preciseIdentifier":"s:SS"},{"kind":"text","text":", "},{"kind":"externalParam","text":"additionalHeaders"},{"kind":"text","text":": ["},{"kind":"typeIdentifier","text":"String","preciseIdentifier":"s:SS"},{"kind":"text","text":" : "},{"kind":"typeIdentifier","text":"String","preciseIdentifier":"s:SS"},{"kind":"text","text":"], "},{"kind":"externalParam","text":"cachePolicy"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"CachePolicy","preciseIdentifier":"s:6Apollo11CachePolicyO"},{"kind":"text","text":")"}],"abstract":[{"type":"text","text":"Designated Initializer"}],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/init(graphQLEndpoint:operation:contextIdentifier:contentType:clientName:clientVersion:additionalHeaders:cachePolicy:)","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/jsonrequest\/init(graphqlendpoint:operation:contextidentifier:contenttype:clientname:clientversion:additionalheaders:cachepolicy:)"},"doc://com.apollographql.Apollo.macosx/s28CustomDebugStringConvertibleP":{"type":"unresolvable","title":"Swift.CustomDebugStringConvertible","identifier":"doc:\/\/com.apollographql.Apollo.macosx\/s28CustomDebugStringConvertibleP"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONRequest/hash(into:)":{"role":"symbol","title":"hash(into:)","fragments":[{"kind":"keyword","text":"func"},{"kind":"text","text":" "},{"kind":"identifier","text":"hash"},{"kind":"text","text":"("},{"kind":"externalParam","text":"into"},{"kind":"text","text":": "},{"kind":"keyword","text":"inout"},{"kind":"text","text":" "},{"kind":"typeIdentifier","text":"Hasher","preciseIdentifier":"s:s6HasherV"},{"kind":"text","text":")"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/hash(into:)","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/jsonrequest\/hash(into:)"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONRequest/body":{"role":"symbol","title":"body","fragments":[{"kind":"keyword","text":"var"},{"kind":"text","text":" "},{"kind":"identifier","text":"body"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"JSONEncodableDictionary","preciseIdentifier":"s:9ApolloAPI23JSONEncodableDictionarya"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/body","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/jsonrequest\/body"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONRequest":{"role":"symbol","title":"JSONRequest","fragments":[{"kind":"keyword","text":"class"},{"kind":"text","text":" "},{"kind":"identifier","text":"JSONRequest"}],"abstract":[{"type":"text","text":"A request which sends JSON related to a GraphQL operation."}],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"JSONRequest"}],"url":"\/documentation\/apollo\/jsonrequest"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONRequest/useGETForPersistedQueryRetry":{"role":"symbol","title":"useGETForPersistedQueryRetry","fragments":[{"kind":"keyword","text":"let"},{"kind":"text","text":" "},{"kind":"identifier","text":"useGETForPersistedQueryRetry"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"Bool","preciseIdentifier":"s:Sb"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/useGETForPersistedQueryRetry","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/jsonrequest\/usegetforpersistedqueryretry"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONRequest/toURLRequest()":{"role":"symbol","title":"toURLRequest()","fragments":[{"kind":"keyword","text":"func"},{"kind":"text","text":" "},{"kind":"identifier","text":"toURLRequest"},{"kind":"text","text":"() "},{"kind":"keyword","text":"throws"},{"kind":"text","text":" -> "},{"kind":"typeIdentifier","text":"URLRequest","preciseIdentifier":"s:10Foundation10URLRequestV"}],"abstract":[{"type":"text","text":"Converts this object to a fully fleshed-out "},{"type":"codeVoice","code":"URLRequest"}],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/toURLRequest()","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/jsonrequest\/tourlrequest()"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONRequest/==(_:_:)":{"role":"symbol","title":"==(_:_:)","fragments":[{"kind":"keyword","text":"static"},{"kind":"text","text":" "},{"kind":"keyword","text":"func"},{"kind":"text","text":" "},{"kind":"identifier","text":"=="},{"kind":"text","text":" "},{"kind":"text","text":"("},{"kind":"typeIdentifier","text":"JSONRequest","preciseIdentifier":"s:6Apollo11JSONRequestC"},{"kind":"text","text":"<"},{"kind":"typeIdentifier","text":"Operation","preciseIdentifier":"s:6Apollo11JSONRequestC9Operationxmfp"},{"kind":"text","text":">, "},{"kind":"typeIdentifier","text":"JSONRequest","preciseIdentifier":"s:6Apollo11JSONRequestC"},{"kind":"text","text":"<"},{"kind":"typeIdentifier","text":"Operation","preciseIdentifier":"s:6Apollo11JSONRequestC9Operationxmfp"},{"kind":"text","text":">) -> "},{"kind":"typeIdentifier","text":"Bool","preciseIdentifier":"s:Sb"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/==(_:_:)","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/jsonrequest\/==(_:_:)"},"doc://com.apollographql.Apollo.macosx/SQ":{"type":"unresolvable","title":"Swift.Equatable","identifier":"doc:\/\/com.apollographql.Apollo.macosx\/SQ"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONRequest/init(operation:graphQLEndpoint:contextIdentifier:clientName:clientVersion:additionalHeaders:cachePolicy:autoPersistQueries:useGETForQueries:useGETForPersistedQueryRetry:requestBodyCreator:)":{"role":"symbol","title":"init(operation:graphQLEndpoint:contextIdentifier:clientName:clientVersion:additionalHeaders:cachePolicy:autoPersistQueries:useGETForQueries:useGETForPersistedQueryRetry:requestBodyCreator:)","fragments":[{"kind":"identifier","text":"init"},{"kind":"text","text":"("},{"kind":"externalParam","text":"operation"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"Operation","preciseIdentifier":"s:6Apollo11JSONRequestC9Operationxmfp"},{"kind":"text","text":", "},{"kind":"externalParam","text":"graphQLEndpoint"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"URL","preciseIdentifier":"s:10Foundation3URLV"},{"kind":"text","text":", "},{"kind":"externalParam","text":"contextIdentifier"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"UUID","preciseIdentifier":"s:10Foundation4UUIDV"},{"kind":"text","text":"?, "},{"kind":"externalParam","text":"clientName"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"String","preciseIdentifier":"s:SS"},{"kind":"text","text":", "},{"kind":"externalParam","text":"clientVersion"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"String","preciseIdentifier":"s:SS"},{"kind":"text","text":", "},{"kind":"externalParam","text":"additionalHeaders"},{"kind":"text","text":": ["},{"kind":"typeIdentifier","text":"String","preciseIdentifier":"s:SS"},{"kind":"text","text":" : "},{"kind":"typeIdentifier","text":"String","preciseIdentifier":"s:SS"},{"kind":"text","text":"], "},{"kind":"externalParam","text":"cachePolicy"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"CachePolicy","preciseIdentifier":"s:6Apollo11CachePolicyO"},{"kind":"text","text":", "},{"kind":"externalParam","text":"autoPersistQueries"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"Bool","preciseIdentifier":"s:Sb"},{"kind":"text","text":", "},{"kind":"externalParam","text":"useGETForQueries"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"Bool","preciseIdentifier":"s:Sb"},{"kind":"text","text":", "},{"kind":"externalParam","text":"useGETForPersistedQueryRetry"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"Bool","preciseIdentifier":"s:Sb"},{"kind":"text","text":", "},{"kind":"externalParam","text":"requestBodyCreator"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"RequestBodyCreator","preciseIdentifier":"s:6Apollo18RequestBodyCreatorP"},{"kind":"text","text":")"}],"abstract":[{"type":"text","text":"Designated initializer"}],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/init(operation:graphQLEndpoint:contextIdentifier:clientName:clientVersion:additionalHeaders:cachePolicy:autoPersistQueries:useGETForQueries:useGETForPersistedQueryRetry:requestBodyCreator:)","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/jsonrequest\/init(operation:graphqlendpoint:contextidentifier:clientname:clientversion:additionalheaders:cachepolicy:autopersistqueries:usegetforqueries:usegetforpersistedqueryretry:requestbodycreator:)"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONRequest/serializationFormat":{"role":"symbol","title":"serializationFormat","fragments":[{"kind":"keyword","text":"let"},{"kind":"text","text":" "},{"kind":"identifier","text":"serializationFormat"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"JSONSerializationFormat","preciseIdentifier":"s:6Apollo23JSONSerializationFormatC"},{"kind":"text","text":".Type"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/serializationFormat","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/jsonrequest\/serializationformat"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo":{"role":"collection","title":"Apollo","abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo","kind":"symbol","type":"topic","url":"\/documentation\/apollo"},"doc://com.apollographql.Apollo.macosx/SH":{"type":"unresolvable","title":"Swift.Hashable","identifier":"doc:\/\/com.apollographql.Apollo.macosx\/SH"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/HTTPRequest":{"role":"symbol","title":"HTTPRequest","fragments":[{"kind":"keyword","text":"class"},{"kind":"text","text":" "},{"kind":"identifier","text":"HTTPRequest"}],"abstract":[{"type":"text","text":"Encapsulation of all information about a request before it hits the network"}],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPRequest","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"HTTPRequest"}],"url":"\/documentation\/apollo\/httprequest"}}}
+{
+  "abstract" : [
+    {
+      "text" : "A request which sends JSON related to a GraphQL operation.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:6Apollo11JSONRequestC",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "class"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "JSONRequest"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Apollo"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "JSONRequest"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Class",
+    "symbolKind" : "class",
+    "title" : "JSONRequest"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "class"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "JSONRequest"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "genericParameter",
+              "text" : "Operation"
+            },
+            {
+              "kind" : "text",
+              "text" : "> "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "where"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Operation"
+            },
+            {
+              "kind" : "text",
+              "text" : " : "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP",
+              "text" : "GraphQLOperation"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPRequest"
+      ],
+      "kind" : "relationships",
+      "title" : "Inherits From",
+      "type" : "inheritsFrom"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.Apollo.macosx\/s28CustomDebugStringConvertibleP",
+        "doc:\/\/com.apollographql.Apollo.macosx\/SQ",
+        "doc:\/\/com.apollographql.Apollo.macosx\/SH"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/==(_:_:)"
+      ],
+      "title" : "Operators"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/init(graphQLEndpoint:operation:contextIdentifier:contentType:clientName:clientVersion:additionalHeaders:cachePolicy:)",
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/init(operation:graphQLEndpoint:contextIdentifier:clientName:clientVersion:additionalHeaders:cachePolicy:autoPersistQueries:useGETForQueries:useGETForPersistedQueryRetry:requestBodyCreator:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/autoPersistQueries",
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/body",
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/isPersistedQueryRetry",
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/requestBodyCreator",
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/serializationFormat",
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/useGETForPersistedQueryRetry",
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/useGETForQueries"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/hash(into:)",
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/toURLRequest()"
+      ],
+      "title" : "Instance Methods"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollo\/jsonrequest"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://com.apollographql.Apollo.macosx/SH": {
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/SH",
+  "title" : "Swift.Hashable",
+  "type" : "unresolvable"
+},
+"doc://com.apollographql.Apollo.macosx/SQ": {
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/SQ",
+  "title" : "Swift.Equatable",
+  "type" : "unresolvable"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Apollo",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/HTTPRequest": {
+  "abstract" : [
+    {
+      "text" : "Encapsulation of all information about a request before it hits the network",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "HTTPRequest"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPRequest",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "HTTPRequest"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "HTTPRequest",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/httprequest"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONRequest": {
+  "abstract" : [
+    {
+      "text" : "A request which sends JSON related to a GraphQL operation.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "JSONRequest"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "JSONRequest"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "JSONRequest",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/jsonrequest"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONRequest/==(_:_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "=="
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo11JSONRequestC",
+      "text" : "JSONRequest"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo11JSONRequestC9Operationxmfp",
+      "text" : "Operation"
+    },
+    {
+      "kind" : "text",
+      "text" : ">, "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo11JSONRequestC",
+      "text" : "JSONRequest"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo11JSONRequestC9Operationxmfp",
+      "text" : "Operation"
+    },
+    {
+      "kind" : "text",
+      "text" : ">) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/==(_:_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "==(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/jsonrequest\/==(_:_:)"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONRequest/autoPersistQueries": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "autoPersistQueries"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/autoPersistQueries",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "autoPersistQueries",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/jsonrequest\/autopersistqueries"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONRequest/body": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "body"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI23JSONEncodableDictionarya",
+      "text" : "JSONEncodableDictionary"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/body",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "body",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/jsonrequest\/body"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONRequest/hash(into:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "hash"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "into"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "inout"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s6HasherV",
+      "text" : "Hasher"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/hash(into:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "hash(into:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/jsonrequest\/hash(into:)"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONRequest/init(graphQLEndpoint:operation:contextIdentifier:contentType:clientName:clientVersion:additionalHeaders:cachePolicy:)": {
+  "abstract" : [
+    {
+      "text" : "Designated Initializer",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "graphQLEndpoint"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "operation"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Operation"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "contextIdentifier"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation4UUIDV",
+      "text" : "UUID"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "contentType"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "clientName"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "clientVersion"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "additionalHeaders"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "], "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "cachePolicy"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo11CachePolicyO",
+      "text" : "CachePolicy"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/init(graphQLEndpoint:operation:contextIdentifier:contentType:clientName:clientVersion:additionalHeaders:cachePolicy:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(graphQLEndpoint:operation:contextIdentifier:contentType:clientName:clientVersion:additionalHeaders:cachePolicy:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/jsonrequest\/init(graphqlendpoint:operation:contextidentifier:contenttype:clientname:clientversion:additionalheaders:cachepolicy:)"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONRequest/init(operation:graphQLEndpoint:contextIdentifier:clientName:clientVersion:additionalHeaders:cachePolicy:autoPersistQueries:useGETForQueries:useGETForPersistedQueryRetry:requestBodyCreator:)": {
+  "abstract" : [
+    {
+      "text" : "Designated initializer",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "operation"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo11JSONRequestC9Operationxmfp",
+      "text" : "Operation"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "graphQLEndpoint"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "contextIdentifier"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation4UUIDV",
+      "text" : "UUID"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "clientName"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "clientVersion"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "additionalHeaders"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "], "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "cachePolicy"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo11CachePolicyO",
+      "text" : "CachePolicy"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "autoPersistQueries"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "useGETForQueries"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "useGETForPersistedQueryRetry"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "requestBodyCreator"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo18RequestBodyCreatorP",
+      "text" : "RequestBodyCreator"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/init(operation:graphQLEndpoint:contextIdentifier:clientName:clientVersion:additionalHeaders:cachePolicy:autoPersistQueries:useGETForQueries:useGETForPersistedQueryRetry:requestBodyCreator:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(operation:graphQLEndpoint:contextIdentifier:clientName:clientVersion:additionalHeaders:cachePolicy:autoPersistQueries:useGETForQueries:useGETForPersistedQueryRetry:requestBodyCreator:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/jsonrequest\/init(operation:graphqlendpoint:contextidentifier:clientname:clientversion:additionalheaders:cachepolicy:autopersistqueries:usegetforqueries:usegetforpersistedqueryretry:requestbodycreator:)"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONRequest/isPersistedQueryRetry": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isPersistedQueryRetry"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/isPersistedQueryRetry",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isPersistedQueryRetry",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/jsonrequest\/ispersistedqueryretry"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONRequest/requestBodyCreator": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "requestBodyCreator"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo18RequestBodyCreatorP",
+      "text" : "RequestBodyCreator"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/requestBodyCreator",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "requestBodyCreator",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/jsonrequest\/requestbodycreator"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONRequest/serializationFormat": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "serializationFormat"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo23JSONSerializationFormatC",
+      "text" : "JSONSerializationFormat"
+    },
+    {
+      "kind" : "text",
+      "text" : ".Type"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/serializationFormat",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "serializationFormat",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/jsonrequest\/serializationformat"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONRequest/toURLRequest()": {
+  "abstract" : [
+    {
+      "text" : "Converts this object to a fully fleshed-out ",
+      "type" : "text"
+    },
+    {
+      "code" : "URLRequest",
+      "type" : "codeVoice"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "toURLRequest"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation10URLRequestV",
+      "text" : "URLRequest"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/toURLRequest()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "toURLRequest()",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/jsonrequest\/tourlrequest()"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONRequest/useGETForPersistedQueryRetry": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "useGETForPersistedQueryRetry"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/useGETForPersistedQueryRetry",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "useGETForPersistedQueryRetry",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/jsonrequest\/usegetforpersistedqueryretry"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONRequest/useGETForQueries": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "useGETForQueries"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/useGETForQueries",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "useGETForQueries",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/jsonrequest\/usegetforqueries"
+},
+"doc://com.apollographql.Apollo.macosx/s28CustomDebugStringConvertibleP": {
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/s28CustomDebugStringConvertibleP",
+  "title" : "Swift.CustomDebugStringConvertible",
+  "type" : "unresolvable"
+}
+}
+}

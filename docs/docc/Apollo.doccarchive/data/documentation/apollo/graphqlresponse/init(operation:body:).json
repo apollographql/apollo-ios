@@ -1,1 +1,360 @@
-{"primaryContentSections":[{"kind":"declarations","declarations":[{"tokens":[{"kind":"keyword","text":"init"},{"kind":"text","text":"<"},{"kind":"genericParameter","text":"Operation"},{"kind":"text","text":">("},{"kind":"externalParam","text":"operation"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"Operation","preciseIdentifier":"s:6Apollo15GraphQLResponseC9operation4bodyACyxGqd___SDySSs11AnyHashableVGtc4DataQyd__Rsz0A3API0B11QLOperationRd__lufc9OperationL_qd__mfp"},{"kind":"text","text":", "},{"kind":"externalParam","text":"body"},{"kind":"text","text":": "},{"kind":"typeIdentifier","identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONObject","preciseIdentifier":"s:6Apollo10JSONObjecta","text":"JSONObject"},{"kind":"text","text":") "},{"kind":"keyword","text":"where"},{"kind":"text","text":" "},{"kind":"typeIdentifier","text":"Data"},{"kind":"text","text":" == "},{"kind":"typeIdentifier","text":"Operation"},{"kind":"text","text":"."},{"kind":"typeIdentifier","text":"Data"},{"kind":"text","text":", "},{"kind":"typeIdentifier","text":"Operation"},{"kind":"text","text":" : "},{"kind":"typeIdentifier","text":"GraphQLOperation","preciseIdentifier":"s:9ApolloAPI16GraphQLOperationP"}],"languages":["swift"],"platforms":["macOS"]}]}],"schemaVersion":{"major":0,"minor":2,"patch":0},"sections":[],"variants":[{"paths":["\/documentation\/apollo\/graphqlresponse\/init(operation:body:)"],"traits":[{"interfaceLanguage":"swift"}]}],"identifier":{"url":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResponse\/init(operation:body:)","interfaceLanguage":"swift"},"abstract":[{"type":"text","text":"No overview available."}],"kind":"symbol","metadata":{"fragments":[{"kind":"identifier","text":"init"},{"kind":"text","text":"<"},{"kind":"genericParameter","text":"Operation"},{"kind":"text","text":">("},{"kind":"externalParam","text":"operation"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"Operation","preciseIdentifier":"s:6Apollo15GraphQLResponseC9operation4bodyACyxGqd___SDySSs11AnyHashableVGtc4DataQyd__Rsz0A3API0B11QLOperationRd__lufc9OperationL_qd__mfp"},{"kind":"text","text":", "},{"kind":"externalParam","text":"body"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"JSONObject","preciseIdentifier":"s:6Apollo10JSONObjecta"},{"kind":"text","text":")"}],"title":"init(operation:body:)","roleHeading":"Initializer","role":"symbol","symbolKind":"init","externalID":"s:6Apollo15GraphQLResponseC9operation4bodyACyxGqd___SDySSs11AnyHashableVGtc4DataQyd__Rsz0A3API0B11QLOperationRd__lufc","modules":[{"name":"Apollo"}]},"hierarchy":{"paths":[["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo","doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResponse"]]},"references":{"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONObject":{"role":"symbol","title":"JSONObject","fragments":[{"kind":"keyword","text":"typealias"},{"kind":"text","text":" "},{"kind":"identifier","text":"JSONObject"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONObject","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"JSONObject"}],"url":"\/documentation\/apollo\/jsonobject"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResponse/init(operation:body:)":{"role":"symbol","title":"init(operation:body:)","fragments":[{"kind":"identifier","text":"init"},{"kind":"text","text":"<"},{"kind":"genericParameter","text":"Operation"},{"kind":"text","text":">("},{"kind":"externalParam","text":"operation"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"Operation","preciseIdentifier":"s:6Apollo15GraphQLResponseC9operation4bodyACyxGqd___SDySSs11AnyHashableVGtc4DataQyd__Rsz0A3API0B11QLOperationRd__lufc9OperationL_qd__mfp"},{"kind":"text","text":", "},{"kind":"externalParam","text":"body"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"JSONObject","preciseIdentifier":"s:6Apollo10JSONObjecta"},{"kind":"text","text":")"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResponse\/init(operation:body:)","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/graphqlresponse\/init(operation:body:)"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResponse":{"role":"symbol","title":"GraphQLResponse","fragments":[{"kind":"keyword","text":"class"},{"kind":"text","text":" "},{"kind":"identifier","text":"GraphQLResponse"}],"abstract":[{"type":"text","text":"Represents a GraphQL response received from a server."}],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResponse","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"GraphQLResponse"}],"url":"\/documentation\/apollo\/graphqlresponse"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo":{"role":"collection","title":"Apollo","abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo","kind":"symbol","type":"topic","url":"\/documentation\/apollo"}}}
+{
+  "abstract" : [
+    {
+      "text" : "No overview available.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResponse"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResponse\/init(operation:body:)"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:6Apollo15GraphQLResponseC9operation4bodyACyxGqd___SDySSs11AnyHashableVGtc4DataQyd__Rsz0A3API0B11QLOperationRd__lufc",
+    "fragments" : [
+      {
+        "kind" : "identifier",
+        "text" : "init"
+      },
+      {
+        "kind" : "text",
+        "text" : "<"
+      },
+      {
+        "kind" : "genericParameter",
+        "text" : "Operation"
+      },
+      {
+        "kind" : "text",
+        "text" : ">("
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "operation"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:6Apollo15GraphQLResponseC9operation4bodyACyxGqd___SDySSs11AnyHashableVGtc4DataQyd__Rsz0A3API0B11QLOperationRd__lufc9OperationL_qd__mfp",
+        "text" : "Operation"
+      },
+      {
+        "kind" : "text",
+        "text" : ", "
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "body"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:6Apollo10JSONObjecta",
+        "text" : "JSONObject"
+      },
+      {
+        "kind" : "text",
+        "text" : ")"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Apollo"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Initializer",
+    "symbolKind" : "init",
+    "title" : "init(operation:body:)"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "init"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "genericParameter",
+              "text" : "Operation"
+            },
+            {
+              "kind" : "text",
+              "text" : ">("
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "operation"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:6Apollo15GraphQLResponseC9operation4bodyACyxGqd___SDySSs11AnyHashableVGtc4DataQyd__Rsz0A3API0B11QLOperationRd__lufc9OperationL_qd__mfp",
+              "text" : "Operation"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "body"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONObject",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:6Apollo10JSONObjecta",
+              "text" : "JSONObject"
+            },
+            {
+              "kind" : "text",
+              "text" : ") "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "where"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Data"
+            },
+            {
+              "kind" : "text",
+              "text" : " == "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Operation"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Data"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Operation"
+            },
+            {
+              "kind" : "text",
+              "text" : " : "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP",
+              "text" : "GraphQLOperation"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollo\/graphqlresponse\/init(operation:body:)"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Apollo",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResponse": {
+  "abstract" : [
+    {
+      "text" : "Represents a GraphQL response received from a server.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLResponse"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResponse",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLResponse"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphQLResponse",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/graphqlresponse"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResponse/init(operation:body:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Operation"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "operation"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo15GraphQLResponseC9operation4bodyACyxGqd___SDySSs11AnyHashableVGtc4DataQyd__Rsz0A3API0B11QLOperationRd__lufc9OperationL_qd__mfp",
+      "text" : "Operation"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "body"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo10JSONObjecta",
+      "text" : "JSONObject"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResponse\/init(operation:body:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(operation:body:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/graphqlresponse\/init(operation:body:)"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONObject": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "JSONObject"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONObject",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "JSONObject"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "JSONObject",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/jsonobject"
+}
+}
+}

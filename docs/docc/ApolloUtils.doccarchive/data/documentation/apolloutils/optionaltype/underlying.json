@@ -1,1 +1,249 @@
-{"primaryContentSections":[{"kind":"declarations","declarations":[{"tokens":[{"kind":"keyword","text":"var"},{"kind":"text","text":" "},{"kind":"identifier","text":"underlying"},{"kind":"text","text":": "},{"kind":"typeIdentifier","identifier":"doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/OptionalType\/WrappedType","preciseIdentifier":"s:11ApolloUtils12OptionalTypeP07WrappedD0Qa","text":"WrappedType"},{"kind":"text","text":"? { "},{"kind":"keyword","text":"get"},{"kind":"text","text":" }"}],"languages":["swift"],"platforms":["macOS"]}]}],"schemaVersion":{"major":0,"minor":2,"patch":0},"sections":[],"variants":[{"paths":["\/documentation\/apolloutils\/optionaltype\/underlying"],"traits":[{"interfaceLanguage":"swift"}]}],"identifier":{"url":"doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/OptionalType\/underlying","interfaceLanguage":"swift"},"abstract":[{"type":"text","text":"No overview available."}],"kind":"symbol","metadata":{"role":"symbol","title":"underlying","roleHeading":"Instance Property","fragments":[{"kind":"keyword","text":"var"},{"kind":"text","text":" "},{"kind":"identifier","text":"underlying"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"WrappedType","preciseIdentifier":"s:11ApolloUtils12OptionalTypeP07WrappedD0Qa"},{"kind":"text","text":"?"}],"symbolKind":"property","externalID":"s:11ApolloUtils12OptionalTypeP10underlying07WrappedD0QzSgvp","required":true,"modules":[{"name":"ApolloUtils"}]},"hierarchy":{"paths":[["doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils","doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/OptionalType"]]},"references":{"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/OptionalType/WrappedType":{"role":"symbol","title":"WrappedType","fragments":[{"kind":"keyword","text":"associatedtype"},{"kind":"text","text":" "},{"kind":"identifier","text":"WrappedType"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/OptionalType\/WrappedType","kind":"symbol","required":true,"type":"topic","url":"\/documentation\/apolloutils\/optionaltype\/wrappedtype"},"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/OptionalType":{"role":"symbol","title":"OptionalType","fragments":[{"kind":"keyword","text":"protocol"},{"kind":"text","text":" "},{"kind":"identifier","text":"OptionalType"}],"abstract":[{"type":"text","text":"Provides a PAT interface to "},{"type":"codeVoice","code":"Optional<T>"}],"identifier":"doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/OptionalType","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"OptionalType"}],"url":"\/documentation\/apolloutils\/optionaltype"},"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/OptionalType/underlying":{"role":"symbol","title":"underlying","fragments":[{"kind":"keyword","text":"var"},{"kind":"text","text":" "},{"kind":"identifier","text":"underlying"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"WrappedType","preciseIdentifier":"s:11ApolloUtils12OptionalTypeP07WrappedD0Qa"},{"kind":"text","text":"?"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/OptionalType\/underlying","kind":"symbol","required":true,"type":"topic","url":"\/documentation\/apolloutils\/optionaltype\/underlying"},"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils":{"role":"collection","title":"ApolloUtils","abstract":[],"identifier":"doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils","kind":"symbol","type":"topic","url":"\/documentation\/apolloutils"}}}
+{
+  "abstract" : [
+    {
+      "text" : "No overview available.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils",
+        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/OptionalType"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/OptionalType\/underlying"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:11ApolloUtils12OptionalTypeP10underlying07WrappedD0QzSgvp",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "var"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "underlying"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:11ApolloUtils12OptionalTypeP07WrappedD0Qa",
+        "text" : "WrappedType"
+      },
+      {
+        "kind" : "text",
+        "text" : "?"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "ApolloUtils"
+      }
+    ],
+    "required" : true,
+    "role" : "symbol",
+    "roleHeading" : "Instance Property",
+    "symbolKind" : "property",
+    "title" : "underlying"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "var"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "underlying"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/OptionalType\/WrappedType",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:11ApolloUtils12OptionalTypeP07WrappedD0Qa",
+              "text" : "WrappedType"
+            },
+            {
+              "kind" : "text",
+              "text" : "? { "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "get"
+            },
+            {
+              "kind" : "text",
+              "text" : " }"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apolloutils\/optionaltype\/underlying"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "ApolloUtils",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloutils"
+},
+"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/OptionalType": {
+  "abstract" : [
+    {
+      "text" : "Provides a PAT interface to ",
+      "type" : "text"
+    },
+    {
+      "code" : "Optional<T>",
+      "type" : "codeVoice"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "OptionalType"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/OptionalType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "OptionalType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "OptionalType",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloutils\/optionaltype"
+},
+"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/OptionalType/WrappedType": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "associatedtype"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "WrappedType"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/OptionalType\/WrappedType",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "WrappedType",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloutils\/optionaltype\/wrappedtype"
+},
+"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/OptionalType/underlying": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "underlying"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11ApolloUtils12OptionalTypeP07WrappedD0Qa",
+      "text" : "WrappedType"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/OptionalType\/underlying",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "underlying",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloutils\/optionaltype\/underlying"
+}
+}
+}

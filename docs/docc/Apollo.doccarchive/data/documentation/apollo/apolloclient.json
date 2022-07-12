@@ -1,1 +1,447 @@
-{"primaryContentSections":[{"kind":"declarations","declarations":[{"tokens":[{"kind":"keyword","text":"class"},{"kind":"text","text":" "},{"kind":"identifier","text":"ApolloClient"}],"languages":["swift"],"platforms":["macOS"]}]}],"schemaVersion":{"major":0,"minor":2,"patch":0},"sections":[],"variants":[{"paths":["\/documentation\/apollo\/apolloclient"],"traits":[{"interfaceLanguage":"swift"}]}],"relationshipsSections":[{"identifiers":["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClientProtocol"],"kind":"relationships","title":"Conforms To","type":"conformsTo"}],"identifier":{"url":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient","interfaceLanguage":"swift"},"abstract":[{"type":"text","text":"The "},{"type":"codeVoice","code":"ApolloClient"},{"type":"text","text":" class implements the core API for Apollo by conforming to "},{"type":"codeVoice","code":"ApolloClientProtocol"},{"type":"text","text":"."}],"kind":"symbol","metadata":{"fragments":[{"kind":"keyword","text":"class"},{"kind":"text","text":" "},{"kind":"identifier","text":"ApolloClient"}],"title":"ApolloClient","roleHeading":"Class","role":"symbol","symbolKind":"class","externalID":"s:6Apollo0A6ClientC","modules":[{"name":"Apollo"}],"navigatorTitle":[{"kind":"identifier","text":"ApolloClient"}]},"hierarchy":{"paths":[["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"]]},"topicSections":[{"title":"Initializers","identifiers":["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/init(networkTransport:store:)","doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/init(url:)"]},{"title":"Instance Properties","identifiers":["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/store"]},{"title":"Enumerations","identifiers":["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/ApolloClientError"]},{"title":"Default Implementations","identifiers":["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/ApolloClientProtocol-Implementations"],"generated":true}],"references":{"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClient/ApolloClientProtocol-Implementations":{"role":"collectionGroup","title":"ApolloClientProtocol Implementations","abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/ApolloClientProtocol-Implementations","kind":"article","type":"topic","url":"\/documentation\/apollo\/apolloclient\/apolloclientprotocol-implementations"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClient/init(networkTransport:store:)":{"role":"symbol","title":"init(networkTransport:store:)","fragments":[{"kind":"identifier","text":"init"},{"kind":"text","text":"("},{"kind":"externalParam","text":"networkTransport"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"NetworkTransport","preciseIdentifier":"s:6Apollo16NetworkTransportP"},{"kind":"text","text":", "},{"kind":"externalParam","text":"store"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"ApolloStore","preciseIdentifier":"s:6Apollo0A5StoreC"},{"kind":"text","text":")"}],"abstract":[{"type":"text","text":"Creates a client with the specified network transport and store."}],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/init(networkTransport:store:)","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/apolloclient\/init(networktransport:store:)"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClientProtocol":{"role":"symbol","title":"ApolloClientProtocol","fragments":[{"kind":"keyword","text":"protocol"},{"kind":"text","text":" "},{"kind":"identifier","text":"ApolloClientProtocol"}],"abstract":[{"type":"text","text":"The "},{"type":"codeVoice","code":"ApolloClientProtocol"},{"type":"text","text":" provides the core API for Apollo. This API provides methods to fetch and watch queries, and to perform mutations."}],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClientProtocol","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"ApolloClientProtocol"}],"url":"\/documentation\/apollo\/apolloclientprotocol"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClient":{"role":"symbol","title":"ApolloClient","fragments":[{"kind":"keyword","text":"class"},{"kind":"text","text":" "},{"kind":"identifier","text":"ApolloClient"}],"abstract":[{"type":"text","text":"The "},{"type":"codeVoice","code":"ApolloClient"},{"type":"text","text":" class implements the core API for Apollo by conforming to "},{"type":"codeVoice","code":"ApolloClientProtocol"},{"type":"text","text":"."}],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"ApolloClient"}],"url":"\/documentation\/apollo\/apolloclient"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo":{"role":"collection","title":"Apollo","abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo","kind":"symbol","type":"topic","url":"\/documentation\/apollo"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClient/store":{"role":"symbol","title":"store","fragments":[{"kind":"keyword","text":"let"},{"kind":"text","text":" "},{"kind":"identifier","text":"store"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"ApolloStore","preciseIdentifier":"s:6Apollo0A5StoreC"}],"abstract":[{"type":"text","text":"A store used as a local cache."}],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/store","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/apolloclient\/store"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClient/ApolloClientError":{"role":"symbol","title":"ApolloClient.ApolloClientError","fragments":[{"kind":"keyword","text":"enum"},{"kind":"text","text":" "},{"kind":"identifier","text":"ApolloClientError"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/ApolloClientError","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"ApolloClientError"}],"url":"\/documentation\/apollo\/apolloclient\/apolloclienterror"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClient/init(url:)":{"role":"symbol","title":"init(url:)","fragments":[{"kind":"identifier","text":"init"},{"kind":"text","text":"("},{"kind":"externalParam","text":"url"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"URL","preciseIdentifier":"s:10Foundation3URLV"},{"kind":"text","text":")"}],"abstract":[{"type":"text","text":"Creates a client with a "},{"type":"codeVoice","code":"RequestChainNetworkTransport"},{"type":"text","text":" connecting to the specified URL."}],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/init(url:)","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/apolloclient\/init(url:)"}}}
+{
+  "abstract" : [
+    {
+      "text" : "The ",
+      "type" : "text"
+    },
+    {
+      "code" : "ApolloClient",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " class implements the core API for Apollo by conforming to ",
+      "type" : "text"
+    },
+    {
+      "code" : "ApolloClientProtocol",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:6Apollo0A6ClientC",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "class"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "ApolloClient"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Apollo"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "ApolloClient"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Class",
+    "symbolKind" : "class",
+    "title" : "ApolloClient"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "class"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "ApolloClient"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClientProtocol"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/init(networkTransport:store:)",
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/init(url:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/store"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/ApolloClientError"
+      ],
+      "title" : "Enumerations"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/ApolloClientProtocol-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollo\/apolloclient"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Apollo",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClient": {
+  "abstract" : [
+    {
+      "text" : "The ",
+      "type" : "text"
+    },
+    {
+      "code" : "ApolloClient",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " class implements the core API for Apollo by conforming to ",
+      "type" : "text"
+    },
+    {
+      "code" : "ApolloClientProtocol",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ApolloClient"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ApolloClient"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ApolloClient",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/apolloclient"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClient/ApolloClientError": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ApolloClientError"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/ApolloClientError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ApolloClientError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ApolloClient.ApolloClientError",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/apolloclient\/apolloclienterror"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClient/ApolloClientProtocol-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/ApolloClientProtocol-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "ApolloClientProtocol Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/apolloclient\/apolloclientprotocol-implementations"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClient/init(networkTransport:store:)": {
+  "abstract" : [
+    {
+      "text" : "Creates a client with the specified network transport and store.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "networkTransport"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo16NetworkTransportP",
+      "text" : "NetworkTransport"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "store"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo0A5StoreC",
+      "text" : "ApolloStore"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/init(networkTransport:store:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(networkTransport:store:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/apolloclient\/init(networktransport:store:)"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClient/init(url:)": {
+  "abstract" : [
+    {
+      "text" : "Creates a client with a ",
+      "type" : "text"
+    },
+    {
+      "code" : "RequestChainNetworkTransport",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " connecting to the specified URL.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "url"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/init(url:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(url:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/apolloclient\/init(url:)"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClient/store": {
+  "abstract" : [
+    {
+      "text" : "A store used as a local cache.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "store"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo0A5StoreC",
+      "text" : "ApolloStore"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/store",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "store",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/apolloclient\/store"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClientProtocol": {
+  "abstract" : [
+    {
+      "text" : "The ",
+      "type" : "text"
+    },
+    {
+      "code" : "ApolloClientProtocol",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " provides the core API for Apollo. This API provides methods to fetch and watch queries, and to perform mutations.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ApolloClientProtocol"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClientProtocol",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ApolloClientProtocol"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ApolloClientProtocol",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/apolloclientprotocol"
+}
+}
+}

@@ -1,1 +1,772 @@
-{"primaryContentSections":[{"kind":"declarations","declarations":[{"tokens":[{"kind":"keyword","text":"func"},{"kind":"text","text":" "},{"kind":"identifier","text":"watch"},{"kind":"text","text":"<"},{"kind":"genericParameter","text":"Query"},{"kind":"text","text":">("},{"kind":"externalParam","text":"query"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"Query","preciseIdentifier":"s:6Apollo0A6ClientC5watch5query11cachePolicy13callbackQueue13resultHandlerAA19GraphQLQueryWatcherCyxGx_AA05CacheF0OSo17OS_dispatch_queueCys6ResultOyAA0K8QLResultVy4DataQzGs5Error_pGct0A3API0kL0RzlF5QueryL_xmfp"},{"kind":"text","text":", "},{"kind":"externalParam","text":"cachePolicy"},{"kind":"text","text":": "},{"kind":"typeIdentifier","identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CachePolicy","preciseIdentifier":"s:6Apollo11CachePolicyO","text":"CachePolicy"},{"kind":"text","text":" = .default, "},{"kind":"externalParam","text":"callbackQueue"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"DispatchQueue","preciseIdentifier":"c:objc(cs)OS_dispatch_queue"},{"kind":"text","text":" = .main, "},{"kind":"externalParam","text":"resultHandler"},{"kind":"text","text":": "},{"kind":"attribute","text":"@escaping"},{"kind":"text","text":" "},{"kind":"typeIdentifier","identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResultHandler","preciseIdentifier":"s:6Apollo20GraphQLResultHandlera","text":"GraphQLResultHandler"},{"kind":"text","text":"<"},{"kind":"typeIdentifier","text":"Query","preciseIdentifier":"s:6Apollo0A6ClientC5watch5query11cachePolicy13callbackQueue13resultHandlerAA19GraphQLQueryWatcherCyxGx_AA05CacheF0OSo17OS_dispatch_queueCys6ResultOyAA0K8QLResultVy4DataQzGs5Error_pGct0A3API0kL0RzlF5QueryL_xmfp"},{"kind":"text","text":"."},{"kind":"typeIdentifier","text":"Data","preciseIdentifier":"s:9ApolloAPI16GraphQLOperationP4DataQa"},{"kind":"text","text":">) -> "},{"kind":"typeIdentifier","identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLQueryWatcher","preciseIdentifier":"s:6Apollo19GraphQLQueryWatcherC","text":"GraphQLQueryWatcher"},{"kind":"text","text":"<"},{"kind":"typeIdentifier","text":"Query","preciseIdentifier":"s:6Apollo0A6ClientC5watch5query11cachePolicy13callbackQueue13resultHandlerAA19GraphQLQueryWatcherCyxGx_AA05CacheF0OSo17OS_dispatch_queueCys6ResultOyAA0K8QLResultVy4DataQzGs5Error_pGct0A3API0kL0RzlF5QueryL_xmfp"},{"kind":"text","text":"> "},{"kind":"keyword","text":"where"},{"kind":"text","text":" "},{"kind":"typeIdentifier","text":"Query"},{"kind":"text","text":" : "},{"kind":"typeIdentifier","text":"GraphQLQuery","preciseIdentifier":"s:9ApolloAPI12GraphQLQueryP"}],"languages":["swift"],"platforms":["macOS"]}]},{"kind":"content","content":[{"anchor":"return-value","level":2,"type":"heading","text":"Return Value"},{"type":"paragraph","inlineContent":[{"type":"text","text":"A query watcher object that can be used to control the watching behavior."}]}]},{"kind":"parameters","parameters":[{"name":"query","content":[{"type":"paragraph","inlineContent":[{"type":"text","text":"The query to fetch."}]}]},{"name":"cachePolicy","content":[{"type":"paragraph","inlineContent":[{"type":"text","text":"A cache policy that specifies when results should be fetched from the server or from the local cache."}]}]},{"name":"callbackQueue","content":[{"type":"paragraph","inlineContent":[{"type":"text","text":"A dispatch queue on which the result handler will be called. Should default to the main queue."}]}]},{"name":"resultHandler","content":[{"type":"paragraph","inlineContent":[{"type":"text","text":"[optional] A closure that is called when query results are available or when an error occurs."}]}]}]}],"schemaVersion":{"major":0,"minor":2,"patch":0},"sections":[],"variants":[{"paths":["\/documentation\/apollo\/apolloclient\/watch(query:cachepolicy:callbackqueue:resulthandler:)"],"traits":[{"interfaceLanguage":"swift"}]}],"identifier":{"url":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/watch(query:cachePolicy:callbackQueue:resultHandler:)","interfaceLanguage":"swift"},"abstract":[{"type":"text","text":"Watches a query by first fetching an initial result from the server or from the local cache, depending on the current contents of the cache and the specified cache policy. After the initial fetch, the returned query watcher object will get notified whenever any of the data the query result depends on changes in the local cache, and calls the result handler again with the new result."}],"kind":"symbol","metadata":{"role":"symbol","title":"watch(query:cachePolicy:callbackQueue:resultHandler:)","roleHeading":"Instance Method","fragments":[{"kind":"keyword","text":"func"},{"kind":"text","text":" "},{"kind":"identifier","text":"watch"},{"kind":"text","text":"<"},{"kind":"genericParameter","text":"Query"},{"kind":"text","text":">("},{"kind":"externalParam","text":"query"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"Query","preciseIdentifier":"s:6Apollo0A6ClientC5watch5query11cachePolicy13callbackQueue13resultHandlerAA19GraphQLQueryWatcherCyxGx_AA05CacheF0OSo17OS_dispatch_queueCys6ResultOyAA0K8QLResultVy4DataQzGs5Error_pGct0A3API0kL0RzlF5QueryL_xmfp"},{"kind":"text","text":", "},{"kind":"externalParam","text":"cachePolicy"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"CachePolicy","preciseIdentifier":"s:6Apollo11CachePolicyO"},{"kind":"text","text":", "},{"kind":"externalParam","text":"callbackQueue"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"DispatchQueue","preciseIdentifier":"c:objc(cs)OS_dispatch_queue"},{"kind":"text","text":", "},{"kind":"externalParam","text":"resultHandler"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"GraphQLResultHandler","preciseIdentifier":"s:6Apollo20GraphQLResultHandlera"},{"kind":"text","text":"<"},{"kind":"typeIdentifier","text":"Query","preciseIdentifier":"s:6Apollo0A6ClientC5watch5query11cachePolicy13callbackQueue13resultHandlerAA19GraphQLQueryWatcherCyxGx_AA05CacheF0OSo17OS_dispatch_queueCys6ResultOyAA0K8QLResultVy4DataQzGs5Error_pGct0A3API0kL0RzlF5QueryL_xmfp"},{"kind":"text","text":"."},{"kind":"typeIdentifier","text":"Data","preciseIdentifier":"s:9ApolloAPI16GraphQLOperationP4DataQa"},{"kind":"text","text":">) -> "},{"kind":"typeIdentifier","text":"GraphQLQueryWatcher","preciseIdentifier":"s:6Apollo19GraphQLQueryWatcherC"},{"kind":"text","text":"<"},{"kind":"typeIdentifier","text":"Query","preciseIdentifier":"s:6Apollo0A6ClientC5watch5query11cachePolicy13callbackQueue13resultHandlerAA19GraphQLQueryWatcherCyxGx_AA05CacheF0OSo17OS_dispatch_queueCys6ResultOyAA0K8QLResultVy4DataQzGs5Error_pGct0A3API0kL0RzlF5QueryL_xmfp"},{"kind":"text","text":">"}],"symbolKind":"method","externalID":"s:6Apollo0A6ClientC5watch5query11cachePolicy13callbackQueue13resultHandlerAA19GraphQLQueryWatcherCyxGx_AA05CacheF0OSo17OS_dispatch_queueCys6ResultOyAA0K8QLResultVy4DataQzGs5Error_pGct0A3API0kL0RzlF","extendedModule":"Apollo","modules":[{"name":"Apollo"}]},"hierarchy":{"paths":[["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo","doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient","doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/ApolloClientProtocol-Implementations"]]},"references":{"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClient/watch(query:cachePolicy:callbackQueue:resultHandler:)":{"role":"symbol","title":"watch(query:cachePolicy:callbackQueue:resultHandler:)","fragments":[{"kind":"keyword","text":"func"},{"kind":"text","text":" "},{"kind":"identifier","text":"watch"},{"kind":"text","text":"<"},{"kind":"genericParameter","text":"Query"},{"kind":"text","text":">("},{"kind":"externalParam","text":"query"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"Query","preciseIdentifier":"s:6Apollo0A6ClientC5watch5query11cachePolicy13callbackQueue13resultHandlerAA19GraphQLQueryWatcherCyxGx_AA05CacheF0OSo17OS_dispatch_queueCys6ResultOyAA0K8QLResultVy4DataQzGs5Error_pGct0A3API0kL0RzlF5QueryL_xmfp"},{"kind":"text","text":", "},{"kind":"externalParam","text":"cachePolicy"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"CachePolicy","preciseIdentifier":"s:6Apollo11CachePolicyO"},{"kind":"text","text":", "},{"kind":"externalParam","text":"callbackQueue"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"DispatchQueue","preciseIdentifier":"c:objc(cs)OS_dispatch_queue"},{"kind":"text","text":", "},{"kind":"externalParam","text":"resultHandler"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"GraphQLResultHandler","preciseIdentifier":"s:6Apollo20GraphQLResultHandlera"},{"kind":"text","text":"<"},{"kind":"typeIdentifier","text":"Query","preciseIdentifier":"s:6Apollo0A6ClientC5watch5query11cachePolicy13callbackQueue13resultHandlerAA19GraphQLQueryWatcherCyxGx_AA05CacheF0OSo17OS_dispatch_queueCys6ResultOyAA0K8QLResultVy4DataQzGs5Error_pGct0A3API0kL0RzlF5QueryL_xmfp"},{"kind":"text","text":"."},{"kind":"typeIdentifier","text":"Data","preciseIdentifier":"s:9ApolloAPI16GraphQLOperationP4DataQa"},{"kind":"text","text":">) -> "},{"kind":"typeIdentifier","text":"GraphQLQueryWatcher","preciseIdentifier":"s:6Apollo19GraphQLQueryWatcherC"},{"kind":"text","text":"<"},{"kind":"typeIdentifier","text":"Query","preciseIdentifier":"s:6Apollo0A6ClientC5watch5query11cachePolicy13callbackQueue13resultHandlerAA19GraphQLQueryWatcherCyxGx_AA05CacheF0OSo17OS_dispatch_queueCys6ResultOyAA0K8QLResultVy4DataQzGs5Error_pGct0A3API0kL0RzlF5QueryL_xmfp"},{"kind":"text","text":">"}],"abstract":[{"type":"text","text":"Watches a query by first fetching an initial result from the server or from the local cache, depending on the current contents of the cache and the specified cache policy. After the initial fetch, the returned query watcher object will get notified whenever any of the data the query result depends on changes in the local cache, and calls the result handler again with the new result."}],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/watch(query:cachePolicy:callbackQueue:resultHandler:)","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/apolloclient\/watch(query:cachepolicy:callbackqueue:resulthandler:)"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/CachePolicy":{"role":"symbol","title":"CachePolicy","fragments":[{"kind":"keyword","text":"enum"},{"kind":"text","text":" "},{"kind":"identifier","text":"CachePolicy"}],"abstract":[{"type":"text","text":"A cache policy that specifies whether results should be fetched from the server or loaded from the local cache."}],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CachePolicy","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"CachePolicy"}],"url":"\/documentation\/apollo\/cachepolicy"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClient":{"role":"symbol","title":"ApolloClient","fragments":[{"kind":"keyword","text":"class"},{"kind":"text","text":" "},{"kind":"identifier","text":"ApolloClient"}],"abstract":[{"type":"text","text":"The "},{"type":"codeVoice","code":"ApolloClient"},{"type":"text","text":" class implements the core API for Apollo by conforming to "},{"type":"codeVoice","code":"ApolloClientProtocol"},{"type":"text","text":"."}],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"ApolloClient"}],"url":"\/documentation\/apollo\/apolloclient"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo":{"role":"collection","title":"Apollo","abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo","kind":"symbol","type":"topic","url":"\/documentation\/apollo"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClient/ApolloClientProtocol-Implementations":{"role":"collectionGroup","title":"ApolloClientProtocol Implementations","abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/ApolloClientProtocol-Implementations","kind":"article","type":"topic","url":"\/documentation\/apollo\/apolloclient\/apolloclientprotocol-implementations"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLQueryWatcher":{"role":"symbol","title":"GraphQLQueryWatcher","fragments":[{"kind":"keyword","text":"class"},{"kind":"text","text":" "},{"kind":"identifier","text":"GraphQLQueryWatcher"}],"abstract":[{"type":"text","text":"A "},{"type":"codeVoice","code":"GraphQLQueryWatcher"},{"type":"text","text":" is responsible for watching the store, and calling the result handler with a new result whenever any of the data the previous result depends on changes."}],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLQueryWatcher","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"GraphQLQueryWatcher"}],"url":"\/documentation\/apollo\/graphqlquerywatcher"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResultHandler":{"role":"symbol","title":"GraphQLResultHandler","fragments":[{"kind":"keyword","text":"typealias"},{"kind":"text","text":" "},{"kind":"identifier","text":"GraphQLResultHandler"}],"abstract":[{"type":"text","text":"A handler for operation results."}],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResultHandler","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"GraphQLResultHandler"}],"url":"\/documentation\/apollo\/graphqlresulthandler"}}}
+{
+  "abstract" : [
+    {
+      "text" : "Watches a query by first fetching an initial result from the server or from the local cache, depending on the current contents of the cache and the specified cache policy. After the initial fetch, the returned query watcher object will get notified whenever any of the data the query result depends on changes in the local cache, and calls the result handler again with the new result.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient",
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/ApolloClientProtocol-Implementations"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/watch(query:cachePolicy:callbackQueue:resultHandler:)"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "extendedModule" : "Apollo",
+    "externalID" : "s:6Apollo0A6ClientC5watch5query11cachePolicy13callbackQueue13resultHandlerAA19GraphQLQueryWatcherCyxGx_AA05CacheF0OSo17OS_dispatch_queueCys6ResultOyAA0K8QLResultVy4DataQzGs5Error_pGct0A3API0kL0RzlF",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "func"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "watch"
+      },
+      {
+        "kind" : "text",
+        "text" : "<"
+      },
+      {
+        "kind" : "genericParameter",
+        "text" : "Query"
+      },
+      {
+        "kind" : "text",
+        "text" : ">("
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "query"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:6Apollo0A6ClientC5watch5query11cachePolicy13callbackQueue13resultHandlerAA19GraphQLQueryWatcherCyxGx_AA05CacheF0OSo17OS_dispatch_queueCys6ResultOyAA0K8QLResultVy4DataQzGs5Error_pGct0A3API0kL0RzlF5QueryL_xmfp",
+        "text" : "Query"
+      },
+      {
+        "kind" : "text",
+        "text" : ", "
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "cachePolicy"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:6Apollo11CachePolicyO",
+        "text" : "CachePolicy"
+      },
+      {
+        "kind" : "text",
+        "text" : ", "
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "callbackQueue"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "c:objc(cs)OS_dispatch_queue",
+        "text" : "DispatchQueue"
+      },
+      {
+        "kind" : "text",
+        "text" : ", "
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "resultHandler"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:6Apollo20GraphQLResultHandlera",
+        "text" : "GraphQLResultHandler"
+      },
+      {
+        "kind" : "text",
+        "text" : "<"
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:6Apollo0A6ClientC5watch5query11cachePolicy13callbackQueue13resultHandlerAA19GraphQLQueryWatcherCyxGx_AA05CacheF0OSo17OS_dispatch_queueCys6ResultOyAA0K8QLResultVy4DataQzGs5Error_pGct0A3API0kL0RzlF5QueryL_xmfp",
+        "text" : "Query"
+      },
+      {
+        "kind" : "text",
+        "text" : "."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
+        "text" : "Data"
+      },
+      {
+        "kind" : "text",
+        "text" : ">) -> "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:6Apollo19GraphQLQueryWatcherC",
+        "text" : "GraphQLQueryWatcher"
+      },
+      {
+        "kind" : "text",
+        "text" : "<"
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:6Apollo0A6ClientC5watch5query11cachePolicy13callbackQueue13resultHandlerAA19GraphQLQueryWatcherCyxGx_AA05CacheF0OSo17OS_dispatch_queueCys6ResultOyAA0K8QLResultVy4DataQzGs5Error_pGct0A3API0kL0RzlF5QueryL_xmfp",
+        "text" : "Query"
+      },
+      {
+        "kind" : "text",
+        "text" : ">"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Apollo"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Instance Method",
+    "symbolKind" : "method",
+    "title" : "watch(query:cachePolicy:callbackQueue:resultHandler:)"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "func"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "watch"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "genericParameter",
+              "text" : "Query"
+            },
+            {
+              "kind" : "text",
+              "text" : ">("
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "query"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:6Apollo0A6ClientC5watch5query11cachePolicy13callbackQueue13resultHandlerAA19GraphQLQueryWatcherCyxGx_AA05CacheF0OSo17OS_dispatch_queueCys6ResultOyAA0K8QLResultVy4DataQzGs5Error_pGct0A3API0kL0RzlF5QueryL_xmfp",
+              "text" : "Query"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "cachePolicy"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CachePolicy",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:6Apollo11CachePolicyO",
+              "text" : "CachePolicy"
+            },
+            {
+              "kind" : "text",
+              "text" : " = .default, "
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "callbackQueue"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "c:objc(cs)OS_dispatch_queue",
+              "text" : "DispatchQueue"
+            },
+            {
+              "kind" : "text",
+              "text" : " = .main, "
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "resultHandler"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "attribute",
+              "text" : "@escaping"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResultHandler",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:6Apollo20GraphQLResultHandlera",
+              "text" : "GraphQLResultHandler"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:6Apollo0A6ClientC5watch5query11cachePolicy13callbackQueue13resultHandlerAA19GraphQLQueryWatcherCyxGx_AA05CacheF0OSo17OS_dispatch_queueCys6ResultOyAA0K8QLResultVy4DataQzGs5Error_pGct0A3API0kL0RzlF5QueryL_xmfp",
+              "text" : "Query"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
+              "text" : "Data"
+            },
+            {
+              "kind" : "text",
+              "text" : ">) -> "
+            },
+            {
+              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLQueryWatcher",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:6Apollo19GraphQLQueryWatcherC",
+              "text" : "GraphQLQueryWatcher"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:6Apollo0A6ClientC5watch5query11cachePolicy13callbackQueue13resultHandlerAA19GraphQLQueryWatcherCyxGx_AA05CacheF0OSo17OS_dispatch_queueCys6ResultOyAA0K8QLResultVy4DataQzGs5Error_pGct0A3API0kL0RzlF5QueryL_xmfp",
+              "text" : "Query"
+            },
+            {
+              "kind" : "text",
+              "text" : "> "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "where"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Query"
+            },
+            {
+              "kind" : "text",
+              "text" : " : "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:9ApolloAPI12GraphQLQueryP",
+              "text" : "GraphQLQuery"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "return-value",
+          "level" : 2,
+          "text" : "Return Value",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "A query watcher object that can be used to control the watching behavior.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
+    },
+    {
+      "kind" : "parameters",
+      "parameters" : [
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "The query to fetch.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "query"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "A cache policy that specifies when results should be fetched from the server or from the local cache.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "cachePolicy"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "A dispatch queue on which the result handler will be called. Should default to the main queue.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "callbackQueue"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "[optional] A closure that is called when query results are available or when an error occurs.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "resultHandler"
+        }
+      ]
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollo\/apolloclient\/watch(query:cachepolicy:callbackqueue:resulthandler:)"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Apollo",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClient": {
+  "abstract" : [
+    {
+      "text" : "The ",
+      "type" : "text"
+    },
+    {
+      "code" : "ApolloClient",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " class implements the core API for Apollo by conforming to ",
+      "type" : "text"
+    },
+    {
+      "code" : "ApolloClientProtocol",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ApolloClient"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ApolloClient"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ApolloClient",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/apolloclient"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClient/ApolloClientProtocol-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/ApolloClientProtocol-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "ApolloClientProtocol Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/apolloclient\/apolloclientprotocol-implementations"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClient/watch(query:cachePolicy:callbackQueue:resultHandler:)": {
+  "abstract" : [
+    {
+      "text" : "Watches a query by first fetching an initial result from the server or from the local cache, depending on the current contents of the cache and the specified cache policy. After the initial fetch, the returned query watcher object will get notified whenever any of the data the query result depends on changes in the local cache, and calls the result handler again with the new result.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "watch"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Query"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "query"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo0A6ClientC5watch5query11cachePolicy13callbackQueue13resultHandlerAA19GraphQLQueryWatcherCyxGx_AA05CacheF0OSo17OS_dispatch_queueCys6ResultOyAA0K8QLResultVy4DataQzGs5Error_pGct0A3API0kL0RzlF5QueryL_xmfp",
+      "text" : "Query"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "cachePolicy"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo11CachePolicyO",
+      "text" : "CachePolicy"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "callbackQueue"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:objc(cs)OS_dispatch_queue",
+      "text" : "DispatchQueue"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "resultHandler"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo20GraphQLResultHandlera",
+      "text" : "GraphQLResultHandler"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo0A6ClientC5watch5query11cachePolicy13callbackQueue13resultHandlerAA19GraphQLQueryWatcherCyxGx_AA05CacheF0OSo17OS_dispatch_queueCys6ResultOyAA0K8QLResultVy4DataQzGs5Error_pGct0A3API0kL0RzlF5QueryL_xmfp",
+      "text" : "Query"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
+      "text" : "Data"
+    },
+    {
+      "kind" : "text",
+      "text" : ">) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo19GraphQLQueryWatcherC",
+      "text" : "GraphQLQueryWatcher"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo0A6ClientC5watch5query11cachePolicy13callbackQueue13resultHandlerAA19GraphQLQueryWatcherCyxGx_AA05CacheF0OSo17OS_dispatch_queueCys6ResultOyAA0K8QLResultVy4DataQzGs5Error_pGct0A3API0kL0RzlF5QueryL_xmfp",
+      "text" : "Query"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/watch(query:cachePolicy:callbackQueue:resultHandler:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "watch(query:cachePolicy:callbackQueue:resultHandler:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/apolloclient\/watch(query:cachepolicy:callbackqueue:resulthandler:)"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/CachePolicy": {
+  "abstract" : [
+    {
+      "text" : "A cache policy that specifies whether results should be fetched from the server or loaded from the local cache.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CachePolicy"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CachePolicy",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CachePolicy"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CachePolicy",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/cachepolicy"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLQueryWatcher": {
+  "abstract" : [
+    {
+      "text" : "A ",
+      "type" : "text"
+    },
+    {
+      "code" : "GraphQLQueryWatcher",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is responsible for watching the store, and calling the result handler with a new result whenever any of the data the previous result depends on changes.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLQueryWatcher"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLQueryWatcher",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLQueryWatcher"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphQLQueryWatcher",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/graphqlquerywatcher"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResultHandler": {
+  "abstract" : [
+    {
+      "text" : "A handler for operation results.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLResultHandler"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResultHandler",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLResultHandler"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphQLResultHandler",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/graphqlresulthandler"
+}
+}
+}

@@ -1,1 +1,222 @@
-{"primaryContentSections":[{"kind":"declarations","declarations":[{"tokens":[{"kind":"keyword","text":"init"},{"kind":"text","text":"("},{"kind":"externalParam","text":"_"},{"kind":"text","text":" "},{"kind":"internalParam","text":"value"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"T","preciseIdentifier":"s:11ApolloUtils6AtomicC1Txmfp"},{"kind":"text","text":")"}],"languages":["swift"],"platforms":["macOS"]}]},{"kind":"parameters","parameters":[{"name":"value","content":[{"type":"paragraph","inlineContent":[{"type":"text","text":"The value to begin with."}]}]}]}],"schemaVersion":{"major":0,"minor":2,"patch":0},"sections":[],"variants":[{"paths":["\/documentation\/apolloutils\/atomic\/init(_:)"],"traits":[{"interfaceLanguage":"swift"}]}],"identifier":{"url":"doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/Atomic\/init(_:)","interfaceLanguage":"swift"},"abstract":[{"type":"text","text":"Designated initializer"}],"kind":"symbol","metadata":{"fragments":[{"kind":"identifier","text":"init"},{"kind":"text","text":"("},{"kind":"typeIdentifier","text":"T","preciseIdentifier":"s:11ApolloUtils6AtomicC1Txmfp"},{"kind":"text","text":")"}],"title":"init(_:)","roleHeading":"Initializer","role":"symbol","symbolKind":"init","externalID":"s:11ApolloUtils6AtomicCyACyxGxcfc","modules":[{"name":"ApolloUtils"}]},"hierarchy":{"paths":[["doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils","doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/Atomic"]]},"references":{"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/Atomic/init(_:)":{"role":"symbol","title":"init(_:)","fragments":[{"kind":"identifier","text":"init"},{"kind":"text","text":"("},{"kind":"typeIdentifier","text":"T","preciseIdentifier":"s:11ApolloUtils6AtomicC1Txmfp"},{"kind":"text","text":")"}],"abstract":[{"type":"text","text":"Designated initializer"}],"identifier":"doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/Atomic\/init(_:)","kind":"symbol","type":"topic","url":"\/documentation\/apolloutils\/atomic\/init(_:)"},"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils":{"role":"collection","title":"ApolloUtils","abstract":[],"identifier":"doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils","kind":"symbol","type":"topic","url":"\/documentation\/apolloutils"},"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/Atomic":{"role":"symbol","title":"Atomic","fragments":[{"kind":"keyword","text":"class"},{"kind":"text","text":" "},{"kind":"identifier","text":"Atomic"}],"abstract":[{"type":"text","text":"Wrapper for a value protected by an NSLock"}],"identifier":"doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/Atomic","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"Atomic"}],"url":"\/documentation\/apolloutils\/atomic"}}}
+{
+  "abstract" : [
+    {
+      "text" : "Designated initializer",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils",
+        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/Atomic"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/Atomic\/init(_:)"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:11ApolloUtils6AtomicCyACyxGxcfc",
+    "fragments" : [
+      {
+        "kind" : "identifier",
+        "text" : "init"
+      },
+      {
+        "kind" : "text",
+        "text" : "("
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:11ApolloUtils6AtomicC1Txmfp",
+        "text" : "T"
+      },
+      {
+        "kind" : "text",
+        "text" : ")"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "ApolloUtils"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Initializer",
+    "symbolKind" : "init",
+    "title" : "init(_:)"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "init"
+            },
+            {
+              "kind" : "text",
+              "text" : "("
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "_"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "internalParam",
+              "text" : "value"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:11ApolloUtils6AtomicC1Txmfp",
+              "text" : "T"
+            },
+            {
+              "kind" : "text",
+              "text" : ")"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
+      "kind" : "parameters",
+      "parameters" : [
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "The value to begin with.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "value"
+        }
+      ]
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apolloutils\/atomic\/init(_:)"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "ApolloUtils",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloutils"
+},
+"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/Atomic": {
+  "abstract" : [
+    {
+      "text" : "Wrapper for a value protected by an NSLock",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Atomic"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/Atomic",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Atomic"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Atomic",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloutils\/atomic"
+},
+"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/Atomic/init(_:)": {
+  "abstract" : [
+    {
+      "text" : "Designated initializer",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11ApolloUtils6AtomicC1Txmfp",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/Atomic\/init(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloutils\/atomic\/init(_:)"
+}
+}
+}

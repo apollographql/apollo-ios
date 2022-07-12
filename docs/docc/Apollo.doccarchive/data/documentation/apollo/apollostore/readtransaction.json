@@ -1,1 +1,425 @@
-{"primaryContentSections":[{"kind":"declarations","declarations":[{"tokens":[{"kind":"keyword","text":"class"},{"kind":"text","text":" "},{"kind":"identifier","text":"ReadTransaction"}],"languages":["swift"],"platforms":["macOS"]}]}],"schemaVersion":{"major":0,"minor":2,"patch":0},"sections":[],"variants":[{"paths":["\/documentation\/apollo\/apollostore\/readtransaction"],"traits":[{"interfaceLanguage":"swift"}]}],"relationshipsSections":[{"identifiers":["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction"],"kind":"relationships","title":"Inherited By","type":"inheritedBy"}],"identifier":{"url":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore\/ReadTransaction","interfaceLanguage":"swift"},"abstract":[{"type":"text","text":"No overview available."}],"kind":"symbol","metadata":{"fragments":[{"kind":"keyword","text":"class"},{"kind":"text","text":" "},{"kind":"identifier","text":"ReadTransaction"}],"title":"ApolloStore.ReadTransaction","roleHeading":"Class","role":"symbol","symbolKind":"class","externalID":"s:6Apollo0A5StoreC15ReadTransactionC","modules":[{"name":"Apollo"}],"navigatorTitle":[{"kind":"identifier","text":"ReadTransaction"}]},"hierarchy":{"paths":[["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo","doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore"]]},"topicSections":[{"title":"Instance Methods","identifiers":["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore\/ReadTransaction\/read(query:)","doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore\/ReadTransaction\/readObject(ofType:withKey:variables:)"]}],"references":{"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloStore":{"role":"symbol","title":"ApolloStore","fragments":[{"kind":"keyword","text":"class"},{"kind":"text","text":" "},{"kind":"identifier","text":"ApolloStore"}],"abstract":[{"type":"text","text":"The "},{"type":"codeVoice","code":"ApolloStore"},{"type":"text","text":" class acts as a local cache for normalized GraphQL results."}],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"ApolloStore"}],"url":"\/documentation\/apollo\/apollostore"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloStore/ReadWriteTransaction":{"role":"symbol","title":"ApolloStore.ReadWriteTransaction","fragments":[{"kind":"keyword","text":"class"},{"kind":"text","text":" "},{"kind":"identifier","text":"ReadWriteTransaction"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"ReadWriteTransaction"}],"url":"\/documentation\/apollo\/apollostore\/readwritetransaction"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloStore/ReadTransaction/read(query:)":{"role":"symbol","title":"read(query:)","fragments":[{"kind":"keyword","text":"func"},{"kind":"text","text":" "},{"kind":"identifier","text":"read"},{"kind":"text","text":"<"},{"kind":"genericParameter","text":"Query"},{"kind":"text","text":">("},{"kind":"externalParam","text":"query"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"Query","preciseIdentifier":"s:6Apollo0A5StoreC15ReadTransactionC4read5query4DataQzx_tK0A3API12GraphQLQueryRzlF5QueryL_xmfp"},{"kind":"text","text":") "},{"kind":"keyword","text":"throws"},{"kind":"text","text":" -> "},{"kind":"typeIdentifier","text":"Query","preciseIdentifier":"s:6Apollo0A5StoreC15ReadTransactionC4read5query4DataQzx_tK0A3API12GraphQLQueryRzlF5QueryL_xmfp"},{"kind":"text","text":"."},{"kind":"typeIdentifier","text":"Data","preciseIdentifier":"s:9ApolloAPI16GraphQLOperationP4DataQa"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore\/ReadTransaction\/read(query:)","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/apollostore\/readtransaction\/read(query:)"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloStore/ReadTransaction/readObject(ofType:withKey:variables:)":{"role":"symbol","title":"readObject(ofType:withKey:variables:)","fragments":[{"kind":"keyword","text":"func"},{"kind":"text","text":" "},{"kind":"identifier","text":"readObject"},{"kind":"text","text":"<"},{"kind":"genericParameter","text":"SelectionSet"},{"kind":"text","text":">("},{"kind":"externalParam","text":"ofType"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"SelectionSet","preciseIdentifier":"s:6Apollo0A5StoreC15ReadTransactionC10readObject6ofType7withKey9variablesxxm_SSSDySS0A3API29GraphQLOperationVariableValue_pGSgtKAJ16RootSelectionSetRzlF0rS0L_xmfp"},{"kind":"text","text":".Type, "},{"kind":"externalParam","text":"withKey"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"CacheKey","preciseIdentifier":"s:6Apollo8CacheKeya"},{"kind":"text","text":", "},{"kind":"externalParam","text":"variables"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"GraphQLOperation","preciseIdentifier":"s:9ApolloAPI16GraphQLOperationP"},{"kind":"text","text":"."},{"kind":"typeIdentifier","text":"Variables","preciseIdentifier":"s:9ApolloAPI16GraphQLOperationP9Variablesa"},{"kind":"text","text":"?) "},{"kind":"keyword","text":"throws"},{"kind":"text","text":" -> "},{"kind":"typeIdentifier","text":"SelectionSet","preciseIdentifier":"s:6Apollo0A5StoreC15ReadTransactionC10readObject6ofType7withKey9variablesxxm_SSSDySS0A3API29GraphQLOperationVariableValue_pGSgtKAJ16RootSelectionSetRzlF0rS0L_xmfp"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore\/ReadTransaction\/readObject(ofType:withKey:variables:)","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/apollostore\/readtransaction\/readobject(oftype:withkey:variables:)"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloStore/ReadTransaction":{"role":"symbol","title":"ApolloStore.ReadTransaction","fragments":[{"kind":"keyword","text":"class"},{"kind":"text","text":" "},{"kind":"identifier","text":"ReadTransaction"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore\/ReadTransaction","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"ReadTransaction"}],"url":"\/documentation\/apollo\/apollostore\/readtransaction"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo":{"role":"collection","title":"Apollo","abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo","kind":"symbol","type":"topic","url":"\/documentation\/apollo"}}}
+{
+  "abstract" : [
+    {
+      "text" : "No overview available.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore\/ReadTransaction"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:6Apollo0A5StoreC15ReadTransactionC",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "class"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "ReadTransaction"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Apollo"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "ReadTransaction"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Class",
+    "symbolKind" : "class",
+    "title" : "ApolloStore.ReadTransaction"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "class"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "ReadTransaction"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction"
+      ],
+      "kind" : "relationships",
+      "title" : "Inherited By",
+      "type" : "inheritedBy"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore\/ReadTransaction\/read(query:)",
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore\/ReadTransaction\/readObject(ofType:withKey:variables:)"
+      ],
+      "title" : "Instance Methods"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollo\/apollostore\/readtransaction"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Apollo",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloStore": {
+  "abstract" : [
+    {
+      "text" : "The ",
+      "type" : "text"
+    },
+    {
+      "code" : "ApolloStore",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " class acts as a local cache for normalized GraphQL results.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ApolloStore"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ApolloStore"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ApolloStore",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/apollostore"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloStore/ReadTransaction": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ReadTransaction"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore\/ReadTransaction",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ReadTransaction"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ApolloStore.ReadTransaction",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/apollostore\/readtransaction"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloStore/ReadTransaction/read(query:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "read"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Query"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "query"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo0A5StoreC15ReadTransactionC4read5query4DataQzx_tK0A3API12GraphQLQueryRzlF5QueryL_xmfp",
+      "text" : "Query"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo0A5StoreC15ReadTransactionC4read5query4DataQzx_tK0A3API12GraphQLQueryRzlF5QueryL_xmfp",
+      "text" : "Query"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
+      "text" : "Data"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore\/ReadTransaction\/read(query:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "read(query:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/apollostore\/readtransaction\/read(query:)"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloStore/ReadTransaction/readObject(ofType:withKey:variables:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "readObject"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "SelectionSet"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "ofType"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo0A5StoreC15ReadTransactionC10readObject6ofType7withKey9variablesxxm_SSSDySS0A3API29GraphQLOperationVariableValue_pGSgtKAJ16RootSelectionSetRzlF0rS0L_xmfp",
+      "text" : "SelectionSet"
+    },
+    {
+      "kind" : "text",
+      "text" : ".Type, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "withKey"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo8CacheKeya",
+      "text" : "CacheKey"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "variables"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP",
+      "text" : "GraphQLOperation"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP9Variablesa",
+      "text" : "Variables"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo0A5StoreC15ReadTransactionC10readObject6ofType7withKey9variablesxxm_SSSDySS0A3API29GraphQLOperationVariableValue_pGSgtKAJ16RootSelectionSetRzlF0rS0L_xmfp",
+      "text" : "SelectionSet"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore\/ReadTransaction\/readObject(ofType:withKey:variables:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "readObject(ofType:withKey:variables:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/apollostore\/readtransaction\/readobject(oftype:withkey:variables:)"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloStore/ReadWriteTransaction": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ReadWriteTransaction"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ReadWriteTransaction"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ApolloStore.ReadWriteTransaction",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/apollostore\/readwritetransaction"
+}
+}
+}

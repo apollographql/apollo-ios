@@ -1,1 +1,312 @@
-{"primaryContentSections":[{"kind":"declarations","declarations":[{"tokens":[{"kind":"keyword","text":"var"},{"kind":"text","text":" "},{"kind":"identifier","text":"underlying"},{"kind":"text","text":": ["},{"kind":"typeIdentifier","identifier":"doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/DictionaryType\/KeyType","preciseIdentifier":"s:11ApolloUtils14DictionaryTypeP03KeyD0Qa","text":"KeyType"},{"kind":"text","text":" : "},{"kind":"typeIdentifier","identifier":"doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/DictionaryType\/ValueType","preciseIdentifier":"s:11ApolloUtils14DictionaryTypeP05ValueD0Qa","text":"ValueType"},{"kind":"text","text":"] { "},{"kind":"keyword","text":"get"},{"kind":"text","text":" }"}],"languages":["swift"],"platforms":["macOS"]}]}],"schemaVersion":{"major":0,"minor":2,"patch":0},"sections":[],"variants":[{"paths":["\/documentation\/apolloutils\/dictionarytype\/underlying"],"traits":[{"interfaceLanguage":"swift"}]}],"identifier":{"url":"doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/DictionaryType\/underlying","interfaceLanguage":"swift"},"abstract":[{"type":"text","text":"No overview available."}],"kind":"symbol","metadata":{"role":"symbol","title":"underlying","roleHeading":"Instance Property","fragments":[{"kind":"keyword","text":"var"},{"kind":"text","text":" "},{"kind":"identifier","text":"underlying"},{"kind":"text","text":": ["},{"kind":"typeIdentifier","text":"KeyType","preciseIdentifier":"s:11ApolloUtils14DictionaryTypeP03KeyD0Qa"},{"kind":"text","text":" : "},{"kind":"typeIdentifier","text":"ValueType","preciseIdentifier":"s:11ApolloUtils14DictionaryTypeP05ValueD0Qa"},{"kind":"text","text":"]"}],"symbolKind":"property","externalID":"s:11ApolloUtils14DictionaryTypeP10underlyingSDy03KeyD0Qz05ValueD0QzGvp","required":true,"modules":[{"name":"ApolloUtils"}]},"hierarchy":{"paths":[["doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils","doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/DictionaryType"]]},"references":{"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/DictionaryType/KeyType":{"role":"symbol","title":"KeyType","fragments":[{"kind":"keyword","text":"associatedtype"},{"kind":"text","text":" "},{"kind":"identifier","text":"KeyType"},{"kind":"text","text":" : "},{"kind":"typeIdentifier","text":"Hashable","preciseIdentifier":"s:SH"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/DictionaryType\/KeyType","kind":"symbol","required":true,"type":"topic","url":"\/documentation\/apolloutils\/dictionarytype\/keytype"},"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/DictionaryType/underlying":{"role":"symbol","title":"underlying","fragments":[{"kind":"keyword","text":"var"},{"kind":"text","text":" "},{"kind":"identifier","text":"underlying"},{"kind":"text","text":": ["},{"kind":"typeIdentifier","text":"KeyType","preciseIdentifier":"s:11ApolloUtils14DictionaryTypeP03KeyD0Qa"},{"kind":"text","text":" : "},{"kind":"typeIdentifier","text":"ValueType","preciseIdentifier":"s:11ApolloUtils14DictionaryTypeP05ValueD0Qa"},{"kind":"text","text":"]"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/DictionaryType\/underlying","kind":"symbol","required":true,"type":"topic","url":"\/documentation\/apolloutils\/dictionarytype\/underlying"},"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/DictionaryType":{"role":"symbol","title":"DictionaryType","fragments":[{"kind":"keyword","text":"protocol"},{"kind":"text","text":" "},{"kind":"identifier","text":"DictionaryType"}],"abstract":[{"type":"text","text":"Provides a PAT interface to "},{"type":"codeVoice","code":"Dictionary<Key, Value>"}],"identifier":"doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/DictionaryType","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"DictionaryType"}],"url":"\/documentation\/apolloutils\/dictionarytype"},"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/DictionaryType/ValueType":{"role":"symbol","title":"ValueType","fragments":[{"kind":"keyword","text":"associatedtype"},{"kind":"text","text":" "},{"kind":"identifier","text":"ValueType"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/DictionaryType\/ValueType","kind":"symbol","required":true,"type":"topic","url":"\/documentation\/apolloutils\/dictionarytype\/valuetype"},"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils":{"role":"collection","title":"ApolloUtils","abstract":[],"identifier":"doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils","kind":"symbol","type":"topic","url":"\/documentation\/apolloutils"}}}
+{
+  "abstract" : [
+    {
+      "text" : "No overview available.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils",
+        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/DictionaryType"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/DictionaryType\/underlying"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:11ApolloUtils14DictionaryTypeP10underlyingSDy03KeyD0Qz05ValueD0QzGvp",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "var"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "underlying"
+      },
+      {
+        "kind" : "text",
+        "text" : ": ["
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:11ApolloUtils14DictionaryTypeP03KeyD0Qa",
+        "text" : "KeyType"
+      },
+      {
+        "kind" : "text",
+        "text" : " : "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:11ApolloUtils14DictionaryTypeP05ValueD0Qa",
+        "text" : "ValueType"
+      },
+      {
+        "kind" : "text",
+        "text" : "]"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "ApolloUtils"
+      }
+    ],
+    "required" : true,
+    "role" : "symbol",
+    "roleHeading" : "Instance Property",
+    "symbolKind" : "property",
+    "title" : "underlying"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "var"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "underlying"
+            },
+            {
+              "kind" : "text",
+              "text" : ": ["
+            },
+            {
+              "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/DictionaryType\/KeyType",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:11ApolloUtils14DictionaryTypeP03KeyD0Qa",
+              "text" : "KeyType"
+            },
+            {
+              "kind" : "text",
+              "text" : " : "
+            },
+            {
+              "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/DictionaryType\/ValueType",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:11ApolloUtils14DictionaryTypeP05ValueD0Qa",
+              "text" : "ValueType"
+            },
+            {
+              "kind" : "text",
+              "text" : "] { "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "get"
+            },
+            {
+              "kind" : "text",
+              "text" : " }"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apolloutils\/dictionarytype\/underlying"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "ApolloUtils",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloutils"
+},
+"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/DictionaryType": {
+  "abstract" : [
+    {
+      "text" : "Provides a PAT interface to ",
+      "type" : "text"
+    },
+    {
+      "code" : "Dictionary<Key, Value>",
+      "type" : "codeVoice"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DictionaryType"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/DictionaryType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DictionaryType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DictionaryType",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloutils\/dictionarytype"
+},
+"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/DictionaryType/KeyType": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "associatedtype"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "KeyType"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SH",
+      "text" : "Hashable"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/DictionaryType\/KeyType",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "KeyType",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloutils\/dictionarytype\/keytype"
+},
+"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/DictionaryType/ValueType": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "associatedtype"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ValueType"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/DictionaryType\/ValueType",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "ValueType",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloutils\/dictionarytype\/valuetype"
+},
+"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/DictionaryType/underlying": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "underlying"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11ApolloUtils14DictionaryTypeP03KeyD0Qa",
+      "text" : "KeyType"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11ApolloUtils14DictionaryTypeP05ValueD0Qa",
+      "text" : "ValueType"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/DictionaryType\/underlying",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "underlying",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloutils\/dictionarytype\/underlying"
+}
+}
+}

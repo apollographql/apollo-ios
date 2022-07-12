@@ -1,1 +1,385 @@
-{"primaryContentSections":[{"kind":"declarations","declarations":[{"tokens":[{"kind":"keyword","text":"func"},{"kind":"text","text":" "},{"kind":"identifier","text":"additionalErrorInterceptor"},{"kind":"text","text":"<"},{"kind":"genericParameter","text":"Operation"},{"kind":"text","text":">("},{"kind":"externalParam","text":"for"},{"kind":"text","text":" "},{"kind":"internalParam","text":"operation"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"Operation","preciseIdentifier":"s:6Apollo26DefaultInterceptorProviderC015additionalErrorC03forAA0afC0_pSgx_t0A3API16GraphQLOperationRzlF9OperationL_xmfp"},{"kind":"text","text":") -> "},{"kind":"typeIdentifier","identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloErrorInterceptor","preciseIdentifier":"s:6Apollo0A16ErrorInterceptorP","text":"ApolloErrorInterceptor"},{"kind":"text","text":"? "},{"kind":"keyword","text":"where"},{"kind":"text","text":" "},{"kind":"typeIdentifier","text":"Operation"},{"kind":"text","text":" : "},{"kind":"typeIdentifier","text":"GraphQLOperation","preciseIdentifier":"s:9ApolloAPI16GraphQLOperationP"}],"languages":["swift"],"platforms":["macOS"]}]},{"kind":"parameters","parameters":[{"name":"operation","content":[{"type":"paragraph","inlineContent":[{"type":"text","text":"The operation to provide an additional error interceptor for"}]}]}]}],"schemaVersion":{"major":0,"minor":2,"patch":0},"sections":[],"variants":[{"paths":["\/documentation\/apollo\/defaultinterceptorprovider\/additionalerrorinterceptor(for:)-5e08v"],"traits":[{"interfaceLanguage":"swift"}]}],"identifier":{"url":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/DefaultInterceptorProvider\/additionalErrorInterceptor(for:)-5e08v","interfaceLanguage":"swift"},"abstract":[{"type":"text","text":"Provides an additional error interceptor for any additional handling of errors"},{"type":"text","text":" "},{"type":"text","text":"before returning to the UI, such as logging."}],"kind":"symbol","metadata":{"fragments":[{"kind":"keyword","text":"func"},{"kind":"text","text":" "},{"kind":"identifier","text":"additionalErrorInterceptor"},{"kind":"text","text":"<"},{"kind":"genericParameter","text":"Operation"},{"kind":"text","text":">("},{"kind":"externalParam","text":"for"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"Operation","preciseIdentifier":"s:6Apollo26DefaultInterceptorProviderC015additionalErrorC03forAA0afC0_pSgx_t0A3API16GraphQLOperationRzlF9OperationL_xmfp"},{"kind":"text","text":") -> "},{"kind":"typeIdentifier","text":"ApolloErrorInterceptor","preciseIdentifier":"s:6Apollo0A16ErrorInterceptorP"},{"kind":"text","text":"?"}],"title":"additionalErrorInterceptor(for:)","roleHeading":"Instance Method","role":"symbol","symbolKind":"method","externalID":"s:6Apollo26DefaultInterceptorProviderC015additionalErrorC03forAA0afC0_pSgx_t0A3API16GraphQLOperationRzlF","modules":[{"name":"Apollo"}]},"hierarchy":{"paths":[["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo","doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/DefaultInterceptorProvider"]]},"references":{"doc://com.apollographql.Apollo.macosx/documentation/Apollo":{"role":"collection","title":"Apollo","abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo","kind":"symbol","type":"topic","url":"\/documentation\/apollo"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloErrorInterceptor":{"role":"symbol","title":"ApolloErrorInterceptor","fragments":[{"kind":"keyword","text":"protocol"},{"kind":"text","text":" "},{"kind":"identifier","text":"ApolloErrorInterceptor"}],"abstract":[{"type":"text","text":"An error interceptor called to allow further examination of error data when an error occurs in the chain."}],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloErrorInterceptor","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"ApolloErrorInterceptor"}],"url":"\/documentation\/apollo\/apolloerrorinterceptor"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/DefaultInterceptorProvider/additionalErrorInterceptor(for:)-5e08v":{"role":"symbol","title":"additionalErrorInterceptor(for:)","fragments":[{"kind":"keyword","text":"func"},{"kind":"text","text":" "},{"kind":"identifier","text":"additionalErrorInterceptor"},{"kind":"text","text":"<"},{"kind":"genericParameter","text":"Operation"},{"kind":"text","text":">("},{"kind":"externalParam","text":"for"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"Operation","preciseIdentifier":"s:6Apollo26DefaultInterceptorProviderC015additionalErrorC03forAA0afC0_pSgx_t0A3API16GraphQLOperationRzlF9OperationL_xmfp"},{"kind":"text","text":") -> "},{"kind":"typeIdentifier","text":"ApolloErrorInterceptor","preciseIdentifier":"s:6Apollo0A16ErrorInterceptorP"},{"kind":"text","text":"?"}],"abstract":[{"type":"text","text":"Provides an additional error interceptor for any additional handling of errors"},{"type":"text","text":" "},{"type":"text","text":"before returning to the UI, such as logging."}],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/DefaultInterceptorProvider\/additionalErrorInterceptor(for:)-5e08v","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/defaultinterceptorprovider\/additionalerrorinterceptor(for:)-5e08v"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/DefaultInterceptorProvider":{"role":"symbol","title":"DefaultInterceptorProvider","fragments":[{"kind":"keyword","text":"class"},{"kind":"text","text":" "},{"kind":"identifier","text":"DefaultInterceptorProvider"}],"abstract":[{"type":"text","text":"The default interceptor provider for typescript-generated code"}],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/DefaultInterceptorProvider","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"DefaultInterceptorProvider"}],"url":"\/documentation\/apollo\/defaultinterceptorprovider"}}}
+{
+  "abstract" : [
+    {
+      "text" : "Provides an additional error interceptor for any additional handling of errors",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "before returning to the UI, such as logging.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/DefaultInterceptorProvider"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/DefaultInterceptorProvider\/additionalErrorInterceptor(for:)-5e08v"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:6Apollo26DefaultInterceptorProviderC015additionalErrorC03forAA0afC0_pSgx_t0A3API16GraphQLOperationRzlF",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "func"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "additionalErrorInterceptor"
+      },
+      {
+        "kind" : "text",
+        "text" : "<"
+      },
+      {
+        "kind" : "genericParameter",
+        "text" : "Operation"
+      },
+      {
+        "kind" : "text",
+        "text" : ">("
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "for"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:6Apollo26DefaultInterceptorProviderC015additionalErrorC03forAA0afC0_pSgx_t0A3API16GraphQLOperationRzlF9OperationL_xmfp",
+        "text" : "Operation"
+      },
+      {
+        "kind" : "text",
+        "text" : ") -> "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:6Apollo0A16ErrorInterceptorP",
+        "text" : "ApolloErrorInterceptor"
+      },
+      {
+        "kind" : "text",
+        "text" : "?"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Apollo"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Instance Method",
+    "symbolKind" : "method",
+    "title" : "additionalErrorInterceptor(for:)"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "func"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "additionalErrorInterceptor"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "genericParameter",
+              "text" : "Operation"
+            },
+            {
+              "kind" : "text",
+              "text" : ">("
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "for"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "internalParam",
+              "text" : "operation"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:6Apollo26DefaultInterceptorProviderC015additionalErrorC03forAA0afC0_pSgx_t0A3API16GraphQLOperationRzlF9OperationL_xmfp",
+              "text" : "Operation"
+            },
+            {
+              "kind" : "text",
+              "text" : ") -> "
+            },
+            {
+              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloErrorInterceptor",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:6Apollo0A16ErrorInterceptorP",
+              "text" : "ApolloErrorInterceptor"
+            },
+            {
+              "kind" : "text",
+              "text" : "? "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "where"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Operation"
+            },
+            {
+              "kind" : "text",
+              "text" : " : "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP",
+              "text" : "GraphQLOperation"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
+      "kind" : "parameters",
+      "parameters" : [
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "The operation to provide an additional error interceptor for",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "operation"
+        }
+      ]
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollo\/defaultinterceptorprovider\/additionalerrorinterceptor(for:)-5e08v"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Apollo",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloErrorInterceptor": {
+  "abstract" : [
+    {
+      "text" : "An error interceptor called to allow further examination of error data when an error occurs in the chain.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ApolloErrorInterceptor"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloErrorInterceptor",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ApolloErrorInterceptor"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ApolloErrorInterceptor",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/apolloerrorinterceptor"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/DefaultInterceptorProvider": {
+  "abstract" : [
+    {
+      "text" : "The default interceptor provider for typescript-generated code",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DefaultInterceptorProvider"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/DefaultInterceptorProvider",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DefaultInterceptorProvider"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DefaultInterceptorProvider",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/defaultinterceptorprovider"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/DefaultInterceptorProvider/additionalErrorInterceptor(for:)-5e08v": {
+  "abstract" : [
+    {
+      "text" : "Provides an additional error interceptor for any additional handling of errors",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "before returning to the UI, such as logging.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "additionalErrorInterceptor"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Operation"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "for"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo26DefaultInterceptorProviderC015additionalErrorC03forAA0afC0_pSgx_t0A3API16GraphQLOperationRzlF9OperationL_xmfp",
+      "text" : "Operation"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo0A16ErrorInterceptorP",
+      "text" : "ApolloErrorInterceptor"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/DefaultInterceptorProvider\/additionalErrorInterceptor(for:)-5e08v",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "additionalErrorInterceptor(for:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/defaultinterceptorprovider\/additionalerrorinterceptor(for:)-5e08v"
+}
+}
+}

@@ -1,1 +1,350 @@
-{"primaryContentSections":[{"kind":"declarations","declarations":[{"tokens":[{"kind":"keyword","text":"func"},{"kind":"text","text":" "},{"kind":"identifier","text":"urlSession"},{"kind":"text","text":"("},{"kind":"externalParam","text":"_"},{"kind":"text","text":" "},{"kind":"internalParam","text":"session"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"URLSession","preciseIdentifier":"c:objc(cs)NSURLSession"},{"kind":"text","text":", "},{"kind":"externalParam","text":"task"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"URLSessionTask","preciseIdentifier":"c:objc(cs)NSURLSessionTask"},{"kind":"text","text":", "},{"kind":"externalParam","text":"didFinishCollecting"},{"kind":"text","text":" "},{"kind":"internalParam","text":"metrics"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"URLSessionTaskMetrics","preciseIdentifier":"c:objc(cs)NSURLSessionTaskMetrics"},{"kind":"text","text":")"}],"languages":["swift"],"platforms":["macOS"]}]}],"schemaVersion":{"major":0,"minor":2,"patch":0},"sections":[],"variants":[{"paths":["\/documentation\/apollo\/urlsessionclient\/urlsession(_:task:didfinishcollecting:)"],"traits":[{"interfaceLanguage":"swift"}]}],"identifier":{"url":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/urlSession(_:task:didFinishCollecting:)","interfaceLanguage":"swift"},"abstract":[{"type":"text","text":"Inherited from "},{"type":"codeVoice","code":"URLSessionTaskDelegate.urlSession(_:task:didFinishCollecting:)"},{"type":"text","text":"."}],"kind":"symbol","metadata":{"fragments":[{"kind":"keyword","text":"func"},{"kind":"text","text":" "},{"kind":"identifier","text":"urlSession"},{"kind":"text","text":"("},{"kind":"typeIdentifier","text":"URLSession","preciseIdentifier":"c:objc(cs)NSURLSession"},{"kind":"text","text":", "},{"kind":"externalParam","text":"task"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"URLSessionTask","preciseIdentifier":"c:objc(cs)NSURLSessionTask"},{"kind":"text","text":", "},{"kind":"externalParam","text":"didFinishCollecting"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"URLSessionTaskMetrics","preciseIdentifier":"c:objc(cs)NSURLSessionTaskMetrics"},{"kind":"text","text":")"}],"title":"urlSession(_:task:didFinishCollecting:)","roleHeading":"Instance Method","role":"symbol","symbolKind":"method","externalID":"c:@M@Apollo@objc(cs)URLSessionClient(im)URLSession:task:didFinishCollectingMetrics:","modules":[{"name":"Apollo"}]},"hierarchy":{"paths":[["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo","doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient"]]},"references":{"doc://com.apollographql.Apollo.macosx/documentation/Apollo":{"role":"collection","title":"Apollo","abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo","kind":"symbol","type":"topic","url":"\/documentation\/apollo"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient":{"role":"symbol","title":"URLSessionClient","fragments":[{"kind":"keyword","text":"class"},{"kind":"text","text":" "},{"kind":"identifier","text":"URLSessionClient"}],"abstract":[{"type":"text","text":"A class to handle URL Session calls that will support background execution,"},{"type":"text","text":" "},{"type":"text","text":"but still (mostly) use callbacks for its primary method of communication."}],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"URLSessionClient"}],"url":"\/documentation\/apollo\/urlsessionclient"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/urlSession(_:task:didFinishCollecting:)":{"role":"symbol","title":"urlSession(_:task:didFinishCollecting:)","fragments":[{"kind":"keyword","text":"func"},{"kind":"text","text":" "},{"kind":"identifier","text":"urlSession"},{"kind":"text","text":"("},{"kind":"typeIdentifier","text":"URLSession","preciseIdentifier":"c:objc(cs)NSURLSession"},{"kind":"text","text":", "},{"kind":"externalParam","text":"task"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"URLSessionTask","preciseIdentifier":"c:objc(cs)NSURLSessionTask"},{"kind":"text","text":", "},{"kind":"externalParam","text":"didFinishCollecting"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"URLSessionTaskMetrics","preciseIdentifier":"c:objc(cs)NSURLSessionTaskMetrics"},{"kind":"text","text":")"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/urlSession(_:task:didFinishCollecting:)","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/urlsessionclient\/urlsession(_:task:didfinishcollecting:)"}}}
+{
+  "abstract" : [
+    {
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "URLSessionTaskDelegate.urlSession(_:task:didFinishCollecting:)",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/urlSession(_:task:didFinishCollecting:)"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "c:@M@Apollo@objc(cs)URLSessionClient(im)URLSession:task:didFinishCollectingMetrics:",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "func"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "urlSession"
+      },
+      {
+        "kind" : "text",
+        "text" : "("
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "c:objc(cs)NSURLSession",
+        "text" : "URLSession"
+      },
+      {
+        "kind" : "text",
+        "text" : ", "
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "task"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "c:objc(cs)NSURLSessionTask",
+        "text" : "URLSessionTask"
+      },
+      {
+        "kind" : "text",
+        "text" : ", "
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "didFinishCollecting"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "c:objc(cs)NSURLSessionTaskMetrics",
+        "text" : "URLSessionTaskMetrics"
+      },
+      {
+        "kind" : "text",
+        "text" : ")"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Apollo"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Instance Method",
+    "symbolKind" : "method",
+    "title" : "urlSession(_:task:didFinishCollecting:)"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "func"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "urlSession"
+            },
+            {
+              "kind" : "text",
+              "text" : "("
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "_"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "internalParam",
+              "text" : "session"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "c:objc(cs)NSURLSession",
+              "text" : "URLSession"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "task"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "c:objc(cs)NSURLSessionTask",
+              "text" : "URLSessionTask"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "didFinishCollecting"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "internalParam",
+              "text" : "metrics"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "c:objc(cs)NSURLSessionTaskMetrics",
+              "text" : "URLSessionTaskMetrics"
+            },
+            {
+              "kind" : "text",
+              "text" : ")"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollo\/urlsessionclient\/urlsession(_:task:didfinishcollecting:)"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Apollo",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient": {
+  "abstract" : [
+    {
+      "text" : "A class to handle URL Session calls that will support background execution,",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "but still (mostly) use callbacks for its primary method of communication.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "URLSessionClient"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "URLSessionClient"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "URLSessionClient",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/urlsessionclient"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/urlSession(_:task:didFinishCollecting:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "urlSession"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:objc(cs)NSURLSession",
+      "text" : "URLSession"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "task"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:objc(cs)NSURLSessionTask",
+      "text" : "URLSessionTask"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "didFinishCollecting"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:objc(cs)NSURLSessionTaskMetrics",
+      "text" : "URLSessionTaskMetrics"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/urlSession(_:task:didFinishCollecting:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "urlSession(_:task:didFinishCollecting:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/urlsessionclient\/urlsession(_:task:didfinishcollecting:)"
+}
+}
+}

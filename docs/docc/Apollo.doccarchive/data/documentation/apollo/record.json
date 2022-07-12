@@ -1,1 +1,450 @@
-{"primaryContentSections":[{"kind":"declarations","declarations":[{"tokens":[{"kind":"keyword","text":"struct"},{"kind":"text","text":" "},{"kind":"identifier","text":"Record"}],"languages":["swift"],"platforms":["macOS"]}]}],"schemaVersion":{"major":0,"minor":2,"patch":0},"sections":[],"variants":[{"paths":["\/documentation\/apollo\/record"],"traits":[{"interfaceLanguage":"swift"}]}],"relationshipsSections":[{"identifiers":["doc:\/\/com.apollographql.Apollo.macosx\/s23CustomStringConvertibleP","doc:\/\/com.apollographql.Apollo.macosx\/SQ","doc:\/\/com.apollographql.Apollo.macosx\/SH"],"kind":"relationships","title":"Conforms To","type":"conformsTo"}],"identifier":{"url":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record","interfaceLanguage":"swift"},"abstract":[{"type":"text","text":"A cache record."}],"kind":"symbol","metadata":{"fragments":[{"kind":"keyword","text":"struct"},{"kind":"text","text":" "},{"kind":"identifier","text":"Record"}],"title":"Record","roleHeading":"Structure","role":"symbol","symbolKind":"struct","externalID":"s:6Apollo6RecordV","modules":[{"name":"Apollo"}],"navigatorTitle":[{"kind":"identifier","text":"Record"}]},"hierarchy":{"paths":[["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"]]},"topicSections":[{"title":"Initializers","identifiers":["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record\/init(key:_:)"]},{"title":"Instance Properties","identifiers":["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record\/fields-swift.property","doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record\/key"]},{"title":"Subscripts","identifiers":["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record\/subscript(_:)"]},{"title":"Type Aliases","identifiers":["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record\/Fields-swift.typealias","doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record\/Value"]},{"title":"Default Implementations","identifiers":["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record\/CustomStringConvertible-Implementations","doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record\/Equatable-Implementations"],"generated":true}],"references":{"doc://com.apollographql.Apollo.macosx/documentation/Apollo/Record/Equatable-Implementations":{"role":"collectionGroup","title":"Equatable Implementations","abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record\/Equatable-Implementations","kind":"article","type":"topic","url":"\/documentation\/apollo\/record\/equatable-implementations"},"doc://com.apollographql.Apollo.macosx/SH":{"type":"unresolvable","title":"Swift.Hashable","identifier":"doc:\/\/com.apollographql.Apollo.macosx\/SH"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/Record/subscript(_:)":{"role":"symbol","title":"subscript(_:)","fragments":[{"kind":"keyword","text":"subscript"},{"kind":"text","text":"("},{"kind":"typeIdentifier","text":"CacheKey","preciseIdentifier":"s:6Apollo8CacheKeya"},{"kind":"text","text":") -> "},{"kind":"typeIdentifier","text":"Value","preciseIdentifier":"s:6Apollo6RecordV5Valuea"},{"kind":"text","text":"?"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record\/subscript(_:)","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/record\/subscript(_:)"},"doc://com.apollographql.Apollo.macosx/SQ":{"type":"unresolvable","title":"Swift.Equatable","identifier":"doc:\/\/com.apollographql.Apollo.macosx\/SQ"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/Record/Value":{"role":"symbol","title":"Record.Value","fragments":[{"kind":"keyword","text":"typealias"},{"kind":"text","text":" "},{"kind":"identifier","text":"Value"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record\/Value","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"Value"}],"url":"\/documentation\/apollo\/record\/value"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/Record/fields-swift.property":{"role":"symbol","title":"fields","fragments":[{"kind":"keyword","text":"var"},{"kind":"text","text":" "},{"kind":"identifier","text":"fields"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"Fields","preciseIdentifier":"s:6Apollo6RecordV6Fieldsa"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record\/fields-swift.property","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/record\/fields-swift.property"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/Record/key":{"role":"symbol","title":"key","fragments":[{"kind":"keyword","text":"let"},{"kind":"text","text":" "},{"kind":"identifier","text":"key"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"CacheKey","preciseIdentifier":"s:6Apollo8CacheKeya"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record\/key","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/record\/key"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/Record/init(key:_:)":{"role":"symbol","title":"init(key:_:)","fragments":[{"kind":"identifier","text":"init"},{"kind":"text","text":"("},{"kind":"externalParam","text":"key"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"CacheKey","preciseIdentifier":"s:6Apollo8CacheKeya"},{"kind":"text","text":", "},{"kind":"typeIdentifier","text":"Fields","preciseIdentifier":"s:6Apollo6RecordV6Fieldsa"},{"kind":"text","text":")"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record\/init(key:_:)","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/record\/init(key:_:)"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo":{"role":"collection","title":"Apollo","abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo","kind":"symbol","type":"topic","url":"\/documentation\/apollo"},"doc://com.apollographql.Apollo.macosx/s23CustomStringConvertibleP":{"type":"unresolvable","title":"Swift.CustomStringConvertible","identifier":"doc:\/\/com.apollographql.Apollo.macosx\/s23CustomStringConvertibleP"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/Record/CustomStringConvertible-Implementations":{"role":"collectionGroup","title":"CustomStringConvertible Implementations","abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record\/CustomStringConvertible-Implementations","kind":"article","type":"topic","url":"\/documentation\/apollo\/record\/customstringconvertible-implementations"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/Record/Fields-swift.typealias":{"role":"symbol","title":"Record.Fields","fragments":[{"kind":"keyword","text":"typealias"},{"kind":"text","text":" "},{"kind":"identifier","text":"Fields"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record\/Fields-swift.typealias","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"Fields"}],"url":"\/documentation\/apollo\/record\/fields-swift.typealias"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/Record":{"role":"symbol","title":"Record","fragments":[{"kind":"keyword","text":"struct"},{"kind":"text","text":" "},{"kind":"identifier","text":"Record"}],"abstract":[{"type":"text","text":"A cache record."}],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"Record"}],"url":"\/documentation\/apollo\/record"}}}
+{
+  "abstract" : [
+    {
+      "text" : "A cache record.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:6Apollo6RecordV",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "struct"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "Record"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Apollo"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "Record"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Structure",
+    "symbolKind" : "struct",
+    "title" : "Record"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "struct"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "Record"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.Apollo.macosx\/s23CustomStringConvertibleP",
+        "doc:\/\/com.apollographql.Apollo.macosx\/SQ",
+        "doc:\/\/com.apollographql.Apollo.macosx\/SH"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record\/init(key:_:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record\/fields-swift.property",
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record\/key"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record\/subscript(_:)"
+      ],
+      "title" : "Subscripts"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record\/Fields-swift.typealias",
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record\/Value"
+      ],
+      "title" : "Type Aliases"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record\/CustomStringConvertible-Implementations",
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record\/Equatable-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollo\/record"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://com.apollographql.Apollo.macosx/SH": {
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/SH",
+  "title" : "Swift.Hashable",
+  "type" : "unresolvable"
+},
+"doc://com.apollographql.Apollo.macosx/SQ": {
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/SQ",
+  "title" : "Swift.Equatable",
+  "type" : "unresolvable"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Apollo",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/Record": {
+  "abstract" : [
+    {
+      "text" : "A cache record.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Record"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Record"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Record",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/record"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/Record/CustomStringConvertible-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record\/CustomStringConvertible-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "CustomStringConvertible Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/record\/customstringconvertible-implementations"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/Record/Equatable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record\/Equatable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Equatable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/record\/equatable-implementations"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/Record/Fields-swift.typealias": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Fields"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record\/Fields-swift.typealias",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Fields"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Record.Fields",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/record\/fields-swift.typealias"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/Record/Value": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Value"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record\/Value",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Value"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Record.Value",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/record\/value"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/Record/fields-swift.property": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "fields"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo6RecordV6Fieldsa",
+      "text" : "Fields"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record\/fields-swift.property",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "fields",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/record\/fields-swift.property"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/Record/init(key:_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "key"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo8CacheKeya",
+      "text" : "CacheKey"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo6RecordV6Fieldsa",
+      "text" : "Fields"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record\/init(key:_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(key:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/record\/init(key:_:)"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/Record/key": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "key"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo8CacheKeya",
+      "text" : "CacheKey"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record\/key",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "key",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/record\/key"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/Record/subscript(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "subscript"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo8CacheKeya",
+      "text" : "CacheKey"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo6RecordV5Valuea",
+      "text" : "Value"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record\/subscript(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "subscript(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/record\/subscript(_:)"
+},
+"doc://com.apollographql.Apollo.macosx/s23CustomStringConvertibleP": {
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/s23CustomStringConvertibleP",
+  "title" : "Swift.CustomStringConvertible",
+  "type" : "unresolvable"
+}
+}
+}

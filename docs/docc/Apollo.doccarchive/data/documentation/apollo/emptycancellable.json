@@ -1,1 +1,284 @@
-{"primaryContentSections":[{"kind":"declarations","declarations":[{"tokens":[{"kind":"keyword","text":"final"},{"kind":"text","text":" "},{"kind":"keyword","text":"class"},{"kind":"text","text":" "},{"kind":"identifier","text":"EmptyCancellable"}],"languages":["swift"],"platforms":["macOS"]}]}],"schemaVersion":{"major":0,"minor":2,"patch":0},"sections":[],"variants":[{"paths":["\/documentation\/apollo\/emptycancellable"],"traits":[{"interfaceLanguage":"swift"}]}],"relationshipsSections":[{"identifiers":["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Cancellable"],"kind":"relationships","title":"Conforms To","type":"conformsTo"}],"identifier":{"url":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/EmptyCancellable","interfaceLanguage":"swift"},"abstract":[{"type":"text","text":"A class to return when we need to bail out of something which still needs to return "},{"type":"codeVoice","code":"Cancellable"},{"type":"text","text":"."}],"kind":"symbol","metadata":{"fragments":[{"kind":"keyword","text":"class"},{"kind":"text","text":" "},{"kind":"identifier","text":"EmptyCancellable"}],"title":"EmptyCancellable","roleHeading":"Class","role":"symbol","symbolKind":"class","externalID":"s:6Apollo16EmptyCancellableC","modules":[{"name":"Apollo"}],"navigatorTitle":[{"kind":"identifier","text":"EmptyCancellable"}]},"hierarchy":{"paths":[["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"]]},"topicSections":[{"title":"Initializers","identifiers":["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/EmptyCancellable\/init()"]},{"title":"Instance Methods","identifiers":["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/EmptyCancellable\/cancel()"]}],"references":{"doc://com.apollographql.Apollo.macosx/documentation/Apollo":{"role":"collection","title":"Apollo","abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo","kind":"symbol","type":"topic","url":"\/documentation\/apollo"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/Cancellable":{"role":"symbol","title":"Cancellable","fragments":[{"kind":"keyword","text":"protocol"},{"kind":"text","text":" "},{"kind":"identifier","text":"Cancellable"}],"abstract":[{"type":"text","text":"An object that can be used to cancel an in progress action."}],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Cancellable","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"Cancellable"}],"url":"\/documentation\/apollo\/cancellable"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/EmptyCancellable/cancel()":{"role":"symbol","title":"cancel()","fragments":[{"kind":"keyword","text":"func"},{"kind":"text","text":" "},{"kind":"identifier","text":"cancel"},{"kind":"text","text":"()"}],"abstract":[{"type":"text","text":"Cancel an in progress action."}],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/EmptyCancellable\/cancel()","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/emptycancellable\/cancel()"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/EmptyCancellable":{"role":"symbol","title":"EmptyCancellable","fragments":[{"kind":"keyword","text":"class"},{"kind":"text","text":" "},{"kind":"identifier","text":"EmptyCancellable"}],"abstract":[{"type":"text","text":"A class to return when we need to bail out of something which still needs to return "},{"type":"codeVoice","code":"Cancellable"},{"type":"text","text":"."}],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/EmptyCancellable","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"EmptyCancellable"}],"url":"\/documentation\/apollo\/emptycancellable"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/EmptyCancellable/init()":{"role":"symbol","title":"init()","fragments":[{"kind":"identifier","text":"init"},{"kind":"text","text":"()"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/EmptyCancellable\/init()","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/emptycancellable\/init()"}}}
+{
+  "abstract" : [
+    {
+      "text" : "A class to return when we need to bail out of something which still needs to return ",
+      "type" : "text"
+    },
+    {
+      "code" : "Cancellable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/EmptyCancellable"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:6Apollo16EmptyCancellableC",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "class"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "EmptyCancellable"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Apollo"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "EmptyCancellable"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Class",
+    "symbolKind" : "class",
+    "title" : "EmptyCancellable"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "final"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "class"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "EmptyCancellable"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Cancellable"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/EmptyCancellable\/init()"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/EmptyCancellable\/cancel()"
+      ],
+      "title" : "Instance Methods"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollo\/emptycancellable"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Apollo",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/Cancellable": {
+  "abstract" : [
+    {
+      "text" : "An object that can be used to cancel an in progress action.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Cancellable"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Cancellable",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Cancellable"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Cancellable",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/cancellable"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/EmptyCancellable": {
+  "abstract" : [
+    {
+      "text" : "A class to return when we need to bail out of something which still needs to return ",
+      "type" : "text"
+    },
+    {
+      "code" : "Cancellable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "EmptyCancellable"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/EmptyCancellable",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "EmptyCancellable"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "EmptyCancellable",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/emptycancellable"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/EmptyCancellable/cancel()": {
+  "abstract" : [
+    {
+      "text" : "Cancel an in progress action.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "cancel"
+    },
+    {
+      "kind" : "text",
+      "text" : "()"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/EmptyCancellable\/cancel()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "cancel()",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/emptycancellable\/cancel()"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/EmptyCancellable/init()": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "()"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/EmptyCancellable\/init()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init()",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/emptycancellable\/init()"
+}
+}
+}

@@ -1,1 +1,587 @@
-{"primaryContentSections":[{"kind":"declarations","declarations":[{"tokens":[{"kind":"keyword","text":"struct"},{"kind":"text","text":" "},{"kind":"identifier","text":"GraphQLResult"},{"kind":"text","text":"<"},{"kind":"genericParameter","text":"Data"},{"kind":"text","text":"> "},{"kind":"keyword","text":"where"},{"kind":"text","text":" "},{"kind":"typeIdentifier","text":"Data"},{"kind":"text","text":" : "},{"kind":"typeIdentifier","text":"RootSelectionSet","preciseIdentifier":"s:9ApolloAPI16RootSelectionSetP"}],"languages":["swift"],"platforms":["macOS"]}]}],"schemaVersion":{"major":0,"minor":2,"patch":0},"sections":[],"variants":[{"paths":["\/documentation\/apollo\/graphqlresult"],"traits":[{"interfaceLanguage":"swift"}]}],"relationshipsSections":[{"identifiers":["doc:\/\/com.apollographql.Apollo.macosx\/SQ","doc:\/\/com.apollographql.Apollo.macosx\/SH"],"kind":"relationships","title":"Conforms To","type":"conformsTo"}],"identifier":{"url":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult","interfaceLanguage":"swift"},"abstract":[{"type":"text","text":"Represents the result of a GraphQL operation."}],"kind":"symbol","metadata":{"fragments":[{"kind":"keyword","text":"struct"},{"kind":"text","text":" "},{"kind":"identifier","text":"GraphQLResult"}],"title":"GraphQLResult","roleHeading":"Structure","role":"symbol","symbolKind":"struct","externalID":"s:6Apollo13GraphQLResultV","modules":[{"name":"Apollo"}],"navigatorTitle":[{"kind":"identifier","text":"GraphQLResult"}]},"hierarchy":{"paths":[["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"]]},"topicSections":[{"title":"Initializers","identifiers":["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult\/init(data:extensions:errors:source:dependentKeys:)"]},{"title":"Instance Properties","identifiers":["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult\/data","doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult\/errors","doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult\/extensions","doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult\/source-swift.property"]},{"title":"Enumerations","identifiers":["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult\/Source-swift.enum"]},{"title":"Default Implementations","identifiers":["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult\/Equatable-Implementations"],"generated":true}],"references":{"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResult/data":{"role":"symbol","title":"data","fragments":[{"kind":"keyword","text":"let"},{"kind":"text","text":" "},{"kind":"identifier","text":"data"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"Data","preciseIdentifier":"s:6Apollo13GraphQLResultV4Dataxmfp"},{"kind":"text","text":"?"}],"abstract":[{"type":"text","text":"The typed result data, or "},{"type":"codeVoice","code":"nil"},{"type":"text","text":" if an error was encountered that prevented a valid response."}],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult\/data","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/graphqlresult\/data"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResult/extensions":{"role":"symbol","title":"extensions","fragments":[{"kind":"keyword","text":"let"},{"kind":"text","text":" "},{"kind":"identifier","text":"extensions"},{"kind":"text","text":": ["},{"kind":"typeIdentifier","text":"String","preciseIdentifier":"s:SS"},{"kind":"text","text":" : "},{"kind":"typeIdentifier","text":"AnyHashable","preciseIdentifier":"s:s11AnyHashableV"},{"kind":"text","text":"]?"}],"abstract":[{"type":"text","text":"A dictionary which services can use however they see fit to provide additional information to clients."}],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult\/extensions","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/graphqlresult\/extensions"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResult/errors":{"role":"symbol","title":"errors","fragments":[{"kind":"keyword","text":"let"},{"kind":"text","text":" "},{"kind":"identifier","text":"errors"},{"kind":"text","text":": ["},{"kind":"typeIdentifier","text":"GraphQLError","preciseIdentifier":"s:6Apollo12GraphQLErrorV"},{"kind":"text","text":"]?"}],"abstract":[{"type":"text","text":"A list of errors, or "},{"type":"codeVoice","code":"nil"},{"type":"text","text":" if the operation completed without encountering any errors."}],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult\/errors","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/graphqlresult\/errors"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResult":{"role":"symbol","title":"GraphQLResult","fragments":[{"kind":"keyword","text":"struct"},{"kind":"text","text":" "},{"kind":"identifier","text":"GraphQLResult"}],"abstract":[{"type":"text","text":"Represents the result of a GraphQL operation."}],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"GraphQLResult"}],"url":"\/documentation\/apollo\/graphqlresult"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResult/source-swift.property":{"role":"symbol","title":"source","fragments":[{"kind":"keyword","text":"let"},{"kind":"text","text":" "},{"kind":"identifier","text":"source"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"Source","preciseIdentifier":"s:6Apollo13GraphQLResultV6SourceO"}],"abstract":[{"type":"text","text":"Source of data"}],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult\/source-swift.property","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/graphqlresult\/source-swift.property"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo":{"role":"collection","title":"Apollo","abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo","kind":"symbol","type":"topic","url":"\/documentation\/apollo"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResult/init(data:extensions:errors:source:dependentKeys:)":{"role":"symbol","title":"init(data:extensions:errors:source:dependentKeys:)","fragments":[{"kind":"identifier","text":"init"},{"kind":"text","text":"("},{"kind":"externalParam","text":"data"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"Data","preciseIdentifier":"s:6Apollo13GraphQLResultV4Dataxmfp"},{"kind":"text","text":"?, "},{"kind":"externalParam","text":"extensions"},{"kind":"text","text":": ["},{"kind":"typeIdentifier","text":"String","preciseIdentifier":"s:SS"},{"kind":"text","text":" : "},{"kind":"typeIdentifier","text":"AnyHashable","preciseIdentifier":"s:s11AnyHashableV"},{"kind":"text","text":"]?, "},{"kind":"externalParam","text":"errors"},{"kind":"text","text":": ["},{"kind":"typeIdentifier","text":"GraphQLError","preciseIdentifier":"s:6Apollo12GraphQLErrorV"},{"kind":"text","text":"]?, "},{"kind":"externalParam","text":"source"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"Source","preciseIdentifier":"s:6Apollo13GraphQLResultV6SourceO"},{"kind":"text","text":", "},{"kind":"externalParam","text":"dependentKeys"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"Set","preciseIdentifier":"s:Sh"},{"kind":"text","text":"<"},{"kind":"typeIdentifier","text":"CacheKey","preciseIdentifier":"s:6Apollo8CacheKeya"},{"kind":"text","text":">?)"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult\/init(data:extensions:errors:source:dependentKeys:)","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/graphqlresult\/init(data:extensions:errors:source:dependentkeys:)"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResult/Source-swift.enum":{"role":"symbol","title":"GraphQLResult.Source","fragments":[{"kind":"keyword","text":"enum"},{"kind":"text","text":" "},{"kind":"identifier","text":"Source"}],"abstract":[{"type":"text","text":"Represents source of data"}],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult\/Source-swift.enum","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"Source"}],"url":"\/documentation\/apollo\/graphqlresult\/source-swift.enum"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResult/Equatable-Implementations":{"role":"collectionGroup","title":"Equatable Implementations","abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult\/Equatable-Implementations","kind":"article","type":"topic","url":"\/documentation\/apollo\/graphqlresult\/equatable-implementations"},"doc://com.apollographql.Apollo.macosx/SH":{"type":"unresolvable","title":"Swift.Hashable","identifier":"doc:\/\/com.apollographql.Apollo.macosx\/SH"},"doc://com.apollographql.Apollo.macosx/SQ":{"type":"unresolvable","title":"Swift.Equatable","identifier":"doc:\/\/com.apollographql.Apollo.macosx\/SQ"}}}
+{
+  "abstract" : [
+    {
+      "text" : "Represents the result of a GraphQL operation.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:6Apollo13GraphQLResultV",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "struct"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "GraphQLResult"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Apollo"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "GraphQLResult"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Structure",
+    "symbolKind" : "struct",
+    "title" : "GraphQLResult"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "struct"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "GraphQLResult"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "genericParameter",
+              "text" : "Data"
+            },
+            {
+              "kind" : "text",
+              "text" : "> "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "where"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Data"
+            },
+            {
+              "kind" : "text",
+              "text" : " : "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:9ApolloAPI16RootSelectionSetP",
+              "text" : "RootSelectionSet"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.Apollo.macosx\/SQ",
+        "doc:\/\/com.apollographql.Apollo.macosx\/SH"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult\/init(data:extensions:errors:source:dependentKeys:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult\/data",
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult\/errors",
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult\/extensions",
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult\/source-swift.property"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult\/Source-swift.enum"
+      ],
+      "title" : "Enumerations"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult\/Equatable-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollo\/graphqlresult"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://com.apollographql.Apollo.macosx/SH": {
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/SH",
+  "title" : "Swift.Hashable",
+  "type" : "unresolvable"
+},
+"doc://com.apollographql.Apollo.macosx/SQ": {
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/SQ",
+  "title" : "Swift.Equatable",
+  "type" : "unresolvable"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Apollo",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResult": {
+  "abstract" : [
+    {
+      "text" : "Represents the result of a GraphQL operation.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLResult"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLResult"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphQLResult",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/graphqlresult"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResult/Equatable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult\/Equatable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Equatable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/graphqlresult\/equatable-implementations"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResult/Source-swift.enum": {
+  "abstract" : [
+    {
+      "text" : "Represents source of data",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Source"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult\/Source-swift.enum",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Source"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphQLResult.Source",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/graphqlresult\/source-swift.enum"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResult/data": {
+  "abstract" : [
+    {
+      "text" : "The typed result data, or ",
+      "type" : "text"
+    },
+    {
+      "code" : "nil",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " if an error was encountered that prevented a valid response.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "data"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo13GraphQLResultV4Dataxmfp",
+      "text" : "Data"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult\/data",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "data",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/graphqlresult\/data"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResult/errors": {
+  "abstract" : [
+    {
+      "text" : "A list of errors, or ",
+      "type" : "text"
+    },
+    {
+      "code" : "nil",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " if the operation completed without encountering any errors.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "errors"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo12GraphQLErrorV",
+      "text" : "GraphQLError"
+    },
+    {
+      "kind" : "text",
+      "text" : "]?"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult\/errors",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "errors",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/graphqlresult\/errors"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResult/extensions": {
+  "abstract" : [
+    {
+      "text" : "A dictionary which services can use however they see fit to provide additional information to clients.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "extensions"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s11AnyHashableV",
+      "text" : "AnyHashable"
+    },
+    {
+      "kind" : "text",
+      "text" : "]?"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult\/extensions",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "extensions",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/graphqlresult\/extensions"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResult/init(data:extensions:errors:source:dependentKeys:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "data"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo13GraphQLResultV4Dataxmfp",
+      "text" : "Data"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "extensions"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s11AnyHashableV",
+      "text" : "AnyHashable"
+    },
+    {
+      "kind" : "text",
+      "text" : "]?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "errors"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo12GraphQLErrorV",
+      "text" : "GraphQLError"
+    },
+    {
+      "kind" : "text",
+      "text" : "]?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "source"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo13GraphQLResultV6SourceO",
+      "text" : "Source"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "dependentKeys"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sh",
+      "text" : "Set"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo8CacheKeya",
+      "text" : "CacheKey"
+    },
+    {
+      "kind" : "text",
+      "text" : ">?)"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult\/init(data:extensions:errors:source:dependentKeys:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(data:extensions:errors:source:dependentKeys:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/graphqlresult\/init(data:extensions:errors:source:dependentkeys:)"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResult/source-swift.property": {
+  "abstract" : [
+    {
+      "text" : "Source of data",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "source"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo13GraphQLResultV6SourceO",
+      "text" : "Source"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult\/source-swift.property",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "source",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/graphqlresult\/source-swift.property"
+}
+}
+}

@@ -1,1 +1,604 @@
-{"primaryContentSections":[{"kind":"declarations","declarations":[{"tokens":[{"kind":"keyword","text":"func"},{"kind":"text","text":" "},{"kind":"identifier","text":"retry"},{"kind":"text","text":"<"},{"kind":"genericParameter","text":"Operation"},{"kind":"text","text":">("},{"kind":"externalParam","text":"request"},{"kind":"text","text":": "},{"kind":"typeIdentifier","identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPRequest","preciseIdentifier":"s:6Apollo11HTTPRequestC","text":"HTTPRequest"},{"kind":"text","text":"<"},{"kind":"typeIdentifier","text":"Operation","preciseIdentifier":"s:6Apollo12RequestChainC5retry7request10completionyAA11HTTPRequestCyxG_ys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0I11QLOperationRzlF9OperationL_xmfp"},{"kind":"text","text":">, "},{"kind":"externalParam","text":"completion"},{"kind":"text","text":": "},{"kind":"attribute","text":"@escaping"},{"kind":"text","text":" ("},{"kind":"typeIdentifier","text":"Result","preciseIdentifier":"s:s6ResultO"},{"kind":"text","text":"<"},{"kind":"typeIdentifier","identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult","preciseIdentifier":"s:6Apollo13GraphQLResultV","text":"GraphQLResult"},{"kind":"text","text":"<"},{"kind":"typeIdentifier","text":"Operation","preciseIdentifier":"s:6Apollo12RequestChainC5retry7request10completionyAA11HTTPRequestCyxG_ys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0I11QLOperationRzlF9OperationL_xmfp"},{"kind":"text","text":"."},{"kind":"typeIdentifier","text":"Data","preciseIdentifier":"s:9ApolloAPI16GraphQLOperationP4DataQa"},{"kind":"text","text":">, "},{"kind":"typeIdentifier","text":"Error","preciseIdentifier":"s:s5ErrorP"},{"kind":"text","text":">) -> "},{"kind":"typeIdentifier","text":"Void","preciseIdentifier":"s:s4Voida"},{"kind":"text","text":") "},{"kind":"keyword","text":"where"},{"kind":"text","text":" "},{"kind":"typeIdentifier","text":"Operation"},{"kind":"text","text":" : "},{"kind":"typeIdentifier","text":"GraphQLOperation","preciseIdentifier":"s:9ApolloAPI16GraphQLOperationP"}],"languages":["swift"],"platforms":["macOS"]}]},{"kind":"parameters","parameters":[{"name":"request","content":[{"type":"paragraph","inlineContent":[{"type":"text","text":"The request to retry"}]}]},{"name":"completion","content":[{"type":"paragraph","inlineContent":[{"type":"text","text":"The completion closure to call when the request has completed."}]}]}]}],"schemaVersion":{"major":0,"minor":2,"patch":0},"sections":[],"variants":[{"paths":["\/documentation\/apollo\/requestchain\/retry(request:completion:)"],"traits":[{"interfaceLanguage":"swift"}]}],"identifier":{"url":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain\/retry(request:completion:)","interfaceLanguage":"swift"},"abstract":[{"type":"text","text":"Restarts the request starting from the first interceptor."}],"kind":"symbol","metadata":{"fragments":[{"kind":"keyword","text":"func"},{"kind":"text","text":" "},{"kind":"identifier","text":"retry"},{"kind":"text","text":"<"},{"kind":"genericParameter","text":"Operation"},{"kind":"text","text":">("},{"kind":"externalParam","text":"request"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"HTTPRequest","preciseIdentifier":"s:6Apollo11HTTPRequestC"},{"kind":"text","text":"<"},{"kind":"typeIdentifier","text":"Operation","preciseIdentifier":"s:6Apollo12RequestChainC5retry7request10completionyAA11HTTPRequestCyxG_ys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0I11QLOperationRzlF9OperationL_xmfp"},{"kind":"text","text":">, "},{"kind":"externalParam","text":"completion"},{"kind":"text","text":": ("},{"kind":"typeIdentifier","text":"Result","preciseIdentifier":"s:s6ResultO"},{"kind":"text","text":"<"},{"kind":"typeIdentifier","text":"GraphQLResult","preciseIdentifier":"s:6Apollo13GraphQLResultV"},{"kind":"text","text":"<"},{"kind":"typeIdentifier","text":"Operation","preciseIdentifier":"s:6Apollo12RequestChainC5retry7request10completionyAA11HTTPRequestCyxG_ys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0I11QLOperationRzlF9OperationL_xmfp"},{"kind":"text","text":"."},{"kind":"typeIdentifier","text":"Data","preciseIdentifier":"s:9ApolloAPI16GraphQLOperationP4DataQa"},{"kind":"text","text":">, "},{"kind":"typeIdentifier","text":"Error","preciseIdentifier":"s:s5ErrorP"},{"kind":"text","text":">) -> "},{"kind":"typeIdentifier","text":"Void","preciseIdentifier":"s:s4Voida"},{"kind":"text","text":")"}],"title":"retry(request:completion:)","roleHeading":"Instance Method","role":"symbol","symbolKind":"method","externalID":"s:6Apollo12RequestChainC5retry7request10completionyAA11HTTPRequestCyxG_ys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0I11QLOperationRzlF","modules":[{"name":"Apollo"}]},"hierarchy":{"paths":[["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo","doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain"]]},"references":{"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChain":{"role":"symbol","title":"RequestChain","fragments":[{"kind":"keyword","text":"class"},{"kind":"text","text":" "},{"kind":"identifier","text":"RequestChain"}],"abstract":[{"type":"text","text":"A chain that allows a single network request to be created and executed."}],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"RequestChain"}],"url":"\/documentation\/apollo\/requestchain"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/HTTPRequest":{"role":"symbol","title":"HTTPRequest","fragments":[{"kind":"keyword","text":"class"},{"kind":"text","text":" "},{"kind":"identifier","text":"HTTPRequest"}],"abstract":[{"type":"text","text":"Encapsulation of all information about a request before it hits the network"}],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPRequest","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"HTTPRequest"}],"url":"\/documentation\/apollo\/httprequest"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResult":{"role":"symbol","title":"GraphQLResult","fragments":[{"kind":"keyword","text":"struct"},{"kind":"text","text":" "},{"kind":"identifier","text":"GraphQLResult"}],"abstract":[{"type":"text","text":"Represents the result of a GraphQL operation."}],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"GraphQLResult"}],"url":"\/documentation\/apollo\/graphqlresult"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChain/retry(request:completion:)":{"role":"symbol","title":"retry(request:completion:)","fragments":[{"kind":"keyword","text":"func"},{"kind":"text","text":" "},{"kind":"identifier","text":"retry"},{"kind":"text","text":"<"},{"kind":"genericParameter","text":"Operation"},{"kind":"text","text":">("},{"kind":"externalParam","text":"request"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"HTTPRequest","preciseIdentifier":"s:6Apollo11HTTPRequestC"},{"kind":"text","text":"<"},{"kind":"typeIdentifier","text":"Operation","preciseIdentifier":"s:6Apollo12RequestChainC5retry7request10completionyAA11HTTPRequestCyxG_ys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0I11QLOperationRzlF9OperationL_xmfp"},{"kind":"text","text":">, "},{"kind":"externalParam","text":"completion"},{"kind":"text","text":": ("},{"kind":"typeIdentifier","text":"Result","preciseIdentifier":"s:s6ResultO"},{"kind":"text","text":"<"},{"kind":"typeIdentifier","text":"GraphQLResult","preciseIdentifier":"s:6Apollo13GraphQLResultV"},{"kind":"text","text":"<"},{"kind":"typeIdentifier","text":"Operation","preciseIdentifier":"s:6Apollo12RequestChainC5retry7request10completionyAA11HTTPRequestCyxG_ys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0I11QLOperationRzlF9OperationL_xmfp"},{"kind":"text","text":"."},{"kind":"typeIdentifier","text":"Data","preciseIdentifier":"s:9ApolloAPI16GraphQLOperationP4DataQa"},{"kind":"text","text":">, "},{"kind":"typeIdentifier","text":"Error","preciseIdentifier":"s:s5ErrorP"},{"kind":"text","text":">) -> "},{"kind":"typeIdentifier","text":"Void","preciseIdentifier":"s:s4Voida"},{"kind":"text","text":")"}],"abstract":[{"type":"text","text":"Restarts the request starting from the first interceptor."}],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain\/retry(request:completion:)","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/requestchain\/retry(request:completion:)"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo":{"role":"collection","title":"Apollo","abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo","kind":"symbol","type":"topic","url":"\/documentation\/apollo"}}}
+{
+  "abstract" : [
+    {
+      "text" : "Restarts the request starting from the first interceptor.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain\/retry(request:completion:)"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:6Apollo12RequestChainC5retry7request10completionyAA11HTTPRequestCyxG_ys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0I11QLOperationRzlF",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "func"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "retry"
+      },
+      {
+        "kind" : "text",
+        "text" : "<"
+      },
+      {
+        "kind" : "genericParameter",
+        "text" : "Operation"
+      },
+      {
+        "kind" : "text",
+        "text" : ">("
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "request"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:6Apollo11HTTPRequestC",
+        "text" : "HTTPRequest"
+      },
+      {
+        "kind" : "text",
+        "text" : "<"
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:6Apollo12RequestChainC5retry7request10completionyAA11HTTPRequestCyxG_ys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0I11QLOperationRzlF9OperationL_xmfp",
+        "text" : "Operation"
+      },
+      {
+        "kind" : "text",
+        "text" : ">, "
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "completion"
+      },
+      {
+        "kind" : "text",
+        "text" : ": ("
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:s6ResultO",
+        "text" : "Result"
+      },
+      {
+        "kind" : "text",
+        "text" : "<"
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:6Apollo13GraphQLResultV",
+        "text" : "GraphQLResult"
+      },
+      {
+        "kind" : "text",
+        "text" : "<"
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:6Apollo12RequestChainC5retry7request10completionyAA11HTTPRequestCyxG_ys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0I11QLOperationRzlF9OperationL_xmfp",
+        "text" : "Operation"
+      },
+      {
+        "kind" : "text",
+        "text" : "."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
+        "text" : "Data"
+      },
+      {
+        "kind" : "text",
+        "text" : ">, "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:s5ErrorP",
+        "text" : "Error"
+      },
+      {
+        "kind" : "text",
+        "text" : ">) -> "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:s4Voida",
+        "text" : "Void"
+      },
+      {
+        "kind" : "text",
+        "text" : ")"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Apollo"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Instance Method",
+    "symbolKind" : "method",
+    "title" : "retry(request:completion:)"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "func"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "retry"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "genericParameter",
+              "text" : "Operation"
+            },
+            {
+              "kind" : "text",
+              "text" : ">("
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "request"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPRequest",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:6Apollo11HTTPRequestC",
+              "text" : "HTTPRequest"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:6Apollo12RequestChainC5retry7request10completionyAA11HTTPRequestCyxG_ys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0I11QLOperationRzlF9OperationL_xmfp",
+              "text" : "Operation"
+            },
+            {
+              "kind" : "text",
+              "text" : ">, "
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "completion"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "attribute",
+              "text" : "@escaping"
+            },
+            {
+              "kind" : "text",
+              "text" : " ("
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:s6ResultO",
+              "text" : "Result"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:6Apollo13GraphQLResultV",
+              "text" : "GraphQLResult"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:6Apollo12RequestChainC5retry7request10completionyAA11HTTPRequestCyxG_ys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0I11QLOperationRzlF9OperationL_xmfp",
+              "text" : "Operation"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
+              "text" : "Data"
+            },
+            {
+              "kind" : "text",
+              "text" : ">, "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:s5ErrorP",
+              "text" : "Error"
+            },
+            {
+              "kind" : "text",
+              "text" : ">) -> "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:s4Voida",
+              "text" : "Void"
+            },
+            {
+              "kind" : "text",
+              "text" : ") "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "where"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Operation"
+            },
+            {
+              "kind" : "text",
+              "text" : " : "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP",
+              "text" : "GraphQLOperation"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
+      "kind" : "parameters",
+      "parameters" : [
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "The request to retry",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "request"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "The completion closure to call when the request has completed.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "completion"
+        }
+      ]
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollo\/requestchain\/retry(request:completion:)"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Apollo",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResult": {
+  "abstract" : [
+    {
+      "text" : "Represents the result of a GraphQL operation.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLResult"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLResult"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphQLResult",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/graphqlresult"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/HTTPRequest": {
+  "abstract" : [
+    {
+      "text" : "Encapsulation of all information about a request before it hits the network",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "HTTPRequest"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPRequest",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "HTTPRequest"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "HTTPRequest",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/httprequest"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChain": {
+  "abstract" : [
+    {
+      "text" : "A chain that allows a single network request to be created and executed.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RequestChain"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RequestChain"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "RequestChain",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/requestchain"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChain/retry(request:completion:)": {
+  "abstract" : [
+    {
+      "text" : "Restarts the request starting from the first interceptor.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "retry"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Operation"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "request"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo11HTTPRequestC",
+      "text" : "HTTPRequest"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo12RequestChainC5retry7request10completionyAA11HTTPRequestCyxG_ys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0I11QLOperationRzlF9OperationL_xmfp",
+      "text" : "Operation"
+    },
+    {
+      "kind" : "text",
+      "text" : ">, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "completion"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s6ResultO",
+      "text" : "Result"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo13GraphQLResultV",
+      "text" : "GraphQLResult"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo12RequestChainC5retry7request10completionyAA11HTTPRequestCyxG_ys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0I11QLOperationRzlF9OperationL_xmfp",
+      "text" : "Operation"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
+      "text" : "Data"
+    },
+    {
+      "kind" : "text",
+      "text" : ">, "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s5ErrorP",
+      "text" : "Error"
+    },
+    {
+      "kind" : "text",
+      "text" : ">) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s4Voida",
+      "text" : "Void"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain\/retry(request:completion:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "retry(request:completion:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/requestchain\/retry(request:completion:)"
+}
+}
+}

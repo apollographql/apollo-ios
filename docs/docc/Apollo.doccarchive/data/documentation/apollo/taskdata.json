@@ -1,1 +1,256 @@
-{"primaryContentSections":[{"kind":"declarations","declarations":[{"tokens":[{"kind":"keyword","text":"class"},{"kind":"text","text":" "},{"kind":"identifier","text":"TaskData"}],"languages":["swift"],"platforms":["macOS"]}]}],"schemaVersion":{"major":0,"minor":2,"patch":0},"sections":[],"variants":[{"paths":["\/documentation\/apollo\/taskdata"],"traits":[{"interfaceLanguage":"swift"}]}],"identifier":{"url":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/TaskData","interfaceLanguage":"swift"},"abstract":[{"type":"text","text":"A wrapper for data about a particular task handled by "},{"type":"codeVoice","code":"URLSessionClient"}],"kind":"symbol","metadata":{"fragments":[{"kind":"keyword","text":"class"},{"kind":"text","text":" "},{"kind":"identifier","text":"TaskData"}],"title":"TaskData","roleHeading":"Class","role":"symbol","symbolKind":"class","externalID":"s:6Apollo8TaskDataC","modules":[{"name":"Apollo"}],"navigatorTitle":[{"kind":"identifier","text":"TaskData"}]},"hierarchy":{"paths":[["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"]]},"topicSections":[{"title":"Instance Properties","identifiers":["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/TaskData\/completionBlock","doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/TaskData\/rawCompletion"]}],"references":{"doc://com.apollographql.Apollo.macosx/documentation/Apollo/TaskData/rawCompletion":{"role":"symbol","title":"rawCompletion","fragments":[{"kind":"keyword","text":"let"},{"kind":"text","text":" "},{"kind":"identifier","text":"rawCompletion"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"URLSessionClient","preciseIdentifier":"c:@M@Apollo@objc(cs)URLSessionClient"},{"kind":"text","text":"."},{"kind":"typeIdentifier","text":"RawCompletion","preciseIdentifier":"s:6Apollo16URLSessionClientC13RawCompletiona"},{"kind":"text","text":"?"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/TaskData\/rawCompletion","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/taskdata\/rawcompletion"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo":{"role":"collection","title":"Apollo","abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo","kind":"symbol","type":"topic","url":"\/documentation\/apollo"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/TaskData":{"role":"symbol","title":"TaskData","fragments":[{"kind":"keyword","text":"class"},{"kind":"text","text":" "},{"kind":"identifier","text":"TaskData"}],"abstract":[{"type":"text","text":"A wrapper for data about a particular task handled by "},{"type":"codeVoice","code":"URLSessionClient"}],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/TaskData","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"TaskData"}],"url":"\/documentation\/apollo\/taskdata"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/TaskData/completionBlock":{"role":"symbol","title":"completionBlock","fragments":[{"kind":"keyword","text":"let"},{"kind":"text","text":" "},{"kind":"identifier","text":"completionBlock"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"URLSessionClient","preciseIdentifier":"c:@M@Apollo@objc(cs)URLSessionClient"},{"kind":"text","text":"."},{"kind":"typeIdentifier","text":"Completion","preciseIdentifier":"s:6Apollo16URLSessionClientC10Completiona"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/TaskData\/completionBlock","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/taskdata\/completionblock"}}}
+{
+  "abstract" : [
+    {
+      "text" : "A wrapper for data about a particular task handled by ",
+      "type" : "text"
+    },
+    {
+      "code" : "URLSessionClient",
+      "type" : "codeVoice"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/TaskData"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:6Apollo8TaskDataC",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "class"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "TaskData"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Apollo"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "TaskData"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Class",
+    "symbolKind" : "class",
+    "title" : "TaskData"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "class"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "TaskData"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/TaskData\/completionBlock",
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/TaskData\/rawCompletion"
+      ],
+      "title" : "Instance Properties"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollo\/taskdata"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Apollo",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/TaskData": {
+  "abstract" : [
+    {
+      "text" : "A wrapper for data about a particular task handled by ",
+      "type" : "text"
+    },
+    {
+      "code" : "URLSessionClient",
+      "type" : "codeVoice"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "TaskData"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/TaskData",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "TaskData"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "TaskData",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/taskdata"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/TaskData/completionBlock": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "completionBlock"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:@M@Apollo@objc(cs)URLSessionClient",
+      "text" : "URLSessionClient"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo16URLSessionClientC10Completiona",
+      "text" : "Completion"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/TaskData\/completionBlock",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "completionBlock",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/taskdata\/completionblock"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/TaskData/rawCompletion": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "rawCompletion"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:@M@Apollo@objc(cs)URLSessionClient",
+      "text" : "URLSessionClient"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo16URLSessionClientC13RawCompletiona",
+      "text" : "RawCompletion"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/TaskData\/rawCompletion",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "rawCompletion",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/taskdata\/rawcompletion"
+}
+}
+}

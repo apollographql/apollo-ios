@@ -1,1 +1,366 @@
-{"primaryContentSections":[{"kind":"declarations","declarations":[{"tokens":[{"kind":"keyword","text":"var"},{"kind":"text","text":" "},{"kind":"identifier","text":"legacyResponse"},{"kind":"text","text":": "},{"kind":"typeIdentifier","identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResponse","preciseIdentifier":"s:6Apollo15GraphQLResponseC","text":"GraphQLResponse"},{"kind":"text","text":"<"},{"kind":"typeIdentifier","text":"Operation","preciseIdentifier":"s:6Apollo12HTTPResponseC9Operationxmfp"},{"kind":"text","text":"."},{"kind":"typeIdentifier","text":"Data","preciseIdentifier":"s:9ApolloAPI16GraphQLOperationP4DataQa"},{"kind":"text","text":">?"}],"languages":["swift"],"platforms":["macOS"]}]}],"schemaVersion":{"major":0,"minor":2,"patch":0},"sections":[],"variants":[{"paths":["\/documentation\/apollo\/httpresponse\/legacyresponse"],"traits":[{"interfaceLanguage":"swift"}]}],"identifier":{"url":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPResponse\/legacyResponse","interfaceLanguage":"swift"},"abstract":[{"type":"text","text":"[optional] The data as parsed into a "},{"type":"codeVoice","code":"GraphQLResponse"},{"type":"text","text":" for legacy caching purposes. If you’re not using the "},{"type":"codeVoice","code":"JSONResponseParsingInterceptor"},{"type":"text","text":", you probably shouldn’t be using this property."},{"type":"text","text":" "},{"type":"strong","inlineContent":[{"type":"text","text":"NOTE:"}]},{"type":"text","text":" This property will be removed when the transition to the Swift Codegen is complete."}],"kind":"symbol","metadata":{"fragments":[{"kind":"keyword","text":"var"},{"kind":"text","text":" "},{"kind":"identifier","text":"legacyResponse"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"GraphQLResponse","preciseIdentifier":"s:6Apollo15GraphQLResponseC"},{"kind":"text","text":"<"},{"kind":"typeIdentifier","text":"Operation","preciseIdentifier":"s:6Apollo12HTTPResponseC9Operationxmfp"},{"kind":"text","text":"."},{"kind":"typeIdentifier","text":"Data","preciseIdentifier":"s:9ApolloAPI16GraphQLOperationP4DataQa"},{"kind":"text","text":">?"}],"title":"legacyResponse","roleHeading":"Instance Property","role":"symbol","symbolKind":"property","externalID":"s:6Apollo12HTTPResponseC14legacyResponseAA15GraphQLResponseCy4DataQzGSgvp","modules":[{"name":"Apollo"}]},"hierarchy":{"paths":[["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo","doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPResponse"]]},"references":{"doc://com.apollographql.Apollo.macosx/documentation/Apollo/HTTPResponse":{"role":"symbol","title":"HTTPResponse","fragments":[{"kind":"keyword","text":"class"},{"kind":"text","text":" "},{"kind":"identifier","text":"HTTPResponse"}],"abstract":[{"type":"text","text":"Data about a response received by an HTTP request."}],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPResponse","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"HTTPResponse"}],"url":"\/documentation\/apollo\/httpresponse"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/HTTPResponse/legacyResponse":{"role":"symbol","title":"legacyResponse","fragments":[{"kind":"keyword","text":"var"},{"kind":"text","text":" "},{"kind":"identifier","text":"legacyResponse"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"GraphQLResponse","preciseIdentifier":"s:6Apollo15GraphQLResponseC"},{"kind":"text","text":"<"},{"kind":"typeIdentifier","text":"Operation","preciseIdentifier":"s:6Apollo12HTTPResponseC9Operationxmfp"},{"kind":"text","text":"."},{"kind":"typeIdentifier","text":"Data","preciseIdentifier":"s:9ApolloAPI16GraphQLOperationP4DataQa"},{"kind":"text","text":">?"}],"abstract":[{"type":"text","text":"[optional] The data as parsed into a "},{"type":"codeVoice","code":"GraphQLResponse"},{"type":"text","text":" for legacy caching purposes. If you’re not using the "},{"type":"codeVoice","code":"JSONResponseParsingInterceptor"},{"type":"text","text":", you probably shouldn’t be using this property."},{"type":"text","text":" "},{"type":"strong","inlineContent":[{"type":"text","text":"NOTE:"}]},{"type":"text","text":" This property will be removed when the transition to the Swift Codegen is complete."}],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPResponse\/legacyResponse","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/httpresponse\/legacyresponse"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo":{"role":"collection","title":"Apollo","abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo","kind":"symbol","type":"topic","url":"\/documentation\/apollo"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResponse":{"role":"symbol","title":"GraphQLResponse","fragments":[{"kind":"keyword","text":"class"},{"kind":"text","text":" "},{"kind":"identifier","text":"GraphQLResponse"}],"abstract":[{"type":"text","text":"Represents a GraphQL response received from a server."}],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResponse","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"GraphQLResponse"}],"url":"\/documentation\/apollo\/graphqlresponse"}}}
+{
+  "abstract" : [
+    {
+      "text" : "[optional] The data as parsed into a ",
+      "type" : "text"
+    },
+    {
+      "code" : "GraphQLResponse",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " for legacy caching purposes. If you’re not using the ",
+      "type" : "text"
+    },
+    {
+      "code" : "JSONResponseParsingInterceptor",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ", you probably shouldn’t be using this property.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "inlineContent" : [
+        {
+          "text" : "NOTE:",
+          "type" : "text"
+        }
+      ],
+      "type" : "strong"
+    },
+    {
+      "text" : " This property will be removed when the transition to the Swift Codegen is complete.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPResponse"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPResponse\/legacyResponse"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:6Apollo12HTTPResponseC14legacyResponseAA15GraphQLResponseCy4DataQzGSgvp",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "var"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "legacyResponse"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:6Apollo15GraphQLResponseC",
+        "text" : "GraphQLResponse"
+      },
+      {
+        "kind" : "text",
+        "text" : "<"
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:6Apollo12HTTPResponseC9Operationxmfp",
+        "text" : "Operation"
+      },
+      {
+        "kind" : "text",
+        "text" : "."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
+        "text" : "Data"
+      },
+      {
+        "kind" : "text",
+        "text" : ">?"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Apollo"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Instance Property",
+    "symbolKind" : "property",
+    "title" : "legacyResponse"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "var"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "legacyResponse"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResponse",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:6Apollo15GraphQLResponseC",
+              "text" : "GraphQLResponse"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:6Apollo12HTTPResponseC9Operationxmfp",
+              "text" : "Operation"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
+              "text" : "Data"
+            },
+            {
+              "kind" : "text",
+              "text" : ">?"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollo\/httpresponse\/legacyresponse"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Apollo",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResponse": {
+  "abstract" : [
+    {
+      "text" : "Represents a GraphQL response received from a server.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLResponse"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResponse",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLResponse"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphQLResponse",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/graphqlresponse"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/HTTPResponse": {
+  "abstract" : [
+    {
+      "text" : "Data about a response received by an HTTP request.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "HTTPResponse"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPResponse",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "HTTPResponse"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "HTTPResponse",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/httpresponse"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/HTTPResponse/legacyResponse": {
+  "abstract" : [
+    {
+      "text" : "[optional] The data as parsed into a ",
+      "type" : "text"
+    },
+    {
+      "code" : "GraphQLResponse",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " for legacy caching purposes. If you’re not using the ",
+      "type" : "text"
+    },
+    {
+      "code" : "JSONResponseParsingInterceptor",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ", you probably shouldn’t be using this property.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "inlineContent" : [
+        {
+          "text" : "NOTE:",
+          "type" : "text"
+        }
+      ],
+      "type" : "strong"
+    },
+    {
+      "text" : " This property will be removed when the transition to the Swift Codegen is complete.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "legacyResponse"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo15GraphQLResponseC",
+      "text" : "GraphQLResponse"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo12HTTPResponseC9Operationxmfp",
+      "text" : "Operation"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
+      "text" : "Data"
+    },
+    {
+      "kind" : "text",
+      "text" : ">?"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPResponse\/legacyResponse",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "legacyResponse",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/httpresponse\/legacyresponse"
+}
+}
+}

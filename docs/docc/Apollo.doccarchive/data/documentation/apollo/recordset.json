@@ -1,1 +1,848 @@
-{"primaryContentSections":[{"kind":"declarations","declarations":[{"tokens":[{"kind":"keyword","text":"struct"},{"kind":"text","text":" "},{"kind":"identifier","text":"RecordSet"}],"languages":["swift"],"platforms":["macOS"]}]}],"schemaVersion":{"major":0,"minor":2,"patch":0},"sections":[],"variants":[{"paths":["\/documentation\/apollo\/recordset"],"traits":[{"interfaceLanguage":"swift"}]}],"relationshipsSections":[{"identifiers":["doc:\/\/com.apollographql.Apollo.macosx\/s28CustomDebugStringConvertibleP","doc:\/\/com.apollographql.Apollo.macosx\/s34CustomPlaygroundDisplayConvertibleP","doc:\/\/com.apollographql.Apollo.macosx\/s23CustomStringConvertibleP","doc:\/\/com.apollographql.Apollo.macosx\/SQ","doc:\/\/com.apollographql.Apollo.macosx\/s30ExpressibleByDictionaryLiteralP","doc:\/\/com.apollographql.Apollo.macosx\/SH"],"kind":"relationships","title":"Conforms To","type":"conformsTo"}],"identifier":{"url":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet","interfaceLanguage":"swift"},"abstract":[{"type":"text","text":"A set of cache records."}],"kind":"symbol","metadata":{"fragments":[{"kind":"keyword","text":"struct"},{"kind":"text","text":" "},{"kind":"identifier","text":"RecordSet"}],"title":"RecordSet","roleHeading":"Structure","role":"symbol","symbolKind":"struct","externalID":"s:6Apollo9RecordSetV","modules":[{"name":"Apollo"}],"navigatorTitle":[{"kind":"identifier","text":"RecordSet"}]},"hierarchy":{"paths":[["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"]]},"topicSections":[{"title":"Initializers","identifiers":["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/init(records:)"]},{"title":"Instance Properties","identifiers":["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/isEmpty","doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/keys","doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/storage"]},{"title":"Instance Methods","identifiers":["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/clear()","doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/insert(_:)","doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/insert(contentsOf:)","doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/merge(record:)","doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/merge(records:)","doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/removeRecord(for:)","doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/removeRecords(matching:)"]},{"title":"Subscripts","identifiers":["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/subscript(_:)"]},{"title":"Default Implementations","identifiers":["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/CustomDebugStringConvertible-Implementations","doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/CustomPlaygroundDisplayConvertible-Implementations","doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/CustomStringConvertible-Implementations","doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/Equatable-Implementations","doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/ExpressibleByDictionaryLiteral-Implementations"],"generated":true}],"references":{"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet/CustomPlaygroundDisplayConvertible-Implementations":{"role":"collectionGroup","title":"CustomPlaygroundDisplayConvertible Implementations","abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/CustomPlaygroundDisplayConvertible-Implementations","kind":"article","type":"topic","url":"\/documentation\/apollo\/recordset\/customplaygrounddisplayconvertible-implementations"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet/CustomStringConvertible-Implementations":{"role":"collectionGroup","title":"CustomStringConvertible Implementations","abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/CustomStringConvertible-Implementations","kind":"article","type":"topic","url":"\/documentation\/apollo\/recordset\/customstringconvertible-implementations"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet":{"role":"symbol","title":"RecordSet","fragments":[{"kind":"keyword","text":"struct"},{"kind":"text","text":" "},{"kind":"identifier","text":"RecordSet"}],"abstract":[{"type":"text","text":"A set of cache records."}],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"RecordSet"}],"url":"\/documentation\/apollo\/recordset"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet/storage":{"role":"symbol","title":"storage","fragments":[{"kind":"keyword","text":"var"},{"kind":"text","text":" "},{"kind":"identifier","text":"storage"},{"kind":"text","text":": ["},{"kind":"typeIdentifier","text":"CacheKey","preciseIdentifier":"s:6Apollo8CacheKeya"},{"kind":"text","text":" : "},{"kind":"typeIdentifier","text":"Record","preciseIdentifier":"s:6Apollo6RecordV"},{"kind":"text","text":"]"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/storage","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/recordset\/storage"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet/insert(contentsOf:)":{"role":"symbol","title":"insert(contentsOf:)","fragments":[{"kind":"keyword","text":"func"},{"kind":"text","text":" "},{"kind":"identifier","text":"insert"},{"kind":"text","text":"<"},{"kind":"genericParameter","text":"S"},{"kind":"text","text":">("},{"kind":"externalParam","text":"contentsOf"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"S","preciseIdentifier":"s:6Apollo9RecordSetV6insert10contentsOfyx_tSTRzAA0B0V7ElementRtzlF1SL_xmfp"},{"kind":"text","text":")"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/insert(contentsOf:)","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/recordset\/insert(contentsof:)"},"doc://com.apollographql.Apollo.macosx/SH":{"type":"unresolvable","title":"Swift.Hashable","identifier":"doc:\/\/com.apollographql.Apollo.macosx\/SH"},"doc://com.apollographql.Apollo.macosx/s34CustomPlaygroundDisplayConvertibleP":{"type":"unresolvable","title":"Swift.CustomPlaygroundDisplayConvertible","identifier":"doc:\/\/com.apollographql.Apollo.macosx\/s34CustomPlaygroundDisplayConvertibleP"},"doc://com.apollographql.Apollo.macosx/s30ExpressibleByDictionaryLiteralP":{"type":"unresolvable","title":"Swift.ExpressibleByDictionaryLiteral","identifier":"doc:\/\/com.apollographql.Apollo.macosx\/s30ExpressibleByDictionaryLiteralP"},"doc://com.apollographql.Apollo.macosx/s23CustomStringConvertibleP":{"type":"unresolvable","title":"Swift.CustomStringConvertible","identifier":"doc:\/\/com.apollographql.Apollo.macosx\/s23CustomStringConvertibleP"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet/isEmpty":{"role":"symbol","title":"isEmpty","fragments":[{"kind":"keyword","text":"var"},{"kind":"text","text":" "},{"kind":"identifier","text":"isEmpty"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"Bool","preciseIdentifier":"s:Sb"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/isEmpty","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/recordset\/isempty"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet/clear()":{"role":"symbol","title":"clear()","fragments":[{"kind":"keyword","text":"func"},{"kind":"text","text":" "},{"kind":"identifier","text":"clear"},{"kind":"text","text":"()"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/clear()","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/recordset\/clear()"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet/subscript(_:)":{"role":"symbol","title":"subscript(_:)","fragments":[{"kind":"keyword","text":"subscript"},{"kind":"text","text":"("},{"kind":"typeIdentifier","text":"CacheKey","preciseIdentifier":"s:6Apollo8CacheKeya"},{"kind":"text","text":") -> "},{"kind":"typeIdentifier","text":"Record","preciseIdentifier":"s:6Apollo6RecordV"},{"kind":"text","text":"?"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/subscript(_:)","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/recordset\/subscript(_:)"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo":{"role":"collection","title":"Apollo","abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo","kind":"symbol","type":"topic","url":"\/documentation\/apollo"},"doc://com.apollographql.Apollo.macosx/s28CustomDebugStringConvertibleP":{"type":"unresolvable","title":"Swift.CustomDebugStringConvertible","identifier":"doc:\/\/com.apollographql.Apollo.macosx\/s28CustomDebugStringConvertibleP"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet/removeRecords(matching:)":{"role":"symbol","title":"removeRecords(matching:)","fragments":[{"kind":"keyword","text":"func"},{"kind":"text","text":" "},{"kind":"identifier","text":"removeRecords"},{"kind":"text","text":"("},{"kind":"externalParam","text":"matching"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"CacheKey","preciseIdentifier":"s:6Apollo8CacheKeya"},{"kind":"text","text":")"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/removeRecords(matching:)","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/recordset\/removerecords(matching:)"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet/merge(record:)":{"role":"symbol","title":"merge(record:)","fragments":[{"kind":"keyword","text":"func"},{"kind":"text","text":" "},{"kind":"identifier","text":"merge"},{"kind":"text","text":"("},{"kind":"externalParam","text":"record"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"Record","preciseIdentifier":"s:6Apollo6RecordV"},{"kind":"text","text":") -> "},{"kind":"typeIdentifier","text":"Set","preciseIdentifier":"s:Sh"},{"kind":"text","text":"<"},{"kind":"typeIdentifier","text":"CacheKey","preciseIdentifier":"s:6Apollo8CacheKeya"},{"kind":"text","text":">"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/merge(record:)","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/recordset\/merge(record:)"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet/init(records:)":{"role":"symbol","title":"init(records:)","fragments":[{"kind":"identifier","text":"init"},{"kind":"text","text":"<"},{"kind":"genericParameter","text":"S"},{"kind":"text","text":">("},{"kind":"externalParam","text":"records"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"S","preciseIdentifier":"s:6Apollo9RecordSetV7recordsACx_tcSTRzAA0B0V7ElementRtzlufc1SL_xmfp"},{"kind":"text","text":")"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/init(records:)","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/recordset\/init(records:)"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet/insert(_:)":{"role":"symbol","title":"insert(_:)","fragments":[{"kind":"keyword","text":"func"},{"kind":"text","text":" "},{"kind":"identifier","text":"insert"},{"kind":"text","text":"("},{"kind":"typeIdentifier","text":"Record","preciseIdentifier":"s:6Apollo6RecordV"},{"kind":"text","text":")"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/insert(_:)","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/recordset\/insert(_:)"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet/CustomDebugStringConvertible-Implementations":{"role":"collectionGroup","title":"CustomDebugStringConvertible Implementations","abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/CustomDebugStringConvertible-Implementations","kind":"article","type":"topic","url":"\/documentation\/apollo\/recordset\/customdebugstringconvertible-implementations"},"doc://com.apollographql.Apollo.macosx/SQ":{"type":"unresolvable","title":"Swift.Equatable","identifier":"doc:\/\/com.apollographql.Apollo.macosx\/SQ"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet/merge(records:)":{"role":"symbol","title":"merge(records:)","fragments":[{"kind":"keyword","text":"func"},{"kind":"text","text":" "},{"kind":"identifier","text":"merge"},{"kind":"text","text":"("},{"kind":"externalParam","text":"records"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"RecordSet","preciseIdentifier":"s:6Apollo9RecordSetV"},{"kind":"text","text":") -> "},{"kind":"typeIdentifier","text":"Set","preciseIdentifier":"s:Sh"},{"kind":"text","text":"<"},{"kind":"typeIdentifier","text":"CacheKey","preciseIdentifier":"s:6Apollo8CacheKeya"},{"kind":"text","text":">"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/merge(records:)","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/recordset\/merge(records:)"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet/keys":{"role":"symbol","title":"keys","fragments":[{"kind":"keyword","text":"var"},{"kind":"text","text":" "},{"kind":"identifier","text":"keys"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"Set","preciseIdentifier":"s:Sh"},{"kind":"text","text":"<"},{"kind":"typeIdentifier","text":"CacheKey","preciseIdentifier":"s:6Apollo8CacheKeya"},{"kind":"text","text":">"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/keys","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/recordset\/keys"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet/Equatable-Implementations":{"role":"collectionGroup","title":"Equatable Implementations","abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/Equatable-Implementations","kind":"article","type":"topic","url":"\/documentation\/apollo\/recordset\/equatable-implementations"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet/ExpressibleByDictionaryLiteral-Implementations":{"role":"collectionGroup","title":"ExpressibleByDictionaryLiteral Implementations","abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/ExpressibleByDictionaryLiteral-Implementations","kind":"article","type":"topic","url":"\/documentation\/apollo\/recordset\/expressiblebydictionaryliteral-implementations"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet/removeRecord(for:)":{"role":"symbol","title":"removeRecord(for:)","fragments":[{"kind":"keyword","text":"func"},{"kind":"text","text":" "},{"kind":"identifier","text":"removeRecord"},{"kind":"text","text":"("},{"kind":"externalParam","text":"for"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"CacheKey","preciseIdentifier":"s:6Apollo8CacheKeya"},{"kind":"text","text":")"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/removeRecord(for:)","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/recordset\/removerecord(for:)"}}}
+{
+  "abstract" : [
+    {
+      "text" : "A set of cache records.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:6Apollo9RecordSetV",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "struct"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "RecordSet"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Apollo"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "RecordSet"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Structure",
+    "symbolKind" : "struct",
+    "title" : "RecordSet"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "struct"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "RecordSet"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.Apollo.macosx\/s28CustomDebugStringConvertibleP",
+        "doc:\/\/com.apollographql.Apollo.macosx\/s34CustomPlaygroundDisplayConvertibleP",
+        "doc:\/\/com.apollographql.Apollo.macosx\/s23CustomStringConvertibleP",
+        "doc:\/\/com.apollographql.Apollo.macosx\/SQ",
+        "doc:\/\/com.apollographql.Apollo.macosx\/s30ExpressibleByDictionaryLiteralP",
+        "doc:\/\/com.apollographql.Apollo.macosx\/SH"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/init(records:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/isEmpty",
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/keys",
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/storage"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/clear()",
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/insert(_:)",
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/insert(contentsOf:)",
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/merge(record:)",
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/merge(records:)",
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/removeRecord(for:)",
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/removeRecords(matching:)"
+      ],
+      "title" : "Instance Methods"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/subscript(_:)"
+      ],
+      "title" : "Subscripts"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/CustomDebugStringConvertible-Implementations",
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/CustomPlaygroundDisplayConvertible-Implementations",
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/CustomStringConvertible-Implementations",
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/Equatable-Implementations",
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/ExpressibleByDictionaryLiteral-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollo\/recordset"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://com.apollographql.Apollo.macosx/SH": {
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/SH",
+  "title" : "Swift.Hashable",
+  "type" : "unresolvable"
+},
+"doc://com.apollographql.Apollo.macosx/SQ": {
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/SQ",
+  "title" : "Swift.Equatable",
+  "type" : "unresolvable"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Apollo",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet": {
+  "abstract" : [
+    {
+      "text" : "A set of cache records.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RecordSet"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RecordSet"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "RecordSet",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/recordset"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet/CustomDebugStringConvertible-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/CustomDebugStringConvertible-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "CustomDebugStringConvertible Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/recordset\/customdebugstringconvertible-implementations"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet/CustomPlaygroundDisplayConvertible-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/CustomPlaygroundDisplayConvertible-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "CustomPlaygroundDisplayConvertible Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/recordset\/customplaygrounddisplayconvertible-implementations"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet/CustomStringConvertible-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/CustomStringConvertible-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "CustomStringConvertible Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/recordset\/customstringconvertible-implementations"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet/Equatable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/Equatable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Equatable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/recordset\/equatable-implementations"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet/ExpressibleByDictionaryLiteral-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/ExpressibleByDictionaryLiteral-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "ExpressibleByDictionaryLiteral Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/recordset\/expressiblebydictionaryliteral-implementations"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet/clear()": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "clear"
+    },
+    {
+      "kind" : "text",
+      "text" : "()"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/clear()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "clear()",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/recordset\/clear()"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet/init(records:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "S"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "records"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo9RecordSetV7recordsACx_tcSTRzAA0B0V7ElementRtzlufc1SL_xmfp",
+      "text" : "S"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/init(records:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(records:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/recordset\/init(records:)"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet/insert(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "insert"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo6RecordV",
+      "text" : "Record"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/insert(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "insert(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/recordset\/insert(_:)"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet/insert(contentsOf:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "insert"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "S"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "contentsOf"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo9RecordSetV6insert10contentsOfyx_tSTRzAA0B0V7ElementRtzlF1SL_xmfp",
+      "text" : "S"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/insert(contentsOf:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "insert(contentsOf:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/recordset\/insert(contentsof:)"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet/isEmpty": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isEmpty"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/isEmpty",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isEmpty",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/recordset\/isempty"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet/keys": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "keys"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sh",
+      "text" : "Set"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo8CacheKeya",
+      "text" : "CacheKey"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/keys",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "keys",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/recordset\/keys"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet/merge(record:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "merge"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "record"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo6RecordV",
+      "text" : "Record"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sh",
+      "text" : "Set"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo8CacheKeya",
+      "text" : "CacheKey"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/merge(record:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "merge(record:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/recordset\/merge(record:)"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet/merge(records:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "merge"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "records"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo9RecordSetV",
+      "text" : "RecordSet"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sh",
+      "text" : "Set"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo8CacheKeya",
+      "text" : "CacheKey"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/merge(records:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "merge(records:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/recordset\/merge(records:)"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet/removeRecord(for:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "removeRecord"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "for"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo8CacheKeya",
+      "text" : "CacheKey"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/removeRecord(for:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "removeRecord(for:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/recordset\/removerecord(for:)"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet/removeRecords(matching:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "removeRecords"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "matching"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo8CacheKeya",
+      "text" : "CacheKey"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/removeRecords(matching:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "removeRecords(matching:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/recordset\/removerecords(matching:)"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet/storage": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "storage"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo8CacheKeya",
+      "text" : "CacheKey"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo6RecordV",
+      "text" : "Record"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/storage",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "storage",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/recordset\/storage"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet/subscript(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "subscript"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo8CacheKeya",
+      "text" : "CacheKey"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo6RecordV",
+      "text" : "Record"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/subscript(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "subscript(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/recordset\/subscript(_:)"
+},
+"doc://com.apollographql.Apollo.macosx/s23CustomStringConvertibleP": {
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/s23CustomStringConvertibleP",
+  "title" : "Swift.CustomStringConvertible",
+  "type" : "unresolvable"
+},
+"doc://com.apollographql.Apollo.macosx/s28CustomDebugStringConvertibleP": {
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/s28CustomDebugStringConvertibleP",
+  "title" : "Swift.CustomDebugStringConvertible",
+  "type" : "unresolvable"
+},
+"doc://com.apollographql.Apollo.macosx/s30ExpressibleByDictionaryLiteralP": {
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/s30ExpressibleByDictionaryLiteralP",
+  "title" : "Swift.ExpressibleByDictionaryLiteral",
+  "type" : "unresolvable"
+},
+"doc://com.apollographql.Apollo.macosx/s34CustomPlaygroundDisplayConvertibleP": {
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/s34CustomPlaygroundDisplayConvertibleP",
+  "title" : "Swift.CustomPlaygroundDisplayConvertible",
+  "type" : "unresolvable"
+}
+}
+}

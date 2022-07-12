@@ -1,1 +1,423 @@
-{"variants":[{"paths":["\/documentation\/apolloutils"],"traits":[{"interfaceLanguage":"swift"}]}],"schemaVersion":{"major":0,"minor":2,"patch":0},"sections":[],"identifier":{"url":"doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils","interfaceLanguage":"swift"},"abstract":[{"type":"text","text":""}],"kind":"symbol","metadata":{"roleHeading":"Framework","externalID":"ApolloUtils","title":"ApolloUtils","symbolKind":"module","role":"collection","modules":[{"name":"ApolloUtils"}]},"hierarchy":{"paths":[[]]},"topicSections":[{"title":"Classes","identifiers":["doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/Atomic"]},{"title":"Protocols","identifiers":["doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ApolloCompatible","doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/DictionaryType","doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/OptionalType","doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ResultType"]},{"title":"Structures","identifiers":["doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ApolloExtension","doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/IsEverTrue","doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList"]}],"references":{"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/DictionaryType":{"role":"symbol","title":"DictionaryType","fragments":[{"kind":"keyword","text":"protocol"},{"kind":"text","text":" "},{"kind":"identifier","text":"DictionaryType"}],"abstract":[{"type":"text","text":"Provides a PAT interface to "},{"type":"codeVoice","code":"Dictionary<Key, Value>"}],"identifier":"doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/DictionaryType","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"DictionaryType"}],"url":"\/documentation\/apolloutils\/dictionarytype"},"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/IsEverTrue":{"role":"symbol","title":"IsEverTrue","fragments":[{"kind":"keyword","text":"struct"},{"kind":"text","text":" "},{"kind":"identifier","text":"IsEverTrue"}],"abstract":[{"type":"text","text":"A property wrapper that indicates if a "},{"type":"codeVoice","code":"Bool"},{"type":"text","text":" value was ever set to "},{"type":"codeVoice","code":"true"},{"type":"text","text":"."},{"type":"text","text":" "},{"type":"text","text":"Defaults to "},{"type":"codeVoice","code":"false"},{"type":"text","text":", if ever set to "},{"type":"codeVoice","code":"true"},{"type":"text","text":", it will always be "},{"type":"codeVoice","code":"true"},{"type":"text","text":"."}],"identifier":"doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/IsEverTrue","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"IsEverTrue"}],"url":"\/documentation\/apolloutils\/isevertrue"},"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/Atomic":{"role":"symbol","title":"Atomic","fragments":[{"kind":"keyword","text":"class"},{"kind":"text","text":" "},{"kind":"identifier","text":"Atomic"}],"abstract":[{"type":"text","text":"Wrapper for a value protected by an NSLock"}],"identifier":"doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/Atomic","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"Atomic"}],"url":"\/documentation\/apolloutils\/atomic"},"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList":{"role":"symbol","title":"LinkedList","fragments":[{"kind":"keyword","text":"struct"},{"kind":"text","text":" "},{"kind":"identifier","text":"LinkedList"}],"abstract":[{"type":"text","text":"A doubly linked list implementation."}],"identifier":"doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"LinkedList"}],"url":"\/documentation\/apolloutils\/linkedlist"},"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/ResultType":{"role":"symbol","title":"ResultType","fragments":[{"kind":"keyword","text":"protocol"},{"kind":"text","text":" "},{"kind":"identifier","text":"ResultType"}],"abstract":[{"type":"text","text":"Provides a PAT interface to "},{"type":"codeVoice","code":"Result<Success, Failure>"}],"identifier":"doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ResultType","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"ResultType"}],"url":"\/documentation\/apolloutils\/resulttype"},"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils":{"role":"collection","title":"ApolloUtils","abstract":[],"identifier":"doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils","kind":"symbol","type":"topic","url":"\/documentation\/apolloutils"},"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/ApolloCompatible":{"role":"symbol","title":"ApolloCompatible","fragments":[{"kind":"keyword","text":"protocol"},{"kind":"text","text":" "},{"kind":"identifier","text":"ApolloCompatible"}],"abstract":[{"type":"text","text":"Protocol to allow calls to extended methods and vars as object.apollo.method"}],"identifier":"doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ApolloCompatible","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"ApolloCompatible"}],"url":"\/documentation\/apolloutils\/apollocompatible"},"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/ApolloExtension":{"role":"symbol","title":"ApolloExtension","fragments":[{"kind":"keyword","text":"struct"},{"kind":"text","text":" "},{"kind":"identifier","text":"ApolloExtension"}],"abstract":[{"type":"text","text":"Wrapper to allow calls to extended methods and vars as object.apollo.method"}],"identifier":"doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ApolloExtension","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"ApolloExtension"}],"url":"\/documentation\/apolloutils\/apolloextension"},"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/OptionalType":{"role":"symbol","title":"OptionalType","fragments":[{"kind":"keyword","text":"protocol"},{"kind":"text","text":" "},{"kind":"identifier","text":"OptionalType"}],"abstract":[{"type":"text","text":"Provides a PAT interface to "},{"type":"codeVoice","code":"Optional<T>"}],"identifier":"doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/OptionalType","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"OptionalType"}],"url":"\/documentation\/apolloutils\/optionaltype"}}}
+{
+  "abstract" : [
+    {
+      "text" : "",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "ApolloUtils",
+    "modules" : [
+      {
+        "name" : "ApolloUtils"
+      }
+    ],
+    "role" : "collection",
+    "roleHeading" : "Framework",
+    "symbolKind" : "module",
+    "title" : "ApolloUtils"
+  },
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/Atomic"
+      ],
+      "title" : "Classes"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ApolloCompatible",
+        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/DictionaryType",
+        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/OptionalType",
+        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ResultType"
+      ],
+      "title" : "Protocols"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ApolloExtension",
+        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/IsEverTrue",
+        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList"
+      ],
+      "title" : "Structures"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apolloutils"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "ApolloUtils",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloutils"
+},
+"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/ApolloCompatible": {
+  "abstract" : [
+    {
+      "text" : "Protocol to allow calls to extended methods and vars as object.apollo.method",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ApolloCompatible"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ApolloCompatible",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ApolloCompatible"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ApolloCompatible",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloutils\/apollocompatible"
+},
+"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/ApolloExtension": {
+  "abstract" : [
+    {
+      "text" : "Wrapper to allow calls to extended methods and vars as object.apollo.method",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ApolloExtension"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ApolloExtension",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ApolloExtension"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ApolloExtension",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloutils\/apolloextension"
+},
+"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/Atomic": {
+  "abstract" : [
+    {
+      "text" : "Wrapper for a value protected by an NSLock",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Atomic"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/Atomic",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Atomic"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Atomic",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloutils\/atomic"
+},
+"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/DictionaryType": {
+  "abstract" : [
+    {
+      "text" : "Provides a PAT interface to ",
+      "type" : "text"
+    },
+    {
+      "code" : "Dictionary<Key, Value>",
+      "type" : "codeVoice"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DictionaryType"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/DictionaryType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DictionaryType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DictionaryType",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloutils\/dictionarytype"
+},
+"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/IsEverTrue": {
+  "abstract" : [
+    {
+      "text" : "A property wrapper that indicates if a ",
+      "type" : "text"
+    },
+    {
+      "code" : "Bool",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " value was ever set to ",
+      "type" : "text"
+    },
+    {
+      "code" : "true",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "Defaults to ",
+      "type" : "text"
+    },
+    {
+      "code" : "false",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ", if ever set to ",
+      "type" : "text"
+    },
+    {
+      "code" : "true",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ", it will always be ",
+      "type" : "text"
+    },
+    {
+      "code" : "true",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "IsEverTrue"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/IsEverTrue",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "IsEverTrue"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "IsEverTrue",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloutils\/isevertrue"
+},
+"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList": {
+  "abstract" : [
+    {
+      "text" : "A doubly linked list implementation.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "LinkedList"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "LinkedList"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "LinkedList",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloutils\/linkedlist"
+},
+"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/OptionalType": {
+  "abstract" : [
+    {
+      "text" : "Provides a PAT interface to ",
+      "type" : "text"
+    },
+    {
+      "code" : "Optional<T>",
+      "type" : "codeVoice"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "OptionalType"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/OptionalType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "OptionalType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "OptionalType",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloutils\/optionaltype"
+},
+"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/ResultType": {
+  "abstract" : [
+    {
+      "text" : "Provides a PAT interface to ",
+      "type" : "text"
+    },
+    {
+      "code" : "Result<Success, Failure>",
+      "type" : "codeVoice"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ResultType"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ResultType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ResultType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ResultType",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloutils\/resulttype"
+}
+}
+}

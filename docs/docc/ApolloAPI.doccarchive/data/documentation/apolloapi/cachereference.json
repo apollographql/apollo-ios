@@ -1,1 +1,498 @@
-{"primaryContentSections":[{"kind":"declarations","declarations":[{"tokens":[{"kind":"keyword","text":"struct"},{"kind":"text","text":" "},{"kind":"identifier","text":"CacheReference"}],"languages":["swift"],"platforms":["macOS"]}]}],"schemaVersion":{"major":0,"minor":2,"patch":0},"sections":[],"variants":[{"paths":["\/documentation\/apolloapi\/cachereference"],"traits":[{"interfaceLanguage":"swift"}]}],"relationshipsSections":[{"identifiers":["doc:\/\/com.apollographql.ApolloAPI.macosx\/s23CustomStringConvertibleP","doc:\/\/com.apollographql.ApolloAPI.macosx\/SQ","doc:\/\/com.apollographql.ApolloAPI.macosx\/SH"],"kind":"relationships","title":"Conforms To","type":"conformsTo"}],"identifier":{"url":"doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheReference","interfaceLanguage":"swift"},"abstract":[{"type":"text","text":"Represents a reference to a record for a GraphQL Object in the cache."}],"kind":"symbol","metadata":{"fragments":[{"kind":"keyword","text":"struct"},{"kind":"text","text":" "},{"kind":"identifier","text":"CacheReference"}],"title":"CacheReference","roleHeading":"Structure","role":"symbol","symbolKind":"struct","externalID":"s:9ApolloAPI14CacheReferenceV","modules":[{"name":"ApolloAPI"}],"navigatorTitle":[{"kind":"identifier","text":"CacheReference"}]},"hierarchy":{"paths":[["doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI"]]},"topicSections":[{"title":"Initializers","identifiers":["doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheReference\/init(_:)"]},{"title":"Instance Properties","identifiers":["doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheReference\/key"]},{"title":"Type Properties","identifiers":["doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheReference\/RootMutation","doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheReference\/RootQuery","doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheReference\/RootSubscription"]},{"title":"Type Methods","identifiers":["doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheReference\/rootCacheReference(for:)"]},{"title":"Default Implementations","identifiers":["doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheReference\/CustomStringConvertible-Implementations","doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheReference\/Equatable-Implementations"],"generated":true}],"references":{"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/CacheReference/CustomStringConvertible-Implementations":{"role":"collectionGroup","title":"CustomStringConvertible Implementations","abstract":[],"identifier":"doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheReference\/CustomStringConvertible-Implementations","kind":"article","type":"topic","url":"\/documentation\/apolloapi\/cachereference\/customstringconvertible-implementations"},"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/CacheReference/key":{"role":"symbol","title":"key","fragments":[{"kind":"keyword","text":"let"},{"kind":"text","text":" "},{"kind":"identifier","text":"key"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"String","preciseIdentifier":"s:SS"}],"abstract":[{"type":"text","text":"The unique identifier for the referenced object."}],"identifier":"doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheReference\/key","kind":"symbol","type":"topic","url":"\/documentation\/apolloapi\/cachereference\/key"},"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/CacheReference/RootMutation":{"role":"symbol","title":"RootMutation","fragments":[{"kind":"keyword","text":"static"},{"kind":"text","text":" "},{"kind":"keyword","text":"let"},{"kind":"text","text":" "},{"kind":"identifier","text":"RootMutation"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"CacheReference","preciseIdentifier":"s:9ApolloAPI14CacheReferenceV"}],"abstract":[{"type":"text","text":"A CacheReference referencing the root mutation object."}],"identifier":"doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheReference\/RootMutation","kind":"symbol","type":"topic","url":"\/documentation\/apolloapi\/cachereference\/rootmutation"},"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/CacheReference":{"role":"symbol","title":"CacheReference","fragments":[{"kind":"keyword","text":"struct"},{"kind":"text","text":" "},{"kind":"identifier","text":"CacheReference"}],"abstract":[{"type":"text","text":"Represents a reference to a record for a GraphQL Object in the cache."}],"identifier":"doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheReference","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"CacheReference"}],"url":"\/documentation\/apolloapi\/cachereference"},"doc://com.apollographql.ApolloAPI.macosx/SQ":{"type":"unresolvable","title":"Swift.Equatable","identifier":"doc:\/\/com.apollographql.ApolloAPI.macosx\/SQ"},"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/CacheReference/Equatable-Implementations":{"role":"collectionGroup","title":"Equatable Implementations","abstract":[],"identifier":"doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheReference\/Equatable-Implementations","kind":"article","type":"topic","url":"\/documentation\/apolloapi\/cachereference\/equatable-implementations"},"doc://com.apollographql.ApolloAPI.macosx/s23CustomStringConvertibleP":{"type":"unresolvable","title":"Swift.CustomStringConvertible","identifier":"doc:\/\/com.apollographql.ApolloAPI.macosx\/s23CustomStringConvertibleP"},"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/CacheReference/rootCacheReference(for:)":{"role":"symbol","title":"rootCacheReference(for:)","fragments":[{"kind":"keyword","text":"static"},{"kind":"text","text":" "},{"kind":"keyword","text":"func"},{"kind":"text","text":" "},{"kind":"identifier","text":"rootCacheReference"},{"kind":"text","text":"("},{"kind":"externalParam","text":"for"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"GraphQLOperationType","preciseIdentifier":"s:9ApolloAPI20GraphQLOperationTypeO"},{"kind":"text","text":") -> "},{"kind":"typeIdentifier","text":"CacheReference","preciseIdentifier":"s:9ApolloAPI14CacheReferenceV"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheReference\/rootCacheReference(for:)","kind":"symbol","type":"topic","url":"\/documentation\/apolloapi\/cachereference\/rootcachereference(for:)"},"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/CacheReference/init(_:)":{"role":"symbol","title":"init(_:)","fragments":[{"kind":"identifier","text":"init"},{"kind":"text","text":"("},{"kind":"typeIdentifier","text":"String","preciseIdentifier":"s:SS"},{"kind":"text","text":")"}],"abstract":[{"type":"text","text":"Initializer"}],"identifier":"doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheReference\/init(_:)","kind":"symbol","type":"topic","url":"\/documentation\/apolloapi\/cachereference\/init(_:)"},"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/CacheReference/RootQuery":{"role":"symbol","title":"RootQuery","fragments":[{"kind":"keyword","text":"static"},{"kind":"text","text":" "},{"kind":"keyword","text":"let"},{"kind":"text","text":" "},{"kind":"identifier","text":"RootQuery"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"CacheReference","preciseIdentifier":"s:9ApolloAPI14CacheReferenceV"}],"abstract":[{"type":"text","text":"A CacheReference referencing the root query object."}],"identifier":"doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheReference\/RootQuery","kind":"symbol","type":"topic","url":"\/documentation\/apolloapi\/cachereference\/rootquery"},"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/CacheReference/RootSubscription":{"role":"symbol","title":"RootSubscription","fragments":[{"kind":"keyword","text":"static"},{"kind":"text","text":" "},{"kind":"keyword","text":"let"},{"kind":"text","text":" "},{"kind":"identifier","text":"RootSubscription"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"CacheReference","preciseIdentifier":"s:9ApolloAPI14CacheReferenceV"}],"abstract":[{"type":"text","text":"A CacheReference referencing the root subscription object."}],"identifier":"doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheReference\/RootSubscription","kind":"symbol","type":"topic","url":"\/documentation\/apolloapi\/cachereference\/rootsubscription"},"doc://com.apollographql.ApolloAPI.macosx/SH":{"type":"unresolvable","title":"Swift.Hashable","identifier":"doc:\/\/com.apollographql.ApolloAPI.macosx\/SH"},"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI":{"role":"collection","title":"ApolloAPI","abstract":[],"identifier":"doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI","kind":"symbol","type":"topic","url":"\/documentation\/apolloapi"}}}
+{
+  "abstract" : [
+    {
+      "text" : "Represents a reference to a record for a GraphQL Object in the cache.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheReference"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:9ApolloAPI14CacheReferenceV",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "struct"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "CacheReference"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "ApolloAPI"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "CacheReference"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Structure",
+    "symbolKind" : "struct",
+    "title" : "CacheReference"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "struct"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "CacheReference"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.ApolloAPI.macosx\/s23CustomStringConvertibleP",
+        "doc:\/\/com.apollographql.ApolloAPI.macosx\/SQ",
+        "doc:\/\/com.apollographql.ApolloAPI.macosx\/SH"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheReference\/init(_:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheReference\/key"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheReference\/RootMutation",
+        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheReference\/RootQuery",
+        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheReference\/RootSubscription"
+      ],
+      "title" : "Type Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheReference\/rootCacheReference(for:)"
+      ],
+      "title" : "Type Methods"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheReference\/CustomStringConvertible-Implementations",
+        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheReference\/Equatable-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apolloapi\/cachereference"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://com.apollographql.ApolloAPI.macosx/SH": {
+  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/SH",
+  "title" : "Swift.Hashable",
+  "type" : "unresolvable"
+},
+"doc://com.apollographql.ApolloAPI.macosx/SQ": {
+  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/SQ",
+  "title" : "Swift.Equatable",
+  "type" : "unresolvable"
+},
+"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "ApolloAPI",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi"
+},
+"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/CacheReference": {
+  "abstract" : [
+    {
+      "text" : "Represents a reference to a record for a GraphQL Object in the cache.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CacheReference"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheReference",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CacheReference"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CacheReference",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/cachereference"
+},
+"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/CacheReference/CustomStringConvertible-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheReference\/CustomStringConvertible-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "CustomStringConvertible Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/cachereference\/customstringconvertible-implementations"
+},
+"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/CacheReference/Equatable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheReference\/Equatable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Equatable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/cachereference\/equatable-implementations"
+},
+"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/CacheReference/RootMutation": {
+  "abstract" : [
+    {
+      "text" : "A CacheReference referencing the root mutation object.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RootMutation"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI14CacheReferenceV",
+      "text" : "CacheReference"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheReference\/RootMutation",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "RootMutation",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/cachereference\/rootmutation"
+},
+"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/CacheReference/RootQuery": {
+  "abstract" : [
+    {
+      "text" : "A CacheReference referencing the root query object.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RootQuery"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI14CacheReferenceV",
+      "text" : "CacheReference"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheReference\/RootQuery",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "RootQuery",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/cachereference\/rootquery"
+},
+"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/CacheReference/RootSubscription": {
+  "abstract" : [
+    {
+      "text" : "A CacheReference referencing the root subscription object.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RootSubscription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI14CacheReferenceV",
+      "text" : "CacheReference"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheReference\/RootSubscription",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "RootSubscription",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/cachereference\/rootsubscription"
+},
+"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/CacheReference/init(_:)": {
+  "abstract" : [
+    {
+      "text" : "Initializer",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheReference\/init(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/cachereference\/init(_:)"
+},
+"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/CacheReference/key": {
+  "abstract" : [
+    {
+      "text" : "The unique identifier for the referenced object.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "key"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheReference\/key",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "key",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/cachereference\/key"
+},
+"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/CacheReference/rootCacheReference(for:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "rootCacheReference"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "for"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI20GraphQLOperationTypeO",
+      "text" : "GraphQLOperationType"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI14CacheReferenceV",
+      "text" : "CacheReference"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheReference\/rootCacheReference(for:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "rootCacheReference(for:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/cachereference\/rootcachereference(for:)"
+},
+"doc://com.apollographql.ApolloAPI.macosx/s23CustomStringConvertibleP": {
+  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/s23CustomStringConvertibleP",
+  "title" : "Swift.CustomStringConvertible",
+  "type" : "unresolvable"
+}
+}
+}

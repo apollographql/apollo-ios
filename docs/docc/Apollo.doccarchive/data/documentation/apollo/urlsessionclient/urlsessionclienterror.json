@@ -1,1 +1,524 @@
-{"primaryContentSections":[{"kind":"declarations","declarations":[{"tokens":[{"kind":"keyword","text":"enum"},{"kind":"text","text":" "},{"kind":"identifier","text":"URLSessionClientError"}],"languages":["swift"],"platforms":["macOS"]}]}],"schemaVersion":{"major":0,"minor":2,"patch":0},"sections":[],"variants":[{"paths":["\/documentation\/apollo\/urlsessionclient\/urlsessionclienterror"],"traits":[{"interfaceLanguage":"swift"}]}],"relationshipsSections":[{"identifiers":["doc:\/\/com.apollographql.Apollo.macosx\/10Foundation14LocalizedErrorP","doc:\/\/com.apollographql.Apollo.macosx\/s5ErrorP","doc:\/\/com.apollographql.Apollo.macosx\/s8SendableP"],"kind":"relationships","title":"Conforms To","type":"conformsTo"}],"identifier":{"url":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError","interfaceLanguage":"swift"},"abstract":[{"type":"text","text":"No overview available."}],"kind":"symbol","metadata":{"fragments":[{"kind":"keyword","text":"enum"},{"kind":"text","text":" "},{"kind":"identifier","text":"URLSessionClientError"}],"title":"URLSessionClient.URLSessionClientError","roleHeading":"Enumeration","role":"symbol","symbolKind":"enum","externalID":"s:6Apollo16URLSessionClientC0bC5ErrorO","modules":[{"name":"Apollo"}],"navigatorTitle":[{"kind":"identifier","text":"URLSessionClientError"}]},"hierarchy":{"paths":[["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo","doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient"]]},"topicSections":[{"title":"Enumeration Cases","identifiers":["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/dataForRequestNotFound(request:)","doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/networkError(data:response:underlying:)","doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/noHTTPResponse(request:)","doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/sessionBecameInvalidWithoutUnderlyingError","doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/sessionInvalidated"]},{"title":"Instance Properties","identifiers":["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/errorDescription-2rch3"]},{"title":"Default Implementations","identifiers":["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/Error-Implementations","doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/LocalizedError-Implementations"],"generated":true}],"references":{"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/URLSessionClientError/LocalizedError-Implementations":{"role":"collectionGroup","title":"LocalizedError Implementations","abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/LocalizedError-Implementations","kind":"article","type":"topic","url":"\/documentation\/apollo\/urlsessionclient\/urlsessionclienterror\/localizederror-implementations"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo":{"role":"collection","title":"Apollo","abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo","kind":"symbol","type":"topic","url":"\/documentation\/apollo"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/URLSessionClientError/sessionBecameInvalidWithoutUnderlyingError":{"role":"symbol","title":"URLSessionClient.URLSessionClientError.sessionBecameInvalidWithoutUnderlyingError","fragments":[{"kind":"keyword","text":"case"},{"kind":"text","text":" "},{"kind":"identifier","text":"sessionBecameInvalidWithoutUnderlyingError"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/sessionBecameInvalidWithoutUnderlyingError","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/urlsessionclient\/urlsessionclienterror\/sessionbecameinvalidwithoutunderlyingerror"},"doc://com.apollographql.Apollo.macosx/10Foundation14LocalizedErrorP":{"type":"unresolvable","title":"Foundation.LocalizedError","identifier":"doc:\/\/com.apollographql.Apollo.macosx\/10Foundation14LocalizedErrorP"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient":{"role":"symbol","title":"URLSessionClient","fragments":[{"kind":"keyword","text":"class"},{"kind":"text","text":" "},{"kind":"identifier","text":"URLSessionClient"}],"abstract":[{"type":"text","text":"A class to handle URL Session calls that will support background execution,"},{"type":"text","text":" "},{"type":"text","text":"but still (mostly) use callbacks for its primary method of communication."}],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"URLSessionClient"}],"url":"\/documentation\/apollo\/urlsessionclient"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/URLSessionClientError/Error-Implementations":{"role":"collectionGroup","title":"Error Implementations","abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/Error-Implementations","kind":"article","type":"topic","url":"\/documentation\/apollo\/urlsessionclient\/urlsessionclienterror\/error-implementations"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/URLSessionClientError/networkError(data:response:underlying:)":{"role":"symbol","title":"URLSessionClient.URLSessionClientError.networkError(data:response:underlying:)","fragments":[{"kind":"keyword","text":"case"},{"kind":"text","text":" "},{"kind":"identifier","text":"networkError"},{"kind":"text","text":"("},{"kind":"externalParam","text":"data"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"Data","preciseIdentifier":"s:10Foundation4DataV"},{"kind":"text","text":", "},{"kind":"externalParam","text":"response"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"HTTPURLResponse","preciseIdentifier":"c:objc(cs)NSHTTPURLResponse"},{"kind":"text","text":"?, "},{"kind":"externalParam","text":"underlying"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"Error","preciseIdentifier":"s:s5ErrorP"},{"kind":"text","text":")"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/networkError(data:response:underlying:)","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/urlsessionclient\/urlsessionclienterror\/networkerror(data:response:underlying:)"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/URLSessionClientError/errorDescription-2rch3":{"role":"symbol","title":"errorDescription","fragments":[{"kind":"keyword","text":"var"},{"kind":"text","text":" "},{"kind":"identifier","text":"errorDescription"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"String","preciseIdentifier":"s:SS"},{"kind":"text","text":"?"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/errorDescription-2rch3","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/urlsessionclient\/urlsessionclienterror\/errordescription-2rch3"},"doc://com.apollographql.Apollo.macosx/s5ErrorP":{"type":"unresolvable","title":"Swift.Error","identifier":"doc:\/\/com.apollographql.Apollo.macosx\/s5ErrorP"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/URLSessionClientError":{"role":"symbol","title":"URLSessionClient.URLSessionClientError","fragments":[{"kind":"keyword","text":"enum"},{"kind":"text","text":" "},{"kind":"identifier","text":"URLSessionClientError"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"URLSessionClientError"}],"url":"\/documentation\/apollo\/urlsessionclient\/urlsessionclienterror"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/URLSessionClientError/noHTTPResponse(request:)":{"role":"symbol","title":"URLSessionClient.URLSessionClientError.noHTTPResponse(request:)","fragments":[{"kind":"keyword","text":"case"},{"kind":"text","text":" "},{"kind":"identifier","text":"noHTTPResponse"},{"kind":"text","text":"("},{"kind":"externalParam","text":"request"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"URLRequest","preciseIdentifier":"s:10Foundation10URLRequestV"},{"kind":"text","text":"?)"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/noHTTPResponse(request:)","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/urlsessionclient\/urlsessionclienterror\/nohttpresponse(request:)"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/URLSessionClientError/sessionInvalidated":{"role":"symbol","title":"URLSessionClient.URLSessionClientError.sessionInvalidated","fragments":[{"kind":"keyword","text":"case"},{"kind":"text","text":" "},{"kind":"identifier","text":"sessionInvalidated"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/sessionInvalidated","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/urlsessionclient\/urlsessionclienterror\/sessioninvalidated"},"doc://com.apollographql.Apollo.macosx/s8SendableP":{"type":"unresolvable","title":"Swift.Sendable","identifier":"doc:\/\/com.apollographql.Apollo.macosx\/s8SendableP"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/URLSessionClientError/dataForRequestNotFound(request:)":{"role":"symbol","title":"URLSessionClient.URLSessionClientError.dataForRequestNotFound(request:)","fragments":[{"kind":"keyword","text":"case"},{"kind":"text","text":" "},{"kind":"identifier","text":"dataForRequestNotFound"},{"kind":"text","text":"("},{"kind":"externalParam","text":"request"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"URLRequest","preciseIdentifier":"s:10Foundation10URLRequestV"},{"kind":"text","text":"?)"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/dataForRequestNotFound(request:)","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/urlsessionclient\/urlsessionclienterror\/dataforrequestnotfound(request:)"}}}
+{
+  "abstract" : [
+    {
+      "text" : "No overview available.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:6Apollo16URLSessionClientC0bC5ErrorO",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "enum"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "URLSessionClientError"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Apollo"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "URLSessionClientError"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Enumeration",
+    "symbolKind" : "enum",
+    "title" : "URLSessionClient.URLSessionClientError"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "enum"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "URLSessionClientError"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.Apollo.macosx\/10Foundation14LocalizedErrorP",
+        "doc:\/\/com.apollographql.Apollo.macosx\/s5ErrorP",
+        "doc:\/\/com.apollographql.Apollo.macosx\/s8SendableP"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/dataForRequestNotFound(request:)",
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/networkError(data:response:underlying:)",
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/noHTTPResponse(request:)",
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/sessionBecameInvalidWithoutUnderlyingError",
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/sessionInvalidated"
+      ],
+      "title" : "Enumeration Cases"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/errorDescription-2rch3"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/Error-Implementations",
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/LocalizedError-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollo\/urlsessionclient\/urlsessionclienterror"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://com.apollographql.Apollo.macosx/10Foundation14LocalizedErrorP": {
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/10Foundation14LocalizedErrorP",
+  "title" : "Foundation.LocalizedError",
+  "type" : "unresolvable"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Apollo",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient": {
+  "abstract" : [
+    {
+      "text" : "A class to handle URL Session calls that will support background execution,",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "but still (mostly) use callbacks for its primary method of communication.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "URLSessionClient"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "URLSessionClient"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "URLSessionClient",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/urlsessionclient"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/URLSessionClientError": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "URLSessionClientError"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "URLSessionClientError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "URLSessionClient.URLSessionClientError",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/urlsessionclient\/urlsessionclienterror"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/URLSessionClientError/Error-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/Error-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Error Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/urlsessionclient\/urlsessionclienterror\/error-implementations"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/URLSessionClientError/LocalizedError-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/LocalizedError-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "LocalizedError Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/urlsessionclient\/urlsessionclienterror\/localizederror-implementations"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/URLSessionClientError/dataForRequestNotFound(request:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "dataForRequestNotFound"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "request"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation10URLRequestV",
+      "text" : "URLRequest"
+    },
+    {
+      "kind" : "text",
+      "text" : "?)"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/dataForRequestNotFound(request:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "URLSessionClient.URLSessionClientError.dataForRequestNotFound(request:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/urlsessionclient\/urlsessionclienterror\/dataforrequestnotfound(request:)"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/URLSessionClientError/errorDescription-2rch3": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "errorDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/errorDescription-2rch3",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "errorDescription",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/urlsessionclient\/urlsessionclienterror\/errordescription-2rch3"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/URLSessionClientError/networkError(data:response:underlying:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "networkError"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "data"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation4DataV",
+      "text" : "Data"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "response"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:objc(cs)NSHTTPURLResponse",
+      "text" : "HTTPURLResponse"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "underlying"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s5ErrorP",
+      "text" : "Error"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/networkError(data:response:underlying:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "URLSessionClient.URLSessionClientError.networkError(data:response:underlying:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/urlsessionclient\/urlsessionclienterror\/networkerror(data:response:underlying:)"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/URLSessionClientError/noHTTPResponse(request:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "noHTTPResponse"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "request"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation10URLRequestV",
+      "text" : "URLRequest"
+    },
+    {
+      "kind" : "text",
+      "text" : "?)"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/noHTTPResponse(request:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "URLSessionClient.URLSessionClientError.noHTTPResponse(request:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/urlsessionclient\/urlsessionclienterror\/nohttpresponse(request:)"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/URLSessionClientError/sessionBecameInvalidWithoutUnderlyingError": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "sessionBecameInvalidWithoutUnderlyingError"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/sessionBecameInvalidWithoutUnderlyingError",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "URLSessionClient.URLSessionClientError.sessionBecameInvalidWithoutUnderlyingError",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/urlsessionclient\/urlsessionclienterror\/sessionbecameinvalidwithoutunderlyingerror"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/URLSessionClientError/sessionInvalidated": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "sessionInvalidated"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/sessionInvalidated",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "URLSessionClient.URLSessionClientError.sessionInvalidated",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/urlsessionclient\/urlsessionclienterror\/sessioninvalidated"
+},
+"doc://com.apollographql.Apollo.macosx/s5ErrorP": {
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/s5ErrorP",
+  "title" : "Swift.Error",
+  "type" : "unresolvable"
+},
+"doc://com.apollographql.Apollo.macosx/s8SendableP": {
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/s8SendableP",
+  "title" : "Swift.Sendable",
+  "type" : "unresolvable"
+}
+}
+}

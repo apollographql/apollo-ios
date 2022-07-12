@@ -1,1 +1,463 @@
-{"primaryContentSections":[{"kind":"declarations","declarations":[{"tokens":[{"kind":"keyword","text":"static"},{"kind":"text","text":" "},{"kind":"keyword","text":"var"},{"kind":"text","text":" "},{"kind":"identifier","text":"apollo"},{"kind":"text","text":": "},{"kind":"typeIdentifier","identifier":"doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ApolloExtension","preciseIdentifier":"s:11ApolloUtils0A9ExtensionV","text":"ApolloExtension"},{"kind":"text","text":"<"},{"kind":"typeIdentifier","identifier":"doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ApolloCompatible\/Base","preciseIdentifier":"s:11ApolloUtils0A10CompatibleP4BaseQa","text":"Base"},{"kind":"text","text":">.Type { "},{"kind":"keyword","text":"get"},{"kind":"text","text":" }"}],"languages":["swift"],"platforms":["macOS"]}]}],"schemaVersion":{"major":0,"minor":2,"patch":0},"sections":[],"variants":[{"paths":["\/documentation\/apolloutils\/apollocompatible\/apollo-swift.type.property-4v3vv"],"traits":[{"interfaceLanguage":"swift"}]}],"defaultImplementationsSections":[{"title":"ApolloCompatible Implementations","identifiers":["doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ApolloCompatible\/apollo-swift.property-2se1m","doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ApolloCompatible\/apollo-swift.type.property-9cqw0"]}],"identifier":{"url":"doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ApolloCompatible\/apollo-swift.type.property-4v3vv","interfaceLanguage":"swift"},"abstract":[{"type":"text","text":"The "},{"type":"codeVoice","code":"ApolloExtension"},{"type":"text","text":" object for a type"}],"kind":"symbol","metadata":{"role":"symbol","title":"apollo","roleHeading":"Type Property","fragments":[{"kind":"keyword","text":"static"},{"kind":"text","text":" "},{"kind":"keyword","text":"var"},{"kind":"text","text":" "},{"kind":"identifier","text":"apollo"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"ApolloExtension","preciseIdentifier":"s:11ApolloUtils0A9ExtensionV"},{"kind":"text","text":"<"},{"kind":"typeIdentifier","text":"Base","preciseIdentifier":"s:11ApolloUtils0A10CompatibleP4BaseQa"},{"kind":"text","text":">.Type"}],"symbolKind":"property","externalID":"s:11ApolloUtils0A10CompatibleP6apolloAA0A9ExtensionVy4BaseQzGmvpZ","required":true,"modules":[{"name":"ApolloUtils"}]},"hierarchy":{"paths":[["doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils","doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ApolloCompatible"]]},"references":{"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/ApolloCompatible":{"role":"symbol","title":"ApolloCompatible","fragments":[{"kind":"keyword","text":"protocol"},{"kind":"text","text":" "},{"kind":"identifier","text":"ApolloCompatible"}],"abstract":[{"type":"text","text":"Protocol to allow calls to extended methods and vars as object.apollo.method"}],"identifier":"doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ApolloCompatible","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"ApolloCompatible"}],"url":"\/documentation\/apolloutils\/apollocompatible"},"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/ApolloCompatible/apollo-swift.property-2se1m":{"role":"symbol","title":"apollo","fragments":[{"kind":"keyword","text":"var"},{"kind":"text","text":" "},{"kind":"identifier","text":"apollo"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"ApolloExtension","preciseIdentifier":"s:11ApolloUtils0A9ExtensionV"},{"kind":"text","text":"<"},{"kind":"typeIdentifier","text":"Self"},{"kind":"text","text":">"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ApolloCompatible\/apollo-swift.property-2se1m","kind":"symbol","type":"topic","url":"\/documentation\/apolloutils\/apollocompatible\/apollo-swift.property-2se1m"},"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/ApolloCompatible/Base":{"role":"symbol","title":"Base","fragments":[{"kind":"keyword","text":"associatedtype"},{"kind":"text","text":" "},{"kind":"identifier","text":"Base"}],"abstract":[{"type":"text","text":"The base type being extended"}],"identifier":"doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ApolloCompatible\/Base","kind":"symbol","required":true,"type":"topic","url":"\/documentation\/apolloutils\/apollocompatible\/base"},"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/ApolloCompatible/apollo-swift.type.property-4v3vv":{"defaultImplementations":2,"role":"symbol","title":"apollo","fragments":[{"kind":"keyword","text":"static"},{"kind":"text","text":" "},{"kind":"keyword","text":"var"},{"kind":"text","text":" "},{"kind":"identifier","text":"apollo"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"ApolloExtension","preciseIdentifier":"s:11ApolloUtils0A9ExtensionV"},{"kind":"text","text":"<"},{"kind":"typeIdentifier","text":"Base","preciseIdentifier":"s:11ApolloUtils0A10CompatibleP4BaseQa"},{"kind":"text","text":">.Type"}],"abstract":[{"type":"text","text":"The "},{"type":"codeVoice","code":"ApolloExtension"},{"type":"text","text":" object for a type"}],"identifier":"doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ApolloCompatible\/apollo-swift.type.property-4v3vv","kind":"symbol","required":true,"type":"topic","url":"\/documentation\/apolloutils\/apollocompatible\/apollo-swift.type.property-4v3vv"},"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/ApolloExtension":{"role":"symbol","title":"ApolloExtension","fragments":[{"kind":"keyword","text":"struct"},{"kind":"text","text":" "},{"kind":"identifier","text":"ApolloExtension"}],"abstract":[{"type":"text","text":"Wrapper to allow calls to extended methods and vars as object.apollo.method"}],"identifier":"doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ApolloExtension","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"ApolloExtension"}],"url":"\/documentation\/apolloutils\/apolloextension"},"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils":{"role":"collection","title":"ApolloUtils","abstract":[],"identifier":"doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils","kind":"symbol","type":"topic","url":"\/documentation\/apolloutils"},"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/ApolloCompatible/apollo-swift.type.property-9cqw0":{"role":"symbol","title":"apollo","fragments":[{"kind":"keyword","text":"static"},{"kind":"text","text":" "},{"kind":"keyword","text":"var"},{"kind":"text","text":" "},{"kind":"identifier","text":"apollo"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"ApolloExtension","preciseIdentifier":"s:11ApolloUtils0A9ExtensionV"},{"kind":"text","text":"<"},{"kind":"typeIdentifier","text":"Self"},{"kind":"text","text":">.Type"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ApolloCompatible\/apollo-swift.type.property-9cqw0","kind":"symbol","type":"topic","url":"\/documentation\/apolloutils\/apollocompatible\/apollo-swift.type.property-9cqw0"}}}
+{
+  "abstract" : [
+    {
+      "text" : "The ",
+      "type" : "text"
+    },
+    {
+      "code" : "ApolloExtension",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " object for a type",
+      "type" : "text"
+    }
+  ],
+  "defaultImplementationsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ApolloCompatible\/apollo-swift.property-2se1m",
+        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ApolloCompatible\/apollo-swift.type.property-9cqw0"
+      ],
+      "title" : "ApolloCompatible Implementations"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils",
+        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ApolloCompatible"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ApolloCompatible\/apollo-swift.type.property-4v3vv"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:11ApolloUtils0A10CompatibleP6apolloAA0A9ExtensionVy4BaseQzGmvpZ",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "static"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "keyword",
+        "text" : "var"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "apollo"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:11ApolloUtils0A9ExtensionV",
+        "text" : "ApolloExtension"
+      },
+      {
+        "kind" : "text",
+        "text" : "<"
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:11ApolloUtils0A10CompatibleP4BaseQa",
+        "text" : "Base"
+      },
+      {
+        "kind" : "text",
+        "text" : ">.Type"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "ApolloUtils"
+      }
+    ],
+    "required" : true,
+    "role" : "symbol",
+    "roleHeading" : "Type Property",
+    "symbolKind" : "property",
+    "title" : "apollo"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "static"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "var"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "apollo"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ApolloExtension",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:11ApolloUtils0A9ExtensionV",
+              "text" : "ApolloExtension"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ApolloCompatible\/Base",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:11ApolloUtils0A10CompatibleP4BaseQa",
+              "text" : "Base"
+            },
+            {
+              "kind" : "text",
+              "text" : ">.Type { "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "get"
+            },
+            {
+              "kind" : "text",
+              "text" : " }"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apolloutils\/apollocompatible\/apollo-swift.type.property-4v3vv"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "ApolloUtils",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloutils"
+},
+"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/ApolloCompatible": {
+  "abstract" : [
+    {
+      "text" : "Protocol to allow calls to extended methods and vars as object.apollo.method",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ApolloCompatible"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ApolloCompatible",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ApolloCompatible"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ApolloCompatible",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloutils\/apollocompatible"
+},
+"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/ApolloCompatible/Base": {
+  "abstract" : [
+    {
+      "text" : "The base type being extended",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "associatedtype"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Base"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ApolloCompatible\/Base",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "Base",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloutils\/apollocompatible\/base"
+},
+"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/ApolloCompatible/apollo-swift.property-2se1m": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "apollo"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11ApolloUtils0A9ExtensionV",
+      "text" : "ApolloExtension"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ApolloCompatible\/apollo-swift.property-2se1m",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "apollo",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloutils\/apollocompatible\/apollo-swift.property-2se1m"
+},
+"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/ApolloCompatible/apollo-swift.type.property-4v3vv": {
+  "abstract" : [
+    {
+      "text" : "The ",
+      "type" : "text"
+    },
+    {
+      "code" : "ApolloExtension",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " object for a type",
+      "type" : "text"
+    }
+  ],
+  "defaultImplementations" : 2,
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "apollo"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11ApolloUtils0A9ExtensionV",
+      "text" : "ApolloExtension"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11ApolloUtils0A10CompatibleP4BaseQa",
+      "text" : "Base"
+    },
+    {
+      "kind" : "text",
+      "text" : ">.Type"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ApolloCompatible\/apollo-swift.type.property-4v3vv",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "apollo",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloutils\/apollocompatible\/apollo-swift.type.property-4v3vv"
+},
+"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/ApolloCompatible/apollo-swift.type.property-9cqw0": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "apollo"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11ApolloUtils0A9ExtensionV",
+      "text" : "ApolloExtension"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : ">.Type"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ApolloCompatible\/apollo-swift.type.property-9cqw0",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "apollo",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloutils\/apollocompatible\/apollo-swift.type.property-9cqw0"
+},
+"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/ApolloExtension": {
+  "abstract" : [
+    {
+      "text" : "Wrapper to allow calls to extended methods and vars as object.apollo.method",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ApolloExtension"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ApolloExtension",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ApolloExtension"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ApolloExtension",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloutils\/apolloextension"
+}
+}
+}

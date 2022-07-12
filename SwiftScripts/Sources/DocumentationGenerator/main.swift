@@ -18,7 +18,9 @@ enum Target: String, CaseIterable {
   }
 
   var docBuildCommand: String {
-    "xcodebuild -project Apollo.xcodeproj -derivedDataPath docs/docc/tmp -scheme \(scheme) docbuild"
+    """
+    xcodebuild -project Apollo.xcodeproj -derivedDataPath docs/docc/tmp -scheme \(scheme) docbuild
+    """
   }
 }
 
@@ -36,10 +38,14 @@ func shell(_ command: String) throws -> String {
   let task = Process()
   let pipe = Pipe()
 
+  task.environment = ProcessInfo.processInfo.environment
   task.standardOutput = pipe
   task.standardError = pipe
+
   task.currentDirectoryURL = sourceRootURL
+  task.environment?["DOCC_JSON_PRETTYPRINT"] = "YES"
   task.arguments = ["-c", command]
+
   task.executableURL = URL(fileURLWithPath: "/bin/zsh")
   task.standardInput = nil
 

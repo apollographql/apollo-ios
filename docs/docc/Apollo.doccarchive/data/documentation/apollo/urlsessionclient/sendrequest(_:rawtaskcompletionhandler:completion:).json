@@ -1,1 +1,545 @@
-{"primaryContentSections":[{"kind":"declarations","declarations":[{"tokens":[{"kind":"attribute","text":"@discardableResult"},{"kind":"text","text":" "},{"kind":"keyword","text":"func"},{"kind":"text","text":" "},{"kind":"identifier","text":"sendRequest"},{"kind":"text","text":"("},{"kind":"externalParam","text":"_"},{"kind":"text","text":" "},{"kind":"internalParam","text":"request"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"URLRequest","preciseIdentifier":"s:10Foundation10URLRequestV"},{"kind":"text","text":", "},{"kind":"externalParam","text":"rawTaskCompletionHandler"},{"kind":"text","text":": "},{"kind":"typeIdentifier","identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/RawCompletion","preciseIdentifier":"s:6Apollo16URLSessionClientC13RawCompletiona","text":"RawCompletion"},{"kind":"text","text":"? = nil, "},{"kind":"externalParam","text":"completion"},{"kind":"text","text":": "},{"kind":"attribute","text":"@escaping"},{"kind":"text","text":" "},{"kind":"typeIdentifier","identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/Completion","preciseIdentifier":"s:6Apollo16URLSessionClientC10Completiona","text":"Completion"},{"kind":"text","text":") -> "},{"kind":"typeIdentifier","text":"URLSessionTask","preciseIdentifier":"c:objc(cs)NSURLSessionTask"}],"languages":["swift"],"platforms":["macOS"]}]},{"kind":"content","content":[{"anchor":"return-value","level":2,"type":"heading","text":"Return Value"},{"type":"paragraph","inlineContent":[{"type":"text","text":"The created URLSession task, already resumed, because nobody ever remembers to call "},{"type":"codeVoice","code":"resume()"},{"type":"text","text":"."}]}]},{"kind":"parameters","parameters":[{"name":"request","content":[{"type":"paragraph","inlineContent":[{"type":"text","text":"The request to perform."}]}]},{"name":"rawTaskCompletionHandler","content":[{"type":"paragraph","inlineContent":[{"type":"text","text":"[optional] A completion handler to call once the raw task is done, so if an Error requires access to the headers, the user can still access these."}]}]},{"name":"completion","content":[{"type":"paragraph","inlineContent":[{"type":"text","text":"A completion handler to call when the task has either completed successfully or failed."}]}]}]}],"schemaVersion":{"major":0,"minor":2,"patch":0},"sections":[],"variants":[{"paths":["\/documentation\/apollo\/urlsessionclient\/sendrequest(_:rawtaskcompletionhandler:completion:)"],"traits":[{"interfaceLanguage":"swift"}]}],"identifier":{"url":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/sendRequest(_:rawTaskCompletionHandler:completion:)","interfaceLanguage":"swift"},"abstract":[{"type":"text","text":"The main method to perform a request."}],"kind":"symbol","metadata":{"fragments":[{"kind":"keyword","text":"func"},{"kind":"text","text":" "},{"kind":"identifier","text":"sendRequest"},{"kind":"text","text":"("},{"kind":"typeIdentifier","text":"URLRequest","preciseIdentifier":"s:10Foundation10URLRequestV"},{"kind":"text","text":", "},{"kind":"externalParam","text":"rawTaskCompletionHandler"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"RawCompletion","preciseIdentifier":"s:6Apollo16URLSessionClientC13RawCompletiona"},{"kind":"text","text":"?, "},{"kind":"externalParam","text":"completion"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"Completion","preciseIdentifier":"s:6Apollo16URLSessionClientC10Completiona"},{"kind":"text","text":") -> "},{"kind":"typeIdentifier","text":"URLSessionTask","preciseIdentifier":"c:objc(cs)NSURLSessionTask"}],"title":"sendRequest(_:rawTaskCompletionHandler:completion:)","roleHeading":"Instance Method","role":"symbol","symbolKind":"method","externalID":"s:6Apollo16URLSessionClientC11sendRequest_24rawTaskCompletionHandler10completionSo012NSURLSessionG0C10Foundation10URLRequestV_yAI4DataVSg_So17NSHTTPURLResponseCSgs5Error_pSgtcSgys6ResultOyAM_APtsAR_pGctF","modules":[{"name":"Apollo"}]},"hierarchy":{"paths":[["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo","doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient"]]},"references":{"doc://com.apollographql.Apollo.macosx/documentation/Apollo":{"role":"collection","title":"Apollo","abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo","kind":"symbol","type":"topic","url":"\/documentation\/apollo"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient":{"role":"symbol","title":"URLSessionClient","fragments":[{"kind":"keyword","text":"class"},{"kind":"text","text":" "},{"kind":"identifier","text":"URLSessionClient"}],"abstract":[{"type":"text","text":"A class to handle URL Session calls that will support background execution,"},{"type":"text","text":" "},{"type":"text","text":"but still (mostly) use callbacks for its primary method of communication."}],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"URLSessionClient"}],"url":"\/documentation\/apollo\/urlsessionclient"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/sendRequest(_:rawTaskCompletionHandler:completion:)":{"role":"symbol","title":"sendRequest(_:rawTaskCompletionHandler:completion:)","fragments":[{"kind":"keyword","text":"func"},{"kind":"text","text":" "},{"kind":"identifier","text":"sendRequest"},{"kind":"text","text":"("},{"kind":"typeIdentifier","text":"URLRequest","preciseIdentifier":"s:10Foundation10URLRequestV"},{"kind":"text","text":", "},{"kind":"externalParam","text":"rawTaskCompletionHandler"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"RawCompletion","preciseIdentifier":"s:6Apollo16URLSessionClientC13RawCompletiona"},{"kind":"text","text":"?, "},{"kind":"externalParam","text":"completion"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"Completion","preciseIdentifier":"s:6Apollo16URLSessionClientC10Completiona"},{"kind":"text","text":") -> "},{"kind":"typeIdentifier","text":"URLSessionTask","preciseIdentifier":"c:objc(cs)NSURLSessionTask"}],"abstract":[{"type":"text","text":"The main method to perform a request."}],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/sendRequest(_:rawTaskCompletionHandler:completion:)","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/urlsessionclient\/sendrequest(_:rawtaskcompletionhandler:completion:)"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/Completion":{"role":"symbol","title":"URLSessionClient.Completion","fragments":[{"kind":"keyword","text":"typealias"},{"kind":"text","text":" "},{"kind":"identifier","text":"Completion"}],"abstract":[{"type":"text","text":"A completion block returning a result. On "},{"type":"codeVoice","code":".success"},{"type":"text","text":" it will contain a tuple with non-nil "},{"type":"codeVoice","code":"Data"},{"type":"text","text":" and its corresponding "},{"type":"codeVoice","code":"HTTPURLResponse"},{"type":"text","text":". On "},{"type":"codeVoice","code":".failure"},{"type":"text","text":" it will contain an error."}],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/Completion","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"Completion"}],"url":"\/documentation\/apollo\/urlsessionclient\/completion"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/RawCompletion":{"role":"symbol","title":"URLSessionClient.RawCompletion","fragments":[{"kind":"keyword","text":"typealias"},{"kind":"text","text":" "},{"kind":"identifier","text":"RawCompletion"}],"abstract":[{"type":"text","text":"A completion block to be called when the raw task has completed, with the raw information from the session"}],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/RawCompletion","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"RawCompletion"}],"url":"\/documentation\/apollo\/urlsessionclient\/rawcompletion"}}}
+{
+  "abstract" : [
+    {
+      "text" : "The main method to perform a request.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/sendRequest(_:rawTaskCompletionHandler:completion:)"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:6Apollo16URLSessionClientC11sendRequest_24rawTaskCompletionHandler10completionSo012NSURLSessionG0C10Foundation10URLRequestV_yAI4DataVSg_So17NSHTTPURLResponseCSgs5Error_pSgtcSgys6ResultOyAM_APtsAR_pGctF",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "func"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "sendRequest"
+      },
+      {
+        "kind" : "text",
+        "text" : "("
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:10Foundation10URLRequestV",
+        "text" : "URLRequest"
+      },
+      {
+        "kind" : "text",
+        "text" : ", "
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "rawTaskCompletionHandler"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:6Apollo16URLSessionClientC13RawCompletiona",
+        "text" : "RawCompletion"
+      },
+      {
+        "kind" : "text",
+        "text" : "?, "
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "completion"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:6Apollo16URLSessionClientC10Completiona",
+        "text" : "Completion"
+      },
+      {
+        "kind" : "text",
+        "text" : ") -> "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "c:objc(cs)NSURLSessionTask",
+        "text" : "URLSessionTask"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Apollo"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Instance Method",
+    "symbolKind" : "method",
+    "title" : "sendRequest(_:rawTaskCompletionHandler:completion:)"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "attribute",
+              "text" : "@discardableResult"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "func"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "sendRequest"
+            },
+            {
+              "kind" : "text",
+              "text" : "("
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "_"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "internalParam",
+              "text" : "request"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:10Foundation10URLRequestV",
+              "text" : "URLRequest"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "rawTaskCompletionHandler"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/RawCompletion",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:6Apollo16URLSessionClientC13RawCompletiona",
+              "text" : "RawCompletion"
+            },
+            {
+              "kind" : "text",
+              "text" : "? = nil, "
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "completion"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "attribute",
+              "text" : "@escaping"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/Completion",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:6Apollo16URLSessionClientC10Completiona",
+              "text" : "Completion"
+            },
+            {
+              "kind" : "text",
+              "text" : ") -> "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "c:objc(cs)NSURLSessionTask",
+              "text" : "URLSessionTask"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "return-value",
+          "level" : 2,
+          "text" : "Return Value",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "The created URLSession task, already resumed, because nobody ever remembers to call ",
+              "type" : "text"
+            },
+            {
+              "code" : "resume()",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ".",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
+    },
+    {
+      "kind" : "parameters",
+      "parameters" : [
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "The request to perform.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "request"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "[optional] A completion handler to call once the raw task is done, so if an Error requires access to the headers, the user can still access these.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "rawTaskCompletionHandler"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "A completion handler to call when the task has either completed successfully or failed.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "completion"
+        }
+      ]
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollo\/urlsessionclient\/sendrequest(_:rawtaskcompletionhandler:completion:)"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Apollo",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient": {
+  "abstract" : [
+    {
+      "text" : "A class to handle URL Session calls that will support background execution,",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "but still (mostly) use callbacks for its primary method of communication.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "URLSessionClient"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "URLSessionClient"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "URLSessionClient",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/urlsessionclient"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/Completion": {
+  "abstract" : [
+    {
+      "text" : "A completion block returning a result. On ",
+      "type" : "text"
+    },
+    {
+      "code" : ".success",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " it will contain a tuple with non-nil ",
+      "type" : "text"
+    },
+    {
+      "code" : "Data",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " and its corresponding ",
+      "type" : "text"
+    },
+    {
+      "code" : "HTTPURLResponse",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ". On ",
+      "type" : "text"
+    },
+    {
+      "code" : ".failure",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " it will contain an error.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Completion"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/Completion",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Completion"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "URLSessionClient.Completion",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/urlsessionclient\/completion"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/RawCompletion": {
+  "abstract" : [
+    {
+      "text" : "A completion block to be called when the raw task has completed, with the raw information from the session",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RawCompletion"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/RawCompletion",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RawCompletion"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "URLSessionClient.RawCompletion",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/urlsessionclient\/rawcompletion"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/sendRequest(_:rawTaskCompletionHandler:completion:)": {
+  "abstract" : [
+    {
+      "text" : "The main method to perform a request.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "sendRequest"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation10URLRequestV",
+      "text" : "URLRequest"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "rawTaskCompletionHandler"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo16URLSessionClientC13RawCompletiona",
+      "text" : "RawCompletion"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "completion"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo16URLSessionClientC10Completiona",
+      "text" : "Completion"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:objc(cs)NSURLSessionTask",
+      "text" : "URLSessionTask"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/sendRequest(_:rawTaskCompletionHandler:completion:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "sendRequest(_:rawTaskCompletionHandler:completion:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/urlsessionclient\/sendrequest(_:rawtaskcompletionhandler:completion:)"
+}
+}
+}

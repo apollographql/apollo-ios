@@ -1,1 +1,9 @@
-{"bundleDisplayName":"ApolloCodegenLib","bundleIdentifier":"com.apollographql.ApolloCodegenLib.macosx","schemaVersion":{"major":0,"minor":1,"patch":0}}
+{
+  "bundleDisplayName" : "ApolloCodegenLib",
+  "bundleIdentifier" : "com.apollographql.ApolloCodegenLib.macosx",
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 1,
+    "patch" : 0
+  }
+}

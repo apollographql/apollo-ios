@@ -1,1 +1,258 @@
-{"primaryContentSections":[{"kind":"declarations","declarations":[{"tokens":[{"kind":"keyword","text":"case"},{"kind":"text","text":" "},{"kind":"identifier","text":"graphql_transport_ws"}],"languages":["swift"],"platforms":["macOS"]}]}],"schemaVersion":{"major":0,"minor":2,"patch":0},"sections":[],"variants":[{"paths":["\/documentation\/apollowebsocket\/websocket\/wsprotocol\/graphql_transport_ws"],"traits":[{"interfaceLanguage":"swift"}]}],"identifier":{"url":"doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/WSProtocol\/graphql_transport_ws","interfaceLanguage":"swift"},"abstract":[{"type":"text","text":"WebSocket protocol "},{"type":"codeVoice","code":"graphql-transport-ws"},{"type":"text","text":". This is implemented by the "},{"type":"reference","isActive":true,"identifier":"https:\/\/github.com\/enisdenjo\/graphql-ws"},{"type":"text","text":" "},{"type":"text","text":"library."}],"kind":"symbol","metadata":{"fragments":[{"kind":"keyword","text":"case"},{"kind":"text","text":" "},{"kind":"identifier","text":"graphql_transport_ws"}],"title":"WebSocket.WSProtocol.graphql_transport_ws","roleHeading":"Case","role":"symbol","symbolKind":"case","externalID":"s:15ApolloWebSocket0bC0C10WSProtocolO20graphql_transport_wsyA2EmF","modules":[{"name":"ApolloWebSocket"}]},"hierarchy":{"paths":[["doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket","doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket","doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/WSProtocol"]]},"references":{"https://github.com/enisdenjo/graphql-ws":{"title":"graphql-ws","titleInlineContent":[{"type":"text","text":"graphql-ws"}],"type":"link","identifier":"https:\/\/github.com\/enisdenjo\/graphql-ws","url":"https:\/\/github.com\/enisdenjo\/graphql-ws"},"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocket/WSProtocol":{"role":"symbol","title":"WebSocket.WSProtocol","fragments":[{"kind":"keyword","text":"enum"},{"kind":"text","text":" "},{"kind":"identifier","text":"WSProtocol"}],"abstract":[{"type":"text","text":"The GraphQL over WebSocket protocols supported by apollo-ios."}],"identifier":"doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/WSProtocol","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"WSProtocol"}],"url":"\/documentation\/apollowebsocket\/websocket\/wsprotocol"},"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocket/WSProtocol/graphql_transport_ws":{"role":"symbol","title":"WebSocket.WSProtocol.graphql_transport_ws","fragments":[{"kind":"keyword","text":"case"},{"kind":"text","text":" "},{"kind":"identifier","text":"graphql_transport_ws"}],"abstract":[{"type":"text","text":"WebSocket protocol "},{"type":"codeVoice","code":"graphql-transport-ws"},{"type":"text","text":". This is implemented by the "},{"type":"reference","isActive":true,"identifier":"https:\/\/github.com\/enisdenjo\/graphql-ws"},{"type":"text","text":" "},{"type":"text","text":"library."}],"identifier":"doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/WSProtocol\/graphql_transport_ws","kind":"symbol","type":"topic","url":"\/documentation\/apollowebsocket\/websocket\/wsprotocol\/graphql_transport_ws"},"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket":{"role":"collection","title":"ApolloWebSocket","abstract":[],"identifier":"doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket","kind":"symbol","type":"topic","url":"\/documentation\/apollowebsocket"},"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocket":{"role":"symbol","title":"WebSocket","fragments":[{"kind":"keyword","text":"class"},{"kind":"text","text":" "},{"kind":"identifier","text":"WebSocket"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket","kind":"symbol","type":"topic","navigatorTitle":[{"kind":"identifier","text":"WebSocket"}],"url":"\/documentation\/apollowebsocket\/websocket"}}}
+{
+  "abstract" : [
+    {
+      "text" : "WebSocket protocol ",
+      "type" : "text"
+    },
+    {
+      "code" : "graphql-transport-ws",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ". This is implemented by the ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "https:\/\/github.com\/enisdenjo\/graphql-ws",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "library.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
+        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket",
+        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/WSProtocol"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/WSProtocol\/graphql_transport_ws"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:15ApolloWebSocket0bC0C10WSProtocolO20graphql_transport_wsyA2EmF",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "case"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "graphql_transport_ws"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "ApolloWebSocket"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Case",
+    "symbolKind" : "case",
+    "title" : "WebSocket.WSProtocol.graphql_transport_ws"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "case"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "graphql_transport_ws"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollowebsocket\/websocket\/wsprotocol\/graphql_transport_ws"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "ApolloWebSocket",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket"
+},
+"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocket": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "WebSocket"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "WebSocket"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "WebSocket",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/websocket"
+},
+"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocket/WSProtocol": {
+  "abstract" : [
+    {
+      "text" : "The GraphQL over WebSocket protocols supported by apollo-ios.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "WSProtocol"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/WSProtocol",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "WSProtocol"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "WebSocket.WSProtocol",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/websocket\/wsprotocol"
+},
+"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocket/WSProtocol/graphql_transport_ws": {
+  "abstract" : [
+    {
+      "text" : "WebSocket protocol ",
+      "type" : "text"
+    },
+    {
+      "code" : "graphql-transport-ws",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ". This is implemented by the ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "https:\/\/github.com\/enisdenjo\/graphql-ws",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "library.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "graphql_transport_ws"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/WSProtocol\/graphql_transport_ws",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "WebSocket.WSProtocol.graphql_transport_ws",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/websocket\/wsprotocol\/graphql_transport_ws"
+},
+"https://github.com/enisdenjo/graphql-ws": {
+  "identifier" : "https:\/\/github.com\/enisdenjo\/graphql-ws",
+  "title" : "graphql-ws",
+  "titleInlineContent" : [
+    {
+      "text" : "graphql-ws",
+      "type" : "text"
+    }
+  ],
+  "type" : "link",
+  "url" : "https:\/\/github.com\/enisdenjo\/graphql-ws"
+}
+}
+}

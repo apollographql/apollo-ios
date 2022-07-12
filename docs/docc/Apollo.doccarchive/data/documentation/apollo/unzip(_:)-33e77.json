@@ -1,1 +1,318 @@
-{"primaryContentSections":[{"kind":"declarations","declarations":[{"tokens":[{"kind":"keyword","text":"func"},{"kind":"text","text":" "},{"kind":"identifier","text":"unzip"},{"kind":"text","text":"<"},{"kind":"genericParameter","text":"Element1"},{"kind":"text","text":", "},{"kind":"genericParameter","text":"Element2"},{"kind":"text","text":">("},{"kind":"externalParam","text":"_"},{"kind":"text","text":" "},{"kind":"internalParam","text":"array"},{"kind":"text","text":": [("},{"kind":"typeIdentifier","text":"Element1","preciseIdentifier":"s:6Apollo5unzipySayxG_Sayq_GtSayxSg_q_SgtGr0_lF8Element1L_xmfp"},{"kind":"text","text":"?, "},{"kind":"typeIdentifier","text":"Element2","preciseIdentifier":"s:6Apollo5unzipySayxG_Sayq_GtSayxSg_q_SgtGr0_lF8Element2L_q_mfp"},{"kind":"text","text":"?)]) -> (["},{"kind":"typeIdentifier","text":"Element1","preciseIdentifier":"s:6Apollo5unzipySayxG_Sayq_GtSayxSg_q_SgtGr0_lF8Element1L_xmfp"},{"kind":"text","text":"], ["},{"kind":"typeIdentifier","text":"Element2","preciseIdentifier":"s:6Apollo5unzipySayxG_Sayq_GtSayxSg_q_SgtGr0_lF8Element2L_q_mfp"},{"kind":"text","text":"])"}],"languages":["swift"],"platforms":["macOS"]}]}],"schemaVersion":{"major":0,"minor":2,"patch":0},"sections":[],"variants":[{"paths":["\/documentation\/apollo\/unzip(_:)-33e77"],"traits":[{"interfaceLanguage":"swift"}]}],"identifier":{"url":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/unzip(_:)-33e77","interfaceLanguage":"swift"},"abstract":[{"type":"text","text":"No overview available."}],"kind":"symbol","metadata":{"fragments":[{"kind":"keyword","text":"func"},{"kind":"text","text":" "},{"kind":"identifier","text":"unzip"},{"kind":"text","text":"<"},{"kind":"genericParameter","text":"Element1"},{"kind":"text","text":", "},{"kind":"genericParameter","text":"Element2"},{"kind":"text","text":">([("},{"kind":"typeIdentifier","text":"Element1","preciseIdentifier":"s:6Apollo5unzipySayxG_Sayq_GtSayxSg_q_SgtGr0_lF8Element1L_xmfp"},{"kind":"text","text":"?, "},{"kind":"typeIdentifier","text":"Element2","preciseIdentifier":"s:6Apollo5unzipySayxG_Sayq_GtSayxSg_q_SgtGr0_lF8Element2L_q_mfp"},{"kind":"text","text":"?)]) -> (["},{"kind":"typeIdentifier","text":"Element1","preciseIdentifier":"s:6Apollo5unzipySayxG_Sayq_GtSayxSg_q_SgtGr0_lF8Element1L_xmfp"},{"kind":"text","text":"], ["},{"kind":"typeIdentifier","text":"Element2","preciseIdentifier":"s:6Apollo5unzipySayxG_Sayq_GtSayxSg_q_SgtGr0_lF8Element2L_q_mfp"},{"kind":"text","text":"])"}],"title":"unzip(_:)","roleHeading":"Function","role":"symbol","symbolKind":"func","externalID":"s:6Apollo5unzipySayxG_Sayq_GtSayxSg_q_SgtGr0_lF","modules":[{"name":"Apollo"}]},"hierarchy":{"paths":[["doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"]]},"references":{"doc://com.apollographql.Apollo.macosx/documentation/Apollo":{"role":"collection","title":"Apollo","abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo","kind":"symbol","type":"topic","url":"\/documentation\/apollo"},"doc://com.apollographql.Apollo.macosx/documentation/Apollo/unzip(_:)-33e77":{"role":"symbol","title":"unzip(_:)","fragments":[{"kind":"keyword","text":"func"},{"kind":"text","text":" "},{"kind":"identifier","text":"unzip"},{"kind":"text","text":"<"},{"kind":"genericParameter","text":"Element1"},{"kind":"text","text":", "},{"kind":"genericParameter","text":"Element2"},{"kind":"text","text":">([("},{"kind":"typeIdentifier","text":"Element1","preciseIdentifier":"s:6Apollo5unzipySayxG_Sayq_GtSayxSg_q_SgtGr0_lF8Element1L_xmfp"},{"kind":"text","text":"?, "},{"kind":"typeIdentifier","text":"Element2","preciseIdentifier":"s:6Apollo5unzipySayxG_Sayq_GtSayxSg_q_SgtGr0_lF8Element2L_q_mfp"},{"kind":"text","text":"?)]) -> (["},{"kind":"typeIdentifier","text":"Element1","preciseIdentifier":"s:6Apollo5unzipySayxG_Sayq_GtSayxSg_q_SgtGr0_lF8Element1L_xmfp"},{"kind":"text","text":"], ["},{"kind":"typeIdentifier","text":"Element2","preciseIdentifier":"s:6Apollo5unzipySayxG_Sayq_GtSayxSg_q_SgtGr0_lF8Element2L_q_mfp"},{"kind":"text","text":"])"}],"abstract":[],"identifier":"doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/unzip(_:)-33e77","kind":"symbol","type":"topic","url":"\/documentation\/apollo\/unzip(_:)-33e77"}}}
+{
+  "abstract" : [
+    {
+      "text" : "No overview available.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/unzip(_:)-33e77"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:6Apollo5unzipySayxG_Sayq_GtSayxSg_q_SgtGr0_lF",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "func"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "unzip"
+      },
+      {
+        "kind" : "text",
+        "text" : "<"
+      },
+      {
+        "kind" : "genericParameter",
+        "text" : "Element1"
+      },
+      {
+        "kind" : "text",
+        "text" : ", "
+      },
+      {
+        "kind" : "genericParameter",
+        "text" : "Element2"
+      },
+      {
+        "kind" : "text",
+        "text" : ">([("
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:6Apollo5unzipySayxG_Sayq_GtSayxSg_q_SgtGr0_lF8Element1L_xmfp",
+        "text" : "Element1"
+      },
+      {
+        "kind" : "text",
+        "text" : "?, "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:6Apollo5unzipySayxG_Sayq_GtSayxSg_q_SgtGr0_lF8Element2L_q_mfp",
+        "text" : "Element2"
+      },
+      {
+        "kind" : "text",
+        "text" : "?)]) -> (["
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:6Apollo5unzipySayxG_Sayq_GtSayxSg_q_SgtGr0_lF8Element1L_xmfp",
+        "text" : "Element1"
+      },
+      {
+        "kind" : "text",
+        "text" : "], ["
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:6Apollo5unzipySayxG_Sayq_GtSayxSg_q_SgtGr0_lF8Element2L_q_mfp",
+        "text" : "Element2"
+      },
+      {
+        "kind" : "text",
+        "text" : "])"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Apollo"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Function",
+    "symbolKind" : "func",
+    "title" : "unzip(_:)"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "func"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "unzip"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "genericParameter",
+              "text" : "Element1"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "kind" : "genericParameter",
+              "text" : "Element2"
+            },
+            {
+              "kind" : "text",
+              "text" : ">("
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "_"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "internalParam",
+              "text" : "array"
+            },
+            {
+              "kind" : "text",
+              "text" : ": [("
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:6Apollo5unzipySayxG_Sayq_GtSayxSg_q_SgtGr0_lF8Element1L_xmfp",
+              "text" : "Element1"
+            },
+            {
+              "kind" : "text",
+              "text" : "?, "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:6Apollo5unzipySayxG_Sayq_GtSayxSg_q_SgtGr0_lF8Element2L_q_mfp",
+              "text" : "Element2"
+            },
+            {
+              "kind" : "text",
+              "text" : "?)]) -> (["
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:6Apollo5unzipySayxG_Sayq_GtSayxSg_q_SgtGr0_lF8Element1L_xmfp",
+              "text" : "Element1"
+            },
+            {
+              "kind" : "text",
+              "text" : "], ["
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:6Apollo5unzipySayxG_Sayq_GtSayxSg_q_SgtGr0_lF8Element2L_q_mfp",
+              "text" : "Element2"
+            },
+            {
+              "kind" : "text",
+              "text" : "])"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollo\/unzip(_:)-33e77"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Apollo",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo"
+},
+"doc://com.apollographql.Apollo.macosx/documentation/Apollo/unzip(_:)-33e77": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "unzip"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Element1"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Element2"
+    },
+    {
+      "kind" : "text",
+      "text" : ">([("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo5unzipySayxG_Sayq_GtSayxSg_q_SgtGr0_lF8Element1L_xmfp",
+      "text" : "Element1"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo5unzipySayxG_Sayq_GtSayxSg_q_SgtGr0_lF8Element2L_q_mfp",
+      "text" : "Element2"
+    },
+    {
+      "kind" : "text",
+      "text" : "?)]) -> (["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo5unzipySayxG_Sayq_GtSayxSg_q_SgtGr0_lF8Element1L_xmfp",
+      "text" : "Element1"
+    },
+    {
+      "kind" : "text",
+      "text" : "], ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo5unzipySayxG_Sayq_GtSayxSg_q_SgtGr0_lF8Element2L_q_mfp",
+      "text" : "Element2"
+    },
+    {
+      "kind" : "text",
+      "text" : "])"
+    }
+  ],
+  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/unzip(_:)-33e77",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "unzip(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/unzip(_:)-33e77"
+}
+}
+}
