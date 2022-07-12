@@ -1,5 +1,5 @@
 import Foundation
-
+  
 public struct FileFinder {
   
   #if compiler(>=5.3)
