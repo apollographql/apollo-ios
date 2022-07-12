@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError"
+    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -82,9 +82,9 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/10Foundation14LocalizedErrorP",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/s5ErrorP",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/s8SendableP"
+        "doc:\/\/ApolloCodegenLib\/10Foundation14LocalizedErrorP",
+        "doc:\/\/ApolloCodegenLib\/s5ErrorP",
+        "doc:\/\/ApolloCodegenLib\/s8SendableP"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -102,29 +102,29 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/couldNotConvertIntrospectionJSONToSDL(underlying:)",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/couldNotCreateSDLDataToWrite(schema:)",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/couldNotCreateURLComponentsFromEndpointURL(url:)",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/couldNotExtractSDLFromRegistryJSON",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/couldNotGetURLFromURLComponents(components:)",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/couldNotParseRegistryJSON(underlying:)",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/downloadedIntrospectionJSONFileNotFound(underlying:)",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/downloadedRegistryJSONFileNotFound(underlying:)",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/unexpectedRegistryJSONType"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/couldNotConvertIntrospectionJSONToSDL(underlying:)",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/couldNotCreateSDLDataToWrite(schema:)",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/couldNotCreateURLComponentsFromEndpointURL(url:)",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/couldNotExtractSDLFromRegistryJSON",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/couldNotGetURLFromURLComponents(components:)",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/couldNotParseRegistryJSON(underlying:)",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/downloadedIntrospectionJSONFileNotFound(underlying:)",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/downloadedRegistryJSONFileNotFound(underlying:)",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/unexpectedRegistryJSONType"
       ],
       "title" : "Enumeration Cases"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/errorDescription-20ywk"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/errorDescription-20ywk"
       ],
       "title" : "Instance Properties"
     },
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/Error-Implementations",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/LocalizedError-Implementations"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/Error-Implementations",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/LocalizedError-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -143,23 +143,23 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloCodegenLib.macosx/10Foundation14LocalizedErrorP": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/10Foundation14LocalizedErrorP",
+"doc://ApolloCodegenLib/10Foundation14LocalizedErrorP": {
+  "identifier" : "doc:\/\/ApolloCodegenLib\/10Foundation14LocalizedErrorP",
   "title" : "Foundation.LocalizedError",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloCodegenLib",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/ApolloSchemaDownloader": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloSchemaDownloader": {
   "abstract" : [
     {
       "text" : "A wrapper to facilitate downloading a GraphQL schema.",
@@ -180,7 +180,7 @@
       "text" : "ApolloSchemaDownloader"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -193,7 +193,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apolloschemadownloader"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/ApolloSchemaDownloader/SchemaDownloadError": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloSchemaDownloader/SchemaDownloadError": {
   "abstract" : [
 
   ],
@@ -211,7 +211,7 @@
       "text" : "SchemaDownloadError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -224,29 +224,29 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apolloschemadownloader\/schemadownloaderror"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/ApolloSchemaDownloader/SchemaDownloadError/Error-Implementations": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloSchemaDownloader/SchemaDownloadError/Error-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/Error-Implementations",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/Error-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Error Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apolloschemadownloader\/schemadownloaderror\/error-implementations"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/ApolloSchemaDownloader/SchemaDownloadError/LocalizedError-Implementations": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloSchemaDownloader/SchemaDownloadError/LocalizedError-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/LocalizedError-Implementations",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/LocalizedError-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "LocalizedError Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apolloschemadownloader\/schemadownloaderror\/localizederror-implementations"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/ApolloSchemaDownloader/SchemaDownloadError/couldNotConvertIntrospectionJSONToSDL(underlying:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloSchemaDownloader/SchemaDownloadError/couldNotConvertIntrospectionJSONToSDL(underlying:)": {
   "abstract" : [
 
   ],
@@ -285,14 +285,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/couldNotConvertIntrospectionJSONToSDL(underlying:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/couldNotConvertIntrospectionJSONToSDL(underlying:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "ApolloSchemaDownloader.SchemaDownloadError.couldNotConvertIntrospectionJSONToSDL(underlying:)",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apolloschemadownloader\/schemadownloaderror\/couldnotconvertintrospectionjsontosdl(underlying:)"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/ApolloSchemaDownloader/SchemaDownloadError/couldNotCreateSDLDataToWrite(schema:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloSchemaDownloader/SchemaDownloadError/couldNotCreateSDLDataToWrite(schema:)": {
   "abstract" : [
 
   ],
@@ -331,14 +331,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/couldNotCreateSDLDataToWrite(schema:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/couldNotCreateSDLDataToWrite(schema:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "ApolloSchemaDownloader.SchemaDownloadError.couldNotCreateSDLDataToWrite(schema:)",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apolloschemadownloader\/schemadownloaderror\/couldnotcreatesdldatatowrite(schema:)"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/ApolloSchemaDownloader/SchemaDownloadError/couldNotCreateURLComponentsFromEndpointURL(url:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloSchemaDownloader/SchemaDownloadError/couldNotCreateURLComponentsFromEndpointURL(url:)": {
   "abstract" : [
 
   ],
@@ -377,14 +377,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/couldNotCreateURLComponentsFromEndpointURL(url:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/couldNotCreateURLComponentsFromEndpointURL(url:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "ApolloSchemaDownloader.SchemaDownloadError.couldNotCreateURLComponentsFromEndpointURL(url:)",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apolloschemadownloader\/schemadownloaderror\/couldnotcreateurlcomponentsfromendpointurl(url:)"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/ApolloSchemaDownloader/SchemaDownloadError/couldNotExtractSDLFromRegistryJSON": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloSchemaDownloader/SchemaDownloadError/couldNotExtractSDLFromRegistryJSON": {
   "abstract" : [
 
   ],
@@ -402,14 +402,14 @@
       "text" : "couldNotExtractSDLFromRegistryJSON"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/couldNotExtractSDLFromRegistryJSON",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/couldNotExtractSDLFromRegistryJSON",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "ApolloSchemaDownloader.SchemaDownloadError.couldNotExtractSDLFromRegistryJSON",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apolloschemadownloader\/schemadownloaderror\/couldnotextractsdlfromregistryjson"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/ApolloSchemaDownloader/SchemaDownloadError/couldNotGetURLFromURLComponents(components:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloSchemaDownloader/SchemaDownloadError/couldNotGetURLFromURLComponents(components:)": {
   "abstract" : [
 
   ],
@@ -448,14 +448,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/couldNotGetURLFromURLComponents(components:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/couldNotGetURLFromURLComponents(components:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "ApolloSchemaDownloader.SchemaDownloadError.couldNotGetURLFromURLComponents(components:)",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apolloschemadownloader\/schemadownloaderror\/couldnotgeturlfromurlcomponents(components:)"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/ApolloSchemaDownloader/SchemaDownloadError/couldNotParseRegistryJSON(underlying:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloSchemaDownloader/SchemaDownloadError/couldNotParseRegistryJSON(underlying:)": {
   "abstract" : [
 
   ],
@@ -494,14 +494,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/couldNotParseRegistryJSON(underlying:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/couldNotParseRegistryJSON(underlying:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "ApolloSchemaDownloader.SchemaDownloadError.couldNotParseRegistryJSON(underlying:)",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apolloschemadownloader\/schemadownloaderror\/couldnotparseregistryjson(underlying:)"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/ApolloSchemaDownloader/SchemaDownloadError/downloadedIntrospectionJSONFileNotFound(underlying:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloSchemaDownloader/SchemaDownloadError/downloadedIntrospectionJSONFileNotFound(underlying:)": {
   "abstract" : [
 
   ],
@@ -540,14 +540,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/downloadedIntrospectionJSONFileNotFound(underlying:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/downloadedIntrospectionJSONFileNotFound(underlying:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "ApolloSchemaDownloader.SchemaDownloadError.downloadedIntrospectionJSONFileNotFound(underlying:)",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apolloschemadownloader\/schemadownloaderror\/downloadedintrospectionjsonfilenotfound(underlying:)"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/ApolloSchemaDownloader/SchemaDownloadError/downloadedRegistryJSONFileNotFound(underlying:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloSchemaDownloader/SchemaDownloadError/downloadedRegistryJSONFileNotFound(underlying:)": {
   "abstract" : [
 
   ],
@@ -586,14 +586,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/downloadedRegistryJSONFileNotFound(underlying:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/downloadedRegistryJSONFileNotFound(underlying:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "ApolloSchemaDownloader.SchemaDownloadError.downloadedRegistryJSONFileNotFound(underlying:)",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apolloschemadownloader\/schemadownloaderror\/downloadedregistryjsonfilenotfound(underlying:)"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/ApolloSchemaDownloader/SchemaDownloadError/errorDescription-20ywk": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloSchemaDownloader/SchemaDownloadError/errorDescription-20ywk": {
   "abstract" : [
 
   ],
@@ -624,14 +624,14 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/errorDescription-20ywk",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/errorDescription-20ywk",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "errorDescription",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apolloschemadownloader\/schemadownloaderror\/errordescription-20ywk"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/ApolloSchemaDownloader/SchemaDownloadError/unexpectedRegistryJSONType": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloSchemaDownloader/SchemaDownloadError/unexpectedRegistryJSONType": {
   "abstract" : [
 
   ],
@@ -649,20 +649,20 @@
       "text" : "unexpectedRegistryJSONType"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/unexpectedRegistryJSONType",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/unexpectedRegistryJSONType",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "ApolloSchemaDownloader.SchemaDownloadError.unexpectedRegistryJSONType",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apolloschemadownloader\/schemadownloaderror\/unexpectedregistryjsontype"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/s5ErrorP": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/s5ErrorP",
+"doc://ApolloCodegenLib/s5ErrorP": {
+  "identifier" : "doc:\/\/ApolloCodegenLib\/s5ErrorP",
   "title" : "Swift.Error",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/s8SendableP": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/s8SendableP",
+"doc://ApolloCodegenLib/s8SendableP": {
+  "identifier" : "doc:\/\/ApolloCodegenLib\/s8SendableP",
   "title" : "Swift.Sendable",
   "type" : "unresolvable"
 }

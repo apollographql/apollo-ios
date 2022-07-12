@@ -1,22 +1,30 @@
 {
   "abstract" : [
     {
-      "text" : "Loads records corresponding to the given keys.",
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "NormalizedCache.loadRecords(forKeys:)",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite",
-        "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteNormalizedCache",
-        "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteNormalizedCache\/NormalizedCache-Implementations"
+        "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite",
+        "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteNormalizedCache",
+        "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteNormalizedCache\/NormalizedCache-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteNormalizedCache\/loadRecords(forKeys:)"
+    "url" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteNormalizedCache\/loadRecords(forKeys:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -193,45 +201,6 @@
         }
       ],
       "kind" : "declarations"
-    },
-    {
-      "content" : [
-        {
-          "anchor" : "return-value",
-          "level" : 2,
-          "text" : "Return Value",
-          "type" : "heading"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "A dictionary of cache keys to records containing the records that have been found.",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        }
-      ],
-      "kind" : "content"
-    },
-    {
-      "kind" : "parameters",
-      "parameters" : [
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "The cache keys to load data for",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "key"
-        }
-      ]
     }
   ],
   "schemaVersion" : {
@@ -256,18 +225,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloSQLite.macosx/documentation/ApolloSQLite": {
+"doc://ApolloSQLite/documentation/ApolloSQLite": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite",
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloSQLite",
   "type" : "topic",
   "url" : "\/documentation\/apollosqlite"
 },
-"doc://com.apollographql.ApolloSQLite.macosx/documentation/ApolloSQLite/SQLiteNormalizedCache": {
+"doc://ApolloSQLite/documentation/ApolloSQLite/SQLiteNormalizedCache": {
   "abstract" : [
     {
       "text" : "A ",
@@ -296,7 +265,7 @@
       "text" : "SQLiteNormalizedCache"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteNormalizedCache",
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteNormalizedCache",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -309,23 +278,20 @@
   "type" : "topic",
   "url" : "\/documentation\/apollosqlite\/sqlitenormalizedcache"
 },
-"doc://com.apollographql.ApolloSQLite.macosx/documentation/ApolloSQLite/SQLiteNormalizedCache/NormalizedCache-Implementations": {
+"doc://ApolloSQLite/documentation/ApolloSQLite/SQLiteNormalizedCache/NormalizedCache-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteNormalizedCache\/NormalizedCache-Implementations",
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteNormalizedCache\/NormalizedCache-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "NormalizedCache Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollosqlite\/sqlitenormalizedcache\/normalizedcache-implementations"
 },
-"doc://com.apollographql.ApolloSQLite.macosx/documentation/ApolloSQLite/SQLiteNormalizedCache/loadRecords(forKeys:)": {
+"doc://ApolloSQLite/documentation/ApolloSQLite/SQLiteNormalizedCache/loadRecords(forKeys:)": {
   "abstract" : [
-    {
-      "text" : "Loads records corresponding to the given keys.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -397,7 +363,7 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteNormalizedCache\/loadRecords(forKeys:)",
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteNormalizedCache\/loadRecords(forKeys:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "loadRecords(forKeys:)",

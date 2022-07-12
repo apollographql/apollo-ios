@@ -8,13 +8,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLUnionType"
+    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLUnionType"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -81,7 +81,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLAbstractType"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLAbstractType"
       ],
       "kind" : "relationships",
       "title" : "Inherits From",
@@ -89,9 +89,9 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/s28CustomDebugStringConvertibleP",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/SQ",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/SH"
+        "doc:\/\/ApolloCodegenLib\/s28CustomDebugStringConvertibleP",
+        "doc:\/\/ApolloCodegenLib\/SQ",
+        "doc:\/\/ApolloCodegenLib\/SH"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -109,7 +109,7 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLUnionType\/debugDescription"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLUnionType\/debugDescription"
       ],
       "title" : "Instance Properties"
     }
@@ -128,28 +128,28 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloCodegenLib.macosx/SH": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/SH",
+"doc://ApolloCodegenLib/SH": {
+  "identifier" : "doc:\/\/ApolloCodegenLib\/SH",
   "title" : "Swift.Hashable",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/SQ": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/SQ",
+"doc://ApolloCodegenLib/SQ": {
+  "identifier" : "doc:\/\/ApolloCodegenLib\/SQ",
   "title" : "Swift.Equatable",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloCodegenLib",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/GraphQLAbstractType": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLAbstractType": {
   "abstract" : [
 
   ],
@@ -167,7 +167,7 @@
       "text" : "GraphQLAbstractType"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLAbstractType",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLAbstractType",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -180,7 +180,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/graphqlabstracttype"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/GraphQLUnionType": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLUnionType": {
   "abstract" : [
 
   ],
@@ -198,7 +198,7 @@
       "text" : "GraphQLUnionType"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLUnionType",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLUnionType",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -211,7 +211,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/graphqluniontype"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/GraphQLUnionType/debugDescription": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLUnionType/debugDescription": {
   "abstract" : [
 
   ],
@@ -238,15 +238,15 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLUnionType\/debugDescription",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLUnionType\/debugDescription",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "debugDescription",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/graphqluniontype\/debugdescription"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/s28CustomDebugStringConvertibleP": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/s28CustomDebugStringConvertibleP",
+"doc://ApolloCodegenLib/s28CustomDebugStringConvertibleP": {
+  "identifier" : "doc:\/\/ApolloCodegenLib\/s28CustomDebugStringConvertibleP",
   "title" : "Swift.CustomDebugStringConvertible",
   "type" : "unresolvable"
 }

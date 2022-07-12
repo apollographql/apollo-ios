@@ -16,15 +16,15 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloadConfiguration",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloadConfiguration\/HTTPHeader"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloadConfiguration",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloadConfiguration\/HTTPHeader"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloadConfiguration\/HTTPHeader\/debugDescription"
+    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloadConfiguration\/HTTPHeader\/debugDescription"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -134,18 +134,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloCodegenLib",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/ApolloSchemaDownloadConfiguration": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloSchemaDownloadConfiguration": {
   "abstract" : [
     {
       "text" : "A configuration object that defines behavior for schema download.",
@@ -166,7 +166,7 @@
       "text" : "ApolloSchemaDownloadConfiguration"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloadConfiguration",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloadConfiguration",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -179,7 +179,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apolloschemadownloadconfiguration"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/ApolloSchemaDownloadConfiguration/HTTPHeader": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloSchemaDownloadConfiguration/HTTPHeader": {
   "abstract" : [
 
   ],
@@ -197,7 +197,7 @@
       "text" : "HTTPHeader"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloadConfiguration\/HTTPHeader",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloadConfiguration\/HTTPHeader",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -210,7 +210,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apolloschemadownloadconfiguration\/httpheader"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/ApolloSchemaDownloadConfiguration/HTTPHeader/debugDescription": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloSchemaDownloadConfiguration/HTTPHeader/debugDescription": {
   "abstract" : [
 
   ],
@@ -237,7 +237,7 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloadConfiguration\/HTTPHeader\/debugDescription",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloadConfiguration\/HTTPHeader\/debugDescription",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "debugDescription",

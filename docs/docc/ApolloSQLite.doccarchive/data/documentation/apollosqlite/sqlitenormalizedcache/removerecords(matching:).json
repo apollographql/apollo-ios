@@ -1,46 +1,30 @@
 {
   "abstract" : [
     {
-      "text" : "Removes records with keys that match the specified pattern. This method will only",
+      "text" : "Inherited from ",
       "type" : "text"
     },
     {
-      "text" : " ",
-      "type" : "text"
+      "code" : "NormalizedCache.removeRecords(matching:)",
+      "type" : "codeVoice"
     },
     {
-      "text" : "remove whole records, it does not perform cascading deletes. This means only the",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "records with matched keys will be removed, and not any references to them. Key",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "matching is case-insensitive.",
+      "text" : ".",
       "type" : "text"
     }
   ],
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite",
-        "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteNormalizedCache",
-        "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteNormalizedCache\/NormalizedCache-Implementations"
+        "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite",
+        "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteNormalizedCache",
+        "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteNormalizedCache\/NormalizedCache-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteNormalizedCache\/removeRecords(matching:)"
+    "url" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteNormalizedCache\/removeRecords(matching:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -155,76 +139,6 @@
         }
       ],
       "kind" : "declarations"
-    },
-    {
-      "kind" : "parameters",
-      "parameters" : [
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "The pattern that will be applied to find matching keys.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "pattern"
-        }
-      ]
-    },
-    {
-      "content" : [
-        {
-          "anchor" : "discussion",
-          "level" : 2,
-          "text" : "Discussion",
-          "type" : "heading"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "If you attempt to pass a cache path for a single field, this method will do nothing",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "since it won’t be able to locate a record to remove based on that path.",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "This method can be very slow depending on the number of records in the cache.",
-                  "type" : "text"
-                },
-                {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "text" : "It is recommended that this method be called in a background queue.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "style" : "note",
-          "type" : "aside"
-        }
-      ],
-      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -249,18 +163,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloSQLite.macosx/documentation/ApolloSQLite": {
+"doc://ApolloSQLite/documentation/ApolloSQLite": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite",
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloSQLite",
   "type" : "topic",
   "url" : "\/documentation\/apollosqlite"
 },
-"doc://com.apollographql.ApolloSQLite.macosx/documentation/ApolloSQLite/SQLiteNormalizedCache": {
+"doc://ApolloSQLite/documentation/ApolloSQLite/SQLiteNormalizedCache": {
   "abstract" : [
     {
       "text" : "A ",
@@ -289,7 +203,7 @@
       "text" : "SQLiteNormalizedCache"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteNormalizedCache",
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteNormalizedCache",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -302,47 +216,20 @@
   "type" : "topic",
   "url" : "\/documentation\/apollosqlite\/sqlitenormalizedcache"
 },
-"doc://com.apollographql.ApolloSQLite.macosx/documentation/ApolloSQLite/SQLiteNormalizedCache/NormalizedCache-Implementations": {
+"doc://ApolloSQLite/documentation/ApolloSQLite/SQLiteNormalizedCache/NormalizedCache-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteNormalizedCache\/NormalizedCache-Implementations",
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteNormalizedCache\/NormalizedCache-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "NormalizedCache Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollosqlite\/sqlitenormalizedcache\/normalizedcache-implementations"
 },
-"doc://com.apollographql.ApolloSQLite.macosx/documentation/ApolloSQLite/SQLiteNormalizedCache/removeRecords(matching:)": {
+"doc://ApolloSQLite/documentation/ApolloSQLite/SQLiteNormalizedCache/removeRecords(matching:)": {
   "abstract" : [
-    {
-      "text" : "Removes records with keys that match the specified pattern. This method will only",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "remove whole records, it does not perform cascading deletes. This means only the",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "records with matched keys will be removed, and not any references to them. Key",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "matching is case-insensitive.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -383,7 +270,7 @@
       "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteNormalizedCache\/removeRecords(matching:)",
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteNormalizedCache\/removeRecords(matching:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "removeRecords(matching:)",

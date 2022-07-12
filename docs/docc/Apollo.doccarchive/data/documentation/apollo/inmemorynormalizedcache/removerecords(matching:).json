@@ -1,45 +1,29 @@
 {
   "abstract" : [
     {
-      "text" : "Removes records with keys that match the specified pattern. This method will only",
+      "text" : "Inherited from ",
       "type" : "text"
     },
     {
-      "text" : " ",
-      "type" : "text"
+      "code" : "NormalizedCache.removeRecords(matching:)",
+      "type" : "codeVoice"
     },
     {
-      "text" : "remove whole records, it does not perform cascading deletes. This means only the",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "records with matched keys will be removed, and not any references to them. Key",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "matching is case-insensitive.",
+      "text" : ".",
       "type" : "text"
     }
   ],
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/InMemoryNormalizedCache"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/InMemoryNormalizedCache"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/InMemoryNormalizedCache\/removeRecords(matching:)"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/InMemoryNormalizedCache\/removeRecords(matching:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -137,7 +121,7 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheKey",
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CacheKey",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:6Apollo8CacheKeya",
               "text" : "CacheKey"
@@ -154,76 +138,6 @@
         }
       ],
       "kind" : "declarations"
-    },
-    {
-      "kind" : "parameters",
-      "parameters" : [
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "The pattern that will be applied to find matching keys.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "pattern"
-        }
-      ]
-    },
-    {
-      "content" : [
-        {
-          "anchor" : "discussion",
-          "level" : 2,
-          "text" : "Discussion",
-          "type" : "heading"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "If you attempt to pass a cache path for a single field, this method will do nothing",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "since it won’t be able to locate a record to remove based on that path.",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "This method can be very slow depending on the number of records in the cache.",
-                  "type" : "text"
-                },
-                {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "text" : "It is recommended that this method be called in a background queue.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "style" : "note",
-          "type" : "aside"
-        }
-      ],
-      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -248,18 +162,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/CacheKey": {
+"doc://Apollo/documentation/Apollo/CacheKey": {
   "abstract" : [
     {
       "text" : "A cache key for a record.",
@@ -280,7 +194,7 @@
       "text" : "CacheKey"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheKey",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CacheKey",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -293,7 +207,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/cachekey"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/InMemoryNormalizedCache": {
+"doc://Apollo/documentation/Apollo/InMemoryNormalizedCache": {
   "abstract" : [
 
   ],
@@ -311,7 +225,7 @@
       "text" : "InMemoryNormalizedCache"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/InMemoryNormalizedCache",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/InMemoryNormalizedCache",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -324,36 +238,9 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/inmemorynormalizedcache"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/InMemoryNormalizedCache/removeRecords(matching:)": {
+"doc://Apollo/documentation/Apollo/InMemoryNormalizedCache/removeRecords(matching:)": {
   "abstract" : [
-    {
-      "text" : "Removes records with keys that match the specified pattern. This method will only",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "remove whole records, it does not perform cascading deletes. This means only the",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "records with matched keys will be removed, and not any references to them. Key",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "matching is case-insensitive.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -394,7 +281,7 @@
       "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/InMemoryNormalizedCache\/removeRecords(matching:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/InMemoryNormalizedCache\/removeRecords(matching:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "removeRecords(matching:)",

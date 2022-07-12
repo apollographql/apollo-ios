@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/schemaName"
+    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/schemaName"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -113,18 +113,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloCodegenLib",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/ApolloCodegenConfiguration": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration": {
   "abstract" : [
     {
       "text" : "A configuration object that defines behavior for code generation.",
@@ -145,7 +145,7 @@
       "text" : "ApolloCodegenConfiguration"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -158,7 +158,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/schemaName": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/schemaName": {
   "abstract" : [
     {
       "text" : "Name used to scope the generated schema type files.",
@@ -188,7 +188,7 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/schemaName",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/schemaName",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "schemaName",

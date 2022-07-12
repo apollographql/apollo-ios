@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/FileManagerPathError"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/FileManagerPathError"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/FileManagerPathError\/LocalizedError-Implementations"
+    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/FileManagerPathError\/LocalizedError-Implementations"
   },
   "kind" : "article",
   "metadata" : {
@@ -39,10 +39,10 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/FileManagerPathError\/errorDescription-2hujv",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/FileManagerPathError\/failureReason",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/FileManagerPathError\/helpAnchor",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/FileManagerPathError\/recoverySuggestion"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/FileManagerPathError\/errorDescription-2hujv",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/FileManagerPathError\/failureReason",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/FileManagerPathError\/helpAnchor",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/FileManagerPathError\/recoverySuggestion"
       ],
       "title" : "Instance Properties"
     }
@@ -61,18 +61,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloCodegenLib",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/FileManagerPathError": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/FileManagerPathError": {
   "abstract" : [
 
   ],
@@ -90,7 +90,7 @@
       "text" : "FileManagerPathError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/FileManagerPathError",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/FileManagerPathError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -103,7 +103,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/filemanagerpatherror"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/FileManagerPathError/errorDescription-2hujv": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/FileManagerPathError/errorDescription-2hujv": {
   "abstract" : [
 
   ],
@@ -134,14 +134,14 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/FileManagerPathError\/errorDescription-2hujv",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/FileManagerPathError\/errorDescription-2hujv",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "errorDescription",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/filemanagerpatherror\/errordescription-2hujv"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/FileManagerPathError/failureReason": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/FileManagerPathError/failureReason": {
   "abstract" : [
 
   ],
@@ -172,14 +172,14 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/FileManagerPathError\/failureReason",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/FileManagerPathError\/failureReason",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "failureReason",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/filemanagerpatherror\/failurereason"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/FileManagerPathError/helpAnchor": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/FileManagerPathError/helpAnchor": {
   "abstract" : [
 
   ],
@@ -210,14 +210,14 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/FileManagerPathError\/helpAnchor",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/FileManagerPathError\/helpAnchor",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "helpAnchor",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/filemanagerpatherror\/helpanchor"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/FileManagerPathError/recoverySuggestion": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/FileManagerPathError/recoverySuggestion": {
   "abstract" : [
 
   ],
@@ -248,7 +248,7 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/FileManagerPathError\/recoverySuggestion",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/FileManagerPathError\/recoverySuggestion",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "recoverySuggestion",

@@ -8,13 +8,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/SelectionSet"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -77,7 +77,7 @@
               "text" : " : "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/AnySelectionSet",
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnySelectionSet",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:9ApolloAPI15AnySelectionSetP",
               "text" : "AnySelectionSet"
@@ -100,10 +100,10 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/AnySelectionSet",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/SelectionSetEntityValue",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/SQ",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/SH"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnySelectionSet",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSetEntityValue",
+        "doc:\/\/ApolloAPI\/SQ",
+        "doc:\/\/ApolloAPI\/SH"
       ],
       "kind" : "relationships",
       "title" : "Inherits From",
@@ -111,8 +111,8 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/MutableRootSelectionSet",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/MutableSelectionSet"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/MutableRootSelectionSet",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/MutableSelectionSet"
       ],
       "kind" : "relationships",
       "title" : "Inherited By",
@@ -130,22 +130,22 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/SelectionSet\/Fragments-swift.associatedtype",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/SelectionSet\/Schema-swift.associatedtype"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet\/Fragments-swift.associatedtype",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet\/Schema-swift.associatedtype"
       ],
       "title" : "Associated Types"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/SelectionSet\/fragments-swift.property"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet\/fragments-swift.property"
       ],
       "title" : "Instance Properties"
     },
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/SelectionSet\/Equatable-Implementations",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/SelectionSet\/Hashable-Implementations"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet\/Equatable-Implementations",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet\/Hashable-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -164,28 +164,28 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloAPI.macosx/SH": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/SH",
+"doc://ApolloAPI/SH": {
+  "identifier" : "doc:\/\/ApolloAPI\/SH",
   "title" : "Swift.Hashable",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.ApolloAPI.macosx/SQ": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/SQ",
+"doc://ApolloAPI/SQ": {
+  "identifier" : "doc:\/\/ApolloAPI\/SQ",
   "title" : "Swift.Equatable",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI": {
+"doc://ApolloAPI/documentation/ApolloAPI": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/AnySelectionSet": {
+"doc://ApolloAPI/documentation/ApolloAPI/AnySelectionSet": {
   "abstract" : [
 
   ],
@@ -203,7 +203,7 @@
       "text" : "AnySelectionSet"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/AnySelectionSet",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnySelectionSet",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -216,7 +216,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/anyselectionset"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/MutableRootSelectionSet": {
+"doc://ApolloAPI/documentation/ApolloAPI/MutableRootSelectionSet": {
   "abstract" : [
 
   ],
@@ -234,7 +234,7 @@
       "text" : "MutableRootSelectionSet"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/MutableRootSelectionSet",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/MutableRootSelectionSet",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -247,7 +247,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/mutablerootselectionset"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/MutableSelectionSet": {
+"doc://ApolloAPI/documentation/ApolloAPI/MutableSelectionSet": {
   "abstract" : [
 
   ],
@@ -265,7 +265,7 @@
       "text" : "MutableSelectionSet"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/MutableSelectionSet",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/MutableSelectionSet",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -278,7 +278,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/mutableselectionset"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/SelectionSet": {
+"doc://ApolloAPI/documentation/ApolloAPI/SelectionSet": {
   "abstract" : [
 
   ],
@@ -296,7 +296,7 @@
       "text" : "SelectionSet"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/SelectionSet",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -309,18 +309,18 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/selectionset"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/SelectionSet/Equatable-Implementations": {
+"doc://ApolloAPI/documentation/ApolloAPI/SelectionSet/Equatable-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/SelectionSet\/Equatable-Implementations",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet\/Equatable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Equatable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/selectionset\/equatable-implementations"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/SelectionSet/Fragments-swift.associatedtype": {
+"doc://ApolloAPI/documentation/ApolloAPI/SelectionSet/Fragments-swift.associatedtype": {
   "abstract" : [
     {
       "text" : "A type representing all of the fragments the ",
@@ -386,7 +386,7 @@
       "text" : "NoFragments"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/SelectionSet\/Fragments-swift.associatedtype",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet\/Fragments-swift.associatedtype",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
@@ -394,18 +394,18 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/selectionset\/fragments-swift.associatedtype"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/SelectionSet/Hashable-Implementations": {
+"doc://ApolloAPI/documentation/ApolloAPI/SelectionSet/Hashable-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/SelectionSet\/Hashable-Implementations",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet\/Hashable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Hashable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/selectionset\/hashable-implementations"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/SelectionSet/Schema-swift.associatedtype": {
+"doc://ApolloAPI/documentation/ApolloAPI/SelectionSet/Schema-swift.associatedtype": {
   "abstract" : [
 
   ],
@@ -432,7 +432,7 @@
       "text" : "SchemaConfiguration"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/SelectionSet\/Schema-swift.associatedtype",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet\/Schema-swift.associatedtype",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
@@ -440,7 +440,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/selectionset\/schema-swift.associatedtype"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/SelectionSet/fragments-swift.property": {
+"doc://ApolloAPI/documentation/ApolloAPI/SelectionSet/fragments-swift.property": {
   "abstract" : [
     {
       "text" : "Contains accessors for all of the fragments the ",
@@ -506,18 +506,25 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI12SelectionSetP9FragmentsQa",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
       "text" : "Fragments"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/SelectionSet\/fragments-swift.property",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet\/fragments-swift.property",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "fragments",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/selectionset\/fragments-swift.property"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/SelectionSetEntityValue": {
+"doc://ApolloAPI/documentation/ApolloAPI/SelectionSetEntityValue": {
   "abstract" : [
 
   ],
@@ -535,7 +542,7 @@
       "text" : "SelectionSetEntityValue"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/SelectionSetEntityValue",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSetEntityValue",
   "kind" : "symbol",
   "navigatorTitle" : [
     {

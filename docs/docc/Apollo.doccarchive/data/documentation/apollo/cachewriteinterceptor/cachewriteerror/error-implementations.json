@@ -8,15 +8,15 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheWriteInterceptor",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheWriteInterceptor\/CacheWriteError"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/CacheWriteInterceptor",
+        "doc:\/\/Apollo\/documentation\/Apollo\/CacheWriteInterceptor\/CacheWriteError"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheWriteInterceptor\/CacheWriteError\/Error-Implementations"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/CacheWriteInterceptor\/CacheWriteError\/Error-Implementations"
   },
   "kind" : "article",
   "metadata" : {
@@ -40,7 +40,7 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheWriteInterceptor\/CacheWriteError\/localizedDescription"
+        "doc:\/\/Apollo\/documentation\/Apollo\/CacheWriteInterceptor\/CacheWriteError\/localizedDescription"
       ],
       "title" : "Instance Properties"
     }
@@ -59,18 +59,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/CacheWriteInterceptor": {
+"doc://Apollo/documentation/Apollo/CacheWriteInterceptor": {
   "abstract" : [
     {
       "text" : "An interceptor which writes data to the cache, following the ",
@@ -107,7 +107,7 @@
       "text" : "CacheWriteInterceptor"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheWriteInterceptor",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CacheWriteInterceptor",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -120,7 +120,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/cachewriteinterceptor"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/CacheWriteInterceptor/CacheWriteError": {
+"doc://Apollo/documentation/Apollo/CacheWriteInterceptor/CacheWriteError": {
   "abstract" : [
 
   ],
@@ -138,7 +138,7 @@
       "text" : "CacheWriteError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheWriteInterceptor\/CacheWriteError",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CacheWriteInterceptor\/CacheWriteError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -151,7 +151,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/cachewriteinterceptor\/cachewriteerror"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/CacheWriteInterceptor/CacheWriteError/localizedDescription": {
+"doc://Apollo/documentation/Apollo/CacheWriteInterceptor/CacheWriteError/localizedDescription": {
   "abstract" : [
 
   ],
@@ -178,7 +178,7 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheWriteInterceptor\/CacheWriteError\/localizedDescription",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CacheWriteInterceptor\/CacheWriteError\/localizedDescription",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "localizedDescription",

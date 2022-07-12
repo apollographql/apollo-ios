@@ -8,13 +8,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/ScalarType"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ScalarType"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -77,7 +77,7 @@
               "text" : " : "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/AnyScalarType",
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnyScalarType",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:9ApolloAPI13AnyScalarTypeP",
               "text" : "AnyScalarType"
@@ -87,7 +87,7 @@
               "text" : ", "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLOperationVariableValue",
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperationVariableValue",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:9ApolloAPI29GraphQLOperationVariableValueP",
               "text" : "GraphQLOperationVariableValue"
@@ -97,7 +97,7 @@
               "text" : ", "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/JSONDecodable",
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONDecodable",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:9ApolloAPI13JSONDecodableP",
               "text" : "JSONDecodable"
@@ -111,11 +111,11 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/AnyHashableConvertible",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/AnyScalarType",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLOperationVariableValue",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/JSONDecodable",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/JSONEncodable"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnyHashableConvertible",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnyScalarType",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperationVariableValue",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONDecodable",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONEncodable"
       ],
       "kind" : "relationships",
       "title" : "Inherits From",
@@ -144,18 +144,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI": {
+"doc://ApolloAPI/documentation/ApolloAPI": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/AnyHashableConvertible": {
+"doc://ApolloAPI/documentation/ApolloAPI/AnyHashableConvertible": {
   "abstract" : [
 
   ],
@@ -173,7 +173,7 @@
       "text" : "AnyHashableConvertible"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/AnyHashableConvertible",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnyHashableConvertible",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -186,7 +186,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/anyhashableconvertible"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/AnyScalarType": {
+"doc://ApolloAPI/documentation/ApolloAPI/AnyScalarType": {
   "abstract" : [
 
   ],
@@ -204,7 +204,7 @@
       "text" : "AnyScalarType"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/AnyScalarType",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnyScalarType",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -217,7 +217,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/anyscalartype"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLOperationVariableValue": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLOperationVariableValue": {
   "abstract" : [
 
   ],
@@ -235,7 +235,7 @@
       "text" : "GraphQLOperationVariableValue"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLOperationVariableValue",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperationVariableValue",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -248,7 +248,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqloperationvariablevalue"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/JSONDecodable": {
+"doc://ApolloAPI/documentation/ApolloAPI/JSONDecodable": {
   "abstract" : [
 
   ],
@@ -266,7 +266,7 @@
       "text" : "JSONDecodable"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/JSONDecodable",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONDecodable",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -279,7 +279,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/jsondecodable"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/JSONEncodable": {
+"doc://ApolloAPI/documentation/ApolloAPI/JSONEncodable": {
   "abstract" : [
 
   ],
@@ -297,7 +297,7 @@
       "text" : "JSONEncodable"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/JSONEncodable",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONEncodable",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -310,7 +310,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/jsonencodable"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/ScalarType": {
+"doc://ApolloAPI/documentation/ApolloAPI/ScalarType": {
   "abstract" : [
 
   ],
@@ -328,7 +328,7 @@
       "text" : "ScalarType"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/ScalarType",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ScalarType",
   "kind" : "symbol",
   "navigatorTitle" : [
     {

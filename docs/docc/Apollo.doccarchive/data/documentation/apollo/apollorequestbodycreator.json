@@ -8,13 +8,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"
+        "doc:\/\/Apollo\/documentation\/Apollo"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloRequestBodyCreator"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloRequestBodyCreator"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -81,7 +81,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestBodyCreator"
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestBodyCreator"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -99,14 +99,14 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloRequestBodyCreator\/init()"
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloRequestBodyCreator\/init()"
       ],
       "title" : "Initializers"
     },
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloRequestBodyCreator\/RequestBodyCreator-Implementations"
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloRequestBodyCreator\/RequestBodyCreator-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -125,18 +125,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloRequestBodyCreator": {
+"doc://Apollo/documentation/Apollo/ApolloRequestBodyCreator": {
   "abstract" : [
 
   ],
@@ -154,7 +154,7 @@
       "text" : "ApolloRequestBodyCreator"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloRequestBodyCreator",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloRequestBodyCreator",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -167,18 +167,18 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apollorequestbodycreator"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloRequestBodyCreator/RequestBodyCreator-Implementations": {
+"doc://Apollo/documentation/Apollo/ApolloRequestBodyCreator/RequestBodyCreator-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloRequestBodyCreator\/RequestBodyCreator-Implementations",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloRequestBodyCreator\/RequestBodyCreator-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "RequestBodyCreator Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apollorequestbodycreator\/requestbodycreator-implementations"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloRequestBodyCreator/init()": {
+"doc://Apollo/documentation/Apollo/ApolloRequestBodyCreator/init()": {
   "abstract" : [
 
   ],
@@ -192,14 +192,14 @@
       "text" : "()"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloRequestBodyCreator\/init()",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloRequestBodyCreator\/init()",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init()",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apollorequestbodycreator\/init()"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestBodyCreator": {
+"doc://Apollo/documentation/Apollo/RequestBodyCreator": {
   "abstract" : [
 
   ],
@@ -217,7 +217,7 @@
       "text" : "RequestBodyCreator"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestBodyCreator",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestBodyCreator",
   "kind" : "symbol",
   "navigatorTitle" : [
     {

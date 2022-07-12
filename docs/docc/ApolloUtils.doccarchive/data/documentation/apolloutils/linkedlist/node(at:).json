@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList"
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/node(at:)"
+    "url" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/node(at:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -54,6 +54,23 @@
       {
         "kind" : "text",
         "text" : ") -> "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:11ApolloUtils10LinkedListV",
+        "text" : "LinkedList"
+      },
+      {
+        "kind" : "text",
+        "text" : "<"
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "T"
+      },
+      {
+        "kind" : "text",
+        "text" : ">."
       },
       {
         "kind" : "typeIdentifier",
@@ -124,7 +141,25 @@
               "text" : ") -> "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node",
+              "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:11ApolloUtils10LinkedListV",
+              "text" : "LinkedList"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "T"
+            },
+            {
+              "kind" : "text",
+              "text" : ">."
+            },
+            {
+              "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:11ApolloUtils10LinkedListV4NodeC",
               "text" : "Node"
@@ -157,18 +192,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils": {
+"doc://ApolloUtils/documentation/ApolloUtils": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloUtils",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList": {
   "abstract" : [
     {
       "text" : "A doubly linked list implementation.",
@@ -189,7 +224,7 @@
       "text" : "LinkedList"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -202,7 +237,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node": {
   "abstract" : [
 
   ],
@@ -220,7 +255,7 @@
       "text" : "Node"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -233,7 +268,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/node(at:)": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/node(at:)": {
   "abstract" : [
 
   ],
@@ -273,11 +308,28 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11ApolloUtils10LinkedListV",
+      "text" : "LinkedList"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:11ApolloUtils10LinkedListV4NodeC",
       "text" : "Node"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/node(at:)",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/node(at:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "node(at:)",

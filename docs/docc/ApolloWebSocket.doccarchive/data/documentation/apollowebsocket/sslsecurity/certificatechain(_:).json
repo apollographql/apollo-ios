@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSecurity"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLSecurity"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSecurity\/certificateChain(_:)"
+    "url" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLSecurity\/certificateChain(_:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -194,18 +194,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloWebSocket",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SSLSecurity": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SSLSecurity": {
   "abstract" : [
 
   ],
@@ -223,7 +223,7 @@
       "text" : "SSLSecurity"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSecurity",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLSecurity",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -236,7 +236,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/sslsecurity"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SSLSecurity/certificateChain(_:)": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SSLSecurity/certificateChain(_:)": {
   "abstract" : [
     {
       "text" : "Get the certificate chain for the trust",
@@ -279,7 +279,7 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSecurity\/certificateChain(_:)",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLSecurity\/certificateChain(_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "certificateChain(_:)",

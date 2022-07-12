@@ -8,13 +8,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils"
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ApolloExtension"
+    "url" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/ApolloExtension"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -101,11 +101,11 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ApolloExtension\/base",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ApolloExtension\/isEmptyOrNil",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ApolloExtension\/isNotEmpty-43yp",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ApolloExtension\/isNotEmpty-6u4bc",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ApolloExtension\/sha256Hash"
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/ApolloExtension\/base",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/ApolloExtension\/isEmptyOrNil",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/ApolloExtension\/isNotEmpty-43yp",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/ApolloExtension\/isNotEmpty-6u4bc",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/ApolloExtension\/sha256Hash"
       ],
       "title" : "Instance Properties"
     }
@@ -124,18 +124,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils": {
+"doc://ApolloUtils/documentation/ApolloUtils": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloUtils",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/ApolloExtension": {
+"doc://ApolloUtils/documentation/ApolloUtils/ApolloExtension": {
   "abstract" : [
     {
       "text" : "Wrapper to allow calls to extended methods and vars as object.apollo.method",
@@ -156,7 +156,7 @@
       "text" : "ApolloExtension"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ApolloExtension",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/ApolloExtension",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -169,7 +169,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/apolloextension"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/ApolloExtension/base": {
+"doc://ApolloUtils/documentation/ApolloUtils/ApolloExtension/base": {
   "abstract" : [
     {
       "text" : "The base type in the extension",
@@ -195,18 +195,17 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11ApolloUtils0A9ExtensionV4Basexmfp",
       "text" : "Base"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ApolloExtension\/base",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/ApolloExtension\/base",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "base",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/apolloextension\/base"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/ApolloExtension/isEmptyOrNil": {
+"doc://ApolloUtils/documentation/ApolloUtils/ApolloExtension/isEmptyOrNil": {
   "abstract" : [
 
   ],
@@ -281,14 +280,14 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ApolloExtension\/isEmptyOrNil",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/ApolloExtension\/isEmptyOrNil",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "isEmptyOrNil",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/apolloextension\/isemptyornil"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/ApolloExtension/isNotEmpty-43yp": {
+"doc://ApolloUtils/documentation/ApolloUtils/ApolloExtension/isNotEmpty-43yp": {
   "abstract" : [
 
   ],
@@ -363,14 +362,14 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ApolloExtension\/isNotEmpty-43yp",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/ApolloExtension\/isNotEmpty-43yp",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "isNotEmpty",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/apolloextension\/isnotempty-43yp"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/ApolloExtension/isNotEmpty-6u4bc": {
+"doc://ApolloUtils/documentation/ApolloUtils/ApolloExtension/isNotEmpty-6u4bc": {
   "abstract" : [
     {
       "text" : "Convenience helper to make ",
@@ -440,14 +439,14 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ApolloExtension\/isNotEmpty-6u4bc",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/ApolloExtension\/isNotEmpty-6u4bc",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "isNotEmpty",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/apolloextension\/isnotempty-6u4bc"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/ApolloExtension/sha256Hash": {
+"doc://ApolloUtils/documentation/ApolloUtils/ApolloExtension/sha256Hash": {
   "abstract" : [
     {
       "text" : "The SHA256 hash of the current string.",
@@ -509,7 +508,7 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ApolloExtension\/sha256Hash",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/ApolloExtension\/sha256Hash",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "sha256Hash",

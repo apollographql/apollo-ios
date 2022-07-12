@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketClient"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketClient"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketClient\/request"
+    "url" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketClient\/request"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -134,18 +134,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloWebSocket",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketClient": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketClient": {
   "abstract" : [
     {
       "text" : "Protocol allowing alternative implementations of websockets beyond ",
@@ -174,7 +174,7 @@
       "text" : "WebSocketClient"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketClient",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketClient",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -187,7 +187,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocketclient"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketClient/request": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketClient/request": {
   "abstract" : [
     {
       "text" : "The URLRequest used on connection.",
@@ -217,7 +217,7 @@
       "text" : "URLRequest"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketClient\/request",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketClient\/request",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",

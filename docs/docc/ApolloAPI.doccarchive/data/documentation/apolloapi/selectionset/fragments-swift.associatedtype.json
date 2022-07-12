@@ -44,14 +44,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/SelectionSet"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/SelectionSet\/Fragments-swift.associatedtype"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet\/Fragments-swift.associatedtype"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -118,7 +118,7 @@
               "text" : " = "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/NoFragments",
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/NoFragments",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:9ApolloAPI11NoFragmentsO",
               "text" : "NoFragments"
@@ -151,18 +151,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI": {
+"doc://ApolloAPI/documentation/ApolloAPI": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/NoFragments": {
+"doc://ApolloAPI/documentation/ApolloAPI/NoFragments": {
   "abstract" : [
     {
       "text" : "A ",
@@ -235,7 +235,7 @@
       "text" : "NoFragments"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/NoFragments",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/NoFragments",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -248,7 +248,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/nofragments"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/SelectionSet": {
+"doc://ApolloAPI/documentation/ApolloAPI/SelectionSet": {
   "abstract" : [
 
   ],
@@ -266,7 +266,7 @@
       "text" : "SelectionSet"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/SelectionSet",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -279,7 +279,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/selectionset"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/SelectionSet/Fragments-swift.associatedtype": {
+"doc://ApolloAPI/documentation/ApolloAPI/SelectionSet/Fragments-swift.associatedtype": {
   "abstract" : [
     {
       "text" : "A type representing all of the fragments the ",
@@ -345,7 +345,7 @@
       "text" : "NoFragments"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/SelectionSet\/Fragments-swift.associatedtype",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet\/Fragments-swift.associatedtype",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",

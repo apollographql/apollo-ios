@@ -8,13 +8,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"
+        "doc:\/\/Apollo\/documentation\/Apollo"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONSerializationFormat"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONSerializationFormat"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -97,9 +97,9 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONSerializationFormat\/deserialize(data:)",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONSerializationFormat\/serialize(value:)-5ftc9",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONSerializationFormat\/serialize(value:)-6eeoc"
+        "doc:\/\/Apollo\/documentation\/Apollo\/JSONSerializationFormat\/deserialize(data:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/JSONSerializationFormat\/serialize(value:)-5ftc9",
+        "doc:\/\/Apollo\/documentation\/Apollo\/JSONSerializationFormat\/serialize(value:)-6eeoc"
       ],
       "title" : "Type Methods"
     }
@@ -118,18 +118,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONSerializationFormat": {
+"doc://Apollo/documentation/Apollo/JSONSerializationFormat": {
   "abstract" : [
 
   ],
@@ -147,7 +147,7 @@
       "text" : "JSONSerializationFormat"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONSerializationFormat",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONSerializationFormat",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -160,7 +160,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/jsonserializationformat"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONSerializationFormat/deserialize(data:)": {
+"doc://Apollo/documentation/Apollo/JSONSerializationFormat/deserialize(data:)": {
   "abstract" : [
 
   ],
@@ -220,14 +220,14 @@
       "text" : "JSONValue"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONSerializationFormat\/deserialize(data:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONSerializationFormat\/deserialize(data:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "deserialize(data:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/jsonserializationformat\/deserialize(data:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONSerializationFormat/serialize(value:)-5ftc9": {
+"doc://Apollo/documentation/Apollo/JSONSerializationFormat/serialize(value:)-5ftc9": {
   "abstract" : [
 
   ],
@@ -287,14 +287,14 @@
       "text" : "Data"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONSerializationFormat\/serialize(value:)-5ftc9",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONSerializationFormat\/serialize(value:)-5ftc9",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "serialize(value:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/jsonserializationformat\/serialize(value:)-5ftc9"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONSerializationFormat/serialize(value:)-6eeoc": {
+"doc://Apollo/documentation/Apollo/JSONSerializationFormat/serialize(value:)-6eeoc": {
   "abstract" : [
 
   ],
@@ -354,7 +354,7 @@
       "text" : "Data"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONSerializationFormat\/serialize(value:)-6eeoc",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONSerializationFormat\/serialize(value:)-6eeoc",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "serialize(value:)",

@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/ApolloCodegen"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegen"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/ApolloCodegen\/build(with:)"
+    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegen\/build(with:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -129,7 +129,7 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration",
+              "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:16ApolloCodegenLib0aB13ConfigurationV",
               "text" : "ApolloCodegenConfiguration"
@@ -189,18 +189,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloCodegenLib",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/ApolloCodegen": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegen": {
   "abstract" : [
     {
       "text" : "A class to facilitate running code generation",
@@ -221,7 +221,7 @@
       "text" : "ApolloCodegen"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/ApolloCodegen",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegen",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -234,7 +234,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apollocodegen"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/ApolloCodegen/build(with:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegen/build(with:)": {
   "abstract" : [
     {
       "text" : "Executes the code generation engine with a specified configuration.",
@@ -288,14 +288,14 @@
       "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/ApolloCodegen\/build(with:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegen\/build(with:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "build(with:)",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apollocodegen\/build(with:)"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/ApolloCodegenConfiguration": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration": {
   "abstract" : [
     {
       "text" : "A configuration object that defines behavior for code generation.",
@@ -316,7 +316,7 @@
       "text" : "ApolloCodegenConfiguration"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration",
   "kind" : "symbol",
   "navigatorTitle" : [
     {

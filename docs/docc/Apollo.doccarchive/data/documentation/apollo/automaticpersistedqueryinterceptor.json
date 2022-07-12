@@ -8,13 +8,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"
+        "doc:\/\/Apollo\/documentation\/Apollo"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -81,7 +81,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloInterceptor"
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloInterceptor"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -99,19 +99,19 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor\/init()"
+        "doc:\/\/Apollo\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor\/init()"
       ],
       "title" : "Initializers"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor\/interceptAsync(chain:request:response:completion:)"
+        "doc:\/\/Apollo\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor\/interceptAsync(chain:request:response:completion:)"
       ],
       "title" : "Instance Methods"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor\/APQError"
+        "doc:\/\/Apollo\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor\/APQError"
       ],
       "title" : "Enumerations"
     }
@@ -130,18 +130,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloInterceptor": {
+"doc://Apollo/documentation/Apollo/ApolloInterceptor": {
   "abstract" : [
     {
       "text" : "A protocol to set up a chainable unit of networking work.",
@@ -162,7 +162,7 @@
       "text" : "ApolloInterceptor"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloInterceptor",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloInterceptor",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -175,7 +175,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apollointerceptor"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/AutomaticPersistedQueryInterceptor": {
+"doc://Apollo/documentation/Apollo/AutomaticPersistedQueryInterceptor": {
   "abstract" : [
 
   ],
@@ -193,7 +193,7 @@
       "text" : "AutomaticPersistedQueryInterceptor"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -206,7 +206,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/automaticpersistedqueryinterceptor"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/AutomaticPersistedQueryInterceptor/APQError": {
+"doc://Apollo/documentation/Apollo/AutomaticPersistedQueryInterceptor/APQError": {
   "abstract" : [
 
   ],
@@ -224,7 +224,7 @@
       "text" : "APQError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor\/APQError",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor\/APQError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -237,7 +237,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/automaticpersistedqueryinterceptor\/apqerror"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/AutomaticPersistedQueryInterceptor/init()": {
+"doc://Apollo/documentation/Apollo/AutomaticPersistedQueryInterceptor/init()": {
   "abstract" : [
     {
       "text" : "Designated initializer",
@@ -254,19 +254,16 @@
       "text" : "()"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor\/init()",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor\/init()",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init()",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/automaticpersistedqueryinterceptor\/init()"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/AutomaticPersistedQueryInterceptor/interceptAsync(chain:request:response:completion:)": {
+"doc://Apollo/documentation/Apollo/AutomaticPersistedQueryInterceptor/interceptAsync(chain:request:response:completion:)": {
   "abstract" : [
-    {
-      "text" : "Called when this interceptor should do its work.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -329,7 +326,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo34AutomaticPersistedQueryInterceptorV14interceptAsync5chain7request8response10completionyAA12RequestChainC_AA11HTTPRequestCyxGAA12HTTPResponseCyxGSgys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0Q11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -355,7 +351,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo34AutomaticPersistedQueryInterceptorV14interceptAsync5chain7request8response10completionyAA12RequestChainC_AA11HTTPRequestCyxGAA12HTTPResponseCyxGSgys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0Q11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -390,7 +385,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo34AutomaticPersistedQueryInterceptorV14interceptAsync5chain7request8response10completionyAA12RequestChainC_AA11HTTPRequestCyxGAA12HTTPResponseCyxGSgys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0Q11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -399,7 +393,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
       "text" : "Data"
     },
     {
@@ -425,7 +418,7 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor\/interceptAsync(chain:request:response:completion:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor\/interceptAsync(chain:request:response:completion:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "interceptAsync(chain:request:response:completion:)",

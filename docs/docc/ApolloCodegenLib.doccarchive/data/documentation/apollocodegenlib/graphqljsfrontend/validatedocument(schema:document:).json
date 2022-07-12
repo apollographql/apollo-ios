@@ -16,14 +16,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/validateDocument(schema:document:)"
+    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/validateDocument(schema:document:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -143,7 +143,7 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLSchema",
+              "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLSchema",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:16ApolloCodegenLib13GraphQLSchemaC",
               "text" : "GraphQLSchema"
@@ -161,7 +161,7 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLDocument",
+              "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLDocument",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:16ApolloCodegenLib15GraphQLDocumentC",
               "text" : "GraphQLDocument"
@@ -179,7 +179,7 @@
               "text" : " -> ["
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLError",
+              "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLError",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:16ApolloCodegenLib12GraphQLErrorC",
               "text" : "GraphQLError"
@@ -216,18 +216,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloCodegenLib",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/GraphQLDocument": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLDocument": {
   "abstract" : [
     {
       "text" : "A parsed GraphQL document.",
@@ -248,7 +248,7 @@
       "text" : "GraphQLDocument"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLDocument",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLDocument",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -261,7 +261,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/graphqldocument"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/GraphQLError": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLError": {
   "abstract" : [
     {
       "text" : "A GraphQL error.",
@@ -319,7 +319,7 @@
       "text" : "GraphQLError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLError",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -332,7 +332,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/graphqlerror"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/GraphQLJSFrontend": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLJSFrontend": {
   "abstract" : [
 
   ],
@@ -350,7 +350,7 @@
       "text" : "GraphQLJSFrontend"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -363,7 +363,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/graphqljsfrontend"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/GraphQLJSFrontend/validateDocument(schema:document:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLJSFrontend/validateDocument(schema:document:)": {
   "abstract" : [
     {
       "text" : "Validate a GraphQL document and return any validation errors as ",
@@ -447,14 +447,14 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/validateDocument(schema:document:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/validateDocument(schema:document:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "validateDocument(schema:document:)",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/graphqljsfrontend\/validatedocument(schema:document:)"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/GraphQLSchema": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLSchema": {
   "abstract" : [
     {
       "text" : "A GraphQL schema.",
@@ -475,7 +475,7 @@
       "text" : "GraphQLSchema"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLSchema",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLSchema",
   "kind" : "symbol",
   "navigatorTitle" : [
     {

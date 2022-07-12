@@ -16,15 +16,15 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/ParentType",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/ParentType\/Equatable-Implementations"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ParentType",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ParentType\/Equatable-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/ParentType\/!=(_:_:)"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ParentType\/!=(_:_:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -195,18 +195,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI": {
+"doc://ApolloAPI/documentation/ApolloAPI": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/ParentType": {
+"doc://ApolloAPI/documentation/ApolloAPI/ParentType": {
   "abstract" : [
 
   ],
@@ -224,7 +224,7 @@
       "text" : "ParentType"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/ParentType",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ParentType",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -237,7 +237,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/parenttype"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/ParentType/!=(_:_:)": {
+"doc://ApolloAPI/documentation/ApolloAPI/ParentType/!=(_:_:)": {
   "abstract" : [
 
   ],
@@ -292,18 +292,18 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/ParentType\/!=(_:_:)",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ParentType\/!=(_:_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "!=(_:_:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/parenttype\/!=(_:_:)"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/ParentType/Equatable-Implementations": {
+"doc://ApolloAPI/documentation/ApolloAPI/ParentType/Equatable-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/ParentType\/Equatable-Implementations",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ParentType\/Equatable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Equatable Implementations",

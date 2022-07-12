@@ -8,15 +8,15 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor\/APQError"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor",
+        "doc:\/\/Apollo\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor\/APQError"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor\/APQError\/persistedQueryRetryFailed(operationName:)"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor\/APQError\/persistedQueryRetryFailed(operationName:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -138,18 +138,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/AutomaticPersistedQueryInterceptor": {
+"doc://Apollo/documentation/Apollo/AutomaticPersistedQueryInterceptor": {
   "abstract" : [
 
   ],
@@ -167,7 +167,7 @@
       "text" : "AutomaticPersistedQueryInterceptor"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -180,7 +180,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/automaticpersistedqueryinterceptor"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/AutomaticPersistedQueryInterceptor/APQError": {
+"doc://Apollo/documentation/Apollo/AutomaticPersistedQueryInterceptor/APQError": {
   "abstract" : [
 
   ],
@@ -198,7 +198,7 @@
       "text" : "APQError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor\/APQError",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor\/APQError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -211,7 +211,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/automaticpersistedqueryinterceptor\/apqerror"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/AutomaticPersistedQueryInterceptor/APQError/persistedQueryRetryFailed(operationName:)": {
+"doc://Apollo/documentation/Apollo/AutomaticPersistedQueryInterceptor/APQError/persistedQueryRetryFailed(operationName:)": {
   "abstract" : [
 
   ],
@@ -250,7 +250,7 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor\/APQError\/persistedQueryRetryFailed(operationName:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor\/APQError\/persistedQueryRetryFailed(operationName:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "AutomaticPersistedQueryInterceptor.APQError.persistedQueryRetryFailed(operationName:)",

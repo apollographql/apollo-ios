@@ -8,13 +8,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Union"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Union"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -77,7 +77,7 @@
               "text" : " : "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/ParentTypeConvertible",
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ParentTypeConvertible",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:9ApolloAPI21ParentTypeConvertibleP",
               "text" : "ParentTypeConvertible"
@@ -91,7 +91,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/ParentTypeConvertible"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ParentTypeConvertible"
       ],
       "kind" : "relationships",
       "title" : "Inherits From",
@@ -109,7 +109,7 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Union\/possibleTypes"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Union\/possibleTypes"
       ],
       "title" : "Type Properties"
     }
@@ -128,18 +128,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI": {
+"doc://ApolloAPI/documentation/ApolloAPI": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/ParentTypeConvertible": {
+"doc://ApolloAPI/documentation/ApolloAPI/ParentTypeConvertible": {
   "abstract" : [
 
   ],
@@ -157,7 +157,7 @@
       "text" : "ParentTypeConvertible"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/ParentTypeConvertible",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ParentTypeConvertible",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -170,7 +170,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/parenttypeconvertible"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Union": {
+"doc://ApolloAPI/documentation/ApolloAPI/Union": {
   "abstract" : [
 
   ],
@@ -188,7 +188,7 @@
       "text" : "Union"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Union",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Union",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -201,7 +201,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/union"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Union/possibleTypes": {
+"doc://ApolloAPI/documentation/ApolloAPI/Union/possibleTypes": {
   "abstract" : [
 
   ],
@@ -240,7 +240,7 @@
       "text" : ".Type]"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Union\/possibleTypes",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Union\/possibleTypes",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",

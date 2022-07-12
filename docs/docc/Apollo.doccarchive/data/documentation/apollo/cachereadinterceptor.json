@@ -24,13 +24,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"
+        "doc:\/\/Apollo\/documentation\/Apollo"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheReadInterceptor"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/CacheReadInterceptor"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -97,7 +97,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloInterceptor"
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloInterceptor"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -115,13 +115,13 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheReadInterceptor\/init(store:)"
+        "doc:\/\/Apollo\/documentation\/Apollo\/CacheReadInterceptor\/init(store:)"
       ],
       "title" : "Initializers"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheReadInterceptor\/interceptAsync(chain:request:response:completion:)"
+        "doc:\/\/Apollo\/documentation\/Apollo\/CacheReadInterceptor\/interceptAsync(chain:request:response:completion:)"
       ],
       "title" : "Instance Methods"
     }
@@ -140,18 +140,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloInterceptor": {
+"doc://Apollo/documentation/Apollo/ApolloInterceptor": {
   "abstract" : [
     {
       "text" : "A protocol to set up a chainable unit of networking work.",
@@ -172,7 +172,7 @@
       "text" : "ApolloInterceptor"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloInterceptor",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloInterceptor",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -185,7 +185,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apollointerceptor"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/CacheReadInterceptor": {
+"doc://Apollo/documentation/Apollo/CacheReadInterceptor": {
   "abstract" : [
     {
       "text" : "An interceptor that reads data from the cache for queries, following the ",
@@ -222,7 +222,7 @@
       "text" : "CacheReadInterceptor"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheReadInterceptor",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CacheReadInterceptor",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -235,7 +235,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/cachereadinterceptor"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/CacheReadInterceptor/init(store:)": {
+"doc://Apollo/documentation/Apollo/CacheReadInterceptor/init(store:)": {
   "abstract" : [
     {
       "text" : "Designated initializer",
@@ -269,19 +269,16 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheReadInterceptor\/init(store:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CacheReadInterceptor\/init(store:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(store:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/cachereadinterceptor\/init(store:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/CacheReadInterceptor/interceptAsync(chain:request:response:completion:)": {
+"doc://Apollo/documentation/Apollo/CacheReadInterceptor/interceptAsync(chain:request:response:completion:)": {
   "abstract" : [
-    {
-      "text" : "Called when this interceptor should do its work.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -344,7 +341,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo20CacheReadInterceptorV14interceptAsync5chain7request8response10completionyAA12RequestChainC_AA11HTTPRequestCyxGAA12HTTPResponseCyxGSgys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0P11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -370,7 +366,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo20CacheReadInterceptorV14interceptAsync5chain7request8response10completionyAA12RequestChainC_AA11HTTPRequestCyxGAA12HTTPResponseCyxGSgys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0P11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -405,7 +400,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo20CacheReadInterceptorV14interceptAsync5chain7request8response10completionyAA12RequestChainC_AA11HTTPRequestCyxGAA12HTTPResponseCyxGSgys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0P11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -414,7 +408,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
       "text" : "Data"
     },
     {
@@ -440,7 +433,7 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheReadInterceptor\/interceptAsync(chain:request:response:completion:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CacheReadInterceptor\/interceptAsync(chain:request:response:completion:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "interceptAsync(chain:request:response:completion:)",

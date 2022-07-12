@@ -8,15 +8,15 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient",
+        "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/LocalizedError-Implementations"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/LocalizedError-Implementations"
   },
   "kind" : "article",
   "metadata" : {
@@ -40,10 +40,10 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/errorDescription-4oqmn",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/failureReason",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/helpAnchor",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/recoverySuggestion"
+        "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/errorDescription-4oqmn",
+        "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/failureReason",
+        "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/helpAnchor",
+        "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/recoverySuggestion"
       ],
       "title" : "Instance Properties"
     }
@@ -62,18 +62,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient": {
+"doc://Apollo/documentation/Apollo/URLSessionClient": {
   "abstract" : [
     {
       "text" : "A class to handle URL Session calls that will support background execution,",
@@ -102,7 +102,7 @@
       "text" : "URLSessionClient"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -115,7 +115,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/urlsessionclient"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/URLSessionClientError": {
+"doc://Apollo/documentation/Apollo/URLSessionClient/URLSessionClientError": {
   "abstract" : [
 
   ],
@@ -133,7 +133,7 @@
       "text" : "URLSessionClientError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -146,7 +146,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/urlsessionclient\/urlsessionclienterror"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/URLSessionClientError/errorDescription-4oqmn": {
+"doc://Apollo/documentation/Apollo/URLSessionClient/URLSessionClientError/errorDescription-4oqmn": {
   "abstract" : [
 
   ],
@@ -177,14 +177,14 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/errorDescription-4oqmn",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/errorDescription-4oqmn",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "errorDescription",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/urlsessionclient\/urlsessionclienterror\/errordescription-4oqmn"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/URLSessionClientError/failureReason": {
+"doc://Apollo/documentation/Apollo/URLSessionClient/URLSessionClientError/failureReason": {
   "abstract" : [
 
   ],
@@ -215,14 +215,14 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/failureReason",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/failureReason",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "failureReason",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/urlsessionclient\/urlsessionclienterror\/failurereason"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/URLSessionClientError/helpAnchor": {
+"doc://Apollo/documentation/Apollo/URLSessionClient/URLSessionClientError/helpAnchor": {
   "abstract" : [
 
   ],
@@ -253,14 +253,14 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/helpAnchor",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/helpAnchor",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "helpAnchor",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/urlsessionclient\/urlsessionclienterror\/helpanchor"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/URLSessionClientError/recoverySuggestion": {
+"doc://Apollo/documentation/Apollo/URLSessionClient/URLSessionClientError/recoverySuggestion": {
   "abstract" : [
 
   ],
@@ -291,7 +291,7 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/recoverySuggestion",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/recoverySuggestion",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "recoverySuggestion",

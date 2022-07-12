@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/ParentType"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ParentType"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/ParentType\/Union(_:)"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ParentType\/Union(_:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -85,7 +85,7 @@
               "text" : "("
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Union",
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Union",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:9ApolloAPI5UnionP",
               "text" : "Union"
@@ -122,18 +122,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI": {
+"doc://ApolloAPI/documentation/ApolloAPI": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/ParentType": {
+"doc://ApolloAPI/documentation/ApolloAPI/ParentType": {
   "abstract" : [
 
   ],
@@ -151,7 +151,7 @@
       "text" : "ParentType"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/ParentType",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ParentType",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -164,7 +164,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/parenttype"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/ParentType/Union(_:)": {
+"doc://ApolloAPI/documentation/ApolloAPI/ParentType/Union(_:)": {
   "abstract" : [
 
   ],
@@ -195,14 +195,14 @@
       "text" : ".Type)"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/ParentType\/Union(_:)",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ParentType\/Union(_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "ParentType.Union(_:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/parenttype\/union(_:)"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Union": {
+"doc://ApolloAPI/documentation/ApolloAPI/Union": {
   "abstract" : [
 
   ],
@@ -220,7 +220,7 @@
       "text" : "Union"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Union",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Union",
   "kind" : "symbol",
   "navigatorTitle" : [
     {

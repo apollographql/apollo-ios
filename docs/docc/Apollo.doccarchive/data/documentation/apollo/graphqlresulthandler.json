@@ -8,13 +8,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"
+        "doc:\/\/Apollo\/documentation\/Apollo"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResultHandler"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResultHandler"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -94,7 +94,7 @@
               "text" : "<"
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult",
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResult",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:6Apollo13GraphQLResultV",
               "text" : "GraphQLResult"
@@ -105,7 +105,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:6Apollo20GraphQLResultHandlera4Dataxmfp",
               "text" : "Data"
             },
             {
@@ -230,18 +229,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResult": {
+"doc://Apollo/documentation/Apollo/GraphQLResult": {
   "abstract" : [
     {
       "text" : "Represents the result of a GraphQL operation.",
@@ -262,7 +261,7 @@
       "text" : "GraphQLResult"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResult",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -275,7 +274,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlresult"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResultHandler": {
+"doc://Apollo/documentation/Apollo/GraphQLResultHandler": {
   "abstract" : [
     {
       "text" : "A handler for operation results.",
@@ -296,7 +295,7 @@
       "text" : "GraphQLResultHandler"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResultHandler",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResultHandler",
   "kind" : "symbol",
   "navigatorTitle" : [
     {

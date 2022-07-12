@@ -24,14 +24,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/parseDocument(_:experimentalClientControlledNullability:)"
+    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/parseDocument(_:experimentalClientControlledNullability:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -147,7 +147,7 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLSource",
+              "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLSource",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:16ApolloCodegenLib13GraphQLSourceC",
               "text" : "GraphQLSource"
@@ -182,7 +182,7 @@
               "text" : " -> "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLDocument",
+              "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLDocument",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:16ApolloCodegenLib15GraphQLDocumentC",
               "text" : "GraphQLDocument"
@@ -215,18 +215,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloCodegenLib",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/GraphQLDocument": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLDocument": {
   "abstract" : [
     {
       "text" : "A parsed GraphQL document.",
@@ -247,7 +247,7 @@
       "text" : "GraphQLDocument"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLDocument",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLDocument",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -260,7 +260,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/graphqldocument"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/GraphQLJSFrontend": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLJSFrontend": {
   "abstract" : [
 
   ],
@@ -278,7 +278,7 @@
       "text" : "GraphQLJSFrontend"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -291,7 +291,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/graphqljsfrontend"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/GraphQLJSFrontend/parseDocument(_:experimentalClientControlledNullability:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLJSFrontend/parseDocument(_:experimentalClientControlledNullability:)": {
   "abstract" : [
     {
       "text" : "Parses a GraphQL document from a source, returning a reference to the parsed AST that can be passed on to validation and compilation.",
@@ -371,14 +371,14 @@
       "text" : "GraphQLDocument"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/parseDocument(_:experimentalClientControlledNullability:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/parseDocument(_:experimentalClientControlledNullability:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "parseDocument(_:experimentalClientControlledNullability:)",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/graphqljsfrontend\/parsedocument(_:experimentalclientcontrollednullability:)"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/GraphQLSource": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLSource": {
   "abstract" : [
     {
       "text" : "A representation of source input to GraphQL parsing.",
@@ -407,7 +407,7 @@
       "text" : "GraphQLSource"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLSource",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLSource",
   "kind" : "symbol",
   "navigatorTitle" : [
     {

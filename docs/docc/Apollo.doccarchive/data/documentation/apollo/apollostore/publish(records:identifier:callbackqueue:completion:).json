@@ -16,14 +16,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore\/publish(records:identifier:callbackQueue:completion:)"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/publish(records:identifier:callbackQueue:completion:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -187,7 +187,7 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet",
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RecordSet",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:6Apollo9RecordSetV",
               "text" : "RecordSet"
@@ -379,18 +379,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloStore": {
+"doc://Apollo/documentation/Apollo/ApolloStore": {
   "abstract" : [
     {
       "text" : "The ",
@@ -419,7 +419,7 @@
       "text" : "ApolloStore"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -432,7 +432,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apollostore"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloStore/publish(records:identifier:callbackQueue:completion:)": {
+"doc://Apollo/documentation/Apollo/ApolloStore/publish(records:identifier:callbackQueue:completion:)": {
   "abstract" : [
     {
       "text" : "Merges a ",
@@ -560,14 +560,14 @@
       "text" : ")?)"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore\/publish(records:identifier:callbackQueue:completion:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/publish(records:identifier:callbackQueue:completion:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "publish(records:identifier:callbackQueue:completion:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apollostore\/publish(records:identifier:callbackqueue:completion:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet": {
+"doc://Apollo/documentation/Apollo/RecordSet": {
   "abstract" : [
     {
       "text" : "A set of cache records.",
@@ -588,7 +588,7 @@
       "text" : "RecordSet"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RecordSet",
   "kind" : "symbol",
   "navigatorTitle" : [
     {

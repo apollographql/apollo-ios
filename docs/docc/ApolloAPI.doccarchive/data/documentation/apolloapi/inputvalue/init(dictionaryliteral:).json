@@ -16,15 +16,15 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputValue",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputValue\/ExpressibleByDictionaryLiteral-Implementations"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/ExpressibleByDictionaryLiteral-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputValue\/init(dictionaryLiteral:)"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/init(dictionaryLiteral:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -121,7 +121,7 @@
               "text" : ", "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputValue",
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:9ApolloAPI10InputValueO",
               "text" : "InputValue"
@@ -158,18 +158,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI": {
+"doc://ApolloAPI/documentation/ApolloAPI": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/InputValue": {
+"doc://ApolloAPI/documentation/ApolloAPI/InputValue": {
   "abstract" : [
     {
       "text" : "Represents an input value to an argument on a ",
@@ -206,7 +206,7 @@
       "text" : "InputValue"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputValue",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -219,18 +219,18 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/inputvalue"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/InputValue/ExpressibleByDictionaryLiteral-Implementations": {
+"doc://ApolloAPI/documentation/ApolloAPI/InputValue/ExpressibleByDictionaryLiteral-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputValue\/ExpressibleByDictionaryLiteral-Implementations",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/ExpressibleByDictionaryLiteral-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "ExpressibleByDictionaryLiteral Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/inputvalue\/expressiblebydictionaryliteral-implementations"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/InputValue/init(dictionaryLiteral:)": {
+"doc://ApolloAPI/documentation/ApolloAPI/InputValue/init(dictionaryLiteral:)": {
   "abstract" : [
 
   ],
@@ -270,7 +270,7 @@
       "text" : ")...)"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputValue\/init(dictionaryLiteral:)",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/init(dictionaryLiteral:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(dictionaryLiteral:)",

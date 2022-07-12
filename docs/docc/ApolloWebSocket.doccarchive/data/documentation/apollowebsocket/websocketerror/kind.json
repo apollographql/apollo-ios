@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketError"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketError\/kind"
+    "url" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError\/kind"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -36,6 +36,15 @@
       {
         "kind" : "text",
         "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:15ApolloWebSocket0bC5ErrorV",
+        "text" : "WebSocketError"
+      },
+      {
+        "kind" : "text",
+        "text" : "."
       },
       {
         "kind" : "typeIdentifier",
@@ -81,7 +90,17 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketError\/ErrorKind",
+              "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:15ApolloWebSocket0bC5ErrorV",
+              "text" : "WebSocketError"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError\/ErrorKind",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:15ApolloWebSocket0bC5ErrorV0D4KindO",
               "text" : "ErrorKind"
@@ -114,18 +133,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloWebSocket",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketError": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketError": {
   "abstract" : [
     {
       "text" : "A structure for capturing problems and any associated errors from a ",
@@ -154,7 +173,7 @@
       "text" : "WebSocketError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketError",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -167,7 +186,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocketerror"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketError/ErrorKind": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketError/ErrorKind": {
   "abstract" : [
 
   ],
@@ -185,7 +204,7 @@
       "text" : "ErrorKind"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketError\/ErrorKind",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError\/ErrorKind",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -198,7 +217,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocketerror\/errorkind"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketError/kind": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketError/kind": {
   "abstract" : [
     {
       "text" : "The kind of problem which occurred.",
@@ -224,11 +243,20 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:15ApolloWebSocket0bC5ErrorV",
+      "text" : "WebSocketError"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:15ApolloWebSocket0bC5ErrorV0D4KindO",
       "text" : "ErrorKind"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketError\/kind",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError\/kind",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "kind",

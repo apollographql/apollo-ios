@@ -8,13 +8,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/LocalCacheMutation"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/LocalCacheMutation"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -90,8 +90,8 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/SQ",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/SH"
+        "doc:\/\/ApolloAPI\/SQ",
+        "doc:\/\/ApolloAPI\/SH"
       ],
       "kind" : "relationships",
       "title" : "Inherits From",
@@ -109,27 +109,27 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/LocalCacheMutation\/Data"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/LocalCacheMutation\/Data"
       ],
       "title" : "Associated Types"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/LocalCacheMutation\/variables-6ejtk"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/LocalCacheMutation\/variables-6ejtk"
       ],
       "title" : "Instance Properties"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/LocalCacheMutation\/operationType"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/LocalCacheMutation\/operationType"
       ],
       "title" : "Type Properties"
     },
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/LocalCacheMutation\/Equatable-Implementations",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/LocalCacheMutation\/Hashable-Implementations"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/LocalCacheMutation\/Equatable-Implementations",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/LocalCacheMutation\/Hashable-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -148,28 +148,28 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloAPI.macosx/SH": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/SH",
+"doc://ApolloAPI/SH": {
+  "identifier" : "doc:\/\/ApolloAPI\/SH",
   "title" : "Swift.Hashable",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.ApolloAPI.macosx/SQ": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/SQ",
+"doc://ApolloAPI/SQ": {
+  "identifier" : "doc:\/\/ApolloAPI\/SQ",
   "title" : "Swift.Equatable",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI": {
+"doc://ApolloAPI/documentation/ApolloAPI": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/LocalCacheMutation": {
+"doc://ApolloAPI/documentation/ApolloAPI/LocalCacheMutation": {
   "abstract" : [
 
   ],
@@ -187,7 +187,7 @@
       "text" : "LocalCacheMutation"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/LocalCacheMutation",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/LocalCacheMutation",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -200,7 +200,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/localcachemutation"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/LocalCacheMutation/Data": {
+"doc://ApolloAPI/documentation/ApolloAPI/LocalCacheMutation/Data": {
   "abstract" : [
 
   ],
@@ -227,7 +227,7 @@
       "text" : "MutableRootSelectionSet"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/LocalCacheMutation\/Data",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/LocalCacheMutation\/Data",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
@@ -235,29 +235,29 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/localcachemutation\/data"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/LocalCacheMutation/Equatable-Implementations": {
+"doc://ApolloAPI/documentation/ApolloAPI/LocalCacheMutation/Equatable-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/LocalCacheMutation\/Equatable-Implementations",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/LocalCacheMutation\/Equatable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Equatable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/localcachemutation\/equatable-implementations"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/LocalCacheMutation/Hashable-Implementations": {
+"doc://ApolloAPI/documentation/ApolloAPI/LocalCacheMutation/Hashable-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/LocalCacheMutation\/Hashable-Implementations",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/LocalCacheMutation\/Hashable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Hashable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/localcachemutation\/hashable-implementations"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/LocalCacheMutation/operationType": {
+"doc://ApolloAPI/documentation/ApolloAPI/LocalCacheMutation/operationType": {
   "abstract" : [
 
   ],
@@ -292,7 +292,7 @@
       "text" : "GraphQLOperationType"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/LocalCacheMutation\/operationType",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/LocalCacheMutation\/operationType",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
@@ -300,7 +300,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/localcachemutation\/operationtype"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/LocalCacheMutation/variables-6ejtk": {
+"doc://ApolloAPI/documentation/ApolloAPI/LocalCacheMutation/variables-6ejtk": {
   "abstract" : [
 
   ],
@@ -320,28 +320,28 @@
     },
     {
       "kind" : "text",
-      "text" : ": "
+      "text" : ": ["
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP",
-      "text" : "GraphQLOperation"
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
     },
     {
       "kind" : "text",
-      "text" : "."
+      "text" : " : "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP9Variablesa",
-      "text" : "Variables"
+      "preciseIdentifier" : "s:9ApolloAPI29GraphQLOperationVariableValueP",
+      "text" : "GraphQLOperationVariableValue"
     },
     {
       "kind" : "text",
-      "text" : "?"
+      "text" : "]?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/LocalCacheMutation\/variables-6ejtk",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/LocalCacheMutation\/variables-6ejtk",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",

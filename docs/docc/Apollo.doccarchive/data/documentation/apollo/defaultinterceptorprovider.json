@@ -8,13 +8,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"
+        "doc:\/\/Apollo\/documentation\/Apollo"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/DefaultInterceptorProvider"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/DefaultInterceptorProvider"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -81,7 +81,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/InterceptorProvider"
+        "doc:\/\/Apollo\/documentation\/Apollo\/InterceptorProvider"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -99,21 +99,21 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/DefaultInterceptorProvider\/init(client:shouldInvalidateClientOnDeinit:store:)"
+        "doc:\/\/Apollo\/documentation\/Apollo\/DefaultInterceptorProvider\/init(client:shouldInvalidateClientOnDeinit:store:)"
       ],
       "title" : "Initializers"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/DefaultInterceptorProvider\/additionalErrorInterceptor(for:)-5e08v",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/DefaultInterceptorProvider\/interceptors(for:)"
+        "doc:\/\/Apollo\/documentation\/Apollo\/DefaultInterceptorProvider\/additionalErrorInterceptor(for:)-5e08v",
+        "doc:\/\/Apollo\/documentation\/Apollo\/DefaultInterceptorProvider\/interceptors(for:)"
       ],
       "title" : "Instance Methods"
     },
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/DefaultInterceptorProvider\/InterceptorProvider-Implementations"
+        "doc:\/\/Apollo\/documentation\/Apollo\/DefaultInterceptorProvider\/InterceptorProvider-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -132,18 +132,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/DefaultInterceptorProvider": {
+"doc://Apollo/documentation/Apollo/DefaultInterceptorProvider": {
   "abstract" : [
     {
       "text" : "The default interceptor provider for typescript-generated code",
@@ -164,7 +164,7 @@
       "text" : "DefaultInterceptorProvider"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/DefaultInterceptorProvider",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/DefaultInterceptorProvider",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -177,31 +177,20 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/defaultinterceptorprovider"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/DefaultInterceptorProvider/InterceptorProvider-Implementations": {
+"doc://Apollo/documentation/Apollo/DefaultInterceptorProvider/InterceptorProvider-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/DefaultInterceptorProvider\/InterceptorProvider-Implementations",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/DefaultInterceptorProvider\/InterceptorProvider-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "InterceptorProvider Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/defaultinterceptorprovider\/interceptorprovider-implementations"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/DefaultInterceptorProvider/additionalErrorInterceptor(for:)-5e08v": {
+"doc://Apollo/documentation/Apollo/DefaultInterceptorProvider/additionalErrorInterceptor(for:)-5e08v": {
   "abstract" : [
-    {
-      "text" : "Provides an additional error interceptor for any additional handling of errors",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "before returning to the UI, such as logging.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -238,7 +227,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo26DefaultInterceptorProviderC015additionalErrorC03forAA0afC0_pSgx_t0A3API16GraphQLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -255,14 +243,14 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/DefaultInterceptorProvider\/additionalErrorInterceptor(for:)-5e08v",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/DefaultInterceptorProvider\/additionalErrorInterceptor(for:)-5e08v",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "additionalErrorInterceptor(for:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/defaultinterceptorprovider\/additionalerrorinterceptor(for:)-5e08v"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/DefaultInterceptorProvider/init(client:shouldInvalidateClientOnDeinit:store:)": {
+"doc://Apollo/documentation/Apollo/DefaultInterceptorProvider/init(client:shouldInvalidateClientOnDeinit:store:)": {
   "abstract" : [
     {
       "text" : "Designated initializer",
@@ -330,19 +318,16 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/DefaultInterceptorProvider\/init(client:shouldInvalidateClientOnDeinit:store:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/DefaultInterceptorProvider\/init(client:shouldInvalidateClientOnDeinit:store:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(client:shouldInvalidateClientOnDeinit:store:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/defaultinterceptorprovider\/init(client:shouldinvalidateclientondeinit:store:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/DefaultInterceptorProvider/interceptors(for:)": {
+"doc://Apollo/documentation/Apollo/DefaultInterceptorProvider/interceptors(for:)": {
   "abstract" : [
-    {
-      "text" : "Creates a new array of interceptors when called",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -379,7 +364,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo26DefaultInterceptorProviderC12interceptors3forSayAA0aC0_pGx_t0A3API16GraphQLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -396,14 +380,14 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/DefaultInterceptorProvider\/interceptors(for:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/DefaultInterceptorProvider\/interceptors(for:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "interceptors(for:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/defaultinterceptorprovider\/interceptors(for:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/InterceptorProvider": {
+"doc://Apollo/documentation/Apollo/InterceptorProvider": {
   "abstract" : [
     {
       "text" : "A protocol to allow easy creation of an array of interceptors for a given operation.",
@@ -424,7 +408,7 @@
       "text" : "InterceptorProvider"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/InterceptorProvider",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/InterceptorProvider",
   "kind" : "symbol",
   "navigatorTitle" : [
     {

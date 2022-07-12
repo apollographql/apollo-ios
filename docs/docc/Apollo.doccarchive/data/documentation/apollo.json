@@ -14,7 +14,7 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -40,83 +40,83 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/DefaultInterceptorProvider",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/EmptyCancellable",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLQueryWatcher",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResponse",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPRequest",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPResponse",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/InMemoryNormalizedCache",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONSerializationFormat",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MaxRetryInterceptor",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MultipartFormData",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NetworkFetchInterceptor",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/TaskData",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/UploadRequest"
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore",
+        "doc:\/\/Apollo\/documentation\/Apollo\/DefaultInterceptorProvider",
+        "doc:\/\/Apollo\/documentation\/Apollo\/EmptyCancellable",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLQueryWatcher",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResponse",
+        "doc:\/\/Apollo\/documentation\/Apollo\/HTTPRequest",
+        "doc:\/\/Apollo\/documentation\/Apollo\/HTTPResponse",
+        "doc:\/\/Apollo\/documentation\/Apollo\/InMemoryNormalizedCache",
+        "doc:\/\/Apollo\/documentation\/Apollo\/JSONRequest",
+        "doc:\/\/Apollo\/documentation\/Apollo\/JSONSerializationFormat",
+        "doc:\/\/Apollo\/documentation\/Apollo\/MaxRetryInterceptor",
+        "doc:\/\/Apollo\/documentation\/Apollo\/MultipartFormData",
+        "doc:\/\/Apollo\/documentation\/Apollo\/NetworkFetchInterceptor",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport",
+        "doc:\/\/Apollo\/documentation\/Apollo\/TaskData",
+        "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient",
+        "doc:\/\/Apollo\/documentation\/Apollo\/UploadRequest"
       ],
       "title" : "Classes"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClientProtocol",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloErrorInterceptor",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloInterceptor",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Cancellable",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/InterceptorProvider",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NetworkTransport",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NormalizedCache",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestBodyCreator",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/UploadingNetworkTransport"
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClientProtocol",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloErrorInterceptor",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloInterceptor",
+        "doc:\/\/Apollo\/documentation\/Apollo\/Cancellable",
+        "doc:\/\/Apollo\/documentation\/Apollo\/InterceptorProvider",
+        "doc:\/\/Apollo\/documentation\/Apollo\/NetworkTransport",
+        "doc:\/\/Apollo\/documentation\/Apollo\/NormalizedCache",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestBodyCreator",
+        "doc:\/\/Apollo\/documentation\/Apollo\/UploadingNetworkTransport"
       ],
       "title" : "Protocols"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloRequestBodyCreator",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheReadInterceptor",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheWriteInterceptor",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLError",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLExecutionError",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLFile",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLGETTransformer",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONResponseParsingInterceptor",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ResponseCodeInterceptor",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ResponsePath"
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloRequestBodyCreator",
+        "doc:\/\/Apollo\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor",
+        "doc:\/\/Apollo\/documentation\/Apollo\/CacheReadInterceptor",
+        "doc:\/\/Apollo\/documentation\/Apollo\/CacheWriteInterceptor",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLError",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLExecutionError",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLGETTransformer",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResult",
+        "doc:\/\/Apollo\/documentation\/Apollo\/JSONResponseParsingInterceptor",
+        "doc:\/\/Apollo\/documentation\/Apollo\/Record",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RecordSet",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ResponseCodeInterceptor",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ResponsePath"
       ],
       "title" : "Structures"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/unzip(_:)-1e6mu",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/unzip(_:)-33e77"
+        "doc:\/\/Apollo\/documentation\/Apollo\/unzip(_:)-1e6mu",
+        "doc:\/\/Apollo\/documentation\/Apollo\/unzip(_:)-33e77"
       ],
       "title" : "Functions"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheKey",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheKeyForObject",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/DidChangeKeysFunc",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResultHandler",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONObject",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONValue"
+        "doc:\/\/Apollo\/documentation\/Apollo\/CacheKey",
+        "doc:\/\/Apollo\/documentation\/Apollo\/CacheKeyForObject",
+        "doc:\/\/Apollo\/documentation\/Apollo\/DidChangeKeysFunc",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResultHandler",
+        "doc:\/\/Apollo\/documentation\/Apollo\/JSONObject",
+        "doc:\/\/Apollo\/documentation\/Apollo\/JSONValue"
       ],
       "title" : "Type Aliases"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CachePolicy",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLHTTPRequestError"
+        "doc:\/\/Apollo\/documentation\/Apollo\/CachePolicy",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLHTTPRequestError"
       ],
       "title" : "Enumerations"
     }
@@ -135,18 +135,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClient": {
+"doc://Apollo/documentation/Apollo/ApolloClient": {
   "abstract" : [
     {
       "text" : "The ",
@@ -183,7 +183,7 @@
       "text" : "ApolloClient"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -196,7 +196,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apolloclient"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClientProtocol": {
+"doc://Apollo/documentation/Apollo/ApolloClientProtocol": {
   "abstract" : [
     {
       "text" : "The ",
@@ -225,7 +225,7 @@
       "text" : "ApolloClientProtocol"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClientProtocol",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClientProtocol",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -238,7 +238,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apolloclientprotocol"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloErrorInterceptor": {
+"doc://Apollo/documentation/Apollo/ApolloErrorInterceptor": {
   "abstract" : [
     {
       "text" : "An error interceptor called to allow further examination of error data when an error occurs in the chain.",
@@ -259,7 +259,7 @@
       "text" : "ApolloErrorInterceptor"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloErrorInterceptor",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloErrorInterceptor",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -272,7 +272,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apolloerrorinterceptor"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloInterceptor": {
+"doc://Apollo/documentation/Apollo/ApolloInterceptor": {
   "abstract" : [
     {
       "text" : "A protocol to set up a chainable unit of networking work.",
@@ -293,7 +293,7 @@
       "text" : "ApolloInterceptor"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloInterceptor",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloInterceptor",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -306,7 +306,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apollointerceptor"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloRequestBodyCreator": {
+"doc://Apollo/documentation/Apollo/ApolloRequestBodyCreator": {
   "abstract" : [
 
   ],
@@ -324,7 +324,7 @@
       "text" : "ApolloRequestBodyCreator"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloRequestBodyCreator",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloRequestBodyCreator",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -337,7 +337,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apollorequestbodycreator"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloStore": {
+"doc://Apollo/documentation/Apollo/ApolloStore": {
   "abstract" : [
     {
       "text" : "The ",
@@ -366,7 +366,7 @@
       "text" : "ApolloStore"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -379,7 +379,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apollostore"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/AutomaticPersistedQueryInterceptor": {
+"doc://Apollo/documentation/Apollo/AutomaticPersistedQueryInterceptor": {
   "abstract" : [
 
   ],
@@ -397,7 +397,7 @@
       "text" : "AutomaticPersistedQueryInterceptor"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -410,7 +410,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/automaticpersistedqueryinterceptor"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/CacheKey": {
+"doc://Apollo/documentation/Apollo/CacheKey": {
   "abstract" : [
     {
       "text" : "A cache key for a record.",
@@ -431,7 +431,7 @@
       "text" : "CacheKey"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheKey",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CacheKey",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -444,7 +444,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/cachekey"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/CacheKeyForObject": {
+"doc://Apollo/documentation/Apollo/CacheKeyForObject": {
   "abstract" : [
     {
       "text" : "A function that returns a cache key for a particular result object. If it returns ",
@@ -473,7 +473,7 @@
       "text" : "CacheKeyForObject"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheKeyForObject",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CacheKeyForObject",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -486,7 +486,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/cachekeyforobject"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/CachePolicy": {
+"doc://Apollo/documentation/Apollo/CachePolicy": {
   "abstract" : [
     {
       "text" : "A cache policy that specifies whether results should be fetched from the server or loaded from the local cache.",
@@ -507,7 +507,7 @@
       "text" : "CachePolicy"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CachePolicy",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CachePolicy",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -520,7 +520,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/cachepolicy"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/CacheReadInterceptor": {
+"doc://Apollo/documentation/Apollo/CacheReadInterceptor": {
   "abstract" : [
     {
       "text" : "An interceptor that reads data from the cache for queries, following the ",
@@ -557,7 +557,7 @@
       "text" : "CacheReadInterceptor"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheReadInterceptor",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CacheReadInterceptor",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -570,7 +570,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/cachereadinterceptor"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/CacheWriteInterceptor": {
+"doc://Apollo/documentation/Apollo/CacheWriteInterceptor": {
   "abstract" : [
     {
       "text" : "An interceptor which writes data to the cache, following the ",
@@ -607,7 +607,7 @@
       "text" : "CacheWriteInterceptor"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheWriteInterceptor",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CacheWriteInterceptor",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -620,7 +620,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/cachewriteinterceptor"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/Cancellable": {
+"doc://Apollo/documentation/Apollo/Cancellable": {
   "abstract" : [
     {
       "text" : "An object that can be used to cancel an in progress action.",
@@ -641,7 +641,7 @@
       "text" : "Cancellable"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Cancellable",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/Cancellable",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -654,7 +654,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/cancellable"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/DefaultInterceptorProvider": {
+"doc://Apollo/documentation/Apollo/DefaultInterceptorProvider": {
   "abstract" : [
     {
       "text" : "The default interceptor provider for typescript-generated code",
@@ -675,7 +675,7 @@
       "text" : "DefaultInterceptorProvider"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/DefaultInterceptorProvider",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/DefaultInterceptorProvider",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -688,7 +688,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/defaultinterceptorprovider"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/DidChangeKeysFunc": {
+"doc://Apollo/documentation/Apollo/DidChangeKeysFunc": {
   "abstract" : [
 
   ],
@@ -706,7 +706,7 @@
       "text" : "DidChangeKeysFunc"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/DidChangeKeysFunc",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/DidChangeKeysFunc",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -719,7 +719,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/didchangekeysfunc"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/EmptyCancellable": {
+"doc://Apollo/documentation/Apollo/EmptyCancellable": {
   "abstract" : [
     {
       "text" : "A class to return when we need to bail out of something which still needs to return ",
@@ -748,7 +748,7 @@
       "text" : "EmptyCancellable"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/EmptyCancellable",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/EmptyCancellable",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -761,7 +761,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/emptycancellable"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLError": {
+"doc://Apollo/documentation/Apollo/GraphQLError": {
   "abstract" : [
     {
       "text" : "Represents an error encountered during the execution of a GraphQL operation.",
@@ -782,7 +782,7 @@
       "text" : "GraphQLError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLError",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -795,7 +795,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlerror"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLExecutionError": {
+"doc://Apollo/documentation/Apollo/GraphQLExecutionError": {
   "abstract" : [
     {
       "text" : "An error which has occurred during GraphQL execution.",
@@ -816,7 +816,7 @@
       "text" : "GraphQLExecutionError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLExecutionError",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLExecutionError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -829,7 +829,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlexecutionerror"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLFile": {
+"doc://Apollo/documentation/Apollo/GraphQLFile": {
   "abstract" : [
     {
       "text" : "A file which can be uploaded to a GraphQL server",
@@ -850,7 +850,7 @@
       "text" : "GraphQLFile"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLFile",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -863,7 +863,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlfile"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLGETTransformer": {
+"doc://Apollo/documentation/Apollo/GraphQLGETTransformer": {
   "abstract" : [
 
   ],
@@ -881,7 +881,7 @@
       "text" : "GraphQLGETTransformer"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLGETTransformer",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLGETTransformer",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -894,7 +894,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlgettransformer"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLHTTPRequestError": {
+"doc://Apollo/documentation/Apollo/GraphQLHTTPRequestError": {
   "abstract" : [
     {
       "text" : "An error which has occurred during the serialization of a request.",
@@ -915,7 +915,7 @@
       "text" : "GraphQLHTTPRequestError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLHTTPRequestError",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLHTTPRequestError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -928,7 +928,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlhttprequesterror"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLQueryWatcher": {
+"doc://Apollo/documentation/Apollo/GraphQLQueryWatcher": {
   "abstract" : [
     {
       "text" : "A ",
@@ -957,7 +957,7 @@
       "text" : "GraphQLQueryWatcher"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLQueryWatcher",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLQueryWatcher",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -970,7 +970,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlquerywatcher"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResponse": {
+"doc://Apollo/documentation/Apollo/GraphQLResponse": {
   "abstract" : [
     {
       "text" : "Represents a GraphQL response received from a server.",
@@ -991,7 +991,7 @@
       "text" : "GraphQLResponse"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResponse",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResponse",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1004,7 +1004,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlresponse"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResult": {
+"doc://Apollo/documentation/Apollo/GraphQLResult": {
   "abstract" : [
     {
       "text" : "Represents the result of a GraphQL operation.",
@@ -1025,7 +1025,7 @@
       "text" : "GraphQLResult"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResult",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1038,7 +1038,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlresult"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResultHandler": {
+"doc://Apollo/documentation/Apollo/GraphQLResultHandler": {
   "abstract" : [
     {
       "text" : "A handler for operation results.",
@@ -1059,7 +1059,7 @@
       "text" : "GraphQLResultHandler"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResultHandler",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResultHandler",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1072,7 +1072,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlresulthandler"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/HTTPRequest": {
+"doc://Apollo/documentation/Apollo/HTTPRequest": {
   "abstract" : [
     {
       "text" : "Encapsulation of all information about a request before it hits the network",
@@ -1093,7 +1093,7 @@
       "text" : "HTTPRequest"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPRequest",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/HTTPRequest",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1106,7 +1106,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/httprequest"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/HTTPResponse": {
+"doc://Apollo/documentation/Apollo/HTTPResponse": {
   "abstract" : [
     {
       "text" : "Data about a response received by an HTTP request.",
@@ -1127,7 +1127,7 @@
       "text" : "HTTPResponse"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPResponse",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/HTTPResponse",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1140,7 +1140,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/httpresponse"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/InMemoryNormalizedCache": {
+"doc://Apollo/documentation/Apollo/InMemoryNormalizedCache": {
   "abstract" : [
 
   ],
@@ -1158,7 +1158,7 @@
       "text" : "InMemoryNormalizedCache"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/InMemoryNormalizedCache",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/InMemoryNormalizedCache",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1171,7 +1171,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/inmemorynormalizedcache"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/InterceptorProvider": {
+"doc://Apollo/documentation/Apollo/InterceptorProvider": {
   "abstract" : [
     {
       "text" : "A protocol to allow easy creation of an array of interceptors for a given operation.",
@@ -1192,7 +1192,7 @@
       "text" : "InterceptorProvider"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/InterceptorProvider",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/InterceptorProvider",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1205,7 +1205,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/interceptorprovider"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONObject": {
+"doc://Apollo/documentation/Apollo/JSONObject": {
   "abstract" : [
 
   ],
@@ -1223,7 +1223,7 @@
       "text" : "JSONObject"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONObject",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONObject",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1236,7 +1236,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/jsonobject"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONRequest": {
+"doc://Apollo/documentation/Apollo/JSONRequest": {
   "abstract" : [
     {
       "text" : "A request which sends JSON related to a GraphQL operation.",
@@ -1257,7 +1257,7 @@
       "text" : "JSONRequest"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONRequest",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1270,7 +1270,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/jsonrequest"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONResponseParsingInterceptor": {
+"doc://Apollo/documentation/Apollo/JSONResponseParsingInterceptor": {
   "abstract" : [
     {
       "text" : "An interceptor which parses JSON response data into a ",
@@ -1307,7 +1307,7 @@
       "text" : "JSONResponseParsingInterceptor"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONResponseParsingInterceptor",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONResponseParsingInterceptor",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1320,7 +1320,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/jsonresponseparsinginterceptor"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONSerializationFormat": {
+"doc://Apollo/documentation/Apollo/JSONSerializationFormat": {
   "abstract" : [
 
   ],
@@ -1338,7 +1338,7 @@
       "text" : "JSONSerializationFormat"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONSerializationFormat",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONSerializationFormat",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1351,7 +1351,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/jsonserializationformat"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONValue": {
+"doc://Apollo/documentation/Apollo/JSONValue": {
   "abstract" : [
 
   ],
@@ -1369,7 +1369,7 @@
       "text" : "JSONValue"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONValue",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONValue",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1382,7 +1382,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/jsonvalue"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/MaxRetryInterceptor": {
+"doc://Apollo/documentation/Apollo/MaxRetryInterceptor": {
   "abstract" : [
     {
       "text" : "An interceptor to enforce a maximum number of retries of any ",
@@ -1407,7 +1407,7 @@
       "text" : "MaxRetryInterceptor"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MaxRetryInterceptor",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/MaxRetryInterceptor",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1420,7 +1420,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/maxretryinterceptor"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/MultipartFormData": {
+"doc://Apollo/documentation/Apollo/MultipartFormData": {
   "abstract" : [
     {
       "text" : "A helper for building out multi-part form data for upload",
@@ -1441,7 +1441,7 @@
       "text" : "MultipartFormData"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MultipartFormData",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/MultipartFormData",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1454,7 +1454,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/multipartformdata"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/NetworkFetchInterceptor": {
+"doc://Apollo/documentation/Apollo/NetworkFetchInterceptor": {
   "abstract" : [
     {
       "text" : "An interceptor which actually fetches data from the network.",
@@ -1475,7 +1475,7 @@
       "text" : "NetworkFetchInterceptor"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NetworkFetchInterceptor",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/NetworkFetchInterceptor",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1488,7 +1488,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/networkfetchinterceptor"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/NetworkTransport": {
+"doc://Apollo/documentation/Apollo/NetworkTransport": {
   "abstract" : [
     {
       "text" : "A network transport is responsible for sending GraphQL operations to a server.",
@@ -1509,7 +1509,7 @@
       "text" : "NetworkTransport"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NetworkTransport",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/NetworkTransport",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1522,7 +1522,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/networktransport"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/NormalizedCache": {
+"doc://Apollo/documentation/Apollo/NormalizedCache": {
   "abstract" : [
 
   ],
@@ -1540,7 +1540,7 @@
       "text" : "NormalizedCache"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NormalizedCache",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/NormalizedCache",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1553,7 +1553,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/normalizedcache"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/Record": {
+"doc://Apollo/documentation/Apollo/Record": {
   "abstract" : [
     {
       "text" : "A cache record.",
@@ -1574,7 +1574,7 @@
       "text" : "Record"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/Record",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1587,7 +1587,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/record"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet": {
+"doc://Apollo/documentation/Apollo/RecordSet": {
   "abstract" : [
     {
       "text" : "A set of cache records.",
@@ -1608,7 +1608,7 @@
       "text" : "RecordSet"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RecordSet",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1621,7 +1621,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/recordset"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestBodyCreator": {
+"doc://Apollo/documentation/Apollo/RequestBodyCreator": {
   "abstract" : [
 
   ],
@@ -1639,7 +1639,7 @@
       "text" : "RequestBodyCreator"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestBodyCreator",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestBodyCreator",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1652,7 +1652,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestbodycreator"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChain": {
+"doc://Apollo/documentation/Apollo/RequestChain": {
   "abstract" : [
     {
       "text" : "A chain that allows a single network request to be created and executed.",
@@ -1673,7 +1673,7 @@
       "text" : "RequestChain"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1686,7 +1686,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchain"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChainNetworkTransport": {
+"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport": {
   "abstract" : [
     {
       "text" : "An implementation of ",
@@ -1731,7 +1731,7 @@
       "text" : "RequestChainNetworkTransport"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1744,7 +1744,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchainnetworktransport"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ResponseCodeInterceptor": {
+"doc://Apollo/documentation/Apollo/ResponseCodeInterceptor": {
   "abstract" : [
     {
       "text" : "An interceptor to check the response code returned with a request.",
@@ -1765,7 +1765,7 @@
       "text" : "ResponseCodeInterceptor"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ResponseCodeInterceptor",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponseCodeInterceptor",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1778,7 +1778,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/responsecodeinterceptor"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ResponsePath": {
+"doc://Apollo/documentation/Apollo/ResponsePath": {
   "abstract" : [
     {
       "text" : "Represents a list of string components joined into a path using a reverse linked list.",
@@ -1799,7 +1799,7 @@
       "text" : "ResponsePath"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ResponsePath",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponsePath",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1812,7 +1812,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/responsepath"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/TaskData": {
+"doc://Apollo/documentation/Apollo/TaskData": {
   "abstract" : [
     {
       "text" : "A wrapper for data about a particular task handled by ",
@@ -1837,7 +1837,7 @@
       "text" : "TaskData"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/TaskData",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/TaskData",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1850,7 +1850,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/taskdata"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient": {
+"doc://Apollo/documentation/Apollo/URLSessionClient": {
   "abstract" : [
     {
       "text" : "A class to handle URL Session calls that will support background execution,",
@@ -1879,7 +1879,7 @@
       "text" : "URLSessionClient"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1892,7 +1892,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/urlsessionclient"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/UploadRequest": {
+"doc://Apollo/documentation/Apollo/UploadRequest": {
   "abstract" : [
     {
       "text" : "A request class allowing for a multipart-upload request.",
@@ -1913,7 +1913,7 @@
       "text" : "UploadRequest"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/UploadRequest",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/UploadRequest",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1926,7 +1926,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/uploadrequest"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/UploadingNetworkTransport": {
+"doc://Apollo/documentation/Apollo/UploadingNetworkTransport": {
   "abstract" : [
     {
       "text" : "A network transport which can also handle uploads of files.",
@@ -1947,7 +1947,7 @@
       "text" : "UploadingNetworkTransport"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/UploadingNetworkTransport",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/UploadingNetworkTransport",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1960,7 +1960,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/uploadingnetworktransport"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/unzip(_:)-1e6mu": {
+"doc://Apollo/documentation/Apollo/unzip(_:)-1e6mu": {
   "abstract" : [
 
   ],
@@ -2007,7 +2007,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo5unzipySayxG_Sayq_GSayq0_GtSayxSg_q_Sgq0_SgtGr1_lF8Element1L_xmfp",
       "text" : "Element1"
     },
     {
@@ -2016,7 +2015,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo5unzipySayxG_Sayq_GSayq0_GtSayxSg_q_Sgq0_SgtGr1_lF8Element2L_q_mfp",
       "text" : "Element2"
     },
     {
@@ -2025,7 +2023,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo5unzipySayxG_Sayq_GSayq0_GtSayxSg_q_Sgq0_SgtGr1_lF8Element3L_q0_mfp",
       "text" : "Element3"
     },
     {
@@ -2034,7 +2031,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo5unzipySayxG_Sayq_GSayq0_GtSayxSg_q_Sgq0_SgtGr1_lF8Element1L_xmfp",
       "text" : "Element1"
     },
     {
@@ -2043,7 +2039,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo5unzipySayxG_Sayq_GSayq0_GtSayxSg_q_Sgq0_SgtGr1_lF8Element2L_q_mfp",
       "text" : "Element2"
     },
     {
@@ -2052,7 +2047,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo5unzipySayxG_Sayq_GSayq0_GtSayxSg_q_Sgq0_SgtGr1_lF8Element3L_q0_mfp",
       "text" : "Element3"
     },
     {
@@ -2060,14 +2054,14 @@
       "text" : "])"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/unzip(_:)-1e6mu",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/unzip(_:)-1e6mu",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "unzip(_:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/unzip(_:)-1e6mu"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/unzip(_:)-33e77": {
+"doc://Apollo/documentation/Apollo/unzip(_:)-33e77": {
   "abstract" : [
 
   ],
@@ -2106,7 +2100,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo5unzipySayxG_Sayq_GtSayxSg_q_SgtGr0_lF8Element1L_xmfp",
       "text" : "Element1"
     },
     {
@@ -2115,7 +2108,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo5unzipySayxG_Sayq_GtSayxSg_q_SgtGr0_lF8Element2L_q_mfp",
       "text" : "Element2"
     },
     {
@@ -2124,7 +2116,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo5unzipySayxG_Sayq_GtSayxSg_q_SgtGr0_lF8Element1L_xmfp",
       "text" : "Element1"
     },
     {
@@ -2133,7 +2124,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo5unzipySayxG_Sayq_GtSayxSg_q_SgtGr0_lF8Element2L_q_mfp",
       "text" : "Element2"
     },
     {
@@ -2141,7 +2131,7 @@
       "text" : "])"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/unzip(_:)-33e77",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/unzip(_:)-33e77",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "unzip(_:)",

@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/init(networkTransport:store:)"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/init(networkTransport:store:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -102,7 +102,7 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NetworkTransport",
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/NetworkTransport",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:6Apollo16NetworkTransportP",
               "text" : "NetworkTransport"
@@ -120,7 +120,7 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore",
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:6Apollo0A5StoreC",
               "text" : "ApolloStore"
@@ -198,18 +198,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClient": {
+"doc://Apollo/documentation/Apollo/ApolloClient": {
   "abstract" : [
     {
       "text" : "The ",
@@ -246,7 +246,7 @@
       "text" : "ApolloClient"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -259,7 +259,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apolloclient"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClient/init(networkTransport:store:)": {
+"doc://Apollo/documentation/Apollo/ApolloClient/init(networkTransport:store:)": {
   "abstract" : [
     {
       "text" : "Creates a client with the specified network transport and store.",
@@ -310,14 +310,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/init(networkTransport:store:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/init(networkTransport:store:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(networkTransport:store:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apolloclient\/init(networktransport:store:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloStore": {
+"doc://Apollo/documentation/Apollo/ApolloStore": {
   "abstract" : [
     {
       "text" : "The ",
@@ -346,7 +346,7 @@
       "text" : "ApolloStore"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -359,7 +359,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apollostore"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/NetworkTransport": {
+"doc://Apollo/documentation/Apollo/NetworkTransport": {
   "abstract" : [
     {
       "text" : "A network transport is responsible for sending GraphQL operations to a server.",
@@ -380,7 +380,7 @@
       "text" : "NetworkTransport"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NetworkTransport",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/NetworkTransport",
   "kind" : "symbol",
   "navigatorTitle" : [
     {

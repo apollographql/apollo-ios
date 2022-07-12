@@ -24,13 +24,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"
+        "doc:\/\/Apollo\/documentation\/Apollo"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheWriteInterceptor"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/CacheWriteInterceptor"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -97,7 +97,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloInterceptor"
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloInterceptor"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -115,25 +115,25 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheWriteInterceptor\/init(store:)"
+        "doc:\/\/Apollo\/documentation\/Apollo\/CacheWriteInterceptor\/init(store:)"
       ],
       "title" : "Initializers"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheWriteInterceptor\/store"
+        "doc:\/\/Apollo\/documentation\/Apollo\/CacheWriteInterceptor\/store"
       ],
       "title" : "Instance Properties"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheWriteInterceptor\/interceptAsync(chain:request:response:completion:)"
+        "doc:\/\/Apollo\/documentation\/Apollo\/CacheWriteInterceptor\/interceptAsync(chain:request:response:completion:)"
       ],
       "title" : "Instance Methods"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheWriteInterceptor\/CacheWriteError"
+        "doc:\/\/Apollo\/documentation\/Apollo\/CacheWriteInterceptor\/CacheWriteError"
       ],
       "title" : "Enumerations"
     }
@@ -152,18 +152,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloInterceptor": {
+"doc://Apollo/documentation/Apollo/ApolloInterceptor": {
   "abstract" : [
     {
       "text" : "A protocol to set up a chainable unit of networking work.",
@@ -184,7 +184,7 @@
       "text" : "ApolloInterceptor"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloInterceptor",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloInterceptor",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -197,7 +197,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apollointerceptor"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/CacheWriteInterceptor": {
+"doc://Apollo/documentation/Apollo/CacheWriteInterceptor": {
   "abstract" : [
     {
       "text" : "An interceptor which writes data to the cache, following the ",
@@ -234,7 +234,7 @@
       "text" : "CacheWriteInterceptor"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheWriteInterceptor",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CacheWriteInterceptor",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -247,7 +247,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/cachewriteinterceptor"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/CacheWriteInterceptor/CacheWriteError": {
+"doc://Apollo/documentation/Apollo/CacheWriteInterceptor/CacheWriteError": {
   "abstract" : [
 
   ],
@@ -265,7 +265,7 @@
       "text" : "CacheWriteError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheWriteInterceptor\/CacheWriteError",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CacheWriteInterceptor\/CacheWriteError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -278,7 +278,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/cachewriteinterceptor\/cachewriteerror"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/CacheWriteInterceptor/init(store:)": {
+"doc://Apollo/documentation/Apollo/CacheWriteInterceptor/init(store:)": {
   "abstract" : [
     {
       "text" : "Designated initializer",
@@ -312,19 +312,16 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheWriteInterceptor\/init(store:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CacheWriteInterceptor\/init(store:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(store:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/cachewriteinterceptor\/init(store:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/CacheWriteInterceptor/interceptAsync(chain:request:response:completion:)": {
+"doc://Apollo/documentation/Apollo/CacheWriteInterceptor/interceptAsync(chain:request:response:completion:)": {
   "abstract" : [
-    {
-      "text" : "Called when this interceptor should do its work.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -387,7 +384,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo21CacheWriteInterceptorV14interceptAsync5chain7request8response10completionyAA12RequestChainC_AA11HTTPRequestCyxGAA12HTTPResponseCyxGSgys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0P11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -413,7 +409,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo21CacheWriteInterceptorV14interceptAsync5chain7request8response10completionyAA12RequestChainC_AA11HTTPRequestCyxGAA12HTTPResponseCyxGSgys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0P11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -448,7 +443,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo21CacheWriteInterceptorV14interceptAsync5chain7request8response10completionyAA12RequestChainC_AA11HTTPRequestCyxGAA12HTTPResponseCyxGSgys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0P11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -457,7 +451,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
       "text" : "Data"
     },
     {
@@ -483,14 +476,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheWriteInterceptor\/interceptAsync(chain:request:response:completion:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CacheWriteInterceptor\/interceptAsync(chain:request:response:completion:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "interceptAsync(chain:request:response:completion:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/cachewriteinterceptor\/interceptasync(chain:request:response:completion:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/CacheWriteInterceptor/store": {
+"doc://Apollo/documentation/Apollo/CacheWriteInterceptor/store": {
   "abstract" : [
 
   ],
@@ -517,7 +510,7 @@
       "text" : "ApolloStore"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheWriteInterceptor\/store",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CacheWriteInterceptor\/store",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "store",

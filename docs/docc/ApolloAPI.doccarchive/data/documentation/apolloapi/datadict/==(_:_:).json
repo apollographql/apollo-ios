@@ -16,14 +16,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/DataDict"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DataDict"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/DataDict\/==(_:_:)"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DataDict\/==(_:_:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -139,7 +139,7 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/DataDict",
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DataDict",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:9ApolloAPI8DataDictV",
               "text" : "DataDict"
@@ -157,7 +157,7 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/DataDict",
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DataDict",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:9ApolloAPI8DataDictV",
               "text" : "DataDict"
@@ -199,18 +199,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI": {
+"doc://ApolloAPI/documentation/ApolloAPI": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/DataDict": {
+"doc://ApolloAPI/documentation/ApolloAPI/DataDict": {
   "abstract" : [
     {
       "text" : "A structure that wraps the underlying data dictionary used by ",
@@ -239,7 +239,7 @@
       "text" : "DataDict"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/DataDict",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DataDict",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -252,7 +252,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/datadict"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/DataDict/==(_:_:)": {
+"doc://ApolloAPI/documentation/ApolloAPI/DataDict/==(_:_:)": {
   "abstract" : [
 
   ],
@@ -309,7 +309,7 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/DataDict\/==(_:_:)",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DataDict\/==(_:_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "==(_:_:)",

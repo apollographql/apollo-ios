@@ -8,13 +8,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/__(_:_:)"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/__(_:_:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -50,7 +50,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:9ApolloAPI2qqoiyAA15GraphQLNullableOyxGxSg_AEtlF1TL_xmfp",
         "text" : "T"
       },
       {
@@ -68,7 +67,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:9ApolloAPI2qqoiyAA15GraphQLNullableOyxGxSg_AEtlF1TL_xmfp",
         "text" : "T"
       },
       {
@@ -86,7 +84,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:9ApolloAPI2qqoiyAA15GraphQLNullableOyxGxSg_AEtlF1TL_xmfp",
         "text" : "T"
       },
       {
@@ -153,7 +150,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:9ApolloAPI2qqoiyAA15GraphQLNullableOyxGxSg_AEtlF1TL_xmfp",
               "text" : "T"
             },
             {
@@ -169,7 +165,7 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLNullable",
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:9ApolloAPI15GraphQLNullableO",
               "text" : "GraphQLNullable"
@@ -180,7 +176,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:9ApolloAPI2qqoiyAA15GraphQLNullableOyxGxSg_AEtlF1TL_xmfp",
               "text" : "T"
             },
             {
@@ -188,7 +183,7 @@
               "text" : ">) -> "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLNullable",
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:9ApolloAPI15GraphQLNullableO",
               "text" : "GraphQLNullable"
@@ -199,7 +194,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:9ApolloAPI2qqoiyAA15GraphQLNullableOyxGxSg_AEtlF1TL_xmfp",
               "text" : "T"
             },
             {
@@ -234,18 +228,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI": {
+"doc://ApolloAPI/documentation/ApolloAPI": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLNullable": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLNullable": {
   "abstract" : [
     {
       "text" : "Indicates the presence of a value, supporting both ",
@@ -282,7 +276,7 @@
       "text" : "GraphQLNullable"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLNullable",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -295,7 +289,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqlnullable"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/__(_:_:)": {
+"doc://ApolloAPI/documentation/ApolloAPI/__(_:_:)": {
   "abstract" : [
 
   ],
@@ -330,7 +324,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI2qqoiyAA15GraphQLNullableOyxGxSg_AEtlF1TL_xmfp",
       "text" : "T"
     },
     {
@@ -348,7 +341,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI2qqoiyAA15GraphQLNullableOyxGxSg_AEtlF1TL_xmfp",
       "text" : "T"
     },
     {
@@ -366,7 +358,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI2qqoiyAA15GraphQLNullableOyxGxSg_AEtlF1TL_xmfp",
       "text" : "T"
     },
     {
@@ -374,7 +365,7 @@
       "text" : ">"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/__(_:_:)",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/__(_:_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "??(_:_:)",

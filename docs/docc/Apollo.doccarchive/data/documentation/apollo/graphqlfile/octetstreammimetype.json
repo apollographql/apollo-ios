@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLFile"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLFile\/octetStreamMimeType"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/octetStreamMimeType"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -129,18 +129,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLFile": {
+"doc://Apollo/documentation/Apollo/GraphQLFile": {
   "abstract" : [
     {
       "text" : "A file which can be uploaded to a GraphQL server",
@@ -161,7 +161,7 @@
       "text" : "GraphQLFile"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLFile",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -174,7 +174,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlfile"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLFile/octetStreamMimeType": {
+"doc://Apollo/documentation/Apollo/GraphQLFile/octetStreamMimeType": {
   "abstract" : [
     {
       "text" : "A convenience constant for declaring your mimetype is octet-stream.",
@@ -212,7 +212,7 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLFile\/octetStreamMimeType",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/octetStreamMimeType",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "octetStreamMimeType",

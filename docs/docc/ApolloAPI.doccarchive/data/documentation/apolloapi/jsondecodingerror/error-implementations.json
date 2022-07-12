@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/JSONDecodingError"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONDecodingError"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/JSONDecodingError\/Error-Implementations"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONDecodingError\/Error-Implementations"
   },
   "kind" : "article",
   "metadata" : {
@@ -39,7 +39,7 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/JSONDecodingError\/localizedDescription"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONDecodingError\/localizedDescription"
       ],
       "title" : "Instance Properties"
     }
@@ -58,18 +58,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI": {
+"doc://ApolloAPI/documentation/ApolloAPI": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/JSONDecodingError": {
+"doc://ApolloAPI/documentation/ApolloAPI/JSONDecodingError": {
   "abstract" : [
 
   ],
@@ -87,7 +87,7 @@
       "text" : "JSONDecodingError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/JSONDecodingError",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONDecodingError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -100,7 +100,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/jsondecodingerror"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/JSONDecodingError/localizedDescription": {
+"doc://ApolloAPI/documentation/ApolloAPI/JSONDecodingError/localizedDescription": {
   "abstract" : [
 
   ],
@@ -127,7 +127,7 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/JSONDecodingError\/localizedDescription",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONDecodingError\/localizedDescription",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "localizedDescription",

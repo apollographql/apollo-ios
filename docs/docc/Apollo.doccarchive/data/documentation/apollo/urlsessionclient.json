@@ -16,13 +16,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"
+        "doc:\/\/Apollo\/documentation\/Apollo"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -158,15 +158,15 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/objc(pl)NSURLSessionDataDelegate",
-        "doc:\/\/com.apollographql.Apollo.macosx\/objc(pl)NSURLSessionDelegate",
-        "doc:\/\/com.apollographql.Apollo.macosx\/objc(pl)NSURLSessionTaskDelegate",
-        "doc:\/\/com.apollographql.Apollo.macosx\/objc(pl)NSObject",
-        "doc:\/\/com.apollographql.Apollo.macosx\/s7CVarArgP",
-        "doc:\/\/com.apollographql.Apollo.macosx\/s28CustomDebugStringConvertibleP",
-        "doc:\/\/com.apollographql.Apollo.macosx\/s23CustomStringConvertibleP",
-        "doc:\/\/com.apollographql.Apollo.macosx\/SQ",
-        "doc:\/\/com.apollographql.Apollo.macosx\/SH"
+        "doc:\/\/Apollo\/objc(pl)NSURLSessionDataDelegate",
+        "doc:\/\/Apollo\/objc(pl)NSURLSessionDelegate",
+        "doc:\/\/Apollo\/objc(pl)NSURLSessionTaskDelegate",
+        "doc:\/\/Apollo\/objc(pl)NSObject",
+        "doc:\/\/Apollo\/s7CVarArgP",
+        "doc:\/\/Apollo\/s28CustomDebugStringConvertibleP",
+        "doc:\/\/Apollo\/s23CustomStringConvertibleP",
+        "doc:\/\/Apollo\/SQ",
+        "doc:\/\/Apollo\/SH"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -184,52 +184,52 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/init()",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/init(sessionConfiguration:callbackQueue:)"
+        "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/init()",
+        "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/init(sessionConfiguration:callbackQueue:)"
       ],
       "title" : "Initializers"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/session"
+        "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/session"
       ],
       "title" : "Instance Properties"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/cancel(task:)",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/clear(task:)",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/clearAllTasks()",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/invalidate()",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/sendRequest(_:rawTaskCompletionHandler:completion:)",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/urlSession(_:dataTask:didBecome:)-17qvj",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/urlSession(_:dataTask:didBecome:)-1gjp0",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/urlSession(_:dataTask:didReceive:)",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/urlSession(_:dataTask:didReceive:completionHandler:)",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/urlSession(_:dataTask:willCacheResponse:completionHandler:)",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/urlSession(_:didBecomeInvalidWithError:)",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/urlSession(_:didReceive:completionHandler:)",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/urlSession(_:task:didCompleteWithError:)",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/urlSession(_:task:didFinishCollecting:)",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/urlSession(_:task:didReceive:completionHandler:)",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/urlSession(_:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:)",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/urlSession(_:task:needNewBodyStream:)",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/urlSession(_:task:willBeginDelayedRequest:completionHandler:)",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/urlSession(_:task:willPerformHTTPRedirection:newRequest:completionHandler:)",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/urlSession(_:taskIsWaitingForConnectivity:)"
+        "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/cancel(task:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/clear(task:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/clearAllTasks()",
+        "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/invalidate()",
+        "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/sendRequest(_:rawTaskCompletionHandler:completion:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/urlSession(_:dataTask:didBecome:)-17qvj",
+        "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/urlSession(_:dataTask:didBecome:)-1gjp0",
+        "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/urlSession(_:dataTask:didReceive:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/urlSession(_:dataTask:didReceive:completionHandler:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/urlSession(_:dataTask:willCacheResponse:completionHandler:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/urlSession(_:didBecomeInvalidWithError:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/urlSession(_:didReceive:completionHandler:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/urlSession(_:task:didCompleteWithError:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/urlSession(_:task:didFinishCollecting:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/urlSession(_:task:didReceive:completionHandler:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/urlSession(_:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/urlSession(_:task:needNewBodyStream:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/urlSession(_:task:willBeginDelayedRequest:completionHandler:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/urlSession(_:task:willPerformHTTPRedirection:newRequest:completionHandler:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/urlSession(_:taskIsWaitingForConnectivity:)"
       ],
       "title" : "Instance Methods"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/Completion",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/RawCompletion"
+        "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/Completion",
+        "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/RawCompletion"
       ],
       "title" : "Type Aliases"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError"
+        "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError"
       ],
       "title" : "Enumerations"
     }
@@ -248,28 +248,28 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/SH": {
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/SH",
+"doc://Apollo/SH": {
+  "identifier" : "doc:\/\/Apollo\/SH",
   "title" : "Swift.Hashable",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.Apollo.macosx/SQ": {
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/SQ",
+"doc://Apollo/SQ": {
+  "identifier" : "doc:\/\/Apollo\/SQ",
   "title" : "Swift.Equatable",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient": {
+"doc://Apollo/documentation/Apollo/URLSessionClient": {
   "abstract" : [
     {
       "text" : "A class to handle URL Session calls that will support background execution,",
@@ -298,7 +298,7 @@
       "text" : "URLSessionClient"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -311,7 +311,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/urlsessionclient"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/Completion": {
+"doc://Apollo/documentation/Apollo/URLSessionClient/Completion": {
   "abstract" : [
     {
       "text" : "A completion block returning a result. On ",
@@ -364,7 +364,7 @@
       "text" : "Completion"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/Completion",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/Completion",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -377,7 +377,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/urlsessionclient\/completion"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/RawCompletion": {
+"doc://Apollo/documentation/Apollo/URLSessionClient/RawCompletion": {
   "abstract" : [
     {
       "text" : "A completion block to be called when the raw task has completed, with the raw information from the session",
@@ -398,7 +398,7 @@
       "text" : "RawCompletion"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/RawCompletion",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/RawCompletion",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -411,7 +411,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/urlsessionclient\/rawcompletion"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/URLSessionClientError": {
+"doc://Apollo/documentation/Apollo/URLSessionClient/URLSessionClientError": {
   "abstract" : [
 
   ],
@@ -429,7 +429,7 @@
       "text" : "URLSessionClientError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -442,7 +442,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/urlsessionclient\/urlsessionclienterror"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/cancel(task:)": {
+"doc://Apollo/documentation/Apollo/URLSessionClient/cancel(task:)": {
   "abstract" : [
     {
       "text" : "Cancels a given task and clears out its underlying data.",
@@ -484,14 +484,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/cancel(task:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/cancel(task:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "cancel(task:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/urlsessionclient\/cancel(task:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/clear(task:)": {
+"doc://Apollo/documentation/Apollo/URLSessionClient/clear(task:)": {
   "abstract" : [
     {
       "text" : "Clears underlying dictionaries of any data related to a particular task identifier.",
@@ -533,14 +533,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/clear(task:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/clear(task:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "clear(task:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/urlsessionclient\/clear(task:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/clearAllTasks()": {
+"doc://Apollo/documentation/Apollo/URLSessionClient/clearAllTasks()": {
   "abstract" : [
     {
       "text" : "Clears underlying dictionaries of any data related to all tasks.",
@@ -565,14 +565,14 @@
       "text" : "()"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/clearAllTasks()",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/clearAllTasks()",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "clearAllTasks()",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/urlsessionclient\/clearalltasks()"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/init()": {
+"doc://Apollo/documentation/Apollo/URLSessionClient/init()": {
   "abstract" : [
 
   ],
@@ -586,14 +586,14 @@
       "text" : "()"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/init()",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/init()",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init()",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/urlsessionclient\/init()"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/init(sessionConfiguration:callbackQueue:)": {
+"doc://Apollo/documentation/Apollo/URLSessionClient/init(sessionConfiguration:callbackQueue:)": {
   "abstract" : [
     {
       "text" : "Designated initializer.",
@@ -644,14 +644,14 @@
       "text" : "?)"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/init(sessionConfiguration:callbackQueue:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/init(sessionConfiguration:callbackQueue:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(sessionConfiguration:callbackQueue:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/urlsessionclient\/init(sessionconfiguration:callbackqueue:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/invalidate()": {
+"doc://Apollo/documentation/Apollo/URLSessionClient/invalidate()": {
   "abstract" : [
     {
       "text" : "Cleans up and invalidates everything related to this session client.",
@@ -676,14 +676,14 @@
       "text" : "()"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/invalidate()",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/invalidate()",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "invalidate()",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/urlsessionclient\/invalidate()"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/sendRequest(_:rawTaskCompletionHandler:completion:)": {
+"doc://Apollo/documentation/Apollo/URLSessionClient/sendRequest(_:rawTaskCompletionHandler:completion:)": {
   "abstract" : [
     {
       "text" : "The main method to perform a request.",
@@ -726,6 +726,15 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:@M@Apollo@objc(cs)URLSessionClient",
+      "text" : "URLSessionClient"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:6Apollo16URLSessionClientC13RawCompletiona",
       "text" : "RawCompletion"
     },
@@ -743,6 +752,15 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:@M@Apollo@objc(cs)URLSessionClient",
+      "text" : "URLSessionClient"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:6Apollo16URLSessionClientC10Completiona",
       "text" : "Completion"
     },
@@ -756,14 +774,14 @@
       "text" : "URLSessionTask"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/sendRequest(_:rawTaskCompletionHandler:completion:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/sendRequest(_:rawTaskCompletionHandler:completion:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "sendRequest(_:rawTaskCompletionHandler:completion:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/urlsessionclient\/sendrequest(_:rawtaskcompletionhandler:completion:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/session": {
+"doc://Apollo/documentation/Apollo/URLSessionClient/session": {
   "abstract" : [
     {
       "text" : "The raw URLSession being used for this client",
@@ -797,14 +815,14 @@
       "text" : "!"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/session",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/session",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "session",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/urlsessionclient\/session"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/urlSession(_:dataTask:didBecome:)-17qvj": {
+"doc://Apollo/documentation/Apollo/URLSessionClient/urlSession(_:dataTask:didBecome:)-17qvj": {
   "abstract" : [
 
   ],
@@ -869,14 +887,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/urlSession(_:dataTask:didBecome:)-17qvj",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/urlSession(_:dataTask:didBecome:)-17qvj",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "urlSession(_:dataTask:didBecome:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/urlsessionclient\/urlsession(_:datatask:didbecome:)-17qvj"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/urlSession(_:dataTask:didBecome:)-1gjp0": {
+"doc://Apollo/documentation/Apollo/URLSessionClient/urlSession(_:dataTask:didBecome:)-1gjp0": {
   "abstract" : [
 
   ],
@@ -941,14 +959,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/urlSession(_:dataTask:didBecome:)-1gjp0",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/urlSession(_:dataTask:didBecome:)-1gjp0",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "urlSession(_:dataTask:didBecome:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/urlsessionclient\/urlsession(_:datatask:didbecome:)-1gjp0"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/urlSession(_:dataTask:didReceive:)": {
+"doc://Apollo/documentation/Apollo/URLSessionClient/urlSession(_:dataTask:didReceive:)": {
   "abstract" : [
 
   ],
@@ -1013,14 +1031,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/urlSession(_:dataTask:didReceive:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/urlSession(_:dataTask:didReceive:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "urlSession(_:dataTask:didReceive:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/urlsessionclient\/urlsession(_:datatask:didreceive:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/urlSession(_:dataTask:didReceive:completionHandler:)": {
+"doc://Apollo/documentation/Apollo/URLSessionClient/urlSession(_:dataTask:didReceive:completionHandler:)": {
   "abstract" : [
 
   ],
@@ -1120,14 +1138,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/urlSession(_:dataTask:didReceive:completionHandler:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/urlSession(_:dataTask:didReceive:completionHandler:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "urlSession(_:dataTask:didReceive:completionHandler:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/urlsessionclient\/urlsession(_:datatask:didreceive:completionhandler:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/urlSession(_:dataTask:willCacheResponse:completionHandler:)": {
+"doc://Apollo/documentation/Apollo/URLSessionClient/urlSession(_:dataTask:willCacheResponse:completionHandler:)": {
   "abstract" : [
 
   ],
@@ -1218,14 +1236,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/urlSession(_:dataTask:willCacheResponse:completionHandler:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/urlSession(_:dataTask:willCacheResponse:completionHandler:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "urlSession(_:dataTask:willCacheResponse:completionHandler:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/urlsessionclient\/urlsession(_:datatask:willcacheresponse:completionhandler:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/urlSession(_:didBecomeInvalidWithError:)": {
+"doc://Apollo/documentation/Apollo/URLSessionClient/urlSession(_:didBecomeInvalidWithError:)": {
   "abstract" : [
 
   ],
@@ -1273,14 +1291,14 @@
       "text" : "?)"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/urlSession(_:didBecomeInvalidWithError:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/urlSession(_:didBecomeInvalidWithError:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "urlSession(_:didBecomeInvalidWithError:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/urlsessionclient\/urlsession(_:didbecomeinvalidwitherror:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/urlSession(_:didReceive:completionHandler:)": {
+"doc://Apollo/documentation/Apollo/URLSessionClient/urlSession(_:didReceive:completionHandler:)": {
   "abstract" : [
 
   ],
@@ -1372,14 +1390,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/urlSession(_:didReceive:completionHandler:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/urlSession(_:didReceive:completionHandler:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "urlSession(_:didReceive:completionHandler:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/urlsessionclient\/urlsession(_:didreceive:completionhandler:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/urlSession(_:task:didCompleteWithError:)": {
+"doc://Apollo/documentation/Apollo/URLSessionClient/urlSession(_:task:didCompleteWithError:)": {
   "abstract" : [
 
   ],
@@ -1444,14 +1462,14 @@
       "text" : "?)"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/urlSession(_:task:didCompleteWithError:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/urlSession(_:task:didCompleteWithError:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "urlSession(_:task:didCompleteWithError:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/urlsessionclient\/urlsession(_:task:didcompletewitherror:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/urlSession(_:task:didFinishCollecting:)": {
+"doc://Apollo/documentation/Apollo/URLSessionClient/urlSession(_:task:didFinishCollecting:)": {
   "abstract" : [
 
   ],
@@ -1516,14 +1534,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/urlSession(_:task:didFinishCollecting:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/urlSession(_:task:didFinishCollecting:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "urlSession(_:task:didFinishCollecting:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/urlsessionclient\/urlsession(_:task:didfinishcollecting:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/urlSession(_:task:didReceive:completionHandler:)": {
+"doc://Apollo/documentation/Apollo/URLSessionClient/urlSession(_:task:didReceive:completionHandler:)": {
   "abstract" : [
 
   ],
@@ -1632,14 +1650,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/urlSession(_:task:didReceive:completionHandler:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/urlSession(_:task:didReceive:completionHandler:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "urlSession(_:task:didReceive:completionHandler:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/urlsessionclient\/urlsession(_:task:didreceive:completionhandler:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/urlSession(_:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:)": {
+"doc://Apollo/documentation/Apollo/URLSessionClient/urlSession(_:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:)": {
   "abstract" : [
 
   ],
@@ -1738,14 +1756,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/urlSession(_:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/urlSession(_:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "urlSession(_:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/urlsessionclient\/urlsession(_:task:didsendbodydata:totalbytessent:totalbytesexpectedtosend:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/urlSession(_:task:needNewBodyStream:)": {
+"doc://Apollo/documentation/Apollo/URLSessionClient/urlSession(_:task:needNewBodyStream:)": {
   "abstract" : [
 
   ],
@@ -1819,14 +1837,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/urlSession(_:task:needNewBodyStream:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/urlSession(_:task:needNewBodyStream:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "urlSession(_:task:needNewBodyStream:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/urlsessionclient\/urlsession(_:task:neednewbodystream:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/urlSession(_:task:willBeginDelayedRequest:completionHandler:)": {
+"doc://Apollo/documentation/Apollo/URLSessionClient/urlSession(_:task:willBeginDelayedRequest:completionHandler:)": {
   "abstract" : [
 
   ],
@@ -1935,14 +1953,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/urlSession(_:task:willBeginDelayedRequest:completionHandler:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/urlSession(_:task:willBeginDelayedRequest:completionHandler:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "urlSession(_:task:willBeginDelayedRequest:completionHandler:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/urlsessionclient\/urlsession(_:task:willbegindelayedrequest:completionhandler:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/urlSession(_:task:willPerformHTTPRedirection:newRequest:completionHandler:)": {
+"doc://Apollo/documentation/Apollo/URLSessionClient/urlSession(_:task:willPerformHTTPRedirection:newRequest:completionHandler:)": {
   "abstract" : [
 
   ],
@@ -2050,14 +2068,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/urlSession(_:task:willPerformHTTPRedirection:newRequest:completionHandler:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/urlSession(_:task:willPerformHTTPRedirection:newRequest:completionHandler:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "urlSession(_:task:willPerformHTTPRedirection:newRequest:completionHandler:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/urlsessionclient\/urlsession(_:task:willperformhttpredirection:newrequest:completionhandler:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/urlSession(_:taskIsWaitingForConnectivity:)": {
+"doc://Apollo/documentation/Apollo/URLSessionClient/urlSession(_:taskIsWaitingForConnectivity:)": {
   "abstract" : [
 
   ],
@@ -2105,45 +2123,45 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/urlSession(_:taskIsWaitingForConnectivity:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/urlSession(_:taskIsWaitingForConnectivity:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "urlSession(_:taskIsWaitingForConnectivity:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/urlsessionclient\/urlsession(_:taskiswaitingforconnectivity:)"
 },
-"doc://com.apollographql.Apollo.macosx/objc(pl)NSObject": {
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/objc(pl)NSObject",
+"doc://Apollo/objc(pl)NSObject": {
+  "identifier" : "doc:\/\/Apollo\/objc(pl)NSObject",
   "title" : "ObjectiveC.NSObjectProtocol",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.Apollo.macosx/objc(pl)NSURLSessionDataDelegate": {
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/objc(pl)NSURLSessionDataDelegate",
+"doc://Apollo/objc(pl)NSURLSessionDataDelegate": {
+  "identifier" : "doc:\/\/Apollo\/objc(pl)NSURLSessionDataDelegate",
   "title" : "Foundation.URLSessionDataDelegate",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.Apollo.macosx/objc(pl)NSURLSessionDelegate": {
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/objc(pl)NSURLSessionDelegate",
+"doc://Apollo/objc(pl)NSURLSessionDelegate": {
+  "identifier" : "doc:\/\/Apollo\/objc(pl)NSURLSessionDelegate",
   "title" : "Foundation.URLSessionDelegate",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.Apollo.macosx/objc(pl)NSURLSessionTaskDelegate": {
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/objc(pl)NSURLSessionTaskDelegate",
+"doc://Apollo/objc(pl)NSURLSessionTaskDelegate": {
+  "identifier" : "doc:\/\/Apollo\/objc(pl)NSURLSessionTaskDelegate",
   "title" : "Foundation.URLSessionTaskDelegate",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.Apollo.macosx/s23CustomStringConvertibleP": {
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/s23CustomStringConvertibleP",
+"doc://Apollo/s23CustomStringConvertibleP": {
+  "identifier" : "doc:\/\/Apollo\/s23CustomStringConvertibleP",
   "title" : "Swift.CustomStringConvertible",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.Apollo.macosx/s28CustomDebugStringConvertibleP": {
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/s28CustomDebugStringConvertibleP",
+"doc://Apollo/s28CustomDebugStringConvertibleP": {
+  "identifier" : "doc:\/\/Apollo\/s28CustomDebugStringConvertibleP",
   "title" : "Swift.CustomDebugStringConvertible",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.Apollo.macosx/s7CVarArgP": {
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/s7CVarArgP",
+"doc://Apollo/s7CVarArgP": {
+  "identifier" : "doc:\/\/Apollo\/s7CVarArgP",
   "title" : "Swift.CVarArg",
   "type" : "unresolvable"
 }

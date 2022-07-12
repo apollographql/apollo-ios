@@ -16,15 +16,15 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLError",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLError\/LocalizedError-Implementations"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLError",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLError\/LocalizedError-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLError\/errorDescription-4rxtd"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLError\/errorDescription-4rxtd"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -139,18 +139,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLError": {
+"doc://Apollo/documentation/Apollo/GraphQLError": {
   "abstract" : [
     {
       "text" : "Represents an error encountered during the execution of a GraphQL operation.",
@@ -171,7 +171,7 @@
       "text" : "GraphQLError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLError",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -184,18 +184,18 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlerror"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLError/LocalizedError-Implementations": {
+"doc://Apollo/documentation/Apollo/GraphQLError/LocalizedError-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLError\/LocalizedError-Implementations",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLError\/LocalizedError-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "LocalizedError Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlerror\/localizederror-implementations"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLError/errorDescription-4rxtd": {
+"doc://Apollo/documentation/Apollo/GraphQLError/errorDescription-4rxtd": {
   "abstract" : [
 
   ],
@@ -226,7 +226,7 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLError\/errorDescription-4rxtd",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLError\/errorDescription-4rxtd",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "errorDescription",

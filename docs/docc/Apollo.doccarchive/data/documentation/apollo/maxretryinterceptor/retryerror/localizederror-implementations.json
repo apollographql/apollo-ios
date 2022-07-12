@@ -8,15 +8,15 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MaxRetryInterceptor",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MaxRetryInterceptor\/RetryError"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/MaxRetryInterceptor",
+        "doc:\/\/Apollo\/documentation\/Apollo\/MaxRetryInterceptor\/RetryError"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MaxRetryInterceptor\/RetryError\/LocalizedError-Implementations"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/MaxRetryInterceptor\/RetryError\/LocalizedError-Implementations"
   },
   "kind" : "article",
   "metadata" : {
@@ -40,10 +40,10 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MaxRetryInterceptor\/RetryError\/errorDescription-10ouu",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MaxRetryInterceptor\/RetryError\/failureReason",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MaxRetryInterceptor\/RetryError\/helpAnchor",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MaxRetryInterceptor\/RetryError\/recoverySuggestion"
+        "doc:\/\/Apollo\/documentation\/Apollo\/MaxRetryInterceptor\/RetryError\/errorDescription-10ouu",
+        "doc:\/\/Apollo\/documentation\/Apollo\/MaxRetryInterceptor\/RetryError\/failureReason",
+        "doc:\/\/Apollo\/documentation\/Apollo\/MaxRetryInterceptor\/RetryError\/helpAnchor",
+        "doc:\/\/Apollo\/documentation\/Apollo\/MaxRetryInterceptor\/RetryError\/recoverySuggestion"
       ],
       "title" : "Instance Properties"
     }
@@ -62,18 +62,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/MaxRetryInterceptor": {
+"doc://Apollo/documentation/Apollo/MaxRetryInterceptor": {
   "abstract" : [
     {
       "text" : "An interceptor to enforce a maximum number of retries of any ",
@@ -98,7 +98,7 @@
       "text" : "MaxRetryInterceptor"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MaxRetryInterceptor",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/MaxRetryInterceptor",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -111,7 +111,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/maxretryinterceptor"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/MaxRetryInterceptor/RetryError": {
+"doc://Apollo/documentation/Apollo/MaxRetryInterceptor/RetryError": {
   "abstract" : [
 
   ],
@@ -129,7 +129,7 @@
       "text" : "RetryError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MaxRetryInterceptor\/RetryError",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/MaxRetryInterceptor\/RetryError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -142,7 +142,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/maxretryinterceptor\/retryerror"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/MaxRetryInterceptor/RetryError/errorDescription-10ouu": {
+"doc://Apollo/documentation/Apollo/MaxRetryInterceptor/RetryError/errorDescription-10ouu": {
   "abstract" : [
 
   ],
@@ -173,14 +173,14 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MaxRetryInterceptor\/RetryError\/errorDescription-10ouu",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/MaxRetryInterceptor\/RetryError\/errorDescription-10ouu",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "errorDescription",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/maxretryinterceptor\/retryerror\/errordescription-10ouu"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/MaxRetryInterceptor/RetryError/failureReason": {
+"doc://Apollo/documentation/Apollo/MaxRetryInterceptor/RetryError/failureReason": {
   "abstract" : [
 
   ],
@@ -211,14 +211,14 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MaxRetryInterceptor\/RetryError\/failureReason",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/MaxRetryInterceptor\/RetryError\/failureReason",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "failureReason",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/maxretryinterceptor\/retryerror\/failurereason"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/MaxRetryInterceptor/RetryError/helpAnchor": {
+"doc://Apollo/documentation/Apollo/MaxRetryInterceptor/RetryError/helpAnchor": {
   "abstract" : [
 
   ],
@@ -249,14 +249,14 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MaxRetryInterceptor\/RetryError\/helpAnchor",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/MaxRetryInterceptor\/RetryError\/helpAnchor",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "helpAnchor",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/maxretryinterceptor\/retryerror\/helpanchor"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/MaxRetryInterceptor/RetryError/recoverySuggestion": {
+"doc://Apollo/documentation/Apollo/MaxRetryInterceptor/RetryError/recoverySuggestion": {
   "abstract" : [
 
   ],
@@ -287,7 +287,7 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MaxRetryInterceptor\/RetryError\/recoverySuggestion",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/MaxRetryInterceptor\/RetryError\/recoverySuggestion",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "recoverySuggestion",

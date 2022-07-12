@@ -16,15 +16,15 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPRequest",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPRequest\/Equatable-Implementations"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/HTTPRequest",
+        "doc:\/\/Apollo\/documentation\/Apollo\/HTTPRequest\/Equatable-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPRequest\/!=(_:_:)"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/HTTPRequest\/!=(_:_:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -195,18 +195,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/HTTPRequest": {
+"doc://Apollo/documentation/Apollo/HTTPRequest": {
   "abstract" : [
     {
       "text" : "Encapsulation of all information about a request before it hits the network",
@@ -227,7 +227,7 @@
       "text" : "HTTPRequest"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPRequest",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/HTTPRequest",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -240,7 +240,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/httprequest"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/HTTPRequest/!=(_:_:)": {
+"doc://Apollo/documentation/Apollo/HTTPRequest/!=(_:_:)": {
   "abstract" : [
 
   ],
@@ -295,18 +295,18 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPRequest\/!=(_:_:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/HTTPRequest\/!=(_:_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "!=(_:_:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/httprequest\/!=(_:_:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/HTTPRequest/Equatable-Implementations": {
+"doc://Apollo/documentation/Apollo/HTTPRequest/Equatable-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPRequest\/Equatable-Implementations",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/HTTPRequest\/Equatable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Equatable Implementations",

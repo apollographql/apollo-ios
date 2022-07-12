@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/Atomic"
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/Atomic"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/Atomic\/mutate(block:)"
+    "url" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/Atomic\/mutate(block:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -63,7 +63,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11ApolloUtils6AtomicC1Txmfp",
         "text" : "T"
       },
       {
@@ -72,7 +71,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11ApolloUtils6AtomicC6mutate5blockqd__qd__xzXE_tlF1UL_qd__mfp",
         "text" : "U"
       },
       {
@@ -81,7 +79,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11ApolloUtils6AtomicC6mutate5blockqd__qd__xzXE_tlF1UL_qd__mfp",
         "text" : "U"
       }
     ],
@@ -148,7 +145,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11ApolloUtils6AtomicC1Txmfp",
               "text" : "T"
             },
             {
@@ -157,7 +153,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11ApolloUtils6AtomicC6mutate5blockqd__qd__xzXE_tlF1UL_qd__mfp",
               "text" : "U"
             },
             {
@@ -166,7 +161,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11ApolloUtils6AtomicC6mutate5blockqd__qd__xzXE_tlF1UL_qd__mfp",
               "text" : "U"
             }
           ]
@@ -236,18 +230,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils": {
+"doc://ApolloUtils/documentation/ApolloUtils": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloUtils",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/Atomic": {
+"doc://ApolloUtils/documentation/ApolloUtils/Atomic": {
   "abstract" : [
     {
       "text" : "Wrapper for a value protected by an NSLock",
@@ -268,7 +262,7 @@
       "text" : "Atomic"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/Atomic",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/Atomic",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -281,7 +275,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/atomic"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/Atomic/mutate(block:)": {
+"doc://ApolloUtils/documentation/ApolloUtils/Atomic/mutate(block:)": {
   "abstract" : [
     {
       "text" : "Mutates the underlying value within a lock.",
@@ -331,7 +325,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11ApolloUtils6AtomicC1Txmfp",
       "text" : "T"
     },
     {
@@ -340,7 +333,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11ApolloUtils6AtomicC6mutate5blockqd__qd__xzXE_tlF1UL_qd__mfp",
       "text" : "U"
     },
     {
@@ -349,11 +341,10 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11ApolloUtils6AtomicC6mutate5blockqd__qd__xzXE_tlF1UL_qd__mfp",
       "text" : "U"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/Atomic\/mutate(block:)",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/Atomic\/mutate(block:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "mutate(block:)",

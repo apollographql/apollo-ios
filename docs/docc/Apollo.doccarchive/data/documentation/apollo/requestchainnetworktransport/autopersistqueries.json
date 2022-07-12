@@ -16,14 +16,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport\/autoPersistQueries"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/autoPersistQueries"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -121,18 +121,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChainNetworkTransport": {
+"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport": {
   "abstract" : [
     {
       "text" : "An implementation of ",
@@ -177,7 +177,7 @@
       "text" : "RequestChainNetworkTransport"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -190,7 +190,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchainnetworktransport"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChainNetworkTransport/autoPersistQueries": {
+"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport/autoPersistQueries": {
   "abstract" : [
     {
       "text" : "Set to ",
@@ -228,7 +228,7 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport\/autoPersistQueries",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/autoPersistQueries",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "autoPersistQueries",

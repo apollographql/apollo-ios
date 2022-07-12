@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite",
-        "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteDatabase"
+        "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite",
+        "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteDatabase"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteDatabase\/init(fileURL:)"
+    "url" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteDatabase\/init(fileURL:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -130,18 +130,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloSQLite.macosx/documentation/ApolloSQLite": {
+"doc://ApolloSQLite/documentation/ApolloSQLite": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite",
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloSQLite",
   "type" : "topic",
   "url" : "\/documentation\/apollosqlite"
 },
-"doc://com.apollographql.ApolloSQLite.macosx/documentation/ApolloSQLite/SQLiteDatabase": {
+"doc://ApolloSQLite/documentation/ApolloSQLite/SQLiteDatabase": {
   "abstract" : [
 
   ],
@@ -159,7 +159,7 @@
       "text" : "SQLiteDatabase"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteDatabase",
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteDatabase",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -172,7 +172,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollosqlite\/sqlitedatabase"
 },
-"doc://com.apollographql.ApolloSQLite.macosx/documentation/ApolloSQLite/SQLiteDatabase/init(fileURL:)": {
+"doc://ApolloSQLite/documentation/ApolloSQLite/SQLiteDatabase/init(fileURL:)": {
   "abstract" : [
 
   ],
@@ -207,7 +207,7 @@
       "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteDatabase\/init(fileURL:)",
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteDatabase\/init(fileURL:)",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",

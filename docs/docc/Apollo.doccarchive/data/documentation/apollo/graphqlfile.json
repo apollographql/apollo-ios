@@ -8,13 +8,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"
+        "doc:\/\/Apollo\/documentation\/Apollo"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLFile"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -81,8 +81,8 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/SQ",
-        "doc:\/\/com.apollographql.Apollo.macosx\/SH"
+        "doc:\/\/Apollo\/SQ",
+        "doc:\/\/Apollo\/SH"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -100,44 +100,44 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLFile\/init(fieldName:originalName:mimeType:data:)",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLFile\/init(fieldName:originalName:mimeType:fileURL:)"
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/init(fieldName:originalName:mimeType:data:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/init(fieldName:originalName:mimeType:fileURL:)"
       ],
       "title" : "Initializers"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLFile\/contentLength",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLFile\/data",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLFile\/fieldName",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLFile\/fileURL",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLFile\/mimeType",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLFile\/originalName"
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/contentLength",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/data",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/fieldName",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/fileURL",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/mimeType",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/originalName"
       ],
       "title" : "Instance Properties"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLFile\/generateInputStream()"
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/generateInputStream()"
       ],
       "title" : "Instance Methods"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLFile\/octetStreamMimeType"
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/octetStreamMimeType"
       ],
       "title" : "Type Properties"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLFile\/GraphQLFileError"
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/GraphQLFileError"
       ],
       "title" : "Enumerations"
     },
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLFile\/Equatable-Implementations"
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/Equatable-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -156,28 +156,28 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/SH": {
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/SH",
+"doc://Apollo/SH": {
+  "identifier" : "doc:\/\/Apollo\/SH",
   "title" : "Swift.Hashable",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.Apollo.macosx/SQ": {
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/SQ",
+"doc://Apollo/SQ": {
+  "identifier" : "doc:\/\/Apollo\/SQ",
   "title" : "Swift.Equatable",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLFile": {
+"doc://Apollo/documentation/Apollo/GraphQLFile": {
   "abstract" : [
     {
       "text" : "A file which can be uploaded to a GraphQL server",
@@ -198,7 +198,7 @@
       "text" : "GraphQLFile"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLFile",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -211,18 +211,18 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlfile"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLFile/Equatable-Implementations": {
+"doc://Apollo/documentation/Apollo/GraphQLFile/Equatable-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLFile\/Equatable-Implementations",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/Equatable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Equatable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlfile\/equatable-implementations"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLFile/GraphQLFileError": {
+"doc://Apollo/documentation/Apollo/GraphQLFile/GraphQLFileError": {
   "abstract" : [
 
   ],
@@ -240,7 +240,7 @@
       "text" : "GraphQLFileError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLFile\/GraphQLFileError",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/GraphQLFileError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -253,7 +253,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlfile\/graphqlfileerror"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLFile/contentLength": {
+"doc://Apollo/documentation/Apollo/GraphQLFile/contentLength": {
   "abstract" : [
 
   ],
@@ -280,14 +280,14 @@
       "text" : "UInt64"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLFile\/contentLength",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/contentLength",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "contentLength",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlfile\/contentlength"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLFile/data": {
+"doc://Apollo/documentation/Apollo/GraphQLFile/data": {
   "abstract" : [
 
   ],
@@ -318,14 +318,14 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLFile\/data",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/data",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "data",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlfile\/data"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLFile/fieldName": {
+"doc://Apollo/documentation/Apollo/GraphQLFile/fieldName": {
   "abstract" : [
 
   ],
@@ -352,14 +352,14 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLFile\/fieldName",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/fieldName",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "fieldName",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlfile\/fieldname"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLFile/fileURL": {
+"doc://Apollo/documentation/Apollo/GraphQLFile/fileURL": {
   "abstract" : [
 
   ],
@@ -390,14 +390,14 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLFile\/fileURL",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/fileURL",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "fileURL",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlfile\/fileurl"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLFile/generateInputStream()": {
+"doc://Apollo/documentation/Apollo/GraphQLFile/generateInputStream()": {
   "abstract" : [
     {
       "text" : "Uses either the data or the file URL to create an",
@@ -455,14 +455,14 @@
       "text" : "InputStream"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLFile\/generateInputStream()",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/generateInputStream()",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "generateInputStream()",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlfile\/generateinputstream()"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLFile/init(fieldName:originalName:mimeType:data:)": {
+"doc://Apollo/documentation/Apollo/GraphQLFile/init(fieldName:originalName:mimeType:data:)": {
   "abstract" : [
     {
       "text" : "Convenience initializer for raw data",
@@ -547,14 +547,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLFile\/init(fieldName:originalName:mimeType:data:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/init(fieldName:originalName:mimeType:data:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(fieldName:originalName:mimeType:data:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlfile\/init(fieldname:originalname:mimetype:data:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLFile/init(fieldName:originalName:mimeType:fileURL:)": {
+"doc://Apollo/documentation/Apollo/GraphQLFile/init(fieldName:originalName:mimeType:fileURL:)": {
   "abstract" : [
     {
       "text" : "Throwing convenience initializer for files in the filesystem",
@@ -643,14 +643,14 @@
       "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLFile\/init(fieldName:originalName:mimeType:fileURL:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/init(fieldName:originalName:mimeType:fileURL:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(fieldName:originalName:mimeType:fileURL:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlfile\/init(fieldname:originalname:mimetype:fileurl:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLFile/mimeType": {
+"doc://Apollo/documentation/Apollo/GraphQLFile/mimeType": {
   "abstract" : [
 
   ],
@@ -677,14 +677,14 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLFile\/mimeType",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/mimeType",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "mimeType",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlfile\/mimetype"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLFile/octetStreamMimeType": {
+"doc://Apollo/documentation/Apollo/GraphQLFile/octetStreamMimeType": {
   "abstract" : [
     {
       "text" : "A convenience constant for declaring your mimetype is octet-stream.",
@@ -722,14 +722,14 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLFile\/octetStreamMimeType",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/octetStreamMimeType",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "octetStreamMimeType",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlfile\/octetstreammimetype"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLFile/originalName": {
+"doc://Apollo/documentation/Apollo/GraphQLFile/originalName": {
   "abstract" : [
 
   ],
@@ -756,7 +756,7 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLFile\/originalName",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/originalName",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "originalName",

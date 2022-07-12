@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/Record"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record\/Fields-swift.typealias"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/Record\/Fields-swift.typealias"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -78,7 +78,7 @@
               "text" : " = ["
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheKey",
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CacheKey",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:6Apollo8CacheKeya",
               "text" : "CacheKey"
@@ -88,7 +88,17 @@
               "text" : " : "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record\/Value",
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/Record",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:6Apollo6RecordV",
+              "text" : "Record"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/Record\/Value",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:6Apollo6RecordV5Valuea",
               "text" : "Value"
@@ -125,18 +135,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/CacheKey": {
+"doc://Apollo/documentation/Apollo/CacheKey": {
   "abstract" : [
     {
       "text" : "A cache key for a record.",
@@ -157,7 +167,7 @@
       "text" : "CacheKey"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheKey",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CacheKey",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -170,7 +180,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/cachekey"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/Record": {
+"doc://Apollo/documentation/Apollo/Record": {
   "abstract" : [
     {
       "text" : "A cache record.",
@@ -191,7 +201,7 @@
       "text" : "Record"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/Record",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -204,7 +214,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/record"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/Record/Fields-swift.typealias": {
+"doc://Apollo/documentation/Apollo/Record/Fields-swift.typealias": {
   "abstract" : [
 
   ],
@@ -222,7 +232,7 @@
       "text" : "Fields"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record\/Fields-swift.typealias",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/Record\/Fields-swift.typealias",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -235,7 +245,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/record\/fields-swift.typealias"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/Record/Value": {
+"doc://Apollo/documentation/Apollo/Record/Value": {
   "abstract" : [
 
   ],
@@ -253,7 +263,7 @@
       "text" : "Value"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record\/Value",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/Record\/Value",
   "kind" : "symbol",
   "navigatorTitle" : [
     {

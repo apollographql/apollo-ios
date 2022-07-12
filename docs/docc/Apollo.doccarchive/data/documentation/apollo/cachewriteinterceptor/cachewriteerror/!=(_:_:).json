@@ -16,16 +16,16 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheWriteInterceptor",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheWriteInterceptor\/CacheWriteError",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheWriteInterceptor\/CacheWriteError\/Equatable-Implementations"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/CacheWriteInterceptor",
+        "doc:\/\/Apollo\/documentation\/Apollo\/CacheWriteInterceptor\/CacheWriteError",
+        "doc:\/\/Apollo\/documentation\/Apollo\/CacheWriteInterceptor\/CacheWriteError\/Equatable-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheWriteInterceptor\/CacheWriteError\/!=(_:_:)"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/CacheWriteInterceptor\/CacheWriteError\/!=(_:_:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -196,18 +196,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/CacheWriteInterceptor": {
+"doc://Apollo/documentation/Apollo/CacheWriteInterceptor": {
   "abstract" : [
     {
       "text" : "An interceptor which writes data to the cache, following the ",
@@ -244,7 +244,7 @@
       "text" : "CacheWriteInterceptor"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheWriteInterceptor",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CacheWriteInterceptor",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -257,7 +257,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/cachewriteinterceptor"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/CacheWriteInterceptor/CacheWriteError": {
+"doc://Apollo/documentation/Apollo/CacheWriteInterceptor/CacheWriteError": {
   "abstract" : [
 
   ],
@@ -275,7 +275,7 @@
       "text" : "CacheWriteError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheWriteInterceptor\/CacheWriteError",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CacheWriteInterceptor\/CacheWriteError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -288,7 +288,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/cachewriteinterceptor\/cachewriteerror"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/CacheWriteInterceptor/CacheWriteError/!=(_:_:)": {
+"doc://Apollo/documentation/Apollo/CacheWriteInterceptor/CacheWriteError/!=(_:_:)": {
   "abstract" : [
 
   ],
@@ -343,18 +343,18 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheWriteInterceptor\/CacheWriteError\/!=(_:_:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CacheWriteInterceptor\/CacheWriteError\/!=(_:_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "!=(_:_:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/cachewriteinterceptor\/cachewriteerror\/!=(_:_:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/CacheWriteInterceptor/CacheWriteError/Equatable-Implementations": {
+"doc://Apollo/documentation/Apollo/CacheWriteInterceptor/CacheWriteError/Equatable-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheWriteInterceptor\/CacheWriteError\/Equatable-Implementations",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CacheWriteInterceptor\/CacheWriteError\/Equatable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Equatable Implementations",

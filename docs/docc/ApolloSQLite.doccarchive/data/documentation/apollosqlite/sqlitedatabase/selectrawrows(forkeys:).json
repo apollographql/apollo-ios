@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite",
-        "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteDatabase"
+        "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite",
+        "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteDatabase"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteDatabase\/selectRawRows(forKeys:)"
+    "url" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteDatabase\/selectRawRows(forKeys:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -162,7 +162,7 @@
               "text" : " -> ["
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/DatabaseRow",
+              "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/DatabaseRow",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:12ApolloSQLite11DatabaseRowV",
               "text" : "DatabaseRow"
@@ -199,18 +199,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloSQLite.macosx/documentation/ApolloSQLite": {
+"doc://ApolloSQLite/documentation/ApolloSQLite": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite",
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloSQLite",
   "type" : "topic",
   "url" : "\/documentation\/apollosqlite"
 },
-"doc://com.apollographql.ApolloSQLite.macosx/documentation/ApolloSQLite/DatabaseRow": {
+"doc://ApolloSQLite/documentation/ApolloSQLite/DatabaseRow": {
   "abstract" : [
 
   ],
@@ -228,7 +228,7 @@
       "text" : "DatabaseRow"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/DatabaseRow",
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/DatabaseRow",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -241,7 +241,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollosqlite\/databaserow"
 },
-"doc://com.apollographql.ApolloSQLite.macosx/documentation/ApolloSQLite/SQLiteDatabase": {
+"doc://ApolloSQLite/documentation/ApolloSQLite/SQLiteDatabase": {
   "abstract" : [
 
   ],
@@ -259,7 +259,7 @@
       "text" : "SQLiteDatabase"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteDatabase",
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteDatabase",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -272,7 +272,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollosqlite\/sqlitedatabase"
 },
-"doc://com.apollographql.ApolloSQLite.macosx/documentation/ApolloSQLite/SQLiteDatabase/selectRawRows(forKeys:)": {
+"doc://ApolloSQLite/documentation/ApolloSQLite/SQLiteDatabase/selectRawRows(forKeys:)": {
   "abstract" : [
 
   ],
@@ -337,7 +337,7 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteDatabase\/selectRawRows(forKeys:)",
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteDatabase\/selectRawRows(forKeys:)",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",

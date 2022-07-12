@@ -8,13 +8,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite"
+        "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteDatabase"
+    "url" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteDatabase"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -81,7 +81,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteDotSwiftDatabase"
+        "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteDotSwiftDatabase"
       ],
       "kind" : "relationships",
       "title" : "Conforming Types",
@@ -99,27 +99,27 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteDatabase\/init(fileURL:)"
+        "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteDatabase\/init(fileURL:)"
       ],
       "title" : "Initializers"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteDatabase\/addOrUpdateRecordString(_:for:)",
-        "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteDatabase\/clearDatabase(shouldVacuumOnClear:)",
-        "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteDatabase\/createRecordsTableIfNeeded()",
-        "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteDatabase\/deleteRecord(for:)",
-        "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteDatabase\/deleteRecords(matching:)",
-        "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteDatabase\/selectRawRows(forKeys:)"
+        "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteDatabase\/addOrUpdateRecordString(_:for:)",
+        "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteDatabase\/clearDatabase(shouldVacuumOnClear:)",
+        "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteDatabase\/createRecordsTableIfNeeded()",
+        "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteDatabase\/deleteRecord(for:)",
+        "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteDatabase\/deleteRecords(matching:)",
+        "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteDatabase\/selectRawRows(forKeys:)"
       ],
       "title" : "Instance Methods"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteDatabase\/idColumnName",
-        "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteDatabase\/keyColumnName",
-        "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteDatabase\/recordColumName",
-        "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteDatabase\/tableName"
+        "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteDatabase\/idColumnName",
+        "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteDatabase\/keyColumnName",
+        "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteDatabase\/recordColumName",
+        "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteDatabase\/tableName"
       ],
       "title" : "Type Properties"
     }
@@ -138,18 +138,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloSQLite.macosx/documentation/ApolloSQLite": {
+"doc://ApolloSQLite/documentation/ApolloSQLite": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite",
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloSQLite",
   "type" : "topic",
   "url" : "\/documentation\/apollosqlite"
 },
-"doc://com.apollographql.ApolloSQLite.macosx/documentation/ApolloSQLite/SQLiteDatabase": {
+"doc://ApolloSQLite/documentation/ApolloSQLite/SQLiteDatabase": {
   "abstract" : [
 
   ],
@@ -167,7 +167,7 @@
       "text" : "SQLiteDatabase"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteDatabase",
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteDatabase",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -180,7 +180,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollosqlite\/sqlitedatabase"
 },
-"doc://com.apollographql.ApolloSQLite.macosx/documentation/ApolloSQLite/SQLiteDatabase/addOrUpdateRecordString(_:for:)": {
+"doc://ApolloSQLite/documentation/ApolloSQLite/SQLiteDatabase/addOrUpdateRecordString(_:for:)": {
   "abstract" : [
 
   ],
@@ -232,7 +232,7 @@
       "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteDatabase\/addOrUpdateRecordString(_:for:)",
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteDatabase\/addOrUpdateRecordString(_:for:)",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
@@ -240,7 +240,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollosqlite\/sqlitedatabase\/addorupdaterecordstring(_:for:)"
 },
-"doc://com.apollographql.ApolloSQLite.macosx/documentation/ApolloSQLite/SQLiteDatabase/clearDatabase(shouldVacuumOnClear:)": {
+"doc://ApolloSQLite/documentation/ApolloSQLite/SQLiteDatabase/clearDatabase(shouldVacuumOnClear:)": {
   "abstract" : [
 
   ],
@@ -283,7 +283,7 @@
       "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteDatabase\/clearDatabase(shouldVacuumOnClear:)",
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteDatabase\/clearDatabase(shouldVacuumOnClear:)",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
@@ -291,7 +291,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollosqlite\/sqlitedatabase\/cleardatabase(shouldvacuumonclear:)"
 },
-"doc://com.apollographql.ApolloSQLite.macosx/documentation/ApolloSQLite/SQLiteDatabase/createRecordsTableIfNeeded()": {
+"doc://ApolloSQLite/documentation/ApolloSQLite/SQLiteDatabase/createRecordsTableIfNeeded()": {
   "abstract" : [
 
   ],
@@ -317,7 +317,7 @@
       "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteDatabase\/createRecordsTableIfNeeded()",
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteDatabase\/createRecordsTableIfNeeded()",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
@@ -325,7 +325,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollosqlite\/sqlitedatabase\/createrecordstableifneeded()"
 },
-"doc://com.apollographql.ApolloSQLite.macosx/documentation/ApolloSQLite/SQLiteDatabase/deleteRecord(for:)": {
+"doc://ApolloSQLite/documentation/ApolloSQLite/SQLiteDatabase/deleteRecord(for:)": {
   "abstract" : [
 
   ],
@@ -368,7 +368,7 @@
       "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteDatabase\/deleteRecord(for:)",
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteDatabase\/deleteRecord(for:)",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
@@ -376,7 +376,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollosqlite\/sqlitedatabase\/deleterecord(for:)"
 },
-"doc://com.apollographql.ApolloSQLite.macosx/documentation/ApolloSQLite/SQLiteDatabase/deleteRecords(matching:)": {
+"doc://ApolloSQLite/documentation/ApolloSQLite/SQLiteDatabase/deleteRecords(matching:)": {
   "abstract" : [
 
   ],
@@ -419,7 +419,7 @@
       "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteDatabase\/deleteRecords(matching:)",
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteDatabase\/deleteRecords(matching:)",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
@@ -427,7 +427,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollosqlite\/sqlitedatabase\/deleterecords(matching:)"
 },
-"doc://com.apollographql.ApolloSQLite.macosx/documentation/ApolloSQLite/SQLiteDatabase/idColumnName": {
+"doc://ApolloSQLite/documentation/ApolloSQLite/SQLiteDatabase/idColumnName": {
   "abstract" : [
 
   ],
@@ -462,14 +462,14 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteDatabase\/idColumnName",
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteDatabase\/idColumnName",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "idColumnName",
   "type" : "topic",
   "url" : "\/documentation\/apollosqlite\/sqlitedatabase\/idcolumnname"
 },
-"doc://com.apollographql.ApolloSQLite.macosx/documentation/ApolloSQLite/SQLiteDatabase/init(fileURL:)": {
+"doc://ApolloSQLite/documentation/ApolloSQLite/SQLiteDatabase/init(fileURL:)": {
   "abstract" : [
 
   ],
@@ -504,7 +504,7 @@
       "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteDatabase\/init(fileURL:)",
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteDatabase\/init(fileURL:)",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
@@ -512,7 +512,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollosqlite\/sqlitedatabase\/init(fileurl:)"
 },
-"doc://com.apollographql.ApolloSQLite.macosx/documentation/ApolloSQLite/SQLiteDatabase/keyColumnName": {
+"doc://ApolloSQLite/documentation/ApolloSQLite/SQLiteDatabase/keyColumnName": {
   "abstract" : [
 
   ],
@@ -547,14 +547,14 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteDatabase\/keyColumnName",
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteDatabase\/keyColumnName",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "keyColumnName",
   "type" : "topic",
   "url" : "\/documentation\/apollosqlite\/sqlitedatabase\/keycolumnname"
 },
-"doc://com.apollographql.ApolloSQLite.macosx/documentation/ApolloSQLite/SQLiteDatabase/recordColumName": {
+"doc://ApolloSQLite/documentation/ApolloSQLite/SQLiteDatabase/recordColumName": {
   "abstract" : [
 
   ],
@@ -589,14 +589,14 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteDatabase\/recordColumName",
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteDatabase\/recordColumName",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "recordColumName",
   "type" : "topic",
   "url" : "\/documentation\/apollosqlite\/sqlitedatabase\/recordcolumname"
 },
-"doc://com.apollographql.ApolloSQLite.macosx/documentation/ApolloSQLite/SQLiteDatabase/selectRawRows(forKeys:)": {
+"doc://ApolloSQLite/documentation/ApolloSQLite/SQLiteDatabase/selectRawRows(forKeys:)": {
   "abstract" : [
 
   ],
@@ -661,7 +661,7 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteDatabase\/selectRawRows(forKeys:)",
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteDatabase\/selectRawRows(forKeys:)",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
@@ -669,7 +669,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollosqlite\/sqlitedatabase\/selectrawrows(forkeys:)"
 },
-"doc://com.apollographql.ApolloSQLite.macosx/documentation/ApolloSQLite/SQLiteDatabase/tableName": {
+"doc://ApolloSQLite/documentation/ApolloSQLite/SQLiteDatabase/tableName": {
   "abstract" : [
 
   ],
@@ -704,14 +704,14 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteDatabase\/tableName",
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteDatabase\/tableName",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "tableName",
   "type" : "topic",
   "url" : "\/documentation\/apollosqlite\/sqlitedatabase\/tablename"
 },
-"doc://com.apollographql.ApolloSQLite.macosx/documentation/ApolloSQLite/SQLiteDotSwiftDatabase": {
+"doc://ApolloSQLite/documentation/ApolloSQLite/SQLiteDotSwiftDatabase": {
   "abstract" : [
 
   ],
@@ -729,7 +729,7 @@
       "text" : "SQLiteDotSwiftDatabase"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteDotSwiftDatabase",
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteDotSwiftDatabase",
   "kind" : "symbol",
   "navigatorTitle" : [
     {

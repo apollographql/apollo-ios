@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport\/UploadingNetworkTransport-Implementations"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/UploadingNetworkTransport-Implementations"
   },
   "kind" : "article",
   "metadata" : {
@@ -39,7 +39,7 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport\/upload(operation:files:callbackQueue:completionHandler:)"
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/upload(operation:files:callbackQueue:completionHandler:)"
       ],
       "title" : "Instance Methods"
     }
@@ -58,18 +58,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChainNetworkTransport": {
+"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport": {
   "abstract" : [
     {
       "text" : "An implementation of ",
@@ -114,7 +114,7 @@
       "text" : "RequestChainNetworkTransport"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -127,12 +127,9 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchainnetworktransport"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChainNetworkTransport/upload(operation:files:callbackQueue:completionHandler:)": {
+"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport/upload(operation:files:callbackQueue:completionHandler:)": {
   "abstract" : [
-    {
-      "text" : "Uploads the given files with the given operation.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -169,7 +166,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo28RequestChainNetworkTransportC6upload9operation5files13callbackQueue17completionHandlerAA11Cancellable_px_SayAA11GraphQLFileVGSo17OS_dispatch_queueCys6ResultOyAA0N8QLResultVy4DataQzGs5Error_pGct0A3API0N11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -238,7 +234,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo28RequestChainNetworkTransportC6upload9operation5files13callbackQueue17completionHandlerAA11Cancellable_px_SayAA11GraphQLFileVGSo17OS_dispatch_queueCys6ResultOyAA0N8QLResultVy4DataQzGs5Error_pGct0A3API0N11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -247,7 +242,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
       "text" : "Data"
     },
     {
@@ -278,7 +272,7 @@
       "text" : "Cancellable"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport\/upload(operation:files:callbackQueue:completionHandler:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/upload(operation:files:callbackQueue:completionHandler:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "upload(operation:files:callbackQueue:completionHandler:)",

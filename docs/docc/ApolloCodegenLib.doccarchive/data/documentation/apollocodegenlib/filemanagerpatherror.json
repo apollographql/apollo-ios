@@ -8,13 +8,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/FileManagerPathError"
+    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/FileManagerPathError"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -81,10 +81,10 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/10Foundation14LocalizedErrorP",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/SQ",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/s5ErrorP",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/s8SendableP"
+        "doc:\/\/ApolloCodegenLib\/10Foundation14LocalizedErrorP",
+        "doc:\/\/ApolloCodegenLib\/SQ",
+        "doc:\/\/ApolloCodegenLib\/s5ErrorP",
+        "doc:\/\/ApolloCodegenLib\/s8SendableP"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -102,24 +102,24 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/FileManagerPathError\/cannotCreateFile(at:)",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/FileManagerPathError\/notADirectory(path:)",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/FileManagerPathError\/notAFile(path:)"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/FileManagerPathError\/cannotCreateFile(at:)",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/FileManagerPathError\/notADirectory(path:)",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/FileManagerPathError\/notAFile(path:)"
       ],
       "title" : "Enumeration Cases"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/FileManagerPathError\/errorDescription-1nql8"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/FileManagerPathError\/errorDescription-1nql8"
       ],
       "title" : "Instance Properties"
     },
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/FileManagerPathError\/Equatable-Implementations",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/FileManagerPathError\/Error-Implementations",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/FileManagerPathError\/LocalizedError-Implementations"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/FileManagerPathError\/Equatable-Implementations",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/FileManagerPathError\/Error-Implementations",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/FileManagerPathError\/LocalizedError-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -138,28 +138,28 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloCodegenLib.macosx/10Foundation14LocalizedErrorP": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/10Foundation14LocalizedErrorP",
+"doc://ApolloCodegenLib/10Foundation14LocalizedErrorP": {
+  "identifier" : "doc:\/\/ApolloCodegenLib\/10Foundation14LocalizedErrorP",
   "title" : "Foundation.LocalizedError",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/SQ": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/SQ",
+"doc://ApolloCodegenLib/SQ": {
+  "identifier" : "doc:\/\/ApolloCodegenLib\/SQ",
   "title" : "Swift.Equatable",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloCodegenLib",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/FileManagerPathError": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/FileManagerPathError": {
   "abstract" : [
 
   ],
@@ -177,7 +177,7 @@
       "text" : "FileManagerPathError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/FileManagerPathError",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/FileManagerPathError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -190,40 +190,40 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/filemanagerpatherror"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/FileManagerPathError/Equatable-Implementations": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/FileManagerPathError/Equatable-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/FileManagerPathError\/Equatable-Implementations",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/FileManagerPathError\/Equatable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Equatable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/filemanagerpatherror\/equatable-implementations"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/FileManagerPathError/Error-Implementations": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/FileManagerPathError/Error-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/FileManagerPathError\/Error-Implementations",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/FileManagerPathError\/Error-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Error Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/filemanagerpatherror\/error-implementations"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/FileManagerPathError/LocalizedError-Implementations": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/FileManagerPathError/LocalizedError-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/FileManagerPathError\/LocalizedError-Implementations",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/FileManagerPathError\/LocalizedError-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "LocalizedError Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/filemanagerpatherror\/localizederror-implementations"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/FileManagerPathError/cannotCreateFile(at:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/FileManagerPathError/cannotCreateFile(at:)": {
   "abstract" : [
 
   ],
@@ -262,14 +262,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/FileManagerPathError\/cannotCreateFile(at:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/FileManagerPathError\/cannotCreateFile(at:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "FileManagerPathError.cannotCreateFile(at:)",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/filemanagerpatherror\/cannotcreatefile(at:)"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/FileManagerPathError/errorDescription-1nql8": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/FileManagerPathError/errorDescription-1nql8": {
   "abstract" : [
 
   ],
@@ -296,14 +296,14 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/FileManagerPathError\/errorDescription-1nql8",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/FileManagerPathError\/errorDescription-1nql8",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "errorDescription",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/filemanagerpatherror\/errordescription-1nql8"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/FileManagerPathError/notADirectory(path:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/FileManagerPathError/notADirectory(path:)": {
   "abstract" : [
 
   ],
@@ -342,14 +342,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/FileManagerPathError\/notADirectory(path:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/FileManagerPathError\/notADirectory(path:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "FileManagerPathError.notADirectory(path:)",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/filemanagerpatherror\/notadirectory(path:)"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/FileManagerPathError/notAFile(path:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/FileManagerPathError/notAFile(path:)": {
   "abstract" : [
 
   ],
@@ -388,20 +388,20 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/FileManagerPathError\/notAFile(path:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/FileManagerPathError\/notAFile(path:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "FileManagerPathError.notAFile(path:)",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/filemanagerpatherror\/notafile(path:)"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/s5ErrorP": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/s5ErrorP",
+"doc://ApolloCodegenLib/s5ErrorP": {
+  "identifier" : "doc:\/\/ApolloCodegenLib\/s5ErrorP",
   "title" : "Swift.Error",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/s8SendableP": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/s8SendableP",
+"doc://ApolloCodegenLib/s8SendableP": {
+  "identifier" : "doc:\/\/ApolloCodegenLib\/s8SendableP",
   "title" : "Swift.Sendable",
   "type" : "unresolvable"
 }

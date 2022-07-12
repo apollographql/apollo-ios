@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/DictionaryType"
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/DictionaryType"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/DictionaryType\/ValueType"
+    "url" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/DictionaryType\/ValueType"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -96,18 +96,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils": {
+"doc://ApolloUtils/documentation/ApolloUtils": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloUtils",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/DictionaryType": {
+"doc://ApolloUtils/documentation/ApolloUtils/DictionaryType": {
   "abstract" : [
     {
       "text" : "Provides a PAT interface to ",
@@ -132,7 +132,7 @@
       "text" : "DictionaryType"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/DictionaryType",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/DictionaryType",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -145,7 +145,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/dictionarytype"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/DictionaryType/ValueType": {
+"doc://ApolloUtils/documentation/ApolloUtils/DictionaryType/ValueType": {
   "abstract" : [
 
   ],
@@ -163,7 +163,7 @@
       "text" : "ValueType"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/DictionaryType\/ValueType",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/DictionaryType\/ValueType",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",

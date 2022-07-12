@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloRequestBodyCreator"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloRequestBodyCreator"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloRequestBodyCreator\/init()"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloRequestBodyCreator\/init()"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -87,18 +87,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloRequestBodyCreator": {
+"doc://Apollo/documentation/Apollo/ApolloRequestBodyCreator": {
   "abstract" : [
 
   ],
@@ -116,7 +116,7 @@
       "text" : "ApolloRequestBodyCreator"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloRequestBodyCreator",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloRequestBodyCreator",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -129,7 +129,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apollorequestbodycreator"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloRequestBodyCreator/init()": {
+"doc://Apollo/documentation/Apollo/ApolloRequestBodyCreator/init()": {
   "abstract" : [
 
   ],
@@ -143,7 +143,7 @@
       "text" : "()"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloRequestBodyCreator\/init()",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloRequestBodyCreator\/init()",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init()",

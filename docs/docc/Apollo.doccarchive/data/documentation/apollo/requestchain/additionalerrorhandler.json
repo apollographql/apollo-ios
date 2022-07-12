@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain\/additionalErrorHandler"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/additionalErrorHandler"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -85,7 +85,7 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloErrorInterceptor",
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloErrorInterceptor",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:6Apollo0A16ErrorInterceptorP",
               "text" : "ApolloErrorInterceptor"
@@ -122,18 +122,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloErrorInterceptor": {
+"doc://Apollo/documentation/Apollo/ApolloErrorInterceptor": {
   "abstract" : [
     {
       "text" : "An error interceptor called to allow further examination of error data when an error occurs in the chain.",
@@ -154,7 +154,7 @@
       "text" : "ApolloErrorInterceptor"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloErrorInterceptor",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloErrorInterceptor",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -167,7 +167,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apolloerrorinterceptor"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChain": {
+"doc://Apollo/documentation/Apollo/RequestChain": {
   "abstract" : [
     {
       "text" : "A chain that allows a single network request to be created and executed.",
@@ -188,7 +188,7 @@
       "text" : "RequestChain"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -201,7 +201,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchain"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChain/additionalErrorHandler": {
+"doc://Apollo/documentation/Apollo/RequestChain/additionalErrorHandler": {
   "abstract" : [
     {
       "text" : "Something which allows additional error handling to occur when some kind of error has happened.",
@@ -235,7 +235,7 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain\/additionalErrorHandler",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/additionalErrorHandler",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "additionalErrorHandler",

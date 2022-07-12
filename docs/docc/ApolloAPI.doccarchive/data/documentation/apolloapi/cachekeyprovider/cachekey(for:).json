@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheKeyProvider"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheKeyProvider"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheKeyProvider\/cacheKey(for:)"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheKeyProvider\/cacheKey(for:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -135,7 +135,7 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/JSONObject",
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONObject",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:9ApolloAPI10JSONObjecta",
               "text" : "JSONObject"
@@ -181,18 +181,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI": {
+"doc://ApolloAPI/documentation/ApolloAPI": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/CacheKeyProvider": {
+"doc://ApolloAPI/documentation/ApolloAPI/CacheKeyProvider": {
   "abstract" : [
 
   ],
@@ -210,7 +210,7 @@
       "text" : "CacheKeyProvider"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheKeyProvider",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheKeyProvider",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -223,7 +223,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/cachekeyprovider"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/CacheKeyProvider/cacheKey(for:)": {
+"doc://ApolloAPI/documentation/ApolloAPI/CacheKeyProvider/cacheKey(for:)": {
   "abstract" : [
 
   ],
@@ -279,7 +279,7 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheKeyProvider\/cacheKey(for:)",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheKeyProvider\/cacheKey(for:)",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
@@ -287,7 +287,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/cachekeyprovider\/cachekey(for:)"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/JSONObject": {
+"doc://ApolloAPI/documentation/ApolloAPI/JSONObject": {
   "abstract" : [
 
   ],
@@ -305,7 +305,7 @@
       "text" : "JSONObject"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/JSONObject",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONObject",
   "kind" : "symbol",
   "navigatorTitle" : [
     {

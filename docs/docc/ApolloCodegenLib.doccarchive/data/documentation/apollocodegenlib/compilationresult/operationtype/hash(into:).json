@@ -16,16 +16,16 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult\/OperationType",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult\/OperationType\/RawRepresentable-Implementations"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/OperationType",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/OperationType\/RawRepresentable-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult\/OperationType\/hash(into:)"
+    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/OperationType\/hash(into:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -220,18 +220,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloCodegenLib",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/CompilationResult": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CompilationResult": {
   "abstract" : [
     {
       "text" : "The output of the frontend compiler.",
@@ -252,7 +252,7 @@
       "text" : "CompilationResult"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -265,7 +265,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/compilationresult"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/CompilationResult/OperationType": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CompilationResult/OperationType": {
   "abstract" : [
 
   ],
@@ -283,7 +283,7 @@
       "text" : "OperationType"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult\/OperationType",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/OperationType",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -296,18 +296,18 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/compilationresult\/operationtype"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/CompilationResult/OperationType/RawRepresentable-Implementations": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CompilationResult/OperationType/RawRepresentable-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult\/OperationType\/RawRepresentable-Implementations",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/OperationType\/RawRepresentable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "RawRepresentable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/compilationresult\/operationtype\/rawrepresentable-implementations"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/CompilationResult/OperationType/hash(into:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CompilationResult/OperationType/hash(into:)": {
   "abstract" : [
 
   ],
@@ -402,7 +402,7 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult\/OperationType\/hash(into:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/OperationType\/hash(into:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "hash(into:)",

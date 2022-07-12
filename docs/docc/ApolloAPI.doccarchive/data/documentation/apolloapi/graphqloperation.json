@@ -8,13 +8,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLOperation"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -90,8 +90,8 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/SQ",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/SH"
+        "doc:\/\/ApolloAPI\/SQ",
+        "doc:\/\/ApolloAPI\/SH"
       ],
       "kind" : "relationships",
       "title" : "Inherits From",
@@ -99,9 +99,9 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLMutation",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLQuery",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLSubscription"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLMutation",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLQuery",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLSubscription"
       ],
       "kind" : "relationships",
       "title" : "Inherited By",
@@ -119,37 +119,37 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLOperation\/Data"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/Data"
       ],
       "title" : "Associated Types"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLOperation\/variables-swift.property-4o32c"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/variables-swift.property-4o32c"
       ],
       "title" : "Instance Properties"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLOperation\/Variables-swift.typealias"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/Variables-swift.typealias"
       ],
       "title" : "Type Aliases"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLOperation\/definition",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLOperation\/document",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLOperation\/operationIdentifier",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLOperation\/operationName",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLOperation\/operationType"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/definition",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/document",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/operationIdentifier",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/operationName",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/operationType"
       ],
       "title" : "Type Properties"
     },
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLOperation\/Equatable-Implementations",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLOperation\/Hashable-Implementations"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/Equatable-Implementations",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/Hashable-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -168,28 +168,28 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloAPI.macosx/SH": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/SH",
+"doc://ApolloAPI/SH": {
+  "identifier" : "doc:\/\/ApolloAPI\/SH",
   "title" : "Swift.Hashable",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.ApolloAPI.macosx/SQ": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/SQ",
+"doc://ApolloAPI/SQ": {
+  "identifier" : "doc:\/\/ApolloAPI\/SQ",
   "title" : "Swift.Equatable",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI": {
+"doc://ApolloAPI/documentation/ApolloAPI": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLMutation": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLMutation": {
   "abstract" : [
 
   ],
@@ -207,7 +207,7 @@
       "text" : "GraphQLMutation"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLMutation",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLMutation",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -220,7 +220,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqlmutation"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLOperation": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLOperation": {
   "abstract" : [
 
   ],
@@ -238,7 +238,7 @@
       "text" : "GraphQLOperation"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLOperation",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -251,7 +251,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqloperation"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLOperation/Data": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLOperation/Data": {
   "abstract" : [
 
   ],
@@ -278,7 +278,7 @@
       "text" : "RootSelectionSet"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLOperation\/Data",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/Data",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
@@ -286,29 +286,29 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqloperation\/data"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLOperation/Equatable-Implementations": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLOperation/Equatable-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLOperation\/Equatable-Implementations",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/Equatable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Equatable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqloperation\/equatable-implementations"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLOperation/Hashable-Implementations": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLOperation/Hashable-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLOperation\/Hashable-Implementations",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/Hashable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Hashable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqloperation\/hashable-implementations"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLOperation/Variables-swift.typealias": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLOperation/Variables-swift.typealias": {
   "abstract" : [
 
   ],
@@ -326,7 +326,7 @@
       "text" : "Variables"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLOperation\/Variables-swift.typealias",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/Variables-swift.typealias",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -339,7 +339,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqloperation\/variables-swift.typealias"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLOperation/definition": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLOperation/definition": {
   "abstract" : [
 
   ],
@@ -378,14 +378,14 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLOperation\/definition",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/definition",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "definition",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqloperation\/definition"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLOperation/document": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLOperation/document": {
   "abstract" : [
 
   ],
@@ -420,7 +420,7 @@
       "text" : "DocumentType"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLOperation\/document",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/document",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
@@ -428,7 +428,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqloperation\/document"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLOperation/operationIdentifier": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLOperation/operationIdentifier": {
   "abstract" : [
 
   ],
@@ -467,14 +467,14 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLOperation\/operationIdentifier",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/operationIdentifier",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "operationIdentifier",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqloperation\/operationidentifier"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLOperation/operationName": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLOperation/operationName": {
   "abstract" : [
 
   ],
@@ -509,7 +509,7 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLOperation\/operationName",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/operationName",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
@@ -517,7 +517,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqloperation\/operationname"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLOperation/operationType": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLOperation/operationType": {
   "abstract" : [
 
   ],
@@ -553,7 +553,7 @@
       "text" : "GraphQLOperationType"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLOperation\/operationType",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/operationType",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
@@ -561,7 +561,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqloperation\/operationtype"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLOperation/variables-swift.property-4o32c": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLOperation/variables-swift.property-4o32c": {
   "abstract" : [
 
   ],
@@ -585,6 +585,14 @@
     },
     {
       "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP9Variablesa",
       "text" : "Variables"
     },
@@ -593,7 +601,7 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLOperation\/variables-swift.property-4o32c",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/variables-swift.property-4o32c",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
@@ -601,7 +609,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqloperation\/variables-swift.property-4o32c"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLQuery": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLQuery": {
   "abstract" : [
 
   ],
@@ -619,7 +627,7 @@
       "text" : "GraphQLQuery"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLQuery",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLQuery",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -632,7 +640,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqlquery"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLSubscription": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLSubscription": {
   "abstract" : [
 
   ],
@@ -650,7 +658,7 @@
       "text" : "GraphQLSubscription"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLSubscription",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLSubscription",
   "kind" : "symbol",
   "navigatorTitle" : [
     {

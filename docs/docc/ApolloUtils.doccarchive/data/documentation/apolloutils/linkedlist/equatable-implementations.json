@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList"
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Equatable-Implementations"
+    "url" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Equatable-Implementations"
   },
   "kind" : "article",
   "metadata" : {
@@ -39,8 +39,8 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/!=(_:_:)",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/==(_:_:)"
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/!=(_:_:)",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/==(_:_:)"
       ],
       "title" : "Operators"
     }
@@ -59,18 +59,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils": {
+"doc://ApolloUtils/documentation/ApolloUtils": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloUtils",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList": {
   "abstract" : [
     {
       "text" : "A doubly linked list implementation.",
@@ -91,7 +91,7 @@
       "text" : "LinkedList"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -104,7 +104,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/!=(_:_:)": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/!=(_:_:)": {
   "abstract" : [
 
   ],
@@ -159,14 +159,14 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/!=(_:_:)",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/!=(_:_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "!=(_:_:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/!=(_:_:)"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/==(_:_:)": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/==(_:_:)": {
   "abstract" : [
 
   ],
@@ -242,7 +242,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11ApolloUtils10LinkedListVAASQRzlE1Txmfp",
       "text" : "T"
     },
     {
@@ -260,7 +259,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11ApolloUtils10LinkedListVAASQRzlE1Txmfp",
       "text" : "T"
     },
     {
@@ -273,7 +271,7 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/==(_:_:)",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/==(_:_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "==(_:_:)",

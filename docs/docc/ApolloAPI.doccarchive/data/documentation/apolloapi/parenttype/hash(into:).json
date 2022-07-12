@@ -16,15 +16,15 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/ParentType",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/ParentType\/Hashable-Implementations"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ParentType",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ParentType\/Hashable-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/ParentType\/hash(into:)"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ParentType\/hash(into:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -171,18 +171,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI": {
+"doc://ApolloAPI/documentation/ApolloAPI": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/ParentType": {
+"doc://ApolloAPI/documentation/ApolloAPI/ParentType": {
   "abstract" : [
 
   ],
@@ -200,7 +200,7 @@
       "text" : "ParentType"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/ParentType",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ParentType",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -213,18 +213,18 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/parenttype"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/ParentType/Hashable-Implementations": {
+"doc://ApolloAPI/documentation/ApolloAPI/ParentType/Hashable-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/ParentType\/Hashable-Implementations",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ParentType\/Hashable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Hashable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/parenttype\/hashable-implementations"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/ParentType/hash(into:)": {
+"doc://ApolloAPI/documentation/ApolloAPI/ParentType/hash(into:)": {
   "abstract" : [
 
   ],
@@ -271,7 +271,7 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/ParentType\/hash(into:)",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ParentType\/hash(into:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "hash(into:)",

@@ -1,6 +1,6 @@
 {
   "bundleDisplayName" : "ApolloWebSocket",
-  "bundleIdentifier" : "com.apollographql.ApolloWebSocket.macosx",
+  "bundleIdentifier" : "ApolloWebSocket",
   "schemaVersion" : {
     "major" : 0,
     "minor" : 1,

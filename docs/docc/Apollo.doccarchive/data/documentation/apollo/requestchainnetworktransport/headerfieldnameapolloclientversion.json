@@ -8,15 +8,15 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport\/NetworkTransport-Implementations"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/NetworkTransport-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport\/headerFieldNameApolloClientVersion"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/headerFieldNameApolloClientVersion"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -143,18 +143,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChainNetworkTransport": {
+"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport": {
   "abstract" : [
     {
       "text" : "An implementation of ",
@@ -199,7 +199,7 @@
       "text" : "RequestChainNetworkTransport"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -212,18 +212,18 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchainnetworktransport"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChainNetworkTransport/NetworkTransport-Implementations": {
+"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport/NetworkTransport-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport\/NetworkTransport-Implementations",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/NetworkTransport-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "NetworkTransport Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchainnetworktransport\/networktransport-implementations"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChainNetworkTransport/headerFieldNameApolloClientVersion": {
+"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport/headerFieldNameApolloClientVersion": {
   "abstract" : [
     {
       "text" : "The field name for the Apollo Client Version header",
@@ -261,7 +261,7 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport\/headerFieldNameApolloClientVersion",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/headerFieldNameApolloClientVersion",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "headerFieldNameApolloClientVersion",

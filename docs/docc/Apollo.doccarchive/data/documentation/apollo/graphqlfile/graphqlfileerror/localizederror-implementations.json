@@ -8,15 +8,15 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLFile",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLFile\/GraphQLFileError"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/GraphQLFileError"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLFile\/GraphQLFileError\/LocalizedError-Implementations"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/GraphQLFileError\/LocalizedError-Implementations"
   },
   "kind" : "article",
   "metadata" : {
@@ -40,10 +40,10 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLFile\/GraphQLFileError\/errorDescription-655nn",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLFile\/GraphQLFileError\/failureReason",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLFile\/GraphQLFileError\/helpAnchor",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLFile\/GraphQLFileError\/recoverySuggestion"
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/GraphQLFileError\/errorDescription-655nn",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/GraphQLFileError\/failureReason",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/GraphQLFileError\/helpAnchor",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/GraphQLFileError\/recoverySuggestion"
       ],
       "title" : "Instance Properties"
     }
@@ -62,18 +62,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLFile": {
+"doc://Apollo/documentation/Apollo/GraphQLFile": {
   "abstract" : [
     {
       "text" : "A file which can be uploaded to a GraphQL server",
@@ -94,7 +94,7 @@
       "text" : "GraphQLFile"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLFile",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -107,7 +107,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlfile"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLFile/GraphQLFileError": {
+"doc://Apollo/documentation/Apollo/GraphQLFile/GraphQLFileError": {
   "abstract" : [
 
   ],
@@ -125,7 +125,7 @@
       "text" : "GraphQLFileError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLFile\/GraphQLFileError",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/GraphQLFileError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -138,7 +138,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlfile\/graphqlfileerror"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLFile/GraphQLFileError/errorDescription-655nn": {
+"doc://Apollo/documentation/Apollo/GraphQLFile/GraphQLFileError/errorDescription-655nn": {
   "abstract" : [
 
   ],
@@ -169,14 +169,14 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLFile\/GraphQLFileError\/errorDescription-655nn",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/GraphQLFileError\/errorDescription-655nn",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "errorDescription",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlfile\/graphqlfileerror\/errordescription-655nn"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLFile/GraphQLFileError/failureReason": {
+"doc://Apollo/documentation/Apollo/GraphQLFile/GraphQLFileError/failureReason": {
   "abstract" : [
 
   ],
@@ -207,14 +207,14 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLFile\/GraphQLFileError\/failureReason",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/GraphQLFileError\/failureReason",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "failureReason",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlfile\/graphqlfileerror\/failurereason"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLFile/GraphQLFileError/helpAnchor": {
+"doc://Apollo/documentation/Apollo/GraphQLFile/GraphQLFileError/helpAnchor": {
   "abstract" : [
 
   ],
@@ -245,14 +245,14 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLFile\/GraphQLFileError\/helpAnchor",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/GraphQLFileError\/helpAnchor",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "helpAnchor",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlfile\/graphqlfileerror\/helpanchor"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLFile/GraphQLFileError/recoverySuggestion": {
+"doc://Apollo/documentation/Apollo/GraphQLFile/GraphQLFileError/recoverySuggestion": {
   "abstract" : [
 
   ],
@@ -283,7 +283,7 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLFile\/GraphQLFileError\/recoverySuggestion",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/GraphQLFileError\/recoverySuggestion",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "recoverySuggestion",

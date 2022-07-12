@@ -1,22 +1,30 @@
 {
   "abstract" : [
     {
-      "text" : "The version of the client to send as a header value.",
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "NetworkTransport.clientVersion",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/NetworkTransport-Implementations"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/NetworkTransport-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/clientVersion-5nzf9"
+    "url" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/clientVersion-5nzf9"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -127,18 +135,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloWebSocket",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketTransport": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport": {
   "abstract" : [
     {
       "text" : "A network transport that uses web sockets requests to send GraphQL subscription operations to a server.",
@@ -159,7 +167,7 @@
       "text" : "WebSocketTransport"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -172,23 +180,20 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websockettransport"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketTransport/NetworkTransport-Implementations": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport/NetworkTransport-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/NetworkTransport-Implementations",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/NetworkTransport-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "NetworkTransport Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websockettransport\/networktransport-implementations"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketTransport/clientVersion-5nzf9": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport/clientVersion-5nzf9": {
   "abstract" : [
-    {
-      "text" : "The version of the client to send as a header value.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -213,7 +218,7 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/clientVersion-5nzf9",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/clientVersion-5nzf9",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "clientVersion",

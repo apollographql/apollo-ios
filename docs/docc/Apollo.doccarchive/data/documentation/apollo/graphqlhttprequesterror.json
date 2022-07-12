@@ -8,13 +8,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"
+        "doc:\/\/Apollo\/documentation\/Apollo"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLHTTPRequestError"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLHTTPRequestError"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -81,11 +81,11 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/10Foundation14LocalizedErrorP",
-        "doc:\/\/com.apollographql.Apollo.macosx\/SQ",
-        "doc:\/\/com.apollographql.Apollo.macosx\/s5ErrorP",
-        "doc:\/\/com.apollographql.Apollo.macosx\/SH",
-        "doc:\/\/com.apollographql.Apollo.macosx\/s8SendableP"
+        "doc:\/\/Apollo\/10Foundation14LocalizedErrorP",
+        "doc:\/\/Apollo\/SQ",
+        "doc:\/\/Apollo\/s5ErrorP",
+        "doc:\/\/Apollo\/SH",
+        "doc:\/\/Apollo\/s8SendableP"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -103,23 +103,23 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLHTTPRequestError\/serializedBodyMessageError",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLHTTPRequestError\/serializedQueryParamsMessageError"
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLHTTPRequestError\/serializedBodyMessageError",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLHTTPRequestError\/serializedQueryParamsMessageError"
       ],
       "title" : "Enumeration Cases"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLHTTPRequestError\/errorDescription-2j9a2"
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLHTTPRequestError\/errorDescription-2j9a2"
       ],
       "title" : "Instance Properties"
     },
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLHTTPRequestError\/Equatable-Implementations",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLHTTPRequestError\/Error-Implementations",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLHTTPRequestError\/LocalizedError-Implementations"
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLHTTPRequestError\/Equatable-Implementations",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLHTTPRequestError\/Error-Implementations",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLHTTPRequestError\/LocalizedError-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -138,33 +138,33 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/10Foundation14LocalizedErrorP": {
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/10Foundation14LocalizedErrorP",
+"doc://Apollo/10Foundation14LocalizedErrorP": {
+  "identifier" : "doc:\/\/Apollo\/10Foundation14LocalizedErrorP",
   "title" : "Foundation.LocalizedError",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.Apollo.macosx/SH": {
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/SH",
+"doc://Apollo/SH": {
+  "identifier" : "doc:\/\/Apollo\/SH",
   "title" : "Swift.Hashable",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.Apollo.macosx/SQ": {
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/SQ",
+"doc://Apollo/SQ": {
+  "identifier" : "doc:\/\/Apollo\/SQ",
   "title" : "Swift.Equatable",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLHTTPRequestError": {
+"doc://Apollo/documentation/Apollo/GraphQLHTTPRequestError": {
   "abstract" : [
     {
       "text" : "An error which has occurred during the serialization of a request.",
@@ -185,7 +185,7 @@
       "text" : "GraphQLHTTPRequestError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLHTTPRequestError",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLHTTPRequestError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -198,40 +198,40 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlhttprequesterror"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLHTTPRequestError/Equatable-Implementations": {
+"doc://Apollo/documentation/Apollo/GraphQLHTTPRequestError/Equatable-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLHTTPRequestError\/Equatable-Implementations",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLHTTPRequestError\/Equatable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Equatable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlhttprequesterror\/equatable-implementations"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLHTTPRequestError/Error-Implementations": {
+"doc://Apollo/documentation/Apollo/GraphQLHTTPRequestError/Error-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLHTTPRequestError\/Error-Implementations",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLHTTPRequestError\/Error-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Error Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlhttprequesterror\/error-implementations"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLHTTPRequestError/LocalizedError-Implementations": {
+"doc://Apollo/documentation/Apollo/GraphQLHTTPRequestError/LocalizedError-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLHTTPRequestError\/LocalizedError-Implementations",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLHTTPRequestError\/LocalizedError-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "LocalizedError Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlhttprequesterror\/localizederror-implementations"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLHTTPRequestError/errorDescription-2j9a2": {
+"doc://Apollo/documentation/Apollo/GraphQLHTTPRequestError/errorDescription-2j9a2": {
   "abstract" : [
 
   ],
@@ -262,14 +262,14 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLHTTPRequestError\/errorDescription-2j9a2",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLHTTPRequestError\/errorDescription-2j9a2",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "errorDescription",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlhttprequesterror\/errordescription-2j9a2"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLHTTPRequestError/serializedBodyMessageError": {
+"doc://Apollo/documentation/Apollo/GraphQLHTTPRequestError/serializedBodyMessageError": {
   "abstract" : [
 
   ],
@@ -287,14 +287,14 @@
       "text" : "serializedBodyMessageError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLHTTPRequestError\/serializedBodyMessageError",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLHTTPRequestError\/serializedBodyMessageError",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "GraphQLHTTPRequestError.serializedBodyMessageError",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlhttprequesterror\/serializedbodymessageerror"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLHTTPRequestError/serializedQueryParamsMessageError": {
+"doc://Apollo/documentation/Apollo/GraphQLHTTPRequestError/serializedQueryParamsMessageError": {
   "abstract" : [
 
   ],
@@ -312,20 +312,20 @@
       "text" : "serializedQueryParamsMessageError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLHTTPRequestError\/serializedQueryParamsMessageError",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLHTTPRequestError\/serializedQueryParamsMessageError",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "GraphQLHTTPRequestError.serializedQueryParamsMessageError",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlhttprequesterror\/serializedqueryparamsmessageerror"
 },
-"doc://com.apollographql.Apollo.macosx/s5ErrorP": {
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/s5ErrorP",
+"doc://Apollo/s5ErrorP": {
+  "identifier" : "doc:\/\/Apollo\/s5ErrorP",
   "title" : "Swift.Error",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.Apollo.macosx/s8SendableP": {
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/s8SendableP",
+"doc://Apollo/s8SendableP": {
+  "identifier" : "doc:\/\/Apollo\/s8SendableP",
   "title" : "Swift.Sendable",
   "type" : "unresolvable"
 }

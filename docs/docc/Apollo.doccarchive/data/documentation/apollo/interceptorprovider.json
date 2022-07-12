@@ -8,13 +8,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"
+        "doc:\/\/Apollo\/documentation\/Apollo"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/InterceptorProvider"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/InterceptorProvider"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -81,7 +81,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/DefaultInterceptorProvider"
+        "doc:\/\/Apollo\/documentation\/Apollo\/DefaultInterceptorProvider"
       ],
       "kind" : "relationships",
       "title" : "Conforming Types",
@@ -99,8 +99,8 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/InterceptorProvider\/additionalErrorInterceptor(for:)-4nida",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/InterceptorProvider\/interceptors(for:)"
+        "doc:\/\/Apollo\/documentation\/Apollo\/InterceptorProvider\/additionalErrorInterceptor(for:)-4nida",
+        "doc:\/\/Apollo\/documentation\/Apollo\/InterceptorProvider\/interceptors(for:)"
       ],
       "title" : "Instance Methods"
     }
@@ -119,18 +119,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/DefaultInterceptorProvider": {
+"doc://Apollo/documentation/Apollo/DefaultInterceptorProvider": {
   "abstract" : [
     {
       "text" : "The default interceptor provider for typescript-generated code",
@@ -151,7 +151,7 @@
       "text" : "DefaultInterceptorProvider"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/DefaultInterceptorProvider",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/DefaultInterceptorProvider",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -164,7 +164,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/defaultinterceptorprovider"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/InterceptorProvider": {
+"doc://Apollo/documentation/Apollo/InterceptorProvider": {
   "abstract" : [
     {
       "text" : "A protocol to allow easy creation of an array of interceptors for a given operation.",
@@ -185,7 +185,7 @@
       "text" : "InterceptorProvider"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/InterceptorProvider",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/InterceptorProvider",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -198,7 +198,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/interceptorprovider"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/InterceptorProvider/additionalErrorInterceptor(for:)-4nida": {
+"doc://Apollo/documentation/Apollo/InterceptorProvider/additionalErrorInterceptor(for:)-4nida": {
   "abstract" : [
     {
       "text" : "Provides an additional error interceptor for any additional handling of errors",
@@ -249,7 +249,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo19InterceptorProviderP015additionalErrorB03forAA0aeB0_pSgqd___t0A3API16GraphQLOperationRd__lF9OperationL_qd__mfp",
       "text" : "Operation"
     },
     {
@@ -266,7 +265,7 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/InterceptorProvider\/additionalErrorInterceptor(for:)-4nida",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/InterceptorProvider\/additionalErrorInterceptor(for:)-4nida",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
@@ -274,7 +273,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/interceptorprovider\/additionalerrorinterceptor(for:)-4nida"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/InterceptorProvider/interceptors(for:)": {
+"doc://Apollo/documentation/Apollo/InterceptorProvider/interceptors(for:)": {
   "abstract" : [
     {
       "text" : "Creates a new array of interceptors when called",
@@ -316,7 +315,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo19InterceptorProviderP12interceptors3forSayAA0aB0_pGqd___t0A3API16GraphQLOperationRd__lF9OperationL_qd__mfp",
       "text" : "Operation"
     },
     {
@@ -333,7 +331,7 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/InterceptorProvider\/interceptors(for:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/InterceptorProvider\/interceptors(for:)",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",

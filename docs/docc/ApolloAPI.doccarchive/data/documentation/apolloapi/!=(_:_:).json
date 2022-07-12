@@ -8,13 +8,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/!=(_:_:)"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/!=(_:_:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -59,7 +59,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:9ApolloAPI2neoiySbAA11GraphQLEnumOyxGSg_xtAA8EnumTypeRzlF1TL_xmfp",
         "text" : "T"
       },
       {
@@ -68,7 +67,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:9ApolloAPI2neoiySbAA11GraphQLEnumOyxGSg_xtAA8EnumTypeRzlF1TL_xmfp",
         "text" : "T"
       },
       {
@@ -139,7 +137,7 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLEnum",
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:9ApolloAPI11GraphQLEnumO",
               "text" : "GraphQLEnum"
@@ -150,7 +148,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:9ApolloAPI2neoiySbAA11GraphQLEnumOyxGSg_xtAA8EnumTypeRzlF1TL_xmfp",
               "text" : "T"
             },
             {
@@ -167,7 +164,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:9ApolloAPI2neoiySbAA11GraphQLEnumOyxGSg_xtAA8EnumTypeRzlF1TL_xmfp",
               "text" : "T"
             },
             {
@@ -200,7 +196,7 @@
               "text" : " : "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/EnumType",
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/EnumType",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:9ApolloAPI8EnumTypeP",
               "text" : "EnumType"
@@ -233,18 +229,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI": {
+"doc://ApolloAPI/documentation/ApolloAPI": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/!=(_:_:)": {
+"doc://ApolloAPI/documentation/ApolloAPI/!=(_:_:)": {
   "abstract" : [
 
   ],
@@ -288,7 +284,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI2neoiySbAA11GraphQLEnumOyxGSg_xtAA8EnumTypeRzlF1TL_xmfp",
       "text" : "T"
     },
     {
@@ -297,7 +292,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI2neoiySbAA11GraphQLEnumOyxGSg_xtAA8EnumTypeRzlF1TL_xmfp",
       "text" : "T"
     },
     {
@@ -310,14 +304,14 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/!=(_:_:)",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/!=(_:_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "!=(_:_:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/!=(_:_:)"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/EnumType": {
+"doc://ApolloAPI/documentation/ApolloAPI/EnumType": {
   "abstract" : [
     {
       "text" : "A protocol that a generated enum from a GraphQL schema conforms to.",
@@ -354,7 +348,7 @@
       "text" : "EnumType"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/EnumType",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/EnumType",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -367,7 +361,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/enumtype"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLEnum": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLEnum": {
   "abstract" : [
     {
       "text" : "A generic enum that wraps a generated enum from a GraphQL Schema.",
@@ -388,7 +382,7 @@
       "text" : "GraphQLEnum"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLEnum",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum",
   "kind" : "symbol",
   "navigatorTitle" : [
     {

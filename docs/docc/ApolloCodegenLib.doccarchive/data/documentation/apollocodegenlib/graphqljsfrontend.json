@@ -8,13 +8,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend"
+    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -97,21 +97,21 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/init()"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/init()"
       ],
       "title" : "Initializers"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/compile(schema:document:experimentalLegacySafelistingCompatibleOperations:)",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/loadSchema(from:)",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/makeSource(_:filePath:)",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/makeSource(from:)",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/mergeDocuments(_:)",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/parseDocument(_:experimentalClientControlledNullability:)",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/parseDocument(from:experimentalClientControlledNullability:)",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/printSchemaAsSDL(schema:)",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/validateDocument(schema:document:)"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/compile(schema:document:experimentalLegacySafelistingCompatibleOperations:)",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/loadSchema(from:)",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/makeSource(_:filePath:)",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/makeSource(from:)",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/mergeDocuments(_:)",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/parseDocument(_:experimentalClientControlledNullability:)",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/parseDocument(from:experimentalClientControlledNullability:)",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/printSchemaAsSDL(schema:)",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/validateDocument(schema:document:)"
       ],
       "title" : "Instance Methods"
     }
@@ -130,18 +130,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloCodegenLib",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/GraphQLJSFrontend": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLJSFrontend": {
   "abstract" : [
 
   ],
@@ -159,7 +159,7 @@
       "text" : "GraphQLJSFrontend"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -172,7 +172,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/graphqljsfrontend"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/GraphQLJSFrontend/compile(schema:document:experimentalLegacySafelistingCompatibleOperations:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLJSFrontend/compile(schema:document:experimentalLegacySafelistingCompatibleOperations:)": {
   "abstract" : [
     {
       "text" : "Compiles a GraphQL document into an intermediate representation that is more suitable for analysis and code generation.",
@@ -261,14 +261,14 @@
       "text" : "CompilationResult"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/compile(schema:document:experimentalLegacySafelistingCompatibleOperations:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/compile(schema:document:experimentalLegacySafelistingCompatibleOperations:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "compile(schema:document:experimentalLegacySafelistingCompatibleOperations:)",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/graphqljsfrontend\/compile(schema:document:experimentallegacysafelistingcompatibleoperations:)"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/GraphQLJSFrontend/init()": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLJSFrontend/init()": {
   "abstract" : [
 
   ],
@@ -286,14 +286,14 @@
       "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/init()",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/init()",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init()",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/graphqljsfrontend\/init()"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/GraphQLJSFrontend/loadSchema(from:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLJSFrontend/loadSchema(from:)": {
   "abstract" : [
     {
       "text" : "Load a schema by parsing  an introspection result.",
@@ -348,14 +348,14 @@
       "text" : "GraphQLSchema"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/loadSchema(from:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/loadSchema(from:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "loadSchema(from:)",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/graphqljsfrontend\/loadschema(from:)"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/GraphQLJSFrontend/makeSource(_:filePath:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLJSFrontend/makeSource(_:filePath:)": {
   "abstract" : [
     {
       "text" : "Create a ",
@@ -427,14 +427,14 @@
       "text" : "GraphQLSource"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/makeSource(_:filePath:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/makeSource(_:filePath:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "makeSource(_:filePath:)",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/graphqljsfrontend\/makesource(_:filepath:)"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/GraphQLJSFrontend/makeSource(from:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLJSFrontend/makeSource(from:)": {
   "abstract" : [
     {
       "text" : "Create a ",
@@ -497,14 +497,14 @@
       "text" : "GraphQLSource"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/makeSource(from:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/makeSource(from:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "makeSource(from:)",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/graphqljsfrontend\/makesource(from:)"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/GraphQLJSFrontend/mergeDocuments(_:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLJSFrontend/mergeDocuments(_:)": {
   "abstract" : [
     {
       "text" : "Validation and compilation take a single document, but you can merge documents, and operations and fragments will remember their source.",
@@ -551,14 +551,14 @@
       "text" : "GraphQLDocument"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/mergeDocuments(_:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/mergeDocuments(_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "mergeDocuments(_:)",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/graphqljsfrontend\/mergedocuments(_:)"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/GraphQLJSFrontend/parseDocument(_:experimentalClientControlledNullability:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLJSFrontend/parseDocument(_:experimentalClientControlledNullability:)": {
   "abstract" : [
     {
       "text" : "Parses a GraphQL document from a source, returning a reference to the parsed AST that can be passed on to validation and compilation.",
@@ -638,14 +638,14 @@
       "text" : "GraphQLDocument"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/parseDocument(_:experimentalClientControlledNullability:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/parseDocument(_:experimentalClientControlledNullability:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "parseDocument(_:experimentalClientControlledNullability:)",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/graphqljsfrontend\/parsedocument(_:experimentalclientcontrollednullability:)"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/GraphQLJSFrontend/parseDocument(from:experimentalClientControlledNullability:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLJSFrontend/parseDocument(from:experimentalClientControlledNullability:)": {
   "abstract" : [
     {
       "text" : "Parses a GraphQL document from a file, returning a reference to the parsed AST that can be passed on to validation and compilation.",
@@ -733,14 +733,14 @@
       "text" : "GraphQLDocument"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/parseDocument(from:experimentalClientControlledNullability:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/parseDocument(from:experimentalClientControlledNullability:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "parseDocument(from:experimentalClientControlledNullability:)",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/graphqljsfrontend\/parsedocument(from:experimentalclientcontrollednullability:)"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/GraphQLJSFrontend/printSchemaAsSDL(schema:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLJSFrontend/printSchemaAsSDL(schema:)": {
   "abstract" : [
     {
       "text" : "Take a loaded GQL schema and print it as SDL.",
@@ -795,14 +795,14 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/printSchemaAsSDL(schema:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/printSchemaAsSDL(schema:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "printSchemaAsSDL(schema:)",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/graphqljsfrontend\/printschemaassdl(schema:)"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/GraphQLJSFrontend/validateDocument(schema:document:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLJSFrontend/validateDocument(schema:document:)": {
   "abstract" : [
     {
       "text" : "Validate a GraphQL document and return any validation errors as ",
@@ -886,7 +886,7 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/validateDocument(schema:document:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/validateDocument(schema:document:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "validateDocument(schema:document:)",

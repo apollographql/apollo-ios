@@ -8,13 +8,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"
+        "doc:\/\/Apollo\/documentation\/Apollo"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPResponse"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/HTTPResponse"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -114,8 +114,8 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/SQ",
-        "doc:\/\/com.apollographql.Apollo.macosx\/SH"
+        "doc:\/\/Apollo\/SQ",
+        "doc:\/\/Apollo\/SH"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -133,24 +133,24 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPResponse\/init(response:rawData:parsedResponse:)"
+        "doc:\/\/Apollo\/documentation\/Apollo\/HTTPResponse\/init(response:rawData:parsedResponse:)"
       ],
       "title" : "Initializers"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPResponse\/httpResponse",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPResponse\/legacyResponse",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPResponse\/parsedResponse",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPResponse\/rawData"
+        "doc:\/\/Apollo\/documentation\/Apollo\/HTTPResponse\/httpResponse",
+        "doc:\/\/Apollo\/documentation\/Apollo\/HTTPResponse\/legacyResponse",
+        "doc:\/\/Apollo\/documentation\/Apollo\/HTTPResponse\/parsedResponse",
+        "doc:\/\/Apollo\/documentation\/Apollo\/HTTPResponse\/rawData"
       ],
       "title" : "Instance Properties"
     },
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPResponse\/Equatable-Implementations",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPResponse\/Hashable-Implementations"
+        "doc:\/\/Apollo\/documentation\/Apollo\/HTTPResponse\/Equatable-Implementations",
+        "doc:\/\/Apollo\/documentation\/Apollo\/HTTPResponse\/Hashable-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -169,28 +169,28 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/SH": {
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/SH",
+"doc://Apollo/SH": {
+  "identifier" : "doc:\/\/Apollo\/SH",
   "title" : "Swift.Hashable",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.Apollo.macosx/SQ": {
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/SQ",
+"doc://Apollo/SQ": {
+  "identifier" : "doc:\/\/Apollo\/SQ",
   "title" : "Swift.Equatable",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/HTTPResponse": {
+"doc://Apollo/documentation/Apollo/HTTPResponse": {
   "abstract" : [
     {
       "text" : "Data about a response received by an HTTP request.",
@@ -211,7 +211,7 @@
       "text" : "HTTPResponse"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPResponse",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/HTTPResponse",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -224,29 +224,29 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/httpresponse"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/HTTPResponse/Equatable-Implementations": {
+"doc://Apollo/documentation/Apollo/HTTPResponse/Equatable-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPResponse\/Equatable-Implementations",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/HTTPResponse\/Equatable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Equatable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/httpresponse\/equatable-implementations"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/HTTPResponse/Hashable-Implementations": {
+"doc://Apollo/documentation/Apollo/HTTPResponse/Hashable-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPResponse\/Hashable-Implementations",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/HTTPResponse\/Hashable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Hashable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/httpresponse\/hashable-implementations"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/HTTPResponse/httpResponse": {
+"doc://Apollo/documentation/Apollo/HTTPResponse/httpResponse": {
   "abstract" : [
     {
       "text" : "The ",
@@ -284,14 +284,14 @@
       "text" : "HTTPURLResponse"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPResponse\/httpResponse",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/HTTPResponse\/httpResponse",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "httpResponse",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/httpresponse\/httpresponse"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/HTTPResponse/init(response:rawData:parsedResponse:)": {
+"doc://Apollo/documentation/Apollo/HTTPResponse/init(response:rawData:parsedResponse:)": {
   "abstract" : [
     {
       "text" : "Designated initializer",
@@ -360,7 +360,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo12HTTPResponseC9Operationxmfp",
       "text" : "Operation"
     },
     {
@@ -369,7 +368,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
       "text" : "Data"
     },
     {
@@ -377,14 +375,14 @@
       "text" : ">?)"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPResponse\/init(response:rawData:parsedResponse:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/HTTPResponse\/init(response:rawData:parsedResponse:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(response:rawData:parsedResponse:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/httpresponse\/init(response:rawdata:parsedresponse:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/HTTPResponse/legacyResponse": {
+"doc://Apollo/documentation/Apollo/HTTPResponse/legacyResponse": {
   "abstract" : [
     {
       "text" : "[optional] The data as parsed into a ",
@@ -452,7 +450,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo12HTTPResponseC9Operationxmfp",
       "text" : "Operation"
     },
     {
@@ -461,7 +458,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
       "text" : "Data"
     },
     {
@@ -469,14 +465,14 @@
       "text" : ">?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPResponse\/legacyResponse",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/HTTPResponse\/legacyResponse",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "legacyResponse",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/httpresponse\/legacyresponse"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/HTTPResponse/parsedResponse": {
+"doc://Apollo/documentation/Apollo/HTTPResponse/parsedResponse": {
   "abstract" : [
     {
       "text" : "[optional] The data as parsed into a ",
@@ -519,7 +515,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo12HTTPResponseC9Operationxmfp",
       "text" : "Operation"
     },
     {
@@ -528,7 +523,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
       "text" : "Data"
     },
     {
@@ -536,14 +530,14 @@
       "text" : ">?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPResponse\/parsedResponse",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/HTTPResponse\/parsedResponse",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "parsedResponse",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/httpresponse\/parsedresponse"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/HTTPResponse/rawData": {
+"doc://Apollo/documentation/Apollo/HTTPResponse/rawData": {
   "abstract" : [
     {
       "text" : "The raw data received from the URL loading system",
@@ -573,7 +567,7 @@
       "text" : "Data"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPResponse\/rawData",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/HTTPResponse\/rawData",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "rawData",

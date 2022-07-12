@@ -1,21 +1,29 @@
 {
   "abstract" : [
     {
-      "text" : "The name of the client to send as a header value.",
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "NetworkTransport.clientName",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SplitNetworkTransport"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/clientName-8o4nu"
+    "url" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/clientName-8o4nu"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -125,18 +133,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloWebSocket",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SplitNetworkTransport": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SplitNetworkTransport": {
   "abstract" : [
     {
       "text" : "A network transport that sends subscriptions using one ",
@@ -173,7 +181,7 @@
       "text" : "SplitNetworkTransport"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SplitNetworkTransport",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -186,12 +194,9 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/splitnetworktransport"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SplitNetworkTransport/clientName-8o4nu": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SplitNetworkTransport/clientName-8o4nu": {
   "abstract" : [
-    {
-      "text" : "The name of the client to send as a header value.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -216,7 +221,7 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/clientName-8o4nu",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/clientName-8o4nu",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "clientName",

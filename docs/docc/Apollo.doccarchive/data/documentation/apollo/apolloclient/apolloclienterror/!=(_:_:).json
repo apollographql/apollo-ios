@@ -16,16 +16,16 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/ApolloClientError",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/ApolloClientError\/Equatable-Implementations"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/ApolloClientError",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/ApolloClientError\/Equatable-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/ApolloClientError\/!=(_:_:)"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/ApolloClientError\/!=(_:_:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -196,18 +196,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClient": {
+"doc://Apollo/documentation/Apollo/ApolloClient": {
   "abstract" : [
     {
       "text" : "The ",
@@ -244,7 +244,7 @@
       "text" : "ApolloClient"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -257,7 +257,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apolloclient"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClient/ApolloClientError": {
+"doc://Apollo/documentation/Apollo/ApolloClient/ApolloClientError": {
   "abstract" : [
 
   ],
@@ -275,7 +275,7 @@
       "text" : "ApolloClientError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/ApolloClientError",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/ApolloClientError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -288,7 +288,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apolloclient\/apolloclienterror"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClient/ApolloClientError/!=(_:_:)": {
+"doc://Apollo/documentation/Apollo/ApolloClient/ApolloClientError/!=(_:_:)": {
   "abstract" : [
 
   ],
@@ -343,18 +343,18 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/ApolloClientError\/!=(_:_:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/ApolloClientError\/!=(_:_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "!=(_:_:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apolloclient\/apolloclienterror\/!=(_:_:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClient/ApolloClientError/Equatable-Implementations": {
+"doc://Apollo/documentation/Apollo/ApolloClient/ApolloClientError/Equatable-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/ApolloClientError\/Equatable-Implementations",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/ApolloClientError\/Equatable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Equatable Implementations",

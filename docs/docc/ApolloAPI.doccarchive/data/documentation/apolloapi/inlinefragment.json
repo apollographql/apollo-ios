@@ -16,13 +16,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InlineFragment"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InlineFragment"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -85,7 +85,7 @@
               "text" : " : "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/AnySelectionSet",
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnySelectionSet",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:9ApolloAPI15AnySelectionSetP",
               "text" : "AnySelectionSet"
@@ -244,8 +244,8 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/AnySelectionSet",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/SelectionSetEntityValue"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnySelectionSet",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSetEntityValue"
       ],
       "kind" : "relationships",
       "title" : "Inherits From",
@@ -274,18 +274,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI": {
+"doc://ApolloAPI/documentation/ApolloAPI": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/AnySelectionSet": {
+"doc://ApolloAPI/documentation/ApolloAPI/AnySelectionSet": {
   "abstract" : [
 
   ],
@@ -303,7 +303,7 @@
       "text" : "AnySelectionSet"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/AnySelectionSet",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnySelectionSet",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -316,7 +316,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/anyselectionset"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/InlineFragment": {
+"doc://ApolloAPI/documentation/ApolloAPI/InlineFragment": {
   "abstract" : [
     {
       "text" : "A selection set that represents an inline fragment nested inside a ",
@@ -345,7 +345,7 @@
       "text" : "InlineFragment"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InlineFragment",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InlineFragment",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -358,7 +358,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/inlinefragment"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/SelectionSetEntityValue": {
+"doc://ApolloAPI/documentation/ApolloAPI/SelectionSetEntityValue": {
   "abstract" : [
 
   ],
@@ -376,7 +376,7 @@
       "text" : "SelectionSetEntityValue"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/SelectionSetEntityValue",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSetEntityValue",
   "kind" : "symbol",
   "navigatorTitle" : [
     {

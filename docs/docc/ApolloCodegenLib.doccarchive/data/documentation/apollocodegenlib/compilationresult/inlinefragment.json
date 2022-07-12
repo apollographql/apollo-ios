@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult\/InlineFragment"
+    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/InlineFragment"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -82,7 +82,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/JavaScriptObject"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/JavaScriptObject"
       ],
       "kind" : "relationships",
       "title" : "Inherits From",
@@ -90,9 +90,9 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/s28CustomDebugStringConvertibleP",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/SQ",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/SH"
+        "doc:\/\/ApolloCodegenLib\/s28CustomDebugStringConvertibleP",
+        "doc:\/\/ApolloCodegenLib\/SQ",
+        "doc:\/\/ApolloCodegenLib\/SH"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -110,26 +110,26 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult\/InlineFragment\/==(_:_:)"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/InlineFragment\/==(_:_:)"
       ],
       "title" : "Operators"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult\/InlineFragment\/debugDescription"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/InlineFragment\/debugDescription"
       ],
       "title" : "Instance Properties"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult\/InlineFragment\/hash(into:)"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/InlineFragment\/hash(into:)"
       ],
       "title" : "Instance Methods"
     },
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult\/InlineFragment\/Equatable-Implementations"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/InlineFragment\/Equatable-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -148,28 +148,28 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloCodegenLib.macosx/SH": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/SH",
+"doc://ApolloCodegenLib/SH": {
+  "identifier" : "doc:\/\/ApolloCodegenLib\/SH",
   "title" : "Swift.Hashable",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/SQ": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/SQ",
+"doc://ApolloCodegenLib/SQ": {
+  "identifier" : "doc:\/\/ApolloCodegenLib\/SQ",
   "title" : "Swift.Equatable",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloCodegenLib",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/CompilationResult": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CompilationResult": {
   "abstract" : [
     {
       "text" : "The output of the frontend compiler.",
@@ -190,7 +190,7 @@
       "text" : "CompilationResult"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -203,7 +203,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/compilationresult"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/CompilationResult/InlineFragment": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CompilationResult/InlineFragment": {
   "abstract" : [
 
   ],
@@ -221,7 +221,7 @@
       "text" : "InlineFragment"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult\/InlineFragment",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/InlineFragment",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -234,7 +234,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/compilationresult\/inlinefragment"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/CompilationResult/InlineFragment/==(_:_:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CompilationResult/InlineFragment/==(_:_:)": {
   "abstract" : [
 
   ],
@@ -269,12 +269,30 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:16ApolloCodegenLib17CompilationResultC",
+      "text" : "CompilationResult"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:16ApolloCodegenLib17CompilationResultC14InlineFragmentC",
       "text" : "InlineFragment"
     },
     {
       "kind" : "text",
       "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:16ApolloCodegenLib17CompilationResultC",
+      "text" : "CompilationResult"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
     },
     {
       "kind" : "typeIdentifier",
@@ -291,25 +309,25 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult\/InlineFragment\/==(_:_:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/InlineFragment\/==(_:_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "==(_:_:)",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/compilationresult\/inlinefragment\/==(_:_:)"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/CompilationResult/InlineFragment/Equatable-Implementations": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CompilationResult/InlineFragment/Equatable-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult\/InlineFragment\/Equatable-Implementations",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/InlineFragment\/Equatable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Equatable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/compilationresult\/inlinefragment\/equatable-implementations"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/CompilationResult/InlineFragment/debugDescription": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CompilationResult/InlineFragment/debugDescription": {
   "abstract" : [
 
   ],
@@ -336,14 +354,14 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult\/InlineFragment\/debugDescription",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/InlineFragment\/debugDescription",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "debugDescription",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/compilationresult\/inlinefragment\/debugdescription"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/CompilationResult/InlineFragment/hash(into:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CompilationResult/InlineFragment/hash(into:)": {
   "abstract" : [
 
   ],
@@ -390,14 +408,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult\/InlineFragment\/hash(into:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/InlineFragment\/hash(into:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "hash(into:)",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/compilationresult\/inlinefragment\/hash(into:)"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/JavaScriptObject": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/JavaScriptObject": {
   "abstract" : [
     {
       "text" : "A type that references an underlying JavaScript object.",
@@ -418,7 +436,7 @@
       "text" : "JavaScriptObject"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/JavaScriptObject",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/JavaScriptObject",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -431,8 +449,8 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/javascriptobject"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/s28CustomDebugStringConvertibleP": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/s28CustomDebugStringConvertibleP",
+"doc://ApolloCodegenLib/s28CustomDebugStringConvertibleP": {
+  "identifier" : "doc:\/\/ApolloCodegenLib\/s28CustomDebugStringConvertibleP",
   "title" : "Swift.CustomDebugStringConvertible",
   "type" : "unresolvable"
 }

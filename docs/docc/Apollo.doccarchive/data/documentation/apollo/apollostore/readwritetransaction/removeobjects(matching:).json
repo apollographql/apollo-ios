@@ -32,15 +32,15 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction\/removeObjects(matching:)"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction\/removeObjects(matching:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -138,7 +138,7 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheKey",
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CacheKey",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:6Apollo8CacheKeya",
               "text" : "CacheKey"
@@ -249,18 +249,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloStore": {
+"doc://Apollo/documentation/Apollo/ApolloStore": {
   "abstract" : [
     {
       "text" : "The ",
@@ -289,7 +289,7 @@
       "text" : "ApolloStore"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -302,7 +302,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apollostore"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloStore/ReadWriteTransaction": {
+"doc://Apollo/documentation/Apollo/ApolloStore/ReadWriteTransaction": {
   "abstract" : [
 
   ],
@@ -320,7 +320,7 @@
       "text" : "ReadWriteTransaction"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -333,7 +333,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apollostore\/readwritetransaction"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloStore/ReadWriteTransaction/removeObjects(matching:)": {
+"doc://Apollo/documentation/Apollo/ApolloStore/ReadWriteTransaction/removeObjects(matching:)": {
   "abstract" : [
     {
       "text" : "Removes records with keys that match the specified pattern. This method will only",
@@ -403,14 +403,14 @@
       "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction\/removeObjects(matching:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction\/removeObjects(matching:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "removeObjects(matching:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apollostore\/readwritetransaction\/removeobjects(matching:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/CacheKey": {
+"doc://Apollo/documentation/Apollo/CacheKey": {
   "abstract" : [
     {
       "text" : "A cache key for a record.",
@@ -431,7 +431,7 @@
       "text" : "CacheKey"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheKey",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CacheKey",
   "kind" : "symbol",
   "navigatorTitle" : [
     {

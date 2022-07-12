@@ -8,15 +8,15 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction\/write(selectionSet:withKey:variables:)"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction\/write(selectionSet:withKey:variables:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -56,7 +56,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:6Apollo0A5StoreC20ReadWriteTransactionC5write12selectionSet7withKey9variablesyx_SSSDySS0A3API29GraphQLOperationVariableValue_pGSgtKAJ020MutableRootSelectionH0RzlF0sH0L_xmfp",
         "text" : "SelectionSet"
       },
       {
@@ -86,25 +85,25 @@
       },
       {
         "kind" : "text",
-        "text" : ": "
+        "text" : ": ["
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP",
-        "text" : "GraphQLOperation"
+        "preciseIdentifier" : "s:SS",
+        "text" : "String"
       },
       {
         "kind" : "text",
-        "text" : "."
+        "text" : " : "
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP9Variablesa",
-        "text" : "Variables"
+        "preciseIdentifier" : "s:9ApolloAPI29GraphQLOperationVariableValueP",
+        "text" : "GraphQLOperationVariableValue"
       },
       {
         "kind" : "text",
-        "text" : "?) "
+        "text" : "]?) "
       },
       {
         "kind" : "keyword",
@@ -166,7 +165,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:6Apollo0A5StoreC20ReadWriteTransactionC5write12selectionSet7withKey9variablesyx_SSSDySS0A3API29GraphQLOperationVariableValue_pGSgtKAJ020MutableRootSelectionH0RzlF0sH0L_xmfp",
               "text" : "SelectionSet"
             },
             {
@@ -190,7 +188,7 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheKey",
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CacheKey",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:6Apollo8CacheKeya",
               "text" : "CacheKey"
@@ -205,25 +203,25 @@
             },
             {
               "kind" : "text",
-              "text" : ": "
+              "text" : ": ["
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP",
-              "text" : "GraphQLOperation"
+              "preciseIdentifier" : "s:SS",
+              "text" : "String"
             },
             {
               "kind" : "text",
-              "text" : "."
+              "text" : " : "
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP9Variablesa",
-              "text" : "Variables"
+              "preciseIdentifier" : "s:9ApolloAPI29GraphQLOperationVariableValueP",
+              "text" : "GraphQLOperationVariableValue"
             },
             {
               "kind" : "text",
-              "text" : "? = nil) "
+              "text" : "]? = nil) "
             },
             {
               "kind" : "keyword",
@@ -282,18 +280,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloStore": {
+"doc://Apollo/documentation/Apollo/ApolloStore": {
   "abstract" : [
     {
       "text" : "The ",
@@ -322,7 +320,7 @@
       "text" : "ApolloStore"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -335,7 +333,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apollostore"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloStore/ReadWriteTransaction": {
+"doc://Apollo/documentation/Apollo/ApolloStore/ReadWriteTransaction": {
   "abstract" : [
 
   ],
@@ -353,7 +351,7 @@
       "text" : "ReadWriteTransaction"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -366,7 +364,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apollostore\/readwritetransaction"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloStore/ReadWriteTransaction/write(selectionSet:withKey:variables:)": {
+"doc://Apollo/documentation/Apollo/ApolloStore/ReadWriteTransaction/write(selectionSet:withKey:variables:)": {
   "abstract" : [
 
   ],
@@ -405,7 +403,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo0A5StoreC20ReadWriteTransactionC5write12selectionSet7withKey9variablesyx_SSSDySS0A3API29GraphQLOperationVariableValue_pGSgtKAJ020MutableRootSelectionH0RzlF0sH0L_xmfp",
       "text" : "SelectionSet"
     },
     {
@@ -435,39 +432,39 @@
     },
     {
       "kind" : "text",
-      "text" : ": "
+      "text" : ": ["
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP",
-      "text" : "GraphQLOperation"
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
     },
     {
       "kind" : "text",
-      "text" : "."
+      "text" : " : "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP9Variablesa",
-      "text" : "Variables"
+      "preciseIdentifier" : "s:9ApolloAPI29GraphQLOperationVariableValueP",
+      "text" : "GraphQLOperationVariableValue"
     },
     {
       "kind" : "text",
-      "text" : "?) "
+      "text" : "]?) "
     },
     {
       "kind" : "keyword",
       "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction\/write(selectionSet:withKey:variables:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction\/write(selectionSet:withKey:variables:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "write(selectionSet:withKey:variables:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apollostore\/readwritetransaction\/write(selectionset:withkey:variables:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/CacheKey": {
+"doc://Apollo/documentation/Apollo/CacheKey": {
   "abstract" : [
     {
       "text" : "A cache key for a record.",
@@ -488,7 +485,7 @@
       "text" : "CacheKey"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheKey",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CacheKey",
   "kind" : "symbol",
   "navigatorTitle" : [
     {

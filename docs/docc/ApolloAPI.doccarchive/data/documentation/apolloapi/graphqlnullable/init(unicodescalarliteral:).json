@@ -16,15 +16,15 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLNullable",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLNullable\/ExpressibleByUnicodeScalarLiteral-Implementations"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/ExpressibleByUnicodeScalarLiteral-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLNullable\/init(unicodeScalarLiteral:)"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/init(unicodeScalarLiteral:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -81,7 +81,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:9ApolloAPI15GraphQLNullableOAAs33ExpressibleByUnicodeScalarLiteralRzlE7Wrappedxmfp",
         "text" : "Wrapped"
       },
       {
@@ -90,7 +89,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:s33ExpressibleByUnicodeScalarLiteralP0cdE4TypeQa",
         "text" : "UnicodeScalarLiteralType"
       },
       {
@@ -145,7 +143,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:9ApolloAPI15GraphQLNullableOAAs33ExpressibleByUnicodeScalarLiteralRzlE7Wrappedxmfp",
               "text" : "Wrapped"
             },
             {
@@ -154,7 +151,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:s33ExpressibleByUnicodeScalarLiteralP0cdE4TypeQa",
               "text" : "UnicodeScalarLiteralType"
             },
             {
@@ -189,18 +185,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI": {
+"doc://ApolloAPI/documentation/ApolloAPI": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLNullable": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLNullable": {
   "abstract" : [
     {
       "text" : "Indicates the presence of a value, supporting both ",
@@ -237,7 +233,7 @@
       "text" : "GraphQLNullable"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLNullable",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -250,18 +246,18 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqlnullable"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLNullable/ExpressibleByUnicodeScalarLiteral-Implementations": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLNullable/ExpressibleByUnicodeScalarLiteral-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLNullable\/ExpressibleByUnicodeScalarLiteral-Implementations",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/ExpressibleByUnicodeScalarLiteral-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "ExpressibleByUnicodeScalarLiteral Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqlnullable\/expressiblebyunicodescalarliteral-implementations"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLNullable/init(unicodeScalarLiteral:)": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLNullable/init(unicodeScalarLiteral:)": {
   "abstract" : [
 
   ],
@@ -316,7 +312,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI15GraphQLNullableOAAs33ExpressibleByUnicodeScalarLiteralRzlE7Wrappedxmfp",
       "text" : "Wrapped"
     },
     {
@@ -325,7 +320,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:s33ExpressibleByUnicodeScalarLiteralP0cdE4TypeQa",
       "text" : "UnicodeScalarLiteralType"
     },
     {
@@ -333,7 +327,7 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLNullable\/init(unicodeScalarLiteral:)",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/init(unicodeScalarLiteral:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(unicodeScalarLiteral:)",

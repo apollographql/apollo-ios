@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MultipartFormData"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/MultipartFormData"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MultipartFormData\/appendPart(data:name:contentType:filename:)"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/MultipartFormData\/appendPart(data:name:contentType:filename:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -300,18 +300,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/MultipartFormData": {
+"doc://Apollo/documentation/Apollo/MultipartFormData": {
   "abstract" : [
     {
       "text" : "A helper for building out multi-part form data for upload",
@@ -332,7 +332,7 @@
       "text" : "MultipartFormData"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MultipartFormData",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/MultipartFormData",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -345,7 +345,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/multipartformdata"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/MultipartFormData/appendPart(data:name:contentType:filename:)": {
+"doc://Apollo/documentation/Apollo/MultipartFormData/appendPart(data:name:contentType:filename:)": {
   "abstract" : [
     {
       "text" : "Appends the passed-in data as a part of the body.",
@@ -438,7 +438,7 @@
       "text" : "?)"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MultipartFormData\/appendPart(data:name:contentType:filename:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/MultipartFormData\/appendPart(data:name:contentType:filename:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "appendPart(data:name:contentType:filename:)",

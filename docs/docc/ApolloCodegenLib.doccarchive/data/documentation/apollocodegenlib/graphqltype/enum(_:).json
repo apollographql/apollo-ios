@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLType"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLType"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLType\/enum(_:)"
+    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLType\/enum(_:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -85,7 +85,7 @@
               "text" : "("
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLEnumType",
+              "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLEnumType",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:16ApolloCodegenLib15GraphQLEnumTypeC",
               "text" : "GraphQLEnumType"
@@ -122,18 +122,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloCodegenLib",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/GraphQLEnumType": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLEnumType": {
   "abstract" : [
 
   ],
@@ -151,7 +151,7 @@
       "text" : "GraphQLEnumType"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLEnumType",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLEnumType",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -164,7 +164,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/graphqlenumtype"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/GraphQLType": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLType": {
   "abstract" : [
     {
       "text" : "A GraphQL type.",
@@ -185,7 +185,7 @@
       "text" : "GraphQLType"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLType",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLType",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -198,7 +198,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/graphqltype"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/GraphQLType/enum(_:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLType/enum(_:)": {
   "abstract" : [
 
   ],
@@ -229,7 +229,7 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLType\/enum(_:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLType\/enum(_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "GraphQLType.enum(_:)",

@@ -16,15 +16,15 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ResponseCodeInterceptor",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ResponseCodeInterceptor",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError\/errorDescription-6mkgn"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError\/errorDescription-6mkgn"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -138,18 +138,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ResponseCodeInterceptor": {
+"doc://Apollo/documentation/Apollo/ResponseCodeInterceptor": {
   "abstract" : [
     {
       "text" : "An interceptor to check the response code returned with a request.",
@@ -170,7 +170,7 @@
       "text" : "ResponseCodeInterceptor"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ResponseCodeInterceptor",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponseCodeInterceptor",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -183,7 +183,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/responsecodeinterceptor"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ResponseCodeInterceptor/ResponseCodeError": {
+"doc://Apollo/documentation/Apollo/ResponseCodeInterceptor/ResponseCodeError": {
   "abstract" : [
 
   ],
@@ -201,7 +201,7 @@
       "text" : "ResponseCodeError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -214,7 +214,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/responsecodeinterceptor\/responsecodeerror"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ResponseCodeInterceptor/ResponseCodeError/errorDescription-6mkgn": {
+"doc://Apollo/documentation/Apollo/ResponseCodeInterceptor/ResponseCodeError/errorDescription-6mkgn": {
   "abstract" : [
 
   ],
@@ -245,7 +245,7 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError\/errorDescription-6mkgn",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError\/errorDescription-6mkgn",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "errorDescription",

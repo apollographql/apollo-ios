@@ -16,15 +16,15 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputObject",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputObject\/Hashable-Implementations"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputObject",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputObject\/Hashable-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputObject\/hash(into:)"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputObject\/hash(into:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -171,18 +171,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI": {
+"doc://ApolloAPI/documentation/ApolloAPI": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/InputObject": {
+"doc://ApolloAPI/documentation/ApolloAPI/InputObject": {
   "abstract" : [
     {
       "text" : "An protocol for a struct that represents a GraphQL Input Object.",
@@ -203,7 +203,7 @@
       "text" : "InputObject"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputObject",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputObject",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -216,18 +216,18 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/inputobject"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/InputObject/Hashable-Implementations": {
+"doc://ApolloAPI/documentation/ApolloAPI/InputObject/Hashable-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputObject\/Hashable-Implementations",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputObject\/Hashable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Hashable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/inputobject\/hashable-implementations"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/InputObject/hash(into:)": {
+"doc://ApolloAPI/documentation/ApolloAPI/InputObject/hash(into:)": {
   "abstract" : [
 
   ],
@@ -274,7 +274,7 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputObject\/hash(into:)",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputObject\/hash(into:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "hash(into:)",

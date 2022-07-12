@@ -16,15 +16,15 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLEnum",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLEnum\/CustomScalarType-Implementations"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum\/CustomScalarType-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLEnum\/asOutputType"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum\/asOutputType"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -125,7 +125,7 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection",
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:9ApolloAPI9SelectionO",
               "text" : "Selection"
@@ -135,7 +135,7 @@
               "text" : "."
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Field",
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Field",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:9ApolloAPI9SelectionO5FieldV",
               "text" : "Field"
@@ -145,7 +145,7 @@
               "text" : "."
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Field\/OutputType",
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Field\/OutputType",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:9ApolloAPI9SelectionO5FieldV10OutputTypeO",
               "text" : "OutputType"
@@ -190,18 +190,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI": {
+"doc://ApolloAPI/documentation/ApolloAPI": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLEnum": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLEnum": {
   "abstract" : [
     {
       "text" : "A generic enum that wraps a generated enum from a GraphQL Schema.",
@@ -222,7 +222,7 @@
       "text" : "GraphQLEnum"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLEnum",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -235,18 +235,18 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqlenum"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLEnum/CustomScalarType-Implementations": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLEnum/CustomScalarType-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLEnum\/CustomScalarType-Implementations",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum\/CustomScalarType-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "CustomScalarType Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqlenum\/customscalartype-implementations"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLEnum/asOutputType": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLEnum/asOutputType": {
   "abstract" : [
 
   ],
@@ -299,14 +299,14 @@
       "text" : "OutputType"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLEnum\/asOutputType",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum\/asOutputType",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "asOutputType",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqlenum\/asoutputtype"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Selection": {
+"doc://ApolloAPI/documentation/ApolloAPI/Selection": {
   "abstract" : [
 
   ],
@@ -324,7 +324,7 @@
       "text" : "Selection"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -337,7 +337,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/selection"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Selection/Field": {
+"doc://ApolloAPI/documentation/ApolloAPI/Selection/Field": {
   "abstract" : [
 
   ],
@@ -355,7 +355,7 @@
       "text" : "Field"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Field",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Field",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -368,7 +368,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/selection\/field"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Selection/Field/OutputType": {
+"doc://ApolloAPI/documentation/ApolloAPI/Selection/Field/OutputType": {
   "abstract" : [
 
   ],
@@ -386,7 +386,7 @@
       "text" : "OutputType"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Field\/OutputType",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Field\/OutputType",
   "kind" : "symbol",
   "navigatorTitle" : [
     {

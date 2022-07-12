@@ -1,21 +1,29 @@
 {
   "abstract" : [
     {
-      "text" : "Called when this interceptor should do its work.",
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "ApolloInterceptor.interceptAsync(chain:request:response:completion:)",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONResponseParsingInterceptor"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/JSONResponseParsingInterceptor"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONResponseParsingInterceptor\/interceptAsync(chain:request:response:completion:)"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONResponseParsingInterceptor\/interceptAsync(chain:request:response:completion:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -81,7 +89,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:6Apollo30JSONResponseParsingInterceptorV14interceptAsync5chain7request8response10completionyAA12RequestChainC_AA11HTTPRequestCyxGAA12HTTPResponseCyxGSgys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0P11QLOperationRzlF9OperationL_xmfp",
         "text" : "Operation"
       },
       {
@@ -107,7 +114,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:6Apollo30JSONResponseParsingInterceptorV14interceptAsync5chain7request8response10completionyAA12RequestChainC_AA11HTTPRequestCyxGAA12HTTPResponseCyxGSgys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0P11QLOperationRzlF9OperationL_xmfp",
         "text" : "Operation"
       },
       {
@@ -142,7 +148,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:6Apollo30JSONResponseParsingInterceptorV14interceptAsync5chain7request8response10completionyAA12RequestChainC_AA11HTTPRequestCyxGAA12HTTPResponseCyxGSgys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0P11QLOperationRzlF9OperationL_xmfp",
         "text" : "Operation"
       },
       {
@@ -151,7 +156,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
         "text" : "Data"
       },
       {
@@ -231,7 +235,7 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain",
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:6Apollo12RequestChainC",
               "text" : "RequestChain"
@@ -249,7 +253,7 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPRequest",
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/HTTPRequest",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:6Apollo11HTTPRequestC",
               "text" : "HTTPRequest"
@@ -260,7 +264,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:6Apollo30JSONResponseParsingInterceptorV14interceptAsync5chain7request8response10completionyAA12RequestChainC_AA11HTTPRequestCyxGAA12HTTPResponseCyxGSgys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0P11QLOperationRzlF9OperationL_xmfp",
               "text" : "Operation"
             },
             {
@@ -276,7 +279,7 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPResponse",
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/HTTPResponse",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:6Apollo12HTTPResponseC",
               "text" : "HTTPResponse"
@@ -287,7 +290,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:6Apollo30JSONResponseParsingInterceptorV14interceptAsync5chain7request8response10completionyAA12RequestChainC_AA11HTTPRequestCyxGAA12HTTPResponseCyxGSgys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0P11QLOperationRzlF9OperationL_xmfp",
               "text" : "Operation"
             },
             {
@@ -303,7 +305,7 @@
               "text" : ": "
             },
             {
-              "kind" : "attribute",
+              "kind" : "keyword",
               "text" : "@escaping"
             },
             {
@@ -320,7 +322,7 @@
               "text" : "<"
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult",
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResult",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:6Apollo13GraphQLResultV",
               "text" : "GraphQLResult"
@@ -331,7 +333,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:6Apollo30JSONResponseParsingInterceptorV14interceptAsync5chain7request8response10completionyAA12RequestChainC_AA11HTTPRequestCyxGAA12HTTPResponseCyxGSgys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0P11QLOperationRzlF9OperationL_xmfp",
               "text" : "Operation"
             },
             {
@@ -340,7 +341,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
               "text" : "Data"
             },
             {
@@ -390,67 +390,6 @@
         }
       ],
       "kind" : "declarations"
-    },
-    {
-      "kind" : "parameters",
-      "parameters" : [
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "The chain the interceptor is a part of.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "chain"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "The request, as far as it has been constructed",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "request"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "[optional] The response, if received",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "response"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "The completion block to fire when data needs to be returned to the UI.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "completion"
-        }
-      ]
     }
   ],
   "schemaVersion" : {
@@ -475,18 +414,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResult": {
+"doc://Apollo/documentation/Apollo/GraphQLResult": {
   "abstract" : [
     {
       "text" : "Represents the result of a GraphQL operation.",
@@ -507,7 +446,7 @@
       "text" : "GraphQLResult"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResult",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -520,7 +459,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlresult"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/HTTPRequest": {
+"doc://Apollo/documentation/Apollo/HTTPRequest": {
   "abstract" : [
     {
       "text" : "Encapsulation of all information about a request before it hits the network",
@@ -541,7 +480,7 @@
       "text" : "HTTPRequest"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPRequest",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/HTTPRequest",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -554,7 +493,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/httprequest"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/HTTPResponse": {
+"doc://Apollo/documentation/Apollo/HTTPResponse": {
   "abstract" : [
     {
       "text" : "Data about a response received by an HTTP request.",
@@ -575,7 +514,7 @@
       "text" : "HTTPResponse"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPResponse",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/HTTPResponse",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -588,7 +527,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/httpresponse"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONResponseParsingInterceptor": {
+"doc://Apollo/documentation/Apollo/JSONResponseParsingInterceptor": {
   "abstract" : [
     {
       "text" : "An interceptor which parses JSON response data into a ",
@@ -625,7 +564,7 @@
       "text" : "JSONResponseParsingInterceptor"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONResponseParsingInterceptor",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONResponseParsingInterceptor",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -638,12 +577,9 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/jsonresponseparsinginterceptor"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONResponseParsingInterceptor/interceptAsync(chain:request:response:completion:)": {
+"doc://Apollo/documentation/Apollo/JSONResponseParsingInterceptor/interceptAsync(chain:request:response:completion:)": {
   "abstract" : [
-    {
-      "text" : "Called when this interceptor should do its work.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -706,7 +642,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo30JSONResponseParsingInterceptorV14interceptAsync5chain7request8response10completionyAA12RequestChainC_AA11HTTPRequestCyxGAA12HTTPResponseCyxGSgys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0P11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -732,7 +667,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo30JSONResponseParsingInterceptorV14interceptAsync5chain7request8response10completionyAA12RequestChainC_AA11HTTPRequestCyxGAA12HTTPResponseCyxGSgys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0P11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -767,7 +701,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo30JSONResponseParsingInterceptorV14interceptAsync5chain7request8response10completionyAA12RequestChainC_AA11HTTPRequestCyxGAA12HTTPResponseCyxGSgys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0P11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -776,7 +709,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
       "text" : "Data"
     },
     {
@@ -802,14 +734,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONResponseParsingInterceptor\/interceptAsync(chain:request:response:completion:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONResponseParsingInterceptor\/interceptAsync(chain:request:response:completion:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "interceptAsync(chain:request:response:completion:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/jsonresponseparsinginterceptor\/interceptasync(chain:request:response:completion:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChain": {
+"doc://Apollo/documentation/Apollo/RequestChain": {
   "abstract" : [
     {
       "text" : "A chain that allows a single network request to be created and executed.",
@@ -830,7 +762,7 @@
       "text" : "RequestChain"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain",
   "kind" : "symbol",
   "navigatorTitle" : [
     {

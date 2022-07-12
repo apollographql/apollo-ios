@@ -8,13 +8,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"
+        "doc:\/\/Apollo\/documentation\/Apollo"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -81,7 +81,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Cancellable"
+        "doc:\/\/Apollo\/documentation\/Apollo\/Cancellable"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -99,31 +99,31 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain\/init(interceptors:callbackQueue:)"
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/init(interceptors:callbackQueue:)"
       ],
       "title" : "Initializers"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain\/additionalErrorHandler",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain\/isNotCancelled"
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/additionalErrorHandler",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/isNotCancelled"
       ],
       "title" : "Instance Properties"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain\/cancel()",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain\/handleErrorAsync(_:request:response:completion:)",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain\/kickoff(request:completion:)",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain\/proceedAsync(request:response:completion:)",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain\/retry(request:completion:)",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain\/returnValueAsync(for:value:completion:)"
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/cancel()",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/handleErrorAsync(_:request:response:completion:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/kickoff(request:completion:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/proceedAsync(request:response:completion:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/retry(request:completion:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/returnValueAsync(for:value:completion:)"
       ],
       "title" : "Instance Methods"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain\/ChainError"
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/ChainError"
       ],
       "title" : "Enumerations"
     }
@@ -142,18 +142,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/Cancellable": {
+"doc://Apollo/documentation/Apollo/Cancellable": {
   "abstract" : [
     {
       "text" : "An object that can be used to cancel an in progress action.",
@@ -174,7 +174,7 @@
       "text" : "Cancellable"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Cancellable",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/Cancellable",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -187,7 +187,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/cancellable"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChain": {
+"doc://Apollo/documentation/Apollo/RequestChain": {
   "abstract" : [
     {
       "text" : "A chain that allows a single network request to be created and executed.",
@@ -208,7 +208,7 @@
       "text" : "RequestChain"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -221,7 +221,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchain"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChain/ChainError": {
+"doc://Apollo/documentation/Apollo/RequestChain/ChainError": {
   "abstract" : [
 
   ],
@@ -239,7 +239,7 @@
       "text" : "ChainError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain\/ChainError",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/ChainError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -252,7 +252,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchain\/chainerror"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChain/additionalErrorHandler": {
+"doc://Apollo/documentation/Apollo/RequestChain/additionalErrorHandler": {
   "abstract" : [
     {
       "text" : "Something which allows additional error handling to occur when some kind of error has happened.",
@@ -286,14 +286,14 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain\/additionalErrorHandler",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/additionalErrorHandler",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "additionalErrorHandler",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchain\/additionalerrorhandler"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChain/cancel()": {
+"doc://Apollo/documentation/Apollo/RequestChain/cancel()": {
   "abstract" : [
     {
       "text" : "Cancels the entire chain of interceptors.",
@@ -318,14 +318,14 @@
       "text" : "()"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain\/cancel()",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/cancel()",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "cancel()",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchain\/cancel()"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChain/handleErrorAsync(_:request:response:completion:)": {
+"doc://Apollo/documentation/Apollo/RequestChain/handleErrorAsync(_:request:response:completion:)": {
   "abstract" : [
     {
       "text" : "Handles the error by returning it on the appropriate queue, or by applying an additional error interceptor if one has been provided.",
@@ -385,7 +385,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo12RequestChainC16handleErrorAsync_7request8response10completionys0E0_p_AA11HTTPRequestCyxGAA12HTTPResponseCyxGSgys6ResultOyAA13GraphQLResultVy4DataQzGsAH_pGct0A3API0M11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -411,7 +410,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo12RequestChainC16handleErrorAsync_7request8response10completionys0E0_p_AA11HTTPRequestCyxGAA12HTTPResponseCyxGSgys6ResultOyAA13GraphQLResultVy4DataQzGsAH_pGct0A3API0M11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -446,7 +444,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo12RequestChainC16handleErrorAsync_7request8response10completionys0E0_p_AA11HTTPRequestCyxGAA12HTTPResponseCyxGSgys6ResultOyAA13GraphQLResultVy4DataQzGsAH_pGct0A3API0M11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -455,7 +452,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
       "text" : "Data"
     },
     {
@@ -481,14 +477,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain\/handleErrorAsync(_:request:response:completion:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/handleErrorAsync(_:request:response:completion:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "handleErrorAsync(_:request:response:completion:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchain\/handleerrorasync(_:request:response:completion:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChain/init(interceptors:callbackQueue:)": {
+"doc://Apollo/documentation/Apollo/RequestChain/init(interceptors:callbackQueue:)": {
   "abstract" : [
     {
       "text" : "Creates a chain with the given interceptor array.",
@@ -539,14 +535,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain\/init(interceptors:callbackQueue:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/init(interceptors:callbackQueue:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(interceptors:callbackQueue:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchain\/init(interceptors:callbackqueue:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChain/isNotCancelled": {
+"doc://Apollo/documentation/Apollo/RequestChain/isNotCancelled": {
   "abstract" : [
     {
       "text" : "Checks the underlying value of ",
@@ -592,14 +588,14 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain\/isNotCancelled",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/isNotCancelled",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "isNotCancelled",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchain\/isnotcancelled"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChain/kickoff(request:completion:)": {
+"doc://Apollo/documentation/Apollo/RequestChain/kickoff(request:completion:)": {
   "abstract" : [
     {
       "text" : "Kicks off the request from the beginning of the interceptor array.",
@@ -650,7 +646,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo12RequestChainC7kickoff7request10completionyAA11HTTPRequestCyxG_ys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0I11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -685,7 +680,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo12RequestChainC7kickoff7request10completionyAA11HTTPRequestCyxG_ys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0I11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -694,7 +688,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
       "text" : "Data"
     },
     {
@@ -720,14 +713,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain\/kickoff(request:completion:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/kickoff(request:completion:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "kickoff(request:completion:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchain\/kickoff(request:completion:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChain/proceedAsync(request:response:completion:)": {
+"doc://Apollo/documentation/Apollo/RequestChain/proceedAsync(request:response:completion:)": {
   "abstract" : [
     {
       "text" : "Proceeds to the next interceptor in the array.",
@@ -778,7 +771,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo12RequestChainC12proceedAsync7request8response10completionyAA11HTTPRequestCyxG_AA12HTTPResponseCyxGSgys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0L11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -804,7 +796,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo12RequestChainC12proceedAsync7request8response10completionyAA11HTTPRequestCyxG_AA12HTTPResponseCyxGSgys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0L11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -839,7 +830,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo12RequestChainC12proceedAsync7request8response10completionyAA11HTTPRequestCyxG_AA12HTTPResponseCyxGSgys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0L11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -848,7 +838,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
       "text" : "Data"
     },
     {
@@ -874,14 +863,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain\/proceedAsync(request:response:completion:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/proceedAsync(request:response:completion:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "proceedAsync(request:response:completion:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchain\/proceedasync(request:response:completion:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChain/retry(request:completion:)": {
+"doc://Apollo/documentation/Apollo/RequestChain/retry(request:completion:)": {
   "abstract" : [
     {
       "text" : "Restarts the request starting from the first interceptor.",
@@ -932,7 +921,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo12RequestChainC5retry7request10completionyAA11HTTPRequestCyxG_ys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0I11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -967,7 +955,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo12RequestChainC5retry7request10completionyAA11HTTPRequestCyxG_ys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0I11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -976,7 +963,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
       "text" : "Data"
     },
     {
@@ -1002,14 +988,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain\/retry(request:completion:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/retry(request:completion:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "retry(request:completion:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchain\/retry(request:completion:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChain/returnValueAsync(for:value:completion:)": {
+"doc://Apollo/documentation/Apollo/RequestChain/returnValueAsync(for:value:completion:)": {
   "abstract" : [
     {
       "text" : "Handles a resulting value by returning it on the appropriate queue.",
@@ -1060,7 +1046,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo12RequestChainC16returnValueAsync3for5value10completionyAA11HTTPRequestCyxG_AA13GraphQLResultVy4DataQzGys6ResultOyAOs5Error_pGct0A3API0K11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -1086,7 +1071,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo12RequestChainC16returnValueAsync3for5value10completionyAA11HTTPRequestCyxG_AA13GraphQLResultVy4DataQzGys6ResultOyAOs5Error_pGct0A3API0K11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -1095,7 +1079,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
       "text" : "Data"
     },
     {
@@ -1130,7 +1113,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo12RequestChainC16returnValueAsync3for5value10completionyAA11HTTPRequestCyxG_AA13GraphQLResultVy4DataQzGys6ResultOyAOs5Error_pGct0A3API0K11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -1139,7 +1121,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
       "text" : "Data"
     },
     {
@@ -1165,7 +1146,7 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain\/returnValueAsync(for:value:completion:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/returnValueAsync(for:value:completion:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "returnValueAsync(for:value:completion:)",

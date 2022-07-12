@@ -16,15 +16,15 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ResponsePath",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ResponsePath\/CustomStringConvertible-Implementations"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ResponsePath",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ResponsePath\/CustomStringConvertible-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ResponsePath\/description"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponsePath\/description"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -135,18 +135,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ResponsePath": {
+"doc://Apollo/documentation/Apollo/ResponsePath": {
   "abstract" : [
     {
       "text" : "Represents a list of string components joined into a path using a reverse linked list.",
@@ -167,7 +167,7 @@
       "text" : "ResponsePath"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ResponsePath",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponsePath",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -180,18 +180,18 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/responsepath"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ResponsePath/CustomStringConvertible-Implementations": {
+"doc://Apollo/documentation/Apollo/ResponsePath/CustomStringConvertible-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ResponsePath\/CustomStringConvertible-Implementations",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponsePath\/CustomStringConvertible-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "CustomStringConvertible Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/responsepath\/customstringconvertible-implementations"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ResponsePath/description": {
+"doc://Apollo/documentation/Apollo/ResponsePath/description": {
   "abstract" : [
 
   ],
@@ -218,7 +218,7 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ResponsePath\/description",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponsePath\/description",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "description",

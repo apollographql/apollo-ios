@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/mergeDocuments(_:)"
+    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/mergeDocuments(_:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -114,7 +114,7 @@
               "text" : ": ["
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLDocument",
+              "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLDocument",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:16ApolloCodegenLib15GraphQLDocumentC",
               "text" : "GraphQLDocument"
@@ -132,7 +132,7 @@
               "text" : " -> "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLDocument",
+              "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLDocument",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:16ApolloCodegenLib15GraphQLDocumentC",
               "text" : "GraphQLDocument"
@@ -165,18 +165,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloCodegenLib",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/GraphQLDocument": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLDocument": {
   "abstract" : [
     {
       "text" : "A parsed GraphQL document.",
@@ -197,7 +197,7 @@
       "text" : "GraphQLDocument"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLDocument",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLDocument",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -210,7 +210,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/graphqldocument"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/GraphQLJSFrontend": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLJSFrontend": {
   "abstract" : [
 
   ],
@@ -228,7 +228,7 @@
       "text" : "GraphQLJSFrontend"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -241,7 +241,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/graphqljsfrontend"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/GraphQLJSFrontend/mergeDocuments(_:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLJSFrontend/mergeDocuments(_:)": {
   "abstract" : [
     {
       "text" : "Validation and compilation take a single document, but you can merge documents, and operations and fragments will remember their source.",
@@ -288,7 +288,7 @@
       "text" : "GraphQLDocument"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/mergeDocuments(_:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/mergeDocuments(_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "mergeDocuments(_:)",

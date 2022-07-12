@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/JSONRequest"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/requestBodyCreator"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONRequest\/requestBodyCreator"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -81,7 +81,7 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestBodyCreator",
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestBodyCreator",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:6Apollo18RequestBodyCreatorP",
               "text" : "RequestBodyCreator"
@@ -114,18 +114,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONRequest": {
+"doc://Apollo/documentation/Apollo/JSONRequest": {
   "abstract" : [
     {
       "text" : "A request which sends JSON related to a GraphQL operation.",
@@ -146,7 +146,7 @@
       "text" : "JSONRequest"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONRequest",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -159,7 +159,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/jsonrequest"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONRequest/requestBodyCreator": {
+"doc://Apollo/documentation/Apollo/JSONRequest/requestBodyCreator": {
   "abstract" : [
 
   ],
@@ -186,14 +186,14 @@
       "text" : "RequestBodyCreator"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/requestBodyCreator",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONRequest\/requestBodyCreator",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "requestBodyCreator",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/jsonrequest\/requestbodycreator"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestBodyCreator": {
+"doc://Apollo/documentation/Apollo/RequestBodyCreator": {
   "abstract" : [
 
   ],
@@ -211,7 +211,7 @@
       "text" : "RequestBodyCreator"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestBodyCreator",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestBodyCreator",
   "kind" : "symbol",
   "navigatorTitle" : [
     {

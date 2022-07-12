@@ -1,21 +1,29 @@
 {
   "abstract" : [
     {
-      "text" : "Send a GraphQL operation to a server and return a response.",
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "NetworkTransport.send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport\/send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -55,7 +63,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:6Apollo28RequestChainNetworkTransportC4send9operation11cachePolicy17contextIdentifier13callbackQueue17completionHandlerAA11Cancellable_px_AA05CacheI0O10Foundation4UUIDVSgSo17OS_dispatch_queueCys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0X11QLOperationRzlF9OperationL_xmfp",
         "text" : "Operation"
       },
       {
@@ -141,7 +148,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:6Apollo28RequestChainNetworkTransportC4send9operation11cachePolicy17contextIdentifier13callbackQueue17completionHandlerAA11Cancellable_px_AA05CacheI0O10Foundation4UUIDVSgSo17OS_dispatch_queueCys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0X11QLOperationRzlF9OperationL_xmfp",
         "text" : "Operation"
       },
       {
@@ -150,7 +156,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
         "text" : "Data"
       },
       {
@@ -236,7 +241,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:6Apollo28RequestChainNetworkTransportC4send9operation11cachePolicy17contextIdentifier13callbackQueue17completionHandlerAA11Cancellable_px_AA05CacheI0O10Foundation4UUIDVSgSo17OS_dispatch_queueCys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0X11QLOperationRzlF9OperationL_xmfp",
               "text" : "Operation"
             },
             {
@@ -252,7 +256,7 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CachePolicy",
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CachePolicy",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:6Apollo11CachePolicyO",
               "text" : "CachePolicy"
@@ -304,7 +308,7 @@
               "text" : ": "
             },
             {
-              "kind" : "attribute",
+              "kind" : "keyword",
               "text" : "@escaping"
             },
             {
@@ -321,7 +325,7 @@
               "text" : "<"
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult",
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResult",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:6Apollo13GraphQLResultV",
               "text" : "GraphQLResult"
@@ -332,7 +336,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:6Apollo28RequestChainNetworkTransportC4send9operation11cachePolicy17contextIdentifier13callbackQueue17completionHandlerAA11Cancellable_px_AA05CacheI0O10Foundation4UUIDVSgSo17OS_dispatch_queueCys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0X11QLOperationRzlF9OperationL_xmfp",
               "text" : "Operation"
             },
             {
@@ -341,7 +344,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
               "text" : "Data"
             },
             {
@@ -367,7 +369,7 @@
               "text" : ") -> "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Cancellable",
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/Cancellable",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:6Apollo11CancellableP",
               "text" : "Cancellable"
@@ -401,193 +403,6 @@
         }
       ],
       "kind" : "declarations"
-    },
-    {
-      "content" : [
-        {
-          "anchor" : "return-value",
-          "level" : 2,
-          "text" : "Return Value",
-          "type" : "heading"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "An object that can be used to cancel an in progress request.",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        }
-      ],
-      "kind" : "content"
-    },
-    {
-      "kind" : "parameters",
-      "parameters" : [
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "The operation to send.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "operation"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "The ",
-                  "type" : "text"
-                },
-                {
-                  "code" : "CachePolicy",
-                  "type" : "codeVoice"
-                },
-                {
-                  "text" : " to use making this request.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "cachePolicy"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "[optional] A unique identifier for this request, to help with deduping cache hits for watchers. Defaults to ",
-                  "type" : "text"
-                },
-                {
-                  "code" : "nil",
-                  "type" : "codeVoice"
-                },
-                {
-                  "text" : ".",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "contextIdentifier"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "The queue to call back on with the results. Should default to ",
-                  "type" : "text"
-                },
-                {
-                  "code" : ".main",
-                  "type" : "codeVoice"
-                },
-                {
-                  "text" : ".",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "callbackQueue"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "A closure to call when a request completes. On ",
-                  "type" : "text"
-                },
-                {
-                  "code" : "success",
-                  "type" : "codeVoice"
-                },
-                {
-                  "text" : " will contain the response received from the server. On ",
-                  "type" : "text"
-                },
-                {
-                  "code" : "failure",
-                  "type" : "codeVoice"
-                },
-                {
-                  "text" : " will contain the error which occurred.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "completionHandler"
-        }
-      ]
-    },
-    {
-      "content" : [
-        {
-          "anchor" : "discussion",
-          "level" : 2,
-          "text" : "Discussion",
-          "type" : "heading"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "Note if you’re implementing this yourself rather than using one of the batteries-included versions of ",
-              "type" : "text"
-            },
-            {
-              "code" : "NetworkTransport",
-              "type" : "codeVoice"
-            },
-            {
-              "text" : " (which handle this for you): The ",
-              "type" : "text"
-            },
-            {
-              "code" : "clientName",
-              "type" : "codeVoice"
-            },
-            {
-              "text" : " and ",
-              "type" : "text"
-            },
-            {
-              "code" : "clientVersion",
-              "type" : "codeVoice"
-            },
-            {
-              "text" : " should be sent with any URL request which needs headers so your client can be identified by tools meant to see what client is using which request. The ",
-              "type" : "text"
-            },
-            {
-              "code" : "addApolloClientHeaders",
-              "type" : "codeVoice"
-            },
-            {
-              "text" : " method is provided below to do this for you if you’re using Apollo Studio.",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        }
-      ],
-      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -612,18 +427,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/CachePolicy": {
+"doc://Apollo/documentation/Apollo/CachePolicy": {
   "abstract" : [
     {
       "text" : "A cache policy that specifies whether results should be fetched from the server or loaded from the local cache.",
@@ -644,7 +459,7 @@
       "text" : "CachePolicy"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CachePolicy",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CachePolicy",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -657,7 +472,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/cachepolicy"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/Cancellable": {
+"doc://Apollo/documentation/Apollo/Cancellable": {
   "abstract" : [
     {
       "text" : "An object that can be used to cancel an in progress action.",
@@ -678,7 +493,7 @@
       "text" : "Cancellable"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Cancellable",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/Cancellable",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -691,7 +506,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/cancellable"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResult": {
+"doc://Apollo/documentation/Apollo/GraphQLResult": {
   "abstract" : [
     {
       "text" : "Represents the result of a GraphQL operation.",
@@ -712,7 +527,7 @@
       "text" : "GraphQLResult"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResult",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -725,7 +540,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlresult"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChainNetworkTransport": {
+"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport": {
   "abstract" : [
     {
       "text" : "An implementation of ",
@@ -770,7 +585,7 @@
       "text" : "RequestChainNetworkTransport"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -783,12 +598,9 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchainnetworktransport"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChainNetworkTransport/send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)": {
+"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport/send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)": {
   "abstract" : [
-    {
-      "text" : "Send a GraphQL operation to a server and return a response.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -825,7 +637,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo28RequestChainNetworkTransportC4send9operation11cachePolicy17contextIdentifier13callbackQueue17completionHandlerAA11Cancellable_px_AA05CacheI0O10Foundation4UUIDVSgSo17OS_dispatch_queueCys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0X11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -911,7 +722,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo28RequestChainNetworkTransportC4send9operation11cachePolicy17contextIdentifier13callbackQueue17completionHandlerAA11Cancellable_px_AA05CacheI0O10Foundation4UUIDVSgSo17OS_dispatch_queueCys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0X11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -920,7 +730,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
       "text" : "Data"
     },
     {
@@ -951,7 +760,7 @@
       "text" : "Cancellable"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport\/send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)",

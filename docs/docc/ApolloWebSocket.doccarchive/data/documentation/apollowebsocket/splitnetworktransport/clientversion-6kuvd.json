@@ -1,22 +1,30 @@
 {
   "abstract" : [
     {
-      "text" : "The version of the client to send as a header value.",
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "NetworkTransport.clientVersion",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SplitNetworkTransport",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/NetworkTransport-Implementations"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/NetworkTransport-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/clientVersion-6kuvd"
+    "url" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/clientVersion-6kuvd"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -127,18 +135,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloWebSocket",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SplitNetworkTransport": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SplitNetworkTransport": {
   "abstract" : [
     {
       "text" : "A network transport that sends subscriptions using one ",
@@ -175,7 +183,7 @@
       "text" : "SplitNetworkTransport"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SplitNetworkTransport",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -188,23 +196,20 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/splitnetworktransport"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SplitNetworkTransport/NetworkTransport-Implementations": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SplitNetworkTransport/NetworkTransport-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/NetworkTransport-Implementations",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/NetworkTransport-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "NetworkTransport Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/splitnetworktransport\/networktransport-implementations"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SplitNetworkTransport/clientVersion-6kuvd": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SplitNetworkTransport/clientVersion-6kuvd": {
   "abstract" : [
-    {
-      "text" : "The version of the client to send as a header value.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -229,7 +234,7 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/clientVersion-6kuvd",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/clientVersion-6kuvd",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "clientVersion",

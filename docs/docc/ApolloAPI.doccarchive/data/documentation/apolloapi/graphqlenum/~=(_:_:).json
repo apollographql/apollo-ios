@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLEnum"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLEnum\/~=(_:_:)"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum\/~=(_:_:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -84,7 +84,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:9ApolloAPI11GraphQLEnumO1Txmfp",
         "text" : "T"
       },
       {
@@ -102,7 +101,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:9ApolloAPI11GraphQLEnumO1Txmfp",
         "text" : "T"
       },
       {
@@ -174,7 +172,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:9ApolloAPI11GraphQLEnumO1Txmfp",
               "text" : "T"
             },
             {
@@ -190,7 +187,7 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLEnum",
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:9ApolloAPI11GraphQLEnumO",
               "text" : "GraphQLEnum"
@@ -201,7 +198,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:9ApolloAPI11GraphQLEnumO1Txmfp",
               "text" : "T"
             },
             {
@@ -241,18 +237,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI": {
+"doc://ApolloAPI/documentation/ApolloAPI": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLEnum": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLEnum": {
   "abstract" : [
     {
       "text" : "A generic enum that wraps a generated enum from a GraphQL Schema.",
@@ -273,7 +269,7 @@
       "text" : "GraphQLEnum"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLEnum",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -286,7 +282,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqlenum"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLEnum/~=(_:_:)": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLEnum/~=(_:_:)": {
   "abstract" : [
 
   ],
@@ -353,7 +349,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI11GraphQLEnumO1Txmfp",
       "text" : "T"
     },
     {
@@ -371,7 +366,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI11GraphQLEnumO1Txmfp",
       "text" : "T"
     },
     {
@@ -384,7 +378,7 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLEnum\/~=(_:_:)",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum\/~=(_:_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "~=(_:_:)",

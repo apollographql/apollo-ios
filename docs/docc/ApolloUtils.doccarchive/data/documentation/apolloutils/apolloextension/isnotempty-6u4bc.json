@@ -16,14 +16,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ApolloExtension"
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/ApolloExtension"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ApolloExtension\/isNotEmpty-6u4bc"
+    "url" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/ApolloExtension\/isNotEmpty-6u4bc"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -194,18 +194,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils": {
+"doc://ApolloUtils/documentation/ApolloUtils": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloUtils",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/ApolloExtension": {
+"doc://ApolloUtils/documentation/ApolloUtils/ApolloExtension": {
   "abstract" : [
     {
       "text" : "Wrapper to allow calls to extended methods and vars as object.apollo.method",
@@ -226,7 +226,7 @@
       "text" : "ApolloExtension"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ApolloExtension",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/ApolloExtension",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -239,7 +239,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/apolloextension"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/ApolloExtension/isNotEmpty-6u4bc": {
+"doc://ApolloUtils/documentation/ApolloUtils/ApolloExtension/isNotEmpty-6u4bc": {
   "abstract" : [
     {
       "text" : "Convenience helper to make ",
@@ -309,7 +309,7 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ApolloExtension\/isNotEmpty-6u4bc",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/ApolloExtension\/isNotEmpty-6u4bc",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "isNotEmpty",

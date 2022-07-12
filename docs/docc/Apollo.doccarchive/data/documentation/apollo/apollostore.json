@@ -16,13 +16,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"
+        "doc:\/\/Apollo\/documentation\/Apollo"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -97,24 +97,24 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore\/ReadTransaction",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction"
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/ReadTransaction",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction"
       ],
       "title" : "Classes"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore\/init(cache:)"
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/init(cache:)"
       ],
       "title" : "Initializers"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore\/clearCache(callbackQueue:completion:)",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore\/load(_:callbackQueue:resultHandler:)",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore\/publish(records:identifier:callbackQueue:completion:)",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore\/withinReadTransaction(_:callbackQueue:completion:)",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore\/withinReadWriteTransaction(_:callbackQueue:completion:)"
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/clearCache(callbackQueue:completion:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/load(_:callbackQueue:resultHandler:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/publish(records:identifier:callbackQueue:completion:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/withinReadTransaction(_:callbackQueue:completion:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/withinReadWriteTransaction(_:callbackQueue:completion:)"
       ],
       "title" : "Instance Methods"
     }
@@ -133,18 +133,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloStore": {
+"doc://Apollo/documentation/Apollo/ApolloStore": {
   "abstract" : [
     {
       "text" : "The ",
@@ -173,7 +173,7 @@
       "text" : "ApolloStore"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -186,7 +186,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apollostore"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloStore/ReadTransaction": {
+"doc://Apollo/documentation/Apollo/ApolloStore/ReadTransaction": {
   "abstract" : [
 
   ],
@@ -204,7 +204,7 @@
       "text" : "ReadTransaction"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore\/ReadTransaction",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/ReadTransaction",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -217,7 +217,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apollostore\/readtransaction"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloStore/ReadWriteTransaction": {
+"doc://Apollo/documentation/Apollo/ApolloStore/ReadWriteTransaction": {
   "abstract" : [
 
   ],
@@ -235,7 +235,7 @@
       "text" : "ReadWriteTransaction"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -248,7 +248,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apollostore\/readwritetransaction"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloStore/clearCache(callbackQueue:completion:)": {
+"doc://Apollo/documentation/Apollo/ApolloStore/clearCache(callbackQueue:completion:)": {
   "abstract" : [
     {
       "text" : "Clears the instance of the cache. Note that a cache can be shared across multiple ",
@@ -342,14 +342,14 @@
       "text" : ")?)"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore\/clearCache(callbackQueue:completion:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/clearCache(callbackQueue:completion:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "clearCache(callbackQueue:completion:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apollostore\/clearcache(callbackqueue:completion:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloStore/init(cache:)": {
+"doc://Apollo/documentation/Apollo/ApolloStore/init(cache:)": {
   "abstract" : [
     {
       "text" : "Designated initializer",
@@ -383,14 +383,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore\/init(cache:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/init(cache:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(cache:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apollostore\/init(cache:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloStore/load(_:callbackQueue:resultHandler:)": {
+"doc://Apollo/documentation/Apollo/ApolloStore/load(_:callbackQueue:resultHandler:)": {
   "abstract" : [
     {
       "text" : "Loads the results for the given query from the cache.",
@@ -424,7 +424,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo0A5StoreC4load_13callbackQueue13resultHandleryx_So17OS_dispatch_queueCSgys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0L11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -467,7 +466,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo0A5StoreC4load_13callbackQueue13resultHandleryx_So17OS_dispatch_queueCSgys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0L11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -476,7 +474,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
       "text" : "Data"
     },
     {
@@ -484,14 +481,14 @@
       "text" : ">)"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore\/load(_:callbackQueue:resultHandler:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/load(_:callbackQueue:resultHandler:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "load(_:callbackQueue:resultHandler:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apollostore\/load(_:callbackqueue:resulthandler:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloStore/publish(records:identifier:callbackQueue:completion:)": {
+"doc://Apollo/documentation/Apollo/ApolloStore/publish(records:identifier:callbackQueue:completion:)": {
   "abstract" : [
     {
       "text" : "Merges a ",
@@ -619,14 +616,14 @@
       "text" : ")?)"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore\/publish(records:identifier:callbackQueue:completion:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/publish(records:identifier:callbackQueue:completion:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "publish(records:identifier:callbackQueue:completion:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apollostore\/publish(records:identifier:callbackqueue:completion:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloStore/withinReadTransaction(_:callbackQueue:completion:)": {
+"doc://Apollo/documentation/Apollo/ApolloStore/withinReadTransaction(_:callbackQueue:completion:)": {
   "abstract" : [
     {
       "text" : "Performs an operation within a read transaction",
@@ -660,6 +657,15 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo0A5StoreC",
+      "text" : "ApolloStore"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:6Apollo0A5StoreC15ReadTransactionC",
       "text" : "ReadTransaction"
     },
@@ -677,7 +683,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo0A5StoreC21withinReadTransaction_13callbackQueue10completionyxAC0dE0CKc_So17OS_dispatch_queueCSgys6ResultOyxs5Error_pGcSgtlF1TL_xmfp",
       "text" : "T"
     },
     {
@@ -720,7 +725,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo0A5StoreC21withinReadTransaction_13callbackQueue10completionyxAC0dE0CKc_So17OS_dispatch_queueCSgys6ResultOyxs5Error_pGcSgtlF1TL_xmfp",
       "text" : "T"
     },
     {
@@ -746,14 +750,14 @@
       "text" : ")?)"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore\/withinReadTransaction(_:callbackQueue:completion:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/withinReadTransaction(_:callbackQueue:completion:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "withinReadTransaction(_:callbackQueue:completion:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apollostore\/withinreadtransaction(_:callbackqueue:completion:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloStore/withinReadWriteTransaction(_:callbackQueue:completion:)": {
+"doc://Apollo/documentation/Apollo/ApolloStore/withinReadWriteTransaction(_:callbackQueue:completion:)": {
   "abstract" : [
     {
       "text" : "Performs an operation within a read-write transaction",
@@ -787,6 +791,15 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo0A5StoreC",
+      "text" : "ApolloStore"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:6Apollo0A5StoreC20ReadWriteTransactionC",
       "text" : "ReadWriteTransaction"
     },
@@ -804,7 +817,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo0A5StoreC26withinReadWriteTransaction_13callbackQueue10completionyxAC0deF0CKc_So17OS_dispatch_queueCSgys6ResultOyxs5Error_pGcSgtlF1TL_xmfp",
       "text" : "T"
     },
     {
@@ -847,7 +859,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo0A5StoreC26withinReadWriteTransaction_13callbackQueue10completionyxAC0deF0CKc_So17OS_dispatch_queueCSgys6ResultOyxs5Error_pGcSgtlF1TL_xmfp",
       "text" : "T"
     },
     {
@@ -873,7 +884,7 @@
       "text" : ")?)"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore\/withinReadWriteTransaction(_:callbackQueue:completion:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/withinReadWriteTransaction(_:callbackQueue:completion:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "withinReadWriteTransaction(_:callbackQueue:completion:)",

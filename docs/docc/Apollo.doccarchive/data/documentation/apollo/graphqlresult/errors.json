@@ -16,14 +16,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResult"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult\/errors"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResult\/errors"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -93,7 +93,7 @@
               "text" : ": ["
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLError",
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLError",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:6Apollo12GraphQLErrorV",
               "text" : "GraphQLError"
@@ -130,18 +130,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLError": {
+"doc://Apollo/documentation/Apollo/GraphQLError": {
   "abstract" : [
     {
       "text" : "Represents an error encountered during the execution of a GraphQL operation.",
@@ -162,7 +162,7 @@
       "text" : "GraphQLError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLError",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -175,7 +175,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlerror"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResult": {
+"doc://Apollo/documentation/Apollo/GraphQLResult": {
   "abstract" : [
     {
       "text" : "Represents the result of a GraphQL operation.",
@@ -196,7 +196,7 @@
       "text" : "GraphQLResult"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResult",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -209,7 +209,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlresult"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResult/errors": {
+"doc://Apollo/documentation/Apollo/GraphQLResult/errors": {
   "abstract" : [
     {
       "text" : "A list of errors, or ",
@@ -251,7 +251,7 @@
       "text" : "]?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult\/errors",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResult\/errors",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "errors",

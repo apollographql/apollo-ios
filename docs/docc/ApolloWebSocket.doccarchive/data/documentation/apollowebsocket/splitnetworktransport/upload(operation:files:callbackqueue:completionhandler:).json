@@ -1,22 +1,30 @@
 {
   "abstract" : [
     {
-      "text" : "Uploads the given files with the given operation.",
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "UploadingNetworkTransport.upload(operation:files:callbackQueue:completionHandler:)",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SplitNetworkTransport",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/UploadingNetworkTransport-Implementations"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/UploadingNetworkTransport-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/upload(operation:files:callbackQueue:completionHandler:)"
+    "url" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/upload(operation:files:callbackQueue:completionHandler:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -57,7 +65,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:15ApolloWebSocket21SplitNetworkTransportC6upload9operation5files13callbackQueue17completionHandler0A011Cancellable_px_SayAI11GraphQLFileVGSo17OS_dispatch_queueCys6ResultOyAI0O8QLResultVy4DataQzGs5Error_pGct0A3API0O11QLOperationRzlF9OperationL_xmfp",
         "text" : "Operation"
       },
       {
@@ -126,7 +133,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:15ApolloWebSocket21SplitNetworkTransportC6upload9operation5files13callbackQueue17completionHandler0A011Cancellable_px_SayAI11GraphQLFileVGSo17OS_dispatch_queueCys6ResultOyAI0O8QLResultVy4DataQzGs5Error_pGct0A3API0O11QLOperationRzlF9OperationL_xmfp",
         "text" : "Operation"
       },
       {
@@ -135,7 +141,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
         "text" : "Data"
       },
       {
@@ -221,7 +226,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:15ApolloWebSocket21SplitNetworkTransportC6upload9operation5files13callbackQueue17completionHandler0A011Cancellable_px_SayAI11GraphQLFileVGSo17OS_dispatch_queueCys6ResultOyAI0O8QLResultVy4DataQzGs5Error_pGct0A3API0O11QLOperationRzlF9OperationL_xmfp",
               "text" : "Operation"
             },
             {
@@ -271,7 +275,7 @@
               "text" : ": "
             },
             {
-              "kind" : "attribute",
+              "kind" : "keyword",
               "text" : "@escaping"
             },
             {
@@ -298,7 +302,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:15ApolloWebSocket21SplitNetworkTransportC6upload9operation5files13callbackQueue17completionHandler0A011Cancellable_px_SayAI11GraphQLFileVGSo17OS_dispatch_queueCys6ResultOyAI0O8QLResultVy4DataQzGs5Error_pGct0A3API0O11QLOperationRzlF9OperationL_xmfp",
               "text" : "Operation"
             },
             {
@@ -307,7 +310,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
               "text" : "Data"
             },
             {
@@ -366,103 +368,6 @@
         }
       ],
       "kind" : "declarations"
-    },
-    {
-      "content" : [
-        {
-          "anchor" : "return-value",
-          "level" : 2,
-          "text" : "Return Value",
-          "type" : "heading"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "An object that can be used to cancel an in progress request.",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        }
-      ],
-      "kind" : "content"
-    },
-    {
-      "kind" : "parameters",
-      "parameters" : [
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "The operation to send",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "operation"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "An array of ",
-                  "type" : "text"
-                },
-                {
-                  "code" : "GraphQLFile",
-                  "type" : "codeVoice"
-                },
-                {
-                  "text" : " objects to send.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "files"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "The queue to call back on with the results. Should default to ",
-                  "type" : "text"
-                },
-                {
-                  "code" : ".main",
-                  "type" : "codeVoice"
-                },
-                {
-                  "text" : ".",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "callbackQueue"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "The completion handler to execute when the request completes or errors",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "completionHandler"
-        }
-      ]
     }
   ],
   "schemaVersion" : {
@@ -487,18 +392,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloWebSocket",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SplitNetworkTransport": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SplitNetworkTransport": {
   "abstract" : [
     {
       "text" : "A network transport that sends subscriptions using one ",
@@ -535,7 +440,7 @@
       "text" : "SplitNetworkTransport"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SplitNetworkTransport",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -548,23 +453,20 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/splitnetworktransport"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SplitNetworkTransport/UploadingNetworkTransport-Implementations": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SplitNetworkTransport/UploadingNetworkTransport-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/UploadingNetworkTransport-Implementations",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/UploadingNetworkTransport-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "UploadingNetworkTransport Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/splitnetworktransport\/uploadingnetworktransport-implementations"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SplitNetworkTransport/upload(operation:files:callbackQueue:completionHandler:)": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SplitNetworkTransport/upload(operation:files:callbackQueue:completionHandler:)": {
   "abstract" : [
-    {
-      "text" : "Uploads the given files with the given operation.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -601,7 +503,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:15ApolloWebSocket21SplitNetworkTransportC6upload9operation5files13callbackQueue17completionHandler0A011Cancellable_px_SayAI11GraphQLFileVGSo17OS_dispatch_queueCys6ResultOyAI0O8QLResultVy4DataQzGs5Error_pGct0A3API0O11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -670,7 +571,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:15ApolloWebSocket21SplitNetworkTransportC6upload9operation5files13callbackQueue17completionHandler0A011Cancellable_px_SayAI11GraphQLFileVGSo17OS_dispatch_queueCys6ResultOyAI0O8QLResultVy4DataQzGs5Error_pGct0A3API0O11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -679,7 +579,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
       "text" : "Data"
     },
     {
@@ -710,7 +609,7 @@
       "text" : "Cancellable"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/upload(operation:files:callbackQueue:completionHandler:)",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/upload(operation:files:callbackQueue:completionHandler:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "upload(operation:files:callbackQueue:completionHandler:)",

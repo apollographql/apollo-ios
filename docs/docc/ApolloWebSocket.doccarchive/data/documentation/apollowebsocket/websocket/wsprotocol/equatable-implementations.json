@@ -8,15 +8,15 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/WSProtocol"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/WSProtocol"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/WSProtocol\/Equatable-Implementations"
+    "url" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/WSProtocol\/Equatable-Implementations"
   },
   "kind" : "article",
   "metadata" : {
@@ -40,7 +40,7 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/WSProtocol\/!=(_:_:)"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/WSProtocol\/!=(_:_:)"
       ],
       "title" : "Operators"
     }
@@ -59,18 +59,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloWebSocket",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocket": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocket": {
   "abstract" : [
 
   ],
@@ -88,7 +88,7 @@
       "text" : "WebSocket"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -101,7 +101,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocket"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocket/WSProtocol": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocket/WSProtocol": {
   "abstract" : [
     {
       "text" : "The GraphQL over WebSocket protocols supported by apollo-ios.",
@@ -122,7 +122,7 @@
       "text" : "WSProtocol"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/WSProtocol",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/WSProtocol",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -135,7 +135,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocket\/wsprotocol"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocket/WSProtocol/!=(_:_:)": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocket/WSProtocol/!=(_:_:)": {
   "abstract" : [
 
   ],
@@ -190,7 +190,7 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/WSProtocol\/!=(_:_:)",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/WSProtocol\/!=(_:_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "!=(_:_:)",

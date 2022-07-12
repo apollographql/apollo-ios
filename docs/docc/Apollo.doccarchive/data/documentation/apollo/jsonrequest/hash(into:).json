@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/JSONRequest"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/hash(into:)"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONRequest\/hash(into:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -169,18 +169,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONRequest": {
+"doc://Apollo/documentation/Apollo/JSONRequest": {
   "abstract" : [
     {
       "text" : "A request which sends JSON related to a GraphQL operation.",
@@ -201,7 +201,7 @@
       "text" : "JSONRequest"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONRequest",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -214,7 +214,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/jsonrequest"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONRequest/hash(into:)": {
+"doc://Apollo/documentation/Apollo/JSONRequest/hash(into:)": {
   "abstract" : [
 
   ],
@@ -261,7 +261,7 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/hash(into:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONRequest\/hash(into:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "hash(into:)",

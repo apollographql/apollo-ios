@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLQueryWatcher"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLQueryWatcher"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLQueryWatcher\/refetch(cachePolicy:)"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLQueryWatcher\/refetch(cachePolicy:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -101,7 +101,7 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CachePolicy",
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CachePolicy",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:6Apollo11CachePolicyO",
               "text" : "CachePolicy"
@@ -138,18 +138,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/CachePolicy": {
+"doc://Apollo/documentation/Apollo/CachePolicy": {
   "abstract" : [
     {
       "text" : "A cache policy that specifies whether results should be fetched from the server or loaded from the local cache.",
@@ -170,7 +170,7 @@
       "text" : "CachePolicy"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CachePolicy",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CachePolicy",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -183,7 +183,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/cachepolicy"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLQueryWatcher": {
+"doc://Apollo/documentation/Apollo/GraphQLQueryWatcher": {
   "abstract" : [
     {
       "text" : "A ",
@@ -212,7 +212,7 @@
       "text" : "GraphQLQueryWatcher"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLQueryWatcher",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLQueryWatcher",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -225,7 +225,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlquerywatcher"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLQueryWatcher/refetch(cachePolicy:)": {
+"doc://Apollo/documentation/Apollo/GraphQLQueryWatcher/refetch(cachePolicy:)": {
   "abstract" : [
     {
       "text" : "Refetch a query from the server.",
@@ -267,7 +267,7 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLQueryWatcher\/refetch(cachePolicy:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLQueryWatcher\/refetch(cachePolicy:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "refetch(cachePolicy:)",

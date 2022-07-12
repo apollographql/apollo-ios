@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/InflectionRule"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/InflectionRule"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/InflectionRule\/uncountable(word:)"
+    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/InflectionRule\/uncountable(word:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -166,18 +166,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloCodegenLib",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/InflectionRule": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/InflectionRule": {
   "abstract" : [
     {
       "text" : "The types of inflection rules that can be used to customize pluralization.",
@@ -198,7 +198,7 @@
       "text" : "InflectionRule"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/InflectionRule",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/InflectionRule",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -211,7 +211,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/inflectionrule"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/InflectionRule/uncountable(word:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/InflectionRule/uncountable(word:)": {
   "abstract" : [
     {
       "text" : "A definition of a word that should never be pluralized or de-pluralized because it’s the same no matter what the count - for example, “fish”.",
@@ -253,7 +253,7 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/InflectionRule\/uncountable(word:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/InflectionRule\/uncountable(word:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "InflectionRule.uncountable(word:)",

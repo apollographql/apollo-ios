@@ -24,13 +24,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"
+        "doc:\/\/Apollo\/documentation\/Apollo"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONResponseParsingInterceptor"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONResponseParsingInterceptor"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -97,7 +97,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloInterceptor"
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloInterceptor"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -115,19 +115,19 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONResponseParsingInterceptor\/init()"
+        "doc:\/\/Apollo\/documentation\/Apollo\/JSONResponseParsingInterceptor\/init()"
       ],
       "title" : "Initializers"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONResponseParsingInterceptor\/interceptAsync(chain:request:response:completion:)"
+        "doc:\/\/Apollo\/documentation\/Apollo\/JSONResponseParsingInterceptor\/interceptAsync(chain:request:response:completion:)"
       ],
       "title" : "Instance Methods"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONResponseParsingInterceptor\/JSONResponseParsingError"
+        "doc:\/\/Apollo\/documentation\/Apollo\/JSONResponseParsingInterceptor\/JSONResponseParsingError"
       ],
       "title" : "Enumerations"
     }
@@ -146,18 +146,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloInterceptor": {
+"doc://Apollo/documentation/Apollo/ApolloInterceptor": {
   "abstract" : [
     {
       "text" : "A protocol to set up a chainable unit of networking work.",
@@ -178,7 +178,7 @@
       "text" : "ApolloInterceptor"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloInterceptor",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloInterceptor",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -191,7 +191,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apollointerceptor"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONResponseParsingInterceptor": {
+"doc://Apollo/documentation/Apollo/JSONResponseParsingInterceptor": {
   "abstract" : [
     {
       "text" : "An interceptor which parses JSON response data into a ",
@@ -228,7 +228,7 @@
       "text" : "JSONResponseParsingInterceptor"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONResponseParsingInterceptor",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONResponseParsingInterceptor",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -241,7 +241,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/jsonresponseparsinginterceptor"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONResponseParsingInterceptor/JSONResponseParsingError": {
+"doc://Apollo/documentation/Apollo/JSONResponseParsingInterceptor/JSONResponseParsingError": {
   "abstract" : [
 
   ],
@@ -259,7 +259,7 @@
       "text" : "JSONResponseParsingError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONResponseParsingInterceptor\/JSONResponseParsingError",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONResponseParsingInterceptor\/JSONResponseParsingError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -272,7 +272,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/jsonresponseparsinginterceptor\/jsonresponseparsingerror"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONResponseParsingInterceptor/init()": {
+"doc://Apollo/documentation/Apollo/JSONResponseParsingInterceptor/init()": {
   "abstract" : [
 
   ],
@@ -286,19 +286,16 @@
       "text" : "()"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONResponseParsingInterceptor\/init()",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONResponseParsingInterceptor\/init()",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init()",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/jsonresponseparsinginterceptor\/init()"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONResponseParsingInterceptor/interceptAsync(chain:request:response:completion:)": {
+"doc://Apollo/documentation/Apollo/JSONResponseParsingInterceptor/interceptAsync(chain:request:response:completion:)": {
   "abstract" : [
-    {
-      "text" : "Called when this interceptor should do its work.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -361,7 +358,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo30JSONResponseParsingInterceptorV14interceptAsync5chain7request8response10completionyAA12RequestChainC_AA11HTTPRequestCyxGAA12HTTPResponseCyxGSgys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0P11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -387,7 +383,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo30JSONResponseParsingInterceptorV14interceptAsync5chain7request8response10completionyAA12RequestChainC_AA11HTTPRequestCyxGAA12HTTPResponseCyxGSgys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0P11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -422,7 +417,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo30JSONResponseParsingInterceptorV14interceptAsync5chain7request8response10completionyAA12RequestChainC_AA11HTTPRequestCyxGAA12HTTPResponseCyxGSgys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0P11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -431,7 +425,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
       "text" : "Data"
     },
     {
@@ -457,7 +450,7 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONResponseParsingInterceptor\/interceptAsync(chain:request:response:completion:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONResponseParsingInterceptor\/interceptAsync(chain:request:response:completion:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "interceptAsync(chain:request:response:completion:)",

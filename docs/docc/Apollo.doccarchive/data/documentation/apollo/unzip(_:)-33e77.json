@@ -8,13 +8,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"
+        "doc:\/\/Apollo\/documentation\/Apollo"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/unzip(_:)-33e77"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/unzip(_:)-33e77"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -54,7 +54,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:6Apollo5unzipySayxG_Sayq_GtSayxSg_q_SgtGr0_lF8Element1L_xmfp",
         "text" : "Element1"
       },
       {
@@ -63,7 +62,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:6Apollo5unzipySayxG_Sayq_GtSayxSg_q_SgtGr0_lF8Element2L_q_mfp",
         "text" : "Element2"
       },
       {
@@ -72,7 +70,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:6Apollo5unzipySayxG_Sayq_GtSayxSg_q_SgtGr0_lF8Element1L_xmfp",
         "text" : "Element1"
       },
       {
@@ -81,7 +78,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:6Apollo5unzipySayxG_Sayq_GtSayxSg_q_SgtGr0_lF8Element2L_q_mfp",
         "text" : "Element2"
       },
       {
@@ -160,7 +156,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:6Apollo5unzipySayxG_Sayq_GtSayxSg_q_SgtGr0_lF8Element1L_xmfp",
               "text" : "Element1"
             },
             {
@@ -169,7 +164,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:6Apollo5unzipySayxG_Sayq_GtSayxSg_q_SgtGr0_lF8Element2L_q_mfp",
               "text" : "Element2"
             },
             {
@@ -178,7 +172,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:6Apollo5unzipySayxG_Sayq_GtSayxSg_q_SgtGr0_lF8Element1L_xmfp",
               "text" : "Element1"
             },
             {
@@ -187,7 +180,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:6Apollo5unzipySayxG_Sayq_GtSayxSg_q_SgtGr0_lF8Element2L_q_mfp",
               "text" : "Element2"
             },
             {
@@ -222,18 +214,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/unzip(_:)-33e77": {
+"doc://Apollo/documentation/Apollo/unzip(_:)-33e77": {
   "abstract" : [
 
   ],
@@ -272,7 +264,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo5unzipySayxG_Sayq_GtSayxSg_q_SgtGr0_lF8Element1L_xmfp",
       "text" : "Element1"
     },
     {
@@ -281,7 +272,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo5unzipySayxG_Sayq_GtSayxSg_q_SgtGr0_lF8Element2L_q_mfp",
       "text" : "Element2"
     },
     {
@@ -290,7 +280,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo5unzipySayxG_Sayq_GtSayxSg_q_SgtGr0_lF8Element1L_xmfp",
       "text" : "Element1"
     },
     {
@@ -299,7 +288,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo5unzipySayxG_Sayq_GtSayxSg_q_SgtGr0_lF8Element2L_q_mfp",
       "text" : "Element2"
     },
     {
@@ -307,7 +295,7 @@
       "text" : "])"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/unzip(_:)-33e77",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/unzip(_:)-33e77",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "unzip(_:)",

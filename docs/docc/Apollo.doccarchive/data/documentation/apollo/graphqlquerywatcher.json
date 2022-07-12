@@ -16,13 +16,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"
+        "doc:\/\/Apollo\/documentation\/Apollo"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLQueryWatcher"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLQueryWatcher"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -166,7 +166,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Cancellable"
+        "doc:\/\/Apollo\/documentation\/Apollo\/Cancellable"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -184,20 +184,20 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLQueryWatcher\/init(client:query:callbackQueue:resultHandler:)"
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLQueryWatcher\/init(client:query:callbackQueue:resultHandler:)"
       ],
       "title" : "Initializers"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLQueryWatcher\/query"
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLQueryWatcher\/query"
       ],
       "title" : "Instance Properties"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLQueryWatcher\/cancel()",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLQueryWatcher\/refetch(cachePolicy:)"
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLQueryWatcher\/cancel()",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLQueryWatcher\/refetch(cachePolicy:)"
       ],
       "title" : "Instance Methods"
     }
@@ -216,18 +216,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/Cancellable": {
+"doc://Apollo/documentation/Apollo/Cancellable": {
   "abstract" : [
     {
       "text" : "An object that can be used to cancel an in progress action.",
@@ -248,7 +248,7 @@
       "text" : "Cancellable"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Cancellable",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/Cancellable",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -261,7 +261,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/cancellable"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLQueryWatcher": {
+"doc://Apollo/documentation/Apollo/GraphQLQueryWatcher": {
   "abstract" : [
     {
       "text" : "A ",
@@ -290,7 +290,7 @@
       "text" : "GraphQLQueryWatcher"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLQueryWatcher",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLQueryWatcher",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -303,7 +303,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlquerywatcher"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLQueryWatcher/cancel()": {
+"doc://Apollo/documentation/Apollo/GraphQLQueryWatcher/cancel()": {
   "abstract" : [
     {
       "text" : "Cancel any in progress fetching operations and unsubscribe from the store.",
@@ -328,14 +328,14 @@
       "text" : "()"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLQueryWatcher\/cancel()",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLQueryWatcher\/cancel()",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "cancel()",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlquerywatcher\/cancel()"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLQueryWatcher/init(client:query:callbackQueue:resultHandler:)": {
+"doc://Apollo/documentation/Apollo/GraphQLQueryWatcher/init(client:query:callbackQueue:resultHandler:)": {
   "abstract" : [
     {
       "text" : "Designated initializer",
@@ -378,7 +378,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo19GraphQLQueryWatcherC5Queryxmfp",
       "text" : "Query"
     },
     {
@@ -421,7 +420,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo19GraphQLQueryWatcherC5Queryxmfp",
       "text" : "Query"
     },
     {
@@ -430,7 +428,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
       "text" : "Data"
     },
     {
@@ -438,14 +435,14 @@
       "text" : ">)"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLQueryWatcher\/init(client:query:callbackQueue:resultHandler:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLQueryWatcher\/init(client:query:callbackQueue:resultHandler:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(client:query:callbackQueue:resultHandler:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlquerywatcher\/init(client:query:callbackqueue:resulthandler:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLQueryWatcher/query": {
+"doc://Apollo/documentation/Apollo/GraphQLQueryWatcher/query": {
   "abstract" : [
 
   ],
@@ -468,18 +465,17 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo19GraphQLQueryWatcherC5Queryxmfp",
       "text" : "Query"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLQueryWatcher\/query",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLQueryWatcher\/query",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "query",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlquerywatcher\/query"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLQueryWatcher/refetch(cachePolicy:)": {
+"doc://Apollo/documentation/Apollo/GraphQLQueryWatcher/refetch(cachePolicy:)": {
   "abstract" : [
     {
       "text" : "Refetch a query from the server.",
@@ -521,7 +517,7 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLQueryWatcher\/refetch(cachePolicy:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLQueryWatcher\/refetch(cachePolicy:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "refetch(cachePolicy:)",

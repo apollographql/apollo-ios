@@ -8,15 +8,15 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient",
+        "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/noHTTPResponse(request:)"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/noHTTPResponse(request:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -138,18 +138,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient": {
+"doc://Apollo/documentation/Apollo/URLSessionClient": {
   "abstract" : [
     {
       "text" : "A class to handle URL Session calls that will support background execution,",
@@ -178,7 +178,7 @@
       "text" : "URLSessionClient"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -191,7 +191,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/urlsessionclient"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/URLSessionClientError": {
+"doc://Apollo/documentation/Apollo/URLSessionClient/URLSessionClientError": {
   "abstract" : [
 
   ],
@@ -209,7 +209,7 @@
       "text" : "URLSessionClientError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -222,7 +222,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/urlsessionclient\/urlsessionclienterror"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/URLSessionClientError/noHTTPResponse(request:)": {
+"doc://Apollo/documentation/Apollo/URLSessionClient/URLSessionClientError/noHTTPResponse(request:)": {
   "abstract" : [
 
   ],
@@ -261,7 +261,7 @@
       "text" : "?)"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/noHTTPResponse(request:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/noHTTPResponse(request:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "URLSessionClient.URLSessionClientError.noHTTPResponse(request:)",

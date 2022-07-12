@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/OperationMessageIdCreator"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/OperationMessageIdCreator"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/OperationMessageIdCreator\/requestId()"
+    "url" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/OperationMessageIdCreator\/requestId()"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -114,18 +114,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloWebSocket",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/OperationMessageIdCreator": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/OperationMessageIdCreator": {
   "abstract" : [
 
   ],
@@ -143,7 +143,7 @@
       "text" : "OperationMessageIdCreator"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/OperationMessageIdCreator",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/OperationMessageIdCreator",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -156,7 +156,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/operationmessageidcreator"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/OperationMessageIdCreator/requestId()": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/OperationMessageIdCreator/requestId()": {
   "abstract" : [
 
   ],
@@ -183,7 +183,7 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/OperationMessageIdCreator\/requestId()",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/OperationMessageIdCreator\/requestId()",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",

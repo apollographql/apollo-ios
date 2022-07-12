@@ -8,13 +8,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport"
+    "url" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -81,8 +81,8 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/6Apollo16NetworkTransportP",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketClientDelegate"
+        "doc:\/\/ApolloWebSocket\/6Apollo16NetworkTransportP",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketClientDelegate"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -100,44 +100,44 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/Configuration"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/Configuration"
       ],
       "title" : "Structures"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/init(websocket:store:config:)"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/init(websocket:store:config:)"
       ],
       "title" : "Initializers"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/clientName-7plo0",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/clientVersion-919yz",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/delegate"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/clientName-7plo0",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/clientVersion-919yz",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/delegate"
       ],
       "title" : "Instance Properties"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/closeConnection()",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/handleConnection()",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/initServer()",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/isConnected()",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/pauseWebSocketConnection()",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/ping(data:completionHandler:)",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/resumeWebSocketConnection(autoReconnect:)",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/unsubscribe(_:)",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/updateConnectingPayload(_:reconnectIfConnected:)",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/updateHeaderValues(_:reconnectIfConnected:)"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/closeConnection()",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/handleConnection()",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/initServer()",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/isConnected()",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/pauseWebSocketConnection()",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/ping(data:completionHandler:)",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/resumeWebSocketConnection(autoReconnect:)",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/unsubscribe(_:)",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/updateConnectingPayload(_:reconnectIfConnected:)",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/updateHeaderValues(_:reconnectIfConnected:)"
       ],
       "title" : "Instance Methods"
     },
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/NetworkTransport-Implementations",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/WebSocketClientDelegate-Implementations"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/NetworkTransport-Implementations",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/WebSocketClientDelegate-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -156,23 +156,23 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloWebSocket.macosx/6Apollo16NetworkTransportP": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/6Apollo16NetworkTransportP",
+"doc://ApolloWebSocket/6Apollo16NetworkTransportP": {
+  "identifier" : "doc:\/\/ApolloWebSocket\/6Apollo16NetworkTransportP",
   "title" : "Apollo.NetworkTransport",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloWebSocket",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketClientDelegate": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketClientDelegate": {
   "abstract" : [
     {
       "text" : "The delegate for a ",
@@ -201,7 +201,7 @@
       "text" : "WebSocketClientDelegate"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketClientDelegate",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketClientDelegate",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -214,7 +214,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocketclientdelegate"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketTransport": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport": {
   "abstract" : [
     {
       "text" : "A network transport that uses web sockets requests to send GraphQL subscription operations to a server.",
@@ -235,7 +235,7 @@
       "text" : "WebSocketTransport"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -248,7 +248,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websockettransport"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketTransport/Configuration": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport/Configuration": {
   "abstract" : [
 
   ],
@@ -266,7 +266,7 @@
       "text" : "Configuration"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/Configuration",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/Configuration",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -279,29 +279,29 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websockettransport\/configuration"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketTransport/NetworkTransport-Implementations": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport/NetworkTransport-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/NetworkTransport-Implementations",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/NetworkTransport-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "NetworkTransport Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websockettransport\/networktransport-implementations"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketTransport/WebSocketClientDelegate-Implementations": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport/WebSocketClientDelegate-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/WebSocketClientDelegate-Implementations",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/WebSocketClientDelegate-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "WebSocketClientDelegate Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websockettransport\/websocketclientdelegate-implementations"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketTransport/clientName-7plo0": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport/clientName-7plo0": {
   "abstract" : [
 
   ],
@@ -328,14 +328,14 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/clientName-7plo0",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/clientName-7plo0",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "clientName",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websockettransport\/clientname-7plo0"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketTransport/clientVersion-919yz": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport/clientVersion-919yz": {
   "abstract" : [
 
   ],
@@ -362,14 +362,14 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/clientVersion-919yz",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/clientVersion-919yz",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "clientVersion",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websockettransport\/clientversion-919yz"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketTransport/closeConnection()": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport/closeConnection()": {
   "abstract" : [
 
   ],
@@ -391,14 +391,14 @@
       "text" : "()"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/closeConnection()",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/closeConnection()",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "closeConnection()",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websockettransport\/closeconnection()"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketTransport/delegate": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport/delegate": {
   "abstract" : [
 
   ],
@@ -429,14 +429,14 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/delegate",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/delegate",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "delegate",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websockettransport\/delegate"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketTransport/handleConnection()": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport/handleConnection()": {
   "abstract" : [
 
   ],
@@ -458,14 +458,14 @@
       "text" : "()"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/handleConnection()",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/handleConnection()",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "handleConnection()",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websockettransport\/handleconnection()"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketTransport/init(websocket:store:config:)": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport/init(websocket:store:config:)": {
   "abstract" : [
     {
       "text" : "Designated initializer",
@@ -525,6 +525,15 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:15ApolloWebSocket0bC9TransportC",
+      "text" : "WebSocketTransport"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:15ApolloWebSocket0bC9TransportC13ConfigurationV",
       "text" : "Configuration"
     },
@@ -533,14 +542,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/init(websocket:store:config:)",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/init(websocket:store:config:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(websocket:store:config:)",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websockettransport\/init(websocket:store:config:)"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketTransport/initServer()": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport/initServer()": {
   "abstract" : [
 
   ],
@@ -562,14 +571,14 @@
       "text" : "()"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/initServer()",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/initServer()",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "initServer()",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websockettransport\/initserver()"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketTransport/isConnected()": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport/isConnected()": {
   "abstract" : [
 
   ],
@@ -596,14 +605,14 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/isConnected()",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/isConnected()",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "isConnected()",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websockettransport\/isconnected()"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketTransport/pauseWebSocketConnection()": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport/pauseWebSocketConnection()": {
   "abstract" : [
     {
       "text" : "Disconnects the websocket while setting the auto-reconnect value to false,",
@@ -668,14 +677,14 @@
       "text" : "()"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/pauseWebSocketConnection()",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/pauseWebSocketConnection()",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "pauseWebSocketConnection()",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websockettransport\/pausewebsocketconnection()"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketTransport/ping(data:completionHandler:)": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport/ping(data:completionHandler:)": {
   "abstract" : [
 
   ],
@@ -731,14 +740,14 @@
       "text" : ")?)"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/ping(data:completionHandler:)",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/ping(data:completionHandler:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "ping(data:completionHandler:)",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websockettransport\/ping(data:completionhandler:)"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketTransport/resumeWebSocketConnection(autoReconnect:)": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport/resumeWebSocketConnection(autoReconnect:)": {
   "abstract" : [
     {
       "text" : "Reconnects a paused web socket.",
@@ -780,14 +789,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/resumeWebSocketConnection(autoReconnect:)",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/resumeWebSocketConnection(autoReconnect:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "resumeWebSocketConnection(autoReconnect:)",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websockettransport\/resumewebsocketconnection(autoreconnect:)"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketTransport/unsubscribe(_:)": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport/unsubscribe(_:)": {
   "abstract" : [
 
   ],
@@ -818,14 +827,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/unsubscribe(_:)",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/unsubscribe(_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "unsubscribe(_:)",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websockettransport\/unsubscribe(_:)"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketTransport/updateConnectingPayload(_:reconnectIfConnected:)": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport/updateConnectingPayload(_:reconnectIfConnected:)": {
   "abstract" : [
 
   ],
@@ -873,14 +882,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/updateConnectingPayload(_:reconnectIfConnected:)",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/updateConnectingPayload(_:reconnectIfConnected:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "updateConnectingPayload(_:reconnectIfConnected:)",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websockettransport\/updateconnectingpayload(_:reconnectifconnected:)"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketTransport/updateHeaderValues(_:reconnectIfConnected:)": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport/updateHeaderValues(_:reconnectIfConnected:)": {
   "abstract" : [
 
   ],
@@ -937,7 +946,7 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/updateHeaderValues(_:reconnectIfConnected:)",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/updateHeaderValues(_:reconnectIfConnected:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "updateHeaderValues(_:reconnectIfConnected:)",

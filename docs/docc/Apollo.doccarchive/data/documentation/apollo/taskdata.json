@@ -12,13 +12,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"
+        "doc:\/\/Apollo\/documentation\/Apollo"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/TaskData"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/TaskData"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -93,8 +93,8 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/TaskData\/completionBlock",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/TaskData\/rawCompletion"
+        "doc:\/\/Apollo\/documentation\/Apollo\/TaskData\/completionBlock",
+        "doc:\/\/Apollo\/documentation\/Apollo\/TaskData\/rawCompletion"
       ],
       "title" : "Instance Properties"
     }
@@ -113,18 +113,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/TaskData": {
+"doc://Apollo/documentation/Apollo/TaskData": {
   "abstract" : [
     {
       "text" : "A wrapper for data about a particular task handled by ",
@@ -149,7 +149,7 @@
       "text" : "TaskData"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/TaskData",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/TaskData",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -162,7 +162,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/taskdata"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/TaskData/completionBlock": {
+"doc://Apollo/documentation/Apollo/TaskData/completionBlock": {
   "abstract" : [
 
   ],
@@ -198,14 +198,14 @@
       "text" : "Completion"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/TaskData\/completionBlock",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/TaskData\/completionBlock",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "completionBlock",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/taskdata\/completionblock"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/TaskData/rawCompletion": {
+"doc://Apollo/documentation/Apollo/TaskData/rawCompletion": {
   "abstract" : [
 
   ],
@@ -245,7 +245,7 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/TaskData\/rawCompletion",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/TaskData\/rawCompletion",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "rawCompletion",

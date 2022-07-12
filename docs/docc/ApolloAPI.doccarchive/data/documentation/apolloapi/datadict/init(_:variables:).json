@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/DataDict"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DataDict"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/DataDict\/init(_:variables:)"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DataDict\/init(_:variables:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -44,25 +44,25 @@
       },
       {
         "kind" : "text",
-        "text" : ": "
+        "text" : ": ["
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP",
-        "text" : "GraphQLOperation"
+        "preciseIdentifier" : "s:SS",
+        "text" : "String"
       },
       {
         "kind" : "text",
-        "text" : "."
+        "text" : " : "
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP9Variablesa",
-        "text" : "Variables"
+        "preciseIdentifier" : "s:9ApolloAPI29GraphQLOperationVariableValueP",
+        "text" : "GraphQLOperationVariableValue"
       },
       {
         "kind" : "text",
-        "text" : "?)"
+        "text" : "]?)"
       }
     ],
     "modules" : [
@@ -111,7 +111,7 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/JSONObject",
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONObject",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:9ApolloAPI10JSONObjecta",
               "text" : "JSONObject"
@@ -126,27 +126,26 @@
             },
             {
               "kind" : "text",
-              "text" : ": "
+              "text" : ": ["
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLOperation",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP",
-              "text" : "GraphQLOperation"
+              "preciseIdentifier" : "s:SS",
+              "text" : "String"
             },
             {
               "kind" : "text",
-              "text" : "."
+              "text" : " : "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLOperation\/Variables-swift.typealias",
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperationVariableValue",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP9Variablesa",
-              "text" : "Variables"
+              "preciseIdentifier" : "s:9ApolloAPI29GraphQLOperationVariableValueP",
+              "text" : "GraphQLOperationVariableValue"
             },
             {
               "kind" : "text",
-              "text" : "?)"
+              "text" : "]?)"
             }
           ]
         }
@@ -176,18 +175,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI": {
+"doc://ApolloAPI/documentation/ApolloAPI": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/DataDict": {
+"doc://ApolloAPI/documentation/ApolloAPI/DataDict": {
   "abstract" : [
     {
       "text" : "A structure that wraps the underlying data dictionary used by ",
@@ -216,7 +215,7 @@
       "text" : "DataDict"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/DataDict",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DataDict",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -229,7 +228,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/datadict"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/DataDict/init(_:variables:)": {
+"doc://ApolloAPI/documentation/ApolloAPI/DataDict/init(_:variables:)": {
   "abstract" : [
 
   ],
@@ -257,35 +256,35 @@
     },
     {
       "kind" : "text",
-      "text" : ": "
+      "text" : ": ["
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP",
-      "text" : "GraphQLOperation"
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
     },
     {
       "kind" : "text",
-      "text" : "."
+      "text" : " : "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP9Variablesa",
-      "text" : "Variables"
+      "preciseIdentifier" : "s:9ApolloAPI29GraphQLOperationVariableValueP",
+      "text" : "GraphQLOperationVariableValue"
     },
     {
       "kind" : "text",
-      "text" : "?)"
+      "text" : "]?)"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/DataDict\/init(_:variables:)",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DataDict\/init(_:variables:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(_:variables:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/datadict\/init(_:variables:)"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLOperation": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLOperationVariableValue": {
   "abstract" : [
 
   ],
@@ -300,54 +299,23 @@
     },
     {
       "kind" : "identifier",
-      "text" : "GraphQLOperation"
+      "text" : "GraphQLOperationVariableValue"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLOperation",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperationVariableValue",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "GraphQLOperation"
+      "text" : "GraphQLOperationVariableValue"
     }
   ],
   "role" : "symbol",
-  "title" : "GraphQLOperation",
+  "title" : "GraphQLOperationVariableValue",
   "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/graphqloperation"
+  "url" : "\/documentation\/apolloapi\/graphqloperationvariablevalue"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLOperation/Variables-swift.typealias": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Variables"
-    }
-  ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLOperation\/Variables-swift.typealias",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Variables"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "GraphQLOperation.Variables",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/graphqloperation\/variables-swift.typealias"
-},
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/JSONObject": {
+"doc://ApolloAPI/documentation/ApolloAPI/JSONObject": {
   "abstract" : [
 
   ],
@@ -365,7 +333,7 @@
       "text" : "JSONObject"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/JSONObject",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONObject",
   "kind" : "symbol",
   "navigatorTitle" : [
     {

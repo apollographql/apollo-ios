@@ -16,16 +16,16 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Collection-Implementations",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Iterator"
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Collection-Implementations",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Iterator"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Iterator\/next()"
+    "url" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Iterator\/next()"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -49,7 +49,23 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11ApolloUtils10LinkedListV7Elementa",
+        "preciseIdentifier" : "s:11ApolloUtils10LinkedListV",
+        "text" : "LinkedList"
+      },
+      {
+        "kind" : "text",
+        "text" : "<"
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "T"
+      },
+      {
+        "kind" : "text",
+        "text" : ">."
+      },
+      {
+        "kind" : "typeIdentifier",
         "text" : "Element"
       },
       {
@@ -95,9 +111,25 @@
               "text" : "() -> "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Element",
+              "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11ApolloUtils10LinkedListV7Elementa",
+              "preciseIdentifier" : "s:11ApolloUtils10LinkedListV",
+              "text" : "LinkedList"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "T"
+            },
+            {
+              "kind" : "text",
+              "text" : ">."
+            },
+            {
+              "kind" : "typeIdentifier",
               "text" : "Element"
             },
             {
@@ -132,18 +164,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils": {
+"doc://ApolloUtils/documentation/ApolloUtils": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloUtils",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList": {
   "abstract" : [
     {
       "text" : "A doubly linked list implementation.",
@@ -164,7 +196,7 @@
       "text" : "LinkedList"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -177,49 +209,18 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Collection-Implementations": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Collection-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Collection-Implementations",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Collection-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Collection Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/collection-implementations"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Element": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Element"
-    }
-  ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Element",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Element"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "LinkedList.Element",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloutils\/linkedlist\/element"
-},
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Iterator": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Iterator": {
   "abstract" : [
 
   ],
@@ -237,7 +238,7 @@
       "text" : "Iterator"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Iterator",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Iterator",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -250,7 +251,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/iterator"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Iterator/next()": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Iterator/next()": {
   "abstract" : [
 
   ],
@@ -273,7 +274,23 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11ApolloUtils10LinkedListV7Elementa",
+      "preciseIdentifier" : "s:11ApolloUtils10LinkedListV",
+      "text" : "LinkedList"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
       "text" : "Element"
     },
     {
@@ -281,7 +298,7 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Iterator\/next()",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Iterator\/next()",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "next()",

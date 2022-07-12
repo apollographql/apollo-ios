@@ -16,16 +16,16 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain\/ChainError",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain\/ChainError\/Error-Implementations"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/ChainError",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/ChainError\/Error-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain\/ChainError\/localizedDescription"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/ChainError\/localizedDescription"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -136,18 +136,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChain": {
+"doc://Apollo/documentation/Apollo/RequestChain": {
   "abstract" : [
     {
       "text" : "A chain that allows a single network request to be created and executed.",
@@ -168,7 +168,7 @@
       "text" : "RequestChain"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -181,7 +181,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchain"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChain/ChainError": {
+"doc://Apollo/documentation/Apollo/RequestChain/ChainError": {
   "abstract" : [
 
   ],
@@ -199,7 +199,7 @@
       "text" : "ChainError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain\/ChainError",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/ChainError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -212,18 +212,18 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchain\/chainerror"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChain/ChainError/Error-Implementations": {
+"doc://Apollo/documentation/Apollo/RequestChain/ChainError/Error-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain\/ChainError\/Error-Implementations",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/ChainError\/Error-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Error Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchain\/chainerror\/error-implementations"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChain/ChainError/localizedDescription": {
+"doc://Apollo/documentation/Apollo/RequestChain/ChainError/localizedDescription": {
   "abstract" : [
 
   ],
@@ -250,7 +250,7 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain\/ChainError\/localizedDescription",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/ChainError\/localizedDescription",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "localizedDescription",

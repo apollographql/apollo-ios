@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ResultType"
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/ResultType"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ResultType\/FailureType"
+    "url" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/ResultType\/FailureType"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -114,18 +114,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils": {
+"doc://ApolloUtils/documentation/ApolloUtils": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloUtils",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/ResultType": {
+"doc://ApolloUtils/documentation/ApolloUtils/ResultType": {
   "abstract" : [
     {
       "text" : "Provides a PAT interface to ",
@@ -150,7 +150,7 @@
       "text" : "ResultType"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ResultType",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/ResultType",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -163,7 +163,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/resulttype"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/ResultType/FailureType": {
+"doc://ApolloUtils/documentation/ApolloUtils/ResultType/FailureType": {
   "abstract" : [
 
   ],
@@ -190,7 +190,7 @@
       "text" : "Error"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ResultType\/FailureType",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/ResultType\/FailureType",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",

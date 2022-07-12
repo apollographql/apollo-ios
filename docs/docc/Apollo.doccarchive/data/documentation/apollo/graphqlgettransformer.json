@@ -8,13 +8,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"
+        "doc:\/\/Apollo\/documentation\/Apollo"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLGETTransformer"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLGETTransformer"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -81,8 +81,8 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/SQ",
-        "doc:\/\/com.apollographql.Apollo.macosx\/SH"
+        "doc:\/\/Apollo\/SQ",
+        "doc:\/\/Apollo\/SH"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -100,21 +100,21 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLGETTransformer\/init(body:url:)"
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLGETTransformer\/init(body:url:)"
       ],
       "title" : "Initializers"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLGETTransformer\/createGetURL()"
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLGETTransformer\/createGetURL()"
       ],
       "title" : "Instance Methods"
     },
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLGETTransformer\/Equatable-Implementations",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLGETTransformer\/Hashable-Implementations"
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLGETTransformer\/Equatable-Implementations",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLGETTransformer\/Hashable-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -133,28 +133,28 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/SH": {
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/SH",
+"doc://Apollo/SH": {
+  "identifier" : "doc:\/\/Apollo\/SH",
   "title" : "Swift.Hashable",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.Apollo.macosx/SQ": {
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/SQ",
+"doc://Apollo/SQ": {
+  "identifier" : "doc:\/\/Apollo\/SQ",
   "title" : "Swift.Equatable",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLGETTransformer": {
+"doc://Apollo/documentation/Apollo/GraphQLGETTransformer": {
   "abstract" : [
 
   ],
@@ -172,7 +172,7 @@
       "text" : "GraphQLGETTransformer"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLGETTransformer",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLGETTransformer",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -185,29 +185,29 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlgettransformer"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLGETTransformer/Equatable-Implementations": {
+"doc://Apollo/documentation/Apollo/GraphQLGETTransformer/Equatable-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLGETTransformer\/Equatable-Implementations",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLGETTransformer\/Equatable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Equatable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlgettransformer\/equatable-implementations"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLGETTransformer/Hashable-Implementations": {
+"doc://Apollo/documentation/Apollo/GraphQLGETTransformer/Hashable-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLGETTransformer\/Hashable-Implementations",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLGETTransformer\/Hashable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Hashable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlgettransformer\/hashable-implementations"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLGETTransformer/createGetURL()": {
+"doc://Apollo/documentation/Apollo/GraphQLGETTransformer/createGetURL()": {
   "abstract" : [
     {
       "text" : "Creates the get URL.",
@@ -241,14 +241,14 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLGETTransformer\/createGetURL()",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLGETTransformer\/createGetURL()",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "createGetURL()",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlgettransformer\/creategeturl()"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLGETTransformer/init(body:url:)": {
+"doc://Apollo/documentation/Apollo/GraphQLGETTransformer/init(body:url:)": {
   "abstract" : [
     {
       "text" : "A helper for transforming a ",
@@ -323,7 +323,7 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLGETTransformer\/init(body:url:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLGETTransformer\/init(body:url:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(body:url:)",

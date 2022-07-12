@@ -16,16 +16,16 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/OpCode",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/OpCode\/RawRepresentable-Implementations"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/OpCode",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/OpCode\/RawRepresentable-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/OpCode\/hashValue"
+    "url" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/OpCode\/hashValue"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -184,18 +184,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloWebSocket",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocket": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocket": {
   "abstract" : [
 
   ],
@@ -213,7 +213,7 @@
       "text" : "WebSocket"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -226,7 +226,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocket"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocket/OpCode": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocket/OpCode": {
   "abstract" : [
 
   ],
@@ -244,7 +244,7 @@
       "text" : "OpCode"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/OpCode",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/OpCode",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -257,18 +257,18 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocket\/opcode"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocket/OpCode/RawRepresentable-Implementations": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocket/OpCode/RawRepresentable-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/OpCode\/RawRepresentable-Implementations",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/OpCode\/RawRepresentable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "RawRepresentable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocket\/opcode\/rawrepresentable-implementations"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocket/OpCode/hashValue": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocket/OpCode/hashValue": {
   "abstract" : [
 
   ],
@@ -343,7 +343,7 @@
       "text" : "Int"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/OpCode\/hashValue",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/OpCode\/hashValue",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "hashValue",

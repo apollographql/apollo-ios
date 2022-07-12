@@ -24,13 +24,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputValue"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -139,16 +139,16 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/SQ",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/s25ExpressibleByArrayLiteralP",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/s27ExpressibleByBooleanLiteralP",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/s30ExpressibleByDictionaryLiteralP",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/s43ExpressibleByExtendedGraphemeClusterLiteralP",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/s25ExpressibleByFloatLiteralP",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/s27ExpressibleByIntegerLiteralP",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/s26ExpressibleByStringLiteralP",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/s33ExpressibleByUnicodeScalarLiteralP",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/SH"
+        "doc:\/\/ApolloAPI\/SQ",
+        "doc:\/\/ApolloAPI\/s25ExpressibleByArrayLiteralP",
+        "doc:\/\/ApolloAPI\/s27ExpressibleByBooleanLiteralP",
+        "doc:\/\/ApolloAPI\/s30ExpressibleByDictionaryLiteralP",
+        "doc:\/\/ApolloAPI\/s43ExpressibleByExtendedGraphemeClusterLiteralP",
+        "doc:\/\/ApolloAPI\/s25ExpressibleByFloatLiteralP",
+        "doc:\/\/ApolloAPI\/s27ExpressibleByIntegerLiteralP",
+        "doc:\/\/ApolloAPI\/s26ExpressibleByStringLiteralP",
+        "doc:\/\/ApolloAPI\/s33ExpressibleByUnicodeScalarLiteralP",
+        "doc:\/\/ApolloAPI\/SH"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -166,27 +166,27 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputValue\/list(_:)",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputValue\/null",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputValue\/object(_:)",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputValue\/scalar(_:)",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputValue\/variable(_:)"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/list(_:)",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/null",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/object(_:)",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/scalar(_:)",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/variable(_:)"
       ],
       "title" : "Enumeration Cases"
     },
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputValue\/Equatable-Implementations",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputValue\/ExpressibleByArrayLiteral-Implementations",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputValue\/ExpressibleByBooleanLiteral-Implementations",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputValue\/ExpressibleByDictionaryLiteral-Implementations",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputValue\/ExpressibleByExtendedGraphemeClusterLiteral-Implementations",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputValue\/ExpressibleByFloatLiteral-Implementations",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputValue\/ExpressibleByIntegerLiteral-Implementations",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputValue\/ExpressibleByStringLiteral-Implementations",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputValue\/ExpressibleByUnicodeScalarLiteral-Implementations",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputValue\/Hashable-Implementations"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/Equatable-Implementations",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/ExpressibleByArrayLiteral-Implementations",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/ExpressibleByBooleanLiteral-Implementations",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/ExpressibleByDictionaryLiteral-Implementations",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/ExpressibleByExtendedGraphemeClusterLiteral-Implementations",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/ExpressibleByFloatLiteral-Implementations",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/ExpressibleByIntegerLiteral-Implementations",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/ExpressibleByStringLiteral-Implementations",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/ExpressibleByUnicodeScalarLiteral-Implementations",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/Hashable-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -205,28 +205,28 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloAPI.macosx/SH": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/SH",
+"doc://ApolloAPI/SH": {
+  "identifier" : "doc:\/\/ApolloAPI\/SH",
   "title" : "Swift.Hashable",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.ApolloAPI.macosx/SQ": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/SQ",
+"doc://ApolloAPI/SQ": {
+  "identifier" : "doc:\/\/ApolloAPI\/SQ",
   "title" : "Swift.Equatable",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI": {
+"doc://ApolloAPI/documentation/ApolloAPI": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/InputValue": {
+"doc://ApolloAPI/documentation/ApolloAPI/InputValue": {
   "abstract" : [
     {
       "text" : "Represents an input value to an argument on a ",
@@ -263,7 +263,7 @@
       "text" : "InputValue"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputValue",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -276,117 +276,117 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/inputvalue"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/InputValue/Equatable-Implementations": {
+"doc://ApolloAPI/documentation/ApolloAPI/InputValue/Equatable-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputValue\/Equatable-Implementations",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/Equatable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Equatable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/inputvalue\/equatable-implementations"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/InputValue/ExpressibleByArrayLiteral-Implementations": {
+"doc://ApolloAPI/documentation/ApolloAPI/InputValue/ExpressibleByArrayLiteral-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputValue\/ExpressibleByArrayLiteral-Implementations",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/ExpressibleByArrayLiteral-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "ExpressibleByArrayLiteral Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/inputvalue\/expressiblebyarrayliteral-implementations"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/InputValue/ExpressibleByBooleanLiteral-Implementations": {
+"doc://ApolloAPI/documentation/ApolloAPI/InputValue/ExpressibleByBooleanLiteral-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputValue\/ExpressibleByBooleanLiteral-Implementations",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/ExpressibleByBooleanLiteral-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "ExpressibleByBooleanLiteral Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/inputvalue\/expressiblebybooleanliteral-implementations"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/InputValue/ExpressibleByDictionaryLiteral-Implementations": {
+"doc://ApolloAPI/documentation/ApolloAPI/InputValue/ExpressibleByDictionaryLiteral-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputValue\/ExpressibleByDictionaryLiteral-Implementations",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/ExpressibleByDictionaryLiteral-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "ExpressibleByDictionaryLiteral Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/inputvalue\/expressiblebydictionaryliteral-implementations"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/InputValue/ExpressibleByExtendedGraphemeClusterLiteral-Implementations": {
+"doc://ApolloAPI/documentation/ApolloAPI/InputValue/ExpressibleByExtendedGraphemeClusterLiteral-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputValue\/ExpressibleByExtendedGraphemeClusterLiteral-Implementations",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/ExpressibleByExtendedGraphemeClusterLiteral-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "ExpressibleByExtendedGraphemeClusterLiteral Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/inputvalue\/expressiblebyextendedgraphemeclusterliteral-implementations"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/InputValue/ExpressibleByFloatLiteral-Implementations": {
+"doc://ApolloAPI/documentation/ApolloAPI/InputValue/ExpressibleByFloatLiteral-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputValue\/ExpressibleByFloatLiteral-Implementations",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/ExpressibleByFloatLiteral-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "ExpressibleByFloatLiteral Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/inputvalue\/expressiblebyfloatliteral-implementations"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/InputValue/ExpressibleByIntegerLiteral-Implementations": {
+"doc://ApolloAPI/documentation/ApolloAPI/InputValue/ExpressibleByIntegerLiteral-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputValue\/ExpressibleByIntegerLiteral-Implementations",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/ExpressibleByIntegerLiteral-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "ExpressibleByIntegerLiteral Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/inputvalue\/expressiblebyintegerliteral-implementations"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/InputValue/ExpressibleByStringLiteral-Implementations": {
+"doc://ApolloAPI/documentation/ApolloAPI/InputValue/ExpressibleByStringLiteral-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputValue\/ExpressibleByStringLiteral-Implementations",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/ExpressibleByStringLiteral-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "ExpressibleByStringLiteral Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/inputvalue\/expressiblebystringliteral-implementations"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/InputValue/ExpressibleByUnicodeScalarLiteral-Implementations": {
+"doc://ApolloAPI/documentation/ApolloAPI/InputValue/ExpressibleByUnicodeScalarLiteral-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputValue\/ExpressibleByUnicodeScalarLiteral-Implementations",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/ExpressibleByUnicodeScalarLiteral-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "ExpressibleByUnicodeScalarLiteral Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/inputvalue\/expressiblebyunicodescalarliteral-implementations"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/InputValue/Hashable-Implementations": {
+"doc://ApolloAPI/documentation/ApolloAPI/InputValue/Hashable-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputValue\/Hashable-Implementations",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/Hashable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Hashable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/inputvalue\/hashable-implementations"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/InputValue/list(_:)": {
+"doc://ApolloAPI/documentation/ApolloAPI/InputValue/list(_:)": {
   "abstract" : [
     {
       "text" : "A GraphQL “List” input value.",
@@ -420,14 +420,14 @@
       "text" : "])"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputValue\/list(_:)",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/list(_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "InputValue.list(_:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/inputvalue\/list(_:)"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/InputValue/null": {
+"doc://ApolloAPI/documentation/ApolloAPI/InputValue/null": {
   "abstract" : [
     {
       "text" : "A null input value.",
@@ -448,14 +448,14 @@
       "text" : "null"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputValue\/null",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/null",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "InputValue.null",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/inputvalue\/null"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/InputValue/object(_:)": {
+"doc://ApolloAPI/documentation/ApolloAPI/InputValue/object(_:)": {
   "abstract" : [
     {
       "text" : "A GraphQL “InputObject” input value. Represented as a dictionary of input values.",
@@ -498,14 +498,14 @@
       "text" : "])"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputValue\/object(_:)",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/object(_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "InputValue.object(_:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/inputvalue\/object(_:)"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/InputValue/scalar(_:)": {
+"doc://ApolloAPI/documentation/ApolloAPI/InputValue/scalar(_:)": {
   "abstract" : [
     {
       "text" : "A direct input value, valid types are ",
@@ -595,14 +595,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputValue\/scalar(_:)",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/scalar(_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "InputValue.scalar(_:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/inputvalue\/scalar(_:)"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/InputValue/variable(_:)": {
+"doc://ApolloAPI/documentation/ApolloAPI/InputValue/variable(_:)": {
   "abstract" : [
     {
       "text" : "A variable input value to be evaluated using the operation’s ",
@@ -644,50 +644,50 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputValue\/variable(_:)",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/variable(_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "InputValue.variable(_:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/inputvalue\/variable(_:)"
 },
-"doc://com.apollographql.ApolloAPI.macosx/s25ExpressibleByArrayLiteralP": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/s25ExpressibleByArrayLiteralP",
+"doc://ApolloAPI/s25ExpressibleByArrayLiteralP": {
+  "identifier" : "doc:\/\/ApolloAPI\/s25ExpressibleByArrayLiteralP",
   "title" : "Swift.ExpressibleByArrayLiteral",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.ApolloAPI.macosx/s25ExpressibleByFloatLiteralP": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/s25ExpressibleByFloatLiteralP",
+"doc://ApolloAPI/s25ExpressibleByFloatLiteralP": {
+  "identifier" : "doc:\/\/ApolloAPI\/s25ExpressibleByFloatLiteralP",
   "title" : "Swift.ExpressibleByFloatLiteral",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.ApolloAPI.macosx/s26ExpressibleByStringLiteralP": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/s26ExpressibleByStringLiteralP",
+"doc://ApolloAPI/s26ExpressibleByStringLiteralP": {
+  "identifier" : "doc:\/\/ApolloAPI\/s26ExpressibleByStringLiteralP",
   "title" : "Swift.ExpressibleByStringLiteral",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.ApolloAPI.macosx/s27ExpressibleByBooleanLiteralP": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/s27ExpressibleByBooleanLiteralP",
+"doc://ApolloAPI/s27ExpressibleByBooleanLiteralP": {
+  "identifier" : "doc:\/\/ApolloAPI\/s27ExpressibleByBooleanLiteralP",
   "title" : "Swift.ExpressibleByBooleanLiteral",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.ApolloAPI.macosx/s27ExpressibleByIntegerLiteralP": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/s27ExpressibleByIntegerLiteralP",
+"doc://ApolloAPI/s27ExpressibleByIntegerLiteralP": {
+  "identifier" : "doc:\/\/ApolloAPI\/s27ExpressibleByIntegerLiteralP",
   "title" : "Swift.ExpressibleByIntegerLiteral",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.ApolloAPI.macosx/s30ExpressibleByDictionaryLiteralP": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/s30ExpressibleByDictionaryLiteralP",
+"doc://ApolloAPI/s30ExpressibleByDictionaryLiteralP": {
+  "identifier" : "doc:\/\/ApolloAPI\/s30ExpressibleByDictionaryLiteralP",
   "title" : "Swift.ExpressibleByDictionaryLiteral",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.ApolloAPI.macosx/s33ExpressibleByUnicodeScalarLiteralP": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/s33ExpressibleByUnicodeScalarLiteralP",
+"doc://ApolloAPI/s33ExpressibleByUnicodeScalarLiteralP": {
+  "identifier" : "doc:\/\/ApolloAPI\/s33ExpressibleByUnicodeScalarLiteralP",
   "title" : "Swift.ExpressibleByUnicodeScalarLiteral",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.ApolloAPI.macosx/s43ExpressibleByExtendedGraphemeClusterLiteralP": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/s43ExpressibleByExtendedGraphemeClusterLiteralP",
+"doc://ApolloAPI/s43ExpressibleByExtendedGraphemeClusterLiteralP": {
+  "identifier" : "doc:\/\/ApolloAPI\/s43ExpressibleByExtendedGraphemeClusterLiteralP",
   "title" : "Swift.ExpressibleByExtendedGraphemeClusterLiteral",
   "type" : "unresolvable"
 },

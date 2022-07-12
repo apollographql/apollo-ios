@@ -16,19 +16,27 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/init(url:writeQueueQOS:protocol:)"
+    "url" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/init(url:writeQueueQOS:protocol:)"
   },
   "kind" : "symbol",
   "metadata" : {
     "externalID" : "s:15ApolloWebSocket0bC0C3url13writeQueueQOS8protocolAC10Foundation3URLV_So18NSQualityOfServiceVAC10WSProtocolOtcfc",
     "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "convenience"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
       {
         "kind" : "identifier",
         "text" : "init"
@@ -78,6 +86,15 @@
       {
         "kind" : "text",
         "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "c:@M@ApolloWebSocket@objc(cs)WebSocket",
+        "text" : "WebSocket"
+      },
+      {
+        "kind" : "text",
+        "text" : "."
       },
       {
         "kind" : "typeIdentifier",
@@ -169,7 +186,17 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/WSProtocol",
+              "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "c:@M@ApolloWebSocket@objc(cs)WebSocket",
+              "text" : "WebSocket"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/WSProtocol",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:15ApolloWebSocket0bC0C10WSProtocolO",
               "text" : "WSProtocol"
@@ -253,18 +280,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloWebSocket",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocket": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocket": {
   "abstract" : [
 
   ],
@@ -282,7 +309,7 @@
       "text" : "WebSocket"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -295,7 +322,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocket"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocket/WSProtocol": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocket/WSProtocol": {
   "abstract" : [
     {
       "text" : "The GraphQL over WebSocket protocols supported by apollo-ios.",
@@ -316,7 +343,7 @@
       "text" : "WSProtocol"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/WSProtocol",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/WSProtocol",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -329,7 +356,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocket\/wsprotocol"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocket/init(url:writeQueueQOS:protocol:)": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocket/init(url:writeQueueQOS:protocol:)": {
   "abstract" : [
     {
       "text" : "Convenience initializer to specify the URL and web socket protocol with a specific quality of",
@@ -345,6 +372,14 @@
     }
   ],
   "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "convenience"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
     {
       "kind" : "identifier",
       "text" : "init"
@@ -397,6 +432,15 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:@M@ApolloWebSocket@objc(cs)WebSocket",
+      "text" : "WebSocket"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:15ApolloWebSocket0bC0C10WSProtocolO",
       "text" : "WSProtocol"
     },
@@ -405,7 +449,7 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/init(url:writeQueueQOS:protocol:)",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/init(url:writeQueueQOS:protocol:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(url:writeQueueQOS:protocol:)",

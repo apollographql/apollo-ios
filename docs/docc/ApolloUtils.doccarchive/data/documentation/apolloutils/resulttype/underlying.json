@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ResultType"
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/ResultType"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ResultType\/underlying"
+    "url" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/ResultType\/underlying"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -48,7 +48,14 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11ApolloUtils10ResultTypeP07SuccessD0Qa",
+        "text" : "Self"
+      },
+      {
+        "kind" : "text",
+        "text" : "."
+      },
+      {
+        "kind" : "typeIdentifier",
         "text" : "SuccessType"
       },
       {
@@ -57,7 +64,14 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11ApolloUtils10ResultTypeP07FailureD0Qa",
+        "text" : "Self"
+      },
+      {
+        "kind" : "text",
+        "text" : "."
+      },
+      {
+        "kind" : "typeIdentifier",
         "text" : "FailureType"
       },
       {
@@ -113,9 +127,15 @@
               "text" : "<"
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ResultType\/SuccessType",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11ApolloUtils10ResultTypeP07SuccessD0Qa",
+              "text" : "Self"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "kind" : "typeIdentifier",
               "text" : "SuccessType"
             },
             {
@@ -123,9 +143,15 @@
               "text" : ", "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ResultType\/FailureType",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11ApolloUtils10ResultTypeP07FailureD0Qa",
+              "text" : "Self"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "kind" : "typeIdentifier",
               "text" : "FailureType"
             },
             {
@@ -168,18 +194,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils": {
+"doc://ApolloUtils/documentation/ApolloUtils": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloUtils",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/ResultType": {
+"doc://ApolloUtils/documentation/ApolloUtils/ResultType": {
   "abstract" : [
     {
       "text" : "Provides a PAT interface to ",
@@ -204,7 +230,7 @@
       "text" : "ResultType"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ResultType",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/ResultType",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -217,68 +243,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/resulttype"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/ResultType/FailureType": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "associatedtype"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "FailureType"
-    },
-    {
-      "kind" : "text",
-      "text" : " : "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:s5ErrorP",
-      "text" : "Error"
-    }
-  ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ResultType\/FailureType",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "FailureType",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloutils\/resulttype\/failuretype"
-},
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/ResultType/SuccessType": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "associatedtype"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "SuccessType"
-    }
-  ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ResultType\/SuccessType",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "SuccessType",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloutils\/resulttype\/successtype"
-},
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/ResultType/underlying": {
+"doc://ApolloUtils/documentation/ApolloUtils/ResultType/underlying": {
   "abstract" : [
 
   ],
@@ -310,7 +275,14 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11ApolloUtils10ResultTypeP07SuccessD0Qa",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
       "text" : "SuccessType"
     },
     {
@@ -319,7 +291,14 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11ApolloUtils10ResultTypeP07FailureD0Qa",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
       "text" : "FailureType"
     },
     {
@@ -327,7 +306,7 @@
       "text" : ">"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/ResultType\/underlying",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/ResultType\/underlying",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",

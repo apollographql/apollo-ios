@@ -41,14 +41,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPResponse"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/HTTPResponse"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPResponse\/legacyResponse"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/HTTPResponse\/legacyResponse"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -81,7 +81,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:6Apollo12HTTPResponseC9Operationxmfp",
         "text" : "Operation"
       },
       {
@@ -90,7 +89,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
         "text" : "Data"
       },
       {
@@ -136,7 +134,7 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResponse",
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResponse",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:6Apollo15GraphQLResponseC",
               "text" : "GraphQLResponse"
@@ -147,7 +145,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:6Apollo12HTTPResponseC9Operationxmfp",
               "text" : "Operation"
             },
             {
@@ -156,7 +153,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
               "text" : "Data"
             },
             {
@@ -191,18 +187,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResponse": {
+"doc://Apollo/documentation/Apollo/GraphQLResponse": {
   "abstract" : [
     {
       "text" : "Represents a GraphQL response received from a server.",
@@ -223,7 +219,7 @@
       "text" : "GraphQLResponse"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResponse",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResponse",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -236,7 +232,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlresponse"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/HTTPResponse": {
+"doc://Apollo/documentation/Apollo/HTTPResponse": {
   "abstract" : [
     {
       "text" : "Data about a response received by an HTTP request.",
@@ -257,7 +253,7 @@
       "text" : "HTTPResponse"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPResponse",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/HTTPResponse",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -270,7 +266,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/httpresponse"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/HTTPResponse/legacyResponse": {
+"doc://Apollo/documentation/Apollo/HTTPResponse/legacyResponse": {
   "abstract" : [
     {
       "text" : "[optional] The data as parsed into a ",
@@ -338,7 +334,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo12HTTPResponseC9Operationxmfp",
       "text" : "Operation"
     },
     {
@@ -347,7 +342,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
       "text" : "Data"
     },
     {
@@ -355,7 +349,7 @@
       "text" : ">?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPResponse\/legacyResponse",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/HTTPResponse\/legacyResponse",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "legacyResponse",

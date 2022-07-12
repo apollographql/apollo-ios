@@ -8,13 +8,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"
+        "doc:\/\/Apollo\/documentation\/Apollo"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/UploadingNetworkTransport"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/UploadingNetworkTransport"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -77,7 +77,7 @@
               "text" : " : "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NetworkTransport",
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/NetworkTransport",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:6Apollo16NetworkTransportP",
               "text" : "NetworkTransport"
@@ -91,7 +91,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NetworkTransport"
+        "doc:\/\/Apollo\/documentation\/Apollo\/NetworkTransport"
       ],
       "kind" : "relationships",
       "title" : "Inherits From",
@@ -99,7 +99,7 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport"
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport"
       ],
       "kind" : "relationships",
       "title" : "Conforming Types",
@@ -117,7 +117,7 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/UploadingNetworkTransport\/upload(operation:files:callbackQueue:completionHandler:)"
+        "doc:\/\/Apollo\/documentation\/Apollo\/UploadingNetworkTransport\/upload(operation:files:callbackQueue:completionHandler:)"
       ],
       "title" : "Instance Methods"
     }
@@ -136,18 +136,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/NetworkTransport": {
+"doc://Apollo/documentation/Apollo/NetworkTransport": {
   "abstract" : [
     {
       "text" : "A network transport is responsible for sending GraphQL operations to a server.",
@@ -168,7 +168,7 @@
       "text" : "NetworkTransport"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NetworkTransport",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/NetworkTransport",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -181,7 +181,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/networktransport"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChainNetworkTransport": {
+"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport": {
   "abstract" : [
     {
       "text" : "An implementation of ",
@@ -226,7 +226,7 @@
       "text" : "RequestChainNetworkTransport"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -239,7 +239,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchainnetworktransport"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/UploadingNetworkTransport": {
+"doc://Apollo/documentation/Apollo/UploadingNetworkTransport": {
   "abstract" : [
     {
       "text" : "A network transport which can also handle uploads of files.",
@@ -260,7 +260,7 @@
       "text" : "UploadingNetworkTransport"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/UploadingNetworkTransport",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/UploadingNetworkTransport",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -273,7 +273,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/uploadingnetworktransport"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/UploadingNetworkTransport/upload(operation:files:callbackQueue:completionHandler:)": {
+"doc://Apollo/documentation/Apollo/UploadingNetworkTransport/upload(operation:files:callbackQueue:completionHandler:)": {
   "abstract" : [
     {
       "text" : "Uploads the given files with the given operation.",
@@ -315,7 +315,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo25UploadingNetworkTransportP6upload9operation5files13callbackQueue17completionHandlerAA11Cancellable_pqd___SayAA11GraphQLFileVGSo17OS_dispatch_queueCys6ResultOyAA0M8QLResultVy4DataQyd__Gs5Error_pGct0A3API0M11QLOperationRd__lF9OperationL_qd__mfp",
       "text" : "Operation"
     },
     {
@@ -384,7 +383,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo25UploadingNetworkTransportP6upload9operation5files13callbackQueue17completionHandlerAA11Cancellable_pqd___SayAA11GraphQLFileVGSo17OS_dispatch_queueCys6ResultOyAA0M8QLResultVy4DataQyd__Gs5Error_pGct0A3API0M11QLOperationRd__lF9OperationL_qd__mfp",
       "text" : "Operation"
     },
     {
@@ -393,7 +391,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
       "text" : "Data"
     },
     {
@@ -424,7 +421,7 @@
       "text" : "Cancellable"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/UploadingNetworkTransport\/upload(operation:files:callbackQueue:completionHandler:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/UploadingNetworkTransport\/upload(operation:files:callbackQueue:completionHandler:)",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",

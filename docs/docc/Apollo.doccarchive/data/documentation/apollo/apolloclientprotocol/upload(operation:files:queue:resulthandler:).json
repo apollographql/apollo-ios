@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClientProtocol"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClientProtocol"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClientProtocol\/upload(operation:files:queue:resultHandler:)"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClientProtocol\/upload(operation:files:queue:resultHandler:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -55,7 +55,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:6Apollo0A14ClientProtocolP6upload9operation5files5queue13resultHandlerAA11Cancellable_pqd___SayAA11GraphQLFileVGSo012OS_dispatch_G0Cys6ResultOyAA0K8QLResultVy4DataQyd__Gs5Error_pGcSgt0A3API0K11QLOperationRd__lF9OperationL_qd__mfp",
         "text" : "Operation"
       },
       {
@@ -115,7 +114,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:6Apollo0A14ClientProtocolP6upload9operation5files5queue13resultHandlerAA11Cancellable_pqd___SayAA11GraphQLFileVGSo012OS_dispatch_G0Cys6ResultOyAA0K8QLResultVy4DataQyd__Gs5Error_pGcSgt0A3API0K11QLOperationRd__lF9OperationL_qd__mfp",
         "text" : "Operation"
       },
       {
@@ -124,7 +122,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
         "text" : "Data"
       },
       {
@@ -193,7 +190,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:6Apollo0A14ClientProtocolP6upload9operation5files5queue13resultHandlerAA11Cancellable_pqd___SayAA11GraphQLFileVGSo012OS_dispatch_G0Cys6ResultOyAA0K8QLResultVy4DataQyd__Gs5Error_pGcSgt0A3API0K11QLOperationRd__lF9OperationL_qd__mfp",
               "text" : "Operation"
             },
             {
@@ -209,7 +205,7 @@
               "text" : ": ["
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLFile",
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:6Apollo11GraphQLFileV",
               "text" : "GraphQLFile"
@@ -244,7 +240,7 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResultHandler",
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResultHandler",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:6Apollo20GraphQLResultHandlera",
               "text" : "GraphQLResultHandler"
@@ -255,7 +251,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:6Apollo0A14ClientProtocolP6upload9operation5files5queue13resultHandlerAA11Cancellable_pqd___SayAA11GraphQLFileVGSo012OS_dispatch_G0Cys6ResultOyAA0K8QLResultVy4DataQyd__Gs5Error_pGcSgt0A3API0K11QLOperationRd__lF9OperationL_qd__mfp",
               "text" : "Operation"
             },
             {
@@ -264,7 +259,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
               "text" : "Data"
             },
             {
@@ -272,7 +266,7 @@
               "text" : ">?) -> "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Cancellable",
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/Cancellable",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:6Apollo11CancellableP",
               "text" : "Cancellable"
@@ -435,18 +429,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClientProtocol": {
+"doc://Apollo/documentation/Apollo/ApolloClientProtocol": {
   "abstract" : [
     {
       "text" : "The ",
@@ -475,7 +469,7 @@
       "text" : "ApolloClientProtocol"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClientProtocol",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClientProtocol",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -488,7 +482,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apolloclientprotocol"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClientProtocol/upload(operation:files:queue:resultHandler:)": {
+"doc://Apollo/documentation/Apollo/ApolloClientProtocol/upload(operation:files:queue:resultHandler:)": {
   "abstract" : [
     {
       "text" : "Uploads the given files with the given operation.",
@@ -530,7 +524,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo0A14ClientProtocolP6upload9operation5files5queue13resultHandlerAA11Cancellable_pqd___SayAA11GraphQLFileVGSo012OS_dispatch_G0Cys6ResultOyAA0K8QLResultVy4DataQyd__Gs5Error_pGcSgt0A3API0K11QLOperationRd__lF9OperationL_qd__mfp",
       "text" : "Operation"
     },
     {
@@ -590,7 +583,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo0A14ClientProtocolP6upload9operation5files5queue13resultHandlerAA11Cancellable_pqd___SayAA11GraphQLFileVGSo012OS_dispatch_G0Cys6ResultOyAA0K8QLResultVy4DataQyd__Gs5Error_pGcSgt0A3API0K11QLOperationRd__lF9OperationL_qd__mfp",
       "text" : "Operation"
     },
     {
@@ -599,7 +591,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
       "text" : "Data"
     },
     {
@@ -612,7 +603,7 @@
       "text" : "Cancellable"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClientProtocol\/upload(operation:files:queue:resultHandler:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClientProtocol\/upload(operation:files:queue:resultHandler:)",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
@@ -620,7 +611,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apolloclientprotocol\/upload(operation:files:queue:resulthandler:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/Cancellable": {
+"doc://Apollo/documentation/Apollo/Cancellable": {
   "abstract" : [
     {
       "text" : "An object that can be used to cancel an in progress action.",
@@ -641,7 +632,7 @@
       "text" : "Cancellable"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Cancellable",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/Cancellable",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -654,7 +645,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/cancellable"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLFile": {
+"doc://Apollo/documentation/Apollo/GraphQLFile": {
   "abstract" : [
     {
       "text" : "A file which can be uploaded to a GraphQL server",
@@ -675,7 +666,7 @@
       "text" : "GraphQLFile"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLFile",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -688,7 +679,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlfile"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResultHandler": {
+"doc://Apollo/documentation/Apollo/GraphQLResultHandler": {
   "abstract" : [
     {
       "text" : "A handler for operation results.",
@@ -709,7 +700,7 @@
       "text" : "GraphQLResultHandler"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResultHandler",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResultHandler",
   "kind" : "symbol",
   "navigatorTitle" : [
     {

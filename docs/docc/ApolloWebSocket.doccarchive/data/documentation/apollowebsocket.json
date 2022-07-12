@@ -14,7 +14,7 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket"
+    "url" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -40,31 +40,31 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLCert",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLClientCertificate",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSecurity",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SplitNetworkTransport",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLCert",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLClientCertificate",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLSecurity",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport"
       ],
       "title" : "Classes"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/OperationMessageIdCreator",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLTrustValidator",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketClient",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketClientDelegate",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransportDelegate"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/OperationMessageIdCreator",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLTrustValidator",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketClient",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketClientDelegate",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransportDelegate"
       ],
       "title" : "Protocols"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/ApolloSequencedOperationMessageIdCreator",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLClientCertificateError",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSettings",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketError"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/ApolloSequencedOperationMessageIdCreator",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLClientCertificateError",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLSettings",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError"
       ],
       "title" : "Structures"
     }
@@ -83,18 +83,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloWebSocket",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/ApolloSequencedOperationMessageIdCreator": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/ApolloSequencedOperationMessageIdCreator": {
   "abstract" : [
     {
       "text" : "The default implementation of ",
@@ -123,7 +123,7 @@
       "text" : "ApolloSequencedOperationMessageIdCreator"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/ApolloSequencedOperationMessageIdCreator",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/ApolloSequencedOperationMessageIdCreator",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -136,7 +136,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/apollosequencedoperationmessageidcreator"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/OperationMessageIdCreator": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/OperationMessageIdCreator": {
   "abstract" : [
 
   ],
@@ -154,7 +154,7 @@
       "text" : "OperationMessageIdCreator"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/OperationMessageIdCreator",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/OperationMessageIdCreator",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -167,7 +167,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/operationmessageidcreator"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SSLCert": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SSLCert": {
   "abstract" : [
 
   ],
@@ -185,7 +185,7 @@
       "text" : "SSLCert"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLCert",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLCert",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -198,7 +198,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/sslcert"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SSLClientCertificate": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SSLClientCertificate": {
   "abstract" : [
 
   ],
@@ -216,7 +216,7 @@
       "text" : "SSLClientCertificate"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLClientCertificate",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLClientCertificate",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -229,7 +229,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/sslclientcertificate"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SSLClientCertificateError": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SSLClientCertificateError": {
   "abstract" : [
 
   ],
@@ -247,7 +247,7 @@
       "text" : "SSLClientCertificateError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLClientCertificateError",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLClientCertificateError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -260,7 +260,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/sslclientcertificateerror"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SSLSecurity": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SSLSecurity": {
   "abstract" : [
 
   ],
@@ -278,7 +278,7 @@
       "text" : "SSLSecurity"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSecurity",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLSecurity",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -291,7 +291,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/sslsecurity"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SSLSettings": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SSLSettings": {
   "abstract" : [
 
   ],
@@ -309,7 +309,7 @@
       "text" : "SSLSettings"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSettings",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLSettings",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -322,7 +322,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/sslsettings"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SSLTrustValidator": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SSLTrustValidator": {
   "abstract" : [
 
   ],
@@ -340,7 +340,7 @@
       "text" : "SSLTrustValidator"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLTrustValidator",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLTrustValidator",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -353,7 +353,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/ssltrustvalidator"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SplitNetworkTransport": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SplitNetworkTransport": {
   "abstract" : [
     {
       "text" : "A network transport that sends subscriptions using one ",
@@ -390,7 +390,7 @@
       "text" : "SplitNetworkTransport"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SplitNetworkTransport",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -403,7 +403,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/splitnetworktransport"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocket": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocket": {
   "abstract" : [
 
   ],
@@ -421,7 +421,7 @@
       "text" : "WebSocket"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -434,7 +434,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocket"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketClient": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketClient": {
   "abstract" : [
     {
       "text" : "Protocol allowing alternative implementations of websockets beyond ",
@@ -463,7 +463,7 @@
       "text" : "WebSocketClient"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketClient",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketClient",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -476,7 +476,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocketclient"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketClientDelegate": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketClientDelegate": {
   "abstract" : [
     {
       "text" : "The delegate for a ",
@@ -505,7 +505,7 @@
       "text" : "WebSocketClientDelegate"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketClientDelegate",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketClientDelegate",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -518,7 +518,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocketclientdelegate"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketError": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketError": {
   "abstract" : [
     {
       "text" : "A structure for capturing problems and any associated errors from a ",
@@ -547,7 +547,7 @@
       "text" : "WebSocketError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketError",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -560,7 +560,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocketerror"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketTransport": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport": {
   "abstract" : [
     {
       "text" : "A network transport that uses web sockets requests to send GraphQL subscription operations to a server.",
@@ -581,7 +581,7 @@
       "text" : "WebSocketTransport"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -594,7 +594,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websockettransport"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketTransportDelegate": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransportDelegate": {
   "abstract" : [
 
   ],
@@ -612,7 +612,7 @@
       "text" : "WebSocketTransportDelegate"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransportDelegate",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransportDelegate",
   "kind" : "symbol",
   "navigatorTitle" : [
     {

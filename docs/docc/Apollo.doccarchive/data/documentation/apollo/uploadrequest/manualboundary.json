@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/UploadRequest"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/UploadRequest"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/UploadRequest\/manualBoundary"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/UploadRequest\/manualBoundary"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -121,18 +121,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/UploadRequest": {
+"doc://Apollo/documentation/Apollo/UploadRequest": {
   "abstract" : [
     {
       "text" : "A request class allowing for a multipart-upload request.",
@@ -153,7 +153,7 @@
       "text" : "UploadRequest"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/UploadRequest",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/UploadRequest",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -166,7 +166,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/uploadrequest"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/UploadRequest/manualBoundary": {
+"doc://Apollo/documentation/Apollo/UploadRequest/manualBoundary": {
   "abstract" : [
 
   ],
@@ -197,7 +197,7 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/UploadRequest\/manualBoundary",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/UploadRequest\/manualBoundary",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "manualBoundary",

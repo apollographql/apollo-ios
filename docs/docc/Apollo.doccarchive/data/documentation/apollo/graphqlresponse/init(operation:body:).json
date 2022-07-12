@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResponse"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResponse"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResponse\/init(operation:body:)"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResponse\/init(operation:body:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -47,7 +47,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:6Apollo15GraphQLResponseC9operation4bodyACyxGqd___SDySSs11AnyHashableVGtc4DataQyd__Rsz0A3API0B11QLOperationRd__lufc9OperationL_qd__mfp",
         "text" : "Operation"
       },
       {
@@ -119,7 +118,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:6Apollo15GraphQLResponseC9operation4bodyACyxGqd___SDySSs11AnyHashableVGtc4DataQyd__Rsz0A3API0B11QLOperationRd__lufc9OperationL_qd__mfp",
               "text" : "Operation"
             },
             {
@@ -135,7 +133,7 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONObject",
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONObject",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:6Apollo10JSONObjecta",
               "text" : "JSONObject"
@@ -217,18 +215,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResponse": {
+"doc://Apollo/documentation/Apollo/GraphQLResponse": {
   "abstract" : [
     {
       "text" : "Represents a GraphQL response received from a server.",
@@ -249,7 +247,7 @@
       "text" : "GraphQLResponse"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResponse",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResponse",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -262,7 +260,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlresponse"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResponse/init(operation:body:)": {
+"doc://Apollo/documentation/Apollo/GraphQLResponse/init(operation:body:)": {
   "abstract" : [
 
   ],
@@ -293,7 +291,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo15GraphQLResponseC9operation4bodyACyxGqd___SDySSs11AnyHashableVGtc4DataQyd__Rsz0A3API0B11QLOperationRd__lufc9OperationL_qd__mfp",
       "text" : "Operation"
     },
     {
@@ -318,14 +315,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResponse\/init(operation:body:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResponse\/init(operation:body:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(operation:body:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlresponse\/init(operation:body:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONObject": {
+"doc://Apollo/documentation/Apollo/JSONObject": {
   "abstract" : [
 
   ],
@@ -343,7 +340,7 @@
       "text" : "JSONObject"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONObject",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONObject",
   "kind" : "symbol",
   "navigatorTitle" : [
     {

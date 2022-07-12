@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheReference"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheReference"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheReference\/RootSubscription"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheReference\/RootSubscription"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -97,7 +97,7 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheReference",
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheReference",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:9ApolloAPI14CacheReferenceV",
               "text" : "CacheReference"
@@ -130,18 +130,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI": {
+"doc://ApolloAPI/documentation/ApolloAPI": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/CacheReference": {
+"doc://ApolloAPI/documentation/ApolloAPI/CacheReference": {
   "abstract" : [
     {
       "text" : "Represents a reference to a record for a GraphQL Object in the cache.",
@@ -162,7 +162,7 @@
       "text" : "CacheReference"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheReference",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheReference",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -175,7 +175,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/cachereference"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/CacheReference/RootSubscription": {
+"doc://ApolloAPI/documentation/ApolloAPI/CacheReference/RootSubscription": {
   "abstract" : [
     {
       "text" : "A CacheReference referencing the root subscription object.",
@@ -213,7 +213,7 @@
       "text" : "CacheReference"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheReference\/RootSubscription",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheReference\/RootSubscription",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "RootSubscription",

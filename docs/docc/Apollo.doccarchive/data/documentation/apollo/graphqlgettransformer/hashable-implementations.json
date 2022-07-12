@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLGETTransformer"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLGETTransformer"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLGETTransformer\/Hashable-Implementations"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLGETTransformer\/Hashable-Implementations"
   },
   "kind" : "article",
   "metadata" : {
@@ -39,7 +39,7 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLGETTransformer\/hash(into:)"
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLGETTransformer\/hash(into:)"
       ],
       "title" : "Instance Methods"
     }
@@ -58,18 +58,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLGETTransformer": {
+"doc://Apollo/documentation/Apollo/GraphQLGETTransformer": {
   "abstract" : [
 
   ],
@@ -87,7 +87,7 @@
       "text" : "GraphQLGETTransformer"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLGETTransformer",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLGETTransformer",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -100,7 +100,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlgettransformer"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLGETTransformer/hash(into:)": {
+"doc://Apollo/documentation/Apollo/GraphQLGETTransformer/hash(into:)": {
   "abstract" : [
 
   ],
@@ -147,7 +147,7 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLGETTransformer\/hash(into:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLGETTransformer\/hash(into:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "hash(into:)",

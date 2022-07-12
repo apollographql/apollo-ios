@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/OperationDefinition"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/OperationDefinition"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/OperationDefinition\/init(_:fragments:)"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/OperationDefinition\/init(_:fragments:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -119,7 +119,7 @@
               "text" : ": ["
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Fragment",
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Fragment",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:9ApolloAPI8FragmentP",
               "text" : "Fragment"
@@ -156,18 +156,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI": {
+"doc://ApolloAPI/documentation/ApolloAPI": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Fragment": {
+"doc://ApolloAPI/documentation/ApolloAPI/Fragment": {
   "abstract" : [
     {
       "text" : "A protocol representing a fragment that a ",
@@ -196,7 +196,7 @@
       "text" : "Fragment"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Fragment",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Fragment",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -209,7 +209,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/fragment"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/OperationDefinition": {
+"doc://ApolloAPI/documentation/ApolloAPI/OperationDefinition": {
   "abstract" : [
     {
       "text" : "The definition of an operation to be provided over network transport.",
@@ -230,7 +230,7 @@
       "text" : "OperationDefinition"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/OperationDefinition",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/OperationDefinition",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -243,7 +243,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/operationdefinition"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/OperationDefinition/init(_:fragments:)": {
+"doc://ApolloAPI/documentation/ApolloAPI/OperationDefinition/init(_:fragments:)": {
   "abstract" : [
 
   ],
@@ -283,7 +283,7 @@
       "text" : ".Type]?)"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/OperationDefinition\/init(_:fragments:)",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/OperationDefinition\/init(_:fragments:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(_:fragments:)",

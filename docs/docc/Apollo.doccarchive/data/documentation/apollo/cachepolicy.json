@@ -8,13 +8,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"
+        "doc:\/\/Apollo\/documentation\/Apollo"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CachePolicy"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/CachePolicy"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -81,8 +81,8 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/SQ",
-        "doc:\/\/com.apollographql.Apollo.macosx\/SH"
+        "doc:\/\/Apollo\/SQ",
+        "doc:\/\/Apollo\/SH"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -100,24 +100,24 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CachePolicy\/fetchIgnoringCacheCompletely",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CachePolicy\/fetchIgnoringCacheData",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CachePolicy\/returnCacheDataAndFetch",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CachePolicy\/returnCacheDataDontFetch",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CachePolicy\/returnCacheDataElseFetch"
+        "doc:\/\/Apollo\/documentation\/Apollo\/CachePolicy\/fetchIgnoringCacheCompletely",
+        "doc:\/\/Apollo\/documentation\/Apollo\/CachePolicy\/fetchIgnoringCacheData",
+        "doc:\/\/Apollo\/documentation\/Apollo\/CachePolicy\/returnCacheDataAndFetch",
+        "doc:\/\/Apollo\/documentation\/Apollo\/CachePolicy\/returnCacheDataDontFetch",
+        "doc:\/\/Apollo\/documentation\/Apollo\/CachePolicy\/returnCacheDataElseFetch"
       ],
       "title" : "Enumeration Cases"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CachePolicy\/default"
+        "doc:\/\/Apollo\/documentation\/Apollo\/CachePolicy\/default"
       ],
       "title" : "Type Properties"
     },
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CachePolicy\/Equatable-Implementations"
+        "doc:\/\/Apollo\/documentation\/Apollo\/CachePolicy\/Equatable-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -136,28 +136,28 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/SH": {
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/SH",
+"doc://Apollo/SH": {
+  "identifier" : "doc:\/\/Apollo\/SH",
   "title" : "Swift.Hashable",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.Apollo.macosx/SQ": {
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/SQ",
+"doc://Apollo/SQ": {
+  "identifier" : "doc:\/\/Apollo\/SQ",
   "title" : "Swift.Equatable",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/CachePolicy": {
+"doc://Apollo/documentation/Apollo/CachePolicy": {
   "abstract" : [
     {
       "text" : "A cache policy that specifies whether results should be fetched from the server or loaded from the local cache.",
@@ -178,7 +178,7 @@
       "text" : "CachePolicy"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CachePolicy",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CachePolicy",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -191,18 +191,18 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/cachepolicy"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/CachePolicy/Equatable-Implementations": {
+"doc://Apollo/documentation/Apollo/CachePolicy/Equatable-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CachePolicy\/Equatable-Implementations",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CachePolicy\/Equatable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Equatable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/cachepolicy\/equatable-implementations"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/CachePolicy/default": {
+"doc://Apollo/documentation/Apollo/CachePolicy/default": {
   "abstract" : [
     {
       "text" : "The current default cache policy.",
@@ -240,14 +240,14 @@
       "text" : "CachePolicy"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CachePolicy\/default",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CachePolicy\/default",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "default",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/cachepolicy\/default"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/CachePolicy/fetchIgnoringCacheCompletely": {
+"doc://Apollo/documentation/Apollo/CachePolicy/fetchIgnoringCacheCompletely": {
   "abstract" : [
     {
       "text" : "Always fetch results from the server, and don’t store these in the cache.",
@@ -268,14 +268,14 @@
       "text" : "fetchIgnoringCacheCompletely"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CachePolicy\/fetchIgnoringCacheCompletely",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CachePolicy\/fetchIgnoringCacheCompletely",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "CachePolicy.fetchIgnoringCacheCompletely",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/cachepolicy\/fetchignoringcachecompletely"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/CachePolicy/fetchIgnoringCacheData": {
+"doc://Apollo/documentation/Apollo/CachePolicy/fetchIgnoringCacheData": {
   "abstract" : [
     {
       "text" : "Always fetch results from the server.",
@@ -296,14 +296,14 @@
       "text" : "fetchIgnoringCacheData"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CachePolicy\/fetchIgnoringCacheData",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CachePolicy\/fetchIgnoringCacheData",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "CachePolicy.fetchIgnoringCacheData",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/cachepolicy\/fetchignoringcachedata"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/CachePolicy/returnCacheDataAndFetch": {
+"doc://Apollo/documentation/Apollo/CachePolicy/returnCacheDataAndFetch": {
   "abstract" : [
     {
       "text" : "Return data from the cache if available, and always fetch results from the server.",
@@ -324,14 +324,14 @@
       "text" : "returnCacheDataAndFetch"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CachePolicy\/returnCacheDataAndFetch",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CachePolicy\/returnCacheDataAndFetch",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "CachePolicy.returnCacheDataAndFetch",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/cachepolicy\/returncachedataandfetch"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/CachePolicy/returnCacheDataDontFetch": {
+"doc://Apollo/documentation/Apollo/CachePolicy/returnCacheDataDontFetch": {
   "abstract" : [
     {
       "text" : "Return data from the cache if available, else return nil.",
@@ -352,14 +352,14 @@
       "text" : "returnCacheDataDontFetch"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CachePolicy\/returnCacheDataDontFetch",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CachePolicy\/returnCacheDataDontFetch",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "CachePolicy.returnCacheDataDontFetch",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/cachepolicy\/returncachedatadontfetch"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/CachePolicy/returnCacheDataElseFetch": {
+"doc://Apollo/documentation/Apollo/CachePolicy/returnCacheDataElseFetch": {
   "abstract" : [
     {
       "text" : "Return data from the cache if available, else fetch results from the server.",
@@ -380,7 +380,7 @@
       "text" : "returnCacheDataElseFetch"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CachePolicy\/returnCacheDataElseFetch",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CachePolicy\/returnCacheDataElseFetch",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "CachePolicy.returnCacheDataElseFetch",

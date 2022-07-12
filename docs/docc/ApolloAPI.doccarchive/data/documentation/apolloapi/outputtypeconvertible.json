@@ -8,13 +8,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/OutputTypeConvertible"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/OutputTypeConvertible"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -81,9 +81,9 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CustomScalarType",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/MutableRootSelectionSet",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/RootSelectionSet"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CustomScalarType",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/MutableRootSelectionSet",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/RootSelectionSet"
       ],
       "kind" : "relationships",
       "title" : "Inherited By",
@@ -91,7 +91,7 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLEnum"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum"
       ],
       "kind" : "relationships",
       "title" : "Conforming Types",
@@ -109,7 +109,7 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/OutputTypeConvertible\/asOutputType"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/OutputTypeConvertible\/asOutputType"
       ],
       "title" : "Type Properties"
     }
@@ -128,18 +128,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI": {
+"doc://ApolloAPI/documentation/ApolloAPI": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/CustomScalarType": {
+"doc://ApolloAPI/documentation/ApolloAPI/CustomScalarType": {
   "abstract" : [
 
   ],
@@ -157,7 +157,7 @@
       "text" : "CustomScalarType"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CustomScalarType",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CustomScalarType",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -170,7 +170,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/customscalartype"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLEnum": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLEnum": {
   "abstract" : [
     {
       "text" : "A generic enum that wraps a generated enum from a GraphQL Schema.",
@@ -223,7 +223,7 @@
       "text" : "GraphQLEnum"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLEnum",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -236,7 +236,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqlenum"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/MutableRootSelectionSet": {
+"doc://ApolloAPI/documentation/ApolloAPI/MutableRootSelectionSet": {
   "abstract" : [
 
   ],
@@ -254,7 +254,7 @@
       "text" : "MutableRootSelectionSet"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/MutableRootSelectionSet",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/MutableRootSelectionSet",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -267,7 +267,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/mutablerootselectionset"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/OutputTypeConvertible": {
+"doc://ApolloAPI/documentation/ApolloAPI/OutputTypeConvertible": {
   "abstract" : [
 
   ],
@@ -285,7 +285,7 @@
       "text" : "OutputTypeConvertible"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/OutputTypeConvertible",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/OutputTypeConvertible",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -298,7 +298,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/outputtypeconvertible"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/OutputTypeConvertible/asOutputType": {
+"doc://ApolloAPI/documentation/ApolloAPI/OutputTypeConvertible/asOutputType": {
   "abstract" : [
 
   ],
@@ -352,7 +352,7 @@
       "text" : "OutputType"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/OutputTypeConvertible\/asOutputType",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/OutputTypeConvertible\/asOutputType",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
@@ -360,7 +360,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/outputtypeconvertible\/asoutputtype"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/RootSelectionSet": {
+"doc://ApolloAPI/documentation/ApolloAPI/RootSelectionSet": {
   "abstract" : [
     {
       "text" : "A selection set that represents the root selections on its ",
@@ -405,7 +405,7 @@
       "text" : "RootSelectionSet"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/RootSelectionSet",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/RootSelectionSet",
   "kind" : "symbol",
   "navigatorTitle" : [
     {

@@ -8,15 +8,15 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult\/InclusionCondition"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/InclusionCondition"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult\/InclusionCondition\/variable(_:isInverted:)"
+    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/InclusionCondition\/variable(_:isInverted:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -156,18 +156,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloCodegenLib",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/CompilationResult": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CompilationResult": {
   "abstract" : [
     {
       "text" : "The output of the frontend compiler.",
@@ -188,7 +188,7 @@
       "text" : "CompilationResult"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -201,7 +201,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/compilationresult"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/CompilationResult/InclusionCondition": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CompilationResult/InclusionCondition": {
   "abstract" : [
 
   ],
@@ -219,7 +219,7 @@
       "text" : "InclusionCondition"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult\/InclusionCondition",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/InclusionCondition",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -232,7 +232,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/compilationresult\/inclusioncondition"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/CompilationResult/InclusionCondition/variable(_:isInverted:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CompilationResult/InclusionCondition/variable(_:isInverted:)": {
   "abstract" : [
 
   ],
@@ -280,7 +280,7 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult\/InclusionCondition\/variable(_:isInverted:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/InclusionCondition\/variable(_:isInverted:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "CompilationResult.InclusionCondition.variable(_:isInverted:)",

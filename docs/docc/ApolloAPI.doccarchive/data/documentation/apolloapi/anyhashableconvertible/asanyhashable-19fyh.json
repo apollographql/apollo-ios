@@ -8,15 +8,15 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/AnyHashableConvertible",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/AnyHashableConvertible\/asAnyHashable-1zb0y"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnyHashableConvertible",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnyHashableConvertible\/asAnyHashable-1zb0y"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/AnyHashableConvertible\/asAnyHashable-19fyh"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnyHashableConvertible\/asAnyHashable-19fyh"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -159,18 +159,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI": {
+"doc://ApolloAPI/documentation/ApolloAPI": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/AnyHashableConvertible": {
+"doc://ApolloAPI/documentation/ApolloAPI/AnyHashableConvertible": {
   "abstract" : [
 
   ],
@@ -188,7 +188,7 @@
       "text" : "AnyHashableConvertible"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/AnyHashableConvertible",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnyHashableConvertible",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -201,7 +201,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/anyhashableconvertible"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/AnyHashableConvertible/asAnyHashable-19fyh": {
+"doc://ApolloAPI/documentation/ApolloAPI/AnyHashableConvertible/asAnyHashable-19fyh": {
   "abstract" : [
 
   ],
@@ -260,14 +260,14 @@
       "text" : "AnyHashable"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/AnyHashableConvertible\/asAnyHashable-19fyh",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnyHashableConvertible\/asAnyHashable-19fyh",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "asAnyHashable",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/anyhashableconvertible\/asanyhashable-19fyh"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/AnyHashableConvertible/asAnyHashable-1zb0y": {
+"doc://ApolloAPI/documentation/ApolloAPI/AnyHashableConvertible/asAnyHashable-1zb0y": {
   "abstract" : [
 
   ],
@@ -295,7 +295,7 @@
       "text" : "AnyHashable"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/AnyHashableConvertible\/asAnyHashable-1zb0y",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnyHashableConvertible\/asAnyHashable-1zb0y",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",

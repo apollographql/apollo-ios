@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NormalizedCache"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/NormalizedCache"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NormalizedCache\/loadRecords(forKeys:)"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/NormalizedCache\/loadRecords(forKeys:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -154,7 +154,7 @@
               "text" : "<"
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheKey",
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CacheKey",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:6Apollo8CacheKeya",
               "text" : "CacheKey"
@@ -172,7 +172,7 @@
               "text" : " -> ["
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheKey",
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CacheKey",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:6Apollo8CacheKeya",
               "text" : "CacheKey"
@@ -182,7 +182,7 @@
               "text" : " : "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record",
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/Record",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:6Apollo6RecordV",
               "text" : "Record"
@@ -258,18 +258,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/CacheKey": {
+"doc://Apollo/documentation/Apollo/CacheKey": {
   "abstract" : [
     {
       "text" : "A cache key for a record.",
@@ -290,7 +290,7 @@
       "text" : "CacheKey"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheKey",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CacheKey",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -303,7 +303,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/cachekey"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/NormalizedCache": {
+"doc://Apollo/documentation/Apollo/NormalizedCache": {
   "abstract" : [
 
   ],
@@ -321,7 +321,7 @@
       "text" : "NormalizedCache"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NormalizedCache",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/NormalizedCache",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -334,7 +334,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/normalizedcache"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/NormalizedCache/loadRecords(forKeys:)": {
+"doc://Apollo/documentation/Apollo/NormalizedCache/loadRecords(forKeys:)": {
   "abstract" : [
     {
       "text" : "Loads records corresponding to the given keys.",
@@ -411,7 +411,7 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NormalizedCache\/loadRecords(forKeys:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/NormalizedCache\/loadRecords(forKeys:)",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
@@ -419,7 +419,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/normalizedcache\/loadrecords(forkeys:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/Record": {
+"doc://Apollo/documentation/Apollo/Record": {
   "abstract" : [
     {
       "text" : "A cache record.",
@@ -440,7 +440,7 @@
       "text" : "Record"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/Record",
   "kind" : "symbol",
   "navigatorTitle" : [
     {

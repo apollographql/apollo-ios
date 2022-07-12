@@ -8,15 +8,15 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransportDelegate",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransportDelegate\/webSocketTransport(_:didDisconnectWithError:)-5zb09"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransportDelegate",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransportDelegate\/webSocketTransport(_:didDisconnectWithError:)-5zb09"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransportDelegate\/webSocketTransport(_:didDisconnectWithError:)-19qhf"
+    "url" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransportDelegate\/webSocketTransport(_:didDisconnectWithError:)-19qhf"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -120,7 +120,7 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport",
+              "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:15ApolloWebSocket0bC9TransportC",
               "text" : "WebSocketTransport"
@@ -182,18 +182,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloWebSocket",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketTransport": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport": {
   "abstract" : [
     {
       "text" : "A network transport that uses web sockets requests to send GraphQL subscription operations to a server.",
@@ -214,7 +214,7 @@
       "text" : "WebSocketTransport"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -227,7 +227,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websockettransport"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketTransportDelegate": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransportDelegate": {
   "abstract" : [
 
   ],
@@ -245,7 +245,7 @@
       "text" : "WebSocketTransportDelegate"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransportDelegate",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransportDelegate",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -258,7 +258,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websockettransportdelegate"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketTransportDelegate/webSocketTransport(_:didDisconnectWithError:)-19qhf": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransportDelegate/webSocketTransport(_:didDisconnectWithError:)-19qhf": {
   "abstract" : [
 
   ],
@@ -306,14 +306,14 @@
       "text" : "?)"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransportDelegate\/webSocketTransport(_:didDisconnectWithError:)-19qhf",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransportDelegate\/webSocketTransport(_:didDisconnectWithError:)-19qhf",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "webSocketTransport(_:didDisconnectWithError:)",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websockettransportdelegate\/websockettransport(_:diddisconnectwitherror:)-19qhf"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketTransportDelegate/webSocketTransport(_:didDisconnectWithError:)-5zb09": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransportDelegate/webSocketTransport(_:didDisconnectWithError:)-5zb09": {
   "abstract" : [
 
   ],
@@ -362,7 +362,7 @@
       "text" : "?)"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransportDelegate\/webSocketTransport(_:didDisconnectWithError:)-5zb09",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransportDelegate\/webSocketTransport(_:didDisconnectWithError:)-5zb09",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",

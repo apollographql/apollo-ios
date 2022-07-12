@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor\/init()"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor\/init()"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -87,18 +87,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/AutomaticPersistedQueryInterceptor": {
+"doc://Apollo/documentation/Apollo/AutomaticPersistedQueryInterceptor": {
   "abstract" : [
 
   ],
@@ -116,7 +116,7 @@
       "text" : "AutomaticPersistedQueryInterceptor"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -129,7 +129,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/automaticpersistedqueryinterceptor"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/AutomaticPersistedQueryInterceptor/init()": {
+"doc://Apollo/documentation/Apollo/AutomaticPersistedQueryInterceptor/init()": {
   "abstract" : [
     {
       "text" : "Designated initializer",
@@ -146,7 +146,7 @@
       "text" : "()"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor\/init()",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor\/init()",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init()",

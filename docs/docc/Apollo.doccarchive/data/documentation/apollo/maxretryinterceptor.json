@@ -12,13 +12,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"
+        "doc:\/\/Apollo\/documentation\/Apollo"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MaxRetryInterceptor"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/MaxRetryInterceptor"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -85,7 +85,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloInterceptor"
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloInterceptor"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -103,19 +103,19 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MaxRetryInterceptor\/init(maxRetriesAllowed:)"
+        "doc:\/\/Apollo\/documentation\/Apollo\/MaxRetryInterceptor\/init(maxRetriesAllowed:)"
       ],
       "title" : "Initializers"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MaxRetryInterceptor\/interceptAsync(chain:request:response:completion:)"
+        "doc:\/\/Apollo\/documentation\/Apollo\/MaxRetryInterceptor\/interceptAsync(chain:request:response:completion:)"
       ],
       "title" : "Instance Methods"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MaxRetryInterceptor\/RetryError"
+        "doc:\/\/Apollo\/documentation\/Apollo\/MaxRetryInterceptor\/RetryError"
       ],
       "title" : "Enumerations"
     }
@@ -134,18 +134,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloInterceptor": {
+"doc://Apollo/documentation/Apollo/ApolloInterceptor": {
   "abstract" : [
     {
       "text" : "A protocol to set up a chainable unit of networking work.",
@@ -166,7 +166,7 @@
       "text" : "ApolloInterceptor"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloInterceptor",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloInterceptor",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -179,7 +179,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apollointerceptor"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/MaxRetryInterceptor": {
+"doc://Apollo/documentation/Apollo/MaxRetryInterceptor": {
   "abstract" : [
     {
       "text" : "An interceptor to enforce a maximum number of retries of any ",
@@ -204,7 +204,7 @@
       "text" : "MaxRetryInterceptor"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MaxRetryInterceptor",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/MaxRetryInterceptor",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -217,7 +217,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/maxretryinterceptor"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/MaxRetryInterceptor/RetryError": {
+"doc://Apollo/documentation/Apollo/MaxRetryInterceptor/RetryError": {
   "abstract" : [
 
   ],
@@ -235,7 +235,7 @@
       "text" : "RetryError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MaxRetryInterceptor\/RetryError",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/MaxRetryInterceptor\/RetryError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -248,7 +248,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/maxretryinterceptor\/retryerror"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/MaxRetryInterceptor/init(maxRetriesAllowed:)": {
+"doc://Apollo/documentation/Apollo/MaxRetryInterceptor/init(maxRetriesAllowed:)": {
   "abstract" : [
     {
       "text" : "Designated initializer.",
@@ -282,19 +282,16 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MaxRetryInterceptor\/init(maxRetriesAllowed:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/MaxRetryInterceptor\/init(maxRetriesAllowed:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(maxRetriesAllowed:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/maxretryinterceptor\/init(maxretriesallowed:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/MaxRetryInterceptor/interceptAsync(chain:request:response:completion:)": {
+"doc://Apollo/documentation/Apollo/MaxRetryInterceptor/interceptAsync(chain:request:response:completion:)": {
   "abstract" : [
-    {
-      "text" : "Called when this interceptor should do its work.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -357,7 +354,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo19MaxRetryInterceptorC14interceptAsync5chain7request8response10completionyAA12RequestChainC_AA11HTTPRequestCyxGAA12HTTPResponseCyxGSgys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0P11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -383,7 +379,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo19MaxRetryInterceptorC14interceptAsync5chain7request8response10completionyAA12RequestChainC_AA11HTTPRequestCyxGAA12HTTPResponseCyxGSgys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0P11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -418,7 +413,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo19MaxRetryInterceptorC14interceptAsync5chain7request8response10completionyAA12RequestChainC_AA11HTTPRequestCyxGAA12HTTPResponseCyxGSgys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0P11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -427,7 +421,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
       "text" : "Data"
     },
     {
@@ -453,7 +446,7 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MaxRetryInterceptor\/interceptAsync(chain:request:response:completion:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/MaxRetryInterceptor\/interceptAsync(chain:request:response:completion:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "interceptAsync(chain:request:response:completion:)",

@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLEnum"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLEnum\/RawRepresentable-Implementations"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum\/RawRepresentable-Implementations"
   },
   "kind" : "article",
   "metadata" : {
@@ -39,22 +39,22 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLEnum\/init(jsonValue:)-9bu8h"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum\/init(jsonValue:)-9bu8h"
       ],
       "title" : "Initializers"
     },
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLEnum\/hashValue",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLEnum\/jsonValue-1u4ik"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum\/hashValue",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum\/jsonValue-1u4ik"
       ],
       "title" : "Instance Properties"
     },
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLEnum\/hash(into:)"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum\/hash(into:)"
       ],
       "title" : "Instance Methods"
     }
@@ -73,18 +73,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI": {
+"doc://ApolloAPI/documentation/ApolloAPI": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLEnum": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLEnum": {
   "abstract" : [
     {
       "text" : "A generic enum that wraps a generated enum from a GraphQL Schema.",
@@ -105,7 +105,7 @@
       "text" : "GraphQLEnum"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLEnum",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -118,7 +118,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqlenum"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLEnum/hash(into:)": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLEnum/hash(into:)": {
   "abstract" : [
 
   ],
@@ -213,14 +213,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLEnum\/hash(into:)",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum\/hash(into:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "hash(into:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqlenum\/hash(into:)"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLEnum/hashValue": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLEnum/hashValue": {
   "abstract" : [
 
   ],
@@ -295,14 +295,14 @@
       "text" : "Int"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLEnum\/hashValue",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum\/hashValue",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "hashValue",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqlenum\/hashvalue"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLEnum/init(jsonValue:)-9bu8h": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLEnum/init(jsonValue:)-9bu8h": {
   "abstract" : [
 
   ],
@@ -369,14 +369,14 @@
       "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLEnum\/init(jsonValue:)-9bu8h",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum\/init(jsonValue:)-9bu8h",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(jsonValue:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqlenum\/init(jsonvalue:)-9bu8h"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLEnum/jsonValue-1u4ik": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLEnum/jsonValue-1u4ik": {
   "abstract" : [
 
   ],
@@ -435,7 +435,7 @@
       "text" : "JSONValue"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLEnum\/jsonValue-1u4ik",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum\/jsonValue-1u4ik",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "jsonValue",

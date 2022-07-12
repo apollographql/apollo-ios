@@ -8,7 +8,7 @@
   "defaultImplementationsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/AnySelectionSet\/init(fieldData:variables:)"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnySelectionSet\/init(fieldData:variables:)"
       ],
       "title" : "AnySelectionSet Implementations"
     }
@@ -16,14 +16,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/SelectionSetEntityValue"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSetEntityValue"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/SelectionSetEntityValue\/init(fieldData:variables:)"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSetEntityValue\/init(fieldData:variables:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -60,25 +60,25 @@
       },
       {
         "kind" : "text",
-        "text" : ": "
+        "text" : ": ["
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP",
-        "text" : "GraphQLOperation"
+        "preciseIdentifier" : "s:SS",
+        "text" : "String"
       },
       {
         "kind" : "text",
-        "text" : "."
+        "text" : " : "
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP9Variablesa",
-        "text" : "Variables"
+        "preciseIdentifier" : "s:9ApolloAPI29GraphQLOperationVariableValueP",
+        "text" : "GraphQLOperationVariableValue"
       },
       {
         "kind" : "text",
-        "text" : "?)"
+        "text" : "]?)"
       }
     ],
     "modules" : [
@@ -134,27 +134,26 @@
             },
             {
               "kind" : "text",
-              "text" : ": "
+              "text" : ": ["
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLOperation",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP",
-              "text" : "GraphQLOperation"
+              "preciseIdentifier" : "s:SS",
+              "text" : "String"
             },
             {
               "kind" : "text",
-              "text" : "."
+              "text" : " : "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLOperation\/Variables-swift.typealias",
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperationVariableValue",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP9Variablesa",
-              "text" : "Variables"
+              "preciseIdentifier" : "s:9ApolloAPI29GraphQLOperationVariableValueP",
+              "text" : "GraphQLOperationVariableValue"
             },
             {
               "kind" : "text",
-              "text" : "?)"
+              "text" : "]?)"
             }
           ]
         }
@@ -184,18 +183,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI": {
+"doc://ApolloAPI/documentation/ApolloAPI": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/AnySelectionSet/init(fieldData:variables:)": {
+"doc://ApolloAPI/documentation/ApolloAPI/AnySelectionSet/init(fieldData:variables:)": {
   "abstract" : [
 
   ],
@@ -231,35 +230,35 @@
     },
     {
       "kind" : "text",
-      "text" : ": "
+      "text" : ": ["
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP",
-      "text" : "GraphQLOperation"
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
     },
     {
       "kind" : "text",
-      "text" : "."
+      "text" : " : "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP9Variablesa",
-      "text" : "Variables"
+      "preciseIdentifier" : "s:9ApolloAPI29GraphQLOperationVariableValueP",
+      "text" : "GraphQLOperationVariableValue"
     },
     {
       "kind" : "text",
-      "text" : "?)"
+      "text" : "]?)"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/AnySelectionSet\/init(fieldData:variables:)",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnySelectionSet\/init(fieldData:variables:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(fieldData:variables:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/anyselectionset\/init(fielddata:variables:)"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLOperation": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLOperationVariableValue": {
   "abstract" : [
 
   ],
@@ -274,54 +273,23 @@
     },
     {
       "kind" : "identifier",
-      "text" : "GraphQLOperation"
+      "text" : "GraphQLOperationVariableValue"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLOperation",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperationVariableValue",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "GraphQLOperation"
+      "text" : "GraphQLOperationVariableValue"
     }
   ],
   "role" : "symbol",
-  "title" : "GraphQLOperation",
+  "title" : "GraphQLOperationVariableValue",
   "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/graphqloperation"
+  "url" : "\/documentation\/apolloapi\/graphqloperationvariablevalue"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLOperation/Variables-swift.typealias": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Variables"
-    }
-  ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLOperation\/Variables-swift.typealias",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Variables"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "GraphQLOperation.Variables",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/graphqloperation\/variables-swift.typealias"
-},
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/SelectionSetEntityValue": {
+"doc://ApolloAPI/documentation/ApolloAPI/SelectionSetEntityValue": {
   "abstract" : [
 
   ],
@@ -339,7 +307,7 @@
       "text" : "SelectionSetEntityValue"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/SelectionSetEntityValue",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSetEntityValue",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -352,7 +320,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/selectionsetentityvalue"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/SelectionSetEntityValue/init(fieldData:variables:)": {
+"doc://ApolloAPI/documentation/ApolloAPI/SelectionSetEntityValue/init(fieldData:variables:)": {
   "abstract" : [
 
   ],
@@ -389,28 +357,28 @@
     },
     {
       "kind" : "text",
-      "text" : ": "
+      "text" : ": ["
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP",
-      "text" : "GraphQLOperation"
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
     },
     {
       "kind" : "text",
-      "text" : "."
+      "text" : " : "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP9Variablesa",
-      "text" : "Variables"
+      "preciseIdentifier" : "s:9ApolloAPI29GraphQLOperationVariableValueP",
+      "text" : "GraphQLOperationVariableValue"
     },
     {
       "kind" : "text",
-      "text" : "?)"
+      "text" : "]?)"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/SelectionSetEntityValue\/init(fieldData:variables:)",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSetEntityValue\/init(fieldData:variables:)",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",

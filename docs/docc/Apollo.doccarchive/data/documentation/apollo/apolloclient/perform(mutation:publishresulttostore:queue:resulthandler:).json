@@ -1,22 +1,30 @@
 {
   "abstract" : [
     {
-      "text" : "Performs a mutation by sending it to the server.",
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "ApolloClientProtocol.perform(mutation:publishResultToStore:queue:resultHandler:)",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/ApolloClientProtocol-Implementations"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/ApolloClientProtocol-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/perform(mutation:publishResultToStore:queue:resultHandler:)"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/perform(mutation:publishResultToStore:queue:resultHandler:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -57,7 +65,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:6Apollo0A6ClientC7perform8mutation20publishResultToStore5queue13resultHandlerAA11Cancellable_px_SbSo012OS_dispatch_I0Cys0F0OyAA13GraphQLResultVy4DataQzGs5Error_pGcSgt0A3API0O10QLMutationRzlF8MutationL_xmfp",
         "text" : "Mutation"
       },
       {
@@ -117,7 +124,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:6Apollo0A6ClientC7perform8mutation20publishResultToStore5queue13resultHandlerAA11Cancellable_px_SbSo012OS_dispatch_I0Cys0F0OyAA13GraphQLResultVy4DataQzGs5Error_pGcSgt0A3API0O10QLMutationRzlF8MutationL_xmfp",
         "text" : "Mutation"
       },
       {
@@ -126,7 +132,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
         "text" : "Data"
       },
       {
@@ -202,7 +207,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:6Apollo0A6ClientC7perform8mutation20publishResultToStore5queue13resultHandlerAA11Cancellable_px_SbSo012OS_dispatch_I0Cys0F0OyAA13GraphQLResultVy4DataQzGs5Error_pGcSgt0A3API0O10QLMutationRzlF8MutationL_xmfp",
               "text" : "Mutation"
             },
             {
@@ -252,7 +256,7 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResultHandler",
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResultHandler",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:6Apollo20GraphQLResultHandlera",
               "text" : "GraphQLResultHandler"
@@ -263,7 +267,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:6Apollo0A6ClientC7perform8mutation20publishResultToStore5queue13resultHandlerAA11Cancellable_px_SbSo012OS_dispatch_I0Cys0F0OyAA13GraphQLResultVy4DataQzGs5Error_pGcSgt0A3API0O10QLMutationRzlF8MutationL_xmfp",
               "text" : "Mutation"
             },
             {
@@ -272,7 +275,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
               "text" : "Data"
             },
             {
@@ -280,7 +282,7 @@
               "text" : ">? = nil) -> "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Cancellable",
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/Cancellable",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:6Apollo11CancellableP",
               "text" : "Cancellable"
@@ -314,103 +316,6 @@
         }
       ],
       "kind" : "declarations"
-    },
-    {
-      "content" : [
-        {
-          "anchor" : "return-value",
-          "level" : 2,
-          "text" : "Return Value",
-          "type" : "heading"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "An object that can be used to cancel an in progress mutation.",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        }
-      ],
-      "kind" : "content"
-    },
-    {
-      "kind" : "parameters",
-      "parameters" : [
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "The mutation to perform.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "mutation"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "If ",
-                  "type" : "text"
-                },
-                {
-                  "code" : "true",
-                  "type" : "codeVoice"
-                },
-                {
-                  "text" : ", this will publish the result returned from the operation to the cache store. Default is ",
-                  "type" : "text"
-                },
-                {
-                  "code" : "true",
-                  "type" : "codeVoice"
-                },
-                {
-                  "text" : ".",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "publishResultToStore"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "A dispatch queue on which the result handler will be called. Should default to the main queue.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "queue"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "An optional closure that is called when mutation results are available or when an error occurs.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "resultHandler"
-        }
-      ]
     }
   ],
   "schemaVersion" : {
@@ -435,18 +340,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClient": {
+"doc://Apollo/documentation/Apollo/ApolloClient": {
   "abstract" : [
     {
       "text" : "The ",
@@ -483,7 +388,7 @@
       "text" : "ApolloClient"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -496,23 +401,20 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apolloclient"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClient/ApolloClientProtocol-Implementations": {
+"doc://Apollo/documentation/Apollo/ApolloClient/ApolloClientProtocol-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/ApolloClientProtocol-Implementations",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/ApolloClientProtocol-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "ApolloClientProtocol Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apolloclient\/apolloclientprotocol-implementations"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClient/perform(mutation:publishResultToStore:queue:resultHandler:)": {
+"doc://Apollo/documentation/Apollo/ApolloClient/perform(mutation:publishResultToStore:queue:resultHandler:)": {
   "abstract" : [
-    {
-      "text" : "Performs a mutation by sending it to the server.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -549,7 +451,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo0A6ClientC7perform8mutation20publishResultToStore5queue13resultHandlerAA11Cancellable_px_SbSo012OS_dispatch_I0Cys0F0OyAA13GraphQLResultVy4DataQzGs5Error_pGcSgt0A3API0O10QLMutationRzlF8MutationL_xmfp",
       "text" : "Mutation"
     },
     {
@@ -609,7 +510,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo0A6ClientC7perform8mutation20publishResultToStore5queue13resultHandlerAA11Cancellable_px_SbSo012OS_dispatch_I0Cys0F0OyAA13GraphQLResultVy4DataQzGs5Error_pGcSgt0A3API0O10QLMutationRzlF8MutationL_xmfp",
       "text" : "Mutation"
     },
     {
@@ -618,7 +518,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
       "text" : "Data"
     },
     {
@@ -631,14 +530,14 @@
       "text" : "Cancellable"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/perform(mutation:publishResultToStore:queue:resultHandler:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/perform(mutation:publishResultToStore:queue:resultHandler:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "perform(mutation:publishResultToStore:queue:resultHandler:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apolloclient\/perform(mutation:publishresulttostore:queue:resulthandler:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/Cancellable": {
+"doc://Apollo/documentation/Apollo/Cancellable": {
   "abstract" : [
     {
       "text" : "An object that can be used to cancel an in progress action.",
@@ -659,7 +558,7 @@
       "text" : "Cancellable"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Cancellable",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/Cancellable",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -672,7 +571,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/cancellable"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResultHandler": {
+"doc://Apollo/documentation/Apollo/GraphQLResultHandler": {
   "abstract" : [
     {
       "text" : "A handler for operation results.",
@@ -693,7 +592,7 @@
       "text" : "GraphQLResultHandler"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResultHandler",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResultHandler",
   "kind" : "symbol",
   "navigatorTitle" : [
     {

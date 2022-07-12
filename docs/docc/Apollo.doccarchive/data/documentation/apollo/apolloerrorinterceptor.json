@@ -8,13 +8,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"
+        "doc:\/\/Apollo\/documentation\/Apollo"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloErrorInterceptor"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloErrorInterceptor"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -89,7 +89,7 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloErrorInterceptor\/handleErrorAsync(error:chain:request:response:completion:)"
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloErrorInterceptor\/handleErrorAsync(error:chain:request:response:completion:)"
       ],
       "title" : "Instance Methods"
     }
@@ -108,18 +108,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloErrorInterceptor": {
+"doc://Apollo/documentation/Apollo/ApolloErrorInterceptor": {
   "abstract" : [
     {
       "text" : "An error interceptor called to allow further examination of error data when an error occurs in the chain.",
@@ -140,7 +140,7 @@
       "text" : "ApolloErrorInterceptor"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloErrorInterceptor",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloErrorInterceptor",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -153,7 +153,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apolloerrorinterceptor"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloErrorInterceptor/handleErrorAsync(error:chain:request:response:completion:)": {
+"doc://Apollo/documentation/Apollo/ApolloErrorInterceptor/handleErrorAsync(error:chain:request:response:completion:)": {
   "abstract" : [
     {
       "text" : "Asynchronously handles the receipt of an error at any point in the chain.",
@@ -238,7 +238,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo0A16ErrorInterceptorP06handleB5Async5error5chain7request8response10completionys0B0_p_AA12RequestChainCAA11HTTPRequestCyqd__GAA12HTTPResponseCyqd__GSgys6ResultOyAA13GraphQLResultVy4DataQyd__GsAJ_pGct0A3API0P11QLOperationRd__lF9OperationL_qd__mfp",
       "text" : "Operation"
     },
     {
@@ -264,7 +263,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo0A16ErrorInterceptorP06handleB5Async5error5chain7request8response10completionys0B0_p_AA12RequestChainCAA11HTTPRequestCyqd__GAA12HTTPResponseCyqd__GSgys6ResultOyAA13GraphQLResultVy4DataQyd__GsAJ_pGct0A3API0P11QLOperationRd__lF9OperationL_qd__mfp",
       "text" : "Operation"
     },
     {
@@ -299,7 +297,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo0A16ErrorInterceptorP06handleB5Async5error5chain7request8response10completionys0B0_p_AA12RequestChainCAA11HTTPRequestCyqd__GAA12HTTPResponseCyqd__GSgys6ResultOyAA13GraphQLResultVy4DataQyd__GsAJ_pGct0A3API0P11QLOperationRd__lF9OperationL_qd__mfp",
       "text" : "Operation"
     },
     {
@@ -308,7 +305,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
       "text" : "Data"
     },
     {
@@ -334,7 +330,7 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloErrorInterceptor\/handleErrorAsync(error:chain:request:response:completion:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloErrorInterceptor\/handleErrorAsync(error:chain:request:response:completion:)",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",

@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClientProtocol"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClientProtocol"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClientProtocol\/store"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClientProtocol\/store"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -82,7 +82,7 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore",
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:6Apollo0A5StoreC",
               "text" : "ApolloStore"
@@ -127,18 +127,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClientProtocol": {
+"doc://Apollo/documentation/Apollo/ApolloClientProtocol": {
   "abstract" : [
     {
       "text" : "The ",
@@ -167,7 +167,7 @@
       "text" : "ApolloClientProtocol"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClientProtocol",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClientProtocol",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -180,7 +180,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apolloclientprotocol"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClientProtocol/store": {
+"doc://Apollo/documentation/Apollo/ApolloClientProtocol/store": {
   "abstract" : [
     {
       "text" : "A store used as a local cache.",
@@ -210,7 +210,7 @@
       "text" : "ApolloStore"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClientProtocol\/store",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClientProtocol\/store",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
@@ -218,7 +218,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apolloclientprotocol\/store"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloStore": {
+"doc://Apollo/documentation/Apollo/ApolloStore": {
   "abstract" : [
     {
       "text" : "The ",
@@ -247,7 +247,7 @@
       "text" : "ApolloStore"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore",
   "kind" : "symbol",
   "navigatorTitle" : [
     {

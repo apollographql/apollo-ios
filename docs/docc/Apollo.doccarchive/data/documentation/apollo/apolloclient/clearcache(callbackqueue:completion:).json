@@ -1,30 +1,30 @@
 {
   "abstract" : [
     {
-      "text" : "Clears the underlying cache.",
+      "text" : "Inherited from ",
       "type" : "text"
     },
     {
-      "text" : " ",
-      "type" : "text"
+      "code" : "ApolloClientProtocol.clearCache(callbackQueue:completion:)",
+      "type" : "codeVoice"
     },
     {
-      "text" : "Be aware: In more complex setups, the same underlying cache can be used across multiple instances, so if you call this on one instance, it’ll clear that cache across all instances which share that cache.",
+      "text" : ".",
       "type" : "text"
     }
   ],
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/ApolloClientProtocol-Implementations"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/ApolloClientProtocol-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/clearCache(callbackQueue:completion:)"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/clearCache(callbackQueue:completion:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -211,39 +211,6 @@
         }
       ],
       "kind" : "declarations"
-    },
-    {
-      "kind" : "parameters",
-      "parameters" : [
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "The queue to fall back on. Should default to the main queue.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "callbackQueue"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "[optional] A completion closure to execute when clearing has completed. Should default to nil.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "completion"
-        }
-      ]
     }
   ],
   "schemaVersion" : {
@@ -268,18 +235,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClient": {
+"doc://Apollo/documentation/Apollo/ApolloClient": {
   "abstract" : [
     {
       "text" : "The ",
@@ -316,7 +283,7 @@
       "text" : "ApolloClient"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -329,31 +296,20 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apolloclient"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClient/ApolloClientProtocol-Implementations": {
+"doc://Apollo/documentation/Apollo/ApolloClient/ApolloClientProtocol-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/ApolloClientProtocol-Implementations",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/ApolloClientProtocol-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "ApolloClientProtocol Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apolloclient\/apolloclientprotocol-implementations"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClient/clearCache(callbackQueue:completion:)": {
+"doc://Apollo/documentation/Apollo/ApolloClient/clearCache(callbackQueue:completion:)": {
   "abstract" : [
-    {
-      "text" : "Clears the underlying cache.",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "Be aware: In more complex setups, the same underlying cache can be used across multiple instances, so if you call this on one instance, it’ll clear that cache across all instances which share that cache.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -434,7 +390,7 @@
       "text" : ")?)"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/clearCache(callbackQueue:completion:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/clearCache(callbackQueue:completion:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "clearCache(callbackQueue:completion:)",

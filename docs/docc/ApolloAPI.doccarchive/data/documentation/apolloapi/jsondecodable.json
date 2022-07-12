@@ -8,13 +8,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/JSONDecodable"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONDecodable"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -77,7 +77,7 @@
               "text" : " : "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/AnyHashableConvertible",
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnyHashableConvertible",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:9ApolloAPI22AnyHashableConvertibleP",
               "text" : "AnyHashableConvertible"
@@ -91,7 +91,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/AnyHashableConvertible"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnyHashableConvertible"
       ],
       "kind" : "relationships",
       "title" : "Inherits From",
@@ -99,8 +99,8 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CustomScalarType",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/ScalarType"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CustomScalarType",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ScalarType"
       ],
       "kind" : "relationships",
       "title" : "Inherited By",
@@ -108,7 +108,7 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLEnum"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum"
       ],
       "kind" : "relationships",
       "title" : "Conforming Types",
@@ -126,7 +126,7 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/JSONDecodable\/init(jsonValue:)"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONDecodable\/init(jsonValue:)"
       ],
       "title" : "Initializers"
     }
@@ -145,18 +145,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI": {
+"doc://ApolloAPI/documentation/ApolloAPI": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/AnyHashableConvertible": {
+"doc://ApolloAPI/documentation/ApolloAPI/AnyHashableConvertible": {
   "abstract" : [
 
   ],
@@ -174,7 +174,7 @@
       "text" : "AnyHashableConvertible"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/AnyHashableConvertible",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnyHashableConvertible",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -187,7 +187,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/anyhashableconvertible"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/CustomScalarType": {
+"doc://ApolloAPI/documentation/ApolloAPI/CustomScalarType": {
   "abstract" : [
 
   ],
@@ -205,7 +205,7 @@
       "text" : "CustomScalarType"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CustomScalarType",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CustomScalarType",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -218,7 +218,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/customscalartype"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLEnum": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLEnum": {
   "abstract" : [
     {
       "text" : "A generic enum that wraps a generated enum from a GraphQL Schema.",
@@ -271,7 +271,7 @@
       "text" : "GraphQLEnum"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLEnum",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -284,7 +284,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqlenum"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/JSONDecodable": {
+"doc://ApolloAPI/documentation/ApolloAPI/JSONDecodable": {
   "abstract" : [
 
   ],
@@ -302,7 +302,7 @@
       "text" : "JSONDecodable"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/JSONDecodable",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONDecodable",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -315,7 +315,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/jsondecodable"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/JSONDecodable/init(jsonValue:)": {
+"doc://ApolloAPI/documentation/ApolloAPI/JSONDecodable/init(jsonValue:)": {
   "abstract" : [
 
   ],
@@ -350,7 +350,7 @@
       "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/JSONDecodable\/init(jsonValue:)",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONDecodable\/init(jsonValue:)",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
@@ -358,7 +358,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/jsondecodable\/init(jsonvalue:)"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/ScalarType": {
+"doc://ApolloAPI/documentation/ApolloAPI/ScalarType": {
   "abstract" : [
 
   ],
@@ -376,7 +376,7 @@
       "text" : "ScalarType"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/ScalarType",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ScalarType",
   "kind" : "symbol",
   "navigatorTitle" : [
     {

@@ -1,22 +1,30 @@
 {
   "abstract" : [
     {
-      "text" : "Subscribe to a subscription",
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "ApolloClientProtocol.subscribe(subscription:queue:resultHandler:)",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/ApolloClientProtocol-Implementations"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/ApolloClientProtocol-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/subscribe(subscription:queue:resultHandler:)"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/subscribe(subscription:queue:resultHandler:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -57,7 +65,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:6Apollo0A6ClientC9subscribe12subscription5queue13resultHandlerAA11Cancellable_px_So012OS_dispatch_E0Cys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0L14QLSubscriptionRzlF12SubscriptionL_xmfp",
         "text" : "Subscription"
       },
       {
@@ -100,7 +107,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:6Apollo0A6ClientC9subscribe12subscription5queue13resultHandlerAA11Cancellable_px_So012OS_dispatch_E0Cys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0L14QLSubscriptionRzlF12SubscriptionL_xmfp",
         "text" : "Subscription"
       },
       {
@@ -109,7 +115,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
         "text" : "Data"
       },
       {
@@ -185,7 +190,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:6Apollo0A6ClientC9subscribe12subscription5queue13resultHandlerAA11Cancellable_px_So012OS_dispatch_E0Cys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0L14QLSubscriptionRzlF12SubscriptionL_xmfp",
               "text" : "Subscription"
             },
             {
@@ -218,7 +222,7 @@
               "text" : ": "
             },
             {
-              "kind" : "attribute",
+              "kind" : "keyword",
               "text" : "@escaping"
             },
             {
@@ -226,7 +230,7 @@
               "text" : " "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResultHandler",
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResultHandler",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:6Apollo20GraphQLResultHandlera",
               "text" : "GraphQLResultHandler"
@@ -237,7 +241,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:6Apollo0A6ClientC9subscribe12subscription5queue13resultHandlerAA11Cancellable_px_So012OS_dispatch_E0Cys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0L14QLSubscriptionRzlF12SubscriptionL_xmfp",
               "text" : "Subscription"
             },
             {
@@ -246,7 +249,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
               "text" : "Data"
             },
             {
@@ -254,7 +256,7 @@
               "text" : ">) -> "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Cancellable",
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/Cancellable",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:6Apollo11CancellableP",
               "text" : "Cancellable"
@@ -288,87 +290,6 @@
         }
       ],
       "kind" : "declarations"
-    },
-    {
-      "content" : [
-        {
-          "anchor" : "return-value",
-          "level" : 2,
-          "text" : "Return Value",
-          "type" : "heading"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "An object that can be used to cancel an in progress subscription.",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        }
-      ],
-      "kind" : "content"
-    },
-    {
-      "kind" : "parameters",
-      "parameters" : [
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "The subscription to subscribe to.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "subscription"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "The HTTP Method to be used.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "fetchHTTPMethod"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "A dispatch queue on which the result handler will be called. Should default to the main queue.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "queue"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "An optional closure that is called when mutation results are available or when an error occurs.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "resultHandler"
-        }
-      ]
     }
   ],
   "schemaVersion" : {
@@ -393,18 +314,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClient": {
+"doc://Apollo/documentation/Apollo/ApolloClient": {
   "abstract" : [
     {
       "text" : "The ",
@@ -441,7 +362,7 @@
       "text" : "ApolloClient"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -454,23 +375,20 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apolloclient"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClient/ApolloClientProtocol-Implementations": {
+"doc://Apollo/documentation/Apollo/ApolloClient/ApolloClientProtocol-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/ApolloClientProtocol-Implementations",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/ApolloClientProtocol-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "ApolloClientProtocol Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apolloclient\/apolloclientprotocol-implementations"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClient/subscribe(subscription:queue:resultHandler:)": {
+"doc://Apollo/documentation/Apollo/ApolloClient/subscribe(subscription:queue:resultHandler:)": {
   "abstract" : [
-    {
-      "text" : "Subscribe to a subscription",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -507,7 +425,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo0A6ClientC9subscribe12subscription5queue13resultHandlerAA11Cancellable_px_So012OS_dispatch_E0Cys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0L14QLSubscriptionRzlF12SubscriptionL_xmfp",
       "text" : "Subscription"
     },
     {
@@ -550,7 +467,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo0A6ClientC9subscribe12subscription5queue13resultHandlerAA11Cancellable_px_So012OS_dispatch_E0Cys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0L14QLSubscriptionRzlF12SubscriptionL_xmfp",
       "text" : "Subscription"
     },
     {
@@ -559,7 +475,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
       "text" : "Data"
     },
     {
@@ -572,14 +487,14 @@
       "text" : "Cancellable"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/subscribe(subscription:queue:resultHandler:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/subscribe(subscription:queue:resultHandler:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "subscribe(subscription:queue:resultHandler:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apolloclient\/subscribe(subscription:queue:resulthandler:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/Cancellable": {
+"doc://Apollo/documentation/Apollo/Cancellable": {
   "abstract" : [
     {
       "text" : "An object that can be used to cancel an in progress action.",
@@ -600,7 +515,7 @@
       "text" : "Cancellable"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Cancellable",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/Cancellable",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -613,7 +528,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/cancellable"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResultHandler": {
+"doc://Apollo/documentation/Apollo/GraphQLResultHandler": {
   "abstract" : [
     {
       "text" : "A handler for operation results.",
@@ -634,7 +549,7 @@
       "text" : "GraphQLResultHandler"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResultHandler",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResultHandler",
   "kind" : "symbol",
   "navigatorTitle" : [
     {

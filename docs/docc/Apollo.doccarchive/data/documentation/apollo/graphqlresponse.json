@@ -8,13 +8,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"
+        "doc:\/\/Apollo\/documentation\/Apollo"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResponse"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResponse"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -122,8 +122,8 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/SQ",
-        "doc:\/\/com.apollographql.Apollo.macosx\/SH"
+        "doc:\/\/Apollo\/SQ",
+        "doc:\/\/Apollo\/SH"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -141,28 +141,28 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResponse\/init(operation:body:)"
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResponse\/init(operation:body:)"
       ],
       "title" : "Initializers"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResponse\/body"
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResponse\/body"
       ],
       "title" : "Instance Properties"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResponse\/parseResult()",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResponse\/parseResultFast()"
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResponse\/parseResult()",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResponse\/parseResultFast()"
       ],
       "title" : "Instance Methods"
     },
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResponse\/Equatable-Implementations",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResponse\/Hashable-Implementations"
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResponse\/Equatable-Implementations",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResponse\/Hashable-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -181,28 +181,28 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/SH": {
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/SH",
+"doc://Apollo/SH": {
+  "identifier" : "doc:\/\/Apollo\/SH",
   "title" : "Swift.Hashable",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.Apollo.macosx/SQ": {
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/SQ",
+"doc://Apollo/SQ": {
+  "identifier" : "doc:\/\/Apollo\/SQ",
   "title" : "Swift.Equatable",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResponse": {
+"doc://Apollo/documentation/Apollo/GraphQLResponse": {
   "abstract" : [
     {
       "text" : "Represents a GraphQL response received from a server.",
@@ -223,7 +223,7 @@
       "text" : "GraphQLResponse"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResponse",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResponse",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -236,29 +236,29 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlresponse"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResponse/Equatable-Implementations": {
+"doc://Apollo/documentation/Apollo/GraphQLResponse/Equatable-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResponse\/Equatable-Implementations",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResponse\/Equatable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Equatable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlresponse\/equatable-implementations"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResponse/Hashable-Implementations": {
+"doc://Apollo/documentation/Apollo/GraphQLResponse/Hashable-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResponse\/Hashable-Implementations",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResponse\/Hashable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Hashable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlresponse\/hashable-implementations"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResponse/body": {
+"doc://Apollo/documentation/Apollo/GraphQLResponse/body": {
   "abstract" : [
 
   ],
@@ -285,14 +285,14 @@
       "text" : "JSONObject"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResponse\/body",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResponse\/body",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "body",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlresponse\/body"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResponse/init(operation:body:)": {
+"doc://Apollo/documentation/Apollo/GraphQLResponse/init(operation:body:)": {
   "abstract" : [
 
   ],
@@ -323,7 +323,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo15GraphQLResponseC9operation4bodyACyxGqd___SDySSs11AnyHashableVGtc4DataQyd__Rsz0A3API0B11QLOperationRd__lufc9OperationL_qd__mfp",
       "text" : "Operation"
     },
     {
@@ -348,14 +347,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResponse\/init(operation:body:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResponse\/init(operation:body:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(operation:body:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlresponse\/init(operation:body:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResponse/parseResult()": {
+"doc://Apollo/documentation/Apollo/GraphQLResponse/parseResult()": {
   "abstract" : [
     {
       "text" : "Parses a response into a ",
@@ -438,7 +437,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo15GraphQLResponseC4Dataxmfp",
       "text" : "Data"
     },
     {
@@ -455,14 +453,14 @@
       "text" : "?)"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResponse\/parseResult()",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResponse\/parseResult()",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "parseResult()",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlresponse\/parseresult()"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResponse/parseResultFast()": {
+"doc://Apollo/documentation/Apollo/GraphQLResponse/parseResultFast()": {
   "abstract" : [
     {
       "text" : "Parses a response into a ",
@@ -529,7 +527,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo15GraphQLResponseC4Dataxmfp",
       "text" : "Data"
     },
     {
@@ -537,7 +534,7 @@
       "text" : ">"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResponse\/parseResultFast()",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResponse\/parseResultFast()",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "parseResultFast()",

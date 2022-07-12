@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPRequest"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/HTTPRequest"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPRequest\/CustomDebugStringConvertible-Implementations"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/HTTPRequest\/CustomDebugStringConvertible-Implementations"
   },
   "kind" : "article",
   "metadata" : {
@@ -39,7 +39,7 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPRequest\/debugDescription"
+        "doc:\/\/Apollo\/documentation\/Apollo\/HTTPRequest\/debugDescription"
       ],
       "title" : "Instance Properties"
     }
@@ -58,18 +58,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/HTTPRequest": {
+"doc://Apollo/documentation/Apollo/HTTPRequest": {
   "abstract" : [
     {
       "text" : "Encapsulation of all information about a request before it hits the network",
@@ -90,7 +90,7 @@
       "text" : "HTTPRequest"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPRequest",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/HTTPRequest",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -103,7 +103,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/httprequest"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/HTTPRequest/debugDescription": {
+"doc://Apollo/documentation/Apollo/HTTPRequest/debugDescription": {
   "abstract" : [
 
   ],
@@ -162,7 +162,7 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPRequest\/debugDescription",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/HTTPRequest\/debugDescription",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "debugDescription",

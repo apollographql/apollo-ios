@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/NetworkTransport-Implementations"
+    "url" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/NetworkTransport-Implementations"
   },
   "kind" : "article",
   "metadata" : {
@@ -39,26 +39,26 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/clientName-2sr62",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/clientVersion-5nzf9"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/clientName-2sr62",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/clientVersion-5nzf9"
       ],
       "title" : "Instance Properties"
     },
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/addApolloClientHeaders(to:)",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/addApolloClientHeaders(to:)",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)"
       ],
       "title" : "Instance Methods"
     },
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/defaultClientName",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/defaultClientVersion",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/headerFieldNameApolloClientName",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/headerFieldNameApolloClientVersion"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/defaultClientName",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/defaultClientVersion",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/headerFieldNameApolloClientName",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/headerFieldNameApolloClientVersion"
       ],
       "title" : "Type Properties"
     }
@@ -77,18 +77,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloWebSocket",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketTransport": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport": {
   "abstract" : [
     {
       "text" : "A network transport that uses web sockets requests to send GraphQL subscription operations to a server.",
@@ -109,7 +109,7 @@
       "text" : "WebSocketTransport"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -122,7 +122,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websockettransport"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketTransport/addApolloClientHeaders(to:)": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport/addApolloClientHeaders(to:)": {
   "abstract" : [
     {
       "text" : "Adds the Apollo client headers for this instance of ",
@@ -180,19 +180,16 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/addApolloClientHeaders(to:)",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/addApolloClientHeaders(to:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "addApolloClientHeaders(to:)",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websockettransport\/addapolloclientheaders(to:)"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketTransport/clientName-2sr62": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport/clientName-2sr62": {
   "abstract" : [
-    {
-      "text" : "The name of the client to send as a header value.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -217,19 +214,16 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/clientName-2sr62",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/clientName-2sr62",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "clientName",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websockettransport\/clientname-2sr62"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketTransport/clientVersion-5nzf9": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport/clientVersion-5nzf9": {
   "abstract" : [
-    {
-      "text" : "The version of the client to send as a header value.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -254,14 +248,14 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/clientVersion-5nzf9",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/clientVersion-5nzf9",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "clientVersion",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websockettransport\/clientversion-5nzf9"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketTransport/defaultClientName": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport/defaultClientName": {
   "abstract" : [
     {
       "text" : "The default client name to use when setting up the ",
@@ -307,14 +301,14 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/defaultClientName",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/defaultClientName",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "defaultClientName",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websockettransport\/defaultclientname"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketTransport/defaultClientVersion": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport/defaultClientVersion": {
   "abstract" : [
     {
       "text" : "The default client version to use when setting up the ",
@@ -360,14 +354,14 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/defaultClientVersion",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/defaultClientVersion",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "defaultClientVersion",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websockettransport\/defaultclientversion"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketTransport/headerFieldNameApolloClientName": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport/headerFieldNameApolloClientName": {
   "abstract" : [
     {
       "text" : "The field name for the Apollo Client Name header",
@@ -405,14 +399,14 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/headerFieldNameApolloClientName",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/headerFieldNameApolloClientName",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "headerFieldNameApolloClientName",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websockettransport\/headerfieldnameapolloclientname"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketTransport/headerFieldNameApolloClientVersion": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport/headerFieldNameApolloClientVersion": {
   "abstract" : [
     {
       "text" : "The field name for the Apollo Client Version header",
@@ -450,19 +444,16 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/headerFieldNameApolloClientVersion",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/headerFieldNameApolloClientVersion",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "headerFieldNameApolloClientVersion",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websockettransport\/headerfieldnameapolloclientversion"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketTransport/send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport/send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)": {
   "abstract" : [
-    {
-      "text" : "Send a GraphQL operation to a server and return a response.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -499,7 +490,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:15ApolloWebSocket0bC9TransportC4send9operation11cachePolicy17contextIdentifier13callbackQueue17completionHandler0A011Cancellable_px_AJ05CacheH0O10Foundation4UUIDVSgSo17OS_dispatch_queueCys6ResultOyAJ13GraphQLResultVy4DataQzGs5Error_pGct0A3API0W11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -585,7 +575,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:15ApolloWebSocket0bC9TransportC4send9operation11cachePolicy17contextIdentifier13callbackQueue17completionHandler0A011Cancellable_px_AJ05CacheH0O10Foundation4UUIDVSgSo17OS_dispatch_queueCys6ResultOyAJ13GraphQLResultVy4DataQzGs5Error_pGct0A3API0W11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -594,7 +583,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
       "text" : "Data"
     },
     {
@@ -625,7 +613,7 @@
       "text" : "Cancellable"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)",

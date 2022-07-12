@@ -16,14 +16,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPRequest"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/HTTPRequest"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPRequest\/==(_:_:)"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/HTTPRequest\/==(_:_:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -68,7 +68,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:6Apollo11HTTPRequestC9Operationxmfp",
         "text" : "Operation"
       },
       {
@@ -86,7 +85,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:6Apollo11HTTPRequestC9Operationxmfp",
         "text" : "Operation"
       },
       {
@@ -157,7 +155,7 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPRequest",
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/HTTPRequest",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:6Apollo11HTTPRequestC",
               "text" : "HTTPRequest"
@@ -168,7 +166,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:6Apollo11HTTPRequestC9Operationxmfp",
               "text" : "Operation"
             },
             {
@@ -184,7 +181,7 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPRequest",
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/HTTPRequest",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:6Apollo11HTTPRequestC",
               "text" : "HTTPRequest"
@@ -195,7 +192,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:6Apollo11HTTPRequestC9Operationxmfp",
               "text" : "Operation"
             },
             {
@@ -235,18 +231,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/HTTPRequest": {
+"doc://Apollo/documentation/Apollo/HTTPRequest": {
   "abstract" : [
     {
       "text" : "Encapsulation of all information about a request before it hits the network",
@@ -267,7 +263,7 @@
       "text" : "HTTPRequest"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPRequest",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/HTTPRequest",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -280,7 +276,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/httprequest"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/HTTPRequest/==(_:_:)": {
+"doc://Apollo/documentation/Apollo/HTTPRequest/==(_:_:)": {
   "abstract" : [
 
   ],
@@ -324,7 +320,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo11HTTPRequestC9Operationxmfp",
       "text" : "Operation"
     },
     {
@@ -342,7 +337,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo11HTTPRequestC9Operationxmfp",
       "text" : "Operation"
     },
     {
@@ -355,7 +349,7 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPRequest\/==(_:_:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/HTTPRequest\/==(_:_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "==(_:_:)",

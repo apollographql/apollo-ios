@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CodegenLogger"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CodegenLogger"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel"
+    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -82,9 +82,9 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/SQ",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/SH",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/SY"
+        "doc:\/\/ApolloCodegenLib\/SQ",
+        "doc:\/\/ApolloCodegenLib\/SH",
+        "doc:\/\/ApolloCodegenLib\/SY"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -102,23 +102,23 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel\/debug",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel\/error",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel\/warning"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel\/debug",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel\/error",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel\/warning"
       ],
       "title" : "Enumeration Cases"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel\/init(rawValue:)"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel\/init(rawValue:)"
       ],
       "title" : "Initializers"
     },
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel\/Equatable-Implementations",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel\/RawRepresentable-Implementations"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel\/Equatable-Implementations",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel\/RawRepresentable-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -137,33 +137,33 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloCodegenLib.macosx/SH": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/SH",
+"doc://ApolloCodegenLib/SH": {
+  "identifier" : "doc:\/\/ApolloCodegenLib\/SH",
   "title" : "Swift.Hashable",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/SQ": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/SQ",
+"doc://ApolloCodegenLib/SQ": {
+  "identifier" : "doc:\/\/ApolloCodegenLib\/SQ",
   "title" : "Swift.Equatable",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/SY": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/SY",
+"doc://ApolloCodegenLib/SY": {
+  "identifier" : "doc:\/\/ApolloCodegenLib\/SY",
   "title" : "Swift.RawRepresentable",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloCodegenLib",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/CodegenLogger": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CodegenLogger": {
   "abstract" : [
     {
       "text" : "Helper to get logs printing to stdout so they can be read from the command line.",
@@ -184,7 +184,7 @@
       "text" : "CodegenLogger"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CodegenLogger",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CodegenLogger",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -197,7 +197,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/codegenlogger"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/CodegenLogger/LogLevel": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CodegenLogger/LogLevel": {
   "abstract" : [
 
   ],
@@ -215,7 +215,7 @@
       "text" : "LogLevel"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -228,29 +228,29 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/codegenlogger\/loglevel"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/CodegenLogger/LogLevel/Equatable-Implementations": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CodegenLogger/LogLevel/Equatable-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel\/Equatable-Implementations",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel\/Equatable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Equatable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/codegenlogger\/loglevel\/equatable-implementations"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/CodegenLogger/LogLevel/RawRepresentable-Implementations": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CodegenLogger/LogLevel/RawRepresentable-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel\/RawRepresentable-Implementations",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel\/RawRepresentable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "RawRepresentable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/codegenlogger\/loglevel\/rawrepresentable-implementations"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/CodegenLogger/LogLevel/debug": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CodegenLogger/LogLevel/debug": {
   "abstract" : [
 
   ],
@@ -268,14 +268,14 @@
       "text" : "debug"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel\/debug",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel\/debug",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "CodegenLogger.LogLevel.debug",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/codegenlogger\/loglevel\/debug"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/CodegenLogger/LogLevel/error": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CodegenLogger/LogLevel/error": {
   "abstract" : [
 
   ],
@@ -293,14 +293,14 @@
       "text" : "error"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel\/error",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel\/error",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "CodegenLogger.LogLevel.error",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/codegenlogger\/loglevel\/error"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/CodegenLogger/LogLevel/init(rawValue:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CodegenLogger/LogLevel/init(rawValue:)": {
   "abstract" : [
 
   ],
@@ -331,14 +331,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel\/init(rawValue:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel\/init(rawValue:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(rawValue:)",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/codegenlogger\/loglevel\/init(rawvalue:)"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/CodegenLogger/LogLevel/warning": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CodegenLogger/LogLevel/warning": {
   "abstract" : [
 
   ],
@@ -356,7 +356,7 @@
       "text" : "warning"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel\/warning",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel\/warning",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "CodegenLogger.LogLevel.warning",

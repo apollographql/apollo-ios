@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketClientDelegate"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketClientDelegate"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketClientDelegate\/websocketDidReceiveMessage(socket:text:)"
+    "url" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketClientDelegate\/websocketDidReceiveMessage(socket:text:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -119,7 +119,7 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketClient",
+              "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketClient",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:15ApolloWebSocket0bC6ClientP",
               "text" : "WebSocketClient"
@@ -214,18 +214,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloWebSocket",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketClient": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketClient": {
   "abstract" : [
     {
       "text" : "Protocol allowing alternative implementations of websockets beyond ",
@@ -254,7 +254,7 @@
       "text" : "WebSocketClient"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketClient",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketClient",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -267,7 +267,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocketclient"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketClientDelegate": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketClientDelegate": {
   "abstract" : [
     {
       "text" : "The delegate for a ",
@@ -296,7 +296,7 @@
       "text" : "WebSocketClientDelegate"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketClientDelegate",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketClientDelegate",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -309,7 +309,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocketclientdelegate"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketClientDelegate/websocketDidReceiveMessage(socket:text:)": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketClientDelegate/websocketDidReceiveMessage(socket:text:)": {
   "abstract" : [
     {
       "text" : "The websocket client received message text from the server",
@@ -368,7 +368,7 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketClientDelegate\/websocketDidReceiveMessage(socket:text:)",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketClientDelegate\/websocketDidReceiveMessage(socket:text:)",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",

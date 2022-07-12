@@ -8,13 +8,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"
+        "doc:\/\/Apollo\/documentation\/Apollo"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NormalizedCache"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/NormalizedCache"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -85,7 +85,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/InMemoryNormalizedCache"
+        "doc:\/\/Apollo\/documentation\/Apollo\/InMemoryNormalizedCache"
       ],
       "kind" : "relationships",
       "title" : "Conforming Types",
@@ -103,11 +103,11 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NormalizedCache\/clear()",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NormalizedCache\/loadRecords(forKeys:)",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NormalizedCache\/merge(records:)",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NormalizedCache\/removeRecord(for:)",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NormalizedCache\/removeRecords(matching:)"
+        "doc:\/\/Apollo\/documentation\/Apollo\/NormalizedCache\/clear()",
+        "doc:\/\/Apollo\/documentation\/Apollo\/NormalizedCache\/loadRecords(forKeys:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/NormalizedCache\/merge(records:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/NormalizedCache\/removeRecord(for:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/NormalizedCache\/removeRecords(matching:)"
       ],
       "title" : "Instance Methods"
     }
@@ -126,18 +126,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/InMemoryNormalizedCache": {
+"doc://Apollo/documentation/Apollo/InMemoryNormalizedCache": {
   "abstract" : [
 
   ],
@@ -155,7 +155,7 @@
       "text" : "InMemoryNormalizedCache"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/InMemoryNormalizedCache",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/InMemoryNormalizedCache",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -168,7 +168,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/inmemorynormalizedcache"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/NormalizedCache": {
+"doc://Apollo/documentation/Apollo/NormalizedCache": {
   "abstract" : [
 
   ],
@@ -186,7 +186,7 @@
       "text" : "NormalizedCache"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NormalizedCache",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/NormalizedCache",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -199,7 +199,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/normalizedcache"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/NormalizedCache/clear()": {
+"doc://Apollo/documentation/Apollo/NormalizedCache/clear()": {
   "abstract" : [
     {
       "text" : "Clears all records.",
@@ -228,7 +228,7 @@
       "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NormalizedCache\/clear()",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/NormalizedCache\/clear()",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
@@ -236,7 +236,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/normalizedcache\/clear()"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/NormalizedCache/loadRecords(forKeys:)": {
+"doc://Apollo/documentation/Apollo/NormalizedCache/loadRecords(forKeys:)": {
   "abstract" : [
     {
       "text" : "Loads records corresponding to the given keys.",
@@ -313,7 +313,7 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NormalizedCache\/loadRecords(forKeys:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/NormalizedCache\/loadRecords(forKeys:)",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
@@ -321,7 +321,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/normalizedcache\/loadrecords(forkeys:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/NormalizedCache/merge(records:)": {
+"doc://Apollo/documentation/Apollo/NormalizedCache/merge(records:)": {
   "abstract" : [
     {
       "text" : "Merges a set of records into the cache.",
@@ -389,7 +389,7 @@
       "text" : ">"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NormalizedCache\/merge(records:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/NormalizedCache\/merge(records:)",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
@@ -397,7 +397,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/normalizedcache\/merge(records:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/NormalizedCache/removeRecord(for:)": {
+"doc://Apollo/documentation/Apollo/NormalizedCache/removeRecord(for:)": {
   "abstract" : [
     {
       "text" : "Removes a record for the specified key. This method will only",
@@ -451,7 +451,7 @@
       "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NormalizedCache\/removeRecord(for:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/NormalizedCache\/removeRecord(for:)",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
@@ -459,7 +459,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/normalizedcache\/removerecord(for:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/NormalizedCache/removeRecords(matching:)": {
+"doc://Apollo/documentation/Apollo/NormalizedCache/removeRecords(matching:)": {
   "abstract" : [
     {
       "text" : "Removes records with keys that match the specified pattern. This method will only",
@@ -529,7 +529,7 @@
       "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NormalizedCache\/removeRecords(matching:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/NormalizedCache\/removeRecords(matching:)",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",

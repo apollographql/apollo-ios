@@ -16,13 +16,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite"
+        "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteNormalizedCache"
+    "url" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteNormalizedCache"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -97,7 +97,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloSQLite.macosx\/6Apollo15NormalizedCacheP"
+        "doc:\/\/ApolloSQLite\/6Apollo15NormalizedCacheP"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -115,15 +115,15 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteNormalizedCache\/init(database:shouldVacuumOnClear:)",
-        "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteNormalizedCache\/init(fileURL:databaseType:shouldVacuumOnClear:)"
+        "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteNormalizedCache\/init(database:shouldVacuumOnClear:)",
+        "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteNormalizedCache\/init(fileURL:databaseType:shouldVacuumOnClear:)"
       ],
       "title" : "Initializers"
     },
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteNormalizedCache\/NormalizedCache-Implementations"
+        "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteNormalizedCache\/NormalizedCache-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -142,23 +142,23 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloSQLite.macosx/6Apollo15NormalizedCacheP": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloSQLite.macosx\/6Apollo15NormalizedCacheP",
+"doc://ApolloSQLite/6Apollo15NormalizedCacheP": {
+  "identifier" : "doc:\/\/ApolloSQLite\/6Apollo15NormalizedCacheP",
   "title" : "Apollo.NormalizedCache",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.ApolloSQLite.macosx/documentation/ApolloSQLite": {
+"doc://ApolloSQLite/documentation/ApolloSQLite": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite",
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloSQLite",
   "type" : "topic",
   "url" : "\/documentation\/apollosqlite"
 },
-"doc://com.apollographql.ApolloSQLite.macosx/documentation/ApolloSQLite/SQLiteNormalizedCache": {
+"doc://ApolloSQLite/documentation/ApolloSQLite/SQLiteNormalizedCache": {
   "abstract" : [
     {
       "text" : "A ",
@@ -187,7 +187,7 @@
       "text" : "SQLiteNormalizedCache"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteNormalizedCache",
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteNormalizedCache",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -200,18 +200,18 @@
   "type" : "topic",
   "url" : "\/documentation\/apollosqlite\/sqlitenormalizedcache"
 },
-"doc://com.apollographql.ApolloSQLite.macosx/documentation/ApolloSQLite/SQLiteNormalizedCache/NormalizedCache-Implementations": {
+"doc://ApolloSQLite/documentation/ApolloSQLite/SQLiteNormalizedCache/NormalizedCache-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteNormalizedCache\/NormalizedCache-Implementations",
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteNormalizedCache\/NormalizedCache-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "NormalizedCache Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollosqlite\/sqlitenormalizedcache\/normalizedcache-implementations"
 },
-"doc://com.apollographql.ApolloSQLite.macosx/documentation/ApolloSQLite/SQLiteNormalizedCache/init(database:shouldVacuumOnClear:)": {
+"doc://ApolloSQLite/documentation/ApolloSQLite/SQLiteNormalizedCache/init(database:shouldVacuumOnClear:)": {
   "abstract" : [
 
   ],
@@ -263,14 +263,14 @@
       "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteNormalizedCache\/init(database:shouldVacuumOnClear:)",
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteNormalizedCache\/init(database:shouldVacuumOnClear:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(database:shouldVacuumOnClear:)",
   "type" : "topic",
   "url" : "\/documentation\/apollosqlite\/sqlitenormalizedcache\/init(database:shouldvacuumonclear:)"
 },
-"doc://com.apollographql.ApolloSQLite.macosx/documentation/ApolloSQLite/SQLiteNormalizedCache/init(fileURL:databaseType:shouldVacuumOnClear:)": {
+"doc://ApolloSQLite/documentation/ApolloSQLite/SQLiteNormalizedCache/init(fileURL:databaseType:shouldVacuumOnClear:)": {
   "abstract" : [
     {
       "text" : "Designated initializer",
@@ -342,7 +342,7 @@
       "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteNormalizedCache\/init(fileURL:databaseType:shouldVacuumOnClear:)",
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteNormalizedCache\/init(fileURL:databaseType:shouldVacuumOnClear:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(fileURL:databaseType:shouldVacuumOnClear:)",

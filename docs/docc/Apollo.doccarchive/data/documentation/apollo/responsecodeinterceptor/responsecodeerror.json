@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ResponseCodeInterceptor"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ResponseCodeInterceptor"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -82,9 +82,9 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/10Foundation14LocalizedErrorP",
-        "doc:\/\/com.apollographql.Apollo.macosx\/s5ErrorP",
-        "doc:\/\/com.apollographql.Apollo.macosx\/s8SendableP"
+        "doc:\/\/Apollo\/10Foundation14LocalizedErrorP",
+        "doc:\/\/Apollo\/s5ErrorP",
+        "doc:\/\/Apollo\/s8SendableP"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -102,21 +102,21 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError\/invalidResponseCode(response:rawData:)"
+        "doc:\/\/Apollo\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError\/invalidResponseCode(response:rawData:)"
       ],
       "title" : "Enumeration Cases"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError\/errorDescription-6mkgn"
+        "doc:\/\/Apollo\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError\/errorDescription-6mkgn"
       ],
       "title" : "Instance Properties"
     },
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError\/Error-Implementations",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError\/LocalizedError-Implementations"
+        "doc:\/\/Apollo\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError\/Error-Implementations",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError\/LocalizedError-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -135,23 +135,23 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/10Foundation14LocalizedErrorP": {
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/10Foundation14LocalizedErrorP",
+"doc://Apollo/10Foundation14LocalizedErrorP": {
+  "identifier" : "doc:\/\/Apollo\/10Foundation14LocalizedErrorP",
   "title" : "Foundation.LocalizedError",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ResponseCodeInterceptor": {
+"doc://Apollo/documentation/Apollo/ResponseCodeInterceptor": {
   "abstract" : [
     {
       "text" : "An interceptor to check the response code returned with a request.",
@@ -172,7 +172,7 @@
       "text" : "ResponseCodeInterceptor"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ResponseCodeInterceptor",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponseCodeInterceptor",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -185,7 +185,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/responsecodeinterceptor"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ResponseCodeInterceptor/ResponseCodeError": {
+"doc://Apollo/documentation/Apollo/ResponseCodeInterceptor/ResponseCodeError": {
   "abstract" : [
 
   ],
@@ -203,7 +203,7 @@
       "text" : "ResponseCodeError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -216,29 +216,29 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/responsecodeinterceptor\/responsecodeerror"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ResponseCodeInterceptor/ResponseCodeError/Error-Implementations": {
+"doc://Apollo/documentation/Apollo/ResponseCodeInterceptor/ResponseCodeError/Error-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError\/Error-Implementations",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError\/Error-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Error Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/responsecodeinterceptor\/responsecodeerror\/error-implementations"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ResponseCodeInterceptor/ResponseCodeError/LocalizedError-Implementations": {
+"doc://Apollo/documentation/Apollo/ResponseCodeInterceptor/ResponseCodeError/LocalizedError-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError\/LocalizedError-Implementations",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError\/LocalizedError-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "LocalizedError Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/responsecodeinterceptor\/responsecodeerror\/localizederror-implementations"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ResponseCodeInterceptor/ResponseCodeError/errorDescription-6mkgn": {
+"doc://Apollo/documentation/Apollo/ResponseCodeInterceptor/ResponseCodeError/errorDescription-6mkgn": {
   "abstract" : [
 
   ],
@@ -269,14 +269,14 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError\/errorDescription-6mkgn",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError\/errorDescription-6mkgn",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "errorDescription",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/responsecodeinterceptor\/responsecodeerror\/errordescription-6mkgn"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ResponseCodeInterceptor/ResponseCodeError/invalidResponseCode(response:rawData:)": {
+"doc://Apollo/documentation/Apollo/ResponseCodeInterceptor/ResponseCodeError/invalidResponseCode(response:rawData:)": {
   "abstract" : [
 
   ],
@@ -332,20 +332,20 @@
       "text" : "?)"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError\/invalidResponseCode(response:rawData:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError\/invalidResponseCode(response:rawData:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "ResponseCodeInterceptor.ResponseCodeError.invalidResponseCode(response:rawData:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/responsecodeinterceptor\/responsecodeerror\/invalidresponsecode(response:rawdata:)"
 },
-"doc://com.apollographql.Apollo.macosx/s5ErrorP": {
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/s5ErrorP",
+"doc://Apollo/s5ErrorP": {
+  "identifier" : "doc:\/\/Apollo\/s5ErrorP",
   "title" : "Swift.Error",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.Apollo.macosx/s8SendableP": {
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/s8SendableP",
+"doc://Apollo/s8SendableP": {
+  "identifier" : "doc:\/\/Apollo\/s8SendableP",
   "title" : "Swift.Sendable",
   "type" : "unresolvable"
 }

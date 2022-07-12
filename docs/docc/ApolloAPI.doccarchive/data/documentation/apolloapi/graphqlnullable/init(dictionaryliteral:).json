@@ -16,15 +16,15 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLNullable",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLNullable\/ExpressibleByDictionaryLiteral-Implementations"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/ExpressibleByDictionaryLiteral-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLNullable\/init(dictionaryLiteral:)"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/init(dictionaryLiteral:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -81,7 +81,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:9ApolloAPI15GraphQLNullableOA2A41_InitializableByDictionaryLiteralElementsRzlE7Wrappedxmfp",
         "text" : "Wrapped"
       },
       {
@@ -90,7 +89,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:s30ExpressibleByDictionaryLiteralP3KeyQa",
         "text" : "Key"
       },
       {
@@ -99,7 +97,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:9ApolloAPI15GraphQLNullableOA2A41_InitializableByDictionaryLiteralElementsRzlE7Wrappedxmfp",
         "text" : "Wrapped"
       },
       {
@@ -108,7 +105,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:s30ExpressibleByDictionaryLiteralP5ValueQa",
         "text" : "Value"
       },
       {
@@ -163,7 +159,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:9ApolloAPI15GraphQLNullableOA2A41_InitializableByDictionaryLiteralElementsRzlE7Wrappedxmfp",
               "text" : "Wrapped"
             },
             {
@@ -172,7 +167,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:s30ExpressibleByDictionaryLiteralP3KeyQa",
               "text" : "Key"
             },
             {
@@ -181,7 +175,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:9ApolloAPI15GraphQLNullableOA2A41_InitializableByDictionaryLiteralElementsRzlE7Wrappedxmfp",
               "text" : "Wrapped"
             },
             {
@@ -190,7 +183,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:s30ExpressibleByDictionaryLiteralP5ValueQa",
               "text" : "Value"
             },
             {
@@ -225,18 +217,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI": {
+"doc://ApolloAPI/documentation/ApolloAPI": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLNullable": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLNullable": {
   "abstract" : [
     {
       "text" : "Indicates the presence of a value, supporting both ",
@@ -273,7 +265,7 @@
       "text" : "GraphQLNullable"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLNullable",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -286,18 +278,18 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqlnullable"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLNullable/ExpressibleByDictionaryLiteral-Implementations": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLNullable/ExpressibleByDictionaryLiteral-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLNullable\/ExpressibleByDictionaryLiteral-Implementations",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/ExpressibleByDictionaryLiteral-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "ExpressibleByDictionaryLiteral Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqlnullable\/expressiblebydictionaryliteral-implementations"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLNullable/init(dictionaryLiteral:)": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLNullable/init(dictionaryLiteral:)": {
   "abstract" : [
 
   ],
@@ -352,7 +344,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI15GraphQLNullableOA2A41_InitializableByDictionaryLiteralElementsRzlE7Wrappedxmfp",
       "text" : "Wrapped"
     },
     {
@@ -361,7 +352,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:s30ExpressibleByDictionaryLiteralP3KeyQa",
       "text" : "Key"
     },
     {
@@ -370,7 +360,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI15GraphQLNullableOA2A41_InitializableByDictionaryLiteralElementsRzlE7Wrappedxmfp",
       "text" : "Wrapped"
     },
     {
@@ -379,7 +368,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:s30ExpressibleByDictionaryLiteralP5ValueQa",
       "text" : "Value"
     },
     {
@@ -387,7 +375,7 @@
       "text" : ")...)"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLNullable\/init(dictionaryLiteral:)",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/init(dictionaryLiteral:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(dictionaryLiteral:)",

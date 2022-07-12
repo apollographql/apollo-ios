@@ -16,13 +16,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/DataDict"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DataDict"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -89,8 +89,8 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/SQ",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/SH"
+        "doc:\/\/ApolloAPI\/SQ",
+        "doc:\/\/ApolloAPI\/SH"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -108,33 +108,33 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/DataDict\/==(_:_:)"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DataDict\/==(_:_:)"
       ],
       "title" : "Operators"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/DataDict\/init(_:variables:)"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DataDict\/init(_:variables:)"
       ],
       "title" : "Initializers"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/DataDict\/hash(into:)"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DataDict\/hash(into:)"
       ],
       "title" : "Instance Methods"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/DataDict\/subscript(_:)-5tqti",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/DataDict\/subscript(_:)-7aefb"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DataDict\/subscript(_:)-5tqti",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DataDict\/subscript(_:)-7aefb"
       ],
       "title" : "Subscripts"
     },
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/DataDict\/Equatable-Implementations"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DataDict\/Equatable-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -153,28 +153,28 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloAPI.macosx/SH": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/SH",
+"doc://ApolloAPI/SH": {
+  "identifier" : "doc:\/\/ApolloAPI\/SH",
   "title" : "Swift.Hashable",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.ApolloAPI.macosx/SQ": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/SQ",
+"doc://ApolloAPI/SQ": {
+  "identifier" : "doc:\/\/ApolloAPI\/SQ",
   "title" : "Swift.Equatable",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI": {
+"doc://ApolloAPI/documentation/ApolloAPI": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/DataDict": {
+"doc://ApolloAPI/documentation/ApolloAPI/DataDict": {
   "abstract" : [
     {
       "text" : "A structure that wraps the underlying data dictionary used by ",
@@ -203,7 +203,7 @@
       "text" : "DataDict"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/DataDict",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DataDict",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -216,7 +216,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/datadict"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/DataDict/==(_:_:)": {
+"doc://ApolloAPI/documentation/ApolloAPI/DataDict/==(_:_:)": {
   "abstract" : [
 
   ],
@@ -273,25 +273,25 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/DataDict\/==(_:_:)",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DataDict\/==(_:_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "==(_:_:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/datadict\/==(_:_:)"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/DataDict/Equatable-Implementations": {
+"doc://ApolloAPI/documentation/ApolloAPI/DataDict/Equatable-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/DataDict\/Equatable-Implementations",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DataDict\/Equatable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Equatable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/datadict\/equatable-implementations"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/DataDict/hash(into:)": {
+"doc://ApolloAPI/documentation/ApolloAPI/DataDict/hash(into:)": {
   "abstract" : [
 
   ],
@@ -338,14 +338,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/DataDict\/hash(into:)",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DataDict\/hash(into:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "hash(into:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/datadict\/hash(into:)"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/DataDict/init(_:variables:)": {
+"doc://ApolloAPI/documentation/ApolloAPI/DataDict/init(_:variables:)": {
   "abstract" : [
 
   ],
@@ -373,35 +373,35 @@
     },
     {
       "kind" : "text",
-      "text" : ": "
+      "text" : ": ["
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP",
-      "text" : "GraphQLOperation"
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
     },
     {
       "kind" : "text",
-      "text" : "."
+      "text" : " : "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP9Variablesa",
-      "text" : "Variables"
+      "preciseIdentifier" : "s:9ApolloAPI29GraphQLOperationVariableValueP",
+      "text" : "GraphQLOperationVariableValue"
     },
     {
       "kind" : "text",
-      "text" : "?)"
+      "text" : "]?)"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/DataDict\/init(_:variables:)",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DataDict\/init(_:variables:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(_:variables:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/datadict\/init(_:variables:)"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/DataDict/subscript(_:)-5tqti": {
+"doc://ApolloAPI/documentation/ApolloAPI/DataDict/subscript(_:)-5tqti": {
   "abstract" : [
 
   ],
@@ -433,18 +433,17 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI8DataDictVyxSScAA23SelectionSetEntityValueRzluip1TL_xmfp",
       "text" : "T"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/DataDict\/subscript(_:)-5tqti",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DataDict\/subscript(_:)-5tqti",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "subscript(_:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/datadict\/subscript(_:)-5tqti"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/DataDict/subscript(_:)-7aefb": {
+"doc://ApolloAPI/documentation/ApolloAPI/DataDict/subscript(_:)-7aefb": {
   "abstract" : [
 
   ],
@@ -476,11 +475,10 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI8DataDictVyxSScAA13AnyScalarTypeRzSHRzluip1TL_xmfp",
       "text" : "T"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/DataDict\/subscript(_:)-7aefb",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DataDict\/subscript(_:)-7aefb",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "subscript(_:)",

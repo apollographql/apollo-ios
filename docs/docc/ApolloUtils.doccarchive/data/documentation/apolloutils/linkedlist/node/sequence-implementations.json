@@ -8,15 +8,15 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node"
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/Sequence-Implementations"
+    "url" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/Sequence-Implementations"
   },
   "kind" : "article",
   "metadata" : {
@@ -40,75 +40,75 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/Iterator"
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/Iterator"
       ],
       "title" : "Classes"
     },
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/lazy",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/publisher",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/underestimatedCount"
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/lazy",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/publisher",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/underestimatedCount"
       ],
       "title" : "Instance Properties"
     },
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/allSatisfy(_:)",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/compactMap(_:)",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/compare(_:_:)",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/contains(_:)",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/contains(where:)",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/drop(while:)",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/dropFirst(_:)",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/dropLast(_:)",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/elementsEqual(_:)",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/elementsEqual(_:by:)",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/enumerated()",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/filter(_:)",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/first(where:)",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/flatMap(_:)-1jepy",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/flatMap(_:)-8ez5y",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/forEach(_:)",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/formatted()",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/formatted(_:)",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/joined()",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/joined(separator:)-48wvd",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/joined(separator:)-5d5ah",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/lexicographicallyPrecedes(_:)",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/lexicographicallyPrecedes(_:by:)",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/makeIterator()",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/map(_:)",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/max()",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/max(by:)",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/min()",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/min(by:)",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/prefix(_:)",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/prefix(while:)",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/reduce(_:_:)",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/reduce(into:_:)",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/reversed()",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/shuffled()",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/shuffled(using:)",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/sorted()",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/sorted(by:)",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/sorted(using:)-2jqdd",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/sorted(using:)-5msbu",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/split(maxSplits:omittingEmptySubsequences:whereSeparator:)",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/split(separator:maxSplits:omittingEmptySubsequences:)",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/starts(with:)",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/starts(with:by:)",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/suffix(_:)",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/withContiguousStorageIfAvailable(_:)"
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/allSatisfy(_:)",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/compactMap(_:)",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/compare(_:_:)",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/contains(_:)",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/contains(where:)",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/drop(while:)",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/dropFirst(_:)",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/dropLast(_:)",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/elementsEqual(_:)",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/elementsEqual(_:by:)",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/enumerated()",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/filter(_:)",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/first(where:)",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/flatMap(_:)-1jepy",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/flatMap(_:)-8ez5y",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/forEach(_:)",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/formatted()",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/formatted(_:)",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/joined()",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/joined(separator:)-48wvd",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/joined(separator:)-5d5ah",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/lexicographicallyPrecedes(_:)",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/lexicographicallyPrecedes(_:by:)",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/makeIterator()",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/map(_:)",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/max()",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/max(by:)",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/min()",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/min(by:)",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/prefix(_:)",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/prefix(while:)",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/reduce(_:_:)",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/reduce(into:_:)",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/reversed()",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/shuffled()",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/shuffled(using:)",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/sorted()",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/sorted(by:)",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/sorted(using:)-2jqdd",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/sorted(using:)-5msbu",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/split(maxSplits:omittingEmptySubsequences:whereSeparator:)",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/split(separator:maxSplits:omittingEmptySubsequences:)",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/starts(with:)",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/starts(with:by:)",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/suffix(_:)",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/withContiguousStorageIfAvailable(_:)"
       ],
       "title" : "Instance Methods"
     },
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/Element"
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/Element"
       ],
       "title" : "Type Aliases"
     }
@@ -127,18 +127,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils": {
+"doc://ApolloUtils/documentation/ApolloUtils": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloUtils",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList": {
   "abstract" : [
     {
       "text" : "A doubly linked list implementation.",
@@ -159,7 +159,7 @@
       "text" : "LinkedList"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -172,7 +172,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node": {
   "abstract" : [
 
   ],
@@ -190,7 +190,7 @@
       "text" : "Node"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -203,7 +203,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/Element": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/Element": {
   "abstract" : [
 
   ],
@@ -221,7 +221,7 @@
       "text" : "Element"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/Element",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/Element",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -234,7 +234,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node\/element"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/Iterator": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/Iterator": {
   "abstract" : [
 
   ],
@@ -252,7 +252,7 @@
       "text" : "Iterator"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/Iterator",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/Iterator",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -265,7 +265,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node\/iterator"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/allSatisfy(_:)": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/allSatisfy(_:)": {
   "abstract" : [
 
   ],
@@ -333,14 +333,14 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/allSatisfy(_:)",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/allSatisfy(_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "allSatisfy(_:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node\/allsatisfy(_:)"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/compactMap(_:)": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/compactMap(_:)": {
   "abstract" : [
 
   ],
@@ -418,14 +418,14 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/compactMap(_:)",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/compactMap(_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "compactMap(_:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node\/compactmap(_:)"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/compare(_:_:)": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/compare(_:_:)": {
   "abstract" : [
 
   ],
@@ -492,14 +492,14 @@
       "text" : "ComparisonResult"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/compare(_:_:)",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/compare(_:_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "compare(_:_:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node\/compare(_:_:)"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/contains(_:)": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/contains(_:)": {
   "abstract" : [
 
   ],
@@ -574,14 +574,14 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/contains(_:)",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/contains(_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "contains(_:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node\/contains(_:)"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/contains(where:)": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/contains(where:)": {
   "abstract" : [
 
   ],
@@ -657,14 +657,14 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/contains(where:)",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/contains(where:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "contains(where:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node\/contains(where:)"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/drop(while:)": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/drop(while:)": {
   "abstract" : [
 
   ],
@@ -752,14 +752,14 @@
       "text" : ">"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/drop(while:)",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/drop(while:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "drop(while:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node\/drop(while:)"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/dropFirst(_:)": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/dropFirst(_:)": {
   "abstract" : [
 
   ],
@@ -807,14 +807,14 @@
       "text" : ">"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/dropFirst(_:)",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/dropFirst(_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "dropFirst(_:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node\/dropfirst(_:)"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/dropLast(_:)": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/dropLast(_:)": {
   "abstract" : [
 
   ],
@@ -861,14 +861,14 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/dropLast(_:)",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/dropLast(_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "dropLast(_:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node\/droplast(_:)"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/elementsEqual(_:)": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/elementsEqual(_:)": {
   "abstract" : [
 
   ],
@@ -943,14 +943,14 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/elementsEqual(_:)",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/elementsEqual(_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "elementsEqual(_:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node\/elementsequal(_:)"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/elementsEqual(_:by:)": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/elementsEqual(_:by:)": {
   "abstract" : [
 
   ],
@@ -1058,14 +1058,14 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/elementsEqual(_:by:)",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/elementsEqual(_:by:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "elementsEqual(_:by:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node\/elementsequal(_:by:)"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/enumerated()": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/enumerated()": {
   "abstract" : [
 
   ],
@@ -1104,14 +1104,14 @@
       "text" : ">"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/enumerated()",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/enumerated()",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "enumerated()",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node\/enumerated()"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/filter(_:)": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/filter(_:)": {
   "abstract" : [
 
   ],
@@ -1190,14 +1190,14 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/filter(_:)",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/filter(_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "filter(_:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node\/filter(_:)"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/first(where:)": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/first(where:)": {
   "abstract" : [
 
   ],
@@ -1284,14 +1284,14 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/first(where:)",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/first(where:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "first(where:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node\/first(where:)"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/flatMap(_:)-1jepy": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/flatMap(_:)-1jepy": {
   "abstract" : [
 
   ],
@@ -1370,14 +1370,14 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/flatMap(_:)-1jepy",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/flatMap(_:)-1jepy",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "flatMap(_:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node\/flatmap(_:)-1jepy"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/flatMap(_:)-8ez5y": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/flatMap(_:)-8ez5y": {
   "abstract" : [
 
   ],
@@ -1463,14 +1463,14 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/flatMap(_:)-8ez5y",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/flatMap(_:)-8ez5y",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "flatMap(_:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node\/flatmap(_:)-8ez5y"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/forEach(_:)": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/forEach(_:)": {
   "abstract" : [
 
   ],
@@ -1529,14 +1529,14 @@
       "text" : "rethrows"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/forEach(_:)",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/forEach(_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "forEach(_:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node\/foreach(_:)"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/formatted()": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/formatted()": {
   "abstract" : [
 
   ],
@@ -1595,14 +1595,14 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/formatted()",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/formatted()",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "formatted()",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node\/formatted()"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/formatted(_:)": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/formatted(_:)": {
   "abstract" : [
 
   ],
@@ -1652,14 +1652,14 @@
       "text" : "FormatOutput"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/formatted(_:)",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/formatted(_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "formatted(_:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node\/formatted(_:)"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/joined()": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/joined()": {
   "abstract" : [
 
   ],
@@ -1698,14 +1698,14 @@
       "text" : ">"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/joined()",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/joined()",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "joined()",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node\/joined()"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/joined(separator:)-48wvd": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/joined(separator:)-48wvd": {
   "abstract" : [
 
   ],
@@ -1768,14 +1768,14 @@
       "text" : ">"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/joined(separator:)-48wvd",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/joined(separator:)-48wvd",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "joined(separator:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node\/joined(separator:)-48wvd"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/joined(separator:)-5d5ah": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/joined(separator:)-5d5ah": {
   "abstract" : [
 
   ],
@@ -1851,14 +1851,14 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/joined(separator:)-5d5ah",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/joined(separator:)-5d5ah",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "joined(separator:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node\/joined(separator:)-5d5ah"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/lazy": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/lazy": {
   "abstract" : [
 
   ],
@@ -1897,14 +1897,14 @@
       "text" : ">"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/lazy",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/lazy",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "lazy",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node\/lazy"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/lexicographicallyPrecedes(_:)": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/lexicographicallyPrecedes(_:)": {
   "abstract" : [
 
   ],
@@ -1979,14 +1979,14 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/lexicographicallyPrecedes(_:)",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/lexicographicallyPrecedes(_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "lexicographicallyPrecedes(_:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node\/lexicographicallyprecedes(_:)"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/lexicographicallyPrecedes(_:by:)": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/lexicographicallyPrecedes(_:by:)": {
   "abstract" : [
 
   ],
@@ -2094,14 +2094,14 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/lexicographicallyPrecedes(_:by:)",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/lexicographicallyPrecedes(_:by:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "lexicographicallyPrecedes(_:by:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node\/lexicographicallyprecedes(_:by:)"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/makeIterator()": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/makeIterator()": {
   "abstract" : [
 
   ],
@@ -2124,18 +2124,44 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11ApolloUtils10LinkedListV",
+      "text" : "LinkedList"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11ApolloUtils10LinkedListV4NodeC",
+      "text" : "Node"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:11ApolloUtils10LinkedListV4NodeC8IteratorC",
       "text" : "Iterator"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/makeIterator()",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/makeIterator()",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "makeIterator()",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node\/makeiterator()"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/map(_:)": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/map(_:)": {
   "abstract" : [
 
   ],
@@ -2213,14 +2239,14 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/map(_:)",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/map(_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "map(_:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node\/map(_:)"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/max()": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/max()": {
   "abstract" : [
 
   ],
@@ -2290,14 +2316,14 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/max()",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/max()",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "max()",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node\/max()"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/max(by:)": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/max(by:)": {
   "abstract" : [
 
   ],
@@ -2400,14 +2426,14 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/max(by:)",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/max(by:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "max(by:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node\/max(by:)"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/min()": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/min()": {
   "abstract" : [
 
   ],
@@ -2477,14 +2503,14 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/min()",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/min()",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "min()",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node\/min()"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/min(by:)": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/min(by:)": {
   "abstract" : [
 
   ],
@@ -2587,14 +2613,14 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/min(by:)",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/min(by:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "min(by:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node\/min(by:)"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/prefix(_:)": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/prefix(_:)": {
   "abstract" : [
 
   ],
@@ -2642,14 +2668,14 @@
       "text" : ">"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/prefix(_:)",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/prefix(_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "prefix(_:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node\/prefix(_:)"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/prefix(while:)": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/prefix(while:)": {
   "abstract" : [
 
   ],
@@ -2736,14 +2762,14 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/prefix(while:)",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/prefix(while:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "prefix(while:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node\/prefix(while:)"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/publisher": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/publisher": {
   "abstract" : [
 
   ],
@@ -2800,14 +2826,14 @@
       "text" : ">"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/publisher",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/publisher",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "publisher",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node\/publisher"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/reduce(_:_:)": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/reduce(_:_:)": {
   "abstract" : [
 
   ],
@@ -2897,14 +2923,14 @@
       "text" : "Result"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/reduce(_:_:)",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/reduce(_:_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "reduce(_:_:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node\/reduce(_:_:)"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/reduce(into:_:)": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/reduce(into:_:)": {
   "abstract" : [
 
   ],
@@ -3002,14 +3028,14 @@
       "text" : "Result"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/reduce(into:_:)",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/reduce(into:_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "reduce(into:_:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node\/reduce(into:_:)"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/reversed()": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/reversed()": {
   "abstract" : [
 
   ],
@@ -3047,14 +3073,14 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/reversed()",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/reversed()",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "reversed()",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node\/reversed()"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/shuffled()": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/shuffled()": {
   "abstract" : [
 
   ],
@@ -3092,14 +3118,14 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/shuffled()",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/shuffled()",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "shuffled()",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node\/shuffled()"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/shuffled(using:)": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/shuffled(using:)": {
   "abstract" : [
 
   ],
@@ -3169,14 +3195,14 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/shuffled(using:)",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/shuffled(using:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "shuffled(using:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node\/shuffled(using:)"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/sorted()": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/sorted()": {
   "abstract" : [
 
   ],
@@ -3246,14 +3272,14 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/sorted()",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/sorted()",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "sorted()",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node\/sorted()"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/sorted(by:)": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/sorted(by:)": {
   "abstract" : [
 
   ],
@@ -3356,14 +3382,14 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/sorted(by:)",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/sorted(by:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "sorted(by:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node\/sorted(by:)"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/sorted(using:)-2jqdd": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/sorted(using:)-2jqdd": {
   "abstract" : [
 
   ],
@@ -3425,14 +3451,14 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/sorted(using:)-2jqdd",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/sorted(using:)-2jqdd",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "sorted(using:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node\/sorted(using:)-2jqdd"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/sorted(using:)-5msbu": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/sorted(using:)-5msbu": {
   "abstract" : [
 
   ],
@@ -3502,14 +3528,14 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/sorted(using:)-5msbu",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/sorted(using:)-5msbu",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "sorted(using:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node\/sorted(using:)-5msbu"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/split(maxSplits:omittingEmptySubsequences:whereSeparator:)": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/split(maxSplits:omittingEmptySubsequences:whereSeparator:)": {
   "abstract" : [
 
   ],
@@ -3639,14 +3665,14 @@
       "text" : ">]"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/split(maxSplits:omittingEmptySubsequences:whereSeparator:)",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/split(maxSplits:omittingEmptySubsequences:whereSeparator:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "split(maxSplits:omittingEmptySubsequences:whereSeparator:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node\/split(maxsplits:omittingemptysubsequences:whereseparator:)"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/split(separator:maxSplits:omittingEmptySubsequences:)": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/split(separator:maxSplits:omittingEmptySubsequences:)": {
   "abstract" : [
 
   ],
@@ -3783,14 +3809,14 @@
       "text" : ">]"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/split(separator:maxSplits:omittingEmptySubsequences:)",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/split(separator:maxSplits:omittingEmptySubsequences:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "split(separator:maxSplits:omittingEmptySubsequences:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node\/split(separator:maxsplits:omittingemptysubsequences:)"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/starts(with:)": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/starts(with:)": {
   "abstract" : [
 
   ],
@@ -3873,14 +3899,14 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/starts(with:)",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/starts(with:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "starts(with:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node\/starts(with:)"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/starts(with:by:)": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/starts(with:by:)": {
   "abstract" : [
 
   ],
@@ -3996,14 +4022,14 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/starts(with:by:)",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/starts(with:by:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "starts(with:by:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node\/starts(with:by:)"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/suffix(_:)": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/suffix(_:)": {
   "abstract" : [
 
   ],
@@ -4050,14 +4076,14 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/suffix(_:)",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/suffix(_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "suffix(_:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node\/suffix(_:)"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/underestimatedCount": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/underestimatedCount": {
   "abstract" : [
 
   ],
@@ -4084,14 +4110,14 @@
       "text" : "Int"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/underestimatedCount",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/underestimatedCount",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "underestimatedCount",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/linkedlist\/node\/underestimatedcount"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/LinkedList/Node/withContiguousStorageIfAvailable(_:)": {
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList/Node/withContiguousStorageIfAvailable(_:)": {
   "abstract" : [
 
   ],
@@ -4178,7 +4204,7 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/LinkedList\/Node\/withContiguousStorageIfAvailable(_:)",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList\/Node\/withContiguousStorageIfAvailable(_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "withContiguousStorageIfAvailable(_:)",

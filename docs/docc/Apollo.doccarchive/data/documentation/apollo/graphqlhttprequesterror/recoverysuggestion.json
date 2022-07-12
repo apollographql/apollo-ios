@@ -16,15 +16,15 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLHTTPRequestError",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLHTTPRequestError\/LocalizedError-Implementations"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLHTTPRequestError",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLHTTPRequestError\/LocalizedError-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLHTTPRequestError\/recoverySuggestion"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLHTTPRequestError\/recoverySuggestion"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -139,18 +139,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLHTTPRequestError": {
+"doc://Apollo/documentation/Apollo/GraphQLHTTPRequestError": {
   "abstract" : [
     {
       "text" : "An error which has occurred during the serialization of a request.",
@@ -171,7 +171,7 @@
       "text" : "GraphQLHTTPRequestError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLHTTPRequestError",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLHTTPRequestError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -184,18 +184,18 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlhttprequesterror"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLHTTPRequestError/LocalizedError-Implementations": {
+"doc://Apollo/documentation/Apollo/GraphQLHTTPRequestError/LocalizedError-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLHTTPRequestError\/LocalizedError-Implementations",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLHTTPRequestError\/LocalizedError-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "LocalizedError Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlhttprequesterror\/localizederror-implementations"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLHTTPRequestError/recoverySuggestion": {
+"doc://Apollo/documentation/Apollo/GraphQLHTTPRequestError/recoverySuggestion": {
   "abstract" : [
 
   ],
@@ -226,7 +226,7 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLHTTPRequestError\/recoverySuggestion",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLHTTPRequestError\/recoverySuggestion",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "recoverySuggestion",

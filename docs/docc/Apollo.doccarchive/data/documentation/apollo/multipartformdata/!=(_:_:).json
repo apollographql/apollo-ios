@@ -16,15 +16,15 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MultipartFormData",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MultipartFormData\/Equatable-Implementations"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/MultipartFormData",
+        "doc:\/\/Apollo\/documentation\/Apollo\/MultipartFormData\/Equatable-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MultipartFormData\/!=(_:_:)"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/MultipartFormData\/!=(_:_:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -195,18 +195,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/MultipartFormData": {
+"doc://Apollo/documentation/Apollo/MultipartFormData": {
   "abstract" : [
     {
       "text" : "A helper for building out multi-part form data for upload",
@@ -227,7 +227,7 @@
       "text" : "MultipartFormData"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MultipartFormData",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/MultipartFormData",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -240,7 +240,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/multipartformdata"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/MultipartFormData/!=(_:_:)": {
+"doc://Apollo/documentation/Apollo/MultipartFormData/!=(_:_:)": {
   "abstract" : [
 
   ],
@@ -295,18 +295,18 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MultipartFormData\/!=(_:_:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/MultipartFormData\/!=(_:_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "!=(_:_:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/multipartformdata\/!=(_:_:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/MultipartFormData/Equatable-Implementations": {
+"doc://Apollo/documentation/Apollo/MultipartFormData/Equatable-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MultipartFormData\/Equatable-Implementations",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/MultipartFormData\/Equatable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Equatable Implementations",

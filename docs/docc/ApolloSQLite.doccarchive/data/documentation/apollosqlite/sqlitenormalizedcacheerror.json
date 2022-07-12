@@ -8,13 +8,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite"
+        "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteNormalizedCacheError"
+    "url" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteNormalizedCacheError"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -81,8 +81,8 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloSQLite.macosx\/s5ErrorP",
-        "doc:\/\/com.apollographql.ApolloSQLite.macosx\/s8SendableP"
+        "doc:\/\/ApolloSQLite\/s5ErrorP",
+        "doc:\/\/ApolloSQLite\/s8SendableP"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -100,15 +100,15 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteNormalizedCacheError\/invalidRecordEncoding(record:)",
-        "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteNormalizedCacheError\/invalidRecordShape(object:)"
+        "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteNormalizedCacheError\/invalidRecordEncoding(record:)",
+        "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteNormalizedCacheError\/invalidRecordShape(object:)"
       ],
       "title" : "Enumeration Cases"
     },
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteNormalizedCacheError\/Error-Implementations"
+        "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteNormalizedCacheError\/Error-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -127,18 +127,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloSQLite.macosx/documentation/ApolloSQLite": {
+"doc://ApolloSQLite/documentation/ApolloSQLite": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite",
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloSQLite",
   "type" : "topic",
   "url" : "\/documentation\/apollosqlite"
 },
-"doc://com.apollographql.ApolloSQLite.macosx/documentation/ApolloSQLite/SQLiteNormalizedCacheError": {
+"doc://ApolloSQLite/documentation/ApolloSQLite/SQLiteNormalizedCacheError": {
   "abstract" : [
 
   ],
@@ -156,7 +156,7 @@
       "text" : "SQLiteNormalizedCacheError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteNormalizedCacheError",
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteNormalizedCacheError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -169,18 +169,18 @@
   "type" : "topic",
   "url" : "\/documentation\/apollosqlite\/sqlitenormalizedcacheerror"
 },
-"doc://com.apollographql.ApolloSQLite.macosx/documentation/ApolloSQLite/SQLiteNormalizedCacheError/Error-Implementations": {
+"doc://ApolloSQLite/documentation/ApolloSQLite/SQLiteNormalizedCacheError/Error-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteNormalizedCacheError\/Error-Implementations",
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteNormalizedCacheError\/Error-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Error Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollosqlite\/sqlitenormalizedcacheerror\/error-implementations"
 },
-"doc://com.apollographql.ApolloSQLite.macosx/documentation/ApolloSQLite/SQLiteNormalizedCacheError/invalidRecordEncoding(record:)": {
+"doc://ApolloSQLite/documentation/ApolloSQLite/SQLiteNormalizedCacheError/invalidRecordEncoding(record:)": {
   "abstract" : [
 
   ],
@@ -219,14 +219,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteNormalizedCacheError\/invalidRecordEncoding(record:)",
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteNormalizedCacheError\/invalidRecordEncoding(record:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "SQLiteNormalizedCacheError.invalidRecordEncoding(record:)",
   "type" : "topic",
   "url" : "\/documentation\/apollosqlite\/sqlitenormalizedcacheerror\/invalidrecordencoding(record:)"
 },
-"doc://com.apollographql.ApolloSQLite.macosx/documentation/ApolloSQLite/SQLiteNormalizedCacheError/invalidRecordShape(object:)": {
+"doc://ApolloSQLite/documentation/ApolloSQLite/SQLiteNormalizedCacheError/invalidRecordShape(object:)": {
   "abstract" : [
 
   ],
@@ -264,20 +264,20 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloSQLite.macosx\/documentation\/ApolloSQLite\/SQLiteNormalizedCacheError\/invalidRecordShape(object:)",
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteNormalizedCacheError\/invalidRecordShape(object:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "SQLiteNormalizedCacheError.invalidRecordShape(object:)",
   "type" : "topic",
   "url" : "\/documentation\/apollosqlite\/sqlitenormalizedcacheerror\/invalidrecordshape(object:)"
 },
-"doc://com.apollographql.ApolloSQLite.macosx/s5ErrorP": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloSQLite.macosx\/s5ErrorP",
+"doc://ApolloSQLite/s5ErrorP": {
+  "identifier" : "doc:\/\/ApolloSQLite\/s5ErrorP",
   "title" : "Swift.Error",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.ApolloSQLite.macosx/s8SendableP": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloSQLite.macosx\/s8SendableP",
+"doc://ApolloSQLite/s8SendableP": {
+  "identifier" : "doc:\/\/ApolloSQLite\/s8SendableP",
   "title" : "Swift.Sendable",
   "type" : "unresolvable"
 }

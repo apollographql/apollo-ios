@@ -24,13 +24,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SplitNetworkTransport"
+    "url" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -97,8 +97,8 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/6Apollo16NetworkTransportP",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/6Apollo25UploadingNetworkTransportP"
+        "doc:\/\/ApolloWebSocket\/6Apollo16NetworkTransportP",
+        "doc:\/\/ApolloWebSocket\/6Apollo25UploadingNetworkTransportP"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -116,22 +116,22 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/init(uploadingNetworkTransport:webSocketNetworkTransport:)"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/init(uploadingNetworkTransport:webSocketNetworkTransport:)"
       ],
       "title" : "Initializers"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/clientName-8o4nu",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/clientVersion-4o8f0"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/clientName-8o4nu",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/clientVersion-4o8f0"
       ],
       "title" : "Instance Properties"
     },
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/NetworkTransport-Implementations",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/UploadingNetworkTransport-Implementations"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/NetworkTransport-Implementations",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/UploadingNetworkTransport-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -150,28 +150,28 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloWebSocket.macosx/6Apollo16NetworkTransportP": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/6Apollo16NetworkTransportP",
+"doc://ApolloWebSocket/6Apollo16NetworkTransportP": {
+  "identifier" : "doc:\/\/ApolloWebSocket\/6Apollo16NetworkTransportP",
   "title" : "Apollo.NetworkTransport",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/6Apollo25UploadingNetworkTransportP": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/6Apollo25UploadingNetworkTransportP",
+"doc://ApolloWebSocket/6Apollo25UploadingNetworkTransportP": {
+  "identifier" : "doc:\/\/ApolloWebSocket\/6Apollo25UploadingNetworkTransportP",
   "title" : "Apollo.UploadingNetworkTransport",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloWebSocket",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SplitNetworkTransport": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SplitNetworkTransport": {
   "abstract" : [
     {
       "text" : "A network transport that sends subscriptions using one ",
@@ -208,7 +208,7 @@
       "text" : "SplitNetworkTransport"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SplitNetworkTransport",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -221,34 +221,31 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/splitnetworktransport"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SplitNetworkTransport/NetworkTransport-Implementations": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SplitNetworkTransport/NetworkTransport-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/NetworkTransport-Implementations",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/NetworkTransport-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "NetworkTransport Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/splitnetworktransport\/networktransport-implementations"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SplitNetworkTransport/UploadingNetworkTransport-Implementations": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SplitNetworkTransport/UploadingNetworkTransport-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/UploadingNetworkTransport-Implementations",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/UploadingNetworkTransport-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "UploadingNetworkTransport Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/splitnetworktransport\/uploadingnetworktransport-implementations"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SplitNetworkTransport/clientName-8o4nu": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SplitNetworkTransport/clientName-8o4nu": {
   "abstract" : [
-    {
-      "text" : "The name of the client to send as a header value.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -273,19 +270,16 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/clientName-8o4nu",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/clientName-8o4nu",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "clientName",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/splitnetworktransport\/clientname-8o4nu"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SplitNetworkTransport/clientVersion-4o8f0": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SplitNetworkTransport/clientVersion-4o8f0": {
   "abstract" : [
-    {
-      "text" : "The version of the client to send as a header value.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -310,14 +304,14 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/clientVersion-4o8f0",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/clientVersion-4o8f0",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "clientVersion",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/splitnetworktransport\/clientversion-4o8f0"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SplitNetworkTransport/init(uploadingNetworkTransport:webSocketNetworkTransport:)": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SplitNetworkTransport/init(uploadingNetworkTransport:webSocketNetworkTransport:)": {
   "abstract" : [
     {
       "text" : "Designated initializer",
@@ -368,7 +362,7 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/init(uploadingNetworkTransport:webSocketNetworkTransport:)",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/init(uploadingNetworkTransport:webSocketNetworkTransport:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(uploadingNetworkTransport:webSocketNetworkTransport:)",

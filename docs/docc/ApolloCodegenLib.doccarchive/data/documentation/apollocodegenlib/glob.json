@@ -8,13 +8,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/Glob"
+    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/Glob"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -89,7 +89,7 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/Glob\/MatchError"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/Glob\/MatchError"
       ],
       "title" : "Enumerations"
     }
@@ -108,18 +108,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloCodegenLib",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/Glob": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/Glob": {
   "abstract" : [
     {
       "text" : "A path pattern matcher.",
@@ -140,7 +140,7 @@
       "text" : "Glob"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/Glob",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/Glob",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -153,7 +153,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/glob"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/Glob/MatchError": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/Glob/MatchError": {
   "abstract" : [
     {
       "text" : "An error object that indicates why pattern matching failed.",
@@ -174,7 +174,7 @@
       "text" : "MatchError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/Glob\/MatchError",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/Glob\/MatchError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {

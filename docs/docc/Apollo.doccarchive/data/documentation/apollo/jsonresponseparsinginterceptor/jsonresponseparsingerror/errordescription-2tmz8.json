@@ -16,16 +16,16 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONResponseParsingInterceptor",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONResponseParsingInterceptor\/JSONResponseParsingError",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONResponseParsingInterceptor\/JSONResponseParsingError\/LocalizedError-Implementations"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/JSONResponseParsingInterceptor",
+        "doc:\/\/Apollo\/documentation\/Apollo\/JSONResponseParsingInterceptor\/JSONResponseParsingError",
+        "doc:\/\/Apollo\/documentation\/Apollo\/JSONResponseParsingInterceptor\/JSONResponseParsingError\/LocalizedError-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONResponseParsingInterceptor\/JSONResponseParsingError\/errorDescription-2tmz8"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONResponseParsingInterceptor\/JSONResponseParsingError\/errorDescription-2tmz8"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -140,18 +140,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONResponseParsingInterceptor": {
+"doc://Apollo/documentation/Apollo/JSONResponseParsingInterceptor": {
   "abstract" : [
     {
       "text" : "An interceptor which parses JSON response data into a ",
@@ -188,7 +188,7 @@
       "text" : "JSONResponseParsingInterceptor"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONResponseParsingInterceptor",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONResponseParsingInterceptor",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -201,7 +201,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/jsonresponseparsinginterceptor"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONResponseParsingInterceptor/JSONResponseParsingError": {
+"doc://Apollo/documentation/Apollo/JSONResponseParsingInterceptor/JSONResponseParsingError": {
   "abstract" : [
 
   ],
@@ -219,7 +219,7 @@
       "text" : "JSONResponseParsingError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONResponseParsingInterceptor\/JSONResponseParsingError",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONResponseParsingInterceptor\/JSONResponseParsingError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -232,18 +232,18 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/jsonresponseparsinginterceptor\/jsonresponseparsingerror"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONResponseParsingInterceptor/JSONResponseParsingError/LocalizedError-Implementations": {
+"doc://Apollo/documentation/Apollo/JSONResponseParsingInterceptor/JSONResponseParsingError/LocalizedError-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONResponseParsingInterceptor\/JSONResponseParsingError\/LocalizedError-Implementations",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONResponseParsingInterceptor\/JSONResponseParsingError\/LocalizedError-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "LocalizedError Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/jsonresponseparsinginterceptor\/jsonresponseparsingerror\/localizederror-implementations"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONResponseParsingInterceptor/JSONResponseParsingError/errorDescription-2tmz8": {
+"doc://Apollo/documentation/Apollo/JSONResponseParsingInterceptor/JSONResponseParsingError/errorDescription-2tmz8": {
   "abstract" : [
 
   ],
@@ -274,7 +274,7 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONResponseParsingInterceptor\/JSONResponseParsingError\/errorDescription-2tmz8",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONResponseParsingInterceptor\/JSONResponseParsingError\/errorDescription-2tmz8",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "errorDescription",

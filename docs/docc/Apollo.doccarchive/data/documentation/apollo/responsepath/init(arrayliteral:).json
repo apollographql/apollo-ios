@@ -16,14 +16,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ResponsePath"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ResponsePath"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ResponsePath\/init(arrayLiteral:)"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponsePath\/init(arrayLiteral:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -44,6 +44,15 @@
       {
         "kind" : "text",
         "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:6Apollo12ResponsePathV",
+        "text" : "ResponsePath"
+      },
+      {
+        "kind" : "text",
+        "text" : "."
       },
       {
         "kind" : "typeIdentifier",
@@ -101,7 +110,17 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ResponsePath\/Key",
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponsePath",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:6Apollo12ResponsePathV",
+              "text" : "ResponsePath"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponsePath\/Key",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:6Apollo12ResponsePathV3Keya",
               "text" : "Key"
@@ -138,18 +157,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ResponsePath": {
+"doc://Apollo/documentation/Apollo/ResponsePath": {
   "abstract" : [
     {
       "text" : "Represents a list of string components joined into a path using a reverse linked list.",
@@ -170,7 +189,7 @@
       "text" : "ResponsePath"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ResponsePath",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponsePath",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -183,7 +202,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/responsepath"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ResponsePath/Key": {
+"doc://Apollo/documentation/Apollo/ResponsePath/Key": {
   "abstract" : [
 
   ],
@@ -201,7 +220,7 @@
       "text" : "Key"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ResponsePath\/Key",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponsePath\/Key",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -214,7 +233,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/responsepath\/key"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ResponsePath/init(arrayLiteral:)": {
+"doc://Apollo/documentation/Apollo/ResponsePath/init(arrayLiteral:)": {
   "abstract" : [
 
   ],
@@ -237,6 +256,15 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo12ResponsePathV",
+      "text" : "ResponsePath"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:6Apollo12ResponsePathV3Keya",
       "text" : "Key"
     },
@@ -245,7 +273,7 @@
       "text" : "...)"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ResponsePath\/init(arrayLiteral:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponsePath\/init(arrayLiteral:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(arrayLiteral:)",

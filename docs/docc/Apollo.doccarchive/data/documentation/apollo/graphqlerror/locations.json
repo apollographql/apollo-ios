@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLError"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLError"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLError\/locations"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLError\/locations"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -36,6 +36,15 @@
       {
         "kind" : "text",
         "text" : ": ["
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:6Apollo12GraphQLErrorV",
+        "text" : "GraphQLError"
+      },
+      {
+        "kind" : "text",
+        "text" : "."
       },
       {
         "kind" : "typeIdentifier",
@@ -85,7 +94,17 @@
               "text" : ": ["
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLError\/Location",
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLError",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:6Apollo12GraphQLErrorV",
+              "text" : "GraphQLError"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLError\/Location",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:6Apollo12GraphQLErrorV8LocationV",
               "text" : "Location"
@@ -130,18 +149,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLError": {
+"doc://Apollo/documentation/Apollo/GraphQLError": {
   "abstract" : [
     {
       "text" : "Represents an error encountered during the execution of a GraphQL operation.",
@@ -162,7 +181,7 @@
       "text" : "GraphQLError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLError",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -175,7 +194,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlerror"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLError/Location": {
+"doc://Apollo/documentation/Apollo/GraphQLError/Location": {
   "abstract" : [
     {
       "text" : "Represents a location in a GraphQL document.",
@@ -196,7 +215,7 @@
       "text" : "Location"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLError\/Location",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLError\/Location",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -209,7 +228,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlerror\/location"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLError/locations": {
+"doc://Apollo/documentation/Apollo/GraphQLError/locations": {
   "abstract" : [
     {
       "text" : "A list of locations in the requested GraphQL document associated with the error.",
@@ -235,6 +254,15 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo12GraphQLErrorV",
+      "text" : "GraphQLError"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:6Apollo12GraphQLErrorV8LocationV",
       "text" : "Location"
     },
@@ -243,7 +271,7 @@
       "text" : "]?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLError\/locations",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLError\/locations",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "locations",

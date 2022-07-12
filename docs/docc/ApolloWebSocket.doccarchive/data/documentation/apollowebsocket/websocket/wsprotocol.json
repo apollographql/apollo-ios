@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/WSProtocol"
+    "url" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/WSProtocol"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -82,9 +82,9 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/s23CustomStringConvertibleP",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/SQ",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/SH"
+        "doc:\/\/ApolloWebSocket\/s23CustomStringConvertibleP",
+        "doc:\/\/ApolloWebSocket\/SQ",
+        "doc:\/\/ApolloWebSocket\/SH"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -102,21 +102,21 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/WSProtocol\/graphql_transport_ws",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/WSProtocol\/graphql_ws"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/WSProtocol\/graphql_transport_ws",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/WSProtocol\/graphql_ws"
       ],
       "title" : "Enumeration Cases"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/WSProtocol\/description"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/WSProtocol\/description"
       ],
       "title" : "Instance Properties"
     },
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/WSProtocol\/Equatable-Implementations"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/WSProtocol\/Equatable-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -135,28 +135,28 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloWebSocket.macosx/SH": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/SH",
+"doc://ApolloWebSocket/SH": {
+  "identifier" : "doc:\/\/ApolloWebSocket\/SH",
   "title" : "Swift.Hashable",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/SQ": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/SQ",
+"doc://ApolloWebSocket/SQ": {
+  "identifier" : "doc:\/\/ApolloWebSocket\/SQ",
   "title" : "Swift.Equatable",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloWebSocket",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocket": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocket": {
   "abstract" : [
 
   ],
@@ -174,7 +174,7 @@
       "text" : "WebSocket"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -187,7 +187,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocket"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocket/WSProtocol": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocket/WSProtocol": {
   "abstract" : [
     {
       "text" : "The GraphQL over WebSocket protocols supported by apollo-ios.",
@@ -208,7 +208,7 @@
       "text" : "WSProtocol"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/WSProtocol",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/WSProtocol",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -221,18 +221,18 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocket\/wsprotocol"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocket/WSProtocol/Equatable-Implementations": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocket/WSProtocol/Equatable-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/WSProtocol\/Equatable-Implementations",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/WSProtocol\/Equatable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Equatable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocket\/wsprotocol\/equatable-implementations"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocket/WSProtocol/description": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocket/WSProtocol/description": {
   "abstract" : [
 
   ],
@@ -259,14 +259,14 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/WSProtocol\/description",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/WSProtocol\/description",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "description",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocket\/wsprotocol\/description"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocket/WSProtocol/graphql_transport_ws": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocket/WSProtocol/graphql_transport_ws": {
   "abstract" : [
     {
       "text" : "WebSocket protocol ",
@@ -308,14 +308,14 @@
       "text" : "graphql_transport_ws"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/WSProtocol\/graphql_transport_ws",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/WSProtocol\/graphql_transport_ws",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "WebSocket.WSProtocol.graphql_transport_ws",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocket\/wsprotocol\/graphql_transport_ws"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocket/WSProtocol/graphql_ws": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocket/WSProtocol/graphql_ws": {
   "abstract" : [
     {
       "text" : "WebSocket protocol ",
@@ -357,15 +357,15 @@
       "text" : "graphql_ws"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/WSProtocol\/graphql_ws",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/WSProtocol\/graphql_ws",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "WebSocket.WSProtocol.graphql_ws",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocket\/wsprotocol\/graphql_ws"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/s23CustomStringConvertibleP": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/s23CustomStringConvertibleP",
+"doc://ApolloWebSocket/s23CustomStringConvertibleP": {
+  "identifier" : "doc:\/\/ApolloWebSocket\/s23CustomStringConvertibleP",
   "title" : "Swift.CustomStringConvertible",
   "type" : "unresolvable"
 },

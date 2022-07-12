@@ -24,13 +24,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"
+        "doc:\/\/Apollo\/documentation\/Apollo"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -97,7 +97,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClientProtocol"
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClientProtocol"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -115,27 +115,27 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/init(networkTransport:store:)",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/init(url:)"
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/init(networkTransport:store:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/init(url:)"
       ],
       "title" : "Initializers"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/store"
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/store"
       ],
       "title" : "Instance Properties"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/ApolloClientError"
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/ApolloClientError"
       ],
       "title" : "Enumerations"
     },
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/ApolloClientProtocol-Implementations"
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/ApolloClientProtocol-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -154,18 +154,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClient": {
+"doc://Apollo/documentation/Apollo/ApolloClient": {
   "abstract" : [
     {
       "text" : "The ",
@@ -202,7 +202,7 @@
       "text" : "ApolloClient"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -215,7 +215,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apolloclient"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClient/ApolloClientError": {
+"doc://Apollo/documentation/Apollo/ApolloClient/ApolloClientError": {
   "abstract" : [
 
   ],
@@ -233,7 +233,7 @@
       "text" : "ApolloClientError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/ApolloClientError",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/ApolloClientError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -246,18 +246,18 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apolloclient\/apolloclienterror"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClient/ApolloClientProtocol-Implementations": {
+"doc://Apollo/documentation/Apollo/ApolloClient/ApolloClientProtocol-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/ApolloClientProtocol-Implementations",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/ApolloClientProtocol-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "ApolloClientProtocol Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apolloclient\/apolloclientprotocol-implementations"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClient/init(networkTransport:store:)": {
+"doc://Apollo/documentation/Apollo/ApolloClient/init(networkTransport:store:)": {
   "abstract" : [
     {
       "text" : "Creates a client with the specified network transport and store.",
@@ -308,14 +308,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/init(networkTransport:store:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/init(networkTransport:store:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(networkTransport:store:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apolloclient\/init(networktransport:store:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClient/init(url:)": {
+"doc://Apollo/documentation/Apollo/ApolloClient/init(url:)": {
   "abstract" : [
     {
       "text" : "Creates a client with a ",
@@ -331,6 +331,14 @@
     }
   ],
   "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "convenience"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
     {
       "kind" : "identifier",
       "text" : "init"
@@ -357,19 +365,16 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/init(url:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/init(url:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(url:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apolloclient\/init(url:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClient/store": {
+"doc://Apollo/documentation/Apollo/ApolloClient/store": {
   "abstract" : [
-    {
-      "text" : "A store used as a local cache.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -394,14 +399,14 @@
       "text" : "ApolloStore"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient\/store",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/store",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "store",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apolloclient\/store"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClientProtocol": {
+"doc://Apollo/documentation/Apollo/ApolloClientProtocol": {
   "abstract" : [
     {
       "text" : "The ",
@@ -430,7 +435,7 @@
       "text" : "ApolloClientProtocol"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClientProtocol",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClientProtocol",
   "kind" : "symbol",
   "navigatorTitle" : [
     {

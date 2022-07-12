@@ -1,6 +1,6 @@
 {
   "bundleDisplayName" : "ApolloAPI",
-  "bundleIdentifier" : "com.apollographql.ApolloAPI.macosx",
+  "bundleIdentifier" : "ApolloAPI",
   "schemaVersion" : {
     "major" : 0,
     "minor" : 1,

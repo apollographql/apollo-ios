@@ -8,13 +8,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSettings"
+    "url" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLSettings"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -89,12 +89,12 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSettings\/cipherSuites",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSettings\/desiredTrustHostname",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSettings\/disableCertValidation",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSettings\/overrideTrustHostname",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSettings\/sslClientCertificate",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSettings\/useSSL"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLSettings\/cipherSuites",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLSettings\/desiredTrustHostname",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLSettings\/disableCertValidation",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLSettings\/overrideTrustHostname",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLSettings\/sslClientCertificate",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLSettings\/useSSL"
       ],
       "title" : "Instance Properties"
     }
@@ -113,18 +113,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloWebSocket",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SSLSettings": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SSLSettings": {
   "abstract" : [
 
   ],
@@ -142,7 +142,7 @@
       "text" : "SSLSettings"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSettings",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLSettings",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -155,7 +155,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/sslsettings"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SSLSettings/cipherSuites": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SSLSettings/cipherSuites": {
   "abstract" : [
 
   ],
@@ -186,14 +186,14 @@
       "text" : "]?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSettings\/cipherSuites",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLSettings\/cipherSuites",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "cipherSuites",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/sslsettings\/ciphersuites"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SSLSettings/desiredTrustHostname": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SSLSettings/desiredTrustHostname": {
   "abstract" : [
 
   ],
@@ -224,14 +224,14 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSettings\/desiredTrustHostname",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLSettings\/desiredTrustHostname",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "desiredTrustHostname",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/sslsettings\/desiredtrusthostname"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SSLSettings/disableCertValidation": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SSLSettings/disableCertValidation": {
   "abstract" : [
 
   ],
@@ -258,14 +258,14 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSettings\/disableCertValidation",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLSettings\/disableCertValidation",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "disableCertValidation",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/sslsettings\/disablecertvalidation"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SSLSettings/overrideTrustHostname": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SSLSettings/overrideTrustHostname": {
   "abstract" : [
 
   ],
@@ -292,14 +292,14 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSettings\/overrideTrustHostname",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLSettings\/overrideTrustHostname",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "overrideTrustHostname",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/sslsettings\/overridetrusthostname"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SSLSettings/sslClientCertificate": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SSLSettings/sslClientCertificate": {
   "abstract" : [
 
   ],
@@ -330,14 +330,14 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSettings\/sslClientCertificate",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLSettings\/sslClientCertificate",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "sslClientCertificate",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/sslsettings\/sslclientcertificate"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SSLSettings/useSSL": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SSLSettings/useSSL": {
   "abstract" : [
 
   ],
@@ -364,7 +364,7 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLSettings\/useSSL",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLSettings\/useSSL",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "useSSL",

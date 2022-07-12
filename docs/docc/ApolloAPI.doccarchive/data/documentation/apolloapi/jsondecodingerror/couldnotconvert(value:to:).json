@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/JSONDecodingError"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONDecodingError"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/JSONDecodingError\/couldNotConvert(value:to:)"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONDecodingError\/couldNotConvert(value:to:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -169,18 +169,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI": {
+"doc://ApolloAPI/documentation/ApolloAPI": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/JSONDecodingError": {
+"doc://ApolloAPI/documentation/ApolloAPI/JSONDecodingError": {
   "abstract" : [
 
   ],
@@ -198,7 +198,7 @@
       "text" : "JSONDecodingError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/JSONDecodingError",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONDecodingError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -211,7 +211,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/jsondecodingerror"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/JSONDecodingError/couldNotConvert(value:to:)": {
+"doc://ApolloAPI/documentation/ApolloAPI/JSONDecodingError/couldNotConvert(value:to:)": {
   "abstract" : [
 
   ],
@@ -266,7 +266,7 @@
       "text" : ".Type)"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/JSONDecodingError\/couldNotConvert(value:to:)",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONDecodingError\/couldNotConvert(value:to:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "JSONDecodingError.couldNotConvert(value:to:)",

@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore\/init(cache:)"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/init(cache:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -85,7 +85,7 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NormalizedCache",
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/NormalizedCache",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:6Apollo15NormalizedCacheP",
               "text" : "NormalizedCache"
@@ -165,18 +165,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloStore": {
+"doc://Apollo/documentation/Apollo/ApolloStore": {
   "abstract" : [
     {
       "text" : "The ",
@@ -205,7 +205,7 @@
       "text" : "ApolloStore"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -218,7 +218,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apollostore"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloStore/init(cache:)": {
+"doc://Apollo/documentation/Apollo/ApolloStore/init(cache:)": {
   "abstract" : [
     {
       "text" : "Designated initializer",
@@ -252,14 +252,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore\/init(cache:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/init(cache:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(cache:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apollostore\/init(cache:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/NormalizedCache": {
+"doc://Apollo/documentation/Apollo/NormalizedCache": {
   "abstract" : [
 
   ],
@@ -277,7 +277,7 @@
       "text" : "NormalizedCache"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NormalizedCache",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/NormalizedCache",
   "kind" : "symbol",
   "navigatorTitle" : [
     {

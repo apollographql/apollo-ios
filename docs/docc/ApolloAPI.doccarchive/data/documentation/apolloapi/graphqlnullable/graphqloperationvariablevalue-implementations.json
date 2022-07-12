@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLNullable"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLNullable\/GraphQLOperationVariableValue-Implementations"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/GraphQLOperationVariableValue-Implementations"
   },
   "kind" : "article",
   "metadata" : {
@@ -39,7 +39,7 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLNullable\/jsonEncodableValue"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/jsonEncodableValue"
       ],
       "title" : "Instance Properties"
     }
@@ -58,18 +58,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI": {
+"doc://ApolloAPI/documentation/ApolloAPI": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLNullable": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLNullable": {
   "abstract" : [
     {
       "text" : "Indicates the presence of a value, supporting both ",
@@ -106,7 +106,7 @@
       "text" : "GraphQLNullable"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLNullable",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -119,7 +119,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqlnullable"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLNullable/jsonEncodableValue": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLNullable/jsonEncodableValue": {
   "abstract" : [
 
   ],
@@ -182,7 +182,7 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLNullable\/jsonEncodableValue",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/jsonEncodableValue",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "jsonEncodableValue",

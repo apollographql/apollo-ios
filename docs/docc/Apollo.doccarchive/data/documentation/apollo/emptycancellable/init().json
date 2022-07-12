@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/EmptyCancellable"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/EmptyCancellable"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/EmptyCancellable\/init()"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/EmptyCancellable\/init()"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -87,18 +87,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/EmptyCancellable": {
+"doc://Apollo/documentation/Apollo/EmptyCancellable": {
   "abstract" : [
     {
       "text" : "A class to return when we need to bail out of something which still needs to return ",
@@ -127,7 +127,7 @@
       "text" : "EmptyCancellable"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/EmptyCancellable",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/EmptyCancellable",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -140,7 +140,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/emptycancellable"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/EmptyCancellable/init()": {
+"doc://Apollo/documentation/Apollo/EmptyCancellable/init()": {
   "abstract" : [
 
   ],
@@ -154,7 +154,7 @@
       "text" : "()"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/EmptyCancellable\/init()",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/EmptyCancellable\/init()",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init()",

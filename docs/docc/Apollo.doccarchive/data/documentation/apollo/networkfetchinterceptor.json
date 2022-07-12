@@ -8,13 +8,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"
+        "doc:\/\/Apollo\/documentation\/Apollo"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NetworkFetchInterceptor"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/NetworkFetchInterceptor"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -81,8 +81,8 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloInterceptor",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Cancellable"
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloInterceptor",
+        "doc:\/\/Apollo\/documentation\/Apollo\/Cancellable"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -100,14 +100,14 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NetworkFetchInterceptor\/init(client:)"
+        "doc:\/\/Apollo\/documentation\/Apollo\/NetworkFetchInterceptor\/init(client:)"
       ],
       "title" : "Initializers"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NetworkFetchInterceptor\/cancel()",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NetworkFetchInterceptor\/interceptAsync(chain:request:response:completion:)"
+        "doc:\/\/Apollo\/documentation\/Apollo\/NetworkFetchInterceptor\/cancel()",
+        "doc:\/\/Apollo\/documentation\/Apollo\/NetworkFetchInterceptor\/interceptAsync(chain:request:response:completion:)"
       ],
       "title" : "Instance Methods"
     }
@@ -126,18 +126,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloInterceptor": {
+"doc://Apollo/documentation/Apollo/ApolloInterceptor": {
   "abstract" : [
     {
       "text" : "A protocol to set up a chainable unit of networking work.",
@@ -158,7 +158,7 @@
       "text" : "ApolloInterceptor"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloInterceptor",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloInterceptor",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -171,7 +171,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apollointerceptor"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/Cancellable": {
+"doc://Apollo/documentation/Apollo/Cancellable": {
   "abstract" : [
     {
       "text" : "An object that can be used to cancel an in progress action.",
@@ -192,7 +192,7 @@
       "text" : "Cancellable"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Cancellable",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/Cancellable",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -205,7 +205,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/cancellable"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/NetworkFetchInterceptor": {
+"doc://Apollo/documentation/Apollo/NetworkFetchInterceptor": {
   "abstract" : [
     {
       "text" : "An interceptor which actually fetches data from the network.",
@@ -226,7 +226,7 @@
       "text" : "NetworkFetchInterceptor"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NetworkFetchInterceptor",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/NetworkFetchInterceptor",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -239,12 +239,9 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/networkfetchinterceptor"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/NetworkFetchInterceptor/cancel()": {
+"doc://Apollo/documentation/Apollo/NetworkFetchInterceptor/cancel()": {
   "abstract" : [
-    {
-      "text" : "Cancel an in progress action.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -264,14 +261,14 @@
       "text" : "()"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NetworkFetchInterceptor\/cancel()",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/NetworkFetchInterceptor\/cancel()",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "cancel()",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/networkfetchinterceptor\/cancel()"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/NetworkFetchInterceptor/init(client:)": {
+"doc://Apollo/documentation/Apollo/NetworkFetchInterceptor/init(client:)": {
   "abstract" : [
     {
       "text" : "Designated initializer.",
@@ -305,19 +302,16 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NetworkFetchInterceptor\/init(client:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/NetworkFetchInterceptor\/init(client:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(client:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/networkfetchinterceptor\/init(client:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/NetworkFetchInterceptor/interceptAsync(chain:request:response:completion:)": {
+"doc://Apollo/documentation/Apollo/NetworkFetchInterceptor/interceptAsync(chain:request:response:completion:)": {
   "abstract" : [
-    {
-      "text" : "Called when this interceptor should do its work.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -380,7 +374,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo23NetworkFetchInterceptorC14interceptAsync5chain7request8response10completionyAA12RequestChainC_AA11HTTPRequestCyxGAA12HTTPResponseCyxGSgys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0P11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -406,7 +399,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo23NetworkFetchInterceptorC14interceptAsync5chain7request8response10completionyAA12RequestChainC_AA11HTTPRequestCyxGAA12HTTPResponseCyxGSgys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0P11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -441,7 +433,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo23NetworkFetchInterceptorC14interceptAsync5chain7request8response10completionyAA12RequestChainC_AA11HTTPRequestCyxGAA12HTTPResponseCyxGSgys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0P11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -450,7 +441,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
       "text" : "Data"
     },
     {
@@ -476,7 +466,7 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NetworkFetchInterceptor\/interceptAsync(chain:request:response:completion:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/NetworkFetchInterceptor\/interceptAsync(chain:request:response:completion:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "interceptAsync(chain:request:response:completion:)",

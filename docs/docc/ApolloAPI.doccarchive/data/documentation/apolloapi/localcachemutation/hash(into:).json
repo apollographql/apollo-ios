@@ -16,15 +16,15 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/LocalCacheMutation",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/LocalCacheMutation\/Hashable-Implementations"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/LocalCacheMutation",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/LocalCacheMutation\/Hashable-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/LocalCacheMutation\/hash(into:)"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/LocalCacheMutation\/hash(into:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -171,18 +171,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI": {
+"doc://ApolloAPI/documentation/ApolloAPI": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/LocalCacheMutation": {
+"doc://ApolloAPI/documentation/ApolloAPI/LocalCacheMutation": {
   "abstract" : [
 
   ],
@@ -200,7 +200,7 @@
       "text" : "LocalCacheMutation"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/LocalCacheMutation",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/LocalCacheMutation",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -213,18 +213,18 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/localcachemutation"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/LocalCacheMutation/Hashable-Implementations": {
+"doc://ApolloAPI/documentation/ApolloAPI/LocalCacheMutation/Hashable-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/LocalCacheMutation\/Hashable-Implementations",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/LocalCacheMutation\/Hashable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Hashable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/localcachemutation\/hashable-implementations"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/LocalCacheMutation/hash(into:)": {
+"doc://ApolloAPI/documentation/ApolloAPI/LocalCacheMutation/hash(into:)": {
   "abstract" : [
 
   ],
@@ -271,7 +271,7 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/LocalCacheMutation\/hash(into:)",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/LocalCacheMutation\/hash(into:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "hash(into:)",

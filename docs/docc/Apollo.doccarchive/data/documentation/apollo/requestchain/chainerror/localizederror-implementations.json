@@ -8,15 +8,15 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain\/ChainError"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/ChainError"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain\/ChainError\/LocalizedError-Implementations"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/ChainError\/LocalizedError-Implementations"
   },
   "kind" : "article",
   "metadata" : {
@@ -40,10 +40,10 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain\/ChainError\/errorDescription-39yki",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain\/ChainError\/failureReason",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain\/ChainError\/helpAnchor",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain\/ChainError\/recoverySuggestion"
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/ChainError\/errorDescription-39yki",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/ChainError\/failureReason",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/ChainError\/helpAnchor",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/ChainError\/recoverySuggestion"
       ],
       "title" : "Instance Properties"
     }
@@ -62,18 +62,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChain": {
+"doc://Apollo/documentation/Apollo/RequestChain": {
   "abstract" : [
     {
       "text" : "A chain that allows a single network request to be created and executed.",
@@ -94,7 +94,7 @@
       "text" : "RequestChain"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -107,7 +107,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchain"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChain/ChainError": {
+"doc://Apollo/documentation/Apollo/RequestChain/ChainError": {
   "abstract" : [
 
   ],
@@ -125,7 +125,7 @@
       "text" : "ChainError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain\/ChainError",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/ChainError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -138,7 +138,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchain\/chainerror"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChain/ChainError/errorDescription-39yki": {
+"doc://Apollo/documentation/Apollo/RequestChain/ChainError/errorDescription-39yki": {
   "abstract" : [
 
   ],
@@ -169,14 +169,14 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain\/ChainError\/errorDescription-39yki",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/ChainError\/errorDescription-39yki",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "errorDescription",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchain\/chainerror\/errordescription-39yki"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChain/ChainError/failureReason": {
+"doc://Apollo/documentation/Apollo/RequestChain/ChainError/failureReason": {
   "abstract" : [
 
   ],
@@ -207,14 +207,14 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain\/ChainError\/failureReason",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/ChainError\/failureReason",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "failureReason",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchain\/chainerror\/failurereason"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChain/ChainError/helpAnchor": {
+"doc://Apollo/documentation/Apollo/RequestChain/ChainError/helpAnchor": {
   "abstract" : [
 
   ],
@@ -245,14 +245,14 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain\/ChainError\/helpAnchor",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/ChainError\/helpAnchor",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "helpAnchor",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchain\/chainerror\/helpanchor"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChain/ChainError/recoverySuggestion": {
+"doc://Apollo/documentation/Apollo/RequestChain/ChainError/recoverySuggestion": {
   "abstract" : [
 
   ],
@@ -283,7 +283,7 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChain\/ChainError\/recoverySuggestion",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/ChainError\/recoverySuggestion",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "recoverySuggestion",

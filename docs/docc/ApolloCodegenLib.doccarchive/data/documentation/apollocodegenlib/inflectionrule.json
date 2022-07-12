@@ -8,13 +8,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/InflectionRule"
+    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/InflectionRule"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -81,9 +81,9 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/Se",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/SE",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/SQ"
+        "doc:\/\/ApolloCodegenLib\/Se",
+        "doc:\/\/ApolloCodegenLib\/SE",
+        "doc:\/\/ApolloCodegenLib\/SQ"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -101,23 +101,23 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/InflectionRule\/irregular(singular:plural:)",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/InflectionRule\/pluralization(singularRegex:replacementRegex:)",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/InflectionRule\/singularization(pluralRegex:replacementRegex:)",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/InflectionRule\/uncountable(word:)"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/InflectionRule\/irregular(singular:plural:)",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/InflectionRule\/pluralization(singularRegex:replacementRegex:)",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/InflectionRule\/singularization(pluralRegex:replacementRegex:)",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/InflectionRule\/uncountable(word:)"
       ],
       "title" : "Enumeration Cases"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/InflectionRule\/init(from:)"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/InflectionRule\/init(from:)"
       ],
       "title" : "Initializers"
     },
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/InflectionRule\/Equatable-Implementations"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/InflectionRule\/Equatable-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -136,33 +136,33 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloCodegenLib.macosx/SE": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/SE",
+"doc://ApolloCodegenLib/SE": {
+  "identifier" : "doc:\/\/ApolloCodegenLib\/SE",
   "title" : "Swift.Encodable",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/SQ": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/SQ",
+"doc://ApolloCodegenLib/SQ": {
+  "identifier" : "doc:\/\/ApolloCodegenLib\/SQ",
   "title" : "Swift.Equatable",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/Se": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/Se",
+"doc://ApolloCodegenLib/Se": {
+  "identifier" : "doc:\/\/ApolloCodegenLib\/Se",
   "title" : "Swift.Decodable",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloCodegenLib",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/InflectionRule": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/InflectionRule": {
   "abstract" : [
     {
       "text" : "The types of inflection rules that can be used to customize pluralization.",
@@ -183,7 +183,7 @@
       "text" : "InflectionRule"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/InflectionRule",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/InflectionRule",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -196,18 +196,18 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/inflectionrule"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/InflectionRule/Equatable-Implementations": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/InflectionRule/Equatable-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/InflectionRule\/Equatable-Implementations",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/InflectionRule\/Equatable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Equatable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/inflectionrule\/equatable-implementations"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/InflectionRule/init(from:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/InflectionRule/init(from:)": {
   "abstract" : [
 
   ],
@@ -242,14 +242,14 @@
       "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/InflectionRule\/init(from:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/InflectionRule\/init(from:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(from:)",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/inflectionrule\/init(from:)"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/InflectionRule/irregular(singular:plural:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/InflectionRule/irregular(singular:plural:)": {
   "abstract" : [
     {
       "text" : "A definition of an irregular pluralization rule not easily captured by regex - for example “person” and “people”.",
@@ -308,14 +308,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/InflectionRule\/irregular(singular:plural:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/InflectionRule\/irregular(singular:plural:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "InflectionRule.irregular(singular:plural:)",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/inflectionrule\/irregular(singular:plural:)"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/InflectionRule/pluralization(singularRegex:replacementRegex:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/InflectionRule/pluralization(singularRegex:replacementRegex:)": {
   "abstract" : [
     {
       "text" : "A pluralization rule that allows taking a singular word and pluralizing it.",
@@ -374,14 +374,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/InflectionRule\/pluralization(singularRegex:replacementRegex:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/InflectionRule\/pluralization(singularRegex:replacementRegex:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "InflectionRule.pluralization(singularRegex:replacementRegex:)",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/inflectionrule\/pluralization(singularregex:replacementregex:)"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/InflectionRule/singularization(pluralRegex:replacementRegex:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/InflectionRule/singularization(pluralRegex:replacementRegex:)": {
   "abstract" : [
     {
       "text" : "A singularization rule that allows taking a plural word and singularizing it.",
@@ -440,14 +440,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/InflectionRule\/singularization(pluralRegex:replacementRegex:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/InflectionRule\/singularization(pluralRegex:replacementRegex:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "InflectionRule.singularization(pluralRegex:replacementRegex:)",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/inflectionrule\/singularization(pluralregex:replacementregex:)"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/InflectionRule/uncountable(word:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/InflectionRule/uncountable(word:)": {
   "abstract" : [
     {
       "text" : "A definition of a word that should never be pluralized or de-pluralized because it’s the same no matter what the count - for example, “fish”.",
@@ -489,7 +489,7 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/InflectionRule\/uncountable(word:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/InflectionRule\/uncountable(word:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "InflectionRule.uncountable(word:)",

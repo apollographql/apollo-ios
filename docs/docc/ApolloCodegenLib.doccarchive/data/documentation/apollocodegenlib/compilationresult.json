@@ -8,13 +8,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult"
+    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -81,7 +81,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/JavaScriptObject"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/JavaScriptObject"
       ],
       "kind" : "relationships",
       "title" : "Inherits From",
@@ -89,7 +89,7 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/s28CustomDebugStringConvertibleP"
+        "doc:\/\/ApolloCodegenLib\/s28CustomDebugStringConvertibleP"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -107,23 +107,23 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult\/Argument",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult\/Directive",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult\/Field",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult\/FragmentDefinition",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult\/FragmentSpread",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult\/InlineFragment",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult\/OperationDefinition",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult\/SelectionSet",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult\/VariableDefinition"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/Argument",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/Directive",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/Field",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/FragmentDefinition",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/FragmentSpread",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/InlineFragment",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/OperationDefinition",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/SelectionSet",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/VariableDefinition"
       ],
       "title" : "Classes"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult\/InclusionCondition",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult\/OperationType",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult\/Selection"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/InclusionCondition",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/OperationType",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/Selection"
       ],
       "title" : "Enumerations"
     }
@@ -142,18 +142,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloCodegenLib",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/CompilationResult": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CompilationResult": {
   "abstract" : [
     {
       "text" : "The output of the frontend compiler.",
@@ -174,7 +174,7 @@
       "text" : "CompilationResult"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -187,7 +187,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/compilationresult"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/CompilationResult/Argument": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CompilationResult/Argument": {
   "abstract" : [
 
   ],
@@ -205,7 +205,7 @@
       "text" : "Argument"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult\/Argument",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/Argument",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -218,7 +218,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/compilationresult\/argument"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/CompilationResult/Directive": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CompilationResult/Directive": {
   "abstract" : [
 
   ],
@@ -236,7 +236,7 @@
       "text" : "Directive"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult\/Directive",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/Directive",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -249,7 +249,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/compilationresult\/directive"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/CompilationResult/Field": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CompilationResult/Field": {
   "abstract" : [
 
   ],
@@ -267,7 +267,7 @@
       "text" : "Field"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult\/Field",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/Field",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -280,7 +280,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/compilationresult\/field"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/CompilationResult/FragmentDefinition": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CompilationResult/FragmentDefinition": {
   "abstract" : [
 
   ],
@@ -298,7 +298,7 @@
       "text" : "FragmentDefinition"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult\/FragmentDefinition",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/FragmentDefinition",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -311,7 +311,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/compilationresult\/fragmentdefinition"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/CompilationResult/FragmentSpread": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CompilationResult/FragmentSpread": {
   "abstract" : [
     {
       "text" : "Represents an individual selection that includes a named fragment in a selection set.",
@@ -348,7 +348,7 @@
       "text" : "FragmentSpread"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult\/FragmentSpread",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/FragmentSpread",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -361,7 +361,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/compilationresult\/fragmentspread"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/CompilationResult/InclusionCondition": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CompilationResult/InclusionCondition": {
   "abstract" : [
 
   ],
@@ -379,7 +379,7 @@
       "text" : "InclusionCondition"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult\/InclusionCondition",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/InclusionCondition",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -392,7 +392,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/compilationresult\/inclusioncondition"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/CompilationResult/InlineFragment": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CompilationResult/InlineFragment": {
   "abstract" : [
 
   ],
@@ -410,7 +410,7 @@
       "text" : "InlineFragment"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult\/InlineFragment",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/InlineFragment",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -423,7 +423,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/compilationresult\/inlinefragment"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/CompilationResult/OperationDefinition": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CompilationResult/OperationDefinition": {
   "abstract" : [
 
   ],
@@ -441,7 +441,7 @@
       "text" : "OperationDefinition"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult\/OperationDefinition",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/OperationDefinition",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -454,7 +454,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/compilationresult\/operationdefinition"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/CompilationResult/OperationType": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CompilationResult/OperationType": {
   "abstract" : [
 
   ],
@@ -472,7 +472,7 @@
       "text" : "OperationType"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult\/OperationType",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/OperationType",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -485,7 +485,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/compilationresult\/operationtype"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/CompilationResult/Selection": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CompilationResult/Selection": {
   "abstract" : [
 
   ],
@@ -503,7 +503,7 @@
       "text" : "Selection"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult\/Selection",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/Selection",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -516,7 +516,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/compilationresult\/selection"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/CompilationResult/SelectionSet": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CompilationResult/SelectionSet": {
   "abstract" : [
 
   ],
@@ -534,7 +534,7 @@
       "text" : "SelectionSet"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult\/SelectionSet",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/SelectionSet",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -547,7 +547,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/compilationresult\/selectionset"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/CompilationResult/VariableDefinition": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CompilationResult/VariableDefinition": {
   "abstract" : [
 
   ],
@@ -565,7 +565,7 @@
       "text" : "VariableDefinition"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CompilationResult\/VariableDefinition",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/VariableDefinition",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -578,7 +578,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/compilationresult\/variabledefinition"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/JavaScriptObject": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/JavaScriptObject": {
   "abstract" : [
     {
       "text" : "A type that references an underlying JavaScript object.",
@@ -599,7 +599,7 @@
       "text" : "JavaScriptObject"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/JavaScriptObject",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/JavaScriptObject",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -612,8 +612,8 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/javascriptobject"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/s28CustomDebugStringConvertibleP": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/s28CustomDebugStringConvertibleP",
+"doc://ApolloCodegenLib/s28CustomDebugStringConvertibleP": {
+  "identifier" : "doc:\/\/ApolloCodegenLib\/s28CustomDebugStringConvertibleP",
   "title" : "Swift.CustomDebugStringConvertible",
   "type" : "unresolvable"
 }

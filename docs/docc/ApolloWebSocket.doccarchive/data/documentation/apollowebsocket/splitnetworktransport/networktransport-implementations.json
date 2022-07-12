@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SplitNetworkTransport"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/NetworkTransport-Implementations"
+    "url" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/NetworkTransport-Implementations"
   },
   "kind" : "article",
   "metadata" : {
@@ -39,26 +39,26 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/clientName-9k3zt",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/clientVersion-6kuvd"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/clientName-9k3zt",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/clientVersion-6kuvd"
       ],
       "title" : "Instance Properties"
     },
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/addApolloClientHeaders(to:)",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/addApolloClientHeaders(to:)",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)"
       ],
       "title" : "Instance Methods"
     },
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/defaultClientName",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/defaultClientVersion",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/headerFieldNameApolloClientName",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/headerFieldNameApolloClientVersion"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/defaultClientName",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/defaultClientVersion",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/headerFieldNameApolloClientName",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/headerFieldNameApolloClientVersion"
       ],
       "title" : "Type Properties"
     }
@@ -77,18 +77,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloWebSocket",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SplitNetworkTransport": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SplitNetworkTransport": {
   "abstract" : [
     {
       "text" : "A network transport that sends subscriptions using one ",
@@ -125,7 +125,7 @@
       "text" : "SplitNetworkTransport"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SplitNetworkTransport",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -138,7 +138,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/splitnetworktransport"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SplitNetworkTransport/addApolloClientHeaders(to:)": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SplitNetworkTransport/addApolloClientHeaders(to:)": {
   "abstract" : [
     {
       "text" : "Adds the Apollo client headers for this instance of ",
@@ -196,19 +196,16 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/addApolloClientHeaders(to:)",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/addApolloClientHeaders(to:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "addApolloClientHeaders(to:)",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/splitnetworktransport\/addapolloclientheaders(to:)"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SplitNetworkTransport/clientName-9k3zt": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SplitNetworkTransport/clientName-9k3zt": {
   "abstract" : [
-    {
-      "text" : "The name of the client to send as a header value.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -233,19 +230,16 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/clientName-9k3zt",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/clientName-9k3zt",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "clientName",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/splitnetworktransport\/clientname-9k3zt"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SplitNetworkTransport/clientVersion-6kuvd": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SplitNetworkTransport/clientVersion-6kuvd": {
   "abstract" : [
-    {
-      "text" : "The version of the client to send as a header value.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -270,14 +264,14 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/clientVersion-6kuvd",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/clientVersion-6kuvd",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "clientVersion",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/splitnetworktransport\/clientversion-6kuvd"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SplitNetworkTransport/defaultClientName": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SplitNetworkTransport/defaultClientName": {
   "abstract" : [
     {
       "text" : "The default client name to use when setting up the ",
@@ -323,14 +317,14 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/defaultClientName",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/defaultClientName",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "defaultClientName",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/splitnetworktransport\/defaultclientname"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SplitNetworkTransport/defaultClientVersion": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SplitNetworkTransport/defaultClientVersion": {
   "abstract" : [
     {
       "text" : "The default client version to use when setting up the ",
@@ -376,14 +370,14 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/defaultClientVersion",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/defaultClientVersion",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "defaultClientVersion",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/splitnetworktransport\/defaultclientversion"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SplitNetworkTransport/headerFieldNameApolloClientName": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SplitNetworkTransport/headerFieldNameApolloClientName": {
   "abstract" : [
     {
       "text" : "The field name for the Apollo Client Name header",
@@ -421,14 +415,14 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/headerFieldNameApolloClientName",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/headerFieldNameApolloClientName",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "headerFieldNameApolloClientName",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/splitnetworktransport\/headerfieldnameapolloclientname"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SplitNetworkTransport/headerFieldNameApolloClientVersion": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SplitNetworkTransport/headerFieldNameApolloClientVersion": {
   "abstract" : [
     {
       "text" : "The field name for the Apollo Client Version header",
@@ -466,19 +460,16 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/headerFieldNameApolloClientVersion",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/headerFieldNameApolloClientVersion",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "headerFieldNameApolloClientVersion",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/splitnetworktransport\/headerfieldnameapolloclientversion"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SplitNetworkTransport/send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SplitNetworkTransport/send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)": {
   "abstract" : [
-    {
-      "text" : "Send a GraphQL operation to a server and return a response.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -515,7 +506,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:15ApolloWebSocket21SplitNetworkTransportC4send9operation11cachePolicy17contextIdentifier13callbackQueue17completionHandler0A011Cancellable_px_AJ05CacheJ0O10Foundation4UUIDVSgSo17OS_dispatch_queueCys6ResultOyAJ13GraphQLResultVy4DataQzGs5Error_pGct0A3API0Y11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -601,7 +591,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:15ApolloWebSocket21SplitNetworkTransportC4send9operation11cachePolicy17contextIdentifier13callbackQueue17completionHandler0A011Cancellable_px_AJ05CacheJ0O10Foundation4UUIDVSgSo17OS_dispatch_queueCys6ResultOyAJ13GraphQLResultVy4DataQzGs5Error_pGct0A3API0Y11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -610,7 +599,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
       "text" : "Data"
     },
     {
@@ -641,7 +629,7 @@
       "text" : "Cancellable"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)",

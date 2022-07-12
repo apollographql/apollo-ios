@@ -32,13 +32,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"
+        "doc:\/\/Apollo\/documentation\/Apollo"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -105,8 +105,8 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NetworkTransport",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/UploadingNetworkTransport"
+        "doc:\/\/Apollo\/documentation\/Apollo\/NetworkTransport",
+        "doc:\/\/Apollo\/documentation\/Apollo\/UploadingNetworkTransport"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -124,36 +124,36 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport\/init(interceptorProvider:endpointURL:additionalHeaders:autoPersistQueries:requestBodyCreator:useGETForQueries:useGETForPersistedQueryRetry:)"
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/init(interceptorProvider:endpointURL:additionalHeaders:autoPersistQueries:requestBodyCreator:useGETForQueries:useGETForPersistedQueryRetry:)"
       ],
       "title" : "Initializers"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport\/additionalHeaders",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport\/autoPersistQueries",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport\/clientName-eycz",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport\/clientVersion-7dkl1",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport\/endpointURL",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport\/requestBodyCreator",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport\/useGETForPersistedQueryRetry",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport\/useGETForQueries"
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/additionalHeaders",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/autoPersistQueries",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/clientName-eycz",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/clientVersion-7dkl1",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/endpointURL",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/requestBodyCreator",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/useGETForPersistedQueryRetry",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/useGETForQueries"
       ],
       "title" : "Instance Properties"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport\/constructRequest(for:cachePolicy:contextIdentifier:)",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport\/constructUploadRequest(for:with:manualBoundary:)",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport\/send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)"
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/constructRequest(for:cachePolicy:contextIdentifier:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/constructUploadRequest(for:with:manualBoundary:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)"
       ],
       "title" : "Instance Methods"
     },
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport\/NetworkTransport-Implementations",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport\/UploadingNetworkTransport-Implementations"
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/NetworkTransport-Implementations",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/UploadingNetworkTransport-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -172,18 +172,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/NetworkTransport": {
+"doc://Apollo/documentation/Apollo/NetworkTransport": {
   "abstract" : [
     {
       "text" : "A network transport is responsible for sending GraphQL operations to a server.",
@@ -204,7 +204,7 @@
       "text" : "NetworkTransport"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NetworkTransport",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/NetworkTransport",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -217,7 +217,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/networktransport"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChainNetworkTransport": {
+"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport": {
   "abstract" : [
     {
       "text" : "An implementation of ",
@@ -262,7 +262,7 @@
       "text" : "RequestChainNetworkTransport"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -275,29 +275,29 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchainnetworktransport"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChainNetworkTransport/NetworkTransport-Implementations": {
+"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport/NetworkTransport-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport\/NetworkTransport-Implementations",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/NetworkTransport-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "NetworkTransport Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchainnetworktransport\/networktransport-implementations"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChainNetworkTransport/UploadingNetworkTransport-Implementations": {
+"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport/UploadingNetworkTransport-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport\/UploadingNetworkTransport-Implementations",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/UploadingNetworkTransport-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "UploadingNetworkTransport Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchainnetworktransport\/uploadingnetworktransport-implementations"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChainNetworkTransport/additionalHeaders": {
+"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport/additionalHeaders": {
   "abstract" : [
     {
       "text" : "Any additional headers that should be automatically added to every request.",
@@ -340,14 +340,14 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport\/additionalHeaders",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/additionalHeaders",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "additionalHeaders",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchainnetworktransport\/additionalheaders"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChainNetworkTransport/autoPersistQueries": {
+"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport/autoPersistQueries": {
   "abstract" : [
     {
       "text" : "Set to ",
@@ -385,19 +385,16 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport\/autoPersistQueries",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/autoPersistQueries",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "autoPersistQueries",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchainnetworktransport\/autopersistqueries"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChainNetworkTransport/clientName-eycz": {
+"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport/clientName-eycz": {
   "abstract" : [
-    {
-      "text" : "The name of the client to send as a header value.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -422,19 +419,16 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport\/clientName-eycz",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/clientName-eycz",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "clientName",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchainnetworktransport\/clientname-eycz"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChainNetworkTransport/clientVersion-7dkl1": {
+"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport/clientVersion-7dkl1": {
   "abstract" : [
-    {
-      "text" : "The version of the client to send as a header value.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -459,14 +453,14 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport\/clientVersion-7dkl1",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/clientVersion-7dkl1",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "clientVersion",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchainnetworktransport\/clientversion-7dkl1"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChainNetworkTransport/constructRequest(for:cachePolicy:contextIdentifier:)": {
+"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport/constructRequest(for:cachePolicy:contextIdentifier:)": {
   "abstract" : [
     {
       "text" : "Constructs a default (ie, non-multipart) GraphQL request.",
@@ -508,7 +502,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo28RequestChainNetworkTransportC09constructB03for11cachePolicy17contextIdentifierAA11HTTPRequestCyxGx_AA05CacheI0O10Foundation4UUIDVSgt0A3API16GraphQLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -560,7 +553,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo28RequestChainNetworkTransportC09constructB03for11cachePolicy17contextIdentifierAA11HTTPRequestCyxGx_AA05CacheI0O10Foundation4UUIDVSgt0A3API16GraphQLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -568,14 +560,14 @@
       "text" : ">"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport\/constructRequest(for:cachePolicy:contextIdentifier:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/constructRequest(for:cachePolicy:contextIdentifier:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "constructRequest(for:cachePolicy:contextIdentifier:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchainnetworktransport\/constructrequest(for:cachepolicy:contextidentifier:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChainNetworkTransport/constructUploadRequest(for:with:manualBoundary:)": {
+"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport/constructUploadRequest(for:with:manualBoundary:)": {
   "abstract" : [
     {
       "text" : "Constructs an uploading (ie, multipart) GraphQL request",
@@ -617,7 +609,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo28RequestChainNetworkTransportC015constructUploadB03for4with14manualBoundaryAA11HTTPRequestCyxGx_SayAA11GraphQLFileVGSSSgt0A3API0M11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -669,7 +660,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo28RequestChainNetworkTransportC015constructUploadB03for4with14manualBoundaryAA11HTTPRequestCyxGx_SayAA11GraphQLFileVGSSSgt0A3API0M11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -677,14 +667,14 @@
       "text" : ">"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport\/constructUploadRequest(for:with:manualBoundary:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/constructUploadRequest(for:with:manualBoundary:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "constructUploadRequest(for:with:manualBoundary:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchainnetworktransport\/constructuploadrequest(for:with:manualboundary:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChainNetworkTransport/endpointURL": {
+"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport/endpointURL": {
   "abstract" : [
     {
       "text" : "The GraphQL endpoint URL to use.",
@@ -714,14 +704,14 @@
       "text" : "URL"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport\/endpointURL",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/endpointURL",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "endpointURL",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchainnetworktransport\/endpointurl"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChainNetworkTransport/init(interceptorProvider:endpointURL:additionalHeaders:autoPersistQueries:requestBodyCreator:useGETForQueries:useGETForPersistedQueryRetry:)": {
+"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport/init(interceptorProvider:endpointURL:additionalHeaders:autoPersistQueries:requestBodyCreator:useGETForQueries:useGETForPersistedQueryRetry:)": {
   "abstract" : [
     {
       "text" : "Designated initializer",
@@ -866,14 +856,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport\/init(interceptorProvider:endpointURL:additionalHeaders:autoPersistQueries:requestBodyCreator:useGETForQueries:useGETForPersistedQueryRetry:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/init(interceptorProvider:endpointURL:additionalHeaders:autoPersistQueries:requestBodyCreator:useGETForQueries:useGETForPersistedQueryRetry:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(interceptorProvider:endpointURL:additionalHeaders:autoPersistQueries:requestBodyCreator:useGETForQueries:useGETForPersistedQueryRetry:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchainnetworktransport\/init(interceptorprovider:endpointurl:additionalheaders:autopersistqueries:requestbodycreator:usegetforqueries:usegetforpersistedqueryretry:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChainNetworkTransport/requestBodyCreator": {
+"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport/requestBodyCreator": {
   "abstract" : [
     {
       "text" : "The ",
@@ -919,19 +909,16 @@
       "text" : "RequestBodyCreator"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport\/requestBodyCreator",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/requestBodyCreator",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "requestBodyCreator",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchainnetworktransport\/requestbodycreator"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChainNetworkTransport/send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)": {
+"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport/send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)": {
   "abstract" : [
-    {
-      "text" : "Send a GraphQL operation to a server and return a response.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -968,7 +955,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo28RequestChainNetworkTransportC4send9operation11cachePolicy17contextIdentifier13callbackQueue17completionHandlerAA11Cancellable_px_AA05CacheI0O10Foundation4UUIDVSgSo17OS_dispatch_queueCys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0X11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -1054,7 +1040,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo28RequestChainNetworkTransportC4send9operation11cachePolicy17contextIdentifier13callbackQueue17completionHandlerAA11Cancellable_px_AA05CacheI0O10Foundation4UUIDVSgSo17OS_dispatch_queueCys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0X11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -1063,7 +1048,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
       "text" : "Data"
     },
     {
@@ -1094,14 +1078,14 @@
       "text" : "Cancellable"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport\/send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchainnetworktransport\/send(operation:cachepolicy:contextidentifier:callbackqueue:completionhandler:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChainNetworkTransport/useGETForPersistedQueryRetry": {
+"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport/useGETForPersistedQueryRetry": {
   "abstract" : [
     {
       "text" : "Set to ",
@@ -1155,14 +1139,14 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport\/useGETForPersistedQueryRetry",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/useGETForPersistedQueryRetry",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "useGETForPersistedQueryRetry",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchainnetworktransport\/usegetforpersistedqueryretry"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChainNetworkTransport/useGETForQueries": {
+"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport/useGETForQueries": {
   "abstract" : [
     {
       "text" : "Set to  ",
@@ -1216,14 +1200,14 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport\/useGETForQueries",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/useGETForQueries",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "useGETForQueries",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchainnetworktransport\/usegetforqueries"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/UploadingNetworkTransport": {
+"doc://Apollo/documentation/Apollo/UploadingNetworkTransport": {
   "abstract" : [
     {
       "text" : "A network transport which can also handle uploads of files.",
@@ -1244,7 +1228,7 @@
       "text" : "UploadingNetworkTransport"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/UploadingNetworkTransport",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/UploadingNetworkTransport",
   "kind" : "symbol",
   "navigatorTitle" : [
     {

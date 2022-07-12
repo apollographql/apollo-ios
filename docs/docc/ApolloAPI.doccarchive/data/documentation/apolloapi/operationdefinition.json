@@ -8,13 +8,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/OperationDefinition"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/OperationDefinition"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -164,13 +164,13 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/OperationDefinition\/init(_:fragments:)"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/OperationDefinition\/init(_:fragments:)"
       ],
       "title" : "Initializers"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/OperationDefinition\/queryDocument"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/OperationDefinition\/queryDocument"
       ],
       "title" : "Instance Properties"
     }
@@ -189,18 +189,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI": {
+"doc://ApolloAPI/documentation/ApolloAPI": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/OperationDefinition": {
+"doc://ApolloAPI/documentation/ApolloAPI/OperationDefinition": {
   "abstract" : [
     {
       "text" : "The definition of an operation to be provided over network transport.",
@@ -221,7 +221,7 @@
       "text" : "OperationDefinition"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/OperationDefinition",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/OperationDefinition",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -234,7 +234,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/operationdefinition"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/OperationDefinition/init(_:fragments:)": {
+"doc://ApolloAPI/documentation/ApolloAPI/OperationDefinition/init(_:fragments:)": {
   "abstract" : [
 
   ],
@@ -274,14 +274,14 @@
       "text" : ".Type]?)"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/OperationDefinition\/init(_:fragments:)",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/OperationDefinition\/init(_:fragments:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(_:fragments:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/operationdefinition\/init(_:fragments:)"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/OperationDefinition/queryDocument": {
+"doc://ApolloAPI/documentation/ApolloAPI/OperationDefinition/queryDocument": {
   "abstract" : [
 
   ],
@@ -308,7 +308,7 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/OperationDefinition\/queryDocument",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/OperationDefinition\/queryDocument",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "queryDocument",

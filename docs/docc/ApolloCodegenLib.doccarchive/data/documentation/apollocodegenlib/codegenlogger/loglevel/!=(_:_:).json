@@ -16,16 +16,16 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CodegenLogger",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel\/Equatable-Implementations"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CodegenLogger",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel\/Equatable-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel\/!=(_:_:)"
+    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel\/!=(_:_:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -196,18 +196,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloCodegenLib",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/CodegenLogger": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CodegenLogger": {
   "abstract" : [
     {
       "text" : "Helper to get logs printing to stdout so they can be read from the command line.",
@@ -228,7 +228,7 @@
       "text" : "CodegenLogger"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CodegenLogger",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CodegenLogger",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -241,7 +241,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/codegenlogger"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/CodegenLogger/LogLevel": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CodegenLogger/LogLevel": {
   "abstract" : [
 
   ],
@@ -259,7 +259,7 @@
       "text" : "LogLevel"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -272,7 +272,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/codegenlogger\/loglevel"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/CodegenLogger/LogLevel/!=(_:_:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CodegenLogger/LogLevel/!=(_:_:)": {
   "abstract" : [
 
   ],
@@ -327,18 +327,18 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel\/!=(_:_:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel\/!=(_:_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "!=(_:_:)",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/codegenlogger\/loglevel\/!=(_:_:)"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/CodegenLogger/LogLevel/Equatable-Implementations": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CodegenLogger/LogLevel/Equatable-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel\/Equatable-Implementations",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel\/Equatable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Equatable Implementations",

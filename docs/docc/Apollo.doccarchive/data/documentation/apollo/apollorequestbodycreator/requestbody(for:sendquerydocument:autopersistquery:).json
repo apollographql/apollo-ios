@@ -1,30 +1,30 @@
 {
   "abstract" : [
     {
-      "text" : "Creates a ",
+      "text" : "Inherited from ",
       "type" : "text"
     },
     {
-      "code" : "JSONEncodableDictionary",
+      "code" : "RequestBodyCreator.requestBody(for:sendQueryDocument:autoPersistQuery:)",
       "type" : "codeVoice"
     },
     {
-      "text" : " out of the passed-in operation",
+      "text" : ".",
       "type" : "text"
     }
   ],
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloRequestBodyCreator",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloRequestBodyCreator\/RequestBodyCreator-Implementations"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloRequestBodyCreator",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloRequestBodyCreator\/RequestBodyCreator-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloRequestBodyCreator\/requestBody(for:sendQueryDocument:autoPersistQuery:)"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloRequestBodyCreator\/requestBody(for:sendQueryDocument:autoPersistQuery:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -65,7 +65,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:6Apollo18RequestBodyCreatorPAAE07requestC03for17sendQueryDocument011autoPersistH0SDySS0A3API13JSONEncodable_pGqd___S2btAH16GraphQLOperationRd__lF9OperationL_qd__mfp",
         "text" : "Operation"
       },
       {
@@ -175,7 +174,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:6Apollo18RequestBodyCreatorPAAE07requestC03for17sendQueryDocument011autoPersistH0SDySS0A3API13JSONEncodable_pGqd___S2btAH16GraphQLOperationRd__lF9OperationL_qd__mfp",
               "text" : "Operation"
             },
             {
@@ -250,93 +248,6 @@
         }
       ],
       "kind" : "declarations"
-    },
-    {
-      "content" : [
-        {
-          "anchor" : "return-value",
-          "level" : 2,
-          "text" : "Return Value",
-          "type" : "heading"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "The created ",
-              "type" : "text"
-            },
-            {
-              "code" : "JSONEncodableDictionary",
-              "type" : "codeVoice"
-            }
-          ],
-          "type" : "paragraph"
-        }
-      ],
-      "kind" : "content"
-    },
-    {
-      "kind" : "parameters",
-      "parameters" : [
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "The operation to use",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "operation"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "Whether or not to send the full query document. Should default to ",
-                  "type" : "text"
-                },
-                {
-                  "code" : "true",
-                  "type" : "codeVoice"
-                },
-                {
-                  "text" : ".",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "sendQueryDocument"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "Whether to use auto-persisted query information. Should default to ",
-                  "type" : "text"
-                },
-                {
-                  "code" : "false",
-                  "type" : "codeVoice"
-                },
-                {
-                  "text" : ".",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "autoPersistQuery"
-        }
-      ]
     }
   ],
   "schemaVersion" : {
@@ -361,18 +272,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloRequestBodyCreator": {
+"doc://Apollo/documentation/Apollo/ApolloRequestBodyCreator": {
   "abstract" : [
 
   ],
@@ -390,7 +301,7 @@
       "text" : "ApolloRequestBodyCreator"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloRequestBodyCreator",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloRequestBodyCreator",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -403,31 +314,20 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apollorequestbodycreator"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloRequestBodyCreator/RequestBodyCreator-Implementations": {
+"doc://Apollo/documentation/Apollo/ApolloRequestBodyCreator/RequestBodyCreator-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloRequestBodyCreator\/RequestBodyCreator-Implementations",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloRequestBodyCreator\/RequestBodyCreator-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "RequestBodyCreator Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apollorequestbodycreator\/requestbodycreator-implementations"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloRequestBodyCreator/requestBody(for:sendQueryDocument:autoPersistQuery:)": {
+"doc://Apollo/documentation/Apollo/ApolloRequestBodyCreator/requestBody(for:sendQueryDocument:autoPersistQuery:)": {
   "abstract" : [
-    {
-      "text" : "Creates a ",
-      "type" : "text"
-    },
-    {
-      "code" : "JSONEncodableDictionary",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " out of the passed-in operation",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -464,7 +364,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo18RequestBodyCreatorPAAE07requestC03for17sendQueryDocument011autoPersistH0SDySS0A3API13JSONEncodable_pGqd___S2btAH16GraphQLOperationRd__lF9OperationL_qd__mfp",
       "text" : "Operation"
     },
     {
@@ -511,7 +410,7 @@
       "text" : "JSONEncodableDictionary"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloRequestBodyCreator\/requestBody(for:sendQueryDocument:autoPersistQuery:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloRequestBodyCreator\/requestBody(for:sendQueryDocument:autoPersistQuery:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "requestBody(for:sendQueryDocument:autoPersistQuery:)",

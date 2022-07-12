@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RecordSet"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/CustomPlaygroundDisplayConvertible-Implementations"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/RecordSet\/CustomPlaygroundDisplayConvertible-Implementations"
   },
   "kind" : "article",
   "metadata" : {
@@ -39,7 +39,7 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/playgroundDescription"
+        "doc:\/\/Apollo\/documentation\/Apollo\/RecordSet\/playgroundDescription"
       ],
       "title" : "Instance Properties"
     }
@@ -58,18 +58,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet": {
+"doc://Apollo/documentation/Apollo/RecordSet": {
   "abstract" : [
     {
       "text" : "A set of cache records.",
@@ -90,7 +90,7 @@
       "text" : "RecordSet"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RecordSet",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -103,7 +103,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/recordset"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet/playgroundDescription": {
+"doc://Apollo/documentation/Apollo/RecordSet/playgroundDescription": {
   "abstract" : [
 
   ],
@@ -129,7 +129,7 @@
       "text" : "Any"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/playgroundDescription",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RecordSet\/playgroundDescription",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "playgroundDescription",

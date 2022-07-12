@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/JSONRequest"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/init(operation:graphQLEndpoint:contextIdentifier:clientName:clientVersion:additionalHeaders:cachePolicy:autoPersistQueries:useGETForQueries:useGETForPersistedQueryRetry:requestBodyCreator:)"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONRequest\/init(operation:graphQLEndpoint:contextIdentifier:clientName:clientVersion:additionalHeaders:cachePolicy:autoPersistQueries:useGETForQueries:useGETForPersistedQueryRetry:requestBodyCreator:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -39,7 +39,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:6Apollo11JSONRequestC9Operationxmfp",
         "text" : "Operation"
       },
       {
@@ -265,7 +264,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:6Apollo11JSONRequestC9Operationxmfp",
               "text" : "Operation"
             },
             {
@@ -375,7 +373,7 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CachePolicy",
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CachePolicy",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:6Apollo11CachePolicyO",
               "text" : "CachePolicy"
@@ -444,7 +442,7 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestBodyCreator",
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestBodyCreator",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:6Apollo18RequestBodyCreatorP",
               "text" : "RequestBodyCreator"
@@ -768,18 +766,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/CachePolicy": {
+"doc://Apollo/documentation/Apollo/CachePolicy": {
   "abstract" : [
     {
       "text" : "A cache policy that specifies whether results should be fetched from the server or loaded from the local cache.",
@@ -800,7 +798,7 @@
       "text" : "CachePolicy"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CachePolicy",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CachePolicy",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -813,7 +811,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/cachepolicy"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONRequest": {
+"doc://Apollo/documentation/Apollo/JSONRequest": {
   "abstract" : [
     {
       "text" : "A request which sends JSON related to a GraphQL operation.",
@@ -834,7 +832,7 @@
       "text" : "JSONRequest"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONRequest",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -847,7 +845,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/jsonrequest"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONRequest/init(operation:graphQLEndpoint:contextIdentifier:clientName:clientVersion:additionalHeaders:cachePolicy:autoPersistQueries:useGETForQueries:useGETForPersistedQueryRetry:requestBodyCreator:)": {
+"doc://Apollo/documentation/Apollo/JSONRequest/init(operation:graphQLEndpoint:contextIdentifier:clientName:clientVersion:additionalHeaders:cachePolicy:autoPersistQueries:useGETForQueries:useGETForPersistedQueryRetry:requestBodyCreator:)": {
   "abstract" : [
     {
       "text" : "Designated initializer",
@@ -873,7 +871,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo11JSONRequestC9Operationxmfp",
       "text" : "Operation"
     },
     {
@@ -1060,14 +1057,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONRequest\/init(operation:graphQLEndpoint:contextIdentifier:clientName:clientVersion:additionalHeaders:cachePolicy:autoPersistQueries:useGETForQueries:useGETForPersistedQueryRetry:requestBodyCreator:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONRequest\/init(operation:graphQLEndpoint:contextIdentifier:clientName:clientVersion:additionalHeaders:cachePolicy:autoPersistQueries:useGETForQueries:useGETForPersistedQueryRetry:requestBodyCreator:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(operation:graphQLEndpoint:contextIdentifier:clientName:clientVersion:additionalHeaders:cachePolicy:autoPersistQueries:useGETForQueries:useGETForPersistedQueryRetry:requestBodyCreator:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/jsonrequest\/init(operation:graphqlendpoint:contextidentifier:clientname:clientversion:additionalheaders:cachepolicy:autopersistqueries:usegetforqueries:usegetforpersistedqueryretry:requestbodycreator:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestBodyCreator": {
+"doc://Apollo/documentation/Apollo/RequestBodyCreator": {
   "abstract" : [
 
   ],
@@ -1085,7 +1082,7 @@
       "text" : "RequestBodyCreator"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestBodyCreator",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestBodyCreator",
   "kind" : "symbol",
   "navigatorTitle" : [
     {

@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/MutableSelectionSet"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/MutableSelectionSet"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/MutableSelectionSet\/fragments"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/MutableSelectionSet\/fragments"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -72,7 +72,14 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:9ApolloAPI12SelectionSetP9FragmentsQa",
+        "text" : "Self"
+      },
+      {
+        "kind" : "text",
+        "text" : "."
+      },
+      {
+        "kind" : "typeIdentifier",
         "text" : "Fragments"
       }
     ],
@@ -114,9 +121,15 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/SelectionSet\/Fragments-swift.associatedtype",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:9ApolloAPI12SelectionSetP9FragmentsQa",
+              "text" : "Self"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "kind" : "typeIdentifier",
               "text" : "Fragments"
             },
             {
@@ -167,18 +180,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI": {
+"doc://ApolloAPI/documentation/ApolloAPI": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/MutableSelectionSet": {
+"doc://ApolloAPI/documentation/ApolloAPI/MutableSelectionSet": {
   "abstract" : [
 
   ],
@@ -196,7 +209,7 @@
       "text" : "MutableSelectionSet"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/MutableSelectionSet",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/MutableSelectionSet",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -209,7 +222,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/mutableselectionset"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/MutableSelectionSet/fragments": {
+"doc://ApolloAPI/documentation/ApolloAPI/MutableSelectionSet/fragments": {
   "abstract" : [
 
   ],
@@ -264,90 +277,23 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI12SelectionSetP9FragmentsQa",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
       "text" : "Fragments"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/MutableSelectionSet\/fragments",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/MutableSelectionSet\/fragments",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "fragments",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/mutableselectionset\/fragments"
-},
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/SelectionSet/Fragments-swift.associatedtype": {
-  "abstract" : [
-    {
-      "text" : "A type representing all of the fragments the ",
-      "type" : "text"
-    },
-    {
-      "code" : "SelectionSet",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " can be converted to.",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "Defaults to a stub type with no fragments.",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "A ",
-      "type" : "text"
-    },
-    {
-      "code" : "SelectionSet",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " with fragments should provide a type that conforms to ",
-      "type" : "text"
-    },
-    {
-      "code" : "FragmentContainer",
-      "type" : "codeVoice"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "associatedtype"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Fragments"
-    },
-    {
-      "kind" : "text",
-      "text" : " = "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI11NoFragmentsO",
-      "text" : "NoFragments"
-    }
-  ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/SelectionSet\/Fragments-swift.associatedtype",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "Fragments",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/selectionset\/fragments-swift.associatedtype"
 }
 }
 }

@@ -8,15 +8,15 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ResponseCodeInterceptor",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ResponseCodeInterceptor",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError\/LocalizedError-Implementations"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError\/LocalizedError-Implementations"
   },
   "kind" : "article",
   "metadata" : {
@@ -40,10 +40,10 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError\/errorDescription-391dx",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError\/failureReason",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError\/helpAnchor",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError\/recoverySuggestion"
+        "doc:\/\/Apollo\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError\/errorDescription-391dx",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError\/failureReason",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError\/helpAnchor",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError\/recoverySuggestion"
       ],
       "title" : "Instance Properties"
     }
@@ -62,18 +62,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ResponseCodeInterceptor": {
+"doc://Apollo/documentation/Apollo/ResponseCodeInterceptor": {
   "abstract" : [
     {
       "text" : "An interceptor to check the response code returned with a request.",
@@ -94,7 +94,7 @@
       "text" : "ResponseCodeInterceptor"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ResponseCodeInterceptor",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponseCodeInterceptor",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -107,7 +107,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/responsecodeinterceptor"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ResponseCodeInterceptor/ResponseCodeError": {
+"doc://Apollo/documentation/Apollo/ResponseCodeInterceptor/ResponseCodeError": {
   "abstract" : [
 
   ],
@@ -125,7 +125,7 @@
       "text" : "ResponseCodeError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -138,7 +138,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/responsecodeinterceptor\/responsecodeerror"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ResponseCodeInterceptor/ResponseCodeError/errorDescription-391dx": {
+"doc://Apollo/documentation/Apollo/ResponseCodeInterceptor/ResponseCodeError/errorDescription-391dx": {
   "abstract" : [
 
   ],
@@ -169,14 +169,14 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError\/errorDescription-391dx",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError\/errorDescription-391dx",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "errorDescription",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/responsecodeinterceptor\/responsecodeerror\/errordescription-391dx"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ResponseCodeInterceptor/ResponseCodeError/failureReason": {
+"doc://Apollo/documentation/Apollo/ResponseCodeInterceptor/ResponseCodeError/failureReason": {
   "abstract" : [
 
   ],
@@ -207,14 +207,14 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError\/failureReason",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError\/failureReason",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "failureReason",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/responsecodeinterceptor\/responsecodeerror\/failurereason"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ResponseCodeInterceptor/ResponseCodeError/helpAnchor": {
+"doc://Apollo/documentation/Apollo/ResponseCodeInterceptor/ResponseCodeError/helpAnchor": {
   "abstract" : [
 
   ],
@@ -245,14 +245,14 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError\/helpAnchor",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError\/helpAnchor",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "helpAnchor",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/responsecodeinterceptor\/responsecodeerror\/helpanchor"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ResponseCodeInterceptor/ResponseCodeError/recoverySuggestion": {
+"doc://Apollo/documentation/Apollo/ResponseCodeInterceptor/ResponseCodeError/recoverySuggestion": {
   "abstract" : [
 
   ],
@@ -283,7 +283,7 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError\/recoverySuggestion",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError\/recoverySuggestion",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "recoverySuggestion",

@@ -8,15 +8,15 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/WSError"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/WSError"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/WSError\/ErrorType"
+    "url" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/WSError\/ErrorType"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -83,8 +83,8 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/SQ",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/SH"
+        "doc:\/\/ApolloWebSocket\/SQ",
+        "doc:\/\/ApolloWebSocket\/SH"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -102,19 +102,19 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/WSError\/ErrorType\/closeError",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/WSError\/ErrorType\/invalidSSLError",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/WSError\/ErrorType\/outputStreamWriteError",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/WSError\/ErrorType\/protocolError",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/WSError\/ErrorType\/upgradeError",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/WSError\/ErrorType\/writeTimeoutError"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/WSError\/ErrorType\/closeError",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/WSError\/ErrorType\/invalidSSLError",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/WSError\/ErrorType\/outputStreamWriteError",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/WSError\/ErrorType\/protocolError",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/WSError\/ErrorType\/upgradeError",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/WSError\/ErrorType\/writeTimeoutError"
       ],
       "title" : "Enumeration Cases"
     },
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/WSError\/ErrorType\/Equatable-Implementations"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/WSError\/ErrorType\/Equatable-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -133,28 +133,28 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloWebSocket.macosx/SH": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/SH",
+"doc://ApolloWebSocket/SH": {
+  "identifier" : "doc:\/\/ApolloWebSocket\/SH",
   "title" : "Swift.Hashable",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/SQ": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/SQ",
+"doc://ApolloWebSocket/SQ": {
+  "identifier" : "doc:\/\/ApolloWebSocket\/SQ",
   "title" : "Swift.Equatable",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloWebSocket",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocket": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocket": {
   "abstract" : [
 
   ],
@@ -172,7 +172,7 @@
       "text" : "WebSocket"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -185,7 +185,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocket"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocket/WSError": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocket/WSError": {
   "abstract" : [
 
   ],
@@ -203,7 +203,7 @@
       "text" : "WSError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/WSError",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/WSError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -216,7 +216,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocket\/wserror"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocket/WSError/ErrorType": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocket/WSError/ErrorType": {
   "abstract" : [
 
   ],
@@ -234,7 +234,7 @@
       "text" : "ErrorType"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/WSError\/ErrorType",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/WSError\/ErrorType",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -247,18 +247,18 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocket\/wserror\/errortype"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocket/WSError/ErrorType/Equatable-Implementations": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocket/WSError/ErrorType/Equatable-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/WSError\/ErrorType\/Equatable-Implementations",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/WSError\/ErrorType\/Equatable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Equatable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocket\/wserror\/errortype\/equatable-implementations"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocket/WSError/ErrorType/closeError": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocket/WSError/ErrorType/closeError": {
   "abstract" : [
 
   ],
@@ -276,14 +276,14 @@
       "text" : "closeError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/WSError\/ErrorType\/closeError",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/WSError\/ErrorType\/closeError",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "WebSocket.WSError.ErrorType.closeError",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocket\/wserror\/errortype\/closeerror"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocket/WSError/ErrorType/invalidSSLError": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocket/WSError/ErrorType/invalidSSLError": {
   "abstract" : [
 
   ],
@@ -301,14 +301,14 @@
       "text" : "invalidSSLError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/WSError\/ErrorType\/invalidSSLError",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/WSError\/ErrorType\/invalidSSLError",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "WebSocket.WSError.ErrorType.invalidSSLError",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocket\/wserror\/errortype\/invalidsslerror"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocket/WSError/ErrorType/outputStreamWriteError": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocket/WSError/ErrorType/outputStreamWriteError": {
   "abstract" : [
 
   ],
@@ -326,14 +326,14 @@
       "text" : "outputStreamWriteError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/WSError\/ErrorType\/outputStreamWriteError",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/WSError\/ErrorType\/outputStreamWriteError",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "WebSocket.WSError.ErrorType.outputStreamWriteError",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocket\/wserror\/errortype\/outputstreamwriteerror"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocket/WSError/ErrorType/protocolError": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocket/WSError/ErrorType/protocolError": {
   "abstract" : [
 
   ],
@@ -351,14 +351,14 @@
       "text" : "protocolError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/WSError\/ErrorType\/protocolError",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/WSError\/ErrorType\/protocolError",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "WebSocket.WSError.ErrorType.protocolError",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocket\/wserror\/errortype\/protocolerror"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocket/WSError/ErrorType/upgradeError": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocket/WSError/ErrorType/upgradeError": {
   "abstract" : [
 
   ],
@@ -376,14 +376,14 @@
       "text" : "upgradeError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/WSError\/ErrorType\/upgradeError",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/WSError\/ErrorType\/upgradeError",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "WebSocket.WSError.ErrorType.upgradeError",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocket\/wserror\/errortype\/upgradeerror"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocket/WSError/ErrorType/writeTimeoutError": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocket/WSError/ErrorType/writeTimeoutError": {
   "abstract" : [
 
   ],
@@ -401,7 +401,7 @@
       "text" : "writeTimeoutError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/WSError\/ErrorType\/writeTimeoutError",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/WSError\/ErrorType\/writeTimeoutError",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "WebSocket.WSError.ErrorType.writeTimeoutError",

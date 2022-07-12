@@ -8,13 +8,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"
+        "doc:\/\/Apollo\/documentation\/Apollo"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/UploadRequest"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/UploadRequest"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -114,7 +114,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPRequest"
+        "doc:\/\/Apollo\/documentation\/Apollo\/HTTPRequest"
       ],
       "kind" : "relationships",
       "title" : "Inherits From",
@@ -122,9 +122,9 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/s28CustomDebugStringConvertibleP",
-        "doc:\/\/com.apollographql.Apollo.macosx\/SQ",
-        "doc:\/\/com.apollographql.Apollo.macosx\/SH"
+        "doc:\/\/Apollo\/s28CustomDebugStringConvertibleP",
+        "doc:\/\/Apollo\/SQ",
+        "doc:\/\/Apollo\/SH"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -142,31 +142,31 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/UploadRequest\/==(_:_:)"
+        "doc:\/\/Apollo\/documentation\/Apollo\/UploadRequest\/==(_:_:)"
       ],
       "title" : "Operators"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/UploadRequest\/init(graphQLEndpoint:operation:clientName:clientVersion:additionalHeaders:files:manualBoundary:requestBodyCreator:)",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/UploadRequest\/init(graphQLEndpoint:operation:contextIdentifier:contentType:clientName:clientVersion:additionalHeaders:cachePolicy:)"
+        "doc:\/\/Apollo\/documentation\/Apollo\/UploadRequest\/init(graphQLEndpoint:operation:clientName:clientVersion:additionalHeaders:files:manualBoundary:requestBodyCreator:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/UploadRequest\/init(graphQLEndpoint:operation:contextIdentifier:contentType:clientName:clientVersion:additionalHeaders:cachePolicy:)"
       ],
       "title" : "Initializers"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/UploadRequest\/files",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/UploadRequest\/manualBoundary",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/UploadRequest\/requestBodyCreator",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/UploadRequest\/serializationFormat"
+        "doc:\/\/Apollo\/documentation\/Apollo\/UploadRequest\/files",
+        "doc:\/\/Apollo\/documentation\/Apollo\/UploadRequest\/manualBoundary",
+        "doc:\/\/Apollo\/documentation\/Apollo\/UploadRequest\/requestBodyCreator",
+        "doc:\/\/Apollo\/documentation\/Apollo\/UploadRequest\/serializationFormat"
       ],
       "title" : "Instance Properties"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/UploadRequest\/hash(into:)",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/UploadRequest\/requestMultipartFormData()",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/UploadRequest\/toURLRequest()"
+        "doc:\/\/Apollo\/documentation\/Apollo\/UploadRequest\/hash(into:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/UploadRequest\/requestMultipartFormData()",
+        "doc:\/\/Apollo\/documentation\/Apollo\/UploadRequest\/toURLRequest()"
       ],
       "title" : "Instance Methods"
     }
@@ -185,28 +185,28 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/SH": {
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/SH",
+"doc://Apollo/SH": {
+  "identifier" : "doc:\/\/Apollo\/SH",
   "title" : "Swift.Hashable",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.Apollo.macosx/SQ": {
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/SQ",
+"doc://Apollo/SQ": {
+  "identifier" : "doc:\/\/Apollo\/SQ",
   "title" : "Swift.Equatable",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/HTTPRequest": {
+"doc://Apollo/documentation/Apollo/HTTPRequest": {
   "abstract" : [
     {
       "text" : "Encapsulation of all information about a request before it hits the network",
@@ -227,7 +227,7 @@
       "text" : "HTTPRequest"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPRequest",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/HTTPRequest",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -240,7 +240,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/httprequest"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/UploadRequest": {
+"doc://Apollo/documentation/Apollo/UploadRequest": {
   "abstract" : [
     {
       "text" : "A request class allowing for a multipart-upload request.",
@@ -261,7 +261,7 @@
       "text" : "UploadRequest"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/UploadRequest",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/UploadRequest",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -274,7 +274,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/uploadrequest"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/UploadRequest/==(_:_:)": {
+"doc://Apollo/documentation/Apollo/UploadRequest/==(_:_:)": {
   "abstract" : [
 
   ],
@@ -318,7 +318,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo13UploadRequestC9Operationxmfp",
       "text" : "Operation"
     },
     {
@@ -336,7 +335,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo13UploadRequestC9Operationxmfp",
       "text" : "Operation"
     },
     {
@@ -349,14 +347,14 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/UploadRequest\/==(_:_:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/UploadRequest\/==(_:_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "==(_:_:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/uploadrequest\/==(_:_:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/UploadRequest/files": {
+"doc://Apollo/documentation/Apollo/UploadRequest/files": {
   "abstract" : [
 
   ],
@@ -387,14 +385,14 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/UploadRequest\/files",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/UploadRequest\/files",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "files",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/uploadrequest\/files"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/UploadRequest/hash(into:)": {
+"doc://Apollo/documentation/Apollo/UploadRequest/hash(into:)": {
   "abstract" : [
 
   ],
@@ -441,14 +439,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/UploadRequest\/hash(into:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/UploadRequest\/hash(into:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "hash(into:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/uploadrequest\/hash(into:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/UploadRequest/init(graphQLEndpoint:operation:clientName:clientVersion:additionalHeaders:files:manualBoundary:requestBodyCreator:)": {
+"doc://Apollo/documentation/Apollo/UploadRequest/init(graphQLEndpoint:operation:clientName:clientVersion:additionalHeaders:files:manualBoundary:requestBodyCreator:)": {
   "abstract" : [
     {
       "text" : "Designated Initializer",
@@ -491,7 +489,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo13UploadRequestC9Operationxmfp",
       "text" : "Operation"
     },
     {
@@ -610,19 +607,16 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/UploadRequest\/init(graphQLEndpoint:operation:clientName:clientVersion:additionalHeaders:files:manualBoundary:requestBodyCreator:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/UploadRequest\/init(graphQLEndpoint:operation:clientName:clientVersion:additionalHeaders:files:manualBoundary:requestBodyCreator:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(graphQLEndpoint:operation:clientName:clientVersion:additionalHeaders:files:manualBoundary:requestBodyCreator:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/uploadrequest\/init(graphqlendpoint:operation:clientname:clientversion:additionalheaders:files:manualboundary:requestbodycreator:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/UploadRequest/init(graphQLEndpoint:operation:contextIdentifier:contentType:clientName:clientVersion:additionalHeaders:cachePolicy:)": {
+"doc://Apollo/documentation/Apollo/UploadRequest/init(graphQLEndpoint:operation:contextIdentifier:contentType:clientName:clientVersion:additionalHeaders:cachePolicy:)": {
   "abstract" : [
-    {
-      "text" : "Designated Initializer",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -778,14 +772,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/UploadRequest\/init(graphQLEndpoint:operation:contextIdentifier:contentType:clientName:clientVersion:additionalHeaders:cachePolicy:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/UploadRequest\/init(graphQLEndpoint:operation:contextIdentifier:contentType:clientName:clientVersion:additionalHeaders:cachePolicy:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(graphQLEndpoint:operation:contextIdentifier:contentType:clientName:clientVersion:additionalHeaders:cachePolicy:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/uploadrequest\/init(graphqlendpoint:operation:contextidentifier:contenttype:clientname:clientversion:additionalheaders:cachepolicy:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/UploadRequest/manualBoundary": {
+"doc://Apollo/documentation/Apollo/UploadRequest/manualBoundary": {
   "abstract" : [
 
   ],
@@ -816,14 +810,14 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/UploadRequest\/manualBoundary",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/UploadRequest\/manualBoundary",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "manualBoundary",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/uploadrequest\/manualboundary"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/UploadRequest/requestBodyCreator": {
+"doc://Apollo/documentation/Apollo/UploadRequest/requestBodyCreator": {
   "abstract" : [
 
   ],
@@ -850,14 +844,14 @@
       "text" : "RequestBodyCreator"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/UploadRequest\/requestBodyCreator",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/UploadRequest\/requestBodyCreator",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "requestBodyCreator",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/uploadrequest\/requestbodycreator"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/UploadRequest/requestMultipartFormData()": {
+"doc://Apollo/documentation/Apollo/UploadRequest/requestMultipartFormData()": {
   "abstract" : [
     {
       "text" : "Creates the ",
@@ -903,14 +897,14 @@
       "text" : "MultipartFormData"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/UploadRequest\/requestMultipartFormData()",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/UploadRequest\/requestMultipartFormData()",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "requestMultipartFormData()",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/uploadrequest\/requestmultipartformdata()"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/UploadRequest/serializationFormat": {
+"doc://Apollo/documentation/Apollo/UploadRequest/serializationFormat": {
   "abstract" : [
 
   ],
@@ -941,23 +935,16 @@
       "text" : ".Type"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/UploadRequest\/serializationFormat",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/UploadRequest\/serializationFormat",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "serializationFormat",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/uploadrequest\/serializationformat"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/UploadRequest/toURLRequest()": {
+"doc://Apollo/documentation/Apollo/UploadRequest/toURLRequest()": {
   "abstract" : [
-    {
-      "text" : "Converts this object to a fully fleshed-out ",
-      "type" : "text"
-    },
-    {
-      "code" : "URLRequest",
-      "type" : "codeVoice"
-    }
+
   ],
   "fragments" : [
     {
@@ -990,15 +977,15 @@
       "text" : "URLRequest"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/UploadRequest\/toURLRequest()",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/UploadRequest\/toURLRequest()",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "toURLRequest()",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/uploadrequest\/tourlrequest()"
 },
-"doc://com.apollographql.Apollo.macosx/s28CustomDebugStringConvertibleP": {
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/s28CustomDebugStringConvertibleP",
+"doc://Apollo/s28CustomDebugStringConvertibleP": {
+  "identifier" : "doc:\/\/Apollo\/s28CustomDebugStringConvertibleP",
   "title" : "Swift.CustomDebugStringConvertible",
   "type" : "unresolvable"
 }

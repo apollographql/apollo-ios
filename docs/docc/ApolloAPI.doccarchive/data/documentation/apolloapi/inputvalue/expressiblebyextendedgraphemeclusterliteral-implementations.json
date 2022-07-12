@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputValue"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputValue\/ExpressibleByExtendedGraphemeClusterLiteral-Implementations"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/ExpressibleByExtendedGraphemeClusterLiteral-Implementations"
   },
   "kind" : "article",
   "metadata" : {
@@ -39,7 +39,7 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputValue\/init(extendedGraphemeClusterLiteral:)"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/init(extendedGraphemeClusterLiteral:)"
       ],
       "title" : "Initializers"
     }
@@ -58,18 +58,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI": {
+"doc://ApolloAPI/documentation/ApolloAPI": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/InputValue": {
+"doc://ApolloAPI/documentation/ApolloAPI/InputValue": {
   "abstract" : [
     {
       "text" : "Represents an input value to an argument on a ",
@@ -106,7 +106,7 @@
       "text" : "InputValue"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputValue",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -119,7 +119,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/inputvalue"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/InputValue/init(extendedGraphemeClusterLiteral:)": {
+"doc://ApolloAPI/documentation/ApolloAPI/InputValue/init(extendedGraphemeClusterLiteral:)": {
   "abstract" : [
 
   ],
@@ -189,7 +189,7 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputValue\/init(extendedGraphemeClusterLiteral:)",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/init(extendedGraphemeClusterLiteral:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(extendedGraphemeClusterLiteral:)",

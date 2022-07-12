@@ -1,22 +1,30 @@
 {
   "abstract" : [
     {
-      "text" : "The name of the client to send as a header value.",
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "NetworkTransport.clientName",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NetworkTransport",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NetworkTransport\/clientName-689z0"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/NetworkTransport",
+        "doc:\/\/Apollo\/documentation\/Apollo\/NetworkTransport\/clientName-689z0"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NetworkTransport\/clientName-3npzv"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/NetworkTransport\/clientName-3npzv"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -127,18 +135,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/NetworkTransport": {
+"doc://Apollo/documentation/Apollo/NetworkTransport": {
   "abstract" : [
     {
       "text" : "A network transport is responsible for sending GraphQL operations to a server.",
@@ -159,7 +167,7 @@
       "text" : "NetworkTransport"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NetworkTransport",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/NetworkTransport",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -172,12 +180,9 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/networktransport"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/NetworkTransport/clientName-3npzv": {
+"doc://Apollo/documentation/Apollo/NetworkTransport/clientName-3npzv": {
   "abstract" : [
-    {
-      "text" : "The name of the client to send as a header value.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -202,14 +207,14 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NetworkTransport\/clientName-3npzv",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/NetworkTransport\/clientName-3npzv",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "clientName",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/networktransport\/clientname-3npzv"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/NetworkTransport/clientName-689z0": {
+"doc://Apollo/documentation/Apollo/NetworkTransport/clientName-689z0": {
   "abstract" : [
     {
       "text" : "The name of the client to send as a header value.",
@@ -240,7 +245,7 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NetworkTransport\/clientName-689z0",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/NetworkTransport\/clientName-689z0",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",

@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLClientCertificate"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLClientCertificate"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLClientCertificate\/init(pkcs12Url:importOptions:)"
+    "url" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLClientCertificate\/init(pkcs12Url:importOptions:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -221,18 +221,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloWebSocket",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SSLClientCertificate": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SSLClientCertificate": {
   "abstract" : [
 
   ],
@@ -250,7 +250,7 @@
       "text" : "SSLClientCertificate"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLClientCertificate",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLClientCertificate",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -263,7 +263,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/sslclientcertificate"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/SSLClientCertificate/init(pkcs12Url:importOptions:)": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SSLClientCertificate/init(pkcs12Url:importOptions:)": {
   "abstract" : [
     {
       "text" : "Designated init.",
@@ -318,7 +318,7 @@
       "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/SSLClientCertificate\/init(pkcs12Url:importOptions:)",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLClientCertificate\/init(pkcs12Url:importOptions:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(pkcs12Url:importOptions:)",

@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RecordSet"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/init(records:)"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/RecordSet\/init(records:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -47,7 +47,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:6Apollo9RecordSetV7recordsACx_tcSTRzAA0B0V7ElementRtzlufc1SL_xmfp",
         "text" : "S"
       },
       {
@@ -102,7 +101,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:6Apollo9RecordSetV7recordsACx_tcSTRzAA0B0V7ElementRtzlufc1SL_xmfp",
               "text" : "S"
             },
             {
@@ -151,7 +149,7 @@
               "text" : " == "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record",
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/Record",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:6Apollo6RecordV",
               "text" : "Record"
@@ -184,18 +182,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/Record": {
+"doc://Apollo/documentation/Apollo/Record": {
   "abstract" : [
     {
       "text" : "A cache record.",
@@ -216,7 +214,7 @@
       "text" : "Record"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/Record",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/Record",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -229,7 +227,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/record"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet": {
+"doc://Apollo/documentation/Apollo/RecordSet": {
   "abstract" : [
     {
       "text" : "A set of cache records.",
@@ -250,7 +248,7 @@
       "text" : "RecordSet"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RecordSet",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -263,7 +261,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/recordset"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RecordSet/init(records:)": {
+"doc://Apollo/documentation/Apollo/RecordSet/init(records:)": {
   "abstract" : [
 
   ],
@@ -294,7 +292,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo9RecordSetV7recordsACx_tcSTRzAA0B0V7ElementRtzlufc1SL_xmfp",
       "text" : "S"
     },
     {
@@ -302,7 +299,7 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RecordSet\/init(records:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RecordSet\/init(records:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(records:)",

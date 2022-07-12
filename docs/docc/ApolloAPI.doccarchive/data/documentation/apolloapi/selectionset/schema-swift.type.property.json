@@ -8,15 +8,15 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/AnySelectionSet",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/AnySelectionSet\/schema"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnySelectionSet",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnySelectionSet\/schema"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/SelectionSet\/schema-swift.type.property"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet\/schema-swift.type.property"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -103,7 +103,7 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/SchemaConfiguration",
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SchemaConfiguration",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:9ApolloAPI19SchemaConfigurationP",
               "text" : "SchemaConfiguration"
@@ -148,18 +148,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI": {
+"doc://ApolloAPI/documentation/ApolloAPI": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/AnySelectionSet": {
+"doc://ApolloAPI/documentation/ApolloAPI/AnySelectionSet": {
   "abstract" : [
 
   ],
@@ -177,7 +177,7 @@
       "text" : "AnySelectionSet"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/AnySelectionSet",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnySelectionSet",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -190,7 +190,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/anyselectionset"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/AnySelectionSet/schema": {
+"doc://ApolloAPI/documentation/ApolloAPI/AnySelectionSet/schema": {
   "abstract" : [
 
   ],
@@ -230,7 +230,7 @@
       "text" : ".Type"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/AnySelectionSet\/schema",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnySelectionSet\/schema",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
@@ -238,7 +238,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/anyselectionset\/schema"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/SchemaConfiguration": {
+"doc://ApolloAPI/documentation/ApolloAPI/SchemaConfiguration": {
   "abstract" : [
 
   ],
@@ -256,7 +256,7 @@
       "text" : "SchemaConfiguration"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/SchemaConfiguration",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SchemaConfiguration",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -269,7 +269,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/schemaconfiguration"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/SelectionSet/schema-swift.type.property": {
+"doc://ApolloAPI/documentation/ApolloAPI/SelectionSet/schema-swift.type.property": {
   "abstract" : [
 
   ],
@@ -308,7 +308,7 @@
       "text" : ".Type"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/SelectionSet\/schema-swift.type.property",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet\/schema-swift.type.property",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "schema",

@@ -8,13 +8,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"
+        "doc:\/\/Apollo\/documentation\/Apollo"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloInterceptor"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloInterceptor"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -81,13 +81,13 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheReadInterceptor",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheWriteInterceptor",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONResponseParsingInterceptor",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MaxRetryInterceptor",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NetworkFetchInterceptor",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ResponseCodeInterceptor"
+        "doc:\/\/Apollo\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor",
+        "doc:\/\/Apollo\/documentation\/Apollo\/CacheReadInterceptor",
+        "doc:\/\/Apollo\/documentation\/Apollo\/CacheWriteInterceptor",
+        "doc:\/\/Apollo\/documentation\/Apollo\/JSONResponseParsingInterceptor",
+        "doc:\/\/Apollo\/documentation\/Apollo\/MaxRetryInterceptor",
+        "doc:\/\/Apollo\/documentation\/Apollo\/NetworkFetchInterceptor",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ResponseCodeInterceptor"
       ],
       "kind" : "relationships",
       "title" : "Conforming Types",
@@ -105,7 +105,7 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloInterceptor\/interceptAsync(chain:request:response:completion:)"
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloInterceptor\/interceptAsync(chain:request:response:completion:)"
       ],
       "title" : "Instance Methods"
     }
@@ -124,18 +124,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloInterceptor": {
+"doc://Apollo/documentation/Apollo/ApolloInterceptor": {
   "abstract" : [
     {
       "text" : "A protocol to set up a chainable unit of networking work.",
@@ -156,7 +156,7 @@
       "text" : "ApolloInterceptor"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloInterceptor",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloInterceptor",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -169,7 +169,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apollointerceptor"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloInterceptor/interceptAsync(chain:request:response:completion:)": {
+"doc://Apollo/documentation/Apollo/ApolloInterceptor/interceptAsync(chain:request:response:completion:)": {
   "abstract" : [
     {
       "text" : "Called when this interceptor should do its work.",
@@ -237,7 +237,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo0A11InterceptorP14interceptAsync5chain7request8response10completionyAA12RequestChainC_AA11HTTPRequestCyqd__GAA12HTTPResponseCyqd__GSgys6ResultOyAA13GraphQLResultVy4DataQyd__Gs5Error_pGct0A3API0N11QLOperationRd__lF9OperationL_qd__mfp",
       "text" : "Operation"
     },
     {
@@ -263,7 +262,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo0A11InterceptorP14interceptAsync5chain7request8response10completionyAA12RequestChainC_AA11HTTPRequestCyqd__GAA12HTTPResponseCyqd__GSgys6ResultOyAA13GraphQLResultVy4DataQyd__Gs5Error_pGct0A3API0N11QLOperationRd__lF9OperationL_qd__mfp",
       "text" : "Operation"
     },
     {
@@ -298,7 +296,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo0A11InterceptorP14interceptAsync5chain7request8response10completionyAA12RequestChainC_AA11HTTPRequestCyqd__GAA12HTTPResponseCyqd__GSgys6ResultOyAA13GraphQLResultVy4DataQyd__Gs5Error_pGct0A3API0N11QLOperationRd__lF9OperationL_qd__mfp",
       "text" : "Operation"
     },
     {
@@ -307,7 +304,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
       "text" : "Data"
     },
     {
@@ -333,7 +329,7 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloInterceptor\/interceptAsync(chain:request:response:completion:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloInterceptor\/interceptAsync(chain:request:response:completion:)",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
@@ -341,7 +337,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apollointerceptor\/interceptasync(chain:request:response:completion:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/AutomaticPersistedQueryInterceptor": {
+"doc://Apollo/documentation/Apollo/AutomaticPersistedQueryInterceptor": {
   "abstract" : [
 
   ],
@@ -359,7 +355,7 @@
       "text" : "AutomaticPersistedQueryInterceptor"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -372,7 +368,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/automaticpersistedqueryinterceptor"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/CacheReadInterceptor": {
+"doc://Apollo/documentation/Apollo/CacheReadInterceptor": {
   "abstract" : [
     {
       "text" : "An interceptor that reads data from the cache for queries, following the ",
@@ -409,7 +405,7 @@
       "text" : "CacheReadInterceptor"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheReadInterceptor",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CacheReadInterceptor",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -422,7 +418,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/cachereadinterceptor"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/CacheWriteInterceptor": {
+"doc://Apollo/documentation/Apollo/CacheWriteInterceptor": {
   "abstract" : [
     {
       "text" : "An interceptor which writes data to the cache, following the ",
@@ -459,7 +455,7 @@
       "text" : "CacheWriteInterceptor"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/CacheWriteInterceptor",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CacheWriteInterceptor",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -472,7 +468,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/cachewriteinterceptor"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONResponseParsingInterceptor": {
+"doc://Apollo/documentation/Apollo/JSONResponseParsingInterceptor": {
   "abstract" : [
     {
       "text" : "An interceptor which parses JSON response data into a ",
@@ -509,7 +505,7 @@
       "text" : "JSONResponseParsingInterceptor"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONResponseParsingInterceptor",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONResponseParsingInterceptor",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -522,7 +518,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/jsonresponseparsinginterceptor"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/MaxRetryInterceptor": {
+"doc://Apollo/documentation/Apollo/MaxRetryInterceptor": {
   "abstract" : [
     {
       "text" : "An interceptor to enforce a maximum number of retries of any ",
@@ -547,7 +543,7 @@
       "text" : "MaxRetryInterceptor"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MaxRetryInterceptor",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/MaxRetryInterceptor",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -560,7 +556,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/maxretryinterceptor"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/NetworkFetchInterceptor": {
+"doc://Apollo/documentation/Apollo/NetworkFetchInterceptor": {
   "abstract" : [
     {
       "text" : "An interceptor which actually fetches data from the network.",
@@ -581,7 +577,7 @@
       "text" : "NetworkFetchInterceptor"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NetworkFetchInterceptor",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/NetworkFetchInterceptor",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -594,7 +590,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/networkfetchinterceptor"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ResponseCodeInterceptor": {
+"doc://Apollo/documentation/Apollo/ResponseCodeInterceptor": {
   "abstract" : [
     {
       "text" : "An interceptor to check the response code returned with a request.",
@@ -615,7 +611,7 @@
       "text" : "ResponseCodeInterceptor"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ResponseCodeInterceptor",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponseCodeInterceptor",
   "kind" : "symbol",
   "navigatorTitle" : [
     {

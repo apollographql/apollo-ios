@@ -14,7 +14,7 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -40,82 +40,82 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Interface",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Object"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Interface",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Object"
       ],
       "title" : "Classes"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/AnyHashableConvertible",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/AnyScalarType",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/AnySelectionSet",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheEntity",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheKeyProvider",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CustomScalarType",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/EnumType",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Fragment",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/FragmentContainer",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLMutation",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLOperation",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLOperationVariableValue",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLQuery",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLSubscription",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InlineFragment",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputObject",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/JSONDecodable",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/JSONEncodable",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/LocalCacheMutation",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/MutableRootSelectionSet",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/MutableSelectionSet",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/OutputTypeConvertible",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/ParentTypeConvertible",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/RootSelectionSet",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/ScalarType",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/SchemaConfiguration",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/SchemaUnknownTypeCacheKeyProvider",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/SelectionSet",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/SelectionSetEntityValue",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Union"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnyHashableConvertible",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnyScalarType",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnySelectionSet",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheEntity",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheKeyProvider",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CustomScalarType",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/EnumType",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Fragment",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/FragmentContainer",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLMutation",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperationVariableValue",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLQuery",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLSubscription",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InlineFragment",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputObject",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONDecodable",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONEncodable",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/LocalCacheMutation",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/MutableRootSelectionSet",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/MutableSelectionSet",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/OutputTypeConvertible",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ParentTypeConvertible",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/RootSelectionSet",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ScalarType",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SchemaConfiguration",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SchemaUnknownTypeCacheKeyProvider",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSetEntityValue",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Union"
       ],
       "title" : "Protocols"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheReference",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/DataDict",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputDict",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/OperationDefinition"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheReference",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DataDict",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputDict",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/OperationDefinition"
       ],
       "title" : "Structures"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/!=(_:_:)",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/==(_:_:)",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/__(_:_:)"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/!=(_:_:)",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/==(_:_:)",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/__(_:_:)"
       ],
       "title" : "Operators"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/JSONEncodableDictionary",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/JSONObject",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/JSONValue"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONEncodableDictionary",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONObject",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONValue"
       ],
       "title" : "Type Aliases"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/DocumentType",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLEnum",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLNullable",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLOperationType",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputValue",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/JSONDecodingError",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/NoFragments",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/ParentType",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DocumentType",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperationType",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONDecodingError",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/NoFragments",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ParentType",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection"
       ],
       "title" : "Enumerations"
     }
@@ -134,18 +134,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI": {
+"doc://ApolloAPI/documentation/ApolloAPI": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/!=(_:_:)": {
+"doc://ApolloAPI/documentation/ApolloAPI/!=(_:_:)": {
   "abstract" : [
 
   ],
@@ -189,7 +189,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI2neoiySbAA11GraphQLEnumOyxGSg_xtAA8EnumTypeRzlF1TL_xmfp",
       "text" : "T"
     },
     {
@@ -198,7 +197,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI2neoiySbAA11GraphQLEnumOyxGSg_xtAA8EnumTypeRzlF1TL_xmfp",
       "text" : "T"
     },
     {
@@ -211,14 +209,14 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/!=(_:_:)",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/!=(_:_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "!=(_:_:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/!=(_:_:)"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/==(_:_:)": {
+"doc://ApolloAPI/documentation/ApolloAPI/==(_:_:)": {
   "abstract" : [
 
   ],
@@ -262,7 +260,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI2eeoiySbAA11GraphQLEnumOyxGSg_xtAA8EnumTypeRzlF1TL_xmfp",
       "text" : "T"
     },
     {
@@ -271,7 +268,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI2eeoiySbAA11GraphQLEnumOyxGSg_xtAA8EnumTypeRzlF1TL_xmfp",
       "text" : "T"
     },
     {
@@ -284,14 +280,14 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/==(_:_:)",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/==(_:_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "==(_:_:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/==(_:_:)"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/AnyHashableConvertible": {
+"doc://ApolloAPI/documentation/ApolloAPI/AnyHashableConvertible": {
   "abstract" : [
 
   ],
@@ -309,7 +305,7 @@
       "text" : "AnyHashableConvertible"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/AnyHashableConvertible",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnyHashableConvertible",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -322,7 +318,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/anyhashableconvertible"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/AnyScalarType": {
+"doc://ApolloAPI/documentation/ApolloAPI/AnyScalarType": {
   "abstract" : [
 
   ],
@@ -340,7 +336,7 @@
       "text" : "AnyScalarType"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/AnyScalarType",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnyScalarType",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -353,7 +349,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/anyscalartype"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/AnySelectionSet": {
+"doc://ApolloAPI/documentation/ApolloAPI/AnySelectionSet": {
   "abstract" : [
 
   ],
@@ -371,7 +367,7 @@
       "text" : "AnySelectionSet"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/AnySelectionSet",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnySelectionSet",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -384,7 +380,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/anyselectionset"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/CacheEntity": {
+"doc://ApolloAPI/documentation/ApolloAPI/CacheEntity": {
   "abstract" : [
 
   ],
@@ -402,7 +398,7 @@
       "text" : "CacheEntity"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheEntity",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheEntity",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -415,7 +411,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/cacheentity"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/CacheKeyProvider": {
+"doc://ApolloAPI/documentation/ApolloAPI/CacheKeyProvider": {
   "abstract" : [
 
   ],
@@ -433,7 +429,7 @@
       "text" : "CacheKeyProvider"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheKeyProvider",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheKeyProvider",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -446,7 +442,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/cachekeyprovider"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/CacheReference": {
+"doc://ApolloAPI/documentation/ApolloAPI/CacheReference": {
   "abstract" : [
     {
       "text" : "Represents a reference to a record for a GraphQL Object in the cache.",
@@ -467,7 +463,7 @@
       "text" : "CacheReference"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheReference",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheReference",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -480,7 +476,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/cachereference"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/CustomScalarType": {
+"doc://ApolloAPI/documentation/ApolloAPI/CustomScalarType": {
   "abstract" : [
 
   ],
@@ -498,7 +494,7 @@
       "text" : "CustomScalarType"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CustomScalarType",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CustomScalarType",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -511,7 +507,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/customscalartype"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/DataDict": {
+"doc://ApolloAPI/documentation/ApolloAPI/DataDict": {
   "abstract" : [
     {
       "text" : "A structure that wraps the underlying data dictionary used by ",
@@ -540,7 +536,7 @@
       "text" : "DataDict"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/DataDict",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DataDict",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -553,7 +549,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/datadict"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/DocumentType": {
+"doc://ApolloAPI/documentation/ApolloAPI/DocumentType": {
   "abstract" : [
     {
       "text" : "The means of providing the operation document that includes the definition of the operation",
@@ -582,7 +578,7 @@
       "text" : "DocumentType"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/DocumentType",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DocumentType",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -595,7 +591,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/documenttype"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/EnumType": {
+"doc://ApolloAPI/documentation/ApolloAPI/EnumType": {
   "abstract" : [
     {
       "text" : "A protocol that a generated enum from a GraphQL schema conforms to.",
@@ -632,7 +628,7 @@
       "text" : "EnumType"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/EnumType",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/EnumType",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -645,7 +641,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/enumtype"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Fragment": {
+"doc://ApolloAPI/documentation/ApolloAPI/Fragment": {
   "abstract" : [
     {
       "text" : "A protocol representing a fragment that a ",
@@ -674,7 +670,7 @@
       "text" : "Fragment"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Fragment",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Fragment",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -687,7 +683,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/fragment"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/FragmentContainer": {
+"doc://ApolloAPI/documentation/ApolloAPI/FragmentContainer": {
   "abstract" : [
 
   ],
@@ -705,7 +701,7 @@
       "text" : "FragmentContainer"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/FragmentContainer",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/FragmentContainer",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -718,7 +714,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/fragmentcontainer"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLEnum": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLEnum": {
   "abstract" : [
     {
       "text" : "A generic enum that wraps a generated enum from a GraphQL Schema.",
@@ -739,7 +735,7 @@
       "text" : "GraphQLEnum"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLEnum",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -752,7 +748,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqlenum"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLMutation": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLMutation": {
   "abstract" : [
 
   ],
@@ -770,7 +766,7 @@
       "text" : "GraphQLMutation"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLMutation",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLMutation",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -783,7 +779,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqlmutation"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLNullable": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLNullable": {
   "abstract" : [
     {
       "text" : "Indicates the presence of a value, supporting both ",
@@ -820,7 +816,7 @@
       "text" : "GraphQLNullable"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLNullable",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -833,7 +829,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqlnullable"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLOperation": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLOperation": {
   "abstract" : [
 
   ],
@@ -851,7 +847,7 @@
       "text" : "GraphQLOperation"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLOperation",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -864,7 +860,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqloperation"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLOperationType": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLOperationType": {
   "abstract" : [
 
   ],
@@ -882,7 +878,7 @@
       "text" : "GraphQLOperationType"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLOperationType",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperationType",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -895,7 +891,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqloperationtype"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLOperationVariableValue": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLOperationVariableValue": {
   "abstract" : [
 
   ],
@@ -913,7 +909,7 @@
       "text" : "GraphQLOperationVariableValue"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLOperationVariableValue",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperationVariableValue",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -926,7 +922,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqloperationvariablevalue"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLQuery": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLQuery": {
   "abstract" : [
 
   ],
@@ -944,7 +940,7 @@
       "text" : "GraphQLQuery"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLQuery",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLQuery",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -957,7 +953,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqlquery"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLSubscription": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLSubscription": {
   "abstract" : [
 
   ],
@@ -975,7 +971,7 @@
       "text" : "GraphQLSubscription"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLSubscription",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLSubscription",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -988,7 +984,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqlsubscription"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/InlineFragment": {
+"doc://ApolloAPI/documentation/ApolloAPI/InlineFragment": {
   "abstract" : [
     {
       "text" : "A selection set that represents an inline fragment nested inside a ",
@@ -1017,7 +1013,7 @@
       "text" : "InlineFragment"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InlineFragment",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InlineFragment",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1030,7 +1026,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/inlinefragment"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/InputDict": {
+"doc://ApolloAPI/documentation/ApolloAPI/InputDict": {
   "abstract" : [
     {
       "text" : "A structure that wraps the underlying data dictionary used by ",
@@ -1059,7 +1055,7 @@
       "text" : "InputDict"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputDict",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputDict",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1072,7 +1068,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/inputdict"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/InputObject": {
+"doc://ApolloAPI/documentation/ApolloAPI/InputObject": {
   "abstract" : [
     {
       "text" : "An protocol for a struct that represents a GraphQL Input Object.",
@@ -1093,7 +1089,7 @@
       "text" : "InputObject"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputObject",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputObject",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1106,7 +1102,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/inputobject"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/InputValue": {
+"doc://ApolloAPI/documentation/ApolloAPI/InputValue": {
   "abstract" : [
     {
       "text" : "Represents an input value to an argument on a ",
@@ -1143,7 +1139,7 @@
       "text" : "InputValue"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputValue",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1156,7 +1152,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/inputvalue"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Interface": {
+"doc://ApolloAPI/documentation/ApolloAPI/Interface": {
   "abstract" : [
 
   ],
@@ -1174,7 +1170,7 @@
       "text" : "Interface"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Interface",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Interface",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1187,7 +1183,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/interface"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/JSONDecodable": {
+"doc://ApolloAPI/documentation/ApolloAPI/JSONDecodable": {
   "abstract" : [
 
   ],
@@ -1205,7 +1201,7 @@
       "text" : "JSONDecodable"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/JSONDecodable",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONDecodable",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1218,7 +1214,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/jsondecodable"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/JSONDecodingError": {
+"doc://ApolloAPI/documentation/ApolloAPI/JSONDecodingError": {
   "abstract" : [
 
   ],
@@ -1236,7 +1232,7 @@
       "text" : "JSONDecodingError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/JSONDecodingError",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONDecodingError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1249,7 +1245,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/jsondecodingerror"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/JSONEncodable": {
+"doc://ApolloAPI/documentation/ApolloAPI/JSONEncodable": {
   "abstract" : [
 
   ],
@@ -1267,7 +1263,7 @@
       "text" : "JSONEncodable"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/JSONEncodable",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONEncodable",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1280,7 +1276,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/jsonencodable"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/JSONEncodableDictionary": {
+"doc://ApolloAPI/documentation/ApolloAPI/JSONEncodableDictionary": {
   "abstract" : [
 
   ],
@@ -1298,7 +1294,7 @@
       "text" : "JSONEncodableDictionary"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/JSONEncodableDictionary",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONEncodableDictionary",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1311,7 +1307,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/jsonencodabledictionary"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/JSONObject": {
+"doc://ApolloAPI/documentation/ApolloAPI/JSONObject": {
   "abstract" : [
 
   ],
@@ -1329,7 +1325,7 @@
       "text" : "JSONObject"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/JSONObject",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONObject",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1342,7 +1338,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/jsonobject"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/JSONValue": {
+"doc://ApolloAPI/documentation/ApolloAPI/JSONValue": {
   "abstract" : [
 
   ],
@@ -1360,7 +1356,7 @@
       "text" : "JSONValue"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/JSONValue",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONValue",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1373,7 +1369,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/jsonvalue"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/LocalCacheMutation": {
+"doc://ApolloAPI/documentation/ApolloAPI/LocalCacheMutation": {
   "abstract" : [
 
   ],
@@ -1391,7 +1387,7 @@
       "text" : "LocalCacheMutation"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/LocalCacheMutation",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/LocalCacheMutation",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1404,7 +1400,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/localcachemutation"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/MutableRootSelectionSet": {
+"doc://ApolloAPI/documentation/ApolloAPI/MutableRootSelectionSet": {
   "abstract" : [
 
   ],
@@ -1422,7 +1418,7 @@
       "text" : "MutableRootSelectionSet"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/MutableRootSelectionSet",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/MutableRootSelectionSet",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1435,7 +1431,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/mutablerootselectionset"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/MutableSelectionSet": {
+"doc://ApolloAPI/documentation/ApolloAPI/MutableSelectionSet": {
   "abstract" : [
 
   ],
@@ -1453,7 +1449,7 @@
       "text" : "MutableSelectionSet"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/MutableSelectionSet",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/MutableSelectionSet",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1466,7 +1462,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/mutableselectionset"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/NoFragments": {
+"doc://ApolloAPI/documentation/ApolloAPI/NoFragments": {
   "abstract" : [
     {
       "text" : "A ",
@@ -1539,7 +1535,7 @@
       "text" : "NoFragments"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/NoFragments",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/NoFragments",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1552,7 +1548,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/nofragments"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Object": {
+"doc://ApolloAPI/documentation/ApolloAPI/Object": {
   "abstract" : [
 
   ],
@@ -1570,7 +1566,7 @@
       "text" : "Object"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Object",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Object",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1583,7 +1579,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/object"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/OperationDefinition": {
+"doc://ApolloAPI/documentation/ApolloAPI/OperationDefinition": {
   "abstract" : [
     {
       "text" : "The definition of an operation to be provided over network transport.",
@@ -1604,7 +1600,7 @@
       "text" : "OperationDefinition"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/OperationDefinition",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/OperationDefinition",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1617,7 +1613,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/operationdefinition"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/OutputTypeConvertible": {
+"doc://ApolloAPI/documentation/ApolloAPI/OutputTypeConvertible": {
   "abstract" : [
 
   ],
@@ -1635,7 +1631,7 @@
       "text" : "OutputTypeConvertible"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/OutputTypeConvertible",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/OutputTypeConvertible",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1648,7 +1644,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/outputtypeconvertible"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/ParentType": {
+"doc://ApolloAPI/documentation/ApolloAPI/ParentType": {
   "abstract" : [
 
   ],
@@ -1666,7 +1662,7 @@
       "text" : "ParentType"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/ParentType",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ParentType",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1679,7 +1675,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/parenttype"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/ParentTypeConvertible": {
+"doc://ApolloAPI/documentation/ApolloAPI/ParentTypeConvertible": {
   "abstract" : [
 
   ],
@@ -1697,7 +1693,7 @@
       "text" : "ParentTypeConvertible"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/ParentTypeConvertible",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ParentTypeConvertible",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1710,7 +1706,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/parenttypeconvertible"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/RootSelectionSet": {
+"doc://ApolloAPI/documentation/ApolloAPI/RootSelectionSet": {
   "abstract" : [
     {
       "text" : "A selection set that represents the root selections on its ",
@@ -1755,7 +1751,7 @@
       "text" : "RootSelectionSet"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/RootSelectionSet",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/RootSelectionSet",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1768,7 +1764,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/rootselectionset"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/ScalarType": {
+"doc://ApolloAPI/documentation/ApolloAPI/ScalarType": {
   "abstract" : [
 
   ],
@@ -1786,7 +1782,7 @@
       "text" : "ScalarType"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/ScalarType",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ScalarType",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1799,7 +1795,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/scalartype"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/SchemaConfiguration": {
+"doc://ApolloAPI/documentation/ApolloAPI/SchemaConfiguration": {
   "abstract" : [
 
   ],
@@ -1817,7 +1813,7 @@
       "text" : "SchemaConfiguration"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/SchemaConfiguration",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SchemaConfiguration",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1830,7 +1826,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/schemaconfiguration"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/SchemaUnknownTypeCacheKeyProvider": {
+"doc://ApolloAPI/documentation/ApolloAPI/SchemaUnknownTypeCacheKeyProvider": {
   "abstract" : [
 
   ],
@@ -1848,7 +1844,7 @@
       "text" : "SchemaUnknownTypeCacheKeyProvider"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/SchemaUnknownTypeCacheKeyProvider",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SchemaUnknownTypeCacheKeyProvider",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1861,7 +1857,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/schemaunknowntypecachekeyprovider"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Selection": {
+"doc://ApolloAPI/documentation/ApolloAPI/Selection": {
   "abstract" : [
 
   ],
@@ -1879,7 +1875,7 @@
       "text" : "Selection"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1892,7 +1888,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/selection"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/SelectionSet": {
+"doc://ApolloAPI/documentation/ApolloAPI/SelectionSet": {
   "abstract" : [
 
   ],
@@ -1910,7 +1906,7 @@
       "text" : "SelectionSet"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/SelectionSet",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1923,7 +1919,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/selectionset"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/SelectionSetEntityValue": {
+"doc://ApolloAPI/documentation/ApolloAPI/SelectionSetEntityValue": {
   "abstract" : [
 
   ],
@@ -1941,7 +1937,7 @@
       "text" : "SelectionSetEntityValue"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/SelectionSetEntityValue",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSetEntityValue",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1954,7 +1950,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/selectionsetentityvalue"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Union": {
+"doc://ApolloAPI/documentation/ApolloAPI/Union": {
   "abstract" : [
 
   ],
@@ -1972,7 +1968,7 @@
       "text" : "Union"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Union",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Union",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1985,7 +1981,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/union"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/__(_:_:)": {
+"doc://ApolloAPI/documentation/ApolloAPI/__(_:_:)": {
   "abstract" : [
 
   ],
@@ -2020,7 +2016,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI2qqoiyAA15GraphQLNullableOyxGxSg_AEtlF1TL_xmfp",
       "text" : "T"
     },
     {
@@ -2038,7 +2033,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI2qqoiyAA15GraphQLNullableOyxGxSg_AEtlF1TL_xmfp",
       "text" : "T"
     },
     {
@@ -2056,7 +2050,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI2qqoiyAA15GraphQLNullableOyxGxSg_AEtlF1TL_xmfp",
       "text" : "T"
     },
     {
@@ -2064,7 +2057,7 @@
       "text" : ">"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/__(_:_:)",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/__(_:_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "??(_:_:)",

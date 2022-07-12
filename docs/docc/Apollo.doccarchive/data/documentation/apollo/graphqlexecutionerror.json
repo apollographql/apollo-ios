@@ -8,13 +8,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"
+        "doc:\/\/Apollo\/documentation\/Apollo"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLExecutionError"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLExecutionError"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -81,9 +81,9 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/10Foundation14LocalizedErrorP",
-        "doc:\/\/com.apollographql.Apollo.macosx\/s5ErrorP",
-        "doc:\/\/com.apollographql.Apollo.macosx\/s8SendableP"
+        "doc:\/\/Apollo\/10Foundation14LocalizedErrorP",
+        "doc:\/\/Apollo\/s5ErrorP",
+        "doc:\/\/Apollo\/s8SendableP"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -101,16 +101,16 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLExecutionError\/errorDescription-f0my",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLExecutionError\/underlying"
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLExecutionError\/errorDescription-f0my",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLExecutionError\/underlying"
       ],
       "title" : "Instance Properties"
     },
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLExecutionError\/Error-Implementations",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLExecutionError\/LocalizedError-Implementations"
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLExecutionError\/Error-Implementations",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLExecutionError\/LocalizedError-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -129,23 +129,23 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/10Foundation14LocalizedErrorP": {
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/10Foundation14LocalizedErrorP",
+"doc://Apollo/10Foundation14LocalizedErrorP": {
+  "identifier" : "doc:\/\/Apollo\/10Foundation14LocalizedErrorP",
   "title" : "Foundation.LocalizedError",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLExecutionError": {
+"doc://Apollo/documentation/Apollo/GraphQLExecutionError": {
   "abstract" : [
     {
       "text" : "An error which has occurred during GraphQL execution.",
@@ -166,7 +166,7 @@
       "text" : "GraphQLExecutionError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLExecutionError",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLExecutionError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -179,29 +179,29 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlexecutionerror"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLExecutionError/Error-Implementations": {
+"doc://Apollo/documentation/Apollo/GraphQLExecutionError/Error-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLExecutionError\/Error-Implementations",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLExecutionError\/Error-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Error Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlexecutionerror\/error-implementations"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLExecutionError/LocalizedError-Implementations": {
+"doc://Apollo/documentation/Apollo/GraphQLExecutionError/LocalizedError-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLExecutionError\/LocalizedError-Implementations",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLExecutionError\/LocalizedError-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "LocalizedError Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlexecutionerror\/localizederror-implementations"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLExecutionError/errorDescription-f0my": {
+"doc://Apollo/documentation/Apollo/GraphQLExecutionError/errorDescription-f0my": {
   "abstract" : [
     {
       "text" : "A description of the error which includes the path where the error occurred.",
@@ -235,14 +235,14 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLExecutionError\/errorDescription-f0my",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLExecutionError\/errorDescription-f0my",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "errorDescription",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlexecutionerror\/errordescription-f0my"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLExecutionError/underlying": {
+"doc://Apollo/documentation/Apollo/GraphQLExecutionError/underlying": {
   "abstract" : [
     {
       "text" : "The error that occurred during parsing.",
@@ -272,20 +272,20 @@
       "text" : "Error"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLExecutionError\/underlying",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLExecutionError\/underlying",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "underlying",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlexecutionerror\/underlying"
 },
-"doc://com.apollographql.Apollo.macosx/s5ErrorP": {
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/s5ErrorP",
+"doc://Apollo/s5ErrorP": {
+  "identifier" : "doc:\/\/Apollo\/s5ErrorP",
   "title" : "Swift.Error",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.Apollo.macosx/s8SendableP": {
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/s8SendableP",
+"doc://Apollo/s8SendableP": {
+  "identifier" : "doc:\/\/Apollo\/s8SendableP",
   "title" : "Swift.Sendable",
   "type" : "unresolvable"
 }

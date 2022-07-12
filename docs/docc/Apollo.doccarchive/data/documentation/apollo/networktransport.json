@@ -8,13 +8,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"
+        "doc:\/\/Apollo\/documentation\/Apollo"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NetworkTransport"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/NetworkTransport"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -85,7 +85,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/UploadingNetworkTransport"
+        "doc:\/\/Apollo\/documentation\/Apollo\/UploadingNetworkTransport"
       ],
       "kind" : "relationships",
       "title" : "Inherited By",
@@ -93,7 +93,7 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport"
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport"
       ],
       "kind" : "relationships",
       "title" : "Conforming Types",
@@ -111,24 +111,24 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NetworkTransport\/clientName-689z0",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NetworkTransport\/clientVersion-9p2ue"
+        "doc:\/\/Apollo\/documentation\/Apollo\/NetworkTransport\/clientName-689z0",
+        "doc:\/\/Apollo\/documentation\/Apollo\/NetworkTransport\/clientVersion-9p2ue"
       ],
       "title" : "Instance Properties"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NetworkTransport\/addApolloClientHeaders(to:)",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NetworkTransport\/send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)"
+        "doc:\/\/Apollo\/documentation\/Apollo\/NetworkTransport\/addApolloClientHeaders(to:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/NetworkTransport\/send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)"
       ],
       "title" : "Instance Methods"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NetworkTransport\/defaultClientName",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NetworkTransport\/defaultClientVersion",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NetworkTransport\/headerFieldNameApolloClientName",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NetworkTransport\/headerFieldNameApolloClientVersion"
+        "doc:\/\/Apollo\/documentation\/Apollo\/NetworkTransport\/defaultClientName",
+        "doc:\/\/Apollo\/documentation\/Apollo\/NetworkTransport\/defaultClientVersion",
+        "doc:\/\/Apollo\/documentation\/Apollo\/NetworkTransport\/headerFieldNameApolloClientName",
+        "doc:\/\/Apollo\/documentation\/Apollo\/NetworkTransport\/headerFieldNameApolloClientVersion"
       ],
       "title" : "Type Properties"
     }
@@ -147,18 +147,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/NetworkTransport": {
+"doc://Apollo/documentation/Apollo/NetworkTransport": {
   "abstract" : [
     {
       "text" : "A network transport is responsible for sending GraphQL operations to a server.",
@@ -179,7 +179,7 @@
       "text" : "NetworkTransport"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NetworkTransport",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/NetworkTransport",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -192,7 +192,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/networktransport"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/NetworkTransport/addApolloClientHeaders(to:)": {
+"doc://Apollo/documentation/Apollo/NetworkTransport/addApolloClientHeaders(to:)": {
   "abstract" : [
     {
       "text" : "Adds the Apollo client headers for this instance of ",
@@ -250,14 +250,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NetworkTransport\/addApolloClientHeaders(to:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/NetworkTransport\/addApolloClientHeaders(to:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "addApolloClientHeaders(to:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/networktransport\/addapolloclientheaders(to:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/NetworkTransport/clientName-689z0": {
+"doc://Apollo/documentation/Apollo/NetworkTransport/clientName-689z0": {
   "abstract" : [
     {
       "text" : "The name of the client to send as a header value.",
@@ -288,7 +288,7 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NetworkTransport\/clientName-689z0",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/NetworkTransport\/clientName-689z0",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
@@ -296,7 +296,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/networktransport\/clientname-689z0"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/NetworkTransport/clientVersion-9p2ue": {
+"doc://Apollo/documentation/Apollo/NetworkTransport/clientVersion-9p2ue": {
   "abstract" : [
     {
       "text" : "The version of the client to send as a header value.",
@@ -327,7 +327,7 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NetworkTransport\/clientVersion-9p2ue",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/NetworkTransport\/clientVersion-9p2ue",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
@@ -335,7 +335,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/networktransport\/clientversion-9p2ue"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/NetworkTransport/defaultClientName": {
+"doc://Apollo/documentation/Apollo/NetworkTransport/defaultClientName": {
   "abstract" : [
     {
       "text" : "The default client name to use when setting up the ",
@@ -381,14 +381,14 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NetworkTransport\/defaultClientName",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/NetworkTransport\/defaultClientName",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "defaultClientName",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/networktransport\/defaultclientname"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/NetworkTransport/defaultClientVersion": {
+"doc://Apollo/documentation/Apollo/NetworkTransport/defaultClientVersion": {
   "abstract" : [
     {
       "text" : "The default client version to use when setting up the ",
@@ -434,14 +434,14 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NetworkTransport\/defaultClientVersion",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/NetworkTransport\/defaultClientVersion",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "defaultClientVersion",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/networktransport\/defaultclientversion"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/NetworkTransport/headerFieldNameApolloClientName": {
+"doc://Apollo/documentation/Apollo/NetworkTransport/headerFieldNameApolloClientName": {
   "abstract" : [
     {
       "text" : "The field name for the Apollo Client Name header",
@@ -479,14 +479,14 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NetworkTransport\/headerFieldNameApolloClientName",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/NetworkTransport\/headerFieldNameApolloClientName",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "headerFieldNameApolloClientName",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/networktransport\/headerfieldnameapolloclientname"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/NetworkTransport/headerFieldNameApolloClientVersion": {
+"doc://Apollo/documentation/Apollo/NetworkTransport/headerFieldNameApolloClientVersion": {
   "abstract" : [
     {
       "text" : "The field name for the Apollo Client Version header",
@@ -524,14 +524,14 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NetworkTransport\/headerFieldNameApolloClientVersion",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/NetworkTransport\/headerFieldNameApolloClientVersion",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "headerFieldNameApolloClientVersion",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/networktransport\/headerfieldnameapolloclientversion"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/NetworkTransport/send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)": {
+"doc://Apollo/documentation/Apollo/NetworkTransport/send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)": {
   "abstract" : [
     {
       "text" : "Send a GraphQL operation to a server and return a response.",
@@ -573,7 +573,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo16NetworkTransportP4send9operation11cachePolicy17contextIdentifier13callbackQueue17completionHandlerAA11Cancellable_pqd___AA05CacheG0O10Foundation4UUIDVSgSo17OS_dispatch_queueCys6ResultOyAA13GraphQLResultVy4DataQyd__Gs5Error_pGct0A3API0V11QLOperationRd__lF9OperationL_qd__mfp",
       "text" : "Operation"
     },
     {
@@ -659,7 +658,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo16NetworkTransportP4send9operation11cachePolicy17contextIdentifier13callbackQueue17completionHandlerAA11Cancellable_pqd___AA05CacheG0O10Foundation4UUIDVSgSo17OS_dispatch_queueCys6ResultOyAA13GraphQLResultVy4DataQyd__Gs5Error_pGct0A3API0V11QLOperationRd__lF9OperationL_qd__mfp",
       "text" : "Operation"
     },
     {
@@ -668,7 +666,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
       "text" : "Data"
     },
     {
@@ -699,7 +696,7 @@
       "text" : "Cancellable"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NetworkTransport\/send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/NetworkTransport\/send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
@@ -707,7 +704,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/networktransport\/send(operation:cachepolicy:contextidentifier:callbackqueue:completionhandler:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChainNetworkTransport": {
+"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport": {
   "abstract" : [
     {
       "text" : "An implementation of ",
@@ -752,7 +749,7 @@
       "text" : "RequestChainNetworkTransport"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -765,7 +762,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchainnetworktransport"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/UploadingNetworkTransport": {
+"doc://Apollo/documentation/Apollo/UploadingNetworkTransport": {
   "abstract" : [
     {
       "text" : "A network transport which can also handle uploads of files.",
@@ -786,7 +783,7 @@
       "text" : "UploadingNetworkTransport"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/UploadingNetworkTransport",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/UploadingNetworkTransport",
   "kind" : "symbol",
   "navigatorTitle" : [
     {

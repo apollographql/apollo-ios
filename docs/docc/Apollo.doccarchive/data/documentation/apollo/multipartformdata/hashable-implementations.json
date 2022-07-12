@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MultipartFormData"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/MultipartFormData"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MultipartFormData\/Hashable-Implementations"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/MultipartFormData\/Hashable-Implementations"
   },
   "kind" : "article",
   "metadata" : {
@@ -39,7 +39,7 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MultipartFormData\/hash(into:)"
+        "doc:\/\/Apollo\/documentation\/Apollo\/MultipartFormData\/hash(into:)"
       ],
       "title" : "Instance Methods"
     }
@@ -58,18 +58,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/MultipartFormData": {
+"doc://Apollo/documentation/Apollo/MultipartFormData": {
   "abstract" : [
     {
       "text" : "A helper for building out multi-part form data for upload",
@@ -90,7 +90,7 @@
       "text" : "MultipartFormData"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MultipartFormData",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/MultipartFormData",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -103,7 +103,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/multipartformdata"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/MultipartFormData/hash(into:)": {
+"doc://Apollo/documentation/Apollo/MultipartFormData/hash(into:)": {
   "abstract" : [
 
   ],
@@ -150,7 +150,7 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MultipartFormData\/hash(into:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/MultipartFormData\/hash(into:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "hash(into:)",

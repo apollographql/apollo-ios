@@ -8,13 +8,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/FileFinder"
+    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/FileFinder"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -89,9 +89,9 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/FileFinder\/fileURL(from:)",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/FileFinder\/findParentFolder(from:)-83hnd",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/FileFinder\/findParentFolder(from:)-yioi"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/FileFinder\/fileURL(from:)",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/FileFinder\/findParentFolder(from:)-83hnd",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/FileFinder\/findParentFolder(from:)-yioi"
       ],
       "title" : "Type Methods"
     }
@@ -110,18 +110,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloCodegenLib",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/FileFinder": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/FileFinder": {
   "abstract" : [
 
   ],
@@ -139,7 +139,7 @@
       "text" : "FileFinder"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/FileFinder",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/FileFinder",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -152,7 +152,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/filefinder"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/FileFinder/fileURL(from:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/FileFinder/fileURL(from:)": {
   "abstract" : [
     {
       "text" : "The URL of a file at a given path",
@@ -207,14 +207,14 @@
       "text" : "URL"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/FileFinder\/fileURL(from:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/FileFinder\/fileURL(from:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "fileURL(from:)",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/filefinder\/fileurl(from:)"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/FileFinder/findParentFolder(from:)-83hnd": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/FileFinder/findParentFolder(from:)-83hnd": {
   "abstract" : [
     {
       "text" : "Finds the parent folder from a given file path.",
@@ -269,14 +269,14 @@
       "text" : "URL"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/FileFinder\/findParentFolder(from:)-83hnd",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/FileFinder\/findParentFolder(from:)-83hnd",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "findParentFolder(from:)",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/filefinder\/findparentfolder(from:)-83hnd"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/FileFinder/findParentFolder(from:)-yioi": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/FileFinder/findParentFolder(from:)-yioi": {
   "abstract" : [
     {
       "text" : "Version that works if you’re using the 5.3 compiler or above",
@@ -331,7 +331,7 @@
       "text" : "URL"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/FileFinder\/findParentFolder(from:)-yioi",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/FileFinder\/findParentFolder(from:)-yioi",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "findParentFolder(from:)",

@@ -8,15 +8,15 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CodegenLogger",
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CodegenLogger",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel\/RawRepresentable-Implementations"
+    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel\/RawRepresentable-Implementations"
   },
   "kind" : "article",
   "metadata" : {
@@ -40,14 +40,14 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel\/hashValue"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel\/hashValue"
       ],
       "title" : "Instance Properties"
     },
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel\/hash(into:)"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel\/hash(into:)"
       ],
       "title" : "Instance Methods"
     }
@@ -66,18 +66,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloCodegenLib",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/CodegenLogger": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CodegenLogger": {
   "abstract" : [
     {
       "text" : "Helper to get logs printing to stdout so they can be read from the command line.",
@@ -98,7 +98,7 @@
       "text" : "CodegenLogger"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CodegenLogger",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CodegenLogger",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -111,7 +111,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/codegenlogger"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/CodegenLogger/LogLevel": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CodegenLogger/LogLevel": {
   "abstract" : [
 
   ],
@@ -129,7 +129,7 @@
       "text" : "LogLevel"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -142,7 +142,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/codegenlogger\/loglevel"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/CodegenLogger/LogLevel/hash(into:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CodegenLogger/LogLevel/hash(into:)": {
   "abstract" : [
 
   ],
@@ -237,14 +237,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel\/hash(into:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel\/hash(into:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "hash(into:)",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/codegenlogger\/loglevel\/hash(into:)"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/CodegenLogger/LogLevel/hashValue": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CodegenLogger/LogLevel/hashValue": {
   "abstract" : [
 
   ],
@@ -319,7 +319,7 @@
       "text" : "Int"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel\/hashValue",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel\/hashValue",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "hashValue",

@@ -16,13 +16,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/ApolloSequencedOperationMessageIdCreator"
+    "url" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/ApolloSequencedOperationMessageIdCreator"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -89,7 +89,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/OperationMessageIdCreator"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/OperationMessageIdCreator"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -107,13 +107,13 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/ApolloSequencedOperationMessageIdCreator\/init(startAt:)"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/ApolloSequencedOperationMessageIdCreator\/init(startAt:)"
       ],
       "title" : "Initializers"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/ApolloSequencedOperationMessageIdCreator\/requestId()"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/ApolloSequencedOperationMessageIdCreator\/requestId()"
       ],
       "title" : "Instance Methods"
     }
@@ -132,18 +132,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloWebSocket",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/ApolloSequencedOperationMessageIdCreator": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/ApolloSequencedOperationMessageIdCreator": {
   "abstract" : [
     {
       "text" : "The default implementation of ",
@@ -172,7 +172,7 @@
       "text" : "ApolloSequencedOperationMessageIdCreator"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/ApolloSequencedOperationMessageIdCreator",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/ApolloSequencedOperationMessageIdCreator",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -185,7 +185,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/apollosequencedoperationmessageidcreator"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/ApolloSequencedOperationMessageIdCreator/init(startAt:)": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/ApolloSequencedOperationMessageIdCreator/init(startAt:)": {
   "abstract" : [
     {
       "text" : "Designated initializer.",
@@ -219,14 +219,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/ApolloSequencedOperationMessageIdCreator\/init(startAt:)",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/ApolloSequencedOperationMessageIdCreator\/init(startAt:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(startAt:)",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/apollosequencedoperationmessageidcreator\/init(startat:)"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/ApolloSequencedOperationMessageIdCreator/requestId()": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/ApolloSequencedOperationMessageIdCreator/requestId()": {
   "abstract" : [
     {
       "text" : "Returns the number in the current sequence. Will be incremented when calling this method.",
@@ -256,14 +256,14 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/ApolloSequencedOperationMessageIdCreator\/requestId()",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/ApolloSequencedOperationMessageIdCreator\/requestId()",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "requestId()",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/apollosequencedoperationmessageidcreator\/requestid()"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/OperationMessageIdCreator": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/OperationMessageIdCreator": {
   "abstract" : [
 
   ],
@@ -281,7 +281,7 @@
       "text" : "OperationMessageIdCreator"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/OperationMessageIdCreator",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/OperationMessageIdCreator",
   "kind" : "symbol",
   "navigatorTitle" : [
     {

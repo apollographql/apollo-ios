@@ -12,13 +12,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils"
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/OptionalType"
+    "url" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/OptionalType"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -94,7 +94,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/s23ExpressibleByNilLiteralP"
+        "doc:\/\/ApolloUtils\/s23ExpressibleByNilLiteralP"
       ],
       "kind" : "relationships",
       "title" : "Inherits From",
@@ -112,13 +112,13 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/OptionalType\/WrappedType"
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/OptionalType\/WrappedType"
       ],
       "title" : "Associated Types"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/OptionalType\/underlying"
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/OptionalType\/underlying"
       ],
       "title" : "Instance Properties"
     }
@@ -137,18 +137,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils": {
+"doc://ApolloUtils/documentation/ApolloUtils": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloUtils",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/OptionalType": {
+"doc://ApolloUtils/documentation/ApolloUtils/OptionalType": {
   "abstract" : [
     {
       "text" : "Provides a PAT interface to ",
@@ -173,7 +173,7 @@
       "text" : "OptionalType"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/OptionalType",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/OptionalType",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -186,7 +186,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/optionaltype"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/OptionalType/WrappedType": {
+"doc://ApolloUtils/documentation/ApolloUtils/OptionalType/WrappedType": {
   "abstract" : [
 
   ],
@@ -204,7 +204,7 @@
       "text" : "WrappedType"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/OptionalType\/WrappedType",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/OptionalType\/WrappedType",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
@@ -212,7 +212,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/optionaltype\/wrappedtype"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/OptionalType/underlying": {
+"doc://ApolloUtils/documentation/ApolloUtils/OptionalType/underlying": {
   "abstract" : [
 
   ],
@@ -235,7 +235,14 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11ApolloUtils12OptionalTypeP07WrappedD0Qa",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
       "text" : "WrappedType"
     },
     {
@@ -243,7 +250,7 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/OptionalType\/underlying",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/OptionalType\/underlying",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
@@ -251,8 +258,8 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/optionaltype\/underlying"
 },
-"doc://com.apollographql.ApolloUtils.macosx/s23ExpressibleByNilLiteralP": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/s23ExpressibleByNilLiteralP",
+"doc://ApolloUtils/s23ExpressibleByNilLiteralP": {
+  "identifier" : "doc:\/\/ApolloUtils\/s23ExpressibleByNilLiteralP",
   "title" : "Swift.ExpressibleByNilLiteral",
   "type" : "unresolvable"
 }

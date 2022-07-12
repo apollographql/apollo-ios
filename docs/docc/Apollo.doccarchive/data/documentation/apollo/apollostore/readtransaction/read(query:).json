@@ -8,15 +8,15 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore\/ReadTransaction"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/ReadTransaction"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore\/ReadTransaction\/read(query:)"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/ReadTransaction\/read(query:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -56,7 +56,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:6Apollo0A5StoreC15ReadTransactionC4read5query4DataQzx_tK0A3API12GraphQLQueryRzlF5QueryL_xmfp",
         "text" : "Query"
       },
       {
@@ -73,7 +72,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:6Apollo0A5StoreC15ReadTransactionC4read5query4DataQzx_tK0A3API12GraphQLQueryRzlF5QueryL_xmfp",
         "text" : "Query"
       },
       {
@@ -82,7 +80,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
         "text" : "Data"
       }
     ],
@@ -141,7 +138,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:6Apollo0A5StoreC15ReadTransactionC4read5query4DataQzx_tK0A3API12GraphQLQueryRzlF5QueryL_xmfp",
               "text" : "Query"
             },
             {
@@ -158,7 +154,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:6Apollo0A5StoreC15ReadTransactionC4read5query4DataQzx_tK0A3API12GraphQLQueryRzlF5QueryL_xmfp",
               "text" : "Query"
             },
             {
@@ -167,7 +162,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
               "text" : "Data"
             },
             {
@@ -223,18 +217,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloStore": {
+"doc://Apollo/documentation/Apollo/ApolloStore": {
   "abstract" : [
     {
       "text" : "The ",
@@ -263,7 +257,7 @@
       "text" : "ApolloStore"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -276,7 +270,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apollostore"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloStore/ReadTransaction": {
+"doc://Apollo/documentation/Apollo/ApolloStore/ReadTransaction": {
   "abstract" : [
 
   ],
@@ -294,7 +288,7 @@
       "text" : "ReadTransaction"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore\/ReadTransaction",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/ReadTransaction",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -307,7 +301,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apollostore\/readtransaction"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloStore/ReadTransaction/read(query:)": {
+"doc://Apollo/documentation/Apollo/ApolloStore/ReadTransaction/read(query:)": {
   "abstract" : [
 
   ],
@@ -346,7 +340,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo0A5StoreC15ReadTransactionC4read5query4DataQzx_tK0A3API12GraphQLQueryRzlF5QueryL_xmfp",
       "text" : "Query"
     },
     {
@@ -363,7 +356,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo0A5StoreC15ReadTransactionC4read5query4DataQzx_tK0A3API12GraphQLQueryRzlF5QueryL_xmfp",
       "text" : "Query"
     },
     {
@@ -372,11 +364,10 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
       "text" : "Data"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore\/ReadTransaction\/read(query:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/ReadTransaction\/read(query:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "read(query:)",

@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/SchemaUnknownTypeCacheKeyProvider"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SchemaUnknownTypeCacheKeyProvider"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/SchemaUnknownTypeCacheKeyProvider\/cacheKeyProviderForUnknownType(withTypename:data:)"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SchemaUnknownTypeCacheKeyProvider\/cacheKeyProviderForUnknownType(withTypename:data:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -161,7 +161,7 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/JSONObject",
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONObject",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:9ApolloAPI10JSONObjecta",
               "text" : "JSONObject"
@@ -171,7 +171,7 @@
               "text" : ") -> "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheKeyProvider",
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheKeyProvider",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:9ApolloAPI16CacheKeyProviderP",
               "text" : "CacheKeyProvider"
@@ -208,18 +208,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI": {
+"doc://ApolloAPI/documentation/ApolloAPI": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/CacheKeyProvider": {
+"doc://ApolloAPI/documentation/ApolloAPI/CacheKeyProvider": {
   "abstract" : [
 
   ],
@@ -237,7 +237,7 @@
       "text" : "CacheKeyProvider"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/CacheKeyProvider",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheKeyProvider",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -250,7 +250,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/cachekeyprovider"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/JSONObject": {
+"doc://ApolloAPI/documentation/ApolloAPI/JSONObject": {
   "abstract" : [
 
   ],
@@ -268,7 +268,7 @@
       "text" : "JSONObject"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/JSONObject",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONObject",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -281,7 +281,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/jsonobject"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/SchemaUnknownTypeCacheKeyProvider": {
+"doc://ApolloAPI/documentation/ApolloAPI/SchemaUnknownTypeCacheKeyProvider": {
   "abstract" : [
 
   ],
@@ -299,7 +299,7 @@
       "text" : "SchemaUnknownTypeCacheKeyProvider"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/SchemaUnknownTypeCacheKeyProvider",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SchemaUnknownTypeCacheKeyProvider",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -312,7 +312,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/schemaunknowntypecachekeyprovider"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/SchemaUnknownTypeCacheKeyProvider/cacheKeyProviderForUnknownType(withTypename:data:)": {
+"doc://ApolloAPI/documentation/ApolloAPI/SchemaUnknownTypeCacheKeyProvider/cacheKeyProviderForUnknownType(withTypename:data:)": {
   "abstract" : [
 
   ],
@@ -385,7 +385,7 @@
       "text" : ".Type?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/SchemaUnknownTypeCacheKeyProvider\/cacheKeyProviderForUnknownType(withTypename:data:)",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SchemaUnknownTypeCacheKeyProvider\/cacheKeyProviderForUnknownType(withTypename:data:)",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",

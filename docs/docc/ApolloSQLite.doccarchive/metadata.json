@@ -1,6 +1,6 @@
 {
   "bundleDisplayName" : "ApolloSQLite",
-  "bundleIdentifier" : "com.apollographql.ApolloSQLite.macosx",
+  "bundleIdentifier" : "ApolloSQLite",
   "schemaVersion" : {
     "major" : 0,
     "minor" : 1,

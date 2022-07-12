@@ -1,25 +1,29 @@
 {
   "abstract" : [
     {
-      "text" : "Converts this object to a fully fleshed-out ",
+      "text" : "Inherited from ",
       "type" : "text"
     },
     {
-      "code" : "URLRequest",
+      "code" : "HTTPRequest.toURLRequest()",
       "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
     }
   ],
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/UploadRequest"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/UploadRequest"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/UploadRequest\/toURLRequest()"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/UploadRequest\/toURLRequest()"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -117,53 +121,6 @@
         }
       ],
       "kind" : "declarations"
-    },
-    {
-      "content" : [
-        {
-          "anchor" : "return-value",
-          "level" : 2,
-          "text" : "Return Value",
-          "type" : "heading"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "The URL request, ready to send to your server.",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        }
-      ],
-      "kind" : "content"
-    },
-    {
-      "content" : [
-        {
-          "anchor" : "discussion",
-          "level" : 2,
-          "text" : "Discussion",
-          "type" : "heading"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "Any error in creating the request",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "Throws",
-          "style" : "note",
-          "type" : "aside"
-        }
-      ],
-      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -188,18 +145,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/UploadRequest": {
+"doc://Apollo/documentation/Apollo/UploadRequest": {
   "abstract" : [
     {
       "text" : "A request class allowing for a multipart-upload request.",
@@ -220,7 +177,7 @@
       "text" : "UploadRequest"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/UploadRequest",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/UploadRequest",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -233,16 +190,9 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/uploadrequest"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/UploadRequest/toURLRequest()": {
+"doc://Apollo/documentation/Apollo/UploadRequest/toURLRequest()": {
   "abstract" : [
-    {
-      "text" : "Converts this object to a fully fleshed-out ",
-      "type" : "text"
-    },
-    {
-      "code" : "URLRequest",
-      "type" : "codeVoice"
-    }
+
   ],
   "fragments" : [
     {
@@ -275,7 +225,7 @@
       "text" : "URLRequest"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/UploadRequest\/toURLRequest()",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/UploadRequest\/toURLRequest()",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "toURLRequest()",

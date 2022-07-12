@@ -16,13 +16,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"
+        "doc:\/\/Apollo\/documentation\/Apollo"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClientProtocol"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClientProtocol"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -93,7 +93,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient"
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient"
       ],
       "kind" : "relationships",
       "title" : "Conforming Types",
@@ -111,18 +111,18 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClientProtocol\/store"
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClientProtocol\/store"
       ],
       "title" : "Instance Properties"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClientProtocol\/clearCache(callbackQueue:completion:)",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClientProtocol\/fetch(query:cachePolicy:contextIdentifier:queue:resultHandler:)",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClientProtocol\/perform(mutation:publishResultToStore:queue:resultHandler:)",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClientProtocol\/subscribe(subscription:queue:resultHandler:)",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClientProtocol\/upload(operation:files:queue:resultHandler:)",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClientProtocol\/watch(query:cachePolicy:callbackQueue:resultHandler:)"
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClientProtocol\/clearCache(callbackQueue:completion:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClientProtocol\/fetch(query:cachePolicy:contextIdentifier:queue:resultHandler:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClientProtocol\/perform(mutation:publishResultToStore:queue:resultHandler:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClientProtocol\/subscribe(subscription:queue:resultHandler:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClientProtocol\/upload(operation:files:queue:resultHandler:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClientProtocol\/watch(query:cachePolicy:callbackQueue:resultHandler:)"
       ],
       "title" : "Instance Methods"
     }
@@ -141,18 +141,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClient": {
+"doc://Apollo/documentation/Apollo/ApolloClient": {
   "abstract" : [
     {
       "text" : "The ",
@@ -189,7 +189,7 @@
       "text" : "ApolloClient"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClient",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -202,7 +202,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apolloclient"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClientProtocol": {
+"doc://Apollo/documentation/Apollo/ApolloClientProtocol": {
   "abstract" : [
     {
       "text" : "The ",
@@ -231,7 +231,7 @@
       "text" : "ApolloClientProtocol"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClientProtocol",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClientProtocol",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -244,7 +244,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apolloclientprotocol"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClientProtocol/clearCache(callbackQueue:completion:)": {
+"doc://Apollo/documentation/Apollo/ApolloClientProtocol/clearCache(callbackQueue:completion:)": {
   "abstract" : [
     {
       "text" : "Clears the underlying cache.",
@@ -338,7 +338,7 @@
       "text" : ")?)"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClientProtocol\/clearCache(callbackQueue:completion:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClientProtocol\/clearCache(callbackQueue:completion:)",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
@@ -346,7 +346,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apolloclientprotocol\/clearcache(callbackqueue:completion:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClientProtocol/fetch(query:cachePolicy:contextIdentifier:queue:resultHandler:)": {
+"doc://Apollo/documentation/Apollo/ApolloClientProtocol/fetch(query:cachePolicy:contextIdentifier:queue:resultHandler:)": {
   "abstract" : [
     {
       "text" : "Fetches a query from the server or from the local cache, depending on the current contents of the cache and the specified cache policy.",
@@ -388,7 +388,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo0A14ClientProtocolP5fetch5query11cachePolicy17contextIdentifier5queue13resultHandlerAA11Cancellable_pqd___AA05CacheG0O10Foundation4UUIDVSgSo012OS_dispatch_J0Cys6ResultOyAA13GraphQLResultVy4DataQyd__Gs5Error_pGcSgt0A3API0T7QLQueryRd__lF5QueryL_qd__mfp",
       "text" : "Query"
     },
     {
@@ -465,7 +464,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo0A14ClientProtocolP5fetch5query11cachePolicy17contextIdentifier5queue13resultHandlerAA11Cancellable_pqd___AA05CacheG0O10Foundation4UUIDVSgSo012OS_dispatch_J0Cys6ResultOyAA13GraphQLResultVy4DataQyd__Gs5Error_pGcSgt0A3API0T7QLQueryRd__lF5QueryL_qd__mfp",
       "text" : "Query"
     },
     {
@@ -474,7 +472,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
       "text" : "Data"
     },
     {
@@ -487,7 +484,7 @@
       "text" : "Cancellable"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClientProtocol\/fetch(query:cachePolicy:contextIdentifier:queue:resultHandler:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClientProtocol\/fetch(query:cachePolicy:contextIdentifier:queue:resultHandler:)",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
@@ -495,7 +492,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apolloclientprotocol\/fetch(query:cachepolicy:contextidentifier:queue:resulthandler:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClientProtocol/perform(mutation:publishResultToStore:queue:resultHandler:)": {
+"doc://Apollo/documentation/Apollo/ApolloClientProtocol/perform(mutation:publishResultToStore:queue:resultHandler:)": {
   "abstract" : [
     {
       "text" : "Performs a mutation by sending it to the server.",
@@ -537,7 +534,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo0A14ClientProtocolP7perform8mutation20publishResultToStore5queue13resultHandlerAA11Cancellable_pqd___SbSo012OS_dispatch_J0Cys0G0OyAA13GraphQLResultVy4DataQyd__Gs5Error_pGcSgt0A3API0P10QLMutationRd__lF8MutationL_qd__mfp",
       "text" : "Mutation"
     },
     {
@@ -597,7 +593,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo0A14ClientProtocolP7perform8mutation20publishResultToStore5queue13resultHandlerAA11Cancellable_pqd___SbSo012OS_dispatch_J0Cys0G0OyAA13GraphQLResultVy4DataQyd__Gs5Error_pGcSgt0A3API0P10QLMutationRd__lF8MutationL_qd__mfp",
       "text" : "Mutation"
     },
     {
@@ -606,7 +601,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
       "text" : "Data"
     },
     {
@@ -619,7 +613,7 @@
       "text" : "Cancellable"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClientProtocol\/perform(mutation:publishResultToStore:queue:resultHandler:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClientProtocol\/perform(mutation:publishResultToStore:queue:resultHandler:)",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
@@ -627,7 +621,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apolloclientprotocol\/perform(mutation:publishresulttostore:queue:resulthandler:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClientProtocol/store": {
+"doc://Apollo/documentation/Apollo/ApolloClientProtocol/store": {
   "abstract" : [
     {
       "text" : "A store used as a local cache.",
@@ -657,7 +651,7 @@
       "text" : "ApolloStore"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClientProtocol\/store",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClientProtocol\/store",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
@@ -665,7 +659,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apolloclientprotocol\/store"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClientProtocol/subscribe(subscription:queue:resultHandler:)": {
+"doc://Apollo/documentation/Apollo/ApolloClientProtocol/subscribe(subscription:queue:resultHandler:)": {
   "abstract" : [
     {
       "text" : "Subscribe to a subscription",
@@ -707,7 +701,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo0A14ClientProtocolP9subscribe12subscription5queue13resultHandlerAA11Cancellable_pqd___So012OS_dispatch_F0Cys6ResultOyAA13GraphQLResultVy4DataQyd__Gs5Error_pGct0A3API0M14QLSubscriptionRd__lF12SubscriptionL_qd__mfp",
       "text" : "Subscription"
     },
     {
@@ -750,7 +743,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo0A14ClientProtocolP9subscribe12subscription5queue13resultHandlerAA11Cancellable_pqd___So012OS_dispatch_F0Cys6ResultOyAA13GraphQLResultVy4DataQyd__Gs5Error_pGct0A3API0M14QLSubscriptionRd__lF12SubscriptionL_qd__mfp",
       "text" : "Subscription"
     },
     {
@@ -759,7 +751,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
       "text" : "Data"
     },
     {
@@ -772,7 +763,7 @@
       "text" : "Cancellable"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClientProtocol\/subscribe(subscription:queue:resultHandler:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClientProtocol\/subscribe(subscription:queue:resultHandler:)",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
@@ -780,7 +771,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apolloclientprotocol\/subscribe(subscription:queue:resulthandler:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClientProtocol/upload(operation:files:queue:resultHandler:)": {
+"doc://Apollo/documentation/Apollo/ApolloClientProtocol/upload(operation:files:queue:resultHandler:)": {
   "abstract" : [
     {
       "text" : "Uploads the given files with the given operation.",
@@ -822,7 +813,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo0A14ClientProtocolP6upload9operation5files5queue13resultHandlerAA11Cancellable_pqd___SayAA11GraphQLFileVGSo012OS_dispatch_G0Cys6ResultOyAA0K8QLResultVy4DataQyd__Gs5Error_pGcSgt0A3API0K11QLOperationRd__lF9OperationL_qd__mfp",
       "text" : "Operation"
     },
     {
@@ -882,7 +872,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo0A14ClientProtocolP6upload9operation5files5queue13resultHandlerAA11Cancellable_pqd___SayAA11GraphQLFileVGSo012OS_dispatch_G0Cys6ResultOyAA0K8QLResultVy4DataQyd__Gs5Error_pGcSgt0A3API0K11QLOperationRd__lF9OperationL_qd__mfp",
       "text" : "Operation"
     },
     {
@@ -891,7 +880,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
       "text" : "Data"
     },
     {
@@ -904,7 +892,7 @@
       "text" : "Cancellable"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClientProtocol\/upload(operation:files:queue:resultHandler:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClientProtocol\/upload(operation:files:queue:resultHandler:)",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
@@ -912,7 +900,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apolloclientprotocol\/upload(operation:files:queue:resulthandler:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloClientProtocol/watch(query:cachePolicy:callbackQueue:resultHandler:)": {
+"doc://Apollo/documentation/Apollo/ApolloClientProtocol/watch(query:cachePolicy:callbackQueue:resultHandler:)": {
   "abstract" : [
     {
       "text" : "Watches a query by first fetching an initial result from the server or from the local cache, depending on the current contents of the cache and the specified cache policy. After the initial fetch, the returned query watcher object will get notified whenever any of the data the query result depends on changes in the local cache, and calls the result handler again with the new result.",
@@ -954,7 +942,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo0A14ClientProtocolP5watch5query11cachePolicy13callbackQueue13resultHandlerAA19GraphQLQueryWatcherCyqd__Gqd___AA05CacheG0OSo17OS_dispatch_queueCys6ResultOyAA0L8QLResultVy4DataQyd__Gs5Error_pGct0A3API0lM0Rd__lF5QueryL_qd__mfp",
       "text" : "Query"
     },
     {
@@ -1014,7 +1001,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo0A14ClientProtocolP5watch5query11cachePolicy13callbackQueue13resultHandlerAA19GraphQLQueryWatcherCyqd__Gqd___AA05CacheG0OSo17OS_dispatch_queueCys6ResultOyAA0L8QLResultVy4DataQyd__Gs5Error_pGct0A3API0lM0Rd__lF5QueryL_qd__mfp",
       "text" : "Query"
     },
     {
@@ -1023,7 +1009,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
       "text" : "Data"
     },
     {
@@ -1041,7 +1026,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo0A14ClientProtocolP5watch5query11cachePolicy13callbackQueue13resultHandlerAA19GraphQLQueryWatcherCyqd__Gqd___AA05CacheG0OSo17OS_dispatch_queueCys6ResultOyAA0L8QLResultVy4DataQyd__Gs5Error_pGct0A3API0lM0Rd__lF5QueryL_qd__mfp",
       "text" : "Query"
     },
     {
@@ -1049,7 +1033,7 @@
       "text" : ">"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloClientProtocol\/watch(query:cachePolicy:callbackQueue:resultHandler:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClientProtocol\/watch(query:cachePolicy:callbackQueue:resultHandler:)",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",

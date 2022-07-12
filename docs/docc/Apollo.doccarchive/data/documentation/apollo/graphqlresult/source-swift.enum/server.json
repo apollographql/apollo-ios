@@ -8,15 +8,15 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult\/Source-swift.enum"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResult",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResult\/Source-swift.enum"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult\/Source-swift.enum\/server"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResult\/Source-swift.enum\/server"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -96,18 +96,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResult": {
+"doc://Apollo/documentation/Apollo/GraphQLResult": {
   "abstract" : [
     {
       "text" : "Represents the result of a GraphQL operation.",
@@ -128,7 +128,7 @@
       "text" : "GraphQLResult"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResult",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -141,7 +141,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlresult"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResult/Source-swift.enum": {
+"doc://Apollo/documentation/Apollo/GraphQLResult/Source-swift.enum": {
   "abstract" : [
     {
       "text" : "Represents source of data",
@@ -162,7 +162,7 @@
       "text" : "Source"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult\/Source-swift.enum",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResult\/Source-swift.enum",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -175,7 +175,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlresult\/source-swift.enum"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResult/Source-swift.enum/server": {
+"doc://Apollo/documentation/Apollo/GraphQLResult/Source-swift.enum/server": {
   "abstract" : [
 
   ],
@@ -193,7 +193,7 @@
       "text" : "server"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResult\/Source-swift.enum\/server",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResult\/Source-swift.enum\/server",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "GraphQLResult.Source.server",

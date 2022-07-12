@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Object"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Object"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Object\/implements(_:)"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Object\/implements(_:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -130,7 +130,7 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Interface",
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Interface",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:9ApolloAPI9InterfaceC",
               "text" : "Interface"
@@ -172,18 +172,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI": {
+"doc://ApolloAPI/documentation/ApolloAPI": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Interface": {
+"doc://ApolloAPI/documentation/ApolloAPI/Interface": {
   "abstract" : [
 
   ],
@@ -201,7 +201,7 @@
       "text" : "Interface"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Interface",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Interface",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -214,7 +214,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/interface"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Object": {
+"doc://ApolloAPI/documentation/ApolloAPI/Object": {
   "abstract" : [
 
   ],
@@ -232,7 +232,7 @@
       "text" : "Object"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Object",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Object",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -245,7 +245,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/object"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Object/implements(_:)": {
+"doc://ApolloAPI/documentation/ApolloAPI/Object/implements(_:)": {
   "abstract" : [
 
   ],
@@ -289,7 +289,7 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Object\/implements(_:)",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Object\/implements(_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "implements(_:)",

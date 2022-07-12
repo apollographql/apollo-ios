@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONSerializationFormat"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/JSONSerializationFormat"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONSerializationFormat\/deserialize(data:)"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONSerializationFormat\/deserialize(data:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -147,7 +147,7 @@
               "text" : " -> "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONValue",
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONValue",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:6Apollo9JSONValuea",
               "text" : "JSONValue"
@@ -180,18 +180,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONSerializationFormat": {
+"doc://Apollo/documentation/Apollo/JSONSerializationFormat": {
   "abstract" : [
 
   ],
@@ -209,7 +209,7 @@
       "text" : "JSONSerializationFormat"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONSerializationFormat",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONSerializationFormat",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -222,7 +222,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/jsonserializationformat"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONSerializationFormat/deserialize(data:)": {
+"doc://Apollo/documentation/Apollo/JSONSerializationFormat/deserialize(data:)": {
   "abstract" : [
 
   ],
@@ -282,14 +282,14 @@
       "text" : "JSONValue"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONSerializationFormat\/deserialize(data:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONSerializationFormat\/deserialize(data:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "deserialize(data:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/jsonserializationformat\/deserialize(data:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/JSONValue": {
+"doc://Apollo/documentation/Apollo/JSONValue": {
   "abstract" : [
 
   ],
@@ -307,7 +307,7 @@
       "text" : "JSONValue"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/JSONValue",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONValue",
   "kind" : "symbol",
   "navigatorTitle" : [
     {

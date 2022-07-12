@@ -64,14 +64,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputValue"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputValue\/scalar(_:)"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/scalar(_:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -141,7 +141,7 @@
               "text" : "("
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/ScalarType",
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ScalarType",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:9ApolloAPI10ScalarTypeP",
               "text" : "ScalarType"
@@ -178,18 +178,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI": {
+"doc://ApolloAPI/documentation/ApolloAPI": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/InputValue": {
+"doc://ApolloAPI/documentation/ApolloAPI/InputValue": {
   "abstract" : [
     {
       "text" : "Represents an input value to an argument on a ",
@@ -226,7 +226,7 @@
       "text" : "InputValue"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputValue",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -239,7 +239,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/inputvalue"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/InputValue/scalar(_:)": {
+"doc://ApolloAPI/documentation/ApolloAPI/InputValue/scalar(_:)": {
   "abstract" : [
     {
       "text" : "A direct input value, valid types are ",
@@ -329,14 +329,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/InputValue\/scalar(_:)",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/scalar(_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "InputValue.scalar(_:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/inputvalue\/scalar(_:)"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/ScalarType": {
+"doc://ApolloAPI/documentation/ApolloAPI/ScalarType": {
   "abstract" : [
 
   ],
@@ -354,7 +354,7 @@
       "text" : "ScalarType"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/ScalarType",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ScalarType",
   "kind" : "symbol",
   "navigatorTitle" : [
     {

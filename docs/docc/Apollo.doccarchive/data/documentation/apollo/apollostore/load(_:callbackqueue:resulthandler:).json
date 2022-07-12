@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore\/load(_:callbackQueue:resultHandler:)"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/load(_:callbackQueue:resultHandler:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -47,7 +47,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:6Apollo0A5StoreC4load_13callbackQueue13resultHandleryx_So17OS_dispatch_queueCSgys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0L11QLOperationRzlF9OperationL_xmfp",
         "text" : "Operation"
       },
       {
@@ -90,7 +89,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:6Apollo0A5StoreC4load_13callbackQueue13resultHandleryx_So17OS_dispatch_queueCSgys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0L11QLOperationRzlF9OperationL_xmfp",
         "text" : "Operation"
       },
       {
@@ -99,7 +97,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
         "text" : "Data"
       },
       {
@@ -170,7 +167,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:6Apollo0A5StoreC4load_13callbackQueue13resultHandleryx_So17OS_dispatch_queueCSgys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0L11QLOperationRzlF9OperationL_xmfp",
               "text" : "Operation"
             },
             {
@@ -203,7 +199,7 @@
               "text" : ": "
             },
             {
-              "kind" : "attribute",
+              "kind" : "keyword",
               "text" : "@escaping"
             },
             {
@@ -211,7 +207,7 @@
               "text" : " "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResultHandler",
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResultHandler",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:6Apollo20GraphQLResultHandlera",
               "text" : "GraphQLResultHandler"
@@ -222,7 +218,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:6Apollo0A5StoreC4load_13callbackQueue13resultHandleryx_So17OS_dispatch_queueCSgys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0L11QLOperationRzlF9OperationL_xmfp",
               "text" : "Operation"
             },
             {
@@ -231,7 +226,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
               "text" : "Data"
             },
             {
@@ -320,18 +314,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloStore": {
+"doc://Apollo/documentation/Apollo/ApolloStore": {
   "abstract" : [
     {
       "text" : "The ",
@@ -360,7 +354,7 @@
       "text" : "ApolloStore"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -373,7 +367,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apollostore"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloStore/load(_:callbackQueue:resultHandler:)": {
+"doc://Apollo/documentation/Apollo/ApolloStore/load(_:callbackQueue:resultHandler:)": {
   "abstract" : [
     {
       "text" : "Loads the results for the given query from the cache.",
@@ -407,7 +401,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo0A5StoreC4load_13callbackQueue13resultHandleryx_So17OS_dispatch_queueCSgys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0L11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -450,7 +443,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo0A5StoreC4load_13callbackQueue13resultHandleryx_So17OS_dispatch_queueCSgys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0L11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -459,7 +451,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP4DataQa",
       "text" : "Data"
     },
     {
@@ -467,14 +458,14 @@
       "text" : ">)"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloStore\/load(_:callbackQueue:resultHandler:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/load(_:callbackQueue:resultHandler:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "load(_:callbackQueue:resultHandler:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apollostore\/load(_:callbackqueue:resulthandler:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLResultHandler": {
+"doc://Apollo/documentation/Apollo/GraphQLResultHandler": {
   "abstract" : [
     {
       "text" : "A handler for operation results.",
@@ -495,7 +486,7 @@
       "text" : "GraphQLResultHandler"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLResultHandler",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResultHandler",
   "kind" : "symbol",
   "navigatorTitle" : [
     {

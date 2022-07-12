@@ -8,13 +8,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo"
+        "doc:\/\/Apollo\/documentation\/Apollo"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MultipartFormData"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/MultipartFormData"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -89,8 +89,8 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/SQ",
-        "doc:\/\/com.apollographql.Apollo.macosx\/SH"
+        "doc:\/\/Apollo\/SQ",
+        "doc:\/\/Apollo\/SH"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -108,31 +108,31 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MultipartFormData\/init()",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MultipartFormData\/init(boundary:)"
+        "doc:\/\/Apollo\/documentation\/Apollo\/MultipartFormData\/init()",
+        "doc:\/\/Apollo\/documentation\/Apollo\/MultipartFormData\/init(boundary:)"
       ],
       "title" : "Initializers"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MultipartFormData\/boundary"
+        "doc:\/\/Apollo\/documentation\/Apollo\/MultipartFormData\/boundary"
       ],
       "title" : "Instance Properties"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MultipartFormData\/appendPart(data:name:contentType:filename:)",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MultipartFormData\/appendPart(inputStream:contentLength:name:contentType:filename:)",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MultipartFormData\/appendPart(string:name:)",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MultipartFormData\/encode()"
+        "doc:\/\/Apollo\/documentation\/Apollo\/MultipartFormData\/appendPart(data:name:contentType:filename:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/MultipartFormData\/appendPart(inputStream:contentLength:name:contentType:filename:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/MultipartFormData\/appendPart(string:name:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/MultipartFormData\/encode()"
       ],
       "title" : "Instance Methods"
     },
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MultipartFormData\/Equatable-Implementations",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MultipartFormData\/Hashable-Implementations"
+        "doc:\/\/Apollo\/documentation\/Apollo\/MultipartFormData\/Equatable-Implementations",
+        "doc:\/\/Apollo\/documentation\/Apollo\/MultipartFormData\/Hashable-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -151,28 +151,28 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/SH": {
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/SH",
+"doc://Apollo/SH": {
+  "identifier" : "doc:\/\/Apollo\/SH",
   "title" : "Swift.Hashable",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.Apollo.macosx/SQ": {
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/SQ",
+"doc://Apollo/SQ": {
+  "identifier" : "doc:\/\/Apollo\/SQ",
   "title" : "Swift.Equatable",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/MultipartFormData": {
+"doc://Apollo/documentation/Apollo/MultipartFormData": {
   "abstract" : [
     {
       "text" : "A helper for building out multi-part form data for upload",
@@ -193,7 +193,7 @@
       "text" : "MultipartFormData"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MultipartFormData",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/MultipartFormData",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -206,29 +206,29 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/multipartformdata"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/MultipartFormData/Equatable-Implementations": {
+"doc://Apollo/documentation/Apollo/MultipartFormData/Equatable-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MultipartFormData\/Equatable-Implementations",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/MultipartFormData\/Equatable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Equatable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/multipartformdata\/equatable-implementations"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/MultipartFormData/Hashable-Implementations": {
+"doc://Apollo/documentation/Apollo/MultipartFormData/Hashable-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MultipartFormData\/Hashable-Implementations",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/MultipartFormData\/Hashable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Hashable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/multipartformdata\/hashable-implementations"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/MultipartFormData/appendPart(data:name:contentType:filename:)": {
+"doc://Apollo/documentation/Apollo/MultipartFormData/appendPart(data:name:contentType:filename:)": {
   "abstract" : [
     {
       "text" : "Appends the passed-in data as a part of the body.",
@@ -321,14 +321,14 @@
       "text" : "?)"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MultipartFormData\/appendPart(data:name:contentType:filename:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/MultipartFormData\/appendPart(data:name:contentType:filename:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "appendPart(data:name:contentType:filename:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/multipartformdata\/appendpart(data:name:contenttype:filename:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/MultipartFormData/appendPart(inputStream:contentLength:name:contentType:filename:)": {
+"doc://Apollo/documentation/Apollo/MultipartFormData/appendPart(inputStream:contentLength:name:contentType:filename:)": {
   "abstract" : [
     {
       "text" : "Appends the passed-in input stream as a part of the body.",
@@ -438,14 +438,14 @@
       "text" : "?)"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MultipartFormData\/appendPart(inputStream:contentLength:name:contentType:filename:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/MultipartFormData\/appendPart(inputStream:contentLength:name:contentType:filename:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "appendPart(inputStream:contentLength:name:contentType:filename:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/multipartformdata\/appendpart(inputstream:contentlength:name:contenttype:filename:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/MultipartFormData/appendPart(string:name:)": {
+"doc://Apollo/documentation/Apollo/MultipartFormData/appendPart(string:name:)": {
   "abstract" : [
     {
       "text" : "Appends the passed-in string as a part of the body.",
@@ -508,14 +508,14 @@
       "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MultipartFormData\/appendPart(string:name:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/MultipartFormData\/appendPart(string:name:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "appendPart(string:name:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/multipartformdata\/appendpart(string:name:)"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/MultipartFormData/boundary": {
+"doc://Apollo/documentation/Apollo/MultipartFormData/boundary": {
   "abstract" : [
 
   ],
@@ -542,14 +542,14 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MultipartFormData\/boundary",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/MultipartFormData\/boundary",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "boundary",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/multipartformdata\/boundary"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/MultipartFormData/encode()": {
+"doc://Apollo/documentation/Apollo/MultipartFormData/encode()": {
   "abstract" : [
     {
       "text" : "Encodes everything into the final form data to send to a server.",
@@ -587,14 +587,14 @@
       "text" : "Data"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MultipartFormData\/encode()",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/MultipartFormData\/encode()",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "encode()",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/multipartformdata\/encode()"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/MultipartFormData/init()": {
+"doc://Apollo/documentation/Apollo/MultipartFormData/init()": {
   "abstract" : [
     {
       "text" : "Convenience initializer which uses a pre-defined boundary",
@@ -602,6 +602,14 @@
     }
   ],
   "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "convenience"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
     {
       "kind" : "identifier",
       "text" : "init"
@@ -611,14 +619,14 @@
       "text" : "()"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MultipartFormData\/init()",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/MultipartFormData\/init()",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init()",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/multipartformdata\/init()"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/MultipartFormData/init(boundary:)": {
+"doc://Apollo/documentation/Apollo/MultipartFormData/init(boundary:)": {
   "abstract" : [
     {
       "text" : "Designated initializer",
@@ -652,7 +660,7 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/MultipartFormData\/init(boundary:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/MultipartFormData\/init(boundary:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(boundary:)",

@@ -16,16 +16,16 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/ExpressibleByUnicodeScalarLiteral-Implementations"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Conditions",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Conditions\/ExpressibleByUnicodeScalarLiteral-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/init(unicodeScalarLiteral:)"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Conditions\/init(unicodeScalarLiteral:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -186,18 +186,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI": {
+"doc://ApolloAPI/documentation/ApolloAPI": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Selection": {
+"doc://ApolloAPI/documentation/ApolloAPI/Selection": {
   "abstract" : [
 
   ],
@@ -215,7 +215,7 @@
       "text" : "Selection"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -228,7 +228,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/selection"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Selection/Conditions": {
+"doc://ApolloAPI/documentation/ApolloAPI/Selection/Conditions": {
   "abstract" : [
     {
       "text" : "The conditions representing a group of ",
@@ -257,7 +257,7 @@
       "text" : "Conditions"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Conditions",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -270,18 +270,18 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/selection\/conditions"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Selection/Conditions/ExpressibleByUnicodeScalarLiteral-Implementations": {
+"doc://ApolloAPI/documentation/ApolloAPI/Selection/Conditions/ExpressibleByUnicodeScalarLiteral-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/ExpressibleByUnicodeScalarLiteral-Implementations",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Conditions\/ExpressibleByUnicodeScalarLiteral-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "ExpressibleByUnicodeScalarLiteral Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/selection\/conditions\/expressiblebyunicodescalarliteral-implementations"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Selection/Conditions/init(unicodeScalarLiteral:)": {
+"doc://ApolloAPI/documentation/ApolloAPI/Selection/Conditions/init(unicodeScalarLiteral:)": {
   "abstract" : [
 
   ],
@@ -351,7 +351,7 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Conditions\/init(unicodeScalarLiteral:)",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Conditions\/init(unicodeScalarLiteral:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(unicodeScalarLiteral:)",

@@ -8,13 +8,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CodegenLogger"
+    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CodegenLogger"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -89,19 +89,19 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CodegenLogger\/level"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CodegenLogger\/level"
       ],
       "title" : "Type Properties"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CodegenLogger\/log(_:logLevel:file:line:)"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CodegenLogger\/log(_:logLevel:file:line:)"
       ],
       "title" : "Type Methods"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel"
       ],
       "title" : "Enumerations"
     }
@@ -120,18 +120,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloCodegenLib",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/CodegenLogger": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CodegenLogger": {
   "abstract" : [
     {
       "text" : "Helper to get logs printing to stdout so they can be read from the command line.",
@@ -152,7 +152,7 @@
       "text" : "CodegenLogger"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CodegenLogger",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CodegenLogger",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -165,7 +165,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/codegenlogger"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/CodegenLogger/LogLevel": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CodegenLogger/LogLevel": {
   "abstract" : [
 
   ],
@@ -183,7 +183,7 @@
       "text" : "LogLevel"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CodegenLogger\/LogLevel",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -196,7 +196,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/codegenlogger\/loglevel"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/CodegenLogger/level": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CodegenLogger/level": {
   "abstract" : [
     {
       "text" : "The ",
@@ -267,14 +267,14 @@
       "text" : "LogLevel"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CodegenLogger\/level",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CodegenLogger\/level",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "level",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/codegenlogger\/level"
 },
-"doc://com.apollographql.ApolloCodegenLib.macosx/documentation/ApolloCodegenLib/CodegenLogger/log(_:logLevel:file:line:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CodegenLogger/log(_:logLevel:file:line:)": {
   "abstract" : [
     {
       "text" : "Logs the given string if its ",
@@ -341,6 +341,15 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:16ApolloCodegenLib0B6LoggerV",
+      "text" : "CodegenLogger"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:16ApolloCodegenLib0B6LoggerV8LogLevelO",
       "text" : "LogLevel"
     },
@@ -383,7 +392,7 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloCodegenLib.macosx\/documentation\/ApolloCodegenLib\/CodegenLogger\/log(_:logLevel:file:line:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CodegenLogger\/log(_:logLevel:file:line:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "log(_:logLevel:file:line:)",

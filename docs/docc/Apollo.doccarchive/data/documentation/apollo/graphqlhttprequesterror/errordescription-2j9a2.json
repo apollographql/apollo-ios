@@ -16,14 +16,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLHTTPRequestError"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLHTTPRequestError"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLHTTPRequestError\/errorDescription-2j9a2"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLHTTPRequestError\/errorDescription-2j9a2"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -137,18 +137,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLHTTPRequestError": {
+"doc://Apollo/documentation/Apollo/GraphQLHTTPRequestError": {
   "abstract" : [
     {
       "text" : "An error which has occurred during the serialization of a request.",
@@ -169,7 +169,7 @@
       "text" : "GraphQLHTTPRequestError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLHTTPRequestError",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLHTTPRequestError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -182,7 +182,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlhttprequesterror"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLHTTPRequestError/errorDescription-2j9a2": {
+"doc://Apollo/documentation/Apollo/GraphQLHTTPRequestError/errorDescription-2j9a2": {
   "abstract" : [
 
   ],
@@ -213,7 +213,7 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLHTTPRequestError\/errorDescription-2j9a2",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLHTTPRequestError\/errorDescription-2j9a2",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "errorDescription",

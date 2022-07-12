@@ -16,14 +16,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/urlSession(_:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:)"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/urlSession(_:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -289,18 +289,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient": {
+"doc://Apollo/documentation/Apollo/URLSessionClient": {
   "abstract" : [
     {
       "text" : "A class to handle URL Session calls that will support background execution,",
@@ -329,7 +329,7 @@
       "text" : "URLSessionClient"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -342,7 +342,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/urlsessionclient"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/urlSession(_:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:)": {
+"doc://Apollo/documentation/Apollo/URLSessionClient/urlSession(_:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:)": {
   "abstract" : [
 
   ],
@@ -441,7 +441,7 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/urlSession(_:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/urlSession(_:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "urlSession(_:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:)",

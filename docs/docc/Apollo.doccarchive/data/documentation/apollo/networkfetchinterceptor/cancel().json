@@ -1,21 +1,29 @@
 {
   "abstract" : [
     {
-      "text" : "Cancel an in progress action.",
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "Cancellable.cancel()",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NetworkFetchInterceptor"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/NetworkFetchInterceptor"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NetworkFetchInterceptor\/cancel()"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/NetworkFetchInterceptor\/cancel()"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -103,18 +111,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/NetworkFetchInterceptor": {
+"doc://Apollo/documentation/Apollo/NetworkFetchInterceptor": {
   "abstract" : [
     {
       "text" : "An interceptor which actually fetches data from the network.",
@@ -135,7 +143,7 @@
       "text" : "NetworkFetchInterceptor"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NetworkFetchInterceptor",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/NetworkFetchInterceptor",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -148,12 +156,9 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/networkfetchinterceptor"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/NetworkFetchInterceptor/cancel()": {
+"doc://Apollo/documentation/Apollo/NetworkFetchInterceptor/cancel()": {
   "abstract" : [
-    {
-      "text" : "Cancel an in progress action.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -173,7 +178,7 @@
       "text" : "()"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/NetworkFetchInterceptor\/cancel()",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/NetworkFetchInterceptor\/cancel()",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "cancel()",

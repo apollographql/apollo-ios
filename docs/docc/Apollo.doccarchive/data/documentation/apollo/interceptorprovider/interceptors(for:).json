@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/InterceptorProvider"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/InterceptorProvider"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/InterceptorProvider\/interceptors(for:)"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/InterceptorProvider\/interceptors(for:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -55,7 +55,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:6Apollo19InterceptorProviderP12interceptors3forSayAA0aB0_pGqd___t0A3API16GraphQLOperationRd__lF9OperationL_qd__mfp",
         "text" : "Operation"
       },
       {
@@ -136,7 +135,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:6Apollo19InterceptorProviderP12interceptors3forSayAA0aB0_pGqd___t0A3API16GraphQLOperationRd__lF9OperationL_qd__mfp",
               "text" : "Operation"
             },
             {
@@ -144,7 +142,7 @@
               "text" : ") -> ["
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloInterceptor",
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloInterceptor",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:6Apollo0A11InterceptorP",
               "text" : "ApolloInterceptor"
@@ -221,18 +219,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/ApolloInterceptor": {
+"doc://Apollo/documentation/Apollo/ApolloInterceptor": {
   "abstract" : [
     {
       "text" : "A protocol to set up a chainable unit of networking work.",
@@ -253,7 +251,7 @@
       "text" : "ApolloInterceptor"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/ApolloInterceptor",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloInterceptor",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -266,7 +264,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apollointerceptor"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/InterceptorProvider": {
+"doc://Apollo/documentation/Apollo/InterceptorProvider": {
   "abstract" : [
     {
       "text" : "A protocol to allow easy creation of an array of interceptors for a given operation.",
@@ -287,7 +285,7 @@
       "text" : "InterceptorProvider"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/InterceptorProvider",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/InterceptorProvider",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -300,7 +298,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/interceptorprovider"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/InterceptorProvider/interceptors(for:)": {
+"doc://Apollo/documentation/Apollo/InterceptorProvider/interceptors(for:)": {
   "abstract" : [
     {
       "text" : "Creates a new array of interceptors when called",
@@ -342,7 +340,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo19InterceptorProviderP12interceptors3forSayAA0aB0_pGqd___t0A3API16GraphQLOperationRd__lF9OperationL_qd__mfp",
       "text" : "Operation"
     },
     {
@@ -359,7 +356,7 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/InterceptorProvider\/interceptors(for:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/InterceptorProvider\/interceptors(for:)",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",

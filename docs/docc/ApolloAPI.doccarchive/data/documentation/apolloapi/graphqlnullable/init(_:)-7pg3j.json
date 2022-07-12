@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLNullable"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLNullable\/init(_:)-7pg3j"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/init(_:)-7pg3j"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -40,7 +40,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:9ApolloAPI15GraphQLNullableOyACyAA0C6QLEnumOyqd__GGqd__cAFRszAA8EnumTypeRd__lufc1TL_qd__mfp",
         "text" : "T"
       },
       {
@@ -103,7 +102,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:9ApolloAPI15GraphQLNullableOyACyAA0C6QLEnumOyqd__GGqd__cAFRszAA8EnumTypeRd__lufc1TL_qd__mfp",
               "text" : "T"
             },
             {
@@ -127,7 +125,7 @@
               "text" : " == "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLEnum",
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:9ApolloAPI11GraphQLEnumO",
               "text" : "GraphQLEnum"
@@ -153,7 +151,7 @@
               "text" : " : "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/EnumType",
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/EnumType",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:9ApolloAPI8EnumTypeP",
               "text" : "EnumType"
@@ -186,18 +184,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI": {
+"doc://ApolloAPI/documentation/ApolloAPI": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/EnumType": {
+"doc://ApolloAPI/documentation/ApolloAPI/EnumType": {
   "abstract" : [
     {
       "text" : "A protocol that a generated enum from a GraphQL schema conforms to.",
@@ -234,7 +232,7 @@
       "text" : "EnumType"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/EnumType",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/EnumType",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -247,7 +245,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/enumtype"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLEnum": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLEnum": {
   "abstract" : [
     {
       "text" : "A generic enum that wraps a generated enum from a GraphQL Schema.",
@@ -268,7 +266,7 @@
       "text" : "GraphQLEnum"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLEnum",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -281,7 +279,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqlenum"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLNullable": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLNullable": {
   "abstract" : [
     {
       "text" : "Indicates the presence of a value, supporting both ",
@@ -318,7 +316,7 @@
       "text" : "GraphQLNullable"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLNullable",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -331,7 +329,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqlnullable"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLNullable/init(_:)-7pg3j": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLNullable/init(_:)-7pg3j": {
   "abstract" : [
 
   ],
@@ -354,7 +352,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI15GraphQLNullableOyACyAA0C6QLEnumOyqd__GGqd__cAFRszAA8EnumTypeRd__lufc1TL_qd__mfp",
       "text" : "T"
     },
     {
@@ -362,7 +359,7 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLNullable\/init(_:)-7pg3j",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/init(_:)-7pg3j",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(_:)",

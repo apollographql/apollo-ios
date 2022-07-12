@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketError"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketError\/ErrorKind"
+    "url" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError\/ErrorKind"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -90,12 +90,12 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketError\/ErrorKind\/errorResponse",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketError\/ErrorKind\/neitherErrorNorPayloadReceived",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketError\/ErrorKind\/networkError",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketError\/ErrorKind\/serializedMessageError",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketError\/ErrorKind\/unprocessedMessage(_:)",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketError\/ErrorKind\/upgradeError(code:)"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError\/ErrorKind\/errorResponse",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError\/ErrorKind\/neitherErrorNorPayloadReceived",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError\/ErrorKind\/networkError",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError\/ErrorKind\/serializedMessageError",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError\/ErrorKind\/unprocessedMessage(_:)",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError\/ErrorKind\/upgradeError(code:)"
       ],
       "title" : "Enumeration Cases"
     }
@@ -114,18 +114,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloWebSocket",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketError": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketError": {
   "abstract" : [
     {
       "text" : "A structure for capturing problems and any associated errors from a ",
@@ -154,7 +154,7 @@
       "text" : "WebSocketError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketError",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -167,7 +167,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocketerror"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketError/ErrorKind": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketError/ErrorKind": {
   "abstract" : [
 
   ],
@@ -185,7 +185,7 @@
       "text" : "ErrorKind"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketError\/ErrorKind",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError\/ErrorKind",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -198,7 +198,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocketerror\/errorkind"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketError/ErrorKind/errorResponse": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketError/ErrorKind/errorResponse": {
   "abstract" : [
 
   ],
@@ -216,14 +216,14 @@
       "text" : "errorResponse"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketError\/ErrorKind\/errorResponse",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError\/ErrorKind\/errorResponse",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "WebSocketError.ErrorKind.errorResponse",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocketerror\/errorkind\/errorresponse"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketError/ErrorKind/neitherErrorNorPayloadReceived": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketError/ErrorKind/neitherErrorNorPayloadReceived": {
   "abstract" : [
 
   ],
@@ -241,14 +241,14 @@
       "text" : "neitherErrorNorPayloadReceived"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketError\/ErrorKind\/neitherErrorNorPayloadReceived",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError\/ErrorKind\/neitherErrorNorPayloadReceived",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "WebSocketError.ErrorKind.neitherErrorNorPayloadReceived",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocketerror\/errorkind\/neithererrornorpayloadreceived"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketError/ErrorKind/networkError": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketError/ErrorKind/networkError": {
   "abstract" : [
 
   ],
@@ -266,14 +266,14 @@
       "text" : "networkError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketError\/ErrorKind\/networkError",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError\/ErrorKind\/networkError",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "WebSocketError.ErrorKind.networkError",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocketerror\/errorkind\/networkerror"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketError/ErrorKind/serializedMessageError": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketError/ErrorKind/serializedMessageError": {
   "abstract" : [
 
   ],
@@ -291,14 +291,14 @@
       "text" : "serializedMessageError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketError\/ErrorKind\/serializedMessageError",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError\/ErrorKind\/serializedMessageError",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "WebSocketError.ErrorKind.serializedMessageError",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocketerror\/errorkind\/serializedmessageerror"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketError/ErrorKind/unprocessedMessage(_:)": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketError/ErrorKind/unprocessedMessage(_:)": {
   "abstract" : [
 
   ],
@@ -329,14 +329,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketError\/ErrorKind\/unprocessedMessage(_:)",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError\/ErrorKind\/unprocessedMessage(_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "WebSocketError.ErrorKind.unprocessedMessage(_:)",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocketerror\/errorkind\/unprocessedmessage(_:)"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketError/ErrorKind/upgradeError(code:)": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketError/ErrorKind/upgradeError(code:)": {
   "abstract" : [
 
   ],
@@ -375,7 +375,7 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketError\/ErrorKind\/upgradeError(code:)",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError\/ErrorKind\/upgradeError(code:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "WebSocketError.ErrorKind.upgradeError(code:)",

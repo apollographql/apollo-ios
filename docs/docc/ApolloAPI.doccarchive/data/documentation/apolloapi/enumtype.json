@@ -24,13 +24,13 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/EnumType"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/EnumType"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -93,7 +93,7 @@
               "text" : " : "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLOperationVariableValue",
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperationVariableValue",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:9ApolloAPI29GraphQLOperationVariableValueP",
               "text" : "GraphQLOperationVariableValue"
@@ -103,7 +103,7 @@
               "text" : ", "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/JSONEncodable",
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONEncodable",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:9ApolloAPI13JSONEncodableP",
               "text" : "JSONEncodable"
@@ -168,10 +168,10 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLOperationVariableValue",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/JSONEncodable",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/s12CaseIterableP",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/SY"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperationVariableValue",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONEncodable",
+        "doc:\/\/ApolloAPI\/s12CaseIterableP",
+        "doc:\/\/ApolloAPI\/SY"
       ],
       "kind" : "relationships",
       "title" : "Inherits From",
@@ -200,23 +200,23 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloAPI.macosx/SY": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/SY",
+"doc://ApolloAPI/SY": {
+  "identifier" : "doc:\/\/ApolloAPI\/SY",
   "title" : "Swift.RawRepresentable",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI": {
+"doc://ApolloAPI/documentation/ApolloAPI": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/EnumType": {
+"doc://ApolloAPI/documentation/ApolloAPI/EnumType": {
   "abstract" : [
     {
       "text" : "A protocol that a generated enum from a GraphQL schema conforms to.",
@@ -253,7 +253,7 @@
       "text" : "EnumType"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/EnumType",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/EnumType",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -266,7 +266,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/enumtype"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/GraphQLOperationVariableValue": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLOperationVariableValue": {
   "abstract" : [
 
   ],
@@ -284,7 +284,7 @@
       "text" : "GraphQLOperationVariableValue"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/GraphQLOperationVariableValue",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperationVariableValue",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -297,7 +297,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqloperationvariablevalue"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/JSONEncodable": {
+"doc://ApolloAPI/documentation/ApolloAPI/JSONEncodable": {
   "abstract" : [
 
   ],
@@ -315,7 +315,7 @@
       "text" : "JSONEncodable"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/JSONEncodable",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONEncodable",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -328,8 +328,8 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/jsonencodable"
 },
-"doc://com.apollographql.ApolloAPI.macosx/s12CaseIterableP": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/s12CaseIterableP",
+"doc://ApolloAPI/s12CaseIterableP": {
+  "identifier" : "doc:\/\/ApolloAPI\/s12CaseIterableP",
   "title" : "Swift.CaseIterable",
   "type" : "unresolvable"
 }

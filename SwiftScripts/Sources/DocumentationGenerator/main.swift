@@ -12,88 +12,85 @@ enum Target: String, CaseIterable {
   var name: String {
     self.rawValue
   }
-  
-  var scheme: String {
-    self.rawValue
-  }
 
-  var docBuildCommand: String {
-    """
-    xcodebuild -project Apollo.xcodeproj -derivedDataPath docs/docc/tmp -scheme \(scheme) docbuild
-    """
-  }
-}
-
-// Grab the parent folder of this file on the filesystem
-let parentFolderOfScriptFile = FileFinder.findParentFolder()
-
-// Use that to calculate the source root
-let sourceRootURL = parentFolderOfScriptFile
-  .deletingLastPathComponent() // Sources
-  .deletingLastPathComponent() // SwiftScripts
-  .deletingLastPathComponent() // apollo-ios
-
-@discardableResult
-func shell(_ command: String) throws -> String {
-  let task = Process()
-  let pipe = Pipe()
-
-  task.environment = ProcessInfo.processInfo.environment
-  task.standardOutput = pipe
-  task.standardError = pipe
-
-  task.currentDirectoryURL = sourceRootURL
-  task.environment?["DOCC_JSON_PRETTYPRINT"] = "YES"
-  task.arguments = ["-c", command]
-
-  task.executableURL = URL(fileURLWithPath: "/bin/zsh")
-  task.standardInput = nil
-
-  try task.run()
-
-  let data = pipe.fileHandleForReading.readDataToEndOfFile()
-  let output = String(data: data, encoding: .utf8)!
-
-  return output
-}
-
-func run() {
-  let doccFolder = sourceRootURL.appendingPathComponent("docs/docc")
-  let doccTempFolder = doccFolder.appendingPathComponent("tmp")
-  let doccProductsFolder = doccTempFolder.appendingPathComponent("Build/Products/Debug")
-
-  for target in Target.allCases {
-    do {
-      try shell(target.docBuildCommand)
-
-      let doccArchiveFileFromURL = doccProductsFolder
-        .appendingPathComponent(target.name)
-        .appendingPathExtension("doccarchive")
-
-      let doccArchiveFileToURL = doccFolder
-        .appendingPathComponent(target.name)
-        .appendingPathExtension("doccarchive")
-
-      if FileManager.default.fileExists(atPath: doccArchiveFileToURL.path) {
-        try FileManager.default.removeItem(at: doccArchiveFileToURL)
-      }
-
-      try FileManager.default.moveItem(at: doccArchiveFileFromURL, to: doccArchiveFileToURL)
-
-      CodegenLogger.log("Generated docs for \(target.name)")
-
-    } catch {
-      CodegenLogger.log("Error generating docs for \(target.name): \(error)", logLevel: .error)
-      exit(1)
+  var docHostingBasePath: String {
+    switch self {
+    case .Apollo: return "apollo"
+    case .ApolloAPI: return "api"
+    case .ApolloUtils: return "utils"
+    case .ApolloSQLite: return "sqlite"
+    case .ApolloWebSocket: return "web-socket"
+    case .ApolloCodegenLib: return "codegen-lib"
     }
   }
 
-  do {
-    try FileManager.default.removeItem(at: doccTempFolder)
-  } catch {
-    CodegenLogger.log("Error deleting 'docs/docc/tmp' directory: \(error)", logLevel: .error)
-    exit(1)
+}
+
+struct DocumentationGenerator {
+  static func main() {
+    for target in Target.allCases {
+      do {
+        try shell(docBuildCommand(for: target))
+        CodegenLogger.log("Generated docs for \(target.name)")
+
+      } catch {
+        CodegenLogger.log("Error generating docs for \(target.name): \(error)", logLevel: .error)
+        exit(1)
+      }
+    }
+  }
+
+  // Grab the parent folder of this file on the filesystem
+  static let parentFolderOfScriptFile = FileFinder.findParentFolder()
+
+  // Use that to calculate the source root
+  static let sourceRootURL = parentFolderOfScriptFile
+    .deletingLastPathComponent() // Sources
+    .deletingLastPathComponent() // SwiftScripts
+    .deletingLastPathComponent() // apollo-ios
+
+  static let doccFolder = sourceRootURL.appendingPathComponent("docs/docc")
+
+  static func docBuildCommand(for target: Target) -> String {
+    let outputPath = doccFolder
+      .appendingPathComponent(target.name)
+      .appendingPathExtension("doccarchive")
+
+    return """
+    swift package \
+    --allow-writing-to-directory \(outputPath.relativePath) \
+    generate-documentation \
+    --target \(target.name) \
+    --disable-indexing \
+    --output-path \(outputPath.relativePath) \
+    --hosting-base-path docs/ios/docc/\(target.docHostingBasePath)
+    """
+  }
+
+  static func shell(_ command: String) throws {
+    let task = Process()
+    let pipe = Pipe()
+    let outHandle = pipe.fileHandleForReading
+    outHandle.readabilityHandler = { pipe in
+      if let line = String(data: pipe.availableData, encoding: .utf8), !line.isEmpty {
+        CodegenLogger.log(line, logLevel: .debug)
+      }
+    }
+
+    task.environment = ProcessInfo.processInfo.environment
+    task.standardOutput = pipe
+    task.standardError = pipe
+
+    task.currentDirectoryURL = sourceRootURL.appendingPathComponent("SwiftScripts")
+    task.environment?["OS_ACTIVITY_DT_MODE"] = nil
+    task.environment?["DOCC_JSON_PRETTYPRINT"] = "YES"
+    task.arguments = ["-c", command]
+
+    task.executableURL = URL(fileURLWithPath: "/bin/zsh")
+    task.standardInput = nil
+    try task.run()
+    task.waitUntilExit()
   }
 }
 
-run()
+DocumentationGenerator.main()

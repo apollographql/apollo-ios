@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport\/constructUploadRequest(for:with:manualBoundary:)"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/constructUploadRequest(for:with:manualBoundary:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -56,7 +56,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:6Apollo28RequestChainNetworkTransportC015constructUploadB03for4with14manualBoundaryAA11HTTPRequestCyxGx_SayAA11GraphQLFileVGSSSgt0A3API0M11QLOperationRzlF9OperationL_xmfp",
         "text" : "Operation"
       },
       {
@@ -108,7 +107,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:6Apollo28RequestChainNetworkTransportC015constructUploadB03for4with14manualBoundaryAA11HTTPRequestCyxGx_SayAA11GraphQLFileVGSSSgt0A3API0M11QLOperationRzlF9OperationL_xmfp",
         "text" : "Operation"
       },
       {
@@ -179,7 +177,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:6Apollo28RequestChainNetworkTransportC015constructUploadB03for4with14manualBoundaryAA11HTTPRequestCyxGx_SayAA11GraphQLFileVGSSSgt0A3API0M11QLOperationRzlF9OperationL_xmfp",
               "text" : "Operation"
             },
             {
@@ -203,7 +200,7 @@
               "text" : ": ["
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLFile",
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:6Apollo11GraphQLFileV",
               "text" : "GraphQLFile"
@@ -230,7 +227,7 @@
               "text" : "? = nil) -> "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPRequest",
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/HTTPRequest",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:6Apollo11HTTPRequestC",
               "text" : "HTTPRequest"
@@ -241,7 +238,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:6Apollo28RequestChainNetworkTransportC015constructUploadB03for4with14manualBoundaryAA11HTTPRequestCyxGx_SayAA11GraphQLFileVGSSSgt0A3API0M11QLOperationRzlF9OperationL_xmfp",
               "text" : "Operation"
             },
             {
@@ -392,18 +388,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLFile": {
+"doc://Apollo/documentation/Apollo/GraphQLFile": {
   "abstract" : [
     {
       "text" : "A file which can be uploaded to a GraphQL server",
@@ -424,7 +420,7 @@
       "text" : "GraphQLFile"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLFile",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -437,7 +433,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlfile"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/HTTPRequest": {
+"doc://Apollo/documentation/Apollo/HTTPRequest": {
   "abstract" : [
     {
       "text" : "Encapsulation of all information about a request before it hits the network",
@@ -458,7 +454,7 @@
       "text" : "HTTPRequest"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/HTTPRequest",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/HTTPRequest",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -471,7 +467,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/httprequest"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChainNetworkTransport": {
+"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport": {
   "abstract" : [
     {
       "text" : "An implementation of ",
@@ -516,7 +512,7 @@
       "text" : "RequestChainNetworkTransport"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -529,7 +525,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchainnetworktransport"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/RequestChainNetworkTransport/constructUploadRequest(for:with:manualBoundary:)": {
+"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport/constructUploadRequest(for:with:manualBoundary:)": {
   "abstract" : [
     {
       "text" : "Constructs an uploading (ie, multipart) GraphQL request",
@@ -571,7 +567,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo28RequestChainNetworkTransportC015constructUploadB03for4with14manualBoundaryAA11HTTPRequestCyxGx_SayAA11GraphQLFileVGSSSgt0A3API0M11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -623,7 +618,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo28RequestChainNetworkTransportC015constructUploadB03for4with14manualBoundaryAA11HTTPRequestCyxGx_SayAA11GraphQLFileVGSSSgt0A3API0M11QLOperationRzlF9OperationL_xmfp",
       "text" : "Operation"
     },
     {
@@ -631,7 +625,7 @@
       "text" : ">"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/RequestChainNetworkTransport\/constructUploadRequest(for:with:manualBoundary:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/constructUploadRequest(for:with:manualBoundary:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "constructUploadRequest(for:with:manualBoundary:)",

@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Field"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Field"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -82,8 +82,8 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/SQ",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/SH"
+        "doc:\/\/ApolloAPI\/SQ",
+        "doc:\/\/ApolloAPI\/SH"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -101,30 +101,30 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Field\/init(_:alias:type:arguments:)"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Field\/init(_:alias:type:arguments:)"
       ],
       "title" : "Initializers"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Field\/alias",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Field\/arguments",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Field\/name",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Field\/responseKey",
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Field\/type"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Field\/alias",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Field\/arguments",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Field\/name",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Field\/responseKey",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Field\/type"
       ],
       "title" : "Instance Properties"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Field\/OutputType"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Field\/OutputType"
       ],
       "title" : "Enumerations"
     },
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Field\/Equatable-Implementations"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Field\/Equatable-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -143,28 +143,28 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloAPI.macosx/SH": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/SH",
+"doc://ApolloAPI/SH": {
+  "identifier" : "doc:\/\/ApolloAPI\/SH",
   "title" : "Swift.Hashable",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.ApolloAPI.macosx/SQ": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/SQ",
+"doc://ApolloAPI/SQ": {
+  "identifier" : "doc:\/\/ApolloAPI\/SQ",
   "title" : "Swift.Equatable",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI": {
+"doc://ApolloAPI/documentation/ApolloAPI": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Selection": {
+"doc://ApolloAPI/documentation/ApolloAPI/Selection": {
   "abstract" : [
 
   ],
@@ -182,7 +182,7 @@
       "text" : "Selection"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -195,7 +195,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/selection"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Selection/Field": {
+"doc://ApolloAPI/documentation/ApolloAPI/Selection/Field": {
   "abstract" : [
 
   ],
@@ -213,7 +213,7 @@
       "text" : "Field"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Field",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Field",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -226,18 +226,18 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/selection\/field"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Selection/Field/Equatable-Implementations": {
+"doc://ApolloAPI/documentation/ApolloAPI/Selection/Field/Equatable-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Field\/Equatable-Implementations",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Field\/Equatable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Equatable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/selection\/field\/equatable-implementations"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Selection/Field/OutputType": {
+"doc://ApolloAPI/documentation/ApolloAPI/Selection/Field/OutputType": {
   "abstract" : [
 
   ],
@@ -255,7 +255,7 @@
       "text" : "OutputType"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Field\/OutputType",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Field\/OutputType",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -268,7 +268,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/selection\/field\/outputtype"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Selection/Field/alias": {
+"doc://ApolloAPI/documentation/ApolloAPI/Selection/Field/alias": {
   "abstract" : [
 
   ],
@@ -299,14 +299,14 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Field\/alias",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Field\/alias",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "alias",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/selection\/field\/alias"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Selection/Field/arguments": {
+"doc://ApolloAPI/documentation/ApolloAPI/Selection/Field/arguments": {
   "abstract" : [
 
   ],
@@ -346,14 +346,14 @@
       "text" : "]?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Field\/arguments",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Field\/arguments",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "arguments",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/selection\/field\/arguments"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Selection/Field/init(_:alias:type:arguments:)": {
+"doc://ApolloAPI/documentation/ApolloAPI/Selection/Field/init(_:alias:type:arguments:)": {
   "abstract" : [
 
   ],
@@ -402,6 +402,24 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI9SelectionO",
+      "text" : "Selection"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI9SelectionO5FieldV",
+      "text" : "Field"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:9ApolloAPI9SelectionO5FieldV10OutputTypeO",
       "text" : "OutputType"
     },
@@ -436,14 +454,14 @@
       "text" : "]?)"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Field\/init(_:alias:type:arguments:)",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Field\/init(_:alias:type:arguments:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(_:alias:type:arguments:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/selection\/field\/init(_:alias:type:arguments:)"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Selection/Field/name": {
+"doc://ApolloAPI/documentation/ApolloAPI/Selection/Field/name": {
   "abstract" : [
 
   ],
@@ -470,14 +488,14 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Field\/name",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Field\/name",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "name",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/selection\/field\/name"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Selection/Field/responseKey": {
+"doc://ApolloAPI/documentation/ApolloAPI/Selection/Field/responseKey": {
   "abstract" : [
 
   ],
@@ -504,14 +522,14 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Field\/responseKey",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Field\/responseKey",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "responseKey",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/selection\/field\/responsekey"
 },
-"doc://com.apollographql.ApolloAPI.macosx/documentation/ApolloAPI/Selection/Field/type": {
+"doc://ApolloAPI/documentation/ApolloAPI/Selection/Field/type": {
   "abstract" : [
 
   ],
@@ -534,11 +552,29 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI9SelectionO",
+      "text" : "Selection"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI9SelectionO5FieldV",
+      "text" : "Field"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:9ApolloAPI9SelectionO5FieldV10OutputTypeO",
       "text" : "OutputType"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloAPI.macosx\/documentation\/ApolloAPI\/Selection\/Field\/type",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Field\/type",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "type",

@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/WebSocketClientDelegate-Implementations"
+    "url" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/WebSocketClientDelegate-Implementations"
   },
   "kind" : "article",
   "metadata" : {
@@ -39,10 +39,10 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/websocketDidConnect(socket:)",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/websocketDidDisconnect(socket:error:)",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/websocketDidReceiveData(socket:data:)",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/websocketDidReceiveMessage(socket:text:)"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/websocketDidConnect(socket:)",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/websocketDidDisconnect(socket:error:)",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/websocketDidReceiveData(socket:data:)",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/websocketDidReceiveMessage(socket:text:)"
       ],
       "title" : "Instance Methods"
     }
@@ -61,18 +61,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloWebSocket",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketTransport": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport": {
   "abstract" : [
     {
       "text" : "A network transport that uses web sockets requests to send GraphQL subscription operations to a server.",
@@ -93,7 +93,7 @@
       "text" : "WebSocketTransport"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -106,12 +106,9 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websockettransport"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketTransport/websocketDidConnect(socket:)": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport/websocketDidConnect(socket:)": {
   "abstract" : [
-    {
-      "text" : "The websocket client has started a connection to the server.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -148,19 +145,16 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/websocketDidConnect(socket:)",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/websocketDidConnect(socket:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "websocketDidConnect(socket:)",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websockettransport\/websocketdidconnect(socket:)"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketTransport/websocketDidDisconnect(socket:error:)": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport/websocketDidDisconnect(socket:error:)": {
   "abstract" : [
-    {
-      "text" : "The websocket client has disconnected from the server.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -214,19 +208,16 @@
       "text" : "?)"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/websocketDidDisconnect(socket:error:)",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/websocketDidDisconnect(socket:error:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "websocketDidDisconnect(socket:error:)",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websockettransport\/websocketdiddisconnect(socket:error:)"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketTransport/websocketDidReceiveData(socket:data:)": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport/websocketDidReceiveData(socket:data:)": {
   "abstract" : [
-    {
-      "text" : "The websocket client received data from the server",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -280,19 +271,16 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/websocketDidReceiveData(socket:data:)",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/websocketDidReceiveData(socket:data:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "websocketDidReceiveData(socket:data:)",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websockettransport\/websocketdidreceivedata(socket:data:)"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocketTransport/websocketDidReceiveMessage(socket:text:)": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport/websocketDidReceiveMessage(socket:text:)": {
   "abstract" : [
-    {
-      "text" : "The websocket client received message text from the server",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -346,7 +334,7 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocketTransport\/websocketDidReceiveMessage(socket:text:)",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/websocketDidReceiveMessage(socket:text:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "websocketDidReceiveMessage(socket:text:)",

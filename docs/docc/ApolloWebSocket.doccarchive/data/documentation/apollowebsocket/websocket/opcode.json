@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/OpCode"
+    "url" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/OpCode"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -82,9 +82,9 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/SQ",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/SH",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/SY"
+        "doc:\/\/ApolloWebSocket\/SQ",
+        "doc:\/\/ApolloWebSocket\/SH",
+        "doc:\/\/ApolloWebSocket\/SY"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -102,26 +102,26 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/OpCode\/binaryFrame",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/OpCode\/connectionClose",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/OpCode\/continueFrame",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/OpCode\/ping",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/OpCode\/pong",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/OpCode\/textFrame"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/OpCode\/binaryFrame",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/OpCode\/connectionClose",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/OpCode\/continueFrame",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/OpCode\/ping",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/OpCode\/pong",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/OpCode\/textFrame"
       ],
       "title" : "Enumeration Cases"
     },
     {
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/OpCode\/init(rawValue:)"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/OpCode\/init(rawValue:)"
       ],
       "title" : "Initializers"
     },
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/OpCode\/Equatable-Implementations",
-        "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/OpCode\/RawRepresentable-Implementations"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/OpCode\/Equatable-Implementations",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/OpCode\/RawRepresentable-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -140,33 +140,33 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloWebSocket.macosx/SH": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/SH",
+"doc://ApolloWebSocket/SH": {
+  "identifier" : "doc:\/\/ApolloWebSocket\/SH",
   "title" : "Swift.Hashable",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/SQ": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/SQ",
+"doc://ApolloWebSocket/SQ": {
+  "identifier" : "doc:\/\/ApolloWebSocket\/SQ",
   "title" : "Swift.Equatable",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/SY": {
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/SY",
+"doc://ApolloWebSocket/SY": {
+  "identifier" : "doc:\/\/ApolloWebSocket\/SY",
   "title" : "Swift.RawRepresentable",
   "type" : "unresolvable"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloWebSocket",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocket": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocket": {
   "abstract" : [
 
   ],
@@ -184,7 +184,7 @@
       "text" : "WebSocket"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -197,7 +197,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocket"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocket/OpCode": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocket/OpCode": {
   "abstract" : [
 
   ],
@@ -215,7 +215,7 @@
       "text" : "OpCode"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/OpCode",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/OpCode",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -228,29 +228,29 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocket\/opcode"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocket/OpCode/Equatable-Implementations": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocket/OpCode/Equatable-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/OpCode\/Equatable-Implementations",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/OpCode\/Equatable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Equatable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocket\/opcode\/equatable-implementations"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocket/OpCode/RawRepresentable-Implementations": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocket/OpCode/RawRepresentable-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/OpCode\/RawRepresentable-Implementations",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/OpCode\/RawRepresentable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "RawRepresentable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocket\/opcode\/rawrepresentable-implementations"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocket/OpCode/binaryFrame": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocket/OpCode/binaryFrame": {
   "abstract" : [
 
   ],
@@ -268,14 +268,14 @@
       "text" : "binaryFrame"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/OpCode\/binaryFrame",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/OpCode\/binaryFrame",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "WebSocket.OpCode.binaryFrame",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocket\/opcode\/binaryframe"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocket/OpCode/connectionClose": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocket/OpCode/connectionClose": {
   "abstract" : [
 
   ],
@@ -293,14 +293,14 @@
       "text" : "connectionClose"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/OpCode\/connectionClose",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/OpCode\/connectionClose",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "WebSocket.OpCode.connectionClose",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocket\/opcode\/connectionclose"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocket/OpCode/continueFrame": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocket/OpCode/continueFrame": {
   "abstract" : [
 
   ],
@@ -318,14 +318,14 @@
       "text" : "continueFrame"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/OpCode\/continueFrame",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/OpCode\/continueFrame",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "WebSocket.OpCode.continueFrame",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocket\/opcode\/continueframe"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocket/OpCode/init(rawValue:)": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocket/OpCode/init(rawValue:)": {
   "abstract" : [
 
   ],
@@ -356,14 +356,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/OpCode\/init(rawValue:)",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/OpCode\/init(rawValue:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(rawValue:)",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocket\/opcode\/init(rawvalue:)"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocket/OpCode/ping": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocket/OpCode/ping": {
   "abstract" : [
 
   ],
@@ -381,14 +381,14 @@
       "text" : "ping"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/OpCode\/ping",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/OpCode\/ping",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "WebSocket.OpCode.ping",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocket\/opcode\/ping"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocket/OpCode/pong": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocket/OpCode/pong": {
   "abstract" : [
 
   ],
@@ -406,14 +406,14 @@
       "text" : "pong"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/OpCode\/pong",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/OpCode\/pong",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "WebSocket.OpCode.pong",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocket\/opcode\/pong"
 },
-"doc://com.apollographql.ApolloWebSocket.macosx/documentation/ApolloWebSocket/WebSocket/OpCode/textFrame": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocket/OpCode/textFrame": {
   "abstract" : [
 
   ],
@@ -431,7 +431,7 @@
       "text" : "textFrame"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloWebSocket.macosx\/documentation\/ApolloWebSocket\/WebSocket\/OpCode\/textFrame",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/OpCode\/textFrame",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "WebSocket.OpCode.textFrame",

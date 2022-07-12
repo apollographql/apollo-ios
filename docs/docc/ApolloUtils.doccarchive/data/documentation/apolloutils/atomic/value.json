@@ -16,14 +16,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/Atomic"
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/Atomic"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/Atomic\/value"
+    "url" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/Atomic\/value"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -47,7 +47,6 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11ApolloUtils6AtomicC1Txmfp",
         "text" : "T"
       }
     ],
@@ -90,7 +89,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11ApolloUtils6AtomicC1Txmfp",
               "text" : "T"
             },
             {
@@ -133,18 +131,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils": {
+"doc://ApolloUtils/documentation/ApolloUtils": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloUtils",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/Atomic": {
+"doc://ApolloUtils/documentation/ApolloUtils/Atomic": {
   "abstract" : [
     {
       "text" : "Wrapper for a value protected by an NSLock",
@@ -165,7 +163,7 @@
       "text" : "Atomic"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/Atomic",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/Atomic",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -178,7 +176,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/atomic"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/Atomic/value": {
+"doc://ApolloUtils/documentation/ApolloUtils/Atomic/value": {
   "abstract" : [
     {
       "text" : "The current value. Read-only. To update the underlying value, use ",
@@ -212,11 +210,10 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11ApolloUtils6AtomicC1Txmfp",
       "text" : "T"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/Atomic\/value",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/Atomic\/value",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "value",

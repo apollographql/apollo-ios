@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLExecutionError"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLExecutionError"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLExecutionError\/underlying"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLExecutionError\/underlying"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -113,18 +113,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLExecutionError": {
+"doc://Apollo/documentation/Apollo/GraphQLExecutionError": {
   "abstract" : [
     {
       "text" : "An error which has occurred during GraphQL execution.",
@@ -145,7 +145,7 @@
       "text" : "GraphQLExecutionError"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLExecutionError",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLExecutionError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -158,7 +158,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlexecutionerror"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/GraphQLExecutionError/underlying": {
+"doc://Apollo/documentation/Apollo/GraphQLExecutionError/underlying": {
   "abstract" : [
     {
       "text" : "The error that occurred during parsing.",
@@ -188,7 +188,7 @@
       "text" : "Error"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/GraphQLExecutionError\/underlying",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLExecutionError\/underlying",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "underlying",

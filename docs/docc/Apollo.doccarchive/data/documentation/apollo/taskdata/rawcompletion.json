@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
-        "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/TaskData"
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/TaskData"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/TaskData\/rawCompletion"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/TaskData\/rawCompletion"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -94,7 +94,7 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient",
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "c:@M@Apollo@objc(cs)URLSessionClient",
               "text" : "URLSessionClient"
@@ -104,7 +104,7 @@
               "text" : "."
             },
             {
-              "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/RawCompletion",
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/RawCompletion",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:6Apollo16URLSessionClientC13RawCompletiona",
               "text" : "RawCompletion"
@@ -141,18 +141,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo": {
+"doc://Apollo/documentation/Apollo": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/TaskData": {
+"doc://Apollo/documentation/Apollo/TaskData": {
   "abstract" : [
     {
       "text" : "A wrapper for data about a particular task handled by ",
@@ -177,7 +177,7 @@
       "text" : "TaskData"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/TaskData",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/TaskData",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -190,7 +190,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/taskdata"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/TaskData/rawCompletion": {
+"doc://Apollo/documentation/Apollo/TaskData/rawCompletion": {
   "abstract" : [
 
   ],
@@ -230,14 +230,14 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/TaskData\/rawCompletion",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/TaskData\/rawCompletion",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "rawCompletion",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/taskdata\/rawcompletion"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient": {
+"doc://Apollo/documentation/Apollo/URLSessionClient": {
   "abstract" : [
     {
       "text" : "A class to handle URL Session calls that will support background execution,",
@@ -266,7 +266,7 @@
       "text" : "URLSessionClient"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -279,7 +279,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/urlsessionclient"
 },
-"doc://com.apollographql.Apollo.macosx/documentation/Apollo/URLSessionClient/RawCompletion": {
+"doc://Apollo/documentation/Apollo/URLSessionClient/RawCompletion": {
   "abstract" : [
     {
       "text" : "A completion block to be called when the raw task has completed, with the raw information from the session",
@@ -300,7 +300,7 @@
       "text" : "RawCompletion"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.Apollo.macosx\/documentation\/Apollo\/URLSessionClient\/RawCompletion",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/RawCompletion",
   "kind" : "symbol",
   "navigatorTitle" : [
     {

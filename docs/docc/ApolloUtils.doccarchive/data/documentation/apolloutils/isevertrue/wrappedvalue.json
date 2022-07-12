@@ -8,14 +8,14 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils",
-        "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/IsEverTrue"
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/IsEverTrue"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/IsEverTrue\/wrappedValue"
+    "url" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/IsEverTrue\/wrappedValue"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -133,18 +133,18 @@
   ]
 , 
 "references": {
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils": {
+"doc://ApolloUtils/documentation/ApolloUtils": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils",
   "kind" : "symbol",
   "role" : "collection",
   "title" : "ApolloUtils",
   "type" : "topic",
   "url" : "\/documentation\/apolloutils"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/IsEverTrue": {
+"doc://ApolloUtils/documentation/ApolloUtils/IsEverTrue": {
   "abstract" : [
     {
       "text" : "A property wrapper that indicates if a ",
@@ -213,7 +213,7 @@
       "text" : "IsEverTrue"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/IsEverTrue",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/IsEverTrue",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -226,7 +226,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloutils\/isevertrue"
 },
-"doc://com.apollographql.ApolloUtils.macosx/documentation/ApolloUtils/IsEverTrue/wrappedValue": {
+"doc://ApolloUtils/documentation/ApolloUtils/IsEverTrue/wrappedValue": {
   "abstract" : [
 
   ],
@@ -253,7 +253,7 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/com.apollographql.ApolloUtils.macosx\/documentation\/ApolloUtils\/IsEverTrue\/wrappedValue",
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/IsEverTrue\/wrappedValue",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "wrappedValue",
