@@ -1,5 +1,6 @@
 import Foundation
 
+#warning("TODO: Move this to Swift Scripts?")
 public struct FileFinder {
   
   #if compiler(>=5.3)

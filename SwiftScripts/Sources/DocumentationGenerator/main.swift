@@ -1,5 +1,4 @@
 import Foundation
-import SourceDocsLib
 import ApolloCodegenLib
 
 enum Target: String, CaseIterable {
@@ -18,8 +17,8 @@ enum Target: String, CaseIterable {
     self.rawValue
   }
 
-  var outputFolder: String {
-    self.rawValue
+  var docBuildCommand: String {
+    "xcodebuild -project Apollo.xcodeproj -derivedDataPath docs/docc/tmp -scheme \(scheme) docbuild"
   }
 }
 
@@ -32,39 +31,63 @@ let sourceRootURL = parentFolderOfScriptFile
   .deletingLastPathComponent() // SwiftScripts
   .deletingLastPathComponent() // apollo-ios
 
-for target in Target.allCases {
-  // Figure out where to put the docs for the current target.
-  let outputURL = sourceRootURL
-    .appendingPathComponent("docs")
-    .appendingPathComponent("source")
-    .appendingPathComponent("api")
-    .appendingPathComponent(target.outputFolder)
+@discardableResult
+func shell(_ command: String) throws -> String {
+  let task = Process()
+  let pipe = Pipe()
 
-  let options = DocumentOptions(allModules: false,
-                                spmModule: nil,
-                                moduleName: target.name,
-                                linkEndingText: "/",
-                                inputFolder: sourceRootURL.path,
-                                outputFolder: outputURL.path,
-                                clean: true,
-                                xcodeArguments: [
-                                  "-scheme",
-                                  target.scheme,
-                                  "-project",
-                                  "Apollo.xcodeproj"
-                                ],
-                                reproducibleDocs: true)
+  task.standardOutput = pipe
+  task.standardError = pipe
+  task.currentDirectoryURL = sourceRootURL
+  task.arguments = ["-c", command]
+  task.executableURL = URL(fileURLWithPath: "/bin/zsh")
+  task.standardInput = nil
+
+  try task.run()
+
+  let data = pipe.fileHandleForReading.readDataToEndOfFile()
+  let output = String(data: data, encoding: .utf8)!
+
+  return output
+}
+
+func run() {
+  let doccFolder = sourceRootURL.appendingPathComponent("docs/docc")
+  let doccTempFolder = doccFolder.appendingPathComponent("tmp")
+  let doccProductsFolder = doccTempFolder.appendingPathComponent("Build/Products/Debug")
+
+  for target in Target.allCases {
+    do {
+      try shell(target.docBuildCommand)
+
+      let doccArchiveFileFromURL = doccProductsFolder
+        .appendingPathComponent(target.name)
+        .appendingPathExtension("doccarchive")
+
+      let doccArchiveFileToURL = doccFolder
+        .appendingPathComponent(target.name)
+        .appendingPathExtension("doccarchive")
+
+      if FileManager.default.fileExists(atPath: doccArchiveFileToURL.path) {
+        try FileManager.default.removeItem(at: doccArchiveFileToURL)
+      }
+
+      try FileManager.default.moveItem(at: doccArchiveFileFromURL, to: doccArchiveFileToURL)
+
+      CodegenLogger.log("Generated docs for \(target.name)")
+
+    } catch {
+      CodegenLogger.log("Error generating docs for \(target.name): \(error)", logLevel: .error)
+      exit(1)
+    }
+  }
 
   do {
-    try SourceDocsLib.DocumentationGenerator(options: options).run()
-
-    try FileManager.default.moveItem(
-      at: outputURL.appendingPathComponent("README.md"),
-      to: outputURL.appendingPathComponent("toc.md"))
-    CodegenLogger.log("Generated docs for \(target.name)")
+    try FileManager.default.removeItem(at: doccTempFolder)
   } catch {
-    CodegenLogger.log("Error generating docs for \(target.name): \(error)", logLevel: .error)
+    CodegenLogger.log("Error deleting 'docs/docc/tmp' directory: \(error)", logLevel: .error)
     exit(1)
   }
 }
 
+run()
