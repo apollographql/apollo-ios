@@ -222,10 +222,6 @@ workflows:
               ignore: /.*1.0.*/
       - macOS_current:
           name: Apollo macOS << pipeline.parameters.macos_version >>
-          filters:
-            # Don't run this on any branch with "1.0" in the name (temporary!)
-            branches:
-              ignore: /.*1.0.*/
       - iOS_current:
           name: Apollo iOS << pipeline.parameters.ios_current_version >>
           filters:
