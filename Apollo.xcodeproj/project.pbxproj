@@ -249,6 +249,7 @@
 		DED46035261CEA660086EF63 /* ApolloTestSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F8A95781EC0FC1200304A2D /* ApolloTestSupport.framework */; };
 		DED46042261CEA8A0086EF63 /* TestServerURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED45C172615308E0086EF63 /* TestServerURLs.swift */; };
 		DED46051261CEAD20086EF63 /* StarWarsAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FCE2CFA1E6C213D00E34457 /* StarWarsAPI.framework */; };
+		E6057F8B287D7E24007D84EC /* ResponsePathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6057F8A287D7E24007D84EC /* ResponsePathTests.swift */; };
 		E616B6D126C3335600DB049E /* ExecutionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E616B6D026C3335600DB049E /* ExecutionTests.swift */; };
 		E61DD76526D60C1800C41614 /* SQLiteDotSwiftDatabaseBehaviorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61DD76426D60C1800C41614 /* SQLiteDotSwiftDatabaseBehaviorTests.swift */; };
 		E63C03DF27BDDC3D00D675C6 /* SubscriptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63C03DD27BDDC3400D675C6 /* SubscriptionTests.swift */; };
@@ -846,6 +847,7 @@
 		DED45FB1261CDE7D0086EF63 /* Apollo-PerformanceTestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Apollo-PerformanceTestPlan.xctestplan"; sourceTree = "<group>"; };
 		DED45FB2261CDE980086EF63 /* Apollo-CITestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Apollo-CITestPlan.xctestplan"; sourceTree = "<group>"; };
 		DED45FB3261CDEC60086EF63 /* Apollo-CodegenTestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Apollo-CodegenTestPlan.xctestplan"; sourceTree = "<group>"; };
+		E6057F8A287D7E24007D84EC /* ResponsePathTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponsePathTests.swift; sourceTree = "<group>"; };
 		E616B6D026C3335600DB049E /* ExecutionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecutionTests.swift; sourceTree = "<group>"; };
 		E61DD76426D60C1800C41614 /* SQLiteDotSwiftDatabaseBehaviorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteDotSwiftDatabaseBehaviorTests.swift; sourceTree = "<group>"; };
 		E63C03D327BDB55900D675C6 /* subscription.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = subscription.graphql; sourceTree = "<group>"; };
@@ -1578,6 +1580,7 @@
 				E61DD76426D60C1800C41614 /* SQLiteDotSwiftDatabaseBehaviorTests.swift */,
 				9B9BBB1A24DB75E60021C30F /* UploadRequestTests.swift */,
 				5BB2C0222380836100774170 /* VersionNumberTests.swift */,
+				E6057F8A287D7E24007D84EC /* ResponsePathTests.swift */,
 			);
 			path = ApolloTests;
 			sourceTree = "<group>";
@@ -2810,6 +2813,7 @@
 				9B64F6762354D219002D1BB5 /* URL+QueryDict.swift in Sources */,
 				9B2B66F42513FAFE00B53ABF /* CancellationHandlingInterceptor.swift in Sources */,
 				9BC139A624EDCAD900876D29 /* BlindRetryingTestInterceptor.swift in Sources */,
+				E6057F8B287D7E24007D84EC /* ResponsePathTests.swift in Sources */,
 				9B96500A24BE62B7003C29C0 /* RequestChainTests.swift in Sources */,
 				DED45DEA261B96B70086EF63 /* WatchQueryTests.swift in Sources */,
 				DED45E30261B972C0086EF63 /* CachePersistenceTests.swift in Sources */,
