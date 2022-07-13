@@ -3298,9 +3298,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9F8A95801EC0FC1200304A2D /* Build configuration list for PBXNativeTarget "ApolloInternalTestHelpers" */;
 			buildPhases = (
+				9F8A95751EC0FC1200304A2D /* Headers */,
 				9F8A95731EC0FC1200304A2D /* Sources */,
 				9F8A95741EC0FC1200304A2D /* Frameworks */,
-				9F8A95751EC0FC1200304A2D /* Headers */,
 				DE674D9C261CEEDA000E8FC8 /* Resources */,
 			);
 			buildRules = (
@@ -3322,9 +3322,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9FACA9C21F42E67200AE2DBD /* Build configuration list for PBXNativeTarget "GitHubAPI" */;
 			buildPhases = (
+				9FACA9BF1F42E67200AE2DBD /* Headers */,
 				9FACA9BB1F42E67200AE2DBD /* Sources */,
 				9FACA9BD1F42E67200AE2DBD /* Frameworks */,
-				9FACA9BF1F42E67200AE2DBD /* Headers */,
 			);
 			buildRules = (
 			);
@@ -3340,9 +3340,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9FC750581D2A532D00458D91 /* Build configuration list for PBXNativeTarget "Apollo" */;
 			buildPhases = (
+				9FC750411D2A532C00458D91 /* Headers */,
 				90690D322243442F00FC2E54 /* Ensure no build settings are in the Xcode project */,
 				9FC7503F1D2A532C00458D91 /* Sources */,
-				9FC750411D2A532C00458D91 /* Headers */,
 				9FC750421D2A532C00458D91 /* Resources */,
 			);
 			buildRules = (
@@ -3388,9 +3388,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9FCE2D031E6C213D00E34457 /* Build configuration list for PBXNativeTarget "StarWarsAPI" */;
 			buildPhases = (
+				9FCE2CF71E6C213D00E34457 /* Headers */,
 				9FCE2CF51E6C213D00E34457 /* Sources */,
 				9FCE2CF61E6C213D00E34457 /* Frameworks */,
-				9FCE2CF71E6C213D00E34457 /* Headers */,
 				9F62DF3F258F45BF00E6E808 /* Resources */,
 			);
 			buildRules = (
@@ -3425,9 +3425,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DE3C7A0D260A6B9800D2F4FF /* Build configuration list for PBXNativeTarget "AnimalKingdomAPI" */;
 			buildPhases = (
+				DE3C7A08260A6B9800D2F4FF /* Headers */,
 				DE3C7A04260A6B9800D2F4FF /* Sources */,
 				DE3C7A06260A6B9800D2F4FF /* Frameworks */,
-				DE3C7A08260A6B9800D2F4FF /* Headers */,
 				DE3C7A0A260A6B9800D2F4FF /* Resources */,
 			);
 			buildRules = (
@@ -3472,9 +3472,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DE9CEAD828299E8500959AF9 /* Build configuration list for PBXNativeTarget "ApolloTestSupport" */;
 			buildPhases = (
+				DE9CEAD228299E8500959AF9 /* Headers */,
 				DE9CEABB28299E8500959AF9 /* Sources */,
 				DE9CEACE28299E8500959AF9 /* Frameworks */,
-				DE9CEAD228299E8500959AF9 /* Headers */,
 				DE9CEAD428299E8500959AF9 /* Resources */,
 			);
 			buildRules = (
