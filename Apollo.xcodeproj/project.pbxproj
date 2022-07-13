@@ -4936,14 +4936,14 @@
 		};
 		DE9CEADA28299E8500959AF9 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 90690D2522433CAF00FC2E54 /* Apollo-Target-InternalTestHelpers.xcconfig */;
+			baseConfigurationReference = DE9CEAE128299F6900959AF9 /* Apollo-Target-TestSupport.xcconfig */;
 			buildSettings = {
 			};
 			name = Release;
 		};
 		DE9CEADB28299E8500959AF9 /* PerformanceTesting */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 90690D2522433CAF00FC2E54 /* Apollo-Target-InternalTestHelpers.xcconfig */;
+			baseConfigurationReference = DE9CEAE128299F6900959AF9 /* Apollo-Target-TestSupport.xcconfig */;
 			buildSettings = {
 			};
 			name = PerformanceTesting;
