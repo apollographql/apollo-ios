@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "",
+      "text" : "Summary",
       "type" : "text"
     }
   ],
@@ -29,6 +29,28 @@
     "symbolKind" : "module",
     "title" : "Apollo"
   },
+  "primaryContentSections" : [
+    {
+      "content" : [
+        {
+          "anchor" : "Overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Overview",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
   "schemaVersion" : {
     "major" : 0,
     "minor" : 2,
@@ -137,7 +159,10 @@
 "references": {
 "doc://Apollo/documentation/Apollo": {
   "abstract" : [
-
+    {
+      "text" : "Summary",
+      "type" : "text"
+    }
   ],
   "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",

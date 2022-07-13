@@ -205,7 +205,10 @@
 "references": {
 "doc://Apollo/documentation/Apollo": {
   "abstract" : [
-
+    {
+      "text" : "Summary",
+      "type" : "text"
+    }
   ],
   "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
   "kind" : "symbol",

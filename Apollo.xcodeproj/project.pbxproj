@@ -184,6 +184,7 @@
 		DE0BCCE127C020F300A04743 /* AnimalKingdomAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE3C7A11260A6B9800D2F4FF /* AnimalKingdomAPI.framework */; };
 		DE0D38F0282ECA6D00AFCC84 /* MockObjectFileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0D38EF282ECA6D00AFCC84 /* MockObjectFileGenerator.swift */; };
 		DE0D38F2282ECF9700AFCC84 /* MockObjectFileGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0D38F1282ECF9700AFCC84 /* MockObjectFileGeneratorTests.swift */; };
+		DE100B18287F3FB100BE11C2 /* Apollo.docc in Sources */ = {isa = PBXBuildFile; fileRef = DE100B17287F3FB100BE11C2 /* Apollo.docc */; };
 		DE12B2D7273B204B003371CC /* TestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE12B2D6273B204B003371CC /* TestError.swift */; };
 		DE12B2D9273C4338003371CC /* MockIRSubscripts.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE12B2D8273C4338003371CC /* MockIRSubscripts.swift */; };
 		DE181A2C26C5C0CB000C0B9C /* WebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE181A2B26C5C0CB000C0B9C /* WebSocket.swift */; };
@@ -1033,6 +1034,7 @@
 		DE09F9C727026E0B00795949 /* Schema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schema.swift; sourceTree = "<group>"; };
 		DE0D38EF282ECA6D00AFCC84 /* MockObjectFileGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockObjectFileGenerator.swift; sourceTree = "<group>"; };
 		DE0D38F1282ECF9700AFCC84 /* MockObjectFileGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockObjectFileGeneratorTests.swift; sourceTree = "<group>"; };
+		DE100B17287F3FB100BE11C2 /* Apollo.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Apollo.docc; sourceTree = "<group>"; };
 		DE12B2D6273B204B003371CC /* TestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestError.swift; sourceTree = "<group>"; };
 		DE12B2D8273C4338003371CC /* MockIRSubscripts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockIRSubscripts.swift; sourceTree = "<group>"; };
 		DE181A2B26C5C0CB000C0B9C /* WebSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocket.swift; sourceTree = "<group>"; };
@@ -2046,6 +2048,7 @@
 				9FC9A9CA1E2FD05C0023C4D5 /* Store */,
 				9FE3F3961DADBD0D0072078F /* Supporting Files */,
 				9FCDFD211E33A09F007519DC /* Utilities */,
+				DE100B17287F3FB100BE11C2 /* Apollo.docc */,
 			);
 			name = Apollo;
 			path = Sources/Apollo;
@@ -4100,6 +4103,7 @@
 				9FF90A611DDDEB100034C3B6 /* GraphQLResponse.swift in Sources */,
 				9BEDC79E22E5D2CF00549BF6 /* RequestBodyCreator.swift in Sources */,
 				9BE071AD2368D08700FA5952 /* Collection+Helpers.swift in Sources */,
+				DE100B18287F3FB100BE11C2 /* Apollo.docc in Sources */,
 				9FA6F3681E65DF4700BF8D73 /* GraphQLResultAccumulator.swift in Sources */,
 				9FF90A651DDDEB100034C3B6 /* GraphQLExecutor.swift in Sources */,
 				9BDE43DF22C6708600FD7C7F /* GraphQLHTTPRequestError.swift in Sources */,
