@@ -63,7 +63,6 @@ struct DocumentationGenerator {
     --target \(target.name) \
     --disable-indexing \
     --output-path \(outputPath.relativePath) \
-    --transform-for-static-hosting \
     --hosting-base-path docs/ios/docc/\(target.docHostingBasePath)
     """
   }
