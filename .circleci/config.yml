@@ -228,10 +228,6 @@ workflows:
           name: Apollo iOS << pipeline.parameters.ios_previous_version >>
       - tvOS_current:
           name: Apollo tvOS << pipeline.parameters.tvos_version >>
-          filters:
-            # Don't run this on any branch with "1.0" in the name (temporary!)
-            branches:
-              ignore: /.*1.0.*/
       - CodegenLib_macOS_current:
           name: Swift Code Generation
       - CodegenCLI_macOS_current:
