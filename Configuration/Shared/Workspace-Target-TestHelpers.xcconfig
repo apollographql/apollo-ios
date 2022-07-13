@@ -1,7 +1,6 @@
 #include "../Shared/Workspace-Universal-Framework.xcconfig"
 
 APPLICATION_EXTENSION_API_ONLY = NO
-LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*] = $(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift-$(SWIFT_VERSION)/$(PLATFORM_NAME)
 FRAMEWORK_SEARCH_PATHS = $(DEVELOPER_FRAMEWORKS_DIR) $(PLATFORM_DIR)/Developer/Library/Frameworks
 OTHER_LDFLAGS = -weak_framework XCTest
 
