@@ -6,6 +6,7 @@ public enum Target: CaseIterable {
 //  case gitHub
   case upload
   case animalKingdom
+  case subscription
 
   public init(name: String) throws {
     switch name {
@@ -17,6 +18,8 @@ public enum Target: CaseIterable {
       self = .upload
     case "AnimalKingdom":
       self = .animalKingdom
+    case "Subscription":
+      self = .subscription
     default:
       throw ArgumentError.invalidTargetName(name: name)
     }
@@ -28,6 +31,7 @@ public enum Target: CaseIterable {
 //    case .gitHub: return "GitHubAPI"
     case .upload: return "UploadAPI"
     case .animalKingdom: return "AnimalKingdomAPI"
+    case .subscription: return "SubscriptionAPI"
     }
   }
 
@@ -49,6 +53,10 @@ public enum Target: CaseIterable {
       return sourceRootURL
         .apollo.childFolderURL(folderName: "Sources")
         .apollo.childFolderURL(folderName: moduleName)
+    case .subscription:
+      return sourceRootURL
+        .apollo.childFolderURL(folderName: "Sources")
+        .apollo.childFolderURL(folderName: moduleName)
     }
   }
 
@@ -57,18 +65,12 @@ public enum Target: CaseIterable {
     let graphQLFolder = graphQLFolder(fromTargetRoot: targetRootURL)
 
     switch self {
-    case .upload:
+    case .upload, .starWars, .subscription:
       return ApolloCodegenConfiguration.FileInput(
         schemaPath: schemaURL(fromTargetRoot: targetRootURL).path,
         operationSearchPaths: [graphQLFolder.appendingPathComponent("**/*.graphql").path]
       )
       
-    case .starWars:
-      return ApolloCodegenConfiguration.FileInput(
-        schemaPath: schemaURL(fromTargetRoot: targetRootURL).path,
-        operationSearchPaths: [graphQLFolder.appendingPathComponent("**/*.graphql").path]
-      )
-
 //    case .gitHub:
 //      let outputFileURL = try!  targetRootURL.apollo.childFileURL(fileName: "API.swift")
 //
@@ -106,7 +108,7 @@ public enum Target: CaseIterable {
     let graphQLFolder = graphQLFolder(fromTargetRoot: targetRootURL)
 
     switch self {
-    case .starWars:
+    case .starWars, .subscription:
       return graphQLFolder.appendingPathComponent("schema.graphqls")
     case .upload:
       return graphQLFolder.appendingPathComponent("schema.json")
