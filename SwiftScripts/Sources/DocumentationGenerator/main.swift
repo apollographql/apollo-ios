@@ -32,7 +32,8 @@ struct DocumentationGenerator {
       do {
         try shell(docBuildCommand(for: target))
         CodegenLogger.log("Generated docs for \(target.name)")
-
+        try moveDocsIntoApolloDocCArchive(for: target)
+        
       } catch {
         CodegenLogger.log("Error generating docs for \(target.name): \(error)", logLevel: .error)
         exit(1)
@@ -94,6 +95,23 @@ struct DocumentationGenerator {
     try task.run()
     task.waitUntilExit()
   }
+
+  static func moveDocsIntoApolloDocCArchive(for target: Target) throws {
+    guard target != .Apollo else { return }
+
+    let docsFromURL = doccFolder
+      .appendingPathComponent("\(target.name).doccarchive/data/documentation/\(target.name.lowercased())")
+    let docsToURL = doccFolder
+      .appendingPathComponent("Apollo.doccarchive/data/documentation/\(target.name.lowercased())")
+    try FileManager.default.moveItem(at: docsFromURL, to: docsToURL)
+
+    let indexJSONFromURL = doccFolder
+      .appendingPathComponent("\(target.name).doccarchive/data/documentation/\(target.name.lowercased()).json")
+    let indexJSONToURL = doccFolder
+      .appendingPathComponent("Apollo.doccarchive/data/documentation/\(target.name.lowercased()).json")
+    try FileManager.default.moveItem(at: indexJSONFromURL, to: indexJSONToURL)
+  }
+
 }
 
 DocumentationGenerator.main()
