@@ -216,10 +216,6 @@ workflows:
           name: Build with SPM
       - IntegrationTests_macOS_current:
           name: Apollo Integration Tests macOS << pipeline.parameters.macos_version >>
-          filters:
-            # Don't run this on any branch with "1.0" in the name (temporary!)
-            branches:
-              ignore: /.*1.0.*/
       - macOS_current:
           name: Apollo macOS << pipeline.parameters.macos_version >>
       - iOS_current:
