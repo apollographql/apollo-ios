@@ -13,15 +13,10 @@ enum Target: String, CaseIterable {
     self.rawValue
   }
 
-  var docHostingBasePath: String {
-    switch self {
-    case .Apollo: return "apollo"
-    case .ApolloAPI: return "api"
-    case .ApolloUtils: return "utils"
-    case .ApolloSQLite: return "sqlite"
-    case .ApolloWebSocket: return "web-socket"
-    case .ApolloCodegenLib: return "codegen-lib"
-    }
+  var outputPath: URL {
+    DocumentationGenerator.doccFolder
+      .appendingPathComponent(name)
+      .appendingPathExtension("doccarchive")
   }
 
 }
@@ -53,18 +48,14 @@ struct DocumentationGenerator {
   static let doccFolder = sourceRootURL.appendingPathComponent("docs/docc")
 
   static func docBuildCommand(for target: Target) -> String {
-    let outputPath = doccFolder
-      .appendingPathComponent(target.name)
-      .appendingPathExtension("doccarchive")
-
     return """
     swift package \
-    --allow-writing-to-directory \(outputPath.relativePath) \
+    --allow-writing-to-directory \(target.outputPath.relativePath) \
     generate-documentation \
     --target \(target.name) \
     --disable-indexing \
-    --output-path \(outputPath.relativePath) \
-    --hosting-base-path docs/ios/docc/\(target.docHostingBasePath)
+    --output-path \(target.outputPath.relativePath) \
+    --hosting-base-path docs/ios/docc
     """
   }
 
@@ -110,6 +101,8 @@ struct DocumentationGenerator {
     let indexJSONToURL = doccFolder
       .appendingPathComponent("Apollo.doccarchive/data/documentation/\(target.name.lowercased()).json")
     try FileManager.default.moveItem(at: indexJSONFromURL, to: indexJSONToURL)
+    
+    try FileManager.default.removeItem(at: target.outputPath)
   }
 
 }
