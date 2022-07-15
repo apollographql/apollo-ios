@@ -302,7 +302,7 @@ public final class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSock
    - parameter string:        The string to write.
    - parameter completion: The (optional) completion handler.
    */
-  func write(string: String, completion: (() -> ())? = nil) {
+  public func write(string: String, completion: (() -> ())? = nil) {
     guard isConnected else { return }
     dequeueWrite(string.data(using: String.Encoding.utf8)!, code: .textFrame, writeCompletion: completion)
   }
