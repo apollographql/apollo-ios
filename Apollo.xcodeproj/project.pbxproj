@@ -524,6 +524,7 @@
 		E6FDD74D288041F300BD0ADA /* IncrementingSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6FDD748288041F300BD0ADA /* IncrementingSubscription.swift */; };
 		E6FDD74E288041F300BD0ADA /* Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6FDD74B288041F300BD0ADA /* Subscription.swift */; };
 		E6FDD74F288041F300BD0ADA /* Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6FDD74C288041F300BD0ADA /* Schema.swift */; };
+		E6FDD7532880471400BD0ADA /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = E6FDD7522880471400BD0ADA /* Nimble */; };
 		E86D8E05214B32FD0028EFE1 /* JSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E86D8E03214B32DA0028EFE1 /* JSONTests.swift */; };
 		F16D083C21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16D083B21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift */; };
 		F82E62E122BCD223000C311B /* AutomaticPersistedQueriesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82E62E022BCD223000C311B /* AutomaticPersistedQueriesTests.swift */; };
@@ -1526,6 +1527,7 @@
 				DECD4736262F668500924527 /* UploadAPI.framework in Frameworks */,
 				DECD46FB262F659500924527 /* ApolloCodegenLib.framework in Frameworks */,
 				DED46051261CEAD20086EF63 /* StarWarsAPI.framework in Frameworks */,
+				E6FDD7532880471400BD0ADA /* Nimble in Frameworks */,
 				DED46035261CEA660086EF63 /* ApolloInternalTestHelpers.framework in Frameworks */,
 				DED45FE7261CE8C50086EF63 /* ApolloWebSocket.framework in Frameworks */,
 				DED45FD0261CE88C0086EF63 /* ApolloSQLite.framework in Frameworks */,
@@ -3508,6 +3510,7 @@
 			);
 			name = ApolloServerIntegrationTests;
 			packageProductDependencies = (
+				E6FDD7522880471400BD0ADA /* Nimble */,
 			);
 			productName = ApolloServerIntegrationTests;
 			productReference = DE6B15AC26152BE10068D642 /* ApolloServerIntegrationTests.xctest */;
@@ -5316,6 +5319,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E6E4209026A7DF4200B82624 /* XCRemoteSwiftPackageReference "InflectorKit" */;
 			productName = InflectorKit;
+		};
+		E6FDD7522880471400BD0ADA /* Nimble */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DE5EB9C326EFD4D10004176A /* XCRemoteSwiftPackageReference "Nimble" */;
+			productName = Nimble;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
