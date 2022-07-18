@@ -23,16 +23,27 @@ enum Target: String, CaseIterable {
 
 struct DocumentationGenerator {
   static func main() {
-    for target in Target.allCases {
-      do {
+    var currentTarget: Target?
+    do {
+      for target in Target.allCases {
+        currentTarget = target
+        defer { currentTarget = nil }
+
         try shell(docBuildCommand(for: target))
         CodegenLogger.log("Generated docs for \(target.name)")
         try moveDocsIntoApolloDocCArchive(for: target)
-        
-      } catch {
-        CodegenLogger.log("Error generating docs for \(target.name): \(error)", logLevel: .error)
-        exit(1)
       }
+
+      try addRootDocumentationJSON()
+
+    } catch {
+      if let currentTarget = currentTarget {
+        CodegenLogger.log("Error generating docs for \(currentTarget.name): \(error)", logLevel: .error)
+
+      } else {
+        CodegenLogger.log("Error: \(error)", logLevel: .error)
+      }
+      exit(1)
     }
   }
 
@@ -75,6 +86,7 @@ struct DocumentationGenerator {
 
     task.currentDirectoryURL = sourceRootURL.appendingPathComponent("SwiftScripts")
     task.environment?["OS_ACTIVITY_DT_MODE"] = nil
+//    task.environment?["DOCC_EXEC"] = "/Library/Developer/Toolchains/swift-latest.xctoolchain/usr/bin/docc"
     task.environment?["DOCC_JSON_PRETTYPRINT"] = "YES"
     task.environment?["DOCC_HTML_DIR"] = sourceRootURL
       .deletingLastPathComponent()
@@ -101,10 +113,25 @@ struct DocumentationGenerator {
     let indexJSONToURL = doccFolder
       .appendingPathComponent("Apollo.doccarchive/data/documentation/\(target.name.lowercased()).json")
     try FileManager.default.moveItem(at: indexJSONFromURL, to: indexJSONToURL)
-    
+
     try FileManager.default.removeItem(at: target.outputPath)
   }
 
+  static func addRootDocumentationJSON() throws {
+    guard let rootDocumentationJSONFile = Bundle.module
+      .url(forResource: "documentation", withExtension: "json") else {
+      throw Error.rootDocumentationJSONNotFound
+    }
+
+    let rootDocumentationToURL = doccFolder
+      .appendingPathComponent("Apollo.doccarchive/data/documentation.json")
+
+    try FileManager.default.copyItem(at: rootDocumentationJSONFile, to: rootDocumentationToURL)
+  }
+
+  enum Error: Swift.Error {
+    case rootDocumentationJSONNotFound
+  }
 }
 
 DocumentationGenerator.main()

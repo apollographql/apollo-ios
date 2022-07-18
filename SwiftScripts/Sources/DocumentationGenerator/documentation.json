@@ -1,0 +1,177 @@
+{
+    "abstract" : [
+      { "inlineContent" : [
+        {
+          "text" : "Our API reference is automatically generated directly from the inline comments in our code. If you're contributing to Apollo, all you have to do is add inline documentation comments and they will appear here.",
+          "type" : "text"
+        }
+      ],
+      "type" : "paragraph"
+      },
+      { "inlineContent" : [
+        {
+          "text" : "See something missing documentation? Add inline documentation comments to the code, and open a pull request!",
+          "type" : "text"
+        }
+      ],
+      "type" : "paragraph"
+      },
+      { "inlineContent" : [
+        {
+          "text" : "To run the documentation generator, ",
+          "type" : "text"
+        },
+        {
+            "code" : "cd",
+            "type" : "codeVoice"
+        },
+        {
+            "text" : " into the ",
+            "type" : "text"
+        },
+        {
+            "code" : "SwiftScripts",
+            "type" : "codeVoice"
+        },
+        {
+            "text" : " folder and run ",
+            "type" : "text"
+        }
+      ],
+      "type" : "paragraph"
+      },
+      {
+        "code" : [
+          "swift run DocumentationGenerator"
+        ],
+        "type" : "codeListing"
+      }
+    ],
+    "hierarchy" : {
+      "paths" : [
+        [
+
+        ]
+      ]
+    },
+    "identifier" : {
+      "interfaceLanguage" : "swift",
+      "url" : "doc:\/\/Apollo\/documentation"
+    },
+    "kind" : "symbol",
+    "metadata" : {
+      "externalID" : "Apollo API Reference",
+      "roleHeading": "API Reference",
+      "title" : "Apollo iOS"
+    },
+    "primaryContentSections" : [
+      {
+        "content" : [
+          {
+            "anchor" : "Libraries",
+            "level" : 2,
+            "text" : "Libraries ",
+            "type" : "heading"
+          },
+          {
+            "inlineContent" : [
+              {
+                "identifier" : "doc://ApolloCodegenLib/documentation/Apollo",
+                "isActive" : true,
+                "type" : "reference"
+              }
+            ],
+            "type" : "paragraph"
+          },
+          {
+            "inlineContent" : [
+              {
+                "text" : "The core Apollo client library.",
+                "type" : "text"
+              }
+            ],
+            "type" : "paragraph"
+          },
+          {
+            "inlineContent" : [
+              {
+                "identifier" : "doc://ApolloCodegenLib/documentation/ApolloCodegenLib",
+                "isActive" : true,
+                "type" : "reference"
+              }
+            ],
+            "type" : "paragraph"
+          },
+          {
+            "inlineContent" : [
+              {
+                "text" : "The code generation engine used to generate model objects for an application from a GraphQL schema and operation set.",
+                "type" : "text"
+              }
+            ],
+            "type" : "paragraph"
+          }
+        ],
+        "kind" : "content"
+      }
+    ],
+    "schemaVersion" : {
+      "major" : 0,
+      "minor" : 2,
+      "patch" : 0
+    },
+    "sections" : [
+        {
+        "identifiers" : [
+            "doc:\/\/Apollo\/documentation\/Apollo"
+        ],
+        "title" : ""
+        }
+    ],
+    "variants" : [
+      {
+        "paths" : [
+          "\/documentation"
+        ],
+        "traits" : [
+          {
+            "interfaceLanguage" : "swift"
+          }
+        ]
+      }
+    ],
+    "references": {
+        "doc://ApolloCodegenLib/documentation/Apollo": {
+            "titleInlineContent" : [
+                {
+                    "anchor" : "apolloclient",
+                    "level" : 5,
+                    "text" : "Apollo",
+                    "type" : "heading"
+                }
+            ],
+            "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/Apollo",
+            "kind" : "symbol",
+            "role" : "collection",
+            "title" : "Apollo",
+            "type" : "topic",
+            "url" : "\/documentation\/apollo"
+        },
+        "doc://ApolloCodegenLib/documentation/ApolloCodegenLib": {
+            "titleInlineContent" : [
+                {
+                    "anchor" : "apollocodegenlib",
+                    "level" : 5,
+                    "text" : "ApolloCodegenLib",
+                    "type" : "heading"
+                }
+            ],
+            "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
+            "kind" : "symbol",
+            "role" : "collection",
+            "title" : "ApolloCodegenLib",
+            "type" : "topic",
+            "url" : "\/documentation\/apollocodegenlib"
+        }
+    }
+  }

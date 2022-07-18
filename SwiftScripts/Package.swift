@@ -37,7 +37,11 @@ let package = Package(
               .product(name: "ApolloUtils", package: "Apollo"),
               .product(name: "ApolloSQLite", package: "Apollo"),
               .product(name: "ApolloWebSocket", package: "Apollo")
-            ]),
+            ],
+            resources: [
+              .copy("documentation.json")
+            ]
+           ),
     .testTarget(name: "CodegenTests",
                 dependencies: [
                   "Codegen"
