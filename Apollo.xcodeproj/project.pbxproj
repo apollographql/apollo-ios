@@ -187,6 +187,7 @@
 		DE100B18287F3FB100BE11C2 /* Documentation.docc in Sources */ = {isa = PBXBuildFile; fileRef = DE100B17287F3FB100BE11C2 /* Documentation.docc */; };
 		DE100B1A28872D0F00BE11C2 /* Documentation.docc in Sources */ = {isa = PBXBuildFile; fileRef = DE100B1928872D0F00BE11C2 /* Documentation.docc */; };
 		DE100B1C28872F4200BE11C2 /* Documentation.docc in Sources */ = {isa = PBXBuildFile; fileRef = DE100B1B28872F4200BE11C2 /* Documentation.docc */; };
+		DE100B1E28873A2500BE11C2 /* Documentation.docc in Sources */ = {isa = PBXBuildFile; fileRef = DE100B1D28873A2500BE11C2 /* Documentation.docc */; };
 		DE12B2D7273B204B003371CC /* TestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE12B2D6273B204B003371CC /* TestError.swift */; };
 		DE12B2D9273C4338003371CC /* MockIRSubscripts.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE12B2D8273C4338003371CC /* MockIRSubscripts.swift */; };
 		DE181A2C26C5C0CB000C0B9C /* WebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE181A2B26C5C0CB000C0B9C /* WebSocket.swift */; };
@@ -1039,6 +1040,7 @@
 		DE100B17287F3FB100BE11C2 /* Documentation.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Documentation.docc; sourceTree = "<group>"; };
 		DE100B1928872D0F00BE11C2 /* Documentation.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Documentation.docc; sourceTree = "<group>"; };
 		DE100B1B28872F4200BE11C2 /* Documentation.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Documentation.docc; sourceTree = "<group>"; };
+		DE100B1D28873A2500BE11C2 /* Documentation.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Documentation.docc; sourceTree = "<group>"; };
 		DE12B2D6273B204B003371CC /* TestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestError.swift; sourceTree = "<group>"; };
 		DE12B2D8273C4338003371CC /* MockIRSubscripts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockIRSubscripts.swift; sourceTree = "<group>"; };
 		DE181A2B26C5C0CB000C0B9C /* WebSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocket.swift; sourceTree = "<group>"; };
@@ -1782,6 +1784,7 @@
 				9B7BDACE23FDEBE300ACD198 /* Info.plist */,
 				9B9F16A626013DAB00FB2F31 /* SQLiteDatabase.swift */,
 				9B9F16B72601532500FB2F31 /* SQLiteDotSwiftDatabase.swift */,
+				DE100B1D28873A2500BE11C2 /* Documentation.docc */,
 			);
 			name = ApolloSQLite;
 			path = Sources/ApolloSQLite;
@@ -3949,6 +3952,7 @@
 				9B7BDAD023FDEBE300ACD198 /* SQLiteSerialization.swift in Sources */,
 				9B7BDAD223FDEBE300ACD198 /* SQLiteNormalizedCache.swift in Sources */,
 				9B9F16B82601532500FB2F31 /* SQLiteDotSwiftDatabase.swift in Sources */,
+				DE100B1E28873A2500BE11C2 /* Documentation.docc in Sources */,
 				9B9F16A726013DAB00FB2F31 /* SQLiteDatabase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
