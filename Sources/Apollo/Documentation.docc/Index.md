@@ -34,7 +34,7 @@ The code generation engine used to generate model objects for an application fro
 
 **[ApolloSQLite](/documentation/apollosqlite)**
 
-A [`NormalizedCache`](/documentation/apolloapi/normalizedcache) implementation backed by a `SQLite` database.
+A [`NormalizedCache`](/documentation/apollo/normalizedcache) implementation backed by a `SQLite` database.
 
 **[ApolloWebSocket](/documentation/apollowebsocket)**
 

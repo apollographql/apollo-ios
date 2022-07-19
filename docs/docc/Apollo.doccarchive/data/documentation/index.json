@@ -193,7 +193,7 @@
               "type" : "text"
             },
             {
-              "identifier" : "\/documentation\/apolloapi\/normalizedcache",
+              "identifier" : "\/documentation\/apollo\/normalizedcache",
               "isActive" : true,
               "type" : "reference"
             },
@@ -295,6 +295,18 @@
   "type" : "link",
   "url" : "\/documentation\/apollo"
 },
+"/documentation/apollo/normalizedcache": {
+  "identifier" : "\/documentation\/apollo\/normalizedcache",
+  "title" : "NormalizedCache",
+  "titleInlineContent" : [
+    {
+      "code" : "NormalizedCache",
+      "type" : "codeVoice"
+    }
+  ],
+  "type" : "link",
+  "url" : "\/documentation\/apollo\/normalizedcache"
+},
 "/documentation/apolloapi": {
   "identifier" : "\/documentation\/apolloapi",
   "title" : "ApolloAPI",
@@ -318,18 +330,6 @@
   ],
   "type" : "link",
   "url" : "\/documentation\/apolloapi\/graphqlsubscription"
-},
-"/documentation/apolloapi/normalizedcache": {
-  "identifier" : "\/documentation\/apolloapi\/normalizedcache",
-  "title" : "NormalizedCache",
-  "titleInlineContent" : [
-    {
-      "code" : "NormalizedCache",
-      "type" : "codeVoice"
-    }
-  ],
-  "type" : "link",
-  "url" : "\/documentation\/apolloapi\/normalizedcache"
 },
 "/documentation/apollocodegenlib": {
   "identifier" : "\/documentation\/apollocodegenlib",
