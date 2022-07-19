@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "",
+      "text" : "A robust code generation engine for GraphQL operations.",
       "type" : "text"
     }
   ],
@@ -29,6 +29,45 @@
     "symbolKind" : "module",
     "title" : "ApolloCodegenLib"
   },
+  "primaryContentSections" : [
+    {
+      "content" : [
+        {
+          "anchor" : "Overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "The code generation engine used to generate model objects for an application from a GraphQL schema and operation set.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "The ",
+              "type" : "text"
+            },
+            {
+              "code" : "ApolloCodegenLib",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " is exposed through a CLI that supports most code generation needs. It can also be included in a Swift executable target for more advanced use cases.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
   "schemaVersion" : {
     "major" : 0,
     "minor" : 2,
@@ -112,7 +151,10 @@
 "references": {
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib": {
   "abstract" : [
-
+    {
+      "text" : "A robust code generation engine for GraphQL operations.",
+      "type" : "text"
+    }
   ],
   "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
   "kind" : "symbol",

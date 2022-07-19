@@ -277,7 +277,7 @@
 "doc://Apollo/documentation/Apollo": {
   "abstract" : [
     {
-      "text" : "Test Take #2",
+      "text" : "A Strongly Typed, Swift First, GraphQL client.",
       "type" : "text"
     }
   ],

@@ -143,7 +143,10 @@
 "references": {
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib": {
   "abstract" : [
-
+    {
+      "text" : "A robust code generation engine for GraphQL operations.",
+      "type" : "text"
+    }
   ],
   "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
   "kind" : "symbol",
