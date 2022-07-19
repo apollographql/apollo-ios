@@ -196,17 +196,6 @@ jobs:
       - common_test_setup
       - codegen_cli_run_tests
 
-  CocoaPodsTrunk:
-    macos:
-      xcode: << pipeline.parameters.xcode_version >>
-    steps:
-      - checkout
-      # TODO: Remove when Circle updates the version of CP installed on their
-      # image to one that doesn't have https://github.com/CocoaPods/CocoaPods/issues/9176
-      - run: pod repo add-cdn trunk 'https://cdn.cocoapods.org/'
-      - run: pod trunk push Apollo.podspec
-      - run: pod trunk me clean-sessions --all
-
 workflows:
   version: 2
   # This workflow builds and tests the library across various operating systems and versions
@@ -248,18 +237,3 @@ workflows:
           name: Swift Code Generation
       - CodegenCLI_macOS_current:
           name: CodegenCLI
-      - CocoaPodsTrunk:
-          name: Push Podspec to CocoaPods Trunk
-          requires:
-            - Apollo macOS << pipeline.parameters.macos_version >>
-            - Apollo iOS << pipeline.parameters.ios_current_version >>
-            - Apollo iOS << pipeline.parameters.ios_previous_version >>
-            - Apollo tvOS << pipeline.parameters.tvos_version >>
-            - Swift Code Generation
-          filters:
-            # Only build semver tags
-            tags:
-              only: /((\d*)\.(\d*)\.(\d*)).*/
-            # Don't run this on any branches
-            branches:
-              ignore: /.*/
