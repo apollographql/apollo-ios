@@ -62,9 +62,6 @@ class StarWarsServerCachingRoundtripTests: XCTestCase, CacheDependentTesting {
   }
   
   func testHeroAndFriendsNamesWithIDsQuery() {
-#warning("fix this still!")
-//    client.store.cacheKeyForObject = { $0["id"] }
-    
     let query = HeroAndFriendsNamesWithIDsQuery(episode: nil)
     
     fetchAndLoadFromStore(query: query) { data in
