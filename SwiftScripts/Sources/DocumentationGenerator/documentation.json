@@ -212,6 +212,25 @@
               }
             ],
             "type" : "paragraph"
+          },
+          {
+            "inlineContent" : [
+              {
+                "identifier" : "doc://documentation/ApolloUtils-Title",
+                "isActive" : true,
+                "type" : "reference"
+              }
+            ],
+            "type" : "paragraph"
+          },
+          {
+            "inlineContent" : [
+              {
+                "text" : "Shared utilities, extensions, and helper functions used by the Apollo libraries.",
+                "type" : "text"
+              }
+            ],
+            "type" : "paragraph"
           }
         ],
         "kind" : "content"
@@ -322,6 +341,22 @@
             "title" : "ApolloWebSocket",
             "type" : "topic",
             "url" : "\/documentation\/apollowebsocket"
+        },
+        "doc://documentation/ApolloUtils-Title": {
+            "titleInlineContent" : [
+                {
+                    "anchor" : "apolloutils",
+                    "level" : 5,
+                    "text" : "ApolloUtils",
+                    "type" : "heading"
+                }
+            ],
+            "identifier" : "doc:\/\/documentation\/ApolloUtils-Title",
+            "kind" : "symbol",
+            "role" : "collection",
+            "title" : "ApolloUtils",
+            "type" : "topic",
+            "url" : "\/documentation\/apolloutils"
         },
         "doc://documentation/Apollo": {
             "identifier" : "doc:\/\/documentation\/Apollo",
