@@ -96,8 +96,7 @@ class StarWarsSubscriptionTests: XCTestCase {
   func testSubscribeReviewAnyEpisode() {
     let expectation = self.expectation(description: "Subscribe any episode")
 
-#warning("This doesn't seem right - .null")
-    let sub = client.subscribe(subscription: ReviewAddedSubscription(episode: .null)) { result in
+    let sub = client.subscribe(subscription: ReviewAddedSubscription(episode: nil)) { result in
       defer {
         expectation.fulfill()
       }
@@ -240,8 +239,7 @@ class StarWarsSubscriptionTests: XCTestCase {
     var empireFulfilledCount = 0
     var jediFulfilledCount = 0
 
-#warning("This doesn't seem right - .null")
-    let subAll = client.subscribe(subscription: ReviewAddedSubscription(episode: .null)) { result in
+    let subAll = client.subscribe(subscription: ReviewAddedSubscription(episode: nil)) { result in
       switch result {
       case .success(let graphQLResult):
         XCTAssertNil(graphQLResult.errors)
@@ -484,8 +482,7 @@ class StarWarsSubscriptionTests: XCTestCase {
   }
   
   func testPausingAndResumingWebSocketConnection() {
-#warning("This doesn't seem right - .null")
-    let subscription = ReviewAddedSubscription(episode: .null)
+    let subscription = ReviewAddedSubscription(episode: nil)
     let reviewMutation = CreateAwesomeReviewMutation()
     
     // Send the mutations via a separate transport so they can still be sent when the websocket is disconnected
