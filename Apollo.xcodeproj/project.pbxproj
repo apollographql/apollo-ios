@@ -188,6 +188,7 @@
 		DE100B1A28872D0F00BE11C2 /* Documentation.docc in Sources */ = {isa = PBXBuildFile; fileRef = DE100B1928872D0F00BE11C2 /* Documentation.docc */; };
 		DE100B1C28872F4200BE11C2 /* Documentation.docc in Sources */ = {isa = PBXBuildFile; fileRef = DE100B1B28872F4200BE11C2 /* Documentation.docc */; };
 		DE100B1E28873A2500BE11C2 /* Documentation.docc in Sources */ = {isa = PBXBuildFile; fileRef = DE100B1D28873A2500BE11C2 /* Documentation.docc */; };
+		DE100B202887415D00BE11C2 /* Documentation.docc in Sources */ = {isa = PBXBuildFile; fileRef = DE100B1F2887415D00BE11C2 /* Documentation.docc */; };
 		DE12B2D7273B204B003371CC /* TestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE12B2D6273B204B003371CC /* TestError.swift */; };
 		DE12B2D9273C4338003371CC /* MockIRSubscripts.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE12B2D8273C4338003371CC /* MockIRSubscripts.swift */; };
 		DE181A2C26C5C0CB000C0B9C /* WebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE181A2B26C5C0CB000C0B9C /* WebSocket.swift */; };
@@ -1041,6 +1042,7 @@
 		DE100B1928872D0F00BE11C2 /* Documentation.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Documentation.docc; sourceTree = "<group>"; };
 		DE100B1B28872F4200BE11C2 /* Documentation.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Documentation.docc; sourceTree = "<group>"; };
 		DE100B1D28873A2500BE11C2 /* Documentation.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Documentation.docc; sourceTree = "<group>"; };
+		DE100B1F2887415D00BE11C2 /* Documentation.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Documentation.docc; sourceTree = "<group>"; };
 		DE12B2D6273B204B003371CC /* TestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestError.swift; sourceTree = "<group>"; };
 		DE12B2D8273C4338003371CC /* MockIRSubscripts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockIRSubscripts.swift; sourceTree = "<group>"; };
 		DE181A2B26C5C0CB000C0B9C /* WebSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocket.swift; sourceTree = "<group>"; };
@@ -1771,6 +1773,7 @@
 				9B7BDA9523FDE94C00ACD198 /* WebSocketTask.swift */,
 				9B7BDA9923FDE94C00ACD198 /* WebSocketTransport.swift */,
 				9B7BDA9A23FDE94C00ACD198 /* Info.plist */,
+				DE100B1F2887415D00BE11C2 /* Documentation.docc */,
 			);
 			name = ApolloWebSocket;
 			path = Sources/ApolloWebSocket;
@@ -3940,6 +3943,7 @@
 				9B7BDA9D23FDE94C00ACD198 /* SplitNetworkTransport.swift in Sources */,
 				9B7BDA9E23FDE94C00ACD198 /* OperationMessage.swift in Sources */,
 				19E9F6B526D6BF25003AB80E /* OperationMessageIdCreator.swift in Sources */,
+				DE100B202887415D00BE11C2 /* Documentation.docc in Sources */,
 				DE181A3626C5DE4F000C0B9C /* WebSocketStream.swift in Sources */,
 				DE181A3226C5C401000C0B9C /* Compression.swift in Sources */,
 			);

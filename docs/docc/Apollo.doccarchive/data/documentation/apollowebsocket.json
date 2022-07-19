@@ -1,7 +1,16 @@
 {
   "abstract" : [
     {
-      "text" : "",
+      "text" : "A web socket network transport implementation that provides support for ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "\/documentation\/apolloapi\/graphqlsubscription",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " operations over a web socket connection.",
       "type" : "text"
     }
   ],
@@ -29,6 +38,46 @@
     "symbolKind" : "module",
     "title" : "ApolloWebSocket"
   },
+  "primaryContentSections" : [
+    {
+      "content" : [
+        {
+          "anchor" : "Overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "To support subscriptions over web sockets, initialize your ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "\/documentation\/apollo\/apolloclient",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " with a  ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : ".",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
   "schemaVersion" : {
     "major" : 0,
     "minor" : 2,
@@ -83,9 +132,45 @@
   ]
 , 
 "references": {
+"/documentation/apollo/apolloclient": {
+  "identifier" : "\/documentation\/apollo\/apolloclient",
+  "title" : "ApolloClient",
+  "titleInlineContent" : [
+    {
+      "code" : "ApolloClient",
+      "type" : "codeVoice"
+    }
+  ],
+  "type" : "link",
+  "url" : "\/documentation\/apollo\/apolloclient"
+},
+"/documentation/apolloapi/graphqlsubscription": {
+  "identifier" : "\/documentation\/apolloapi\/graphqlsubscription",
+  "title" : "GraphQLSubscription",
+  "titleInlineContent" : [
+    {
+      "code" : "GraphQLSubscription",
+      "type" : "codeVoice"
+    }
+  ],
+  "type" : "link",
+  "url" : "\/documentation\/apolloapi\/graphqlsubscription"
+},
 "doc://ApolloWebSocket/documentation/ApolloWebSocket": {
   "abstract" : [
-
+    {
+      "text" : "A web socket network transport implementation that provides support for ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "\/documentation\/apolloapi\/graphqlsubscription",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " operations over a web socket connection.",
+      "type" : "text"
+    }
   ],
   "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
   "kind" : "symbol",

@@ -156,6 +156,18 @@
   ]
 , 
 "references": {
+"/documentation/apolloapi/graphqlsubscription": {
+  "identifier" : "\/documentation\/apolloapi\/graphqlsubscription",
+  "title" : "GraphQLSubscription",
+  "titleInlineContent" : [
+    {
+      "code" : "GraphQLSubscription",
+      "type" : "codeVoice"
+    }
+  ],
+  "type" : "link",
+  "url" : "\/documentation\/apolloapi\/graphqlsubscription"
+},
 "doc://ApolloWebSocket/6Apollo16NetworkTransportP": {
   "identifier" : "doc:\/\/ApolloWebSocket\/6Apollo16NetworkTransportP",
   "title" : "Apollo.NetworkTransport",
@@ -163,7 +175,19 @@
 },
 "doc://ApolloWebSocket/documentation/ApolloWebSocket": {
   "abstract" : [
-
+    {
+      "text" : "A web socket network transport implementation that provides support for ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "\/documentation\/apolloapi\/graphqlsubscription",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " operations over a web socket connection.",
+      "type" : "text"
+    }
   ],
   "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
   "kind" : "symbol",

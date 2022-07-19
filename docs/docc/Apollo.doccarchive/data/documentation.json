@@ -184,6 +184,34 @@
               }
             ],
             "type" : "paragraph"
+          },
+          {
+            "inlineContent" : [
+              {
+                "identifier" : "doc://documentation/ApolloWebSocket-Title",
+                "isActive" : true,
+                "type" : "reference"
+              }
+            ],
+            "type" : "paragraph"
+          },
+          {
+            "inlineContent" : [
+              {
+                "text" : "A web socket network transport implementation that provides support for ",
+                "type" : "text"
+              },
+              {
+                "identifier" : "doc://documentation/ApolloAPI/GraphQLSubscription",
+                "isActive" : true,
+                "type" : "reference"
+              },
+              {
+                "text" : " operations over a web socket connection.",
+                "type" : "text"
+              }
+            ],
+            "type" : "paragraph"
           }
         ],
         "kind" : "content"
@@ -279,6 +307,22 @@
             "type" : "topic",
             "url" : "\/documentation\/apollosqlite"
         },
+        "doc://documentation/ApolloWebSocket-Title": {
+            "titleInlineContent" : [
+                {
+                    "anchor" : "apollowebsocket",
+                    "level" : 5,
+                    "text" : "ApolloWebSocket",
+                    "type" : "heading"
+                }
+            ],
+            "identifier" : "doc:\/\/documentation\/ApolloWebSocket-Title",
+            "kind" : "symbol",
+            "role" : "collection",
+            "title" : "ApolloWebSocket",
+            "type" : "topic",
+            "url" : "\/documentation\/apollowebsocket"
+        },
         "doc://documentation/Apollo": {
             "identifier" : "doc:\/\/documentation\/Apollo",
             "kind" : "symbol",
@@ -301,7 +345,15 @@
             "role" : "collection",
             "title" : "NormalizedCache",
             "type" : "topic",
-            "url" : "\/documentation\/apollo/normalizedcache"
+            "url" : "\/documentation\/apollo\/normalizedcache"
+        },
+        "doc://documentation/ApolloAPI/GraphQLSubscription": {
+            "identifier" : "doc:\/\/documentation\/ApolloAPI/GraphQLSubscription",
+            "kind" : "symbol",
+            "role" : "collection",
+            "title" : "GraphQLSubscription",
+            "type" : "topic",
+            "url" : "\/documentation\/apolloapi\/graphqlsubscription"
         }
     }
   }
