@@ -34,8 +34,6 @@ struct DocumentationGenerator {
         try moveDocsIntoApolloDocCArchive(for: target)
       }
 
-      try addRootDocumentationJSON()
-
     } catch {
       if let currentTarget = currentTarget {
         CodegenLogger.log("Error generating docs for \(currentTarget.name): \(error)", logLevel: .error)
@@ -86,7 +84,6 @@ struct DocumentationGenerator {
 
     task.currentDirectoryURL = sourceRootURL.appendingPathComponent("SwiftScripts")
     task.environment?["OS_ACTIVITY_DT_MODE"] = nil
-//    task.environment?["DOCC_EXEC"] = "/Library/Developer/Toolchains/swift-latest.xctoolchain/usr/bin/docc"
     task.environment?["DOCC_JSON_PRETTYPRINT"] = "YES"
     task.environment?["DOCC_HTML_DIR"] = sourceRootURL
       .deletingLastPathComponent()
@@ -115,18 +112,6 @@ struct DocumentationGenerator {
     try FileManager.default.moveItem(at: indexJSONFromURL, to: indexJSONToURL)
 
     try FileManager.default.removeItem(at: target.outputPath)
-  }
-
-  static func addRootDocumentationJSON() throws {
-    guard let rootDocumentationJSONFile = Bundle.module
-      .url(forResource: "documentation", withExtension: "json") else {
-      throw Error.rootDocumentationJSONNotFound
-    }
-
-    let rootDocumentationToURL = doccFolder
-      .appendingPathComponent("Apollo.doccarchive/data/documentation.json")
-
-    try FileManager.default.copyItem(at: rootDocumentationJSONFile, to: rootDocumentationToURL)
   }
 
   enum Error: Swift.Error {

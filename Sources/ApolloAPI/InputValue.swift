@@ -1,6 +1,6 @@
 import Foundation
 
-/// Represents an input value to an argument on a `Selection.Field`'s `Arguments`.
+/// Represents an input value to an argument on a ``Selection/Field``'s ``Selection/Field/arguments``.
 ///
 /// - See: [GraphQLSpec - Input Values](http://spec.graphql.org/June2018/#sec-Input-Values)
 public indirect enum InputValue {
@@ -8,17 +8,19 @@ public indirect enum InputValue {
   /// For enum input values, the enum cases's `rawValue` as a `String` should be used.
   case scalar(ScalarType)
 
-  /// A variable input value to be evaluated using the operation's `variables` dictionary at runtime.
+  /// A variable input value to be evaluated using the operation's
+  /// ``GraphQLOperation/variables-swift.property-4o32c`` dictionary at runtime.
   ///
-  /// `.variable` should only be used as the value for an argument in a `Selection.Field`.
-  /// A `.variable` value should not be included in an operation's `variables` dictionary.
+  /// `.variable` should only be used as the value for an argument in a ``Selection/Field``.
+  /// A `.variable` value should not be included in an operation's
+  /// ``GraphQLOperation/variables-swift.property-4o32c`` dictionary.
   case variable(String)
 
-  /// A GraphQL "List" input value.
+  /// A GraphQL "`List`" input value.
   /// - See: [GraphQLSpec - Input Values - List Value](http://spec.graphql.org/June2018/#sec-List-Value)
   case list([InputValue])
 
-  /// A GraphQL "InputObject" input value. Represented as a dictionary of input values.
+  /// A GraphQL "`InputObject`" input value. Represented as a dictionary of input values.
   /// - See: [GraphQLSpec - Input Values - Input Object Values](http://spec.graphql.org/June2018/#sec-Input-Object-Values)
   case object([String: InputValue])
 

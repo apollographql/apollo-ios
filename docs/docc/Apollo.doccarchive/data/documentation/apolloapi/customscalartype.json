@@ -1,7 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "No overview available.",
+      "text" : "A protocol a custom GraphQL “",
+      "type" : "text"
+    },
+    {
+      "code" : "scalar",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : "” must conform to.",
       "type" : "text"
     }
   ],
@@ -116,6 +124,95 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Custom scalars defined in a schema are generated to conform to the ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CustomScalarType",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "protocol. By default, these are generated as typealiases to ",
+              "type" : "text"
+            },
+            {
+              "code" : "String",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ". You can edit the",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "implementation of a custom scalar in the generated file. ",
+              "type" : "text"
+            },
+            {
+              "inlineContent" : [
+                {
+                  "text" : "Changes to generated custom scalar",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "types will not be overwritten when running code generation again.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "emphasis"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "items" : [
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "See: ",
+                      "type" : "text"
+                    },
+                    {
+                      "identifier" : "http:\/\/spec.graphql.org\/June2018\/#sec-Scalars",
+                      "isActive" : true,
+                      "type" : "reference"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            }
+          ],
+          "type" : "unorderedList"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "relationshipsSections" : [
@@ -256,7 +353,18 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/AnyScalarType": {
   "abstract" : [
-
+    {
+      "text" : "An abstract protocol that a GraphQL “",
+      "type" : "text"
+    },
+    {
+      "code" : "scalar",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : "” type must conform to.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -287,7 +395,18 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/CustomScalarType": {
   "abstract" : [
-
+    {
+      "text" : "A protocol a custom GraphQL “",
+      "type" : "text"
+    },
+    {
+      "code" : "scalar",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : "” must conform to.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -540,6 +659,18 @@
   "title" : "OutputTypeConvertible",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/outputtypeconvertible"
+},
+"http://spec.graphql.org/June2018/#sec-Scalars": {
+  "identifier" : "http:\/\/spec.graphql.org\/June2018\/#sec-Scalars",
+  "title" : "GraphQL Spec - Scalars",
+  "titleInlineContent" : [
+    {
+      "text" : "GraphQL Spec - Scalars",
+      "type" : "text"
+    }
+  ],
+  "type" : "link",
+  "url" : "http:\/\/spec.graphql.org\/June2018\/#sec-Scalars"
 }
 }
 }

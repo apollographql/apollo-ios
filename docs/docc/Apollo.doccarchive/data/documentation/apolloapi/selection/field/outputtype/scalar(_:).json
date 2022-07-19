@@ -178,7 +178,18 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/ScalarType": {
   "abstract" : [
-
+    {
+      "text" : "A protocol that represents any GraphQL “",
+      "type" : "text"
+    },
+    {
+      "code" : "scalar",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : "” defined in the GraphQL Specification.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

@@ -254,7 +254,18 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/AnyScalarType": {
   "abstract" : [
-
+    {
+      "text" : "An abstract protocol that a GraphQL “",
+      "type" : "text"
+    },
+    {
+      "code" : "scalar",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : "” type must conform to.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

@@ -1,7 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "No overview available.",
+      "text" : "A protocol that represents any GraphQL “",
+      "type" : "text"
+    },
+    {
+      "code" : "scalar",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : "” defined in the GraphQL Specification.",
       "type" : "text"
     }
   ],
@@ -106,6 +114,119 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "items" : [
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "See: ",
+                      "type" : "text"
+                    },
+                    {
+                      "identifier" : "http:\/\/spec.graphql.org\/June2018\/#sec-Scalars",
+                      "isActive" : true,
+                      "type" : "reference"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            }
+          ],
+          "type" : "unorderedList"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Conforming types are:",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "items" : [
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "code" : "String",
+                      "type" : "codeVoice"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "code" : "Int",
+                      "type" : "codeVoice"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "code" : "Bool",
+                      "type" : "codeVoice"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "code" : "Float",
+                      "type" : "codeVoice"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "code" : "Double",
+                      "type" : "codeVoice"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            }
+          ],
+          "type" : "unorderedList"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "relationshipsSections" : [
@@ -229,7 +350,18 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/AnyScalarType": {
   "abstract" : [
-
+    {
+      "text" : "An abstract protocol that a GraphQL “",
+      "type" : "text"
+    },
+    {
+      "code" : "scalar",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : "” type must conform to.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -353,7 +485,18 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/ScalarType": {
   "abstract" : [
-
+    {
+      "text" : "A protocol that represents any GraphQL “",
+      "type" : "text"
+    },
+    {
+      "code" : "scalar",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : "” defined in the GraphQL Specification.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -381,6 +524,18 @@
   "title" : "ScalarType",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/scalartype"
+},
+"http://spec.graphql.org/June2018/#sec-Scalars": {
+  "identifier" : "http:\/\/spec.graphql.org\/June2018\/#sec-Scalars",
+  "title" : "GraphQL Spec - Scalars",
+  "titleInlineContent" : [
+    {
+      "text" : "GraphQL Spec - Scalars",
+      "type" : "text"
+    }
+  ],
+  "type" : "link",
+  "url" : "http:\/\/spec.graphql.org\/June2018\/#sec-Scalars"
 }
 }
 }

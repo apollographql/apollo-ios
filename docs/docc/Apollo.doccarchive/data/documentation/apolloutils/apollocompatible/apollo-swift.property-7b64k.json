@@ -16,8 +16,8 @@
   "defaultImplementationsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/ApolloCompatible\/apollo-swift.type.property-9cqw0",
-        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/ApolloCompatible\/apollo-swift.property-2se1m"
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/ApolloCompatible\/apollo-swift.property-2se1m",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/ApolloCompatible\/apollo-swift.type.property-9cqw0"
       ],
       "title" : "ApolloCompatible Implementations"
     }

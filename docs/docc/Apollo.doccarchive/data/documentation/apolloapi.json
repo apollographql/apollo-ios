@@ -433,7 +433,18 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/AnyScalarType": {
   "abstract" : [
-
+    {
+      "text" : "An abstract protocol that a GraphQL “",
+      "type" : "text"
+    },
+    {
+      "code" : "scalar",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : "” type must conform to.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -591,7 +602,18 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/CustomScalarType": {
   "abstract" : [
-
+    {
+      "text" : "A protocol a custom GraphQL “",
+      "type" : "text"
+    },
+    {
+      "code" : "scalar",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : "” must conform to.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -1223,16 +1245,18 @@
       "type" : "text"
     },
     {
-      "code" : "Selection.Field",
-      "type" : "codeVoice"
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Field",
+      "isActive" : true,
+      "type" : "reference"
     },
     {
       "text" : "’s ",
       "type" : "text"
     },
     {
-      "code" : "Arguments",
-      "type" : "codeVoice"
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Field\/arguments",
+      "isActive" : true,
+      "type" : "reference"
     },
     {
       "text" : ".",
@@ -1884,7 +1908,18 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/ScalarType": {
   "abstract" : [
-
+    {
+      "text" : "A protocol that represents any GraphQL “",
+      "type" : "text"
+    },
+    {
+      "code" : "scalar",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : "” defined in the GraphQL Specification.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -2005,6 +2040,84 @@
   "title" : "Selection",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/selection"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/Selection/Field": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Field"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Field",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Field"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Selection.Field",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/selection\/field"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/Selection/Field/arguments": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "arguments"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI10InputValueO",
+      "text" : "InputValue"
+    },
+    {
+      "kind" : "text",
+      "text" : "]?"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Field\/arguments",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "arguments",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/selection\/field\/arguments"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/SelectionSet": {
   "abstract" : [

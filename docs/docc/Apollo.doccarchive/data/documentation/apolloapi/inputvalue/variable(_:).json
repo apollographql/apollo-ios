@@ -1,12 +1,17 @@
 {
   "abstract" : [
     {
-      "text" : "A variable input value to be evaluated using the operation’s ",
+      "text" : "A variable input value to be evaluated using the operation’s",
       "type" : "text"
     },
     {
-      "code" : "variables",
-      "type" : "codeVoice"
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/variables-swift.property-4o32c",
+      "isActive" : true,
+      "type" : "reference"
     },
     {
       "text" : " dictionary at runtime.",
@@ -125,8 +130,9 @@
               "type" : "text"
             },
             {
-              "code" : "Selection.Field",
-              "type" : "codeVoice"
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Field",
+              "isActive" : true,
+              "type" : "reference"
             },
             {
               "text" : ".",
@@ -145,12 +151,17 @@
               "type" : "codeVoice"
             },
             {
-              "text" : " value should not be included in an operation’s ",
+              "text" : " value should not be included in an operation’s",
               "type" : "text"
             },
             {
-              "code" : "variables",
-              "type" : "codeVoice"
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/variables-swift.property-4o32c",
+              "isActive" : true,
+              "type" : "reference"
             },
             {
               "text" : " dictionary.",
@@ -237,6 +248,54 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLOperation/variables-swift.property-4o32c": {
+  "abstract" : [
+
+  ],
+  "defaultImplementations" : 1,
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "variables"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP9Variablesa",
+      "text" : "Variables"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/variables-swift.property-4o32c",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "variables",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/graphqloperation\/variables-swift.property-4o32c"
+},
 "doc://ApolloAPI/documentation/ApolloAPI/InputValue": {
   "abstract" : [
     {
@@ -244,16 +303,18 @@
       "type" : "text"
     },
     {
-      "code" : "Selection.Field",
-      "type" : "codeVoice"
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Field",
+      "isActive" : true,
+      "type" : "reference"
     },
     {
       "text" : "’s ",
       "type" : "text"
     },
     {
-      "code" : "Arguments",
-      "type" : "codeVoice"
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Field\/arguments",
+      "isActive" : true,
+      "type" : "reference"
     },
     {
       "text" : ".",
@@ -290,12 +351,17 @@
 "doc://ApolloAPI/documentation/ApolloAPI/InputValue/variable(_:)": {
   "abstract" : [
     {
-      "text" : "A variable input value to be evaluated using the operation’s ",
+      "text" : "A variable input value to be evaluated using the operation’s",
       "type" : "text"
     },
     {
-      "code" : "variables",
-      "type" : "codeVoice"
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/variables-swift.property-4o32c",
+      "isActive" : true,
+      "type" : "reference"
     },
     {
       "text" : " dictionary at runtime.",
@@ -335,6 +401,84 @@
   "title" : "InputValue.variable(_:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/inputvalue\/variable(_:)"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/Selection/Field": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Field"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Field",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Field"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Selection.Field",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/selection\/field"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/Selection/Field/arguments": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "arguments"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI10InputValueO",
+      "text" : "InputValue"
+    },
+    {
+      "kind" : "text",
+      "text" : "]?"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Field\/arguments",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "arguments",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/selection\/field\/arguments"
 }
 }
 }

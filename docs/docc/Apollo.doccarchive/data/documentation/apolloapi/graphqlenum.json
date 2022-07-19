@@ -389,7 +389,18 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/AnyScalarType": {
   "abstract" : [
-
+    {
+      "text" : "An abstract protocol that a GraphQL “",
+      "type" : "text"
+    },
+    {
+      "code" : "scalar",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : "” type must conform to.",
+      "type" : "text"
+    }
   ],
   "conformance" : {
     "availabilityPrefix" : [
@@ -452,7 +463,18 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/CustomScalarType": {
   "abstract" : [
-
+    {
+      "text" : "A protocol a custom GraphQL “",
+      "type" : "text"
+    },
+    {
+      "code" : "scalar",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : "” must conform to.",
+      "type" : "text"
+    }
   ],
   "conformance" : {
     "availabilityPrefix" : [

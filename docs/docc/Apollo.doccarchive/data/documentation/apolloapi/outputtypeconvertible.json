@@ -182,7 +182,18 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/CustomScalarType": {
   "abstract" : [
-
+    {
+      "text" : "A protocol a custom GraphQL “",
+      "type" : "text"
+    },
+    {
+      "code" : "scalar",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : "” must conform to.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

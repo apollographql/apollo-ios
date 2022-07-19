@@ -200,16 +200,18 @@
       "type" : "text"
     },
     {
-      "code" : "Selection.Field",
-      "type" : "codeVoice"
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Field",
+      "isActive" : true,
+      "type" : "reference"
     },
     {
       "text" : "’s ",
       "type" : "text"
     },
     {
-      "code" : "Arguments",
-      "type" : "codeVoice"
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Field\/arguments",
+      "isActive" : true,
+      "type" : "reference"
     },
     {
       "text" : ".",
