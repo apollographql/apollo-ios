@@ -1,0 +1,3 @@
+[submodule "docs/renderer"]
+	path = docs/renderer
+	url = https://AnthonyMDev@github.com/apollographql/swift-docc-render.git
