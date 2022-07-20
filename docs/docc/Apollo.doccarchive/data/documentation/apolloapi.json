@@ -1478,7 +1478,15 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/JSONValue": {
   "abstract" : [
-
+    {
+      "text" : "Represents a value in a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONObject",
+      "isActive" : true,
+      "type" : "reference"
+    }
   ],
   "fragments" : [
     {
