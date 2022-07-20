@@ -22,15 +22,9 @@ for target in Target.allCases {
 
   // Introspection download:
   let configuration = ApolloSchemaDownloadConfiguration(
-    using: .introspection(endpointURL: endpoint),
-    outputPath: outputURL.path)
-
-  // Registry download:
-  //let registrySettings = ApolloSchemaDownloadConfiguration.DownloadMethod.RegistrySettings(apiKey: <#Replace Me For Testing#>,
-  //                                                                                         graphID: "Apollo-Fullstack-8zo5jl")
-  //
-  //let configuration = ApolloSchemaDownloadConfiguration(using: .registry(registrySettings),
-  //                                                      outputFolderURL: output)
+    using: .introspection(endpointURL: endpoint, outputFormat: .SDL),
+    outputPath: outputURL.path
+  )
 
   do {
     try ApolloSchemaDownloader.fetch(configuration: configuration)
@@ -45,14 +39,10 @@ extension Target {
 
   var serverEndpoint: URL? {
     switch self {
-    case .upload:
-      return URL(string: "http://localhost:4000/")!
-    case .starWars:
-      return URL(string: "http://localhost:8080/graphql")!
-//    case .gitHub:
-//      return nil
-    case .animalKingdom:
-      return nil
+    case .upload: return URL(string: "http://localhost:4001/")!
+    case .starWars: return URL(string: "http://localhost:8080/graphql")!
+    case .subscription: return URL(string: "http://localhost:4000/graphql")!
+    default: return nil
     }
   }
 
