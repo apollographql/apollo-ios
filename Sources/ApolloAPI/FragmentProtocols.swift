@@ -3,7 +3,7 @@
 /// A protocol representing a fragment that a ``SelectionSet`` object may be converted to.
 ///
 /// A ``SelectionSet`` can be converted to any ``Fragment`` included in it's
-/// ``Fragments`` object via its ``SelectionSet/fragments-swift.property`` property.
+/// `Fragments` object via its ``SelectionSet/fragments-swift.property`` property.
 public protocol Fragment: AnySelectionSet {
   static var fragmentDefinition: StaticString { get }
 }
@@ -54,5 +54,5 @@ extension FragmentContainer {
 
 /// A ``FragmentContainer`` to be used by ``SelectionSet``s that have no fragments.
 /// This is the default ``FragmentContainer`` for a ``SelectionSet`` that does not specify a
-/// ``Fragments`` type.
+/// `Fragments` type.
 public enum NoFragments {}
