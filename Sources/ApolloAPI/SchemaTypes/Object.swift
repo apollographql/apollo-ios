@@ -1,13 +1,39 @@
-public protocol CacheEntity: AnyObject {}
+/// An abstract base class inherited by types in a generated GraphQL schema.
+/// Each `type` defined in the GraphQL schema will have a subclass of this class generated.
+open class Object {
 
-open class Object: CacheEntity {
-
+  /// A list of the interfaces implemented by the type.
   open class var __implementedInterfaces: [Interface.Type]? { nil }
+
+  /// The name of the type.
+  ///
+  /// When an entity of the type is included in a GraphQL response its `__typename` field will
+  /// match this value.
+  ///
+  /// Defaults to `"∅__UnknownType"` for a type that is not included in the schema during
+  /// code generation.
   open class var __typename: StaticString { UnknownTypeName }
+
+  /// An optional ``CacheKeyProvider`` Type that can be used to compute the cache key for
+  /// entities of the type.
+  ///
+  /// The ``cacheKeyProvider`` can be overridden in an extension on the generated object type.
   open class var __cacheKeyProvider: CacheKeyProvider.Type? { nil }
 
   static let UnknownTypeName: StaticString = "∅__UnknownType"
 
+  /// A helper function to determine if an entity of the receiver's type can be converted to
+  /// a given ``ParentType``.
+  ///
+  /// A type can be converted to an `interface` type if only if the type implements the interface.
+  /// (ie. The ``Interface``.Type is contained in the ``Object``'s ``Object/implementedInterfaces``.)
+  ///
+  /// A type can be converted to a `union` type if only if the union includes the type.
+  /// (ie. The ``Object`` Type is contained in the ``Union``'s ``Union/possibleTypes``.)
+  ///
+  /// - Parameter otherType: A ``ParentType`` to determine conversion compatibility for
+  /// - Returns: A `Bool` indicating if the type is compatible for conversion to the given
+  /// ``ParentType``.
   public final class func _canBeConverted(to otherType: ParentType) -> Bool {
     switch otherType {
     case .Object(let otherType):
@@ -21,6 +47,10 @@ open class Object: CacheEntity {
     }
   }
 
+  /// A helper function to determine if the receiver implement's a given ``Interface`` Type.
+  ///
+  /// - Parameter interface: An ``Interface`` Type
+  /// - Returns: A `Bool` indicating if the receiver implements the given ``Interface`` Type.
   public final class func implements(_ interface: Interface.Type) -> Bool {
     __implementedInterfaces?.contains(where: { $0 == interface }) ?? false
   }
