@@ -141,8 +141,8 @@ class TestMockTests: XCTestCase {
     mock.listOfInterfaces = list
 
     // then
-    expect(expected.isEqual(to: mock._data["listOfInterfaces"] as? [AnyMock])).to(beTrue())
-    expect(expected.isEqual(to: mock.listOfInterfaces as [AnyMock]?)).to(beTrue())
+    expect(expected.isEqual(mock._data["listOfInterfaces"] as? [AnyMock])).to(beTrue())
+    expect(expected.isEqual(mock.listOfInterfaces as [AnyMock]?)).to(beTrue())
   }
 
   func test__mock__setNestedListOfInterfacesField__fieldIsSet() throws {
@@ -159,8 +159,8 @@ class TestMockTests: XCTestCase {
     mock.nestedListOfInterfaces = list
 
     // then
-    expect(expected.isEqual(to: mock._data["nestedListOfInterfaces"] as? [[AnyMock]])).to(beTrue())
-    expect(expected.isEqual(to: mock.nestedListOfInterfaces as [[AnyMock]]?)).to(beTrue())
+    expect(expected.isEqual(mock._data["nestedListOfInterfaces"] as? [[AnyMock]])).to(beTrue())
+    expect(expected.isEqual(mock.nestedListOfInterfaces as [[AnyMock]]?)).to(beTrue())
   }
 
 
@@ -177,8 +177,8 @@ class TestMockTests: XCTestCase {
     mock.listOfOptionalInterfaces = list
 
     // then
-    expect(expected.isEqual(to: mock._data["listOfOptionalInterfaces"] as? [AnyMock?])).to(beTrue())
-    expect(expected.isEqual(to: mock.listOfOptionalInterfaces as [AnyMock?]?)).to(beTrue())
+    expect(expected.isEqual(mock._data["listOfOptionalInterfaces"] as? [AnyMock?])).to(beTrue())
+    expect(expected.isEqual(mock.listOfOptionalInterfaces as [AnyMock?]?)).to(beTrue())
   }
 
   // MARK: JSONEncodable Tests

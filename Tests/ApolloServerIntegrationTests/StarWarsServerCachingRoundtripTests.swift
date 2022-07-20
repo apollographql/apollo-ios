@@ -2,6 +2,7 @@ import XCTest
 @testable import Apollo
 import ApolloInternalTestHelpers
 import StarWarsAPI
+import ApolloAPI
 
 class SQLiteStarWarsServerCachingRoundtripTests: StarWarsServerCachingRoundtripTests {
   override var cacheType: TestCacheProvider.Type {
@@ -41,7 +42,7 @@ class StarWarsServerCachingRoundtripTests: XCTestCase, CacheDependentTesting {
   }
   
   func testHeroAndFriendsNamesQuery() {
-    let query = HeroAndFriendsNamesQuery()
+    let query = HeroAndFriendsNamesQuery(episode: nil)
     
     fetchAndLoadFromStore(query: query) { data in
       XCTAssertEqual(data.hero?.name, "R2-D2")
@@ -51,7 +52,7 @@ class StarWarsServerCachingRoundtripTests: XCTestCase, CacheDependentTesting {
   }
   
   func testHeroAndFriendsNamesQueryWithVariable() {
-    let query = HeroAndFriendsNamesQuery(episode: .jedi)
+    let query = HeroAndFriendsNamesQuery(episode: .init(.JEDI))
     
     fetchAndLoadFromStore(query: query) { data in
       XCTAssertEqual(data.hero?.name, "R2-D2")
@@ -61,9 +62,7 @@ class StarWarsServerCachingRoundtripTests: XCTestCase, CacheDependentTesting {
   }
   
   func testHeroAndFriendsNamesWithIDsQuery() {
-    client.store.cacheKeyForObject = { $0["id"] }
-    
-    let query = HeroAndFriendsNamesWithIDsQuery()
+    let query = HeroAndFriendsNamesWithIDsQuery(episode: nil)
     
     fetchAndLoadFromStore(query: query) { data in
       XCTAssertEqual(data.hero?.name, "R2-D2")
@@ -96,7 +95,7 @@ class StarWarsServerCachingRoundtripTests: XCTestCase, CacheDependentTesting {
       }
     }
     
-    store.load(query: query, resultHandler: resultObserver.handler)
+    store.load(query, resultHandler: resultObserver.handler)
     
     wait(for: [loadedFromStoreExpectation], timeout: Self.defaultWaitTimeout)
   }

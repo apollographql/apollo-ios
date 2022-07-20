@@ -205,34 +205,14 @@ workflows:
           name: Build with SPM
       - IntegrationTests_macOS_current:
           name: Apollo Integration Tests macOS << pipeline.parameters.macos_version >>
-          filters:
-            # Don't run this on any branch with "1.0" in the name (temporary!)
-            branches:
-              ignore: /.*1.0.*/
       - macOS_current:
           name: Apollo macOS << pipeline.parameters.macos_version >>
-          filters:
-            # Don't run this on any branch with "1.0" in the name (temporary!)
-            branches:
-              ignore: /.*1.0.*/
       - iOS_current:
           name: Apollo iOS << pipeline.parameters.ios_current_version >>
-          filters:
-            # Don't run this on any branch with "1.0" in the name (temporary!)
-            branches:
-              ignore: /.*1.0.*/
       - iOS_previous:
           name: Apollo iOS << pipeline.parameters.ios_previous_version >>
-          filters:
-            # Don't run this on any branch with "1.0" in the name (temporary!)
-            branches:
-              ignore: /.*1.0.*/
       - tvOS_current:
           name: Apollo tvOS << pipeline.parameters.tvos_version >>
-          filters:
-            # Don't run this on any branch with "1.0" in the name (temporary!)
-            branches:
-              ignore: /.*1.0.*/
       - CodegenLib_macOS_current:
           name: Swift Code Generation
       - CodegenCLI_macOS_current:
