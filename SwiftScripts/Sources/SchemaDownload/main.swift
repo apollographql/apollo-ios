@@ -22,7 +22,7 @@ for target in Target.allCases {
 
   // Introspection download:
   let configuration = ApolloSchemaDownloadConfiguration(
-    using: .introspection(endpointURL: endpoint),
+    using: .introspection(endpointURL: endpoint, outputFormat: .SDL),
     outputPath: outputURL.path
   )
 
