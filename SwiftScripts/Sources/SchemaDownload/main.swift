@@ -23,14 +23,8 @@ for target in Target.allCases {
   // Introspection download:
   let configuration = ApolloSchemaDownloadConfiguration(
     using: .introspection(endpointURL: endpoint),
-    outputPath: outputURL.path)
-
-  // Registry download:
-  //let registrySettings = ApolloSchemaDownloadConfiguration.DownloadMethod.RegistrySettings(apiKey: <#Replace Me For Testing#>,
-  //                                                                                         graphID: "Apollo-Fullstack-8zo5jl")
-  //
-  //let configuration = ApolloSchemaDownloadConfiguration(using: .registry(registrySettings),
-  //                                                      outputFolderURL: output)
+    outputPath: outputURL.path
+  )
 
   do {
     try ApolloSchemaDownloader.fetch(configuration: configuration)
