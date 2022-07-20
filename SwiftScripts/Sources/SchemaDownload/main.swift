@@ -39,8 +39,9 @@ extension Target {
 
   var serverEndpoint: URL? {
     switch self {
-    case .upload: return URL(string: "http://localhost:4000/")!
-    case .starWars, .subscription: return URL(string: "http://localhost:8080/graphql")!
+    case .upload: return URL(string: "http://localhost:4001/")!
+    case .starWars: return URL(string: "http://localhost:8080/graphql")!
+    case .subscription: return URL(string: "http://localhost:4000/graphql")!
     default: return nil
     }
   }
