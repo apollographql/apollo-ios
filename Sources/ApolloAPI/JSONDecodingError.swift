@@ -1,9 +1,20 @@
 import Foundation
 
+/// An error thrown while decoding `JSON`.
+///
+/// This error should be thrown when a ``JSONDecodable/init(jsonValue:)`` fails.
+/// `GraphQLExecutor` and `ApolloStore` may also throw this error when decoding a `JSON` fails.
 public enum JSONDecodingError: Error, LocalizedError, Hashable {
+  /// A value that is expected to be present is missing from the ``JSONObject``.
   case missingValue
+  /// A value that is non-null has a `null`value.
   case nullValue
+  /// A value in a ``JSONObject`` was not of the expected `JSON` type.
+  /// (eg. An object instead of a list)
   case wrongType
+  /// The `value` could not be converted to the expected type.
+  ///
+  /// This error is thrown when the ``JSONDecodable/init(jsonValue:)`` fails for the expected type.
   case couldNotConvert(value: AnyHashable, to: Any.Type)
 
   public var errorDescription: String? {

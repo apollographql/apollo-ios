@@ -1,6 +1,14 @@
 import Foundation
 
 extension String: JSONDecodable, JSONEncodable {
+  /// The ``JSONDecodable`` initializer for a `String`.
+  ///
+  /// This initializer will accept a `jsonValue` of a `String`, `Int` or `Double`.
+  /// This allows for conversion of custom scalars that are represented as any of these types to
+  /// convert using the default custom scalar typealias of `String`.
+  ///
+  /// # See Also
+  /// ``CustomScalarType``
   @inlinable public init(jsonValue value: JSONValue) throws {
     switch value.base {
     case let string as String:
