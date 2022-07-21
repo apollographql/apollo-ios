@@ -14,12 +14,6 @@ open class Object {
   /// code generation.
   open class var __typename: StaticString { UnknownTypeName }
 
-  /// An optional ``CacheKeyProvider`` Type that can be used to compute the cache key for
-  /// entities of the type.
-  ///
-  /// The ``cacheKeyProvider`` can be overridden in an extension on the generated object type.
-  open class var __cacheKeyProvider: CacheKeyProvider.Type? { nil }
-
   static let UnknownTypeName: StaticString = "∅__UnknownType"
 
   /// A helper function to determine if an entity of the receiver's type can be converted to
