@@ -10,8 +10,12 @@ public protocol AnySelectionSet: SelectionSetEntityValue {
   /// This may be a concrete type (`Object`) or an abstract type (`Interface`, or `Union`).
   static var __parentType: ParentType { get }
 
+  /// The data of the underlying GraphQL object represented by generated selection set.
   var __data: DataDict { get }
 
+  /// Designated Initializer
+  /// - Parameter data: The data of the underlying GraphQL object represented by generated
+  /// selection set.
   init(data: DataDict)
 }
 
