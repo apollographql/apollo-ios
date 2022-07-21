@@ -1,6 +1,6 @@
 # ``Apollo``
  
-A Strongly Typed, Swift First, GraphQL client.
+A Strongly typed, Swift-first, GraphQL client.
 
 ## Overview
 

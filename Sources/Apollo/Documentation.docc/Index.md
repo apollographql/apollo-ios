@@ -8,9 +8,9 @@ API Reference Documentation for Apollo iOS.
 
 ## Overview
 
-Our API reference is automatically generated directly from the inline comments in our code. If you're contributing to Apollo, all you have to do is add inline documentation comments and they will appear here.
+Our API reference is automatically generated directly from the inline comments in our code. If you're contributing to Apollo, all you have to do is add inline documentation comments, conforming to [DocC formatting guidelines](https://developer.apple.com/documentation/xcode/writing-symbol-documentation-in-your-source-files), and they will appear here.
 
-See something missing documentation? Add inline documentation comments to the code, and open a pull request!
+See something missing in the documentation? Add inline documentation comments to the code, and open a pull request!
 
 To run the documentation generator, cd into the SwiftScripts folder and run
 
