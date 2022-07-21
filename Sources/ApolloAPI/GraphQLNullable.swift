@@ -2,10 +2,57 @@ import Foundation
 
 /// Indicates the presence of a value, supporting both `nil` and `null` values.
 ///
+/// ``GraphQLNullable`` is generally only used for setting input values on generated ``GraphQLOperation`` objects.
+///
 /// In GraphQL, explicitly providing a `null` value for an input value to a field argument is
 /// semantically different from not providing a value at all (`nil`). This enum allows you to
 /// distinguish your input values between `null` and `nil`.
 ///
+/// # Usage
+///
+/// ### Literals, Enums, and InputObjects
+/// A ``GraphQLNullable`` can be converted from most scalar literals, ``GraphQLEnum``, and any
+/// generated ``InputObject`` automatically.
+///
+/// ```swift
+/// public init(inputValue: GraphQLNullable<String>)
+/// .init(inputValue: "InputValueString")
+///
+/// public init(episode: GraphQLNullable<GraphQLEnum<StarWarsAPI.Episode>>)
+/// .init(episode: .NEWHOPE)
+///
+/// public init(inputValue: GraphQLNullable<CustomInputObject>)
+/// .init(inputValue: CustomInputObject())
+/// ```
+/// ### Optional Values with the Nil Coalescing Operator
+///
+/// You can initialize a ``GraphQLNullable`` with an optional value, but you'll need to indicate
+/// the default value to use if the optional is `nil`. Usually this value is either
+/// ``none`` or ``null``.
+/// ```swift
+/// .init(inputValue: optionalValue ?? .none)
+/// ```
+/// or
+/// ```swift
+/// .init(inputValue: optionalValue ?? .null)
+/// ```
+///
+/// ### Accessing Properties on Wrapped Objects
+///
+/// ``GraphQLNullable`` uses `@dynamicMemberLookup` to provide access to properties on the wrapped
+///  object without unwrapping.
+///
+///  ```swift
+///  let nullableString: GraphQLNullable<String> = "MyString"
+///  print(nullableString.count) // 8
+///  ```
+///  You can also unwrap the wrapped value to access it directly.
+///  ```swift
+///  let nullableString: GraphQLNullable<String> = "MyString"
+///  if let string = nullableString.unwrapped {
+///    print(string.count) // 8
+///  }
+///  ```
 /// # See Also
 /// [GraphQLSpec - Input Values - Null Value](http://spec.graphql.org/June2018/#sec-Null-Value)
 @dynamicMemberLookup
@@ -138,12 +185,11 @@ extension Dictionary: _InitializableByDictionaryLiteralElements {
 // MARK: - Custom Type Initialization
 
 public extension GraphQLNullable {
-  /// Initializer for use with a ``GraphQLEnum`` value. Enables initialization of the
-  /// ``GraphQLNullable`` and ``GraphQLEnum`` from one call.
+  /// Initializer for use with a ``GraphQLEnum`` value.
   ///
-  /// Usage Example
+  /// This initializer enables easier creation of the ``GraphQLNullable`` and ``GraphQLEnum``.
   /// ```swift
-  /// let value: GraphQLNullable<GraphQLEnum<StarWarsSchema.Episode>>
+  /// let value: GraphQLNullable<GraphQLEnum<StarWarsAPI.Episode>>
   ///
   /// value = .init(.NEWHOPE)
   /// // Instead of
