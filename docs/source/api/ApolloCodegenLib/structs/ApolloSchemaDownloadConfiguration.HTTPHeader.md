@@ -3,7 +3,7 @@
 # `ApolloSchemaDownloadConfiguration.HTTPHeader`
 
 ```swift
-public struct HTTPHeader: Equatable, CustomDebugStringConvertible
+public struct HTTPHeader: Equatable, CustomDebugStringConvertible, Codable
 ```
 
 ## Properties

@@ -1,0 +1,423 @@
+{
+  "abstract" : [
+    {
+      "text" : "",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "ApolloUtils",
+    "modules" : [
+      {
+        "name" : "ApolloUtils"
+      }
+    ],
+    "role" : "collection",
+    "roleHeading" : "Framework",
+    "symbolKind" : "module",
+    "title" : "ApolloUtils"
+  },
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/Atomic"
+      ],
+      "title" : "Classes"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/ApolloCompatible",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/DictionaryType",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/OptionalType",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/ResultType"
+      ],
+      "title" : "Protocols"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/ApolloExtension",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/IsEverTrue",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList"
+      ],
+      "title" : "Structures"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apolloutils"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://ApolloUtils/documentation/ApolloUtils": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "ApolloUtils",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloutils"
+},
+"doc://ApolloUtils/documentation/ApolloUtils/ApolloCompatible": {
+  "abstract" : [
+    {
+      "text" : "Protocol to allow calls to extended methods and vars as object.apollo.method",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ApolloCompatible"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/ApolloCompatible",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ApolloCompatible"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ApolloCompatible",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloutils\/apollocompatible"
+},
+"doc://ApolloUtils/documentation/ApolloUtils/ApolloExtension": {
+  "abstract" : [
+    {
+      "text" : "Wrapper to allow calls to extended methods and vars as object.apollo.method",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ApolloExtension"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/ApolloExtension",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ApolloExtension"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ApolloExtension",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloutils\/apolloextension"
+},
+"doc://ApolloUtils/documentation/ApolloUtils/Atomic": {
+  "abstract" : [
+    {
+      "text" : "Wrapper for a value protected by an NSLock",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Atomic"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/Atomic",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Atomic"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Atomic",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloutils\/atomic"
+},
+"doc://ApolloUtils/documentation/ApolloUtils/DictionaryType": {
+  "abstract" : [
+    {
+      "text" : "Provides a PAT interface to ",
+      "type" : "text"
+    },
+    {
+      "code" : "Dictionary<Key, Value>",
+      "type" : "codeVoice"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DictionaryType"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/DictionaryType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DictionaryType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DictionaryType",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloutils\/dictionarytype"
+},
+"doc://ApolloUtils/documentation/ApolloUtils/IsEverTrue": {
+  "abstract" : [
+    {
+      "text" : "A property wrapper that indicates if a ",
+      "type" : "text"
+    },
+    {
+      "code" : "Bool",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " value was ever set to ",
+      "type" : "text"
+    },
+    {
+      "code" : "true",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "Defaults to ",
+      "type" : "text"
+    },
+    {
+      "code" : "false",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ", if ever set to ",
+      "type" : "text"
+    },
+    {
+      "code" : "true",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ", it will always be ",
+      "type" : "text"
+    },
+    {
+      "code" : "true",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "IsEverTrue"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/IsEverTrue",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "IsEverTrue"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "IsEverTrue",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloutils\/isevertrue"
+},
+"doc://ApolloUtils/documentation/ApolloUtils/LinkedList": {
+  "abstract" : [
+    {
+      "text" : "A doubly linked list implementation.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "LinkedList"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/LinkedList",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "LinkedList"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "LinkedList",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloutils\/linkedlist"
+},
+"doc://ApolloUtils/documentation/ApolloUtils/OptionalType": {
+  "abstract" : [
+    {
+      "text" : "Provides a PAT interface to ",
+      "type" : "text"
+    },
+    {
+      "code" : "Optional<T>",
+      "type" : "codeVoice"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "OptionalType"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/OptionalType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "OptionalType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "OptionalType",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloutils\/optionaltype"
+},
+"doc://ApolloUtils/documentation/ApolloUtils/ResultType": {
+  "abstract" : [
+    {
+      "text" : "Provides a PAT interface to ",
+      "type" : "text"
+    },
+    {
+      "code" : "Result<Success, Failure>",
+      "type" : "codeVoice"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ResultType"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/ResultType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ResultType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ResultType",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloutils\/resulttype"
+}
+}
+}

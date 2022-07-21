@@ -2,15 +2,6 @@
   "object": {
     "pins": [
       {
-        "package": "Commandant",
-        "repositoryURL": "https://github.com/Carthage/Commandant.git",
-        "state": {
-          "branch": null,
-          "revision": "ab68611013dec67413628ac87c1f29e8427bc8e4",
-          "version": "0.17.0"
-        }
-      },
-      {
         "package": "InflectorKit",
         "repositoryURL": "https://github.com/mattt/InflectorKit",
         "state": {
@@ -20,75 +11,12 @@
         }
       },
       {
-        "package": "MarkdownGenerator",
-        "repositoryURL": "https://github.com/eneko/MarkdownGenerator.git",
-        "state": {
-          "branch": null,
-          "revision": "1fc31be6b66245187c3f87f35d86b6aeac6dfe7f",
-          "version": "0.5.0"
-        }
-      },
-      {
-        "package": "Nimble",
-        "repositoryURL": "https://github.com/Quick/Nimble.git",
-        "state": {
-          "branch": null,
-          "revision": "72f5a90d573f7f7d70aa6b8ad84b3e1e02eabb4d",
-          "version": "8.0.9"
-        }
-      },
-      {
-        "package": "ProcessRunner",
-        "repositoryURL": "https://github.com/eneko/ProcessRunner.git",
-        "state": {
-          "branch": null,
-          "revision": "bedc55797b206bff50f652ffad8269223320fee5",
-          "version": "1.1.0"
-        }
-      },
-      {
-        "package": "Quick",
-        "repositoryURL": "https://github.com/Quick/Quick.git",
-        "state": {
-          "branch": null,
-          "revision": "09b3becb37cb2163919a3842a4c5fa6ec7130792",
-          "version": "2.2.1"
-        }
-      },
-      {
-        "package": "Rainbow",
-        "repositoryURL": "https://github.com/onevcat/Rainbow",
-        "state": {
-          "branch": null,
-          "revision": "9c52c1952e9b2305d4507cf473392ac2d7c9b155",
-          "version": "3.1.5"
-        }
-      },
-      {
-        "package": "SourceDocs",
-        "repositoryURL": "https://github.com/eneko/SourceDocs.git",
-        "state": {
-          "branch": null,
-          "revision": "3a38adfe18ca73dfc2136b4b8c49407d1a812d50",
-          "version": "2.0.0"
-        }
-      },
-      {
-        "package": "SourceKitten",
-        "repositoryURL": "https://github.com/jpsim/SourceKitten.git",
-        "state": {
-          "branch": null,
-          "revision": "77a4dbbb477a8110eb8765e3c44c70fb4929098f",
-          "version": "0.29.0"
-        }
-      },
-      {
         "package": "SQLite.swift",
         "repositoryURL": "https://github.com/stephencelis/SQLite.swift.git",
         "state": {
           "branch": null,
-          "revision": "60a65015f6402b7c34b9a924f755ca0a73afeeaa",
-          "version": "0.13.1"
+          "revision": "4d543d811ee644fa4cc4bfa0be996b4dd6ba0f54",
+          "version": "0.13.3"
         }
       },
       {
@@ -105,26 +33,17 @@
         "repositoryURL": "https://github.com/apple/swift-collections",
         "state": {
           "branch": null,
-          "revision": "2d33a0ea89c961dcb2b3da2157963d9c0370347e",
-          "version": "1.0.1"
+          "revision": "48254824bb4248676bf7ce56014ff57b142b77eb",
+          "version": "1.0.2"
         }
       },
       {
-        "package": "SWXMLHash",
-        "repositoryURL": "https://github.com/drmohundro/SWXMLHash.git",
+        "package": "SwiftDocCPlugin",
+        "repositoryURL": "https://github.com/apple/swift-docc-plugin",
         "state": {
           "branch": null,
-          "revision": "a4931e5c3bafbedeb1601d3bb76bbe835c6d475a",
-          "version": "5.0.1"
-        }
-      },
-      {
-        "package": "Yams",
-        "repositoryURL": "https://github.com/jpsim/Yams.git",
-        "state": {
-          "branch": null,
-          "revision": "c947a306d2e80ecb2c0859047b35c73b8e1ca27f",
-          "version": "2.0.0"
+          "revision": "3303b164430d9a7055ba484c8ead67a52f7b74f6",
+          "version": "1.0.0"
         }
       }
     ]

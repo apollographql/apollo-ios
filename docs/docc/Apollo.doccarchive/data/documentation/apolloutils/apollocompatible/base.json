@@ -1,0 +1,174 @@
+{
+  "abstract" : [
+    {
+      "text" : "The base type being extended",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils",
+        "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/ApolloCompatible"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/ApolloCompatible\/Base"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:11ApolloUtils0A10CompatibleP4BaseQa",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "associatedtype"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "Base"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "ApolloUtils"
+      }
+    ],
+    "required" : true,
+    "role" : "symbol",
+    "roleHeading" : "Associated Type",
+    "symbolKind" : "associatedtype",
+    "title" : "Base"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "associatedtype"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "Base"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apolloutils\/apollocompatible\/base"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://ApolloUtils/documentation/ApolloUtils": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "ApolloUtils",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloutils"
+},
+"doc://ApolloUtils/documentation/ApolloUtils/ApolloCompatible": {
+  "abstract" : [
+    {
+      "text" : "Protocol to allow calls to extended methods and vars as object.apollo.method",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ApolloCompatible"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/ApolloCompatible",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ApolloCompatible"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ApolloCompatible",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloutils\/apollocompatible"
+},
+"doc://ApolloUtils/documentation/ApolloUtils/ApolloCompatible/Base": {
+  "abstract" : [
+    {
+      "text" : "The base type being extended",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "associatedtype"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Base"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloUtils\/documentation\/ApolloUtils\/ApolloCompatible\/Base",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "Base",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloutils\/apollocompatible\/base"
+}
+}
+}

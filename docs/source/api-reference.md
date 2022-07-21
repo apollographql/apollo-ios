@@ -2,12 +2,12 @@
 title: API Reference
 ---
 
-* [Apollo.framework](./api/Apollo/README/)
-* [ApolloAPI.framework](./api/ApolloAPI/README/)
-* [ApolloUtils.framework](./api/ApolloUtils/README/)
-* [ApolloCodegenLib.framework](./api/ApolloCodegenLib/README/)
-* [ApolloSQLite.framework](./api/ApolloSQLite/README/)
-* [ApolloWebSocket.framework](./api/ApolloWebSocket/README/)
+* [Apollo.framework](./api/Apollo/intest)
+* [ApolloAPI.framework](./api/ApolloAPI/index)
+* [ApolloUtils.framework](./api/ApolloUtils/index.md)
+* [ApolloCodegenLib.framework](./api/ApolloCodegenLib/index.md)
+* [ApolloSQLite.framework](./api/ApolloSQLite/index.md)
+* [ApolloWebSocket.framework](./api/ApolloWebSocket/index.md)
 
 Our API reference is automatically generated directly from the inline comments in our code, so if you're adding something new, all you have to do is actually add doc comments and they'll show up here. 
 

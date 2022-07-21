@@ -1,0 +1,552 @@
+{
+  "abstract" : [
+    {
+      "text" : "A selection set that represents the root selections on its ",
+      "type" : "text"
+    },
+    {
+      "code" : "__parentType",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ". Nested selection",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "sets for type cases are not ",
+      "type" : "text"
+    },
+    {
+      "code" : "RootSelectionSet",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : "s.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/RootSelectionSet"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:9ApolloAPI16RootSelectionSetP",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "protocol"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "RootSelectionSet"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "ApolloAPI"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "RootSelectionSet"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Protocol",
+    "symbolKind" : "protocol",
+    "title" : "RootSelectionSet"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "protocol"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "RootSelectionSet"
+            },
+            {
+              "kind" : "text",
+              "text" : " : "
+            },
+            {
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnySelectionSet",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:9ApolloAPI15AnySelectionSetP",
+              "text" : "AnySelectionSet"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/OutputTypeConvertible",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:9ApolloAPI21OutputTypeConvertibleP",
+              "text" : "OutputTypeConvertible"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "While a ",
+              "type" : "text"
+            },
+            {
+              "code" : "TypeCase",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " only provides the additional selections that should be selected for its",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "specific type, a ",
+              "type" : "text"
+            },
+            {
+              "code" : "RootSelectionSet",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " guarantees that all fields for itself and its nested type",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "cases are selected.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "When considering a specific ",
+              "type" : "text"
+            },
+            {
+              "code" : "TypeCase",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ", all fields will be selected either by the root selection",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "set, a fragment spread, the type case itself, or another compatible ",
+              "type" : "text"
+            },
+            {
+              "code" : "TypeCase",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " on the root",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "selection set.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "This is why only a ",
+              "type" : "text"
+            },
+            {
+              "code" : "RootSelectionSet",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " can be executed by a ",
+              "type" : "text"
+            },
+            {
+              "code" : "GraphQLExecutor",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ". Executing a",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "non-root selection set would result in fields from the root selection set not being collected",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "into the ",
+              "type" : "text"
+            },
+            {
+              "code" : "ResponseDict",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " for the ",
+              "type" : "text"
+            },
+            {
+              "code" : "SelectionSet",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : "’s data.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnySelectionSet",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/OutputTypeConvertible",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSetEntityValue"
+      ],
+      "kind" : "relationships",
+      "title" : "Inherits From",
+      "type" : "inheritsFrom"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/MutableRootSelectionSet"
+      ],
+      "kind" : "relationships",
+      "title" : "Inherited By",
+      "type" : "inheritedBy"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apolloapi\/rootselectionset"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"/documentation/apollo": {
+  "identifier" : "\/documentation\/apollo",
+  "title" : "Apollo",
+  "titleInlineContent" : [
+    {
+      "code" : "Apollo",
+      "type" : "codeVoice"
+    }
+  ],
+  "type" : "link",
+  "url" : "\/documentation\/apollo"
+},
+"/documentation/apollocodegenlib": {
+  "identifier" : "\/documentation\/apollocodegenlib",
+  "title" : "ApolloCodegenLib",
+  "titleInlineContent" : [
+    {
+      "code" : "ApolloCodegenLib",
+      "type" : "codeVoice"
+    }
+  ],
+  "type" : "link",
+  "url" : "\/documentation\/apollocodegenlib"
+},
+"doc://ApolloAPI/documentation/ApolloAPI": {
+  "abstract" : [
+    {
+      "text" : "The internal models shared by the ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "\/documentation\/apollo",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " client and the models generated by ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "\/documentation\/apollocodegenlib",
+      "isActive" : true,
+      "type" : "reference"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "ApolloAPI",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/AnySelectionSet": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AnySelectionSet"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnySelectionSet",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AnySelectionSet"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AnySelectionSet",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/anyselectionset"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/MutableRootSelectionSet": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "MutableRootSelectionSet"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/MutableRootSelectionSet",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "MutableRootSelectionSet"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "MutableRootSelectionSet",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/mutablerootselectionset"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/OutputTypeConvertible": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "OutputTypeConvertible"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/OutputTypeConvertible",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "OutputTypeConvertible"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "OutputTypeConvertible",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/outputtypeconvertible"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/RootSelectionSet": {
+  "abstract" : [
+    {
+      "text" : "A selection set that represents the root selections on its ",
+      "type" : "text"
+    },
+    {
+      "code" : "__parentType",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ". Nested selection",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "sets for type cases are not ",
+      "type" : "text"
+    },
+    {
+      "code" : "RootSelectionSet",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : "s.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RootSelectionSet"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/RootSelectionSet",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RootSelectionSet"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "RootSelectionSet",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/rootselectionset"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/SelectionSetEntityValue": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SelectionSetEntityValue"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSetEntityValue",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SelectionSetEntityValue"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SelectionSetEntityValue",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/selectionsetentityvalue"
+}
+}
+}

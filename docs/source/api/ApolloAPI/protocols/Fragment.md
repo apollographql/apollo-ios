@@ -3,12 +3,17 @@
 # `Fragment`
 
 ```swift
-public protocol Fragment: SelectionSet
+public protocol Fragment: AnySelectionSet
 ```
 
-A protocol representing a fragment that a `ResponseObject` object may be converted to.
+A protocol representing a fragment that a `SelectionSet` object may be converted to.
 
-A `ResponseObject` that conforms to `HasFragments` can be converted to
-any `Fragment` included in it's `Fragments` object via its `fragments` property.
+A `SelectionSet` can be converted to any `Fragment` included in it's `Fragments` object via
+its `fragments` property.
 
-- SeeAlso: `HasFragments`, `ToFragments`
+## Properties
+### `fragmentDefinition`
+
+```swift
+static var fragmentDefinition: StaticString
+```

@@ -3,7 +3,7 @@
 # `MultipartFormData`
 
 ```swift
-public class MultipartFormData
+public final class MultipartFormData
 ```
 
 A helper for building out multi-part form data for upload

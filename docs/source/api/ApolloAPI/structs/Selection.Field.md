@@ -6,12 +6,45 @@
 public struct Field
 ```
 
-## Methods
-### `init(_:alias:arguments:type:)`
+## Properties
+### `name`
 
 ```swift
-public init(_ name: String,
-            alias: String? = nil,
-            arguments: Arguments? = nil,
-            type: OutputType)
+public let name: String
+```
+
+### `alias`
+
+```swift
+public let alias: String?
+```
+
+### `arguments`
+
+```swift
+public let arguments: [String: InputValue]?
+```
+
+### `type`
+
+```swift
+public let type: OutputType
+```
+
+### `responseKey`
+
+```swift
+public var responseKey: String
+```
+
+## Methods
+### `init(_:alias:type:arguments:)`
+
+```swift
+public init(
+  _ name: String,
+  alias: String? = nil,
+  type: OutputType,
+  arguments: [String: InputValue]? = nil
+)
 ```

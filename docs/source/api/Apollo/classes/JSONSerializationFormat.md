@@ -13,6 +13,12 @@ public final class JSONSerializationFormat
 public class func serialize(value: JSONEncodable) throws -> Data
 ```
 
+### `serialize(value:)`
+
+```swift
+public class func serialize(value: JSONObject) throws -> Data
+```
+
 ### `deserialize(data:)`
 
 ```swift

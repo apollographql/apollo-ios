@@ -11,7 +11,7 @@ let package = Package(
   dependencies: [
     .package(name: "Apollo", path: ".."),
     .package(url: "https://github.com/apple/swift-argument-parser.git", .upToNextMinor(from: "1.0.2")),
-    .package(url: "https://github.com/eneko/SourceDocs.git", .upToNextMinor(from: "2.0.0"))
+    .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0")
   ],
   targets: [
     .target(name: "TargetConfig",
@@ -28,12 +28,17 @@ let package = Package(
             dependencies: [
               .product(name: "ApolloCodegenLib", package: "Apollo"),
               .target(name: "TargetConfig"),
-            ]),
+            ]),    
     .target(name: "DocumentationGenerator",
             dependencies: [
               .product(name: "ApolloCodegenLib", package: "Apollo"),
-              .product(name: "SourceDocsLib", package: "SourceDocs"),
-            ]),
+              .product(name: "Apollo", package: "Apollo"),
+              .product(name: "ApolloAPI", package: "Apollo"),
+              .product(name: "ApolloUtils", package: "Apollo"),
+              .product(name: "ApolloSQLite", package: "Apollo"),
+              .product(name: "ApolloWebSocket", package: "Apollo")
+            ]            
+           ),
     .testTarget(name: "CodegenTests",
                 dependencies: [
                   "Codegen"

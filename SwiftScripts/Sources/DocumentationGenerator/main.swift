@@ -1,66 +1,121 @@
 import Foundation
-import SourceDocsLib
 import ApolloCodegenLib
 
 enum Target: String, CaseIterable {
-    case Apollo
-    case ApolloAPI
-    case ApolloUtils
-    case ApolloSQLite
-    case ApolloWebSocket
-    case ApolloCodegenLib
-    
-    var name: String {
-        self.rawValue
-    }
-    
-    var scheme: String {
-        self.rawValue
-    }
-    
-    var outputFolder: String {
-        self.rawValue
-    }
+  case Apollo
+  case ApolloAPI
+  case ApolloUtils
+  case ApolloSQLite
+  case ApolloWebSocket
+  case ApolloCodegenLib
+
+  var name: String {
+    self.rawValue
+  }
+
+  var outputPath: URL {
+    DocumentationGenerator.doccFolder
+      .appendingPathComponent(name)
+      .appendingPathExtension("doccarchive")
+  }
+
 }
 
-// Grab the parent folder of this file on the filesystem
-let parentFolderOfScriptFile = FileFinder.findParentFolder()
+struct DocumentationGenerator {
+  static func main() {
+    var currentTarget: Target?
+    do {
+      for target in Target.allCases {
+        currentTarget = target
+        defer { currentTarget = nil }
 
-// Use that to calculate the source root
-let sourceRootURL = parentFolderOfScriptFile
+        try shell(docBuildCommand(for: target))
+        CodegenLogger.log("Generated docs for \(target.name)")
+        try moveDocsIntoApolloDocCArchive(for: target)
+      }
+
+    } catch {
+      if let currentTarget = currentTarget {
+        CodegenLogger.log("Error generating docs for \(currentTarget.name): \(error)", logLevel: .error)
+
+      } else {
+        CodegenLogger.log("Error: \(error)", logLevel: .error)
+      }
+      exit(1)
+    }
+  }
+
+  // Grab the parent folder of this file on the filesystem
+  static let parentFolderOfScriptFile = FileFinder.findParentFolder()
+
+  // Use that to calculate the source root
+  static let sourceRootURL = parentFolderOfScriptFile
     .deletingLastPathComponent() // Sources
     .deletingLastPathComponent() // SwiftScripts
     .deletingLastPathComponent() // apollo-ios
 
-for target in Target.allCases {
-    // Figure out where to put the docs for the current target.
-    let outputURL = sourceRootURL
-        .appendingPathComponent("docs")
-        .appendingPathComponent("source")
-        .appendingPathComponent("api")
-        .appendingPathComponent(target.outputFolder)
+  static let doccFolder = sourceRootURL.appendingPathComponent("docs/docc")
 
-    let options = DocumentOptions(allModules: false,
-                                  spmModule: nil,
-                                  moduleName: target.name,
-                                  linkEndingText: "/",
-                                  inputFolder: sourceRootURL.path,
-                                  outputFolder: outputURL.path,
-                                  clean: true,
-                                  xcodeArguments: [
-                                    "-scheme",
-                                    target.scheme,
-                                    "-project",
-                                    "Apollo.xcodeproj"
-                                  ],
-                                  reproducibleDocs: true)
-    
-    do {
-        try SourceDocsLib.DocumentationGenerator(options: options).run()
-        CodegenLogger.log("Generated docs for \(target.name)")
-    } catch {
-        CodegenLogger.log("Error generating docs for \(target.name): \(error)", logLevel: .error)
-        exit(1)
+  static func docBuildCommand(for target: Target) -> String {
+    return """
+    swift package \
+    --allow-writing-to-directory \(target.outputPath.relativePath) \
+    generate-documentation \
+    --target \(target.name) \
+    --disable-indexing \
+    --output-path \(target.outputPath.relativePath) \
+    --hosting-base-path docs/ios/docc
+    """
+  }
+
+  static func shell(_ command: String) throws {
+    let task = Process()
+    let pipe = Pipe()
+    let outHandle = pipe.fileHandleForReading
+    outHandle.readabilityHandler = { pipe in
+      if let line = String(data: pipe.availableData, encoding: .utf8), !line.isEmpty {
+        CodegenLogger.log(line, logLevel: .debug)
+      }
     }
+
+    task.environment = ProcessInfo.processInfo.environment
+    task.standardOutput = pipe
+    task.standardError = pipe
+
+    task.currentDirectoryURL = sourceRootURL.appendingPathComponent("SwiftScripts")
+    task.environment?["OS_ACTIVITY_DT_MODE"] = nil
+    task.environment?["DOCC_JSON_PRETTYPRINT"] = "YES"
+    task.environment?["DOCC_HTML_DIR"] = sourceRootURL
+      .appendingPathComponent("docs/renderer/dist").relativePath
+    task.arguments = ["-c", command]
+
+    task.executableURL = URL(fileURLWithPath: "/bin/zsh")
+    task.standardInput = nil
+    try task.run()
+    task.waitUntilExit()
+  }
+
+  static func moveDocsIntoApolloDocCArchive(for target: Target) throws {
+    guard target != .Apollo else { return }
+
+    let docsFromURL = doccFolder
+      .appendingPathComponent("\(target.name).doccarchive/data/documentation/\(target.name.lowercased())")
+    let docsToURL = doccFolder
+      .appendingPathComponent("Apollo.doccarchive/data/documentation/\(target.name.lowercased())")
+    try FileManager.default.moveItem(at: docsFromURL, to: docsToURL)
+
+    let indexJSONFromURL = doccFolder
+      .appendingPathComponent("\(target.name).doccarchive/data/documentation/\(target.name.lowercased()).json")
+    let indexJSONToURL = doccFolder
+      .appendingPathComponent("Apollo.doccarchive/data/documentation/\(target.name.lowercased()).json")
+    try FileManager.default.moveItem(at: indexJSONFromURL, to: indexJSONToURL)
+
+    try FileManager.default.removeItem(at: target.outputPath)
+  }
+
+  enum Error: Swift.Error {
+    case rootDocumentationJSONNotFound
+  }
 }
 
+DocumentationGenerator.main()

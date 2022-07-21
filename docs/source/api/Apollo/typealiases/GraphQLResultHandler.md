@@ -3,7 +3,7 @@
 # `GraphQLResultHandler`
 
 ```swift
-public typealias GraphQLResultHandler<Data> = (Result<GraphQLResult<Data>, Error>) -> Void
+public typealias GraphQLResultHandler<Data: RootSelectionSet> = (Result<GraphQLResult<Data>, Error>) -> Void
 ```
 
 A handler for operation results.

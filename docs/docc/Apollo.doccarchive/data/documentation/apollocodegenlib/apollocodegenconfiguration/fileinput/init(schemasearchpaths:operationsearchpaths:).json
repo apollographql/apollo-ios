@@ -1,0 +1,896 @@
+{
+  "abstract" : [
+    {
+      "text" : "Designated initializer.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/FileInput"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/FileInput\/init(schemaSearchPaths:operationSearchPaths:)"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:16ApolloCodegenLib0aB13ConfigurationV9FileInputV17schemaSearchPaths09operationhI0AESaySSG_AHtcfc",
+    "fragments" : [
+      {
+        "kind" : "identifier",
+        "text" : "init"
+      },
+      {
+        "kind" : "text",
+        "text" : "("
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "schemaSearchPaths"
+      },
+      {
+        "kind" : "text",
+        "text" : ": ["
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:SS",
+        "text" : "String"
+      },
+      {
+        "kind" : "text",
+        "text" : "], "
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "operationSearchPaths"
+      },
+      {
+        "kind" : "text",
+        "text" : ": ["
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:SS",
+        "text" : "String"
+      },
+      {
+        "kind" : "text",
+        "text" : "])"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "ApolloCodegenLib"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Initializer",
+    "symbolKind" : "init",
+    "title" : "init(schemaSearchPaths:operationSearchPaths:)"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "init"
+            },
+            {
+              "kind" : "text",
+              "text" : "("
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "schemaSearchPaths"
+            },
+            {
+              "kind" : "text",
+              "text" : ": ["
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:SS",
+              "text" : "String"
+            },
+            {
+              "kind" : "text",
+              "text" : "] = [\"**\/*.graphqls\"], "
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "operationSearchPaths"
+            },
+            {
+              "kind" : "text",
+              "text" : ": ["
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:SS",
+              "text" : "String"
+            },
+            {
+              "kind" : "text",
+              "text" : "] = [\"**\/*.graphql\"])"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
+      "kind" : "parameters",
+      "parameters" : [
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "An array of path matching pattern strings used to find GraphQL schema",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "files to be included for code generation.",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "Schema files may contain only spec-compliant",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "https:\/\/spec.graphql.org\/draft\/#sec-Type-System",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : " or",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "https:\/\/spec.graphql.org\/draft\/#sec-Type-System-Extensions",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "definitions in SDL or JSON format.",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "This includes:",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            },
+            {
+              "items" : [
+                {
+                  "content" : [
+                    {
+                      "inlineContent" : [
+                        {
+                          "identifier" : "https:\/\/spec.graphql.org\/draft\/#SchemaDefinition",
+                          "isActive" : true,
+                          "type" : "reference"
+                        }
+                      ],
+                      "type" : "paragraph"
+                    }
+                  ]
+                },
+                {
+                  "content" : [
+                    {
+                      "inlineContent" : [
+                        {
+                          "identifier" : "https:\/\/spec.graphql.org\/draft\/#TypeDefinition",
+                          "isActive" : true,
+                          "type" : "reference"
+                        }
+                      ],
+                      "type" : "paragraph"
+                    }
+                  ]
+                },
+                {
+                  "content" : [
+                    {
+                      "inlineContent" : [
+                        {
+                          "identifier" : "https:\/\/spec.graphql.org\/draft\/#DirectiveDefinition",
+                          "isActive" : true,
+                          "type" : "reference"
+                        }
+                      ],
+                      "type" : "paragraph"
+                    }
+                  ]
+                },
+                {
+                  "content" : [
+                    {
+                      "inlineContent" : [
+                        {
+                          "identifier" : "https:\/\/spec.graphql.org\/draft\/#SchemaExtension",
+                          "isActive" : true,
+                          "type" : "reference"
+                        }
+                      ],
+                      "type" : "paragraph"
+                    }
+                  ]
+                },
+                {
+                  "content" : [
+                    {
+                      "inlineContent" : [
+                        {
+                          "identifier" : "https:\/\/spec.graphql.org\/draft\/#TypeExtension",
+                          "isActive" : true,
+                          "type" : "reference"
+                        }
+                      ],
+                      "type" : "paragraph"
+                    }
+                  ]
+                }
+              ],
+              "type" : "unorderedList"
+            },
+            {
+              "inlineContent" : [
+                {
+                  "text" : "Defaults to ",
+                  "type" : "text"
+                },
+                {
+                  "code" : "[\"**\/*.graphqls\"]",
+                  "type" : "codeVoice"
+                },
+                {
+                  "text" : ".",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "schemaSearchPaths"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "An array of path matching pattern strings used to find GraphQL",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "operation files to be included for code generation.",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "Operation files may contain only spec-compliant",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "https:\/\/spec.graphql.org\/draft\/#ExecutableDocument",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "definitions in SDL format.",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "This includes:",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            },
+            {
+              "items" : [
+                {
+                  "content" : [
+                    {
+                      "inlineContent" : [
+                        {
+                          "identifier" : "https:\/\/spec.graphql.org\/draft\/#sec-Language.Operations",
+                          "isActive" : true,
+                          "type" : "reference"
+                        },
+                        {
+                          "text" : " ",
+                          "type" : "text"
+                        },
+                        {
+                          "text" : "(ie. ",
+                          "type" : "text"
+                        },
+                        {
+                          "code" : "query",
+                          "type" : "codeVoice"
+                        },
+                        {
+                          "text" : ", ",
+                          "type" : "text"
+                        },
+                        {
+                          "code" : "mutation",
+                          "type" : "codeVoice"
+                        },
+                        {
+                          "text" : ", or ",
+                          "type" : "text"
+                        },
+                        {
+                          "code" : "subscription",
+                          "type" : "codeVoice"
+                        },
+                        {
+                          "text" : ")",
+                          "type" : "text"
+                        }
+                      ],
+                      "type" : "paragraph"
+                    }
+                  ]
+                },
+                {
+                  "content" : [
+                    {
+                      "inlineContent" : [
+                        {
+                          "identifier" : "https:\/\/spec.graphql.org\/draft\/#sec-Language.Fragments",
+                          "isActive" : true,
+                          "type" : "reference"
+                        }
+                      ],
+                      "type" : "paragraph"
+                    }
+                  ]
+                }
+              ],
+              "type" : "unorderedList"
+            },
+            {
+              "inlineContent" : [
+                {
+                  "text" : "Defaults to ",
+                  "type" : "text"
+                },
+                {
+                  "code" : "[\"**\/*.graphql\"]",
+                  "type" : "codeVoice"
+                },
+                {
+                  "text" : ".",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "operationSearchPaths"
+        }
+      ]
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "You can use absolute or relative paths in path matching patterns. Relative paths will be",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "based off the current working directory from ",
+              "type" : "text"
+            },
+            {
+              "code" : "FileManager",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ".",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Each path matching pattern can include the following characters:",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "items" : [
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "code" : "*",
+                      "type" : "codeVoice"
+                    },
+                    {
+                      "text" : " matches everything but the directory separator (shallow), eg: ",
+                      "type" : "text"
+                    },
+                    {
+                      "code" : "*.graphql",
+                      "type" : "codeVoice"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "code" : "?",
+                      "type" : "codeVoice"
+                    },
+                    {
+                      "text" : " matches any single character, eg: ",
+                      "type" : "text"
+                    },
+                    {
+                      "code" : "file-?.graphql",
+                      "type" : "codeVoice"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "code" : "**",
+                      "type" : "codeVoice"
+                    },
+                    {
+                      "text" : " matches all subdirectories (deep), eg: ",
+                      "type" : "text"
+                    },
+                    {
+                      "code" : "**\/*.graphql",
+                      "type" : "codeVoice"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "code" : "!",
+                      "type" : "codeVoice"
+                    },
+                    {
+                      "text" : " excludes any match only if the pattern starts with a ",
+                      "type" : "text"
+                    },
+                    {
+                      "code" : "!",
+                      "type" : "codeVoice"
+                    },
+                    {
+                      "text" : " character, eg: ",
+                      "type" : "text"
+                    },
+                    {
+                      "code" : "!file.graphql",
+                      "type" : "codeVoice"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            }
+          ],
+          "type" : "unorderedList"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "JSON format schema files must have the file extension “.json”.",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "When using a JSON format schema file, only a single JSON schema can be provided with any",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "number of additional SDL schema extension files.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "Precondition",
+          "style" : "note",
+          "type" : "aside"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/fileinput\/init(schemasearchpaths:operationsearchpaths:)"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib": {
+  "abstract" : [
+    {
+      "text" : "A robust code generation engine for GraphQL operations.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "ApolloCodegenLib",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration": {
+  "abstract" : [
+    {
+      "text" : "A configuration object that defines behavior for code generation.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ApolloCodegenConfiguration"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ApolloCodegenConfiguration"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ApolloCodegenConfiguration",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/FileInput": {
+  "abstract" : [
+    {
+      "text" : "The input paths and files required for code generation.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FileInput"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/FileInput",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FileInput"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ApolloCodegenConfiguration.FileInput",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/fileinput"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/FileInput/init(schemaSearchPaths:operationSearchPaths:)": {
+  "abstract" : [
+    {
+      "text" : "Designated initializer.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "schemaSearchPaths"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "], "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "operationSearchPaths"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "])"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/FileInput\/init(schemaSearchPaths:operationSearchPaths:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(schemaSearchPaths:operationSearchPaths:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/fileinput\/init(schemasearchpaths:operationsearchpaths:)"
+},
+"https://spec.graphql.org/draft/#DirectiveDefinition": {
+  "identifier" : "https:\/\/spec.graphql.org\/draft\/#DirectiveDefinition",
+  "title" : "Directive Definitions",
+  "titleInlineContent" : [
+    {
+      "text" : "Directive Definitions",
+      "type" : "text"
+    }
+  ],
+  "type" : "link",
+  "url" : "https:\/\/spec.graphql.org\/draft\/#DirectiveDefinition"
+},
+"https://spec.graphql.org/draft/#ExecutableDocument": {
+  "identifier" : "https:\/\/spec.graphql.org\/draft\/#ExecutableDocument",
+  "title" : "ExecutableDocument",
+  "titleInlineContent" : [
+    {
+      "code" : "ExecutableDocument",
+      "type" : "codeVoice"
+    }
+  ],
+  "type" : "link",
+  "url" : "https:\/\/spec.graphql.org\/draft\/#ExecutableDocument"
+},
+"https://spec.graphql.org/draft/#SchemaDefinition": {
+  "identifier" : "https:\/\/spec.graphql.org\/draft\/#SchemaDefinition",
+  "title" : "Schema Definitions",
+  "titleInlineContent" : [
+    {
+      "text" : "Schema Definitions",
+      "type" : "text"
+    }
+  ],
+  "type" : "link",
+  "url" : "https:\/\/spec.graphql.org\/draft\/#SchemaDefinition"
+},
+"https://spec.graphql.org/draft/#SchemaExtension": {
+  "identifier" : "https:\/\/spec.graphql.org\/draft\/#SchemaExtension",
+  "title" : "Schema Extensions",
+  "titleInlineContent" : [
+    {
+      "text" : "Schema Extensions",
+      "type" : "text"
+    }
+  ],
+  "type" : "link",
+  "url" : "https:\/\/spec.graphql.org\/draft\/#SchemaExtension"
+},
+"https://spec.graphql.org/draft/#TypeDefinition": {
+  "identifier" : "https:\/\/spec.graphql.org\/draft\/#TypeDefinition",
+  "title" : "Type Definitions",
+  "titleInlineContent" : [
+    {
+      "text" : "Type Definitions",
+      "type" : "text"
+    }
+  ],
+  "type" : "link",
+  "url" : "https:\/\/spec.graphql.org\/draft\/#TypeDefinition"
+},
+"https://spec.graphql.org/draft/#TypeExtension": {
+  "identifier" : "https:\/\/spec.graphql.org\/draft\/#TypeExtension",
+  "title" : "Type Extensions",
+  "titleInlineContent" : [
+    {
+      "text" : "Type Extensions",
+      "type" : "text"
+    }
+  ],
+  "type" : "link",
+  "url" : "https:\/\/spec.graphql.org\/draft\/#TypeExtension"
+},
+"https://spec.graphql.org/draft/#sec-Language.Fragments": {
+  "identifier" : "https:\/\/spec.graphql.org\/draft\/#sec-Language.Fragments",
+  "title" : "Fragment Definitions",
+  "titleInlineContent" : [
+    {
+      "text" : "Fragment Definitions",
+      "type" : "text"
+    }
+  ],
+  "type" : "link",
+  "url" : "https:\/\/spec.graphql.org\/draft\/#sec-Language.Fragments"
+},
+"https://spec.graphql.org/draft/#sec-Language.Operations": {
+  "identifier" : "https:\/\/spec.graphql.org\/draft\/#sec-Language.Operations",
+  "title" : "Operation Definitions",
+  "titleInlineContent" : [
+    {
+      "text" : "Operation Definitions",
+      "type" : "text"
+    }
+  ],
+  "type" : "link",
+  "url" : "https:\/\/spec.graphql.org\/draft\/#sec-Language.Operations"
+},
+"https://spec.graphql.org/draft/#sec-Type-System": {
+  "identifier" : "https:\/\/spec.graphql.org\/draft\/#sec-Type-System",
+  "title" : "TypeSystemDocument",
+  "titleInlineContent" : [
+    {
+      "code" : "TypeSystemDocument",
+      "type" : "codeVoice"
+    }
+  ],
+  "type" : "link",
+  "url" : "https:\/\/spec.graphql.org\/draft\/#sec-Type-System"
+},
+"https://spec.graphql.org/draft/#sec-Type-System-Extensions": {
+  "identifier" : "https:\/\/spec.graphql.org\/draft\/#sec-Type-System-Extensions",
+  "title" : "TypeSystemExtension",
+  "titleInlineContent" : [
+    {
+      "code" : "TypeSystemExtension",
+      "type" : "codeVoice"
+    }
+  ],
+  "type" : "link",
+  "url" : "https:\/\/spec.graphql.org\/draft\/#sec-Type-System-Extensions"
+}
+}
+}

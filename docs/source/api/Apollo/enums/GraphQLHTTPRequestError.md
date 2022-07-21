@@ -3,7 +3,7 @@
 # `GraphQLHTTPRequestError`
 
 ```swift
-public enum GraphQLHTTPRequestError: Error, LocalizedError
+public enum GraphQLHTTPRequestError: Error, LocalizedError, Hashable
 ```
 
 An error which has occurred during the serialization of a request.

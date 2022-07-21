@@ -1,0 +1,899 @@
+{
+  "abstract" : [
+    {
+      "text" : "Represents an input value to an argument on a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Field",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : "’s ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Field\/arguments",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:9ApolloAPI10InputValueO",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "enum"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "InputValue"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "ApolloAPI"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "InputValue"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Enumeration",
+    "symbolKind" : "enum",
+    "title" : "InputValue"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "indirect"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "enum"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "InputValue"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "items" : [
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "See: ",
+                      "type" : "text"
+                    },
+                    {
+                      "identifier" : "http:\/\/spec.graphql.org\/June2018\/#sec-Input-Values",
+                      "isActive" : true,
+                      "type" : "reference"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            }
+          ],
+          "type" : "unorderedList"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/ApolloAPI\/SQ",
+        "doc:\/\/ApolloAPI\/s25ExpressibleByArrayLiteralP",
+        "doc:\/\/ApolloAPI\/s27ExpressibleByBooleanLiteralP",
+        "doc:\/\/ApolloAPI\/s30ExpressibleByDictionaryLiteralP",
+        "doc:\/\/ApolloAPI\/s43ExpressibleByExtendedGraphemeClusterLiteralP",
+        "doc:\/\/ApolloAPI\/s25ExpressibleByFloatLiteralP",
+        "doc:\/\/ApolloAPI\/s27ExpressibleByIntegerLiteralP",
+        "doc:\/\/ApolloAPI\/s26ExpressibleByStringLiteralP",
+        "doc:\/\/ApolloAPI\/s33ExpressibleByUnicodeScalarLiteralP",
+        "doc:\/\/ApolloAPI\/SH"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/list(_:)",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/null",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/object(_:)",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/scalar(_:)",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/variable(_:)"
+      ],
+      "title" : "Enumeration Cases"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/Equatable-Implementations",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/ExpressibleByArrayLiteral-Implementations",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/ExpressibleByBooleanLiteral-Implementations",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/ExpressibleByDictionaryLiteral-Implementations",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/ExpressibleByExtendedGraphemeClusterLiteral-Implementations",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/ExpressibleByFloatLiteral-Implementations",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/ExpressibleByIntegerLiteral-Implementations",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/ExpressibleByStringLiteral-Implementations",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/ExpressibleByUnicodeScalarLiteral-Implementations",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/Hashable-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apolloapi\/inputvalue"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"/documentation/apollo": {
+  "identifier" : "\/documentation\/apollo",
+  "title" : "Apollo",
+  "titleInlineContent" : [
+    {
+      "code" : "Apollo",
+      "type" : "codeVoice"
+    }
+  ],
+  "type" : "link",
+  "url" : "\/documentation\/apollo"
+},
+"/documentation/apollocodegenlib": {
+  "identifier" : "\/documentation\/apollocodegenlib",
+  "title" : "ApolloCodegenLib",
+  "titleInlineContent" : [
+    {
+      "code" : "ApolloCodegenLib",
+      "type" : "codeVoice"
+    }
+  ],
+  "type" : "link",
+  "url" : "\/documentation\/apollocodegenlib"
+},
+"doc://ApolloAPI/SH": {
+  "identifier" : "doc:\/\/ApolloAPI\/SH",
+  "title" : "Swift.Hashable",
+  "type" : "unresolvable"
+},
+"doc://ApolloAPI/SQ": {
+  "identifier" : "doc:\/\/ApolloAPI\/SQ",
+  "title" : "Swift.Equatable",
+  "type" : "unresolvable"
+},
+"doc://ApolloAPI/documentation/ApolloAPI": {
+  "abstract" : [
+    {
+      "text" : "The internal models shared by the ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "\/documentation\/apollo",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " client and the models generated by ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "\/documentation\/apollocodegenlib",
+      "isActive" : true,
+      "type" : "reference"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "ApolloAPI",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLOperation/variables-swift.property-4o32c": {
+  "abstract" : [
+
+  ],
+  "defaultImplementations" : 1,
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "variables"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP9Variablesa",
+      "text" : "Variables"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/variables-swift.property-4o32c",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "variables",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/graphqloperation\/variables-swift.property-4o32c"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/InputValue": {
+  "abstract" : [
+    {
+      "text" : "Represents an input value to an argument on a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Field",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : "’s ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Field\/arguments",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "InputValue"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "InputValue"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "InputValue",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/inputvalue"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/InputValue/Equatable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/Equatable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Equatable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/inputvalue\/equatable-implementations"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/InputValue/ExpressibleByArrayLiteral-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/ExpressibleByArrayLiteral-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "ExpressibleByArrayLiteral Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/inputvalue\/expressiblebyarrayliteral-implementations"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/InputValue/ExpressibleByBooleanLiteral-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/ExpressibleByBooleanLiteral-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "ExpressibleByBooleanLiteral Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/inputvalue\/expressiblebybooleanliteral-implementations"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/InputValue/ExpressibleByDictionaryLiteral-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/ExpressibleByDictionaryLiteral-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "ExpressibleByDictionaryLiteral Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/inputvalue\/expressiblebydictionaryliteral-implementations"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/InputValue/ExpressibleByExtendedGraphemeClusterLiteral-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/ExpressibleByExtendedGraphemeClusterLiteral-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "ExpressibleByExtendedGraphemeClusterLiteral Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/inputvalue\/expressiblebyextendedgraphemeclusterliteral-implementations"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/InputValue/ExpressibleByFloatLiteral-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/ExpressibleByFloatLiteral-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "ExpressibleByFloatLiteral Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/inputvalue\/expressiblebyfloatliteral-implementations"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/InputValue/ExpressibleByIntegerLiteral-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/ExpressibleByIntegerLiteral-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "ExpressibleByIntegerLiteral Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/inputvalue\/expressiblebyintegerliteral-implementations"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/InputValue/ExpressibleByStringLiteral-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/ExpressibleByStringLiteral-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "ExpressibleByStringLiteral Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/inputvalue\/expressiblebystringliteral-implementations"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/InputValue/ExpressibleByUnicodeScalarLiteral-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/ExpressibleByUnicodeScalarLiteral-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "ExpressibleByUnicodeScalarLiteral Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/inputvalue\/expressiblebyunicodescalarliteral-implementations"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/InputValue/Hashable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/Hashable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Hashable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/inputvalue\/hashable-implementations"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/InputValue/list(_:)": {
+  "abstract" : [
+    {
+      "text" : "A GraphQL “",
+      "type" : "text"
+    },
+    {
+      "code" : "List",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : "” input value.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "list"
+    },
+    {
+      "kind" : "text",
+      "text" : "(["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI10InputValueO",
+      "text" : "InputValue"
+    },
+    {
+      "kind" : "text",
+      "text" : "])"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/list(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "InputValue.list(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/inputvalue\/list(_:)"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/InputValue/null": {
+  "abstract" : [
+    {
+      "text" : "A null input value.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "null"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/null",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "InputValue.null",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/inputvalue\/null"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/InputValue/object(_:)": {
+  "abstract" : [
+    {
+      "text" : "A GraphQL “",
+      "type" : "text"
+    },
+    {
+      "code" : "InputObject",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : "” input value. Represented as a dictionary of input values.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "object"
+    },
+    {
+      "kind" : "text",
+      "text" : "(["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI10InputValueO",
+      "text" : "InputValue"
+    },
+    {
+      "kind" : "text",
+      "text" : "])"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/object(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "InputValue.object(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/inputvalue\/object(_:)"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/InputValue/scalar(_:)": {
+  "abstract" : [
+    {
+      "text" : "A direct input value, valid types are ",
+      "type" : "text"
+    },
+    {
+      "code" : "String",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ", ",
+      "type" : "text"
+    },
+    {
+      "code" : "Int",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "code" : "Float",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " and ",
+      "type" : "text"
+    },
+    {
+      "code" : "Bool",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "For enum input values, the enum cases’s ",
+      "type" : "text"
+    },
+    {
+      "code" : "rawValue",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " as a ",
+      "type" : "text"
+    },
+    {
+      "code" : "String",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " should be used.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "scalar"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI10ScalarTypeP",
+      "text" : "ScalarType"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/scalar(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "InputValue.scalar(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/inputvalue\/scalar(_:)"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/InputValue/variable(_:)": {
+  "abstract" : [
+    {
+      "text" : "A variable input value to be evaluated using the operation’s",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/variables-swift.property-4o32c",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " dictionary at runtime.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "variable"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue\/variable(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "InputValue.variable(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/inputvalue\/variable(_:)"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/Selection/Field": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Field"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Field",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Field"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Selection.Field",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/selection\/field"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/Selection/Field/arguments": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "arguments"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI10InputValueO",
+      "text" : "InputValue"
+    },
+    {
+      "kind" : "text",
+      "text" : "]?"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Field\/arguments",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "arguments",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/selection\/field\/arguments"
+},
+"doc://ApolloAPI/s25ExpressibleByArrayLiteralP": {
+  "identifier" : "doc:\/\/ApolloAPI\/s25ExpressibleByArrayLiteralP",
+  "title" : "Swift.ExpressibleByArrayLiteral",
+  "type" : "unresolvable"
+},
+"doc://ApolloAPI/s25ExpressibleByFloatLiteralP": {
+  "identifier" : "doc:\/\/ApolloAPI\/s25ExpressibleByFloatLiteralP",
+  "title" : "Swift.ExpressibleByFloatLiteral",
+  "type" : "unresolvable"
+},
+"doc://ApolloAPI/s26ExpressibleByStringLiteralP": {
+  "identifier" : "doc:\/\/ApolloAPI\/s26ExpressibleByStringLiteralP",
+  "title" : "Swift.ExpressibleByStringLiteral",
+  "type" : "unresolvable"
+},
+"doc://ApolloAPI/s27ExpressibleByBooleanLiteralP": {
+  "identifier" : "doc:\/\/ApolloAPI\/s27ExpressibleByBooleanLiteralP",
+  "title" : "Swift.ExpressibleByBooleanLiteral",
+  "type" : "unresolvable"
+},
+"doc://ApolloAPI/s27ExpressibleByIntegerLiteralP": {
+  "identifier" : "doc:\/\/ApolloAPI\/s27ExpressibleByIntegerLiteralP",
+  "title" : "Swift.ExpressibleByIntegerLiteral",
+  "type" : "unresolvable"
+},
+"doc://ApolloAPI/s30ExpressibleByDictionaryLiteralP": {
+  "identifier" : "doc:\/\/ApolloAPI\/s30ExpressibleByDictionaryLiteralP",
+  "title" : "Swift.ExpressibleByDictionaryLiteral",
+  "type" : "unresolvable"
+},
+"doc://ApolloAPI/s33ExpressibleByUnicodeScalarLiteralP": {
+  "identifier" : "doc:\/\/ApolloAPI\/s33ExpressibleByUnicodeScalarLiteralP",
+  "title" : "Swift.ExpressibleByUnicodeScalarLiteral",
+  "type" : "unresolvable"
+},
+"doc://ApolloAPI/s43ExpressibleByExtendedGraphemeClusterLiteralP": {
+  "identifier" : "doc:\/\/ApolloAPI\/s43ExpressibleByExtendedGraphemeClusterLiteralP",
+  "title" : "Swift.ExpressibleByExtendedGraphemeClusterLiteral",
+  "type" : "unresolvable"
+},
+"http://spec.graphql.org/June2018/#sec-Input-Values": {
+  "identifier" : "http:\/\/spec.graphql.org\/June2018\/#sec-Input-Values",
+  "title" : "GraphQLSpec - Input Values",
+  "titleInlineContent" : [
+    {
+      "text" : "GraphQLSpec - Input Values",
+      "type" : "text"
+    }
+  ],
+  "type" : "link",
+  "url" : "http:\/\/spec.graphql.org\/June2018\/#sec-Input-Values"
+}
+}
+}

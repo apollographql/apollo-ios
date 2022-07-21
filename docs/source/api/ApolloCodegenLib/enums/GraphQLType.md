@@ -3,16 +3,34 @@
 # `GraphQLType`
 
 ```swift
-public indirect enum GraphQLType: Equatable
+public indirect enum GraphQLType: Hashable
 ```
 
 A GraphQL type.
 
 ## Cases
-### `named(_:)`
+### `entity(_:)`
 
 ```swift
-case named(GraphQLNamedType)
+case entity(GraphQLCompositeType)
+```
+
+### `scalar(_:)`
+
+```swift
+case scalar(GraphQLScalarType)
+```
+
+### `enum(_:)`
+
+```swift
+case `enum`(GraphQLEnumType)
+```
+
+### `inputObject(_:)`
+
+```swift
+case inputObject(GraphQLInputObjectType)
 ```
 
 ### `nonNull(_:)`
@@ -32,4 +50,16 @@ case list(GraphQLType)
 
 ```swift
 public var typeReference: String
+```
+
+### `namedType`
+
+```swift
+public var namedType: GraphQLNamedType
+```
+
+### `innerType`
+
+```swift
+public var innerType: GraphQLType
 ```
