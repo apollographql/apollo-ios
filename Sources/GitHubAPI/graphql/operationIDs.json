@@ -1,14 +1,14 @@
 {
-  "187f0f83986b0269e8d0860e24c1b40ef4243ccbc86c15495076dabfef7a70c1": {
-    "name": "IssuesAndCommentsForRepository",
-    "source": "query IssuesAndCommentsForRepository {\n  repository(name: \"apollo-ios\", owner: \"apollographql\") {\n    __typename\n    name\n    issues(last: 100) {\n      __typename\n      nodes {\n        __typename\n        title\n        author {\n          __typename\n          ...AuthorDetails\n        }\n        body\n        comments(last: 100) {\n          __typename\n          nodes {\n            __typename\n            body\n            author {\n              __typename\n              ...AuthorDetails\n            }\n          }\n        }\n      }\n    }\n  }\n}\nfragment AuthorDetails on Actor {\n  __typename\n  login\n  ... on User {\n    __typename\n    id\n    name\n  }\n}"
+  "187f0f83986b0269e8d0860e24c1b40ef4243ccbc86c15495076dabfef7a70c1" : {
+    "name" : "IssuesAndCommentsForRepository",
+    "source" : "query IssuesAndCommentsForRepository {\n  repository(name: \"apollo-ios\", owner: \"apollographql\") {\n    __typename\n    name\n    issues(last: 100) {\n      __typename\n      nodes {\n        __typename\n        title\n        author {\n          __typename\n          ...AuthorDetails\n        }\n        body\n        comments(last: 100) {\n          __typename\n          nodes {\n            __typename\n            body\n            author {\n              __typename\n              ...AuthorDetails\n            }\n          }\n        }\n      }\n    }\n  }\n}\nfragment AuthorDetails on Actor {\n  __typename\n  login\n  ... on User {\n    __typename\n    id\n    name\n  }\n}"
   },
-  "68de6d66c791c0d7b4fe4c21496b4623acb91c0086366aded49366f57e9f0b68": {
-    "name": "Repository",
-    "source": "query Repository {\n  repository(owner: \"apollographql\", name: \"apollo-ios\") {\n    __typename\n    issueOrPullRequest(number: 13) {\n      __typename\n      ... on Issue {\n        __typename\n        body\n        ... on UniformResourceLocatable {\n          __typename\n          url\n        }\n        author {\n          __typename\n          avatarUrl\n        }\n      }\n      ... on Reactable {\n        __typename\n        viewerCanReact\n        ... on Comment {\n          __typename\n          author {\n            __typename\n            login\n          }\n        }\n      }\n    }\n  }\n}"
+  "68de6d66c791c0d7b4fe4c21496b4623acb91c0086366aded49366f57e9f0b68" : {
+    "name" : "Repository",
+    "source" : "query Repository {\n  repository(owner: \"apollographql\", name: \"apollo-ios\") {\n    __typename\n    issueOrPullRequest(number: 13) {\n      __typename\n      ... on Issue {\n        __typename\n        body\n        ... on UniformResourceLocatable {\n          __typename\n          url\n        }\n        author {\n          __typename\n          avatarUrl\n        }\n      }\n      ... on Reactable {\n        __typename\n        viewerCanReact\n        ... on Comment {\n          __typename\n          author {\n            __typename\n            login\n          }\n        }\n      }\n    }\n  }\n}"
   },
-  "b55f22bcbfaea0d861089b3fbe06299675a21d11ba7138ace39ecbde606a3dc1": {
-    "name": "RepoURL",
-    "source": "query RepoURL {\n  repository(owner: \"apollographql\", name: \"apollo-ios\") {\n    __typename\n    url\n  }\n}"
+  "b55f22bcbfaea0d861089b3fbe06299675a21d11ba7138ace39ecbde606a3dc1" : {
+    "name" : "RepoURL",
+    "source" : "query RepoURL {\n  repository(owner: \"apollographql\", name: \"apollo-ios\") {\n    __typename\n    url\n  }\n}"
   }
 }

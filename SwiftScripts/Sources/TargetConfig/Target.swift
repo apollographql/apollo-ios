@@ -131,7 +131,7 @@ public enum Target: CaseIterable {
 
   public func experimentalFeatures() -> ApolloCodegenConfiguration.ExperimentalFeatures {
     switch self {
-    case .starWars: return .init(legacySafelistingCompatibleOperations: true)
+    case .starWars, .gitHub: return .init(legacySafelistingCompatibleOperations: true)
     case .animalKingdom: return .init(clientControlledNullability: true)
     default: return .init()
     }

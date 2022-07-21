@@ -91,7 +91,6 @@
 		9BCF0D0123FC9F060031D2A2 /* StarWarsAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 9BCF0CF123FC9F060031D2A2 /* StarWarsAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9BDE43D122C6655300FD7C7F /* Cancellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BDE43D022C6655200FD7C7F /* Cancellable.swift */; };
 		9BDE43DF22C6708600FD7C7F /* GraphQLHTTPRequestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BDE43DE22C6708600FD7C7F /* GraphQLHTTPRequestError.swift */; };
-		9BDF201323FDC37600153E2B /* GitHubAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 9BDF200C23FDC37600153E2B /* GitHubAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9BE071AD2368D08700FA5952 /* Collection+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE071AC2368D08700FA5952 /* Collection+Helpers.swift */; };
 		9BE74D3D23FB4A8E006D354F /* FileFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE74D3C23FB4A8E006D354F /* FileFinder.swift */; };
 		9BEDC79E22E5D2CF00549BF6 /* RequestBodyCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEDC79D22E5D2CF00549BF6 /* RequestBodyCreator.swift */; };
@@ -515,6 +514,236 @@
 		E6C4267B26F16CB400904AD2 /* introspection_response.json in Resources */ = {isa = PBXBuildFile; fileRef = E6C4267A26F16CB400904AD2 /* introspection_response.json */; };
 		E6C9849327929EBE009481BE /* EnumTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C9849227929EBE009481BE /* EnumTemplate.swift */; };
 		E6C9849527929FED009481BE /* EnumTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C9849427929FED009481BE /* EnumTemplateTests.swift */; };
+		E6D08BBF28897C9700D21B13 /* AuthorDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08AD328897C9600D21B13 /* AuthorDetails.swift */; };
+		E6D08BC028897C9700D21B13 /* IssueOrPullRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08AD628897C9600D21B13 /* IssueOrPullRequest.swift */; };
+		E6D08BC128897C9700D21B13 /* URI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08AD828897C9600D21B13 /* URI.swift */; };
+		E6D08BC228897C9700D21B13 /* OrgBlockUserAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08ADA28897C9600D21B13 /* OrgBlockUserAuditEntry.swift */; };
+		E6D08BC328897C9700D21B13 /* RepoArchivedAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08ADB28897C9600D21B13 /* RepoArchivedAuditEntry.swift */; };
+		E6D08BC428897C9700D21B13 /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08ADC28897C9600D21B13 /* Query.swift */; };
+		E6D08BC528897C9700D21B13 /* EnterpriseServerUserAccountsUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08ADD28897C9600D21B13 /* EnterpriseServerUserAccountsUpload.swift */; };
+		E6D08BC628897C9700D21B13 /* TeamRemoveMemberAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08ADE28897C9600D21B13 /* TeamRemoveMemberAuditEntry.swift */; };
+		E6D08BC728897C9700D21B13 /* DeployKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08ADF28897C9600D21B13 /* DeployKey.swift */; };
+		E6D08BC828897C9700D21B13 /* ReviewDismissalAllowance.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08AE028897C9600D21B13 /* ReviewDismissalAllowance.swift */; };
+		E6D08BC928897C9700D21B13 /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08AE128897C9600D21B13 /* Label.swift */; };
+		E6D08BCA28897C9700D21B13 /* LockedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08AE228897C9600D21B13 /* LockedEvent.swift */; };
+		E6D08BCB28897C9700D21B13 /* RepoChangeMergeSettingAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08AE328897C9600D21B13 /* RepoChangeMergeSettingAuditEntry.swift */; };
+		E6D08BCC28897C9700D21B13 /* RepoCreateAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08AE428897C9600D21B13 /* RepoCreateAuditEntry.swift */; };
+		E6D08BCD28897C9700D21B13 /* PullRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08AE528897C9600D21B13 /* PullRequest.swift */; };
+		E6D08BCE28897C9700D21B13 /* UnsubscribedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08AE628897C9600D21B13 /* UnsubscribedEvent.swift */; };
+		E6D08BCF28897C9700D21B13 /* TransferredEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08AE728897C9600D21B13 /* TransferredEvent.swift */; };
+		E6D08BD028897C9700D21B13 /* PullRequestReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08AE828897C9600D21B13 /* PullRequestReview.swift */; };
+		E6D08BD128897C9700D21B13 /* OrgInviteMemberAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08AE928897C9600D21B13 /* OrgInviteMemberAuditEntry.swift */; };
+		E6D08BD228897C9700D21B13 /* OrgConfigEnableCollaboratorsOnlyAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08AEA28897C9600D21B13 /* OrgConfigEnableCollaboratorsOnlyAuditEntry.swift */; };
+		E6D08BD328897C9700D21B13 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08AEB28897C9600D21B13 /* Language.swift */; };
+		E6D08BD428897C9700D21B13 /* Deployment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08AEC28897C9600D21B13 /* Deployment.swift */; };
+		E6D08BD528897C9700D21B13 /* OrgOauthAppAccessRequestedAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08AED28897C9600D21B13 /* OrgOauthAppAccessRequestedAuditEntry.swift */; };
+		E6D08BD628897C9700D21B13 /* DeploymentStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08AEE28897C9600D21B13 /* DeploymentStatus.swift */; };
+		E6D08BD728897C9700D21B13 /* ConvertToDraftEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08AEF28897C9600D21B13 /* ConvertToDraftEvent.swift */; };
+		E6D08BD828897C9700D21B13 /* CommentDeletedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08AF028897C9600D21B13 /* CommentDeletedEvent.swift */; };
+		E6D08BD928897C9700D21B13 /* Mannequin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08AF128897C9600D21B13 /* Mannequin.swift */; };
+		E6D08BDA28897C9700D21B13 /* PublicKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08AF228897C9600D21B13 /* PublicKey.swift */; };
+		E6D08BDB28897C9700D21B13 /* RemovedFromProjectEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08AF328897C9600D21B13 /* RemovedFromProjectEvent.swift */; };
+		E6D08BDC28897C9700D21B13 /* ReviewRequestRemovedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08AF428897C9600D21B13 /* ReviewRequestRemovedEvent.swift */; };
+		E6D08BDD28897C9700D21B13 /* SubscribedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08AF528897C9600D21B13 /* SubscribedEvent.swift */; };
+		E6D08BDE28897C9700D21B13 /* TeamAddMemberAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08AF628897C9600D21B13 /* TeamAddMemberAuditEntry.swift */; };
+		E6D08BDF28897C9700D21B13 /* MovedColumnsInProjectEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08AF728897C9600D21B13 /* MovedColumnsInProjectEvent.swift */; };
+		E6D08BE028897C9700D21B13 /* BranchProtectionRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08AF828897C9600D21B13 /* BranchProtectionRule.swift */; };
+		E6D08BE128897C9700D21B13 /* SponsorsTier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08AF928897C9600D21B13 /* SponsorsTier.swift */; };
+		E6D08BE228897C9700D21B13 /* TeamDiscussionComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08AFA28897C9600D21B13 /* TeamDiscussionComment.swift */; };
+		E6D08BE328897C9700D21B13 /* OrgEnableOauthAppRestrictionsAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08AFB28897C9600D21B13 /* OrgEnableOauthAppRestrictionsAuditEntry.swift */; };
+		E6D08BE428897C9700D21B13 /* ReferencedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08AFC28897C9600D21B13 /* ReferencedEvent.swift */; };
+		E6D08BE528897C9700D21B13 /* UnpinnedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08AFD28897C9600D21B13 /* UnpinnedEvent.swift */; };
+		E6D08BE628897C9700D21B13 /* OrgUpdateDefaultRepositoryPermissionAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08AFE28897C9600D21B13 /* OrgUpdateDefaultRepositoryPermissionAuditEntry.swift */; };
+		E6D08BE728897C9700D21B13 /* TeamAddRepositoryAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08AFF28897C9600D21B13 /* TeamAddRepositoryAuditEntry.swift */; };
+		E6D08BE828897C9700D21B13 /* RepoConfigUnlockAnonymousGitAccessAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B0028897C9600D21B13 /* RepoConfigUnlockAnonymousGitAccessAuditEntry.swift */; };
+		E6D08BE928897C9700D21B13 /* OrganizationInvitation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B0128897C9600D21B13 /* OrganizationInvitation.swift */; };
+		E6D08BEA28897C9700D21B13 /* OrgEnableTwoFactorRequirementAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B0228897C9600D21B13 /* OrgEnableTwoFactorRequirementAuditEntry.swift */; };
+		E6D08BEB28897C9700D21B13 /* DemilestonedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B0328897C9600D21B13 /* DemilestonedEvent.swift */; };
+		E6D08BEC28897C9700D21B13 /* HeadRefDeletedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B0428897C9600D21B13 /* HeadRefDeletedEvent.swift */; };
+		E6D08BED28897C9700D21B13 /* RepositoryVisibilityChangeEnableAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B0528897C9600D21B13 /* RepositoryVisibilityChangeEnableAuditEntry.swift */; };
+		E6D08BEE28897C9700D21B13 /* OrgRemoveOutsideCollaboratorAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B0628897C9600D21B13 /* OrgRemoveOutsideCollaboratorAuditEntry.swift */; };
+		E6D08BEF28897C9700D21B13 /* EnterpriseServerUserAccountEmail.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B0728897C9600D21B13 /* EnterpriseServerUserAccountEmail.swift */; };
+		E6D08BF028897C9700D21B13 /* EnterpriseAdministratorInvitation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B0828897C9600D21B13 /* EnterpriseAdministratorInvitation.swift */; };
+		E6D08BF128897C9700D21B13 /* UserStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B0928897C9600D21B13 /* UserStatus.swift */; };
+		E6D08BF228897C9700D21B13 /* AutomaticBaseChangeSucceededEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B0A28897C9600D21B13 /* AutomaticBaseChangeSucceededEvent.swift */; };
+		E6D08BF328897C9700D21B13 /* Ref.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B0B28897C9600D21B13 /* Ref.swift */; };
+		E6D08BF428897C9700D21B13 /* UnlabeledEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B0C28897C9600D21B13 /* UnlabeledEvent.swift */; };
+		E6D08BF528897C9700D21B13 /* OrgRestoreMemberAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B0D28897C9600D21B13 /* OrgRestoreMemberAuditEntry.swift */; };
+		E6D08BF628897C9700D21B13 /* RepoAddMemberAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B0E28897C9600D21B13 /* RepoAddMemberAuditEntry.swift */; };
+		E6D08BF728897C9700D21B13 /* EnterpriseRepositoryInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B0F28897C9600D21B13 /* EnterpriseRepositoryInfo.swift */; };
+		E6D08BF828897C9700D21B13 /* EnterpriseServerInstallation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B1028897C9600D21B13 /* EnterpriseServerInstallation.swift */; };
+		E6D08BF928897C9700D21B13 /* UnmarkedAsDuplicateEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B1128897C9600D21B13 /* UnmarkedAsDuplicateEvent.swift */; };
+		E6D08BFA28897C9700D21B13 /* OrgUnblockUserAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B1228897C9600D21B13 /* OrgUnblockUserAuditEntry.swift */; };
+		E6D08BFB28897C9700D21B13 /* Milestone.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B1328897C9600D21B13 /* Milestone.swift */; };
+		E6D08BFC28897C9700D21B13 /* PullRequestCommit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B1428897C9600D21B13 /* PullRequestCommit.swift */; };
+		E6D08BFD28897C9700D21B13 /* ConvertedNoteToIssueEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B1528897C9600D21B13 /* ConvertedNoteToIssueEvent.swift */; };
+		E6D08BFE28897C9700D21B13 /* RepositoryVulnerabilityAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B1628897C9600D21B13 /* RepositoryVulnerabilityAlert.swift */; };
+		E6D08BFF28897C9700D21B13 /* SecurityAdvisory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B1728897C9600D21B13 /* SecurityAdvisory.swift */; };
+		E6D08C0028897C9700D21B13 /* OrgRemoveBillingManagerAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B1828897C9600D21B13 /* OrgRemoveBillingManagerAuditEntry.swift */; };
+		E6D08C0128897C9700D21B13 /* UserContentEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B1928897C9600D21B13 /* UserContentEdit.swift */; };
+		E6D08C0228897C9700D21B13 /* MergedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B1A28897C9600D21B13 /* MergedEvent.swift */; };
+		E6D08C0328897C9700D21B13 /* OrgUpdateMemberRepositoryCreationPermissionAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B1B28897C9600D21B13 /* OrgUpdateMemberRepositoryCreationPermissionAuditEntry.swift */; };
+		E6D08C0428897C9700D21B13 /* MilestonedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B1C28897C9600D21B13 /* MilestonedEvent.swift */; };
+		E6D08C0528897C9700D21B13 /* OrgRestoreMemberMembershipOrganizationAuditEntryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B1D28897C9600D21B13 /* OrgRestoreMemberMembershipOrganizationAuditEntryData.swift */; };
+		E6D08C0628897C9700D21B13 /* IssueCommentConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B1E28897C9600D21B13 /* IssueCommentConnection.swift */; };
+		E6D08C0728897C9700D21B13 /* SavedReply.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B1F28897C9600D21B13 /* SavedReply.swift */; };
+		E6D08C0828897C9700D21B13 /* MentionedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B2028897C9600D21B13 /* MentionedEvent.swift */; };
+		E6D08C0928897C9700D21B13 /* Commit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B2128897C9600D21B13 /* Commit.swift */; };
+		E6D08C0A28897C9700D21B13 /* RepositoryInvitation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B2228897C9600D21B13 /* RepositoryInvitation.swift */; };
+		E6D08C0B28897C9700D21B13 /* Blob.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B2328897C9600D21B13 /* Blob.swift */; };
+		E6D08C0C28897C9700D21B13 /* Organization.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B2428897C9600D21B13 /* Organization.swift */; };
+		E6D08C0D28897C9700D21B13 /* PinnedIssue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B2528897C9600D21B13 /* PinnedIssue.swift */; };
+		E6D08C0E28897C9700D21B13 /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B2628897C9600D21B13 /* Team.swift */; };
+		E6D08C0F28897C9700D21B13 /* EnterpriseUserAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B2728897C9600D21B13 /* EnterpriseUserAccount.swift */; };
+		E6D08C1028897C9700D21B13 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B2828897C9600D21B13 /* User.swift */; };
+		E6D08C1128897C9700D21B13 /* UserBlockedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B2928897C9600D21B13 /* UserBlockedEvent.swift */; };
+		E6D08C1228897C9700D21B13 /* IssueComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B2A28897C9600D21B13 /* IssueComment.swift */; };
+		E6D08C1328897C9700D21B13 /* LabeledEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B2B28897C9600D21B13 /* LabeledEvent.swift */; };
+		E6D08C1428897C9700D21B13 /* DeploymentEnvironmentChangedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B2C28897C9600D21B13 /* DeploymentEnvironmentChangedEvent.swift */; };
+		E6D08C1528897C9700D21B13 /* OrgAddBillingManagerAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B2D28897C9600D21B13 /* OrgAddBillingManagerAuditEntry.swift */; };
+		E6D08C1628897C9700D21B13 /* OrgConfigDisableCollaboratorsOnlyAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B2E28897C9600D21B13 /* OrgConfigDisableCollaboratorsOnlyAuditEntry.swift */; };
+		E6D08C1728897C9700D21B13 /* Push.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B2F28897C9600D21B13 /* Push.swift */; };
+		E6D08C1828897C9700D21B13 /* PullRequestCommitCommentThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B3028897C9600D21B13 /* PullRequestCommitCommentThread.swift */; };
+		E6D08C1928897C9700D21B13 /* RepoConfigEnableCollaboratorsOnlyAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B3128897C9600D21B13 /* RepoConfigEnableCollaboratorsOnlyAuditEntry.swift */; };
+		E6D08C1A28897C9700D21B13 /* MembersCanDeleteReposDisableAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B3228897C9600D21B13 /* MembersCanDeleteReposDisableAuditEntry.swift */; };
+		E6D08C1B28897C9700D21B13 /* CodeOfConduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B3328897C9600D21B13 /* CodeOfConduct.swift */; };
+		E6D08C1C28897C9700D21B13 /* Bot.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B3428897C9600D21B13 /* Bot.swift */; };
+		E6D08C1D28897C9700D21B13 /* CrossReferencedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B3528897C9600D21B13 /* CrossReferencedEvent.swift */; };
+		E6D08C1E28897C9700D21B13 /* CommitComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B3628897C9600D21B13 /* CommitComment.swift */; };
+		E6D08C1F28897C9700D21B13 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B3728897C9600D21B13 /* Project.swift */; };
+		E6D08C2028897C9700D21B13 /* Gist.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B3828897C9600D21B13 /* Gist.swift */; };
+		E6D08C2128897C9700D21B13 /* ReviewRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B3928897C9600D21B13 /* ReviewRequest.swift */; };
+		E6D08C2228897C9700D21B13 /* TeamRemoveRepositoryAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B3A28897C9600D21B13 /* TeamRemoveRepositoryAuditEntry.swift */; };
+		E6D08C2328897C9700D21B13 /* AddedToProjectEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B3B28897C9600D21B13 /* AddedToProjectEvent.swift */; };
+		E6D08C2428897C9700D21B13 /* SponsorsListing.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B3C28897C9600D21B13 /* SponsorsListing.swift */; };
+		E6D08C2528897C9700D21B13 /* OrgRestoreMemberMembershipTeamAuditEntryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B3D28897C9600D21B13 /* OrgRestoreMemberMembershipTeamAuditEntryData.swift */; };
+		E6D08C2628897C9700D21B13 /* ExternalIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B3E28897C9600D21B13 /* ExternalIdentity.swift */; };
+		E6D08C2728897C9700D21B13 /* License.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B3F28897C9600D21B13 /* License.swift */; };
+		E6D08C2828897C9700D21B13 /* Reaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B4028897C9600D21B13 /* Reaction.swift */; };
+		E6D08C2928897C9700D21B13 /* CommitCommentThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B4128897C9600D21B13 /* CommitCommentThread.swift */; };
+		E6D08C2A28897C9700D21B13 /* OrgOauthAppAccessApprovedAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B4228897C9600D21B13 /* OrgOauthAppAccessApprovedAuditEntry.swift */; };
+		E6D08C2B28897C9700D21B13 /* StatusCheckRollup.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B4328897C9600D21B13 /* StatusCheckRollup.swift */; };
+		E6D08C2C28897C9700D21B13 /* RepoConfigDisableAnonymousGitAccessAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B4428897C9600D21B13 /* RepoConfigDisableAnonymousGitAccessAuditEntry.swift */; };
+		E6D08C2D28897C9700D21B13 /* OrgRemoveMemberAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B4528897C9600D21B13 /* OrgRemoveMemberAuditEntry.swift */; };
+		E6D08C2E28897C9700D21B13 /* RepoRemoveMemberAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B4628897C9600D21B13 /* RepoRemoveMemberAuditEntry.swift */; };
+		E6D08C2F28897C9700D21B13 /* DependencyGraphManifest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B4728897C9600D21B13 /* DependencyGraphManifest.swift */; };
+		E6D08C3028897C9700D21B13 /* OrgOauthAppAccessDeniedAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B4828897C9600D21B13 /* OrgOauthAppAccessDeniedAuditEntry.swift */; };
+		E6D08C3128897C9700D21B13 /* Issue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B4928897C9600D21B13 /* Issue.swift */; };
+		E6D08C3228897C9700D21B13 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B4A28897C9600D21B13 /* Repository.swift */; };
+		E6D08C3328897C9700D21B13 /* PackageVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B4B28897C9600D21B13 /* PackageVersion.swift */; };
+		E6D08C3428897C9700D21B13 /* PackageTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B4C28897C9600D21B13 /* PackageTag.swift */; };
+		E6D08C3528897C9700D21B13 /* TeamChangeParentTeamAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B4D28897C9600D21B13 /* TeamChangeParentTeamAuditEntry.swift */; };
+		E6D08C3628897C9700D21B13 /* ReopenedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B4E28897C9600D21B13 /* ReopenedEvent.swift */; };
+		E6D08C3728897C9700D21B13 /* OrgInviteToBusinessAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B4F28897C9600D21B13 /* OrgInviteToBusinessAuditEntry.swift */; };
+		E6D08C3828897C9700D21B13 /* EnterpriseIdentityProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B5028897C9600D21B13 /* EnterpriseIdentityProvider.swift */; };
+		E6D08C3928897C9700D21B13 /* RepoConfigDisableCollaboratorsOnlyAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B5128897C9600D21B13 /* RepoConfigDisableCollaboratorsOnlyAuditEntry.swift */; };
+		E6D08C3A28897C9700D21B13 /* RepoConfigEnableSockpuppetDisallowedAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B5228897C9600D21B13 /* RepoConfigEnableSockpuppetDisallowedAuditEntry.swift */; };
+		E6D08C3B28897C9700D21B13 /* RepoAccessAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B5328897C9600D21B13 /* RepoAccessAuditEntry.swift */; };
+		E6D08C3C28897C9700D21B13 /* Tree.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B5428897C9600D21B13 /* Tree.swift */; };
+		E6D08C3D28897C9700D21B13 /* RepoConfigDisableSockpuppetDisallowedAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B5528897C9600D21B13 /* RepoConfigDisableSockpuppetDisallowedAuditEntry.swift */; };
+		E6D08C3E28897C9700D21B13 /* ProjectColumn.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B5628897C9600D21B13 /* ProjectColumn.swift */; };
+		E6D08C3F28897C9700D21B13 /* PullRequestReviewComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B5728897C9600D21B13 /* PullRequestReviewComment.swift */; };
+		E6D08C4028897C9700D21B13 /* UnassignedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B5828897C9600D21B13 /* UnassignedEvent.swift */; };
+		E6D08C4128897C9700D21B13 /* TeamDiscussion.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B5928897C9600D21B13 /* TeamDiscussion.swift */; };
+		E6D08C4228897C9700D21B13 /* OrgUpdateMemberRepositoryInvitationPermissionAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B5A28897C9600D21B13 /* OrgUpdateMemberRepositoryInvitationPermissionAuditEntry.swift */; };
+		E6D08C4328897C9700D21B13 /* MembersCanDeleteReposClearAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B5B28897C9600D21B13 /* MembersCanDeleteReposClearAuditEntry.swift */; };
+		E6D08C4428897C9700D21B13 /* DeployedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B5C28897C9600D21B13 /* DeployedEvent.swift */; };
+		E6D08C4528897C9700D21B13 /* DisconnectedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B5D28897C9600D21B13 /* DisconnectedEvent.swift */; };
+		E6D08C4628897C9700D21B13 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B5E28897C9600D21B13 /* Package.swift */; };
+		E6D08C4728897C9700D21B13 /* Release.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B5F28897C9600D21B13 /* Release.swift */; };
+		E6D08C4828897C9700D21B13 /* Sponsorship.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B6028897C9600D21B13 /* Sponsorship.swift */; };
+		E6D08C4928897C9700D21B13 /* IssueConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B6128897C9600D21B13 /* IssueConnection.swift */; };
+		E6D08C4A28897C9700D21B13 /* CheckRun.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B6228897C9600D21B13 /* CheckRun.swift */; };
+		E6D08C4B28897C9700D21B13 /* ReleaseAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B6328897C9600D21B13 /* ReleaseAsset.swift */; };
+		E6D08C4C28897C9700D21B13 /* AssignedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B6428897C9600D21B13 /* AssignedEvent.swift */; };
+		E6D08C4D28897C9700D21B13 /* OrgDisableSamlAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B6528897C9600D21B13 /* OrgDisableSamlAuditEntry.swift */; };
+		E6D08C4E28897C9700D21B13 /* RepositoryVisibilityChangeDisableAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B6628897C9600D21B13 /* RepositoryVisibilityChangeDisableAuditEntry.swift */; };
+		E6D08C4F28897C9700D21B13 /* RepositoryTopic.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B6728897C9600D21B13 /* RepositoryTopic.swift */; };
+		E6D08C5028897C9700D21B13 /* CheckSuite.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B6828897C9600D21B13 /* CheckSuite.swift */; };
+		E6D08C5128897C9700D21B13 /* PullRequestReviewThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B6928897C9600D21B13 /* PullRequestReviewThread.swift */; };
+		E6D08C5228897C9700D21B13 /* RepoDestroyAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B6A28897C9600D21B13 /* RepoDestroyAuditEntry.swift */; };
+		E6D08C5328897C9700D21B13 /* EnterpriseServerUserAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B6B28897C9600D21B13 /* EnterpriseServerUserAccount.swift */; };
+		E6D08C5428897C9700D21B13 /* RepoRemoveTopicAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B6C28897C9600D21B13 /* RepoRemoveTopicAuditEntry.swift */; };
+		E6D08C5528897C9700D21B13 /* PinnedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B6D28897C9600D21B13 /* PinnedEvent.swift */; };
+		E6D08C5628897C9700D21B13 /* Enterprise.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B6E28897C9600D21B13 /* Enterprise.swift */; };
+		E6D08C5728897C9700D21B13 /* OrgCreateAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B6F28897C9600D21B13 /* OrgCreateAuditEntry.swift */; };
+		E6D08C5828897C9700D21B13 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B7028897C9600D21B13 /* Status.swift */; };
+		E6D08C5928897C9700D21B13 /* MarketplaceListing.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B7128897C9600D21B13 /* MarketplaceListing.swift */; };
+		E6D08C5A28897C9700D21B13 /* OrgEnableSamlAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B7228897C9600D21B13 /* OrgEnableSamlAuditEntry.swift */; };
+		E6D08C5B28897C9700D21B13 /* ReadyForReviewEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B7328897C9600D21B13 /* ReadyForReviewEvent.swift */; };
+		E6D08C5C28897C9800D21B13 /* OrgDisableOauthAppRestrictionsAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B7428897C9600D21B13 /* OrgDisableOauthAppRestrictionsAuditEntry.swift */; };
+		E6D08C5D28897C9800D21B13 /* OauthApplicationCreateAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B7528897C9600D21B13 /* OauthApplicationCreateAuditEntry.swift */; };
+		E6D08C5E28897C9800D21B13 /* ConnectedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B7628897C9600D21B13 /* ConnectedEvent.swift */; };
+		E6D08C5F28897C9800D21B13 /* StatusContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B7728897C9600D21B13 /* StatusContext.swift */; };
+		E6D08C6028897C9800D21B13 /* RepoConfigLockAnonymousGitAccessAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B7828897C9600D21B13 /* RepoConfigLockAnonymousGitAccessAuditEntry.swift */; };
+		E6D08C6128897C9800D21B13 /* RepoConfigEnableContributorsOnlyAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B7928897C9600D21B13 /* RepoConfigEnableContributorsOnlyAuditEntry.swift */; };
+		E6D08C6228897C9800D21B13 /* AutomaticBaseChangeFailedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B7A28897C9600D21B13 /* AutomaticBaseChangeFailedEvent.swift */; };
+		E6D08C6328897C9800D21B13 /* OrgRestoreMemberMembershipRepositoryAuditEntryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B7B28897C9600D21B13 /* OrgRestoreMemberMembershipRepositoryAuditEntryData.swift */; };
+		E6D08C6428897C9800D21B13 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B7C28897C9600D21B13 /* Tag.swift */; };
+		E6D08C6528897C9800D21B13 /* BaseRefForcePushedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B7D28897C9600D21B13 /* BaseRefForcePushedEvent.swift */; };
+		E6D08C6628897C9800D21B13 /* ProjectCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B7E28897C9600D21B13 /* ProjectCard.swift */; };
+		E6D08C6728897C9800D21B13 /* GistComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B7F28897C9600D21B13 /* GistComment.swift */; };
+		E6D08C6828897C9800D21B13 /* OrgDisableTwoFactorRequirementAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B8028897C9600D21B13 /* OrgDisableTwoFactorRequirementAuditEntry.swift */; };
+		E6D08C6928897C9800D21B13 /* MarkedAsDuplicateEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B8128897C9600D21B13 /* MarkedAsDuplicateEvent.swift */; };
+		E6D08C6A28897C9800D21B13 /* PrivateRepositoryForkingDisableAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B8228897C9600D21B13 /* PrivateRepositoryForkingDisableAuditEntry.swift */; };
+		E6D08C6B28897C9800D21B13 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B8328897C9600D21B13 /* App.swift */; };
+		E6D08C6C28897C9800D21B13 /* ReviewDismissedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B8428897C9600D21B13 /* ReviewDismissedEvent.swift */; };
+		E6D08C6D28897C9800D21B13 /* BaseRefChangedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B8528897C9600D21B13 /* BaseRefChangedEvent.swift */; };
+		E6D08C6E28897C9800D21B13 /* MarketplaceCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B8628897C9600D21B13 /* MarketplaceCategory.swift */; };
+		E6D08C6F28897C9800D21B13 /* OrgAddMemberAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B8728897C9600D21B13 /* OrgAddMemberAuditEntry.swift */; };
+		E6D08C7028897C9800D21B13 /* ClosedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B8828897C9700D21B13 /* ClosedEvent.swift */; };
+		E6D08C7128897C9800D21B13 /* IpAllowListEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B8928897C9700D21B13 /* IpAllowListEntry.swift */; };
+		E6D08C7228897C9800D21B13 /* MembersCanDeleteReposEnableAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B8A28897C9700D21B13 /* MembersCanDeleteReposEnableAuditEntry.swift */; };
+		E6D08C7328897C9800D21B13 /* OrganizationIdentityProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B8B28897C9700D21B13 /* OrganizationIdentityProvider.swift */; };
+		E6D08C7428897C9800D21B13 /* HeadRefForcePushedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B8C28897C9700D21B13 /* HeadRefForcePushedEvent.swift */; };
+		E6D08C7528897C9800D21B13 /* UnlockedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B8D28897C9700D21B13 /* UnlockedEvent.swift */; };
+		E6D08C7628897C9800D21B13 /* PushAllowance.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B8E28897C9700D21B13 /* PushAllowance.swift */; };
+		E6D08C7728897C9800D21B13 /* RepoAddTopicAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B8F28897C9700D21B13 /* RepoAddTopicAuditEntry.swift */; };
+		E6D08C7828897C9800D21B13 /* OrgUpdateMemberAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B9028897C9700D21B13 /* OrgUpdateMemberAuditEntry.swift */; };
+		E6D08C7928897C9800D21B13 /* RepoConfigEnableAnonymousGitAccessAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B9128897C9700D21B13 /* RepoConfigEnableAnonymousGitAccessAuditEntry.swift */; };
+		E6D08C7A28897C9800D21B13 /* RenamedTitleEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B9228897C9700D21B13 /* RenamedTitleEvent.swift */; };
+		E6D08C7B28897C9800D21B13 /* HeadRefRestoredEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B9328897C9700D21B13 /* HeadRefRestoredEvent.swift */; };
+		E6D08C7C28897C9800D21B13 /* ReviewRequestedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B9428897C9700D21B13 /* ReviewRequestedEvent.swift */; };
+		E6D08C7D28897C9800D21B13 /* PrivateRepositoryForkingEnableAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B9528897C9700D21B13 /* PrivateRepositoryForkingEnableAuditEntry.swift */; };
+		E6D08C7E28897C9800D21B13 /* Topic.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B9628897C9700D21B13 /* Topic.swift */; };
+		E6D08C7F28897C9800D21B13 /* PackageFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B9728897C9700D21B13 /* PackageFile.swift */; };
+		E6D08C8028897C9800D21B13 /* RepoConfigDisableContributorsOnlyAuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B9828897C9700D21B13 /* RepoConfigDisableContributorsOnlyAuditEntry.swift */; };
+		E6D08C8128897C9800D21B13 /* Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B9928897C9700D21B13 /* Schema.swift */; };
+		E6D08C8228897C9800D21B13 /* ProfileOwner.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B9B28897C9700D21B13 /* ProfileOwner.swift */; };
+		E6D08C8328897C9800D21B13 /* Lockable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B9C28897C9700D21B13 /* Lockable.swift */; };
+		E6D08C8428897C9800D21B13 /* Assignable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B9D28897C9700D21B13 /* Assignable.swift */; };
+		E6D08C8528897C9800D21B13 /* PackageOwner.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B9E28897C9700D21B13 /* PackageOwner.swift */; };
+		E6D08C8628897C9800D21B13 /* OauthApplicationAuditEntryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08B9F28897C9700D21B13 /* OauthApplicationAuditEntryData.swift */; };
+		E6D08C8728897C9800D21B13 /* GitObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08BA028897C9700D21B13 /* GitObject.swift */; };
+		E6D08C8828897C9800D21B13 /* RepositoryInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08BA128897C9700D21B13 /* RepositoryInfo.swift */; };
+		E6D08C8928897C9800D21B13 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08BA228897C9700D21B13 /* Comment.swift */; };
+		E6D08C8A28897C9800D21B13 /* Closable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08BA328897C9700D21B13 /* Closable.swift */; };
+		E6D08C8B28897C9800D21B13 /* RepositoryAuditEntryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08BA428897C9700D21B13 /* RepositoryAuditEntryData.swift */; };
+		E6D08C8C28897C9800D21B13 /* Labelable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08BA528897C9700D21B13 /* Labelable.swift */; };
+		E6D08C8D28897C9800D21B13 /* Subscribable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08BA628897C9700D21B13 /* Subscribable.swift */; };
+		E6D08C8E28897C9800D21B13 /* Reactable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08BA728897C9700D21B13 /* Reactable.swift */; };
+		E6D08C8F28897C9800D21B13 /* RepositoryNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08BA828897C9700D21B13 /* RepositoryNode.swift */; };
+		E6D08C9028897C9800D21B13 /* Updatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08BA928897C9700D21B13 /* Updatable.swift */; };
+		E6D08C9128897C9800D21B13 /* Sponsorable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08BAA28897C9700D21B13 /* Sponsorable.swift */; };
+		E6D08C9228897C9800D21B13 /* EnterpriseAuditEntryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08BAB28897C9700D21B13 /* EnterpriseAuditEntryData.swift */; };
+		E6D08C9328897C9800D21B13 /* Starrable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08BAC28897C9700D21B13 /* Starrable.swift */; };
+		E6D08C9428897C9800D21B13 /* OrganizationAuditEntryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08BAD28897C9700D21B13 /* OrganizationAuditEntryData.swift */; };
+		E6D08C9528897C9800D21B13 /* UpdatableComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08BAE28897C9700D21B13 /* UpdatableComment.swift */; };
+		E6D08C9628897C9800D21B13 /* MemberStatusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08BAF28897C9700D21B13 /* MemberStatusable.swift */; };
+		E6D08C9728897C9800D21B13 /* Minimizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08BB028897C9700D21B13 /* Minimizable.swift */; };
+		E6D08C9828897C9800D21B13 /* AuditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08BB128897C9700D21B13 /* AuditEntry.swift */; };
+		E6D08C9928897C9800D21B13 /* TeamAuditEntryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08BB228897C9700D21B13 /* TeamAuditEntryData.swift */; };
+		E6D08C9A28897C9800D21B13 /* Actor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08BB328897C9700D21B13 /* Actor.swift */; };
+		E6D08C9B28897C9800D21B13 /* UniformResourceLocatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08BB428897C9700D21B13 /* UniformResourceLocatable.swift */; };
+		E6D08C9C28897C9800D21B13 /* Deletable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08BB528897C9700D21B13 /* Deletable.swift */; };
+		E6D08C9D28897C9800D21B13 /* RepositoryOwner.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08BB628897C9700D21B13 /* RepositoryOwner.swift */; };
+		E6D08C9E28897C9800D21B13 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08BB728897C9700D21B13 /* Node.swift */; };
+		E6D08C9F28897C9800D21B13 /* ProjectOwner.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08BB828897C9700D21B13 /* ProjectOwner.swift */; };
+		E6D08CA028897C9800D21B13 /* TopicAuditEntryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08BB928897C9700D21B13 /* TopicAuditEntryData.swift */; };
+		E6D08CA128897C9800D21B13 /* RepositoryQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08BBC28897C9700D21B13 /* RepositoryQuery.swift */; };
+		E6D08CA228897C9800D21B13 /* IssuesAndCommentsForRepositoryQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08BBD28897C9700D21B13 /* IssuesAndCommentsForRepositoryQuery.swift */; };
+		E6D08CA328897C9800D21B13 /* RepoURLQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D08BBE28897C9700D21B13 /* RepoURLQuery.swift */; };
+		E6D08CA528897E5F00D21B13 /* GitHubAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = E6D08CA428897E5F00D21B13 /* GitHubAPI.h */; };
 		E6D79AB826E9D59C0094434A /* URLDownloaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D79AB626E97D0D0094434A /* URLDownloaderTests.swift */; };
 		E6D90D07278FA595009CAC5D /* InputObjectFileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D90D06278FA595009CAC5D /* InputObjectFileGenerator.swift */; };
 		E6D90D09278FA5C3009CAC5D /* InputObjectFileGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D90D08278FA5C3009CAC5D /* InputObjectFileGeneratorTests.swift */; };
@@ -828,9 +1057,8 @@
 		9B2061192591B3550020D1E0 /* a.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = a.txt; sourceTree = "<group>"; };
 		9B20614B2591B3700020D1E0 /* UploadMultipleFiles.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = UploadMultipleFiles.graphql; sourceTree = "<group>"; };
 		9B20614C2591B3700020D1E0 /* operationIDs.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = operationIDs.json; sourceTree = "<group>"; };
-		9B20614D2591B3700020D1E0 /* schema.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
+		9B20614D2591B3700020D1E0 /* schema.graphqls */ = {isa = PBXFileReference; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
 		9B20614E2591B3700020D1E0 /* UploadOneFile.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = UploadOneFile.graphql; sourceTree = "<group>"; };
-		9B2061672591B3A50020D1E0 /* schema.docs.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = schema.docs.graphql; sourceTree = "<group>"; };
 		9B2061692591B3A50020D1E0 /* IssuesAndCommentsForRepository.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = IssuesAndCommentsForRepository.graphql; sourceTree = "<group>"; };
 		9B20616D2591B3A50020D1E0 /* RepoURL.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = RepoURL.graphql; sourceTree = "<group>"; };
 		9B20616E2591B3A50020D1E0 /* Repository.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Repository.graphql; sourceTree = "<group>"; };
@@ -945,8 +1173,6 @@
 		9BCF0CFF23FC9F060031D2A2 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9BDE43D022C6655200FD7C7F /* Cancellable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cancellable.swift; sourceTree = "<group>"; };
 		9BDE43DE22C6708600FD7C7F /* GraphQLHTTPRequestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLHTTPRequestError.swift; sourceTree = "<group>"; };
-		9BDF200C23FDC37600153E2B /* GitHubAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GitHubAPI.h; sourceTree = "<group>"; };
-		9BDF201123FDC37600153E2B /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		9BDF201223FDC37600153E2B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9BE071AC2368D08700FA5952 /* Collection+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Helpers.swift"; sourceTree = "<group>"; };
 		9BE071AE2368D34D00FA5952 /* Matchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Matchable.swift; sourceTree = "<group>"; };
@@ -1281,8 +1507,6 @@
 		DEE2060A27E14498002B4B82 /* IR+InclusionConditionsMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IR+InclusionConditionsMock.swift"; sourceTree = "<group>"; };
 		DEE2DAA127BAF00500EC0607 /* GraphQLType+Rendered.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraphQLType+Rendered.swift"; sourceTree = "<group>"; };
 		DEF191D12804A8470029786C /* Upload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Upload.swift; sourceTree = "<group>"; };
-		DEF191D4280500ED0029786C /* APIv1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIv1.swift; sourceTree = "<group>"; };
-		DEF191D5280500ED0029786C /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		DEF19245280501D00029786C /* SearchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
 		DEF19247280501D00029786C /* Episode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Episode.swift; sourceTree = "<group>"; };
 		DEF19249280501D00029786C /* Query.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Query.swift; sourceTree = "<group>"; };
@@ -1387,6 +1611,237 @@
 		E6C4267A26F16CB400904AD2 /* introspection_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = introspection_response.json; sourceTree = "<group>"; };
 		E6C9849227929EBE009481BE /* EnumTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumTemplate.swift; sourceTree = "<group>"; };
 		E6C9849427929FED009481BE /* EnumTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumTemplateTests.swift; sourceTree = "<group>"; };
+		E6D08AD128897B9B00D21B13 /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
+		E6D08AD328897C9600D21B13 /* AuthorDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorDetails.swift; sourceTree = "<group>"; };
+		E6D08AD628897C9600D21B13 /* IssueOrPullRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssueOrPullRequest.swift; sourceTree = "<group>"; };
+		E6D08AD828897C9600D21B13 /* URI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URI.swift; sourceTree = "<group>"; };
+		E6D08ADA28897C9600D21B13 /* OrgBlockUserAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrgBlockUserAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08ADB28897C9600D21B13 /* RepoArchivedAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoArchivedAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08ADC28897C9600D21B13 /* Query.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Query.swift; sourceTree = "<group>"; };
+		E6D08ADD28897C9600D21B13 /* EnterpriseServerUserAccountsUpload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterpriseServerUserAccountsUpload.swift; sourceTree = "<group>"; };
+		E6D08ADE28897C9600D21B13 /* TeamRemoveMemberAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamRemoveMemberAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08ADF28897C9600D21B13 /* DeployKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeployKey.swift; sourceTree = "<group>"; };
+		E6D08AE028897C9600D21B13 /* ReviewDismissalAllowance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewDismissalAllowance.swift; sourceTree = "<group>"; };
+		E6D08AE128897C9600D21B13 /* Label.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
+		E6D08AE228897C9600D21B13 /* LockedEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LockedEvent.swift; sourceTree = "<group>"; };
+		E6D08AE328897C9600D21B13 /* RepoChangeMergeSettingAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoChangeMergeSettingAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08AE428897C9600D21B13 /* RepoCreateAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoCreateAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08AE528897C9600D21B13 /* PullRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PullRequest.swift; sourceTree = "<group>"; };
+		E6D08AE628897C9600D21B13 /* UnsubscribedEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnsubscribedEvent.swift; sourceTree = "<group>"; };
+		E6D08AE728897C9600D21B13 /* TransferredEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferredEvent.swift; sourceTree = "<group>"; };
+		E6D08AE828897C9600D21B13 /* PullRequestReview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PullRequestReview.swift; sourceTree = "<group>"; };
+		E6D08AE928897C9600D21B13 /* OrgInviteMemberAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrgInviteMemberAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08AEA28897C9600D21B13 /* OrgConfigEnableCollaboratorsOnlyAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrgConfigEnableCollaboratorsOnlyAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08AEB28897C9600D21B13 /* Language.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
+		E6D08AEC28897C9600D21B13 /* Deployment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deployment.swift; sourceTree = "<group>"; };
+		E6D08AED28897C9600D21B13 /* OrgOauthAppAccessRequestedAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrgOauthAppAccessRequestedAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08AEE28897C9600D21B13 /* DeploymentStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeploymentStatus.swift; sourceTree = "<group>"; };
+		E6D08AEF28897C9600D21B13 /* ConvertToDraftEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvertToDraftEvent.swift; sourceTree = "<group>"; };
+		E6D08AF028897C9600D21B13 /* CommentDeletedEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentDeletedEvent.swift; sourceTree = "<group>"; };
+		E6D08AF128897C9600D21B13 /* Mannequin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mannequin.swift; sourceTree = "<group>"; };
+		E6D08AF228897C9600D21B13 /* PublicKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicKey.swift; sourceTree = "<group>"; };
+		E6D08AF328897C9600D21B13 /* RemovedFromProjectEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemovedFromProjectEvent.swift; sourceTree = "<group>"; };
+		E6D08AF428897C9600D21B13 /* ReviewRequestRemovedEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewRequestRemovedEvent.swift; sourceTree = "<group>"; };
+		E6D08AF528897C9600D21B13 /* SubscribedEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscribedEvent.swift; sourceTree = "<group>"; };
+		E6D08AF628897C9600D21B13 /* TeamAddMemberAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamAddMemberAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08AF728897C9600D21B13 /* MovedColumnsInProjectEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovedColumnsInProjectEvent.swift; sourceTree = "<group>"; };
+		E6D08AF828897C9600D21B13 /* BranchProtectionRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BranchProtectionRule.swift; sourceTree = "<group>"; };
+		E6D08AF928897C9600D21B13 /* SponsorsTier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SponsorsTier.swift; sourceTree = "<group>"; };
+		E6D08AFA28897C9600D21B13 /* TeamDiscussionComment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamDiscussionComment.swift; sourceTree = "<group>"; };
+		E6D08AFB28897C9600D21B13 /* OrgEnableOauthAppRestrictionsAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrgEnableOauthAppRestrictionsAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08AFC28897C9600D21B13 /* ReferencedEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReferencedEvent.swift; sourceTree = "<group>"; };
+		E6D08AFD28897C9600D21B13 /* UnpinnedEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnpinnedEvent.swift; sourceTree = "<group>"; };
+		E6D08AFE28897C9600D21B13 /* OrgUpdateDefaultRepositoryPermissionAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrgUpdateDefaultRepositoryPermissionAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08AFF28897C9600D21B13 /* TeamAddRepositoryAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamAddRepositoryAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08B0028897C9600D21B13 /* RepoConfigUnlockAnonymousGitAccessAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoConfigUnlockAnonymousGitAccessAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08B0128897C9600D21B13 /* OrganizationInvitation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizationInvitation.swift; sourceTree = "<group>"; };
+		E6D08B0228897C9600D21B13 /* OrgEnableTwoFactorRequirementAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrgEnableTwoFactorRequirementAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08B0328897C9600D21B13 /* DemilestonedEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemilestonedEvent.swift; sourceTree = "<group>"; };
+		E6D08B0428897C9600D21B13 /* HeadRefDeletedEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeadRefDeletedEvent.swift; sourceTree = "<group>"; };
+		E6D08B0528897C9600D21B13 /* RepositoryVisibilityChangeEnableAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryVisibilityChangeEnableAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08B0628897C9600D21B13 /* OrgRemoveOutsideCollaboratorAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrgRemoveOutsideCollaboratorAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08B0728897C9600D21B13 /* EnterpriseServerUserAccountEmail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterpriseServerUserAccountEmail.swift; sourceTree = "<group>"; };
+		E6D08B0828897C9600D21B13 /* EnterpriseAdministratorInvitation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterpriseAdministratorInvitation.swift; sourceTree = "<group>"; };
+		E6D08B0928897C9600D21B13 /* UserStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserStatus.swift; sourceTree = "<group>"; };
+		E6D08B0A28897C9600D21B13 /* AutomaticBaseChangeSucceededEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutomaticBaseChangeSucceededEvent.swift; sourceTree = "<group>"; };
+		E6D08B0B28897C9600D21B13 /* Ref.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ref.swift; sourceTree = "<group>"; };
+		E6D08B0C28897C9600D21B13 /* UnlabeledEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnlabeledEvent.swift; sourceTree = "<group>"; };
+		E6D08B0D28897C9600D21B13 /* OrgRestoreMemberAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrgRestoreMemberAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08B0E28897C9600D21B13 /* RepoAddMemberAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoAddMemberAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08B0F28897C9600D21B13 /* EnterpriseRepositoryInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterpriseRepositoryInfo.swift; sourceTree = "<group>"; };
+		E6D08B1028897C9600D21B13 /* EnterpriseServerInstallation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterpriseServerInstallation.swift; sourceTree = "<group>"; };
+		E6D08B1128897C9600D21B13 /* UnmarkedAsDuplicateEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnmarkedAsDuplicateEvent.swift; sourceTree = "<group>"; };
+		E6D08B1228897C9600D21B13 /* OrgUnblockUserAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrgUnblockUserAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08B1328897C9600D21B13 /* Milestone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Milestone.swift; sourceTree = "<group>"; };
+		E6D08B1428897C9600D21B13 /* PullRequestCommit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PullRequestCommit.swift; sourceTree = "<group>"; };
+		E6D08B1528897C9600D21B13 /* ConvertedNoteToIssueEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvertedNoteToIssueEvent.swift; sourceTree = "<group>"; };
+		E6D08B1628897C9600D21B13 /* RepositoryVulnerabilityAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryVulnerabilityAlert.swift; sourceTree = "<group>"; };
+		E6D08B1728897C9600D21B13 /* SecurityAdvisory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecurityAdvisory.swift; sourceTree = "<group>"; };
+		E6D08B1828897C9600D21B13 /* OrgRemoveBillingManagerAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrgRemoveBillingManagerAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08B1928897C9600D21B13 /* UserContentEdit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserContentEdit.swift; sourceTree = "<group>"; };
+		E6D08B1A28897C9600D21B13 /* MergedEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MergedEvent.swift; sourceTree = "<group>"; };
+		E6D08B1B28897C9600D21B13 /* OrgUpdateMemberRepositoryCreationPermissionAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrgUpdateMemberRepositoryCreationPermissionAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08B1C28897C9600D21B13 /* MilestonedEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MilestonedEvent.swift; sourceTree = "<group>"; };
+		E6D08B1D28897C9600D21B13 /* OrgRestoreMemberMembershipOrganizationAuditEntryData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrgRestoreMemberMembershipOrganizationAuditEntryData.swift; sourceTree = "<group>"; };
+		E6D08B1E28897C9600D21B13 /* IssueCommentConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssueCommentConnection.swift; sourceTree = "<group>"; };
+		E6D08B1F28897C9600D21B13 /* SavedReply.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedReply.swift; sourceTree = "<group>"; };
+		E6D08B2028897C9600D21B13 /* MentionedEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionedEvent.swift; sourceTree = "<group>"; };
+		E6D08B2128897C9600D21B13 /* Commit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Commit.swift; sourceTree = "<group>"; };
+		E6D08B2228897C9600D21B13 /* RepositoryInvitation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryInvitation.swift; sourceTree = "<group>"; };
+		E6D08B2328897C9600D21B13 /* Blob.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Blob.swift; sourceTree = "<group>"; };
+		E6D08B2428897C9600D21B13 /* Organization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Organization.swift; sourceTree = "<group>"; };
+		E6D08B2528897C9600D21B13 /* PinnedIssue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinnedIssue.swift; sourceTree = "<group>"; };
+		E6D08B2628897C9600D21B13 /* Team.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
+		E6D08B2728897C9600D21B13 /* EnterpriseUserAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterpriseUserAccount.swift; sourceTree = "<group>"; };
+		E6D08B2828897C9600D21B13 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		E6D08B2928897C9600D21B13 /* UserBlockedEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserBlockedEvent.swift; sourceTree = "<group>"; };
+		E6D08B2A28897C9600D21B13 /* IssueComment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssueComment.swift; sourceTree = "<group>"; };
+		E6D08B2B28897C9600D21B13 /* LabeledEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabeledEvent.swift; sourceTree = "<group>"; };
+		E6D08B2C28897C9600D21B13 /* DeploymentEnvironmentChangedEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeploymentEnvironmentChangedEvent.swift; sourceTree = "<group>"; };
+		E6D08B2D28897C9600D21B13 /* OrgAddBillingManagerAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrgAddBillingManagerAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08B2E28897C9600D21B13 /* OrgConfigDisableCollaboratorsOnlyAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrgConfigDisableCollaboratorsOnlyAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08B2F28897C9600D21B13 /* Push.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Push.swift; sourceTree = "<group>"; };
+		E6D08B3028897C9600D21B13 /* PullRequestCommitCommentThread.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PullRequestCommitCommentThread.swift; sourceTree = "<group>"; };
+		E6D08B3128897C9600D21B13 /* RepoConfigEnableCollaboratorsOnlyAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoConfigEnableCollaboratorsOnlyAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08B3228897C9600D21B13 /* MembersCanDeleteReposDisableAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MembersCanDeleteReposDisableAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08B3328897C9600D21B13 /* CodeOfConduct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeOfConduct.swift; sourceTree = "<group>"; };
+		E6D08B3428897C9600D21B13 /* Bot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bot.swift; sourceTree = "<group>"; };
+		E6D08B3528897C9600D21B13 /* CrossReferencedEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrossReferencedEvent.swift; sourceTree = "<group>"; };
+		E6D08B3628897C9600D21B13 /* CommitComment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommitComment.swift; sourceTree = "<group>"; };
+		E6D08B3728897C9600D21B13 /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
+		E6D08B3828897C9600D21B13 /* Gist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gist.swift; sourceTree = "<group>"; };
+		E6D08B3928897C9600D21B13 /* ReviewRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewRequest.swift; sourceTree = "<group>"; };
+		E6D08B3A28897C9600D21B13 /* TeamRemoveRepositoryAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamRemoveRepositoryAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08B3B28897C9600D21B13 /* AddedToProjectEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddedToProjectEvent.swift; sourceTree = "<group>"; };
+		E6D08B3C28897C9600D21B13 /* SponsorsListing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SponsorsListing.swift; sourceTree = "<group>"; };
+		E6D08B3D28897C9600D21B13 /* OrgRestoreMemberMembershipTeamAuditEntryData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrgRestoreMemberMembershipTeamAuditEntryData.swift; sourceTree = "<group>"; };
+		E6D08B3E28897C9600D21B13 /* ExternalIdentity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExternalIdentity.swift; sourceTree = "<group>"; };
+		E6D08B3F28897C9600D21B13 /* License.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = License.swift; sourceTree = "<group>"; };
+		E6D08B4028897C9600D21B13 /* Reaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reaction.swift; sourceTree = "<group>"; };
+		E6D08B4128897C9600D21B13 /* CommitCommentThread.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommitCommentThread.swift; sourceTree = "<group>"; };
+		E6D08B4228897C9600D21B13 /* OrgOauthAppAccessApprovedAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrgOauthAppAccessApprovedAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08B4328897C9600D21B13 /* StatusCheckRollup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusCheckRollup.swift; sourceTree = "<group>"; };
+		E6D08B4428897C9600D21B13 /* RepoConfigDisableAnonymousGitAccessAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoConfigDisableAnonymousGitAccessAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08B4528897C9600D21B13 /* OrgRemoveMemberAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrgRemoveMemberAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08B4628897C9600D21B13 /* RepoRemoveMemberAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoRemoveMemberAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08B4728897C9600D21B13 /* DependencyGraphManifest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DependencyGraphManifest.swift; sourceTree = "<group>"; };
+		E6D08B4828897C9600D21B13 /* OrgOauthAppAccessDeniedAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrgOauthAppAccessDeniedAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08B4928897C9600D21B13 /* Issue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Issue.swift; sourceTree = "<group>"; };
+		E6D08B4A28897C9600D21B13 /* Repository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
+		E6D08B4B28897C9600D21B13 /* PackageVersion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackageVersion.swift; sourceTree = "<group>"; };
+		E6D08B4C28897C9600D21B13 /* PackageTag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackageTag.swift; sourceTree = "<group>"; };
+		E6D08B4D28897C9600D21B13 /* TeamChangeParentTeamAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamChangeParentTeamAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08B4E28897C9600D21B13 /* ReopenedEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReopenedEvent.swift; sourceTree = "<group>"; };
+		E6D08B4F28897C9600D21B13 /* OrgInviteToBusinessAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrgInviteToBusinessAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08B5028897C9600D21B13 /* EnterpriseIdentityProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterpriseIdentityProvider.swift; sourceTree = "<group>"; };
+		E6D08B5128897C9600D21B13 /* RepoConfigDisableCollaboratorsOnlyAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoConfigDisableCollaboratorsOnlyAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08B5228897C9600D21B13 /* RepoConfigEnableSockpuppetDisallowedAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoConfigEnableSockpuppetDisallowedAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08B5328897C9600D21B13 /* RepoAccessAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoAccessAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08B5428897C9600D21B13 /* Tree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tree.swift; sourceTree = "<group>"; };
+		E6D08B5528897C9600D21B13 /* RepoConfigDisableSockpuppetDisallowedAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoConfigDisableSockpuppetDisallowedAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08B5628897C9600D21B13 /* ProjectColumn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectColumn.swift; sourceTree = "<group>"; };
+		E6D08B5728897C9600D21B13 /* PullRequestReviewComment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PullRequestReviewComment.swift; sourceTree = "<group>"; };
+		E6D08B5828897C9600D21B13 /* UnassignedEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnassignedEvent.swift; sourceTree = "<group>"; };
+		E6D08B5928897C9600D21B13 /* TeamDiscussion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamDiscussion.swift; sourceTree = "<group>"; };
+		E6D08B5A28897C9600D21B13 /* OrgUpdateMemberRepositoryInvitationPermissionAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrgUpdateMemberRepositoryInvitationPermissionAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08B5B28897C9600D21B13 /* MembersCanDeleteReposClearAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MembersCanDeleteReposClearAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08B5C28897C9600D21B13 /* DeployedEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeployedEvent.swift; sourceTree = "<group>"; };
+		E6D08B5D28897C9600D21B13 /* DisconnectedEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisconnectedEvent.swift; sourceTree = "<group>"; };
+		E6D08B5E28897C9600D21B13 /* Package.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
+		E6D08B5F28897C9600D21B13 /* Release.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Release.swift; sourceTree = "<group>"; };
+		E6D08B6028897C9600D21B13 /* Sponsorship.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sponsorship.swift; sourceTree = "<group>"; };
+		E6D08B6128897C9600D21B13 /* IssueConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssueConnection.swift; sourceTree = "<group>"; };
+		E6D08B6228897C9600D21B13 /* CheckRun.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckRun.swift; sourceTree = "<group>"; };
+		E6D08B6328897C9600D21B13 /* ReleaseAsset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReleaseAsset.swift; sourceTree = "<group>"; };
+		E6D08B6428897C9600D21B13 /* AssignedEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssignedEvent.swift; sourceTree = "<group>"; };
+		E6D08B6528897C9600D21B13 /* OrgDisableSamlAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrgDisableSamlAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08B6628897C9600D21B13 /* RepositoryVisibilityChangeDisableAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryVisibilityChangeDisableAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08B6728897C9600D21B13 /* RepositoryTopic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryTopic.swift; sourceTree = "<group>"; };
+		E6D08B6828897C9600D21B13 /* CheckSuite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckSuite.swift; sourceTree = "<group>"; };
+		E6D08B6928897C9600D21B13 /* PullRequestReviewThread.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PullRequestReviewThread.swift; sourceTree = "<group>"; };
+		E6D08B6A28897C9600D21B13 /* RepoDestroyAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoDestroyAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08B6B28897C9600D21B13 /* EnterpriseServerUserAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterpriseServerUserAccount.swift; sourceTree = "<group>"; };
+		E6D08B6C28897C9600D21B13 /* RepoRemoveTopicAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoRemoveTopicAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08B6D28897C9600D21B13 /* PinnedEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinnedEvent.swift; sourceTree = "<group>"; };
+		E6D08B6E28897C9600D21B13 /* Enterprise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enterprise.swift; sourceTree = "<group>"; };
+		E6D08B6F28897C9600D21B13 /* OrgCreateAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrgCreateAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08B7028897C9600D21B13 /* Status.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
+		E6D08B7128897C9600D21B13 /* MarketplaceListing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarketplaceListing.swift; sourceTree = "<group>"; };
+		E6D08B7228897C9600D21B13 /* OrgEnableSamlAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrgEnableSamlAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08B7328897C9600D21B13 /* ReadyForReviewEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadyForReviewEvent.swift; sourceTree = "<group>"; };
+		E6D08B7428897C9600D21B13 /* OrgDisableOauthAppRestrictionsAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrgDisableOauthAppRestrictionsAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08B7528897C9600D21B13 /* OauthApplicationCreateAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OauthApplicationCreateAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08B7628897C9600D21B13 /* ConnectedEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectedEvent.swift; sourceTree = "<group>"; };
+		E6D08B7728897C9600D21B13 /* StatusContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusContext.swift; sourceTree = "<group>"; };
+		E6D08B7828897C9600D21B13 /* RepoConfigLockAnonymousGitAccessAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoConfigLockAnonymousGitAccessAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08B7928897C9600D21B13 /* RepoConfigEnableContributorsOnlyAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoConfigEnableContributorsOnlyAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08B7A28897C9600D21B13 /* AutomaticBaseChangeFailedEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutomaticBaseChangeFailedEvent.swift; sourceTree = "<group>"; };
+		E6D08B7B28897C9600D21B13 /* OrgRestoreMemberMembershipRepositoryAuditEntryData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrgRestoreMemberMembershipRepositoryAuditEntryData.swift; sourceTree = "<group>"; };
+		E6D08B7C28897C9600D21B13 /* Tag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
+		E6D08B7D28897C9600D21B13 /* BaseRefForcePushedEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseRefForcePushedEvent.swift; sourceTree = "<group>"; };
+		E6D08B7E28897C9600D21B13 /* ProjectCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectCard.swift; sourceTree = "<group>"; };
+		E6D08B7F28897C9600D21B13 /* GistComment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GistComment.swift; sourceTree = "<group>"; };
+		E6D08B8028897C9600D21B13 /* OrgDisableTwoFactorRequirementAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrgDisableTwoFactorRequirementAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08B8128897C9600D21B13 /* MarkedAsDuplicateEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkedAsDuplicateEvent.swift; sourceTree = "<group>"; };
+		E6D08B8228897C9600D21B13 /* PrivateRepositoryForkingDisableAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateRepositoryForkingDisableAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08B8328897C9600D21B13 /* App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
+		E6D08B8428897C9600D21B13 /* ReviewDismissedEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewDismissedEvent.swift; sourceTree = "<group>"; };
+		E6D08B8528897C9600D21B13 /* BaseRefChangedEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseRefChangedEvent.swift; sourceTree = "<group>"; };
+		E6D08B8628897C9600D21B13 /* MarketplaceCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarketplaceCategory.swift; sourceTree = "<group>"; };
+		E6D08B8728897C9600D21B13 /* OrgAddMemberAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrgAddMemberAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08B8828897C9700D21B13 /* ClosedEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClosedEvent.swift; sourceTree = "<group>"; };
+		E6D08B8928897C9700D21B13 /* IpAllowListEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IpAllowListEntry.swift; sourceTree = "<group>"; };
+		E6D08B8A28897C9700D21B13 /* MembersCanDeleteReposEnableAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MembersCanDeleteReposEnableAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08B8B28897C9700D21B13 /* OrganizationIdentityProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizationIdentityProvider.swift; sourceTree = "<group>"; };
+		E6D08B8C28897C9700D21B13 /* HeadRefForcePushedEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeadRefForcePushedEvent.swift; sourceTree = "<group>"; };
+		E6D08B8D28897C9700D21B13 /* UnlockedEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnlockedEvent.swift; sourceTree = "<group>"; };
+		E6D08B8E28897C9700D21B13 /* PushAllowance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushAllowance.swift; sourceTree = "<group>"; };
+		E6D08B8F28897C9700D21B13 /* RepoAddTopicAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoAddTopicAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08B9028897C9700D21B13 /* OrgUpdateMemberAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrgUpdateMemberAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08B9128897C9700D21B13 /* RepoConfigEnableAnonymousGitAccessAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoConfigEnableAnonymousGitAccessAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08B9228897C9700D21B13 /* RenamedTitleEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenamedTitleEvent.swift; sourceTree = "<group>"; };
+		E6D08B9328897C9700D21B13 /* HeadRefRestoredEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeadRefRestoredEvent.swift; sourceTree = "<group>"; };
+		E6D08B9428897C9700D21B13 /* ReviewRequestedEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewRequestedEvent.swift; sourceTree = "<group>"; };
+		E6D08B9528897C9700D21B13 /* PrivateRepositoryForkingEnableAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateRepositoryForkingEnableAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08B9628897C9700D21B13 /* Topic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Topic.swift; sourceTree = "<group>"; };
+		E6D08B9728897C9700D21B13 /* PackageFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackageFile.swift; sourceTree = "<group>"; };
+		E6D08B9828897C9700D21B13 /* RepoConfigDisableContributorsOnlyAuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoConfigDisableContributorsOnlyAuditEntry.swift; sourceTree = "<group>"; };
+		E6D08B9928897C9700D21B13 /* Schema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Schema.swift; sourceTree = "<group>"; };
+		E6D08B9B28897C9700D21B13 /* ProfileOwner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileOwner.swift; sourceTree = "<group>"; };
+		E6D08B9C28897C9700D21B13 /* Lockable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lockable.swift; sourceTree = "<group>"; };
+		E6D08B9D28897C9700D21B13 /* Assignable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assignable.swift; sourceTree = "<group>"; };
+		E6D08B9E28897C9700D21B13 /* PackageOwner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackageOwner.swift; sourceTree = "<group>"; };
+		E6D08B9F28897C9700D21B13 /* OauthApplicationAuditEntryData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OauthApplicationAuditEntryData.swift; sourceTree = "<group>"; };
+		E6D08BA028897C9700D21B13 /* GitObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GitObject.swift; sourceTree = "<group>"; };
+		E6D08BA128897C9700D21B13 /* RepositoryInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryInfo.swift; sourceTree = "<group>"; };
+		E6D08BA228897C9700D21B13 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		E6D08BA328897C9700D21B13 /* Closable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Closable.swift; sourceTree = "<group>"; };
+		E6D08BA428897C9700D21B13 /* RepositoryAuditEntryData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryAuditEntryData.swift; sourceTree = "<group>"; };
+		E6D08BA528897C9700D21B13 /* Labelable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Labelable.swift; sourceTree = "<group>"; };
+		E6D08BA628897C9700D21B13 /* Subscribable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Subscribable.swift; sourceTree = "<group>"; };
+		E6D08BA728897C9700D21B13 /* Reactable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reactable.swift; sourceTree = "<group>"; };
+		E6D08BA828897C9700D21B13 /* RepositoryNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryNode.swift; sourceTree = "<group>"; };
+		E6D08BA928897C9700D21B13 /* Updatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Updatable.swift; sourceTree = "<group>"; };
+		E6D08BAA28897C9700D21B13 /* Sponsorable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sponsorable.swift; sourceTree = "<group>"; };
+		E6D08BAB28897C9700D21B13 /* EnterpriseAuditEntryData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterpriseAuditEntryData.swift; sourceTree = "<group>"; };
+		E6D08BAC28897C9700D21B13 /* Starrable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Starrable.swift; sourceTree = "<group>"; };
+		E6D08BAD28897C9700D21B13 /* OrganizationAuditEntryData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizationAuditEntryData.swift; sourceTree = "<group>"; };
+		E6D08BAE28897C9700D21B13 /* UpdatableComment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdatableComment.swift; sourceTree = "<group>"; };
+		E6D08BAF28897C9700D21B13 /* MemberStatusable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberStatusable.swift; sourceTree = "<group>"; };
+		E6D08BB028897C9700D21B13 /* Minimizable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Minimizable.swift; sourceTree = "<group>"; };
+		E6D08BB128897C9700D21B13 /* AuditEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuditEntry.swift; sourceTree = "<group>"; };
+		E6D08BB228897C9700D21B13 /* TeamAuditEntryData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamAuditEntryData.swift; sourceTree = "<group>"; };
+		E6D08BB328897C9700D21B13 /* Actor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Actor.swift; sourceTree = "<group>"; };
+		E6D08BB428897C9700D21B13 /* UniformResourceLocatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UniformResourceLocatable.swift; sourceTree = "<group>"; };
+		E6D08BB528897C9700D21B13 /* Deletable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deletable.swift; sourceTree = "<group>"; };
+		E6D08BB628897C9700D21B13 /* RepositoryOwner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryOwner.swift; sourceTree = "<group>"; };
+		E6D08BB728897C9700D21B13 /* Node.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
+		E6D08BB828897C9700D21B13 /* ProjectOwner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectOwner.swift; sourceTree = "<group>"; };
+		E6D08BB928897C9700D21B13 /* TopicAuditEntryData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicAuditEntryData.swift; sourceTree = "<group>"; };
+		E6D08BBC28897C9700D21B13 /* RepositoryQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryQuery.swift; sourceTree = "<group>"; };
+		E6D08BBD28897C9700D21B13 /* IssuesAndCommentsForRepositoryQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssuesAndCommentsForRepositoryQuery.swift; sourceTree = "<group>"; };
+		E6D08BBE28897C9700D21B13 /* RepoURLQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoURLQuery.swift; sourceTree = "<group>"; };
+		E6D08CA428897E5F00D21B13 /* GitHubAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GitHubAPI.h; sourceTree = "<group>"; };
 		E6D79AB626E97D0D0094434A /* URLDownloaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLDownloaderTests.swift; sourceTree = "<group>"; };
 		E6D79AB926EC05290094434A /* MockNetworkSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkSession.swift; sourceTree = "<group>"; };
 		E6D90D06278FA595009CAC5D /* InputObjectFileGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputObjectFileGenerator.swift; sourceTree = "<group>"; };
@@ -1637,7 +2092,7 @@
 			isa = PBXGroup;
 			children = (
 				9B20614C2591B3700020D1E0 /* operationIDs.json */,
-				9B20614D2591B3700020D1E0 /* schema.json */,
+				9B20614D2591B3700020D1E0 /* schema.graphqls */,
 				9B20614B2591B3700020D1E0 /* UploadMultipleFiles.graphql */,
 				9B20614E2591B3700020D1E0 /* UploadOneFile.graphql */,
 			);
@@ -1647,9 +2102,9 @@
 		9B2061662591B3A50020D1E0 /* graphql */ = {
 			isa = PBXGroup;
 			children = (
+				E6D08AD128897B9B00D21B13 /* schema.graphqls */,
 				9B2061702591B3A50020D1E0 /* operationIDs.json */,
 				9B2061682591B3A50020D1E0 /* Queries */,
-				9B2061672591B3A50020D1E0 /* schema.docs.graphql */,
 			);
 			path = graphql;
 			sourceTree = "<group>";
@@ -1717,8 +2172,8 @@
 			children = (
 				DECFEF682866412500DBE83C /* Operations */,
 				DE90FCDE27FCC6DD0084CC79 /* Schema */,
-				9B2DFBC524E1FA3E00ED3AE6 /* UploadAPI.h */,
 				9B20614A2591B3700020D1E0 /* graphql */,
+				9B2DFBC524E1FA3E00ED3AE6 /* UploadAPI.h */,
 				9B2DFBC624E1FA3E00ED3AE6 /* Info.plist */,
 			);
 			name = UploadAPI;
@@ -1909,7 +2364,6 @@
 				DECFEF9B2866414500DBE83C /* Fragments */,
 				DECFEF702866414500DBE83C /* Operations */,
 				DEF19243280501D00029786C /* Schema */,
-				DEF191D3280500ED0029786C /* LegacyGenerated */,
 				9BCF0CF123FC9F060031D2A2 /* StarWarsAPI.h */,
 				DECFEFE3286A3C8800DBE83C /* starwars-graphql */,
 				9BCF0CFF23FC9F060031D2A2 /* Info.plist */,
@@ -1954,8 +2408,10 @@
 		9BDF200723FDC37600153E2B /* GitHubAPI */ = {
 			isa = PBXGroup;
 			children = (
-				9BDF200C23FDC37600153E2B /* GitHubAPI.h */,
-				9BDF201123FDC37600153E2B /* API.swift */,
+				E6D08CA428897E5F00D21B13 /* GitHubAPI.h */,
+				E6D08AD228897C9600D21B13 /* Fragments */,
+				E6D08BBA28897C9700D21B13 /* Operations */,
+				E6D08AD428897C9600D21B13 /* Schema */,
 				9B2061662591B3A50020D1E0 /* graphql */,
 				9BDF201223FDC37600153E2B /* Info.plist */,
 			);
@@ -2493,9 +2949,9 @@
 		DE90FCDE27FCC6DD0084CC79 /* Schema */ = {
 			isa = PBXGroup;
 			children = (
+				DEF191D02804A8470029786C /* CustomScalars */,
 				DE90FCDF27FCC6DD0084CC79 /* Objects */,
 				DE90FCE227FCC6DD0084CC79 /* Schema.swift */,
-				DEF191D02804A8470029786C /* CustomScalars */,
 			);
 			name = Schema;
 			path = UploadAPI/Sources/Schema;
@@ -2817,24 +3273,15 @@
 			path = CustomScalars;
 			sourceTree = "<group>";
 		};
-		DEF191D3280500ED0029786C /* LegacyGenerated */ = {
-			isa = PBXGroup;
-			children = (
-				DEF191D4280500ED0029786C /* APIv1.swift */,
-				DEF191D5280500ED0029786C /* API.swift */,
-			);
-			path = LegacyGenerated;
-			sourceTree = "<group>";
-		};
 		DEF19243280501D00029786C /* Schema */ = {
 			isa = PBXGroup;
 			children = (
 				DEF19244280501D00029786C /* Unions */,
 				DEF19246280501D00029786C /* Enums */,
 				DEF19248280501D00029786C /* Objects */,
-				DEF19250280501D00029786C /* Schema.swift */,
 				DEF19251280501D00029786C /* InputObjects */,
 				DEF19253280501D00029786C /* Interfaces */,
+				DEF19250280501D00029786C /* Schema.swift */,
 			);
 			name = Schema;
 			path = StarWarsAPI/Sources/Schema;
@@ -3038,6 +3485,299 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		E6D08AD228897C9600D21B13 /* Fragments */ = {
+			isa = PBXGroup;
+			children = (
+				E6D08AD328897C9600D21B13 /* AuthorDetails.swift */,
+			);
+			name = Fragments;
+			path = GitHubAPI/Sources/Fragments;
+			sourceTree = "<group>";
+		};
+		E6D08AD428897C9600D21B13 /* Schema */ = {
+			isa = PBXGroup;
+			children = (
+				E6D08AD728897C9600D21B13 /* CustomScalars */,
+				E6D08B9A28897C9700D21B13 /* Interfaces */,
+				E6D08AD928897C9600D21B13 /* Objects */,
+				E6D08AD528897C9600D21B13 /* Unions */,
+				E6D08B9928897C9700D21B13 /* Schema.swift */,
+			);
+			name = Schema;
+			path = GitHubAPI/Sources/Schema;
+			sourceTree = "<group>";
+		};
+		E6D08AD528897C9600D21B13 /* Unions */ = {
+			isa = PBXGroup;
+			children = (
+				E6D08AD628897C9600D21B13 /* IssueOrPullRequest.swift */,
+			);
+			path = Unions;
+			sourceTree = "<group>";
+		};
+		E6D08AD728897C9600D21B13 /* CustomScalars */ = {
+			isa = PBXGroup;
+			children = (
+				E6D08AD828897C9600D21B13 /* URI.swift */,
+			);
+			path = CustomScalars;
+			sourceTree = "<group>";
+		};
+		E6D08AD928897C9600D21B13 /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				E6D08B3B28897C9600D21B13 /* AddedToProjectEvent.swift */,
+				E6D08B8328897C9600D21B13 /* App.swift */,
+				E6D08B6428897C9600D21B13 /* AssignedEvent.swift */,
+				E6D08B7A28897C9600D21B13 /* AutomaticBaseChangeFailedEvent.swift */,
+				E6D08B0A28897C9600D21B13 /* AutomaticBaseChangeSucceededEvent.swift */,
+				E6D08B8528897C9600D21B13 /* BaseRefChangedEvent.swift */,
+				E6D08B7D28897C9600D21B13 /* BaseRefForcePushedEvent.swift */,
+				E6D08B2328897C9600D21B13 /* Blob.swift */,
+				E6D08B3428897C9600D21B13 /* Bot.swift */,
+				E6D08AF828897C9600D21B13 /* BranchProtectionRule.swift */,
+				E6D08B6228897C9600D21B13 /* CheckRun.swift */,
+				E6D08B6828897C9600D21B13 /* CheckSuite.swift */,
+				E6D08B8828897C9700D21B13 /* ClosedEvent.swift */,
+				E6D08B3328897C9600D21B13 /* CodeOfConduct.swift */,
+				E6D08AF028897C9600D21B13 /* CommentDeletedEvent.swift */,
+				E6D08B2128897C9600D21B13 /* Commit.swift */,
+				E6D08B3628897C9600D21B13 /* CommitComment.swift */,
+				E6D08B4128897C9600D21B13 /* CommitCommentThread.swift */,
+				E6D08B7628897C9600D21B13 /* ConnectedEvent.swift */,
+				E6D08B1528897C9600D21B13 /* ConvertedNoteToIssueEvent.swift */,
+				E6D08AEF28897C9600D21B13 /* ConvertToDraftEvent.swift */,
+				E6D08B3528897C9600D21B13 /* CrossReferencedEvent.swift */,
+				E6D08B0328897C9600D21B13 /* DemilestonedEvent.swift */,
+				E6D08B4728897C9600D21B13 /* DependencyGraphManifest.swift */,
+				E6D08B5C28897C9600D21B13 /* DeployedEvent.swift */,
+				E6D08ADF28897C9600D21B13 /* DeployKey.swift */,
+				E6D08AEC28897C9600D21B13 /* Deployment.swift */,
+				E6D08B2C28897C9600D21B13 /* DeploymentEnvironmentChangedEvent.swift */,
+				E6D08AEE28897C9600D21B13 /* DeploymentStatus.swift */,
+				E6D08B5D28897C9600D21B13 /* DisconnectedEvent.swift */,
+				E6D08B6E28897C9600D21B13 /* Enterprise.swift */,
+				E6D08B0828897C9600D21B13 /* EnterpriseAdministratorInvitation.swift */,
+				E6D08B5028897C9600D21B13 /* EnterpriseIdentityProvider.swift */,
+				E6D08B0F28897C9600D21B13 /* EnterpriseRepositoryInfo.swift */,
+				E6D08B1028897C9600D21B13 /* EnterpriseServerInstallation.swift */,
+				E6D08B6B28897C9600D21B13 /* EnterpriseServerUserAccount.swift */,
+				E6D08B0728897C9600D21B13 /* EnterpriseServerUserAccountEmail.swift */,
+				E6D08ADD28897C9600D21B13 /* EnterpriseServerUserAccountsUpload.swift */,
+				E6D08B2728897C9600D21B13 /* EnterpriseUserAccount.swift */,
+				E6D08B3E28897C9600D21B13 /* ExternalIdentity.swift */,
+				E6D08B3828897C9600D21B13 /* Gist.swift */,
+				E6D08B7F28897C9600D21B13 /* GistComment.swift */,
+				E6D08B0428897C9600D21B13 /* HeadRefDeletedEvent.swift */,
+				E6D08B8C28897C9700D21B13 /* HeadRefForcePushedEvent.swift */,
+				E6D08B9328897C9700D21B13 /* HeadRefRestoredEvent.swift */,
+				E6D08B8928897C9700D21B13 /* IpAllowListEntry.swift */,
+				E6D08B4928897C9600D21B13 /* Issue.swift */,
+				E6D08B2A28897C9600D21B13 /* IssueComment.swift */,
+				E6D08B1E28897C9600D21B13 /* IssueCommentConnection.swift */,
+				E6D08B6128897C9600D21B13 /* IssueConnection.swift */,
+				E6D08AE128897C9600D21B13 /* Label.swift */,
+				E6D08B2B28897C9600D21B13 /* LabeledEvent.swift */,
+				E6D08AEB28897C9600D21B13 /* Language.swift */,
+				E6D08B3F28897C9600D21B13 /* License.swift */,
+				E6D08AE228897C9600D21B13 /* LockedEvent.swift */,
+				E6D08AF128897C9600D21B13 /* Mannequin.swift */,
+				E6D08B8128897C9600D21B13 /* MarkedAsDuplicateEvent.swift */,
+				E6D08B8628897C9600D21B13 /* MarketplaceCategory.swift */,
+				E6D08B7128897C9600D21B13 /* MarketplaceListing.swift */,
+				E6D08B5B28897C9600D21B13 /* MembersCanDeleteReposClearAuditEntry.swift */,
+				E6D08B3228897C9600D21B13 /* MembersCanDeleteReposDisableAuditEntry.swift */,
+				E6D08B8A28897C9700D21B13 /* MembersCanDeleteReposEnableAuditEntry.swift */,
+				E6D08B2028897C9600D21B13 /* MentionedEvent.swift */,
+				E6D08B1A28897C9600D21B13 /* MergedEvent.swift */,
+				E6D08B1328897C9600D21B13 /* Milestone.swift */,
+				E6D08B1C28897C9600D21B13 /* MilestonedEvent.swift */,
+				E6D08AF728897C9600D21B13 /* MovedColumnsInProjectEvent.swift */,
+				E6D08B7528897C9600D21B13 /* OauthApplicationCreateAuditEntry.swift */,
+				E6D08B2D28897C9600D21B13 /* OrgAddBillingManagerAuditEntry.swift */,
+				E6D08B8728897C9600D21B13 /* OrgAddMemberAuditEntry.swift */,
+				E6D08B2428897C9600D21B13 /* Organization.swift */,
+				E6D08B8B28897C9700D21B13 /* OrganizationIdentityProvider.swift */,
+				E6D08B0128897C9600D21B13 /* OrganizationInvitation.swift */,
+				E6D08ADA28897C9600D21B13 /* OrgBlockUserAuditEntry.swift */,
+				E6D08B2E28897C9600D21B13 /* OrgConfigDisableCollaboratorsOnlyAuditEntry.swift */,
+				E6D08AEA28897C9600D21B13 /* OrgConfigEnableCollaboratorsOnlyAuditEntry.swift */,
+				E6D08B6F28897C9600D21B13 /* OrgCreateAuditEntry.swift */,
+				E6D08B7428897C9600D21B13 /* OrgDisableOauthAppRestrictionsAuditEntry.swift */,
+				E6D08B6528897C9600D21B13 /* OrgDisableSamlAuditEntry.swift */,
+				E6D08B8028897C9600D21B13 /* OrgDisableTwoFactorRequirementAuditEntry.swift */,
+				E6D08AFB28897C9600D21B13 /* OrgEnableOauthAppRestrictionsAuditEntry.swift */,
+				E6D08B7228897C9600D21B13 /* OrgEnableSamlAuditEntry.swift */,
+				E6D08B0228897C9600D21B13 /* OrgEnableTwoFactorRequirementAuditEntry.swift */,
+				E6D08AE928897C9600D21B13 /* OrgInviteMemberAuditEntry.swift */,
+				E6D08B4F28897C9600D21B13 /* OrgInviteToBusinessAuditEntry.swift */,
+				E6D08B4228897C9600D21B13 /* OrgOauthAppAccessApprovedAuditEntry.swift */,
+				E6D08B4828897C9600D21B13 /* OrgOauthAppAccessDeniedAuditEntry.swift */,
+				E6D08AED28897C9600D21B13 /* OrgOauthAppAccessRequestedAuditEntry.swift */,
+				E6D08B1828897C9600D21B13 /* OrgRemoveBillingManagerAuditEntry.swift */,
+				E6D08B4528897C9600D21B13 /* OrgRemoveMemberAuditEntry.swift */,
+				E6D08B0628897C9600D21B13 /* OrgRemoveOutsideCollaboratorAuditEntry.swift */,
+				E6D08B0D28897C9600D21B13 /* OrgRestoreMemberAuditEntry.swift */,
+				E6D08B1D28897C9600D21B13 /* OrgRestoreMemberMembershipOrganizationAuditEntryData.swift */,
+				E6D08B7B28897C9600D21B13 /* OrgRestoreMemberMembershipRepositoryAuditEntryData.swift */,
+				E6D08B3D28897C9600D21B13 /* OrgRestoreMemberMembershipTeamAuditEntryData.swift */,
+				E6D08B1228897C9600D21B13 /* OrgUnblockUserAuditEntry.swift */,
+				E6D08AFE28897C9600D21B13 /* OrgUpdateDefaultRepositoryPermissionAuditEntry.swift */,
+				E6D08B9028897C9700D21B13 /* OrgUpdateMemberAuditEntry.swift */,
+				E6D08B1B28897C9600D21B13 /* OrgUpdateMemberRepositoryCreationPermissionAuditEntry.swift */,
+				E6D08B5A28897C9600D21B13 /* OrgUpdateMemberRepositoryInvitationPermissionAuditEntry.swift */,
+				E6D08B5E28897C9600D21B13 /* Package.swift */,
+				E6D08B9728897C9700D21B13 /* PackageFile.swift */,
+				E6D08B4C28897C9600D21B13 /* PackageTag.swift */,
+				E6D08B4B28897C9600D21B13 /* PackageVersion.swift */,
+				E6D08B6D28897C9600D21B13 /* PinnedEvent.swift */,
+				E6D08B2528897C9600D21B13 /* PinnedIssue.swift */,
+				E6D08B8228897C9600D21B13 /* PrivateRepositoryForkingDisableAuditEntry.swift */,
+				E6D08B9528897C9700D21B13 /* PrivateRepositoryForkingEnableAuditEntry.swift */,
+				E6D08B3728897C9600D21B13 /* Project.swift */,
+				E6D08B7E28897C9600D21B13 /* ProjectCard.swift */,
+				E6D08B5628897C9600D21B13 /* ProjectColumn.swift */,
+				E6D08AF228897C9600D21B13 /* PublicKey.swift */,
+				E6D08AE528897C9600D21B13 /* PullRequest.swift */,
+				E6D08B1428897C9600D21B13 /* PullRequestCommit.swift */,
+				E6D08B3028897C9600D21B13 /* PullRequestCommitCommentThread.swift */,
+				E6D08AE828897C9600D21B13 /* PullRequestReview.swift */,
+				E6D08B5728897C9600D21B13 /* PullRequestReviewComment.swift */,
+				E6D08B6928897C9600D21B13 /* PullRequestReviewThread.swift */,
+				E6D08B2F28897C9600D21B13 /* Push.swift */,
+				E6D08B8E28897C9700D21B13 /* PushAllowance.swift */,
+				E6D08ADC28897C9600D21B13 /* Query.swift */,
+				E6D08B4028897C9600D21B13 /* Reaction.swift */,
+				E6D08B7328897C9600D21B13 /* ReadyForReviewEvent.swift */,
+				E6D08B0B28897C9600D21B13 /* Ref.swift */,
+				E6D08AFC28897C9600D21B13 /* ReferencedEvent.swift */,
+				E6D08B5F28897C9600D21B13 /* Release.swift */,
+				E6D08B6328897C9600D21B13 /* ReleaseAsset.swift */,
+				E6D08AF328897C9600D21B13 /* RemovedFromProjectEvent.swift */,
+				E6D08B9228897C9700D21B13 /* RenamedTitleEvent.swift */,
+				E6D08B4E28897C9600D21B13 /* ReopenedEvent.swift */,
+				E6D08B5328897C9600D21B13 /* RepoAccessAuditEntry.swift */,
+				E6D08B0E28897C9600D21B13 /* RepoAddMemberAuditEntry.swift */,
+				E6D08B8F28897C9700D21B13 /* RepoAddTopicAuditEntry.swift */,
+				E6D08ADB28897C9600D21B13 /* RepoArchivedAuditEntry.swift */,
+				E6D08AE328897C9600D21B13 /* RepoChangeMergeSettingAuditEntry.swift */,
+				E6D08B4428897C9600D21B13 /* RepoConfigDisableAnonymousGitAccessAuditEntry.swift */,
+				E6D08B5128897C9600D21B13 /* RepoConfigDisableCollaboratorsOnlyAuditEntry.swift */,
+				E6D08B9828897C9700D21B13 /* RepoConfigDisableContributorsOnlyAuditEntry.swift */,
+				E6D08B5528897C9600D21B13 /* RepoConfigDisableSockpuppetDisallowedAuditEntry.swift */,
+				E6D08B9128897C9700D21B13 /* RepoConfigEnableAnonymousGitAccessAuditEntry.swift */,
+				E6D08B3128897C9600D21B13 /* RepoConfigEnableCollaboratorsOnlyAuditEntry.swift */,
+				E6D08B7928897C9600D21B13 /* RepoConfigEnableContributorsOnlyAuditEntry.swift */,
+				E6D08B5228897C9600D21B13 /* RepoConfigEnableSockpuppetDisallowedAuditEntry.swift */,
+				E6D08B7828897C9600D21B13 /* RepoConfigLockAnonymousGitAccessAuditEntry.swift */,
+				E6D08B0028897C9600D21B13 /* RepoConfigUnlockAnonymousGitAccessAuditEntry.swift */,
+				E6D08AE428897C9600D21B13 /* RepoCreateAuditEntry.swift */,
+				E6D08B6A28897C9600D21B13 /* RepoDestroyAuditEntry.swift */,
+				E6D08B4628897C9600D21B13 /* RepoRemoveMemberAuditEntry.swift */,
+				E6D08B6C28897C9600D21B13 /* RepoRemoveTopicAuditEntry.swift */,
+				E6D08B4A28897C9600D21B13 /* Repository.swift */,
+				E6D08B2228897C9600D21B13 /* RepositoryInvitation.swift */,
+				E6D08B6728897C9600D21B13 /* RepositoryTopic.swift */,
+				E6D08B6628897C9600D21B13 /* RepositoryVisibilityChangeDisableAuditEntry.swift */,
+				E6D08B0528897C9600D21B13 /* RepositoryVisibilityChangeEnableAuditEntry.swift */,
+				E6D08B1628897C9600D21B13 /* RepositoryVulnerabilityAlert.swift */,
+				E6D08AE028897C9600D21B13 /* ReviewDismissalAllowance.swift */,
+				E6D08B8428897C9600D21B13 /* ReviewDismissedEvent.swift */,
+				E6D08B3928897C9600D21B13 /* ReviewRequest.swift */,
+				E6D08B9428897C9700D21B13 /* ReviewRequestedEvent.swift */,
+				E6D08AF428897C9600D21B13 /* ReviewRequestRemovedEvent.swift */,
+				E6D08B1F28897C9600D21B13 /* SavedReply.swift */,
+				E6D08B1728897C9600D21B13 /* SecurityAdvisory.swift */,
+				E6D08B6028897C9600D21B13 /* Sponsorship.swift */,
+				E6D08B3C28897C9600D21B13 /* SponsorsListing.swift */,
+				E6D08AF928897C9600D21B13 /* SponsorsTier.swift */,
+				E6D08B7028897C9600D21B13 /* Status.swift */,
+				E6D08B4328897C9600D21B13 /* StatusCheckRollup.swift */,
+				E6D08B7728897C9600D21B13 /* StatusContext.swift */,
+				E6D08AF528897C9600D21B13 /* SubscribedEvent.swift */,
+				E6D08B7C28897C9600D21B13 /* Tag.swift */,
+				E6D08B2628897C9600D21B13 /* Team.swift */,
+				E6D08AF628897C9600D21B13 /* TeamAddMemberAuditEntry.swift */,
+				E6D08AFF28897C9600D21B13 /* TeamAddRepositoryAuditEntry.swift */,
+				E6D08B4D28897C9600D21B13 /* TeamChangeParentTeamAuditEntry.swift */,
+				E6D08B5928897C9600D21B13 /* TeamDiscussion.swift */,
+				E6D08AFA28897C9600D21B13 /* TeamDiscussionComment.swift */,
+				E6D08ADE28897C9600D21B13 /* TeamRemoveMemberAuditEntry.swift */,
+				E6D08B3A28897C9600D21B13 /* TeamRemoveRepositoryAuditEntry.swift */,
+				E6D08B9628897C9700D21B13 /* Topic.swift */,
+				E6D08AE728897C9600D21B13 /* TransferredEvent.swift */,
+				E6D08B5428897C9600D21B13 /* Tree.swift */,
+				E6D08B5828897C9600D21B13 /* UnassignedEvent.swift */,
+				E6D08B0C28897C9600D21B13 /* UnlabeledEvent.swift */,
+				E6D08B8D28897C9700D21B13 /* UnlockedEvent.swift */,
+				E6D08B1128897C9600D21B13 /* UnmarkedAsDuplicateEvent.swift */,
+				E6D08AFD28897C9600D21B13 /* UnpinnedEvent.swift */,
+				E6D08AE628897C9600D21B13 /* UnsubscribedEvent.swift */,
+				E6D08B2828897C9600D21B13 /* User.swift */,
+				E6D08B2928897C9600D21B13 /* UserBlockedEvent.swift */,
+				E6D08B1928897C9600D21B13 /* UserContentEdit.swift */,
+				E6D08B0928897C9600D21B13 /* UserStatus.swift */,
+			);
+			path = Objects;
+			sourceTree = "<group>";
+		};
+		E6D08B9A28897C9700D21B13 /* Interfaces */ = {
+			isa = PBXGroup;
+			children = (
+				E6D08BB328897C9700D21B13 /* Actor.swift */,
+				E6D08B9D28897C9700D21B13 /* Assignable.swift */,
+				E6D08BB128897C9700D21B13 /* AuditEntry.swift */,
+				E6D08BA328897C9700D21B13 /* Closable.swift */,
+				E6D08BA228897C9700D21B13 /* Comment.swift */,
+				E6D08BB528897C9700D21B13 /* Deletable.swift */,
+				E6D08BAB28897C9700D21B13 /* EnterpriseAuditEntryData.swift */,
+				E6D08BA028897C9700D21B13 /* GitObject.swift */,
+				E6D08BA528897C9700D21B13 /* Labelable.swift */,
+				E6D08B9C28897C9700D21B13 /* Lockable.swift */,
+				E6D08BAF28897C9700D21B13 /* MemberStatusable.swift */,
+				E6D08BB028897C9700D21B13 /* Minimizable.swift */,
+				E6D08BB728897C9700D21B13 /* Node.swift */,
+				E6D08B9F28897C9700D21B13 /* OauthApplicationAuditEntryData.swift */,
+				E6D08BAD28897C9700D21B13 /* OrganizationAuditEntryData.swift */,
+				E6D08B9E28897C9700D21B13 /* PackageOwner.swift */,
+				E6D08B9B28897C9700D21B13 /* ProfileOwner.swift */,
+				E6D08BB828897C9700D21B13 /* ProjectOwner.swift */,
+				E6D08BA728897C9700D21B13 /* Reactable.swift */,
+				E6D08BA428897C9700D21B13 /* RepositoryAuditEntryData.swift */,
+				E6D08BA128897C9700D21B13 /* RepositoryInfo.swift */,
+				E6D08BA828897C9700D21B13 /* RepositoryNode.swift */,
+				E6D08BB628897C9700D21B13 /* RepositoryOwner.swift */,
+				E6D08BAA28897C9700D21B13 /* Sponsorable.swift */,
+				E6D08BAC28897C9700D21B13 /* Starrable.swift */,
+				E6D08BA628897C9700D21B13 /* Subscribable.swift */,
+				E6D08BB228897C9700D21B13 /* TeamAuditEntryData.swift */,
+				E6D08BB928897C9700D21B13 /* TopicAuditEntryData.swift */,
+				E6D08BB428897C9700D21B13 /* UniformResourceLocatable.swift */,
+				E6D08BA928897C9700D21B13 /* Updatable.swift */,
+				E6D08BAE28897C9700D21B13 /* UpdatableComment.swift */,
+			);
+			path = Interfaces;
+			sourceTree = "<group>";
+		};
+		E6D08BBA28897C9700D21B13 /* Operations */ = {
+			isa = PBXGroup;
+			children = (
+				E6D08BBB28897C9700D21B13 /* Queries */,
+			);
+			name = Operations;
+			path = GitHubAPI/Sources/Operations;
+			sourceTree = "<group>";
+		};
+		E6D08BBB28897C9700D21B13 /* Queries */ = {
+			isa = PBXGroup;
+			children = (
+				E6D08BBD28897C9700D21B13 /* IssuesAndCommentsForRepositoryQuery.swift */,
+				E6D08BBC28897C9700D21B13 /* RepositoryQuery.swift */,
+				E6D08BBE28897C9700D21B13 /* RepoURLQuery.swift */,
+			);
+			path = Queries;
+			sourceTree = "<group>";
+		};
 		E6E3BBDC276A8D6200E5218B /* FileGenerators */ = {
 			isa = PBXGroup;
 			children = (
@@ -3143,7 +3883,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9BDF201323FDC37600153E2B /* GitHubAPI.h in Headers */,
+				E6D08CA528897E5F00D21B13 /* GitHubAPI.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4117,6 +4857,235 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E6D08BF628897C9700D21B13 /* RepoAddMemberAuditEntry.swift in Sources */,
+				E6D08C9628897C9800D21B13 /* MemberStatusable.swift in Sources */,
+				E6D08C3F28897C9700D21B13 /* PullRequestReviewComment.swift in Sources */,
+				E6D08BF728897C9700D21B13 /* EnterpriseRepositoryInfo.swift in Sources */,
+				E6D08BC828897C9700D21B13 /* ReviewDismissalAllowance.swift in Sources */,
+				E6D08C2428897C9700D21B13 /* SponsorsListing.swift in Sources */,
+				E6D08BD728897C9700D21B13 /* ConvertToDraftEvent.swift in Sources */,
+				E6D08C0328897C9700D21B13 /* OrgUpdateMemberRepositoryCreationPermissionAuditEntry.swift in Sources */,
+				E6D08BC728897C9700D21B13 /* DeployKey.swift in Sources */,
+				E6D08C9B28897C9800D21B13 /* UniformResourceLocatable.swift in Sources */,
+				E6D08C3228897C9700D21B13 /* Repository.swift in Sources */,
+				E6D08C0528897C9700D21B13 /* OrgRestoreMemberMembershipOrganizationAuditEntryData.swift in Sources */,
+				E6D08BD428897C9700D21B13 /* Deployment.swift in Sources */,
+				E6D08C7228897C9800D21B13 /* MembersCanDeleteReposEnableAuditEntry.swift in Sources */,
+				E6D08BFF28897C9700D21B13 /* SecurityAdvisory.swift in Sources */,
+				E6D08C7D28897C9800D21B13 /* PrivateRepositoryForkingEnableAuditEntry.swift in Sources */,
+				E6D08C6828897C9800D21B13 /* OrgDisableTwoFactorRequirementAuditEntry.swift in Sources */,
+				E6D08C2928897C9700D21B13 /* CommitCommentThread.swift in Sources */,
+				E6D08C5F28897C9800D21B13 /* StatusContext.swift in Sources */,
+				E6D08C1A28897C9700D21B13 /* MembersCanDeleteReposDisableAuditEntry.swift in Sources */,
+				E6D08BD028897C9700D21B13 /* PullRequestReview.swift in Sources */,
+				E6D08C4328897C9700D21B13 /* MembersCanDeleteReposClearAuditEntry.swift in Sources */,
+				E6D08BED28897C9700D21B13 /* RepositoryVisibilityChangeEnableAuditEntry.swift in Sources */,
+				E6D08BD328897C9700D21B13 /* Language.swift in Sources */,
+				E6D08C4F28897C9700D21B13 /* RepositoryTopic.swift in Sources */,
+				E6D08C5528897C9700D21B13 /* PinnedEvent.swift in Sources */,
+				E6D08C6928897C9800D21B13 /* MarkedAsDuplicateEvent.swift in Sources */,
+				E6D08C1428897C9700D21B13 /* DeploymentEnvironmentChangedEvent.swift in Sources */,
+				E6D08C2128897C9700D21B13 /* ReviewRequest.swift in Sources */,
+				E6D08C2B28897C9700D21B13 /* StatusCheckRollup.swift in Sources */,
+				E6D08BF128897C9700D21B13 /* UserStatus.swift in Sources */,
+				E6D08BDF28897C9700D21B13 /* MovedColumnsInProjectEvent.swift in Sources */,
+				E6D08C9C28897C9800D21B13 /* Deletable.swift in Sources */,
+				E6D08C3C28897C9700D21B13 /* Tree.swift in Sources */,
+				E6D08BF228897C9700D21B13 /* AutomaticBaseChangeSucceededEvent.swift in Sources */,
+				E6D08BD928897C9700D21B13 /* Mannequin.swift in Sources */,
+				E6D08C5628897C9700D21B13 /* Enterprise.swift in Sources */,
+				E6D08C5028897C9700D21B13 /* CheckSuite.swift in Sources */,
+				E6D08C8528897C9800D21B13 /* PackageOwner.swift in Sources */,
+				E6D08BCF28897C9700D21B13 /* TransferredEvent.swift in Sources */,
+				E6D08C7428897C9800D21B13 /* HeadRefForcePushedEvent.swift in Sources */,
+				E6D08C7E28897C9800D21B13 /* Topic.swift in Sources */,
+				E6D08C5928897C9700D21B13 /* MarketplaceListing.swift in Sources */,
+				E6D08C1928897C9700D21B13 /* RepoConfigEnableCollaboratorsOnlyAuditEntry.swift in Sources */,
+				E6D08C4A28897C9700D21B13 /* CheckRun.swift in Sources */,
+				E6D08BD628897C9700D21B13 /* DeploymentStatus.swift in Sources */,
+				E6D08C7B28897C9800D21B13 /* HeadRefRestoredEvent.swift in Sources */,
+				E6D08C1028897C9700D21B13 /* User.swift in Sources */,
+				E6D08C3928897C9700D21B13 /* RepoConfigDisableCollaboratorsOnlyAuditEntry.swift in Sources */,
+				E6D08C3528897C9700D21B13 /* TeamChangeParentTeamAuditEntry.swift in Sources */,
+				E6D08C5828897C9700D21B13 /* Status.swift in Sources */,
+				E6D08C6128897C9800D21B13 /* RepoConfigEnableContributorsOnlyAuditEntry.swift in Sources */,
+				E6D08BDE28897C9700D21B13 /* TeamAddMemberAuditEntry.swift in Sources */,
+				E6D08C8028897C9800D21B13 /* RepoConfigDisableContributorsOnlyAuditEntry.swift in Sources */,
+				E6D08BD828897C9700D21B13 /* CommentDeletedEvent.swift in Sources */,
+				E6D08BBF28897C9700D21B13 /* AuthorDetails.swift in Sources */,
+				E6D08C8328897C9800D21B13 /* Lockable.swift in Sources */,
+				E6D08C5428897C9700D21B13 /* RepoRemoveTopicAuditEntry.swift in Sources */,
+				E6D08C0128897C9700D21B13 /* UserContentEdit.swift in Sources */,
+				E6D08C8C28897C9800D21B13 /* Labelable.swift in Sources */,
+				E6D08BCD28897C9700D21B13 /* PullRequest.swift in Sources */,
+				E6D08C9A28897C9800D21B13 /* Actor.swift in Sources */,
+				E6D08BFA28897C9700D21B13 /* OrgUnblockUserAuditEntry.swift in Sources */,
+				E6D08C6C28897C9800D21B13 /* ReviewDismissedEvent.swift in Sources */,
+				E6D08C9428897C9800D21B13 /* OrganizationAuditEntryData.swift in Sources */,
+				E6D08C8F28897C9800D21B13 /* RepositoryNode.swift in Sources */,
+				E6D08BC528897C9700D21B13 /* EnterpriseServerUserAccountsUpload.swift in Sources */,
+				E6D08C4C28897C9700D21B13 /* AssignedEvent.swift in Sources */,
+				E6D08BDC28897C9700D21B13 /* ReviewRequestRemovedEvent.swift in Sources */,
+				E6D08C4128897C9700D21B13 /* TeamDiscussion.swift in Sources */,
+				E6D08C9528897C9800D21B13 /* UpdatableComment.swift in Sources */,
+				E6D08C8B28897C9800D21B13 /* RepositoryAuditEntryData.swift in Sources */,
+				E6D08BC928897C9700D21B13 /* Label.swift in Sources */,
+				E6D08C4828897C9700D21B13 /* Sponsorship.swift in Sources */,
+				E6D08BFB28897C9700D21B13 /* Milestone.swift in Sources */,
+				E6D08C5A28897C9700D21B13 /* OrgEnableSamlAuditEntry.swift in Sources */,
+				E6D08C2C28897C9700D21B13 /* RepoConfigDisableAnonymousGitAccessAuditEntry.swift in Sources */,
+				E6D08C4628897C9700D21B13 /* Package.swift in Sources */,
+				E6D08C1328897C9700D21B13 /* LabeledEvent.swift in Sources */,
+				E6D08C3328897C9700D21B13 /* PackageVersion.swift in Sources */,
+				E6D08C7328897C9800D21B13 /* OrganizationIdentityProvider.swift in Sources */,
+				E6D08C0E28897C9700D21B13 /* Team.swift in Sources */,
+				E6D08C1728897C9700D21B13 /* Push.swift in Sources */,
+				E6D08C6F28897C9800D21B13 /* OrgAddMemberAuditEntry.swift in Sources */,
+				E6D08C3028897C9700D21B13 /* OrgOauthAppAccessDeniedAuditEntry.swift in Sources */,
+				E6D08C6328897C9800D21B13 /* OrgRestoreMemberMembershipRepositoryAuditEntryData.swift in Sources */,
+				E6D08C5C28897C9800D21B13 /* OrgDisableOauthAppRestrictionsAuditEntry.swift in Sources */,
+				E6D08C5D28897C9800D21B13 /* OauthApplicationCreateAuditEntry.swift in Sources */,
+				E6D08C0C28897C9700D21B13 /* Organization.swift in Sources */,
+				E6D08C2628897C9700D21B13 /* ExternalIdentity.swift in Sources */,
+				E6D08C4E28897C9700D21B13 /* RepositoryVisibilityChangeDisableAuditEntry.swift in Sources */,
+				E6D08C9228897C9800D21B13 /* EnterpriseAuditEntryData.swift in Sources */,
+				E6D08C3828897C9700D21B13 /* EnterpriseIdentityProvider.swift in Sources */,
+				E6D08BE428897C9700D21B13 /* ReferencedEvent.swift in Sources */,
+				E6D08BDA28897C9700D21B13 /* PublicKey.swift in Sources */,
+				E6D08C3E28897C9700D21B13 /* ProjectColumn.swift in Sources */,
+				E6D08C0928897C9700D21B13 /* Commit.swift in Sources */,
+				E6D08C7028897C9800D21B13 /* ClosedEvent.swift in Sources */,
+				E6D08BD128897C9700D21B13 /* OrgInviteMemberAuditEntry.swift in Sources */,
+				E6D08BFE28897C9700D21B13 /* RepositoryVulnerabilityAlert.swift in Sources */,
+				E6D08C2528897C9700D21B13 /* OrgRestoreMemberMembershipTeamAuditEntryData.swift in Sources */,
+				E6D08C8728897C9800D21B13 /* GitObject.swift in Sources */,
+				E6D08CA228897C9800D21B13 /* IssuesAndCommentsForRepositoryQuery.swift in Sources */,
+				E6D08BF928897C9700D21B13 /* UnmarkedAsDuplicateEvent.swift in Sources */,
+				E6D08C9828897C9800D21B13 /* AuditEntry.swift in Sources */,
+				E6D08CA328897C9800D21B13 /* RepoURLQuery.swift in Sources */,
+				E6D08C6428897C9800D21B13 /* Tag.swift in Sources */,
+				E6D08C1E28897C9700D21B13 /* CommitComment.swift in Sources */,
+				E6D08C1F28897C9700D21B13 /* Project.swift in Sources */,
+				E6D08C9728897C9800D21B13 /* Minimizable.swift in Sources */,
+				E6D08BC628897C9700D21B13 /* TeamRemoveMemberAuditEntry.swift in Sources */,
+				E6D08C1628897C9700D21B13 /* OrgConfigDisableCollaboratorsOnlyAuditEntry.swift in Sources */,
+				E6D08BFC28897C9700D21B13 /* PullRequestCommit.swift in Sources */,
+				E6D08C4528897C9700D21B13 /* DisconnectedEvent.swift in Sources */,
+				E6D08C9F28897C9800D21B13 /* ProjectOwner.swift in Sources */,
+				E6D08C4928897C9700D21B13 /* IssueConnection.swift in Sources */,
+				E6D08C3628897C9700D21B13 /* ReopenedEvent.swift in Sources */,
+				E6D08BEF28897C9700D21B13 /* EnterpriseServerUserAccountEmail.swift in Sources */,
+				E6D08C6E28897C9800D21B13 /* MarketplaceCategory.swift in Sources */,
+				E6D08C2828897C9700D21B13 /* Reaction.swift in Sources */,
+				E6D08C7F28897C9800D21B13 /* PackageFile.swift in Sources */,
+				E6D08C0B28897C9700D21B13 /* Blob.swift in Sources */,
+				E6D08C1B28897C9700D21B13 /* CodeOfConduct.swift in Sources */,
+				E6D08C9328897C9800D21B13 /* Starrable.swift in Sources */,
+				E6D08C7528897C9800D21B13 /* UnlockedEvent.swift in Sources */,
+				E6D08BE528897C9700D21B13 /* UnpinnedEvent.swift in Sources */,
+				E6D08BE228897C9700D21B13 /* TeamDiscussionComment.swift in Sources */,
+				E6D08C6D28897C9800D21B13 /* BaseRefChangedEvent.swift in Sources */,
+				E6D08BC028897C9700D21B13 /* IssueOrPullRequest.swift in Sources */,
+				E6D08BCB28897C9700D21B13 /* RepoChangeMergeSettingAuditEntry.swift in Sources */,
+				E6D08C0228897C9700D21B13 /* MergedEvent.swift in Sources */,
+				E6D08BF328897C9700D21B13 /* Ref.swift in Sources */,
+				E6D08C8D28897C9800D21B13 /* Subscribable.swift in Sources */,
+				E6D08C2E28897C9700D21B13 /* RepoRemoveMemberAuditEntry.swift in Sources */,
+				E6D08C4028897C9700D21B13 /* UnassignedEvent.swift in Sources */,
+				E6D08C6028897C9800D21B13 /* RepoConfigLockAnonymousGitAccessAuditEntry.swift in Sources */,
+				E6D08C2228897C9700D21B13 /* TeamRemoveRepositoryAuditEntry.swift in Sources */,
+				E6D08C6528897C9800D21B13 /* BaseRefForcePushedEvent.swift in Sources */,
+				E6D08BE728897C9700D21B13 /* TeamAddRepositoryAuditEntry.swift in Sources */,
+				E6D08C0628897C9700D21B13 /* IssueCommentConnection.swift in Sources */,
+				E6D08C5728897C9700D21B13 /* OrgCreateAuditEntry.swift in Sources */,
+				E6D08C2F28897C9700D21B13 /* DependencyGraphManifest.swift in Sources */,
+				E6D08C9E28897C9800D21B13 /* Node.swift in Sources */,
+				E6D08C0028897C9700D21B13 /* OrgRemoveBillingManagerAuditEntry.swift in Sources */,
+				E6D08C3A28897C9700D21B13 /* RepoConfigEnableSockpuppetDisallowedAuditEntry.swift in Sources */,
+				E6D08CA128897C9800D21B13 /* RepositoryQuery.swift in Sources */,
+				E6D08C0F28897C9700D21B13 /* EnterpriseUserAccount.swift in Sources */,
+				E6D08BEA28897C9700D21B13 /* OrgEnableTwoFactorRequirementAuditEntry.swift in Sources */,
+				E6D08C9D28897C9800D21B13 /* RepositoryOwner.swift in Sources */,
+				E6D08C3B28897C9700D21B13 /* RepoAccessAuditEntry.swift in Sources */,
+				E6D08BFD28897C9700D21B13 /* ConvertedNoteToIssueEvent.swift in Sources */,
+				E6D08C7928897C9800D21B13 /* RepoConfigEnableAnonymousGitAccessAuditEntry.swift in Sources */,
+				E6D08C2028897C9700D21B13 /* Gist.swift in Sources */,
+				E6D08BE628897C9700D21B13 /* OrgUpdateDefaultRepositoryPermissionAuditEntry.swift in Sources */,
+				E6D08C8A28897C9800D21B13 /* Closable.swift in Sources */,
+				E6D08C8428897C9800D21B13 /* Assignable.swift in Sources */,
+				E6D08BDD28897C9700D21B13 /* SubscribedEvent.swift in Sources */,
+				E6D08BCC28897C9700D21B13 /* RepoCreateAuditEntry.swift in Sources */,
+				E6D08BF828897C9700D21B13 /* EnterpriseServerInstallation.swift in Sources */,
+				E6D08C6228897C9800D21B13 /* AutomaticBaseChangeFailedEvent.swift in Sources */,
+				E6D08C4B28897C9700D21B13 /* ReleaseAsset.swift in Sources */,
+				E6D08C7828897C9800D21B13 /* OrgUpdateMemberAuditEntry.swift in Sources */,
+				E6D08C2D28897C9700D21B13 /* OrgRemoveMemberAuditEntry.swift in Sources */,
+				E6D08C2328897C9700D21B13 /* AddedToProjectEvent.swift in Sources */,
+				E6D08C7A28897C9800D21B13 /* RenamedTitleEvent.swift in Sources */,
+				E6D08BC228897C9700D21B13 /* OrgBlockUserAuditEntry.swift in Sources */,
+				E6D08C8828897C9800D21B13 /* RepositoryInfo.swift in Sources */,
+				E6D08C0D28897C9700D21B13 /* PinnedIssue.swift in Sources */,
+				E6D08C9128897C9800D21B13 /* Sponsorable.swift in Sources */,
+				E6D08BCA28897C9700D21B13 /* LockedEvent.swift in Sources */,
+				E6D08C2A28897C9700D21B13 /* OrgOauthAppAccessApprovedAuditEntry.swift in Sources */,
+				E6D08BC328897C9700D21B13 /* RepoArchivedAuditEntry.swift in Sources */,
+				E6D08C4728897C9700D21B13 /* Release.swift in Sources */,
+				E6D08C2728897C9700D21B13 /* License.swift in Sources */,
+				E6D08BCE28897C9700D21B13 /* UnsubscribedEvent.swift in Sources */,
+				E6D08C8628897C9800D21B13 /* OauthApplicationAuditEntryData.swift in Sources */,
+				E6D08BEC28897C9700D21B13 /* HeadRefDeletedEvent.swift in Sources */,
+				E6D08C5328897C9700D21B13 /* EnterpriseServerUserAccount.swift in Sources */,
+				E6D08C0428897C9700D21B13 /* MilestonedEvent.swift in Sources */,
+				E6D08C9028897C9800D21B13 /* Updatable.swift in Sources */,
+				E6D08BE828897C9700D21B13 /* RepoConfigUnlockAnonymousGitAccessAuditEntry.swift in Sources */,
+				E6D08C1828897C9700D21B13 /* PullRequestCommitCommentThread.swift in Sources */,
+				E6D08BE028897C9700D21B13 /* BranchProtectionRule.swift in Sources */,
+				E6D08CA028897C9800D21B13 /* TopicAuditEntryData.swift in Sources */,
+				E6D08BF528897C9700D21B13 /* OrgRestoreMemberAuditEntry.swift in Sources */,
+				E6D08BD528897C9700D21B13 /* OrgOauthAppAccessRequestedAuditEntry.swift in Sources */,
+				E6D08C7628897C9800D21B13 /* PushAllowance.swift in Sources */,
+				E6D08C1D28897C9700D21B13 /* CrossReferencedEvent.swift in Sources */,
+				E6D08C5128897C9700D21B13 /* PullRequestReviewThread.swift in Sources */,
+				E6D08C5E28897C9800D21B13 /* ConnectedEvent.swift in Sources */,
+				E6D08C6A28897C9800D21B13 /* PrivateRepositoryForkingDisableAuditEntry.swift in Sources */,
+				E6D08BEE28897C9700D21B13 /* OrgRemoveOutsideCollaboratorAuditEntry.swift in Sources */,
+				E6D08C7728897C9800D21B13 /* RepoAddTopicAuditEntry.swift in Sources */,
+				E6D08C4228897C9700D21B13 /* OrgUpdateMemberRepositoryInvitationPermissionAuditEntry.swift in Sources */,
+				E6D08C4D28897C9700D21B13 /* OrgDisableSamlAuditEntry.swift in Sources */,
+				E6D08C5B28897C9700D21B13 /* ReadyForReviewEvent.swift in Sources */,
+				E6D08BE328897C9700D21B13 /* OrgEnableOauthAppRestrictionsAuditEntry.swift in Sources */,
+				E6D08BC428897C9700D21B13 /* Query.swift in Sources */,
+				E6D08C1528897C9700D21B13 /* OrgAddBillingManagerAuditEntry.swift in Sources */,
+				E6D08C7C28897C9800D21B13 /* ReviewRequestedEvent.swift in Sources */,
+				E6D08C3128897C9700D21B13 /* Issue.swift in Sources */,
+				E6D08BF028897C9700D21B13 /* EnterpriseAdministratorInvitation.swift in Sources */,
+				E6D08BF428897C9700D21B13 /* UnlabeledEvent.swift in Sources */,
+				E6D08C1228897C9700D21B13 /* IssueComment.swift in Sources */,
+				E6D08C1C28897C9700D21B13 /* Bot.swift in Sources */,
+				E6D08C3428897C9700D21B13 /* PackageTag.swift in Sources */,
+				E6D08C7128897C9800D21B13 /* IpAllowListEntry.swift in Sources */,
+				E6D08C1128897C9700D21B13 /* UserBlockedEvent.swift in Sources */,
+				E6D08BE928897C9700D21B13 /* OrganizationInvitation.swift in Sources */,
+				E6D08C8E28897C9800D21B13 /* Reactable.swift in Sources */,
+				E6D08C8928897C9800D21B13 /* Comment.swift in Sources */,
+				E6D08BE128897C9700D21B13 /* SponsorsTier.swift in Sources */,
+				E6D08BD228897C9700D21B13 /* OrgConfigEnableCollaboratorsOnlyAuditEntry.swift in Sources */,
+				E6D08C9928897C9800D21B13 /* TeamAuditEntryData.swift in Sources */,
+				E6D08C8228897C9800D21B13 /* ProfileOwner.swift in Sources */,
+				E6D08C0A28897C9700D21B13 /* RepositoryInvitation.swift in Sources */,
+				E6D08C5228897C9700D21B13 /* RepoDestroyAuditEntry.swift in Sources */,
+				E6D08C6728897C9800D21B13 /* GistComment.swift in Sources */,
+				E6D08C4428897C9700D21B13 /* DeployedEvent.swift in Sources */,
+				E6D08C6B28897C9800D21B13 /* App.swift in Sources */,
+				E6D08BC128897C9700D21B13 /* URI.swift in Sources */,
+				E6D08BDB28897C9700D21B13 /* RemovedFromProjectEvent.swift in Sources */,
+				E6D08C0728897C9700D21B13 /* SavedReply.swift in Sources */,
+				E6D08C8128897C9800D21B13 /* Schema.swift in Sources */,
+				E6D08C0828897C9700D21B13 /* MentionedEvent.swift in Sources */,
+				E6D08C3D28897C9700D21B13 /* RepoConfigDisableSockpuppetDisallowedAuditEntry.swift in Sources */,
+				E6D08C6628897C9800D21B13 /* ProjectCard.swift in Sources */,
+				E6D08BEB28897C9700D21B13 /* DemilestonedEvent.swift in Sources */,
+				E6D08C3728897C9700D21B13 /* OrgInviteToBusinessAuditEntry.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
