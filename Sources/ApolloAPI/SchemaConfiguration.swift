@@ -16,7 +16,7 @@ extension SchemaConfiguration {
     withTypename __typename: String
   ) -> String? {
     if let objectType = objectType(forTypename: __typename),
-       let resolver = objectType.__cacheKeyProvider {
+       let resolver = objectType as? CacheKeyProvider.Type {
       return resolver.cacheReferenceString(for: data, typename: __typename)
     }
 

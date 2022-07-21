@@ -4,7 +4,6 @@ open class Object: CacheEntity {
 
   open class var __implementedInterfaces: [Interface.Type]? { nil }
   open class var __typename: StaticString { UnknownTypeName }
-  open class var __cacheKeyProvider: CacheKeyProvider.Type? { nil }
 
   static let UnknownTypeName: StaticString = "∅__UnknownType"
 
