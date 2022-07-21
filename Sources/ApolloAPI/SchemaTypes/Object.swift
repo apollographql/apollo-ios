@@ -10,7 +10,7 @@ open class Object {
   /// When an entity of the type is included in a GraphQL response its `__typename` field will
   /// match this value.
   ///
-  /// Defaults to `"∅__UnknownType"` for a type that is not included in the schema during
+  /// Defaults to `"∅__UnknownType"` for a type that is not included in the schema at the time of
   /// code generation.
   open class var __typename: StaticString { UnknownTypeName }
 

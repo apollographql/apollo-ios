@@ -210,7 +210,7 @@ public extension GraphQLNullable {
 
 // MARK: - Nil Coalescing Operator
 
-/// Nil Coalsecing Operator overload for ``GraphQLNullable``.
+/// Nil Coalsecing Operator overload for ``GraphQLNullable``
 ///
 /// This operator allows for optional variables to easily be used with ``GraphQLNullable``
 /// parameters and a default value.

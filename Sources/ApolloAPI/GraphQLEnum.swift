@@ -1,17 +1,8 @@
-/// A protocol that a generated enum from a GraphQL schema conforms to.
-/// This allows it to be wrapped in a `GraphQLEnum` and be used as an input value for operations.
-public protocol EnumType:
-  RawRepresentable,
-  CaseIterable,
-  JSONEncodable,
-  GraphQLOperationVariableValue
-where RawValue == String {}
-
-/// A generic enum that wraps a generated enum from a GraphQL Schema.
+/// A generic enum type that wraps an ``EnumType`` from a generated GraphQL schema.
 ///
-/// `GraphQLEnum` provides an `__unknown` case that is used when the response returns a value that
-/// is not recognized as a valid enum case. This is usually caused by future cases added to the enum
-/// on the schema after code generation.
+/// ``GraphQLEnum`` provides an `__unknown` case that is used when the response returns a value
+/// that is not recognized as a valid enum case. This is usually caused by future cases added to
+/// the enum on the schema after code generation.
 public enum GraphQLEnum<T: EnumType>: CaseIterable, Hashable, RawRepresentable {
   public typealias RawValue = String
 
@@ -19,13 +10,23 @@ public enum GraphQLEnum<T: EnumType>: CaseIterable, Hashable, RawRepresentable {
   case `case`(T)
 
   /// An unrecognized value for the enum.
-  /// The associated value exposes the raw `String` data from the response.
+  /// The associated value exposes the raw `String` name of the unknown enum case.
   case __unknown(String)
 
+  /// Initializer for use with a value of the wrapped ``EnumType``
+  ///
+  /// - Parameter caseValue: A value of the wrapped ``EnumType``
   @inlinable public init(_ caseValue: T) {
     self = .case(caseValue)
   }
 
+  /// Initializer for use with a raw value `String`. This initializer is used for initializing an
+  /// enum from a GraphQL response value.
+  ///
+  /// The `rawValue` should represent a raw value for a case of the wrapped ``EnumType``, or an
+  /// `__unknown` case with the `rawValue` will be returned.
+  ///
+  /// - Parameter rawValue: The `String` value representing the enum value in a GraphQL response
   @inlinable public init(rawValue: String) {
     guard let caseValue = T(rawValue: rawValue) else {
       self = .__unknown(rawValue)
@@ -34,6 +35,13 @@ public enum GraphQLEnum<T: EnumType>: CaseIterable, Hashable, RawRepresentable {
     self = .case(caseValue)
   }
 
+  /// Convenience initializer for use with a raw value `String`. This initializer is used for
+  /// initializing an enum from a GraphQL response value.
+  ///
+  /// The `rawValue` should represent a raw value for a case of the wrapped ``EnumType``, or an
+  /// `__unknown` case with the `rawValue` will be returned.
+  ///
+  /// - Parameter rawValue: The `String` value representing the enum value in a GraphQL response
   @inlinable public init(_ rawValue: String) {
     self.init(rawValue: rawValue)
   }
@@ -46,6 +54,7 @@ public enum GraphQLEnum<T: EnumType>: CaseIterable, Hashable, RawRepresentable {
     }
   }
 
+  /// The `String` value representing the enum value in a GraphQL response.
   @inlinable public var rawValue: String {
     switch self {
     case let .case(value): return value.rawValue
@@ -101,6 +110,27 @@ where T.RawValue == String {
 
 // MARK: Pattern Matching
 extension GraphQLEnum {
+  /// Pattern Matching Operator overload for ``GraphQLEnum``
+  ///
+  /// This operator allows for a ``GraphQLEnum`` to be matched against a `case` on the wrapped
+  /// ``EnumType``.
+  ///
+  /// > Note: Because this is not a synthesized pattern, the Swift compiler cannot determine
+  /// switch case exhaustiveness. When used in a switch statement, you will be required to provide
+  /// a `default` case.
+  ///
+  /// ```swift
+  /// let enumValue: GraphQLEnum<StarWarsAPI.Episode> = .case(.NEWHOPE)
+  ///
+  /// switch enumValue {
+  /// case .NEWHOPE:
+  ///   print("Success")
+  /// case .RETURN, .EMPIRE:
+  ///   print("Fail")
+  /// default:
+  ///   print("Fail") // This default case will never be executed but is required.
+  /// }
+  /// ```
   @inlinable public static func ~=(lhs: T, rhs: GraphQLEnum<T>) -> Bool {
     switch rhs {
     case let .case(rhs) where rhs == lhs: return true

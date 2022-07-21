@@ -13,6 +13,8 @@ This library allows you to use your generated models without importing the full 
 - ``Object``
 - ``Interface``
 - ``Union``
+- ``InputObject``
+- ``EnumType``
 
 ### Scalar Types
 
