@@ -1,0 +1,52 @@
+""""""
+directive @cacheControl(maxAge: Int, scope: CacheControlScope) on FIELD_DEFINITION | OBJECT | INTERFACE
+
+"""
+A directive used by the Apollo iOS client to annotate operations or fragments that should be used exclusively for generating local cache mutations instead of as standard operations.
+"""
+directive @apollo_client_ios_localCacheMutation on QUERY | MUTATION | SUBSCRIPTION | FRAGMENT_DEFINITION
+
+""""""
+type Query {
+  """"""
+  uploads: [File]
+}
+
+""""""
+type File {
+  """"""
+  id: ID!
+
+  """"""
+  path: String!
+
+  """"""
+  filename: String!
+
+  """"""
+  mimetype: String!
+}
+
+""""""
+type Mutation {
+  """"""
+  singleUpload(file: Upload!): File!
+
+  """"""
+  multipleUpload(files: [Upload!]!): [File!]!
+
+  """"""
+  multipleParameterUpload(singleFile: Upload!, multipleFiles: [Upload!]!): [File!]!
+}
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
+
+""""""
+enum CacheControlScope {
+  """"""
+  PUBLIC
+
+  """"""
+  PRIVATE
+}

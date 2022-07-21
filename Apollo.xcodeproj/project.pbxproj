@@ -1052,7 +1052,7 @@
 		9B2061192591B3550020D1E0 /* a.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = a.txt; sourceTree = "<group>"; };
 		9B20614B2591B3700020D1E0 /* UploadMultipleFiles.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = UploadMultipleFiles.graphql; sourceTree = "<group>"; };
 		9B20614C2591B3700020D1E0 /* operationIDs.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = operationIDs.json; sourceTree = "<group>"; };
-		9B20614D2591B3700020D1E0 /* schema.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
+		9B20614D2591B3700020D1E0 /* schema.graphqls */ = {isa = PBXFileReference; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
 		9B20614E2591B3700020D1E0 /* UploadOneFile.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = UploadOneFile.graphql; sourceTree = "<group>"; };
 		9B2061692591B3A50020D1E0 /* IssuesAndCommentsForRepository.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = IssuesAndCommentsForRepository.graphql; sourceTree = "<group>"; };
 		9B20616D2591B3A50020D1E0 /* RepoURL.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = RepoURL.graphql; sourceTree = "<group>"; };
@@ -2084,7 +2084,7 @@
 			isa = PBXGroup;
 			children = (
 				9B20614C2591B3700020D1E0 /* operationIDs.json */,
-				9B20614D2591B3700020D1E0 /* schema.json */,
+				9B20614D2591B3700020D1E0 /* schema.graphqls */,
 				9B20614B2591B3700020D1E0 /* UploadMultipleFiles.graphql */,
 				9B20614E2591B3700020D1E0 /* UploadOneFile.graphql */,
 			);
