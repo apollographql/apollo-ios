@@ -1,6 +1,6 @@
 /// A generic enum type that wraps an ``EnumType`` from a generated GraphQL schema.
 ///
-/// ``GraphQLEnum`` provides an `__unknown` case that is used when the response returns a value
+/// ``GraphQLEnum`` provides an ``unknown(_:)`` case that is used when the response returns a value
 /// that is not recognized as a valid enum case. This is usually caused by future cases added to
 /// the enum on the schema after code generation.
 public enum GraphQLEnum<T: EnumType>: CaseIterable, Hashable, RawRepresentable {
@@ -11,7 +11,7 @@ public enum GraphQLEnum<T: EnumType>: CaseIterable, Hashable, RawRepresentable {
 
   /// An unrecognized value for the enum.
   /// The associated value exposes the raw `String` name of the unknown enum case.
-  case __unknown(String)
+  case unknown(String)
 
   /// Initializer for use with a value of the wrapped ``EnumType``
   ///
@@ -24,12 +24,12 @@ public enum GraphQLEnum<T: EnumType>: CaseIterable, Hashable, RawRepresentable {
   /// enum from a GraphQL response value.
   ///
   /// The `rawValue` should represent a raw value for a case of the wrapped ``EnumType``, or an
-  /// `__unknown` case with the `rawValue` will be returned.
+  /// ``unknown(_:)`` case with the `rawValue` will be returned.
   ///
   /// - Parameter rawValue: The `String` value representing the enum value in a GraphQL response
   @inlinable public init(rawValue: String) {
     guard let caseValue = T(rawValue: rawValue) else {
-      self = .__unknown(rawValue)
+      self = .unknown(rawValue)
       return
     }
     self = .case(caseValue)
@@ -39,14 +39,14 @@ public enum GraphQLEnum<T: EnumType>: CaseIterable, Hashable, RawRepresentable {
   /// initializing an enum from a GraphQL response value.
   ///
   /// The `rawValue` should represent a raw value for a case of the wrapped ``EnumType``, or an
-  /// `__unknown` case with the `rawValue` will be returned.
+  /// `unknown` case with the `rawValue` will be returned.
   ///
   /// - Parameter rawValue: The `String` value representing the enum value in a GraphQL response
   @inlinable public init(_ rawValue: String) {
     self.init(rawValue: rawValue)
   }
 
-  /// The underlying enum case. If the value is `__unknown`, this will be `nil`.
+  /// The underlying enum case. If the value is ``unknown(_:)``, this will be `nil`.
   @inlinable public var value: T? {
     switch self {
     case let .case(value): return value
@@ -58,12 +58,12 @@ public enum GraphQLEnum<T: EnumType>: CaseIterable, Hashable, RawRepresentable {
   @inlinable public var rawValue: String {
     switch self {
     case let .case(value): return value.rawValue
-    case let .__unknown(value): return value
+    case let .unknown(value): return value
     }
   }
 
   /// A collection of all known values of the wrapped enum.
-  /// This collection does not include the `__unknown` case.
+  /// This collection does not include the `unknown` case.
   @inlinable public static var allCases: [GraphQLEnum<T>] {
     return T.allCases.map { .case($0) }
   }
@@ -134,7 +134,7 @@ extension GraphQLEnum {
   @inlinable public static func ~=(lhs: T, rhs: GraphQLEnum<T>) -> Bool {
     switch rhs {
     case let .case(rhs) where rhs == lhs: return true
-    case let .__unknown(rhsRawValue) where rhsRawValue == lhs.rawValue: return true
+    case let .unknown(rhsRawValue) where rhsRawValue == lhs.rawValue: return true
     default: return false
     }
   }
