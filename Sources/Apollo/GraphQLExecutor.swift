@@ -131,6 +131,8 @@ fileprivate struct FieldSelectionGrouping: Sequence {
 public struct GraphQLExecutionError: Error, LocalizedError {
   let path: ResponsePath
 
+  public var pathString: String { path.description }
+
   /// The error that occurred during parsing.
   public let underlying: Error
 

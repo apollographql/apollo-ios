@@ -194,6 +194,12 @@ In 1.0, because we know that `Cat` implements the `Pet` interface, the `name` fi
 * The code generation engine is now written in native Swift! This makes it easier for Swift developers to contribute to the project or alter the generated code for their specific needs! In future iterations, we hope to open up the code generation templating API to allow for even easier customization of your generated code!
 * Computation of Cache Keys is protocol oriented now. Instead of a single `cacheKeyForObject` closure on your `ApolloClient`, you can implement cache key computation on individual object types with the `CacheKeyProvider` protocol. See [Cache Key Resolution](https://github.com/apollographql/apollo-ios/blob/release/1.0-alpha-incubating/CodegenProposal.md#cache-key-resolution) in the RFC for more information.
 
+## v0.52.0
+- **Add codegen option for excludes**: There is a new property on the codegen configuration options to allow files matching the pattern to be excluded, in the case they are found in the `includes` path. [#2205](https://github.com/apollographql/apollo-ios/pull/2205) - _Thanks to [@bannzai](https://github.com/bannzai) for the contribution!_
+- **Fixed - Using the `graphql_transport_ws` protocol could result in `4400` errors from the server**: The correct protocol message is now being sent to the server to end communication. [#2320](https://github.com/apollographql/apollo-ios/pull/2320)
+- **Replace `print` statement with `CodegenLogger.log`**: All codegen output is logged with `CodegenLogger` which can be disabled if needed. [#2348](https://github.com/apollographql/apollo-ios/issues/2348) - _Thanks to [@hiltonc](https://github.com/hiltonc) for the contribution!_
+- **Expose `GraphQLResultError` path string**: Adds a new publicly available computed property to `GraphQLResultError` which just exposes the `path` description. [#2361](https://github.com/apollographql/apollo-ios/pull/2361) - _Thanks to [@joshuashroyer-toast](https://github.com/joshuashroyer-toast) for the contribution!_
+
 ## v0.51.2
 - **Fixed - APQ Retrying Failing in 0.51.1**: Fixes a bug introduced in the last version that broke APQs. _Thanks to [Kyle Browning](https://github.com/kylebrowning) for bringing this to our attention._
 

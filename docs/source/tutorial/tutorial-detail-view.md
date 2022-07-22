@@ -95,8 +95,8 @@ query LaunchDetails($launchId: ID!) {
 
 At the bottom of the Operations section, update the Variables section to pass in an ID for a launch. In this case, it needs to be a string that contains a number:
 
-```json title="(Sandbox Explorer)"
-{ "id": "25" }
+```json:title=(Sandbox%20Explorer)
+{ "launchId": "25" }
 ```
 
 This tells Sandbox Explorer to fill in the value of the `$launchId` variable with the value `"25"` when it runs the query. Press the big play button, and you should get some results back for the launch with ID 25: 

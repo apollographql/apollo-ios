@@ -9,6 +9,12 @@ public struct GraphQLExecutionError: Error, LocalizedError
 An error which has occurred during GraphQL execution.
 
 ## Properties
+### `pathString`
+
+```swift
+public var pathString: String
+```
+
 ### `underlying`
 
 ```swift
