@@ -230,6 +230,8 @@ public struct ApolloSchemaDownloader {
           description
           type { ...TypeRef }
           defaultValue
+          isDeprecated
+          deprecationReason
         }
         fragment TypeRef on __Type {
           kind
