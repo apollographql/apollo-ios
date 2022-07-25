@@ -200,7 +200,7 @@ public struct ApolloSchemaDownloader {
           fields(includeDeprecated: true) {
             name
             description
-            args {
+            args(includeDeprecated: true) {
               ...InputValue
             }
             type {
@@ -209,7 +209,7 @@ public struct ApolloSchemaDownloader {
             isDeprecated
             deprecationReason
           }
-          inputFields {
+          inputFields(includeDeprecated: true) {
             ...InputValue
           }
           interfaces {
