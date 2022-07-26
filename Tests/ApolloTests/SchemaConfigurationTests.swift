@@ -2,25 +2,30 @@ import XCTest
 import Nimble
 import ApolloAPI
 
-/// Plain test object
+/// Test objects
 fileprivate class Alpha : Object { }
+fileprivate class Beta : Object { }
+fileprivate class Gamma : Object { }
+fileprivate class Delta : Object { }
+fileprivate class Epsilon : Object { }
+fileprivate class Zeta : Object { }
 
-/// Test object as CacheKeyProvider, returns a valid string.
-fileprivate class Beta : Object, CacheKeyProvider {
+/// CacheKeyProvider extension - returns a valid string.
+extension Beta: CacheKeyProvider {
   static func cacheKey(for data: JSONObject) -> String? {
     "Implementation-of-CacheKeyProvider"
   }
 }
 
-/// Test object as CacheKeyProvider, returns nil key.
-fileprivate class Gamma: Object, CacheKeyProvider {
+/// CacheKeyProvider extension - returns nil key.
+extension Gamma: CacheKeyProvider {
   static func cacheKey(for data: JSONObject) -> String? {
     nil
   }
 }
 
-/// Test object as CacheKeyProvider, with grouping.
-fileprivate class Delta: Object, CacheKeyProvider {
+/// CacheKeyProvider extension - with grouping.
+extension Delta: CacheKeyProvider {
   static var uniqueKeyGroupId: StaticString? {
     return "TestGroup"
   }
