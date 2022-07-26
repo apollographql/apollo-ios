@@ -35,6 +35,17 @@ extension Delta: CacheKeyProvider {
   }
 }
 
+/// CacheKeyProvider extension - shared between objects.
+fileprivate protocol SharedCacheKeyProvider: CacheKeyProvider { }
+extension SharedCacheKeyProvider {
+  static func cacheKey(for data: JSONObject) -> String? {
+    return "SharedCacheKeyProvider"
+  }
+}
+
+extension Epsilon: SharedCacheKeyProvider { }
+extension Zeta: SharedCacheKeyProvider { }
+
 /// Schema configuration for test objects
 fileprivate enum GreekAlphabet: SchemaConfiguration {
   public static func objectType(forTypename __typename: String) -> Object.Type? {
@@ -43,6 +54,8 @@ fileprivate enum GreekAlphabet: SchemaConfiguration {
     case "Beta": return Beta.self
     case "Gamma": return Gamma.self
     case "Delta": return Delta.self
+    case "Epsilon": return Epsilon.self
+    case "Zeta": return Zeta.self
     default: return nil
     }
   }
@@ -152,6 +165,21 @@ class SchemaConfigurationTests: XCTestCase {
     let actual = GreekAlphabet.cacheKey(for: object)
 
     expect(actual).to(equal(CacheReference("TestGroup:δ")))
+  }
+
+  func test__schemaConfiguration__givenData_whenKnownType_isCacheKeyProvider_withSharedCacheKeyProvider_shouldReturnSameCacheReference() {
+    let epsilon = GreekAlphabet.cacheKey(for: [
+      "__typename": "Epsilon",
+      "lowercase": "ε"
+    ])
+
+    let zeta = GreekAlphabet.cacheKey(for: [
+      "__typename": "Zeta",
+      "lowercase": "ζ"
+    ])
+
+    expect(epsilon).to(equal(CacheReference("Epsilon:SharedCacheKeyProvider")))
+    expect(zeta).to(equal(CacheReference("Zeta:SharedCacheKeyProvider")))
   }
 
 }
