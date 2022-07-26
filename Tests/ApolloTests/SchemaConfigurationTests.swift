@@ -68,13 +68,7 @@ fileprivate enum SchemaAsCacheKeyProvider: SchemaConfiguration, SchemaUnknownTyp
     return nil
   }
 
-  public static func cacheKeyProviderForUnknownType(
-    withTypename: String, data: JSONObject
-  ) -> CacheKeyProvider.Type? {
-    self
-  }
-
-  public static func cacheKey(for data: JSONObject) -> String? {
+  static func cacheKeyForUnknown(typename: String, data: JSONObject) -> String? {
     "Implementation-of-SchemaUnknownTypeCacheKeyProvider"
   }
 }

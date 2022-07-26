@@ -17,13 +17,11 @@ extension SchemaConfiguration {
   ) -> String? {
     if let objectType = objectType(forTypename: __typename),
        let resolver = objectType as? CacheKeyProvider.Type {
-      return resolver.cacheReferenceString(for: data, typename: __typename)
+      return resolver.cacheReferenceString(data: data, typename: __typename)
     }
 
-    if let unknownTypeMapper = self as? SchemaUnknownTypeCacheKeyProvider.Type,
-       let resolver = unknownTypeMapper.cacheKeyProviderForUnknownType(withTypename: __typename,
-                                                                       data: data) {
-      return resolver.cacheReferenceString(for: data, typename: __typename)
+    if let resolver = self as? SchemaUnknownTypeCacheKeyProvider.Type {
+      return resolver.cacheReferenceString(data: data, typename: __typename)
     }
 
     return nil
@@ -39,22 +37,32 @@ extension CacheKeyProvider {
 
   public static var uniqueKeyGroupId: StaticString? { nil }
 
-  fileprivate static func cacheReferenceString(
-    for data: JSONObject,
-    typename: String
-  ) -> String? {
+  fileprivate static func cacheReferenceString(key: String, typename: String) -> String? {
+    return "\(uniqueKeyGroupId?.description ?? typename):\(key)"
+  }
+
+  fileprivate static func cacheReferenceString(data: JSONObject, typename: String) -> String? {
     guard let key = cacheKey(for: data) else {
       return nil
     }
 
-    return "\(uniqueKeyGroupId?.description ?? typename):\(key)"
+    return cacheReferenceString(key: key, typename: typename)
   }
 
 }
 
-public protocol SchemaUnknownTypeCacheKeyProvider {
-  static func cacheKeyProviderForUnknownType(
-    withTypename: String,
-    data: JSONObject
-  ) -> CacheKeyProvider.Type?
+public protocol SchemaUnknownTypeCacheKeyProvider: CacheKeyProvider {
+  static func cacheKeyForUnknown(typename: String, data: JSONObject) -> String?
+}
+
+extension SchemaUnknownTypeCacheKeyProvider {
+  public static func cacheKey(for data: JSONObject) -> String? { nil }
+
+  fileprivate static func cacheReferenceString(data: JSONObject, typename: String) -> String? {
+    guard let key = cacheKeyForUnknown(typename: typename, data: data) else {
+      return nil
+    }
+
+    return cacheReferenceString(key: key, typename: typename)
+  }
 }
