@@ -54,7 +54,7 @@ import Foundation
 ///  }
 ///  ```
 /// # See Also
-/// [GraphQLSpec - Input Values - Null Value](http://spec.graphql.org/June2018/#sec-Null-Value)
+/// [GraphQLSpec - Input Values - Null Value](http://spec.graphql.org/October2021/#sec-Null-Value)
 @dynamicMemberLookup
 public enum GraphQLNullable<Wrapped> {
 

@@ -249,7 +249,18 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/JSONDecodingError": {
   "abstract" : [
-
+    {
+      "text" : "An error thrown while decoding ",
+      "type" : "text"
+    },
+    {
+      "code" : "JSON",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

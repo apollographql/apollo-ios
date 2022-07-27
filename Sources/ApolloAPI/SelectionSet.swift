@@ -14,6 +14,7 @@ public protocol AnySelectionSet: SelectionSetEntityValue {
   var __data: DataDict { get }
 
   /// Designated Initializer
+  /// 
   /// - Parameter data: The data of the underlying GraphQL object represented by generated
   /// selection set.
   init(data: DataDict)

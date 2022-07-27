@@ -1,7 +1,16 @@
 {
   "abstract" : [
     {
-      "text" : "No overview available.",
+      "text" : "A value that is expected to be present is missing from the ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONObject",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -149,7 +158,18 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/JSONDecodingError": {
   "abstract" : [
-
+    {
+      "text" : "An error thrown while decoding ",
+      "type" : "text"
+    },
+    {
+      "code" : "JSON",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -180,7 +200,19 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/JSONDecodingError/missingValue": {
   "abstract" : [
-
+    {
+      "text" : "A value that is expected to be present is missing from the ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONObject",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -202,6 +234,40 @@
   "title" : "JSONDecodingError.missingValue",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/jsondecodingerror\/missingvalue"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/JSONObject": {
+  "abstract" : [
+    {
+      "text" : "Represents a JSON Dictionary",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "JSONObject"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONObject",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "JSONObject"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "JSONObject",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/jsonobject"
 }
 }
 }

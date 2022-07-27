@@ -245,7 +245,26 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/Union": {
   "abstract" : [
-
+    {
+      "text" : "An abstract base class inherited by unions in a generated GraphQL schema.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "Each ",
+      "type" : "text"
+    },
+    {
+      "code" : "union",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " defined in the GraphQL schema will have a subclass of this class generated.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

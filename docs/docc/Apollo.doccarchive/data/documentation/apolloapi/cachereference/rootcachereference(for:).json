@@ -1,7 +1,29 @@
 {
   "abstract" : [
     {
-      "text" : "No overview available.",
+      "text" : "Helper function that returns the cache’s root ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheReference",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " for the given",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperationType",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -149,6 +171,215 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "return-value",
+          "level" : 2,
+          "text" : "Return Value",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "The cache’s root ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheReference",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " for the given ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperationType",
+              "isActive" : true,
+              "type" : "reference"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
+    },
+    {
+      "kind" : "parameters",
+      "parameters" : [
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "A ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperationType",
+                  "isActive" : true,
+                  "type" : "reference"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "operationType"
+        }
+      ]
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "The Apollo ",
+              "type" : "text"
+            },
+            {
+              "code" : "NormalizedCache",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " stores all objects that are not normalized",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "(ie. don’t have a unique cache key provided by a ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheKeyProvider",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : ")",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "with a ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheReference",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " computed as the field path to the object from",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "the root of the parent operation type.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "For example, given the operation:",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "query {",
+            "  animals {",
+            "    owner {",
+            "      name",
+            "    }",
+            "  }",
+            "}"
+          ],
+          "syntax" : "graphql",
+          "type" : "codeListing"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "The ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheReference",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " for the ",
+              "type" : "text"
+            },
+            {
+              "code" : "owner",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " object of the third animal in the ",
+              "type" : "text"
+            },
+            {
+              "code" : "animals",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " list would",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "have a ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheReference\/key",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " of ",
+              "type" : "text"
+            },
+            {
+              "code" : "\"QUERY_ROOT.animals.2.owner",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ".",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -225,10 +456,44 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
+"doc://ApolloAPI/documentation/ApolloAPI/CacheKeyProvider": {
+  "abstract" : [
+    {
+      "text" : "The key for an object must be:",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CacheKeyProvider"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheKeyProvider",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CacheKeyProvider"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CacheKeyProvider",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/cachekeyprovider"
+},
 "doc://ApolloAPI/documentation/ApolloAPI/CacheReference": {
   "abstract" : [
     {
-      "text" : "Represents a reference to a record for a GraphQL Object in the cache.",
+      "text" : "Represents a reference to a record for a GraphQL object in the cache.",
       "type" : "text"
     }
   ],
@@ -259,9 +524,71 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/cachereference"
 },
+"doc://ApolloAPI/documentation/ApolloAPI/CacheReference/key": {
+  "abstract" : [
+    {
+      "text" : "The unique identifier for the referenced object.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "key"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheReference\/key",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "key",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/cachereference\/key"
+},
 "doc://ApolloAPI/documentation/ApolloAPI/CacheReference/rootCacheReference(for:)": {
   "abstract" : [
-
+    {
+      "text" : "Helper function that returns the cache’s root ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheReference",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " for the given",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperationType",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

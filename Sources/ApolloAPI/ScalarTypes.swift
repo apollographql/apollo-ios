@@ -1,7 +1,7 @@
 /// An abstract protocol that a GraphQL "`scalar`" type must conform to.
 ///
 /// # See Also
-/// [GraphQL Spec - Scalars](http://spec.graphql.org/June2018/#sec-Scalars)
+/// [GraphQL Spec - Scalars](http://spec.graphql.org/October2021/#sec-Scalars)
 public protocol AnyScalarType: JSONEncodable, AnyHashableConvertible {}
 
 /// A protocol that represents any GraphQL "`scalar`" defined in the GraphQL Specification.
@@ -14,7 +14,7 @@ public protocol AnyScalarType: JSONEncodable, AnyHashableConvertible {}
 ///   * `Double`
 ///
 /// # See Also
-/// [GraphQL Spec - Scalars](http://spec.graphql.org/June2018/#sec-Scalars)
+/// [GraphQL Spec - Scalars](http://spec.graphql.org/October2021/#sec-Scalars)
 public protocol ScalarType:
   AnyScalarType,
   JSONDecodable,
@@ -34,7 +34,7 @@ extension Double: ScalarType {}
 /// types will not be overwritten when running code generation again.*
 ///
 /// # See Also
-/// [GraphQL Spec - Scalars](http://spec.graphql.org/June2018/#sec-Scalars)
+/// [GraphQL Spec - Scalars](http://spec.graphql.org/October2021/#sec-Scalars)
 public protocol CustomScalarType:
   AnyScalarType,
   JSONDecodable,

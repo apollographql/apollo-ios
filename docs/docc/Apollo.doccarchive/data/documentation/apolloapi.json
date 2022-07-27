@@ -112,20 +112,38 @@
   "topicSections" : [
     {
       "identifiers" : [
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Object",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Interface",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Object"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Union",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputObject",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/EnumType"
       ],
-      "title" : "Classes"
+      "title" : "Schema Types"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnyScalarType",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ScalarType",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CustomScalarType"
+      ],
+      "title" : "Scalar Types"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONValue",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONObject",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONEncodable",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONEncodableDictionary",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONDecodable",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONDecodingError"
+      ],
+      "title" : "JSON Conversion"
     },
     {
       "identifiers" : [
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnyHashableConvertible",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnyScalarType",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnySelectionSet",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheEntity",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheKeyProvider",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CustomScalarType",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/EnumType",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Fragment",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/FragmentContainer",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLMutation",
@@ -134,21 +152,16 @@
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLQuery",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLSubscription",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InlineFragment",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputObject",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONDecodable",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONEncodable",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/LocalCacheMutation",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/MutableRootSelectionSet",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/MutableSelectionSet",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/OutputTypeConvertible",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ParentTypeConvertible",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/RootSelectionSet",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ScalarType",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SchemaConfiguration",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SchemaUnknownTypeCacheKeyProvider",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSetEntityValue",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Union"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSetEntityValue"
       ],
       "title" : "Protocols"
     },
@@ -163,28 +176,11 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/!=(_:_:)",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/==(_:_:)",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/__(_:_:)"
-      ],
-      "title" : "Operators"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONEncodableDictionary",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONObject",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONValue"
-      ],
-      "title" : "Type Aliases"
-    },
-    {
-      "identifiers" : [
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DocumentType",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperationType",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONDecodingError",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/NoFragments",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ParentType",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection"
@@ -258,151 +254,32 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://ApolloAPI/documentation/ApolloAPI/!=(_:_:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "!="
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "genericParameter",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ">("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI11GraphQLEnumO",
-      "text" : "GraphQLEnum"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ">?, "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/!=(_:_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "!=(_:_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/!=(_:_:)"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/==(_:_:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "=="
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "genericParameter",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ">("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI11GraphQLEnumO",
-      "text" : "GraphQLEnum"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ">?, "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/==(_:_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "==(_:_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/==(_:_:)"
-},
 "doc://ApolloAPI/documentation/ApolloAPI/AnyHashableConvertible": {
   "abstract" : [
-
+    {
+      "text" : "A helper protocol to enable ",
+      "type" : "text"
+    },
+    {
+      "code" : "AnyHashable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " conversion for types that do not have automatic",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "code" : "AnyHashable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " conversion implemented.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -504,40 +381,12 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/anyselectionset"
 },
-"doc://ApolloAPI/documentation/ApolloAPI/CacheEntity": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "CacheEntity"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheEntity",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "CacheEntity"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "CacheEntity",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/cacheentity"
-},
 "doc://ApolloAPI/documentation/ApolloAPI/CacheKeyProvider": {
   "abstract" : [
-
+    {
+      "text" : "The key for an object must be:",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -569,7 +418,7 @@
 "doc://ApolloAPI/documentation/ApolloAPI/CacheReference": {
   "abstract" : [
     {
-      "text" : "Represents a reference to a record for a GraphQL Object in the cache.",
+      "text" : "Represents a reference to a record for a GraphQL object in the cache.",
       "type" : "text"
     }
   ],
@@ -729,23 +578,7 @@
 "doc://ApolloAPI/documentation/ApolloAPI/EnumType": {
   "abstract" : [
     {
-      "text" : "A protocol that a generated enum from a GraphQL schema conforms to.",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "This allows it to be wrapped in a ",
-      "type" : "text"
-    },
-    {
-      "code" : "GraphQLEnum",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " and be used as an input value for operations.",
+      "text" : "A protocol that an enum in a generated GraphQL schema conforms to.",
       "type" : "text"
     }
   ],
@@ -821,7 +654,19 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/FragmentContainer": {
   "abstract" : [
-
+    {
+      "text" : "A protocol representing a container for the fragments on a generated ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -853,7 +698,16 @@
 "doc://ApolloAPI/documentation/ApolloAPI/GraphQLEnum": {
   "abstract" : [
     {
-      "text" : "A generic enum that wraps a generated enum from a GraphQL Schema.",
+      "text" : "A generic enum type that wraps an ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/EnumType",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " from a generated GraphQL schema.",
       "type" : "text"
     }
   ],
@@ -1292,7 +1146,26 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/Interface": {
   "abstract" : [
-
+    {
+      "text" : "An abstract base class inherited by interfaces in a generated GraphQL schema.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "Each ",
+      "type" : "text"
+    },
+    {
+      "code" : "interface",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " defined in the GraphQL schema will have a subclass of this class generated.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -1323,7 +1196,19 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/JSONDecodable": {
   "abstract" : [
-
+    {
+      "text" : "A protocol for a type that can be initialized from a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONValue",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -1354,7 +1239,18 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/JSONDecodingError": {
   "abstract" : [
-
+    {
+      "text" : "An error thrown while decoding ",
+      "type" : "text"
+    },
+    {
+      "code" : "JSON",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -1385,7 +1281,19 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/JSONEncodable": {
   "abstract" : [
-
+    {
+      "text" : "A protocol for a type that can be converted into a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONValue",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -1416,7 +1324,15 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/JSONEncodableDictionary": {
   "abstract" : [
-
+    {
+      "text" : "Represents a Dictionary that can be converted into a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONObject",
+      "isActive" : true,
+      "type" : "reference"
+    }
   ],
   "fragments" : [
     {
@@ -1447,7 +1363,10 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/JSONObject": {
   "abstract" : [
-
+    {
+      "text" : "Represents a JSON Dictionary",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -1700,7 +1619,26 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/Object": {
   "abstract" : [
-
+    {
+      "text" : "An abstract base class inherited by types in a generated GraphQL schema.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "Each ",
+      "type" : "text"
+    },
+    {
+      "code" : "type",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " defined in the GraphQL schema will have a subclass of this class generated.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -2191,7 +2129,26 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/Union": {
   "abstract" : [
-
+    {
+      "text" : "An abstract base class inherited by unions in a generated GraphQL schema.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "Each ",
+      "type" : "text"
+    },
+    {
+      "code" : "union",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " defined in the GraphQL schema will have a subclass of this class generated.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -2219,89 +2176,6 @@
   "title" : "Union",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/union"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/__(_:_:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "??"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "genericParameter",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ">("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : "?, "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI15GraphQLNullableO",
-      "text" : "GraphQLNullable"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ">) -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI15GraphQLNullableO",
-      "text" : "GraphQLNullable"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ">"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/__(_:_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "??(_:_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/__(_:_:)"
 }
 }
 }

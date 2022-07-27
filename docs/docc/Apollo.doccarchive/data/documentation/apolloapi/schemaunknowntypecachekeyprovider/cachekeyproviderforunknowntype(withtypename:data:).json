@@ -262,7 +262,10 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/CacheKeyProvider": {
   "abstract" : [
-
+    {
+      "text" : "The key for an object must be:",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -293,7 +296,10 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/JSONObject": {
   "abstract" : [
-
+    {
+      "text" : "Represents a JSON Dictionary",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

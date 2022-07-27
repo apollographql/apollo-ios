@@ -176,7 +176,26 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/Interface": {
   "abstract" : [
-
+    {
+      "text" : "An abstract base class inherited by interfaces in a generated GraphQL schema.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "Each ",
+      "type" : "text"
+    },
+    {
+      "code" : "interface",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " defined in the GraphQL schema will have a subclass of this class generated.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

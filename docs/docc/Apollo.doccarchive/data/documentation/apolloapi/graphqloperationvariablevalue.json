@@ -228,23 +228,7 @@
 "doc://ApolloAPI/documentation/ApolloAPI/EnumType": {
   "abstract" : [
     {
-      "text" : "A protocol that a generated enum from a GraphQL schema conforms to.",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "This allows it to be wrapped in a ",
-      "type" : "text"
-    },
-    {
-      "code" : "GraphQLEnum",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " and be used as an input value for operations.",
+      "text" : "A protocol that an enum in a generated GraphQL schema conforms to.",
       "type" : "text"
     }
   ],
@@ -278,7 +262,16 @@
 "doc://ApolloAPI/documentation/ApolloAPI/GraphQLEnum": {
   "abstract" : [
     {
-      "text" : "A generic enum that wraps a generated enum from a GraphQL Schema.",
+      "text" : "A generic enum type that wraps an ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/EnumType",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " from a generated GraphQL schema.",
       "type" : "text"
     }
   ],

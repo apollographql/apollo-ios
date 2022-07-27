@@ -106,33 +106,20 @@
     {
       "content" : [
         {
-          "anchor" : "overview",
-          "level" : 2,
-          "text" : "Overview",
+          "anchor" : "See-Also",
+          "level" : 1,
+          "text" : "See Also",
           "type" : "heading"
         },
         {
-          "items" : [
+          "inlineContent" : [
             {
-              "content" : [
-                {
-                  "inlineContent" : [
-                    {
-                      "text" : "See: ",
-                      "type" : "text"
-                    },
-                    {
-                      "identifier" : "http:\/\/spec.graphql.org\/June2018\/#sec-Input-Values",
-                      "isActive" : true,
-                      "type" : "reference"
-                    }
-                  ],
-                  "type" : "paragraph"
-                }
-              ]
+              "identifier" : "http:\/\/spec.graphql.org\/October2021\/#sec-Input-Values",
+              "isActive" : true,
+              "type" : "reference"
             }
           ],
-          "type" : "unorderedList"
+          "type" : "paragraph"
         }
       ],
       "kind" : "content"
@@ -883,8 +870,8 @@
   "title" : "Swift.ExpressibleByExtendedGraphemeClusterLiteral",
   "type" : "unresolvable"
 },
-"http://spec.graphql.org/June2018/#sec-Input-Values": {
-  "identifier" : "http:\/\/spec.graphql.org\/June2018\/#sec-Input-Values",
+"http://spec.graphql.org/October2021/#sec-Input-Values": {
+  "identifier" : "http:\/\/spec.graphql.org\/October2021\/#sec-Input-Values",
   "title" : "GraphQLSpec - Input Values",
   "titleInlineContent" : [
     {
@@ -893,7 +880,7 @@
     }
   ],
   "type" : "link",
-  "url" : "http:\/\/spec.graphql.org\/June2018\/#sec-Input-Values"
+  "url" : "http:\/\/spec.graphql.org\/October2021\/#sec-Input-Values"
 }
 }
 }

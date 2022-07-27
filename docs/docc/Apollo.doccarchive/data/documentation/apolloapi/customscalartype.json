@@ -189,27 +189,20 @@
           "type" : "paragraph"
         },
         {
-          "items" : [
+          "anchor" : "See-Also",
+          "level" : 1,
+          "text" : "See Also",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
             {
-              "content" : [
-                {
-                  "inlineContent" : [
-                    {
-                      "text" : "See: ",
-                      "type" : "text"
-                    },
-                    {
-                      "identifier" : "http:\/\/spec.graphql.org\/June2018\/#sec-Scalars",
-                      "isActive" : true,
-                      "type" : "reference"
-                    }
-                  ],
-                  "type" : "paragraph"
-                }
-              ]
+              "identifier" : "http:\/\/spec.graphql.org\/October2021\/#sec-Scalars",
+              "isActive" : true,
+              "type" : "reference"
             }
           ],
-          "type" : "unorderedList"
+          "type" : "paragraph"
         }
       ],
       "kind" : "content"
@@ -245,6 +238,16 @@
   },
   "sections" : [
 
+  ],
+  "seeAlsoSections" : [
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnyScalarType",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ScalarType"
+      ],
+      "title" : "Scalar Types"
+    }
   ],
   "topicSections" : [
     {
@@ -322,7 +325,30 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/AnyHashableConvertible": {
   "abstract" : [
-
+    {
+      "text" : "A helper protocol to enable ",
+      "type" : "text"
+    },
+    {
+      "code" : "AnyHashable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " conversion for types that do not have automatic",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "code" : "AnyHashable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " conversion implemented.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -470,10 +496,53 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/customscalartype\/jsonvalue"
 },
+"doc://ApolloAPI/documentation/ApolloAPI/EnumType": {
+  "abstract" : [
+    {
+      "text" : "A protocol that an enum in a generated GraphQL schema conforms to.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "EnumType"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/EnumType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "EnumType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "EnumType",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/enumtype"
+},
 "doc://ApolloAPI/documentation/ApolloAPI/GraphQLEnum": {
   "abstract" : [
     {
-      "text" : "A generic enum that wraps a generated enum from a GraphQL Schema.",
+      "text" : "A generic enum type that wraps an ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/EnumType",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " from a generated GraphQL schema.",
       "type" : "text"
     }
   ],
@@ -569,7 +638,19 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/JSONDecodable": {
   "abstract" : [
-
+    {
+      "text" : "A protocol for a type that can be initialized from a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONValue",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -600,7 +681,19 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/JSONEncodable": {
   "abstract" : [
-
+    {
+      "text" : "A protocol for a type that can be converted into a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONValue",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -628,6 +721,45 @@
   "title" : "JSONEncodable",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/jsonencodable"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/JSONValue": {
+  "abstract" : [
+    {
+      "text" : "Represents a value in a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONObject",
+      "isActive" : true,
+      "type" : "reference"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "JSONValue"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONValue",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "JSONValue"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "JSONValue",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/jsonvalue"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/OutputTypeConvertible": {
   "abstract" : [
@@ -660,8 +792,50 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/outputtypeconvertible"
 },
-"http://spec.graphql.org/June2018/#sec-Scalars": {
-  "identifier" : "http:\/\/spec.graphql.org\/June2018\/#sec-Scalars",
+"doc://ApolloAPI/documentation/ApolloAPI/ScalarType": {
+  "abstract" : [
+    {
+      "text" : "A protocol that represents any GraphQL “",
+      "type" : "text"
+    },
+    {
+      "code" : "scalar",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : "” defined in the GraphQL Specification.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ScalarType"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ScalarType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ScalarType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ScalarType",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/scalartype"
+},
+"http://spec.graphql.org/October2021/#sec-Scalars": {
+  "identifier" : "http:\/\/spec.graphql.org\/October2021\/#sec-Scalars",
   "title" : "GraphQL Spec - Scalars",
   "titleInlineContent" : [
     {
@@ -670,7 +844,7 @@
     }
   ],
   "type" : "link",
-  "url" : "http:\/\/spec.graphql.org\/June2018\/#sec-Scalars"
+  "url" : "http:\/\/spec.graphql.org\/October2021\/#sec-Scalars"
 }
 }
 }

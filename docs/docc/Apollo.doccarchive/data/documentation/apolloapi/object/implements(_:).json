@@ -1,7 +1,16 @@
 {
   "abstract" : [
     {
-      "text" : "No overview available.",
+      "text" : "A helper function to determine if the receiver implement’s a given ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Interface",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " Type.",
       "type" : "text"
     }
   ],
@@ -148,6 +157,71 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "return-value",
+          "level" : 2,
+          "text" : "Return Value",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "A ",
+              "type" : "text"
+            },
+            {
+              "code" : "Bool",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " indicating if the receiver implements the given ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Interface",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " Type.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
+    },
+    {
+      "kind" : "parameters",
+      "parameters" : [
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "An ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Interface",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : " Type",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "interface"
+        }
+      ]
     }
   ],
   "schemaVersion" : {
@@ -226,7 +300,26 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/Interface": {
   "abstract" : [
-
+    {
+      "text" : "An abstract base class inherited by interfaces in a generated GraphQL schema.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "Each ",
+      "type" : "text"
+    },
+    {
+      "code" : "interface",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " defined in the GraphQL schema will have a subclass of this class generated.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -257,7 +350,26 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/Object": {
   "abstract" : [
-
+    {
+      "text" : "An abstract base class inherited by types in a generated GraphQL schema.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "Each ",
+      "type" : "text"
+    },
+    {
+      "code" : "type",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " defined in the GraphQL schema will have a subclass of this class generated.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -288,7 +400,19 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/Object/implements(_:)": {
   "abstract" : [
-
+    {
+      "text" : "A helper function to determine if the receiver implement’s a given ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Interface",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " Type.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

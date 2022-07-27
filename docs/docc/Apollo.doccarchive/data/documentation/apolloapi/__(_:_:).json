@@ -1,14 +1,20 @@
 {
   "abstract" : [
     {
-      "text" : "No overview available.",
+      "text" : "Nil Coalsecing Operator overload for ",
       "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable",
+      "isActive" : true,
+      "type" : "reference"
     }
   ],
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable"
       ]
     ]
   },
@@ -204,6 +210,55 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "This operator allows for optional variables to easily be used with ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "parameters and a default value.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "class MyQuery: GraphQLQuery {",
+            "",
+            "  var myVar: GraphQLNullable<String>",
+            "",
+            "  init(myVar: GraphQLNullable<String> { ... }",
+            " \/\/ ...",
+            "}",
+            "",
+            "let optionalString: String?",
+            "let query = MyQuery(myVar: optionalString ?? .none)"
+          ],
+          "syntax" : "swift",
+          "type" : "codeListing"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -332,7 +387,15 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/__(_:_:)": {
   "abstract" : [
-
+    {
+      "text" : "Nil Coalsecing Operator overload for ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable",
+      "isActive" : true,
+      "type" : "reference"
+    }
   ],
   "fragments" : [
     {

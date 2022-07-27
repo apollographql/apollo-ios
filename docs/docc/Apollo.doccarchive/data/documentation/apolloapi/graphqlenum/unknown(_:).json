@@ -1,28 +1,45 @@
 {
   "abstract" : [
     {
-      "text" : "No overview available.",
+      "text" : "An unrecognized value for the enum.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "The associated value exposes the raw ",
+      "type" : "text"
+    },
+    {
+      "code" : "String",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " name of the unknown enum case.",
       "type" : "text"
     }
   ],
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheEntity"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum\/unknown(_:)"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:9ApolloAPI11CacheEntityP",
+    "externalID" : "s:9ApolloAPI11GraphQLEnumO7unknownyACyxGSScAEmAA8EnumTypeRzlF",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "protocol"
+        "text" : "case"
       },
       {
         "kind" : "text",
@@ -30,7 +47,20 @@
       },
       {
         "kind" : "identifier",
-        "text" : "CacheEntity"
+        "text" : "unknown"
+      },
+      {
+        "kind" : "text",
+        "text" : "("
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:SS",
+        "text" : "String"
+      },
+      {
+        "kind" : "text",
+        "text" : ")"
       }
     ],
     "modules" : [
@@ -38,16 +68,10 @@
         "name" : "ApolloAPI"
       }
     ],
-    "navigatorTitle" : [
-      {
-        "kind" : "identifier",
-        "text" : "CacheEntity"
-      }
-    ],
     "role" : "symbol",
-    "roleHeading" : "Protocol",
-    "symbolKind" : "protocol",
-    "title" : "CacheEntity"
+    "roleHeading" : "Case",
+    "symbolKind" : "case",
+    "title" : "GraphQLEnum.unknown(_:)"
   },
   "primaryContentSections" : [
     {
@@ -62,7 +86,7 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "protocol"
+              "text" : "case"
             },
             {
               "kind" : "text",
@@ -70,27 +94,25 @@
             },
             {
               "kind" : "identifier",
-              "text" : "CacheEntity"
+              "text" : "unknown"
             },
             {
               "kind" : "text",
-              "text" : " : AnyObject"
+              "text" : "("
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:SS",
+              "text" : "String"
+            },
+            {
+              "kind" : "text",
+              "text" : ")"
             }
           ]
         }
       ],
       "kind" : "declarations"
-    }
-  ],
-  "relationshipsSections" : [
-    {
-      "identifiers" : [
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Interface",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Object"
-      ],
-      "kind" : "relationships",
-      "title" : "Conforming Types",
-      "type" : "conformingTypes"
     }
   ],
   "schemaVersion" : {
@@ -104,7 +126,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/apolloapi\/cacheentity"
+        "\/documentation\/apolloapi\/graphqlenum\/unknown(_:)"
       ],
       "traits" : [
         {
@@ -167,9 +189,12 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://ApolloAPI/documentation/ApolloAPI/CacheEntity": {
+"doc://ApolloAPI/documentation/ApolloAPI/EnumType": {
   "abstract" : [
-
+    {
+      "text" : "A protocol that an enum in a generated GraphQL schema conforms to.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -182,30 +207,42 @@
     },
     {
       "kind" : "identifier",
-      "text" : "CacheEntity"
+      "text" : "EnumType"
     }
   ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheEntity",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/EnumType",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "CacheEntity"
+      "text" : "EnumType"
     }
   ],
   "role" : "symbol",
-  "title" : "CacheEntity",
+  "title" : "EnumType",
   "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/cacheentity"
+  "url" : "\/documentation\/apolloapi\/enumtype"
 },
-"doc://ApolloAPI/documentation/ApolloAPI/Interface": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLEnum": {
   "abstract" : [
-
+    {
+      "text" : "A generic enum type that wraps an ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/EnumType",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " from a generated GraphQL schema.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "enum"
     },
     {
       "kind" : "text",
@@ -213,30 +250,49 @@
     },
     {
       "kind" : "identifier",
-      "text" : "Interface"
+      "text" : "GraphQLEnum"
     }
   ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Interface",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "Interface"
+      "text" : "GraphQLEnum"
     }
   ],
   "role" : "symbol",
-  "title" : "Interface",
+  "title" : "GraphQLEnum",
   "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/interface"
+  "url" : "\/documentation\/apolloapi\/graphqlenum"
 },
-"doc://ApolloAPI/documentation/ApolloAPI/Object": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLEnum/unknown(_:)": {
   "abstract" : [
-
+    {
+      "text" : "An unrecognized value for the enum.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "The associated value exposes the raw ",
+      "type" : "text"
+    },
+    {
+      "code" : "String",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " name of the unknown enum case.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "case"
     },
     {
       "kind" : "text",
@@ -244,21 +300,28 @@
     },
     {
       "kind" : "identifier",
-      "text" : "Object"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Object",
-  "kind" : "symbol",
-  "navigatorTitle" : [
+      "text" : "unknown"
+    },
     {
-      "kind" : "identifier",
-      "text" : "Object"
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
     }
   ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum\/unknown(_:)",
+  "kind" : "symbol",
   "role" : "symbol",
-  "title" : "Object",
+  "title" : "GraphQLEnum.unknown(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/object"
+  "url" : "\/documentation\/apolloapi\/graphqlenum\/unknown(_:)"
 }
 }
 }

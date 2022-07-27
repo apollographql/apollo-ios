@@ -90,27 +90,20 @@
           "type" : "paragraph"
         },
         {
-          "items" : [
+          "anchor" : "See-Also",
+          "level" : 1,
+          "text" : "See Also",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
             {
-              "content" : [
-                {
-                  "inlineContent" : [
-                    {
-                      "text" : "See: ",
-                      "type" : "text"
-                    },
-                    {
-                      "identifier" : "http:\/\/spec.graphql.org\/June2018\/#sec-Null-Value",
-                      "isActive" : true,
-                      "type" : "reference"
-                    }
-                  ],
-                  "type" : "paragraph"
-                }
-              ]
+              "identifier" : "http:\/\/spec.graphql.org\/October2021\/#sec-Null-Value",
+              "isActive" : true,
+              "type" : "reference"
             }
           ],
-          "type" : "unorderedList"
+          "type" : "paragraph"
         }
       ],
       "kind" : "content"
@@ -348,8 +341,8 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/selection\/field\/arguments"
 },
-"http://spec.graphql.org/June2018/#sec-Null-Value": {
-  "identifier" : "http:\/\/spec.graphql.org\/June2018\/#sec-Null-Value",
+"http://spec.graphql.org/October2021/#sec-Null-Value": {
+  "identifier" : "http:\/\/spec.graphql.org\/October2021\/#sec-Null-Value",
   "title" : "GraphQLSpec - Input Values - Null Value",
   "titleInlineContent" : [
     {
@@ -358,7 +351,7 @@
     }
   ],
   "type" : "link",
-  "url" : "http:\/\/spec.graphql.org\/June2018\/#sec-Null-Value"
+  "url" : "http:\/\/spec.graphql.org\/October2021\/#sec-Null-Value"
 }
 }
 }

@@ -57,7 +57,7 @@ public struct CacheReference: Hashable {
   /// ``CacheKeyProvider``
   public let key: String
 
-  /// The Designated Initializer
+  /// Designated Initializer
   ///
   /// - Parameters:
   ///   - key: The unique identifier for the referenced object.

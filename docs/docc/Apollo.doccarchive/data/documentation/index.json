@@ -34,7 +34,16 @@
         {
           "inlineContent" : [
             {
-              "text" : "Our API reference is automatically generated directly from the inline comments in our code. If you’re contributing to Apollo, all you have to do is add inline documentation comments and they will appear here.",
+              "text" : "Our API reference is automatically generated directly from the inline comments in our code. If you’re contributing to Apollo, all you have to do is add inline documentation comments, conforming to ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "https:\/\/developer.apple.com\/documentation\/xcode\/writing-symbol-documentation-in-your-source-files",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : ", and they will appear here.",
               "type" : "text"
             }
           ],
@@ -43,7 +52,7 @@
         {
           "inlineContent" : [
             {
-              "text" : "See something missing documentation? Add inline documentation comments to the code, and open a pull request!",
+              "text" : "See something missing in the documentation? Add inline documentation comments to the code, and open a pull request!",
               "type" : "text"
             }
           ],
@@ -382,7 +391,7 @@
 "doc://Apollo/documentation/Apollo": {
   "abstract" : [
     {
-      "text" : "A Strongly Typed, Swift First, GraphQL client.",
+      "text" : "A Strongly typed, Swift-first, GraphQL client.",
       "type" : "text"
     }
   ],
@@ -392,6 +401,18 @@
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
+},
+"https://developer.apple.com/documentation/xcode/writing-symbol-documentation-in-your-source-files": {
+  "identifier" : "https:\/\/developer.apple.com\/documentation\/xcode\/writing-symbol-documentation-in-your-source-files",
+  "title" : "DocC formatting guidelines",
+  "titleInlineContent" : [
+    {
+      "text" : "DocC formatting guidelines",
+      "type" : "text"
+    }
+  ],
+  "type" : "link",
+  "url" : "https:\/\/developer.apple.com\/documentation\/xcode\/writing-symbol-documentation-in-your-source-files"
 }
 }
 }

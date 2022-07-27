@@ -1,12 +1,21 @@
 {
   "abstract" : [
     {
-      "text" : "Inherited from ",
+      "text" : "The ",
       "type" : "text"
     },
     {
-      "code" : "ExpressibleByNilLiteral.init(nilLiteral:)",
+      "code" : "ExpressibleByNilLiteral",
       "type" : "codeVoice"
+    },
+    {
+      "text" : " Initializer. Initializes as ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/none",
+      "isActive" : true,
+      "type" : "reference"
     },
     {
       "text" : ".",
@@ -17,7 +26,8 @@
     "paths" : [
       [
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/ExpressibleByNilLiteral-Implementations"
       ]
     ]
   },
@@ -27,6 +37,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
+    "extendedModule" : "ApolloAPI",
     "externalID" : "s:9ApolloAPI15GraphQLNullableO10nilLiteralACyxGyt_tcfc",
     "fragments" : [
       {
@@ -87,6 +98,50 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "This initializer allows you to initialize a ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " by assigning ",
+              "type" : "text"
+            },
+            {
+              "code" : "nil",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ".",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "let GraphQLNullable<String> = nil \/\/ .none"
+          ],
+          "syntax" : "swift",
+          "type" : "codeListing"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -213,9 +268,40 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqlnullable"
 },
-"doc://ApolloAPI/documentation/ApolloAPI/GraphQLNullable/init(nilLiteral:)": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLNullable/ExpressibleByNilLiteral-Implementations": {
   "abstract" : [
 
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/ExpressibleByNilLiteral-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "ExpressibleByNilLiteral Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/graphqlnullable\/expressiblebynilliteral-implementations"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLNullable/init(nilLiteral:)": {
+  "abstract" : [
+    {
+      "text" : "The ",
+      "type" : "text"
+    },
+    {
+      "code" : "ExpressibleByNilLiteral",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " Initializer. Initializes as ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/none",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -241,6 +327,50 @@
   "title" : "init(nilLiteral:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqlnullable\/init(nilliteral:)"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLNullable/none": {
+  "abstract" : [
+    {
+      "text" : "The absence of a value.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "Functionally equivalent to ",
+      "type" : "text"
+    },
+    {
+      "code" : "nil",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "none"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/none",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "GraphQLNullable.none",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/graphqlnullable\/none"
 }
 }
 }

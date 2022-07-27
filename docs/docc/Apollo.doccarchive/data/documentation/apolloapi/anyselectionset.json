@@ -233,7 +233,10 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/AnySelectionSet/init(data:)": {
   "abstract" : [
-
+    {
+      "text" : "Designated Initializer",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

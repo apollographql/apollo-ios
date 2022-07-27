@@ -1,12 +1,8 @@
 {
   "abstract" : [
     {
-      "text" : "The presence of a value, stored as ",
+      "text" : "No overview available.",
       "type" : "text"
-    },
-    {
-      "code" : "Wrapped",
-      "type" : "codeVoice"
     }
   ],
   "hierarchy" : {
@@ -19,88 +15,18 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/some(_:)"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/ExpressibleByNilLiteral-Implementations"
   },
-  "kind" : "symbol",
+  "kind" : "article",
   "metadata" : {
-    "externalID" : "s:9ApolloAPI15GraphQLNullableO4someyACyxGxcAEmlF",
-    "fragments" : [
-      {
-        "kind" : "keyword",
-        "text" : "case"
-      },
-      {
-        "kind" : "text",
-        "text" : " "
-      },
-      {
-        "kind" : "identifier",
-        "text" : "some"
-      },
-      {
-        "kind" : "text",
-        "text" : "("
-      },
-      {
-        "kind" : "typeIdentifier",
-        "text" : "Wrapped"
-      },
-      {
-        "kind" : "text",
-        "text" : ")"
-      }
-    ],
     "modules" : [
       {
         "name" : "ApolloAPI"
       }
     ],
-    "role" : "symbol",
-    "roleHeading" : "Case",
-    "symbolKind" : "case",
-    "title" : "GraphQLNullable.some(_:)"
+    "role" : "collectionGroup",
+    "title" : "ExpressibleByNilLiteral Implementations"
   },
-  "primaryContentSections" : [
-    {
-      "declarations" : [
-        {
-          "languages" : [
-            "swift"
-          ],
-          "platforms" : [
-            "macOS"
-          ],
-          "tokens" : [
-            {
-              "kind" : "keyword",
-              "text" : "case"
-            },
-            {
-              "kind" : "text",
-              "text" : " "
-            },
-            {
-              "kind" : "identifier",
-              "text" : "some"
-            },
-            {
-              "kind" : "text",
-              "text" : "("
-            },
-            {
-              "kind" : "typeIdentifier",
-              "text" : "Wrapped"
-            },
-            {
-              "kind" : "text",
-              "text" : ")"
-            }
-          ]
-        }
-      ],
-      "kind" : "declarations"
-    }
-  ],
   "schemaVersion" : {
     "major" : 0,
     "minor" : 2,
@@ -109,20 +35,19 @@
   "sections" : [
 
   ],
-  "seeAlsoSections" : [
+  "topicSections" : [
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/none",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/null"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/init(nilLiteral:)"
       ],
-      "title" : "Enumeration Cases"
+      "title" : "Initializers"
     }
   ],
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/apolloapi\/graphqlnullable\/some(_:)"
+        "\/documentation\/apolloapi\/graphqlnullable\/expressiblebynilliteral-implementations"
       ],
       "traits" : [
         {
@@ -235,6 +160,55 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqlnullable"
 },
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLNullable/init(nilLiteral:)": {
+  "abstract" : [
+    {
+      "text" : "The ",
+      "type" : "text"
+    },
+    {
+      "code" : "ExpressibleByNilLiteral",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " Initializer. Initializes as ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/none",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "nilLiteral"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ())"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/init(nilLiteral:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(nilLiteral:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/graphqlnullable\/init(nilliteral:)"
+},
 "doc://ApolloAPI/documentation/ApolloAPI/GraphQLNullable/none": {
   "abstract" : [
     {
@@ -278,90 +252,6 @@
   "title" : "GraphQLNullable.none",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqlnullable\/none"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/GraphQLNullable/null": {
-  "abstract" : [
-    {
-      "text" : "The presence of an explicity null value.",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "Functionally equivalent to ",
-      "type" : "text"
-    },
-    {
-      "code" : "NSNull",
-      "type" : "codeVoice"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "case"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "null"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/null",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "GraphQLNullable.null",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/graphqlnullable\/null"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/GraphQLNullable/some(_:)": {
-  "abstract" : [
-    {
-      "text" : "The presence of a value, stored as ",
-      "type" : "text"
-    },
-    {
-      "code" : "Wrapped",
-      "type" : "codeVoice"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "case"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "some"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Wrapped"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/some(_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "GraphQLNullable.some(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/graphqlnullable\/some(_:)"
 }
 }
 }

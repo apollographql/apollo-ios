@@ -124,6 +124,29 @@
         {
           "inlineContent" : [
             {
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " is generally only used for setting input values on generated ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " objects.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
               "text" : "In GraphQL, explicitly providing a ",
               "type" : "text"
             },
@@ -179,27 +202,238 @@
           "type" : "paragraph"
         },
         {
-          "items" : [
+          "anchor" : "Usage",
+          "level" : 1,
+          "text" : "Usage",
+          "type" : "heading"
+        },
+        {
+          "anchor" : "Literals,-Enums,-and-InputObjects",
+          "level" : 3,
+          "text" : "Literals, Enums, and InputObjects",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
             {
-              "content" : [
-                {
-                  "inlineContent" : [
-                    {
-                      "text" : "See: ",
-                      "type" : "text"
-                    },
-                    {
-                      "identifier" : "http:\/\/spec.graphql.org\/June2018\/#sec-Null-Value",
-                      "isActive" : true,
-                      "type" : "reference"
-                    }
-                  ],
-                  "type" : "paragraph"
-                }
-              ]
+              "text" : "A ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " can be converted from most scalar literals, ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : ", and any",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "generated ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputObject",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " automatically.",
+              "type" : "text"
             }
           ],
-          "type" : "unorderedList"
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "public init(inputValue: GraphQLNullable<String>)",
+            ".init(inputValue: \"InputValueString\")",
+            "",
+            "public init(episode: GraphQLNullable<GraphQLEnum<StarWarsAPI.Episode>>)",
+            ".init(episode: .NEWHOPE)",
+            "",
+            "public init(inputValue: GraphQLNullable<CustomInputObject>)",
+            ".init(inputValue: CustomInputObject())"
+          ],
+          "syntax" : "swift",
+          "type" : "codeListing"
+        },
+        {
+          "anchor" : "Optional-Values-with-the-Nil-Coalescing-Operator",
+          "level" : 3,
+          "text" : "Optional Values with the Nil Coalescing Operator",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "You can initialize a ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " with an optional value, but you’ll need to indicate",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "the default value to use if the optional is ",
+              "type" : "text"
+            },
+            {
+              "code" : "nil",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ". Usually this value is either",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/none",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " or ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/null",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : ".",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            ".init(inputValue: optionalValue ?? .none)"
+          ],
+          "syntax" : "swift",
+          "type" : "codeListing"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "or",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            ".init(inputValue: optionalValue ?? .null)"
+          ],
+          "syntax" : "swift",
+          "type" : "codeListing"
+        },
+        {
+          "anchor" : "Accessing-Properties-on-Wrapped-Objects",
+          "level" : 3,
+          "text" : "Accessing Properties on Wrapped Objects",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " uses ",
+              "type" : "text"
+            },
+            {
+              "code" : "@dynamicMemberLookup",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " to provide access to properties on the wrapped",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "object without unwrapping.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "let nullableString: GraphQLNullable<String> = \"MyString\"",
+            "print(nullableString.count) \/\/ 8"
+          ],
+          "syntax" : "swift",
+          "type" : "codeListing"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "You can also unwrap the wrapped value to access it directly.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "let nullableString: GraphQLNullable<String> = \"MyString\"",
+            "if let string = nullableString.unwrapped {",
+            "  print(string.count) \/\/ 8",
+            "}"
+          ],
+          "syntax" : "swift",
+          "type" : "codeListing"
+        },
+        {
+          "anchor" : "See-Also",
+          "level" : 1,
+          "text" : "See Also",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "identifier" : "http:\/\/spec.graphql.org\/October2021\/#sec-Null-Value",
+              "isActive" : true,
+              "type" : "reference"
+            }
+          ],
+          "type" : "paragraph"
         }
       ],
       "kind" : "content"
@@ -245,9 +479,14 @@
     },
     {
       "identifiers" : [
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/__(_:_:)"
+      ],
+      "title" : "Operators"
+    },
+    {
+      "identifiers" : [
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/init(_:)-3syxd",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/init(_:)-7pg3j",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/init(nilLiteral:)"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/init(_:)-7pg3j"
       ],
       "title" : "Initializers"
     },
@@ -273,6 +512,7 @@
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/ExpressibleByExtendedGraphemeClusterLiteral-Implementations",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/ExpressibleByFloatLiteral-Implementations",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/ExpressibleByIntegerLiteral-Implementations",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/ExpressibleByNilLiteral-Implementations",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/ExpressibleByStringLiteral-Implementations",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/ExpressibleByUnicodeScalarLiteral-Implementations",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/GraphQLOperationVariableValue-Implementations"
@@ -355,6 +595,83 @@
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/EnumType": {
+  "abstract" : [
+    {
+      "text" : "A protocol that an enum in a generated GraphQL schema conforms to.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "EnumType"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/EnumType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "EnumType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "EnumType",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/enumtype"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLEnum": {
+  "abstract" : [
+    {
+      "text" : "A generic enum type that wraps an ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/EnumType",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " from a generated GraphQL schema.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLEnum"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLEnum"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphQLEnum",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/graphqlenum"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/GraphQLNullable": {
   "abstract" : [
@@ -483,6 +800,17 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqlnullable\/expressiblebyintegerliteral-implementations"
 },
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLNullable/ExpressibleByNilLiteral-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/ExpressibleByNilLiteral-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "ExpressibleByNilLiteral Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/graphqlnullable\/expressiblebynilliteral-implementations"
+},
 "doc://ApolloAPI/documentation/ApolloAPI/GraphQLNullable/ExpressibleByStringLiteral-Implementations": {
   "abstract" : [
 
@@ -518,7 +846,19 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/GraphQLNullable/init(_:)-3syxd": {
   "abstract" : [
-
+    {
+      "text" : "Intializer for use with an ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputObject",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " value.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -547,7 +887,19 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/GraphQLNullable/init(_:)-7pg3j": {
   "abstract" : [
-
+    {
+      "text" : "Initializer for use with a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " value.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -581,35 +933,6 @@
   "title" : "init(_:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqlnullable\/init(_:)-7pg3j"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/GraphQLNullable/init(nilLiteral:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "identifier",
-      "text" : "init"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "nilLiteral"
-    },
-    {
-      "kind" : "text",
-      "text" : ": ())"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/init(nilLiteral:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "init(nilLiteral:)",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/graphqlnullable\/init(nilliteral:)"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/GraphQLNullable/none": {
   "abstract" : [
@@ -741,7 +1064,52 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/GraphQLNullable/subscript(dynamicMember:)": {
   "abstract" : [
-
+    {
+      "text" : "Subscript for ",
+      "type" : "text"
+    },
+    {
+      "code" : "@dynamicMemberLookup",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ". Accesses values on the wrapped type.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "Will return ",
+      "type" : "text"
+    },
+    {
+      "code" : "nil",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " if the receiver is ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/none",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " or ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/null",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -811,7 +1179,36 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/GraphQLNullable/unwrapped": {
   "abstract" : [
-
+    {
+      "text" : "The wrapped value if one exists, ",
+      "type" : "text"
+    },
+    {
+      "code" : "nil",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " if the receiver is ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/none",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " or ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/null",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -845,6 +1242,37 @@
   "title" : "unwrapped",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqlnullable\/unwrapped"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLOperation": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLOperation"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLOperation"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphQLOperation",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/graphqloperation"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/GraphQLOperationVariableValue": {
   "abstract" : [
@@ -909,6 +1337,131 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqloperationvariablevalue"
 },
+"doc://ApolloAPI/documentation/ApolloAPI/InputObject": {
+  "abstract" : [
+    {
+      "text" : "An protocol for a struct that represents a GraphQL Input Object.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "InputObject"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputObject",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "InputObject"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "InputObject",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/inputobject"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/__(_:_:)": {
+  "abstract" : [
+    {
+      "text" : "Nil Coalsecing Operator overload for ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable",
+      "isActive" : true,
+      "type" : "reference"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "??"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI15GraphQLNullableO",
+      "text" : "GraphQLNullable"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI15GraphQLNullableO",
+      "text" : "GraphQLNullable"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/__(_:_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "??(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/__(_:_:)"
+},
 "doc://ApolloAPI/s23ExpressibleByNilLiteralP": {
   "identifier" : "doc:\/\/ApolloAPI\/s23ExpressibleByNilLiteralP",
   "title" : "Swift.ExpressibleByNilLiteral",
@@ -954,8 +1507,8 @@
   "title" : "Swift.ExpressibleByExtendedGraphemeClusterLiteral",
   "type" : "unresolvable"
 },
-"http://spec.graphql.org/June2018/#sec-Null-Value": {
-  "identifier" : "http:\/\/spec.graphql.org\/June2018\/#sec-Null-Value",
+"http://spec.graphql.org/October2021/#sec-Null-Value": {
+  "identifier" : "http:\/\/spec.graphql.org\/October2021\/#sec-Null-Value",
   "title" : "GraphQLSpec - Input Values - Null Value",
   "titleInlineContent" : [
     {
@@ -964,7 +1517,7 @@
     }
   ],
   "type" : "link",
-  "url" : "http:\/\/spec.graphql.org\/June2018\/#sec-Null-Value"
+  "url" : "http:\/\/spec.graphql.org\/October2021\/#sec-Null-Value"
 }
 }
 }
