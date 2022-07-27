@@ -47,7 +47,7 @@ public struct ApolloSchemaDownloader {
   /// - Returns: Output from a successful fetch or throws an error.
   /// - Throws: Any error which occurs during the fetch.
   public static func fetch(configuration: ApolloSchemaDownloadConfiguration) throws {
-    try FileManager.default.apollo.createContainingDirectoryIfNeeded(
+    try ApolloFileManager.default.createContainingDirectoryIfNeeded(
       forPath: configuration.outputPath
     )
 

@@ -5,13 +5,13 @@ import ApolloUtils
 import ApolloCodegenInternalTestHelpers
 
 class OperationIdentifierFileGeneratorTests: XCTestCase {
-  var fileManager: MockFileManager!
+  var fileManager: MockApolloFileManager!
   var subject: OperationIdentifiersFileGenerator!
 
   override func setUp() {
     super.setUp()
 
-    fileManager = MockFileManager(strict: true)
+    fileManager = MockApolloFileManager(strict: true)
   }
 
   override func tearDown() {

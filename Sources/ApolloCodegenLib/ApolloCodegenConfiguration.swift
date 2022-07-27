@@ -528,7 +528,7 @@ extension ApolloCodegenConfiguration {
   public func validate() throws {
     try validateTestMocksConfiguration()
 
-    let fileManager = FileManager.default.apollo
+    let fileManager = ApolloFileManager.default
 
     CodegenLogger.log("Validating \(String(describing: self))", logLevel: .debug)
 
@@ -565,7 +565,7 @@ extension ApolloCodegenConfiguration {
 
   /// Validates that if the given path exists it is a directory. If it does not exist it attempts to create it.
   private func requireDirectory(atPath path: String, ofType pathType: PathType) throws {
-    let fileManager = FileManager.default.apollo
+    let fileManager = ApolloFileManager.default
 
     if fileManager.doesFileExist(atPath: path) {
       throw Error.notADirectory(pathType).logging(withPath: path)

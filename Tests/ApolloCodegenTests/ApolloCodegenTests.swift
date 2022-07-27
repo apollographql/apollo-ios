@@ -12,7 +12,7 @@ class ApolloCodegenTests: XCTestCase {
       .appendingPathComponent("Codegen")
       .appendingPathComponent(UUID().uuidString)
 
-    try FileManager.default.apollo.createDirectoryIfNeeded(atPath: directoryURL.path)
+    try ApolloFileManager.default.createDirectoryIfNeeded(atPath: directoryURL.path)
   }
 
   override func tearDownWithError() throws {
@@ -42,7 +42,7 @@ class ApolloCodegenTests: XCTestCase {
   }().data(using: .utf8)!
 
   private func cleanTestOutput() throws {
-    try FileManager.default.apollo.deleteDirectory(atPath: directoryURL.path)
+    try ApolloFileManager.default.deleteDirectory(atPath: directoryURL.path)
   }
 
   /// Creates a file in the test directory.
@@ -57,7 +57,7 @@ class ApolloCodegenTests: XCTestCase {
   private func createFile(containing data: Data, named filename: String) -> String {
     let path = directoryURL.appendingPathComponent(filename).path
     expect(
-      try FileManager.default.apollo.createFile(atPath: path, data: data)
+      try ApolloFileManager.default.createFile(atPath: path, data: data)
     ).notTo(throwError())
 
     return path
@@ -447,7 +447,7 @@ class ApolloCodegenTests: XCTestCase {
       )
     ))
 
-    let fileManager = MockFileManager(strict: false)
+    let fileManager = MockApolloFileManager(strict: false)
 
     var filePaths: Set<String> = []
     fileManager.mock(closure: .createFile({ path, data, attributes in
@@ -547,7 +547,7 @@ class ApolloCodegenTests: XCTestCase {
       )
     ))
 
-    let fileManager = MockFileManager(strict: false)
+    let fileManager = MockApolloFileManager(strict: false)
 
     var filePaths: Set<String> = []
     fileManager.mock(closure: .createFile({ path, data, attributes in
@@ -636,7 +636,7 @@ class ApolloCodegenTests: XCTestCase {
       )
     ))
 
-    let fileManager = MockFileManager(strict: false)
+    let fileManager = MockApolloFileManager(strict: false)
 
     var filePaths: Set<String> = []
     fileManager.mock(closure: .createFile({ path, data, attributes in
@@ -738,7 +738,7 @@ class ApolloCodegenTests: XCTestCase {
       )
     ))
 
-    let fileManager = MockFileManager(strict: false)
+    let fileManager = MockApolloFileManager(strict: false)
 
     var filePaths: Set<String> = []
     fileManager.mock(closure: .createFile({ path, data, attributes in

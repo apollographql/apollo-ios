@@ -1,15 +1,16 @@
 import Foundation
-import CommonCrypto
-#if !COCOAPODS
-import ApolloUtils
-#endif
 
 public typealias FileAttributes = [FileAttributeKey : Any]
 
-/// Enables the `.apollo` extension namespace.
-extension FileManager: ApolloCompatible {}
+class ApolloFileManager {
 
-extension ApolloExtension where Base: FileManager {
+  static var `default` = ApolloFileManager(base: FileManager.default)
+
+  let base: FileManager
+
+  init(base: FileManager) {
+    self.base = base
+  }
 
   // MARK: Presence
 

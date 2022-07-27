@@ -7,7 +7,7 @@ import ApolloCodegenInternalTestHelpers
 class SchemaRegistryApolloSchemaDownloaderTests: XCTestCase {
   func testDownloadingSchema_fromSchemaRegistry_shouldOutputSDL() throws {
     let testOutputFolderURL = CodegenTestHelper.outputFolderURL()
-    XCTAssertFalse(FileManager.default.apollo.doesFileExist(atPath: testOutputFolderURL.path))
+    XCTAssertFalse(ApolloFileManager.default.doesFileExist(atPath: testOutputFolderURL.path))
 
     guard let apiKey = ProcessInfo.processInfo.environment["REGISTRY_API_KEY"] else {
      throw XCTSkip("No API key could be fetched from the environment to test downloading from the schema registry")
@@ -23,7 +23,7 @@ class SchemaRegistryApolloSchemaDownloaderTests: XCTestCase {
     )
 
     try ApolloSchemaDownloader.fetch(configuration: configuration)
-    XCTAssertTrue(FileManager.default.apollo.doesFileExist(atPath: configuration.outputPath))
+    XCTAssertTrue(ApolloFileManager.default.doesFileExist(atPath: configuration.outputPath))
 
     // Can it be turned into the expected schema?
     let frontend = try GraphQLJSFrontend()
