@@ -30,7 +30,6 @@ extension SchemaConfiguration {
   }
 }
 
-#warning("TODO docs")
 /// The key for an object must be:
 ///   - Unique across the type
 ///     - No two different objects with the same "__typename" can have the same key.
