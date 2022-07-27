@@ -1,7 +1,16 @@
 {
   "abstract" : [
     {
-      "text" : "No overview available.",
+      "text" : "Intializer for use with an ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputObject",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " value.",
       "type" : "text"
     }
   ],
@@ -118,6 +127,43 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "kind" : "parameters",
+      "parameters" : [
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "The ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputObject",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : " to initalize a ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : " with.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "object"
+        }
+      ]
     }
   ],
   "schemaVersion" : {
@@ -246,7 +292,19 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/GraphQLNullable/init(_:)-3syxd": {
   "abstract" : [
-
+    {
+      "text" : "Intializer for use with an ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputObject",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " value.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

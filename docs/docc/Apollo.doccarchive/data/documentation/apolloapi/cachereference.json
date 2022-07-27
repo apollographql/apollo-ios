@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Represents a reference to a record for a GraphQL Object in the cache.",
+      "text" : "Represents a reference to a record for a GraphQL object in the cache.",
       "type" : "text"
     }
   ],
@@ -76,6 +76,89 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheReference",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " is just a wrapper around a ",
+              "type" : "text"
+            },
+            {
+              "code" : "String",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ". But when the value for a key in a cache",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "code" : "Record",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " is a ",
+              "type" : "text"
+            },
+            {
+              "code" : "String",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ", we treat the string as the value. When the value for the key is a",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheReference",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : ", the reference’s ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheReference\/key",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " is the cache key for another referenced object",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "that is the value.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "relationshipsSections" : [
@@ -213,7 +296,7 @@
 "doc://ApolloAPI/documentation/ApolloAPI/CacheReference": {
   "abstract" : [
     {
-      "text" : "Represents a reference to a record for a GraphQL Object in the cache.",
+      "text" : "Represents a reference to a record for a GraphQL object in the cache.",
       "type" : "text"
     }
   ],
@@ -404,7 +487,7 @@
 "doc://ApolloAPI/documentation/ApolloAPI/CacheReference/init(_:)": {
   "abstract" : [
     {
-      "text" : "Initializer",
+      "text" : "Designated Initializer",
       "type" : "text"
     }
   ],
@@ -473,7 +556,32 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/CacheReference/rootCacheReference(for:)": {
   "abstract" : [
-
+    {
+      "text" : "Helper function that returns the cache’s root ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheReference",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " for the given",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperationType",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -529,6 +637,37 @@
   "title" : "rootCacheReference(for:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/cachereference\/rootcachereference(for:)"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLOperationType": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLOperationType"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperationType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLOperationType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphQLOperationType",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/graphqloperationtype"
 },
 "doc://ApolloAPI/s23CustomStringConvertibleP": {
   "identifier" : "doc:\/\/ApolloAPI\/s23CustomStringConvertibleP",

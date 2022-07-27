@@ -110,33 +110,20 @@
     {
       "content" : [
         {
-          "anchor" : "discussion",
-          "level" : 2,
-          "text" : "Discussion",
+          "anchor" : "See-Also",
+          "level" : 1,
+          "text" : "See Also",
           "type" : "heading"
         },
         {
-          "items" : [
+          "inlineContent" : [
             {
-              "content" : [
-                {
-                  "inlineContent" : [
-                    {
-                      "text" : "See: ",
-                      "type" : "text"
-                    },
-                    {
-                      "identifier" : "http:\/\/spec.graphql.org\/June2018\/#sec-List-Value",
-                      "isActive" : true,
-                      "type" : "reference"
-                    }
-                  ],
-                  "type" : "paragraph"
-                }
-              ]
+              "identifier" : "http:\/\/spec.graphql.org\/October2021\/#sec-List-Value",
+              "isActive" : true,
+              "type" : "reference"
             }
           ],
-          "type" : "unorderedList"
+          "type" : "paragraph"
         }
       ],
       "kind" : "content"
@@ -395,8 +382,8 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/selection\/field\/arguments"
 },
-"http://spec.graphql.org/June2018/#sec-List-Value": {
-  "identifier" : "http:\/\/spec.graphql.org\/June2018\/#sec-List-Value",
+"http://spec.graphql.org/October2021/#sec-List-Value": {
+  "identifier" : "http:\/\/spec.graphql.org\/October2021\/#sec-List-Value",
   "title" : "GraphQLSpec - Input Values - List Value",
   "titleInlineContent" : [
     {
@@ -405,7 +392,7 @@
     }
   ],
   "type" : "link",
-  "url" : "http:\/\/spec.graphql.org\/June2018\/#sec-List-Value"
+  "url" : "http:\/\/spec.graphql.org\/October2021\/#sec-List-Value"
 }
 }
 }

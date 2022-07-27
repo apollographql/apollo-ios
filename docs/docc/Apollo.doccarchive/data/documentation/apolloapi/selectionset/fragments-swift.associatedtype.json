@@ -205,7 +205,19 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/FragmentContainer": {
   "abstract" : [
-
+    {
+      "text" : "A protocol representing a container for the fragments on a generated ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

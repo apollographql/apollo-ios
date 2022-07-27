@@ -270,7 +270,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     let data = try readValues(GivenSelectionSet.self, from: object)
 
     // then
-    XCTAssertEqual(data.size, GraphQLEnum<MockEnum>.__unknown("GIGANTIC"))
+    XCTAssertEqual(data.size, GraphQLEnum<MockEnum>.unknown("GIGANTIC"))
   }
 
   func test__nonnull_enum__givenDataMissingKeyForField_throwsMissingValueError() {
@@ -449,9 +449,9 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
 
     // then
     XCTAssertEqual(data.favorites, [
-                    GraphQLEnum<MockEnum>.__unknown("10"),
-                    GraphQLEnum<MockEnum>.__unknown("20"),
-                    GraphQLEnum<MockEnum>.__unknown("30")])
+                    GraphQLEnum<MockEnum>.unknown("10"),
+                    GraphQLEnum<MockEnum>.unknown("20"),
+                    GraphQLEnum<MockEnum>.unknown("30")])
   }
 
   func test__nonnull_list_nonnull_scalar__givenDataWithElementTypeNotConvertibleToFieldType_throwsCouldNotConvertError() throws {
@@ -683,7 +683,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     let data = try readValues(GivenSelectionSet.self, from: object)
 
     // then
-    XCTAssertEqual(data.favorites, [GraphQLEnum<MockEnum>.__unknown("Purple")])
+    XCTAssertEqual(data.favorites, [GraphQLEnum<MockEnum>.unknown("Purple")])
   }
 
   func test__optional_list_optional_enum__givenDataWithNonConvertibleTypeElement_getsValueWithUnknownEnumCaseElement() {

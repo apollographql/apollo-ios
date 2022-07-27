@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "No overview available.",
+      "text" : "Designated Initializer",
       "type" : "text"
     }
   ],
@@ -99,6 +99,33 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "kind" : "parameters",
+      "parameters" : [
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "The data of the underlying GraphQL object represented by generated",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "selection set.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "data"
+        }
+      ]
     }
   ],
   "schemaVersion" : {
@@ -208,7 +235,10 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/AnySelectionSet/init(data:)": {
   "abstract" : [
-
+    {
+      "text" : "Designated Initializer",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

@@ -1,13 +1,43 @@
-/// Represents a reference to a record for a GraphQL Object in the cache.
+/// Represents a reference to a record for a GraphQL object in the cache.
+///
+/// ``CacheReference`` is just a wrapper around a `String`. But when the value for a key in a cache
+/// `Record` is a `String`, we treat the string as the value. When the value for the key is a
+/// ``CacheReference``, the reference's ``key`` is the cache key for another referenced object
+/// that is the value.
 public struct CacheReference: Hashable {
 
   /// A CacheReference referencing the root query object.
   public static let RootQuery: CacheReference = CacheReference("QUERY_ROOT")
+
   /// A CacheReference referencing the root mutation object.
   public static let RootMutation: CacheReference = CacheReference("MUTATION_ROOT")
+
   /// A CacheReference referencing the root subscription object.
   public static let RootSubscription: CacheReference = CacheReference("SUBSCRIPTION_ROOT")
 
+  /// Helper function that returns the cache's root ``CacheReference`` for the given
+  /// ``GraphQLOperationType``.
+  ///
+  /// The Apollo `NormalizedCache` stores all objects that are not normalized
+  /// (ie. don't have a unique cache key provided by a ``CacheKeyProvider``)
+  /// with a ``CacheReference`` computed as the field path to the object from
+  /// the root of the parent operation type.
+  ///
+  /// For example, given the operation:
+  /// ```graphql
+  /// query {
+  ///   animals {
+  ///     owner {
+  ///       name
+  ///     }
+  ///   }
+  /// }
+  /// ```
+  /// The ``CacheReference`` for the `owner` object of the third animal in the `animals` list would
+  /// have a ``CacheReference/key`` of `"QUERY_ROOT.animals.2.owner`.
+  ///
+  /// - Parameter operationType: A ``GraphQLOperationType``
+  /// - Returns: The cache's root ``CacheReference`` for the given ``GraphQLOperationType``
   public static func rootCacheReference(
     for operationType: GraphQLOperationType
   ) -> CacheReference {
@@ -23,26 +53,11 @@ public struct CacheReference: Hashable {
 
   /// The unique identifier for the referenced object.
   ///
-  /// The key for an object must be:
-  ///   - Unique across the type
-  ///     - No two different objects with the same "__typename" can have the same key.
-  ///     - Keys do not need to be unique from keys for different types (objects with
-  ///      different "__typename"s).
-  ///   - Stable
-  ///     - The key for an object may not ever change. If the cache recieves a new key, it will
-  ///     treat the object as an entirely new object. There is no mechanisim for cache normalization
-  ///     in which an object changes its key but maintains its identity.
-  ///
-  /// Any format for keys will work, as long as they are stable and unique.
-  /// If multiple fields must be used to derive a unique key, we recommend joining the values for
-  /// the fields with a ":" delimiter. For example, if you need to join the title of a book and the
-  /// author name to use as a unique key, you could return "Iliad:Homer".
-  ///
-  /// A reference to a record that does not have it's own unique cache key is based on a path from
-  /// another cache reference or a root object.
+  /// # See Also
+  /// ``CacheKeyProvider``
   public let key: String
 
-  /// Initializer
+  /// Designated Initializer
   ///
   /// - Parameters:
   ///   - key: The unique identifier for the referenced object.

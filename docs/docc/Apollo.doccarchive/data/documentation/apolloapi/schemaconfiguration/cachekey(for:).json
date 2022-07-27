@@ -237,7 +237,7 @@
 "doc://ApolloAPI/documentation/ApolloAPI/CacheReference": {
   "abstract" : [
     {
-      "text" : "Represents a reference to a record for a GraphQL Object in the cache.",
+      "text" : "Represents a reference to a record for a GraphQL object in the cache.",
       "type" : "text"
     }
   ],
@@ -270,7 +270,10 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/JSONObject": {
   "abstract" : [
-
+    {
+      "text" : "Represents a JSON Dictionary",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

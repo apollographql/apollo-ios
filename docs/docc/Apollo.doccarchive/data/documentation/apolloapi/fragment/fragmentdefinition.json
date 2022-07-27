@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "No overview available.",
+      "text" : "The definition of the fragment in GraphQL syntax.",
       "type" : "text"
     }
   ],
@@ -239,7 +239,10 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/Fragment/fragmentDefinition": {
   "abstract" : [
-
+    {
+      "text" : "The definition of the fragment in GraphQL syntax.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

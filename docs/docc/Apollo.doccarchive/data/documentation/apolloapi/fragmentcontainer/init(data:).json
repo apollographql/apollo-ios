@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "No overview available.",
+      "text" : "Designated Initializer",
       "type" : "text"
     }
   ],
@@ -99,6 +99,30 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "kind" : "parameters",
+      "parameters" : [
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "The data of the underlying GraphQL object represented by the parent ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet",
+                  "isActive" : true,
+                  "type" : "reference"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "data"
+        }
+      ]
     }
   ],
   "schemaVersion" : {
@@ -219,7 +243,19 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/FragmentContainer": {
   "abstract" : [
-
+    {
+      "text" : "A protocol representing a container for the fragments on a generated ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -250,7 +286,10 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/FragmentContainer/init(data:)": {
   "abstract" : [
-
+    {
+      "text" : "Designated Initializer",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -286,6 +325,37 @@
   "title" : "init(data:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/fragmentcontainer\/init(data:)"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/SelectionSet": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SelectionSet"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SelectionSet"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SelectionSet",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/selectionset"
 }
 }
 }

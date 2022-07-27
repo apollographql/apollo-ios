@@ -5,7 +5,7 @@
       "type" : "text"
     },
     {
-      "code" : "CustomScalarType.jsonValue",
+      "code" : "JSONEncodable.jsonValue",
       "type" : "codeVoice"
     },
     {
@@ -18,7 +18,7 @@
       [
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum\/CustomScalarType-Implementations"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum\/JSONEncodable-Implementations"
       ]
     ]
   },
@@ -219,10 +219,53 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
+"doc://ApolloAPI/documentation/ApolloAPI/EnumType": {
+  "abstract" : [
+    {
+      "text" : "A protocol that an enum in a generated GraphQL schema conforms to.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "EnumType"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/EnumType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "EnumType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "EnumType",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/enumtype"
+},
 "doc://ApolloAPI/documentation/ApolloAPI/GraphQLEnum": {
   "abstract" : [
     {
-      "text" : "A generic enum that wraps a generated enum from a GraphQL Schema.",
+      "text" : "A generic enum type that wraps an ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/EnumType",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " from a generated GraphQL schema.",
       "type" : "text"
     }
   ],
@@ -253,16 +296,16 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqlenum"
 },
-"doc://ApolloAPI/documentation/ApolloAPI/GraphQLEnum/CustomScalarType-Implementations": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLEnum/JSONEncodable-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum\/CustomScalarType-Implementations",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum\/JSONEncodable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
-  "title" : "CustomScalarType Implementations",
+  "title" : "JSONEncodable Implementations",
   "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/graphqlenum\/customscalartype-implementations"
+  "url" : "\/documentation\/apolloapi\/graphqlenum\/jsonencodable-implementations"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/GraphQLEnum/jsonValue-8tm3j": {
   "abstract" : [

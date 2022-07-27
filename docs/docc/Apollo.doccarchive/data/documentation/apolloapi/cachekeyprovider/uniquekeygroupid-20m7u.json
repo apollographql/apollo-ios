@@ -201,7 +201,10 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/CacheKeyProvider": {
   "abstract" : [
-
+    {
+      "text" : "The key for an object must be:",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

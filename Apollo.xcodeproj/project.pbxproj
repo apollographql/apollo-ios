@@ -225,6 +225,7 @@
 		DE46A55826F13AD000357C52 /* ResponseCodeInterceptorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE46A55726F13AD000357C52 /* ResponseCodeInterceptorTests.swift */; };
 		DE4766E826F92F30004622E0 /* MockSchemaConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4766E726F92F30004622E0 /* MockSchemaConfiguration.swift */; };
 		DE4841A92745BBF10001E594 /* LinkedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4841A82745BBF10001E594 /* LinkedList.swift */; };
+		DE4B1E542889EF330058D1F6 /* EnumType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4B1E532889EF330058D1F6 /* EnumType.swift */; };
 		DE4D54E727A3504B00D26B68 /* OperationFileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4D54E627A3504B00D26B68 /* OperationFileGenerator.swift */; };
 		DE4D54E927A3518100D26B68 /* FragmentFileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4D54E827A3518100D26B68 /* FragmentFileGenerator.swift */; };
 		DE56DC232683B2020090D6E4 /* DefaultInterceptorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE56DC222683B2020090D6E4 /* DefaultInterceptorProvider.swift */; };
@@ -1328,6 +1329,7 @@
 		DE46A55726F13AD000357C52 /* ResponseCodeInterceptorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseCodeInterceptorTests.swift; sourceTree = "<group>"; };
 		DE4766E726F92F30004622E0 /* MockSchemaConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSchemaConfiguration.swift; sourceTree = "<group>"; };
 		DE4841A82745BBF10001E594 /* LinkedList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedList.swift; sourceTree = "<group>"; };
+		DE4B1E532889EF330058D1F6 /* EnumType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumType.swift; sourceTree = "<group>"; };
 		DE4D54E627A3504B00D26B68 /* OperationFileGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationFileGenerator.swift; sourceTree = "<group>"; };
 		DE4D54E827A3518100D26B68 /* FragmentFileGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FragmentFileGenerator.swift; sourceTree = "<group>"; };
 		DE56DC222683B2020090D6E4 /* DefaultInterceptorProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultInterceptorProvider.swift; sourceTree = "<group>"; };
@@ -2683,7 +2685,6 @@
 				9B68F06E241C649E00E97318 /* GraphQLNullable.swift */,
 				DE3C7B12260A6FC900D2F4FF /* FragmentProtocols.swift */,
 				DE3C7B14260A6FCA00D2F4FF /* GraphQLEnum.swift */,
-				DE09F9BC27024FEA00795949 /* InputObject.swift */,
 				DE3C7B10260A6FC900D2F4FF /* SelectionSet.swift */,
 				DEA6A83326F298660091AF8A /* ParentType.swift */,
 				DE03FDDA2784D0B2007425BD /* DataDict.swift */,
@@ -2741,6 +2742,8 @@
 				DE2FCF2426E8083A0057EA67 /* Interface.swift */,
 				DE2FCF2526E8083A0057EA67 /* Object.swift */,
 				DE2FCF2326E8083A0057EA67 /* Union.swift */,
+				DE09F9BC27024FEA00795949 /* InputObject.swift */,
+				DE4B1E532889EF330058D1F6 /* EnumType.swift */,
 			);
 			path = SchemaTypes;
 			sourceTree = "<group>";
@@ -5314,6 +5317,7 @@
 				DE2FCF2826E8083A0057EA67 /* Interface.swift in Sources */,
 				DE09F9BD27024FEA00795949 /* InputObject.swift in Sources */,
 				DE9C04B226EAB02C00EC35E7 /* JSONDecodingError.swift in Sources */,
+				DE4B1E542889EF330058D1F6 /* EnumType.swift in Sources */,
 				DE2FCF2926E8083A0057EA67 /* Object.swift in Sources */,
 				DE058610266978A100265760 /* InputValue.swift in Sources */,
 				DE100B1C28872F4200BE11C2 /* Documentation.docc in Sources */,

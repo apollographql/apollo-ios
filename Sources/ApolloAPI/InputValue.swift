@@ -2,7 +2,8 @@ import Foundation
 
 /// Represents an input value to an argument on a ``Selection/Field``'s ``Selection/Field/arguments``.
 ///
-/// - See: [GraphQLSpec - Input Values](http://spec.graphql.org/June2018/#sec-Input-Values)
+/// # See Also
+/// [GraphQLSpec - Input Values](http://spec.graphql.org/October2021/#sec-Input-Values)
 public indirect enum InputValue {
   /// A direct input value, valid types are `String`, `Int` `Float` and `Bool`.
   /// For enum input values, the enum cases's `rawValue` as a `String` should be used.
@@ -17,17 +18,20 @@ public indirect enum InputValue {
   case variable(String)
 
   /// A GraphQL "`List`" input value.
-  /// - See: [GraphQLSpec - Input Values - List Value](http://spec.graphql.org/June2018/#sec-List-Value)
+  /// # See Also
+  /// [GraphQLSpec - Input Values - List Value](http://spec.graphql.org/October2021/#sec-List-Value)
   case list([InputValue])
 
   /// A GraphQL "`InputObject`" input value. Represented as a dictionary of input values.
-  /// - See: [GraphQLSpec - Input Values - Input Object Values](http://spec.graphql.org/June2018/#sec-Input-Object-Values)
+  /// # See Also
+  /// [GraphQLSpec - Input Values - Input Object Values](http://spec.graphql.org/October2021/#sec-Input-Object-Values)
   case object([String: InputValue])
 
   /// A null input value.
   ///
   /// A null input value indicates an intentional inclusion of a value for a field argument as null.
-  /// - See: [GraphQLSpec - Input Values - Null Value](http://spec.graphql.org/June2018/#sec-Null-Value)
+  /// # See Also
+  /// [GraphQLSpec - Input Values - Null Value](http://spec.graphql.org/October2021/#sec-Null-Value)
   case null
 }
 

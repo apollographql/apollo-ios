@@ -128,33 +128,20 @@
     {
       "content" : [
         {
-          "anchor" : "discussion",
-          "level" : 2,
-          "text" : "Discussion",
+          "anchor" : "See-Also",
+          "level" : 1,
+          "text" : "See Also",
           "type" : "heading"
         },
         {
-          "items" : [
+          "inlineContent" : [
             {
-              "content" : [
-                {
-                  "inlineContent" : [
-                    {
-                      "text" : "See: ",
-                      "type" : "text"
-                    },
-                    {
-                      "identifier" : "http:\/\/spec.graphql.org\/June2018\/#sec-Input-Object-Values",
-                      "isActive" : true,
-                      "type" : "reference"
-                    }
-                  ],
-                  "type" : "paragraph"
-                }
-              ]
+              "identifier" : "http:\/\/spec.graphql.org\/October2021\/#sec-Input-Object-Values",
+              "isActive" : true,
+              "type" : "reference"
             }
           ],
-          "type" : "unorderedList"
+          "type" : "paragraph"
         }
       ],
       "kind" : "content"
@@ -422,8 +409,8 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/selection\/field\/arguments"
 },
-"http://spec.graphql.org/June2018/#sec-Input-Object-Values": {
-  "identifier" : "http:\/\/spec.graphql.org\/June2018\/#sec-Input-Object-Values",
+"http://spec.graphql.org/October2021/#sec-Input-Object-Values": {
+  "identifier" : "http:\/\/spec.graphql.org\/October2021\/#sec-Input-Object-Values",
   "title" : "GraphQLSpec - Input Values - Input Object Values",
   "titleInlineContent" : [
     {
@@ -432,7 +419,7 @@
     }
   ],
   "type" : "link",
-  "url" : "http:\/\/spec.graphql.org\/June2018\/#sec-Input-Object-Values"
+  "url" : "http:\/\/spec.graphql.org\/October2021\/#sec-Input-Object-Values"
 }
 }
 }
