@@ -114,7 +114,7 @@ class ValidateTests: XCTestCase {
     ]
 
     let mockConfiguration = ApolloCodegenConfiguration.mock()
-    let mockFileManager = MockFileManager(strict: true)
+    let mockFileManager = MockApolloFileManager(strict: true)
 
     mockFileManager.mock(closure: .contents({ path in
       let actualPath = URL(fileURLWithPath: path).standardizedFileURL.path
@@ -129,7 +129,7 @@ class ValidateTests: XCTestCase {
     let command = try parseAsRoot(options: options)
 
     // then
-    expect(try command._run(fileManager: mockFileManager))
+    expect(try command._run(fileManager: mockFileManager.base))
       .to(throwError { error in
         guard
           case let ApolloCodegenLib.ApolloCodegenConfiguration.Error.notAFile(path) = error,

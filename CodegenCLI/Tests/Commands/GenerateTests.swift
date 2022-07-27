@@ -142,7 +142,7 @@ class GenerateTests: XCTestCase {
     ]
 
     let mockConfiguration = ApolloCodegenConfiguration.mock()
-    let mockFileManager = MockFileManager(strict: true)
+    let mockFileManager = MockApolloFileManager(strict: true)
 
     mockFileManager.mock(closure: .contents({ path in
       let actualPath = URL(fileURLWithPath: path).standardizedFileURL.path
@@ -163,7 +163,7 @@ class GenerateTests: XCTestCase {
     // when
     let command = try parseAsRoot(options: options)
 
-    try command._run(fileManager: mockFileManager, codegenProvider: MockApolloCodegen.self)
+    try command._run(fileManager: mockFileManager.base, codegenProvider: MockApolloCodegen.self)
 
     // then
     expect(didCallBuild).to(beTrue())
