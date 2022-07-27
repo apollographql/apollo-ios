@@ -64,6 +64,7 @@
       "identifiers" : [
         "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient",
         "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore",
+        "doc:\/\/Apollo\/documentation\/Apollo\/Atomic",
         "doc:\/\/Apollo\/documentation\/Apollo\/DefaultInterceptorProvider",
         "doc:\/\/Apollo\/documentation\/Apollo\/EmptyCancellable",
         "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLQueryWatcher",
@@ -403,6 +404,44 @@
   "title" : "ApolloStore",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apollostore"
+},
+"doc://Apollo/documentation/Apollo/Atomic": {
+  "abstract" : [
+    {
+      "text" : "Wrapper for a value protected by an ",
+      "type" : "text"
+    },
+    {
+      "code" : "NSLock",
+      "type" : "codeVoice"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Atomic"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/Atomic",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Atomic"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Atomic",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/atomic"
 },
 "doc://Apollo/documentation/Apollo/AutomaticPersistedQueryInterceptor": {
   "abstract" : [

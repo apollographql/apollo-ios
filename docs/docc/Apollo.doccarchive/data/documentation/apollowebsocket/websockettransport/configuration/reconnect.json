@@ -20,11 +20,11 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:15ApolloWebSocket0bC9TransportC13ConfigurationV9reconnect0A5Utils6AtomicCySbGvp",
+    "externalID" : "s:15ApolloWebSocket0bC9TransportC13ConfigurationV9reconnectSbvp",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "let"
+        "text" : "var"
       },
       {
         "kind" : "text",
@@ -40,21 +40,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11ApolloUtils6AtomicC",
-        "text" : "Atomic"
-      },
-      {
-        "kind" : "text",
-        "text" : "<"
-      },
-      {
-        "kind" : "typeIdentifier",
         "preciseIdentifier" : "s:Sb",
         "text" : "Bool"
-      },
-      {
-        "kind" : "text",
-        "text" : ">"
       }
     ],
     "modules" : [
@@ -80,7 +67,7 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "let"
+              "text" : "var"
             },
             {
               "kind" : "text",
@@ -96,21 +83,20 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11ApolloUtils6AtomicC",
-              "text" : "Atomic"
-            },
-            {
-              "kind" : "text",
-              "text" : "<"
-            },
-            {
-              "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:Sb",
               "text" : "Bool"
             },
             {
               "kind" : "text",
-              "text" : ">"
+              "text" : " { "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "get"
+            },
+            {
+              "kind" : "text",
+              "text" : " }"
             }
           ]
         }
@@ -250,7 +236,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "let"
+      "text" : "var"
     },
     {
       "kind" : "text",
@@ -266,21 +252,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11ApolloUtils6AtomicC",
-      "text" : "Atomic"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:Sb",
       "text" : "Bool"
-    },
-    {
-      "kind" : "text",
-      "text" : ">"
     }
   ],
   "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/Configuration\/reconnect",
