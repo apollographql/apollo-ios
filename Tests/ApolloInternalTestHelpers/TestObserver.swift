@@ -1,11 +1,11 @@
-import ApolloUtils
+import Apollo
 import XCTest
 
 public class TestObserver: NSObject, XCTestObservation {
 
   private let onFinish: (XCTestCase) -> Void  
 
-  private let isStarted = Atomic<Bool>(false)
+  @Atomic private var isStarted: Bool = false
   let stopAfterEachTest: Bool
 
   public init(
@@ -21,16 +21,16 @@ public class TestObserver: NSObject, XCTestObservation {
   }
 
   public func start() {
-    guard !isStarted.value else { return }
-    isStarted.mutate {
+    guard !isStarted else { return }
+    $isStarted.mutate {
       XCTestObservationCenter.shared.addTestObserver(self)
       $0 = true
     }
   }
 
   public func stop() {
-    guard isStarted.value else { return }
-    isStarted.mutate {
+    guard isStarted else { return }
+    $isStarted.mutate {
       XCTestObservationCenter.shared.removeTestObserver(self)
       $0 = false
     }

@@ -133,12 +133,11 @@ public class CompilationResult: JavaScriptObject {
     }
 
     public var debugDescription: String {
-      let selectionDescriptions = selections.map(\.debugDescription).joined(separator: "\n")
-      return """
-      ... on \(parentType) {
-        \(indented: selectionDescriptions)
+      TemplateString("""
+      ... on \(parentType.debugDescription) {
+        \(selections.map(\.debugDescription), separator: "\n")
       }
-      """
+      """).description
     }
 
     public func hash(into hasher: inout Hasher) {

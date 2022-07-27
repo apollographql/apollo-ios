@@ -25,9 +25,10 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
       self.cachePolicy = cachePolicy
     }
   }
-  private var fetching: Atomic<WeakFetchTaskContainer> = Atomic(.init(nil, nil))
 
-  private var dependentKeys: Atomic<Set<CacheKey>?> = Atomic(nil)
+  @Atomic private var fetching: WeakFetchTaskContainer = .init(nil, nil)
+
+  @Atomic private var dependentKeys: Set<CacheKey>? = nil
 
   /// Designated initializer
   ///
@@ -54,7 +55,7 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
   }
 
   func fetch(cachePolicy: CachePolicy) {
-    fetching.mutate {
+    $fetching.mutate {
       // Cancel anything already in flight before starting a new fetch
       $0.cancellable?.cancel()
       $0.cachePolicy = cachePolicy
@@ -63,7 +64,7 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
 
         switch result {
         case .success(let graphQLResult):
-          self.dependentKeys.mutate {
+          self.$dependentKeys.mutate {
             $0 = graphQLResult.dependentKeys
           }
         case .failure:
@@ -77,7 +78,7 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
 
   /// Cancel any in progress fetching operations and unsubscribe from the store.
   public func cancel() {
-    fetching.value.cancellable?.cancel()
+    fetching.cancellable?.cancel()
     client?.store.unsubscribe(self)
   }
 
@@ -93,7 +94,7 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
         return
     }
     
-    guard let dependentKeys = self.dependentKeys.value else {
+    guard let dependentKeys = self.dependentKeys else {
       // This query has nil dependent keys, so nothing that changed will affect it.
       return
     }
@@ -110,13 +111,13 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
               return
             }
             
-            self.dependentKeys.mutate {
+            self.$dependentKeys.mutate {
               $0 = graphQLResult.dependentKeys
             }
             self.resultHandler(result)
           }
         case .failure:
-          if self.fetching.value.cachePolicy != .returnCacheDataDontFetch {
+          if self.fetching.cachePolicy != .returnCacheDataDontFetch {
             // If the cache fetch is not successful, for instance if the data is missing, refresh from the server.
             self.fetch(cachePolicy: .fetchIgnoringCacheData)
           }

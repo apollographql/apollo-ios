@@ -53,7 +53,7 @@ class WSProtocolTestsBase: XCTestCase {
   }
 
   func connectWebSocket() {
-    websocketTransport.socketConnectionState.mutate { $0 = .connected }
+    websocketTransport.$socketConnectionState.mutate { $0 = .connected }
   }
 
   func ackConnection() {

@@ -53,7 +53,7 @@ public struct CacheWriteInterceptor: ApolloInterceptor {
     do {
       let (_, records) = try legacyResponse.parseResult()
       
-      guard chain.isNotCancelled else {
+      guard !chain.isCancelled else {
         return
       }
       

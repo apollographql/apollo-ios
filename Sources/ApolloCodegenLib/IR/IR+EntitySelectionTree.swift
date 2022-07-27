@@ -634,27 +634,27 @@ extension IR.EntitySelectionTree: CustomDebugStringConvertible {
 
 extension IR.EntitySelectionTree.EnclosingEntityNode: CustomDebugStringConvertible {
   var debugDescription: String {
-    """
+    TemplateString("""
     {
       child:
-        \(indented: child?.debugDescription ?? "nil")
+        \(child?.debugDescription ?? "nil")
       conditionalScopes:
-        \(indented: scopeConditions?.debugDescription ?? "[]")
+        \(scopeConditions?.debugDescription ?? "[]")
     }
-    """
+    """).description
   }
 }
 
 extension IR.EntitySelectionTree.FieldScopeNode: CustomDebugStringConvertible {
   var debugDescription: String {
-    """
+    TemplateString("""
     {
       selections:
-        \(indented: selections.debugDescription)
+        \(selections.debugDescription)
       conditionalScopes:
-        \(indented: scopeConditions?.debugDescription ?? "[]")
+        \(scopeConditions?.debugDescription ?? "[]")
     }
-    """
+    """).description
   }
 }
 
