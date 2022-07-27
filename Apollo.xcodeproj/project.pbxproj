@@ -204,7 +204,6 @@
 		DE296539279B3B8200BF9B49 /* SelectionSetTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE296536279B3B8200BF9B49 /* SelectionSetTemplateTests.swift */; };
 		DE29653B279B3B8200BF9B49 /* SelectionSetTemplate_RenderOperation_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE296538279B3B8200BF9B49 /* SelectionSetTemplate_RenderOperation_Tests.swift */; };
 		DE296BA527A07C37004F571F /* MockMergedSelections.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE296BA427A07C37004F571F /* MockMergedSelections.swift */; };
-		DE296BA727A09A11004F571F /* IsEverTrue.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE296BA627A09A11004F571F /* IsEverTrue.swift */; };
 		DE2FCF1D26E806710057EA67 /* SchemaConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2FCF1C26E806710057EA67 /* SchemaConfiguration.swift */; };
 		DE2FCF2726E8083A0057EA67 /* Union.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2FCF2326E8083A0057EA67 /* Union.swift */; };
 		DE2FCF2826E8083A0057EA67 /* Interface.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2FCF2426E8083A0057EA67 /* Interface.swift */; };
@@ -220,9 +219,10 @@
 		DE46A55626F13A7400357C52 /* JSONResponseParsingInterceptorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE46A55426F13A0900357C52 /* JSONResponseParsingInterceptorTests.swift */; };
 		DE46A55826F13AD000357C52 /* ResponseCodeInterceptorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE46A55726F13AD000357C52 /* ResponseCodeInterceptorTests.swift */; };
 		DE4766E826F92F30004622E0 /* MockSchemaConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4766E726F92F30004622E0 /* MockSchemaConfiguration.swift */; };
-		DE4841A92745BBF10001E594 /* LinkedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4841A82745BBF10001E594 /* LinkedList.swift */; };
 		DE4B1E542889EF330058D1F6 /* EnumType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4B1E532889EF330058D1F6 /* EnumType.swift */; };
 		DE4B1E572891D2F40058D1F6 /* Atomic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6CB23D238077B60007259D /* Atomic.swift */; };
+		DE4B1E582891D5F10058D1F6 /* LinkedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4841A82745BBF10001E594 /* LinkedList.swift */; };
+		DE4B1E592891D5FE0058D1F6 /* IsEverTrue.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE296BA627A09A11004F571F /* IsEverTrue.swift */; };
 		DE4D54E727A3504B00D26B68 /* OperationFileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4D54E627A3504B00D26B68 /* OperationFileGenerator.swift */; };
 		DE4D54E927A3518100D26B68 /* FragmentFileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4D54E827A3518100D26B68 /* FragmentFileGenerator.swift */; };
 		DE56DC232683B2020090D6E4 /* DefaultInterceptorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE56DC222683B2020090D6E4 /* DefaultInterceptorProvider.swift */; };
@@ -2197,8 +2197,6 @@
 			isa = PBXGroup;
 			children = (
 				9B455CE82492D0A7002255A9 /* Extensions */,
-				DE4841A82745BBF10001E594 /* LinkedList.swift */,
-				DE296BA627A09A11004F571F /* IsEverTrue.swift */,
 			);
 			name = ApolloUtils;
 			path = Sources/ApolloUtils;
@@ -2214,6 +2212,8 @@
 				9BD681332405F6BB000874CB /* Codegen */,
 				9BD681342405F6D1000874CB /* SchemaDownload */,
 				9BAEEBF22346DDAD00808306 /* CodegenLogger.swift */,
+				DE4841A82745BBF10001E594 /* LinkedList.swift */,
+				DE296BA627A09A11004F571F /* IsEverTrue.swift */,
 				9BE74D3C23FB4A8E006D354F /* FileFinder.swift */,
 				9B7B6F51233C26E400F32205 /* Info.plist */,
 				DE100B1928872D0F00BE11C2 /* Documentation.docc */,
@@ -4621,8 +4621,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE4841A92745BBF10001E594 /* LinkedList.swift in Sources */,
-				DE296BA727A09A11004F571F /* IsEverTrue.swift in Sources */,
 				9B455CE52492D0A3002255A9 /* ApolloExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4632,6 +4630,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E610D8D7278EA2390023E495 /* EnumFileGenerator.swift in Sources */,
+				DE4B1E592891D5FE0058D1F6 /* IsEverTrue.swift in Sources */,
 				9BAEEBEE2346644600808306 /* ApolloSchemaDownloadConfiguration.swift in Sources */,
 				DE0D38F0282ECA6D00AFCC84 /* MockObjectFileGenerator.swift in Sources */,
 				9B8C3FB3248DA2FE00707B13 /* URL+Apollo.swift in Sources */,
@@ -4658,6 +4657,7 @@
 				DE5FD60527694FA70033EE23 /* SchemaTemplate.swift in Sources */,
 				DEFBBC86273470F70088AABC /* IR+Field.swift in Sources */,
 				9F62DFD02590710E00E6E808 /* GraphQLSource.swift in Sources */,
+				DE4B1E582891D5F10058D1F6 /* LinkedList.swift in Sources */,
 				DE5FD60B276970FC0033EE23 /* FragmentTemplate.swift in Sources */,
 				9BAEEBF32346DDAD00808306 /* CodegenLogger.swift in Sources */,
 				9F628EB52593651B00F94F9D /* GraphQLValue.swift in Sources */,
