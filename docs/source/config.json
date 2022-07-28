@@ -8,12 +8,13 @@
     "Introduction": "/",
     "Installation": "/installation",
     "API Reference": {
-      "Apollo Client": "/documentation/Apollo",
-      "ApolloAPI": "/documentation/ApolloAPI",
-      "ApolloWebSocket": "/documentation/ApolloWebSocket",
-      "ApolloSQLite": "/documentation/ApolloSQLite",
-      "ApolloUtils": "/documentation/ApolloUtils",
-      "ApolloCodegenLib": "/documentation/ApolloCodegenLib"
+      "Overview": "https://www.apollographql.com/docs/ios/docc/documentation/index",
+      "Apollo Client": "https://www.apollographql.com/docs/ios/docc/documentation/Apollo",
+      "ApolloAPI": "https://www.apollographql.com/docs/ios/docc/documentation/ApolloAPI",
+      "ApolloWebSocket": "https://www.apollographql.com/docs/ios/docc/documentation/ApolloWebSocket",
+      "ApolloSQLite": "https://www.apollographql.com/docs/ios/docc/documentation/ApolloSQLite",
+      "ApolloUtils": "https://www.apollographql.com/docs/ios/docc/documentation/ApolloUtils",
+      "ApolloCodegenLib": "https://www.apollographql.com/docs/ios/docc/documentation/ApolloCodegenLib"
     },
     "Tutorial": {
       "0. Introduction": "/tutorial/tutorial-introduction",
