@@ -1,6 +1,13 @@
 public protocol CacheEntity: AnyObject {}
 
-open class Object: CacheEntity {
+public protocol ObjectExtensionsProtocol {
+  static var __cacheKeyProvider: CacheKeyProvider? { get }
+}
+extension ObjectExtensionsProtocol {
+  public static var __cacheKeyProvider: CacheKeyProvider? { nil }
+}
+
+open class Object: CacheEntity, ObjectExtensionsProtocol {
 
   open class var __implementedInterfaces: [Interface.Type]? { nil }
   open class var __typename: StaticString { UnknownTypeName }
