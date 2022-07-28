@@ -1,22 +1,19 @@
 @testable import Apollo
 @testable import ApolloAPI
 
-public class MockSchemaConfiguration: SchemaConfiguration, SchemaUnknownTypeCacheKeyProvider {
-
+public class MockSchemaConfiguration: SchemaConfiguration {
   private static let testObserver = TestObserver() { _ in
     stub_objectTypeForTypeName = nil
     stub_cacheKeyProviderForUnknownType = nil
   }
 
-  static public var stub_objectTypeForTypeName: ((String) -> Object.Type?)? {
+  public static var stub_objectTypeForTypeName: ((String) -> Object.Type?)? {
     didSet {
       if stub_objectTypeForTypeName != nil { testObserver.start() }
     }
   }
 
-  static public var stub_cacheKeyProviderForUnknownType:
-  ((String, JSONObject) -> CacheKeyProvider.Type?)?
-  {
+  public static var stub_cacheKeyProviderForUnknownType: SchemaUnknownTypeCacheKeyProvider? {
     didSet {
       if stub_cacheKeyProviderForUnknownType != nil { testObserver.start() }
     }
@@ -26,17 +23,20 @@ public class MockSchemaConfiguration: SchemaConfiguration, SchemaUnknownTypeCach
     stub_objectTypeForTypeName?(__typename) ?? Object.self
   }
 
-  public static func cacheKeyProviderForUnknownType(
-    withTypename: String,
-    data: JSONObject
-  ) -> CacheKeyProvider.Type? {
-    stub_cacheKeyProviderForUnknownType?(withTypename, data)
+  public static var __unknownTypeCacheKeyProvider: SchemaUnknownTypeCacheKeyProvider? {
+    stub_cacheKeyProviderForUnknownType
   }
 
 }
 
-public enum IDCacheKeyProvider: CacheKeyProvider {
-  public static func cacheKey(for data: JSONObject) -> String? {
+public struct IDCacheKeyProvider: CacheKeyProvider, SchemaUnknownTypeCacheKeyProvider {
+  public init() { }
+
+  public func cacheKey(for data: JSONObject) -> String? {
+    data["id"] as? String
+  }
+
+  public func cacheKeyForUnknown(typename: String, data: JSONObject) -> String? {
     data["id"] as? String
   }
 }
