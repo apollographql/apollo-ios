@@ -1,13 +1,5 @@
-//
-//  MockURLSession.swift
-//  ApolloTestSupport
-//
-//  Copyright © 2019 Apollo GraphQL. All rights reserved.
-//
-
 import Foundation
 import Apollo
-import ApolloUtils
 
 public final class MockURLSessionClient: URLSessionClient {
 

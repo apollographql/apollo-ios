@@ -112,7 +112,6 @@ public struct ApolloSchemaDownloader {
 
     let urlRequest = try registryRequest(with: registry, headers: configuration.headers)
     let jsonOutputURL = URL(fileURLWithPath: configuration.outputPath)
-      .apollo
       .parentFolderURL()
       .appendingPathComponent("registry_response.json")
 
@@ -316,7 +315,6 @@ public struct ApolloSchemaDownloader {
     let jsonOutputURL: URL = {
       switch configuration.outputFormat {
       case .SDL: return URL(fileURLWithPath: configuration.outputPath)
-          .apollo
           .parentFolderURL()
           .appendingPathComponent("introspection_response.json")
 

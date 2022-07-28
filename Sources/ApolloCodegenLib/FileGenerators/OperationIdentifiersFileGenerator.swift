@@ -1,5 +1,4 @@
 import Foundation
-import ApolloUtils
 
 /// File generator to create a JSON formatted file of operation identifiers.
 struct OperationIdentifiersFileGenerator {

@@ -39,7 +39,3 @@ A [`NormalizedCache`](/documentation/apollo/normalizedcache) implementation back
 **[ApolloWebSocket](/documentation/apollowebsocket)**
 
 A web socket network transport implementation that provides support for [`GraphQLSubscription`](/documentation/apolloapi/graphqlsubscription) operations over a web socket connection.
-
-**[ApolloUtils](/documentation/apolloutils)**
-
-Shared utilities, extensions, and helper functions used by the Apollo libraries.

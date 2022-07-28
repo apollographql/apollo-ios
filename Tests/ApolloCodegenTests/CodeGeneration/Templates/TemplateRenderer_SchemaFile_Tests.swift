@@ -1,7 +1,6 @@
 import XCTest
 @testable import ApolloCodegenLib
 @testable import ApolloCodegenInternalTestHelpers
-import ApolloUtils
 import Nimble
 
 class TemplateRenderer_SchemaFile_Tests: XCTestCase {

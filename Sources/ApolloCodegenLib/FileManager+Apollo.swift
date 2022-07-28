@@ -2,11 +2,11 @@ import Foundation
 
 public typealias FileAttributes = [FileAttributeKey : Any]
 
-class ApolloFileManager {
+public class ApolloFileManager {
 
-  static var `default` = ApolloFileManager(base: FileManager.default)
+  public static var `default` = ApolloFileManager(base: FileManager.default)
 
-  let base: FileManager
+  public let base: FileManager
 
   init(base: FileManager) {
     self.base = base

@@ -36,9 +36,9 @@ struct Codegen: ParsableCommand {
 
     // Use that to calculate the source root
     let sourceRootURL = parentFolderOfScriptFile
-      .apollo.parentFolderURL() // Sources
-      .apollo.parentFolderURL() // SwiftScripts
-      .apollo.parentFolderURL() // apollo-ios
+      .parentFolderURL() // Sources
+      .parentFolderURL() // SwiftScripts
+      .parentFolderURL() // apollo-ios
 
     for target in targets {
       let targetURL = target.targetRootURL(fromSourceRoot: sourceRootURL)
@@ -50,7 +50,7 @@ struct Codegen: ParsableCommand {
 
       // This more necessary if you're using a sub-folder, but make sure
       // there's actually a place to write out what you're doing.
-      try FileManager.default.apollo.createDirectoryIfNeeded(atPath: targetURL.path)
+      try ApolloFileManager.default.createDirectoryIfNeeded(atPath: targetURL.path)
 
       // Actually attempt to generate code.
       try ApolloCodegen.build(

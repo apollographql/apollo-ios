@@ -1,11 +1,6 @@
 import Foundation
-#if !COCOAPODS
-import ApolloUtils
-#endif
 
-extension DispatchQueue: ApolloCompatible {}
-
-public extension ApolloExtension where Base == DispatchQueue {
+extension DispatchQueue {
 
   static func performAsyncIfNeeded(on callbackQueue: DispatchQueue?, action: @escaping () -> Void) {
     if let callbackQueue = callbackQueue {

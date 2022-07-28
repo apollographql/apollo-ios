@@ -1,6 +1,5 @@
 import Foundation
 @testable import ApolloCodegenLib
-import ApolloUtils
 import XCTest
 
 /// Used to mock a `FileManager` instance that is compatible with the `.apollo` namespace extension.

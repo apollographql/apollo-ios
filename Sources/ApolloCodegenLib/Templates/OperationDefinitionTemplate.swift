@@ -1,5 +1,4 @@
 import OrderedCollections
-import ApolloUtils
 
 /// Provides the format to convert a [GraphQL Operation](https://spec.graphql.org/draft/#sec-Language.Operations)
 /// into Swift code.

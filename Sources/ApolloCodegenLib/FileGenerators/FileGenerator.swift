@@ -1,5 +1,4 @@
 import Foundation
-import ApolloUtils
 
 // MARK: FileGenerator (protocol and extension)
 

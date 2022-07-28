@@ -1,5 +1,3 @@
-import ApolloUtils
-import Darwin
 import OrderedCollections
 
 extension IR {

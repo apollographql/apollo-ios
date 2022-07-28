@@ -1,5 +1,4 @@
 import Foundation
-import ApolloUtils
 
 struct MockObjectTemplate: TemplateRenderer {
   /// IR representation of source [GraphQL Object](https://spec.graphql.org/draft/#sec-Objects).

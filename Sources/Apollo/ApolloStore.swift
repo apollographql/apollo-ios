@@ -50,7 +50,7 @@ public class ApolloStore {
   public func clearCache(callbackQueue: DispatchQueue = .main, completion: ((Result<Void, Error>) -> Void)? = nil) {
     queue.async(flags: .barrier) {
       let result = Result { try self.cache.clear() }
-      DispatchQueue.apollo.returnResultAsyncIfNeeded(
+      DispatchQueue.returnResultAsyncIfNeeded(
         on: callbackQueue,
         action: completion,
         result: result
@@ -70,13 +70,13 @@ public class ApolloStore {
       do {
         let changedKeys = try self.cache.merge(records: records)
         self.didChangeKeys(changedKeys, identifier: identifier)
-        DispatchQueue.apollo.returnResultAsyncIfNeeded(
+        DispatchQueue.returnResultAsyncIfNeeded(
           on: callbackQueue,
           action: completion,
           result: .success(())
         )
       } catch {
-        DispatchQueue.apollo.returnResultAsyncIfNeeded(
+        DispatchQueue.returnResultAsyncIfNeeded(
           on: callbackQueue,
           action: completion,
           result: .failure(error)
@@ -110,13 +110,13 @@ public class ApolloStore {
       do {
         let returnValue = try body(ReadTransaction(store: self))
         
-        DispatchQueue.apollo.returnResultAsyncIfNeeded(
+        DispatchQueue.returnResultAsyncIfNeeded(
           on: callbackQueue,
           action: completion,
           result: .success(returnValue)
         )
       } catch {
-        DispatchQueue.apollo.returnResultAsyncIfNeeded(
+        DispatchQueue.returnResultAsyncIfNeeded(
           on: callbackQueue,
           action: completion,
           result: .failure(error)
@@ -138,13 +138,13 @@ public class ApolloStore {
       do {
         let returnValue = try body(ReadWriteTransaction(store: self))
         
-        DispatchQueue.apollo.returnResultAsyncIfNeeded(
+        DispatchQueue.returnResultAsyncIfNeeded(
           on: callbackQueue,
           action: completion,
           result: .success(returnValue)
         )
       } catch {
-        DispatchQueue.apollo.returnResultAsyncIfNeeded(
+        DispatchQueue.returnResultAsyncIfNeeded(
           on: callbackQueue,
           action: completion,
           result: .failure(error)

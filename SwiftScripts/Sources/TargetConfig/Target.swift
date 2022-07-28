@@ -31,8 +31,8 @@ public enum Target: CaseIterable {
 
   public func targetRootURL(fromSourceRoot sourceRootURL: Foundation.URL) -> Foundation.URL {
     return sourceRootURL
-      .apollo.childFolderURL(folderName: "Sources")
-      .apollo.childFolderURL(folderName: moduleName)
+      .childFolderURL(folderName: "Sources")
+      .childFolderURL(folderName: moduleName)
   }
 
   public func inputConfig(
@@ -62,13 +62,13 @@ public enum Target: CaseIterable {
   private func graphQLFolder(fromTargetRoot targetRootURL: Foundation.URL) -> URL {
     switch self {
     case .starWars:
-      return targetRootURL.apollo.childFolderURL(folderName: "starwars-graphql")
+      return targetRootURL.childFolderURL(folderName: "starwars-graphql")
 
     case .animalKingdom:
-      return targetRootURL.apollo.childFolderURL(folderName: "animalkingdom-graphql")
+      return targetRootURL.childFolderURL(folderName: "animalkingdom-graphql")
 
     default:
-      return targetRootURL.apollo.childFolderURL(folderName: "graphql")
+      return targetRootURL.childFolderURL(folderName: "graphql")
     }
   }
 
@@ -102,7 +102,7 @@ public enum Target: CaseIterable {
       testMocks: includeTestMocks ? .swiftPackage() : .none,
       operationIdentifiersPath: includeOperationIdentifiers ?
       try graphQLFolder(fromTargetRoot: targetRootURL)
-        .apollo.childFileURL(fileName: "operationIDs.json")
+        .childFileURL(fileName: "operationIDs.json")
         .path : nil
     )
   }

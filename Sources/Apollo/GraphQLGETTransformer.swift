@@ -1,6 +1,5 @@
 import Foundation
 #if !COCOAPODS
-import ApolloUtils
 import ApolloAPI
 #endif
 

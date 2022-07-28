@@ -1,7 +1,6 @@
 import XCTest
 import Nimble
 @testable import ApolloCodegenLib
-import ApolloUtils
 
 class CustomScalarFileGeneratorTests: XCTestCase {
   let graphqlScalar = GraphQLScalarType.mock(name: "MockCustomScalar")

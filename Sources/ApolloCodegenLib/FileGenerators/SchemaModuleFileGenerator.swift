@@ -1,5 +1,4 @@
 import Foundation
-import ApolloUtils
 
 struct SchemaModuleFileGenerator {
   /// Generates a module for the chosen dependency manager.

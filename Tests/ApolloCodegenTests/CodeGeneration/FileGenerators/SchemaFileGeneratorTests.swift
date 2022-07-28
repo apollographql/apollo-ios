@@ -1,7 +1,6 @@
 import XCTest
 import Nimble
 @testable import ApolloCodegenLib
-import ApolloUtils
 
 class SchemaFileGeneratorTests: XCTestCase {
   let irSchema = IR.Schema(name: "MockSchema", referencedTypes: .init([]))

@@ -1,5 +1,4 @@
 import Foundation
-import ApolloUtils
 
 /// Provides the format to convert a [GraphQL Enum](https://spec.graphql.org/draft/#sec-Enums) into
 /// Swift code.

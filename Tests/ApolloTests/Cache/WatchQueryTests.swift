@@ -1251,7 +1251,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
 
       wait(for: [serverRequestExpectation, otherFetchesCompletedExpectation, updatedWatcherResultExpectation], timeout: 3)
 
-      XCTAssertEqual(updatedWatcherResultExpectation.apollo.numberOfFulfillments, 1)
+      XCTAssertEqual(updatedWatcherResultExpectation.numberOfFulfillments, 1)
     }
   }
 
@@ -1359,7 +1359,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
 
       wait(for: [serverRequestExpectation, otherFetchesCompletedExpectation, updatedWatcherResultExpectation], timeout: 3)
 
-      XCTAssertEqual(updatedWatcherResultExpectation.apollo.numberOfFulfillments, numberOfFetches)
+      XCTAssertEqual(updatedWatcherResultExpectation.numberOfFulfillments, numberOfFetches)
     }
   }
 

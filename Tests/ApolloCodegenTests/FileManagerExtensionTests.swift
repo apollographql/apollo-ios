@@ -2,7 +2,6 @@ import Foundation
 import XCTest
 import ApolloCodegenInternalTestHelpers
 @testable import ApolloCodegenLib
-import ApolloUtils
 import Nimble
 
 class FileManagerExtensionTests: XCTestCase {

@@ -1,5 +1,4 @@
 import Foundation
-import ApolloUtils
 
 /// Provides the format to convert a [GraphQL Union](https://spec.graphql.org/draft/#sec-Unions)
 /// into Swift code.

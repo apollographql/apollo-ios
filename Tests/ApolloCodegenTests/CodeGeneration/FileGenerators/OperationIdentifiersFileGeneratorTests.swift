@@ -1,7 +1,6 @@
 import XCTest
 import Nimble
 @testable import ApolloCodegenLib
-import ApolloUtils
 import ApolloCodegenInternalTestHelpers
 
 class OperationIdentifierFileGeneratorTests: XCTestCase {

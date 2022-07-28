@@ -1,6 +1,5 @@
 import XCTest
 @testable import Apollo
-import ApolloUtils
 
 class URLSessionClientLiveTests: XCTestCase {
   

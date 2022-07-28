@@ -19,9 +19,6 @@ let package = Package(
       name: "ApolloAPI",
       targets: ["ApolloAPI"]),
     .library(
-      name: "ApolloUtils",
-      targets: ["ApolloUtils"]),
-    .library(
       name: "Apollo-Dynamic",
       type: .dynamic,
       targets: ["Apollo"]),
@@ -53,8 +50,7 @@ let package = Package(
     .target(
       name: "Apollo",
       dependencies: [
-        "ApolloAPI",
-        "ApolloUtils"
+        "ApolloAPI"
       ],
       exclude: [
         "Info.plist"
@@ -64,17 +60,10 @@ let package = Package(
       dependencies: [],
       exclude: [
         "Info.plist"
-      ]),
-    .target(
-      name: "ApolloUtils",
-      dependencies: [],
-      exclude: [
-        "Info.plist"
-      ]),
+      ]),    
     .target(
       name: "ApolloCodegenLib",
       dependencies: [
-        "ApolloUtils",
         .product(name: "InflectorKit", package: "InflectorKit"),
         .product(name: "OrderedCollections", package: "swift-collections")
       ],
@@ -97,8 +86,7 @@ let package = Package(
     .target(
       name: "ApolloWebSocket",
       dependencies: [
-        "Apollo",
-        "ApolloUtils"
+        "Apollo"
       ],
       exclude: [
         "Info.plist"

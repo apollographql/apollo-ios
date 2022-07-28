@@ -2,7 +2,6 @@ import XCTest
 @testable import ApolloCodegenInternalTestHelpers
 @testable import ApolloCodegenLib
 import Nimble
-import ApolloUtils
 
 class ApolloCodegenTests: XCTestCase {
   private var directoryURL: URL!

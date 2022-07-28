@@ -2,7 +2,6 @@ import XCTest
 import Nimble
 @testable import ApolloCodegenLib
 @testable import ApolloCodegenInternalTestHelpers
-import ApolloUtils
 
 class FileGeneratorTests: XCTestCase {
   let fileManager = MockApolloFileManager(strict: false)

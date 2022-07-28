@@ -1,5 +1,3 @@
-import ApolloUtils
-
 extension IR {
   @dynamicMemberLookup
   class SelectionSet: Equatable, CustomDebugStringConvertible {

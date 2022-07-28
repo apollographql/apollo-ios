@@ -1,5 +1,4 @@
 import Foundation
-import ApolloUtils
 
 /// Generates a file providing the ability to mock a GraphQLUnionType for testing purposes.
 struct MockUnionFileGenerator: FileGenerator {

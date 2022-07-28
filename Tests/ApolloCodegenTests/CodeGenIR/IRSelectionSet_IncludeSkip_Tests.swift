@@ -5,7 +5,6 @@ import OrderedCollections
 import ApolloInternalTestHelpers
 import ApolloCodegenInternalTestHelpers
 import ApolloAPI
-import ApolloUtils
 
 class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
 
