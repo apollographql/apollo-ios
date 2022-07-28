@@ -1,6 +1,15 @@
+public protocol CacheEntity: AnyObject {}
+
+public protocol ObjectExtensionsProtocol {
+  static var __cacheKeyProvider: CacheKeyProvider? { get }
+}
+extension ObjectExtensionsProtocol {
+  public static var __cacheKeyProvider: CacheKeyProvider? { nil }
+}
+
 /// An abstract base class inherited by types in a generated GraphQL schema.
 /// Each `type` defined in the GraphQL schema will have a subclass of this class generated.
-open class Object {
+open class Object: CacheEntity, ObjectExtensionsProtocol {
 
   /// A list of the interfaces implemented by the type.
   open class var __implementedInterfaces: [Interface.Type]? { nil }
