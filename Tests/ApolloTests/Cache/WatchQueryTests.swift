@@ -310,7 +310,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       }
     }
 
-    MockSchemaConfiguration.stub_cacheKeyProviderForUnknownType = IDCacheKeyProvider()
+    MockSchemaConfiguration.stub_cacheKeyProviderForUnknownType = UnknownTypeCacheKeyProvider()
 
     let watchedQuery = MockQuery<GivenSelectionSet>()
     watchedQuery.variables = ["episode": "EMPIRE"]
@@ -571,7 +571,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
         }
       }
     }
-    MockSchemaConfiguration.stub_cacheKeyProviderForUnknownType = IDCacheKeyProvider()
+    MockSchemaConfiguration.stub_cacheKeyProviderForUnknownType = UnknownTypeCacheKeyProvider()
     
     let watchedQuery = MockQuery<HeroAndFriendsNameSelectionSet>()
     
@@ -716,7 +716,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       }
     }
 
-    MockSchemaConfiguration.stub_cacheKeyProviderForUnknownType = IDCacheKeyProvider()
+    MockSchemaConfiguration.stub_cacheKeyProviderForUnknownType = UnknownTypeCacheKeyProvider()
     
     let watchedQuery = MockQuery<HeroAndFriendsNameWithIDsSelectionSet>()
     
@@ -1066,7 +1066,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       }
     }
 
-    MockSchemaConfiguration.stub_cacheKeyProviderForUnknownType = IDCacheKeyProvider()
+    MockSchemaConfiguration.stub_cacheKeyProviderForUnknownType = UnknownTypeCacheKeyProvider()
 
     let watchedQuery = MockQuery<HeroAndFriendsNamesSelectionSet>()
 
@@ -1427,7 +1427,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       }
     }
 
-    MockSchemaConfiguration.stub_cacheKeyProviderForUnknownType = IDCacheKeyProvider()
+    MockSchemaConfiguration.stub_cacheKeyProviderForUnknownType = UnknownTypeCacheKeyProvider()
 
     typealias HeroAndFriendsNamesWithIDsQuery = MockQuery<HeroAndFriendsNamesWithIDsSelectionSet>
     let watchedQuery = HeroAndFriendsNamesWithIDsQuery()
@@ -1560,7 +1560,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
         }
       }
     }
-    MockSchemaConfiguration.stub_cacheKeyProviderForUnknownType = IDCacheKeyProvider()
+    MockSchemaConfiguration.stub_cacheKeyProviderForUnknownType = UnknownTypeCacheKeyProvider()
 
     let watchedQuery = MockQuery<HeroAndFriendsNameWithIDsSelectionSet>()
 
@@ -1709,7 +1709,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
         }
       }
     }
-    MockSchemaConfiguration.stub_cacheKeyProviderForUnknownType = IDCacheKeyProvider()
+    MockSchemaConfiguration.stub_cacheKeyProviderForUnknownType = UnknownTypeCacheKeyProvider()
 
     let watchedQuery = MockQuery<HeroAndFriendsNameWithIDsSelectionSet>()
 

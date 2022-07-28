@@ -2,6 +2,8 @@
 @testable import ApolloAPI
 
 public class MockSchemaConfiguration: SchemaConfiguration {
+  public init() { }
+
   private static let testObserver = TestObserver() { _ in
     stub_objectTypeForTypeName = nil
     stub_cacheKeyProviderForUnknownType = nil
@@ -26,15 +28,10 @@ public class MockSchemaConfiguration: SchemaConfiguration {
   public static var __unknownTypeCacheKeyProvider: SchemaUnknownTypeCacheKeyProvider? {
     stub_cacheKeyProviderForUnknownType
   }
-
 }
 
-public struct IDCacheKeyProvider: CacheKeyProvider, SchemaUnknownTypeCacheKeyProvider {
+public struct UnknownTypeCacheKeyProvider: SchemaUnknownTypeCacheKeyProvider {
   public init() { }
-
-  public func cacheKey(for data: JSONObject) -> String? {
-    data["id"] as? String
-  }
 
   public func cacheKeyForUnknown(typename: String, data: JSONObject) -> String? {
     data["id"] as? String
