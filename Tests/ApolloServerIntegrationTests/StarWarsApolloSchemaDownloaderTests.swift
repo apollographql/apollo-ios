@@ -14,13 +14,13 @@ class StarWarsApolloSchemaDownloaderTests: XCTestCase {
     )
 
     // Delete anything existing at the output URL
-    try FileManager.default.apollo.deleteDirectory(atPath: configuration.outputPath)
-    XCTAssertFalse(FileManager.default.apollo.doesFileExist(atPath: configuration.outputPath))
+    try ApolloFileManager.default.deleteDirectory(atPath: configuration.outputPath)
+    XCTAssertFalse(ApolloFileManager.default.doesFileExist(atPath: configuration.outputPath))
 
     try ApolloSchemaDownloader.fetch(configuration: configuration)
 
     // Does the file now exist?
-    XCTAssertTrue(FileManager.default.apollo.doesFileExist(atPath: configuration.outputPath))
+    XCTAssertTrue(ApolloFileManager.default.doesFileExist(atPath: configuration.outputPath))
 
     // Is it non-empty?
     let data = try Data(contentsOf: URL(fileURLWithPath: configuration.outputPath))
@@ -37,8 +37,8 @@ class StarWarsApolloSchemaDownloaderTests: XCTestCase {
     XCTAssertEqual(episodeType?.name, "Episode")
 
     // OK delete it now
-    try FileManager.default.apollo.deleteFile(atPath: configuration.outputPath)
-    XCTAssertFalse(FileManager.default.apollo.doesFileExist(atPath: configuration.outputPath))
+    try ApolloFileManager.default.deleteFile(atPath: configuration.outputPath)
+    XCTAssertFalse(ApolloFileManager.default.doesFileExist(atPath: configuration.outputPath))
   }
 
 }

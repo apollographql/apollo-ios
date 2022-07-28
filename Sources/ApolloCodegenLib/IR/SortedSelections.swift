@@ -1,6 +1,5 @@
 import Foundation
 import OrderedCollections
-import ApolloUtils
 
 extension IR {
 

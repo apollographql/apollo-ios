@@ -1,5 +1,4 @@
 import Foundation
-import ApolloUtils
 
 // MARK: FileGenerator (protocol and extension)
 
@@ -18,10 +17,10 @@ extension FileGenerator {
   ///
   /// - Parameters:
   ///   - config: Shared codegen configuration.
-  ///   - fileManager: The `FileManager` object used to create the file. Defaults to `FileManager.default`.
+  ///   - fileManager: The `ApolloFileManager` object used to create the file. Defaults to `ApolloFileManager.default`.
   func generate(
     forConfig config: ApolloCodegen.ConfigurationContext,
-    fileManager: FileManager = FileManager.default
+    fileManager: ApolloFileManager = .default
   ) throws {
     let directoryPath = target.resolvePath(forConfig: config)
     let filePath = URL(fileURLWithPath: directoryPath)
@@ -29,7 +28,7 @@ extension FileGenerator {
 
     let rendered: String = template.render()
 
-    try fileManager.apollo.createFile(
+    try fileManager.createFile(
       atPath: filePath,
       data: rendered.data(using: .utf8),
       overwrite: self.overwrite

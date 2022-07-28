@@ -3,7 +3,6 @@ import Nimble
 import OrderedCollections
 @testable import ApolloCodegenLib
 import ApolloCodegenInternalTestHelpers
-import ApolloUtils
 
 class OperationDefinitionTemplateTests: XCTestCase {
 

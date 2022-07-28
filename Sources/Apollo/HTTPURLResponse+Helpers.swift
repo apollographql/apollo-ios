@@ -1,16 +1,11 @@
 import Foundation
-#if !COCOAPODS
-import ApolloUtils
-#endif
 
-extension HTTPURLResponse: ApolloCompatible {}
-
-extension ApolloExtension where Base == HTTPURLResponse {
+extension HTTPURLResponse {
   var isSuccessful: Bool {
-    return (200..<300).contains(base.statusCode)
+    return (200..<300).contains(statusCode)
   }
 
   var statusCodeDescription: String {
-    return HTTPURLResponse.localizedString(forStatusCode: base.statusCode)
+    return HTTPURLResponse.localizedString(forStatusCode: statusCode)
   }
 }

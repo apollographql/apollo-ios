@@ -39,7 +39,7 @@ public struct CodegenLogger {
     }
     
     var standardOutput = FileHandle.standardOutput
-    print("[\(logLevel.name) - ApolloCodegenLib:\(file.apollo.lastPathComponent):\(line)] - \(logString())", to: &standardOutput)
+    print("[\(logLevel.name) - ApolloCodegenLib:\(file.lastPathComponent):\(line)] - \(logString())", to: &standardOutput)
   }
 }
 

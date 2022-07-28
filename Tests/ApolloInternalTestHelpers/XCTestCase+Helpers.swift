@@ -1,14 +1,11 @@
 import XCTest
-import ApolloUtils
 
-extension ApolloExtension where Base: XCTestExpectation {
+extension XCTestExpectation {
   /// Private API for accessing the number of times an expectation has been fulfilled.
   public var numberOfFulfillments: Int {
-    base.value(forKey: "numberOfFulfillments") as! Int
+    value(forKey: "numberOfFulfillments") as! Int
   }
 }
-
-extension XCTestExpectation: ApolloCompatible {}
 
 public extension XCTestCase {
   /// Record  the specified`error` as an `XCTIssue`.

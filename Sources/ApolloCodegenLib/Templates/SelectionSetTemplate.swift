@@ -1,4 +1,3 @@
-import ApolloUtils
 import InflectorKit
 
 struct SelectionSetTemplate {

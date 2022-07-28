@@ -102,6 +102,7 @@
     {
       "identifiers" : [
         "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLExecutionError\/errorDescription-f0my",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLExecutionError\/pathString",
         "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLExecutionError\/underlying"
       ],
       "title" : "Instance Properties"
@@ -244,6 +245,40 @@
   "title" : "errorDescription",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlexecutionerror\/errordescription-f0my"
+},
+"doc://Apollo/documentation/Apollo/GraphQLExecutionError/pathString": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "pathString"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLExecutionError\/pathString",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "pathString",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/graphqlexecutionerror\/pathstring"
 },
 "doc://Apollo/documentation/Apollo/GraphQLExecutionError/underlying": {
   "abstract" : [

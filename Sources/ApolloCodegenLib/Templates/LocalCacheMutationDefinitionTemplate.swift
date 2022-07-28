@@ -1,5 +1,4 @@
 import OrderedCollections
-import ApolloUtils
 
 struct LocalCacheMutationDefinitionTemplate: OperationTemplateRenderer {
   /// IR representation of source [GraphQL Operation](https://spec.graphql.org/draft/#sec-Language.Operations).

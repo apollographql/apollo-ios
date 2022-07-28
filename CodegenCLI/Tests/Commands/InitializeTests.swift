@@ -5,12 +5,12 @@ import ArgumentParser
 
 class InitializeTests: XCTestCase {
 
-  var mockFileManager: MockFileManager!
+  var mockFileManager: MockApolloFileManager!
 
   override func setUp() {
     super.setUp()
 
-    mockFileManager = MockFileManager(strict: true)
+    mockFileManager = MockApolloFileManager(strict: true)
   }
 
   override func tearDown() {

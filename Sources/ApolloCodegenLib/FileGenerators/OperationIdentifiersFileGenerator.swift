@@ -1,5 +1,4 @@
 import Foundation
-import ApolloUtils
 
 /// File generator to create a JSON formatted file of operation identifiers.
 struct OperationIdentifiersFileGenerator {
@@ -29,12 +28,12 @@ struct OperationIdentifiersFileGenerator {
   /// Generates a file containing the operation identifiers.
   ///
   /// Parameters:
-  ///  - fileManager: `FileManager` object used to create the file. Defaults to
-  ///  `FileManager.default`.
-  func generate(fileManager: FileManager = .default) throws {
+  ///  - fileManager: `ApolloFileManager` object used to create the file. Defaults to
+  ///  `ApolloFileManager.default`.
+  func generate(fileManager: ApolloFileManager = .default) throws {
     let rendered: String = try template.render()
 
-    try fileManager.apollo.createFile(
+    try fileManager.createFile(
       atPath: filePath,
       data: rendered.data(using: .utf8),
       overwrite: true

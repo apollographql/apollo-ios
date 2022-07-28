@@ -2,10 +2,9 @@ import XCTest
 import Nimble
 @testable import ApolloCodegenLib
 @testable import ApolloCodegenInternalTestHelpers
-import ApolloUtils
 
 class FileGeneratorTests: XCTestCase {
-  let fileManager = MockFileManager(strict: false)
+  let fileManager = MockApolloFileManager(strict: false)
   let directoryURL = CodegenTestHelper.outputFolderURL()
 
   var config: ApolloCodegen.ConfigurationContext!

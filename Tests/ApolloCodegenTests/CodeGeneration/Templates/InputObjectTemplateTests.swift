@@ -1,7 +1,6 @@
 import XCTest
 import Nimble
 @testable import ApolloCodegenLib
-import ApolloUtils
 import Apollo
 
 class InputObjectTemplateTests: XCTestCase {

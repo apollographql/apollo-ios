@@ -253,30 +253,6 @@
             }
           ],
           "type" : "paragraph"
-        },
-        {
-          "inlineContent" : [
-            {
-              "inlineContent" : [
-                {
-                  "identifier" : "\/documentation\/apolloutils",
-                  "isActive" : true,
-                  "type" : "reference"
-                }
-              ],
-              "type" : "strong"
-            }
-          ],
-          "type" : "paragraph"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "Shared utilities, extensions, and helper functions used by the Apollo libraries.",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
         }
       ],
       "kind" : "content"
@@ -363,18 +339,6 @@
   ],
   "type" : "link",
   "url" : "\/documentation\/apollosqlite"
-},
-"/documentation/apolloutils": {
-  "identifier" : "\/documentation\/apolloutils",
-  "title" : "ApolloUtils",
-  "titleInlineContent" : [
-    {
-      "text" : "ApolloUtils",
-      "type" : "text"
-    }
-  ],
-  "type" : "link",
-  "url" : "\/documentation\/apolloutils"
 },
 "/documentation/apollowebsocket": {
   "identifier" : "\/documentation\/apollowebsocket",

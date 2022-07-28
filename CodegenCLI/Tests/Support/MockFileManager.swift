@@ -1,11 +1,9 @@
 import Foundation
+@testable import ApolloCodegenLib
 import Nimble
 
-public typealias FileAttributes = [FileAttributeKey : Any]
-
-/// Used to mock a `FileManager` instance that is compatible with the `.apollo` namespace
-/// extension.
-public class MockFileManager: FileManager {
+/// Used to mock a `FileManager` instance that is compatible with the `.apollo` namespace extension.
+public class MockApolloFileManager: ApolloFileManager {
   /// Translates to the `FileManager` functions that can be mocked.
   public enum Closure: CustomStringConvertible {
     case fileExists(_ handler: (String, UnsafeMutablePointer<ObjCBool>?) -> Bool)
@@ -33,13 +31,11 @@ public class MockFileManager: FileManager {
     }
   }
 
-  private var closures: [String: Closure] = [:]
-  private var closuresToBeCalled: Set<String> = []
-
-  /// If `true` then all called closures must be mocked otherwise the call will fail. When
-  /// `false` any called closure that is not mocked will fall through to `super`. As a byproduct
-  /// of `false`, all mocked closures must be called otherwise the test will fail.
-  let strict: Bool
+  /// If `true` then all called closures must be mocked otherwise the call will fail. When `false` any called closure
+  /// that is not mocked will fall through to `super`. As a byproduct of `false`, all mocked closures must be called otherwise
+  /// the test will fail.
+  var strict: Bool { _base.strict }
+  var _base: MockFileManager { unsafeDowncast(base, to: MockFileManager.self) }
 
   /// Designated initializer.
   ///
@@ -48,53 +44,74 @@ public class MockFileManager: FileManager {
   ///  When `false` any called closure that is not mocked will fall through to `super`. As a
   ///  byproduct of `false`, all mocked closures must be called otherwise the test will fail.
   public init(strict: Bool = true) {
-    self.strict = strict
-  }
-
-  deinit {
-    if strict == false && allClosuresCalled == false {
-      fail("""
-        Non-strict mode requires that all mocked closures are called! Check \
-        \(closuresToBeCalled) in your MockFileManager instance.
-        """
-      )
-    }
+    super.init(base: MockFileManager(strict: strict))
   }
 
   /// Provide a mock closure for the `FileManager` function.
   ///
   /// - Parameter closure: The mocked function closure.
   public func mock(closure: Closure) {
-    closures[closure.description] = closure
-    closuresToBeCalled.insert(closure.description)
+    _base.mock(closure: closure)
   }
 
   private func didCall(closure: Closure) {
-    closuresToBeCalled.remove(closure.description)
+    _base.closuresToBeCalled.remove(closure.description)
   }
 
   /// Check whether all mocked closures were called during the lifetime of an instance.
   public var allClosuresCalled: Bool {
-    return closuresToBeCalled.isEmpty
+    return _base.closuresToBeCalled.isEmpty
   }
 
-  // MARK: FileManager overrides
+  class MockFileManager: FileManager {
 
-  private func missingClosureMessage(_ function: String) -> String {
-    return """
-      \(function) closure must be mocked before calling it! Check your MockFileManager instance.
-      """
-  }
+    fileprivate var closures: [String: Closure] = [:]
+    fileprivate var closuresToBeCalled: Set<String> = []
 
-  public override func fileExists(
-    atPath path: String,
-    isDirectory: UnsafeMutablePointer<ObjCBool>?
-  ) -> Bool {
-    let key = #function
+    /// If `true` then all called closures must be mocked otherwise the call will fail. When `false` any called closure
+    /// that is not mocked will fall through to `super`. As a byproduct of `false`, all mocked closures must be called otherwise
+    /// the test will fail.
+    let strict: Bool
 
-    guard
-      let closure = closures[key],
-      case let .fileExists(handler) = closure else {
+    fileprivate init(strict: Bool = true) {
+      self.strict = strict
+    }
+
+    deinit {
+      if strict == false && allClosuresCalled == false {
+        fail("Non-strict mode requires that all mocked closures are called! Check \(closuresToBeCalled) in your MockFileManager instance.")
+      }
+    }
+
+    /// Provide a mock closure for the `FileManager` function.
+    ///
+    /// - Parameter closure: The mocked function closure.
+    fileprivate func mock(closure: Closure) {
+      closures[closure.description] = closure
+      closuresToBeCalled.insert(closure.description)
+    }
+
+    fileprivate func didCall(closure: Closure) {
+      closuresToBeCalled.remove(closure.description)
+    }
+
+    /// Check whether all mocked closures were called during the lifetime of an instance.
+    fileprivate var allClosuresCalled: Bool {
+      return closuresToBeCalled.isEmpty
+    }
+
+    // MARK: FileManager overrides
+
+    private func missingClosureMessage(_ function: String) -> String {
+      return "\(function) closure must be mocked before calling it! Check your MockFileManager instance."
+    }
+
+    public override func fileExists(atPath path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) -> Bool {
+      let key = #function
+
+      guard
+        let closure = closures[key],
+        case let .fileExists(handler) = closure else {
         if strict {
           fail(missingClosureMessage(key))
           return false
@@ -103,19 +120,19 @@ public class MockFileManager: FileManager {
         }
       }
 
-    defer {
-      didCall(closure: closure)
+      defer {
+        didCall(closure: closure)
+      }
+
+      return handler(path, isDirectory)
     }
 
-    return handler(path, isDirectory)
-  }
+    public override func removeItem(atPath path: String) throws {
+      let key = #function
 
-  public override func removeItem(atPath path: String) throws {
-    let key = #function
-
-    guard
-      let closure = closures[key],
-      case let .removeItem(handler) = closure else {
+      guard
+        let closure = closures[key],
+        case let .removeItem(handler) = closure else {
         if strict {
           fail(missingClosureMessage(key))
           return
@@ -124,23 +141,19 @@ public class MockFileManager: FileManager {
         }
       }
 
-    defer {
-      didCall(closure: closure)
+      defer {
+        didCall(closure: closure)
+      }
+
+      try handler(path)
     }
 
-    try handler(path)
-  }
+    public override func createFile(atPath path: String, contents data: Data?, attributes attr: FileAttributes?) -> Bool {
+      let key = #function
 
-  public override func createFile(
-    atPath path: String,
-    contents data: Data?,
-    attributes attr: FileAttributes?
-  ) -> Bool {
-    let key = #function
-
-    guard
-      let closure = closures[key],
-      case let .createFile(handler) = closure else {
+      guard
+        let closure = closures[key],
+        case let .createFile(handler) = closure else {
         if strict {
           fail(missingClosureMessage(key))
           return false
@@ -149,22 +162,19 @@ public class MockFileManager: FileManager {
         }
       }
 
-    defer {
-      didCall(closure: closure)
+      defer {
+        didCall(closure: closure)
+      }
+
+      return handler(path, data, attr)
     }
 
-    return handler(path, data, attr)
-  }
+    public override func createDirectory(atPath path: String, withIntermediateDirectories createIntermediates: Bool, attributes: FileAttributes?) throws {
+      let key = #function
 
-  public override func createDirectory(
-    atPath path: String,
-    withIntermediateDirectories createIntermediates: Bool,
-    attributes: FileAttributes?) throws {
-    let key = #function
-
-    guard
-      let closure = closures[key],
-      case let .createDirectory(handler) = closure else {
+      guard
+        let closure = closures[key],
+        case let .createDirectory(handler) = closure else {
         if strict {
           fail(missingClosureMessage(key))
           return
@@ -177,32 +187,33 @@ public class MockFileManager: FileManager {
         }
       }
 
-    defer {
-      didCall(closure: closure)
-    }
-
-    try handler(path, createIntermediates, attributes)
-  }
-
-  public override func contents(atPath path: String) -> Data? {
-    let key = #function
-
-    guard
-      let closure = closures[key],
-      case let .contents(handler) = closure
-    else {
-      if strict {
-        fail(missingClosureMessage(key))
-        return nil
-      } else {
-        return super.contents(atPath: path)
+      defer {
+        didCall(closure: closure)
       }
+
+      try handler(path, createIntermediates, attributes)
     }
 
-    defer {
-      didCall(closure: closure)
-    }
+    public override func contents(atPath path: String) -> Data? {
+      let key = #function
 
-    return handler(path)
+      guard
+        let closure = closures[key],
+        case let .contents(handler) = closure
+      else {
+        if strict {
+          fail(missingClosureMessage(key))
+          return nil
+        } else {
+          return super.contents(atPath: path)
+        }
+      }
+
+      defer {
+        didCall(closure: closure)
+      }
+
+      return handler(path)
+    }
   }
 }

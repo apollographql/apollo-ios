@@ -1,6 +1,5 @@
 import Foundation
 #if !COCOAPODS
-import ApolloUtils
 import ApolloAPI
 #endif
 
@@ -46,7 +45,7 @@ public struct GraphQLGETTransformer {
       return nil
     }
 
-    if queryItems.apollo.isNotEmpty {
+    if !queryItems.isEmpty {
       components.queryItems = queryItems
     }
 

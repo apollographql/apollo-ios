@@ -38,7 +38,7 @@ struct Initialize: ParsableCommand {
     try _run()
   }
 
-  func _run(fileManager: FileManager = .default) throws {
+  func _run(fileManager: ApolloFileManager = .default) throws {
     let encoded = try ApolloCodegenConfiguration
       .default
       .encoded()
@@ -60,9 +60,9 @@ struct Initialize: ParsableCommand {
     data: Data,
     toPath path: String,
     overwrite: Bool,
-    fileManager: FileManager
+    fileManager: ApolloFileManager
   ) throws {
-    if !overwrite && fileManager.apollo.doesFileExist(atPath: path) {
+    if !overwrite && fileManager.doesFileExist(atPath: path) {
       throw Error(
         errorDescription: """
           File already exists at \(path). Hint: use --overwrite to overwrite any existing \
@@ -71,7 +71,7 @@ struct Initialize: ParsableCommand {
       )
     }
 
-    try fileManager.apollo.createFile(
+    try fileManager.createFile(
       atPath: path,
       data: data
     )

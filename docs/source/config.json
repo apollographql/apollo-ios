@@ -13,7 +13,6 @@
       "ApolloAPI": "https://www.apollographql.com/docs/ios/docc/documentation/ApolloAPI",
       "ApolloWebSocket": "https://www.apollographql.com/docs/ios/docc/documentation/ApolloWebSocket",
       "ApolloSQLite": "https://www.apollographql.com/docs/ios/docc/documentation/ApolloSQLite",
-      "ApolloUtils": "https://www.apollographql.com/docs/ios/docc/documentation/ApolloUtils",
       "ApolloCodegenLib": "https://www.apollographql.com/docs/ios/docc/documentation/ApolloCodegenLib"
     },
     "Tutorial": {

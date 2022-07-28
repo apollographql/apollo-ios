@@ -235,7 +235,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     let query = MockHeroNameQuery()
     var lastRequest: URLRequest?
     let _ = network.send(operation: query) { _ in
-      lastRequest = mockClient.lastRequest.value
+      lastRequest = mockClient.lastRequest
       expectation.fulfill()
     }
     self.wait(for: [expectation], timeout: 1)
@@ -261,7 +261,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     let query = MockHeroNameQuery(episode: .some(.JEDI))
     var lastRequest: URLRequest?
     let _ = network.send(operation: query) { _ in
-      lastRequest = mockClient.lastRequest.value
+      lastRequest = mockClient.lastRequest
       expectation.fulfill()
     }
     self.wait(for: [expectation], timeout: 1)
@@ -288,7 +288,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     let query = MockHeroNameQuery(episode: .some(.EMPIRE))
     var lastRequest: URLRequest?
     let _ = network.send(operation: query) { _ in
-      lastRequest = mockClient.lastRequest.value
+      lastRequest = mockClient.lastRequest
       expectation.fulfill()
     }
     self.wait(for: [expectation], timeout: 1)
@@ -315,7 +315,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     let mutation = APQMockMutation()
     var lastRequest: URLRequest?
     let _ = network.send(operation: mutation) { _ in
-      lastRequest = mockClient.lastRequest.value
+      lastRequest = mockClient.lastRequest
       expectation.fulfill()
     }
     self.wait(for: [expectation], timeout: 1)
@@ -343,7 +343,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     let query = MockHeroNameQuery()
     var lastRequest: URLRequest?
     let _ = network.send(operation: query) { _ in
-      lastRequest = mockClient.lastRequest.value
+      lastRequest = mockClient.lastRequest
       expectation.fulfill()
     }
     self.wait(for: [expectation], timeout: 1)
@@ -369,7 +369,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     let query = MockHeroNameQuery(episode: .some(.EMPIRE))
     var lastRequest: URLRequest?
     let _ = network.send(operation: query) { _ in
-      lastRequest = mockClient.lastRequest.value
+      lastRequest = mockClient.lastRequest
       expectation.fulfill()
     }
     self.wait(for: [expectation], timeout: 1)
@@ -397,7 +397,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     let query = MockHeroNameQuery()
     var lastRequest: URLRequest?
     let _ = network.send(operation: query) { _ in
-      lastRequest = mockClient.lastRequest.value
+      lastRequest = mockClient.lastRequest
       expectation.fulfill()
     }
     self.wait(for: [expectation], timeout: 1)
@@ -424,7 +424,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     let query = MockHeroNameQuery()
     var lastRequest: URLRequest?
     let _ = network.send(operation: query) { _ in
-      lastRequest = mockClient.lastRequest.value
+      lastRequest = mockClient.lastRequest
       expectation.fulfill()
     }
     self.wait(for: [expectation], timeout: 1)
@@ -451,7 +451,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     let query = MockHeroNameQuery(episode: .some(.EMPIRE))
     var lastRequest: URLRequest?
     let _ = network.send(operation: query) { _ in
-      lastRequest = mockClient.lastRequest.value
+      lastRequest = mockClient.lastRequest
       expectation.fulfill()
     }
     self.wait(for: [expectation], timeout: 1)
@@ -479,7 +479,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     let query = MockHeroNameQuery(episode: .some(.EMPIRE))
     var lastRequest: URLRequest?
     let _ = network.send(operation: query) { _ in
-      lastRequest = mockClient.lastRequest.value
+      lastRequest = mockClient.lastRequest
       expectation.fulfill()
     }
     self.wait(for: [expectation], timeout: 1)
@@ -507,7 +507,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     let query = MockHeroNameQuery(episode: .some(.EMPIRE))
     var lastRequest: URLRequest?
     let _ = network.send(operation: query) { _ in
-      lastRequest = mockClient.lastRequest.value
+      lastRequest = mockClient.lastRequest
       expectation.fulfill()
     }
     self.wait(for: [expectation], timeout: 2)

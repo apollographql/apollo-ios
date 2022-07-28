@@ -81,6 +81,7 @@
       "identifiers" : [
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ASTNode",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegen",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloFileManager",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLAbstractType",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLCompositeType",
@@ -115,7 +116,9 @@
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CodegenLogger",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/FileFinder",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/Glob",
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLSourceLocation"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLSourceLocation",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/IsEverTrue",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList"
       ],
       "title" : "Structures"
     },
@@ -264,6 +267,37 @@
   "title" : "ApolloCodegenConfiguration",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloFileManager": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ApolloFileManager"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloFileManager",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ApolloFileManager"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ApolloFileManager",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/apollofilemanager"
 },
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloSchemaDownloadConfiguration": {
   "abstract" : [
@@ -1310,6 +1344,88 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/inflectionrule"
 },
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/IsEverTrue": {
+  "abstract" : [
+    {
+      "text" : "A property wrapper that indicates if a ",
+      "type" : "text"
+    },
+    {
+      "code" : "Bool",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " value was ever set to ",
+      "type" : "text"
+    },
+    {
+      "code" : "true",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "Defaults to ",
+      "type" : "text"
+    },
+    {
+      "code" : "false",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ", if ever set to ",
+      "type" : "text"
+    },
+    {
+      "code" : "true",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ", it will always be ",
+      "type" : "text"
+    },
+    {
+      "code" : "true",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "IsEverTrue"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/IsEverTrue",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "IsEverTrue"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "IsEverTrue",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/isevertrue"
+},
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/JavaScriptError": {
   "abstract" : [
     {
@@ -1427,6 +1543,40 @@
   "title" : "JavaScriptWrapper",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/javascriptwrapper"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/LinkedList": {
+  "abstract" : [
+    {
+      "text" : "A doubly linked list implementation.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "LinkedList"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "LinkedList"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "LinkedList",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/linkedlist"
 },
 "https://graphql.org/graphql-js/error/#graphqlerror": {
   "identifier" : "https:\/\/graphql.org\/graphql-js\/error\/#graphqlerror",

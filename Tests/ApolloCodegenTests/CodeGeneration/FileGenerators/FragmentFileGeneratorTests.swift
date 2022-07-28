@@ -2,7 +2,6 @@ import XCTest
 import Nimble
 @testable import ApolloCodegenLib
 import ApolloCodegenInternalTestHelpers
-import ApolloUtils
 
 class FragmentFileGeneratorTests: XCTestCase {
   var irFragment: IR.NamedFragment!

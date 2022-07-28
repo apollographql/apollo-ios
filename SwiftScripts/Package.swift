@@ -4,7 +4,7 @@
 import PackageDescription
 
 let package = Package(
-  name: "Codegen",
+  name: "SwiftScripts",
   platforms: [
     .macOS(.v10_15)
   ],
@@ -34,7 +34,6 @@ let package = Package(
               .product(name: "ApolloCodegenLib", package: "Apollo"),
               .product(name: "Apollo", package: "Apollo"),
               .product(name: "ApolloAPI", package: "Apollo"),
-              .product(name: "ApolloUtils", package: "Apollo"),
               .product(name: "ApolloSQLite", package: "Apollo"),
               .product(name: "ApolloWebSocket", package: "Apollo")
             ]            

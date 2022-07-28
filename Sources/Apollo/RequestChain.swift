@@ -1,7 +1,6 @@
 import Foundation
 #if !COCOAPODS
 import ApolloAPI
-import ApolloUtils
 #endif
 
 /// A chain that allows a single network request to be created and executed.
@@ -24,12 +23,7 @@ public class RequestChain: Cancellable {
   private let interceptors: [ApolloInterceptor]
   private var currentIndex: Int
   private var callbackQueue: DispatchQueue
-  private var isCancelled = Atomic<Bool>(false)
-  
-  /// Checks the underlying value of `isCancelled`. Set up like this for better readability in `guard` statements
-  public var isNotCancelled: Bool {
-    !self.isCancelled.value
-  }
+  @Atomic var isCancelled: Bool = false
   
   /// Something which allows additional error handling to occur when some kind of error has happened.
   public var additionalErrorHandler: ApolloErrorInterceptor?
@@ -80,7 +74,7 @@ public class RequestChain: Cancellable {
     request: HTTPRequest<Operation>,
     response: HTTPResponse<Operation>?,
     completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
-    guard self.isNotCancelled else {
+    guard !self.isCancelled else {
       // Do not proceed, this chain has been cancelled.
       return
     }
@@ -112,12 +106,12 @@ public class RequestChain: Cancellable {
   
   /// Cancels the entire chain of interceptors.
   public func cancel() {
-    guard self.isNotCancelled else {
+    guard !self.isCancelled else {
       // Do not proceed, this chain has been cancelled.
       return
     }
     
-    self.isCancelled.mutate { $0 = true }
+    self.$isCancelled.mutate { $0 = true }
     
     // If an interceptor adheres to `Cancellable`, it should have its in-flight work cancelled as well.
     for interceptor in self.interceptors {
@@ -136,7 +130,7 @@ public class RequestChain: Cancellable {
     request: HTTPRequest<Operation>,
     completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
     
-    guard self.isNotCancelled else {
+    guard !self.isCancelled else {
       // Don't retry something that's been cancelled.
       return
     }
@@ -157,7 +151,7 @@ public class RequestChain: Cancellable {
     request: HTTPRequest<Operation>,
     response: HTTPResponse<Operation>?,
     completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
-    guard self.isNotCancelled else {
+    guard !self.isCancelled else {
       return
     }
 
@@ -188,7 +182,7 @@ public class RequestChain: Cancellable {
     value: GraphQLResult<Operation.Data>,
     completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
    
-    guard self.isNotCancelled else {
+    guard !self.isCancelled else {
       return
     }
     

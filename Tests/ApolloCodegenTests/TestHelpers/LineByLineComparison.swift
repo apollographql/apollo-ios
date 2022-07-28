@@ -2,6 +2,7 @@ import Foundation
 import Nimble
 import ApolloInternalTestHelpers
 import ApolloCodegenInternalTestHelpers
+@testable import ApolloCodegenLib
 
 /// A Nimble matcher that compares two strings line-by-line.
 ///
@@ -103,7 +104,7 @@ public func equalLineByLine(
   trimmingImports trimImports: Bool = false
 ) -> Predicate<String> {
   return Predicate.define() { actual in
-    guard FileManager.default.apollo.doesFileExist(atPath: expectedFileURL.path) else {
+    guard ApolloFileManager.default.doesFileExist(atPath: expectedFileURL.path) else {
       return PredicateResult(
         status: .fail,
         message: .fail("File not found at \(expectedFileURL)")

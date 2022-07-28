@@ -1,5 +1,4 @@
 import Foundation
-import ApolloUtils
 
 struct MockUnionTemplate: TemplateRenderer {
   /// IR representation of source [GraphQL Union](https://spec.graphql.org/draft/#sec-Unions).

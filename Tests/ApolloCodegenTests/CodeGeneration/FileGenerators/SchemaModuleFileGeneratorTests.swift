@@ -2,11 +2,10 @@ import XCTest
 @testable import ApolloCodegenLib
 import ApolloCodegenInternalTestHelpers
 import Nimble
-import ApolloUtils
 
 class SchemaModuleFileGeneratorTests: XCTestCase {
   let rootURL = URL(fileURLWithPath: CodegenTestHelper.outputFolderURL().path)
-  let mockFileManager = MockFileManager(strict: false)
+  let mockFileManager = MockApolloFileManager(strict: false)
 
   override func tearDown() {
     CodegenTestHelper.deleteExistingOutputFolder()

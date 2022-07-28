@@ -1,5 +1,4 @@
 import Foundation
-import ApolloUtils
 import OrderedCollections
 
 /// Representation of an operation that supports Automatic Persisted Queries

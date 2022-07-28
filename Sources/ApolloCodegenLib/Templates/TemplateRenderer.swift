@@ -1,5 +1,3 @@
-import ApolloUtils
-
 // MARK: TemplateRenderer
 
 /// Defines the file target of the template.

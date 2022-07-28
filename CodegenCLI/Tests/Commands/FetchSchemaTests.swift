@@ -114,7 +114,7 @@ class FetchSchemaTests: XCTestCase {
     ]
 
     let mockConfiguration = ApolloCodegenConfiguration.mock()
-    let mockFileManager = MockFileManager(strict: true)
+    let mockFileManager = MockApolloFileManager(strict: true)
 
     mockFileManager.mock(closure: .contents({ path in
       let actualPath = URL(fileURLWithPath: path).standardizedFileURL.path
@@ -136,7 +136,7 @@ class FetchSchemaTests: XCTestCase {
     let command = try parseAsRoot(options: options)
 
     try command._run(
-      fileManager: mockFileManager,
+      fileManager: mockFileManager.base,
       schemaDownloadProvider: MockApolloSchemaDownloader.self
     )
 

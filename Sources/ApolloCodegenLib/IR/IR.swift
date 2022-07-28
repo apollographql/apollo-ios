@@ -1,5 +1,4 @@
 import OrderedCollections
-import ApolloUtils
 import CryptoKit
 
 class IR {

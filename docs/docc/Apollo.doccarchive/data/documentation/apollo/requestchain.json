@@ -105,8 +105,7 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/additionalErrorHandler",
-        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/isNotCancelled"
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/additionalErrorHandler"
       ],
       "title" : "Instance Properties"
     },
@@ -544,59 +543,6 @@
   "title" : "init(interceptors:callbackQueue:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchain\/init(interceptors:callbackqueue:)"
-},
-"doc://Apollo/documentation/Apollo/RequestChain/isNotCancelled": {
-  "abstract" : [
-    {
-      "text" : "Checks the underlying value of ",
-      "type" : "text"
-    },
-    {
-      "code" : "isCancelled",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ". Set up like this for better readability in ",
-      "type" : "text"
-    },
-    {
-      "code" : "guard",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " statements",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "isNotCancelled"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    }
-  ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/isNotCancelled",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "isNotCancelled",
-  "type" : "topic",
-  "url" : "\/documentation\/apollo\/requestchain\/isnotcancelled"
 },
 "doc://Apollo/documentation/Apollo/RequestChain/kickoff(request:completion:)": {
   "abstract" : [

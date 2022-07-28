@@ -7,7 +7,7 @@ extension Selection.Field {
   public func cacheKey(with variables: GraphQLOperation.Variables?) throws -> String {
     if let arguments = arguments,
        case let argumentValues = try InputValue.evaluate(arguments, with: variables),
-       argumentValues.apollo.isNotEmpty {
+       !argumentValues.isEmpty {
       let argumentsKey = orderIndependentKey(for: argumentValues)
       return "\(name)(\(argumentsKey))"
     } else {

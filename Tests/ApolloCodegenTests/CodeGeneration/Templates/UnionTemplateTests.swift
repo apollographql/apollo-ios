@@ -2,7 +2,6 @@ import XCTest
 import Nimble
 @testable import ApolloCodegenLib
 import ApolloAPI
-import ApolloUtils
 
 class UnionTemplateTests: XCTestCase {
   var subject: UnionTemplate!

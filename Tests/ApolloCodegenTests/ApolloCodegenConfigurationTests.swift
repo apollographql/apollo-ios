@@ -20,7 +20,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
       .appendingPathComponent("Configuration")
       .appendingPathComponent(self.testRun!.test.name)
 
-    try FileManager.default.apollo.createDirectoryIfNeeded(atPath: directoryURL.path)
+    try ApolloFileManager.default.createDirectoryIfNeeded(atPath: directoryURL.path)
 
     filename = UUID().uuidString
     fileURL = directoryURL.appendingPathComponent(filename)
@@ -30,7 +30,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
   }
 
   override func tearDownWithError() throws {
-    try FileManager.default.apollo.deleteDirectory(atPath: directoryURL.path)
+    try ApolloFileManager.default.deleteDirectory(atPath: directoryURL.path)
 
     config = nil
     output = nil
@@ -130,7 +130,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
     buildConfig()
 
     // when
-    try FileManager.default.apollo.createFile(atPath: fileURL.path)
+    try ApolloFileManager.default.createFile(atPath: fileURL.path)
 
     // then
     expect { try self.config.validate() }.to(
@@ -146,7 +146,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
     buildConfig()
 
     // when
-    try FileManager.default.apollo.createFile(atPath: fileURL.path)
+    try ApolloFileManager.default.createFile(atPath: fileURL.path)
 
     // then
     expect { try self.config.validate() }.to(
@@ -171,7 +171,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
     buildConfig()
 
     // when
-    try FileManager.default.apollo.createFile(atPath: fileURL.path)
+    try ApolloFileManager.default.createFile(atPath: fileURL.path)
 
     // then
     expect { try self.config.validate() }.to(
@@ -191,7 +191,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
     buildConfig()
 
     // when
-    try FileManager.default.apollo.createFile(atPath: fileURL.path)
+    try ApolloFileManager.default.createFile(atPath: fileURL.path)
 
     // then
     expect { try self.config.validate() }.to(
@@ -218,7 +218,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
     buildConfig()
 
     // when
-    try FileManager.default.apollo.createFile(atPath: fileURL.path)
+    try ApolloFileManager.default.createFile(atPath: fileURL.path)
 
     // then
     expect { try self.config.validate() }.to(
@@ -238,7 +238,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
     buildConfig()
 
     // when
-    try FileManager.default.apollo.createFile(atPath: fileURL.path)
+    try ApolloFileManager.default.createFile(atPath: fileURL.path)
 
     // then
     expect { try self.config.validate() }.to(

@@ -1,17 +1,9 @@
-//
-//  MockURLSession.swift
-//  ApolloTestSupport
-//
-//  Copyright © 2019 Apollo GraphQL. All rights reserved.
-//
-
 import Foundation
 import Apollo
-import ApolloUtils
 
 public final class MockURLSessionClient: URLSessionClient {
 
-  public private (set) var lastRequest: Atomic<URLRequest?> = Atomic(nil)
+  @Atomic public var lastRequest: URLRequest?
 
   public var jsonData: JSONObject?
   public var data: Data?
@@ -34,7 +26,7 @@ public final class MockURLSessionClient: URLSessionClient {
   public override func sendRequest(_ request: URLRequest,
                                    rawTaskCompletionHandler: URLSessionClient.RawCompletion? = nil,
                                    completion: @escaping URLSessionClient.Completion) -> URLSessionTask {
-    self.lastRequest.mutate { $0 = request }
+    self.$lastRequest.mutate { $0 = request }
         
     // Capture data, response, and error instead of self to ensure we complete with the current state
     // even if it is changed before the block runs.

@@ -1,6 +1,5 @@
 import Foundation
 import OrderedCollections
-import ApolloUtils
 
 // Only available on macOS
 #if os(macOS)
@@ -122,7 +121,7 @@ public class ApolloCodegen {
     compilationResult: CompilationResult,
     ir: IR,
     config: ConfigurationContext,
-    fileManager: FileManager = FileManager.default
+    fileManager: ApolloFileManager = .default
   ) throws {
     for fragment in compilationResult.fragments {
       try autoreleasepool {

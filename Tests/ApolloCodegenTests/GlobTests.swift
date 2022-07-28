@@ -5,7 +5,7 @@ import ApolloCodegenInternalTestHelpers
 
 class GlobTests: XCTestCase {
   let baseURL = CodegenTestHelper.outputFolderURL().appendingPathComponent("Glob")
-  let fileManager = FileManager.default.apollo
+  let fileManager = ApolloFileManager.default
 
   // MARK: Setup
 
@@ -16,7 +16,7 @@ class GlobTests: XCTestCase {
   }
 
   override func tearDownWithError() throws {
-    try FileManager.default.apollo.deleteDirectory(atPath: baseURL.path)
+    try ApolloFileManager.default.deleteDirectory(atPath: baseURL.path)
 
     try super.tearDownWithError()
   }

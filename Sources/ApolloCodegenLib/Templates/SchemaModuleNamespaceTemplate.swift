@@ -1,5 +1,4 @@
 import Foundation
-import ApolloUtils
 
 /// Provides the format to define a namespace that is used to wrap other templates to prevent
 /// naming collisions in Swift code.

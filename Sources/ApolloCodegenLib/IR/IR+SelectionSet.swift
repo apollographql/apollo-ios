@@ -1,5 +1,3 @@
-import ApolloUtils
-
 extension IR {
   @dynamicMemberLookup
   class SelectionSet: Equatable, CustomDebugStringConvertible {
@@ -88,14 +86,14 @@ extension IR {
       }
 
       var debugDescription: String {
-        """
+        TemplateString("""
         direct: {
-          \(indented: direct?.debugDescription ?? "nil")
+          \(direct?.debugDescription ?? "nil")
         }
         merged: {
-          \(indented: merged.debugDescription)
+          \(merged.debugDescription)
         }
-        """
+        """).description
       }
     }
 

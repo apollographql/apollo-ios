@@ -1,16 +1,7 @@
-//
-//  URLExtensionsTests.swift
-//  ApolloCodegenTests
-//
-//  Created by Ellen Shapiro on 6/7/20.
-//  Copyright © 2020 Apollo GraphQL. All rights reserved.
-//
-
 import Foundation
 import XCTest
 import ApolloCodegenInternalTestHelpers
 @testable import ApolloCodegenLib
-import ApolloUtils
 
 class URLExtensionsTests: XCTestCase {
  
@@ -20,7 +11,7 @@ class URLExtensionsTests: XCTestCase {
     let expectedParent = CodegenTestHelper.sourceRootURL()
       .appendingPathComponent("Tests")
     
-    let parent = apolloCodegenTests.apollo.parentFolderURL()
+    let parent = apolloCodegenTests.parentFolderURL()
     XCTAssertEqual(parent, expectedParent)
   }
   
@@ -30,7 +21,7 @@ class URLExtensionsTests: XCTestCase {
     
     let expectedChild = FileFinder.findParentFolder()
     
-    let child = testsFolderURL.apollo.childFolderURL(folderName: "ApolloCodegenTests")
+    let child = testsFolderURL.childFolderURL(folderName: "ApolloCodegenTests")
     XCTAssertEqual(child, expectedChild)
   }
   
@@ -39,7 +30,7 @@ class URLExtensionsTests: XCTestCase {
 
     let expectedFileURL = URL(fileURLWithPath: #file)
 
-    let fileURL = try apolloCodegenTests.apollo.childFileURL(fileName: "URLExtensionsTests.swift")
+    let fileURL = try apolloCodegenTests.childFileURL(fileName: "URLExtensionsTests.swift")
     
     XCTAssertEqual(fileURL, expectedFileURL)
   }
@@ -48,7 +39,7 @@ class URLExtensionsTests: XCTestCase {
     let starWars = CodegenTestHelper.starWarsFolderURL()
     
     do {
-      _ = try starWars.apollo.childFileURL(fileName: "")
+      _ = try starWars.childFileURL(fileName: "")
       XCTFail("That should have thrown")
     } catch {
       switch error {
@@ -66,43 +57,43 @@ class URLExtensionsTests: XCTestCase {
     let filename = ".hiddenFile"
 
     let expectedURL = parentURL.appendingPathComponent(filename, isDirectory: false)
-    let childURL = try parentURL.apollo.childFileURL(fileName: filename)
+    let childURL = try parentURL.childFileURL(fileName: filename)
 
     XCTAssertEqual(childURL, expectedURL)
   }
   
   func testIsDirectoryForExistingDirectory() {
     let parentDirectory = FileFinder.findParentFolder()
-    XCTAssertTrue(FileManager.default.apollo.doesDirectoryExist(atPath: parentDirectory.path))
-    XCTAssertTrue(parentDirectory.apollo.isDirectoryURL)
+    XCTAssertTrue(ApolloFileManager.default.doesDirectoryExist(atPath: parentDirectory.path))
+    XCTAssertTrue(parentDirectory.isDirectoryURL)
   }
   
   func testIsDirectoryForExistingFile() {
     let currentFileURL = FileFinder.fileURL()
-    XCTAssertTrue(FileManager.default.apollo.doesFileExist(atPath: currentFileURL.path))
-    XCTAssertFalse(currentFileURL.apollo.isDirectoryURL)
+    XCTAssertTrue(ApolloFileManager.default.doesFileExist(atPath: currentFileURL.path))
+    XCTAssertFalse(currentFileURL.isDirectoryURL)
   }
   
   func testIsSwiftFileForExistingFile() {
     let currentFileURL = FileFinder.fileURL()
-    XCTAssertTrue(FileManager.default.apollo.doesFileExist(atPath: currentFileURL.path))
-    XCTAssertTrue(currentFileURL.apollo.isSwiftFileURL)
+    XCTAssertTrue(ApolloFileManager.default.doesFileExist(atPath: currentFileURL.path))
+    XCTAssertTrue(currentFileURL.isSwiftFileURL)
   }
   
   func testIsSwiftFileForNonExistentFileWithSingleExtension() {
     let currentDirectory = FileFinder.findParentFolder()
     let doesntExist = currentDirectory.appendingPathComponent("test.swift")
     
-    XCTAssertFalse(FileManager.default.apollo.doesFileExist(atPath: doesntExist.path))
-    XCTAssertTrue(doesntExist.apollo.isSwiftFileURL)
+    XCTAssertFalse(ApolloFileManager.default.doesFileExist(atPath: doesntExist.path))
+    XCTAssertTrue(doesntExist.isSwiftFileURL)
   }
   
   func testIsSwiftFileForNonExistentFileWithMultipleExtensions() {
     let currentDirectory = FileFinder.findParentFolder()
     let doesntExist = currentDirectory.appendingPathComponent("test.graphql.swift")
     
-    XCTAssertFalse(FileManager.default.apollo.doesFileExist(atPath: doesntExist.path))
-    XCTAssertTrue(doesntExist.apollo.isSwiftFileURL)
+    XCTAssertFalse(ApolloFileManager.default.doesFileExist(atPath: doesntExist.path))
+    XCTAssertTrue(doesntExist.isSwiftFileURL)
   }
   
 }

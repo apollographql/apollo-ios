@@ -4,7 +4,6 @@ title: API Reference
 
 * [Apollo.framework](./api/Apollo/intest)
 * [ApolloAPI.framework](./api/ApolloAPI/index)
-* [ApolloUtils.framework](./api/ApolloUtils/index.md)
 * [ApolloCodegenLib.framework](./api/ApolloCodegenLib/index.md)
 * [ApolloSQLite.framework](./api/ApolloSQLite/index.md)
 * [ApolloWebSocket.framework](./api/ApolloWebSocket/index.md)

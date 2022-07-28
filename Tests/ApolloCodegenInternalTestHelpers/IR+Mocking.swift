@@ -1,5 +1,4 @@
 @testable import ApolloCodegenLib
-import ApolloUtils
 import OrderedCollections
 
 extension IR {
