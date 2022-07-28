@@ -745,6 +745,8 @@
 		E6D90D0B278FFDDA009CAC5D /* SchemaFileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D90D0A278FFDDA009CAC5D /* SchemaFileGenerator.swift */; };
 		E6D90D0D278FFE35009CAC5D /* SchemaFileGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D90D0C278FFE35009CAC5D /* SchemaFileGeneratorTests.swift */; };
 		E6E3BBE2276A8D6200E5218B /* FileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E3BBDD276A8D6200E5218B /* FileGenerator.swift */; };
+		E6E56E7528917BFB00385F5C /* CacheKeyProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E56E7428917BFB00385F5C /* CacheKeyProvider.swift */; };
+		E6E56E7728918FA300385F5C /* SchemaUnknownTypeCacheKeyProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E56E7628918FA300385F5C /* SchemaUnknownTypeCacheKeyProvider.swift */; };
 		E6EE62F127DBE6F200627257 /* SchemaModuleNamespaceTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EE62F027DBE6F200627257 /* SchemaModuleNamespaceTemplate.swift */; };
 		E6EE62F327DBE75A00627257 /* SchemaModuleNamespaceTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EE62F227DBE75A00627257 /* SchemaModuleNamespaceTemplateTests.swift */; };
 		E6EFDD0B27E8328E00B17FE5 /* TemplateRenderer_SchemaFile_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EFDD0A27E8328E00B17FE5 /* TemplateRenderer_SchemaFile_Tests.swift */; };
@@ -1819,6 +1821,8 @@
 		E6D90D0A278FFDDA009CAC5D /* SchemaFileGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaFileGenerator.swift; sourceTree = "<group>"; };
 		E6D90D0C278FFE35009CAC5D /* SchemaFileGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaFileGeneratorTests.swift; sourceTree = "<group>"; };
 		E6E3BBDD276A8D6200E5218B /* FileGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileGenerator.swift; sourceTree = "<group>"; };
+		E6E56E7428917BFB00385F5C /* CacheKeyProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheKeyProvider.swift; sourceTree = "<group>"; };
+		E6E56E7628918FA300385F5C /* SchemaUnknownTypeCacheKeyProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaUnknownTypeCacheKeyProvider.swift; sourceTree = "<group>"; };
 		E6EE62F027DBE6F200627257 /* SchemaModuleNamespaceTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaModuleNamespaceTemplate.swift; sourceTree = "<group>"; };
 		E6EE62F227DBE75A00627257 /* SchemaModuleNamespaceTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaModuleNamespaceTemplateTests.swift; sourceTree = "<group>"; };
 		E6EFDD0A27E8328E00B17FE5 /* TemplateRenderer_SchemaFile_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateRenderer_SchemaFile_Tests.swift; sourceTree = "<group>"; };
@@ -2615,6 +2619,7 @@
 				9F27D4631D40379500715680 /* JSONStandardTypeConversions.swift */,
 				DE9C04B026EAAFF900EC35E7 /* JSONDecodingError.swift */,
 				DE2FCF2226E8082A0057EA67 /* SchemaTypes */,
+				E6E56E7428917BFB00385F5C /* CacheKeyProvider.swift */,
 				DE9C04AE26EAAEE800EC35E7 /* CacheReference.swift */,
 				9B68F06E241C649E00E97318 /* GraphQLNullable.swift */,
 				DE3C7B12260A6FC900D2F4FF /* FragmentProtocols.swift */,
@@ -2623,6 +2628,7 @@
 				DEA6A83326F298660091AF8A /* ParentType.swift */,
 				DE03FDDA2784D0B2007425BD /* DataDict.swift */,
 				DE2FCF1C26E806710057EA67 /* SchemaConfiguration.swift */,
+				E6E56E7628918FA300385F5C /* SchemaUnknownTypeCacheKeyProvider.swift */,
 				DE664ED326602AF60054DB4F /* Selection.swift */,
 				DE90FDB927FE405F0084CC79 /* Selection+Conditions.swift */,
 				DECD53CE26EC0EE50059A639 /* OutputTypeConvertible.swift */,
@@ -5201,7 +5207,9 @@
 				DE09F9BD27024FEA00795949 /* InputObject.swift in Sources */,
 				DE9C04B226EAB02C00EC35E7 /* JSONDecodingError.swift in Sources */,
 				DE4B1E542889EF330058D1F6 /* EnumType.swift in Sources */,
+				E6E56E7728918FA300385F5C /* SchemaUnknownTypeCacheKeyProvider.swift in Sources */,
 				DE2FCF2926E8083A0057EA67 /* Object.swift in Sources */,
+				E6E56E7528917BFB00385F5C /* CacheKeyProvider.swift in Sources */,
 				DE058610266978A100265760 /* InputValue.swift in Sources */,
 				DE100B1C28872F4200BE11C2 /* Documentation.docc in Sources */,
 				DE9C04AD26EAAE5400EC35E7 /* JSONStandardTypeConversions.swift in Sources */,
