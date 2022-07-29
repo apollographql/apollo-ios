@@ -1,5 +1,8 @@
 # Change log
 
+## v0.53.0
+- **Remove all instances of bitcode as not supported in Xcode 14**: Starting with Xcode 14, bitcode is no longer required for watchOS and tvOS applications, and the App Store no longer accepts bitcode submissions from Xcode 14. [#2398](https://github.com/apollographql/apollo-ios/pull/2398) - _Thanks to [@stareque-atlassian](stareque-atlassian) for the contribution!_
+
 ## v0.52.0
 - **Add codegen option for excludes**: There is a new property on the codegen configuration options to allow files matching the pattern to be excluded, in the case they are found in the `includes` path. [#2205](https://github.com/apollographql/apollo-ios/pull/2205) - _Thanks to [@bannzai](https://github.com/bannzai) for the contribution!_
 - **Fixed - Using the `graphql_transport_ws` protocol could result in `4400` errors from the server**: The correct protocol message is now being sent to the server to end communication. [#2320](https://github.com/apollographql/apollo-ios/pull/2320)
