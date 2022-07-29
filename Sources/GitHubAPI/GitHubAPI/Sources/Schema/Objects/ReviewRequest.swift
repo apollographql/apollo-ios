@@ -7,7 +7,7 @@ import ApolloAPI
 public final class ReviewRequest: Object {
   override public class var __typename: StaticString { "ReviewRequest" }
 
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
+  public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
   private static let _implementedInterfaces: [Interface.Type]? = [
     Node.self
   ]

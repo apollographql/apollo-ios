@@ -29,7 +29,7 @@ struct ObjectTemplate: TemplateRenderer {
     }
 
     return """
-    override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
+    public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
     private static let _implementedInterfaces: [Interface.Type]? = [
       \(graphqlObject.interfaces.map({ interface in
           "\(interface.name.firstUppercased).self"

@@ -1,13 +1,13 @@
 public protocol CacheKeyProvider {
-  var uniqueKeyGroupId: StaticString? { get }
-  func cacheKey(for data: JSONObject) -> String?
+  var uniqueKeyGroupId: String? { get }
+  func cacheKey(for object: JSONObject) -> String?
 }
 
 extension CacheKeyProvider {
-  public var uniqueKeyGroupId: StaticString? { nil }
+  public var uniqueKeyGroupId: String? { nil }
 
-  func cacheReferenceString(data: JSONObject, typename: String) -> String? {
-    guard let key = cacheKey(for: data) else {
+  func cacheReferenceString(for object: JSONObject, typename: String) -> String? {
+    guard let key = cacheKey(for: object) else {
       return nil
     }
 

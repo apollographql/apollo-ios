@@ -1,18 +1,20 @@
-public protocol CacheEntity: AnyObject {}
-
-public protocol ObjectExtensionsProtocol {
-  static var __cacheKeyProvider: CacheKeyProvider? { get }
-}
-extension ObjectExtensionsProtocol {
-  public static var __cacheKeyProvider: CacheKeyProvider? { nil }
-}
-
 /// An abstract base class inherited by types in a generated GraphQL schema.
 /// Each `type` defined in the GraphQL schema will have a subclass of this class generated.
-open class Object: CacheEntity, ObjectExtensionsProtocol {
+open class Object: Hashable {
+  public static func == (lhs: Object, rhs: Object) -> Bool {
+    #warning("TODO: interfaces?")
+    return lhs.__typename == rhs.__typename
+  }
+
+  public func hash(into hasher: inout Hasher) {
+  #warning("TODO: interfaces?")
+    hasher.combine(__typename)
+  }
+
+  public init() {}
 
   /// A list of the interfaces implemented by the type.
-  open class var __implementedInterfaces: [Interface.Type]? { nil }
+  open var __implementedInterfaces: [Interface.Type]? { nil }
 
   /// The name of the type.
   ///
@@ -21,7 +23,8 @@ open class Object: CacheEntity, ObjectExtensionsProtocol {
   ///
   /// Defaults to `"∅__UnknownType"` for a type that is not included in the schema at the time of
   /// code generation.
-  open class var __typename: StaticString { UnknownTypeName }
+  open var __typename: String { Object.UnknownTypeName.description }
+  open class var __typename: StaticString { Object.UnknownTypeName }
 
   static let UnknownTypeName: StaticString = "∅__UnknownType"
 
@@ -37,13 +40,13 @@ open class Object: CacheEntity, ObjectExtensionsProtocol {
   /// - Parameter otherType: A ``ParentType`` to determine conversion compatibility for
   /// - Returns: A `Bool` indicating if the type is compatible for conversion to the given
   /// ``ParentType``.
-  public final class func _canBeConverted(to otherType: ParentType) -> Bool {
+  public func _canBeConverted(to otherType: ParentType) -> Bool {
     switch otherType {
     case .Object(let otherType):
-      return self == otherType
+      return self.__typename == otherType.__typename.description
 
     case .Interface(let interface):
-      return Self.implements(interface)
+      return implements(interface)
 
     case .Union(let union):
       return union.possibleTypes.contains(where: { $0 == self })
@@ -54,7 +57,7 @@ open class Object: CacheEntity, ObjectExtensionsProtocol {
   ///
   /// - Parameter interface: An ``Interface`` Type
   /// - Returns: A `Bool` indicating if the receiver implements the given ``Interface`` Type.
-  public final class func implements(_ interface: Interface.Type) -> Bool {
+  public final func implements(_ interface: Interface.Type) -> Bool {
     __implementedInterfaces?.contains(where: { $0 == interface }) ?? false
   }
 }

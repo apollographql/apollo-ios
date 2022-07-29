@@ -40,20 +40,31 @@ struct SchemaTemplate: TemplateRenderer {
     \(documentation: schema.documentation, config: config)
     \(embeddedAccessControlModifier)\
     enum Schema: SchemaConfiguration {
-      public static func objectType(forTypename __typename: String) -> Object.Type? {
-        switch __typename {
-        \(schema.referencedTypes.objects.map {
-          "case \"\($0.name.firstUppercased)\": return \(schemaName).\($0.name.firstUppercased).self"
-        }, separator: "\n")
-        default: return nil
-        }
-      }
+      \(objectTypeFunction)
     }
     
     """
     )
   }
 
+  var objectTypeFunction: TemplateString {
+    return """
+    public static func objectType(forTypename __typename: String) -> Object? {
+      nil
+    }
+    """
+
+    return """
+    public static func objectType(forTypename __typename: String) -> Object.Type? {
+      switch __typename {
+      \(schema.referencedTypes.objects.map {
+        "case \"\($0.name.firstUppercased)\": return \(schemaName).\($0.name.firstUppercased).self"
+      }, separator: "\n")
+      default: return nil
+      }
+    }
+    """
+  }
   /// Swift code that must be rendered outside of any namespace.
   var detachedTemplate: TemplateString? {
     guard !config.output.schemaTypes.isInModule else { return nil }

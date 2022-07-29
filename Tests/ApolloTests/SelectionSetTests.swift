@@ -554,8 +554,8 @@ class SelectionSetTests: XCTestCase {
 
     MockSchemaConfiguration.stub_objectTypeForTypeName = {
       switch $0 {
-      case "Human": return Human.self
-      case "Droid": return Droid.self
+      case "Human": return Human()
+      case "Droid": return Droid()
       default: XCTFail(); return nil
       }
     }
@@ -609,7 +609,7 @@ class SelectionSetTests: XCTestCase {
     class Humanoid: Interface { }
     class Human: Object {
       override class var __typename: StaticString { "Human" }
-      override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
+      override public var __implementedInterfaces: [Interface.Type]? { Self._implementedInterfaces }
       private static let _implementedInterfaces: [Interface.Type]? = [
         Humanoid.self
       ]
@@ -617,7 +617,7 @@ class SelectionSetTests: XCTestCase {
 
     MockSchemaConfiguration.stub_objectTypeForTypeName = {
       switch $0 {
-      case "Human": return Human.self
+      case "Human": return Human()
       default: XCTFail(); return nil
       }
     }
@@ -664,7 +664,7 @@ class SelectionSetTests: XCTestCase {
 
     MockSchemaConfiguration.stub_objectTypeForTypeName = {
       switch $0 {
-      case "Droid": return Droid.self
+      case "Droid": return Droid()
       default: XCTFail(); return nil
       }
     }
@@ -704,8 +704,10 @@ class SelectionSetTests: XCTestCase {
 
   func test__asInlineFragment_givenUnionType_typeNameIsTypeInUnionPossibleTypes_returnsType() {
     // given
-    class Human: Object {
-      override class var __typename: StaticString { "Human" }
+    enum Types {
+      static let Human = Object()
+//      override class var __typename: StaticString { "Human" }
+//    }
     }
 
     struct Character: Union {
@@ -715,15 +717,15 @@ class SelectionSetTests: XCTestCase {
         self.object = object
       }
 
-      static let possibleTypes: [Object.Type] = [Human.self]
+      static let possibleTypes: [Object] = [Types.Human]
     }
 
-    MockSchemaConfiguration.stub_objectTypeForTypeName = {
-      switch $0 {
-      case "Human": return Human.self
-      default: XCTFail(); return nil
-      }
-    }
+//    MockSchemaConfiguration.stub_objectTypeForTypeName = {
+//      switch $0 {
+//      case "Human": return Human.self
+//      default: XCTFail(); return nil
+//      }
+//    }
 
     class Hero: MockSelectionSet, SelectionSet {
       typealias Schema = MockSchemaConfiguration
@@ -759,8 +761,10 @@ class SelectionSetTests: XCTestCase {
 
   func test__asInlineFragment_givenUnionType_typeNameNotIsTypeInUnionPossibleTypes_returnsNil() {
     // given
-    class Human: Object {
-      override class var __typename: StaticString { "Human" }
+    enum Types {
+      static let Human = Object()
+//      override class var __typename: StaticString { "Human" }
+//    }
     }
 
     struct Character: Union {
@@ -770,15 +774,15 @@ class SelectionSetTests: XCTestCase {
         self.object = object
       }
 
-      static let possibleTypes: [Object.Type] = []
+      static let possibleTypes: [Object] = []
     }
 
-    MockSchemaConfiguration.stub_objectTypeForTypeName = {
-      switch $0 {
-      case "Human": return Human.self
-      default: XCTFail(); return nil
-      }
-    }
+//    MockSchemaConfiguration.stub_objectTypeForTypeName = {
+//      switch $0 {
+//      case "Human": return Human.self
+//      default: XCTFail(); return nil
+//      }
+//    }
 
     class Hero: MockSelectionSet, SelectionSet {
       typealias Schema = MockSchemaConfiguration

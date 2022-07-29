@@ -13,6 +13,13 @@ struct UnionTemplate: TemplateRenderer {
   let target: TemplateTarget = .schemaFile
 
   var template: TemplateString {
+    return """
+    enum \(graphqlUnion.name.firstUppercased): Union {
+      public static let possibleTypes: [Object] = [
+      ]
+    }
+    """
+
     TemplateString(
     """
     \(documentation: graphqlUnion.documentation, config: config)

@@ -3,11 +3,7 @@
 
 import ApolloAPI
 
-public enum ClassroomPet: Union {
-  public static let possibleTypes: [Object.Type] = [
-    AnimalKingdomAPI.Cat.self,
-    AnimalKingdomAPI.Bird.self,
-    AnimalKingdomAPI.Rat.self,
-    AnimalKingdomAPI.PetRock.self
+enum ClassroomPet: Union {
+  public static let possibleTypes: [Object] = [
   ]
 }

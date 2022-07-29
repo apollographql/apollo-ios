@@ -67,7 +67,7 @@ extension SelectionSet {
 
   @inlinable public static var schema: SchemaConfiguration.Type { Schema.self }
 
-  @usableFromInline var __objectType: Object.Type? { Schema.objectType(forTypename: __typename) }
+  @usableFromInline var __objectType: Object? { Schema.objectType(forTypename: __typename) }
 
   @inlinable public var __typename: String { __data["__typename"] }
 

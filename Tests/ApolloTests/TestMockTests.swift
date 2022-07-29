@@ -207,7 +207,7 @@ class TestMockTests: XCTestCase {
 
 class Dog: Object {
   override public class var __typename: StaticString { "Dog" }
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
+  override public var __implementedInterfaces: [Interface.Type]? { Self._implementedInterfaces }
   private static let _implementedInterfaces: [Interface.Type]? = [
     Animal.self
   ]
@@ -215,7 +215,7 @@ class Dog: Object {
 
 class Cat: Object {
   override public class var __typename: StaticString { "Dog" }
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
+  override public var __implementedInterfaces: [Interface.Type]? { Self._implementedInterfaces }
   private static let _implementedInterfaces: [Interface.Type]? = [
     Animal.self
   ]  

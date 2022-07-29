@@ -3,10 +3,7 @@
 
 import ApolloAPI
 
-/// Used for return value of Repository.issueOrPullRequest.
-public enum IssueOrPullRequest: Union {
-  public static let possibleTypes: [Object.Type] = [
-    GitHubAPI.Issue.self,
-    GitHubAPI.PullRequest.self
+enum IssueOrPullRequest: Union {
+  public static let possibleTypes: [Object] = [
   ]
 }

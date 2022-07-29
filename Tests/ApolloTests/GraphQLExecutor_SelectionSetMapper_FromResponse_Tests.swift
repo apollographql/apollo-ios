@@ -837,7 +837,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     MockSchemaConfiguration.stub_objectTypeForTypeName =  { typeName in
       switch typeName {
       case "Human":
-        return Human.self
+        return Human()
       default:
         fail()
         return nil
@@ -896,7 +896,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
       }
     }
 
-    MockSchemaConfiguration.stub_objectTypeForTypeName =  { _ in return MockChildObject.self }
+    MockSchemaConfiguration.stub_objectTypeForTypeName =  { _ in return MockChildObject() }
 
     let object: JSONObject = [
       "__typename": "MockChildObject",
@@ -1079,7 +1079,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
         ]}
       }
     }
-    MockSchemaConfiguration.stub_objectTypeForTypeName = { _ in Person.self }
+    MockSchemaConfiguration.stub_objectTypeForTypeName = { _ in Person() }
     let object: JSONObject = ["__typename": "Person",
                               "name": "Luke Skywalker",
                               "id": "1234"]
@@ -1110,7 +1110,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
         ]}
       }
     }
-    MockSchemaConfiguration.stub_objectTypeForTypeName = { _ in Person.self }
+    MockSchemaConfiguration.stub_objectTypeForTypeName = { _ in Person() }
     let object: JSONObject = ["__typename": "Person",
                               "name": "Luke Skywalker",
                               "id": "1234"]
@@ -1141,7 +1141,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
         ]}
       }
     }
-    MockSchemaConfiguration.stub_objectTypeForTypeName = { _ in Object.self }
+    MockSchemaConfiguration.stub_objectTypeForTypeName = { _ in Object() }
     let object: JSONObject = ["__typename": "Person",
                               "name": "Luke Skywalker",
                               "id": "1234"]
@@ -1172,7 +1172,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
         ]}
       }
     }
-    MockSchemaConfiguration.stub_objectTypeForTypeName = { _ in Person.self }
+    MockSchemaConfiguration.stub_objectTypeForTypeName = { _ in Person() }
     let object: JSONObject = ["__typename": "Person",
                               "name": "Luke Skywalker",
                               "id": "1234"]
@@ -1203,7 +1203,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
         ]}
       }
     }
-    MockSchemaConfiguration.stub_objectTypeForTypeName = { _ in Person.self }
+    MockSchemaConfiguration.stub_objectTypeForTypeName = { _ in Person() }
     let object: JSONObject = ["__typename": "Person",
                               "name": "Luke Skywalker",
                               "id": "1234"]
@@ -1239,7 +1239,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
         ]}
       }
     }
-    MockSchemaConfiguration.stub_objectTypeForTypeName = { _ in Person.self }
+    MockSchemaConfiguration.stub_objectTypeForTypeName = { _ in Person() }
     let object: JSONObject = ["__typename": "Person",
                               "name": "Luke Skywalker",
                               "id": "1234"]

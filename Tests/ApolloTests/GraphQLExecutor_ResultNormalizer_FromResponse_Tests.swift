@@ -203,7 +203,7 @@ class GraphQLExecutor_ResultNormalizer_FromResponse_Tests: XCTestCase {
       }
     }
 
-    MockSchemaConfiguration.stub_cacheKeyProviderForUnknownType = UnknownTypeCacheKeyProvider()
+    MockSchemaConfiguration.stub_cacheKeyProviderForType = { _ in IDCacheKeyProvider.shared }
 
     let object: JSONObject = [
       "hero": [
@@ -286,8 +286,8 @@ class GraphQLExecutor_ResultNormalizer_FromResponse_Tests: XCTestCase {
 
     MockSchemaConfiguration.stub_objectTypeForTypeName = {
       switch $0 {
-      case "Human": return Human.self
-      case "Droid": return Droid.self
+      case "Human": return Human()
+      case "Droid": return Droid()
       default: XCTFail(); return nil
       }
     }
@@ -341,8 +341,8 @@ class GraphQLExecutor_ResultNormalizer_FromResponse_Tests: XCTestCase {
 
     MockSchemaConfiguration.stub_objectTypeForTypeName = {
       switch $0 {
-      case "Human": return Human.self
-      case "Droid": return Droid.self
+      case "Human": return Human()
+      case "Droid": return Droid()
       default: XCTFail(); return nil
       }
     }
@@ -397,8 +397,8 @@ class GraphQLExecutor_ResultNormalizer_FromResponse_Tests: XCTestCase {
 
     MockSchemaConfiguration.stub_objectTypeForTypeName = {
       switch $0 {
-      case "Human": return Human.self
-      case "Droid": return Droid.self
+      case "Human": return Human()
+      case "Droid": return Droid()
       default: XCTFail(); return nil
       }
     }
@@ -468,8 +468,8 @@ class GraphQLExecutor_ResultNormalizer_FromResponse_Tests: XCTestCase {
 
     MockSchemaConfiguration.stub_objectTypeForTypeName = {
       switch $0 {
-      case "Human": return Human.self
-      case "Droid": return Droid.self
+      case "Human": return Human()
+      case "Droid": return Droid()
       default: XCTFail(); return nil
       }
     }

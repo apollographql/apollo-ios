@@ -7,7 +7,7 @@ import ApolloAPI
 public final class EnterpriseServerUserAccountEmail: Object {
   override public class var __typename: StaticString { "EnterpriseServerUserAccountEmail" }
 
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
+  public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
   private static let _implementedInterfaces: [Interface.Type]? = [
     Node.self
   ]

@@ -7,7 +7,7 @@ import ApolloAPI
 public final class PullRequest: Object {
   override public class var __typename: StaticString { "PullRequest" }
 
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
+  public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
   private static let _implementedInterfaces: [Interface.Type]? = [
     Assignable.self,
     Closable.self,

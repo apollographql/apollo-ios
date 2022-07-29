@@ -25,22 +25,7 @@ class CacheKeyResolutionTests: XCTestCase {
     let actual = MockSchemaConfiguration.cacheKey(for: object)
 
     expect(actual).to(beNil())
-  }
-
-  func test__schemaConfiguration__givenData_whenUnknownType_withUnknownTypeCacheKeyProvider_shouldReturnCacheReference() {
-    let object: JSONObject = [
-      "__typename": "Omega",
-      "id": "ω"
-    ]
-
-    MockSchemaConfiguration.stub_cacheKeyProviderForUnknownType = UnknownTypeCacheKeyProvider()
-
-    let actual: CacheReference? = MockSchemaConfiguration.cacheKey(for: object)
-
-    expect(actual).to(equal(
-      CacheReference("Omega:ω")
-    ))
-  }
+  }  
 
   // MARK: CacheKeyProvider Tests
 
@@ -52,7 +37,7 @@ class CacheKeyResolutionTests: XCTestCase {
       "id": "α"
     ]
 
-    MockSchemaConfiguration.stub_objectTypeForTypeName = { _ in Alpha.self }
+    MockSchemaConfiguration.stub_objectTypeForTypeName = { _ in Alpha() }
 
     let actual = MockSchemaConfiguration.cacheKey(for: object)
 
@@ -65,16 +50,39 @@ class CacheKeyResolutionTests: XCTestCase {
       "id": "β"
     ]
 
-    MockSchemaObject.stub_cacheKeyProvider = IDCacheKeyProvider()
+    MockSchemaConfiguration.stub_cacheKeyProviderForType = { _ in IDCacheKeyProvider.shared }
 
-    MockSchemaConfiguration.stub_objectTypeForTypeName = { _ in MockSchemaObject.self }
+    MockSchemaConfiguration.stub_objectTypeForTypeName = { _ in Object() }
 
     let actual = MockSchemaConfiguration.cacheKey(for: object)
 
     expect(actual).to(equal(
-      CacheReference("Beta:β")
+      CacheReference("MockSchemaObject:β")
     ))
   }
+
+  func test__multipleSchemaConfigurations_withDifferentCacheKeyProvidersDefinedInExtensions_shouldReturnDifferentCacheKeys() {
+    let object: JSONObject = [
+      "__typename": "MockSchemaObject",
+      "id": "β"
+    ]
+  
+
+    let actual1 = MockSchema1.cacheKey(for: object)
+
+    expect(actual1).to(equal(
+      CacheReference("MockSchemaObject:one")
+    ))
+
+
+    let actual2 = MockSchema2.cacheKey(for: object)
+
+    expect(actual2).to(equal(
+      CacheReference("MockSchemaObject:two")
+    ))
+  }
+
+//
 //
 //  func test__schemaConfiguration__givenData_whenKnownType_isCacheKeyProvider_butReturnsNilCacheKey_shouldReturnNil() {
 //    struct NilCacheKeyProvider: CacheKeyProvider {

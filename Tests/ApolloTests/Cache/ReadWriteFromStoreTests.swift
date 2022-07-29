@@ -254,7 +254,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     class Droid: Object {}
     MockSchemaConfiguration.stub_objectTypeForTypeName = { typename in
       switch typename {
-      case "Droid": return Droid.self
+      case "Droid": return Droid()
       default: return nil
       }
     }
@@ -307,7 +307,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     class Droid: Object {}
     MockSchemaConfiguration.stub_objectTypeForTypeName = { typename in
       switch typename {
-      case "Droid": return Droid.self
+      case "Droid": return Droid()
       default: return nil
       }
     }
@@ -594,7 +594,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     class Droid: Object {}
     MockSchemaConfiguration.stub_objectTypeForTypeName = { typename in
       switch typename {
-      case "Droid": return Droid.self
+      case "Droid": return Droid()
       default: return nil
       }
     }
@@ -689,7 +689,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     class Droid: Object {}
     MockSchemaConfiguration.stub_objectTypeForTypeName = { typename in
       switch typename {
-      case "Droid": return Droid.self
+      case "Droid": return Droid()
       default: return nil
       }
     }
@@ -817,7 +817,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     class Droid: Object {}
     MockSchemaConfiguration.stub_objectTypeForTypeName = { typename in
       switch typename {
-      case "Droid": return Droid.self
+      case "Droid": return Droid()
       default: return nil
       }
     }
