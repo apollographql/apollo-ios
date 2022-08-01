@@ -72,13 +72,16 @@ commands:
       - run:
           command: for ip in $(dig @8.8.8.8 github.com +short); do ssh-keyscan github.com,$ip; ssh-keyscan $ip; done 2>/dev/null >> ~/.ssh/known_hosts || true
           name: Github Key Workaround
+      - run:
+          command: HOMEBREW_NO_AUTO_UPDATE=1 brew install xcbeautify
+          name: Install xcbeautify
   build_and_run_xcode_tests:
     steps:
       - run:
-          command: xcodebuild clean build-for-testing -project "Apollo.xcodeproj" -scheme "${CIRCLE_XCODE_SCHEME}" -destination "${DESTINATION}" -testPlan "${CIRCLE_XCODE_TEST_PLAN}" | xcpretty
+          command: xcodebuild clean build-for-testing -project "Apollo.xcodeproj" -scheme "${CIRCLE_XCODE_SCHEME}" -destination "${DESTINATION}" -testPlan "${CIRCLE_XCODE_TEST_PLAN}" | xcbeautify
           name: Clean and build for testing
       - run:
-          command: xcodebuild test-without-building -resultBundlePath ~/TestResults/ResultBundle.xcresult -project "Apollo.xcodeproj" -scheme "${CIRCLE_XCODE_SCHEME}" -destination "${DESTINATION}" -testPlan "${CIRCLE_XCODE_TEST_PLAN}" | xcpretty
+          command: xcodebuild test-without-building -resultBundlePath ~/TestResults/ResultBundle.xcresult -project "Apollo.xcodeproj" -scheme "${CIRCLE_XCODE_SCHEME}" -destination "${DESTINATION}" -testPlan "${CIRCLE_XCODE_TEST_PLAN}" | xcbeautify
           name: Run Xcode tests
       - save-xcodebuild-artifacts
   run_js_tests:
