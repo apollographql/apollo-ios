@@ -79,7 +79,7 @@ commands:
           name: Clean and build for testing
       - run:
           command: xcodebuild test-without-building -resultBundlePath ~/TestResults/ResultBundle.xcresult -project "Apollo.xcodeproj" -scheme "${CIRCLE_XCODE_SCHEME}" -destination "${DESTINATION}" -testPlan "${CIRCLE_XCODE_TEST_PLAN}" | xcpretty
-          name: Run Swift codegen tests
+          name: Run Xcode tests
       - save-xcodebuild-artifacts
   run_js_tests:
     steps:
