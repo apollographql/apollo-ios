@@ -36,6 +36,8 @@ public class ApolloCodegen {
       experimentalFeatures: configuration.experimentalFeatures
     )
 
+    try validate(config: configContext)
+
     let ir = IR(
       schemaName: configContext.schemaName,
       compilationResult: compilationResult
@@ -62,6 +64,14 @@ public class ApolloCodegen {
 
     subscript<T>(dynamicMember keyPath: KeyPath<ApolloCodegenConfiguration, T>) -> T {
       config[keyPath: keyPath]
+    }
+  }
+
+  /// Performs validation against deterministic errors that will cause code generation to fail.
+  static func validate(config: ConfigurationContext) throws {
+    if case .swiftPackage = config.output.testMocks,
+        config.output.schemaTypes.moduleType != .swiftPackageManager {
+      throw Error.testMocksInvalidSwiftPackageConfiguration
     }
   }
 
@@ -124,12 +134,6 @@ public class ApolloCodegen {
     config: ConfigurationContext,
     fileManager: ApolloFileManager = .default
   ) throws {
-
-    if case .swiftPackage = config.output.testMocks,
-        config.output.schemaTypes.moduleType != .swiftPackageManager {
-      throw Error.testMocksInvalidSwiftPackageConfiguration
-    }
-
     for fragment in compilationResult.fragments {
       try autoreleasepool {
         let irFragment = ir.build(fragment: fragment)
