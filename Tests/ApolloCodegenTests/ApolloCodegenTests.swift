@@ -67,19 +67,6 @@ class ApolloCodegenTests: XCTestCase {
     return createFile(containing: body.data(using: .utf8)!, named: filename)
   }
 
-  // MARK: Configuration Tests
-
-  func test_build_givenInvalidConfiguration_shouldThrow() throws {
-    // given
-    let config = ApolloCodegenConfiguration.mock(
-      input: .init(schemaPath: "not_a_path", operationSearchPaths: []),
-      output: .mock(operations: .inSchemaModule)
-    )
-
-    // then
-    expect(try ApolloCodegen.build(with: config)).to(throwError())
-  }
-
   // MARK: CompilationResult Tests
 
   func test_compileResults_givenOperation_withGraphQLErrors_shouldThrow() throws {
@@ -785,4 +772,50 @@ class ApolloCodegenTests: XCTestCase {
     expect(fileManager.allClosuresCalled).to(beTrue())
   }
 
+  // MARK: File Generator Tests
+
+  func test_validation_givenTestMockConfiguration_asSwiftPackage_withSchemaTypesModule_asEmbeddedInTarget_shouldThrow() throws {
+    // given
+    let configContext = ApolloCodegen.ConfigurationContext(config: .mock(
+      input: .init(schemaPath: "path"),
+      output: .mock(
+        moduleType: .embeddedInTarget(name: "ModuleTarget"),
+        testMocks: .swiftPackage(targetName: nil)
+      )
+    ))
+
+    // then
+    expect(try ApolloCodegen.validate(config: configContext))
+      .to(throwError(ApolloCodegen.Error.testMocksInvalidSwiftPackageConfiguration))
+  }
+
+  func test_validation_givenTestMockConfiguration_asSwiftPackage_withSchemaTypesModule_asOther_shouldThrow() throws {
+    // given
+    let configContext = ApolloCodegen.ConfigurationContext(config: .mock(
+      input: .init(schemaPath: "path"),
+      output: .mock(
+        moduleType: .other,
+        testMocks: .swiftPackage(targetName: nil)
+      )
+    ))
+
+    // then
+    expect(try ApolloCodegen.validate(config: configContext))
+      .to(throwError(ApolloCodegen.Error.testMocksInvalidSwiftPackageConfiguration))
+  }
+
+  func test_validation_givenTestMockConfiguration_asSwiftPackage_withSchemaTypesModule_asSwiftPackage_shouldNotThrow() throws {
+    // given
+    let configContext = ApolloCodegen.ConfigurationContext(config: .mock(
+      input: .init(schemaPath: "path"),
+      output: .mock(
+        moduleType: .swiftPackageManager,
+        testMocks: .swiftPackage(targetName: nil)
+      )
+    ))
+
+    // then
+    expect(try ApolloCodegen.validate(config: configContext))
+      .notTo(throwError())
+  }
 }
