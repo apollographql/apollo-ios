@@ -11,7 +11,6 @@ OPTIONS:
 
 SUBCOMMANDS:
   init                    Initialize a new configuration with defaults.
-  validate                Validate a configuration file or JSON formatted string.
   generate                Generate Swift source code based on a code generation configuration.
   fetch-schema            Download a GraphQL schema from the Apollo Registry or GraphQL introspection.
 
@@ -29,20 +28,6 @@ OPTIONS:
   -w, --overwrite         Overwrite any file at --path. If init is called without --overwrite and a config file already
                           exists at --path, the command will fail.
   -s, --print             Print the configuration to stdout.
-  --version               Show the version.
-  -h, --help              Show help information.
-```
-
-## Validate
-```
-OVERVIEW: Validate a configuration file or JSON formatted string.
-
-USAGE: apollo-ios-cli validate [--path <path>] [--string <string>]
-
-OPTIONS:
-  -p, --path <path>       Read the configuration from a file at the path. --string overrides this option if used together.
-                          (default: ./apollo-codegen-config.json)
-  -s, --string <string>   Configuration string in JSON format. This option overrides --path.
   --version               Show the version.
   -h, --help              Show help information.
 ```
