@@ -13,11 +13,14 @@ public class ApolloCodegen {
   public enum Error: Swift.Error, LocalizedError {
     /// An error occured during validation of the GraphQL schema or operations.
     case graphQLSourceValidationFailure(atLines: [String])
+    case testMocksInvalidSwiftPackageConfiguration
 
     public var errorDescription: String? {
       switch self {
       case let .graphQLSourceValidationFailure(lines):
         return "An error occured during validation of the GraphQL schema or operations! Check \(lines)"
+      case .testMocksInvalidSwiftPackageConfiguration:
+        return "Schema Types must be generated with module type 'swiftPackageManager' to generate a swift package for test mocks."
       }
     }
   }
@@ -27,13 +30,13 @@ public class ApolloCodegen {
   /// - Parameters:
   ///   - configuration: A configuration object that specifies inputs, outputs and behaviours used during code generation.
   public static func build(with configuration: ApolloCodegenConfiguration) throws {
-    try configuration.validate()
-
     let configContext = ConfigurationContext(config: configuration)
     let compilationResult = try compileGraphQLResult(
       configContext,
       experimentalFeatures: configuration.experimentalFeatures
     )
+
+    try validate(config: configContext)
 
     let ir = IR(
       schemaName: configContext.schemaName,
@@ -61,6 +64,14 @@ public class ApolloCodegen {
 
     subscript<T>(dynamicMember keyPath: KeyPath<ApolloCodegenConfiguration, T>) -> T {
       config[keyPath: keyPath]
+    }
+  }
+
+  /// Performs validation against deterministic errors that will cause code generation to fail.
+  static func validate(config: ConfigurationContext) throws {
+    if case .swiftPackage = config.output.testMocks,
+        config.output.schemaTypes.moduleType != .swiftPackageManager {
+      throw Error.testMocksInvalidSwiftPackageConfiguration
     }
   }
 
