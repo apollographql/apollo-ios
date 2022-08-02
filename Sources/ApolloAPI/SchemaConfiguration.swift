@@ -3,9 +3,6 @@ public protocol SchemaConfiguration {
   static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo?
 }
 
-//public protocol CacheKeyResolver: SchemaConfiguration {
-//}
-
 extension SchemaConfiguration {
 
   @inlinable public static func cacheKeyInfo(

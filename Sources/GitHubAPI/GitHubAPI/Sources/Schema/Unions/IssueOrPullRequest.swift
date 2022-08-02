@@ -6,7 +6,7 @@ import ApolloAPI
 /// Used for return value of Repository.issueOrPullRequest.
 public let IssueOrPullRequest = Union(
   possibleTypes: [
-  GitHubAPI.Issue.self,
-  GitHubAPI.PullRequest.self
-]
+   GitHubAPI.Issue.self,
+   GitHubAPI.PullRequest.self
+ ]
 )
