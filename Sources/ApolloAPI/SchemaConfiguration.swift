@@ -53,7 +53,7 @@ struct FakeSchema: SchemaConfiguration {
     switch typename {
     case "Dog": return Dog.type
     default:
-      return UnknownObject(__typename: typename)
+      return Object(__typename: typename, __implementedInterfaces: [])
     }
   }
 }

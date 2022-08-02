@@ -1,23 +1,17 @@
-public final class UnknownObject: Object {
-  init(__typename: String) {
-    super.init(__typename: __typename, __implementedInterfaces: nil)
-  }
-}
-
 /// An abstract base class inherited by types in a generated GraphQL schema.
 /// Each `type` defined in the GraphQL schema will have a subclass of this class generated.
 open class Object: Hashable {
 
   public init(
     __typename: String,
-    __implementedInterfaces: [Interface]?
+    __implementedInterfaces: [Interface]
   ) {
     self.__typename = __typename
     self.__implementedInterfaces = __implementedInterfaces
   }
 
   /// A list of the interfaces implemented by the type.
-  public let __implementedInterfaces: [Interface]?
+  public let __implementedInterfaces: [Interface]
 
   /// The name of the type.
   ///
@@ -58,7 +52,7 @@ open class Object: Hashable {
   /// - Parameter interface: An ``Interface`` Type
   /// - Returns: A `Bool` indicating if the receiver implements the given ``Interface`` Type.
   public final func implements(_ interface: Interface) -> Bool {
-    __implementedInterfaces?.contains(where: { $0 == interface }) ?? false
+    __implementedInterfaces.contains(where: { $0 == interface }) ?? false
   }
 
   public static func == (lhs: Object, rhs: Object) -> Bool {
