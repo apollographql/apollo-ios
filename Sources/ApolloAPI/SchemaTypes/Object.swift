@@ -52,7 +52,7 @@ open class Object: Hashable {
   /// - Parameter interface: An ``Interface`` Type
   /// - Returns: A `Bool` indicating if the receiver implements the given ``Interface`` Type.
   public final func implements(_ interface: Interface) -> Bool {
-    __implementedInterfaces.contains(where: { $0 == interface }) ?? false
+    __implementedInterfaces.contains(where: { $0 == interface })
   }
 
   public static func == (lhs: Object, rhs: Object) -> Bool {

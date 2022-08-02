@@ -2,7 +2,7 @@
 @testable import ApolloAPI
 
 extension Object {
-  static let mock = Object(__typename: "Mock", __implementedInterfaces: [])
+  public static let mock = Object(__typename: "Mock", __implementedInterfaces: [])
 }
 
 public class MockSchemaConfiguration: SchemaConfiguration {
