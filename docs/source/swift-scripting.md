@@ -42,7 +42,7 @@ This project is provided as a template for an executable rather than a compiled 
 
 You can download the current version of the template from the [iOSCodegenTemplate Repository](https://github.com/apollographql/iOSCodegenTemplate/tree/1.0.0-alpha).
 
-When you unzip the downloaded repo, you'll see that there's a folder called **`ApolloCodgen`**. 
+When you unzip the downloaded repo, you'll see that there's a folder called **`ApolloCodegen`**. 
 
 If you're using the default target structure for an Xcode project, your project's file structure will look essentially like this in Finder: 
 
