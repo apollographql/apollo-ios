@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// A column inside a project.
 public let ProjectColumn = Object(
-  __typename: "ProjectColumn",
-  __implementedInterfaces: [Node.self]
+  typename: "ProjectColumn",
+  implementedInterfaces: [Node.self]
 )

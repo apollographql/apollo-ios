@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// Represents a 'comment_deleted' event on a given issue or pull request.
 public let CommentDeletedEvent = Object(
-  __typename: "CommentDeletedEvent",
-  __implementedInterfaces: [Node.self]
+  typename: "CommentDeletedEvent",
+  implementedInterfaces: [Node.self]
 )

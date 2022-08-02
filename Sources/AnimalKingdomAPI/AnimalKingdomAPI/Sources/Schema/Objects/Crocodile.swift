@@ -4,6 +4,6 @@
 import ApolloAPI
 
 public let Crocodile = Object(
-  __typename: "Crocodile",
-  __implementedInterfaces: [Animal.self]
+  typename: "Crocodile",
+  implementedInterfaces: [Animal.self]
 )

@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// A user account on an Enterprise Server installation.
 public let EnterpriseServerUserAccount = Object(
-  __typename: "EnterpriseServerUserAccount",
-  __implementedInterfaces: [Node.self]
+  typename: "EnterpriseServerUserAccount",
+  implementedInterfaces: [Node.self]
 )

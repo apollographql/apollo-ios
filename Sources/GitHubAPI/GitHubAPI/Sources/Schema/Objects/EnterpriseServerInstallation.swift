@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// An Enterprise Server installation.
 public let EnterpriseServerInstallation = Object(
-  __typename: "EnterpriseServerInstallation",
-  __implementedInterfaces: [Node.self]
+  typename: "EnterpriseServerInstallation",
+  implementedInterfaces: [Node.self]
 )

@@ -5,8 +5,8 @@ import ApolloAPI
 
 /// Audit log entry for a team.add_member event.
 public let TeamAddMemberAuditEntry = Object(
-  __typename: "TeamAddMemberAuditEntry",
-  __implementedInterfaces: [
+  typename: "TeamAddMemberAuditEntry",
+  implementedInterfaces: [
    AuditEntry.self,
    Node.self,
    OrganizationAuditEntryData.self,

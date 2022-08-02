@@ -5,8 +5,8 @@ import ApolloAPI
 
 /// Represents a comment on an Issue.
 public let IssueComment = Object(
-  __typename: "IssueComment",
-  __implementedInterfaces: [
+  typename: "IssueComment",
+  implementedInterfaces: [
    Comment.self,
    Deletable.self,
    Minimizable.self,

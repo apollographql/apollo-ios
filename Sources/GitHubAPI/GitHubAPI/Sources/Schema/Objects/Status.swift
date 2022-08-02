@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// Represents a commit status.
 public let Status = Object(
-  __typename: "Status",
-  __implementedInterfaces: [Node.self]
+  typename: "Status",
+  implementedInterfaces: [Node.self]
 )

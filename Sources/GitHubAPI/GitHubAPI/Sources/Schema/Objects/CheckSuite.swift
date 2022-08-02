@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// A check suite.
 public let CheckSuite = Object(
-  __typename: "CheckSuite",
-  __implementedInterfaces: [Node.self]
+  typename: "CheckSuite",
+  implementedInterfaces: [Node.self]
 )

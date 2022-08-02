@@ -5,8 +5,8 @@ import ApolloAPI
 
 /// Represents a Git tree.
 public let Tree = Object(
-  __typename: "Tree",
-  __implementedInterfaces: [
+  typename: "Tree",
+  implementedInterfaces: [
    GitObject.self,
    Node.self
  ]

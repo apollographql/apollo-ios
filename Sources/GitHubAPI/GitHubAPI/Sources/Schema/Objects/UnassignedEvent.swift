@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// Represents an 'unassigned' event on any assignable object.
 public let UnassignedEvent = Object(
-  __typename: "UnassignedEvent",
-  __implementedInterfaces: [Node.self]
+  typename: "UnassignedEvent",
+  implementedInterfaces: [Node.self]
 )

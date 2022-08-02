@@ -5,8 +5,8 @@ import ApolloAPI
 
 /// Audit log entry for a org.unblock_user
 public let OrgUnblockUserAuditEntry = Object(
-  __typename: "OrgUnblockUserAuditEntry",
-  __implementedInterfaces: [
+  typename: "OrgUnblockUserAuditEntry",
+  implementedInterfaces: [
    AuditEntry.self,
    Node.self,
    OrganizationAuditEntryData.self

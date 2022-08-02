@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// Represents a 'user_blocked' event on a given user.
 public let UserBlockedEvent = Object(
-  __typename: "UserBlockedEvent",
-  __implementedInterfaces: [Node.self]
+  typename: "UserBlockedEvent",
+  implementedInterfaces: [Node.self]
 )

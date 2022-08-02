@@ -4,6 +4,6 @@
 import ApolloAPI
 
 public let PetRock = Object(
-  __typename: "PetRock",
-  __implementedInterfaces: [Pet.self]
+  typename: "PetRock",
+  implementedInterfaces: [Pet.self]
 )

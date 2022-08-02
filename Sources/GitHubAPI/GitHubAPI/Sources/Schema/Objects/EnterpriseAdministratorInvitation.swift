@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// An invitation for a user to become an owner or billing manager of an enterprise.
 public let EnterpriseAdministratorInvitation = Object(
-  __typename: "EnterpriseAdministratorInvitation",
-  __implementedInterfaces: [Node.self]
+  typename: "EnterpriseAdministratorInvitation",
+  implementedInterfaces: [Node.self]
 )

@@ -5,8 +5,8 @@ import ApolloAPI
 
 /// Audit log entry for a repo.add_topic event.
 public let RepoAddTopicAuditEntry = Object(
-  __typename: "RepoAddTopicAuditEntry",
-  __implementedInterfaces: [
+  typename: "RepoAddTopicAuditEntry",
+  implementedInterfaces: [
    AuditEntry.self,
    Node.self,
    OrganizationAuditEntryData.self,

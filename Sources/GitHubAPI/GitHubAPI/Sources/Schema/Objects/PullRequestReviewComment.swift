@@ -5,8 +5,8 @@ import ApolloAPI
 
 /// A review comment associated with a given repository pull request.
 public let PullRequestReviewComment = Object(
-  __typename: "PullRequestReviewComment",
-  __implementedInterfaces: [
+  typename: "PullRequestReviewComment",
+  implementedInterfaces: [
    Comment.self,
    Deletable.self,
    Minimizable.self,

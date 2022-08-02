@@ -5,8 +5,8 @@ import ApolloAPI
 
 /// A Gist.
 public let Gist = Object(
-  __typename: "Gist",
-  __implementedInterfaces: [
+  typename: "Gist",
+  implementedInterfaces: [
    Node.self,
    Starrable.self,
    UniformResourceLocatable.self

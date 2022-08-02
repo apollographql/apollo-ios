@@ -5,8 +5,8 @@ import ApolloAPI
 
 /// Audit log entry for a org.remove_billing_manager event.
 public let OrgRemoveBillingManagerAuditEntry = Object(
-  __typename: "OrgRemoveBillingManagerAuditEntry",
-  __implementedInterfaces: [
+  typename: "OrgRemoveBillingManagerAuditEntry",
+  implementedInterfaces: [
    AuditEntry.self,
    Node.self,
    OrganizationAuditEntryData.self

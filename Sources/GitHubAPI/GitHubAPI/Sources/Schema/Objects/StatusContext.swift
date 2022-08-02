@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// Represents an individual commit status context
 public let StatusContext = Object(
-  __typename: "StatusContext",
-  __implementedInterfaces: [Node.self]
+  typename: "StatusContext",
+  implementedInterfaces: [Node.self]
 )

@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// A repository's open source license
 public let License = Object(
-  __typename: "License",
-  __implementedInterfaces: [Node.self]
+  typename: "License",
+  implementedInterfaces: [Node.self]
 )

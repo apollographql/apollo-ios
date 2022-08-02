@@ -5,8 +5,8 @@ import ApolloAPI
 
 /// Audit log entry for a repo.config.lock_anonymous_git_access event.
 public let RepoConfigLockAnonymousGitAccessAuditEntry = Object(
-  __typename: "RepoConfigLockAnonymousGitAccessAuditEntry",
-  __implementedInterfaces: [
+  typename: "RepoConfigLockAnonymousGitAccessAuditEntry",
+  implementedInterfaces: [
    AuditEntry.self,
    Node.self,
    OrganizationAuditEntryData.self,

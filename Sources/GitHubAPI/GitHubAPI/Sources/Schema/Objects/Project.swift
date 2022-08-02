@@ -5,8 +5,8 @@ import ApolloAPI
 
 /// Projects manage issues, pull requests and notes within a project owner.
 public let Project = Object(
-  __typename: "Project",
-  __implementedInterfaces: [
+  typename: "Project",
+  implementedInterfaces: [
    Closable.self,
    Node.self,
    Updatable.self

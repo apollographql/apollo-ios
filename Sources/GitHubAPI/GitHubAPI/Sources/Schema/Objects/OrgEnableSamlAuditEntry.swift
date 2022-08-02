@@ -5,8 +5,8 @@ import ApolloAPI
 
 /// Audit log entry for a org.enable_saml event.
 public let OrgEnableSamlAuditEntry = Object(
-  __typename: "OrgEnableSamlAuditEntry",
-  __implementedInterfaces: [
+  typename: "OrgEnableSamlAuditEntry",
+  implementedInterfaces: [
    AuditEntry.self,
    Node.self,
    OrganizationAuditEntryData.self

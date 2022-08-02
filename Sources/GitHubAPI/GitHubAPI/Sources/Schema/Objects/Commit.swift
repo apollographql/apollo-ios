@@ -5,8 +5,8 @@ import ApolloAPI
 
 /// Represents a Git commit.
 public let Commit = Object(
-  __typename: "Commit",
-  __implementedInterfaces: [
+  typename: "Commit",
+  implementedInterfaces: [
    GitObject.self,
    Node.self,
    Subscribable.self,

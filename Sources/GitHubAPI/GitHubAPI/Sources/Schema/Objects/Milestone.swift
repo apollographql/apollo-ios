@@ -5,8 +5,8 @@ import ApolloAPI
 
 /// Represents a Milestone object on a given repository.
 public let Milestone = Object(
-  __typename: "Milestone",
-  __implementedInterfaces: [
+  typename: "Milestone",
+  implementedInterfaces: [
    Closable.self,
    Node.self,
    UniformResourceLocatable.self

@@ -5,8 +5,8 @@ import ApolloAPI
 
 /// Represents a 'review_dismissed' event on a given issue or pull request.
 public let ReviewDismissedEvent = Object(
-  __typename: "ReviewDismissedEvent",
-  __implementedInterfaces: [
+  typename: "ReviewDismissedEvent",
+  implementedInterfaces: [
    Node.self,
    UniformResourceLocatable.self
  ]

@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// A humanoid creature from the Star Wars universe
 public let Human = Object(
-  __typename: "Human",
-  __implementedInterfaces: [Character.self]
+  typename: "Human",
+  implementedInterfaces: [Character.self]
 )

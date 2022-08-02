@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// Represents a 'head_ref_restored' event on a given pull request.
 public let HeadRefRestoredEvent = Object(
-  __typename: "HeadRefRestoredEvent",
-  __implementedInterfaces: [Node.self]
+  typename: "HeadRefRestoredEvent",
+  implementedInterfaces: [Node.self]
 )

@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// A card in a project.
 public let ProjectCard = Object(
-  __typename: "ProjectCard",
-  __implementedInterfaces: [Node.self]
+  typename: "ProjectCard",
+  implementedInterfaces: [Node.self]
 )

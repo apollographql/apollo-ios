@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// The query root of GitHub's GraphQL interface.
 public let Query = Object(
-  __typename: "Query",
-  __implementedInterfaces: []
+  typename: "Query",
+  implementedInterfaces: []
 )

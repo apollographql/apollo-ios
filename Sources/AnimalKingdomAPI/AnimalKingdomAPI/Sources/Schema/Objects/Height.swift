@@ -4,6 +4,6 @@
 import ApolloAPI
 
 public let Height = Object(
-  __typename: "Height",
-  __implementedInterfaces: []
+  typename: "Height",
+  implementedInterfaces: []
 )

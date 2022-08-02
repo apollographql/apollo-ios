@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// Represents an 'unsubscribed' event on a given `Subscribable`.
 public let UnsubscribedEvent = Object(
-  __typename: "UnsubscribedEvent",
-  __implementedInterfaces: [Node.self]
+  typename: "UnsubscribedEvent",
+  implementedInterfaces: [Node.self]
 )

@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// A team or user who has the ability to dismiss a review on a protected branch.
 public let ReviewDismissalAllowance = Object(
-  __typename: "ReviewDismissalAllowance",
-  __implementedInterfaces: [Node.self]
+  typename: "ReviewDismissalAllowance",
+  implementedInterfaces: [Node.self]
 )

@@ -5,8 +5,8 @@ import ApolloAPI
 
 /// Audit log entry for a repository_visibility_change.enable event.
 public let RepositoryVisibilityChangeEnableAuditEntry = Object(
-  __typename: "RepositoryVisibilityChangeEnableAuditEntry",
-  __implementedInterfaces: [
+  typename: "RepositoryVisibilityChangeEnableAuditEntry",
+  implementedInterfaces: [
    AuditEntry.self,
    EnterpriseAuditEntryData.self,
    Node.self,

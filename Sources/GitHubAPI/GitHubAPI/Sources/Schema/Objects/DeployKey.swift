@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// A repository deploy key.
 public let DeployKey = Object(
-  __typename: "DeployKey",
-  __implementedInterfaces: [Node.self]
+  typename: "DeployKey",
+  implementedInterfaces: [Node.self]
 )

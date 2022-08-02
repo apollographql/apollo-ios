@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// A threaded list of comments for a given pull request.
 public let PullRequestReviewThread = Object(
-  __typename: "PullRequestReviewThread",
-  __implementedInterfaces: [Node.self]
+  typename: "PullRequestReviewThread",
+  implementedInterfaces: [Node.self]
 )

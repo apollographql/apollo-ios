@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// An edit on user content
 public let UserContentEdit = Object(
-  __typename: "UserContentEdit",
-  __implementedInterfaces: [Node.self]
+  typename: "UserContentEdit",
+  implementedInterfaces: [Node.self]
 )

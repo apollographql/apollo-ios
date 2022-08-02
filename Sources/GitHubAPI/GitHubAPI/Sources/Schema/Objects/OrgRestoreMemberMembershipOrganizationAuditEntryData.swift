@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// Metadata for an organization membership for org.restore_member actions
 public let OrgRestoreMemberMembershipOrganizationAuditEntryData = Object(
-  __typename: "OrgRestoreMemberMembershipOrganizationAuditEntryData",
-  __implementedInterfaces: [OrganizationAuditEntryData.self]
+  typename: "OrgRestoreMemberMembershipOrganizationAuditEntryData",
+  implementedInterfaces: [OrganizationAuditEntryData.self]
 )

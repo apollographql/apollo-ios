@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// The query type, represents all of the entry points into our object graph
 public let Query = Object(
-  __typename: "Query",
-  __implementedInterfaces: []
+  typename: "Query",
+  implementedInterfaces: []
 )

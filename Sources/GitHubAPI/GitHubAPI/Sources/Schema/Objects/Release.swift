@@ -5,8 +5,8 @@ import ApolloAPI
 
 /// A release contains the content for a release.
 public let Release = Object(
-  __typename: "Release",
-  __implementedInterfaces: [
+  typename: "Release",
+  implementedInterfaces: [
    Node.self,
    UniformResourceLocatable.self
  ]

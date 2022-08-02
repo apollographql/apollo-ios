@@ -18,6 +18,7 @@ struct UnionTemplate: TemplateRenderer {
     \(documentation: graphqlUnion.documentation, config: config)
     \(embeddedAccessControlModifier)\
     let \(graphqlUnion.name.firstUppercased) = Union(
+      name: "\(graphqlUnion.name)",
       possibleTypes: \(TemplateString("""
         [\(list: graphqlUnion.types.map({ type in
           "\(moduleName.firstUppercased).\(type.name.firstUppercased).self"

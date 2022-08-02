@@ -5,8 +5,8 @@ import ApolloAPI
 
 /// Audit log entry for a org.enable_two_factor_requirement event.
 public let OrgEnableTwoFactorRequirementAuditEntry = Object(
-  __typename: "OrgEnableTwoFactorRequirementAuditEntry",
-  __implementedInterfaces: [
+  typename: "OrgEnableTwoFactorRequirementAuditEntry",
+  implementedInterfaces: [
    AuditEntry.self,
    Node.self,
    OrganizationAuditEntryData.self

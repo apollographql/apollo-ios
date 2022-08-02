@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// Represents an 'review_requested' event on a given pull request.
 public let ReviewRequestedEvent = Object(
-  __typename: "ReviewRequestedEvent",
-  __implementedInterfaces: [Node.self]
+  typename: "ReviewRequestedEvent",
+  implementedInterfaces: [Node.self]
 )

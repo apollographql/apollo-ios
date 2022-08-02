@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// An emoji reaction to a particular piece of content.
 public let Reaction = Object(
-  __typename: "Reaction",
-  __implementedInterfaces: [Node.self]
+  typename: "Reaction",
+  implementedInterfaces: [Node.self]
 )

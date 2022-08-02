@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// A GitHub Sponsors tier associated with a GitHub Sponsors listing.
 public let SponsorsTier = Object(
-  __typename: "SponsorsTier",
-  __implementedInterfaces: [Node.self]
+  typename: "SponsorsTier",
+  implementedInterfaces: [Node.self]
 )

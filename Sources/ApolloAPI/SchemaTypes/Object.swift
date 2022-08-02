@@ -3,15 +3,15 @@
 open class Object: Hashable {
 
   public init(
-    __typename: String,
-    __implementedInterfaces: [Interface]
+    typename: String,
+    implementedInterfaces: [Interface]
   ) {
-    self.__typename = __typename
-    self.__implementedInterfaces = __implementedInterfaces
+    self.typename = typename
+    self.implementedInterfaces = implementedInterfaces
   }
 
   /// A list of the interfaces implemented by the type.
-  public let __implementedInterfaces: [Interface]
+  public let implementedInterfaces: [Interface]
 
   /// The name of the type.
   ///
@@ -20,7 +20,7 @@ open class Object: Hashable {
   ///
   /// Defaults to `"∅__UnknownType"` for a type that is not included in the schema at the time of
   /// code generation.
-  public let __typename: String
+  public let typename: String
 
   /// A helper function to determine if an entity of the receiver's type can be converted to
   /// a given ``ParentType``.
@@ -37,7 +37,7 @@ open class Object: Hashable {
   public func _canBeConverted(to otherType: ParentType) -> Bool {
     switch otherType {
     case .Object(let otherType):
-      return self.__typename == otherType.__typename.description
+      return self.typename == otherType.typename.description
 
     case .Interface(let interface):
       return implements(interface)
@@ -52,16 +52,16 @@ open class Object: Hashable {
   /// - Parameter interface: An ``Interface`` Type
   /// - Returns: A `Bool` indicating if the receiver implements the given ``Interface`` Type.
   public final func implements(_ interface: Interface) -> Bool {
-    __implementedInterfaces.contains(where: { $0 == interface })
+    implementedInterfaces.contains(where: { $0 == interface })
   }
 
   public static func == (lhs: Object, rhs: Object) -> Bool {
     #warning("TODO: interfaces?")
-    return lhs.__typename == rhs.__typename
+    return lhs.typename == rhs.typename
   }
 
   public func hash(into hasher: inout Hasher) {
   #warning("TODO: interfaces?")
-    hasher.combine(__typename)
+    hasher.combine(typename)
   }
 }

@@ -218,16 +218,16 @@ enum TestMockSchema: SchemaConfiguration {
   }
   struct Types {
     static let Dog = Object(
-      __typename: "Dog",
-      __implementedInterfaces: [TestMockSchema.Interfaces.Animal]
+      typename: "Dog",
+      implementedInterfaces: [TestMockSchema.Interfaces.Animal]
     )
     static let Cat = Object(
-      __typename: "Cat",
-      __implementedInterfaces: [Interfaces.Animal]
+      typename: "Cat",
+      implementedInterfaces: [Interfaces.Animal]
     )
     static let Height = Object(
-      __typename: "Height",
-      __implementedInterfaces: []
+      typename: "Height",
+      implementedInterfaces: []
     )
   }
 }

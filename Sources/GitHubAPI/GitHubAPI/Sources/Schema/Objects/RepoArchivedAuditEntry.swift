@@ -5,8 +5,8 @@ import ApolloAPI
 
 /// Audit log entry for a repo.archived event.
 public let RepoArchivedAuditEntry = Object(
-  __typename: "RepoArchivedAuditEntry",
-  __implementedInterfaces: [
+  typename: "RepoArchivedAuditEntry",
+  implementedInterfaces: [
    AuditEntry.self,
    Node.self,
    OrganizationAuditEntryData.self,

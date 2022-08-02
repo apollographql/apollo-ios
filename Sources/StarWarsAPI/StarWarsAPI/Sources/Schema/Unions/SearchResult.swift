@@ -4,6 +4,7 @@
 import ApolloAPI
 
 public let SearchResult = Union(
+  name: "SearchResult",
   possibleTypes: [
    StarWarsAPI.Human.self,
    StarWarsAPI.Droid.self,

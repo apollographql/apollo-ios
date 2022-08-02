@@ -4,6 +4,6 @@
 import ApolloAPI
 
 public let Starship = Object(
-  __typename: "Starship",
-  __implementedInterfaces: []
+  typename: "Starship",
+  implementedInterfaces: []
 )

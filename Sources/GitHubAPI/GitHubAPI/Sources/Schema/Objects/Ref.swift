@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// Represents a Git reference.
 public let Ref = Object(
-  __typename: "Ref",
-  __implementedInterfaces: [Node.self]
+  typename: "Ref",
+  implementedInterfaces: [Node.self]
 )

@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// The Code of Conduct for a repository
 public let CodeOfConduct = Object(
-  __typename: "CodeOfConduct",
-  __implementedInterfaces: [Node.self]
+  typename: "CodeOfConduct",
+  implementedInterfaces: [Node.self]
 )

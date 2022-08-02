@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// Represents a 'base_ref_force_pushed' event on a given pull request.
 public let BaseRefForcePushedEvent = Object(
-  __typename: "BaseRefForcePushedEvent",
-  __implementedInterfaces: [Node.self]
+  typename: "BaseRefForcePushedEvent",
+  implementedInterfaces: [Node.self]
 )

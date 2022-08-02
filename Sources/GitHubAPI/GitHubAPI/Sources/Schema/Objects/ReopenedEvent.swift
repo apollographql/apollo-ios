@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// Represents a 'reopened' event on any `Closable`.
 public let ReopenedEvent = Object(
-  __typename: "ReopenedEvent",
-  __implementedInterfaces: [Node.self]
+  typename: "ReopenedEvent",
+  implementedInterfaces: [Node.self]
 )

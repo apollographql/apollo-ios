@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// A user's public key.
 public let PublicKey = Object(
-  __typename: "PublicKey",
-  __implementedInterfaces: [Node.self]
+  typename: "PublicKey",
+  implementedInterfaces: [Node.self]
 )

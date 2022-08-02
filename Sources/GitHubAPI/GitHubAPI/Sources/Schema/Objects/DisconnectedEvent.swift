@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// Represents a 'disconnected' event on a given issue or pull request.
 public let DisconnectedEvent = Object(
-  __typename: "DisconnectedEvent",
-  __implementedInterfaces: [Node.self]
+  typename: "DisconnectedEvent",
+  implementedInterfaces: [Node.self]
 )

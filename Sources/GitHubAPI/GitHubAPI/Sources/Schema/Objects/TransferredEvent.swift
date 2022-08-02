@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// Represents a 'transferred' event on a given issue or pull request.
 public let TransferredEvent = Object(
-  __typename: "TransferredEvent",
-  __implementedInterfaces: [Node.self]
+  typename: "TransferredEvent",
+  implementedInterfaces: [Node.self]
 )

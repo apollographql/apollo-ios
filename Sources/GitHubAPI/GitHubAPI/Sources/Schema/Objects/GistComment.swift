@@ -5,8 +5,8 @@ import ApolloAPI
 
 /// Represents a comment on an Gist.
 public let GistComment = Object(
-  __typename: "GistComment",
-  __implementedInterfaces: [
+  typename: "GistComment",
+  implementedInterfaces: [
    Comment.self,
    Deletable.self,
    Minimizable.self,

@@ -5,8 +5,8 @@ import ApolloAPI
 
 /// A special type of user which takes actions on behalf of GitHub Apps.
 public let Bot = Object(
-  __typename: "Bot",
-  __implementedInterfaces: [
+  typename: "Bot",
+  implementedInterfaces: [
    Actor.self,
    Node.self,
    UniformResourceLocatable.self

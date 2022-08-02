@@ -4,8 +4,8 @@
 import ApolloAPI
 
 public let Bird = Object(
-  __typename: "Bird",
-  __implementedInterfaces: [
+  typename: "Bird",
+  implementedInterfaces: [
    Animal.self,
    Pet.self,
    WarmBlooded.self

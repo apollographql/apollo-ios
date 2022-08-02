@@ -5,8 +5,8 @@ import ApolloAPI
 
 /// Audit log entry for a private_repository_forking.enable event.
 public let PrivateRepositoryForkingEnableAuditEntry = Object(
-  __typename: "PrivateRepositoryForkingEnableAuditEntry",
-  __implementedInterfaces: [
+  typename: "PrivateRepositoryForkingEnableAuditEntry",
+  implementedInterfaces: [
    AuditEntry.self,
    EnterpriseAuditEntryData.self,
    Node.self,

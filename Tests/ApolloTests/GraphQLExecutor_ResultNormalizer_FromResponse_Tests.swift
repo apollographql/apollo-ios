@@ -282,8 +282,8 @@ class GraphQLExecutor_ResultNormalizer_FromResponse_Tests: XCTestCase {
   func test__execute__givenDifferentAliasedFieldsOnTwoTypeCasesWithSameAlias_givenIsFirstType_hasRecordWithFieldValueUsingNonaliasedFieldName() throws {
     // given
     struct Types {
-      static let Human = Object(__typename: "Human", __implementedInterfaces: [])
-      static let Droid = Object(__typename: "Droid", __implementedInterfaces: [])
+      static let Human = Object(typename: "Human", implementedInterfaces: [])
+      static let Droid = Object(typename: "Droid", implementedInterfaces: [])
     }
 
     MockSchemaConfiguration.stub_graphQLTypeForTypeName = {
@@ -339,8 +339,8 @@ class GraphQLExecutor_ResultNormalizer_FromResponse_Tests: XCTestCase {
   func test__execute__givenDifferentAliasedFieldsOnTwoTypeCasesWithSameAlias_givenIsSecondType_hasRecordWithFieldValueUsingNonaliasedFieldName() throws {
     // given
     struct Types {
-      static let Human = Object(__typename: "Human", __implementedInterfaces: [])
-      static let Droid = Object(__typename: "Droid", __implementedInterfaces: [])
+      static let Human = Object(typename: "Human", implementedInterfaces: [])
+      static let Droid = Object(typename: "Droid", implementedInterfaces: [])
     }
 
     MockSchemaConfiguration.stub_graphQLTypeForTypeName = {
@@ -397,8 +397,8 @@ class GraphQLExecutor_ResultNormalizer_FromResponse_Tests: XCTestCase {
   func test__execute__givenSameFieldWithDifferentArgumentValueOnSameNestedFieldOnTwoTypeCases_givenIsFirstType_hasRecordForFieldNameWithFirstTypesArgument() throws {
     // given
     struct Types {
-      static let Human = Object(__typename: "Human", __implementedInterfaces: [])
-      static let Droid = Object(__typename: "Droid", __implementedInterfaces: [])
+      static let Human = Object(typename: "Human", implementedInterfaces: [])
+      static let Droid = Object(typename: "Droid", implementedInterfaces: [])
     }
 
     MockSchemaConfiguration.stub_graphQLTypeForTypeName = {
@@ -469,8 +469,8 @@ class GraphQLExecutor_ResultNormalizer_FromResponse_Tests: XCTestCase {
   func test__execute__givenSameFieldWithDifferentArgumentValueOnSameNestedFieldOnTwoTypeCases_givenIsSecondType_hasRecordForFieldNameWithFirstTypesArgument() throws {
     // given
     struct Types {
-      static let Human = Object(__typename: "Human", __implementedInterfaces: [])
-      static let Droid = Object(__typename: "Droid", __implementedInterfaces: [])
+      static let Human = Object(typename: "Human", implementedInterfaces: [])
+      static let Droid = Object(typename: "Droid", implementedInterfaces: [])
     }
 
     MockSchemaConfiguration.stub_graphQLTypeForTypeName = {

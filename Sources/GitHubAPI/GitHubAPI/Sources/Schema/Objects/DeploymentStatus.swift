@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// Describes the status of a given deployment attempt.
 public let DeploymentStatus = Object(
-  __typename: "DeploymentStatus",
-  __implementedInterfaces: [Node.self]
+  typename: "DeploymentStatus",
+  implementedInterfaces: [Node.self]
 )

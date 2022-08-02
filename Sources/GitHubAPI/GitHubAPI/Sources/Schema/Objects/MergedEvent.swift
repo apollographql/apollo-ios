@@ -5,8 +5,8 @@ import ApolloAPI
 
 /// Represents a 'merged' event on a given pull request.
 public let MergedEvent = Object(
-  __typename: "MergedEvent",
-  __implementedInterfaces: [
+  typename: "MergedEvent",
+  implementedInterfaces: [
    Node.self,
    UniformResourceLocatable.self
  ]

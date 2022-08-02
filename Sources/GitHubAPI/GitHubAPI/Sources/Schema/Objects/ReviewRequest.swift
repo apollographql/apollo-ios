@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// A request for a user to review a pull request.
 public let ReviewRequest = Object(
-  __typename: "ReviewRequest",
-  __implementedInterfaces: [Node.self]
+  typename: "ReviewRequest",
+  implementedInterfaces: [Node.self]
 )

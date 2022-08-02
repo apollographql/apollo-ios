@@ -15,8 +15,8 @@ struct ObjectTemplate: TemplateRenderer {
     \(documentation: graphqlObject.documentation, config: config)
     \(embeddedAccessControlModifier)\
     let \(graphqlObject.name.firstUppercased) = Object(
-      __typename: "\(graphqlObject.name.firstUppercased)\",
-      __implementedInterfaces: \(ImplementedInterfacesTemplate())
+      typename: "\(graphqlObject.name.firstUppercased)\",
+      implementedInterfaces: \(ImplementedInterfacesTemplate())
     )
     """
   }

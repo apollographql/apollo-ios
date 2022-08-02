@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// An Invitation for a user to an organization.
 public let OrganizationInvitation = Object(
-  __typename: "OrganizationInvitation",
-  __implementedInterfaces: [Node.self]
+  typename: "OrganizationInvitation",
+  implementedInterfaces: [Node.self]
 )

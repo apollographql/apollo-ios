@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// Represents an 'assigned' event on any assignable object.
 public let AssignedEvent = Object(
-  __typename: "AssignedEvent",
-  __implementedInterfaces: [Node.self]
+  typename: "AssignedEvent",
+  implementedInterfaces: [Node.self]
 )

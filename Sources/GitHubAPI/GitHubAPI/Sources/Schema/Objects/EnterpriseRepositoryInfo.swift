@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// A subset of repository information queryable from an enterprise.
 public let EnterpriseRepositoryInfo = Object(
-  __typename: "EnterpriseRepositoryInfo",
-  __implementedInterfaces: [Node.self]
+  typename: "EnterpriseRepositoryInfo",
+  implementedInterfaces: [Node.self]
 )

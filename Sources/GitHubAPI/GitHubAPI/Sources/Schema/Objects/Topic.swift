@@ -5,8 +5,8 @@ import ApolloAPI
 
 /// A topic aggregates entities that are related to a subject.
 public let Topic = Object(
-  __typename: "Topic",
-  __implementedInterfaces: [
+  typename: "Topic",
+  implementedInterfaces: [
    Node.self,
    Starrable.self
  ]

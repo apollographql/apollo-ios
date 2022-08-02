@@ -5,8 +5,8 @@ import ApolloAPI
 
 /// Represents a Git tag.
 public let Tag = Object(
-  __typename: "Tag",
-  __implementedInterfaces: [
+  typename: "Tag",
+  implementedInterfaces: [
    GitObject.self,
    Node.self
  ]

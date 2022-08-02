@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// A GitHub Security Advisory
 public let SecurityAdvisory = Object(
-  __typename: "SecurityAdvisory",
-  __implementedInterfaces: [Node.self]
+  typename: "SecurityAdvisory",
+  implementedInterfaces: [Node.self]
 )

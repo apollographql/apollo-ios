@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// A user accounts upload from an Enterprise Server installation.
 public let EnterpriseServerUserAccountsUpload = Object(
-  __typename: "EnterpriseServerUserAccountsUpload",
-  __implementedInterfaces: [Node.self]
+  typename: "EnterpriseServerUserAccountsUpload",
+  implementedInterfaces: [Node.self]
 )

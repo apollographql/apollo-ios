@@ -5,8 +5,8 @@ import ApolloAPI
 
 /// A team discussion.
 public let TeamDiscussion = Object(
-  __typename: "TeamDiscussion",
-  __implementedInterfaces: [
+  typename: "TeamDiscussion",
+  implementedInterfaces: [
    Comment.self,
    Deletable.self,
    Node.self,

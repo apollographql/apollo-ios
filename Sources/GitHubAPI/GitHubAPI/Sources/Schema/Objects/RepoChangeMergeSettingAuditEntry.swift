@@ -5,8 +5,8 @@ import ApolloAPI
 
 /// Audit log entry for a repo.change_merge_setting event.
 public let RepoChangeMergeSettingAuditEntry = Object(
-  __typename: "RepoChangeMergeSettingAuditEntry",
-  __implementedInterfaces: [
+  typename: "RepoChangeMergeSettingAuditEntry",
+  implementedInterfaces: [
    AuditEntry.self,
    Node.self,
    OrganizationAuditEntryData.self,

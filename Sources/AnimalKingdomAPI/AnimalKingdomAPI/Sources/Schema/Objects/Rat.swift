@@ -4,8 +4,8 @@
 import ApolloAPI
 
 public let Rat = Object(
-  __typename: "Rat",
-  __implementedInterfaces: [
+  typename: "Rat",
+  implementedInterfaces: [
    Animal.self,
    Pet.self
  ]

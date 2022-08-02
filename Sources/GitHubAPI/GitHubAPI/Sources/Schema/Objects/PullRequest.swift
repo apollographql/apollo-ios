@@ -5,8 +5,8 @@ import ApolloAPI
 
 /// A repository pull request.
 public let PullRequest = Object(
-  __typename: "PullRequest",
-  __implementedInterfaces: [
+  typename: "PullRequest",
+  implementedInterfaces: [
    Assignable.self,
    Closable.self,
    Comment.self,

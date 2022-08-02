@@ -5,8 +5,8 @@ import ApolloAPI
 
 /// Audit log entry for a org.update_member_repository_creation_permission event.
 public let OrgUpdateMemberRepositoryCreationPermissionAuditEntry = Object(
-  __typename: "OrgUpdateMemberRepositoryCreationPermissionAuditEntry",
-  __implementedInterfaces: [
+  typename: "OrgUpdateMemberRepositoryCreationPermissionAuditEntry",
+  implementedInterfaces: [
    AuditEntry.self,
    Node.self,
    OrganizationAuditEntryData.self

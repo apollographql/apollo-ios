@@ -5,8 +5,8 @@ import ApolloAPI
 
 /// Audit log entry for a org.oauth_app_access_denied event.
 public let OrgOauthAppAccessDeniedAuditEntry = Object(
-  __typename: "OrgOauthAppAccessDeniedAuditEntry",
-  __implementedInterfaces: [
+  typename: "OrgOauthAppAccessDeniedAuditEntry",
+  implementedInterfaces: [
    AuditEntry.self,
    Node.self,
    OauthApplicationAuditEntryData.self,

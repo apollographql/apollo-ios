@@ -5,8 +5,8 @@ import ApolloAPI
 
 /// Audit log entry for a members_can_delete_repos.clear event.
 public let MembersCanDeleteReposClearAuditEntry = Object(
-  __typename: "MembersCanDeleteReposClearAuditEntry",
-  __implementedInterfaces: [
+  typename: "MembersCanDeleteReposClearAuditEntry",
+  implementedInterfaces: [
    AuditEntry.self,
    EnterpriseAuditEntryData.self,
    Node.self,

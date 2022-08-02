@@ -5,8 +5,8 @@ import ApolloAPI
 
 /// Audit log entry for a org.create event.
 public let OrgCreateAuditEntry = Object(
-  __typename: "OrgCreateAuditEntry",
-  __implementedInterfaces: [
+  typename: "OrgCreateAuditEntry",
+  implementedInterfaces: [
    AuditEntry.self,
    Node.self,
    OrganizationAuditEntryData.self

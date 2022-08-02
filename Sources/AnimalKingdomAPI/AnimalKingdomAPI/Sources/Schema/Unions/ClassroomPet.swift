@@ -4,6 +4,7 @@
 import ApolloAPI
 
 public let ClassroomPet = Union(
+  name: "ClassroomPet",
   possibleTypes: [
    AnimalKingdomAPI.Cat.self,
    AnimalKingdomAPI.Bird.self,

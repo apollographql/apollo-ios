@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// Represents an 'unpinned' event on a given issue or pull request.
 public let UnpinnedEvent = Object(
-  __typename: "UnpinnedEvent",
-  __implementedInterfaces: [Node.self]
+  typename: "UnpinnedEvent",
+  implementedInterfaces: [Node.self]
 )

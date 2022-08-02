@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// A Git push.
 public let Push = Object(
-  __typename: "Push",
-  __implementedInterfaces: [Node.self]
+  typename: "Push",
+  implementedInterfaces: [Node.self]
 )

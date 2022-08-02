@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// An autonomous mechanical character in the Star Wars universe
 public let Droid = Object(
-  __typename: "Droid",
-  __implementedInterfaces: [Character.self]
+  typename: "Droid",
+  implementedInterfaces: [Character.self]
 )

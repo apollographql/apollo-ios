@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// Represents a 'head_ref_force_pushed' event on a given pull request.
 public let HeadRefForcePushedEvent = Object(
-  __typename: "HeadRefForcePushedEvent",
-  __implementedInterfaces: [Node.self]
+  typename: "HeadRefForcePushedEvent",
+  implementedInterfaces: [Node.self]
 )

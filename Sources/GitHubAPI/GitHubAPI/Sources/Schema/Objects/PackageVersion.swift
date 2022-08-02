@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// Information about a specific package version.
 public let PackageVersion = Object(
-  __typename: "PackageVersion",
-  __implementedInterfaces: [Node.self]
+  typename: "PackageVersion",
+  implementedInterfaces: [Node.self]
 )

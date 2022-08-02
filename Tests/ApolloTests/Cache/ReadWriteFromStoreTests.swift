@@ -253,7 +253,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
   func test_readObject_givenFragmentWithTypeSpecificProperty() throws {
     // given
     struct Types {
-      static let Droid = Object(__typename: "Droid", __implementedInterfaces: [])
+      static let Droid = Object(typename: "Droid", implementedInterfaces: [])
     }
 
     MockSchemaConfiguration.stub_graphQLTypeForTypeName = { typename in
@@ -309,7 +309,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
   func test_readObject_givenFragmentWithMissingTypeSpecificProperty() throws {
     // given
     struct Types {
-      static let Droid = Object(__typename: "Droid", __implementedInterfaces: [])
+      static let Droid = Object(typename: "Droid", implementedInterfaces: [])
     }
 
     MockSchemaConfiguration.stub_graphQLTypeForTypeName = { typename in
@@ -599,7 +599,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
   func test_updateCacheMutation_updateNestedFieldOnTypeCase_updatesObjects() throws {
     // given
     struct Types {
-      static let Droid = Object(__typename: "Droid", __implementedInterfaces: [])
+      static let Droid = Object(typename: "Droid", implementedInterfaces: [])
     }
 
     MockSchemaConfiguration.stub_graphQLTypeForTypeName = { typename in
@@ -697,7 +697,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
   func test_updateCacheMutation_updateNestedFieldOnNamedFragment_updatesObjects() throws {
     // given
     struct Types {
-      static let Droid = Object(__typename: "Droid", __implementedInterfaces: [])
+      static let Droid = Object(typename: "Droid", implementedInterfaces: [])
     }
 
     MockSchemaConfiguration.stub_graphQLTypeForTypeName = { typename in
@@ -828,7 +828,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
   func test_updateCacheMutation_updateNestedFieldOnOptionalNamedFragment_updatesObjects() throws {
     // given
     struct Types {
-      static let Droid = Object(__typename: "Droid", __implementedInterfaces: [])
+      static let Droid = Object(typename: "Droid", implementedInterfaces: [])
     }
 
     MockSchemaConfiguration.stub_graphQLTypeForTypeName = { typename in

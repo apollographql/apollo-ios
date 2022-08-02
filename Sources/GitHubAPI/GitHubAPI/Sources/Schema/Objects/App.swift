@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// A GitHub App.
 public let App = Object(
-  __typename: "App",
-  __implementedInterfaces: [Node.self]
+  typename: "App",
+  implementedInterfaces: [Node.self]
 )

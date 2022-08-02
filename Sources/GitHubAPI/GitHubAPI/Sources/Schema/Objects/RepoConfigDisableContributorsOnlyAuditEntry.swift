@@ -5,8 +5,8 @@ import ApolloAPI
 
 /// Audit log entry for a repo.config.disable_contributors_only event.
 public let RepoConfigDisableContributorsOnlyAuditEntry = Object(
-  __typename: "RepoConfigDisableContributorsOnlyAuditEntry",
-  __implementedInterfaces: [
+  typename: "RepoConfigDisableContributorsOnlyAuditEntry",
+  implementedInterfaces: [
    AuditEntry.self,
    Node.self,
    OrganizationAuditEntryData.self,

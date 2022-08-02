@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// An account to manage multiple organizations with consolidated policy and billing.
 public let Enterprise = Object(
-  __typename: "Enterprise",
-  __implementedInterfaces: [Node.self]
+  typename: "Enterprise",
+  implementedInterfaces: [Node.self]
 )

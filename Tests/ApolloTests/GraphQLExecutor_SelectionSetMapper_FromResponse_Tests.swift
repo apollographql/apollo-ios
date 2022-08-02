@@ -803,8 +803,8 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
   func test__inlineFragment__withoutExplicitTypeNameSelection_selectsTypenameField() throws {
     // given
     struct Types {
-      static let Human = Object(__typename: "Human", __implementedInterfaces: [])
-      static let MockChildObject = Object(__typename: "MockChildObject", __implementedInterfaces: [])
+      static let Human = Object(typename: "Human", implementedInterfaces: [])
+      static let MockChildObject = Object(typename: "MockChildObject", implementedInterfaces: [])
     }
 
     class GivenSelectionSet: MockSelectionSet, SelectionSet {
@@ -861,7 +861,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
   func test__fragment__asObjectType_matchingParentType_selectsFragmentFields() throws {
     // given
     struct Types {
-      static let MockChildObject = Object(__typename: "MockChildObject", __implementedInterfaces: [])
+      static let MockChildObject = Object(typename: "MockChildObject", implementedInterfaces: [])
     }
 
     class GivenFragment: MockFragment {
@@ -1062,7 +1062,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
   func test__booleanCondition_include_typeCase__givenVariableIsTrue_typeCaseMatchesParentType_getsValuesForTypeCaseFields() throws {
     // given
     struct Types {
-      static let Person = Object(__typename: "Person", __implementedInterfaces: [])
+      static let Person = Object(typename: "Person", implementedInterfaces: [])
     }
 
     class GivenSelectionSet: MockSelectionSet {
@@ -1096,7 +1096,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
   func test__booleanCondition_include_typeCase__givenVariableIsFalse_typeCaseMatchesParentType_doesNotGetValuesForTypeCaseFields() throws {
     // given
     struct Types {
-      static let Person = Object(__typename: "Person", __implementedInterfaces: [])
+      static let Person = Object(typename: "Person", implementedInterfaces: [])
     }
 
     class GivenSelectionSet: MockSelectionSet {
@@ -1130,7 +1130,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
   func test__booleanCondition_include_typeCase__givenVariableIsTrue_typeCaseDoesNotMatchParentType_doesNotGetValuesForTypeCaseFields() throws {
     // given
     struct Types {
-      static let Person = Object(__typename: "Person", __implementedInterfaces: [])
+      static let Person = Object(typename: "Person", implementedInterfaces: [])
     }
 
     class GivenSelectionSet: MockSelectionSet {
@@ -1164,7 +1164,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
   func test__booleanCondition_include_singleFieldOnNestedTypeCase__givenVariableIsTrue_typeCaseMatchesParentType_getsValuesForTypeCaseFields() throws {
     // given
     struct Types {
-      static let Person = Object(__typename: "Person", __implementedInterfaces: [])
+      static let Person = Object(typename: "Person", implementedInterfaces: [])
     }
 
     class GivenSelectionSet: MockSelectionSet {
@@ -1198,7 +1198,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
   func test__booleanCondition_include_singleFieldOnNestedTypeCase__givenVariableIsFalse_typeCaseMatchesParentType_getsValuesForTypeCaseFields() throws {
     // given
     struct Types {
-      static let Person = Object(__typename: "Person", __implementedInterfaces: [])
+      static let Person = Object(typename: "Person", implementedInterfaces: [])
     }
 
     class GivenSelectionSet: MockSelectionSet {
@@ -1232,7 +1232,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
   func test__booleanCondition_include_typeCaseOnNamedFragment__givenVariableIsTrue_typeCaseMatchesParentType_getsValuesForTypeCaseFields() throws {
     // given
     struct Types {
-      static let Person = Object(__typename: "Person", __implementedInterfaces: [])
+      static let Person = Object(typename: "Person", implementedInterfaces: [])
     }
 
     class GivenFragment: MockFragment {

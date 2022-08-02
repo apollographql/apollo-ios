@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// A GitHub Sponsors listing.
 public let SponsorsListing = Object(
-  __typename: "SponsorsListing",
-  __implementedInterfaces: [Node.self]
+  typename: "SponsorsListing",
+  implementedInterfaces: [Node.self]
 )

@@ -5,8 +5,8 @@ import ApolloAPI
 
 /// Audit log entry for a repo.config.enable_sockpuppet_disallowed event.
 public let RepoConfigEnableSockpuppetDisallowedAuditEntry = Object(
-  __typename: "RepoConfigEnableSockpuppetDisallowedAuditEntry",
-  __implementedInterfaces: [
+  typename: "RepoConfigEnableSockpuppetDisallowedAuditEntry",
+  implementedInterfaces: [
    AuditEntry.self,
    Node.self,
    OrganizationAuditEntryData.self,

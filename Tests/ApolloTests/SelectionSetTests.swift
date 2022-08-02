@@ -546,8 +546,8 @@ class SelectionSetTests: XCTestCase {
   func test__asInlineFragment_givenObjectType_returnsTypeIfCorrectType() {
     // given
     struct Types {
-      static let Human = Object(__typename: "Human", __implementedInterfaces: [])
-      static let Droid = Object(__typename: "Droid", __implementedInterfaces: [])
+      static let Human = Object(typename: "Human", implementedInterfaces: [])
+      static let Droid = Object(typename: "Droid", implementedInterfaces: [])
     }
 
     MockSchemaConfiguration.stub_graphQLTypeForTypeName = {
@@ -606,7 +606,7 @@ class SelectionSetTests: XCTestCase {
     // given
     struct Types {
       static let Humanoid = Interface(name: "Humanoid")
-      static let Human = Object(__typename: "Human", __implementedInterfaces: [Humanoid])
+      static let Human = Object(typename: "Human", implementedInterfaces: [Humanoid])
     }
 
     MockSchemaConfiguration.stub_graphQLTypeForTypeName = {
@@ -653,7 +653,7 @@ class SelectionSetTests: XCTestCase {
     // given
     struct Types {
       static let Humanoid = Interface(name: "Humanoid")
-      static let Droid = Object(__typename: "Droid", __implementedInterfaces: [])
+      static let Droid = Object(typename: "Droid", implementedInterfaces: [])
     }
 
     MockSchemaConfiguration.stub_graphQLTypeForTypeName = {
@@ -699,8 +699,8 @@ class SelectionSetTests: XCTestCase {
   func test__asInlineFragment_givenUnionType_typeNameIsTypeInUnionPossibleTypes_returnsType() {
     // given
     enum Types {
-      static let Human = Object(__typename: "Human", __implementedInterfaces: [])
-      static let Character = Union(possibleTypes: [Types.Human])
+      static let Human = Object(typename: "Human", implementedInterfaces: [])
+      static let Character = Union(name: "Character", possibleTypes: [Types.Human])
     }
 
     MockSchemaConfiguration.stub_graphQLTypeForTypeName = {
@@ -745,8 +745,8 @@ class SelectionSetTests: XCTestCase {
   func test__asInlineFragment_givenUnionType_typeNameNotIsTypeInUnionPossibleTypes_returnsNil() {
     // given
     enum Types {
-      static let Human = Object(__typename: "Human", __implementedInterfaces: [])
-      static let Character = Union(possibleTypes: [])
+      static let Human = Object(typename: "Human", implementedInterfaces: [])
+      static let Character = Union(name: "Character", possibleTypes: [])
     }
 
     MockSchemaConfiguration.stub_graphQLTypeForTypeName = {

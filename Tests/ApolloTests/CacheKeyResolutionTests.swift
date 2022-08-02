@@ -30,7 +30,7 @@ class CacheKeyResolutionTests: XCTestCase {
   // MARK: CacheKeyProvider Tests
 
   func test__schemaConfiguration__givenData_whenKnownType_noCacheKeyProvider_noUnknownTypeCacheKeyProvider_shouldReturnNil() {
-    let Alpha = Object(__typename: "Alpha", __implementedInterfaces: [])
+    let Alpha = Object(typename: "Alpha", implementedInterfaces: [])
 
     let object: JSONObject = [
       "__typename": "Alpha",

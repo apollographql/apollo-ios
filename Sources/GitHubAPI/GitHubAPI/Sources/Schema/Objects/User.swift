@@ -5,8 +5,8 @@ import ApolloAPI
 
 /// A user is an individual's account on GitHub that owns repositories and can make new content.
 public let User = Object(
-  __typename: "User",
-  __implementedInterfaces: [
+  typename: "User",
+  implementedInterfaces: [
    Actor.self,
    Node.self,
    PackageOwner.self,

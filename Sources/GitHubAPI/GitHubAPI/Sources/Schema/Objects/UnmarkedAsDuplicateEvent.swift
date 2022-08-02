@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// Represents an 'unmarked_as_duplicate' event on a given issue or pull request.
 public let UnmarkedAsDuplicateEvent = Object(
-  __typename: "UnmarkedAsDuplicateEvent",
-  __implementedInterfaces: [Node.self]
+  typename: "UnmarkedAsDuplicateEvent",
+  implementedInterfaces: [Node.self]
 )

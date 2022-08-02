@@ -4,6 +4,6 @@
 import ApolloAPI
 
 public let Subscription = Object(
-  __typename: "Subscription",
-  __implementedInterfaces: []
+  typename: "Subscription",
+  implementedInterfaces: []
 )

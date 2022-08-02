@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// The connection type for Issue.
 public let IssueConnection = Object(
-  __typename: "IssueConnection",
-  __implementedInterfaces: []
+  typename: "IssueConnection",
+  implementedInterfaces: []
 )

@@ -5,8 +5,8 @@ import ApolloAPI
 
 /// An Issue is a place to discuss ideas, enhancements, tasks, and bugs for a project.
 public let Issue = Object(
-  __typename: "Issue",
-  __implementedInterfaces: [
+  typename: "Issue",
+  implementedInterfaces: [
    Assignable.self,
    Closable.self,
    Comment.self,

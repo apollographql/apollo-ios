@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// Represents an 'unlocked' event on a given issue or pull request.
 public let UnlockedEvent = Object(
-  __typename: "UnlockedEvent",
-  __implementedInterfaces: [Node.self]
+  typename: "UnlockedEvent",
+  implementedInterfaces: [Node.self]
 )

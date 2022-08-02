@@ -5,8 +5,8 @@ import ApolloAPI
 
 /// Audit log entry for a team.remove_repository event.
 public let TeamRemoveRepositoryAuditEntry = Object(
-  __typename: "TeamRemoveRepositoryAuditEntry",
-  __implementedInterfaces: [
+  typename: "TeamRemoveRepositoryAuditEntry",
+  implementedInterfaces: [
    AuditEntry.self,
    Node.self,
    OrganizationAuditEntryData.self,

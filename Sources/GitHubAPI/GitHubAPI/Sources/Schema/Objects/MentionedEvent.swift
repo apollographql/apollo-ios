@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// Represents a 'mentioned' event on a given issue or pull request.
 public let MentionedEvent = Object(
-  __typename: "MentionedEvent",
-  __implementedInterfaces: [Node.self]
+  typename: "MentionedEvent",
+  implementedInterfaces: [Node.self]
 )

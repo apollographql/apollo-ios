@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// Represents a review for a movie
 public let Review = Object(
-  __typename: "Review",
-  __implementedInterfaces: []
+  typename: "Review",
+  implementedInterfaces: []
 )

@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// Represents a 'deployed' event on a given pull request.
 public let DeployedEvent = Object(
-  __typename: "DeployedEvent",
-  __implementedInterfaces: [Node.self]
+  typename: "DeployedEvent",
+  implementedInterfaces: [Node.self]
 )

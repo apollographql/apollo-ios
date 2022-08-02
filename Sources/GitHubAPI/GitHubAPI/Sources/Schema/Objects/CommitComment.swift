@@ -5,8 +5,8 @@ import ApolloAPI
 
 /// Represents a comment on a given Commit.
 public let CommitComment = Object(
-  __typename: "CommitComment",
-  __implementedInterfaces: [
+  typename: "CommitComment",
+  implementedInterfaces: [
    Comment.self,
    Deletable.self,
    Minimizable.self,

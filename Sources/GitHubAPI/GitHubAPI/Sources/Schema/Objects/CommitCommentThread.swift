@@ -5,8 +5,8 @@ import ApolloAPI
 
 /// A thread of comments on a commit.
 public let CommitCommentThread = Object(
-  __typename: "CommitCommentThread",
-  __implementedInterfaces: [
+  typename: "CommitCommentThread",
+  implementedInterfaces: [
    Node.self,
    RepositoryNode.self
  ]

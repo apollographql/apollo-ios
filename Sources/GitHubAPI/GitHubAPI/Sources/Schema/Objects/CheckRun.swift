@@ -5,8 +5,8 @@ import ApolloAPI
 
 /// A check run.
 public let CheckRun = Object(
-  __typename: "CheckRun",
-  __implementedInterfaces: [
+  typename: "CheckRun",
+  implementedInterfaces: [
    Node.self,
    UniformResourceLocatable.self
  ]

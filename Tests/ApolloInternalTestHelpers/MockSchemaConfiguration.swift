@@ -2,7 +2,7 @@
 @testable import ApolloAPI
 
 extension Object {
-  public static let mock = Object(__typename: "Mock", __implementedInterfaces: [])
+  public static let mock = Object(typename: "Mock", implementedInterfaces: [])
 }
 
 public class MockSchemaConfiguration: SchemaConfiguration {
@@ -30,7 +30,7 @@ public class MockSchemaConfiguration: SchemaConfiguration {
 public extension MockSchemaConfiguration {
   static func graphQLType(forTypename __typename: String) -> Object? {
     stub_graphQLTypeForTypeName?(__typename) ??
-    Object(__typename: __typename, __implementedInterfaces: [])
+    Object(typename: __typename, implementedInterfaces: [])
   }
 
   static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
@@ -72,7 +72,7 @@ public struct MockCacheKeyProvider {
 
 public enum MockSchema1: SchemaConfiguration {
   public static func graphQLType(forTypename __typename: String) -> Object? {
-    Object(__typename: __typename, __implementedInterfaces: [])
+    Object(typename: __typename, implementedInterfaces: [])
   }
 }
 
@@ -84,7 +84,7 @@ public extension MockSchema1 {
 
 public enum MockSchema2: SchemaConfiguration {
   public static func graphQLType(forTypename __typename: String) -> Object? {
-    Object(__typename: __typename, __implementedInterfaces: [])
+    Object(typename: __typename, implementedInterfaces: [])
   }
 }
 

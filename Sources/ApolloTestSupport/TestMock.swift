@@ -7,7 +7,7 @@ public class Mock<O: GraphQLTypeMock>: AnyMock, JSONEncodable, Hashable {
   public var _data: JSONEncodableDictionary
 
   public init() {
-    _data = ["__typename": O._graphQLType.__typename]
+    _data = ["__typename": O._graphQLType.typename]
   }
 
   public var __typename: String { _data["__typename"] as! String }

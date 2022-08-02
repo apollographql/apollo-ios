@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// A file in a package version.
 public let PackageFile = Object(
-  __typename: "PackageFile",
-  __implementedInterfaces: [Node.self]
+  typename: "PackageFile",
+  implementedInterfaces: [Node.self]
 )

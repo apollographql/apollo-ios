@@ -5,8 +5,8 @@ import ApolloAPI
 
 /// Audit log entry for a org.invite_to_business event.
 public let OrgInviteToBusinessAuditEntry = Object(
-  __typename: "OrgInviteToBusinessAuditEntry",
-  __implementedInterfaces: [
+  typename: "OrgInviteToBusinessAuditEntry",
+  implementedInterfaces: [
    AuditEntry.self,
    EnterpriseAuditEntryData.self,
    Node.self,

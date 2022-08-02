@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// An identity provider configured to provision identities for an enterprise.
 public let EnterpriseIdentityProvider = Object(
-  __typename: "EnterpriseIdentityProvider",
-  __implementedInterfaces: [Node.self]
+  typename: "EnterpriseIdentityProvider",
+  implementedInterfaces: [Node.self]
 )

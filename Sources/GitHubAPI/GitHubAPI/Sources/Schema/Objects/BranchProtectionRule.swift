@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// A branch protection rule.
 public let BranchProtectionRule = Object(
-  __typename: "BranchProtectionRule",
-  __implementedInterfaces: [Node.self]
+  typename: "BranchProtectionRule",
+  implementedInterfaces: [Node.self]
 )

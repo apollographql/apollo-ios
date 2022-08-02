@@ -4,6 +4,6 @@
 import ApolloAPI
 
 public let Mutation = Object(
-  __typename: "Mutation",
-  __implementedInterfaces: []
+  typename: "Mutation",
+  implementedInterfaces: []
 )

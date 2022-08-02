@@ -4,6 +4,6 @@
 import ApolloAPI
 
 public let File = Object(
-  __typename: "File",
-  __implementedInterfaces: []
+  typename: "File",
+  implementedInterfaces: []
 )

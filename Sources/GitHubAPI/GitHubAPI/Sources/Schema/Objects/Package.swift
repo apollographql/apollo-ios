@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// Information for an uploaded package.
 public let Package = Object(
-  __typename: "Package",
-  __implementedInterfaces: [Node.self]
+  typename: "Package",
+  implementedInterfaces: [Node.self]
 )

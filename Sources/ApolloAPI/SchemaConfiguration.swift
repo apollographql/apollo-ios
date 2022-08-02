@@ -24,7 +24,7 @@ extension SchemaConfiguration {
           let info = cacheKeyInfo(for: type, object: object) else {
       return nil
     }
-    return CacheReference("\(info.uniqueKeyGroupId ?? type.__typename):\(info.key)")
+    return CacheReference("\(info.uniqueKeyGroupId ?? type.typename):\(info.key)")
   }
 }
 
@@ -53,7 +53,7 @@ struct FakeSchema: SchemaConfiguration {
     switch typename {
     case "Dog": return Dog.type
     default:
-      return Object(__typename: typename, __implementedInterfaces: [])
+      return Object(typename: typename, implementedInterfaces: [])
     }
   }
 }
@@ -68,8 +68,8 @@ extension FakeSchema {
   public final class Dog: Object {
     static let type = Dog()
     private init() {
-      super.init(__typename: "Dog",
-                 __implementedInterfaces: [Interfaces.Pet])
+      super.init(typename: "Dog",
+                 implementedInterfaces: [Interfaces.Pet])
     }
   }
 }

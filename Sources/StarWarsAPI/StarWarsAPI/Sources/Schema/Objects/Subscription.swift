@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// The subscription type, represents all subscriptions we can make to our data
 public let Subscription = Object(
-  __typename: "Subscription",
-  __implementedInterfaces: []
+  typename: "Subscription",
+  implementedInterfaces: []
 )

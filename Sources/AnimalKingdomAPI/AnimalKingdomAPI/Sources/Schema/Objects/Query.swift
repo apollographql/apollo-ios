@@ -4,6 +4,6 @@
 import ApolloAPI
 
 public let Query = Object(
-  __typename: "Query",
-  __implementedInterfaces: []
+  typename: "Query",
+  implementedInterfaces: []
 )

@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// Represents triggered deployment instance.
 public let Deployment = Object(
-  __typename: "Deployment",
-  __implementedInterfaces: [Node.self]
+  typename: "Deployment",
+  implementedInterfaces: [Node.self]
 )

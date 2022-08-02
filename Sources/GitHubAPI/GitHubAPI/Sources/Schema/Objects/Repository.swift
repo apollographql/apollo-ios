@@ -5,8 +5,8 @@ import ApolloAPI
 
 /// A repository contains the content for a project.
 public let Repository = Object(
-  __typename: "Repository",
-  __implementedInterfaces: [
+  typename: "Repository",
+  implementedInterfaces: [
    Node.self,
    PackageOwner.self,
    ProjectOwner.self,

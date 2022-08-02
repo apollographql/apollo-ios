@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// A public description of a Marketplace category.
 public let MarketplaceCategory = Object(
-  __typename: "MarketplaceCategory",
-  __implementedInterfaces: [Node.self]
+  typename: "MarketplaceCategory",
+  implementedInterfaces: [Node.self]
 )

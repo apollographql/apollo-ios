@@ -11,11 +11,10 @@ struct InterfaceTemplate: TemplateRenderer {
   let target: TemplateTarget = .schemaFile
 
   var template: TemplateString {
-    let name = graphqlInterface.name.firstUppercased
-    return """
+    """
     \(documentation: graphqlInterface.documentation, config: config)
     \(embeddedAccessControlModifier)\
-    let \(name) = Interface(name: "\(name)")
+    let \(graphqlInterface.name.firstUppercased) = Interface(name: "\(graphqlInterface.name)")
     """
   }
 }

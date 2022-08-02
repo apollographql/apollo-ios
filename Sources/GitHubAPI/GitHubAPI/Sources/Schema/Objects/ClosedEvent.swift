@@ -5,8 +5,8 @@ import ApolloAPI
 
 /// Represents a 'closed' event on any `Closable`.
 public let ClosedEvent = Object(
-  __typename: "ClosedEvent",
-  __implementedInterfaces: [
+  typename: "ClosedEvent",
+  implementedInterfaces: [
    Node.self,
    UniformResourceLocatable.self
  ]

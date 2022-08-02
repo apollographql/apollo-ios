@@ -4,8 +4,8 @@
 import ApolloAPI
 
 public let Human = Object(
-  __typename: "Human",
-  __implementedInterfaces: [
+  typename: "Human",
+  implementedInterfaces: [
    Animal.self,
    WarmBlooded.self
  ]

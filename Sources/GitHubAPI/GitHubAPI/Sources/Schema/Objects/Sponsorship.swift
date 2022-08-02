@@ -5,6 +5,6 @@ import ApolloAPI
 
 /// A sponsorship relationship between a sponsor and a maintainer
 public let Sponsorship = Object(
-  __typename: "Sponsorship",
-  __implementedInterfaces: [Node.self]
+  typename: "Sponsorship",
+  implementedInterfaces: [Node.self]
 )
