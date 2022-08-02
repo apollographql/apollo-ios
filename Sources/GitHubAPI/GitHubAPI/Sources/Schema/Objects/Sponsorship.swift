@@ -4,11 +4,7 @@
 import ApolloAPI
 
 /// A sponsorship relationship between a sponsor and a maintainer
-public final class Sponsorship: Object {
-  override public class var __typename: StaticString { "Sponsorship" }
-
-  public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Node.self
-  ]
-}
+public let Sponsorship = Object(
+  __typename: "Sponsorship",
+  __implementedInterfaces: [Node.self]
+)

@@ -4,4 +4,4 @@
 import ApolloAPI
 
 /// An object that can have users assigned to it.
-public final class Assignable: Interface { }
+public let Assignable = Interface(name: "Assignable")

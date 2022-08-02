@@ -4,4 +4,4 @@
 import ApolloAPI
 
 /// Represents an owner of a Repository.
-public final class RepositoryOwner: Interface { }
+public let RepositoryOwner = Interface(name: "RepositoryOwner")

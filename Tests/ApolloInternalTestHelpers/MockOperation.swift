@@ -47,7 +47,7 @@ open class MockSubscription<SelectionSet: RootSelectionSet>: MockOperation<Selec
 open class AbstractMockSelectionSet: AnySelectionSet {
   open class var schema: SchemaConfiguration.Type { MockSchemaConfiguration.self }
   open class var selections: [Selection] { [] }
-  open class var __parentType: ParentType { .Object(Object.self) }
+  open class var __parentType: ParentType { .Object(Object.mock) }
 
   public var __data: DataDict = DataDict([:], variables: nil)
 

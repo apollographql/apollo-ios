@@ -3,4 +3,4 @@
 
 import ApolloAPI
 
-public final class HousePet: Interface { }
+public let HousePet = Interface(name: "HousePet")

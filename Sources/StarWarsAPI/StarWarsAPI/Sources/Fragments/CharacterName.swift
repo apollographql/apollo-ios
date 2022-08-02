@@ -16,7 +16,7 @@ public struct CharacterName: StarWarsAPI.SelectionSet, Fragment {
   public let __data: DataDict
   public init(data: DataDict) { __data = data }
 
-  public static var __parentType: ParentType { .Interface(StarWarsAPI.Character.self) }
+  public static var __parentType: ParentType { .Interface(StarWarsAPI.Character) }
   public static var selections: [Selection] { [
     .field("name", String.self),
   ] }

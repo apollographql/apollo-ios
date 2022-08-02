@@ -4,11 +4,7 @@
 import ApolloAPI
 
 /// Represents a 'connected' event on a given issue or pull request.
-public final class ConnectedEvent: Object {
-  override public class var __typename: StaticString { "ConnectedEvent" }
-
-  public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Node.self
-  ]
-}
+public let ConnectedEvent = Object(
+  __typename: "ConnectedEvent",
+  __implementedInterfaces: [Node.self]
+)

@@ -4,14 +4,12 @@
 import ApolloAPI
 
 /// Represents a Git commit.
-public final class Commit: Object {
-  override public class var __typename: StaticString { "Commit" }
-
-  public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    GitObject.self,
-    Node.self,
-    Subscribable.self,
-    UniformResourceLocatable.self
-  ]
-}
+public let Commit = Object(
+  __typename: "Commit",
+  __implementedInterfaces: [
+   GitObject.self,
+   Node.self,
+   Subscribable.self,
+   UniformResourceLocatable.self
+ ]
+)

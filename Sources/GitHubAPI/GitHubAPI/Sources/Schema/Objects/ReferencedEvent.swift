@@ -4,11 +4,7 @@
 import ApolloAPI
 
 /// Represents a 'referenced' event on a given `ReferencedSubject`.
-public final class ReferencedEvent: Object {
-  override public class var __typename: StaticString { "ReferencedEvent" }
-
-  public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Node.self
-  ]
-}
+public let ReferencedEvent = Object(
+  __typename: "ReferencedEvent",
+  __implementedInterfaces: [Node.self]
+)

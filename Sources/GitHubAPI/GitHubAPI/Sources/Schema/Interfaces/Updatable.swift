@@ -4,4 +4,4 @@
 import ApolloAPI
 
 /// Entities that can be updated.
-public final class Updatable: Interface { }
+public let Updatable = Interface(name: "Updatable")

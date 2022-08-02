@@ -4,13 +4,11 @@
 import ApolloAPI
 
 /// Audit log entry for a org.config.enable_collaborators_only event.
-public final class OrgConfigEnableCollaboratorsOnlyAuditEntry: Object {
-  override public class var __typename: StaticString { "OrgConfigEnableCollaboratorsOnlyAuditEntry" }
-
-  public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    AuditEntry.self,
-    Node.self,
-    OrganizationAuditEntryData.self
-  ]
-}
+public let OrgConfigEnableCollaboratorsOnlyAuditEntry = Object(
+  __typename: "OrgConfigEnableCollaboratorsOnlyAuditEntry",
+  __implementedInterfaces: [
+   AuditEntry.self,
+   Node.self,
+   OrganizationAuditEntryData.self
+ ]
+)

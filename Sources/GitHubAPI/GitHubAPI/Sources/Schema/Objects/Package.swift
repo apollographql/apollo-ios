@@ -4,11 +4,7 @@
 import ApolloAPI
 
 /// Information for an uploaded package.
-public final class Package: Object {
-  override public class var __typename: StaticString { "Package" }
-
-  public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Node.self
-  ]
-}
+public let Package = Object(
+  __typename: "Package",
+  __implementedInterfaces: [Node.self]
+)

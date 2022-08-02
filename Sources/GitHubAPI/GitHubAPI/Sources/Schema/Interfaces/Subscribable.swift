@@ -4,4 +4,4 @@
 import ApolloAPI
 
 /// Entities that can be subscribed to for web and email notifications.
-public final class Subscribable: Interface { }
+public let Subscribable = Interface(name: "Subscribable")

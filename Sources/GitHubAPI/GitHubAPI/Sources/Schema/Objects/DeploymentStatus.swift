@@ -4,11 +4,7 @@
 import ApolloAPI
 
 /// Describes the status of a given deployment attempt.
-public final class DeploymentStatus: Object {
-  override public class var __typename: StaticString { "DeploymentStatus" }
-
-  public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Node.self
-  ]
-}
+public let DeploymentStatus = Object(
+  __typename: "DeploymentStatus",
+  __implementedInterfaces: [Node.self]
+)

@@ -4,12 +4,10 @@
 import ApolloAPI
 
 /// A release contains the content for a release.
-public final class Release: Object {
-  override public class var __typename: StaticString { "Release" }
-
-  public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Node.self,
-    UniformResourceLocatable.self
-  ]
-}
+public let Release = Object(
+  __typename: "Release",
+  __implementedInterfaces: [
+   Node.self,
+   UniformResourceLocatable.self
+ ]
+)

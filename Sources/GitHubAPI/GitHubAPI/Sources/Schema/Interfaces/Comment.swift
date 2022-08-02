@@ -4,4 +4,4 @@
 import ApolloAPI
 
 /// Represents a comment.
-public final class Comment: Interface { }
+public let Comment = Interface(name: "Comment")

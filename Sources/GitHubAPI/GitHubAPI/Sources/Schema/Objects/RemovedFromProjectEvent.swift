@@ -4,11 +4,7 @@
 import ApolloAPI
 
 /// Represents a 'removed_from_project' event on a given issue or pull request.
-public final class RemovedFromProjectEvent: Object {
-  override public class var __typename: StaticString { "RemovedFromProjectEvent" }
-
-  public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Node.self
-  ]
-}
+public let RemovedFromProjectEvent = Object(
+  __typename: "RemovedFromProjectEvent",
+  __implementedInterfaces: [Node.self]
+)

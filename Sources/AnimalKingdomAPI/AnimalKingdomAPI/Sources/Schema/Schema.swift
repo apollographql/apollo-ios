@@ -18,7 +18,20 @@ public protocol MutableInlineFragment: ApolloAPI.MutableSelectionSet & ApolloAPI
 where Schema == AnimalKingdomAPI.Schema {}
 
 public enum Schema: SchemaConfiguration {
-  public static func objectType(forTypename __typename: String) -> Object? {
-    nil
+  public static func graphQLType(forTypename typename: String) -> Object? {
+    switch typename {
+    case "Query": return AnimalKingdomAPI.Query
+    case "Human": return AnimalKingdomAPI.Human
+    case "Cat": return AnimalKingdomAPI.Cat
+    case "Dog": return AnimalKingdomAPI.Dog
+    case "Bird": return AnimalKingdomAPI.Bird
+    case "Fish": return AnimalKingdomAPI.Fish
+    case "Rat": return AnimalKingdomAPI.Rat
+    case "PetRock": return AnimalKingdomAPI.PetRock
+    case "Crocodile": return AnimalKingdomAPI.Crocodile
+    case "Height": return AnimalKingdomAPI.Height
+    case "Mutation": return AnimalKingdomAPI.Mutation
+    default: return nil
+    }
   }
 }

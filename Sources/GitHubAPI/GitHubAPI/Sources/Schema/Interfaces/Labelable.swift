@@ -4,4 +4,4 @@
 import ApolloAPI
 
 /// An object that can have labels assigned to it.
-public final class Labelable: Interface { }
+public let Labelable = Interface(name: "Labelable")

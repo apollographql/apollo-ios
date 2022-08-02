@@ -4,11 +4,7 @@
 import ApolloAPI
 
 /// Represents a 'deployed' event on a given pull request.
-public final class DeployedEvent: Object {
-  override public class var __typename: StaticString { "DeployedEvent" }
-
-  public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Node.self
-  ]
-}
+public let DeployedEvent = Object(
+  __typename: "DeployedEvent",
+  __implementedInterfaces: [Node.self]
+)

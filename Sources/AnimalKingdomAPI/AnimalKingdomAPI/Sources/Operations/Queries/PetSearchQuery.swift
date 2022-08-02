@@ -45,7 +45,7 @@ public class PetSearchQuery: GraphQLQuery {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Query.self) }
+    public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Query) }
     public static var selections: [Selection] { [
       .field("pets", [Pet].self, arguments: ["filters": .variable("filters")]),
     ] }
@@ -59,7 +59,7 @@ public class PetSearchQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Pet.self) }
+      public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Pet) }
       public static var selections: [Selection] { [
         .field("id", ID.self),
         .field("humanName", String?.self),

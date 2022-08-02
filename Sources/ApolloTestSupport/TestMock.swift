@@ -1,4 +1,3 @@
-#warning("TODO: Fix Test mocks")
 @_exported import ApolloAPI
 import Foundation
 

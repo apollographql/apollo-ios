@@ -117,7 +117,7 @@ struct SelectionSetTemplate {
   }
 
   private func ParentTypeTemplate(_ type: GraphQLCompositeType) -> String {
-    "public static var __parentType: ParentType { .\(type.parentTypeEnumType)(\(schema.name.firstUppercased).\(type.name.firstUppercased).self) }"
+    "public static var __parentType: ParentType { .\(type.parentTypeEnumType)(\(schema.name.firstUppercased).\(type.name.firstUppercased)) }"
   }
 
   // MARK: - Selections

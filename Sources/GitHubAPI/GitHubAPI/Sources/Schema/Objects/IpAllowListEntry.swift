@@ -4,11 +4,7 @@
 import ApolloAPI
 
 /// An IP address or range of addresses that is allowed to access an owner's resources.
-public final class IpAllowListEntry: Object {
-  override public class var __typename: StaticString { "IpAllowListEntry" }
-
-  public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Node.self
-  ]
-}
+public let IpAllowListEntry = Object(
+  __typename: "IpAllowListEntry",
+  __implementedInterfaces: [Node.self]
+)

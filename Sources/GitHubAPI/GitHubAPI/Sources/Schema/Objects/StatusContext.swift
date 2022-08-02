@@ -4,11 +4,7 @@
 import ApolloAPI
 
 /// Represents an individual commit status context
-public final class StatusContext: Object {
-  override public class var __typename: StaticString { "StatusContext" }
-
-  public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Node.self
-  ]
-}
+public let StatusContext = Object(
+  __typename: "StatusContext",
+  __implementedInterfaces: [Node.self]
+)

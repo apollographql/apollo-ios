@@ -4,4 +4,4 @@
 import ApolloAPI
 
 /// Metadata for an audit entry containing enterprise account information.
-public final class EnterpriseAuditEntryData: Interface { }
+public let EnterpriseAuditEntryData = Interface(name: "EnterpriseAuditEntryData")

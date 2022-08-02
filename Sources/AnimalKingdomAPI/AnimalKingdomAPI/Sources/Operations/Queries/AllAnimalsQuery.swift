@@ -65,7 +65,7 @@ public class AllAnimalsQuery: GraphQLQuery {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Query.self) }
+    public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Query) }
     public static var selections: [Selection] { [
       .field("allAnimals", [AllAnimal].self),
     ] }
@@ -79,7 +79,7 @@ public class AllAnimalsQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Animal.self) }
+      public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Animal) }
       public static var selections: [Selection] { [
         .field("height", Height.self),
         .field("species", String.self),
@@ -118,7 +118,7 @@ public class AllAnimalsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Height.self) }
+        public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Height) }
         public static var selections: [Selection] { [
           .field("feet", Int.self),
           .field("inches", Int?.self),
@@ -136,7 +136,7 @@ public class AllAnimalsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Animal.self) }
+        public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Animal) }
         public static var selections: [Selection] { [
           .field("species", String.self),
           .inlineFragment(AsWarmBlooded.self),
@@ -153,7 +153,7 @@ public class AllAnimalsQuery: GraphQLQuery {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.WarmBlooded.self) }
+          public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.WarmBlooded) }
           public static var selections: [Selection] { [
             .field("laysEggs", Bool.self),
             .fragment(WarmBloodedDetails.self),
@@ -181,7 +181,7 @@ public class AllAnimalsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.WarmBlooded.self) }
+        public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.WarmBlooded) }
         public static var selections: [Selection] { [
           .fragment(WarmBloodedDetails.self),
         ] }
@@ -207,7 +207,7 @@ public class AllAnimalsQuery: GraphQLQuery {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Height.self) }
+          public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Height) }
 
           public var feet: Int { __data["feet"] }
           public var inches: Int? { __data["inches"] }
@@ -222,7 +222,7 @@ public class AllAnimalsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Pet.self) }
+        public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Pet) }
         public static var selections: [Selection] { [
           .field("height", Height.self),
           .inlineFragment(AsWarmBlooded.self),
@@ -254,7 +254,7 @@ public class AllAnimalsQuery: GraphQLQuery {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Height.self) }
+          public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Height) }
           public static var selections: [Selection] { [
             .field("relativeSize", GraphQLEnum<RelativeSize>.self),
             .field("centimeters", Double.self),
@@ -274,7 +274,7 @@ public class AllAnimalsQuery: GraphQLQuery {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.WarmBlooded.self) }
+          public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.WarmBlooded) }
           public static var selections: [Selection] { [
             .fragment(WarmBloodedDetails.self),
           ] }
@@ -304,7 +304,7 @@ public class AllAnimalsQuery: GraphQLQuery {
             public let __data: DataDict
             public init(data: DataDict) { __data = data }
 
-            public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Height.self) }
+            public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Height) }
 
             public var feet: Int { __data["feet"] }
             public var inches: Int? { __data["inches"] }
@@ -322,7 +322,7 @@ public class AllAnimalsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Cat.self) }
+        public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Cat) }
         public static var selections: [Selection] { [
           .field("isJellicle", Bool.self),
         ] }
@@ -353,7 +353,7 @@ public class AllAnimalsQuery: GraphQLQuery {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Height.self) }
+          public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Height) }
 
           public var feet: Int { __data["feet"] }
           public var inches: Int? { __data["inches"] }
@@ -370,7 +370,7 @@ public class AllAnimalsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Union(AnimalKingdomAPI.ClassroomPet.self) }
+        public static var __parentType: ParentType { .Union(AnimalKingdomAPI.ClassroomPet) }
         public static var selections: [Selection] { [
           .inlineFragment(AsBird.self),
         ] }
@@ -396,7 +396,7 @@ public class AllAnimalsQuery: GraphQLQuery {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Height.self) }
+          public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Height) }
 
           public var feet: Int { __data["feet"] }
           public var inches: Int? { __data["inches"] }
@@ -410,7 +410,7 @@ public class AllAnimalsQuery: GraphQLQuery {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Bird.self) }
+          public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Bird) }
           public static var selections: [Selection] { [
             .field("wingspan", Double.self),
           ] }
@@ -441,7 +441,7 @@ public class AllAnimalsQuery: GraphQLQuery {
             public let __data: DataDict
             public init(data: DataDict) { __data = data }
 
-            public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Height.self) }
+            public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Height) }
 
             public var feet: Int { __data["feet"] }
             public var inches: Int? { __data["inches"] }
@@ -459,7 +459,7 @@ public class AllAnimalsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Dog.self) }
+        public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Dog) }
         public static var selections: [Selection] { [
           .field("favoriteToy", String.self),
           .field("birthdate", CustomDate?.self),
@@ -491,7 +491,7 @@ public class AllAnimalsQuery: GraphQLQuery {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Height.self) }
+          public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Height) }
 
           public var feet: Int { __data["feet"] }
           public var inches: Int? { __data["inches"] }

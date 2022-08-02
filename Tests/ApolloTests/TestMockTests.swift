@@ -1,4 +1,3 @@
-#warning("TODO: Fix Test mocks")
 import XCTest
 import Nimble
 @testable import Apollo
@@ -208,6 +207,7 @@ class TestMockTests: XCTestCase {
 
 // MARK: - Generated Example
 
+// MARK: Generated Schema
 enum TestMockSchema: SchemaConfiguration {
   static func graphQLType(forTypename typename: String) -> Object? {
     return nil
@@ -217,6 +217,10 @@ enum TestMockSchema: SchemaConfiguration {
     static let Animal = Interface(name: "Animal")
   }
   struct Types {
+    static let Dog = Object(
+      __typename: "Dog",
+      __implementedInterfaces: [TestMockSchema.Interfaces.Animal]
+    )
     static let Cat = Object(
       __typename: "Cat",
       __implementedInterfaces: [Interfaces.Animal]
@@ -228,17 +232,12 @@ enum TestMockSchema: SchemaConfiguration {
   }
 }
 
-extension TestMockSchema.Types {
-  static let Dog = Object(
-    __typename: "Dog",
-    __implementedInterfaces: [TestMockSchema.Interfaces.Animal]
-  )
-}
-
+// MARK: Generated Test Mocks Schema
 extension GraphQLTypeMock {
   typealias Animal = Interface
 }
 
+#warning("TODO: What do we name these? Namespaced, Mock_Dog, MockDog, Dog?")
 class Dog: GraphQLTypeMock {
   static let _graphQLType: Object = TestMockSchema.Types.Dog
   static let _mockFields = MockFields()

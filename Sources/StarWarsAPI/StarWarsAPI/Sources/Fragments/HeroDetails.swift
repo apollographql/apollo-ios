@@ -24,7 +24,7 @@ public struct HeroDetails: StarWarsAPI.SelectionSet, Fragment {
   public let __data: DataDict
   public init(data: DataDict) { __data = data }
 
-  public static var __parentType: ParentType { .Interface(StarWarsAPI.Character.self) }
+  public static var __parentType: ParentType { .Interface(StarWarsAPI.Character) }
   public static var selections: [Selection] { [
     .field("name", String.self),
     .inlineFragment(AsHuman.self),
@@ -44,7 +44,7 @@ public struct HeroDetails: StarWarsAPI.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(StarWarsAPI.Human.self) }
+    public static var __parentType: ParentType { .Object(StarWarsAPI.Human) }
     public static var selections: [Selection] { [
       .field("height", Double?.self),
     ] }
@@ -62,7 +62,7 @@ public struct HeroDetails: StarWarsAPI.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(StarWarsAPI.Droid.self) }
+    public static var __parentType: ParentType { .Object(StarWarsAPI.Droid) }
     public static var selections: [Selection] { [
       .field("primaryFunction", String?.self),
     ] }

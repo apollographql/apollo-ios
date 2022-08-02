@@ -4,14 +4,12 @@
 import ApolloAPI
 
 /// Audit log entry for a repo.config.enable_collaborators_only event.
-public final class RepoConfigEnableCollaboratorsOnlyAuditEntry: Object {
-  override public class var __typename: StaticString { "RepoConfigEnableCollaboratorsOnlyAuditEntry" }
-
-  public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    AuditEntry.self,
-    Node.self,
-    OrganizationAuditEntryData.self,
-    RepositoryAuditEntryData.self
-  ]
-}
+public let RepoConfigEnableCollaboratorsOnlyAuditEntry = Object(
+  __typename: "RepoConfigEnableCollaboratorsOnlyAuditEntry",
+  __implementedInterfaces: [
+   AuditEntry.self,
+   Node.self,
+   OrganizationAuditEntryData.self,
+   RepositoryAuditEntryData.self
+ ]
+)

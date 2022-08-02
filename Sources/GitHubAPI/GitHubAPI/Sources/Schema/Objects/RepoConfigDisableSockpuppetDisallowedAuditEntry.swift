@@ -4,14 +4,12 @@
 import ApolloAPI
 
 /// Audit log entry for a repo.config.disable_sockpuppet_disallowed event.
-public final class RepoConfigDisableSockpuppetDisallowedAuditEntry: Object {
-  override public class var __typename: StaticString { "RepoConfigDisableSockpuppetDisallowedAuditEntry" }
-
-  public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    AuditEntry.self,
-    Node.self,
-    OrganizationAuditEntryData.self,
-    RepositoryAuditEntryData.self
-  ]
-}
+public let RepoConfigDisableSockpuppetDisallowedAuditEntry = Object(
+  __typename: "RepoConfigDisableSockpuppetDisallowedAuditEntry",
+  __implementedInterfaces: [
+   AuditEntry.self,
+   Node.self,
+   OrganizationAuditEntryData.self,
+   RepositoryAuditEntryData.self
+ ]
+)

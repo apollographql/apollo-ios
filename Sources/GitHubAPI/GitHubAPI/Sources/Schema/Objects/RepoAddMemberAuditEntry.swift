@@ -4,14 +4,12 @@
 import ApolloAPI
 
 /// Audit log entry for a repo.add_member event.
-public final class RepoAddMemberAuditEntry: Object {
-  override public class var __typename: StaticString { "RepoAddMemberAuditEntry" }
-
-  public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    AuditEntry.self,
-    Node.self,
-    OrganizationAuditEntryData.self,
-    RepositoryAuditEntryData.self
-  ]
-}
+public let RepoAddMemberAuditEntry = Object(
+  __typename: "RepoAddMemberAuditEntry",
+  __implementedInterfaces: [
+   AuditEntry.self,
+   Node.self,
+   OrganizationAuditEntryData.self,
+   RepositoryAuditEntryData.self
+ ]
+)

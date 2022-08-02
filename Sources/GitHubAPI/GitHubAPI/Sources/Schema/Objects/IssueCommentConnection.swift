@@ -4,6 +4,7 @@
 import ApolloAPI
 
 /// The connection type for IssueComment.
-public final class IssueCommentConnection: Object {
-  override public class var __typename: StaticString { "IssueCommentConnection" }
-}
+public let IssueCommentConnection = Object(
+  __typename: "IssueCommentConnection",
+  __implementedInterfaces: []
+)

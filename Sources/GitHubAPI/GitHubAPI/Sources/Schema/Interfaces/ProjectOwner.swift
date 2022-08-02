@@ -4,4 +4,4 @@
 import ApolloAPI
 
 /// Represents an owner of a Project.
-public final class ProjectOwner: Interface { }
+public let ProjectOwner = Interface(name: "ProjectOwner")

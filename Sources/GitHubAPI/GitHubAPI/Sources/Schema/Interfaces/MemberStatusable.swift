@@ -4,4 +4,4 @@
 import ApolloAPI
 
 /// Entities that have members who can set status messages.
-public final class MemberStatusable: Interface { }
+public let MemberStatusable = Interface(name: "MemberStatusable")

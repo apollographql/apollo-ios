@@ -4,11 +4,7 @@
 import ApolloAPI
 
 /// Represents a 'converted_note_to_issue' event on a given issue or pull request.
-public final class ConvertedNoteToIssueEvent: Object {
-  override public class var __typename: StaticString { "ConvertedNoteToIssueEvent" }
-
-  public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Node.self
-  ]
-}
+public let ConvertedNoteToIssueEvent = Object(
+  __typename: "ConvertedNoteToIssueEvent",
+  __implementedInterfaces: [Node.self]
+)

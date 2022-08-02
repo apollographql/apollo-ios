@@ -22,7 +22,7 @@ public class IncrementingSubscription: GraphQLSubscription {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(SubscriptionAPI.Subscription.self) }
+    public static var __parentType: ParentType { .Object(SubscriptionAPI.Subscription) }
     public static var selections: [Selection] { [
       .field("numberIncremented", Int?.self),
     ] }

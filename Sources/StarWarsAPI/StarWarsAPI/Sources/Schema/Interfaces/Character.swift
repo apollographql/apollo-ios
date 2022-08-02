@@ -4,4 +4,4 @@
 import ApolloAPI
 
 /// A character from the Star Wars universe
-public final class Character: Interface { }
+public let Character = Interface(name: "Character")

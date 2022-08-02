@@ -4,12 +4,10 @@
 import ApolloAPI
 
 /// A check run.
-public final class CheckRun: Object {
-  override public class var __typename: StaticString { "CheckRun" }
-
-  public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Node.self,
-    UniformResourceLocatable.self
-  ]
-}
+public let CheckRun = Object(
+  __typename: "CheckRun",
+  __implementedInterfaces: [
+   Node.self,
+   UniformResourceLocatable.self
+ ]
+)

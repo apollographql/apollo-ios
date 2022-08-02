@@ -3,6 +3,7 @@
 
 import ApolloAPI
 
-public final class Subscription: Object {
-  override public class var __typename: StaticString { "Subscription" }
-}
+public let Subscription = Object(
+  __typename: "Subscription",
+  __implementedInterfaces: []
+)

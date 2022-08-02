@@ -4,12 +4,10 @@
 import ApolloAPI
 
 /// Represents a Git commit part of a pull request.
-public final class PullRequestCommit: Object {
-  override public class var __typename: StaticString { "PullRequestCommit" }
-
-  public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Node.self,
-    UniformResourceLocatable.self
-  ]
-}
+public let PullRequestCommit = Object(
+  __typename: "PullRequestCommit",
+  __implementedInterfaces: [
+   Node.self,
+   UniformResourceLocatable.self
+ ]
+)

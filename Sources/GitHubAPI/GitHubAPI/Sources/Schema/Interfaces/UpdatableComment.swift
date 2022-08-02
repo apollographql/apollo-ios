@@ -4,4 +4,4 @@
 import ApolloAPI
 
 /// Comments that can be updated.
-public final class UpdatableComment: Interface { }
+public let UpdatableComment = Interface(name: "UpdatableComment")

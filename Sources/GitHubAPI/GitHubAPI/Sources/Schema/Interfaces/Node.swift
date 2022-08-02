@@ -4,4 +4,4 @@
 import ApolloAPI
 
 /// An object with an ID.
-public final class Node: Interface { }
+public let Node = Interface(name: "Node")

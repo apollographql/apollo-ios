@@ -4,11 +4,7 @@
 import ApolloAPI
 
 /// A user accounts upload from an Enterprise Server installation.
-public final class EnterpriseServerUserAccountsUpload: Object {
-  override public class var __typename: StaticString { "EnterpriseServerUserAccountsUpload" }
-
-  public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Node.self
-  ]
-}
+public let EnterpriseServerUserAccountsUpload = Object(
+  __typename: "EnterpriseServerUserAccountsUpload",
+  __implementedInterfaces: [Node.self]
+)

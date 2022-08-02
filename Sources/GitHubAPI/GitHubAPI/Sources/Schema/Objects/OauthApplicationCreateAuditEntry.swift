@@ -4,14 +4,12 @@
 import ApolloAPI
 
 /// Audit log entry for a oauth_application.create event.
-public final class OauthApplicationCreateAuditEntry: Object {
-  override public class var __typename: StaticString { "OauthApplicationCreateAuditEntry" }
-
-  public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    AuditEntry.self,
-    Node.self,
-    OauthApplicationAuditEntryData.self,
-    OrganizationAuditEntryData.self
-  ]
-}
+public let OauthApplicationCreateAuditEntry = Object(
+  __typename: "OauthApplicationCreateAuditEntry",
+  __implementedInterfaces: [
+   AuditEntry.self,
+   Node.self,
+   OauthApplicationAuditEntryData.self,
+   OrganizationAuditEntryData.self
+ ]
+)

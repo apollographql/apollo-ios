@@ -16,7 +16,7 @@ public struct HumanHeightWithVariable: StarWarsAPI.SelectionSet, Fragment {
   public let __data: DataDict
   public init(data: DataDict) { __data = data }
 
-  public static var __parentType: ParentType { .Object(StarWarsAPI.Human.self) }
+  public static var __parentType: ParentType { .Object(StarWarsAPI.Human) }
   public static var selections: [Selection] { [
     .field("height", Double?.self, arguments: ["unit": .variable("heightUnit")]),
   ] }

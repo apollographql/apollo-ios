@@ -4,4 +4,4 @@
 import ApolloAPI
 
 /// Entities that can be sponsored through GitHub Sponsors
-public final class Sponsorable: Interface { }
+public let Sponsorable = Interface(name: "Sponsorable")

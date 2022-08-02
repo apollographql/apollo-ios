@@ -4,11 +4,7 @@
 import ApolloAPI
 
 /// A GitHub Sponsors listing.
-public final class SponsorsListing: Object {
-  override public class var __typename: StaticString { "SponsorsListing" }
-
-  public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Node.self
-  ]
-}
+public let SponsorsListing = Object(
+  __typename: "SponsorsListing",
+  __implementedInterfaces: [Node.self]
+)

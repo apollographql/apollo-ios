@@ -30,14 +30,14 @@ class CacheKeyResolutionTests: XCTestCase {
   // MARK: CacheKeyProvider Tests
 
   func test__schemaConfiguration__givenData_whenKnownType_noCacheKeyProvider_noUnknownTypeCacheKeyProvider_shouldReturnNil() {
-    class Alpha: Object { }
+    let Alpha = Object(__typename: "Alpha", __implementedInterfaces: [])
 
     let object: JSONObject = [
       "__typename": "Alpha",
       "id": "α"
     ]
 
-    MockSchemaConfiguration.stub_objectTypeForTypeName = { _ in Alpha() }
+    MockSchemaConfiguration.stub_objectTypeForTypeName = { _ in Alpha }
 
     let actual = MockSchemaConfiguration.cacheKey(for: object)
 
@@ -52,7 +52,9 @@ class CacheKeyResolutionTests: XCTestCase {
 
     MockSchemaConfiguration.stub_cacheKeyProviderForType = { _ in IDCacheKeyProvider.shared }
 
-    MockSchemaConfiguration.stub_objectTypeForTypeName = { _ in Object() }
+    MockSchemaConfiguration.stub_objectTypeForTypeName = { _ in
+      Object(__typename: "", __implementedInterfaces: [])
+    }
 
     let actual = MockSchemaConfiguration.cacheKey(for: object)
 

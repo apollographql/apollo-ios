@@ -21,7 +21,7 @@ public struct AuthorDetails: GitHubAPI.SelectionSet, Fragment {
   public let __data: DataDict
   public init(data: DataDict) { __data = data }
 
-  public static var __parentType: ParentType { .Interface(GitHubAPI.Actor.self) }
+  public static var __parentType: ParentType { .Interface(GitHubAPI.Actor) }
   public static var selections: [Selection] { [
     .field("login", String.self),
     .inlineFragment(AsUser.self),
@@ -39,7 +39,7 @@ public struct AuthorDetails: GitHubAPI.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(GitHubAPI.User.self) }
+    public static var __parentType: ParentType { .Object(GitHubAPI.User) }
     public static var selections: [Selection] { [
       .field("id", ID.self),
       .field("name", String?.self),

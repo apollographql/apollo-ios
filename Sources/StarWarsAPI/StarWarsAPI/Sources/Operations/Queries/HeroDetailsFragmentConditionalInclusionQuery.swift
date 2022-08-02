@@ -35,7 +35,7 @@ public class HeroDetailsFragmentConditionalInclusionQuery: GraphQLQuery {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(StarWarsAPI.Query.self) }
+    public static var __parentType: ParentType { .Object(StarWarsAPI.Query) }
     public static var selections: [Selection] { [
       .field("hero", Hero?.self),
     ] }
@@ -49,7 +49,7 @@ public class HeroDetailsFragmentConditionalInclusionQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { .Interface(StarWarsAPI.Character.self) }
+      public static var __parentType: ParentType { .Interface(StarWarsAPI.Character) }
       public static var selections: [Selection] { [
         .include(if: "includeDetails", .fragment(HeroDetails.self)),
       ] }
@@ -70,7 +70,7 @@ public class HeroDetailsFragmentConditionalInclusionQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Interface(StarWarsAPI.Character.self) }
+        public static var __parentType: ParentType { .Interface(StarWarsAPI.Character) }
 
         /// The name of the character
         public var name: String { __data["name"] }

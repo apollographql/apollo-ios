@@ -49,7 +49,7 @@ public class IssuesAndCommentsForRepositoryQuery: GraphQLQuery {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(GitHubAPI.Query.self) }
+    public static var __parentType: ParentType { .Object(GitHubAPI.Query) }
     public static var selections: [Selection] { [
       .field("repository", Repository?.self, arguments: [
         "name": "apollo-ios",
@@ -67,7 +67,7 @@ public class IssuesAndCommentsForRepositoryQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { .Object(GitHubAPI.Repository.self) }
+      public static var __parentType: ParentType { .Object(GitHubAPI.Repository) }
       public static var selections: [Selection] { [
         .field("name", String.self),
         .field("issues", Issues.self, arguments: ["last": 100]),
@@ -85,7 +85,7 @@ public class IssuesAndCommentsForRepositoryQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Object(GitHubAPI.IssueConnection.self) }
+        public static var __parentType: ParentType { .Object(GitHubAPI.IssueConnection) }
         public static var selections: [Selection] { [
           .field("nodes", [Node?]?.self),
         ] }
@@ -100,7 +100,7 @@ public class IssuesAndCommentsForRepositoryQuery: GraphQLQuery {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public static var __parentType: ParentType { .Object(GitHubAPI.Issue.self) }
+          public static var __parentType: ParentType { .Object(GitHubAPI.Issue) }
           public static var selections: [Selection] { [
             .field("title", String.self),
             .field("author", Author?.self),
@@ -124,7 +124,7 @@ public class IssuesAndCommentsForRepositoryQuery: GraphQLQuery {
             public let __data: DataDict
             public init(data: DataDict) { __data = data }
 
-            public static var __parentType: ParentType { .Interface(GitHubAPI.Actor.self) }
+            public static var __parentType: ParentType { .Interface(GitHubAPI.Actor) }
             public static var selections: [Selection] { [
               .fragment(AuthorDetails.self),
             ] }
@@ -148,7 +148,7 @@ public class IssuesAndCommentsForRepositoryQuery: GraphQLQuery {
               public let __data: DataDict
               public init(data: DataDict) { __data = data }
 
-              public static var __parentType: ParentType { .Object(GitHubAPI.User.self) }
+              public static var __parentType: ParentType { .Object(GitHubAPI.User) }
 
               /// The username of the actor.
               public var login: String { __data["login"] }
@@ -172,7 +172,7 @@ public class IssuesAndCommentsForRepositoryQuery: GraphQLQuery {
             public let __data: DataDict
             public init(data: DataDict) { __data = data }
 
-            public static var __parentType: ParentType { .Object(GitHubAPI.IssueCommentConnection.self) }
+            public static var __parentType: ParentType { .Object(GitHubAPI.IssueCommentConnection) }
             public static var selections: [Selection] { [
               .field("nodes", [Node?]?.self),
             ] }
@@ -187,7 +187,7 @@ public class IssuesAndCommentsForRepositoryQuery: GraphQLQuery {
               public let __data: DataDict
               public init(data: DataDict) { __data = data }
 
-              public static var __parentType: ParentType { .Object(GitHubAPI.IssueComment.self) }
+              public static var __parentType: ParentType { .Object(GitHubAPI.IssueComment) }
               public static var selections: [Selection] { [
                 .field("body", String.self),
                 .field("author", Author?.self),
@@ -205,7 +205,7 @@ public class IssuesAndCommentsForRepositoryQuery: GraphQLQuery {
                 public let __data: DataDict
                 public init(data: DataDict) { __data = data }
 
-                public static var __parentType: ParentType { .Interface(GitHubAPI.Actor.self) }
+                public static var __parentType: ParentType { .Interface(GitHubAPI.Actor) }
                 public static var selections: [Selection] { [
                   .fragment(AuthorDetails.self),
                 ] }
@@ -229,7 +229,7 @@ public class IssuesAndCommentsForRepositoryQuery: GraphQLQuery {
                   public let __data: DataDict
                   public init(data: DataDict) { __data = data }
 
-                  public static var __parentType: ParentType { .Object(GitHubAPI.User.self) }
+                  public static var __parentType: ParentType { .Object(GitHubAPI.User) }
 
                   /// The username of the actor.
                   public var login: String { __data["login"] }

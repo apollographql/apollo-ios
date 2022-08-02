@@ -14,27 +14,18 @@ struct ObjectTemplate: TemplateRenderer {
     """
     \(documentation: graphqlObject.documentation, config: config)
     \(embeddedAccessControlModifier)\
-    final class \(graphqlObject.name.firstUppercased): Object {
-      override public class var __typename: StaticString { \"\(graphqlObject.name.firstUppercased)\" }
-
-      \(section: ImplementedInterfacesTemplate())
-    }
-
+    let \(graphqlObject.name.firstUppercased) = Object(
+      __typename: "\(graphqlObject.name.firstUppercased)\",
+      __implementedInterfaces: \(ImplementedInterfacesTemplate())
+    )
     """
   }
 
   private func ImplementedInterfacesTemplate() -> TemplateString {
-    guard !graphqlObject.interfaces.isEmpty else {
-      return ""
-    }
-
     return """
-    public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-    private static let _implementedInterfaces: [Interface.Type]? = [
-      \(graphqlObject.interfaces.map({ interface in
+    [\(list: graphqlObject.interfaces.map({ interface in
           "\(interface.name.firstUppercased).self"
-      }), separator: ",\n")
-    ]
+      }))]
     """
   }
 }

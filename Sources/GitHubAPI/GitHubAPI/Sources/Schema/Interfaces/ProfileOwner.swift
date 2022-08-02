@@ -4,4 +4,4 @@
 import ApolloAPI
 
 /// Represents any entity on GitHub that has a profile page.
-public final class ProfileOwner: Interface { }
+public let ProfileOwner = Interface(name: "ProfileOwner")

@@ -4,4 +4,4 @@
 import ApolloAPI
 
 /// Metadata for an audit entry with action team.*
-public final class TeamAuditEntryData: Interface { }
+public let TeamAuditEntryData = Interface(name: "TeamAuditEntryData")

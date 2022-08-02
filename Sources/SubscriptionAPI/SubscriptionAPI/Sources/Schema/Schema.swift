@@ -18,7 +18,10 @@ public protocol MutableInlineFragment: ApolloAPI.MutableSelectionSet & ApolloAPI
 where Schema == SubscriptionAPI.Schema {}
 
 public enum Schema: SchemaConfiguration {
-  public static func objectType(forTypename __typename: String) -> Object? {
-    nil
+  public static func graphQLType(forTypename typename: String) -> Object? {
+    switch typename {
+    case "Subscription": return SubscriptionAPI.Subscription
+    default: return nil
+    }
   }
 }

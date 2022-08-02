@@ -4,11 +4,7 @@
 import ApolloAPI
 
 /// Represents an 'unassigned' event on any assignable object.
-public final class UnassignedEvent: Object {
-  override public class var __typename: StaticString { "UnassignedEvent" }
-
-  public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Node.self
-  ]
-}
+public let UnassignedEvent = Object(
+  __typename: "UnassignedEvent",
+  __implementedInterfaces: [Node.self]
+)

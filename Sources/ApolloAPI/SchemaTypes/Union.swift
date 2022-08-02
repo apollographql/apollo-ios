@@ -3,7 +3,7 @@
 public struct Union: ParentTypeConvertible, Hashable {
   let possibleTypes: [Object]
 
-  init(possibleTypes: [Object]) {
+  public init(possibleTypes: [Object]) {
     self.possibleTypes = possibleTypes
   }
 }

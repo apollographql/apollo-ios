@@ -27,7 +27,7 @@ public class CreateReviewWithNullFieldMutation: GraphQLMutation {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(StarWarsAPI.Mutation.self) }
+    public static var __parentType: ParentType { .Object(StarWarsAPI.Mutation) }
     public static var selections: [Selection] { [
       .field("createReview", CreateReview?.self, arguments: [
         "episode": "JEDI",
@@ -47,7 +47,7 @@ public class CreateReviewWithNullFieldMutation: GraphQLMutation {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { .Object(StarWarsAPI.Review.self) }
+      public static var __parentType: ParentType { .Object(StarWarsAPI.Review) }
       public static var selections: [Selection] { [
         .field("stars", Int.self),
         .field("commentary", String?.self),

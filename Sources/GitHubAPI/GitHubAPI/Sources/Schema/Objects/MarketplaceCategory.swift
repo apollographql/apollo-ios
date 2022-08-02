@@ -4,11 +4,7 @@
 import ApolloAPI
 
 /// A public description of a Marketplace category.
-public final class MarketplaceCategory: Object {
-  override public class var __typename: StaticString { "MarketplaceCategory" }
-
-  public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Node.self
-  ]
-}
+public let MarketplaceCategory = Object(
+  __typename: "MarketplaceCategory",
+  __implementedInterfaces: [Node.self]
+)

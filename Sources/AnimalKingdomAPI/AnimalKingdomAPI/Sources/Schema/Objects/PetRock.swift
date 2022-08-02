@@ -3,11 +3,7 @@
 
 import ApolloAPI
 
-public final class PetRock: Object {
-  override public class var __typename: StaticString { "PetRock" }
-
-  public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Pet.self
-  ]
-}
+public let PetRock = Object(
+  __typename: "PetRock",
+  __implementedInterfaces: [Pet.self]
+)

@@ -3,7 +3,10 @@
 
 import ApolloAPI
 
-enum SearchResult: Union {
-  public static let possibleTypes: [Object] = [
-  ]
-}
+public let SearchResult = Union(
+  possibleTypes: [
+  StarWarsAPI.Human.self,
+  StarWarsAPI.Droid.self,
+  StarWarsAPI.Starship.self
+]
+)

@@ -272,7 +272,7 @@
 		DE9C04B226EAB02C00EC35E7 /* JSONDecodingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9C04B026EAAFF900EC35E7 /* JSONDecodingError.swift */; };
 		DE9CEAE028299F1100959AF9 /* ApolloTestSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = DE9CEADF28299F0A00959AF9 /* ApolloTestSupport.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DE9CEAE42829A01C00959AF9 /* ApolloAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE058621266978A100265760 /* ApolloAPI.framework */; };
-		DE9CEAE62829A2FE00959AF9 /* MockObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9CEAE52829A2FE00959AF9 /* MockObject.swift */; };
+		DE9CEAE62829A2FE00959AF9 /* TestMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9CEAE52829A2FE00959AF9 /* TestMock.swift */; };
 		DE9CEAE92829A3C800959AF9 /* ApolloTestSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE9CEADC28299E8500959AF9 /* ApolloTestSupport.framework */; };
 		DE9CEAEA2829A45500959AF9 /* Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2FCF2626E8083A0057EA67 /* Field.swift */; };
 		DE9CEAEF282C62B700959AF9 /* MockObjectTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9CEAEE282C62B700959AF9 /* MockObjectTemplate.swift */; };
@@ -1365,7 +1365,7 @@
 		DE9CEADC28299E8500959AF9 /* ApolloTestSupport.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ApolloTestSupport.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE9CEADF28299F0A00959AF9 /* ApolloTestSupport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApolloTestSupport.h; sourceTree = "<group>"; };
 		DE9CEAE128299F6900959AF9 /* Apollo-Target-TestSupport.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-TestSupport.xcconfig"; sourceTree = "<group>"; };
-		DE9CEAE52829A2FE00959AF9 /* MockObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockObject.swift; sourceTree = "<group>"; };
+		DE9CEAE52829A2FE00959AF9 /* TestMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestMock.swift; sourceTree = "<group>"; };
 		DE9CEAED282C207F00959AF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DE9CEAEE282C62B700959AF9 /* MockObjectTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockObjectTemplate.swift; sourceTree = "<group>"; };
 		DE9CEAF0282C632B00959AF9 /* MockObjectTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockObjectTemplateTests.swift; sourceTree = "<group>"; };
@@ -2925,7 +2925,7 @@
 			children = (
 				DE9CEAED282C207F00959AF9 /* Info.plist */,
 				DE9CEADF28299F0A00959AF9 /* ApolloTestSupport.h */,
-				DE9CEAE52829A2FE00959AF9 /* MockObject.swift */,
+				DE9CEAE52829A2FE00959AF9 /* TestMock.swift */,
 				DE2FCF2626E8083A0057EA67 /* Field.swift */,
 			);
 			name = ApolloTestSupport;
@@ -5285,7 +5285,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE9CEAEA2829A45500959AF9 /* Field.swift in Sources */,
-				DE9CEAE62829A2FE00959AF9 /* MockObject.swift in Sources */,
+				DE9CEAE62829A2FE00959AF9 /* TestMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

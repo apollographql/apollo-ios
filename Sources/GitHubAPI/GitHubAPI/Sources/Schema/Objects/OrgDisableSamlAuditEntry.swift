@@ -4,13 +4,11 @@
 import ApolloAPI
 
 /// Audit log entry for a org.disable_saml event.
-public final class OrgDisableSamlAuditEntry: Object {
-  override public class var __typename: StaticString { "OrgDisableSamlAuditEntry" }
-
-  public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    AuditEntry.self,
-    Node.self,
-    OrganizationAuditEntryData.self
-  ]
-}
+public let OrgDisableSamlAuditEntry = Object(
+  __typename: "OrgDisableSamlAuditEntry",
+  __implementedInterfaces: [
+   AuditEntry.self,
+   Node.self,
+   OrganizationAuditEntryData.self
+ ]
+)

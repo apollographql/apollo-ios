@@ -4,12 +4,10 @@
 import ApolloAPI
 
 /// A thread of comments on a commit.
-public final class CommitCommentThread: Object {
-  override public class var __typename: StaticString { "CommitCommentThread" }
-
-  public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Node.self,
-    RepositoryNode.self
-  ]
-}
+public let CommitCommentThread = Object(
+  __typename: "CommitCommentThread",
+  __implementedInterfaces: [
+   Node.self,
+   RepositoryNode.self
+ ]
+)

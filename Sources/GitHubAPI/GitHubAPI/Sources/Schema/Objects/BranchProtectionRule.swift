@@ -4,11 +4,7 @@
 import ApolloAPI
 
 /// A branch protection rule.
-public final class BranchProtectionRule: Object {
-  override public class var __typename: StaticString { "BranchProtectionRule" }
-
-  public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Node.self
-  ]
-}
+public let BranchProtectionRule = Object(
+  __typename: "BranchProtectionRule",
+  __implementedInterfaces: [Node.self]
+)

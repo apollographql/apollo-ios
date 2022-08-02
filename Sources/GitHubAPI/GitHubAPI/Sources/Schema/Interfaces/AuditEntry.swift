@@ -4,4 +4,4 @@
 import ApolloAPI
 
 /// An entry in the audit log.
-public final class AuditEntry: Interface { }
+public let AuditEntry = Interface(name: "AuditEntry")

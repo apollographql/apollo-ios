@@ -4,4 +4,4 @@
 import ApolloAPI
 
 /// Entities that can be deleted.
-public final class Deletable: Interface { }
+public let Deletable = Interface(name: "Deletable")

@@ -49,16 +49,10 @@ struct SchemaTemplate: TemplateRenderer {
 
   var objectTypeFunction: TemplateString {
     return """
-    public static func objectType(forTypename __typename: String) -> Object? {
-      nil
-    }
-    """
-
-    return """
-    public static func objectType(forTypename __typename: String) -> Object.Type? {
-      switch __typename {
+    public static func graphQLType(forTypename typename: String) -> Object? {
+      switch typename {
       \(schema.referencedTypes.objects.map {
-        "case \"\($0.name.firstUppercased)\": return \(schemaName).\($0.name.firstUppercased).self"
+        "case \"\($0.name.firstUppercased)\": return \(schemaName).\($0.name.firstUppercased)"
       }, separator: "\n")
       default: return nil
       }

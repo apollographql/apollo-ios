@@ -13,25 +13,15 @@ struct UnionTemplate: TemplateRenderer {
   let target: TemplateTarget = .schemaFile
 
   var template: TemplateString {
-    return """
-    enum \(graphqlUnion.name.firstUppercased): Union {
-      public static let possibleTypes: [Object] = [
-      ]
-    }
-    """
-
     TemplateString(
     """
     \(documentation: graphqlUnion.documentation, config: config)
     \(embeddedAccessControlModifier)\
-    enum \(graphqlUnion.name.firstUppercased): Union {
-      public static let possibleTypes: [Object.Type] = [
-        \(graphqlUnion.types.map({ type in
+    let \(graphqlUnion.name.firstUppercased) = Union(
+      possibleTypes: [\(list: graphqlUnion.types.map({ type in
           "\(moduleName.firstUppercased).\(type.name.firstUppercased).self"
-        }), separator: ",\n")
-      ]
-    }
-    
+        }))]
+    )
     """
     )
   }

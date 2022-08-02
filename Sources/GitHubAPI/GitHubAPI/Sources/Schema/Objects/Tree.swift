@@ -4,12 +4,10 @@
 import ApolloAPI
 
 /// Represents a Git tree.
-public final class Tree: Object {
-  override public class var __typename: StaticString { "Tree" }
-
-  public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    GitObject.self,
-    Node.self
-  ]
-}
+public let Tree = Object(
+  __typename: "Tree",
+  __implementedInterfaces: [
+   GitObject.self,
+   Node.self
+ ]
+)

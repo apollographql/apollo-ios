@@ -48,7 +48,7 @@ public class SearchQuery: GraphQLQuery {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(StarWarsAPI.Query.self) }
+    public static var __parentType: ParentType { .Object(StarWarsAPI.Query) }
     public static var selections: [Selection] { [
       .field("search", [Search?]?.self, arguments: ["text": .variable("term")]),
     ] }
@@ -62,7 +62,7 @@ public class SearchQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { .Union(StarWarsAPI.SearchResult.self) }
+      public static var __parentType: ParentType { .Union(StarWarsAPI.SearchResult) }
       public static var selections: [Selection] { [
         .inlineFragment(AsHuman.self),
         .inlineFragment(AsDroid.self),
@@ -80,7 +80,7 @@ public class SearchQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Object(StarWarsAPI.Human.self) }
+        public static var __parentType: ParentType { .Object(StarWarsAPI.Human) }
         public static var selections: [Selection] { [
           .field("id", ID.self),
           .field("name", String.self),
@@ -99,7 +99,7 @@ public class SearchQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Object(StarWarsAPI.Droid.self) }
+        public static var __parentType: ParentType { .Object(StarWarsAPI.Droid) }
         public static var selections: [Selection] { [
           .field("id", ID.self),
           .field("name", String.self),
@@ -118,7 +118,7 @@ public class SearchQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Object(StarWarsAPI.Starship.self) }
+        public static var __parentType: ParentType { .Object(StarWarsAPI.Starship) }
         public static var selections: [Selection] { [
           .field("id", ID.self),
           .field("name", String.self),

@@ -4,4 +4,4 @@
 import ApolloAPI
 
 /// An object that can be closed
-public final class Closable: Interface { }
+public let Closable = Interface(name: "Closable")

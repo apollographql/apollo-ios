@@ -42,7 +42,7 @@ public class UploadMultipleFilesToDifferentParametersMutation: GraphQLMutation {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(UploadAPI.Mutation.self) }
+    public static var __parentType: ParentType { .Object(UploadAPI.Mutation) }
     public static var selections: [Selection] { [
       .field("multipleParameterUpload", [MultipleParameterUpload].self, arguments: [
         "singleFile": .variable("singleFile"),
@@ -59,7 +59,7 @@ public class UploadMultipleFilesToDifferentParametersMutation: GraphQLMutation {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { .Object(UploadAPI.File.self) }
+      public static var __parentType: ParentType { .Object(UploadAPI.File) }
       public static var selections: [Selection] { [
         .field("id", ID.self),
         .field("path", String.self),

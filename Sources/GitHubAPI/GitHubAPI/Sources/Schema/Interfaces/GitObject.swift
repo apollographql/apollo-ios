@@ -4,4 +4,4 @@
 import ApolloAPI
 
 /// Represents a Git object.
-public final class GitObject: Interface { }
+public let GitObject = Interface(name: "GitObject")

@@ -16,7 +16,7 @@ public struct DroidPrimaryFunction: StarWarsAPI.SelectionSet, Fragment {
   public let __data: DataDict
   public init(data: DataDict) { __data = data }
 
-  public static var __parentType: ParentType { .Object(StarWarsAPI.Droid.self) }
+  public static var __parentType: ParentType { .Object(StarWarsAPI.Droid) }
   public static var selections: [Selection] { [
     .field("primaryFunction", String?.self),
   ] }

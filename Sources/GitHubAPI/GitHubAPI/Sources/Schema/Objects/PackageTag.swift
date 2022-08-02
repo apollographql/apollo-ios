@@ -4,11 +4,7 @@
 import ApolloAPI
 
 /// A version tag contains the mapping between a tag name and a version.
-public final class PackageTag: Object {
-  override public class var __typename: StaticString { "PackageTag" }
-
-  public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Node.self
-  ]
-}
+public let PackageTag = Object(
+  __typename: "PackageTag",
+  __implementedInterfaces: [Node.self]
+)

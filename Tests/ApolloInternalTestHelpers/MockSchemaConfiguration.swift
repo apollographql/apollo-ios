@@ -1,6 +1,10 @@
 @testable import Apollo
 @testable import ApolloAPI
 
+extension Object {
+  static let mock = Object(__typename: "Mock", __implementedInterfaces: [])
+}
+
 public class MockSchemaConfiguration: SchemaConfiguration {
   public init() { }
 
@@ -9,6 +13,7 @@ public class MockSchemaConfiguration: SchemaConfiguration {
     stub_cacheKeyProviderForType = nil
   }
 
+  #warning("TODO: rename these stubs")
   public static var stub_objectTypeForTypeName: ((String) -> Object?)? {
     didSet {
       if stub_objectTypeForTypeName != nil { testObserver.start() }
@@ -24,7 +29,7 @@ public class MockSchemaConfiguration: SchemaConfiguration {
 }
 
 public extension MockSchemaConfiguration {
-  static func objectType(forTypename __typename: String) -> Object? {
+  static func graphQLType(forTypename __typename: String) -> Object? {
     stub_objectTypeForTypeName?(__typename)
   }
 
@@ -57,8 +62,8 @@ public struct MockCacheKeyProvider: CacheKeyProvider {
 // MARK: - Custom Mock Schemas
 
 public enum MockSchema1: SchemaConfiguration {
-  public static func objectType(forTypename __typename: String) -> Object? {
-    Object()
+  public static func graphQLType(forTypename __typename: String) -> Object? {
+    Object(__typename: "", __implementedInterfaces: [])
   }
 }
 
@@ -69,8 +74,8 @@ public extension MockSchema1 {
 }
 
 public enum MockSchema2: SchemaConfiguration {
-  public static func objectType(forTypename __typename: String) -> Object? {
-    Object()
+  public static func graphQLType(forTypename __typename: String) -> Object? {
+    Object(__typename: "", __implementedInterfaces: [])
   }
 }
 

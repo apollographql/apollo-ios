@@ -45,7 +45,7 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(StarWarsAPI.Query.self) }
+    public static var __parentType: ParentType { .Object(StarWarsAPI.Query) }
     public static var selections: [Selection] { [
       .field("hero", Hero?.self),
     ] }
@@ -59,7 +59,7 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { .Interface(StarWarsAPI.Character.self) }
+      public static var __parentType: ParentType { .Interface(StarWarsAPI.Character) }
       public static var selections: [Selection] { [
         .field("friends", [Friend?]?.self),
       ] }
@@ -74,7 +74,7 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Interface(StarWarsAPI.Character.self) }
+        public static var __parentType: ParentType { .Interface(StarWarsAPI.Character) }
         public static var selections: [Selection] { [
           .field("name", String.self),
           .include(if: "includeFriendsDetails", .inlineFragment(IfIncludeFriendsDetails.self)),
@@ -93,7 +93,7 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public static var __parentType: ParentType { .Interface(StarWarsAPI.Character.self) }
+          public static var __parentType: ParentType { .Interface(StarWarsAPI.Character) }
           public static var selections: [Selection] { [
             .field("name", String.self),
             .inlineFragment(AsDroid.self),
@@ -111,7 +111,7 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
             public let __data: DataDict
             public init(data: DataDict) { __data = data }
 
-            public static var __parentType: ParentType { .Object(StarWarsAPI.Droid.self) }
+            public static var __parentType: ParentType { .Object(StarWarsAPI.Droid) }
             public static var selections: [Selection] { [
               .field("primaryFunction", String?.self),
             ] }
@@ -129,7 +129,7 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public static var __parentType: ParentType { .Object(StarWarsAPI.Droid.self) }
+          public static var __parentType: ParentType { .Object(StarWarsAPI.Droid) }
 
           /// The name of the character
           public var name: String { __data["name"] }
