@@ -10,14 +10,14 @@ open class Object: Hashable {
 
   public init(
     __typename: String,
-    __implementedInterfaces: [Interface.Type]?
+    __implementedInterfaces: [Interface]?
   ) {
     self.__typename = __typename
     self.__implementedInterfaces = __implementedInterfaces
   }
 
   /// A list of the interfaces implemented by the type.
-  public let __implementedInterfaces: [Interface.Type]?
+  public let __implementedInterfaces: [Interface]?
 
   /// The name of the type.
   ///
@@ -57,7 +57,7 @@ open class Object: Hashable {
   ///
   /// - Parameter interface: An ``Interface`` Type
   /// - Returns: A `Bool` indicating if the receiver implements the given ``Interface`` Type.
-  public final func implements(_ interface: Interface.Type) -> Bool {
+  public final func implements(_ interface: Interface) -> Bool {
     __implementedInterfaces?.contains(where: { $0 == interface }) ?? false
   }
 

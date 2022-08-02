@@ -59,7 +59,9 @@ struct FakeSchema: SchemaConfiguration {
 }
 
 extension FakeSchema {
-  public final class Pet: Interface {}
+  struct Interfaces {
+    static let Pet = Interface(name: "Pet")
+  }
 }
 
 extension FakeSchema {
@@ -67,7 +69,7 @@ extension FakeSchema {
     static let type = Dog()
     private init() {
       super.init(__typename: "Dog",
-                 __implementedInterfaces: [Pet.self])
+                 __implementedInterfaces: [Interfaces.Pet])
     }
   }
 }

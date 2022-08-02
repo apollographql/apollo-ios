@@ -1,27 +1,27 @@
 public enum ParentType {
 
-  case Object(Object.Type)
-  case Interface(Interface.Type)
-  case Union(Union.Type)
+  case Object(Object)
+  case Interface(Interface)
+  case Union(Union)
 
 }
 
 // MARK: - ParentTypeConvertible
 
 public protocol ParentTypeConvertible {
-  @inlinable static var asParentType: ParentType { get }
+  @inlinable var asParentType: ParentType { get }
 }
 
 extension Object: ParentTypeConvertible {
-  @inlinable public static var asParentType: ParentType { .Object(Self.self) }
+  @inlinable public var asParentType: ParentType { .Object(self) }
 }
 
 extension Interface {
-  @inlinable public static var asParentType: ParentType { .Interface(Self.self) }
+  @inlinable public var asParentType: ParentType { .Interface(self) }
 }
 
 extension Union {
-  @inlinable public static var asParentType: ParentType { .Union(Self.self) }
+  @inlinable public var asParentType: ParentType { .Union(self) }
 }
 
 // MARK: - Hashable Conformance
