@@ -61,14 +61,14 @@ public struct CacheReference: Hashable {
   ///
   /// - Parameters:
   ///   - key: The unique identifier for the referenced object.
-  public init(_ key: String) {
+  @inlinable public init(_ key: String) {
     self.key = key
   }
 
 }
 
 extension CacheReference: CustomStringConvertible {
-  public var description: String {
+  @inlinable public var description: String {
     return "-> #\(key)"
   }
 }

@@ -285,7 +285,7 @@ final class GraphQLExecutor {
     guard let __typename = json["__typename"] as? String else {
       return nil
     }
-    return schema.objectType(forTypename: __typename)
+    return schema.graphQLType(forTypename: __typename)
   }
 
   /// Each field requested in the grouped field set that is defined on the selected objectType will
