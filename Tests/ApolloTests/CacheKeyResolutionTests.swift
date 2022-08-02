@@ -37,7 +37,7 @@ class CacheKeyResolutionTests: XCTestCase {
       "id": "α"
     ]
 
-    MockSchemaConfiguration.stub_objectTypeForTypeName = { _ in Alpha }
+    MockSchemaConfiguration.stub_graphQLTypeForTypeName = { _ in Alpha }
 
     let actual = MockSchemaConfiguration.cacheKey(for: object)
 
@@ -50,11 +50,7 @@ class CacheKeyResolutionTests: XCTestCase {
       "id": "β"
     ]
 
-    MockSchemaConfiguration.stub_cacheKeyProviderForType = { _ in IDCacheKeyProvider.shared }
-
-    MockSchemaConfiguration.stub_objectTypeForTypeName = { _ in
-      Object(__typename: "", __implementedInterfaces: [])
-    }
+    MockSchemaConfiguration.stub_cacheKeyInfoForType_Object = IDCacheKeyProvider.resolver
 
     let actual = MockSchemaConfiguration.cacheKey(for: object)
 
@@ -69,7 +65,6 @@ class CacheKeyResolutionTests: XCTestCase {
       "id": "β"
     ]
   
-
     let actual1 = MockSchema1.cacheKey(for: object)
 
     expect(actual1).to(equal(
@@ -100,7 +95,7 @@ class CacheKeyResolutionTests: XCTestCase {
 //      "lowercase": "γ"
 //    ]
 //
-//    MockSchemaConfiguration.stub_objectTypeForTypeName = { _ in Gamma.self }
+//    MockSchemaConfiguration.stub_graphQLTypeForTypeName = { _ in Gamma.self }
 //
 //    let actual = MockSchemaConfiguration.cacheKey(for: object)
 //

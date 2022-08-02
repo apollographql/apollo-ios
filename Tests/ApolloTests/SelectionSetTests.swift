@@ -553,7 +553,7 @@ class SelectionSetTests: XCTestCase {
 //      override class var __typename: StaticString { "Droid" }
 //    }
 //
-//    MockSchemaConfiguration.stub_objectTypeForTypeName = {
+//    MockSchemaConfiguration.stub_graphQLTypeForTypeName = {
 //      switch $0 {
 //      case "Human": return Human()
 //      case "Droid": return Droid()
@@ -615,7 +615,7 @@ class SelectionSetTests: XCTestCase {
 //      ]
 //    }
 //
-//    MockSchemaConfiguration.stub_objectTypeForTypeName = {
+//    MockSchemaConfiguration.stub_graphQLTypeForTypeName = {
 //      switch $0 {
 //      case "Human": return Human()
 //      default: XCTFail(); return nil
@@ -662,7 +662,7 @@ class SelectionSetTests: XCTestCase {
 //      override class var __typename: StaticString { "Droid" }
 //    }
 //
-//    MockSchemaConfiguration.stub_objectTypeForTypeName = {
+//    MockSchemaConfiguration.stub_graphQLTypeForTypeName = {
 //      switch $0 {
 //      case "Droid": return Droid()
 //      default: XCTFail(); return nil
@@ -720,7 +720,7 @@ class SelectionSetTests: XCTestCase {
 //      static let possibleTypes: [Object] = [Types.Human]
 //    }
 //
-////    MockSchemaConfiguration.stub_objectTypeForTypeName = {
+////    MockSchemaConfiguration.stub_graphQLTypeForTypeName = {
 ////      switch $0 {
 ////      case "Human": return Human.self
 ////      default: XCTFail(); return nil
@@ -777,7 +777,7 @@ class SelectionSetTests: XCTestCase {
 //      static let possibleTypes: [Object] = []
 //    }
 //
-////    MockSchemaConfiguration.stub_objectTypeForTypeName = {
+////    MockSchemaConfiguration.stub_graphQLTypeForTypeName = {
 ////      switch $0 {
 ////      case "Human": return Human.self
 ////      default: XCTFail(); return nil

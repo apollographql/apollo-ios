@@ -9,20 +9,19 @@ public class MockSchemaConfiguration: SchemaConfiguration {
   public init() { }
 
   private static let testObserver = TestObserver() { _ in
-    stub_objectTypeForTypeName = nil
-    stub_cacheKeyProviderForType = nil
+    stub_graphQLTypeForTypeName = nil
+    stub_cacheKeyInfoForType_Object = nil
   }
 
-  #warning("TODO: rename these stubs")
-  public static var stub_objectTypeForTypeName: ((String) -> Object?)? {
+  public static var stub_graphQLTypeForTypeName: ((String) -> Object?)? {
     didSet {
-      if stub_objectTypeForTypeName != nil { testObserver.start() }
+      if stub_graphQLTypeForTypeName != nil { testObserver.start() }
     }
   }
 
-  public static var stub_cacheKeyProviderForType: ((Object) -> CacheKeyProvider?)? {
+  public static var stub_cacheKeyInfoForType_Object: ((Object, JSONObject) -> CacheKeyInfo?)? {
     didSet {
-      if stub_cacheKeyProviderForType != nil { testObserver.start() }
+      if stub_cacheKeyInfoForType_Object != nil { testObserver.start() }
     }
   }
 
@@ -30,32 +29,42 @@ public class MockSchemaConfiguration: SchemaConfiguration {
 
 public extension MockSchemaConfiguration {
   static func graphQLType(forTypename __typename: String) -> Object? {
-    stub_objectTypeForTypeName?(__typename)
+    stub_graphQLTypeForTypeName?(__typename) ??
+    Object(__typename: __typename, __implementedInterfaces: [])
   }
 
-  static func cacheKeyProvider(for type: Object) -> CacheKeyProvider? {
-    stub_cacheKeyProviderForType?(type)
-  }
-}
-
-public struct IDCacheKeyProvider: CacheKeyProvider {
-
-  public static let shared = IDCacheKeyProvider()
-
-  public func cacheKey(for data: JSONObject) -> String? {
-    data["id"] as? String
+  static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
+    stub_cacheKeyInfoForType_Object?(type, object)
   }
 }
 
-public struct MockCacheKeyProvider: CacheKeyProvider {
+// MARK - Mock Cache Key Providers
+
+public protocol MockStaticCacheKeyProvider {
+  static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo?
+}
+
+extension MockStaticCacheKeyProvider {
+  public static var resolver: (Object, JSONObject) -> CacheKeyInfo? {
+    cacheKeyInfo(for:object:)
+  }
+}
+
+public struct IDCacheKeyProvider: MockStaticCacheKeyProvider {
+  public static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
+    try? .init(jsonValue: object["id"])
+  }
+}
+
+public struct MockCacheKeyProvider {
   let key: String
 
   public init(key: String) {
     self.key = key
   }
 
-  public func cacheKey(for object: JSONObject) -> String? {
-    key
+  public func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
+    .init(key: key, uniqueKeyGroupId: nil)
   }
 }
 
@@ -63,24 +72,24 @@ public struct MockCacheKeyProvider: CacheKeyProvider {
 
 public enum MockSchema1: SchemaConfiguration {
   public static func graphQLType(forTypename __typename: String) -> Object? {
-    Object(__typename: "", __implementedInterfaces: [])
+    Object(__typename: __typename, __implementedInterfaces: [])
   }
 }
 
 public extension MockSchema1 {
-  static func cacheKeyProvider(for type: Object) -> CacheKeyProvider? {
-    MockCacheKeyProvider(key: "one")
+  static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
+    CacheKeyInfo(key: "one")
   }
 }
 
 public enum MockSchema2: SchemaConfiguration {
   public static func graphQLType(forTypename __typename: String) -> Object? {
-    Object(__typename: "", __implementedInterfaces: [])
+    Object(__typename: __typename, __implementedInterfaces: [])
   }
 }
 
 public extension MockSchema2 {
-  static func cacheKeyProvider(for type: Object) -> CacheKeyProvider? {
-    MockCacheKeyProvider(key: "two")
+  static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
+    CacheKeyInfo(key: "two")
   }
 }

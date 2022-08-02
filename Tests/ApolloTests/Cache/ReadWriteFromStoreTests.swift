@@ -253,7 +253,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 //  func test_readObject_givenFragmentWithTypeSpecificProperty() throws {
 //    // given
 //    class Droid: Object {}
-//    MockSchemaConfiguration.stub_objectTypeForTypeName = { typename in
+//    MockSchemaConfiguration.stub_graphQLTypeForTypeName = { typename in
 //      switch typename {
 //      case "Droid": return Droid()
 //      default: return nil
@@ -306,7 +306,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 //  func test_readObject_givenFragmentWithMissingTypeSpecificProperty() throws {
 //    // given
 //    class Droid: Object {}
-//    MockSchemaConfiguration.stub_objectTypeForTypeName = { typename in
+//    MockSchemaConfiguration.stub_graphQLTypeForTypeName = { typename in
 //      switch typename {
 //      case "Droid": return Droid()
 //      default: return nil
@@ -593,7 +593,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 //  func test_updateCacheMutation_updateNestedFieldOnTypeCase_updatesObjects() throws {
 //    // given
 //    class Droid: Object {}
-//    MockSchemaConfiguration.stub_objectTypeForTypeName = { typename in
+//    MockSchemaConfiguration.stub_graphQLTypeForTypeName = { typename in
 //      switch typename {
 //      case "Droid": return Droid()
 //      default: return nil
@@ -688,7 +688,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 //  func test_updateCacheMutation_updateNestedFieldOnNamedFragment_updatesObjects() throws {
 //    // given
 //    class Droid: Object {}
-//    MockSchemaConfiguration.stub_objectTypeForTypeName = { typename in
+//    MockSchemaConfiguration.stub_graphQLTypeForTypeName = { typename in
 //      switch typename {
 //      case "Droid": return Droid()
 //      default: return nil
@@ -816,7 +816,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 //  func test_updateCacheMutation_updateNestedFieldOnOptionalNamedFragment_updatesObjects() throws {
 //    // given
 //    class Droid: Object {}
-//    MockSchemaConfiguration.stub_objectTypeForTypeName = { typename in
+//    MockSchemaConfiguration.stub_graphQLTypeForTypeName = { typename in
 //      switch typename {
 //      case "Droid": return Droid()
 //      default: return nil

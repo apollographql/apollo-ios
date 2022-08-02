@@ -1,12 +1,19 @@
 public protocol SchemaConfiguration {
   static func graphQLType(forTypename typename: String) -> Object?
-}
-
-public protocol CacheKeyResolver: SchemaConfiguration {
   static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo?
 }
 
+public protocol CacheKeyResolver: SchemaConfiguration {
+}
+
 extension SchemaConfiguration {
+
+  @inlinable public static func cacheKeyInfo(
+    for type: Object,
+    object: JSONObject
+  ) -> CacheKeyInfo? {
+    nil
+  }
 
   @inlinable public static func graphQLType(for object: JSONObject) -> Object? {
     guard let typename = object["__typename"] as? String else {
@@ -16,12 +23,11 @@ extension SchemaConfiguration {
   }
 
   @inlinable public static func cacheKey(for object: JSONObject) -> CacheReference? {
-    guard let resolver = self as? CacheKeyResolver.Type,
-          let type = graphQLType(for: object),
-          let info = resolver.cacheKeyInfo(for: type, object: object) else {
+    guard let type = graphQLType(for: object),
+          let info = cacheKeyInfo(for: type, object: object) else {
       return nil
     }
-    return CacheReference("\(info.uniqueKeyGroupId?.description ?? type.__typename):\(info.key)")
+    return CacheReference("\(info.uniqueKeyGroupId ?? type.__typename):\(info.key)")
   }
 }
 
@@ -29,10 +35,7 @@ public struct CacheKeyInfo {
   public let key: String
   public let uniqueKeyGroupId: String?
 
-  @inlinable public init(
-    jsonValue: JSONValue?,
-    uniqueKeyGroupId: String? = nil
-  ) throws {
+  @inlinable public init(jsonValue: JSONValue?, uniqueKeyGroupId: String? = nil) throws {
     guard let jsonValue = jsonValue else {
       throw JSONDecodingError.missingValue
     }
@@ -40,7 +43,7 @@ public struct CacheKeyInfo {
     self.init(key: try String(jsonValue: jsonValue), uniqueKeyGroupId: uniqueKeyGroupId)
   }
 
-  @inlinable public init(key: String, uniqueKeyGroupId: String?) {
+  @inlinable public init(key: String, uniqueKeyGroupId: String? = nil) {
     self.key = key
     self.uniqueKeyGroupId = uniqueKeyGroupId
   }
