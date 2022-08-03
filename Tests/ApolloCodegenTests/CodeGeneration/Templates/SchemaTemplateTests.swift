@@ -250,11 +250,11 @@ class SchemaTemplateTests: XCTestCase {
     )
 
     let expected = """
-      public static func objectType(forTypename __typename: String) -> Object.Type? {
+      public static func objectType(forTypename typename: String) -> Object.Type? {
         switch __typename {
-        case "ObjA": return ObjectSchema.ObjA.self
-        case "ObjB": return ObjectSchema.ObjB.self
-        case "ObjC": return ObjectSchema.ObjC.self
+        case "ObjA": return ObjectSchema.Objects.ObjA
+        case "ObjB": return ObjectSchema.Objects.ObjB
+        case "ObjC": return ObjectSchema.Objects.ObjC
         default: return nil
         }
       }
@@ -284,9 +284,9 @@ class SchemaTemplateTests: XCTestCase {
     )
 
     let expected = """
-      public static func objectType(forTypename __typename: String) -> Object.Type? {
+      public static func objectType(forTypename typename: String) -> Object.Type? {
         switch __typename {
-        case "ObjectA": return ObjectSchema.ObjectA.self
+        case "ObjectA": return ObjectSchema.Objects.ObjectA
         default: return nil
         }
       }

@@ -8,8 +8,8 @@ public extension Objects {
   static let EnterpriseUserAccount = Object(
     typename: "EnterpriseUserAccount",
     implementedInterfaces: [
-     Interfaces.Actor.self,
-     Interfaces.Node.self
-   ]
+      Interfaces.Actor.self,
+      Interfaces.Node.self
+    ]
   )
 }

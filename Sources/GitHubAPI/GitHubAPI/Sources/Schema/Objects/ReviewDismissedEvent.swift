@@ -8,8 +8,8 @@ public extension Objects {
   static let ReviewDismissedEvent = Object(
     typename: "ReviewDismissedEvent",
     implementedInterfaces: [
-     Interfaces.Node.self,
-     Interfaces.UniformResourceLocatable.self
-   ]
+      Interfaces.Node.self,
+      Interfaces.UniformResourceLocatable.self
+    ]
   )
 }

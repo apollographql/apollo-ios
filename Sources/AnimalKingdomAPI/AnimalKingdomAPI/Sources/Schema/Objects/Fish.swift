@@ -7,8 +7,8 @@ public extension Objects {
   static let Fish = Object(
     typename: "Fish",
     implementedInterfaces: [
-     Interfaces.Animal.self,
-     Interfaces.Pet.self
-   ]
+      Interfaces.Animal.self,
+      Interfaces.Pet.self
+    ]
   )
 }

@@ -8,8 +8,8 @@ public extension Objects {
   static let MergedEvent = Object(
     typename: "MergedEvent",
     implementedInterfaces: [
-     Interfaces.Node.self,
-     Interfaces.UniformResourceLocatable.self
-   ]
+      Interfaces.Node.self,
+      Interfaces.UniformResourceLocatable.self
+    ]
   )
 }

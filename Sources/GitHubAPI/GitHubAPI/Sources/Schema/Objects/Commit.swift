@@ -8,10 +8,10 @@ public extension Objects {
   static let Commit = Object(
     typename: "Commit",
     implementedInterfaces: [
-     Interfaces.GitObject.self,
-     Interfaces.Node.self,
-     Interfaces.Subscribable.self,
-     Interfaces.UniformResourceLocatable.self
-   ]
+      Interfaces.GitObject.self,
+      Interfaces.Node.self,
+      Interfaces.Subscribable.self,
+      Interfaces.UniformResourceLocatable.self
+    ]
   )
 }

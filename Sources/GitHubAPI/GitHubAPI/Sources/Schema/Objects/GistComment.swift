@@ -8,12 +8,12 @@ public extension Objects {
   static let GistComment = Object(
     typename: "GistComment",
     implementedInterfaces: [
-     Interfaces.Comment.self,
-     Interfaces.Deletable.self,
-     Interfaces.Minimizable.self,
-     Interfaces.Node.self,
-     Interfaces.Updatable.self,
-     Interfaces.UpdatableComment.self
-   ]
+      Interfaces.Comment.self,
+      Interfaces.Deletable.self,
+      Interfaces.Minimizable.self,
+      Interfaces.Node.self,
+      Interfaces.Updatable.self,
+      Interfaces.UpdatableComment.self
+    ]
   )
 }

@@ -8,13 +8,13 @@ public extension Objects {
   static let Repository = Object(
     typename: "Repository",
     implementedInterfaces: [
-     Interfaces.Node.self,
-     Interfaces.PackageOwner.self,
-     Interfaces.ProjectOwner.self,
-     Interfaces.RepositoryInfo.self,
-     Interfaces.Starrable.self,
-     Interfaces.Subscribable.self,
-     Interfaces.UniformResourceLocatable.self
-   ]
+      Interfaces.Node.self,
+      Interfaces.PackageOwner.self,
+      Interfaces.ProjectOwner.self,
+      Interfaces.RepositoryInfo.self,
+      Interfaces.Starrable.self,
+      Interfaces.Subscribable.self,
+      Interfaces.UniformResourceLocatable.self
+    ]
   )
 }

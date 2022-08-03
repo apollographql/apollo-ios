@@ -8,10 +8,10 @@ public extension Objects {
   static let OauthApplicationCreateAuditEntry = Object(
     typename: "OauthApplicationCreateAuditEntry",
     implementedInterfaces: [
-     Interfaces.AuditEntry.self,
-     Interfaces.Node.self,
-     Interfaces.OauthApplicationAuditEntryData.self,
-     Interfaces.OrganizationAuditEntryData.self
-   ]
+      Interfaces.AuditEntry.self,
+      Interfaces.Node.self,
+      Interfaces.OauthApplicationAuditEntryData.self,
+      Interfaces.OrganizationAuditEntryData.self
+    ]
   )
 }

@@ -8,9 +8,9 @@ public extension Objects {
   static let Project = Object(
     typename: "Project",
     implementedInterfaces: [
-     Interfaces.Closable.self,
-     Interfaces.Node.self,
-     Interfaces.Updatable.self
-   ]
+      Interfaces.Closable.self,
+      Interfaces.Node.self,
+      Interfaces.Updatable.self
+    ]
   )
 }

@@ -8,13 +8,13 @@ public extension Objects {
   static let TeamDiscussionComment = Object(
     typename: "TeamDiscussionComment",
     implementedInterfaces: [
-     Interfaces.Comment.self,
-     Interfaces.Deletable.self,
-     Interfaces.Node.self,
-     Interfaces.Reactable.self,
-     Interfaces.UniformResourceLocatable.self,
-     Interfaces.Updatable.self,
-     Interfaces.UpdatableComment.self
-   ]
+      Interfaces.Comment.self,
+      Interfaces.Deletable.self,
+      Interfaces.Node.self,
+      Interfaces.Reactable.self,
+      Interfaces.UniformResourceLocatable.self,
+      Interfaces.Updatable.self,
+      Interfaces.UpdatableComment.self
+    ]
   )
 }

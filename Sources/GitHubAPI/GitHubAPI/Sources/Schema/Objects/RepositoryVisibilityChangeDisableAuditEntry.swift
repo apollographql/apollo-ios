@@ -8,10 +8,10 @@ public extension Objects {
   static let RepositoryVisibilityChangeDisableAuditEntry = Object(
     typename: "RepositoryVisibilityChangeDisableAuditEntry",
     implementedInterfaces: [
-     Interfaces.AuditEntry.self,
-     Interfaces.EnterpriseAuditEntryData.self,
-     Interfaces.Node.self,
-     Interfaces.OrganizationAuditEntryData.self
-   ]
+      Interfaces.AuditEntry.self,
+      Interfaces.EnterpriseAuditEntryData.self,
+      Interfaces.Node.self,
+      Interfaces.OrganizationAuditEntryData.self
+    ]
   )
 }

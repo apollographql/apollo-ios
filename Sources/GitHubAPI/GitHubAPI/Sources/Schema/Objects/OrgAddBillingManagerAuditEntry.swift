@@ -8,9 +8,9 @@ public extension Objects {
   static let OrgAddBillingManagerAuditEntry = Object(
     typename: "OrgAddBillingManagerAuditEntry",
     implementedInterfaces: [
-     Interfaces.AuditEntry.self,
-     Interfaces.Node.self,
-     Interfaces.OrganizationAuditEntryData.self
-   ]
+      Interfaces.AuditEntry.self,
+      Interfaces.Node.self,
+      Interfaces.OrganizationAuditEntryData.self
+    ]
   )
 }

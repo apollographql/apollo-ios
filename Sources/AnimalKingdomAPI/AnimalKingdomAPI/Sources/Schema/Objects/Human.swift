@@ -7,8 +7,8 @@ public extension Objects {
   static let Human = Object(
     typename: "Human",
     implementedInterfaces: [
-     Interfaces.Animal.self,
-     Interfaces.WarmBlooded.self
-   ]
+      Interfaces.Animal.self,
+      Interfaces.WarmBlooded.self
+    ]
   )
 }

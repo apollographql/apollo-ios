@@ -8,8 +8,8 @@ public extension Objects {
   static let CheckRun = Object(
     typename: "CheckRun",
     implementedInterfaces: [
-     Interfaces.Node.self,
-     Interfaces.UniformResourceLocatable.self
-   ]
+      Interfaces.Node.self,
+      Interfaces.UniformResourceLocatable.self
+    ]
   )
 }

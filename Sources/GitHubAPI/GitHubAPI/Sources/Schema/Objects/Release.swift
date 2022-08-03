@@ -8,8 +8,8 @@ public extension Objects {
   static let Release = Object(
     typename: "Release",
     implementedInterfaces: [
-     Interfaces.Node.self,
-     Interfaces.UniformResourceLocatable.self
-   ]
+      Interfaces.Node.self,
+      Interfaces.UniformResourceLocatable.self
+    ]
   )
 }

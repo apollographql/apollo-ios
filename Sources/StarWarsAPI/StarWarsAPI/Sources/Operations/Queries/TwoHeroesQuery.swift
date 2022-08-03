@@ -30,7 +30,7 @@ public class TwoHeroesQuery: GraphQLQuery {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(StarWarsAPI.Objects.Query) }
+    public static var __parentType: ParentType { StarWarsAPI.Objects.Query }
     public static var selections: [Selection] { [
       .field("hero", alias: "r2", R2?.self),
       .field("hero", alias: "luke", Luke?.self, arguments: ["episode": "EMPIRE"]),
@@ -46,7 +46,7 @@ public class TwoHeroesQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { .Interface(StarWarsAPI.Interfaces.Character) }
+      public static var __parentType: ParentType { StarWarsAPI.Interfaces.Character }
       public static var selections: [Selection] { [
         .field("name", String.self),
       ] }
@@ -62,7 +62,7 @@ public class TwoHeroesQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { .Interface(StarWarsAPI.Interfaces.Character) }
+      public static var __parentType: ParentType { StarWarsAPI.Interfaces.Character }
       public static var selections: [Selection] { [
         .field("name", String.self),
       ] }

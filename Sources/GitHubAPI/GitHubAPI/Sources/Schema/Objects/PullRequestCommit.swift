@@ -8,8 +8,8 @@ public extension Objects {
   static let PullRequestCommit = Object(
     typename: "PullRequestCommit",
     implementedInterfaces: [
-     Interfaces.Node.self,
-     Interfaces.UniformResourceLocatable.self
-   ]
+      Interfaces.Node.self,
+      Interfaces.UniformResourceLocatable.self
+    ]
   )
 }

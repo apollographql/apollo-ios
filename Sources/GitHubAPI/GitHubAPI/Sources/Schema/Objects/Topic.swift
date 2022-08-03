@@ -8,8 +8,8 @@ public extension Objects {
   static let Topic = Object(
     typename: "Topic",
     implementedInterfaces: [
-     Interfaces.Node.self,
-     Interfaces.Starrable.self
-   ]
+      Interfaces.Node.self,
+      Interfaces.Starrable.self
+    ]
   )
 }

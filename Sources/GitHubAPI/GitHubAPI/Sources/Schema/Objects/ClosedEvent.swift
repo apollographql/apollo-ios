@@ -8,8 +8,8 @@ public extension Objects {
   static let ClosedEvent = Object(
     typename: "ClosedEvent",
     implementedInterfaces: [
-     Interfaces.Node.self,
-     Interfaces.UniformResourceLocatable.self
-   ]
+      Interfaces.Node.self,
+      Interfaces.UniformResourceLocatable.self
+    ]
   )
 }

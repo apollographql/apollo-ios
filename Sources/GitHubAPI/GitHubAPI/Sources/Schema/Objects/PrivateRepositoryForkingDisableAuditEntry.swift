@@ -8,11 +8,11 @@ public extension Objects {
   static let PrivateRepositoryForkingDisableAuditEntry = Object(
     typename: "PrivateRepositoryForkingDisableAuditEntry",
     implementedInterfaces: [
-     Interfaces.AuditEntry.self,
-     Interfaces.EnterpriseAuditEntryData.self,
-     Interfaces.Node.self,
-     Interfaces.OrganizationAuditEntryData.self,
-     Interfaces.RepositoryAuditEntryData.self
-   ]
+      Interfaces.AuditEntry.self,
+      Interfaces.EnterpriseAuditEntryData.self,
+      Interfaces.Node.self,
+      Interfaces.OrganizationAuditEntryData.self,
+      Interfaces.RepositoryAuditEntryData.self
+    ]
   )
 }

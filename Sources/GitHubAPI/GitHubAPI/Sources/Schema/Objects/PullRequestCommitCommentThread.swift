@@ -8,8 +8,8 @@ public extension Objects {
   static let PullRequestCommitCommentThread = Object(
     typename: "PullRequestCommitCommentThread",
     implementedInterfaces: [
-     Interfaces.Node.self,
-     Interfaces.RepositoryNode.self
-   ]
+      Interfaces.Node.self,
+      Interfaces.RepositoryNode.self
+    ]
   )
 }

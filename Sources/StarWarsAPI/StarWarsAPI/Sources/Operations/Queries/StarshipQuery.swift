@@ -27,7 +27,7 @@ public class StarshipQuery: GraphQLQuery {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(StarWarsAPI.Objects.Query) }
+    public static var __parentType: ParentType { StarWarsAPI.Objects.Query }
     public static var selections: [Selection] { [
       .field("starship", Starship?.self, arguments: ["id": 3000]),
     ] }
@@ -41,7 +41,7 @@ public class StarshipQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { .Object(StarWarsAPI.Objects.Starship) }
+      public static var __parentType: ParentType { StarWarsAPI.Objects.Starship }
       public static var selections: [Selection] { [
         .field("name", String.self),
         .field("coordinates", [[Double]]?.self),

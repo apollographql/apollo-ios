@@ -36,7 +36,7 @@ public class UploadOneFileMutation: GraphQLMutation {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(UploadAPI.Objects.Mutation) }
+    public static var __parentType: ParentType { UploadAPI.Objects.Mutation }
     public static var selections: [Selection] { [
       .field("singleUpload", SingleUpload.self, arguments: ["file": .variable("file")]),
     ] }
@@ -50,7 +50,7 @@ public class UploadOneFileMutation: GraphQLMutation {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { .Object(UploadAPI.Objects.File) }
+      public static var __parentType: ParentType { UploadAPI.Objects.File }
       public static var selections: [Selection] { [
         .field("id", ID.self),
         .field("path", String.self),

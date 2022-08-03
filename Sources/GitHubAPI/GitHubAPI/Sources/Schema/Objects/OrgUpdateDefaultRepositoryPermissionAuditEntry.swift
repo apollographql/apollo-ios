@@ -8,9 +8,9 @@ public extension Objects {
   static let OrgUpdateDefaultRepositoryPermissionAuditEntry = Object(
     typename: "OrgUpdateDefaultRepositoryPermissionAuditEntry",
     implementedInterfaces: [
-     Interfaces.AuditEntry.self,
-     Interfaces.Node.self,
-     Interfaces.OrganizationAuditEntryData.self
-   ]
+      Interfaces.AuditEntry.self,
+      Interfaces.Node.self,
+      Interfaces.OrganizationAuditEntryData.self
+    ]
   )
 }

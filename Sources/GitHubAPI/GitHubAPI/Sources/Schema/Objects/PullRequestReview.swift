@@ -8,13 +8,13 @@ public extension Objects {
   static let PullRequestReview = Object(
     typename: "PullRequestReview",
     implementedInterfaces: [
-     Interfaces.Comment.self,
-     Interfaces.Deletable.self,
-     Interfaces.Node.self,
-     Interfaces.Reactable.self,
-     Interfaces.RepositoryNode.self,
-     Interfaces.Updatable.self,
-     Interfaces.UpdatableComment.self
-   ]
+      Interfaces.Comment.self,
+      Interfaces.Deletable.self,
+      Interfaces.Node.self,
+      Interfaces.Reactable.self,
+      Interfaces.RepositoryNode.self,
+      Interfaces.Updatable.self,
+      Interfaces.UpdatableComment.self
+    ]
   )
 }

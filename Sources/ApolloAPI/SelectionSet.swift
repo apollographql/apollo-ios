@@ -89,7 +89,7 @@ extension SelectionSet {
 
   @usableFromInline func _asType<T: SelectionSet>() -> T? where T.Schema == Schema {
     guard let __objectType = __objectType,
-          __objectType._canBeConverted(to: T.__parentType) else { return nil }
+          T.__parentType._canBeConverted(from: __objectType) else { return nil }
 
     return T.init(data: __data)
   }

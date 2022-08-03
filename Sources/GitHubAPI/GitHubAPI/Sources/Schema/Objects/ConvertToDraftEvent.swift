@@ -8,8 +8,8 @@ public extension Objects {
   static let ConvertToDraftEvent = Object(
     typename: "ConvertToDraftEvent",
     implementedInterfaces: [
-     Interfaces.Node.self,
-     Interfaces.UniformResourceLocatable.self
-   ]
+      Interfaces.Node.self,
+      Interfaces.UniformResourceLocatable.self
+    ]
   )
 }

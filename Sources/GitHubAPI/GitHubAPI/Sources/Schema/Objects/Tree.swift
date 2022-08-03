@@ -8,8 +8,8 @@ public extension Objects {
   static let Tree = Object(
     typename: "Tree",
     implementedInterfaces: [
-     Interfaces.GitObject.self,
-     Interfaces.Node.self
-   ]
+      Interfaces.GitObject.self,
+      Interfaces.Node.self
+    ]
   )
 }

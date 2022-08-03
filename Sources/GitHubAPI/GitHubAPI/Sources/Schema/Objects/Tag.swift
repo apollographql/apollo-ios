@@ -8,8 +8,8 @@ public extension Objects {
   static let Tag = Object(
     typename: "Tag",
     implementedInterfaces: [
-     Interfaces.GitObject.self,
-     Interfaces.Node.self
-   ]
+      Interfaces.GitObject.self,
+      Interfaces.Node.self
+    ]
   )
 }

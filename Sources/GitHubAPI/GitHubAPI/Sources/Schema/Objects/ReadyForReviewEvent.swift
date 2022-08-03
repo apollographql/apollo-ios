@@ -8,8 +8,8 @@ public extension Objects {
   static let ReadyForReviewEvent = Object(
     typename: "ReadyForReviewEvent",
     implementedInterfaces: [
-     Interfaces.Node.self,
-     Interfaces.UniformResourceLocatable.self
-   ]
+      Interfaces.Node.self,
+      Interfaces.UniformResourceLocatable.self
+    ]
   )
 }

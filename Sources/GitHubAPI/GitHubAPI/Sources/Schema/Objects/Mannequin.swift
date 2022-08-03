@@ -8,9 +8,9 @@ public extension Objects {
   static let Mannequin = Object(
     typename: "Mannequin",
     implementedInterfaces: [
-     Interfaces.Actor.self,
-     Interfaces.Node.self,
-     Interfaces.UniformResourceLocatable.self
-   ]
+      Interfaces.Actor.self,
+      Interfaces.Node.self,
+      Interfaces.UniformResourceLocatable.self
+    ]
   )
 }

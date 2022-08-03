@@ -8,18 +8,18 @@ public extension Objects {
   static let PullRequest = Object(
     typename: "PullRequest",
     implementedInterfaces: [
-     Interfaces.Assignable.self,
-     Interfaces.Closable.self,
-     Interfaces.Comment.self,
-     Interfaces.Labelable.self,
-     Interfaces.Lockable.self,
-     Interfaces.Node.self,
-     Interfaces.Reactable.self,
-     Interfaces.RepositoryNode.self,
-     Interfaces.Subscribable.self,
-     Interfaces.UniformResourceLocatable.self,
-     Interfaces.Updatable.self,
-     Interfaces.UpdatableComment.self
-   ]
+      Interfaces.Assignable.self,
+      Interfaces.Closable.self,
+      Interfaces.Comment.self,
+      Interfaces.Labelable.self,
+      Interfaces.Lockable.self,
+      Interfaces.Node.self,
+      Interfaces.Reactable.self,
+      Interfaces.RepositoryNode.self,
+      Interfaces.Subscribable.self,
+      Interfaces.UniformResourceLocatable.self,
+      Interfaces.Updatable.self,
+      Interfaces.UpdatableComment.self
+    ]
   )
 }

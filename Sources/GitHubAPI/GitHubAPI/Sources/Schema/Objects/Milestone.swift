@@ -8,9 +8,9 @@ public extension Objects {
   static let Milestone = Object(
     typename: "Milestone",
     implementedInterfaces: [
-     Interfaces.Closable.self,
-     Interfaces.Node.self,
-     Interfaces.UniformResourceLocatable.self
-   ]
+      Interfaces.Closable.self,
+      Interfaces.Node.self,
+      Interfaces.UniformResourceLocatable.self
+    ]
   )
 }

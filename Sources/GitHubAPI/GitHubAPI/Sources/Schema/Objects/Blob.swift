@@ -8,8 +8,8 @@ public extension Objects {
   static let Blob = Object(
     typename: "Blob",
     implementedInterfaces: [
-     Interfaces.GitObject.self,
-     Interfaces.Node.self
-   ]
+      Interfaces.GitObject.self,
+      Interfaces.Node.self
+    ]
   )
 }

@@ -8,9 +8,9 @@ public extension Objects {
   static let OrgUpdateMemberRepositoryInvitationPermissionAuditEntry = Object(
     typename: "OrgUpdateMemberRepositoryInvitationPermissionAuditEntry",
     implementedInterfaces: [
-     Interfaces.AuditEntry.self,
-     Interfaces.Node.self,
-     Interfaces.OrganizationAuditEntryData.self
-   ]
+      Interfaces.AuditEntry.self,
+      Interfaces.Node.self,
+      Interfaces.OrganizationAuditEntryData.self
+    ]
   )
 }

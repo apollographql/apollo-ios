@@ -8,9 +8,9 @@ public extension Objects {
   static let OrgDisableTwoFactorRequirementAuditEntry = Object(
     typename: "OrgDisableTwoFactorRequirementAuditEntry",
     implementedInterfaces: [
-     Interfaces.AuditEntry.self,
-     Interfaces.Node.self,
-     Interfaces.OrganizationAuditEntryData.self
-   ]
+      Interfaces.AuditEntry.self,
+      Interfaces.Node.self,
+      Interfaces.OrganizationAuditEntryData.self
+    ]
   )
 }

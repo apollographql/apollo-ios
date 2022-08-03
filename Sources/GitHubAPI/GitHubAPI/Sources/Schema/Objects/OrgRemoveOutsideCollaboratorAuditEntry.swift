@@ -8,9 +8,9 @@ public extension Objects {
   static let OrgRemoveOutsideCollaboratorAuditEntry = Object(
     typename: "OrgRemoveOutsideCollaboratorAuditEntry",
     implementedInterfaces: [
-     Interfaces.AuditEntry.self,
-     Interfaces.Node.self,
-     Interfaces.OrganizationAuditEntryData.self
-   ]
+      Interfaces.AuditEntry.self,
+      Interfaces.Node.self,
+      Interfaces.OrganizationAuditEntryData.self
+    ]
   )
 }

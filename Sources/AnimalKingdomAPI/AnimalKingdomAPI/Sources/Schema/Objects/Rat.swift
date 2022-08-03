@@ -7,8 +7,8 @@ public extension Objects {
   static let Rat = Object(
     typename: "Rat",
     implementedInterfaces: [
-     Interfaces.Animal.self,
-     Interfaces.Pet.self
-   ]
+      Interfaces.Animal.self,
+      Interfaces.Pet.self
+    ]
   )
 }

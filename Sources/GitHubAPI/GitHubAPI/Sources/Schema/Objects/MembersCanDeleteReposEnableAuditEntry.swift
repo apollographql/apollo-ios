@@ -8,10 +8,10 @@ public extension Objects {
   static let MembersCanDeleteReposEnableAuditEntry = Object(
     typename: "MembersCanDeleteReposEnableAuditEntry",
     implementedInterfaces: [
-     Interfaces.AuditEntry.self,
-     Interfaces.EnterpriseAuditEntryData.self,
-     Interfaces.Node.self,
-     Interfaces.OrganizationAuditEntryData.self
-   ]
+      Interfaces.AuditEntry.self,
+      Interfaces.EnterpriseAuditEntryData.self,
+      Interfaces.Node.self,
+      Interfaces.OrganizationAuditEntryData.self
+    ]
   )
 }

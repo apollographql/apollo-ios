@@ -8,9 +8,9 @@ public extension Objects {
   static let Team = Object(
     typename: "Team",
     implementedInterfaces: [
-     Interfaces.MemberStatusable.self,
-     Interfaces.Node.self,
-     Interfaces.Subscribable.self
-   ]
+      Interfaces.MemberStatusable.self,
+      Interfaces.Node.self,
+      Interfaces.Subscribable.self
+    ]
   )
 }

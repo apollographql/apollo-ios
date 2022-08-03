@@ -34,7 +34,7 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
   public let __data: DataDict
   public init(data: DataDict) { __data = data }
 
-  public static var __parentType: ParentType { .Union(AnimalKingdomAPI.Unions.ClassroomPet) }
+  public static var __parentType: ParentType { AnimalKingdomAPI.Unions.ClassroomPet }
   public static var selections: [Selection] { [
     .inlineFragment(AsAnimal.self),
     .inlineFragment(AsPet.self),
@@ -58,7 +58,7 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Interfaces.Animal) }
+    public static var __parentType: ParentType { AnimalKingdomAPI.Interfaces.Animal }
     public static var selections: [Selection] { [
       .field("species", String.self),
     ] }
@@ -73,7 +73,7 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Interfaces.Pet) }
+    public static var __parentType: ParentType { AnimalKingdomAPI.Interfaces.Pet }
     public static var selections: [Selection] { [
       .field("humanName", String?.self),
     ] }
@@ -88,7 +88,7 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Interfaces.WarmBlooded) }
+    public static var __parentType: ParentType { AnimalKingdomAPI.Interfaces.WarmBlooded }
     public static var selections: [Selection] { [
       .field("laysEggs", Bool.self),
     ] }
@@ -104,7 +104,7 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Objects.Cat) }
+    public static var __parentType: ParentType { AnimalKingdomAPI.Objects.Cat }
     public static var selections: [Selection] { [
       .field("bodyTemperature", Int.self),
       .field("isJellicle", Bool.self),
@@ -124,7 +124,7 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Objects.Bird) }
+    public static var __parentType: ParentType { AnimalKingdomAPI.Objects.Bird }
     public static var selections: [Selection] { [
       .field("wingspan", Double.self),
     ] }
@@ -142,7 +142,7 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Objects.PetRock) }
+    public static var __parentType: ParentType { AnimalKingdomAPI.Objects.PetRock }
     public static var selections: [Selection] { [
       .field("favoriteToy", String.self),
     ] }

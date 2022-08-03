@@ -8,9 +8,9 @@ public extension Objects {
   static let OrgConfigDisableCollaboratorsOnlyAuditEntry = Object(
     typename: "OrgConfigDisableCollaboratorsOnlyAuditEntry",
     implementedInterfaces: [
-     Interfaces.AuditEntry.self,
-     Interfaces.Node.self,
-     Interfaces.OrganizationAuditEntryData.self
-   ]
+      Interfaces.AuditEntry.self,
+      Interfaces.Node.self,
+      Interfaces.OrganizationAuditEntryData.self
+    ]
   )
 }

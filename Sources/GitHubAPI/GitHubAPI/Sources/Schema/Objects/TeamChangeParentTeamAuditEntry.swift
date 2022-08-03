@@ -8,10 +8,10 @@ public extension Objects {
   static let TeamChangeParentTeamAuditEntry = Object(
     typename: "TeamChangeParentTeamAuditEntry",
     implementedInterfaces: [
-     Interfaces.AuditEntry.self,
-     Interfaces.Node.self,
-     Interfaces.OrganizationAuditEntryData.self,
-     Interfaces.TeamAuditEntryData.self
-   ]
+      Interfaces.AuditEntry.self,
+      Interfaces.Node.self,
+      Interfaces.OrganizationAuditEntryData.self,
+      Interfaces.TeamAuditEntryData.self
+    ]
   )
 }

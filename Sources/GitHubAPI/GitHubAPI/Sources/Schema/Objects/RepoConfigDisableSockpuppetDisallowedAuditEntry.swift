@@ -8,10 +8,10 @@ public extension Objects {
   static let RepoConfigDisableSockpuppetDisallowedAuditEntry = Object(
     typename: "RepoConfigDisableSockpuppetDisallowedAuditEntry",
     implementedInterfaces: [
-     Interfaces.AuditEntry.self,
-     Interfaces.Node.self,
-     Interfaces.OrganizationAuditEntryData.self,
-     Interfaces.RepositoryAuditEntryData.self
-   ]
+      Interfaces.AuditEntry.self,
+      Interfaces.Node.self,
+      Interfaces.OrganizationAuditEntryData.self,
+      Interfaces.RepositoryAuditEntryData.self
+    ]
   )
 }

@@ -8,8 +8,8 @@ public extension Unions {
   static let IssueOrPullRequest = Union(
     name: "IssueOrPullRequest",
     possibleTypes: [
-     Objects.Issue.self,
-     Objects.PullRequest.self
-   ]
+      Objects.Issue.self,
+      Objects.PullRequest.self
+    ]
   )
 }

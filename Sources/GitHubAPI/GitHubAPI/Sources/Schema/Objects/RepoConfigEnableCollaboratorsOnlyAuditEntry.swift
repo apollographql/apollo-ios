@@ -8,10 +8,10 @@ public extension Objects {
   static let RepoConfigEnableCollaboratorsOnlyAuditEntry = Object(
     typename: "RepoConfigEnableCollaboratorsOnlyAuditEntry",
     implementedInterfaces: [
-     Interfaces.AuditEntry.self,
-     Interfaces.Node.self,
-     Interfaces.OrganizationAuditEntryData.self,
-     Interfaces.RepositoryAuditEntryData.self
-   ]
+      Interfaces.AuditEntry.self,
+      Interfaces.Node.self,
+      Interfaces.OrganizationAuditEntryData.self,
+      Interfaces.RepositoryAuditEntryData.self
+    ]
   )
 }

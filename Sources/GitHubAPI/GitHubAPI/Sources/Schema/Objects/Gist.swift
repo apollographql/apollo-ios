@@ -8,9 +8,9 @@ public extension Objects {
   static let Gist = Object(
     typename: "Gist",
     implementedInterfaces: [
-     Interfaces.Node.self,
-     Interfaces.Starrable.self,
-     Interfaces.UniformResourceLocatable.self
-   ]
+      Interfaces.Node.self,
+      Interfaces.Starrable.self,
+      Interfaces.UniformResourceLocatable.self
+    ]
   )
 }

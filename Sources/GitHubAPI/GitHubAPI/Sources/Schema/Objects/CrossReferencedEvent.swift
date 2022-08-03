@@ -8,8 +8,8 @@ public extension Objects {
   static let CrossReferencedEvent = Object(
     typename: "CrossReferencedEvent",
     implementedInterfaces: [
-     Interfaces.Node.self,
-     Interfaces.UniformResourceLocatable.self
-   ]
+      Interfaces.Node.self,
+      Interfaces.UniformResourceLocatable.self
+    ]
   )
 }
