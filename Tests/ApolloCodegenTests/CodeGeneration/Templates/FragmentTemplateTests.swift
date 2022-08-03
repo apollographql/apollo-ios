@@ -212,7 +212,7 @@ class FragmentTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var __parentType: ParentType { .Object(TestSchema.Animal.self) }
+      public static var __parentType: ParentType { .Object(TestSchema.Objects.Animal.self) }
     """
 
     // when
@@ -242,7 +242,7 @@ class FragmentTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var __parentType: ParentType { .Interface(TestSchema.Animal.self) }
+      public static var __parentType: ParentType { .Interface(TestSchema.Interfaces.Animal.self) }
     """
 
     // when
@@ -276,7 +276,7 @@ class FragmentTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var __parentType: ParentType { .Union(TestSchema.Animal.self) }
+      public static var __parentType: ParentType { .Union(TestSchema.Unions.Animal.self) }
     """
 
     // when
@@ -308,7 +308,7 @@ class FragmentTemplateTests: XCTestCase {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { .Object(TestSchema.Animal.self) }
+      public static var __parentType: ParentType { .Object(TestSchema.Objects.Animal.self) }
       public static var selections: [Selection] { [
       ] }
     }
@@ -397,7 +397,7 @@ class FragmentTemplateTests: XCTestCase {
       public var __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { .Object(TestSchema.Query.self) }
+      public static var __parentType: ParentType { .Object(TestSchema.Objects.Query.self) }
       public static var selections: [Selection] { [
         .field("allAnimals", [AllAnimal]?.self),
       ] }

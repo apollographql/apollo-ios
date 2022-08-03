@@ -81,9 +81,7 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
     private static let whitespaceNotNewline = Set(" \t")
 
     mutating func appendInterpolation(_ string: String) {
-      let indent = String(buffer.reversed().prefix {
-        TemplateString.StringInterpolation.whitespaceNotNewline.contains($0)
-      })
+      let indent = getCurrentIndent()
 
       if indent.isEmpty {
         appendLiteral(string)
@@ -94,6 +92,14 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
 
         appendLiteral(indentedString)
       }
+    }
+
+    private func getCurrentIndent() -> String {
+      let reverseBuffer = buffer.reversed()
+      let startOfLine = reverseBuffer.firstIndex(of: "\n") ?? reverseBuffer.endIndex
+      return String(reverseBuffer.prefix(upTo: startOfLine).reversed().prefix {
+        TemplateString.StringInterpolation.whitespaceNotNewline.contains($0)
+      })
     }
 
     mutating func appendInterpolation<T>(

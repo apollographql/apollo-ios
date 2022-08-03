@@ -16,11 +16,11 @@ extension Object: ParentTypeConvertible {
   @inlinable public var asParentType: ParentType { .Object(self) }
 }
 
-extension Interface {
+extension Interface: ParentTypeConvertible {
   @inlinable public var asParentType: ParentType { .Interface(self) }
 }
 
-extension Union {
+extension Union: ParentTypeConvertible {
   @inlinable public var asParentType: ParentType { .Union(self) }
 }
 

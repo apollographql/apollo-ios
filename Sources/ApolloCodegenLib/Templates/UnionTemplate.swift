@@ -18,14 +18,20 @@ struct UnionTemplate: TemplateRenderer {
     \(documentation: graphqlUnion.documentation, config: config)
     static let \(graphqlUnion.name.firstUppercased) = Union(
       name: "\(graphqlUnion.name)",
-      possibleTypes: \(TemplateString("""
-        [\(list: graphqlUnion.types.map({ type in
-        "\(type.schemaTypesNamespace).\(type.name.firstUppercased).self"
-        }))]
-        """))
+      possibleTypes: \(PossibleTypesTemplate())
     )
     """
     )
+  }
+
+  private func PossibleTypesTemplate() -> TemplateString {
+    "[\(list: graphqlUnion.types.map(PossibleTypeTemplate))]"
+  }
+
+  private func PossibleTypeTemplate(
+    _ type: GraphQLObjectType
+  ) -> TemplateString {
+    "Objects.\(type.name.firstUppercased).self"
   }
 
 #warning("""
