@@ -72,7 +72,7 @@ Double-click `Package.swift` in the `ApolloCodegen` folder to open the executabl
 ```swift title="Package.swift"
 .package(name: "Apollo",
          url: "https://github.com/apollographql/apollo-ios.git", 
-         .upToNextMinor(from: "0.49.0"))
+         .upToNextMinor(from: "0.53.0"))
 ```
 
 Note that these instructions are updated along with newer versions of the library - if you're seeing something that doesn't compile, please check that you're on the most recent version of the SDK both in your app and in your Codegen project. 
