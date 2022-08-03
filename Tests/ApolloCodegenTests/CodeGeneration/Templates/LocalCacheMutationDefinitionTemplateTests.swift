@@ -320,9 +320,7 @@ class LocalCacheMutationDefinitionTemplateTests: XCTestCase {
          self.variable = variable
        }
 
-       public var variables: Variables? {
-         ["variable": variable]
-       }
+       public var variables: Variables? { ["variable": variable] }
      """
 
      // when
@@ -371,11 +369,11 @@ class LocalCacheMutationDefinitionTemplateTests: XCTestCase {
         self.variable3 = variable3
       }
 
-      public var variables: Variables? {
-        ["variable1": variable1,
-         "variable2": variable2,
-         "variable3": variable3]
-      }
+      public var variables: Variables? { [
+        "variable1": variable1,
+        "variable2": variable2,
+        "variable3": variable3
+      ] }
     """
 
     // when
@@ -415,9 +413,7 @@ class LocalCacheMutationDefinitionTemplateTests: XCTestCase {
         self.variable = variable
       }
 
-      public var variables: Variables? {
-        ["variable": variable]
-      }
+      public var variables: Variables? { ["variable": variable] }
     """
 
     // when

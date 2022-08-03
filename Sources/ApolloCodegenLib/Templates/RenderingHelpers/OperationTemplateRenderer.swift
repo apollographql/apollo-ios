@@ -45,9 +45,7 @@ extension OperationTemplateRenderer {
     }
 
     return """
-      public var variables: Variables? {
-        [\(variables.map { "\"\($0.name)\": \($0.name)"}, separator: ",\n   ")]
-      }
+      public var variables: Variables? { [\(list: variables.map { "\"\($0.name)\": \($0.name)"})] }
       """
   }
 
