@@ -550,7 +550,7 @@ class SelectionSetTests: XCTestCase {
       static let Droid = Object(typename: "Droid", implementedInterfaces: [])
     }
 
-    MockSchemaConfiguration.stub_graphQLTypeForTypeName = {
+    MockSchemaConfiguration.stub_objectTypeForTypeName = {
       switch $0 {
       case "Human": return Types.Human
       case "Droid": return Types.Droid
@@ -609,7 +609,7 @@ class SelectionSetTests: XCTestCase {
       static let Human = Object(typename: "Human", implementedInterfaces: [Humanoid])
     }
 
-    MockSchemaConfiguration.stub_graphQLTypeForTypeName = {
+    MockSchemaConfiguration.stub_objectTypeForTypeName = {
       switch $0 {
       case "Human": return Types.Human
       default: XCTFail(); return nil
@@ -656,7 +656,7 @@ class SelectionSetTests: XCTestCase {
       static let Droid = Object(typename: "Droid", implementedInterfaces: [])
     }
 
-    MockSchemaConfiguration.stub_graphQLTypeForTypeName = {
+    MockSchemaConfiguration.stub_objectTypeForTypeName = {
       switch $0 {
       case "Droid": return Types.Droid
       default: XCTFail(); return nil
@@ -703,7 +703,7 @@ class SelectionSetTests: XCTestCase {
       static let Character = Union(name: "Character", possibleTypes: [Types.Human])
     }
 
-    MockSchemaConfiguration.stub_graphQLTypeForTypeName = {
+    MockSchemaConfiguration.stub_objectTypeForTypeName = {
       switch $0 {
       case "Human": return Types.Human
       default: XCTFail(); return nil
@@ -749,7 +749,7 @@ class SelectionSetTests: XCTestCase {
       static let Character = Union(name: "Character", possibleTypes: [])
     }
 
-    MockSchemaConfiguration.stub_graphQLTypeForTypeName = {
+    MockSchemaConfiguration.stub_objectTypeForTypeName = {
       switch $0 {
       case "Human": return Types.Human
       default: XCTFail(); return nil

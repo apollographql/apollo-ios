@@ -1,5 +1,5 @@
 public protocol SchemaConfiguration {
-  static func graphQLType(forTypename typename: String) -> Object?
+  static func objectType(forTypename typename: String) -> Object?
   static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo?
 }
 
@@ -16,7 +16,7 @@ extension SchemaConfiguration {
     guard let typename = object["__typename"] as? String else {
       return nil
     }
-    return graphQLType(forTypename: typename)
+    return objectType(forTypename: typename)
   }
 
   @inlinable public static func cacheKey(for object: JSONObject) -> CacheReference? {
@@ -49,7 +49,7 @@ public struct CacheKeyInfo {
 // EXAMPLE
 
 struct FakeSchema: SchemaConfiguration {
-  static func graphQLType(forTypename typename: String) -> Object? {
+  static func objectType(forTypename typename: String) -> Object? {
     switch typename {
     case "Dog": return Dog.type
     default:

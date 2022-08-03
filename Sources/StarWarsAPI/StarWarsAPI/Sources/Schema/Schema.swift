@@ -18,7 +18,7 @@ public protocol MutableInlineFragment: ApolloAPI.MutableSelectionSet & ApolloAPI
 where Schema == StarWarsAPI.Schema {}
 
 public enum Schema: SchemaConfiguration {
-  public static func graphQLType(forTypename typename: String) -> Object? {
+  public static func objectType(forTypename typename: String) -> Object? {
     switch typename {
     case "Query": return StarWarsAPI.Objects.Query
     case "Human": return StarWarsAPI.Objects.Human

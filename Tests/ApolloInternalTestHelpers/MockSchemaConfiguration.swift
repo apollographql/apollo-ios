@@ -9,13 +9,13 @@ public class MockSchemaConfiguration: SchemaConfiguration {
   public init() { }
 
   private static let testObserver = TestObserver() { _ in
-    stub_graphQLTypeForTypeName = nil
+    stub_objectTypeForTypeName = nil
     stub_cacheKeyInfoForType_Object = nil
   }
 
-  public static var stub_graphQLTypeForTypeName: ((String) -> Object?)? {
+  public static var stub_objectTypeForTypeName: ((String) -> Object?)? {
     didSet {
-      if stub_graphQLTypeForTypeName != nil { testObserver.start() }
+      if stub_objectTypeForTypeName != nil { testObserver.start() }
     }
   }
 
@@ -28,8 +28,8 @@ public class MockSchemaConfiguration: SchemaConfiguration {
 }
 
 public extension MockSchemaConfiguration {
-  static func graphQLType(forTypename __typename: String) -> Object? {
-    stub_graphQLTypeForTypeName?(__typename) ??
+  static func objectType(forTypename __typename: String) -> Object? {
+    stub_objectTypeForTypeName?(__typename) ??
     Object(typename: __typename, implementedInterfaces: [])
   }
 
@@ -71,7 +71,7 @@ public struct MockCacheKeyProvider {
 // MARK: - Custom Mock Schemas
 
 public enum MockSchema1: SchemaConfiguration {
-  public static func graphQLType(forTypename __typename: String) -> Object? {
+  public static func objectType(forTypename __typename: String) -> Object? {
     Object(typename: __typename, implementedInterfaces: [])
   }
 }
@@ -83,7 +83,7 @@ public extension MockSchema1 {
 }
 
 public enum MockSchema2: SchemaConfiguration {
-  public static func graphQLType(forTypename __typename: String) -> Object? {
+  public static func objectType(forTypename __typename: String) -> Object? {
     Object(typename: __typename, implementedInterfaces: [])
   }
 }

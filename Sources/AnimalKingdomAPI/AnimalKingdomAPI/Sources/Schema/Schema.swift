@@ -18,7 +18,7 @@ public protocol MutableInlineFragment: ApolloAPI.MutableSelectionSet & ApolloAPI
 where Schema == AnimalKingdomAPI.Schema {}
 
 public enum Schema: SchemaConfiguration {
-  public static func graphQLType(forTypename typename: String) -> Object? {
+  public static func objectType(forTypename typename: String) -> Object? {
     switch typename {
     case "Query": return AnimalKingdomAPI.Objects.Query
     case "Human": return AnimalKingdomAPI.Objects.Human

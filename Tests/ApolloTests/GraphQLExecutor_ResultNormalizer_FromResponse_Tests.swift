@@ -286,7 +286,7 @@ class GraphQLExecutor_ResultNormalizer_FromResponse_Tests: XCTestCase {
       static let Droid = Object(typename: "Droid", implementedInterfaces: [])
     }
 
-    MockSchemaConfiguration.stub_graphQLTypeForTypeName = {
+    MockSchemaConfiguration.stub_objectTypeForTypeName = {
       switch $0 {
       case "Human": return Types.Human
       case "Droid": return Types.Droid
@@ -343,7 +343,7 @@ class GraphQLExecutor_ResultNormalizer_FromResponse_Tests: XCTestCase {
       static let Droid = Object(typename: "Droid", implementedInterfaces: [])
     }
 
-    MockSchemaConfiguration.stub_graphQLTypeForTypeName = {
+    MockSchemaConfiguration.stub_objectTypeForTypeName = {
       switch $0 {
       case "Human": return Types.Human
       case "Droid": return Types.Droid
@@ -401,7 +401,7 @@ class GraphQLExecutor_ResultNormalizer_FromResponse_Tests: XCTestCase {
       static let Droid = Object(typename: "Droid", implementedInterfaces: [])
     }
 
-    MockSchemaConfiguration.stub_graphQLTypeForTypeName = {
+    MockSchemaConfiguration.stub_objectTypeForTypeName = {
       switch $0 {
       case "Human": return Types.Human
       case "Droid": return Types.Droid
@@ -473,7 +473,7 @@ class GraphQLExecutor_ResultNormalizer_FromResponse_Tests: XCTestCase {
       static let Droid = Object(typename: "Droid", implementedInterfaces: [])
     }
 
-    MockSchemaConfiguration.stub_graphQLTypeForTypeName = {
+    MockSchemaConfiguration.stub_objectTypeForTypeName = {
       switch $0 {
       case "Human": return Types.Human
       case "Droid": return Types.Droid

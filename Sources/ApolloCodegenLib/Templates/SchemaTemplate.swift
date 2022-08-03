@@ -56,7 +56,7 @@ struct SchemaTemplate: TemplateRenderer {
 
   var objectTypeFunction: TemplateString {
     return """
-    public static func graphQLType(forTypename typename: String) -> Object? {
+    public static func objectType(forTypename typename: String) -> Object? {
       switch typename {
       \(schema.referencedTypes.objects.map {
         "case \"\($0.name.firstUppercased)\": return \(schemaName).Objects.\($0.name.firstUppercased)"

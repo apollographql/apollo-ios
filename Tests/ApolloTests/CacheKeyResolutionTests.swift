@@ -37,7 +37,7 @@ class CacheKeyResolutionTests: XCTestCase {
       "id": "α"
     ]
 
-    MockSchemaConfiguration.stub_graphQLTypeForTypeName = { _ in Alpha }
+    MockSchemaConfiguration.stub_objectTypeForTypeName = { _ in Alpha }
 
     let actual = MockSchemaConfiguration.cacheKey(for: object)
 
@@ -95,7 +95,7 @@ class CacheKeyResolutionTests: XCTestCase {
 //      "lowercase": "γ"
 //    ]
 //
-//    MockSchemaConfiguration.stub_graphQLTypeForTypeName = { _ in Gamma.self }
+//    MockSchemaConfiguration.stub_objectTypeForTypeName = { _ in Gamma.self }
 //
 //    let actual = MockSchemaConfiguration.cacheKey(for: object)
 //

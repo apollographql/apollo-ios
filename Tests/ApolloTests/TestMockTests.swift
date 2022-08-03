@@ -209,7 +209,7 @@ class TestMockTests: XCTestCase {
 
 // MARK: Generated Schema
 enum TestMockSchema: SchemaConfiguration {
-  static func graphQLType(forTypename typename: String) -> Object? {
+  static func objectType(forTypename typename: String) -> Object? {
     return nil
   }
 

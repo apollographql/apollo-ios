@@ -256,7 +256,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       static let Droid = Object(typename: "Droid", implementedInterfaces: [])
     }
 
-    MockSchemaConfiguration.stub_graphQLTypeForTypeName = { typename in
+    MockSchemaConfiguration.stub_objectTypeForTypeName = { typename in
       switch typename {
       case "Droid": return Types.Droid
       default: return nil
@@ -312,7 +312,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       static let Droid = Object(typename: "Droid", implementedInterfaces: [])
     }
 
-    MockSchemaConfiguration.stub_graphQLTypeForTypeName = { typename in
+    MockSchemaConfiguration.stub_objectTypeForTypeName = { typename in
       switch typename {
       case "Droid": return Types.Droid
       default: return nil
@@ -602,7 +602,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       static let Droid = Object(typename: "Droid", implementedInterfaces: [])
     }
 
-    MockSchemaConfiguration.stub_graphQLTypeForTypeName = { typename in
+    MockSchemaConfiguration.stub_objectTypeForTypeName = { typename in
       switch typename {
       case "Droid": return Types.Droid
       default: return nil
@@ -700,7 +700,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       static let Droid = Object(typename: "Droid", implementedInterfaces: [])
     }
 
-    MockSchemaConfiguration.stub_graphQLTypeForTypeName = { typename in
+    MockSchemaConfiguration.stub_objectTypeForTypeName = { typename in
       switch typename {
       case "Droid": return Types.Droid
       default: return nil
@@ -831,7 +831,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       static let Droid = Object(typename: "Droid", implementedInterfaces: [])
     }
 
-    MockSchemaConfiguration.stub_graphQLTypeForTypeName = { typename in
+    MockSchemaConfiguration.stub_objectTypeForTypeName = { typename in
       switch typename {
       case "Droid": return Types.Droid
       default: return nil
