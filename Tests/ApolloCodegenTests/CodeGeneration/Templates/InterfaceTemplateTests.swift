@@ -41,8 +41,7 @@ class InterfaceTemplateTests: XCTestCase {
     buildSubject(name: "aDog")
 
     let expected = """
-    final class ADog: Interface { }
-    
+    static let ADog = Interface(name: "aDog")
     """
 
     // when
@@ -59,37 +58,7 @@ class InterfaceTemplateTests: XCTestCase {
     buildSubject(config: .mock(.swiftPackageManager))
 
     let expected = """
-    public final class Dog: Interface { }
-    """
-
-    // when
-    let actual = renderSubject()
-
-    // then
-    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
-  }
-
-  func test_render_givenModuleType_other_generatesSwiftClassDefinition_withPublicModifier() {
-    // given
-    buildSubject(config: .mock(.other))
-
-    let expected = """
-    public final class Dog: Interface { }
-    """
-
-    // when
-    let actual = renderSubject()
-
-    // then
-    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
-  }
-
-  func test_render_givenModuleType_embeddedInTarget_generatesSwiftClassDefinition_noPublicModifier() {
-    // given
-    buildSubject(config: .mock(.embeddedInTarget(name: "TestTarget")))
-
-    let expected = """
-    final class Dog: Interface { }
+    static let Dog = Interface(name: "Dog")
     """
 
     // when
@@ -111,7 +80,7 @@ class InterfaceTemplateTests: XCTestCase {
 
     let expected = """
     /// \(documentation)
-    final class Dog: Interface { }
+    static let Dog = Interface(name: "Dog")
     """
 
     // when
@@ -131,7 +100,7 @@ class InterfaceTemplateTests: XCTestCase {
     )
 
     let expected = """
-    final class Dog: Interface { }
+    static let Dog = Interface(name: "Dog")
     """
 
     // when
