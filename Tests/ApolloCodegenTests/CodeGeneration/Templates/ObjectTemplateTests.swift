@@ -45,7 +45,7 @@ class ObjectTemplateTests: XCTestCase {
     let actual = renderSubject()
 
     // then
-    expect(String(actual.reversed())).to(equalLineByLine("\n}", ignoringExtraLines: true))
+    expect(actual).to(endWith("\n)"))
   }
 
   // MARK: Class Definition Tests
@@ -55,8 +55,8 @@ class ObjectTemplateTests: XCTestCase {
     buildSubject(name: "dog")
 
     let expected = """
-    final class Dog: Object {
-      override public class var __typename: StaticString { "Dog" }
+    static let Dog = Object(
+      typename: "Dog",
     """
 
     // when
@@ -65,56 +65,6 @@ class ObjectTemplateTests: XCTestCase {
     // then
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
-
-  func test_render_givenModuleType_swiftPackageManager_generatesSwiftClassDefinition_withPublicModifier() {
-    // given
-    buildSubject(config: .mock(.swiftPackageManager))
-
-    let expected = """
-    public final class Dog: Object {
-      override public class var __typename: StaticString { "Dog" }
-    """
-
-    // when
-    let actual = renderSubject()
-
-    // then
-    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
-  }
-
-  func test_render_givenModuleType_other_generatesSwiftClassDefinition_withPublicModifier() {
-    // given
-    buildSubject(config: .mock(.other))
-
-    let expected = """
-    public final class Dog: Object {
-      override public class var __typename: StaticString { "Dog" }
-    """
-
-    // when
-    let actual = renderSubject()
-
-    // then
-    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
-  }
-
-  func test_render_givenModuleType_embeddedInTarget_generatesSwiftClassDefinition_noPublicModifier() {
-    // given
-    buildSubject(config: .mock(.embeddedInTarget(name: "TestTarget")))
-
-    let expected = """
-    final class Dog: Object {
-      override public class var __typename: StaticString { "Dog" }
-    """
-
-    // when
-    let actual = renderSubject()
-
-    // then
-    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
-  }
-
-  // MARK: Metadata Tests
 
   func test_render_givenSchemaTypeImplementsInterfaces_generatesImplementedInterfaces() {
     // given
@@ -125,10 +75,9 @@ class ObjectTemplateTests: XCTestCase {
     )
 
     let expected = """
-      override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-      private static let _implementedInterfaces: [Interface.Type]? = [
-        Animal.self,
-        Pet.self
+      implementedInterfaces: [
+        Interfaces.Animal.self,
+        Interfaces.Pet.self
       ]
     """
 
@@ -136,18 +85,22 @@ class ObjectTemplateTests: XCTestCase {
     let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 4, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 3, ignoringExtraLines: true))
   }
 
-  func test_render_givenNoImplementedInterfacesOrCovariantFields_doesNotGenerateTypeMetadata() {
+  func test_render_givenNoImplemented_generatesEmpytArray() {
     // given
     buildSubject()
+
+    let expected = """
+      implementedInterfaces: []
+    """
 
     // when
     let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine("}\n", atLine: 3, ignoringExtraLines: false))
+    expect(actual).to(equalLineByLine(expected, atLine: 3, ignoringExtraLines: true))
   }
 
   // MARK: Documentation Tests
@@ -162,7 +115,7 @@ class ObjectTemplateTests: XCTestCase {
 
     let expected = """
     /// \(documentation)
-    final class Dog: Object {
+    static let Dog = Object(
     """
 
     // when
@@ -182,7 +135,7 @@ class ObjectTemplateTests: XCTestCase {
     )
 
     let expected = """
-    final class Dog: Object {
+    static let Dog = Object(
     """
 
     // when
