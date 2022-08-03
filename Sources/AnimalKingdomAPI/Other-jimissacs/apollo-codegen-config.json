@@ -1,0 +1,45 @@
+{
+  "schemaName" : "MyCodegenTargetDestination",
+  "options" : {
+    "schemaDocumentation" : "include",
+    "deprecatedEnumCases" : "include",
+    "apqs" : "disabled",
+    "additionalInflectionRules" : [
+
+    ],
+    "queryStringLiteralFormat" : "multiline",
+    "warningsOnDeprecatedUsage" : "include"
+  },
+  "input" : {
+    "operationSearchPaths" : [
+      "MyCodegen GraphQL Sources\/**\/*.graphql"
+    ],
+    "schemaSearchPaths" : [
+      "MyCodegen GraphQL Sources\/AnimalSchema.graphqls"
+    ]
+  },
+  "output" : {
+    "testMocks" : {
+      "absolute" : {
+        "path": "Sources\/MyCodegenTestSupportTargetDestination\/"
+      }
+    },
+    "schemaTypes" : {
+      "path" : "Sources\/MyCodegenTargetDestination\/",
+      "moduleType" : {
+        "other" : {
+
+        }
+      }
+    },
+    "operations" : {
+      "inSchemaModule" : {
+
+      }
+    }
+  },
+  "experimentalFeatures" : {
+    "clientControlledNullability" : true,
+    "legacySafelistingCompatibleOperations": true
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "schemaName" : "MyCustomProject",
+  "options" : {
+    "schemaDocumentation" : "include",
+    "deprecatedEnumCases" : "include",
+    "apqs" : "disabled",
+    "additionalInflectionRules" : [
+
+    ],
+    "queryStringLiteralFormat" : "multiline"
+  },
+  "input" : {
+    "searchPaths" : [
+      "..\/graphql\/**\/*.graphql"
+    ],
+    "schemaPath" : "..\/..\/graphql\/AnimalSchema.graphqls"
+  },
+  "output" : {
+    "testMocks" : {
+      "absolute" : {
+        "path": ".\/MyCustomProjectTests\/TestMocks\/"
+      }
+    },
+    "schemaTypes" : {
+      "path" : ".\/MyCustomProject\/",
+      "moduleType" : {
+        "other" : {
+
+        }
+      }
+    },
+    "operations" : {
+      "inSchemaModule" : {
+
+      }
+    }
+  },
+  "experimentalFeatures" : {
+    "clientControlledNullability" : true
+  }
+}

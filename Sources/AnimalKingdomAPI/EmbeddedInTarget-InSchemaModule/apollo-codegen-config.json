@@ -1,0 +1,45 @@
+{
+  "schemaName" : "MyGraphQLSchema",
+  "options" : {
+    "schemaDocumentation" : "include",
+    "deprecatedEnumCases" : "include",
+    "apqs" : "disabled",
+    "additionalInflectionRules" : [
+
+    ],
+    "queryStringLiteralFormat" : "multiline",
+    "warningsOnDeprecatedUsage" : "include"
+  },
+  "input" : {
+    "operationSearchPaths" : [
+      "..\/animalkingdom-graphql\/**\/*.graphql"
+    ],
+    "schemaSearchPaths" : [
+      "..\/animalkingdom-graphql\/AnimalSchema.graphqls"
+    ]
+  },
+  "output" : {
+    "testMocks" : {
+      "absolute" : {
+        "path": ".\/Tests\/MySwiftPackageTests\/TestMocks\/"
+      }
+    },
+    "schemaTypes" : {
+      "path" : ".\/Sources\/MySwiftPackage",
+      "moduleType" : {
+        "embeddedInTarget" : {
+          "name": "MySwiftPackage"
+        }
+      }
+    },
+    "operations" : {
+      "inSchemaModule" : {
+
+      }
+    }
+  },
+  "experimentalFeatures" : {
+    "clientControlledNullability" : true,
+    "legacySafelistingCompatibleOperations": true
+  }
+}

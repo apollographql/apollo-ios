@@ -1,0 +1,14 @@
+query ClassroomPetsCCN {
+  classroomPets[!]? {
+    ...ClassroomPetDetailsCCN
+  }
+}
+
+fragment ClassroomPetDetailsCCN on ClassroomPet {
+  ... on Animal {
+    height {
+      inches!
+    }
+  }
+}
+

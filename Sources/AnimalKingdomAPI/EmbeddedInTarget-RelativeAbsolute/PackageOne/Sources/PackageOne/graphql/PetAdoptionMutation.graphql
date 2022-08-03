@@ -1,0 +1,6 @@
+mutation PetAdoptionMutation($input: PetAdoptionInput!) {
+  adoptPet(input: $input) {
+    id
+    humanName
+  }
+}
