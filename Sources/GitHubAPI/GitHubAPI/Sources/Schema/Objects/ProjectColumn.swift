@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// A column inside a project.
-public let ProjectColumn = Object(
-  typename: "ProjectColumn",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// A column inside a project.
+  static let ProjectColumn = Object(
+    typename: "ProjectColumn",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

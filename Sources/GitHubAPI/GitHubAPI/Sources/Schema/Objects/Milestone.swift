@@ -3,12 +3,14 @@
 
 import ApolloAPI
 
-/// Represents a Milestone object on a given repository.
-public let Milestone = Object(
-  typename: "Milestone",
-  implementedInterfaces: [
-   Closable.self,
-   Node.self,
-   UniformResourceLocatable.self
- ]
-)
+public extension Objects {
+  /// Represents a Milestone object on a given repository.
+  static let Milestone = Object(
+    typename: "Milestone",
+    implementedInterfaces: [
+     Interfaces.Closable.self,
+     Interfaces.Node.self,
+     Interfaces.UniformResourceLocatable.self
+   ]
+  )
+}

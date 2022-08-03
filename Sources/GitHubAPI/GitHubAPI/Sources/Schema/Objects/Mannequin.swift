@@ -3,12 +3,14 @@
 
 import ApolloAPI
 
-/// A placeholder user for attribution of imported data on GitHub.
-public let Mannequin = Object(
-  typename: "Mannequin",
-  implementedInterfaces: [
-   Actor.self,
-   Node.self,
-   UniformResourceLocatable.self
- ]
-)
+public extension Objects {
+  /// A placeholder user for attribution of imported data on GitHub.
+  static let Mannequin = Object(
+    typename: "Mannequin",
+    implementedInterfaces: [
+     Interfaces.Actor.self,
+     Interfaces.Node.self,
+     Interfaces.UniformResourceLocatable.self
+   ]
+  )
+}

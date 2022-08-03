@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// An Enterprise Server installation.
-public let EnterpriseServerInstallation = Object(
-  typename: "EnterpriseServerInstallation",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// An Enterprise Server installation.
+  static let EnterpriseServerInstallation = Object(
+    typename: "EnterpriseServerInstallation",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

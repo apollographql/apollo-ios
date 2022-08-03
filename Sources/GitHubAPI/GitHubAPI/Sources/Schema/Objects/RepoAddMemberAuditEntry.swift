@@ -3,13 +3,15 @@
 
 import ApolloAPI
 
-/// Audit log entry for a repo.add_member event.
-public let RepoAddMemberAuditEntry = Object(
-  typename: "RepoAddMemberAuditEntry",
-  implementedInterfaces: [
-   AuditEntry.self,
-   Node.self,
-   OrganizationAuditEntryData.self,
-   RepositoryAuditEntryData.self
- ]
-)
+public extension Objects {
+  /// Audit log entry for a repo.add_member event.
+  static let RepoAddMemberAuditEntry = Object(
+    typename: "RepoAddMemberAuditEntry",
+    implementedInterfaces: [
+     Interfaces.AuditEntry.self,
+     Interfaces.Node.self,
+     Interfaces.OrganizationAuditEntryData.self,
+     Interfaces.RepositoryAuditEntryData.self
+   ]
+  )
+}

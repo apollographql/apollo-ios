@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// Represents a 'converted_note_to_issue' event on a given issue or pull request.
-public let ConvertedNoteToIssueEvent = Object(
-  typename: "ConvertedNoteToIssueEvent",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// Represents a 'converted_note_to_issue' event on a given issue or pull request.
+  static let ConvertedNoteToIssueEvent = Object(
+    typename: "ConvertedNoteToIssueEvent",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

@@ -36,7 +36,7 @@ public class UploadMultipleFilesToTheSameParameterMutation: GraphQLMutation {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(UploadAPI.Mutation) }
+    public static var __parentType: ParentType { .Object(UploadAPI.Objects.Mutation) }
     public static var selections: [Selection] { [
       .field("multipleUpload", [MultipleUpload].self, arguments: ["files": .variable("files")]),
     ] }
@@ -50,7 +50,7 @@ public class UploadMultipleFilesToTheSameParameterMutation: GraphQLMutation {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { .Object(UploadAPI.File) }
+      public static var __parentType: ParentType { .Object(UploadAPI.Objects.File) }
       public static var selections: [Selection] { [
         .field("id", ID.self),
         .field("path", String.self),

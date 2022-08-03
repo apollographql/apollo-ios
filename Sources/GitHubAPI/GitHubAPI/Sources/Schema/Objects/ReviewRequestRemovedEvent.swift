@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// Represents an 'review_request_removed' event on a given pull request.
-public let ReviewRequestRemovedEvent = Object(
-  typename: "ReviewRequestRemovedEvent",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// Represents an 'review_request_removed' event on a given pull request.
+  static let ReviewRequestRemovedEvent = Object(
+    typename: "ReviewRequestRemovedEvent",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

@@ -3,12 +3,14 @@
 
 import ApolloAPI
 
-/// A Gist.
-public let Gist = Object(
-  typename: "Gist",
-  implementedInterfaces: [
-   Node.self,
-   Starrable.self,
-   UniformResourceLocatable.self
- ]
-)
+public extension Objects {
+  /// A Gist.
+  static let Gist = Object(
+    typename: "Gist",
+    implementedInterfaces: [
+     Interfaces.Node.self,
+     Interfaces.Starrable.self,
+     Interfaces.UniformResourceLocatable.self
+   ]
+  )
+}

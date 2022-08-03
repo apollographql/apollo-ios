@@ -3,12 +3,14 @@
 
 import ApolloAPI
 
-/// Audit log entry for a org.restore_member event.
-public let OrgRestoreMemberAuditEntry = Object(
-  typename: "OrgRestoreMemberAuditEntry",
-  implementedInterfaces: [
-   AuditEntry.self,
-   Node.self,
-   OrganizationAuditEntryData.self
- ]
-)
+public extension Objects {
+  /// Audit log entry for a org.restore_member event.
+  static let OrgRestoreMemberAuditEntry = Object(
+    typename: "OrgRestoreMemberAuditEntry",
+    implementedInterfaces: [
+     Interfaces.AuditEntry.self,
+     Interfaces.Node.self,
+     Interfaces.OrganizationAuditEntryData.self
+   ]
+  )
+}

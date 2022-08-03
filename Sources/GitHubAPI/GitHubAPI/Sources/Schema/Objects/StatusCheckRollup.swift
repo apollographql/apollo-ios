@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// Represents the rollup for both the check runs and status for a commit.
-public let StatusCheckRollup = Object(
-  typename: "StatusCheckRollup",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// Represents the rollup for both the check runs and status for a commit.
+  static let StatusCheckRollup = Object(
+    typename: "StatusCheckRollup",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

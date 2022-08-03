@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// An account to manage multiple organizations with consolidated policy and billing.
-public let Enterprise = Object(
-  typename: "Enterprise",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// An account to manage multiple organizations with consolidated policy and billing.
+  static let Enterprise = Object(
+    typename: "Enterprise",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

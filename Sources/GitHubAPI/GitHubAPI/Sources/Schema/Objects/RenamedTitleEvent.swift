@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// Represents a 'renamed' event on a given issue or pull request
-public let RenamedTitleEvent = Object(
-  typename: "RenamedTitleEvent",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// Represents a 'renamed' event on a given issue or pull request
+  static let RenamedTitleEvent = Object(
+    typename: "RenamedTitleEvent",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

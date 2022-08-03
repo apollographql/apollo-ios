@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// A Git push.
-public let Push = Object(
-  typename: "Push",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// A Git push.
+  static let Push = Object(
+    typename: "Push",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

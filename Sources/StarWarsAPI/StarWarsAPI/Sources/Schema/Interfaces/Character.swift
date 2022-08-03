@@ -3,5 +3,7 @@
 
 import ApolloAPI
 
-/// A character from the Star Wars universe
-public let Character = Interface(name: "Character")
+public extension Interfaces {
+  /// A character from the Star Wars universe
+  static let Character = Interface(name: "Character")
+}

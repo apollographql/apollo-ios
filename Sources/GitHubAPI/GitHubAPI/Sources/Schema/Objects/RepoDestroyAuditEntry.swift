@@ -3,13 +3,15 @@
 
 import ApolloAPI
 
-/// Audit log entry for a repo.destroy event.
-public let RepoDestroyAuditEntry = Object(
-  typename: "RepoDestroyAuditEntry",
-  implementedInterfaces: [
-   AuditEntry.self,
-   Node.self,
-   OrganizationAuditEntryData.self,
-   RepositoryAuditEntryData.self
- ]
-)
+public extension Objects {
+  /// Audit log entry for a repo.destroy event.
+  static let RepoDestroyAuditEntry = Object(
+    typename: "RepoDestroyAuditEntry",
+    implementedInterfaces: [
+     Interfaces.AuditEntry.self,
+     Interfaces.Node.self,
+     Interfaces.OrganizationAuditEntryData.self,
+     Interfaces.RepositoryAuditEntryData.self
+   ]
+  )
+}

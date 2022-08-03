@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// Information for an uploaded package.
-public let Package = Object(
-  typename: "Package",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// Information for an uploaded package.
+  static let Package = Object(
+    typename: "Package",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

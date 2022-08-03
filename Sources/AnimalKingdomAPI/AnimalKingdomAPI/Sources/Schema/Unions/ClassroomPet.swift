@@ -3,12 +3,14 @@
 
 import ApolloAPI
 
-public let ClassroomPet = Union(
-  name: "ClassroomPet",
-  possibleTypes: [
-   AnimalKingdomAPI.Cat.self,
-   AnimalKingdomAPI.Bird.self,
-   AnimalKingdomAPI.Rat.self,
-   AnimalKingdomAPI.PetRock.self
- ]
-)
+public extension Unions {
+  static let ClassroomPet = Union(
+    name: "ClassroomPet",
+    possibleTypes: [
+     Objects.Cat.self,
+     Objects.Bird.self,
+     Objects.Rat.self,
+     Objects.PetRock.self
+   ]
+  )
+}

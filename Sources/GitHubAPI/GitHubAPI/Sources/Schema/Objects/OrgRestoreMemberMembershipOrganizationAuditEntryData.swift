@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// Metadata for an organization membership for org.restore_member actions
-public let OrgRestoreMemberMembershipOrganizationAuditEntryData = Object(
-  typename: "OrgRestoreMemberMembershipOrganizationAuditEntryData",
-  implementedInterfaces: [OrganizationAuditEntryData.self]
-)
+public extension Objects {
+  /// Metadata for an organization membership for org.restore_member actions
+  static let OrgRestoreMemberMembershipOrganizationAuditEntryData = Object(
+    typename: "OrgRestoreMemberMembershipOrganizationAuditEntryData",
+    implementedInterfaces: [Interfaces.OrganizationAuditEntryData.self]
+  )
+}

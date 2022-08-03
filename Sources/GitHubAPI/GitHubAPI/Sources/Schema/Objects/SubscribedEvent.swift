@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// Represents a 'subscribed' event on a given `Subscribable`.
-public let SubscribedEvent = Object(
-  typename: "SubscribedEvent",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// Represents a 'subscribed' event on a given `Subscribable`.
+  static let SubscribedEvent = Object(
+    typename: "SubscribedEvent",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

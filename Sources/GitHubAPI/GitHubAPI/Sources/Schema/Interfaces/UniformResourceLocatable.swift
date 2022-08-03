@@ -3,5 +3,7 @@
 
 import ApolloAPI
 
-/// Represents a type that can be retrieved by a URL.
-public let UniformResourceLocatable = Interface(name: "UniformResourceLocatable")
+public extension Interfaces {
+  /// Represents a type that can be retrieved by a URL.
+  static let UniformResourceLocatable = Interface(name: "UniformResourceLocatable")
+}

@@ -3,13 +3,15 @@
 
 import ApolloAPI
 
-/// Represents a Git commit.
-public let Commit = Object(
-  typename: "Commit",
-  implementedInterfaces: [
-   GitObject.self,
-   Node.self,
-   Subscribable.self,
-   UniformResourceLocatable.self
- ]
-)
+public extension Objects {
+  /// Represents a Git commit.
+  static let Commit = Object(
+    typename: "Commit",
+    implementedInterfaces: [
+     Interfaces.GitObject.self,
+     Interfaces.Node.self,
+     Interfaces.Subscribable.self,
+     Interfaces.UniformResourceLocatable.self
+   ]
+  )
+}

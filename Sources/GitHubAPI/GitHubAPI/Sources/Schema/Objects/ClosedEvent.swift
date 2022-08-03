@@ -3,11 +3,13 @@
 
 import ApolloAPI
 
-/// Represents a 'closed' event on any `Closable`.
-public let ClosedEvent = Object(
-  typename: "ClosedEvent",
-  implementedInterfaces: [
-   Node.self,
-   UniformResourceLocatable.self
- ]
-)
+public extension Objects {
+  /// Represents a 'closed' event on any `Closable`.
+  static let ClosedEvent = Object(
+    typename: "ClosedEvent",
+    implementedInterfaces: [
+     Interfaces.Node.self,
+     Interfaces.UniformResourceLocatable.self
+   ]
+  )
+}

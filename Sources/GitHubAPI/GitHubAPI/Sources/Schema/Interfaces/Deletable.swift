@@ -3,5 +3,7 @@
 
 import ApolloAPI
 
-/// Entities that can be deleted.
-public let Deletable = Interface(name: "Deletable")
+public extension Interfaces {
+  /// Entities that can be deleted.
+  static let Deletable = Interface(name: "Deletable")
+}

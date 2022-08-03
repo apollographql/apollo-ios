@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// A card in a project.
-public let ProjectCard = Object(
-  typename: "ProjectCard",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// A card in a project.
+  static let ProjectCard = Object(
+    typename: "ProjectCard",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

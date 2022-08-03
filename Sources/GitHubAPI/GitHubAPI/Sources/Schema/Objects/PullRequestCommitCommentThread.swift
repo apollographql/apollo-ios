@@ -3,11 +3,13 @@
 
 import ApolloAPI
 
-/// Represents a commit comment thread part of a pull request.
-public let PullRequestCommitCommentThread = Object(
-  typename: "PullRequestCommitCommentThread",
-  implementedInterfaces: [
-   Node.self,
-   RepositoryNode.self
- ]
-)
+public extension Objects {
+  /// Represents a commit comment thread part of a pull request.
+  static let PullRequestCommitCommentThread = Object(
+    typename: "PullRequestCommitCommentThread",
+    implementedInterfaces: [
+     Interfaces.Node.self,
+     Interfaces.RepositoryNode.self
+   ]
+  )
+}

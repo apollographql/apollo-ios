@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// Dependency manifest for a repository
-public let DependencyGraphManifest = Object(
-  typename: "DependencyGraphManifest",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// Dependency manifest for a repository
+  static let DependencyGraphManifest = Object(
+    typename: "DependencyGraphManifest",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

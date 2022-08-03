@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// A GitHub Sponsors tier associated with a GitHub Sponsors listing.
-public let SponsorsTier = Object(
-  typename: "SponsorsTier",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// A GitHub Sponsors tier associated with a GitHub Sponsors listing.
+  static let SponsorsTier = Object(
+    typename: "SponsorsTier",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

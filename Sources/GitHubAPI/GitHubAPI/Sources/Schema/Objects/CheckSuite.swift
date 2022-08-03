@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// A check suite.
-public let CheckSuite = Object(
-  typename: "CheckSuite",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// A check suite.
+  static let CheckSuite = Object(
+    typename: "CheckSuite",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

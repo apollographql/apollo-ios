@@ -3,12 +3,14 @@
 
 import ApolloAPI
 
-/// Audit log entry for a org.update_member_repository_invitation_permission event.
-public let OrgUpdateMemberRepositoryInvitationPermissionAuditEntry = Object(
-  typename: "OrgUpdateMemberRepositoryInvitationPermissionAuditEntry",
-  implementedInterfaces: [
-   AuditEntry.self,
-   Node.self,
-   OrganizationAuditEntryData.self
- ]
-)
+public extension Objects {
+  /// Audit log entry for a org.update_member_repository_invitation_permission event.
+  static let OrgUpdateMemberRepositoryInvitationPermissionAuditEntry = Object(
+    typename: "OrgUpdateMemberRepositoryInvitationPermissionAuditEntry",
+    implementedInterfaces: [
+     Interfaces.AuditEntry.self,
+     Interfaces.Node.self,
+     Interfaces.OrganizationAuditEntryData.self
+   ]
+  )
+}

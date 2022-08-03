@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// A subset of repository information queryable from an enterprise.
-public let EnterpriseRepositoryInfo = Object(
-  typename: "EnterpriseRepositoryInfo",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// A subset of repository information queryable from an enterprise.
+  static let EnterpriseRepositoryInfo = Object(
+    typename: "EnterpriseRepositoryInfo",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// Represents a 'base_ref_changed' event on a given issue or pull request.
-public let BaseRefChangedEvent = Object(
-  typename: "BaseRefChangedEvent",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// Represents a 'base_ref_changed' event on a given issue or pull request.
+  static let BaseRefChangedEvent = Object(
+    typename: "BaseRefChangedEvent",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

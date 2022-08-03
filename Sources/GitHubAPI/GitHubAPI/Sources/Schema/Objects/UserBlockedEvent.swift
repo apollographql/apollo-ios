@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// Represents a 'user_blocked' event on a given user.
-public let UserBlockedEvent = Object(
-  typename: "UserBlockedEvent",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// Represents a 'user_blocked' event on a given user.
+  static let UserBlockedEvent = Object(
+    typename: "UserBlockedEvent",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

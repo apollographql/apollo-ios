@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// Represents a 'referenced' event on a given `ReferencedSubject`.
-public let ReferencedEvent = Object(
-  typename: "ReferencedEvent",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// Represents a 'referenced' event on a given `ReferencedSubject`.
+  static let ReferencedEvent = Object(
+    typename: "ReferencedEvent",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

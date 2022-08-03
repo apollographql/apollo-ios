@@ -3,12 +3,14 @@
 
 import ApolloAPI
 
-/// A special type of user which takes actions on behalf of GitHub Apps.
-public let Bot = Object(
-  typename: "Bot",
-  implementedInterfaces: [
-   Actor.self,
-   Node.self,
-   UniformResourceLocatable.self
- ]
-)
+public extension Objects {
+  /// A special type of user which takes actions on behalf of GitHub Apps.
+  static let Bot = Object(
+    typename: "Bot",
+    implementedInterfaces: [
+     Interfaces.Actor.self,
+     Interfaces.Node.self,
+     Interfaces.UniformResourceLocatable.self
+   ]
+  )
+}

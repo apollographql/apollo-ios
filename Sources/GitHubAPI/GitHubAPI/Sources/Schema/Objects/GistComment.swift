@@ -3,15 +3,17 @@
 
 import ApolloAPI
 
-/// Represents a comment on an Gist.
-public let GistComment = Object(
-  typename: "GistComment",
-  implementedInterfaces: [
-   Comment.self,
-   Deletable.self,
-   Minimizable.self,
-   Node.self,
-   Updatable.self,
-   UpdatableComment.self
- ]
-)
+public extension Objects {
+  /// Represents a comment on an Gist.
+  static let GistComment = Object(
+    typename: "GistComment",
+    implementedInterfaces: [
+     Interfaces.Comment.self,
+     Interfaces.Deletable.self,
+     Interfaces.Minimizable.self,
+     Interfaces.Node.self,
+     Interfaces.Updatable.self,
+     Interfaces.UpdatableComment.self
+   ]
+  )
+}

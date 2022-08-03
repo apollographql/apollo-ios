@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// The mutation type, represents all updates we can make to our data
-public let Mutation = Object(
-  typename: "Mutation",
-  implementedInterfaces: []
-)
+public extension Objects {
+  /// The mutation type, represents all updates we can make to our data
+  static let Mutation = Object(
+    typename: "Mutation",
+    implementedInterfaces: []
+  )
+}

@@ -117,7 +117,7 @@ struct SelectionSetTemplate {
   }
 
   private func ParentTypeTemplate(_ type: GraphQLCompositeType) -> String {
-    "public static var __parentType: ParentType { .\(type.parentTypeEnumType)(\(schema.name.firstUppercased).\(type.name.firstUppercased)) }"
+    "public static var __parentType: ParentType { .\(type.parentTypeEnumType)(\(schema.name.firstUppercased).\(type.schemaTypesNamespace).\(type.name.firstUppercased)) }"
   }
 
   // MARK: - Selections
@@ -466,7 +466,7 @@ fileprivate extension GraphQLCompositeType {
     case is GraphQLUnionType: return "Union"
     default: fatalError("Invalid parentType for Selection Set: \(self)")
     }
-  }
+  }  
 }
 
 fileprivate extension IR.SelectionSet {

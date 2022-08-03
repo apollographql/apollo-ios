@@ -3,11 +3,13 @@
 
 import ApolloAPI
 
-/// Represents a 'convert_to_draft' event on a given pull request.
-public let ConvertToDraftEvent = Object(
-  typename: "ConvertToDraftEvent",
-  implementedInterfaces: [
-   Node.self,
-   UniformResourceLocatable.self
- ]
-)
+public extension Objects {
+  /// Represents a 'convert_to_draft' event on a given pull request.
+  static let ConvertToDraftEvent = Object(
+    typename: "ConvertToDraftEvent",
+    implementedInterfaces: [
+     Interfaces.Node.self,
+     Interfaces.UniformResourceLocatable.self
+   ]
+  )
+}

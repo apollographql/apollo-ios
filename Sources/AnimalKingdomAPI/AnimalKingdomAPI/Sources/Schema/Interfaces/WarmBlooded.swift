@@ -3,4 +3,6 @@
 
 import ApolloAPI
 
-public let WarmBlooded = Interface(name: "WarmBlooded")
+public extension Interfaces {
+  static let WarmBlooded = Interface(name: "WarmBlooded")
+}

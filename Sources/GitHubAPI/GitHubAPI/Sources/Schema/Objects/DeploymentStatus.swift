@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// Describes the status of a given deployment attempt.
-public let DeploymentStatus = Object(
-  typename: "DeploymentStatus",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// Describes the status of a given deployment attempt.
+  static let DeploymentStatus = Object(
+    typename: "DeploymentStatus",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

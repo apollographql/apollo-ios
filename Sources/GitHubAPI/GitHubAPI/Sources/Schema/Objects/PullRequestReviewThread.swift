@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// A threaded list of comments for a given pull request.
-public let PullRequestReviewThread = Object(
-  typename: "PullRequestReviewThread",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// A threaded list of comments for a given pull request.
+  static let PullRequestReviewThread = Object(
+    typename: "PullRequestReviewThread",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// Represents a 'head_ref_deleted' event on a given pull request.
-public let HeadRefDeletedEvent = Object(
-  typename: "HeadRefDeletedEvent",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// Represents a 'head_ref_deleted' event on a given pull request.
+  static let HeadRefDeletedEvent = Object(
+    typename: "HeadRefDeletedEvent",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

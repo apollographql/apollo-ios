@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// Represents a 'demilestoned' event on a given issue or pull request.
-public let DemilestonedEvent = Object(
-  typename: "DemilestonedEvent",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// Represents a 'demilestoned' event on a given issue or pull request.
+  static let DemilestonedEvent = Object(
+    typename: "DemilestonedEvent",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

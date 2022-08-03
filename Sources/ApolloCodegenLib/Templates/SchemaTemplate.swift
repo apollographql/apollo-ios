@@ -10,7 +10,7 @@ struct SchemaTemplate: TemplateRenderer {
 
   let schemaName: String
 
-  let target: TemplateTarget = .schemaFile
+  let target: TemplateTarget = .schemaFile(type: .schema)
 
   var template: TemplateString { embeddableTemplate }
 
@@ -42,7 +42,14 @@ struct SchemaTemplate: TemplateRenderer {
     enum Schema: SchemaConfiguration {
       \(objectTypeFunction)
     }
-    
+
+    \(embeddedAccessControlModifier)\
+    enum Objects {}
+    \(embeddedAccessControlModifier)\
+    enum Interfaces {}
+    \(embeddedAccessControlModifier)\
+    enum Unions {}
+
     """
     )
   }
@@ -52,7 +59,7 @@ struct SchemaTemplate: TemplateRenderer {
     public static func graphQLType(forTypename typename: String) -> Object? {
       switch typename {
       \(schema.referencedTypes.objects.map {
-        "case \"\($0.name.firstUppercased)\": return \(schemaName).\($0.name.firstUppercased)"
+        "case \"\($0.name.firstUppercased)\": return \(schemaName).Objects.\($0.name.firstUppercased)"
       }, separator: "\n")
       default: return nil
       }

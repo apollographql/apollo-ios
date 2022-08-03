@@ -8,13 +8,12 @@ struct ObjectTemplate: TemplateRenderer {
 
   let config: ApolloCodegen.ConfigurationContext
 
-  let target: TemplateTarget = .schemaFile
+  let target: TemplateTarget = .schemaFile(type: .object)
 
   var template: TemplateString {
     """
     \(documentation: graphqlObject.documentation, config: config)
-    \(embeddedAccessControlModifier)\
-    let \(graphqlObject.name.firstUppercased) = Object(
+    static let \(graphqlObject.name.firstUppercased) = Object(
       typename: "\(graphqlObject.name.firstUppercased)\",
       implementedInterfaces: \(ImplementedInterfacesTemplate())
     )
@@ -24,7 +23,7 @@ struct ObjectTemplate: TemplateRenderer {
   private func ImplementedInterfacesTemplate() -> TemplateString {
     return """
     [\(list: graphqlObject.interfaces.map({ interface in
-          "\(interface.name.firstUppercased).self"
+          "Interfaces.\(interface.name.firstUppercased).self"
       }))]
     """
   }

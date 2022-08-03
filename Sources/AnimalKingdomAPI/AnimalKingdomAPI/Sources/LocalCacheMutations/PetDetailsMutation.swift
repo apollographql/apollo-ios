@@ -19,7 +19,7 @@ public struct PetDetailsMutation: AnimalKingdomAPI.MutableSelectionSet, Fragment
   public var __data: DataDict
   public init(data: DataDict) { __data = data }
 
-  public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Pet) }
+  public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Interfaces.Pet) }
   public static var selections: [Selection] { [
     .field("owner", Owner?.self),
   ] }
@@ -36,7 +36,7 @@ public struct PetDetailsMutation: AnimalKingdomAPI.MutableSelectionSet, Fragment
     public var __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Human) }
+    public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Objects.Human) }
     public static var selections: [Selection] { [
       .field("firstName", String.self),
     ] }

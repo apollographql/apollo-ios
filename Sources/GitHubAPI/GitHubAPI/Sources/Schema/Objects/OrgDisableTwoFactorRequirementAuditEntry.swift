@@ -3,12 +3,14 @@
 
 import ApolloAPI
 
-/// Audit log entry for a org.disable_two_factor_requirement event.
-public let OrgDisableTwoFactorRequirementAuditEntry = Object(
-  typename: "OrgDisableTwoFactorRequirementAuditEntry",
-  implementedInterfaces: [
-   AuditEntry.self,
-   Node.self,
-   OrganizationAuditEntryData.self
- ]
-)
+public extension Objects {
+  /// Audit log entry for a org.disable_two_factor_requirement event.
+  static let OrgDisableTwoFactorRequirementAuditEntry = Object(
+    typename: "OrgDisableTwoFactorRequirementAuditEntry",
+    implementedInterfaces: [
+     Interfaces.AuditEntry.self,
+     Interfaces.Node.self,
+     Interfaces.OrganizationAuditEntryData.self
+   ]
+  )
+}

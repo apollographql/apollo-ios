@@ -3,7 +3,9 @@
 
 import ApolloAPI
 
-public let Subscription = Object(
-  typename: "Subscription",
-  implementedInterfaces: []
-)
+public extension Objects {
+  static let Subscription = Object(
+    typename: "Subscription",
+    implementedInterfaces: []
+  )
+}

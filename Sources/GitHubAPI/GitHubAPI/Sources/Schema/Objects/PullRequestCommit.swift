@@ -3,11 +3,13 @@
 
 import ApolloAPI
 
-/// Represents a Git commit part of a pull request.
-public let PullRequestCommit = Object(
-  typename: "PullRequestCommit",
-  implementedInterfaces: [
-   Node.self,
-   UniformResourceLocatable.self
- ]
-)
+public extension Objects {
+  /// Represents a Git commit part of a pull request.
+  static let PullRequestCommit = Object(
+    typename: "PullRequestCommit",
+    implementedInterfaces: [
+     Interfaces.Node.self,
+     Interfaces.UniformResourceLocatable.self
+   ]
+  )
+}

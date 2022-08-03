@@ -8,7 +8,7 @@ struct CustomScalarTemplate: TemplateRenderer {
 
   let config: ApolloCodegen.ConfigurationContext
 
-  let target: TemplateTarget = .schemaFile
+  let target: TemplateTarget = .schemaFile(type: .customScalar)
 
   var headerTemplate: TemplateString? {
     TemplateString(

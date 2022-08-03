@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// An emoji reaction to a particular piece of content.
-public let Reaction = Object(
-  typename: "Reaction",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// An emoji reaction to a particular piece of content.
+  static let Reaction = Object(
+    typename: "Reaction",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

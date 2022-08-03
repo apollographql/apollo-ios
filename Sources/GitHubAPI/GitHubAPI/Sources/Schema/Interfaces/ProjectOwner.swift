@@ -3,5 +3,7 @@
 
 import ApolloAPI
 
-/// Represents an owner of a Project.
-public let ProjectOwner = Interface(name: "ProjectOwner")
+public extension Interfaces {
+  /// Represents an owner of a Project.
+  static let ProjectOwner = Interface(name: "ProjectOwner")
+}

@@ -3,11 +3,13 @@
 
 import ApolloAPI
 
-public let SearchResult = Union(
-  name: "SearchResult",
-  possibleTypes: [
-   StarWarsAPI.Human.self,
-   StarWarsAPI.Droid.self,
-   StarWarsAPI.Starship.self
- ]
-)
+public extension Unions {
+  static let SearchResult = Union(
+    name: "SearchResult",
+    possibleTypes: [
+     Objects.Human.self,
+     Objects.Droid.self,
+     Objects.Starship.self
+   ]
+  )
+}

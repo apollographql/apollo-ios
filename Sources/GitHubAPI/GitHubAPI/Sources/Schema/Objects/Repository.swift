@@ -3,16 +3,18 @@
 
 import ApolloAPI
 
-/// A repository contains the content for a project.
-public let Repository = Object(
-  typename: "Repository",
-  implementedInterfaces: [
-   Node.self,
-   PackageOwner.self,
-   ProjectOwner.self,
-   RepositoryInfo.self,
-   Starrable.self,
-   Subscribable.self,
-   UniformResourceLocatable.self
- ]
-)
+public extension Objects {
+  /// A repository contains the content for a project.
+  static let Repository = Object(
+    typename: "Repository",
+    implementedInterfaces: [
+     Interfaces.Node.self,
+     Interfaces.PackageOwner.self,
+     Interfaces.ProjectOwner.self,
+     Interfaces.RepositoryInfo.self,
+     Interfaces.Starrable.self,
+     Interfaces.Subscribable.self,
+     Interfaces.UniformResourceLocatable.self
+   ]
+  )
+}

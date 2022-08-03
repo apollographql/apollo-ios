@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// Represents a 'automatic_base_change_failed' event on a given pull request.
-public let AutomaticBaseChangeFailedEvent = Object(
-  typename: "AutomaticBaseChangeFailedEvent",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// Represents a 'automatic_base_change_failed' event on a given pull request.
+  static let AutomaticBaseChangeFailedEvent = Object(
+    typename: "AutomaticBaseChangeFailedEvent",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

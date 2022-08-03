@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// Represents an 'unlocked' event on a given issue or pull request.
-public let UnlockedEvent = Object(
-  typename: "UnlockedEvent",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// Represents an 'unlocked' event on a given issue or pull request.
+  static let UnlockedEvent = Object(
+    typename: "UnlockedEvent",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

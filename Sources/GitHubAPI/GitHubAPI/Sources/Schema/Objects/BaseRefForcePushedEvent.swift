@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// Represents a 'base_ref_force_pushed' event on a given pull request.
-public let BaseRefForcePushedEvent = Object(
-  typename: "BaseRefForcePushedEvent",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// Represents a 'base_ref_force_pushed' event on a given pull request.
+  static let BaseRefForcePushedEvent = Object(
+    typename: "BaseRefForcePushedEvent",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

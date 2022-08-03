@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// Represents an individual commit status context
-public let StatusContext = Object(
-  typename: "StatusContext",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// Represents an individual commit status context
+  static let StatusContext = Object(
+    typename: "StatusContext",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

@@ -3,13 +3,15 @@
 
 import ApolloAPI
 
-/// Audit log entry for a org.oauth_app_access_approved event.
-public let OrgOauthAppAccessApprovedAuditEntry = Object(
-  typename: "OrgOauthAppAccessApprovedAuditEntry",
-  implementedInterfaces: [
-   AuditEntry.self,
-   Node.self,
-   OauthApplicationAuditEntryData.self,
-   OrganizationAuditEntryData.self
- ]
-)
+public extension Objects {
+  /// Audit log entry for a org.oauth_app_access_approved event.
+  static let OrgOauthAppAccessApprovedAuditEntry = Object(
+    typename: "OrgOauthAppAccessApprovedAuditEntry",
+    implementedInterfaces: [
+     Interfaces.AuditEntry.self,
+     Interfaces.Node.self,
+     Interfaces.OauthApplicationAuditEntryData.self,
+     Interfaces.OrganizationAuditEntryData.self
+   ]
+  )
+}

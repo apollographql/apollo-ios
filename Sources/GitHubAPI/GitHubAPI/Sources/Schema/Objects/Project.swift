@@ -3,12 +3,14 @@
 
 import ApolloAPI
 
-/// Projects manage issues, pull requests and notes within a project owner.
-public let Project = Object(
-  typename: "Project",
-  implementedInterfaces: [
-   Closable.self,
-   Node.self,
-   Updatable.self
- ]
-)
+public extension Objects {
+  /// Projects manage issues, pull requests and notes within a project owner.
+  static let Project = Object(
+    typename: "Project",
+    implementedInterfaces: [
+     Interfaces.Closable.self,
+     Interfaces.Node.self,
+     Interfaces.Updatable.self
+   ]
+  )
+}

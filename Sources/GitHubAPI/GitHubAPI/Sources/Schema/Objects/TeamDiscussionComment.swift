@@ -3,16 +3,18 @@
 
 import ApolloAPI
 
-/// A comment on a team discussion.
-public let TeamDiscussionComment = Object(
-  typename: "TeamDiscussionComment",
-  implementedInterfaces: [
-   Comment.self,
-   Deletable.self,
-   Node.self,
-   Reactable.self,
-   UniformResourceLocatable.self,
-   Updatable.self,
-   UpdatableComment.self
- ]
-)
+public extension Objects {
+  /// A comment on a team discussion.
+  static let TeamDiscussionComment = Object(
+    typename: "TeamDiscussionComment",
+    implementedInterfaces: [
+     Interfaces.Comment.self,
+     Interfaces.Deletable.self,
+     Interfaces.Node.self,
+     Interfaces.Reactable.self,
+     Interfaces.UniformResourceLocatable.self,
+     Interfaces.Updatable.self,
+     Interfaces.UpdatableComment.self
+   ]
+  )
+}

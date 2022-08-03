@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// Represents a 'labeled' event on a given issue or pull request.
-public let LabeledEvent = Object(
-  typename: "LabeledEvent",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// Represents a 'labeled' event on a given issue or pull request.
+  static let LabeledEvent = Object(
+    typename: "LabeledEvent",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

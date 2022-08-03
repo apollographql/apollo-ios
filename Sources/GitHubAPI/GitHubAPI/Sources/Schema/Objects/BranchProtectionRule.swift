@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// A branch protection rule.
-public let BranchProtectionRule = Object(
-  typename: "BranchProtectionRule",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// A branch protection rule.
+  static let BranchProtectionRule = Object(
+    typename: "BranchProtectionRule",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

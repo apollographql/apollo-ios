@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// Represents an 'unsubscribed' event on a given `Subscribable`.
-public let UnsubscribedEvent = Object(
-  typename: "UnsubscribedEvent",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// Represents an 'unsubscribed' event on a given `Subscribable`.
+  static let UnsubscribedEvent = Object(
+    typename: "UnsubscribedEvent",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

@@ -3,11 +3,13 @@
 
 import ApolloAPI
 
-public let Cat = Object(
-  typename: "Cat",
-  implementedInterfaces: [
-   Animal.self,
-   Pet.self,
-   WarmBlooded.self
- ]
-)
+public extension Objects {
+  static let Cat = Object(
+    typename: "Cat",
+    implementedInterfaces: [
+     Interfaces.Animal.self,
+     Interfaces.Pet.self,
+     Interfaces.WarmBlooded.self
+   ]
+  )
+}

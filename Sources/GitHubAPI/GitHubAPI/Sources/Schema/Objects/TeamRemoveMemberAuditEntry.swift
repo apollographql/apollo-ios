@@ -3,13 +3,15 @@
 
 import ApolloAPI
 
-/// Audit log entry for a team.remove_member event.
-public let TeamRemoveMemberAuditEntry = Object(
-  typename: "TeamRemoveMemberAuditEntry",
-  implementedInterfaces: [
-   AuditEntry.self,
-   Node.self,
-   OrganizationAuditEntryData.self,
-   TeamAuditEntryData.self
- ]
-)
+public extension Objects {
+  /// Audit log entry for a team.remove_member event.
+  static let TeamRemoveMemberAuditEntry = Object(
+    typename: "TeamRemoveMemberAuditEntry",
+    implementedInterfaces: [
+     Interfaces.AuditEntry.self,
+     Interfaces.Node.self,
+     Interfaces.OrganizationAuditEntryData.self,
+     Interfaces.TeamAuditEntryData.self
+   ]
+  )
+}

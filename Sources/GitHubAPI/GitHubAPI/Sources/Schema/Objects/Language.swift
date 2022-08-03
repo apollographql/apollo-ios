@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// Represents a given language found in repositories.
-public let Language = Object(
-  typename: "Language",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// Represents a given language found in repositories.
+  static let Language = Object(
+    typename: "Language",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

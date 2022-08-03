@@ -170,6 +170,7 @@
 		DE0586332669948500265760 /* InputValue+Evaluation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0586322669948500265760 /* InputValue+Evaluation.swift */; };
 		DE0586372669958F00265760 /* GraphQLError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC9A9D21E2FD48B0023C4D5 /* GraphQLError.swift */; };
 		DE0586392669985000265760 /* Dictionary+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0586382669985000265760 /* Dictionary+Helpers.swift */; };
+		DE071E7A2899FB7F0089BDAA /* GraphQLCompositeType+SchemaTypeNamespace.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE071E792899FB7F0089BDAA /* GraphQLCompositeType+SchemaTypeNamespace.swift */; };
 		DE09066F27A4713F00211300 /* OperationDefinitionTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE09066E27A4713F00211300 /* OperationDefinitionTemplateTests.swift */; };
 		DE09114E27288B1F000648E5 /* SortedSelections.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE09114D27288B1F000648E5 /* SortedSelections.swift */; };
 		DE09F9BD27024FEA00795949 /* InputObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE09F9BC27024FEA00795949 /* InputObject.swift */; };
@@ -1234,6 +1235,7 @@
 		DE05862426697A8C00265760 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DE0586322669948500265760 /* InputValue+Evaluation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InputValue+Evaluation.swift"; sourceTree = "<group>"; };
 		DE0586382669985000265760 /* Dictionary+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Helpers.swift"; sourceTree = "<group>"; };
+		DE071E792899FB7F0089BDAA /* GraphQLCompositeType+SchemaTypeNamespace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraphQLCompositeType+SchemaTypeNamespace.swift"; sourceTree = "<group>"; };
 		DE09066E27A4713F00211300 /* OperationDefinitionTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationDefinitionTemplateTests.swift; sourceTree = "<group>"; };
 		DE09114D27288B1F000648E5 /* SortedSelections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortedSelections.swift; sourceTree = "<group>"; };
 		DE09F9BC27024FEA00795949 /* InputObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputObject.swift; sourceTree = "<group>"; };
@@ -2868,6 +2870,7 @@
 			children = (
 				E64F7EBB27A11A510059C021 /* GraphQLNamedType+SwiftName.swift */,
 				DEE2DAA127BAF00500EC0607 /* GraphQLType+Rendered.swift */,
+				DE071E792899FB7F0089BDAA /* GraphQLCompositeType+SchemaTypeNamespace.swift */,
 				DE6D07F827BC3B6D009F5F33 /* GraphQLInputField+Rendered.swift */,
 				DE6D07FE27BC7F78009F5F33 /* InputVariableRenderable.swift */,
 				DE6B650B27C4293D00970E4E /* FieldArgumentRendering.swift */,
@@ -4582,6 +4585,7 @@
 				DE4D54E927A3518100D26B68 /* FragmentFileGenerator.swift in Sources */,
 				E610D8DB278EB0900023E495 /* InterfaceFileGenerator.swift in Sources */,
 				9B7B6F69233C2C0C00F32205 /* FileManager+Apollo.swift in Sources */,
+				DE071E7A2899FB7F0089BDAA /* GraphQLCompositeType+SchemaTypeNamespace.swift in Sources */,
 				E674DB41274C0A9B009BB90E /* Glob.swift in Sources */,
 				DE71FDC02853C242005FA9CC /* OperationTemplateRenderer.swift in Sources */,
 				E6203342284F1C9600A291D1 /* MockUnionFileGenerator.swift in Sources */,

@@ -3,11 +3,13 @@
 
 import ApolloAPI
 
-/// An account for a user who is an admin of an enterprise or a member of an enterprise through one or more organizations.
-public let EnterpriseUserAccount = Object(
-  typename: "EnterpriseUserAccount",
-  implementedInterfaces: [
-   Actor.self,
-   Node.self
- ]
-)
+public extension Objects {
+  /// An account for a user who is an admin of an enterprise or a member of an enterprise through one or more organizations.
+  static let EnterpriseUserAccount = Object(
+    typename: "EnterpriseUserAccount",
+    implementedInterfaces: [
+     Interfaces.Actor.self,
+     Interfaces.Node.self
+   ]
+  )
+}

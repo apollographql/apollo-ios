@@ -3,13 +3,15 @@
 
 import ApolloAPI
 
-/// Audit log entry for a members_can_delete_repos.enable event.
-public let MembersCanDeleteReposEnableAuditEntry = Object(
-  typename: "MembersCanDeleteReposEnableAuditEntry",
-  implementedInterfaces: [
-   AuditEntry.self,
-   EnterpriseAuditEntryData.self,
-   Node.self,
-   OrganizationAuditEntryData.self
- ]
-)
+public extension Objects {
+  /// Audit log entry for a members_can_delete_repos.enable event.
+  static let MembersCanDeleteReposEnableAuditEntry = Object(
+    typename: "MembersCanDeleteReposEnableAuditEntry",
+    implementedInterfaces: [
+     Interfaces.AuditEntry.self,
+     Interfaces.EnterpriseAuditEntryData.self,
+     Interfaces.Node.self,
+     Interfaces.OrganizationAuditEntryData.self
+   ]
+  )
+}

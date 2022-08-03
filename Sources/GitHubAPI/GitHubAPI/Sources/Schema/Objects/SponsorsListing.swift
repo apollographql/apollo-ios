@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// A GitHub Sponsors listing.
-public let SponsorsListing = Object(
-  typename: "SponsorsListing",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// A GitHub Sponsors listing.
+  static let SponsorsListing = Object(
+    typename: "SponsorsListing",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

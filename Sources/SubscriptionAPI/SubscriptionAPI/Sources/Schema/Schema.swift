@@ -20,8 +20,12 @@ where Schema == SubscriptionAPI.Schema {}
 public enum Schema: SchemaConfiguration {
   public static func graphQLType(forTypename typename: String) -> Object? {
     switch typename {
-    case "Subscription": return SubscriptionAPI.Subscription
+    case "Subscription": return SubscriptionAPI.Objects.Subscription
     default: return nil
     }
   }
 }
+
+public enum Objects {}
+public enum Interfaces {}
+public enum Unions {}

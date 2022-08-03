@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// A repository deploy key.
-public let DeployKey = Object(
-  typename: "DeployKey",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// A repository deploy key.
+  static let DeployKey = Object(
+    typename: "DeployKey",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

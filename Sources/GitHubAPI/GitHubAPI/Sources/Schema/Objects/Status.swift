@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// Represents a commit status.
-public let Status = Object(
-  typename: "Status",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// Represents a commit status.
+  static let Status = Object(
+    typename: "Status",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

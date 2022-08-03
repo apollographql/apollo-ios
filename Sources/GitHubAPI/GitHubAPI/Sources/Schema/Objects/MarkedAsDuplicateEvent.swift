@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// Represents a 'marked_as_duplicate' event on a given issue or pull request.
-public let MarkedAsDuplicateEvent = Object(
-  typename: "MarkedAsDuplicateEvent",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// Represents a 'marked_as_duplicate' event on a given issue or pull request.
+  static let MarkedAsDuplicateEvent = Object(
+    typename: "MarkedAsDuplicateEvent",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

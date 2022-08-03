@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// An Invitation for a user to an organization.
-public let OrganizationInvitation = Object(
-  typename: "OrganizationInvitation",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// An Invitation for a user to an organization.
+  static let OrganizationInvitation = Object(
+    typename: "OrganizationInvitation",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

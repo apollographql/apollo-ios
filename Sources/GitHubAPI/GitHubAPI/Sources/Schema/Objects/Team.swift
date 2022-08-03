@@ -3,12 +3,14 @@
 
 import ApolloAPI
 
-/// A team of users in an organization.
-public let Team = Object(
-  typename: "Team",
-  implementedInterfaces: [
-   MemberStatusable.self,
-   Node.self,
-   Subscribable.self
- ]
-)
+public extension Objects {
+  /// A team of users in an organization.
+  static let Team = Object(
+    typename: "Team",
+    implementedInterfaces: [
+     Interfaces.MemberStatusable.self,
+     Interfaces.Node.self,
+     Interfaces.Subscribable.self
+   ]
+  )
+}

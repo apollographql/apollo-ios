@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// A GitHub App.
-public let App = Object(
-  typename: "App",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// A GitHub App.
+  static let App = Object(
+    typename: "App",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

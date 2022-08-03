@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// Represents a 'added_to_project' event on a given issue or pull request.
-public let AddedToProjectEvent = Object(
-  typename: "AddedToProjectEvent",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// Represents a 'added_to_project' event on a given issue or pull request.
+  static let AddedToProjectEvent = Object(
+    typename: "AddedToProjectEvent",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

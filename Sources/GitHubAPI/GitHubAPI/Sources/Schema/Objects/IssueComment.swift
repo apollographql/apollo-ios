@@ -3,17 +3,19 @@
 
 import ApolloAPI
 
-/// Represents a comment on an Issue.
-public let IssueComment = Object(
-  typename: "IssueComment",
-  implementedInterfaces: [
-   Comment.self,
-   Deletable.self,
-   Minimizable.self,
-   Node.self,
-   Reactable.self,
-   RepositoryNode.self,
-   Updatable.self,
-   UpdatableComment.self
- ]
-)
+public extension Objects {
+  /// Represents a comment on an Issue.
+  static let IssueComment = Object(
+    typename: "IssueComment",
+    implementedInterfaces: [
+     Interfaces.Comment.self,
+     Interfaces.Deletable.self,
+     Interfaces.Minimizable.self,
+     Interfaces.Node.self,
+     Interfaces.Reactable.self,
+     Interfaces.RepositoryNode.self,
+     Interfaces.Updatable.self,
+     Interfaces.UpdatableComment.self
+   ]
+  )
+}

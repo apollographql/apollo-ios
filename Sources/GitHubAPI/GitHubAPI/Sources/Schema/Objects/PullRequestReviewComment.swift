@@ -3,17 +3,19 @@
 
 import ApolloAPI
 
-/// A review comment associated with a given repository pull request.
-public let PullRequestReviewComment = Object(
-  typename: "PullRequestReviewComment",
-  implementedInterfaces: [
-   Comment.self,
-   Deletable.self,
-   Minimizable.self,
-   Node.self,
-   Reactable.self,
-   RepositoryNode.self,
-   Updatable.self,
-   UpdatableComment.self
- ]
-)
+public extension Objects {
+  /// A review comment associated with a given repository pull request.
+  static let PullRequestReviewComment = Object(
+    typename: "PullRequestReviewComment",
+    implementedInterfaces: [
+     Interfaces.Comment.self,
+     Interfaces.Deletable.self,
+     Interfaces.Minimizable.self,
+     Interfaces.Node.self,
+     Interfaces.Reactable.self,
+     Interfaces.RepositoryNode.self,
+     Interfaces.Updatable.self,
+     Interfaces.UpdatableComment.self
+   ]
+  )
+}

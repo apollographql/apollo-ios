@@ -3,13 +3,15 @@
 
 import ApolloAPI
 
-/// Audit log entry for a repo.config.enable_contributors_only event.
-public let RepoConfigEnableContributorsOnlyAuditEntry = Object(
-  typename: "RepoConfigEnableContributorsOnlyAuditEntry",
-  implementedInterfaces: [
-   AuditEntry.self,
-   Node.self,
-   OrganizationAuditEntryData.self,
-   RepositoryAuditEntryData.self
- ]
-)
+public extension Objects {
+  /// Audit log entry for a repo.config.enable_contributors_only event.
+  static let RepoConfigEnableContributorsOnlyAuditEntry = Object(
+    typename: "RepoConfigEnableContributorsOnlyAuditEntry",
+    implementedInterfaces: [
+     Interfaces.AuditEntry.self,
+     Interfaces.Node.self,
+     Interfaces.OrganizationAuditEntryData.self,
+     Interfaces.RepositoryAuditEntryData.self
+   ]
+  )
+}

@@ -3,7 +3,9 @@
 
 import ApolloAPI
 
-public let Height = Object(
-  typename: "Height",
-  implementedInterfaces: []
-)
+public extension Objects {
+  static let Height = Object(
+    typename: "Height",
+    implementedInterfaces: []
+  )
+}

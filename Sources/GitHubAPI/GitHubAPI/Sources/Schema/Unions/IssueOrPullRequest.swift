@@ -3,11 +3,13 @@
 
 import ApolloAPI
 
-/// Used for return value of Repository.issueOrPullRequest.
-public let IssueOrPullRequest = Union(
-  name: "IssueOrPullRequest",
-  possibleTypes: [
-   GitHubAPI.Issue.self,
-   GitHubAPI.PullRequest.self
- ]
-)
+public extension Unions {
+  /// Used for return value of Repository.issueOrPullRequest.
+  static let IssueOrPullRequest = Union(
+    name: "IssueOrPullRequest",
+    possibleTypes: [
+     Objects.Issue.self,
+     Objects.PullRequest.self
+   ]
+  )
+}

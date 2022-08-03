@@ -3,11 +3,13 @@
 
 import ApolloAPI
 
-/// Represents a 'merged' event on a given pull request.
-public let MergedEvent = Object(
-  typename: "MergedEvent",
-  implementedInterfaces: [
-   Node.self,
-   UniformResourceLocatable.self
- ]
-)
+public extension Objects {
+  /// Represents a 'merged' event on a given pull request.
+  static let MergedEvent = Object(
+    typename: "MergedEvent",
+    implementedInterfaces: [
+     Interfaces.Node.self,
+     Interfaces.UniformResourceLocatable.self
+   ]
+  )
+}

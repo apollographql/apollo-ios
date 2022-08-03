@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// Represents a 'mentioned' event on a given issue or pull request.
-public let MentionedEvent = Object(
-  typename: "MentionedEvent",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// Represents a 'mentioned' event on a given issue or pull request.
+  static let MentionedEvent = Object(
+    typename: "MentionedEvent",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

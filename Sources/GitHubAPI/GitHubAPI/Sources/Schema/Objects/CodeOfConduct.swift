@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// The Code of Conduct for a repository
-public let CodeOfConduct = Object(
-  typename: "CodeOfConduct",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// The Code of Conduct for a repository
+  static let CodeOfConduct = Object(
+    typename: "CodeOfConduct",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

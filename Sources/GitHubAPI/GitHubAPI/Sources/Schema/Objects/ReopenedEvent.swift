@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// Represents a 'reopened' event on any `Closable`.
-public let ReopenedEvent = Object(
-  typename: "ReopenedEvent",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// Represents a 'reopened' event on any `Closable`.
+  static let ReopenedEvent = Object(
+    typename: "ReopenedEvent",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

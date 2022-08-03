@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// Represents triggered deployment instance.
-public let Deployment = Object(
-  typename: "Deployment",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// Represents triggered deployment instance.
+  static let Deployment = Object(
+    typename: "Deployment",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

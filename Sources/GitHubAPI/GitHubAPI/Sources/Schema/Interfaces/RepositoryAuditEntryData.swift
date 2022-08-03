@@ -3,5 +3,7 @@
 
 import ApolloAPI
 
-/// Metadata for an audit entry with action repo.*
-public let RepositoryAuditEntryData = Interface(name: "RepositoryAuditEntryData")
+public extension Interfaces {
+  /// Metadata for an audit entry with action repo.*
+  static let RepositoryAuditEntryData = Interface(name: "RepositoryAuditEntryData")
+}

@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// Represents a review for a movie
-public let Review = Object(
-  typename: "Review",
-  implementedInterfaces: []
-)
+public extension Objects {
+  /// Represents a review for a movie
+  static let Review = Object(
+    typename: "Review",
+    implementedInterfaces: []
+  )
+}

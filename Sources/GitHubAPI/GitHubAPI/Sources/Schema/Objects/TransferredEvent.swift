@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// Represents a 'transferred' event on a given issue or pull request.
-public let TransferredEvent = Object(
-  typename: "TransferredEvent",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// Represents a 'transferred' event on a given issue or pull request.
+  static let TransferredEvent = Object(
+    typename: "TransferredEvent",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// Represents an 'unassigned' event on any assignable object.
-public let UnassignedEvent = Object(
-  typename: "UnassignedEvent",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// Represents an 'unassigned' event on any assignable object.
+  static let UnassignedEvent = Object(
+    typename: "UnassignedEvent",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

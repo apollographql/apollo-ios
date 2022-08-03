@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// Information about a specific package version.
-public let PackageVersion = Object(
-  typename: "PackageVersion",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// Information about a specific package version.
+  static let PackageVersion = Object(
+    typename: "PackageVersion",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

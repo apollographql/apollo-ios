@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// Represents a Git reference.
-public let Ref = Object(
-  typename: "Ref",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// Represents a Git reference.
+  static let Ref = Object(
+    typename: "Ref",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

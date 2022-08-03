@@ -3,11 +3,13 @@
 
 import ApolloAPI
 
-/// Represents a Git tag.
-public let Tag = Object(
-  typename: "Tag",
-  implementedInterfaces: [
-   GitObject.self,
-   Node.self
- ]
-)
+public extension Objects {
+  /// Represents a Git tag.
+  static let Tag = Object(
+    typename: "Tag",
+    implementedInterfaces: [
+     Interfaces.GitObject.self,
+     Interfaces.Node.self
+   ]
+  )
+}

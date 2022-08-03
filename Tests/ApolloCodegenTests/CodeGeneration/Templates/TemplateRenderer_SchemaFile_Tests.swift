@@ -19,8 +19,14 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
     )
   }
 
-  private func buildSubject(config: ApolloCodegenConfiguration = .mock()) -> MockFileTemplate {
-    MockFileTemplate(target: .schemaFile, config: ApolloCodegen.ConfigurationContext(config: config))
+  private func buildSubject(
+    config: ApolloCodegenConfiguration = .mock(),
+    targetFileType: TemplateTarget.SchemaFileType = .schema
+  ) -> MockFileTemplate {
+    MockFileTemplate(
+      target: .schemaFile(type: targetFileType),
+      config: ApolloCodegen.ConfigurationContext(config: config)
+    )
   }
 
   // MARK: Render Target .schemaFile Tests
@@ -121,7 +127,7 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
     }
   }
 
-  func test__renderTargetSchemaFile__givenAllSchemaTypesOperationsCombinations_conditionallyWrapInNamespace() {
+  func test__renderTargetSchemaFile__given_schemaTypeFile_AllSchemaTypesOperationsCombinations_conditionallyWrapInNamespace() {
     // given
     let expectedNoNamespace = """
     detached {
@@ -209,7 +215,7 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
 
     for test in tests {
       let config = buildConfig(moduleType: test.schemaTypes, operations: test.operations)
-      let subject = buildSubject(config: config)
+      let subject = buildSubject(config: config, targetFileType: .schema)
 
       // when
       let actual = subject.render()
@@ -218,4 +224,600 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
       expect(actual).to(equalLineByLine(test.expectation, atLine: test.atLine))
     }
   }
+
+  func test__renderTargetSchemaFile__given_enumTypeFile_AllSchemaTypesOperationsCombinations_conditionallyWrapInNamespace() {
+    // given
+    let expectedNoNamespace = """
+    detached {
+      nested
+    }
+
+    root {
+      nested
+    }
+    """
+
+    let expectedNamespace = """
+    detached {
+      nested
+    }
+
+    public extension TestSchema {
+      root {
+        nested
+      }
+    }
+    """
+
+    let tests: [(
+      schemaTypes: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType,
+      operations: ApolloCodegenConfiguration.OperationsFileOutput,
+      expectation: String,
+      atLine: Int
+    )] = [
+      (
+        schemaTypes: .swiftPackageManager,
+        operations: .relative(subpath: nil),
+        expectation: expectedNoNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .swiftPackageManager,
+        operations: .absolute(path: "path"),
+        expectation: expectedNoNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .swiftPackageManager,
+        operations: .inSchemaModule,
+        expectation: expectedNoNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .other,
+        operations: .relative(subpath: nil),
+        expectation: expectedNoNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .other,
+        operations: .absolute(path: "path"),
+        expectation: expectedNoNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .other,
+        operations: .inSchemaModule,
+        expectation: expectedNoNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .embeddedInTarget(name: "MockApplication"),
+        operations: .relative(subpath: nil),
+        expectation: expectedNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .embeddedInTarget(name: "MockApplication"),
+        operations: .absolute(path: "path"),
+        expectation: expectedNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .embeddedInTarget(name: "MockApplication"),
+        operations: .inSchemaModule,
+        expectation: expectedNamespace,
+        atLine: 6
+      )
+    ]
+
+    for test in tests {
+      let config = buildConfig(moduleType: test.schemaTypes, operations: test.operations)
+      let subject = buildSubject(config: config, targetFileType: .enum)
+
+      // when
+      let actual = subject.render()
+
+      // then
+      expect(actual).to(equalLineByLine(test.expectation, atLine: test.atLine))
+    }
+  }
+
+  func test__renderTargetSchemaFile__given_inputObjectTypeFile_AllSchemaTypesOperationsCombinations_conditionallyWrapInNamespace() {
+    // given
+    let expectedNoNamespace = """
+    detached {
+      nested
+    }
+
+    root {
+      nested
+    }
+    """
+
+    let expectedNamespace = """
+    detached {
+      nested
+    }
+
+    public extension TestSchema {
+      root {
+        nested
+      }
+    }
+    """
+
+    let tests: [(
+      schemaTypes: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType,
+      operations: ApolloCodegenConfiguration.OperationsFileOutput,
+      expectation: String,
+      atLine: Int
+    )] = [
+      (
+        schemaTypes: .swiftPackageManager,
+        operations: .relative(subpath: nil),
+        expectation: expectedNoNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .swiftPackageManager,
+        operations: .absolute(path: "path"),
+        expectation: expectedNoNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .swiftPackageManager,
+        operations: .inSchemaModule,
+        expectation: expectedNoNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .other,
+        operations: .relative(subpath: nil),
+        expectation: expectedNoNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .other,
+        operations: .absolute(path: "path"),
+        expectation: expectedNoNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .other,
+        operations: .inSchemaModule,
+        expectation: expectedNoNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .embeddedInTarget(name: "MockApplication"),
+        operations: .relative(subpath: nil),
+        expectation: expectedNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .embeddedInTarget(name: "MockApplication"),
+        operations: .absolute(path: "path"),
+        expectation: expectedNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .embeddedInTarget(name: "MockApplication"),
+        operations: .inSchemaModule,
+        expectation: expectedNamespace,
+        atLine: 6
+      )
+    ]
+
+    for test in tests {
+      let config = buildConfig(moduleType: test.schemaTypes, operations: test.operations)
+      let subject = buildSubject(config: config, targetFileType: .inputObject)
+
+      // when
+      let actual = subject.render()
+
+      // then
+      expect(actual).to(equalLineByLine(test.expectation, atLine: test.atLine))
+    }
+  }
+
+  func test__renderTargetSchemaFile__given_customScalarTypeFile_AllSchemaTypesOperationsCombinations_conditionallyWrapInNamespace() {
+    // given
+    let expectedNoNamespace = """
+    detached {
+      nested
+    }
+
+    root {
+      nested
+    }
+    """
+
+    let expectedNamespace = """
+    detached {
+      nested
+    }
+
+    public extension TestSchema {
+      root {
+        nested
+      }
+    }
+    """
+
+    let tests: [(
+      schemaTypes: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType,
+      operations: ApolloCodegenConfiguration.OperationsFileOutput,
+      expectation: String,
+      atLine: Int
+    )] = [
+      (
+        schemaTypes: .swiftPackageManager,
+        operations: .relative(subpath: nil),
+        expectation: expectedNoNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .swiftPackageManager,
+        operations: .absolute(path: "path"),
+        expectation: expectedNoNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .swiftPackageManager,
+        operations: .inSchemaModule,
+        expectation: expectedNoNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .other,
+        operations: .relative(subpath: nil),
+        expectation: expectedNoNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .other,
+        operations: .absolute(path: "path"),
+        expectation: expectedNoNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .other,
+        operations: .inSchemaModule,
+        expectation: expectedNoNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .embeddedInTarget(name: "MockApplication"),
+        operations: .relative(subpath: nil),
+        expectation: expectedNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .embeddedInTarget(name: "MockApplication"),
+        operations: .absolute(path: "path"),
+        expectation: expectedNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .embeddedInTarget(name: "MockApplication"),
+        operations: .inSchemaModule,
+        expectation: expectedNamespace,
+        atLine: 6
+      )
+    ]
+
+    for test in tests {
+      let config = buildConfig(moduleType: test.schemaTypes, operations: test.operations)
+      let subject = buildSubject(config: config, targetFileType: .customScalar)
+
+      // when
+      let actual = subject.render()
+
+      // then
+      expect(actual).to(equalLineByLine(test.expectation, atLine: test.atLine))
+    }
+  }
+
+  func test__renderTargetSchemaFile__given_objectTypeFile_AllSchemaTypesOperationsCombinations_conditionallyWrapInNamespace() {
+    // given
+    let expectedNoNamespace = """
+    detached {
+      nested
+    }
+
+    public extension Objects {
+      root {
+        nested
+      }
+    }
+    """
+
+    let expectedNamespace = """
+    detached {
+      nested
+    }
+
+    public extension TestSchema.Objects {
+      root {
+        nested
+      }
+    }
+    """
+
+    let tests: [(
+      schemaTypes: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType,
+      operations: ApolloCodegenConfiguration.OperationsFileOutput,
+      expectation: String,
+      atLine: Int
+    )] = [
+      (
+        schemaTypes: .swiftPackageManager,
+        operations: .relative(subpath: nil),
+        expectation: expectedNoNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .swiftPackageManager,
+        operations: .absolute(path: "path"),
+        expectation: expectedNoNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .swiftPackageManager,
+        operations: .inSchemaModule,
+        expectation: expectedNoNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .other,
+        operations: .relative(subpath: nil),
+        expectation: expectedNoNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .other,
+        operations: .absolute(path: "path"),
+        expectation: expectedNoNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .other,
+        operations: .inSchemaModule,
+        expectation: expectedNoNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .embeddedInTarget(name: "MockApplication"),
+        operations: .relative(subpath: nil),
+        expectation: expectedNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .embeddedInTarget(name: "MockApplication"),
+        operations: .absolute(path: "path"),
+        expectation: expectedNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .embeddedInTarget(name: "MockApplication"),
+        operations: .inSchemaModule,
+        expectation: expectedNamespace,
+        atLine: 6
+      )
+    ]
+
+    for test in tests {
+      let config = buildConfig(moduleType: test.schemaTypes, operations: test.operations)
+      let subject = buildSubject(config: config, targetFileType: .object)
+
+      // when
+      let actual = subject.render()
+
+      // then
+      expect(actual).to(equalLineByLine(test.expectation, atLine: test.atLine))
+    }
+  }
+
+  func test__renderTargetSchemaFile__given_interfaceTypeFile_AllSchemaTypesOperationsCombinations_conditionallyWrapInNamespace() {
+    // given
+    let expectedNoNamespace = """
+    detached {
+      nested
+    }
+
+    public extension Interfaces {
+      root {
+        nested
+      }
+    }
+    """
+
+    let expectedNamespace = """
+    detached {
+      nested
+    }
+
+    public extension TestSchema.Interfaces {
+      root {
+        nested
+      }
+    }
+    """
+
+    let tests: [(
+      schemaTypes: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType,
+      operations: ApolloCodegenConfiguration.OperationsFileOutput,
+      expectation: String,
+      atLine: Int
+    )] = [
+      (
+        schemaTypes: .swiftPackageManager,
+        operations: .relative(subpath: nil),
+        expectation: expectedNoNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .swiftPackageManager,
+        operations: .absolute(path: "path"),
+        expectation: expectedNoNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .swiftPackageManager,
+        operations: .inSchemaModule,
+        expectation: expectedNoNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .other,
+        operations: .relative(subpath: nil),
+        expectation: expectedNoNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .other,
+        operations: .absolute(path: "path"),
+        expectation: expectedNoNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .other,
+        operations: .inSchemaModule,
+        expectation: expectedNoNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .embeddedInTarget(name: "MockApplication"),
+        operations: .relative(subpath: nil),
+        expectation: expectedNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .embeddedInTarget(name: "MockApplication"),
+        operations: .absolute(path: "path"),
+        expectation: expectedNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .embeddedInTarget(name: "MockApplication"),
+        operations: .inSchemaModule,
+        expectation: expectedNamespace,
+        atLine: 6
+      )
+    ]
+
+    for test in tests {
+      let config = buildConfig(moduleType: test.schemaTypes, operations: test.operations)
+      let subject = buildSubject(config: config, targetFileType: .interface)
+
+      // when
+      let actual = subject.render()
+
+      // then
+      expect(actual).to(equalLineByLine(test.expectation, atLine: test.atLine))
+    }
+  }
+
+  func test__renderTargetSchemaFile__given_unionTypeFile_AllSchemaTypesOperationsCombinations_conditionallyWrapInNamespace() {
+    // given
+    let expectedNoNamespace = """
+    detached {
+      nested
+    }
+
+    public extension Unions {
+      root {
+        nested
+      }
+    }
+    """
+
+    let expectedNamespace = """
+    detached {
+      nested
+    }
+
+    public extension TestSchema.Unions {
+      root {
+        nested
+      }
+    }
+    """
+
+    let tests: [(
+      schemaTypes: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType,
+      operations: ApolloCodegenConfiguration.OperationsFileOutput,
+      expectation: String,
+      atLine: Int
+    )] = [
+      (
+        schemaTypes: .swiftPackageManager,
+        operations: .relative(subpath: nil),
+        expectation: expectedNoNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .swiftPackageManager,
+        operations: .absolute(path: "path"),
+        expectation: expectedNoNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .swiftPackageManager,
+        operations: .inSchemaModule,
+        expectation: expectedNoNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .other,
+        operations: .relative(subpath: nil),
+        expectation: expectedNoNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .other,
+        operations: .absolute(path: "path"),
+        expectation: expectedNoNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .other,
+        operations: .inSchemaModule,
+        expectation: expectedNoNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .embeddedInTarget(name: "MockApplication"),
+        operations: .relative(subpath: nil),
+        expectation: expectedNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .embeddedInTarget(name: "MockApplication"),
+        operations: .absolute(path: "path"),
+        expectation: expectedNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .embeddedInTarget(name: "MockApplication"),
+        operations: .inSchemaModule,
+        expectation: expectedNamespace,
+        atLine: 6
+      )
+    ]
+
+    for test in tests {
+      let config = buildConfig(moduleType: test.schemaTypes, operations: test.operations)
+      let subject = buildSubject(config: config, targetFileType: .union)
+
+      // when
+      let actual = subject.render()
+
+      // then
+      expect(actual).to(equalLineByLine(test.expectation, atLine: test.atLine))
+    }
+  }
+
+
 }

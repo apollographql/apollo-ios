@@ -3,11 +3,13 @@
 
 import ApolloAPI
 
-/// A repository-topic connects a repository to a topic.
-public let RepositoryTopic = Object(
-  typename: "RepositoryTopic",
-  implementedInterfaces: [
-   Node.self,
-   UniformResourceLocatable.self
- ]
-)
+public extension Objects {
+  /// A repository-topic connects a repository to a topic.
+  static let RepositoryTopic = Object(
+    typename: "RepositoryTopic",
+    implementedInterfaces: [
+     Interfaces.Node.self,
+     Interfaces.UniformResourceLocatable.self
+   ]
+  )
+}

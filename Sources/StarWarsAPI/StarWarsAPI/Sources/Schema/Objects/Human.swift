@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// A humanoid creature from the Star Wars universe
-public let Human = Object(
-  typename: "Human",
-  implementedInterfaces: [Character.self]
-)
+public extension Objects {
+  /// A humanoid creature from the Star Wars universe
+  static let Human = Object(
+    typename: "Human",
+    implementedInterfaces: [Interfaces.Character.self]
+  )
+}

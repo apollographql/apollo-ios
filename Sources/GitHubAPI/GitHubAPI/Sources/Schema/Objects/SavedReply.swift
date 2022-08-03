@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// A Saved Reply is text a user can use to reply quickly.
-public let SavedReply = Object(
-  typename: "SavedReply",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// A Saved Reply is text a user can use to reply quickly.
+  static let SavedReply = Object(
+    typename: "SavedReply",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

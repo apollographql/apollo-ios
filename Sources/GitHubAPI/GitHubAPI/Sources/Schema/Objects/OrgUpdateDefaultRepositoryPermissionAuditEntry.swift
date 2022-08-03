@@ -3,12 +3,14 @@
 
 import ApolloAPI
 
-/// Audit log entry for a org.update_default_repository_permission
-public let OrgUpdateDefaultRepositoryPermissionAuditEntry = Object(
-  typename: "OrgUpdateDefaultRepositoryPermissionAuditEntry",
-  implementedInterfaces: [
-   AuditEntry.self,
-   Node.self,
-   OrganizationAuditEntryData.self
- ]
-)
+public extension Objects {
+  /// Audit log entry for a org.update_default_repository_permission
+  static let OrgUpdateDefaultRepositoryPermissionAuditEntry = Object(
+    typename: "OrgUpdateDefaultRepositoryPermissionAuditEntry",
+    implementedInterfaces: [
+     Interfaces.AuditEntry.self,
+     Interfaces.Node.self,
+     Interfaces.OrganizationAuditEntryData.self
+   ]
+  )
+}

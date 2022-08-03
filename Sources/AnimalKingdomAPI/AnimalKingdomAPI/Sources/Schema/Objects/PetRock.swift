@@ -3,7 +3,9 @@
 
 import ApolloAPI
 
-public let PetRock = Object(
-  typename: "PetRock",
-  implementedInterfaces: [Pet.self]
-)
+public extension Objects {
+  static let PetRock = Object(
+    typename: "PetRock",
+    implementedInterfaces: [Interfaces.Pet.self]
+  )
+}

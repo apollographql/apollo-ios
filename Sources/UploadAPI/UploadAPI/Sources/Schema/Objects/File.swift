@@ -3,7 +3,9 @@
 
 import ApolloAPI
 
-public let File = Object(
-  typename: "File",
-  implementedInterfaces: []
-)
+public extension Objects {
+  static let File = Object(
+    typename: "File",
+    implementedInterfaces: []
+  )
+}

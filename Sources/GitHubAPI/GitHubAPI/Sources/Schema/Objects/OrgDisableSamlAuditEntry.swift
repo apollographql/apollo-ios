@@ -3,12 +3,14 @@
 
 import ApolloAPI
 
-/// Audit log entry for a org.disable_saml event.
-public let OrgDisableSamlAuditEntry = Object(
-  typename: "OrgDisableSamlAuditEntry",
-  implementedInterfaces: [
-   AuditEntry.self,
-   Node.self,
-   OrganizationAuditEntryData.self
- ]
-)
+public extension Objects {
+  /// Audit log entry for a org.disable_saml event.
+  static let OrgDisableSamlAuditEntry = Object(
+    typename: "OrgDisableSamlAuditEntry",
+    implementedInterfaces: [
+     Interfaces.AuditEntry.self,
+     Interfaces.Node.self,
+     Interfaces.OrganizationAuditEntryData.self
+   ]
+  )
+}

@@ -203,6 +203,20 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
       )
     }
 
+    @_disfavoredOverload
+    mutating func appendInterpolation<T>(
+      ifLet optional: Optional<T>,
+      _ includeBlock: (T) -> TemplateString,
+      else: @autoclosure () -> TemplateString? = nil
+    ) {
+      appendInterpolation(
+        ifLet: optional,
+        where: nil,
+        includeBlock,
+        else: `else`()
+      )
+    }
+
     mutating func appendInterpolation(
       documentation: String?
     ) {

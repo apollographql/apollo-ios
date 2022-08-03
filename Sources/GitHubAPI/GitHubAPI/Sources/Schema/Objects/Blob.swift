@@ -3,11 +3,13 @@
 
 import ApolloAPI
 
-/// Represents a Git blob.
-public let Blob = Object(
-  typename: "Blob",
-  implementedInterfaces: [
-   GitObject.self,
-   Node.self
- ]
-)
+public extension Objects {
+  /// Represents a Git blob.
+  static let Blob = Object(
+    typename: "Blob",
+    implementedInterfaces: [
+     Interfaces.GitObject.self,
+     Interfaces.Node.self
+   ]
+  )
+}

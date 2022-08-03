@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// Represents an 'unpinned' event on a given issue or pull request.
-public let UnpinnedEvent = Object(
-  typename: "UnpinnedEvent",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// Represents an 'unpinned' event on a given issue or pull request.
+  static let UnpinnedEvent = Object(
+    typename: "UnpinnedEvent",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

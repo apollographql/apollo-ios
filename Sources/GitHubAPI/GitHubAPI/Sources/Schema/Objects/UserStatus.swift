@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// The user's description of what they're currently doing.
-public let UserStatus = Object(
-  typename: "UserStatus",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// The user's description of what they're currently doing.
+  static let UserStatus = Object(
+    typename: "UserStatus",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

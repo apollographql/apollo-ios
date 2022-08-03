@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// A user accounts upload from an Enterprise Server installation.
-public let EnterpriseServerUserAccountsUpload = Object(
-  typename: "EnterpriseServerUserAccountsUpload",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// A user accounts upload from an Enterprise Server installation.
+  static let EnterpriseServerUserAccountsUpload = Object(
+    typename: "EnterpriseServerUserAccountsUpload",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

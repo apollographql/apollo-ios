@@ -3,4 +3,6 @@
 
 import ApolloAPI
 
-public let HousePet = Interface(name: "HousePet")
+public extension Interfaces {
+  static let HousePet = Interface(name: "HousePet")
+}

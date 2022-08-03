@@ -3,11 +3,13 @@
 
 import ApolloAPI
 
-/// Represents a mention made by one issue or pull request to another.
-public let CrossReferencedEvent = Object(
-  typename: "CrossReferencedEvent",
-  implementedInterfaces: [
-   Node.self,
-   UniformResourceLocatable.self
- ]
-)
+public extension Objects {
+  /// Represents a mention made by one issue or pull request to another.
+  static let CrossReferencedEvent = Object(
+    typename: "CrossReferencedEvent",
+    implementedInterfaces: [
+     Interfaces.Node.self,
+     Interfaces.UniformResourceLocatable.self
+   ]
+  )
+}

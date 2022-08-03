@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// A GitHub Security Advisory
-public let SecurityAdvisory = Object(
-  typename: "SecurityAdvisory",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// A GitHub Security Advisory
+  static let SecurityAdvisory = Object(
+    typename: "SecurityAdvisory",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

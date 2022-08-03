@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// A label for categorizing Issues or Milestones with a given Repository.
-public let Label = Object(
-  typename: "Label",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// A label for categorizing Issues or Milestones with a given Repository.
+  static let Label = Object(
+    typename: "Label",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

@@ -3,14 +3,16 @@
 
 import ApolloAPI
 
-/// Audit log entry for a private_repository_forking.enable event.
-public let PrivateRepositoryForkingEnableAuditEntry = Object(
-  typename: "PrivateRepositoryForkingEnableAuditEntry",
-  implementedInterfaces: [
-   AuditEntry.self,
-   EnterpriseAuditEntryData.self,
-   Node.self,
-   OrganizationAuditEntryData.self,
-   RepositoryAuditEntryData.self
- ]
-)
+public extension Objects {
+  /// Audit log entry for a private_repository_forking.enable event.
+  static let PrivateRepositoryForkingEnableAuditEntry = Object(
+    typename: "PrivateRepositoryForkingEnableAuditEntry",
+    implementedInterfaces: [
+     Interfaces.AuditEntry.self,
+     Interfaces.EnterpriseAuditEntryData.self,
+     Interfaces.Node.self,
+     Interfaces.OrganizationAuditEntryData.self,
+     Interfaces.RepositoryAuditEntryData.self
+   ]
+  )
+}

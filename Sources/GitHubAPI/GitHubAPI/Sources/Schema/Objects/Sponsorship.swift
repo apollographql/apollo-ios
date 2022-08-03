@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// A sponsorship relationship between a sponsor and a maintainer
-public let Sponsorship = Object(
-  typename: "Sponsorship",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// A sponsorship relationship between a sponsor and a maintainer
+  static let Sponsorship = Object(
+    typename: "Sponsorship",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

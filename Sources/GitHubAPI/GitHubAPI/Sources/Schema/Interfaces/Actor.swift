@@ -3,5 +3,7 @@
 
 import ApolloAPI
 
-/// Represents an object which can take actions on GitHub. Typically a User or Bot.
-public let Actor = Interface(name: "Actor")
+public extension Interfaces {
+  /// Represents an object which can take actions on GitHub. Typically a User or Bot.
+  static let Actor = Interface(name: "Actor")
+}

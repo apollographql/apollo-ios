@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// An edit on user content
-public let UserContentEdit = Object(
-  typename: "UserContentEdit",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// An edit on user content
+  static let UserContentEdit = Object(
+    typename: "UserContentEdit",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

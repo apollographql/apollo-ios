@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// A public description of a Marketplace category.
-public let MarketplaceCategory = Object(
-  typename: "MarketplaceCategory",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// A public description of a Marketplace category.
+  static let MarketplaceCategory = Object(
+    typename: "MarketplaceCategory",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

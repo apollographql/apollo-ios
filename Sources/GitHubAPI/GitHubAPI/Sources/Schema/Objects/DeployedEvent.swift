@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// Represents a 'deployed' event on a given pull request.
-public let DeployedEvent = Object(
-  typename: "DeployedEvent",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// Represents a 'deployed' event on a given pull request.
+  static let DeployedEvent = Object(
+    typename: "DeployedEvent",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

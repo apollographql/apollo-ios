@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// Represents an 'assigned' event on any assignable object.
-public let AssignedEvent = Object(
-  typename: "AssignedEvent",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// Represents an 'assigned' event on any assignable object.
+  static let AssignedEvent = Object(
+    typename: "AssignedEvent",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

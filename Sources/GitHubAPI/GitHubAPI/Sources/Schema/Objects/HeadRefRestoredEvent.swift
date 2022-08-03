@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// Represents a 'head_ref_restored' event on a given pull request.
-public let HeadRefRestoredEvent = Object(
-  typename: "HeadRefRestoredEvent",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// Represents a 'head_ref_restored' event on a given pull request.
+  static let HeadRefRestoredEvent = Object(
+    typename: "HeadRefRestoredEvent",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

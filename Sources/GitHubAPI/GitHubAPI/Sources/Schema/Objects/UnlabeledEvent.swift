@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// Represents an 'unlabeled' event on a given issue or pull request.
-public let UnlabeledEvent = Object(
-  typename: "UnlabeledEvent",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// Represents an 'unlabeled' event on a given issue or pull request.
+  static let UnlabeledEvent = Object(
+    typename: "UnlabeledEvent",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

@@ -3,11 +3,13 @@
 
 import ApolloAPI
 
-/// Represents a Git tree.
-public let Tree = Object(
-  typename: "Tree",
-  implementedInterfaces: [
-   GitObject.self,
-   Node.self
- ]
-)
+public extension Objects {
+  /// Represents a Git tree.
+  static let Tree = Object(
+    typename: "Tree",
+    implementedInterfaces: [
+     Interfaces.GitObject.self,
+     Interfaces.Node.self
+   ]
+  )
+}

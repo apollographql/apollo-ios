@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// A repository's open source license
-public let License = Object(
-  typename: "License",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// A repository's open source license
+  static let License = Object(
+    typename: "License",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

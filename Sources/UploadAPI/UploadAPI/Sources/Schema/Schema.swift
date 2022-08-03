@@ -20,9 +20,13 @@ where Schema == UploadAPI.Schema {}
 public enum Schema: SchemaConfiguration {
   public static func graphQLType(forTypename typename: String) -> Object? {
     switch typename {
-    case "Mutation": return UploadAPI.Mutation
-    case "File": return UploadAPI.File
+    case "Mutation": return UploadAPI.Objects.Mutation
+    case "File": return UploadAPI.Objects.File
     default: return nil
     }
   }
 }
+
+public enum Objects {}
+public enum Interfaces {}
+public enum Unions {}

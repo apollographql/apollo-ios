@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// A release asset contains the content for a release asset.
-public let ReleaseAsset = Object(
-  typename: "ReleaseAsset",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// A release asset contains the content for a release asset.
+  static let ReleaseAsset = Object(
+    typename: "ReleaseAsset",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

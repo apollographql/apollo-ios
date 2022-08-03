@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// A user's public key.
-public let PublicKey = Object(
-  typename: "PublicKey",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// A user's public key.
+  static let PublicKey = Object(
+    typename: "PublicKey",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// Represents a 'comment_deleted' event on a given issue or pull request.
-public let CommentDeletedEvent = Object(
-  typename: "CommentDeletedEvent",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// Represents a 'comment_deleted' event on a given issue or pull request.
+  static let CommentDeletedEvent = Object(
+    typename: "CommentDeletedEvent",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

@@ -10,22 +10,27 @@ struct UnionTemplate: TemplateRenderer {
 
   let config: ApolloCodegen.ConfigurationContext
 
-  let target: TemplateTarget = .schemaFile
+  let target: TemplateTarget = .schemaFile(type: .union)
 
   var template: TemplateString {
     TemplateString(
     """
     \(documentation: graphqlUnion.documentation, config: config)
-    \(embeddedAccessControlModifier)\
-    let \(graphqlUnion.name.firstUppercased) = Union(
+    static let \(graphqlUnion.name.firstUppercased) = Union(
       name: "\(graphqlUnion.name)",
       possibleTypes: \(TemplateString("""
         [\(list: graphqlUnion.types.map({ type in
-          "\(moduleName.firstUppercased).\(type.name.firstUppercased).self"
+        "\(type.schemaTypesNamespace).\(type.name.firstUppercased).self"
         }))]
         """))
     )
     """
     )
   }
+
+#warning("""
+TODO:
+include module name in possible types if needed. Same for Object implemented interfaces
+and maybe for ParentType on SelectionSets too!?
+""")
 }

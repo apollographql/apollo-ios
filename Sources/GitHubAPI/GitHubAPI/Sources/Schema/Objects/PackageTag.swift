@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// A version tag contains the mapping between a tag name and a version.
-public let PackageTag = Object(
-  typename: "PackageTag",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// A version tag contains the mapping between a tag name and a version.
+  static let PackageTag = Object(
+    typename: "PackageTag",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

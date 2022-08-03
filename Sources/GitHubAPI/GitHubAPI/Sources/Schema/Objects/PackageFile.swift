@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// A file in a package version.
-public let PackageFile = Object(
-  typename: "PackageFile",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// A file in a package version.
+  static let PackageFile = Object(
+    typename: "PackageFile",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

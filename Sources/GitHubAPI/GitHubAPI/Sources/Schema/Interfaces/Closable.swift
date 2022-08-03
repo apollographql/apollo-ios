@@ -3,5 +3,7 @@
 
 import ApolloAPI
 
-/// An object that can be closed
-public let Closable = Interface(name: "Closable")
+public extension Interfaces {
+  /// An object that can be closed
+  static let Closable = Interface(name: "Closable")
+}

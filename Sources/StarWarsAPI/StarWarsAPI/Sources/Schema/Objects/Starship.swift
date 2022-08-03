@@ -3,7 +3,9 @@
 
 import ApolloAPI
 
-public let Starship = Object(
-  typename: "Starship",
-  implementedInterfaces: []
-)
+public extension Objects {
+  static let Starship = Object(
+    typename: "Starship",
+    implementedInterfaces: []
+  )
+}

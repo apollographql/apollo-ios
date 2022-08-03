@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// Represents a 'automatic_base_change_succeeded' event on a given pull request.
-public let AutomaticBaseChangeSucceededEvent = Object(
-  typename: "AutomaticBaseChangeSucceededEvent",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// Represents a 'automatic_base_change_succeeded' event on a given pull request.
+  static let AutomaticBaseChangeSucceededEvent = Object(
+    typename: "AutomaticBaseChangeSucceededEvent",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

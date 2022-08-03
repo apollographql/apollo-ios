@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// A Pinned Issue is a issue pinned to a repository's index page.
-public let PinnedIssue = Object(
-  typename: "PinnedIssue",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// A Pinned Issue is a issue pinned to a repository's index page.
+  static let PinnedIssue = Object(
+    typename: "PinnedIssue",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

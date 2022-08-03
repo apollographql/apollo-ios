@@ -3,5 +3,7 @@
 
 import ApolloAPI
 
-/// Things that can be starred.
-public let Starrable = Interface(name: "Starrable")
+public extension Interfaces {
+  /// Things that can be starred.
+  static let Starrable = Interface(name: "Starrable")
+}

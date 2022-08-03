@@ -3,11 +3,13 @@
 
 import ApolloAPI
 
-/// Represents a 'ready_for_review' event on a given pull request.
-public let ReadyForReviewEvent = Object(
-  typename: "ReadyForReviewEvent",
-  implementedInterfaces: [
-   Node.self,
-   UniformResourceLocatable.self
- ]
-)
+public extension Objects {
+  /// Represents a 'ready_for_review' event on a given pull request.
+  static let ReadyForReviewEvent = Object(
+    typename: "ReadyForReviewEvent",
+    implementedInterfaces: [
+     Interfaces.Node.self,
+     Interfaces.UniformResourceLocatable.self
+   ]
+  )
+}

@@ -3,13 +3,15 @@
 
 import ApolloAPI
 
-/// Audit log entry for a repo.config.disable_anonymous_git_access event.
-public let RepoConfigDisableAnonymousGitAccessAuditEntry = Object(
-  typename: "RepoConfigDisableAnonymousGitAccessAuditEntry",
-  implementedInterfaces: [
-   AuditEntry.self,
-   Node.self,
-   OrganizationAuditEntryData.self,
-   RepositoryAuditEntryData.self
- ]
-)
+public extension Objects {
+  /// Audit log entry for a repo.config.disable_anonymous_git_access event.
+  static let RepoConfigDisableAnonymousGitAccessAuditEntry = Object(
+    typename: "RepoConfigDisableAnonymousGitAccessAuditEntry",
+    implementedInterfaces: [
+     Interfaces.AuditEntry.self,
+     Interfaces.Node.self,
+     Interfaces.OrganizationAuditEntryData.self,
+     Interfaces.RepositoryAuditEntryData.self
+   ]
+  )
+}

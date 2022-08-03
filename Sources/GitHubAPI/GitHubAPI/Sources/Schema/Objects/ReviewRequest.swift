@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// A request for a user to review a pull request.
-public let ReviewRequest = Object(
-  typename: "ReviewRequest",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// A request for a user to review a pull request.
+  static let ReviewRequest = Object(
+    typename: "ReviewRequest",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

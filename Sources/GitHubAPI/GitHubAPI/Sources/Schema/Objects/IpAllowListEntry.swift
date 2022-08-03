@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// An IP address or range of addresses that is allowed to access an owner's resources.
-public let IpAllowListEntry = Object(
-  typename: "IpAllowListEntry",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// An IP address or range of addresses that is allowed to access an owner's resources.
+  static let IpAllowListEntry = Object(
+    typename: "IpAllowListEntry",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

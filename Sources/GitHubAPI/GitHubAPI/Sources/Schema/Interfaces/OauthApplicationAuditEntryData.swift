@@ -3,5 +3,7 @@
 
 import ApolloAPI
 
-/// Metadata for an audit entry with action oauth_application.*
-public let OauthApplicationAuditEntryData = Interface(name: "OauthApplicationAuditEntryData")
+public extension Interfaces {
+  /// Metadata for an audit entry with action oauth_application.*
+  static let OauthApplicationAuditEntryData = Interface(name: "OauthApplicationAuditEntryData")
+}

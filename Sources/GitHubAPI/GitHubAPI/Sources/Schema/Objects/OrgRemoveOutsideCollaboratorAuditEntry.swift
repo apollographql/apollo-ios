@@ -3,12 +3,14 @@
 
 import ApolloAPI
 
-/// Audit log entry for a org.remove_outside_collaborator event.
-public let OrgRemoveOutsideCollaboratorAuditEntry = Object(
-  typename: "OrgRemoveOutsideCollaboratorAuditEntry",
-  implementedInterfaces: [
-   AuditEntry.self,
-   Node.self,
-   OrganizationAuditEntryData.self
- ]
-)
+public extension Objects {
+  /// Audit log entry for a org.remove_outside_collaborator event.
+  static let OrgRemoveOutsideCollaboratorAuditEntry = Object(
+    typename: "OrgRemoveOutsideCollaboratorAuditEntry",
+    implementedInterfaces: [
+     Interfaces.AuditEntry.self,
+     Interfaces.Node.self,
+     Interfaces.OrganizationAuditEntryData.self
+   ]
+  )
+}

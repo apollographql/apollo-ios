@@ -10,7 +10,7 @@ struct InputObjectTemplate: TemplateRenderer {
 
   let config: ApolloCodegen.ConfigurationContext
 
-  let target: TemplateTarget = .schemaFile
+  let target: TemplateTarget = .schemaFile(type: .inputObject)
 
   var template: TemplateString {
     let (validFields, deprecatedFields) = filterFields(graphqlInputObject.fields)

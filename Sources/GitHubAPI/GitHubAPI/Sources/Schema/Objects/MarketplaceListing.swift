@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// A listing in the GitHub integration marketplace.
-public let MarketplaceListing = Object(
-  typename: "MarketplaceListing",
-  implementedInterfaces: [Node.self]
-)
+public extension Objects {
+  /// A listing in the GitHub integration marketplace.
+  static let MarketplaceListing = Object(
+    typename: "MarketplaceListing",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
+}

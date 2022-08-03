@@ -3,8 +3,10 @@
 
 import ApolloAPI
 
-/// The connection type for IssueComment.
-public let IssueCommentConnection = Object(
-  typename: "IssueCommentConnection",
-  implementedInterfaces: []
-)
+public extension Objects {
+  /// The connection type for IssueComment.
+  static let IssueCommentConnection = Object(
+    typename: "IssueCommentConnection",
+    implementedInterfaces: []
+  )
+}
