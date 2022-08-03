@@ -1,24 +1,27 @@
 Pod::Spec.new do |s|
-  s.name         = 'Apollo'
-  s.version      = `scripts/get-version.sh`
-  s.author       = 'Meteor Development Group'
-  s.homepage     = 'https://github.com/apollographql/apollo-ios'
-  s.license      = { :type => 'MIT', :file => 'LICENSE' }
-
-  s.summary      = "A GraphQL client for iOS, written in Swift."
-
-  s.source       = { :git => 'https://github.com/apollographql/apollo-ios.git', :tag => s.version }
-
+  s.name = 'Apollo'
+  s.version = `scripts/get-version.sh`
+  s.author = 'Meteor Development Group'
+  s.homepage = 'https://github.com/apollographql/apollo-ios'
+  s.license = { :type => 'MIT', :file => 'LICENSE' }
+  s.summary = "A GraphQL client for iOS, written in Swift."
+  s.source = { :git => 'https://github.com/apollographql/apollo-ios.git', :tag => s.version }
   s.requires_arc = true
-
   s.swift_version = '5.0'
-
   s.default_subspecs = 'Core'
-
   s.ios.deployment_target = '12.0'
   s.osx.deployment_target = '10.14'
   s.tvos.deployment_target = '12.0'
   s.watchos.deployment_target = '5.0'
+
+  cli_directory = 'CodegenCLI'
+  cli_binary_name = 'apollo-ios-cli'
+  s.preserve_paths = ['CodegenCLI/**/*', cli_binary_name]
+  s.prepare_command = <<-CMD
+    make --directory=CodegenCLI
+    cp #{cli_directory}/.build/release/#{cli_binary_name} #{cli_binary_name}
+    chmod +x #{cli_binary_name}
+  CMD
 
   s.subspec 'Core' do |ss|
     ss.source_files = 'Sources/Apollo/*.swift','Sources/ApolloAPI/*.swift'
