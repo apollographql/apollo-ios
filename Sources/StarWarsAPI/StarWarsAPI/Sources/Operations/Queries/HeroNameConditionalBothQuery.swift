@@ -31,10 +31,10 @@ public class HeroNameConditionalBothQuery: GraphQLQuery {
     self.includeName = includeName
   }
 
-  public var variables: Variables? {
-    ["skipName": skipName,
-       "includeName": includeName]
-  }
+  public var variables: Variables? { [
+    "skipName": skipName,
+    "includeName": includeName
+  ] }
 
   public struct Data: StarWarsAPI.SelectionSet {
     public let __data: DataDict

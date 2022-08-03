@@ -32,10 +32,10 @@ public class CreateReviewForEpisodeMutation: GraphQLMutation {
     self.review = review
   }
 
-  public var variables: Variables? {
-    ["episode": episode,
-       "review": review]
-  }
+  public var variables: Variables? { [
+    "episode": episode,
+    "review": review
+  ] }
 
   public struct Data: StarWarsAPI.SelectionSet {
     public let __data: DataDict

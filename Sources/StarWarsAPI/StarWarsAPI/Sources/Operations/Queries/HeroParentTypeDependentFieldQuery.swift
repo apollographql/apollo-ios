@@ -48,9 +48,7 @@ public class HeroParentTypeDependentFieldQuery: GraphQLQuery {
     self.episode = episode
   }
 
-  public var variables: Variables? {
-    ["episode": episode]
-  }
+  public var variables: Variables? { ["episode": episode] }
 
   public struct Data: StarWarsAPI.SelectionSet {
     public let __data: DataDict

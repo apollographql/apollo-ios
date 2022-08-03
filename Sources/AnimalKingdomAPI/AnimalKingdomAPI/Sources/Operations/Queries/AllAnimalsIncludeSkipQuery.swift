@@ -76,13 +76,13 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
     self.varA = varA
   }
 
-  public var variables: Variables? {
-    ["includeSpecies": includeSpecies,
-       "skipHeightInMeters": skipHeightInMeters,
-       "getCat": getCat,
-       "getWarmBlooded": getWarmBlooded,
-       "varA": varA]
-  }
+  public var variables: Variables? { [
+    "includeSpecies": includeSpecies,
+    "skipHeightInMeters": skipHeightInMeters,
+    "getCat": getCat,
+    "getWarmBlooded": getWarmBlooded,
+    "varA": varA
+  ] }
 
   public struct Data: AnimalKingdomAPI.SelectionSet {
     public let __data: DataDict

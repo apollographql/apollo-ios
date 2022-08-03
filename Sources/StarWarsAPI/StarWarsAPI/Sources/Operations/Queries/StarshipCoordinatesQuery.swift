@@ -28,9 +28,7 @@ public class StarshipCoordinatesQuery: GraphQLQuery {
     self.coordinates = coordinates
   }
 
-  public var variables: Variables? {
-    ["coordinates": coordinates]
-  }
+  public var variables: Variables? { ["coordinates": coordinates] }
 
   public struct Data: StarWarsAPI.SelectionSet {
     public let __data: DataDict

@@ -35,10 +35,10 @@ public class HeroNameTypeSpecificConditionalInclusionQuery: GraphQLQuery {
     self.includeName = includeName
   }
 
-  public var variables: Variables? {
-    ["episode": episode,
-       "includeName": includeName]
-  }
+  public var variables: Variables? { [
+    "episode": episode,
+    "includeName": includeName
+  ] }
 
   public struct Data: StarWarsAPI.SelectionSet {
     public let __data: DataDict

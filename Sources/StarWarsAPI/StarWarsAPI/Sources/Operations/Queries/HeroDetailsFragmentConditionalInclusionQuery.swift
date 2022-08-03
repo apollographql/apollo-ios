@@ -27,9 +27,7 @@ public class HeroDetailsFragmentConditionalInclusionQuery: GraphQLQuery {
     self.includeDetails = includeDetails
   }
 
-  public var variables: Variables? {
-    ["includeDetails": includeDetails]
-  }
+  public var variables: Variables? { ["includeDetails": includeDetails] }
 
   public struct Data: StarWarsAPI.SelectionSet {
     public let __data: DataDict

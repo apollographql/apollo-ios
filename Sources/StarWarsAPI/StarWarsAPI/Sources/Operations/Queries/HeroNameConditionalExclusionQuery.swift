@@ -26,9 +26,7 @@ public class HeroNameConditionalExclusionQuery: GraphQLQuery {
     self.skipName = skipName
   }
 
-  public var variables: Variables? {
-    ["skipName": skipName]
-  }
+  public var variables: Variables? { ["skipName": skipName] }
 
   public struct Data: StarWarsAPI.SelectionSet {
     public let __data: DataDict
