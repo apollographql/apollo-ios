@@ -21,7 +21,7 @@
   "output" : {
     "testMocks" : {
       "absolute" : {
-        "path": ".\/MyCustomProjectTests\/TestMocks\/"
+        "path": "./MyCustomProject/MyCustomProjectTests\/TestMocks\/"
       }
     },
     "schemaTypes" : {
