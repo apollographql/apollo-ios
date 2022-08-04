@@ -76,9 +76,6 @@ public enum Target: CaseIterable {
     let graphQLFolder = graphQLFolder(fromTargetRoot: targetRootURL)
 
     switch self {
-    case .upload:
-      return graphQLFolder.appendingPathComponent("schema.json")
-
     case .animalKingdom:
       return graphQLFolder.appendingPathComponent("AnimalSchema.graphqls")
 

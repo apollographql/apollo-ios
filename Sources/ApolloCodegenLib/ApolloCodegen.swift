@@ -34,7 +34,7 @@ public class ApolloCodegen {
   ///     If `nil`, the current working directory of the executing process will be used.
   public static func build(
     with configuration: ApolloCodegenConfiguration,
-    withRootURL rootURL: URL?
+    withRootURL rootURL: URL? = nil
   ) throws {
     let configContext = ConfigurationContext(
       config: configuration,
