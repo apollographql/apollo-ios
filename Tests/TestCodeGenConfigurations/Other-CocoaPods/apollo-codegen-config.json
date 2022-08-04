@@ -11,9 +11,9 @@
   },
   "input" : {
     "searchPaths" : [
-      "..\/graphql\/**\/*.graphql"
+      "..\/..\/..\/Sources\/AnimalKingdomAPI\/animalkingdom-graphql\/**\/*.graphql"
     ],
-    "schemaPath" : "..\/..\/graphql\/AnimalSchema.graphqls"
+    "schemaPath" : "..\/..\/..\/Sources\/AnimalKingdomAPI\/animalkingdom-graphql\/AnimalSchema.graphqls"
   },
   "output" : {
     "testMocks" : {

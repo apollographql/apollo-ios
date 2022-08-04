@@ -12,10 +12,10 @@
   },
   "input" : {
     "operationSearchPaths" : [
-      "..\/animalkingdom-graphql\/**\/*.graphql"
+      "..\/..\/..\/Sources\/AnimalKingdomAPI\/animalkingdom-graphql\/**\/*.graphql"
     ],
     "schemaSearchPaths" : [
-      "..\/animalkingdom-graphql\/AnimalSchema.graphqls"
+      "..\/..\/..\/Sources\/AnimalKingdomAPI\/animalkingdom-graphql\/AnimalSchema.graphqls"
     ]
   },
   "output" : {
