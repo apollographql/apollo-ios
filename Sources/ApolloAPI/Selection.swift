@@ -6,7 +6,7 @@ public enum Selection {
   /// A fragment spread of a named fragment definition.
   case fragment(Fragment.Type)
   /// An inline fragment with a child selection set nested in a parent selection set.
-  case inlineFragment(ApolloAPI.InlineFragment.Type)
+  case inlineFragment(InlineFragment.Type)
   /// A group of selections that have `@include/@skip` directives.
   case conditional(Conditions, [Selection])
 
