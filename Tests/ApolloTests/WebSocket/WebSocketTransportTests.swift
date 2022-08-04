@@ -3,6 +3,7 @@ import Apollo
 import ApolloAPI
 import ApolloInternalTestHelpers
 @testable import ApolloWebSocket
+import ApolloAPI
 
 class WebSocketTransportTests: XCTestCase {
 
