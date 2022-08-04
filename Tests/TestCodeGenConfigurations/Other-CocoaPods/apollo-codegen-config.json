@@ -7,13 +7,16 @@
     "additionalInflectionRules" : [
 
     ],
-    "queryStringLiteralFormat" : "multiline"
+    "queryStringLiteralFormat" : "multiline",
+    "warningsOnDeprecatedUsage" : "include"
   },
   "input" : {
-    "searchPaths" : [
+    "operationSearchPaths" : [
       "..\/..\/..\/Sources\/AnimalKingdomAPI\/animalkingdom-graphql\/**\/*.graphql"
     ],
-    "schemaPath" : "..\/..\/..\/Sources\/AnimalKingdomAPI\/animalkingdom-graphql\/AnimalSchema.graphqls"
+    "schemaSearchPaths" : [
+      "..\/..\/..\/Sources\/AnimalKingdomAPI\/animalkingdom-graphql\/AnimalSchema.graphqls"
+    ]
   },
   "output" : {
     "testMocks" : {
@@ -36,6 +39,7 @@
     }
   },
   "experimentalFeatures" : {
-    "clientControlledNullability" : true
+    "clientControlledNullability" : true,
+    "legacySafelistingCompatibleOperations": false
   }
 }
