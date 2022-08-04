@@ -20,6 +20,7 @@ private extension String {
 /// A path pattern matcher.
 public struct Glob {
   let patterns: [String]
+  let rootURL: URL?
 
   // GLOB_ERR - Return on error
   // GLOB_MARK - Append / to matching directories
@@ -50,6 +51,8 @@ public struct Glob {
   ///
   /// - Parameters:
   ///  - pattern: An array of path matching pattern strings.
+  ///  - rootURL: The rootURL to search for the patterns relative to. If `nil` searches
+  ///    the process's current working directory.
   ///
   /// Each path matching pattern can include the following characters:
   /// - `*` matches everything but the directory separator (shallow), eg: `*.graphql`
@@ -59,8 +62,9 @@ public struct Glob {
   ///
   /// - Discussion:
   ///
-  init(_ patterns: [String]) {
+  init(_ patterns: [String], relativeTo rootURL: URL? = nil) {
     self.patterns = patterns
+    self.rootURL = rootURL
   }
 
   /// Executes the pattern match on the underlying file system.
@@ -121,11 +125,18 @@ public struct Glob {
     }
 
     let fileManager = FileManager.default
-    let searchPath = firstPart.isEmpty ? fileManager.currentDirectoryPath : firstPart
-    var directories: [String] = [searchPath] // include searching the globstar root directory
+
+    let searchURL: URL = {
+      if firstPart.isEmpty || firstPart == "./" {
+        return rootURL ?? URL(fileURLWithPath: fileManager.currentDirectoryPath)
+      } else {
+        return URL(fileURLWithPath: firstPart, relativeTo: rootURL)
+      }
+    }()
+
+    var directories: [String] = [searchURL.path] // include searching the globstar root directory
 
     do {
-      let searchURL = URL(fileURLWithPath: searchPath)
       let resourceKeys: [URLResourceKey] = [.isDirectoryKey]
       var enumeratorError: Error?
 
@@ -139,7 +150,7 @@ public struct Glob {
         includingPropertiesForKeys: resourceKeys,
         errorHandler: errorHandler)
       else {
-        throw MatchError.cannotEnumerate(path: searchPath)
+        throw MatchError.cannotEnumerate(path: searchURL.path)
       }
 
       if let enumeratorError = enumeratorError { throw enumeratorError }

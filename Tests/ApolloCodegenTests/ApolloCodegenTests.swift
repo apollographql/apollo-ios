@@ -138,6 +138,44 @@ class ApolloCodegenTests: XCTestCase {
     expect(try ApolloCodegen.compileGraphQLResult(config).operations).to(haveCount(2))
   }
 
+  func test_compileResults_givenRelativeSearchPath_relativeToRootURL_hasOperations_shouldReturnOperationsRelativeToRoot() throws {
+    // given
+    let schemaPath = createFile(containing: schemaData, named: "schema.graphqls")
+
+    let rootURL = directoryURL.appendingPathComponent("CustomRoot")
+
+    let booksData: Data =
+      """
+      query getBooks {
+        books {
+          title
+        }
+      }
+      """.data(using: .utf8)!
+    createFile(containing: booksData, named: "CustomRoot/books-operation.graphql")
+
+    let authorsData: Data =
+      """
+      query getAuthors {
+        authors {
+          name
+        }
+      }
+      """.data(using: .utf8)!
+    createFile(containing: authorsData, named: "authors-operation.graphql")
+
+    let config = ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration.mock(input: .init(
+      schemaPath: schemaPath,
+      operationSearchPaths: ["./**/*.graphql"]
+    )), rootURL: rootURL)
+
+    let actual = try ApolloCodegen.compileGraphQLResult(config).operations
+
+    // then
+    expect(actual).to(haveCount(1))
+    expect(actual.first?.name).to(equal("getBooks"))
+  }
+
   func test_CCN_compileResults_givenOperations_withNoErrors_shouldReturn() throws {
     let schemaData: Data = {
       """
@@ -218,6 +256,42 @@ class ApolloCodegenTests: XCTestCase {
 
     // then
     expect(try ApolloCodegen.compileGraphQLResult(config).operations).to(beEmpty())
+  }
+
+  func test_compileResults_givenRelativeSchemaSearchPath_relativeToRootURL_shouldReturnSchemaRelativeToRoot() throws {
+    // given
+    createFile(
+      body: """
+      type QueryTwo {
+        string: String!
+      }
+      """,
+      named: "schema1.graphqls")
+
+    createFile(containing: schemaData, named: "CustomRoot/schema.graphqls")
+
+    createFile(
+      body: """
+      query getAuthors {
+        authors {
+          name
+        }
+      }
+      """,
+      named: "TestQuery.graphql")
+
+    let rootURL = directoryURL.appendingPathComponent("CustomRoot")
+
+    let config = ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration.mock(input: .init(
+      schemaSearchPaths: ["./**/*.graphqls"],
+      operationSearchPaths: [directoryURL.appendingPathComponent("*.graphql").path]
+    )), rootURL: rootURL)
+
+    let actual = try ApolloCodegen.compileGraphQLResult(config)
+
+    // then
+    expect(actual.operations).to(haveCount(1))
+    expect(actual.referencedTypes).to(haveCount(3))
   }
 
   func test__compileResults__givenMultipleSchemaFiles_withDependentTypes_compilesResult() throws {
