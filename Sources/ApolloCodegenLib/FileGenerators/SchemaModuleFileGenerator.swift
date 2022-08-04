@@ -11,7 +11,10 @@ struct SchemaModuleFileGenerator {
     fileManager: ApolloFileManager = .default
   ) throws {
 
-    let pathURL: URL = URL(fileURLWithPath: config.output.schemaTypes.path)
+    let pathURL: URL = URL(
+      fileURLWithPath: config.output.schemaTypes.path,
+      relativeTo: config.rootURL
+    )
     let filePath: String
     let rendered: String
 

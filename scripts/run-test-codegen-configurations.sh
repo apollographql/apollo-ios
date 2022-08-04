@@ -6,5 +6,6 @@ CodeGenConfigsDirectory="../Tests/TestCodeGenConfigurations"
 
 for dir in `ls $CodeGenConfigsDirectory`;
 do
-  `swift run apollo-ios-cli generate -p $CodeGenConfigsDirectory/$dir/apollo-codegen-config.json`
+  echo $dir
+  swift run apollo-ios-cli generate -p $CodeGenConfigsDirectory/$dir/apollo-codegen-config.json
 done

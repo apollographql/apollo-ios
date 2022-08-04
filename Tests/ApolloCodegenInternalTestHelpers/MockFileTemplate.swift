@@ -29,6 +29,6 @@ public struct MockFileTemplate: TemplateRenderer {
     target: TemplateTarget,
     config: ApolloCodegenConfiguration = .mock()
   ) -> Self {
-    MockFileTemplate(target: target, config: .init(config: config))
+    MockFileTemplate(target: target, config: .init(config: config, rootURL: nil))
   }
 }
