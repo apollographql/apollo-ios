@@ -1,4 +1,6 @@
+#if !COCOAPODS
 @_exported import ApolloAPI
+#endif
 import Foundation
 
 @dynamicMemberLookup
