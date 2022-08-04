@@ -127,6 +127,19 @@ class TestMockTests: XCTestCase {
     expect(mock.bestFriend as? Mock<Cat>).to(beIdenticalTo(cat))
   }
 
+  func test__mock__setUnionField__fieldIsSet() throws {
+    // given
+    let mock = Mock<Dog>()
+    let cat = Mock<Cat>()
+
+    // when
+    mock.unionField = cat
+
+    // then
+    expect(mock._data["unionField"] as? Mock<Cat>).to(beIdenticalTo(cat))
+    expect(mock.unionField as? Mock<Cat>).to(beIdenticalTo(cat))
+  }
+
   func test__mock__setListOfInterfacesField__fieldIsSet() throws {
     // given
     let mock = Mock<Dog>()
@@ -233,13 +246,14 @@ enum TestMockSchema: SchemaConfiguration {
 }
 
 // MARK: Generated Test Mocks Schema
-extension GraphQLTypeMock {
+extension MockObject {
   typealias Animal = Interface
+  typealias ClassroomPet = Union
 }
 
 #warning("TODO: What do we name these? Namespaced, Mock_Dog, MockDog, Dog?")
-class Dog: GraphQLTypeMock {
-  static let _graphQLType: Object = TestMockSchema.Types.Dog
+class Dog: MockObject {
+  static let objectType: Object = TestMockSchema.Types.Dog
   static let _mockFields = MockFields()
 
   struct MockFields {
@@ -248,6 +262,7 @@ class Dog: GraphQLTypeMock {
     @Field<Height>("height") public var height
     @Field<[String]>("listOfStrings") public var listOfStrings
     @Field<Animal>("bestFriend") public var bestFriend
+    @Field<ClassroomPet>("unionField") public var unionField
     @Field<[Cat]>("listOfObjects") public var listOfObjects
     @Field<[[Cat]]>("nestedListOfObjects") public var nestedListOfObjects
     @Field<[Cat?]>("listOfOptionalObjects") public var listOfOptionalObjects
@@ -257,8 +272,8 @@ class Dog: GraphQLTypeMock {
   }
 }
 
-class Cat: GraphQLTypeMock {
-  static let _graphQLType: Object = TestMockSchema.Types.Cat
+class Cat: MockObject {
+  static let objectType: Object = TestMockSchema.Types.Cat
   static let _mockFields = MockFields()
 
   struct MockFields {
@@ -270,8 +285,8 @@ class Cat: GraphQLTypeMock {
   }
 }
 
-class Height: GraphQLTypeMock {
-  static let _graphQLType: Object = TestMockSchema.Types.Height
+class Height: MockObject {
+  static let objectType: Object = TestMockSchema.Types.Height
   static let _mockFields = MockFields()
 
   struct MockFields {

@@ -2,12 +2,12 @@
 import Foundation
 
 @dynamicMemberLookup
-public class Mock<O: GraphQLTypeMock>: AnyMock, JSONEncodable, Hashable {
+public class Mock<O: MockObject>: AnyMock, JSONEncodable, Hashable {
 
   public var _data: JSONEncodableDictionary
 
   public init() {
-    _data = ["__typename": O._graphQLType.typename]
+    _data = ["__typename": O.objectType.typename]
   }
 
   public var __typename: String { _data["__typename"] as! String }
@@ -69,11 +69,11 @@ public protocol AnyMock: JSONEncodable {
   var _jsonObject: JSONObject { get }
 }
 
-public protocol GraphQLTypeMock: MockFieldValue {
+public protocol MockObject: MockFieldValue {
   associatedtype MockFields
   associatedtype MockValueCollectionType = Array<Mock<Self>>
 
-  static var _graphQLType: Object { get }
+  static var objectType: Object { get }
   static var _mockFields: MockFields { get }
 }
 
@@ -82,6 +82,10 @@ public protocol MockFieldValue {
 }
 
 extension Interface: MockFieldValue {
+  public typealias MockValueCollectionType = Array<AnyMock>
+}
+
+extension Union: MockFieldValue {
   public typealias MockValueCollectionType = Array<AnyMock>
 }
 

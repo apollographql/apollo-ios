@@ -5,7 +5,7 @@ import ApolloCodegenInternalTestHelpers
 
 class MockUnionTemplateTests: XCTestCase {
   var ir: IR!
-  var subject: MockUnionTemplate!
+  var subject: MockUnionsTemplate!
 
   override func tearDown() {
     subject = nil
@@ -23,7 +23,7 @@ class MockUnionTemplateTests: XCTestCase {
     let config = ApolloCodegenConfiguration.mock(moduleType)
     ir = IR.mock(compilationResult: .mock())
 
-    subject = MockUnionTemplate(
+    subject = MockUnionsTemplate(
       graphqlUnion: GraphQLUnionType.mock(name, types: types),
       config: ApolloCodegen.ConfigurationContext(config: config),
       ir: ir

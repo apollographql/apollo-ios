@@ -287,6 +287,8 @@
 		DEAFB781270647D400BE02F3 /* MockCompilationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAFB780270647D400BE02F3 /* MockCompilationResult.swift */; };
 		DEAFB78327064F6900BE02F3 /* MockGraphQLType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAFB78227064F6900BE02F3 /* MockGraphQLType.swift */; };
 		DEAFB787270652D100BE02F3 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = DEAFB786270652D100BE02F3 /* OrderedCollections */; };
+		DEB05B48289C3B4000170299 /* MockInterfacesFileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEB05B47289C3B4000170299 /* MockInterfacesFileGenerator.swift */; };
+		DEB05B4A289C3EC300170299 /* MockInterfacesTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEB05B49289C3EC300170299 /* MockInterfacesTemplate.swift */; };
 		DECD46D0262F64D000924527 /* StarWarsApolloSchemaDownloaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECD46CF262F64D000924527 /* StarWarsApolloSchemaDownloaderTests.swift */; };
 		DECD46FB262F659500924527 /* ApolloCodegenLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B7B6F47233C26D100F32205 /* ApolloCodegenLib.framework */; };
 		DECD4736262F668500924527 /* UploadAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B2DFBB624E1FA0D00ED3AE6 /* UploadAPI.framework */; };
@@ -442,8 +444,8 @@
 		E61DD76526D60C1800C41614 /* SQLiteDotSwiftDatabaseBehaviorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61DD76426D60C1800C41614 /* SQLiteDotSwiftDatabaseBehaviorTests.swift */; };
 		E61EF713275EC99A00191DA7 /* ApolloCodegenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61EF712275EC99A00191DA7 /* ApolloCodegenTests.swift */; };
 		E61F4BF827A8FC8E0049886A /* FragmentFileGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61F4BF727A8FC8E0049886A /* FragmentFileGeneratorTests.swift */; };
-		E6203342284F1C9600A291D1 /* MockUnionFileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6203341284F1C9600A291D1 /* MockUnionFileGenerator.swift */; };
-		E6203344284F1D1100A291D1 /* MockUnionTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6203343284F1D1100A291D1 /* MockUnionTemplate.swift */; };
+		E6203342284F1C9600A291D1 /* MockUnionsFileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6203341284F1C9600A291D1 /* MockUnionsFileGenerator.swift */; };
+		E6203344284F1D1100A291D1 /* MockUnionsTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6203343284F1D1100A291D1 /* MockUnionsTemplate.swift */; };
 		E6203346284F252A00A291D1 /* MockUnionFileGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6203345284F252A00A291D1 /* MockUnionFileGeneratorTests.swift */; };
 		E6203348284F25DF00A291D1 /* MockUnionTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6203347284F25DF00A291D1 /* MockUnionTemplateTests.swift */; };
 		E623FD2A2797A6F4008B4CED /* InterfaceTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E623FD292797A6F4008B4CED /* InterfaceTemplate.swift */; };
@@ -1378,6 +1380,8 @@
 		DEAFB77A2706444B00BE02F3 /* IRRootFieldBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IRRootFieldBuilderTests.swift; sourceTree = "<group>"; };
 		DEAFB780270647D400BE02F3 /* MockCompilationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCompilationResult.swift; sourceTree = "<group>"; };
 		DEAFB78227064F6900BE02F3 /* MockGraphQLType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGraphQLType.swift; sourceTree = "<group>"; };
+		DEB05B47289C3B4000170299 /* MockInterfacesFileGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockInterfacesFileGenerator.swift; sourceTree = "<group>"; };
+		DEB05B49289C3EC300170299 /* MockInterfacesTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockInterfacesTemplate.swift; sourceTree = "<group>"; };
 		DECD46CF262F64D000924527 /* StarWarsApolloSchemaDownloaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarWarsApolloSchemaDownloaderTests.swift; sourceTree = "<group>"; };
 		DECD490B262F81BF00924527 /* ApolloCodegenInternalTestHelpers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ApolloCodegenInternalTestHelpers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DECD490D262F81BF00924527 /* ApolloCodegenInternalTestHelpers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApolloCodegenInternalTestHelpers.h; sourceTree = "<group>"; };
@@ -1517,8 +1521,8 @@
 		E61DD76426D60C1800C41614 /* SQLiteDotSwiftDatabaseBehaviorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteDotSwiftDatabaseBehaviorTests.swift; sourceTree = "<group>"; };
 		E61EF712275EC99A00191DA7 /* ApolloCodegenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloCodegenTests.swift; sourceTree = "<group>"; };
 		E61F4BF727A8FC8E0049886A /* FragmentFileGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FragmentFileGeneratorTests.swift; sourceTree = "<group>"; };
-		E6203341284F1C9600A291D1 /* MockUnionFileGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUnionFileGenerator.swift; sourceTree = "<group>"; };
-		E6203343284F1D1100A291D1 /* MockUnionTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUnionTemplate.swift; sourceTree = "<group>"; };
+		E6203341284F1C9600A291D1 /* MockUnionsFileGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUnionsFileGenerator.swift; sourceTree = "<group>"; };
+		E6203343284F1D1100A291D1 /* MockUnionsTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUnionsTemplate.swift; sourceTree = "<group>"; };
 		E6203345284F252A00A291D1 /* MockUnionFileGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUnionFileGeneratorTests.swift; sourceTree = "<group>"; };
 		E6203347284F25DF00A291D1 /* MockUnionTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUnionTemplateTests.swift; sourceTree = "<group>"; };
 		E623FD292797A6F4008B4CED /* InterfaceTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterfaceTemplate.swift; sourceTree = "<group>"; };
@@ -2735,7 +2739,8 @@
 				E623FD292797A6F4008B4CED /* InterfaceTemplate.swift */,
 				DE71FDBB2853B67C005FA9CC /* LocalCacheMutationDefinitionTemplate.swift */,
 				DE9CEAEE282C62B700959AF9 /* MockObjectTemplate.swift */,
-				E6203343284F1D1100A291D1 /* MockUnionTemplate.swift */,
+				E6203343284F1D1100A291D1 /* MockUnionsTemplate.swift */,
+				DEB05B49289C3EC300170299 /* MockInterfacesTemplate.swift */,
 				E64F7EC027A122300059C021 /* ObjectTemplate.swift */,
 				DE5FD5FC2769222D0033EE23 /* OperationDefinitionTemplate.swift */,
 				E6AAA738286C87EA00F4659D /* OperationIdentifiersTemplate.swift */,
@@ -3731,7 +3736,8 @@
 				E6D90D06278FA595009CAC5D /* InputObjectFileGenerator.swift */,
 				E610D8DA278EB0900023E495 /* InterfaceFileGenerator.swift */,
 				DE0D38EF282ECA6D00AFCC84 /* MockObjectFileGenerator.swift */,
-				E6203341284F1C9600A291D1 /* MockUnionFileGenerator.swift */,
+				E6203341284F1C9600A291D1 /* MockUnionsFileGenerator.swift */,
+				DEB05B47289C3B4000170299 /* MockInterfacesFileGenerator.swift */,
 				E66F8898276C15580000BDA8 /* ObjectFileGenerator.swift */,
 				DE4D54E627A3504B00D26B68 /* OperationFileGenerator.swift */,
 				E6AAA731286BC58200F4659D /* OperationIdentifiersFileGenerator.swift */,
@@ -4571,7 +4577,7 @@
 				DED5B35B286CF16600AE6BFF /* TemplateString+CodegenConfiguration.swift in Sources */,
 				DEE2DAA227BAF00500EC0607 /* GraphQLType+Rendered.swift in Sources */,
 				DE223C2D2721FCE8004A0148 /* ScopedSelectionSetHashable.swift in Sources */,
-				E6203344284F1D1100A291D1 /* MockUnionTemplate.swift in Sources */,
+				E6203344284F1D1100A291D1 /* MockUnionsTemplate.swift in Sources */,
 				DE79642D27699A6A00978A03 /* IR+NamedFragmentBuilder.swift in Sources */,
 				9B47518D2575AA850001FB87 /* Pluralizer.swift in Sources */,
 				E6D90D0B278FFDDA009CAC5D /* SchemaFileGenerator.swift in Sources */,
@@ -4588,7 +4594,7 @@
 				DE071E7A2899FB7F0089BDAA /* GraphQLCompositeType+SchemaTypeNamespace.swift in Sources */,
 				E674DB41274C0A9B009BB90E /* Glob.swift in Sources */,
 				DE71FDC02853C242005FA9CC /* OperationTemplateRenderer.swift in Sources */,
-				E6203342284F1C9600A291D1 /* MockUnionFileGenerator.swift in Sources */,
+				E6203342284F1C9600A291D1 /* MockUnionsFileGenerator.swift in Sources */,
 				DE6D07F927BC3B6D009F5F33 /* GraphQLInputField+Rendered.swift in Sources */,
 				9F1A966C258F34BB00A06EEB /* GraphQLSchema.swift in Sources */,
 				9BE74D3D23FB4A8E006D354F /* FileFinder.swift in Sources */,
@@ -4602,9 +4608,11 @@
 				E6AAA732286BC58200F4659D /* OperationIdentifiersFileGenerator.swift in Sources */,
 				9B7B6F5A233C287200F32205 /* ApolloCodegenConfiguration.swift in Sources */,
 				9F1A966B258F34BB00A06EEB /* GraphQLJSFrontend.swift in Sources */,
+				DEB05B48289C3B4000170299 /* MockInterfacesFileGenerator.swift in Sources */,
 				DE09114E27288B1F000648E5 /* SortedSelections.swift in Sources */,
 				DE5FD607276950CC0033EE23 /* IR+Schema.swift in Sources */,
 				E69BEDA52798B86D00000D10 /* InputObjectTemplate.swift in Sources */,
+				DEB05B4A289C3EC300170299 /* MockInterfacesTemplate.swift in Sources */,
 				DE71FDBC2853B67C005FA9CC /* LocalCacheMutationDefinitionTemplate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
