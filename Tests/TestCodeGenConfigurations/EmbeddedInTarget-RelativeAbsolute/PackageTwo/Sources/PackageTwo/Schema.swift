@@ -29,6 +29,17 @@ public extension MySchemaModule {
   enum Schema: SchemaConfiguration {
     public static func objectType(forTypename __typename: String) -> Object.Type? {
       switch __typename {
+      case "Query": return MySchemaModule.Query.self
+      case "Human": return MySchemaModule.Human.self
+      case "Cat": return MySchemaModule.Cat.self
+      case "Dog": return MySchemaModule.Dog.self
+      case "Bird": return MySchemaModule.Bird.self
+      case "Fish": return MySchemaModule.Fish.self
+      case "Rat": return MySchemaModule.Rat.self
+      case "PetRock": return MySchemaModule.PetRock.self
+      case "Crocodile": return MySchemaModule.Crocodile.self
+      case "Height": return MySchemaModule.Height.self
+      case "Mutation": return MySchemaModule.Mutation.self
       default: return nil
       }
     }

@@ -466,7 +466,7 @@ class GlobTests: XCTestCase {
     let pattern = ["**/*.one"]
 
     // when
-    let rootURL = baseURL.appendingPathComponent("a/").standardizedFileURL
+    let rootURL = baseURL.appendingPathComponent("a/", isDirectory: true).standardizedFileURL
 
     try create(files: [
       baseURL.appendingPathComponent("file.one").path,
@@ -494,7 +494,7 @@ class GlobTests: XCTestCase {
     let pattern = ["./**/*.one"]
 
     // when
-    let rootURL = baseURL.appendingPathComponent("a/").standardizedFileURL
+    let rootURL = baseURL.appendingPathComponent("a/", isDirectory: true).standardizedFileURL
 
     try create(files: [
       baseURL.appendingPathComponent("file.one").path,
@@ -517,12 +517,30 @@ class GlobTests: XCTestCase {
     ]))
   }
 
-  func test_match_givenAbsolutePattern_andRelativeToRootURL_shouldUseAbsolutePathNotRelativeToRootURL() throws {
+  func test_match_givenRelativePattern_withNoGlob_andRelativeToRootURL_shouldUsePathRelativeToRootURL() throws {
+    // given
+    let pattern = ["../file.one"]
+
+    // when
+    let rootURL = baseURL.appendingPathComponent("relativeRoot/", isDirectory: true).standardizedFileURL
+
+    try create(files: [
+      baseURL.appendingPathComponent("file.one").path,
+      baseURL.appendingPathComponent("relativeRoot/file.one").path,
+    ])
+
+    // then
+    expect(Glob(pattern, relativeTo: rootURL).match).to(equal([
+      baseURL.appendingPathComponent("file.one").path,
+    ]))
+  }
+
+  func test_match_givenAbsolutePattern_withGlob_andRelativeToRootURL_shouldUseAbsolutePathNotRelativeToRootURL() throws {
     // given
     let pattern = [baseURL.appendingPathComponent("**/*.one").path]
 
     // when
-    let rootURL = baseURL.appendingPathComponent("empty/").standardizedFileURL
+    let rootURL = baseURL.appendingPathComponent("empty/", isDirectory: true).standardizedFileURL
 
     try create(files: [
       baseURL.appendingPathComponent("file.one").path,
@@ -564,4 +582,5 @@ class GlobTests: XCTestCase {
       baseURL.appendingPathComponent("other/file.xyz").path
     ]))
   }
+
 }

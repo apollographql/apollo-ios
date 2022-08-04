@@ -29,6 +29,17 @@ public extension MyGraphQLSchema {
   enum Schema: SchemaConfiguration {
     public static func objectType(forTypename __typename: String) -> Object.Type? {
       switch __typename {
+      case "Query": return MyGraphQLSchema.Query.self
+      case "Human": return MyGraphQLSchema.Human.self
+      case "Cat": return MyGraphQLSchema.Cat.self
+      case "Dog": return MyGraphQLSchema.Dog.self
+      case "Bird": return MyGraphQLSchema.Bird.self
+      case "Fish": return MyGraphQLSchema.Fish.self
+      case "Rat": return MyGraphQLSchema.Rat.self
+      case "PetRock": return MyGraphQLSchema.PetRock.self
+      case "Crocodile": return MyGraphQLSchema.Crocodile.self
+      case "Height": return MyGraphQLSchema.Height.self
+      case "Mutation": return MyGraphQLSchema.Mutation.self
       default: return nil
       }
     }

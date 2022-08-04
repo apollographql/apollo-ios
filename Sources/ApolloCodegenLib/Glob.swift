@@ -101,7 +101,7 @@ public struct Glob {
         throw MatchError.invalidExclude(path: pattern)
       }
 
-      paths.formUnion(pattern.includesGlobstar ? try expandGlobstar(pattern) : [pattern])
+      paths.formUnion(try expandGlobstar(pattern))
     }
 
     return paths
@@ -109,7 +109,9 @@ public struct Glob {
 
   /// Expands the globstar (`**`) to find all directory paths to search for the match pattern and removes duplicates.
   private func expandGlobstar(_ pattern: String) throws -> OrderedSet<String> {
-    guard pattern.contains("**") else { return [pattern] }
+    guard pattern.includesGlobstar else {
+      return [URL(fileURLWithPath: pattern, relativeTo: rootURL).path]
+    }
 
     CodegenLogger.log("Expanding globstar \(pattern)", logLevel: .debug)
 

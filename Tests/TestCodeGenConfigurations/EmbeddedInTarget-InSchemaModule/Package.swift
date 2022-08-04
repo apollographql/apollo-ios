@@ -14,7 +14,7 @@ let package = Package(
       targets: ["MySwiftPackage"]),
   ],
   dependencies: [
-    .package(url: "https://github.com/apollographql/apollo-ios.git", branch: "1.0/merge-release-test"),
+    .package(name: "apollo-ios", path: "../../.."),
   ],
   targets: [
     .target(
