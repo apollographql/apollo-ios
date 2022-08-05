@@ -37,9 +37,4 @@ struct UnionTemplate: TemplateRenderer {
     """
   }
 
-#warning("""
-TODO:
-include module name in possible types if needed. Same for Object implemented interfaces
-and maybe for ParentType on SelectionSets too!?
-""")
 }
