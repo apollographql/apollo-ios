@@ -227,6 +227,7 @@
 		DE5B314027A482C80051C9D3 /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5B313F27A482C80051C9D3 /* Resources.swift */; };
 		DE5E79BB289DA90600CD0DE5 /* MockInterfacesFileGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5E79BA289DA90600CD0DE5 /* MockInterfacesFileGeneratorTests.swift */; };
 		DE5E79BD289DA97E00CD0DE5 /* MockInterfacesTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5E79BC289DA97E00CD0DE5 /* MockInterfacesTemplateTests.swift */; };
+		DE5E79BF289DBCE700CD0DE5 /* CacheKeyInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5E79BE289DBCE700CD0DE5 /* CacheKeyInfo.swift */; };
 		DE5EB9C026EFCB010004176A /* TestObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5EB9BF26EFCB010004176A /* TestObserver.swift */; };
 		DE5EB9C226EFCBD40004176A /* MockApolloStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5EB9C126EFCBD40004176A /* MockApolloStore.swift */; };
 		DE5EB9C526EFD4D10004176A /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = DE5EB9C426EFD4D10004176A /* Nimble */; };
@@ -1307,6 +1308,7 @@
 		DE5B313F27A482C80051C9D3 /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
 		DE5E79BA289DA90600CD0DE5 /* MockInterfacesFileGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockInterfacesFileGeneratorTests.swift; sourceTree = "<group>"; };
 		DE5E79BC289DA97E00CD0DE5 /* MockInterfacesTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockInterfacesTemplateTests.swift; sourceTree = "<group>"; };
+		DE5E79BE289DBCE700CD0DE5 /* CacheKeyInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheKeyInfo.swift; sourceTree = "<group>"; };
 		DE5EB9BF26EFCB010004176A /* TestObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestObserver.swift; sourceTree = "<group>"; };
 		DE5EB9C126EFCBD40004176A /* MockApolloStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockApolloStore.swift; sourceTree = "<group>"; };
 		DE5EB9C626EFE0F80004176A /* JSONValueMatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONValueMatcher.swift; sourceTree = "<group>"; };
@@ -2627,6 +2629,7 @@
 				DEA6A83326F298660091AF8A /* ParentType.swift */,
 				DE03FDDA2784D0B2007425BD /* DataDict.swift */,
 				DE2FCF1C26E806710057EA67 /* SchemaConfiguration.swift */,
+				DE5E79BE289DBCE700CD0DE5 /* CacheKeyInfo.swift */,
 				DE664ED326602AF60054DB4F /* Selection.swift */,
 				DE90FDB927FE405F0084CC79 /* Selection+Conditions.swift */,
 				DECD53CE26EC0EE50059A639 /* OutputTypeConvertible.swift */,
@@ -5189,6 +5192,7 @@
 				DE9C04AC26EAAE4400EC35E7 /* JSON.swift in Sources */,
 				DE2FCF1D26E806710057EA67 /* SchemaConfiguration.swift in Sources */,
 				DE2FCF4526E80CF10057EA67 /* GraphQLOperation.swift in Sources */,
+				DE5E79BF289DBCE700CD0DE5 /* CacheKeyInfo.swift in Sources */,
 				DE05860C266978A100265760 /* FragmentProtocols.swift in Sources */,
 				DE05860D266978A100265760 /* ScalarTypes.swift in Sources */,
 				DE9C04AF26EAAEE800EC35E7 /* CacheReference.swift in Sources */,

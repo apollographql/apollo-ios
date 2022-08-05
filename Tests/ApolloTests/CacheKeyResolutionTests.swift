@@ -79,6 +79,7 @@ class CacheKeyResolutionTests: XCTestCase {
     ))
   }
 
+  #warning("TODO")
 //
 //
 //  func test__schemaConfiguration__givenData_whenKnownType_isCacheKeyProvider_butReturnsNilCacheKey_shouldReturnNil() {

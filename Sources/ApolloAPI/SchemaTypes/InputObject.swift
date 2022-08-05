@@ -1,6 +1,7 @@
 /// An protocol for a struct that represents a GraphQL Input Object.
 ///
-/// - See: [GraphQLSpec - Input Objects](https://spec.graphql.org/draft/#sec-Input-Objects)
+/// # See Also
+/// [GraphQLSpec - Input Objects](https://spec.graphql.org/draft/#sec-Input-Objects)
 public protocol InputObject: GraphQLOperationVariableValue, JSONEncodable, Hashable {
   var __data: InputDict { get }
 }

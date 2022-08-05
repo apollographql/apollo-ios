@@ -1,7 +1,15 @@
-/// An abstract base class inherited by types in a generated GraphQL schema.
-/// Each `type` defined in the GraphQL schema will have a subclass of this class generated.
+/// Represents an object `type` in a generated GraphQL schema.
+///
+/// Each `type` defined in the GraphQL schema will have an instance of ``Object`` generated.
+/// # See Also
+/// [GraphQLSpec - Objects](https://spec.graphql.org/draft/#sec-Objects)
 public struct Object: Hashable {
 
+  /// Designated Initializer
+  ///
+  /// - Parameters:
+  ///   - typename: The name of the type.
+  ///   - implementedInterfaces: A list of the interfaces implemented by the type.
   public init(
     typename: String,
     implementedInterfaces: [Interface]
@@ -19,7 +27,7 @@ public struct Object: Hashable {
   /// match this value.
   public let typename: String
 
-  /// A helper function to determine if the receiver implement's a given ``Interface`` Type.
+  /// A helper function to determine if the receiver implements a given ``Interface`` Type.
   ///
   /// - Parameter interface: An ``Interface`` Type
   /// - Returns: A `Bool` indicating if the receiver implements the given ``Interface`` Type.
