@@ -82,19 +82,19 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
     self.varA = varA
   }
 
-  public var variables: Variables? {
-    ["includeSpecies": includeSpecies,
-     "skipHeightInMeters": skipHeightInMeters,
-     "getCat": getCat,
-     "getWarmBlooded": getWarmBlooded,
-     "varA": varA]
-  }
+  public var variables: Variables? { [
+    "includeSpecies": includeSpecies,
+    "skipHeightInMeters": skipHeightInMeters,
+    "getCat": getCat,
+    "getWarmBlooded": getWarmBlooded,
+    "varA": varA
+  ] }
 
   public struct Data: GraphQLSchemaName.SelectionSet {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(GraphQLSchemaName.Query.self) }
+    public static var __parentType: ParentType { GraphQLSchemaName.Objects.Query }
     public static var selections: [Selection] { [
       .field("allAnimals", [AllAnimal].self),
     ] }
@@ -108,7 +108,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { .Interface(GraphQLSchemaName.Animal.self) }
+      public static var __parentType: ParentType { GraphQLSchemaName.Interfaces.Animal }
       public static var selections: [Selection] { [
         .field("height", Height.self),
         .field("skinCovering", GraphQLEnum<SkinCovering>?.self),
@@ -146,7 +146,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Object(GraphQLSchemaName.Height.self) }
+        public static var __parentType: ParentType { GraphQLSchemaName.Objects.Height }
         public static var selections: [Selection] { [
           .field("feet", Int.self),
           .field("inches", Int?.self),
@@ -164,7 +164,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Interface(GraphQLSchemaName.Animal.self) }
+        public static var __parentType: ParentType { GraphQLSchemaName.Interfaces.Animal }
         public static var selections: [Selection] { [
           .include(if: "includeSpecies", .field("species", String.self)),
           .include(if: "getWarmBlooded", .inlineFragment(AsWarmBlooded.self)),
@@ -181,7 +181,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public static var __parentType: ParentType { .Interface(GraphQLSchemaName.WarmBlooded.self) }
+          public static var __parentType: ParentType { GraphQLSchemaName.Interfaces.WarmBlooded }
           public static var selections: [Selection] { [
             .field("species", String.self),
             .fragment(WarmBloodedDetails.self),
@@ -210,7 +210,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Interface(GraphQLSchemaName.WarmBlooded.self) }
+        public static var __parentType: ParentType { GraphQLSchemaName.Interfaces.WarmBlooded }
         public static var selections: [Selection] { [
           .fragment(WarmBloodedDetails.self),
         ] }
@@ -238,7 +238,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public static var __parentType: ParentType { .Object(GraphQLSchemaName.Height.self) }
+          public static var __parentType: ParentType { GraphQLSchemaName.Objects.Height }
 
           public var feet: Int { __data["feet"] }
           public var inches: Int? { __data["inches"] }
@@ -252,7 +252,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public static var __parentType: ParentType { .Interface(GraphQLSchemaName.WarmBlooded.self) }
+          public static var __parentType: ParentType { GraphQLSchemaName.Interfaces.WarmBlooded }
 
           public var height: Height { __data["height"] }
           public var species: String? { __data["species"] }
@@ -275,7 +275,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
             public let __data: DataDict
             public init(data: DataDict) { __data = data }
 
-            public static var __parentType: ParentType { .Object(GraphQLSchemaName.Height.self) }
+            public static var __parentType: ParentType { GraphQLSchemaName.Objects.Height }
 
             public var feet: Int { __data["feet"] }
             public var inches: Int? { __data["inches"] }
@@ -291,7 +291,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Interface(GraphQLSchemaName.Pet.self) }
+        public static var __parentType: ParentType { GraphQLSchemaName.Interfaces.Pet }
         public static var selections: [Selection] { [
           .field("height", Height.self),
           .inlineFragment(AsWarmBlooded.self),
@@ -323,7 +323,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public static var __parentType: ParentType { .Object(GraphQLSchemaName.Height.self) }
+          public static var __parentType: ParentType { GraphQLSchemaName.Objects.Height }
           public static var selections: [Selection] { [
             .include(if: "varA", [
               .field("relativeSize", GraphQLEnum<RelativeSize>.self),
@@ -345,7 +345,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public static var __parentType: ParentType { .Interface(GraphQLSchemaName.WarmBlooded.self) }
+          public static var __parentType: ParentType { GraphQLSchemaName.Interfaces.WarmBlooded }
           public static var selections: [Selection] { [
             .fragment(WarmBloodedDetails.self),
           ] }
@@ -375,7 +375,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
             public let __data: DataDict
             public init(data: DataDict) { __data = data }
 
-            public static var __parentType: ParentType { .Object(GraphQLSchemaName.Height.self) }
+            public static var __parentType: ParentType { GraphQLSchemaName.Objects.Height }
 
             public var feet: Int { __data["feet"] }
             public var inches: Int? { __data["inches"] }
@@ -393,7 +393,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Object(GraphQLSchemaName.Cat.self) }
+        public static var __parentType: ParentType { GraphQLSchemaName.Objects.Cat }
         public static var selections: [Selection] { [
           .field("isJellicle", Bool.self),
         ] }
@@ -424,7 +424,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public static var __parentType: ParentType { .Object(GraphQLSchemaName.Height.self) }
+          public static var __parentType: ParentType { GraphQLSchemaName.Objects.Height }
 
           public var feet: Int { __data["feet"] }
           public var inches: Int? { __data["inches"] }
@@ -441,7 +441,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Union(GraphQLSchemaName.ClassroomPet.self) }
+        public static var __parentType: ParentType { GraphQLSchemaName.Unions.ClassroomPet }
         public static var selections: [Selection] { [
           .inlineFragment(AsBird.self),
         ] }
@@ -467,7 +467,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public static var __parentType: ParentType { .Object(GraphQLSchemaName.Height.self) }
+          public static var __parentType: ParentType { GraphQLSchemaName.Objects.Height }
 
           public var feet: Int { __data["feet"] }
           public var inches: Int? { __data["inches"] }
@@ -481,7 +481,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public static var __parentType: ParentType { .Object(GraphQLSchemaName.Bird.self) }
+          public static var __parentType: ParentType { GraphQLSchemaName.Objects.Bird }
           public static var selections: [Selection] { [
             .field("wingspan", Double.self),
           ] }
@@ -512,7 +512,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
             public let __data: DataDict
             public init(data: DataDict) { __data = data }
 
-            public static var __parentType: ParentType { .Object(GraphQLSchemaName.Height.self) }
+            public static var __parentType: ParentType { GraphQLSchemaName.Objects.Height }
 
             public var feet: Int { __data["feet"] }
             public var inches: Int? { __data["inches"] }
@@ -529,7 +529,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Interface(GraphQLSchemaName.Animal.self) }
+        public static var __parentType: ParentType { GraphQLSchemaName.Interfaces.Animal }
 
         public var height: Height { __data["height"] }
         public var species: String? { __data["species"] }
@@ -550,7 +550,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public static var __parentType: ParentType { .Object(GraphQLSchemaName.Height.self) }
+          public static var __parentType: ParentType { GraphQLSchemaName.Objects.Height }
 
           public var feet: Int { __data["feet"] }
           public var inches: Int? { __data["inches"] }

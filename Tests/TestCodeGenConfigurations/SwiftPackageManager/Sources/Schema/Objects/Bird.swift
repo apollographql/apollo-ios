@@ -3,13 +3,13 @@
 
 import ApolloAPI
 
-public final class Bird: Object {
-  override public class var __typename: StaticString { "Bird" }
-
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Animal.self,
-    Pet.self,
-    WarmBlooded.self
-  ]
+public extension Objects {
+  static let Bird = Object(
+    typename: "Bird",
+    implementedInterfaces: [
+      Interfaces.Animal.self,
+      Interfaces.Pet.self,
+      Interfaces.WarmBlooded.self
+    ]
+  )
 }

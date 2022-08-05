@@ -1472,12 +1472,6 @@
 		DED5B356286CD34000AE6BFF /* CompilationResultSchemaDocumentationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompilationResultSchemaDocumentationTests.swift; sourceTree = "<group>"; };
 		DED5B358286CEA0900AE6BFF /* TemplateString_Documentation_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateString_Documentation_Tests.swift; sourceTree = "<group>"; };
 		DED5B35A286CF16600AE6BFF /* TemplateString+CodegenConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TemplateString+CodegenConfiguration.swift"; sourceTree = "<group>"; };
-		DEE1B3F0273B08D8007350E5 /* PetDetails.graphql.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetDetails.graphql.swift; sourceTree = "<group>"; };
-		DEE1B3F1273B08D8007350E5 /* ClassroomPets.graphql.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassroomPets.graphql.swift; sourceTree = "<group>"; };
-		DEE1B3F2273B08D8007350E5 /* HeightInMeters.graphql.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeightInMeters.graphql.swift; sourceTree = "<group>"; };
-		DEE1B3F3273B08D8007350E5 /* AllAnimals.graphql.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllAnimals.graphql.swift; sourceTree = "<group>"; };
-		DEE1B3F4273B08D8007350E5 /* Types.graphql.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.graphql.swift; sourceTree = "<group>"; };
-		DEE1B3F5273B08D8007350E5 /* WarmBloodedDetails.graphql.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmBloodedDetails.graphql.swift; sourceTree = "<group>"; };
 		DEE2060A27E14498002B4B82 /* IR+InclusionConditionsMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IR+InclusionConditionsMock.swift"; sourceTree = "<group>"; };
 		DEE2DAA127BAF00500EC0607 /* GraphQLType+Rendered.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraphQLType+Rendered.swift"; sourceTree = "<group>"; };
 		DEF191D12804A8470029786C /* Upload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Upload.swift; sourceTree = "<group>"; };
@@ -2792,7 +2786,6 @@
 				E66C015427FEB86800FF5FA1 /* Schema */,
 				96F32D3A27CCD16B00F3383C /* animalkingdom-graphql */,
 				DE3C79A9260A6ACD00D2F4FF /* AnimalKingdomAPI.h */,
-				DEE1B3EF273B08D8007350E5 /* LegacyGenerated */,
 				DE3C79AA260A6ACD00D2F4FF /* Info.plist */,
 				DE223C23271F335D004A0148 /* Resources.swift */,
 			);
@@ -3198,19 +3191,6 @@
 				19E9F6AA26D58A92003AB80E /* OperationMessageIdCreatorTests.swift */,
 			);
 			path = WebSocket;
-			sourceTree = "<group>";
-		};
-		DEE1B3EF273B08D8007350E5 /* LegacyGenerated */ = {
-			isa = PBXGroup;
-			children = (
-				DEE1B3F0273B08D8007350E5 /* PetDetails.graphql.swift */,
-				DEE1B3F1273B08D8007350E5 /* ClassroomPets.graphql.swift */,
-				DEE1B3F2273B08D8007350E5 /* HeightInMeters.graphql.swift */,
-				DEE1B3F3273B08D8007350E5 /* AllAnimals.graphql.swift */,
-				DEE1B3F4273B08D8007350E5 /* Types.graphql.swift */,
-				DEE1B3F5273B08D8007350E5 /* WarmBloodedDetails.graphql.swift */,
-			);
-			path = LegacyGenerated;
 			sourceTree = "<group>";
 		};
 		DEF191D02804A8470029786C /* CustomScalars */ = {

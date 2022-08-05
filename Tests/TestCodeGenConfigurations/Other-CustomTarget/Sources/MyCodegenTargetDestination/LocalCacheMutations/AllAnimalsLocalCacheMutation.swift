@@ -14,7 +14,7 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
     public var __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(MyCodegenTargetDestination.Query.self) }
+    public static var __parentType: ParentType { MyCodegenTargetDestination.Objects.Query }
     public static var selections: [Selection] { [
       .field("allAnimals", [AllAnimal].self),
     ] }
@@ -31,7 +31,7 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
       public var __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { .Interface(MyCodegenTargetDestination.Animal.self) }
+      public static var __parentType: ParentType { MyCodegenTargetDestination.Interfaces.Animal }
       public static var selections: [Selection] { [
         .field("species", String.self),
         .field("skinCovering", GraphQLEnum<SkinCovering>?.self),
@@ -59,7 +59,7 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
         public var __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Object(MyCodegenTargetDestination.Bird.self) }
+        public static var __parentType: ParentType { MyCodegenTargetDestination.Objects.Bird }
         public static var selections: [Selection] { [
           .field("wingspan", Double.self),
         ] }

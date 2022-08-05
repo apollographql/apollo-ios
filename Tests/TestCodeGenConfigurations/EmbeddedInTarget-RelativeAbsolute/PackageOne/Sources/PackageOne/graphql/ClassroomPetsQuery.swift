@@ -27,7 +27,7 @@ class ClassroomPetsQuery: GraphQLQuery {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(MySchemaModule.Query.self) }
+    public static var __parentType: ParentType { MySchemaModule.Objects.Query }
     public static var selections: [Selection] { [
       .field("classroomPets", [ClassroomPet?]?.self),
     ] }
@@ -41,7 +41,7 @@ class ClassroomPetsQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { .Union(MySchemaModule.ClassroomPet.self) }
+      public static var __parentType: ParentType { MySchemaModule.Unions.ClassroomPet }
       public static var selections: [Selection] { [
         .fragment(ClassroomPetDetails.self),
       ] }
@@ -67,7 +67,7 @@ class ClassroomPetsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Interface(MySchemaModule.Animal.self) }
+        public static var __parentType: ParentType { MySchemaModule.Interfaces.Animal }
 
         public var species: String { __data["species"] }
 
@@ -86,7 +86,7 @@ class ClassroomPetsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Interface(MySchemaModule.Pet.self) }
+        public static var __parentType: ParentType { MySchemaModule.Interfaces.Pet }
 
         public var humanName: String? { __data["humanName"] }
 
@@ -105,7 +105,7 @@ class ClassroomPetsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Interface(MySchemaModule.WarmBlooded.self) }
+        public static var __parentType: ParentType { MySchemaModule.Interfaces.WarmBlooded }
 
         public var species: String { __data["species"] }
         public var laysEggs: Bool { __data["laysEggs"] }
@@ -125,7 +125,7 @@ class ClassroomPetsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Object(MySchemaModule.Cat.self) }
+        public static var __parentType: ParentType { MySchemaModule.Objects.Cat }
 
         public var species: String { __data["species"] }
         public var humanName: String? { __data["humanName"] }
@@ -148,7 +148,7 @@ class ClassroomPetsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Object(MySchemaModule.Bird.self) }
+        public static var __parentType: ParentType { MySchemaModule.Objects.Bird }
 
         public var species: String { __data["species"] }
         public var humanName: String? { __data["humanName"] }
@@ -170,7 +170,7 @@ class ClassroomPetsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Object(MySchemaModule.PetRock.self) }
+        public static var __parentType: ParentType { MySchemaModule.Objects.PetRock }
 
         public var humanName: String? { __data["humanName"] }
         public var favoriteToy: String { __data["favoriteToy"] }

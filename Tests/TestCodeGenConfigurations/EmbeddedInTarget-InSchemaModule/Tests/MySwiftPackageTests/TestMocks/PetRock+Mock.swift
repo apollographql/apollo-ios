@@ -4,25 +4,25 @@
 import ApolloTestSupport
 import MySwiftPackage
 
-extension MyGraphQLSchema.PetRock: Mockable {
-  public static let __mockFields = MockFields()
-
-  public typealias MockValueCollectionType = Array<Mock<MyGraphQLSchema.PetRock>>
+public class PetRock: MockObject {
+  public static let objectType: Object = MyGraphQLSchema.Objects.PetRock
+  public static let _mockFields = MockFields()
+  public typealias MockValueCollectionType = Array<Mock<PetRock>>
 
   public struct MockFields {
     @Field<String>("favoriteToy") public var favoriteToy
     @Field<String>("humanName") public var humanName
     @Field<MyGraphQLSchema.ID>("id") public var id
-    @Field<MyGraphQLSchema.Human>("owner") public var owner
+    @Field<Human>("owner") public var owner
   }
 }
 
-public extension Mock where O == MyGraphQLSchema.PetRock {
+public extension Mock where O == PetRock {
   convenience init(
     favoriteToy: String? = nil,
     humanName: String? = nil,
     id: MyGraphQLSchema.ID? = nil,
-    owner: Mock<MyGraphQLSchema.Human>? = nil
+    owner: Mock<Human>? = nil
   ) {
     self.init()
     self.favoriteToy = favoriteToy

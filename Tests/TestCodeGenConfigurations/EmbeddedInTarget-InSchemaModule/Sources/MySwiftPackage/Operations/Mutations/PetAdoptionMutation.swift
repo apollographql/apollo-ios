@@ -27,15 +27,13 @@ public extension MyGraphQLSchema {
       self.input = input
     }
 
-    public var variables: Variables? {
-      ["input": input]
-    }
+    public var variables: Variables? { ["input": input] }
 
     public struct Data: MyGraphQLSchema.SelectionSet {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { .Object(MyGraphQLSchema.Mutation.self) }
+      public static var __parentType: ParentType { MyGraphQLSchema.Objects.Mutation }
       public static var selections: [Selection] { [
         .field("adoptPet", AdoptPet.self, arguments: ["input": .variable("input")]),
       ] }
@@ -49,7 +47,7 @@ public extension MyGraphQLSchema {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Interface(MyGraphQLSchema.Pet.self) }
+        public static var __parentType: ParentType { MyGraphQLSchema.Interfaces.Pet }
         public static var selections: [Selection] { [
           .field("id", ID.self),
           .field("humanName", String?.self),

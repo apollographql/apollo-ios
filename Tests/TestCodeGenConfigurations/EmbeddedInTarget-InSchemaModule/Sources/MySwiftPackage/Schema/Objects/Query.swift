@@ -3,9 +3,9 @@
 
 import ApolloAPI
 
-public extension MyGraphQLSchema {
-  final class Query: Object {
-    override public class var __typename: StaticString { "Query" }
-  }
-
+public extension MyGraphQLSchema.Objects {
+  static let Query = Object(
+    typename: "Query",
+    implementedInterfaces: []
+  )
 }

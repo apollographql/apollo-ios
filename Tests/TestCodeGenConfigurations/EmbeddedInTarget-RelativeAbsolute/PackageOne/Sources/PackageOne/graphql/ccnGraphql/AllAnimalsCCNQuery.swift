@@ -30,7 +30,7 @@ class AllAnimalsCCNQuery: GraphQLQuery {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(MySchemaModule.Query.self) }
+    public static var __parentType: ParentType { MySchemaModule.Objects.Query }
     public static var selections: [Selection] { [
       .field("allAnimals", [AllAnimal].self),
     ] }
@@ -44,7 +44,7 @@ class AllAnimalsCCNQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { .Interface(MySchemaModule.Animal.self) }
+      public static var __parentType: ParentType { MySchemaModule.Interfaces.Animal }
       public static var selections: [Selection] { [
         .field("height", Height?.self),
       ] }
@@ -58,7 +58,7 @@ class AllAnimalsCCNQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Object(MySchemaModule.Height.self) }
+        public static var __parentType: ParentType { MySchemaModule.Objects.Height }
         public static var selections: [Selection] { [
           .field("feet", Int?.self),
           .field("inches", Int.self),

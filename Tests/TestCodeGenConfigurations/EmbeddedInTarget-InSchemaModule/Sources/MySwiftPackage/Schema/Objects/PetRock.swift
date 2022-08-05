@@ -3,14 +3,9 @@
 
 import ApolloAPI
 
-public extension MyGraphQLSchema {
-  final class PetRock: Object {
-    override public class var __typename: StaticString { "PetRock" }
-
-    override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-    private static let _implementedInterfaces: [Interface.Type]? = [
-      Pet.self
-    ]
-  }
-
+public extension MyGraphQLSchema.Objects {
+  static let PetRock = Object(
+    typename: "PetRock",
+    implementedInterfaces: [MyGraphQLSchema.Interfaces.Pet.self]
+  )
 }

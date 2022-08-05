@@ -4,9 +4,9 @@
 import ApolloTestSupport
 import MyCodegenTargetDestination
 
-extension Crocodile: Mockable {
-  public static let __mockFields = MockFields()
-
+public class Crocodile: MockObject {
+  public static let objectType: Object = MyCodegenTargetDestination.Objects.Crocodile
+  public static let _mockFields = MockFields()
   public typealias MockValueCollectionType = Array<Mock<Crocodile>>
 
   public struct MockFields {

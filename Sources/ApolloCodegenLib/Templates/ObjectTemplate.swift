@@ -23,7 +23,10 @@ struct ObjectTemplate: TemplateRenderer {
   private func ImplementedInterfacesTemplate() -> TemplateString {
     return """
     [\(list: graphqlObject.interfaces.map({ interface in
-          "Interfaces.\(interface.name.firstUppercased).self"
+          TemplateString("""
+          \(if: !config.output.schemaTypes.isInModule, "\(config.schemaName.firstUppercased).")\
+          Interfaces.\(interface.name.firstUppercased).self
+          """)
       }))]
     """
   }

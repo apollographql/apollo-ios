@@ -4,9 +4,9 @@
 import ApolloTestSupport
 import MyCodegenTargetDestination
 
-extension PetRock: Mockable {
-  public static let __mockFields = MockFields()
-
+public class PetRock: MockObject {
+  public static let objectType: Object = MyCodegenTargetDestination.Objects.PetRock
+  public static let _mockFields = MockFields()
   public typealias MockValueCollectionType = Array<Mock<PetRock>>
 
   public struct MockFields {

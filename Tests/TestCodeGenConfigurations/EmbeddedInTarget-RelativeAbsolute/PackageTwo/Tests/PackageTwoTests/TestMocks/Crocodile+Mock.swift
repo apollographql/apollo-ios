@@ -4,22 +4,22 @@
 import ApolloTestSupport
 import PackageTwo
 
-extension MySchemaModule.Crocodile: Mockable {
-  public static let __mockFields = MockFields()
-
-  public typealias MockValueCollectionType = Array<Mock<MySchemaModule.Crocodile>>
+public class Crocodile: MockObject {
+  public static let objectType: Object = MySchemaModule.Objects.Crocodile
+  public static let _mockFields = MockFields()
+  public typealias MockValueCollectionType = Array<Mock<Crocodile>>
 
   public struct MockFields {
-    @Field<MySchemaModule.Height>("height") public var height
-    @Field<[MySchemaModule.Animal]>("predators") public var predators
+    @Field<Height>("height") public var height
+    @Field<[Animal]>("predators") public var predators
     @Field<GraphQLEnum<MySchemaModule.SkinCovering>>("skinCovering") public var skinCovering
     @Field<String>("species") public var species
   }
 }
 
-public extension Mock where O == MySchemaModule.Crocodile {
+public extension Mock where O == Crocodile {
   convenience init(
-    height: Mock<MySchemaModule.Height>? = nil,
+    height: Mock<Height>? = nil,
     predators: [AnyMock]? = nil,
     skinCovering: GraphQLEnum<MySchemaModule.SkinCovering>? = nil,
     species: String? = nil

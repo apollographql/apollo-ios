@@ -4,19 +4,19 @@
 import ApolloTestSupport
 import MySwiftPackage
 
-extension MyGraphQLSchema.Query: Mockable {
-  public static let __mockFields = MockFields()
-
-  public typealias MockValueCollectionType = Array<Mock<MyGraphQLSchema.Query>>
+public class Query: MockObject {
+  public static let objectType: Object = MyGraphQLSchema.Objects.Query
+  public static let _mockFields = MockFields()
+  public typealias MockValueCollectionType = Array<Mock<Query>>
 
   public struct MockFields {
-    @Field<[MyGraphQLSchema.Animal]>("allAnimals") public var allAnimals
-    @Field<[MyGraphQLSchema.ClassroomPet?]>("classroomPets") public var classroomPets
-    @Field<[MyGraphQLSchema.Pet]>("pets") public var pets
+    @Field<[Animal]>("allAnimals") public var allAnimals
+    @Field<[ClassroomPet?]>("classroomPets") public var classroomPets
+    @Field<[Pet]>("pets") public var pets
   }
 }
 
-public extension Mock where O == MyGraphQLSchema.Query {
+public extension Mock where O == Query {
   convenience init(
     allAnimals: [AnyMock]? = nil,
     classroomPets: [AnyMock?]? = nil,

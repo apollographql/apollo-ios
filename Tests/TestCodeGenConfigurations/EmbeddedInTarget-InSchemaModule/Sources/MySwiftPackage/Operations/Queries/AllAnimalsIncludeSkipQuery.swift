@@ -83,19 +83,19 @@ public extension MyGraphQLSchema {
       self.varA = varA
     }
 
-    public var variables: Variables? {
-      ["includeSpecies": includeSpecies,
-       "skipHeightInMeters": skipHeightInMeters,
-       "getCat": getCat,
-       "getWarmBlooded": getWarmBlooded,
-       "varA": varA]
-    }
+    public var variables: Variables? { [
+      "includeSpecies": includeSpecies,
+      "skipHeightInMeters": skipHeightInMeters,
+      "getCat": getCat,
+      "getWarmBlooded": getWarmBlooded,
+      "varA": varA
+    ] }
 
     public struct Data: MyGraphQLSchema.SelectionSet {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { .Object(MyGraphQLSchema.Query.self) }
+      public static var __parentType: ParentType { MyGraphQLSchema.Objects.Query }
       public static var selections: [Selection] { [
         .field("allAnimals", [AllAnimal].self),
       ] }
@@ -109,7 +109,7 @@ public extension MyGraphQLSchema {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Interface(MyGraphQLSchema.Animal.self) }
+        public static var __parentType: ParentType { MyGraphQLSchema.Interfaces.Animal }
         public static var selections: [Selection] { [
           .field("height", Height.self),
           .field("skinCovering", GraphQLEnum<SkinCovering>?.self),
@@ -147,7 +147,7 @@ public extension MyGraphQLSchema {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public static var __parentType: ParentType { .Object(MyGraphQLSchema.Height.self) }
+          public static var __parentType: ParentType { MyGraphQLSchema.Objects.Height }
           public static var selections: [Selection] { [
             .field("feet", Int.self),
             .field("inches", Int?.self),
@@ -165,7 +165,7 @@ public extension MyGraphQLSchema {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public static var __parentType: ParentType { .Interface(MyGraphQLSchema.Animal.self) }
+          public static var __parentType: ParentType { MyGraphQLSchema.Interfaces.Animal }
           public static var selections: [Selection] { [
             .include(if: "includeSpecies", .field("species", String.self)),
             .include(if: "getWarmBlooded", .inlineFragment(AsWarmBlooded.self)),
@@ -182,7 +182,7 @@ public extension MyGraphQLSchema {
             public let __data: DataDict
             public init(data: DataDict) { __data = data }
 
-            public static var __parentType: ParentType { .Interface(MyGraphQLSchema.WarmBlooded.self) }
+            public static var __parentType: ParentType { MyGraphQLSchema.Interfaces.WarmBlooded }
             public static var selections: [Selection] { [
               .field("species", String.self),
               .fragment(WarmBloodedDetails.self),
@@ -211,7 +211,7 @@ public extension MyGraphQLSchema {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public static var __parentType: ParentType { .Interface(MyGraphQLSchema.WarmBlooded.self) }
+          public static var __parentType: ParentType { MyGraphQLSchema.Interfaces.WarmBlooded }
           public static var selections: [Selection] { [
             .fragment(WarmBloodedDetails.self),
           ] }
@@ -239,7 +239,7 @@ public extension MyGraphQLSchema {
             public let __data: DataDict
             public init(data: DataDict) { __data = data }
 
-            public static var __parentType: ParentType { .Object(MyGraphQLSchema.Height.self) }
+            public static var __parentType: ParentType { MyGraphQLSchema.Objects.Height }
 
             public var feet: Int { __data["feet"] }
             public var inches: Int? { __data["inches"] }
@@ -253,7 +253,7 @@ public extension MyGraphQLSchema {
             public let __data: DataDict
             public init(data: DataDict) { __data = data }
 
-            public static var __parentType: ParentType { .Interface(MyGraphQLSchema.WarmBlooded.self) }
+            public static var __parentType: ParentType { MyGraphQLSchema.Interfaces.WarmBlooded }
 
             public var height: Height { __data["height"] }
             public var species: String? { __data["species"] }
@@ -276,7 +276,7 @@ public extension MyGraphQLSchema {
               public let __data: DataDict
               public init(data: DataDict) { __data = data }
 
-              public static var __parentType: ParentType { .Object(MyGraphQLSchema.Height.self) }
+              public static var __parentType: ParentType { MyGraphQLSchema.Objects.Height }
 
               public var feet: Int { __data["feet"] }
               public var inches: Int? { __data["inches"] }
@@ -292,7 +292,7 @@ public extension MyGraphQLSchema {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public static var __parentType: ParentType { .Interface(MyGraphQLSchema.Pet.self) }
+          public static var __parentType: ParentType { MyGraphQLSchema.Interfaces.Pet }
           public static var selections: [Selection] { [
             .field("height", Height.self),
             .inlineFragment(AsWarmBlooded.self),
@@ -324,7 +324,7 @@ public extension MyGraphQLSchema {
             public let __data: DataDict
             public init(data: DataDict) { __data = data }
 
-            public static var __parentType: ParentType { .Object(MyGraphQLSchema.Height.self) }
+            public static var __parentType: ParentType { MyGraphQLSchema.Objects.Height }
             public static var selections: [Selection] { [
               .include(if: "varA", [
                 .field("relativeSize", GraphQLEnum<RelativeSize>.self),
@@ -346,7 +346,7 @@ public extension MyGraphQLSchema {
             public let __data: DataDict
             public init(data: DataDict) { __data = data }
 
-            public static var __parentType: ParentType { .Interface(MyGraphQLSchema.WarmBlooded.self) }
+            public static var __parentType: ParentType { MyGraphQLSchema.Interfaces.WarmBlooded }
             public static var selections: [Selection] { [
               .fragment(WarmBloodedDetails.self),
             ] }
@@ -376,7 +376,7 @@ public extension MyGraphQLSchema {
               public let __data: DataDict
               public init(data: DataDict) { __data = data }
 
-              public static var __parentType: ParentType { .Object(MyGraphQLSchema.Height.self) }
+              public static var __parentType: ParentType { MyGraphQLSchema.Objects.Height }
 
               public var feet: Int { __data["feet"] }
               public var inches: Int? { __data["inches"] }
@@ -394,7 +394,7 @@ public extension MyGraphQLSchema {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public static var __parentType: ParentType { .Object(MyGraphQLSchema.Cat.self) }
+          public static var __parentType: ParentType { MyGraphQLSchema.Objects.Cat }
           public static var selections: [Selection] { [
             .field("isJellicle", Bool.self),
           ] }
@@ -425,7 +425,7 @@ public extension MyGraphQLSchema {
             public let __data: DataDict
             public init(data: DataDict) { __data = data }
 
-            public static var __parentType: ParentType { .Object(MyGraphQLSchema.Height.self) }
+            public static var __parentType: ParentType { MyGraphQLSchema.Objects.Height }
 
             public var feet: Int { __data["feet"] }
             public var inches: Int? { __data["inches"] }
@@ -442,7 +442,7 @@ public extension MyGraphQLSchema {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public static var __parentType: ParentType { .Union(MyGraphQLSchema.ClassroomPet.self) }
+          public static var __parentType: ParentType { MyGraphQLSchema.Unions.ClassroomPet }
           public static var selections: [Selection] { [
             .inlineFragment(AsBird.self),
           ] }
@@ -468,7 +468,7 @@ public extension MyGraphQLSchema {
             public let __data: DataDict
             public init(data: DataDict) { __data = data }
 
-            public static var __parentType: ParentType { .Object(MyGraphQLSchema.Height.self) }
+            public static var __parentType: ParentType { MyGraphQLSchema.Objects.Height }
 
             public var feet: Int { __data["feet"] }
             public var inches: Int? { __data["inches"] }
@@ -482,7 +482,7 @@ public extension MyGraphQLSchema {
             public let __data: DataDict
             public init(data: DataDict) { __data = data }
 
-            public static var __parentType: ParentType { .Object(MyGraphQLSchema.Bird.self) }
+            public static var __parentType: ParentType { MyGraphQLSchema.Objects.Bird }
             public static var selections: [Selection] { [
               .field("wingspan", Double.self),
             ] }
@@ -513,7 +513,7 @@ public extension MyGraphQLSchema {
               public let __data: DataDict
               public init(data: DataDict) { __data = data }
 
-              public static var __parentType: ParentType { .Object(MyGraphQLSchema.Height.self) }
+              public static var __parentType: ParentType { MyGraphQLSchema.Objects.Height }
 
               public var feet: Int { __data["feet"] }
               public var inches: Int? { __data["inches"] }
@@ -530,7 +530,7 @@ public extension MyGraphQLSchema {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public static var __parentType: ParentType { .Interface(MyGraphQLSchema.Animal.self) }
+          public static var __parentType: ParentType { MyGraphQLSchema.Interfaces.Animal }
 
           public var height: Height { __data["height"] }
           public var species: String? { __data["species"] }
@@ -551,7 +551,7 @@ public extension MyGraphQLSchema {
             public let __data: DataDict
             public init(data: DataDict) { __data = data }
 
-            public static var __parentType: ParentType { .Object(MyGraphQLSchema.Height.self) }
+            public static var __parentType: ParentType { MyGraphQLSchema.Objects.Height }
 
             public var feet: Int { __data["feet"] }
             public var inches: Int? { __data["inches"] }

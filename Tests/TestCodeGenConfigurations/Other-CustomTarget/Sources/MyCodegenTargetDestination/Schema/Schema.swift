@@ -18,20 +18,24 @@ public protocol MutableInlineFragment: ApolloAPI.MutableSelectionSet & ApolloAPI
 where Schema == MyCodegenTargetDestination.Schema {}
 
 public enum Schema: SchemaConfiguration {
-  public static func objectType(forTypename __typename: String) -> Object.Type? {
-    switch __typename {
-    case "Query": return MyCodegenTargetDestination.Query.self
-    case "Human": return MyCodegenTargetDestination.Human.self
-    case "Cat": return MyCodegenTargetDestination.Cat.self
-    case "Dog": return MyCodegenTargetDestination.Dog.self
-    case "Bird": return MyCodegenTargetDestination.Bird.self
-    case "Fish": return MyCodegenTargetDestination.Fish.self
-    case "Rat": return MyCodegenTargetDestination.Rat.self
-    case "PetRock": return MyCodegenTargetDestination.PetRock.self
-    case "Crocodile": return MyCodegenTargetDestination.Crocodile.self
-    case "Height": return MyCodegenTargetDestination.Height.self
-    case "Mutation": return MyCodegenTargetDestination.Mutation.self
+  public static func objectType(forTypename typename: String) -> Object? {
+    switch typename {
+    case "Query": return MyCodegenTargetDestination.Objects.Query
+    case "Human": return MyCodegenTargetDestination.Objects.Human
+    case "Cat": return MyCodegenTargetDestination.Objects.Cat
+    case "Dog": return MyCodegenTargetDestination.Objects.Dog
+    case "Bird": return MyCodegenTargetDestination.Objects.Bird
+    case "Fish": return MyCodegenTargetDestination.Objects.Fish
+    case "Rat": return MyCodegenTargetDestination.Objects.Rat
+    case "PetRock": return MyCodegenTargetDestination.Objects.PetRock
+    case "Crocodile": return MyCodegenTargetDestination.Objects.Crocodile
+    case "Height": return MyCodegenTargetDestination.Objects.Height
+    case "Mutation": return MyCodegenTargetDestination.Objects.Mutation
     default: return nil
     }
   }
 }
+
+public enum Objects {}
+public enum Interfaces {}
+public enum Unions {}

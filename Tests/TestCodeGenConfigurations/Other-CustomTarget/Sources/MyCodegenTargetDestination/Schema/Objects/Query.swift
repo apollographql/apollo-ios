@@ -3,6 +3,9 @@
 
 import ApolloAPI
 
-public final class Query: Object {
-  override public class var __typename: StaticString { "Query" }
+public extension Objects {
+  static let Query = Object(
+    typename: "Query",
+    implementedInterfaces: []
+  )
 }

@@ -18,7 +18,7 @@ public extension MyGraphQLSchema {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Interface(MyGraphQLSchema.WarmBlooded.self) }
+    public static var __parentType: ParentType { MyGraphQLSchema.Interfaces.WarmBlooded }
     public static var selections: [Selection] { [
       .field("bodyTemperature", Int.self),
       .fragment(HeightInMeters.self),

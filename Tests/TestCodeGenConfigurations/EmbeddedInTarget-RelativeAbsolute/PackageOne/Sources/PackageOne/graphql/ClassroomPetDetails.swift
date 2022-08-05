@@ -41,7 +41,7 @@ struct ClassroomPetDetails: MySchemaModule.SelectionSet, Fragment {
   public let __data: DataDict
   public init(data: DataDict) { __data = data }
 
-  public static var __parentType: ParentType { .Union(MySchemaModule.ClassroomPet.self) }
+  public static var __parentType: ParentType { MySchemaModule.Unions.ClassroomPet }
   public static var selections: [Selection] { [
     .inlineFragment(AsAnimal.self),
     .inlineFragment(AsPet.self),
@@ -65,7 +65,7 @@ struct ClassroomPetDetails: MySchemaModule.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Interface(MySchemaModule.Animal.self) }
+    public static var __parentType: ParentType { MySchemaModule.Interfaces.Animal }
     public static var selections: [Selection] { [
       .field("species", String.self),
     ] }
@@ -80,7 +80,7 @@ struct ClassroomPetDetails: MySchemaModule.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Interface(MySchemaModule.Pet.self) }
+    public static var __parentType: ParentType { MySchemaModule.Interfaces.Pet }
     public static var selections: [Selection] { [
       .field("humanName", String?.self),
     ] }
@@ -95,7 +95,7 @@ struct ClassroomPetDetails: MySchemaModule.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Interface(MySchemaModule.WarmBlooded.self) }
+    public static var __parentType: ParentType { MySchemaModule.Interfaces.WarmBlooded }
     public static var selections: [Selection] { [
       .field("laysEggs", Bool.self),
     ] }
@@ -111,7 +111,7 @@ struct ClassroomPetDetails: MySchemaModule.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(MySchemaModule.Cat.self) }
+    public static var __parentType: ParentType { MySchemaModule.Objects.Cat }
     public static var selections: [Selection] { [
       .field("bodyTemperature", Int.self),
       .field("isJellicle", Bool.self),
@@ -131,7 +131,7 @@ struct ClassroomPetDetails: MySchemaModule.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(MySchemaModule.Bird.self) }
+    public static var __parentType: ParentType { MySchemaModule.Objects.Bird }
     public static var selections: [Selection] { [
       .field("wingspan", Double.self),
     ] }
@@ -149,7 +149,7 @@ struct ClassroomPetDetails: MySchemaModule.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(MySchemaModule.PetRock.self) }
+    public static var __parentType: ParentType { MySchemaModule.Objects.PetRock }
     public static var selections: [Selection] { [
       .field("favoriteToy", String.self),
     ] }

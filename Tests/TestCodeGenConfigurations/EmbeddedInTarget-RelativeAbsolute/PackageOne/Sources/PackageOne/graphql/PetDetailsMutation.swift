@@ -20,7 +20,7 @@ struct PetDetailsMutation: MySchemaModule.MutableSelectionSet, Fragment {
   public var __data: DataDict
   public init(data: DataDict) { __data = data }
 
-  public static var __parentType: ParentType { .Interface(MySchemaModule.Pet.self) }
+  public static var __parentType: ParentType { MySchemaModule.Interfaces.Pet }
   public static var selections: [Selection] { [
     .field("owner", Owner?.self),
   ] }
@@ -37,7 +37,7 @@ struct PetDetailsMutation: MySchemaModule.MutableSelectionSet, Fragment {
     public var __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(MySchemaModule.Human.self) }
+    public static var __parentType: ParentType { MySchemaModule.Objects.Human }
     public static var selections: [Selection] { [
       .field("firstName", String.self),
     ] }

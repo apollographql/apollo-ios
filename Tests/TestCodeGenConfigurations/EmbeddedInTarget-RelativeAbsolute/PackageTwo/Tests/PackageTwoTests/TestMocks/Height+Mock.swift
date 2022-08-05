@@ -4,10 +4,10 @@
 import ApolloTestSupport
 import PackageTwo
 
-extension MySchemaModule.Height: Mockable {
-  public static let __mockFields = MockFields()
-
-  public typealias MockValueCollectionType = Array<Mock<MySchemaModule.Height>>
+public class Height: MockObject {
+  public static let objectType: Object = MySchemaModule.Objects.Height
+  public static let _mockFields = MockFields()
+  public typealias MockValueCollectionType = Array<Mock<Height>>
 
   public struct MockFields {
     @Field<Double>("centimeters") public var centimeters
@@ -18,7 +18,7 @@ extension MySchemaModule.Height: Mockable {
   }
 }
 
-public extension Mock where O == MySchemaModule.Height {
+public extension Mock where O == Height {
   convenience init(
     centimeters: Double? = nil,
     feet: Int? = nil,

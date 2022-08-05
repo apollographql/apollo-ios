@@ -4,9 +4,9 @@
 import ApolloTestSupport
 import MyCustomProject
 
-extension Rat: Mockable {
-  public static let __mockFields = MockFields()
-
+public class Rat: MockObject {
+  public static let objectType: Object = MyCustomProject.Objects.Rat
+  public static let _mockFields = MockFields()
   public typealias MockValueCollectionType = Array<Mock<Rat>>
 
   public struct MockFields {

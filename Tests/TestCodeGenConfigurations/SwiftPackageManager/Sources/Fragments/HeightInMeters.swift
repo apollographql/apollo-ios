@@ -19,7 +19,7 @@ public struct HeightInMeters: GraphQLSchemaName.SelectionSet, Fragment {
   public let __data: DataDict
   public init(data: DataDict) { __data = data }
 
-  public static var __parentType: ParentType { .Interface(GraphQLSchemaName.Animal.self) }
+  public static var __parentType: ParentType { GraphQLSchemaName.Interfaces.Animal }
   public static var selections: [Selection] { [
     .field("height", Height.self),
   ] }
@@ -33,7 +33,7 @@ public struct HeightInMeters: GraphQLSchemaName.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(GraphQLSchemaName.Height.self) }
+    public static var __parentType: ParentType { GraphQLSchemaName.Objects.Height }
     public static var selections: [Selection] { [
       .field("meters", Int.self),
     ] }

@@ -4,10 +4,10 @@
 import ApolloTestSupport
 import MySwiftPackage
 
-extension MyGraphQLSchema.Height: Mockable {
-  public static let __mockFields = MockFields()
-
-  public typealias MockValueCollectionType = Array<Mock<MyGraphQLSchema.Height>>
+public class Height: MockObject {
+  public static let objectType: Object = MyGraphQLSchema.Objects.Height
+  public static let _mockFields = MockFields()
+  public typealias MockValueCollectionType = Array<Mock<Height>>
 
   public struct MockFields {
     @Field<Double>("centimeters") public var centimeters
@@ -18,7 +18,7 @@ extension MyGraphQLSchema.Height: Mockable {
   }
 }
 
-public extension Mock where O == MyGraphQLSchema.Height {
+public extension Mock where O == Height {
   convenience init(
     centimeters: Double? = nil,
     feet: Int? = nil,

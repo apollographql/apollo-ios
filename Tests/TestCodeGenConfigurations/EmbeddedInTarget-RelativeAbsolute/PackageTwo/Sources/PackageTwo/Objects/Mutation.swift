@@ -3,9 +3,9 @@
 
 import ApolloAPI
 
-public extension MySchemaModule {
-  final class Mutation: Object {
-    override public class var __typename: StaticString { "Mutation" }
-  }
-
+public extension MySchemaModule.Objects {
+  static let Mutation = Object(
+    typename: "Mutation",
+    implementedInterfaces: []
+  )
 }

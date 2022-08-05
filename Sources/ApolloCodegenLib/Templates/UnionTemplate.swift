@@ -31,7 +31,10 @@ struct UnionTemplate: TemplateRenderer {
   private func PossibleTypeTemplate(
     _ type: GraphQLObjectType
   ) -> TemplateString {
-    "Objects.\(type.name.firstUppercased).self"
+    """
+    \(if: !config.output.schemaTypes.isInModule, "\(config.schemaName.firstUppercased).")\
+    Objects.\(type.name.firstUppercased).self
+    """
   }
 
 #warning("""

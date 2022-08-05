@@ -4,25 +4,25 @@
 import ApolloTestSupport
 import PackageTwo
 
-extension MySchemaModule.PetRock: Mockable {
-  public static let __mockFields = MockFields()
-
-  public typealias MockValueCollectionType = Array<Mock<MySchemaModule.PetRock>>
+public class PetRock: MockObject {
+  public static let objectType: Object = MySchemaModule.Objects.PetRock
+  public static let _mockFields = MockFields()
+  public typealias MockValueCollectionType = Array<Mock<PetRock>>
 
   public struct MockFields {
     @Field<String>("favoriteToy") public var favoriteToy
     @Field<String>("humanName") public var humanName
     @Field<MySchemaModule.ID>("id") public var id
-    @Field<MySchemaModule.Human>("owner") public var owner
+    @Field<Human>("owner") public var owner
   }
 }
 
-public extension Mock where O == MySchemaModule.PetRock {
+public extension Mock where O == PetRock {
   convenience init(
     favoriteToy: String? = nil,
     humanName: String? = nil,
     id: MySchemaModule.ID? = nil,
-    owner: Mock<MySchemaModule.Human>? = nil
+    owner: Mock<Human>? = nil
   ) {
     self.init()
     self.favoriteToy = favoriteToy

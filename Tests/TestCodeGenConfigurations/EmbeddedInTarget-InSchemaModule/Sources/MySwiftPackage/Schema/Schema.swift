@@ -27,22 +27,26 @@ public extension MyGraphQLSchema {
   typealias MutableInlineFragment = MyGraphQLSchema_MutableInlineFragment
 
   enum Schema: SchemaConfiguration {
-    public static func objectType(forTypename __typename: String) -> Object.Type? {
-      switch __typename {
-      case "Query": return MyGraphQLSchema.Query.self
-      case "Human": return MyGraphQLSchema.Human.self
-      case "Cat": return MyGraphQLSchema.Cat.self
-      case "Dog": return MyGraphQLSchema.Dog.self
-      case "Bird": return MyGraphQLSchema.Bird.self
-      case "Fish": return MyGraphQLSchema.Fish.self
-      case "Rat": return MyGraphQLSchema.Rat.self
-      case "PetRock": return MyGraphQLSchema.PetRock.self
-      case "Crocodile": return MyGraphQLSchema.Crocodile.self
-      case "Height": return MyGraphQLSchema.Height.self
-      case "Mutation": return MyGraphQLSchema.Mutation.self
+    public static func objectType(forTypename typename: String) -> Object? {
+      switch typename {
+      case "Query": return MyGraphQLSchema.Objects.Query
+      case "Human": return MyGraphQLSchema.Objects.Human
+      case "Cat": return MyGraphQLSchema.Objects.Cat
+      case "Dog": return MyGraphQLSchema.Objects.Dog
+      case "Bird": return MyGraphQLSchema.Objects.Bird
+      case "Fish": return MyGraphQLSchema.Objects.Fish
+      case "Rat": return MyGraphQLSchema.Objects.Rat
+      case "PetRock": return MyGraphQLSchema.Objects.PetRock
+      case "Crocodile": return MyGraphQLSchema.Objects.Crocodile
+      case "Height": return MyGraphQLSchema.Objects.Height
+      case "Mutation": return MyGraphQLSchema.Objects.Mutation
       default: return nil
       }
     }
   }
+
+  enum Objects {}
+  enum Interfaces {}
+  enum Unions {}
 
 }

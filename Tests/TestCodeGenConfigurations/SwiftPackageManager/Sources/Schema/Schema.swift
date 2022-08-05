@@ -18,20 +18,24 @@ public protocol MutableInlineFragment: ApolloAPI.MutableSelectionSet & ApolloAPI
 where Schema == GraphQLSchemaName.Schema {}
 
 public enum Schema: SchemaConfiguration {
-  public static func objectType(forTypename __typename: String) -> Object.Type? {
-    switch __typename {
-    case "Query": return GraphQLSchemaName.Query.self
-    case "Human": return GraphQLSchemaName.Human.self
-    case "Cat": return GraphQLSchemaName.Cat.self
-    case "Dog": return GraphQLSchemaName.Dog.self
-    case "Bird": return GraphQLSchemaName.Bird.self
-    case "Fish": return GraphQLSchemaName.Fish.self
-    case "Rat": return GraphQLSchemaName.Rat.self
-    case "PetRock": return GraphQLSchemaName.PetRock.self
-    case "Crocodile": return GraphQLSchemaName.Crocodile.self
-    case "Height": return GraphQLSchemaName.Height.self
-    case "Mutation": return GraphQLSchemaName.Mutation.self
+  public static func objectType(forTypename typename: String) -> Object? {
+    switch typename {
+    case "Query": return GraphQLSchemaName.Objects.Query
+    case "Human": return GraphQLSchemaName.Objects.Human
+    case "Cat": return GraphQLSchemaName.Objects.Cat
+    case "Dog": return GraphQLSchemaName.Objects.Dog
+    case "Bird": return GraphQLSchemaName.Objects.Bird
+    case "Fish": return GraphQLSchemaName.Objects.Fish
+    case "Rat": return GraphQLSchemaName.Objects.Rat
+    case "PetRock": return GraphQLSchemaName.Objects.PetRock
+    case "Crocodile": return GraphQLSchemaName.Objects.Crocodile
+    case "Height": return GraphQLSchemaName.Objects.Height
+    case "Mutation": return GraphQLSchemaName.Objects.Mutation
     default: return nil
     }
   }
 }
+
+public enum Objects {}
+public enum Interfaces {}
+public enum Unions {}

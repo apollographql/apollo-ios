@@ -15,7 +15,7 @@ class AllAnimalsLocalCacheMutation: LocalCacheMutation {
     public var __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(MySchemaModule.Query.self) }
+    public static var __parentType: ParentType { MySchemaModule.Objects.Query }
     public static var selections: [Selection] { [
       .field("allAnimals", [AllAnimal].self),
     ] }
@@ -32,7 +32,7 @@ class AllAnimalsLocalCacheMutation: LocalCacheMutation {
       public var __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { .Interface(MySchemaModule.Animal.self) }
+      public static var __parentType: ParentType { MySchemaModule.Interfaces.Animal }
       public static var selections: [Selection] { [
         .field("species", String.self),
         .field("skinCovering", GraphQLEnum<MySchemaModule.SkinCovering>?.self),
@@ -60,7 +60,7 @@ class AllAnimalsLocalCacheMutation: LocalCacheMutation {
         public var __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Object(MySchemaModule.Bird.self) }
+        public static var __parentType: ParentType { MySchemaModule.Objects.Bird }
         public static var selections: [Selection] { [
           .field("wingspan", Double.self),
         ] }

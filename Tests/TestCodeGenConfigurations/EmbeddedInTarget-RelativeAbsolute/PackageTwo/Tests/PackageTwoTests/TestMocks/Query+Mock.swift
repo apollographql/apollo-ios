@@ -4,19 +4,19 @@
 import ApolloTestSupport
 import PackageTwo
 
-extension MySchemaModule.Query: Mockable {
-  public static let __mockFields = MockFields()
-
-  public typealias MockValueCollectionType = Array<Mock<MySchemaModule.Query>>
+public class Query: MockObject {
+  public static let objectType: Object = MySchemaModule.Objects.Query
+  public static let _mockFields = MockFields()
+  public typealias MockValueCollectionType = Array<Mock<Query>>
 
   public struct MockFields {
-    @Field<[MySchemaModule.Animal]>("allAnimals") public var allAnimals
-    @Field<[MySchemaModule.ClassroomPet?]>("classroomPets") public var classroomPets
-    @Field<[MySchemaModule.Pet]>("pets") public var pets
+    @Field<[Animal]>("allAnimals") public var allAnimals
+    @Field<[ClassroomPet?]>("classroomPets") public var classroomPets
+    @Field<[Pet]>("pets") public var pets
   }
 }
 
-public extension Mock where O == MySchemaModule.Query {
+public extension Mock where O == Query {
   convenience init(
     allAnimals: [AnyMock]? = nil,
     classroomPets: [AnyMock?]? = nil,

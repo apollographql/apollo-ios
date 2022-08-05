@@ -21,7 +21,7 @@ public struct PetDetails: MyCodegenTargetDestination.SelectionSet, Fragment {
   public let __data: DataDict
   public init(data: DataDict) { __data = data }
 
-  public static var __parentType: ParentType { .Interface(MyCodegenTargetDestination.Pet.self) }
+  public static var __parentType: ParentType { MyCodegenTargetDestination.Interfaces.Pet }
   public static var selections: [Selection] { [
     .field("humanName", String?.self),
     .field("favoriteToy", String.self),
@@ -39,7 +39,7 @@ public struct PetDetails: MyCodegenTargetDestination.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(MyCodegenTargetDestination.Human.self) }
+    public static var __parentType: ParentType { MyCodegenTargetDestination.Objects.Human }
     public static var selections: [Selection] { [
       .field("firstName", String.self),
     ] }
