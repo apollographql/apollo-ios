@@ -72,14 +72,14 @@ struct Generate: ParsableCommand {
         schemaDownloadProvider: schemaDownloadProvider
       )
     }
-    
-    try codegenProvider.build(with: configuration)
+
+    try codegenProvider.build(with: configuration, withRootURL: rootOutputURL(for: inputs))
   }
 
   private func fetchSchema(
     configuration: ApolloSchemaDownloadConfiguration,
     schemaDownloadProvider: SchemaDownloadProvider.Type
   ) throws {
-    try schemaDownloadProvider.fetch(configuration: configuration)
+    try schemaDownloadProvider.fetch(configuration: configuration, withRootURL: rootOutputURL(for: inputs))
   }
 }

@@ -49,6 +49,9 @@ struct FetchSchema: ParsableCommand {
 
     CodegenLogger.level = .warning
 
-    try schemaDownloadProvider.fetch(configuration: schemaDownloadConfiguration)
+    try schemaDownloadProvider.fetch(
+      configuration: schemaDownloadConfiguration,
+      withRootURL: rootOutputURL(for: inputs)
+    )
   }
 }

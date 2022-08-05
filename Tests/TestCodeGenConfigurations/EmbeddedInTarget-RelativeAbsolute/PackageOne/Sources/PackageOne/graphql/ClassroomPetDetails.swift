@@ -1,0 +1,160 @@
+// @generated
+// This file was automatically generated and should not be edited.
+
+import ApolloAPI
+@_exported import enum ApolloAPI.GraphQLEnum
+@_exported import enum ApolloAPI.GraphQLNullable
+import PackageTwo
+
+struct ClassroomPetDetails: MySchemaModule.SelectionSet, Fragment {
+  public static var fragmentDefinition: StaticString { """
+    fragment ClassroomPetDetails on ClassroomPet {
+      __typename
+      ... on Animal {
+        __typename
+        species
+      }
+      ... on Pet {
+        __typename
+        humanName
+      }
+      ... on WarmBlooded {
+        __typename
+        laysEggs
+      }
+      ... on Cat {
+        __typename
+        bodyTemperature
+        isJellicle
+      }
+      ... on Bird {
+        __typename
+        wingspan
+      }
+      ... on PetRock {
+        __typename
+        favoriteToy
+      }
+    }
+    """ }
+
+  public let __data: DataDict
+  public init(data: DataDict) { __data = data }
+
+  public static var __parentType: ParentType { .Union(MySchemaModule.ClassroomPet.self) }
+  public static var selections: [Selection] { [
+    .inlineFragment(AsAnimal.self),
+    .inlineFragment(AsPet.self),
+    .inlineFragment(AsWarmBlooded.self),
+    .inlineFragment(AsCat.self),
+    .inlineFragment(AsBird.self),
+    .inlineFragment(AsPetRock.self),
+  ] }
+
+  public var asAnimal: AsAnimal? { _asInlineFragment() }
+  public var asPet: AsPet? { _asInlineFragment() }
+  public var asWarmBlooded: AsWarmBlooded? { _asInlineFragment() }
+  public var asCat: AsCat? { _asInlineFragment() }
+  public var asBird: AsBird? { _asInlineFragment() }
+  public var asPetRock: AsPetRock? { _asInlineFragment() }
+
+  /// AsAnimal
+  ///
+  /// Parent Type: `Animal`
+  public struct AsAnimal: MySchemaModule.InlineFragment {
+    public let __data: DataDict
+    public init(data: DataDict) { __data = data }
+
+    public static var __parentType: ParentType { .Interface(MySchemaModule.Animal.self) }
+    public static var selections: [Selection] { [
+      .field("species", String.self),
+    ] }
+
+    public var species: String { __data["species"] }
+  }
+
+  /// AsPet
+  ///
+  /// Parent Type: `Pet`
+  public struct AsPet: MySchemaModule.InlineFragment {
+    public let __data: DataDict
+    public init(data: DataDict) { __data = data }
+
+    public static var __parentType: ParentType { .Interface(MySchemaModule.Pet.self) }
+    public static var selections: [Selection] { [
+      .field("humanName", String?.self),
+    ] }
+
+    public var humanName: String? { __data["humanName"] }
+  }
+
+  /// AsWarmBlooded
+  ///
+  /// Parent Type: `WarmBlooded`
+  public struct AsWarmBlooded: MySchemaModule.InlineFragment {
+    public let __data: DataDict
+    public init(data: DataDict) { __data = data }
+
+    public static var __parentType: ParentType { .Interface(MySchemaModule.WarmBlooded.self) }
+    public static var selections: [Selection] { [
+      .field("laysEggs", Bool.self),
+    ] }
+
+    public var laysEggs: Bool { __data["laysEggs"] }
+    public var species: String { __data["species"] }
+  }
+
+  /// AsCat
+  ///
+  /// Parent Type: `Cat`
+  public struct AsCat: MySchemaModule.InlineFragment {
+    public let __data: DataDict
+    public init(data: DataDict) { __data = data }
+
+    public static var __parentType: ParentType { .Object(MySchemaModule.Cat.self) }
+    public static var selections: [Selection] { [
+      .field("bodyTemperature", Int.self),
+      .field("isJellicle", Bool.self),
+    ] }
+
+    public var bodyTemperature: Int { __data["bodyTemperature"] }
+    public var isJellicle: Bool { __data["isJellicle"] }
+    public var species: String { __data["species"] }
+    public var humanName: String? { __data["humanName"] }
+    public var laysEggs: Bool { __data["laysEggs"] }
+  }
+
+  /// AsBird
+  ///
+  /// Parent Type: `Bird`
+  public struct AsBird: MySchemaModule.InlineFragment {
+    public let __data: DataDict
+    public init(data: DataDict) { __data = data }
+
+    public static var __parentType: ParentType { .Object(MySchemaModule.Bird.self) }
+    public static var selections: [Selection] { [
+      .field("wingspan", Double.self),
+    ] }
+
+    public var wingspan: Double { __data["wingspan"] }
+    public var species: String { __data["species"] }
+    public var humanName: String? { __data["humanName"] }
+    public var laysEggs: Bool { __data["laysEggs"] }
+  }
+
+  /// AsPetRock
+  ///
+  /// Parent Type: `PetRock`
+  public struct AsPetRock: MySchemaModule.InlineFragment {
+    public let __data: DataDict
+    public init(data: DataDict) { __data = data }
+
+    public static var __parentType: ParentType { .Object(MySchemaModule.PetRock.self) }
+    public static var selections: [Selection] { [
+      .field("favoriteToy", String.self),
+    ] }
+
+    public var favoriteToy: String { __data["favoriteToy"] }
+    public var humanName: String? { __data["humanName"] }
+  }
+}

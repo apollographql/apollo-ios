@@ -111,7 +111,9 @@ enum FileTarget: Equatable {
       moduleSubpath += "Schema/"
     }
 
-    return URL(fileURLWithPath: config.output.schemaTypes.path)
+    let base = URL(fileURLWithPath: config.output.schemaTypes.path, relativeTo: config.rootURL)
+
+    return base
       .appendingPathComponent("\(moduleSubpath)\(subpath)").standardizedFileURL.path
   }
 
@@ -121,7 +123,7 @@ enum FileTarget: Equatable {
   ) -> String {
     switch config.output.operations {
     case .inSchemaModule:
-      var url = URL(fileURLWithPath: config.output.schemaTypes.path)
+      var url = URL(fileURLWithPath: config.output.schemaTypes.path, relativeTo: config.rootURL)
       if config.output.schemaTypes.moduleType == .swiftPackageManager {
         url = url.appendingPathComponent("Sources")
       }
@@ -129,7 +131,8 @@ enum FileTarget: Equatable {
       return url.appendingPathComponent(subpath).path
 
     case let .absolute(path):
-      return "\(path)/\(subpath)"
+      return URL(fileURLWithPath: path, relativeTo: config.rootURL)
+        .appendingPathComponent(subpath).path
 
     case let .relative(subpath):
       return resolveRelativePath(
@@ -155,7 +158,7 @@ enum FileTarget: Equatable {
   ) -> String {
     switch config.output.operations {
     case .inSchemaModule:
-      var url = URL(fileURLWithPath: config.output.schemaTypes.path)
+      var url = URL(fileURLWithPath: config.output.schemaTypes.path, relativeTo: config.rootURL)
       if config.output.schemaTypes.moduleType == .swiftPackageManager {
         url = url.appendingPathComponent("Sources")
       }
@@ -168,7 +171,8 @@ enum FileTarget: Equatable {
         .path
 
     case let .absolute(path):
-      return "\(path)/\(subpath)"
+      return URL(fileURLWithPath: path, relativeTo: config.rootURL)
+        .appendingPathComponent(subpath).path
 
     case let .relative(subpath):
       return resolveRelativePath(
@@ -185,9 +189,10 @@ enum FileTarget: Equatable {
     case .none:
       return ""
     case let .swiftPackage(targetName):
-      return "\(config.output.schemaTypes.path)/\(targetName ?? "TestMocks")"
+      return URL(fileURLWithPath: config.output.schemaTypes.path, relativeTo: config.rootURL)
+        .appendingPathComponent(targetName ?? "TestMocks").path
     case let .absolute(path):
-      return path
+      return URL(fileURLWithPath: path, relativeTo: config.rootURL).path
     }
   }
 }

@@ -28,9 +28,18 @@ public class ApolloCodegen {
   /// Executes the code generation engine with a specified configuration.
   ///
   /// - Parameters:
-  ///   - configuration: A configuration object that specifies inputs, outputs and behaviours used during code generation.
-  public static func build(with configuration: ApolloCodegenConfiguration) throws {
-    let configContext = ConfigurationContext(config: configuration)
+  ///   - configuration: A configuration object that specifies inputs, outputs and behaviours used
+  ///     during code generation.
+  ///   - rootURL: The root `URL` to resolve relative `URL`s in the configuration's paths against.
+  ///     If `nil`, the current working directory of the executing process will be used.
+  public static func build(
+    with configuration: ApolloCodegenConfiguration,
+    withRootURL rootURL: URL? = nil
+  ) throws {
+    let configContext = ConfigurationContext(
+      config: configuration,
+      rootURL: rootURL
+    )
     let compilationResult = try compileGraphQLResult(
       configContext,
       experimentalFeatures: configuration.experimentalFeatures
@@ -56,10 +65,15 @@ public class ApolloCodegen {
   class ConfigurationContext {
     let config: ApolloCodegenConfiguration
     let pluralizer: Pluralizer
+    let rootURL: URL?
 
-    init(config: ApolloCodegenConfiguration) {
+    init(
+      config: ApolloCodegenConfiguration,
+      rootURL: URL? = nil
+    ) {
       self.config = config
       self.pluralizer = Pluralizer(rules: config.options.additionalInflectionRules)
+      self.rootURL = rootURL?.standardizedFileURL
     }
 
     subscript<T>(dynamicMember keyPath: KeyPath<ApolloCodegenConfiguration, T>) -> T {
@@ -107,7 +121,7 @@ public class ApolloCodegen {
     _ config: ConfigurationContext,
     _ frontend: GraphQLJSFrontend
   ) throws -> GraphQLSchema {
-    let matches = try Glob(config.input.schemaSearchPaths).match()
+    let matches = try Glob(config.input.schemaSearchPaths, relativeTo: config.rootURL).match()
     let sources = try matches.map { try frontend.makeSource(from: URL(fileURLWithPath: $0)) }
     return try frontend.loadSchema(from: sources)
   }
@@ -117,7 +131,7 @@ public class ApolloCodegen {
     _ frontend: GraphQLJSFrontend,
     _ experimentalFeatures: ApolloCodegenConfiguration.ExperimentalFeatures
   ) throws -> GraphQLDocument {
-    let matches = try Glob(config.input.operationSearchPaths).match()
+    let matches = try Glob(config.input.operationSearchPaths, relativeTo: config.rootURL).match()
     let documents = try matches.map({ path in
       return try frontend.parseDocument(
         from: URL(fileURLWithPath: path),

@@ -461,6 +461,111 @@ class GlobTests: XCTestCase {
     ]))
   }
 
+  func test_match_givenRelativePattern_usingNoPrefix_andRelativeToRootURL_shouldUseGivenRootURL() throws {
+    // given
+    let pattern = ["**/*.one"]
+
+    // when
+    let rootURL = baseURL.appendingPathComponent("a/", isDirectory: true).standardizedFileURL
+
+    try create(files: [
+      baseURL.appendingPathComponent("file.one").path,
+      baseURL.appendingPathComponent("file.two").path,
+      baseURL.appendingPathComponent("a/file.one").path,
+      baseURL.appendingPathComponent("a/b/file.one").path,
+      baseURL.appendingPathComponent("a/b/c/file.one").path,
+      baseURL.appendingPathComponent("a/b/c/d/e/f/file.one").path,
+      baseURL.appendingPathComponent("a/b/c/d/e/f/file.two").path,
+      baseURL.appendingPathComponent("other/file.one").path,
+      baseURL.appendingPathComponent("other/file.oye").path
+    ])
+
+    // then
+    expect(Glob(pattern, relativeTo: rootURL).match).to(equal([
+      baseURL.appendingPathComponent("a/file.one").path,
+      baseURL.appendingPathComponent("a/b/file.one").path,
+      baseURL.appendingPathComponent("a/b/c/file.one").path,
+      baseURL.appendingPathComponent("a/b/c/d/e/f/file.one").path
+    ]))
+  }
+
+  func test_match_givenRelativePattern_usingSingleDotPrefix_andRelativeToRootURL_shouldUseGivenRootURL() throws {
+    // given
+    let pattern = ["./**/*.one"]
+
+    // when
+    let rootURL = baseURL.appendingPathComponent("a/", isDirectory: true).standardizedFileURL
+
+    try create(files: [
+      baseURL.appendingPathComponent("file.one").path,
+      baseURL.appendingPathComponent("file.two").path,
+      baseURL.appendingPathComponent("a/file.one").path,
+      baseURL.appendingPathComponent("a/b/file.one").path,
+      baseURL.appendingPathComponent("a/b/c/file.one").path,
+      baseURL.appendingPathComponent("a/b/c/d/e/f/file.one").path,
+      baseURL.appendingPathComponent("a/b/c/d/e/f/file.two").path,
+      baseURL.appendingPathComponent("other/file.one").path,
+      baseURL.appendingPathComponent("other/file.oye").path
+    ])
+
+    // then
+    expect(Glob(pattern, relativeTo: rootURL).match).to(equal([
+      baseURL.appendingPathComponent("a/file.one").path,
+      baseURL.appendingPathComponent("a/b/file.one").path,
+      baseURL.appendingPathComponent("a/b/c/file.one").path,
+      baseURL.appendingPathComponent("a/b/c/d/e/f/file.one").path
+    ]))
+  }
+
+  func test_match_givenRelativePattern_withNoGlob_andRelativeToRootURL_shouldUsePathRelativeToRootURL() throws {
+    // given
+    let pattern = ["../file.one"]
+
+    // when
+    let rootURL = baseURL.appendingPathComponent("relativeRoot/", isDirectory: true).standardizedFileURL
+
+    try create(files: [
+      baseURL.appendingPathComponent("file.one").path,
+      baseURL.appendingPathComponent("relativeRoot/file.one").path,
+    ])
+
+    // then
+    expect(Glob(pattern, relativeTo: rootURL).match).to(equal([
+      baseURL.appendingPathComponent("file.one").path,
+    ]))
+  }
+
+  func test_match_givenAbsolutePattern_withGlob_andRelativeToRootURL_shouldUseAbsolutePathNotRelativeToRootURL() throws {
+    // given
+    // Absolute pattern beginning with `baseURL` folowed gy globstar
+    let pattern = [baseURL.appendingPathComponent("**/*.one").path]
+
+    // when
+    let rootURL = baseURL.appendingPathComponent("empty/", isDirectory: true).standardizedFileURL
+
+    try create(files: [
+      baseURL.appendingPathComponent("file.one").path,
+      baseURL.appendingPathComponent("file.two").path,
+      baseURL.appendingPathComponent("a/file.one").path,
+      baseURL.appendingPathComponent("a/b/file.one").path,
+      baseURL.appendingPathComponent("a/b/c/file.one").path,
+      baseURL.appendingPathComponent("a/b/c/d/e/f/file.one").path,
+      baseURL.appendingPathComponent("a/b/c/d/e/f/file.two").path,
+      baseURL.appendingPathComponent("other/file.one").path,
+      baseURL.appendingPathComponent("other/file.oye").path
+    ])
+
+    // then
+    expect(Glob(pattern, relativeTo: rootURL).match).to(equal([
+      baseURL.appendingPathComponent("file.one").path,
+      baseURL.appendingPathComponent("other/file.one").path,
+      baseURL.appendingPathComponent("a/file.one").path,
+      baseURL.appendingPathComponent("a/b/file.one").path,
+      baseURL.appendingPathComponent("a/b/c/file.one").path,
+      baseURL.appendingPathComponent("a/b/c/d/e/f/file.one").path,
+    ]))
+  }
+
   func test_match_givenAbsolutePattern_shouldMatch() throws {
     // given
     let pattern = baseURL.appendingPathComponent("other/file.xyz").path
@@ -478,4 +583,5 @@ class GlobTests: XCTestCase {
       baseURL.appendingPathComponent("other/file.xyz").path
     ]))
   }
+
 }
