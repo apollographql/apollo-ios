@@ -537,6 +537,7 @@ class GlobTests: XCTestCase {
 
   func test_match_givenAbsolutePattern_withGlob_andRelativeToRootURL_shouldUseAbsolutePathNotRelativeToRootURL() throws {
     // given
+    // Absolute pattern beginning with `baseURL` folowed gy globstar
     let pattern = [baseURL.appendingPathComponent("**/*.one").path]
 
     // when
