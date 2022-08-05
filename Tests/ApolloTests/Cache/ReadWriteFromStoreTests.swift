@@ -276,7 +276,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
       class AsDroid: MockTypeCase, SelectionSet {
         typealias Schema = MockSchemaConfiguration
-        override class var __parentType: ParentType { .Object(Types.Droid) }
+        override class var __parentType: ParentType { Types.Droid }
 
         override class var selections: [Selection] { [
           .field("primaryFunction", String.self),
@@ -332,7 +332,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
       class AsDroid: MockTypeCase, SelectionSet {
         typealias Schema = MockSchemaConfiguration
-        override class var __parentType: ParentType { .Object(Types.Droid) }
+        override class var __parentType: ParentType { Types.Droid }
 
         override class var selections: [Selection] { [
           .field("primaryFunction", String.self),
@@ -644,7 +644,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
         struct AsDroid: MockMutableInlineFragment {
           public var __data: DataDict = DataDict([:], variables: nil)
-          static let __parentType: ParentType = .Object(Types.Droid)
+          static let __parentType: ParentType = Types.Droid
           init(data: DataDict) { __data = data }
 
           static var selections: [Selection] { [
@@ -732,7 +732,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
       struct AsDroid: MockMutableInlineFragment {
         public var __data: DataDict = DataDict([:], variables: nil)
-        static let __parentType: ParentType = .Object(Types.Droid)
+        static let __parentType: ParentType = Types.Droid
         init(data: DataDict) { __data = data }
 
         static var selections: [Selection] { [
@@ -863,7 +863,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
       struct AsDroid: MockMutableInlineFragment {
         public var __data: DataDict = DataDict([:], variables: nil)
-        static let __parentType: ParentType = .Object(Types.Droid)
+        static let __parentType: ParentType = Types.Droid
         init(data: DataDict) { __data = data }
 
         static var selections: [Selection] { [
@@ -912,7 +912,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
         struct AsDroid: MockMutableInlineFragment {
           public var __data: DataDict = DataDict([:], variables: nil)
-          static let __parentType: ParentType = .Object(Types.Droid)
+          static let __parentType: ParentType = Types.Droid
           init(data: DataDict) { __data = data }
 
           static var selections: [Selection] { [

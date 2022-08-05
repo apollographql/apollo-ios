@@ -573,7 +573,7 @@ class SelectionSetTests: XCTestCase {
       class AsHuman: MockTypeCase, SelectionSet {
         typealias Schema = MockSchemaConfiguration
 
-        override class var __parentType: ParentType { .Object(Types.Human)}
+        override class var __parentType: ParentType { Types.Human }
         override class var selections: [Selection] {[
           .field("name", String.self)
         ]}
@@ -582,7 +582,7 @@ class SelectionSetTests: XCTestCase {
       class AsDroid: MockTypeCase, SelectionSet {
         typealias Schema = MockSchemaConfiguration
 
-        override class var __parentType: ParentType { .Object(Types.Droid)}
+        override class var __parentType: ParentType { Types.Droid }
         override class var selections: [Selection] {[
           .field("primaryFunction", String.self)
         ]}
@@ -629,7 +629,7 @@ class SelectionSetTests: XCTestCase {
       class AsHumanoid: MockTypeCase, SelectionSet {
         typealias Schema = MockSchemaConfiguration
 
-        override class var __parentType: ParentType { .Interface(Types.Humanoid)}
+        override class var __parentType: ParentType { Types.Humanoid }
         override class var selections: [Selection] {[
           .field("name", String.self)
         ]}
@@ -676,7 +676,7 @@ class SelectionSetTests: XCTestCase {
       class AsHumanoid: MockTypeCase, SelectionSet {
         typealias Schema = MockSchemaConfiguration
 
-        override class var __parentType: ParentType { .Interface(Types.Humanoid)}
+        override class var __parentType: ParentType { Types.Humanoid }
         override class var selections: [Selection] {[
           .field("name", String.self)
         ]}
@@ -723,7 +723,7 @@ class SelectionSetTests: XCTestCase {
       class AsCharacter: MockTypeCase, SelectionSet {
         typealias Schema = MockSchemaConfiguration
 
-        override class var __parentType: ParentType { .Union(Types.Character)}
+        override class var __parentType: ParentType { Types.Character }
         override class var selections: [Selection] {[
           .field("name", String.self)
         ]}
@@ -769,7 +769,7 @@ class SelectionSetTests: XCTestCase {
       class AsCharacter: MockTypeCase, SelectionSet {
         typealias Schema = MockSchemaConfiguration
 
-        override class var __parentType: ParentType { .Union(Types.Character)}
+        override class var __parentType: ParentType { Types.Character }
         override class var selections: [Selection] {[
           .field("name", String.self)
         ]}
