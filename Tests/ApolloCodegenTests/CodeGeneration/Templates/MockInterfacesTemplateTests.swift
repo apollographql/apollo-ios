@@ -4,9 +4,9 @@ import OrderedCollections
 @testable import ApolloCodegenLib
 import ApolloCodegenInternalTestHelpers
 
-class MockUnionsTemplateTests: XCTestCase {
+class MockInterfacesTemplateTests: XCTestCase {
   var ir: IR!
-  var subject: MockUnionsTemplate!
+  var subject: MockInterfacesTemplate!
 
   override func tearDown() {
     subject = nil
@@ -17,12 +17,12 @@ class MockUnionsTemplateTests: XCTestCase {
   // MARK: Helpers
 
   private func buildSubject(
-    unions: OrderedSet<GraphQLUnionType>
+    interfaces: OrderedSet<GraphQLInterfaceType>
   ) {
     let config = ApolloCodegenConfiguration.mock()
 
-    subject = MockUnionsTemplate(
-      graphQLUnions: unions,
+    subject = MockInterfacesTemplate(
+      graphQLInterfaces: interfaces,
       config: ApolloCodegen.ConfigurationContext(config: config)
     )
   }
@@ -34,21 +34,21 @@ class MockUnionsTemplateTests: XCTestCase {
   // MARK: Boilerplate tests
 
   func test__target__isTestMockFile() {
-    buildSubject(unions: [])
+    buildSubject(interfaces: [])
 
     expect(self.subject.target).to(equal(.testMockFile))
   }
 
-  func test_render_givenSingleUnionType_generatesExtensionWithTypealias() {
+  func test_render_givenSingleInterfaceType_generatesExtensionWithTypealias() {
     // given
-    let Pet = GraphQLUnionType.mock("Pet")
-    buildSubject(unions: [Pet])
+    let Pet = GraphQLInterfaceType.mock("Pet")
+    buildSubject(interfaces: [Pet])
 
     let expected = """
     public extension MockObject {
-      typealias Pet = Union
+      typealias Pet = Interface
     }
-    
+
     """
 
     // when
@@ -58,18 +58,18 @@ class MockUnionsTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected))
   }
 
-  func test_render_givenMultipleUnionTypes_generatesExtensionWithTypealiasesCorrectlyCased() {
+  func test_render_givenMultipleInterfaceTypes_generatesExtensionWithTypealiasesCorrectlyCased() {
     // given
-    let UnionA = GraphQLUnionType.mock("UnionA")
-    let UnionB = GraphQLUnionType.mock("unionB")
-    let UnionC = GraphQLUnionType.mock("Unionc")
-    buildSubject(unions: [UnionA, UnionB, UnionC])
+    let InterfaceA = GraphQLInterfaceType.mock("InterfaceA")
+    let InterfaceB = GraphQLInterfaceType.mock("interfaceB")
+    let InterfaceC = GraphQLInterfaceType.mock("Interfacec")
+    buildSubject(interfaces: [InterfaceA, InterfaceB, InterfaceC])
 
     let expected = """
     public extension MockObject {
-      typealias UnionA = Union
-      typealias UnionB = Union
-      typealias Unionc = Union
+      typealias InterfaceA = Interface
+      typealias InterfaceB = Interface
+      typealias Interfacec = Interface
     }
 
     """

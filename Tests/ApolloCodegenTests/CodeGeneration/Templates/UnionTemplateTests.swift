@@ -115,9 +115,29 @@ class UnionTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 2, ignoringExtraLines: true))
   }
 
-  func test_render_givenSchemaUnion_generatesPossibleTypesProperty() throws {
+  func test_render_givenSchemaUnion_schemaTypesEmbeddedInTarget_generatesPossibleTypesPropertyWithSchameNamespace() throws {
     // given
     buildSubject()
+
+    let expected = """
+      possibleTypes: [
+        TestSchema.Objects.Cat.self,
+        TestSchema.Objects.Bird.self,
+        TestSchema.Objects.Rat.self,
+        TestSchema.Objects.PetRock.self
+      ]
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 3, ignoringExtraLines: true))
+  }
+
+  func test_render_givenSchemaUnion_schemaTypesNotEmbeddedInTarget_generatesPossibleTypesPropertyWithoutSchemaNamespace() throws {
+    // given
+    buildSubject(config: .mock(.swiftPackageManager))
 
     let expected = """
       possibleTypes: [

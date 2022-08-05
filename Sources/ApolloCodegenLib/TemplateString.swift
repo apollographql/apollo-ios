@@ -134,6 +134,22 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
       if shouldWrapInNewlines { appendInterpolation("\n") }
     }
 
+    @_disfavoredOverload
+    mutating func appendInterpolation<T>(
+      list: T,
+      separator: String = ",\n",
+      terminator: String? = nil
+    ) where T: Collection, T.Element: CustomDebugStringConvertible {
+      let shouldWrapInNewlines = list.count > 1
+      if shouldWrapInNewlines { appendLiteral("\n  ") }
+      appendInterpolation(
+        list.map { $0.debugDescription },
+        separator: separator,
+        terminator: terminator
+      )
+      if shouldWrapInNewlines { appendInterpolation("\n") }
+    }
+
     // MARK: If
 
     mutating func appendInterpolation(

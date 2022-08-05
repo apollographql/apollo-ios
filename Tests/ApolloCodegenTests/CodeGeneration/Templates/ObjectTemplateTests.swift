@@ -66,12 +66,36 @@ class ObjectTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
-  func test_render_givenSchemaTypeImplementsInterfaces_generatesImplementedInterfaces() {
+  func test_render_givenSchemaTypeImplementsInterfaces_schemaEmbeddedInTarget_generatesImplementedInterfacesWithSchemaNamespace() {
     // given
     buildSubject(interfaces: [
         GraphQLInterfaceType.mock("Animal", fields: ["species": GraphQLField.mock("species", type: .scalar(.string()))]),
         GraphQLInterfaceType.mock("Pet", fields: ["name": GraphQLField.mock("name", type: .scalar(.string()))])
       ]
+    )
+
+    let expected = """
+      implementedInterfaces: [
+        TestSchema.Interfaces.Animal.self,
+        TestSchema.Interfaces.Pet.self
+      ]
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 3, ignoringExtraLines: true))
+  }
+
+  func test_render_givenSchemaTypeImplementsInterfaces_schemaNotEmbeddedInTarget_generatesImplementedInterfacesNotInSchemaNameSpace() {
+    // given
+    buildSubject(
+      interfaces: [
+        GraphQLInterfaceType.mock("Animal", fields: ["species": GraphQLField.mock("species", type: .scalar(.string()))]),
+        GraphQLInterfaceType.mock("Pet", fields: ["name": GraphQLField.mock("name", type: .scalar(.string()))])
+      ],
+      config: .mock(.swiftPackageManager)
     )
 
     let expected = """

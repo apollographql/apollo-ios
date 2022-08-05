@@ -820,7 +820,8 @@ class ApolloCodegenTests: XCTestCase {
       directoryURL.appendingPathComponent("TestMocks/Dog+Mock.swift").path,
       directoryURL.appendingPathComponent("TestMocks/Fish+Mock.swift").path,
       directoryURL.appendingPathComponent("TestMocks/Crocodile+Mock.swift").path,
-      directoryURL.appendingPathComponent("TestMocks/ClassroomPet+Mock.swift").path,
+      directoryURL.appendingPathComponent("TestMocks/MockObject+Unions.swift").path,
+      directoryURL.appendingPathComponent("TestMocks/MockObject+Interfaces.swift").path,
     ]
 
     // when

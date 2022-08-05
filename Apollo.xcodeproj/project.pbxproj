@@ -225,6 +225,8 @@
 		DE4D54E927A3518100D26B68 /* FragmentFileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4D54E827A3518100D26B68 /* FragmentFileGenerator.swift */; };
 		DE56DC232683B2020090D6E4 /* DefaultInterceptorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE56DC222683B2020090D6E4 /* DefaultInterceptorProvider.swift */; };
 		DE5B314027A482C80051C9D3 /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5B313F27A482C80051C9D3 /* Resources.swift */; };
+		DE5E79BB289DA90600CD0DE5 /* MockInterfacesFileGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5E79BA289DA90600CD0DE5 /* MockInterfacesFileGeneratorTests.swift */; };
+		DE5E79BD289DA97E00CD0DE5 /* MockInterfacesTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5E79BC289DA97E00CD0DE5 /* MockInterfacesTemplateTests.swift */; };
 		DE5EB9C026EFCB010004176A /* TestObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5EB9BF26EFCB010004176A /* TestObserver.swift */; };
 		DE5EB9C226EFCBD40004176A /* MockApolloStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5EB9C126EFCBD40004176A /* MockApolloStore.swift */; };
 		DE5EB9C526EFD4D10004176A /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = DE5EB9C426EFD4D10004176A /* Nimble */; };
@@ -1303,6 +1305,8 @@
 		DE4D54E827A3518100D26B68 /* FragmentFileGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FragmentFileGenerator.swift; sourceTree = "<group>"; };
 		DE56DC222683B2020090D6E4 /* DefaultInterceptorProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultInterceptorProvider.swift; sourceTree = "<group>"; };
 		DE5B313F27A482C80051C9D3 /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
+		DE5E79BA289DA90600CD0DE5 /* MockInterfacesFileGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockInterfacesFileGeneratorTests.swift; sourceTree = "<group>"; };
+		DE5E79BC289DA97E00CD0DE5 /* MockInterfacesTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockInterfacesTemplateTests.swift; sourceTree = "<group>"; };
 		DE5EB9BF26EFCB010004176A /* TestObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestObserver.swift; sourceTree = "<group>"; };
 		DE5EB9C126EFCBD40004176A /* MockApolloStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockApolloStore.swift; sourceTree = "<group>"; };
 		DE5EB9C626EFE0F80004176A /* JSONValueMatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONValueMatcher.swift; sourceTree = "<group>"; };
@@ -2760,6 +2764,7 @@
 				DE71FDBD2853B6D3005FA9CC /* LocalCacheMutationDefinitionTemplateTests.swift */,
 				DE9CEAF0282C632B00959AF9 /* MockObjectTemplateTests.swift */,
 				E6203347284F25DF00A291D1 /* MockUnionsTemplateTests.swift */,
+				DE5E79BC289DA97E00CD0DE5 /* MockInterfacesTemplateTests.swift */,
 				E64F7EC227A1243A0059C021 /* ObjectTemplateTests.swift */,
 				DE6D07FA27BC3BE9009F5F33 /* OperationDefinition_VariableDefinition_Tests.swift */,
 				DE09F9C5270269F800795949 /* OperationDefinitionTemplate_DocumentType_Tests.swift */,
@@ -3383,6 +3388,7 @@
 				E610D8DC278EB1500023E495 /* InterfaceFileGeneratorTests.swift */,
 				DE0D38F1282ECF9700AFCC84 /* MockObjectFileGeneratorTests.swift */,
 				E6203345284F252A00A291D1 /* MockUnionsFileGeneratorTests.swift */,
+				DE5E79BA289DA90600CD0DE5 /* MockInterfacesFileGeneratorTests.swift */,
 				E66F8896276C136B0000BDA8 /* ObjectFileGeneratorTests.swift */,
 				E607AD8D27A88F340026742A /* OperationFileGeneratorTests.swift */,
 				E6AAA735286C0F8E00F4659D /* OperationIdentifiersFileGeneratorTests.swift */,
@@ -4635,6 +4641,7 @@
 			files = (
 				E669352D2803EF67004E1FFC /* CustomScalarTemplateTests.swift in Sources */,
 				9BAEEC10234BB95B00808306 /* FileManagerExtensionTests.swift in Sources */,
+				DE5E79BB289DA90600CD0DE5 /* MockInterfacesFileGeneratorTests.swift in Sources */,
 				E6AAA737286C11E600F4659D /* OperationIdentifiersFileGeneratorTests.swift in Sources */,
 				E6D90D09278FA5C3009CAC5D /* InputObjectFileGeneratorTests.swift in Sources */,
 				E674DB43274C0AD9009BB90E /* GlobTests.swift in Sources */,
@@ -4643,6 +4650,7 @@
 				E66935312803F2B0004E1FFC /* CustomScalarFileGeneratorTests.swift in Sources */,
 				E610D8DD278EB1500023E495 /* InterfaceFileGeneratorTests.swift in Sources */,
 				DE0D38F2282ECF9700AFCC84 /* MockObjectFileGeneratorTests.swift in Sources */,
+				DE5E79BD289DA97E00CD0DE5 /* MockInterfacesTemplateTests.swift in Sources */,
 				9F62DFAE2590557F00E6E808 /* DocumentParsingAndValidationTests.swift in Sources */,
 				E66935332804AFE5004E1FFC /* IRCustomScalarTests.swift in Sources */,
 				DED5B357286CD34000AE6BFF /* CompilationResultSchemaDocumentationTests.swift in Sources */,

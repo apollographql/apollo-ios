@@ -1,7 +1,6 @@
 import Foundation
 import OrderedCollections
 
-#warning("tests")
 /// Generates a file providing the ability to mock the GraphQLInterfaceTypes in a schema
 /// for testing purposes.
 struct MockInterfacesFileGenerator: FileGenerator {

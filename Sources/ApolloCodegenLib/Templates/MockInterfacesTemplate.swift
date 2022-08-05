@@ -1,7 +1,6 @@
 import Foundation
 import OrderedCollections
 
-#warning("tests")
 struct MockInterfacesTemplate: TemplateRenderer {
 
   let graphQLInterfaces: OrderedSet<GraphQLInterfaceType>
