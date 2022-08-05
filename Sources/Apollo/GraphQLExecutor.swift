@@ -268,7 +268,7 @@ final class GraphQLExecutor {
 
       case let .inlineFragment(typeCase):
         if let runtimeType = runtimeObjectType(for: object, schema: info.schema),
-           typeCase.__parentType._canBeConverted(from: runtimeType) {
+           typeCase.__parentType.canBeConverted(from: runtimeType) {
           try groupFields(typeCase.selections,
                           for: object,
                           into: &groupedFields,
