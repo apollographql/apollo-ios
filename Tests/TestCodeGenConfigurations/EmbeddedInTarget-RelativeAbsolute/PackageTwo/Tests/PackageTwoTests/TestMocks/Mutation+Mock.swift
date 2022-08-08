@@ -4,17 +4,17 @@
 import ApolloTestSupport
 import PackageTwo
 
-extension MySchemaModule.Mutation: Mockable {
-  public static let __mockFields = MockFields()
-
-  public typealias MockValueCollectionType = Array<Mock<MySchemaModule.Mutation>>
+public class Mutation: MockObject {
+  public static let objectType: Object = MySchemaModule.Objects.Mutation
+  public static let _mockFields = MockFields()
+  public typealias MockValueCollectionType = Array<Mock<Mutation>>
 
   public struct MockFields {
-    @Field<MySchemaModule.Pet>("adoptPet") public var adoptPet
+    @Field<Pet>("adoptPet") public var adoptPet
   }
 }
 
-public extension Mock where O == MySchemaModule.Mutation {
+public extension Mock where O == Mutation {
   convenience init(
     adoptPet: AnyMock? = nil
   ) {

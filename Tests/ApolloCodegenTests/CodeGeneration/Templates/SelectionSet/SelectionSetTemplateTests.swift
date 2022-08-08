@@ -109,7 +109,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var __parentType: ParentType { .Object(TestSchema.Animal.self) }
+      public static var __parentType: ParentType { TestSchema.Objects.Animal }
     """
 
     // when
@@ -146,7 +146,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var __parentType: ParentType { .Interface(TestSchema.Animal.self) }
+      public static var __parentType: ParentType { TestSchema.Interfaces.Animal }
     """
 
     // when
@@ -186,7 +186,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var __parentType: ParentType { .Union(TestSchema.Animal.self) }
+      public static var __parentType: ParentType { TestSchema.Unions.Animal }
     """
 
     // when
@@ -239,7 +239,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var __parentType: ParentType { .Object(TestSchema.Nested.self) }
+      public static var __parentType: ParentType { TestSchema.Objects.Nested }
     
     """
 
@@ -3700,7 +3700,7 @@ class SelectionSetTemplateTests: XCTestCase {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Object(TestSchema.Badge.self) }
+        public static var __parentType: ParentType { TestSchema.Objects.Badge }
         public static var selections: [Selection] { [
           .field("a", String?.self),
         ] }
@@ -3713,7 +3713,7 @@ class SelectionSetTemplateTests: XCTestCase {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Object(TestSchema.ProductBadge.self) }
+        public static var __parentType: ParentType { TestSchema.Objects.ProductBadge }
         public static var selections: [Selection] { [
           .field("b", String?.self),
         ] }
@@ -3774,7 +3774,7 @@ class SelectionSetTemplateTests: XCTestCase {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Object(TestSchema.Badge.self) }
+        public static var __parentType: ParentType { TestSchema.Objects.Badge }
         public static var selections: [Selection] { [
           .field("a", String?.self),
         ] }
@@ -3787,7 +3787,7 @@ class SelectionSetTemplateTests: XCTestCase {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Object(TestSchema.ProductBadge.self) }
+        public static var __parentType: ParentType { TestSchema.Objects.ProductBadge }
         public static var selections: [Selection] { [
           .field("b", String?.self),
         ] }

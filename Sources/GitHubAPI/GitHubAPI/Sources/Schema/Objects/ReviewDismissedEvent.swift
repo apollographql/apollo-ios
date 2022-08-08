@@ -3,13 +3,13 @@
 
 import ApolloAPI
 
-/// Represents a 'review_dismissed' event on a given issue or pull request.
-public final class ReviewDismissedEvent: Object {
-  override public class var __typename: StaticString { "ReviewDismissedEvent" }
-
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Node.self,
-    UniformResourceLocatable.self
-  ]
+public extension Objects {
+  /// Represents a 'review_dismissed' event on a given issue or pull request.
+  static let ReviewDismissedEvent = Object(
+    typename: "ReviewDismissedEvent",
+    implementedInterfaces: [
+      Interfaces.Node.self,
+      Interfaces.UniformResourceLocatable.self
+    ]
+  )
 }

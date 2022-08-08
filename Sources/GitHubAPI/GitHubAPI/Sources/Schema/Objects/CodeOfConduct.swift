@@ -3,12 +3,10 @@
 
 import ApolloAPI
 
-/// The Code of Conduct for a repository
-public final class CodeOfConduct: Object {
-  override public class var __typename: StaticString { "CodeOfConduct" }
-
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Node.self
-  ]
+public extension Objects {
+  /// The Code of Conduct for a repository
+  static let CodeOfConduct = Object(
+    typename: "CodeOfConduct",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
 }

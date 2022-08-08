@@ -3,12 +3,10 @@
 
 import ApolloAPI
 
-/// An identity provider configured to provision identities for an enterprise.
-public final class EnterpriseIdentityProvider: Object {
-  override public class var __typename: StaticString { "EnterpriseIdentityProvider" }
-
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Node.self
-  ]
+public extension Objects {
+  /// An identity provider configured to provision identities for an enterprise.
+  static let EnterpriseIdentityProvider = Object(
+    typename: "EnterpriseIdentityProvider",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
 }

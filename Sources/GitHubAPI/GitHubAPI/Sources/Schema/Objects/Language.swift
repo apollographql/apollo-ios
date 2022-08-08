@@ -3,12 +3,10 @@
 
 import ApolloAPI
 
-/// Represents a given language found in repositories.
-public final class Language: Object {
-  override public class var __typename: StaticString { "Language" }
-
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Node.self
-  ]
+public extension Objects {
+  /// Represents a given language found in repositories.
+  static let Language = Object(
+    typename: "Language",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
 }

@@ -3,12 +3,10 @@
 
 import ApolloAPI
 
-/// Represents a 'locked' event on a given issue or pull request.
-public final class LockedEvent: Object {
-  override public class var __typename: StaticString { "LockedEvent" }
-
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Node.self
-  ]
+public extension Objects {
+  /// Represents a 'locked' event on a given issue or pull request.
+  static let LockedEvent = Object(
+    typename: "LockedEvent",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
 }

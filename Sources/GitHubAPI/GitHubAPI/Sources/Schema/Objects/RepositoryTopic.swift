@@ -3,13 +3,13 @@
 
 import ApolloAPI
 
-/// A repository-topic connects a repository to a topic.
-public final class RepositoryTopic: Object {
-  override public class var __typename: StaticString { "RepositoryTopic" }
-
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Node.self,
-    UniformResourceLocatable.self
-  ]
+public extension Objects {
+  /// A repository-topic connects a repository to a topic.
+  static let RepositoryTopic = Object(
+    typename: "RepositoryTopic",
+    implementedInterfaces: [
+      Interfaces.Node.self,
+      Interfaces.UniformResourceLocatable.self
+    ]
+  )
 }

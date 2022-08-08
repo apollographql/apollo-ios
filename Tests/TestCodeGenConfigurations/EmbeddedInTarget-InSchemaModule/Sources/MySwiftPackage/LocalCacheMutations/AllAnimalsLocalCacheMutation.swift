@@ -15,7 +15,7 @@ public extension MyGraphQLSchema {
       public var __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { .Object(MyGraphQLSchema.Query.self) }
+      public static var __parentType: ParentType { MyGraphQLSchema.Objects.Query }
       public static var selections: [Selection] { [
         .field("allAnimals", [AllAnimal].self),
       ] }
@@ -32,7 +32,7 @@ public extension MyGraphQLSchema {
         public var __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Interface(MyGraphQLSchema.Animal.self) }
+        public static var __parentType: ParentType { MyGraphQLSchema.Interfaces.Animal }
         public static var selections: [Selection] { [
           .field("species", String.self),
           .field("skinCovering", GraphQLEnum<SkinCovering>?.self),
@@ -60,7 +60,7 @@ public extension MyGraphQLSchema {
           public var __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public static var __parentType: ParentType { .Object(MyGraphQLSchema.Bird.self) }
+          public static var __parentType: ParentType { MyGraphQLSchema.Objects.Bird }
           public static var selections: [Selection] { [
             .field("wingspan", Double.self),
           ] }

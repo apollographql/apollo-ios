@@ -18,20 +18,24 @@ public protocol MutableInlineFragment: ApolloAPI.MutableSelectionSet & ApolloAPI
 where Schema == AnimalKingdomAPI.Schema {}
 
 public enum Schema: SchemaConfiguration {
-  public static func objectType(forTypename __typename: String) -> Object.Type? {
-    switch __typename {
-    case "Query": return AnimalKingdomAPI.Query.self
-    case "Human": return AnimalKingdomAPI.Human.self
-    case "Cat": return AnimalKingdomAPI.Cat.self
-    case "Dog": return AnimalKingdomAPI.Dog.self
-    case "Bird": return AnimalKingdomAPI.Bird.self
-    case "Fish": return AnimalKingdomAPI.Fish.self
-    case "Rat": return AnimalKingdomAPI.Rat.self
-    case "PetRock": return AnimalKingdomAPI.PetRock.self
-    case "Crocodile": return AnimalKingdomAPI.Crocodile.self
-    case "Height": return AnimalKingdomAPI.Height.self
-    case "Mutation": return AnimalKingdomAPI.Mutation.self
+  public static func objectType(forTypename typename: String) -> Object? {
+    switch typename {
+    case "Query": return AnimalKingdomAPI.Objects.Query
+    case "Human": return AnimalKingdomAPI.Objects.Human
+    case "Cat": return AnimalKingdomAPI.Objects.Cat
+    case "Dog": return AnimalKingdomAPI.Objects.Dog
+    case "Bird": return AnimalKingdomAPI.Objects.Bird
+    case "Fish": return AnimalKingdomAPI.Objects.Fish
+    case "Rat": return AnimalKingdomAPI.Objects.Rat
+    case "PetRock": return AnimalKingdomAPI.Objects.PetRock
+    case "Crocodile": return AnimalKingdomAPI.Objects.Crocodile
+    case "Height": return AnimalKingdomAPI.Objects.Height
+    case "Mutation": return AnimalKingdomAPI.Objects.Mutation
     default: return nil
     }
   }
 }
+
+public enum Objects {}
+public enum Interfaces {}
+public enum Unions {}

@@ -4,17 +4,17 @@
 import ApolloTestSupport
 import MySwiftPackage
 
-extension MyGraphQLSchema.Mutation: Mockable {
-  public static let __mockFields = MockFields()
-
-  public typealias MockValueCollectionType = Array<Mock<MyGraphQLSchema.Mutation>>
+public class Mutation: MockObject {
+  public static let objectType: Object = MyGraphQLSchema.Objects.Mutation
+  public static let _mockFields = MockFields()
+  public typealias MockValueCollectionType = Array<Mock<Mutation>>
 
   public struct MockFields {
-    @Field<MyGraphQLSchema.Pet>("adoptPet") public var adoptPet
+    @Field<Pet>("adoptPet") public var adoptPet
   }
 }
 
-public extension Mock where O == MyGraphQLSchema.Mutation {
+public extension Mock where O == Mutation {
   convenience init(
     adoptPet: AnyMock? = nil
   ) {

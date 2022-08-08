@@ -40,7 +40,7 @@ public struct ClassroomPetDetails: GraphQLSchemaName.SelectionSet, Fragment {
   public let __data: DataDict
   public init(data: DataDict) { __data = data }
 
-  public static var __parentType: ParentType { .Union(GraphQLSchemaName.ClassroomPet.self) }
+  public static var __parentType: ParentType { GraphQLSchemaName.Unions.ClassroomPet }
   public static var selections: [Selection] { [
     .inlineFragment(AsAnimal.self),
     .inlineFragment(AsPet.self),
@@ -64,7 +64,7 @@ public struct ClassroomPetDetails: GraphQLSchemaName.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Interface(GraphQLSchemaName.Animal.self) }
+    public static var __parentType: ParentType { GraphQLSchemaName.Interfaces.Animal }
     public static var selections: [Selection] { [
       .field("species", String.self),
     ] }
@@ -79,7 +79,7 @@ public struct ClassroomPetDetails: GraphQLSchemaName.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Interface(GraphQLSchemaName.Pet.self) }
+    public static var __parentType: ParentType { GraphQLSchemaName.Interfaces.Pet }
     public static var selections: [Selection] { [
       .field("humanName", String?.self),
     ] }
@@ -94,7 +94,7 @@ public struct ClassroomPetDetails: GraphQLSchemaName.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Interface(GraphQLSchemaName.WarmBlooded.self) }
+    public static var __parentType: ParentType { GraphQLSchemaName.Interfaces.WarmBlooded }
     public static var selections: [Selection] { [
       .field("laysEggs", Bool.self),
     ] }
@@ -110,7 +110,7 @@ public struct ClassroomPetDetails: GraphQLSchemaName.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(GraphQLSchemaName.Cat.self) }
+    public static var __parentType: ParentType { GraphQLSchemaName.Objects.Cat }
     public static var selections: [Selection] { [
       .field("bodyTemperature", Int.self),
       .field("isJellicle", Bool.self),
@@ -130,7 +130,7 @@ public struct ClassroomPetDetails: GraphQLSchemaName.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(GraphQLSchemaName.Bird.self) }
+    public static var __parentType: ParentType { GraphQLSchemaName.Objects.Bird }
     public static var selections: [Selection] { [
       .field("wingspan", Double.self),
     ] }
@@ -148,7 +148,7 @@ public struct ClassroomPetDetails: GraphQLSchemaName.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(GraphQLSchemaName.PetRock.self) }
+    public static var __parentType: ParentType { GraphQLSchemaName.Objects.PetRock }
     public static var selections: [Selection] { [
       .field("favoriteToy", String.self),
     ] }

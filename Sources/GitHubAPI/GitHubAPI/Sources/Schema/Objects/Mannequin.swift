@@ -3,14 +3,14 @@
 
 import ApolloAPI
 
-/// A placeholder user for attribution of imported data on GitHub.
-public final class Mannequin: Object {
-  override public class var __typename: StaticString { "Mannequin" }
-
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Actor.self,
-    Node.self,
-    UniformResourceLocatable.self
-  ]
+public extension Objects {
+  /// A placeholder user for attribution of imported data on GitHub.
+  static let Mannequin = Object(
+    typename: "Mannequin",
+    implementedInterfaces: [
+      Interfaces.Actor.self,
+      Interfaces.Node.self,
+      Interfaces.UniformResourceLocatable.self
+    ]
+  )
 }

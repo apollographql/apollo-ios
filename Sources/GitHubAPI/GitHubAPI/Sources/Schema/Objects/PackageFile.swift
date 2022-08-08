@@ -3,12 +3,10 @@
 
 import ApolloAPI
 
-/// A file in a package version.
-public final class PackageFile: Object {
-  override public class var __typename: StaticString { "PackageFile" }
-
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Node.self
-  ]
+public extension Objects {
+  /// A file in a package version.
+  static let PackageFile = Object(
+    typename: "PackageFile",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
 }

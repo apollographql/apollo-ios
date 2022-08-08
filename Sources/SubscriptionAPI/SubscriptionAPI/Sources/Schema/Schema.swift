@@ -18,10 +18,14 @@ public protocol MutableInlineFragment: ApolloAPI.MutableSelectionSet & ApolloAPI
 where Schema == SubscriptionAPI.Schema {}
 
 public enum Schema: SchemaConfiguration {
-  public static func objectType(forTypename __typename: String) -> Object.Type? {
-    switch __typename {
-    case "Subscription": return SubscriptionAPI.Subscription.self
+  public static func objectType(forTypename typename: String) -> Object? {
+    switch typename {
+    case "Subscription": return SubscriptionAPI.Objects.Subscription
     default: return nil
     }
   }
 }
+
+public enum Objects {}
+public enum Interfaces {}
+public enum Unions {}

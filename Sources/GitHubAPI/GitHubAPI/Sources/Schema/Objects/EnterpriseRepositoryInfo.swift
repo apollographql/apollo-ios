@@ -3,12 +3,10 @@
 
 import ApolloAPI
 
-/// A subset of repository information queryable from an enterprise.
-public final class EnterpriseRepositoryInfo: Object {
-  override public class var __typename: StaticString { "EnterpriseRepositoryInfo" }
-
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Node.self
-  ]
+public extension Objects {
+  /// A subset of repository information queryable from an enterprise.
+  static let EnterpriseRepositoryInfo = Object(
+    typename: "EnterpriseRepositoryInfo",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
 }

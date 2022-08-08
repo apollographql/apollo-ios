@@ -31,13 +31,11 @@ struct MockObjectTemplate: TemplateRenderer {
       }
 
     return """
-    extension \
-    \(schemaModuleName)\
-    \(objectName): Mockable {
-      public static let __mockFields = MockFields()
+    public class \(objectName): MockObject {
+      public static let objectType: Object = \(config.schemaName).Objects.\(objectName)
+      public static let _mockFields = MockFields()
+      public typealias MockValueCollectionType = Array<Mock<\(objectName)>>
 
-      public typealias MockValueCollectionType = Array<Mock<\(schemaModuleName)\(objectName)>>
-    
       public struct MockFields {
         \(fields.map {
           TemplateString("""
@@ -51,7 +49,7 @@ struct MockObjectTemplate: TemplateRenderer {
       }
     }
 
-    public extension Mock where O == \(schemaModuleName)\(objectName) {
+    public extension Mock where O == \(objectName) {
       convenience init(
         \(fields.map { "\($0.name): \($0.mockType)? = nil" }, separator: ",\n")
       ) {
@@ -63,14 +61,6 @@ struct MockObjectTemplate: TemplateRenderer {
     """
   }
 
-  private var schemaModuleName: String {
-    if !config.output.schemaTypes.isInModule {
-      return "\(config.schemaName)."
-    } else {
-      return ""
-    }
-  }
-
   private func mockTypeName(for type: GraphQLType) -> String {
     func nameReplacement(for type: GraphQLType, forceNonNull: Bool) -> String {
       switch type {
@@ -80,7 +70,7 @@ struct MockObjectTemplate: TemplateRenderer {
         case is GraphQLInterfaceType, is GraphQLUnionType:
           mockType = "AnyMock"
         default:
-          mockType = "Mock<\(schemaModuleName)\(graphQLCompositeType.name)>"
+          mockType = "Mock<\(graphQLCompositeType.name.firstUppercased)>"
         }
         return TemplateString("\(mockType)\(if: !forceNonNull, "?")").description
       case .scalar,

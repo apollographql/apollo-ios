@@ -3,14 +3,14 @@
 
 import ApolloAPI
 
-public extension MyGraphQLSchema {
-  enum ClassroomPet: Union {
-    public static let possibleTypes: [Object.Type] = [
-      MyGraphQLSchema.Cat.self,
-      MyGraphQLSchema.Bird.self,
-      MyGraphQLSchema.Rat.self,
-      MyGraphQLSchema.PetRock.self
+public extension MyGraphQLSchema.Unions {
+  static let ClassroomPet = Union(
+    name: "ClassroomPet",
+    possibleTypes: [
+      MyGraphQLSchema.Objects.Cat.self,
+      MyGraphQLSchema.Objects.Bird.self,
+      MyGraphQLSchema.Objects.Rat.self,
+      MyGraphQLSchema.Objects.PetRock.self
     ]
-  }
-
+  )
 }

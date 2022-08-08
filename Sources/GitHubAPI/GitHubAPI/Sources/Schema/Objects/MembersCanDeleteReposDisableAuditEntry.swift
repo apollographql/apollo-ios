@@ -3,15 +3,15 @@
 
 import ApolloAPI
 
-/// Audit log entry for a members_can_delete_repos.disable event.
-public final class MembersCanDeleteReposDisableAuditEntry: Object {
-  override public class var __typename: StaticString { "MembersCanDeleteReposDisableAuditEntry" }
-
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    AuditEntry.self,
-    EnterpriseAuditEntryData.self,
-    Node.self,
-    OrganizationAuditEntryData.self
-  ]
+public extension Objects {
+  /// Audit log entry for a members_can_delete_repos.disable event.
+  static let MembersCanDeleteReposDisableAuditEntry = Object(
+    typename: "MembersCanDeleteReposDisableAuditEntry",
+    implementedInterfaces: [
+      Interfaces.AuditEntry.self,
+      Interfaces.EnterpriseAuditEntryData.self,
+      Interfaces.Node.self,
+      Interfaces.OrganizationAuditEntryData.self
+    ]
+  )
 }

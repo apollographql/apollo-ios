@@ -32,15 +32,13 @@ public class HeroAndFriendsNamesWithIDsQuery: GraphQLQuery {
     self.episode = episode
   }
 
-  public var variables: Variables? {
-    ["episode": episode]
-  }
+  public var variables: Variables? { ["episode": episode] }
 
   public struct Data: StarWarsAPI.SelectionSet {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(StarWarsAPI.Query.self) }
+    public static var __parentType: ParentType { StarWarsAPI.Objects.Query }
     public static var selections: [Selection] { [
       .field("hero", Hero?.self, arguments: ["episode": .variable("episode")]),
     ] }
@@ -54,7 +52,7 @@ public class HeroAndFriendsNamesWithIDsQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { .Interface(StarWarsAPI.Character.self) }
+      public static var __parentType: ParentType { StarWarsAPI.Interfaces.Character }
       public static var selections: [Selection] { [
         .field("id", ID.self),
         .field("name", String.self),
@@ -75,7 +73,7 @@ public class HeroAndFriendsNamesWithIDsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Interface(StarWarsAPI.Character.self) }
+        public static var __parentType: ParentType { StarWarsAPI.Interfaces.Character }
         public static var selections: [Selection] { [
           .field("id", ID.self),
           .field("name", String.self),

@@ -3,12 +3,10 @@
 
 import ApolloAPI
 
-/// Represents a 'head_ref_force_pushed' event on a given pull request.
-public final class HeadRefForcePushedEvent: Object {
-  override public class var __typename: StaticString { "HeadRefForcePushedEvent" }
-
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Node.self
-  ]
+public extension Objects {
+  /// Represents a 'head_ref_force_pushed' event on a given pull request.
+  static let HeadRefForcePushedEvent = Object(
+    typename: "HeadRefForcePushedEvent",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
 }

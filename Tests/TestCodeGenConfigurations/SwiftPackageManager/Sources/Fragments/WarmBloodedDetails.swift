@@ -17,7 +17,7 @@ public struct WarmBloodedDetails: GraphQLSchemaName.SelectionSet, Fragment {
   public let __data: DataDict
   public init(data: DataDict) { __data = data }
 
-  public static var __parentType: ParentType { .Interface(GraphQLSchemaName.WarmBlooded.self) }
+  public static var __parentType: ParentType { GraphQLSchemaName.Interfaces.WarmBlooded }
   public static var selections: [Selection] { [
     .field("bodyTemperature", Int.self),
     .fragment(HeightInMeters.self),

@@ -21,7 +21,7 @@ public struct PetDetails: GraphQLSchemaName.SelectionSet, Fragment {
   public let __data: DataDict
   public init(data: DataDict) { __data = data }
 
-  public static var __parentType: ParentType { .Interface(GraphQLSchemaName.Pet.self) }
+  public static var __parentType: ParentType { GraphQLSchemaName.Interfaces.Pet }
   public static var selections: [Selection] { [
     .field("humanName", String?.self),
     .field("favoriteToy", String.self),
@@ -39,7 +39,7 @@ public struct PetDetails: GraphQLSchemaName.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(GraphQLSchemaName.Human.self) }
+    public static var __parentType: ParentType { GraphQLSchemaName.Objects.Human }
     public static var selections: [Selection] { [
       .field("firstName", String.self),
     ] }

@@ -3,13 +3,13 @@
 
 import ApolloAPI
 
-/// Represents a 'closed' event on any `Closable`.
-public final class ClosedEvent: Object {
-  override public class var __typename: StaticString { "ClosedEvent" }
-
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Node.self,
-    UniformResourceLocatable.self
-  ]
+public extension Objects {
+  /// Represents a 'closed' event on any `Closable`.
+  static let ClosedEvent = Object(
+    typename: "ClosedEvent",
+    implementedInterfaces: [
+      Interfaces.Node.self,
+      Interfaces.UniformResourceLocatable.self
+    ]
+  )
 }

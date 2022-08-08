@@ -249,12 +249,16 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     self.wait(for: [readCompletedExpectation], timeout: Self.defaultWaitTimeout)
   }
 
+
   func test_readObject_givenFragmentWithTypeSpecificProperty() throws {
     // given
-    class Droid: Object {}
+    struct Types {
+      static let Droid = Object(typename: "Droid", implementedInterfaces: [])
+    }
+
     MockSchemaConfiguration.stub_objectTypeForTypeName = { typename in
       switch typename {
-      case "Droid": return Droid.self
+      case "Droid": return Types.Droid
       default: return nil
       }
     }
@@ -272,7 +276,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
       class AsDroid: MockTypeCase, SelectionSet {
         typealias Schema = MockSchemaConfiguration
-        override class var __parentType: ParentType { .Object(Droid.self) }
+        override class var __parentType: ParentType { Types.Droid }
 
         override class var selections: [Selection] { [
           .field("primaryFunction", String.self),
@@ -304,10 +308,13 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
   func test_readObject_givenFragmentWithMissingTypeSpecificProperty() throws {
     // given
-    class Droid: Object {}
+    struct Types {
+      static let Droid = Object(typename: "Droid", implementedInterfaces: [])
+    }
+
     MockSchemaConfiguration.stub_objectTypeForTypeName = { typename in
       switch typename {
-      case "Droid": return Droid.self
+      case "Droid": return Types.Droid
       default: return nil
       }
     }
@@ -325,7 +332,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
       class AsDroid: MockTypeCase, SelectionSet {
         typealias Schema = MockSchemaConfiguration
-        override class var __parentType: ParentType { .Object(Droid.self) }
+        override class var __parentType: ParentType { Types.Droid }
 
         override class var selections: [Selection] { [
           .field("primaryFunction", String.self),
@@ -379,7 +386,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       struct Hero: MockMutableRootSelectionSet {
         public var __data: DataDict = DataDict([:], variables: nil)
         init(data: DataDict) { __data = data }
-        
+
         static var selections: [Selection] { [
           .field("name", String.self)
         ]}
@@ -591,10 +598,13 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
   func test_updateCacheMutation_updateNestedFieldOnTypeCase_updatesObjects() throws {
     // given
-    class Droid: Object {}
+    struct Types {
+      static let Droid = Object(typename: "Droid", implementedInterfaces: [])
+    }
+
     MockSchemaConfiguration.stub_objectTypeForTypeName = { typename in
       switch typename {
-      case "Droid": return Droid.self
+      case "Droid": return Types.Droid
       default: return nil
       }
     }
@@ -634,7 +644,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
         struct AsDroid: MockMutableInlineFragment {
           public var __data: DataDict = DataDict([:], variables: nil)
-          static let __parentType: ParentType = .Object(Droid.self)
+          static let __parentType: ParentType = Types.Droid
           init(data: DataDict) { __data = data }
 
           static var selections: [Selection] { [
@@ -686,10 +696,13 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
   func test_updateCacheMutation_updateNestedFieldOnNamedFragment_updatesObjects() throws {
     // given
-    class Droid: Object {}
+    struct Types {
+      static let Droid = Object(typename: "Droid", implementedInterfaces: [])
+    }
+
     MockSchemaConfiguration.stub_objectTypeForTypeName = { typename in
       switch typename {
-      case "Droid": return Droid.self
+      case "Droid": return Types.Droid
       default: return nil
       }
     }
@@ -719,7 +732,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
       struct AsDroid: MockMutableInlineFragment {
         public var __data: DataDict = DataDict([:], variables: nil)
-        static let __parentType: ParentType = .Object(Droid.self)
+        static let __parentType: ParentType = Types.Droid
         init(data: DataDict) { __data = data }
 
         static var selections: [Selection] { [
@@ -814,10 +827,13 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
   func test_updateCacheMutation_updateNestedFieldOnOptionalNamedFragment_updatesObjects() throws {
     // given
-    class Droid: Object {}
+    struct Types {
+      static let Droid = Object(typename: "Droid", implementedInterfaces: [])
+    }
+
     MockSchemaConfiguration.stub_objectTypeForTypeName = { typename in
       switch typename {
-      case "Droid": return Droid.self
+      case "Droid": return Types.Droid
       default: return nil
       }
     }
@@ -847,7 +863,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
       struct AsDroid: MockMutableInlineFragment {
         public var __data: DataDict = DataDict([:], variables: nil)
-        static let __parentType: ParentType = .Object(Droid.self)
+        static let __parentType: ParentType = Types.Droid
         init(data: DataDict) { __data = data }
 
         static var selections: [Selection] { [
@@ -896,7 +912,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
         struct AsDroid: MockMutableInlineFragment {
           public var __data: DataDict = DataDict([:], variables: nil)
-          static let __parentType: ParentType = .Object(Droid.self)
+          static let __parentType: ParentType = Types.Droid
           init(data: DataDict) { __data = data }
 
           static var selections: [Selection] { [

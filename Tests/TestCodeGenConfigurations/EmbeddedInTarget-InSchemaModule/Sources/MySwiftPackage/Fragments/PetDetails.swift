@@ -22,7 +22,7 @@ public extension MyGraphQLSchema {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Interface(MyGraphQLSchema.Pet.self) }
+    public static var __parentType: ParentType { MyGraphQLSchema.Interfaces.Pet }
     public static var selections: [Selection] { [
       .field("humanName", String?.self),
       .field("favoriteToy", String.self),
@@ -40,7 +40,7 @@ public extension MyGraphQLSchema {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { .Object(MyGraphQLSchema.Human.self) }
+      public static var __parentType: ParentType { MyGraphQLSchema.Objects.Human }
       public static var selections: [Selection] { [
         .field("firstName", String.self),
       ] }

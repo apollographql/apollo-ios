@@ -19,7 +19,7 @@ public struct HeightInMeters: MyCodegenTargetDestination.SelectionSet, Fragment 
   public let __data: DataDict
   public init(data: DataDict) { __data = data }
 
-  public static var __parentType: ParentType { .Interface(MyCodegenTargetDestination.Animal.self) }
+  public static var __parentType: ParentType { MyCodegenTargetDestination.Interfaces.Animal }
   public static var selections: [Selection] { [
     .field("height", Height.self),
   ] }
@@ -33,7 +33,7 @@ public struct HeightInMeters: MyCodegenTargetDestination.SelectionSet, Fragment 
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(MyCodegenTargetDestination.Height.self) }
+    public static var __parentType: ParentType { MyCodegenTargetDestination.Objects.Height }
     public static var selections: [Selection] { [
       .field("meters", Int.self),
     ] }

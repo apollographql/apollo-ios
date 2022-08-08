@@ -3,16 +3,13 @@
 
 import ApolloAPI
 
-public extension MyGraphQLSchema {
-  final class Cat: Object {
-    override public class var __typename: StaticString { "Cat" }
-
-    override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-    private static let _implementedInterfaces: [Interface.Type]? = [
-      Animal.self,
-      Pet.self,
-      WarmBlooded.self
+public extension MyGraphQLSchema.Objects {
+  static let Cat = Object(
+    typename: "Cat",
+    implementedInterfaces: [
+      MyGraphQLSchema.Interfaces.Animal.self,
+      MyGraphQLSchema.Interfaces.Pet.self,
+      MyGraphQLSchema.Interfaces.WarmBlooded.self
     ]
-  }
-
+  )
 }

@@ -33,15 +33,13 @@ public class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
     self.episode = episode
   }
 
-  public var variables: Variables? {
-    ["episode": episode]
-  }
+  public var variables: Variables? { ["episode": episode] }
 
   public struct Data: StarWarsAPI.SelectionSet {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(StarWarsAPI.Query.self) }
+    public static var __parentType: ParentType { StarWarsAPI.Objects.Query }
     public static var selections: [Selection] { [
       .field("hero", Hero?.self, arguments: ["episode": .variable("episode")]),
     ] }
@@ -55,7 +53,7 @@ public class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { .Interface(StarWarsAPI.Character.self) }
+      public static var __parentType: ParentType { StarWarsAPI.Interfaces.Character }
       public static var selections: [Selection] { [
         .inlineFragment(AsHuman.self),
         .inlineFragment(AsDroid.self),
@@ -71,7 +69,7 @@ public class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Object(StarWarsAPI.Human.self) }
+        public static var __parentType: ParentType { StarWarsAPI.Objects.Human }
         public static var selections: [Selection] { [
           .field("homePlanet", alias: "property", String?.self),
         ] }
@@ -87,7 +85,7 @@ public class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Object(StarWarsAPI.Droid.self) }
+        public static var __parentType: ParentType { StarWarsAPI.Objects.Droid }
         public static var selections: [Selection] { [
           .field("primaryFunction", alias: "property", String?.self),
         ] }

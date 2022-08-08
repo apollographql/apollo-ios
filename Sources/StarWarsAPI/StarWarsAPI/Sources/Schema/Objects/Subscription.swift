@@ -3,7 +3,10 @@
 
 import ApolloAPI
 
-/// The subscription type, represents all subscriptions we can make to our data
-public final class Subscription: Object {
-  override public class var __typename: StaticString { "Subscription" }
+public extension Objects {
+  /// The subscription type, represents all subscriptions we can make to our data
+  static let Subscription = Object(
+    typename: "Subscription",
+    implementedInterfaces: []
+  )
 }

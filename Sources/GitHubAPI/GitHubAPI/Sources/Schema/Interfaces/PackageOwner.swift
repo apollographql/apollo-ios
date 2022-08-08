@@ -3,5 +3,7 @@
 
 import ApolloAPI
 
-/// Represents an owner of a package.
-public final class PackageOwner: Interface { }
+public extension Interfaces {
+  /// Represents an owner of a package.
+  static let PackageOwner = Interface(name: "PackageOwner")
+}

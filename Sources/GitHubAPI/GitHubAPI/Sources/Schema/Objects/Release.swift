@@ -3,13 +3,13 @@
 
 import ApolloAPI
 
-/// A release contains the content for a release.
-public final class Release: Object {
-  override public class var __typename: StaticString { "Release" }
-
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Node.self,
-    UniformResourceLocatable.self
-  ]
+public extension Objects {
+  /// A release contains the content for a release.
+  static let Release = Object(
+    typename: "Release",
+    implementedInterfaces: [
+      Interfaces.Node.self,
+      Interfaces.UniformResourceLocatable.self
+    ]
+  )
 }

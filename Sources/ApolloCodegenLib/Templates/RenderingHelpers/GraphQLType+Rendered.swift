@@ -105,7 +105,7 @@ extension GraphQLType {
     switch self {
     case let .entity(type as GraphQLNamedType), let .inputObject(type as GraphQLNamedType):
       let typeName = newTypeName ?? type.swiftName
-      return TemplateString("\(schemaModuleName)\(typeName)\(if: !containedInNonNull, "?")").description
+      return TemplateString("\(typeName)\(if: !containedInNonNull, "?")").description
 
     case let .scalar(type):
       let typeName = newTypeName ?? type.swiftName

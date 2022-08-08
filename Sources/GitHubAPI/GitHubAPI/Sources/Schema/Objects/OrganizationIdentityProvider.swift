@@ -3,12 +3,10 @@
 
 import ApolloAPI
 
-/// An Identity Provider configured to provision SAML and SCIM identities for Organizations
-public final class OrganizationIdentityProvider: Object {
-  override public class var __typename: StaticString { "OrganizationIdentityProvider" }
-
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Node.self
-  ]
+public extension Objects {
+  /// An Identity Provider configured to provision SAML and SCIM identities for Organizations
+  static let OrganizationIdentityProvider = Object(
+    typename: "OrganizationIdentityProvider",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
 }

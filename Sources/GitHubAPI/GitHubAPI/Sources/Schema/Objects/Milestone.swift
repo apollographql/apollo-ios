@@ -3,14 +3,14 @@
 
 import ApolloAPI
 
-/// Represents a Milestone object on a given repository.
-public final class Milestone: Object {
-  override public class var __typename: StaticString { "Milestone" }
-
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Closable.self,
-    Node.self,
-    UniformResourceLocatable.self
-  ]
+public extension Objects {
+  /// Represents a Milestone object on a given repository.
+  static let Milestone = Object(
+    typename: "Milestone",
+    implementedInterfaces: [
+      Interfaces.Closable.self,
+      Interfaces.Node.self,
+      Interfaces.UniformResourceLocatable.self
+    ]
+  )
 }

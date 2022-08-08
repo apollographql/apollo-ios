@@ -3,12 +3,10 @@
 
 import ApolloAPI
 
-/// Represents a 'subscribed' event on a given `Subscribable`.
-public final class SubscribedEvent: Object {
-  override public class var __typename: StaticString { "SubscribedEvent" }
-
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Node.self
-  ]
+public extension Objects {
+  /// Represents a 'subscribed' event on a given `Subscribable`.
+  static let SubscribedEvent = Object(
+    typename: "SubscribedEvent",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
 }

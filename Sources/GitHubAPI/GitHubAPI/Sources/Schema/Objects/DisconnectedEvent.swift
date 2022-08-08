@@ -3,12 +3,10 @@
 
 import ApolloAPI
 
-/// Represents a 'disconnected' event on a given issue or pull request.
-public final class DisconnectedEvent: Object {
-  override public class var __typename: StaticString { "DisconnectedEvent" }
-
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Node.self
-  ]
+public extension Objects {
+  /// Represents a 'disconnected' event on a given issue or pull request.
+  static let DisconnectedEvent = Object(
+    typename: "DisconnectedEvent",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
 }

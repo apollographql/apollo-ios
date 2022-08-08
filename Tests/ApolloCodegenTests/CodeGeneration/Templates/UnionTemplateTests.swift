@@ -15,13 +15,14 @@ class UnionTemplateTests: XCTestCase {
   // MARK: Helpers
 
   private func buildSubject(
+    name: String = "ClassroomPet",
     documentation: String? = nil,
     config: ApolloCodegenConfiguration = .mock()
   ) {
     subject = UnionTemplate(
       moduleName: "moduleAPI",
       graphqlUnion: GraphQLUnionType.mock(
-        "classroomPet",
+        name,
         types: [
           GraphQLObjectType.mock("cat"),
           GraphQLObjectType.mock("bird"),
@@ -40,7 +41,7 @@ class UnionTemplateTests: XCTestCase {
 
   // MARK: Boilerplate tests
 
-  func test_render_generatesClosingBrace() throws {
+  func test_render_generatesClosingParen() throws {
     // given
     buildSubject()
 
@@ -48,7 +49,7 @@ class UnionTemplateTests: XCTestCase {
     let actual = renderSubject()
 
     // then
-    expect(String(actual.reversed())).to(equalLineByLine("\n}", ignoringExtraLines: true))
+    expect(actual).to(endWith("\n)"))
   }
 
   // MARK: Enum Generation Tests
@@ -58,7 +59,7 @@ class UnionTemplateTests: XCTestCase {
     buildSubject()
 
     let expected = """
-    enum ClassroomPet: Union {
+    static let ClassroomPet = Union(
     """
 
     // when
@@ -68,17 +69,28 @@ class UnionTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
-  func test_render_givenSchemaUnion_generatesPossibleTypesProperty() throws {
+
+  func test_render_givenSchemaUnionWithLowercaseName_generatesSwiftEnumDefinitionAsUppercase() throws {
+    // given
+    buildSubject(name: "classroomPet")
+
+    let expected = """
+    static let ClassroomPet = Union(
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test_render_givenSchemaUnion_generatesNameProperty() throws {
     // given
     buildSubject()
 
     let expected = """
-      public static let possibleTypes: [Object.Type] = [
-        ModuleAPI.Cat.self,
-        ModuleAPI.Bird.self,
-        ModuleAPI.Rat.self,
-        ModuleAPI.PetRock.self
-      ]
+      name: "ClassroomPet",
     """
 
     // when
@@ -88,12 +100,67 @@ class UnionTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 2, ignoringExtraLines: true))
   }
 
+  func test_render_givenSchemaUnionWithLowercaseName_generatesNamePropertyAsLowercase() throws {
+    // given
+    buildSubject(name: "classroomPet")
+
+    let expected = """
+      name: "classroomPet",
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 2, ignoringExtraLines: true))
+  }
+
+  func test_render_givenSchemaUnion_schemaTypesEmbeddedInTarget_generatesPossibleTypesPropertyWithSchameNamespace() throws {
+    // given
+    buildSubject()
+
+    let expected = """
+      possibleTypes: [
+        TestSchema.Objects.Cat.self,
+        TestSchema.Objects.Bird.self,
+        TestSchema.Objects.Rat.self,
+        TestSchema.Objects.PetRock.self
+      ]
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 3, ignoringExtraLines: true))
+  }
+
+  func test_render_givenSchemaUnion_schemaTypesNotEmbeddedInTarget_generatesPossibleTypesPropertyWithoutSchemaNamespace() throws {
+    // given
+    buildSubject(config: .mock(.swiftPackageManager))
+
+    let expected = """
+      possibleTypes: [
+        Objects.Cat.self,
+        Objects.Bird.self,
+        Objects.Rat.self,
+        Objects.PetRock.self
+      ]
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 3, ignoringExtraLines: true))
+  }
+
   func test_render_givenModuleType_swiftPackageManager_generatesSwiftEnum_withPublicModifier() {
     // given
     buildSubject(config: .mock(.swiftPackageManager))
 
     let expected = """
-    public enum ClassroomPet: Union {
+    static let ClassroomPet = Union(
     """
 
     // when
@@ -108,7 +175,7 @@ class UnionTemplateTests: XCTestCase {
     buildSubject(config: .mock(.other))
 
     let expected = """
-    public enum ClassroomPet: Union {
+    static let ClassroomPet = Union(
     """
 
     // when
@@ -123,7 +190,7 @@ class UnionTemplateTests: XCTestCase {
     buildSubject(config: .mock(.embeddedInTarget(name: "TestTarget")))
 
     let expected = """
-    enum ClassroomPet: Union {
+    static let ClassroomPet = Union(
     """
 
     // when
@@ -145,7 +212,7 @@ class UnionTemplateTests: XCTestCase {
 
     let expected = """
     /// \(documentation)
-    enum ClassroomPet: Union {
+    static let ClassroomPet = Union(
     """
 
     // when
@@ -165,7 +232,7 @@ class UnionTemplateTests: XCTestCase {
     )
 
     let expected = """
-    enum ClassroomPet: Union {
+    static let ClassroomPet = Union(
     """
 
     // when

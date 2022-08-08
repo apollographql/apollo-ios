@@ -3,12 +3,10 @@
 
 import ApolloAPI
 
-/// Represents a 'comment_deleted' event on a given issue or pull request.
-public final class CommentDeletedEvent: Object {
-  override public class var __typename: StaticString { "CommentDeletedEvent" }
-
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Node.self
-  ]
+public extension Objects {
+  /// Represents a 'comment_deleted' event on a given issue or pull request.
+  static let CommentDeletedEvent = Object(
+    typename: "CommentDeletedEvent",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
 }

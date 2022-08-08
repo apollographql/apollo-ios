@@ -3,12 +3,10 @@
 
 import ApolloAPI
 
-/// An Enterprise Server installation.
-public final class EnterpriseServerInstallation: Object {
-  override public class var __typename: StaticString { "EnterpriseServerInstallation" }
-
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Node.self
-  ]
+public extension Objects {
+  /// An Enterprise Server installation.
+  static let EnterpriseServerInstallation = Object(
+    typename: "EnterpriseServerInstallation",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
 }

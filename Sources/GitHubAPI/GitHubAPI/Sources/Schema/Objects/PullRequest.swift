@@ -3,23 +3,23 @@
 
 import ApolloAPI
 
-/// A repository pull request.
-public final class PullRequest: Object {
-  override public class var __typename: StaticString { "PullRequest" }
-
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Assignable.self,
-    Closable.self,
-    Comment.self,
-    Labelable.self,
-    Lockable.self,
-    Node.self,
-    Reactable.self,
-    RepositoryNode.self,
-    Subscribable.self,
-    UniformResourceLocatable.self,
-    Updatable.self,
-    UpdatableComment.self
-  ]
+public extension Objects {
+  /// A repository pull request.
+  static let PullRequest = Object(
+    typename: "PullRequest",
+    implementedInterfaces: [
+      Interfaces.Assignable.self,
+      Interfaces.Closable.self,
+      Interfaces.Comment.self,
+      Interfaces.Labelable.self,
+      Interfaces.Lockable.self,
+      Interfaces.Node.self,
+      Interfaces.Reactable.self,
+      Interfaces.RepositoryNode.self,
+      Interfaces.Subscribable.self,
+      Interfaces.UniformResourceLocatable.self,
+      Interfaces.Updatable.self,
+      Interfaces.UpdatableComment.self
+    ]
+  )
 }

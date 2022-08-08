@@ -4,35 +4,35 @@
 import ApolloTestSupport
 import PackageTwo
 
-extension MySchemaModule.Bird: Mockable {
-  public static let __mockFields = MockFields()
-
-  public typealias MockValueCollectionType = Array<Mock<MySchemaModule.Bird>>
+public class Bird: MockObject {
+  public static let objectType: Object = MySchemaModule.Objects.Bird
+  public static let _mockFields = MockFields()
+  public typealias MockValueCollectionType = Array<Mock<Bird>>
 
   public struct MockFields {
     @Field<Int>("bodyTemperature") public var bodyTemperature
     @Field<String>("favoriteToy") public var favoriteToy
-    @Field<MySchemaModule.Height>("height") public var height
+    @Field<Height>("height") public var height
     @Field<String>("humanName") public var humanName
     @Field<MySchemaModule.ID>("id") public var id
     @Field<Bool>("laysEggs") public var laysEggs
-    @Field<MySchemaModule.Human>("owner") public var owner
-    @Field<[MySchemaModule.Animal]>("predators") public var predators
+    @Field<Human>("owner") public var owner
+    @Field<[Animal]>("predators") public var predators
     @Field<GraphQLEnum<MySchemaModule.SkinCovering>>("skinCovering") public var skinCovering
     @Field<String>("species") public var species
     @Field<Double>("wingspan") public var wingspan
   }
 }
 
-public extension Mock where O == MySchemaModule.Bird {
+public extension Mock where O == Bird {
   convenience init(
     bodyTemperature: Int? = nil,
     favoriteToy: String? = nil,
-    height: Mock<MySchemaModule.Height>? = nil,
+    height: Mock<Height>? = nil,
     humanName: String? = nil,
     id: MySchemaModule.ID? = nil,
     laysEggs: Bool? = nil,
-    owner: Mock<MySchemaModule.Human>? = nil,
+    owner: Mock<Human>? = nil,
     predators: [AnyMock]? = nil,
     skinCovering: GraphQLEnum<MySchemaModule.SkinCovering>? = nil,
     species: String? = nil,

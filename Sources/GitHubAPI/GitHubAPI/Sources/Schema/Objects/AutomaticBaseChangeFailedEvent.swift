@@ -3,12 +3,10 @@
 
 import ApolloAPI
 
-/// Represents a 'automatic_base_change_failed' event on a given pull request.
-public final class AutomaticBaseChangeFailedEvent: Object {
-  override public class var __typename: StaticString { "AutomaticBaseChangeFailedEvent" }
-
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Node.self
-  ]
+public extension Objects {
+  /// Represents a 'automatic_base_change_failed' event on a given pull request.
+  static let AutomaticBaseChangeFailedEvent = Object(
+    typename: "AutomaticBaseChangeFailedEvent",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
 }

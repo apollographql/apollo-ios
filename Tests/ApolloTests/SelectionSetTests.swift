@@ -545,17 +545,15 @@ class SelectionSetTests: XCTestCase {
 
   func test__asInlineFragment_givenObjectType_returnsTypeIfCorrectType() {
     // given
-    class Human: Object {
-      override class var __typename: StaticString { "Human" }
-    }
-    class Droid: Object {
-      override class var __typename: StaticString { "Droid" }
+    struct Types {
+      static let Human = Object(typename: "Human", implementedInterfaces: [])
+      static let Droid = Object(typename: "Droid", implementedInterfaces: [])
     }
 
     MockSchemaConfiguration.stub_objectTypeForTypeName = {
       switch $0 {
-      case "Human": return Human.self
-      case "Droid": return Droid.self
+      case "Human": return Types.Human
+      case "Droid": return Types.Droid
       default: XCTFail(); return nil
       }
     }
@@ -575,7 +573,7 @@ class SelectionSetTests: XCTestCase {
       class AsHuman: MockTypeCase, SelectionSet {
         typealias Schema = MockSchemaConfiguration
 
-        override class var __parentType: ParentType { .Object(Human.self)}
+        override class var __parentType: ParentType { Types.Human }
         override class var selections: [Selection] {[
           .field("name", String.self)
         ]}
@@ -584,7 +582,7 @@ class SelectionSetTests: XCTestCase {
       class AsDroid: MockTypeCase, SelectionSet {
         typealias Schema = MockSchemaConfiguration
 
-        override class var __parentType: ParentType { .Object(Droid.self)}
+        override class var __parentType: ParentType { Types.Droid }
         override class var selections: [Selection] {[
           .field("primaryFunction", String.self)
         ]}
@@ -606,18 +604,14 @@ class SelectionSetTests: XCTestCase {
 
   func test__asInlineFragment_givenInterfaceType_typeForTypeNameImplementsInterface_returnsType() {
     // given
-    class Humanoid: Interface { }
-    class Human: Object {
-      override class var __typename: StaticString { "Human" }
-      override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-      private static let _implementedInterfaces: [Interface.Type]? = [
-        Humanoid.self
-      ]
+    struct Types {
+      static let Humanoid = Interface(name: "Humanoid")
+      static let Human = Object(typename: "Human", implementedInterfaces: [Humanoid])
     }
 
     MockSchemaConfiguration.stub_objectTypeForTypeName = {
       switch $0 {
-      case "Human": return Human.self
+      case "Human": return Types.Human
       default: XCTFail(); return nil
       }
     }
@@ -635,7 +629,7 @@ class SelectionSetTests: XCTestCase {
       class AsHumanoid: MockTypeCase, SelectionSet {
         typealias Schema = MockSchemaConfiguration
 
-        override class var __parentType: ParentType { .Interface(Humanoid.self)}
+        override class var __parentType: ParentType { Types.Humanoid }
         override class var selections: [Selection] {[
           .field("name", String.self)
         ]}
@@ -657,14 +651,14 @@ class SelectionSetTests: XCTestCase {
 
   func test__asInlineFragment_givenInterfaceType_typeForTypeNameDoesNotImplementInterface_returnsNil() {
     // given
-    class Humanoid: Interface { }
-    class Droid: Object {
-      override class var __typename: StaticString { "Droid" }
+    struct Types {
+      static let Humanoid = Interface(name: "Humanoid")
+      static let Droid = Object(typename: "Droid", implementedInterfaces: [])
     }
 
     MockSchemaConfiguration.stub_objectTypeForTypeName = {
       switch $0 {
-      case "Droid": return Droid.self
+      case "Droid": return Types.Droid
       default: XCTFail(); return nil
       }
     }
@@ -682,7 +676,7 @@ class SelectionSetTests: XCTestCase {
       class AsHumanoid: MockTypeCase, SelectionSet {
         typealias Schema = MockSchemaConfiguration
 
-        override class var __parentType: ParentType { .Interface(Humanoid.self)}
+        override class var __parentType: ParentType { Types.Humanoid }
         override class var selections: [Selection] {[
           .field("name", String.self)
         ]}
@@ -704,23 +698,14 @@ class SelectionSetTests: XCTestCase {
 
   func test__asInlineFragment_givenUnionType_typeNameIsTypeInUnionPossibleTypes_returnsType() {
     // given
-    class Human: Object {
-      override class var __typename: StaticString { "Human" }
-    }
-
-    struct Character: Union {
-      let object: Object
-
-      init(_ object: Object) {
-        self.object = object
-      }
-
-      static let possibleTypes: [Object.Type] = [Human.self]
+    enum Types {
+      static let Human = Object(typename: "Human", implementedInterfaces: [])
+      static let Character = Union(name: "Character", possibleTypes: [Types.Human])
     }
 
     MockSchemaConfiguration.stub_objectTypeForTypeName = {
       switch $0 {
-      case "Human": return Human.self
+      case "Human": return Types.Human
       default: XCTFail(); return nil
       }
     }
@@ -738,7 +723,7 @@ class SelectionSetTests: XCTestCase {
       class AsCharacter: MockTypeCase, SelectionSet {
         typealias Schema = MockSchemaConfiguration
 
-        override class var __parentType: ParentType { .Union(Character.self)}
+        override class var __parentType: ParentType { Types.Character }
         override class var selections: [Selection] {[
           .field("name", String.self)
         ]}
@@ -759,23 +744,14 @@ class SelectionSetTests: XCTestCase {
 
   func test__asInlineFragment_givenUnionType_typeNameNotIsTypeInUnionPossibleTypes_returnsNil() {
     // given
-    class Human: Object {
-      override class var __typename: StaticString { "Human" }
-    }
-
-    struct Character: Union {
-      let object: Object
-
-      init(_ object: Object) {
-        self.object = object
-      }
-
-      static let possibleTypes: [Object.Type] = []
+    enum Types {
+      static let Human = Object(typename: "Human", implementedInterfaces: [])
+      static let Character = Union(name: "Character", possibleTypes: [])
     }
 
     MockSchemaConfiguration.stub_objectTypeForTypeName = {
       switch $0 {
-      case "Human": return Human.self
+      case "Human": return Types.Human
       default: XCTFail(); return nil
       }
     }
@@ -793,7 +769,7 @@ class SelectionSetTests: XCTestCase {
       class AsCharacter: MockTypeCase, SelectionSet {
         typealias Schema = MockSchemaConfiguration
 
-        override class var __parentType: ParentType { .Union(Character.self)}
+        override class var __parentType: ParentType { Types.Character }
         override class var selections: [Selection] {[
           .field("name", String.self)
         ]}

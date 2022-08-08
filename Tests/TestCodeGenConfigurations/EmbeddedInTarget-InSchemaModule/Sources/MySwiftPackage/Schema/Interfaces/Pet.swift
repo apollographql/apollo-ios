@@ -3,7 +3,6 @@
 
 import ApolloAPI
 
-public extension MyGraphQLSchema {
-  final class Pet: Interface { }
-
+public extension MyGraphQLSchema.Interfaces {
+  static let Pet = Interface(name: "Pet")
 }

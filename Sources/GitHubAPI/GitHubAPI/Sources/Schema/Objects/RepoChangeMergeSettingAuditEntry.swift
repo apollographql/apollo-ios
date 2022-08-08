@@ -3,15 +3,15 @@
 
 import ApolloAPI
 
-/// Audit log entry for a repo.change_merge_setting event.
-public final class RepoChangeMergeSettingAuditEntry: Object {
-  override public class var __typename: StaticString { "RepoChangeMergeSettingAuditEntry" }
-
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    AuditEntry.self,
-    Node.self,
-    OrganizationAuditEntryData.self,
-    RepositoryAuditEntryData.self
-  ]
+public extension Objects {
+  /// Audit log entry for a repo.change_merge_setting event.
+  static let RepoChangeMergeSettingAuditEntry = Object(
+    typename: "RepoChangeMergeSettingAuditEntry",
+    implementedInterfaces: [
+      Interfaces.AuditEntry.self,
+      Interfaces.Node.self,
+      Interfaces.OrganizationAuditEntryData.self,
+      Interfaces.RepositoryAuditEntryData.self
+    ]
+  )
 }

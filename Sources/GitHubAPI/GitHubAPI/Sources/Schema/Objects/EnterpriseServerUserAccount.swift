@@ -3,12 +3,10 @@
 
 import ApolloAPI
 
-/// A user account on an Enterprise Server installation.
-public final class EnterpriseServerUserAccount: Object {
-  override public class var __typename: StaticString { "EnterpriseServerUserAccount" }
-
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Node.self
-  ]
+public extension Objects {
+  /// A user account on an Enterprise Server installation.
+  static let EnterpriseServerUserAccount = Object(
+    typename: "EnterpriseServerUserAccount",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
 }

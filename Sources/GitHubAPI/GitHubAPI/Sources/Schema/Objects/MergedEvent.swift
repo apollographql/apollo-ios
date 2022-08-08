@@ -3,13 +3,13 @@
 
 import ApolloAPI
 
-/// Represents a 'merged' event on a given pull request.
-public final class MergedEvent: Object {
-  override public class var __typename: StaticString { "MergedEvent" }
-
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Node.self,
-    UniformResourceLocatable.self
-  ]
+public extension Objects {
+  /// Represents a 'merged' event on a given pull request.
+  static let MergedEvent = Object(
+    typename: "MergedEvent",
+    implementedInterfaces: [
+      Interfaces.Node.self,
+      Interfaces.UniformResourceLocatable.self
+    ]
+  )
 }

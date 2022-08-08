@@ -203,7 +203,7 @@ class GraphQLExecutor_ResultNormalizer_FromResponse_Tests: XCTestCase {
       }
     }
 
-    MockSchemaConfiguration.stub_cacheKeyProviderForUnknownType = { _, _ in IDCacheKeyProvider.self }
+    MockSchemaConfiguration.stub_cacheKeyInfoForType_Object = IDCacheKeyProvider.resolver
 
     let object: JSONObject = [
       "hero": [
@@ -281,13 +281,15 @@ class GraphQLExecutor_ResultNormalizer_FromResponse_Tests: XCTestCase {
 
   func test__execute__givenDifferentAliasedFieldsOnTwoTypeCasesWithSameAlias_givenIsFirstType_hasRecordWithFieldValueUsingNonaliasedFieldName() throws {
     // given
-    class Human: Object { }
-    class Droid: Object { }
+    struct Types {
+      static let Human = Object(typename: "Human", implementedInterfaces: [])
+      static let Droid = Object(typename: "Droid", implementedInterfaces: [])
+    }
 
     MockSchemaConfiguration.stub_objectTypeForTypeName = {
       switch $0 {
-      case "Human": return Human.self
-      case "Droid": return Droid.self
+      case "Human": return Types.Human
+      case "Droid": return Types.Droid
       default: XCTFail(); return nil
       }
     }
@@ -305,21 +307,21 @@ class GraphQLExecutor_ResultNormalizer_FromResponse_Tests: XCTestCase {
         ]}
 
         class AsHuman: MockTypeCase {
-          override class var __parentType: ParentType { .Object(Human.self)}
+          override class var __parentType: ParentType { Types.Human }
           override class var selections: [Selection] {[
             .field("name", alias: "property", String.self)
           ]}
         }
 
         class AsDroid: MockTypeCase {
-          override class var __parentType: ParentType { .Object(Droid.self)}
+          override class var __parentType: ParentType { Types.Droid }
           override class var selections: [Selection] {[
             .field("primaryFunction", alias: "property", String.self)
           ]}
         }
       }
     }
-    
+
     let object: JSONObject = [
       "hero": ["__typename": "Human", "property": "Han Solo"]
     ]
@@ -336,13 +338,15 @@ class GraphQLExecutor_ResultNormalizer_FromResponse_Tests: XCTestCase {
 
   func test__execute__givenDifferentAliasedFieldsOnTwoTypeCasesWithSameAlias_givenIsSecondType_hasRecordWithFieldValueUsingNonaliasedFieldName() throws {
     // given
-    class Human: Object { }
-    class Droid: Object { }
+    struct Types {
+      static let Human = Object(typename: "Human", implementedInterfaces: [])
+      static let Droid = Object(typename: "Droid", implementedInterfaces: [])
+    }
 
     MockSchemaConfiguration.stub_objectTypeForTypeName = {
       switch $0 {
-      case "Human": return Human.self
-      case "Droid": return Droid.self
+      case "Human": return Types.Human
+      case "Droid": return Types.Droid
       default: XCTFail(); return nil
       }
     }
@@ -359,7 +363,7 @@ class GraphQLExecutor_ResultNormalizer_FromResponse_Tests: XCTestCase {
         ]}
 
         class AsHuman: MockTypeCase {
-          override class var __parentType: ParentType { .Object(Human.self)}
+          override class var __parentType: ParentType { Types.Human }
           override class var selections: [Selection] {[
             .field("__typename", String.self),
             .field("name", alias: "property", String.self)
@@ -367,7 +371,7 @@ class GraphQLExecutor_ResultNormalizer_FromResponse_Tests: XCTestCase {
         }
 
         class AsDroid: MockTypeCase {
-          override class var __parentType: ParentType { .Object(Droid.self)}
+          override class var __parentType: ParentType { Types.Droid }
           override class var selections: [Selection] {[
             .field("__typename", String.self),
             .field("primaryFunction", alias: "property", String.self)
@@ -392,17 +396,18 @@ class GraphQLExecutor_ResultNormalizer_FromResponse_Tests: XCTestCase {
 
   func test__execute__givenSameFieldWithDifferentArgumentValueOnSameNestedFieldOnTwoTypeCases_givenIsFirstType_hasRecordForFieldNameWithFirstTypesArgument() throws {
     // given
-    class Human: Object { }
-    class Droid: Object { }
+    struct Types {
+      static let Human = Object(typename: "Human", implementedInterfaces: [])
+      static let Droid = Object(typename: "Droid", implementedInterfaces: [])
+    }
 
     MockSchemaConfiguration.stub_objectTypeForTypeName = {
       switch $0 {
-      case "Human": return Human.self
-      case "Droid": return Droid.self
+      case "Human": return Types.Human
+      case "Droid": return Types.Droid
       default: XCTFail(); return nil
       }
     }
-
     class GivenSelectionSet: MockSelectionSet {
       override class var selections: [Selection] {[
         .field("hero", Hero.self),
@@ -416,7 +421,7 @@ class GraphQLExecutor_ResultNormalizer_FromResponse_Tests: XCTestCase {
         ]}
 
         class AsHuman: MockTypeCase {
-          override class var __parentType: ParentType { .Object(Human.self)}
+          override class var __parentType: ParentType { Types.Human }
           override class var selections: [Selection] {[
             .field("friend", Friend.self),
           ]}
@@ -429,7 +434,7 @@ class GraphQLExecutor_ResultNormalizer_FromResponse_Tests: XCTestCase {
         }
 
         class AsDroid: MockTypeCase {
-          override class var __parentType: ParentType { .Object(Droid.self)}
+          override class var __parentType: ParentType { Types.Droid }
           override class var selections: [Selection] {[
             .field("friend", Friend.self),
           ]}
@@ -463,13 +468,15 @@ class GraphQLExecutor_ResultNormalizer_FromResponse_Tests: XCTestCase {
 
   func test__execute__givenSameFieldWithDifferentArgumentValueOnSameNestedFieldOnTwoTypeCases_givenIsSecondType_hasRecordForFieldNameWithFirstTypesArgument() throws {
     // given
-    class Human: Object { }
-    class Droid: Object { }
+    struct Types {
+      static let Human = Object(typename: "Human", implementedInterfaces: [])
+      static let Droid = Object(typename: "Droid", implementedInterfaces: [])
+    }
 
     MockSchemaConfiguration.stub_objectTypeForTypeName = {
       switch $0 {
-      case "Human": return Human.self
-      case "Droid": return Droid.self
+      case "Human": return Types.Human
+      case "Droid": return Types.Droid
       default: XCTFail(); return nil
       }
     }
@@ -487,7 +494,7 @@ class GraphQLExecutor_ResultNormalizer_FromResponse_Tests: XCTestCase {
         ]}
 
         class AsHuman: MockTypeCase {
-          override class var __parentType: ParentType { .Object(Human.self)}
+          override class var __parentType: ParentType { Types.Human }
           override class var selections: [Selection] {[
             .field("friend", Friend.self),
           ]}
@@ -500,7 +507,7 @@ class GraphQLExecutor_ResultNormalizer_FromResponse_Tests: XCTestCase {
         }
 
         class AsDroid: MockTypeCase {
-          override class var __parentType: ParentType { .Object(Droid.self)}
+          override class var __parentType: ParentType { Types.Droid }
           override class var selections: [Selection] {[
             .field("friend", Friend.self),
           ]}

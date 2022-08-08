@@ -3,15 +3,15 @@
 
 import ApolloAPI
 
-/// Audit log entry for a repository_visibility_change.disable event.
-public final class RepositoryVisibilityChangeDisableAuditEntry: Object {
-  override public class var __typename: StaticString { "RepositoryVisibilityChangeDisableAuditEntry" }
-
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    AuditEntry.self,
-    EnterpriseAuditEntryData.self,
-    Node.self,
-    OrganizationAuditEntryData.self
-  ]
+public extension Objects {
+  /// Audit log entry for a repository_visibility_change.disable event.
+  static let RepositoryVisibilityChangeDisableAuditEntry = Object(
+    typename: "RepositoryVisibilityChangeDisableAuditEntry",
+    implementedInterfaces: [
+      Interfaces.AuditEntry.self,
+      Interfaces.EnterpriseAuditEntryData.self,
+      Interfaces.Node.self,
+      Interfaces.OrganizationAuditEntryData.self
+    ]
+  )
 }

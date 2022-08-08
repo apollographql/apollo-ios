@@ -3,5 +3,7 @@
 
 import ApolloAPI
 
-/// An object that can be locked.
-public final class Lockable: Interface { }
+public extension Interfaces {
+  /// An object that can be locked.
+  static let Lockable = Interface(name: "Lockable")
+}

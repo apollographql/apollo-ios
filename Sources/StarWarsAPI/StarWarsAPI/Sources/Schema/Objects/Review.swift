@@ -3,7 +3,10 @@
 
 import ApolloAPI
 
-/// Represents a review for a movie
-public final class Review: Object {
-  override public class var __typename: StaticString { "Review" }
+public extension Objects {
+  /// Represents a review for a movie
+  static let Review = Object(
+    typename: "Review",
+    implementedInterfaces: []
+  )
 }

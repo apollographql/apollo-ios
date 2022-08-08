@@ -27,7 +27,7 @@ class ClassroomPetsCCNQuery: GraphQLQuery {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(MySchemaModule.Query.self) }
+    public static var __parentType: ParentType { MySchemaModule.Objects.Query }
     public static var selections: [Selection] { [
       .field("classroomPets", [ClassroomPet]?.self),
     ] }
@@ -41,7 +41,7 @@ class ClassroomPetsCCNQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { .Union(MySchemaModule.ClassroomPet.self) }
+      public static var __parentType: ParentType { MySchemaModule.Unions.ClassroomPet }
       public static var selections: [Selection] { [
         .fragment(ClassroomPetDetailsCCN.self),
       ] }
@@ -62,7 +62,7 @@ class ClassroomPetsCCNQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Interface(MySchemaModule.Animal.self) }
+        public static var __parentType: ParentType { MySchemaModule.Interfaces.Animal }
 
         public var height: ClassroomPetDetailsCCN.AsAnimal.Height { __data["height"] }
 

@@ -4,9 +4,9 @@
 import ApolloTestSupport
 import AnimalKingdomAPI
 
-extension Query: Mockable {
-  public static let __mockFields = MockFields()
-
+public class Query: MockObject {
+  public static let objectType: Object = AnimalKingdomAPI.Objects.Query
+  public static let _mockFields = MockFields()
   public typealias MockValueCollectionType = Array<Mock<Query>>
 
   public struct MockFields {

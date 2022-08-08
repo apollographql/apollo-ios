@@ -3,7 +3,6 @@
 
 import ApolloAPI
 
-public extension MySchemaModule {
-  final class Pet: Interface { }
-
+public extension MySchemaModule.Interfaces {
+  static let Pet = Interface(name: "Pet")
 }

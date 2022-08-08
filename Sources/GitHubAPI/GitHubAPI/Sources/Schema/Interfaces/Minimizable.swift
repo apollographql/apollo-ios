@@ -3,5 +3,7 @@
 
 import ApolloAPI
 
-/// Entities that can be minimized.
-public final class Minimizable: Interface { }
+public extension Interfaces {
+  /// Entities that can be minimized.
+  static let Minimizable = Interface(name: "Minimizable")
+}

@@ -3,18 +3,18 @@
 
 import ApolloAPI
 
-/// A review object for a given pull request.
-public final class PullRequestReview: Object {
-  override public class var __typename: StaticString { "PullRequestReview" }
-
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Comment.self,
-    Deletable.self,
-    Node.self,
-    Reactable.self,
-    RepositoryNode.self,
-    Updatable.self,
-    UpdatableComment.self
-  ]
+public extension Objects {
+  /// A review object for a given pull request.
+  static let PullRequestReview = Object(
+    typename: "PullRequestReview",
+    implementedInterfaces: [
+      Interfaces.Comment.self,
+      Interfaces.Deletable.self,
+      Interfaces.Node.self,
+      Interfaces.Reactable.self,
+      Interfaces.RepositoryNode.self,
+      Interfaces.Updatable.self,
+      Interfaces.UpdatableComment.self
+    ]
+  )
 }

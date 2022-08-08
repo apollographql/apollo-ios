@@ -33,15 +33,13 @@ public class HeroFriendsDetailsConditionalInclusionQuery: GraphQLQuery {
     self.includeFriendsDetails = includeFriendsDetails
   }
 
-  public var variables: Variables? {
-    ["includeFriendsDetails": includeFriendsDetails]
-  }
+  public var variables: Variables? { ["includeFriendsDetails": includeFriendsDetails] }
 
   public struct Data: StarWarsAPI.SelectionSet {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(StarWarsAPI.Query.self) }
+    public static var __parentType: ParentType { StarWarsAPI.Objects.Query }
     public static var selections: [Selection] { [
       .field("hero", Hero?.self),
     ] }
@@ -55,7 +53,7 @@ public class HeroFriendsDetailsConditionalInclusionQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { .Interface(StarWarsAPI.Character.self) }
+      public static var __parentType: ParentType { StarWarsAPI.Interfaces.Character }
       public static var selections: [Selection] { [
         .include(if: "includeFriendsDetails", .field("friends", [Friend?]?.self)),
       ] }
@@ -70,7 +68,7 @@ public class HeroFriendsDetailsConditionalInclusionQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Interface(StarWarsAPI.Character.self) }
+        public static var __parentType: ParentType { StarWarsAPI.Interfaces.Character }
         public static var selections: [Selection] { [
           .field("name", String.self),
           .inlineFragment(AsDroid.self),
@@ -88,7 +86,7 @@ public class HeroFriendsDetailsConditionalInclusionQuery: GraphQLQuery {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public static var __parentType: ParentType { .Object(StarWarsAPI.Droid.self) }
+          public static var __parentType: ParentType { StarWarsAPI.Objects.Droid }
           public static var selections: [Selection] { [
             .field("primaryFunction", String?.self),
           ] }

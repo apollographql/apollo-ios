@@ -3,19 +3,19 @@
 
 import ApolloAPI
 
-/// Represents a comment on a given Commit.
-public final class CommitComment: Object {
-  override public class var __typename: StaticString { "CommitComment" }
-
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Comment.self,
-    Deletable.self,
-    Minimizable.self,
-    Node.self,
-    Reactable.self,
-    RepositoryNode.self,
-    Updatable.self,
-    UpdatableComment.self
-  ]
+public extension Objects {
+  /// Represents a comment on a given Commit.
+  static let CommitComment = Object(
+    typename: "CommitComment",
+    implementedInterfaces: [
+      Interfaces.Comment.self,
+      Interfaces.Deletable.self,
+      Interfaces.Minimizable.self,
+      Interfaces.Node.self,
+      Interfaces.Reactable.self,
+      Interfaces.RepositoryNode.self,
+      Interfaces.Updatable.self,
+      Interfaces.UpdatableComment.self
+    ]
+  )
 }

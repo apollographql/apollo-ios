@@ -127,6 +127,19 @@ class TestMockTests: XCTestCase {
     expect(mock.bestFriend as? Mock<Cat>).to(beIdenticalTo(cat))
   }
 
+  func test__mock__setUnionField__fieldIsSet() throws {
+    // given
+    let mock = Mock<Dog>()
+    let cat = Mock<Cat>()
+
+    // when
+    mock.unionField = cat
+
+    // then
+    expect(mock._data["unionField"] as? Mock<Cat>).to(beIdenticalTo(cat))
+    expect(mock.unionField as? Mock<Cat>).to(beIdenticalTo(cat))
+  }
+
   func test__mock__setListOfInterfacesField__fieldIsSet() throws {
     // given
     let mock = Mock<Dog>()
@@ -205,32 +218,43 @@ class TestMockTests: XCTestCase {
   }
 }
 
-class Dog: Object {
-  override public class var __typename: StaticString { "Dog" }
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Animal.self
-  ]
+// MARK: - Generated Example
+
+// MARK: Generated Schema
+enum TestMockSchema: SchemaConfiguration {
+  static func objectType(forTypename typename: String) -> Object? {
+    return nil
+  }
+
+  struct Interfaces {
+    static let Animal = Interface(name: "Animal")
+  }
+  struct Types {
+    static let Dog = Object(
+      typename: "Dog",
+      implementedInterfaces: [TestMockSchema.Interfaces.Animal]
+    )
+    static let Cat = Object(
+      typename: "Cat",
+      implementedInterfaces: [Interfaces.Animal]
+    )
+    static let Height = Object(
+      typename: "Height",
+      implementedInterfaces: []
+    )
+  }
 }
 
-class Cat: Object {
-  override public class var __typename: StaticString { "Dog" }
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Animal.self
-  ]  
+// MARK: Generated Test Mocks Schema
+extension MockObject {
+  typealias Animal = Interface
+  typealias ClassroomPet = Union
 }
 
-class Height: Object {
-  override public class var __typename: StaticString { "Height" }
-}
-
-class Animal: Interface {}
-
-// MARK: Mockable Extensions
-
-extension Dog: Mockable {
-  static let __mockFields = MockFields()
+#warning("TODO: What do we name these? Namespaced, Mock_Dog, MockDog, Dog?")
+class Dog: MockObject {
+  static let objectType: Object = TestMockSchema.Types.Dog
+  static let _mockFields = MockFields()
 
   struct MockFields {
     @Field<String>("id") public var id
@@ -238,6 +262,7 @@ extension Dog: Mockable {
     @Field<Height>("height") public var height
     @Field<[String]>("listOfStrings") public var listOfStrings
     @Field<Animal>("bestFriend") public var bestFriend
+    @Field<ClassroomPet>("unionField") public var unionField
     @Field<[Cat]>("listOfObjects") public var listOfObjects
     @Field<[[Cat]]>("nestedListOfObjects") public var nestedListOfObjects
     @Field<[Cat?]>("listOfOptionalObjects") public var listOfOptionalObjects
@@ -247,8 +272,9 @@ extension Dog: Mockable {
   }
 }
 
-extension Cat: Mockable {
-  static let __mockFields = MockFields()
+class Cat: MockObject {
+  static let objectType: Object = TestMockSchema.Types.Cat
+  static let _mockFields = MockFields()
 
   struct MockFields {
     @Field<String>("id") public var id
@@ -259,8 +285,9 @@ extension Cat: Mockable {
   }
 }
 
-extension Height: Mockable {
-  static let __mockFields = MockFields()
+class Height: MockObject {
+  static let objectType: Object = TestMockSchema.Types.Height
+  static let _mockFields = MockFields()
 
   struct MockFields {
     @Field<Int>("meters") public var meters

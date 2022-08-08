@@ -3,6 +3,9 @@
 
 import ApolloAPI
 
-public final class Starship: Object {
-  override public class var __typename: StaticString { "Starship" }
+public extension Objects {
+  static let Starship = Object(
+    typename: "Starship",
+    implementedInterfaces: []
+  )
 }

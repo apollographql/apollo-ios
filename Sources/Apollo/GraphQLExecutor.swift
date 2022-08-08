@@ -268,7 +268,7 @@ final class GraphQLExecutor {
 
       case let .inlineFragment(typeCase):
         if let runtimeType = runtimeObjectType(for: object, schema: info.schema),
-           runtimeType._canBeConverted(to: typeCase.__parentType) {
+           typeCase.__parentType.canBeConverted(from: runtimeType) {
           try groupFields(typeCase.selections,
                           for: object,
                           into: &groupedFields,
@@ -281,7 +281,7 @@ final class GraphQLExecutor {
   private func runtimeObjectType(
     for json: JSONObject,
     schema: SchemaConfiguration.Type
-  ) -> Object.Type? {
+  ) -> Object? {
     guard let __typename = json["__typename"] as? String else {
       return nil
     }

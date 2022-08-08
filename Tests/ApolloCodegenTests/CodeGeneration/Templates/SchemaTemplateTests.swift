@@ -250,11 +250,11 @@ class SchemaTemplateTests: XCTestCase {
     )
 
     let expected = """
-      public static func objectType(forTypename __typename: String) -> Object.Type? {
-        switch __typename {
-        case "ObjA": return ObjectSchema.ObjA.self
-        case "ObjB": return ObjectSchema.ObjB.self
-        case "ObjC": return ObjectSchema.ObjC.self
+      public static func objectType(forTypename typename: String) -> Object? {
+        switch typename {
+        case "ObjA": return ObjectSchema.Objects.ObjA
+        case "ObjB": return ObjectSchema.Objects.ObjB
+        case "ObjC": return ObjectSchema.Objects.ObjC
         default: return nil
         }
       }
@@ -266,7 +266,7 @@ class SchemaTemplateTests: XCTestCase {
     let actual = renderTemplate()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 12))
+    expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))
   }
 
   func test__render__givenWithReferencedOtherTypes_generatesObjectTypeNotIncludingNonObjectTypesFunction() {
@@ -284,9 +284,9 @@ class SchemaTemplateTests: XCTestCase {
     )
 
     let expected = """
-      public static func objectType(forTypename __typename: String) -> Object.Type? {
-        switch __typename {
-        case "ObjectA": return ObjectSchema.ObjectA.self
+      public static func objectType(forTypename typename: String) -> Object? {
+        switch typename {
+        case "ObjectA": return ObjectSchema.Objects.ObjectA
         default: return nil
         }
       }
@@ -298,7 +298,64 @@ class SchemaTemplateTests: XCTestCase {
     let actual = renderTemplate()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 12))
+    expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))
+  }
+
+  func test__render__rendersTypeNamespaceEnums() {
+    // given
+    buildSubject(
+      name: "ObjectSchema",
+      referencedTypes: .init([
+        GraphQLObjectType.mock("ObjectA"),
+        GraphQLInterfaceType.mock("InterfaceB"),
+        GraphQLUnionType.mock("UnionC"),
+        GraphQLScalarType.mock(name: "ScalarD"),
+        GraphQLEnumType.mock(name: "EnumE"),
+        GraphQLInputObjectType.mock("InputObjectC"),
+      ])
+    )
+
+    let expected = """
+    enum Objects {}
+    enum Interfaces {}
+    enum Unions {}
+
+    """
+
+    // when
+    let actual = renderTemplate()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 20))
+  }
+
+  func test__render__givenModuleSwiftPackageManager_rendersTypeNamespaceEnumsAsPublic() {
+    // given
+    buildSubject(
+      name: "ObjectSchema",
+      referencedTypes: .init([
+        GraphQLObjectType.mock("ObjectA"),
+        GraphQLInterfaceType.mock("InterfaceB"),
+        GraphQLUnionType.mock("UnionC"),
+        GraphQLScalarType.mock(name: "ScalarD"),
+        GraphQLEnumType.mock(name: "EnumE"),
+        GraphQLInputObjectType.mock("InputObjectC"),
+      ]),
+      config: .mock(.swiftPackageManager)
+    )
+
+    let expected = """
+    public enum Objects {}
+    public enum Interfaces {}
+    public enum Unions {}
+
+    """
+
+    // when
+    let actual = renderTemplate()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 24))
   }
 
   // MARK: Documentation Tests

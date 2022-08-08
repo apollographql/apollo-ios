@@ -20,7 +20,7 @@ public struct CharacterNameAndDroidAppearsIn: StarWarsAPI.SelectionSet, Fragment
   public let __data: DataDict
   public init(data: DataDict) { __data = data }
 
-  public static var __parentType: ParentType { .Interface(StarWarsAPI.Character.self) }
+  public static var __parentType: ParentType { StarWarsAPI.Interfaces.Character }
   public static var selections: [Selection] { [
     .field("name", String.self),
     .inlineFragment(AsDroid.self),
@@ -38,7 +38,7 @@ public struct CharacterNameAndDroidAppearsIn: StarWarsAPI.SelectionSet, Fragment
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(StarWarsAPI.Droid.self) }
+    public static var __parentType: ParentType { StarWarsAPI.Objects.Droid }
     public static var selections: [Selection] { [
       .field("appearsIn", [GraphQLEnum<Episode>?].self),
     ] }

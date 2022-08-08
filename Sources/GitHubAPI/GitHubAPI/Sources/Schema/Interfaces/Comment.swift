@@ -3,5 +3,7 @@
 
 import ApolloAPI
 
-/// Represents a comment.
-public final class Comment: Interface { }
+public extension Interfaces {
+  /// Represents a comment.
+  static let Comment = Interface(name: "Comment")
+}

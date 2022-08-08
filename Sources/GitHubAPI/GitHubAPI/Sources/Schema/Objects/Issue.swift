@@ -3,23 +3,23 @@
 
 import ApolloAPI
 
-/// An Issue is a place to discuss ideas, enhancements, tasks, and bugs for a project.
-public final class Issue: Object {
-  override public class var __typename: StaticString { "Issue" }
-
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Assignable.self,
-    Closable.self,
-    Comment.self,
-    Labelable.self,
-    Lockable.self,
-    Node.self,
-    Reactable.self,
-    RepositoryNode.self,
-    Subscribable.self,
-    UniformResourceLocatable.self,
-    Updatable.self,
-    UpdatableComment.self
-  ]
+public extension Objects {
+  /// An Issue is a place to discuss ideas, enhancements, tasks, and bugs for a project.
+  static let Issue = Object(
+    typename: "Issue",
+    implementedInterfaces: [
+      Interfaces.Assignable.self,
+      Interfaces.Closable.self,
+      Interfaces.Comment.self,
+      Interfaces.Labelable.self,
+      Interfaces.Lockable.self,
+      Interfaces.Node.self,
+      Interfaces.Reactable.self,
+      Interfaces.RepositoryNode.self,
+      Interfaces.Subscribable.self,
+      Interfaces.UniformResourceLocatable.self,
+      Interfaces.Updatable.self,
+      Interfaces.UpdatableComment.self
+    ]
+  )
 }

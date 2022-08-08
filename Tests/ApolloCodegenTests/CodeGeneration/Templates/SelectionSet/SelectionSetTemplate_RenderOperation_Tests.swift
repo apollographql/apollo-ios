@@ -63,7 +63,7 @@ class SelectionSetTemplate_RenderOperation_Tests: XCTestCase {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { .Object(TestSchema.Query.self) }
+      public static var __parentType: ParentType { TestSchema.Objects.Query }
     """
 
     // when

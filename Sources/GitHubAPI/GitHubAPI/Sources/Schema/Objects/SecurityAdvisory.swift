@@ -3,12 +3,10 @@
 
 import ApolloAPI
 
-/// A GitHub Security Advisory
-public final class SecurityAdvisory: Object {
-  override public class var __typename: StaticString { "SecurityAdvisory" }
-
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Node.self
-  ]
+public extension Objects {
+  /// A GitHub Security Advisory
+  static let SecurityAdvisory = Object(
+    typename: "SecurityAdvisory",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
 }

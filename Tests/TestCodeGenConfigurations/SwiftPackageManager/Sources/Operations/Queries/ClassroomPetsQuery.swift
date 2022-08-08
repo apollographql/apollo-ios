@@ -26,7 +26,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(GraphQLSchemaName.Query.self) }
+    public static var __parentType: ParentType { GraphQLSchemaName.Objects.Query }
     public static var selections: [Selection] { [
       .field("classroomPets", [ClassroomPet?]?.self),
     ] }
@@ -40,7 +40,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { .Union(GraphQLSchemaName.ClassroomPet.self) }
+      public static var __parentType: ParentType { GraphQLSchemaName.Unions.ClassroomPet }
       public static var selections: [Selection] { [
         .fragment(ClassroomPetDetails.self),
       ] }
@@ -66,7 +66,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Interface(GraphQLSchemaName.Animal.self) }
+        public static var __parentType: ParentType { GraphQLSchemaName.Interfaces.Animal }
 
         public var species: String { __data["species"] }
 
@@ -85,7 +85,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Interface(GraphQLSchemaName.Pet.self) }
+        public static var __parentType: ParentType { GraphQLSchemaName.Interfaces.Pet }
 
         public var humanName: String? { __data["humanName"] }
 
@@ -104,7 +104,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Interface(GraphQLSchemaName.WarmBlooded.self) }
+        public static var __parentType: ParentType { GraphQLSchemaName.Interfaces.WarmBlooded }
 
         public var species: String { __data["species"] }
         public var laysEggs: Bool { __data["laysEggs"] }
@@ -124,7 +124,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Object(GraphQLSchemaName.Cat.self) }
+        public static var __parentType: ParentType { GraphQLSchemaName.Objects.Cat }
 
         public var species: String { __data["species"] }
         public var humanName: String? { __data["humanName"] }
@@ -147,7 +147,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Object(GraphQLSchemaName.Bird.self) }
+        public static var __parentType: ParentType { GraphQLSchemaName.Objects.Bird }
 
         public var species: String { __data["species"] }
         public var humanName: String? { __data["humanName"] }
@@ -169,7 +169,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Object(GraphQLSchemaName.PetRock.self) }
+        public static var __parentType: ParentType { GraphQLSchemaName.Objects.PetRock }
 
         public var humanName: String? { __data["humanName"] }
         public var favoriteToy: String { __data["favoriteToy"] }

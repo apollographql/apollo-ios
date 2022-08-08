@@ -3,6 +3,9 @@
 
 import ApolloAPI
 
-public final class File: Object {
-  override public class var __typename: StaticString { "File" }
+public extension Objects {
+  static let File = Object(
+    typename: "File",
+    implementedInterfaces: []
+  )
 }

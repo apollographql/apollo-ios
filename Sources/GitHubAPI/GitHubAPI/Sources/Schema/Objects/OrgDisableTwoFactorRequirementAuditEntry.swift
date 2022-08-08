@@ -3,14 +3,14 @@
 
 import ApolloAPI
 
-/// Audit log entry for a org.disable_two_factor_requirement event.
-public final class OrgDisableTwoFactorRequirementAuditEntry: Object {
-  override public class var __typename: StaticString { "OrgDisableTwoFactorRequirementAuditEntry" }
-
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    AuditEntry.self,
-    Node.self,
-    OrganizationAuditEntryData.self
-  ]
+public extension Objects {
+  /// Audit log entry for a org.disable_two_factor_requirement event.
+  static let OrgDisableTwoFactorRequirementAuditEntry = Object(
+    typename: "OrgDisableTwoFactorRequirementAuditEntry",
+    implementedInterfaces: [
+      Interfaces.AuditEntry.self,
+      Interfaces.Node.self,
+      Interfaces.OrganizationAuditEntryData.self
+    ]
+  )
 }

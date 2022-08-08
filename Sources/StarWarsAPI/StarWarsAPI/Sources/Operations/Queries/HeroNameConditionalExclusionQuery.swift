@@ -26,15 +26,13 @@ public class HeroNameConditionalExclusionQuery: GraphQLQuery {
     self.skipName = skipName
   }
 
-  public var variables: Variables? {
-    ["skipName": skipName]
-  }
+  public var variables: Variables? { ["skipName": skipName] }
 
   public struct Data: StarWarsAPI.SelectionSet {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(StarWarsAPI.Query.self) }
+    public static var __parentType: ParentType { StarWarsAPI.Objects.Query }
     public static var selections: [Selection] { [
       .field("hero", Hero?.self),
     ] }
@@ -48,7 +46,7 @@ public class HeroNameConditionalExclusionQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { .Interface(StarWarsAPI.Character.self) }
+      public static var __parentType: ParentType { StarWarsAPI.Interfaces.Character }
       public static var selections: [Selection] { [
         .include(if: !"skipName", .field("name", String.self)),
       ] }

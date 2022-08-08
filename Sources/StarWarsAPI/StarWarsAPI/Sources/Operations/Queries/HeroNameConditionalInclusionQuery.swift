@@ -26,15 +26,13 @@ public class HeroNameConditionalInclusionQuery: GraphQLQuery {
     self.includeName = includeName
   }
 
-  public var variables: Variables? {
-    ["includeName": includeName]
-  }
+  public var variables: Variables? { ["includeName": includeName] }
 
   public struct Data: StarWarsAPI.SelectionSet {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(StarWarsAPI.Query.self) }
+    public static var __parentType: ParentType { StarWarsAPI.Objects.Query }
     public static var selections: [Selection] { [
       .field("hero", Hero?.self),
     ] }
@@ -48,7 +46,7 @@ public class HeroNameConditionalInclusionQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { .Interface(StarWarsAPI.Character.self) }
+      public static var __parentType: ParentType { StarWarsAPI.Interfaces.Character }
       public static var selections: [Selection] { [
         .include(if: "includeName", .field("name", String.self)),
       ] }

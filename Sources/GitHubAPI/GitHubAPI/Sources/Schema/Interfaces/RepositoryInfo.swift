@@ -3,5 +3,7 @@
 
 import ApolloAPI
 
-/// A subset of repository info.
-public final class RepositoryInfo: Interface { }
+public extension Interfaces {
+  /// A subset of repository info.
+  static let RepositoryInfo = Interface(name: "RepositoryInfo")
+}

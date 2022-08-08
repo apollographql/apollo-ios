@@ -3,5 +3,7 @@
 
 import ApolloAPI
 
-/// Represents a subject that can be reacted on.
-public final class Reactable: Interface { }
+public extension Interfaces {
+  /// Represents a subject that can be reacted on.
+  static let Reactable = Interface(name: "Reactable")
+}

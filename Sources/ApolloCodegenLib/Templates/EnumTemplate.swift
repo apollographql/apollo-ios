@@ -8,7 +8,7 @@ struct EnumTemplate: TemplateRenderer {
 
   let config: ApolloCodegen.ConfigurationContext
 
-  let target: TemplateTarget = .schemaFile
+  let target: TemplateTarget = .schemaFile(type: .enum)
 
   var template: TemplateString {
     TemplateString(

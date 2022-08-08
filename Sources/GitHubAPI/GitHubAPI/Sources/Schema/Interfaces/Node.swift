@@ -3,5 +3,7 @@
 
 import ApolloAPI
 
-/// An object with an ID.
-public final class Node: Interface { }
+public extension Interfaces {
+  /// An object with an ID.
+  static let Node = Interface(name: "Node")
+}

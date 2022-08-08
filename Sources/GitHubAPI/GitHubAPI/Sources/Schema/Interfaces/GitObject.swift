@@ -3,5 +3,7 @@
 
 import ApolloAPI
 
-/// Represents a Git object.
-public final class GitObject: Interface { }
+public extension Interfaces {
+  /// Represents a Git object.
+  static let GitObject = Interface(name: "GitObject")
+}

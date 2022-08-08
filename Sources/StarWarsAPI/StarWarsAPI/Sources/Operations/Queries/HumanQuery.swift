@@ -27,15 +27,13 @@ public class HumanQuery: GraphQLQuery {
     self.id = id
   }
 
-  public var variables: Variables? {
-    ["id": id]
-  }
+  public var variables: Variables? { ["id": id] }
 
   public struct Data: StarWarsAPI.SelectionSet {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(StarWarsAPI.Query.self) }
+    public static var __parentType: ParentType { StarWarsAPI.Objects.Query }
     public static var selections: [Selection] { [
       .field("human", Human?.self, arguments: ["id": .variable("id")]),
     ] }
@@ -49,7 +47,7 @@ public class HumanQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { .Object(StarWarsAPI.Human.self) }
+      public static var __parentType: ParentType { StarWarsAPI.Objects.Human }
       public static var selections: [Selection] { [
         .field("name", String.self),
         .field("mass", Double?.self),

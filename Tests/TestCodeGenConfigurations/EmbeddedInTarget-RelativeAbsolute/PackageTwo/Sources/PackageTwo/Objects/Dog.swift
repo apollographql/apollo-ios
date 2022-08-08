@@ -3,17 +3,14 @@
 
 import ApolloAPI
 
-public extension MySchemaModule {
-  final class Dog: Object {
-    override public class var __typename: StaticString { "Dog" }
-
-    override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-    private static let _implementedInterfaces: [Interface.Type]? = [
-      Animal.self,
-      Pet.self,
-      HousePet.self,
-      WarmBlooded.self
+public extension MySchemaModule.Objects {
+  static let Dog = Object(
+    typename: "Dog",
+    implementedInterfaces: [
+      MySchemaModule.Interfaces.Animal.self,
+      MySchemaModule.Interfaces.Pet.self,
+      MySchemaModule.Interfaces.HousePet.self,
+      MySchemaModule.Interfaces.WarmBlooded.self
     ]
-  }
-
+  )
 }

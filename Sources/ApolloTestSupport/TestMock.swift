@@ -2,23 +2,23 @@
 import Foundation
 
 @dynamicMemberLookup
-public class Mock<O: Mockable>: AnyMock, JSONEncodable, Hashable {
+public class Mock<O: MockObject>: AnyMock, JSONEncodable, Hashable {
 
   public var _data: JSONEncodableDictionary
 
   public init() {
-    _data = ["__typename": O.__typename.description]
+    _data = ["__typename": O.objectType.typename]
   }
 
   public var __typename: String { _data["__typename"] as! String }
 
   public subscript<T: AnyScalarType>(dynamicMember keyPath: KeyPath<O.MockFields, Field<T>>) -> T? {
     get {
-      let field = O.__mockFields[keyPath: keyPath]
+      let field = O._mockFields[keyPath: keyPath]
       return _data[field.key.description] as? T
     }
     set {
-      let field = O.__mockFields[keyPath: keyPath]
+      let field = O._mockFields[keyPath: keyPath]
       _data[field.key.description] = newValue
     }
   }
@@ -27,11 +27,11 @@ public class Mock<O: Mockable>: AnyMock, JSONEncodable, Hashable {
     dynamicMember keyPath: KeyPath<O.MockFields, Field<T>>
   ) -> T.MockValueCollectionType.Element? {
     get {
-      let field = O.__mockFields[keyPath: keyPath]
+      let field = O._mockFields[keyPath: keyPath]
       return _data[field.key.description] as? T.MockValueCollectionType.Element
     }
     set {
-      let field = O.__mockFields[keyPath: keyPath]
+      let field = O._mockFields[keyPath: keyPath]
       _data[field.key.description] = (newValue as! JSONEncodable)
     }
   }
@@ -69,11 +69,12 @@ public protocol AnyMock: JSONEncodable {
   var _jsonObject: JSONObject { get }
 }
 
-public protocol Mockable: Object, MockFieldValue {
+public protocol MockObject: MockFieldValue {
   associatedtype MockFields
   associatedtype MockValueCollectionType = Array<Mock<Self>>
 
-  static var __mockFields: MockFields { get }
+  static var objectType: Object { get }
+  static var _mockFields: MockFields { get }
 }
 
 public protocol MockFieldValue {
@@ -81,6 +82,10 @@ public protocol MockFieldValue {
 }
 
 extension Interface: MockFieldValue {
+  public typealias MockValueCollectionType = Array<AnyMock>
+}
+
+extension Union: MockFieldValue {
   public typealias MockValueCollectionType = Array<AnyMock>
 }
 

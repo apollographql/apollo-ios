@@ -17,7 +17,7 @@ public struct WarmBloodedDetails: MyCodegenTargetDestination.SelectionSet, Fragm
   public let __data: DataDict
   public init(data: DataDict) { __data = data }
 
-  public static var __parentType: ParentType { .Interface(MyCodegenTargetDestination.WarmBlooded.self) }
+  public static var __parentType: ParentType { MyCodegenTargetDestination.Interfaces.WarmBlooded }
   public static var selections: [Selection] { [
     .field("bodyTemperature", Int.self),
     .fragment(HeightInMeters.self),

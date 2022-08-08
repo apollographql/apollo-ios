@@ -18,16 +18,20 @@ public protocol MutableInlineFragment: ApolloAPI.MutableSelectionSet & ApolloAPI
 where Schema == StarWarsAPI.Schema {}
 
 public enum Schema: SchemaConfiguration {
-  public static func objectType(forTypename __typename: String) -> Object.Type? {
-    switch __typename {
-    case "Query": return StarWarsAPI.Query.self
-    case "Human": return StarWarsAPI.Human.self
-    case "Droid": return StarWarsAPI.Droid.self
-    case "Starship": return StarWarsAPI.Starship.self
-    case "Subscription": return StarWarsAPI.Subscription.self
-    case "Review": return StarWarsAPI.Review.self
-    case "Mutation": return StarWarsAPI.Mutation.self
+  public static func objectType(forTypename typename: String) -> Object? {
+    switch typename {
+    case "Query": return StarWarsAPI.Objects.Query
+    case "Human": return StarWarsAPI.Objects.Human
+    case "Droid": return StarWarsAPI.Objects.Droid
+    case "Starship": return StarWarsAPI.Objects.Starship
+    case "Subscription": return StarWarsAPI.Objects.Subscription
+    case "Review": return StarWarsAPI.Objects.Review
+    case "Mutation": return StarWarsAPI.Objects.Mutation
     default: return nil
     }
   }
 }
+
+public enum Objects {}
+public enum Interfaces {}
+public enum Unions {}

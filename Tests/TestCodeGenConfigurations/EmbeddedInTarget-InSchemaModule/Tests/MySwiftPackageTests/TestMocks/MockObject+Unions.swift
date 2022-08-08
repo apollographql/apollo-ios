@@ -4,6 +4,6 @@
 import ApolloTestSupport
 import MySwiftPackage
 
-extension MyGraphQLSchema.ClassroomPet: MockFieldValue {
-  public typealias MockValueCollectionType = Array<AnyMock>
+public extension MockObject {
+  typealias ClassroomPet = Union
 }

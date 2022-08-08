@@ -10,22 +10,31 @@ struct UnionTemplate: TemplateRenderer {
 
   let config: ApolloCodegen.ConfigurationContext
 
-  let target: TemplateTarget = .schemaFile
+  let target: TemplateTarget = .schemaFile(type: .union)
 
   var template: TemplateString {
     TemplateString(
     """
     \(documentation: graphqlUnion.documentation, config: config)
-    \(embeddedAccessControlModifier)\
-    enum \(graphqlUnion.name.firstUppercased): Union {
-      public static let possibleTypes: [Object.Type] = [
-        \(graphqlUnion.types.map({ type in
-          "\(moduleName.firstUppercased).\(type.name.firstUppercased).self"
-        }), separator: ",\n")
-      ]
-    }
-    
+    static let \(graphqlUnion.name.firstUppercased) = Union(
+      name: "\(graphqlUnion.name)",
+      possibleTypes: \(PossibleTypesTemplate())
+    )
     """
     )
   }
+
+  private func PossibleTypesTemplate() -> TemplateString {
+    "[\(list: graphqlUnion.types.map(PossibleTypeTemplate))]"
+  }
+
+  private func PossibleTypeTemplate(
+    _ type: GraphQLObjectType
+  ) -> TemplateString {
+    """
+    \(if: !config.output.schemaTypes.isInModule, "\(config.schemaName.firstUppercased).")\
+    Objects.\(type.name.firstUppercased).self
+    """
+  }
+
 }

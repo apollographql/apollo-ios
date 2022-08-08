@@ -3,16 +3,16 @@
 
 import ApolloAPI
 
-/// Audit log entry for a private_repository_forking.disable event.
-public final class PrivateRepositoryForkingDisableAuditEntry: Object {
-  override public class var __typename: StaticString { "PrivateRepositoryForkingDisableAuditEntry" }
-
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    AuditEntry.self,
-    EnterpriseAuditEntryData.self,
-    Node.self,
-    OrganizationAuditEntryData.self,
-    RepositoryAuditEntryData.self
-  ]
+public extension Objects {
+  /// Audit log entry for a private_repository_forking.disable event.
+  static let PrivateRepositoryForkingDisableAuditEntry = Object(
+    typename: "PrivateRepositoryForkingDisableAuditEntry",
+    implementedInterfaces: [
+      Interfaces.AuditEntry.self,
+      Interfaces.EnterpriseAuditEntryData.self,
+      Interfaces.Node.self,
+      Interfaces.OrganizationAuditEntryData.self,
+      Interfaces.RepositoryAuditEntryData.self
+    ]
+  )
 }

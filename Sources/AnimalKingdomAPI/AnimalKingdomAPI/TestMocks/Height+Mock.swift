@@ -4,9 +4,9 @@
 import ApolloTestSupport
 import AnimalKingdomAPI
 
-extension Height: Mockable {
-  public static let __mockFields = MockFields()
-
+public class Height: MockObject {
+  public static let objectType: Object = AnimalKingdomAPI.Objects.Height
+  public static let _mockFields = MockFields()
   public typealias MockValueCollectionType = Array<Mock<Height>>
 
   public struct MockFields {

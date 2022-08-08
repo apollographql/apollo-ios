@@ -8,14 +8,12 @@ struct InterfaceTemplate: TemplateRenderer {
 
   let config: ApolloCodegen.ConfigurationContext
 
-  let target: TemplateTarget = .schemaFile
+  let target: TemplateTarget = .schemaFile(type: .interface)
 
   var template: TemplateString {
     """
     \(documentation: graphqlInterface.documentation, config: config)
-    \(embeddedAccessControlModifier)\
-    final class \(graphqlInterface.name.firstUppercased): Interface { }
-
+    static let \(graphqlInterface.name.firstUppercased) = Interface(name: "\(graphqlInterface.name)")
     """
   }
 }

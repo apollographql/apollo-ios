@@ -3,12 +3,10 @@
 
 import ApolloAPI
 
-/// Represents a 'base_ref_force_pushed' event on a given pull request.
-public final class BaseRefForcePushedEvent: Object {
-  override public class var __typename: StaticString { "BaseRefForcePushedEvent" }
-
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Node.self
-  ]
+public extension Objects {
+  /// Represents a 'base_ref_force_pushed' event on a given pull request.
+  static let BaseRefForcePushedEvent = Object(
+    typename: "BaseRefForcePushedEvent",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
 }

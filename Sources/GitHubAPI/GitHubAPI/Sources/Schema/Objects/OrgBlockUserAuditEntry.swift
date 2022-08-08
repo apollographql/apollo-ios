@@ -3,14 +3,14 @@
 
 import ApolloAPI
 
-/// Audit log entry for a org.block_user
-public final class OrgBlockUserAuditEntry: Object {
-  override public class var __typename: StaticString { "OrgBlockUserAuditEntry" }
-
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    AuditEntry.self,
-    Node.self,
-    OrganizationAuditEntryData.self
-  ]
+public extension Objects {
+  /// Audit log entry for a org.block_user
+  static let OrgBlockUserAuditEntry = Object(
+    typename: "OrgBlockUserAuditEntry",
+    implementedInterfaces: [
+      Interfaces.AuditEntry.self,
+      Interfaces.Node.self,
+      Interfaces.OrganizationAuditEntryData.self
+    ]
+  )
 }

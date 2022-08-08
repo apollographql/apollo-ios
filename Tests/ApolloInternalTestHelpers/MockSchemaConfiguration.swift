@@ -1,42 +1,95 @@
 @testable import Apollo
 @testable import ApolloAPI
 
-public class MockSchemaConfiguration: SchemaConfiguration, SchemaUnknownTypeCacheKeyProvider {
+extension Object {
+  public static let mock = Object(typename: "Mock", implementedInterfaces: [])
+}
+
+public class MockSchemaConfiguration: SchemaConfiguration {
+  public init() { }
 
   private static let testObserver = TestObserver() { _ in
     stub_objectTypeForTypeName = nil
-    stub_cacheKeyProviderForUnknownType = nil
+    stub_cacheKeyInfoForType_Object = nil
   }
 
-  static public var stub_objectTypeForTypeName: ((String) -> Object.Type?)? {
+  public static var stub_objectTypeForTypeName: ((String) -> Object?)? {
     didSet {
       if stub_objectTypeForTypeName != nil { testObserver.start() }
     }
   }
 
-  static public var stub_cacheKeyProviderForUnknownType:
-  ((String, JSONObject) -> CacheKeyProvider.Type?)?
-  {
+  public static var stub_cacheKeyInfoForType_Object: ((Object, JSONObject) -> CacheKeyInfo?)? {
     didSet {
-      if stub_cacheKeyProviderForUnknownType != nil { testObserver.start() }
+      if stub_cacheKeyInfoForType_Object != nil { testObserver.start() }
     }
-  }
-
-  public static func objectType(forTypename __typename: String) -> Object.Type? {
-    stub_objectTypeForTypeName?(__typename) ?? Object.self
-  }
-
-  public static func cacheKeyProviderForUnknownType(
-    withTypename: String,
-    data: JSONObject
-  ) -> CacheKeyProvider.Type? {
-    stub_cacheKeyProviderForUnknownType?(withTypename, data)
   }
 
 }
 
-public enum IDCacheKeyProvider: CacheKeyProvider {
-  public static func cacheKey(for data: JSONObject) -> String? {
-    data["id"] as? String
+public extension MockSchemaConfiguration {
+  static func objectType(forTypename __typename: String) -> Object? {
+    stub_objectTypeForTypeName?(__typename) ??
+    Object(typename: __typename, implementedInterfaces: [])
+  }
+
+  static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
+    stub_cacheKeyInfoForType_Object?(type, object)
+  }
+}
+
+// MARK - Mock Cache Key Providers
+
+public protocol MockStaticCacheKeyProvider {
+  static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo?
+}
+
+extension MockStaticCacheKeyProvider {
+  public static var resolver: (Object, JSONObject) -> CacheKeyInfo? {
+    cacheKeyInfo(for:object:)
+  }
+}
+
+public struct IDCacheKeyProvider: MockStaticCacheKeyProvider {
+  public static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
+    try? .init(jsonValue: object["id"])
+  }
+}
+
+public struct MockCacheKeyProvider {
+  let key: String
+
+  public init(key: String) {
+    self.key = key
+  }
+
+  public func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
+    .init(key: key, uniqueKeyGroupId: nil)
+  }
+}
+
+// MARK: - Custom Mock Schemas
+
+public enum MockSchema1: SchemaConfiguration {
+  public static func objectType(forTypename __typename: String) -> Object? {
+    Object(typename: __typename, implementedInterfaces: [])
+  }
+}
+
+public extension MockSchema1 {
+  static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
+    CacheKeyInfo(key: "one")
+  }
+}
+
+public enum MockSchema2: SchemaConfiguration {
+  public static func objectType(forTypename __typename: String) -> Object? {
+    Object(typename: __typename, implementedInterfaces: [])
+  }
+}
+
+public extension MockSchema2 {
+  static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
+    CacheKeyInfo(key: "two")
   }
 }

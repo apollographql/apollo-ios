@@ -3,6 +3,9 @@
 
 import ApolloAPI
 
-public final class Height: Object {
-  override public class var __typename: StaticString { "Height" }
+public extension Objects {
+  static let Height = Object(
+    typename: "Height",
+    implementedInterfaces: []
+  )
 }

@@ -17,7 +17,7 @@ extension IR {
       self.documentation = documentation
     }
 
-    public final class ReferencedTypes {
+    public final class ReferencedTypes: CustomDebugStringConvertible {
       let allTypes: OrderedSet<GraphQLNamedType>
 
       let objects: OrderedSet<GraphQLObjectType>
@@ -75,6 +75,18 @@ extension IR {
         let matchingUnions = Set(unions.filter { $0.types.contains(type) })
         typeToUnionMap[type] = matchingUnions
         return matchingUnions
+      }
+
+      public var debugDescription: String {
+        TemplateString("""
+        objects: [\(list: objects)]
+        interfaces: [\(list: interfaces)]
+        unions: [\(list: unions)]
+        scalars: [\(list: scalars)]
+        customScalars: [\(list: customScalars)]
+        enums: [\(list: enums)]
+        inputObjects: [\(list: inputObjects)]
+        """).description
       }
     }
   }

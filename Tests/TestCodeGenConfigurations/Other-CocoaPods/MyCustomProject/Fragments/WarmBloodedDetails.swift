@@ -17,7 +17,7 @@ public struct WarmBloodedDetails: MyCustomProject.SelectionSet, Fragment {
   public let __data: DataDict
   public init(data: DataDict) { __data = data }
 
-  public static var __parentType: ParentType { .Interface(MyCustomProject.WarmBlooded.self) }
+  public static var __parentType: ParentType { MyCustomProject.Interfaces.WarmBlooded }
   public static var selections: [Selection] { [
     .field("bodyTemperature", Int.self),
     .fragment(HeightInMeters.self),

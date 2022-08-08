@@ -3,5 +3,7 @@
 
 import ApolloAPI
 
-/// Metadata for an audit entry with action team.*
-public final class TeamAuditEntryData: Interface { }
+public extension Interfaces {
+  /// Metadata for an audit entry with action team.*
+  static let TeamAuditEntryData = Interface(name: "TeamAuditEntryData")
+}

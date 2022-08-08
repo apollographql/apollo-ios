@@ -3,12 +3,10 @@
 
 import ApolloAPI
 
-/// Represents an 'unmarked_as_duplicate' event on a given issue or pull request.
-public final class UnmarkedAsDuplicateEvent: Object {
-  override public class var __typename: StaticString { "UnmarkedAsDuplicateEvent" }
-
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Node.self
-  ]
+public extension Objects {
+  /// Represents an 'unmarked_as_duplicate' event on a given issue or pull request.
+  static let UnmarkedAsDuplicateEvent = Object(
+    typename: "UnmarkedAsDuplicateEvent",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
 }

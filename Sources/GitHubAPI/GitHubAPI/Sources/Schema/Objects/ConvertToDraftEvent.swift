@@ -3,13 +3,13 @@
 
 import ApolloAPI
 
-/// Represents a 'convert_to_draft' event on a given pull request.
-public final class ConvertToDraftEvent: Object {
-  override public class var __typename: StaticString { "ConvertToDraftEvent" }
-
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Node.self,
-    UniformResourceLocatable.self
-  ]
+public extension Objects {
+  /// Represents a 'convert_to_draft' event on a given pull request.
+  static let ConvertToDraftEvent = Object(
+    typename: "ConvertToDraftEvent",
+    implementedInterfaces: [
+      Interfaces.Node.self,
+      Interfaces.UniformResourceLocatable.self
+    ]
+  )
 }

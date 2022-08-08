@@ -81,9 +81,7 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
     private static let whitespaceNotNewline = Set(" \t")
 
     mutating func appendInterpolation(_ string: String) {
-      let indent = String(buffer.reversed().prefix {
-        TemplateString.StringInterpolation.whitespaceNotNewline.contains($0)
-      })
+      let indent = getCurrentIndent()
 
       if indent.isEmpty {
         appendLiteral(string)
@@ -94,6 +92,14 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
 
         appendLiteral(indentedString)
       }
+    }
+
+    private func getCurrentIndent() -> String {
+      let reverseBuffer = buffer.reversed()
+      let startOfLine = reverseBuffer.firstIndex(of: "\n") ?? reverseBuffer.endIndex
+      return String(reverseBuffer.prefix(upTo: startOfLine).reversed().prefix {
+        TemplateString.StringInterpolation.whitespaceNotNewline.contains($0)
+      })
     }
 
     mutating func appendInterpolation<T>(
@@ -125,6 +131,22 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
       let shouldWrapInNewlines = list.count > 1
       if shouldWrapInNewlines { appendLiteral("\n  ") }
       appendInterpolation(list, separator: separator, terminator: terminator)
+      if shouldWrapInNewlines { appendInterpolation("\n") }
+    }
+
+    @_disfavoredOverload
+    mutating func appendInterpolation<T>(
+      list: T,
+      separator: String = ",\n",
+      terminator: String? = nil
+    ) where T: Collection, T.Element: CustomDebugStringConvertible {
+      let shouldWrapInNewlines = list.count > 1
+      if shouldWrapInNewlines { appendLiteral("\n  ") }
+      appendInterpolation(
+        list.map { $0.debugDescription },
+        separator: separator,
+        terminator: terminator
+      )
       if shouldWrapInNewlines { appendInterpolation("\n") }
     }
 
@@ -199,6 +221,20 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
         ifLet: optional,
         where: whereBlock,
         { _ in includeBlock() },
+        else: `else`()
+      )
+    }
+
+    @_disfavoredOverload
+    mutating func appendInterpolation<T>(
+      ifLet optional: Optional<T>,
+      _ includeBlock: (T) -> TemplateString,
+      else: @autoclosure () -> TemplateString? = nil
+    ) {
+      appendInterpolation(
+        ifLet: optional,
+        where: nil,
+        includeBlock,
         else: `else`()
       )
     }

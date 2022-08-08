@@ -3,7 +3,10 @@
 
 import ApolloAPI
 
-/// The mutation type, represents all updates we can make to our data
-public final class Mutation: Object {
-  override public class var __typename: StaticString { "Mutation" }
+public extension Objects {
+  /// The mutation type, represents all updates we can make to our data
+  static let Mutation = Object(
+    typename: "Mutation",
+    implementedInterfaces: []
+  )
 }

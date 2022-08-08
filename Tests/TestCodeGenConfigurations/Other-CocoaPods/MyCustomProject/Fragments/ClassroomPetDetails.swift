@@ -34,7 +34,7 @@ public struct ClassroomPetDetails: MyCustomProject.SelectionSet, Fragment {
   public let __data: DataDict
   public init(data: DataDict) { __data = data }
 
-  public static var __parentType: ParentType { .Union(MyCustomProject.ClassroomPet.self) }
+  public static var __parentType: ParentType { MyCustomProject.Unions.ClassroomPet }
   public static var selections: [Selection] { [
     .inlineFragment(AsAnimal.self),
     .inlineFragment(AsPet.self),
@@ -58,7 +58,7 @@ public struct ClassroomPetDetails: MyCustomProject.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Interface(MyCustomProject.Animal.self) }
+    public static var __parentType: ParentType { MyCustomProject.Interfaces.Animal }
     public static var selections: [Selection] { [
       .field("species", String.self),
     ] }
@@ -73,7 +73,7 @@ public struct ClassroomPetDetails: MyCustomProject.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Interface(MyCustomProject.Pet.self) }
+    public static var __parentType: ParentType { MyCustomProject.Interfaces.Pet }
     public static var selections: [Selection] { [
       .field("humanName", String?.self),
     ] }
@@ -88,7 +88,7 @@ public struct ClassroomPetDetails: MyCustomProject.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Interface(MyCustomProject.WarmBlooded.self) }
+    public static var __parentType: ParentType { MyCustomProject.Interfaces.WarmBlooded }
     public static var selections: [Selection] { [
       .field("laysEggs", Bool.self),
     ] }
@@ -104,7 +104,7 @@ public struct ClassroomPetDetails: MyCustomProject.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(MyCustomProject.Cat.self) }
+    public static var __parentType: ParentType { MyCustomProject.Objects.Cat }
     public static var selections: [Selection] { [
       .field("bodyTemperature", Int.self),
       .field("isJellicle", Bool.self),
@@ -124,7 +124,7 @@ public struct ClassroomPetDetails: MyCustomProject.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(MyCustomProject.Bird.self) }
+    public static var __parentType: ParentType { MyCustomProject.Objects.Bird }
     public static var selections: [Selection] { [
       .field("wingspan", Double.self),
     ] }
@@ -142,7 +142,7 @@ public struct ClassroomPetDetails: MyCustomProject.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(MyCustomProject.PetRock.self) }
+    public static var __parentType: ParentType { MyCustomProject.Objects.PetRock }
     public static var selections: [Selection] { [
       .field("favoriteToy", String.self),
     ] }

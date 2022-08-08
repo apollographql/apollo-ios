@@ -3,12 +3,10 @@
 
 import ApolloAPI
 
-/// An invitation for a user to be added to a repository.
-public final class RepositoryInvitation: Object {
-  override public class var __typename: StaticString { "RepositoryInvitation" }
-
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Node.self
-  ]
+public extension Objects {
+  /// An invitation for a user to be added to a repository.
+  static let RepositoryInvitation = Object(
+    typename: "RepositoryInvitation",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
 }

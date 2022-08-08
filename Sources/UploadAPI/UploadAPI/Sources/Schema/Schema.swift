@@ -18,11 +18,15 @@ public protocol MutableInlineFragment: ApolloAPI.MutableSelectionSet & ApolloAPI
 where Schema == UploadAPI.Schema {}
 
 public enum Schema: SchemaConfiguration {
-  public static func objectType(forTypename __typename: String) -> Object.Type? {
-    switch __typename {
-    case "Mutation": return UploadAPI.Mutation.self
-    case "File": return UploadAPI.File.self
+  public static func objectType(forTypename typename: String) -> Object? {
+    switch typename {
+    case "Mutation": return UploadAPI.Objects.Mutation
+    case "File": return UploadAPI.Objects.File
     default: return nil
     }
   }
 }
+
+public enum Objects {}
+public enum Interfaces {}
+public enum Unions {}

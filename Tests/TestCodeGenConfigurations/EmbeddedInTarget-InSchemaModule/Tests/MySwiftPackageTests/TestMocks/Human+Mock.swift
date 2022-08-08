@@ -4,27 +4,27 @@
 import ApolloTestSupport
 import MySwiftPackage
 
-extension MyGraphQLSchema.Human: Mockable {
-  public static let __mockFields = MockFields()
-
-  public typealias MockValueCollectionType = Array<Mock<MyGraphQLSchema.Human>>
+public class Human: MockObject {
+  public static let objectType: Object = MyGraphQLSchema.Objects.Human
+  public static let _mockFields = MockFields()
+  public typealias MockValueCollectionType = Array<Mock<Human>>
 
   public struct MockFields {
     @Field<Int>("bodyTemperature") public var bodyTemperature
     @Field<String>("firstName") public var firstName
-    @Field<MyGraphQLSchema.Height>("height") public var height
+    @Field<Height>("height") public var height
     @Field<Bool>("laysEggs") public var laysEggs
-    @Field<[MyGraphQLSchema.Animal]>("predators") public var predators
+    @Field<[Animal]>("predators") public var predators
     @Field<GraphQLEnum<MyGraphQLSchema.SkinCovering>>("skinCovering") public var skinCovering
     @Field<String>("species") public var species
   }
 }
 
-public extension Mock where O == MyGraphQLSchema.Human {
+public extension Mock where O == Human {
   convenience init(
     bodyTemperature: Int? = nil,
     firstName: String? = nil,
-    height: Mock<MyGraphQLSchema.Height>? = nil,
+    height: Mock<Height>? = nil,
     laysEggs: Bool? = nil,
     predators: [AnyMock]? = nil,
     skinCovering: GraphQLEnum<MyGraphQLSchema.SkinCovering>? = nil,

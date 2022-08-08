@@ -3,13 +3,13 @@
 
 import ApolloAPI
 
-/// Represents a 'ready_for_review' event on a given pull request.
-public final class ReadyForReviewEvent: Object {
-  override public class var __typename: StaticString { "ReadyForReviewEvent" }
-
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Node.self,
-    UniformResourceLocatable.self
-  ]
+public extension Objects {
+  /// Represents a 'ready_for_review' event on a given pull request.
+  static let ReadyForReviewEvent = Object(
+    typename: "ReadyForReviewEvent",
+    implementedInterfaces: [
+      Interfaces.Node.self,
+      Interfaces.UniformResourceLocatable.self
+    ]
+  )
 }

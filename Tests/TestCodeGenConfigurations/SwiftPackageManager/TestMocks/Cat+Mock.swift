@@ -4,9 +4,9 @@
 import ApolloTestSupport
 import GraphQLSchemaName
 
-extension Cat: Mockable {
-  public static let __mockFields = MockFields()
-
+public class Cat: MockObject {
+  public static let objectType: Object = GraphQLSchemaName.Objects.Cat
+  public static let _mockFields = MockFields()
   public typealias MockValueCollectionType = Array<Mock<Cat>>
 
   public struct MockFields {

@@ -3,20 +3,20 @@
 
 import ApolloAPI
 
-/// An account on GitHub, with one or more owners, that has repositories, members and teams.
-public final class Organization: Object {
-  override public class var __typename: StaticString { "Organization" }
-
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Actor.self,
-    MemberStatusable.self,
-    Node.self,
-    PackageOwner.self,
-    ProfileOwner.self,
-    ProjectOwner.self,
-    RepositoryOwner.self,
-    Sponsorable.self,
-    UniformResourceLocatable.self
-  ]
+public extension Objects {
+  /// An account on GitHub, with one or more owners, that has repositories, members and teams.
+  static let Organization = Object(
+    typename: "Organization",
+    implementedInterfaces: [
+      Interfaces.Actor.self,
+      Interfaces.MemberStatusable.self,
+      Interfaces.Node.self,
+      Interfaces.PackageOwner.self,
+      Interfaces.ProfileOwner.self,
+      Interfaces.ProjectOwner.self,
+      Interfaces.RepositoryOwner.self,
+      Interfaces.Sponsorable.self,
+      Interfaces.UniformResourceLocatable.self
+    ]
+  )
 }

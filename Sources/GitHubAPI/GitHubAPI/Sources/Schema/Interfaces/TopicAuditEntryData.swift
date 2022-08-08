@@ -3,5 +3,7 @@
 
 import ApolloAPI
 
-/// Metadata for an audit entry with a topic.
-public final class TopicAuditEntryData: Interface { }
+public extension Interfaces {
+  /// Metadata for an audit entry with a topic.
+  static let TopicAuditEntryData = Interface(name: "TopicAuditEntryData")
+}

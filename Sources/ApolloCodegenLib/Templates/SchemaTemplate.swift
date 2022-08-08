@@ -10,7 +10,7 @@ struct SchemaTemplate: TemplateRenderer {
 
   let schemaName: String
 
-  let target: TemplateTarget = .schemaFile
+  let target: TemplateTarget = .schemaFile(type: .schema)
 
   var template: TemplateString { embeddableTemplate }
 
@@ -40,20 +40,32 @@ struct SchemaTemplate: TemplateRenderer {
     \(documentation: schema.documentation, config: config)
     \(embeddedAccessControlModifier)\
     enum Schema: SchemaConfiguration {
-      public static func objectType(forTypename __typename: String) -> Object.Type? {
-        switch __typename {
-        \(schema.referencedTypes.objects.map {
-          "case \"\($0.name.firstUppercased)\": return \(schemaName).\($0.name.firstUppercased).self"
-        }, separator: "\n")
-        default: return nil
-        }
-      }
+      \(objectTypeFunction)
     }
-    
+
+    \(embeddedAccessControlModifier)\
+    enum Objects {}
+    \(embeddedAccessControlModifier)\
+    enum Interfaces {}
+    \(embeddedAccessControlModifier)\
+    enum Unions {}
+
     """
     )
   }
 
+  var objectTypeFunction: TemplateString {
+    return """
+    public static func objectType(forTypename typename: String) -> Object? {
+      switch typename {
+      \(schema.referencedTypes.objects.map {
+        "case \"\($0.name.firstUppercased)\": return \(schemaName).Objects.\($0.name.firstUppercased)"
+      }, separator: "\n")
+      default: return nil
+      }
+    }
+    """
+  }
   /// Swift code that must be rendered outside of any namespace.
   var detachedTemplate: TemplateString? {
     guard !config.output.schemaTypes.isInModule else { return nil }

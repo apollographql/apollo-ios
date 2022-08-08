@@ -3,13 +3,13 @@
 
 import ApolloAPI
 
-/// A topic aggregates entities that are related to a subject.
-public final class Topic: Object {
-  override public class var __typename: StaticString { "Topic" }
-
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Node.self,
-    Starrable.self
-  ]
+public extension Objects {
+  /// A topic aggregates entities that are related to a subject.
+  static let Topic = Object(
+    typename: "Topic",
+    implementedInterfaces: [
+      Interfaces.Node.self,
+      Interfaces.Starrable.self
+    ]
+  )
 }

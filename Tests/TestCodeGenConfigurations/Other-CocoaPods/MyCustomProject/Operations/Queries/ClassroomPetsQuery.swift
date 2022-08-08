@@ -26,7 +26,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(MyCustomProject.Query.self) }
+    public static var __parentType: ParentType { MyCustomProject.Objects.Query }
     public static var selections: [Selection] { [
       .field("classroomPets", [ClassroomPet?]?.self),
     ] }
@@ -40,7 +40,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { .Union(MyCustomProject.ClassroomPet.self) }
+      public static var __parentType: ParentType { MyCustomProject.Unions.ClassroomPet }
       public static var selections: [Selection] { [
         .fragment(ClassroomPetDetails.self),
       ] }
@@ -66,7 +66,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Interface(MyCustomProject.Animal.self) }
+        public static var __parentType: ParentType { MyCustomProject.Interfaces.Animal }
 
         public var species: String { __data["species"] }
 
@@ -85,7 +85,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Interface(MyCustomProject.Pet.self) }
+        public static var __parentType: ParentType { MyCustomProject.Interfaces.Pet }
 
         public var humanName: String? { __data["humanName"] }
 
@@ -104,7 +104,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Interface(MyCustomProject.WarmBlooded.self) }
+        public static var __parentType: ParentType { MyCustomProject.Interfaces.WarmBlooded }
 
         public var species: String { __data["species"] }
         public var laysEggs: Bool { __data["laysEggs"] }
@@ -124,7 +124,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Object(MyCustomProject.Cat.self) }
+        public static var __parentType: ParentType { MyCustomProject.Objects.Cat }
 
         public var species: String { __data["species"] }
         public var humanName: String? { __data["humanName"] }
@@ -147,7 +147,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Object(MyCustomProject.Bird.self) }
+        public static var __parentType: ParentType { MyCustomProject.Objects.Bird }
 
         public var species: String { __data["species"] }
         public var humanName: String? { __data["humanName"] }
@@ -169,7 +169,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Object(MyCustomProject.PetRock.self) }
+        public static var __parentType: ParentType { MyCustomProject.Objects.PetRock }
 
         public var humanName: String? { __data["humanName"] }
         public var favoriteToy: String { __data["favoriteToy"] }

@@ -37,15 +37,13 @@ public class PetSearchQuery: GraphQLQuery {
     self.filters = filters
   }
 
-  public var variables: Variables? {
-    ["filters": filters]
-  }
+  public var variables: Variables? { ["filters": filters] }
 
   public struct Data: GraphQLSchemaName.SelectionSet {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(GraphQLSchemaName.Query.self) }
+    public static var __parentType: ParentType { GraphQLSchemaName.Objects.Query }
     public static var selections: [Selection] { [
       .field("pets", [Pet].self, arguments: ["filters": .variable("filters")]),
     ] }
@@ -59,7 +57,7 @@ public class PetSearchQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { .Interface(GraphQLSchemaName.Pet.self) }
+      public static var __parentType: ParentType { GraphQLSchemaName.Interfaces.Pet }
       public static var selections: [Selection] { [
         .field("id", ID.self),
         .field("humanName", String?.self),

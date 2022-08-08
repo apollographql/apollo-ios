@@ -3,12 +3,10 @@
 
 import ApolloAPI
 
-/// A card in a project.
-public final class ProjectCard: Object {
-  override public class var __typename: StaticString { "ProjectCard" }
-
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Node.self
-  ]
+public extension Objects {
+  /// A card in a project.
+  static let ProjectCard = Object(
+    typename: "ProjectCard",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
 }

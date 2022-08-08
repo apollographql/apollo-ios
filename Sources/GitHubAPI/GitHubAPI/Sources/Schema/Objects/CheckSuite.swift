@@ -3,12 +3,10 @@
 
 import ApolloAPI
 
-/// A check suite.
-public final class CheckSuite: Object {
-  override public class var __typename: StaticString { "CheckSuite" }
-
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Node.self
-  ]
+public extension Objects {
+  /// A check suite.
+  static let CheckSuite = Object(
+    typename: "CheckSuite",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
 }

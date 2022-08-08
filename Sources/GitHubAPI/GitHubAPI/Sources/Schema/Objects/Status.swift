@@ -3,12 +3,10 @@
 
 import ApolloAPI
 
-/// Represents a commit status.
-public final class Status: Object {
-  override public class var __typename: StaticString { "Status" }
-
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Node.self
-  ]
+public extension Objects {
+  /// Represents a commit status.
+  static let Status = Object(
+    typename: "Status",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
 }

@@ -28,15 +28,13 @@ public class StarshipCoordinatesQuery: GraphQLQuery {
     self.coordinates = coordinates
   }
 
-  public var variables: Variables? {
-    ["coordinates": coordinates]
-  }
+  public var variables: Variables? { ["coordinates": coordinates] }
 
   public struct Data: StarWarsAPI.SelectionSet {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(StarWarsAPI.Query.self) }
+    public static var __parentType: ParentType { StarWarsAPI.Objects.Query }
     public static var selections: [Selection] { [
       .field("starshipCoordinates", StarshipCoordinates?.self, arguments: ["coordinates": .variable("coordinates")]),
     ] }
@@ -50,7 +48,7 @@ public class StarshipCoordinatesQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { .Object(StarWarsAPI.Starship.self) }
+      public static var __parentType: ParentType { StarWarsAPI.Objects.Starship }
       public static var selections: [Selection] { [
         .field("name", String.self),
         .field("coordinates", [[Double]]?.self),

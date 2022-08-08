@@ -3,12 +3,10 @@
 
 import ApolloAPI
 
-/// A threaded list of comments for a given pull request.
-public final class PullRequestReviewThread: Object {
-  override public class var __typename: StaticString { "PullRequestReviewThread" }
-
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Node.self
-  ]
+public extension Objects {
+  /// A threaded list of comments for a given pull request.
+  static let PullRequestReviewThread = Object(
+    typename: "PullRequestReviewThread",
+    implementedInterfaces: [Interfaces.Node.self]
+  )
 }

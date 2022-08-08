@@ -51,6 +51,7 @@ public enum Target: CaseIterable {
         operationSearchPaths: [graphQLFolder.appendingPathComponent("**/*.graphql").path]
       )
 
+
     default:
       return ApolloCodegenConfiguration.FileInput(
         schemaPath: schemaURL(fromTargetRoot: targetRootURL).path,

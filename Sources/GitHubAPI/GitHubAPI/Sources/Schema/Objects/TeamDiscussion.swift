@@ -3,19 +3,19 @@
 
 import ApolloAPI
 
-/// A team discussion.
-public final class TeamDiscussion: Object {
-  override public class var __typename: StaticString { "TeamDiscussion" }
-
-  override public class var __implementedInterfaces: [Interface.Type]? { _implementedInterfaces }
-  private static let _implementedInterfaces: [Interface.Type]? = [
-    Comment.self,
-    Deletable.self,
-    Node.self,
-    Reactable.self,
-    Subscribable.self,
-    UniformResourceLocatable.self,
-    Updatable.self,
-    UpdatableComment.self
-  ]
+public extension Objects {
+  /// A team discussion.
+  static let TeamDiscussion = Object(
+    typename: "TeamDiscussion",
+    implementedInterfaces: [
+      Interfaces.Comment.self,
+      Interfaces.Deletable.self,
+      Interfaces.Node.self,
+      Interfaces.Reactable.self,
+      Interfaces.Subscribable.self,
+      Interfaces.UniformResourceLocatable.self,
+      Interfaces.Updatable.self,
+      Interfaces.UpdatableComment.self
+    ]
+  )
 }

@@ -27,15 +27,13 @@ public class HeroDetailsWithFragmentQuery: GraphQLQuery {
     self.episode = episode
   }
 
-  public var variables: Variables? {
-    ["episode": episode]
-  }
+  public var variables: Variables? { ["episode": episode] }
 
   public struct Data: StarWarsAPI.SelectionSet {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { .Object(StarWarsAPI.Query.self) }
+    public static var __parentType: ParentType { StarWarsAPI.Objects.Query }
     public static var selections: [Selection] { [
       .field("hero", Hero?.self, arguments: ["episode": .variable("episode")]),
     ] }
@@ -49,7 +47,7 @@ public class HeroDetailsWithFragmentQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { .Interface(StarWarsAPI.Character.self) }
+      public static var __parentType: ParentType { StarWarsAPI.Interfaces.Character }
       public static var selections: [Selection] { [
         .fragment(HeroDetails.self),
       ] }
@@ -74,7 +72,7 @@ public class HeroDetailsWithFragmentQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Object(StarWarsAPI.Human.self) }
+        public static var __parentType: ParentType { StarWarsAPI.Objects.Human }
 
         /// The name of the character
         public var name: String { __data["name"] }
@@ -96,7 +94,7 @@ public class HeroDetailsWithFragmentQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { .Object(StarWarsAPI.Droid.self) }
+        public static var __parentType: ParentType { StarWarsAPI.Objects.Droid }
 
         /// The name of the character
         public var name: String { __data["name"] }
