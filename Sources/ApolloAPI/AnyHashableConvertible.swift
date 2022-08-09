@@ -23,8 +23,6 @@ extension AnyHashable: AnyHashableConvertible {}
 
 extension Optional: AnyHashableConvertible where Wrapped: Hashable {}
 
-extension JSONEncodableDictionary: AnyHashableConvertible where Value: Hashable {
-  @inlinable public var asAnyHashable: AnyHashable { unsafeBitCast(self, to: AnyHashable.self) }
-}
+extension Dictionary: AnyHashableConvertible where Key: Hashable, Value: Hashable {}
 
 extension Array: AnyHashableConvertible where Element: Hashable {}

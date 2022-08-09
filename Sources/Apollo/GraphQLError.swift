@@ -1,4 +1,7 @@
 import Foundation
+#if !COCOAPODS
+import ApolloAPI
+#endif
 
 /// Represents an error encountered during the execution of a GraphQL operation.
 ///

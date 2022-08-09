@@ -115,7 +115,7 @@ extension RequestChainNetworkTransport: UploadingNetworkTransport {
   ///   - files: The files you wish to upload
   ///   - manualBoundary: [optional] A manually set boundary for your upload request. Defaults to nil. 
   /// - Returns: The created request.
-  open func constructUploadRequest<Operation: GraphQLOperation>(
+  public func constructUploadRequest<Operation: GraphQLOperation>(
     for operation: Operation,
     with files: [GraphQLFile],
     manualBoundary: String? = nil) -> HTTPRequest<Operation> {

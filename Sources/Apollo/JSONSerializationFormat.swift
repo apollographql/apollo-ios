@@ -3,9 +3,6 @@ import Foundation
 import ApolloAPI
 #endif
 
-public typealias JSONValue = AnyHashable
-public typealias JSONObject = [String: JSONValue]
-
 public final class JSONSerializationFormat {
   public class func serialize(value: JSONEncodable) throws -> Data {
     return try JSONSerialization.sortedData(withJSONObject: value.jsonValue)

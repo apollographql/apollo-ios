@@ -1,3 +1,7 @@
+#if !COCOAPODS
+import ApolloAPI
+#endif
+
 protocol GraphQLResultAccumulator: AnyObject {
   associatedtype PartialResult
   associatedtype FieldEntry

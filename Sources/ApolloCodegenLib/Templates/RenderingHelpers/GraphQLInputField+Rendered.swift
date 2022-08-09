@@ -29,7 +29,7 @@ extension GraphQLInputField {
 
   var hasDefaultValue: Bool {
     switch defaultValue {
-    case .none, .some(nil):
+    case .none:
       return false
     case .some:
       return true

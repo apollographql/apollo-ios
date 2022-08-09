@@ -1,5 +1,6 @@
 import XCTest
 import Apollo
+import ApolloAPI
 import ApolloInternalTestHelpers
 @testable import ApolloWebSocket
 
