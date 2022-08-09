@@ -7,7 +7,7 @@ import Foundation
 public indirect enum InputValue {
   /// A direct input value, valid types are `String`, `Int` `Float` and `Bool`.
   /// For enum input values, the enum cases's `rawValue` as a `String` should be used.
-  case scalar(ScalarType)
+  case scalar(any ScalarType)
 
   /// A variable input value to be evaluated using the operation's
   /// ``GraphQLOperation/variables-swift.property-4o32c`` dictionary at runtime.

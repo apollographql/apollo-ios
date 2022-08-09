@@ -176,7 +176,6 @@ class TestMockTests: XCTestCase {
     expect(expected.isEqual(mock.nestedListOfInterfaces as [[AnyMock]]?)).to(beTrue())
   }
 
-
   func test__mock__setListOfOptionalInterfacesField__fieldIsSet() throws {
     // given
     let mock = Mock<Dog>()
@@ -216,6 +215,24 @@ class TestMockTests: XCTestCase {
     expect(heightDict?["feet"] as? Int).to(equal(2))
     expect(heightDict?["yards"] as? Int).to(equal(3))
   }
+
+  // MARK: Hashable Tests
+
+  func test__hashable__mockIsHashableByData() throws {
+    // given
+    let mock1 = Mock<Dog>()
+    let mock2 = Mock<Dog>()
+
+    mock1.id = "1"
+    mock2.id = "2"
+
+    // when
+    let mocks = Set([mock1, mock2])
+
+    // then
+    expect(mocks).to(equal(Set([mock1, mock2])))
+  }
+
 }
 
 // MARK: - Generated Example

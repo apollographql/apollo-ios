@@ -15,7 +15,7 @@ public typealias JSONObject = [String: JSONValue]
 /// ```swift
 /// dictionary.compactMapValues { $0.jsonValue }
 /// ```
-public typealias JSONEncodableDictionary = [String: JSONEncodable]
+public typealias JSONEncodableDictionary = [String: any JSONEncodable]
 
 /// A protocol for a type that can be initialized from a ``JSONValue``.
 ///

@@ -123,7 +123,7 @@ public extension GraphQLSubscription {
 // MARK: - GraphQLOperationVariableValue
 
 public protocol GraphQLOperationVariableValue {
-  var jsonEncodableValue: JSONEncodable? { get }
+  var jsonEncodableValue: (any JSONEncodable)? { get }
 }
 
 extension Array: GraphQLOperationVariableValue
@@ -131,14 +131,15 @@ where Element: GraphQLOperationVariableValue & Hashable {}
 
 extension Dictionary: GraphQLOperationVariableValue
 where Key == String, Value == GraphQLOperationVariableValue {
-  @inlinable public var jsonEncodableValue: JSONEncodable? { jsonEncodableObject }
+  @inlinable public var jsonEncodableValue: (any JSONEncodable)? { jsonEncodableObject }
   @inlinable public var jsonEncodableObject: JSONEncodableDictionary {
     compactMapValues { $0.jsonEncodableValue }
   }
 }
 
-extension GraphQLNullable: GraphQLOperationVariableValue where Wrapped: GraphQLOperationVariableValue {
-  @inlinable public var jsonEncodableValue: JSONEncodable? {
+extension GraphQLNullable: GraphQLOperationVariableValue
+where Wrapped: GraphQLOperationVariableValue {
+  @inlinable public var jsonEncodableValue: (any JSONEncodable)? {
     switch self {
     case .none: return nil
     case .null: return NSNull()
@@ -148,7 +149,7 @@ extension GraphQLNullable: GraphQLOperationVariableValue where Wrapped: GraphQLO
 }
 
 extension Optional: GraphQLOperationVariableValue where Wrapped: GraphQLOperationVariableValue {
-  @inlinable public var jsonEncodableValue: JSONEncodable? {
+  @inlinable public var jsonEncodableValue: (any JSONEncodable)? {
     switch self {
     case .none: return nil    
     case let .some(value): return value.jsonEncodableValue
@@ -157,5 +158,5 @@ extension Optional: GraphQLOperationVariableValue where Wrapped: GraphQLOperatio
 }
 
 extension JSONEncodable where Self: GraphQLOperationVariableValue {
-  @inlinable public var jsonEncodableValue: JSONEncodable? { self }
+  @inlinable public var jsonEncodableValue: (any JSONEncodable)? { self }
 }

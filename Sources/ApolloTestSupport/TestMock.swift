@@ -32,7 +32,7 @@ public class Mock<O: MockObject>: AnyMock, JSONEncodable, Hashable {
     }
     set {
       let field = O._mockFields[keyPath: keyPath]
-      _data[field.key.description] = (newValue as! JSONEncodable)
+      _data[field.key.description] = (newValue as! (any JSONEncodable))
     }
   }
 
@@ -41,14 +41,14 @@ public class Mock<O: MockObject>: AnyMock, JSONEncodable, Hashable {
   public var _jsonObject: JSONObject { _data.jsonObject }
   public var jsonValue: JSONValue { _jsonObject }
 
-  // MARK: Equatable
+  // MARK: Hashable
 
   public static func ==(lhs: Mock<O>, rhs: Mock<O>) -> Bool {
     NSDictionary(dictionary: lhs._data).isEqual(to: rhs._data)
   }
 
   public func hash(into hasher: inout Hasher) {
-    hasher.combine(_data.asAnyHashable)
+    hasher.combine(_data.jsonValue)
   }
 }
 
@@ -56,7 +56,7 @@ public class Mock<O: MockObject>: AnyMock, JSONEncodable, Hashable {
 
 public extension SelectionSet {
   static func from(
-    _ mock: AnyMock,
+    _ mock: any AnyMock,
     withVariables variables: GraphQLOperation.Variables? = nil
   ) -> Self {
     Self.init(data: DataDict(mock._jsonObject, variables: variables))
