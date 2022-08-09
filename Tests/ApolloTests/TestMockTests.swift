@@ -268,7 +268,6 @@ extension MockObject {
   typealias ClassroomPet = Union
 }
 
-#warning("TODO: What do we name these? Namespaced, Mock_Dog, MockDog, Dog?")
 class Dog: MockObject {
   static let objectType: Object = TestMockSchema.Types.Dog
   static let _mockFields = MockFields()

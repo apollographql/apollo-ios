@@ -1,5 +1,6 @@
 import XCTest
 @testable import Apollo
+import ApolloAPI
 import ApolloInternalTestHelpers
 
 class ParseQueryResponseTests: XCTestCase {

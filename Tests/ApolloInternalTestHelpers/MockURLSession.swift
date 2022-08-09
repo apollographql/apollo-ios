@@ -1,5 +1,6 @@
 import Foundation
 import Apollo
+import ApolloAPI
 
 public final class MockURLSessionClient: URLSessionClient {
 
