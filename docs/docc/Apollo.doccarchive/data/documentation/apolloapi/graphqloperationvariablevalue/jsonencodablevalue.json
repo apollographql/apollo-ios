@@ -43,7 +43,7 @@
       },
       {
         "kind" : "text",
-        "text" : ": "
+        "text" : ": ("
       },
       {
         "kind" : "typeIdentifier",
@@ -52,7 +52,7 @@
       },
       {
         "kind" : "text",
-        "text" : "?"
+        "text" : ")?"
       }
     ],
     "modules" : [
@@ -91,7 +91,7 @@
             },
             {
               "kind" : "text",
-              "text" : ": "
+              "text" : ": ("
             },
             {
               "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONEncodable",
@@ -101,7 +101,7 @@
             },
             {
               "kind" : "text",
-              "text" : "? { "
+              "text" : ")? { "
             },
             {
               "kind" : "keyword",
@@ -242,7 +242,7 @@
     },
     {
       "kind" : "text",
-      "text" : ": "
+      "text" : ": ("
     },
     {
       "kind" : "typeIdentifier",
@@ -251,7 +251,7 @@
     },
     {
       "kind" : "text",
-      "text" : "?"
+      "text" : ")?"
     }
   ],
   "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperationVariableValue\/jsonEncodableValue",
@@ -281,7 +281,7 @@
     },
     {
       "kind" : "text",
-      "text" : ": "
+      "text" : ": ("
     },
     {
       "kind" : "typeIdentifier",
@@ -290,7 +290,7 @@
     },
     {
       "kind" : "text",
-      "text" : "?"
+      "text" : ")?"
     }
   ],
   "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputObject\/jsonEncodableValue",

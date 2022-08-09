@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "A helper function to determine if the receiver implement’s a given ",
+      "text" : "A helper function to determine if the receiver implements a given ",
       "type" : "text"
     },
     {
@@ -28,16 +28,8 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:9ApolloAPI6ObjectC10implementsySbAA9InterfaceCmFZ",
+    "externalID" : "s:9ApolloAPI6ObjectV10implementsySbAA9InterfaceVF",
     "fragments" : [
-      {
-        "kind" : "keyword",
-        "text" : "class"
-      },
-      {
-        "kind" : "text",
-        "text" : " "
-      },
       {
         "kind" : "keyword",
         "text" : "func"
@@ -56,12 +48,12 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:9ApolloAPI9InterfaceC",
+        "preciseIdentifier" : "s:9ApolloAPI9InterfaceV",
         "text" : "Interface"
       },
       {
         "kind" : "text",
-        "text" : ".Type) -> "
+        "text" : ") -> "
       },
       {
         "kind" : "typeIdentifier",
@@ -75,7 +67,7 @@
       }
     ],
     "role" : "symbol",
-    "roleHeading" : "Type Method",
+    "roleHeading" : "Instance Method",
     "symbolKind" : "method",
     "title" : "implements(_:)"
   },
@@ -90,22 +82,6 @@
             "macOS"
           ],
           "tokens" : [
-            {
-              "kind" : "keyword",
-              "text" : "final"
-            },
-            {
-              "kind" : "text",
-              "text" : " "
-            },
-            {
-              "kind" : "keyword",
-              "text" : "class"
-            },
-            {
-              "kind" : "text",
-              "text" : " "
-            },
             {
               "kind" : "keyword",
               "text" : "func"
@@ -141,12 +117,12 @@
             {
               "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Interface",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:9ApolloAPI9InterfaceC",
+              "preciseIdentifier" : "s:9ApolloAPI9InterfaceV",
               "text" : "Interface"
             },
             {
               "kind" : "text",
-              "text" : ".Type) -> "
+              "text" : ") -> "
             },
             {
               "kind" : "typeIdentifier",
@@ -301,15 +277,7 @@
 "doc://ApolloAPI/documentation/ApolloAPI/Interface": {
   "abstract" : [
     {
-      "text" : "An abstract base class inherited by interfaces in a generated GraphQL schema.",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "Each ",
+      "text" : "Represents an ",
       "type" : "text"
     },
     {
@@ -317,14 +285,14 @@
       "type" : "codeVoice"
     },
     {
-      "text" : " defined in the GraphQL schema will have a subclass of this class generated.",
+      "text" : " type in a generated GraphQL schema.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -351,15 +319,7 @@
 "doc://ApolloAPI/documentation/ApolloAPI/Object": {
   "abstract" : [
     {
-      "text" : "An abstract base class inherited by types in a generated GraphQL schema.",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "Each ",
+      "text" : "Represents an object ",
       "type" : "text"
     },
     {
@@ -367,14 +327,14 @@
       "type" : "codeVoice"
     },
     {
-      "text" : " defined in the GraphQL schema will have a subclass of this class generated.",
+      "text" : " in a generated GraphQL schema.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -401,7 +361,7 @@
 "doc://ApolloAPI/documentation/ApolloAPI/Object/implements(_:)": {
   "abstract" : [
     {
-      "text" : "A helper function to determine if the receiver implement’s a given ",
+      "text" : "A helper function to determine if the receiver implements a given ",
       "type" : "text"
     },
     {
@@ -415,14 +375,6 @@
     }
   ],
   "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
     {
       "kind" : "keyword",
       "text" : "func"
@@ -441,12 +393,12 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI9InterfaceC",
+      "preciseIdentifier" : "s:9ApolloAPI9InterfaceV",
       "text" : "Interface"
     },
     {
       "kind" : "text",
-      "text" : ".Type) -> "
+      "text" : ") -> "
     },
     {
       "kind" : "typeIdentifier",

@@ -89,7 +89,7 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/fetch(configuration:)"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/fetch(configuration:withRootURL:)"
       ],
       "title" : "Type Methods"
     },
@@ -193,7 +193,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apolloschemadownloader\/schemadownloaderror"
 },
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloSchemaDownloader/fetch(configuration:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloSchemaDownloader/fetch(configuration:withRootURL:)": {
   "abstract" : [
     {
       "text" : "Downloads your schema using the specified configuration object.",
@@ -240,19 +240,36 @@
     },
     {
       "kind" : "text",
-      "text" : ") "
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "withRootURL"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) "
     },
     {
       "kind" : "keyword",
       "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/fetch(configuration:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/fetch(configuration:withRootURL:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "fetch(configuration:)",
+  "title" : "fetch(configuration:withRootURL:)",
   "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/apolloschemadownloader\/fetch(configuration:)"
+  "url" : "\/documentation\/apollocodegenlib\/apolloschemadownloader\/fetch(configuration:withrooturl:)"
 }
 }
 }

@@ -72,7 +72,7 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:6Apollo9JSONValuea",
+        "preciseIdentifier" : "s:9ApolloAPI9JSONValuea",
         "text" : "JSONValue"
       }
     ],
@@ -147,9 +147,8 @@
               "text" : " -> "
             },
             {
-              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONValue",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:6Apollo9JSONValuea",
+              "preciseIdentifier" : "s:9ApolloAPI9JSONValuea",
               "text" : "JSONValue"
             }
           ]
@@ -281,7 +280,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo9JSONValuea",
+      "preciseIdentifier" : "s:9ApolloAPI9JSONValuea",
       "text" : "JSONValue"
     }
   ],
@@ -291,37 +290,6 @@
   "title" : "deserialize(data:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/jsonserializationformat\/deserialize(data:)"
-},
-"doc://Apollo/documentation/Apollo/JSONValue": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "JSONValue"
-    }
-  ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONValue",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "JSONValue"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "JSONValue",
-  "type" : "topic",
-  "url" : "\/documentation\/apollo\/jsonvalue"
 }
 }
 }

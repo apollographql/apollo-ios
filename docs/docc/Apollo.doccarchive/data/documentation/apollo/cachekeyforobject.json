@@ -85,9 +85,8 @@
               "text" : " = ("
             },
             {
-              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONObject",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:6Apollo10JSONObjecta",
+              "preciseIdentifier" : "s:9ApolloAPI10JSONObjecta",
               "text" : "JSONObject"
             },
             {
@@ -95,9 +94,8 @@
               "text" : ") -> "
             },
             {
-              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONValue",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:6Apollo9JSONValuea",
+              "preciseIdentifier" : "s:9ApolloAPI9JSONValuea",
               "text" : "JSONValue"
             },
             {
@@ -187,68 +185,6 @@
   "title" : "CacheKeyForObject",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/cachekeyforobject"
-},
-"doc://Apollo/documentation/Apollo/JSONObject": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "JSONObject"
-    }
-  ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONObject",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "JSONObject"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "JSONObject",
-  "type" : "topic",
-  "url" : "\/documentation\/apollo\/jsonobject"
-},
-"doc://Apollo/documentation/Apollo/JSONValue": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "JSONValue"
-    }
-  ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONValue",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "JSONValue"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "JSONValue",
-  "type" : "topic",
-  "url" : "\/documentation\/apollo\/jsonvalue"
 }
 }
 }

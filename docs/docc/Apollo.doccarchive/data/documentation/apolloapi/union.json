@@ -1,15 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "An abstract base class inherited by unions in a generated GraphQL schema.",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "Each ",
+      "text" : "Represents a ",
       "type" : "text"
     },
     {
@@ -17,7 +9,7 @@
       "type" : "codeVoice"
     },
     {
-      "text" : " defined in the GraphQL schema will have a subclass of this class generated.",
+      "text" : " type in a generated GraphQL schema.",
       "type" : "text"
     }
   ],
@@ -34,11 +26,11 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:9ApolloAPI5UnionP",
+    "externalID" : "s:9ApolloAPI5UnionV",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "protocol"
+        "text" : "struct"
       },
       {
         "kind" : "text",
@@ -61,8 +53,8 @@
       }
     ],
     "role" : "symbol",
-    "roleHeading" : "Protocol",
-    "symbolKind" : "protocol",
+    "roleHeading" : "Structure",
+    "symbolKind" : "struct",
     "title" : "Union"
   },
   "primaryContentSections" : [
@@ -78,7 +70,7 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "protocol"
+              "text" : "struct"
             },
             {
               "kind" : "text",
@@ -87,31 +79,76 @@
             {
               "kind" : "identifier",
               "text" : "Union"
-            },
-            {
-              "kind" : "text",
-              "text" : " : "
-            },
-            {
-              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ParentTypeConvertible",
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:9ApolloAPI21ParentTypeConvertibleP",
-              "text" : "ParentTypeConvertible"
             }
           ]
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Each ",
+              "type" : "text"
+            },
+            {
+              "code" : "union",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " defined in the GraphQL schema will have an instance of ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Union",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " generated.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "anchor" : "See-Also",
+          "level" : 1,
+          "text" : "See Also",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "identifier" : "https:\/\/spec.graphql.org\/draft\/#sec-Unions",
+              "isActive" : true,
+              "type" : "reference"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ParentTypeConvertible"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ParentType",
+        "doc:\/\/ApolloAPI\/SQ",
+        "doc:\/\/ApolloAPI\/SH"
       ],
       "kind" : "relationships",
-      "title" : "Inherits From",
-      "type" : "inheritsFrom"
+      "title" : "Conforms To",
+      "type" : "conformsTo"
     }
   ],
   "schemaVersion" : {
@@ -137,9 +174,24 @@
   "topicSections" : [
     {
       "identifiers" : [
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Union\/init(name:possibleTypes:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Union\/name",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Union\/possibleTypes"
       ],
-      "title" : "Type Properties"
+      "title" : "Instance Properties"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Union\/Equatable-Implementations",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Union\/ParentType-Implementations"
+      ],
+      "title" : "Default Implementations"
     }
   ],
   "variants" : [
@@ -179,6 +231,16 @@
   ],
   "type" : "link",
   "url" : "\/documentation\/apollocodegenlib"
+},
+"doc://ApolloAPI/SH": {
+  "identifier" : "doc:\/\/ApolloAPI\/SH",
+  "title" : "Swift.Hashable",
+  "type" : "unresolvable"
+},
+"doc://ApolloAPI/SQ": {
+  "identifier" : "doc:\/\/ApolloAPI\/SQ",
+  "title" : "Swift.Equatable",
+  "type" : "unresolvable"
 },
 "doc://ApolloAPI/documentation/ApolloAPI": {
   "abstract" : [
@@ -279,15 +341,7 @@
 "doc://ApolloAPI/documentation/ApolloAPI/Interface": {
   "abstract" : [
     {
-      "text" : "An abstract base class inherited by interfaces in a generated GraphQL schema.",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "Each ",
+      "text" : "Represents an ",
       "type" : "text"
     },
     {
@@ -295,14 +349,14 @@
       "type" : "codeVoice"
     },
     {
-      "text" : " defined in the GraphQL schema will have a subclass of this class generated.",
+      "text" : " type in a generated GraphQL schema.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -329,15 +383,7 @@
 "doc://ApolloAPI/documentation/ApolloAPI/Object": {
   "abstract" : [
     {
-      "text" : "An abstract base class inherited by types in a generated GraphQL schema.",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "Each ",
+      "text" : "Represents an object ",
       "type" : "text"
     },
     {
@@ -345,14 +391,14 @@
       "type" : "codeVoice"
     },
     {
-      "text" : " defined in the GraphQL schema will have a subclass of this class generated.",
+      "text" : " in a generated GraphQL schema.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -376,7 +422,58 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/object"
 },
-"doc://ApolloAPI/documentation/ApolloAPI/ParentTypeConvertible": {
+"doc://ApolloAPI/documentation/ApolloAPI/ParentType": {
+  "abstract" : [
+    {
+      "text" : "A protocol for a type that represents the ",
+      "type" : "text"
+    },
+    {
+      "code" : "__parentType",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " of a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ParentType"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ParentType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ParentType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ParentType",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/parenttype"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/SelectionSet": {
   "abstract" : [
 
   ],
@@ -391,34 +488,26 @@
     },
     {
       "kind" : "identifier",
-      "text" : "ParentTypeConvertible"
+      "text" : "SelectionSet"
     }
   ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ParentTypeConvertible",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "ParentTypeConvertible"
+      "text" : "SelectionSet"
     }
   ],
   "role" : "symbol",
-  "title" : "ParentTypeConvertible",
+  "title" : "SelectionSet",
   "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/parenttypeconvertible"
+  "url" : "\/documentation\/apolloapi\/selectionset"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/Union": {
   "abstract" : [
     {
-      "text" : "An abstract base class inherited by unions in a generated GraphQL schema.",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "Each ",
+      "text" : "Represents a ",
       "type" : "text"
     },
     {
@@ -426,14 +515,14 @@
       "type" : "codeVoice"
     },
     {
-      "text" : " defined in the GraphQL schema will have a subclass of this class generated.",
+      "text" : " type in a generated GraphQL schema.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "protocol"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -457,22 +546,160 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/union"
 },
-"doc://ApolloAPI/documentation/ApolloAPI/Union/possibleTypes": {
+"doc://ApolloAPI/documentation/ApolloAPI/Union/Equatable-Implementations": {
   "abstract" : [
 
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Union\/Equatable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Equatable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/union\/equatable-implementations"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/Union/ParentType-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Union\/ParentType-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "ParentType Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/union\/parenttype-implementations"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/Union/init(name:possibleTypes:)": {
+  "abstract" : [
+    {
+      "text" : "Designated Initializer",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "name"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "possibleTypes"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI6ObjectV",
+      "text" : "Object"
+    },
+    {
+      "kind" : "text",
+      "text" : "])"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Union\/init(name:possibleTypes:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(name:possibleTypes:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/union\/init(name:possibletypes:)"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/Union/name": {
+  "abstract" : [
+    {
+      "text" : "The name of the ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Union",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " in the GraphQL schema.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "static"
+      "text" : "let"
     },
     {
       "kind" : "text",
       "text" : " "
     },
     {
+      "kind" : "identifier",
+      "text" : "name"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Union\/name",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "name",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/union\/name"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/Union/possibleTypes": {
+  "abstract" : [
+    {
+      "text" : "The ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Object",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " types included in the ",
+      "type" : "text"
+    },
+    {
+      "code" : "union",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
       "kind" : "keyword",
-      "text" : "var"
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -488,21 +715,32 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI6ObjectC",
+      "preciseIdentifier" : "s:9ApolloAPI6ObjectV",
       "text" : "Object"
     },
     {
       "kind" : "text",
-      "text" : ".Type]"
+      "text" : "]"
     }
   ],
   "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Union\/possibleTypes",
   "kind" : "symbol",
-  "required" : true,
   "role" : "symbol",
   "title" : "possibleTypes",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/union\/possibletypes"
+},
+"https://spec.graphql.org/draft/#sec-Unions": {
+  "identifier" : "https:\/\/spec.graphql.org\/draft\/#sec-Unions",
+  "title" : "GraphQLSpec - Unions",
+  "titleInlineContent" : [
+    {
+      "text" : "GraphQLSpec - Unions",
+      "type" : "text"
+    }
+  ],
+  "type" : "link",
+  "url" : "https:\/\/spec.graphql.org\/draft\/#sec-Unions"
 }
 }
 }

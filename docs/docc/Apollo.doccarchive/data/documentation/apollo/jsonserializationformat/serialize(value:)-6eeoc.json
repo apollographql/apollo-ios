@@ -55,7 +55,7 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:6Apollo10JSONObjecta",
+        "preciseIdentifier" : "s:9ApolloAPI10JSONObjecta",
         "text" : "JSONObject"
       },
       {
@@ -130,9 +130,8 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONObject",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:6Apollo10JSONObjecta",
+              "preciseIdentifier" : "s:9ApolloAPI10JSONObjecta",
               "text" : "JSONObject"
             },
             {
@@ -193,37 +192,6 @@
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
-},
-"doc://Apollo/documentation/Apollo/JSONObject": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "JSONObject"
-    }
-  ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONObject",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "JSONObject"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "JSONObject",
-  "type" : "topic",
-  "url" : "\/documentation\/apollo\/jsonobject"
 },
 "doc://Apollo/documentation/Apollo/JSONSerializationFormat": {
   "abstract" : [
@@ -295,7 +263,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo10JSONObjecta",
+      "preciseIdentifier" : "s:9ApolloAPI10JSONObjecta",
       "text" : "JSONObject"
     },
     {

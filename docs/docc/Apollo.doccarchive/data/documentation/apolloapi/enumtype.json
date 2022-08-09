@@ -207,6 +207,22 @@
             }
           ],
           "type" : "paragraph"
+        },
+        {
+          "anchor" : "See-Also",
+          "level" : 1,
+          "text" : "See Also",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "identifier" : "https:\/\/spec.graphql.org\/draft\/#sec-Enums",
+              "isActive" : true,
+              "type" : "reference"
+            }
+          ],
+          "type" : "paragraph"
         }
       ],
       "kind" : "content"
@@ -461,15 +477,7 @@
 "doc://ApolloAPI/documentation/ApolloAPI/Interface": {
   "abstract" : [
     {
-      "text" : "An abstract base class inherited by interfaces in a generated GraphQL schema.",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "Each ",
+      "text" : "Represents an ",
       "type" : "text"
     },
     {
@@ -477,14 +485,14 @@
       "type" : "codeVoice"
     },
     {
-      "text" : " defined in the GraphQL schema will have a subclass of this class generated.",
+      "text" : " type in a generated GraphQL schema.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -593,15 +601,7 @@
 "doc://ApolloAPI/documentation/ApolloAPI/Object": {
   "abstract" : [
     {
-      "text" : "An abstract base class inherited by types in a generated GraphQL schema.",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "Each ",
+      "text" : "Represents an object ",
       "type" : "text"
     },
     {
@@ -609,14 +609,14 @@
       "type" : "codeVoice"
     },
     {
-      "text" : " defined in the GraphQL schema will have a subclass of this class generated.",
+      "text" : " in a generated GraphQL schema.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -674,15 +674,7 @@
 "doc://ApolloAPI/documentation/ApolloAPI/Union": {
   "abstract" : [
     {
-      "text" : "An abstract base class inherited by unions in a generated GraphQL schema.",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "Each ",
+      "text" : "Represents a ",
       "type" : "text"
     },
     {
@@ -690,14 +682,14 @@
       "type" : "codeVoice"
     },
     {
-      "text" : " defined in the GraphQL schema will have a subclass of this class generated.",
+      "text" : " type in a generated GraphQL schema.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "protocol"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -725,6 +717,18 @@
   "identifier" : "doc:\/\/ApolloAPI\/s12CaseIterableP",
   "title" : "Swift.CaseIterable",
   "type" : "unresolvable"
+},
+"https://spec.graphql.org/draft/#sec-Enums": {
+  "identifier" : "https:\/\/spec.graphql.org\/draft\/#sec-Enums",
+  "title" : "GraphQLSpec - Enums",
+  "titleInlineContent" : [
+    {
+      "text" : "GraphQLSpec - Enums",
+      "type" : "text"
+    }
+  ],
+  "type" : "link",
+  "url" : "https:\/\/spec.graphql.org\/draft\/#sec-Enums"
 }
 }
 }

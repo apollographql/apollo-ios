@@ -261,9 +261,8 @@
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheKeyProvider",
-              "isActive" : true,
-              "type" : "reference"
+              "code" : "CacheKeyProvider",
+              "type" : "codeVoice"
             },
             {
               "text" : ")",
@@ -455,40 +454,6 @@
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/CacheKeyProvider": {
-  "abstract" : [
-    {
-      "text" : "The key for an object must be:",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "CacheKeyProvider"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheKeyProvider",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "CacheKeyProvider"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "CacheKeyProvider",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/cachekeyprovider"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/CacheReference": {
   "abstract" : [

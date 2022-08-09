@@ -143,7 +143,6 @@
       "identifiers" : [
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnyHashableConvertible",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnySelectionSet",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheKeyProvider",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Fragment",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/FragmentContainer",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLMutation",
@@ -156,10 +155,9 @@
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/MutableRootSelectionSet",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/MutableSelectionSet",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/OutputTypeConvertible",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ParentTypeConvertible",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ParentType",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/RootSelectionSet",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SchemaConfiguration",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SchemaUnknownTypeCacheKeyProvider",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSetEntityValue"
       ],
@@ -167,6 +165,7 @@
     },
     {
       "identifiers" : [
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheKeyInfo",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheReference",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DataDict",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputDict",
@@ -182,7 +181,6 @@
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperationType",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputValue",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/NoFragments",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ParentType",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection"
       ],
       "title" : "Enumerations"
@@ -381,17 +379,34 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/anyselectionset"
 },
-"doc://ApolloAPI/documentation/ApolloAPI/CacheKeyProvider": {
+"doc://ApolloAPI/documentation/ApolloAPI/CacheKeyInfo": {
   "abstract" : [
     {
-      "text" : "The key for an object must be:",
+      "text" : "Contains the information needed to resolve a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheReference",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " in a ",
+      "type" : "text"
+    },
+    {
+      "code" : "NormalizedCache",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "protocol"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -399,21 +414,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "CacheKeyProvider"
+      "text" : "CacheKeyInfo"
     }
   ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheKeyProvider",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheKeyInfo",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "CacheKeyProvider"
+      "text" : "CacheKeyInfo"
     }
   ],
   "role" : "symbol",
-  "title" : "CacheKeyProvider",
+  "title" : "CacheKeyInfo",
   "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/cachekeyprovider"
+  "url" : "\/documentation\/apolloapi\/cachekeyinfo"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/CacheReference": {
   "abstract" : [
@@ -1147,15 +1162,7 @@
 "doc://ApolloAPI/documentation/ApolloAPI/Interface": {
   "abstract" : [
     {
-      "text" : "An abstract base class inherited by interfaces in a generated GraphQL schema.",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "Each ",
+      "text" : "Represents an ",
       "type" : "text"
     },
     {
@@ -1163,14 +1170,14 @@
       "type" : "codeVoice"
     },
     {
-      "text" : " defined in the GraphQL schema will have a subclass of this class generated.",
+      "text" : " type in a generated GraphQL schema.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -1620,15 +1627,7 @@
 "doc://ApolloAPI/documentation/ApolloAPI/Object": {
   "abstract" : [
     {
-      "text" : "An abstract base class inherited by types in a generated GraphQL schema.",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "Each ",
+      "text" : "Represents an object ",
       "type" : "text"
     },
     {
@@ -1636,14 +1635,14 @@
       "type" : "codeVoice"
     },
     {
-      "text" : " defined in the GraphQL schema will have a subclass of this class generated.",
+      "text" : " in a generated GraphQL schema.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -1734,12 +1733,32 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/ParentType": {
   "abstract" : [
-
+    {
+      "text" : "A protocol for a type that represents the ",
+      "type" : "text"
+    },
+    {
+      "code" : "__parentType",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " of a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "enum"
+      "text" : "protocol"
     },
     {
       "kind" : "text",
@@ -1762,37 +1781,6 @@
   "title" : "ParentType",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/parenttype"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/ParentTypeConvertible": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ParentTypeConvertible"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ParentTypeConvertible",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ParentTypeConvertible"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ParentTypeConvertible",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/parenttypeconvertible"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/RootSelectionSet": {
   "abstract" : [
@@ -1896,7 +1884,10 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/SchemaConfiguration": {
   "abstract" : [
-
+    {
+      "text" : "A protocol that a generated GraphQL schema should conform to.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -1924,37 +1915,6 @@
   "title" : "SchemaConfiguration",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/schemaconfiguration"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/SchemaUnknownTypeCacheKeyProvider": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "SchemaUnknownTypeCacheKeyProvider"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SchemaUnknownTypeCacheKeyProvider",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "SchemaUnknownTypeCacheKeyProvider"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "SchemaUnknownTypeCacheKeyProvider",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/schemaunknowntypecachekeyprovider"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/Selection": {
   "abstract" : [
@@ -2130,15 +2090,7 @@
 "doc://ApolloAPI/documentation/ApolloAPI/Union": {
   "abstract" : [
     {
-      "text" : "An abstract base class inherited by unions in a generated GraphQL schema.",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "Each ",
+      "text" : "Represents a ",
       "type" : "text"
     },
     {
@@ -2146,14 +2098,14 @@
       "type" : "codeVoice"
     },
     {
-      "text" : " defined in the GraphQL schema will have a subclass of this class generated.",
+      "text" : " type in a generated GraphQL schema.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "protocol"
+      "text" : "struct"
     },
     {
       "kind" : "text",

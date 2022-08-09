@@ -130,9 +130,7 @@
         "doc:\/\/Apollo\/documentation\/Apollo\/CacheKey",
         "doc:\/\/Apollo\/documentation\/Apollo\/CacheKeyForObject",
         "doc:\/\/Apollo\/documentation\/Apollo\/DidChangeKeysFunc",
-        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResultHandler",
-        "doc:\/\/Apollo\/documentation\/Apollo\/JSONObject",
-        "doc:\/\/Apollo\/documentation\/Apollo\/JSONValue"
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResultHandler"
       ],
       "title" : "Type Aliases"
     },
@@ -1269,37 +1267,6 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/interceptorprovider"
 },
-"doc://Apollo/documentation/Apollo/JSONObject": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "JSONObject"
-    }
-  ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONObject",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "JSONObject"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "JSONObject",
-  "type" : "topic",
-  "url" : "\/documentation\/apollo\/jsonobject"
-},
 "doc://Apollo/documentation/Apollo/JSONRequest": {
   "abstract" : [
     {
@@ -1414,37 +1381,6 @@
   "title" : "JSONSerializationFormat",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/jsonserializationformat"
-},
-"doc://Apollo/documentation/Apollo/JSONValue": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "JSONValue"
-    }
-  ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONValue",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "JSONValue"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "JSONValue",
-  "type" : "topic",
-  "url" : "\/documentation\/apollo\/jsonvalue"
 },
 "doc://Apollo/documentation/Apollo/MaxRetryInterceptor": {
   "abstract" : [

@@ -219,7 +219,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo9JSONValuea",
+      "preciseIdentifier" : "s:9ApolloAPI9JSONValuea",
       "text" : "JSONValue"
     }
   ],
@@ -336,7 +336,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo10JSONObjecta",
+      "preciseIdentifier" : "s:9ApolloAPI10JSONObjecta",
       "text" : "JSONObject"
     },
     {

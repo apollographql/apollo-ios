@@ -102,7 +102,8 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegen\/Error\/graphQLSourceValidationFailure(atLines:)"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegen\/Error\/graphQLSourceValidationFailure(atLines:)",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegen\/Error\/testMocksInvalidSwiftPackageConfiguration"
       ],
       "title" : "Enumeration Cases"
     },
@@ -330,6 +331,31 @@
   "title" : "ApolloCodegen.Error.graphQLSourceValidationFailure(atLines:)",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apollocodegen\/error\/graphqlsourcevalidationfailure(atlines:)"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegen/Error/testMocksInvalidSwiftPackageConfiguration": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "testMocksInvalidSwiftPackageConfiguration"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegen\/Error\/testMocksInvalidSwiftPackageConfiguration",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "ApolloCodegen.Error.testMocksInvalidSwiftPackageConfiguration",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/apollocodegen\/error\/testmocksinvalidswiftpackageconfiguration"
 },
 "doc://ApolloCodegenLib/s5ErrorP": {
   "identifier" : "doc:\/\/ApolloCodegenLib\/s5ErrorP",

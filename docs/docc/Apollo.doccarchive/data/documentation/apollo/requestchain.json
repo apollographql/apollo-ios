@@ -105,7 +105,8 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/additionalErrorHandler"
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/additionalErrorHandler",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/isCancelled"
       ],
       "title" : "Instance Properties"
     },
@@ -543,6 +544,40 @@
   "title" : "init(interceptors:callbackQueue:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchain\/init(interceptors:callbackqueue:)"
+},
+"doc://Apollo/documentation/Apollo/RequestChain/isCancelled": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isCancelled"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/isCancelled",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isCancelled",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/requestchain\/iscancelled"
 },
 "doc://Apollo/documentation/Apollo/RequestChain/kickoff(request:completion:)": {
   "abstract" : [

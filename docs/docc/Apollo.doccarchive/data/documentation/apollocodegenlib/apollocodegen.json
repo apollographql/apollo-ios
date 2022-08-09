@@ -89,7 +89,7 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegen\/build(with:)"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegen\/build(with:withRootURL:)"
       ],
       "title" : "Type Methods"
     },
@@ -196,7 +196,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apollocodegen\/error"
 },
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegen/build(with:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegen/build(with:withRootURL:)": {
   "abstract" : [
     {
       "text" : "Executes the code generation engine with a specified configuration.",
@@ -243,19 +243,36 @@
     },
     {
       "kind" : "text",
-      "text" : ") "
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "withRootURL"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) "
     },
     {
       "kind" : "keyword",
       "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegen\/build(with:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegen\/build(with:withRootURL:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "build(with:)",
+  "title" : "build(with:withRootURL:)",
   "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/apollocodegen\/build(with:)"
+  "url" : "\/documentation\/apollocodegenlib\/apollocodegen\/build(with:withrooturl:)"
 }
 }
 }

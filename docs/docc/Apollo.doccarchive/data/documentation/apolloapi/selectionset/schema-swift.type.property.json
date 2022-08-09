@@ -281,7 +281,10 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/SchemaConfiguration": {
   "abstract" : [
-
+    {
+      "text" : "A protocol that a generated GraphQL schema should conform to.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

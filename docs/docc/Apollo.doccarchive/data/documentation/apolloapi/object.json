@@ -1,15 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "An abstract base class inherited by types in a generated GraphQL schema.",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "Each ",
+      "text" : "Represents an object ",
       "type" : "text"
     },
     {
@@ -17,7 +9,7 @@
       "type" : "codeVoice"
     },
     {
-      "text" : " defined in the GraphQL schema will have a subclass of this class generated.",
+      "text" : " in a generated GraphQL schema.",
       "type" : "text"
     }
   ],
@@ -34,11 +26,11 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:9ApolloAPI6ObjectC",
+    "externalID" : "s:9ApolloAPI6ObjectV",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "class"
+        "text" : "struct"
       },
       {
         "kind" : "text",
@@ -61,8 +53,8 @@
       }
     ],
     "role" : "symbol",
-    "roleHeading" : "Class",
-    "symbolKind" : "class",
+    "roleHeading" : "Structure",
+    "symbolKind" : "struct",
     "title" : "Object"
   },
   "primaryContentSections" : [
@@ -78,7 +70,7 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "class"
+              "text" : "struct"
             },
             {
               "kind" : "text",
@@ -92,12 +84,67 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Each ",
+              "type" : "text"
+            },
+            {
+              "code" : "type",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " defined in the GraphQL schema will have an instance of ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Object",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " generated.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "anchor" : "See-Also",
+          "level" : 1,
+          "text" : "See Also",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "identifier" : "https:\/\/spec.graphql.org\/draft\/#sec-Objects",
+              "isActive" : true,
+              "type" : "reference"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ParentTypeConvertible"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ParentType",
+        "doc:\/\/ApolloAPI\/SQ",
+        "doc:\/\/ApolloAPI\/SH"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -127,14 +174,35 @@
   "topicSections" : [
     {
       "identifiers" : [
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Object\/==(_:_:)"
+      ],
+      "title" : "Operators"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Object\/init(typename:implementedInterfaces:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Object\/implementedInterfaces",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Object\/typename"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Object\/hash(into:)",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Object\/implements(_:)"
       ],
-      "title" : "Type Methods"
+      "title" : "Instance Methods"
     },
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Object\/ParentTypeConvertible-Implementations"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Object\/Equatable-Implementations",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Object\/ParentType-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -176,6 +244,16 @@
   ],
   "type" : "link",
   "url" : "\/documentation\/apollocodegenlib"
+},
+"doc://ApolloAPI/SH": {
+  "identifier" : "doc:\/\/ApolloAPI\/SH",
+  "title" : "Swift.Hashable",
+  "type" : "unresolvable"
+},
+"doc://ApolloAPI/SQ": {
+  "identifier" : "doc:\/\/ApolloAPI\/SQ",
+  "title" : "Swift.Equatable",
+  "type" : "unresolvable"
 },
 "doc://ApolloAPI/documentation/ApolloAPI": {
   "abstract" : [
@@ -276,15 +354,7 @@
 "doc://ApolloAPI/documentation/ApolloAPI/Interface": {
   "abstract" : [
     {
-      "text" : "An abstract base class inherited by interfaces in a generated GraphQL schema.",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "Each ",
+      "text" : "Represents an ",
       "type" : "text"
     },
     {
@@ -292,14 +362,14 @@
       "type" : "codeVoice"
     },
     {
-      "text" : " defined in the GraphQL schema will have a subclass of this class generated.",
+      "text" : " type in a generated GraphQL schema.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -326,15 +396,7 @@
 "doc://ApolloAPI/documentation/ApolloAPI/Object": {
   "abstract" : [
     {
-      "text" : "An abstract base class inherited by types in a generated GraphQL schema.",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "Each ",
+      "text" : "Represents an object ",
       "type" : "text"
     },
     {
@@ -342,14 +404,14 @@
       "type" : "codeVoice"
     },
     {
-      "text" : " defined in the GraphQL schema will have a subclass of this class generated.",
+      "text" : " in a generated GraphQL schema.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -373,21 +435,191 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/object"
 },
-"doc://ApolloAPI/documentation/ApolloAPI/Object/ParentTypeConvertible-Implementations": {
+"doc://ApolloAPI/documentation/ApolloAPI/Object/==(_:_:)": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Object\/ParentTypeConvertible-Implementations",
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "=="
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI6ObjectV",
+      "text" : "Object"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI6ObjectV",
+      "text" : "Object"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Object\/==(_:_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "==(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/object\/==(_:_:)"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/Object/Equatable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Object\/Equatable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
-  "title" : "ParentTypeConvertible Implementations",
+  "title" : "Equatable Implementations",
   "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/object\/parenttypeconvertible-implementations"
+  "url" : "\/documentation\/apolloapi\/object\/equatable-implementations"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/Object/ParentType-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Object\/ParentType-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "ParentType Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/object\/parenttype-implementations"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/Object/hash(into:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "hash"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "into"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "inout"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s6HasherV",
+      "text" : "Hasher"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Object\/hash(into:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "hash(into:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/object\/hash(into:)"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/Object/implementedInterfaces": {
+  "abstract" : [
+    {
+      "text" : "A list of the interfaces implemented by the type.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "implementedInterfaces"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI9InterfaceV",
+      "text" : "Interface"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Object\/implementedInterfaces",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "implementedInterfaces",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/object\/implementedinterfaces"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/Object/implements(_:)": {
   "abstract" : [
     {
-      "text" : "A helper function to determine if the receiver implement’s a given ",
+      "text" : "A helper function to determine if the receiver implements a given ",
       "type" : "text"
     },
     {
@@ -401,14 +633,6 @@
     }
   ],
   "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
     {
       "kind" : "keyword",
       "text" : "func"
@@ -427,12 +651,12 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI9InterfaceC",
+      "preciseIdentifier" : "s:9ApolloAPI9InterfaceV",
       "text" : "Interface"
     },
     {
       "kind" : "text",
-      "text" : ".Type) -> "
+      "text" : ") -> "
     },
     {
       "kind" : "typeIdentifier",
@@ -447,7 +671,153 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/object\/implements(_:)"
 },
-"doc://ApolloAPI/documentation/ApolloAPI/ParentTypeConvertible": {
+"doc://ApolloAPI/documentation/ApolloAPI/Object/init(typename:implementedInterfaces:)": {
+  "abstract" : [
+    {
+      "text" : "Designated Initializer",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "typename"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "implementedInterfaces"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI9InterfaceV",
+      "text" : "Interface"
+    },
+    {
+      "kind" : "text",
+      "text" : "])"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Object\/init(typename:implementedInterfaces:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(typename:implementedInterfaces:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/object\/init(typename:implementedinterfaces:)"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/Object/typename": {
+  "abstract" : [
+    {
+      "text" : "The name of the type.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "typename"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Object\/typename",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "typename",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/object\/typename"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/ParentType": {
+  "abstract" : [
+    {
+      "text" : "A protocol for a type that represents the ",
+      "type" : "text"
+    },
+    {
+      "code" : "__parentType",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " of a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ParentType"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ParentType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ParentType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ParentType",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/parenttype"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/SelectionSet": {
   "abstract" : [
 
   ],
@@ -462,34 +832,26 @@
     },
     {
       "kind" : "identifier",
-      "text" : "ParentTypeConvertible"
+      "text" : "SelectionSet"
     }
   ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ParentTypeConvertible",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "ParentTypeConvertible"
+      "text" : "SelectionSet"
     }
   ],
   "role" : "symbol",
-  "title" : "ParentTypeConvertible",
+  "title" : "SelectionSet",
   "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/parenttypeconvertible"
+  "url" : "\/documentation\/apolloapi\/selectionset"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/Union": {
   "abstract" : [
     {
-      "text" : "An abstract base class inherited by unions in a generated GraphQL schema.",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "Each ",
+      "text" : "Represents a ",
       "type" : "text"
     },
     {
@@ -497,14 +859,14 @@
       "type" : "codeVoice"
     },
     {
-      "text" : " defined in the GraphQL schema will have a subclass of this class generated.",
+      "text" : " type in a generated GraphQL schema.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "protocol"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -527,6 +889,18 @@
   "title" : "Union",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/union"
+},
+"https://spec.graphql.org/draft/#sec-Objects": {
+  "identifier" : "https:\/\/spec.graphql.org\/draft\/#sec-Objects",
+  "title" : "GraphQLSpec - Objects",
+  "titleInlineContent" : [
+    {
+      "text" : "GraphQLSpec - Objects",
+      "type" : "text"
+    }
+  ],
+  "type" : "link",
+  "url" : "https:\/\/spec.graphql.org\/draft\/#sec-Objects"
 }
 }
 }

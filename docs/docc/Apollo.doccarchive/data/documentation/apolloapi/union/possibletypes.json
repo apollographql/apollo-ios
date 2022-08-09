@@ -1,7 +1,24 @@
 {
   "abstract" : [
     {
-      "text" : "No overview available.",
+      "text" : "The ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Object",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " types included in the ",
+      "type" : "text"
+    },
+    {
+      "code" : "union",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -19,19 +36,11 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:9ApolloAPI5UnionP13possibleTypesSayAA6ObjectCmGvpZ",
+    "externalID" : "s:9ApolloAPI5UnionV13possibleTypesSayAA6ObjectVGvp",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "static"
-      },
-      {
-        "kind" : "text",
-        "text" : " "
-      },
-      {
-        "kind" : "keyword",
-        "text" : "var"
+        "text" : "let"
       },
       {
         "kind" : "text",
@@ -47,12 +56,12 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:9ApolloAPI6ObjectC",
+        "preciseIdentifier" : "s:9ApolloAPI6ObjectV",
         "text" : "Object"
       },
       {
         "kind" : "text",
-        "text" : ".Type]"
+        "text" : "]"
       }
     ],
     "modules" : [
@@ -60,9 +69,8 @@
         "name" : "ApolloAPI"
       }
     ],
-    "required" : true,
     "role" : "symbol",
-    "roleHeading" : "Type Property",
+    "roleHeading" : "Instance Property",
     "symbolKind" : "property",
     "title" : "possibleTypes"
   },
@@ -79,15 +87,7 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "static"
-            },
-            {
-              "kind" : "text",
-              "text" : " "
-            },
-            {
-              "kind" : "keyword",
-              "text" : "var"
+              "text" : "let"
             },
             {
               "kind" : "text",
@@ -104,20 +104,12 @@
             {
               "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Object",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:9ApolloAPI6ObjectC",
+              "preciseIdentifier" : "s:9ApolloAPI6ObjectV",
               "text" : "Object"
             },
             {
               "kind" : "text",
-              "text" : ".Type] { "
-            },
-            {
-              "kind" : "keyword",
-              "text" : "get"
-            },
-            {
-              "kind" : "text",
-              "text" : " }"
+              "text" : "]"
             }
           ]
         }
@@ -202,15 +194,7 @@
 "doc://ApolloAPI/documentation/ApolloAPI/Object": {
   "abstract" : [
     {
-      "text" : "An abstract base class inherited by types in a generated GraphQL schema.",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "Each ",
+      "text" : "Represents an object ",
       "type" : "text"
     },
     {
@@ -218,14 +202,14 @@
       "type" : "codeVoice"
     },
     {
-      "text" : " defined in the GraphQL schema will have a subclass of this class generated.",
+      "text" : " in a generated GraphQL schema.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -252,15 +236,7 @@
 "doc://ApolloAPI/documentation/ApolloAPI/Union": {
   "abstract" : [
     {
-      "text" : "An abstract base class inherited by unions in a generated GraphQL schema.",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "Each ",
+      "text" : "Represents a ",
       "type" : "text"
     },
     {
@@ -268,14 +244,14 @@
       "type" : "codeVoice"
     },
     {
-      "text" : " defined in the GraphQL schema will have a subclass of this class generated.",
+      "text" : " type in a generated GraphQL schema.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "protocol"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -301,20 +277,32 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/Union/possibleTypes": {
   "abstract" : [
-
+    {
+      "text" : "The ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Object",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " types included in the ",
+      "type" : "text"
+    },
+    {
+      "code" : "union",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "var"
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -330,17 +318,16 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI6ObjectC",
+      "preciseIdentifier" : "s:9ApolloAPI6ObjectV",
       "text" : "Object"
     },
     {
       "kind" : "text",
-      "text" : ".Type]"
+      "text" : "]"
     }
   ],
   "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Union\/possibleTypes",
   "kind" : "symbol",
-  "required" : true,
   "role" : "symbol",
   "title" : "possibleTypes",
   "type" : "topic",
