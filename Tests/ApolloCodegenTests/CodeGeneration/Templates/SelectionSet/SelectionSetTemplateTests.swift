@@ -625,6 +625,202 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
   }
 
+  // MARK: Selections - Fields - Reserved Keywords
+
+  func test__render_selections__givenFieldsWithSwiftReservedKeywordNames_rendersFieldsNotBacktickEscaped() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      associatedtype: String!
+      class: String!
+      deinit: String!
+      enum: String!
+      extension: String!
+      fileprivate: String!
+      func: String!
+      import: String!
+      init: String!
+      inout: String!
+      internal: String!
+      let: String!
+      operator: String!
+      private: String!
+      precedencegroup: String!
+      protocol: String!
+      Protocol: String!
+      public: String!
+      rethrows: String!
+      static: String!
+      struct: String!
+      subscript: String!
+      typealias: String!
+      var: String!
+      break: String!
+      case: String!
+      catch: String!
+      continue: String!
+      default: String!
+      defer: String!
+      do: String!
+      else: String!
+      fallthrough: String!
+      guard: String!
+      if: String!
+      in: String!
+      repeat: String!
+      return: String!
+      throw: String!
+      switch: String!
+      where: String!
+      while: String!
+      as: String!
+      false: String!
+      is: String!
+      nil: String!
+      self: String!
+      Self: String!
+      super: String!
+      throws: String!
+      true: String!
+      try: String!
+      _: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        associatedtype
+        class
+        deinit
+        enum
+        extension
+        fileprivate
+        func
+        import
+        init
+        inout
+        internal
+        let
+        operator
+        private
+        precedencegroup
+        protocol
+        Protocol
+        public
+        rethrows
+        static
+        struct
+        subscript
+        typealias
+        var
+        break
+        case
+        catch
+        continue
+        default
+        defer
+        do
+        else
+        fallthrough
+        guard
+        if
+        in
+        repeat
+        return
+        throw
+        switch
+        where
+        while
+        as
+        false
+        is
+        nil
+        self
+        Self
+        super
+        throws
+        true
+        try
+        _
+      }
+    }
+    """
+
+    let expected = """
+      public static var selections: [Selection] { [
+        .field("associatedtype", String.self),
+        .field("class", String.self),
+        .field("deinit", String.self),
+        .field("enum", String.self),
+        .field("extension", String.self),
+        .field("fileprivate", String.self),
+        .field("func", String.self),
+        .field("import", String.self),
+        .field("init", String.self),
+        .field("inout", String.self),
+        .field("internal", String.self),
+        .field("let", String.self),
+        .field("operator", String.self),
+        .field("private", String.self),
+        .field("precedencegroup", String.self),
+        .field("protocol", String.self),
+        .field("Protocol", String.self),
+        .field("public", String.self),
+        .field("rethrows", String.self),
+        .field("static", String.self),
+        .field("struct", String.self),
+        .field("subscript", String.self),
+        .field("typealias", String.self),
+        .field("var", String.self),
+        .field("break", String.self),
+        .field("case", String.self),
+        .field("catch", String.self),
+        .field("continue", String.self),
+        .field("default", String.self),
+        .field("defer", String.self),
+        .field("do", String.self),
+        .field("else", String.self),
+        .field("fallthrough", String.self),
+        .field("guard", String.self),
+        .field("if", String.self),
+        .field("in", String.self),
+        .field("repeat", String.self),
+        .field("return", String.self),
+        .field("throw", String.self),
+        .field("switch", String.self),
+        .field("where", String.self),
+        .field("while", String.self),
+        .field("as", String.self),
+        .field("false", String.self),
+        .field("is", String.self),
+        .field("nil", String.self),
+        .field("self", String.self),
+        .field("Self", String.self),
+        .field("super", String.self),
+        .field("throws", String.self),
+        .field("true", String.self),
+        .field("try", String.self),
+        .field("_", String.self),
+      ] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
+  }
+
   // MARK: Selections - Fields - Arguments
 
   func test__render_selections__givenFieldWithArgumentWithConstantValue_rendersFieldSelections() throws {
@@ -1643,7 +1839,205 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
   }
 
-  // MARK: - Field Accessors - Entity
+  // MARK: Field Accessors - Reserved Keywords
+
+  func test__render_fieldAccessors__givenFieldsWithSwiftReservedKeywordNames_rendersFieldsBacktickEscaped() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      associatedtype: String!
+      class: String!
+      deinit: String!
+      enum: String!
+      extension: String!
+      fileprivate: String!
+      func: String!
+      import: String!
+      init: String!
+      inout: String!
+      internal: String!
+      let: String!
+      operator: String!
+      private: String!
+      precedencegroup: String!
+      protocol: String!
+      Protocol: String!
+      public: String!
+      rethrows: String!
+      static: String!
+      struct: String!
+      subscript: String!
+      typealias: String!
+      var: String!
+      break: String!
+      case: String!
+      catch: String!
+      continue: String!
+      default: String!
+      defer: String!
+      do: String!
+      else: String!
+      fallthrough: String!
+      guard: String!
+      if: String!
+      in: String!
+      repeat: String!
+      return: String!
+      throw: String!
+      switch: String!
+      where: String!
+      while: String!
+      as: String!
+      false: String!
+      is: String!
+      nil: String!
+      self: String!
+      Self: String!
+      super: String!
+      throws: String!
+      true: String!
+      try: String!
+      _: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        associatedtype
+        class
+        deinit
+        enum
+        extension
+        fileprivate
+        func
+        import
+        init
+        inout
+        internal
+        let
+        operator
+        private
+        precedencegroup
+        protocol
+        Protocol
+        public
+        rethrows
+        static
+        struct
+        subscript
+        typealias
+        var
+        break
+        case
+        catch
+        continue
+        default
+        defer
+        do
+        else
+        fallthrough
+        guard
+        if
+        in
+        repeat
+        return
+        throw
+        switch
+        where
+        while
+        as
+        false
+        is
+        nil
+        self
+        Self
+        super
+        throws
+        true
+        try
+        _
+      }
+    }
+    """
+
+    let expected = """
+      public var `associatedtype`: String { __data["associatedtype"] }
+      public var `class`: String { __data["class"] }
+      public var `deinit`: String { __data["deinit"] }
+      public var `enum`: String { __data["enum"] }
+      public var `extension`: String { __data["extension"] }
+      public var `fileprivate`: String { __data["fileprivate"] }
+      public var `func`: String { __data["func"] }
+      public var `import`: String { __data["import"] }
+      public var `init`: String { __data["init"] }
+      public var `inout`: String { __data["inout"] }
+      public var `internal`: String { __data["internal"] }
+      public var `let`: String { __data["let"] }
+      public var `operator`: String { __data["operator"] }
+      public var `private`: String { __data["private"] }
+      public var `precedencegroup`: String { __data["precedencegroup"] }
+      public var `protocol`: String { __data["protocol"] }
+      public var `protocol`: String { __data["Protocol"] }
+      public var `public`: String { __data["public"] }
+      public var `rethrows`: String { __data["rethrows"] }
+      public var `static`: String { __data["static"] }
+      public var `struct`: String { __data["struct"] }
+      public var `subscript`: String { __data["subscript"] }
+      public var `typealias`: String { __data["typealias"] }
+      public var `var`: String { __data["var"] }
+      public var `break`: String { __data["break"] }
+      public var `case`: String { __data["case"] }
+      public var `catch`: String { __data["catch"] }
+      public var `continue`: String { __data["continue"] }
+      public var `default`: String { __data["default"] }
+      public var `defer`: String { __data["defer"] }
+      public var `do`: String { __data["do"] }
+      public var `else`: String { __data["else"] }
+      public var `fallthrough`: String { __data["fallthrough"] }
+      public var `guard`: String { __data["guard"] }
+      public var `if`: String { __data["if"] }
+      public var `in`: String { __data["in"] }
+      public var `repeat`: String { __data["repeat"] }
+      public var `return`: String { __data["return"] }
+      public var `throw`: String { __data["throw"] }
+      public var `switch`: String { __data["switch"] }
+      public var `where`: String { __data["where"] }
+      public var `while`: String { __data["while"] }
+      public var `as`: String { __data["as"] }
+      public var `false`: String { __data["false"] }
+      public var `is`: String { __data["is"] }
+      public var `nil`: String { __data["nil"] }
+      public var `self`: String { __data["self"] }
+      public var `self`: String { __data["Self"] }
+      public var `super`: String { __data["super"] }
+      public var `throws`: String { __data["throws"] }
+      public var `true`: String { __data["true"] }
+      public var `try`: String { __data["try"] }
+      public var `_`: String { __data["_"] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(
+      expected,
+      atLine: 10 + allAnimals.selectionSet.selections.direct!.fields.count,
+      ignoringExtraLines: true)
+    )
+  }
+
+  // MARK: Field Accessors - Entity
 
   func test__render_fieldAccessors__givenDirectEntityField_rendersFieldAccessor() throws {
     // given

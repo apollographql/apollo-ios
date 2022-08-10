@@ -158,6 +158,7 @@
 		C377CCA922D798BD00572E03 /* GraphQLFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C377CCA822D798BD00572E03 /* GraphQLFile.swift */; };
 		C377CCAB22D7992E00572E03 /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C377CCAA22D7992E00572E03 /* MultipartFormData.swift */; };
 		D87AC09F2564D60B0079FAA5 /* ApolloClientOperationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87AC09E2564D60B0079FAA5 /* ApolloClientOperationTests.swift */; };
+		DE01451228A442BF000F6F18 /* String+SwiftNameEscaping.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE01451128A442BF000F6F18 /* String+SwiftNameEscaping.swift */; };
 		DE03FDDB2784D0B2007425BD /* DataDict.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE03FDDA2784D0B2007425BD /* DataDict.swift */; };
 		DE058609266978A100265760 /* Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE664ED326602AF60054DB4F /* Selection.swift */; };
 		DE05860B266978A100265760 /* SelectionSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3C7B10260A6FC900D2F4FF /* SelectionSet.swift */; };
@@ -1234,6 +1235,7 @@
 		C377CCAA22D7992E00572E03 /* MultipartFormData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormData.swift; sourceTree = "<group>"; };
 		D87AC09E2564D60B0079FAA5 /* ApolloClientOperationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloClientOperationTests.swift; sourceTree = "<group>"; };
 		D90F1AF92479DEE5007A1534 /* WebSocketTransportTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketTransportTests.swift; sourceTree = "<group>"; };
+		DE01451128A442BF000F6F18 /* String+SwiftNameEscaping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+SwiftNameEscaping.swift"; sourceTree = "<group>"; };
 		DE03FDDA2784D0B2007425BD /* DataDict.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataDict.swift; sourceTree = "<group>"; };
 		DE058621266978A100265760 /* ApolloAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ApolloAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE0586222669793200265760 /* Apollo-Target-ApolloAPI.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-ApolloAPI.xcconfig"; sourceTree = "<group>"; };
@@ -2918,6 +2920,7 @@
 			isa = PBXGroup;
 			children = (
 				E64F7EBB27A11A510059C021 /* GraphQLNamedType+SwiftName.swift */,
+				DE01451128A442BF000F6F18 /* String+SwiftNameEscaping.swift */,
 				DEE2DAA127BAF00500EC0607 /* GraphQLType+Rendered.swift */,
 				DE071E792899FB7F0089BDAA /* GraphQLCompositeType+SchemaTypeNamespace.swift */,
 				DE6D07F827BC3B6D009F5F33 /* GraphQLInputField+Rendered.swift */,
@@ -4585,6 +4588,7 @@
 				9F628E9525935BE600F94F9D /* GraphQLType.swift in Sources */,
 				9BFE8DA9265D5D8F000BBF81 /* URLDownloader.swift in Sources */,
 				E6C9849327929EBE009481BE /* EnumTemplate.swift in Sources */,
+				DE01451228A442BF000F6F18 /* String+SwiftNameEscaping.swift in Sources */,
 				E68D824727A228A80040A46F /* SchemaModuleFileGenerator.swift in Sources */,
 				9F1A966D258F34BB00A06EEB /* CompilationResult.swift in Sources */,
 				DE4D54E927A3518100D26B68 /* FragmentFileGenerator.swift in Sources */,
