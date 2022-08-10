@@ -269,7 +269,7 @@ struct SelectionSetTemplate {
       where: config.options.warningsOnDeprecatedUsage == .include, {
         "@available(*, deprecated, message: \"\($0)\")"
       })
-    public var \(field.responseKey.firstLowercased.asFieldAccessorName): \
+    public var \(field.responseKey.firstLowercased.asFieldAccessorPropertyName): \
     \(typeName(for: field, forceOptional: isConditionallyIncluded)) {\
     \(if: isMutable,
       """

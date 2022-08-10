@@ -96,7 +96,7 @@ class MockObjectTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
-  // MARK: Field Accessor Tests
+  // MARK: Mock Field Tests
 
   func test_render_givenSchemaType_generatesFieldAccessors() {
     // given
@@ -130,6 +130,141 @@ class MockObjectTemplateTests: XCTestCase {
         @Field<[Cat?]>("objectOptionalList") public var objectOptionalList
         @Field<String>("optionalString") public var optionalString
         @Field<String>("string") public var string
+      }
+    """
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
+  }
+
+  func test_render_givenFieldsWithSwiftReservedKeyworkNames_generatesFieldsEscapedWithBackticks() {
+    // given
+    buildSubject(moduleType: .swiftPackageManager)
+
+    subject.graphqlObject.fields = [
+      "associatedtype": .mock("associatedtype", type: .nonNull(.string())),
+      "class": .mock("class", type: .nonNull(.string())),
+      "deinit": .mock("deinit", type: .nonNull(.string())),
+      "enum": .mock("enum", type: .nonNull(.string())),
+      "extension": .mock("extension", type: .nonNull(.string())),
+      "fileprivate": .mock("fileprivate", type: .nonNull(.string())),
+      "func": .mock("func", type: .nonNull(.string())),
+      "import": .mock("import", type: .nonNull(.string())),
+      "init": .mock("init", type: .nonNull(.string())),
+      "inout": .mock("inout", type: .nonNull(.string())),
+      "internal": .mock("internal", type: .nonNull(.string())),
+      "let": .mock("let", type: .nonNull(.string())),
+      "operator": .mock("operator", type: .nonNull(.string())),
+      "private": .mock("private", type: .nonNull(.string())),
+      "precedencegroup": .mock("precedencegroup", type: .nonNull(.string())),
+      "protocol": .mock("protocol", type: .nonNull(.string())),
+      "Protocol": .mock("Protocol", type: .nonNull(.string())),
+      "public": .mock("public", type: .nonNull(.string())),
+      "rethrows": .mock("rethrows", type: .nonNull(.string())),
+      "static": .mock("static", type: .nonNull(.string())),
+      "struct": .mock("struct", type: .nonNull(.string())),
+      "subscript": .mock("subscript", type: .nonNull(.string())),
+      "typealias": .mock("typealias", type: .nonNull(.string())),
+      "var": .mock("var", type: .nonNull(.string())),
+      "break": .mock("break", type: .nonNull(.string())),
+      "case": .mock("case", type: .nonNull(.string())),
+      "catch": .mock("catch", type: .nonNull(.string())),
+      "continue": .mock("continue", type: .nonNull(.string())),
+      "default": .mock("default", type: .nonNull(.string())),
+      "defer": .mock("defer", type: .nonNull(.string())),
+      "do": .mock("do", type: .nonNull(.string())),
+      "else": .mock("else", type: .nonNull(.string())),
+      "fallthrough": .mock("fallthrough", type: .nonNull(.string())),
+      "guard": .mock("guard", type: .nonNull(.string())),
+      "if": .mock("if", type: .nonNull(.string())),
+      "in": .mock("in", type: .nonNull(.string())),
+      "repeat": .mock("repeat", type: .nonNull(.string())),
+      "return": .mock("return", type: .nonNull(.string())),
+      "throw": .mock("throw", type: .nonNull(.string())),
+      "switch": .mock("switch", type: .nonNull(.string())),
+      "where": .mock("where", type: .nonNull(.string())),
+      "while": .mock("while", type: .nonNull(.string())),
+      "as": .mock("as", type: .nonNull(.string())),
+      "false": .mock("false", type: .nonNull(.string())),
+      "is": .mock("is", type: .nonNull(.string())),
+      "nil": .mock("nil", type: .nonNull(.string())),
+      "self": .mock("self", type: .nonNull(.string())),
+      "Self": .mock("Self", type: .nonNull(.string())),
+      "super": .mock("super", type: .nonNull(.string())),
+      "throws": .mock("throws", type: .nonNull(.string())),
+      "true": .mock("true", type: .nonNull(.string())),
+      "try": .mock("try", type: .nonNull(.string())),
+      "_": .mock("_", type: .nonNull(.string())),
+      "Type": .mock("Type", type: .nonNull(.string())),
+      "Any": .mock("Any", type: .nonNull(.string())),
+    ]
+
+    ir.fieldCollector.add(
+      fields: subject.graphqlObject.fields.values.map {
+        .mock($0.name, type: $0.type)
+      },
+      to: subject.graphqlObject
+    )
+
+    let expected = """
+      public struct MockFields {
+        @Field<String>("Any") public var `Any`
+        @Field<String>("Protocol") public var `Protocol`
+        @Field<String>("Self") public var `Self`
+        @Field<String>("Type") public var `Type`
+        @Field<String>("_") public var `_`
+        @Field<String>("as") public var `as`
+        @Field<String>("associatedtype") public var `associatedtype`
+        @Field<String>("break") public var `break`
+        @Field<String>("case") public var `case`
+        @Field<String>("catch") public var `catch`
+        @Field<String>("class") public var `class`
+        @Field<String>("continue") public var `continue`
+        @Field<String>("default") public var `default`
+        @Field<String>("defer") public var `defer`
+        @Field<String>("deinit") public var `deinit`
+        @Field<String>("do") public var `do`
+        @Field<String>("else") public var `else`
+        @Field<String>("enum") public var `enum`
+        @Field<String>("extension") public var `extension`
+        @Field<String>("fallthrough") public var `fallthrough`
+        @Field<String>("false") public var `false`
+        @Field<String>("fileprivate") public var `fileprivate`
+        @Field<String>("func") public var `func`
+        @Field<String>("guard") public var `guard`
+        @Field<String>("if") public var `if`
+        @Field<String>("import") public var `import`
+        @Field<String>("in") public var `in`
+        @Field<String>("init") public var `init`
+        @Field<String>("inout") public var `inout`
+        @Field<String>("internal") public var `internal`
+        @Field<String>("is") public var `is`
+        @Field<String>("let") public var `let`
+        @Field<String>("nil") public var `nil`
+        @Field<String>("operator") public var `operator`
+        @Field<String>("precedencegroup") public var `precedencegroup`
+        @Field<String>("private") public var `private`
+        @Field<String>("protocol") public var `protocol`
+        @Field<String>("public") public var `public`
+        @Field<String>("repeat") public var `repeat`
+        @Field<String>("rethrows") public var `rethrows`
+        @Field<String>("return") public var `return`
+        @Field<String>("self") public var `self`
+        @Field<String>("static") public var `static`
+        @Field<String>("struct") public var `struct`
+        @Field<String>("subscript") public var `subscript`
+        @Field<String>("super") public var `super`
+        @Field<String>("switch") public var `switch`
+        @Field<String>("throw") public var `throw`
+        @Field<String>("throws") public var `throws`
+        @Field<String>("true") public var `true`
+        @Field<String>("try") public var `try`
+        @Field<String>("typealias") public var `typealias`
+        @Field<String>("var") public var `var`
+        @Field<String>("where") public var `where`
+        @Field<String>("while") public var `while`
       }
     """
     // when
@@ -219,7 +354,212 @@ class MockObjectTemplateTests: XCTestCase {
     let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 23, ignoringExtraLines: false))
+    expect(actual).to(equalLineByLine(
+      expected,
+      atLine: 8 + self.subject.graphqlObject.fields.count,
+      ignoringExtraLines: false)
+    )
+  }
+
+  func test_render_givenFieldsWithSwiftReservedKeyworkNames_generatesConvenienceInitializerParamatersEscapedWithBackticksAndInternalNames() {
+    // given
+    buildSubject(moduleType: .swiftPackageManager)
+
+    subject.graphqlObject.fields = [
+      "associatedtype": .mock("associatedtype", type: .nonNull(.string())),
+      "class": .mock("class", type: .nonNull(.string())),
+      "deinit": .mock("deinit", type: .nonNull(.string())),
+      "enum": .mock("enum", type: .nonNull(.string())),
+      "extension": .mock("extension", type: .nonNull(.string())),
+      "fileprivate": .mock("fileprivate", type: .nonNull(.string())),
+      "func": .mock("func", type: .nonNull(.string())),
+      "import": .mock("import", type: .nonNull(.string())),
+      "init": .mock("init", type: .nonNull(.string())),
+      "inout": .mock("inout", type: .nonNull(.string())),
+      "internal": .mock("internal", type: .nonNull(.string())),
+      "let": .mock("let", type: .nonNull(.string())),
+      "operator": .mock("operator", type: .nonNull(.string())),
+      "private": .mock("private", type: .nonNull(.string())),
+      "precedencegroup": .mock("precedencegroup", type: .nonNull(.string())),
+      "protocol": .mock("protocol", type: .nonNull(.string())),
+      "Protocol": .mock("Protocol", type: .nonNull(.string())),
+      "public": .mock("public", type: .nonNull(.string())),
+      "rethrows": .mock("rethrows", type: .nonNull(.string())),
+      "static": .mock("static", type: .nonNull(.string())),
+      "struct": .mock("struct", type: .nonNull(.string())),
+      "subscript": .mock("subscript", type: .nonNull(.string())),
+      "typealias": .mock("typealias", type: .nonNull(.string())),
+      "var": .mock("var", type: .nonNull(.string())),
+      "break": .mock("break", type: .nonNull(.string())),
+      "case": .mock("case", type: .nonNull(.string())),
+      "catch": .mock("catch", type: .nonNull(.string())),
+      "continue": .mock("continue", type: .nonNull(.string())),
+      "default": .mock("default", type: .nonNull(.string())),
+      "defer": .mock("defer", type: .nonNull(.string())),
+      "do": .mock("do", type: .nonNull(.string())),
+      "else": .mock("else", type: .nonNull(.string())),
+      "fallthrough": .mock("fallthrough", type: .nonNull(.string())),
+      "guard": .mock("guard", type: .nonNull(.string())),
+      "if": .mock("if", type: .nonNull(.string())),
+      "in": .mock("in", type: .nonNull(.string())),
+      "repeat": .mock("repeat", type: .nonNull(.string())),
+      "return": .mock("return", type: .nonNull(.string())),
+      "throw": .mock("throw", type: .nonNull(.string())),
+      "switch": .mock("switch", type: .nonNull(.string())),
+      "where": .mock("where", type: .nonNull(.string())),
+      "while": .mock("while", type: .nonNull(.string())),
+      "as": .mock("as", type: .nonNull(.string())),
+      "false": .mock("false", type: .nonNull(.string())),
+      "is": .mock("is", type: .nonNull(.string())),
+      "nil": .mock("nil", type: .nonNull(.string())),
+      "self": .mock("self", type: .nonNull(.string())),
+      "Self": .mock("Self", type: .nonNull(.string())),
+      "super": .mock("super", type: .nonNull(.string())),
+      "throws": .mock("throws", type: .nonNull(.string())),
+      "true": .mock("true", type: .nonNull(.string())),
+      "try": .mock("try", type: .nonNull(.string())),
+      "_": .mock("_", type: .nonNull(.string())),
+      "Type": .mock("Type", type: .nonNull(.string())),
+      "Any": .mock("Any", type: .nonNull(.string())),
+    ]
+
+    ir.fieldCollector.add(
+      fields: subject.graphqlObject.fields.values.map {
+        .mock($0.name, type: $0.type)
+      },
+      to: subject.graphqlObject
+    )
+
+    let expected = """
+    }
+
+    public extension Mock where O == Dog {
+      convenience init(
+        `Any`: String? = nil,
+        `Protocol`: String? = nil,
+        `Self`: String? = nil,
+        `Type`: String? = nil,
+        `_` __value: String? = nil,
+        `as`: String? = nil,
+        `associatedtype`: String? = nil,
+        `break`: String? = nil,
+        `case`: String? = nil,
+        `catch`: String? = nil,
+        `class`: String? = nil,
+        `continue`: String? = nil,
+        `default`: String? = nil,
+        `defer`: String? = nil,
+        `deinit`: String? = nil,
+        `do`: String? = nil,
+        `else`: String? = nil,
+        `enum`: String? = nil,
+        `extension`: String? = nil,
+        `fallthrough`: String? = nil,
+        `false`: String? = nil,
+        `fileprivate`: String? = nil,
+        `func`: String? = nil,
+        `guard`: String? = nil,
+        `if`: String? = nil,
+        `import`: String? = nil,
+        `in`: String? = nil,
+        `init`: String? = nil,
+        `inout`: String? = nil,
+        `internal`: String? = nil,
+        `is`: String? = nil,
+        `let`: String? = nil,
+        `nil`: String? = nil,
+        `operator`: String? = nil,
+        `precedencegroup`: String? = nil,
+        `private`: String? = nil,
+        `protocol`: String? = nil,
+        `public`: String? = nil,
+        `repeat`: String? = nil,
+        `rethrows`: String? = nil,
+        `return`: String? = nil,
+        `self` self_value: String? = nil,
+        `static`: String? = nil,
+        `struct`: String? = nil,
+        `subscript`: String? = nil,
+        `super`: String? = nil,
+        `switch`: String? = nil,
+        `throw`: String? = nil,
+        `throws`: String? = nil,
+        `true`: String? = nil,
+        `try`: String? = nil,
+        `typealias`: String? = nil,
+        `var`: String? = nil,
+        `where`: String? = nil,
+        `while`: String? = nil
+      ) {
+        self.init()
+        self.`Any` = `Any`
+        self.`Protocol` = `Protocol`
+        self.`Self` = `Self`
+        self.`Type` = `Type`
+        self.`_` = __value
+        self.`as` = `as`
+        self.`associatedtype` = `associatedtype`
+        self.`break` = `break`
+        self.`case` = `case`
+        self.`catch` = `catch`
+        self.`class` = `class`
+        self.`continue` = `continue`
+        self.`default` = `default`
+        self.`defer` = `defer`
+        self.`deinit` = `deinit`
+        self.`do` = `do`
+        self.`else` = `else`
+        self.`enum` = `enum`
+        self.`extension` = `extension`
+        self.`fallthrough` = `fallthrough`
+        self.`false` = `false`
+        self.`fileprivate` = `fileprivate`
+        self.`func` = `func`
+        self.`guard` = `guard`
+        self.`if` = `if`
+        self.`import` = `import`
+        self.`in` = `in`
+        self.`init` = `init`
+        self.`inout` = `inout`
+        self.`internal` = `internal`
+        self.`is` = `is`
+        self.`let` = `let`
+        self.`nil` = `nil`
+        self.`operator` = `operator`
+        self.`precedencegroup` = `precedencegroup`
+        self.`private` = `private`
+        self.`protocol` = `protocol`
+        self.`public` = `public`
+        self.`repeat` = `repeat`
+        self.`rethrows` = `rethrows`
+        self.`return` = `return`
+        self.`self` = self_value
+        self.`static` = `static`
+        self.`struct` = `struct`
+        self.`subscript` = `subscript`
+        self.`super` = `super`
+        self.`switch` = `switch`
+        self.`throw` = `throw`
+        self.`throws` = `throws`
+        self.`true` = `true`
+        self.`try` = `try`
+        self.`typealias` = `typealias`
+        self.`var` = `var`
+        self.`where` = `where`
+        self.`while` = `while`
+      }
+    }
+    
+    """
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(
+      expected,
+      atLine: 8 + self.subject.graphqlObject.fields.count,
+      ignoringExtraLines: false)
+    )
   }
 
   // MARK: - Deprecation Warnings

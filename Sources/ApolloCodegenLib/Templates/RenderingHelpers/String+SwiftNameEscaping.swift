@@ -4,8 +4,21 @@ import Foundation
 extension String {
   /// Renders the string as the property name for a field accessor on a generated `SelectionSet`.
   /// This escapes the names of properties that would conflict with Swift reserved keywords.
-  var asFieldAccessorName: String {
-    SwiftKeywords.FieldAccessorNamesToEscape.contains(self) ? "`\(self)`" : self
+  var asFieldAccessorPropertyName: String {
+    escapeIf(in: SwiftKeywords.FieldAccessorNamesToEscape)
+  }
+
+  var asTestMockFieldPropertyName: String {
+    escapeIf(in: SwiftKeywords.TestMockFieldNamesToEscape)
+  }
+
+  var asTestMockInitializerParameterName: String? {
+    SwiftKeywords.TestMockInitializerParametersToSuffix.contains(self) ?
+    "\(self)_value" : nil
+  }
+
+  private func escapeIf(in set: Set<String>) -> String {
+    set.contains(self) ? "`\(self)`" : self
   }
 }
 
@@ -64,5 +77,14 @@ fileprivate enum SwiftKeywords {
     "true",
     "try",
     "_",
+  ]
+
+  static let TestMockFieldNamesToEscape: Set<String> =
+  FieldAccessorNamesToEscape.union([
+    "Type", "Any"
+  ])
+
+  static let TestMockInitializerParametersToSuffix: Set<String> = [
+    "_", "self"
   ]
 }

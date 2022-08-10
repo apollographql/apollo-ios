@@ -106,7 +106,32 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
       _ sequence: T,
       separator: String = ",\n",
       terminator: String? = nil
+    ) where T: Sequence, T.Element == TemplateString {
+      appendInterpolation(
+        sequence.lazy.map { $0.description },
+        separator: separator,
+        terminator: terminator
+      )
+    }
+
+    @_disfavoredOverload
+    mutating func appendInterpolation<T>(
+      _ sequence: T,
+      separator: String = ",\n",
+      terminator: String? = nil
     ) where T: Sequence, T.Element: CustomStringConvertible {
+      appendInterpolation(
+        sequence.lazy.map { $0.description },
+        separator: separator,
+        terminator: terminator
+      )
+    }
+
+    mutating func appendInterpolation<T>(
+      _ sequence: T,
+      separator: String = ",\n",
+      terminator: String? = nil
+    ) where T: LazySequenceProtocol, T.Element: CustomStringConvertible {
       var iterator = sequence.makeIterator()
       guard var elementsString = iterator.next()?.description else {
         removeLineIfEmpty()

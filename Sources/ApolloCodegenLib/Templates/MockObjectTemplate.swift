@@ -11,7 +11,9 @@ struct MockObjectTemplate: TemplateRenderer {
   let target: TemplateTarget = .testMockFile
 
   typealias TemplateField = (
-    name: String,
+    responseKey: String,
+    propertyName: String,
+    initializerParameterName: String?,
     type: String,
     mockType: String,
     deprecationReason: String?
@@ -23,7 +25,9 @@ struct MockObjectTemplate: TemplateRenderer {
       .collectedFields(for: graphqlObject)
       .map {
         (
-          name: $0.0,
+          responseKey: $0.0,
+          propertyName: $0.0.asTestMockFieldPropertyName,
+          initializerParameterName: $0.0.asTestMockInitializerParameterName,
           type: $0.1.rendered(as: .testMockField(forceNonNull: true), config: config.config),
           mockType: mockTypeName(for: $0.1),
           deprecationReason: $0.deprecationReason
@@ -43,7 +47,7 @@ struct MockObjectTemplate: TemplateRenderer {
             where: config.options.warningsOnDeprecatedUsage == .include, {
               "@available(*, deprecated, message: \"\($0)\")"
             })
-          @Field<\($0.type)>("\($0.name)") public var \($0.name)
+          @Field<\($0.type)>("\($0.responseKey)") public var \($0.propertyName)
           """)
         }, separator: "\n")
       }
@@ -51,10 +55,12 @@ struct MockObjectTemplate: TemplateRenderer {
 
     public extension Mock where O == \(objectName) {
       convenience init(
-        \(fields.map { "\($0.name): \($0.mockType)? = nil" }, separator: ",\n")
+        \(fields.map { """
+          \($0.propertyName)\(ifLet: $0.initializerParameterName, {" \($0)"}): \($0.mockType)? = nil
+          """ }, separator: ",\n")
       ) {
         self.init()
-        \(fields.map { "self.\($0.name) = \($0.name)" }, separator: "\n")
+        \(fields.map { "self.\($0.propertyName) = \($0.initializerParameterName ?? $0.propertyName)" }, separator: "\n")
       }
     }
     
