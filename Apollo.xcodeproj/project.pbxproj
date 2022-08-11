@@ -159,6 +159,8 @@
 		C377CCAB22D7992E00572E03 /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C377CCAA22D7992E00572E03 /* MultipartFormData.swift */; };
 		D87AC09F2564D60B0079FAA5 /* ApolloClientOperationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87AC09E2564D60B0079FAA5 /* ApolloClientOperationTests.swift */; };
 		DE01451228A442BF000F6F18 /* String+SwiftNameEscaping.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE01451128A442BF000F6F18 /* String+SwiftNameEscaping.swift */; };
+		DE01451428A5A156000F6F18 /* ValidationOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE01451328A5A156000F6F18 /* ValidationOptions.swift */; };
+		DE01451628A5A971000F6F18 /* MockValidationOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE01451528A5A971000F6F18 /* MockValidationOptions.swift */; };
 		DE03FDDB2784D0B2007425BD /* DataDict.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE03FDDA2784D0B2007425BD /* DataDict.swift */; };
 		DE058609266978A100265760 /* Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE664ED326602AF60054DB4F /* Selection.swift */; };
 		DE05860B266978A100265760 /* SelectionSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3C7B10260A6FC900D2F4FF /* SelectionSet.swift */; };
@@ -1236,6 +1238,8 @@
 		D87AC09E2564D60B0079FAA5 /* ApolloClientOperationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloClientOperationTests.swift; sourceTree = "<group>"; };
 		D90F1AF92479DEE5007A1534 /* WebSocketTransportTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketTransportTests.swift; sourceTree = "<group>"; };
 		DE01451128A442BF000F6F18 /* String+SwiftNameEscaping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+SwiftNameEscaping.swift"; sourceTree = "<group>"; };
+		DE01451328A5A156000F6F18 /* ValidationOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationOptions.swift; sourceTree = "<group>"; };
+		DE01451528A5A971000F6F18 /* MockValidationOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockValidationOptions.swift; sourceTree = "<group>"; };
 		DE03FDDA2784D0B2007425BD /* DataDict.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataDict.swift; sourceTree = "<group>"; };
 		DE058621266978A100265760 /* ApolloAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ApolloAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE0586222669793200265760 /* Apollo-Target-ApolloAPI.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-ApolloAPI.xcconfig"; sourceTree = "<group>"; };
@@ -2598,6 +2602,7 @@
 				9F628EB42593651B00F94F9D /* GraphQLValue.swift */,
 				9F62E03E2590896400E6E808 /* GraphQLError.swift */,
 				9F1A9668258F34BB00A06EEB /* CompilationResult.swift */,
+				DE01451328A5A156000F6F18 /* ValidationOptions.swift */,
 				9F1A966A258F34BB00A06EEB /* JavaScriptBridge.swift */,
 				DE3C7973260A646300D2F4FF /* dist */,
 			);
@@ -3031,6 +3036,7 @@
 				DE5FD602276926EF0033EE23 /* IR+Mocking.swift */,
 				DEE2060A27E14498002B4B82 /* IR+InclusionConditionsMock.swift */,
 				DEAFB78227064F6900BE02F3 /* MockGraphQLType.swift */,
+				DE01451528A5A971000F6F18 /* MockValidationOptions.swift */,
 				E6BF98FB272C8FFC00C1FED8 /* MockFileManager.swift */,
 				DE5FD5FE276922AA0033EE23 /* MockApolloCodegenConfiguration.swift */,
 				E6BEEFA527FAB1C700D94FF4 /* MockFileGenerator.swift */,
@@ -4546,6 +4552,7 @@
 				E66F8899276C15580000BDA8 /* ObjectFileGenerator.swift in Sources */,
 				9BAEEBEF2346644B00808306 /* ApolloSchemaDownloader.swift in Sources */,
 				DE5FD601276923620033EE23 /* TemplateString.swift in Sources */,
+				DE01451428A5A156000F6F18 /* ValidationOptions.swift in Sources */,
 				E669352B2803EE11004E1FFC /* CustomScalarTemplate.swift in Sources */,
 				E6EE62F127DBE6F200627257 /* SchemaModuleNamespaceTemplate.swift in Sources */,
 				DE6D07FF27BC7F78009F5F33 /* InputVariableRenderable.swift in Sources */,
@@ -5314,6 +5321,7 @@
 				DE363CB327640FBA001EC05B /* GraphQLJSFrontend+TestHelpers.swift in Sources */,
 				DE09F9C3270269E800795949 /* MockJavaScriptObject.swift in Sources */,
 				DEE2060B27E14498002B4B82 /* IR+InclusionConditionsMock.swift in Sources */,
+				DE01451628A5A971000F6F18 /* MockValidationOptions.swift in Sources */,
 				E6BF98FC272C8FFC00C1FED8 /* MockFileManager.swift in Sources */,
 				E6BEEFA627FAB1C700D94FF4 /* MockFileGenerator.swift in Sources */,
 				DECD4921262F81CE00924527 /* CodegenTestHelper.swift in Sources */,

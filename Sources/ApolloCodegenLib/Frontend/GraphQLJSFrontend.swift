@@ -98,8 +98,17 @@ public final class GraphQLJSFrontend {
   }
 
   /// Validate a GraphQL document and return any validation errors as `GraphQLError`s.
-  public func validateDocument(schema: GraphQLSchema, document: GraphQLDocument) throws -> [GraphQLError] {
-    return try library.call("validateDocument", with: schema, document)
+  public func validateDocument(
+    schema: GraphQLSchema,
+    document: GraphQLDocument,
+    options: ValidationOptions
+  ) throws -> [GraphQLError] {
+    return try library.call(
+      "validateDocument",
+      with: schema,
+      document,
+      ValidationOptions.Bridged(from: options, bridge: self.bridge)
+    )
   }
 
   /// Compiles a GraphQL document into an intermediate representation that is more suitable for analysis and code generation.

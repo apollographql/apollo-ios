@@ -80,7 +80,11 @@ class DocumentParsingAndValidationTests: XCTestCase {
     
     let document = try codegenFrontend.parseDocument(source)
     
-    let validationErrors = try codegenFrontend.validateDocument(schema: schema, document: document)
+    let validationErrors = try codegenFrontend.validateDocument(
+      schema: schema,
+      document: document,
+      options: .mock()
+    )
     
     XCTAssertEqual(validationErrors.map(\.message), [
       """
@@ -127,7 +131,12 @@ class DocumentParsingAndValidationTests: XCTestCase {
     let document = try codegenFrontend.mergeDocuments([document1, document2, document3])
     XCTAssertEqual(document.definitions.count, 3)
     
-    let validationErrors = try codegenFrontend.validateDocument(schema: schema, document: document)
+    let validationErrors = try codegenFrontend.validateDocument(
+      schema: schema,
+      document: document,
+      options: .mock()
+    )
+
     XCTAssertEqual(validationErrors.count, 0)
   }
   
@@ -157,7 +166,11 @@ class DocumentParsingAndValidationTests: XCTestCase {
     let document = try codegenFrontend.mergeDocuments([document1, document2])
     XCTAssertEqual(document.definitions.count, 2)
     
-    let validationErrors = try codegenFrontend.validateDocument(schema: schema, document: document)
+    let validationErrors = try codegenFrontend.validateDocument(
+      schema: schema,
+      document: document,
+      options: .mock()
+    )
     
     XCTAssertEqual(validationErrors.count, 1)
     let validationError = validationErrors[0]
@@ -175,5 +188,81 @@ class DocumentParsingAndValidationTests: XCTestCase {
     
     XCTAssertEqual(sourceLocations[1].filePath, "HeroNameFragment.graphql")
     XCTAssertEqual(sourceLocations[1].lineNumber, 2)
+  }
+
+  func test__validateDocument__givenFieldNameDisallowed_throwsError() throws {
+    let disallowedFields = ["__data", "fragments", "Fragments"]
+
+    for field in disallowedFields {
+      let schema = try codegenFrontend.loadSchema(
+        from: [try codegenFrontend.makeSource(
+      """
+      type Query {
+        \(field): String!
+      }
+      """
+      , filePath: "schema.graphqls")])
+
+      let source = try codegenFrontend.makeSource("""
+      query TestQuery {
+        \(field)
+      }
+      """, filePath: "TestQuery.graphql")
+
+      let document = try codegenFrontend.parseDocument(source)
+
+      let validationErrors = try codegenFrontend.validateDocument(
+        schema: schema,
+        document: document,
+        options: .mock()
+      )
+
+      XCTAssertEqual(validationErrors.map(\.message), [
+      """
+      Field name "\(field)" is not allowed because it conflicts with generated \
+      object APIs. Please use an alias to change the field name.
+      """,
+      ])
+
+      XCTAssertEqual(document.filePath, "TestQuery.graphql")
+    }
+  }
+
+  func test__validateDocument__givenFieldNameIsSchemaName_throwsError() throws {
+    let disallowedFields = ["AnimalKingdomAPI", "animalKingdomAPI"]
+
+    for field in disallowedFields {
+      let schema = try codegenFrontend.loadSchema(
+        from: [try codegenFrontend.makeSource(
+      """
+      type Query {
+        \(field): String!
+      }
+      """
+      , filePath: "schema.graphqls")])
+
+      let source = try codegenFrontend.makeSource("""
+      query TestQuery {
+        \(field)
+      }
+      """, filePath: "TestQuery.graphql")
+
+      let document = try codegenFrontend.parseDocument(source)
+
+      let validationErrors = try codegenFrontend.validateDocument(
+        schema: schema,
+        document: document,
+        options: .mock(schemaName: "AnimalKingdomAPI")
+      )
+
+      XCTAssertEqual(validationErrors.map(\.message), [
+      """
+      Field name "\(field)" is not allowed because it conflicts with generated \
+      object APIs. Please use an alias to change the field name.
+      """,
+      ])
+
+      XCTAssertEqual(document.filePath, "TestQuery.graphql")
+    }
   }
 }

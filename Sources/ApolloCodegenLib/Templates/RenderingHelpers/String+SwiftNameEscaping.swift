@@ -22,8 +22,13 @@ extension String {
   }
 }
 
-fileprivate enum SwiftKeywords {
-  static let FieldAccessorNamesToEscape: Set<String> = [
+enum SwiftKeywords {
+  static let DisallowedFieldNames: Set<String> = [
+    "__data", "fragments"
+  ] 
+
+  fileprivate static let FieldAccessorNamesToEscape: Set<String> = [
+    "_",
     "associatedtype",
     "class",
     "deinit",
@@ -76,15 +81,14 @@ fileprivate enum SwiftKeywords {
     "throws",
     "true",
     "try",
-    "_",
   ]
 
-  static let TestMockFieldNamesToEscape: Set<String> =
+  fileprivate static let TestMockFieldNamesToEscape: Set<String> =
   FieldAccessorNamesToEscape.union([
     "Type", "Any"
   ])
 
-  static let TestMockInitializerParametersToSuffix: Set<String> = [
+  fileprivate static let TestMockInitializerParametersToSuffix: Set<String> = [
     "_", "self"
   ]
 }

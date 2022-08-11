@@ -101,7 +101,8 @@ public class ApolloCodegen {
 
     let graphqlErrors = try frontend.validateDocument(
       schema: graphQLSchema,
-      document: operationsDocument
+      document: operationsDocument,
+      options: ValidationOptions(config: config.config)
     )
 
     guard graphqlErrors.isEmpty else {
