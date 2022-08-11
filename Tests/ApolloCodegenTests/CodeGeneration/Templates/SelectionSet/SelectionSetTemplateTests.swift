@@ -625,7 +625,7 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
   }
 
-  // MARK: Selections - Fields - Reserved Keywords
+  // MARK: Selections - Fields - Reserved Keywords & Special Names
 
   func test__render_selections__givenFieldsWithSwiftReservedKeywordNames_rendersFieldsNotBacktickEscaped() throws {
     // given
@@ -806,6 +806,52 @@ class SelectionSetTemplateTests: XCTestCase {
         .field("true", String.self),
         .field("try", String.self),
         .field("_", String.self),
+      ] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
+  }
+
+  func test__render_selections__givenEnitityFieldWithUnderscorePrefixedName_rendersFieldSelectionsWithTypeFirstUppercased() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      _oneUnderscore: Animal!
+      __twoUnderscore: Animal!
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        _oneUnderscore {
+          species
+        }
+        __twoUnderscore {
+          species
+        }
+      }
+    }
+    """
+
+    let expected = """
+      public static var selections: [Selection] { [
+        .field("_oneUnderscore", _OneUnderscore.self),
+        .field("__twoUnderscore", __TwoUnderscore.self),
       ] }
     """
 
@@ -1839,7 +1885,7 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
   }
 
-  // MARK: Field Accessors - Reserved Keywords
+  // MARK: Field Accessors - Reserved Keywords + Special Names
 
   func test__render_fieldAccessors__givenFieldsWithSwiftReservedKeywordNames_rendersFieldsBacktickEscaped() throws {
     // given
@@ -2019,6 +2065,54 @@ class SelectionSetTemplateTests: XCTestCase {
       public var `true`: String { __data["true"] }
       public var `try`: String { __data["try"] }
       public var `_`: String { __data["_"] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(
+      expected,
+      atLine: 10 + allAnimals.selectionSet.selections.direct!.fields.count,
+      ignoringExtraLines: true)
+    )
+  }
+
+  func test__render_fieldAccessors__givenEnitityFieldWithUnderscorePrefixedName_rendersFieldWithTypeFirstUppercased() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      _oneUnderscore: Animal!
+      __twoUnderscore: Animal!
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        _oneUnderscore {
+          species
+        }
+        __twoUnderscore {
+          species
+        }
+      }
+    }
+    """
+
+    let expected = """
+      public var _oneUnderscore: _OneUnderscore { __data["_oneUnderscore"] }
+      public var __twoUnderscore: __TwoUnderscore { __data["__twoUnderscore"] }
     """
 
     // when
