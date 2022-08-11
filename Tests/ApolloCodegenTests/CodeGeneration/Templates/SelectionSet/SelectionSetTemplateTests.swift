@@ -584,7 +584,7 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
   }
 
-  func test__render_selections__givenEnitityFieldWithNameNotMatchingType_rendersFieldSelections() throws {
+  func test__render_selections__givenEntityFieldWithNameNotMatchingType_rendersFieldSelections() throws {
     // given
     schemaSDL = """
     type Query {
@@ -821,7 +821,7 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
   }
 
-  func test__render_selections__givenEnitityFieldWithUnderscorePrefixedName_rendersFieldSelectionsWithTypeFirstUppercased() throws {
+  func test__render_selections__givenEntityFieldWithUnderscorePrefixedName_rendersFieldSelectionsWithTypeFirstUppercased() throws {
     // given
     schemaSDL = """
     type Query {
@@ -852,6 +852,102 @@ class SelectionSetTemplateTests: XCTestCase {
       public static var selections: [Selection] { [
         .field("_oneUnderscore", _OneUnderscore.self),
         .field("__twoUnderscore", __TwoUnderscore.self),
+      ] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
+  }
+
+  func test__render_selections__givenEntityFieldWithSwiftKeywordAndApolloReservedTypeNames_rendersFieldSelectionsWithTypeNameSuffixed() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      self: Animal!
+      parentType: Animal!
+      dataDict: Animal!
+      selection: Animal!
+      schema: Animal!
+      fragmentContainer: Animal!
+      string: Animal!
+      bool: Animal!
+      int: Animal!
+      float: Animal!
+      double: Animal!
+      iD: Animal!
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        self {
+          species
+        }
+        parentType {
+          species
+        }
+        dataDict {
+          species
+        }
+        selection {
+          species
+        }
+        schema {
+          species
+        }
+        fragmentContainer {
+          species
+        }
+        string {
+          species
+        }
+        bool {
+          species
+        }
+        int {
+          species
+        }
+        float {
+          species
+        }
+        double {
+          species
+        }
+        iD {
+          species
+        }
+      }
+    }
+    """
+
+    let expected = """
+      public static var selections: [Selection] { [
+        .field("self", Self_SelectionSet.self),
+        .field("parentType", ParentType_SelectionSet.self),
+        .field("dataDict", DataDict_SelectionSet.self),
+        .field("selection", Selection_SelectionSet.self),
+        .field("schema", Schema_SelectionSet.self),
+        .field("fragmentContainer", FragmentContainer_SelectionSet.self),
+        .field("string", String_SelectionSet.self),
+        .field("bool", Bool_SelectionSet.self),
+        .field("int", Int_SelectionSet.self),
+        .field("float", Float_SelectionSet.self),
+        .field("double", Double_SelectionSet.self),
+        .field("iD", ID_SelectionSet.self),
       ] }
     """
 
@@ -2083,7 +2179,7 @@ class SelectionSetTemplateTests: XCTestCase {
     )
   }
 
-  func test__render_fieldAccessors__givenEnitityFieldWithUnderscorePrefixedName_rendersFieldWithTypeFirstUppercased() throws {
+  func test__render_fieldAccessors__givenEntityFieldWithUnderscorePrefixedName_rendersFieldWithTypeFirstUppercased() throws {
     // given
     schemaSDL = """
     type Query {

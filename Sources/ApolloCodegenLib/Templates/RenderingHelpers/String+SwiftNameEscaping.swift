@@ -8,6 +8,11 @@ extension String {
     escapeIf(in: SwiftKeywords.FieldAccessorNamesToEscape)
   }
 
+  var asSelectionSetName: String {
+    SwiftKeywords.SelectionSetTypeNamesToSuffix.contains(self) ?
+    "\(self)_SelectionSet" : self
+  }
+
   var asTestMockFieldPropertyName: String {
     escapeIf(in: SwiftKeywords.TestMockFieldNamesToEscape)
   }
@@ -25,7 +30,23 @@ extension String {
 enum SwiftKeywords {
   static let DisallowedFieldNames: Set<String> = [
     "__data", "fragments"
-  ] 
+  ]
+
+  fileprivate static let SelectionSetTypeNamesToSuffix: Set<String> = [
+     "Self",
+     "ParentType",
+     "DataDict",
+     "Selection",
+     "Schema",
+     "Fragments",
+     "FragmentContainer",
+     "String",
+     "Bool",
+     "Int",
+     "Float",
+     "Double",
+     "ID"
+  ]
 
   fileprivate static let FieldAccessorNamesToEscape: Set<String> = [
     "_",
