@@ -29,7 +29,7 @@ extension String {
 
 enum SwiftKeywords {
   static let DisallowedFieldNames: Set<String> = [
-    "__data", "fragments"
+    "__data", "fragments", "_"
   ]
 
   fileprivate static let SelectionSetTypeNamesToSuffix: Set<String> = [

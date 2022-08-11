@@ -2101,8 +2101,7 @@ class SelectionSetTemplateTests: XCTestCase {
         super
         throws
         true
-        try
-        _
+        try        
       }
     }
     """
@@ -2160,7 +2159,6 @@ class SelectionSetTemplateTests: XCTestCase {
       public var `throws`: String { __data["throws"] }
       public var `true`: String { __data["true"] }
       public var `try`: String { __data["try"] }
-      public var `_`: String { __data["_"] }
     """
 
     // when
