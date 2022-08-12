@@ -2225,6 +2225,104 @@ class SelectionSetTemplateTests: XCTestCase {
     )
   }
 
+  func test__render_fieldAccessors__givenEntityFieldWithSwiftKeywordAndApolloReservedTypeNames_rendersFieldAccessorWithTypeNameSuffixed() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      self: Animal!
+      parentType: Animal!
+      dataDict: Animal!
+      selection: Animal!
+      schema: Animal!
+      fragmentContainer: Animal!
+      string: Animal!
+      bool: Animal!
+      int: Animal!
+      float: Animal!
+      double: Animal!
+      iD: Animal!
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        self {
+          species
+        }
+        parentType {
+          species
+        }
+        dataDict {
+          species
+        }
+        selection {
+          species
+        }
+        schema {
+          species
+        }
+        fragmentContainer {
+          species
+        }
+        string {
+          species
+        }
+        bool {
+          species
+        }
+        int {
+          species
+        }
+        float {
+          species
+        }
+        double {
+          species
+        }
+        iD {
+          species
+        }
+      }
+    }
+    """
+
+    let expected = """
+      public var `self`: Self_SelectionSet { __data["self"] }
+      public var parentType: ParentType_SelectionSet { __data["parentType"] }
+      public var dataDict: DataDict_SelectionSet { __data["dataDict"] }
+      public var selection: Selection_SelectionSet { __data["selection"] }
+      public var schema: Schema_SelectionSet { __data["schema"] }
+      public var fragmentContainer: FragmentContainer_SelectionSet { __data["fragmentContainer"] }
+      public var string: String_SelectionSet { __data["string"] }
+      public var bool: Bool_SelectionSet { __data["bool"] }
+      public var int: Int_SelectionSet { __data["int"] }
+      public var float: Float_SelectionSet { __data["float"] }
+      public var double: Double_SelectionSet { __data["double"] }
+      public var iD: ID_SelectionSet { __data["iD"] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(
+      expected,
+      atLine: 10 + allAnimals.selectionSet.selections.direct!.fields.count,
+      ignoringExtraLines: true)
+    )
+  }
+
   // MARK: Field Accessors - Entity
 
   func test__render_fieldAccessors__givenDirectEntityField_rendersFieldAccessor() throws {
