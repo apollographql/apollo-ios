@@ -195,8 +195,7 @@ class MockObjectTemplateTests: XCTestCase {
       "super": .mock("super", type: .nonNull(.string())),
       "throws": .mock("throws", type: .nonNull(.string())),
       "true": .mock("true", type: .nonNull(.string())),
-      "try": .mock("try", type: .nonNull(.string())),
-      "_": .mock("_", type: .nonNull(.string())),
+      "try": .mock("try", type: .nonNull(.string())),      
       "Type": .mock("Type", type: .nonNull(.string())),
       "Any": .mock("Any", type: .nonNull(.string())),
     ]
@@ -214,7 +213,6 @@ class MockObjectTemplateTests: XCTestCase {
         @Field<String>("Protocol") public var `Protocol`
         @Field<String>("Self") public var `Self`
         @Field<String>("Type") public var `Type`
-        @Field<String>("_") public var `_`
         @Field<String>("as") public var `as`
         @Field<String>("associatedtype") public var `associatedtype`
         @Field<String>("break") public var `break`
@@ -418,7 +416,6 @@ class MockObjectTemplateTests: XCTestCase {
       "throws": .mock("throws", type: .nonNull(.string())),
       "true": .mock("true", type: .nonNull(.string())),
       "try": .mock("try", type: .nonNull(.string())),
-      "_": .mock("_", type: .nonNull(.string())),
       "Type": .mock("Type", type: .nonNull(.string())),
       "Any": .mock("Any", type: .nonNull(.string())),
     ]
@@ -439,7 +436,6 @@ class MockObjectTemplateTests: XCTestCase {
         `Protocol`: String? = nil,
         `Self`: String? = nil,
         `Type`: String? = nil,
-        `_` __value: String? = nil,
         `as`: String? = nil,
         `associatedtype`: String? = nil,
         `break`: String? = nil,
@@ -496,7 +492,6 @@ class MockObjectTemplateTests: XCTestCase {
         self.`Protocol` = `Protocol`
         self.`Self` = `Self`
         self.`Type` = `Type`
-        self.`_` = __value
         self.`as` = `as`
         self.`associatedtype` = `associatedtype`
         self.`break` = `break`
@@ -549,7 +544,7 @@ class MockObjectTemplateTests: XCTestCase {
         self.`while` = `while`
       }
     }
-    
+
     """
     // when
     let actual = renderSubject()

@@ -112,6 +112,6 @@ enum SwiftKeywords {
   ])
 
   fileprivate static let TestMockInitializerParametersToSuffix: Set<String> = [
-    "_", "self"
+    "self"
   ]
 }
