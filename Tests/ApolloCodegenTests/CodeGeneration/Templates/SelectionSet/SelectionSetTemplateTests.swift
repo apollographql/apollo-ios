@@ -887,6 +887,9 @@ class SelectionSetTemplateTests: XCTestCase {
       float: Animal!
       double: Animal!
       iD: Animal!
+      any: Animal!
+      protocol: Animal!
+      type: Animal!
       species: String!
     }
     """
@@ -930,6 +933,15 @@ class SelectionSetTemplateTests: XCTestCase {
         iD {
           species
         }
+        any {
+          species
+        }
+        protocol {
+          species
+        }
+        type {
+          species
+        }
       }
     }
     """
@@ -948,6 +960,9 @@ class SelectionSetTemplateTests: XCTestCase {
         .field("float", Float_SelectionSet.self),
         .field("double", Double_SelectionSet.self),
         .field("iD", ID_SelectionSet.self),
+        .field("any", Any_SelectionSet.self),
+        .field("protocol", Protocol_SelectionSet.self),
+        .field("type", Type_SelectionSet.self),
       ] }
     """
 
@@ -2101,7 +2116,7 @@ class SelectionSetTemplateTests: XCTestCase {
         super
         throws
         true
-        try        
+        try
       }
     }
     """
@@ -2245,6 +2260,9 @@ class SelectionSetTemplateTests: XCTestCase {
       float: Animal!
       double: Animal!
       iD: Animal!
+      any: Animal!
+      protocol: Animal!
+      type: Animal!
       species: String!
     }
     """
@@ -2288,6 +2306,15 @@ class SelectionSetTemplateTests: XCTestCase {
         iD {
           species
         }
+        any {
+          species
+        }
+        protocol {
+          species
+        }
+        type {
+          species
+        }
       }
     }
     """
@@ -2305,6 +2332,9 @@ class SelectionSetTemplateTests: XCTestCase {
       public var float: Float_SelectionSet { __data["float"] }
       public var double: Double_SelectionSet { __data["double"] }
       public var iD: ID_SelectionSet { __data["iD"] }
+      public var any: Any_SelectionSet { __data["any"] }
+      public var `protocol`: Protocol_SelectionSet { __data["protocol"] }
+      public var type: Type_SelectionSet { __data["type"] }
     """
 
     // when

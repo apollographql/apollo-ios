@@ -31,25 +31,27 @@ enum SwiftKeywords {
   static let DisallowedFieldNames: Set<String> = [
     "__data", "fragments", "_"
   ]
-
+  
   fileprivate static let SelectionSetTypeNamesToSuffix: Set<String> = [
-     "Self",
-     "ParentType",
-     "DataDict",
-     "Selection",
-     "Schema",
-     "Fragments",
-     "FragmentContainer",
-     "String",
-     "Bool",
-     "Int",
-     "Float",
-     "Double",
-     "ID"
+    "Any",
+    "DataDict",
+    "Fragments",
+    "FragmentContainer",
+    "ParentType",
+    "Protocol",
+    "Schema",
+    "Selection",
+    "Self",
+    "String",
+    "Bool",
+    "Int",
+    "Float",
+    "Double",
+    "ID",
+    "Type"
   ]
 
   fileprivate static let FieldAccessorNamesToEscape: Set<String> = [
-    "_",
     "associatedtype",
     "class",
     "deinit",
