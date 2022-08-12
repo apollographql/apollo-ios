@@ -36,9 +36,9 @@ struct OperationIdentifiersTemplate {
     """
     {
       \(try operationIdentifiers.map({ key, value in
-      """
+      String("""
       "\(key)" : \(json: try encoder.encode(value))
-      """}), separator: ",\n")
+      """)}), separator: ",\n")
     }
     """
     )

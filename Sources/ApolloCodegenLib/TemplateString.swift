@@ -106,7 +106,32 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
       _ sequence: T,
       separator: String = ",\n",
       terminator: String? = nil
+    ) where T: Sequence, T.Element == TemplateString {
+      appendInterpolation(
+        sequence.lazy.map { $0.description },
+        separator: separator,
+        terminator: terminator
+      )
+    }
+
+    @_disfavoredOverload
+    mutating func appendInterpolation<T>(
+      _ sequence: T,
+      separator: String = ",\n",
+      terminator: String? = nil
     ) where T: Sequence, T.Element: CustomStringConvertible {
+      appendInterpolation(
+        sequence.lazy.map { $0.description },
+        separator: separator,
+        terminator: terminator
+      )
+    }
+
+    mutating func appendInterpolation<T>(
+      _ sequence: T,
+      separator: String = ",\n",
+      terminator: String? = nil
+    ) where T: LazySequenceProtocol, T.Element: CustomStringConvertible {
       var iterator = sequence.makeIterator()
       guard var elementsString = iterator.next()?.description else {
         removeLineIfEmpty()
@@ -317,7 +342,20 @@ fileprivate extension Array where Element == Substring {
   }
 }
 
-extension StringProtocol {
-    var firstUppercased: String { prefix(1).uppercased() + dropFirst() }
-    var firstLowercased: String { prefix(1).lowercased() + dropFirst() }
+extension String {
+  var firstUppercased: String {
+    guard let indexToChangeCase = firstIndex(where: \.isCased) else {
+      return self
+    }
+    return prefix(through: indexToChangeCase).uppercased() +
+    suffix(from: index(after: indexToChangeCase))
+  }
+
+  var firstLowercased: String {
+    guard let indexToChangeCase = firstIndex(where: \.isCased) else {
+      return self
+    }
+    return prefix(through: indexToChangeCase).lowercased() +
+    suffix(from: index(after: indexToChangeCase))
+  }
 }

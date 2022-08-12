@@ -9,12 +9,12 @@ import {
   validate,
   buildASTSchema,
   printSchema,
-  extendSchema,  
+  extendSchema,
 } from "graphql";
-import { defaultValidationRules } from "./validationRules";
+import { defaultValidationRules, ValidationOptions } from "./validationRules";
 import { compileToIR, CompilationResult } from "./compiler";
 import { assertValidSchema, assertValidSDL } from "./utilities/graphql";
-import { 
+import {
   addApolloCodegenSchemaExtensionToDocument,
 } from "./utilities/apolloCodegenSchemaExtension";
 
@@ -40,24 +40,24 @@ export function loadSchemaFromSources(sources: Source[]): GraphQLSchema {
   for (const source of sources) {
     if (source.name.endsWith(".json")) {
       if (!introspectionJSONResult) {
-        introspectionJSONResult = source        
+        introspectionJSONResult = source
       } else {
         throw new Error(`Schema search paths can only include one JSON schema definition.
         Found "${introspectionJSONResult.name} & "${source.name}".`)
-      }      
+      }
     } else {
-      documents.push(parse(source))     
-    }    
+      documents.push(parse(source))
+    }
   }
-  
+
   var document = addApolloCodegenSchemaExtensionToDocument(concatAST(documents))
 
   if (!introspectionJSONResult) { assertValidSDL(document) }
 
-  const schema = introspectionJSONResult ? 
+  const schema = introspectionJSONResult ?
     extendSchema(loadSchemaFromIntrospectionResult(introspectionJSONResult.body), document, { assumeValid: true, assumeValidSDL: true }) :
     buildASTSchema(document, { assumeValid: true, assumeValidSDL: true })
-  
+
   assertValidSchema(schema)
 
   return schema
@@ -91,15 +91,16 @@ export function mergeDocuments(documents: DocumentNode[]): DocumentNode {
 
 export function validateDocument(
   schema: GraphQLSchema,
-  document: DocumentNode
-): readonly GraphQLError[] {  
-  return validate(schema, document, defaultValidationRules);
+  document: DocumentNode,
+  options: ValidationOptions,
+): readonly GraphQLError[] {
+  return validate(schema, document, defaultValidationRules(options));
 }
 
 export function compileDocument(
   schema: GraphQLSchema,
   document: DocumentNode,
   legacySafelistingCompatibleOperations: boolean
-): CompilationResult {  
+): CompilationResult {
   return compileToIR(schema, document, legacySafelistingCompatibleOperations);
 }

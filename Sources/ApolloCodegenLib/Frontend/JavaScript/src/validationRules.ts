@@ -10,11 +10,19 @@ import {
 
 const specifiedRulesToBeRemoved: [ValidationRule] = [NoUnusedFragmentsRule];
 
-export const defaultValidationRules: ValidationRule[] = [
-  NoAnonymousQueries,
-  NoTypenameAlias,
-  ...specifiedRules.filter((rule) => !specifiedRulesToBeRemoved.includes(rule)),
-];
+export interface ValidationOptions {
+  disallowedFieldNames?: Array<string>
+}
+
+export function defaultValidationRules(options: ValidationOptions): ValidationRule[] {
+  const disallowedFieldNamesRule = ApolloIOSDisallowedFieldNames(options.disallowedFieldNames)
+  return [
+    NoAnonymousQueries,
+    NoTypenameAlias,
+    ...(disallowedFieldNamesRule ? [disallowedFieldNamesRule] : []),
+    ...specifiedRules.filter((rule) => !specifiedRulesToBeRemoved.includes(rule)),
+  ];
+}
 
 export function NoAnonymousQueries(context: ValidationContext) {
   return {
@@ -46,4 +54,25 @@ export function NoTypenameAlias(context: ValidationContext) {
       }
     },
   };
+}
+
+export function ApolloIOSDisallowedFieldNames(fieldNames?: Array<string>) {
+  if (fieldNames) {
+    return function ApolloIOSDisallowedFieldNamesValidationRule(context: ValidationContext) {
+      const disallowedFieldNames = fieldNames
+      return {
+        Field(node: FieldNode) {
+          const responseKey = (node.alias ?? node.name).value
+          const responseKeyFirstLowercase = responseKey.charAt(0).toLowerCase() + responseKey.slice(1)
+          if (disallowedFieldNames.includes(responseKeyFirstLowercase)) {
+            context.reportError(
+              new GraphQLError(`Field name "${responseKey}" is not allowed because it conflicts with generated object APIs. Please use an alias to change the field name.`,
+               { nodes: node })
+            );
+          }
+        },
+      };
+    }
+  }
+  return undefined
 }

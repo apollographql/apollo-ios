@@ -1,12 +1,12 @@
-import { 
+import {
   compileDocument,
   parseOperationDocument,
   loadSchemaFromSources,
 } from "../index"
-import { 
+import {
   CompilationResult
 } from "../compiler/index"
-import { 
+import {
   Source,
   GraphQLSchema,
   DocumentNode,
@@ -36,7 +36,7 @@ describe("given schema", () => {
 
   describe("query includes enum with deprecated values", () => {
     const documentString: string = `
-    query Test($a: Boolean!) {
+    query Test {
       allAnimals {
         species
       }

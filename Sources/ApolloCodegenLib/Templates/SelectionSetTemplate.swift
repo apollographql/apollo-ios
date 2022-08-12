@@ -36,7 +36,7 @@ struct SelectionSetTemplate {
     TemplateString(
     """
     \(SelectionSetNameDocumentation(field.selectionSet))
-    public struct \(field.formattedFieldName(with: config.pluralizer)): \(SelectionSetType()) {
+    public struct \(field.formattedSelectionSetName(with: config.pluralizer)): \(SelectionSetType()) {
       \(BodyTemplate(field.selectionSet))
     }
     """
@@ -269,7 +269,7 @@ struct SelectionSetTemplate {
       where: config.options.warningsOnDeprecatedUsage == .include, {
         "@available(*, deprecated, message: \"\($0)\")"
       })
-    public var \(field.responseKey.firstLowercased): \
+    public var \(field.responseKey.firstLowercased.asFieldAccessorPropertyName): \
     \(typeName(for: field, forceOptional: isConditionallyIncluded)) {\
     \(if: isMutable,
       """
@@ -449,12 +449,17 @@ fileprivate class SelectionSetNameCache {
   func computeGeneratedSelectionSetName(for field: IR.EntityField) -> String {
     let selectionSet = field.selectionSet
     if selectionSet.shouldBeRendered {
-      return field.formattedFieldName(with: config.pluralizer)
+      return field.formattedSelectionSetName(
+        with: config.pluralizer
+      )
 
     } else {
       return selectionSet.selections.merged.mergedSources
         .first.unsafelyUnwrapped
-        .generatedSelectionSetName(for: selectionSet, pluralizer: config.pluralizer)
+        .generatedSelectionSetName(
+          for: selectionSet,
+          pluralizer: config.pluralizer
+        )
     }
   }
 }
@@ -480,22 +485,25 @@ fileprivate extension IR.SelectionSet {
 
 fileprivate extension IR.EntityField {
 
-  func formattedFieldName(with pluralizer: Pluralizer) -> String {
+  func formattedSelectionSetName(
+    with pluralizer: Pluralizer
+  ) -> String {
     IR.Entity.FieldPathComponent(name: responseKey, type: type)
-      .formattedFieldName(with: pluralizer)
+      .formattedSelectionSetName(with: pluralizer)
   }
 
 }
 
 fileprivate extension IR.Entity.FieldPathComponent {
 
-  func formattedFieldName(with pluralizer: Pluralizer) -> String {
-    let fieldName = name.firstUppercased
+  func formattedSelectionSetName(
+    with pluralizer: Pluralizer
+  ) -> String {
+    var fieldName = name.firstUppercased
     if type.isListType {
-      return pluralizer.singularize(fieldName)
-    } else {
-      return fieldName
-    }
+      fieldName = pluralizer.singularize(fieldName)
+    }    
+    return fieldName.asSelectionSetName
   }
 
 }
@@ -519,7 +527,10 @@ fileprivate extension IR.MergedSelections.MergedSource {
     pluralizer: Pluralizer
   ) -> String {
     if let fragment = fragment {
-      return generatedSelectionSetNameForMergedEntity(in: fragment, pluralizer: pluralizer)
+      return generatedSelectionSetNameForMergedEntity(
+        in: fragment,
+        pluralizer: pluralizer
+      )
     }
 
     var targetTypePathCurrentNode = selectionSet.typeInfo.scopePath.last
@@ -595,7 +606,7 @@ fileprivate struct SelectionSetNameGenerator {
 
     repeat {
       let fieldName = currentFieldPathNode.unsafelyUnwrapped.value
-        .formattedFieldName(with: pluralizer)
+        .formattedSelectionSetName(with: pluralizer)
       components.append(fieldName)
 
       if let conditionNodes = currentTypePathNode.unsafelyUnwrapped.value.scopePath.head.next {

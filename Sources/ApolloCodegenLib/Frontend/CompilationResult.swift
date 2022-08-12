@@ -356,7 +356,7 @@ public class CompilationResult: JavaScriptObject {
     public override var debugDescription: String {
       TemplateString("""
       "@\(name)\(ifLet: arguments, {
-          "(\($0.map { "\($0.name): \($0.value)" }, separator: ","))"
+        "(\($0.map { "\($0.name): \(String(describing: $0.value))" }, separator: ","))"
         })
       """).description
     }
