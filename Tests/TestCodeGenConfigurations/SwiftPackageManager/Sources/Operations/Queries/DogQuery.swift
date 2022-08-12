@@ -15,12 +15,12 @@ public class DogQuery: GraphQLQuery {
           __typename
           ... on Dog {
             __typename
-            ...Dog
+            ...DogFragment
           }
         }
       }
       """,
-      fragments: [Dog.self]
+      fragments: [DogFragment.self]
     ))
 
   public init() {}
@@ -59,7 +59,7 @@ public class DogQuery: GraphQLQuery {
 
         public static var __parentType: ParentType { GraphQLSchemaName.Objects.Dog }
         public static var selections: [Selection] { [
-          .fragment(Dog.self),
+          .fragment(DogFragment.self),
         ] }
 
         public var species: String { __data["species"] }
@@ -68,7 +68,7 @@ public class DogQuery: GraphQLQuery {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public var dog: Dog { _toFragment() }
+          public var dogFragment: DogFragment { _toFragment() }
         }
       }
     }
