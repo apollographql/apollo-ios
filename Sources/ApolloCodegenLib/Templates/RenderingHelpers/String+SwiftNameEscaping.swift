@@ -31,8 +31,8 @@ enum SwiftKeywords {
   static let DisallowedFieldNames: Set<String> = [
     "__data", "fragments", "_"
   ]
-  
-  fileprivate static let SelectionSetTypeNamesToSuffix: Set<String> = [
+
+  static let SelectionSetTypeNamesToSuffix: Set<String> = [
     "Any",
     "DataDict",
     "Fragments",

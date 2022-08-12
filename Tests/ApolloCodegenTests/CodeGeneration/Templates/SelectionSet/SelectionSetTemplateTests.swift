@@ -5081,7 +5081,53 @@ class SelectionSetTemplateTests: XCTestCase {
       .to(equalLineByLine(predator_expected, atLine: 20, ignoringExtraLines: true))
   }
 
-  // MARK: Documentation Tests
+  // MARK: Nested Selection Sets - Reserved Keywords + Special Names
+
+  func test__render_nestedSelectionSet__givenEntityFieldWithSwiftKeywordAndApolloReservedTypeNames_rendersSelectionSetWithNameSuffixed() throws {
+    let fieldNames = SwiftKeywords.SelectionSetTypeNamesToSuffix
+    for fieldName in fieldNames {
+      // given
+      schemaSDL = """
+      type Query {
+        allAnimals: [Animal!]
+      }
+
+      interface Animal {
+        species: String!
+        \(fieldName.firstLowercased): Animal!
+      }
+      """
+
+      document = """
+      query TestOperation {
+        allAnimals {
+          \(fieldName.firstLowercased) {
+            species
+          }
+        }
+      }
+      """
+
+      let expected = """
+        /// AllAnimal.\(fieldName.firstUppercased)_SelectionSet
+        public struct \(fieldName.firstUppercased)_SelectionSet: TestSchema.SelectionSet {
+      """
+
+      // when
+      try buildSubjectAndOperation()
+      let allAnimals = try XCTUnwrap(
+        operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+      )
+
+      let predator_actual = subject.render(field: allAnimals)
+
+      // then
+      expect(predator_actual)
+        .to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
+    }
+  }
+
+  // MARK: - Documentation Tests
 
   func test__render_nestedSelectionSet__givenSchemaDocumentation_include_hasDocumentation_shouldGenerateDocumentationComment() throws {
     // given
