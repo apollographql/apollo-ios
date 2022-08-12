@@ -58,7 +58,7 @@ extension IR {
       /// Includes the direct `selections`, along with all selections from other related
       /// `SelectionSet`s on the same entity that match the selection set's type scope.
       ///
-      /// Selections in the `mergedSelections` are guarunteed to be selected if this `SelectionSet`'s
+      /// Selections in the `mergedSelections` are guaranteed to be selected if this `SelectionSet`'s
       /// `selections` are selected. This means they can be merged into the generated object
       /// representing this `SelectionSet` as field accessors.
       ///
