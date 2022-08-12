@@ -1,0 +1,806 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DE1EA40628A6C75D0000B217 /* CustomTargetProject.h in Headers */ = {isa = PBXBuildFile; fileRef = DE1EA40528A6C75D0000B217 /* CustomTargetProject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DEA31E2428A6C8EC00971813 /* ProjectMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31E2328A6C8EC00971813 /* ProjectMain.swift */; };
+		DEA31E2D28A6C95F00971813 /* GraphQLAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = DEA31E2C28A6C95F00971813 /* GraphQLAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DEA31E3128A6C96900971813 /* ClassroomPetDetailsCCN.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DEF28A6C8BC00971813 /* ClassroomPetDetailsCCN.swift */; };
+		DEA31E3228A6C96900971813 /* HeightInMeters.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DF228A6C8BC00971813 /* HeightInMeters.swift */; };
+		DEA31E3328A6C96900971813 /* ClassroomPetDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DF328A6C8BC00971813 /* ClassroomPetDetails.swift */; };
+		DEA31E3428A6C96900971813 /* DogFragment.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DF028A6C8BC00971813 /* DogFragment.swift */; };
+		DEA31E3528A6C96900971813 /* PetDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DF128A6C8BC00971813 /* PetDetails.swift */; };
+		DEA31E3628A6C96900971813 /* WarmBloodedDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DF428A6C8BC00971813 /* WarmBloodedDetails.swift */; };
+		DEA31E3728A6C96C00971813 /* AllAnimalsLocalCacheMutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DF628A6C8BC00971813 /* AllAnimalsLocalCacheMutation.swift */; };
+		DEA31E3828A6C96C00971813 /* PetDetailsMutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DF728A6C8BC00971813 /* PetDetailsMutation.swift */; };
+		DEA31E3928A6C97600971813 /* PetAdoptionMutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DC728A6C8BC00971813 /* PetAdoptionMutation.swift */; };
+		DEA31E3A28A6C97A00971813 /* PetSearchQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DCC28A6C8BC00971813 /* PetSearchQuery.swift */; };
+		DEA31E3B28A6C97A00971813 /* AllAnimalsQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DCB28A6C8BC00971813 /* AllAnimalsQuery.swift */; };
+		DEA31E3C28A6C97A00971813 /* ClassroomPetsCCNQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DCF28A6C8BC00971813 /* ClassroomPetsCCNQuery.swift */; };
+		DEA31E3D28A6C97A00971813 /* DogQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DC928A6C8BC00971813 /* DogQuery.swift */; };
+		DEA31E3E28A6C97A00971813 /* ClassroomPetsQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DCA28A6C8BC00971813 /* ClassroomPetsQuery.swift */; };
+		DEA31E3F28A6C97A00971813 /* AllAnimalsCCNQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DCD28A6C8BC00971813 /* AllAnimalsCCNQuery.swift */; };
+		DEA31E4028A6C97A00971813 /* AllAnimalsIncludeSkipQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DCE28A6C8BC00971813 /* AllAnimalsIncludeSkipQuery.swift */; };
+		DEA31E4128A6C98D00971813 /* ClassroomPet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DD228A6C8BC00971813 /* ClassroomPet.swift */; };
+		DEA31E4228A6C99000971813 /* CustomDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DD428A6C8BC00971813 /* CustomDate.swift */; };
+		DEA31E4328A6C99300971813 /* RelativeSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DD728A6C8BC00971813 /* RelativeSize.swift */; };
+		DEA31E4428A6C99300971813 /* SkinCovering.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DD628A6C8BC00971813 /* SkinCovering.swift */; };
+		DEA31E4528A6C9A200971813 /* Dog.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DDA28A6C8BC00971813 /* Dog.swift */; };
+		DEA31E4628A6C9A200971813 /* Rat.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DE028A6C8BC00971813 /* Rat.swift */; };
+		DEA31E4728A6C9A200971813 /* Height.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DE128A6C8BC00971813 /* Height.swift */; };
+		DEA31E4828A6C9A200971813 /* Fish.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DE228A6C8BC00971813 /* Fish.swift */; };
+		DEA31E4928A6C9A200971813 /* PetRock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DE328A6C8BC00971813 /* PetRock.swift */; };
+		DEA31E4A28A6C9A200971813 /* Human.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DDC28A6C8BC00971813 /* Human.swift */; };
+		DEA31E4B28A6C9A200971813 /* Crocodile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DDE28A6C8BC00971813 /* Crocodile.swift */; };
+		DEA31E4C28A6C9A200971813 /* Mutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DDF28A6C8BC00971813 /* Mutation.swift */; };
+		DEA31E4D28A6C9A200971813 /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DD928A6C8BC00971813 /* Query.swift */; };
+		DEA31E4E28A6C9A200971813 /* Bird.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DDB28A6C8BC00971813 /* Bird.swift */; };
+		DEA31E4F28A6C9A200971813 /* Cat.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DDD28A6C8BC00971813 /* Cat.swift */; };
+		DEA31E5028A6C9A600971813 /* Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DE428A6C8BC00971813 /* Schema.swift */; };
+		DEA31E5128A6C9A900971813 /* MeasurementsInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DE728A6C8BC00971813 /* MeasurementsInput.swift */; };
+		DEA31E5228A6C9A900971813 /* PetSearchFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DE628A6C8BC00971813 /* PetSearchFilters.swift */; };
+		DEA31E5328A6C9A900971813 /* PetAdoptionInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DE828A6C8BC00971813 /* PetAdoptionInput.swift */; };
+		DEA31E5428A6C9AE00971813 /* Animal.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DEB28A6C8BC00971813 /* Animal.swift */; };
+		DEA31E5528A6C9AE00971813 /* Pet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DEC28A6C8BC00971813 /* Pet.swift */; };
+		DEA31E5628A6C9AE00971813 /* HousePet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DEA28A6C8BC00971813 /* HousePet.swift */; };
+		DEA31E5728A6C9AE00971813 /* WarmBlooded.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DED28A6C8BC00971813 /* WarmBlooded.swift */; };
+		DEA31E5828A6C9C400971813 /* GraphQLAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEA31E2A28A6C95F00971813 /* GraphQLAPI.framework */; };
+		DEA31E6228A6CA8A00971813 /* ApolloAPI in Frameworks */ = {isa = PBXBuildFile; productRef = DEA31E6128A6CA8A00971813 /* ApolloAPI */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DEA31E5928A6C9D000971813 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DE1EA3F928A6C75D0000B217 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DEA31E2928A6C95F00971813;
+			remoteInfo = GraphQLAPI;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		DE1EA40228A6C75D0000B217 /* CustomTargetProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CustomTargetProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DE1EA40528A6C75D0000B217 /* CustomTargetProject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomTargetProject.h; sourceTree = "<group>"; };
+		DEA31DC728A6C8BC00971813 /* PetAdoptionMutation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetAdoptionMutation.swift; sourceTree = "<group>"; };
+		DEA31DC928A6C8BC00971813 /* DogQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DogQuery.swift; sourceTree = "<group>"; };
+		DEA31DCA28A6C8BC00971813 /* ClassroomPetsQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassroomPetsQuery.swift; sourceTree = "<group>"; };
+		DEA31DCB28A6C8BC00971813 /* AllAnimalsQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllAnimalsQuery.swift; sourceTree = "<group>"; };
+		DEA31DCC28A6C8BC00971813 /* PetSearchQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetSearchQuery.swift; sourceTree = "<group>"; };
+		DEA31DCD28A6C8BC00971813 /* AllAnimalsCCNQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllAnimalsCCNQuery.swift; sourceTree = "<group>"; };
+		DEA31DCE28A6C8BC00971813 /* AllAnimalsIncludeSkipQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllAnimalsIncludeSkipQuery.swift; sourceTree = "<group>"; };
+		DEA31DCF28A6C8BC00971813 /* ClassroomPetsCCNQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassroomPetsCCNQuery.swift; sourceTree = "<group>"; };
+		DEA31DD228A6C8BC00971813 /* ClassroomPet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassroomPet.swift; sourceTree = "<group>"; };
+		DEA31DD428A6C8BC00971813 /* CustomDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDate.swift; sourceTree = "<group>"; };
+		DEA31DD628A6C8BC00971813 /* SkinCovering.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkinCovering.swift; sourceTree = "<group>"; };
+		DEA31DD728A6C8BC00971813 /* RelativeSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RelativeSize.swift; sourceTree = "<group>"; };
+		DEA31DD928A6C8BC00971813 /* Query.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Query.swift; sourceTree = "<group>"; };
+		DEA31DDA28A6C8BC00971813 /* Dog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dog.swift; sourceTree = "<group>"; };
+		DEA31DDB28A6C8BC00971813 /* Bird.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bird.swift; sourceTree = "<group>"; };
+		DEA31DDC28A6C8BC00971813 /* Human.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Human.swift; sourceTree = "<group>"; };
+		DEA31DDD28A6C8BC00971813 /* Cat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cat.swift; sourceTree = "<group>"; };
+		DEA31DDE28A6C8BC00971813 /* Crocodile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Crocodile.swift; sourceTree = "<group>"; };
+		DEA31DDF28A6C8BC00971813 /* Mutation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mutation.swift; sourceTree = "<group>"; };
+		DEA31DE028A6C8BC00971813 /* Rat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rat.swift; sourceTree = "<group>"; };
+		DEA31DE128A6C8BC00971813 /* Height.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Height.swift; sourceTree = "<group>"; };
+		DEA31DE228A6C8BC00971813 /* Fish.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fish.swift; sourceTree = "<group>"; };
+		DEA31DE328A6C8BC00971813 /* PetRock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetRock.swift; sourceTree = "<group>"; };
+		DEA31DE428A6C8BC00971813 /* Schema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Schema.swift; sourceTree = "<group>"; };
+		DEA31DE628A6C8BC00971813 /* PetSearchFilters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetSearchFilters.swift; sourceTree = "<group>"; };
+		DEA31DE728A6C8BC00971813 /* MeasurementsInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeasurementsInput.swift; sourceTree = "<group>"; };
+		DEA31DE828A6C8BC00971813 /* PetAdoptionInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetAdoptionInput.swift; sourceTree = "<group>"; };
+		DEA31DEA28A6C8BC00971813 /* HousePet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HousePet.swift; sourceTree = "<group>"; };
+		DEA31DEB28A6C8BC00971813 /* Animal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animal.swift; sourceTree = "<group>"; };
+		DEA31DEC28A6C8BC00971813 /* Pet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pet.swift; sourceTree = "<group>"; };
+		DEA31DED28A6C8BC00971813 /* WarmBlooded.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WarmBlooded.swift; sourceTree = "<group>"; };
+		DEA31DEF28A6C8BC00971813 /* ClassroomPetDetailsCCN.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassroomPetDetailsCCN.swift; sourceTree = "<group>"; };
+		DEA31DF028A6C8BC00971813 /* DogFragment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DogFragment.swift; sourceTree = "<group>"; };
+		DEA31DF128A6C8BC00971813 /* PetDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetDetails.swift; sourceTree = "<group>"; };
+		DEA31DF228A6C8BC00971813 /* HeightInMeters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeightInMeters.swift; sourceTree = "<group>"; };
+		DEA31DF328A6C8BC00971813 /* ClassroomPetDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassroomPetDetails.swift; sourceTree = "<group>"; };
+		DEA31DF428A6C8BC00971813 /* WarmBloodedDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WarmBloodedDetails.swift; sourceTree = "<group>"; };
+		DEA31DF628A6C8BC00971813 /* AllAnimalsLocalCacheMutation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllAnimalsLocalCacheMutation.swift; sourceTree = "<group>"; };
+		DEA31DF728A6C8BC00971813 /* PetDetailsMutation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetDetailsMutation.swift; sourceTree = "<group>"; };
+		DEA31E2328A6C8EC00971813 /* ProjectMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectMain.swift; sourceTree = "<group>"; };
+		DEA31E2A28A6C95F00971813 /* GraphQLAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GraphQLAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DEA31E2C28A6C95F00971813 /* GraphQLAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GraphQLAPI.h; sourceTree = "<group>"; };
+		DEA31E5E28A6CA6F00971813 /* apollo-ios */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "apollo-ios"; path = ../../..; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DE1EA3FF28A6C75D0000B217 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DEA31E5828A6C9C400971813 /* GraphQLAPI.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DEA31E2728A6C95F00971813 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DEA31E6228A6CA8A00971813 /* ApolloAPI in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DE1EA3F828A6C75D0000B217 = {
+			isa = PBXGroup;
+			children = (
+				DEA31E5D28A6CA6F00971813 /* Packages */,
+				DE1EA40428A6C75D0000B217 /* CustomTargetProject */,
+				DEA31DBD28A6C7D100971813 /* GraphQLAPI */,
+				DE1EA40328A6C75D0000B217 /* Products */,
+				DEA31E2128A6C8D200971813 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		DE1EA40328A6C75D0000B217 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DE1EA40228A6C75D0000B217 /* CustomTargetProject.framework */,
+				DEA31E2A28A6C95F00971813 /* GraphQLAPI.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DE1EA40428A6C75D0000B217 /* CustomTargetProject */ = {
+			isa = PBXGroup;
+			children = (
+				DE1EA40528A6C75D0000B217 /* CustomTargetProject.h */,
+				DEA31E2328A6C8EC00971813 /* ProjectMain.swift */,
+			);
+			path = CustomTargetProject;
+			sourceTree = "<group>";
+		};
+		DEA31DBD28A6C7D100971813 /* GraphQLAPI */ = {
+			isa = PBXGroup;
+			children = (
+				DEA31E2C28A6C95F00971813 /* GraphQLAPI.h */,
+				DEA31DEE28A6C8BC00971813 /* Fragments */,
+				DEA31DF528A6C8BC00971813 /* LocalCacheMutations */,
+				DEA31DC528A6C8BC00971813 /* Operations */,
+				DEA31DD028A6C8BC00971813 /* Schema */,
+			);
+			path = GraphQLAPI;
+			sourceTree = "<group>";
+		};
+		DEA31DC528A6C8BC00971813 /* Operations */ = {
+			isa = PBXGroup;
+			children = (
+				DEA31DC628A6C8BC00971813 /* Mutations */,
+				DEA31DC828A6C8BC00971813 /* Queries */,
+			);
+			path = Operations;
+			sourceTree = "<group>";
+		};
+		DEA31DC628A6C8BC00971813 /* Mutations */ = {
+			isa = PBXGroup;
+			children = (
+				DEA31DC728A6C8BC00971813 /* PetAdoptionMutation.swift */,
+			);
+			path = Mutations;
+			sourceTree = "<group>";
+		};
+		DEA31DC828A6C8BC00971813 /* Queries */ = {
+			isa = PBXGroup;
+			children = (
+				DEA31DC928A6C8BC00971813 /* DogQuery.swift */,
+				DEA31DCA28A6C8BC00971813 /* ClassroomPetsQuery.swift */,
+				DEA31DCB28A6C8BC00971813 /* AllAnimalsQuery.swift */,
+				DEA31DCC28A6C8BC00971813 /* PetSearchQuery.swift */,
+				DEA31DCD28A6C8BC00971813 /* AllAnimalsCCNQuery.swift */,
+				DEA31DCE28A6C8BC00971813 /* AllAnimalsIncludeSkipQuery.swift */,
+				DEA31DCF28A6C8BC00971813 /* ClassroomPetsCCNQuery.swift */,
+			);
+			path = Queries;
+			sourceTree = "<group>";
+		};
+		DEA31DD028A6C8BC00971813 /* Schema */ = {
+			isa = PBXGroup;
+			children = (
+				DEA31DD128A6C8BC00971813 /* Unions */,
+				DEA31DD328A6C8BC00971813 /* CustomScalars */,
+				DEA31DD528A6C8BC00971813 /* Enums */,
+				DEA31DD828A6C8BC00971813 /* Objects */,
+				DEA31DE428A6C8BC00971813 /* Schema.swift */,
+				DEA31DE528A6C8BC00971813 /* InputObjects */,
+				DEA31DE928A6C8BC00971813 /* Interfaces */,
+			);
+			path = Schema;
+			sourceTree = "<group>";
+		};
+		DEA31DD128A6C8BC00971813 /* Unions */ = {
+			isa = PBXGroup;
+			children = (
+				DEA31DD228A6C8BC00971813 /* ClassroomPet.swift */,
+			);
+			path = Unions;
+			sourceTree = "<group>";
+		};
+		DEA31DD328A6C8BC00971813 /* CustomScalars */ = {
+			isa = PBXGroup;
+			children = (
+				DEA31DD428A6C8BC00971813 /* CustomDate.swift */,
+			);
+			path = CustomScalars;
+			sourceTree = "<group>";
+		};
+		DEA31DD528A6C8BC00971813 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				DEA31DD628A6C8BC00971813 /* SkinCovering.swift */,
+				DEA31DD728A6C8BC00971813 /* RelativeSize.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		DEA31DD828A6C8BC00971813 /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				DEA31DD928A6C8BC00971813 /* Query.swift */,
+				DEA31DDA28A6C8BC00971813 /* Dog.swift */,
+				DEA31DDB28A6C8BC00971813 /* Bird.swift */,
+				DEA31DDC28A6C8BC00971813 /* Human.swift */,
+				DEA31DDD28A6C8BC00971813 /* Cat.swift */,
+				DEA31DDE28A6C8BC00971813 /* Crocodile.swift */,
+				DEA31DDF28A6C8BC00971813 /* Mutation.swift */,
+				DEA31DE028A6C8BC00971813 /* Rat.swift */,
+				DEA31DE128A6C8BC00971813 /* Height.swift */,
+				DEA31DE228A6C8BC00971813 /* Fish.swift */,
+				DEA31DE328A6C8BC00971813 /* PetRock.swift */,
+			);
+			path = Objects;
+			sourceTree = "<group>";
+		};
+		DEA31DE528A6C8BC00971813 /* InputObjects */ = {
+			isa = PBXGroup;
+			children = (
+				DEA31DE628A6C8BC00971813 /* PetSearchFilters.swift */,
+				DEA31DE728A6C8BC00971813 /* MeasurementsInput.swift */,
+				DEA31DE828A6C8BC00971813 /* PetAdoptionInput.swift */,
+			);
+			path = InputObjects;
+			sourceTree = "<group>";
+		};
+		DEA31DE928A6C8BC00971813 /* Interfaces */ = {
+			isa = PBXGroup;
+			children = (
+				DEA31DEA28A6C8BC00971813 /* HousePet.swift */,
+				DEA31DEB28A6C8BC00971813 /* Animal.swift */,
+				DEA31DEC28A6C8BC00971813 /* Pet.swift */,
+				DEA31DED28A6C8BC00971813 /* WarmBlooded.swift */,
+			);
+			path = Interfaces;
+			sourceTree = "<group>";
+		};
+		DEA31DEE28A6C8BC00971813 /* Fragments */ = {
+			isa = PBXGroup;
+			children = (
+				DEA31DEF28A6C8BC00971813 /* ClassroomPetDetailsCCN.swift */,
+				DEA31DF028A6C8BC00971813 /* DogFragment.swift */,
+				DEA31DF128A6C8BC00971813 /* PetDetails.swift */,
+				DEA31DF228A6C8BC00971813 /* HeightInMeters.swift */,
+				DEA31DF328A6C8BC00971813 /* ClassroomPetDetails.swift */,
+				DEA31DF428A6C8BC00971813 /* WarmBloodedDetails.swift */,
+			);
+			path = Fragments;
+			sourceTree = "<group>";
+		};
+		DEA31DF528A6C8BC00971813 /* LocalCacheMutations */ = {
+			isa = PBXGroup;
+			children = (
+				DEA31DF628A6C8BC00971813 /* AllAnimalsLocalCacheMutation.swift */,
+				DEA31DF728A6C8BC00971813 /* PetDetailsMutation.swift */,
+			);
+			path = LocalCacheMutations;
+			sourceTree = "<group>";
+		};
+		DEA31E2128A6C8D200971813 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DEA31E5D28A6CA6F00971813 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				DEA31E5E28A6CA6F00971813 /* apollo-ios */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		DE1EA3FD28A6C75D0000B217 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DE1EA40628A6C75D0000B217 /* CustomTargetProject.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DEA31E2528A6C95F00971813 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DEA31E2D28A6C95F00971813 /* GraphQLAPI.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		DE1EA40128A6C75D0000B217 /* CustomTargetProject */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DE1EA40928A6C75D0000B217 /* Build configuration list for PBXNativeTarget "CustomTargetProject" */;
+			buildPhases = (
+				DE1EA3FD28A6C75D0000B217 /* Headers */,
+				DE1EA3FE28A6C75D0000B217 /* Sources */,
+				DE1EA3FF28A6C75D0000B217 /* Frameworks */,
+				DE1EA40028A6C75D0000B217 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DEA31E5A28A6C9D000971813 /* PBXTargetDependency */,
+			);
+			name = CustomTargetProject;
+			productName = CustomTargetProject;
+			productReference = DE1EA40228A6C75D0000B217 /* CustomTargetProject.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		DEA31E2928A6C95F00971813 /* GraphQLAPI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DEA31E2E28A6C95F00971813 /* Build configuration list for PBXNativeTarget "GraphQLAPI" */;
+			buildPhases = (
+				DEA31E2528A6C95F00971813 /* Headers */,
+				DEA31E2628A6C95F00971813 /* Sources */,
+				DEA31E2728A6C95F00971813 /* Frameworks */,
+				DEA31E2828A6C95F00971813 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DEA31E6028A6CA8400971813 /* PBXTargetDependency */,
+			);
+			name = GraphQLAPI;
+			packageProductDependencies = (
+				DEA31E6128A6CA8A00971813 /* ApolloAPI */,
+			);
+			productName = GraphQLAPI;
+			productReference = DEA31E2A28A6C95F00971813 /* GraphQLAPI.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DE1EA3F928A6C75D0000B217 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1400;
+				TargetAttributes = {
+					DE1EA40128A6C75D0000B217 = {
+						CreatedOnToolsVersion = 13.4.1;
+						LastSwiftMigration = 1400;
+					};
+					DEA31E2928A6C95F00971813 = {
+						CreatedOnToolsVersion = 14.0;
+					};
+				};
+			};
+			buildConfigurationList = DE1EA3FC28A6C75D0000B217 /* Build configuration list for PBXProject "CustomTargetProject" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DE1EA3F828A6C75D0000B217;
+			productRefGroup = DE1EA40328A6C75D0000B217 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DE1EA40128A6C75D0000B217 /* CustomTargetProject */,
+				DEA31E2928A6C95F00971813 /* GraphQLAPI */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DE1EA40028A6C75D0000B217 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DEA31E2828A6C95F00971813 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DE1EA3FE28A6C75D0000B217 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DEA31E2428A6C8EC00971813 /* ProjectMain.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DEA31E2628A6C95F00971813 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DEA31E4928A6C9A200971813 /* PetRock.swift in Sources */,
+				DEA31E4F28A6C9A200971813 /* Cat.swift in Sources */,
+				DEA31E4228A6C99000971813 /* CustomDate.swift in Sources */,
+				DEA31E3128A6C96900971813 /* ClassroomPetDetailsCCN.swift in Sources */,
+				DEA31E5628A6C9AE00971813 /* HousePet.swift in Sources */,
+				DEA31E3628A6C96900971813 /* WarmBloodedDetails.swift in Sources */,
+				DEA31E4428A6C99300971813 /* SkinCovering.swift in Sources */,
+				DEA31E4A28A6C9A200971813 /* Human.swift in Sources */,
+				DEA31E5228A6C9A900971813 /* PetSearchFilters.swift in Sources */,
+				DEA31E3228A6C96900971813 /* HeightInMeters.swift in Sources */,
+				DEA31E5528A6C9AE00971813 /* Pet.swift in Sources */,
+				DEA31E3828A6C96C00971813 /* PetDetailsMutation.swift in Sources */,
+				DEA31E4028A6C97A00971813 /* AllAnimalsIncludeSkipQuery.swift in Sources */,
+				DEA31E4828A6C9A200971813 /* Fish.swift in Sources */,
+				DEA31E4C28A6C9A200971813 /* Mutation.swift in Sources */,
+				DEA31E3928A6C97600971813 /* PetAdoptionMutation.swift in Sources */,
+				DEA31E4528A6C9A200971813 /* Dog.swift in Sources */,
+				DEA31E3428A6C96900971813 /* DogFragment.swift in Sources */,
+				DEA31E3328A6C96900971813 /* ClassroomPetDetails.swift in Sources */,
+				DEA31E5428A6C9AE00971813 /* Animal.swift in Sources */,
+				DEA31E4B28A6C9A200971813 /* Crocodile.swift in Sources */,
+				DEA31E4E28A6C9A200971813 /* Bird.swift in Sources */,
+				DEA31E3728A6C96C00971813 /* AllAnimalsLocalCacheMutation.swift in Sources */,
+				DEA31E5728A6C9AE00971813 /* WarmBlooded.swift in Sources */,
+				DEA31E4128A6C98D00971813 /* ClassroomPet.swift in Sources */,
+				DEA31E3A28A6C97A00971813 /* PetSearchQuery.swift in Sources */,
+				DEA31E4D28A6C9A200971813 /* Query.swift in Sources */,
+				DEA31E3528A6C96900971813 /* PetDetails.swift in Sources */,
+				DEA31E5128A6C9A900971813 /* MeasurementsInput.swift in Sources */,
+				DEA31E3E28A6C97A00971813 /* ClassroomPetsQuery.swift in Sources */,
+				DEA31E5028A6C9A600971813 /* Schema.swift in Sources */,
+				DEA31E5328A6C9A900971813 /* PetAdoptionInput.swift in Sources */,
+				DEA31E3B28A6C97A00971813 /* AllAnimalsQuery.swift in Sources */,
+				DEA31E3F28A6C97A00971813 /* AllAnimalsCCNQuery.swift in Sources */,
+				DEA31E3C28A6C97A00971813 /* ClassroomPetsCCNQuery.swift in Sources */,
+				DEA31E4628A6C9A200971813 /* Rat.swift in Sources */,
+				DEA31E4728A6C9A200971813 /* Height.swift in Sources */,
+				DEA31E3D28A6C97A00971813 /* DogQuery.swift in Sources */,
+				DEA31E4328A6C99300971813 /* RelativeSize.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DEA31E5A28A6C9D000971813 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DEA31E2928A6C95F00971813 /* GraphQLAPI */;
+			targetProxy = DEA31E5928A6C9D000971813 /* PBXContainerItemProxy */;
+		};
+		DEA31E6028A6CA8400971813 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = DEA31E5F28A6CA8400971813 /* ApolloAPI */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		DE1EA40728A6C75D0000B217 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		DE1EA40828A6C75D0000B217 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		DE1EA40A28A6C75D0000B217 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = apollograpqhl.CustomTargetProject;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		DE1EA40B28A6C75D0000B217 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = apollograpqhl.CustomTargetProject;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		DEA31E2F28A6C95F00971813 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = (
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = apollograpqhl.GraphQLAPI;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = auto;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DEA31E3028A6C95F00971813 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = (
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = apollograpqhl.GraphQLAPI;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = auto;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DE1EA3FC28A6C75D0000B217 /* Build configuration list for PBXProject "CustomTargetProject" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DE1EA40728A6C75D0000B217 /* Debug */,
+				DE1EA40828A6C75D0000B217 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DE1EA40928A6C75D0000B217 /* Build configuration list for PBXNativeTarget "CustomTargetProject" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DE1EA40A28A6C75D0000B217 /* Debug */,
+				DE1EA40B28A6C75D0000B217 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DEA31E2E28A6C95F00971813 /* Build configuration list for PBXNativeTarget "GraphQLAPI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DEA31E2F28A6C95F00971813 /* Debug */,
+				DEA31E3028A6C95F00971813 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DEA31E5F28A6CA8400971813 /* ApolloAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ApolloAPI;
+		};
+		DEA31E6128A6CA8A00971813 /* ApolloAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ApolloAPI;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = DE1EA3F928A6C75D0000B217 /* Project object */;
+}

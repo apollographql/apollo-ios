@@ -2,10 +2,10 @@
 // This file was automatically generated and should not be edited.
 
 import ApolloTestSupport
-import PackageTwo
+import GraphQLAPI
 
 public class Query: MockObject {
-  public static let objectType: Object = MySchemaModule.Objects.Query
+  public static let objectType: Object = GraphQLAPI.Objects.Query
   public static let _mockFields = MockFields()
   public typealias MockValueCollectionType = Array<Mock<Query>>
 

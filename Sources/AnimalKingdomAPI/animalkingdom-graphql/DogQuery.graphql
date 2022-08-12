@@ -1,0 +1,7 @@
+query DogQuery {
+  allAnimals {
+    ... on Dog {
+      ... Dog
+    }
+  }
+}

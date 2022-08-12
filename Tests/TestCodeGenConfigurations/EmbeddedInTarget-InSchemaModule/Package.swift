@@ -21,7 +21,7 @@ let package = Package(
       name: "MySwiftPackage",
       dependencies: [
         .product(name: "ApolloAPI", package: "apollo-ios"),
-      ]),
+      ]),    
     .testTarget(
       name: "MySwiftPackageTests",
       dependencies: [

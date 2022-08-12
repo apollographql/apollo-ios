@@ -1,5 +1,5 @@
 {
-  "schemaName" : "MyCodegenTargetDestination",
+  "schemaName" : "GraphQLAPI",
   "options" : {
     "schemaDocumentation" : "include",
     "deprecatedEnumCases" : "include",
@@ -12,20 +12,20 @@
   },
   "input" : {
     "operationSearchPaths" : [
-      "MyCodegen GraphQL Sources\/**\/*.graphql"
+      "GraphQLAPI/graphql/**\/*.graphql"
     ],
     "schemaSearchPaths" : [
-      "MyCodegen GraphQL Sources\/AnimalSchema.graphqls"
+      "GraphQLAPI/graphql/AnimalSchema.graphqls"
     ]
   },
   "output" : {
     "testMocks" : {
       "absolute" : {
-        "path": "Sources\/MyCodegenTestSupportTargetDestination\/"
+        "path": "TestMocks/"
       }
     },
     "schemaTypes" : {
-      "path" : "Sources\/MyCodegenTargetDestination\/",
+      "path" : "GraphQLAPI/",
       "moduleType" : {
         "other" : {
 
