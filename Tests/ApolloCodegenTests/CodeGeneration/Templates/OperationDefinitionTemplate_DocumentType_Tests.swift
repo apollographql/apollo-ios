@@ -162,6 +162,39 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     expect(actual).to(equalLineByLine(expected))
   }
 
+  func test__generate__givenIncludesFragment_fragmentNameStartsWithLowercase_generatesWithOperationDefinitionAndFragment_withFirstUppercased() throws {
+    // given
+    referencedFragments = [
+      .mock("nameFragment"),
+    ]
+
+    definition.source =
+    """
+    query NameQuery {
+      ...nameFragment
+    }
+    """
+
+    config = .mock(options: .init(
+      queryStringLiteralFormat: .singleLine,
+      apqs: .disabled
+    ))
+
+    // when
+    let actual = try renderDocumentType()
+
+    // then
+    let expected =
+    """
+    public static let document: DocumentType = .notPersisted(
+      definition: .init(
+        "query NameQuery {  ...nameFragment}",
+        fragments: [NameFragment.self]
+      ))
+    """
+    expect(actual).to(equalLineByLine(expected))
+  }
+
   func test__generate__givenIncludesManyFragments_formatMultiline_generatesWithOperationDefinitionAndFragment_asMultiline() throws {
     // given
     referencedFragments = [

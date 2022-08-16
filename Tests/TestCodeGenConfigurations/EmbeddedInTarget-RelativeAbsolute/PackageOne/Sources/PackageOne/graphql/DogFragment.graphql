@@ -1,3 +1,3 @@
-fragment DogFragment on Dog {
+fragment dogFragment on Dog {
   species
 }

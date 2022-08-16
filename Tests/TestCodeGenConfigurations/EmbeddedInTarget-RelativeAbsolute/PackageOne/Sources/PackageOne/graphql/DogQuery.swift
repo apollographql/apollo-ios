@@ -14,7 +14,7 @@ class DogQuery: GraphQLQuery {
       query DogQuery {
         dog {
           __typename
-          ...DogFragment
+          ...dogFragment
         }
       }
       """,
