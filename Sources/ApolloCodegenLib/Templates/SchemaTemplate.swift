@@ -80,17 +80,18 @@ struct SchemaTemplate: TemplateRenderer {
   }
 
   private func protocolDefinition(prefix: String?, schemaName: String) -> TemplateString {
-    TemplateString("""
-      public protocol \(prefix ?? "")SelectionSet: ApolloAPI.SelectionSet & ApolloAPI.RootSelectionSet
+    let apolloAPITargetName = ImportStatementTemplate.ApolloAPIImportTargetName(forConfig: config)
+    return TemplateString("""
+      public protocol \(prefix ?? "")SelectionSet: \(apolloAPITargetName).SelectionSet & \(apolloAPITargetName).RootSelectionSet
       where Schema == \(schemaName).Schema {}
 
-      public protocol \(prefix ?? "")InlineFragment: ApolloAPI.SelectionSet & ApolloAPI.InlineFragment
+      public protocol \(prefix ?? "")InlineFragment: \(apolloAPITargetName).SelectionSet & \(apolloAPITargetName).InlineFragment
       where Schema == \(schemaName).Schema {}
 
-      public protocol \(prefix ?? "")MutableSelectionSet: ApolloAPI.MutableRootSelectionSet
+      public protocol \(prefix ?? "")MutableSelectionSet: \(apolloAPITargetName).MutableRootSelectionSet
       where Schema == \(schemaName).Schema {}
 
-      public protocol \(prefix ?? "")MutableInlineFragment: ApolloAPI.MutableSelectionSet & ApolloAPI.InlineFragment
+      public protocol \(prefix ?? "")MutableInlineFragment: \(apolloAPITargetName).MutableSelectionSet & \(apolloAPITargetName).InlineFragment
       where Schema == \(schemaName).Schema {}
       """
     )

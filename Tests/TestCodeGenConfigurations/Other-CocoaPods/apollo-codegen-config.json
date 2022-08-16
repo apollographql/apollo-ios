@@ -4,6 +4,7 @@
     "schemaDocumentation" : "include",
     "deprecatedEnumCases" : "include",
     "apqs" : "disabled",
+    "cocoapodsCompatibleImportStatements": true,
     "additionalInflectionRules" : [
 
     ],

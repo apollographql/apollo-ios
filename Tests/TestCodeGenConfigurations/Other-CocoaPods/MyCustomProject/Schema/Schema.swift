@@ -1,20 +1,20 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import ApolloAPI
+import Apollo
 
 public typealias ID = String
 
-public protocol SelectionSet: ApolloAPI.SelectionSet & ApolloAPI.RootSelectionSet
+public protocol SelectionSet: Apollo.SelectionSet & Apollo.RootSelectionSet
 where Schema == MyCustomProject.Schema {}
 
-public protocol InlineFragment: ApolloAPI.SelectionSet & ApolloAPI.InlineFragment
+public protocol InlineFragment: Apollo.SelectionSet & Apollo.InlineFragment
 where Schema == MyCustomProject.Schema {}
 
-public protocol MutableSelectionSet: ApolloAPI.MutableRootSelectionSet
+public protocol MutableSelectionSet: Apollo.MutableRootSelectionSet
 where Schema == MyCustomProject.Schema {}
 
-public protocol MutableInlineFragment: ApolloAPI.MutableSelectionSet & ApolloAPI.InlineFragment
+public protocol MutableInlineFragment: Apollo.MutableSelectionSet & Apollo.InlineFragment
 where Schema == MyCustomProject.Schema {}
 
 public enum Schema: SchemaConfiguration {

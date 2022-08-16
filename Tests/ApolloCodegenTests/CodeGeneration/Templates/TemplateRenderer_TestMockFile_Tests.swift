@@ -10,12 +10,14 @@ class TemplateRenderer_TestMockFile_Tests: XCTestCase {
   private func buildConfig(
     moduleType: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType,
     schemaName: String = "testSchema",
-    operations: ApolloCodegenConfiguration.OperationsFileOutput
+    operations: ApolloCodegenConfiguration.OperationsFileOutput,
+    cocoapodsCompatibleImportStatements: Bool = false
   ) -> ApolloCodegenConfiguration {
     ApolloCodegenConfiguration.mock(
       schemaName: schemaName,
       input: .init(schemaPath: "MockInputPath", operationSearchPaths: []),
-      output: .mock(moduleType: moduleType, operations: operations)
+      output: .mock(moduleType: moduleType, operations: operations),
+      options: .init(cocoapodsCompatibleImportStatements: cocoapodsCompatibleImportStatements)
     )
   }
 
@@ -129,5 +131,26 @@ class TemplateRenderer_TestMockFile_Tests: XCTestCase {
       // then
       expect(actual).to(equalLineByLine(expected, atLine: 4, ignoringExtraLines: true))
     }
+  }
+
+  func test__renderTargetSchemaFile__given_cocoapodsCompatibleImportStatements_true_importTargetNameIsApollo() {
+    // given
+    let expected = """
+    import Apollo
+    import TestSchema
+
+    """
+    let config = buildConfig(
+      moduleType: .swiftPackageManager,
+      operations: .inSchemaModule,
+      cocoapodsCompatibleImportStatements: true
+    )
+    let subject = buildSubject(config: config)
+
+    // when
+    let actual = subject.render()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 4, ignoringExtraLines: true))
   }
 }

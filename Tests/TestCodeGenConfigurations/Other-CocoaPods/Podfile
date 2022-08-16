@@ -6,6 +6,7 @@ target 'MyCustomProject' do
   use_frameworks!
 
   pod 'Apollo', :path => '../../../'
+  pod 'Apollo/ApolloTestSupport', :path => '../../../'
 
   target 'MyCustomProjectTests' do
     inherit! :search_paths
