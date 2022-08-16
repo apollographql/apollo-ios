@@ -25,7 +25,7 @@ class MockObjectTemplateTests: XCTestCase {
   ) {
     let config = ApolloCodegenConfiguration.mock(
       moduleType,
-      warningsOnDeprecatedUsage: warningsOnDeprecatedUsage
+      options: .init(warningsOnDeprecatedUsage: warningsOnDeprecatedUsage)      
     )
     ir = IR.mock(compilationResult: .mock())
 

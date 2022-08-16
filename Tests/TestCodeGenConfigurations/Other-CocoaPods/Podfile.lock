@@ -1,0 +1,21 @@
+PODS:
+  - Apollo (1.0.0-beta.1):
+    - Apollo/Core (= 1.0.0-beta.1)
+  - Apollo/ApolloTestSupport (1.0.0-beta.1):
+    - Apollo/Core
+  - Apollo/Core (1.0.0-beta.1)
+
+DEPENDENCIES:
+  - Apollo (from `../../../`)
+  - Apollo/ApolloTestSupport (from `../../../`)
+
+EXTERNAL SOURCES:
+  Apollo:
+    :path: "../../../"
+
+SPEC CHECKSUMS:
+  Apollo: 3d034af7f0a9e5f572694dd2a3a886307e7643e8
+
+PODFILE CHECKSUM: 2d0b5dbc296132b4e614a0308765414111c8aea7
+
+COCOAPODS: 1.11.3

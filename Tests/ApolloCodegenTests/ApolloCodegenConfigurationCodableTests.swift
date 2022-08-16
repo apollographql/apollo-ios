@@ -6,6 +6,19 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
 
   // MARK: - ApolloCodegenConfiguration Tests
 
+  var testJSONEncoder: JSONEncoder!
+
+  override func setUp() {
+    super.setUp()
+    testJSONEncoder = JSONEncoder()
+    testJSONEncoder.outputFormatting = [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes]
+  }
+
+  override func tearDown() {
+    testJSONEncoder = nil
+    super.tearDown()
+  }
+
   enum MockApolloCodegenConfiguration {
     static var decoded: ApolloCodegenConfiguration {
       .init(
@@ -33,6 +46,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
           deprecatedEnumCases: .exclude,
           schemaDocumentation: .include,
           apqs: .disabled,
+          cocoapodsCompatibleImportStatements: false,
           warningsOnDeprecatedUsage: .include
         ),
         experimentalFeatures: .init(
@@ -43,7 +57,9 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
     }
 
     static var encoded: String {
-      "{\"schemaName\":\"SerializedSchema\",\"options\":{\"schemaDocumentation\":\"include\",\"warningsOnDeprecatedUsage\":\"include\",\"deprecatedEnumCases\":\"exclude\",\"apqs\":\"disabled\",\"additionalInflectionRules\":[{\"pluralization\":{\"singularRegex\":\"animal\",\"replacementRegex\":\"animals\"}}],\"queryStringLiteralFormat\":\"multiline\"},\"input\":{\"operationSearchPaths\":[\"\\/search\\/path\\/**\\/*.graphql\"],\"schemaSearchPaths\":[\"\\/path\\/to\\/schema.graphqls\"]},\"output\":{\"testMocks\":{\"swiftPackage\":{\"targetName\":\"SchemaTestMocks\"}},\"schemaTypes\":{\"path\":\"\\/output\\/path\",\"moduleType\":{\"swiftPackageManager\":{}}},\"operations\":{\"relative\":{\"subpath\":\"\\/relative\\/subpath\"}}},\"experimentalFeatures\":{\"clientControlledNullability\":true,\"legacySafelistingCompatibleOperations\":true}}"
+      """
+      {"experimentalFeatures" : {"clientControlledNullability" : true,"legacySafelistingCompatibleOperations" : true},"input" : {"operationSearchPaths" : ["/search/path/**/*.graphql"],"schemaSearchPaths" : ["/path/to/schema.graphqls"]},"options" : {"additionalInflectionRules" : [{"pluralization" : {"replacementRegex" : "animals","singularRegex" : "animal"}}],"apqs" : "disabled","cocoapodsCompatibleImportStatements" : false,"deprecatedEnumCases" : "exclude","queryStringLiteralFormat" : "multiline","schemaDocumentation" : "include","warningsOnDeprecatedUsage" : "include"},"output" : {"operations" : {"relative" : {"subpath" : "/relative/subpath"}},"schemaTypes" : {"moduleType" : {"swiftPackageManager" : {}},"path" : "/output/path"},"testMocks" : {"swiftPackage" : {"targetName" : "SchemaTestMocks"}}},"schemaName" : "SerializedSchema"}
+      """      
     }
   }
 
@@ -52,10 +68,11 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
     let subject = MockApolloCodegenConfiguration.decoded
 
     // when
-    let actual = try JSONEncoder().encode(subject).asString
+    let encodedJSON = try testJSONEncoder.encode(subject)
+    let actual = try JSONDecoder().decode(ApolloCodegenConfiguration.self, from: encodedJSON)
 
     // then
-    expect(actual).to(equal(MockApolloCodegenConfiguration.encoded))
+    expect(actual).to(equal(MockApolloCodegenConfiguration.decoded))
   }
 
   func test__decodeApolloCodegenConfiguration__givenAllParameters_shouldReturnStruct() throws {
@@ -83,7 +100,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
     let subject = ApolloCodegenConfiguration.QueryStringLiteralFormat.singleLine
 
     // when
-    let actual = try JSONEncoder().encode(subject).asString
+    let actual = try testJSONEncoder.encode(subject).asString
 
     // then
     expect(actual).to(equal(encodedValue(.singleLine)))
@@ -94,7 +111,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
     let subject = ApolloCodegenConfiguration.QueryStringLiteralFormat.multiline
 
     // when
-    let actual = try JSONEncoder().encode(subject).asString
+    let actual = try testJSONEncoder.encode(subject).asString
 
     // then
     expect(actual).to(equal(encodedValue(.multiline)))
@@ -146,7 +163,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
     let subject = ApolloCodegenConfiguration.Composition.include
 
     // when
-    let actual = try JSONEncoder().encode(subject).asString
+    let actual = try testJSONEncoder.encode(subject).asString
 
     // then
     expect(actual).to(equal(encodedValue(.include)))
@@ -157,7 +174,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
     let subject = ApolloCodegenConfiguration.Composition.exclude
 
     // when
-    let actual = try JSONEncoder().encode(subject).asString
+    let actual = try testJSONEncoder.encode(subject).asString
 
     // then
     expect(actual).to(equal(encodedValue(.exclude)))
@@ -210,7 +227,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
     let subject = ApolloCodegenConfiguration.APQConfig.disabled
 
     // when
-    let actual = try JSONEncoder().encode(subject).asString
+    let actual = try testJSONEncoder.encode(subject).asString
 
     // then
     expect(actual).to(equal(encodedValue(.disabled)))
@@ -221,7 +238,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
     let subject = ApolloCodegenConfiguration.APQConfig.automaticallyPersist
 
     // when
-    let actual = try JSONEncoder().encode(subject).asString
+    let actual = try testJSONEncoder.encode(subject).asString
 
     // then
     expect(actual).to(equal(encodedValue(.automaticallyPersist)))
@@ -232,7 +249,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
     let subject = ApolloCodegenConfiguration.APQConfig.persistedOperationsOnly
 
     // when
-    let actual = try JSONEncoder().encode(subject).asString
+    let actual = try testJSONEncoder.encode(subject).asString
 
     // then
     expect(actual).to(equal(encodedValue(.persistedOperationsOnly)))

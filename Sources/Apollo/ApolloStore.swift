@@ -259,7 +259,7 @@ public class ApolloStore {
       )
     }
 
-    public func updateObject<SelectionSet: ApolloAPI.MutableRootSelectionSet>(
+    public func updateObject<SelectionSet: MutableRootSelectionSet>(
       ofType type: SelectionSet.Type,
       withKey key: CacheKey,
       variables: GraphQLOperation.Variables? = nil,

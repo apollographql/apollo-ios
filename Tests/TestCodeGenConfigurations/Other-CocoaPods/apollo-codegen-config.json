@@ -4,6 +4,7 @@
     "schemaDocumentation" : "include",
     "deprecatedEnumCases" : "include",
     "apqs" : "disabled",
+    "cocoapodsCompatibleImportStatements": true,
     "additionalInflectionRules" : [
 
     ],
@@ -21,11 +22,11 @@
   "output" : {
     "testMocks" : {
       "absolute" : {
-        "path": "./MyCustomProject/MyCustomProjectTests\/TestMocks\/"
+        "path": "./MyCustomProjectTests/TestMocks/"
       }
     },
     "schemaTypes" : {
-      "path" : ".\/MyCustomProject\/",
+      "path" : "./MyCustomProject/",
       "moduleType" : {
         "other" : {
 

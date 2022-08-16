@@ -5,6 +5,6 @@
 // Any changes to this file will not be overwritten by future
 // code generation execution.
 
-import ApolloAPI
+import Apollo
 
 public typealias CustomDate = String

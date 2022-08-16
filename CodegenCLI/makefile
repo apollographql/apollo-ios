@@ -1,4 +1,4 @@
-.PHONY: clean wipe build test
+.PHONY: clean wipe build build-for-cocoapods test
 
 default: clean build
 
@@ -10,6 +10,9 @@ wipe:
 
 build: 
 	swift build -c release
+
+build-for-cocoapods:
+	swift build -c release -Xswiftc -DCOCOAPODS
 
 test: 
 	swift test

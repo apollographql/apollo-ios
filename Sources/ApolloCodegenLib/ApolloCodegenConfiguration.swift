@@ -289,6 +289,16 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     ///
     /// See `APQConfig` for more information on Automatic Persisted Queries.
     public let apqs: APQConfig
+    /// Generate import statements that are compatible with including `Apollo` via Cocoapods.
+    ///
+    /// Cocoapods bundles all files from subspecs into the main target for a pod. This means that
+    /// when including `Apollo` via Cocoapods, the files in `ApolloAPI` will be added to the
+    /// `Apollo` target. In order for the generated code to compile, all `import ApolloAPI`
+    /// statements must be generated as `import Apollo` instead. Setting this option to `true`
+    /// configures the import statements to be compatible with Cocoapods.
+    ///
+    /// Defaults to `false`.
+    public let cocoapodsCompatibleImportStatements: Bool
     /// Annotate generated Swift code with the Swift `available` attribute and `deprecated`
     /// argument for parts of the GraphQL schema annotated with the built-in `@deprecated`
     /// directive.
@@ -304,15 +314,18 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     ///  - deprecatedEnumCases: How deprecated enum cases from the schema should be handled.
     ///  - schemaDocumentation: Whether schema documentation is added to the generated files.
     ///  - apqs: Whether the generated operations should use Automatic Persisted Queries.
+    ///  - cocoapodsCompatibleImportStatements: Generate import statements that are compatible with
+    ///    including `Apollo` via Cocoapods.
     ///  - warningsOnDeprecatedUsage: Annotate generated Swift code with the Swift `available`
-    ///  attribute and `deprecated` argument for parts of the GraphQL schema annotated with the
-    ///  built-in `@deprecated` directive.
+    ///    attribute and `deprecated` argument for parts of the GraphQL schema annotated with the
+    ///    built-in `@deprecated` directive.
     public init(
       additionalInflectionRules: [InflectionRule] = [],
       queryStringLiteralFormat: QueryStringLiteralFormat = .multiline,
       deprecatedEnumCases: Composition = .include,
       schemaDocumentation: Composition = .include,
       apqs: APQConfig = .disabled,
+      cocoapodsCompatibleImportStatements: Bool = false,
       warningsOnDeprecatedUsage: Composition = .include
     ) {
       self.additionalInflectionRules = additionalInflectionRules
@@ -320,6 +333,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       self.deprecatedEnumCases = deprecatedEnumCases
       self.schemaDocumentation = schemaDocumentation
       self.apqs = apqs
+      self.cocoapodsCompatibleImportStatements = cocoapodsCompatibleImportStatements
       self.warningsOnDeprecatedUsage = warningsOnDeprecatedUsage
     }
   }

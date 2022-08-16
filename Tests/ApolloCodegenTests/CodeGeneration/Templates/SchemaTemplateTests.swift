@@ -191,6 +191,38 @@ class SchemaTemplateTests: XCTestCase {
       .to(beNil())
   }
 
+  func test__render__given_cocoapodsCompatibleImportStatements_true_shouldGenerateEmbeddedProtocols_withApolloTargetName() {
+    // given
+    buildSubject(
+      name: "aName",
+      config: .mock(.other, options: .init(cocoapodsCompatibleImportStatements: true))
+    )
+
+    let expectedTemplate = """
+    public protocol SelectionSet: Apollo.SelectionSet & Apollo.RootSelectionSet
+    where Schema == AName.Schema {}
+
+    public protocol InlineFragment: Apollo.SelectionSet & Apollo.InlineFragment
+    where Schema == AName.Schema {}
+
+    public protocol MutableSelectionSet: Apollo.MutableRootSelectionSet
+    where Schema == AName.Schema {}
+
+    public protocol MutableInlineFragment: Apollo.MutableSelectionSet & Apollo.InlineFragment
+    where Schema == AName.Schema {}
+    """
+
+    // when
+    let actualTemplate = renderTemplate()
+    let actualDetached = renderDetachedTemplate()
+
+    // then
+    expect(actualTemplate)
+      .to(equalLineByLine(expectedTemplate, atLine: 3, ignoringExtraLines: true))
+    expect(actualDetached)
+      .to(beNil())
+  }
+
   // MARK: Schema Tests
 
   func test__render__givenModuleSwiftPackageManager_shouldGenerateEnumDefinition_noPublicModifier() {

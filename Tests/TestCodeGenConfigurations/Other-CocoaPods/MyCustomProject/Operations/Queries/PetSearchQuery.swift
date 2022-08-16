@@ -1,9 +1,9 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import ApolloAPI
-@_exported import enum ApolloAPI.GraphQLEnum
-@_exported import enum ApolloAPI.GraphQLNullable
+import Apollo
+@_exported import enum Apollo.GraphQLEnum
+@_exported import enum Apollo.GraphQLNullable
 
 public class PetSearchQuery: GraphQLQuery {
   public static let operationName: String = "PetSearch"

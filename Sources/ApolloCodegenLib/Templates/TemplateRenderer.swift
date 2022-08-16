@@ -95,7 +95,7 @@ extension TemplateRenderer {
     return TemplateString(
     """
     \(ifLet: headerTemplate, { "\($0)\n" })
-    \(ImportStatementTemplate.SchemaType.template)
+    \(ImportStatementTemplate.SchemaType.template(forConfig: config ))
 
     \(ifLet: detachedTemplate, { "\($0)\n" })
     \(ifLet: namespace, template.wrappedInNamespace(_:), else: template)
@@ -171,24 +171,30 @@ private struct HeaderCommentTemplate {
 // MARK: Import Statement Template
 
 /// Provides the format to import Swift modules required by the template type.
-private struct ImportStatementTemplate {
-  static let template: StaticString =
-    """
-    import ApolloAPI
-    """
+struct ImportStatementTemplate {
+  static func ApolloAPIImportTargetName(
+    forConfig config: ApolloCodegen.ConfigurationContext
+  ) -> String {
+    config.options.cocoapodsCompatibleImportStatements ? "Apollo" : "ApolloAPI"
+  }
 
   enum SchemaType {
-    static let template: StaticString = ImportStatementTemplate.template
+    static func template(
+      forConfig config: ApolloCodegen.ConfigurationContext
+    ) -> String {
+      "import \(ImportStatementTemplate.ApolloAPIImportTargetName(forConfig: config))"
+    }
   }
 
   enum Operation {
     static func template(
       forConfig config: ApolloCodegen.ConfigurationContext
     ) -> TemplateString {
-      """
-      \(ImportStatementTemplate.template)
-      @_exported import enum ApolloAPI.GraphQLEnum
-      @_exported import enum ApolloAPI.GraphQLNullable
+      let apolloAPITargetName = ImportStatementTemplate.ApolloAPIImportTargetName(forConfig: config)
+      return """
+      import \(apolloAPITargetName)
+      @_exported import enum \(apolloAPITargetName).GraphQLEnum
+      @_exported import enum \(apolloAPITargetName).GraphQLNullable
       \(if: config.output.operations != .inSchemaModule, "import \(config.schemaModuleName)")
       """
     }
@@ -197,7 +203,7 @@ private struct ImportStatementTemplate {
   enum TestMock {
     static func template(forConfig config: ApolloCodegen.ConfigurationContext) -> TemplateString {
       return """
-      import ApolloTestSupport
+      import \(config.options.cocoapodsCompatibleImportStatements ? "Apollo" : "ApolloTestSupport")
       import \(config.schemaModuleName)
       """
     }

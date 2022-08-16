@@ -17,14 +17,14 @@ Pod::Spec.new do |s|
   cli_directory = 'CodegenCLI'
   cli_binary_name = 'apollo-ios-cli'
   s.preserve_paths = ['CodegenCLI/**/*', cli_binary_name]
-  s.prepare_command = <<-CMD
-    make --directory=CodegenCLI
+  s.prepare_command = <<-CMD    
+    make clean build-for-cocoapods --directory=CodegenCLI
     cp #{cli_directory}/.build/release/#{cli_binary_name} #{cli_binary_name}
     chmod +x #{cli_binary_name}
   CMD
 
   s.subspec 'Core' do |ss|
-    ss.source_files = 'Sources/Apollo/*.swift','Sources/ApolloAPI/*.swift'
+    ss.source_files = 'Sources/Apollo/*.swift','Sources/ApolloAPI/**/*.swift'
   end
 
   # Apollo provides exactly one persistent cache out-of-the-box, as a reasonable default choice for

@@ -1,6 +1,7 @@
 ## Build generated
 build/
 DerivedData/
+apollo-ios-cli
 
 ## Various settings
 *.pbxuser

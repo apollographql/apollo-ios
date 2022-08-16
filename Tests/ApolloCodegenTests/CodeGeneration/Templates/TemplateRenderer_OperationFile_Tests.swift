@@ -10,12 +10,14 @@ class TemplateRenderer_OperationFile_Tests: XCTestCase {
   private func buildConfig(
     moduleType: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType,
     schemaName: String = "testSchema",
-    operations: ApolloCodegenConfiguration.OperationsFileOutput
+    operations: ApolloCodegenConfiguration.OperationsFileOutput,
+    cocoapodsCompatibleImportStatements: Bool = false
   ) -> ApolloCodegenConfiguration {
     ApolloCodegenConfiguration.mock(
       schemaName: schemaName,
       input: .init(schemaPath: "MockInputPath", operationSearchPaths: []),
-      output: .mock(moduleType: moduleType, operations: operations)
+      output: .mock(moduleType: moduleType, operations: operations),
+      options: .init(cocoapodsCompatibleImportStatements: cocoapodsCompatibleImportStatements)
     )
   }
 
@@ -139,6 +141,99 @@ class TemplateRenderer_OperationFile_Tests: XCTestCase {
 
     for test in tests {
       let config = buildConfig(moduleType: test.schemaTypes, operations: test.operations)
+      let subject = buildSubject(config: config)
+
+      // when
+      let actual = subject.render()
+
+      // then
+      expect(actual).to(equalLineByLine(test.expectation, atLine: 4, ignoringExtraLines: true))
+    }
+  }
+
+  func test__renderTargetOperationFile__given_cocoapodsCompatibleImportStatements_true_allSchemaTypesOperationsCombinations_conditionallyIncludeImportStatements() {
+    // given
+    let expectedAPI = """
+    import Apollo
+    @_exported import enum Apollo.GraphQLEnum
+    @_exported import enum Apollo.GraphQLNullable
+
+    """
+
+    let expectedAPIAndSchema = """
+    import Apollo
+    @_exported import enum Apollo.GraphQLEnum
+    @_exported import enum Apollo.GraphQLNullable
+    import TestSchema
+
+    """
+
+    let expectedAPIAndTarget = """
+    import Apollo
+    @_exported import enum Apollo.GraphQLEnum
+    @_exported import enum Apollo.GraphQLNullable
+    import MockApplication
+
+    """
+
+    let tests: [(
+      schemaTypes: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType,
+      operations: ApolloCodegenConfiguration.OperationsFileOutput,
+      expectation: String
+    )] = [
+      (
+        schemaTypes: .swiftPackageManager,
+        operations: .relative(subpath: nil),
+        expectation: expectedAPIAndSchema
+      ),
+      (
+        schemaTypes: .swiftPackageManager,
+        operations: .absolute(path: "path"),
+        expectation: expectedAPIAndSchema
+      ),
+      (
+        schemaTypes: .swiftPackageManager,
+        operations: .inSchemaModule,
+        expectation: expectedAPI
+      ),
+      (
+        schemaTypes: .other,
+        operations: .relative(subpath: nil),
+        expectation: expectedAPIAndSchema
+      ),
+      (
+        schemaTypes: .other,
+        operations: .absolute(path: "path"),
+        expectation: expectedAPIAndSchema
+      ),
+      (
+        schemaTypes: .other,
+        operations: .inSchemaModule,
+        expectation: expectedAPI
+      ),
+      (
+        schemaTypes: .embeddedInTarget(name: "MockApplication"),
+        operations: .relative(subpath: nil),
+        expectation: expectedAPIAndTarget
+      ),
+      (
+        schemaTypes: .embeddedInTarget(name: "MockApplication"),
+        operations: .absolute(path: "path"),
+        expectation: expectedAPIAndTarget
+      ),
+      (
+        schemaTypes: .embeddedInTarget(name: "MockApplication"),
+        operations: .inSchemaModule,
+        expectation: expectedAPI
+      )
+    ]
+
+    for test in tests {
+      let config = buildConfig(
+        moduleType: test.schemaTypes,
+        operations: test.operations,
+        cocoapodsCompatibleImportStatements: true
+      )
       let subject = buildSubject(config: config)
 
       // when

@@ -1,4 +1,6 @@
+#if !COCOAPODS
 import ApolloAPI
+#endif
 
 @propertyWrapper
 public struct Field<T> {

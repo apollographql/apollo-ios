@@ -20,7 +20,7 @@ extension ApolloCodegenConfiguration {
 
   public static func mock(
     _ moduleType: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType,
-    warningsOnDeprecatedUsage: ApolloCodegenConfiguration.Composition = .exclude,
+    options: ApolloCodegenConfiguration.OutputOptions = .init(),
     schemaName: String = "TestSchema",
     to path: String = "MockModulePath"
   ) -> Self {
@@ -33,9 +33,7 @@ extension ApolloCodegenConfiguration {
       output: .init(
         schemaTypes: .init(path: path, moduleType: moduleType)
       ),
-      options: .init(
-        warningsOnDeprecatedUsage: warningsOnDeprecatedUsage
-      )
+      options: options
     )
   }
 }
