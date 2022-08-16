@@ -146,13 +146,14 @@ class InitializeTests: XCTestCase {
   {
     "schemaName" : "GraphQLSchemaName",
     "options" : {
-      "schemaDocumentation" : "include",
-      "warningsOnDeprecatedUsage" : "include",
-      "deprecatedEnumCases" : "include",
       "apqs" : "disabled",
       "additionalInflectionRules" : [
 
       ],
+      "warningsOnDeprecatedUsage" : "include",
+      "deprecatedEnumCases" : "include",
+      "schemaDocumentation" : "include",
+      "cocoapodsCompatibleImportStatements" : false,
       "queryStringLiteralFormat" : "multiline"
     },
     "input" : {

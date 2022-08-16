@@ -550,11 +550,13 @@ class ApolloCodegenTests: XCTestCase {
       directoryURL.appendingPathComponent("Sources/Operations/Queries/AllAnimalsQuery.swift").path,
       directoryURL.appendingPathComponent("Sources/Operations/Queries/AllAnimalsIncludeSkipQuery.swift").path,
       directoryURL.appendingPathComponent("Sources/Operations/Queries/ClassroomPetsQuery.swift").path,
+      directoryURL.appendingPathComponent("Sources/Operations/Queries/DogQuery.swift").path,
       directoryURL.appendingPathComponent("Sources/Operations/Queries/PetSearchQuery.swift").path,
       directoryURL.appendingPathComponent("Sources/Operations/Queries/PetSearchQuery.swift").path,
       directoryURL.appendingPathComponent("Sources/Operations/Mutations/PetAdoptionMutation.swift").path,
 
       directoryURL.appendingPathComponent("Sources/Fragments/PetDetails.swift").path,
+      directoryURL.appendingPathComponent("Sources/Fragments/DogFragment.swift").path,
       directoryURL.appendingPathComponent("Sources/Fragments/ClassroomPetDetails.swift").path,
       directoryURL.appendingPathComponent("Sources/Fragments/HeightInMeters.swift").path,
       directoryURL.appendingPathComponent("Sources/Fragments/WarmBloodedDetails.swift").path,
@@ -642,6 +644,7 @@ class ApolloCodegenTests: XCTestCase {
       directoryURL.appendingPathComponent("Sources/CustomScalars/CustomDate.swift").path,
 
       operationsOutputURL.appendingPathComponent("Queries/AllAnimalsQuery.swift").path,
+      operationsOutputURL.appendingPathComponent("Queries/DogQuery.swift").path,
       operationsOutputURL.appendingPathComponent("Queries/AllAnimalsIncludeSkipQuery.swift").path,
       operationsOutputURL.appendingPathComponent("Queries/ClassroomPetsQuery.swift").path,
       operationsOutputURL.appendingPathComponent("Queries/PetSearchQuery.swift").path,
@@ -649,6 +652,7 @@ class ApolloCodegenTests: XCTestCase {
       operationsOutputURL.appendingPathComponent("Mutations/PetAdoptionMutation.swift").path,
 
       operationsOutputURL.appendingPathComponent("Fragments/PetDetails.swift").path,
+      operationsOutputURL.appendingPathComponent("Fragments/DogFragment.swift").path,
       operationsOutputURL.appendingPathComponent("Fragments/ClassroomPetDetails.swift").path,
       operationsOutputURL.appendingPathComponent("Fragments/HeightInMeters.swift").path,
       operationsOutputURL.appendingPathComponent("Fragments/WarmBloodedDetails.swift").path,
@@ -736,6 +740,7 @@ class ApolloCodegenTests: XCTestCase {
       directoryURL.appendingPathComponent("Sources/Schema/CustomScalars/CustomDate.swift").path,
 
       directoryURL.appendingPathComponent("Sources/Operations/Queries/AllAnimalsQuery.swift").path,
+      directoryURL.appendingPathComponent("Sources/Operations/Queries/DogQuery.swift").path,
       directoryURL.appendingPathComponent("Sources/Operations/Queries/ClassroomPetsQuery.swift").path,
       directoryURL.appendingPathComponent("Sources/Operations/Queries/PetSearchQuery.swift").path,
       directoryURL.appendingPathComponent("Sources/Operations/Queries/PetSearchQuery.swift").path,
@@ -747,6 +752,7 @@ class ApolloCodegenTests: XCTestCase {
 
       directoryURL.appendingPathComponent("Sources/Fragments/ClassroomPetDetailsCCN.swift").path,
       directoryURL.appendingPathComponent("Sources/Fragments/PetDetails.swift").path,
+      directoryURL.appendingPathComponent("Sources/Fragments/DogFragment.swift").path,
       directoryURL.appendingPathComponent("Sources/Fragments/ClassroomPetDetails.swift").path,
       directoryURL.appendingPathComponent("Sources/Fragments/HeightInMeters.swift").path,
       directoryURL.appendingPathComponent("Sources/Fragments/WarmBloodedDetails.swift").path,
@@ -910,6 +916,7 @@ class ApolloCodegenTests: XCTestCase {
       directoryURL.appendingPathComponent("RelativePath/Sources/Schema/CustomScalars/CustomDate.swift").path,
 
       directoryURL.appendingPathComponent("RelativePath/Sources/Operations/Queries/AllAnimalsQuery.swift").path,
+      directoryURL.appendingPathComponent("RelativePath/Sources/Operations/Queries/DogQuery.swift").path,
       directoryURL.appendingPathComponent("RelativePath/Sources/Operations/Queries/AllAnimalsIncludeSkipQuery.swift").path,
       directoryURL.appendingPathComponent("RelativePath/Sources/Operations/Queries/ClassroomPetsQuery.swift").path,
       directoryURL.appendingPathComponent("RelativePath/Sources/Operations/Queries/PetSearchQuery.swift").path,
@@ -917,6 +924,7 @@ class ApolloCodegenTests: XCTestCase {
       directoryURL.appendingPathComponent("RelativePath/Sources/Operations/Mutations/PetAdoptionMutation.swift").path,
 
       directoryURL.appendingPathComponent("RelativePath/Sources/Fragments/PetDetails.swift").path,
+      directoryURL.appendingPathComponent("RelativePath/Sources/Fragments/DogFragment.swift").path,
       directoryURL.appendingPathComponent("RelativePath/Sources/Fragments/ClassroomPetDetails.swift").path,
       directoryURL.appendingPathComponent("RelativePath/Sources/Fragments/HeightInMeters.swift").path,
       directoryURL.appendingPathComponent("RelativePath/Sources/Fragments/WarmBloodedDetails.swift").path,
@@ -1008,6 +1016,7 @@ class ApolloCodegenTests: XCTestCase {
       directoryURL.appendingPathComponent("RelativePath/Sources/CustomScalars/CustomDate.swift").path,
 
       directoryURL.appendingPathComponent("RelativeOperations/Queries/AllAnimalsQuery.swift").path,
+      directoryURL.appendingPathComponent("RelativeOperations/Queries/DogQuery.swift").path,
       directoryURL.appendingPathComponent("RelativeOperations/Queries/AllAnimalsIncludeSkipQuery.swift").path,
       directoryURL.appendingPathComponent("RelativeOperations/Queries/ClassroomPetsQuery.swift").path,
       directoryURL.appendingPathComponent("RelativeOperations/Queries/PetSearchQuery.swift").path,
@@ -1015,6 +1024,7 @@ class ApolloCodegenTests: XCTestCase {
       directoryURL.appendingPathComponent("RelativeOperations/Mutations/PetAdoptionMutation.swift").path,
 
       directoryURL.appendingPathComponent("RelativeOperations/Fragments/PetDetails.swift").path,
+      directoryURL.appendingPathComponent("RelativeOperations/Fragments/DogFragment.swift").path,
       directoryURL.appendingPathComponent("RelativeOperations/Fragments/ClassroomPetDetails.swift").path,
       directoryURL.appendingPathComponent("RelativeOperations/Fragments/HeightInMeters.swift").path,
       directoryURL.appendingPathComponent("RelativeOperations/Fragments/WarmBloodedDetails.swift").path,
