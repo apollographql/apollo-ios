@@ -118,7 +118,8 @@
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/Glob",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLSourceLocation",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/IsEverTrue",
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ValidationOptions"
       ],
       "title" : "Structures"
     },
@@ -1577,6 +1578,37 @@
   "title" : "LinkedList",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/linkedlist"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ValidationOptions": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ValidationOptions"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ValidationOptions",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ValidationOptions"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ValidationOptions",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/validationoptions"
 },
 "https://graphql.org/graphql-js/error/#graphqlerror": {
   "identifier" : "https:\/\/graphql.org\/graphql-js\/error\/#graphqlerror",

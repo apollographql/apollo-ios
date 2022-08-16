@@ -111,7 +111,7 @@
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/parseDocument(_:experimentalClientControlledNullability:)",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/parseDocument(from:experimentalClientControlledNullability:)",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/printSchemaAsSDL(schema:)",
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/validateDocument(schema:document:)"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/validateDocument(schema:document:options:)"
       ],
       "title" : "Instance Methods"
     }
@@ -805,7 +805,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/graphqljsfrontend\/printschemaassdl(schema:)"
 },
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLJSFrontend/validateDocument(schema:document:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLJSFrontend/validateDocument(schema:document:options:)": {
   "abstract" : [
     {
       "text" : "Validate a GraphQL document and return any validation errors as ",
@@ -869,6 +869,23 @@
     },
     {
       "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "options"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:16ApolloCodegenLib17ValidationOptionsV",
+      "text" : "ValidationOptions"
+    },
+    {
+      "kind" : "text",
       "text" : ") "
     },
     {
@@ -889,12 +906,12 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/validateDocument(schema:document:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/validateDocument(schema:document:options:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "validateDocument(schema:document:)",
+  "title" : "validateDocument(schema:document:options:)",
   "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/graphqljsfrontend\/validatedocument(schema:document:)"
+  "url" : "\/documentation\/apollocodegenlib\/graphqljsfrontend\/validatedocument(schema:document:options:)"
 }
 }
 }
