@@ -94,6 +94,18 @@ struct Initialize: ParsableCommand {
 
 fileprivate extension ApolloCodegenConfiguration {
   static var `default`: ApolloCodegenConfiguration {
+    #if COCOAPODS
+    ApolloCodegenConfiguration(
+      schemaName: "GraphQLSchemaName",
+      input: .init(
+        schemaPath: "schema.graphqls"
+      ),
+      output: .init(
+        schemaTypes: .init(path: "./", moduleType: .swiftPackageManager)
+      ),
+      options: .init(cocoapodsCompatibleImportStatements: true)
+    )
+    #else
     ApolloCodegenConfiguration(
       schemaName: "GraphQLSchemaName",
       input: .init(
@@ -103,6 +115,7 @@ fileprivate extension ApolloCodegenConfiguration {
         schemaTypes: .init(path: "./", moduleType: .swiftPackageManager)
       )
     )
+    #endif
   }
 
   func encoded() throws -> Data {
