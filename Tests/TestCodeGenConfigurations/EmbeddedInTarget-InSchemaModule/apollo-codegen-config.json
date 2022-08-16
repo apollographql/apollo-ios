@@ -21,11 +21,11 @@
   "output" : {
     "testMocks" : {
       "absolute" : {
-        "path": ".\/Tests\/MySwiftPackageTests\/TestMocks\/"
+        "path": "./Tests/MySwiftPackageTests/TestMocks/"
       }
     },
     "schemaTypes" : {
-      "path" : ".\/Sources\/MySwiftPackage",
+      "path" : "./Sources/MySwiftPackage",
       "moduleType" : {
         "embeddedInTarget" : {
           "name": "MySwiftPackage"
