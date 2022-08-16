@@ -97,7 +97,8 @@
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLNamedType",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLSchema",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLSource",
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/JavaScriptError"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/JavaScriptError",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ValidationOptions\/Bridged"
       ],
       "kind" : "relationships",
       "title" : "Inherited By",
@@ -778,6 +779,37 @@
   "title" : "CustomDebugStringConvertible Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/javascriptobject\/customdebugstringconvertible-implementations"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ValidationOptions/Bridged": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Bridged"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ValidationOptions\/Bridged",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Bridged"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ValidationOptions.Bridged",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/validationoptions\/bridged"
 },
 "doc://ApolloCodegenLib/s28CustomDebugStringConvertibleP": {
   "identifier" : "doc:\/\/ApolloCodegenLib\/s28CustomDebugStringConvertibleP",

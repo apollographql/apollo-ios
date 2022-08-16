@@ -14,9 +14,7 @@ let package = Package(
     .library(name: "AnimalKingdomAPI", targets: ["AnimalKingdomAPI"]),
   ],
   dependencies: [
-    .package(    name: "apollo-ios",
-                 url: "https://github.com/apollographql/apollo-ios.git",
-                 .branch("release/1.0")),
+    .package(url: "https://github.com/apollographql/apollo-ios.git", from: "1.0.0-beta.2"),
   ],
   targets: [
     .target(
