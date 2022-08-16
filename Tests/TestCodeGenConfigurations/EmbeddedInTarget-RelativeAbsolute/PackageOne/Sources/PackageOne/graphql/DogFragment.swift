@@ -8,7 +8,7 @@ import PackageTwo
 
 struct DogFragment: MySchemaModule.SelectionSet, Fragment {
   public static var fragmentDefinition: StaticString { """
-    fragment DogFragment on Dog {
+    fragment dogFragment on Dog {
       __typename
       species
     }
