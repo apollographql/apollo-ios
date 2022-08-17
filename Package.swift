@@ -98,12 +98,5 @@ let package = Package(
       exclude: [
         "README.md"
       ]),
-    .testTarget(
-      name: "CodegenCLITests",
-      dependencies: [
-        "apollo-ios-cli",
-        "Nimble",
-      ],
-      path: "./Tests/CodegenCLI/"),
   ]
 )
