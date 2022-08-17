@@ -113,7 +113,7 @@ commands:
   codegen_cli_run_tests:
     steps:
       - run:
-          command: cd ./CodegenCLI && swift test
+          command: swift test --test-product apollo-ios-cli
           name: Run tests
 
 # Important! When adding a new job to `jobs`, make sure to define when it
