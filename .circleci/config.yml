@@ -208,18 +208,18 @@ workflows:
   build-and-test:
     jobs:
       - Swift_Build:
-          name: Build with SPM
+          name: Build as Swift package
       - IntegrationTests_macOS_current:
-          name: Apollo Integration Tests macOS << pipeline.parameters.macos_version >>
+          name: Apollo Integration Tests - macOS << pipeline.parameters.macos_version >>
       - macOS_current:
-          name: Apollo macOS << pipeline.parameters.macos_version >>
+          name: Apollo Unit Tests - macOS << pipeline.parameters.macos_version >>
       - iOS_current:
-          name: Apollo iOS << pipeline.parameters.ios_current_version >>
+          name: Apollo Unit Tests - iOS << pipeline.parameters.ios_current_version >>
       - iOS_previous:
-          name: Apollo iOS << pipeline.parameters.ios_previous_version >>
+          name: Apollo Unit Tests - iOS << pipeline.parameters.ios_previous_version >>
       - tvOS_current:
-          name: Apollo tvOS << pipeline.parameters.tvos_version >>
+          name: Apollo Unit Tests - tvOS << pipeline.parameters.tvos_version >>
       - CodegenLib_macOS_current:
-          name: Swift Code Generation
+          name: Code Generation Unit Tests - macOS << pipeline.parameters.macos_version >>
       - CodegenCLI_macOS_current:
-          name: CodegenCLI
+          name: Codegen CLI Unit Tests - macOS << pipeline.parameters.macos_version >>
