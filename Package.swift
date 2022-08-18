@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
   name: "Apollo",
   platforms: [
-    .iOS(.v12),
+    .iOS(.v11),
     .macOS(.v10_14),
     .tvOS(.v12),
     .watchOS(.v5)
