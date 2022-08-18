@@ -11,12 +11,37 @@ import Apollo
 
 class MyCustomProjectTests: XCTestCase {
 
-  override func setUpWithError() throws {
-    // Put setup code here. This method is called before the invocation of each test method in the class.
-  }
+  func testCacheKeyResolution() throws {
+    let store = ApolloStore()
 
-  override func tearDownWithError() throws {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
+    let response = GraphQLResponse(
+      operation: DogQuery(),
+      body: ["data": [
+        "allAnimals": [
+          [
+            "__typename": "Dog",
+            "id": "1",
+            "species": "Canine",
+          ]
+        ]
+      ]])
+
+    let (_, records) = try response.parseResult()
+
+    let expectation = expectation(description: "Publish Record then Fetch")
+
+    store.publish(records: records!) { _ in
+      store.withinReadTransaction { transaction in
+        let dog = try! transaction.readObject(
+          ofType: DogQuery.Data.AllAnimal.self,
+          withKey: "Dog:1")
+        
+        XCTAssertEqual(dog.id, "1")
+        expectation.fulfill()
+      }
+    }
+
+    waitForExpectations(timeout: 1.0)
   }
 
   func test_mockObject() throws {

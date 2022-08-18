@@ -4,37 +4,38 @@ import ApolloTestSupport
 @testable import MySwiftPackage
 
 final class MySwiftPackageTests: XCTestCase {
-    func testCacheKeyResolution() throws {
-      let client = ApolloClient(url: URL(string: "www.test.com")!)
+  func testCacheKeyResolution() throws {
+    let store = ApolloStore()
 
-      let response = GraphQLResponse(
-        operation: MyGraphQLSchema.DogQuery(),
-        body: ["data": [
-          "allAnimals": [
-            [
-              "__typename": "Dog",
-              "id": "1",
-              "species": "Canine",
-            ]
+    let response = GraphQLResponse(
+      operation: MyGraphQLSchema.DogQuery(),
+      body: ["data": [
+        "allAnimals": [
+          [
+            "__typename": "Dog",
+            "id": "1",
+            "species": "Canine",
           ]
-        ]])
+        ]
+      ]])
 
-      let (_, records) = try response.parseResult()
+    let (_, records) = try response.parseResult()
 
-      let expectation = expectation(description: "Publish Record then Fetch")
+    let expectation = expectation(description: "Publish Record then Fetch")
 
-      client.store.publish(records: records!) { _ in
-        client.fetch(query: MyGraphQLSchema.DogQuery(),
-                     cachePolicy: .returnCacheDataDontFetch) { data in
-          let dog = try! data.get().data?.allAnimals[0]
+    store.publish(records: records!) { _ in
+      store.withinReadTransaction { transaction in
+        let dog = try! transaction.readObject(
+          ofType: MyGraphQLSchema.DogQuery.Data.AllAnimal.self,
+          withKey: "Dog:1")
 
-          XCTAssertEqual(dog?.id, "1")
-          expectation.fulfill()
-        }
+        XCTAssertEqual(dog.id, "1")
+        expectation.fulfill()
       }
-
-      waitForExpectations(timeout: 1.0)
     }
+
+    waitForExpectations(timeout: 1.0)
+  }
 }
 
 class MockNetworkTransport: NetworkTransport {

@@ -42,8 +42,7 @@ extension SchemaConfiguration {
   @inlinable public static func cacheKeyInfo(
     for type: Object,
     object: JSONObject
-  ) -> CacheKeyInfo? {
-    print("NOPE!")
+  ) -> CacheKeyInfo? {    
     return nil
   }
 

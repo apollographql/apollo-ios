@@ -33,7 +33,7 @@ public enum Schema: SchemaConfiguration {
     case "Mutation": return GraphQLAPI.Objects.Mutation
     default: return nil
     }
-  }  
+  }
 }
 
 public enum Objects {}
