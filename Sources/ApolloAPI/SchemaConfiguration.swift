@@ -43,7 +43,8 @@ extension SchemaConfiguration {
     for type: Object,
     object: JSONObject
   ) -> CacheKeyInfo? {
-    nil
+    print("NOPE!")
+    return nil
   }
 
   /// A convenience function for getting the ``Object`` type representing a response object.

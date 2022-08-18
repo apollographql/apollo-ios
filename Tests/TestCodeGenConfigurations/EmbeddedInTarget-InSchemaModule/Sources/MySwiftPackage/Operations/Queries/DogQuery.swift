@@ -14,6 +14,7 @@ public extension MyGraphQLSchema {
         query DogQuery {
           allAnimals {
             __typename
+            id
             ... on Dog {
               __typename
               ...DogFragment
@@ -46,8 +47,11 @@ public extension MyGraphQLSchema {
 
         public static var __parentType: ParentType { MyGraphQLSchema.Interfaces.Animal }
         public static var selections: [Selection] { [
+          .field("id", ID.self),
           .inlineFragment(AsDog.self),
         ] }
+
+        public var id: ID { __data["id"] }
 
         public var asDog: AsDog? { _asInlineFragment() }
 
@@ -63,6 +67,7 @@ public extension MyGraphQLSchema {
             .fragment(DogFragment.self),
           ] }
 
+          public var id: ID { __data["id"] }
           public var species: String { __data["species"] }
 
           public struct Fragments: FragmentContainer {
