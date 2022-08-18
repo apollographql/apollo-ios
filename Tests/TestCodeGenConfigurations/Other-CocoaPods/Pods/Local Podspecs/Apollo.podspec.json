@@ -1,6 +1,6 @@
 {
   "name": "Apollo",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "authors": "Meteor Development Group",
   "homepage": "https://github.com/apollographql/apollo-ios",
   "license": {
@@ -10,7 +10,7 @@
   "summary": "A GraphQL client for iOS, written in Swift.",
   "source": {
     "git": "https://github.com/apollographql/apollo-ios.git",
-    "tag": "1.0.0-beta.1"
+    "tag": "1.0.0-beta.2"
   },
   "requires_arc": true,
   "swift_versions": "5.0",
