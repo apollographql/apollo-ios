@@ -34,9 +34,6 @@ let package = Package(
     .package(
       url: "https://github.com/apple/swift-argument-parser.git", 
       .upToNextMajor(from: "1.1.2")),
-    .package(
-      url: "https://github.com/Quick/Nimble.git", 
-      .upToNextMajor(from: "10.0.0")),
   ],
   targets: [
     .target(
