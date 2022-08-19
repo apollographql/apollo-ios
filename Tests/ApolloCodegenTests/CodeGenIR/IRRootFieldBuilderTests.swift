@@ -2937,6 +2937,108 @@ class IRRootFieldBuilderTests: XCTestCase {
       .to(shallowlyMatch([.fragmentSpread(Fragment_BirdDetails)]))
   }
 
+  func test__mergedSelections__givenNestedNamedFragmentWithNonMatchingParentType_otherNestedNamedFragmentWithNonMatchingParentTypeWithInlineFragmentOnTypeOfFirstFragment_hasFragmentMergedSelections() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      aField: [A!]
+    }
+
+    type A {
+      someInterface: SomeInterface!
+    }
+
+    type B implements BInterface {
+      cObject: C!
+    }
+
+    type C {
+      integer: Int
+    }
+
+    interface SomeInterface {
+      integer: Int
+    }
+
+    interface SomeInterface2 {
+      cObject: C!
+    }
+
+    interface BInterface {
+      cObject: C!
+    }
+    """
+
+    document = """
+    fragment FragmentA on A {
+      someInterface {
+        ...FragmentB
+        ...FragmentB2
+      }
+    }
+
+    fragment FragmentB on BInterface {
+     ... on SomeInterface2 {
+        cObject {
+          integer
+        }
+      }
+    }
+
+    fragment FragmentB2 on SomeInterface2 {
+      cObject {
+        integer
+      }
+    }
+
+    query Test {
+      aField {
+        ...FragmentA
+      }
+    }
+    """
+
+    // when
+    try buildSubjectRootField()
+
+    let Object_A = try XCTUnwrap(schema[object: "A"])
+    let Fragment_FragmentB = try XCTUnwrap(ir.compilationResult[fragment: "FragmentB"])
+    let Interface_BInterface = try XCTUnwrap(schema[interface: "BInterface"])
+    let Interface_SomeInterface2 = try XCTUnwrap(schema[interface: "SomeInterface2"])
+
+    let aField = subject[field: "aField"] as? IR.EntityField
+    let someInterfaceField = aField![field: "someInterface"] as? IR.EntityField
+    let someInterfaceField_asBInterface = someInterfaceField![as: "BInterface"]
+
+    let FragmentSpread_FragmentA = aField?[fragment: "FragmentA"]
+    let FragmentA_someInterface = FragmentSpread_FragmentA?.fragment[field: "someInterface"]
+    let FragmentA_someInterface_asBInterface = try XCTUnwrap(FragmentA_someInterface?[as: "BInterface"])
+
+    let someInterfaceFieldExpected = SelectionsMatcher(
+      direct: nil,
+      merged: [
+        .inlineFragment(parentType: Interface_BInterface),
+        .inlineFragment(parentType: Interface_SomeInterface2),
+      ],
+      mergedSources: []
+    )
+
+    let someInterfaceField_asBInterfaceExpected = SelectionsMatcher(
+      direct: nil,
+      merged: [
+        .fragmentSpread(Fragment_FragmentB, inclusionConditions: .none)
+      ],
+      mergedSources: [
+        .init(typeInfo: FragmentA_someInterface_asBInterface.typeInfo,
+              fragment: FragmentSpread_FragmentA?.fragment)
+      ]
+    )
+
+    // then
+    expect(someInterfaceField?.selectionSet).to(shallowlyMatch(someInterfaceFieldExpected))
+    expect(someInterfaceField_asBInterface).to(shallowlyMatch(someInterfaceField_asBInterfaceExpected))
+  }
+
   // MARK: - Nested Entity Field - Merged Selections
 
   func test__mergedSelections__givenEntityFieldOnObjectAndTypeCase_withOtherNestedFieldInTypeCase_mergesParentFieldIntoNestedSelectionsInTypeCase() throws {
