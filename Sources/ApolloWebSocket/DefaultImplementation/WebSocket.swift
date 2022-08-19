@@ -261,14 +261,22 @@ public final class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSock
   }
 
   /**
-   Disconnect from the server. I send a Close control frame to the server, then expect the server to respond with a Close control frame and close the socket from its end. I notify my delegate once the socket has been closed.
+   Disconnect from the server. Send a Close control frame to the server, then expect the server to
+   respond with a Close control frame and close the socket from its end. Notify the delegate once
+   the socket has been closed.
 
-   If you supply a non-nil `forceTimeout`, I wait at most that long (in seconds) for the server to close the socket. After the timeout expires, I close the socket and notify my delegate.
+   If `forceTimeout` > 0, wait at most that long (in seconds) for the server to close the socket.
+   After the timeout expires, close the socket (without sending a Close control frame) and notify
+   the delegate.
 
-   If you supply a zero (or negative) `forceTimeout`, I immediately close the socket (without sending a Close control frame) and notify my delegate.
+   If `forceTimeout` <= 0, immediately close the socket (without sending a Close control frame)
+   and notify the delegate.
+
+   If `forceTimeout` is `nil`, send the Close control frame to the server.
 
    - Parameter forceTimeout: Maximum time to wait for the server to close the socket.
-   - Parameter closeCode: The code to send on disconnect. The default is the normal close code for cleanly disconnecting a webSocket.
+   - Parameter closeCode: The code to send on disconnect. The default is the normal close code for
+   cleanly disconnecting a webSocket.
    */
   func disconnect(
     forceTimeout: TimeInterval? = nil,
@@ -290,8 +298,24 @@ public final class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSock
     }
   }
 
-  public func disconnect() {
-    self.disconnect(forceTimeout: nil, closeCode: CloseCode.normal.rawValue)
+  /**
+   Disconnect from the server. Send a Close control frame to the server, then expect the server to
+   respond with a Close control frame and close the socket from its end. Notify the delegate once
+   the socket has been closed.
+
+   If `forceTimeout` > 0, wait at most that long (in seconds) for the server to close the socket.
+   After the timeout expires, close the socket (without sending a Close control frame) and notify
+   the delegate.
+
+   If `forceTimeout` <= 0, immediately close the socket (without sending a Close control frame)
+   and notify the delegate.
+
+   If `forceTimeout` is `nil`, send the Close control frame to the server.
+
+   - Parameter forceTimeout: Maximum time to wait for the server to close the socket.
+   */
+  public func disconnect(forceTimeout: TimeInterval?) {
+    self.disconnect(forceTimeout: forceTimeout, closeCode: CloseCode.normal.rawValue)
   }
 
   /**
