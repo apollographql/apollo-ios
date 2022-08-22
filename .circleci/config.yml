@@ -219,6 +219,6 @@ workflows:
       - tvOS_current:
           name: Apollo Unit Tests - tvOS << pipeline.parameters.tvos_version >>
       - CodegenLib_macOS_current:
-          name: Code Generation Unit Tests - macOS << pipeline.parameters.macos_version >>
+          name: Codegen Lib Unit Tests - macOS << pipeline.parameters.macos_version >>
       - CodegenCLI_macOS_current:
           name: Codegen CLI Unit Tests - macOS << pipeline.parameters.macos_version >>
