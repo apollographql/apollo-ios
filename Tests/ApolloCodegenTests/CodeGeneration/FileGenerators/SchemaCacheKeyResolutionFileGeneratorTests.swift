@@ -45,6 +45,6 @@ class SchemaCacheKeyResolutionFileGeneratorTests: XCTestCase {
     buildSubject()
 
     // then
-    expect(self.subject.overwrite).to(beTrue())
+    expect(self.subject.overwrite).to(beFalse())
   }
 }

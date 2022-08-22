@@ -219,6 +219,10 @@
 		DE454BA728B40D52009DC80E /* SchemaCacheKeyResolutionFileGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE454BA628B40D52009DC80E /* SchemaCacheKeyResolutionFileGeneratorTests.swift */; };
 		DE454BA928B40DA8009DC80E /* SchemaCacheKeyResolutionFileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE454BA828B40DA8009DC80E /* SchemaCacheKeyResolutionFileGenerator.swift */; };
 		DE454BAB28B40E56009DC80E /* SchemaCacheKeyResolutionTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE454BAA28B40E56009DC80E /* SchemaCacheKeyResolutionTemplate.swift */; };
+		DE454BAD28B418D6009DC80E /* Schema+CacheKeyResolution.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE454BAC28B418D6009DC80E /* Schema+CacheKeyResolution.swift */; };
+		DE454BAF28B418F5009DC80E /* Schema+CacheKeyResolution.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE454BAE28B418F5009DC80E /* Schema+CacheKeyResolution.swift */; };
+		DE454BB128B42FD1009DC80E /* Schema+CacheKeyResolution.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE454BB028B42FD1009DC80E /* Schema+CacheKeyResolution.swift */; };
+		DE454BB328B42FE1009DC80E /* Schema+CacheKeyResolution.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE454BB228B42FE1009DC80E /* Schema+CacheKeyResolution.swift */; };
 		DE46A55126EFEB6900357C52 /* JSONValueMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5EB9C626EFE0F80004176A /* JSONValueMatcher.swift */; };
 		DE46A55626F13A7400357C52 /* JSONResponseParsingInterceptorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE46A55426F13A0900357C52 /* JSONResponseParsingInterceptorTests.swift */; };
 		DE46A55826F13AD000357C52 /* ResponseCodeInterceptorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE46A55726F13AD000357C52 /* ResponseCodeInterceptorTests.swift */; };
@@ -1362,6 +1366,10 @@
 		DE454BA628B40D52009DC80E /* SchemaCacheKeyResolutionFileGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaCacheKeyResolutionFileGeneratorTests.swift; sourceTree = "<group>"; };
 		DE454BA828B40DA8009DC80E /* SchemaCacheKeyResolutionFileGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaCacheKeyResolutionFileGenerator.swift; sourceTree = "<group>"; };
 		DE454BAA28B40E56009DC80E /* SchemaCacheKeyResolutionTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaCacheKeyResolutionTemplate.swift; sourceTree = "<group>"; };
+		DE454BAC28B418D6009DC80E /* Schema+CacheKeyResolution.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Schema+CacheKeyResolution.swift"; sourceTree = "<group>"; };
+		DE454BAE28B418F5009DC80E /* Schema+CacheKeyResolution.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Schema+CacheKeyResolution.swift"; sourceTree = "<group>"; };
+		DE454BB028B42FD1009DC80E /* Schema+CacheKeyResolution.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Schema+CacheKeyResolution.swift"; sourceTree = "<group>"; };
+		DE454BB228B42FE1009DC80E /* Schema+CacheKeyResolution.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Schema+CacheKeyResolution.swift"; sourceTree = "<group>"; };
 		DE46A54D26EFE95800357C52 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/MacOSX.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		DE46A55426F13A0900357C52 /* JSONResponseParsingInterceptorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONResponseParsingInterceptorTests.swift; sourceTree = "<group>"; };
 		DE46A55726F13AD000357C52 /* ResponseCodeInterceptorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseCodeInterceptorTests.swift; sourceTree = "<group>"; };
@@ -2973,6 +2981,7 @@
 			children = (
 				DE5E79C9289DCA4500CD0DE5 /* Objects */,
 				DE5E79CB289DCA4500CD0DE5 /* Schema.swift */,
+				DE454BB028B42FD1009DC80E /* Schema+CacheKeyResolution.swift */,
 			);
 			path = Schema;
 			sourceTree = "<group>";
@@ -3064,6 +3073,7 @@
 				DEF191D02804A8470029786C /* CustomScalars */,
 				DE90FCDF27FCC6DD0084CC79 /* Objects */,
 				DE90FCE227FCC6DD0084CC79 /* Schema.swift */,
+				DE454BB228B42FE1009DC80E /* Schema+CacheKeyResolution.swift */,
 			);
 			name = Schema;
 			path = UploadAPI/Sources/Schema;
@@ -3382,6 +3392,7 @@
 				DEF19251280501D00029786C /* InputObjects */,
 				DEF19253280501D00029786C /* Interfaces */,
 				DEF19250280501D00029786C /* Schema.swift */,
+				DE454BAE28B418F5009DC80E /* Schema+CacheKeyResolution.swift */,
 			);
 			name = Schema;
 			path = StarWarsAPI/Sources/Schema;
@@ -3479,6 +3490,7 @@
 				E66C015727FEB86800FF5FA1 /* Enums */,
 				E66C015A27FEB86800FF5FA1 /* Objects */,
 				E66C016327FEB86800FF5FA1 /* Schema.swift */,
+				DE454BAC28B418D6009DC80E /* Schema+CacheKeyResolution.swift */,
 				E66C016427FEB86800FF5FA1 /* InputObjects */,
 				E66C016827FEB86800FF5FA1 /* Interfaces */,
 			);
@@ -4818,6 +4830,7 @@
 				DE90FCE427FCC6DD0084CC79 /* Mutation.swift in Sources */,
 				DECFEF6E2866412600DBE83C /* UploadMultipleFilesToTheSameParameterMutation.swift in Sources */,
 				DECFEF6D2866412600DBE83C /* UploadOneFileMutation.swift in Sources */,
+				DE454BB328B42FE1009DC80E /* Schema+CacheKeyResolution.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5421,6 +5434,7 @@
 				DECFEFDC2866414500DBE83C /* FriendsNames.swift in Sources */,
 				DECFEFC22866414500DBE83C /* HeroAndFriendsNamesWithFragmentQuery.swift in Sources */,
 				DECFEFBA2866414500DBE83C /* HeroDetailsQuery.swift in Sources */,
+				DE454BAF28B418F5009DC80E /* Schema+CacheKeyResolution.swift in Sources */,
 				DECFEFDD2866414500DBE83C /* CharacterAppearsIn.swift in Sources */,
 				DECFEFCD2866414500DBE83C /* HeroAndFriendsNamesWithIDsQuery.swift in Sources */,
 				DEF19259280501D00029786C /* Human.swift in Sources */,
@@ -5530,6 +5544,7 @@
 				DECFEF602866410500DBE83C /* AllAnimalsCCNQuery.swift in Sources */,
 				DECFEF652866410500DBE83C /* HeightInMeters.swift in Sources */,
 				E66C017B27FEB86800FF5FA1 /* Animal.swift in Sources */,
+				DE454BAD28B418D6009DC80E /* Schema+CacheKeyResolution.swift in Sources */,
 				E66C017027FEB86800FF5FA1 /* Bird.swift in Sources */,
 				E661199F2800CCB200E4CF11 /* CustomDate.swift in Sources */,
 				DE225F482835A96A005415AA /* Fish.swift in Sources */,
@@ -5625,6 +5640,7 @@
 				DE5E79CE289DCA4500CD0DE5 /* Schema.swift in Sources */,
 				DE5E79CD289DCA4500CD0DE5 /* Subscription.swift in Sources */,
 				DE5E79CC289DCA4500CD0DE5 /* IncrementingSubscription.swift in Sources */,
+				DE454BB128B42FD1009DC80E /* Schema+CacheKeyResolution.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -3000,8 +3000,7 @@ class IRRootFieldBuilderTests: XCTestCase {
 
     // when
     try buildSubjectRootField()
-
-    let Object_A = try XCTUnwrap(schema[object: "A"])
+    
     let Fragment_FragmentB = try XCTUnwrap(ir.compilationResult[fragment: "FragmentB"])
     let Interface_BInterface = try XCTUnwrap(schema[interface: "BInterface"])
     let Interface_SomeInterface2 = try XCTUnwrap(schema[interface: "SomeInterface2"])
