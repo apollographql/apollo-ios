@@ -7,8 +7,9 @@
 
 import ApolloAPI
 
-public extension MyGraphQLSchema.Schema {
-  static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {    
-    try? CacheKeyInfo(jsonValue: object["id"])
+public extension GraphQLAPI.Schema {
+  static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
+    // Implement this function to configure cache key resolution for your schema types.
+    return nil
   }
 }

@@ -292,6 +292,82 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
     }
   }
 
+  func test__renderTargetSchemaFile__given_schemaCacheKeyResolutionExtensionTypeFile_AllSchemaTypesOperationsCombinations_doesNotWrapInNamespace() {
+    // given
+    let tests: [(
+      schemaTypes: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType,
+      operations: ApolloCodegenConfiguration.OperationsFileOutput,
+      atLine: Int
+    )] = [
+      (
+        schemaTypes: .swiftPackageManager,
+        operations: .relative(subpath: nil),
+        atLine: 6
+      ),
+      (
+        schemaTypes: .swiftPackageManager,
+        operations: .absolute(path: "path"),
+        atLine: 6
+      ),
+      (
+        schemaTypes: .swiftPackageManager,
+        operations: .inSchemaModule,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .other,
+        operations: .relative(subpath: nil),
+        atLine: 6
+      ),
+      (
+        schemaTypes: .other,
+        operations: .absolute(path: "path"),
+        atLine: 6
+      ),
+      (
+        schemaTypes: .other,
+        operations: .inSchemaModule,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .embeddedInTarget(name: "MockApplication"),
+        operations: .relative(subpath: nil),
+        atLine: 6
+      ),
+      (
+        schemaTypes: .embeddedInTarget(name: "MockApplication"),
+        operations: .absolute(path: "path"),
+        atLine: 6
+      ),
+      (
+        schemaTypes: .embeddedInTarget(name: "MockApplication"),
+        operations: .inSchemaModule,
+        atLine: 6
+      )
+    ]
+
+    let expected = """
+    detached {
+      nested
+    }
+
+    root {
+      nested
+    }
+    """
+
+    for test in tests {
+      let config = buildConfig(moduleType: test.schemaTypes, operations: test.operations)
+      let subject = buildSubject(config: config, targetFileType: .cacheKeyResolutionExtension)
+
+      // when
+      let actual = subject.render()
+
+      // then
+      expect(actual).to(equalLineByLine(expected, atLine: test.atLine))
+    }
+  }
+
   func test__renderTargetSchemaFile__given_enumTypeFile_AllSchemaTypesOperationsCombinations_conditionallyWrapInNamespace() {
     // given
     let expectedNoNamespace = """

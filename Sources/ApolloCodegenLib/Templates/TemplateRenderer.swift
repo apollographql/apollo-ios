@@ -80,6 +80,10 @@ extension TemplateRenderer {
 
   private func renderSchemaFile(_ type: TemplateTarget.SchemaFileType) -> String {
     let namespace: String? = {
+      if case .cacheKeyResolutionExtension = type {
+        return nil
+      }
+
       let useSchemaNamespace = !config.output.schemaTypes.isInModule
       switch (useSchemaNamespace, type.namespaceComponent) {
       case (false, nil):
@@ -96,7 +100,7 @@ extension TemplateRenderer {
     return TemplateString(
     """
     \(ifLet: headerTemplate, { "\($0)\n" })
-    \(ImportStatementTemplate.SchemaType.template(forConfig: config ))
+    \(ImportStatementTemplate.SchemaType.template(forConfig: config))
 
     \(ifLet: detachedTemplate, { "\($0)\n" })
     \(ifLet: namespace, template.wrappedInNamespace(_:), else: template)
