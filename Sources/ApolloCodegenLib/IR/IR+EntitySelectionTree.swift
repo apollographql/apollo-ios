@@ -468,7 +468,7 @@ extension IR.EntitySelectionTree.EnclosingEntityNode {
       let fragmentType = fragment.typeInfo.parentType
       let nextNode = nodeRootType == fragmentType ?
       self.childAsEnclosingEntityNode() :
-      self.scopeConditionNode(for: IR.ScopeCondition(type: fragmentType))
+      self.scopeConditionNode(for: IR.ScopeCondition(type: fragmentType)).childAsEnclosingEntityNode()
 
       nextNode.mergeIn(
         otherNextNode,
