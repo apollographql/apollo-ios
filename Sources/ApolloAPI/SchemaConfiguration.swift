@@ -39,13 +39,6 @@ public protocol SchemaConfiguration {
 
 extension SchemaConfiguration {
 
-  @inlinable public static func cacheKeyInfo(
-    for type: Object,
-    object: JSONObject
-  ) -> CacheKeyInfo? {    
-    return nil
-  }
-
   /// A convenience function for getting the ``Object`` type representing a response object.
   ///
   /// Calls the ``objectType(forTypename:)`` function with the value of the objects `__typename`
