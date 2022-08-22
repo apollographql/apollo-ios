@@ -25,7 +25,7 @@
     "CodegenCLI/**/*",
     "apollo-ios-cli"
   ],
-  "prepare_command": "make clean build-for-cocoapods --directory=CodegenCLI\ncp CodegenCLI/.build/release/apollo-ios-cli apollo-ios-cli\nchmod +x apollo-ios-cli",
+  "prepare_command": "make clean build-cli-for-cocoapods\ncp CodegenCLI/.build/release/apollo-ios-cli apollo-ios-cli\nchmod +x apollo-ios-cli",
   "subspecs": [
     {
       "name": "Core",

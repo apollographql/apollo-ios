@@ -788,7 +788,6 @@
 		E6DC0ADD28B3AC490064A68F /* GenerateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6DC0AD228B3AC490064A68F /* GenerateTests.swift */; };
 		E6DC0ADE28B3AC490064A68F /* FetchSchemaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6DC0AD328B3AC490064A68F /* FetchSchemaTests.swift */; };
 		E6DC0ADF28B3AC490064A68F /* ErrorMatchers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6DC0AD528B3AC490064A68F /* ErrorMatchers.swift */; };
-		E6DC0AE028B3AC490064A68F /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E6DC0AD628B3AC490064A68F /* Info.plist */; };
 		E6DC0AE228B3AC7E0064A68F /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = E6DC0AE128B3AC7E0064A68F /* Nimble */; };
 		E6E3BBE2276A8D6200E5218B /* FileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E3BBDD276A8D6200E5218B /* FileGenerator.swift */; };
 		E6EE62F127DBE6F200627257 /* SchemaModuleNamespaceTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EE62F027DBE6F200627257 /* SchemaModuleNamespaceTemplate.swift */; };
@@ -4543,7 +4542,7 @@
 					"starwars-graphql",
 				);
 				LastSwiftUpdateCheck = 1340;
-				LastUpgradeCheck = 1340;
+				LastUpgradeCheck = 1400;
 				ORGANIZATIONNAME = "Apollo GraphQL";
 				TargetAttributes = {
 					9B2DFBB524E1FA0D00ED3AE6 = {
@@ -4793,7 +4792,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E6DC0AE028B3AC490064A68F /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
