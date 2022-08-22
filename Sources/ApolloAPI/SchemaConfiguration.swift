@@ -52,7 +52,8 @@ extension SchemaConfiguration {
     guard let typename = object["__typename"] as? String else {
       return nil
     }
-    return objectType(forTypename: typename)
+    return objectType(forTypename: typename) ??
+    Object(typename: typename, implementedInterfaces: [])
   }
 
   /// Resolves the ``CacheReference`` for an object in a GraphQL response to be used by

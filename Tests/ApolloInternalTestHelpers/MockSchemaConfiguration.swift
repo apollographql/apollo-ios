@@ -29,8 +29,11 @@ public class MockSchemaConfiguration: SchemaConfiguration {
 
 public extension MockSchemaConfiguration {
   static func objectType(forTypename __typename: String) -> Object? {
-    stub_objectTypeForTypeName?(__typename) ??
-    Object(typename: __typename, implementedInterfaces: [])
+    if let stub = stub_objectTypeForTypeName {
+      return stub(__typename)
+    }
+
+    return Object(typename: __typename, implementedInterfaces: [])
   }
 
   static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
