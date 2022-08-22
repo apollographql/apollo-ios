@@ -11,16 +11,9 @@ struct CustomScalarTemplate: TemplateRenderer {
   let target: TemplateTarget = .schemaFile(type: .customScalar)
 
   var headerTemplate: TemplateString? {
-    TemplateString(
-    """
-    // @generated
-    // This file was automatically generated and can be edited to implement
-    // advanced custom scalar functionality.
-    //
-    // Any changes to this file will not be overwritten by future
-    // code generation execution.
-    """
-    )
+    HeaderCommentTemplate.editableFileHeader(
+      fileCanBeEditedTo: "implement advanced custom scalar functionality."
+    )    
   }
 
   var template: TemplateString {
