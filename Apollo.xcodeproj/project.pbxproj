@@ -280,6 +280,7 @@
 		DE79642F2769A1EB00978A03 /* IROperationBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE79642E2769A1EB00978A03 /* IROperationBuilderTests.swift */; };
 		DE7C183C272A12EB00727031 /* ScopeDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7C183B272A12EB00727031 /* ScopeDescriptor.swift */; };
 		DE7C183E272A154400727031 /* IR.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7C183D272A154400727031 /* IR.swift */; };
+		DE80003228B442C000C827BD /* Schema+CacheKeyResolution.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE80003128B442C000C827BD /* Schema+CacheKeyResolution.swift */; };
 		DE90FCE327FCC6DD0084CC79 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE90FCE027FCC6DD0084CC79 /* File.swift */; };
 		DE90FCE427FCC6DD0084CC79 /* Mutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE90FCE127FCC6DD0084CC79 /* Mutation.swift */; };
 		DE90FCE527FCC6DD0084CC79 /* Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE90FCE227FCC6DD0084CC79 /* Schema.swift */; };
@@ -1443,6 +1444,7 @@
 		DE79642E2769A1EB00978A03 /* IROperationBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IROperationBuilderTests.swift; sourceTree = "<group>"; };
 		DE7C183B272A12EB00727031 /* ScopeDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScopeDescriptor.swift; sourceTree = "<group>"; };
 		DE7C183D272A154400727031 /* IR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IR.swift; sourceTree = "<group>"; };
+		DE80003128B442C000C827BD /* Schema+CacheKeyResolution.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Schema+CacheKeyResolution.swift"; sourceTree = "<group>"; };
 		DE90FCE027FCC6DD0084CC79 /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		DE90FCE127FCC6DD0084CC79 /* Mutation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mutation.swift; sourceTree = "<group>"; };
 		DE90FCE227FCC6DD0084CC79 /* Schema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Schema.swift; sourceTree = "<group>"; };
@@ -3668,6 +3670,7 @@
 				E6D08AD928897C9600D21B13 /* Objects */,
 				E6D08AD528897C9600D21B13 /* Unions */,
 				E6D08B9928897C9700D21B13 /* Schema.swift */,
+				DE80003128B442C000C827BD /* Schema+CacheKeyResolution.swift */,
 			);
 			name = Schema;
 			path = GitHubAPI/Sources/Schema;
@@ -5117,6 +5120,7 @@
 				E6D08C4A28897C9700D21B13 /* CheckRun.swift in Sources */,
 				E6D08BD628897C9700D21B13 /* DeploymentStatus.swift in Sources */,
 				E6D08C7B28897C9800D21B13 /* HeadRefRestoredEvent.swift in Sources */,
+				DE80003228B442C000C827BD /* Schema+CacheKeyResolution.swift in Sources */,
 				E6D08C1028897C9700D21B13 /* User.swift in Sources */,
 				E6D08C3928897C9700D21B13 /* RepoConfigDisableCollaboratorsOnlyAuditEntry.swift in Sources */,
 				E6D08C3528897C9700D21B13 /* TeamChangeParentTeamAuditEntry.swift in Sources */,
