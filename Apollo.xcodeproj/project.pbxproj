@@ -216,6 +216,9 @@
 		DE363CB327640FBA001EC05B /* GraphQLJSFrontend+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE363CB227640FBA001EC05B /* GraphQLJSFrontend+TestHelpers.swift */; };
 		DE3C7974260A646300D2F4FF /* dist in Resources */ = {isa = PBXBuildFile; fileRef = DE3C7973260A646300D2F4FF /* dist */; };
 		DE3C7B4A260A73D800D2F4FF /* AnimalKingdomAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = DE3C79A9260A6ACD00D2F4FF /* AnimalKingdomAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DE454BA728B40D52009DC80E /* SchemaCacheKeyResolutionFileGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE454BA628B40D52009DC80E /* SchemaCacheKeyResolutionFileGeneratorTests.swift */; };
+		DE454BA928B40DA8009DC80E /* SchemaCacheKeyResolutionFileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE454BA828B40DA8009DC80E /* SchemaCacheKeyResolutionFileGenerator.swift */; };
+		DE454BAB28B40E56009DC80E /* SchemaCacheKeyResolutionTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE454BAA28B40E56009DC80E /* SchemaCacheKeyResolutionTemplate.swift */; };
 		DE46A55126EFEB6900357C52 /* JSONValueMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5EB9C626EFE0F80004176A /* JSONValueMatcher.swift */; };
 		DE46A55626F13A7400357C52 /* JSONResponseParsingInterceptorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE46A55426F13A0900357C52 /* JSONResponseParsingInterceptorTests.swift */; };
 		DE46A55826F13AD000357C52 /* ResponseCodeInterceptorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE46A55726F13AD000357C52 /* ResponseCodeInterceptorTests.swift */; };
@@ -1356,6 +1359,9 @@
 		DE3C7B12260A6FC900D2F4FF /* FragmentProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FragmentProtocols.swift; sourceTree = "<group>"; };
 		DE3C7B14260A6FCA00D2F4FF /* GraphQLEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQLEnum.swift; sourceTree = "<group>"; };
 		DE3C7B15260A6FCA00D2F4FF /* ScalarTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScalarTypes.swift; sourceTree = "<group>"; };
+		DE454BA628B40D52009DC80E /* SchemaCacheKeyResolutionFileGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaCacheKeyResolutionFileGeneratorTests.swift; sourceTree = "<group>"; };
+		DE454BA828B40DA8009DC80E /* SchemaCacheKeyResolutionFileGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaCacheKeyResolutionFileGenerator.swift; sourceTree = "<group>"; };
+		DE454BAA28B40E56009DC80E /* SchemaCacheKeyResolutionTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaCacheKeyResolutionTemplate.swift; sourceTree = "<group>"; };
 		DE46A54D26EFE95800357C52 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/MacOSX.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		DE46A55426F13A0900357C52 /* JSONResponseParsingInterceptorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONResponseParsingInterceptorTests.swift; sourceTree = "<group>"; };
 		DE46A55726F13AD000357C52 /* ResponseCodeInterceptorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseCodeInterceptorTests.swift; sourceTree = "<group>"; };
@@ -2858,6 +2864,7 @@
 				E6AAA738286C87EA00F4659D /* OperationIdentifiersTemplate.swift */,
 				E6EE62F027DBE6F200627257 /* SchemaModuleNamespaceTemplate.swift */,
 				DE5FD60427694FA70033EE23 /* SchemaTemplate.swift */,
+				DE454BAA28B40E56009DC80E /* SchemaCacheKeyResolutionTemplate.swift */,
 				DE2739102769AEBA00B886EF /* SelectionSetTemplate.swift */,
 				E6B42D0827A472A700A3BD58 /* SwiftPackageManagerModuleTemplate.swift */,
 				E60AE2ED27E3FC6C003C093A /* TemplateRenderer.swift */,
@@ -3552,6 +3559,7 @@
 				E607AD8D27A88F340026742A /* OperationFileGeneratorTests.swift */,
 				E6AAA735286C0F8E00F4659D /* OperationIdentifiersFileGeneratorTests.swift */,
 				E6D90D0C278FFE35009CAC5D /* SchemaFileGeneratorTests.swift */,
+				DE454BA628B40D52009DC80E /* SchemaCacheKeyResolutionFileGeneratorTests.swift */,
 				E6B42D0A27A4746800A3BD58 /* SchemaModuleFileGeneratorTests.swift */,
 				E610D8E0278F8F3D0023E495 /* UnionFileGeneratorTests.swift */,
 			);
@@ -3979,6 +3987,7 @@
 				DE4D54E627A3504B00D26B68 /* OperationFileGenerator.swift */,
 				E6AAA731286BC58200F4659D /* OperationIdentifiersFileGenerator.swift */,
 				E6D90D0A278FFDDA009CAC5D /* SchemaFileGenerator.swift */,
+				DE454BA828B40DA8009DC80E /* SchemaCacheKeyResolutionFileGenerator.swift */,
 				E68D824627A228A80040A46F /* SchemaModuleFileGenerator.swift */,
 				E610D8DE278F8F1E0023E495 /* UnionFileGenerator.swift */,
 			);
@@ -4885,6 +4894,7 @@
 				9B7B6F59233C287200F32205 /* ApolloCodegen.swift in Sources */,
 				DE2739112769AEBA00B886EF /* SelectionSetTemplate.swift in Sources */,
 				DEA9A23227D822E600F96C36 /* IR+InclusionConditions.swift in Sources */,
+				DE454BA928B40DA8009DC80E /* SchemaCacheKeyResolutionFileGenerator.swift in Sources */,
 				E6E3BBE2276A8D6200E5218B /* FileGenerator.swift in Sources */,
 				DEFE0FC52748822900FFA440 /* IR+EntitySelectionTree.swift in Sources */,
 				9F62E03F2590896400E6E808 /* GraphQLError.swift in Sources */,
@@ -4895,6 +4905,7 @@
 				DE09114E27288B1F000648E5 /* SortedSelections.swift in Sources */,
 				DE5FD607276950CC0033EE23 /* IR+Schema.swift in Sources */,
 				E69BEDA52798B86D00000D10 /* InputObjectTemplate.swift in Sources */,
+				DE454BAB28B40E56009DC80E /* SchemaCacheKeyResolutionTemplate.swift in Sources */,
 				DEB05B4A289C3EC300170299 /* MockInterfacesTemplate.swift in Sources */,
 				DE71FDBC2853B67C005FA9CC /* LocalCacheMutationDefinitionTemplate.swift in Sources */,
 			);
@@ -4938,6 +4949,7 @@
 			files = (
 				E669352D2803EF67004E1FFC /* CustomScalarTemplateTests.swift in Sources */,
 				9BAEEC10234BB95B00808306 /* FileManagerExtensionTests.swift in Sources */,
+				DE454BA728B40D52009DC80E /* SchemaCacheKeyResolutionFileGeneratorTests.swift in Sources */,
 				DE5E79BB289DA90600CD0DE5 /* MockInterfacesFileGeneratorTests.swift in Sources */,
 				E6AAA737286C11E600F4659D /* OperationIdentifiersFileGeneratorTests.swift in Sources */,
 				E6D90D09278FA5C3009CAC5D /* InputObjectFileGeneratorTests.swift in Sources */,
