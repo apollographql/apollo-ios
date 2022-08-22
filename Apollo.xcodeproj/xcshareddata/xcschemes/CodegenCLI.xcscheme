@@ -29,7 +29,7 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <TestPlans>
          <TestPlanReference
-            reference = "container:Tests/TestPlans/Apollo-CodegenTestPlan.xctestplan"
+            reference = "container:Tests/TestPlans/CodegenCLITestPlan.xctestplan"
             default = "YES">
          </TestPlanReference>
       </TestPlans>

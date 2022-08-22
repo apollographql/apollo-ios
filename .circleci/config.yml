@@ -110,11 +110,6 @@ commands:
           name: Save test results
           path: ~/TestResults/ResultBundle.zip
           destination: results
-  codegen_cli_run_tests:
-    steps:
-      - run:
-          command: swift test --test-product apollo-ios-cli
-          name: Run tests
 
 # Important! When adding a new job to `jobs`, make sure to define when it
 # executes by also adding it to the `workflows` section below!
@@ -198,9 +193,13 @@ jobs:
   CodegenCLI_macOS_current:
     macos:
       xcode: << pipeline.parameters.xcode_version >>
+    environment:
+      DESTINATION: platform=macOS,arch=x86_64
+      CIRCLE_XCODE_SCHEME: CodegenCLI
+      CIRCLE_XCODE_TEST_PLAN: CodegenCLITestPlan
     steps:
       - common_test_setup
-      - codegen_cli_run_tests
+      - build_and_run_xcode_tests
 
 workflows:
   version: 2
