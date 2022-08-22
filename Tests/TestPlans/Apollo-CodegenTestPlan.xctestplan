@@ -19,6 +19,14 @@
         "identifier" : "9BAEEBFB234BB8FD00808306",
         "name" : "ApolloCodegenTests"
       }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:Apollo.xcodeproj",
+        "identifier" : "E6DC0ABD28B3AB890064A68F",
+        "name" : "CodegenCLITests"
+      }
     }
   ],
   "version" : 1
