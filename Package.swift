@@ -1,4 +1,4 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.6
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -12,39 +12,28 @@ let package = Package(
     .watchOS(.v5)
   ],
   products: [
-    .library(
-      name: "Apollo",
-      targets: ["Apollo"]),
-    .library(
-      name: "ApolloAPI",
-      targets: ["ApolloAPI"]),
-    .library(
-      name: "Apollo-Dynamic",
-      type: .dynamic,
-      targets: ["Apollo"]),
-    .library(
-      name: "ApolloCodegenLib",
-      targets: ["ApolloCodegenLib"]),
-    .library(
-      name: "ApolloSQLite",
-      targets: ["ApolloSQLite"]),
-    .library(
-      name: "ApolloWebSocket",
-      targets: ["ApolloWebSocket"]),
-    .library(
-      name: "ApolloTestSupport",
-      targets: ["ApolloTestSupport"]),
+    .library(name: "Apollo", targets: ["Apollo"]),
+    .library(name: "ApolloAPI", targets: ["ApolloAPI"]),
+    .library(name: "Apollo-Dynamic", type: .dynamic, targets: ["Apollo"]),
+    .library(name: "ApolloCodegenLib", targets: ["ApolloCodegenLib"]),
+    .library(name: "ApolloSQLite", targets: ["ApolloSQLite"]),
+    .library(name: "ApolloWebSocket", targets: ["ApolloWebSocket"]),
+    .library(name: "ApolloTestSupport", targets: ["ApolloTestSupport"]),
+    .executable(name: "apollo-ios-cli", targets: ["CodegenCLI"]),
   ],
   dependencies: [
     .package(
       url: "https://github.com/stephencelis/SQLite.swift.git",
-        .upToNextMinor(from: "0.13.1")),
+      .upToNextMinor(from: "0.13.1")),
     .package(
       url: "https://github.com/mattt/InflectorKit",
       .upToNextMinor(from: "1.0.0")),
     .package(
       url: "https://github.com/apple/swift-collections",
-      .upToNextMajor(from: "1.0.0"))
+      .upToNextMajor(from: "1.0.0")),
+    .package(
+      url: "https://github.com/apple/swift-argument-parser.git", 
+      .upToNextMajor(from: "1.1.2")),
   ],
   targets: [
     .target(
@@ -96,6 +85,15 @@ let package = Package(
       dependencies: ["ApolloAPI"],
       exclude: [
         "Info.plist"
+      ]),
+    .executableTarget(
+      name: "CodegenCLI",
+      dependencies: [
+        "ApolloCodegenLib",
+        .product(name: "ArgumentParser", package: "swift-argument-parser"),
+      ],
+      exclude: [
+        "README.md"
       ]),
   ]
 )

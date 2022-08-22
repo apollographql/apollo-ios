@@ -110,11 +110,6 @@ commands:
           name: Save test results
           path: ~/TestResults/ResultBundle.zip
           destination: results
-  codegen_cli_run_tests:
-    steps:
-      - run:
-          command: cd ./CodegenCLI && swift test
-          name: Run tests
 
 # Important! When adding a new job to `jobs`, make sure to define when it
 # executes by also adding it to the `workflows` section below!
@@ -198,9 +193,13 @@ jobs:
   CodegenCLI_macOS_current:
     macos:
       xcode: << pipeline.parameters.xcode_version >>
+    environment:
+      DESTINATION: platform=macOS,arch=x86_64
+      CIRCLE_XCODE_SCHEME: CodegenCLI
+      CIRCLE_XCODE_TEST_PLAN: CodegenCLITestPlan
     steps:
       - common_test_setup
-      - codegen_cli_run_tests
+      - build_and_run_xcode_tests
 
 workflows:
   version: 2
@@ -208,18 +207,18 @@ workflows:
   build-and-test:
     jobs:
       - Swift_Build:
-          name: Build with SPM
+          name: Build as Swift package
       - IntegrationTests_macOS_current:
-          name: Apollo Integration Tests macOS << pipeline.parameters.macos_version >>
+          name: Apollo Integration Tests - macOS << pipeline.parameters.macos_version >>
       - macOS_current:
-          name: Apollo macOS << pipeline.parameters.macos_version >>
+          name: Apollo Unit Tests - macOS << pipeline.parameters.macos_version >>
       - iOS_current:
-          name: Apollo iOS << pipeline.parameters.ios_current_version >>
+          name: Apollo Unit Tests - iOS << pipeline.parameters.ios_current_version >>
       - iOS_previous:
-          name: Apollo iOS << pipeline.parameters.ios_previous_version >>
+          name: Apollo Unit Tests - iOS << pipeline.parameters.ios_previous_version >>
       - tvOS_current:
-          name: Apollo tvOS << pipeline.parameters.tvos_version >>
+          name: Apollo Unit Tests - tvOS << pipeline.parameters.tvos_version >>
       - CodegenLib_macOS_current:
-          name: Swift Code Generation
+          name: Codegen Lib Unit Tests - macOS << pipeline.parameters.macos_version >>
       - CodegenCLI_macOS_current:
-          name: CodegenCLI
+          name: Codegen CLI Unit Tests - macOS << pipeline.parameters.macos_version >>

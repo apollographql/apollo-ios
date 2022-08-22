@@ -1,6 +1,6 @@
 import XCTest
 import Nimble
-@testable import apollo_ios_cli
+@testable import CodegenCLI
 import ArgumentParser
 import ApolloCodegenLib
 
@@ -8,18 +8,15 @@ class GenerateTests: XCTestCase {
 
   // MARK: - Test Helpers
 
-  func parseAsRoot(options: [String]?) throws -> Generate {
-    try CodegenCLI.parseAsRoot(options) as! Generate
+  func parse(_ options: [String]?) throws -> Generate {
+    try Generate.parse(options)
   }
 
   // MARK: - Parsing Tests
 
   func test__parsing__givenParameters_none_shouldUseDefaults() throws {
-    // given
-    let options = ["generate"]
-
     // when
-    let command = try parseAsRoot(options: options)
+    let command = try parse([])
 
     // then
     expect(command.inputs.path).to(equal(Constants.defaultFilePath))
@@ -31,12 +28,11 @@ class GenerateTests: XCTestCase {
     let path = "/custom/path"
 
     let options = [
-      "generate",
       "--path=\(path)"
     ]
 
     // when
-    let command = try parseAsRoot(options: options)
+    let command = try parse(options)
 
     // then
     expect(command.inputs.path).to(equal(path))
@@ -47,12 +43,11 @@ class GenerateTests: XCTestCase {
     let path = "/custom/path"
 
     let options = [
-      "generate",
       "-p=\(path)"
     ]
 
     // when
-    let command = try parseAsRoot(options: options)
+    let command = try parse(options)
 
     // then
     expect(command.inputs.path).to(equal(path))
@@ -63,12 +58,11 @@ class GenerateTests: XCTestCase {
     let string = "could-be-anything"
 
     let options = [
-      "generate",
       "--string=\(string)"
     ]
 
     // when
-    let command = try parseAsRoot(options: options)
+    let command = try parse(options)
 
     // then
     expect(command.inputs.string).to(equal(string))
@@ -79,12 +73,11 @@ class GenerateTests: XCTestCase {
     let string = "could-be-anything"
 
     let options = [
-      "generate",
       "-s=\(string)"
     ]
 
     // when
-    let command = try parseAsRoot(options: options)
+    let command = try parse(options)
 
     // then
     expect(command.inputs.string).to(equal(string))
@@ -93,12 +86,11 @@ class GenerateTests: XCTestCase {
   func test__parsing__givenParameters_fetchSchemaLongFormat_shouldParse() throws {
     // given
     let options = [
-      "generate",
       "--fetch-schema"
     ]
 
     // when
-    let command = try parseAsRoot(options: options)
+    let command = try parse(options)
 
     // then
     expect(command.fetchSchema).to(beTrue())
@@ -107,12 +99,11 @@ class GenerateTests: XCTestCase {
   func test__parsing__givenParameters_fetchSchemaShortFormat_shouldParse() throws {
     // given
     let options = [
-      "generate",
       "-f"
     ]
 
     // when
-    let command = try parseAsRoot(options: options)
+    let command = try parse(options)
 
     // then
     expect(command.fetchSchema).to(beTrue())
@@ -121,12 +112,11 @@ class GenerateTests: XCTestCase {
   func test__parsing__givenParameters_unknown_shouldThrow() throws {
     // given
     let options = [
-      "generate",
       "--unknown"
     ]
 
     // then
-    expect(try self.parseAsRoot(options: options))
+    expect(try self.parse(options))
       .to(throwUnknownOptionError())
   }
 
@@ -137,7 +127,6 @@ class GenerateTests: XCTestCase {
     let inputPath = "./config.json"
 
     let options = [
-      "generate",
       "--path=\(inputPath)"
     ]
 
@@ -161,7 +150,7 @@ class GenerateTests: XCTestCase {
     }
 
     // when
-    let command = try parseAsRoot(options: options)
+    let command = try parse(options)
 
     try command._run(fileManager: mockFileManager.base, codegenProvider: MockApolloCodegen.self)
 
@@ -179,7 +168,6 @@ class GenerateTests: XCTestCase {
     )!
 
     let options = [
-      "generate",
       "--string=\(jsonString)"
     ]
 
@@ -191,7 +179,7 @@ class GenerateTests: XCTestCase {
     }
 
     // when
-    let command = try parseAsRoot(options: options)
+    let command = try parse(options)
 
     try command._run(codegenProvider: MockApolloCodegen.self)
 
@@ -209,7 +197,6 @@ class GenerateTests: XCTestCase {
     )!
 
     let options = [
-      "generate",
       "--path=./path/to/file",
       "--string=\(jsonString)"
     ]
@@ -222,7 +209,7 @@ class GenerateTests: XCTestCase {
     }
 
     // when
-    let command = try parseAsRoot(options: options)
+    let command = try parse(options)
 
     try command._run(codegenProvider: MockApolloCodegen.self)
 
@@ -240,7 +227,6 @@ class GenerateTests: XCTestCase {
     )!
 
     let options = [
-      "generate",
       "--string=\(jsonString)"
     ]
 
@@ -259,7 +245,7 @@ class GenerateTests: XCTestCase {
     }
 
     // when
-    let command = try parseAsRoot(options: options)
+    let command = try parse(options)
 
     try command._run(
       codegenProvider: MockApolloCodegen.self,
@@ -281,7 +267,6 @@ class GenerateTests: XCTestCase {
     )!
 
     let options = [
-      "generate",
       "--string=\(jsonString)",
       "--fetch-schema"
     ]
@@ -301,7 +286,7 @@ class GenerateTests: XCTestCase {
     }
 
     // when
-    let command = try parseAsRoot(options: options)
+    let command = try parse(options)
 
     try command._run(
       codegenProvider: MockApolloCodegen.self,
@@ -331,7 +316,6 @@ class GenerateTests: XCTestCase {
     )!
 
     let options = [
-      "generate",
       "--string=\(jsonString)",
       "--fetch-schema"
     ]
@@ -351,7 +335,7 @@ class GenerateTests: XCTestCase {
     }
 
     // when
-    let command = try parseAsRoot(options: options)
+    let command = try parse(options)
 
     // then
     expect(try command._run(

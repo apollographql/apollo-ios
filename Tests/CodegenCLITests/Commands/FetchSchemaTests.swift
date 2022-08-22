@@ -1,6 +1,6 @@
 import XCTest
 import Nimble
-@testable import apollo_ios_cli
+@testable import CodegenCLI
 import ArgumentParser
 import ApolloCodegenLib
 
@@ -8,18 +8,15 @@ class FetchSchemaTests: XCTestCase {
 
   // MARK: - Test Helpers
 
-  func parseAsRoot(options: [String]?) throws -> FetchSchema {
-    try CodegenCLI.parseAsRoot(options) as! FetchSchema
+  func parse(_ options: [String]?) throws -> FetchSchema {
+    try FetchSchema.parse(options)
   }
 
   // MARK: - Parsing Tests
 
   func test__parsing__givenParameters_none_shouldUseDefaults() throws {
-    // given
-    let options = ["fetch-schema"]
-
     // when
-    let command = try parseAsRoot(options: options)
+    let command = try parse([])
 
     // then
     expect(command.inputs.path).to(equal(Constants.defaultFilePath))
@@ -31,12 +28,11 @@ class FetchSchemaTests: XCTestCase {
     let path = "/custom/path"
 
     let options = [
-      "fetch-schema",
       "--path=\(path)"
     ]
 
     // when
-    let command = try parseAsRoot(options: options)
+    let command = try parse(options)
 
     // then
     expect(command.inputs.path).to(equal(path))
@@ -47,12 +43,11 @@ class FetchSchemaTests: XCTestCase {
     let path = "/custom/path"
 
     let options = [
-      "fetch-schema",
       "-p=\(path)"
     ]
 
     // when
-    let command = try parseAsRoot(options: options)
+    let command = try parse(options)
 
     // then
     expect(command.inputs.path).to(equal(path))
@@ -63,12 +58,11 @@ class FetchSchemaTests: XCTestCase {
     let string = "could-be-anything"
 
     let options = [
-      "fetch-schema",
       "--string=\(string)"
     ]
 
     // when
-    let command = try parseAsRoot(options: options)
+    let command = try parse(options)
 
     // then
     expect(command.inputs.string).to(equal(string))
@@ -79,12 +73,11 @@ class FetchSchemaTests: XCTestCase {
     let string = "could-be-anything"
 
     let options = [
-      "fetch-schema",
       "-s=\(string)"
     ]
 
     // when
-    let command = try parseAsRoot(options: options)
+    let command = try parse(options)
 
     // then
     expect(command.inputs.string).to(equal(string))
@@ -93,12 +86,11 @@ class FetchSchemaTests: XCTestCase {
   func test__parsing__givenParameters_unknown_shouldThrow() throws {
     // given
     let options = [
-      "fetch-schema",
       "--unknown"
     ]
 
     // then
-    expect(try self.parseAsRoot(options: options))
+    expect(try self.parse(options))
       .to(throwUnknownOptionError())
   }
 
@@ -109,7 +101,6 @@ class FetchSchemaTests: XCTestCase {
     let inputPath = "./config.json"
 
     let options = [
-      "fetch-schema",
       "--path=\(inputPath)"
     ]
 
@@ -133,7 +124,7 @@ class FetchSchemaTests: XCTestCase {
     }
 
     // when
-    let command = try parseAsRoot(options: options)
+    let command = try parse(options)
 
     try command._run(
       fileManager: mockFileManager.base,
@@ -154,7 +145,6 @@ class FetchSchemaTests: XCTestCase {
     )!
 
     let options = [
-      "fetch-schema",
       "--string=\(jsonString)"
     ]
 
@@ -166,7 +156,7 @@ class FetchSchemaTests: XCTestCase {
     }
 
     // when
-    let command = try parseAsRoot(options: options)
+    let command = try parse(options)
 
     try command._run(schemaDownloadProvider: MockApolloSchemaDownloader.self)
 
@@ -184,7 +174,6 @@ class FetchSchemaTests: XCTestCase {
     )!
 
     let options = [
-      "fetch-schema",
       "--path=./path/to/file",
       "--string=\(jsonString)"
     ]
@@ -197,7 +186,7 @@ class FetchSchemaTests: XCTestCase {
     }
 
     // when
-    let command = try parseAsRoot(options: options)
+    let command = try parse(options)
 
     try command._run(schemaDownloadProvider: MockApolloSchemaDownloader.self)
 

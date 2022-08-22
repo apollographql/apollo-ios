@@ -1,5 +1,5 @@
 import Foundation
-import apollo_ios_cli
+import CodegenCLI
 import ApolloCodegenLib
 
 class MockApolloCodegen: CodegenProvider {
