@@ -281,61 +281,42 @@ class InitializeTests: XCTestCase {
   }
 
   func test__output__givenParameters_printTrue_shouldPrintToStandardOutput() throws {
-    throw XCTSkip("this needs to be fixed once the executable target is created")
-
     // given
-    let executable = TestSupport.productsDirectory.appendingPathComponent("apollo-ios-cli")
-
-    let subject = Process()
-    subject.executableURL = executable
-    subject.arguments = [
+    let options = [
       "--print"
     ]
 
-    let pipe = Pipe()
-    subject.standardOutput = pipe
+    let command = try parse(options)
 
     // when
-    try subject.run()
-    subject.waitUntilExit()
-
-    let data = pipe.fileHandleForReading.readDataToEndOfFile()
-
-    // Printing to STDOUT appends a newline
-    let expected = expectedJSON + "\n"
+    var output: String?
+    try command._run() { message in
+      output = message
+    }
 
     // then
-    expect(data.asString).to(equal(expected))
+    expect(output).toEventuallyNot(beNil())
+    expect(output).to(equal(expectedJSON))
   }
 
   func test__output__givenParameters_bothPathAndPrint_shouldPrintToStandardOutput() throws {
-    throw XCTSkip("this needs to be fixed once the executable target is created")
-
     // given
-    let executable = TestSupport.productsDirectory.appendingPathComponent("apollo-ios-cli")
-
-    let subject = Process()
-    subject.executableURL = executable
-    subject.arguments = [
-      "init",
+    let options = [
       "--path=./path/to/file",
       "--print"
     ]
 
-    let pipe = Pipe()
-    subject.standardOutput = pipe
+    let command = try parse(options)
 
     // when
-    try subject.run()
-    subject.waitUntilExit()
-
-    let data = pipe.fileHandleForReading.readDataToEndOfFile()
-
-    // Printing to STDOUT appends a newline
-    let expected = expectedJSON + "\n"
+    var output: String?
+    try command._run() { message in
+      output = message
+    }
 
     // then
-    expect(data.asString).to(equal(expected))
+    expect(output).toEventuallyNot(beNil())
+    expect(output).to(equal(expectedJSON))
   }
 }
 

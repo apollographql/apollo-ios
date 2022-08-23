@@ -34,17 +34,19 @@ struct Initialize: ParsableCommand {
 
   // MARK: - Implementation
 
+  typealias OutputClosure = ((String) -> ())
+
   func run() throws {
     try _run()
   }
 
-  func _run(fileManager: ApolloFileManager = .default) throws {
+  func _run(fileManager: ApolloFileManager = .default, output: OutputClosure? = nil) throws {
     let encoded = try ApolloCodegenConfiguration
       .default
       .encoded()
 
     if print {
-      try print(data: encoded)
+      try print(data: encoded, output: output)
       return
     }
 
@@ -52,7 +54,8 @@ struct Initialize: ParsableCommand {
       data: encoded,
       toPath: path,
       overwrite: overwrite,
-      fileManager: fileManager
+      fileManager: fileManager,
+      output: output
     )
   }
 
@@ -60,7 +63,8 @@ struct Initialize: ParsableCommand {
     data: Data,
     toPath path: String,
     overwrite: Bool,
-    fileManager: ApolloFileManager
+    fileManager: ApolloFileManager,
+    output: OutputClosure? = nil
   ) throws {
     if !overwrite && fileManager.doesFileExist(atPath: path) {
       throw Error(
@@ -76,17 +80,25 @@ struct Initialize: ParsableCommand {
       data: data
     )
 
-    Swift.print("New configuration output to \(path).")
+    print(message: "New configuration output to \(path).", output: output)
   }
 
-  private func print(data: Data) throws {
+  private func print(data: Data, output: OutputClosure? = nil) throws {
     guard let json = String(data: data, encoding: .utf8) else {
       throw Error(
         errorDescription: "Could not print the configuration, the JSON was not valid UTF-8."
       )
     }
 
-    Swift.print(json)
+    print(message: json, output: output)
+  }
+
+  private func print(message: String, output: OutputClosure? = nil) {
+    if let output = output {
+      output(message)
+    } else {
+      Swift.print(message)
+    }
   }
 }
 
