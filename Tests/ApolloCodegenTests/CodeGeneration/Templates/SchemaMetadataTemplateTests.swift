@@ -231,7 +231,7 @@ class SchemaMetadataTemplateTests: XCTestCase {
 
     let expected = """
     enum SchemaMetadata: ApolloAPI.SchemaMetadata {
-      static let configuration: ApolloAPI.SchemaConfiguration.Type = SchemaConfiguration.self
+      public static let configuration: ApolloAPI.SchemaConfiguration.Type = SchemaConfiguration.self
     """
 
     // when
@@ -279,7 +279,7 @@ class SchemaMetadataTemplateTests: XCTestCase {
 
     let expected = """
     enum SchemaMetadata: Apollo.SchemaMetadata {
-      static let configuration: Apollo.SchemaConfiguration.Type = SchemaConfiguration.self
+      public static let configuration: Apollo.SchemaConfiguration.Type = SchemaConfiguration.self
     """
 
     // when

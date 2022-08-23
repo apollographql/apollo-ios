@@ -40,8 +40,7 @@ struct SchemaMetadataTemplate: TemplateRenderer {
     \(documentation: schema.documentation, config: config)
     \(embeddedAccessControlModifier)\
     enum SchemaMetadata: \(apolloAPITargetName).SchemaMetadata {
-      \(embeddedAccessControlModifier)\
-    static let configuration: \(apolloAPITargetName).SchemaConfiguration.Type = SchemaConfiguration.self
+      public static let configuration: \(apolloAPITargetName).SchemaConfiguration.Type = SchemaConfiguration.self
 
       \(objectTypeFunction)
     }

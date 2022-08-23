@@ -9,8 +9,9 @@
 /* Begin PBXBuildFile section */
 		DE454BCC28B43262009DC80E /* CustomTargetProject.h in Headers */ = {isa = PBXBuildFile; fileRef = DE454BCB28B43262009DC80E /* CustomTargetProject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DE454BD328B432E1009DC80E /* GraphQLAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEA31E2A28A6C95F00971813 /* GraphQLAPI.framework */; platformFilter = ios; };
-		DE454BD528B432F1009DC80E /* Schema+CacheKeyResolution.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE454BD428B432F1009DC80E /* Schema+CacheKeyResolution.swift */; };
 		DE454BD728B4330F009DC80E /* ApolloAPI in Frameworks */ = {isa = PBXBuildFile; productRef = DE454BD628B4330F009DC80E /* ApolloAPI */; };
+		DE75379B28B56E4500FAFFA2 /* SchemaMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE75379928B56E4500FAFFA2 /* SchemaMetadata.swift */; };
+		DE75379C28B56E4500FAFFA2 /* SchemaConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE75379A28B56E4500FAFFA2 /* SchemaConfiguration.swift */; };
 		DEA31E2D28A6C95F00971813 /* GraphQLAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = DEA31E2C28A6C95F00971813 /* GraphQLAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DEA31E3128A6C96900971813 /* ClassroomPetDetailsCCN.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DEF28A6C8BC00971813 /* ClassroomPetDetailsCCN.swift */; };
 		DEA31E3228A6C96900971813 /* HeightInMeters.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DF228A6C8BC00971813 /* HeightInMeters.swift */; };
@@ -43,7 +44,6 @@
 		DEA31E4D28A6C9A200971813 /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DD928A6C8BC00971813 /* Query.swift */; };
 		DEA31E4E28A6C9A200971813 /* Bird.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DDB28A6C8BC00971813 /* Bird.swift */; };
 		DEA31E4F28A6C9A200971813 /* Cat.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DDD28A6C8BC00971813 /* Cat.swift */; };
-		DEA31E5028A6C9A600971813 /* Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DE428A6C8BC00971813 /* Schema.swift */; };
 		DEA31E5128A6C9A900971813 /* MeasurementsInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DE728A6C8BC00971813 /* MeasurementsInput.swift */; };
 		DEA31E5228A6C9A900971813 /* PetSearchFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DE628A6C8BC00971813 /* PetSearchFilters.swift */; };
 		DEA31E5328A6C9A900971813 /* PetAdoptionInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DE828A6C8BC00971813 /* PetAdoptionInput.swift */; };
@@ -67,7 +67,8 @@
 		DE454BC928B43262009DC80E /* CustomTargetProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CustomTargetProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE454BCB28B43262009DC80E /* CustomTargetProject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomTargetProject.h; sourceTree = "<group>"; };
 		DE454BD028B43280009DC80E /* apollo-ios */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "apollo-ios"; path = ../../..; sourceTree = "<group>"; };
-		DE454BD428B432F1009DC80E /* Schema+CacheKeyResolution.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Schema+CacheKeyResolution.swift"; sourceTree = "<group>"; };
+		DE75379928B56E4500FAFFA2 /* SchemaMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchemaMetadata.swift; sourceTree = "<group>"; };
+		DE75379A28B56E4500FAFFA2 /* SchemaConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchemaConfiguration.swift; sourceTree = "<group>"; };
 		DEA31DC728A6C8BC00971813 /* PetAdoptionMutation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetAdoptionMutation.swift; sourceTree = "<group>"; };
 		DEA31DC928A6C8BC00971813 /* DogQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DogQuery.swift; sourceTree = "<group>"; };
 		DEA31DCA28A6C8BC00971813 /* ClassroomPetsQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassroomPetsQuery.swift; sourceTree = "<group>"; };
@@ -91,7 +92,6 @@
 		DEA31DE128A6C8BC00971813 /* Height.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Height.swift; sourceTree = "<group>"; };
 		DEA31DE228A6C8BC00971813 /* Fish.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fish.swift; sourceTree = "<group>"; };
 		DEA31DE328A6C8BC00971813 /* PetRock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetRock.swift; sourceTree = "<group>"; };
-		DEA31DE428A6C8BC00971813 /* Schema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Schema.swift; sourceTree = "<group>"; };
 		DEA31DE628A6C8BC00971813 /* PetSearchFilters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetSearchFilters.swift; sourceTree = "<group>"; };
 		DEA31DE728A6C8BC00971813 /* MeasurementsInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeasurementsInput.swift; sourceTree = "<group>"; };
 		DEA31DE828A6C8BC00971813 /* PetAdoptionInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetAdoptionInput.swift; sourceTree = "<group>"; };
@@ -209,8 +209,8 @@
 				DEA31DD328A6C8BC00971813 /* CustomScalars */,
 				DEA31DD528A6C8BC00971813 /* Enums */,
 				DEA31DD828A6C8BC00971813 /* Objects */,
-				DEA31DE428A6C8BC00971813 /* Schema.swift */,
-				DE454BD428B432F1009DC80E /* Schema+CacheKeyResolution.swift */,
+				DE75379A28B56E4500FAFFA2 /* SchemaConfiguration.swift */,
+				DE75379928B56E4500FAFFA2 /* SchemaMetadata.swift */,
 				DEA31DE528A6C8BC00971813 /* InputObjects */,
 				DEA31DE928A6C8BC00971813 /* Interfaces */,
 			);
@@ -453,9 +453,10 @@
 				DEA31E5628A6C9AE00971813 /* HousePet.swift in Sources */,
 				DEA31E3628A6C96900971813 /* WarmBloodedDetails.swift in Sources */,
 				DEA31E4428A6C99300971813 /* SkinCovering.swift in Sources */,
-				DE454BD528B432F1009DC80E /* Schema+CacheKeyResolution.swift in Sources */,
+				DE75379B28B56E4500FAFFA2 /* SchemaMetadata.swift in Sources */,
 				DEA31E4A28A6C9A200971813 /* Human.swift in Sources */,
 				DEA31E5228A6C9A900971813 /* PetSearchFilters.swift in Sources */,
+				DE75379C28B56E4500FAFFA2 /* SchemaConfiguration.swift in Sources */,
 				DEA31E3228A6C96900971813 /* HeightInMeters.swift in Sources */,
 				DEA31E5528A6C9AE00971813 /* Pet.swift in Sources */,
 				DEA31E3828A6C96C00971813 /* PetDetailsMutation.swift in Sources */,
@@ -477,7 +478,6 @@
 				DEA31E3528A6C96900971813 /* PetDetails.swift in Sources */,
 				DEA31E5128A6C9A900971813 /* MeasurementsInput.swift in Sources */,
 				DEA31E3E28A6C97A00971813 /* ClassroomPetsQuery.swift in Sources */,
-				DEA31E5028A6C9A600971813 /* Schema.swift in Sources */,
 				DEA31E5328A6C9A900971813 /* PetAdoptionInput.swift in Sources */,
 				DEA31E3B28A6C97A00971813 /* AllAnimalsQuery.swift in Sources */,
 				DEA31E3F28A6C97A00971813 /* AllAnimalsCCNQuery.swift in Sources */,

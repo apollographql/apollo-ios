@@ -2,15 +2,6 @@
   "object": {
     "pins": [
       {
-        "package": "Apollo",
-        "repositoryURL": "https://github.com/apollographql/apollo-ios.git",
-        "state": {
-          "branch": null,
-          "revision": "28c6023d341f2b6be8e5ba751d36d35a4dd50c0d",
-          "version": "1.0.0-beta.2"
-        }
-      },
-      {
         "package": "InflectorKit",
         "repositoryURL": "https://github.com/mattt/InflectorKit",
         "state": {
@@ -26,6 +17,15 @@
           "branch": null,
           "revision": "4d543d811ee644fa4cc4bfa0be996b4dd6ba0f54",
           "version": "0.13.3"
+        }
+      },
+      {
+        "package": "swift-argument-parser",
+        "repositoryURL": "https://github.com/apple/swift-argument-parser.git",
+        "state": {
+          "branch": null,
+          "revision": "df9ee6676cd5b3bf5b330ec7568a5644f547201b",
+          "version": "1.1.3"
         }
       },
       {

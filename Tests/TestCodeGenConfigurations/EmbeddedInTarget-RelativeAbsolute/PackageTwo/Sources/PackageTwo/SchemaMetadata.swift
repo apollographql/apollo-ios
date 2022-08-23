@@ -4,16 +4,16 @@
 import ApolloAPI
 
 public protocol MySchemaModule_SelectionSet: ApolloAPI.SelectionSet & ApolloAPI.RootSelectionSet
-where Schema == MySchemaModule.Schema {}
+where Schema == MySchemaModule.SchemaMetadata {}
 
 public protocol MySchemaModule_InlineFragment: ApolloAPI.SelectionSet & ApolloAPI.InlineFragment
-where Schema == MySchemaModule.Schema {}
+where Schema == MySchemaModule.SchemaMetadata {}
 
 public protocol MySchemaModule_MutableSelectionSet: ApolloAPI.MutableRootSelectionSet
-where Schema == MySchemaModule.Schema {}
+where Schema == MySchemaModule.SchemaMetadata {}
 
 public protocol MySchemaModule_MutableInlineFragment: ApolloAPI.MutableSelectionSet & ApolloAPI.InlineFragment
-where Schema == MySchemaModule.Schema {}
+where Schema == MySchemaModule.SchemaMetadata {}
 
 public extension MySchemaModule {
   typealias ID = String
@@ -26,7 +26,9 @@ public extension MySchemaModule {
 
   typealias MutableInlineFragment = MySchemaModule_MutableInlineFragment
 
-  enum Schema: SchemaConfiguration {
+  enum SchemaMetadata: ApolloAPI.SchemaMetadata {
+    public static let configuration: ApolloAPI.SchemaConfiguration.Type = SchemaConfiguration.self
+
     public static func objectType(forTypename typename: String) -> Object? {
       switch typename {
       case "Query": return MySchemaModule.Objects.Query

@@ -4,16 +4,16 @@
 import ApolloAPI
 
 public protocol MyGraphQLSchema_SelectionSet: ApolloAPI.SelectionSet & ApolloAPI.RootSelectionSet
-where Schema == MyGraphQLSchema.Schema {}
+where Schema == MyGraphQLSchema.SchemaMetadata {}
 
 public protocol MyGraphQLSchema_InlineFragment: ApolloAPI.SelectionSet & ApolloAPI.InlineFragment
-where Schema == MyGraphQLSchema.Schema {}
+where Schema == MyGraphQLSchema.SchemaMetadata {}
 
 public protocol MyGraphQLSchema_MutableSelectionSet: ApolloAPI.MutableRootSelectionSet
-where Schema == MyGraphQLSchema.Schema {}
+where Schema == MyGraphQLSchema.SchemaMetadata {}
 
 public protocol MyGraphQLSchema_MutableInlineFragment: ApolloAPI.MutableSelectionSet & ApolloAPI.InlineFragment
-where Schema == MyGraphQLSchema.Schema {}
+where Schema == MyGraphQLSchema.SchemaMetadata {}
 
 public extension MyGraphQLSchema {
   typealias ID = String
@@ -26,7 +26,9 @@ public extension MyGraphQLSchema {
 
   typealias MutableInlineFragment = MyGraphQLSchema_MutableInlineFragment
 
-  enum Schema: SchemaConfiguration {
+  enum SchemaMetadata: ApolloAPI.SchemaMetadata {
+    public static let configuration: ApolloAPI.SchemaConfiguration.Type = SchemaConfiguration.self
+
     public static func objectType(forTypename typename: String) -> Object? {
       switch typename {
       case "Query": return MyGraphQLSchema.Objects.Query
