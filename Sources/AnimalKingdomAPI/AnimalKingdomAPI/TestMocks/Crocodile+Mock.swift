@@ -11,6 +11,7 @@ public class Crocodile: MockObject {
 
   public struct MockFields {
     @Field<Height>("height") public var height
+    @Field<ID>("id") public var id
     @Field<[Animal]>("predators") public var predators
     @Field<GraphQLEnum<SkinCovering>>("skinCovering") public var skinCovering
     @Field<String>("species") public var species
@@ -20,12 +21,14 @@ public class Crocodile: MockObject {
 public extension Mock where O == Crocodile {
   convenience init(
     height: Mock<Height>? = nil,
+    id: ID? = nil,
     predators: [AnyMock]? = nil,
     skinCovering: GraphQLEnum<SkinCovering>? = nil,
     species: String? = nil
   ) {
     self.init()
     self.height = height
+    self.id = id
     self.predators = predators
     self.skinCovering = skinCovering
     self.species = species

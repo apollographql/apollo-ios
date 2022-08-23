@@ -243,6 +243,10 @@ enum TestMockSchema: SchemaConfiguration {
     return nil
   }
 
+  static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
+    return nil
+  }
+
   struct Interfaces {
     static let Animal = Interface(name: "Animal")
   }

@@ -39,13 +39,6 @@ public protocol SchemaConfiguration {
 
 extension SchemaConfiguration {
 
-  @inlinable public static func cacheKeyInfo(
-    for type: Object,
-    object: JSONObject
-  ) -> CacheKeyInfo? {
-    nil
-  }
-
   /// A convenience function for getting the ``Object`` type representing a response object.
   ///
   /// Calls the ``objectType(forTypename:)`` function with the value of the objects `__typename`
@@ -59,7 +52,8 @@ extension SchemaConfiguration {
     guard let typename = object["__typename"] as? String else {
       return nil
     }
-    return objectType(forTypename: typename)
+    return objectType(forTypename: typename) ??
+    Object(typename: typename, implementedInterfaces: [])
   }
 
   /// Resolves the ``CacheReference`` for an object in a GraphQL response to be used by

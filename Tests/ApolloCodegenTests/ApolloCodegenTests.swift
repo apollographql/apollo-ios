@@ -517,6 +517,7 @@ class ApolloCodegenTests: XCTestCase {
 
     let expectedPaths: Set<String> = [
       directoryURL.appendingPathComponent("Sources/Schema/Schema.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema/Schema+CacheKeyResolution.swift").path,
 
       directoryURL.appendingPathComponent("Sources/Schema/Enums/SkinCovering.swift").path,
       directoryURL.appendingPathComponent("Sources/Schema/Interfaces/Pet.swift").path,
@@ -619,6 +620,8 @@ class ApolloCodegenTests: XCTestCase {
 
     let expectedPaths: Set<String> = [
       directoryURL.appendingPathComponent("Sources/Schema.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema+CacheKeyResolution.swift").path,
+
       directoryURL.appendingPathComponent("Sources/Enums/SkinCovering.swift").path,
       directoryURL.appendingPathComponent("Sources/Interfaces/Pet.swift").path,
       directoryURL.appendingPathComponent("Sources/Interfaces/Animal.swift").path,
@@ -710,6 +713,7 @@ class ApolloCodegenTests: XCTestCase {
 
     let expectedPaths: Set<String> = [
       directoryURL.appendingPathComponent("Sources/Schema/Schema.swift").path,
+      directoryURL.appendingPathComponent("Sources/Schema/Schema+CacheKeyResolution.swift").path,
 
       directoryURL.appendingPathComponent("Sources/Schema/Interfaces/Pet.swift").path,
       directoryURL.appendingPathComponent("Sources/Schema/Interfaces/Animal.swift").path,
@@ -885,6 +889,7 @@ class ApolloCodegenTests: XCTestCase {
 
     let expectedPaths: Set<String> = [
       directoryURL.appendingPathComponent("RelativePath/Sources/Schema/Schema.swift").path,
+      directoryURL.appendingPathComponent("RelativePath/Sources/Schema/Schema+CacheKeyResolution.swift").path,
 
       directoryURL.appendingPathComponent("RelativePath/Sources/Schema/Enums/SkinCovering.swift").path,
       directoryURL.appendingPathComponent("RelativePath/Sources/Schema/Interfaces/Pet.swift").path,
@@ -985,6 +990,7 @@ class ApolloCodegenTests: XCTestCase {
 
     let expectedPaths: Set<String> = [
       directoryURL.appendingPathComponent("RelativePath/Sources/Schema.swift").path,
+      directoryURL.appendingPathComponent("RelativePath/Sources/Schema+CacheKeyResolution.swift").path,
 
       directoryURL.appendingPathComponent("RelativePath/Sources/Enums/SkinCovering.swift").path,
       directoryURL.appendingPathComponent("RelativePath/Sources/Interfaces/Pet.swift").path,

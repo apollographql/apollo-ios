@@ -265,16 +265,29 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
     }
 
     mutating func appendInterpolation(
+      comment: String?
+    ) {
+      appendInterpolation(comment: comment, withLinePrefix: "//")
+    }
+
+    mutating func appendInterpolation(
       documentation: String?
     ) {
-      guard let documentation = documentation, !documentation.isEmpty else {
+      appendInterpolation(comment: documentation, withLinePrefix: "///")
+    }
+
+    private mutating func appendInterpolation(
+      comment: String?,
+      withLinePrefix prefix: String
+    ) {
+      guard let comment = comment, !comment.isEmpty else {
         removeLineIfEmpty()
         return
       }
 
-      let components = documentation
+      let components = comment
         .split(separator: "\n", omittingEmptySubsequences: false)
-        .joinedAsDocumentationLines()
+        .joinedAsCommentLines(withLinePrefix: prefix)
 
       appendInterpolation(components)
     }
@@ -320,11 +333,11 @@ fileprivate extension Array where Element == Substring {
     return string
   }
 
-  func joinedAsDocumentationLines() -> String {
+  func joinedAsCommentLines(withLinePrefix prefix: String) -> String {
     var string = ""
 
     func add(line: Substring) {
-      string += "///"
+      string += prefix
       if !line.isEmpty {
         string += " "
         string += line

@@ -13,6 +13,7 @@ public class Human: MockObject {
     @Field<Int>("bodyTemperature") public var bodyTemperature
     @Field<String>("firstName") public var firstName
     @Field<Height>("height") public var height
+    @Field<MyGraphQLSchema.ID>("id") public var id
     @Field<Bool>("laysEggs") public var laysEggs
     @Field<[Animal]>("predators") public var predators
     @Field<GraphQLEnum<MyGraphQLSchema.SkinCovering>>("skinCovering") public var skinCovering
@@ -25,6 +26,7 @@ public extension Mock where O == Human {
     bodyTemperature: Int? = nil,
     firstName: String? = nil,
     height: Mock<Height>? = nil,
+    id: MyGraphQLSchema.ID? = nil,
     laysEggs: Bool? = nil,
     predators: [AnyMock]? = nil,
     skinCovering: GraphQLEnum<MyGraphQLSchema.SkinCovering>? = nil,
@@ -34,6 +36,7 @@ public extension Mock where O == Human {
     self.bodyTemperature = bodyTemperature
     self.firstName = firstName
     self.height = height
+    self.id = id
     self.laysEggs = laysEggs
     self.predators = predators
     self.skinCovering = skinCovering

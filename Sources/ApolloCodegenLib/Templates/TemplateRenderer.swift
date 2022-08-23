@@ -19,10 +19,11 @@ enum TemplateTarget: Equatable {
     case `enum`
     case customScalar
     case inputObject
+    case cacheKeyResolutionExtension
 
     var namespaceComponent: String? {      
       switch self {
-      case .schema, .enum, .customScalar, .inputObject:
+      case .schema, .enum, .customScalar, .inputObject, .cacheKeyResolutionExtension:
         return nil
       case .object:
         return "Objects"
@@ -79,6 +80,10 @@ extension TemplateRenderer {
 
   private func renderSchemaFile(_ type: TemplateTarget.SchemaFileType) -> String {
     let namespace: String? = {
+      if case .cacheKeyResolutionExtension = type {
+        return nil
+      }
+
       let useSchemaNamespace = !config.output.schemaTypes.isInModule
       switch (useSchemaNamespace, type.namespaceComponent) {
       case (false, nil):
@@ -95,7 +100,7 @@ extension TemplateRenderer {
     return TemplateString(
     """
     \(ifLet: headerTemplate, { "\($0)\n" })
-    \(ImportStatementTemplate.SchemaType.template(forConfig: config ))
+    \(ImportStatementTemplate.SchemaType.template(forConfig: config))
 
     \(ifLet: detachedTemplate, { "\($0)\n" })
     \(ifLet: namespace, template.wrappedInNamespace(_:), else: template)
@@ -160,12 +165,23 @@ extension TemplateString {
 // MARK: - Header Comment Template
 
 /// Provides the format to identify a file as automatically generated.
-private struct HeaderCommentTemplate {
+struct HeaderCommentTemplate {
   static let template: StaticString =
     """
     // @generated
     // This file was automatically generated and should not be edited.
     """
+
+  static func editableFileHeader(fileCanBeEditedTo reason: TemplateString) -> TemplateString {
+    """
+    // @generated
+    // This file was automatically generated and can be edited to
+    \(comment: reason.description)
+    //
+    // Any changes to this file will not be overwritten by future
+    // code generation execution.
+    """
+  }
 }
 
 // MARK: Import Statement Template

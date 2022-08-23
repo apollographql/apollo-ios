@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DE1EA40628A6C75D0000B217 /* CustomTargetProject.h in Headers */ = {isa = PBXBuildFile; fileRef = DE1EA40528A6C75D0000B217 /* CustomTargetProject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DEA31E2428A6C8EC00971813 /* ProjectMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31E2328A6C8EC00971813 /* ProjectMain.swift */; };
+		DE454BCC28B43262009DC80E /* CustomTargetProject.h in Headers */ = {isa = PBXBuildFile; fileRef = DE454BCB28B43262009DC80E /* CustomTargetProject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DE454BD328B432E1009DC80E /* GraphQLAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEA31E2A28A6C95F00971813 /* GraphQLAPI.framework */; platformFilter = ios; };
+		DE454BD528B432F1009DC80E /* Schema+CacheKeyResolution.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE454BD428B432F1009DC80E /* Schema+CacheKeyResolution.swift */; };
+		DE454BD728B4330F009DC80E /* ApolloAPI in Frameworks */ = {isa = PBXBuildFile; productRef = DE454BD628B4330F009DC80E /* ApolloAPI */; };
 		DEA31E2D28A6C95F00971813 /* GraphQLAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = DEA31E2C28A6C95F00971813 /* GraphQLAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DEA31E3128A6C96900971813 /* ClassroomPetDetailsCCN.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DEF28A6C8BC00971813 /* ClassroomPetDetailsCCN.swift */; };
 		DEA31E3228A6C96900971813 /* HeightInMeters.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DF228A6C8BC00971813 /* HeightInMeters.swift */; };
@@ -49,12 +51,10 @@
 		DEA31E5528A6C9AE00971813 /* Pet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DEC28A6C8BC00971813 /* Pet.swift */; };
 		DEA31E5628A6C9AE00971813 /* HousePet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DEA28A6C8BC00971813 /* HousePet.swift */; };
 		DEA31E5728A6C9AE00971813 /* WarmBlooded.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DED28A6C8BC00971813 /* WarmBlooded.swift */; };
-		DEA31E5828A6C9C400971813 /* GraphQLAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEA31E2A28A6C95F00971813 /* GraphQLAPI.framework */; };
-		DEA31E6228A6CA8A00971813 /* ApolloAPI in Frameworks */ = {isa = PBXBuildFile; productRef = DEA31E6128A6CA8A00971813 /* ApolloAPI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		DEA31E5928A6C9D000971813 /* PBXContainerItemProxy */ = {
+		DE454BD128B432DE009DC80E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DE1EA3F928A6C75D0000B217 /* Project object */;
 			proxyType = 1;
@@ -64,8 +64,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		DE1EA40228A6C75D0000B217 /* CustomTargetProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CustomTargetProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DE1EA40528A6C75D0000B217 /* CustomTargetProject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomTargetProject.h; sourceTree = "<group>"; };
+		DE454BC928B43262009DC80E /* CustomTargetProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CustomTargetProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DE454BCB28B43262009DC80E /* CustomTargetProject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomTargetProject.h; sourceTree = "<group>"; };
+		DE454BD028B43280009DC80E /* apollo-ios */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "apollo-ios"; path = ../../..; sourceTree = "<group>"; };
+		DE454BD428B432F1009DC80E /* Schema+CacheKeyResolution.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Schema+CacheKeyResolution.swift"; sourceTree = "<group>"; };
 		DEA31DC728A6C8BC00971813 /* PetAdoptionMutation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetAdoptionMutation.swift; sourceTree = "<group>"; };
 		DEA31DC928A6C8BC00971813 /* DogQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DogQuery.swift; sourceTree = "<group>"; };
 		DEA31DCA28A6C8BC00971813 /* ClassroomPetsQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassroomPetsQuery.swift; sourceTree = "<group>"; };
@@ -105,18 +107,16 @@
 		DEA31DF428A6C8BC00971813 /* WarmBloodedDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WarmBloodedDetails.swift; sourceTree = "<group>"; };
 		DEA31DF628A6C8BC00971813 /* AllAnimalsLocalCacheMutation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllAnimalsLocalCacheMutation.swift; sourceTree = "<group>"; };
 		DEA31DF728A6C8BC00971813 /* PetDetailsMutation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetDetailsMutation.swift; sourceTree = "<group>"; };
-		DEA31E2328A6C8EC00971813 /* ProjectMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectMain.swift; sourceTree = "<group>"; };
 		DEA31E2A28A6C95F00971813 /* GraphQLAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GraphQLAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEA31E2C28A6C95F00971813 /* GraphQLAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GraphQLAPI.h; sourceTree = "<group>"; };
-		DEA31E5E28A6CA6F00971813 /* apollo-ios */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "apollo-ios"; path = ../../..; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		DE1EA3FF28A6C75D0000B217 /* Frameworks */ = {
+		DE454BC628B43262009DC80E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DEA31E5828A6C9C400971813 /* GraphQLAPI.framework in Frameworks */,
+				DE454BD328B432E1009DC80E /* GraphQLAPI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -124,7 +124,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DEA31E6228A6CA8A00971813 /* ApolloAPI in Frameworks */,
+				DE454BD728B4330F009DC80E /* ApolloAPI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,7 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				DEA31E5D28A6CA6F00971813 /* Packages */,
-				DE1EA40428A6C75D0000B217 /* CustomTargetProject */,
+				DE454BCA28B43262009DC80E /* CustomTargetProject */,
 				DEA31DBD28A6C7D100971813 /* GraphQLAPI */,
 				DE1EA40328A6C75D0000B217 /* Products */,
 				DEA31E2128A6C8D200971813 /* Frameworks */,
@@ -145,17 +145,16 @@
 		DE1EA40328A6C75D0000B217 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DE1EA40228A6C75D0000B217 /* CustomTargetProject.framework */,
 				DEA31E2A28A6C95F00971813 /* GraphQLAPI.framework */,
+				DE454BC928B43262009DC80E /* CustomTargetProject.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		DE1EA40428A6C75D0000B217 /* CustomTargetProject */ = {
+		DE454BCA28B43262009DC80E /* CustomTargetProject */ = {
 			isa = PBXGroup;
 			children = (
-				DE1EA40528A6C75D0000B217 /* CustomTargetProject.h */,
-				DEA31E2328A6C8EC00971813 /* ProjectMain.swift */,
+				DE454BCB28B43262009DC80E /* CustomTargetProject.h */,
 			);
 			path = CustomTargetProject;
 			sourceTree = "<group>";
@@ -211,6 +210,7 @@
 				DEA31DD528A6C8BC00971813 /* Enums */,
 				DEA31DD828A6C8BC00971813 /* Objects */,
 				DEA31DE428A6C8BC00971813 /* Schema.swift */,
+				DE454BD428B432F1009DC80E /* Schema+CacheKeyResolution.swift */,
 				DEA31DE528A6C8BC00971813 /* InputObjects */,
 				DEA31DE928A6C8BC00971813 /* Interfaces */,
 			);
@@ -313,7 +313,7 @@
 		DEA31E5D28A6CA6F00971813 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
-				DEA31E5E28A6CA6F00971813 /* apollo-ios */,
+				DE454BD028B43280009DC80E /* apollo-ios */,
 			);
 			name = Packages;
 			sourceTree = "<group>";
@@ -321,11 +321,11 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		DE1EA3FD28A6C75D0000B217 /* Headers */ = {
+		DE454BC428B43262009DC80E /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE1EA40628A6C75D0000B217 /* CustomTargetProject.h in Headers */,
+				DE454BCC28B43262009DC80E /* CustomTargetProject.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -340,23 +340,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		DE1EA40128A6C75D0000B217 /* CustomTargetProject */ = {
+		DE454BC828B43262009DC80E /* CustomTargetProject */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DE1EA40928A6C75D0000B217 /* Build configuration list for PBXNativeTarget "CustomTargetProject" */;
+			buildConfigurationList = DE454BCD28B43262009DC80E /* Build configuration list for PBXNativeTarget "CustomTargetProject" */;
 			buildPhases = (
-				DE1EA3FD28A6C75D0000B217 /* Headers */,
-				DE1EA3FE28A6C75D0000B217 /* Sources */,
-				DE1EA3FF28A6C75D0000B217 /* Frameworks */,
-				DE1EA40028A6C75D0000B217 /* Resources */,
+				DE454BC428B43262009DC80E /* Headers */,
+				DE454BC528B43262009DC80E /* Sources */,
+				DE454BC628B43262009DC80E /* Frameworks */,
+				DE454BC728B43262009DC80E /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				DEA31E5A28A6C9D000971813 /* PBXTargetDependency */,
+				DE454BD228B432DE009DC80E /* PBXTargetDependency */,
 			);
 			name = CustomTargetProject;
 			productName = CustomTargetProject;
-			productReference = DE1EA40228A6C75D0000B217 /* CustomTargetProject.framework */;
+			productReference = DE454BC928B43262009DC80E /* CustomTargetProject.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		DEA31E2928A6C95F00971813 /* GraphQLAPI */ = {
@@ -375,7 +375,7 @@
 			);
 			name = GraphQLAPI;
 			packageProductDependencies = (
-				DEA31E6128A6CA8A00971813 /* ApolloAPI */,
+				DE454BD628B4330F009DC80E /* ApolloAPI */,
 			);
 			productName = GraphQLAPI;
 			productReference = DEA31E2A28A6C95F00971813 /* GraphQLAPI.framework */;
@@ -390,9 +390,8 @@
 				BuildIndependentTargetsInParallel = 1;
 				LastUpgradeCheck = 1400;
 				TargetAttributes = {
-					DE1EA40128A6C75D0000B217 = {
-						CreatedOnToolsVersion = 13.4.1;
-						LastSwiftMigration = 1400;
+					DE454BC828B43262009DC80E = {
+						CreatedOnToolsVersion = 14.0;
 					};
 					DEA31E2928A6C95F00971813 = {
 						CreatedOnToolsVersion = 14.0;
@@ -412,14 +411,14 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				DE1EA40128A6C75D0000B217 /* CustomTargetProject */,
 				DEA31E2928A6C95F00971813 /* GraphQLAPI */,
+				DE454BC828B43262009DC80E /* CustomTargetProject */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		DE1EA40028A6C75D0000B217 /* Resources */ = {
+		DE454BC728B43262009DC80E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -436,11 +435,10 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		DE1EA3FE28A6C75D0000B217 /* Sources */ = {
+		DE454BC528B43262009DC80E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DEA31E2428A6C8EC00971813 /* ProjectMain.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -455,6 +453,7 @@
 				DEA31E5628A6C9AE00971813 /* HousePet.swift in Sources */,
 				DEA31E3628A6C96900971813 /* WarmBloodedDetails.swift in Sources */,
 				DEA31E4428A6C99300971813 /* SkinCovering.swift in Sources */,
+				DE454BD528B432F1009DC80E /* Schema+CacheKeyResolution.swift in Sources */,
 				DEA31E4A28A6C9A200971813 /* Human.swift in Sources */,
 				DEA31E5228A6C9A900971813 /* PetSearchFilters.swift in Sources */,
 				DEA31E3228A6C96900971813 /* HeightInMeters.swift in Sources */,
@@ -493,10 +492,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		DEA31E5A28A6C9D000971813 /* PBXTargetDependency */ = {
+		DE454BD228B432DE009DC80E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = DEA31E2928A6C95F00971813 /* GraphQLAPI */;
-			targetProxy = DEA31E5928A6C9D000971813 /* PBXContainerItemProxy */;
+			targetProxy = DE454BD128B432DE009DC80E /* PBXContainerItemProxy */;
 		};
 		DEA31E6028A6CA8400971813 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -626,14 +625,12 @@
 			};
 			name = Release;
 		};
-		DE1EA40A28A6C75D0000B217 /* Debug */ = {
+		DE454BCE28B43262009DC80E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -641,30 +638,29 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
-					"@executable_path/../Frameworks",
+					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = apollograpqhl.CustomTargetProject;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		DE1EA40B28A6C75D0000B217 /* Release */ = {
+		DE454BCF28B43262009DC80E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -672,18 +668,21 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
-					"@executable_path/../Frameworks",
+					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = apollograpqhl.CustomTargetProject;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -771,11 +770,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DE1EA40928A6C75D0000B217 /* Build configuration list for PBXNativeTarget "CustomTargetProject" */ = {
+		DE454BCD28B43262009DC80E /* Build configuration list for PBXNativeTarget "CustomTargetProject" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				DE1EA40A28A6C75D0000B217 /* Debug */,
-				DE1EA40B28A6C75D0000B217 /* Release */,
+				DE454BCE28B43262009DC80E /* Debug */,
+				DE454BCF28B43262009DC80E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -792,11 +791,11 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		DEA31E5F28A6CA8400971813 /* ApolloAPI */ = {
+		DE454BD628B4330F009DC80E /* ApolloAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = ApolloAPI;
 		};
-		DEA31E6128A6CA8A00971813 /* ApolloAPI */ = {
+		DEA31E5F28A6CA8400971813 /* ApolloAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = ApolloAPI;
 		};

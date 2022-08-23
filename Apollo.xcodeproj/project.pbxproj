@@ -216,6 +216,14 @@
 		DE363CB327640FBA001EC05B /* GraphQLJSFrontend+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE363CB227640FBA001EC05B /* GraphQLJSFrontend+TestHelpers.swift */; };
 		DE3C7974260A646300D2F4FF /* dist in Resources */ = {isa = PBXBuildFile; fileRef = DE3C7973260A646300D2F4FF /* dist */; };
 		DE3C7B4A260A73D800D2F4FF /* AnimalKingdomAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = DE3C79A9260A6ACD00D2F4FF /* AnimalKingdomAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DE454BA728B40D52009DC80E /* SchemaCacheKeyResolutionFileGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE454BA628B40D52009DC80E /* SchemaCacheKeyResolutionFileGeneratorTests.swift */; };
+		DE454BA928B40DA8009DC80E /* SchemaCacheKeyResolutionFileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE454BA828B40DA8009DC80E /* SchemaCacheKeyResolutionFileGenerator.swift */; };
+		DE454BAB28B40E56009DC80E /* SchemaCacheKeyResolutionTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE454BAA28B40E56009DC80E /* SchemaCacheKeyResolutionTemplate.swift */; };
+		DE454BAD28B418D6009DC80E /* Schema+CacheKeyResolution.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE454BAC28B418D6009DC80E /* Schema+CacheKeyResolution.swift */; };
+		DE454BAF28B418F5009DC80E /* Schema+CacheKeyResolution.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE454BAE28B418F5009DC80E /* Schema+CacheKeyResolution.swift */; };
+		DE454BB128B42FD1009DC80E /* Schema+CacheKeyResolution.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE454BB028B42FD1009DC80E /* Schema+CacheKeyResolution.swift */; };
+		DE454BB328B42FE1009DC80E /* Schema+CacheKeyResolution.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE454BB228B42FE1009DC80E /* Schema+CacheKeyResolution.swift */; };
+		DE454BB528B43058009DC80E /* SchemaCacheKeyResolutionTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE454BB428B43058009DC80E /* SchemaCacheKeyResolutionTemplateTests.swift */; };
 		DE46A55126EFEB6900357C52 /* JSONValueMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5EB9C626EFE0F80004176A /* JSONValueMatcher.swift */; };
 		DE46A55626F13A7400357C52 /* JSONResponseParsingInterceptorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE46A55426F13A0900357C52 /* JSONResponseParsingInterceptorTests.swift */; };
 		DE46A55826F13AD000357C52 /* ResponseCodeInterceptorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE46A55726F13AD000357C52 /* ResponseCodeInterceptorTests.swift */; };
@@ -272,6 +280,7 @@
 		DE79642F2769A1EB00978A03 /* IROperationBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE79642E2769A1EB00978A03 /* IROperationBuilderTests.swift */; };
 		DE7C183C272A12EB00727031 /* ScopeDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7C183B272A12EB00727031 /* ScopeDescriptor.swift */; };
 		DE7C183E272A154400727031 /* IR.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7C183D272A154400727031 /* IR.swift */; };
+		DE80003228B442C000C827BD /* Schema+CacheKeyResolution.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE80003128B442C000C827BD /* Schema+CacheKeyResolution.swift */; };
 		DE90FCE327FCC6DD0084CC79 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE90FCE027FCC6DD0084CC79 /* File.swift */; };
 		DE90FCE427FCC6DD0084CC79 /* Mutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE90FCE127FCC6DD0084CC79 /* Mutation.swift */; };
 		DE90FCE527FCC6DD0084CC79 /* Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE90FCE227FCC6DD0084CC79 /* Schema.swift */; };
@@ -780,7 +789,6 @@
 		E6DC0ADD28B3AC490064A68F /* GenerateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6DC0AD228B3AC490064A68F /* GenerateTests.swift */; };
 		E6DC0ADE28B3AC490064A68F /* FetchSchemaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6DC0AD328B3AC490064A68F /* FetchSchemaTests.swift */; };
 		E6DC0ADF28B3AC490064A68F /* ErrorMatchers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6DC0AD528B3AC490064A68F /* ErrorMatchers.swift */; };
-		E6DC0AE028B3AC490064A68F /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E6DC0AD628B3AC490064A68F /* Info.plist */; };
 		E6DC0AE228B3AC7E0064A68F /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = E6DC0AE128B3AC7E0064A68F /* Nimble */; };
 		E6E3BBE2276A8D6200E5218B /* FileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E3BBDD276A8D6200E5218B /* FileGenerator.swift */; };
 		E6EE62F127DBE6F200627257 /* SchemaModuleNamespaceTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EE62F027DBE6F200627257 /* SchemaModuleNamespaceTemplate.swift */; };
@@ -1356,6 +1364,14 @@
 		DE3C7B12260A6FC900D2F4FF /* FragmentProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FragmentProtocols.swift; sourceTree = "<group>"; };
 		DE3C7B14260A6FCA00D2F4FF /* GraphQLEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQLEnum.swift; sourceTree = "<group>"; };
 		DE3C7B15260A6FCA00D2F4FF /* ScalarTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScalarTypes.swift; sourceTree = "<group>"; };
+		DE454BA628B40D52009DC80E /* SchemaCacheKeyResolutionFileGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaCacheKeyResolutionFileGeneratorTests.swift; sourceTree = "<group>"; };
+		DE454BA828B40DA8009DC80E /* SchemaCacheKeyResolutionFileGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaCacheKeyResolutionFileGenerator.swift; sourceTree = "<group>"; };
+		DE454BAA28B40E56009DC80E /* SchemaCacheKeyResolutionTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaCacheKeyResolutionTemplate.swift; sourceTree = "<group>"; };
+		DE454BAC28B418D6009DC80E /* Schema+CacheKeyResolution.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Schema+CacheKeyResolution.swift"; sourceTree = "<group>"; };
+		DE454BAE28B418F5009DC80E /* Schema+CacheKeyResolution.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Schema+CacheKeyResolution.swift"; sourceTree = "<group>"; };
+		DE454BB028B42FD1009DC80E /* Schema+CacheKeyResolution.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Schema+CacheKeyResolution.swift"; sourceTree = "<group>"; };
+		DE454BB228B42FE1009DC80E /* Schema+CacheKeyResolution.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Schema+CacheKeyResolution.swift"; sourceTree = "<group>"; };
+		DE454BB428B43058009DC80E /* SchemaCacheKeyResolutionTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaCacheKeyResolutionTemplateTests.swift; sourceTree = "<group>"; };
 		DE46A54D26EFE95800357C52 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/MacOSX.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		DE46A55426F13A0900357C52 /* JSONResponseParsingInterceptorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONResponseParsingInterceptorTests.swift; sourceTree = "<group>"; };
 		DE46A55726F13AD000357C52 /* ResponseCodeInterceptorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseCodeInterceptorTests.swift; sourceTree = "<group>"; };
@@ -1428,6 +1444,7 @@
 		DE79642E2769A1EB00978A03 /* IROperationBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IROperationBuilderTests.swift; sourceTree = "<group>"; };
 		DE7C183B272A12EB00727031 /* ScopeDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScopeDescriptor.swift; sourceTree = "<group>"; };
 		DE7C183D272A154400727031 /* IR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IR.swift; sourceTree = "<group>"; };
+		DE80003128B442C000C827BD /* Schema+CacheKeyResolution.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Schema+CacheKeyResolution.swift"; sourceTree = "<group>"; };
 		DE90FCE027FCC6DD0084CC79 /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		DE90FCE127FCC6DD0084CC79 /* Mutation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mutation.swift; sourceTree = "<group>"; };
 		DE90FCE227FCC6DD0084CC79 /* Schema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Schema.swift; sourceTree = "<group>"; };
@@ -2858,6 +2875,7 @@
 				E6AAA738286C87EA00F4659D /* OperationIdentifiersTemplate.swift */,
 				E6EE62F027DBE6F200627257 /* SchemaModuleNamespaceTemplate.swift */,
 				DE5FD60427694FA70033EE23 /* SchemaTemplate.swift */,
+				DE454BAA28B40E56009DC80E /* SchemaCacheKeyResolutionTemplate.swift */,
 				DE2739102769AEBA00B886EF /* SelectionSetTemplate.swift */,
 				E6B42D0827A472A700A3BD58 /* SwiftPackageManagerModuleTemplate.swift */,
 				E60AE2ED27E3FC6C003C093A /* TemplateRenderer.swift */,
@@ -2886,6 +2904,7 @@
 				E6AAA73A286CC7EF00F4659D /* OperationIdentifiersTemplateTests.swift */,
 				E6EE62F227DBE75A00627257 /* SchemaModuleNamespaceTemplateTests.swift */,
 				DE5FD608276956C70033EE23 /* SchemaTemplateTests.swift */,
+				DE454BB428B43058009DC80E /* SchemaCacheKeyResolutionTemplateTests.swift */,
 				E6B42D0C27A4749100A3BD58 /* SwiftPackageManagerModuleTemplateTests.swift */,
 				E6EFDD1327EAB55B00B17FE5 /* TemplateRenderer_OperationFile_Tests.swift */,
 				E6EFDD0A27E8328E00B17FE5 /* TemplateRenderer_SchemaFile_Tests.swift */,
@@ -2966,6 +2985,7 @@
 			children = (
 				DE5E79C9289DCA4500CD0DE5 /* Objects */,
 				DE5E79CB289DCA4500CD0DE5 /* Schema.swift */,
+				DE454BB028B42FD1009DC80E /* Schema+CacheKeyResolution.swift */,
 			);
 			path = Schema;
 			sourceTree = "<group>";
@@ -3057,6 +3077,7 @@
 				DEF191D02804A8470029786C /* CustomScalars */,
 				DE90FCDF27FCC6DD0084CC79 /* Objects */,
 				DE90FCE227FCC6DD0084CC79 /* Schema.swift */,
+				DE454BB228B42FE1009DC80E /* Schema+CacheKeyResolution.swift */,
 			);
 			name = Schema;
 			path = UploadAPI/Sources/Schema;
@@ -3375,6 +3396,7 @@
 				DEF19251280501D00029786C /* InputObjects */,
 				DEF19253280501D00029786C /* Interfaces */,
 				DEF19250280501D00029786C /* Schema.swift */,
+				DE454BAE28B418F5009DC80E /* Schema+CacheKeyResolution.swift */,
 			);
 			name = Schema;
 			path = StarWarsAPI/Sources/Schema;
@@ -3472,6 +3494,7 @@
 				E66C015727FEB86800FF5FA1 /* Enums */,
 				E66C015A27FEB86800FF5FA1 /* Objects */,
 				E66C016327FEB86800FF5FA1 /* Schema.swift */,
+				DE454BAC28B418D6009DC80E /* Schema+CacheKeyResolution.swift */,
 				E66C016427FEB86800FF5FA1 /* InputObjects */,
 				E66C016827FEB86800FF5FA1 /* Interfaces */,
 			);
@@ -3552,6 +3575,7 @@
 				E607AD8D27A88F340026742A /* OperationFileGeneratorTests.swift */,
 				E6AAA735286C0F8E00F4659D /* OperationIdentifiersFileGeneratorTests.swift */,
 				E6D90D0C278FFE35009CAC5D /* SchemaFileGeneratorTests.swift */,
+				DE454BA628B40D52009DC80E /* SchemaCacheKeyResolutionFileGeneratorTests.swift */,
 				E6B42D0A27A4746800A3BD58 /* SchemaModuleFileGeneratorTests.swift */,
 				E610D8E0278F8F3D0023E495 /* UnionFileGeneratorTests.swift */,
 			);
@@ -3646,6 +3670,7 @@
 				E6D08AD928897C9600D21B13 /* Objects */,
 				E6D08AD528897C9600D21B13 /* Unions */,
 				E6D08B9928897C9700D21B13 /* Schema.swift */,
+				DE80003128B442C000C827BD /* Schema+CacheKeyResolution.swift */,
 			);
 			name = Schema;
 			path = GitHubAPI/Sources/Schema;
@@ -3979,6 +4004,7 @@
 				DE4D54E627A3504B00D26B68 /* OperationFileGenerator.swift */,
 				E6AAA731286BC58200F4659D /* OperationIdentifiersFileGenerator.swift */,
 				E6D90D0A278FFDDA009CAC5D /* SchemaFileGenerator.swift */,
+				DE454BA828B40DA8009DC80E /* SchemaCacheKeyResolutionFileGenerator.swift */,
 				E68D824627A228A80040A46F /* SchemaModuleFileGenerator.swift */,
 				E610D8DE278F8F1E0023E495 /* UnionFileGenerator.swift */,
 			);
@@ -4519,7 +4545,7 @@
 					"starwars-graphql",
 				);
 				LastSwiftUpdateCheck = 1340;
-				LastUpgradeCheck = 1340;
+				LastUpgradeCheck = 1400;
 				ORGANIZATIONNAME = "Apollo GraphQL";
 				TargetAttributes = {
 					9B2DFBB524E1FA0D00ED3AE6 = {
@@ -4769,7 +4795,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E6DC0AE028B3AC490064A68F /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4809,6 +4834,7 @@
 				DE90FCE427FCC6DD0084CC79 /* Mutation.swift in Sources */,
 				DECFEF6E2866412600DBE83C /* UploadMultipleFilesToTheSameParameterMutation.swift in Sources */,
 				DECFEF6D2866412600DBE83C /* UploadOneFileMutation.swift in Sources */,
+				DE454BB328B42FE1009DC80E /* Schema+CacheKeyResolution.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4885,6 +4911,7 @@
 				9B7B6F59233C287200F32205 /* ApolloCodegen.swift in Sources */,
 				DE2739112769AEBA00B886EF /* SelectionSetTemplate.swift in Sources */,
 				DEA9A23227D822E600F96C36 /* IR+InclusionConditions.swift in Sources */,
+				DE454BA928B40DA8009DC80E /* SchemaCacheKeyResolutionFileGenerator.swift in Sources */,
 				E6E3BBE2276A8D6200E5218B /* FileGenerator.swift in Sources */,
 				DEFE0FC52748822900FFA440 /* IR+EntitySelectionTree.swift in Sources */,
 				9F62E03F2590896400E6E808 /* GraphQLError.swift in Sources */,
@@ -4895,6 +4922,7 @@
 				DE09114E27288B1F000648E5 /* SortedSelections.swift in Sources */,
 				DE5FD607276950CC0033EE23 /* IR+Schema.swift in Sources */,
 				E69BEDA52798B86D00000D10 /* InputObjectTemplate.swift in Sources */,
+				DE454BAB28B40E56009DC80E /* SchemaCacheKeyResolutionTemplate.swift in Sources */,
 				DEB05B4A289C3EC300170299 /* MockInterfacesTemplate.swift in Sources */,
 				DE71FDBC2853B67C005FA9CC /* LocalCacheMutationDefinitionTemplate.swift in Sources */,
 			);
@@ -4938,6 +4966,7 @@
 			files = (
 				E669352D2803EF67004E1FFC /* CustomScalarTemplateTests.swift in Sources */,
 				9BAEEC10234BB95B00808306 /* FileManagerExtensionTests.swift in Sources */,
+				DE454BA728B40D52009DC80E /* SchemaCacheKeyResolutionFileGeneratorTests.swift in Sources */,
 				DE5E79BB289DA90600CD0DE5 /* MockInterfacesFileGeneratorTests.swift in Sources */,
 				E6AAA737286C11E600F4659D /* OperationIdentifiersFileGeneratorTests.swift in Sources */,
 				E6D90D09278FA5C3009CAC5D /* InputObjectFileGeneratorTests.swift in Sources */,
@@ -4954,6 +4983,7 @@
 				9F62E0102590728000E6E808 /* CompilationTests.swift in Sources */,
 				DEAFB77B2706444B00BE02F3 /* IRRootFieldBuilderTests.swift in Sources */,
 				E6EFDD1527EAB55B00B17FE5 /* TemplateRenderer_OperationFile_Tests.swift in Sources */,
+				DE454BB528B43058009DC80E /* SchemaCacheKeyResolutionTemplateTests.swift in Sources */,
 				E6B42D0D27A4749100A3BD58 /* SwiftPackageManagerModuleTemplateTests.swift in Sources */,
 				DE296539279B3B8200BF9B49 /* SelectionSetTemplateTests.swift in Sources */,
 				E66F8897276C136B0000BDA8 /* ObjectFileGeneratorTests.swift in Sources */,
@@ -5090,6 +5120,7 @@
 				E6D08C4A28897C9700D21B13 /* CheckRun.swift in Sources */,
 				E6D08BD628897C9700D21B13 /* DeploymentStatus.swift in Sources */,
 				E6D08C7B28897C9800D21B13 /* HeadRefRestoredEvent.swift in Sources */,
+				DE80003228B442C000C827BD /* Schema+CacheKeyResolution.swift in Sources */,
 				E6D08C1028897C9700D21B13 /* User.swift in Sources */,
 				E6D08C3928897C9700D21B13 /* RepoConfigDisableCollaboratorsOnlyAuditEntry.swift in Sources */,
 				E6D08C3528897C9700D21B13 /* TeamChangeParentTeamAuditEntry.swift in Sources */,
@@ -5409,6 +5440,7 @@
 				DECFEFDC2866414500DBE83C /* FriendsNames.swift in Sources */,
 				DECFEFC22866414500DBE83C /* HeroAndFriendsNamesWithFragmentQuery.swift in Sources */,
 				DECFEFBA2866414500DBE83C /* HeroDetailsQuery.swift in Sources */,
+				DE454BAF28B418F5009DC80E /* Schema+CacheKeyResolution.swift in Sources */,
 				DECFEFDD2866414500DBE83C /* CharacterAppearsIn.swift in Sources */,
 				DECFEFCD2866414500DBE83C /* HeroAndFriendsNamesWithIDsQuery.swift in Sources */,
 				DEF19259280501D00029786C /* Human.swift in Sources */,
@@ -5518,6 +5550,7 @@
 				DECFEF602866410500DBE83C /* AllAnimalsCCNQuery.swift in Sources */,
 				DECFEF652866410500DBE83C /* HeightInMeters.swift in Sources */,
 				E66C017B27FEB86800FF5FA1 /* Animal.swift in Sources */,
+				DE454BAD28B418D6009DC80E /* Schema+CacheKeyResolution.swift in Sources */,
 				E66C017027FEB86800FF5FA1 /* Bird.swift in Sources */,
 				E661199F2800CCB200E4CF11 /* CustomDate.swift in Sources */,
 				DE225F482835A96A005415AA /* Fish.swift in Sources */,
@@ -5613,6 +5646,7 @@
 				DE5E79CE289DCA4500CD0DE5 /* Schema.swift in Sources */,
 				DE5E79CD289DCA4500CD0DE5 /* Subscription.swift in Sources */,
 				DE5E79CC289DCA4500CD0DE5 /* IncrementingSubscription.swift in Sources */,
+				DE454BB128B42FD1009DC80E /* Schema+CacheKeyResolution.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

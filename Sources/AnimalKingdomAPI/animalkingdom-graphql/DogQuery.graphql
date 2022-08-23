@@ -1,5 +1,6 @@
 query DogQuery {
   allAnimals {
+    id
     ... on Dog {
       ... DogFragment
     }
