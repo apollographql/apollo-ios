@@ -281,6 +281,7 @@
 		DE7C183C272A12EB00727031 /* ScopeDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7C183B272A12EB00727031 /* ScopeDescriptor.swift */; };
 		DE7C183E272A154400727031 /* IR.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7C183D272A154400727031 /* IR.swift */; };
 		DE80003228B442C000C827BD /* Schema+CacheKeyResolution.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE80003128B442C000C827BD /* Schema+CacheKeyResolution.swift */; };
+		DE80003428B5608E00C827BD /* SchemaMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE80003328B5608E00C827BD /* SchemaMetadata.swift */; };
 		DE90FCE327FCC6DD0084CC79 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE90FCE027FCC6DD0084CC79 /* File.swift */; };
 		DE90FCE427FCC6DD0084CC79 /* Mutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE90FCE127FCC6DD0084CC79 /* Mutation.swift */; };
 		DE90FCE527FCC6DD0084CC79 /* Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE90FCE227FCC6DD0084CC79 /* Schema.swift */; };
@@ -1445,6 +1446,7 @@
 		DE7C183B272A12EB00727031 /* ScopeDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScopeDescriptor.swift; sourceTree = "<group>"; };
 		DE7C183D272A154400727031 /* IR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IR.swift; sourceTree = "<group>"; };
 		DE80003128B442C000C827BD /* Schema+CacheKeyResolution.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Schema+CacheKeyResolution.swift"; sourceTree = "<group>"; };
+		DE80003328B5608E00C827BD /* SchemaMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaMetadata.swift; sourceTree = "<group>"; };
 		DE90FCE027FCC6DD0084CC79 /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		DE90FCE127FCC6DD0084CC79 /* Mutation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mutation.swift; sourceTree = "<group>"; };
 		DE90FCE227FCC6DD0084CC79 /* Schema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Schema.swift; sourceTree = "<group>"; };
@@ -2757,6 +2759,7 @@
 				DEA6A83326F298660091AF8A /* ParentType.swift */,
 				DE03FDDA2784D0B2007425BD /* DataDict.swift */,
 				DE2FCF1C26E806710057EA67 /* SchemaConfiguration.swift */,
+				DE80003328B5608E00C827BD /* SchemaMetadata.swift */,
 				DE5E79BE289DBCE700CD0DE5 /* CacheKeyInfo.swift */,
 				DE664ED326602AF60054DB4F /* Selection.swift */,
 				DE90FDB927FE405F0084CC79 /* Selection+Conditions.swift */,
@@ -5515,6 +5518,7 @@
 				DE058609266978A100265760 /* Selection.swift in Sources */,
 				DE64C1F7284033BA00F64B9D /* LocalCacheMutation.swift in Sources */,
 				DE05860B266978A100265760 /* SelectionSet.swift in Sources */,
+				DE80003428B5608E00C827BD /* SchemaMetadata.swift in Sources */,
 				DE9C04AC26EAAE4400EC35E7 /* JSON.swift in Sources */,
 				DE2FCF1D26E806710057EA67 /* SchemaConfiguration.swift in Sources */,
 				DE2FCF4526E80CF10057EA67 /* GraphQLOperation.swift in Sources */,
