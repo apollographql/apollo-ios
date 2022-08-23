@@ -226,6 +226,43 @@ class CompilationTests: XCTestCase {
     let operation = try XCTUnwrap(compilationResult.operations.first)
     expect(operation.directives).to(equal(expectedDirectives))
   }
+
+  func testCompile_inputObject_withListFieldWithDefaultValueEmptyArray() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals(list: TestInput!): [Animal!]!
+    }
+
+    input TestInput {
+      listField: [String!] = []
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query ListInputTest($input: TestInput!) {
+      allAnimals(list: $input) {
+        species
+      }
+    }
+    """
+
+    // when
+    let compilationResult = try compileFrontend()
+
+    let inputObject = try XCTUnwrap(
+      compilationResult.referencedTypes.first { $0.name == "TestInput"} as? GraphQLInputObjectType
+    )
+    let listField = try XCTUnwrap(inputObject.fields["listField"])
+    let defaultValue = try XCTUnwrap(listField.defaultValue)
+
+    // then
+    expect(defaultValue).to(equal(GraphQLValue.list([])))
+  }
 }
 
 fileprivate extension CompilationResult.SelectionSet {

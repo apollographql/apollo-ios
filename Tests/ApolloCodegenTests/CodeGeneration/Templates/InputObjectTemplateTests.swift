@@ -535,6 +535,7 @@ class InputObjectTemplateTests: XCTestCase {
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
   }
+  
 
   func test__render__given_NullableList_NonNullableItem_NoDefault__generates_NullableParameter_NonOptionalItem_InitializerNilDefault() throws {
     // given

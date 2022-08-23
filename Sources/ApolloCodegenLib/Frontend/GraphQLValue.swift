@@ -36,7 +36,11 @@ extension GraphQLValue: JavaScriptValueDecodable {
     case "EnumValue":
       self = .enum(jsValue["value"].toString())
     case "ListValue":
-      self = .list(.fromJSValue(jsValue["value"], bridge: bridge))
+      var value = jsValue["value"]
+      if value.isUndefined {
+        value = jsValue["values"]
+      }
+      self = .list(.fromJSValue(value, bridge: bridge))
     case "ObjectValue":
       self = .object(.fromJSValue(jsValue["value"], bridge: bridge))
     default:
