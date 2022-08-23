@@ -82,26 +82,30 @@ public struct MockCacheKeyProvider {
 
 // MARK: - Custom Mock Schemas
 
-public enum MockSchema1: SchemaConfiguration {
+public enum MockSchema1: SchemaMetadata {
+  public static var configuration: SchemaConfiguration.Type = MockSchema1Configuration.self
+
   public static func objectType(forTypename __typename: String) -> Object? {
     Object(typename: __typename, implementedInterfaces: [])
   }
 }
 
-public extension MockSchema1 {
-  static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
+public enum MockSchema1Configuration: SchemaConfiguration {
+  public static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
     CacheKeyInfo(key: "one")
   }
 }
 
-public enum MockSchema2: SchemaConfiguration {
+public enum MockSchema2: SchemaMetadata {
+  public static var configuration: SchemaConfiguration.Type = MockSchema2Configuration.self
+
   public static func objectType(forTypename __typename: String) -> Object? {
     Object(typename: __typename, implementedInterfaces: [])
   }
 }
 
-public extension MockSchema2 {
-  static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
+public enum MockSchema2Configuration: SchemaConfiguration {
+  public static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
     CacheKeyInfo(key: "two")
   }
 }
