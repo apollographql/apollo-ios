@@ -6,7 +6,10 @@
 ///
 /// The generated schema also provides an entry point for customizing the cache key resolution
 /// for the types in the schema, which is used by `NormalizedCache` mechanisms.
-public protocol SchemaConfiguration {
+public protocol SchemaMetadata {
+
+  static var configuration: SchemaConfiguration.Type { get }
+
   /// Maps each object in a `GraphQLResponse` to the ``Object`` type representing the
   /// response object.
   ///
@@ -18,7 +21,9 @@ public protocol SchemaConfiguration {
   /// schema. If the schema does not include a known ``Object`` with the given ``Object/typename``,
   /// returns `nil`.
   static func objectType(forTypename typename: String) -> Object?
+}
 
+public protocol SchemaConfiguration {
   /// The entry point for configuring the cache key resolution
   /// for the types in the schema, which is used by `NormalizedCache` mechanisms.
   ///
@@ -37,7 +42,7 @@ public protocol SchemaConfiguration {
   static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo?
 }
 
-extension SchemaConfiguration {
+extension SchemaMetadata {
 
   /// A convenience function for getting the ``Object`` type representing a response object.
   ///
@@ -69,7 +74,7 @@ extension SchemaConfiguration {
   /// `NormalizedCache` mechanisms.
   @inlinable public static func cacheKey(for object: JSONObject) -> CacheReference? {
     guard let type = graphQLType(for: object),
-          let info = cacheKeyInfo(for: type, object: object) else {
+          let info = configuration.cacheKeyInfo(for: type, object: object) else {
       return nil
     }
     return CacheReference("\(info.uniqueKeyGroupId ?? type.typename):\(info.key)")

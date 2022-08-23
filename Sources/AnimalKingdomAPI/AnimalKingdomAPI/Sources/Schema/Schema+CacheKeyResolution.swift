@@ -7,8 +7,8 @@
 
 import ApolloAPI
 
-public extension AnimalKingdomAPI.Schema {
-  static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
+public enum SchemaConfiguration: ApolloAPI.SchemaConfiguration {
+  public static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
     // Implement this function to configure cache key resolution for your schema types.
     return nil
   }
