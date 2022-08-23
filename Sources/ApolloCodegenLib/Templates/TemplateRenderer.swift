@@ -12,18 +12,18 @@ enum TemplateTarget: Equatable {
   case testMockFile
 
   enum SchemaFileType: Equatable {
-    case schema
+    case schemaMetadata
+    case schemaConfiguration
     case object
     case interface
     case union
     case `enum`
     case customScalar
     case inputObject
-    case cacheKeyResolutionExtension
 
     var namespaceComponent: String? {      
       switch self {
-      case .schema, .enum, .customScalar, .inputObject, .cacheKeyResolutionExtension:
+      case .schemaMetadata, .enum, .customScalar, .inputObject, .schemaConfiguration:
         return nil
       case .object:
         return "Objects"
@@ -80,7 +80,7 @@ extension TemplateRenderer {
 
   private func renderSchemaFile(_ type: TemplateTarget.SchemaFileType) -> String {
     let namespace: String? = {
-      if case .cacheKeyResolutionExtension = type {
+      if case .schemaConfiguration = type {
         return nil
       }
 

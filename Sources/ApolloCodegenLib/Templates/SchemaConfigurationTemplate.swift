@@ -1,14 +1,14 @@
 import Foundation
 
 /// Renders the Cache Key Resolution extension for a generated schema.
-struct SchemaCacheKeyResolutionTemplate: TemplateRenderer {
+struct SchemaConfigurationTemplate: TemplateRenderer {
 
   /// Source IR schema.
   let schema: IR.Schema
   /// Shared codegen configuration
   let config: ApolloCodegen.ConfigurationContext
 
-  let target: TemplateTarget = .schemaFile(type: .cacheKeyResolutionExtension)
+  let target: TemplateTarget = .schemaFile(type: .schemaConfiguration)
 
   var headerTemplate: TemplateString? {
     HeaderCommentTemplate.editableFileHeader(

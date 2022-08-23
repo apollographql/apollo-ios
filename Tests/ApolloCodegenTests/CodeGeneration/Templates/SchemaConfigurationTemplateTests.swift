@@ -3,8 +3,8 @@ import Nimble
 @testable import ApolloCodegenLib
 import ApolloCodegenInternalTestHelpers
 
-class SchemaCacheKeyResolutionTemplateTests: XCTestCase {
-  var subject: SchemaCacheKeyResolutionTemplate!
+class SchemaConfigurationTemplateTests: XCTestCase {
+  var subject: SchemaConfigurationTemplate!
 
   override func tearDown() {
     subject = nil
@@ -18,7 +18,7 @@ class SchemaCacheKeyResolutionTemplateTests: XCTestCase {
     name: String = "testSchema",
     config: ApolloCodegenConfiguration = ApolloCodegenConfiguration.mock()
   ) {
-    subject = SchemaCacheKeyResolutionTemplate(
+    subject = SchemaConfigurationTemplate(
       schema: IR.Schema(name: name, referencedTypes: .init([])),
       config: ApolloCodegen.ConfigurationContext(config: config)
     )

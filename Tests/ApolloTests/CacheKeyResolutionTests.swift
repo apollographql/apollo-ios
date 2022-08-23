@@ -6,20 +6,20 @@ import ApolloInternalTestHelpers
 class CacheKeyResolutionTests: XCTestCase {
 
   func test__schemaConfiguration__givenData_whenCacheKeyInfoIsNil_shouldReturnNil() {
-    MockSchemaConfiguration.stub_cacheKeyInfoForType_Object = { _, _ in nil }
+    MockSchemaMetadata.stub_cacheKeyInfoForType_Object = { _, _ in nil }
 
     let object: JSONObject = [
       "id": "α"
     ]
 
-    let actual = MockSchemaConfiguration.cacheKey(for: object)
+    let actual = MockSchemaMetadata.cacheKey(for: object)
 
     expect(actual).to(beNil())
   }
 
   func test__schemaConfiguration__givenData_whenUnknownType_withCacheKeyInfoForUnknownType_shouldReturnInfoWithTypeName() {
-    MockSchemaConfiguration.stub_objectTypeForTypeName = { _ in nil }
-    MockSchemaConfiguration.stub_cacheKeyInfoForType_Object = { (_, json) in
+    MockSchemaMetadata.stub_objectTypeForTypeName = { _ in nil }
+    MockSchemaMetadata.stub_cacheKeyInfoForType_Object = { (_, json) in
       return try? CacheKeyInfo(jsonValue: json["id"])
     }
 
@@ -28,21 +28,21 @@ class CacheKeyResolutionTests: XCTestCase {
       "id": "ω"
     ]
 
-    let actual = MockSchemaConfiguration.cacheKey(for: object)
+    let actual = MockSchemaMetadata.cacheKey(for: object)
 
     expect(actual?.key).to(equal("Omega:ω"))
   }
 
   func test__schemaConfiguration__givenData_whenUnknownType_nilCacheKeyInfo_shouldReturnNil() {
-    MockSchemaConfiguration.stub_objectTypeForTypeName = { _ in nil }
-    MockSchemaConfiguration.stub_cacheKeyInfoForType_Object = { (_, json) in nil }
+    MockSchemaMetadata.stub_objectTypeForTypeName = { _ in nil }
+    MockSchemaMetadata.stub_cacheKeyInfoForType_Object = { (_, json) in nil }
 
     let object: JSONObject = [
       "__typename": "Omega",
       "id": "ω"
     ]
 
-    let actual = MockSchemaConfiguration.cacheKey(for: object)
+    let actual = MockSchemaMetadata.cacheKey(for: object)
 
     expect(actual).to(beNil())
   }
@@ -55,10 +55,10 @@ class CacheKeyResolutionTests: XCTestCase {
       "id": "α"
     ]
 
-    MockSchemaConfiguration.stub_objectTypeForTypeName = { _ in Alpha }
-    MockSchemaConfiguration.stub_cacheKeyInfoForType_Object = { (_, json) in nil }
+    MockSchemaMetadata.stub_objectTypeForTypeName = { _ in Alpha }
+    MockSchemaMetadata.stub_cacheKeyInfoForType_Object = { (_, json) in nil }
 
-    let actual = MockSchemaConfiguration.cacheKey(for: object)
+    let actual = MockSchemaMetadata.cacheKey(for: object)
 
     expect(actual).to(beNil())
   }
@@ -69,9 +69,9 @@ class CacheKeyResolutionTests: XCTestCase {
       "id": "β"
     ]
 
-    MockSchemaConfiguration.stub_cacheKeyInfoForType_Object = IDCacheKeyProvider.resolver
+    MockSchemaMetadata.stub_cacheKeyInfoForType_Object = IDCacheKeyProvider.resolver
 
-    let actual = MockSchemaConfiguration.cacheKey(for: object)
+    let actual = MockSchemaMetadata.cacheKey(for: object)
 
     expect(actual).to(equal(
       CacheReference("MockSchemaObject:β")
@@ -101,8 +101,8 @@ class CacheKeyResolutionTests: XCTestCase {
   func test__schemaConfiguration__givenData_whenKnownType_isCacheKeyProvider_withUniqueKeyGroupId_shouldReturnCacheReference() {
     let Delta = Object(typename: "Delta", implementedInterfaces: [])
 
-    MockSchemaConfiguration.stub_objectTypeForTypeName = { _ in Delta }
-    MockSchemaConfiguration.stub_cacheKeyInfoForType_Object = { (_, json) in
+    MockSchemaMetadata.stub_objectTypeForTypeName = { _ in Delta }
+    MockSchemaMetadata.stub_cacheKeyInfoForType_Object = { (_, json) in
         .init(key: "δ", uniqueKeyGroupId: "GreekLetters")
     }
 
@@ -111,7 +111,7 @@ class CacheKeyResolutionTests: XCTestCase {
       "lowercase": "δ"
     ]
 
-    let actual = MockSchemaConfiguration.cacheKey(for: object)
+    let actual = MockSchemaMetadata.cacheKey(for: object)
 
     expect(actual).to(equal(CacheReference("GreekLetters:δ")))
   }

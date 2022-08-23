@@ -23,7 +23,7 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
 
   private func buildSubject(
     config: ApolloCodegenConfiguration = .mock(),
-    targetFileType: TemplateTarget.SchemaFileType = .schema
+    targetFileType: TemplateTarget.SchemaFileType = .schemaMetadata
   ) -> MockFileTemplate {
     MockFileTemplate(
       target: .schemaFile(type: targetFileType),
@@ -282,7 +282,7 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
 
     for test in tests {
       let config = buildConfig(moduleType: test.schemaTypes, operations: test.operations)
-      let subject = buildSubject(config: config, targetFileType: .schema)
+      let subject = buildSubject(config: config, targetFileType: .schemaMetadata)
 
       // when
       let actual = subject.render()
@@ -358,7 +358,7 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
 
     for test in tests {
       let config = buildConfig(moduleType: test.schemaTypes, operations: test.operations)
-      let subject = buildSubject(config: config, targetFileType: .cacheKeyResolutionExtension)
+      let subject = buildSubject(config: config, targetFileType: .schemaConfiguration)
 
       // when
       let actual = subject.render()

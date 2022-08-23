@@ -259,9 +259,9 @@ public class ApolloCodegen {
       )
     }
 
-    try SchemaFileGenerator(schema: ir.schema, config: config)
+    try SchemaMetadataFileGenerator(schema: ir.schema, config: config)
       .generate(forConfig: config, fileManager: fileManager)
-    try SchemaCacheKeyResolutionFileGenerator(schema: ir.schema, config: config)
+    try SchemaConfigurationFileGenerator(schema: ir.schema, config: config)
       .generate(forConfig: config, fileManager: fileManager)
 
     try SchemaModuleFileGenerator.generate(config, fileManager: fileManager)

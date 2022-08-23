@@ -3,8 +3,8 @@ import Nimble
 @testable import ApolloCodegenLib
 import ApolloCodegenInternalTestHelpers
 
-class SchemaTemplateTests: XCTestCase {
-  var subject: SchemaTemplate!
+class SchemaMetadataTemplateTests: XCTestCase {
+  var subject: SchemaMetadataTemplate!
 
   override func tearDown() {
     subject = nil
@@ -20,7 +20,7 @@ class SchemaTemplateTests: XCTestCase {
     documentation: String? = nil,
     config: ApolloCodegenConfiguration = ApolloCodegenConfiguration.mock()
   ) {
-    subject = SchemaTemplate(
+    subject = SchemaMetadataTemplate(
       schema: IR.Schema(name: name, referencedTypes: referencedTypes, documentation: documentation),
       config: ApolloCodegen.ConfigurationContext(config: config)
     )
