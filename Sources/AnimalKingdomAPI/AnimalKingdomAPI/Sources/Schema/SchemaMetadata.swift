@@ -20,7 +20,7 @@ where Schema == AnimalKingdomAPI.SchemaMetadata {}
 public enum SchemaMetadata: ApolloAPI.SchemaMetadata {
   public static let configuration: ApolloAPI.SchemaConfiguration.Type = SchemaConfiguration.self
 
-  @inlinable public static func objectType(forTypename typename: String) -> Object? {
+  public static func objectType(forTypename typename: String) -> Object? {
     switch typename {
     case "Query": return AnimalKingdomAPI.Objects.Query
     case "Human": return AnimalKingdomAPI.Objects.Human

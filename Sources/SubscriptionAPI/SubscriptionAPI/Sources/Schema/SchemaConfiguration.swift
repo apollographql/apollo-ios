@@ -1,14 +1,14 @@
 // @generated
 // This file was automatically generated and can be edited to
-// configure cache key resolution for objects in your schema.
+// provide custom configuration for a generated GraphQL schema.
 //
 // Any changes to this file will not be overwritten by future
 // code generation execution.
 
 import ApolloAPI
 
-public extension SubscriptionAPI.Schema {
-  static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
+public enum SchemaConfiguration: ApolloAPI.SchemaConfiguration {
+  public static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
     // Implement this function to configure cache key resolution for your schema types.
     return nil
   }

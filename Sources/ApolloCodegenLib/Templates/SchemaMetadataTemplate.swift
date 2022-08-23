@@ -88,16 +88,16 @@ struct SchemaMetadataTemplate: TemplateRenderer {
   private func protocolDefinition(prefix: String?, schemaName: String) -> TemplateString {
     return TemplateString("""
       public protocol \(prefix ?? "")SelectionSet: \(apolloAPITargetName).SelectionSet & \(apolloAPITargetName).RootSelectionSet
-      where Schema == \(schemaName).Schema {}
+      where Schema == \(schemaName).SchemaMetadata {}
 
       public protocol \(prefix ?? "")InlineFragment: \(apolloAPITargetName).SelectionSet & \(apolloAPITargetName).InlineFragment
-      where Schema == \(schemaName).Schema {}
+      where Schema == \(schemaName).SchemaMetadata {}
 
       public protocol \(prefix ?? "")MutableSelectionSet: \(apolloAPITargetName).MutableRootSelectionSet
-      where Schema == \(schemaName).Schema {}
+      where Schema == \(schemaName).SchemaMetadata {}
 
       public protocol \(prefix ?? "")MutableInlineFragment: \(apolloAPITargetName).MutableSelectionSet & \(apolloAPITargetName).InlineFragment
-      where Schema == \(schemaName).Schema {}
+      where Schema == \(schemaName).SchemaMetadata {}
       """
     )
   }

@@ -104,16 +104,16 @@ class SchemaMetadataTemplateTests: XCTestCase {
 
     let expectedDetached = """
     public protocol AName_SelectionSet: ApolloAPI.SelectionSet & ApolloAPI.RootSelectionSet
-    where Schema == AName.Schema {}
+    where Schema == AName.SchemaMetadata {}
 
     public protocol AName_InlineFragment: ApolloAPI.SelectionSet & ApolloAPI.InlineFragment
-    where Schema == AName.Schema {}
+    where Schema == AName.SchemaMetadata {}
 
     public protocol AName_MutableSelectionSet: ApolloAPI.MutableRootSelectionSet
-    where Schema == AName.Schema {}
+    where Schema == AName.SchemaMetadata {}
 
     public protocol AName_MutableInlineFragment: ApolloAPI.MutableSelectionSet & ApolloAPI.InlineFragment
-    where Schema == AName.Schema {}
+    where Schema == AName.SchemaMetadata {}
     """
 
     // when
@@ -136,16 +136,16 @@ class SchemaMetadataTemplateTests: XCTestCase {
 
     let expectedTemplate = """
     public protocol SelectionSet: ApolloAPI.SelectionSet & ApolloAPI.RootSelectionSet
-    where Schema == AName.Schema {}
+    where Schema == AName.SchemaMetadata {}
 
     public protocol InlineFragment: ApolloAPI.SelectionSet & ApolloAPI.InlineFragment
-    where Schema == AName.Schema {}
+    where Schema == AName.SchemaMetadata {}
 
     public protocol MutableSelectionSet: ApolloAPI.MutableRootSelectionSet
-    where Schema == AName.Schema {}
+    where Schema == AName.SchemaMetadata {}
 
     public protocol MutableInlineFragment: ApolloAPI.MutableSelectionSet & ApolloAPI.InlineFragment
-    where Schema == AName.Schema {}
+    where Schema == AName.SchemaMetadata {}
     """
 
     // when
@@ -168,16 +168,16 @@ class SchemaMetadataTemplateTests: XCTestCase {
 
     let expectedTemplate = """
     public protocol SelectionSet: ApolloAPI.SelectionSet & ApolloAPI.RootSelectionSet
-    where Schema == AName.Schema {}
+    where Schema == AName.SchemaMetadata {}
 
     public protocol InlineFragment: ApolloAPI.SelectionSet & ApolloAPI.InlineFragment
-    where Schema == AName.Schema {}
+    where Schema == AName.SchemaMetadata {}
 
     public protocol MutableSelectionSet: ApolloAPI.MutableRootSelectionSet
-    where Schema == AName.Schema {}
+    where Schema == AName.SchemaMetadata {}
 
     public protocol MutableInlineFragment: ApolloAPI.MutableSelectionSet & ApolloAPI.InlineFragment
-    where Schema == AName.Schema {}
+    where Schema == AName.SchemaMetadata {}
     """
 
     // when
@@ -200,16 +200,16 @@ class SchemaMetadataTemplateTests: XCTestCase {
 
     let expectedTemplate = """
     public protocol SelectionSet: Apollo.SelectionSet & Apollo.RootSelectionSet
-    where Schema == AName.Schema {}
+    where Schema == AName.SchemaMetadata {}
 
     public protocol InlineFragment: Apollo.SelectionSet & Apollo.InlineFragment
-    where Schema == AName.Schema {}
+    where Schema == AName.SchemaMetadata {}
 
     public protocol MutableSelectionSet: Apollo.MutableRootSelectionSet
-    where Schema == AName.Schema {}
+    where Schema == AName.SchemaMetadata {}
 
     public protocol MutableInlineFragment: Apollo.MutableSelectionSet & Apollo.InlineFragment
-    where Schema == AName.Schema {}
+    where Schema == AName.SchemaMetadata {}
     """
 
     // when

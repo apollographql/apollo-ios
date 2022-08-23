@@ -1,6 +1,6 @@
 // @generated
 // This file was automatically generated and can be edited to
-// configure cache key resolution for objects in your schema.
+// provide custom configuration for a generated GraphQL schema.
 //
 // Any changes to this file will not be overwritten by future
 // code generation execution.
