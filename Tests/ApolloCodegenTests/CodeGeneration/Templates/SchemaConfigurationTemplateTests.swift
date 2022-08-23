@@ -16,7 +16,7 @@ class SchemaConfigurationTemplateTests: XCTestCase {
 
   private func buildSubject(
     name: String = "testSchema",
-    config: ApolloCodegenConfiguration = ApolloCodegenConfiguration.mock()
+    config: ApolloCodegenConfiguration = ApolloCodegenConfiguration.mock(.swiftPackageManager)
   ) {
     subject = SchemaConfigurationTemplate(
       schema: IR.Schema(name: name, referencedTypes: .init([])),
@@ -39,7 +39,7 @@ class SchemaConfigurationTemplateTests: XCTestCase {
     let expected = """
     // @generated
     // This file was automatically generated and can be edited to
-    // configure cache key resolution for objects in your schema.
+    // provide custom configuration for a generated GraphQL schema.
     //
     // Any changes to this file will not be overwritten by future
     // code generation execution.
@@ -55,11 +55,11 @@ class SchemaConfigurationTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
-  func test__render_givenSchemaModuleWithLowercaseName__rendersTemplateWithSchemaNameUppercased() throws {
+  func test__render__rendersTemplate() throws {
     // given
     let expected = """
-    public extension TestSchema.Schema {
-      static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
+    public enum SchemaConfiguration: ApolloAPI.SchemaConfiguration {
+      public static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
         // Implement this function to configure cache key resolution for your schema types.
         return nil
       }
@@ -68,6 +68,48 @@ class SchemaConfigurationTemplateTests: XCTestCase {
     """
 
     buildSubject()
+    // when
+
+    let actual = subject.render()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 10, ignoringExtraLines: false))
+  }
+
+  func test__render__givenModuleEmbeddedInTarget_rendersTemplate_noPublicModifier() throws {
+    // given
+    let expected = """
+    enum SchemaConfiguration: ApolloAPI.SchemaConfiguration {
+      static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
+        // Implement this function to configure cache key resolution for your schema types.
+        return nil
+      }
+    }
+
+    """
+
+    buildSubject(config: .mock(.embeddedInTarget(name: "TestTarget")))
+    // when
+
+    let actual = subject.render()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 10, ignoringExtraLines: false))
+  }
+
+  func test__render_givenCocoapodsCompatibleImportStatements_true__rendersTemplateWithApolloTargetName() throws {
+    // given
+    let expected = """
+    enum SchemaConfiguration: Apollo.SchemaConfiguration {
+      static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
+        // Implement this function to configure cache key resolution for your schema types.
+        return nil
+      }
+    }
+
+    """
+
+    buildSubject(config: .mock(options: .init(cocoapodsCompatibleImportStatements: true)))
     // when
 
     let actual = subject.render()

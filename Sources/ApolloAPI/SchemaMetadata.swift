@@ -44,7 +44,8 @@ extension SchemaMetadata {
   /// `NormalizedCache` mechanisms.
   ///
   /// Maps the type of the `object` using the ``graphQLType(for:)`` function, then gets the
-  /// ``CacheKeyInfo`` for the `object` using the ``cacheKeyInfo(for:object:)-3wf90`` function.
+  /// ``CacheKeyInfo`` for the `object` using the ``SchemaConfiguration/cacheKeyInfo(for:object:)``
+  /// function.
   /// Finally, this function transforms the ``CacheKeyInfo`` into the correct ``CacheReference``
   /// for the `NormalizedCache`.
   ///

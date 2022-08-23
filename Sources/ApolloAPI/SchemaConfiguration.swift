@@ -8,6 +8,9 @@ public protocol SchemaConfiguration {
   ///
   /// The default generated implementation always returns `nil`, disabling all cache normalization.
   ///
+  /// # See Also
+  /// ``CacheKeyInfo``
+  ///
   /// - Parameters:
   ///   - type: The ``Object`` type of the response `object`.
   ///   - object: The response object to resolve the cache key for.

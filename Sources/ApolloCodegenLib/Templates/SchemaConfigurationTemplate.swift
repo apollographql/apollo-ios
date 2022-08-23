@@ -13,15 +13,17 @@ struct SchemaConfigurationTemplate: TemplateRenderer {
   var headerTemplate: TemplateString? {
     HeaderCommentTemplate.editableFileHeader(
       fileCanBeEditedTo: """
-      configure cache key resolution for objects in your schema.
+      provide custom configuration for a generated GraphQL schema.
       """
     )
   }
 
   var template: TemplateString {
     """
-    public extension \(schema.name.firstUppercased).Schema {
-      static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
+    \(embeddedAccessControlModifier)enum SchemaConfiguration: \
+    \(ImportStatementTemplate.ApolloAPIImportTargetName(for:config)).SchemaConfiguration {
+      \(embeddedAccessControlModifier)\
+    static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
         // Implement this function to configure cache key resolution for your schema types.
         return nil
       }

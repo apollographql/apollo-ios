@@ -225,12 +225,13 @@ class SchemaMetadataTemplateTests: XCTestCase {
 
   // MARK: Schema Tests
 
-  func test__render__givenModuleSwiftPackageManager_shouldGenerateEnumDefinition_noPublicModifier() {
+  func test__render__givenModuleEmbeddedInTarget_shouldGenerateEnumDefinition_noPublicModifier() {
     // given
     buildSubject(config: .mock(.embeddedInTarget(name: "MockTarget")))
 
     let expected = """
-    enum Schema: SchemaConfiguration {
+    enum SchemaMetadata: ApolloAPI.SchemaMetadata {
+      static let configuration: ApolloAPI.SchemaConfiguration.Type = SchemaConfiguration.self
     """
 
     // when
@@ -245,7 +246,8 @@ class SchemaMetadataTemplateTests: XCTestCase {
     buildSubject(config: .mock(.swiftPackageManager))
 
     let expected = """
-    public enum Schema: SchemaConfiguration {
+    public enum SchemaMetadata: ApolloAPI.SchemaMetadata {
+      public static let configuration: ApolloAPI.SchemaConfiguration.Type = SchemaConfiguration.self
     """
 
     // when
@@ -260,7 +262,8 @@ class SchemaMetadataTemplateTests: XCTestCase {
     buildSubject(config: .mock(.other))
 
     let expected = """
-    public enum Schema: SchemaConfiguration {
+    public enum SchemaMetadata: ApolloAPI.SchemaMetadata {
+      public static let configuration: ApolloAPI.SchemaConfiguration.Type = SchemaConfiguration.self
     """
 
     // when
@@ -268,6 +271,22 @@ class SchemaMetadataTemplateTests: XCTestCase {
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
+  }
+
+  func test__render__givenCocoapodsCompatibleImportStatements_true_shouldGenerateEnumDefinition_withApolloTargetName() {
+    // given
+    buildSubject(config: .mock(options: .init(cocoapodsCompatibleImportStatements: true)))
+
+    let expected = """
+    enum SchemaMetadata: Apollo.SchemaMetadata {
+      static let configuration: Apollo.SchemaConfiguration.Type = SchemaConfiguration.self
+    """
+
+    // when
+    let actual = renderTemplate()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
   }
 
   func test__render__givenWithReferencedObjects_generatesObjectTypeFunctionCorrectlyCased() {
@@ -298,7 +317,7 @@ class SchemaMetadataTemplateTests: XCTestCase {
     let actual = renderTemplate()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 14, ignoringExtraLines: true))
   }
 
   func test__render__givenWithReferencedOtherTypes_generatesObjectTypeNotIncludingNonObjectTypesFunction() {
@@ -330,7 +349,7 @@ class SchemaMetadataTemplateTests: XCTestCase {
     let actual = renderTemplate()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 14, ignoringExtraLines: true))
   }
 
   func test__render__rendersTypeNamespaceEnums() {
@@ -358,7 +377,7 @@ class SchemaMetadataTemplateTests: XCTestCase {
     let actual = renderTemplate()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 20))
+    expect(actual).to(equalLineByLine(expected, atLine: 22))
   }
 
   func test__render__givenModuleSwiftPackageManager_rendersTypeNamespaceEnumsAsPublic() {
@@ -387,7 +406,7 @@ class SchemaMetadataTemplateTests: XCTestCase {
     let actual = renderTemplate()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 24))
+    expect(actual).to(equalLineByLine(expected, atLine: 26))
   }
 
   // MARK: Documentation Tests
@@ -402,7 +421,7 @@ class SchemaMetadataTemplateTests: XCTestCase {
 
     let expected = """
     /// \(documentation)
-    enum Schema: SchemaConfiguration {
+    enum SchemaMetadata: ApolloAPI.SchemaMetadata {
     """
 
     // when
@@ -422,7 +441,7 @@ class SchemaMetadataTemplateTests: XCTestCase {
     )
 
     let expected = """
-    enum Schema: SchemaConfiguration {
+    enum SchemaMetadata: ApolloAPI.SchemaMetadata {
     """
 
     // when

@@ -1,12 +1,12 @@
 /// Contains the information needed to resolve a ``CacheReference`` in a `NormalizedCache`.
 ///
 /// You can create and return a ``CacheKeyInfo`` from your implementation of the
-/// ``SchemaConfiguration/cacheKeyInfo(for:object:)-9cjmw`` function to configure the cache key
+/// ``SchemaConfiguration/cacheKeyInfo(for:object:)`` function to configure the cache key
 /// resolution for the types in the schema, which is used by `NormalizedCache` mechanisms.
 ///
 /// ## Cache Key Resolution
 /// You can use the ``init(jsonValue:uniqueKeyGroupId:)`` convenience initialier in the
-/// implementation of your ``SchemaConfiguration/cacheKeyInfo(for:object:)-9cjmw`` function to
+/// implementation of your ``SchemaConfiguration/cacheKeyInfo(for:object:)`` function to
 /// easily resolve the cache key for an object.
 ///
 /// For an object of the type `Dog` with a unique key represented by an `id` field, you may

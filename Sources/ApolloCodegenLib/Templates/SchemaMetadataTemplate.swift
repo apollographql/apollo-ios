@@ -39,7 +39,10 @@ struct SchemaMetadataTemplate: TemplateRenderer {
 
     \(documentation: schema.documentation, config: config)
     \(embeddedAccessControlModifier)\
-    enum Schema: SchemaConfiguration {
+    enum SchemaMetadata: \(apolloAPITargetName).SchemaMetadata {
+      \(embeddedAccessControlModifier)\
+    static let configuration: \(apolloAPITargetName).SchemaConfiguration.Type = SchemaConfiguration.self
+
       \(objectTypeFunction)
     }
 
@@ -73,14 +76,16 @@ struct SchemaMetadataTemplate: TemplateRenderer {
     return protocolDefinition(prefix: "\(schemaName)_", schemaName: schemaName)
   }
 
+  let apolloAPITargetName: String
+
   init(schema: IR.Schema, config: ApolloCodegen.ConfigurationContext) {
     self.schema = schema
     self.schemaName = schema.name.firstUppercased
     self.config = config
+    self.apolloAPITargetName = ImportStatementTemplate.ApolloAPIImportTargetName(for: config)
   }
 
   private func protocolDefinition(prefix: String?, schemaName: String) -> TemplateString {
-    let apolloAPITargetName = ImportStatementTemplate.ApolloAPIImportTargetName(forConfig: config)
     return TemplateString("""
       public protocol \(prefix ?? "")SelectionSet: \(apolloAPITargetName).SelectionSet & \(apolloAPITargetName).RootSelectionSet
       where Schema == \(schemaName).Schema {}

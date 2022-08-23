@@ -178,7 +178,6 @@
 		DE09F9BD27024FEA00795949 /* InputObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE09F9BC27024FEA00795949 /* InputObject.swift */; };
 		DE09F9C3270269E800795949 /* MockJavaScriptObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE09F9C0270269E800795949 /* MockJavaScriptObject.swift */; };
 		DE09F9C6270269F800795949 /* OperationDefinitionTemplate_DocumentType_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE09F9C5270269F800795949 /* OperationDefinitionTemplate_DocumentType_Tests.swift */; };
-		DE0BCCE127C020F300A04743 /* AnimalKingdomAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE3C7A11260A6B9800D2F4FF /* AnimalKingdomAPI.framework */; };
 		DE0D38F0282ECA6D00AFCC84 /* MockObjectFileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0D38EF282ECA6D00AFCC84 /* MockObjectFileGenerator.swift */; };
 		DE0D38F2282ECF9700AFCC84 /* MockObjectFileGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0D38F1282ECF9700AFCC84 /* MockObjectFileGeneratorTests.swift */; };
 		DE100B18287F3FB100BE11C2 /* Documentation.docc in Sources */ = {isa = PBXBuildFile; fileRef = DE100B17287F3FB100BE11C2 /* Documentation.docc */; };
@@ -900,13 +899,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = DE058606266978A100265760;
 			remoteInfo = ApolloModels;
-		};
-		DE0BCCDF27C020EE00A04743 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9FC7503B1D2A532C00458D91 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DE3C7A00260A6B9800D2F4FF;
-			remoteInfo = AnimalKingdomAPI;
 		};
 		DE6B15B226152BE10068D642 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1977,7 +1969,6 @@
 				DEAFB77F2706474C00BE02F3 /* Nimble in Frameworks */,
 				DECD49DB262F8AAA00924527 /* ApolloInternalTestHelpers.framework in Frameworks */,
 				DECD4992262F841600924527 /* ApolloCodegenInternalTestHelpers.framework in Frameworks */,
-				DE0BCCE127C020F300A04743 /* AnimalKingdomAPI.framework in Frameworks */,
 				9BAEEC01234BB8FD00808306 /* ApolloCodegenLib.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4218,7 +4209,6 @@
 				9BAEEC03234BB8FD00808306 /* PBXTargetDependency */,
 				DECD49DA262F8AA500924527 /* PBXTargetDependency */,
 				DECD4991262F841300924527 /* PBXTargetDependency */,
-				DE0BCCE027C020EE00A04743 /* PBXTargetDependency */,
 			);
 			name = ApolloCodegenTests;
 			packageProductDependencies = (
@@ -5754,11 +5744,6 @@
 			isa = PBXTargetDependency;
 			target = DE058606266978A100265760 /* ApolloAPI */;
 			targetProxy = DE05862726697B1D00265760 /* PBXContainerItemProxy */;
-		};
-		DE0BCCE027C020EE00A04743 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DE3C7A00260A6B9800D2F4FF /* AnimalKingdomAPI */;
-			targetProxy = DE0BCCDF27C020EE00A04743 /* PBXContainerItemProxy */;
 		};
 		DE6B15B326152BE10068D642 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
