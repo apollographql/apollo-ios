@@ -9,6 +9,12 @@ public struct GraphQLResultError: Error, LocalizedError
 An error which has occurred in processing a GraphQLResult
 
 ## Properties
+### `pathString`
+
+```swift
+public var pathString: String
+```
+
 ### `underlying`
 
 ```swift

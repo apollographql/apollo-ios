@@ -4,7 +4,6 @@ SDKROOT = iphoneos
 SUPPORTED_PLATFORMS = iphonesimulator iphoneos
 
 ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES
-ENABLE_BITCODE = NO
 
 INFOPLIST_FILE = Tests/TestHost iOS/Info.plist
 PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.$(PRODUCT_NAME:rfc1034identifier)
