@@ -19,7 +19,7 @@ public struct CacheReference: Hashable {
   /// ``GraphQLOperationType``.
   ///
   /// The Apollo `NormalizedCache` stores all objects that are not normalized
-  /// (ie. don't have a unique cache key provided by a ``CacheKeyProvider``)
+  /// (ie. don't have a unique cache key provided by the ``SchemaConfiguration``)
   /// with a ``CacheReference`` computed as the field path to the object from
   /// the root of the parent operation type.
   ///
@@ -54,7 +54,7 @@ public struct CacheReference: Hashable {
   /// The unique identifier for the referenced object.
   ///
   /// # See Also
-  /// ``CacheKeyProvider``
+  /// ``CacheKeyInfo``
   public let key: String
 
   /// Designated Initializer

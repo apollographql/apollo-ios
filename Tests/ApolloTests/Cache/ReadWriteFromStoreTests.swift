@@ -256,7 +256,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       static let Droid = Object(typename: "Droid", implementedInterfaces: [])
     }
 
-    MockSchemaConfiguration.stub_objectTypeForTypeName = { typename in
+    MockSchemaMetadata.stub_objectTypeForTypeName = { typename in
       switch typename {
       case "Droid": return Types.Droid
       default: return nil
@@ -264,7 +264,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     }
 
     class GivenSelectionSet: MockFragment, SelectionSet {
-      typealias Schema = MockSchemaConfiguration
+      typealias Schema = MockSchemaMetadata
 
       override class var selections: [Selection] { [
         .field("__typename", String.self),
@@ -275,7 +275,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       var asDroid: AsDroid? { _asInlineFragment() }
 
       class AsDroid: MockTypeCase, SelectionSet {
-        typealias Schema = MockSchemaConfiguration
+        typealias Schema = MockSchemaMetadata
         override class var __parentType: ParentType { Types.Droid }
 
         override class var selections: [Selection] { [
@@ -312,7 +312,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       static let Droid = Object(typename: "Droid", implementedInterfaces: [])
     }
 
-    MockSchemaConfiguration.stub_objectTypeForTypeName = { typename in
+    MockSchemaMetadata.stub_objectTypeForTypeName = { typename in
       switch typename {
       case "Droid": return Types.Droid
       default: return nil
@@ -320,7 +320,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     }
 
     class GivenSelectionSet: MockFragment, SelectionSet {
-      typealias Schema = MockSchemaConfiguration
+      typealias Schema = MockSchemaMetadata
 
       override class var selections: [Selection] { [
         .field("__typename", String.self),
@@ -331,7 +331,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       var asDroid: AsDroid? { _asInlineFragment() }
 
       class AsDroid: MockTypeCase, SelectionSet {
-        typealias Schema = MockSchemaConfiguration
+        typealias Schema = MockSchemaMetadata
         override class var __parentType: ParentType { Types.Droid }
 
         override class var selections: [Selection] { [
@@ -602,7 +602,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       static let Droid = Object(typename: "Droid", implementedInterfaces: [])
     }
 
-    MockSchemaConfiguration.stub_objectTypeForTypeName = { typename in
+    MockSchemaMetadata.stub_objectTypeForTypeName = { typename in
       switch typename {
       case "Droid": return Types.Droid
       default: return nil
@@ -700,7 +700,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       static let Droid = Object(typename: "Droid", implementedInterfaces: [])
     }
 
-    MockSchemaConfiguration.stub_objectTypeForTypeName = { typename in
+    MockSchemaMetadata.stub_objectTypeForTypeName = { typename in
       switch typename {
       case "Droid": return Types.Droid
       default: return nil
@@ -708,7 +708,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     }
 
     struct GivenFragment: MockMutableRootSelectionSet, Fragment {
-      typealias Schema = MockSchemaConfiguration
+      typealias Schema = MockSchemaMetadata
       static let fragmentDefinition: StaticString = ""
 
       var __data: DataDict = DataDict([:], variables: nil)
@@ -831,7 +831,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       static let Droid = Object(typename: "Droid", implementedInterfaces: [])
     }
 
-    MockSchemaConfiguration.stub_objectTypeForTypeName = { typename in
+    MockSchemaMetadata.stub_objectTypeForTypeName = { typename in
       switch typename {
       case "Droid": return Types.Droid
       default: return nil
@@ -839,7 +839,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     }
 
     struct GivenFragment: MockMutableRootSelectionSet, Fragment {
-      typealias Schema = MockSchemaConfiguration
+      typealias Schema = MockSchemaMetadata
       static let fragmentDefinition: StaticString = ""
 
       var __data: DataDict = DataDict([:], variables: nil)

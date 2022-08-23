@@ -9,7 +9,7 @@ class SelectionSetTests: XCTestCase {
   func test__selection_givenOptionalField_givenValue__returnsValue() {
     // given
     class Hero: MockSelectionSet, SelectionSet {
-      typealias Schema = MockSchemaConfiguration
+      typealias Schema = MockSchemaMetadata
 
       override class var selections: [Selection] {[
         .field("__typename", String.self),
@@ -34,7 +34,7 @@ class SelectionSetTests: XCTestCase {
   func test__selection_givenOptionalField_givenNilValue__returnsNil() {
     // given
     class Hero: MockSelectionSet, SelectionSet {
-      typealias Schema = MockSchemaConfiguration
+      typealias Schema = MockSchemaMetadata
 
       override class var selections: [Selection] {[
         .field("__typename", String.self),
@@ -60,7 +60,7 @@ class SelectionSetTests: XCTestCase {
   func test__selection__nestedArrayOfScalar_nonNull_givenValue__returnsValue() {
     // given
     class Hero: MockSelectionSet, SelectionSet {
-      typealias Schema = MockSchemaConfiguration
+      typealias Schema = MockSchemaMetadata
 
       override class var selections: [Selection] {[
         .field("__typename", String.self),
@@ -87,7 +87,7 @@ class SelectionSetTests: XCTestCase {
   func test__selection_givenRequiredEntityField_givenValue__returnsValue() {
     // given
     class Hero: MockSelectionSet, SelectionSet {
-      typealias Schema = MockSchemaConfiguration
+      typealias Schema = MockSchemaMetadata
 
       override class var selections: [Selection] {[
         .field("__typename", String.self),
@@ -97,7 +97,7 @@ class SelectionSetTests: XCTestCase {
       var friend: Friend { __data["friend"] }
 
       class Friend: MockSelectionSet, SelectionSet {
-        typealias Schema = MockSchemaConfiguration
+        typealias Schema = MockSchemaMetadata
 
         override class var selections: [Selection] {[
           .field("__typename", String.self),
@@ -124,7 +124,7 @@ class SelectionSetTests: XCTestCase {
   func test__selection_givenOptionalEntityField_givenValue__returnsValue() {
     // given
     class Hero: MockSelectionSet, SelectionSet {
-      typealias Schema = MockSchemaConfiguration
+      typealias Schema = MockSchemaMetadata
 
       override class var selections: [Selection] {[
         .field("__typename", String.self),
@@ -153,7 +153,7 @@ class SelectionSetTests: XCTestCase {
   func test__selection_givenOptionalEntityField_givenNilValue__returnsNil() {
     // given
     class Hero: MockSelectionSet, SelectionSet {
-      typealias Schema = MockSchemaConfiguration
+      typealias Schema = MockSchemaMetadata
 
       override class var selections: [Selection] {[
         .field("__typename", String.self),
@@ -179,7 +179,7 @@ class SelectionSetTests: XCTestCase {
   func test__selection__arrayOfEntity_nonNull_givenValue__returnsValue() {
     // given
     class Hero: MockSelectionSet, SelectionSet {
-      typealias Schema = MockSchemaConfiguration
+      typealias Schema = MockSchemaMetadata
 
       override class var selections: [Selection] {[
         .field("__typename", String.self),
@@ -217,7 +217,7 @@ class SelectionSetTests: XCTestCase {
   func test__selection__arrayOfEntity_nullableEntity_givenValue__returnsValue() {
     // given
     class Hero: MockSelectionSet, SelectionSet {
-      typealias Schema = MockSchemaConfiguration
+      typealias Schema = MockSchemaMetadata
 
       override class var selections: [Selection] {[
         .field("__typename", String.self),
@@ -255,7 +255,7 @@ class SelectionSetTests: XCTestCase {
   func test__selection__arrayOfEntity_nullableEntity_givenNilValueInList__returnsArrayWithNil() {
     // given
     class Hero: MockSelectionSet, SelectionSet {
-      typealias Schema = MockSchemaConfiguration
+      typealias Schema = MockSchemaMetadata
 
       override class var selections: [Selection] {[
         .field("__typename", String.self),
@@ -292,7 +292,7 @@ class SelectionSetTests: XCTestCase {
   func test__selection__arrayOfEntity_nullableList_givenValue__returnsValue() {
     // given
     class Hero: MockSelectionSet, SelectionSet {
-      typealias Schema = MockSchemaConfiguration
+      typealias Schema = MockSchemaMetadata
 
       override class var selections: [Selection] {[
         .field("__typename", String.self),
@@ -330,7 +330,7 @@ class SelectionSetTests: XCTestCase {
   func test__selection__arrayOfEntity_nullableList_givenNoListValue__returnsNil() {
     // given
     class Hero: MockSelectionSet, SelectionSet {
-      typealias Schema = MockSchemaConfiguration
+      typealias Schema = MockSchemaMetadata
 
       override class var selections: [Selection] {[
         .field("__typename", String.self),
@@ -356,7 +356,7 @@ class SelectionSetTests: XCTestCase {
   func test__selection__nestedArrayOfEntity_nonNull_givenValue__returnsValue() {
     // given
     class Hero: MockSelectionSet, SelectionSet {
-      typealias Schema = MockSchemaConfiguration
+      typealias Schema = MockSchemaMetadata
 
       override class var selections: [Selection] {[
         .field("__typename", String.self),
@@ -394,7 +394,7 @@ class SelectionSetTests: XCTestCase {
   func test__selection__nestedArrayOfEntity_nullableInnerList_givenValue__returnsValue() {
     // given
     class Hero: MockSelectionSet, SelectionSet {
-      typealias Schema = MockSchemaConfiguration
+      typealias Schema = MockSchemaMetadata
 
       override class var selections: [Selection] {[
         .field("__typename", String.self),
@@ -432,7 +432,7 @@ class SelectionSetTests: XCTestCase {
   func test__selection__nestedArrayOfEntity_nullableInnerList_givenNilValues__returnsListWithNils() {
     // given
     class Hero: MockSelectionSet, SelectionSet {
-      typealias Schema = MockSchemaConfiguration
+      typealias Schema = MockSchemaMetadata
 
       override class var selections: [Selection] {[
         .field("__typename", String.self),
@@ -468,7 +468,7 @@ class SelectionSetTests: XCTestCase {
   func test__selection__nestedArrayOfEntity_nullableEntity_givenValue__returnsValue() {
     // given
     class Hero: MockSelectionSet, SelectionSet {
-      typealias Schema = MockSchemaConfiguration
+      typealias Schema = MockSchemaMetadata
 
       override class var selections: [Selection] {[
         .field("__typename", String.self),
@@ -506,7 +506,7 @@ class SelectionSetTests: XCTestCase {
   func test__selection__nestedArrayOfEntity_nullableOuterList_givenValue__returnsValue() {
     // given
     class Hero: MockSelectionSet, SelectionSet {
-      typealias Schema = MockSchemaConfiguration
+      typealias Schema = MockSchemaMetadata
 
       override class var selections: [Selection] {[
         .field("__typename", String.self),
@@ -550,7 +550,7 @@ class SelectionSetTests: XCTestCase {
       static let Droid = Object(typename: "Droid", implementedInterfaces: [])
     }
 
-    MockSchemaConfiguration.stub_objectTypeForTypeName = {
+    MockSchemaMetadata.stub_objectTypeForTypeName = {
       switch $0 {
       case "Human": return Types.Human
       case "Droid": return Types.Droid
@@ -559,7 +559,7 @@ class SelectionSetTests: XCTestCase {
     }
 
     class Hero: MockSelectionSet, SelectionSet {
-      typealias Schema = MockSchemaConfiguration
+      typealias Schema = MockSchemaMetadata
 
       override class var selections: [Selection] {[
         .field("__typename", String.self),
@@ -571,7 +571,7 @@ class SelectionSetTests: XCTestCase {
       var asDroid: AsDroid? { _asInlineFragment() }
 
       class AsHuman: MockTypeCase, SelectionSet {
-        typealias Schema = MockSchemaConfiguration
+        typealias Schema = MockSchemaMetadata
 
         override class var __parentType: ParentType { Types.Human }
         override class var selections: [Selection] {[
@@ -580,7 +580,7 @@ class SelectionSetTests: XCTestCase {
       }
 
       class AsDroid: MockTypeCase, SelectionSet {
-        typealias Schema = MockSchemaConfiguration
+        typealias Schema = MockSchemaMetadata
 
         override class var __parentType: ParentType { Types.Droid }
         override class var selections: [Selection] {[
@@ -609,7 +609,7 @@ class SelectionSetTests: XCTestCase {
       static let Human = Object(typename: "Human", implementedInterfaces: [Humanoid])
     }
 
-    MockSchemaConfiguration.stub_objectTypeForTypeName = {
+    MockSchemaMetadata.stub_objectTypeForTypeName = {
       switch $0 {
       case "Human": return Types.Human
       default: XCTFail(); return nil
@@ -617,7 +617,7 @@ class SelectionSetTests: XCTestCase {
     }
 
     class Hero: MockSelectionSet, SelectionSet {
-      typealias Schema = MockSchemaConfiguration
+      typealias Schema = MockSchemaMetadata
 
       override class var selections: [Selection] {[
         .field("__typename", String.self),
@@ -627,7 +627,7 @@ class SelectionSetTests: XCTestCase {
       var asHumanoid: AsHumanoid? { _asInlineFragment() }
 
       class AsHumanoid: MockTypeCase, SelectionSet {
-        typealias Schema = MockSchemaConfiguration
+        typealias Schema = MockSchemaMetadata
 
         override class var __parentType: ParentType { Types.Humanoid }
         override class var selections: [Selection] {[
@@ -656,7 +656,7 @@ class SelectionSetTests: XCTestCase {
       static let Droid = Object(typename: "Droid", implementedInterfaces: [])
     }
 
-    MockSchemaConfiguration.stub_objectTypeForTypeName = {
+    MockSchemaMetadata.stub_objectTypeForTypeName = {
       switch $0 {
       case "Droid": return Types.Droid
       default: XCTFail(); return nil
@@ -664,7 +664,7 @@ class SelectionSetTests: XCTestCase {
     }
 
     class Hero: MockSelectionSet, SelectionSet {
-      typealias Schema = MockSchemaConfiguration
+      typealias Schema = MockSchemaMetadata
 
       override class var selections: [Selection] {[
         .field("__typename", String.self),
@@ -674,7 +674,7 @@ class SelectionSetTests: XCTestCase {
       var asHumanoid: AsHumanoid? { _asInlineFragment() }
 
       class AsHumanoid: MockTypeCase, SelectionSet {
-        typealias Schema = MockSchemaConfiguration
+        typealias Schema = MockSchemaMetadata
 
         override class var __parentType: ParentType { Types.Humanoid }
         override class var selections: [Selection] {[
@@ -703,7 +703,7 @@ class SelectionSetTests: XCTestCase {
       static let Character = Union(name: "Character", possibleTypes: [Types.Human])
     }
 
-    MockSchemaConfiguration.stub_objectTypeForTypeName = {
+    MockSchemaMetadata.stub_objectTypeForTypeName = {
       switch $0 {
       case "Human": return Types.Human
       default: XCTFail(); return nil
@@ -711,7 +711,7 @@ class SelectionSetTests: XCTestCase {
     }
 
     class Hero: MockSelectionSet, SelectionSet {
-      typealias Schema = MockSchemaConfiguration
+      typealias Schema = MockSchemaMetadata
 
       override class var selections: [Selection] {[
         .field("__typename", String.self),
@@ -721,7 +721,7 @@ class SelectionSetTests: XCTestCase {
       var asCharacter: AsCharacter? { _asInlineFragment() }
 
       class AsCharacter: MockTypeCase, SelectionSet {
-        typealias Schema = MockSchemaConfiguration
+        typealias Schema = MockSchemaMetadata
 
         override class var __parentType: ParentType { Types.Character }
         override class var selections: [Selection] {[
@@ -749,7 +749,7 @@ class SelectionSetTests: XCTestCase {
       static let Character = Union(name: "Character", possibleTypes: [])
     }
 
-    MockSchemaConfiguration.stub_objectTypeForTypeName = {
+    MockSchemaMetadata.stub_objectTypeForTypeName = {
       switch $0 {
       case "Human": return Types.Human
       default: XCTFail(); return nil
@@ -757,7 +757,7 @@ class SelectionSetTests: XCTestCase {
     }
 
     class Hero: MockSelectionSet, SelectionSet {
-      typealias Schema = MockSchemaConfiguration
+      typealias Schema = MockSchemaMetadata
 
       override class var selections: [Selection] {[
         .field("__typename", String.self),
@@ -767,7 +767,7 @@ class SelectionSetTests: XCTestCase {
       var asCharacter: AsCharacter? { _asInlineFragment() }
 
       class AsCharacter: MockTypeCase, SelectionSet {
-        typealias Schema = MockSchemaConfiguration
+        typealias Schema = MockSchemaMetadata
 
         override class var __parentType: ParentType { Types.Character }
         override class var selections: [Selection] {[
@@ -795,7 +795,7 @@ class SelectionSetTests: XCTestCase {
     class GivenFragment: MockFragment { }
 
     class Hero: MockSelectionSet, SelectionSet {
-      typealias Schema = MockSchemaConfiguration
+      typealias Schema = MockSchemaMetadata
 
       override class var selections: [Selection] {[
         .field("__typename", String.self),
@@ -827,7 +827,7 @@ class SelectionSetTests: XCTestCase {
     class GivenFragment: MockFragment { }
 
     class Hero: MockSelectionSet, SelectionSet {
-      typealias Schema = MockSchemaConfiguration
+      typealias Schema = MockSchemaMetadata
 
       override class var selections: [Selection] {[
         .field("__typename", String.self),

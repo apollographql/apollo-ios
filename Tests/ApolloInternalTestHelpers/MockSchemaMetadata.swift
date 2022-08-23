@@ -5,8 +5,11 @@ extension Object {
   public static let mock = Object(typename: "Mock", implementedInterfaces: [])
 }
 
-public class MockSchemaConfiguration: SchemaConfiguration {
+public class MockSchemaMetadata: SchemaMetadata {
   public init() { }
+
+  public static var _configuration: SchemaConfiguration.Type = SchemaConfiguration.self
+  public static var configuration: ApolloAPI.SchemaConfiguration.Type = SchemaConfiguration.self
 
   private static let testObserver = TestObserver() { _ in
     stub_objectTypeForTypeName = nil
@@ -20,15 +23,16 @@ public class MockSchemaConfiguration: SchemaConfiguration {
   }
 
   public static var stub_cacheKeyInfoForType_Object: ((Object, JSONObject) -> CacheKeyInfo?)? {
-    didSet {
-      if stub_cacheKeyInfoForType_Object != nil { testObserver.start() }
+    get {
+      _configuration.stub_cacheKeyInfoForType_Object
+    }
+    set {
+      _configuration.stub_cacheKeyInfoForType_Object = newValue
+      if newValue != nil { testObserver.start() }
     }
   }
 
-}
-
-public extension MockSchemaConfiguration {
-  static func objectType(forTypename __typename: String) -> Object? {
+  public static func objectType(forTypename __typename: String) -> Object? {
     if let stub = stub_objectTypeForTypeName {
       return stub(__typename)
     }
@@ -36,10 +40,15 @@ public extension MockSchemaConfiguration {
     return Object(typename: __typename, implementedInterfaces: [])
   }
 
-  static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
-    stub_cacheKeyInfoForType_Object?(type, object)
+  public class SchemaConfiguration: ApolloAPI.SchemaConfiguration {
+    static var stub_cacheKeyInfoForType_Object: ((Object, JSONObject) -> CacheKeyInfo?)?
+
+    public static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
+      stub_cacheKeyInfoForType_Object?(type, object)
+    }
   }
 }
+
 
 // MARK - Mock Cache Key Providers
 
@@ -73,26 +82,30 @@ public struct MockCacheKeyProvider {
 
 // MARK: - Custom Mock Schemas
 
-public enum MockSchema1: SchemaConfiguration {
+public enum MockSchema1: SchemaMetadata {
+  public static var configuration: SchemaConfiguration.Type = MockSchema1Configuration.self
+
   public static func objectType(forTypename __typename: String) -> Object? {
     Object(typename: __typename, implementedInterfaces: [])
   }
 }
 
-public extension MockSchema1 {
-  static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
+public enum MockSchema1Configuration: SchemaConfiguration {
+  public static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
     CacheKeyInfo(key: "one")
   }
 }
 
-public enum MockSchema2: SchemaConfiguration {
+public enum MockSchema2: SchemaMetadata {
+  public static var configuration: SchemaConfiguration.Type = MockSchema2Configuration.self
+
   public static func objectType(forTypename __typename: String) -> Object? {
     Object(typename: __typename, implementedInterfaces: [])
   }
 }
 
-public extension MockSchema2 {
-  static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
+public enum MockSchema2Configuration: SchemaConfiguration {
+  public static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
     CacheKeyInfo(key: "two")
   }
 }

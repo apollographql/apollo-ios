@@ -808,14 +808,14 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     }
 
     class GivenSelectionSet: MockSelectionSet, SelectionSet {
-      typealias Schema = MockSchemaConfiguration
+      typealias Schema = MockSchemaMetadata
       override class var __parentType: ParentType { Object.mock }
       override class var selections: [Selection] {[
         .field("child", Child.self),
       ]}
 
       class Child: MockSelectionSet, SelectionSet {
-        typealias Schema = MockSchemaConfiguration
+        typealias Schema = MockSchemaMetadata
 
         override class var __parentType: ParentType { Types.MockChildObject }
         override class var selections: [Selection] {[
@@ -831,7 +831,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
       }
     }
 
-    MockSchemaConfiguration.stub_objectTypeForTypeName =  { typeName in
+    MockSchemaMetadata.stub_objectTypeForTypeName =  { typeName in
       switch typeName {
       case "Human":
         return Types.Human
@@ -878,7 +878,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     }
 
     class GivenSelectionSet: MockSelectionSet, SelectionSet {
-      typealias Schema = MockSchemaConfiguration
+      typealias Schema = MockSchemaMetadata
 
       override class var __parentType: ParentType { Types.MockChildObject }
       override class var selections: [Selection] {[
@@ -893,7 +893,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
       }
     }
 
-    MockSchemaConfiguration.stub_objectTypeForTypeName =  { _ in return Types.MockChildObject }
+    MockSchemaMetadata.stub_objectTypeForTypeName =  { _ in return Types.MockChildObject }
 
     let object: JSONObject = [
       "__typename": "MockChildObject",
@@ -1079,7 +1079,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
         ]}
       }
     }
-    MockSchemaConfiguration.stub_objectTypeForTypeName = { _ in Types.Person }
+    MockSchemaMetadata.stub_objectTypeForTypeName = { _ in Types.Person }
     let object: JSONObject = ["__typename": "Person",
                               "name": "Luke Skywalker",
                               "id": "1234"]
@@ -1113,7 +1113,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
         ]}
       }
     }
-    MockSchemaConfiguration.stub_objectTypeForTypeName = { _ in Types.Person }
+    MockSchemaMetadata.stub_objectTypeForTypeName = { _ in Types.Person }
     let object: JSONObject = ["__typename": "Person",
                               "name": "Luke Skywalker",
                               "id": "1234"]
@@ -1147,7 +1147,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
         ]}
       }
     }
-    MockSchemaConfiguration.stub_objectTypeForTypeName = { _ in Object.mock }
+    MockSchemaMetadata.stub_objectTypeForTypeName = { _ in Object.mock }
     let object: JSONObject = ["__typename": "Person",
                               "name": "Luke Skywalker",
                               "id": "1234"]
@@ -1181,7 +1181,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
         ]}
       }
     }
-    MockSchemaConfiguration.stub_objectTypeForTypeName = { _ in Types.Person }
+    MockSchemaMetadata.stub_objectTypeForTypeName = { _ in Types.Person }
     let object: JSONObject = ["__typename": "Person",
                               "name": "Luke Skywalker",
                               "id": "1234"]
@@ -1215,7 +1215,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
         ]}
       }
     }
-    MockSchemaConfiguration.stub_objectTypeForTypeName = { _ in Types.Person }
+    MockSchemaMetadata.stub_objectTypeForTypeName = { _ in Types.Person }
     let object: JSONObject = ["__typename": "Person",
                               "name": "Luke Skywalker",
                               "id": "1234"]
@@ -1254,7 +1254,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
         ]}
       }
     }
-    MockSchemaConfiguration.stub_objectTypeForTypeName = { _ in Types.Person }
+    MockSchemaMetadata.stub_objectTypeForTypeName = { _ in Types.Person }
     let object: JSONObject = ["__typename": "Person",
                               "name": "Luke Skywalker",
                               "id": "1234"]

@@ -2,7 +2,7 @@ import Foundation
 
 /// Provides the format to define a schema in Swift code. The schema represents metadata used by
 /// the GraphQL executor at runtime to convert response data into corresponding Swift types.
-struct SchemaTemplate: TemplateRenderer {
+struct SchemaMetadataTemplate: TemplateRenderer {
   // IR representation of source GraphQL schema.
   let schema: IR.Schema
 
@@ -10,7 +10,7 @@ struct SchemaTemplate: TemplateRenderer {
 
   let schemaName: String
 
-  let target: TemplateTarget = .schemaFile(type: .schema)
+  let target: TemplateTarget = .schemaFile(type: .schemaMetadata)
 
   var template: TemplateString { embeddableTemplate }
 
@@ -39,7 +39,9 @@ struct SchemaTemplate: TemplateRenderer {
 
     \(documentation: schema.documentation, config: config)
     \(embeddedAccessControlModifier)\
-    enum Schema: SchemaConfiguration {
+    enum SchemaMetadata: \(apolloAPITargetName).SchemaMetadata {
+      public static let configuration: \(apolloAPITargetName).SchemaConfiguration.Type = SchemaConfiguration.self
+
       \(objectTypeFunction)
     }
 
@@ -73,26 +75,28 @@ struct SchemaTemplate: TemplateRenderer {
     return protocolDefinition(prefix: "\(schemaName)_", schemaName: schemaName)
   }
 
+  let apolloAPITargetName: String
+
   init(schema: IR.Schema, config: ApolloCodegen.ConfigurationContext) {
     self.schema = schema
     self.schemaName = schema.name.firstUppercased
     self.config = config
+    self.apolloAPITargetName = ImportStatementTemplate.ApolloAPIImportTargetName(for: config)
   }
 
   private func protocolDefinition(prefix: String?, schemaName: String) -> TemplateString {
-    let apolloAPITargetName = ImportStatementTemplate.ApolloAPIImportTargetName(forConfig: config)
     return TemplateString("""
       public protocol \(prefix ?? "")SelectionSet: \(apolloAPITargetName).SelectionSet & \(apolloAPITargetName).RootSelectionSet
-      where Schema == \(schemaName).Schema {}
+      where Schema == \(schemaName).SchemaMetadata {}
 
       public protocol \(prefix ?? "")InlineFragment: \(apolloAPITargetName).SelectionSet & \(apolloAPITargetName).InlineFragment
-      where Schema == \(schemaName).Schema {}
+      where Schema == \(schemaName).SchemaMetadata {}
 
       public protocol \(prefix ?? "")MutableSelectionSet: \(apolloAPITargetName).MutableRootSelectionSet
-      where Schema == \(schemaName).Schema {}
+      where Schema == \(schemaName).SchemaMetadata {}
 
       public protocol \(prefix ?? "")MutableInlineFragment: \(apolloAPITargetName).MutableSelectionSet & \(apolloAPITargetName).InlineFragment
-      where Schema == \(schemaName).Schema {}
+      where Schema == \(schemaName).SchemaMetadata {}
       """
     )
   }

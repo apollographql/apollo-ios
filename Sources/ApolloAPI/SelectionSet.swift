@@ -1,7 +1,7 @@
 // MARK: - Type Erased SelectionSets
 
 public protocol AnySelectionSet: SelectionSetEntityValue {
-  static var schema: SchemaConfiguration.Type { get }
+  static var schema: SchemaMetadata.Type { get }
 
   static var selections: [Selection] { get }
 
@@ -55,7 +55,7 @@ public protocol InlineFragment: AnySelectionSet { }
 
 // MARK: - SelectionSet
 public protocol SelectionSet: AnySelectionSet, Hashable {
-  associatedtype Schema: SchemaConfiguration
+  associatedtype Schema: SchemaMetadata
 
   /// A type representing all of the fragments the `SelectionSet` can be converted to.
   /// Defaults to a stub type with no fragments.
@@ -65,7 +65,7 @@ public protocol SelectionSet: AnySelectionSet, Hashable {
 
 extension SelectionSet {
 
-  @inlinable public static var schema: SchemaConfiguration.Type { Schema.self }
+  @inlinable public static var schema: SchemaMetadata.Type { Schema.self }
 
   @usableFromInline var __objectType: Object? { Schema.objectType(forTypename: __typename) }
 

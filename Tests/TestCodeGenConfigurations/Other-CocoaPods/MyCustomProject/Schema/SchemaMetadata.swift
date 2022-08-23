@@ -6,18 +6,20 @@ import Apollo
 public typealias ID = String
 
 public protocol SelectionSet: Apollo.SelectionSet & Apollo.RootSelectionSet
-where Schema == MyCustomProject.Schema {}
+where Schema == MyCustomProject.SchemaMetadata {}
 
 public protocol InlineFragment: Apollo.SelectionSet & Apollo.InlineFragment
-where Schema == MyCustomProject.Schema {}
+where Schema == MyCustomProject.SchemaMetadata {}
 
 public protocol MutableSelectionSet: Apollo.MutableRootSelectionSet
-where Schema == MyCustomProject.Schema {}
+where Schema == MyCustomProject.SchemaMetadata {}
 
 public protocol MutableInlineFragment: Apollo.MutableSelectionSet & Apollo.InlineFragment
-where Schema == MyCustomProject.Schema {}
+where Schema == MyCustomProject.SchemaMetadata {}
 
-public enum Schema: SchemaConfiguration {
+public enum SchemaMetadata: Apollo.SchemaMetadata {
+  public static let configuration: Apollo.SchemaConfiguration.Type = SchemaConfiguration.self
+
   public static func objectType(forTypename typename: String) -> Object? {
     switch typename {
     case "Query": return MyCustomProject.Objects.Query

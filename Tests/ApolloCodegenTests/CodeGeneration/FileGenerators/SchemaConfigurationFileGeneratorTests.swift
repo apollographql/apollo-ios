@@ -2,10 +2,10 @@ import XCTest
 import Nimble
 @testable import ApolloCodegenLib
 
-class SchemaFileGeneratorTests: XCTestCase {
+class SchemaConfigurationFileGeneratorTests: XCTestCase {
   let irSchema = IR.Schema(name: "MockSchema", referencedTypes: .init([]))
 
-  var subject: SchemaFileGenerator!
+  var subject: SchemaConfigurationFileGenerator!
 
   override func tearDown() {
     subject = nil
@@ -14,7 +14,7 @@ class SchemaFileGeneratorTests: XCTestCase {
   // MARK: Test Helpers
 
   private func buildSubject() {
-    subject = SchemaFileGenerator(
+    subject = SchemaConfigurationFileGenerator(
       schema: irSchema,
       config: ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration.mock())
     )
@@ -30,21 +30,21 @@ class SchemaFileGeneratorTests: XCTestCase {
     expect(self.subject.target).to(equal(.schema))
   }
 
-  func test__properties__givenIrSchema_shouldReturnFileName_matchingName() {
+  func test__properties__givenIrSchema_shouldReturnFileName_plusCacheKeyResolution() {
     // given
     buildSubject()
 
-    let expected = "Schema.swift"
+    let expected = "SchemaConfiguration.swift"
 
     // then
     expect(self.subject.fileName).to(equal(expected))
   }
 
-  func test__properties__givenGraphIrSchema_shouldOverwrite() {
+  func test__properties_overwrite__shouldBeFalse() {
     // given
     buildSubject()
 
     // then
-    expect(self.subject.overwrite).to(beTrue())
+    expect(self.subject.overwrite).to(beFalse())
   }
 }

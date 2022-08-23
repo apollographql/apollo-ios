@@ -12,18 +12,18 @@ enum TemplateTarget: Equatable {
   case testMockFile
 
   enum SchemaFileType: Equatable {
-    case schema
+    case schemaMetadata
+    case schemaConfiguration
     case object
     case interface
     case union
     case `enum`
     case customScalar
     case inputObject
-    case cacheKeyResolutionExtension
 
     var namespaceComponent: String? {      
       switch self {
-      case .schema, .enum, .customScalar, .inputObject, .cacheKeyResolutionExtension:
+      case .schemaMetadata, .enum, .customScalar, .inputObject, .schemaConfiguration:
         return nil
       case .object:
         return "Objects"
@@ -80,7 +80,7 @@ extension TemplateRenderer {
 
   private func renderSchemaFile(_ type: TemplateTarget.SchemaFileType) -> String {
     let namespace: String? = {
-      if case .cacheKeyResolutionExtension = type {
+      if case .schemaConfiguration = type {
         return nil
       }
 
@@ -100,7 +100,7 @@ extension TemplateRenderer {
     return TemplateString(
     """
     \(ifLet: headerTemplate, { "\($0)\n" })
-    \(ImportStatementTemplate.SchemaType.template(forConfig: config))
+    \(ImportStatementTemplate.SchemaType.template(for: config))
 
     \(ifLet: detachedTemplate, { "\($0)\n" })
     \(ifLet: namespace, template.wrappedInNamespace(_:), else: template)
@@ -112,7 +112,7 @@ extension TemplateRenderer {
     TemplateString(
     """
     \(ifLet: headerTemplate, { "\($0)\n" })
-    \(ImportStatementTemplate.Operation.template(forConfig: config))
+    \(ImportStatementTemplate.Operation.template(for: config))
 
     \(if: config.output.operations.isInModule && !config.output.schemaTypes.isInModule,
       template.wrappedInNamespace(config.schemaName),
@@ -135,7 +135,7 @@ extension TemplateRenderer {
     TemplateString(
     """
     \(ifLet: headerTemplate, { "\($0)\n" })
-    \(ImportStatementTemplate.TestMock.template(forConfig: config))
+    \(ImportStatementTemplate.TestMock.template(for: config))
 
     \(template)
     """
@@ -189,24 +189,24 @@ struct HeaderCommentTemplate {
 /// Provides the format to import Swift modules required by the template type.
 struct ImportStatementTemplate {
   static func ApolloAPIImportTargetName(
-    forConfig config: ApolloCodegen.ConfigurationContext
+    for config: ApolloCodegen.ConfigurationContext
   ) -> String {
     config.options.cocoapodsCompatibleImportStatements ? "Apollo" : "ApolloAPI"
   }
 
   enum SchemaType {
     static func template(
-      forConfig config: ApolloCodegen.ConfigurationContext
+      for config: ApolloCodegen.ConfigurationContext
     ) -> String {
-      "import \(ImportStatementTemplate.ApolloAPIImportTargetName(forConfig: config))"
+      "import \(ImportStatementTemplate.ApolloAPIImportTargetName(for: config))"
     }
   }
 
   enum Operation {
     static func template(
-      forConfig config: ApolloCodegen.ConfigurationContext
+      for config: ApolloCodegen.ConfigurationContext
     ) -> TemplateString {
-      let apolloAPITargetName = ImportStatementTemplate.ApolloAPIImportTargetName(forConfig: config)
+      let apolloAPITargetName = ImportStatementTemplate.ApolloAPIImportTargetName(for: config)
       return """
       import \(apolloAPITargetName)
       @_exported import enum \(apolloAPITargetName).GraphQLEnum
@@ -217,7 +217,7 @@ struct ImportStatementTemplate {
   }
 
   enum TestMock {
-    static func template(forConfig config: ApolloCodegen.ConfigurationContext) -> TemplateString {
+    static func template(for config: ApolloCodegen.ConfigurationContext) -> TemplateString {
       return """
       import \(config.options.cocoapodsCompatibleImportStatements ? "Apollo" : "ApolloTestSupport")
       import \(config.schemaModuleName)

@@ -3,8 +3,8 @@ import Nimble
 @testable import ApolloCodegenLib
 import ApolloCodegenInternalTestHelpers
 
-class SchemaTemplateTests: XCTestCase {
-  var subject: SchemaTemplate!
+class SchemaMetadataTemplateTests: XCTestCase {
+  var subject: SchemaMetadataTemplate!
 
   override func tearDown() {
     subject = nil
@@ -20,7 +20,7 @@ class SchemaTemplateTests: XCTestCase {
     documentation: String? = nil,
     config: ApolloCodegenConfiguration = ApolloCodegenConfiguration.mock()
   ) {
-    subject = SchemaTemplate(
+    subject = SchemaMetadataTemplate(
       schema: IR.Schema(name: name, referencedTypes: referencedTypes, documentation: documentation),
       config: ApolloCodegen.ConfigurationContext(config: config)
     )
@@ -104,16 +104,16 @@ class SchemaTemplateTests: XCTestCase {
 
     let expectedDetached = """
     public protocol AName_SelectionSet: ApolloAPI.SelectionSet & ApolloAPI.RootSelectionSet
-    where Schema == AName.Schema {}
+    where Schema == AName.SchemaMetadata {}
 
     public protocol AName_InlineFragment: ApolloAPI.SelectionSet & ApolloAPI.InlineFragment
-    where Schema == AName.Schema {}
+    where Schema == AName.SchemaMetadata {}
 
     public protocol AName_MutableSelectionSet: ApolloAPI.MutableRootSelectionSet
-    where Schema == AName.Schema {}
+    where Schema == AName.SchemaMetadata {}
 
     public protocol AName_MutableInlineFragment: ApolloAPI.MutableSelectionSet & ApolloAPI.InlineFragment
-    where Schema == AName.Schema {}
+    where Schema == AName.SchemaMetadata {}
     """
 
     // when
@@ -136,16 +136,16 @@ class SchemaTemplateTests: XCTestCase {
 
     let expectedTemplate = """
     public protocol SelectionSet: ApolloAPI.SelectionSet & ApolloAPI.RootSelectionSet
-    where Schema == AName.Schema {}
+    where Schema == AName.SchemaMetadata {}
 
     public protocol InlineFragment: ApolloAPI.SelectionSet & ApolloAPI.InlineFragment
-    where Schema == AName.Schema {}
+    where Schema == AName.SchemaMetadata {}
 
     public protocol MutableSelectionSet: ApolloAPI.MutableRootSelectionSet
-    where Schema == AName.Schema {}
+    where Schema == AName.SchemaMetadata {}
 
     public protocol MutableInlineFragment: ApolloAPI.MutableSelectionSet & ApolloAPI.InlineFragment
-    where Schema == AName.Schema {}
+    where Schema == AName.SchemaMetadata {}
     """
 
     // when
@@ -168,16 +168,16 @@ class SchemaTemplateTests: XCTestCase {
 
     let expectedTemplate = """
     public protocol SelectionSet: ApolloAPI.SelectionSet & ApolloAPI.RootSelectionSet
-    where Schema == AName.Schema {}
+    where Schema == AName.SchemaMetadata {}
 
     public protocol InlineFragment: ApolloAPI.SelectionSet & ApolloAPI.InlineFragment
-    where Schema == AName.Schema {}
+    where Schema == AName.SchemaMetadata {}
 
     public protocol MutableSelectionSet: ApolloAPI.MutableRootSelectionSet
-    where Schema == AName.Schema {}
+    where Schema == AName.SchemaMetadata {}
 
     public protocol MutableInlineFragment: ApolloAPI.MutableSelectionSet & ApolloAPI.InlineFragment
-    where Schema == AName.Schema {}
+    where Schema == AName.SchemaMetadata {}
     """
 
     // when
@@ -200,16 +200,16 @@ class SchemaTemplateTests: XCTestCase {
 
     let expectedTemplate = """
     public protocol SelectionSet: Apollo.SelectionSet & Apollo.RootSelectionSet
-    where Schema == AName.Schema {}
+    where Schema == AName.SchemaMetadata {}
 
     public protocol InlineFragment: Apollo.SelectionSet & Apollo.InlineFragment
-    where Schema == AName.Schema {}
+    where Schema == AName.SchemaMetadata {}
 
     public protocol MutableSelectionSet: Apollo.MutableRootSelectionSet
-    where Schema == AName.Schema {}
+    where Schema == AName.SchemaMetadata {}
 
     public protocol MutableInlineFragment: Apollo.MutableSelectionSet & Apollo.InlineFragment
-    where Schema == AName.Schema {}
+    where Schema == AName.SchemaMetadata {}
     """
 
     // when
@@ -225,12 +225,13 @@ class SchemaTemplateTests: XCTestCase {
 
   // MARK: Schema Tests
 
-  func test__render__givenModuleSwiftPackageManager_shouldGenerateEnumDefinition_noPublicModifier() {
+  func test__render__givenModuleEmbeddedInTarget_shouldGenerateEnumDefinition_noPublicModifier() {
     // given
     buildSubject(config: .mock(.embeddedInTarget(name: "MockTarget")))
 
     let expected = """
-    enum Schema: SchemaConfiguration {
+    enum SchemaMetadata: ApolloAPI.SchemaMetadata {
+      public static let configuration: ApolloAPI.SchemaConfiguration.Type = SchemaConfiguration.self
     """
 
     // when
@@ -245,7 +246,8 @@ class SchemaTemplateTests: XCTestCase {
     buildSubject(config: .mock(.swiftPackageManager))
 
     let expected = """
-    public enum Schema: SchemaConfiguration {
+    public enum SchemaMetadata: ApolloAPI.SchemaMetadata {
+      public static let configuration: ApolloAPI.SchemaConfiguration.Type = SchemaConfiguration.self
     """
 
     // when
@@ -260,7 +262,8 @@ class SchemaTemplateTests: XCTestCase {
     buildSubject(config: .mock(.other))
 
     let expected = """
-    public enum Schema: SchemaConfiguration {
+    public enum SchemaMetadata: ApolloAPI.SchemaMetadata {
+      public static let configuration: ApolloAPI.SchemaConfiguration.Type = SchemaConfiguration.self
     """
 
     // when
@@ -268,6 +271,22 @@ class SchemaTemplateTests: XCTestCase {
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
+  }
+
+  func test__render__givenCocoapodsCompatibleImportStatements_true_shouldGenerateEnumDefinition_withApolloTargetName() {
+    // given
+    buildSubject(config: .mock(options: .init(cocoapodsCompatibleImportStatements: true)))
+
+    let expected = """
+    enum SchemaMetadata: Apollo.SchemaMetadata {
+      public static let configuration: Apollo.SchemaConfiguration.Type = SchemaConfiguration.self
+    """
+
+    // when
+    let actual = renderTemplate()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
   }
 
   func test__render__givenWithReferencedObjects_generatesObjectTypeFunctionCorrectlyCased() {
@@ -298,7 +317,7 @@ class SchemaTemplateTests: XCTestCase {
     let actual = renderTemplate()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 14, ignoringExtraLines: true))
   }
 
   func test__render__givenWithReferencedOtherTypes_generatesObjectTypeNotIncludingNonObjectTypesFunction() {
@@ -330,7 +349,7 @@ class SchemaTemplateTests: XCTestCase {
     let actual = renderTemplate()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 14, ignoringExtraLines: true))
   }
 
   func test__render__rendersTypeNamespaceEnums() {
@@ -358,7 +377,7 @@ class SchemaTemplateTests: XCTestCase {
     let actual = renderTemplate()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 20))
+    expect(actual).to(equalLineByLine(expected, atLine: 22))
   }
 
   func test__render__givenModuleSwiftPackageManager_rendersTypeNamespaceEnumsAsPublic() {
@@ -387,7 +406,7 @@ class SchemaTemplateTests: XCTestCase {
     let actual = renderTemplate()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 24))
+    expect(actual).to(equalLineByLine(expected, atLine: 26))
   }
 
   // MARK: Documentation Tests
@@ -402,7 +421,7 @@ class SchemaTemplateTests: XCTestCase {
 
     let expected = """
     /// \(documentation)
-    enum Schema: SchemaConfiguration {
+    enum SchemaMetadata: ApolloAPI.SchemaMetadata {
     """
 
     // when
@@ -422,7 +441,7 @@ class SchemaTemplateTests: XCTestCase {
     )
 
     let expected = """
-    enum Schema: SchemaConfiguration {
+    enum SchemaMetadata: ApolloAPI.SchemaMetadata {
     """
 
     // when

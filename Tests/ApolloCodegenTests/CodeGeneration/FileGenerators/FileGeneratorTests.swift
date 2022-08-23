@@ -34,7 +34,7 @@ class FileGeneratorTests: XCTestCase {
   }
 
   private func buildSubject() {
-    template = MockFileTemplate.mock(target: .schemaFile(type: .schema))
+    template = MockFileTemplate.mock(target: .schemaFile(type: .schemaMetadata))
     fileTarget = .object
     subject = MockFileGenerator.mock(
       template: template,

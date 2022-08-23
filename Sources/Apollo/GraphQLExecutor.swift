@@ -15,13 +15,13 @@ typealias ReferenceResolver = (CacheReference) -> PossiblyDeferred<JSONObject>
 
 struct ObjectExecutionInfo {
   let variables: GraphQLOperation.Variables?
-  let schema: SchemaConfiguration.Type
+  let schema: SchemaMetadata.Type
   private(set) var responsePath: ResponsePath = []
   private(set) var cachePath: ResponsePath = []
 
   fileprivate init(
     variables: GraphQLOperation.Variables?,
-    schema: SchemaConfiguration.Type,
+    schema: SchemaMetadata.Type,
     responsePath: ResponsePath,
     cachePath: ResponsePath
   ) {
@@ -33,7 +33,7 @@ struct ObjectExecutionInfo {
 
   fileprivate init(
     variables: GraphQLOperation.Variables?,
-    schema: SchemaConfiguration.Type,
+    schema: SchemaMetadata.Type,
     withRootCacheReference root: CacheReference? = nil
   ) {
     self.variables = variables
@@ -280,7 +280,7 @@ final class GraphQLExecutor {
 
   private func runtimeObjectType(
     for json: JSONObject,
-    schema: SchemaConfiguration.Type
+    schema: SchemaMetadata.Type
   ) -> Object? {
     guard let __typename = json["__typename"] as? String else {
       return nil
