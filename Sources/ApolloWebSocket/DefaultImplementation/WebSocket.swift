@@ -40,7 +40,7 @@ public struct SSLSettings {
 
 //WebSocket implementation
 
-public final class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSocketStreamDelegate {
+open class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSocketStreamDelegate {
 
   public enum OpCode : UInt8 {
     case continueFrame = 0x0
@@ -312,7 +312,7 @@ public final class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSock
     dequeueWrite(string.data(using: String.Encoding.utf8)!, code: .textFrame, writeCompletion: completion)
   }
 
-  public func write(string: String) {
+  open func write(string: String) {
     self.write(string: string, completion: nil)
   }
 

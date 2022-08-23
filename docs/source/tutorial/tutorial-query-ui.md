@@ -144,7 +144,7 @@ Build and run the application. After the query completes, a list of launch sites
 
 <img src="images/list_sites_success.png" alt="List of launch sites" class="screenshot" width="300"/>
 
-However, if you attempt to tap one of the rows, the app displays the detail with the the placeholder text you can see in the storyboard, instead of any actual information about the launch:
+However, if you attempt to tap one of the rows, the app displays the detail view controller with the placeholder text you can see in the storyboard, instead of any actual information about the launch:
 
 
 <img src="images/stock_detail_view.png" alt="Placeholder detail content" class="screenshot" width="300"/>
