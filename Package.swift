@@ -20,7 +20,7 @@ let package = Package(
     .library(name: "ApolloWebSocket", targets: ["ApolloWebSocket"]),
     .library(name: "ApolloTestSupport", targets: ["ApolloTestSupport"]),
     .executable(name: "apollo-ios-cli", targets: ["apollo-ios-cli"]),
-    .plugin(name: "CodegenPlugin-Initialize", targets: ["CodegenPlugin-Initialize"]),
+    .plugin(name: "ApolloCodegenPlugin-Initialize", targets: ["ApolloCodegenPlugin-Initialize"]),
   ],
   dependencies: [
     .package(
@@ -108,10 +108,10 @@ let package = Package(
         "Info.plist",
       ]),
     .plugin(
-      name: "CodegenPlugin-Initialize",
+      name: "ApolloCodegenPlugin-Initialize",
       capability: .command(
         intent: .custom(
-          verb: "init-codegen-config",
+          verb: "apollo-codegen-config-init",
           description: "Initialize a new code generation configuration with defaults.")),
       dependencies: [
         "apollo-ios-cli"
