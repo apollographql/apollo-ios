@@ -209,14 +209,39 @@ class InputObjectTemplateTests: XCTestCase {
         defaultValue: nil
       ),
       GraphQLInputField.mock(
+        "customScalarField",
+        type: .scalar(.mock(name: "CustomScalar")),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "lowercaseCustomScalarField",
+        type: .scalar(.mock(name: "lowercaseCustomScalar")),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
         "enumField",
-        type: .enum(.mock(name: "EnumValue")),
+        type: .enum(.mock(name: "EnumType")),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "lowercaseEnumField",
+        type: .enum(.mock(name: "lowercaseEnumType")),
         defaultValue: nil
       ),
       GraphQLInputField.mock(
         "inputField",
         type: .inputObject(.mock(
           "InnerInputObject",
+          fields: [
+            GraphQLInputField.mock("innerStringField", type: .scalar(.string()), defaultValue: nil)
+          ]
+        )),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "lowercaseInputField",
+        type: .inputObject(.mock(
+          "lowercaseInnerInputObject",
           fields: [
             GraphQLInputField.mock("innerStringField", type: .scalar(.string()), defaultValue: nil)
           ]
@@ -236,8 +261,12 @@ class InputObjectTemplateTests: XCTestCase {
         intField: GraphQLNullable<Int> = nil,
         boolField: GraphQLNullable<Bool> = nil,
         floatField: GraphQLNullable<Double> = nil,
-        enumField: GraphQLNullable<GraphQLEnum<TestSchema.EnumValue>> = nil,
+        customScalarField: GraphQLNullable<TestSchema.CustomScalar> = nil,
+        lowercaseCustomScalarField: GraphQLNullable<TestSchema.LowercaseCustomScalar> = nil,
+        enumField: GraphQLNullable<GraphQLEnum<TestSchema.EnumType>> = nil,
+        lowercaseEnumField: GraphQLNullable<GraphQLEnum<TestSchema.LowercaseEnumType>> = nil,
         inputField: GraphQLNullable<TestSchema.InnerInputObject> = nil,
+        lowercaseInputField: GraphQLNullable<TestSchema.LowercaseInnerInputObject> = nil,
         listField: GraphQLNullable<[String?]> = nil
       ) {
         __data = InputDict([
@@ -245,8 +274,12 @@ class InputObjectTemplateTests: XCTestCase {
           "intField": intField,
           "boolField": boolField,
           "floatField": floatField,
+          "customScalarField": customScalarField,
+          "lowercaseCustomScalarField": lowercaseCustomScalarField,
           "enumField": enumField,
+          "lowercaseEnumField": lowercaseEnumField,
           "inputField": inputField,
+          "lowercaseInputField": lowercaseInputField,
           "listField": listField
         ])
       }
@@ -271,14 +304,34 @@ class InputObjectTemplateTests: XCTestCase {
         set { __data.floatField = newValue }
       }
 
-      public var enumField: GraphQLNullable<GraphQLEnum<TestSchema.EnumValue>> {
+      public var customScalarField: GraphQLNullable<TestSchema.CustomScalar> {
+        get { __data.customScalarField }
+        set { __data.customScalarField = newValue }
+      }
+
+      public var lowercaseCustomScalarField: GraphQLNullable<TestSchema.LowercaseCustomScalar> {
+        get { __data.lowercaseCustomScalarField }
+        set { __data.lowercaseCustomScalarField = newValue }
+      }
+
+      public var enumField: GraphQLNullable<GraphQLEnum<TestSchema.EnumType>> {
         get { __data.enumField }
         set { __data.enumField = newValue }
+      }
+
+      public var lowercaseEnumField: GraphQLNullable<GraphQLEnum<TestSchema.LowercaseEnumType>> {
+        get { __data.lowercaseEnumField }
+        set { __data.lowercaseEnumField = newValue }
       }
 
       public var inputField: GraphQLNullable<TestSchema.InnerInputObject> {
         get { __data.inputField }
         set { __data.inputField = newValue }
+      }
+
+      public var lowercaseInputField: GraphQLNullable<TestSchema.LowercaseInnerInputObject> {
+        get { __data.lowercaseInputField }
+        set { __data.lowercaseInputField = newValue }
       }
 
       public var listField: GraphQLNullable<[String?]> {

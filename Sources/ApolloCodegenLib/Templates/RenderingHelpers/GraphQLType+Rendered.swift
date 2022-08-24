@@ -51,22 +51,22 @@ extension GraphQLType {
 
     switch self {
     case let .entity(type as GraphQLNamedType):
-      let typeName = newTypeName ?? type.swiftName
+      let typeName = newTypeName ?? type.swiftName.firstUppercased
       return containedInNonNull ? typeName : "\(typeName)?"
 
     case let .inputObject(type as GraphQLNamedType):
-      let typeName = newTypeName ?? type.swiftName
+      let typeName = newTypeName ?? type.swiftName.firstUppercased
       return TemplateString("\(schemaModuleName)\(typeName)\(if: !containedInNonNull, "?")").description
 
     case let .scalar(type):
-      let typeName = newTypeName ?? type.swiftName
+      let typeName = newTypeName ?? type.swiftName.firstUppercased
 
       return TemplateString(
         "\(if: !type.isSwiftType, "\(schemaModuleName)")\(typeName)\(if: !containedInNonNull, "?")"
       ).description
 
     case let .enum(type as GraphQLNamedType):
-      let typeName = newTypeName ?? type.name
+      let typeName = newTypeName ?? type.name.firstUppercased
       let enumType = "GraphQLEnum<\(schemaModuleName)\(typeName)>"
 
       return containedInNonNull ? enumType : "\(enumType)?"
@@ -104,18 +104,18 @@ extension GraphQLType {
 
     switch self {
     case let .entity(type as GraphQLNamedType), let .inputObject(type as GraphQLNamedType):
-      let typeName = newTypeName ?? type.swiftName
+      let typeName = newTypeName ?? type.swiftName.firstUppercased
       return TemplateString("\(typeName)\(if: !containedInNonNull, "?")").description
 
     case let .scalar(type):
-      let typeName = newTypeName ?? type.swiftName
+      let typeName = newTypeName ?? type.swiftName.firstUppercased
 
       return TemplateString(
         "\(if: !type.isSwiftType, "\(schemaModuleName)")\(typeName)\(if: !containedInNonNull, "?")"
       ).description
 
     case let .enum(type as GraphQLNamedType):
-      let typeName = newTypeName ?? type.name
+      let typeName = newTypeName ?? type.name.firstUppercased
       let enumType = "GraphQLEnum<\(schemaModuleName)\(typeName)>"
 
       return containedInNonNull ? enumType : "\(enumType)?"
