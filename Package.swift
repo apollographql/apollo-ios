@@ -21,6 +21,8 @@ let package = Package(
     .library(name: "ApolloTestSupport", targets: ["ApolloTestSupport"]),
     .executable(name: "apollo-ios-cli", targets: ["apollo-ios-cli"]),
     .plugin(name: "ApolloCodegenPlugin-Initialize", targets: ["ApolloCodegenPlugin-Initialize"]),
+    .plugin(name: "ApolloCodegenPlugin-Fetch", targets: ["ApolloCodegenPlugin-Fetch"]),
+    .plugin(name: "ApolloCodegenPlugin-Generate", targets: ["ApolloCodegenPlugin-Generate"]),
   ],
   dependencies: [
     .package(
@@ -111,8 +113,26 @@ let package = Package(
       name: "ApolloCodegenPlugin-Initialize",
       capability: .command(
         intent: .custom(
-          verb: "apollo-codegen-config-init",
+          verb: "apollo-initialize-codegen-config",
           description: "Initialize a new code generation configuration with defaults.")),
+      dependencies: [
+        "apollo-ios-cli"
+      ]),
+    .plugin(
+      name: "ApolloCodegenPlugin-Fetch",
+      capability: .command(
+        intent: .custom(
+          verb: "apollo-fetch-schema",
+          description: "Download a GraphQL schema from the Apollo Registry or via GraphQL introspection.")),
+      dependencies: [
+        "apollo-ios-cli"
+      ]),
+    .plugin(
+      name: "ApolloCodegenPlugin-Generate",
+      capability: .command(
+        intent: .custom(
+          verb: "apollo-generate-swift",
+          description: "Generate Swift code for the configured GraphQL schema and operations.")),
       dependencies: [
         "apollo-ios-cli"
       ]),
