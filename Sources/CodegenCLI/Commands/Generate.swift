@@ -2,11 +2,11 @@ import Foundation
 import ArgumentParser
 import ApolloCodegenLib
 
-struct Generate: ParsableCommand {
+public struct Generate: ParsableCommand {
 
   // MARK: - Configuration
   
-  static var configuration = CommandConfiguration(
+  public static var configuration = CommandConfiguration(
     abstract: "Generate Swift source code based on a code generation configuration."
   )
 
@@ -20,7 +20,9 @@ struct Generate: ParsableCommand {
 
   // MARK: - Implementation
 
-  func run() throws {
+  public init() { }
+
+  public func run() throws {
     try _run()
   }
 

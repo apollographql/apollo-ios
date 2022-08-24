@@ -19,7 +19,7 @@ let package = Package(
     .library(name: "ApolloSQLite", targets: ["ApolloSQLite"]),
     .library(name: "ApolloWebSocket", targets: ["ApolloWebSocket"]),
     .library(name: "ApolloTestSupport", targets: ["ApolloTestSupport"]),
-    .executable(name: "apollo-ios-cli", targets: ["CodegenCLI"]),
+    .executable(name: "apollo-ios-cli", targets: ["apollo-ios-cli"]),
   ],
   dependencies: [
     .package(
@@ -82,11 +82,22 @@ let package = Package(
       ]),
     .target(
       name: "ApolloTestSupport",
-      dependencies: ["ApolloAPI"],
+      dependencies: [
+        "ApolloAPI"
+      ],
       exclude: [
         "Info.plist"
       ]),
     .executableTarget(
+      name: "apollo-ios-cli",
+      dependencies: [
+        "CodegenCLI",
+        .product(name: "ArgumentParser", package: "swift-argument-parser"),
+      ],
+      exclude: [
+        "README.md",
+      ]),
+    .target(
       name: "CodegenCLI",
       dependencies: [
         "ApolloCodegenLib",
@@ -94,7 +105,6 @@ let package = Package(
       ],
       exclude: [
         "Info.plist",
-        "README.md"
       ]),
   ]
 )

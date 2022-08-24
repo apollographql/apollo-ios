@@ -2,11 +2,11 @@ import Foundation
 import ArgumentParser
 import ApolloCodegenLib
 
-struct FetchSchema: ParsableCommand {
+public struct FetchSchema: ParsableCommand {
 
   // MARK: - Configuration
 
-  static var configuration = CommandConfiguration(
+  public static var configuration = CommandConfiguration(
     commandName: "fetch-schema",
     abstract: "Download a GraphQL schema from the Apollo Registry or GraphQL introspection."
   )
@@ -15,7 +15,9 @@ struct FetchSchema: ParsableCommand {
 
   // MARK: - Implementation
 
-  func run() throws {
+  public init() { }
+
+  public func run() throws {
     try _run()
   }
 
