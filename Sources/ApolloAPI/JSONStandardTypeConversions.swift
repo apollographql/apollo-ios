@@ -16,7 +16,7 @@ extension String: JSONDecodable, JSONEncodable {
     case let int as Int:
       self = String(int)
     case let int64 as Int64:
-      self = String(int)
+      self = String(int64)
     case let double as Double:
       self = String(double)
     default:
