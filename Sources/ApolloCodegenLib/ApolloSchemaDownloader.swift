@@ -49,8 +49,8 @@ public struct ApolloSchemaDownloader {
     try FileManager.default.apollo.createContainingFolderIfNeeded(for: configuration.outputURL)
 
     switch configuration.downloadMethod {
-    case .introspection(let endpointURL, let httpMethod):
-      try self.downloadViaIntrospection(from: endpointURL, httpMethod: httpMethod, configuration: configuration)
+    case .introspection(let endpointURL, let httpMethod, let includeDeprecatedInputValues):
+      try self.downloadViaIntrospection(from: endpointURL, httpMethod: httpMethod, includeDeprecatedInputValues: includeDeprecatedInputValues, configuration: configuration)
     case .apolloRegistry(let settings):
       try self.downloadFromRegistry(with: settings, configuration: configuration)
     }
@@ -174,8 +174,16 @@ public struct ApolloSchemaDownloader {
 
   // MARK: - Schema Introspection
   
-  static let IntrospectionQuery = """
-    query IntrospectionQuery {
+  static func introspectionQuery(includeDeprecatedInputValues: Bool) -> String {
+    let inputDeprecationArgs = includeDeprecatedInputValues ? "(includeDeprecated: true)" : ""
+    let inputValueDeprecationFields = includeDeprecatedInputValues ?
+    """
+    isDeprecated
+    deprecationReason
+    """ : ""
+    
+    return """
+        query IntrospectionQuery {
           __schema {
             queryType { name }
             mutationType { name }
@@ -200,7 +208,7 @@ public struct ApolloSchemaDownloader {
           fields(includeDeprecated: true) {
             name
             description
-            args {
+            args\(inputDeprecationArgs) {
               ...InputValue
             }
             type {
@@ -209,7 +217,7 @@ public struct ApolloSchemaDownloader {
             isDeprecated
             deprecationReason
           }
-          inputFields {
+          inputFields\(inputDeprecationArgs) {
             ...InputValue
           }
           interfaces {
@@ -230,6 +238,7 @@ public struct ApolloSchemaDownloader {
           description
           type { ...TypeRef }
           defaultValue
+          \(inputValueDeprecationFields)
         }
         fragment TypeRef on __Type {
           kind
@@ -264,15 +273,16 @@ public struct ApolloSchemaDownloader {
           }
         }
     """
-  
+  }
   
   static func downloadViaIntrospection(from endpointURL: URL,
                                        httpMethod: ApolloSchemaDownloadConfiguration.DownloadMethod.HTTPMethod,
+                                       includeDeprecatedInputValues: Bool,
                                        configuration: ApolloSchemaDownloadConfiguration) throws {
 
     CodegenLogger.log("Downloading schema via introspection from \(endpointURL)", logLevel: .debug)
 
-    let urlRequest = try introspectionRequest(from: endpointURL, httpMethod: httpMethod, headers: configuration.headers)
+    let urlRequest = try introspectionRequest(from: endpointURL, httpMethod: httpMethod, includeDeprecatedInputValues: includeDeprecatedInputValues, headers: configuration.headers)
     let jsonOutputURL = configuration.outputURL.apollo.parentFolderURL().appendingPathComponent("introspection_response.json")
     
     try URLDownloader().downloadSynchronously(with: urlRequest,
@@ -286,12 +296,13 @@ public struct ApolloSchemaDownloader {
 
   static func introspectionRequest(from endpointURL: URL,
                                    httpMethod: ApolloSchemaDownloadConfiguration.DownloadMethod.HTTPMethod,
+                                   includeDeprecatedInputValues: Bool,
                                    headers: [ApolloSchemaDownloadConfiguration.HTTPHeader]) throws -> URLRequest {
     let urlRequest: URLRequest
 
     switch httpMethod {
     case .POST:
-      let requestBody = UntypedGraphQLRequestBodyCreator.requestBody(for: self.IntrospectionQuery,
+      let requestBody = UntypedGraphQLRequestBodyCreator.requestBody(for: introspectionQuery(includeDeprecatedInputValues: includeDeprecatedInputValues),
                                                               variables: nil,
                                                               operationName: "IntrospectionQuery")
       let bodyData = try JSONSerialization.data(withJSONObject: requestBody, options: [.sortedKeys])
@@ -304,7 +315,7 @@ public struct ApolloSchemaDownloader {
       guard var components = URLComponents(url: endpointURL, resolvingAgainstBaseURL: true) else {
         throw SchemaDownloadError.couldNotCreateURLComponentsFromEndpointURL(url: endpointURL)
       }
-      components.queryItems = [URLQueryItem(name: queryParameterName, value: IntrospectionQuery)]
+      components.queryItems = [URLQueryItem(name: queryParameterName, value: introspectionQuery(includeDeprecatedInputValues: includeDeprecatedInputValues))]
 
       guard let url = components.url else {
         throw SchemaDownloadError.couldNotGetURLFromURLComponents(components: components)
