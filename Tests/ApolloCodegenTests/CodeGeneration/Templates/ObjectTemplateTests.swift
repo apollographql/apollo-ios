@@ -56,7 +56,7 @@ class ObjectTemplateTests: XCTestCase {
 
     let expected = """
     static let Dog = Object(
-      typename: "Dog",
+      typename: "dog",
     """
 
     // when

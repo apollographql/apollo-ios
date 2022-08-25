@@ -303,9 +303,9 @@ class SchemaMetadataTemplateTests: XCTestCase {
     let expected = """
       public static func objectType(forTypename typename: String) -> Object? {
         switch typename {
-        case "ObjA": return ObjectSchema.Objects.ObjA
-        case "ObjB": return ObjectSchema.Objects.ObjB
-        case "ObjC": return ObjectSchema.Objects.ObjC
+        case "objA": return ObjectSchema.Objects.ObjA
+        case "objB": return ObjectSchema.Objects.ObjB
+        case "objC": return ObjectSchema.Objects.ObjC
         default: return nil
         }
       }
