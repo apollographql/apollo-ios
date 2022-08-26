@@ -18,4 +18,10 @@ struct InputOptions: ParsableArguments {
     help: "Configuration string in JSON format. This option overrides --path."
   )
   var string: String?
+
+  @Flag(
+    name: .shortAndLong,
+    help: "Increase verbosity to include debug output."
+  )
+  var verbose: Bool = false
 }

@@ -21,6 +21,7 @@ class GenerateTests: XCTestCase {
     // then
     expect(command.inputs.path).to(equal(Constants.defaultFilePath))
     expect(command.inputs.string).to(beNil())
+    expect(command.inputs.verbose).to(beFalse())
   }
 
   func test__parsing__givenParameters_pathLongFormat_shouldParse() throws {
@@ -107,6 +108,32 @@ class GenerateTests: XCTestCase {
 
     // then
     expect(command.fetchSchema).to(beTrue())
+  }
+
+  func test__parsing__givenParameters_verboseLongFormat_shouldParse() throws {
+    // given
+    let options = [
+      "--verbose"
+    ]
+
+    // when
+    let command = try parse(options)
+
+    // then
+    expect(command.inputs.verbose).to(beTrue())
+  }
+
+  func test__parsing__givenParameters_verboseShortFormat_shouldParse() throws {
+    // given
+    let options = [
+      "-v"
+    ]
+
+    // when
+    let command = try parse(options)
+
+    // then
+    expect(command.inputs.verbose).to(beTrue())
   }
 
   func test__parsing__givenParameters_unknown_shouldThrow() throws {
