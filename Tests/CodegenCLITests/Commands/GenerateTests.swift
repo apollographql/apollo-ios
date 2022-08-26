@@ -376,4 +376,73 @@ class GenerateTests: XCTestCase {
     expect(didCallBuild).to(beFalse())
     expect(didCallFetch).to(beFalse())
   }
+
+  func test__generate__givenDefaultParameter_verbose_shouldSetLogLevelWarning() throws {
+    // given
+    let mockConfiguration = ApolloCodegenConfiguration.mock()
+
+    let jsonString = String(
+      data: try! JSONEncoder().encode(mockConfiguration),
+      encoding: .utf8
+    )!
+
+    let options = [
+      "--string=\(jsonString)"
+    ]
+
+    MockApolloCodegen.buildHandler = { configuration in }
+    MockApolloSchemaDownloader.fetchHandler = { configuration in }
+
+    var level: CodegenLogger.LogLevel?
+    MockLogLevelSetter.levelHandler = { value in
+      level = value
+    }
+
+    // when
+    let command = try parse(options)
+
+    try command._run(
+      codegenProvider: MockApolloCodegen.self,
+      schemaDownloadProvider: MockApolloSchemaDownloader.self,
+      logger: CodegenLogger.mock
+    )
+
+    // then
+    expect(level).toEventually(equal(.warning))
+  }
+
+  func test__generate__givenParameter_verbose_shouldSetLogLevelDebug() throws {
+    // given
+    let mockConfiguration = ApolloCodegenConfiguration.mock()
+
+    let jsonString = String(
+      data: try! JSONEncoder().encode(mockConfiguration),
+      encoding: .utf8
+    )!
+
+    let options = [
+      "--string=\(jsonString)",
+      "--verbose"
+    ]
+
+    MockApolloCodegen.buildHandler = { configuration in }
+    MockApolloSchemaDownloader.fetchHandler = { configuration in }
+
+    var level: CodegenLogger.LogLevel?
+    MockLogLevelSetter.levelHandler = { value in
+      level = value
+    }
+
+    // when
+    let command = try parse(options)
+
+    try command._run(
+      codegenProvider: MockApolloCodegen.self,
+      schemaDownloadProvider: MockApolloSchemaDownloader.self,
+      logger: CodegenLogger.mock
+    )
+
+    // then
+    expect(level).toEventually(equal(.debug))
+  }
 }

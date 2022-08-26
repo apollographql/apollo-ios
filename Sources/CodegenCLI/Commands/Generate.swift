@@ -29,8 +29,11 @@ public struct Generate: ParsableCommand {
   func _run(
     fileManager: FileManager = .default,
     codegenProvider: CodegenProvider.Type = ApolloCodegen.self,
-    schemaDownloadProvider: SchemaDownloadProvider.Type = ApolloSchemaDownloader.self
+    schemaDownloadProvider: SchemaDownloadProvider.Type = ApolloSchemaDownloader.self,
+    logger: LogLevelSetter.Type = CodegenLogger.self
   ) throws {
+    logger.SetLoggingLevel(verbose: inputs.verbose)
+
     switch (inputs.string, inputs.path) {
     case let (.some(string), _):
       try generate(
@@ -55,8 +58,6 @@ public struct Generate: ParsableCommand {
     schemaDownloadProvider: SchemaDownloadProvider.Type
   ) throws {
     let configuration = try JSONDecoder().decode(ApolloCodegenConfiguration.self, from: data)
-
-    CodegenLogger.level = .warning
 
     if fetchSchema {
       guard

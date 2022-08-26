@@ -23,8 +23,11 @@ public struct FetchSchema: ParsableCommand {
 
   func _run(
     fileManager: FileManager = .default,
-    schemaDownloadProvider: SchemaDownloadProvider.Type = ApolloSchemaDownloader.self
+    schemaDownloadProvider: SchemaDownloadProvider.Type = ApolloSchemaDownloader.self,
+    logger: LogLevelSetter.Type = CodegenLogger.self
   ) throws {
+    logger.SetLoggingLevel(verbose: inputs.verbose)
+
     switch (inputs.string, inputs.path) {
     case let (.some(string), _):
       try fetchSchema(data: try string.asData(), schemaDownloadProvider: schemaDownloadProvider)
@@ -48,8 +51,6 @@ public struct FetchSchema: ParsableCommand {
         """
       )
     }
-
-    CodegenLogger.level = .warning
 
     try schemaDownloadProvider.fetch(
       configuration: schemaDownloadConfiguration,
