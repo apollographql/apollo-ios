@@ -29,7 +29,7 @@ public class MockWebSocket: WebSocketClient {
   open func write(ping: Data, completion: (() -> ())?) {
   }
 
-  public func disconnect() {
+  public func disconnect(forceTimeout: TimeInterval?) {
   }
   
   public func connect() {

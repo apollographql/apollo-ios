@@ -14,7 +14,7 @@ struct ObjectTemplate: TemplateRenderer {
     """
     \(documentation: graphqlObject.documentation, config: config)
     static let \(graphqlObject.name.firstUppercased) = Object(
-      typename: "\(graphqlObject.name.firstUppercased)\",
+      typename: "\(graphqlObject.name)\",
       implementedInterfaces: \(ImplementedInterfacesTemplate())
     )
     """

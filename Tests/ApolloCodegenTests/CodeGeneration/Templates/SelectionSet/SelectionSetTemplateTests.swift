@@ -378,9 +378,11 @@ class SelectionSetTemplateTests: XCTestCase {
       custom_optional: Custom
       custom_required_list: [Custom!]!
       custom_optional_list: [Custom!]
+      lowercaseCustom: lowercaseCustom!
     }
 
     scalar Custom
+    scalar lowercaseCustom
     """
 
     document = """
@@ -390,6 +392,7 @@ class SelectionSetTemplateTests: XCTestCase {
         custom_optional
         custom_required_list
         custom_optional_list
+        lowercaseCustom
       }
     }
     """
@@ -400,6 +403,7 @@ class SelectionSetTemplateTests: XCTestCase {
         .field("custom_optional", TestSchema.Custom?.self),
         .field("custom_required_list", [TestSchema.Custom].self),
         .field("custom_optional_list", [TestSchema.Custom]?.self),
+        .field("lowercaseCustom", TestSchema.LowercaseCustom.self),
       ] }
     """
 
@@ -409,6 +413,7 @@ class SelectionSetTemplateTests: XCTestCase {
         .field("custom_optional", Custom?.self),
         .field("custom_required_list", [Custom].self),
         .field("custom_optional_list", [Custom]?.self),
+        .field("lowercaseCustom", LowercaseCustom.self),
       ] }
     """
 
@@ -448,6 +453,7 @@ class SelectionSetTemplateTests: XCTestCase {
     type Animal {
       testEnum: TestEnum!
       testEnumOptional: TestEnumOptional
+      lowercaseEnum: lowercaseEnum!
     }
 
     enum TestEnum {
@@ -457,6 +463,10 @@ class SelectionSetTemplateTests: XCTestCase {
     enum TestEnumOptional {
       CASE_ONE
     }
+
+    enum lowercaseEnum {
+      CASE_ONE
+    }
     """
 
     document = """
@@ -464,6 +474,7 @@ class SelectionSetTemplateTests: XCTestCase {
       allAnimals {
         testEnum
         testEnumOptional
+        lowercaseEnum
       }
     }
     """
@@ -472,6 +483,7 @@ class SelectionSetTemplateTests: XCTestCase {
       public static var selections: [Selection] { [
         .field("testEnum", GraphQLEnum<TestEnum>.self),
         .field("testEnumOptional", GraphQLEnum<TestEnumOptional>?.self),
+        .field("lowercaseEnum", GraphQLEnum<LowercaseEnum>.self),
       ] }
     """
 
@@ -479,6 +491,7 @@ class SelectionSetTemplateTests: XCTestCase {
       public static var selections: [Selection] { [
         .field("testEnum", GraphQLEnum<TestSchema.TestEnum>.self),
         .field("testEnumOptional", GraphQLEnum<TestSchema.TestEnumOptional>?.self),
+        .field("lowercaseEnum", GraphQLEnum<TestSchema.LowercaseEnum>.self),
       ] }
     """
 
@@ -593,7 +606,12 @@ class SelectionSetTemplateTests: XCTestCase {
 
     type Animal {
       predator: Animal!
+      lowercaseType: lowercaseType!
       species: String!
+    }
+
+    type lowercaseType {
+      a: String!
     }
     """
 
@@ -603,6 +621,9 @@ class SelectionSetTemplateTests: XCTestCase {
         predator {
           species
         }
+        lowercaseType {
+          a
+        }
       }
     }
     """
@@ -610,6 +631,7 @@ class SelectionSetTemplateTests: XCTestCase {
     let expected = """
       public static var selections: [Selection] { [
         .field("predator", Predator.self),
+        .field("lowercaseType", LowercaseType.self),
       ] }
     """
 
@@ -1754,9 +1776,11 @@ class SelectionSetTemplateTests: XCTestCase {
       custom_optional: Custom
       custom_required_list: [Custom!]!
       custom_optional_list: [Custom!]
+      lowercaseScalar: lowercaseScalar!
     }
 
     scalar Custom
+    scalar lowercaseScalar
     """
 
     document = """
@@ -1766,6 +1790,7 @@ class SelectionSetTemplateTests: XCTestCase {
         custom_optional
         custom_required_list
         custom_optional_list
+        lowercaseScalar
       }
     }
     """
@@ -1775,6 +1800,7 @@ class SelectionSetTemplateTests: XCTestCase {
       public var custom_optional: TestSchema.Custom? { __data["custom_optional"] }
       public var custom_required_list: [TestSchema.Custom] { __data["custom_required_list"] }
       public var custom_optional_list: [TestSchema.Custom]? { __data["custom_optional_list"] }
+      public var lowercaseScalar: TestSchema.LowercaseScalar { __data["lowercaseScalar"] }
     """
 
     let expectedNoNamespace = """
@@ -1782,6 +1808,7 @@ class SelectionSetTemplateTests: XCTestCase {
       public var custom_optional: Custom? { __data["custom_optional"] }
       public var custom_required_list: [Custom] { __data["custom_required_list"] }
       public var custom_optional_list: [Custom]? { __data["custom_optional_list"] }
+      public var lowercaseScalar: LowercaseScalar { __data["lowercaseScalar"] }
     """
 
     let tests: [(config: ApolloCodegenConfiguration.FileOutput, expected: String)] = [
@@ -1806,7 +1833,7 @@ class SelectionSetTemplateTests: XCTestCase {
       let actual = subject.render(field: allAnimals)
 
       // then
-      expect(actual).to(equalLineByLine(test.expected, atLine: 14, ignoringExtraLines: true))
+      expect(actual).to(equalLineByLine(test.expected, atLine: 15, ignoringExtraLines: true))
     }
   }
 
@@ -1820,6 +1847,7 @@ class SelectionSetTemplateTests: XCTestCase {
     type Animal {
       testEnum: TestEnum!
       testEnumOptional: TestEnumOptional
+      lowercaseEnum: lowercaseEnum!
     }
 
     enum TestEnum {
@@ -1829,6 +1857,10 @@ class SelectionSetTemplateTests: XCTestCase {
     enum TestEnumOptional {
       CASE_ONE
     }
+
+    enum lowercaseEnum {
+      CASE_ONE
+    }
     """
 
     document = """
@@ -1836,6 +1868,7 @@ class SelectionSetTemplateTests: XCTestCase {
       allAnimals {
         testEnum
         testEnumOptional
+        lowercaseEnum
       }
     }
     """
@@ -1843,11 +1876,13 @@ class SelectionSetTemplateTests: XCTestCase {
     let expectedWithNamespace = """
       public var testEnum: GraphQLEnum<TestSchema.TestEnum> { __data["testEnum"] }
       public var testEnumOptional: GraphQLEnum<TestSchema.TestEnumOptional>? { __data["testEnumOptional"] }
+      public var lowercaseEnum: GraphQLEnum<TestSchema.LowercaseEnum> { __data["lowercaseEnum"] }
     """
 
     let expectedNoNamespace = """
       public var testEnum: GraphQLEnum<TestEnum> { __data["testEnum"] }
       public var testEnumOptional: GraphQLEnum<TestEnumOptional>? { __data["testEnumOptional"] }
+      public var lowercaseEnum: GraphQLEnum<LowercaseEnum> { __data["lowercaseEnum"] }
     """
 
     let tests: [(config: ApolloCodegenConfiguration.FileOutput, expected: String)] = [
@@ -1872,7 +1907,7 @@ class SelectionSetTemplateTests: XCTestCase {
       let actual = subject.render(field: allAnimals)
 
       // then
-      expect(actual).to(equalLineByLine(test.expected, atLine: 12, ignoringExtraLines: true))
+      expect(actual).to(equalLineByLine(test.expected, atLine: 13, ignoringExtraLines: true))
     }
   }
 
@@ -2365,6 +2400,11 @@ class SelectionSetTemplateTests: XCTestCase {
     interface Animal {
       species: String!
       predator: Animal!
+      lowercaseType: lowercaseType!
+    }
+
+    type lowercaseType {
+      a: String!
     }
     """
 
@@ -2374,12 +2414,16 @@ class SelectionSetTemplateTests: XCTestCase {
         predator {
           species
         }
+        lowercaseType {
+          a
+        }
       }
     }
     """
 
     let expected = """
       public var predator: Predator { __data["predator"] }
+      public var lowercaseType: LowercaseType { __data["lowercaseType"] }
     """
 
     // when
@@ -2391,7 +2435,7 @@ class SelectionSetTemplateTests: XCTestCase {
     let actual = subject.render(field: allAnimals)
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))
   }
 
   func test__render_fieldAccessors__givenDirectEntityFieldWithAlias_rendersFieldAccessor() throws {

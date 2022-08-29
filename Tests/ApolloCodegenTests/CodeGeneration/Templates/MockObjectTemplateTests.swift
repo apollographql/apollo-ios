@@ -139,6 +139,39 @@ class MockObjectTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
   }
 
+  func test_render_givenFieldsWithLowercaseTypeNames_generatesFieldAccessors() {
+    // given
+    buildSubject(moduleType: .swiftPackageManager)
+
+    let Cat: GraphQLType = .entity(.mock("cat"))
+
+    subject.graphqlObject.fields = [
+      "customScalar": .mock("customScalar", type: .nonNull(.scalar(.mock(name: "customScalar")))),
+      "enumType": .mock("enumType", type: .enum(.mock(name: "enumType"))),
+      "object": .mock("object", type: Cat),
+    ]
+
+    ir.fieldCollector.add(
+      fields: subject.graphqlObject.fields.values.map {
+        .mock($0.name, type: $0.type)
+      },
+      to: subject.graphqlObject
+    )
+
+    let expected = """
+      public struct MockFields {
+        @Field<CustomScalar>("customScalar") public var customScalar
+        @Field<GraphQLEnum<EnumType>>("enumType") public var enumType
+        @Field<Cat>("object") public var object
+      }
+    """
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
+  }
+
   func test_render_givenFieldsWithSwiftReservedKeyworkNames_generatesFieldsEscapedWithBackticks() {
     // given
     buildSubject(moduleType: .swiftPackageManager)
