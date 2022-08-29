@@ -1,7 +1,5 @@
 import ArgumentParser
 
-#warning("TODO - We should be able to pass `--verbose` to set the `CodegenLogger.level = .debug` instead of the default of `.warning`.")
-
 /// Shared group of common arguments used in commands for input parameters.
 struct InputOptions: ParsableArguments {
   @Option(

@@ -131,7 +131,7 @@ let package = Package(
       name: "ApolloCodegenPlugin-Generate",
       capability: .command(
         intent: .custom(
-          verb: "apollo-generate-swift",
+          verb: "apollo-generate",
           description: "Generate Swift code for the configured GraphQL schema and operations.")),
       dependencies: [
         "apollo-ios-cli"
