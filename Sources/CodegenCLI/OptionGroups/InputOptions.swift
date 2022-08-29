@@ -1,7 +1,5 @@
 import ArgumentParser
 
-#warning("TODO - We should be able to pass `--verbose` to set the `CodegenLogger.level = .debug` instead of the default of `.warning`.")
-
 /// Shared group of common arguments used in commands for input parameters.
 struct InputOptions: ParsableArguments {
   @Option(
@@ -18,4 +16,10 @@ struct InputOptions: ParsableArguments {
     help: "Configuration string in JSON format. This option overrides --path."
   )
   var string: String?
+
+  @Flag(
+    name: .shortAndLong,
+    help: "Increase verbosity to include debug output."
+  )
+  var verbose: Bool = false
 }

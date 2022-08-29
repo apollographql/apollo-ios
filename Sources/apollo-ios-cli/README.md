@@ -36,12 +36,14 @@ OPTIONS:
 ```
 OVERVIEW: Generate Swift source code based on a code generation configuration.
 
-USAGE: apollo-ios-cli generate [--path <path>] [--string <string>] [--fetch-schema]
+USAGE: apollo-ios-cli generate [--path <path>] [--string <string>] [--verbose] [--fetch-schema]
 
 OPTIONS:
-  -p, --path <path>       Read the configuration from a file at the path. --string overrides this option if used together.
-                          (default: ./apollo-codegen-config.json)
+  -p, --path <path>       Read the configuration from a file at the path. --string
+                          overrides this option if used together. (default:
+                          ./apollo-codegen-config.json)
   -s, --string <string>   Configuration string in JSON format. This option overrides --path.
+  -v, --verbose           Increase verbosity to include debug output
   -f, --fetch-schema      Fetch the GraphQL schema before Swift code generation.
   --version               Show the version.
   -h, --help              Show help information.
@@ -51,12 +53,14 @@ OPTIONS:
 ```
 OVERVIEW: Download a GraphQL schema from the Apollo Registry or GraphQL introspection.
 
-USAGE: apollo-ios-cli fetch-schema [--path <path>] [--string <string>]
+USAGE: apollo-ios-cli fetch-schema [--path <path>] [--string <string>] [--verbose]
 
 OPTIONS:
-  -p, --path <path>       Read the configuration from a file at the path. --string overrides this option if used together.
-                          (default: ./apollo-codegen-config.json)
+  -p, --path <path>       Read the configuration from a file at the path. --string
+                          overrides this option if used together. (default:
+                          ./apollo-codegen-config.json)
   -s, --string <string>   Configuration string in JSON format. This option overrides --path.
+  -v, --verbose           Increase verbosity to include debug output
   --version               Show the version.
   -h, --help              Show help information.
 ```
