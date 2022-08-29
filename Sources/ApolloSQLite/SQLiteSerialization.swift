@@ -6,7 +6,7 @@ import Apollo
 
 private let serializedReferenceKey = "$reference"
 
-final class SQLiteSerialization {
+enum SQLiteSerialization {
   static func serialize(fields: Record.Fields) throws -> Data {
     let jsonObject = try fields.compactMapValues(serialize(fieldValue:))
     return try JSONSerialization.data(withJSONObject: jsonObject, options: [])
