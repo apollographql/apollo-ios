@@ -120,7 +120,7 @@
     {
       "identifiers" : [
         "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketClient\/connect()",
-        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketClient\/disconnect()",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketClient\/disconnect(forceTimeout:)",
         "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketClient\/write(ping:completion:)",
         "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketClient\/write(string:)"
       ],
@@ -366,7 +366,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocketclient\/delegate"
 },
-"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketClient/disconnect()": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketClient/disconnect(forceTimeout:)": {
   "abstract" : [
     {
       "text" : "Disconnects from the websocket server.",
@@ -388,16 +388,33 @@
     },
     {
       "kind" : "text",
-      "text" : "()"
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "forceTimeout"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:@T@NSTimeInterval",
+      "text" : "TimeInterval"
+    },
+    {
+      "kind" : "text",
+      "text" : "?)"
     }
   ],
-  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketClient\/disconnect()",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketClient\/disconnect(forceTimeout:)",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
-  "title" : "disconnect()",
+  "title" : "disconnect(forceTimeout:)",
   "type" : "topic",
-  "url" : "\/documentation\/apollowebsocket\/websocketclient\/disconnect()"
+  "url" : "\/documentation\/apollowebsocket\/websocketclient\/disconnect(forcetimeout:)"
 },
 "doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketClient/request": {
   "abstract" : [

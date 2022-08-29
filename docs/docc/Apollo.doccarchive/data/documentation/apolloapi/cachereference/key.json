@@ -101,8 +101,9 @@
         {
           "inlineContent" : [
             {
-              "code" : "CacheKeyProvider",
-              "type" : "codeVoice"
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheKeyInfo",
+              "isActive" : true,
+              "type" : "reference"
             }
           ],
           "type" : "paragraph"
@@ -184,6 +185,57 @@
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/CacheKeyInfo": {
+  "abstract" : [
+    {
+      "text" : "Contains the information needed to resolve a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheReference",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " in a ",
+      "type" : "text"
+    },
+    {
+      "code" : "NormalizedCache",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CacheKeyInfo"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheKeyInfo",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CacheKeyInfo"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CacheKeyInfo",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/cachekeyinfo"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/CacheReference": {
   "abstract" : [

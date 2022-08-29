@@ -128,7 +128,6 @@
     {
       "identifiers" : [
         "doc:\/\/Apollo\/documentation\/Apollo\/CacheKey",
-        "doc:\/\/Apollo\/documentation\/Apollo\/CacheKeyForObject",
         "doc:\/\/Apollo\/documentation\/Apollo\/DidChangeKeysFunc",
         "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResultHandler"
       ],
@@ -505,48 +504,6 @@
   "title" : "CacheKey",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/cachekey"
-},
-"doc://Apollo/documentation/Apollo/CacheKeyForObject": {
-  "abstract" : [
-    {
-      "text" : "A function that returns a cache key for a particular result object. If it returns ",
-      "type" : "text"
-    },
-    {
-      "code" : "nil",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ", a default cache key based on the field path will be used.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "CacheKeyForObject"
-    }
-  ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CacheKeyForObject",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "CacheKeyForObject"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "CacheKeyForObject",
-  "type" : "topic",
-  "url" : "\/documentation\/apollo\/cachekeyforobject"
 },
 "doc://Apollo/documentation/Apollo/CachePolicy": {
   "abstract" : [

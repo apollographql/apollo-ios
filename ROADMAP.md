@@ -24,7 +24,7 @@ These are the three guiding principles we aim for in each major release:
 
 ## 1.0 - _In Beta release phase_
 
-[Beta 2 is available](https://github.com/apollographql/apollo-ios/releases/tag/1.0.0-beta.2), please try it and give us your feedback.
+[Beta 3 is available](https://github.com/apollographql/apollo-ios/releases/tag/1.0.0-beta.3), please try it and give us your feedback.
 
 These are the major initiatives planned for 1.0/1.x:
 

@@ -15,11 +15,11 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketClient\/disconnect()"
+    "url" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketClient\/disconnect(forceTimeout:)"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:15ApolloWebSocket0bC6ClientP10disconnectyyF",
+    "externalID" : "s:15ApolloWebSocket0bC6ClientP10disconnect12forceTimeoutySdSg_tF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -35,7 +35,24 @@
       },
       {
         "kind" : "text",
-        "text" : "()"
+        "text" : "("
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "forceTimeout"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "c:@T@NSTimeInterval",
+        "text" : "TimeInterval"
+      },
+      {
+        "kind" : "text",
+        "text" : "?)"
       }
     ],
     "modules" : [
@@ -47,7 +64,7 @@
     "role" : "symbol",
     "roleHeading" : "Instance Method",
     "symbolKind" : "method",
-    "title" : "disconnect()"
+    "title" : "disconnect(forceTimeout:)"
   },
   "primaryContentSections" : [
     {
@@ -74,7 +91,24 @@
             },
             {
               "kind" : "text",
-              "text" : "()"
+              "text" : "("
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "forceTimeout"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "c:@T@NSTimeInterval",
+              "text" : "TimeInterval"
+            },
+            {
+              "kind" : "text",
+              "text" : "?)"
             }
           ]
         }
@@ -93,7 +127,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/apollowebsocket\/websocketclient\/disconnect()"
+        "\/documentation\/apollowebsocket\/websocketclient\/disconnect(forcetimeout:)"
       ],
       "traits" : [
         {
@@ -181,7 +215,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocketclient"
 },
-"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketClient/disconnect()": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketClient/disconnect(forceTimeout:)": {
   "abstract" : [
     {
       "text" : "Disconnects from the websocket server.",
@@ -203,16 +237,33 @@
     },
     {
       "kind" : "text",
-      "text" : "()"
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "forceTimeout"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:@T@NSTimeInterval",
+      "text" : "TimeInterval"
+    },
+    {
+      "kind" : "text",
+      "text" : "?)"
     }
   ],
-  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketClient\/disconnect()",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketClient\/disconnect(forceTimeout:)",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
-  "title" : "disconnect()",
+  "title" : "disconnect(forceTimeout:)",
   "type" : "topic",
-  "url" : "\/documentation\/apollowebsocket\/websocketclient\/disconnect()"
+  "url" : "\/documentation\/apollowebsocket\/websocketclient\/disconnect(forcetimeout:)"
 }
 }
 }
