@@ -6,20 +6,20 @@ This is the third Beta Release of Apollo iOS 1.0. The Beta version has full feat
 
 This first major version will include a new code generation engine, better generated models, and many syntax and performance improvements across the entire library. The primary goal of Apollo iOS 1.0 is to stabilize the API of the model layer and provide a foundation for future feature additions and evolution of the library.
 
-**Breaking: Changed the generated Schema files** 
+* **Breaking: Changed the generated Schema files** 
   * The schema will now have two generated files, `SchemaMetadata.swift` and `SchemaConfiguration.swift.`
   * We wanted to more clearly separate the parts of the schema that are generated for you (metadata) from the parts that you can configure yourself (configuration).    
   * **If you were using the last beta, you’ll need to move your cache key resolution logic into `SchemaConfiguration.swift`. You should also delete the old generated files.*
   * *We will be implementing automatic deletion of generated files that should no longer be part of your project in a future beta, so you won't need to delete those files manually anymore.*
-**New: Added SPM Plugin for Code Generation CLI**
+* **New: Added SPM Plugin for Code Generation CLI**
   * When including Apollo iOS via Swift Package Manager, the Code Generation CLI is now accessible as an SPM Plugin.
   * After installing the `apollo-ios` package, run `swift package --disable-sandbox apollo-initialize-codegen-config` to create the codegen configuration file.
   * Then you can run `swift package --disable-sandbox apollo-generate` to run code generation.
   * The `--disable-sandbox` or `--allow-writing-to-directory .` arguments must be used when running the Code Generation CLI via the SPM plugin to give the plugin permission to write the generated files to the output directory configured in your codegen configuration file. 
-**Fixed: Compilation errors when schema types had lowercase names**
-**Fixed: Codegen engine crashing in specific situations** 
+* **Fixed: Compilation errors when schema types had lowercase names**
+* **Fixed: Codegen engine crashing in specific situations** 
   * There were some bugs in the codegen compiler when merging nested fragments with non-matching parent types and using default values for input object list fields.
-**Fixed: Issues with websocket reconnections** Thanks [@STomperi](https://github.com/STomperi) for the fix!
+* **Fixed: Issues with websocket reconnections** Thanks [@STomperi](https://github.com/STomperi) for the fix!
 
 ## v1.0.0-beta.2
 
