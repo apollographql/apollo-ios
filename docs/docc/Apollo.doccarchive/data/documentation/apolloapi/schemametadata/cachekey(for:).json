@@ -1,15 +1,28 @@
 {
   "abstract" : [
     {
-      "text" : "Inherited from ",
+      "text" : "Resolves the ",
       "type" : "text"
     },
     {
-      "code" : "SchemaConfiguration.cacheKeyInfo(for:object:)",
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheReference",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " for an object in a GraphQL response to be used by",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "code" : "NormalizedCache",
       "type" : "codeVoice"
     },
     {
-      "text" : ".",
+      "text" : " mechanisms.",
       "type" : "text"
     }
   ],
@@ -17,19 +30,18 @@
     "paths" : [
       [
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SchemaConfiguration",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SchemaConfiguration\/cacheKeyInfo(for:object:)-3wf90"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SchemaMetadata"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SchemaConfiguration\/cacheKeyInfo(for:object:)-9cjmw"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SchemaMetadata\/cacheKey(for:)"
   },
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "ApolloAPI",
-    "externalID" : "s:9ApolloAPI19SchemaConfigurationPAAE12cacheKeyInfo3for6objectAA05CachefG0VSgAA6ObjectV_SDySSs11AnyHashableVGtFZ",
+    "externalID" : "s:9ApolloAPI14SchemaMetadataPAAE8cacheKey3forAA14CacheReferenceVSgSDySSs11AnyHashableVG_tFZ",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -49,7 +61,7 @@
       },
       {
         "kind" : "identifier",
-        "text" : "cacheKeyInfo"
+        "text" : "cacheKey"
       },
       {
         "kind" : "text",
@@ -58,23 +70,6 @@
       {
         "kind" : "externalParam",
         "text" : "for"
-      },
-      {
-        "kind" : "text",
-        "text" : ": "
-      },
-      {
-        "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:9ApolloAPI6ObjectV",
-        "text" : "Object"
-      },
-      {
-        "kind" : "text",
-        "text" : ", "
-      },
-      {
-        "kind" : "externalParam",
-        "text" : "object"
       },
       {
         "kind" : "text",
@@ -91,8 +86,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:9ApolloAPI12CacheKeyInfoV",
-        "text" : "CacheKeyInfo"
+        "preciseIdentifier" : "s:9ApolloAPI14CacheReferenceV",
+        "text" : "CacheReference"
       },
       {
         "kind" : "text",
@@ -107,7 +102,7 @@
     "role" : "symbol",
     "roleHeading" : "Type Method",
     "symbolKind" : "method",
-    "title" : "cacheKeyInfo(for:object:)"
+    "title" : "cacheKey(for:)"
   },
   "primaryContentSections" : [
     {
@@ -138,7 +133,7 @@
             },
             {
               "kind" : "identifier",
-              "text" : "cacheKeyInfo"
+              "text" : "cacheKey"
             },
             {
               "kind" : "text",
@@ -154,24 +149,6 @@
             },
             {
               "kind" : "internalParam",
-              "text" : "type"
-            },
-            {
-              "kind" : "text",
-              "text" : ": "
-            },
-            {
-              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Object",
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:9ApolloAPI6ObjectV",
-              "text" : "Object"
-            },
-            {
-              "kind" : "text",
-              "text" : ", "
-            },
-            {
-              "kind" : "externalParam",
               "text" : "object"
             },
             {
@@ -189,10 +166,10 @@
               "text" : ") -> "
             },
             {
-              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheKeyInfo",
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheReference",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:9ApolloAPI12CacheKeyInfoV",
-              "text" : "CacheKeyInfo"
+              "preciseIdentifier" : "s:9ApolloAPI14CacheReferenceV",
+              "text" : "CacheReference"
             },
             {
               "kind" : "text",
@@ -202,6 +179,192 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "return-value",
+          "level" : 2,
+          "text" : "Return Value",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "The ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheReference",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " for the ",
+              "type" : "text"
+            },
+            {
+              "code" : "object",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " to be used by",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "code" : "NormalizedCache",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " mechanisms.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
+    },
+    {
+      "kind" : "parameters",
+      "parameters" : [
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "A ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONObject",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : " dictionary representing an object in a GraphQL response.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "object"
+        }
+      ]
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Maps the type of the ",
+              "type" : "text"
+            },
+            {
+              "code" : "object",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " using the ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SchemaMetadata\/graphQLType(for:)",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " function, then gets the",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheKeyInfo",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " for the ",
+              "type" : "text"
+            },
+            {
+              "code" : "object",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " using the ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SchemaConfiguration\/cacheKeyInfo(for:object:)",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "function.",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "Finally, this function transforms the ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheKeyInfo",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " into the correct ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheReference",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "for the ",
+              "type" : "text"
+            },
+            {
+              "code" : "NormalizedCache",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ".",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -215,7 +378,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/apolloapi\/schemaconfiguration\/cachekeyinfo(for:object:)-9cjmw"
+        "\/documentation\/apolloapi\/schemametadata\/cachekey(for:)"
       ],
       "traits" : [
         {
@@ -439,41 +602,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/object"
 },
-"doc://ApolloAPI/documentation/ApolloAPI/SchemaConfiguration": {
-  "abstract" : [
-    {
-      "text" : "A protocol that a generated GraphQL schema should conform to.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "SchemaConfiguration"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SchemaConfiguration",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "SchemaConfiguration"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "SchemaConfiguration",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/schemaconfiguration"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/SchemaConfiguration/cacheKeyInfo(for:object:)-3wf90": {
+"doc://ApolloAPI/documentation/ApolloAPI/SchemaConfiguration/cacheKeyInfo(for:object:)": {
   "abstract" : [
     {
       "text" : "The entry point for configuring the cache key resolution",
@@ -496,7 +625,6 @@
       "type" : "text"
     }
   ],
-  "defaultImplementations" : 1,
   "fragments" : [
     {
       "kind" : "keyword",
@@ -566,17 +694,75 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SchemaConfiguration\/cacheKeyInfo(for:object:)-3wf90",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SchemaConfiguration\/cacheKeyInfo(for:object:)",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
   "title" : "cacheKeyInfo(for:object:)",
   "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/schemaconfiguration\/cachekeyinfo(for:object:)-3wf90"
+  "url" : "\/documentation\/apolloapi\/schemaconfiguration\/cachekeyinfo(for:object:)"
 },
-"doc://ApolloAPI/documentation/ApolloAPI/SchemaConfiguration/cacheKeyInfo(for:object:)-9cjmw": {
+"doc://ApolloAPI/documentation/ApolloAPI/SchemaMetadata": {
   "abstract" : [
-
+    {
+      "text" : "A protocol that a generated GraphQL schema should conform to.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SchemaMetadata"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SchemaMetadata",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SchemaMetadata"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SchemaMetadata",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/schemametadata"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/SchemaMetadata/cacheKey(for:)": {
+  "abstract" : [
+    {
+      "text" : "Resolves the ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheReference",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " for an object in a GraphQL response to be used by",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "code" : "NormalizedCache",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " mechanisms.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -597,7 +783,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "cacheKeyInfo"
+      "text" : "cacheKey"
     },
     {
       "kind" : "text",
@@ -606,23 +792,6 @@
     {
       "kind" : "externalParam",
       "text" : "for"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI6ObjectV",
-      "text" : "Object"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "object"
     },
     {
       "kind" : "text",
@@ -639,20 +808,95 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI12CacheKeyInfoV",
-      "text" : "CacheKeyInfo"
+      "preciseIdentifier" : "s:9ApolloAPI14CacheReferenceV",
+      "text" : "CacheReference"
     },
     {
       "kind" : "text",
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SchemaConfiguration\/cacheKeyInfo(for:object:)-9cjmw",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SchemaMetadata\/cacheKey(for:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "cacheKeyInfo(for:object:)",
+  "title" : "cacheKey(for:)",
   "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/schemaconfiguration\/cachekeyinfo(for:object:)-9cjmw"
+  "url" : "\/documentation\/apolloapi\/schemametadata\/cachekey(for:)"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/SchemaMetadata/graphQLType(for:)": {
+  "abstract" : [
+    {
+      "text" : "A convenience function for getting the ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Object",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " type representing a response object.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "graphQLType"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "for"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI10JSONObjecta",
+      "text" : "JSONObject"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI6ObjectV",
+      "text" : "Object"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SchemaMetadata\/graphQLType(for:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "graphQLType(for:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/schemametadata\/graphqltype(for:)"
 }
 }
 }

@@ -305,8 +305,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI19SchemaConfigurationP",
-      "text" : "SchemaConfiguration"
+      "preciseIdentifier" : "s:9ApolloAPI14SchemaMetadataP",
+      "text" : "SchemaMetadata"
     },
     {
       "kind" : "text",

@@ -33,6 +33,14 @@
       "type" : "text"
     },
     {
+      "text" : "ALSO NOTE: In case pauseWebSocketConnection is called when app is backgrounded, app might get suspended within 5 seconds. In case disconnect did not complete within that time, websocket won’t resume properly. That is why forceTimeout is set to 2 seconds.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
       "text" : "ALSO NOTE: To reconnect after calling this, you will need to call ",
       "type" : "text"
     },
@@ -240,6 +248,14 @@
     },
     {
       "text" : " with code 1000) when the socket disconnects.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "ALSO NOTE: In case pauseWebSocketConnection is called when app is backgrounded, app might get suspended within 5 seconds. In case disconnect did not complete within that time, websocket won’t resume properly. That is why forceTimeout is set to 2 seconds.",
       "type" : "text"
     },
     {

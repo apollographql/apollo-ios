@@ -122,7 +122,7 @@
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SchemaConfiguration\/cacheKeyInfo(for:object:)-9cjmw",
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SchemaConfiguration\/cacheKeyInfo(for:object:)",
               "isActive" : true,
               "type" : "reference"
             },
@@ -179,7 +179,7 @@
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SchemaConfiguration\/cacheKeyInfo(for:object:)-9cjmw",
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SchemaConfiguration\/cacheKeyInfo(for:object:)",
               "isActive" : true,
               "type" : "reference"
             },
@@ -961,9 +961,28 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/object"
 },
-"doc://ApolloAPI/documentation/ApolloAPI/SchemaConfiguration/cacheKeyInfo(for:object:)-9cjmw": {
+"doc://ApolloAPI/documentation/ApolloAPI/SchemaConfiguration/cacheKeyInfo(for:object:)": {
   "abstract" : [
-
+    {
+      "text" : "The entry point for configuring the cache key resolution",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "for the types in the schema, which is used by ",
+      "type" : "text"
+    },
+    {
+      "code" : "NormalizedCache",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " mechanisms.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -1034,12 +1053,13 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SchemaConfiguration\/cacheKeyInfo(for:object:)-9cjmw",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SchemaConfiguration\/cacheKeyInfo(for:object:)",
   "kind" : "symbol",
+  "required" : true,
   "role" : "symbol",
   "title" : "cacheKeyInfo(for:object:)",
   "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/schemaconfiguration\/cachekeyinfo(for:object:)-9cjmw"
+  "url" : "\/documentation\/apolloapi\/schemaconfiguration\/cachekeyinfo(for:object:)"
 }
 }
 }

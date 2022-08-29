@@ -158,6 +158,7 @@
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ParentType",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/RootSelectionSet",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SchemaConfiguration",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SchemaMetadata",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSetEntityValue"
       ],
@@ -1885,7 +1886,7 @@
 "doc://ApolloAPI/documentation/ApolloAPI/SchemaConfiguration": {
   "abstract" : [
     {
-      "text" : "A protocol that a generated GraphQL schema should conform to.",
+      "text" : "A protocol for an object used to provide custom configuration for a generated GraphQL schema.",
       "type" : "text"
     }
   ],
@@ -1915,6 +1916,40 @@
   "title" : "SchemaConfiguration",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/schemaconfiguration"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/SchemaMetadata": {
+  "abstract" : [
+    {
+      "text" : "A protocol that a generated GraphQL schema should conform to.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SchemaMetadata"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SchemaMetadata",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SchemaMetadata"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SchemaMetadata",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/schemametadata"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/Selection": {
   "abstract" : [

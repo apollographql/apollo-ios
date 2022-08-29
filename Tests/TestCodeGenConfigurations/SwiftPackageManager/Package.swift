@@ -14,7 +14,7 @@ let package = Package(
     .library(name: "GraphQLSchemaName", targets: ["GraphQLSchemaName"]),
   ],
   dependencies: [
-    .package(name: "apollo-ios", path: "../../.."),
+    .package(url: "https://github.com/apollographql/apollo-ios.git", from: "1.0.0-beta.3"),
   ],
   targets: [
     .target(

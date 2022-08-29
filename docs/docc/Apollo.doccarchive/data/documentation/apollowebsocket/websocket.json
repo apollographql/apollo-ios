@@ -162,7 +162,7 @@
     {
       "identifiers" : [
         "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/connect()",
-        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/disconnect()",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/disconnect(forceTimeout:)",
         "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/newBytesInStream()",
         "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/streamDidError(error:)",
         "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/write(ping:completion:)",
@@ -585,9 +585,28 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocket\/disablesslcertvalidation"
 },
-"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocket/disconnect()": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocket/disconnect(forceTimeout:)": {
   "abstract" : [
-
+    {
+      "text" : "Disconnect from the server. Send a Close control frame to the server, then expect the server to",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "respond with a Close control frame and close the socket from its end. Notify the delegate once",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "the socket has been closed.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -604,15 +623,32 @@
     },
     {
       "kind" : "text",
-      "text" : "()"
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "forceTimeout"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:@T@NSTimeInterval",
+      "text" : "TimeInterval"
+    },
+    {
+      "kind" : "text",
+      "text" : "?)"
     }
   ],
-  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/disconnect()",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/disconnect(forceTimeout:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "disconnect()",
+  "title" : "disconnect(forceTimeout:)",
   "type" : "topic",
-  "url" : "\/documentation\/apollowebsocket\/websocket\/disconnect()"
+  "url" : "\/documentation\/apollowebsocket\/websocket\/disconnect(forcetimeout:)"
 },
 "doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocket/enableCompression": {
   "abstract" : [

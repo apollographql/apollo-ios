@@ -1,7 +1,16 @@
 {
   "abstract" : [
     {
-      "text" : "No overview available.",
+      "text" : "A ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SchemaConfiguration",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " that provides custom configuration for the generated GraphQL schema.",
       "type" : "text"
     }
   ],
@@ -9,19 +18,17 @@
     "paths" : [
       [
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnySelectionSet",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnySelectionSet\/schema"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SchemaMetadata"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet\/schema-swift.type.property"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SchemaMetadata\/configuration"
   },
   "kind" : "symbol",
   "metadata" : {
-    "extendedModule" : "ApolloAPI",
-    "externalID" : "s:9ApolloAPI12SelectionSetPAAE6schemaAA14SchemaMetadata_pXpvpZ",
+    "externalID" : "s:9ApolloAPI14SchemaMetadataP13configurationAA0C13Configuration_pXpvpZ",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -41,7 +48,7 @@
       },
       {
         "kind" : "identifier",
-        "text" : "schema"
+        "text" : "configuration"
       },
       {
         "kind" : "text",
@@ -49,8 +56,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:9ApolloAPI14SchemaMetadataP",
-        "text" : "SchemaMetadata"
+        "preciseIdentifier" : "s:9ApolloAPI19SchemaConfigurationP",
+        "text" : "SchemaConfiguration"
       },
       {
         "kind" : "text",
@@ -62,10 +69,11 @@
         "name" : "ApolloAPI"
       }
     ],
+    "required" : true,
     "role" : "symbol",
     "roleHeading" : "Type Property",
     "symbolKind" : "property",
-    "title" : "schema"
+    "title" : "configuration"
   },
   "primaryContentSections" : [
     {
@@ -96,17 +104,17 @@
             },
             {
               "kind" : "identifier",
-              "text" : "schema"
+              "text" : "configuration"
             },
             {
               "kind" : "text",
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SchemaMetadata",
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SchemaConfiguration",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:9ApolloAPI14SchemaMetadataP",
-              "text" : "SchemaMetadata"
+              "preciseIdentifier" : "s:9ApolloAPI19SchemaConfigurationP",
+              "text" : "SchemaConfiguration"
             },
             {
               "kind" : "text",
@@ -137,7 +145,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/apolloapi\/selectionset\/schema-swift.type.property"
+        "\/documentation\/apolloapi\/schemametadata\/configuration"
       ],
       "traits" : [
         {
@@ -200,9 +208,12 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://ApolloAPI/documentation/ApolloAPI/AnySelectionSet": {
+"doc://ApolloAPI/documentation/ApolloAPI/SchemaConfiguration": {
   "abstract" : [
-
+    {
+      "text" : "A protocol for an object used to provide custom configuration for a generated GraphQL schema.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -215,69 +226,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "AnySelectionSet"
+      "text" : "SchemaConfiguration"
     }
   ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnySelectionSet",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SchemaConfiguration",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "AnySelectionSet"
+      "text" : "SchemaConfiguration"
     }
   ],
   "role" : "symbol",
-  "title" : "AnySelectionSet",
+  "title" : "SchemaConfiguration",
   "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/anyselectionset"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/AnySelectionSet/schema": {
-  "abstract" : [
-
-  ],
-  "defaultImplementations" : 1,
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "schema"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI14SchemaMetadataP",
-      "text" : "SchemaMetadata"
-    },
-    {
-      "kind" : "text",
-      "text" : ".Type"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnySelectionSet\/schema",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "schema",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/anyselectionset\/schema"
+  "url" : "\/documentation\/apolloapi\/schemaconfiguration"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/SchemaMetadata": {
   "abstract" : [
@@ -313,9 +276,21 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/schemametadata"
 },
-"doc://ApolloAPI/documentation/ApolloAPI/SelectionSet/schema-swift.type.property": {
+"doc://ApolloAPI/documentation/ApolloAPI/SchemaMetadata/configuration": {
   "abstract" : [
-
+    {
+      "text" : "A ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SchemaConfiguration",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " that provides custom configuration for the generated GraphQL schema.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -336,7 +311,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "schema"
+      "text" : "configuration"
     },
     {
       "kind" : "text",
@@ -344,20 +319,21 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI14SchemaMetadataP",
-      "text" : "SchemaMetadata"
+      "preciseIdentifier" : "s:9ApolloAPI19SchemaConfigurationP",
+      "text" : "SchemaConfiguration"
     },
     {
       "kind" : "text",
       "text" : ".Type"
     }
   ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet\/schema-swift.type.property",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SchemaMetadata\/configuration",
   "kind" : "symbol",
+  "required" : true,
   "role" : "symbol",
-  "title" : "schema",
+  "title" : "configuration",
   "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/selectionset\/schema-swift.type.property"
+  "url" : "\/documentation\/apolloapi\/schemametadata\/configuration"
 }
 }
 }

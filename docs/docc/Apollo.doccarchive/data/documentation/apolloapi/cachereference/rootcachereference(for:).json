@@ -257,12 +257,13 @@
               "type" : "text"
             },
             {
-              "text" : "(ie. don’t have a unique cache key provided by a ",
+              "text" : "(ie. don’t have a unique cache key provided by the ",
               "type" : "text"
             },
             {
-              "code" : "CacheKeyProvider",
-              "type" : "codeVoice"
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SchemaConfiguration",
+              "isActive" : true,
+              "type" : "reference"
             },
             {
               "text" : ")",
@@ -640,6 +641,40 @@
   "title" : "GraphQLOperationType",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqloperationtype"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/SchemaConfiguration": {
+  "abstract" : [
+    {
+      "text" : "A protocol for an object used to provide custom configuration for a generated GraphQL schema.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SchemaConfiguration"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SchemaConfiguration",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SchemaConfiguration"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SchemaConfiguration",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/schemaconfiguration"
 }
 }
 }

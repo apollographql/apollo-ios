@@ -469,8 +469,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI19SchemaConfigurationP",
-      "text" : "SchemaConfiguration"
+      "preciseIdentifier" : "s:9ApolloAPI14SchemaMetadataP",
+      "text" : "SchemaMetadata"
     }
   ],
   "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet\/Schema-swift.associatedtype",
