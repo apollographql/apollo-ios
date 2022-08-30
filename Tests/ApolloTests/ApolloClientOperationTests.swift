@@ -36,7 +36,7 @@ final class ApolloClientOperationTests: XCTestCase {
       super.init(cache: NoCache())
     }
 
-    override func publish(records: RecordSet, identifier: UUID? = nil, callbackQueue: DispatchQueue = .main, completion: ((Result<Void, Error>) -> Void)? = nil) {
+    override func publish(records: RecordSet, identifier: UUID? = nil, callbackQueue: DispatchQueue = .main, completion: ((Result<Void, Swift.Error>) -> Void)? = nil) {
       publishedRecordSets.append(records)
     }
   }
