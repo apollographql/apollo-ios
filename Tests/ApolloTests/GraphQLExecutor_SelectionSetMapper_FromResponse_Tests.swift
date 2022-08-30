@@ -138,6 +138,22 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     XCTAssertEqual(data.customScalar, "12345678")
   }
 
+  func test__nonnull_customScalar_asString__givenDataAsInt64_getsValue() throws {
+    // given
+    typealias GivenCustomScalar = String
+
+    class GivenSelectionSet: MockSelectionSet {
+      override class var selections: [Selection] { [.field("customScalar", GivenCustomScalar.self)] }
+    }
+    let object: JSONObject = ["customScalar": Int64(989561700)]
+
+    // when
+    let data = try readValues(GivenSelectionSet.self, from: object)
+
+    // then
+    XCTAssertEqual(data.customScalar, "989561700")
+  }
+
   func test__nonnull_customScalar_asString__givenDataAsDouble_getsValue() throws {
     // given
     typealias GivenCustomScalar = String
