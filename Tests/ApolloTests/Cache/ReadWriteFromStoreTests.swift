@@ -1783,6 +1783,54 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
     waitForExpectations(timeout: Self.defaultWaitTimeout)
   }
+
+  // MARK: Memory Leak Tests
+
+  func test_readTransaction_readQuery_afterTransaction_releasesReadTransaction() throws {
+    // given
+    class HeroNameSelectionSet: MockSelectionSet {
+      override class var selections: [Selection] { [
+        .field("hero", Hero.self)
+      ]}
+
+      class Hero: MockSelectionSet {
+        override class var selections: [Selection] {[
+          .field("__typename", String.self),
+          .field("name", String.self)
+        ]}
+      }
+    }
+
+    let query = MockQuery<HeroNameSelectionSet>()
+
+    mergeRecordsIntoCache([
+      "QUERY_ROOT": ["hero": CacheReference("hero")],
+      "hero": ["__typename": "Droid", "name": "R2-D2"]
+    ])
+
+    // when
+
+    weak var readTransaction: ApolloStore.ReadTransaction?
+
+    let readCompletedExpectation = expectation(description: "Read completed")
+
+    store.withinReadTransaction({ transaction in
+      readTransaction = transaction
+
+      let data = try transaction.read(query: query)
+
+      expect(data.hero?.__typename).to(equal("Droid"))
+      expect(data.hero?.name).to(equal("R2-D2"))
+
+    }, completion: { result in
+      defer { readCompletedExpectation.fulfill() }
+      XCTAssertSuccessResult(result)
+      expect(readTransaction).to(beNil())
+    })
+
+    self.wait(for: [readCompletedExpectation], timeout: Self.defaultWaitTimeout)
+  }
+
 }
 
 // MARK: Helpers
