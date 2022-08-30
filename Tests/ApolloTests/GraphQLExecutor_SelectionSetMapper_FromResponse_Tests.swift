@@ -145,7 +145,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     class GivenSelectionSet: MockSelectionSet {
       override class var selections: [Selection] { [.field("customScalar", GivenCustomScalar.self)] }
     }
-    let object: JSONObject = ["customScalar": Int64(12345678)]
+    let object: JSONObject = ["customScalar": Int64(989561700)]
 
     // when
     let data = try readValues(GivenSelectionSet.self, from: object)
