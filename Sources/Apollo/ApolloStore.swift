@@ -180,11 +180,6 @@ public class ApolloStore {
     fileprivate let cache: NormalizedCache
 
     fileprivate lazy var loader: DataLoader<CacheKey, Record> = DataLoader(self.cache.loadRecords)
-    fileprivate lazy var executor = GraphQLExecutor { object, info in
-        return object[info.cacheKeyForField]
-      } resolveReference: { reference in
-        self.loadObject(forKey: reference.key)
-      }
 
     fileprivate init(store: ApolloStore) {
       self.cache = store.cache
@@ -218,6 +213,12 @@ public class ApolloStore {
       accumulator: Accumulator
     ) throws -> Accumulator.FinalResult {
       let object = try loadObject(forKey: key).get()
+      
+      let executor = GraphQLExecutor { object, info in
+        return object[info.cacheKeyForField]
+      } resolveReference: { reference in
+        self.loadObject(forKey: reference.key)
+      }
 
       return try executor.execute(
         selectionSet: type,
