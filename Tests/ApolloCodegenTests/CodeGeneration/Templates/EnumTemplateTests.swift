@@ -373,7 +373,7 @@ class EnumTemplateTests: XCTestCase {
       name: "casedEnum",
       values: [
         ("lower", nil, nil),
-        ("UPPER", nil, nil),
+        ("PUBLIC", nil, nil),
         ("UpperCamelCase", nil, nil),
         ("Capitalized", nil, nil),
         ("SNAKE_CASE", nil, nil)
@@ -386,7 +386,7 @@ class EnumTemplateTests: XCTestCase {
     let expected = """
     enum CasedEnum: String, EnumType {
       case lower = "lower"
-      case upper = "UPPER"
+      case `public` = "PUBLIC"
       case upperCamelCase = "UpperCamelCase"
       case capitalized = "Capitalized"
       case snakeCase = "SNAKE_CASE"
