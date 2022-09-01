@@ -322,6 +322,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     ///  - warningsOnDeprecatedUsage: Annotate generated Swift code with the Swift `available`
     ///    attribute and `deprecated` argument for parts of the GraphQL schema annotated with the
     ///    built-in `@deprecated` directive.
+    ///  - enumCaseConvertStrategy: How convert strategy to Swift enum from GraphQL schema.
     public init(
       additionalInflectionRules: [InflectionRule] = [],
       queryStringLiteralFormat: QueryStringLiteralFormat = .multiline,
@@ -359,7 +360,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     case exclude
   }
 
-  /// EnumCaseConvertStrategy is a strategy of convert to enum from GraphQL schema to swift.
+  /// EnumCaseConvertStrategy is a strategy of convert to Swift enum from GraphQL schema.
   public enum EnumCaseConvertStrategy: String, Codable, Equatable {
     /// Default. Nothing different from the definition of a schema.
     case none
