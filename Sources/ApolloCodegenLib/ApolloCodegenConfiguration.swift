@@ -304,6 +304,9 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     /// directive.
     public let warningsOnDeprecatedUsage: Composition
 
+    /// Strategy of convert to enum from GraphQL schema to swift. `.none` is a default strategy.
+    public let enumCaseConvertStrategy: EnumCaseConvertStrategy
+
     /// Designated initializer.
     ///
     /// - Parameters:
@@ -326,7 +329,8 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       schemaDocumentation: Composition = .include,
       apqs: APQConfig = .disabled,
       cocoapodsCompatibleImportStatements: Bool = false,
-      warningsOnDeprecatedUsage: Composition = .include
+      warningsOnDeprecatedUsage: Composition = .include,
+      enumCaseConvertStrategy: EnumCaseConvertStrategy = .none
     ) {
       self.additionalInflectionRules = additionalInflectionRules
       self.queryStringLiteralFormat = queryStringLiteralFormat
@@ -335,6 +339,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       self.apqs = apqs
       self.cocoapodsCompatibleImportStatements = cocoapodsCompatibleImportStatements
       self.warningsOnDeprecatedUsage = warningsOnDeprecatedUsage
+      self.enumCaseConvertStrategy = enumCaseConvertStrategy
     }
   }
 
@@ -352,6 +357,14 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
   public enum Composition: String, Codable, Equatable {
     case include
     case exclude
+  }
+
+  /// EnumCaseConvertStrategy is a strategy of convert to enum from GraphQL schema to swift.
+  public enum EnumCaseConvertStrategy: String, Codable, Equatable {
+    /// Default. Nothing different from the definition of a schema.
+    case none
+    /// Always convert to lower camel case.
+    case camelCase
   }
 
   /// Enum to enable using
