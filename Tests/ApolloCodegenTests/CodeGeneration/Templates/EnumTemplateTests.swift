@@ -366,4 +366,38 @@ class EnumTemplateTests: XCTestCase {
     // then
     expect(rendered).to(equalLineByLine(expected))
   }
+
+  func test_render_givenEnumCaseConvertStrategy_camelCase_generatesSwiftEnum_convertedToCamelCase() {
+    // given
+    buildSubject(
+      name: "casedEnum",
+      values: [
+        ("lower", nil, nil),
+        ("UPPER", nil, nil),
+        ("UpperCamelCase", nil, nil),
+        ("Capitalized", nil, nil),
+        ("SNAKE_CASE", nil, nil)
+      ],
+      config: ApolloCodegenConfiguration.mock(options: .init(
+        enumCaseConvertStrategy: .camelCase
+      ))
+    )
+
+    let expected = """
+    enum CasedEnum: String, EnumType {
+      case lower = "lower"
+      case upper = "UPPER"
+      case upperCamelCase = "UpperCamelCase"
+      case capitalized = "Capitalized"
+      case snakeCase = "SNAKE_CASE"
+    }
+
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected))
+  }
 }
