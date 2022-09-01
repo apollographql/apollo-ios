@@ -364,7 +364,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
   public enum EnumCaseConvertStrategy: String, Codable, Equatable {
     /// Default. Nothing different from the definition of a schema.
     case none
-    /// Always convert to lower camel case.
+    /// Convert to lower camel case from `snake_case`, `upperCamelCase`,`UPPERCASE`.
     case camelCase
   }
 
