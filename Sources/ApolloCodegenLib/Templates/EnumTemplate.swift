@@ -29,23 +29,38 @@ struct EnumTemplate: TemplateRenderer {
     switch (
       config.options.deprecatedEnumCases,
       graphqlEnumValue.deprecationReason,
-      config.options.warningsOnDeprecatedUsage
+      config.options.warningsOnDeprecatedUsage,
+      config.options.enumCaseConvertStrategy
     ) {
-    case (.exclude, .some, _):
+    case (.exclude, .some, _, _):
       return nil
 
-    case let (.include, .some(reason), .include):
+    case let (.include, .some(reason), .include, .none):
       return """
         \(documentation: graphqlEnumValue.documentation, config: config)
         @available(*, deprecated, message: \"\(reason)\")
         case \(graphqlEnumValue.name.asEnumCaseName)
         """
-
+    case let (.include, .some(reason), .include, .camelCase):
+      return """
+        \(documentation: graphqlEnumValue.documentation, config: config)
+        @available(*, deprecated, message: \"\(reason)\")
+        case \(convertToCamelCase(graphqlEnumValue.name)) = \(graphqlEnumValue.name)
+        """
+    case (_, _, _, .camelCase):
+      return """
+        \(documentation: graphqlEnumValue.documentation, config: config)
+        case \(convertToCamelCase(graphqlEnumValue.name)) = \(graphqlEnumValue.name)
+        """
     default:
       return """
         \(documentation: graphqlEnumValue.documentation, config: config)
         case \(graphqlEnumValue.name.asEnumCaseName)
         """
     }
+  }
+
+  private func convertToCamelCase(_ value: String) -> String {
+    value.split(separator: "_").enumerated().map { $0.offset == 0 ? $0.element.lowercased() : $0.element.capitalized }.joined()
   }
 }
