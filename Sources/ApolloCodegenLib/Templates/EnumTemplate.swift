@@ -38,13 +38,13 @@ struct EnumTemplate: TemplateRenderer {
       return """
         \(documentation: graphqlEnumValue.documentation, config: config)
         @available(*, deprecated, message: \"\(reason)\")
-        case \(graphqlEnumValue.name)
+        case \(graphqlEnumValue.name.asEnumCaseName)
         """
 
     default:
       return """
         \(documentation: graphqlEnumValue.documentation, config: config)
-        case \(graphqlEnumValue.name)
+        case \(graphqlEnumValue.name.asEnumCaseName)
         """
     }
   }
