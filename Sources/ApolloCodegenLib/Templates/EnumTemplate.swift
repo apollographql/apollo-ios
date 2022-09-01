@@ -45,12 +45,12 @@ struct EnumTemplate: TemplateRenderer {
       return """
         \(documentation: graphqlEnumValue.documentation, config: config)
         @available(*, deprecated, message: \"\(reason)\")
-        case \(convertToCamelCase(graphqlEnumValue.name)) = "\(graphqlEnumValue.name)"
+        case \(convertToCamelCase(graphqlEnumValue.name).asEnumCaseName) = "\(graphqlEnumValue.name)"
         """
     case (_, _, _, .camelCase):
       return """
         \(documentation: graphqlEnumValue.documentation, config: config)
-        case \(convertToCamelCase(graphqlEnumValue.name)) = "\(graphqlEnumValue.name)"
+        case \(convertToCamelCase(graphqlEnumValue.name).asEnumCaseName) = "\(graphqlEnumValue.name)"
         """
     default:
       return """
