@@ -50,7 +50,7 @@ extension OperationTemplateRenderer {
   }
 
   func NullishConvenienceInitializer(
-    config: ApolloCodegen.ConfigurationContext.,
+    config: ApolloCodegen.ConfigurationContext,
     _ variables: [CompilationResult.VariableDefinition]
   ) -> TemplateString {
     let `init` = "public convenience init"
