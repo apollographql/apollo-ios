@@ -20,6 +20,7 @@ struct LocalCacheMutationDefinitionTemplate: OperationTemplateRenderer {
       \(section: VariableProperties(operation.definition.variables))
 
       \(Initializer(operation.definition.variables))
+      \(if: config.options.embedNullableVariableConvenienceInitializer.shouldEmbed, NullishConvenienceInitializer(config: config, operation.definition.variables))
 
       \(section: VariableAccessors(operation.definition.variables))
 

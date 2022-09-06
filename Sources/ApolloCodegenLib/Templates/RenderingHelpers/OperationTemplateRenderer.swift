@@ -49,4 +49,30 @@ extension OperationTemplateRenderer {
       """
   }
 
+  func NullishConvenienceInitializer(
+    config: ApolloCodegen.ConfigurationContext.,
+    _ variables: [CompilationResult.VariableDefinition]
+  ) -> TemplateString {
+    let `init` = "public convenience init"
+    if variables.isEmpty {
+      return "\(`init`)() {}"
+    }
+
+    return """
+    \(`init`)(\(list: variables.map(SwiftOptionalVariableParameter))) {
+      self.init(\(variables.map { "\($0.name): \($0.name) ?? \(config.options.embedNullableVariableConvenienceInitializer.nullishWord))" })
+    }
+    """
+  }
+
+  private func SwiftOptionalVariableParameter(
+    _ variable: CompilationResult.VariableDefinition
+  ) -> TemplateString {
+      """
+      \(variable.name): \(variable.type.rendered(as: .inputValue(isSwiftOptional: true), config: config.config))\
+      \(if: variable.defaultValue != nil, " = " + variable.renderVariableDefaultValue(config: config.config))
+      """
+  }
+
+
 }
