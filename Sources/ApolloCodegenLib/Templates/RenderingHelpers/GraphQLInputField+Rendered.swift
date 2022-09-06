@@ -6,7 +6,7 @@ extension GraphQLInputField {
     config: ApolloCodegenConfiguration
   ) -> String {
     """
-    \(type.rendered(as: .inputValue, config: config))\
+    \(type.rendered(as: .inputValue(), config: config))\
     \(isSwiftOptional ? "?" : "")\
     \(includeDefault && hasSwiftNilDefault ? " = nil" : "")
     """

@@ -9,7 +9,7 @@ extension GraphQLType {
     ///
     /// If the outermost type is nullable, it will be wrapped in a `GraphQLNullable` instead of
     /// an `Optional`.
-    case inputValue
+    case inputValue(isSwiftOptional: Bool = false)
   }
 
   func rendered(
@@ -32,8 +32,8 @@ extension GraphQLType {
         config: config
       )
 
-    case .inputValue:
-      return renderAsInputValue(inNullable: true, config: config)
+    case let .inputValue(isSwiftOptional):
+      return renderAsInputValue(inNullable: true, isSwiftOptional: isSwiftOptional, config: config)
     }
   }
 
@@ -143,6 +143,7 @@ extension GraphQLType {
 
   private func renderAsInputValue(
     inNullable: Bool,
+    isSwiftOptional: Bool,
     config: ApolloCodegenConfiguration
   ) -> String {
     switch self {
@@ -151,14 +152,22 @@ extension GraphQLType {
 
     case .enum, .scalar, .inputObject:
       let typeName = self.renderedAsSelectionSetField(containedInNonNull: true, config: config)
-      return inNullable ? "GraphQLNullable<\(typeName)>" : typeName
+      if isSwiftOptional {
+        return inNullable ? "\(typeName)?" : typeName
+      } else {
+        return inNullable ? "GraphQLNullable<\(typeName)>" : typeName
+      }
 
     case let .nonNull(ofType):
-      return ofType.renderAsInputValue(inNullable: false, config: config)
+      return ofType.renderAsInputValue(inNullable: false, isSwiftOptional: isSwiftOptional, config: config)
 
     case let .list(ofType):
       let typeName = "[\(ofType.renderedAsSelectionSetField(containedInNonNull: false, config: config))]"
-      return inNullable ? "GraphQLNullable<\(typeName)>" : typeName
+      if isSwiftOptional {
+        return inNullable ? "\(typeName)?" : typeName
+      } else {
+        return inNullable ? "GraphQLNullable<\(typeName)>" : typeName
+      }
     }
   }
 }
