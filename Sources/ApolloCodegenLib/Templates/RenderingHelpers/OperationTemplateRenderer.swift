@@ -64,18 +64,14 @@ extension OperationTemplateRenderer {
     return """
     \(`init`)(\(list: variables.map(SwiftOptionalVariableParameter))) {
       self.init(
-        \(variables.map(DelegateToRequiredInitializerArgument))
+        \(variables.map {
+          variableIsNonNull($0) ?
+            "\($0.name): \($0.name)" :
+            "\($0.name): \($0.name) ?? .\(config.options.embedNullableVariableConvenienceInitializer.nullishWord)"
+        })
       )
     }
     """
-  }
-
-  private func DelegateToRequiredInitializerArgument(
-    _ variable: CompilationResult.VariableDefinition
-  ) -> TemplateString {
-    variableIsNonNull(variable) ?
-    "\(variable.name): \(variable.name)" :
-    "\(variable.name): \(variable.name) ?? .\(config.options.embedNullableVariableConvenienceInitializer.nullishWord)"
   }
 
   private func SwiftOptionalVariableParameter(
