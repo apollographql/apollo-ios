@@ -19,8 +19,9 @@ struct LocalCacheMutationDefinitionTemplate: OperationTemplateRenderer {
 
       \(section: VariableProperties(operation.definition.variables))
 
+      \(if: !operation.definition.variables.allSatisfy(variableIsNonNull), "@_disfavoredOverload")
       \(Initializer(operation.definition.variables))
-      \(if: config.options.embedNullableVariableConvenienceInitializer.shouldEmbed, NullishConvenienceInitializer(config: config, operation.definition.variables))
+      \(if: config.options.embedNullableVariableConvenienceInitializer.shouldEmbed, NullishConvenienceInitializer(operation.definition.variables))
 
       \(section: VariableAccessors(operation.definition.variables))
 

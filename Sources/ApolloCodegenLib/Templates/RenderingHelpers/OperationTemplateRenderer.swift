@@ -50,9 +50,12 @@ extension OperationTemplateRenderer {
   }
 
   func NullishConvenienceInitializer(
-    config: ApolloCodegen.ConfigurationContext,
     _ variables: [CompilationResult.VariableDefinition]
   ) -> TemplateString {
+    if variables.allSatisfy(variableIsNonNull) {
+      return ""
+    }
+
     let `init` = "public convenience init"
     if variables.isEmpty {
       return "\(`init`)() {}"
@@ -60,9 +63,19 @@ extension OperationTemplateRenderer {
 
     return """
     \(`init`)(\(list: variables.map(SwiftOptionalVariableParameter))) {
-      self.init(\(variables.map { "\($0.name): \($0.name) ?? \(config.options.embedNullableVariableConvenienceInitializer.nullishWord))" })
+      self.init(
+        \(variables.map(DelegateToRequiredInitializerArgument))
+      )
     }
     """
+  }
+
+  private func DelegateToRequiredInitializerArgument(
+    _ variable: CompilationResult.VariableDefinition
+  ) -> TemplateString {
+    variableIsNonNull(variable) ?
+    "\(variable.name): \(variable.name)" :
+    "\(variable.name): \(variable.name) ?? .\(config.options.embedNullableVariableConvenienceInitializer.nullishWord)"
   }
 
   private func SwiftOptionalVariableParameter(
@@ -74,5 +87,10 @@ extension OperationTemplateRenderer {
       """
   }
 
-
+  func variableIsNonNull(_ variable: CompilationResult.VariableDefinition) -> Bool {
+    if case .nonNull = variable.type {
+      return true
+    }
+    return false
+  }
 }
