@@ -398,6 +398,24 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     case alwaysFillNull
     /// Embed convenience initializer to use `GraphQLNullable.none` when passed nil to initilizer.
     case alwaysUndefinedField
+
+    var shouldEmbed: Bool {
+      if case .none = self {
+        return false
+      }
+      return true
+    }
+
+    var nullishWord: String {
+      switch self {
+      case .none:
+        return ""
+      case .alwaysFillNull:
+        return "null"
+      case .alwaysUndefinedField:
+        return ".none"
+      }
+    }
   }
 
   /// Enum to enable using
