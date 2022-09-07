@@ -62,7 +62,7 @@ extension OperationTemplateRenderer {
     }
 
     return """
-    \(`init`)(\(list: variables.map(SwiftOptionalVariableParameter))) {
+    \(`init`)(\(list: variables.map(SwiftOptionalInitializerParameter))) {
       self.init(
         \(variables.map {
           variableIsNonNull($0) ?
@@ -74,7 +74,7 @@ extension OperationTemplateRenderer {
     """
   }
 
-  private func SwiftOptionalVariableParameter(
+  private func SwiftOptionalInitializerParameter(
     _ variable: CompilationResult.VariableDefinition
   ) -> TemplateString {
       """
