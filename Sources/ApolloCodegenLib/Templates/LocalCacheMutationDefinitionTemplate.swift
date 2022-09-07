@@ -21,7 +21,7 @@ struct LocalCacheMutationDefinitionTemplate: OperationTemplateRenderer {
 
       \(if: !operation.definition.variables.allSatisfy(variableIsNonNull), "@_disfavoredOverload")
       \(Initializer(operation.definition.variables))
-      \(if: config.options.embedNullableVariableConvenienceInitializer.shouldEmbed, NullishConvenienceInitializer(operation.definition.variables))
+      \(if: config.options.embedSwiftOptionalInitializer.shouldEmbed, NullishConvenienceInitializer(operation.definition.variables))
 
       \(section: VariableAccessors(operation.definition.variables))
 

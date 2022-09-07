@@ -314,7 +314,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     public let enumCaseConvertStrategy: EnumCaseConvertStrategy
 
     /// Option to embed convenience initializer about using `GraphQLNullable`.
-    public let embedNullableVariableConvenienceInitializer: EmbedNullableVariableConvenienceInitializer
+    public let embedSwiftOptionalInitializer: EmbedSwiftOptionalInitializer
 
 >>>>>>> 214fb6f6 (Add option)
     /// Designated initializer.
@@ -337,8 +337,14 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     ///  - enumCaseConvertStrategy: How convert strategy to Swift enum from GraphQL schema.
 =======
     ///  - enumCaseConvertStrategy: How convert strategy to Swift enum from GraphQL schema.
+<<<<<<< HEAD
     ///  - embedNullableVariableConvenienceInitializer: Embed convenience initializer about `GraphQLNullable`
 >>>>>>> 214fb6f6 (Add option)
+||||||| parent of 50f4f75d (Replace to embedSwiftOptionalInitializer)
+    ///  - embedNullableVariableConvenienceInitializer: Embed convenience initializer about `GraphQLNullable`
+=======
+    ///  - embedSwiftOptionalInitializer: Embed convenience initializer about `GraphQLNullable`
+>>>>>>> 50f4f75d (Replace to embedSwiftOptionalInitializer)
     public init(
       additionalInflectionRules: [InflectionRule] = [],
       queryStringLiteralFormat: QueryStringLiteralFormat = .multiline,
@@ -346,16 +352,8 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       schemaDocumentation: Composition = .include,
       apqs: APQConfig = .disabled,
       cocoapodsCompatibleImportStatements: Bool = false,
-<<<<<<< HEAD
-      warningsOnDeprecatedUsage: Composition = .include
-||||||| parent of 214fb6f6 (Add option)
-      warningsOnDeprecatedUsage: Composition = .include,
-      enumCaseConvertStrategy: EnumCaseConvertStrategy = .none
-=======
-      warningsOnDeprecatedUsage: Composition = .include,
-      enumCaseConvertStrategy: EnumCaseConvertStrategy = .none,
-      embedNullableVariableConvenienceInitializer: EmbedNullableVariableConvenienceInitializer = .none
->>>>>>> 214fb6f6 (Add option)
+      warningsondeprecatedusage: composition = .include,
+      embedSwiftOptionalInitializer: EmbedSwiftOptionalInitializer = .none
     ) {
       self.additionalInflectionRules = additionalInflectionRules
       self.queryStringLiteralFormat = queryStringLiteralFormat
@@ -364,13 +362,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       self.apqs = apqs
       self.cocoapodsCompatibleImportStatements = cocoapodsCompatibleImportStatements
       self.warningsOnDeprecatedUsage = warningsOnDeprecatedUsage
-<<<<<<< HEAD
-||||||| parent of 214fb6f6 (Add option)
-      self.enumCaseConvertStrategy = enumCaseConvertStrategy
-=======
-      self.enumCaseConvertStrategy = enumCaseConvertStrategy
-      self.embedNullableVariableConvenienceInitializer = embedNullableVariableConvenienceInitializer
->>>>>>> 214fb6f6 (Add option)
+      self.embedSwiftOptionalInitializer = embedSwiftOptionalInitializer
     }
   }
 
@@ -391,7 +383,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
   }
 
   /// Option to embed convenience initializer about using `GraphQLNullable`.
-  public enum EmbedNullableVariableConvenienceInitializer: String, Codable, Equatable {
+  public enum EmbedSwiftOptionalInitializer: String, Codable, Equatable {
     /// No embed.
     case none
     /// Embed convenience initializer to use `GraphQLNullable.null` when passed nil to initilizer.
