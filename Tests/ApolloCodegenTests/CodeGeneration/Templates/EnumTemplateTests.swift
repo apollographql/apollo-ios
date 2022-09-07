@@ -118,7 +118,58 @@ class EnumTemplateTests: XCTestCase {
         ("lower", nil, nil),
         ("UPPER", nil, nil),
         ("Capitalized", nil, nil),
-        ("public", nil, nil)
+        ("associatedtype", nil, nil),
+        ("class", nil, nil),
+        ("deinit", nil, nil),
+        ("enum", nil, nil),
+        ("extension", nil, nil),
+        ("fileprivate", nil, nil),
+        ("func", nil, nil),
+        ("import", nil, nil),
+        ("init", nil, nil),
+        ("inout", nil, nil),
+        ("internal", nil, nil),
+        ("let", nil, nil),
+        ("operator", nil, nil),
+        ("private", nil, nil),
+        ("precedencegroup", nil, nil),
+        ("protocol", nil, nil),
+        ("Protocol", nil, nil),
+        ("public", nil, nil),
+        ("rethrows", nil, nil),
+        ("static", nil, nil),
+        ("struct", nil, nil),
+        ("subscript", nil, nil),
+        ("typealias", nil, nil),
+        ("var", nil, nil),
+        ("break", nil, nil),
+        ("case", nil, nil),
+        ("catch", nil, nil),
+        ("continue", nil, nil),
+        ("default", nil, nil),
+        ("defer", nil, nil),
+        ("do", nil, nil),
+        ("else", nil, nil),
+        ("fallthrough", nil, nil),
+        ("guard", nil, nil),
+        ("if", nil, nil),
+        ("in", nil, nil),
+        ("repeat", nil, nil),
+        ("return", nil, nil),
+        ("throw", nil, nil),
+        ("switch", nil, nil),
+        ("where", nil, nil),
+        ("while", nil, nil),
+        ("as", nil, nil),
+        ("false", nil, nil),
+        ("is", nil, nil),
+        ("nil", nil, nil),
+        ("self", nil, nil),
+        ("Self", nil, nil),
+        ("super", nil, nil),
+        ("throws", nil, nil),
+        ("true", nil, nil),
+        ("try", nil, nil),
       ]
     )
 
@@ -127,7 +178,58 @@ class EnumTemplateTests: XCTestCase {
       case lower
       case UPPER
       case Capitalized
+      case `associatedtype`
+      case `class`
+      case `deinit`
+      case `enum`
+      case `extension`
+      case `fileprivate`
+      case `func`
+      case `import`
+      case `init`
+      case `inout`
+      case `internal`
+      case `let`
+      case `operator`
+      case `private`
+      case `precedencegroup`
+      case `protocol`
+      case `Protocol`
       case `public`
+      case `rethrows`
+      case `static`
+      case `struct`
+      case `subscript`
+      case `typealias`
+      case `var`
+      case `break`
+      case `case`
+      case `catch`
+      case `continue`
+      case `default`
+      case `defer`
+      case `do`
+      case `else`
+      case `fallthrough`
+      case `guard`
+      case `if`
+      case `in`
+      case `repeat`
+      case `return`
+      case `throw`
+      case `switch`
+      case `where`
+      case `while`
+      case `as`
+      case `false`
+      case `is`
+      case `nil`
+      case `self`
+      case `Self`
+      case `super`
+      case `throws`
+      case `true`
+      case `try`
     }
     
     """
