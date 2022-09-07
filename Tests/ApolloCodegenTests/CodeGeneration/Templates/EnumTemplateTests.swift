@@ -110,6 +110,38 @@ class EnumTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
+  func test_render_givenCaseConversionStrategy_camelCase_generatesSwiftEnum_convertedToCamelCase() {
+    // given
+    buildSubject(
+      name: "casedEnum",
+      values: [
+        ("lower", nil, nil),
+        ("PUBLIC", nil, nil),
+        ("UpperCamelCase", nil, nil),
+        ("Capitalized", nil, nil),
+        ("SNAKE_CASE", nil, nil)
+      ],
+      config: ApolloCodegenConfiguration.mock(options: .init())
+    )
+
+    let expected = """
+    enum CasedEnum: String, EnumType {
+      case lower = "lower"
+      case `public` = "PUBLIC"
+      case upperCamelCase = "UpperCamelCase"
+      case capitalized = "Capitalized"
+      case snakeCase = "SNAKE_CASE"
+    }
+
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected))
+  }
+
   func test_render_givenSchemaEnum_noneConveersionStrategies_generatesSwiftEnumRespectingValueCasing() throws {
     // given
     buildSubject(
@@ -368,37 +400,5 @@ class EnumTemplateTests: XCTestCase {
 
     // then
     expect(rendered).to(equalLineByLine(expected))
-  }
-
-  func test_render_givenCaseConversionStrategy_camelCase_generatesSwiftEnum_convertedToCamelCase() {
-    // given
-    buildSubject(
-      name: "casedEnum",
-      values: [
-        ("lower", nil, nil),
-        ("PUBLIC", nil, nil),
-        ("UpperCamelCase", nil, nil),
-        ("Capitalized", nil, nil),
-        ("SNAKE_CASE", nil, nil)
-      ],
-      config: ApolloCodegenConfiguration.mock(options: .init())
-    )
-
-    let expected = """
-    enum CasedEnum: String, EnumType {
-      case lower = "lower"
-      case `public` = "PUBLIC"
-      case upperCamelCase = "UpperCamelCase"
-      case capitalized = "Capitalized"
-      case snakeCase = "SNAKE_CASE"
-    }
-
-    """
-
-    // when
-    let actual = renderSubject()
-
-    // then
-    expect(actual).to(equalLineByLine(expected))
   }
 }
