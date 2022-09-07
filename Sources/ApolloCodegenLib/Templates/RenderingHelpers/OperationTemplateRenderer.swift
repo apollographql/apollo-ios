@@ -49,7 +49,7 @@ extension OperationTemplateRenderer {
       """
   }
 
-  func NullishConvenienceInitializer(
+  func SwiftOptionalInitializer(
     _ variables: [CompilationResult.VariableDefinition]
   ) -> TemplateString {
     if variables.allSatisfy(variableIsNonNull) {
