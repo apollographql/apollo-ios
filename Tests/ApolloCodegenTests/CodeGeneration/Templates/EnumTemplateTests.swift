@@ -367,7 +367,7 @@ class EnumTemplateTests: XCTestCase {
     expect(rendered).to(equalLineByLine(expected))
   }
 
-  func test_render_givenEnumCaseConvertStrategy_camelCase_generatesSwiftEnum_convertedToCamelCase() {
+  func test_render_givenCaseConversionStrategy_camelCase_generatesSwiftEnum_convertedToCamelCase() {
     // given
     buildSubject(
       name: "casedEnum",
