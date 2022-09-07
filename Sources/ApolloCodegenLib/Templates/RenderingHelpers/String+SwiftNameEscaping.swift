@@ -8,6 +8,10 @@ extension String {
     escapeIf(in: SwiftKeywords.FieldAccessorNamesToEscape)
   }
 
+  var asEnumCaseName: String {
+    escapeIf(in: SwiftKeywords.FieldAccessorNamesToEscape)
+  }
+
   var asSelectionSetName: String {
     SwiftKeywords.SelectionSetTypeNamesToSuffix.contains(self) ?
     "\(self)_SelectionSet" : self

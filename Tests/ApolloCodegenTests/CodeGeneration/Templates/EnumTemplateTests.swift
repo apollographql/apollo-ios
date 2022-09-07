@@ -117,7 +117,8 @@ class EnumTemplateTests: XCTestCase {
       values: [
         ("lower", nil, nil),
         ("UPPER", nil, nil),
-        ("Capitalized", nil, nil)
+        ("Capitalized", nil, nil),
+        ("public", nil, nil)
       ]
     )
 
@@ -126,6 +127,7 @@ class EnumTemplateTests: XCTestCase {
       case lower
       case UPPER
       case Capitalized
+      case `public`
     }
     
     """
