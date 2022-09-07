@@ -160,9 +160,9 @@ class EnumTemplateTests: XCTestCase {
 
     let expected = """
     enum TestEnum: String, EnumType {
-      case ONE
-      case TWO
-      case THREE
+      case one = "ONE"
+      case two = "TWO"
+      case three = "THREE"
     }
 
     """
@@ -190,10 +190,10 @@ class EnumTemplateTests: XCTestCase {
 
     let expected = """
     enum TestEnum: String, EnumType {
-      case ONE
+      case one = "ONE"
       @available(*, deprecated, message: "Deprecated for tests")
-      case TWO
-      case THREE
+      case two = "TWO"
+      case three = "THREE"
     }
 
     """
@@ -221,7 +221,7 @@ class EnumTemplateTests: XCTestCase {
 
     let expected = """
     enum TestEnum: String, EnumType {
-      case TWO
+      case two = "TWO"
     }
 
     """
@@ -249,7 +249,7 @@ class EnumTemplateTests: XCTestCase {
 
     let expected = """
     enum TestEnum: String, EnumType {
-      case TWO
+      case two = "TWO"
     }
 
     """
@@ -285,11 +285,11 @@ class EnumTemplateTests: XCTestCase {
     enum TestEnum: String, EnumType {
       /// Doc: One
       @available(*, deprecated, message: "Deprecated for tests")
-      case ONE
+      case one = "ONE"
       /// Doc: Two
-      case TWO
+      case two = "TWO"
       @available(*, deprecated, message: "Deprecated for tests")
-      case THREE
+      case three = "THREE"
     }
 
     """
@@ -322,10 +322,10 @@ class EnumTemplateTests: XCTestCase {
     /// \(documentation)
     enum TestEnum: String, EnumType {
       /// Doc: One
-      case ONE
+      case one = "ONE"
       /// Doc: Two
-      case TWO
-      case THREE
+      case two = "TWO"
+      case three = "THREE"
     }
 
     """
@@ -356,9 +356,9 @@ class EnumTemplateTests: XCTestCase {
 
     let expected = """
     enum TestEnum: String, EnumType {
-      case ONE
-      case TWO
-      case THREE
+      case one = "ONE"
+      case two = "TWO"
+      case three = "THREE"
     }
     
     """
