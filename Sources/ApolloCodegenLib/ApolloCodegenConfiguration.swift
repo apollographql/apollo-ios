@@ -304,19 +304,9 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     /// directive.
     public let warningsOnDeprecatedUsage: Composition
 
-<<<<<<< HEAD
-||||||| parent of 214fb6f6 (Add option)
-    /// Strategy of convert to enum from GraphQL schema to swift. `.none` is a default strategy.
-    public let enumCaseConvertStrategy: EnumCaseConvertStrategy
-
-=======
-    /// Strategy of convert to enum from GraphQL schema to swift. `.none` is a default strategy.
-    public let enumCaseConvertStrategy: EnumCaseConvertStrategy
-
     /// Option to embed convenience initializer about using `GraphQLNullable`.
     public let embedSwiftOptionalInitializer: EmbedSwiftOptionalInitializer
-
->>>>>>> 214fb6f6 (Add option)
+    
     /// Designated initializer.
     ///
     /// - Parameters:
@@ -332,19 +322,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     ///  - warningsOnDeprecatedUsage: Annotate generated Swift code with the Swift `available`
     ///    attribute and `deprecated` argument for parts of the GraphQL schema annotated with the
     ///    built-in `@deprecated` directive.
-<<<<<<< HEAD
-||||||| parent of 214fb6f6 (Add option)
-    ///  - enumCaseConvertStrategy: How convert strategy to Swift enum from GraphQL schema.
-=======
-    ///  - enumCaseConvertStrategy: How convert strategy to Swift enum from GraphQL schema.
-<<<<<<< HEAD
-    ///  - embedNullableVariableConvenienceInitializer: Embed convenience initializer about `GraphQLNullable`
->>>>>>> 214fb6f6 (Add option)
-||||||| parent of 50f4f75d (Replace to embedSwiftOptionalInitializer)
-    ///  - embedNullableVariableConvenienceInitializer: Embed convenience initializer about `GraphQLNullable`
-=======
     ///  - embedSwiftOptionalInitializer: Embed convenience initializer about `GraphQLNullable`
->>>>>>> 50f4f75d (Replace to embedSwiftOptionalInitializer)
     public init(
       additionalInflectionRules: [InflectionRule] = [],
       queryStringLiteralFormat: QueryStringLiteralFormat = .multiline,
