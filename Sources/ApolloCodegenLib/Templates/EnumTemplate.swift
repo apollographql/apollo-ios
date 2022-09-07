@@ -30,7 +30,7 @@ struct EnumTemplate: TemplateRenderer {
       config.options.deprecatedEnumCases,
       graphqlEnumValue.deprecationReason,
       config.options.warningsOnDeprecatedUsage,
-      config.options.enumCaseConvertStrategy
+      config.options.conversionStrategies.enumCases
     ) {
     case (.exclude, .some, _, _):
       return nil
