@@ -67,7 +67,7 @@ extension OperationTemplateRenderer {
         \(variables.map {
           variableIsNonNull($0) ?
             "\($0.name): \($0.name)" :
-            "\($0.name): \($0.name) ?? .\(config.options.embedSwiftOptionalInitializer.nullishWord)"
+            "\($0.name): \($0.name) ?? \(config.options.embedSwiftOptionalInitializer.shortGraphQLOptionalValue)"
         })
       )
     }

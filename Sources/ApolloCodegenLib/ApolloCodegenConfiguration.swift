@@ -398,12 +398,12 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       return true
     }
 
-    var nullishWord: String {
+    var shortGraphQLOptionalValue: String {
       switch self {
       case .none:
         return ""
       case .alwaysFillNull:
-        return "null"
+        return ".null"
       case .alwaysUndefinedField:
         return ".none"
       }
