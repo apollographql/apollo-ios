@@ -566,7 +566,7 @@ fileprivate extension IR.MergedSelections.MergedSource {
     in fragment: IR.NamedFragment,
     pluralizer: Pluralizer
   ) -> String {
-    var selectionSetNameComponents: [String] = [fragment.definition.name]
+    var selectionSetNameComponents: [String] = [fragment.definition.name.firstUppercased]
 
     let rootEntityScopePath = typeInfo.scopePath.head
     if let rootEntityTypeConditionPath = rootEntityScopePath.value.scopePath.head.next {

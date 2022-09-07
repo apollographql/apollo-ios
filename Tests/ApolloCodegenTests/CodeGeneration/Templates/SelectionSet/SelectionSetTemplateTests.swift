@@ -4698,6 +4698,57 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
   }
 
+  func test__render_nestedSelectionSet__givenEntityFieldMergedFromFragmentWithLowercaseName_rendersFragmentNestedSelctionSetNameCorrectlyCased() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+      predator: Animal!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        ...predatorDetails
+      }
+    }
+
+    fragment predatorDetails on Animal {
+      predator {
+        species
+      }
+    }
+    """
+
+    let expected = """
+      public var predator: PredatorDetails.Predator { __data["predator"] }
+
+      public struct Fragments: FragmentContainer {
+        public let __data: DataDict
+        public init(data: DataDict) { __data = data }
+
+        public var predatorDetails: PredatorDetails { _toFragment() }
+      }
+    }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+  }
+
   func test__render_nestedSelectionSet__givenEntityFieldMergedFromNestedFragmentInTypeCase_withNoOtherMergedFields_doesNotRendersSelectionSet() throws {
     // given
     schemaSDL = """
