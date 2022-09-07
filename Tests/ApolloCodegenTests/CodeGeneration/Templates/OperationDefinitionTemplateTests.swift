@@ -396,4 +396,51 @@ class OperationDefinitionTemplateTests: XCTestCase {
     // then
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
+
+  func test__generate__givenQueryWithNullableScalarVariable_generatesQueryOperationWithVariable_withEmbedSwiftOptionalInitializerOption() throws {
+     // given
+     schemaSDL = """
+     type Query {
+       allAnimals: [Animal!]
+     }
+
+     type Animal {
+       species: String!
+     }
+     """
+
+     document = """
+     query TestOperation($variable: String) {
+       allAnimals {
+         species
+       }
+     }
+     """
+
+     let expected =
+     """
+       public var variable: GraphQLNullable<String>
+
+       @_disfavoredOverload public init(variable: GraphQLNullable<String>) {
+         self.variable = variable
+       }
+
+       public convenience init(variable: String?) {
+         self.init(
+           variable: variable ?? .null
+         )
+       }
+
+       public var variables: Variables? { ["variable": variable] }
+     """
+
+     // when
+     try buildSubjectAndOperation(embedSwiftOptionalInitializer: .alwaysFillNull)
+
+     let actual = renderSubject()
+
+     // then
+     expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
+   }
+
 }
