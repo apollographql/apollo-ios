@@ -32,8 +32,6 @@ class OperationDefinitionTemplateTests: XCTestCase {
       }
     }
     """
-
-    config = .mock()
   }
 
   override func tearDown() {
@@ -48,7 +46,8 @@ class OperationDefinitionTemplateTests: XCTestCase {
 
   // MARK: - Helpers
 
-  private func buildSubjectAndOperation(named operationName: String = "TestOperation") throws {
+  private func buildSubjectAndOperation(named operationName: String = "TestOperation", embedSwiftOptionalInitializer: ApolloCodegenConfiguration.EmbedSwiftOptionalInitializer = .none) throws {
+    config = .mock(options: .init(schemaDocumentation: .exclude, embedSwiftOptionalInitializer: embedSwiftOptionalInitializer))
     ir = try .mock(schema: schemaSDL, document: document)
     let operationDefinition = try XCTUnwrap(ir.compilationResult[operation: operationName])
     operation = ir.build(operation: operationDefinition)
