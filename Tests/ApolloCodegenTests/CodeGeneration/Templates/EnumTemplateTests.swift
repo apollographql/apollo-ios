@@ -110,7 +110,7 @@ class EnumTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
-  func test_render_givenSchemaEnum_generatesSwiftEnumRespectingValueCasing() throws {
+  func test_render_givenSchemaEnum_noneConveersionStrategies_generatesSwiftEnumRespectingValueCasing() throws {
     // given
     buildSubject(
       name: "casedEnum",
@@ -119,7 +119,10 @@ class EnumTemplateTests: XCTestCase {
         ("UPPER", nil, nil),
         ("Capitalized", nil, nil),
         ("public", nil, nil)
-      ]
+      ],
+      config: .mock(
+        options: .init(conversionStrategies: .init(enumCases: .none))
+      )
     )
 
     let expected = """
@@ -378,9 +381,7 @@ class EnumTemplateTests: XCTestCase {
         ("Capitalized", nil, nil),
         ("SNAKE_CASE", nil, nil)
       ],
-      config: ApolloCodegenConfiguration.mock(options: .init(
-        enumCaseConvertStrategy: .camelCase
-      ))
+      config: ApolloCodegenConfiguration.mock(options: .init())
     )
 
     let expected = """
