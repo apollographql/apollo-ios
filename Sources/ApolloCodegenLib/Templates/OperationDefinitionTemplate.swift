@@ -26,9 +26,16 @@ struct OperationDefinitionTemplate: OperationTemplateRenderer {
 
       \(section: VariableProperties(operation.definition.variables))
 
-      \(if: !operation.definition.variables.allSatisfy(variableIsNonNull), "@_disfavoredOverload")
+      \(if: shouldEmbedSwiftOptionalInitializer,
+      """
+      @_disfavoredOverload \(Initializer(operation.definition.variables))
+
+      \(SwiftOptionalInitializer(operation.definition.variables))
+      """,
+      else:
+      """
       \(Initializer(operation.definition.variables))
-      \(if: config.options.embedSwiftOptionalInitializer.shouldEmbed, SwiftOptionalInitializer(operation.definition.variables))
+      """)
 
       \(section: VariableAccessors(operation.definition.variables))
 
@@ -77,6 +84,9 @@ struct OperationDefinitionTemplate: OperationTemplateRenderer {
     }
   }
 
+  private var shouldEmbedSwiftOptionalInitializer: Bool {
+    config.options.embedSwiftOptionalInitializer.shouldEmbed && !operation.definition.variables.allSatisfy(variableIsNonNull)
+  }
 }
 
 fileprivate extension ApolloCodegenConfiguration.APQConfig {
