@@ -47,15 +47,15 @@ struct EnumTemplate: TemplateRenderer {
         @available(*, deprecated, message: \"\(reason)\")
         case \(convertToCamelCase(graphqlEnumValue.name).asEnumCaseName) = "\(graphqlEnumValue.name)"
         """
-    case (_, _, _, .camelCase):
+    case (_, _, _, .none):
       return """
         \(documentation: graphqlEnumValue.documentation, config: config)
-        case \(convertToCamelCase(graphqlEnumValue.name).asEnumCaseName) = "\(graphqlEnumValue.name)"
+        case \(graphqlEnumValue.name.asEnumCaseName)
         """
     default:
       return """
         \(documentation: graphqlEnumValue.documentation, config: config)
-        case \(graphqlEnumValue.name.asEnumCaseName)
+        case \(convertToCamelCase(graphqlEnumValue.name).asEnumCaseName) = "\(graphqlEnumValue.name)"
         """
     }
   }
