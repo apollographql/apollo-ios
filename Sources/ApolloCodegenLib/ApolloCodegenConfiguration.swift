@@ -304,8 +304,8 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     /// directive.
     public let warningsOnDeprecatedUsage: Composition
 
-    /// Strategy of convert to enum from GraphQL schema to swift. `.none` is a default strategy.
-    public let enumCaseConvertStrategy: CaseConversionStrategy
+    /// The conversion strategy for the generated code is in this set.
+    public let conversionStrategies: ConversionStrategies
 
     /// Designated initializer.
     ///
@@ -322,7 +322,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     ///  - warningsOnDeprecatedUsage: Annotate generated Swift code with the Swift `available`
     ///    attribute and `deprecated` argument for parts of the GraphQL schema annotated with the
     ///    built-in `@deprecated` directive.
-    ///  - enumCaseConvertStrategy: How convert strategy to Swift enum from GraphQL schema.
+    ///  - conversionStrategies: Conversion strategy for generated Swift code from GraphQL schema.
     public init(
       additionalInflectionRules: [InflectionRule] = [],
       queryStringLiteralFormat: QueryStringLiteralFormat = .multiline,
@@ -331,7 +331,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       apqs: APQConfig = .disabled,
       cocoapodsCompatibleImportStatements: Bool = false,
       warningsOnDeprecatedUsage: Composition = .include,
-      enumCaseConvertStrategy: CaseConversionStrategy = .none
+      conversionStrategies: ConversionStrategies = .init()
     ) {
       self.additionalInflectionRules = additionalInflectionRules
       self.queryStringLiteralFormat = queryStringLiteralFormat
@@ -340,7 +340,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       self.apqs = apqs
       self.cocoapodsCompatibleImportStatements = cocoapodsCompatibleImportStatements
       self.warningsOnDeprecatedUsage = warningsOnDeprecatedUsage
-      self.enumCaseConvertStrategy = enumCaseConvertStrategy
+      self.conversionStrategies = conversionStrategies
     }
   }
 
@@ -366,6 +366,15 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     case none
     /// Convert to lower camel case from `snake_case`, `UpperCamelCase`,`UPPERCASE`.
     case camelCase
+  }
+
+  /// `ConversionStrategies` is a set about option of code generation naming rules conversion strategy.
+  public struct ConversionStrategies: Codable, Equatable {
+    public let enumCases: CaseConversionStrategy
+
+    public init(enumCases: CaseConversionStrategy = .camelCase) {
+      self.enumCases = enumCases
+    }
   }
 
   /// Enum to enable using
