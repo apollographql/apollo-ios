@@ -306,7 +306,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
 
     /// Option to embed convenience initializer about using `GraphQLNullable`.
     public let embedSwiftOptionalInitializer: EmbedSwiftOptionalInitializer
-    
+
     /// Designated initializer.
     ///
     /// - Parameters:
@@ -330,7 +330,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       schemaDocumentation: Composition = .include,
       apqs: APQConfig = .disabled,
       cocoapodsCompatibleImportStatements: Bool = false,
-      warningsondeprecatedusage: composition = .include,
+      warningsOnDeprecatedUsage: Composition = .include,
       embedSwiftOptionalInitializer: EmbedSwiftOptionalInitializer = .none
     ) {
       self.additionalInflectionRules = additionalInflectionRules
