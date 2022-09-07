@@ -48,7 +48,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
           apqs: .disabled,
           cocoapodsCompatibleImportStatements: false,
           warningsOnDeprecatedUsage: .include,
-          enumCaseConvertStrategy: .none
+          conversionStrategies:.init(enumCases: .camelCase)
         ),
         experimentalFeatures: .init(
           clientControlledNullability: true,
