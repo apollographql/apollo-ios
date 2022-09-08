@@ -140,12 +140,14 @@ class InitializeTests: XCTestCase {
       "additionalInflectionRules" : [
 
       ],
+      "conversionStrategies" : {
+        "enumCases" : "camelCase"
+      },
       "warningsOnDeprecatedUsage" : "include",
       "deprecatedEnumCases" : "include",
       "schemaDocumentation" : "include",
       "cocoapodsCompatibleImportStatements" : false,
-      "queryStringLiteralFormat" : "multiline",
-      "enumCaseConvertStrategy" : "none"
+      "queryStringLiteralFormat" : "multiline"
     },
     "input" : {
       "operationSearchPaths" : [
