@@ -140,6 +140,9 @@ class InitializeTests: XCTestCase {
       "additionalInflectionRules" : [
 
       ],
+      "conversionStrategies" : {
+        "enumCases" : "camelCase"
+      },
       "warningsOnDeprecatedUsage" : "include",
       "deprecatedEnumCases" : "include",
       "schemaDocumentation" : "include",

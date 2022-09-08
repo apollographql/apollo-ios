@@ -29,23 +29,50 @@ struct EnumTemplate: TemplateRenderer {
     switch (
       config.options.deprecatedEnumCases,
       graphqlEnumValue.deprecationReason,
-      config.options.warningsOnDeprecatedUsage
+      config.options.warningsOnDeprecatedUsage,
+      config.options.conversionStrategies.enumCases
     ) {
-    case (.exclude, .some, _):
+    case (.exclude, .some, _, _):
       return nil
 
-    case let (.include, .some(reason), .include):
+    case let (.include, .some(reason), .include, .none):
       return """
         \(documentation: graphqlEnumValue.documentation, config: config)
         @available(*, deprecated, message: \"\(reason)\")
         case \(graphqlEnumValue.name.asEnumCaseName)
         """
-
-    default:
+    case let (.include, .some(reason), .include, .camelCase):
+      return """
+        \(documentation: graphqlEnumValue.documentation, config: config)
+        @available(*, deprecated, message: \"\(reason)\")
+        case \(convertToCamelCase(graphqlEnumValue.name).asEnumCaseName) = "\(graphqlEnumValue.name)"
+        """
+    case (_, _, _, .none):
       return """
         \(documentation: graphqlEnumValue.documentation, config: config)
         case \(graphqlEnumValue.name.asEnumCaseName)
         """
+    default:
+      return """
+        \(documentation: graphqlEnumValue.documentation, config: config)
+        case \(convertToCamelCase(graphqlEnumValue.name).asEnumCaseName) = "\(graphqlEnumValue.name)"
+        """
     }
+  }
+
+  private func convertToCamelCase(_ value: String) -> String {
+    if value.allSatisfy({ $0.isUppercase }) {
+      // For `UPPERCASE`. e.g) UPPER -> upper, STARWARS -> starwards
+      return value.lowercased()
+    }
+    if value.contains("_") {
+      // For `snake_case`. e.g) snake_case -> snakeCase, UPPER_SNAKE_CASE -> upperSnakeCase
+      return value.split(separator: "_").enumerated().map { $0.offset == 0 ? $0.element.lowercased() : $0.element.capitalized }.joined()
+    }
+    if let firstChar = value.first, firstChar.isUppercase {
+      // For `UpperCamelCase`. e.g) UpperCamelCase -> upperCamelCase
+      return [firstChar.lowercased(), String(value.suffix(from: value.index(value.startIndex, offsetBy: 1)))].joined()
+    }
+    return value
   }
 }

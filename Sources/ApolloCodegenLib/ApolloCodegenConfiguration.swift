@@ -304,6 +304,9 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     /// directive.
     public let warningsOnDeprecatedUsage: Composition
 
+    /// The conversion strategy for the generated code is in this set.
+    public let conversionStrategies: ConversionStrategies
+
     /// Designated initializer.
     ///
     /// - Parameters:
@@ -319,6 +322,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     ///  - warningsOnDeprecatedUsage: Annotate generated Swift code with the Swift `available`
     ///    attribute and `deprecated` argument for parts of the GraphQL schema annotated with the
     ///    built-in `@deprecated` directive.
+    ///  - conversionStrategies: Conversion strategy for generated Swift code from GraphQL schema.
     public init(
       additionalInflectionRules: [InflectionRule] = [],
       queryStringLiteralFormat: QueryStringLiteralFormat = .multiline,
@@ -326,7 +330,8 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       schemaDocumentation: Composition = .include,
       apqs: APQConfig = .disabled,
       cocoapodsCompatibleImportStatements: Bool = false,
-      warningsOnDeprecatedUsage: Composition = .include
+      warningsOnDeprecatedUsage: Composition = .include,
+      conversionStrategies: ConversionStrategies = .init()
     ) {
       self.additionalInflectionRules = additionalInflectionRules
       self.queryStringLiteralFormat = queryStringLiteralFormat
@@ -335,6 +340,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       self.apqs = apqs
       self.cocoapodsCompatibleImportStatements = cocoapodsCompatibleImportStatements
       self.warningsOnDeprecatedUsage = warningsOnDeprecatedUsage
+      self.conversionStrategies = conversionStrategies
     }
   }
 
@@ -352,6 +358,23 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
   public enum Composition: String, Codable, Equatable {
     case include
     case exclude
+  }
+
+  /// CaseConversionStrategy is a strategy of convert to Swift enum from GraphQL schema.
+  public enum CaseConversionStrategy: String, Codable, Equatable {
+    /// Default. Nothing different from the definition of a schema.
+    case none
+    /// Convert to lower camel case from `snake_case`, `UpperCamelCase`,`UPPERCASE`.
+    case camelCase
+  }
+
+  /// `ConversionStrategies` is a set about option of code generation naming rules conversion strategy.
+  public struct ConversionStrategies: Codable, Equatable {
+    public let enumCases: CaseConversionStrategy
+
+    public init(enumCases: CaseConversionStrategy = .camelCase) {
+      self.enumCases = enumCases
+    }
   }
 
   /// Enum to enable using
