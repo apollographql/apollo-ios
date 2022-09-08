@@ -33,13 +33,14 @@ class FileGeneratorTests: XCTestCase {
     config = ApolloCodegen.ConfigurationContext(config: mockedConfig)
   }
 
-  private func buildSubject() {
+  private func buildSubject(extension: String = "graphql.swift") {
     template = MockFileTemplate.mock(target: .schemaFile(type: .schemaMetadata))
     fileTarget = .object
     subject = MockFileGenerator.mock(
       template: template,
       target: fileTarget,
-      filename: "lowercasedType.swift"
+      filename: "lowercasedType",
+      extension: `extension`
     )
   }
 
@@ -73,7 +74,29 @@ class FileGeneratorTests: XCTestCase {
     buildSubject()
 
     fileManager.mock(closure: .createFile({ path, data, attributes in
-      let expected = "LowercasedType.swift"
+      let expected = "LowercasedType.graphql.swift"
+
+      // then
+      let actual = URL(fileURLWithPath: path).lastPathComponent
+      expect(actual).to(equal(expected))
+
+      return true
+    }))
+
+    // when
+    try subject.generate(forConfig: config, fileManager: fileManager)
+
+    // then
+    expect(self.fileManager.allClosuresCalled).to(beTrue())
+  }
+
+  func test__generate__shouldAddExtensionToFilePath() throws {
+    // given
+    buildConfig()
+    buildSubject(extension: "test")
+
+    fileManager.mock(closure: .createFile({ path, data, attributes in
+      let expected = "LowercasedType.test"
 
       // then
       let actual = URL(fileURLWithPath: path).lastPathComponent

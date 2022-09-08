@@ -48,7 +48,7 @@ class MockUnionsFileGeneratorTests: XCTestCase {
     // given
     buildSubject()
 
-    let expected = "MockObject+Unions.swift"
+    let expected = "MockObject+Unions"
 
     // then
     expect(self.subject.fileName).to(equal(expected))

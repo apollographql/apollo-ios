@@ -24,5 +24,5 @@ struct MockUnionsFileGenerator: FileGenerator {
   }
 
   var target: FileTarget { .testMock }
-  var fileName: String { "MockObject+Unions.swift" }
+  var fileName: String { "MockObject+Unions" }
 }

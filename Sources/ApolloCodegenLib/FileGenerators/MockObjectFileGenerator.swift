@@ -18,5 +18,5 @@ struct MockObjectFileGenerator: FileGenerator {
   }
 
   var target: FileTarget { .testMock }
-  var fileName: String { "\(graphqlObject.name)+Mock.swift" }
+  var fileName: String { "\(graphqlObject.name)+Mock" }
 }

@@ -14,5 +14,5 @@ struct InputObjectFileGenerator: FileGenerator {
     InputObjectTemplate(graphqlInputObject: graphqlInputObject, schema: schema, config: config)
   }
   var target: FileTarget { .inputObject }
-  var fileName: String { "\(graphqlInputObject.name).swift" }
+  var fileName: String { graphqlInputObject.name }
 }

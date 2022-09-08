@@ -3982,9 +3982,9 @@
 		E6E3BBDC276A8D6200E5218B /* FileGenerators */ = {
 			isa = PBXGroup;
 			children = (
+				E6E3BBDD276A8D6200E5218B /* FileGenerator.swift */,
 				E669352E2803F09C004E1FFC /* CustomScalarFileGenerator.swift */,
 				E610D8D6278EA2390023E495 /* EnumFileGenerator.swift */,
-				E6E3BBDD276A8D6200E5218B /* FileGenerator.swift */,
 				DE4D54E827A3518100D26B68 /* FragmentFileGenerator.swift */,
 				E6D90D06278FA595009CAC5D /* InputObjectFileGenerator.swift */,
 				E610D8DA278EB0900023E495 /* InterfaceFileGenerator.swift */,

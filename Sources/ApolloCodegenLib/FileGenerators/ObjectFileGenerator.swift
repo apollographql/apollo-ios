@@ -12,5 +12,5 @@ struct ObjectFileGenerator: FileGenerator {
   }
 
   var target: FileTarget { .object }
-  var fileName: String { "\(graphqlObject.name).swift" }
+  var fileName: String { graphqlObject.name }
 }

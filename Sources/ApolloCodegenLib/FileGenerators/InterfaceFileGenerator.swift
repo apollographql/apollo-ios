@@ -12,5 +12,5 @@ struct InterfaceFileGenerator: FileGenerator {
   }
 
   var target: FileTarget { .interface }
-  var fileName: String { "\(graphqlInterface.name).swift" }
+  var fileName: String { graphqlInterface.name }
 }

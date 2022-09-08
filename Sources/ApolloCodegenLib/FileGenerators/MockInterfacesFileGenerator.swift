@@ -24,5 +24,5 @@ struct MockInterfacesFileGenerator: FileGenerator {
   }
 
   var target: FileTarget { .testMock }
-  var fileName: String { "MockObject+Interfaces.swift" }
+  var fileName: String { "MockObject+Interfaces" }
 }

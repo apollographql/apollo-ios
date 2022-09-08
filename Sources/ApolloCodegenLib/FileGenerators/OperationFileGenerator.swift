@@ -24,5 +24,5 @@ struct OperationFileGenerator: FileGenerator {
   }
 
   var target: FileTarget { .operation(irOperation.definition) }
-  var fileName: String { "\(irOperation.definition.nameWithSuffix).swift" }
+  var fileName: String { irOperation.definition.nameWithSuffix }
 }

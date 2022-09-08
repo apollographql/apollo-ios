@@ -35,7 +35,7 @@ class UnionFileGeneratorTests: XCTestCase {
     // given
     buildSubject()
 
-    let expected = "\(graphqlUnion.name).swift"
+    let expected = graphqlUnion.name
 
     // then
     expect(self.subject.fileName).to(equal(expected))

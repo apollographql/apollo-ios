@@ -34,7 +34,7 @@ class EnumFileGeneratorTests: XCTestCase {
     // given
     buildSubject()
 
-    let expected = "\(graphqlEnum.name.firstUppercased).swift"
+    let expected = graphqlEnum.name.firstUppercased
 
     // then
     expect(self.subject.fileName).to(equal(expected))

@@ -12,5 +12,5 @@ struct EnumFileGenerator: FileGenerator {
   }
 
   var target: FileTarget { .enum }
-  var fileName: String { "\(graphqlEnum.name).swift" }
+  var fileName: String { graphqlEnum.name }
 }

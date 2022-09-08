@@ -34,7 +34,7 @@ class SchemaMetadataFileGeneratorTests: XCTestCase {
     // given
     buildSubject()
 
-    let expected = "SchemaMetadata.swift"
+    let expected = "SchemaMetadata"
 
     // then
     expect(self.subject.fileName).to(equal(expected))

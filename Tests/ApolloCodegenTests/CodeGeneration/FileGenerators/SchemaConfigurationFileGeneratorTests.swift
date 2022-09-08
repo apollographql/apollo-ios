@@ -34,7 +34,7 @@ class SchemaConfigurationFileGeneratorTests: XCTestCase {
     // given
     buildSubject()
 
-    let expected = "SchemaConfiguration.swift"
+    let expected = "SchemaConfiguration"
 
     // then
     expect(self.subject.fileName).to(equal(expected))
