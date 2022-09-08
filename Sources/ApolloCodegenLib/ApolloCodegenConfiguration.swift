@@ -304,7 +304,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     /// directive.
     public let warningsOnDeprecatedUsage: Composition
 
-    /// The conversion strategy for the generated code is in this set.
+    /// Rules for how to convert the names of values from the schema in generated code.
     public let conversionStrategies: ConversionStrategies
 
     /// Designated initializer.
@@ -322,7 +322,8 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     ///  - warningsOnDeprecatedUsage: Annotate generated Swift code with the Swift `available`
     ///    attribute and `deprecated` argument for parts of the GraphQL schema annotated with the
     ///    built-in `@deprecated` directive.
-    ///  - conversionStrategies: Conversion strategy for generated Swift code from GraphQL schema.
+    ///  - conversionStrategies: Rules for how to convert the names of values from the schema in
+    ///    generated code.
     public init(
       additionalInflectionRules: [InflectionRule] = [],
       queryStringLiteralFormat: QueryStringLiteralFormat = .multiline,
@@ -360,16 +361,22 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     case exclude
   }
 
-  /// CaseConversionStrategy is a strategy of convert to Swift enum from GraphQL schema.
+  /// ``CaseConversionStrategy`` is used to specify the strategy used to convert the casing of
+  /// GraphQL schema values into generated Swift code.
   public enum CaseConversionStrategy: String, Codable, Equatable {
-    /// Default. Nothing different from the definition of a schema.
+    /// Generates swift code using the exact name provided in the GraphQL schema
+    /// performing no conversion.
     case none
-    /// Convert to lower camel case from `snake_case`, `UpperCamelCase`,`UPPERCASE`.
+    /// Convert to lower camel case from `snake_case`, `UpperCamelCase`, or `UPPERCASE`.
     case camelCase
   }
 
-  /// `ConversionStrategies` is a set about option of code generation naming rules conversion strategy.
+  /// ``ConversionStrategies`` configures rules for how to convert the names of values from the
+  /// schema in generated code.
   public struct ConversionStrategies: Codable, Equatable {
+    /// Determines how the names of enum cases in the GraphQL schema will be converted into
+    /// cases on the generated Swift enums.
+    /// Defaultss to ``ApolloCodegenConfiguration/CaseConversionStrategy/camelCase``
     public let enumCases: CaseConversionStrategy
 
     public init(enumCases: CaseConversionStrategy = .camelCase) {
