@@ -13,7 +13,7 @@ protocol FileGenerator {
 
 extension FileGenerator {
   var overwrite: Bool { true }
-  var fileExtension: String { "graphql.swift" }
+  var fileExtension: String { overwrite ? "graphql.swift" : "swift" }
 
   /// Generates the file writing the template content to the specified config output paths.
   ///
