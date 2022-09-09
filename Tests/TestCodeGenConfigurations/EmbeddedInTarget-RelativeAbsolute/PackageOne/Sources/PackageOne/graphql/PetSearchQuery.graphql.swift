@@ -26,7 +26,7 @@ class PetSearchQuery: GraphQLQuery {
   public init(filters: GraphQLNullable<MySchemaModule.PetSearchFilters> = .init(
     MySchemaModule.PetSearchFilters(
       species: ["Dog", "Cat"],
-      size: .init(.SMALL),
+      size: .init(.small),
       measurements: .init(
         MySchemaModule.MeasurementsInput(
           height: 10.5,
