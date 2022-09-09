@@ -28,6 +28,16 @@ class ApolloCodegenTests: XCTestCase {
       authors: [Author!]!
     }
 
+    type Mutation {
+      books: [Book!]!
+      authors: [Author!]!
+    }
+
+    type Subscription {
+      books: [Book!]!
+      authors: [Author!]!
+    }
+
     type Book {
       title: String!
       author: Author!
@@ -63,8 +73,31 @@ class ApolloCodegenTests: XCTestCase {
   }
 
   @discardableResult
-  private func createFile(body: String, named filename: String) -> String {
-    return createFile(containing: body.data(using: .utf8)!, named: filename)
+  private func createFile(
+    body: @autoclosure () -> String = "Test File",
+    filename: String,
+    inDirectory directory: String? = nil
+  ) -> String {
+    let filePath = directory?.appending("/").appending(filename) ?? filename
+    return createFile(containing: body().data(using: .utf8)!, named: filePath)
+  }
+
+  @discardableResult
+  private func createOperationFile(
+    type: CompilationResult.OperationType,
+    named operationName: String,
+    filename: String,
+    inDirectory directory: String? = nil
+  ) -> String {
+    let query: String =
+      """
+      \(type.rawValue) \(operationName) {
+        books {
+          title
+        }
+      }
+      """
+    return createFile(body: query, filename: filename, inDirectory: directory)
   }
 
   // MARK: CompilationResult Tests
@@ -266,7 +299,7 @@ class ApolloCodegenTests: XCTestCase {
         string: String!
       }
       """,
-      named: "schema1.graphqls")
+      filename: "schema1.graphqls")
 
     createFile(containing: schemaData, named: "CustomRoot/schema.graphqls")
 
@@ -278,7 +311,7 @@ class ApolloCodegenTests: XCTestCase {
         }
       }
       """,
-      named: "TestQuery.graphql")
+      filename: "TestQuery.graphql")
 
     let rootURL = directoryURL.appendingPathComponent("CustomRoot")
 
@@ -303,7 +336,7 @@ class ApolloCodegenTests: XCTestCase {
         authors: [Author!]!
       }
       """,
-      named: "schema1.graphqls")
+      filename: "schema1.graphqls")
 
     createFile(
       body: """
@@ -317,7 +350,7 @@ class ApolloCodegenTests: XCTestCase {
         books: [Book!]!
       }
       """,
-      named: "schema2.graphqls")
+      filename: "schema2.graphqls")
 
     createFile(
       body: """
@@ -327,7 +360,7 @@ class ApolloCodegenTests: XCTestCase {
         }
       }
       """,
-      named: "TestQuery.graphql")
+      filename: "TestQuery.graphql")
 
     // when
     let config = ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration.mock(input: .init(
@@ -347,7 +380,7 @@ class ApolloCodegenTests: XCTestCase {
         string: String!
       }
       """,
-      named: "schema1.graphqls")
+      filename: "schema1.graphqls")
 
     createFile(
       body: """
@@ -355,7 +388,7 @@ class ApolloCodegenTests: XCTestCase {
         bool: Boolean!
       }
       """,
-      named: "schema2.graphqls")
+      filename: "schema2.graphqls")
 
     createFile(
       body: """
@@ -363,7 +396,7 @@ class ApolloCodegenTests: XCTestCase {
         string
       }
       """,
-      named: "TestQuery.graphql")
+      filename: "TestQuery.graphql")
 
     createFile(
       body: """
@@ -371,7 +404,7 @@ class ApolloCodegenTests: XCTestCase {
         bool
       }
       """,
-      named: "TestSubscription.graphql")
+      filename: "TestSubscription.graphql")
 
     // when
     let config = ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration.mock(input: .init(
@@ -393,7 +426,7 @@ class ApolloCodegenTests: XCTestCase {
         string: String!
       }
       """,
-      named: "schema1.graphqls")
+      filename: "schema1.graphqls")
 
     createFile(
       body: """
@@ -401,7 +434,7 @@ class ApolloCodegenTests: XCTestCase {
         bool: Boolean!
       }
       """,
-      named: "schemaExtension.graphqls")
+      filename: "schemaExtension.graphqls")
 
     createFile(
       body: """
@@ -410,7 +443,7 @@ class ApolloCodegenTests: XCTestCase {
         bool
       }
       """,
-      named: "TestQuery.graphql")
+      filename: "TestQuery.graphql")
 
     // when
     let config = ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration.mock(input: .init(
@@ -430,7 +463,7 @@ class ApolloCodegenTests: XCTestCase {
       contentsOf: ApolloCodegenInternalTestHelpers.Resources.StarWars.JSONSchema
     )
     
-    createFile(body: introspectionJSON, named: "schemaJSON.json")
+    createFile(body: introspectionJSON, filename: "schemaJSON.json")
 
     createFile(
       body: """
@@ -438,7 +471,7 @@ class ApolloCodegenTests: XCTestCase {
         testExtensionField: Boolean!
       }
       """,
-      named: "schemaExtension.graphqls")
+      filename: "schemaExtension.graphqls")
 
     createFile(
       body: """
@@ -446,7 +479,7 @@ class ApolloCodegenTests: XCTestCase {
         testExtensionField
       }
       """,
-      named: "TestQuery.graphql")
+      filename: "TestQuery.graphql")
 
     // when
     let config = ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration.mock(input: .init(
@@ -469,8 +502,8 @@ class ApolloCodegenTests: XCTestCase {
       contentsOf: ApolloCodegenInternalTestHelpers.Resources.StarWars.JSONSchema
     )
 
-    createFile(body: introspectionJSON, named: "schemaJSON1.json")
-    createFile(body: introspectionJSON, named: "schemaJSON2.json")
+    createFile(body: introspectionJSON, filename: "schemaJSON1.json")
+    createFile(body: introspectionJSON, filename: "schemaJSON2.json")
 
     // when
     let config = ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration.mock(input: .init(
@@ -1061,6 +1094,549 @@ class ApolloCodegenTests: XCTestCase {
     expect(fileManager.allClosuresCalled).to(beTrue())
   }
 
+  // MARK: Old File Deletion Tests
+
+  func test__fileDeletion__givenGeneratedFilesExist_InSchemaModuleDirectory_deletesOnlyGeneratedFiles() throws {
+    // given
+    createFile(containing: schemaData, named: "schema.graphqls")
+
+    let testFile = createFile(
+      filename: "TestGeneratedA.graphql.swift",
+      inDirectory: "SchemaModule"
+    )
+    let testInSourcesFile = createFile(
+      filename: "TestGeneratedB.graphql.swift",
+      inDirectory: "SchemaModule/Sources"
+    )
+    let testInOtherFolderFile = createFile(
+      filename: "TestGeneratedC.graphql.swift",
+      inDirectory: "SchemaModule/OtherFolder"
+    )
+
+    let testUserFile = createFile(
+      filename: "TestUserFileA.swift",
+      inDirectory: "SchemaModule"
+    )
+    let testInSourcesUserFile = createFile(
+      filename: "TestUserFileB.swift",
+      inDirectory: "SchemaModule/Sources"
+    )
+    let testInOtherFolderUserFile = createFile(
+      filename: "TestUserFileC.swift",
+      inDirectory: "SchemaModule/OtherFolder"
+    )
+
+    // when
+    let config = ApolloCodegenConfiguration.mock(
+      input: .init(
+        schemaSearchPaths: ["schema*.graphqls"],
+        operationSearchPaths: ["*.graphql"]
+      ),
+      output: .init(
+        schemaTypes: .init(path: "SchemaModule",
+                           moduleType: .swiftPackageManager),
+        operations: .inSchemaModule
+      )
+    )
+
+    try ApolloCodegen.build(with: config, rootURL: directoryURL)
+
+    // then
+    expect(ApolloFileManager.default.doesFileExist(atPath: testFile)).to(beFalse())
+    expect(ApolloFileManager.default.doesFileExist(atPath: testInSourcesFile)).to(beFalse())
+    expect(ApolloFileManager.default.doesFileExist(atPath: testInOtherFolderFile)).to(beFalse())
+
+    expect(ApolloFileManager.default.doesFileExist(atPath: testUserFile)).to(beTrue())
+    expect(ApolloFileManager.default.doesFileExist(atPath: testInSourcesUserFile)).to(beTrue())
+    expect(ApolloFileManager.default.doesFileExist(atPath: testInOtherFolderUserFile)).to(beTrue())
+  }
+
+  func test__fileDeletion__givenGeneratedFilesExist_InOperationAbsoluteDirectory_deletesOnlyGeneratedFiles() throws {
+    // given
+    let absolutePath = "OperationPath"
+    createFile(containing: schemaData, named: "schema.graphqls")
+
+    let testFile = createFile(
+      filename: "TestGeneratedA.graphql.swift",
+      inDirectory: absolutePath
+    )
+    let testInChildFile = createFile(
+      filename: "TestGeneratedB.graphql.swift",
+      inDirectory: "\(absolutePath)/Child"
+    )
+
+    let testUserFile = createFile(
+      filename: "TestFileA.swift",
+      inDirectory: absolutePath
+    )
+    let testInChildUserFile = createFile(
+      filename: "TestFileB.swift",
+      inDirectory: "\(absolutePath)/Child"
+    )
+
+    // when
+    let config = ApolloCodegenConfiguration.mock(
+      input: .init(
+        schemaSearchPaths: ["schema*.graphqls"],
+        operationSearchPaths: ["*.graphql"]
+      ),
+      output: .init(
+        schemaTypes: .init(path: "SchemaModule",
+                           moduleType: .swiftPackageManager),
+        operations: .absolute(path: "OperationPath")
+      )
+    )
+
+    try ApolloCodegen.build(with: config, rootURL: directoryURL)
+
+    // then
+    expect(ApolloFileManager.default.doesFileExist(atPath: testFile)).to(beFalse())
+    expect(ApolloFileManager.default.doesFileExist(atPath: testInChildFile)).to(beFalse())
+
+    expect(ApolloFileManager.default.doesFileExist(atPath: testUserFile)).to(beTrue())
+    expect(ApolloFileManager.default.doesFileExist(atPath: testInChildUserFile)).to(beTrue())
+  }
+
+  func test__fileDeletion__givenGeneratedFilesExist_InOperationRelativeDirectories_deletesOnlyRelativeGeneratedFilesInOperationSearchPaths() throws {
+    // given
+    createFile(containing: schemaData, named: "schema.graphqls")
+
+    let testGeneratedFileInRootPath = createFile(
+      filename: "TestGeneratedA.graphql.swift",
+      inDirectory: "code"
+    )
+    let testGeneratedFileInChildPath = createFile(
+      filename: "TestGeneratedB.graphql.swift",
+      inDirectory: "code/child"
+    )
+    let testGeneratedFileInNestedChildPath = createFile(
+      filename: "TestGeneratedC.graphql.swift",
+      inDirectory: "code/one/two"
+    )
+
+    let testGeneratedFileNotInRelativePath = createFile(
+      filename: "TestGeneratedD.graphql.swift",
+      inDirectory: nil
+    )
+    let testGeneratedFileNotInRelativeChildPath = createFile(
+      filename: "TestGeneratedE.graphql.swift",
+      inDirectory: "other/child"
+    )
+
+    let testUserFileInRootPath = createFile(
+      filename: "TestUserFileA.swift",
+      inDirectory: "code"
+    )
+    let testUserFileInChildPath = createFile(
+      filename: "TestUserFileB.swift",
+      inDirectory: "code/child"
+    )
+    let testUserFileInNestedChildPath = createFile(
+      filename: "TestUserFileC.swift",
+      inDirectory: "code/one/two"
+    )
+
+    // when
+    let config = ApolloCodegenConfiguration.mock(
+      input: .init(
+        schemaSearchPaths: ["schema*.graphqls"],
+        operationSearchPaths: ["code/**/*.graphql"]
+      ),
+      output: .init(
+        schemaTypes: .init(path: "SchemaModule",
+                           moduleType: .swiftPackageManager),
+        operations: .relative(subpath: nil)
+      )
+    )
+
+    try ApolloCodegen.build(with: config, rootURL: directoryURL)
+
+    // then
+    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInRootPath)).to(beFalse())
+    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInChildPath)).to(beFalse())
+    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInNestedChildPath)).to(beFalse())
+
+    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileNotInRelativePath)).to(beTrue())
+    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileNotInRelativeChildPath)).to(beTrue())
+
+    expect(ApolloFileManager.default.doesFileExist(atPath: testUserFileInRootPath)).to(beTrue())
+    expect(ApolloFileManager.default.doesFileExist(atPath: testUserFileInChildPath)).to(beTrue())
+    expect(ApolloFileManager.default.doesFileExist(atPath: testUserFileInNestedChildPath)).to(beTrue())
+  }
+
+  func test__fileDeletion__givenGeneratedFilesExist_InOperationRelativeDirectories_operationSearchPathWithoutDirectories_deletesOnlyRelativeGeneratedFilesInOperationSearchPaths() throws {
+    // given
+    createFile(containing: schemaData, named: "schema.graphqls")
+
+    let testGeneratedFileInRootPath = createFile(
+      filename: "TestGeneratedA.graphql.swift",
+      inDirectory: "code"
+    )
+    let testGeneratedFileInChildPath = createFile(
+      filename: "TestGeneratedB.graphql.swift",
+      inDirectory: "code/child"
+    )
+    let testGeneratedFileInNestedChildPath = createFile(
+      filename: "TestGeneratedC.graphql.swift",
+      inDirectory: "code/one/two"
+    )
+
+    let testGeneratedFileNotInRelativePath = createFile(
+      filename: "TestGeneratedD.graphql.swift",
+      inDirectory: nil
+    )
+    let testGeneratedFileNotInRelativeChildPath = createFile(
+      filename: "TestGeneratedE.graphql.swift",
+      inDirectory: "other/child"
+    )
+
+    let testUserFileInRootPath = createFile(
+      filename: "TestUserFileA.swift",
+      inDirectory: "code"
+    )
+    let testUserFileInChildPath = createFile(
+      filename: "TestUserFileB.swift",
+      inDirectory: "code/child"
+    )
+    let testUserFileInNestedChildPath = createFile(
+      filename: "TestUserFileC.swift",
+      inDirectory: "code/one/two"
+    )
+
+    // when
+    let config = ApolloCodegenConfiguration.mock(
+      input: .init(
+        schemaSearchPaths: ["schema*.graphqls"],
+        operationSearchPaths: ["code.graphql"]
+      ),
+      output: .init(
+        schemaTypes: .init(path: "SchemaModule",
+                           moduleType: .swiftPackageManager),
+        operations: .relative(subpath: nil)
+      )
+    )
+
+    try ApolloCodegen.build(with: config, rootURL: directoryURL)
+
+    // then
+    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInRootPath)).to(beFalse())
+    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInChildPath)).to(beTrue())
+    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInNestedChildPath)).to(beTrue())
+
+    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileNotInRelativePath)).to(beTrue())
+    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileNotInRelativeChildPath)).to(beTrue())
+
+    expect(ApolloFileManager.default.doesFileExist(atPath: testUserFileInRootPath)).to(beTrue())
+    expect(ApolloFileManager.default.doesFileExist(atPath: testUserFileInChildPath)).to(beTrue())
+    expect(ApolloFileManager.default.doesFileExist(atPath: testUserFileInNestedChildPath)).to(beTrue())
+  }
+
+  func test__fileDeletion__givenGeneratedFilesExist_InOperationRelativeDirectoriesWithSubPath_deletesOnlyRelativeGeneratedFilesInOperationSearchPaths() throws {
+    // given
+    createFile(containing: schemaData, named: "schema.graphqls")
+
+    let testGeneratedFileInRootPath = createFile(
+      filename: "TestGeneratedA.graphql.swift",
+      inDirectory: "code"
+    )
+    let testGeneratedFileInChildPath = createFile(
+      filename: "TestGeneratedB.graphql.swift",
+      inDirectory: "code/child"
+    )
+    let testGeneratedFileInNestedChildPath = createFile(
+      filename: "TestGeneratedC.graphql.swift",
+      inDirectory: "code/one/two"
+    )
+
+    let testGeneratedFileNotInRelativePath = createFile(
+      filename: "TestGeneratedD.graphql.swift",
+      inDirectory: nil
+    )
+    let testGeneratedFileNotInRelativeChildPath = createFile(
+      filename: "TestGeneratedE.graphql.swift",
+      inDirectory: "other/child"
+    )
+
+    let testGeneratedFileInRootPathSubpath = createFile(
+      filename: "TestGeneratedA.graphql.swift",
+      inDirectory: "code/subpath"
+    )
+    let testGeneratedFileInChildPathSubpath = createFile(
+      filename: "TestGeneratedB.graphql.swift",
+      inDirectory: "code/child/subpath"
+    )
+    let testGeneratedFileInNestedChildPathSubpath = createFile(
+      filename: "TestGeneratedC.graphql.swift",
+      inDirectory: "code/one/two/subpath"
+    )
+
+    let testGeneratedFileNotInRelativePathSubpath = createFile(
+      filename: "TestGeneratedD.graphql.swift",
+      inDirectory: "subpath"
+    )
+    let testGeneratedFileNotInRelativeChildPathSubpath = createFile(
+      filename: "TestGeneratedE.graphql.swift",
+      inDirectory: "other/child/subpath"
+    )
+
+    let testUserFileInRootPath = createOperationFile(
+      type: .query,
+      named: "OperationA",
+      filename: "TestUserFileOperationA.graphql",
+      inDirectory: "code"
+    )
+    let testUserFileInChildPath = createOperationFile(
+      type: .query,
+      named: "OperationB",
+      filename: "TestUserFileOperationB.graphql",
+      inDirectory: "code/child"
+    )
+    let testUserFileInNestedChildPath = createOperationFile(
+      type: .query,
+      named: "OperationC",
+      filename: "TestUserFileOperationC.graphql",
+      inDirectory: "code/one/two"
+    )
+
+    // when
+    let config = ApolloCodegenConfiguration.mock(
+      input: .init(
+        schemaSearchPaths: ["schema*.graphqls"],
+        operationSearchPaths: ["code/**/*.graphql"]
+      ),
+      output: .init(
+        schemaTypes: .init(path: "SchemaModule",
+                           moduleType: .swiftPackageManager),
+        operations: .relative(subpath: "subpath")
+      )
+    )
+
+    try ApolloCodegen.build(with: config, rootURL: directoryURL)
+
+    // then
+    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInRootPath)).to(beTrue())
+    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInChildPath)).to(beTrue())
+    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInNestedChildPath)).to(beTrue())
+
+    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileNotInRelativePath)).to(beTrue())
+    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileNotInRelativeChildPath)).to(beTrue())
+
+    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInRootPathSubpath)).to(beFalse())
+    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInChildPathSubpath)).to(beFalse())
+    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInNestedChildPathSubpath)).to(beFalse())
+
+    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileNotInRelativePathSubpath)).to(beTrue())
+    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileNotInRelativeChildPathSubpath)).to(beTrue())
+
+    expect(ApolloFileManager.default.doesFileExist(atPath: testUserFileInRootPath)).to(beTrue())
+    expect(ApolloFileManager.default.doesFileExist(atPath: testUserFileInChildPath)).to(beTrue())
+    expect(ApolloFileManager.default.doesFileExist(atPath: testUserFileInNestedChildPath)).to(beTrue())
+  }
+
+  func test__fileDeletion__givenGeneratedFilesExist_InOperationRelativeDirectoriesWithSubPath_operationSearchPathWithNoDirectories_deletesOnlyRelativeGeneratedFilesInOperationSearchPaths() throws {
+    // given
+    createFile(containing: schemaData, named: "schema.graphqls")
+
+    let testGeneratedFileInRootPath = createFile(
+      filename: "TestGeneratedA.graphql.swift",
+      inDirectory: "code"
+    )
+    let testGeneratedFileInChildPath = createFile(
+      filename: "TestGeneratedB.graphql.swift",
+      inDirectory: "code/child"
+    )
+    let testGeneratedFileInNestedChildPath = createFile(
+      filename: "TestGeneratedC.graphql.swift",
+      inDirectory: "code/one/two"
+    )
+
+    let testGeneratedFileNotInRelativePath = createFile(
+      filename: "TestGeneratedD.graphql.swift",
+      inDirectory: nil
+    )
+    let testGeneratedFileNotInRelativeChildPath = createFile(
+      filename: "TestGeneratedE.graphql.swift",
+      inDirectory: "other/child"
+    )
+
+    let testGeneratedFileInRootPathSubpath = createFile(
+      filename: "TestGeneratedA.graphql.swift",
+      inDirectory: "code/subpath"
+    )
+    let testGeneratedFileInChildPathSubpath = createFile(
+      filename: "TestGeneratedB.graphql.swift",
+      inDirectory: "code/child/subpath"
+    )
+    let testGeneratedFileInNestedChildPathSubpath = createFile(
+      filename: "TestGeneratedC.graphql.swift",
+      inDirectory: "code/one/two/subpath"
+    )
+
+    let testGeneratedFileNotInRelativePathSubpath = createFile(
+      filename: "TestGeneratedD.graphql.swift",
+      inDirectory: "subpath"
+    )
+    let testGeneratedFileNotInRelativeChildPathSubpath = createFile(
+      filename: "TestGeneratedE.graphql.swift",
+      inDirectory: "other/child/subpath"
+    )
+
+    let testUserFileInRootPath = createOperationFile(
+      type: .query,
+      named: "OperationA",
+      filename: "TestUserFileOperationA.graphql",
+      inDirectory: "code"
+    )
+    let testUserFileInChildPath = createOperationFile(
+      type: .query,
+      named: "OperationB",
+      filename: "TestUserFileOperationB.graphql",
+      inDirectory: "code/child"
+    )
+    let testUserFileInNestedChildPath = createOperationFile(
+      type: .query,
+      named: "OperationC",
+      filename: "TestUserFileOperationC.graphql",
+      inDirectory: "code/one/two"
+    )
+
+    // when
+    let config = ApolloCodegenConfiguration.mock(
+      input: .init(
+        schemaSearchPaths: ["schema*.graphqls"],
+        operationSearchPaths: ["code.graphql"]
+      ),
+      output: .init(
+        schemaTypes: .init(path: "SchemaModule",
+                           moduleType: .swiftPackageManager),
+        operations: .relative(subpath: "subpath")
+      )
+    )
+
+    try ApolloCodegen.build(with: config, rootURL: directoryURL)
+
+    // then
+    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInRootPath)).to(beTrue())
+    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInChildPath)).to(beTrue())
+    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInNestedChildPath)).to(beTrue())
+
+    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileNotInRelativePath)).to(beTrue())
+    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileNotInRelativeChildPath)).to(beTrue())
+
+    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInRootPathSubpath)).to(beFalse())
+    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInChildPathSubpath)).to(beTrue())
+    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInNestedChildPathSubpath)).to(beTrue())
+
+    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileNotInRelativePathSubpath)).to(beTrue())
+    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileNotInRelativeChildPathSubpath)).to(beTrue())
+
+    expect(ApolloFileManager.default.doesFileExist(atPath: testUserFileInRootPath)).to(beTrue())
+    expect(ApolloFileManager.default.doesFileExist(atPath: testUserFileInChildPath)).to(beTrue())
+    expect(ApolloFileManager.default.doesFileExist(atPath: testUserFileInNestedChildPath)).to(beTrue())
+  }
+
+  func test__fileDeletion__givenGeneratedFilesExist_InOperationRelativeDirectoriesWithSubPath_operationSearchPathWithoutGlobstar_deletesOnlyRelativeGeneratedFilesInOperationSearchPaths() throws {
+    // given
+    createFile(containing: schemaData, named: "schema.graphqls")
+
+    let testGeneratedFileInRootPath = createFile(
+      filename: "TestGeneratedA.graphql.swift",
+      inDirectory: "code"
+    )
+    let testGeneratedFileInChildPath = createFile(
+      filename: "TestGeneratedB.graphql.swift",
+      inDirectory: "code/child"
+    )
+    let testGeneratedFileInNestedChildPath = createFile(
+      filename: "TestGeneratedC.graphql.swift",
+      inDirectory: "code/child/A"
+    )
+
+    let testGeneratedFileNotInRelativePath = createFile(
+      filename: "TestGeneratedD.graphql.swift",
+      inDirectory: nil
+    )
+    let testGeneratedFileNotInRelativeChildPath = createFile(
+      filename: "TestGeneratedE.graphql.swift",
+      inDirectory: "other/child"
+    )
+
+    let testGeneratedFileInRootPathSubpath = createFile(
+      filename: "TestGeneratedA.graphql.swift",
+      inDirectory: "code/subpath"
+    )
+    let testGeneratedFileInChildPathSubpath = createFile(
+      filename: "TestGeneratedB.graphql.swift",
+      inDirectory: "code/child/subpath"
+    )
+    let testGeneratedFileInNestedChildPathSubpath = createFile(
+      filename: "TestGeneratedC.graphql.swift",
+      inDirectory: "code/child/next/subpath"
+    )
+
+    let testGeneratedFileNotInRelativePathSubpath = createFile(
+      filename: "TestGeneratedD.graphql.swift",
+      inDirectory: "subpath"
+    )
+    let testGeneratedFileNotInRelativeChildPathSubpath = createFile(
+      filename: "TestGeneratedE.graphql.swift",
+      inDirectory: "other/child/subpath"
+    )
+
+    let testUserFileInRootPath = createOperationFile(
+      type: .query,
+      named: "OperationA",
+      filename: "TestUserFileOperationA.graphql",
+      inDirectory: "code"
+    )
+    let testUserFileInChildPath = createOperationFile(
+      type: .query,
+      named: "OperationB",
+      filename: "TestUserFileOperationB.graphql",
+      inDirectory: "code/child"
+    )
+    let testUserFileInNestedChildPath = createOperationFile(
+      type: .query,
+      named: "OperationC",
+      filename: "TestUserFileOperationC.graphql",
+      inDirectory: "code/child/next"
+    )
+
+    // when
+    let config = ApolloCodegenConfiguration.mock(
+      input: .init(
+        schemaSearchPaths: ["schema*.graphqls"],
+        operationSearchPaths: ["code/child/*.graphql"]
+      ),
+      output: .init(
+        schemaTypes: .init(path: "SchemaModule",
+                           moduleType: .swiftPackageManager),
+        operations: .relative(subpath: "subpath")
+      )
+    )
+
+    try ApolloCodegen.build(with: config, rootURL: directoryURL)
+
+    // then
+    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInRootPath)).to(beTrue())
+    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInChildPath)).to(beTrue())
+    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInNestedChildPath)).to(beTrue())
+
+    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileNotInRelativePath)).to(beTrue())
+    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileNotInRelativeChildPath)).to(beTrue())
+
+    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInRootPathSubpath)).to(beTrue())
+    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInChildPathSubpath)).to(beFalse())
+    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInNestedChildPathSubpath)).to(beTrue())
+
+    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileNotInRelativePathSubpath)).to(beTrue())
+    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileNotInRelativeChildPathSubpath)).to(beTrue())
+
+    expect(ApolloFileManager.default.doesFileExist(atPath: testUserFileInRootPath)).to(beTrue())
+    expect(ApolloFileManager.default.doesFileExist(atPath: testUserFileInChildPath)).to(beTrue())
+    expect(ApolloFileManager.default.doesFileExist(atPath: testUserFileInNestedChildPath)).to(beTrue())
+  }
+
   // MARK: Validation Tests
 
   func test_validation_givenTestMockConfiguration_asSwiftPackage_withSchemaTypesModule_asEmbeddedInTarget_shouldThrow() throws {
@@ -1096,15 +1672,56 @@ class ApolloCodegenTests: XCTestCase {
   func test_validation_givenTestMockConfiguration_asSwiftPackage_withSchemaTypesModule_asSwiftPackage_shouldNotThrow() throws {
     // given
     let configContext = ApolloCodegen.ConfigurationContext(config: .mock(
-      input: .init(schemaPath: "path"),
-      output: .mock(
-        moduleType: .swiftPackageManager,
-        testMocks: .swiftPackage(targetName: nil)
-      )
+      input: .init(schemaPath: "path.graphqls")
     ), rootURL: nil)
 
     // then
     expect(try ApolloCodegen.validate(config: configContext))
       .notTo(throwError())
   }
+
+  func test_validation_givenOperationSearchPathWithoutFileExtensionComponent_shouldThrow() throws {
+    // given
+    let configContext = ApolloCodegen.ConfigurationContext(config: .mock(
+      input: .init(schemaPath: "path.graphqls", operationSearchPaths: ["operations/*"])
+    ), rootURL: nil)
+
+    // then
+    expect(try ApolloCodegen.validate(config: configContext))
+      .to(throwError(ApolloCodegen.Error.inputSearchPathInvalid(path: "operations/*")))
+  }
+
+  func test_validation_givenOperationSearchPathEndingInPeriod_shouldThrow() throws {
+    // given
+    let configContext = ApolloCodegen.ConfigurationContext(config: .mock(
+      input: .init(schemaPath: "path.graphqls", operationSearchPaths: ["operations/*."])
+    ), rootURL: nil)
+
+    // then
+    expect(try ApolloCodegen.validate(config: configContext))
+      .to(throwError(ApolloCodegen.Error.inputSearchPathInvalid(path: "operations/*.")))
+  }
+
+  func test_validation_givenSchemaSearchPathWithoutFileExtensionComponent_shouldThrow() throws {
+    // given
+    let configContext = ApolloCodegen.ConfigurationContext(config: .mock(
+      input: .init(schemaSearchPaths: ["schema/*"])
+    ), rootURL: nil)
+
+    // then
+    expect(try ApolloCodegen.validate(config: configContext))
+      .to(throwError(ApolloCodegen.Error.inputSearchPathInvalid(path: "schema/*")))
+  }
+
+  func test_validation_givenSchemaSearchPathEndingInPeriod_shouldThrow() throws {
+    // given
+    let configContext = ApolloCodegen.ConfigurationContext(config: .mock(
+      input: .init(schemaSearchPaths: ["schema/*."])
+    ), rootURL: nil)
+
+    // then
+    expect(try ApolloCodegen.validate(config: configContext))
+      .to(throwError(ApolloCodegen.Error.inputSearchPathInvalid(path: "schema/*.")))
+  }
+
 }

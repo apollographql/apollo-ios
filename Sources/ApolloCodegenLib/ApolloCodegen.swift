@@ -14,6 +14,7 @@ public class ApolloCodegen {
     /// An error occured during validation of the GraphQL schema or operations.
     case graphQLSourceValidationFailure(atLines: [String])
     case testMocksInvalidSwiftPackageConfiguration
+    case inputSearchPathInvalid(path: String)
 
     public var errorDescription: String? {
       switch self {
@@ -21,6 +22,8 @@ public class ApolloCodegen {
         return "An error occured during validation of the GraphQL schema or operations! Check \(lines)"
       case .testMocksInvalidSwiftPackageConfiguration:
         return "Schema Types must be generated with module type 'swiftPackageManager' to generate a swift package for test mocks."
+      case let .inputSearchPathInvalid(path):
+        return "Input search path '\(path)' is invalid. Input search paths must include a file extension component. (eg. '.graphql')"
       }
     }
   }
@@ -35,6 +38,14 @@ public class ApolloCodegen {
   public static func build(
     with configuration: ApolloCodegenConfiguration,
     withRootURL rootURL: URL? = nil
+  ) throws {
+    try build(with: configuration, rootURL: rootURL)
+  }
+
+  internal static func build(
+    with configuration: ApolloCodegenConfiguration,
+    rootURL: URL? = nil,
+    fileManager: ApolloFileManager = .default
   ) throws {
     let configContext = ConfigurationContext(
       config: configuration,
@@ -52,10 +63,13 @@ public class ApolloCodegen {
       compilationResult: compilationResult
     )
 
+    try deleteGeneratedFiles(config: configContext, fileManager: fileManager)
+
     try generateFiles(
       compilationResult: compilationResult,
       ir: ir,
-      config: configContext
+      config: configContext,
+      fileManager: fileManager
     )
   }
 
@@ -86,6 +100,19 @@ public class ApolloCodegen {
     if case .swiftPackage = config.output.testMocks,
         config.output.schemaTypes.moduleType != .swiftPackageManager {
       throw Error.testMocksInvalidSwiftPackageConfiguration
+    }
+
+    for searchPath in config.input.schemaSearchPaths {
+      try validate(inputSearchPath: searchPath)
+    }
+    for searchPath in config.input.operationSearchPaths {
+      try validate(inputSearchPath: searchPath)
+    }
+  }
+
+  static private func validate(inputSearchPath: String) throws {
+    guard inputSearchPath.contains(".") && !inputSearchPath.hasSuffix(".") else {
+      throw Error.inputSearchPathInvalid(path: inputSearchPath)
     }
   }
 
@@ -266,6 +293,50 @@ public class ApolloCodegen {
 
     try SchemaModuleFileGenerator.generate(config, fileManager: fileManager)
   }
+
+  private static func deleteGeneratedFiles(
+    config: ConfigurationContext,
+    fileManager: ApolloFileManager = .default
+  ) throws {
+    var globs: [Glob] = []
+    globs.append(Glob(
+      ["\(config.output.schemaTypes.path)/**/*.graphql.swift"],
+      relativeTo: config.rootURL
+    ))
+
+    switch config.output.operations {
+    case .inSchemaModule: break
+
+    case let .absolute(operationsPath):
+      globs.append(Glob(
+        ["\(operationsPath)/**/*.graphql.swift"],
+        relativeTo: config.rootURL
+      ))
+
+    case let .relative(subpath):
+      let searchPaths = config.input.operationSearchPaths.map {
+        let startOfLastPathComponent = $0.lastIndex(of: "/") ?? $0.firstIndex(of: ".")!
+        var path = $0.prefix(upTo: startOfLastPathComponent)
+        if let subpath = subpath {
+          path += "/\(subpath)"
+        }
+        path += "/*.graphql.swift"
+        return path.description
+      }
+
+      globs.append(Glob(
+        searchPaths,
+        relativeTo: config.rootURL
+      ))
+    }
+
+    for glob in globs {
+      for path in try glob.match() {
+        try fileManager.deleteFile(atPath: path)
+      }
+    }    
+  }
+
 }
 
 #endif
