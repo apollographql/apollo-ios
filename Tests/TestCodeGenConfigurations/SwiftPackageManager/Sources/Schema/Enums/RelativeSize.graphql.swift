@@ -1,10 +1,10 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import Apollo
+import ApolloAPI
 
 public enum RelativeSize: String, EnumType {
-  case LARGE
-  case AVERAGE
-  case SMALL
+  case large = "LARGE"
+  case average = "AVERAGE"
+  case small = "SMALL"
 }
