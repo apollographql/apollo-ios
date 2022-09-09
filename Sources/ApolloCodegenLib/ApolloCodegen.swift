@@ -63,13 +63,21 @@ public class ApolloCodegen {
       compilationResult: compilationResult
     )
 
-    try deleteGeneratedFiles(config: configContext, fileManager: fileManager)
+    var existingGeneratedFilePaths = try findExistingGeneratedFilePaths(
+      config: configContext,
+      fileManager: fileManager
+    )
 
     try generateFiles(
       compilationResult: compilationResult,
       ir: ir,
       config: configContext,
       fileManager: fileManager
+    )
+
+    try deleteExtraneousGeneratedFiles(
+      from: &existingGeneratedFilePaths,
+      afterCodeGenerationUsing: fileManager
     )
   }
 
@@ -294,10 +302,10 @@ public class ApolloCodegen {
     try SchemaModuleFileGenerator.generate(config, fileManager: fileManager)
   }
 
-  private static func deleteGeneratedFiles(
+  private static func findExistingGeneratedFilePaths(
     config: ConfigurationContext,
     fileManager: ApolloFileManager = .default
-  ) throws {
+  ) throws -> Set<String> {
     var globs: [Glob] = []
     globs.append(Glob(
       ["\(config.output.schemaTypes.path)/**/*.graphql.swift"],
@@ -339,11 +347,19 @@ public class ApolloCodegen {
     default: break
     }
 
-    for glob in globs {
-      for path in try glob.match() {
-        try fileManager.deleteFile(atPath: path)
-      }
-    }    
+    return try globs.reduce(into: []) { partialResult, glob in
+      partialResult.formUnion(try glob.match())
+    }
+  }
+
+  static func deleteExtraneousGeneratedFiles(
+    from oldGeneratedFilePaths: inout Set<String>,
+    afterCodeGenerationUsing fileManager: ApolloFileManager
+  ) throws {
+    oldGeneratedFilePaths.subtract(fileManager.writtenFiles)
+    for path in oldGeneratedFilePaths {
+      try fileManager.deleteFile(atPath: path)
+    }
   }
 
 }

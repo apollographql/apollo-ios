@@ -6,17 +6,20 @@ import Nimble
 class ApolloCodegenTests: XCTestCase {
   private var directoryURL: URL!
 
+  private var testFileManager: ApolloFileManager!
+
   override func setUpWithError() throws {
     directoryURL = CodegenTestHelper.outputFolderURL()
       .appendingPathComponent("Codegen")
       .appendingPathComponent(UUID().uuidString)
-
-    try ApolloFileManager.default.createDirectoryIfNeeded(atPath: directoryURL.path)
+    testFileManager = ApolloFileManager(base: FileManager.default)
+    try testFileManager.createDirectoryIfNeeded(atPath: directoryURL.path)
   }
 
   override func tearDownWithError() throws {
     try cleanTestOutput()
     directoryURL = nil
+    testFileManager = nil
   }
 
   // MARK: Helpers
@@ -51,7 +54,7 @@ class ApolloCodegenTests: XCTestCase {
   }().data(using: .utf8)!
 
   private func cleanTestOutput() throws {
-    try ApolloFileManager.default.deleteDirectory(atPath: directoryURL.path)
+    try testFileManager.deleteDirectory(atPath: directoryURL.path)
   }
 
   /// Creates a file in the test directory.
@@ -66,7 +69,7 @@ class ApolloCodegenTests: XCTestCase {
   private func createFile(containing data: Data, named filename: String) -> String {
     let path = directoryURL.appendingPathComponent(filename).path
     expect(
-      try ApolloFileManager.default.createFile(atPath: path, data: data)
+      try self.testFileManager.createFile(atPath: path, data: data)
     ).notTo(throwError())
 
     return path
@@ -1142,13 +1145,13 @@ class ApolloCodegenTests: XCTestCase {
     try ApolloCodegen.build(with: config, rootURL: directoryURL)
 
     // then
-    expect(ApolloFileManager.default.doesFileExist(atPath: testFile)).to(beFalse())
-    expect(ApolloFileManager.default.doesFileExist(atPath: testInSourcesFile)).to(beFalse())
-    expect(ApolloFileManager.default.doesFileExist(atPath: testInOtherFolderFile)).to(beFalse())
+    expect(self.testFileManager.doesFileExist(atPath: testFile)).to(beFalse())
+    expect(self.testFileManager.doesFileExist(atPath: testInSourcesFile)).to(beFalse())
+    expect(self.testFileManager.doesFileExist(atPath: testInOtherFolderFile)).to(beFalse())
 
-    expect(ApolloFileManager.default.doesFileExist(atPath: testUserFile)).to(beTrue())
-    expect(ApolloFileManager.default.doesFileExist(atPath: testInSourcesUserFile)).to(beTrue())
-    expect(ApolloFileManager.default.doesFileExist(atPath: testInOtherFolderUserFile)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testUserFile)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testInSourcesUserFile)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testInOtherFolderUserFile)).to(beTrue())
   }
 
   func test__fileDeletion__givenGeneratedFilesExist_InOperationAbsoluteDirectory_deletesOnlyGeneratedFiles() throws {
@@ -1190,11 +1193,11 @@ class ApolloCodegenTests: XCTestCase {
     try ApolloCodegen.build(with: config, rootURL: directoryURL)
 
     // then
-    expect(ApolloFileManager.default.doesFileExist(atPath: testFile)).to(beFalse())
-    expect(ApolloFileManager.default.doesFileExist(atPath: testInChildFile)).to(beFalse())
+    expect(self.testFileManager.doesFileExist(atPath: testFile)).to(beFalse())
+    expect(self.testFileManager.doesFileExist(atPath: testInChildFile)).to(beFalse())
 
-    expect(ApolloFileManager.default.doesFileExist(atPath: testUserFile)).to(beTrue())
-    expect(ApolloFileManager.default.doesFileExist(atPath: testInChildUserFile)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testUserFile)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testInChildUserFile)).to(beTrue())
   }
 
   func test__fileDeletion__givenGeneratedFilesExist_InOperationRelativeDirectories_deletesOnlyRelativeGeneratedFilesInOperationSearchPaths() throws {
@@ -1252,16 +1255,16 @@ class ApolloCodegenTests: XCTestCase {
     try ApolloCodegen.build(with: config, rootURL: directoryURL)
 
     // then
-    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInRootPath)).to(beFalse())
-    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInChildPath)).to(beFalse())
-    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInNestedChildPath)).to(beFalse())
+    expect(self.testFileManager.doesFileExist(atPath: testGeneratedFileInRootPath)).to(beFalse())
+    expect(self.testFileManager.doesFileExist(atPath: testGeneratedFileInChildPath)).to(beFalse())
+    expect(self.testFileManager.doesFileExist(atPath: testGeneratedFileInNestedChildPath)).to(beFalse())
 
-    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileNotInRelativePath)).to(beTrue())
-    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileNotInRelativeChildPath)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testGeneratedFileNotInRelativePath)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testGeneratedFileNotInRelativeChildPath)).to(beTrue())
 
-    expect(ApolloFileManager.default.doesFileExist(atPath: testUserFileInRootPath)).to(beTrue())
-    expect(ApolloFileManager.default.doesFileExist(atPath: testUserFileInChildPath)).to(beTrue())
-    expect(ApolloFileManager.default.doesFileExist(atPath: testUserFileInNestedChildPath)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testUserFileInRootPath)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testUserFileInChildPath)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testUserFileInNestedChildPath)).to(beTrue())
   }
 
   func test__fileDeletion__givenGeneratedFilesExist_InOperationRelativeDirectories_operationSearchPathWithoutDirectories_deletesOnlyRelativeGeneratedFilesInOperationSearchPaths() throws {
@@ -1319,16 +1322,16 @@ class ApolloCodegenTests: XCTestCase {
     try ApolloCodegen.build(with: config, rootURL: directoryURL)
 
     // then
-    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInRootPath)).to(beFalse())
-    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInChildPath)).to(beTrue())
-    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInNestedChildPath)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testGeneratedFileInRootPath)).to(beFalse())
+    expect(self.testFileManager.doesFileExist(atPath: testGeneratedFileInChildPath)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testGeneratedFileInNestedChildPath)).to(beTrue())
 
-    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileNotInRelativePath)).to(beTrue())
-    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileNotInRelativeChildPath)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testGeneratedFileNotInRelativePath)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testGeneratedFileNotInRelativeChildPath)).to(beTrue())
 
-    expect(ApolloFileManager.default.doesFileExist(atPath: testUserFileInRootPath)).to(beTrue())
-    expect(ApolloFileManager.default.doesFileExist(atPath: testUserFileInChildPath)).to(beTrue())
-    expect(ApolloFileManager.default.doesFileExist(atPath: testUserFileInNestedChildPath)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testUserFileInRootPath)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testUserFileInChildPath)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testUserFileInNestedChildPath)).to(beTrue())
   }
 
   func test__fileDeletion__givenGeneratedFilesExist_InOperationRelativeDirectoriesWithSubPath_deletesOnlyRelativeGeneratedFilesInOperationSearchPaths() throws {
@@ -1414,23 +1417,23 @@ class ApolloCodegenTests: XCTestCase {
     try ApolloCodegen.build(with: config, rootURL: directoryURL)
 
     // then
-    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInRootPath)).to(beTrue())
-    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInChildPath)).to(beTrue())
-    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInNestedChildPath)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testGeneratedFileInRootPath)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testGeneratedFileInChildPath)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testGeneratedFileInNestedChildPath)).to(beTrue())
 
-    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileNotInRelativePath)).to(beTrue())
-    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileNotInRelativeChildPath)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testGeneratedFileNotInRelativePath)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testGeneratedFileNotInRelativeChildPath)).to(beTrue())
 
-    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInRootPathSubpath)).to(beFalse())
-    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInChildPathSubpath)).to(beFalse())
-    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInNestedChildPathSubpath)).to(beFalse())
+    expect(self.testFileManager.doesFileExist(atPath: testGeneratedFileInRootPathSubpath)).to(beFalse())
+    expect(self.testFileManager.doesFileExist(atPath: testGeneratedFileInChildPathSubpath)).to(beFalse())
+    expect(self.testFileManager.doesFileExist(atPath: testGeneratedFileInNestedChildPathSubpath)).to(beFalse())
 
-    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileNotInRelativePathSubpath)).to(beTrue())
-    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileNotInRelativeChildPathSubpath)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testGeneratedFileNotInRelativePathSubpath)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testGeneratedFileNotInRelativeChildPathSubpath)).to(beTrue())
 
-    expect(ApolloFileManager.default.doesFileExist(atPath: testUserFileInRootPath)).to(beTrue())
-    expect(ApolloFileManager.default.doesFileExist(atPath: testUserFileInChildPath)).to(beTrue())
-    expect(ApolloFileManager.default.doesFileExist(atPath: testUserFileInNestedChildPath)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testUserFileInRootPath)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testUserFileInChildPath)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testUserFileInNestedChildPath)).to(beTrue())
   }
 
   func test__fileDeletion__givenGeneratedFilesExist_InOperationRelativeDirectoriesWithSubPath_operationSearchPathWithNoDirectories_deletesOnlyRelativeGeneratedFilesInOperationSearchPaths() throws {
@@ -1516,23 +1519,23 @@ class ApolloCodegenTests: XCTestCase {
     try ApolloCodegen.build(with: config, rootURL: directoryURL)
 
     // then
-    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInRootPath)).to(beTrue())
-    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInChildPath)).to(beTrue())
-    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInNestedChildPath)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testGeneratedFileInRootPath)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testGeneratedFileInChildPath)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testGeneratedFileInNestedChildPath)).to(beTrue())
 
-    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileNotInRelativePath)).to(beTrue())
-    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileNotInRelativeChildPath)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testGeneratedFileNotInRelativePath)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testGeneratedFileNotInRelativeChildPath)).to(beTrue())
 
-    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInRootPathSubpath)).to(beFalse())
-    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInChildPathSubpath)).to(beTrue())
-    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInNestedChildPathSubpath)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testGeneratedFileInRootPathSubpath)).to(beFalse())
+    expect(self.testFileManager.doesFileExist(atPath: testGeneratedFileInChildPathSubpath)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testGeneratedFileInNestedChildPathSubpath)).to(beTrue())
 
-    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileNotInRelativePathSubpath)).to(beTrue())
-    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileNotInRelativeChildPathSubpath)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testGeneratedFileNotInRelativePathSubpath)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testGeneratedFileNotInRelativeChildPathSubpath)).to(beTrue())
 
-    expect(ApolloFileManager.default.doesFileExist(atPath: testUserFileInRootPath)).to(beTrue())
-    expect(ApolloFileManager.default.doesFileExist(atPath: testUserFileInChildPath)).to(beTrue())
-    expect(ApolloFileManager.default.doesFileExist(atPath: testUserFileInNestedChildPath)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testUserFileInRootPath)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testUserFileInChildPath)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testUserFileInNestedChildPath)).to(beTrue())
   }
 
   func test__fileDeletion__givenGeneratedFilesExist_InOperationRelativeDirectoriesWithSubPath_operationSearchPathWithoutGlobstar_deletesOnlyRelativeGeneratedFilesInOperationSearchPaths() throws {
@@ -1618,23 +1621,23 @@ class ApolloCodegenTests: XCTestCase {
     try ApolloCodegen.build(with: config, rootURL: directoryURL)
 
     // then
-    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInRootPath)).to(beTrue())
-    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInChildPath)).to(beTrue())
-    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInNestedChildPath)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testGeneratedFileInRootPath)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testGeneratedFileInChildPath)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testGeneratedFileInNestedChildPath)).to(beTrue())
 
-    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileNotInRelativePath)).to(beTrue())
-    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileNotInRelativeChildPath)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testGeneratedFileNotInRelativePath)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testGeneratedFileNotInRelativeChildPath)).to(beTrue())
 
-    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInRootPathSubpath)).to(beTrue())
-    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInChildPathSubpath)).to(beFalse())
-    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInNestedChildPathSubpath)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testGeneratedFileInRootPathSubpath)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testGeneratedFileInChildPathSubpath)).to(beFalse())
+    expect(self.testFileManager.doesFileExist(atPath: testGeneratedFileInNestedChildPathSubpath)).to(beTrue())
 
-    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileNotInRelativePathSubpath)).to(beTrue())
-    expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileNotInRelativeChildPathSubpath)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testGeneratedFileNotInRelativePathSubpath)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testGeneratedFileNotInRelativeChildPathSubpath)).to(beTrue())
 
-    expect(ApolloFileManager.default.doesFileExist(atPath: testUserFileInRootPath)).to(beTrue())
-    expect(ApolloFileManager.default.doesFileExist(atPath: testUserFileInChildPath)).to(beTrue())
-    expect(ApolloFileManager.default.doesFileExist(atPath: testUserFileInNestedChildPath)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testUserFileInRootPath)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testUserFileInChildPath)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testUserFileInNestedChildPath)).to(beTrue())
   }
 
   func test__fileDeletion__givenGeneratedTestMockFilesExist_InAbsoluteDirectory_deletesOnlyGeneratedFiles() throws {
@@ -1677,11 +1680,11 @@ class ApolloCodegenTests: XCTestCase {
     try ApolloCodegen.build(with: config, rootURL: directoryURL)
 
     // then
-    expect(ApolloFileManager.default.doesFileExist(atPath: testFile)).to(beFalse())
-    expect(ApolloFileManager.default.doesFileExist(atPath: testInChildFile)).to(beFalse())
+    expect(self.testFileManager.doesFileExist(atPath: testFile)).to(beFalse())
+    expect(self.testFileManager.doesFileExist(atPath: testInChildFile)).to(beFalse())
 
-    expect(ApolloFileManager.default.doesFileExist(atPath: testUserFile)).to(beTrue())
-    expect(ApolloFileManager.default.doesFileExist(atPath: testInChildUserFile)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testUserFile)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testInChildUserFile)).to(beTrue())
   }
 
   func test__fileDeletion__givenGeneratedTestMockFilesExist_InSwiftPackageDirectory_deletesOnlyGeneratedFiles() throws {
@@ -1727,12 +1730,12 @@ class ApolloCodegenTests: XCTestCase {
     try ApolloCodegen.build(with: config, rootURL: directoryURL)
 
     // then
-    expect(ApolloFileManager.default.doesFileExist(atPath: testInTestMocksFolderFile)).to(beFalse())
+    expect(self.testFileManager.doesFileExist(atPath: testInTestMocksFolderFile)).to(beFalse())
 
-    expect(ApolloFileManager.default.doesFileExist(atPath: testUserFile)).to(beTrue())
-    expect(ApolloFileManager.default.doesFileExist(atPath: testInSourcesUserFile)).to(beTrue())
-    expect(ApolloFileManager.default.doesFileExist(atPath: testInOtherFolderUserFile)).to(beTrue())
-    expect(ApolloFileManager.default.doesFileExist(atPath: testInTestMocksFolderUserFile)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testUserFile)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testInSourcesUserFile)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testInOtherFolderUserFile)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testInTestMocksFolderUserFile)).to(beTrue())
   }
 
   func test__fileDeletion__givenGeneratedTestMockFilesExist_InSwiftPackageWithCustomTargetNameDirectory_deletesOnlyGeneratedFiles() throws {
@@ -1779,12 +1782,12 @@ class ApolloCodegenTests: XCTestCase {
     try ApolloCodegen.build(with: config, rootURL: directoryURL)
 
     // then
-    expect(ApolloFileManager.default.doesFileExist(atPath: testInTestMocksFolderFile)).to(beFalse())
+    expect(self.testFileManager.doesFileExist(atPath: testInTestMocksFolderFile)).to(beFalse())
 
-    expect(ApolloFileManager.default.doesFileExist(atPath: testUserFile)).to(beTrue())
-    expect(ApolloFileManager.default.doesFileExist(atPath: testInSourcesUserFile)).to(beTrue())
-    expect(ApolloFileManager.default.doesFileExist(atPath: testInOtherFolderUserFile)).to(beTrue())
-    expect(ApolloFileManager.default.doesFileExist(atPath: testInTestMocksFolderUserFile)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testUserFile)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testInSourcesUserFile)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testInOtherFolderUserFile)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testInTestMocksFolderUserFile)).to(beTrue())
   }
 
   // MARK: Validation Tests
