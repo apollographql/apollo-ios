@@ -1099,6 +1099,45 @@ class ApolloCodegenTests: XCTestCase {
 
   // MARK: Old File Deletion Tests
 
+  func test__fileDeletion__givenPruneGeneratedFiles_false__doesNotDeleteUnusedGeneratedFiles() throws {
+    // given
+    createFile(containing: schemaData, named: "schema.graphqls")
+
+    let testFile = createFile(
+      filename: "TestGeneratedA.graphql.swift",
+      inDirectory: "SchemaModule"
+    )
+    let testInSourcesFile = createFile(
+      filename: "TestGeneratedB.graphql.swift",
+      inDirectory: "SchemaModule/Sources"
+    )
+    let testInOtherFolderFile = createFile(
+      filename: "TestGeneratedC.graphql.swift",
+      inDirectory: "SchemaModule/OtherFolder"
+    )
+
+    // when
+    let config = ApolloCodegenConfiguration.mock(
+      input: .init(
+        schemaSearchPaths: ["schema*.graphqls"],
+        operationSearchPaths: ["*.graphql"]
+      ),
+      output: .init(
+        schemaTypes: .init(path: "SchemaModule",
+                           moduleType: .swiftPackageManager),
+        operations: .inSchemaModule
+      ),
+      options: .init(pruneGeneratedFiles: false)
+    )
+
+    try ApolloCodegen.build(with: config, rootURL: directoryURL)
+
+    // then
+    expect(self.testFileManager.doesFileExist(atPath: testFile)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testInSourcesFile)).to(beTrue())
+    expect(self.testFileManager.doesFileExist(atPath: testInOtherFolderFile)).to(beTrue())
+  }
+
   func test__fileDeletion__givenGeneratedFilesExist_InSchemaModuleDirectory_deletesOnlyGeneratedFiles() throws {
     // given
     createFile(containing: schemaData, named: "schema.graphqls")

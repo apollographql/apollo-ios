@@ -63,10 +63,11 @@ public class ApolloCodegen {
       compilationResult: compilationResult
     )
 
-    var existingGeneratedFilePaths = try findExistingGeneratedFilePaths(
+    var existingGeneratedFilePaths = configuration.options.pruneGeneratedFiles ?
+    try findExistingGeneratedFilePaths(
       config: configContext,
       fileManager: fileManager
-    )
+    ) : []
 
     try generateFiles(
       compilationResult: compilationResult,
@@ -75,10 +76,12 @@ public class ApolloCodegen {
       fileManager: fileManager
     )
 
-    try deleteExtraneousGeneratedFiles(
-      from: &existingGeneratedFilePaths,
-      afterCodeGenerationUsing: fileManager
-    )
+    if configuration.options.pruneGeneratedFiles {
+      try deleteExtraneousGeneratedFiles(
+        from: &existingGeneratedFilePaths,
+        afterCodeGenerationUsing: fileManager
+      )
+    }
   }
 
   // MARK: Internal

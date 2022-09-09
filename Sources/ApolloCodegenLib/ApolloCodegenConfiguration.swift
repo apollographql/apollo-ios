@@ -303,9 +303,28 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     /// argument for parts of the GraphQL schema annotated with the built-in `@deprecated`
     /// directive.
     public let warningsOnDeprecatedUsage: Composition
-
     /// Rules for how to convert the names of values from the schema in generated code.
     public let conversionStrategies: ConversionStrategies
+    /// Whether unused generated files will be automatically deleted.
+    ///
+    /// This will automatically delete any previously generated files that no longer
+    /// would be generated.
+    ///
+    /// This includes:
+    /// - Operations whose definitions do not exist
+    ///   - `Query`, `Mutation`, `Subscription`, `LocalCacheMutation`
+    /// - `Fragments` whose definitions do not exist
+    /// - Schema Types that are no longer referenced
+    ///   - `Object`, `Interface`, `Union`
+    /// - `TestMocks` for schema types that are no longer referenced
+    /// - `InputObjects` that are no longer referenced
+    ///
+    /// This only prunes files in directories that would have been generated given the current ``ApolloCodegenConfiguration/FileInput`` and ``ApolloCodegenConfiguration/FileOutput``
+    /// options. Generated files that are no longer in the search paths of the
+    /// ``ApolloCodegenConfiguration`` will not be pruned.
+    ///
+    ///  Defaults to `true`.
+    public let pruneGeneratedFiles: Bool
 
     /// Designated initializer.
     ///
@@ -324,6 +343,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     ///    built-in `@deprecated` directive.
     ///  - conversionStrategies: Rules for how to convert the names of values from the schema in
     ///    generated code.
+    ///  - pruneGeneratedFiles: Whether unused generated files will be automatically deleted.
     public init(
       additionalInflectionRules: [InflectionRule] = [],
       queryStringLiteralFormat: QueryStringLiteralFormat = .multiline,
@@ -332,7 +352,8 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       apqs: APQConfig = .disabled,
       cocoapodsCompatibleImportStatements: Bool = false,
       warningsOnDeprecatedUsage: Composition = .include,
-      conversionStrategies: ConversionStrategies = .init()
+      conversionStrategies: ConversionStrategies = .init(),
+      pruneGeneratedFiles: Bool = true
     ) {
       self.additionalInflectionRules = additionalInflectionRules
       self.queryStringLiteralFormat = queryStringLiteralFormat
@@ -342,6 +363,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       self.cocoapodsCompatibleImportStatements = cocoapodsCompatibleImportStatements
       self.warningsOnDeprecatedUsage = warningsOnDeprecatedUsage
       self.conversionStrategies = conversionStrategies
+      self.pruneGeneratedFiles = pruneGeneratedFiles
     }
   }
 
