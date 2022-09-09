@@ -314,9 +314,9 @@ public class ApolloCodegen {
       ))
 
     case let .relative(subpath):
-      let searchPaths = config.input.operationSearchPaths.map {
-        let startOfLastPathComponent = $0.lastIndex(of: "/") ?? $0.firstIndex(of: ".")!
-        var path = $0.prefix(upTo: startOfLastPathComponent)
+      let searchPaths = config.input.operationSearchPaths.map { searchPath -> String in
+        let startOfLastPathComponent = searchPath.lastIndex(of: "/") ?? searchPath.firstIndex(of: ".")!
+        var path = searchPath.prefix(upTo: startOfLastPathComponent)
         if let subpath = subpath {
           path += "/\(subpath)"
         }
@@ -328,6 +328,15 @@ public class ApolloCodegen {
         searchPaths,
         relativeTo: config.rootURL
       ))
+    }
+
+    switch config.output.testMocks {
+    case let .absolute(testMocksPath):
+      globs.append(Glob(
+        ["\(testMocksPath)/**/*.graphql.swift"],
+        relativeTo: config.rootURL
+      ))
+    default: break
     }
 
     for glob in globs {

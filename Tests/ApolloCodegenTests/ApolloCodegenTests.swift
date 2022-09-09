@@ -1637,6 +1637,156 @@ class ApolloCodegenTests: XCTestCase {
     expect(ApolloFileManager.default.doesFileExist(atPath: testUserFileInNestedChildPath)).to(beTrue())
   }
 
+  func test__fileDeletion__givenGeneratedTestMockFilesExist_InAbsoluteDirectory_deletesOnlyGeneratedFiles() throws {
+    // given
+    let absolutePath = "TestMocksPath"
+    createFile(containing: schemaData, named: "schema.graphqls")
+
+    let testFile = createFile(
+      filename: "TestGeneratedA.graphql.swift",
+      inDirectory: absolutePath
+    )
+    let testInChildFile = createFile(
+      filename: "TestGeneratedB.graphql.swift",
+      inDirectory: "\(absolutePath)/Child"
+    )
+
+    let testUserFile = createFile(
+      filename: "TestFileA.swift",
+      inDirectory: absolutePath
+    )
+    let testInChildUserFile = createFile(
+      filename: "TestFileB.swift",
+      inDirectory: "\(absolutePath)/Child"
+    )
+
+    // when
+    let config = ApolloCodegenConfiguration.mock(
+      input: .init(
+        schemaSearchPaths: ["schema*.graphqls"],
+        operationSearchPaths: ["*.graphql"]
+      ),
+      output: .init(
+        schemaTypes: .init(path: "SchemaModule",
+                           moduleType: .swiftPackageManager),
+        operations: .inSchemaModule,
+        testMocks: .absolute(path: absolutePath)
+      )
+    )
+
+    try ApolloCodegen.build(with: config, rootURL: directoryURL)
+
+    // then
+    expect(ApolloFileManager.default.doesFileExist(atPath: testFile)).to(beFalse())
+    expect(ApolloFileManager.default.doesFileExist(atPath: testInChildFile)).to(beFalse())
+
+    expect(ApolloFileManager.default.doesFileExist(atPath: testUserFile)).to(beTrue())
+    expect(ApolloFileManager.default.doesFileExist(atPath: testInChildUserFile)).to(beTrue())
+  }
+
+  func test__fileDeletion__givenGeneratedTestMockFilesExist_InSwiftPackageDirectory_deletesOnlyGeneratedFiles() throws {
+    // given
+    createFile(containing: schemaData, named: "schema.graphqls")
+
+    let testInTestMocksFolderFile = createFile(
+      filename: "TestGeneratedD.graphql.swift",
+      inDirectory: "SchemaModule/TestMocks"
+    )
+
+    let testUserFile = createFile(
+      filename: "TestUserFileA.swift",
+      inDirectory: "SchemaModule"
+    )
+    let testInSourcesUserFile = createFile(
+      filename: "TestUserFileB.swift",
+      inDirectory: "SchemaModule/Sources"
+    )
+    let testInOtherFolderUserFile = createFile(
+      filename: "TestUserFileC.swift",
+      inDirectory: "SchemaModule/OtherFolder"
+    )
+    let testInTestMocksFolderUserFile = createFile(
+      filename: "TestUserFileD.swift",
+      inDirectory: "SchemaModule/TestMocks"
+    )
+
+    // when
+    let config = ApolloCodegenConfiguration.mock(
+      schemaName: "TestSchema",
+      input: .init(
+        schemaSearchPaths: ["schema*.graphqls"],
+        operationSearchPaths: ["*.graphql"]
+      ),
+      output: .init(
+        schemaTypes: .init(path: "SchemaModule",
+                           moduleType: .swiftPackageManager),
+        testMocks: .swiftPackage()
+      )
+    )
+
+    try ApolloCodegen.build(with: config, rootURL: directoryURL)
+
+    // then
+    expect(ApolloFileManager.default.doesFileExist(atPath: testInTestMocksFolderFile)).to(beFalse())
+
+    expect(ApolloFileManager.default.doesFileExist(atPath: testUserFile)).to(beTrue())
+    expect(ApolloFileManager.default.doesFileExist(atPath: testInSourcesUserFile)).to(beTrue())
+    expect(ApolloFileManager.default.doesFileExist(atPath: testInOtherFolderUserFile)).to(beTrue())
+    expect(ApolloFileManager.default.doesFileExist(atPath: testInTestMocksFolderUserFile)).to(beTrue())
+  }
+
+  func test__fileDeletion__givenGeneratedTestMockFilesExist_InSwiftPackageWithCustomTargetNameDirectory_deletesOnlyGeneratedFiles() throws {
+    // given
+    let testMockTargetName = "ApolloTestTarget"
+    createFile(containing: schemaData, named: "schema.graphqls")
+
+    let testInTestMocksFolderFile = createFile(
+      filename: "TestGeneratedD.graphql.swift",
+      inDirectory: "SchemaModule/\(testMockTargetName)"
+    )
+
+    let testUserFile = createFile(
+      filename: "TestUserFileA.swift",
+      inDirectory: "SchemaModule"
+    )
+    let testInSourcesUserFile = createFile(
+      filename: "TestUserFileB.swift",
+      inDirectory: "SchemaModule/Sources"
+    )
+    let testInOtherFolderUserFile = createFile(
+      filename: "TestUserFileC.swift",
+      inDirectory: "SchemaModule/OtherFolder"
+    )
+    let testInTestMocksFolderUserFile = createFile(
+      filename: "TestUserFileD.swift",
+      inDirectory: "SchemaModule/\(testMockTargetName)"
+    )
+
+    // when
+    let config = ApolloCodegenConfiguration.mock(
+      schemaName: "TestSchema",
+      input: .init(
+        schemaSearchPaths: ["schema*.graphqls"],
+        operationSearchPaths: ["*.graphql"]
+      ),
+      output: .init(
+        schemaTypes: .init(path: "SchemaModule",
+                           moduleType: .swiftPackageManager),
+        testMocks: .swiftPackage(targetName: testMockTargetName)
+      )
+    )
+
+    try ApolloCodegen.build(with: config, rootURL: directoryURL)
+
+    // then
+    expect(ApolloFileManager.default.doesFileExist(atPath: testInTestMocksFolderFile)).to(beFalse())
+
+    expect(ApolloFileManager.default.doesFileExist(atPath: testUserFile)).to(beTrue())
+    expect(ApolloFileManager.default.doesFileExist(atPath: testInSourcesUserFile)).to(beTrue())
+    expect(ApolloFileManager.default.doesFileExist(atPath: testInOtherFolderUserFile)).to(beTrue())
+    expect(ApolloFileManager.default.doesFileExist(atPath: testInTestMocksFolderUserFile)).to(beTrue())
+  }
+
   // MARK: Validation Tests
 
   func test_validation_givenTestMockConfiguration_asSwiftPackage_withSchemaTypesModule_asEmbeddedInTarget_shouldThrow() throws {
