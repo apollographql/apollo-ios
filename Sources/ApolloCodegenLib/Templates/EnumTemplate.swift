@@ -26,53 +26,26 @@ struct EnumTemplate: TemplateRenderer {
   }
 
   private func enumCase(for graphqlEnumValue: GraphQLEnumValue) -> TemplateString? {
-    switch (
-      config.options.deprecatedEnumCases,
-      graphqlEnumValue.deprecationReason,
-      config.options.warningsOnDeprecatedUsage,
-      config.options.conversionStrategies.enumCases
-    ) {
-    case (.exclude, .some, _, _):
+    if config.options.deprecatedEnumCases == .exclude && graphqlEnumValue.isDeprecated {
       return nil
-
-    case let (.include, .some(reason), .include, .none):
-      return """
-        \(documentation: graphqlEnumValue.documentation, config: config)
-        @available(*, deprecated, message: \"\(reason)\")
-        case \(graphqlEnumValue.name.asEnumCaseName)
-        """
-    case let (.include, .some(reason), .include, .camelCase):
-      return """
-        \(documentation: graphqlEnumValue.documentation, config: config)
-        @available(*, deprecated, message: \"\(reason)\")
-        case \(convertToCamelCase(graphqlEnumValue.name).asEnumCaseName) = "\(graphqlEnumValue.name)"
-        """
-    case (_, _, _, .none):
-      return """
-        \(documentation: graphqlEnumValue.documentation, config: config)
-        case \(graphqlEnumValue.name.asEnumCaseName)
-        """
-    default:
-      return """
-        \(documentation: graphqlEnumValue.documentation, config: config)
-        case \(convertToCamelCase(graphqlEnumValue.name).asEnumCaseName) = "\(graphqlEnumValue.name)"
-        """
     }
+
+    return """
+    \(documentation: graphqlEnumValue.documentation, config: config)
+    \(ifLet: graphqlEnumValue.deprecationReason, where: config.options.warningsOnDeprecatedUsage == .include, {"""
+      @available(*, deprecated, message: \"\($0)\")
+      """})
+    \(caseDefinition(for: graphqlEnumValue))
+    """
   }
 
-  private func convertToCamelCase(_ value: String) -> String {
-    if value.allSatisfy({ $0.isUppercase }) {
-      // For `UPPERCASE`. e.g) UPPER -> upper, STARWARS -> starwards
-      return value.lowercased()
-    }
-    if value.contains("_") {
-      // For `snake_case`. e.g) snake_case -> snakeCase, UPPER_SNAKE_CASE -> upperSnakeCase
-      return value.split(separator: "_").enumerated().map { $0.offset == 0 ? $0.element.lowercased() : $0.element.capitalized }.joined()
-    }
-    if let firstChar = value.first, firstChar.isUppercase {
-      // For `UpperCamelCase`. e.g) UpperCamelCase -> upperCamelCase
-      return [firstChar.lowercased(), String(value.suffix(from: value.index(value.startIndex, offsetBy: 1)))].joined()
-    }
-    return value
+  private func caseDefinition(for graphqlEnumValue: GraphQLEnumValue) -> TemplateString {
+    """
+    case \(graphqlEnumValue.name.rendered(as: .swiftEnumCase, config: config.config))\
+    \(if: config.options.conversionStrategies.enumCases != .none, """
+       = "\(graphqlEnumValue.name.rendered(as: .rawValue, config: config.config))"
+      """)
+    """
   }
+
 }
