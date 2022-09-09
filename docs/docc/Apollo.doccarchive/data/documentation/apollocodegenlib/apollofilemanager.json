@@ -89,7 +89,8 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloFileManager\/base"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloFileManager\/base",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloFileManager\/writtenFiles"
       ],
       "title" : "Instance Properties"
     },
@@ -685,6 +686,65 @@
   "title" : "doesFileExist(atPath:)",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apollofilemanager\/doesfileexist(atpath:)"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloFileManager/writtenFiles": {
+  "abstract" : [
+    {
+      "text" : "The paths for the files written to by the ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloFileManager",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "writtenFiles"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sh",
+      "text" : "Set"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloFileManager\/writtenFiles",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "writtenFiles",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/apollofilemanager\/writtenfiles"
 }
 }
 }

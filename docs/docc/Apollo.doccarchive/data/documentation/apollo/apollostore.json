@@ -117,6 +117,12 @@
         "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/withinReadWriteTransaction(_:callbackQueue:completion:)"
       ],
       "title" : "Instance Methods"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/Error"
+      ],
+      "title" : "Enumerations"
     }
   ],
   "variants" : [
@@ -188,6 +194,37 @@
   "title" : "ApolloStore",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apollostore"
+},
+"doc://Apollo/documentation/Apollo/ApolloStore/Error": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Error"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/Error",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Error"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ApolloStore.Error",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/apollostore\/error"
 },
 "doc://Apollo/documentation/Apollo/ApolloStore/ReadTransaction": {
   "abstract" : [

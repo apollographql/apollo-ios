@@ -1,0 +1,310 @@
+{
+  "abstract" : [
+    {
+      "text" : "Rules for how to convert the names of values from the schema in generated code.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OutputOptions"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OutputOptions\/conversionStrategies"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:16ApolloCodegenLib0aB13ConfigurationV13OutputOptionsV20conversionStrategiesAC010ConversionH0Vvp",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "let"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "conversionStrategies"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:16ApolloCodegenLib0aB13ConfigurationV",
+        "text" : "ApolloCodegenConfiguration"
+      },
+      {
+        "kind" : "text",
+        "text" : "."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:16ApolloCodegenLib0aB13ConfigurationV20ConversionStrategiesV",
+        "text" : "ConversionStrategies"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "ApolloCodegenLib"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Instance Property",
+    "symbolKind" : "property",
+    "title" : "conversionStrategies"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "let"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "conversionStrategies"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:16ApolloCodegenLib0aB13ConfigurationV",
+              "text" : "ApolloCodegenConfiguration"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/ConversionStrategies",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:16ApolloCodegenLib0aB13ConfigurationV20ConversionStrategiesV",
+              "text" : "ConversionStrategies"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/outputoptions\/conversionstrategies"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib": {
+  "abstract" : [
+    {
+      "text" : "A robust code generation engine for GraphQL operations.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "ApolloCodegenLib",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration": {
+  "abstract" : [
+    {
+      "text" : "A configuration object that defines behavior for code generation.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ApolloCodegenConfiguration"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ApolloCodegenConfiguration"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ApolloCodegenConfiguration",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/ConversionStrategies": {
+  "abstract" : [
+    {
+      "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/ConversionStrategies",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " configures rules for how to convert the names of values from the",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "schema in generated code.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ConversionStrategies"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/ConversionStrategies",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ConversionStrategies"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ApolloCodegenConfiguration.ConversionStrategies",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/conversionstrategies"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/OutputOptions": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "OutputOptions"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OutputOptions",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "OutputOptions"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ApolloCodegenConfiguration.OutputOptions",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/outputoptions"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/OutputOptions/conversionStrategies": {
+  "abstract" : [
+    {
+      "text" : "Rules for how to convert the names of values from the schema in generated code.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "conversionStrategies"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:16ApolloCodegenLib0aB13ConfigurationV",
+      "text" : "ApolloCodegenConfiguration"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:16ApolloCodegenLib0aB13ConfigurationV20ConversionStrategiesV",
+      "text" : "ConversionStrategies"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OutputOptions\/conversionStrategies",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "conversionStrategies",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/outputoptions\/conversionstrategies"
+}
+}
+}
