@@ -1,5 +1,31 @@
 # Change Log
 
+## v1.0.0-beta.4
+
+This is the fourth Beta Release of Apollo iOS 1.0. The Beta version has full feature parity with the 0.x.x releases. The API is expected to be mostly stable. Some breaking changes may occur due to user feedback prior to General Availability (GA) Release. The Beta does not have complete documentation or usage guides, which will be completed prior to GA.
+
+This first major version will include a new code generation engine, better generated models, and many syntax and performance improvements across the entire library. The primary goal of Apollo iOS 1.0 is to stabilize the API of the model layer and provide a foundation for future feature additions and evolution of the library.
+
+* **Breaking: Generated Files now have the file extension `.graphql.swift`.**
+  * This allows you to clearly distinguish which files in your project are Apollo generated files.
+  * Generated template files that are user-editable will still have the `.swift` file extension. 
+    * `CustomScalar` templates as while as the `SchemaConfiguration` file are user-editable. Once these are generated, they are never overwritten by future code generation execution.
+  * This change is also necessary for the identification of generated files for the automatic deletion functionality.
+* **New: Automatic Deletion of Unused Generated Files**
+  * Generated files that no longer should exist are automatically deleted now. This occurs when a `.graphql` file is removed from your project. The generated file will also be deleted the next time code generation is run.
+  * This can be disabled with the new `pruneGeneratedFiles` codegen option.
+  * **Breaking: Automatic Deletion will not delete files generated in previous Alpha/Beta versions.**
+    * Only files with the `.graphql.swift` file extension will be deleted.
+    * If you have used previous Alpha/Beta versions, you will need to delete your generated files manually one last time before running code generation with this version.
+* **New: Enum Case Names are Converted to Camel Case in Generated Enums.** 
+  * **Breaking: This is enabled by default, your call sites will need to be updated.**
+  * Camel case conversion for enum cases can be disabled with the new `conversionStrategies.enumCases` codegen option.
+  * Thanks [@bannzai](https://github.com/bannzai) for this one!
+* **Fixed: Swift Keywords are escaped when used as names of Enum Values** Thanks [@bannzai](https://github.com/bannzai) for the fix!
+* **Fixed: Compilation Error when Using Fragment with Lowercased Name** This was an edge case that only occured when referencing a nested, merged selection set from the lowercase named fragment.
+* **Fixed: Retain Cycle in `ReadTransaction`** Thanks [@lorraine-hatch](https://github.com/lorraine-hatch) for the fix!
+* **Fixed: String `jsonValue` Initializer for Large Numbers** Thanks [@Almaz5200](https://github.com/Almaz5200) for the fix!
+
 ## v1.0.0-beta.3
 
 This is the third Beta Release of Apollo iOS 1.0. The Beta version has full feature parity with the 0.x.x releases. The API is expected to be mostly stable. Some breaking changes may occur due to user feedback prior to General Availability (GA) Release. The Beta does not have complete documentation or usage guides, which will be completed prior to GA.
