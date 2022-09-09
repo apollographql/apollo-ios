@@ -9,7 +9,7 @@ public struct ApolloSchemaDownloadConfiguration {
     /// The Apollo Schema Registry, which serves as a central hub for managing your graph.
     case apolloRegistry(_ settings: ApolloRegistrySettings)
     /// GraphQL Introspection connecting to the specified URL.
-    case introspection(endpointURL: URL, httpMethod: HTTPMethod = .POST)
+    case introspection(endpointURL: URL, httpMethod: HTTPMethod = .POST, includeDeprecatedInputValues: Bool = false)
 
     public struct ApolloRegistrySettings: Equatable {
       /// The API key to use when retrieving your schema from the Apollo Registry.
@@ -55,8 +55,8 @@ public struct ApolloSchemaDownloadConfiguration {
     
     public static func == (lhs: DownloadMethod, rhs: DownloadMethod) -> Bool {
       switch (lhs, rhs) {
-      case (.introspection(let lhsURL, let lhsHTTPMethod), .introspection(let rhsURL, let rhsHTTPMethod)):
-        return lhsURL == rhsURL && lhsHTTPMethod == rhsHTTPMethod
+      case (.introspection(let lhsURL, let lhsHTTPMethod, let lhsIncludeDeprecatedInputValues), .introspection(let rhsURL, let rhsHTTPMethod, let rhsIncludeDeprecatedInputValues)):
+        return lhsURL == rhsURL && lhsHTTPMethod == rhsHTTPMethod && lhsIncludeDeprecatedInputValues == rhsIncludeDeprecatedInputValues
       case (.apolloRegistry(let lhsSettings), .apolloRegistry(let rhsSettings)):
         return lhsSettings == rhsSettings
       default:
