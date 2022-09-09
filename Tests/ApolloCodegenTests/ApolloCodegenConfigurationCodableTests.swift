@@ -124,10 +124,10 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
 
     // when
     let encodedJSON = try testJSONEncoder.encode(subject)
-    let actual = try JSONDecoder().decode(ApolloCodegenConfiguration.self, from: encodedJSON)
+    let actual = String(data: encodedJSON, encoding: .utf8)!
 
     // then
-    expect(actual).to(equal(MockApolloCodegenConfiguration.decoded))
+    expect(actual).to(equal(MockApolloCodegenConfiguration.encoded))
   }
 
   func test__decodeApolloCodegenConfiguration__givenAllParameters_shouldReturnStruct() throws {
