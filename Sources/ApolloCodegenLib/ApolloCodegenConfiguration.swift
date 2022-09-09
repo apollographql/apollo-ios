@@ -167,7 +167,14 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     /// An absolute location to an operation id JSON map file. If specified, also stores the
     /// operation IDs (hashes) as properties on operation types.
     public let operationIdentifiersPath: String?
-    
+
+    /// Default property values
+    public struct Default {
+      public static let operations: OperationsFileOutput = .relative(subpath: nil)
+      public static let testMocks: TestMockFileOutput = .none
+      public static let operationIdentifiersPath: String? = nil
+    }
+
     /// Designated initializer.
     ///
     /// - Parameters:
@@ -181,14 +188,38 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     ///  Defaults to `nil`.
     public init(
       schemaTypes: SchemaTypesFileOutput,
-      operations: OperationsFileOutput = .relative(subpath: nil),
-      testMocks: TestMockFileOutput = .none,
-      operationIdentifiersPath: String? = nil
+      operations: OperationsFileOutput = Default.operations,
+      testMocks: TestMockFileOutput = Default.testMocks,
+      operationIdentifiersPath: String? = Default.operationIdentifiersPath
     ) {
       self.schemaTypes = schemaTypes
       self.operations = operations
       self.testMocks = testMocks
       self.operationIdentifiersPath = operationIdentifiersPath
+    }
+
+    // MARK: Codable
+
+    enum CodingKeys: CodingKey {
+      case schemaTypes
+      case operations
+      case testMocks
+      case operationIdentifiersPath
+    }
+
+    /// `Decodable` implementation to allow for properties to be optional in the encoded JSON with
+    /// specified defaults when not present.
+    public init(from decoder: Decoder) throws {
+      let values = try decoder.container(keyedBy: CodingKeys.self)
+
+      schemaTypes = try values.decode(SchemaTypesFileOutput.self, forKey: .schemaTypes)
+      operations = try values.decode(OperationsFileOutput.self, forKey: .operations)
+      testMocks = try values.decode(TestMockFileOutput.self, forKey: .testMocks)
+
+      operationIdentifiersPath = try values.decodeIfPresent(
+        String.self,
+        forKey: .operationIdentifiersPath
+      ) ?? Default.operationIdentifiersPath
     }
   }
 
@@ -326,6 +357,18 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     ///  Defaults to `true`.
     public let pruneGeneratedFiles: Bool
 
+    /// Default property values
+    public struct Default {
+      public static let additionalInflectionRules: [InflectionRule] = []
+      public static let queryStringLiteralFormat: QueryStringLiteralFormat = .multiline
+      public static let deprecatedEnumCases: Composition = .include
+      public static let schemaDocumentation: Composition = .include
+      public static let apqs: APQConfig = .disabled
+      public static let cocoapodsCompatibleImportStatements: Bool = false
+      public static let warningsOnDeprecatedUsage: Composition = .include
+      public static let conversionStrategies: ConversionStrategies = .init()
+    }
+
     /// Designated initializer.
     ///
     /// - Parameters:
@@ -345,15 +388,15 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     ///    generated code.
     ///  - pruneGeneratedFiles: Whether unused generated files will be automatically deleted.
     public init(
-      additionalInflectionRules: [InflectionRule] = [],
-      queryStringLiteralFormat: QueryStringLiteralFormat = .multiline,
-      deprecatedEnumCases: Composition = .include,
-      schemaDocumentation: Composition = .include,
-      apqs: APQConfig = .disabled,
-      cocoapodsCompatibleImportStatements: Bool = false,
-      warningsOnDeprecatedUsage: Composition = .include,
-      conversionStrategies: ConversionStrategies = .init(),
-      pruneGeneratedFiles: Bool = true
+      additionalInflectionRules: [InflectionRule] = Default.additionalInflectionRules,
+      queryStringLiteralFormat: QueryStringLiteralFormat = Default.queryStringLiteralFormat,
+      deprecatedEnumCases: Composition = Default.deprecatedEnumCases,
+      schemaDocumentation: Composition = Default.schemaDocumentation,
+      apqs: APQConfig = Default.apqs,
+      cocoapodsCompatibleImportStatements: Bool = Default.cocoapodsCompatibleImportStatements,
+      warningsOnDeprecatedUsage: Composition = Default.warningsOnDeprecatedUsage,
+      conversionStrategies: ConversionStrategies = Default.conversionStrategies,
+			pruneGeneratedFiles: Bool = true
     ) {
       self.additionalInflectionRules = additionalInflectionRules
       self.queryStringLiteralFormat = queryStringLiteralFormat
@@ -364,6 +407,63 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       self.warningsOnDeprecatedUsage = warningsOnDeprecatedUsage
       self.conversionStrategies = conversionStrategies
       self.pruneGeneratedFiles = pruneGeneratedFiles
+    }
+
+    // MARK: Codable
+
+    enum CodingKeys: CodingKey {
+      case additionalInflectionRules
+      case queryStringLiteralFormat
+      case deprecatedEnumCases
+      case schemaDocumentation
+      case apqs
+      case cocoapodsCompatibleImportStatements
+      case warningsOnDeprecatedUsage
+      case conversionStrategies
+    }
+
+    public init(from decoder: Decoder) throws {
+      let values = try decoder.container(keyedBy: CodingKeys.self)
+
+      additionalInflectionRules = try values.decodeIfPresent(
+        [InflectionRule].self,
+        forKey: .additionalInflectionRules
+      ) ?? Default.additionalInflectionRules
+
+      queryStringLiteralFormat = try values.decodeIfPresent(
+        QueryStringLiteralFormat.self,
+        forKey: .queryStringLiteralFormat
+      ) ?? Default.queryStringLiteralFormat
+
+      deprecatedEnumCases = try values.decodeIfPresent(
+        Composition.self,
+        forKey: .deprecatedEnumCases
+      ) ?? Default.deprecatedEnumCases
+
+      schemaDocumentation = try values.decodeIfPresent(
+        Composition.self,
+        forKey: .schemaDocumentation
+      ) ?? Default.schemaDocumentation
+
+      apqs = try values.decodeIfPresent(
+        APQConfig.self,
+        forKey: .apqs
+      ) ?? Default.apqs
+
+      cocoapodsCompatibleImportStatements = try values.decodeIfPresent(
+        Bool.self,
+        forKey: .cocoapodsCompatibleImportStatements
+      ) ?? Default.cocoapodsCompatibleImportStatements
+
+      warningsOnDeprecatedUsage = try values.decodeIfPresent(
+        Composition.self,
+        forKey: .warningsOnDeprecatedUsage
+      ) ?? Default.warningsOnDeprecatedUsage
+
+      conversionStrategies = try values.decodeIfPresent(
+        ConversionStrategies.self,
+        forKey: .conversionStrategies
+      ) ?? Default.conversionStrategies
     }
   }
 
@@ -465,12 +565,39 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
      */
     public let legacySafelistingCompatibleOperations: Bool
 
+    /// Default property values
+    public struct Default {
+      public static let clientControlledNullability: Bool = false
+      public static let legacySafelistingCompatibleOperations: Bool = false
+    }
+
     public init(
-      clientControlledNullability: Bool = false,
-      legacySafelistingCompatibleOperations: Bool = false
+      clientControlledNullability: Bool = Default.clientControlledNullability,
+      legacySafelistingCompatibleOperations: Bool = Default.legacySafelistingCompatibleOperations
     ) {
       self.clientControlledNullability = clientControlledNullability
       self.legacySafelistingCompatibleOperations = legacySafelistingCompatibleOperations
+    }
+
+    // MARK: Codable
+
+    public enum CodingKeys: CodingKey {
+      case clientControlledNullability
+      case legacySafelistingCompatibleOperations
+    }
+
+    public init(from decoder: Decoder) throws {
+      let values = try decoder.container(keyedBy: CodingKeys.self)
+
+      clientControlledNullability = try values.decodeIfPresent(
+        Bool.self,
+        forKey: .clientControlledNullability
+      ) ?? Default.clientControlledNullability
+
+      legacySafelistingCompatibleOperations = try values.decodeIfPresent(
+        Bool.self,
+        forKey: .legacySafelistingCompatibleOperations
+      ) ?? Default.legacySafelistingCompatibleOperations
     }
   }
 
@@ -492,6 +619,12 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
   /// Schema download configuration.
   public let schemaDownloadConfiguration: ApolloSchemaDownloadConfiguration?
 
+  public struct Default {
+    public static let options: OutputOptions = OutputOptions()
+    public static let experimentalFeatures: ExperimentalFeatures = ExperimentalFeatures()
+    public static let schemaDownloadConfiguration: ApolloSchemaDownloadConfiguration? = nil
+  }
+
   // MARK: Initializers
 
   /// Designated initializer.
@@ -506,9 +639,9 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     schemaName: String,
     input: FileInput,
     output: FileOutput,
-    options: OutputOptions = OutputOptions(),
-    experimentalFeatures: ExperimentalFeatures = ExperimentalFeatures(),
-    schemaDownloadConfiguration: ApolloSchemaDownloadConfiguration? = nil
+    options: OutputOptions = Default.options,
+    experimentalFeatures: ExperimentalFeatures = Default.experimentalFeatures,
+    schemaDownloadConfiguration: ApolloSchemaDownloadConfiguration? = Default.schemaDownloadConfiguration
   ) {
     self.schemaName = schemaName
     self.input = input
@@ -518,6 +651,39 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     self.schemaDownloadConfiguration = schemaDownloadConfiguration
   }
 
+  // MARK: Codable
+
+  enum CodingKeys: CodingKey {
+    case schemaName
+    case input
+    case output
+    case options
+    case experimentalFeatures
+    case schemaDownloadConfiguration
+  }
+
+  public init(from decoder: Decoder) throws {
+    let values = try decoder.container(keyedBy: CodingKeys.self)
+
+    schemaName = try values.decode(String.self, forKey: .schemaName)
+    input = try values.decode(FileInput.self, forKey: .input)
+    output = try values.decode(FileOutput.self, forKey: .output)
+
+    options = try values.decodeIfPresent(
+      OutputOptions.self,
+      forKey: .options
+    ) ?? Default.options
+
+    experimentalFeatures = try values.decodeIfPresent(
+      ExperimentalFeatures.self,
+      forKey: .experimentalFeatures
+    ) ?? Default.experimentalFeatures
+
+    schemaDownloadConfiguration = try values.decodeIfPresent(
+      ApolloSchemaDownloadConfiguration.self,
+      forKey: .schemaDownloadConfiguration
+    ) ?? Default.schemaDownloadConfiguration
+  }
 }
 
 // MARK: - Helpers

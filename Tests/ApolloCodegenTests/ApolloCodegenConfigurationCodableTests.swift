@@ -32,7 +32,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
         output: .init(
           schemaTypes: .init(
             path: "/output/path",
-            moduleType: .swiftPackageManager
+            moduleType: .embeddedInTarget(name: "SomeTarget")
           ),
           operations: .relative(subpath: "/relative/subpath"),
           testMocks: .swiftPackage(targetName: "SchemaTestMocks"),
@@ -42,14 +42,14 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
           additionalInflectionRules: [
             .pluralization(singularRegex: "animal", replacementRegex: "animals")
           ],
-          queryStringLiteralFormat: .multiline,
+          queryStringLiteralFormat: .singleLine,
           deprecatedEnumCases: .exclude,
-          schemaDocumentation: .include,
-          apqs: .disabled,
+          schemaDocumentation: .exclude,
+          apqs: .persistedOperationsOnly,
           cocoapodsCompatibleImportStatements: false,
-          warningsOnDeprecatedUsage: .include,
+          warningsOnDeprecatedUsage: .exclude,
           conversionStrategies:.init(enumCases: .camelCase),
-          pruneGeneratedFiles: true
+					pruneGeneratedFiles: true
         ),
         experimentalFeatures: .init(
           clientControlledNullability: true,
@@ -60,7 +60,60 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
 
     static var encoded: String {
       """
-      {"experimentalFeatures" : {"clientControlledNullability" : true,"legacySafelistingCompatibleOperations" : true},"input" : {"operationSearchPaths" : ["/search/path/**/*.graphql"],"schemaSearchPaths" : ["/path/to/schema.graphqls"]},"options" : {"additionalInflectionRules" : [{"pluralization" : {"replacementRegex" : "animals","singularRegex" : "animal"}}],"apqs" : "disabled","cocoapodsCompatibleImportStatements" : false,"deprecatedEnumCases" : "exclude","queryStringLiteralFormat" : "multiline","schemaDocumentation" : "include","warningsOnDeprecatedUsage" : "include", "conversionStrategies" : {"enumCases" : "camelCase"}, "pruneGeneratedFiles" : true},"output" : {"operations" : {"relative" : {"subpath" : "/relative/subpath"}},"schemaTypes" : {"moduleType" : {"swiftPackageManager" : {}},"path" : "/output/path"},"testMocks" : {"swiftPackage" : {"targetName" : "SchemaTestMocks"}}},"schemaName" : "SerializedSchema"}
+      {
+        "experimentalFeatures" : {
+          "clientControlledNullability" : true,
+          "legacySafelistingCompatibleOperations" : true
+        },
+        "input" : {
+          "operationSearchPaths" : [
+            "/search/path/**/*.graphql"
+          ],
+          "schemaSearchPaths" : [
+            "/path/to/schema.graphqls"
+          ]
+        },
+        "options" : {
+          "additionalInflectionRules" : [
+            {
+              "pluralization" : {
+                "replacementRegex" : "animals",
+                "singularRegex" : "animal"
+              }
+            }
+          ],
+          "apqs" : "persistedOperationsOnly",
+          "cocoapodsCompatibleImportStatements" : false,
+          "conversionStrategies" : {
+            "enumCases" : "camelCase"
+          },
+          "deprecatedEnumCases" : "exclude",
+          "queryStringLiteralFormat" : "singleLine",
+          "schemaDocumentation" : "exclude",
+          "warningsOnDeprecatedUsage" : "exclude"
+        },
+        "output" : {
+          "operations" : {
+            "relative" : {
+              "subpath" : "/relative/subpath"
+            }
+          },
+          "schemaTypes" : {
+            "moduleType" : {
+              "embeddedInTarget" : {
+                "name" : "SomeTarget"
+              }
+            },
+            "path" : "/output/path"
+          },
+          "testMocks" : {
+            "swiftPackage" : {
+              "targetName" : "SchemaTestMocks"
+            }
+          }
+        },
+        "schemaName" : "SerializedSchema"
+      }
       """      
     }
   }
@@ -86,6 +139,65 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
 
     // then
     expect(actual).to(equal(MockApolloCodegenConfiguration.decoded))
+  }
+
+  func test__decodeApolloCodegenConfiguration__givenOnlyRequiredParameters_shouldReturnStruct() throws {
+    // given
+    let subject = """
+      {
+        "input" : {
+          "operationSearchPaths" : [
+            "/search/path/**/*.graphql"
+          ],
+          "schemaSearchPaths" : [
+            "/path/to/schema.graphqls"
+          ]
+        },
+        "output" : {
+          "operations" : {
+            "relative" : {
+              "subpath" : "/relative/subpath"
+            }
+          },
+          "schemaTypes" : {
+            "moduleType" : {
+              "embeddedInTarget" : {
+                "name" : "SomeTarget"
+              }
+            },
+            "path" : "/output/path"
+          },
+          "testMocks" : {
+            "swiftPackage" : {
+              "targetName" : "SchemaTestMocks"
+            }
+          }
+        },
+        "schemaName" : "SerializedSchema"
+      }
+      """.asData
+
+    let expected = ApolloCodegenConfiguration.init(
+      schemaName: "SerializedSchema",
+      input: .init(
+        schemaSearchPaths: ["/path/to/schema.graphqls"],
+        operationSearchPaths: ["/search/path/**/*.graphql"]
+      ),
+      output: .init(
+        schemaTypes: .init(
+          path: "/output/path",
+          moduleType: .embeddedInTarget(name: "SomeTarget")
+        ),
+        operations: .relative(subpath: "/relative/subpath"),
+        testMocks: .swiftPackage(targetName: "SchemaTestMocks")
+      )
+    )
+
+    // when
+    let actual = try JSONDecoder().decode(ApolloCodegenConfiguration.self, from: subject)
+
+    // then
+    expect(actual).to(equal(expected))
   }
 
   // MARK: - QueryStringLiteralFormat Tests
@@ -141,7 +253,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
     expect(actual).to(equal(.multiline))
   }
 
-  func test__decodeQueryStringLiteralFormat__givenUnknown_shouldReturnEnum() throws {
+  func test__decodeQueryStringLiteralFormat__givenUnknown_shouldThrow() throws {
     // given
     let subject = "\"unknown\"".asData
 
@@ -204,7 +316,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
     expect(actual).to(equal(.exclude))
   }
 
-  func test__decodeComposition__givenUnknown_shouldReturnEnum() throws {
+  func test__decodeComposition__givenUnknown_shouldThrow() throws {
     // given
     let subject = "\"unknown\"".asData
 
@@ -290,7 +402,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
     expect(actual).to(equal(.persistedOperationsOnly))
   }
 
-  func test__decodeAPQConfig__givenUnknown_shouldReturnEnum() throws {
+  func test__decodeAPQConfig__givenUnknown_shouldThrow() throws {
     // given
     let subject = "\"unknown\"".asData
 
