@@ -69,7 +69,7 @@ class SchemaIntrospectionTests: XCTestCase {
     
     XCTAssertEqual(episodeType.documentation, "The episodes in the Star Wars trilogy")
     
-    XCTAssertEqual(episodeType.values.map(\.name), ["NEWHOPE", "EMPIRE", "JEDI"])
+    XCTAssertEqual(episodeType.values.map(\.name.value), ["NEWHOPE", "EMPIRE", "JEDI"])
     XCTAssertEqual(episodeType.values.map(\.documentation), [
       "Star Wars Episode IV: A New Hope, released in 1977.",
       "Star Wars Episode V: The Empire Strikes Back, released in 1980.",

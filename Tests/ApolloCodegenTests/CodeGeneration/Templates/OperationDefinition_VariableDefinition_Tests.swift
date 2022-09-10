@@ -14,13 +14,16 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
     super.tearDown()
   }
 
-  private func buildTemplate(configOutput: ApolloCodegenConfiguration.FileOutput = .mock()) {
+  private func buildTemplate(
+    configOutput: ApolloCodegenConfiguration.FileOutput = .mock(),
+    options: ApolloCodegenConfiguration.OutputOptions = .init()
+  ) {
     let schema = IR.Schema(name: "TestSchema", referencedTypes: .init([]))
 
     template = OperationDefinitionTemplate(
       operation: .mock(),
       schema: schema,
-      config: .init(config: .mock(output: configOutput))
+      config: .init(config: .mock(output: configOutput, options: options))
     )
   }
 
@@ -171,7 +174,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
           type: .enum(.mock(name: "EnumValue")),
           defaultValue: .enum("CaseONE")
         ),
-        "enumField: GraphQLNullable<GraphQLEnum<TestSchema.EnumValue>> = .init(.CaseONE)"
+        "enumField: GraphQLNullable<GraphQLEnum<TestSchema.EnumValue>> = .init(.caseONE)"
       ),
       (
         .mock(
@@ -179,7 +182,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
           type: .nonNull(.enum(.mock(name: "EnumValue"))),
           defaultValue: .enum("CaseONE")
         ),
-        "enumField: GraphQLEnum<TestSchema.EnumValue> = .init(.CaseONE)"
+        "enumField: GraphQLEnum<TestSchema.EnumValue> = .init(.caseONE)"
       ),
       (
         .mock(
@@ -316,11 +319,11 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
         innerFloatField: 12.3456,
         innerBoolField: true,
         innerListField: ["A", "B"],
-        innerEnumField: .init(.CaseONE),
+        innerEnumField: .init(.caseONE),
         innerInputObject: .init(
           TestSchema.InnerInputObject(
             innerStringField: "EFGH",
-            innerListField: [.init(.CaseTwo), .init(.CaseThree)]
+            innerListField: [.init(.caseTwo), .init(.caseThree)]
           )
         )
       )
@@ -383,10 +386,10 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
       innerFloatField: 12.3456,
       innerBoolField: true,
       innerListField: ["A", "B"],
-      innerEnumField: .init(.CaseONE),
+      innerEnumField: .init(.caseONE),
       innerInputObject: TestSchema.InnerInputObject(
         innerStringField: "EFGH",
-        innerListField: [.init(.CaseTwo), .init(.CaseThree)]
+        innerListField: [.init(.caseTwo), .init(.caseThree)]
       )
     )
     """
@@ -397,6 +400,37 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
 
     // then
     expect(actual).to(equalLineByLine(expected))
+  }
+
+  func test__renderOperationVariableParameter__givenEnumCaseConversion_none_givenEnumField_withDefaultValue__generatesCorrectParametersWithInitializer() throws {
+    // given
+    let tests: [(variable: CompilationResult.VariableDefinition, expected: String)] = [
+      (
+        .mock(
+          "enumField",
+          type: .enum(.mock(name: "EnumValue")),
+          defaultValue: .enum("CaseONE")
+        ),
+        "enumField: GraphQLNullable<GraphQLEnum<TestSchema.EnumValue>> = .init(.CaseONE)"
+      ),
+      (
+        .mock(
+          "enumField",
+          type: .nonNull(.enum(.mock(name: "EnumValue"))),
+          defaultValue: .enum("CaseONE")
+        ),
+        "enumField: GraphQLEnum<TestSchema.EnumValue> = .init(.CaseONE)"
+      ),
+    ]
+
+    for test in tests {
+      // when
+      buildTemplate(options: .init(conversionStrategies: .init(enumCases: .none)))
+      let actual = template.VariableParameter(test.variable).description
+
+      // then
+      expect(actual).to(equal(test.expected))
+    }
   }
 
   // MARK: Nullable Field Tests

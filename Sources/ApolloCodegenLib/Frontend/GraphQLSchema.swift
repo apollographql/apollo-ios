@@ -73,11 +73,18 @@ public class GraphQLEnumType: GraphQLNamedType {
 }
 
 public class GraphQLEnumValue: JavaScriptObject {
-  lazy var name: String = self["name"]
+
+  struct Name {
+    let value: String
+  }
+
+  lazy var name: Name = Name(value: self["name"])
   
   lazy var documentation: String? = self["description"]
     
   lazy var deprecationReason: String? = self["deprecationReason"]
+
+  var isDeprecated: Bool { deprecationReason != nil }
 }
 
 typealias GraphQLInputFieldDictionary = OrderedDictionary<String, GraphQLInputField>

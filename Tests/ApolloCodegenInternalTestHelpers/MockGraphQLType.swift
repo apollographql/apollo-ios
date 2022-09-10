@@ -136,7 +136,7 @@ public extension GraphQLEnumValue {
     documentation: String? = nil
   ) -> Self {
     let mock = Self.emptyMockObject()
-    mock.name = name
+    mock.name = Name(value: name)
     mock.deprecationReason = deprecationReason
     mock.documentation = documentation
     return mock
