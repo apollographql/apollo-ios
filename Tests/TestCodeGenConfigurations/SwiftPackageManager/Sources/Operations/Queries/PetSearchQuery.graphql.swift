@@ -4,9 +4,8 @@
 import ApolloAPI
 @_exported import enum ApolloAPI.GraphQLEnum
 @_exported import enum ApolloAPI.GraphQLNullable
-import PackageTwo
 
-class PetSearchQuery: GraphQLQuery {
+public class PetSearchQuery: GraphQLQuery {
   public static let operationName: String = "PetSearch"
   public static let document: DocumentType = .notPersisted(
     definition: .init(
@@ -21,14 +20,14 @@ class PetSearchQuery: GraphQLQuery {
       """
     ))
 
-  public var filters: GraphQLNullable<MySchemaModule.PetSearchFilters>
+  public var filters: GraphQLNullable<PetSearchFilters>
 
-  public init(filters: GraphQLNullable<MySchemaModule.PetSearchFilters> = .init(
-    MySchemaModule.PetSearchFilters(
+  public init(filters: GraphQLNullable<PetSearchFilters> = .init(
+    PetSearchFilters(
       species: ["Dog", "Cat"],
-      size: .init(.SMALL),
+      size: .init(.small),
       measurements: .init(
-        MySchemaModule.MeasurementsInput(
+        MeasurementsInput(
           height: 10.5,
           weight: 5.0
         )
@@ -40,11 +39,11 @@ class PetSearchQuery: GraphQLQuery {
 
   public var variables: Variables? { ["filters": filters] }
 
-  public struct Data: MySchemaModule.SelectionSet {
+  public struct Data: GraphQLSchemaName.SelectionSet {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { MySchemaModule.Objects.Query }
+    public static var __parentType: ParentType { GraphQLSchemaName.Objects.Query }
     public static var selections: [Selection] { [
       .field("pets", [Pet].self, arguments: ["filters": .variable("filters")]),
     ] }
@@ -54,17 +53,17 @@ class PetSearchQuery: GraphQLQuery {
     /// Pet
     ///
     /// Parent Type: `Pet`
-    public struct Pet: MySchemaModule.SelectionSet {
+    public struct Pet: GraphQLSchemaName.SelectionSet {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { MySchemaModule.Interfaces.Pet }
+      public static var __parentType: ParentType { GraphQLSchemaName.Interfaces.Pet }
       public static var selections: [Selection] { [
-        .field("id", MySchemaModule.ID.self),
+        .field("id", ID.self),
         .field("humanName", String?.self),
       ] }
 
-      public var id: MySchemaModule.ID { __data["id"] }
+      public var id: ID { __data["id"] }
       public var humanName: String? { __data["humanName"] }
     }
   }

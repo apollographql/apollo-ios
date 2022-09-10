@@ -1,9 +1,9 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import ApolloAPI
-@_exported import enum ApolloAPI.GraphQLEnum
-@_exported import enum ApolloAPI.GraphQLNullable
+import Apollo
+@_exported import enum Apollo.GraphQLEnum
+@_exported import enum Apollo.GraphQLNullable
 
 public class PetSearchQuery: GraphQLQuery {
   public static let operationName: String = "PetSearch"
@@ -25,7 +25,7 @@ public class PetSearchQuery: GraphQLQuery {
   public init(filters: GraphQLNullable<PetSearchFilters> = .init(
     PetSearchFilters(
       species: ["Dog", "Cat"],
-      size: .init(.SMALL),
+      size: .init(.small),
       measurements: .init(
         MeasurementsInput(
           height: 10.5,
@@ -39,11 +39,11 @@ public class PetSearchQuery: GraphQLQuery {
 
   public var variables: Variables? { ["filters": filters] }
 
-  public struct Data: GraphQLAPI.SelectionSet {
+  public struct Data: MyCustomProject.SelectionSet {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { GraphQLAPI.Objects.Query }
+    public static var __parentType: ParentType { MyCustomProject.Objects.Query }
     public static var selections: [Selection] { [
       .field("pets", [Pet].self, arguments: ["filters": .variable("filters")]),
     ] }
@@ -53,11 +53,11 @@ public class PetSearchQuery: GraphQLQuery {
     /// Pet
     ///
     /// Parent Type: `Pet`
-    public struct Pet: GraphQLAPI.SelectionSet {
+    public struct Pet: MyCustomProject.SelectionSet {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { GraphQLAPI.Interfaces.Pet }
+      public static var __parentType: ParentType { MyCustomProject.Interfaces.Pet }
       public static var selections: [Selection] { [
         .field("id", ID.self),
         .field("humanName", String?.self),

@@ -40,7 +40,7 @@ class SchemaModuleFileGeneratorTests: XCTestCase {
 
   func test__generate__givenModuleType_none_shouldGenerateNamespaceFile() throws {
     // given
-    let fileURL = rootURL.appendingPathComponent("ModuleTestSchema.swift")
+    let fileURL = rootURL.appendingPathComponent("ModuleTestSchema.graphql.swift")
 
     let configuration = ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration.mock(
       .embeddedInTarget(name: "MockApplication"),

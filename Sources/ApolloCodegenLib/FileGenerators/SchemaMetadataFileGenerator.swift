@@ -10,5 +10,5 @@ struct SchemaMetadataFileGenerator: FileGenerator {
 
   var template: TemplateRenderer { SchemaMetadataTemplate(schema: schema, config: config) }
   var target: FileTarget { .schema }
-  var fileName: String { "SchemaMetadata.swift" }
+  var fileName: String { "SchemaMetadata" }
 }

@@ -70,7 +70,7 @@ class FragmentFileGeneratorTests: XCTestCase {
     // given
     try buildSubject()
 
-    let expected = "\(irFragment.definition.name).swift"
+    let expected = irFragment.definition.name
 
     // then
     expect(self.subject.fileName).to(equal(expected))

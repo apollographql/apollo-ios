@@ -8,6 +8,10 @@
     "additionalInflectionRules" : [
 
     ],
+    "conversionStrategies" : {
+      "enumCases" : "camelCase"
+    },
+    "pruneGeneratedFiles" : true,
     "queryStringLiteralFormat" : "multiline",
     "warningsOnDeprecatedUsage" : "include"
   },

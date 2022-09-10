@@ -26,7 +26,7 @@ public extension MyGraphQLSchema {
     public init(filters: GraphQLNullable<PetSearchFilters> = .init(
       PetSearchFilters(
         species: ["Dog", "Cat"],
-        size: .init(.SMALL),
+        size: .init(.small),
         measurements: .init(
           MeasurementsInput(
             height: 10.5,

@@ -147,6 +147,7 @@ class InitializeTests: XCTestCase {
       "deprecatedEnumCases" : "include",
       "schemaDocumentation" : "include",
       "cocoapodsCompatibleImportStatements" : false,
+      "pruneGeneratedFiles" : true,
       "queryStringLiteralFormat" : "multiline"
     },
     "input" : {

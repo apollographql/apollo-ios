@@ -5,6 +5,7 @@ import Foundation
 /// The methods to conform to when building a code generation Swift file generator.
 protocol FileGenerator {
   var fileName: String { get }
+  var fileExtension: String { get }
   var overwrite: Bool { get }
   var template: TemplateRenderer { get }
   var target: FileTarget { get }
@@ -12,6 +13,7 @@ protocol FileGenerator {
 
 extension FileGenerator {
   var overwrite: Bool { true }
+  var fileExtension: String { overwrite ? "graphql.swift" : "swift" }
 
   /// Generates the file writing the template content to the specified config output paths.
   ///
@@ -24,7 +26,9 @@ extension FileGenerator {
   ) throws {
     let directoryPath = target.resolvePath(forConfig: config)
     let filePath = URL(fileURLWithPath: directoryPath)
-      .appendingPathComponent(fileName.firstUppercased).path
+      .appendingPathComponent(fileName.firstUppercased)
+      .appendingPathExtension(fileExtension)
+      .path
 
     let rendered: String = template.render()
 

@@ -15,5 +15,5 @@ struct UnionFileGenerator: FileGenerator {
     config: config
   ) }
   var target: FileTarget { .union }
-  var fileName: String { "\(graphqlUnion.name).swift" }
+  var fileName: String { graphqlUnion.name }
 }

@@ -11,5 +11,5 @@ struct SchemaConfigurationFileGenerator: FileGenerator {
   var template: TemplateRenderer { SchemaConfigurationTemplate(schema: schema, config: config) }
   var overwrite: Bool { false }
   var target: FileTarget { .schema }
-  var fileName: String { "SchemaConfiguration.swift" }
+  var fileName: String { "SchemaConfiguration" }
 }

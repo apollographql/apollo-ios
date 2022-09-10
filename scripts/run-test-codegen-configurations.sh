@@ -1,8 +1,8 @@
 #!/bin/bash
 
-cd $(dirname "$0")/../CodegenCLI
+cd $(dirname "$0")/../Sources/CodegenCLI
 
-CodeGenConfigsDirectory="../Tests/TestCodeGenConfigurations"
+CodeGenConfigsDirectory="../../Tests/TestCodeGenConfigurations"
 
 for dir in `ls $CodeGenConfigsDirectory`;
 do

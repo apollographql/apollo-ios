@@ -28,7 +28,9 @@ extension InputVariableRenderable {
     case let .boolean(boolean): return boolean ? "true" : "false"
     case let .int(int): return TemplateString(int.description)
     case let .float(float): return TemplateString(float.description)
-    case let .enum(enumValue): return ".init(.\(enumValue))"
+    case let .enum(enumValue):
+      let name = GraphQLEnumValue.Name(value: enumValue)
+      return ".init(.\(name.rendered(as: .swiftEnumCase, config: config)))"
     case let .list(list):
       switch type {
       case let .nonNull(.list(listInnerType)),

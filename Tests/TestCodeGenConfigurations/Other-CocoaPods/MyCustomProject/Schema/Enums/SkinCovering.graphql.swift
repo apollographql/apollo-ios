@@ -4,8 +4,8 @@
 import Apollo
 
 public enum SkinCovering: String, EnumType {
-  case FUR
-  case HAIR
-  case FEATHERS
-  case SCALES
+  case fur = "FUR"
+  case hair = "HAIR"
+  case feathers = "FEATHERS"
+  case scales = "SCALES"
 }

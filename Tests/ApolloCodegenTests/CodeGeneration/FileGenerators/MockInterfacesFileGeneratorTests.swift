@@ -48,7 +48,7 @@ class MockInterfacesFileGeneratorTests: XCTestCase {
     // given
     buildSubject()
 
-    let expected = "MockObject+Interfaces.swift"
+    let expected = "MockObject+Interfaces"
 
     // then
     expect(self.subject.fileName).to(equal(expected))

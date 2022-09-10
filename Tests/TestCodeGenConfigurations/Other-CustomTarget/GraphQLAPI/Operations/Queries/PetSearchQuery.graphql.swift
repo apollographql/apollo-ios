@@ -25,7 +25,7 @@ public class PetSearchQuery: GraphQLQuery {
   public init(filters: GraphQLNullable<PetSearchFilters> = .init(
     PetSearchFilters(
       species: ["Dog", "Cat"],
-      size: .init(.SMALL),
+      size: .init(.small),
       measurements: .init(
         MeasurementsInput(
           height: 10.5,
@@ -39,11 +39,11 @@ public class PetSearchQuery: GraphQLQuery {
 
   public var variables: Variables? { ["filters": filters] }
 
-  public struct Data: GraphQLSchemaName.SelectionSet {
+  public struct Data: GraphQLAPI.SelectionSet {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { GraphQLSchemaName.Objects.Query }
+    public static var __parentType: ParentType { GraphQLAPI.Objects.Query }
     public static var selections: [Selection] { [
       .field("pets", [Pet].self, arguments: ["filters": .variable("filters")]),
     ] }
@@ -53,11 +53,11 @@ public class PetSearchQuery: GraphQLQuery {
     /// Pet
     ///
     /// Parent Type: `Pet`
-    public struct Pet: GraphQLSchemaName.SelectionSet {
+    public struct Pet: GraphQLAPI.SelectionSet {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { GraphQLSchemaName.Interfaces.Pet }
+      public static var __parentType: ParentType { GraphQLAPI.Interfaces.Pet }
       public static var selections: [Selection] { [
         .field("id", ID.self),
         .field("humanName", String?.self),

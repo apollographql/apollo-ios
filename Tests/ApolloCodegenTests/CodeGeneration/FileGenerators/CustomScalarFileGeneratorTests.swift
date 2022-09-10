@@ -34,7 +34,7 @@ class CustomScalarFileGeneratorTests: XCTestCase {
     // given
     buildSubject()
 
-    let expected = "\(graphqlScalar.name).swift"
+    let expected = graphqlScalar.name
 
     // then
     expect(self.subject.fileName).to(equal(expected))

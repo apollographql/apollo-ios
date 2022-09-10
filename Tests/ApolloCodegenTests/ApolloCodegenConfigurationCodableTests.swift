@@ -48,7 +48,8 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
           apqs: .disabled,
           cocoapodsCompatibleImportStatements: false,
           warningsOnDeprecatedUsage: .include,
-          conversionStrategies:.init(enumCases: .camelCase)
+          conversionStrategies:.init(enumCases: .camelCase),
+          pruneGeneratedFiles: true
         ),
         experimentalFeatures: .init(
           clientControlledNullability: true,
@@ -59,7 +60,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
 
     static var encoded: String {
       """
-      {"experimentalFeatures" : {"clientControlledNullability" : true,"legacySafelistingCompatibleOperations" : true},"input" : {"operationSearchPaths" : ["/search/path/**/*.graphql"],"schemaSearchPaths" : ["/path/to/schema.graphqls"]},"options" : {"additionalInflectionRules" : [{"pluralization" : {"replacementRegex" : "animals","singularRegex" : "animal"}}],"apqs" : "disabled","cocoapodsCompatibleImportStatements" : false,"deprecatedEnumCases" : "exclude","queryStringLiteralFormat" : "multiline","schemaDocumentation" : "include","warningsOnDeprecatedUsage" : "include", "conversionStrategies" : {"enumCases" : "camelCase"}},"output" : {"operations" : {"relative" : {"subpath" : "/relative/subpath"}},"schemaTypes" : {"moduleType" : {"swiftPackageManager" : {}},"path" : "/output/path"},"testMocks" : {"swiftPackage" : {"targetName" : "SchemaTestMocks"}}},"schemaName" : "SerializedSchema"}
+      {"experimentalFeatures" : {"clientControlledNullability" : true,"legacySafelistingCompatibleOperations" : true},"input" : {"operationSearchPaths" : ["/search/path/**/*.graphql"],"schemaSearchPaths" : ["/path/to/schema.graphqls"]},"options" : {"additionalInflectionRules" : [{"pluralization" : {"replacementRegex" : "animals","singularRegex" : "animal"}}],"apqs" : "disabled","cocoapodsCompatibleImportStatements" : false,"deprecatedEnumCases" : "exclude","queryStringLiteralFormat" : "multiline","schemaDocumentation" : "include","warningsOnDeprecatedUsage" : "include", "conversionStrategies" : {"enumCases" : "camelCase"}, "pruneGeneratedFiles" : true},"output" : {"operations" : {"relative" : {"subpath" : "/relative/subpath"}},"schemaTypes" : {"moduleType" : {"swiftPackageManager" : {}},"path" : "/output/path"},"testMocks" : {"swiftPackage" : {"targetName" : "SchemaTestMocks"}}},"schemaName" : "SerializedSchema"}
       """      
     }
   }
