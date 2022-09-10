@@ -9,9 +9,9 @@ This first major version will include a new code generation engine, better gener
 * **Breaking: Generated Files now have the file extension `.graphql.swift`.**
   * This allows you to clearly distinguish which files in your project are Apollo generated files.
   * Generated template files that are user-editable will still have the `.swift` file extension. 
-    * `CustomScalar` templates as while as the `SchemaConfiguration` file are user-editable. Once these are generated, they are never overwritten by future code generation execution.
-  * This change is also necessary for the identification of generated files for the automatic deletion functionality.
-* **New: Automatic Deletion of Unused Generated Files**
+    * `CustomScalar` templates as well as the `SchemaConfiguration` file are user-editable. Once these are generated, they are never overwritten by future code generation execution.
+  * This change is also necessary for the identification of generated files for the pruning functionality.
+* **New: Pruning of Unused Generated Files**
   * Generated files that no longer should exist are automatically deleted now. This occurs when a `.graphql` file is removed from your project. The generated file will also be deleted the next time code generation is run.
   * This can be disabled with the new `pruneGeneratedFiles` codegen option.
   * **Breaking: Automatic Deletion will not delete files generated in previous Alpha/Beta versions.**
