@@ -49,7 +49,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
           cocoapodsCompatibleImportStatements: true,
           warningsOnDeprecatedUsage: .exclude,
           conversionStrategies:.init(enumCases: .none),
-					pruneGeneratedFiles: false
+          pruneGeneratedFiles: false
         ),
         experimentalFeatures: .init(
           clientControlledNullability: true,
