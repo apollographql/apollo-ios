@@ -20,7 +20,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
   }
 
   enum MockApolloCodegenConfiguration {
-    static var decoded: ApolloCodegenConfiguration {
+    static var decodedStruct: ApolloCodegenConfiguration {
       .init(
         schemaName: "SerializedSchema",
         input: .init(
@@ -58,7 +58,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
       )
     }
 
-    static var encoded: String {
+    static var encodedJSON: String {
       """
       {
         "experimentalFeatures" : {
@@ -121,25 +121,25 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
 
   func test__encodeApolloCodegenConfiguration__givenAllParameters_shouldReturnJSON() throws {
     // given
-    let subject = MockApolloCodegenConfiguration.decoded
+    let subject = MockApolloCodegenConfiguration.decodedStruct
 
     // when
     let encodedJSON = try testJSONEncoder.encode(subject)
     let actual = String(data: encodedJSON, encoding: .utf8)!
 
     // then
-    expect(actual).to(equal(MockApolloCodegenConfiguration.encoded))
+    expect(actual).to(equal(MockApolloCodegenConfiguration.encodedJSON))
   }
 
   func test__decodeApolloCodegenConfiguration__givenAllParameters_shouldReturnStruct() throws {
     // given
-    let subject = MockApolloCodegenConfiguration.encoded.asData
+    let subject = MockApolloCodegenConfiguration.encodedJSON.asData
 
     // when
     let actual = try JSONDecoder().decode(ApolloCodegenConfiguration.self, from: subject)
 
     // then
-    expect(actual).to(equal(MockApolloCodegenConfiguration.decoded))
+    expect(actual).to(equal(MockApolloCodegenConfiguration.decodedStruct))
   }
 
   func test__decodeApolloCodegenConfiguration__givenOnlyRequiredParameters_shouldReturnStruct() throws {
@@ -156,8 +156,8 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
         },
         "output" : {
           "operations" : {
-            "relative" : {
-              "subpath" : "/relative/subpath"
+            "absolute" : {
+              "path" : "/absolute/path"
             }
           },
           "schemaTypes" : {
@@ -189,7 +189,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
           path: "/output/path",
           moduleType: .embeddedInTarget(name: "SomeTarget")
         ),
-        operations: .relative(subpath: "/relative/subpath"),
+        operations: .absolute(path: "/absolute/path"),
         testMocks: .swiftPackage(targetName: "SchemaTestMocks")
       )
     )
