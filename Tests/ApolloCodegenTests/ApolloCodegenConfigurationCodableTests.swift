@@ -34,9 +34,9 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
             path: "/output/path",
             moduleType: .embeddedInTarget(name: "SomeTarget")
           ),
-          operations: .relative(subpath: "/relative/subpath"),
+          operations: .absolute(path: "/absolute/path"),
           testMocks: .swiftPackage(targetName: "SchemaTestMocks"),
-          operationIdentifiersPath: nil
+          operationIdentifiersPath: "/operation/identifiers/path"
         ),
         options: .init(
           additionalInflectionRules: [
@@ -46,9 +46,9 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
           deprecatedEnumCases: .exclude,
           schemaDocumentation: .exclude,
           apqs: .persistedOperationsOnly,
-          cocoapodsCompatibleImportStatements: false,
+          cocoapodsCompatibleImportStatements: true,
           warningsOnDeprecatedUsage: .exclude,
-          conversionStrategies:.init(enumCases: .camelCase),
+          conversionStrategies:.init(enumCases: .none),
 					pruneGeneratedFiles: true
         ),
         experimentalFeatures: .init(
@@ -83,9 +83,9 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
             }
           ],
           "apqs" : "persistedOperationsOnly",
-          "cocoapodsCompatibleImportStatements" : false,
+          "cocoapodsCompatibleImportStatements" : true,
           "conversionStrategies" : {
-            "enumCases" : "camelCase"
+            "enumCases" : "none"
           },
           "deprecatedEnumCases" : "exclude",
           "queryStringLiteralFormat" : "singleLine",
@@ -93,9 +93,10 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
           "warningsOnDeprecatedUsage" : "exclude"
         },
         "output" : {
+          "operationIdentifiersPath" : "/operation/identifiers/path",
           "operations" : {
-            "relative" : {
-              "subpath" : "/relative/subpath"
+            "absolute" : {
+              "path" : "/absolute/path"
             }
           },
           "schemaTypes" : {
