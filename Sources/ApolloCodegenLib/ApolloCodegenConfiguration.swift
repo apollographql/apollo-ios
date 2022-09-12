@@ -508,8 +508,28 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     /// Defaultss to ``ApolloCodegenConfiguration/CaseConversionStrategy/camelCase``
     public let enumCases: CaseConversionStrategy
 
-    public init(enumCases: CaseConversionStrategy = .camelCase) {
+    /// Default property values
+    public struct Default {
+      public static let enumCases: CaseConversionStrategy = .camelCase
+    }
+
+    public init(enumCases: CaseConversionStrategy = Default.enumCases) {
       self.enumCases = enumCases
+    }
+
+    // MARK: Codable
+
+    public enum CodingKeys: CodingKey {
+      case enumCases
+    }
+
+    public init(from decoder: Decoder) throws {
+      let values = try decoder.container(keyedBy: CodingKeys.self)
+
+      enumCases = try values.decodeIfPresent(
+        CaseConversionStrategy.self,
+        forKey: .enumCases
+      ) ?? Default.enumCases
     }
   }
 
