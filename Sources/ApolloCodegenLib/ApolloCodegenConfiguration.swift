@@ -367,6 +367,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       public static let cocoapodsCompatibleImportStatements: Bool = false
       public static let warningsOnDeprecatedUsage: Composition = .include
       public static let conversionStrategies: ConversionStrategies = .init()
+      public static let pruneGeneratedFiles: Bool = true
     }
 
     /// Designated initializer.
@@ -396,7 +397,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       cocoapodsCompatibleImportStatements: Bool = Default.cocoapodsCompatibleImportStatements,
       warningsOnDeprecatedUsage: Composition = Default.warningsOnDeprecatedUsage,
       conversionStrategies: ConversionStrategies = Default.conversionStrategies,
-			pruneGeneratedFiles: Bool = true
+      pruneGeneratedFiles: Bool = Default.pruneGeneratedFiles
     ) {
       self.additionalInflectionRules = additionalInflectionRules
       self.queryStringLiteralFormat = queryStringLiteralFormat
@@ -420,6 +421,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       case cocoapodsCompatibleImportStatements
       case warningsOnDeprecatedUsage
       case conversionStrategies
+      case pruneGeneratedFiles
     }
 
     public init(from decoder: Decoder) throws {
@@ -464,6 +466,11 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
         ConversionStrategies.self,
         forKey: .conversionStrategies
       ) ?? Default.conversionStrategies
+
+      pruneGeneratedFiles = try values.decodeIfPresent(
+        Bool.self,
+        forKey: .pruneGeneratedFiles
+      ) ?? Default.pruneGeneratedFiles
     }
   }
 

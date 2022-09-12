@@ -49,7 +49,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
           cocoapodsCompatibleImportStatements: true,
           warningsOnDeprecatedUsage: .exclude,
           conversionStrategies:.init(enumCases: .none),
-					pruneGeneratedFiles: true
+					pruneGeneratedFiles: false
         ),
         experimentalFeatures: .init(
           clientControlledNullability: true,
@@ -88,6 +88,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
             "enumCases" : "none"
           },
           "deprecatedEnumCases" : "exclude",
+          "pruneGeneratedFiles" : false,
           "queryStringLiteralFormat" : "singleLine",
           "schemaDocumentation" : "exclude",
           "warningsOnDeprecatedUsage" : "exclude"
