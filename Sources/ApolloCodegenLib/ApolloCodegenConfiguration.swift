@@ -305,7 +305,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     case swiftPackage(targetName: String? = nil)
   }
 
-  // MARK: - Output Options
+  // MARK: - Other Types
   public struct OutputOptions: Codable, Equatable {
     /// Any non-default rules for pluralization or singularization you wish to include.
     public let additionalInflectionRules: [InflectionRule]
@@ -530,8 +530,6 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     case persistedOperationsOnly
   }
 
-  // MARK: - Other Types
-
   public struct ExperimentalFeatures: Codable, Equatable {
     /**
      * **EXPERIMENTAL**: If enabled, the parser will understand and parse Client Controlled Nullability
@@ -601,7 +599,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     }
   }
 
-  // MARK: Properties
+  // MARK: - Properties
 
   /// Name used to scope the generated schema type files.
   public let schemaName: String
