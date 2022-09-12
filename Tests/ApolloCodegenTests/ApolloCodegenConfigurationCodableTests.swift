@@ -201,6 +201,22 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
     expect(actual).to(equal(expected))
   }
 
+  func test__decodeApolloCodegenConfiguration__givenMissingRequiredParameters_shouldThrow() throws {
+    // given
+    let subject = """
+      {
+        "input" : {
+        },
+        "output" : {
+        }
+      }
+      """.asData
+
+    // then
+    expect(try JSONDecoder().decode(ApolloCodegenConfiguration.self, from: subject))
+      .to(throwError())
+  }
+
   // MARK: - QueryStringLiteralFormat Tests
 
   func encodedValue(_ case: ApolloCodegenConfiguration.QueryStringLiteralFormat) -> String {
