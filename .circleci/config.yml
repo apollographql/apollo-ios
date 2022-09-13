@@ -149,7 +149,7 @@ jobs:
     macos:
       xcode: << pipeline.parameters.xcode_version >>
     environment:
-      DESTINATION: platform=iOS Simulator,OS=<< pipeline.parameters.ios_current_version >>,name=iPhone 12
+      DESTINATION: platform=iOS Simulator,OS=<< pipeline.parameters.ios_current_version >>,name=iPhone 14
       CIRCLE_XCODE_SCHEME: Apollo
       CIRCLE_XCODE_TEST_PLAN: Apollo-CITestPlan
     steps:
@@ -160,7 +160,7 @@ jobs:
     macos:
       xcode: << pipeline.parameters.xcode_version >>
     environment:
-      DESTINATION: platform=iOS Simulator,OS=<< pipeline.parameters.ios_previous_version >>,name=iPhone 12
+      DESTINATION: platform=iOS Simulator,OS=<< pipeline.parameters.ios_previous_version >>,name=iPhone 13
       CIRCLE_XCODE_SCHEME: Apollo
       CIRCLE_XCODE_TEST_PLAN: Apollo-CITestPlan
     steps:
