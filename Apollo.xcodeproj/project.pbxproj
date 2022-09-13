@@ -2529,6 +2529,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		90690D322243442F00FC2E54 /* Ensure no build settings are in the Xcode project */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -2547,6 +2548,7 @@
 		};
 		9FACA9BA1F42E67200AE2DBD /* Generate Apollo Client API */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -2561,6 +2563,7 @@
 		};
 		9FCE2D061E6C251100E34457 /* Generate Apollo Client API */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
