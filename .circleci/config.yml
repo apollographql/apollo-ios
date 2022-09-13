@@ -3,19 +3,19 @@ version: 2.1
 parameters:
   xcode_version:
     type: string
-    default: "13.4.1"
+    default: "14.0"
   ios_current_version:
     type: string
-    default: "15.5"
+    default: "16.0"
   ios_previous_version:
     type: string
-    default: "14.5"
+    default: "15.5"
   macos_version: # The user-facing version string for macOS builds
     type: string
-    default: "12.3.1"
+    default: "12.5.1"
   tvos_version: # The user-facing version string of tvOS builds
     type: string
-    default: "15.4"
+    default: "16.0"
 
 commands:
   integration_test_setup:
@@ -149,7 +149,7 @@ jobs:
     macos:
       xcode: << pipeline.parameters.xcode_version >>
     environment:
-      DESTINATION: platform=iOS Simulator,OS=<< pipeline.parameters.ios_current_version >>,name=iPhone 12
+      DESTINATION: platform=iOS Simulator,OS=<< pipeline.parameters.ios_current_version >>,name=iPhone 14
       CIRCLE_XCODE_SCHEME: Apollo
       CIRCLE_XCODE_TEST_PLAN: Apollo-CITestPlan
     steps:
@@ -160,7 +160,7 @@ jobs:
     macos:
       xcode: << pipeline.parameters.xcode_version >>
     environment:
-      DESTINATION: platform=iOS Simulator,OS=<< pipeline.parameters.ios_previous_version >>,name=iPhone 12
+      DESTINATION: platform=iOS Simulator,OS=<< pipeline.parameters.ios_previous_version >>,name=iPhone 13
       CIRCLE_XCODE_SCHEME: Apollo
       CIRCLE_XCODE_TEST_PLAN: Apollo-CITestPlan
     steps:
