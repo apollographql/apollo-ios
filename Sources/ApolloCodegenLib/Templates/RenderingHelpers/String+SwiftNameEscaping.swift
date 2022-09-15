@@ -18,7 +18,7 @@ extension String {
   }
 
   var asInputParameterName: String {
-    escapeIf(in: SwiftKeywords.InputParameterNamesToEscape)
+    escapeIf(in: SwiftKeywords.InputParameterNamesToEscape).firstLowercased
   }
 
   var asTestMockFieldPropertyName: String {

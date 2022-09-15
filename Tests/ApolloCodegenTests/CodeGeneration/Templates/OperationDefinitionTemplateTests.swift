@@ -224,6 +224,45 @@ class OperationDefinitionTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
+  func test__generate__givenQueryWithLowercasing_generatesCorrectlyCasedQueryOperation() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query lowercaseOperation($variable: String = "TestVar") {
+      allAnimals {
+        species
+      }
+    }
+    """
+
+    let expected =
+    """
+    class LowercaseOperationQuery: GraphQLQuery {
+      public static let operationName: String = "lowercaseOperation"
+      public static let document: DocumentType = .notPersisted(
+        definition: .init(
+          \"\"\"
+          query lowercaseOperation($variable: String = "TestVar") {
+    """
+
+    // when
+    try buildSubjectAndOperation(named: "lowercaseOperation")
+
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
   // MARK: - Variables
 
    func test__generate__givenQueryWithScalarVariable_generatesQueryOperationWithVariable() throws {
@@ -359,7 +398,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
   }
 
-  func test__generate__givenQueryWithLowercasing_generatesCorrectlyCasedQueryOperation() throws {
+  func test__generate__givenQueryWithCapitalizedVariable_generatesQueryOperationWithLowercaseVariable() throws {
     // given
     schemaSDL = """
     type Query {
@@ -372,7 +411,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
     """
 
     document = """
-    query lowercaseOperation($variable: String = "TestVar") {
+    query TestOperation($Variable: String) {
       allAnimals {
         species
       }
@@ -381,21 +420,22 @@ class OperationDefinitionTemplateTests: XCTestCase {
 
     let expected =
     """
-    class LowercaseOperationQuery: GraphQLQuery {
-      public static let operationName: String = "lowercaseOperation"
-      public static let document: DocumentType = .notPersisted(
-        definition: .init(
-          \"\"\"
-          query lowercaseOperation($variable: String = "TestVar") {
+      public var variable: GraphQLNullable<String>
+
+      public init(variable: GraphQLNullable<String>) {
+        self.variable = variable
+      }
+
+      public var variables: Variables? { ["Variable": variable] }
     """
 
     // when
-    try buildSubjectAndOperation(named: "lowercaseOperation")
+    try buildSubjectAndOperation()
 
     let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
   }
 
   // MARK: Variables - Reserved Keywords + Special Names
@@ -447,7 +487,6 @@ class OperationDefinitionTemplateTests: XCTestCase {
       $precedencegroup: String
       $private: String
       $protocol: String
-      $Protocol: String
       $public: String
       $repeat: String
       $rethrows: String
@@ -506,7 +545,6 @@ class OperationDefinitionTemplateTests: XCTestCase {
       public var `precedencegroup`: GraphQLNullable<String>
       public var `private`: GraphQLNullable<String>
       public var `protocol`: GraphQLNullable<String>
-      public var `Protocol`: GraphQLNullable<String>
       public var `public`: GraphQLNullable<String>
       public var `repeat`: GraphQLNullable<String>
       public var `rethrows`: GraphQLNullable<String>
@@ -558,7 +596,6 @@ class OperationDefinitionTemplateTests: XCTestCase {
         `precedencegroup`: GraphQLNullable<String>,
         `private`: GraphQLNullable<String>,
         `protocol`: GraphQLNullable<String>,
-        `Protocol`: GraphQLNullable<String>,
         `public`: GraphQLNullable<String>,
         `repeat`: GraphQLNullable<String>,
         `rethrows`: GraphQLNullable<String>,
@@ -609,7 +646,6 @@ class OperationDefinitionTemplateTests: XCTestCase {
         self.`precedencegroup` = `precedencegroup`
         self.`private` = `private`
         self.`protocol` = `protocol`
-        self.`Protocol` = `Protocol`
         self.`public` = `public`
         self.`repeat` = `repeat`
         self.`rethrows` = `rethrows`
@@ -662,7 +698,6 @@ class OperationDefinitionTemplateTests: XCTestCase {
         "precedencegroup": `precedencegroup`,
         "private": `private`,
         "protocol": `protocol`,
-        "Protocol": `Protocol`,
         "public": `public`,
         "repeat": `repeat`,
         "rethrows": `rethrows`,
