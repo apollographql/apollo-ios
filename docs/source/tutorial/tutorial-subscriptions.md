@@ -116,19 +116,18 @@ Next, just above the code for handling Segues, add code for starting and handlin
 // MARK: - Subscriptions
 
 private func startSubscription() {
-          activeSubscription = Network.shared.apollo.subscribe(subscription: TripsBookedSubscription()) { result in
-            switch result {
-            case .failure(let error):
-                self.showAlert(title: "NetworkError",
-                               message: error.localizedDescription)
-            case .success(let graphQLResult):
-                if let errors = graphQLResult.errors {
-                    self.showAlertForErrors(errors)
-                } else if let tripsBooked = graphQLResult.data?.tripsBooked {
-                    self.handleTripsBooked(value: tripsBooked)
-                } else {
-                    // There was no data and there were no errors, do nothing.
-                }
+      activeSubscription = Network.shared.apollo.subscribe(subscription: TripsBookedSubscription()) { result in
+        switch result {
+        case .failure(let error):
+            self.showAlert(title: "NetworkError",
+                           message: error.localizedDescription)
+        case .success(let graphQLResult):
+            if let errors = graphQLResult.errors {
+                self.showAlertForErrors(errors)
+            } else if let tripsBooked = graphQLResult.data?.tripsBooked {
+                self.handleTripsBooked(value: tripsBooked)
+            } else {
+                // There was no data and there were no errors, do nothing.
             }
         }
     }
