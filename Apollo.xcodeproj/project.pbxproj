@@ -6007,7 +6007,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 90690D2422433C8000FC2E54 /* Apollo-Target-PerformanceTests.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 			};
 			name = Debug;
 		};
@@ -6015,7 +6014,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 90690D2422433C8000FC2E54 /* Apollo-Target-PerformanceTests.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 			};
 			name = Release;
 		};
@@ -6023,7 +6021,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 90690D2422433C8000FC2E54 /* Apollo-Target-PerformanceTests.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 			};
 			name = PerformanceTesting;
 		};
@@ -6101,7 +6098,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 90690D0B2243345500FC2E54 /* Apollo-Target-Tests.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 			};
 			name = Debug;
 		};
@@ -6109,7 +6105,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 90690D0B2243345500FC2E54 /* Apollo-Target-Tests.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 			};
 			name = Release;
 		};
@@ -6145,7 +6140,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 90690D0B2243345500FC2E54 /* Apollo-Target-Tests.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 			};
 			name = PerformanceTesting;
 		};
@@ -6202,7 +6196,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DE6B15E826152CD80068D642 /* Apollo-Target-ServerIntegrationTests.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 			};
 			name = Debug;
 		};
@@ -6210,7 +6203,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DE6B15E826152CD80068D642 /* Apollo-Target-ServerIntegrationTests.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 			};
 			name = Release;
 		};
@@ -6218,7 +6210,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DE6B15E826152CD80068D642 /* Apollo-Target-ServerIntegrationTests.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 			};
 			name = PerformanceTesting;
 		};

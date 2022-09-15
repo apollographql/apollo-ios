@@ -265,4 +265,80 @@ class DocumentParsingAndValidationTests: XCTestCase {
       XCTAssertEqual(document.filePath, "TestQuery.graphql")
     }
   }
+
+  func test__validateDocument__givenInputParameterNameDisallowed_throwsError() throws {
+    let disallowedName = ["self", "Self"]
+
+    for name in disallowedName {
+      let schema = try codegenFrontend.loadSchema(
+        from: [try codegenFrontend.makeSource(
+      """
+      type Query {
+        test(param: String!): String!
+      }
+      """
+      , filePath: "schema.graphqls")])
+
+      let source = try codegenFrontend.makeSource("""
+      query TestQuery($\(name): String!) {
+        test(param: $\(name))
+      }
+      """, filePath: "TestQuery.graphql")
+
+      let document = try codegenFrontend.parseDocument(source)
+
+      let validationErrors = try codegenFrontend.validateDocument(
+        schema: schema,
+        document: document,
+        options: .mock()
+      )
+
+      XCTAssertEqual(validationErrors.map(\.message), [
+      """
+      Input Parameter name "\(name)" is not allowed because it conflicts with generated \
+      object APIs.
+      """,
+      ])
+
+      XCTAssertEqual(document.filePath, "TestQuery.graphql")
+    }
+  }
+
+  func test__validateDocument__givenInputParameterNameIsSchemaName_throwsError() throws {
+    let disallowedName = ["AnimalKingdomAPI", "animalKingdomAPI"]
+
+    for name in disallowedName {
+      let schema = try codegenFrontend.loadSchema(
+        from: [try codegenFrontend.makeSource(
+      """
+      type Query {
+        test(param: String!): String!
+      }
+      """
+      , filePath: "schema.graphqls")])
+
+      let source = try codegenFrontend.makeSource("""
+      query TestQuery($\(name): String!) {
+        test(param: $\(name))
+      }
+      """, filePath: "TestQuery.graphql")
+
+      let document = try codegenFrontend.parseDocument(source)
+
+      let validationErrors = try codegenFrontend.validateDocument(
+        schema: schema,
+        document: document,
+        options: .mock(schemaName: "AnimalKingdomAPI")
+      )
+
+      XCTAssertEqual(validationErrors.map(\.message), [
+      """
+      Input Parameter name "\(name)" is not allowed because it conflicts with generated \
+      object APIs.
+      """,
+      ])
+
+      XCTAssertEqual(document.filePath, "TestQuery.graphql")
+    }
+  }
 }
