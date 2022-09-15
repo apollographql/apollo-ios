@@ -44,8 +44,8 @@ public struct Initialize: ParsableCommand {
 
   func _run(fileManager: ApolloFileManager = .default, output: OutputClosure? = nil) throws {
     let encoded = try ApolloCodegenConfiguration
-      .default
-      .encoded()
+      .minimalJSON
+      .asData()
 
     if print {
       try print(data: encoded, output: output)
@@ -106,36 +106,52 @@ public struct Initialize: ParsableCommand {
 
 // MARK: - Private extensions
 
-fileprivate extension ApolloCodegenConfiguration {
-  static var `default`: ApolloCodegenConfiguration {
+extension ApolloCodegenConfiguration {
+  static var minimalJSON: String {
     #if COCOAPODS
-    ApolloCodegenConfiguration(
-      schemaName: "GraphQLSchemaName",
-      input: .init(
-        schemaPath: "schema.graphqls"
-      ),
-      output: .init(
-        schemaTypes: .init(path: "./", moduleType: .swiftPackageManager)
-      ),
-      options: .init(cocoapodsCompatibleImportStatements: true)
-    )
+      minimalJSON(supportCocoaPods: true)
     #else
-    ApolloCodegenConfiguration(
-      schemaName: "GraphQLSchemaName",
-      input: .init(
-        schemaPath: "schema.graphqls"
-      ),
-      output: .init(
-        schemaTypes: .init(path: "./", moduleType: .swiftPackageManager)
-      )
-    )
+      minimalJSON(supportCocoaPods: false)
     #endif
   }
 
-  func encoded() throws -> Data {
-    let encoder = JSONEncoder()
-    encoder.outputFormatting = [.prettyPrinted]
+  static func minimalJSON(supportCocoaPods: Bool) -> String {
+    let cocoaPodsOption = supportCocoaPods ? """
 
-    return try encoder.encode(self)
+        "options" : {
+          "cocoapodsCompatibleImportStatements" : true
+        },
+      """ : ""
+
+    return """
+    {
+      "schemaName" : "GraphQLSchemaName",\(cocoaPodsOption)
+      "input" : {
+        "operationSearchPaths" : [
+          "**/*.graphql"
+        ],
+        "schemaSearchPaths" : [
+          "**/*.graphqls"
+        ]
+      },
+      "output" : {
+        "testMocks" : {
+          "none" : {
+          }
+        },
+        "schemaTypes" : {
+          "path" : "./",
+          "moduleType" : {
+            "swiftPackageManager" : {
+            }
+          }
+        },
+        "operations" : {
+          "relative" : {
+          }
+        }
+      }
+    }
+    """
   }
 }
