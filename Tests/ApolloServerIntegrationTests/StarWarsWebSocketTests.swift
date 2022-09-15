@@ -47,14 +47,14 @@ class StarWarsWebSocketTests: XCTestCase, CacheDependentTesting {
   }
 
   func testHeroNameQueryWithVariable() {
-    fetch(query: HeroNameQuery(episode: .init(.EMPIRE))) { data in
+    fetch(query: HeroNameQuery(episode: .init(.empire))) { data in
       XCTAssertEqual(data.hero?.name, "Luke Skywalker")
     }
   }
 
   func testHeroAppearsInQuery() {
     fetch(query: HeroAppearsInQuery()) { data in
-      XCTAssertEqual(data.hero?.appearsIn, [.init(.NEWHOPE), .init(.EMPIRE), .init(.JEDI)])
+      XCTAssertEqual(data.hero?.appearsIn, [.init(.newhope), .init(.empire), .init(.jedi)])
     }
   }
 
@@ -100,7 +100,7 @@ class StarWarsWebSocketTests: XCTestCase, CacheDependentTesting {
   }
 
   func testHeroDetailsQueryHuman() {
-    fetch(query: HeroDetailsQuery(episode: .init(.EMPIRE))) { data in
+    fetch(query: HeroDetailsQuery(episode: .init(.empire))) { data in
       XCTAssertEqual(data.hero?.name, "Luke Skywalker")
 
       guard let human = data.hero?.asHuman else {
@@ -126,7 +126,7 @@ class StarWarsWebSocketTests: XCTestCase, CacheDependentTesting {
   }
 
   func testHeroDetailsWithFragmentQueryHuman() {
-    fetch(query: HeroDetailsWithFragmentQuery(episode: .init(.EMPIRE))) { data in
+    fetch(query: HeroDetailsWithFragmentQuery(episode: .init(.empire))) { data in
       XCTAssertEqual(data.hero?.fragments.heroDetails.name, "Luke Skywalker")
 
       guard let human = data.hero?.fragments.heroDetails.asHuman else {
@@ -146,7 +146,7 @@ class StarWarsWebSocketTests: XCTestCase, CacheDependentTesting {
   }
   
   func testDroidDetailsWithFragmentQueryHuman() {
-    fetch(query: DroidDetailsWithFragmentQuery(episode: .init(.EMPIRE))) { data in
+    fetch(query: DroidDetailsWithFragmentQuery(episode: .init(.empire))) { data in
       XCTAssertNil(data.hero?.asDroid)
     }
   }
@@ -160,7 +160,7 @@ class StarWarsWebSocketTests: XCTestCase, CacheDependentTesting {
   }
 
   func testHeroTypeDependentAliasedFieldHuman() {
-    fetch(query: HeroTypeDependentAliasedFieldQuery(episode: .init(.EMPIRE))) { data in
+    fetch(query: HeroTypeDependentAliasedFieldQuery(episode: .init(.empire))) { data in
       XCTAssertEqual(data.hero?.asHuman?.property, "Tatooine")
       XCTAssertNil(data.hero?.asDroid?.property)
     }
@@ -173,7 +173,7 @@ class StarWarsWebSocketTests: XCTestCase, CacheDependentTesting {
   }
 
   func testHeroParentTypeDependentFieldHuman() {
-    fetch(query: HeroParentTypeDependentFieldQuery(episode: .init(.EMPIRE))) { data in
+    fetch(query: HeroParentTypeDependentFieldQuery(episode: .init(.empire))) { data in
       XCTAssertEqual(data.hero?.asHuman?.friends?.first??.asHuman?.height, 5.905512)
     }
   }
@@ -246,7 +246,7 @@ class StarWarsWebSocketTests: XCTestCase, CacheDependentTesting {
   func testHeroDetailsInlineConditionalInclusion() {
     fetch(query: HeroDetailsInlineConditionalInclusionQuery(includeDetails: true)) { data in
       XCTAssertEqual(data.hero?.ifIncludeDetails?.name, "R2-D2")
-      XCTAssertEqual(data.hero?.ifIncludeDetails?.appearsIn, [.init(.NEWHOPE), .init(.EMPIRE), .init(.JEDI)])
+      XCTAssertEqual(data.hero?.ifIncludeDetails?.appearsIn, [.init(.newhope), .init(.empire), .init(.jedi)])
     }
     
     fetch(query: HeroDetailsInlineConditionalInclusionQuery(includeDetails: false)) { data in
@@ -285,14 +285,14 @@ class StarWarsWebSocketTests: XCTestCase, CacheDependentTesting {
     }
     
     fetch(query: HeroNameTypeSpecificConditionalInclusionQuery(
-      episode: .init(.EMPIRE),
+      episode: .init(.empire),
       includeName: true
     )) { data in
       XCTAssertEqual(data.hero?.name, "Luke Skywalker")
     }
     
     fetch(query: HeroNameTypeSpecificConditionalInclusionQuery(
-      episode: .init(.EMPIRE),
+      episode: .init(.empire),
       includeName: false
     )) { data in
       XCTAssertNil(data.hero?.name)
@@ -303,7 +303,7 @@ class StarWarsWebSocketTests: XCTestCase, CacheDependentTesting {
 
   func testCreateReviewForEpisode() {
     perform(mutation: CreateReviewForEpisodeMutation(
-      episode: .init(.JEDI),
+      episode: .init(.jedi),
       review: ReviewInput(stars: 5, commentary: "This is a great movie!")
     )) { data in
       XCTAssertEqual(data.createReview?.stars, 5)

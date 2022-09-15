@@ -61,7 +61,7 @@ class StarWarsSubscriptionTests: XCTestCase {
   func testSubscribeReviewJediEpisode() {
     let expectation = self.expectation(description: "Subscribe single review")
     
-    let sub = client.subscribe(subscription: ReviewAddedSubscription(episode: .init(.JEDI))) { result in
+    let sub = client.subscribe(subscription: ReviewAddedSubscription(episode: .init(.jedi))) { result in
       defer {
         expectation.fulfill()
       }
@@ -74,7 +74,7 @@ class StarWarsSubscriptionTests: XCTestCase {
           return
         }
         
-        XCTAssertEqual(data.reviewAdded?.episode, .init(.JEDI))
+        XCTAssertEqual(data.reviewAdded?.episode, .init(.jedi))
         XCTAssertEqual(data.reviewAdded?.stars, 6)
         XCTAssertEqual(data.reviewAdded?.commentary, "This is the greatest movie!")
       case .failure(let error):
@@ -85,7 +85,7 @@ class StarWarsSubscriptionTests: XCTestCase {
     self.waitForSubscriptionsToStart()
         
     client.perform(mutation: CreateReviewForEpisodeMutation(
-      episode: .init(.JEDI),
+      episode: .init(.jedi),
       review: ReviewInput(stars: 6, commentary: "This is the greatest movie!")
     ))
     
@@ -119,7 +119,7 @@ class StarWarsSubscriptionTests: XCTestCase {
     self.waitForSubscriptionsToStart()
     
     client.perform(mutation: CreateReviewForEpisodeMutation(
-      episode: .init(.EMPIRE),
+      episode: .init(.empire),
       review: ReviewInput(stars: 13, commentary: "This is an even greater movie!")
     ))
     
@@ -132,7 +132,7 @@ class StarWarsSubscriptionTests: XCTestCase {
     expectation.isInverted = true
     
     let sub = client.subscribe(subscription: ReviewAddedSubscription(
-      episode: .init(.JEDI)
+      episode: .init(.jedi)
     )) { result in
       defer {
         expectation.fulfill()
@@ -146,7 +146,7 @@ class StarWarsSubscriptionTests: XCTestCase {
           return
         }
         
-        XCTAssertNotEqual(data.reviewAdded?.episode, .init(.JEDI))
+        XCTAssertNotEqual(data.reviewAdded?.episode, .init(.jedi))
       case .failure(let error):
         XCTFail("Unexpected error: \(error)")
       }
@@ -155,7 +155,7 @@ class StarWarsSubscriptionTests: XCTestCase {
     self.waitForSubscriptionsToStart()
     
     client.perform(mutation: CreateReviewForEpisodeMutation(
-      episode: .init(.EMPIRE),
+      episode: .init(.empire),
       review: ReviewInput(stars: 10, commentary: "This is an even greater movie!")
     ))
     
@@ -168,7 +168,7 @@ class StarWarsSubscriptionTests: XCTestCase {
     expectation.isInverted = true
     
     let sub = client.subscribe(subscription: ReviewAddedSubscription(
-      episode: .init(.JEDI)
+      episode: .init(.jedi)
     )) { _ in
       XCTFail("Received subscription after cancel")
     }
@@ -178,7 +178,7 @@ class StarWarsSubscriptionTests: XCTestCase {
     sub.cancel()
     
     client.perform(mutation: CreateReviewForEpisodeMutation(
-      episode: .init(.JEDI),
+      episode: .init(.jedi),
       review: ReviewInput(stars: 10, commentary: "This is an even greater movie!")
     ))
     
@@ -191,7 +191,7 @@ class StarWarsSubscriptionTests: XCTestCase {
     expectation.expectedFulfillmentCount = count
 
     let sub = client.subscribe(subscription: ReviewAddedSubscription(
-      episode: .init(.EMPIRE)
+      episode: .init(.empire)
     )) { result in
       defer {
         expectation.fulfill()
@@ -205,7 +205,7 @@ class StarWarsSubscriptionTests: XCTestCase {
           return
         }
         
-        XCTAssertEqual(data.reviewAdded?.episode, .init(.EMPIRE))
+        XCTAssertEqual(data.reviewAdded?.episode, .init(.empire))
       case .failure(let error):
         XCTFail("Unexpected error: \(error)")
       }
@@ -216,7 +216,7 @@ class StarWarsSubscriptionTests: XCTestCase {
     for i in 1...count {
       let review = ReviewInput(stars: i, commentary: "The greatest movie ever!")
       _ = client.perform(mutation: CreateReviewForEpisodeMutation(
-        episode: .init(.EMPIRE),
+        episode: .init(.empire),
         review: review
       ))
     }
@@ -253,7 +253,7 @@ class StarWarsSubscriptionTests: XCTestCase {
     }
     
     let subEmpire = client.subscribe(subscription: ReviewAddedSubscription(
-      episode: .init(.EMPIRE)
+      episode: .init(.empire)
     )) { result in
       switch result {
       case .success(let graphQLResult):
@@ -268,7 +268,7 @@ class StarWarsSubscriptionTests: XCTestCase {
     }
     
     let subJedi = client.subscribe(subscription: ReviewAddedSubscription(
-      episode: .init(.JEDI)
+      episode: .init(.jedi)
     )) { result in
       switch result {
       case .success(let graphQLResult):
@@ -283,7 +283,7 @@ class StarWarsSubscriptionTests: XCTestCase {
     }
     
     let subNewHope = client.subscribe(subscription: ReviewAddedSubscription(
-      episode: .init(.NEWHOPE)
+      episode: .init(.newhope)
     )) { result in
       switch result {
       case .success(let graphQLResult):
@@ -299,7 +299,7 @@ class StarWarsSubscriptionTests: XCTestCase {
     
     self.waitForSubscriptionsToStart()
     
-    let episodes : [Episode] = [.EMPIRE, .JEDI, .NEWHOPE]
+    let episodes : [Episode] = [.empire, .jedi, .newhope]
     
     var selectedEpisodes = [Episode]()
     for i in 1...count {
@@ -318,19 +318,19 @@ class StarWarsSubscriptionTests: XCTestCase {
       count,
       "All not fulfilled proper number of times. Expected \(count), got \(allFulfilledCount)"
     )
-    let expectedNewHope = selectedEpisodes.filter { $0 == .init(.NEWHOPE) }.count
+    let expectedNewHope = selectedEpisodes.filter { $0 == .init(.newhope) }.count
     XCTAssertEqual(
       newHopeFulfilledCount,
       expectedNewHope,
       "New Hope not fulfilled proper number of times. Expected \(expectedNewHope), got \(newHopeFulfilledCount)"
     )
-    let expectedEmpire = selectedEpisodes.filter { $0 == .init(.EMPIRE) }.count
+    let expectedEmpire = selectedEpisodes.filter { $0 == .init(.empire) }.count
     XCTAssertEqual(
       empireFulfilledCount,
       expectedEmpire,
       "Empire not fulfilled proper number of times. Expected \(expectedEmpire), got \(empireFulfilledCount)"
     )
-    let expectedJedi = selectedEpisodes.filter { $0 == .init(.JEDI) }.count
+    let expectedJedi = selectedEpisodes.filter { $0 == .init(.jedi) }.count
     XCTAssertEqual(
       jediFulfilledCount,
       expectedJedi,
@@ -346,8 +346,8 @@ class StarWarsSubscriptionTests: XCTestCase {
   // MARK: Data races tests
   
   func testConcurrentSubscribing() {
-    let firstSubscription = ReviewAddedSubscription(episode: .init(.EMPIRE))
-    let secondSubscription = ReviewAddedSubscription(episode: .init(.EMPIRE))
+    let firstSubscription = ReviewAddedSubscription(episode: .init(.empire))
+    let secondSubscription = ReviewAddedSubscription(episode: .init(.empire))
     
     let expectation = self.expectation(description: "Subscribers connected and received events")
     expectation.expectedFulfillmentCount = 2
@@ -376,7 +376,7 @@ class StarWarsSubscriptionTests: XCTestCase {
       // this is performed after subscribers are processed
       self.webSocketTransport.processingQueue.async(flags: .barrier) {
         _ = self.client.perform(mutation: CreateReviewForEpisodeMutation(
-          episode: .init(.EMPIRE),
+          episode: .init(.empire),
           review: ReviewInput(stars: 5, commentary: "The greatest movie ever!")
         ))
       }
@@ -388,8 +388,8 @@ class StarWarsSubscriptionTests: XCTestCase {
   }
   
   func testConcurrentSubscriptionCancellations() {
-    let firstSubscription = ReviewAddedSubscription(episode: .init(.EMPIRE))
-    let secondSubscription = ReviewAddedSubscription(episode: .init(.EMPIRE))
+    let firstSubscription = ReviewAddedSubscription(episode: .init(.empire))
+    let secondSubscription = ReviewAddedSubscription(episode: .init(.empire))
     
     let expectation = self.expectation(description: "Subscriptions cancelled")
     expectation.expectedFulfillmentCount = 2
@@ -417,7 +417,7 @@ class StarWarsSubscriptionTests: XCTestCase {
     wait(for: [expectation], timeout: 10)
     
     _ = self.client.perform(mutation: CreateReviewForEpisodeMutation(
-      episode: .init(.EMPIRE),
+      episode: .init(.empire),
       review: ReviewInput(stars: 5, commentary: "The greatest movie ever!")
     ))
     
@@ -425,7 +425,7 @@ class StarWarsSubscriptionTests: XCTestCase {
   }
   
   func testConcurrentSubscriptionAndConnectionClose() {
-    let empireReviewSubscription = ReviewAddedSubscription(episode: .init(.EMPIRE))
+    let empireReviewSubscription = ReviewAddedSubscription(episode: .init(.empire))
     let expectation = self.expectation(description: "Connection closed")
     let invertedExpectation = self.expectation(description: "Subscription received callback - expecting timeout")
     invertedExpectation.isInverted = true
@@ -447,7 +447,7 @@ class StarWarsSubscriptionTests: XCTestCase {
     wait(for: [expectation], timeout: 10)
     
     _ = self.client.perform(mutation: CreateReviewForEpisodeMutation(
-      episode: .init(.EMPIRE),
+      episode: .init(.empire),
       review: ReviewInput(stars: 5, commentary: "The greatest movie ever!")
     ))
     
@@ -515,7 +515,7 @@ class StarWarsSubscriptionTests: XCTestCase {
     let reviewAddedSubscription = self.client.subscribe(subscription: subscription) { subscriptionResult in
       switch subscriptionResult {
       case .success(let graphQLResult):
-        XCTAssertEqual(graphQLResult.data?.reviewAdded?.episode, .init(.JEDI))
+        XCTAssertEqual(graphQLResult.data?.reviewAdded?.episode, .init(.jedi))
         subscriptionExpectation.fulfill()
       case .failure(let error):
         if let wsError = error as? WebSocket.WSError {
