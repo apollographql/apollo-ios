@@ -267,7 +267,7 @@ class DocumentParsingAndValidationTests: XCTestCase {
   }
 
   func test__validateDocument__givenInputParameterNameDisallowed_throwsError() throws {
-    let disallowedName = ["self", "Self"]
+    let disallowedName = ["self", "Self", "_"]
 
     for name in disallowedName {
       let schema = try codegenFrontend.loadSchema(

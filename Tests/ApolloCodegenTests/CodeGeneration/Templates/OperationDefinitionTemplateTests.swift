@@ -397,4 +397,298 @@ class OperationDefinitionTemplateTests: XCTestCase {
     // then
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
+
+  // MARK: Variables - Reserved Keywords + Special Names
+
+  func test__generate__givenQueryWithSwiftReservedKeywordNames_generatesQueryOperationWithVariablesBackticked() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      species: String!
+      intField: Int!
+    }
+    """
+
+    document = """
+    query TestOperation(
+      $as: String
+      $associatedtype: String
+      $break: String
+      $case: String
+      $catch: String
+      $class: String
+      $continue: String
+      $default: String
+      $defer: String
+      $deinit: String
+      $do: String
+      $else: String
+      $enum: String
+      $extension: String
+      $fallthrough: String
+      $false: String
+      $fileprivate: String
+      $func: String
+      $guard: String
+      $if: String
+      $import: String
+      $in: String
+      $init: String
+      $inout: String
+      $internal: String
+      $is: String
+      $let: String
+      $nil: String
+      $operator: String
+      $precedencegroup: String
+      $private: String
+      $protocol: String
+      $Protocol: String
+      $public: String
+      $repeat: String
+      $rethrows: String
+      $return: String
+      $static: String
+      $struct: String
+      $subscript: String
+      $super: String
+      $switch: String
+      $throw: String
+      $throws: String
+      $true: String
+      $try: String
+      $typealias: String
+      $var: String
+      $where: String
+      $while: String
+    ) {
+      allAnimals {
+        species
+      }
+    }
+    """
+
+    let expected =
+    """
+      public var `as`: GraphQLNullable<String>
+      public var `associatedtype`: GraphQLNullable<String>
+      public var `break`: GraphQLNullable<String>
+      public var `case`: GraphQLNullable<String>
+      public var `catch`: GraphQLNullable<String>
+      public var `class`: GraphQLNullable<String>
+      public var `continue`: GraphQLNullable<String>
+      public var `default`: GraphQLNullable<String>
+      public var `defer`: GraphQLNullable<String>
+      public var `deinit`: GraphQLNullable<String>
+      public var `do`: GraphQLNullable<String>
+      public var `else`: GraphQLNullable<String>
+      public var `enum`: GraphQLNullable<String>
+      public var `extension`: GraphQLNullable<String>
+      public var `fallthrough`: GraphQLNullable<String>
+      public var `false`: GraphQLNullable<String>
+      public var `fileprivate`: GraphQLNullable<String>
+      public var `func`: GraphQLNullable<String>
+      public var `guard`: GraphQLNullable<String>
+      public var `if`: GraphQLNullable<String>
+      public var `import`: GraphQLNullable<String>
+      public var `in`: GraphQLNullable<String>
+      public var `init`: GraphQLNullable<String>
+      public var `inout`: GraphQLNullable<String>
+      public var `internal`: GraphQLNullable<String>
+      public var `is`: GraphQLNullable<String>
+      public var `let`: GraphQLNullable<String>
+      public var `nil`: GraphQLNullable<String>
+      public var `operator`: GraphQLNullable<String>
+      public var `precedencegroup`: GraphQLNullable<String>
+      public var `private`: GraphQLNullable<String>
+      public var `protocol`: GraphQLNullable<String>
+      public var `Protocol`: GraphQLNullable<String>
+      public var `public`: GraphQLNullable<String>
+      public var `repeat`: GraphQLNullable<String>
+      public var `rethrows`: GraphQLNullable<String>
+      public var `return`: GraphQLNullable<String>
+      public var `static`: GraphQLNullable<String>
+      public var `struct`: GraphQLNullable<String>
+      public var `subscript`: GraphQLNullable<String>
+      public var `super`: GraphQLNullable<String>
+      public var `switch`: GraphQLNullable<String>
+      public var `throw`: GraphQLNullable<String>
+      public var `throws`: GraphQLNullable<String>
+      public var `true`: GraphQLNullable<String>
+      public var `try`: GraphQLNullable<String>
+      public var `typealias`: GraphQLNullable<String>
+      public var `var`: GraphQLNullable<String>
+      public var `where`: GraphQLNullable<String>
+      public var `while`: GraphQLNullable<String>
+
+      public init(
+        `as`: GraphQLNullable<String>,
+        `associatedtype`: GraphQLNullable<String>,
+        `break`: GraphQLNullable<String>,
+        `case`: GraphQLNullable<String>,
+        `catch`: GraphQLNullable<String>,
+        `class`: GraphQLNullable<String>,
+        `continue`: GraphQLNullable<String>,
+        `default`: GraphQLNullable<String>,
+        `defer`: GraphQLNullable<String>,
+        `deinit`: GraphQLNullable<String>,
+        `do`: GraphQLNullable<String>,
+        `else`: GraphQLNullable<String>,
+        `enum`: GraphQLNullable<String>,
+        `extension`: GraphQLNullable<String>,
+        `fallthrough`: GraphQLNullable<String>,
+        `false`: GraphQLNullable<String>,
+        `fileprivate`: GraphQLNullable<String>,
+        `func`: GraphQLNullable<String>,
+        `guard`: GraphQLNullable<String>,
+        `if`: GraphQLNullable<String>,
+        `import`: GraphQLNullable<String>,
+        `in`: GraphQLNullable<String>,
+        `init`: GraphQLNullable<String>,
+        `inout`: GraphQLNullable<String>,
+        `internal`: GraphQLNullable<String>,
+        `is`: GraphQLNullable<String>,
+        `let`: GraphQLNullable<String>,
+        `nil`: GraphQLNullable<String>,
+        `operator`: GraphQLNullable<String>,
+        `precedencegroup`: GraphQLNullable<String>,
+        `private`: GraphQLNullable<String>,
+        `protocol`: GraphQLNullable<String>,
+        `Protocol`: GraphQLNullable<String>,
+        `public`: GraphQLNullable<String>,
+        `repeat`: GraphQLNullable<String>,
+        `rethrows`: GraphQLNullable<String>,
+        `return`: GraphQLNullable<String>,
+        `static`: GraphQLNullable<String>,
+        `struct`: GraphQLNullable<String>,
+        `subscript`: GraphQLNullable<String>,
+        `super`: GraphQLNullable<String>,
+        `switch`: GraphQLNullable<String>,
+        `throw`: GraphQLNullable<String>,
+        `throws`: GraphQLNullable<String>,
+        `true`: GraphQLNullable<String>,
+        `try`: GraphQLNullable<String>,
+        `typealias`: GraphQLNullable<String>,
+        `var`: GraphQLNullable<String>,
+        `where`: GraphQLNullable<String>,
+        `while`: GraphQLNullable<String>
+      ) {
+        self.`as` = `as`
+        self.`associatedtype` = `associatedtype`
+        self.`break` = `break`
+        self.`case` = `case`
+        self.`catch` = `catch`
+        self.`class` = `class`
+        self.`continue` = `continue`
+        self.`default` = `default`
+        self.`defer` = `defer`
+        self.`deinit` = `deinit`
+        self.`do` = `do`
+        self.`else` = `else`
+        self.`enum` = `enum`
+        self.`extension` = `extension`
+        self.`fallthrough` = `fallthrough`
+        self.`false` = `false`
+        self.`fileprivate` = `fileprivate`
+        self.`func` = `func`
+        self.`guard` = `guard`
+        self.`if` = `if`
+        self.`import` = `import`
+        self.`in` = `in`
+        self.`init` = `init`
+        self.`inout` = `inout`
+        self.`internal` = `internal`
+        self.`is` = `is`
+        self.`let` = `let`
+        self.`nil` = `nil`
+        self.`operator` = `operator`
+        self.`precedencegroup` = `precedencegroup`
+        self.`private` = `private`
+        self.`protocol` = `protocol`
+        self.`Protocol` = `Protocol`
+        self.`public` = `public`
+        self.`repeat` = `repeat`
+        self.`rethrows` = `rethrows`
+        self.`return` = `return`
+        self.`static` = `static`
+        self.`struct` = `struct`
+        self.`subscript` = `subscript`
+        self.`super` = `super`
+        self.`switch` = `switch`
+        self.`throw` = `throw`
+        self.`throws` = `throws`
+        self.`true` = `true`
+        self.`try` = `try`
+        self.`typealias` = `typealias`
+        self.`var` = `var`
+        self.`where` = `where`
+        self.`while` = `while`
+      }
+
+      public var variables: Variables? { [
+        "as": `as`,
+        "associatedtype": `associatedtype`,
+        "break": `break`,
+        "case": `case`,
+        "catch": `catch`,
+        "class": `class`,
+        "continue": `continue`,
+        "default": `default`,
+        "defer": `defer`,
+        "deinit": `deinit`,
+        "do": `do`,
+        "else": `else`,
+        "enum": `enum`,
+        "extension": `extension`,
+        "fallthrough": `fallthrough`,
+        "false": `false`,
+        "fileprivate": `fileprivate`,
+        "func": `func`,
+        "guard": `guard`,
+        "if": `if`,
+        "import": `import`,
+        "in": `in`,
+        "init": `init`,
+        "inout": `inout`,
+        "internal": `internal`,
+        "is": `is`,
+        "let": `let`,
+        "nil": `nil`,
+        "operator": `operator`,
+        "precedencegroup": `precedencegroup`,
+        "private": `private`,
+        "protocol": `protocol`,
+        "Protocol": `Protocol`,
+        "public": `public`,
+        "repeat": `repeat`,
+        "rethrows": `rethrows`,
+        "return": `return`,
+        "static": `static`,
+        "struct": `struct`,
+        "subscript": `subscript`,
+        "super": `super`,
+        "switch": `switch`,
+        "throw": `throw`,
+        "throws": `throws`,
+        "true": `true`,
+        "try": `try`,
+        "typealias": `typealias`,
+        "var": `var`,
+        "where": `where`,
+        "while": `while`
+      ] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
+  }
 }
