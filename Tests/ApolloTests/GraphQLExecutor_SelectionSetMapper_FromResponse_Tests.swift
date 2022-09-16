@@ -964,6 +964,23 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     expect(data.name).to(beNil())
   }
 
+  func test__booleanCondition_multipleIncludes_singleField__givenAllVariablesAreTrue_getsValueForConditionalField() throws {
+    // given
+    class GivenSelectionSet: MockSelectionSet {
+      override class var selections: [Selection] {[
+        .include(if: "one" || "two", .field("name", String.self))
+      ]}
+    }
+    let object: JSONObject = ["name": "Luke Skywalker"]
+    let variables = ["one": true, "two": true]
+
+    // when
+    let data = try readValues(GivenSelectionSet.self, from: object, variables: variables)
+
+    // then
+    expect(data.name).to(equal("Luke Skywalker"))
+  }
+
   func test__booleanCondition_include_singleField__givenVariableIsFalse_givenOtherSelection_doesNotGetsValueForConditionalField_doesGetOtherSelection() throws {
     // given
     class GivenSelectionSet: MockSelectionSet {
