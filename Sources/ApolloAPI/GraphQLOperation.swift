@@ -131,8 +131,8 @@ where Element: GraphQLOperationVariableValue & Hashable {}
 
 extension Dictionary: GraphQLOperationVariableValue
 where Key == String, Value == GraphQLOperationVariableValue {
-  @inlinable public var _jsonEncodableValue: (any JSONEncodable)? { jsonEncodableObject }
-  @inlinable public var jsonEncodableObject: JSONEncodableDictionary {
+  @inlinable public var _jsonEncodableValue: (any JSONEncodable)? { _jsonEncodableObject }
+  @inlinable public var _jsonEncodableObject: JSONEncodableDictionary {
     compactMapValues { $0._jsonEncodableValue }
   }
 }

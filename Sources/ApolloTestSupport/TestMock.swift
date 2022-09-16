@@ -40,7 +40,7 @@ public class Mock<O: MockObject>: AnyMock, JSONEncodable, Hashable {
 
   // MARK: JSONEncodable
 
-  public var _jsonObject: JSONObject { _data.jsonObject }
+  public var _jsonObject: JSONObject { _data._jsonObject }
   public var _jsonValue: JSONValue { _jsonObject }
 
   // MARK: Hashable

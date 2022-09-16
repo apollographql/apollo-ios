@@ -130,9 +130,9 @@ extension NSNull: JSONEncodable {
 }
 
 extension JSONEncodableDictionary: JSONEncodable {
-  @inlinable public var _jsonValue: JSONValue { jsonObject }
+  @inlinable public var _jsonValue: JSONValue { _jsonObject }
 
-  @inlinable public var jsonObject: JSONObject {
+  @inlinable public var _jsonObject: JSONObject {
     mapValues(\._jsonValue)
   }
 }

@@ -32,7 +32,7 @@ extension RequestBodyCreator {
     ]
 
     if let variables = operation.variables {
-      body["variables"] = variables.jsonEncodableObject
+      body["variables"] = variables._jsonEncodableObject
     }
 
     if sendQueryDocument {

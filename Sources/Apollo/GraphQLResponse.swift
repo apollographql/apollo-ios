@@ -89,7 +89,7 @@ extension GraphQLResponse: Equatable where Data: Equatable {
   public static func == (lhs: GraphQLResponse<Data>, rhs: GraphQLResponse<Data>) -> Bool {
     lhs.body == rhs.body &&
     lhs.rootKey == rhs.rootKey &&
-    lhs.variables?.jsonEncodableObject._jsonValue == rhs.variables?.jsonEncodableObject._jsonValue
+    lhs.variables?._jsonEncodableObject._jsonValue == rhs.variables?._jsonEncodableObject._jsonValue
   }
 }
 

@@ -156,7 +156,7 @@ open class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
     lhs.useGETForQueries == rhs.useGETForQueries &&
     lhs.useGETForPersistedQueryRetry == rhs.useGETForPersistedQueryRetry &&
     lhs.isPersistedQueryRetry == rhs.isPersistedQueryRetry &&
-    lhs.body.jsonObject == rhs.body.jsonObject
+    lhs.body._jsonObject == rhs.body._jsonObject
   }
 
   public override func hash(into hasher: inout Hasher) {
@@ -166,7 +166,7 @@ open class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
     hasher.combine(useGETForQueries)
     hasher.combine(useGETForPersistedQueryRetry)
     hasher.combine(isPersistedQueryRetry)
-    hasher.combine(body.jsonObject)
+    hasher.combine(body._jsonObject)
   }
 
 }
