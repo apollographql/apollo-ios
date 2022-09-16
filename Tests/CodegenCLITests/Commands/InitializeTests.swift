@@ -2,6 +2,7 @@ import XCTest
 import Nimble
 @testable import CodegenCLI
 import ArgumentParser
+import ApolloCodegenLib
 
 class InitializeTests: XCTestCase {
 
@@ -132,59 +133,6 @@ class InitializeTests: XCTestCase {
 
   // MARK: - Output Tests
 
-  let expectedJSON = """
-  {
-    "schemaName" : "GraphQLSchemaName",
-    "options" : {
-      "apqs" : "disabled",
-      "additionalInflectionRules" : [
-
-      ],
-      "conversionStrategies" : {
-        "enumCases" : "camelCase"
-      },
-      "warningsOnDeprecatedUsage" : "include",
-      "deprecatedEnumCases" : "include",
-      "schemaDocumentation" : "include",
-      "cocoapodsCompatibleImportStatements" : false,
-      "pruneGeneratedFiles" : true,
-      "queryStringLiteralFormat" : "multiline"
-    },
-    "input" : {
-      "operationSearchPaths" : [
-        "**\\/*.graphql"
-      ],
-      "schemaSearchPaths" : [
-        "schema.graphqls"
-      ]
-    },
-    "output" : {
-      "testMocks" : {
-        "none" : {
-
-        }
-      },
-      "schemaTypes" : {
-        "path" : ".\\/",
-        "moduleType" : {
-          "swiftPackageManager" : {
-
-          }
-        }
-      },
-      "operations" : {
-        "relative" : {
-
-        }
-      }
-    },
-    "experimentalFeatures" : {
-      "clientControlledNullability" : false,
-      "legacySafelistingCompatibleOperations" : false
-    }
-  }
-  """
-
   func test__output__givenParameters_pathCustom_overwriteDefault_whenNoExistingFile_shouldWriteToPath() throws {
     // given
     let outputPath = "./path/to/output.file"
@@ -209,7 +157,7 @@ class InitializeTests: XCTestCase {
       let expectedPath = URL(fileURLWithPath: outputPath).standardizedFileURL.path
 
       expect(actualPath).to(equal(expectedPath))
-      expect(data?.asString).to(equal(self.expectedJSON))
+      expect(data?.asString).to(equal(ApolloCodegenConfiguration.minimalJSON))
 
       return true
     }))
@@ -273,7 +221,7 @@ class InitializeTests: XCTestCase {
       let expectedPath = URL(fileURLWithPath: outputPath).standardizedFileURL.path
 
       expect(actualPath).to(equal(expectedPath))
-      expect(data?.asString).to(equal(self.expectedJSON))
+      expect(data?.asString).to(equal(ApolloCodegenConfiguration.minimalJSON))
 
       return true
     }))
@@ -300,7 +248,7 @@ class InitializeTests: XCTestCase {
 
     // then
     expect(output).toEventuallyNot(beNil())
-    expect(output).to(equal(expectedJSON))
+    expect(output).to(equal(ApolloCodegenConfiguration.minimalJSON))
   }
 
   func test__output__givenParameters_bothPathAndPrint_shouldPrintToStandardOutput() throws {
@@ -320,7 +268,31 @@ class InitializeTests: XCTestCase {
 
     // then
     expect(output).toEventuallyNot(beNil())
-    expect(output).to(equal(expectedJSON))
+    expect(output).to(equal(ApolloCodegenConfiguration.minimalJSON))
+  }
+
+  // MARK: - minimalJSON Tests
+
+  func test__decoding__givenMinimalJSON_cocoapodsIncompatible_shouldNotThrow() throws {
+    // given
+    let encoded = try ApolloCodegenConfiguration.minimalJSON(supportCocoaPods: false).asData()
+
+    // then
+    var decoded: ApolloCodegenConfiguration?
+    expect(decoded = try JSONDecoder().decode(ApolloCodegenConfiguration.self, from: encoded))
+      .notTo(throwError())
+    expect(decoded.unsafelyUnwrapped.options.cocoapodsCompatibleImportStatements).to(beFalse())
+  }
+
+  func test__decoding__givenMinimalJSON_cocoapodsCompatible_shouldNotThrow() throws {
+    // given
+    let encoded = try ApolloCodegenConfiguration.minimalJSON(supportCocoaPods: true).asData()
+
+    // then
+    var decoded: ApolloCodegenConfiguration?
+    expect(decoded = try JSONDecoder().decode(ApolloCodegenConfiguration.self, from: encoded))
+      .notTo(throwError())
+    expect(decoded.unsafelyUnwrapped.options.cocoapodsCompatibleImportStatements).to(beTrue())
   }
 }
 
