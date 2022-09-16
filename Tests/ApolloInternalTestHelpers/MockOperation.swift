@@ -45,7 +45,7 @@ open class MockSubscription<SelectionSet: RootSelectionSet>: MockOperation<Selec
 
 @dynamicMemberLookup
 open class AbstractMockSelectionSet: AnySelectionSet {
-  open class var schema: SchemaMetadata.Type { MockSchemaMetadata.self }
+  open class var __schema: SchemaMetadata.Type { MockSchemaMetadata.self }
   open class var selections: [Selection] { [] }
   open class var __parentType: ParentType { Object.mock }
 

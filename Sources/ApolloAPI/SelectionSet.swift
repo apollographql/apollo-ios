@@ -1,7 +1,7 @@
 // MARK: - Type Erased SelectionSets
 
 public protocol AnySelectionSet: SelectionSetEntityValue {
-  static var schema: SchemaMetadata.Type { get }
+  static var __schema: SchemaMetadata.Type { get }
 
   static var selections: [Selection] { get }
 
@@ -65,7 +65,7 @@ public protocol SelectionSet: AnySelectionSet, Hashable {
 
 extension SelectionSet {
 
-  @inlinable public static var schema: SchemaMetadata.Type { Schema.self }
+  @inlinable public static var __schema: SchemaMetadata.Type { Schema.self }
 
   @usableFromInline var __objectType: Object? { Schema.objectType(forTypename: __typename) }
 
