@@ -10,7 +10,7 @@ final class GraphQLSelectionSetMapper<SelectionSet: AnySelectionSet>: GraphQLRes
       let .customScalar(decodable as any JSONDecodable.Type):
       // This will convert a JSON value to the expected value type,
       // which could be a custom scalar or an enum.
-      return try decodable.init(_jsonValue: scalar).asAnyHashable
+      return try decodable.init(_jsonValue: scalar)._asAnyHashable
     default:
       preconditionFailure()
     }
