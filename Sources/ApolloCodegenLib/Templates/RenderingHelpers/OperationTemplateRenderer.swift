@@ -12,10 +12,12 @@ extension OperationTemplateRenderer {
     if variables.isEmpty {
       return "\(`init`)() {}"
     }
-
     return """
     \(`init`)(\(list: variables.map(VariableParameter))) {
-      \(variables.map { "self.\($0.name) = \($0.name)" }, separator: "\n")
+      \(variables.map {
+        let name = $0.name.asInputParameterName
+        return "self.\(name) = \(name)"
+      }, separator: "\n")
     }
     """
   }
@@ -24,7 +26,7 @@ extension OperationTemplateRenderer {
     _ variables: [CompilationResult.VariableDefinition]
   ) -> TemplateString {
     """
-    \(variables.map { "public var \($0.name): \($0.type.rendered(as: .inputValue, config: config.config))"}, separator: "\n")
+    \(variables.map { "public var \($0.name.asInputParameterName): \($0.type.rendered(as: .inputValue, config: config.config))"}, separator: "\n")
     """
   }
 
@@ -32,7 +34,7 @@ extension OperationTemplateRenderer {
     _ variable: CompilationResult.VariableDefinition
   ) -> TemplateString {
       """
-      \(variable.name): \(variable.type.rendered(as: .inputValue, config: config.config))\
+      \(variable.name.asInputParameterName): \(variable.type.rendered(as: .inputValue, config: config.config))\
       \(if: variable.defaultValue != nil, " = " + variable.renderVariableDefaultValue(config: config.config))
       """
   }
@@ -45,7 +47,7 @@ extension OperationTemplateRenderer {
     }
 
     return """
-      public var variables: Variables? { [\(list: variables.map { "\"\($0.name)\": \($0.name)"})] }
+      public var variables: Variables? { [\(list: variables.map { "\"\($0.name)\": \($0.name.asInputParameterName)"})] }
       """
   }
 

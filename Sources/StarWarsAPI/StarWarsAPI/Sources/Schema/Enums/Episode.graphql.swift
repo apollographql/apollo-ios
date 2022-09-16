@@ -6,9 +6,9 @@ import ApolloAPI
 /// The episodes in the Star Wars trilogy
 public enum Episode: String, EnumType {
   /// Star Wars Episode IV: A New Hope, released in 1977.
-  case NEWHOPE
+  case newhope = "NEWHOPE"
   /// Star Wars Episode V: The Empire Strikes Back, released in 1980.
-  case EMPIRE
+  case empire = "EMPIRE"
   /// Star Wars Episode VI: Return of the Jedi, released in 1983.
-  case JEDI
+  case jedi = "JEDI"
 }

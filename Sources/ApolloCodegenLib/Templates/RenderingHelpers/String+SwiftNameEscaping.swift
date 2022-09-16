@@ -17,6 +17,10 @@ extension String {
     "\(self)_SelectionSet" : self
   }
 
+  var asInputParameterName: String {
+    escapeIf(in: SwiftKeywords.InputParameterNamesToEscape).firstLowercased
+  }
+
   var asTestMockFieldPropertyName: String {
     escapeIf(in: SwiftKeywords.TestMockFieldNamesToEscape)
   }
@@ -32,8 +36,13 @@ extension String {
 }
 
 enum SwiftKeywords {
+
   static let DisallowedFieldNames: Set<String> = [
     "__data", "fragments", "_"
+  ]
+
+  static let DisallowedInputParameterNames: Set<String> = [
+    "self", "_"
   ]
 
   static let SelectionSetTypeNamesToSuffix: Set<String> = [
@@ -109,6 +118,8 @@ enum SwiftKeywords {
     "true",
     "try",
   ]
+
+  fileprivate static let InputParameterNamesToEscape: Set<String> = FieldAccessorNamesToEscape
 
   fileprivate static let TestMockFieldNamesToEscape: Set<String> =
   FieldAccessorNamesToEscape.union([

@@ -52,7 +52,7 @@ class StarWarsServerCachingRoundtripTests: XCTestCase, CacheDependentTesting {
   }
   
   func testHeroAndFriendsNamesQueryWithVariable() {
-    let query = HeroAndFriendsNamesQuery(episode: .init(.JEDI))
+    let query = HeroAndFriendsNamesQuery(episode: .init(.jedi))
     
     fetchAndLoadFromStore(query: query) { data in
       XCTAssertEqual(data.hero?.name, "R2-D2")

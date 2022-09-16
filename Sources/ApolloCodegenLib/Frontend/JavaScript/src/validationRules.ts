@@ -6,20 +6,24 @@ import {
   GraphQLError,
   OperationDefinitionNode,
   ValidationContext,
+  VariableDefinitionNode,
 } from "graphql";
 
 const specifiedRulesToBeRemoved: [ValidationRule] = [NoUnusedFragmentsRule];
 
 export interface ValidationOptions {
   disallowedFieldNames?: Array<string>
+  disallowedInputParameterNames?: Array<string>
 }
 
 export function defaultValidationRules(options: ValidationOptions): ValidationRule[] {
   const disallowedFieldNamesRule = ApolloIOSDisallowedFieldNames(options.disallowedFieldNames)
+  const disallowedInputParameterNamesRule = ApolloIOSDisallowedInputParameterNames(options.disallowedInputParameterNames)
   return [
     NoAnonymousQueries,
     NoTypenameAlias,
     ...(disallowedFieldNamesRule ? [disallowedFieldNamesRule] : []),
+    ...(disallowedInputParameterNamesRule ? [disallowedInputParameterNamesRule] : []),
     ...specifiedRules.filter((rule) => !specifiedRulesToBeRemoved.includes(rule)),
   ];
 }
@@ -56,7 +60,7 @@ export function NoTypenameAlias(context: ValidationContext) {
   };
 }
 
-export function ApolloIOSDisallowedFieldNames(fieldNames?: Array<string>) {
+function ApolloIOSDisallowedFieldNames(fieldNames?: Array<string>) {
   if (fieldNames) {
     return function ApolloIOSDisallowedFieldNamesValidationRule(context: ValidationContext) {
       const disallowedFieldNames = fieldNames
@@ -67,6 +71,27 @@ export function ApolloIOSDisallowedFieldNames(fieldNames?: Array<string>) {
           if (disallowedFieldNames.includes(responseKeyFirstLowercase)) {
             context.reportError(
               new GraphQLError(`Field name "${responseKey}" is not allowed because it conflicts with generated object APIs. Please use an alias to change the field name.`,
+               { nodes: node })
+            );
+          }
+        },
+      };
+    }
+  }
+  return undefined
+}
+
+function ApolloIOSDisallowedInputParameterNames(names?: Array<string>) {
+  if (names) {
+    return function ApolloIOSDisallowedInputParameterNamesValidationRule(context: ValidationContext) {
+      const disallowedNames = names
+      return {
+        VariableDefinition(node: VariableDefinitionNode) {
+          const parameterName = node.variable.name.value
+          const parameterNameFirstLowercase = parameterName.charAt(0).toLowerCase() + parameterName.slice(1)
+          if (disallowedNames.includes(parameterNameFirstLowercase)) {
+            context.reportError(
+              new GraphQLError(`Input Parameter name "${parameterName}" is not allowed because it conflicts with generated object APIs.`,
                { nodes: node })
             );
           }
