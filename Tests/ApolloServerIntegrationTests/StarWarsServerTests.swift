@@ -324,8 +324,10 @@ We just need to test that the selection sets for these are generated correctly b
   // MARK: Mutations
   
   func testCreateReviewForEpisode() {
-    perform(mutation: CreateReviewForEpisodeMutation(episode: .init(.jedi
-                                                                   ), review: ReviewInput(stars: 5, commentary: "This is a great movie!"))) { data in
+    perform(mutation: CreateReviewForEpisodeMutation(
+      episode: .init(.jedi),
+      review: ReviewInput(stars: 5, commentary: "This is a great movie!"))
+    ) { data in
       XCTAssertEqual(data.createReview?.stars, 5)
       XCTAssertEqual(data.createReview?.commentary, "This is a great movie!")
     }
