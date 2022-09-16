@@ -17,7 +17,7 @@ public struct WarmBloodedDetails: AnimalKingdomAPI.SelectionSet, Fragment {
   public init(data: ResponseDict) { self.data = data }
 
   public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.WarmBlooded.self) }
-  public static var selections: [Selection] { [
+  public static var __selections: [Selection] { [
     .field("bodyTemperature", Int.self),
     .field("height", Height.self),
   ] }
@@ -30,7 +30,7 @@ public struct WarmBloodedDetails: AnimalKingdomAPI.SelectionSet, Fragment {
     public init(data: ResponseDict) { self.data = data }
 
     public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Height.self) }
-    public static var selections: [Selection] { [
+    public static var __selections: [Selection] { [
       .field("meters", Int.self),
       .field("yards", Int.self),
     ] }

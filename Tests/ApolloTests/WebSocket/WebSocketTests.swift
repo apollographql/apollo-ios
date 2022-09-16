@@ -26,12 +26,12 @@ class WebSocketTests: XCTestCase {
   }
 
   class ReviewAddedData: MockSelectionSet {
-    override class var selections: [Selection] { [
+    override class var __selections: [Selection] { [
       .field("reviewAdded", ReviewAdded.self),
     ]}
 
     class ReviewAdded: MockSelectionSet {
-      override class var selections: [Selection] { [
+      override class var __selections: [Selection] { [
         .field("__typename", String.self),
         .field("stars", Int.self),
         .field("commentary", String?.self),

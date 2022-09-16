@@ -17,7 +17,7 @@ public struct PetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
   public init(data: ResponseDict) { self.data = data }
 
   public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Pet.self) }
-  public static var selections: [Selection] { [
+  public static var __selections: [Selection] { [
     .field("humanName", String.self),
     .field("favoriteToy", String.self),
     .field("owner", Owner.self),

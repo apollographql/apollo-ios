@@ -28,7 +28,7 @@ public struct CharacterNameWithInlineFragment: StarWarsAPI.SelectionSet, Fragmen
   public init(data: DataDict) { __data = data }
 
   public static var __parentType: ParentType { StarWarsAPI.Interfaces.Character }
-  public static var selections: [Selection] { [
+  public static var __selections: [Selection] { [
     .inlineFragment(AsHuman.self),
     .inlineFragment(AsDroid.self),
   ] }
@@ -44,7 +44,7 @@ public struct CharacterNameWithInlineFragment: StarWarsAPI.SelectionSet, Fragmen
     public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { StarWarsAPI.Objects.Human }
-    public static var selections: [Selection] { [
+    public static var __selections: [Selection] { [
       .field("friends", [Friend?]?.self),
     ] }
 
@@ -59,7 +59,7 @@ public struct CharacterNameWithInlineFragment: StarWarsAPI.SelectionSet, Fragmen
       public init(data: DataDict) { __data = data }
 
       public static var __parentType: ParentType { StarWarsAPI.Interfaces.Character }
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
         .field("appearsIn", [GraphQLEnum<Episode>?].self),
       ] }
 
@@ -78,7 +78,7 @@ public struct CharacterNameWithInlineFragment: StarWarsAPI.SelectionSet, Fragmen
     public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { StarWarsAPI.Objects.Droid }
-    public static var selections: [Selection] { [
+    public static var __selections: [Selection] { [
       .fragment(CharacterName.self),
       .fragment(FriendsNames.self),
     ] }

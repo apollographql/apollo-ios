@@ -44,13 +44,13 @@ final class ApolloClientOperationTests: XCTestCase {
   func test__performMutation_givenPublishResultToStore_false_doesNotPublishResultsToStore() throws {
     // given
     class GivenSelectionSet: MockSelectionSet {
-      override class var selections: [Selection] { [
+      override class var __selections: [Selection] { [
         .field("createReview", CreateReview.self,
                arguments: ["episode": .variable("episode"), "review": .variable("review")])
       ] }
 
       class CreateReview: MockSelectionSet {
-        override class var selections: [Selection] { [
+        override class var __selections: [Selection] { [
           .field("__typename", String.self),
           .field("stars", Int.self),
           .field("commentary", String?.self)

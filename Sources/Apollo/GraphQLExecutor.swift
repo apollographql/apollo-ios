@@ -93,7 +93,7 @@ struct FieldExecutionInfo {
       guard case let .object(selectionSet) = field.type.namedType else {
         return []
       }
-      return selectionSet.selections
+      return selectionSet.__selections
     }
   }
 
@@ -181,7 +181,7 @@ final class GraphQLExecutor {
                                    schema: selectionSet.__schema,
                                    withRootCacheReference: root)
 
-    let rootValue = execute(selections: selectionSet.selections,
+    let rootValue = execute(selections: selectionSet.__selections,
                             on: data,
                             info: info,
                             accumulator: accumulator)
@@ -261,7 +261,7 @@ final class GraphQLExecutor {
         }
 
       case let .fragment(fragment):
-        try groupFields(fragment.selections,
+        try groupFields(fragment.__selections,
                         for: object,
                         into: &groupedFields,
                         info: info)
@@ -269,7 +269,7 @@ final class GraphQLExecutor {
       case let .inlineFragment(typeCase):
         if let runtimeType = runtimeObjectType(for: object, schema: info.schema),
            typeCase.__parentType.canBeConverted(from: runtimeType) {
-          try groupFields(typeCase.selections,
+          try groupFields(typeCase.__selections,
                           for: object,
                           into: &groupedFields,
                           info: info)

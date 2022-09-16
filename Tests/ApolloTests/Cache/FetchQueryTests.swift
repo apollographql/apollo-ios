@@ -37,12 +37,12 @@ class FetchQueryTests: XCTestCase, CacheDependentTesting {
   
   func test__fetch__givenCachePolicy_fetchIgnoringCacheData_onlyHitsNetwork() throws {
     class HeroNameSelectionSet: MockSelectionSet {
-      override class var selections: [Selection] { [
+      override class var __selections: [Selection] { [
         .field("hero", Hero.self)
       ]}
 
       class Hero: MockSelectionSet {
-        override class var selections: [Selection] {[
+        override class var __selections: [Selection] {[
           .field("__typename", String.self),
           .field("name", String.self)
         ]}
@@ -92,12 +92,12 @@ class FetchQueryTests: XCTestCase, CacheDependentTesting {
   
   func test__fetch__givenCachePolicy_returnCacheDataAndFetch_hitsCacheFirstAndNetworkAfter() throws {
     class HeroNameSelectionSet: MockSelectionSet {
-      override class var selections: [Selection] { [
+      override class var __selections: [Selection] { [
         .field("hero", Hero.self)
       ]}
 
       class Hero: MockSelectionSet {
-        override class var selections: [Selection] {[
+        override class var __selections: [Selection] {[
           .field("__typename", String.self),
           .field("name", String.self)
         ]}
@@ -159,12 +159,12 @@ class FetchQueryTests: XCTestCase, CacheDependentTesting {
   
   func test__fetch__givenCachePolicy_returnCacheDataElseFetch_givenDataIsCached_doesntHitNetwork() throws {
     class HeroNameSelectionSet: MockSelectionSet {
-      override class var selections: [Selection] { [
+      override class var __selections: [Selection] { [
         .field("hero", Hero.self)
       ]}
 
       class Hero: MockSelectionSet {
-        override class var selections: [Selection] {[
+        override class var __selections: [Selection] {[
           .field("__typename", String.self),
           .field("name", String.self)
         ]}
@@ -204,12 +204,12 @@ class FetchQueryTests: XCTestCase, CacheDependentTesting {
   
   func test__fetch__givenCachePolicy_returnCacheDataElseFetch_givenNotAllDataIsCached_hitsNetwork() throws {
     class HeroNameAndAppearsInSelectionSet: MockSelectionSet {
-      override class var selections: [Selection] { [
+      override class var __selections: [Selection] { [
         .field("hero", Hero.self)
       ]}
 
       class Hero: MockSelectionSet {
-        override class var selections: [Selection] {[
+        override class var __selections: [Selection] {[
           .field("__typename", String.self),
           .field("name", String.self),
           .field("appearsIn", [String]?.self)
@@ -260,12 +260,12 @@ class FetchQueryTests: XCTestCase, CacheDependentTesting {
   
   func test__fetch__givenCachePolicy_returnCacheDataDontFetch_givenDataIsCached_doesntHitNetwork() throws {
     class HeroNameSelectionSet: MockSelectionSet {
-      override class var selections: [Selection] { [
+      override class var __selections: [Selection] { [
         .field("hero", Hero.self)
       ]}
 
       class Hero: MockSelectionSet {
-        override class var selections: [Selection] {[
+        override class var __selections: [Selection] {[
           .field("__typename", String.self),
           .field("name", String.self)
         ]}
@@ -301,12 +301,12 @@ class FetchQueryTests: XCTestCase, CacheDependentTesting {
   
   func test__fetch__givenCachePolicy_returnCacheDataDontFetch_givenNotAllDataIsCached_returnsError() throws {
     class HeroNameAndAppearsInSelectionSet: MockSelectionSet {
-      override class var selections: [Selection] { [
+      override class var __selections: [Selection] { [
         .field("hero", Hero.self)
       ]}
 
       class Hero: MockSelectionSet {
-        override class var selections: [Selection] {[
+        override class var __selections: [Selection] {[
           .field("__typename", String.self),
           .field("name", String.self),
           .field("appearsIn", [String]?.self)
@@ -340,12 +340,12 @@ class FetchQueryTests: XCTestCase, CacheDependentTesting {
   
   func test__fetch_afterClearCache_givenCachePolicy_returnCacheDataDontFetch_throwsCacheMissError() throws {
     class HeroNameSelectionSet: MockSelectionSet {
-      override class var selections: [Selection] { [
+      override class var __selections: [Selection] { [
         .field("hero", Hero.self)
       ]}
 
       class Hero: MockSelectionSet {
-        override class var selections: [Selection] {[
+        override class var __selections: [Selection] {[
           .field("__typename", String.self),
           .field("name", String.self)
         ]}

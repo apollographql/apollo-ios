@@ -22,7 +22,7 @@ public struct AuthorDetails: GitHubAPI.SelectionSet, Fragment {
   public init(data: DataDict) { __data = data }
 
   public static var __parentType: ParentType { GitHubAPI.Interfaces.Actor }
-  public static var selections: [Selection] { [
+  public static var __selections: [Selection] { [
     .field("login", String.self),
     .inlineFragment(AsUser.self),
   ] }
@@ -40,7 +40,7 @@ public struct AuthorDetails: GitHubAPI.SelectionSet, Fragment {
     public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { GitHubAPI.Objects.User }
-    public static var selections: [Selection] { [
+    public static var __selections: [Selection] { [
       .field("id", ID.self),
       .field("name", String?.self),
     ] }

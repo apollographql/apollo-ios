@@ -3,7 +3,7 @@
 public protocol AnySelectionSet: SelectionSetEntityValue {
   static var __schema: SchemaMetadata.Type { get }
 
-  static var selections: [Selection] { get }
+  static var __selections: [Selection] { get }
 
   /// The GraphQL type for the `SelectionSet`.
   ///
@@ -21,7 +21,7 @@ public protocol AnySelectionSet: SelectionSetEntityValue {
 }
 
 public extension AnySelectionSet {
-  static var selections: [Selection] { [] }
+  static var __selections: [Selection] { [] }
 }
 
 /// A selection set that represents the root selections on its `__parentType`. Nested selection

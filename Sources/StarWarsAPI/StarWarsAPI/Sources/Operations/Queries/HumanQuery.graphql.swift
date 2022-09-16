@@ -34,7 +34,7 @@ public class HumanQuery: GraphQLQuery {
     public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { StarWarsAPI.Objects.Query }
-    public static var selections: [Selection] { [
+    public static var __selections: [Selection] { [
       .field("human", Human?.self, arguments: ["id": .variable("id")]),
     ] }
 
@@ -48,7 +48,7 @@ public class HumanQuery: GraphQLQuery {
       public init(data: DataDict) { __data = data }
 
       public static var __parentType: ParentType { StarWarsAPI.Objects.Human }
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
         .field("name", String.self),
         .field("mass", Double?.self),
       ] }

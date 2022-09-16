@@ -134,7 +134,7 @@ struct SelectionSetTemplate {
     config.options.warningsOnDeprecatedUsage == .include ? [] : nil
 
     let selectionsTemplate = TemplateString("""
-    public static var selections: [Selection] { [
+    public static var __selections: [Selection] { [
       \(renderedSelections(groupedSelections.unconditionalSelections, &deprecatedArguments), terminator: ",")
       \(groupedSelections.inclusionConditionGroups.map {
         renderedConditionalSelectionGroup($0, $1, in: scope, &deprecatedArguments)

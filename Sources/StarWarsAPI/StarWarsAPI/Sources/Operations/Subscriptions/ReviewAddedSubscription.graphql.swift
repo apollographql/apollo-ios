@@ -35,7 +35,7 @@ public class ReviewAddedSubscription: GraphQLSubscription {
     public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { StarWarsAPI.Objects.Subscription }
-    public static var selections: [Selection] { [
+    public static var __selections: [Selection] { [
       .field("reviewAdded", ReviewAdded?.self, arguments: ["episode": .variable("episode")]),
     ] }
 
@@ -49,7 +49,7 @@ public class ReviewAddedSubscription: GraphQLSubscription {
       public init(data: DataDict) { __data = data }
 
       public static var __parentType: ParentType { StarWarsAPI.Objects.Review }
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
         .field("episode", GraphQLEnum<Episode>?.self),
         .field("stars", Int.self),
         .field("commentary", String?.self),

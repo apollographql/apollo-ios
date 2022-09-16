@@ -40,7 +40,7 @@ public class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
     public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { StarWarsAPI.Objects.Query }
-    public static var selections: [Selection] { [
+    public static var __selections: [Selection] { [
       .field("hero", Hero?.self, arguments: ["episode": .variable("episode")]),
     ] }
 
@@ -54,7 +54,7 @@ public class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
       public init(data: DataDict) { __data = data }
 
       public static var __parentType: ParentType { StarWarsAPI.Interfaces.Character }
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
         .inlineFragment(AsHuman.self),
         .inlineFragment(AsDroid.self),
       ] }
@@ -70,7 +70,7 @@ public class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
         public init(data: DataDict) { __data = data }
 
         public static var __parentType: ParentType { StarWarsAPI.Objects.Human }
-        public static var selections: [Selection] { [
+        public static var __selections: [Selection] { [
           .field("homePlanet", alias: "property", String?.self),
         ] }
 
@@ -86,7 +86,7 @@ public class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
         public init(data: DataDict) { __data = data }
 
         public static var __parentType: ParentType { StarWarsAPI.Objects.Droid }
-        public static var selections: [Selection] { [
+        public static var __selections: [Selection] { [
           .field("primaryFunction", alias: "property", String?.self),
         ] }
 

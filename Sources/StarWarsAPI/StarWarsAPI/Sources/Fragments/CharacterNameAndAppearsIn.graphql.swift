@@ -18,7 +18,7 @@ public struct CharacterNameAndAppearsIn: StarWarsAPI.SelectionSet, Fragment {
   public init(data: DataDict) { __data = data }
 
   public static var __parentType: ParentType { StarWarsAPI.Interfaces.Character }
-  public static var selections: [Selection] { [
+  public static var __selections: [Selection] { [
     .field("name", String.self),
     .field("appearsIn", [GraphQLEnum<Episode>?].self),
   ] }

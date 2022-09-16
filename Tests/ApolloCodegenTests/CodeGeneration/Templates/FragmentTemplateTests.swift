@@ -309,7 +309,7 @@ class FragmentTemplateTests: XCTestCase {
       public init(data: DataDict) { __data = data }
 
       public static var __parentType: ParentType { TestSchema.Objects.Animal }
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
       ] }
     }
 
@@ -398,7 +398,7 @@ class FragmentTemplateTests: XCTestCase {
       public init(data: DataDict) { __data = data }
 
       public static var __parentType: ParentType { TestSchema.Objects.Query }
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
         .field("allAnimals", [AllAnimal]?.self),
       ] }
 

@@ -26,7 +26,7 @@ public class RepoURLQuery: GraphQLQuery {
     public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { GitHubAPI.Objects.Query }
-    public static var selections: [Selection] { [
+    public static var __selections: [Selection] { [
       .field("repository", Repository?.self, arguments: [
         "owner": "apollographql",
         "name": "apollo-ios"
@@ -44,7 +44,7 @@ public class RepoURLQuery: GraphQLQuery {
       public init(data: DataDict) { __data = data }
 
       public static var __parentType: ParentType { GitHubAPI.Objects.Repository }
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
         .field("url", URI.self),
       ] }
 
