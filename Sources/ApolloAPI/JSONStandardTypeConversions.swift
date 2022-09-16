@@ -9,7 +9,7 @@ extension String: JSONDecodable, JSONEncodable {
   ///
   /// # See Also
   /// ``CustomScalarType``
-  @inlinable public init(jsonValue value: JSONValue) throws {
+  @inlinable public init(_jsonValue value: JSONValue) throws {
     switch value.base {
     case let string as String:
         self = string
@@ -30,7 +30,7 @@ extension String: JSONDecodable, JSONEncodable {
 }
 
 extension Int: JSONDecodable, JSONEncodable {
-  @inlinable public init(jsonValue value: JSONValue) throws {
+  @inlinable public init(_jsonValue value: JSONValue) throws {
     guard let number = value as? NSNumber else {
       throw JSONDecodingError.couldNotConvert(value: value, to: Int.self)
     }
@@ -43,7 +43,7 @@ extension Int: JSONDecodable, JSONEncodable {
 }
 
 extension Float: JSONDecodable, JSONEncodable {
-  @inlinable public init(jsonValue value: JSONValue) throws {
+  @inlinable public init(_jsonValue value: JSONValue) throws {
     guard let number = value as? NSNumber else {
       throw JSONDecodingError.couldNotConvert(value: value, to: Float.self)
     }
@@ -56,7 +56,7 @@ extension Float: JSONDecodable, JSONEncodable {
 }
 
 extension Double: JSONDecodable, JSONEncodable {
-  @inlinable public init(jsonValue value: JSONValue) throws {
+  @inlinable public init(_jsonValue value: JSONValue) throws {
     guard let number = value as? NSNumber else {
       throw JSONDecodingError.couldNotConvert(value: value, to: Double.self)
     }
@@ -69,7 +69,7 @@ extension Double: JSONDecodable, JSONEncodable {
 }
 
 extension Bool: JSONDecodable, JSONEncodable {
-  @inlinable public init(jsonValue value: JSONValue) throws {
+  @inlinable public init(_jsonValue value: JSONValue) throws {
     guard let bool = value as? Bool else {
         throw JSONDecodingError.couldNotConvert(value: value, to: Bool.self)
     }
@@ -86,8 +86,8 @@ extension EnumType {
 }
 
 extension RawRepresentable where RawValue: JSONDecodable {
-  @inlinable public init(jsonValue value: JSONValue) throws {
-    let rawValue = try RawValue(jsonValue: value)
+  @inlinable public init(_jsonValue value: JSONValue) throws {
+    let rawValue = try RawValue(_jsonValue: value)
     if let tempSelf = Self(rawValue: rawValue) {
       self = tempSelf
     } else {
@@ -107,7 +107,7 @@ extension Optional where Wrapped: JSONDecodable {
     if value is NSNull {
       self = .none
     } else {
-      self = .some(try Wrapped(jsonValue: value))
+      self = .some(try Wrapped(_jsonValue: value))
     }
   }
 }
@@ -138,7 +138,7 @@ extension JSONEncodableDictionary: JSONEncodable {
 }
 
 extension JSONObject: JSONDecodable {
-  @inlinable public init(jsonValue value: JSONValue) throws {
+  @inlinable public init(_jsonValue value: JSONValue) throws {
     guard let dictionary = value as? JSONObject else {
       throw JSONDecodingError.couldNotConvert(value: value, to: JSONObject.self)
     }
@@ -162,7 +162,7 @@ extension Array: JSONEncodable {
 // Example custom scalar
 
 extension URL: JSONDecodable, JSONEncodable {
-  @inlinable public init(jsonValue value: JSONValue) throws {
+  @inlinable public init(_jsonValue value: JSONValue) throws {
     guard let string = value as? String else {
       throw JSONDecodingError.couldNotConvert(value: value, to: URL.self)
     }

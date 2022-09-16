@@ -33,7 +33,7 @@ public protocol JSONDecodable: AnyHashableConvertible {
   ///
   /// - Throws: A ``JSONDecodingError`` if the `jsonValue` cannot be converted to the receiver's
   /// type.
-  init(jsonValue value: JSONValue) throws
+  init(_jsonValue value: JSONValue) throws
 }
 
 /// A protocol for a type that can be converted into a ``JSONValue``.

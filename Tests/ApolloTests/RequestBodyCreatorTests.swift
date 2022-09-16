@@ -66,7 +66,7 @@ class RequestBodyCreatorTests: XCTestCase {
         self.data = data
       }
 
-      init(jsonValue value: JSONValue) throws {
+      init(_jsonValue value: JSONValue) throws {
         data = value as! String
       }
 

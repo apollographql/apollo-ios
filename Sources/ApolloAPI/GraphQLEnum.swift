@@ -71,9 +71,9 @@ public enum GraphQLEnum<T: EnumType>: CaseIterable, Hashable, RawRepresentable {
 
 // MARK: CustomScalarType
 extension GraphQLEnum: CustomScalarType {
-  @inlinable public init(jsonValue: JSONValue) throws {
-    guard let stringData = jsonValue as? String else {
-      throw JSONDecodingError.couldNotConvert(value: jsonValue, to: String.self)      
+  @inlinable public init(_jsonValue: JSONValue) throws {
+    guard let stringData = _jsonValue as? String else {
+      throw JSONDecodingError.couldNotConvert(value: _jsonValue, to: String.self)      
     }
     self.init(rawValue: stringData)
   }
