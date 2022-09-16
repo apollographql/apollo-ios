@@ -20,7 +20,7 @@ public enum Selection {
       return alias ?? name
     }
 
-    public init(
+    @inlinable public init(
       _ name: String,
       alias: String? = nil,
       type: OutputType,
@@ -28,9 +28,7 @@ public enum Selection {
     ) {
       self.name = name
       self.alias = alias
-
       self.arguments = arguments
-
       self.type = type
     }
 
@@ -59,69 +57,69 @@ public enum Selection {
 
   // MARK: - Convenience Initializers
 
-  static public func field(
+  @inlinable static public func field(
     _ name: String,
     alias: String? = nil,
     _ type: OutputTypeConvertible.Type,
     arguments: [String: InputValue]? = nil
   ) -> Selection {
     .field(.init(name, alias: alias, type: type.asOutputType, arguments: arguments))
-  }  
+  }
 
-  static public func include(
+  @inlinable static public func include(
     if condition: String,
     _ selection: Selection
   ) -> Selection {
-    .conditional([[Selection.Condition(stringLiteral: condition)]], [selection])
+    .conditional(Conditions([[Selection.Condition(stringLiteral: condition)]]), [selection])
   }
 
-  static public func include(
+  @inlinable static public func include(
     if condition: String,
     _ selections: [Selection]
   ) -> Selection {
-    .conditional([[Selection.Condition(stringLiteral: condition)]], selections)
+    .conditional(Conditions([[Selection.Condition(stringLiteral: condition)]]), selections)
   }
-  
-  static public func include(
+
+  @inlinable static public func include(
     if conditions: Conditions,
     _ selection: Selection
   ) -> Selection {
     .conditional(conditions, [selection])
   }
 
-  static public func include(
+  @inlinable static public func include(
     if conditions: Conditions,
     _ selections: [Selection]
   ) -> Selection {
     .conditional(conditions, selections)
   }
 
-  static public func include(
+  @inlinable static public func include(
     if condition: Condition,
     _ selection: Selection
   ) -> Selection {
-    .conditional([[condition]], [selection])
+    .conditional(Conditions([[condition]]), [selection])
   }
 
-  static public func include(
+  @inlinable static public func include(
     if condition: Condition,
     _ selections: [Selection]
   ) -> Selection {
-    .conditional([[condition]], selections)
+    .conditional(Conditions([[condition]]), selections)
   }
 
-  static public func include(
+  @inlinable static public func include(
     if conditions: [Condition],
     _ selection: Selection
   ) -> Selection {
-    .conditional([conditions], [selection])
+    .conditional(Conditions([conditions]), [selection])
   }
 
-  static public func include(
+  @inlinable static public func include(
     if conditions: [Condition],
     _ selections: [Selection]
   ) -> Selection {
-    .conditional([conditions], selections)
+    .conditional(Conditions([conditions]), selections)
   }
 
 }

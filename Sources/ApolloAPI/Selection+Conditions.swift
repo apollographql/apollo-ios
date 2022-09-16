@@ -6,43 +6,28 @@ public extension Selection {
   /// The conditions are a two-dimensional array of `Selection.Condition`s.
   /// The outer array represents groups of conditions joined together with a logical "or".
   /// Conditions in the same inner array are joined together with a logical "and".
-  struct Conditions: ExpressibleByArrayLiteral, ExpressibleByStringLiteral, Hashable {
+  struct Conditions: Hashable {
     public let value: [[Condition]]
 
-    @inlinable
-    public init(_ value: [[Condition]]) {
+    @inlinable public init(_ value: [[Condition]]) {
       self.value = value
     }
 
-    @inlinable
-    public init(arrayLiteral elements: [Condition]...) {
-      self.value = Array(elements)
-    }
-
-    @inlinable
-    public init(_ conditions: [Condition]...) {
+    @inlinable public init(_ conditions: [Condition]...) {
       self.value = Array(conditions)
     }
 
-    @inlinable
-    public init(stringLiteral string: String) {
-      self.value = [[.init(stringLiteral: string)]]
-    }
-
-    @inlinable
-    public init(_ condition: Condition) {
+    @inlinable public init(_ condition: Condition) {
       self.value = [[condition]]
     }
 
-    @inlinable
-    public static func ||(_ lhs: Conditions, rhs: [Condition]) -> Conditions {
+    @inlinable public static func ||(_ lhs: Conditions, rhs: [Condition]) -> Conditions {
       var newValue = lhs.value
       newValue.append(rhs)
       return .init(newValue)
     }
 
-    @inlinable
-    public static func ||(_ lhs: Conditions, rhs: Condition) -> Conditions {
+    @inlinable public static func ||(_ lhs: Conditions, rhs: Condition) -> Conditions {
       lhs || [rhs]
     }
   }
@@ -51,8 +36,7 @@ public extension Selection {
     public let variableName: String
     public let inverted: Bool
 
-    @inlinable
-    public init(
+    @inlinable public init(
       variableName: String,
       inverted: Bool
     ) {
@@ -60,36 +44,30 @@ public extension Selection {
       self.inverted = inverted;
     }
 
-    @inlinable
-    public init(stringLiteral value: StringLiteralType) {
+    @inlinable public init(stringLiteral value: StringLiteralType) {
       self.variableName = value
       self.inverted = false
     }
 
-    @inlinable
-    public static prefix func !(value: Condition) -> Condition {
+    @inlinable public static prefix func !(value: Condition) -> Condition {
       .init(variableName: value.variableName, inverted: !value.inverted)
     }
 
-    @inlinable
-    public static func &&(_ lhs: Condition, rhs: Condition) -> [Condition] {
+    @inlinable public static func &&(_ lhs: Condition, rhs: Condition) -> [Condition] {
       [lhs, rhs]
     }
 
-    @inlinable
-    public static func &&(_ lhs: [Condition], rhs: Condition) -> [Condition] {
+    @inlinable public static func &&(_ lhs: [Condition], rhs: Condition) -> [Condition] {
       var newValue = lhs
       newValue.append(rhs)
       return newValue
     }
 
-    @inlinable
-    public static func ||(_ lhs: Condition, rhs: Condition) -> Conditions {
+    @inlinable public static func ||(_ lhs: Condition, rhs: Condition) -> Conditions {
       .init([[lhs], [rhs]])
     }
 
-    @inlinable
-    public static func ||(_ lhs: [Condition], rhs: Condition) -> Conditions {
+    @inlinable public static func ||(_ lhs: [Condition], rhs: Condition) -> Conditions {
       .init([lhs, [rhs]])
     }
 
