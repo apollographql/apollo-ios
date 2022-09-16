@@ -14,11 +14,11 @@ public extension LocalCacheMutation {
   }
 
   func hash(into hasher: inout Hasher) {
-    hasher.combine(variables?.jsonEncodableValue?.jsonValue)
+    hasher.combine(variables?._jsonEncodableValue?._jsonValue)
   }
 
   static func ==(lhs: Self, rhs: Self) -> Bool {
-    lhs.variables?.jsonEncodableValue?.jsonValue == rhs.variables?.jsonEncodableValue?.jsonValue
+    lhs.variables?._jsonEncodableValue?._jsonValue == rhs.variables?._jsonEncodableValue?._jsonValue
   }
 }
 

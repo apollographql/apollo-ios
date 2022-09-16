@@ -24,7 +24,7 @@ extension String: JSONDecodable, JSONEncodable {
     }
   }
 
-  @inlinable public var jsonValue: JSONValue {
+  @inlinable public var _jsonValue: JSONValue {
     return self
   }
 }
@@ -37,7 +37,7 @@ extension Int: JSONDecodable, JSONEncodable {
     self = number.intValue
   }
 
-  @inlinable public var jsonValue: JSONValue {
+  @inlinable public var _jsonValue: JSONValue {
     return self
   }
 }
@@ -50,7 +50,7 @@ extension Float: JSONDecodable, JSONEncodable {
     self = number.floatValue
   }
 
-  @inlinable public var jsonValue: JSONValue {
+  @inlinable public var _jsonValue: JSONValue {
     return self
   }
 }
@@ -63,7 +63,7 @@ extension Double: JSONDecodable, JSONEncodable {
     self = number.doubleValue
   }
 
-  @inlinable public var jsonValue: JSONValue {
+  @inlinable public var _jsonValue: JSONValue {
     return self
   }
 }
@@ -76,13 +76,13 @@ extension Bool: JSONDecodable, JSONEncodable {
     self = bool
   }
 
-  @inlinable public var jsonValue: JSONValue {
+  @inlinable public var _jsonValue: JSONValue {
     return self
   }
 }
 
 extension EnumType {
-  @inlinable public var jsonValue: JSONValue { rawValue }
+  @inlinable public var _jsonValue: JSONValue { rawValue }
 }
 
 extension RawRepresentable where RawValue: JSONDecodable {
@@ -97,8 +97,8 @@ extension RawRepresentable where RawValue: JSONDecodable {
 }
 
 extension RawRepresentable where RawValue: JSONEncodable {
-  @inlinable public var jsonValue: JSONValue {
-    return rawValue.jsonValue
+  @inlinable public var _jsonValue: JSONValue {
+    return rawValue._jsonValue
   }
 }
 
@@ -113,27 +113,27 @@ extension Optional where Wrapped: JSONDecodable {
 }
 
 extension Optional: JSONEncodable where Wrapped: JSONEncodable & Hashable {
-  @inlinable public var jsonValue: JSONValue {
+  @inlinable public var _jsonValue: JSONValue {
     switch self {
     case .none: return NSNull()
-    case let .some(value): return value.jsonValue
+    case let .some(value): return value._jsonValue
     }
   }
 }
 
 extension NSDictionary: JSONEncodable {
-  @inlinable public var jsonValue: JSONValue { self }
+  @inlinable public var _jsonValue: JSONValue { self }
 }
 
 extension NSNull: JSONEncodable {
-  @inlinable public var jsonValue: JSONValue { self }
+  @inlinable public var _jsonValue: JSONValue { self }
 }
 
 extension JSONEncodableDictionary: JSONEncodable {
-  @inlinable public var jsonValue: JSONValue { jsonObject }
+  @inlinable public var _jsonValue: JSONValue { jsonObject }
 
   @inlinable public var jsonObject: JSONObject {
-    mapValues(\.jsonValue)
+    mapValues(\._jsonValue)
   }
 }
 
@@ -148,10 +148,10 @@ extension JSONObject: JSONDecodable {
 }
 
 extension Array: JSONEncodable {
-  @inlinable public var jsonValue: JSONValue {
+  @inlinable public var _jsonValue: JSONValue {
     return map { element -> JSONValue in
       if case let element as JSONEncodable = element {
-        return element.jsonValue
+        return element._jsonValue
       } else {
         fatalError("Array is only JSONEncodable if Element is")
       }
@@ -174,7 +174,7 @@ extension URL: JSONDecodable, JSONEncodable {
     }
   }
 
-  @inlinable public var jsonValue: JSONValue {
+  @inlinable public var _jsonValue: JSONValue {
     return self.absoluteString
   }
 }

@@ -41,7 +41,7 @@ public class Mock<O: MockObject>: AnyMock, JSONEncodable, Hashable {
   // MARK: JSONEncodable
 
   public var _jsonObject: JSONObject { _data.jsonObject }
-  public var jsonValue: JSONValue { _jsonObject }
+  public var _jsonValue: JSONValue { _jsonObject }
 
   // MARK: Hashable
 
@@ -50,7 +50,7 @@ public class Mock<O: MockObject>: AnyMock, JSONEncodable, Hashable {
   }
 
   public func hash(into hasher: inout Hasher) {
-    hasher.combine(_data.jsonValue)
+    hasher.combine(_data._jsonValue)
   }
 }
 

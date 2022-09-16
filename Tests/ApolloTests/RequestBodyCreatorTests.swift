@@ -70,7 +70,7 @@ class RequestBodyCreatorTests: XCTestCase {
         data = value as! String
       }
 
-      var jsonValue: JSONValue { data }
+      var _jsonValue: JSONValue { data }
     }
 
     class GivenMockOperation: MockOperation<MockSelectionSet> {

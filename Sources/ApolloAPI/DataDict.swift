@@ -34,12 +34,12 @@ public struct DataDict: Hashable {
 
   @inlinable public func hash(into hasher: inout Hasher) {
     hasher.combine(_data)
-    hasher.combine(_variables?.jsonEncodableValue?.jsonValue)
+    hasher.combine(_variables?._jsonEncodableValue?._jsonValue)
   }
 
   @inlinable public static func ==(lhs: DataDict, rhs: DataDict) -> Bool {
     lhs._data == rhs._data &&
-    lhs._variables?.jsonEncodableValue?.jsonValue == rhs._variables?.jsonEncodableValue?.jsonValue
+    lhs._variables?._jsonEncodableValue?._jsonValue == rhs._variables?._jsonEncodableValue?._jsonValue
   }
 }
 

@@ -31,7 +31,7 @@ public struct GraphQLGETTransformer {
     do {
       _ = try self.body.sorted(by: {$0.key < $1.key}).compactMap({ arg in
         if let value = arg.value as? JSONEncodableDictionary {
-          let data = try JSONSerialization.sortedData(withJSONObject: value.jsonValue)
+          let data = try JSONSerialization.sortedData(withJSONObject: value._jsonValue)
           if let string = String(data: data, encoding: .utf8) {
             queryItems.append(URLQueryItem(name: arg.key, value: string))
           }
@@ -60,12 +60,12 @@ public struct GraphQLGETTransformer {
 
 extension GraphQLGETTransformer: Hashable {
   public static func == (lhs: GraphQLGETTransformer, rhs: GraphQLGETTransformer) -> Bool {
-    lhs.body.jsonValue == rhs.body.jsonValue &&
+    lhs.body._jsonValue == rhs.body._jsonValue &&
     lhs.url == rhs.url
   }
 
   public func hash(into hasher: inout Hasher) {
-    hasher.combine(body.jsonValue)
+    hasher.combine(body._jsonValue)
     hasher.combine(url)
   }
 }

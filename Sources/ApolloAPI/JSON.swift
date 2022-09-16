@@ -48,5 +48,5 @@ public protocol JSONEncodable {
   /// > Important: For a type that conforms to both ``JSONEncodable`` and ``JSONDecodable``,
   /// the return value of this function, when passed to ``JSONDecodable/init(jsonValue:)`` should
   /// initialize a value equal to the receiver.
-  var jsonValue: JSONValue { get }
+  var _jsonValue: JSONValue { get }
 }

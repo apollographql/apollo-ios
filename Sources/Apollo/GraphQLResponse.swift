@@ -89,7 +89,7 @@ extension GraphQLResponse: Equatable where Data: Equatable {
   public static func == (lhs: GraphQLResponse<Data>, rhs: GraphQLResponse<Data>) -> Bool {
     lhs.body == rhs.body &&
     lhs.rootKey == rhs.rootKey &&
-    lhs.variables?.jsonEncodableObject.jsonValue == rhs.variables?.jsonEncodableObject.jsonValue
+    lhs.variables?.jsonEncodableObject._jsonValue == rhs.variables?.jsonEncodableObject._jsonValue
   }
 }
 
@@ -99,6 +99,6 @@ extension GraphQLResponse: Hashable where Data: Hashable {
   public func hash(into hasher: inout Hasher) {
     hasher.combine(body)
     hasher.combine(rootKey)
-    hasher.combine(variables?.jsonEncodableValue?.jsonValue)
+    hasher.combine(variables?._jsonEncodableValue?._jsonValue)
   }
 }
