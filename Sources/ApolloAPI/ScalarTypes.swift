@@ -46,7 +46,7 @@ public protocol CustomScalarType:
 }
 
 extension CustomScalarType {
-  @inlinable public static var asOutputType: Selection.Field.OutputType {
+  @inlinable public static var _asOutputType: Selection.Field.OutputType {
     .nonNull(.customScalar(self))
   }
 
