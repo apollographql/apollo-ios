@@ -6,7 +6,6 @@ import PackagePlugin
     let process = Process()
     process.executableURL = try context.codegenExecutable
     process.arguments = ["generate"] + arguments
-    process.terminationHandler = Process.HandleErrorTermination
 
     try process.run()
     process.waitUntilExit()
