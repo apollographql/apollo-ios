@@ -5,6 +5,7 @@ import ApolloAPI
 public final class MockURLSessionClient: URLSessionClient {
 
   @Atomic public var lastRequest: URLRequest?
+  @Atomic public var requestCount = 0
 
   public var jsonData: JSONObject?
   public var data: Data?
@@ -28,6 +29,7 @@ public final class MockURLSessionClient: URLSessionClient {
                                    rawTaskCompletionHandler: URLSessionClient.RawCompletion? = nil,
                                    completion: @escaping URLSessionClient.Completion) -> URLSessionTask {
     self.$lastRequest.mutate { $0 = request }
+    self.$requestCount.increment()
         
     // Capture data, response, and error instead of self to ensure we complete with the current state
     // even if it is changed before the block runs.

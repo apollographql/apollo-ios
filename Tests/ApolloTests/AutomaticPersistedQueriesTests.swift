@@ -521,4 +521,79 @@ class AutomaticPersistedQueriesTests: XCTestCase {
                                query: query,
                                persistedQuery: true)
   }
+
+  // MARK: Persisted Query Retrying Tests
+
+  func test__retryPersistedQuery__givenOperation_automaticallyPersisted_PersistedQueryNotFoundResponseError_retriesQueryWithFullDocument() throws {
+    // given
+    let mockClient = MockURLSessionClient()
+    let store = ApolloStore()
+    let provider = DefaultInterceptorProvider(client: mockClient, store: store)
+    let network = RequestChainNetworkTransport(interceptorProvider: provider,
+                                               endpointURL: Self.endpoint,
+                                               autoPersistQueries: true)
+
+    let query = MockHeroNameQuery(episode: .some(.EMPIRE))
+
+    mockClient.response = HTTPURLResponse(url: TestURL.mockServer.url,
+                                          statusCode: 200,
+                                          httpVersion: nil,
+                                          headerFields: nil)
+
+    mockClient.data = try JSONSerialization.data(
+      withJSONObject: ["errors": [["message": "PersistedQueryNotFound"]]]
+    )
+
+    // when
+    let _ = network.send(operation: query) { _ in }
+
+    // then
+    expect(mockClient.requestCount).toEventually(equal(2))
+  }
+
+  func test__retryPersistedQuery__givenOperation_persistedOperationsOnly_PersistedQueryNotFoundResponseError_doesNotRetryAndThrows_persistedQueryNotFoundForPersistedOnlyQuery_error() throws {
+    // given
+    class MockPersistedOnlyQuery: MockHeroNameQuery {
+      override class var document: DocumentType {
+        .persistedOperationsOnly(operationIdentifier: "12345")
+      }
+    }
+
+    let mockClient = MockURLSessionClient()
+    let store = ApolloStore()
+    let provider = DefaultInterceptorProvider(client: mockClient, store: store)
+    let network = RequestChainNetworkTransport(interceptorProvider: provider,
+                                               endpointURL: Self.endpoint,
+                                               autoPersistQueries: true)
+
+    let query = MockPersistedOnlyQuery(episode: .some(.EMPIRE))
+
+    mockClient.response = HTTPURLResponse(url: TestURL.mockServer.url,
+                                          statusCode: 200,
+                                          httpVersion: nil,
+                                          headerFields: nil)
+
+    mockClient.data = try JSONSerialization.data(
+      withJSONObject: ["errors": [["message": "PersistedQueryNotFound"]]]
+    )
+
+    let expectation = self.expectation(description: "Query failed")
+
+    // when
+    let _ = network.send(operation: query) { result in
+      // then
+      switch result {
+      case .success:
+        fail("Expected failure result")
+      case .failure(let error):
+        let expectedError = AutomaticPersistedQueryInterceptor.APQError
+          .persistedQueryNotFoundForPersistedOnlyQuery(operationName: "MockOperationName")
+        expect(error as? AutomaticPersistedQueryInterceptor.APQError).to(equal(expectedError))
+        
+        expectation.fulfill()
+      }
+    }
+
+    self.wait(for: [expectation], timeout: 2)
+  }
 }
