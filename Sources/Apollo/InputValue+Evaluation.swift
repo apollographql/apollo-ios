@@ -40,10 +40,10 @@ extension InputValue {
       guard let value = variables?[name] else {
         throw GraphQLError("Variable \"\(name)\" was not provided.")
       }
-      return value.jsonEncodableValue?.jsonValue
+      return value._jsonEncodableValue?._jsonValue
 
     case let .scalar(value):
-      return value.jsonValue
+      return value._jsonValue
 
     case let .list(array):
       return try InputValue.evaluate(array, with: variables)

@@ -7,8 +7,8 @@ public protocol InputObject: GraphQLOperationVariableValue, JSONEncodable, Hasha
 }
 
 extension InputObject {
-  public var jsonValue: JSONValue { jsonEncodableValue?.jsonValue }
-  public var jsonEncodableValue: (any JSONEncodable)? { __data.jsonEncodableValue }
+  public var _jsonValue: JSONValue { jsonEncodableValue?._jsonValue }
+  public var jsonEncodableValue: (any JSONEncodable)? { __data._jsonEncodableValue }
 
   public static func == (lhs: Self, rhs: Self) -> Bool {
     lhs.__data == rhs.__data
@@ -29,7 +29,7 @@ public struct InputDict: GraphQLOperationVariableValue, Hashable {
     self.data = data
   }
 
-  public var jsonEncodableValue: (any JSONEncodable)? { data.jsonEncodableObject }
+  public var _jsonEncodableValue: (any JSONEncodable)? { data._jsonEncodableObject }
 
   public subscript<T: GraphQLOperationVariableValue>(dynamicMember key: StaticString) -> T {
     get { data[key.description] as! T }
@@ -37,11 +37,11 @@ public struct InputDict: GraphQLOperationVariableValue, Hashable {
   }
 
   public static func == (lhs: InputDict, rhs: InputDict) -> Bool {
-    lhs.data.jsonEncodableValue?.jsonValue == rhs.data.jsonEncodableValue?.jsonValue
+    lhs.data._jsonEncodableValue?._jsonValue == rhs.data._jsonEncodableValue?._jsonValue
   }
 
   public func hash(into hasher: inout Hasher) {
-    hasher.combine(data.jsonEncodableValue?.jsonValue)
+    hasher.combine(data._jsonEncodableValue?._jsonValue)
   }
 
 }

@@ -7,7 +7,7 @@ public func equalJSONValue(_ expectedValue: JSONEncodable?) -> Predicate<JSONEnc
     let msg = ExpectationMessage.expectedActualValueTo("equal <\(stringify(expectedValue))>")
     if let actualValue = try actual.evaluate(), let expectedValue = expectedValue {
         return PredicateResult(
-          bool: actualValue.jsonValue == expectedValue.jsonValue,
+          bool: actualValue._jsonValue == expectedValue._jsonValue,
           message: msg
         )
     } else {

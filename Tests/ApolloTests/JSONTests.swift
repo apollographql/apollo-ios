@@ -64,7 +64,7 @@ class JSONTests: XCTestCase {
     let json = try JSONSerializationFormat.deserialize(data: data)
     XCTAssertNotNil(json)
     
-    let dict = try JSONObject(jsonValue: json)
+    let dict = try JSONObject(_jsonValue: json)
     XCTAssertNotNil(dict)
     
     let reserialized = try JSONSerializationFormat.serialize(value: dict)

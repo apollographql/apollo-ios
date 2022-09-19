@@ -102,7 +102,7 @@ public struct CacheKeyInfo {
       throw JSONDecodingError.missingValue
     }
 
-    self.init(key: try String(jsonValue: jsonValue), uniqueKeyGroupId: uniqueKeyGroupId)
+    self.init(key: try String(_jsonValue: jsonValue), uniqueKeyGroupId: uniqueKeyGroupId)
   }
 
   /// The Designated Initializer

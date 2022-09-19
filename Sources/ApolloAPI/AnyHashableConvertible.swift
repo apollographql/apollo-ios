@@ -9,14 +9,14 @@ import Foundation
 /// `Optional`, `Array`, and `Dictionary`.
 public protocol AnyHashableConvertible {
   /// Converts the type to an `AnyHashable`.
-  var asAnyHashable: AnyHashable { get }
+  var _asAnyHashable: AnyHashable { get }
 }
 
 extension AnyHashableConvertible where Self: Hashable {
   /// Converts the type to an `AnyHashable` by casting self.
   ///
   /// This utilizes Swift's automatic `AnyHashable` conversion functionality.
-  @inlinable public var asAnyHashable: AnyHashable { self }
+  @inlinable public var _asAnyHashable: AnyHashable { self }
 }
 
 extension AnyHashable: AnyHashableConvertible {}
