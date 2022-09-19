@@ -51,7 +51,7 @@ public class RepositoryQuery: GraphQLQuery {
     public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { GitHubAPI.Objects.Query }
-    public static var selections: [Selection] { [
+    public static var __selections: [Selection] { [
       .field("repository", Repository?.self, arguments: [
         "owner": "apollographql",
         "name": "apollo-ios"
@@ -69,7 +69,7 @@ public class RepositoryQuery: GraphQLQuery {
       public init(data: DataDict) { __data = data }
 
       public static var __parentType: ParentType { GitHubAPI.Objects.Repository }
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
         .field("issueOrPullRequest", IssueOrPullRequest?.self, arguments: ["number": 13]),
       ] }
 
@@ -84,7 +84,7 @@ public class RepositoryQuery: GraphQLQuery {
         public init(data: DataDict) { __data = data }
 
         public static var __parentType: ParentType { GitHubAPI.Unions.IssueOrPullRequest }
-        public static var selections: [Selection] { [
+        public static var __selections: [Selection] { [
           .inlineFragment(AsIssue.self),
           .inlineFragment(AsReactable.self),
         ] }
@@ -100,7 +100,7 @@ public class RepositoryQuery: GraphQLQuery {
           public init(data: DataDict) { __data = data }
 
           public static var __parentType: ParentType { GitHubAPI.Objects.Issue }
-          public static var selections: [Selection] { [
+          public static var __selections: [Selection] { [
             .field("body", String.self),
             .field("url", URI.self),
             .field("author", Author?.self),
@@ -123,7 +123,7 @@ public class RepositoryQuery: GraphQLQuery {
             public init(data: DataDict) { __data = data }
 
             public static var __parentType: ParentType { GitHubAPI.Interfaces.Actor }
-            public static var selections: [Selection] { [
+            public static var __selections: [Selection] { [
               .field("avatarUrl", URI.self),
             ] }
 
@@ -142,7 +142,7 @@ public class RepositoryQuery: GraphQLQuery {
           public init(data: DataDict) { __data = data }
 
           public static var __parentType: ParentType { GitHubAPI.Interfaces.Reactable }
-          public static var selections: [Selection] { [
+          public static var __selections: [Selection] { [
             .field("viewerCanReact", Bool.self),
             .inlineFragment(AsComment.self),
           ] }
@@ -160,7 +160,7 @@ public class RepositoryQuery: GraphQLQuery {
             public init(data: DataDict) { __data = data }
 
             public static var __parentType: ParentType { GitHubAPI.Interfaces.Comment }
-            public static var selections: [Selection] { [
+            public static var __selections: [Selection] { [
               .field("author", Author?.self),
             ] }
 
@@ -177,7 +177,7 @@ public class RepositoryQuery: GraphQLQuery {
               public init(data: DataDict) { __data = data }
 
               public static var __parentType: ParentType { GitHubAPI.Interfaces.Actor }
-              public static var selections: [Selection] { [
+              public static var __selections: [Selection] { [
                 .field("login", String.self),
               ] }
 

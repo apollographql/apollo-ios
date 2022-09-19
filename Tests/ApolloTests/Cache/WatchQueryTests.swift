@@ -40,12 +40,12 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
 
   func testRefetchWatchedQueryFromServerThroughWatcherReturnsRefetchedResults() throws {
     class SimpleMockSelectionSet: MockSelectionSet {
-      override class var selections: [Selection] { [
+      override class var __selections: [Selection] { [
         .field("hero", Hero.self)
       ]}
 
       class Hero: MockSelectionSet {
-        override class var selections: [Selection] {[
+        override class var __selections: [Selection] {[
           .field("__typename", String.self),
           .field("name", String.self)
         ]}
@@ -123,12 +123,12 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
   
   func testWatchedQueryGetsUpdatedAfterFetchingSameQueryWithChangedData() throws {
     class SimpleMockSelectionSet: MockSelectionSet {
-      override class var selections: [Selection] { [
+      override class var __selections: [Selection] { [
         .field("hero", Hero.self)
       ]}
 
       class Hero: MockSelectionSet {
-        override class var selections: [Selection] {[
+        override class var __selections: [Selection] {[
           .field("__typename", String.self),
           .field("name", String.self)
         ]}
@@ -211,12 +211,12 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
   
   func testWatchedQueryDoesNotRefetchAfterSameQueryWithDifferentArgument() throws {
     class GivenMockSelectionSet: MockSelectionSet {
-      override class var selections: [Selection] { [
+      override class var __selections: [Selection] { [
         .field("hero", Hero.self, arguments: ["episode": .variable("episode")])
       ]}
 
       class Hero: MockSelectionSet {
-        override class var selections: [Selection] {[
+        override class var __selections: [Selection] {[
           .field("__typename", String.self),
           .field("name", String.self)
         ]}
@@ -297,12 +297,12 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
   
   func testWatchedQueryGetsUpdatedWhenSameObjectHasChangedInAnotherQueryWithDifferentVariables() throws {
     class GivenSelectionSet: MockSelectionSet {
-      override class var selections: [Selection] { [
+      override class var __selections: [Selection] { [
         .field("hero", Hero.self, arguments: ["episode": .variable("episode")])
       ]}
 
       class Hero: MockSelectionSet {
-        override class var selections: [Selection] {[
+        override class var __selections: [Selection] {[
           .field("__typename", String.self),
           .field("id", String.self),
           .field("name", String.self)
@@ -392,12 +392,12 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
   
   func testWatchedQueryGetsUpdatedWhenOverlappingQueryReturnsChangedData() throws {
     class HeroNameSelectionSet: MockSelectionSet {
-      override class var selections: [Selection] { [
+      override class var __selections: [Selection] { [
         .field("hero", Hero.self)
       ]}
 
       class Hero: MockSelectionSet {
-        override class var selections: [Selection] {[
+        override class var __selections: [Selection] {[
           .field("__typename", String.self),
           .field("name", String.self)
         ]}
@@ -405,14 +405,14 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
     }
 
     class HeroAndFriendsNameSelectionSet: MockSelectionSet {
-      override class var selections: [Selection] {[
+      override class var __selections: [Selection] {[
         .field("hero", Hero?.self)
       ]}
 
       var hero: Hero? { __data["hero"] }
 
       class Hero: MockSelectionSet {
-        override class var selections: [Selection] {[
+        override class var __selections: [Selection] {[
           .field("__typename", String.self),
           .field("name", String.self),
           .field("friends", [Friend]?.self),
@@ -421,7 +421,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
         var friends: [Friend]? { __data["friends"] }
 
         class Friend: MockSelectionSet {
-          override class var selections: [Selection] {[
+          override class var __selections: [Selection] {[
             .field("__typename", String.self),
             .field("name", String.self),
           ]}
@@ -518,14 +518,14 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
   
   func testListInWatchedQueryGetsUpdatedByListOfKeysFromOtherQuery() throws {
     class HeroAndFriendsIdsSelectionSet: MockSelectionSet {
-      override class var selections: [Selection] {[
+      override class var __selections: [Selection] {[
         .field("hero", Hero?.self)
       ]}
 
       var hero: Hero? { __data["hero"] }
 
       class Hero: MockSelectionSet {
-        override class var selections: [Selection] {[
+        override class var __selections: [Selection] {[
           .field("__typename", String.self),
           .field("id", String.self),
           .field("name", String.self),
@@ -535,7 +535,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
         var friends: [Friend]? { __data["friends"] }
 
         class Friend: MockSelectionSet {
-          override class var selections: [Selection] {[
+          override class var __selections: [Selection] {[
             .field("__typename", String.self),
             .field("id", String.self),
           ]}
@@ -544,14 +544,14 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
     }
 
     class HeroAndFriendsNameSelectionSet: MockSelectionSet {
-      override class var selections: [Selection] {[
+      override class var __selections: [Selection] {[
         .field("hero", Hero?.self)
       ]}
 
       var hero: Hero? { __data["hero"] }
 
       class Hero: MockSelectionSet {
-        override class var selections: [Selection] {[
+        override class var __selections: [Selection] {[
           .field("__typename", String.self),
           .field("id", String.self),
           .field("name", String.self),
@@ -561,7 +561,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
         var friends: [Friend]? { __data["friends"] }
 
         class Friend: MockSelectionSet {
-          override class var selections: [Selection] {[
+          override class var __selections: [Selection] {[
             .field("__typename", String.self),
             .field("id", String.self),
             .field("name", String.self),
@@ -663,14 +663,14 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
   
   func testWatchedQueryRefetchesFromServerAfterOtherQueryUpdatesListWithIncompleteObject() throws {
     class HeroAndFriendsIDsSelectionSet: MockSelectionSet {
-      override class var selections: [Selection] {[
+      override class var __selections: [Selection] {[
         .field("hero", Hero?.self)
       ]}
 
       var hero: Hero? { __data["hero"] }
 
       class Hero: MockSelectionSet {
-        override class var selections: [Selection] {[
+        override class var __selections: [Selection] {[
           .field("__typename", String.self),
           .field("id", String.self),
           .field("friends", [Friend]?.self),
@@ -679,7 +679,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
         var friends: [Friend]? { __data["friends"] }
 
         class Friend: MockSelectionSet {
-          override class var selections: [Selection] {[
+          override class var __selections: [Selection] {[
             .field("__typename", String.self),
             .field("id", String.self),
           ]}
@@ -688,14 +688,14 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
     }
 
     class HeroAndFriendsNameWithIDsSelectionSet: MockSelectionSet {
-      override class var selections: [Selection] {[
+      override class var __selections: [Selection] {[
         .field("hero", Hero?.self)
       ]}
 
       var hero: Hero? { __data["hero"] }
 
       class Hero: MockSelectionSet {
-        override class var selections: [Selection] {[
+        override class var __selections: [Selection] {[
           .field("__typename", String.self),
           .field("id", String.self),
           .field("name", String.self),
@@ -705,7 +705,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
         var friends: [Friend]? { __data["friends"] }
 
         class Friend: MockSelectionSet {
-          override class var selections: [Selection] {[
+          override class var __selections: [Selection] {[
             .field("__typename", String.self),
             .field("id", String.self),
             .field("name", String.self),
@@ -831,7 +831,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       public var __data: DataDict = DataDict([:], variables: nil)
       init(data: DataDict) { __data = data }
 
-      static var selections: [Selection] {[
+      static var __selections: [Selection] {[
         .field("hero", Hero?.self)
       ]}
 
@@ -844,7 +844,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
         public var __data: DataDict = DataDict([:], variables: nil)
         init(data: DataDict) { __data = data }
 
-        static var selections: [Selection] {[
+        static var __selections: [Selection] {[
           .field("__typename", String.self),
           .field("name", String.self),
           .field("friends", [Friend]?.self),
@@ -864,7 +864,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
           public var __data: DataDict = DataDict([:], variables: nil)
           init(data: DataDict) { __data = data }
 
-          static var selections: [Selection] {[
+          static var __selections: [Selection] {[
             .field("__typename", String.self),
             .field("name", String.self),
           ]}
@@ -958,7 +958,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       public var __data: DataDict = DataDict([:], variables: nil)
       init(data: DataDict) { __data = data }
 
-      static var selections: [Selection] {[
+      static var __selections: [Selection] {[
         .field("hero", Hero.self)
       ]}
 
@@ -971,7 +971,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
         public var __data: DataDict = DataDict([:], variables: nil)
         init(data: DataDict) { __data = data }
 
-        static var selections: [Selection] {[
+        static var __selections: [Selection] {[
           .field("__typename", String.self),
           .field("id", String.self),
           .field("name", String.self),
@@ -997,7 +997,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
           public var __data: DataDict = DataDict([:], variables: nil)
           init(data: DataDict) { __data = data }
 
-          static var selections: [Selection] {[
+          static var __selections: [Selection] {[
             .field("__typename", String.self),
             .field("id", String.self),
             .field("name", String.self),
@@ -1020,7 +1020,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       public var __data: DataDict = DataDict([:], variables: nil)
       init(data: DataDict) { __data = data }
 
-      static var selections: [Selection] {[
+      static var __selections: [Selection] {[
         .field("hero", Hero.self)
       ]}
 
@@ -1033,7 +1033,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
         public var __data: DataDict = DataDict([:], variables: nil)
         init(data: DataDict) { __data = data }
 
-        static var selections: [Selection] {[
+        static var __selections: [Selection] {[
           .field("__typename", String.self),
           .field("id", String.self),
           .field("friends", [Friend].self),
@@ -1053,7 +1053,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
           public var __data: DataDict = DataDict([:], variables: nil)
           init(data: DataDict) { __data = data }
 
-          static var selections: [Selection] {[
+          static var __selections: [Selection] {[
             .field("__typename", String.self),
             .field("id", String.self),
           ]}
@@ -1159,12 +1159,12 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
 
   func testWatchedQueryIsOnlyUpdatedOnceIfConcurrentFetchesAllReturnTheSameResult() throws {
     class HeroNameSelectionSet: MockSelectionSet {
-      override class var selections: [Selection] { [
+      override class var __selections: [Selection] { [
         .field("hero", Hero.self)
       ]}
 
       class Hero: MockSelectionSet {
-        override class var selections: [Selection] {[
+        override class var __selections: [Selection] {[
           .field("__typename", String.self),
           .field("name", String.self)
         ]}
@@ -1257,14 +1257,14 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
 
   func testWatchedQueryIsUpdatedMultipleTimesIfConcurrentFetchesReturnChangedData() throws {
     class HeroNameSelectionSet: MockSelectionSet {
-      override class var selections: [Selection] { [
+      override class var __selections: [Selection] { [
         .field("hero", Hero.self)
       ]}
 
       var hero: Hero { __data["hero"] }
 
       class Hero: MockSelectionSet {
-        override class var selections: [Selection] {[
+        override class var __selections: [Selection] {[
           .field("__typename", String.self),
           .field("name", String.self)
         ]}
@@ -1369,7 +1369,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       public var __data: DataDict = DataDict([:], variables: nil)
       init(data: DataDict) { __data = data }
 
-      static var selections: [Selection] {[
+      static var __selections: [Selection] {[
         .field("hero", Hero.self)
       ]}
 
@@ -1382,7 +1382,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
         public var __data: DataDict = DataDict([:], variables: nil)
         init(data: DataDict) { __data = data }
 
-        static var selections: [Selection] {[
+        static var __selections: [Selection] {[
           .field("__typename", String.self),
           .field("id", String.self),
           .field("name", String.self),
@@ -1408,7 +1408,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
           public var __data: DataDict = DataDict([:], variables: nil)
           init(data: DataDict) { __data = data }
 
-          static var selections: [Selection] {[
+          static var __selections: [Selection] {[
             .field("__typename", String.self),
             .field("id", String.self),
             .field("name", String.self),
@@ -1533,14 +1533,14 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
 
   func testWatchedQueryDependentKeysAreUpdatedAfterOtherFetchReturnsChangedData() {
     class HeroAndFriendsNameWithIDsSelectionSet: MockSelectionSet {
-      override class var selections: [Selection] {[
+      override class var __selections: [Selection] {[
         .field("hero", Hero?.self)
       ]}
 
       var hero: Hero? { __data["hero"] }
 
       class Hero: MockSelectionSet {
-        override class var selections: [Selection] {[
+        override class var __selections: [Selection] {[
           .field("__typename", String.self),
           .field("id", String.self),
           .field("name", String.self),
@@ -1550,7 +1550,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
         var friends: [Friend]? { __data["friends"] }
 
         class Friend: MockSelectionSet {
-          override class var selections: [Selection] {[
+          override class var __selections: [Selection] {[
             .field("__typename", String.self),
             .field("id", String.self),
             .field("name", String.self),
@@ -1683,14 +1683,14 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
 
   func testQueryWatcherDoesNotHaveARetainCycle() {
     class HeroAndFriendsNameWithIDsSelectionSet: MockSelectionSet {
-      override class var selections: [Selection] {[
+      override class var __selections: [Selection] {[
         .field("hero", Hero?.self)
       ]}
 
       var hero: Hero? { __data["hero"] }
 
       class Hero: MockSelectionSet {
-        override class var selections: [Selection] {[
+        override class var __selections: [Selection] {[
           .field("__typename", String.self),
           .field("id", String.self),
           .field("name", String.self),
@@ -1700,7 +1700,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
         var friends: [Friend]? { __data["friends"] }
 
         class Friend: MockSelectionSet {
-          override class var selections: [Selection] {[
+          override class var __selections: [Selection] {[
             .field("__typename", String.self),
             .field("id", String.self),
             .field("name", String.self),

@@ -31,14 +31,14 @@ class StoreConcurrencyTests: XCTestCase, CacheDependentTesting {
   // MARK: - Mocks
 
   class GivenSelectionSet: MockSelectionSet {
-    override class var selections: [Selection] {[
+    override class var __selections: [Selection] {[
       .field("hero", Hero?.self)
     ]}
 
     var hero: Hero? { __data["hero"] }
 
     class Hero: MockSelectionSet {
-      override class var selections: [Selection] {[
+      override class var __selections: [Selection] {[
         .field("__typename", String.self),
         .field("name", String.self),
         .field("friends", [Friend]?.self),
@@ -47,7 +47,7 @@ class StoreConcurrencyTests: XCTestCase, CacheDependentTesting {
       var friends: [Friend]? { __data["friends"] }
 
       class Friend: MockSelectionSet {
-        override class var selections: [Selection] {[
+        override class var __selections: [Selection] {[
           .field("__typename", String.self),
           .field("name", String.self),
         ]}
@@ -145,7 +145,7 @@ class StoreConcurrencyTests: XCTestCase, CacheDependentTesting {
       public var __data: DataDict = DataDict([:], variables: nil)
       init(data: DataDict) { __data = data }
 
-      static var selections: [Selection] { [
+      static var __selections: [Selection] { [
         .field("hero", Hero.self)
       ]}
 
@@ -158,7 +158,7 @@ class StoreConcurrencyTests: XCTestCase, CacheDependentTesting {
         public var __data: DataDict = DataDict([:], variables: nil)
         init(data: DataDict) { __data = data }
 
-        static var selections: [Selection] { [
+        static var __selections: [Selection] { [
           .field("id", String.self),
           .field("name", String.self),
           .field("friends", [Friend].self),
@@ -183,7 +183,7 @@ class StoreConcurrencyTests: XCTestCase, CacheDependentTesting {
           public var __data: DataDict = DataDict([:], variables: nil)
           init(data: DataDict) { __data = data }
 
-          static var selections: [Selection] { [
+          static var __selections: [Selection] { [
             .field("id", String.self),
             .field("name", String.self),
           ]}
@@ -269,7 +269,7 @@ class StoreConcurrencyTests: XCTestCase, CacheDependentTesting {
       public var __data: DataDict = DataDict([:], variables: nil)
       init(data: DataDict) { __data = data }
 
-      static var selections: [Selection] { [
+      static var __selections: [Selection] { [
         .field("hero", Hero.self)
       ]}
 
@@ -282,7 +282,7 @@ class StoreConcurrencyTests: XCTestCase, CacheDependentTesting {
         public var __data: DataDict = DataDict([:], variables: nil)
         init(data: DataDict) { __data = data }
 
-        static var selections: [Selection] { [
+        static var __selections: [Selection] { [
           .field("id", String.self),
           .field("name", String.self),
           .field("friends", [Friend].self),
@@ -307,7 +307,7 @@ class StoreConcurrencyTests: XCTestCase, CacheDependentTesting {
           public var __data: DataDict = DataDict([:], variables: nil)
           init(data: DataDict) { __data = data }
 
-          static var selections: [Selection] { [
+          static var __selections: [Selection] { [
             .field("id", String.self),
             .field("name", String.self),
           ]}

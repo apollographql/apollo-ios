@@ -27,7 +27,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
     public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { AnimalKingdomAPI.Objects.Query }
-    public static var selections: [Selection] { [
+    public static var __selections: [Selection] { [
       .field("classroomPets", [ClassroomPet?]?.self),
     ] }
 
@@ -41,7 +41,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
       public init(data: DataDict) { __data = data }
 
       public static var __parentType: ParentType { AnimalKingdomAPI.Unions.ClassroomPet }
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
         .fragment(ClassroomPetDetails.self),
       ] }
 

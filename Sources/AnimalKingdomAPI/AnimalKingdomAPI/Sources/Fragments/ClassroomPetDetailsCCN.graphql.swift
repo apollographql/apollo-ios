@@ -22,7 +22,7 @@ public struct ClassroomPetDetailsCCN: AnimalKingdomAPI.SelectionSet, Fragment {
   public init(data: DataDict) { __data = data }
 
   public static var __parentType: ParentType { AnimalKingdomAPI.Unions.ClassroomPet }
-  public static var selections: [Selection] { [
+  public static var __selections: [Selection] { [
     .inlineFragment(AsAnimal.self),
   ] }
 
@@ -36,7 +36,7 @@ public struct ClassroomPetDetailsCCN: AnimalKingdomAPI.SelectionSet, Fragment {
     public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { AnimalKingdomAPI.Interfaces.Animal }
-    public static var selections: [Selection] { [
+    public static var __selections: [Selection] { [
       .field("height", Height.self),
     ] }
 
@@ -50,7 +50,7 @@ public struct ClassroomPetDetailsCCN: AnimalKingdomAPI.SelectionSet, Fragment {
       public init(data: DataDict) { __data = data }
 
       public static var __parentType: ParentType { AnimalKingdomAPI.Objects.Height }
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
         .field("inches", Int.self),
       ] }
 

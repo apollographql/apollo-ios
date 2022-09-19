@@ -54,7 +54,7 @@ public class AllAnimalsQuery: GraphQLQuery {
     public init(data: DataDict) { self.data = data }
 
     public static var __parentType: ParentType { .Object(AnimalKindgomAPI.Query.self) }
-    public static var selections: [Selection] { [
+    public static var __selections: [Selection] { [
       .field("allAnimals", [AllAnimal].self),
     ] }
 
@@ -66,7 +66,7 @@ public class AllAnimalsQuery: GraphQLQuery {
       public init(data: DataDict) { self.data = data }
 
       public static var __parentType: ParentType { .Interface(AnimalKindgomAPI.Animal.self) }
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
         .field("height", Height.self),
         .field("species", String.self),
         .field("skinCovering", GraphQLEnum<SkinCovering>?.self),
@@ -101,7 +101,7 @@ public class AllAnimalsQuery: GraphQLQuery {
         public init(data: DataDict) { self.data = data }
 
         public static var __parentType: ParentType { .Object(AnimalKindgomAPI.Height.self) }
-        public static var selections: [Selection] { [
+        public static var __selections: [Selection] { [
           .field("feet", Int.self),
           .field("inches", Int.self),
         ] }
@@ -117,7 +117,7 @@ public class AllAnimalsQuery: GraphQLQuery {
         public init(data: DataDict) { self.data = data }
 
         public static var __parentType: ParentType { .Interface(AnimalKindgomAPI.Animal.self) }
-        public static var selections: [Selection] { [
+        public static var __selections: [Selection] { [
           .field("species", String.self),
           .typeCase(AsWarmBlooded.self),
         ] }
@@ -132,7 +132,7 @@ public class AllAnimalsQuery: GraphQLQuery {
           public init(data: DataDict) { self.data = data }
 
           public static var __parentType: ParentType { .Interface(AnimalKindgomAPI.WarmBlooded.self) }
-          public static var selections: [Selection] { [
+          public static var __selections: [Selection] { [
             .field("laysEggs", Bool.self),
             .fragment(WarmBloodedDetails.self),
           ] }
@@ -157,7 +157,7 @@ public class AllAnimalsQuery: GraphQLQuery {
         public init(data: DataDict) { self.data = data }
 
         public static var __parentType: ParentType { .Interface(AnimalKindgomAPI.WarmBlooded.self) }
-        public static var selections: [Selection] { [
+        public static var __selections: [Selection] { [
           .fragment(WarmBloodedDetails.self),
         ] }
 
@@ -195,7 +195,7 @@ public class AllAnimalsQuery: GraphQLQuery {
         public init(data: DataDict) { self.data = data }
 
         public static var __parentType: ParentType { .Interface(AnimalKindgomAPI.Pet.self) }
-        public static var selections: [Selection] { [
+        public static var __selections: [Selection] { [
           .field("height", Height.self),
           .typeCase(AsWarmBlooded.self),
           .fragment(PetDetails.self),
@@ -225,7 +225,7 @@ public class AllAnimalsQuery: GraphQLQuery {
           public init(data: DataDict) { self.data = data }
 
           public static var __parentType: ParentType { .Object(AnimalKindgomAPI.Height.self) }
-          public static var selections: [Selection] { [
+          public static var __selections: [Selection] { [
             .field("relativeSize", GraphQLEnum<RelativeSize>.self),
             .field("centimeters", Int.self),
           ] }
@@ -243,7 +243,7 @@ public class AllAnimalsQuery: GraphQLQuery {
           public init(data: DataDict) { self.data = data }
 
           public static var __parentType: ParentType { .Interface(AnimalKindgomAPI.WarmBlooded.self) }
-          public static var selections: [Selection] { [            
+          public static var __selections: [Selection] { [            
             .fragment(WarmBloodedDetails.self),
           ] }
 
@@ -288,7 +288,7 @@ public class AllAnimalsQuery: GraphQLQuery {
         public init(data: DataDict) { self.data = data }
 
         public static var __parentType: ParentType { .Object(AnimalKindgomAPI.Cat.self) }
-        public static var selections: [Selection] { [
+        public static var __selections: [Selection] { [
           .field("isJellicle", Bool.self),
         ] }
 
@@ -333,7 +333,7 @@ public class AllAnimalsQuery: GraphQLQuery {
         public init(data: DataDict) { self.data = data }
 
         public static var __parentType: ParentType { .Union(AnimalKindgomAPI.ClassroomPet.self) }
-        public static var selections: [Selection] { [
+        public static var __selections: [Selection] { [
           .typeCase(AsBird.self),
         ] }
 
@@ -357,7 +357,7 @@ public class AllAnimalsQuery: GraphQLQuery {
           public init(data: DataDict) { self.data = data }
 
           public static var __parentType: ParentType { .Object(AnimalKindgomAPI.Bird.self) }
-          public static var selections: [Selection] { [
+          public static var __selections: [Selection] { [
             .field("wingspan", Int.self),
           ] }
 

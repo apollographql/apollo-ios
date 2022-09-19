@@ -15,7 +15,7 @@ public struct HeightInMeters: AnimalKingdomAPI.SelectionSet, Fragment {
   public init(data: ResponseDict) { self.data = data }
 
   public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Animal.self) }
-  public static var selections: [Selection] { [
+  public static var __selections: [Selection] { [
     .field("height", Height.self),
   ] }
 
@@ -26,7 +26,7 @@ public struct HeightInMeters: AnimalKingdomAPI.SelectionSet, Fragment {
     public init(data: ResponseDict) { self.data = data }
 
     public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Height.self) }
-    public static var selections: [Selection] { [
+    public static var __selections: [Selection] { [
       .field("meters", type: Int.self),
     ] }
 

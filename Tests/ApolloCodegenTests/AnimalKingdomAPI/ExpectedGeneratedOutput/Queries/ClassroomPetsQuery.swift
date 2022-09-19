@@ -22,7 +22,7 @@ public struct ClassroomPetsQuery: GraphQLQuery {
     public init(data: ResponseDict) { self.data = data }
 
     public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Query.self) }
-    public static var selections: [Selection] { [
+    public static var __selections: [Selection] { [
       .field("classroomPets", [ClassroomPetDetails].self),
     ] }
 

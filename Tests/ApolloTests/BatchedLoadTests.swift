@@ -74,14 +74,14 @@ class BatchedLoadTests: XCTestCase {
   func testListsAreLoadedInASingleBatch() {
     // given
     class GivenSelectionSet: MockSelectionSet {
-      override class var selections: [Selection] {[
+      override class var __selections: [Selection] {[
         .field("hero", Hero.self)
       ]}
 
       var hero: Hero? { __data["hero"] }
 
       class Hero: MockSelectionSet {
-        override class var selections: [Selection] {[
+        override class var __selections: [Selection] {[
           .field("__typename", String.self),
           .field("name", String.self),
           .field("friends", [Friend]?.self),
@@ -90,7 +90,7 @@ class BatchedLoadTests: XCTestCase {
         var friends: [Friend]? { __data["friends"] }
 
         class Friend: MockSelectionSet {
-          override class var selections: [Selection] {[
+          override class var __selections: [Selection] {[
             .field("__typename", String.self),
             .field("name", String.self),
           ]}
@@ -151,14 +151,14 @@ class BatchedLoadTests: XCTestCase {
   func testParallelLoadsUseIndependentBatching() {
     // given // given
     class GivenSelectionSet: MockSelectionSet {
-      override class var selections: [Selection] {[
+      override class var __selections: [Selection] {[
         .field("hero", Hero.self)
       ]}
 
       var hero: Hero? { __data["hero"] }
 
       class Hero: MockSelectionSet {
-        override class var selections: [Selection] {[
+        override class var __selections: [Selection] {[
           .field("__typename", String.self),
           .field("name", String.self),
           .field("friends", [Friend]?.self),
@@ -167,7 +167,7 @@ class BatchedLoadTests: XCTestCase {
         var friends: [Friend]? { __data["friends"] }
 
         class Friend: MockSelectionSet {
-          override class var selections: [Selection] {[
+          override class var __selections: [Selection] {[
             .field("__typename", String.self),
             .field("name", String.self),
           ]}

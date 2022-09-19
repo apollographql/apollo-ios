@@ -1,9 +1,9 @@
 // MARK: - Type Erased SelectionSets
 
 public protocol AnySelectionSet: SelectionSetEntityValue {
-  static var schema: SchemaMetadata.Type { get }
+  static var __schema: SchemaMetadata.Type { get }
 
-  static var selections: [Selection] { get }
+  static var __selections: [Selection] { get }
 
   /// The GraphQL type for the `SelectionSet`.
   ///
@@ -21,7 +21,7 @@ public protocol AnySelectionSet: SelectionSetEntityValue {
 }
 
 public extension AnySelectionSet {
-  static var selections: [Selection] { [] }
+  static var __selections: [Selection] { [] }
 }
 
 /// A selection set that represents the root selections on its `__parentType`. Nested selection
@@ -65,7 +65,7 @@ public protocol SelectionSet: AnySelectionSet, Hashable {
 
 extension SelectionSet {
 
-  @inlinable public static var schema: SchemaMetadata.Type { Schema.self }
+  @inlinable public static var __schema: SchemaMetadata.Type { Schema.self }
 
   @usableFromInline var __objectType: Object? { Schema.objectType(forTypename: __typename) }
 

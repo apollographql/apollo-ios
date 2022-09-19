@@ -47,7 +47,7 @@ public class SearchQuery: GraphQLQuery {
     public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { StarWarsAPI.Objects.Query }
-    public static var selections: [Selection] { [
+    public static var __selections: [Selection] { [
       .field("search", [Search?]?.self, arguments: ["text": .variable("term")]),
     ] }
 
@@ -61,7 +61,7 @@ public class SearchQuery: GraphQLQuery {
       public init(data: DataDict) { __data = data }
 
       public static var __parentType: ParentType { StarWarsAPI.Unions.SearchResult }
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
         .inlineFragment(AsHuman.self),
         .inlineFragment(AsDroid.self),
         .inlineFragment(AsStarship.self),
@@ -79,7 +79,7 @@ public class SearchQuery: GraphQLQuery {
         public init(data: DataDict) { __data = data }
 
         public static var __parentType: ParentType { StarWarsAPI.Objects.Human }
-        public static var selections: [Selection] { [
+        public static var __selections: [Selection] { [
           .field("id", ID.self),
           .field("name", String.self),
         ] }
@@ -98,7 +98,7 @@ public class SearchQuery: GraphQLQuery {
         public init(data: DataDict) { __data = data }
 
         public static var __parentType: ParentType { StarWarsAPI.Objects.Droid }
-        public static var selections: [Selection] { [
+        public static var __selections: [Selection] { [
           .field("id", ID.self),
           .field("name", String.self),
         ] }
@@ -117,7 +117,7 @@ public class SearchQuery: GraphQLQuery {
         public init(data: DataDict) { __data = data }
 
         public static var __parentType: ParentType { StarWarsAPI.Objects.Starship }
-        public static var selections: [Selection] { [
+        public static var __selections: [Selection] { [
           .field("id", ID.self),
           .field("name", String.self),
         ] }

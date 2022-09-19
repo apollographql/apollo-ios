@@ -18,7 +18,7 @@ public struct CharacterNameAndDroidPrimaryFunction: StarWarsAPI.SelectionSet, Fr
   public init(data: DataDict) { __data = data }
 
   public static var __parentType: ParentType { StarWarsAPI.Interfaces.Character }
-  public static var selections: [Selection] { [
+  public static var __selections: [Selection] { [
     .inlineFragment(AsDroid.self),
     .fragment(CharacterName.self),
   ] }
@@ -43,7 +43,7 @@ public struct CharacterNameAndDroidPrimaryFunction: StarWarsAPI.SelectionSet, Fr
     public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { StarWarsAPI.Objects.Droid }
-    public static var selections: [Selection] { [
+    public static var __selections: [Selection] { [
       .fragment(DroidPrimaryFunction.self),
     ] }
 

@@ -11,12 +11,12 @@ class CachePersistenceTests: XCTestCase {
   func testFetchAndPersist() throws {
     // given
     class GivenSelectionSet: MockSelectionSet {
-      override class var selections: [Selection] { [
+      override class var __selections: [Selection] { [
         .field("hero", Hero.self)
       ]}
 
       class Hero: MockSelectionSet {
-        override class var selections: [Selection] {[
+        override class var __selections: [Selection] {[
           .field("__typename", String.self),
           .field("name", String.self)
         ]}
@@ -86,12 +86,12 @@ class CachePersistenceTests: XCTestCase {
   func testFetchAndPersistWithPeriodArguments() throws {
     // given
     class GivenSelectionSet: MockSelectionSet {
-      override class var selections: [Selection] { [
+      override class var __selections: [Selection] { [
         .field("hero", Hero.self, arguments: ["text": .variable("term")])
       ]}
 
       class Hero: MockSelectionSet {
-        override class var selections: [Selection] {[
+        override class var __selections: [Selection] {[
           .field("name", String.self)
         ]}
       }
@@ -172,12 +172,12 @@ class CachePersistenceTests: XCTestCase {
   func testClearCache() throws {
     // given
     class GivenSelectionSet: MockSelectionSet {
-      override class var selections: [Selection] { [
+      override class var __selections: [Selection] { [
         .field("hero", Hero.self)
       ]}
 
       class Hero: MockSelectionSet {
-        override class var selections: [Selection] {[
+        override class var __selections: [Selection] {[
           .field("__typename", String.self),
           .field("name", String.self)
         ]}

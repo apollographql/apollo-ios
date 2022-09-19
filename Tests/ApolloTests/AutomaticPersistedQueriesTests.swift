@@ -10,14 +10,14 @@ class AutomaticPersistedQueriesTests: XCTestCase {
 
   // MARK: - Mocks
   class HeroNameSelectionSet: MockSelectionSet {
-    override class var selections: [Selection] {[
+    override class var __selections: [Selection] {[
       .field("hero", Hero.self, arguments: ["episode": .variable("episode")])
     ]}
 
     var hero: Hero? { __data["hero"] }
 
     class Hero: MockSelectionSet {
-      override class var selections: [Selection] {[
+      override class var __selections: [Selection] {[
         .field("__typename", String.self),
         .field("name", String.self),
       ]}

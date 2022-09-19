@@ -45,7 +45,7 @@ public class HeroNameTypeSpecificConditionalInclusionQuery: GraphQLQuery {
     public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { StarWarsAPI.Objects.Query }
-    public static var selections: [Selection] { [
+    public static var __selections: [Selection] { [
       .field("hero", Hero?.self, arguments: ["episode": .variable("episode")]),
     ] }
 
@@ -59,7 +59,7 @@ public class HeroNameTypeSpecificConditionalInclusionQuery: GraphQLQuery {
       public init(data: DataDict) { __data = data }
 
       public static var __parentType: ParentType { StarWarsAPI.Interfaces.Character }
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
         .inlineFragment(AsDroid.self),
         .include(if: "includeName", .field("name", String.self)),
       ] }
@@ -77,7 +77,7 @@ public class HeroNameTypeSpecificConditionalInclusionQuery: GraphQLQuery {
         public init(data: DataDict) { __data = data }
 
         public static var __parentType: ParentType { StarWarsAPI.Objects.Droid }
-        public static var selections: [Selection] { [
+        public static var __selections: [Selection] { [
           .field("name", String.self),
         ] }
 

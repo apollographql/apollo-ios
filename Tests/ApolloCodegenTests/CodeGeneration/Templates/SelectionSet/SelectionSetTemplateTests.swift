@@ -326,7 +326,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
         .field("string", String.self),
         .field("string_optional", String?.self),
         .field("int", Int.self),
@@ -398,7 +398,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expectedWithNamespace = """
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
         .field("custom", TestSchema.Custom.self),
         .field("custom_optional", TestSchema.Custom?.self),
         .field("custom_required_list", [TestSchema.Custom].self),
@@ -408,7 +408,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expectedNoNamespace = """
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
         .field("custom", Custom.self),
         .field("custom_optional", Custom?.self),
         .field("custom_required_list", [Custom].self),
@@ -480,7 +480,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expectedNoNamespace = """
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
         .field("testEnum", GraphQLEnum<TestEnum>.self),
         .field("testEnumOptional", GraphQLEnum<TestEnumOptional>?.self),
         .field("lowercaseEnum", GraphQLEnum<LowercaseEnum>.self),
@@ -488,7 +488,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expectedWithNamespace = """
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
         .field("testEnum", GraphQLEnum<TestSchema.TestEnum>.self),
         .field("testEnumOptional", GraphQLEnum<TestSchema.TestEnumOptional>?.self),
         .field("lowercaseEnum", GraphQLEnum<TestSchema.LowercaseEnum>.self),
@@ -542,7 +542,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
         .field("FieldName", String.self),
       ] }
     """
@@ -580,7 +580,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
         .field("string", alias: "aliased", String.self),
       ] }
     """
@@ -629,7 +629,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
         .field("predator", Predator.self),
         .field("lowercaseType", LowercaseType.self),
       ] }
@@ -774,7 +774,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
         .field("associatedtype", String.self),
         .field("class", String.self),
         .field("deinit", String.self),
@@ -871,7 +871,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
         .field("_oneUnderscore", _OneUnderscore.self),
         .field("__twoUnderscore", __TwoUnderscore.self),
       ] }
@@ -969,7 +969,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
         .field("self", Self_SelectionSet.self),
         .field("parentType", ParentType_SelectionSet.self),
         .field("dataDict", DataDict_SelectionSet.self),
@@ -1023,7 +1023,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
         .field("string", alias: "aliased", String.self, arguments: ["variable": 3]),
       ] }
     """
@@ -1061,7 +1061,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
         .field("string", alias: "aliased", String.self, arguments: ["variable": .null]),
       ] }
     """
@@ -1099,7 +1099,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
         .field("string", alias: "aliased", String.self, arguments: ["variable": .variable("var")]),
       ] }
     """
@@ -1168,7 +1168,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
         .field("string", alias: "aliased", String.self, arguments: ["input": [
           "string": "ABCD",
           "int": 3,
@@ -1232,7 +1232,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
         .inlineFragment(AsPet.self),
         .inlineFragment(AsLowercaseInterface.self),
       ] }
@@ -1283,7 +1283,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
         .fragment(FragmentA.self),
         .fragment(LowercaseFragment.self),
       ] }
@@ -1324,7 +1324,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
         .include(if: "a", .field("fieldName", String.self)),
       ] }
     """
@@ -1362,7 +1362,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
         .include(if: !"b", .field("fieldName", String.self)),
       ] }
     """
@@ -1400,7 +1400,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
         .include(if: !"b" && "a", .field("fieldName", String.self)),
       ] }
     """
@@ -1441,7 +1441,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
         .include(if: (!"b" && "a") || !"c" || ("d" && !"e") || "f", .field("fieldName", String.self)),
       ] }
     """
@@ -1493,7 +1493,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
         .include(if: "a", [
           .field("fieldA", String.self),
           .field("fieldB", String.self),
@@ -1546,7 +1546,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
         .include(if: "a", .inlineFragment(AsPet.self)),
       ] }
     """
@@ -1590,7 +1590,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
         .include(if: "a", .inlineFragment(IfA.self)),
       ] }
     """
@@ -1638,7 +1638,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
         .fragment(FragmentA.self),
       ] }
     """
@@ -4455,7 +4455,7 @@ class SelectionSetTemplateTests: XCTestCase {
         public init(data: DataDict) { __data = data }
 
         public static var __parentType: ParentType { TestSchema.Objects.Badge }
-        public static var selections: [Selection] { [
+        public static var __selections: [Selection] { [
           .field("a", String?.self),
         ] }
 
@@ -4468,7 +4468,7 @@ class SelectionSetTemplateTests: XCTestCase {
         public init(data: DataDict) { __data = data }
 
         public static var __parentType: ParentType { TestSchema.Objects.ProductBadge }
-        public static var selections: [Selection] { [
+        public static var __selections: [Selection] { [
           .field("b", String?.self),
         ] }
 
@@ -4529,7 +4529,7 @@ class SelectionSetTemplateTests: XCTestCase {
         public init(data: DataDict) { __data = data }
 
         public static var __parentType: ParentType { TestSchema.Objects.Badge }
-        public static var selections: [Selection] { [
+        public static var __selections: [Selection] { [
           .field("a", String?.self),
         ] }
 
@@ -4542,7 +4542,7 @@ class SelectionSetTemplateTests: XCTestCase {
         public init(data: DataDict) { __data = data }
 
         public static var __parentType: ParentType { TestSchema.Objects.ProductBadge }
-        public static var selections: [Selection] { [
+        public static var __selections: [Selection] { [
           .field("b", String?.self),
         ] }
 
@@ -5494,7 +5494,7 @@ class SelectionSetTemplateTests: XCTestCase {
 
     let expected = """
       #warning("Argument 'species' of field 'friend' is deprecated. Reason: 'Who cares?'")
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
         .field("friend", Friend?.self, arguments: [
           "name": .variable("name"),
           "species": .variable("species")
@@ -5540,7 +5540,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
         .field("friend", Friend?.self, arguments: [
           "name": .variable("name"),
           "species": .variable("species")
@@ -5591,7 +5591,7 @@ class SelectionSetTemplateTests: XCTestCase {
     let expected = """
       #warning("Argument 'name' of field 'friend' is deprecated. Reason: 'Someone broke it.'"),
       #warning("Argument 'species' of field 'friend' is deprecated. Reason: 'Who cares?'")
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
         .field("friend", Friend?.self, arguments: [
           "name": .variable("name"),
           "species": .variable("species")
@@ -5640,7 +5640,7 @@ class SelectionSetTemplateTests: XCTestCase {
     let expected = """
       #warning("Argument 'name' of field 'friend' is deprecated. Reason: 'Someone broke it.'"),
       #warning("Argument 'species' of field 'species' is deprecated. Reason: 'Redundant'")
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
         .field("friend", Friend?.self, arguments: ["name": .variable("name")]),
         .field("species", String?.self, arguments: ["species": .variable("species")]),
       ] }

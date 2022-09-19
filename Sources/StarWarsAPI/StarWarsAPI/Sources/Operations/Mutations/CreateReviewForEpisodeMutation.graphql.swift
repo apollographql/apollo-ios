@@ -42,7 +42,7 @@ public class CreateReviewForEpisodeMutation: GraphQLMutation {
     public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { StarWarsAPI.Objects.Mutation }
-    public static var selections: [Selection] { [
+    public static var __selections: [Selection] { [
       .field("createReview", CreateReview?.self, arguments: [
         "episode": .variable("episode"),
         "review": .variable("review")
@@ -59,7 +59,7 @@ public class CreateReviewForEpisodeMutation: GraphQLMutation {
       public init(data: DataDict) { __data = data }
 
       public static var __parentType: ParentType { StarWarsAPI.Objects.Review }
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
         .field("stars", Int.self),
         .field("commentary", String?.self),
       ] }

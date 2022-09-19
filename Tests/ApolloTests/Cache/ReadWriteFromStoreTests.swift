@@ -33,12 +33,12 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
   func test_readQuery_givenQueryDataInCache_returnsData() throws {
     class HeroNameSelectionSet: MockSelectionSet {
-      override class var selections: [Selection] { [
+      override class var __selections: [Selection] { [
         .field("hero", Hero.self)
       ]}
 
       class Hero: MockSelectionSet {
-        override class var selections: [Selection] {[
+        override class var __selections: [Selection] {[
           .field("__typename", String.self),
           .field("name", String.self)
         ]}
@@ -70,7 +70,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
   func test_readQuery_givenQueryDataDoesNotExist_throwsMissingValueError() throws {
     // given
     class GivenSelectionSet: MockSelectionSet {
-      override class var selections: [Selection] { [
+      override class var __selections: [Selection] { [
         .field("name", String.self)
       ]}
     }
@@ -103,12 +103,12 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     }
 
     class HeroNameSelectionSet: MockSelectionSet {
-      override class var selections: [Selection] { [
+      override class var __selections: [Selection] { [
         .field("hero", Hero.self, arguments: ["episode": .variable("episode")])
       ]}
 
       class Hero: MockSelectionSet {
-        override class var selections: [Selection] {[
+        override class var __selections: [Selection] {[
           .field("__typename", String.self),
           .field("name", String.self)
         ]}
@@ -150,12 +150,12 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     }
 
     class HeroNameSelectionSet: MockSelectionSet {
-      override class var selections: [Selection] { [
+      override class var __selections: [Selection] { [
         .field("hero", Hero.self, arguments: ["episode": .variable("episode")])
       ]}
 
       class Hero: MockSelectionSet {
-        override class var selections: [Selection] {[
+        override class var __selections: [Selection] {[
           .field("__typename", String.self),
           .field("name", String.self)
         ]}
@@ -189,14 +189,14 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
   func test_readQuery_withCacheReferencesByCustomKey_resolvesReferences() throws {
     // given
     class HeroFriendsSelectionSet: MockSelectionSet {
-      override class var selections: [Selection] { [
+      override class var __selections: [Selection] { [
         .field("hero", Hero.self)
       ]}
 
       var hero: Hero { __data["hero"] }
 
       class Hero: MockSelectionSet {
-        override class var selections: [Selection] {[
+        override class var __selections: [Selection] {[
           .field("__typename", String.self),
           .field("id", String.self),
           .field("name", String.self),
@@ -206,7 +206,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
         var friends: [Friend] { __data["friends"] }
 
         class Friend: MockSelectionSet {
-          override class var selections: [Selection] {[
+          override class var __selections: [Selection] {[
             .field("__typename", String.self),
             .field("id", String.self),
             .field("name", String.self),
@@ -266,7 +266,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     class GivenSelectionSet: MockFragment, SelectionSet {
       typealias Schema = MockSchemaMetadata
 
-      override class var selections: [Selection] { [
+      override class var __selections: [Selection] { [
         .field("__typename", String.self),
         .field("name", String.self),
         .inlineFragment(AsDroid.self),
@@ -278,7 +278,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
         typealias Schema = MockSchemaMetadata
         override class var __parentType: ParentType { Types.Droid }
 
-        override class var selections: [Selection] { [
+        override class var __selections: [Selection] { [
           .field("primaryFunction", String.self),
         ]}
       }
@@ -322,7 +322,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     class GivenSelectionSet: MockFragment, SelectionSet {
       typealias Schema = MockSchemaMetadata
 
-      override class var selections: [Selection] { [
+      override class var __selections: [Selection] { [
         .field("__typename", String.self),
         .field("name", String.self),
         .inlineFragment(AsDroid.self),
@@ -334,7 +334,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
         typealias Schema = MockSchemaMetadata
         override class var __parentType: ParentType { Types.Droid }
 
-        override class var selections: [Selection] { [
+        override class var __selections: [Selection] { [
           .field("primaryFunction", String.self),
         ]}
       }
@@ -374,7 +374,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       public var __data: DataDict = DataDict([:], variables: nil)
       init(data: DataDict) { __data = data }
 
-      static var selections: [Selection] { [
+      static var __selections: [Selection] { [
         .field("hero", Hero.self)
       ]}
 
@@ -387,7 +387,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
         public var __data: DataDict = DataDict([:], variables: nil)
         init(data: DataDict) { __data = data }
 
-        static var selections: [Selection] { [
+        static var __selections: [Selection] { [
           .field("name", String.self)
         ]}
 
@@ -439,7 +439,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       public var __data: DataDict = DataDict([:], variables: nil)
       init(data: DataDict) { __data = data }
 
-      static var selections: [Selection] { [
+      static var __selections: [Selection] { [
         .field("hero", Hero.self)
       ]}
 
@@ -452,7 +452,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
         public var __data: DataDict = DataDict([:], variables: nil)
         init(data: DataDict) { __data = data }
 
-        static var selections: [Selection] { [
+        static var __selections: [Selection] { [
           .field("name", String.self)
         ]}
 
@@ -509,7 +509,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       public var __data: DataDict = DataDict([:], variables: nil)
       init(data: DataDict) { __data = data }
 
-      static var selections: [Selection] { [
+      static var __selections: [Selection] { [
         .field("hero", Hero.self, arguments: ["episode": .variable("episode")])
       ]}
 
@@ -522,7 +522,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
         public var __data: DataDict = DataDict([:], variables: nil)
         init(data: DataDict) { __data = data }
 
-        static var selections: [Selection] { [
+        static var __selections: [Selection] { [
           .field("name", String.self)
         ]}
 
@@ -613,7 +613,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       public var __data: DataDict = DataDict([:], variables: nil)
       init(data: DataDict) { __data = data }
 
-      static var selections: [Selection] { [
+      static var __selections: [Selection] { [
         .field("hero", Hero.self)
       ]}
 
@@ -626,7 +626,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
         public var __data: DataDict = DataDict([:], variables: nil)
         init(data: DataDict) { __data = data }
 
-        static var selections: [Selection] { [
+        static var __selections: [Selection] { [
           .field("__typename", String.self),
           .field("name", String.self),
           .inlineFragment(AsDroid.self),
@@ -647,7 +647,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
           static let __parentType: ParentType = Types.Droid
           init(data: DataDict) { __data = data }
 
-          static var selections: [Selection] { [
+          static var __selections: [Selection] { [
             .field("primaryFunction", String.self),
           ]}
 
@@ -714,7 +714,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       var __data: DataDict = DataDict([:], variables: nil)
       init(data: DataDict) { __data = data }
 
-      static var selections: [Selection] { [
+      static var __selections: [Selection] { [
         .field("__typename", String.self),
         .field("name", String.self),
         .inlineFragment(AsDroid.self),
@@ -735,7 +735,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
         static let __parentType: ParentType = Types.Droid
         init(data: DataDict) { __data = data }
 
-        static var selections: [Selection] { [
+        static var __selections: [Selection] { [
           .field("primaryFunction", String.self),
         ]}
 
@@ -750,7 +750,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       public var __data: DataDict = DataDict([:], variables: nil)
       init(data: DataDict) { __data = data }
 
-      static var selections: [Selection] { [
+      static var __selections: [Selection] { [
         .field("hero", Hero.self)
       ]}
 
@@ -763,7 +763,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
         public var __data: DataDict = DataDict([:], variables: nil)
         init(data: DataDict) { __data = data }
 
-        static var selections: [Selection] { [
+        static var __selections: [Selection] { [
           .field("__typename", String.self),
           .field("name", String.self),
           .fragment(GivenFragment.self),
@@ -845,7 +845,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       var __data: DataDict = DataDict([:], variables: nil)
       init(data: DataDict) { __data = data }
 
-      static var selections: [Selection] { [
+      static var __selections: [Selection] { [
         .field("__typename", String.self),
         .field("name", String.self),
         .inlineFragment(AsDroid.self),
@@ -866,7 +866,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
         static let __parentType: ParentType = Types.Droid
         init(data: DataDict) { __data = data }
 
-        static var selections: [Selection] { [
+        static var __selections: [Selection] { [
           .field("primaryFunction", String.self),
         ]}
 
@@ -881,7 +881,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       public var __data: DataDict = DataDict([:], variables: nil)
       init(data: DataDict) { __data = data }
 
-      static var selections: [Selection] { [
+      static var __selections: [Selection] { [
         .field("hero", Hero.self)
       ]}
 
@@ -894,7 +894,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
         public var __data: DataDict = DataDict([:], variables: nil)
         init(data: DataDict) { __data = data }
 
-        static var selections: [Selection] { [
+        static var __selections: [Selection] { [
           .field("__typename", String.self),
           .field("name", String.self),
           .fragment(GivenFragment.self),
@@ -915,7 +915,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
           static let __parentType: ParentType = Types.Droid
           init(data: DataDict) { __data = data }
 
-          static var selections: [Selection] { [
+          static var __selections: [Selection] { [
             .field("primaryFunction", String.self),
           ]}
 
@@ -982,7 +982,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       public var __data: DataDict = DataDict([:], variables: nil)
       init(data: DataDict) { __data = data }
 
-      static var selections: [Selection] { [
+      static var __selections: [Selection] { [
         .field("hero", Hero.self)
       ]}
 
@@ -995,7 +995,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
         public var __data: DataDict = DataDict([:], variables: nil)
         init(data: DataDict) { __data = data }
 
-        static var selections: [Selection] { [
+        static var __selections: [Selection] { [
           .field("id", String.self),
           .field("name", String.self),
           .field("friends", [Friend].self),
@@ -1015,7 +1015,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
           public var __data: DataDict = DataDict([:], variables: nil)
           init(data: DataDict) { __data = data }
 
-          static var selections: [Selection] { [
+          static var __selections: [Selection] { [
             .field("id", String.self),
             .field("name", String.self),
           ]}
@@ -1099,7 +1099,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       public var __data: DataDict = DataDict([:], variables: nil)
       init(data: DataDict) { __data = data }
 
-      static var selections: [Selection] { [
+      static var __selections: [Selection] { [
         .field("hero", Hero.self)
       ]}
 
@@ -1112,7 +1112,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
         public var __data: DataDict = DataDict([:], variables: nil)
         init(data: DataDict) { __data = data }
 
-        static var selections: [Selection] { [
+        static var __selections: [Selection] { [
           .field("name", String.self)
         ]}
 
@@ -1165,7 +1165,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       public var __data: DataDict = DataDict([:], variables: nil)
       init(data: DataDict) { __data = data }
 
-      static var selections: [Selection] { [
+      static var __selections: [Selection] { [
         .field("hero", Hero.self)
       ]}
 
@@ -1178,7 +1178,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
         public var __data: DataDict = DataDict([:], variables: nil)
         init(data: DataDict) { __data = data }
 
-        static var selections: [Selection] { [
+        static var __selections: [Selection] { [
           .field("name", String.self)
         ]}
 
@@ -1220,7 +1220,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       public var __data: DataDict = DataDict([:], variables: nil)
       init(data: DataDict) { __data = data }
 
-      static var selections: [Selection] { [
+      static var __selections: [Selection] { [
         .field("hero", Hero.self)
       ]}
 
@@ -1233,7 +1233,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
         public var __data: DataDict = DataDict([:], variables: nil)
         init(data: DataDict) { __data = data }
 
-        static var selections: [Selection] { [
+        static var __selections: [Selection] { [
           .field("name", String.self)
         ]}
 
@@ -1285,7 +1285,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       public var __data: DataDict = DataDict([:], variables: nil)
       init(data: DataDict) { __data = data }
 
-      static var selections: [Selection] { [
+      static var __selections: [Selection] { [
         .field("hero", Hero.self)
       ]}
 
@@ -1298,7 +1298,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
         public var __data: DataDict = DataDict([:], variables: nil)
         init(data: DataDict) { __data = data }
 
-        static var selections: [Selection] { [
+        static var __selections: [Selection] { [
           .field("name", String.self)
         ]}
 
@@ -1347,7 +1347,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       public var __data: DataDict = DataDict([:], variables: nil)
       init(data: DataDict) { __data = data }
 
-      static var selections: [Selection] { [
+      static var __selections: [Selection] { [
         .field("id", String.self),
         .field("friends", [Friend].self),
       ]}
@@ -1361,7 +1361,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
         public var __data: DataDict = DataDict([:], variables: nil)
         init(data: DataDict) { __data = data }
 
-        static var selections: [Selection] { [
+        static var __selections: [Selection] { [
           .field("id", String.self),
           .field("name", String.self),
         ]}
@@ -1417,14 +1417,14 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     self.wait(for: [updateCompletedExpectation], timeout: Self.defaultWaitTimeout)
 
     class HeroFriendsSelectionSet: MockSelectionSet {
-      override class var selections: [Selection] { [
+      override class var __selections: [Selection] { [
         .field("hero", Hero.self)
       ]}
 
       var hero: Hero { __data["hero"] }
 
       class Hero: MockSelectionSet {
-        override class var selections: [Selection] {[
+        override class var __selections: [Selection] {[
           .field("__typename", String.self),
           .field("id", String.self),
           .field("name", String.self),
@@ -1434,7 +1434,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
         var friends: [Friend] { __data["friends"] }
 
         class Friend: MockSelectionSet {
-          override class var selections: [Selection] {[
+          override class var __selections: [Selection] {[
             .field("__typename", String.self),
             .field("id", String.self),
             .field("name", String.self),
@@ -1465,7 +1465,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       public var __data: DataDict = DataDict([:], variables: nil)
       init(data: DataDict) { __data = data }
 
-      static var selections: [Selection] { [
+      static var __selections: [Selection] { [
         .field("hero", Hero.self)
       ]}
 
@@ -1478,7 +1478,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
         public var __data: DataDict = DataDict([:], variables: nil)
         init(data: DataDict) { __data = data }
 
-        static var selections: [Selection] { [
+        static var __selections: [Selection] { [
           .field("id", String.self),
           .field("name", String.self),
           .field("friends", [Friend].self),
@@ -1498,7 +1498,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
           public var __data: DataDict = DataDict([:], variables: nil)
           init(data: DataDict) { __data = data }
 
-          static var selections: [Selection] { [
+          static var __selections: [Selection] { [
             .field("id", String.self),
             .field("name", String.self),
           ]}
@@ -1568,12 +1568,12 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
   func test_removeObjectsMatchingPattern_givenPatternNotMatchingKeyCase_deletesCaseInsensitiveMatchingRecords() throws {
     // given
     class HeroNameSelectionSet: MockSelectionSet {
-      override class var selections: [Selection] { [
+      override class var __selections: [Selection] { [
         .field("hero", Hero.self)
       ]}
 
       class Hero: MockSelectionSet {
-        override class var selections: [Selection] {[
+        override class var __selections: [Selection] {[
           .field("__typename", String.self),
           .field("name", String.self)
         ]}
@@ -1645,14 +1645,14 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     }
 
     class HeroFriendsSelectionSet: MockSelectionSet {
-      override class var selections: [Selection] { [
+      override class var __selections: [Selection] { [
         .field("hero", Hero.self, arguments: ["episode": .variable("episode")])
       ]}
 
       var hero: Hero { __data["hero"] }
 
       class Hero: MockSelectionSet {
-        override class var selections: [Selection] {[
+        override class var __selections: [Selection] {[
           .field("__typename", String.self),
           .field("id", String.self),
           .field("name", String.self),
@@ -1662,7 +1662,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
         var friends: [Friend] { __data["friends"] }
 
         class Friend: MockSelectionSet {
-          override class var selections: [Selection] {[
+          override class var __selections: [Selection] {[
             .field("__typename", String.self),
             .field("id", String.self),
             .field("name", String.self),
@@ -1789,12 +1789,12 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
   func test_readTransaction_readQuery_afterTransaction_releasesReadTransaction() throws {
     // given
     class HeroNameSelectionSet: MockSelectionSet {
-      override class var selections: [Selection] { [
+      override class var __selections: [Selection] { [
         .field("hero", Hero.self)
       ]}
 
       class Hero: MockSelectionSet {
-        override class var selections: [Selection] {[
+        override class var __selections: [Selection] {[
           .field("__typename", String.self),
           .field("name", String.self)
         ]}

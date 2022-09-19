@@ -46,7 +46,7 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
     public init(data: ResponseDict) { self.data = data }
 
     public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Animal.self) }
-    public static var selections: [Selection] { [
+    public static var __selections: [Selection] { [
       .field("species", String.self),
     ] }
 
@@ -59,7 +59,7 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
     public init(data: ResponseDict) { self.data = data }
 
     public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Pet.self) }
-    public static var selections: [Selection] { [
+    public static var __selections: [Selection] { [
       .field("humanName", String.self),
     ] }
 
@@ -73,7 +73,7 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
     public init(data: ResponseDict) { self.data = data }
 
     public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Animal.self) }
-    public static var selections: [Selection] { [
+    public static var __selections: [Selection] { [
       .field("laysEggs", Bool.self),
     ] }
 
@@ -87,7 +87,7 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
     public init(data: ResponseDict) { self.data = data }
 
     public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Cat.self) }
-    public static var selections: [Selection] { [
+    public static var __selections: [Selection] { [
       .field("bodyTemperature", Int.self),
       .field("isJellicle", Bool.self),
     ] }
@@ -105,7 +105,7 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
     public init(data: ResponseDict) { self.data = data }
 
     public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Bird.self) }
-    public static var selections: [Selection] { [
+    public static var __selections: [Selection] { [
       .field("wingspan", Int.self),
     ] }
 
@@ -121,7 +121,7 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
     public init(data: ResponseDict) { self.data = data }
 
     public static var __parentType: ParentType { .Object(AnimalKingdomAPI.PetRock.self) }
-    public static var selections: [Selection] { [
+    public static var __selections: [Selection] { [
       .field("favoriteToy", String.self),
     ] }
 
