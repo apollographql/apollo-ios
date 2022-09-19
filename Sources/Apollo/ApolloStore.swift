@@ -259,7 +259,7 @@ public class ApolloStore {
       try updateObject(
         ofType: CacheMutation.Data.self,
         withKey: CacheReference.rootCacheReference(for: CacheMutation.operationType).key,
-        variables: cacheMutation.variables,
+        variables: cacheMutation._variables,
         body
       )
     }
@@ -283,7 +283,7 @@ public class ApolloStore {
     ) throws {
       try write(selectionSet: data,
                 withKey: CacheReference.rootCacheReference(for: CacheMutation.operationType).key,
-                variables: cacheMutation.variables)
+                variables: cacheMutation._variables)
     }
 
     public func write<SelectionSet: MutableRootSelectionSet>(

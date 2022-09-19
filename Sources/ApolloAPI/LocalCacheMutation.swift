@@ -3,22 +3,22 @@ import Foundation
 public protocol LocalCacheMutation: AnyObject, Hashable {
   static var operationType: GraphQLOperationType { get }
 
-  var variables: GraphQLOperation.Variables? { get }
+  var _variables: GraphQLOperation.Variables? { get }
 
   associatedtype Data: MutableRootSelectionSet
 }
 
 public extension LocalCacheMutation {
-  var variables: GraphQLOperation.Variables? {
+  var _variables: GraphQLOperation.Variables? {
     return nil
   }
 
   func hash(into hasher: inout Hasher) {
-    hasher.combine(variables?._jsonEncodableValue?._jsonValue)
+    hasher.combine(_variables?._jsonEncodableValue?._jsonValue)
   }
 
   static func ==(lhs: Self, rhs: Self) -> Bool {
-    lhs.variables?._jsonEncodableValue?._jsonValue == rhs.variables?._jsonEncodableValue?._jsonValue
+    lhs._variables?._jsonEncodableValue?._jsonValue == rhs._variables?._jsonEncodableValue?._jsonValue
   }
 }
 

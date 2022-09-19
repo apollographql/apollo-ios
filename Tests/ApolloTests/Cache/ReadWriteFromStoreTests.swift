@@ -545,7 +545,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     runActivity("update mutation") { _ in
       let updateCompletedExpectation = expectation(description: "Update completed")
       let cacheMutation = MockLocalCacheMutation<GivenSelectionSet>()
-      cacheMutation.variables = ["episode": Episode.JEDI]
+      cacheMutation._variables = ["episode": Episode.JEDI]
 
       store.withinReadWriteTransaction({ transaction in
         try transaction.update(cacheMutation) { data in
