@@ -32,7 +32,7 @@ public class HeroNameConditionalBothSeparateQuery: GraphQLQuery {
     self.includeName = includeName
   }
 
-  public var _variables: Variables? { [
+  public var __variables: Variables? { [
     "skipName": skipName,
     "includeName": includeName
   ] }

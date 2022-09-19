@@ -40,7 +40,7 @@ public class SearchQuery: GraphQLQuery {
     self.term = term
   }
 
-  public var _variables: Variables? { ["term": term] }
+  public var __variables: Variables? { ["term": term] }
 
   public struct Data: StarWarsAPI.SelectionSet {
     public let __data: DataDict

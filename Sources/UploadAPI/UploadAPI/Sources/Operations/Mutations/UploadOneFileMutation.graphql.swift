@@ -28,7 +28,7 @@ public class UploadOneFileMutation: GraphQLMutation {
     self.file = file
   }
 
-  public var _variables: Variables? { ["file": file] }
+  public var __variables: Variables? { ["file": file] }
 
   public struct Data: UploadAPI.SelectionSet {
     public let __data: DataDict

@@ -87,7 +87,7 @@ class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
     // when
     let query = MockQuery<GivenSelectionSet>()
-    query._variables = ["episode": "JEDI"]
+    query.__variables = ["episode": "JEDI"]
     
     loadFromStore(operation: query) { result in
       // then

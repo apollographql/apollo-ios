@@ -116,7 +116,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     }
 
     let query = MockQuery<HeroNameSelectionSet>()
-    query._variables = ["episode": Episode.JEDI]
+    query.__variables = ["episode": Episode.JEDI]
 
     mergeRecordsIntoCache([
       "QUERY_ROOT": ["hero(episode:JEDI)": CacheReference("hero(episode:JEDI)")],
@@ -163,7 +163,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     }
 
     let query = MockQuery<HeroNameSelectionSet>()
-    query._variables = ["episode": Episode.PHANTOM_MENACE]
+    query.__variables = ["episode": Episode.PHANTOM_MENACE]
 
     mergeRecordsIntoCache([
       "QUERY_ROOT": ["hero(episode:JEDI)": CacheReference("hero(episode:JEDI)")],
@@ -545,7 +545,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     runActivity("update mutation") { _ in
       let updateCompletedExpectation = expectation(description: "Update completed")
       let cacheMutation = MockLocalCacheMutation<GivenSelectionSet>()
-      cacheMutation._variables = ["episode": Episode.JEDI]
+      cacheMutation.__variables = ["episode": Episode.JEDI]
 
       store.withinReadWriteTransaction({ transaction in
         try transaction.update(cacheMutation) { data in
@@ -564,7 +564,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       readCompletedExpectation.expectedFulfillmentCount = 2
 
       let query = MockQuery<GivenSelectionSet>()
-      query._variables = ["episode": Episode.JEDI]
+      query.__variables = ["episode": Episode.JEDI]
 
       loadFromStore(operation: query) { result in
         try XCTAssertSuccessResult(result) { graphQLResult in
@@ -578,7 +578,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
         }
       }
 
-      query._variables = ["episode": Episode.PHANTOM_MENACE]
+      query.__variables = ["episode": Episode.PHANTOM_MENACE]
 
       loadFromStore(operation: query) { result in
         try XCTAssertSuccessResult(result) { graphQLResult in
@@ -1729,7 +1729,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
     store.withinReadTransaction({ transaction in
       let query = MockQuery<HeroFriendsSelectionSet>()
-      query._variables = ["episode": "NEWHOPE"]
+      query.__variables = ["episode": "NEWHOPE"]
       _ = try transaction.read(query: query)
 
     }, completion: { newHopeResult in
@@ -1749,7 +1749,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
     store.withinReadTransaction({ transaction in
       let query = MockQuery<HeroFriendsSelectionSet>()
-      query._variables = ["episode": "JEDI"]
+      query.__variables = ["episode": "JEDI"]
       let data = try transaction.read(query: query)
 
       XCTAssertEqual(data.hero.__typename, "Human")
@@ -1765,7 +1765,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
     store.withinReadTransaction({ transaction in
       let query = MockQuery<HeroFriendsSelectionSet>()
-      query._variables = ["episode": "EMPIRE"]
+      query.__variables = ["episode": "EMPIRE"]
       _ = try transaction.read(query: query)
 
     }, completion: { empireResult in

@@ -98,7 +98,7 @@ class CachePersistenceTests: XCTestCase {
     }
 
     let query = MockQuery<GivenSelectionSet>()
-    query._variables = ["term": "Luke.Skywalker"]
+    query.__variables = ["term": "Luke.Skywalker"]
 
     let sqliteFileURL = SQLiteTestCacheProvider.temporarySQLiteFileURL()
 

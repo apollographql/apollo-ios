@@ -28,7 +28,7 @@ public class UploadMultipleFilesToTheSameParameterMutation: GraphQLMutation {
     self.files = files
   }
 
-  public var _variables: Variables? { ["files": files] }
+  public var __variables: Variables? { ["files": files] }
 
   public struct Data: UploadAPI.SelectionSet {
     public let __data: DataDict

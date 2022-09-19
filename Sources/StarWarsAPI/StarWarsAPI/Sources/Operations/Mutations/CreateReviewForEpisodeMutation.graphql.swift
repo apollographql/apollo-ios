@@ -32,7 +32,7 @@ public class CreateReviewForEpisodeMutation: GraphQLMutation {
     self.review = review
   }
 
-  public var _variables: Variables? { [
+  public var __variables: Variables? { [
     "episode": episode,
     "review": review
   ] }

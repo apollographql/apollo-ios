@@ -41,14 +41,14 @@ class AutomaticPersistedQueriesTests: XCTestCase {
 
     var episode: GraphQLNullable<MockEnum> {
       didSet {
-        self._variables = ["episode": episode]
+        self.__variables = ["episode": episode]
       }
     }
 
     init(episode: GraphQLNullable<MockEnum> = .none) {
       self.episode = episode
       super.init()
-      self._variables = ["episode": episode]
+      self.__variables = ["episode": episode]
     }
   }
 

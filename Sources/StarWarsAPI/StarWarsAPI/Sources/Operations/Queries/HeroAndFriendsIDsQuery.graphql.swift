@@ -31,7 +31,7 @@ public class HeroAndFriendsIDsQuery: GraphQLQuery {
     self.episode = episode
   }
 
-  public var _variables: Variables? { ["episode": episode] }
+  public var __variables: Variables? { ["episode": episode] }
 
   public struct Data: StarWarsAPI.SelectionSet {
     public let __data: DataDict

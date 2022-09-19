@@ -6,7 +6,7 @@ open class MockLocalCacheMutation<SelectionSet: MutableRootSelectionSet>: LocalC
 
   public typealias Data = SelectionSet
 
-  open var _variables: GraphQLOperation.Variables?
+  open var __variables: GraphQLOperation.Variables?
 
   public init() {}
 

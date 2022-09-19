@@ -26,7 +26,7 @@ public class PetAdoptionMutation: GraphQLMutation {
     self.input = input
   }
 
-  public var _variables: Variables? { ["input": input] }
+  public var __variables: Variables? { ["input": input] }
 
   public struct Data: AnimalKingdomAPI.SelectionSet {
     public let __data: DataDict

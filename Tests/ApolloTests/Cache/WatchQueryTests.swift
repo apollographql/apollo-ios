@@ -224,7 +224,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
     }
 
     let watchedQuery = MockQuery<GivenMockSelectionSet>()
-    watchedQuery._variables = ["episode": "EMPIRE"]
+    watchedQuery.__variables = ["episode": "EMPIRE"]
     
     let resultObserver = makeResultObserver(for: watchedQuery)
     
@@ -264,7 +264,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
     runActivity("Fetch same query from server with different argument") { _ in
       let serverRequestExpectation =
         server.expect(MockQuery<GivenMockSelectionSet>.self) { request in
-          expect(request.operation._variables?["episode"] as? String).to(equal("JEDI"))
+          expect(request.operation.__variables?["episode"] as? String).to(equal("JEDI"))
 
           return [
             "data": [
@@ -284,7 +284,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       let otherFetchCompletedExpectation = expectation(description: "Other fetch completed")
 
       let newQuery = MockQuery<GivenMockSelectionSet>()
-      newQuery._variables = ["episode": "JEDI"]
+      newQuery.__variables = ["episode": "JEDI"]
 
       client.fetch(query: newQuery, cachePolicy: .fetchIgnoringCacheData) { result in
         defer { otherFetchCompletedExpectation.fulfill() }
@@ -313,7 +313,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
     MockSchemaMetadata.stub_cacheKeyInfoForType_Object = IDCacheKeyProvider.resolver
 
     let watchedQuery = MockQuery<GivenSelectionSet>()
-    watchedQuery._variables = ["episode": "EMPIRE"]
+    watchedQuery.__variables = ["episode": "EMPIRE"]
     
     let resultObserver = makeResultObserver(for: watchedQuery)
     
@@ -324,7 +324,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
     
     runActivity("Initial fetch from server") { _ in
       let serverRequestExpectation = server.expect(MockQuery<GivenSelectionSet>.self) { request in
-        expect(request.operation._variables?["episode"] as? String).to(equal("EMPIRE"))
+        expect(request.operation.__variables?["episode"] as? String).to(equal("EMPIRE"))
         return [
           "data": [
             "hero": [
@@ -354,7 +354,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
     
     runActivity("Fetch same query from server with different argument but returning same object with changed data") { _ in
       let serverRequestExpectation = server.expect(MockQuery<GivenSelectionSet>.self) { request in
-        expect(request.operation._variables?["episode"] as? String).to(equal("JEDI"))
+        expect(request.operation.__variables?["episode"] as? String).to(equal("JEDI"))
         return [
           "data": [
             "hero": [
@@ -379,7 +379,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       let otherFetchCompletedExpectation = expectation(description: "Other fetch completed")
 
       let query = MockQuery<GivenSelectionSet>()
-      query._variables = ["episode": "JEDI"]
+      query.__variables = ["episode": "JEDI"]
 
       client.fetch(query: query, cachePolicy: .fetchIgnoringCacheData) { result in
         defer { otherFetchCompletedExpectation.fulfill() }
