@@ -13,7 +13,7 @@ public final class GraphQLResponse<Data: RootSelectionSet> {
   public init<Operation: GraphQLOperation>(operation: Operation, body: JSONObject) where Operation.Data == Data {
     self.body = body
     rootKey = CacheReference.rootCacheReference(for: Operation.operationType)
-    variables = operation.variables
+    variables = operation._variables
   }
 
   /// Parses a response into a `GraphQLResult` and a `RecordSet`.

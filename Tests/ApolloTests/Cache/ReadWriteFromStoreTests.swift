@@ -116,7 +116,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     }
 
     let query = MockQuery<HeroNameSelectionSet>()
-    query.variables = ["episode": Episode.JEDI]
+    query._variables = ["episode": Episode.JEDI]
 
     mergeRecordsIntoCache([
       "QUERY_ROOT": ["hero(episode:JEDI)": CacheReference("hero(episode:JEDI)")],
@@ -163,7 +163,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     }
 
     let query = MockQuery<HeroNameSelectionSet>()
-    query.variables = ["episode": Episode.PHANTOM_MENACE]
+    query._variables = ["episode": Episode.PHANTOM_MENACE]
 
     mergeRecordsIntoCache([
       "QUERY_ROOT": ["hero(episode:JEDI)": CacheReference("hero(episode:JEDI)")],
@@ -564,7 +564,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       readCompletedExpectation.expectedFulfillmentCount = 2
 
       let query = MockQuery<GivenSelectionSet>()
-      query.variables = ["episode": Episode.JEDI]
+      query._variables = ["episode": Episode.JEDI]
 
       loadFromStore(operation: query) { result in
         try XCTAssertSuccessResult(result) { graphQLResult in
@@ -578,7 +578,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
         }
       }
 
-      query.variables = ["episode": Episode.PHANTOM_MENACE]
+      query._variables = ["episode": Episode.PHANTOM_MENACE]
 
       loadFromStore(operation: query) { result in
         try XCTAssertSuccessResult(result) { graphQLResult in
@@ -1729,7 +1729,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
     store.withinReadTransaction({ transaction in
       let query = MockQuery<HeroFriendsSelectionSet>()
-      query.variables = ["episode": "NEWHOPE"]
+      query._variables = ["episode": "NEWHOPE"]
       _ = try transaction.read(query: query)
 
     }, completion: { newHopeResult in
@@ -1749,7 +1749,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
     store.withinReadTransaction({ transaction in
       let query = MockQuery<HeroFriendsSelectionSet>()
-      query.variables = ["episode": "JEDI"]
+      query._variables = ["episode": "JEDI"]
       let data = try transaction.read(query: query)
 
       XCTAssertEqual(data.hero.__typename, "Human")
@@ -1765,7 +1765,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
     store.withinReadTransaction({ transaction in
       let query = MockQuery<HeroFriendsSelectionSet>()
-      query.variables = ["episode": "EMPIRE"]
+      query._variables = ["episode": "EMPIRE"]
       _ = try transaction.read(query: query)
 
     }, completion: { empireResult in

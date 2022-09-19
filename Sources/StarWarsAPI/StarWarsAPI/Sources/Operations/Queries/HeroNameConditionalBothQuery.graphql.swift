@@ -31,7 +31,7 @@ public class HeroNameConditionalBothQuery: GraphQLQuery {
     self.includeName = includeName
   }
 
-  public var variables: Variables? { [
+  public var _variables: Variables? { [
     "skipName": skipName,
     "includeName": includeName
   ] }

@@ -33,7 +33,7 @@ public class UploadMultipleFilesToDifferentParametersMutation: GraphQLMutation {
     self.multipleFiles = multipleFiles
   }
 
-  public var variables: Variables? { [
+  public var _variables: Variables? { [
     "singleFile": singleFile,
     "multipleFiles": multipleFiles
   ] }

@@ -161,7 +161,7 @@ public class ApolloStore {
       let (data, dependentKeys) = try transaction.readObject(
         ofType: Operation.Data.self,
         withKey: CacheReference.rootCacheReference(for: Operation.operationType).key,
-        variables: operation.variables,
+        variables: operation._variables,
         accumulator: zip(GraphQLSelectionSetMapper<Operation.Data>(),
                          GraphQLDependencyTracker())
       )
@@ -201,7 +201,7 @@ public class ApolloStore {
       return try readObject(
         ofType: Query.Data.self,
         withKey: CacheReference.rootCacheReference(for: Query.operationType).key,
-        variables: query.variables
+        variables: query._variables
       )
     }
 

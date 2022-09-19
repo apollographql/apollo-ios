@@ -68,13 +68,13 @@ public protocol GraphQLOperation: AnyObject, Hashable {
   static var operationType: GraphQLOperationType { get }
   static var document: DocumentType { get }
 
-  var variables: Variables? { get }
+  var _variables: Variables? { get }
 
   associatedtype Data: RootSelectionSet
 }
 
 public extension GraphQLOperation {
-  var variables: Variables? {
+  var _variables: Variables? {
     return nil
   }
 
@@ -97,11 +97,11 @@ public extension GraphQLOperation {
   }
 
   static func ==(lhs: Self, rhs: Self) -> Bool {
-    lhs.variables?._jsonEncodableValue?._jsonValue == rhs.variables?._jsonEncodableValue?._jsonValue
+    lhs._variables?._jsonEncodableValue?._jsonValue == rhs._variables?._jsonEncodableValue?._jsonValue
   }
 
   func hash(into hasher: inout Hasher) {
-    hasher.combine(variables?._jsonEncodableValue?._jsonValue)
+    hasher.combine(_variables?._jsonEncodableValue?._jsonValue)
   }
 }
 

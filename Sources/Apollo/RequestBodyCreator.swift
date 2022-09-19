@@ -31,7 +31,7 @@ extension RequestBodyCreator {
       "operationName": Operation.operationName,
     ]
 
-    if let variables = operation.variables {
+    if let variables = operation._variables {
       body["variables"] = variables._jsonEncodableObject
     }
 

@@ -76,7 +76,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
     self.varA = varA
   }
 
-  public var variables: Variables? { [
+  public var _variables: Variables? { [
     "includeSpecies": includeSpecies,
     "skipHeightInMeters": skipHeightInMeters,
     "getCat": getCat,

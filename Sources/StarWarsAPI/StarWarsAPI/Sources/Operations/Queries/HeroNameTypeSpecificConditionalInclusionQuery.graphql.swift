@@ -35,7 +35,7 @@ public class HeroNameTypeSpecificConditionalInclusionQuery: GraphQLQuery {
     self.includeName = includeName
   }
 
-  public var variables: Variables? { [
+  public var _variables: Variables? { [
     "episode": episode,
     "includeName": includeName
   ] }

@@ -33,7 +33,7 @@ class RequestBodyCreatorTests: XCTestCase {
     }
 
     let operation = GivenMockOperation()
-    operation.variables = ["TestVar": 123]
+    operation._variables = ["TestVar": 123]
 
     let creator = ApolloRequestBodyCreator()
 
@@ -79,7 +79,7 @@ class RequestBodyCreatorTests: XCTestCase {
     }
 
     let operation = GivenMockOperation()
-    operation.variables = ["TestVar": MockScalar("123")]
+    operation._variables = ["TestVar": MockScalar("123")]
 
     let creator = ApolloRequestBodyCreator()
 
