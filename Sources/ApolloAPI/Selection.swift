@@ -63,7 +63,7 @@ public enum Selection {
     _ type: OutputTypeConvertible.Type,
     arguments: [String: InputValue]? = nil
   ) -> Selection {
-    .field(.init(name, alias: alias, type: type.asOutputType, arguments: arguments))
+    .field(.init(name, alias: alias, type: type._asOutputType, arguments: arguments))
   }
 
   @inlinable static public func include(

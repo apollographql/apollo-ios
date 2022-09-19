@@ -967,7 +967,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
   func test__booleanCondition_multipleIncludes_singleField__givenAllVariablesAreTrue_getsValueForConditionalField() throws {
     // given
     class GivenSelectionSet: MockSelectionSet {
-      override class var selections: [Selection] {[
+      override class var __selections: [Selection] {[
         .include(if: "one" || "two", .field("name", String.self))
       ]}
     }
