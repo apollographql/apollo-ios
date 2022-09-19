@@ -26,7 +26,7 @@ public class HeroNameConditionalInclusionQuery: GraphQLQuery {
     self.includeName = includeName
   }
 
-  public var variables: Variables? { ["includeName": includeName] }
+  public var __variables: Variables? { ["includeName": includeName] }
 
   public struct Data: StarWarsAPI.SelectionSet {
     public let __data: DataDict

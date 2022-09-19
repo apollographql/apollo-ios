@@ -27,7 +27,7 @@ public class HumanQuery: GraphQLQuery {
     self.id = id
   }
 
-  public var variables: Variables? { ["id": id] }
+  public var __variables: Variables? { ["id": id] }
 
   public struct Data: StarWarsAPI.SelectionSet {
     public let __data: DataDict

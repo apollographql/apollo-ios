@@ -33,7 +33,7 @@ public class HeroFriendsDetailsConditionalInclusionQuery: GraphQLQuery {
     self.includeFriendsDetails = includeFriendsDetails
   }
 
-  public var variables: Variables? { ["includeFriendsDetails": includeFriendsDetails] }
+  public var __variables: Variables? { ["includeFriendsDetails": includeFriendsDetails] }
 
   public struct Data: StarWarsAPI.SelectionSet {
     public let __data: DataDict

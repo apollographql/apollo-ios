@@ -43,7 +43,7 @@ class GETTransformerTests: XCTestCase {
     }
 
     let operation = GivenMockOperation()
-    operation.variables = ["param": "TestParamValue"]
+    operation.__variables = ["param": "TestParamValue"]
 
     let body = requestBodyCreator.requestBody(for: operation,
                                               sendQueryDocument: true,
@@ -75,7 +75,7 @@ class GETTransformerTests: XCTestCase {
     }
 
     let operation = GivenMockOperation()
-    operation.variables = ["param": MockEnum.LARGE]
+    operation.__variables = ["param": MockEnum.LARGE]
 
     let body = requestBodyCreator.requestBody(for: operation,
                                               sendQueryDocument: true,
@@ -107,7 +107,7 @@ class GETTransformerTests: XCTestCase {
     }
 
     let operation = GivenMockOperation()
-    operation.variables = ["a": "TestParamValue", "b": true]
+    operation.__variables = ["a": "TestParamValue", "b": true]
 
     let body = requestBodyCreator.requestBody(for: operation,
                                               sendQueryDocument: true,
@@ -239,7 +239,7 @@ class GETTransformerTests: XCTestCase {
     }
 
     let operation = GivenMockOperation()
-    operation.variables = ["param": GraphQLNullable<String>.null]
+    operation.__variables = ["param": GraphQLNullable<String>.null]
 
     let body = requestBodyCreator.requestBody(for: operation,
                                               sendQueryDocument: true,

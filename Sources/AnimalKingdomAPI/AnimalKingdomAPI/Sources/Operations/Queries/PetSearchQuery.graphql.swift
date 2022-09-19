@@ -37,7 +37,7 @@ public class PetSearchQuery: GraphQLQuery {
     self.filters = filters
   }
 
-  public var variables: Variables? { ["filters": filters] }
+  public var __variables: Variables? { ["filters": filters] }
 
   public struct Data: AnimalKingdomAPI.SelectionSet {
     public let __data: DataDict

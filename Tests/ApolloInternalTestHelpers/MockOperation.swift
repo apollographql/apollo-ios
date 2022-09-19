@@ -11,7 +11,7 @@ open class MockOperation<SelectionSet: RootSelectionSet>: GraphQLOperation {
     .notPersisted(definition: .init("Mock Operation Definition"))
   }
 
-  open var variables: Variables?
+  open var __variables: Variables?
 
   public init() {}
 

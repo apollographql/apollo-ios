@@ -293,7 +293,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
          self.variable = variable
        }
 
-       public var variables: Variables? { ["variable": variable] }
+       public var __variables: Variables? { ["variable": variable] }
      """
 
      // when
@@ -342,7 +342,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
         self.variable3 = variable3
       }
 
-      public var variables: Variables? { [
+      public var __variables: Variables? { [
         "variable1": variable1,
         "variable2": variable2,
         "variable3": variable3
@@ -386,7 +386,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
         self.variable = variable
       }
 
-      public var variables: Variables? { ["variable": variable] }
+      public var __variables: Variables? { ["variable": variable] }
     """
 
     // when
@@ -426,7 +426,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
         self.variable = variable
       }
 
-      public var variables: Variables? { ["Variable": variable] }
+      public var __variables: Variables? { ["Variable": variable] }
     """
 
     // when
@@ -665,7 +665,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
         self.`while` = `while`
       }
 
-      public var variables: Variables? { [
+      public var __variables: Variables? { [
         "as": `as`,
         "associatedtype": `associatedtype`,
         "break": `break`,
