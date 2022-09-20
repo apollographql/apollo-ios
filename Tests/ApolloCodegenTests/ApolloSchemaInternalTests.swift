@@ -40,7 +40,8 @@ class ApolloSchemaInternalTests: XCTestCase {
 
     let request = try ApolloSchemaDownloader.introspectionRequest(from: url,
                                                                   httpMethod: .GET(queryParameterName: queryParameterName),
-                                                                  headers: headers)
+                                                                  headers: headers,
+                                                                  includeDeprecatedInputValues: false)
 
     XCTAssertEqual(request.httpMethod, "GET")
     XCTAssertNil(request.httpBody)
@@ -51,7 +52,35 @@ class ApolloSchemaInternalTests: XCTestCase {
     }
 
     var components = URLComponents(url: url, resolvingAgainstBaseURL: true)
-    components?.queryItems = [URLQueryItem(name: queryParameterName, value: ApolloSchemaDownloader.IntrospectionQuery)]
+    components?.queryItems = [URLQueryItem(name: queryParameterName, value: ApolloSchemaDownloader.introspectionQuery(includeDeprecatedInputValues: false))]
+
+    XCTAssertNotNil(components?.url)
+    XCTAssertEqual(request.url, components?.url)
+  }
+  
+  func testRequest_givenIntrospectionGETDownload_andIncludeDeprecatedInputValues_shouldOutputGETRequest() throws {
+    let url = ApolloInternalTestHelpers.TestURL.mockServer.url
+    let queryParameterName = "customParam"
+    let headers: [ApolloSchemaDownloadConfiguration.HTTPHeader] = [
+      .init(key: "key1", value: "value1"),
+      .init(key: "key2", value: "value2")
+    ]
+
+    let request = try ApolloSchemaDownloader.introspectionRequest(from: url,
+                                                                  httpMethod: .GET(queryParameterName: queryParameterName),
+                                                                  headers: headers,
+                                                                  includeDeprecatedInputValues: true)
+
+    XCTAssertEqual(request.httpMethod, "GET")
+    XCTAssertNil(request.httpBody)
+
+    XCTAssertEqual(request.allHTTPHeaderFields?["Content-Type"], "application/json")
+    for header in headers {
+      XCTAssertEqual(request.allHTTPHeaderFields?[header.key], header.value)
+    }
+
+    var components = URLComponents(url: url, resolvingAgainstBaseURL: true)
+    components?.queryItems = [URLQueryItem(name: queryParameterName, value: ApolloSchemaDownloader.introspectionQuery(includeDeprecatedInputValues: true))]
 
     XCTAssertNotNil(components?.url)
     XCTAssertEqual(request.url, components?.url)
@@ -64,7 +93,7 @@ class ApolloSchemaInternalTests: XCTestCase {
       .init(key: "key2", value: "value2")
     ]
 
-    let request = try ApolloSchemaDownloader.introspectionRequest(from: url, httpMethod: .POST, headers: headers)
+    let request = try ApolloSchemaDownloader.introspectionRequest(from: url, httpMethod: .POST, headers: headers, includeDeprecatedInputValues: false)
 
     XCTAssertEqual(request.httpMethod, "POST")
     XCTAssertEqual(request.url, url)
@@ -74,7 +103,7 @@ class ApolloSchemaInternalTests: XCTestCase {
       XCTAssertEqual(request.allHTTPHeaderFields?[header.key], header.value)
     }
 
-    let requestBody = UntypedGraphQLRequestBodyCreator.requestBody(for: ApolloSchemaDownloader.IntrospectionQuery,
+    let requestBody = UntypedGraphQLRequestBodyCreator.requestBody(for: ApolloSchemaDownloader.introspectionQuery(includeDeprecatedInputValues: false),
                                                                    variables: nil,
                                                                    operationName: "IntrospectionQuery")
     let bodyData = try JSONSerialization.data(withJSONObject: requestBody, options: [.sortedKeys])

@@ -12,7 +12,8 @@ public struct ApolloSchemaDownloadConfiguration: Equatable, Codable {
     case introspection(
       endpointURL: URL,
       httpMethod: HTTPMethod = .POST,
-      outputFormat: OutputFormat = .SDL
+      outputFormat: OutputFormat = .SDL,
+      includeDeprecatedInputValues: Bool = false
     )
 
     public struct ApolloRegistrySettings: Equatable, Codable {
@@ -71,11 +72,12 @@ public struct ApolloSchemaDownloadConfiguration: Equatable, Codable {
     
     public static func == (lhs: DownloadMethod, rhs: DownloadMethod) -> Bool {
       switch (lhs, rhs) {
-      case let (.introspection(lhsURL, lhsHTTPMethod, lhsOutputFormat),
-                .introspection(rhsURL, rhsHTTPMethod, rhsOutputFormat)):
+      case let (.introspection(lhsURL, lhsHTTPMethod, lhsOutputFormat, lhsIncludeDeprecatedInputValues),
+                .introspection(rhsURL, rhsHTTPMethod, rhsOutputFormat, rhsIncludeDeprecatedInputValues)):
         return lhsURL == rhsURL &&
         lhsHTTPMethod == rhsHTTPMethod &&
-        lhsOutputFormat == rhsOutputFormat
+        lhsOutputFormat == rhsOutputFormat &&
+        lhsIncludeDeprecatedInputValues == rhsIncludeDeprecatedInputValues
 
       case let (.apolloRegistry(lhsSettings), .apolloRegistry(rhsSettings)):
         return lhsSettings == rhsSettings
@@ -134,7 +136,7 @@ public struct ApolloSchemaDownloadConfiguration: Equatable, Codable {
   public var outputFormat: DownloadMethod.OutputFormat {
     switch self.downloadMethod {
     case .apolloRegistry: return .SDL
-    case let .introspection(_, _, outputFormat): return outputFormat
+    case let .introspection(_, _, outputFormat, _): return outputFormat
     }
   }
 }
