@@ -126,7 +126,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
 
     // when
     let encodedJSON = try testJSONEncoder.encode(subject)
-    let actual = String(data: encodedJSON, encoding: .utf8)!
+    let actual = encodedJSON.asString
 
     // then
     expect(actual).to(equal(MockApolloCodegenConfiguration.encodedJSON))
@@ -429,14 +429,4 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
       try JSONDecoder().decode(ApolloCodegenConfiguration.APQConfig.self, from: subject)
     ).to(throwError())
   }
-}
-
-// MARK: - Test Helpers
-
-fileprivate extension String {
-  var asData: Data { self.data(using: .utf8)! }
-}
-
-fileprivate extension Data {
-  var asString: String { String(data: self, encoding: .utf8)! }
 }

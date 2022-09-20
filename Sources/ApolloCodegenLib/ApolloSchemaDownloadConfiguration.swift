@@ -2,6 +2,8 @@ import Foundation
 
 /// A configuration object that defines behavior for schema download.
 public struct ApolloSchemaDownloadConfiguration: Equatable, Codable {
+
+  // MARK: Types
   
   /// How to attempt to download your schema
   public enum DownloadMethod: Equatable, Codable {
@@ -23,6 +25,10 @@ public struct ApolloSchemaDownloadConfiguration: Equatable, Codable {
       public let graphID: String
       /// The variant of the graph in the registry.
       public let variant: String?
+
+      public struct Default {
+        public static let variant: String = "current"
+      }
       
       /// Designated initializer
       ///
@@ -31,10 +37,32 @@ public struct ApolloSchemaDownloadConfiguration: Equatable, Codable {
       ///   - graphID: The identifier of the graph to fetch. Can be found in Apollo Studio.
       ///   - variant: The variant of the graph to fetch. Defaults to "current", which will return
       ///   whatever is set to the current variant.
-      public init(apiKey: String, graphID: String, variant: String = "current") {
+      public init(
+        apiKey: String,
+        graphID: String,
+        variant: String = Default.variant
+      ) {
         self.apiKey = apiKey
         self.graphID = graphID
         self.variant = variant
+      }
+
+      enum CodingKeys: CodingKey {
+        case apiKey
+        case graphID
+        case variant
+      }
+
+      public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        self.apiKey = try container.decode(String.self, forKey: .apiKey)
+        self.graphID = try container.decode(String.self, forKey: .graphID)
+
+        self.variant = try container.decodeIfPresent(
+          String.self,
+          forKey: .variant
+        ) ?? Default.variant
       }
     }
 
@@ -102,6 +130,8 @@ public struct ApolloSchemaDownloadConfiguration: Equatable, Codable {
     }
   }
 
+  // MARK: - Properties
+
   /// How to download your schema. Supports the Apollo Registry and GraphQL Introspection methods.
   public let downloadMethod: DownloadMethod
   /// The maximum time (in seconds) to wait before indicating that the download timed out.
@@ -112,6 +142,13 @@ public struct ApolloSchemaDownloadConfiguration: Equatable, Codable {
   /// The local path where the downloaded schema should be written to.
   public let outputPath: String
 
+  public struct Default {
+    public static let downloadTimeout: Double = 30.0
+    public static let headers: [HTTPHeader] = []
+  }
+
+  // MARK: Initializers
+  
   /// Designated Initializer
   ///
   /// - Parameters:
@@ -123,14 +160,40 @@ public struct ApolloSchemaDownloadConfiguration: Equatable, Codable {
   ///   - outputPath: The local path where the downloaded schema should be written to.
   public init(
     using downloadMethod: DownloadMethod,
-    timeout downloadTimeout: Double = 30.0,
-    headers: [HTTPHeader] = [],
+    timeout downloadTimeout: Double = Default.downloadTimeout,
+    headers: [HTTPHeader] = Default.headers,
     outputPath: String
   ) {
     self.downloadMethod = downloadMethod
     self.downloadTimeout = downloadTimeout
     self.headers = headers
     self.outputPath = outputPath
+  }
+
+  // MARK: Codable
+
+  enum CodingKeys: CodingKey {
+    case downloadMethod
+    case downloadTimeout
+    case headers
+    case outputPath
+  }
+
+  public init(from decoder: Decoder) throws {
+    let container = try decoder.container(keyedBy: CodingKeys.self)
+
+    self.downloadMethod = try container.decode(DownloadMethod.self, forKey: .downloadMethod)
+    self.outputPath = try container.decode(String.self, forKey: .outputPath)
+
+    self.downloadTimeout = try container.decodeIfPresent(
+      Double.self,
+      forKey: .downloadTimeout
+    ) ?? Default.downloadTimeout
+
+    self.headers = try container.decodeIfPresent(
+      [HTTPHeader].self,
+      forKey: .headers
+    ) ?? Default.headers
   }
 
   public var outputFormat: DownloadMethod.OutputFormat {
@@ -140,6 +203,8 @@ public struct ApolloSchemaDownloadConfiguration: Equatable, Codable {
     }
   }
 }
+
+// MARK: - Helpers
 
 extension ApolloSchemaDownloadConfiguration: CustomDebugStringConvertible {
   public var debugDescription: String {
