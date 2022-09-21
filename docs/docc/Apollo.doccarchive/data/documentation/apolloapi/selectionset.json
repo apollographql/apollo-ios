@@ -1,10 +1,4 @@
 {
-  "abstract" : [
-    {
-      "text" : "No overview available.",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -121,7 +115,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -131,7 +125,7 @@
     {
       "identifiers" : [
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet\/Fragments-swift.associatedtype",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet\/Schema-swift.associatedtype"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet\/Schema"
       ],
       "title" : "Associated Types"
     },
@@ -446,7 +440,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/selectionset\/hashable-implementations"
 },
-"doc://ApolloAPI/documentation/ApolloAPI/SelectionSet/Schema-swift.associatedtype": {
+"doc://ApolloAPI/documentation/ApolloAPI/SelectionSet/Schema": {
   "abstract" : [
 
   ],
@@ -473,13 +467,13 @@
       "text" : "SchemaMetadata"
     }
   ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet\/Schema-swift.associatedtype",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet\/Schema",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
   "title" : "Schema",
   "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/selectionset\/schema-swift.associatedtype"
+  "url" : "\/documentation\/apolloapi\/selectionset\/schema"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/SelectionSet/fragments-swift.property": {
   "abstract" : [

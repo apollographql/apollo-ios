@@ -155,7 +155,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -172,15 +172,6 @@
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONDecodingError"
       ],
       "title" : "JSON Conversion"
-    }
-  ],
-  "topicSections" : [
-    {
-      "identifiers" : [
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONEncodable\/jsonEncodableValue",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONEncodable\/jsonValue"
-      ],
-      "title" : "Instance Properties"
     }
   ],
   "variants" : [
@@ -603,140 +594,6 @@
   "title" : "JSONEncodable",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/jsonencodable"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/JSONEncodable/jsonEncodableValue": {
-  "abstract" : [
-
-  ],
-  "conformance" : {
-    "availabilityPrefix" : [
-      {
-        "text" : "Available when",
-        "type" : "text"
-      }
-    ],
-    "conformancePrefix" : [
-      {
-        "text" : "Conforms when",
-        "type" : "text"
-      }
-    ],
-    "constraints" : [
-      {
-        "code" : "Self",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " conforms to ",
-        "type" : "text"
-      },
-      {
-        "code" : "GraphQLOperationVariableValue",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : ".",
-        "type" : "text"
-      }
-    ]
-  },
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "jsonEncodableValue"
-    },
-    {
-      "kind" : "text",
-      "text" : ": ("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI13JSONEncodableP",
-      "text" : "JSONEncodable"
-    },
-    {
-      "kind" : "text",
-      "text" : ")?"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONEncodable\/jsonEncodableValue",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "jsonEncodableValue",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/jsonencodable\/jsonencodablevalue"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/JSONEncodable/jsonValue": {
-  "abstract" : [
-    {
-      "text" : "Converts the type into a ",
-      "type" : "text"
-    },
-    {
-      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONValue",
-      "isActive" : true,
-      "type" : "reference"
-    },
-    {
-      "text" : " that can be sent in a GraphQL network request or",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "stored in the ",
-      "type" : "text"
-    },
-    {
-      "code" : "NormalizedCache",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ".",
-      "type" : "text"
-    }
-  ],
-  "defaultImplementations" : 2,
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "jsonValue"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI9JSONValuea",
-      "text" : "JSONValue"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONEncodable\/jsonValue",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "jsonValue",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/jsonencodable\/jsonvalue"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/JSONEncodableDictionary": {
   "abstract" : [

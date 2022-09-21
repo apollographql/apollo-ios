@@ -93,7 +93,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -102,6 +102,7 @@
   "topicSections" : [
     {
       "identifiers" : [
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloadConfiguration\/Default",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloadConfiguration\/HTTPHeader"
       ],
       "title" : "Structures"
@@ -225,6 +226,37 @@
   "title" : "CustomDebugStringConvertible Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apolloschemadownloadconfiguration\/customdebugstringconvertible-implementations"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloSchemaDownloadConfiguration/Default": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Default"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloadConfiguration\/Default",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Default"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ApolloSchemaDownloadConfiguration.Default",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/apolloschemadownloadconfiguration\/default"
 },
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloSchemaDownloadConfiguration/DownloadMethod-swift.enum": {
   "abstract" : [

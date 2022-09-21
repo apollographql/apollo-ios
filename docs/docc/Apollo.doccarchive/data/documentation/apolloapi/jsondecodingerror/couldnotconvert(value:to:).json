@@ -169,9 +169,8 @@
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONDecodable\/init(jsonValue:)",
-              "isActive" : true,
-              "type" : "reference"
+              "code" : "JSONDecodable\/init(jsonValue:)",
+              "type" : "codeVoice"
             },
             {
               "text" : " fails for the expected type.",
@@ -186,7 +185,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -257,61 +256,6 @@
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/JSONDecodable/init(jsonValue:)": {
-  "abstract" : [
-    {
-      "text" : "Intializes the conforming type from a ",
-      "type" : "text"
-    },
-    {
-      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONValue",
-      "isActive" : true,
-      "type" : "reference"
-    },
-    {
-      "text" : ".",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "identifier",
-      "text" : "init"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "jsonValue"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI9JSONValuea",
-      "text" : "JSONValue"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONDecodable\/init(jsonValue:)",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "init(jsonValue:)",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/jsondecodable\/init(jsonvalue:)"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/JSONDecodingError": {
   "abstract" : [
@@ -427,45 +371,6 @@
   "title" : "JSONDecodingError.couldNotConvert(value:to:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/jsondecodingerror\/couldnotconvert(value:to:)"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/JSONValue": {
-  "abstract" : [
-    {
-      "text" : "Represents a value in a ",
-      "type" : "text"
-    },
-    {
-      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONObject",
-      "isActive" : true,
-      "type" : "reference"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "JSONValue"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONValue",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "JSONValue"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "JSONValue",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/jsonvalue"
 }
 }
 }

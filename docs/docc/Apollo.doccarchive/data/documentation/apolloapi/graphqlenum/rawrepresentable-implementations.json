@@ -1,10 +1,4 @@
 {
-  "abstract" : [
-    {
-      "text" : "No overview available.",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -29,7 +23,7 @@
   },
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -39,15 +33,7 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum\/init(jsonValue:)-9bu8h"
-      ],
-      "title" : "Initializers"
-    },
-    {
-      "generated" : true,
-      "identifiers" : [
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum\/hashValue",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum\/jsonValue-1u4ik"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum\/hashValue"
       ],
       "title" : "Instance Properties"
     },
@@ -385,146 +371,6 @@
   "title" : "hashValue",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqlenum\/hashvalue"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/GraphQLEnum/init(jsonValue:)-9bu8h": {
-  "abstract" : [
-
-  ],
-  "conformance" : {
-    "availabilityPrefix" : [
-      {
-        "text" : "Available when",
-        "type" : "text"
-      }
-    ],
-    "conformancePrefix" : [
-      {
-        "text" : "Conforms when",
-        "type" : "text"
-      }
-    ],
-    "constraints" : [
-      {
-        "code" : "RawValue",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " conforms to ",
-        "type" : "text"
-      },
-      {
-        "code" : "JSONDecodable",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : ".",
-        "type" : "text"
-      }
-    ]
-  },
-  "fragments" : [
-    {
-      "kind" : "identifier",
-      "text" : "init"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "jsonValue"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI9JSONValuea",
-      "text" : "JSONValue"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum\/init(jsonValue:)-9bu8h",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "init(jsonValue:)",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/graphqlenum\/init(jsonvalue:)-9bu8h"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/GraphQLEnum/jsonValue-1u4ik": {
-  "abstract" : [
-
-  ],
-  "conformance" : {
-    "availabilityPrefix" : [
-      {
-        "text" : "Available when",
-        "type" : "text"
-      }
-    ],
-    "conformancePrefix" : [
-      {
-        "text" : "Conforms when",
-        "type" : "text"
-      }
-    ],
-    "constraints" : [
-      {
-        "code" : "RawValue",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " conforms to ",
-        "type" : "text"
-      },
-      {
-        "code" : "JSONEncodable",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : ".",
-        "type" : "text"
-      }
-    ]
-  },
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "jsonValue"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI9JSONValuea",
-      "text" : "JSONValue"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum\/jsonValue-1u4ik",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "jsonValue",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/graphqlenum\/jsonvalue-1u4ik"
 }
 }
 }

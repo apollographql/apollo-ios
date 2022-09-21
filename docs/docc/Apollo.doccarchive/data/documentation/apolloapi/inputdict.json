@@ -108,7 +108,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -126,12 +126,6 @@
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputDict\/init(_:)"
       ],
       "title" : "Initializers"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputDict\/jsonEncodableValue"
-      ],
-      "title" : "Instance Properties"
     },
     {
       "identifiers" : [
@@ -469,44 +463,6 @@
   "title" : "init(_:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/inputdict\/init(_:)"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/InputDict/jsonEncodableValue": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "jsonEncodableValue"
-    },
-    {
-      "kind" : "text",
-      "text" : ": ("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI13JSONEncodableP",
-      "text" : "JSONEncodable"
-    },
-    {
-      "kind" : "text",
-      "text" : ")?"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputDict\/jsonEncodableValue",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "jsonEncodableValue",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/inputdict\/jsonencodablevalue"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/InputDict/subscript(dynamicMember:)": {
   "abstract" : [

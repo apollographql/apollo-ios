@@ -213,19 +213,11 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
 
-  ],
-  "topicSections" : [
-    {
-      "identifiers" : [
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnyHashableConvertible\/asAnyHashable-1zb0y"
-      ],
-      "title" : "Instance Properties"
-    }
   ],
   "variants" : [
     {
@@ -346,53 +338,6 @@
   "title" : "AnyHashableConvertible",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/anyhashableconvertible"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/AnyHashableConvertible/asAnyHashable-1zb0y": {
-  "abstract" : [
-    {
-      "text" : "Converts the type to an ",
-      "type" : "text"
-    },
-    {
-      "code" : "AnyHashable",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ".",
-      "type" : "text"
-    }
-  ],
-  "defaultImplementations" : 1,
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "asAnyHashable"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:s11AnyHashableV",
-      "text" : "AnyHashable"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnyHashableConvertible\/asAnyHashable-1zb0y",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "asAnyHashable",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/anyhashableconvertible\/asanyhashable-1zb0y"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/AnyScalarType": {
   "abstract" : [

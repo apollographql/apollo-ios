@@ -1,10 +1,4 @@
 {
-  "abstract" : [
-    {
-      "text" : "No overview available.",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -94,13 +88,19 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
 
   ],
   "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloadConfiguration\/DownloadMethod-swift.enum\/ApolloRegistrySettings\/Default"
+      ],
+      "title" : "Structures"
+    },
     {
       "identifiers" : [
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloadConfiguration\/DownloadMethod-swift.enum\/ApolloRegistrySettings\/init(apiKey:graphID:variant:)",
@@ -265,6 +265,37 @@
   "title" : "ApolloSchemaDownloadConfiguration.DownloadMethod.ApolloRegistrySettings",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apolloschemadownloadconfiguration\/downloadmethod-swift.enum\/apolloregistrysettings"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloSchemaDownloadConfiguration/DownloadMethod-swift.enum/ApolloRegistrySettings/Default": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Default"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloadConfiguration\/DownloadMethod-swift.enum\/ApolloRegistrySettings\/Default",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Default"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ApolloSchemaDownloadConfiguration.DownloadMethod.ApolloRegistrySettings.Default",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/apolloschemadownloadconfiguration\/downloadmethod-swift.enum\/apolloregistrysettings\/default"
 },
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloSchemaDownloadConfiguration/DownloadMethod-swift.enum/ApolloRegistrySettings/Equatable-Implementations": {
   "abstract" : [

@@ -1,10 +1,4 @@
 {
-  "abstract" : [
-    {
-      "text" : "No overview available.",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -100,7 +94,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -112,12 +106,6 @@
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/LocalCacheMutation\/Data"
       ],
       "title" : "Associated Types"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/LocalCacheMutation\/variables-6ejtk"
-      ],
-      "title" : "Instance Properties"
     },
     {
       "identifiers" : [
@@ -340,55 +328,6 @@
   "title" : "operationType",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/localcachemutation\/operationtype"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/LocalCacheMutation/variables-6ejtk": {
-  "abstract" : [
-
-  ],
-  "defaultImplementations" : 1,
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "variables"
-    },
-    {
-      "kind" : "text",
-      "text" : ": ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : " : "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI29GraphQLOperationVariableValueP",
-      "text" : "GraphQLOperationVariableValue"
-    },
-    {
-      "kind" : "text",
-      "text" : "]?"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/LocalCacheMutation\/variables-6ejtk",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "variables",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/localcachemutation\/variables-6ejtk"
 }
 }
 }

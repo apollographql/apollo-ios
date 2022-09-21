@@ -1,10 +1,4 @@
 {
-  "abstract" : [
-    {
-      "text" : "No overview available.",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -29,7 +23,7 @@
   },
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -39,9 +33,9 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum\/asOutputType"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum\/jsonValue"
       ],
-      "title" : "Type Properties"
+      "title" : "Instance Properties"
     }
   ],
   "variants" : [
@@ -187,19 +181,11 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqlenum"
 },
-"doc://ApolloAPI/documentation/ApolloAPI/GraphQLEnum/asOutputType": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLEnum/jsonValue": {
   "abstract" : [
 
   ],
   "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
     {
       "kind" : "keyword",
       "text" : "var"
@@ -210,7 +196,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "asOutputType"
+      "text" : "jsonValue"
     },
     {
       "kind" : "text",
@@ -218,34 +204,16 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI9SelectionO",
-      "text" : "Selection"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI9SelectionO5FieldV",
-      "text" : "Field"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI9SelectionO5FieldV10OutputTypeO",
-      "text" : "OutputType"
+      "preciseIdentifier" : "s:9ApolloAPI9JSONValuea",
+      "text" : "JSONValue"
     }
   ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum\/asOutputType",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum\/jsonValue",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "asOutputType",
+  "title" : "jsonValue",
   "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/graphqlenum\/asoutputtype"
+  "url" : "\/documentation\/apolloapi\/graphqlenum\/jsonvalue"
 }
 }
 }

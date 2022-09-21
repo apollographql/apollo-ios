@@ -208,7 +208,7 @@
           "type" : "heading"
         },
         {
-          "anchor" : "Literals,-Enums,-and-InputObjects",
+          "anchor" : "Literals-Enums-and-InputObjects",
           "level" : 3,
           "text" : "Literals, Enums, and InputObjects",
           "type" : "heading"
@@ -462,7 +462,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -514,8 +514,7 @@
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/ExpressibleByIntegerLiteral-Implementations",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/ExpressibleByNilLiteral-Implementations",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/ExpressibleByStringLiteral-Implementations",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/ExpressibleByUnicodeScalarLiteral-Implementations",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/GraphQLOperationVariableValue-Implementations"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/ExpressibleByUnicodeScalarLiteral-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -832,17 +831,6 @@
   "title" : "ExpressibleByUnicodeScalarLiteral Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqlnullable\/expressiblebyunicodescalarliteral-implementations"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/GraphQLNullable/GraphQLOperationVariableValue-Implementations": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/GraphQLOperationVariableValue-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "GraphQLOperationVariableValue Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/graphqlnullable\/graphqloperationvariablevalue-implementations"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/GraphQLNullable/init(_:)-3syxd": {
   "abstract" : [

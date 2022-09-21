@@ -136,10 +136,6 @@
     {
       "identifiers" : [
         "doc:\/\/ApolloAPI\/SQ",
-        "doc:\/\/ApolloAPI\/s25ExpressibleByArrayLiteralP",
-        "doc:\/\/ApolloAPI\/s43ExpressibleByExtendedGraphemeClusterLiteralP",
-        "doc:\/\/ApolloAPI\/s26ExpressibleByStringLiteralP",
-        "doc:\/\/ApolloAPI\/s33ExpressibleByUnicodeScalarLiteralP",
         "doc:\/\/ApolloAPI\/SH"
       ],
       "kind" : "relationships",
@@ -149,7 +145,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -167,9 +163,7 @@
       "identifiers" : [
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Conditions\/init(_:)-1zuhd",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Conditions\/init(_:)-3r2o7",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Conditions\/init(_:)-zqgr",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Conditions\/init(arrayLiteral:)",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Conditions\/init(stringLiteral:)"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Conditions\/init(_:)-zqgr"
       ],
       "title" : "Initializers"
     },
@@ -188,9 +182,7 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Conditions\/Equatable-Implementations",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Conditions\/ExpressibleByExtendedGraphemeClusterLiteral-Implementations",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Conditions\/ExpressibleByUnicodeScalarLiteral-Implementations"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Conditions\/Equatable-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -354,28 +346,6 @@
   "title" : "Equatable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/selection\/conditions\/equatable-implementations"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/Selection/Conditions/ExpressibleByExtendedGraphemeClusterLiteral-Implementations": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Conditions\/ExpressibleByExtendedGraphemeClusterLiteral-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "ExpressibleByExtendedGraphemeClusterLiteral Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/selection\/conditions\/expressiblebyextendedgraphemeclusterliteral-implementations"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/Selection/Conditions/ExpressibleByUnicodeScalarLiteral-Implementations": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Conditions\/ExpressibleByUnicodeScalarLiteral-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "ExpressibleByUnicodeScalarLiteral Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/selection\/conditions\/expressiblebyunicodescalarliteral-implementations"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/Selection/Conditions/__(_:_:)-hgiy": {
   "abstract" : [
@@ -736,91 +706,6 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/selection\/conditions\/init(_:)-zqgr"
 },
-"doc://ApolloAPI/documentation/ApolloAPI/Selection/Conditions/init(arrayLiteral:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "identifier",
-      "text" : "init"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "arrayLiteral"
-    },
-    {
-      "kind" : "text",
-      "text" : ": ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI9SelectionO",
-      "text" : "Selection"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI9SelectionO9ConditionV",
-      "text" : "Condition"
-    },
-    {
-      "kind" : "text",
-      "text" : "]...)"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Conditions\/init(arrayLiteral:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "init(arrayLiteral:)",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/selection\/conditions\/init(arrayliteral:)"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/Selection/Conditions/init(stringLiteral:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "identifier",
-      "text" : "init"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "stringLiteral"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection\/Conditions\/init(stringLiteral:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "init(stringLiteral:)",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/selection\/conditions\/init(stringliteral:)"
-},
 "doc://ApolloAPI/documentation/ApolloAPI/Selection/Conditions/value": {
   "abstract" : [
 
@@ -867,26 +752,6 @@
   "title" : "value",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/selection\/conditions\/value"
-},
-"doc://ApolloAPI/s25ExpressibleByArrayLiteralP": {
-  "identifier" : "doc:\/\/ApolloAPI\/s25ExpressibleByArrayLiteralP",
-  "title" : "Swift.ExpressibleByArrayLiteral",
-  "type" : "unresolvable"
-},
-"doc://ApolloAPI/s26ExpressibleByStringLiteralP": {
-  "identifier" : "doc:\/\/ApolloAPI\/s26ExpressibleByStringLiteralP",
-  "title" : "Swift.ExpressibleByStringLiteral",
-  "type" : "unresolvable"
-},
-"doc://ApolloAPI/s33ExpressibleByUnicodeScalarLiteralP": {
-  "identifier" : "doc:\/\/ApolloAPI\/s33ExpressibleByUnicodeScalarLiteralP",
-  "title" : "Swift.ExpressibleByUnicodeScalarLiteral",
-  "type" : "unresolvable"
-},
-"doc://ApolloAPI/s43ExpressibleByExtendedGraphemeClusterLiteralP": {
-  "identifier" : "doc:\/\/ApolloAPI\/s43ExpressibleByExtendedGraphemeClusterLiteralP",
-  "title" : "Swift.ExpressibleByExtendedGraphemeClusterLiteral",
-  "type" : "unresolvable"
 }
 }
 }

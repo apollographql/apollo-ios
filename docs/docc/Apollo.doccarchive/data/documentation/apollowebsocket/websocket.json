@@ -1,10 +1,4 @@
 {
-  "abstract" : [
-    {
-      "text" : "No overview available.",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -89,7 +83,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-
+        "doc:\/\/ApolloWebSocket\/objc(cs)NSObject"
       ],
       "kind" : "relationships",
       "title" : "Inherits From",
@@ -113,7 +107,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -128,7 +122,6 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/init()",
         "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/init(request:protocol:)",
         "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/init(url:protocol:)",
         "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/init(url:writeQueueQOS:protocol:)"
@@ -721,27 +714,6 @@
   "title" : "enabledSSLCipherSuites",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocket\/enabledsslciphersuites"
-},
-"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocket/init()": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "identifier",
-      "text" : "init"
-    },
-    {
-      "kind" : "text",
-      "text" : "()"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/init()",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "init()",
-  "type" : "topic",
-  "url" : "\/documentation\/apollowebsocket\/websocket\/init()"
 },
 "doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocket/init(request:protocol:)": {
   "abstract" : [
@@ -1701,6 +1673,11 @@
   "title" : "WebSocketClient",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocketclient"
+},
+"doc://ApolloWebSocket/objc(cs)NSObject": {
+  "identifier" : "doc:\/\/ApolloWebSocket\/objc(cs)NSObject",
+  "title" : "ObjectiveC.NSObject",
+  "type" : "unresolvable"
 },
 "doc://ApolloWebSocket/objc(pl)NSObject": {
   "identifier" : "doc:\/\/ApolloWebSocket\/objc(pl)NSObject",

@@ -1,10 +1,4 @@
 {
-  "abstract" : [
-    {
-      "text" : "No overview available.",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -109,7 +103,7 @@
             },
             {
               "kind" : "text",
-              "text" : " = false, "
+              "text" : " = Default.clientControlledNullability, "
             },
             {
               "kind" : "externalParam",
@@ -126,7 +120,7 @@
             },
             {
               "kind" : "text",
-              "text" : " = false)"
+              "text" : " = Default.legacySafelistingCompatibleOperations)"
             }
           ]
         }
@@ -136,7 +130,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [

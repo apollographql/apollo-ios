@@ -296,7 +296,7 @@
             },
             {
               "kind" : "text",
-              "text" : " = OutputOptions(), "
+              "text" : " = Default.options, "
             },
             {
               "kind" : "externalParam",
@@ -324,7 +324,7 @@
             },
             {
               "kind" : "text",
-              "text" : " = ExperimentalFeatures(), "
+              "text" : " = Default.experimentalFeatures, "
             },
             {
               "kind" : "externalParam",
@@ -342,7 +342,7 @@
             },
             {
               "kind" : "text",
-              "text" : "? = nil)"
+              "text" : "? = Default.schemaDownloadConfiguration)"
             }
           ]
         }
@@ -433,7 +433,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [

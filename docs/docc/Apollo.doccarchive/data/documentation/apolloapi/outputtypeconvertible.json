@@ -1,10 +1,4 @@
 {
-  "abstract" : [
-    {
-      "text" : "No overview available.",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -100,19 +94,11 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
 
-  ],
-  "topicSections" : [
-    {
-      "identifiers" : [
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/OutputTypeConvertible\/asOutputType"
-      ],
-      "title" : "Type Properties"
-    }
   ],
   "variants" : [
     {
@@ -392,68 +378,6 @@
   "title" : "OutputTypeConvertible",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/outputtypeconvertible"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/OutputTypeConvertible/asOutputType": {
-  "abstract" : [
-
-  ],
-  "defaultImplementations" : 2,
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "asOutputType"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI9SelectionO",
-      "text" : "Selection"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI9SelectionO5FieldV",
-      "text" : "Field"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI9SelectionO5FieldV10OutputTypeO",
-      "text" : "OutputType"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/OutputTypeConvertible\/asOutputType",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "asOutputType",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/outputtypeconvertible\/asoutputtype"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/RootSelectionSet": {
   "abstract" : [

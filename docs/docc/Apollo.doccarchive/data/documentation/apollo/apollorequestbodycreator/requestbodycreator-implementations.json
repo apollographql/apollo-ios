@@ -1,10 +1,4 @@
 {
-  "abstract" : [
-    {
-      "text" : "No overview available.",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -29,7 +23,7 @@
   },
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -42,18 +36,6 @@
         "doc:\/\/Apollo\/documentation\/Apollo\/ApolloRequestBodyCreator\/requestBody(for:sendQueryDocument:autoPersistQuery:)"
       ],
       "title" : "Instance Methods"
-    }
-  ],
-  "variants" : [
-    {
-      "paths" : [
-        "\/documentation\/apollo\/apollorequestbodycreator\/requestbodycreator-implementations"
-      ],
-      "traits" : [
-        {
-          "interfaceLanguage" : "swift"
-        }
-      ]
     }
   ]
 , 

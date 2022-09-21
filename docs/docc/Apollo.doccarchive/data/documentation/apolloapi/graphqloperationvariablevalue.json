@@ -1,10 +1,4 @@
 {
-  "abstract" : [
-    {
-      "text" : "No overview available.",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -103,19 +97,11 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
 
-  ],
-  "topicSections" : [
-    {
-      "identifiers" : [
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperationVariableValue\/jsonEncodableValue"
-      ],
-      "title" : "Instance Properties"
-    }
   ],
   "variants" : [
     {
@@ -446,46 +432,6 @@
   "title" : "GraphQLOperationVariableValue",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqloperationvariablevalue"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/GraphQLOperationVariableValue/jsonEncodableValue": {
-  "abstract" : [
-
-  ],
-  "defaultImplementations" : 1,
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "jsonEncodableValue"
-    },
-    {
-      "kind" : "text",
-      "text" : ": ("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI13JSONEncodableP",
-      "text" : "JSONEncodable"
-    },
-    {
-      "kind" : "text",
-      "text" : ")?"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperationVariableValue\/jsonEncodableValue",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "jsonEncodableValue",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/graphqloperationvariablevalue\/jsonencodablevalue"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/InputDict": {
   "abstract" : [

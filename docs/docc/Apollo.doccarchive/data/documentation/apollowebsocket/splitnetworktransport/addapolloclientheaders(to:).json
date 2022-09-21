@@ -1,15 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "Adds the Apollo client headers for this instance of ",
+      "text" : "Inherited from ",
       "type" : "text"
     },
     {
-      "code" : "NetworkTransport",
+      "code" : "NetworkTransport.addApolloClientHeaders(to:)",
       "type" : "codeVoice"
     },
     {
-      "text" : " to the given request",
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -147,30 +147,11 @@
         }
       ],
       "kind" : "declarations"
-    },
-    {
-      "kind" : "parameters",
-      "parameters" : [
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "A mutable URLRequest to add the headers to.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "request"
-        }
-      ]
     }
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -288,18 +269,7 @@
 },
 "doc://ApolloWebSocket/documentation/ApolloWebSocket/SplitNetworkTransport/addApolloClientHeaders(to:)": {
   "abstract" : [
-    {
-      "text" : "Adds the Apollo client headers for this instance of ",
-      "type" : "text"
-    },
-    {
-      "code" : "NetworkTransport",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " to the given request",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
