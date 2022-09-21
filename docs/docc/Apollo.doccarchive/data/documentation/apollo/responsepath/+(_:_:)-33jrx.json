@@ -1,10 +1,4 @@
 {
-  "abstract" : [
-    {
-      "text" : "No overview available.",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -223,20 +217,9 @@
               "text" : " == "
             },
             {
-              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponsePath",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:6Apollo12ResponsePathV",
-              "text" : "ResponsePath"
-            },
-            {
-              "kind" : "text",
-              "text" : "."
-            },
-            {
-              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponsePath\/Key",
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:6Apollo12ResponsePathV3Keya",
-              "text" : "Key"
+              "preciseIdentifier" : "s:SS",
+              "text" : "String"
             }
           ]
         }
@@ -246,7 +229,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -384,37 +367,6 @@
   "title" : "+(_:_:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/responsepath\/+(_:_:)-33jrx"
-},
-"doc://Apollo/documentation/Apollo/ResponsePath/Key": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Key"
-    }
-  ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponsePath\/Key",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Key"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ResponsePath.Key",
-  "type" : "topic",
-  "url" : "\/documentation\/apollo\/responsepath\/key"
 }
 }
 }

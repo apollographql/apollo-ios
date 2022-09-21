@@ -9,9 +9,8 @@
       "type" : "text"
     },
     {
-      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/variables-swift.property-4o32c",
-      "isActive" : true,
-      "type" : "reference"
+      "code" : "GraphQLOperation\/variables-swift.property-4o32c",
+      "type" : "codeVoice"
     },
     {
       "text" : " dictionary at runtime.",
@@ -159,9 +158,8 @@
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/variables-swift.property-4o32c",
-              "isActive" : true,
-              "type" : "reference"
+              "code" : "GraphQLOperation\/variables-swift.property-4o32c",
+              "type" : "codeVoice"
             },
             {
               "text" : " dictionary.",
@@ -176,7 +174,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -248,54 +246,6 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://ApolloAPI/documentation/ApolloAPI/GraphQLOperation/variables-swift.property-4o32c": {
-  "abstract" : [
-
-  ],
-  "defaultImplementations" : 1,
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "variables"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP9Variablesa",
-      "text" : "Variables"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/variables-swift.property-4o32c",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "variables",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/graphqloperation\/variables-swift.property-4o32c"
-},
 "doc://ApolloAPI/documentation/ApolloAPI/InputValue": {
   "abstract" : [
     {
@@ -359,9 +309,8 @@
       "type" : "text"
     },
     {
-      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/variables-swift.property-4o32c",
-      "isActive" : true,
-      "type" : "reference"
+      "code" : "GraphQLOperation\/variables-swift.property-4o32c",
+      "type" : "codeVoice"
     },
     {
       "text" : " dictionary at runtime.",

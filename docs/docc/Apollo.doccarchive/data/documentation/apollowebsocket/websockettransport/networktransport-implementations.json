@@ -1,10 +1,4 @@
 {
-  "abstract" : [
-    {
-      "text" : "No overview available.",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -29,7 +23,7 @@
   },
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -148,18 +142,7 @@
 },
 "doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport/addApolloClientHeaders(to:)": {
   "abstract" : [
-    {
-      "text" : "Adds the Apollo client headers for this instance of ",
-      "type" : "text"
-    },
-    {
-      "code" : "NetworkTransport",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " to the given request",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -281,18 +264,7 @@
 },
 "doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport/defaultClientName": {
   "abstract" : [
-    {
-      "text" : "The default client name to use when setting up the ",
-      "type" : "text"
-    },
-    {
-      "code" : "clientName",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " property",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -334,18 +306,7 @@
 },
 "doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport/defaultClientVersion": {
   "abstract" : [
-    {
-      "text" : "The default client version to use when setting up the ",
-      "type" : "text"
-    },
-    {
-      "code" : "clientVersion",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " property.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -387,10 +348,7 @@
 },
 "doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport/headerFieldNameApolloClientName": {
   "abstract" : [
-    {
-      "text" : "The field name for the Apollo Client Name header",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -432,10 +390,7 @@
 },
 "doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport/headerFieldNameApolloClientVersion": {
   "abstract" : [
-    {
-      "text" : "The field name for the Apollo Client Version header",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {

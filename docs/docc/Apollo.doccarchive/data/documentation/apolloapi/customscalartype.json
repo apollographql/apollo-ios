@@ -233,7 +233,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -252,7 +252,7 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CustomScalarType\/jsonValue"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CustomScalarType\/jsonValue-66l6m"
       ],
       "title" : "Instance Properties"
     }
@@ -461,10 +461,11 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/customscalartype"
 },
-"doc://ApolloAPI/documentation/ApolloAPI/CustomScalarType/jsonValue": {
+"doc://ApolloAPI/documentation/ApolloAPI/CustomScalarType/jsonValue-66l6m": {
   "abstract" : [
 
   ],
+  "defaultImplementations" : 1,
   "fragments" : [
     {
       "kind" : "keyword",
@@ -488,13 +489,13 @@
       "text" : "JSONValue"
     }
   ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CustomScalarType\/jsonValue",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CustomScalarType\/jsonValue-66l6m",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
   "title" : "jsonValue",
   "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/customscalartype\/jsonvalue"
+  "url" : "\/documentation\/apolloapi\/customscalartype\/jsonvalue-66l6m"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/EnumType": {
   "abstract" : [

@@ -1,15 +1,19 @@
 {
   "abstract" : [
     {
-      "text" : "Inherited from ",
-      "type" : "text"
-    },
-    {
-      "code" : "Decodable.init(from:)",
+      "code" : "Decodable",
       "type" : "codeVoice"
     },
     {
-      "text" : ".",
+      "text" : " implementation to allow for properties to be optional in the encoded JSON with",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "specified defaults when not present.",
       "type" : "text"
     }
   ],
@@ -126,7 +130,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -230,7 +234,22 @@
 },
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/FileOutput/init(from:)": {
   "abstract" : [
-
+    {
+      "code" : "Decodable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " implementation to allow for properties to be optional in the encoded JSON with",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "specified defaults when not present.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

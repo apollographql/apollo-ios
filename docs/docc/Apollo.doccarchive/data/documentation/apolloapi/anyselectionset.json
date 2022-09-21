@@ -1,10 +1,4 @@
 {
-  "abstract" : [
-    {
-      "text" : "No overview available.",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -113,7 +107,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -125,13 +119,6 @@
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnySelectionSet\/init(data:)"
       ],
       "title" : "Initializers"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnySelectionSet\/schema",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnySelectionSet\/selections-7hsap"
-      ],
-      "title" : "Type Properties"
     }
   ],
   "variants" : [
@@ -272,102 +259,6 @@
   "title" : "init(data:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/anyselectionset\/init(data:)"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/AnySelectionSet/schema": {
-  "abstract" : [
-
-  ],
-  "defaultImplementations" : 1,
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "schema"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI14SchemaMetadataP",
-      "text" : "SchemaMetadata"
-    },
-    {
-      "kind" : "text",
-      "text" : ".Type"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnySelectionSet\/schema",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "schema",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/anyselectionset\/schema"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/AnySelectionSet/selections-7hsap": {
-  "abstract" : [
-
-  ],
-  "defaultImplementations" : 1,
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "selections"
-    },
-    {
-      "kind" : "text",
-      "text" : ": ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI9SelectionO",
-      "text" : "Selection"
-    },
-    {
-      "kind" : "text",
-      "text" : "]"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnySelectionSet\/selections-7hsap",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "selections",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/anyselectionset\/selections-7hsap"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/Fragment": {
   "abstract" : [

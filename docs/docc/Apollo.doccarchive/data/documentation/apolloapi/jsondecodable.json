@@ -170,7 +170,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -187,14 +187,6 @@
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONDecodingError"
       ],
       "title" : "JSON Conversion"
-    }
-  ],
-  "topicSections" : [
-    {
-      "identifiers" : [
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONDecodable\/init(jsonValue:)"
-      ],
-      "title" : "Initializers"
     }
   ],
   "variants" : [
@@ -510,61 +502,6 @@
   "title" : "JSONDecodable",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/jsondecodable"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/JSONDecodable/init(jsonValue:)": {
-  "abstract" : [
-    {
-      "text" : "Intializes the conforming type from a ",
-      "type" : "text"
-    },
-    {
-      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONValue",
-      "isActive" : true,
-      "type" : "reference"
-    },
-    {
-      "text" : ".",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "identifier",
-      "text" : "init"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "jsonValue"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI9JSONValuea",
-      "text" : "JSONValue"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONDecodable\/init(jsonValue:)",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "init(jsonValue:)",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/jsondecodable\/init(jsonvalue:)"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/JSONDecodingError": {
   "abstract" : [

@@ -1,7 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "The field name for the Apollo Client Name header",
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "NetworkTransport.headerFieldNameApolloClientName",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -123,7 +131,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -241,10 +249,7 @@
 },
 "doc://ApolloWebSocket/documentation/ApolloWebSocket/SplitNetworkTransport/headerFieldNameApolloClientName": {
   "abstract" : [
-    {
-      "text" : "The field name for the Apollo Client Name header",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {

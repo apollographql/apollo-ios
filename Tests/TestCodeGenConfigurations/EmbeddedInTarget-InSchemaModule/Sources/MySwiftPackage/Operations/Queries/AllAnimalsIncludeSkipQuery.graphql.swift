@@ -83,7 +83,7 @@ public extension MyGraphQLSchema {
       self.varA = varA
     }
 
-    public var variables: Variables? { [
+    public var __variables: Variables? { [
       "includeSpecies": includeSpecies,
       "skipHeightInMeters": skipHeightInMeters,
       "getCat": getCat,
@@ -96,7 +96,7 @@ public extension MyGraphQLSchema {
       public init(data: DataDict) { __data = data }
 
       public static var __parentType: ParentType { MyGraphQLSchema.Objects.Query }
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
         .field("allAnimals", [AllAnimal].self),
       ] }
 
@@ -110,7 +110,7 @@ public extension MyGraphQLSchema {
         public init(data: DataDict) { __data = data }
 
         public static var __parentType: ParentType { MyGraphQLSchema.Interfaces.Animal }
-        public static var selections: [Selection] { [
+        public static var __selections: [Selection] { [
           .field("height", Height.self),
           .field("skinCovering", GraphQLEnum<SkinCovering>?.self),
           .field("predators", [Predator].self),
@@ -148,7 +148,7 @@ public extension MyGraphQLSchema {
           public init(data: DataDict) { __data = data }
 
           public static var __parentType: ParentType { MyGraphQLSchema.Objects.Height }
-          public static var selections: [Selection] { [
+          public static var __selections: [Selection] { [
             .field("feet", Int.self),
             .field("inches", Int?.self),
           ] }
@@ -166,7 +166,7 @@ public extension MyGraphQLSchema {
           public init(data: DataDict) { __data = data }
 
           public static var __parentType: ParentType { MyGraphQLSchema.Interfaces.Animal }
-          public static var selections: [Selection] { [
+          public static var __selections: [Selection] { [
             .include(if: "includeSpecies", .field("species", String.self)),
             .include(if: "getWarmBlooded", .inlineFragment(AsWarmBlooded.self)),
           ] }
@@ -183,7 +183,7 @@ public extension MyGraphQLSchema {
             public init(data: DataDict) { __data = data }
 
             public static var __parentType: ParentType { MyGraphQLSchema.Interfaces.WarmBlooded }
-            public static var selections: [Selection] { [
+            public static var __selections: [Selection] { [
               .field("species", String.self),
               .fragment(WarmBloodedDetails.self),
               .field("laysEggs", Bool.self),
@@ -212,7 +212,7 @@ public extension MyGraphQLSchema {
           public init(data: DataDict) { __data = data }
 
           public static var __parentType: ParentType { MyGraphQLSchema.Interfaces.WarmBlooded }
-          public static var selections: [Selection] { [
+          public static var __selections: [Selection] { [
             .fragment(WarmBloodedDetails.self),
           ] }
 
@@ -293,7 +293,7 @@ public extension MyGraphQLSchema {
           public init(data: DataDict) { __data = data }
 
           public static var __parentType: ParentType { MyGraphQLSchema.Interfaces.Pet }
-          public static var selections: [Selection] { [
+          public static var __selections: [Selection] { [
             .field("height", Height.self),
             .inlineFragment(AsWarmBlooded.self),
             .fragment(PetDetails.self),
@@ -325,7 +325,7 @@ public extension MyGraphQLSchema {
             public init(data: DataDict) { __data = data }
 
             public static var __parentType: ParentType { MyGraphQLSchema.Objects.Height }
-            public static var selections: [Selection] { [
+            public static var __selections: [Selection] { [
               .include(if: "varA", [
                 .field("relativeSize", GraphQLEnum<RelativeSize>.self),
                 .field("centimeters", Double.self),
@@ -347,7 +347,7 @@ public extension MyGraphQLSchema {
             public init(data: DataDict) { __data = data }
 
             public static var __parentType: ParentType { MyGraphQLSchema.Interfaces.WarmBlooded }
-            public static var selections: [Selection] { [
+            public static var __selections: [Selection] { [
               .fragment(WarmBloodedDetails.self),
             ] }
 
@@ -395,7 +395,7 @@ public extension MyGraphQLSchema {
           public init(data: DataDict) { __data = data }
 
           public static var __parentType: ParentType { MyGraphQLSchema.Objects.Cat }
-          public static var selections: [Selection] { [
+          public static var __selections: [Selection] { [
             .field("isJellicle", Bool.self),
           ] }
 
@@ -443,7 +443,7 @@ public extension MyGraphQLSchema {
           public init(data: DataDict) { __data = data }
 
           public static var __parentType: ParentType { MyGraphQLSchema.Unions.ClassroomPet }
-          public static var selections: [Selection] { [
+          public static var __selections: [Selection] { [
             .inlineFragment(AsBird.self),
           ] }
 
@@ -483,7 +483,7 @@ public extension MyGraphQLSchema {
             public init(data: DataDict) { __data = data }
 
             public static var __parentType: ParentType { MyGraphQLSchema.Objects.Bird }
-            public static var selections: [Selection] { [
+            public static var __selections: [Selection] { [
               .field("wingspan", Double.self),
             ] }
 

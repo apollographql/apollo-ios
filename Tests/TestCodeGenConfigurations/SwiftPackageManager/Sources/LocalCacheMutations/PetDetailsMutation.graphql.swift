@@ -20,7 +20,7 @@ public struct PetDetailsMutation: GraphQLSchemaName.MutableSelectionSet, Fragmen
   public init(data: DataDict) { __data = data }
 
   public static var __parentType: ParentType { GraphQLSchemaName.Interfaces.Pet }
-  public static var selections: [Selection] { [
+  public static var __selections: [Selection] { [
     .field("owner", Owner?.self),
   ] }
 
@@ -37,7 +37,7 @@ public struct PetDetailsMutation: GraphQLSchemaName.MutableSelectionSet, Fragmen
     public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { GraphQLSchemaName.Objects.Human }
-    public static var selections: [Selection] { [
+    public static var __selections: [Selection] { [
       .field("firstName", String.self),
     ] }
 

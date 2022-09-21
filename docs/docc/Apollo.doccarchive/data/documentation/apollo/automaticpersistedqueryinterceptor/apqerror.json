@@ -1,10 +1,4 @@
 {
-  "abstract" : [
-    {
-      "text" : "No overview available.",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -83,6 +77,7 @@
     {
       "identifiers" : [
         "doc:\/\/Apollo\/10Foundation14LocalizedErrorP",
+        "doc:\/\/Apollo\/SQ",
         "doc:\/\/Apollo\/s5ErrorP",
         "doc:\/\/Apollo\/s8SendableP"
       ],
@@ -93,7 +88,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -103,6 +98,7 @@
     {
       "identifiers" : [
         "doc:\/\/Apollo\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor\/APQError\/noParsedResponse",
+        "doc:\/\/Apollo\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor\/APQError\/persistedQueryNotFoundForPersistedOnlyQuery(operationName:)",
         "doc:\/\/Apollo\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor\/APQError\/persistedQueryRetryFailed(operationName:)"
       ],
       "title" : "Enumeration Cases"
@@ -116,6 +112,7 @@
     {
       "generated" : true,
       "identifiers" : [
+        "doc:\/\/Apollo\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor\/APQError\/Equatable-Implementations",
         "doc:\/\/Apollo\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor\/APQError\/Error-Implementations",
         "doc:\/\/Apollo\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor\/APQError\/LocalizedError-Implementations"
       ],
@@ -139,6 +136,11 @@
 "doc://Apollo/10Foundation14LocalizedErrorP": {
   "identifier" : "doc:\/\/Apollo\/10Foundation14LocalizedErrorP",
   "title" : "Foundation.LocalizedError",
+  "type" : "unresolvable"
+},
+"doc://Apollo/SQ": {
+  "identifier" : "doc:\/\/Apollo\/SQ",
+  "title" : "Swift.Equatable",
   "type" : "unresolvable"
 },
 "doc://Apollo/documentation/Apollo": {
@@ -216,6 +218,17 @@
   "title" : "AutomaticPersistedQueryInterceptor.APQError",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/automaticpersistedqueryinterceptor\/apqerror"
+},
+"doc://Apollo/documentation/Apollo/AutomaticPersistedQueryInterceptor/APQError/Equatable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor\/APQError\/Equatable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Equatable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/automaticpersistedqueryinterceptor\/apqerror\/equatable-implementations"
 },
 "doc://Apollo/documentation/Apollo/AutomaticPersistedQueryInterceptor/APQError/Error-Implementations": {
   "abstract" : [
@@ -301,6 +314,52 @@
   "title" : "AutomaticPersistedQueryInterceptor.APQError.noParsedResponse",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/automaticpersistedqueryinterceptor\/apqerror\/noparsedresponse"
+},
+"doc://Apollo/documentation/Apollo/AutomaticPersistedQueryInterceptor/APQError/persistedQueryNotFoundForPersistedOnlyQuery(operationName:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "persistedQueryNotFoundForPersistedOnlyQuery"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "operationName"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor\/APQError\/persistedQueryNotFoundForPersistedOnlyQuery(operationName:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "AutomaticPersistedQueryInterceptor.APQError.persistedQueryNotFoundForPersistedOnlyQuery(operationName:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/automaticpersistedqueryinterceptor\/apqerror\/persistedquerynotfoundforpersistedonlyquery(operationname:)"
 },
 "doc://Apollo/documentation/Apollo/AutomaticPersistedQueryInterceptor/APQError/persistedQueryRetryFailed(operationName:)": {
   "abstract" : [

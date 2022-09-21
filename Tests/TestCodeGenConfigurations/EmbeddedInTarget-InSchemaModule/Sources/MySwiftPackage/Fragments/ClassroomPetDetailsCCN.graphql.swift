@@ -24,7 +24,7 @@ public extension MyGraphQLSchema {
     public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { MyGraphQLSchema.Unions.ClassroomPet }
-    public static var selections: [Selection] { [
+    public static var __selections: [Selection] { [
       .inlineFragment(AsAnimal.self),
     ] }
 
@@ -38,7 +38,7 @@ public extension MyGraphQLSchema {
       public init(data: DataDict) { __data = data }
 
       public static var __parentType: ParentType { MyGraphQLSchema.Interfaces.Animal }
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
         .field("height", Height.self),
       ] }
 
@@ -52,7 +52,7 @@ public extension MyGraphQLSchema {
         public init(data: DataDict) { __data = data }
 
         public static var __parentType: ParentType { MyGraphQLSchema.Objects.Height }
-        public static var selections: [Selection] { [
+        public static var __selections: [Selection] { [
           .field("inches", Int.self),
         ] }
 

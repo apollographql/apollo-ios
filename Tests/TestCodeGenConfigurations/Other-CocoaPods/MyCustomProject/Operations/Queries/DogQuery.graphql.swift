@@ -30,7 +30,7 @@ public class DogQuery: GraphQLQuery {
     public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { MyCustomProject.Objects.Query }
-    public static var selections: [Selection] { [
+    public static var __selections: [Selection] { [
       .field("allAnimals", [AllAnimal].self),
     ] }
 
@@ -44,7 +44,7 @@ public class DogQuery: GraphQLQuery {
       public init(data: DataDict) { __data = data }
 
       public static var __parentType: ParentType { MyCustomProject.Interfaces.Animal }
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
         .field("id", ID.self),
         .inlineFragment(AsDog.self),
       ] }
@@ -61,7 +61,7 @@ public class DogQuery: GraphQLQuery {
         public init(data: DataDict) { __data = data }
 
         public static var __parentType: ParentType { MyCustomProject.Objects.Dog }
-        public static var selections: [Selection] { [
+        public static var __selections: [Selection] { [
           .fragment(DogFragment.self),
         ] }
 

@@ -1,15 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "The default client version to use when setting up the ",
+      "text" : "Inherited from ",
       "type" : "text"
     },
     {
-      "code" : "clientVersion",
+      "code" : "NetworkTransport.defaultClientVersion",
       "type" : "codeVoice"
     },
     {
-      "text" : " property.",
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -131,7 +131,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -249,18 +249,7 @@
 },
 "doc://ApolloWebSocket/documentation/ApolloWebSocket/SplitNetworkTransport/defaultClientVersion": {
   "abstract" : [
-    {
-      "text" : "The default client version to use when setting up the ",
-      "type" : "text"
-    },
-    {
-      "code" : "clientVersion",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " property.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {

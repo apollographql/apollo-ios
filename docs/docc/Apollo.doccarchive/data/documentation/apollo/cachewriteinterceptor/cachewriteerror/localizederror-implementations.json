@@ -1,10 +1,4 @@
 {
-  "abstract" : [
-    {
-      "text" : "No overview available.",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -30,7 +24,7 @@
   },
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -46,18 +40,6 @@
         "doc:\/\/Apollo\/documentation\/Apollo\/CacheWriteInterceptor\/CacheWriteError\/recoverySuggestion"
       ],
       "title" : "Instance Properties"
-    }
-  ],
-  "variants" : [
-    {
-      "paths" : [
-        "\/documentation\/apollo\/cachewriteinterceptor\/cachewriteerror\/localizederror-implementations"
-      ],
-      "traits" : [
-        {
-          "interfaceLanguage" : "swift"
-        }
-      ]
     }
   ]
 , 

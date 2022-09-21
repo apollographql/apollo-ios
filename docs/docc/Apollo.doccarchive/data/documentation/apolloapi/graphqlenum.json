@@ -193,7 +193,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -249,11 +249,8 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum\/AnyHashableConvertible-Implementations",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum\/CustomScalarType-Implementations",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum\/Equatable-Implementations",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum\/JSONDecodable-Implementations",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum\/JSONEncodable-Implementations",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum\/RawRepresentable-Implementations"
       ],
       "title" : "Default Implementations"
@@ -1173,17 +1170,6 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqlenum\/==(_:_:)-n7qo"
 },
-"doc://ApolloAPI/documentation/ApolloAPI/GraphQLEnum/AnyHashableConvertible-Implementations": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum\/AnyHashableConvertible-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "AnyHashableConvertible Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/graphqlenum\/anyhashableconvertible-implementations"
-},
 "doc://ApolloAPI/documentation/ApolloAPI/GraphQLEnum/CustomScalarType-Implementations": {
   "abstract" : [
 
@@ -1205,28 +1191,6 @@
   "title" : "Equatable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqlenum\/equatable-implementations"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/GraphQLEnum/JSONDecodable-Implementations": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum\/JSONDecodable-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "JSONDecodable Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/graphqlenum\/jsondecodable-implementations"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/GraphQLEnum/JSONEncodable-Implementations": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum\/JSONEncodable-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "JSONEncodable Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/graphqlenum\/jsonencodable-implementations"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/GraphQLEnum/RawRepresentable-Implementations": {
   "abstract" : [

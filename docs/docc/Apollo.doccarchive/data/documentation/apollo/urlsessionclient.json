@@ -150,7 +150,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-
+        "doc:\/\/Apollo\/objc(cs)NSObject"
       ],
       "kind" : "relationships",
       "title" : "Inherits From",
@@ -175,7 +175,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -184,7 +184,6 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/init()",
         "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/init(sessionConfiguration:callbackQueue:)"
       ],
       "title" : "Initializers"
@@ -574,27 +573,6 @@
   "title" : "clearAllTasks()",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/urlsessionclient\/clearalltasks()"
-},
-"doc://Apollo/documentation/Apollo/URLSessionClient/init()": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "identifier",
-      "text" : "init"
-    },
-    {
-      "kind" : "text",
-      "text" : "()"
-    }
-  ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/init()",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "init()",
-  "type" : "topic",
-  "url" : "\/documentation\/apollo\/urlsessionclient\/init()"
 },
 "doc://Apollo/documentation/Apollo/URLSessionClient/init(sessionConfiguration:callbackQueue:)": {
   "abstract" : [
@@ -2132,6 +2110,11 @@
   "title" : "urlSession(_:taskIsWaitingForConnectivity:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/urlsessionclient\/urlsession(_:taskiswaitingforconnectivity:)"
+},
+"doc://Apollo/objc(cs)NSObject": {
+  "identifier" : "doc:\/\/Apollo\/objc(cs)NSObject",
+  "title" : "ObjectiveC.NSObject",
+  "type" : "unresolvable"
 },
 "doc://Apollo/objc(pl)NSObject": {
   "identifier" : "doc:\/\/Apollo\/objc(pl)NSObject",

@@ -209,7 +209,7 @@
             },
             {
               "kind" : "text",
-              "text" : " = .relative(subpath: nil), "
+              "text" : " = Default.operations, "
             },
             {
               "kind" : "externalParam",
@@ -237,7 +237,7 @@
             },
             {
               "kind" : "text",
-              "text" : " = .none, "
+              "text" : " = Default.testMocks, "
             },
             {
               "kind" : "externalParam",
@@ -254,7 +254,7 @@
             },
             {
               "kind" : "text",
-              "text" : "? = nil)"
+              "text" : "? = Default.operationIdentifiersPath)"
             }
           ]
         }
@@ -412,7 +412,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [

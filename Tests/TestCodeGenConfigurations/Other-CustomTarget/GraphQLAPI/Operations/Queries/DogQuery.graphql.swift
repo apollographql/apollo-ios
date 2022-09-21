@@ -27,7 +27,7 @@ public class DogQuery: GraphQLQuery {
     public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { GraphQLAPI.Objects.Query }
-    public static var selections: [Selection] { [
+    public static var __selections: [Selection] { [
       .field("dog", Dog.self),
     ] }
 
@@ -41,7 +41,7 @@ public class DogQuery: GraphQLQuery {
       public init(data: DataDict) { __data = data }
 
       public static var __parentType: ParentType { GraphQLAPI.Objects.Dog }
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
         .fragment(DogFragment.self),
       ] }
 

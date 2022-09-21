@@ -27,14 +27,14 @@ class PetAdoptionMutation: GraphQLMutation {
     self.input = input
   }
 
-  public var variables: Variables? { ["input": input] }
+  public var __variables: Variables? { ["input": input] }
 
   public struct Data: MySchemaModule.SelectionSet {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { MySchemaModule.Objects.Mutation }
-    public static var selections: [Selection] { [
+    public static var __selections: [Selection] { [
       .field("adoptPet", AdoptPet.self, arguments: ["input": .variable("input")]),
     ] }
 
@@ -48,7 +48,7 @@ class PetAdoptionMutation: GraphQLMutation {
       public init(data: DataDict) { __data = data }
 
       public static var __parentType: ParentType { MySchemaModule.Interfaces.Pet }
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
         .field("id", MySchemaModule.ID.self),
         .field("humanName", String?.self),
       ] }

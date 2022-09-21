@@ -1,10 +1,4 @@
 {
-  "abstract" : [
-    {
-      "text" : "No overview available.",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -110,7 +104,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -125,13 +119,7 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/variables-swift.property-4o32c"
-      ],
-      "title" : "Instance Properties"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/Variables-swift.typealias"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/Variables"
       ],
       "title" : "Type Aliases"
     },
@@ -349,7 +337,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqloperation\/hashable-implementations"
 },
-"doc://ApolloAPI/documentation/ApolloAPI/GraphQLOperation/Variables-swift.typealias": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLOperation/Variables": {
   "abstract" : [
 
   ],
@@ -367,7 +355,7 @@
       "text" : "Variables"
     }
   ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/Variables-swift.typealias",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/Variables",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -378,7 +366,7 @@
   "role" : "symbol",
   "title" : "GraphQLOperation.Variables",
   "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/graphqloperation\/variables-swift.typealias"
+  "url" : "\/documentation\/apolloapi\/graphqloperation\/variables"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/GraphQLOperation/definition": {
   "abstract" : [
@@ -601,54 +589,6 @@
   "title" : "operationType",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqloperation\/operationtype"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/GraphQLOperation/variables-swift.property-4o32c": {
-  "abstract" : [
-
-  ],
-  "defaultImplementations" : 1,
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "variables"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP9Variablesa",
-      "text" : "Variables"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/variables-swift.property-4o32c",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "variables",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/graphqloperation\/variables-swift.property-4o32c"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/GraphQLQuery": {
   "abstract" : [

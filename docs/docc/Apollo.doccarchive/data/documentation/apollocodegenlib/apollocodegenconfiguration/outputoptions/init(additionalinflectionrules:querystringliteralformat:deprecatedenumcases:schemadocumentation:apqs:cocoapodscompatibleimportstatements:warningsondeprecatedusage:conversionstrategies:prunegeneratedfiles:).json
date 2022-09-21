@@ -283,7 +283,7 @@
             },
             {
               "kind" : "text",
-              "text" : "] = [], "
+              "text" : "] = Default.additionalInflectionRules, "
             },
             {
               "kind" : "externalParam",
@@ -311,7 +311,7 @@
             },
             {
               "kind" : "text",
-              "text" : " = .multiline, "
+              "text" : " = Default.queryStringLiteralFormat, "
             },
             {
               "kind" : "externalParam",
@@ -339,7 +339,7 @@
             },
             {
               "kind" : "text",
-              "text" : " = .include, "
+              "text" : " = Default.deprecatedEnumCases, "
             },
             {
               "kind" : "externalParam",
@@ -367,7 +367,7 @@
             },
             {
               "kind" : "text",
-              "text" : " = .include, "
+              "text" : " = Default.schemaDocumentation, "
             },
             {
               "kind" : "externalParam",
@@ -395,7 +395,7 @@
             },
             {
               "kind" : "text",
-              "text" : " = .disabled, "
+              "text" : " = Default.apqs, "
             },
             {
               "kind" : "externalParam",
@@ -412,7 +412,7 @@
             },
             {
               "kind" : "text",
-              "text" : " = false, "
+              "text" : " = Default.cocoapodsCompatibleImportStatements, "
             },
             {
               "kind" : "externalParam",
@@ -440,7 +440,7 @@
             },
             {
               "kind" : "text",
-              "text" : " = .include, "
+              "text" : " = Default.warningsOnDeprecatedUsage, "
             },
             {
               "kind" : "externalParam",
@@ -468,7 +468,7 @@
             },
             {
               "kind" : "text",
-              "text" : " = .init(), "
+              "text" : " = Default.conversionStrategies, "
             },
             {
               "kind" : "externalParam",
@@ -485,7 +485,7 @@
             },
             {
               "kind" : "text",
-              "text" : " = true)"
+              "text" : " = Default.pruneGeneratedFiles)"
             }
           ]
         }
@@ -704,7 +704,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [

@@ -143,7 +143,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -162,6 +162,12 @@
     }
   ],
   "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputObject\/jsonEncodableValue"
+      ],
+      "title" : "Instance Properties"
+    },
     {
       "generated" : true,
       "identifiers" : [
@@ -367,6 +373,44 @@
   "title" : "Hashable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/inputobject\/hashable-implementations"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/InputObject/jsonEncodableValue": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "jsonEncodableValue"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI13JSONEncodableP",
+      "text" : "JSONEncodable"
+    },
+    {
+      "kind" : "text",
+      "text" : ")?"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputObject\/jsonEncodableValue",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "jsonEncodableValue",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/inputobject\/jsonencodablevalue"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/Interface": {
   "abstract" : [

@@ -93,7 +93,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -115,7 +115,7 @@
     {
       "identifiers" : [
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloadConfiguration\/DownloadMethod-swift.enum\/apolloRegistry(_:)",
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloadConfiguration\/DownloadMethod-swift.enum\/introspection(endpointURL:httpMethod:outputFormat:)"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloadConfiguration\/DownloadMethod-swift.enum\/introspection(endpointURL:httpMethod:outputFormat:includeDeprecatedInputValues:)"
       ],
       "title" : "Enumeration Cases"
     },
@@ -568,7 +568,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apolloschemadownloadconfiguration\/downloadmethod-swift.enum\/init(from:)"
 },
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloSchemaDownloadConfiguration/DownloadMethod-swift.enum/introspection(endpointURL:httpMethod:outputFormat:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloSchemaDownloadConfiguration/DownloadMethod-swift.enum/introspection(endpointURL:httpMethod:outputFormat:includeDeprecatedInputValues:)": {
   "abstract" : [
     {
       "text" : "GraphQL Introspection connecting to the specified URL.",
@@ -677,15 +677,32 @@
     },
     {
       "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "includeDeprecatedInputValues"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloadConfiguration\/DownloadMethod-swift.enum\/introspection(endpointURL:httpMethod:outputFormat:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloadConfiguration\/DownloadMethod-swift.enum\/introspection(endpointURL:httpMethod:outputFormat:includeDeprecatedInputValues:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "ApolloSchemaDownloadConfiguration.DownloadMethod.introspection(endpointURL:httpMethod:outputFormat:)",
+  "title" : "ApolloSchemaDownloadConfiguration.DownloadMethod.introspection(endpointURL:httpMethod:outputFormat:includeDeprecatedInputValues:)",
   "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/apolloschemadownloadconfiguration\/downloadmethod-swift.enum\/introspection(endpointurl:httpmethod:outputformat:)"
+  "url" : "\/documentation\/apollocodegenlib\/apolloschemadownloadconfiguration\/downloadmethod-swift.enum\/introspection(endpointurl:httpmethod:outputformat:includedeprecatedinputvalues:)"
 }
 }
 }

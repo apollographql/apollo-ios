@@ -204,7 +204,7 @@
             },
             {
               "kind" : "text",
-              "text" : " = 30.0, "
+              "text" : " = Default.downloadTimeout, "
             },
             {
               "kind" : "externalParam",
@@ -232,7 +232,7 @@
             },
             {
               "kind" : "text",
-              "text" : "] = [], "
+              "text" : "] = Default.headers, "
             },
             {
               "kind" : "externalParam",
@@ -336,7 +336,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
