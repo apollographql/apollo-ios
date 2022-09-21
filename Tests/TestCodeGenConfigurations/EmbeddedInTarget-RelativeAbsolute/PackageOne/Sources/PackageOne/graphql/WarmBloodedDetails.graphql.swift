@@ -19,7 +19,7 @@ struct WarmBloodedDetails: MySchemaModule.SelectionSet, Fragment {
   public init(data: DataDict) { __data = data }
 
   public static var __parentType: ParentType { MySchemaModule.Interfaces.WarmBlooded }
-  public static var selections: [Selection] { [
+  public static var __selections: [Selection] { [
     .field("bodyTemperature", Int.self),
     .fragment(HeightInMeters.self),
   ] }

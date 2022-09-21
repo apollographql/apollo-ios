@@ -82,7 +82,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
     self.varA = varA
   }
 
-  public var variables: Variables? { [
+  public var __variables: Variables? { [
     "includeSpecies": includeSpecies,
     "skipHeightInMeters": skipHeightInMeters,
     "getCat": getCat,
@@ -95,7 +95,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
     public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { GraphQLAPI.Objects.Query }
-    public static var selections: [Selection] { [
+    public static var __selections: [Selection] { [
       .field("allAnimals", [AllAnimal].self),
     ] }
 
@@ -109,7 +109,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
       public init(data: DataDict) { __data = data }
 
       public static var __parentType: ParentType { GraphQLAPI.Interfaces.Animal }
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
         .field("height", Height.self),
         .field("skinCovering", GraphQLEnum<SkinCovering>?.self),
         .field("predators", [Predator].self),
@@ -147,7 +147,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         public init(data: DataDict) { __data = data }
 
         public static var __parentType: ParentType { GraphQLAPI.Objects.Height }
-        public static var selections: [Selection] { [
+        public static var __selections: [Selection] { [
           .field("feet", Int.self),
           .field("inches", Int?.self),
         ] }
@@ -165,7 +165,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         public init(data: DataDict) { __data = data }
 
         public static var __parentType: ParentType { GraphQLAPI.Interfaces.Animal }
-        public static var selections: [Selection] { [
+        public static var __selections: [Selection] { [
           .include(if: "includeSpecies", .field("species", String.self)),
           .include(if: "getWarmBlooded", .inlineFragment(AsWarmBlooded.self)),
         ] }
@@ -182,7 +182,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public init(data: DataDict) { __data = data }
 
           public static var __parentType: ParentType { GraphQLAPI.Interfaces.WarmBlooded }
-          public static var selections: [Selection] { [
+          public static var __selections: [Selection] { [
             .field("species", String.self),
             .fragment(WarmBloodedDetails.self),
             .field("laysEggs", Bool.self),
@@ -211,7 +211,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         public init(data: DataDict) { __data = data }
 
         public static var __parentType: ParentType { GraphQLAPI.Interfaces.WarmBlooded }
-        public static var selections: [Selection] { [
+        public static var __selections: [Selection] { [
           .fragment(WarmBloodedDetails.self),
         ] }
 
@@ -292,7 +292,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         public init(data: DataDict) { __data = data }
 
         public static var __parentType: ParentType { GraphQLAPI.Interfaces.Pet }
-        public static var selections: [Selection] { [
+        public static var __selections: [Selection] { [
           .field("height", Height.self),
           .inlineFragment(AsWarmBlooded.self),
           .fragment(PetDetails.self),
@@ -324,7 +324,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public init(data: DataDict) { __data = data }
 
           public static var __parentType: ParentType { GraphQLAPI.Objects.Height }
-          public static var selections: [Selection] { [
+          public static var __selections: [Selection] { [
             .include(if: "varA", [
               .field("relativeSize", GraphQLEnum<RelativeSize>.self),
               .field("centimeters", Double.self),
@@ -346,7 +346,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public init(data: DataDict) { __data = data }
 
           public static var __parentType: ParentType { GraphQLAPI.Interfaces.WarmBlooded }
-          public static var selections: [Selection] { [
+          public static var __selections: [Selection] { [
             .fragment(WarmBloodedDetails.self),
           ] }
 
@@ -394,7 +394,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         public init(data: DataDict) { __data = data }
 
         public static var __parentType: ParentType { GraphQLAPI.Objects.Cat }
-        public static var selections: [Selection] { [
+        public static var __selections: [Selection] { [
           .field("isJellicle", Bool.self),
         ] }
 
@@ -442,7 +442,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         public init(data: DataDict) { __data = data }
 
         public static var __parentType: ParentType { GraphQLAPI.Unions.ClassroomPet }
-        public static var selections: [Selection] { [
+        public static var __selections: [Selection] { [
           .inlineFragment(AsBird.self),
         ] }
 
@@ -482,7 +482,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public init(data: DataDict) { __data = data }
 
           public static var __parentType: ParentType { GraphQLAPI.Objects.Bird }
-          public static var selections: [Selection] { [
+          public static var __selections: [Selection] { [
             .field("wingspan", Double.self),
           ] }
 

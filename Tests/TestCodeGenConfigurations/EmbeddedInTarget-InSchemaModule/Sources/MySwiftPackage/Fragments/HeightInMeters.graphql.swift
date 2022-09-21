@@ -21,7 +21,7 @@ public extension MyGraphQLSchema {
     public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { MyGraphQLSchema.Interfaces.Animal }
-    public static var selections: [Selection] { [
+    public static var __selections: [Selection] { [
       .field("height", Height.self),
     ] }
 
@@ -35,7 +35,7 @@ public extension MyGraphQLSchema {
       public init(data: DataDict) { __data = data }
 
       public static var __parentType: ParentType { MyGraphQLSchema.Objects.Height }
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
         .field("meters", Int.self),
       ] }
 

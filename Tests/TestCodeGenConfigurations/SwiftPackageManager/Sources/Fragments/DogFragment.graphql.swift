@@ -17,7 +17,7 @@ public struct DogFragment: GraphQLSchemaName.SelectionSet, Fragment {
   public init(data: DataDict) { __data = data }
 
   public static var __parentType: ParentType { GraphQLSchemaName.Objects.Dog }
-  public static var selections: [Selection] { [
+  public static var __selections: [Selection] { [
     .field("species", String.self),
   ] }
 

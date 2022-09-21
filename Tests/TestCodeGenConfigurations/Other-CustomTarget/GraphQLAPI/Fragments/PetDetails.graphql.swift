@@ -22,7 +22,7 @@ public struct PetDetails: GraphQLAPI.SelectionSet, Fragment {
   public init(data: DataDict) { __data = data }
 
   public static var __parentType: ParentType { GraphQLAPI.Interfaces.Pet }
-  public static var selections: [Selection] { [
+  public static var __selections: [Selection] { [
     .field("humanName", String?.self),
     .field("favoriteToy", String.self),
     .field("owner", Owner?.self),
@@ -40,7 +40,7 @@ public struct PetDetails: GraphQLAPI.SelectionSet, Fragment {
     public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { GraphQLAPI.Objects.Human }
-    public static var selections: [Selection] { [
+    public static var __selections: [Selection] { [
       .field("firstName", String.self),
     ] }
 

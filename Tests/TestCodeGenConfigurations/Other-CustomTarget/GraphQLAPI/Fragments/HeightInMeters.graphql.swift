@@ -20,7 +20,7 @@ public struct HeightInMeters: GraphQLAPI.SelectionSet, Fragment {
   public init(data: DataDict) { __data = data }
 
   public static var __parentType: ParentType { GraphQLAPI.Interfaces.Animal }
-  public static var selections: [Selection] { [
+  public static var __selections: [Selection] { [
     .field("height", Height.self),
   ] }
 
@@ -34,7 +34,7 @@ public struct HeightInMeters: GraphQLAPI.SelectionSet, Fragment {
     public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { GraphQLAPI.Objects.Height }
-    public static var selections: [Selection] { [
+    public static var __selections: [Selection] { [
       .field("meters", Int.self),
     ] }
 

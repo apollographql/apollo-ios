@@ -20,7 +20,7 @@ public struct HeightInMeters: MyCustomProject.SelectionSet, Fragment {
   public init(data: DataDict) { __data = data }
 
   public static var __parentType: ParentType { MyCustomProject.Interfaces.Animal }
-  public static var selections: [Selection] { [
+  public static var __selections: [Selection] { [
     .field("height", Height.self),
   ] }
 
@@ -34,7 +34,7 @@ public struct HeightInMeters: MyCustomProject.SelectionSet, Fragment {
     public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { MyCustomProject.Objects.Height }
-    public static var selections: [Selection] { [
+    public static var __selections: [Selection] { [
       .field("meters", Int.self),
     ] }
 

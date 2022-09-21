@@ -23,7 +23,7 @@ public struct ClassroomPetDetailsCCN: GraphQLAPI.SelectionSet, Fragment {
   public init(data: DataDict) { __data = data }
 
   public static var __parentType: ParentType { GraphQLAPI.Unions.ClassroomPet }
-  public static var selections: [Selection] { [
+  public static var __selections: [Selection] { [
     .inlineFragment(AsAnimal.self),
   ] }
 
@@ -37,7 +37,7 @@ public struct ClassroomPetDetailsCCN: GraphQLAPI.SelectionSet, Fragment {
     public init(data: DataDict) { __data = data }
 
     public static var __parentType: ParentType { GraphQLAPI.Interfaces.Animal }
-    public static var selections: [Selection] { [
+    public static var __selections: [Selection] { [
       .field("height", Height.self),
     ] }
 
@@ -51,7 +51,7 @@ public struct ClassroomPetDetailsCCN: GraphQLAPI.SelectionSet, Fragment {
       public init(data: DataDict) { __data = data }
 
       public static var __parentType: ParentType { GraphQLAPI.Objects.Height }
-      public static var selections: [Selection] { [
+      public static var __selections: [Selection] { [
         .field("inches", Int.self),
       ] }
 
