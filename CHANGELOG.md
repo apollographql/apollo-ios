@@ -1,5 +1,37 @@
 # Change Log
 
+## v1.0.0-rc.1 - Release Candidate #1
+
+This is the first Release Candidate for Apollo iOS 1.0. The Release Candidate is a fully featured and code-complete representation of the final 1.0 version. This includes full feature parity with the 0.x.x releases.
+
+API breaking changes are not expected between the Release Candidate and the General Availability (GA) release. The only code changes will be non-breaking bug fixes due to user feedback. The Release Candidate does not have complete documentation or usage guides, which will be completed prior to GA.
+
+This first major version will include a new code generation engine, better generated models, and many syntax and performance improvements across the entire library. The primary goal of Apollo iOS 1.0 is to stabilize the API of the model layer and provide a foundation for future feature additions and evolution of the library.
+
+* **New: Option to Include Deprecated Input Arguments on Fields During Schema Download** Thanks to [@dave-perry](https://github.com/dave-perry) for this addition!
+* **Fixed: Code Generation Config JSON File Compatibility** 
+  * Previously, the `apollo-codegen-config.json` file used by the Apollo CLI needed to contain values for all optional fields. When new codegen options were added, this would cause errors until all newly added options has values provided. 
+  * The `Codable` implementation for the `ApolloCodgenConfiguration` has been implemented manually to prevent this. Now, only required fields must be provided, all optional fields can be omitted from the config file safely. 
+  * The CLI's `init` command also now generates a template config file with only the required fields.
+* **Fixed: Swift Keywords are escaped when used as names of Input Parameters**
+* **Fixed: Compilation Error when using `@skip` and `@include` conditions on the same field**
+* **Fixed: Added permissions request to SPM Code Generation Plugin**
+  * When running the code generation plugin, you will be prompted to give permission for the plugin to write to the package directory.
+  * This permission check can be avoided by passing the `--allow-writing-to-package-directory` flag when executing the plugin command.
+* **Fixed: APQ Operations Will no Longer be Retried when Unrecognized if using `.persistedOperationsOnly`**
+  * `.persistedOperationsOnly` is for use with allow-listed operations only. If an operation identifier is not recognized by the server, there is no way to register the operation in this configuration.   
+* **Breaking: Updated `ApolloAPI` internal metadata properties to be `__` prefixed.**
+  * Generated GraphQL files expose certain properties/functions that are consumed by the `Apollo` library during GraphQL Execution. These members must be public in order to be exposed to `Apollo`, but are not intended for external consumption. We have added underscore prefixes to each of these members to signify that intention, using `__` for GraphQL Metadata (in alignment with the GraphQL Specification) and `_` for `Apollo`'s utility and helper functions.
+  * The affected signatures are:
+    * `SelectionSet.schema` -> `SelectionSet.__schema`
+    * `SelectionSet.selection` -> `SelectionSet.__selection`
+    * `JSONEncodable.jsonValue` -> `JSONEncodable._jsonValue`
+    * `JSONDecodable.init(jsonValue:)` -> `JSONDecodable.init(_jsonValue:)`
+    * `AnyHashableConvertible.asAnyHashable` -> `AnyHashableConvertible._asAnyHashable`
+    * `OutputTypeConvertible.asOutputType` -> `OutputTypeConvertible._asOutputType`
+    * `GraphQLOperation.variables` -> `GraphQLOperation._variables`
+    * `LocalCacheMutation.variables` -> `LocalCacheMutation._variables`
+
 ## v1.0.0-beta.4
 
 This is the fourth Beta Release of Apollo iOS 1.0. The Beta version has full feature parity with the 0.x.x releases. The API is expected to be mostly stable. Some breaking changes may occur due to user feedback prior to General Availability (GA) Release. The Beta does not have complete documentation or usage guides, which will be completed prior to GA.
