@@ -133,7 +133,7 @@ private func startSubscription() {
     }
 }
 
-private func handleSubscriptionEvent() {
+private func handleTripsBooked(value: Int) {
    print("Trips booked: \(value)")
 }
 ```
@@ -164,22 +164,22 @@ Now, let's display that information in a view! Replace the `print` statement in 
 
 ```swift title="LaunchesViewController.swift"
 private func handleTripsBooked(value: Int) {
-        var message: String
-        switch value {
-        case 1:
-            message = "A new trip was booked! 🚀"
-        case -1:
-            message = "A trip was cancelled! 😭"
-        default:
-            self.showAlert(title: "Unexpected value",
-                           message: " Subscription returned unexpected value: \(value)")
-            return
-        }
-
-        NotificationView.show(in: self.navigationController!.view,
-                              with: message,
-                              for: 4.0)
+    var message: String
+    switch value {
+    case 1:
+        message = "A new trip was booked! 🚀"
+    case -1:
+        message = "A trip was cancelled! 😭"
+    default:
+        self.showAlert(title: "Unexpected value",
+                       message: " Subscription returned unexpected value: \(value)")
+        return
     }
+
+    NotificationView.show(in: self.navigationController!.view,
+                          with: message,
+                          for: 4.0)
+}
 ```
 
 Build and run the application to your simulator, then use Studio to send bookings and cancellations again, and your iOS app should see some shiny new notifications pop up:
