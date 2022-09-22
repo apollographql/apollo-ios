@@ -23,9 +23,9 @@ These are the three guiding principles we aim for in each major release:
 - **Completeness**: There are three main parts to the SDK: code generation, network fetching/parsing, and caching. These must provide enough functionality to be a good foundation for incremental improvements within major releases without requiring breaking changes.
 - **Clarity**: Everything must be clearly documented with as many working samples as possible.
 
-## 1.0 - _In Releae Candidate phase_
+## 1.0 - _In Release Candidate phase_
 
-[Releaes Candidate 1 is available](https://github.com/apollographql/apollo-ios/releases/tag/1.0.0-rc.1), please try it and give us your feedback.
+[Release Candidate 1 is available](https://github.com/apollographql/apollo-ios/releases/tag/1.0.0-rc.1), please try it and give us your feedback.
 
 These are the major initiatives planned for 1.0/1.x:
 
