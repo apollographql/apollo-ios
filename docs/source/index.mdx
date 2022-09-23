@@ -6,7 +6,7 @@ description: A strongly typed, Swift-first GraphQL client
 
 **Apollo iOS** is an [open-source](https://github.com/apollographql/apollo-ios) GraphQL client for native client applications, written in Swift.
 
-Apollo iOS executes queries and mutations against a GraphQL server and returns results as pre-generated, operation-specific Swift types. This means you don't have to deal with forming GraphQL spec-compliant requests, parsing JSON responses, or manually validating and type-casting response data.
+Apollo iOS executes queries and mutations against a GraphQL server and returns results as pre-generated, operation-specific Swift types. This means you don't have to deal with forming spec-compliant GraphQL requests, parsing JSON responses, or manually validating and type-casting response data.
 
 Apollo iOS also includes caching mechanisms that are designed specifically for GraphQL data, enabling you to execute your GraphQL queries against locally cached data directly.
 
@@ -49,9 +49,9 @@ Models are also generated for your schema's input types, enums, and custom scala
 
 ### The normalized cache
 
-Apollo iOS normalizes operation results to build a client-side cache of your data, which is updated with every operation you execute. Our normalized cache is built specificially with GraphQL in mind. It de-duplicates GraphQL response data, merging data from separate GraphQL operations into normalized objects so that it can stay up-to-date with your back end with as few operations as possible.
+Apollo iOS normalizes operation results to build a client-side cache of your data, which is updated with every operation you execute. Our normalized cache is built specificially with GraphQL in mind. It de-duplicates GraphQL response data, merging data from separate GraphQL operations into normalized objects so that it can stay up-to-date with your backend with as few operations as possible.
 
-The normalization of objects across operations means the cache acts as a source of truth for your graph, enabling your application to react to changes as they are fetched.
+The normalization of objects across operations means the cache acts as a source of truth for your graph, enabling your application to react to changes as they're fetched.
 
 To learn more about the normalization process, see our blog post [Demystifying Cache Normalization](https://www.apollographql.com/blog/apollo-client/caching/demystifying-cache-normalization).
 
