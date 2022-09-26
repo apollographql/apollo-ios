@@ -14,9 +14,9 @@ Pod::Spec.new do |s|
   s.tvos.deployment_target = '12.0'
   s.watchos.deployment_target = '5.0'
 
-  cli_directory = 'CodegenCLI'
+  cli_directory = 'Sources/CodegenCLI'
   cli_binary_name = 'apollo-ios-cli'
-  s.preserve_paths = ['CodegenCLI/**/*', cli_binary_name]
+  s.preserve_paths = ['Sources/CodegenCLI/**/*', cli_binary_name]
   s.prepare_command = <<-CMD    
     make clean build-cli-for-cocoapods
     cp #{cli_directory}/.build/release/#{cli_binary_name} #{cli_binary_name}
