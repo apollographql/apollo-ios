@@ -1,0 +1,38 @@
+<ExpansionPanel title="SPM with Package.swift">
+
+If your project uses its own `Package.swift` file, you can add `Apollo iOS` as a dependency there:
+
+<ExpansionPanelList>
+<ExpansionPanelListItem>
+
+Add `Apollo iOS` to your `dependencies` list:
+
+```swift title="Package.swift"
+dependencies: [
+    .package(url: "https://github.com/apollographql/apollo-ios.git", .upToNextMajor(from: "1.0.0")),
+],
+```
+
+</ExpansionPanelListItem>
+
+<ExpansionPanelListItem>
+
+Link the `Apollo` product to your package target.
+
+Any targets in your application that will use the `ApolloClient` need to have a dependency on the `Apollo` product.
+
+```swift title="Package.swift"
+.target(
+    name: "MyApp",
+    dependencies: [
+        .product(name: "Apollo", package: "apollo-ios"),
+    ]
+)
+```
+
+> **Note:** Targets that will only use Apollo's generated models don't need to be linked to the `Apollo` product.
+
+</ExpansionPanelListItem>
+</ExpansionPanelList>
+
+</ExpansionPanel>

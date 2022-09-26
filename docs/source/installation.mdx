@@ -1,9 +1,10 @@
 ---
-title: Installing Apollo iOS
-sidebar_title: Installation
+title: Getting Started with Apollo iOS
+sidebar_title: Get Started
 ---
 
-import SPMInstallationPanel from "../shared/spm-installation-panel.mdx"
+import SPMXcodeInstallationPanel from "../shared/spm-xcode-installation-panel.mdx"
+import SPMPackageInstallationPanel from "../shared/spm-package-installation-panel.mdx"
 import SPMRunScriptPanel from "../shared/spm-run-script-panel.mdx"
 import PodsInstallationPanel from "../shared/pods-installation-panel.mdx"
 import PodsRunScriptPanel from "../shared/pods-run-script-panel.mdx"
@@ -12,16 +13,15 @@ import CarthageRunScriptPanel from "../shared/carthage-run-script-panel.mdx"
 
 Follow the steps below to add Apollo iOS to your app:
 
-## 1. Update Xcode
+## 1. Install the Apollo frameworks
 
-Before installing Apollo iOS, make sure you're using the latest version of Xcode. You can update Xcode via the [Mac App Store](http://appstore.com/mac/apple/xcode).
+You can install Apollo iOS into your project using any of the three major Cocoa ecosystem package managers: Swift Package Manager, CocoaPods, or Carthage.
 
-## 2. Install the Apollo framework
+<a name="spm-package-installation" />
+<SPMPackageInstallationPanel />
 
-You can install `Apollo.framework` into your project using any of the three major Cocoa ecosystem package managers: Swift Package Manager, CocoaPods, or Carthage.
-
-<a name="swift-package-manager-installation" />
-<SPMInstallationPanel />
+<a name="spm-xcode-installation" />
+<SPMXcodeInstallationPanel />
 
 <a name="cocoapods-installation" />
 <PodsInstallationPanel />
@@ -57,7 +57,7 @@ Check out the [`xcode-apollo`](https://github.com/apollographql/xcode-graphql) r
 
 ## 4. Create `.graphql` files for your GraphQL operations
 
-Apollo iOS generates code from GraphQL queries and mutations defined in `.graphql` files in your target. As a useful convention, you can define each `[operation].graphql` file alongside whichever `[operation].swift` file uses the corresponding operation.
+Apollo iOS generates code from GraphQL queries and mutations defined in `.graphql` files in your target. As a useful convention, you can define each `[operation].graphql` file alongside whichever `[operation].graphql.swift` file uses the corresponding operation.
 
 If you have the Xcode add-ons installed, you can use the Xcode companion view to show a `.swift` file and its corresponding `.graphql` file side by side.
 
