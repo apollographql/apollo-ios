@@ -63,8 +63,36 @@ The easiest way to do this is with the Codegen CLI provided with Apollo iOS.
 <a name="pods-run-codegen" />
 <PodsSetupCodegenPanel />
 
-## **Installation complete!**
+## 6. Create an `ApolloClient`
 
-You can now start executing GraphQL operations in your app. To learn how, next check out [Creating a client](./initialization/) and [Fetching queries](./fetching-queries/).
+Before you can execute GraphQL operations in your app, you need to initialize an `ApolloClient` instance.
 
-You can also continue reading below for some [advanced codegen tips](#advanced-codegen-tips-and-tricks).
+```swift
+import Foundation
+import Apollo
+
+let apolloClient = ApolloClient(url: URL(string: "http://localhost:4000/graphql")!)
+```
+
+## 7. Fetch a query
+
+Your generated operation definitions can be fetched with your `ApolloClient` and the response will be returned as a type-safe generated data model.
+
+For example, if you define a query called `HeroName`:
+
+```graphql
+query HeroName {
+  hero {
+    name
+  }
+}
+```
+
+Apollo iOS will generate a `HeroNameQuery` class that you can construct and pass to `ApolloClient.fetch(query:)`:
+
+```swift
+apolloClient.fetch(query: HeroNameQuery) { result in
+  guard let data = try? result.get().data else { return }
+  print(data.hero.name) // Luke Skywalker
+}
+```

@@ -6,7 +6,7 @@
   ],
   "sidebar": {
     "Introduction": "/",
-    "Installation": "/installation",
+    "Get Started": "/get-started",
     "API Reference": {
       "Overview": "https://www.apollographql.com/docs/ios/docc/documentation/index",
       "Apollo Client": "https://www.apollographql.com/docs/ios/docc/documentation/Apollo",
