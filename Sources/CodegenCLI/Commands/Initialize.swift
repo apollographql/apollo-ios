@@ -140,7 +140,7 @@ extension ApolloCodegenConfiguration {
           }
         },
         "schemaTypes" : {
-          "path" : "./",
+          "path" : "./MySchemaName",
           "moduleType" : {
             "swiftPackageManager" : {
             }

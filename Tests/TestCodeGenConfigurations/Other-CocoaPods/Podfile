@@ -5,8 +5,7 @@ target 'MyCustomProject' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
-  pod 'Apollo', :path => '../../../'
-  pod 'Apollo/ApolloTestSupport', :path => '../../../'
+  pod 'Apollo', :git => 'https://github.com/apollographql/apollo-ios.git', :branch => "release/1.0"
 
   target 'MyCustomProjectTests' do
     inherit! :search_paths

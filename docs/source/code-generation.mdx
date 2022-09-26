@@ -1,0 +1,87 @@
+# UNDER CONSTRUCTION
+
+# Run codegen as a build step
+
+To run code generation as part of the Xcode build process, you need to create a build step that runs before "Compile Sources" to invoke a wrapper script.
+
+The wrapper script calls through to the included binaries and files that constitute the `apollo` command-line interface. This helps ensure that you can use our tooling without having to worry about mismatched versioning between libraries.
+
+> 📣 **Check it out:** Instead of writing the rest of this in Bash, try using our new [Swift Scripting Library](./swift-scripting), now in Beta! It supports downloading a schema and generating code.
+
+The location of this wrapper script depends on how you've integrated Apollo into your project, but these first steps are always the same:
+
+1. On your application target's **Build Phases** settings tab, click the **+** icon and choose **New Run Script Phase**.
+2. In the created Run Script, change its name to **Generate Apollo GraphQL API**.
+3. Drag this new run script just above **Compile Sources** in your list of **Build Phases** so that it executes _before_ your code is compiled.
+4. Add the contents of the appropriate run script for the package manager you're using:
+
+<a name="swift-package-manager-run-script" />
+<SPMRunScriptPanel />
+
+<a name="cocoapds-run-script" />
+<PodsRunScriptPanel />
+
+<a name="carthage-run-script" />
+<CarthageRunScriptPanel />
+
+
+### Troubleshooting
+
+If you get this error:
+
+> `Cannot find GraphQL schema file [...]`
+
+The script can't locate your schema file. Double check the path you've used.
+
+If you get this error:
+
+> `No operations or fragments found to generate code for.`
+
+You haven't defined at least one `.graphql` file with a valid operation in your build tree.
+
+If you need to validate the structure of a GraphQL operation, you can test it against your GraphQL server using [Apollo Sandbox](https://studio.apollographql.com/sandbox).
+
+## Advanced codegen tips and tricks
+
+After you get up and running, here are a few improvements you can make to your codegen process.
+
+### Prevent unnecessary recompilation
+
+#### Set up input and output files in your build phase
+
+If you're using a tool like Interface Builder or SwiftUI to talk to a module with its own code generation build step, this is helpful to prevent the `API.swift` file from causing an auto-regeneration loop.
+
+For example, if you're using something like this to run your code generation for a target called `YourTarget`:
+
+```
+"${SCRIPT_PATH}"/run-bundled-codegen.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile="schema.json" API.swift
+```
+
+Assuming you've set the script to run from `$(SRCROOT)/YourTarget`, you can add `$(SRCROOT)/YourTarget/**/*.graphql` (the path you're running it from + the glob you're passing to the `includes` CLI parameter) to the list of `Input Files` for your Apollo Run Script Build phase. Then, you can add `$(SRCROOT)/YourTarget/API.swift` (the path you're running it from + the output file) to the list of `Output Files`:
+
+<img class="screenshot" src="screenshot/input_output_files.png" alt="Setting input and output files" />
+
+This should prevent automatic rebuild cycles if none of the `InputFiles` are changed. The script *will* still run if you explicitly build and run.
+
+There's an [open issue to auto-generate input and output file lists](https://github.com/apollographql/apollo-ios/issues/636) which will be addressed as part of Apollo iOS 1.0, but this will help until that's done.
+
+#### Write to a temporary file
+
+If for some reason the input/output file setup above doesn't work for you, you can also decide to first write the file to a temporary location, and then compare this temporary file to the current one. Then, only when the files differ you move the temporary file into place.
+
+For a target called `YourTarget`, the script could look something like this:
+
+```bash
+"${SCRIPT_PATH}"/run-bundled-codegen.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile="schema.json" "${SRCROOT}/YourTarget/API.swift.new"
+if ! diff -q "${SRCROOT}/YourTarget/API.swift.new" "${SRCROOT}/YourTarget/API.swift"; then
+  mv "${SRCROOT}/YourTarget/API.swift.new" "${SRCROOT}/YourTarget/API.swift"
+else
+  rm "${SRCROOT}/YourTarget/API.swift.new"
+fi
+```
+
+### Generate multiple files in a folder instead of one large file
+
+Instead of passing a single `API.swift` file, you can pass a (pre-existing) relative folder path such as `API` as the final parameter. This causes the codegen to create individual files and place them in that folder.
+
+With small sets of `graphql` files this is usually unnecessary, but with large sets that can cause `API.swift` to be huge. Dividing it up like this can help significantly reduce compilation time.

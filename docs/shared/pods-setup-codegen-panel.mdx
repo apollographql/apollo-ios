@@ -1,0 +1,86 @@
+<ExpansionPanel title="Cocoapods">
+
+Apollo iOS exposes the Codegen CLI as an SPM plugin. This means you can run the Codegen CLI using the `swift package` command.
+
+> **Note:** SPM Plugins require permission to write files to your project directory. Each time you run these commands, you will be prompted to give the plugin permission. To bypass this prompt, we reccomend including the `--allow-writing-to-package-directory` flag before the plugin commmand name.
+
+<ExpansionPanelList>
+<ExpansionPanelListItem>
+
+#### Initialize the codegen configuration
+
+The Codegen CLI uses a JSON file to configure the code generation engine. Initializing the Codegen CLI creates this file with default values. From the directory of your `Package.swift` file, run:
+
+```bash
+swift package --allow-writing-to-package-directory apollo-initialize-codegen-config --schemaName ${MySchemaName}
+```
+
+`${MySchemaName}` should be the name you would like to be used as the namespace for your generated schema files.
+
+This will create an `apollo-codegen-config.json` file with default options.
+
+</ExpansionPanelListItem>
+
+<ExpansionPanelListItem>
+
+#### Set codegen configuration options
+
+Open the `apollo-codegen-config.json` file to configure code generation for your project.
+
+The default configuration will:
+- Find all GraphQL schema files ending with the file extension `.graphqls` within your project directory.
+- Find all GraphQL operation and fragment definition files ending with the file extension `.graphql` within your project directory.
+- Create a Swift Package for your generated schema with the `schemaName` provided.
+- Generate operation and fragment models relative to the `.graphql` files that define them.
+
+</ExpansionPanelListItem>
+
+<ExpansionPanelListItem>
+
+#### Run code generation
+
+From the directory of your `Package.swift` file, run:
+
+```bash
+swift package --allow-writing-to-package-directory apollo-generate
+```
+
+Your generated files will be created with the file extension `.graphql.swift`.
+
+</ExpansionPanelListItem>
+
+<ExpansionPanelListItem>
+
+#### Add the generated schema package to your project
+
+A new Swift Package for your generated schema files will be located in a directory with the `schemaName` you provided. Any targets in your project that include generated operation models will need to import this package.
+
+If your project uses a `Package.swift` file, include the schema package as a local package with this dependency:
+
+```swift title="Package.swift"
+dependencies: [
+    .package(name: "MySchemaName", path: "./MySchemaName"),
+],
+```
+
+Or for an Xcode project or workspace, go to **File > Add Packages...** and then click the `Add Local` button. Find the local package in your project directory and select it to include it in your project.
+
+</ExpansionPanelListItem>
+
+<ExpansionPanelListItem>
+
+#### Add the generated operation files to your target
+
+By default, your generated operation and fragments will be generated in the same location as the `.graphql` files they are defined by.
+
+If your generated operations are included in paths that are defined as sources for a target in your `Package.swift` file, Xcode should automatically include your generated operations in your targets.
+
+If your target is created in an Xcode project or workspace, you will need to manually add generated files to your target.
+
+> **Note:** Because adding generated files to your Xcode targets must be done manually each time you generate new files, we highly recommend defining your project targets with SPM. Alternatively, you can generate your operations into the package that includes your schema files. For more information see the documentation for [Code Generation Confiugration](./codegen-configuration).
+
+</ExpansionPanelListItem>
+
+</ExpansionPanelList>
+
+</ExpansionPanel>
