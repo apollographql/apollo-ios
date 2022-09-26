@@ -1,21 +1,24 @@
 PODS:
-  - Apollo (1.0.0-beta.2):
-    - Apollo/Core (= 1.0.0-beta.2)
-  - Apollo/ApolloTestSupport (1.0.0-beta.2):
-    - Apollo/Core
-  - Apollo/Core (1.0.0-beta.2)
+  - Apollo (1.0.0-rc.1):
+    - Apollo/Core (= 1.0.0-rc.1)
+  - Apollo/Core (1.0.0-rc.1)
 
 DEPENDENCIES:
-  - Apollo (from `../../../`)
-  - Apollo/ApolloTestSupport (from `../../../`)
+  - Apollo (from `https://github.com/apollographql/apollo-ios.git`, branch `release/1.0`)
 
 EXTERNAL SOURCES:
   Apollo:
-    :path: "../../../"
+    :branch: release/1.0
+    :git: https://github.com/apollographql/apollo-ios.git
+
+CHECKOUT OPTIONS:
+  Apollo:
+    :commit: 7b24aa582625f3e1d149e251306d319150638df7
+    :git: https://github.com/apollographql/apollo-ios.git
 
 SPEC CHECKSUMS:
-  Apollo: 5dc585e6c6851448d45d17ab74cc6e8dbe544a29
+  Apollo: 893d964d3233048d103d4cc2185d68efc1403a9b
 
-PODFILE CHECKSUM: 2d0b5dbc296132b4e614a0308765414111c8aea7
+PODFILE CHECKSUM: 7f49f8e157aa036f9f3949c5adb9376f9fddf97e
 
 COCOAPODS: 1.11.3
