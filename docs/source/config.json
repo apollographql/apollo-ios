@@ -31,7 +31,7 @@
         "Mutations": "/fetching/mutations",
         "Subscriptions": "/fetching/subscriptions"
       },
-      "Custom Scalars": "/fetching/custom-scalars",
+      "Custom Scalars": "/custom-scalars",
       "Using fragments": "/fragments",
       "Client-side caching": "/caching",
       "Automatic Persisted Queries": "/fetching/apqs",

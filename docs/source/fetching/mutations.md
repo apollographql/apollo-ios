@@ -100,9 +100,9 @@ In most cases, the data available from a mutation result should be the server de
 ## Uploading files
 
 ### An Important Caveat About File Uploads
-Apollo recommends only using GraphQL file uploading for proof-of-concept applications. While there is a spec we presently support for making `multipart-form` requests with GraphQL, we've found that in practice that it's much simpler to use more purpose-built tools for file upload.
+Apollo recommends only using GraphQL file uploading for proof-of-concept applications. While there is a spec we presently support for making `multipart-form` requests with GraphQL, we've found that, in practice, it's much simpler to use more purpose-built tools for file upload.
 
-In practice, this means using a more traditional method to upload your file like REST `multipart-form` uploads or SDK's that support file uploads, such as AmazonS3. [This article covers how to do that with Typescript](https://www.apollographql.com/blog/graphql-file-uploads-with-react-hooks-typescript-amazon-s3-tutorial-ef39d21066a2), but the general theory for iOS works basically the same:
+Apollo recommends using more traditional methods to upload your files, such as REST `multipart-form` uploads or SDK's that support file uploads, such as AmazonS3. [This article covers how to do that with Typescript](https://www.apollographql.com/blog/graphql-file-uploads-with-react-hooks-typescript-amazon-s3-tutorial-ef39d21066a2), but the general theory for iOS works basically the same:
 
 - Upload data **not** using GraphQL, getting back either an identifier or URL for the uploaded data.
 - Send that received identifier or URL to your graph using GraphQL.

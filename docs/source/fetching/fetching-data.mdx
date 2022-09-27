@@ -141,9 +141,11 @@ apollo.fetch(query: HeroNameQuery()) { result in
 ```
 > **Note:** An operation can be successful, but the `GraphQLResult` may still include `GraphQLErrors`. See [Error Handling](./fetching/../error-handling) for more information.
 
-## TODO
-
 ## Operation Arguments
+
+GraphQL operations can define arguments as part of their definitions, the values of these arguments can be passed to field arguments or directive arguments (eg. `@skip` and `@include`).
+
+Apollo iOS generates type-safe initializers for your operation that accept your operation's arguments. These arguments can be [built-in scalar types](https://graphql.org/learn/schema/#scalar-types), [custom scalars](./../custom-scalars), enums, or input objects defined in your schema.
 
 Let's say we define a GraphQL query named `HeroName`:
 
