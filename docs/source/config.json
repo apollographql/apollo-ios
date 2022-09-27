@@ -16,8 +16,6 @@
       "ApolloCodegenLib": "https://www.apollographql.com/docs/ios/docc/documentation/ApolloCodegenLib"
     },
     "Tutorial": {
-      "0. Introduction": "/tutorial/tutorial-introduction",
-      "1. Add the Apollo SDK": "/tutorial/tutorial-add-sdk",
       "2. Obtain your GraphQL schema": "/tutorial/tutorial-obtain-schema",
       "3. Execute your first query": "/tutorial/tutorial-execute-query",
       "4. Connect your queries to your UI": "/tutorial/tutorial-query-ui",
@@ -30,11 +28,16 @@
     "Usage": {
       "Downloading a schema": "/downloading-schema",
       "Creating a client": "/initialization",
-      "Fetching queries": "/fetching-queries",
+      "Fetching Data": "/fetching/fetching-data",
+      "Error Handling":  "/fetching/error-handling",
+      "Operations": {
+        "Queries": "/fetching/queries",
+        "Mutations": "/fetching/mutations",
+        "Subscriptions": "/fetching/subscriptions"
+      },
       "Performing mutations": "/mutations",
       "Using fragments": "/fragments",
       "Client-side caching": "/caching",
-      "Subscriptions": "/subscriptions",
       "Swift scripting": "/swift-scripting",
       "Request pipeline (advanced)": "/request-pipeline"
     }

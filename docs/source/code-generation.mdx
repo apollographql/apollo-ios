@@ -1,5 +1,31 @@
 # UNDER CONSTRUCTION
 
+## FROM Fetching queries
+
+To generate classes, Apollo iOS requires your server's schema, along with all of the `.graphql` files that contain your defined operations. It uses these to generate code you can use to execute queries and access typed results.
+
+All `.graphql` files in your project (or the subset you specify as input to the `Codegen CLI` if you customize your code generation configuration) will be combined and treated as one big GraphQL document.
+
+This means that fragments defined in one .graphql file are available across all .graphql files. However, it also means that operation and fragment names must be unique (and validation errors will occur if they aren't).
+
+
+## Learn what you need to generate code
+
+Now that you've got the SDK set up, there are two more pieces you need to actually generate code.
+
+The first is the **GraphQL Schema**, which you can generally get from your server or from Apollo Studio Sandbox. This is a list of all of the possible queries and data types that are available to you from your server. The schema can be thought of as a contract of what it's *possible* to ask for.
+
+The second is at least one operation, so that we know what you're *actually* asking for. Apollo generates code by taking your operations, validating that they are actually possible by comparing them to the schema, and then using data from the schema to generate all of the data structures necessary to create operations type-safely, and parse the responses from those operations type-safely.
+
+The most basic way to think about this is the following equation:
+
+**Schema + Operations = Code**
+
+If you don't have any operations, our code generator won't know what information you want to ask for, so it can't generate the code to send a request or parse a result. If you don't have a schema, our code generator won't know if what you want to ask for is possible, so it can't guarantee type safety. If you have both, the appropriate checks can be made and type-safe code can be generated.
+
+Now that you know what you need and why you need it, the next step is to [obtain a local copy of your GraphQL schema](./tutorial-obtain-schema).
+
+
 # Run codegen as a build step
 
 To run code generation as part of the Xcode build process, you need to create a build step that runs before "Compile Sources" to invoke a wrapper script.

@@ -1,0 +1,264 @@
+---
+title: Fetching Data
+---
+
+Fetching data in a predictable, type-safe way is one of the core features of Apollo iOS. In this guide, you'll learn how to execute an operation against a GraphQL endpoint and use the result in your application.
+
+## Prerequisites
+This page assumes some familiarity with building GraphQL operations. For a refresher, we recommend [reading this guide](http://graphql.org/learn/queries/) and practicing [running operations in Apollo Sandbox](https://studio.apollographql.com/sandbox/explorer?endpoint=https%3A%2F%2Fswapi-graphql.netlify.app%2F.netlify%2Ffunctions%2Findex&explorerURLState=N4IgJg9gxgrgtgUwHYBcQC4QEcYIE4CeABAOIIoBiAlgDZwDORwAOkkUQIY03V2Mtt2RAGa0GTVkKEoqKGgklCAvopVIlIADQgAbhzxUOAI3n0MIEEqA&_gl=1*1e24cus*_ga*MTk0Mjk2MDI3Mi4xNjU3NTYxOTc1*_ga_0BGG5V2W2K*MTY2NDIzNTkzMy41NS4xLjE2NjQyMzcwMDguMC4wLjA.).
+
+Because Apollo iOS uses standard GraphQL syntax, any operation you can run in Sandbox can also be put into .graphql files in your project.
+
+This page also assumes that you've already set up Apollo iOS for your application. For help with setup, see the [getting started guide](./get-started).
+
+## Defining operations
+
+In Apollo iOS, each operation you execute is represented as an instance of a generated class that implements the [`GraphQLOperation`](https://www.apollographql.com/docs/ios/docc/documentation/apolloapi/graphqloperation) protocol. Constructor arguments can be used to define operation variables if needed. You can then pass an operation object to an `ApolloClient` to send the operation to the server, execute it, and receive strongly typed results.
+
+GraphQL operations can be [queries](./queries), [mutations](./mutations), or [subscriptions](./subscriptions). For more information on using each of these operation types, see their individual usages guides.
+
+To generate these classes, we first need to define the GraphQL operations we want to execute.
+
+> For more information about how Apollo iOS generates your operation classes, see [Code Generation](./../code-generation).
+
+Let's say we define a GraphQL query named `HeroName`:
+
+```graphql
+query HeroName {
+  hero {
+    name
+  }
+}
+```
+
+Apollo iOS will generate a `HeroNameQuery` class that you can construct and pass to `ApolloClient.fetch(query:)`:
+
+```swift
+apollo.fetch(query: HeroNameQuery()) { result in
+  guard let data = try? result.get().data else { return }
+  print(data.hero.name) // Luke Skywalker
+}
+```
+
+## Typed operation results
+
+An operation's results are returned as a hierarchy of immutable structs that match the structure of the operations's fields. These structs only include fields that are included in the operation (other schema fields are omitted).
+
+In other words, Apollo iOS generates result types based on the operations you write, not based on the schema you query against.
+
+For example, given the following schema:
+
+```graphql
+type Query {
+  hero: Character!
+}
+
+interface Character {
+  id: String!
+  name: String!
+  friends: [Character!]
+  appearsIn: [Episode]!
+ }
+
+ type Human implements Character {
+   id: String!
+   name: String!
+   friends: [Character]
+   appearsIn: [Episode]!
+   height(unit: LengthUnit = METER): Float
+ }
+
+ type Droid implements Character {
+   id: String!
+   name: String!
+   friends: [Character]
+   appearsIn: [Episode]!
+   primaryFunction: String
+}
+```
+
+And the following query:
+
+```graphql
+query HeroAndFriendsNames {
+  hero {
+    name
+    friends {
+      id
+      name
+    }
+  }
+}
+```
+
+Apollo iOS generates a type-safe model that looks something like this (details are omitted to focus on the class structure):
+
+```swift
+class HeroAndFriendsNamesQuery: GraphQLQuery {
+  struct Data: SelectionSet {
+    let hero: Hero
+
+    struct Hero: SelectionSet {
+      let name: String
+      let friends: [Friend]?
+
+      struct Friend: SelectionSet {
+        let id: String
+        let name: String
+      }
+    }
+  }
+}
+```
+
+Because the `HeroAndFriendsNames` query doesn't fetch `appearsIn`, this property is not part of the returned result type and cannot be accessed here. Similarly, `id` is only accessible in `Friend`, not in `Hero`.
+
+Because GraphQL supports nullability, you have compile-time type safety. If the request is successful, all queried data (and only this data) will be accessible. There is no need to handle null fields in UI code.
+
+## Operation result handling
+
+The result of executing an operation is a Swift [`Result`](https://developer.apple.com/documentation/swift/result) whose `.success` case contains a [`GraphQLResult<Data>`](https://www.apollographql.com/docs/ios/docc/documentation/apollo/graphqlresult) where `Data` is the generated root `Data` struct of the operation that was executed.
+
+You can call `try result.get().data` to obtain the `Data` object from the result. If you would like to handle error's or inspect the result's metadata, you can `switch` on the result like this:
+
+```swift
+apollo.fetch(query: HeroNameQuery()) { result in
+  switch result {
+  case .success(let graphQLResult):
+    if let name = graphQLResult.data?.hero?.name {
+      print(name) // Luke Skywalker
+    } else if let errors = graphQLResult.errors {
+      // GraphQL errors
+      print(errors)
+    }
+  case .failure(let error):
+    // Network or response format errors
+    print(error)
+  }
+}
+```
+> **Note:** An operation can be successful, but the `GraphQLResult` may still include `GraphQLErrors`. See [Error Handling](./fetching/../error-handling) for more information.
+
+## TODO: Operation Arguments
+
+Let's say we define a GraphQL query named `HeroName`:
+
+```graphql
+query HeroName($episode: Episode) {
+  hero(episode: $episode) {
+    name
+  }
+}
+```
+
+Apollo iOS will generate a `HeroNameQuery` class that you can construct (with variables) and pass to `ApolloClient.fetch(query:)`:
+
+```swift
+apollo.fetch(query: HeroNameQuery(episode: .empire)) { result in
+  guard let data = try? result.get().data else { return }
+  print(data.hero.name) // Luke Skywalker
+}
+```
+
+## Handling operation results in the background
+
+By default, Apollo will deliver operation results **on the main thread**, which is probably what you want if you're using them to update the UI.
+
+If you want your result handler to be called on a background queue, the `fetch(query:)`, `perform(mutation:)` and `subscribe(subscription:)` functions take an optional `queue:` parameter.
+
+```swift
+apollo.fetch(
+  query: HeroNameQuery(),
+  queue: DispatchQueue.global(qos: .background),
+) { result in
+ ...  // Will be called on a background queue
+}
+```
+
+### Notes on working with Custom Scalars
+
+Custom scalars are types defined by your schema that are based on other GraphQL scalar types (such as `String` or `Int`). Without intervention, code generation will use the underlying types to generate code for the custom scalars.
+
+If you want to use the custom scalars within your code, you must set `passthroughCustomScalars` to true either at the command line or using Swift Scripting.
+
+Once you've done that, you can either create your own type locally or use a `typealias` to declare an equivilent. This is very, very frequently used with `Date` types. Please see the [Custom Scalar Playground Page](https://github.com/apollographql/apollo-client-swift-playground/blob/main/Apollo.playground/Pages/CustomScalars.xcplaygroundpage/Contents.swift) for a full example using a custom date type.
+
+#### JSON and other Custom Scalars with multiple return types
+
+Some custom scalars are set up to potentially return multiple types at runtime. This is not ideal since you lose type safety, but if you're using an API you don't have control over, there's often not a great alternative to this.
+
+When this happens, because you don't know the type that's coming in, you can't set up a single `typealias` for that scalar. Instead, you need to define some other way of instantiating your custom scalar object.
+
+This happens most often with JSON, which can return either an array or a dictionary. Here's an example of how you can use an enum to allow dynamic-but-limited types to parse (with `CustomJSON` as a placeholder type name`):
+
+```swift
+enum CustomJSON {
+  case dictionary([String: Any])
+  case array([Any])
+}
+
+extension CustomJSON: JSONDecodable {
+  init(jsonValue value: JSONValue) throws {
+    if let dict = value as? [String: Any] {
+      self = .dictionary(dict)
+    } else if let array = value as? [Any] {
+      self = .array(array)
+    } else {
+      throw JSONDecodingError.couldNotConvert(value: value, to: CustomJSON.self)
+    }
+  }
+}
+```
+
+Again, make sure to define this in a file that is outside of your generated code, or it will get overwritten.
+
+## Specifying a cache policy
+
+[This section has moved to the Caching documentation](./caching/).
+
+## Using `GET` instead of `POST` for queries
+
+By default, Apollo constructs queries and sends them to your graphql endpoint using `POST` with the JSON generated.
+
+If you want Apollo to use `GET` instead, pass `true` to the optional `useGETForQueries` parameter when setting up your `RequestChainNetworkTransport`. This will set up all queries conforming to `GraphQLQuery` sent through the HTTP transport to use `GET`.
+
+>**NOTE:** This is a toggle which affects all queries sent through that client, so if you need to have certain queries go as `POST` and certain ones go as `GET`, you will likely have to swap out the `RequestChainNetworkTransport`.
+
+## JSON serialization
+
+The classes generated by Apollo iOS can be converted to JSON using their `jsonObject` property. This may be useful for conveniently serializing GraphQL instances for storage in a database, or a file.
+
+For example:
+
+```swift
+apollo.fetch(query: HeroAndFriendsNamesQuery(episode: .empire)) { result in
+  guard let data = try? result.get().data else { return }
+
+  // Serialize the response as JSON
+  let json = data.jsonObject
+  let serialized = try! JSONSerialization.data(withJSONObject: json, options: [])
+
+  // Deserialize the response
+  let deserialized = try! JSONSerialization.jsonObject(with: serialized, options: []) as! JSONObject
+  let heroAndFriendsNames = try! HeroAndFriendsNamesQuery.Data(jsonObject: deserialized)
+}
+```
+
+## Automatic Persisted Queries
+
+Apollo Server allows you to use a feature called [Automatic Persisted Queries](https://www.apollographql.com/docs/apollo-server/performance/apq/), or APQs, to needing to resend large query documents over and over.
+
+Each query or mutation is identified by the SHA256 hash of its contents. If the hash can't be found by the server, it sends back an error indicating that it needs the full query. If it receives this specific error, the iOS SDK will automatically retry the operation with the full query document without you having to do anything.
+
+To use APQs with the iOS SDK:
+
+- When generating your code, pass a local file URL to the `operationIDs` parameter on `ApolloCodegenConfiguration.FileOutput`).
+
+    This will generate a document with all your operations, but more importantly it will cause operation identifiers to be generated with your code.
+- When creating your `ApolloClient`, make sure to manually instantiate your `RequestChainNetworkTransport` and set `autoPersistQueries`.
+
+    This will cause the `RequestChainNetworkTransport` to actively look for the "Oh no, I don't have this hash!" error from the server.
+
+By default, retries of queries will use `POST`.  If for some reason (for example, your queries are hitting a CDN that has considerably better performance with `GET`), you need to use a `GET` for the 2nd try of a query, make sure to set the `useGETForPersistedQueryRetry` option to `true`. Most users will want to leave this option as `false`.
+
+> NOTE: APQs are not supported over Websockets at this time. If you're interested in this feature, please open a PR!
