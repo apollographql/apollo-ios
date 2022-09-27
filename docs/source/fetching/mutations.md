@@ -1,5 +1,5 @@
 ---
-title: Performing mutations
+title: Mutations
 ---
 
 In addition to fetching data using queries, Apollo iOS also handles GraphQL mutations. Mutations are identical to queries in syntax, the only difference being that you use the keyword `mutation` instead of `query` to indicate that the root fields on this query are going to be performing writes to the backend.
@@ -65,7 +65,7 @@ mutation UpvotePost($postId: Int!) {
 ```
 
 ```swift
-apollo.perform(mutation: UpvotePostMutation(postId: postId)) { result in
+client.perform(mutation: UpvotePostMutation(postId: postId)) { result in
   guard let data = try? result.get().data else { return }
   self.configure(with: data.upvotePost?.fragments.postDetails)
 }
