@@ -34,6 +34,7 @@
       "Custom Scalars": "/fetching/custom-scalars",
       "Using fragments": "/fragments",
       "Client-side caching": "/caching",
+      "Automatic Persisted Queries": "/fetching/apqs",
       "Swift scripting": "/swift-scripting",
       "Request pipeline (advanced)": "/request-pipeline"
     }

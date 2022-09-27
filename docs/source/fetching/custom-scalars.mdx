@@ -18,7 +18,7 @@ Apollo iOS automatically defines Swift types for all of the [built-in scalar typ
 
 By default, each custom scalar is treated as a Swift `String`, but you can customize the type of all of your custom scalars with Apollo iOS!
 
-# Defining custom scalar types
+## Generating custom scalar types
 
 If any part of your GraphQL application references a custom scalar defined by the schema, a file for it will be generated in your generated schema output. This file can be used to define the Swift type for the custom scalar.
 
@@ -38,9 +38,22 @@ public extension MySchema {
 
 The `MySchema.UUID` type will be referenced in any other generated objects that reference the `UUID` scalar.
 
+Because custom scalar files are only generated once, they can then be edited, and your changes will never be overwritten by subsequent code generation execution.
+
+You can edit this file to define a different type for the `UUID` scalar type.
+
+> **Note:** Custom scalars may be referenced by fields on GraphQL types, values for input parameters, or on input objects. Because custom scalars are only generated when they are referenced by your operations, they may be added to your project during any future execution of code generation, not just on the initial execution.
+
+## Defining a custom scalar type
+
+You can define the type for a custom scalar by creating a new type, or by pointing the typealias to another existing type.
+
+The type for your custom scalar must conform to the [`CustomScalarType`](https://www.apollographql.com/docs/ios/docc/documentation/apolloapi/customscalartype) protocol. This requires you to implement the `jsonValue` property and the `init()
+
+For example, you could point the `typealias` for `UUID` to the `Swift.UUID` type
+
 --------
 
-> **Note:** TODO things change addes new scalars
 ### TODO Notes on working with Custom Scalars
 
 Custom scalars are types defined by your schema that are based on other GraphQL scalar types (such as `String` or `Int`). Without intervention, code generation will use the underlying types to generate code for the custom scalars.
