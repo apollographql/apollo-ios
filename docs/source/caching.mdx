@@ -116,18 +116,7 @@ If you use fragments which contain ID's then a query which returns or mutates th
 
 ## Specifying a cache policy
 
-`ApolloClient`'s `fetch(query:)` method takes an optional `cachePolicy` that allows you to specify when results should be fetched from the server, and when data should be loaded from the local cache.
-
-The default cache policy is `.returnCacheDataElseFetch`, which means data will be loaded from the cache when available, and fetched from the server otherwise.
-
-Other cache polices which you can specify are:
-
-- **`.fetchIgnoringCacheData`** to always fetch from the server, but still store results to the cache.
-- **`.fetchIgnoringCacheCompletely`** to always fetch from the server and not store results from the cache. If you're not using the cache at all, this method is preferred to `fetchIgnoringCacheData` for performance reasons.
-- **`.returnCacheDataDontFetch`** to return data from the cache and never fetch from the server. This policy will return an error if cached data is not available.
-- **`.returnCacheDataAndFetch`** to return cached data immediately, *then* perform a fetch to see if there are any updates. This is mostly useful if you're watching queries, since those will be updated when the call to the server returns.
-
-If you're interested in returning cached data after a failed fetch, the current recommended approach is to use an `additionalErrorInterceptor` on your interceptor chain to examine if the error is one it makes sense to show old data for rather than something that needs to be passed on to the user, and then retrying with a `returnCacheDataDontFetch` retry policy. An example of this setup can be found in the [Cache-dependent interceptor tests](https://github.com/apollographql/apollo-ios/blob/main/Tests/ApolloTests/Cache/CacheDependentInterceptorTests.swift).
+TODO
 
 ## Direct cache access
 
