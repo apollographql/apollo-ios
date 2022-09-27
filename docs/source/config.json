@@ -16,12 +16,8 @@
       "ApolloCodegenLib": "https://www.apollographql.com/docs/ios/docc/documentation/ApolloCodegenLib"
     },
     "Tutorial": {
-      "2. Obtain your GraphQL schema": "/tutorial/tutorial-obtain-schema",
-      "3. Execute your first query": "/tutorial/tutorial-execute-query",
-      "4. Connect your queries to your UI": "/tutorial/tutorial-query-ui",
       "5. Paginate results": "/tutorial/tutorial-pagination",
       "6. Complete the detail view": "/tutorial/tutorial-detail-view",
-      "7. Enable authentication": "/tutorial/tutorial-authentication",
       "8. Define additional mutations": "/tutorial/tutorial-mutations",
       "9. Write your first subscription": "/tutorial/tutorial-subscriptions"
     },
@@ -35,7 +31,6 @@
         "Mutations": "/fetching/mutations",
         "Subscriptions": "/fetching/subscriptions"
       },
-      "Performing mutations": "/mutations",
       "Using fragments": "/fragments",
       "Client-side caching": "/caching",
       "Swift scripting": "/swift-scripting",
