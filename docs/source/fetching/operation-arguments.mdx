@@ -89,3 +89,35 @@ let optionalEpisode: Episode?
 For more usage information see the [`GraphQLNullable` documentation](https://www.apollographql.com/docs/ios/docc/documentation/apolloapi/graphqlnullable).
 
 ## Default values
+
+When defining your operation's arguments, you may provide default values for the arguments. These default arguments will be included in your generated operation's initializer:
+
+<CodeColumns cols={2}>
+
+```graphql title="HeroNameQuery.graphql"
+query HeroName(
+  $episode: Episode! = .EMPIRE
+) {
+  hero(episode: $episode) {
+    name
+  }
+}
+```
+
+```swift title="HeroNameQuery.graphql.swift"
+class HeroNameQuery: GraphQLQuery {
+  ...
+
+  var episode: Episode
+
+  init(episode: Episode = .empire) {
+    self.episode = episode
+  }
+}
+```
+
+</CodeColumns>
+
+> **Note:** This only applies for operation arguments defined by the client.
+>
+> Default values for fields on [Input Objects](./../input-objects) are defined by the schema, and not generated.

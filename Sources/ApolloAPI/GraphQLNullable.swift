@@ -256,8 +256,8 @@ public extension GraphQLNullable {
 ///
 ///   var myVar: GraphQLNullable<String>
 ///
-///   init(myVar: GraphQLNullable<String> { ... }
-///  // ...
+///   init(myVar: GraphQLNullable<String>) { ... }
+///   // ...
 /// }
 ///
 /// let optionalString: String?
