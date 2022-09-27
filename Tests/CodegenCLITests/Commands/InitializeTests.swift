@@ -7,6 +7,7 @@ import ApolloCodegenLib
 class InitializeTests: XCTestCase {
 
   var mockFileManager: MockApolloFileManager!
+  let baseOptions = ["--schema-name=MockSchema"]
 
   override func setUp() {
     super.setUp()
@@ -28,9 +29,15 @@ class InitializeTests: XCTestCase {
 
   // MARK: - Parsing Tests
 
-  func test__parsing__givenParameters_none_shouldUseDefaults() throws {
+  func test__parsing__givenParameters_none_shouldThrow() throws {
+    expect { try self.parse([]) }.to(throwUserValidationError(
+      ValidationError("Schema name is missing, use the --schema-name option to specify.")
+    ))
+  }
+
+  func test__parsing__givenParameters_required_shouldUseDefaults() throws {
     // when
-    let command = try parse([])
+    let command = try parse(baseOptions)
 
     // then
     expect(command.path).to(equal(Constants.defaultFilePath))
@@ -38,11 +45,37 @@ class InitializeTests: XCTestCase {
     expect(command.print).to(beFalse())
   }
 
+  func test__parsing__givenParameters_schemaNameLongformat_shouldParse() throws {
+    // given
+    let options = [
+      "--schema-name=LongFormatSchemaName"
+    ]
+
+    // when
+    let command = try parse(options)
+
+    // then
+    expect(command.schemaName).to(equal("LongFormatSchemaName"))
+  }
+
+  func test__parsing__givenParameters_schemaNameShortFormat_shouldParse() throws {
+    // given
+    let options = [
+      "-n=ShortFormatSchemaName"
+    ]
+
+    // when
+    let command = try parse(options)
+
+    // then
+    expect(command.schemaName).to(equal("ShortFormatSchemaName"))
+  }
+
   func test__parsing__givenParameters_pathLongFormat_shouldParse() throws {
     // given
     let path = "./configuration.json"
 
-    let options = [
+    let options = baseOptions + [
       "--path=\(path)"
     ]
 
@@ -57,7 +90,7 @@ class InitializeTests: XCTestCase {
     // given
     let path = "./configuration.json"
 
-    let options = [
+    let options = baseOptions + [
       "-p=\(path)"
     ]
 
@@ -70,7 +103,7 @@ class InitializeTests: XCTestCase {
 
   func test__parsing__givenParameters_overwriteLongFormat_shouldParse() throws {
     // given
-    let options = [
+    let options = baseOptions + [
       "--overwrite"
     ]
 
@@ -83,7 +116,7 @@ class InitializeTests: XCTestCase {
 
   func test__parsing__givenParameters_overwriteShortFormat_shouldParse() throws {
     // given
-    let options = [
+    let options = baseOptions + [
       "-w"
     ]
 
@@ -96,7 +129,7 @@ class InitializeTests: XCTestCase {
 
   func test__parsing__givenParameters_printLongFormat_shouldParse() throws {
     // given
-    let options = [
+    let options = baseOptions + [
       "--print"
     ]
 
@@ -109,7 +142,7 @@ class InitializeTests: XCTestCase {
 
   func test__parsing__givenParameters_printShortFormat_shouldParse() throws {
     // given
-    let options = [
+    let options = baseOptions + [
       "-s"
     ]
 
@@ -122,7 +155,7 @@ class InitializeTests: XCTestCase {
 
   func test__parsing__givenParameters_unknown_shouldThrow() throws {
     // given
-    let options = [
+    let options = baseOptions + [
       "--unknown"
     ]
 
@@ -137,7 +170,7 @@ class InitializeTests: XCTestCase {
     // given
     let outputPath = "./path/to/output.file"
 
-    let options = [
+    let options = baseOptions + [
       "--path=\(outputPath)"
     ]
 
@@ -157,7 +190,8 @@ class InitializeTests: XCTestCase {
       let expectedPath = URL(fileURLWithPath: outputPath).standardizedFileURL.path
 
       expect(actualPath).to(equal(expectedPath))
-      expect(data?.asString).to(equal(ApolloCodegenConfiguration.minimalJSON))
+      expect(data?.asString).to(equal(
+        ApolloCodegenConfiguration.minimalJSON(schemaName: "MockSchema")))
 
       return true
     }))
@@ -172,7 +206,7 @@ class InitializeTests: XCTestCase {
     // given
     let outputPath = "./path/to/output.file"
 
-    let options = [
+    let options = baseOptions + [
       "--path=\(outputPath)"
     ]
 
@@ -200,7 +234,7 @@ class InitializeTests: XCTestCase {
     // given
     let outputPath = "./path/to/output.file"
 
-    let options = [
+    let options = baseOptions + [
       "--path=\(outputPath)",
       "--overwrite"
     ]
@@ -221,7 +255,9 @@ class InitializeTests: XCTestCase {
       let expectedPath = URL(fileURLWithPath: outputPath).standardizedFileURL.path
 
       expect(actualPath).to(equal(expectedPath))
-      expect(data?.asString).to(equal(ApolloCodegenConfiguration.minimalJSON))
+      expect(data?.asString).to(equal(
+        ApolloCodegenConfiguration.minimalJSON(schemaName: "MockSchema")
+      ))
 
       return true
     }))
@@ -234,7 +270,7 @@ class InitializeTests: XCTestCase {
 
   func test__output__givenParameters_printTrue_shouldPrintToStandardOutput() throws {
     // given
-    let options = [
+    let options = baseOptions + [
       "--print"
     ]
 
@@ -248,12 +284,12 @@ class InitializeTests: XCTestCase {
 
     // then
     expect(output).toEventuallyNot(beNil())
-    expect(output).to(equal(ApolloCodegenConfiguration.minimalJSON))
+    expect(output).to(equal(ApolloCodegenConfiguration.minimalJSON(schemaName: "MockSchema")))
   }
 
   func test__output__givenParameters_bothPathAndPrint_shouldPrintToStandardOutput() throws {
     // given
-    let options = [
+    let options = baseOptions + [
       "--path=./path/to/file",
       "--print"
     ]
@@ -268,14 +304,17 @@ class InitializeTests: XCTestCase {
 
     // then
     expect(output).toEventuallyNot(beNil())
-    expect(output).to(equal(ApolloCodegenConfiguration.minimalJSON))
+    expect(output).to(equal(ApolloCodegenConfiguration.minimalJSON(schemaName: "MockSchema")))
   }
 
   // MARK: - minimalJSON Tests
 
   func test__decoding__givenMinimalJSON_cocoapodsIncompatible_shouldNotThrow() throws {
     // given
-    let encoded = try ApolloCodegenConfiguration.minimalJSON(supportCocoaPods: false).asData()
+    let encoded = try ApolloCodegenConfiguration.minimalJSON(
+      schemaName: "MockSchema",
+      supportCocoaPods: false
+    ).asData()
 
     // then
     var decoded: ApolloCodegenConfiguration?
@@ -284,15 +323,44 @@ class InitializeTests: XCTestCase {
     expect(decoded.unsafelyUnwrapped.options.cocoapodsCompatibleImportStatements).to(beFalse())
   }
 
+  func test__decoding__givenMinimalJSON_cocoapodsIncompatible_shouldUseCorrectDefaults() throws {
+    // given
+    let encoded = try ApolloCodegenConfiguration.minimalJSON(
+      schemaName: "MockSchema",
+      supportCocoaPods: false
+    ).asData()
+
+    // then
+    let decoded = try JSONDecoder().decode(ApolloCodegenConfiguration.self, from: encoded)
+
+    expect(decoded.output.schemaTypes.moduleType).to(equal(.swiftPackageManager))
+  }
+
   func test__decoding__givenMinimalJSON_cocoapodsCompatible_shouldNotThrow() throws {
     // given
-    let encoded = try ApolloCodegenConfiguration.minimalJSON(supportCocoaPods: true).asData()
+    let encoded = try ApolloCodegenConfiguration.minimalJSON(
+      schemaName: "MockSchema",
+      supportCocoaPods: true
+    ).asData()
 
     // then
     var decoded: ApolloCodegenConfiguration?
     expect(decoded = try JSONDecoder().decode(ApolloCodegenConfiguration.self, from: encoded))
       .notTo(throwError())
     expect(decoded.unsafelyUnwrapped.options.cocoapodsCompatibleImportStatements).to(beTrue())
+  }
+
+  func test__decoding__givenMinimalJSON_cocoapodsCompatible_shouldUseCorrectDefaults() throws {
+    // given
+    let encoded = try ApolloCodegenConfiguration.minimalJSON(
+      schemaName: "MockSchema",
+      supportCocoaPods: true
+    ).asData()
+
+    // then
+    let decoded = try JSONDecoder().decode(ApolloCodegenConfiguration.self, from: encoded)
+
+    expect(decoded.output.schemaTypes.moduleType).to(equal(.other))
   }
 }
 
