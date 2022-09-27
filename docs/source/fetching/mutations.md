@@ -4,21 +4,29 @@ title: Performing mutations
 
 In addition to fetching data using queries, Apollo iOS also handles GraphQL mutations. Mutations are identical to queries in syntax, the only difference being that you use the keyword `mutation` instead of `query` to indicate that the root fields on this query are going to be performing writes to the backend.
 
+For more information on GraphQL mutations, we recommend [reading this guide](https://graphql.org/learn/queries/#mutations).
+
+GraphQL mutations represent two things in one operation:
+
+1. The mutation field name with arguments, which represents the actual operation to be done on the server.
+2. The fields you want back from the result of the mutation to update the client.
+
+All business logic involved in mutating data is handled by the server. The client has no direct knowledge of how data will be mutated. Just like any other field, each mutation in a schema returns a type. If that type is an object type, you may query fields on that type, which can be used to fetch the new state of the mutated object.
+
+In this example, we define a mutation called `UpvotePost`, which performs the schema's `upvotePost(postId:)` mutation.
+
 ```graphql
 mutation UpvotePost($postId: Int!) {
   upvotePost(postId: $postId) {
+    id
     votes
   }
 }
-
 ```
 
-GraphQL mutations represent two things in one query string:
+The server implements the `upvotePost(postId:)` mutation to add an upvote to the post with the given `postId` and return that post. The above mutation selects the `id` and `votes` fields on the returned `Post` object.
 
-1. The mutation field name with arguments, `upvotePost`, which represents the actual operation to be done on the server
-2. The fields you want back from the result of the mutation to update the client: `{ votes }`
-
-The above mutation will upvote a post on the server. The result might be:
+The result might be:
 
 ```
 {
@@ -31,7 +39,11 @@ The above mutation will upvote a post on the server. The result might be:
 }
 ```
 
-Similar to queries, mutations are represented by instances of generated classes, conforming to the `GraphQLMutation` protocol. Constructor arguments are used to define mutation variables. You pass a mutation object to `ApolloClient#perform(mutation:)` to send the mutation to the server, execute it, and receive typed results:
+## Performing mutations
+
+Similar to queries, mutations are represented by instances of generated classes, conforming to the `GraphQLMutation` protocol. Operation arguments are generated used to define mutation variables. For more information on passing arguments to a mutation see ["Operation arguments"](./fetching-data#operation-arguments)
+
+You pass a mutation object to `ApolloClient.perform(mutation:)` to send the mutation to the server, execute it, and receive typed results.
 
 ```swift
 apollo.perform(mutation: UpvotePostMutation(postId: postId)) { result in
@@ -90,25 +102,25 @@ In most cases, the data available from a mutation result should be the server de
 ### An Important Caveat About File Uploads
 Apollo recommends only using GraphQL file uploading for proof-of-concept applications. While there is a spec we presently support for making `multipart-form` requests with GraphQL, we've found that in practice that it's much simpler to use more purpose-built tools for file upload.
 
-In practice, this means using a more traditional method to upload your file like REST `multipart-form` uploads or SDK's that support file uploads, such as AmazonS3. [This article covers how to do that with Typescript](https://www.apollographql.com/blog/graphql-file-uploads-with-react-hooks-typescript-amazon-s3-tutorial-ef39d21066a2), but the general theory for iOS works basically the same: 
+In practice, this means using a more traditional method to upload your file like REST `multipart-form` uploads or SDK's that support file uploads, such as AmazonS3. [This article covers how to do that with Typescript](https://www.apollographql.com/blog/graphql-file-uploads-with-react-hooks-typescript-amazon-s3-tutorial-ef39d21066a2), but the general theory for iOS works basically the same:
 
 - Upload data **not** using GraphQL, getting back either an identifier or URL for the uploaded data.
 - Send that received identifier or URL to your graph using GraphQL.
 
-If you'd still prefer to upload directly with Apollo, instructions follow. 
+If you'd still prefer to upload directly with Apollo, instructions follow.
 
 ### Uploading Directly With Apollo
 
-The iOS SDK supports the [GraphQL Multipart Request Specification](https://github.com/jaydenseric/graphql-multipart-request-spec#multipart-form-field-structure) for uploading files. 
+The iOS SDK supports the [GraphQL Multipart Request Specification](https://github.com/jaydenseric/graphql-multipart-request-spec#multipart-form-field-structure) for uploading files.
 
 At the moment, we only support uploads for a single operation, not for batch operations. You can upload multiple files for a single operation if your server supports it, though.
 
-To upload a file, you will need: 
+To upload a file, you will need:
 
 - A `NetworkTransport` which also supports the `UploadingNetworkTransport` protocol on your `ApolloClient` instance. If you're using `RequestChainNetworkTransport` (which is set up by default), this protocol is already supported.
-- The correct `MIME` type for the data you're uploading. The default value is `application/octet-stream`. 
-- Either the data or the file URL of the data you want to upload. 
-- A mutation which takes an `Upload` as a parameter. Note that this must be supported by your server. 
+- The correct `MIME` type for the data you're uploading. The default value is `application/octet-stream`.
+- Either the data or the file URL of the data you want to upload.
+- A mutation which takes an `Upload` as a parameter. Note that this must be supported by your server.
 
 Here is an example of a GraphQL query for a mutation that accepts a single upload, and then returns the `id` for that upload:
 
@@ -120,24 +132,24 @@ mutation UploadFile($file:Upload!) {
 }
 ```
 
-If you wanted to use this to upload a file called `a.txt`, it would look something like this: 
+If you wanted to use this to upload a file called `a.txt`, it would look something like this:
 
 ```swift
 // Create the file to upload
 guard
-  let fileURL = Bundle.main.url(forResource: "a", 
+  let fileURL = Bundle.main.url(forResource: "a",
                                 withExtension: "txt"),
   let file = GraphQLFile(fieldName: "file", // Must be the name of the field the file is being uploaded to
-                         originalName: "a.txt", 
+                         originalName: "a.txt",
                          mimeType: "text/plain", // <-defaults to "application/octet-stream"
                          fileURL: fileURL) else {
     // Either the file URL couldn't be created or the file couldn't be created.
-    return 
+    return
 }
 
 // Actually upload the file
 client.upload(operation: UploadFileMutation(file: "a"), // <-- `Upload` is a custom scalar that's a `String` under the hood.
-              files: [file]) { result in 
+              files: [file]) { result in
   switch result {
   case .success(let graphQLResult):
     print("ID: \(graphQLResult.data?.singleUpload.id)")
@@ -147,9 +159,9 @@ client.upload(operation: UploadFileMutation(file: "a"), // <-- `Upload` is a cus
 }
 ```
 
-A few other notes: 
+A few other notes:
 
-- Due to some limitations around the spec, whatever the file is being added for should be at the root of your GraphQL query. So if you have something like: 
+- Due to some limitations around the spec, whatever the file is being added for should be at the root of your GraphQL query. So if you have something like:
 
     ```graphql
     mutation AvatarUpload($userID: GraphQLID!, $file: Upload!) {
@@ -157,15 +169,15 @@ A few other notes:
     }
     ```
 
-    it will work, but if you have some kind of object encompassing both of those fields like this:   
-  
+    it will work, but if you have some kind of object encompassing both of those fields like this:
+
     ```graphql
     // Assumes AvatarObject(userID: GraphQLID, file: Upload) exists
     mutation AvatarUpload($avatarObject: AvatarObject!) {
       id
     }
     ```
-    
+
     it will not. Generally you should be able to deconstruct upload objects to allow you to send the appropriate fields.
 
 - If you are uploading an array of files, you need to use the same field name for each file. These will be updated at send time.
