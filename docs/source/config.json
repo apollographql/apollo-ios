@@ -25,6 +25,7 @@
       "Downloading a schema": "/downloading-schema",
       "Creating a client": "/initialization",
       "Fetching Data": "/fetching/fetching-data",
+      "Operation Arguments": "/fetching/operation-arguments",
       "Error Handling":  "/fetching/error-handling",
       "Operations": {
         "Queries": "/fetching/queries",

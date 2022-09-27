@@ -10,19 +10,55 @@ import Foundation
 ///
 /// # Usage
 ///
-/// ### Literals, Enums, and InputObjects
-/// A ``GraphQLNullable`` can be converted from most scalar literals, ``GraphQLEnum``, and any
-/// generated ``InputObject`` automatically.
+/// ``GraphQLNullable`` provides a similar interface to Swift's `Optional`, however in addition to
+/// the `.some(Wrapped)` and `.none` cases, it provides an additional `.null` case. The `.null`
+/// case parallels `NSNull`, while `.none` paralells `nil`. This requires you to specify either
+/// a `.null` or an omitted (`.none`) value when constructing the query object. The `nil` literal
+/// also translates to the `.none` case.
 ///
 /// ```swift
 /// public init(inputValue: GraphQLNullable<String>)
+///
+/// // Null Value:
+/// .init(episode: .null)
+///
+/// // Nil Value:
+/// .init(episode: .none) or .init(episode: nil)
+/// ```
+///
+/// ### Literals, Enums, and InputObjects
+/// For Swift scalar types that have an `ExpressibleBy...Literal` protocol, ``GraphQLNullable``
+/// can be initialized with a literal value.
+///
+/// ```swift
+/// // String
+/// public init(inputValue: GraphQLNullable<String>)
+///
 /// .init(inputValue: "InputValueString")
 ///
-/// public init(episode: GraphQLNullable<GraphQLEnum<StarWarsAPI.Episode>>)
-/// .init(episode: .NEWHOPE)
+/// // Integer Array
+/// public init(inputValue: GraphQLNullable<[Int]>)
 ///
+/// .init(inputValue: [1, 2, 4, 5, 3, 6]) // The best order for watching the Star Wars movies.
+/// ```
+/// To provide a value for a ``GraphQLEnum`` or ``InputObject`` value, you need to wrap it in a
+/// ``GraphQLNullable``, either with the provided convenience initializer, or by using the `.some`
+/// case.
+///
+/// ```swift
+/// /// Enum
+/// public init(episode: GraphQLNullable<GraphQLEnum<StarWarsAPI.Episode>>)
+///
+/// .init(episode: GraphQLNullable(.empire))
+///   or
+/// .init(episode: .some(.empire))
+///
+/// // Input Object
 /// public init(inputValue: GraphQLNullable<CustomInputObject>)
-/// .init(inputValue: CustomInputObject())
+///
+/// .init(inputValue: GraphQLNullable(CustomInputObject()))
+///   or
+/// .init(inputValue: .some(CustomInputObject()))
 /// ```
 /// ### Optional Values with the Nil Coalescing Operator
 ///
@@ -30,10 +66,10 @@ import Foundation
 /// the default value to use if the optional is `nil`. Usually this value is either
 /// ``none`` or ``null``.
 /// ```swift
+/// let optionalValue: String?
+///
 /// .init(inputValue: optionalValue ?? .none)
-/// ```
-/// or
-/// ```swift
+///   or
 /// .init(inputValue: optionalValue ?? .null)
 /// ```
 ///
@@ -210,7 +246,7 @@ public extension GraphQLNullable {
 
 // MARK: - Nil Coalescing Operator
 
-/// Nil Coalsecing Operator overload for ``GraphQLNullable``
+/// Nil Coalescing Operator overload for ``GraphQLNullable``
 ///
 /// This operator allows for optional variables to easily be used with ``GraphQLNullable``
 /// parameters and a default value.

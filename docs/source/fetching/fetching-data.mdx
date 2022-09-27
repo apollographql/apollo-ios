@@ -42,6 +42,8 @@ apollo.fetch(query: HeroNameQuery()) { result in
 }
 ```
 
+To learn about defining operations that take arguements, see [Operation Arguments](./operation-arguments).
+
 ## Typed operation results
 
 An operation's results are returned as a hierarchy of immutable structs that match the structure of the operations's fields. These structs only include fields that are included in the operation (other schema fields are omitted).
@@ -140,31 +142,6 @@ apollo.fetch(query: HeroNameQuery()) { result in
 }
 ```
 > **Note:** An operation can be successful, but the `GraphQLResult` may still include `GraphQLErrors`. See [Error Handling](./fetching/../error-handling) for more information.
-
-## Operation Arguments
-
-GraphQL operations can define arguments as part of their definitions, the values of these arguments can be passed to field arguments or directive arguments (eg. `@skip` and `@include`).
-
-Apollo iOS generates type-safe initializers for your operation that accept your operation's arguments. These arguments can be [built-in scalar types](https://graphql.org/learn/schema/#scalar-types), [custom scalars](./../custom-scalars), enums, or input objects defined in your schema.
-
-Let's say we define a GraphQL query named `HeroName`:
-
-```graphql
-query HeroName($episode: Episode) {
-  hero(episode: $episode) {
-    name
-  }
-}
-```
-
-Apollo iOS will generate a `HeroNameQuery` class that you can construct (with variables) and pass to `ApolloClient.fetch(query:)`:
-
-```swift
-apollo.fetch(query: HeroNameQuery(episode: .empire)) { result in
-  guard let data = try? result.get().data else { return }
-  print(data.hero.name) // Luke Skywalker
-}
-```
 
 ## Handling operation results in the background
 
