@@ -31,6 +31,7 @@
         "Mutations": "/fetching/mutations",
         "Subscriptions": "/fetching/subscriptions"
       },
+      "Custom Scalars": "/fetching/custom-scalars",
       "Using fragments": "/fragments",
       "Client-side caching": "/caching",
       "Swift scripting": "/swift-scripting",
