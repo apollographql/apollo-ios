@@ -154,7 +154,7 @@ extension ApolloCodegenConfiguration {
         "schemaTypes" : {
           "path" : "./",
           "moduleType" : {
-            "swiftPackageManager" : {
+            \(supportCocoaPods ? "\"other\"" : "\"swiftPackageManager\"") : {
             }
           }
         },

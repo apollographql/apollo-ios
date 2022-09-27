@@ -323,6 +323,19 @@ class InitializeTests: XCTestCase {
     expect(decoded.unsafelyUnwrapped.options.cocoapodsCompatibleImportStatements).to(beFalse())
   }
 
+  func test__decoding__givenMinimalJSON_cocoapodsIncompatible_shouldUseCorrectDefaults() throws {
+    // given
+    let encoded = try ApolloCodegenConfiguration.minimalJSON(
+      schemaName: "MockSchema",
+      supportCocoaPods: false
+    ).asData()
+
+    // then
+    let decoded = try JSONDecoder().decode(ApolloCodegenConfiguration.self, from: encoded)
+
+    expect(decoded.output.schemaTypes.moduleType).to(equal(.swiftPackageManager))
+  }
+
   func test__decoding__givenMinimalJSON_cocoapodsCompatible_shouldNotThrow() throws {
     // given
     let encoded = try ApolloCodegenConfiguration.minimalJSON(
@@ -335,6 +348,19 @@ class InitializeTests: XCTestCase {
     expect(decoded = try JSONDecoder().decode(ApolloCodegenConfiguration.self, from: encoded))
       .notTo(throwError())
     expect(decoded.unsafelyUnwrapped.options.cocoapodsCompatibleImportStatements).to(beTrue())
+  }
+
+  func test__decoding__givenMinimalJSON_cocoapodsCompatible_shouldUseCorrectDefaults() throws {
+    // given
+    let encoded = try ApolloCodegenConfiguration.minimalJSON(
+      schemaName: "MockSchema",
+      supportCocoaPods: true
+    ).asData()
+
+    // then
+    let decoded = try JSONDecoder().decode(ApolloCodegenConfiguration.self, from: encoded)
+
+    expect(decoded.output.schemaTypes.moduleType).to(equal(.other))
   }
 }
 
