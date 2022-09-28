@@ -40,17 +40,12 @@ public protocol CustomScalarType:
   JSONDecodable,
   OutputTypeConvertible,
   GraphQLOperationVariableValue
-{
-  var jsonValue: JSONValue { get }
-  var _jsonValue: JSONValue { get }
-}
+{}
 
 extension CustomScalarType {
   @inlinable public static var _asOutputType: Selection.Field.OutputType {
     .nonNull(.customScalar(self))
   }
-
-  @inlinable public var jsonValue: JSONValue { _jsonValue }
 }
 
 extension Array: AnyScalarType where Array.Element: AnyScalarType & Hashable {}

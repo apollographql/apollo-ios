@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
   s.preserve_paths = ['Sources/CodegenCLI/**/*', cli_binary_name]
   s.prepare_command = <<-CMD    
     make clean build-cli-for-cocoapods
-    cp #{cli_directory}/.build/release/#{cli_binary_name} #{cli_binary_name}
+    cp .build/release/#{cli_binary_name} #{cli_binary_name}
     chmod +x #{cli_binary_name}
   CMD
 

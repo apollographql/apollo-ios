@@ -76,9 +76,7 @@ extension GraphQLEnum: CustomScalarType {
       throw JSONDecodingError.couldNotConvert(value: _jsonValue, to: String.self)      
     }
     self.init(rawValue: stringData)
-  }
-
-  @inlinable public var _jsonValue: AnyHashable { rawValue }
+  }  
 }
 
 // MARK: Equatable

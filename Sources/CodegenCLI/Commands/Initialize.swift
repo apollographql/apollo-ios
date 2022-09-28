@@ -12,6 +12,12 @@ public struct Initialize: ParsableCommand {
   )
 
   @Option(
+    name: [.long, .customShort("n")],
+    help: "Name used to scope the generated schema type files."
+  )
+  var schemaName: String = ""
+
+  @Option(
     name: .shortAndLong,
     help: "Write the configuration to a file at the path."
   )
@@ -38,13 +44,19 @@ public struct Initialize: ParsableCommand {
 
   public init() { }
 
+  public func validate() throws {
+    guard !schemaName.isEmpty else {
+      throw ValidationError("Schema name is missing, use the --schema-name option to specify.")
+    }
+  }
+
   public func run() throws {
     try _run()
   }
 
   func _run(fileManager: ApolloFileManager = .default, output: OutputClosure? = nil) throws {
     let encoded = try ApolloCodegenConfiguration
-      .minimalJSON
+      .minimalJSON(schemaName: schemaName)
       .asData()
 
     if print {
@@ -104,18 +116,18 @@ public struct Initialize: ParsableCommand {
   }
 }
 
-// MARK: - Private extensions
+// MARK: - Internal extensions
 
 extension ApolloCodegenConfiguration {
-  static var minimalJSON: String {
+  static func minimalJSON(schemaName: String) -> String {
     #if COCOAPODS
-      minimalJSON(supportCocoaPods: true)
+      minimalJSON(schemaName: schemaName, supportCocoaPods: true)
     #else
-      minimalJSON(supportCocoaPods: false)
+      minimalJSON(schemaName: schemaName, supportCocoaPods: false)
     #endif
   }
 
-  static func minimalJSON(supportCocoaPods: Bool) -> String {
+  static func minimalJSON(schemaName: String, supportCocoaPods: Bool) -> String {
     let cocoaPodsOption = supportCocoaPods ? """
 
         "options" : {
@@ -125,7 +137,7 @@ extension ApolloCodegenConfiguration {
 
     return """
     {
-      "schemaName" : "GraphQLSchemaName",\(cocoaPodsOption)
+      "schemaName" : "\(schemaName)",\(cocoaPodsOption)
       "input" : {
         "operationSearchPaths" : [
           "**/*.graphql"
@@ -142,7 +154,7 @@ extension ApolloCodegenConfiguration {
         "schemaTypes" : {
           "path" : "./MySchemaName",
           "moduleType" : {
-            "swiftPackageManager" : {
+            \(supportCocoaPods ? "\"other\"" : "\"swiftPackageManager\"") : {
             }
           }
         },
