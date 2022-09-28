@@ -1,0 +1,10 @@
+# Uncomment the next line to define a global platform for your project
+platform :ios, '12.0'
+
+target 'pod-install-test' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for codegen-cli-issue
+  pod 'Apollo', :git => 'https://github.com/apollographql/apollo-ios.git', :branch => ENV['CIRCLE_BRANCH']
+end
