@@ -6,7 +6,9 @@ The GraphQL spec defines two types of [fragments](http://graphql.org/learn/queri
 - [Named fragments](#named-fragments), which enable you to reuse a set of fields across multiple operations or selection sets.
 - [Inline fragments](#inline-fragments), which can group fields and apply type conditions or directives but are *not* reusable.
 
-Both named and inline fragments can be used as [type conditions](./type-conditions), which enables you to access fields of [polymorphic types](https://www.apollographql.com/docs/apollo-server/schema/unions-interfaces/). Read the [guide on type conditions](./type-conditions) to learn more.
+Both named and inline fragments can be used as [type conditions](./type-conditions), which enables you to access fields of [polymorphic types](https://www.apollographql.com/docs/apollo-server/schema/unions-interfaces/).
+
+> Read the [guide on type conditions](./type-conditions) to learn more.
 
 ## Named fragments
 
@@ -152,4 +154,4 @@ let name: String = data.hero.name
 let primaryFunction: String = data.hero.asDroid?.primaryFunction
 ```
 
-For more information about how to use inline fragments as type conditions, see the [type conditions documentation](./type-conditions).
+> For more information about how to use inline fragments as type conditions, see the [type conditions documentation](./type-conditions).

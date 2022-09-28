@@ -119,6 +119,8 @@ Because the `HeroAndFriendsNames` query doesn't fetch `appearsIn`, this property
 
 Because GraphQL supports nullability, you have compile-time type safety. If the request is successful, all queried data (and only this data) will be accessible. There is no need to handle null fields in UI code.
 
+> For more information on how to fetch type-safe data, learn about [type conditions](./type-conditions#accessing-conditional-response-data).
+
 ## Operation result handling
 
 The result of executing an operation is a Swift [`Result`](https://developer.apple.com/documentation/swift/result) whose `.success` case contains a [`GraphQLResult<Data>`](https://www.apollographql.com/docs/ios/docc/documentation/apollo/graphqlresult) where `Data` is the generated root `Data` struct of the operation that was executed.
