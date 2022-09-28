@@ -1,0 +1,72 @@
+---
+title: Type Conditions
+---
+## UNDER CONSTRUCTION
+
+
+Apollo iOS automatically augments your queries to add a `__typename` field to selection sets. This is used primarily to support conditional fragments, but it means a `__typename` property is always defined and can be used to differentiate between object types manually if needed.
+
+
+## Using fragments as type conditions
+
+The GraphQL type system includes interfaces and unions as abstract types that object types can conform to. In the Star Wars example schema for example, both `Human`s and `Droid`s implement the `Character` interface. If we query for a hero, the result can be either a human or a droid, and if we want to access any type-specific properties we will have to use a fragment with a type condition:
+
+```graphql title="HeroAsDroidQuery.graphql"
+query HeroAsDroid {
+  hero {
+    name
+    ...DroidDetails
+  }
+}
+
+fragment DroidDetails on Droid {
+  name
+  primaryFunction
+}
+```
+
+In order to convert the `Hero` into a `DroidDetails` fragment, we need to know if the hero is a droid. Apollo iOS will generate a `Hero` model with an optional `asDroid` property:
+
+```swift title="HeroAsDroidQuery.graphql.swift"
+class HeroAsDroidQuery: GraphQLQuery {
+  struct Data: SelectionSet {
+    let hero: Hero
+
+    struct Hero: SelectionSet {
+      let name: String
+
+      var asDroid: AsDroid? { ... }
+
+      // Type Condition Declaration
+      struct AsDroid: InlineFragment {
+        let name: String
+        let primaryFunction: String
+
+        // Fragment Conversion Declaration
+        var fragments: Fragments
+        struct Fragments {
+          var droidDetails: DroidDetails { ... }
+        }
+      }
+    }
+  }
+}
+```
+The `hero.asDroid` property is optional, and will only return a value if the type of the hero object in the response data is a droid. We can now conditionally convert the `Hero` to a `DroidDetails?` value:
+
+```swift
+let droidDetails: DroidDetails? = hero.asDroid?.fragments.droidDetails
+```
+---
+Alternatively, you can use [inline fragments](http://graphql.org/learn/queries/#inline-fragments) with type conditions to query for type-specific fields:
+
+```graphql
+query HeroAndFriends($episode: Episode) {
+  hero(episode: $episode) {
+    name
+    ... on Droid {
+      primaryFunction
+    }
+  }
+}
+```

@@ -30,10 +30,10 @@
       "Operations": {
         "Queries": "/fetching/queries",
         "Mutations": "/fetching/mutations",
-        "Subscriptions": "/fetching/subscriptions"
+        "Subscriptions": "/fetching/subscriptions",
+        "Fragments": "/fetching/fragments"
       },
       "Custom Scalars": "/custom-scalars",
-      "Using fragments": "/fragments",
       "Client-side caching": "/caching",
       "Automatic Persisted Queries": "/fetching/apqs",
       "Swift scripting": "/swift-scripting",
