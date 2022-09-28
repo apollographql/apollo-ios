@@ -17,11 +17,11 @@ Run `carthage update --use-xcframeworks --platform ios` (or `--platform ios,maco
 > **Note:** There's an issue with the way Carthage uses Lipo in the Xcode 12 GM. Please `cd` into `[YourProject]/Carthage/Checkouts/apollo-ios/scripts` and then run `./carthage-build-workaround.sh` to resolve this build issue.
 
 </ExpansionPanelListItem>
-<ExpansionPanelListItem> 
+<ExpansionPanelListItem>
 
 #### Add built frameworks to your project
 
-Drag and drop `Apollo.framework` from the appropriate `Carthage/Build/iOS` or `Carthage/Build/Mac` folder to the **Embedded Binaries** section of your application target's **General** settings tab. This should also cause them to appear in the **Linked Frameworks And Libraries** section automatically.
+Drag and drop `Apollo.framework` and `ApolloAPI.framework` from the appropriate `Carthage/Build/iOS` or `Carthage/Build/Mac` folder to the **Embedded Binaries** section of your application target's **General** settings tab. This should also cause them to appear in the **Linked Frameworks And Libraries** section automatically.
   - To include the `ApolloSQLite` library, also drag `ApolloSQLite.framework` and `SQLite.framework` to this area.
   - To include the `ApolloWebSocket` library, also drag `ApolloWebSocket.framework` and `Starscream.framework` to this area.
 
@@ -40,6 +40,7 @@ Then, add the paths to the frameworks you want to use under **Input Files**, e.g
 
  ```
  $(SRCROOT)/Carthage/Build/iOS/Apollo.framework
+ $(SRCROOT)/Carthage/Build/iOS/ApolloAPI.framework
  ```
 
 Again, if you're adding `ApolloSQLite` or `ApolloWebSocket`, please make sure to add the other frameworks you added as Input Files.

@@ -1,0 +1,98 @@
+---
+title: Getting Started with Apollo iOS
+sidebar_title: Get Started
+---
+
+import SPMXcodeInstallationPanel from "../shared/spm-xcode-installation-panel.mdx"
+import SPMPackageInstallationPanel from "../shared/spm-package-installation-panel.mdx"
+import SPMSetupCodegenPanel from "../shared/spm-setup-codegen-panel.mdx"
+import PodsInstallationPanel from "../shared/pods-installation-panel.mdx"
+import PodsSetupCodegenPanel from "../shared/pods-setup-codegen-panel.mdx"
+import CarthageInstallationPanel from "../shared/carthage-installation-panel.mdx"
+import CarthageRunScriptPanel from "../shared/carthage-run-script-panel.mdx"
+
+Follow the steps below to add Apollo iOS to your app:
+
+## 1. Install the Apollo frameworks
+
+You can install Apollo iOS into your project using any of the three major Cocoa ecosystem package managers: Swift Package Manager, CocoaPods, or Carthage.
+
+<a name="spm-package-installation" />
+<SPMPackageInstallationPanel />
+
+<a name="spm-xcode-installation" />
+<SPMXcodeInstallationPanel />
+
+<a name="cocoapods-installation" />
+<PodsInstallationPanel />
+
+<a name="carthage-installation" />
+<CarthageInstallationPanel />
+
+## 2. Add a schema file to your target directory
+
+For Apollo iOS to generate models for your GraphQL operations, you need a local copy of your GraphQL server's schema. To acquire this schema, see [Downloading a schema](./downloading-schema/).
+
+## 3. [Optional] Install the Xcode add-ons for syntax highlighting
+
+If you would like to add syntax highlighting for GraphQL query document files to Xcode, install the Xcode GraphQL add-ons.
+
+Check out the [`xcode-graphql`](https://github.com/apollographql/xcode-graphql) repository and follow its [installation guide](https://github.com/apollographql/xcode-graphql#installation).
+
+## 4. Create `.graphql` files for your GraphQL operations
+
+Apollo iOS generates code from GraphQL queries and mutations defined in files in your target. In order to use Apollo iOS, you'll need to define at least one operation GraphQL operation.
+
+GraphQL operation and fragment definitions traditionally have the file extension `.graphql`. The generated models will have the file extension `.graphql.swift`.
+
+## 5. Setup and run code generation
+
+Apollo iOS code generation uses your `.graphql` files to generate API code that helps you execute all forms of GraphQL operations, as well as parse and cache operation responses.
+
+Whenever you make changes to your GraphQL operation definitions, you'll need to run the code generation engine to re-generate your GraphQL models.
+
+The easiest way to do this is with the Codegen CLI provided with Apollo iOS.
+
+> For more advanced usage and configuration (including use with modularized projects), see [Code Generation](./code-generation).
+>
+> To use Apollo's code generation and schema downloader from within any Swift script or library, check out [Swift Scripting](./swift-scripting).
+
+<a name="spm-run-codegen" />
+<SPMSetupCodegenPanel />
+
+<a name="pods-run-codegen" />
+<PodsSetupCodegenPanel />
+
+## 6. Create an `ApolloClient`
+
+Before you can execute GraphQL operations in your app, you need to initialize an `ApolloClient` instance.
+
+```swift
+import Foundation
+import Apollo
+
+let apolloClient = ApolloClient(url: URL(string: "http://localhost:4000/graphql")!)
+```
+
+## 7. Fetch a query
+
+Your generated operation definitions can be fetched with your `ApolloClient` and the response will be returned as a type-safe generated data model.
+
+For example, if you define a query called `HeroName`:
+
+```graphql
+query HeroName {
+  hero {
+    name
+  }
+}
+```
+
+Apollo iOS will generate a `HeroNameQuery` class that you can construct and pass to `ApolloClient.fetch(query:)`:
+
+```swift
+apolloClient.fetch(query: HeroNameQuery) { result in
+  guard let data = try? result.get().data else { return }
+  print(data.hero.name) // Luke Skywalker
+}
+```

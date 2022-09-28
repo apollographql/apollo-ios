@@ -1,6 +1,6 @@
 {
   "name": "Apollo",
-  "version": "1.0.0-beta.2",
+  "version": "1.0.0-rc.1",
   "authors": "Meteor Development Group",
   "homepage": "https://github.com/apollographql/apollo-ios",
   "license": {
@@ -10,7 +10,7 @@
   "summary": "A GraphQL client for iOS, written in Swift.",
   "source": {
     "git": "https://github.com/apollographql/apollo-ios.git",
-    "tag": "1.0.0-beta.2"
+    "tag": "1.0.0-rc.1"
   },
   "requires_arc": true,
   "swift_versions": "5.0",
@@ -22,10 +22,10 @@
     "watchos": "5.0"
   },
   "preserve_paths": [
-    "CodegenCLI/**/*",
+    "Sources/CodegenCLI/**/*",
     "apollo-ios-cli"
   ],
-  "prepare_command": "make clean build-cli-for-cocoapods\ncp CodegenCLI/.build/release/apollo-ios-cli apollo-ios-cli\nchmod +x apollo-ios-cli",
+  "prepare_command": "make clean build-cli-for-cocoapods\ncp .build/release/apollo-ios-cli apollo-ios-cli\nchmod +x apollo-ios-cli",
   "subspecs": [
     {
       "name": "Core",

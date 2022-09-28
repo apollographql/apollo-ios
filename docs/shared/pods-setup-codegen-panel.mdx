@@ -1,0 +1,66 @@
+<ExpansionPanel title="Cocoapods">
+
+Apollo iOS compiles the Codegen CLI during `pod install`. This ensures you always have the version of the CLI for the version of Apollo iOS you are using.
+
+The Codegen CLI is located in your project at `Pods/Apollo/apollo-ios-cli`
+
+<ExpansionPanelList>
+<ExpansionPanelListItem>
+
+#### Initialize the codegen configuration
+
+The Codegen CLI uses a JSON file to configure the code generation engine. Initializing the Codegen CLI creates this file with default values. From the directory of your `Podfile`, run:
+
+```bash
+./Pods/Apollo/apollo-ios-cli init --schema-name ${MySchemaName}
+```
+
+`${MySchemaName}` should be the name you would like to be used as the namespace for your generated schema files.
+
+This will create an `apollo-codegen-config.json` file with default options.
+
+</ExpansionPanelListItem>
+
+<ExpansionPanelListItem>
+
+#### Set codegen configuration options
+
+Open the `apollo-codegen-config.json` file to configure code generation for your project.
+
+The default configuration will:
+- Find all GraphQL schema files ending with the file extension `.graphqls` within your project directory.
+- Find all GraphQL operation and fragment definition files ending with the file extension `.graphql` within your project directory.
+- Generate your generated schema files in a directory with the `schema-name` provided.
+- Generate operation and fragment models relative to the `.graphql` files that define them.
+
+</ExpansionPanelListItem>
+
+<ExpansionPanelListItem>
+
+#### Run code generation
+
+From the directory of your `Podfile` file, run:
+
+```bash
+./Pods/Apollo/apollo-ios-cli generate
+```
+
+Your generated files will be created with the file extension `.graphql.swift`.
+
+</ExpansionPanelListItem>
+
+<ExpansionPanelListItem>
+
+#### Add the generated schema and operation files to your target
+
+By default, a directory containing your generated schema files will be located in a directory with the `schema-name` you provided; your generated operation and fragments will be generated in the same location as the `.graphql` files they are defined by.
+
+When using Cocoapods, you will need to manually add the generated files to your target.
+
+> **Note:** Because adding generated files to your Xcode targets must be done manually each time you generate new files, we highly recommend defining your project targets with SPM. For more information see the documentation for [Code Generation Confiugration](./codegen-configuration).
+
+</ExpansionPanelListItem>
+
+</ExpansionPanelList>
+
+</ExpansionPanel>

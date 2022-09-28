@@ -152,7 +152,7 @@ extension ApolloCodegenConfiguration {
           }
         },
         "schemaTypes" : {
-          "path" : "./",
+          "path" : "./MySchemaName",
           "moduleType" : {
             \(supportCocoaPods ? "\"other\"" : "\"swiftPackageManager\"") : {
             }

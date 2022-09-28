@@ -1,71 +1,8 @@
----
-title: Installing Apollo iOS
-sidebar_title: Installation
----
+# UNDER CONSTRUCTION
 
-import SPMInstallationPanel from "../shared/spm-installation-panel.mdx"
-import SPMRunScriptPanel from "../shared/spm-run-script-panel.mdx"
-import PodsInstallationPanel from "../shared/pods-installation-panel.mdx"
-import PodsRunScriptPanel from "../shared/pods-run-script-panel.mdx"
-import CarthageInstallationPanel from "../shared/carthage-installation-panel.mdx"
-import CarthageRunScriptPanel from "../shared/carthage-run-script-panel.mdx"
+# Run codegen as a build step
 
-Follow the steps below to add Apollo iOS to your app:
-
-## 1. Update Xcode
-
-Before installing Apollo iOS, make sure you're using the latest version of Xcode. You can update Xcode via the [Mac App Store](http://appstore.com/mac/apple/xcode).
-
-## 2. Install the Apollo framework
-
-You can install `Apollo.framework` into your project using any of the three major Cocoa ecosystem package managers: Swift Package Manager, CocoaPods, or Carthage.
-
-<a name="swift-package-manager-installation" />
-<SPMInstallationPanel />
-
-<a name="cocoapods-installation" />
-<PodsInstallationPanel />
-
-<a name="carthage-installation" />
-<CarthageInstallationPanel />
-
-## 3. Add a schema file to your target directory
-
-For Apollo iOS to generate models for your GraphQL operations, you need a local copy of your GraphQL server's schema. To acquire this schema, see [Downloading a schema](./downloading-schema/).
-
-Make sure to add your `schema.json`/`schema.graphqls` file to the folder where most of your code is, _not_ to the folder where your `.xcodeproj` and/or `.xcworkspace` files are located.
-
-Here's an example file structure:
-
-```{4}
-| - your_project_folder
-    | your_project.xcodeproj
-    | - your_target_folder
-        | schema.json or schema.graphqls
-        | AppDelegate.swift
-        | ViewController.swift
-        | etc...
-    | - another_target_folder
-        | etc...
-```
-
-> **Note:** You _can_ put the schema file in a different location, but if you do, you need to modify all relative paths to the file shown in future steps.
-
-## 3. Install the Xcode add-ons for syntax highlighting (optional)
-
-Check out the [`xcode-apollo`](https://github.com/apollographql/xcode-graphql) repository and follow its [installation guide](https://github.com/apollographql/xcode-graphql#installation).
-
-## 4. Create `.graphql` files for your GraphQL operations
-
-Apollo iOS generates code from GraphQL queries and mutations defined in `.graphql` files in your target. As a useful convention, you can define each `[operation].graphql` file alongside whichever `[operation].swift` file uses the corresponding operation.
-
-If you have the Xcode add-ons installed, you can use the Xcode companion view to show a `.swift` file and its corresponding `.graphql` file side by side.
-
-> **Note:** If you don't have _any_ `.graphql` files in your build tree yet, create one that contains a basic valid operation. If you don't, the code generation build step generates the error `No operations or fragments found to generate code for`.
-
-## 5. Add a code generation build step
-
-Apollo iOS code generation uses your `.graphql` files to generate API code that helps you execute all forms of GraphQL operations, as well as parse and cache  operation responses. To run code generation as part of the Xcode build process, you need to create a build step that runs before "Compile Sources" to invoke a wrapper script.
+To run code generation as part of the Xcode build process, you need to create a build step that runs before "Compile Sources" to invoke a wrapper script.
 
 The wrapper script calls through to the included binaries and files that constitute the `apollo` command-line interface. This helps ensure that you can use our tooling without having to worry about mismatched versioning between libraries.
 
@@ -87,9 +24,6 @@ The location of this wrapper script depends on how you've integrated Apollo into
 <a name="carthage-run-script" />
 <CarthageRunScriptPanel />
 
-## 6. Build your target
-
-At this point, you can try building your target in Xcode. This verifies that the code generation build step can correctly locate your schema file.
 
 ### Troubleshooting
 
@@ -106,18 +40,6 @@ If you get this error:
 You haven't defined at least one `.graphql` file with a valid operation in your build tree.
 
 If you need to validate the structure of a GraphQL operation, you can test it against your GraphQL server using [Apollo Sandbox](https://studio.apollographql.com/sandbox).
-
-## 7. Add the generated API file to your target
-
-Drag the generated `API.swift` file to your target.
-
-> **Note:** Because Apollo iOS generates operation-specific result types, `API.swift` is mostly empty at this point unless you've already added multiple `.graphql` files to your target directory.
-
-Make sure to uncheck the "Copy Files If Needed" checkbox, because it should already be in your project's folder system. Then, make sure you've checked all the Targets the API file needs to be included in.
-
-**Installation complete!** You can now start executing GraphQL operations in your app. To learn how, next check out [Creating a client](./initialization/) and [Fetching queries](./fetching-queries/).
-
-You can also continue reading below for some [advanced codegen tips](#advanced-codegen-tips-and-tricks).
 
 ## Advanced codegen tips and tricks
 
