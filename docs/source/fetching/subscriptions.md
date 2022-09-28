@@ -4,7 +4,7 @@ title: Subscriptions
 
 GraphQL supports [subscriptions](https://graphql.org/blog/subscriptions-in-graphql-and-relay/) to allow clients to be immediately updated when the data changes on a server.
 
-GraphQL subscriptions are distinct from [watching queries](./queries#watching-queries). A query watcher is only updated when new data is written to the local cache (usually by another network operation). A GraphQL subscription is a long-lived request that may receive updated to data from the server continuously. Apollo iOS implements subscriptions using a web socket connection.
+GraphQL subscriptions are distinct from [watching queries](./queries#watching-queries). A query watcher is only updated when new data is written to the local cache (usually by another network operation). A GraphQL subscription is a long-lived request that may receive updated data from the server continuously. Apollo iOS implements subscriptions using a web socket connection.
 
 Apollo iOS requires subscription support to be enabled on your `ApolloClient` using the `ApolloWebSocket` library to work. See the [Enabling GraphQL subscription support](#enabling-graphql-subscription-support) section for instructions on how your application can support GraphQL subscriptions.
 
