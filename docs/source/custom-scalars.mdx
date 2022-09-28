@@ -1,0 +1,181 @@
+---
+title: Custom Scalars
+---
+
+In addition to its [built-in scalar types](https://graphql.org/learn/schema/#scalar-types) (`Int`, `String`, etc.), GraphQL supports defining [custom scalars](/apollo-server/schema/custom-scalars/). For example, your schema might provide a custom scalar for `Date`, `UUID`, or `GeoLocation`.
+
+Custom Scalars are initially defined as part of a schema. To interact with a schema using custom scalars, your client must define a Swift type to use for each custom scalar.
+
+Apollo iOS automatically defines Swift types for all of the [built-in scalar types](https://graphql.org/learn/schema/#scalar-types):
+
+| GraphQL Type | Swift Type |
+| -------------|------------|
+| `Int`        | `Int`      |
+| `Float`      | `Double`   |
+| `Boolean`    | `Bool`     |
+| `String`     | `String`   |
+| `ID`         | `String`   |
+
+By default, each custom scalar is treated as a Swift `String`, but you can customize the type of all of your custom scalars with Apollo iOS!
+
+## Generating custom scalar types
+
+If any part of your GraphQL application references a custom scalar defined by the schema, a file for it will be generated in your generated schema output. This file can be used to define the Swift type for the custom scalar.
+
+For example, in a schema that defines a custom scalar:
+
+```graphql title="MySchema.graphqls"
+ scalar UUID
+```
+
+Apollo iOS generates a `UUID` custom scalar type in your generated schema output. This generated file defines `UUID` as a `String` by default.
+
+```swift title="MySchema/CustomScalars/UUID.swift"
+public extension MySchema {
+  typealias UUID = String
+}
+```
+
+The `MySchema.UUID` type will be referenced in any other generated objects that reference the `UUID` scalar.
+
+Because custom scalar files are only generated once, they can then be edited, and your changes will never be overwritten by subsequent code generation execution.
+
+You can edit this file to define a different type for the `UUID` scalar type.
+
+> **Note:** Custom scalars may be referenced by fields on GraphQL types, values for input parameters, or on input objects. Because custom scalars are only generated when they are referenced by your operations, they may be added to your project during any future execution of code generation, not just on the initial execution.
+
+## Defining a custom scalar type
+
+You can define the type for a custom scalar by creating a new type, or by pointing the typealias to another existing type.
+
+The type for your custom scalar must conform to the [`CustomScalarType`](https://www.apollographql.com/docs/ios/docc/documentation/apolloapi/customscalartype) protocol. This requires you to implement the JSON serialization functionality for your custom scalar type.
+
+---
+
+To implement the [`CustomScalarType`](https://www.apollographql.com/docs/ios/docc/documentation/apolloapi/customscalartype) protocol:
+
+#### 1. Implement the `_jsonValue` property.
+
+This converts the scalar value into a `JSONValue` that can be serialized into a JSON dictionary. The value of the `_jsonValue` property will be stored in the cache as the JSON value for the custom scalar.
+
+Usually, this should be identical to the value received from the network response to represent the custom scalar.
+
+#### 2. Implement the `init(_jsonValue:)` initializer.
+
+This initializer is used to construct the custom scalar value from a `JSONValue`. When constructing the scalar from a network response, the value of the `_jsonValue` parameter will be the value from the network response. When constructing the scalar from a cached value, this will be the value provided in the `_jsonValue` property.
+
+If the value provided is unrecognized, you should throw an error from this function. Apollo iOS provides [`JSONDecodingError`](https://www.apollographql.com/docs/ios/docc/documentation/apolloapi/jsondecodingerror) in the `ApolloAPI` library, but you may throw any custom error you wish.
+
+#### 3. Implement the `Hashable` and `Equatable` protocols if needed.
+
+If your custom scalar type does not already conform to `Hashable` and `Equatable`, you will need to implement `hash(into:)` and the `==` operator to conform to each of these protocols respectively.
+
+### Example: `UUID`
+
+For example, you could point the `typealias` for `UUID` to the `Foundation.UUID` type:
+
+```swift title="MySchema/CustomScalars/UUID.swift"
+import Foundation
+
+public extension MySchema {
+  typealias UUID = Foundation.UUID
+}
+
+extension Foundation.UUID: CustomScalarType {
+  public init (_jsonValue value: JSONValue) throws {
+    guard let uuidString = value as? String,
+    let uuid = UUID(uuidString: uuidString) else {
+      throw JSONDecodingError.couldNotConvert(value: value, to: Foundation.UUID.self)
+    }
+
+    self = uuid
+  }
+
+  public var _jsonValue: JSONValue {
+    uuidString
+  }
+}
+```
+
+### Example: `GeoPoint`
+
+Alternatively, you could create your own custom scalar type. In this case, replace the `typealias` with the new type.
+
+For example, a custom scalar `GeoPoint` that has a JSON representation of `"100.0,10.0"` could be implemented like this:
+
+```swift title="MySchema/CustomScalars/GeoPoint.swift"
+import Foundation
+
+extension MySchema {
+    public struct GeoPoint: CustomScalarType, Hashable {
+        let x: Float
+        let y: Float
+
+        public init (_jsonValue value: JSONValue) throws {
+            let coordinates = try (value as? String)?
+            .components(separatedBy: ",")
+            .map { try Float(_jsonValue: $0) }
+
+            guard let coordinates, coordinates.count == 2 else {
+                throw JSONDecodingError.couldNotConvert(value: value, to: GeoPoint.self)
+            }
+
+            self.x = coordinates[0]
+            self.y = coordinates[1]
+        }
+
+        public var _jsonValue: JSONValue {
+            "\(String(format: "%.1f", x)),\(String(format: "%.1f", y))"
+        }
+    }
+}
+```
+
+The `GeoPoint` struct conforms to both `CustomScalarType` and `Hashable`. You must explicitly declare the conformance to `Hashable`, which inherits `Equatable` conformance. Because Swift can synthesize the `Hashable` and `Equatable` conformancs here, you do not need to implement them.
+
+The `init(_jsonValue:)` initializer casts the `JSONValue` as a `String` and seperates it into two coordinates. It converts those coordinates using `Float(_jsonValue:)` which is provided by Apollo. Each of the [built-in scalar types](https://graphql.org/learn/schema/#scalar-types) has JSON serialization support that you can use within your custom scalar implementations.
+
+To ensure consistency of the serialized JSON, the `_jsonValue` function ensures that the coordinates are formatted with a single decimal point using `String(format:,_:)`.
+
+## JSON and other custom scalars with multiple return types
+
+Some custom scalars are set up to potentially return multiple types at runtime. This is not ideal since you lose type safety, but if you're using an API you don't have control over, there's often not a great alternative to this.
+
+When this happens, because you don't know the type that's coming in, you can't set up a single `typealias` for that scalar. Instead, you need to define some other way of instantiating your custom scalar object.
+
+This happens most often with JSON, which can return either an array or a dictionary. Here's an example of how you can use an enum to allow dynamic-but-limited types to parse (with `CustomJSON` as a placeholder type name`):
+
+```swift title="MySchema/CustomScalars/CustomJSON.swift"
+extension MySchema {
+    public enum CustomJSON: CustomScalarType, Hashable {
+        case dictionary([String: AnyHashable])
+        case array([AnyHashable])
+
+        public init(_jsonValue value: JSONValue) throws {
+            if let dict = value as? [String: AnyHashable] {
+                self = .dictionary(dict)
+            } else if let array = value as? [AnyHashable] {
+                self = .array(array)
+            } else {
+                throw JSONDecodingError.couldNotConvert(value: value, to: CustomJSON.self)
+            }
+        }
+
+        public var _jsonValue: JSONValue {
+            switch self {
+            case let .dictionary(json as AnyHashable),
+                 let .array(json as AnyHashable):
+                return json
+            }
+        }
+
+        public static func == (lhs: CustomJSON, rhs: CustomJSON) -> Bool {
+            lhs._jsonValue == rhs._jsonValue
+        }
+
+        public func hash(into hasher: inout Hasher) {
+            hasher.combine(_jsonValue)
+        }
+    }
+}
+```

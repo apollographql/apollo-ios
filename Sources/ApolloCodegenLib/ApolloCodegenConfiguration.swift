@@ -164,8 +164,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     public let operations: OperationsFileOutput
     /// The local path structure for the test mock operation object files.
     public let testMocks: TestMockFileOutput
-    /// An absolute location to an operation id JSON map file. If specified, also stores the
-    /// operation IDs (hashes) as properties on operation types.
+    /// An absolute location to an operation id JSON map file.
     public let operationIdentifiersPath: String?
 
     /// Default property values
