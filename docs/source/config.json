@@ -24,18 +24,21 @@
     "Usage": {
       "Downloading a schema": "/downloading-schema",
       "Creating a client": "/initialization",
-      "Fetching Data": "/fetching/fetching-data",
-      "Operation Arguments": "/fetching/operation-arguments",
-      "Error Handling":  "/fetching/error-handling",
-      "Operations": {
-        "Queries": "/fetching/queries",
-        "Mutations": "/fetching/mutations",
-        "Subscriptions": "/fetching/subscriptions",
-        "Fragments": "/fetching/fragments"
+      "Fetching": {
+        "Fetching Data": "/fetching/fetching-data",
+        "Operations": {
+          "Queries": "/fetching/queries",
+          "Mutations": "/fetching/mutations",
+          "Subscriptions": "/fetching/subscriptions",
+          "Fragments": "/fetching/fragments"
+        },
+        "Operation Arguments": "/fetching/operation-arguments",
+        "Error Handling":  "/fetching/error-handling",
+        "Type Conditions": "/fetching/type-conditions",
+        "Automatic Persisted Queries": "/fetching/apqs"
       },
       "Custom Scalars": "/custom-scalars",
       "Client-side caching": "/caching",
-      "Automatic Persisted Queries": "/fetching/apqs",
       "Swift scripting": "/swift-scripting",
       "Request pipeline (advanced)": "/request-pipeline"
     }
