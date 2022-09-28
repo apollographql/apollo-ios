@@ -13,6 +13,8 @@ permissions:
 
 jobs:
   publish:
+    permissions:
+      contents: read
     uses: apollographql/docs/.github/workflows/publish.yml@main
     secrets:
       NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
