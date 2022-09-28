@@ -172,7 +172,7 @@ A few other notes:
     it will work, but if you have some kind of object encompassing both of those fields like this:
 
     ```graphql
-    // Assumes AvatarObject(userID: GraphQLID, file: Upload) exists
+    # Assumes AvatarObject(userID: GraphQLID, file: Upload) exists
     mutation AvatarUpload($avatarObject: AvatarObject!) {
       id
     }
