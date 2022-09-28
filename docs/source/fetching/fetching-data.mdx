@@ -186,9 +186,9 @@ The cache polices which you can specify are:
   - This is the most common use case, and is the most performant method if your data is not expected to change.
   - If you do not need to check for updates to data once it's been fetched, you should usually use this cache policy.
 
-If you're interested in returning cached data after a failed fetch, the current recommended approach is to use an `additionalErrorInterceptor` on your interceptor chain to examine if the error is one it makes sense to show old data for rather than something that needs to be passed on to the user, and then retrying with a `returnCacheDataDontFetch` retry policy. An example of this setup can be found in the [Cache-dependent interceptor tests](https://github.com/apollographql/apollo-ios/blob/main/Tests/ApolloTests/Cache/CacheDependentInterceptorTests.swift).
+> If you're interested in returning cached data after a failed fetch, the current recommended approach is to use an `additionalErrorInterceptor` on your interceptor chain to examine if the error is one it makes sense to show old data for rather than something that needs to be passed on to the user, and then retrying with a `.returnCacheDataDontFetch` retry policy. An example of this setup can be found in the [Cache-dependent interceptor tests](https://github.com/apollographql/apollo-ios/blob/main/Tests/ApolloTests/Cache/CacheDependentInterceptorTests.swift).
 
-For more information on how result data is stored in the cache data or how to configure the normalized cache, see the [Caching documentation](./caching/).
+For more information on how result data is stored in the cache data or how to configure the normalized cache, see the [Caching documentation](./../caching).
 
 ## Using `GET` instead of `POST` for queries
 

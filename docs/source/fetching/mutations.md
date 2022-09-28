@@ -136,20 +136,22 @@ If you wanted to use this to upload a file called `a.txt`, it would look somethi
 
 ```swift
 // Create the file to upload
-guard
-  let fileURL = Bundle.main.url(forResource: "a",
-                                withExtension: "txt"),
-  let file = GraphQLFile(fieldName: "file", // Must be the name of the field the file is being uploaded to
-                         originalName: "a.txt",
-                         mimeType: "text/plain", // <-defaults to "application/octet-stream"
-                         fileURL: fileURL) else {
-    // Either the file URL couldn't be created or the file couldn't be created.
-    return
+guard let fileURL = Bundle.main.url(forResource: "a", withExtension: "txt"),
+      let file = GraphQLFile(
+        fieldName: "file", // Must be the name of the field the file is being uploaded to
+        originalName: "a.txt",
+        mimeType: "text/plain", // <-defaults to "application/octet-stream"
+        fileURL: fileURL
+) else {
+  // Either the file URL couldn't be created or the file couldn't be created.
+  return
 }
 
 // Actually upload the file
-client.upload(operation: UploadFileMutation(file: "a"), // <-- `Upload` is a custom scalar that's a `String` under the hood.
-              files: [file]) { result in
+client.upload(
+  operation: UploadFileMutation(file: "a"), // <-- `Upload` is a custom scalar that's a `String` under the hood.
+  files: [file]
+) { result in
   switch result {
   case .success(let graphQLResult):
     print("ID: \(graphQLResult.data?.singleUpload.id)")
