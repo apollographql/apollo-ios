@@ -93,11 +93,11 @@ commands:
   cocoapods_install_test:
     steps:
       - run:
-          working_directory: Tests/CodegenCLITests/pod-install-test
+          working_directory: Tests/CodegenCLITests/pod-install-test/
           command: pod install --verbose
           name: Run CocoaPods codegen CLI test
       - run:
-          working_directory: Tests/CodegenCLITests/pod-install-test/Pods/Apollo
+          working_directory: Tests/CodegenCLITests/pod-install-test/Pods/Apollo/
           command: apollo-ios-cli --version
           name: Validate apollo-ios-cli binary
   save-xcodebuild-artifacts:
@@ -210,6 +210,14 @@ jobs:
     steps:
       - common_test_setup
       - build_and_run_xcode_tests
+  
+  CodegenIntegration_macOS_current:
+    macos:
+      xcode: << pipeline.parameters.xcode_version >>
+    environment:
+      DESTINATION: platform=macOS,arch=x86_64
+    steps:
+      - common_test_setup
       - cocoapods_install_test
 
 workflows:
@@ -233,3 +241,5 @@ workflows:
           name: Codegen Lib Unit Tests - macOS << pipeline.parameters.macos_version >>
       - CodegenCLI_macOS_current:
           name: Codegen CLI Unit Tests - macOS << pipeline.parameters.macos_version >>
+      - CodegenIntegration_macOS_current:
+          name: Codegen CLI Integration Tests - macOS << pipeline.parameters.macos_version >>
