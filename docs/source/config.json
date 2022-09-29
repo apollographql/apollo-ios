@@ -20,7 +20,7 @@
       "The Codegen CLI": "/code-generation/codegen-cli",
       "Configuration": "/codegen-configuration",
       "Downloading a Schema": "/downloading-schema",
-      "Running Code Generation in Swift Code": "/code-generation/running-codegen-in-swift-code"
+      "Running Code Generation in Swift Code": "/code-generation/run-codegen-in-swift-code"
     },
     "Fetching": {
       "Fetching Data": "/fetching/fetching-data",
