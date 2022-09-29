@@ -94,7 +94,7 @@ commands:
     steps:
       - run:
           command: pod install --verbose
-          name: Install Pod
+          name: Run CocoaPods codegen CLI test
       - run:
           command: ./Pods/Apollo/apollo-ios-cli --version
           name: Validate apollo-ios-cli binary
@@ -197,7 +197,6 @@ jobs:
       - common_test_setup
       - build_and_run_xcode_tests
       - run_js_tests
-      - cocoapods_install_test
   
   CodegenCLI_macOS_current:
     macos:
@@ -209,6 +208,7 @@ jobs:
     steps:
       - common_test_setup
       - build_and_run_xcode_tests
+      - cocoapods_install_test
 
 workflows:
   version: 2
