@@ -8,7 +8,7 @@ Apollo Server allows you to use a feature called [Automatic Persisted Queries](h
 
 Each query or mutation is identified by the SHA256 hash of its contents. If the hash can't be found by the server, it sends back an error indicating that it needs the full query. If it receives this specific error, Apollo iOS will automatically retry the operation with the full query document without you having to do anything.
 
-> **Note:** APQs are not supported over Websockets at this time. If you're interested in this feature, please open a PR!
+> **Note:** APQs are not supported over Websockets at this time. If you're interested in this feature, please open an [issue](https://github.com/apollographql/apollo-ios/issues/new/choose)!
 
 ## Using APQs with Apollo iOS
 

@@ -41,7 +41,7 @@ The result might be:
 
 ## Performing mutations
 
-Similar to queries, mutations are represented by instances of generated classes, conforming to the `GraphQLMutation` protocol. Operation arguments are generated used to define mutation variables. For more information on passing arguments to a mutation see ["Operation arguments"](./fetching-data#operation-arguments)
+Similar to queries, mutations are represented by instances of generated classes, conforming to the `GraphQLMutation` protocol. Operation arguments are generated used to define mutation variables. For more information on passing arguments to a mutation see ["Operation arguments"](./operation-arguments)
 
 You pass a mutation object to `ApolloClient.perform(mutation:)` to send the mutation to the server, execute it, and receive typed results.
 
@@ -107,7 +107,7 @@ Apollo recommends using more traditional methods to upload your files, such as R
 - Upload data **not** using GraphQL, getting back either an identifier or URL for the uploaded data.
 - Send that received identifier or URL to your graph using GraphQL.
 
-If you'd still prefer to upload directly with Apollo, instructions follow.
+If you'd still prefer to upload directly with Apollo, continue reading.
 
 ### Uploading Directly With Apollo
 

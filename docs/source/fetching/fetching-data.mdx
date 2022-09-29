@@ -11,7 +11,7 @@ Because Apollo iOS uses standard GraphQL syntax, any operation you can run in Sa
 
 > *Exception: Apollo iOS does requires every query to have a name (even though this isn't required by the GraphQL spec)*
 
-This page also assumes that you've already set up Apollo iOS for your application. For help with setup, see the [getting started guide](./get-started).
+This page also assumes that you've already set up Apollo iOS for your application. For help with setup, see the [getting started guide](./../get-started).
 
 ## Defining operations
 
@@ -28,6 +28,7 @@ Let's say we define a GraphQL query named `HeroName`:
 ```graphql
 query HeroName {
   hero {
+    id
     name
   }
 }
@@ -86,6 +87,7 @@ And the following query:
 ```graphql
 query HeroAndFriendsNames {
   hero {
+    id
     name
     friends {
       id
@@ -103,6 +105,7 @@ class HeroAndFriendsNamesQuery: GraphQLQuery {
     let hero: Hero
 
     struct Hero: SelectionSet {
+      let id: String
       let name: String
       let friends: [Friend]?
 

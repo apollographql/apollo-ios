@@ -1,29 +1,29 @@
 <ExpansionPanel title="Cocoapods">
 
-Apollo iOS compiles the Codegen CLI during `pod install`. This ensures you always have the version of the CLI for the version of Apollo iOS you are using.
+Apollo iOS compiles the Codegen CLI during `pod install`. This ensures you always have a valid CLI version for your Apollo iOS version.
 
 The Codegen CLI is located in your project at `Pods/Apollo/apollo-ios-cli`
 
 <ExpansionPanelList>
 <ExpansionPanelListItem>
 
-#### Initialize the codegen configuration
+#### Initialize the code generation configuration
 
-The Codegen CLI uses a JSON file to configure the code generation engine. Initializing the Codegen CLI creates this file with default values. From the directory of your `Podfile`, run:
+The Codegen CLI uses a JSON file to configure the code generation engine. Initializing the Codegen CLI creates this file with the default values. From the directory of your `Podfile`, run:
 
 ```bash
 ./Pods/Apollo/apollo-ios-cli init --schema-name ${MySchemaName}
 ```
 
-`${MySchemaName}` should be the name you would like to be used as the namespace for your generated schema files.
+`${MySchemaName}` should be the name you want for the namespace of your generated schema files.
 
-This will create an `apollo-codegen-config.json` file with default options.
+This will create an `apollo-codegen-config.json` file with the default options.
 
 </ExpansionPanelListItem>
 
 <ExpansionPanelListItem>
 
-#### Set codegen configuration options
+#### Configure code generation options
 
 Open the `apollo-codegen-config.json` file to configure code generation for your project.
 

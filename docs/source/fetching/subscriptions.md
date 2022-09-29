@@ -60,7 +60,7 @@ class ReviewViewController {
 
 ## Enabling GraphQL subscription support
 
-The Apollo iOS library supports the use of subscriptions via [`ApolloWebSocket`](api/ApolloSQLite/README/), an optional additional library. `ApolloWebSocket` allows you to use web sockets to connect to your GraphQL server, enabling GraphQL subscriptions. To include `ApolloWebSocket`, add it as a dependency following the instructions in the [Getting Started](./../get-started) guide.
+The Apollo iOS library supports the use of subscriptions via [`ApolloWebSocket`](https://www.apollographql.com/docs/ios/docc/documentation/apollowebsocket), an optional additional library. `ApolloWebSocket` allows you to use web sockets to connect to your GraphQL server, enabling GraphQL subscriptions. To include `ApolloWebSocket`, add it as a dependency following the instructions in the [Getting Started](./../get-started) guide.
 
 ### Creating an `ApolloClient` with subscription support
 
@@ -68,8 +68,8 @@ In order to support GraphQL subscriptions, your `ApolloClient` must be initializ
 
 Within the `ApolloWebSocket` library, there are two classes which conform to the [`NetworkTransport` protocol](https://www.apollographql.com/docs/ios/docc/documentation/apollo/networktransport):
 
-- **`WebSocketTransport`** sends all operations over a web socket.
-- **`SplitNetworkTransport`** hangs onto both a [`WebSocketTransport`](api/ApolloWebSocket/classes/WebSocketTransport/) instance and an [`UploadingNetworkTransport`](api/Apollo/protocols/UploadingNetworkTransport/) instance (usually [`RequestChainNetworkTransport`](api/Apollo/classes/RequestChainNetworkTransport/)) in order to create a single network transport that can use http for queries and mutations, and web sockets for subscriptions.
+- **[`WebSocketTransport`](https://www.apollographql.com/docs/ios/docc/documentation/apollowebsocket/websockettransport)** sends all operations over a web socket.
+- **[`SplitNetworkTransport`](https://www.apollographql.com/docs/ios/docc/documentation/apollowebsocket/splitnetworktransport)** hangs onto both a [`WebSocketTransport`](https://www.apollographql.com/docs/ios/docc/documentation/apollowebsocket/websockettransport) instance and an [`UploadingNetworkTransport`](https://www.apollographql.com/docs/ios/docc/documentation/apollo/uploadingnetworktransport) instance (usually [`RequestChainNetworkTransport`](https://www.apollographql.com/docs/ios/docc/documentation/apollo/requestchainnetworktransport) in order to create a single network transport that can use http for queries and mutations, and web sockets for subscriptions.
 
 Typically, you'll want to use `SplitNetworkTransport`, since this allows you to retain the single `NetworkTransport` setup and avoids any potential issues of using multiple client objects.
 

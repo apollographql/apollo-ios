@@ -31,23 +31,23 @@ You can install Apollo iOS into your project using any of the three major Cocoa 
 
 ## 2. Add a schema file to your target directory
 
-For Apollo iOS to generate models for your GraphQL operations, you need a local copy of your GraphQL server's schema. To acquire this schema, see [Downloading a schema](./downloading-schema/).
+For Apollo iOS to generate models for your GraphQL operations, you need a local copy of your GraphQL server's schema. See [Downloading a schema](./downloading-schema/) for more details.
 
-## 3. [Optional] Install the Xcode add-ons for syntax highlighting
+## 3. Install the Xcode add-ons for syntax highlighting (Optional)
 
-If you would like to add syntax highlighting for GraphQL query document files to Xcode, install the Xcode GraphQL add-ons.
+If you want to add syntax highlighting for GraphQL query document files to Xcode, you can install the Xcode GraphQL add-on.
 
-Check out the [`xcode-graphql`](https://github.com/apollographql/xcode-graphql) repository and follow its [installation guide](https://github.com/apollographql/xcode-graphql#installation).
+Check out [`xcode-graphql`](https://github.com/apollographql/xcode-graphql) and follow its [installation guide](https://github.com/apollographql/xcode-graphql#installation).
 
 ## 4. Create `.graphql` files for your GraphQL operations
 
-Apollo iOS generates code from GraphQL queries and mutations defined in files in your target. In order to use Apollo iOS, you'll need to define at least one operation GraphQL operation.
+Apollo iOS generates code from the GraphQL queries and mutations defined in your target's files. To use Apollo iOS, you'll need to define at least one operation GraphQL operation.
 
 GraphQL operation and fragment definitions traditionally have the file extension `.graphql`. The generated models will have the file extension `.graphql.swift`.
 
 ## 5. Setup and run code generation
 
-Apollo iOS code generation uses your `.graphql` files to generate API code that helps you execute all forms of GraphQL operations, as well as parse and cache operation responses.
+Apollo iOS code generation uses your `.graphql` files to generate API code that helps you execute GraphQL operations and parse and cache operation responses.
 
 Whenever you make changes to your GraphQL operation definitions, you'll need to run the code generation engine to re-generate your GraphQL models.
 
@@ -76,7 +76,7 @@ let apolloClient = ApolloClient(url: URL(string: "http://localhost:4000/graphql"
 
 ## 7. Fetch a query
 
-Your generated operation definitions can be fetched with your `ApolloClient` and the response will be returned as a type-safe generated data model.
+`ApolloClient` can fetch your generated operation definitions, and return the response as a type-safe generated data model.
 
 For example, if you define a query called `HeroName`:
 

@@ -5,9 +5,10 @@ Apollo iOS exposes the Codegen CLI as an SPM plugin. This means you can run the 
 > **Note:** SPM Plugins require permission to write files to your project directory. Each time you run these commands, you will be prompted to give the plugin permission. To bypass this prompt, we recommend including the `--allow-writing-to-package-directory` flag before the plugin command name.
 
 <ExpansionPanelList>
+
 <ExpansionPanelListItem>
 
-#### Initialize the codegen configuration
+#### Initialize the code generation configuration
 
 The Codegen CLI uses a JSON file to configure the code generation engine. Initializing the Codegen CLI creates this file with default values. From the directory of your `Package.swift` file, run:
 
@@ -23,7 +24,7 @@ This will create an `apollo-codegen-config.json` file with default options.
 
 <ExpansionPanelListItem>
 
-#### Set codegen configuration options
+#### Configure code generation options
 
 Open the `apollo-codegen-config.json` file to configure code generation for your project.
 
