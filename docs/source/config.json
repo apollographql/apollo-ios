@@ -15,26 +15,29 @@
       "ApolloSQLite": "https://www.apollographql.com/docs/ios/docc/documentation/ApolloSQLite",
       "ApolloCodegenLib": "https://www.apollographql.com/docs/ios/docc/documentation/ApolloCodegenLib"
     },
-    "Usage": {
-      "Downloading a schema": "/downloading-schema",
-      "Creating a client": "/initialization",
-      "Fetching": {
-        "Fetching Data": "/fetching/fetching-data",
-        "Operations": {
-          "Queries": "/fetching/queries",
-          "Mutations": "/fetching/mutations",
-          "Subscriptions": "/fetching/subscriptions",
-          "Fragments": "/fetching/fragments"
-        },
-        "Operation Arguments": "/fetching/operation-arguments",
-        "Error Handling":  "/fetching/error-handling",
-        "Type Conditions": "/fetching/type-conditions",
-        "Automatic Persisted Queries": "/fetching/apqs"
+    "Code Generation": {
+      "Introduction": "/code-generation/introduction",
+      "The Codegen CLI": "/code-generation/codegen-cli",
+      "Configuration": "/codegen-configuration",
+      "Downloading a Schema": "/downloading-schema",
+      "Running Code Generation in Swift Code": "/code-generation/running-codegen-in-swift-code"
+    },
+    "Fetching": {
+      "Fetching Data": "/fetching/fetching-data",
+      "Operations": {
+        "Queries": "/fetching/queries",
+        "Mutations": "/fetching/mutations",
+        "Subscriptions": "/fetching/subscriptions",
+        "Fragments": "/fetching/fragments"
       },
-      "Custom Scalars": "/custom-scalars",
-      "Client-side caching": "/caching",
-      "Swift scripting": "/swift-scripting",
-      "Request pipeline (advanced)": "/request-pipeline"
-    }
+      "Operation Arguments": "/fetching/operation-arguments",
+      "Error Handling":  "/fetching/error-handling",
+      "Type Conditions": "/fetching/type-conditions",
+      "Automatic Persisted Queries": "/fetching/apqs"
+    },
+    "Creating a client": "/initialization",
+    "Custom Scalars": "/custom-scalars",
+    "Client-side caching": "/caching",
+    "Request pipeline (advanced)": "/request-pipeline"
   }
 }
