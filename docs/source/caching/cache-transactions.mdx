@@ -1,16 +1,42 @@
 ---
 title: Direct cache access
 ---
-# UNDER CONSTRUCTION
+
 Apollo iOS provides the ability to directly read and update the cache as needed using type-safe generated operation models. This provides a strongly-typed interface for accessing your cache data in pure Swift code.
 
 The `ApolloStore` has APIs for accessing the cache via both `ReadTransaction` and `ReadWriteTransaction`.
 
-## Read Transactions
+## Reading cache data
 
-## Write Transactions
+You can write data to the local cache with [`ApolloStore.withinReadTransaction(_:callbackQueue:completion:)`](https://www.apollographql.com/docs/ios/docc/documentation/apollo/apollostore/withinreadtransaction(_:callbackqueue:completion:)). The transaction block provides a [`ReadTransaction`](https://www.apollographql.com/docs/ios/docc/documentation/apollo/apollostore/readtransaction).
 
-You can write data to the local cache with [`ApolloStore.withinReadWriteTransaction(_:callbackQueue:completion:)`](https://www.apollographql.com/docs/ios/docc/documentation/apollo/apollostore/withinreadwritetransaction(_:callbackqueue:completion:)). The transaction block provides a `ReadWriteTransaction`, which has all of the functionality of a `ReadTransaction` in addition the the ability to write data to the cache.
+A [`ReadTransaction`](https://www.apollographql.com/docs/ios/docc/documentation/apollo/apollostore/readtransaction) can be used to read any of your [generated GraphQL queries or fragments](./../fetching/fetching-data#generated-operation-models).
+
+```swift
+// Read from a GraphQL Query
+client.store.withinReadTransaction({ transaction in
+  let data = try transaction.read(
+    query: HeroNameQuery(episode: .jedi)
+  )
+  print(data.hero?.name)
+})
+
+// Read from a GraphQL fragment
+client.store.withinReadTransaction({ transaction -> HeroDetails in
+  let data = try transaction.readObject(
+    ofType: HeroDetails.self,
+    withKey: id
+  )
+
+  print(data.hero?.name)
+})
+```
+
+## Writing cache data
+
+You can write data to the local cache with [`ApolloStore.withinReadWriteTransaction(_:callbackQueue:completion:)`](https://www.apollographql.com/docs/ios/docc/documentation/apollo/apollostore/withinreadwritetransaction(_:callbackqueue:completion:)). The transaction block provides a [`ReadWriteTransaction`](https://www.apollographql.com/docs/ios/docc/documentation/apollo/apollostore/readwritetransaction). In addition the the ability to write data to the cache, [`ReadWriteTransaction`](https://www.apollographql.com/docs/ios/docc/documentation/apollo/apollostore/readwritetransaction) has all of the functionality of a `ReadTransaction`.
+
+Like [reading cache data](#reading-cache-data), writing to the cache uses type-safe generated models. However, because the generated models for your operations and fragments are immutable, you cannot change the values on these models to write them to the cache.
 
 ```swift
 let transaction = store.withinReadWriteTransaction { transaction in
@@ -46,34 +72,6 @@ TODO
 
 ## Direct cache access
 
-
-### read
-
-The `read` function is similar to React Apollo's [`readQuery`](https://www.apollographql.com/docs/react/caching/cache-interaction/#readquery) and React Apollo's [`readFragment`](https://www.apollographql.com/docs/react/caching/cache-interaction/#readfragment) methods and will return the cached data for a given GraphQL query or a GraphQL fragment:
-
-```swift
-// Assuming we have defined an ApolloClient instance `client`:
-// Read from a GraphQL query
-client.store.withinReadTransaction({ transaction in
-  let data = try transaction.read(
-    query: HeroNameQuery(episode: .jedi)
-  )
-
-  // Prints "R2-D2"
-  print(data.hero?.name)
-})
-
-// Read from a GraphQL fragment
-client.store.withinReadTransaction({ transaction -> HeroDetails in
-  let data = try transaction.readObject(
-    ofType: HeroDetails.self,
-    withKey: id
-  )
-
-  // Prints "R2-D2"
-  print(data.hero?.name)
-})
-```
 
 ### update
 
