@@ -38,10 +38,11 @@
     "Caching": {
       "Introduction": "/caching/introduction",
       "Setup": "/caching/cache-setup",
-      "Direct Cache Access": "/caching/cache-transactions"
+      "Direct Cache Access": "/caching/cache-transactions",
+      "Custom Cache IDs": "/caching/cache-key-resolution"
     },
-    "Creating a client": "/initialization",
+    "Creating a Client": "/initialization",
     "Custom Scalars": "/custom-scalars",
-    "Request pipeline (advanced)": "/request-pipeline"
+    "Request Pipeline (advanced)": "/request-pipeline"
   }
 }

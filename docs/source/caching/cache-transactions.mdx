@@ -156,13 +156,13 @@ B) Are fine with your cache policy potentially triggering an additional fetch if
 
 ### Deleting objects by cache key
 
-> You will need to have a clear understanding of how you are generating cache keys to be able to use this functionality effectively. To help you figure out how to construct a cache key or pattern to delete, we recommend having a clear understanding of [how cache keys are generated](./introduction#normalizing-responses) and [configuring custom cache key resolution](./cache-key-resolution) for your cache objects.
+> You will need to have a clear understanding of how you are generating cache keys to be able to use this functionality effectively. To help you figure out how to construct a cache key or pattern to delete, we recommend having a clear understanding of [how cache keys are generated](./introduction#normalizing-responses) and [configuring custom cache IDs](./cache-key-resolution) for your cache objects.
 
 Removing objects by their cache key allows you to clear stale or unneeded cache data without deleting the entire cache.
 
-In Apollo iOS, you can [configure custom cache keys for your objects](./cache-key-resolution). The key for an entry in the cache that uses custom cache keys will always have the format `${ObjectType}:${CustomCacheKey).
+In Apollo iOS, you can [configure custom cache IDs for your objects](./cache-key-resolution). The key for an entry in the cache that uses custom cache IDs will always have the format `${ObjectType}:${CustomCacheKey).
 
-In this example, we've configured our cache to attempt to use the `id` field as a cache key.
+In this example, we've configured our cache to attempt to use the `id` field as a cache ID.
 
 ```swift title="SchemaConfiguration.swift"
 static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
@@ -170,7 +170,7 @@ static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? 
 }
 ```
 
-This indicates that for every object which has an `id` property, it will be cached with that `id` as the key.
+This indicates that for every object which has an `id` field, its cache ID will be the value of the `id` field.
 
 If you have previously fetched a `Book` object with the ID `"2001"`, the key for that entry in the cache will be `"Book:2001"`. To delete this object from the cache, you can call `transaction.removeObject(for: "Book:2001")` within a `ReadWriteTransaction`. This will remove the cache entry with that key, along with all of its associated scalar properties and the references to other objects it stores.
 

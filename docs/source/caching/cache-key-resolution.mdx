@@ -1,0 +1,12 @@
+---
+title: Custom cache IDs
+---
+
+When working with a [normalized cache](./introduction#what-is-a-normalized-cache), it is recommended that you specify a **cache ID** for each object type in your schema. If you don't, objects are assigned a *default* cache ID, but that ID can lead to undesirable duplication of data.
+
+The normalized cache computes a **cache key** for each object that is stored in the cache. That **cache key** is a combination of the object's [`__typename`](https://spec.graphql.org/draft/#sec-Type-Name-Introspection) and its **cache ID**. By default, a normalized cache [uses the response path of the object](./introduction#normalizing-responses) as the **cache ID**.
+
+With Apollo iOS, you can customize the computation of **cache IDs** to improve the performance and capabilities of your cache.
+
+> To learn how the normalized cache uses cache IDs, read about how the cache [normalizes objects by cache key](./introduction#normalizing-objects-by-cache-key).
+
