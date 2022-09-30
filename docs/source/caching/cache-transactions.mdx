@@ -1,8 +1,29 @@
 ---
 title: Direct cache access
 ---
-
 # UNDER CONSTRUCTION
+Apollo iOS provides the ability to directly read and update the cache as needed using type-safe generated operation models. This provides a strongly-typed interface for accessing your cache data in pure Swift code.
+
+The `ApolloStore` has APIs for accessing the cache via both `ReadTransaction` and `ReadWriteTransaction`.
+
+## Read Transactions
+
+## Write Transactions
+
+You can write data to the local cache with [`ApolloStore.withinReadWriteTransaction(_:callbackQueue:completion:)`](https://www.apollographql.com/docs/ios/docc/documentation/apollo/apollostore/withinreadwritetransaction(_:callbackqueue:completion:)). The transaction block provides a `ReadWriteTransaction`, which has all of the functionality of a `ReadTransaction` in addition the the ability to write data to the cache.
+
+```swift
+let transaction = store.withinReadWriteTransaction { transaction in
+
+}
+```
+
+### Local Cache Mutations
+
+This functionality is useful when performing mutations or receiving subscription data, as you should always update the local cache to ensure consistency with the operation that was just performed. The ability to write to the cache directly also prevents you from needing to re-fetch data over the network after a mutation is performed.
+
+
+
 
 There are 2 primary ways you will want to manually update the cache. Either you'll want to update the cache for a query, or you will want to update a cached object directly.
 
@@ -25,9 +46,6 @@ TODO
 
 ## Direct cache access
 
-Similarly to the [Apollo React API](https://www.apollographql.com/docs/react/advanced/caching/#direct), you can directly read and update the cache as needed using Swift's [inout parameters](https://docs.swift.org/swift-book/LanguageGuide/Functions.html#ID173).
-
-This functionality is useful when performing mutations or receiving subscription data, as you should always update the local cache to ensure consistency with the operation that was just performed. The ability to write to the cache directly also prevents you from needing to re-fetch data over the network after a mutation is performed.
 
 ### read
 
