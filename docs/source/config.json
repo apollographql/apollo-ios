@@ -35,9 +35,11 @@
       "Type Conditions": "/fetching/type-conditions",
       "Automatic Persisted Queries": "/fetching/apqs"
     },
+    "Caching": {
+      "Introduction": "/caching/introduction"
+    },
     "Creating a client": "/initialization",
     "Custom Scalars": "/custom-scalars",
-    "Client-side caching": "/caching",
     "Request pipeline (advanced)": "/request-pipeline"
   }
 }
