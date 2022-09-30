@@ -12,6 +12,8 @@ Apollo iOS uses a normalized cache that, when configured properly, acts as a sou
 
 The Apollo iOS library contains both a short-lived in-memory cache and a SQLite cache that persists cache data to disk.
 
+> Learn about using cache policies to configure how GraphQL operations interact with cache data by reading our documentation on [fetching locally cached data](./../fetching/fetching-data#fetching-locally-cached-data).
+
 ## What is a normalized cache?
 
 In a GraphQL client, a normalized cache breaks each of your GraphQL operation responses into the individual objects it contains. Then, each object is cached as a *separate entry* based on its **cache key**. This means that if multiple responses include the _same_ object, that object can be de-duplicated into a single cache entry. This reduces the overall size of the cache and helps keep your cached data consistent and fresh.
