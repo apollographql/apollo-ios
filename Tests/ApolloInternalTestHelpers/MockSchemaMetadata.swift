@@ -69,14 +69,14 @@ public struct IDCacheKeyProvider: MockStaticCacheKeyProvider {
 }
 
 public struct MockCacheKeyProvider {
-  let key: String
+  let id: String
 
-  public init(key: String) {
-    self.key = key
+  public init(id: String) {
+    self.id = id
   }
 
   public func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
-    .init(key: key, uniqueKeyGroupId: nil)
+    .init(id: id, uniqueKeyGroup: nil)
   }
 }
 
@@ -92,7 +92,7 @@ public enum MockSchema1: SchemaMetadata {
 
 public enum MockSchema1Configuration: SchemaConfiguration {
   public static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
-    CacheKeyInfo(key: "one")
+    CacheKeyInfo(id: "one")
   }
 }
 
@@ -106,6 +106,6 @@ public enum MockSchema2: SchemaMetadata {
 
 public enum MockSchema2Configuration: SchemaConfiguration {
   public static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
-    CacheKeyInfo(key: "two")
+    CacheKeyInfo(id: "two")
   }
 }

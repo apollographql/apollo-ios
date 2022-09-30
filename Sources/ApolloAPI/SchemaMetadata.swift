@@ -57,6 +57,6 @@ extension SchemaMetadata {
           let info = configuration.cacheKeyInfo(for: type, object: object) else {
       return nil
     }
-    return CacheReference("\(info.uniqueKeyGroupId ?? type.typename):\(info.key)")
+    return CacheReference("\(info.uniqueKeyGroup ?? type.typename):\(info.id)")
   }
 }
