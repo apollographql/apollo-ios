@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Nil Coalsecing Operator overload for ",
+      "text" : "Nil Coalescing Operator overload for ",
       "type" : "text"
     },
     {
@@ -247,8 +247,8 @@
             "",
             "  var myVar: GraphQLNullable<String>",
             "",
-            "  init(myVar: GraphQLNullable<String> { ... }",
-            " \/\/ ...",
+            "  init(myVar: GraphQLNullable<String>) { ... }",
+            "  \/\/ ...",
             "}",
             "",
             "let optionalString: String?",
@@ -388,7 +388,7 @@
 "doc://ApolloAPI/documentation/ApolloAPI/__(_:_:)": {
   "abstract" : [
     {
-      "text" : "Nil Coalsecing Operator overload for ",
+      "text" : "Nil Coalescing Operator overload for ",
       "type" : "text"
     },
     {

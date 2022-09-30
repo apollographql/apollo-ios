@@ -260,9 +260,9 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       /// module you will create in the `schemaName` property as this will be used in `import`
       /// statements of generated operation files.
       ///
-      /// Use this option for dependency managers, such as CocoaPods or Carthage. Example usage
-      /// would be to create the podspec file (CocoaPods) or Xcode project file (Carthage) that
-      /// is expecting the generated files in the configured output location.
+      /// Use this option for dependency managers, such as CocoaPods. Example usage would be to 
+      /// create the podspec file that is expecting the generated files in the configured output 
+      /// location.
       case other
     }
   }

@@ -8,7 +8,6 @@
 /// [GraphQLSpec - Enums](https://spec.graphql.org/draft/#sec-Enums)
 public protocol EnumType:
   RawRepresentable,
-  CaseIterable,
   JSONEncodable,
   GraphQLOperationVariableValue
 where RawValue == String {}

@@ -181,7 +181,6 @@
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONDecodable",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONEncodable",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/OutputTypeConvertible",
-        "doc:\/\/ApolloAPI\/s12CaseIterableP",
         "doc:\/\/ApolloAPI\/SQ",
         "doc:\/\/ApolloAPI\/SH",
         "doc:\/\/ApolloAPI\/SY"
@@ -241,15 +240,8 @@
       "title" : "Type Aliases"
     },
     {
-      "identifiers" : [
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum\/allCases"
-      ],
-      "title" : "Type Properties"
-    },
-    {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum\/CustomScalarType-Implementations",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum\/Equatable-Implementations",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum\/RawRepresentable-Implementations"
       ],
@@ -1170,17 +1162,6 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqlenum\/==(_:_:)-n7qo"
 },
-"doc://ApolloAPI/documentation/ApolloAPI/GraphQLEnum/CustomScalarType-Implementations": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum\/CustomScalarType-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "CustomScalarType Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/graphqlenum\/customscalartype-implementations"
-},
 "doc://ApolloAPI/documentation/ApolloAPI/GraphQLEnum/Equatable-Implementations": {
   "abstract" : [
 
@@ -1233,79 +1214,6 @@
   "title" : "GraphQLEnum.RawValue",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqlenum\/rawvalue-swift.typealias"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/GraphQLEnum/allCases": {
-  "abstract" : [
-    {
-      "text" : "A collection of all known values of the wrapped enum.",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "This collection does not include the ",
-      "type" : "text"
-    },
-    {
-      "code" : "unknown",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " case.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "allCases"
-    },
-    {
-      "kind" : "text",
-      "text" : ": ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI11GraphQLEnumO",
-      "text" : "GraphQLEnum"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ">]"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum\/allCases",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "allCases",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/graphqlenum\/allcases"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/GraphQLEnum/case(_:)": {
   "abstract" : [
@@ -2074,11 +1982,6 @@
   "title" : "OutputTypeConvertible",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/outputtypeconvertible"
-},
-"doc://ApolloAPI/s12CaseIterableP": {
-  "identifier" : "doc:\/\/ApolloAPI\/s12CaseIterableP",
-  "title" : "Swift.CaseIterable",
-  "type" : "unresolvable"
 }
 }
 }

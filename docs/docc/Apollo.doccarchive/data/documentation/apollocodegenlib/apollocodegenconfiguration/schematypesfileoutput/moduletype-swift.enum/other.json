@@ -121,7 +121,7 @@
         {
           "inlineContent" : [
             {
-              "text" : "Use this option for dependency managers, such as CocoaPods or Carthage. Example usage",
+              "text" : "Use this option for dependency managers, such as CocoaPods. Example usage would be to",
               "type" : "text"
             },
             {
@@ -129,7 +129,7 @@
               "type" : "text"
             },
             {
-              "text" : "would be to create the podspec file (CocoaPods) or Xcode project file (Carthage) that",
+              "text" : "create the podspec file that is expecting the generated files in the configured output",
               "type" : "text"
             },
             {
@@ -137,7 +137,7 @@
               "type" : "text"
             },
             {
-              "text" : "is expecting the generated files in the configured output location.",
+              "text" : "location.",
               "type" : "text"
             }
           ],

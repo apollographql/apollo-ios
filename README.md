@@ -21,9 +21,6 @@
   <a href="https://swift.org/package-manager/">
     <img src="https://img.shields.io/badge/Swift_Package_Manager-compatible-orange?style=flat-square" alt="Swift Package Manager compatible">
   </a>
-  <a href="https://github.com/Carthage/Carthage">
-    <img src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat" alt="Carthage compatible">
-  </a>
   <a href="https://cocoapods.org/pods/Apollo">
     <img src="https://img.shields.io/cocoapods/v/Apollo.svg" alt="CocoaPods compatible">
   </a>

@@ -1,15 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "An absolute location to an operation id JSON map file. If specified, also stores the",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "operation IDs (hashes) as properties on operation types.",
+      "text" : "An absolute location to an operation id JSON map file.",
       "type" : "text"
     }
   ],
@@ -215,15 +207,7 @@
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/FileOutput/operationIdentifiersPath": {
   "abstract" : [
     {
-      "text" : "An absolute location to an operation id JSON map file. If specified, also stores the",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "operation IDs (hashes) as properties on operation types.",
+      "text" : "An absolute location to an operation id JSON map file.",
       "type" : "text"
     }
   ],
