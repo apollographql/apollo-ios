@@ -18,8 +18,8 @@
     "Code Generation": {
       "Introduction": "/code-generation/introduction",
       "The Codegen CLI": "/code-generation/codegen-cli",
-      "Configuration": "/codegen-configuration",
-      "Downloading a Schema": "/downloading-schema",
+      "Configuration": "/code-generation/codegen-configuration",
+      "Downloading a Schema": "/code-generation/downloading-schema",
       "Running Code Generation in Swift Code": "/code-generation/run-codegen-in-swift-code"
     },
     "Fetching": {
