@@ -2,10 +2,10 @@
 // This file was automatically generated and should not be edited.
 
 import ApolloTestSupport
-import PackageTwo
+import AnimalKingdomAPI
 
 public class Human: MockObject {
-  public static let objectType: Object = MySchemaModule.Objects.Human
+  public static let objectType: Object = AnimalKingdomAPI.Objects.Human
   public static let _mockFields = MockFields()
   public typealias MockValueCollectionType = Array<Mock<Human>>
 
@@ -13,9 +13,10 @@ public class Human: MockObject {
     @Field<Int>("bodyTemperature") public var bodyTemperature
     @Field<String>("firstName") public var firstName
     @Field<Height>("height") public var height
+    @Field<ID>("id") public var id
     @Field<Bool>("laysEggs") public var laysEggs
     @Field<[Animal]>("predators") public var predators
-    @Field<GraphQLEnum<MySchemaModule.SkinCovering>>("skinCovering") public var skinCovering
+    @Field<GraphQLEnum<SkinCovering>>("skinCovering") public var skinCovering
     @Field<String>("species") public var species
   }
 }
@@ -25,15 +26,17 @@ public extension Mock where O == Human {
     bodyTemperature: Int? = nil,
     firstName: String? = nil,
     height: Mock<Height>? = nil,
+    id: ID? = nil,
     laysEggs: Bool? = nil,
     predators: [AnyMock]? = nil,
-    skinCovering: GraphQLEnum<MySchemaModule.SkinCovering>? = nil,
+    skinCovering: GraphQLEnum<SkinCovering>? = nil,
     species: String? = nil
   ) {
     self.init()
     self.bodyTemperature = bodyTemperature
     self.firstName = firstName
     self.height = height
+    self.id = id
     self.laysEggs = laysEggs
     self.predators = predators
     self.skinCovering = skinCovering

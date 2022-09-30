@@ -26,7 +26,7 @@
   "output" : {
     "testMocks" : {
       "absolute" : {
-        "path": "PackageTwo\/Tests\/PackageTwoTests\/TestMocks\/"
+        "path": "PackageTwo/Sources/TestMocks/"
       }
     },
     "schemaTypes" : {

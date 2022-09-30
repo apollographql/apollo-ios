@@ -305,6 +305,95 @@ class MockObjectTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
   }
 
+  func test_render_givenFieldType_Interface_named_Actor_generatesFieldsWithNamespace() {
+    // given
+    buildSubject(moduleType: .swiftPackageManager)
+
+    let Actor_Interface = GraphQLInterfaceType.mock("Actor")
+
+    subject.graphqlObject.fields = [
+      "actor": .mock("actor", type: .entity(Actor_Interface)),
+    ]
+
+    ir.fieldCollector.add(
+      fields: subject.graphqlObject.fields.values.map {
+        .mock($0.name, type: $0.type)
+      },
+      to: subject.graphqlObject
+    )
+
+    let expected = """
+      public struct MockFields {
+        @Field<MockObject.Actor>("actor") public var actor
+      }
+    """
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
+  }
+
+  func test_render_givenFieldType_Union_named_Actor_generatesFieldsWithNamespace() {
+    // given
+    buildSubject(moduleType: .swiftPackageManager)
+
+    let Actor_Union = GraphQLUnionType.mock("Actor")
+
+    subject.graphqlObject.fields = [
+      "actor": .mock("actor", type: .entity(Actor_Union)),
+    ]
+
+    ir.fieldCollector.add(
+      fields: subject.graphqlObject.fields.values.map {
+        .mock($0.name, type: $0.type)
+      },
+      to: subject.graphqlObject
+    )
+
+    let expected = """
+      public struct MockFields {
+        @Field<MockObject.Actor>("actor") public var actor
+      }
+    """
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
+  }
+
+  func test_render_givenFieldType_Object_named_Actor_generatesFieldsWithoutNamespace() {
+    // given
+    buildSubject(moduleType: .swiftPackageManager)
+
+    let Actor_Object = GraphQLObjectType.mock("Actor")
+
+    subject.graphqlObject.fields = [
+      "actor": .mock("actor", type: .entity(Actor_Object)),
+    ]
+
+    ir.fieldCollector.add(
+      fields: subject.graphqlObject.fields.values.map {
+        .mock($0.name, type: $0.type)
+      },
+      to: subject.graphqlObject
+    )
+
+    let expected = """
+      public struct MockFields {
+        @Field<Actor>("actor") public var actor
+      }
+    """
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
+  }
+
+
+
   // MARK: Convenience Initializer Tests
 
   func test_render_givenSchemaType_generatesConvenienceInitializer() {

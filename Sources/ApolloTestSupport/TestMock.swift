@@ -34,7 +34,7 @@ public class Mock<O: MockObject>: AnyMock, JSONEncodable, Hashable {
     }
     set {
       let field = O._mockFields[keyPath: keyPath]
-      _data[field.key.description] = (newValue as! (any JSONEncodable))
+      _data[field.key.description] = (newValue as? (any JSONEncodable))
     }
   }
 
