@@ -103,10 +103,6 @@ extension GraphQLType {
     }()
 
     switch self {
-//    case let .entity(type as GraphQLNamedType) where type is GraphQLAbstractType:
-//      let typeName = newTypeName ?? type.swiftName.firstUppercased
-//      return TemplateString("MockObject.\(typeName)\(if: !containedInNonNull, "?")").description
-
     case let .entity(type as GraphQLNamedType), let .inputObject(type as GraphQLNamedType):
       let typeName = newTypeName ?? type.testMockFieldTypeName.firstUppercased
       return TemplateString("\(typeName)\(if: !containedInNonNull, "?")").description
