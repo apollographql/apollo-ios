@@ -24,7 +24,7 @@ The information needed to construct a **cache key** is represented by a [`CacheK
 
     If multiple distinct types can be grouped together in the cache, the `CacheKeyInfo` for each `Object` should have the same `uniqueKeyGroup`.
 
-    > **Tip:** By grouping objects together, their **keys** in the normalized cache will have the same prefix. This allows you to search for cached objects in the same group by their cache `id`. To learn more read about [direct cache access](./cache-transactions)
+    > **Tip:** By grouping objects together, their **keys** in the normalized cache will have the same prefix. This allows you to search for cached objects in the same group by their cache `id`. To learn more, read about [direct cache access](./cache-transactions)
 
 2. `let id: String`
 
@@ -48,35 +48,86 @@ Apollo iOS would construct a cache key of `"Animal:123"`.
 
 ## The `SchemaConfiguration` file
 
-When Apollo iOS [generates code for your project](../code-generation/introduction), it will generate a set of metadata types  representing the GraphQL schema for your application. One of these files is named `SchemaConfiguration.swift`.
+The `SchemaConfiguration` file is your entry point to configuring **cache keys** for the types in your schema.
 
-The `SchemaConfiguration` file is your entry point for configuring **cache keys** for the types in your schema. The code generation engine creates this file if it doesn't exist yet, but never overwrites an existing `SchemaConfiguration.swift` file. This means you can edit your schema configuration without those changes being overwritten on subsequent code generation runs.
+When Apollo iOS [generates code for your project](../code-generation/introduction), it will generate a set of metadata types representing the GraphQL schema for your application. One of these files is named `SchemaConfiguration.swift`.
+
+ The code generation engine creates this file if it doesn't exist yet, but never overwrites an existing `SchemaConfiguration.swift` file. This means you can edit your schema configuration without those changes being overwritten on subsequent code generation runs.
 
 > *Tip:* You can configure the location of the generated schema types with the [`output.schemaTypes` option in your code generation configuration](./../codegen-configuration).
 
-The `SchemaConfiguration` contains a [`cacheKeyInfo(for:object:)`](https://www.apollographql.com/docs/ios/docc/documentation/apolloapi/schemaconfiguration/cachekeyinfo(for:object:)) function. By default, this function just returns `nil`.
+## Specifying cache IDs
 
-To configure how cache keys are computed for an object, you can create and return [`CacheKeyInfo`](#cachekeyinfo) values from your implementation of [`cacheKeyInfo(for:object:)`](https://www.apollographql.com/docs/ios/docc/documentation/apolloapi/schemaconfiguration/cachekeyinfo(for:object:)).
+The `SchemaConfiguration` contains a [`cacheKeyInfo(for type:object:)`](https://www.apollographql.com/docs/ios/docc/documentation/apolloapi/schemaconfiguration/cachekeyinfo(for:object:)) function. This function provides you a JSON response `object` and the concrete `type` of the object represented by the response.
 
----
+The `object` parameter provides a JSON response from either a network request or a cache hit.
 
-You can use the init(jsonValue:uniqueKeyGroupId:) convenience initialier in the implementation of your cacheKeyInfo(for:object:) function to easily resolve the cache key for an object.
-For an object of the type Dog with a unique key represented by an id field, you may implement cache key resolution with:
+The `type` parameter provides a strongly typed [`Object`](https://www.apollographql.com/docs/ios/docc/documentation/apolloapi/object) type. This is a generated metadata type representing a concrete `type` in your GraphQL schema.
+
+To configure how cache keys are computed from a response object, you can create and return [`CacheKeyInfo`](#cachekeyinfo) values from your implementation of [`cacheKeyInfo(for:object:)`](https://www.apollographql.com/docs/ios/docc/documentation/apolloapi/schemaconfiguration/cachekeyinfo(for:object:)).
+
+> **Note:** When specifying **cache IDs**, make sure that you are always fetching the fields used to construct those IDs in your operations. Any response objects that don't contain the **cache ID** fields will not be able to be [merged via cache normalization](./introduction#normalizing-responses).
+
+### Using a default cache ID field
+
+If your schema provides a common unique identifier across many of your objects types, you may want to use that field as the **cache ID** by default.
+
+```swift
+public extension MySchema {
+  static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
+    guard let id = object["id"] as? String else {
+        return nil
+    }
+
+    return CacheKeyInfo(id: id)
+  }
+}
+```
+
+If the JSON response `object` has no `id` field, the function returns `nil` and the cache will normalize the object using the [default response path normalization](./introduction#normalizing-responses).
+
+#### JSON value convenience initializer
+
+Alternatively, you can use the [`init(jsonValue:uniqueKeyGroup:)`](https://www.apollographql.com/docs/ios/docc/documentation/apolloapi/cachekeyinfo/init(jsonvalue:uniquekeygroupid:)) convenience initializer. This initializer attempts to use the value of a key in the JSON response, throwing an error if the key does not exist.
+
+If you want to return `nil` when the value does not exist, you can use `try?`.
+
+```swift
+public extension MySchema {
+  static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
+    return try? CacheKeyInfo(jsonValue: object["id"])
+  }
+}
+```
+
+### Specifying cache IDs by `Object` type
+
+If you would like to specify **cache IDs** differently for different types of objects, you can use the `type` parameter.
+
+For an object of the type `Dog` with a unique key represented by an `id` field, you may implement cache key resolution as:
+
 ```swift
 public extension MySchema {
   static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
     switch type {
     case Objects.Dog:
       return try? CacheKeyInfo(jsonValue: object["id"])
+
       default:
       return nil
     }
   }
 }
 ```
-Resolving Cache Keys by Interfaces
-If you have multiple objects that conform to an Interface with the same cache key resolution strategy, you can resolve the key based on the Interface.
-For example, for a schema with Dog and Cat Object types that implement a Pet Interface, you may implement cache key resolution with:
+
+### Specifying cache IDs by abstract types
+
+If object types sharing the same `interface` or `union` in your schema have the same cache key resolution strategy, you can resolve the key based on those abstract types.
+
+The generated schema metadata includes `Interfaces` and `Unions` types that contain a list of all the abstract types used in your GraphQL schema.
+
+For example, for a schema with `Dog` and `Cat` types that implement `interface Pet`, you may implement cache key resolution as:
+
 ```swift
 public extension MySchema {
   static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
@@ -88,13 +139,37 @@ public extension MySchema {
   }
 }
 ```
-Grouping Cached Objects by Interfaces
-If your keys are guaranteed to be unique across all Object types that implement an Interface, you may want to group them together in the cache. See uniqueKeyGroupId for more information on the benefits of grouping cached objects.
+
+To instead configure cache key resolution based on a `union` type, use the union's [`possibleTypes`](apollographql.com/docs/ios/docc/documentation/apolloapi/union/possibletypes) property.
+
+```swift
+public extension MySchema {
+  static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
+    if Unions.ClassroomPets.possibleTypes.contains(type) {
+      return try? CacheKeyInfo(jsonValue: object["id"])
+    }
+
+    return nil
+  }
+}
+```
+
+### Grouping cached objects with `uniqueKeyGroup`
+
+If your **cache IDs** values are guaranteed to be unique across a number of different types, you may want to group them together in the cache with a common [`uniqueKeyGroup`](#cachekeyinfo).
+
+> See [`uniqueKeyGroup`](#cachekeyinfo) for more information on grouping cached objects.
+
+For example, if all objects that implement `interface Animal` will have unique **cache IDs**, whether they are `Dog`, `Cat`, or any other type that implements `Animal`, they can share a `uniqueKeyGroup`.
+
 ```swift
 public extension MySchema {
   static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
     if type.implements(Interfaces.Pet) {
-      return try? CacheKeyInfo(jsonValue: object["id"], uniqueKeyGroupId: Interfaces.Pet.name)
+      return try? CacheKeyInfo(
+        jsonValue: object["id"],
+        uniqueKeyGroupId: Interfaces.Pet.name
+      )
     }
 
     return nil

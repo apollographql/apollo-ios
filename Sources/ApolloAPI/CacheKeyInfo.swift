@@ -5,7 +5,7 @@
 /// resolution for the types in the schema, which is used by `NormalizedCache` mechanisms.
 ///
 /// ## Cache Key Resolution
-/// You can use the ``init(jsonValue:uniqueKeyGroupId:)`` convenience initialier in the
+/// You can use the ``init(jsonValue:uniqueKeyGroupId:)`` convenience initializer in the
 /// implementation of your ``SchemaConfiguration/cacheKeyInfo(for:object:)`` function to
 /// easily resolve the cache key for an object.
 ///
