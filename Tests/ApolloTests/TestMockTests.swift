@@ -70,6 +70,21 @@ class TestMockTests: XCTestCase {
     expect(mock.height?.yards).to(equal(3))
   }
 
+  func test__mock__setNonOptionalObjectField_toNil__fieldIsSetToNil() throws {
+    // given
+    let mock = Mock<Dog>()
+    let height = Mock<Height>()
+
+    // when
+    height.meters = 1
+    mock.height = height
+
+    mock.height = nil
+
+    // then
+    expect(mock.height).to(beNil())
+  }
+
   func test__mock__setListOfObjectsField__fieldIsSet() throws {
     // given
     let mock = Mock<Dog>()
