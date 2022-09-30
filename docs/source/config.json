@@ -36,7 +36,9 @@
       "Automatic Persisted Queries": "/fetching/apqs"
     },
     "Caching": {
-      "Introduction": "/caching/introduction"
+      "Introduction": "/caching/introduction",
+      "Setup": "/caching/cache-setup",
+      "Direct Cache Access": "/caching/cache-transactions"
     },
     "Creating a client": "/initialization",
     "Custom Scalars": "/custom-scalars",

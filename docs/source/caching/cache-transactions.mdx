@@ -1,0 +1,109 @@
+---
+title: Direct cache access
+---
+
+# UNDER CONSTRUCTION
+
+There are 2 primary ways you will want to manually update the cache. Either you'll want to update the cache for a query, or you will want to update a cached object directly.
+
+Manual Scenario A
+
+1. You use the id of the object (after setting up the afore mentioned `apollo.cacheKeyForObject = { $0["id"] }`) to fetch and change the object. This will update any query where this object is referenced. This works well for updating queries which reference this object, but in the case of a create mutation, your queries won't contain this object to update. Which leads us into Scenario B.
+
+Manual Scenario B
+
+1. You fire off a mutation which creates a new object.
+2. You may then want to update the cache for a List that should contain this new object. This is a bit fiddly at the moment, as `Droid` for `CreateDroidsMutation` is strongly typed: `CreateDroidsMutation.Droid`. When inserting this object into the cache for `ListDroidsQuery` you need to init a `ListDroidsQuery.Droid` object from a `CreateDroidsMutation.Droid` or the types won't match. Your alternative to this is to manually refetch queries on a mutation which will trigger any watchers to update.
+
+Where you may not need to manually update the cache:
+
+If you use fragments which contain ID's then a query which returns or mutates this fragment and returns a new state for this object will automatically be merged into your cache and any query which references that object will be updated. It may therefore be advantageous to plan your schemas so Fragments are reused in List / Detail queries and then the same Fragment is returned as the result of a mutation.
+
+## Specifying a cache policy
+
+TODO
+
+## Direct cache access
+
+Similarly to the [Apollo React API](https://www.apollographql.com/docs/react/advanced/caching/#direct), you can directly read and update the cache as needed using Swift's [inout parameters](https://docs.swift.org/swift-book/LanguageGuide/Functions.html#ID173).
+
+This functionality is useful when performing mutations or receiving subscription data, as you should always update the local cache to ensure consistency with the operation that was just performed. The ability to write to the cache directly also prevents you from needing to re-fetch data over the network after a mutation is performed.
+
+### read
+
+The `read` function is similar to React Apollo's [`readQuery`](https://www.apollographql.com/docs/react/caching/cache-interaction/#readquery) and React Apollo's [`readFragment`](https://www.apollographql.com/docs/react/caching/cache-interaction/#readfragment) methods and will return the cached data for a given GraphQL query or a GraphQL fragment:
+
+```swift
+// Assuming we have defined an ApolloClient instance `client`:
+// Read from a GraphQL query
+client.store.withinReadTransaction({ transaction in
+  let data = try transaction.read(
+    query: HeroNameQuery(episode: .jedi)
+  )
+
+  // Prints "R2-D2"
+  print(data.hero?.name)
+})
+
+// Read from a GraphQL fragment
+client.store.withinReadTransaction({ transaction -> HeroDetails in
+  let data = try transaction.readObject(
+    ofType: HeroDetails.self,
+    withKey: id
+  )
+
+  // Prints "R2-D2"
+  print(data.hero?.name)
+})
+```
+
+### update
+
+The `update` function is similar to React Apollo's [`writeQuery`](https://www.apollographql.com/docs/react/advanced/caching/#writequery-and-writefragment) method and will update the Apollo cache and propagate changes to all listeners (queries using the `watch` method):
+
+```swift
+// Assuming we have defined an ApolloClient instance `client`:
+store.withinReadWriteTransaction({ transaction in
+  let query = HeroNameQuery(episode: .jedi)
+
+  try transaction.update(query: query) { (data: inout HeroNameQuery.Data) in
+    data.hero?.name = "Artoo"
+
+    let graphQLResult = try? store.load(query: query).result?.get()
+
+    // Prints "Artoo"
+    print(graphQLResult?.data?.hero?.name)
+  }
+})
+```
+
+### delete
+
+Delete functionality is limited at this time. There are presently three deletion methods available on `ApolloStore`, which are supported by both the in memory and the `SQLite` caches:
+
+1. `clear` - Removes everything from the cache immediately. This is basically the "Nuke it from orbit, it's the only way to be sure" option.
+2. `removeObject(for:)` on `ReadWriteTransaction`. Removes a single object for the given `CacheKey`.
+3. `removeObjects(matching:)` on `ReadWriteTransaction`. Removes all objects with a `CacheKey` that matches the given pattern. Pattern matching is **not** case sensitive. For an in memory cache it is the equivalent of checking whether the cache key _contains_ the pattern and `SQLite` caches will perform a `LIKE` query to remove the objects. This method can be very slow depending on the number of records in the cache, it is recommended that this method be called in a background queue.
+
+`removeObject(for:)` and `removeObjects(matching:)` will only remove things at the level of an object - that is, they cannot remove individual properties from an object, and cannot remove outside references **to** an object.
+
+You will need to have an understanding of how you are generating cache keys to be able to use these methods effectively. If you're taking advantage of our `cacheKeyForObject` function, that will help significantly: You'll have a clear understanding of how cache keys are generated, so you can easily figure out how to construct a cache key or pattern to delete.
+
+For instance, let's say your `cacheKeyForObject` function looks like this:
+
+```swift
+apollo.cacheKeyForObject = { $0["id"] }
+```
+
+This would indicate that for every object which has an `id` property, it will be cached with that `id` as the key. This would be ideal for an API which uses globally unique identifiers, as our Star Wars API does.
+
+This means that if you have previously fetched an object with the ID `"2001"`, you can:
+
+1. Call `transaction.removeObject(for: "2001")` on a `ReadWriteTransaction` to remove any object cached with that key, along with all of its associated scalar properties and the references to other objects it stores.
+2. Call `transaction.removeObjects(matching: "200")` on a `ReadWriteTransaction` and all objects with `200` somewhere in their cache key would be removed, such as `2001`, `2002`, and `3200`.
+
+`removeObject(for:)` and `removeObjects(matching:)` do _not_ cascade removals - if you remove an object which has reference to another object, the reference will be removed, but that other object will not be removed and will remain in the cache. Likewise, if you delete an object, references _to_ that object will not be deleted, they will simply fail, causing a cache miss, when you attempt to load the object again.
+
+This means that if you are planning to remove something, be sure that you either a) Know for sure you no longer need it, or b) Are fine with your cache policy potentially triggering an additional fetch if the missing value causes a read to fail.
+
+> Note: As of right now, there is not a way to delete a single property's value. For instance, calling `try transaction.removeRecord(for: "2001.name")` will result in no action, as there would not be a record with the cache key `"2001.name"`, since `name` is a scalar field on the `"2001"` record.

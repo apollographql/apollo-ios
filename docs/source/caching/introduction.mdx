@@ -10,15 +10,13 @@ Apollo iOS supports client-side caching of GraphQL response data. Utilizing our 
 
 Apollo iOS uses a normalized cache that, when configured properly, acts as a source of truth for your graph, enabling your application to react to changes as they're fetched.
 
-Apollo provides both a short-lived in-memory cache and a SQLite cache that persists cache data to disk.
+The Apollo iOS library contains both a short-lived in-memory cache and a SQLite cache that persists cache data to disk.
 
 ## What is a normalized cache?
 
 In a GraphQL client, a normalized cache breaks each of your GraphQL operation responses into the individual objects it contains. Then, each object is cached as a *separate entry* based on its **cache key**. This means that if multiple responses include the _same_ object, that object can be de-duplicated into a single cache entry. This reduces the overall size of the cache and helps keep your cached data consistent and fresh.
 
 Because the normalized cache updates cache entries across all of your operations, data fetched by one operation can update objects fetched by another operation. This allows you to [watch your queries](./../fetching/queries#watching-queries) and react to changes across your entire application. You can use this to update your UI automatically or trigger other events when new data is available.
-
-> To learn more about the normalization process, see our blog post [Demystifying Cache Normalization](https://www.apollographql.com/blog/apollo-client/caching/demystifying-cache-normalization).
 
 ### Normalizing responses
 
@@ -127,8 +125,8 @@ query FavoriteBookTitleAndYear {
 
 ### Normalizing objects by cache key
 
-> This section explains how configuring cache keys merges objects in the normalized cache. For information on how to configure cache keys, see [Configuring cache key resolution](./caching/cache-key-resolution).
->
+> This section explains how cache keys are used to merge object data in the normalized cache. For information on how to configure your cache keys, see [Configuring cache key resolution](./caching/cache-key-resolution).
+
 Normalizing response data by the response path helps us de-duplicate responses for the same fields, but it does not allow us to merge cache entries from different fields that return the same object.
 
 In this query, we fetch a `Book` object using the field at the path `bestFriend.favoriteBook`.
@@ -233,201 +231,12 @@ With cache key resolution configured for the `Book` type, the response data for 
 
 The cache entry for `BOOK:bk123` contains all of the fields fetched on the `Book` from all queries. Additionally, the `favoriteBook` and `bestFriend.favoriteBook` fields are a cache reference to the entry with the cache key `BOOK:bk123`.
 
+> To learn more about the normalization process, see our blog posts:
+> - [Demystifying Cache Normalization](https://www.apollographql.com/blog/apollo-client/caching/demystifying-cache-normalization).
+> - [GraphQL Concepts Visualized](https://medium.com/apollo-stack/the-concepts-of-graphql-bc68bd819be3)
 
----
-## Types of caches
+## Clearing cached data
 
-All caches used by the `ApolloClient` must conform to the [`NormalizedCache` protocol](api/Apollo/protocols/NormalizedCache/). There are two types of cache provided automatically by Apollo:
+All caches can be cleared in their entirety by calling [`clear(callbackQueue:completion:)`](https://www.apollographql.com/docs/ios/docc/documentation/apollo/apollostore/clearcache(callbackqueue:completion:)) on your `ApolloStore`.
 
-- **`InMemoryNormalizedCache`**: This is included with the main `Apollo` library, and is the default caching strategy for the Apollo Client. This stores normalized results in-memory, so results are not persisted across sessions of the application.
-- **`SQLiteCache`**: This is included via the [`ApolloSQLite`](api/ApolloSQLite/README/) library. This writes out cache results to a `SQLite` file rather than holding the results in memory. Note that this in turn causes cache hits to go to disk, which may result in somewhat slower responses. However, this also reduces the chances of unbounded memory growth, since everything gets dumped to disk.
-
-All caches can be cleared in their entirety by calling [`clear(callbackQueue:completion:)`](api/Apollo/protocols/NormalizedCache/#clear). If you need to work more directly with the cache, please see the [Direct Cache Access](#direct-cache-access) section.
-
-## Cache Setup
-
-### In-Memory Cache
-
-For `InMemoryNormalizedCache`, no sub-libraries are needed.
-
-This type of cache is used by default when setting up an `ApolloClient`. If you want to use an in-memory cache without modifications, all you have to do is instantiate an `ApolloClient` instance and not pass anything into the `store` parameter.
-
-If for some reason you find you need to instantiate the in-memory cache yourself, you can do so with one line:
-
-```swift title="Cache Setup"
-import Apollo
-
-let cache = InMemoryNormalizedCache()
-```
-
-### SQLite Cache
-
-import SPMSQLite from "../shared/sqlite-spm-panel.mdx"
-import CocoaPodsSQLite from "../shared/sqlite-cocoapods-panel.mdx"
-import CarthageSQLite from "../shared/sqlite-carthage-panel.mdx"
-
-To use the `SQLiteNormalizedCache`, you need to add the `ApolloSQLite` sub-library to your project using your preferred package manager:
-
-<SPMSQLite />
-
-<CocoaPodsSQLite />
-
-<CarthageSQLite />
-
-Once added, you can do the following:
-
-1. Set up a file URL for your `SQLite` file.
-2. Use that file URL to instantiate a SQLite cache.
-3. Use that SQLite cache to instantiate an `ApolloStore`.
-4. Pass that `ApolloStore` into the initializer of `ApolloClient`:
-
-```swift title="Client Setup"
-import Apollo
-
-// NOTE: You need this import line if you are **NOT** using CocoaPods. In CocoaPods,
-// ApolloSQLite files are collapsed into the Apollo framework. For other dependency managers,
-// ApolloSQLite is a separate framework.
-import ApolloSQLite
-
-// 1. You'll have to figure out where to store your SQLite file.
-// A reasonable place is the user's Documents directory in your sandbox.
-// In any case, create a file URL for your file:
-let documentsPath = NSSearchPathForDirectoriesInDomains(
-    .documentDirectory,
-    .userDomainMask,
-    true).first!
-let documentsURL = URL(fileURLWithPath: documentsPath)
-let sqliteFileURL = documentsURL.appendingPathComponent("test_apollo_db.sqlite")
-
-// 2. Use that file URL to instantiate the SQLite cache:
-let sqliteCache = try SQLiteNormalizedCache(fileURL: sqliteFileURL)
-
-// 3. And then instantiate an instance of `ApolloStore` with the cache you've just created:
-let store = ApolloStore(cache: sqliteCache)
-
-// 4. Assuming you've set up your `networkTransport` instance elsewhere,
-// pass the store you just created into your `ApolloClient` initializer,
-// and you're now set up to use the SQLite cache for persistent storage
-let apolloClient = ApolloClient(networkTransport: networkTransport, store: store)
-```
-
-## Controlling normalization
-
-While Apollo can do basic caching based on the shape of GraphQL queries and their results, Apollo won't be able to associate objects fetched by different queries without additional information about the identities of the objects returned from the server.
-
-This is referred to as [cache normalization](https://www.apollographql.com/docs/react/caching/cache-configuration/#data-normalization). You can read about our caching model in detail in our blog post, ["GraphQL Concepts Visualized"](https://medium.com/apollo-stack/the-concepts-of-graphql-bc68bd819be3).
-
-**By default, Apollo does not use object IDs at all**, doing caching based only on the path to the object from the root query. However, if you specify a function to generate IDs from each object, and supply it as `cacheKeyForObject` to an `ApolloClient` instance, you can decide how Apollo will identify and de-duplicate the objects returned from the server:
-
-```swift
-apollo.cacheKeyForObject = { $0["id"] }
-```
-
-> **NOTE:** In some cases, just using `cacheKeyForObject` is not enough for your application UI to update correctly. For example, if you want to add something to a list of objects without refetching the entire list, or if there are some objects that to which you can't assign an object identifier, Apollo cannot automatically update existing queries for you.
->
-
-## Cache normalization concepts
-
-There are 2 primary ways you will want to manually update the cache. Either you'll want to update the cache for a query, or you will want to update a cached object directly.
-
-Manual Scenario A
-
-1. You use the id of the object (after setting up the afore mentioned `apollo.cacheKeyForObject = { $0["id"] }`) to fetch and change the object. This will update any query where this object is referenced. This works well for updating queries which reference this object, but in the case of a create mutation, your queries won't contain this object to update. Which leads us into Scenario B.
-
-Manual Scenario B
-
-1. You fire off a mutation which creates a new object.
-2. You may then want to update the cache for a List that should contain this new object. This is a bit fiddly at the moment, as `Droid` for `CreateDroidsMutation` is strongly typed: `CreateDroidsMutation.Droid`. When inserting this object into the cache for `ListDroidsQuery` you need to init a `ListDroidsQuery.Droid` object from a `CreateDroidsMutation.Droid` or the types won't match. Your alternative to this is to manually refetch queries on a mutation which will trigger any watchers to update.
-
-Where you may not need to manually update the cache:
-
-If you use fragments which contain ID's then a query which returns or mutates this fragment and returns a new state for this object will automatically be merged into your cache and any query which references that object will be updated. It may therefore be advantageous to plan your schemas so Fragments are reused in List / Detail queries and then the same Fragment is returned as the result of a mutation.
-
-## Specifying a cache policy
-
-TODO
-
-## Direct cache access
-
-Similarly to the [Apollo React API](https://www.apollographql.com/docs/react/advanced/caching/#direct), you can directly read and update the cache as needed using Swift's [inout parameters](https://docs.swift.org/swift-book/LanguageGuide/Functions.html#ID173).
-
-This functionality is useful when performing mutations or receiving subscription data, as you should always update the local cache to ensure consistency with the operation that was just performed. The ability to write to the cache directly also prevents you from needing to re-fetch data over the network after a mutation is performed.
-
-### read
-
-The `read` function is similar to React Apollo's [`readQuery`](https://www.apollographql.com/docs/react/caching/cache-interaction/#readquery) and React Apollo's [`readFragment`](https://www.apollographql.com/docs/react/caching/cache-interaction/#readfragment) methods and will return the cached data for a given GraphQL query or a GraphQL fragment:
-
-```swift
-// Assuming we have defined an ApolloClient instance `client`:
-// Read from a GraphQL query
-client.store.withinReadTransaction({ transaction in
-  let data = try transaction.read(
-    query: HeroNameQuery(episode: .jedi)
-  )
-
-  // Prints "R2-D2"
-  print(data.hero?.name)
-})
-
-// Read from a GraphQL fragment
-client.store.withinReadTransaction({ transaction -> HeroDetails in
-  let data = try transaction.readObject(
-    ofType: HeroDetails.self,
-    withKey: id
-  )
-
-  // Prints "R2-D2"
-  print(data.hero?.name)
-})
-```
-
-### update
-
-The `update` function is similar to React Apollo's [`writeQuery`](https://www.apollographql.com/docs/react/advanced/caching/#writequery-and-writefragment) method and will update the Apollo cache and propagate changes to all listeners (queries using the `watch` method):
-
-```swift
-// Assuming we have defined an ApolloClient instance `client`:
-store.withinReadWriteTransaction({ transaction in
-  let query = HeroNameQuery(episode: .jedi)
-
-  try transaction.update(query: query) { (data: inout HeroNameQuery.Data) in
-    data.hero?.name = "Artoo"
-
-    let graphQLResult = try? store.load(query: query).result?.get()
-
-    // Prints "Artoo"
-    print(graphQLResult?.data?.hero?.name)
-  }
-})
-```
-
-### delete
-
-Delete functionality is limited at this time. There are presently three deletion methods available on `ApolloStore`, which are supported by both the in memory and the `SQLite` caches:
-
-1. `clear` - Removes everything from the cache immediately. This is basically the "Nuke it from orbit, it's the only way to be sure" option.
-2. `removeObject(for:)` on `ReadWriteTransaction`. Removes a single object for the given `CacheKey`.
-3. `removeObjects(matching:)` on `ReadWriteTransaction`. Removes all objects with a `CacheKey` that matches the given pattern. Pattern matching is **not** case sensitive. For an in memory cache it is the equivalent of checking whether the cache key _contains_ the pattern and `SQLite` caches will perform a `LIKE` query to remove the objects. This method can be very slow depending on the number of records in the cache, it is recommended that this method be called in a background queue.
-
-`removeObject(for:)` and `removeObjects(matching:)` will only remove things at the level of an object - that is, they cannot remove individual properties from an object, and cannot remove outside references **to** an object.
-
-You will need to have an understanding of how you are generating cache keys to be able to use these methods effectively. If you're taking advantage of our `cacheKeyForObject` function, that will help significantly: You'll have a clear understanding of how cache keys are generated, so you can easily figure out how to construct a cache key or pattern to delete.
-
-For instance, let's say your `cacheKeyForObject` function looks like this:
-
-```swift
-apollo.cacheKeyForObject = { $0["id"] }
-```
-
-This would indicate that for every object which has an `id` property, it will be cached with that `id` as the key. This would be ideal for an API which uses globally unique identifiers, as our Star Wars API does.
-
-This means that if you have previously fetched an object with the ID `"2001"`, you can:
-
-1. Call `transaction.removeObject(for: "2001")` on a `ReadWriteTransaction` to remove any object cached with that key, along with all of its associated scalar properties and the references to other objects it stores.
-2. Call `transaction.removeObjects(matching: "200")` on a `ReadWriteTransaction` and all objects with `200` somewhere in their cache key would be removed, such as `2001`, `2002`, and `3200`.
-
-`removeObject(for:)` and `removeObjects(matching:)` do _not_ cascade removals - if you remove an object which has reference to another object, the reference will be removed, but that other object will not be removed and will remain in the cache. Likewise, if you delete an object, references _to_ that object will not be deleted, they will simply fail, causing a cache miss, when you attempt to load the object again.
-
-This means that if you are planning to remove something, be sure that you either a) Know for sure you no longer need it, or b) Are fine with your cache policy potentially triggering an additional fetch if the missing value causes a read to fail.
-
-> Note: As of right now, there is not a way to delete a single property's value. For instance, calling `try transaction.removeRecord(for: "2001.name")` will result in no action, as there would not be a record with the cache key `"2001.name"`, since `name` is a scalar field on the `"2001"` record.
+> If you need to work more directly with the cache, check out [Direct cache access](./cache-transactions).

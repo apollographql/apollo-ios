@@ -1,13 +1,9 @@
 <ExpansionPanel title="Adding SQLite with Swift Package Manager">
 
-Add the following to your `Package.swift`:
+Add the following dependency to your target's `dependencies` in your `Package.swift` file:
 
 ```swift
-.target(
-      name: "MyApplication",
-      dependencies: [
-        .product(name: "ApolloSQLite", package: "Apollo"),
-      ])
+.product(name: "ApolloSQLite", package: "Apollo"),
 ```
 
 </ExpansionPanel>
