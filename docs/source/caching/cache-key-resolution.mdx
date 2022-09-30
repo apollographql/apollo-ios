@@ -1,5 +1,5 @@
 ---
-title: Custom cache IDs
+title: Custom cache keys
 ---
 
 When working with a [normalized cache](./introduction#what-is-a-normalized-cache), it is recommended that you specify a **cache ID** for each object type in your schema. If you don't, objects are assigned a *default* cache ID, but that ID can lead to undesirable duplication of data.
@@ -10,3 +10,63 @@ With Apollo iOS, you can customize the computation of **cache IDs** to improve t
 
 > To learn how the normalized cache uses cache IDs, read about how the cache [normalizes objects by cache key](./introduction#normalizing-objects-by-cache-key).
 
+## The `SchemaConfiguration` file
+
+When Apollo iOS [generates code for your project](../code-generation/introduction), it will generate a set of metadata types  representing the GraphQL schema for your application. One of these files is named `SchemaConfiguration.swift`.
+
+The `SchemaConfiguration` file is your entry point for configuring **cache IDs** for the types in your schema. The code generation engine creates this file if it doesn't exist yet, but never overwrites an existing `SchemaConfiguration.swift` file. This means you can edit your schema configuration without those changes being overwritten on subsequent code generation runs.
+
+> *Tip:* You can configure the location of the generated schema types with the [`output.schemaTypes` option in your code generation configuration](./../codegen-configuration).
+
+## `CacheKeyInfo`
+
+The `SchemaConfiguration` contains a [`cacheKeyInfo(for:object:)`](https://www.apollographql.com/docs/ios/docc/documentation/apolloapi/schemaconfiguration/cachekeyinfo(for:object:)) function. By default, this function just returns `nil`. You can modify the implementation of this function to specify custom **cache IDs**.
+
+To configure how cache keys are computed for an object, you can create and return a [`CacheKeyInfo`](https://www.apollographql.com/docs/ios/docc/documentation/apolloapi/cachekeyinfo) value from your implementation of [`cacheKeyInfo(for:object:)`](https://www.apollographql.com/docs/ios/docc/documentation/apolloapi/schemaconfiguration/cachekeyinfo(for:object:)).
+
+A [`CacheKeyInfo`](https://www.apollographql.com/docs/ios/docc/documentation/apolloapi/cachekeyinfo) consists of two properties that affect how a cache key is computed:
+
+1. `key`
+2. `uniqueKeyGroupId`
+
+You can use the init(jsonValue:uniqueKeyGroupId:) convenience initialier in the implementation of your cacheKeyInfo(for:object:) function to easily resolve the cache key for an object.
+For an object of the type Dog with a unique key represented by an id field, you may implement cache key resolution with:
+```swift
+public extension MySchema {
+  static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
+    switch type {
+    case Objects.Dog:
+      return try? CacheKeyInfo(jsonValue: object["id"])
+      default:
+      return nil
+    }
+  }
+}
+```
+Resolving Cache Keys by Interfaces
+If you have multiple objects that conform to an Interface with the same cache key resolution strategy, you can resolve the key based on the Interface.
+For example, for a schema with Dog and Cat Object types that implement a Pet Interface, you may implement cache key resolution with:
+```swift
+public extension MySchema {
+  static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
+    if type.implements(Interfaces.Pet) {
+      return try? CacheKeyInfo(jsonValue: object["id"])
+    }
+
+    return nil
+  }
+}
+```
+Grouping Cached Objects by Interfaces
+If your keys are guaranteed to be unique across all Object types that implement an Interface, you may want to group them together in the cache. See uniqueKeyGroupId for more information on the benefits of grouping cached objects.
+```swift
+public extension MySchema {
+  static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
+    if type.implements(Interfaces.Pet) {
+      return try? CacheKeyInfo(jsonValue: object["id"], uniqueKeyGroupId: Interfaces.Pet.name)
+    }
+
+    return nil
+  }
+}
+```

@@ -39,7 +39,7 @@
       "Introduction": "/caching/introduction",
       "Setup": "/caching/cache-setup",
       "Direct Cache Access": "/caching/cache-transactions",
-      "Custom Cache IDs": "/caching/cache-key-resolution"
+      "Custom Cache Keys": "/caching/cache-key-resolution"
     },
     "Creating a Client": "/initialization",
     "Custom Scalars": "/custom-scalars",

@@ -156,11 +156,11 @@ B) Are fine with your cache policy potentially triggering an additional fetch if
 
 ### Deleting objects by cache key
 
-> You will need to have a clear understanding of how you are generating cache keys to be able to use this functionality effectively. To help you figure out how to construct a cache key or pattern to delete, we recommend having a clear understanding of [how cache keys are generated](./introduction#normalizing-responses) and [configuring custom cache IDs](./cache-key-resolution) for your cache objects.
+> You will need to have a clear understanding of how you are generating cache keys to be able to use this functionality effectively. To help you figure out how to construct a cache key or pattern to delete, we recommend having a clear understanding of [how cache keys are generated](./introduction#normalizing-responses) and [configuring custom cache keys](./cache-key-resolution) for your cache objects.
 
 Removing objects by their cache key allows you to clear stale or unneeded cache data without deleting the entire cache.
 
-In Apollo iOS, you can [configure custom cache IDs for your objects](./cache-key-resolution). The key for an entry in the cache that uses custom cache IDs will always have the format `${ObjectType}:${CustomCacheKey).
+In Apollo iOS, you can [configure custom cache keys for your objects](./cache-key-resolution). The key for an entry in the cache that uses custom cache IDs will have the format `${ObjectType}:${CustomCacheKey).
 
 In this example, we've configured our cache to attempt to use the `id` field as a cache ID.
 

@@ -127,7 +127,7 @@ query FavoriteBookTitleAndYear {
 
 ### Normalizing objects by cache key
 
-> This section explains how cache keys are used to merge object data in the normalized cache. For information on how to configure your cache keys, see [Custom cache IDs](./caching/cache-key-resolution).
+> This section explains how cache keys are used to merge object data in the normalized cache. For information on how to configure your cache keys, see [Custom cache keys](./caching/cache-key-resolution).
 
 Normalizing response data by the response path helps us de-duplicate responses for the same fields, but it does not allow us to merge cache entries from different fields that return the same object.
 
@@ -205,11 +205,11 @@ static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? 
 
 With this set up, whenever the normalized cache writes response data for a `Book` object, it will use the `id` to construct a cache key, instead of the response path.
 
-To prevent cache key conflicts across different object types, the cache always prepends the [`__typename`](https://spec.graphql.org/draft/#sec-Type-Name-Introspection) of the object to the provided cache ID followed by a colon (`:`).
+To prevent cache key conflicts across different object types, the cache prepends the [`__typename`](https://spec.graphql.org/draft/#sec-Type-Name-Introspection) of the object to the provided cache ID followed by a colon (`:`).
 
 This means the cache key for our `Book` will now be `"Book:bk123"`.
 
-> For more information on using `CacheKeyInfo` to configure cache keys, see [Custom cache IDs](./caching/cache-key-resolution).
+> For more information on using `CacheKeyInfo` to configure cache keys, see [Custom cache keys](./caching/cache-key-resolution).
 
 With cache key resolution configured for the `Book` type, the response data for the queries above would create a single, normalized `Book` object.
 
