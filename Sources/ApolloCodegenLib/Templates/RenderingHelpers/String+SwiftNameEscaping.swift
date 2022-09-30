@@ -64,6 +64,17 @@ enum SwiftKeywords {
     "Type"
   ]
 
+  /// When an interface or union named "Actor" is used as the type for a field on a test mock,
+  /// the compiler recognizes it as a "Swift.Actor". The generated `Actor` is only a `typealias`
+  /// to `Interface` or `Union`. This error occurs due to Actor's special treatment in the
+  /// compiler. To prevent the error, we must namespace the type.
+  ///
+  /// When the "Actor" type is an object, we do not need to namespace it, as a concrete `Actor`
+  /// class is generated in the Test Mocks directory. That class will be recognized by the compiler.
+  static let TestMockFieldAbstractTypeNamesToNamespace: Set<String> = [
+    "Actor"
+  ]
+
   fileprivate static let FieldAccessorNamesToEscape: Set<String> = [
     "associatedtype",
     "class",

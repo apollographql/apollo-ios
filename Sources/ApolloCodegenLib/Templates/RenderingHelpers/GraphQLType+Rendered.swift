@@ -103,8 +103,12 @@ extension GraphQLType {
     }()
 
     switch self {
+//    case let .entity(type as GraphQLNamedType) where type is GraphQLAbstractType:
+//      let typeName = newTypeName ?? type.swiftName.firstUppercased
+//      return TemplateString("MockObject.\(typeName)\(if: !containedInNonNull, "?")").description
+
     case let .entity(type as GraphQLNamedType), let .inputObject(type as GraphQLNamedType):
-      let typeName = newTypeName ?? type.swiftName.firstUppercased
+      let typeName = newTypeName ?? type.testMockFieldTypeName.firstUppercased
       return TemplateString("\(typeName)\(if: !containedInNonNull, "?")").description
 
     case let .scalar(type):
@@ -160,5 +164,17 @@ extension GraphQLType {
       let typeName = "[\(ofType.renderedAsSelectionSetField(containedInNonNull: false, config: config))]"
       return inNullable ? "GraphQLNullable<\(typeName)>" : typeName
     }
+  }
+}
+
+extension GraphQLNamedType {
+
+  var testMockFieldTypeName: String {
+    if SwiftKeywords.TestMockFieldAbstractTypeNamesToNamespace.contains(name) &&
+        self is GraphQLAbstractType {
+      return "MockObject.\(swiftName)"
+    }
+
+    return swiftName
   }
 }

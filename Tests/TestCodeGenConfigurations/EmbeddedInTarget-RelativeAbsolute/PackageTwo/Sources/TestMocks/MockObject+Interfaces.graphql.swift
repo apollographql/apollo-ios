@@ -9,4 +9,6 @@ public extension MockObject {
   typealias WarmBlooded = Interface
   typealias Pet = Interface
   typealias HousePet = Interface
+
+  typealias Actor = Interface
 }
