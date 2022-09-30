@@ -1,19 +1,23 @@
 # Codegen Configuration Options
 
-The ApolloCodegenConfiguration struct is how you configure the behaviour of the code generation engine. The top-level properties are:
+`ApolloCodegenConfiguration` is how you configure the behaviour of the code generation engine. It can be used as a Swift-native struct or represented as JSON which is used by the Codegen CLI.
+
+Many properties have defaults that provide a good starting configuration, however all properties can be adjusted to suit your specific project needs.
 
 | Property Name | Type | Description |
 | ------------- | ---- | ----------- |
-| `schemaName` **(required)** | `String` | Namespace used to scope the generated schema types. |
-| `input` **(required)** | `FileInput` | The patterns that will be used to search for the schema and operation definition files. |
-| `output` **(required)** | `FileOutput` | The location and structure of the generated files and modules. |
-| `options` *(optional)* | `OutputOptions` | Rules and options to customize the generated code. |
-| `experimentalFeatures` *(optional)* | `ExperimentalFeatures` | Used to enable experimental features. |
-| `schemaDownloadConfiguration` *(optional)* | `ApolloSchemaDownloadConfiguration` | Configuration to fetch a GraphQL schema before generation. |
+| `schemaName` | `String` | Namespace used to scope the generated schema types. |
+| `input` | `FileInput` | Patterns that will be used to search for the schema and operation definition files. |
+| `output` | `FileOutput` | Location and structure of the generated files and modules. |
+| `options` | `OutputOptions` | Rules and options to customize the generated code. |
+| `experimentalFeatures` | `ExperimentalFeatures` | Used to enable experimental features. |
+| `schemaDownloadConfiguration` | `ApolloSchemaDownloadConfiguration` | Configuration to fetch a GraphQL schema before generation. |
 
-#### File input
+### File input
 
-The code generation engine requires a GraphQL schema and at least one operation to be able to generate Swift code. You can use absolute or relative paths in path matching patterns. Relative paths will be based off the current working directory.
+The code generation engine requires a GraphQL schema and at least one operation to be able to generate Swift code. Read the introductory section on [GraphQL Source Files](./code-generation/introduction#graphql-source-files) for more information.
+
+You can use absolute or relative paths in path matching patterns. Relative paths will be based off the current working directory.
 
 Each path matching pattern can include the following characters:
 - `*` matches everything but the directory separator (shallow), eg: `*.graphql`
@@ -23,34 +27,69 @@ Each path matching pattern can include the following characters:
 
 The top-level properties are:
 
-| Property Name | Type | Description |
-| ------------- | ---- | ----------- |
-| `schemaSearchPaths` **(required)** | `[String]` | An array of path matching pattern strings used to find GraphQL schema files. Note: JSON format schema files must have the file extension ".json". |
-| `operationSearchPaths` **(required)** | `[String]` | An array of path matching pattern strings used to find GraphQL operation files. |
+| Property Name | Type | Default | Description |
+| ------------- | ---- | ------- | ----------- |
+| `schemaSearchPaths` | `[String]` | `["**/*.graphqls"]` | An array of path matching pattern strings used to find GraphQL schema files. Note: JSON format schema files must have the file extension ".json". |
+| `operationSearchPaths` | `[String]` | `["**/*.graphql"]` | An array of path matching pattern strings used to find GraphQL operation files. |
 
 #### Sample JSON
 
-If you are using the Codegen CLI JSON file, below is an example of the file input values:
+If you are using a Codegen CLI JSON file, below is an example of the file input values:
 
-```swift
+```json
+	"input": {
+		"operationSearchPaths": [
+			"**/*.graphql"
+		],
+		"schemaSearchPaths": [
+			"**/*.graphqls"
+		]
+	},
+```
+
+### File Output
+
+The location and structure of the generated files is highly adaptable and can support a large number of different configurations.
+
+| Property Name | Type | Default | Description |
+| ------------- | ---- | ------- | ----------- |
+| `schemaTypes` | `SchemaTypesFileOutput` | Location and structure of the generated schema types files. |
+| `operations` | `OperationsFileOutput` | Location and structure of the generated operation files such as queries, mutations, subscriptions, and fragments. |
+| `testMocks` | `TestMockFileOutput` | Location and structure of the test mock operation object files.  |
+| `operationIdentifiersPath` | `String` | An absolute location to an operation identifier JSON map file. |
+
+#### Example - No Modularization
+
+If you are using a Codegen CLI JSON file, below is an example of the file output values:
+
+```json
 TODO
 ```
 
-#### File Output
+### Output Options
 
-The location and structure of the generated files is highly adaptable and can support a large number of different configurations. The top-level properties are:
+The code generation engine supports a large number of configuration options to change the behaviour of the generator and tailor the generated Swift code to your specific needs.
 
 | Property Name | Type | Description |
 | ------------- | ---- | ----------- |
-| `schemaTypes` **(required)** | `SchemaTypesFileOutput` | Location and structure of the generated schema types files. |
-| `operations` **(required)** | `OperationsFileOutput` | Location and structure of the generated operation files such as queries, mutations, subscriptions, and fragments. |
-| `testMocks` **(required)** | `TestMockFileOutput` | Location and structure of the test mock operation object files.  |
-| `operationIdentifiersPath` *(optional)* | `String` | An absolute location to an operation identifier JSON map file. |
+| `additionalInflectionRules` | `[InflectionRule]` | Any non-default rules for pluralization or singularization. |
+| `queryStringLiteralFormat` | `QueryStringLiteralFormat` | Formatting of the GraphQL query string literal that is included in each generated operation object. |
+| `deprecatedEnumCases` | `Composition` | Include or exclude deprecated enum cases in the generated files. |
+| `schemaDocumentation` | `Composition` | Include or exclude schema documentation in the generated files. |
+| `apqs` | `APQConfig` | Whether the generated operations should use Automatic Persisted Queries. |
+| `cocoapodsCompatibleImportStatements` | `Bool` | Generate import statements that are compatible with including `Apollo` via Cocoapods. |
+| `warningsOnDeprecatedUsage` | `Composition` | Annotate generated Swift code with the Swift `available` attribute and `deprecated` argument for parts of the GraphQL schema annotated with the built-in `@deprecated` directive. |
+| `conversionStrategies` | `ConversionStrategies` | Rules for how to convert the names of values from the schema in generated code. |
+| `pruneGeneratedFiles` | `Bool` | Whether unused generated files will be automatically deleted. |
 
-#### Sample JSON
+### Experimental Features
 
-If you are using the Codegen CLI JSON file, below is an example of the file output values:
+| Property Name | Type | Description |
+| ------------- | ---- | ----------- |
+| `
 
-```swift
-TODO
-```
+### Schema Download Configuration
+
+| Property Name | Type | Description |
+| ------------- | ---- | ----------- |
+| `
