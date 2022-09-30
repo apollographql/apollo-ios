@@ -103,7 +103,7 @@ class CacheKeyResolutionTests: XCTestCase {
 
     MockSchemaMetadata.stub_objectTypeForTypeName = { _ in Delta }
     MockSchemaMetadata.stub_cacheKeyInfoForType_Object = { (_, json) in
-        .init(key: "δ", uniqueKeyGroupId: "GreekLetters")
+        .init(id: "δ", uniqueKeyGroup: "GreekLetters")
     }
 
     let object: JSONObject = [
