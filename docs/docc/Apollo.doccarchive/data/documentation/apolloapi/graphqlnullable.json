@@ -208,33 +208,22 @@
           "type" : "heading"
         },
         {
-          "anchor" : "Literals-Enums-and-InputObjects",
-          "level" : 3,
-          "text" : "Literals, Enums, and InputObjects",
-          "type" : "heading"
-        },
-        {
           "inlineContent" : [
-            {
-              "text" : "A ",
-              "type" : "text"
-            },
             {
               "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable",
               "isActive" : true,
               "type" : "reference"
             },
             {
-              "text" : " can be converted from most scalar literals, ",
+              "text" : " provides a similar interface to Swift’s ",
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum",
-              "isActive" : true,
-              "type" : "reference"
+              "code" : "Optional",
+              "type" : "codeVoice"
             },
             {
-              "text" : ", and any",
+              "text" : ", however in addition to",
               "type" : "text"
             },
             {
@@ -242,16 +231,115 @@
               "type" : "text"
             },
             {
-              "text" : "generated ",
+              "text" : "the ",
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputObject",
-              "isActive" : true,
-              "type" : "reference"
+              "code" : ".some(Wrapped)",
+              "type" : "codeVoice"
             },
             {
-              "text" : " automatically.",
+              "text" : " and ",
+              "type" : "text"
+            },
+            {
+              "code" : ".none",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " cases, it provides an additional ",
+              "type" : "text"
+            },
+            {
+              "code" : ".null",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " case. The ",
+              "type" : "text"
+            },
+            {
+              "code" : ".null",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "case parallels ",
+              "type" : "text"
+            },
+            {
+              "code" : "NSNull",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ", while ",
+              "type" : "text"
+            },
+            {
+              "code" : ".none",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " paralells ",
+              "type" : "text"
+            },
+            {
+              "code" : "nil",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ". This requires you to specify either",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "a ",
+              "type" : "text"
+            },
+            {
+              "code" : ".null",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " or an omitted (",
+              "type" : "text"
+            },
+            {
+              "code" : ".none",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ") value when constructing the query object. The ",
+              "type" : "text"
+            },
+            {
+              "code" : "nil",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " literal",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "also translates to the ",
+              "type" : "text"
+            },
+            {
+              "code" : ".none",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " case.",
               "type" : "text"
             }
           ],
@@ -260,13 +348,134 @@
         {
           "code" : [
             "public init(inputValue: GraphQLNullable<String>)",
+            "",
+            "\/\/ Null Value:",
+            ".init(episode: .null)",
+            "",
+            "\/\/ Nil Value:",
+            ".init(episode: .none) or .init(episode: nil)"
+          ],
+          "syntax" : "swift",
+          "type" : "codeListing"
+        },
+        {
+          "anchor" : "Literals-Enums-and-InputObjects",
+          "level" : 3,
+          "text" : "Literals, Enums, and InputObjects",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "For Swift scalar types that have an ",
+              "type" : "text"
+            },
+            {
+              "code" : "ExpressibleBy...Literal",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " protocol, ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "can be initialized with a literal value.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "\/\/ String",
+            "public init(inputValue: GraphQLNullable<String>)",
+            "",
             ".init(inputValue: \"InputValueString\")",
             "",
-            "public init(episode: GraphQLNullable<GraphQLEnum<StarWarsAPI.Episode>>)",
-            ".init(episode: .NEWHOPE)",
+            "\/\/ Integer Array",
+            "public init(inputValue: GraphQLNullable<[Int]>)",
             "",
+            ".init(inputValue: [1, 2, 4, 5, 3, 6]) \/\/ The best order for watching the Star Wars movies."
+          ],
+          "syntax" : "swift",
+          "type" : "codeListing"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "To provide a value for a ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " or ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputObject",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " value, you need to wrap it in a",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : ", either with the provided convenience initializer, or by using the ",
+              "type" : "text"
+            },
+            {
+              "code" : ".some",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "case.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "\/\/\/ Enum",
+            "public init(episode: GraphQLNullable<GraphQLEnum<StarWarsAPI.Episode>>)",
+            "",
+            ".init(episode: GraphQLNullable(.empire))",
+            "  or",
+            ".init(episode: .some(.empire))",
+            "",
+            "\/\/ Input Object",
             "public init(inputValue: GraphQLNullable<CustomInputObject>)",
-            ".init(inputValue: CustomInputObject())"
+            "",
+            ".init(inputValue: GraphQLNullable(CustomInputObject()))",
+            "  or",
+            ".init(inputValue: .some(CustomInputObject()))"
           ],
           "syntax" : "swift",
           "type" : "codeListing"
@@ -335,22 +544,10 @@
         },
         {
           "code" : [
-            ".init(inputValue: optionalValue ?? .none)"
-          ],
-          "syntax" : "swift",
-          "type" : "codeListing"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "or",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        },
-        {
-          "code" : [
+            "let optionalValue: String?",
+            "",
+            ".init(inputValue: optionalValue ?? .none)",
+            "  or",
             ".init(inputValue: optionalValue ?? .null)"
           ],
           "syntax" : "swift",
@@ -1362,7 +1559,7 @@
 "doc://ApolloAPI/documentation/ApolloAPI/__(_:_:)": {
   "abstract" : [
     {
-      "text" : "Nil Coalsecing Operator overload for ",
+      "text" : "Nil Coalescing Operator overload for ",
       "type" : "text"
     },
     {
