@@ -36,6 +36,14 @@ final class MySwiftPackageTests: XCTestCase {
 
     waitForExpectations(timeout: 1.0)
   }
+
+  func test_mockObject_initialization() throws {
+    // given
+    let mockDog: Mock<Dog> = Mock(id: "100")
+
+    // then
+    XCTAssertEqual(mockDog.id, "100")
+  }
 }
 
 class MockNetworkTransport: NetworkTransport {
