@@ -1,40 +1,56 @@
 # Configuration
 
-The code generation engine is flexible and can be configured for different behaviors. To configure codegen you will need to use `ApolloCodegenConfiguration`, it can be used as a Swift-native `struct` or represented as JSON which is used by the Codegen CLI. Many properties have defaults that provide a good starting configuration.
+The Apollo iOS Code Generation Engine is flexible and can be configured for different behaviors.
+
+The configuration options for code generation are represented by the [`ApolloCodegenConfiguration struct`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration).
+
+When using the [Codegen CLI](./codegen-cli), your configuration is represented by the `apollo-codegen-configuration.json` JSON file created by the CLI's [`init` command](./codegen-cli#initialize).
+
+When [running code generation in your own Swift code](./run-codegen-in-swift-code), the configuration options are represented by the [`ApolloCodegenConfiguration struct`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration).
+
+Most of the configuration properties have defaults that provide a good starting point.
 
 There are a number of base configuration properties, each representing a specific characteristic of the codegen engine:
 
 | Property Name | Description |
 | ------------- | ----------- |
-| `schemaName` | Namespace used to scope the generated schema types. |
-| `input` | Search patterns that will be used to locate the schema and operation definition files. |
-| `output` | Location and structure of the generated files and modules. |
-| `options` | Rules and options to customize the generated code. |
-| `experimentalFeatures` | Used to enable experimental features. *Note: These features could change at any time and are not guaranteed to always be available.* |
-| `schemaDownloadConfiguration` | Configuration to fetch a GraphQL schema before generation. |
+| [`schemaName`](#schema-name) | Namespace used to scope the generated schema types. |
+| [`input`](#file-input) | Search patterns that will be used to locate the schema and operation definition files. |
+| [`output`](#file-output) | Location and structure of the generated files and modules. |
+| [`options`](#output-options) | Rules and options to customize the generated code. |
+| [`experimentalFeatures`](#experimental-features) | Used to enable experimental features.<br/>*Note: These features could change at any time and are not guaranteed to always be available.* |
+| [`schemaDownloadConfiguration`](#schema-download-configuration) | Configuration to fetch a GraphQL schema before generation. |
 
-### File input
+## Schema name
+
+**`schemaName: String`**
+
+This option defines the name of your schema module or namespace.
+
+Along with your operation definitions, Apollo iOS generates a set of metadata objects that represent the types in your schema. All of these object are grouped within a namespace with the provided name.
+
+- If you are embedding your generated schema types within another target, this will be the name of a [caseless namespace `enum`](https://www.swiftbysundell.com/articles/powerful-ways-to-use-swift-enums/#namespaces-and-non-initializable-types).
+
+- If you are including your schema types as a stand-alone target that can be imported by your other project targets, this will be the name of that target.
+
+You can configure how you would like to include your schema types in your project using the [`output.schemaTypes.moduleType` option](#module-type).
+
+## File input
+
+**`input: FileInput`**
 
 The code generation engine requires a GraphQL schema and at least one operation to be able to generate Swift code. Read the introductory section on [GraphQL source files](./introduction#graphql-source-files) for more information.
-
-You can use absolute or relative paths in path matching patterns. Relative paths will be based off the current working directory.
-
-Each path matching pattern can include the following characters:
-- `*` matches everything but the directory separator (shallow), eg: `*.graphql`
-- `?` matches any single character, eg: `file-?.graphql`
-- `**` matches all subdirectories (deep), eg: `**/*.graphql`
-- `!` excludes any match only if the pattern starts with a `!` character, eg: `!file.graphql`
 
 The properties to configure `input` are:
 
 | Property Name | Description |
 | ------------- | ----------- |
-| `schemaSearchPaths` | An array of path matching pattern strings used to find GraphQL schema files. [Schema extension](https://spec.graphql.org/draft/#sec-Schema-Extension) files can be included in these search paths. *Note: JSON format schema files must have the `.json` file extension.* |
+| `schemaSearchPaths` | An array of path matching pattern strings used to find GraphQL schema files. [Schema extension](https://spec.graphql.org/draft/#sec-Schema-Extension) files can be included in these search paths.<br/><br/>*Note: JSON format schema files must have the `.json` file extension.* |
 | `operationSearchPaths` | An array of path matching pattern strings used to find GraphQL operation files. |
 
-<ExpansionPanel title="Sample JSON">
+<MultiCodeBlock>
 
-```json
+```json title="CLI Configuration JSON"
 "input": {
 	"schemaSearchPaths": [
 		"**/*.graphqls"
@@ -45,11 +61,7 @@ The properties to configure `input` are:
 }
 ```
 
-</ExpansionPanel>
-
-<ExpansionPanel title="Sample Swift">
-
-```swift
+```swift title="Swift Codegen Setup"
 let configuration = ApolloCodegenConfiguration(
 	// Other properties not shown
 	input: ApolloCodegenConfiguration.FileInput(
@@ -58,22 +70,36 @@ let configuration = ApolloCodegenConfiguration(
 )
 ```
 
-</ExpansionPanel>
+</MultiCodeBlock>
 
-### File output
+#### Search Path Patterns
 
-The generated files are configurable through different 'categories' of output. The properties to configure `output` are:
+Each file input property is a `[String]` search path array. Search paths can be used to search your project directory for files matching a glob pattern. You can use absolute or relative paths in path matching patterns. Relative paths will be based off the current working directory.
+
+Each path matching pattern can include the following characters:
+- `*` matches everything but the directory separator (shallow), eg: `*.graphql`
+- `?` matches any single character, eg: `file-?.graphql`
+- `**` matches all subdirectories (deep), eg: `**/*.graphql`
+- `!` excludes any match only if the pattern starts with a `!` character, eg: `!file.graphql`
+
+## File output
+
+**`output: FileOutput`**
+
+The `FileOutput` options are used to configure which files are generated and their output locations.
+
+The properties to configure `output` are:
 
 | Property Name | Description |
 | ------------- | ----------- |
-| `schemaTypes` | Location and structure of the generated schema types files. |
-| `operations` | Location and structure of the generated operation files such as queries, mutations, subscriptions, and fragments. |
-| `testMocks` | Location and structure of the test mock operation object files.  |
-| `operationIdentifiersPath` | An absolute location to an operation identifier JSON map file. This can be used in conjunction with [APQs](../fetching/apqs). |
+| [`schemaTypes`](#schema-types) | Location and structure of the generated schema types files. |
+| [`operations`](#operations)    | Location and structure of the generated operation files such as queries, mutations, subscriptions, and fragments. |
+| [`testMocks`](#test-mocks)     | Location and structure of the test mock operation object files.<br/><br/>If `.none`, test mocks will not be generated. |
+| [`operationIdentifiersPath`](#operation-identifiers) | An absolute location to an operation identifier JSON map file. This can be used in conjunction with [APQs](../fetching/apqs). |
 
-<ExpansionPanel title="Sample JSON">
+<MultiCodeBlock>
 
-```json
+```json title="CLI Configuration JSON"
 "output": {
 	"schemaTypes": {
 		"moduleType": {
@@ -91,11 +117,7 @@ The generated files are configurable through different 'categories' of output. T
 }
 ```
 
-</ExpansionPanel>
-
-<ExpansionPanel title="Sample Swift">
-
-```swift
+```swift title="Swift Codegen Setup"
 let configuration = ApolloCodegenConfiguration(
 	// Other properties not shown
 	output: ApolloCodegenConfiguration.FileOutput(
@@ -108,51 +130,253 @@ let configuration = ApolloCodegenConfiguration(
 )
 ```
 
-</ExpansionPanel>
+</MultiCodeBlock>
 
-#### Schema types
+### Schema types
 
-Schema types are common to all generated operation models and are required for the generated Swift code to compile. It is recommended that the schema types be created in a separate module to help with separation of concerns and quicker build times.
+**`output.schemaTypes: SchemaTypesFileOutput`**
 
-The `schemaTypes` property is configured with a `path`, specifying the output location, and a `moduleType` which can help automate module creation. Code generation supports a number of different module types:
+Schema types are common to all generated operation models and are required for the generated Swift code to compile.
+
+The properties to configure `output.schemaTypes` are:
+
+| Property Name | Description |
+| ------------- | ----------- |
+| `path` | A file path where the generated schema types should be output.<br/><br/>Relative to your project root |
+| [`moduleType`](#moduleType) | How generated schema types will be linked to your project. |
+
+#### Module type
+
+**`output.schemaTypes.moduleType: ModuleType`**
+
+Use the `moduleType` value to configure how your schema types are linked to your project. The Code Generation Engine uses this to determine the structure of the generated files, including `import` statements.
+
+For single target applications, `embeddedInTarget(name:)` can be used.
+
+For multi-module projects, it is recommended that the schema types be created in a separate module to help with separation of concerns. If using Swift Package Manager, the `swiftPackageManager` option can help automate module creation.
+
+> **This option must be set correctly for your project structure or generated code will fail to compile.**
+
+The possible values for `moduleType` are:
 
 | Value | Description |
 | ----- | ----------- |
-| `embeddedInTarget(name:)` | No module will be created and the generated schema types must be manually embedded in a target with the specified `name`. *Note: You are required to add the generated files to your application target.* |
-| `swiftPackageManager` | Generates a `Package.swift` file that is suitable for linking the generated schema types files to your project using Swift Package Manager. |
-| `other` | No module will be created for the generated types and you are required to create the module to support your preferred dependency manager. *Note: You must specify the name of the module you will create in the `schemaName` property as this will be used in `import` statements of generated operation files.* |
+| [`embeddedInTarget(name:)`](#embedded-in-target) | Indicates that you would like to include the generated models directly in your application target. |
+| [`swiftPackageManager`](#swift-package-manager)  | Creates a schema module as an SPM package that can be included in your project. |
+| [`other`](#other-schema-module-types) 		   | Indicates that you would like to define a schema module using manually. |
 
-#### Operations
+#### Embedded in target
 
-Operation files are generated from all the GraphQL operation definitions matched by the `operationSearchPaths` patterns. Each operation (query, mutation, or subscription) will be created in a separate file.
+**`ModuleType.embeddedInTarget(name: String)`**
 
-The `operations` property value determines the location of the generated operation files:
+This option indicates that you would like to include the generated models directly in your application target.
+
+The `name` parameter must specify the name of the target the schema types will be included in. This will be used to generate `import` statements for generated operations.
+
+No module will be created for the schema types. Instead, generated schema types will be enclosed in a [caseless namespace `enum`](https://www.swiftbysundell.com/articles/powerful-ways-to-use-swift-enums/#namespaces-and-non-initializable-types).
+
+When creating a single target application, this option allows you to include Apollo iOS's generated models directly in your application target.
+
+> **When using this `moduleType`, you are responsible for ensuring the generated files are linked to your application target.**
+
+<MultiCodeBlock>
+
+```json title="CLI Configuration JSON"
+"output": {
+	"schemaTypes": {
+		"moduleType": {
+			"embeddedInTarget": {
+				"name": "MyApplicationTarget"
+			}
+		},
+		"path": "./generated/schema/"
+	}
+}
+```
+
+```swift title="Swift Codegen Setup"
+let configuration = ApolloCodegenConfiguration(
+	// Other properties not shown
+	output: ApolloCodegenConfiguration.FileOutput(
+		schemaTypes: ApolloCodegenConfiguration.SchemaTypesFileOutput(
+			path: "./generated/schema/",
+			moduleType: .embeddedInTarget(name: "MyApplicationTarget")
+		)
+		...
+	)
+)
+```
+
+</MultiCodeBlock>
+
+#### Swift package manager
+
+**`ModuleType.swiftPackageManager`**
+
+This option automates the creation of an SPM package for your schema types. This generates a `Package.swift` file that is suitable for linking the generated schema types files to your project using Swift Package Manager.
+
+The schema types will be contained in a stand-alone module with the [`schemaName`](#schema-name) provided. Other targets in your application that contain generated operation models must have a dependency on this target.
+
+For multi-module projects using Swift Package Manager, this is the recommended configuration option.
+
+> **Including schema types in your own `Package.swift` file:**
+>
+> This option generates an SPM package with its own `Package.swift` file. This is ideal if you want to share your schema module across multiple projects or using Xcode's Package Dependency GUI.
+>
+> If you would like to include your schema module as a target in your own `Package.swift` file, you can define a target with the name and path of the generated files in your `Package.swift` file.
+
+<MultiCodeBlock>
+
+```json title="CLI Configuration JSON"
+"output": {
+	"schemaTypes": {
+		"moduleType": {
+			"swiftPackageManager": {}
+		},
+		"path": "./generated/schema/"
+	}
+}
+```
+
+```swift title="Swift Codegen Setup"
+let configuration = ApolloCodegenConfiguration(
+	// Other properties not shown
+	output: ApolloCodegenConfiguration.FileOutput(
+		schemaTypes: ApolloCodegenConfiguration.SchemaTypesFileOutput(
+			path: "./generated/schema/",
+			moduleType: .swiftPackageManager
+		)
+		...
+	)
+)
+```
+
+</MultiCodeBlock>
+
+#### Other schema module types
+
+**`ModuleType.other`**
+
+This option should be used when you would like to define a schema module using another package management system, such as CocoaPods, or manually creating Xcode targets.
+
+`ModuleType.other` indicates to the Code Generation Engine that your schema types will be contained in their own target, rather than embedded in your application target. This affects the `import` statements in your generated operation definition files.
+
+Using this option, you are required to create a target for your schema module using your preferred package manager.
+
+> **The name of the target for your schema module must be the [`schemaName`](#schema-name) provided in your configuration, as this will be used in the `import` statements of generated operation files.**
+
+<MultiCodeBlock>
+
+```json title="CLI Configuration JSON"
+"output": {
+	"schemaTypes": {
+		"moduleType": {
+			"other": {}
+		},
+		"path": "./generated/schema/"
+	}
+}
+```
+
+```swift title="Swift Codegen Setup"
+let configuration = ApolloCodegenConfiguration(
+	// Other properties not shown
+	output: ApolloCodegenConfiguration.FileOutput(
+		schemaTypes: ApolloCodegenConfiguration.SchemaTypesFileOutput(
+			path: "./generated/schema/",
+			moduleType: .other
+		)
+		...
+	)
+)
+```
+
+</MultiCodeBlock>
+
+### Operations
+
+Operation files are generated from all the GraphQL operation definitions matched by your configuration's `operationSearchPaths`. Each operation (query, mutation, or subscription) and fragment definition will be created in a separate file.
+
+> To learn more about GraphQL operations, check out [Defining operations](../fetching/fetching-data#defining-operations)
+
+The `output.operations` property value determines the location of the generated operation files:
 
 | Value | Description |
 | ----- | ----------- |
-| `inSchemaModule` | All operation files will be located in the module with the schema types. |
-| `relative(subpath:)` | Operation object files will be co-located relative to the defining operation file. If `subpath` is specified a subfolder will be created relative to the definition file and the object files will be generated there. If no `subpath` is specified then all operation files will be generated alongside the definition file. |
-| `absolute(path:)` | All operation object files will be located in the specified path. |
+| [`inSchemaModule`](#operations-in-the-schema-module) | Operation models will be included in the schema types module. |
+| [`relative(subpath:)`](#relative-operations-output) | Operation models will be output relative to their defining `.graphql` files. |
+| [`absolute(path:)`](#absolute-operations-output) | All operation object files will be located in the specified path. |
 
-#### Test mocks
+#### Operations in the schema module
 
-Test mock objects can be created for your operation models, they can be configured with the following values:
+**`OperationsFileOutput.inSchemaModule`**
+
+This option includes the generated operation models in the same module as your schema types.
+
+This means the output location or your operation models is determined by the [`output.schemaTypes.path`](#schema-types) option. When using this option the directory of your schema module will include a `Schema` folder for your schema types, as well as folders for your [operations](./../fetching/fetching-data#defining-operations), [fragments](./../fetching/fragments), and [local cache mutations](./../caching/cache-transactions#defining-local-cache-mutations).
+
+> When using this option, generated operation models are expected to be included in the same target as the schema types. Therefore they will not include `import` statements to import the schema module.
+
+#### Relative operations output
+
+**`OperationsFileOutput.relative(subpath: String?)`**
+
+This option outputs your generated operation models relative to their GraphQL definition (`.graphql` files).
+
+Using relative operation outputs, you have complete control over where your operation definitions are generated. It is common practice to co-locate your operation and fragment models with the parts of your project that will use them.
+
+An optional `subpath` parameter can be provided to generate operation models in a subfolder that will be created within the directory of their defining GraphQL definition file. If no `subpath` is specified then all operation files will be generated alongside thier GraphQL definition files.
+
+> #### **Operation Models in a multi-module project:**
+>
+> If your project constists of multiple modules you can use relative operation output, to generate operation models into directories that are part of different modules in your project. In order to generate relative operation models for a multi-module project, all of your operation models should be generated at the same time. This means the Code Generation Engine should be run in a context that has access to the source files of all of your modules.
+>
+> After generating your operation models ensure that:
+>
+> - All modules containing generated operation models are linked to the target containing your schema types.
+> - All fragments referenced by your operation models are either:
+>   - Included in the same target as the referencing operation; or
+>   - Included in the schema module directly
+>
+> *In the future, we plan to allow you to include fragments in other modules and share them between multiple modules in your project.*
+
+#### Absolute operations output
+
+**`OperationsFileOutput.absolute(path: String)`**
+
+This option outputs all of your generated operation models in a single directory.
+
+Specify the directory for your operation models using the `path` parameter. This is resolved as an relative path from the directory containing your `apollo-codegen-config.json` file when using the CLI.
+
+### Test mocks
+
+**`output.testMocks: TestMockFileOutput`**
+
+Test mock objects can be created for your operation models, to configure whether test mocks are generated and how they are added to your project, use this option.
+
+> To learn more about using test mocks to mock your operation models, see the [Test mocks documentation](./test-mocks).
+
+The `output.testMocks` option can be configured with the following values:
 
 | Value | Description |
 | ----- | ----------- |
 | `none` | Test mocks will not be generated. |
-| `absolute(path:)` | Test mock files will be generated in the specified path but no module will be created for the generated test mocks. *Note: Generated files must be manually added to your test target. Test mocks generated this way may also be manually embedded in a test utility module that is imported by your test target.* |
+| `absolute(path:)` | Test mock files will be generated at the specified path, but no module will be created for the generated test mocks.<br/><br/>*Note: Generated files must be manually added to your test target. Test mocks generated this way may also be manually embedded in a test utility module that is imported by your test target.* |
 | `swiftPackage(targetName:)` | Generated test mock files will be included in a target defined in the generated `Package.swift` file that is suitable for linking the generated test mock files to your test target using Swift Package Manager. The name of the test mock target can be specified with the `targetName` value. If no target name is provided, the target name defaults to "\(schemaName)TestMocks". |
+
+#### Including generated test mocks
+
+TODO
 
 > Note: Using `swiftPackage(targetName:)` requires your `SchemaTypesFileOutput.ModuleType` to be `.swiftPackageManager`. If this option is provided without the `.swiftPackageManager` module type, code generation will fail.
 
-#### Operation identifiers
+### Operation identifiers
 
 Providing a path for this property will generate a JSON document with all your operations and its computed identifier hash.
 
-<ExpansionPanel title="Example">
+<MultiCodeBlock>
 
-```json
+```json title="CLI Configuration JSON"
 {
 	"b02d2d734060114f64b24338486748f4f1f00838e07a293cc4e0f73f98fe3dad": {
 		"name": "TestQuery",
@@ -169,9 +393,9 @@ Providing a path for this property will generate a JSON document with all your o
 }
 ```
 
-</ExpansionPanel>
+</MultiCodeBlock>
 
-### Output options
+## Output options
 
 The code generation engine supports a number of configuration options to change the behaviour of the generator and tailor the generated Swift code to your specific needs.
 
@@ -189,9 +413,9 @@ The top-level properties are:
 | `conversionStrategies` | Rules for how to convert the names of values from the schema in generated code. |
 | `pruneGeneratedFiles` | Whether unused generated files will be automatically deleted. |
 
-<ExpansionPanel title="Sample JSON">
+<MultiCodeBlock>
 
-```json
+```json title="CLI Configuration JSON"
 "options": {
 	"additionalInflectionRules": [{
 		"pluralization": {
@@ -212,11 +436,7 @@ The top-level properties are:
 }
 ```
 
-</ExpansionPanel>
-
-<ExpansionPanel title="Sample Swift">
-
-```swift
+```swift title="Swift Codegen Setup"
 let configuration = ApolloCodegenConfiguration(
 	// Other properties not shown
 	options: ApolloCodegenConfiguration.OutputOptions(
@@ -235,9 +455,9 @@ let configuration = ApolloCodegenConfiguration(
 )
 ```
 
-</ExpansionPanel>
+</MultiCodeBlock>
 
-### Experimental features
+## Experimental features
 
 The code generation engine supports some behaviors where the affect on the generated code is considered experimental. An example of this is a specification of the GraphQL schema that is not yet formalized and undergoing change as the proposal advances.
 
@@ -250,20 +470,16 @@ The current supported experimental features are:
 | `clientControlledNullability` | If enabled, codegen will understand and parse Client Controlled Nullability. Read the [RFC](https://github.com/graphql/graphql-spec/issues/867) for more detail. |
 | `legacySafelistingCompatibleOperations` | If enabled, the generated operations will be transformed using a method that attempts to maintain compatibility with the legacy behavior from [`apollo-tooling`](https://github.dev/apollographql/apollo-tooling) for registering persisted operation to a safelist. *Note: Safelisting queries is a deprecated feature of Apollo Server that has reduced support for legacy use cases. This option may not work as intended in all situations.* |
 
-<ExpansionPanel title="Sample JSON">
+<MultiCodeBlock>
 
-```json
+```json title="CLI Configuration JSON"
 "experimentalFeatures": {
 	"clientControlledNullability": false,
 	"legacySafelistingCompatibleOperations": false
 }
 ```
 
-</ExpansionPanel>
-
-<ExpansionPanel title="Sample Swift">
-
-```swift
+```swift title="Swift Codegen Setup"
 let configuration = ApolloCodegenConfiguration(
 	// Other properties not shown
 	experimentalFeatures: ApolloCodegenConfiguration.ExperimentalFeatures(
@@ -272,9 +488,9 @@ let configuration = ApolloCodegenConfiguration(
 )
 ```
 
-</ExpansionPanel>
+</MultiCodeBlock>
 
-### Schema download configuration
+## Schema download configuration
 
 An optional step in the code generation process is to fetch a GraphQL schema from a remote server. This step ensures that you always have an up-to-date schema on which to base your operations and it eliminates the need to manually download the schema outside of the automated process.
 
@@ -287,9 +503,9 @@ The properties to configure the schema download are:
 | `headers` | Any additional headers to include when retrieving your schema. This is useful when the schema download requires authentication. |
 | `outputPath` | The local path where the downloaded schema should be written to. |
 
-<ExpansionPanel title="Sample JSON">
+<MultiCodeBlock>
 
-```json
+```json title="CLI Configuration JSON"
 "schemaDownloadConfiguration": {
 	"downloadMethod": {
 		"introspection": {
@@ -307,11 +523,7 @@ The properties to configure the schema download are:
 }
 ```
 
-</ExpansionPanel>
-
-<ExpansionPanel title="Sample Swift">
-
-```swift
+```swift title="Swift Codegen Setup"
 let configuration = ApolloCodegenConfiguration(
 	// Other properties not shown
 	schemaDownloadConfiguration: ApolloSchemaDownloadConfiguration(
@@ -323,13 +535,13 @@ let configuration = ApolloCodegenConfiguration(
 )
 ```
 
-</ExpansionPanel>
+</MultiCodeBlock>
 
-#### Download method
+### Download method
 
 There are two supported sources for fetching a GraphQL schema:
 
-##### 1. Apollo server registry
+#### 1. Apollo server registry
 
 The Apollo schema registry serves as a central hub for managing your graph.
 
@@ -341,7 +553,7 @@ The properties you will need to configure are:
 | `graphID` | Identifier of the graph to fetch. Can be found in Apollo Studio. |
 | `variant` | Variant of the graph in the registry. |
 
-##### 2. [GraphQL introspection](https://spec.graphql.org/draft/#sec-Introspection)
+#### 2. [GraphQL introspection](https://spec.graphql.org/draft/#sec-Introspection)
 
 A GraphQL service supports introspection over its schema.
 
