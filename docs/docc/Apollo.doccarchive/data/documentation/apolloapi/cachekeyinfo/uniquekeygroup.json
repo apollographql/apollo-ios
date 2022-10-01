@@ -27,11 +27,11 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheKeyInfo\/uniqueKeyGroupId"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheKeyInfo\/uniqueKeyGroup"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:9ApolloAPI12CacheKeyInfoV06uniqueD7GroupIdSSSgvp",
+    "externalID" : "s:9ApolloAPI12CacheKeyInfoV06uniqueD5GroupSSSgvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -43,7 +43,7 @@
       },
       {
         "kind" : "identifier",
-        "text" : "uniqueKeyGroupId"
+        "text" : "uniqueKeyGroup"
       },
       {
         "kind" : "text",
@@ -67,7 +67,7 @@
     "role" : "symbol",
     "roleHeading" : "Instance Property",
     "symbolKind" : "property",
-    "title" : "uniqueKeyGroupId"
+    "title" : "uniqueKeyGroup"
   },
   "primaryContentSections" : [
     {
@@ -90,7 +90,7 @@
             },
             {
               "kind" : "identifier",
-              "text" : "uniqueKeyGroupId"
+              "text" : "uniqueKeyGroup"
             },
             {
               "kind" : "text",
@@ -168,7 +168,16 @@
               "type" : "reference"
             },
             {
-              "text" : " should be the same.",
+              "text" : " should have the same ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheKeyInfo\/uniqueKeyGroup",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : ".",
               "type" : "text"
             }
           ],
@@ -221,7 +230,7 @@
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheKeyInfo\/uniqueKeyGroupId",
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheKeyInfo\/uniqueKeyGroup",
               "isActive" : true,
               "type" : "reference"
             },
@@ -249,7 +258,7 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheKeyInfo\/uniqueKeyGroupId",
+                  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheKeyInfo\/uniqueKeyGroup",
                   "isActive" : true,
                   "type" : "reference"
                 },
@@ -296,7 +305,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/apolloapi\/cachekeyinfo\/uniquekeygroupid"
+        "\/documentation\/apolloapi\/cachekeyinfo\/uniquekeygroup"
       ],
       "traits" : [
         {
@@ -410,7 +419,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/cachekeyinfo"
 },
-"doc://ApolloAPI/documentation/ApolloAPI/CacheKeyInfo/uniqueKeyGroupId": {
+"doc://ApolloAPI/documentation/ApolloAPI/CacheKeyInfo/uniqueKeyGroup": {
   "abstract" : [
     {
       "text" : "An optional identifier for a group of objects that should be grouped together in the",
@@ -440,7 +449,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "uniqueKeyGroupId"
+      "text" : "uniqueKeyGroup"
     },
     {
       "kind" : "text",
@@ -456,12 +465,12 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheKeyInfo\/uniqueKeyGroupId",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheKeyInfo\/uniqueKeyGroup",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "uniqueKeyGroupId",
+  "title" : "uniqueKeyGroup",
   "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/cachekeyinfo\/uniquekeygroupid"
+  "url" : "\/documentation\/apolloapi\/cachekeyinfo\/uniquekeygroup"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/CacheReference": {
   "abstract" : [
