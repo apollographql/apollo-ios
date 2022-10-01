@@ -121,7 +121,7 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
 
     let expected = """
       dependencies: [
-        .package(url: "https://github.com/apollographql/apollo-ios.git", from: "1.0.0-rc.1"),
+        .package(url: "https://github.com/apollographql/apollo-ios.git", from: "1.0.0"),
       ],
     """
     // when

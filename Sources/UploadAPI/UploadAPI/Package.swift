@@ -14,7 +14,7 @@ let package = Package(
     .library(name: "UploadAPI", targets: ["UploadAPI"]),
   ],
   dependencies: [
-    .package(url: "https://github.com/apollographql/apollo-ios.git", from: "1.0.0-rc.1"),
+    .package(url: "https://github.com/apollographql/apollo-ios.git", from: "1.0.0"),
   ],
   targets: [
     .target(
