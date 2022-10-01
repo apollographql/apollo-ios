@@ -1,0 +1,359 @@
+# Configuration
+
+The code generation engine is flexible and can be configured for different behaviors. To configure codegen you will need to use `ApolloCodegenConfiguration`, it can be used as a Swift-native `struct` or represented as JSON which is used by the Codegen CLI. Many properties have defaults that provide a good starting configuration.
+
+There are a number of base configuration properties, each representing a specific characteristic of the codegen engine:
+
+| Property Name | Description |
+| ------------- | ----------- |
+| `schemaName` | Namespace used to scope the generated schema types. |
+| `input` | Search patterns that will be used to locate the schema and operation definition files. |
+| `output` | Location and structure of the generated files and modules. |
+| `options` | Rules and options to customize the generated code. |
+| `experimentalFeatures` | Used to enable experimental features. *Note: These features could change at any time and are not guaranteed to always be available.* |
+| `schemaDownloadConfiguration` | Configuration to fetch a GraphQL schema before generation. |
+
+### File input
+
+The code generation engine requires a GraphQL schema and at least one operation to be able to generate Swift code. Read the introductory section on [GraphQL source files](./introduction#graphql-source-files) for more information.
+
+You can use absolute or relative paths in path matching patterns. Relative paths will be based off the current working directory.
+
+Each path matching pattern can include the following characters:
+- `*` matches everything but the directory separator (shallow), eg: `*.graphql`
+- `?` matches any single character, eg: `file-?.graphql`
+- `**` matches all subdirectories (deep), eg: `**/*.graphql`
+- `!` excludes any match only if the pattern starts with a `!` character, eg: `!file.graphql`
+
+The properties to configure `input` are:
+
+| Property Name | Description |
+| ------------- | ----------- |
+| `schemaSearchPaths` | An array of path matching pattern strings used to find GraphQL schema files. [Schema extension](https://spec.graphql.org/draft/#sec-Schema-Extension) files can be included in these search paths. *Note: JSON format schema files must have the `.json` file extension.* |
+| `operationSearchPaths` | An array of path matching pattern strings used to find GraphQL operation files. |
+
+<ExpansionPanel title="Sample JSON">
+
+```json
+"input": {
+	"schemaSearchPaths": [
+		"**/*.graphqls"
+	],
+	"operationSearchPaths": [
+		"**/*.graphql"
+	]
+}
+```
+
+</ExpansionPanel>
+
+<ExpansionPanel title="Sample Swift">
+
+```swift
+let configuration = ApolloCodegenConfiguration(
+	// Other properties not shown
+	input: ApolloCodegenConfiguration.FileInput(
+		schemaSearchPaths: ["**/*.graphqls"],
+		operationSearchPaths: ["**/*.graphql"]),
+)
+```
+
+</ExpansionPanel>
+
+### File output
+
+The generated files are configurable through different 'categories' of output. The properties to configure `output` are:
+
+| Property Name | Description |
+| ------------- | ----------- |
+| `schemaTypes` | Location and structure of the generated schema types files. |
+| `operations` | Location and structure of the generated operation files such as queries, mutations, subscriptions, and fragments. |
+| `testMocks` | Location and structure of the test mock operation object files.  |
+| `operationIdentifiersPath` | An absolute location to an operation identifier JSON map file. This can be used in conjunction with [APQs](../fetching/apqs). |
+
+<ExpansionPanel title="Sample JSON">
+
+```json
+"output": {
+	"schemaTypes": {
+		"moduleType": {
+			"swiftPackageManager": {}
+		},
+		"path": "./generated/schema/"
+	},
+	"operations": {
+		"inSchemaModule": {}
+	},
+	"testMocks": {
+		"none": {}
+	},
+	"operationIdentifiersPath": "./generated/"
+}
+```
+
+</ExpansionPanel>
+
+<ExpansionPanel title="Sample Swift">
+
+```swift
+let configuration = ApolloCodegenConfiguration(
+	// Other properties not shown
+	output: ApolloCodegenConfiguration.FileOutput(
+		schemaTypes: ApolloCodegenConfiguration.SchemaTypesFileOutput(
+			path: "./generated/schema/",
+			moduleType: .swiftPackageManager)
+		operations: .inSchemaModule,
+		testMocks: .none,
+		operationIdentifiersPath: "./generated/")
+)
+```
+
+</ExpansionPanel>
+
+#### Schema types
+
+Schema types are common to all generated operation models and are required for the generated Swift code to compile. It is recommended that the schema types be created in a separate module to help with separation of concerns and quicker build times.
+
+The `schemaTypes` property is configured with a `path`, specifying the output location, and a `moduleType` which can help automate module creation. Code generation supports a number of different module types:
+
+| Value | Description |
+| ----- | ----------- |
+| `embeddedInTarget(name:)` | No module will be created and the generated schema types must be manually embedded in a target with the specified `name`. *Note: You are required to add the generated files to your application target.* |
+| `swiftPackageManager` | Generates a `Package.swift` file that is suitable for linking the generated schema types files to your project using Swift Package Manager. |
+| `other` | No module will be created for the generated types and you are required to create the module to support your preferred dependency manager. *Note: You must specify the name of the module you will create in the `schemaName` property as this will be used in `import` statements of generated operation files.* |
+
+#### Operations
+
+Operation files are generated from all the GraphQL operation definitions matched by the `operationSearchPaths` patterns. Each operation (query, mutation, or subscription) will be created in a separate file.
+
+The `operations` property value determines the location of the generated operation files:
+
+| Value | Description |
+| ----- | ----------- |
+| `inSchemaModule` | All operation files will be located in the module with the schema types. |
+| `relative(subpath:)` | Operation object files will be co-located relative to the defining operation file. If `subpath` is specified a subfolder will be created relative to the definition file and the object files will be generated there. If no `subpath` is specified then all operation files will be generated alongside the definition file. |
+| `absolute(path:)` | All operation object files will be located in the specified path. |
+
+#### Test mocks
+
+Test mock objects can be created for your operation models, they can be configured with the following values:
+
+| Value | Description |
+| ----- | ----------- |
+| `none` | Test mocks will not be generated. |
+| `absolute(path:)` | Test mock files will be generated in the specified path but no module will be created for the generated test mocks. *Note: Generated files must be manually added to your test target. Test mocks generated this way may also be manually embedded in a test utility module that is imported by your test target.* |
+| `swiftPackage(targetName:)` | Generated test mock files will be included in a target defined in the generated `Package.swift` file that is suitable for linking the generated test mock files to your test target using Swift Package Manager. The name of the test mock target can be specified with the `targetName` value. If no target name is provided, the target name defaults to "\(schemaName)TestMocks". |
+
+> Note: Using `swiftPackage(targetName:)` requires your `SchemaTypesFileOutput.ModuleType` to be `.swiftPackageManager`. If this option is provided without the `.swiftPackageManager` module type, code generation will fail.
+
+#### Operation identifiers
+
+Providing a path for this property will generate a JSON document with all your operations and its computed identifier hash.
+
+<ExpansionPanel title="Example">
+
+```json
+{
+	"b02d2d734060114f64b24338486748f4f1f00838e07a293cc4e0f73f98fe3dad": {
+		"name": "TestQuery",
+		"source": "query TestQuery {\\n  test\\n}"
+	},
+	"50ed8cda22910b3b708bc69402626f9fe4f1bbaeafb40df9084d029fade5bab1": {
+		"name": "TestMutation",
+		"source": "mutation TestMutation {\\n  update {\\n    result\\n  }\\n}"
+	},
+	"55f75259c34f0ccc6b131d23545d9fa79885c93ec785176bd9b6d3c4062fcaed": {
+		"name": "TestSubscription",
+		"source": "subscription TestSubscription {\\n  watched\\n}"
+	}
+}
+```
+
+</ExpansionPanel>
+
+### Output options
+
+The code generation engine supports a number of configuration options to change the behaviour of the generator and tailor the generated Swift code to your specific needs.
+
+The top-level properties are:
+
+| Property Name | Description |
+| ------------- | ----------- |
+| `additionalInflectionRules` | Any non-default rules for pluralization or singularization of type names. |
+| `queryStringLiteralFormat` | Formatting of the GraphQL query string literal that is included in each generated operation object. |
+| `deprecatedEnumCases` | Annotate generated Swift enums with the Swift `@available` attribute for GraphQL enum cases annotated with the built-in [`@deprecated` directive](https://spec.graphql.org/draft/#sec--deprecated). |
+| `schemaDocumentation` | Include or exclude [schema documentation](https://spec.graphql.org/draft/#sec-Descriptions) in the generated files. |
+| `apqs` | Whether the generated operations should use Automatic Persisted Queries. |
+| `cocoapodsCompatibleImportStatements` | Generate import statements that are compatible with including `Apollo` via Cocoapods. |
+| `warningsOnDeprecatedUsage` | Annotate generated Swift code with the Swift `@available` attribute and `@deprecated` argument for parts of the GraphQL schema annotated with the built-in [`@deprecated` directive](https://spec.graphql.org/draft/#sec--deprecated). |
+| `conversionStrategies` | Rules for how to convert the names of values from the schema in generated code. |
+| `pruneGeneratedFiles` | Whether unused generated files will be automatically deleted. |
+
+<ExpansionPanel title="Sample JSON">
+
+```json
+"options": {
+	"additionalInflectionRules": [{
+		"pluralization": {
+			"replacementRegex": "animals",
+			"singularRegex": "animal"
+		}
+	}],
+	"queryStringLiteralFormat": "multiline",
+	"deprecatedEnumCases": "include",
+	"schemaDocumentation": "include",
+	"apqs": "disabled",
+	"cocoapodsCompatibleImportStatements": false,
+	"warningsOnDeprecatedUsage": "include",
+	"conversionStrategies": {
+		"enumCases": "camelCase"
+	},
+	"pruneGeneratedFiles": true
+}
+```
+
+</ExpansionPanel>
+
+<ExpansionPanel title="Sample Swift">
+
+```swift
+let configuration = ApolloCodegenConfiguration(
+	// Other properties not shown
+	options: ApolloCodegenConfiguration.OutputOptions(
+		additionalInflectionRules: [.pluralization(
+			singularRegex: "animal",
+			replacementRegex: "animals")],
+		queryStringLiteralFormat: .multiline,
+		deprecatedEnumCases: .include,
+		schemaDocumentation: .include,
+		apqs: .disabled,
+		cocoapodsCompatibleImportStatements: false,
+		warningsOnDeprecatedUsage: .include,
+		conversionStrategies: ApolloCodegenConfiguration.ConversionStrategies(
+			enumCases: .camelCase),
+		pruneGeneratedFiles: true)
+)
+```
+
+</ExpansionPanel>
+
+### Experimental features
+
+The code generation engine supports some behaviors where the affect on the generated code is considered experimental. An example of this is a specification of the GraphQL schema that is not yet formalized and undergoing change as the proposal advances.
+
+> Note: These features could change at any time and are not guaranteed to always be available.
+
+The current supported experimental features are:
+
+| Value | escription |
+| ----- | ----------- |
+| `clientControlledNullability` | If enabled, codegen will understand and parse Client Controlled Nullability. Read the [RFC](https://github.com/graphql/graphql-spec/issues/867) for more detail. |
+| `legacySafelistingCompatibleOperations` | If enabled, the generated operations will be transformed using a method that attempts to maintain compatibility with the legacy behavior from [`apollo-tooling`](https://github.dev/apollographql/apollo-tooling) for registering persisted operation to a safelist. *Note: Safelisting queries is a deprecated feature of Apollo Server that has reduced support for legacy use cases. This option may not work as intended in all situations.* |
+
+<ExpansionPanel title="Sample JSON">
+
+```json
+"experimentalFeatures": {
+	"clientControlledNullability": false,
+	"legacySafelistingCompatibleOperations": false
+}
+```
+
+</ExpansionPanel>
+
+<ExpansionPanel title="Sample Swift">
+
+```swift
+let configuration = ApolloCodegenConfiguration(
+	// Other properties not shown
+	experimentalFeatures: ApolloCodegenConfiguration.ExperimentalFeatures(
+		clientControlledNullability: false,
+		legacySafelistingCompatibleOperations: false)
+)
+```
+
+</ExpansionPanel>
+
+### Schema download configuration
+
+An optional step in the code generation process is to fetch a GraphQL schema from a remote server. This step ensures that you always have an up-to-date schema on which to base your operations and it eliminates the need to manually download the schema outside of the automated process.
+
+The properties to configure the schema download are:
+
+| Property Name | Description |
+| ------------- | ----------- |
+| `downloadMethod` | How to download the schema. |
+| `downloadTimeout` | The maximum time (in seconds) to wait before indicating that the download timed out. |
+| `headers` | Any additional headers to include when retrieving your schema. This is useful when the schema download requires authentication. |
+| `outputPath` | The local path where the downloaded schema should be written to. |
+
+<ExpansionPanel title="Sample JSON">
+
+```json
+"schemaDownloadConfiguration": {
+	"downloadMethod": {
+		"introspection": {
+			"endpointURL": "https://server.com",
+			"httpMethod": {
+				"POST": {}
+			},
+			"includeDeprecatedInputValues": false,
+			"outputFormat": "SDL"
+		}
+	},
+	"downloadTimeout": 60,
+	"headers": [],
+	"outputPath": "./graphql/"
+}
+```
+
+</ExpansionPanel>
+
+<ExpansionPanel title="Sample Swift">
+
+```swift
+let configuration = ApolloCodegenConfiguration(
+	// Other properties not shown
+	schemaDownloadConfiguration: ApolloSchemaDownloadConfiguration(
+		using: .introspection(
+			endpointURL: URL(string: "https://server.com")!),
+		timeout: 60.0,
+		headers: [],
+		outputPath: "./graphql/")
+)
+```
+
+</ExpansionPanel>
+
+#### Download method
+
+There are two supported sources for fetching a GraphQL schema:
+
+##### 1. Apollo server registry
+
+The Apollo schema registry serves as a central hub for managing your graph.
+
+The properties you will need to configure are:
+
+| Property Name | Description |
+| ------------- | ----------- |
+| `apiKey` | API key to use when retrieving your schema from the Apollo Registry. |
+| `graphID` | Identifier of the graph to fetch. Can be found in Apollo Studio. |
+| `variant` | Variant of the graph in the registry. |
+
+##### 2. [GraphQL introspection](https://spec.graphql.org/draft/#sec-Introspection)
+
+A GraphQL service supports introspection over its schema.
+
+> Note: Many production servers disable introspection for security reasons. If your introspection query is failing check that it is not disabled.
+
+The properties you will need to configure are:
+
+| Property Name | Description |
+| ------------- | ----------- |
+| `endpointURL` | URL of the GraphQL introspection service. |
+| `httpMethod` | HTTP request method. |
+| `outputFormat` | Output format for the downloaded schema. |
+| `includeDeprecatedInputValues` | Specify whether input values annotated with the built-in `@deprecated` directive should be included in the fetched schema. |
+
+For more details, see the section on [downloading a schema](./downloading-schema).
