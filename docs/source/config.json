@@ -1,6 +1,6 @@
 {
   "title": "Client (iOS)",
-  "version": "0.X",
+  "version": "0.x (legacy)",
   "algoliaFilters": [
     "docset:ios"
   ],
