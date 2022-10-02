@@ -66,7 +66,8 @@ let configuration = ApolloCodegenConfiguration(
 	// Other properties not shown
 	input: ApolloCodegenConfiguration.FileInput(
 		schemaSearchPaths: ["**/*.graphqls"],
-		operationSearchPaths: ["**/*.graphql"]),
+		operationSearchPaths: ["**/*.graphql"]
+	),
 )
 ```
 
@@ -123,10 +124,12 @@ let configuration = ApolloCodegenConfiguration(
 	output: ApolloCodegenConfiguration.FileOutput(
 		schemaTypes: ApolloCodegenConfiguration.SchemaTypesFileOutput(
 			path: "./generated/schema/",
-			moduleType: .swiftPackageManager)
+			moduleType: .swiftPackageManager
+		)
 		operations: .inSchemaModule,
 		testMocks: .none,
-		operationIdentifiersPath: "./generated/")
+		operationIdentifiersPath: "./generated/"
+	)
 )
 ```
 
@@ -467,7 +470,8 @@ let configuration = ApolloCodegenConfiguration(
 		conversionStrategies: ApolloCodegenConfiguration.ConversionStrategies(
 			enumCases: .camelCase
 		),
-		pruneGeneratedFiles: true)
+		pruneGeneratedFiles: true
+	)
 )
 ```
 
