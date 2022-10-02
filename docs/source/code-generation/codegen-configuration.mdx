@@ -155,7 +155,7 @@ For single target applications, `embeddedInTarget(name:)` can be used.
 
 For multi-module projects, it is recommended that the schema types be created in a separate module to help with separation of concerns. If using Swift Package Manager, the `swiftPackageManager` option can help automate module creation.
 
-> **This option must be set correctly for your project structure or generated code will fail to compile.**
+> **Note:** This option must be set correctly for your project structure or generated code will fail to compile.
 
 The possible values for `moduleType` are:
 
@@ -177,7 +177,7 @@ No module will be created for the schema types. Instead, generated schema types 
 
 When creating a single target application, this option allows you to include Apollo iOS's generated models directly in your application target.
 
-> **When using this `moduleType`, you are responsible for ensuring the generated files are linked to your application target.**
+> **Note:** When using this `moduleType`, you are responsible for ensuring the generated files are linked to your application target.
 
 <MultiCodeBlock>
 
@@ -263,7 +263,7 @@ This option should be used when you would like to define a schema module using a
 
 Using this option, you are required to create a target for your schema module using your preferred package manager.
 
-> **The name of the target for your schema module must be the [`schemaName`](#schema-name) provided in your configuration, as this will be used in the `import` statements of generated operation files.**
+> **Note:** The name of the target for your schema module must be the [`schemaName`](#schema-name) provided in your configuration, as this will be used in the `import` statements of generated operation files.
 
 <MultiCodeBlock>
 
@@ -346,7 +346,7 @@ An optional `subpath` parameter can be provided to generate operation models in 
 
 This option outputs all of your generated operation models in a single directory.
 
-Specify the directory for your operation models using the `path` parameter. This is resolved as an relative path from the directory containing your `apollo-codegen-config.json` file when using the CLI.
+Specify the directory for your operation models using the `path` parameter. This is resolved as a relative path from the directory containing your `apollo-codegen-config.json` file when using the CLI.
 
 ### Test mocks
 
@@ -361,20 +361,34 @@ The `output.testMocks` option can be configured with the following values:
 | Value | Description |
 | ----- | ----------- |
 | `none` | Test mocks will not be generated. |
-| `absolute(path:)` | Test mock files will be generated at the specified path, but no module will be created for the generated test mocks.<br/><br/>*Note: Generated files must be manually added to your test target. Test mocks generated this way may also be manually embedded in a test utility module that is imported by your test target.* |
-| `swiftPackage(targetName:)` | Generated test mock files will be included in a target defined in the generated `Package.swift` file that is suitable for linking the generated test mock files to your test target using Swift Package Manager. The name of the test mock target can be specified with the `targetName` value. If no target name is provided, the target name defaults to "\(schemaName)TestMocks". |
+| [`swiftPackage(targetName:)`](#test-mocks-in-a-swift-package) | Test mock files will be generated and included in a target defined in an SPM package. |
+| [`absolute(path:)`](#absolute-test-mocks-output) | Test mock files will be generated at the specified path. |
 
-#### Including generated test mocks
+#### Test mocks in a Swift Package
 
-TODO
+**`TestMockFileOutput.swiftPackage(targetName: String?)`**
 
-> Note: Using `swiftPackage(targetName:)` requires your `SchemaTypesFileOutput.ModuleType` to be `.swiftPackageManager`. If this option is provided without the `.swiftPackageManager` module type, code generation will fail.
+This option generates test mock files and defines a target in the schema modules generated `Package.swift` file that is suitable for linking the test mock files to your test target using Swift Package Manager.
+
+The name of the test mock target can be specified with the `targetName` parameter. If no `targetName` is provided, the target name defaults to `"${schemaName}TestMocks"`.
+
+> **Note:** Using this option requires your [`output.schemaTypes.moduleType`](#module-type) to be [`.swiftPackageManager`](#swift-package-manager). If this option is provided without the `.swiftPackageManager` module type, code generation will fail.
+
+#### Absolute test mocks output
+
+**`TestMockFileOutput.absolute(path: String)`**
+
+This option outputs all of your generated test mocks in a single directory.
+
+Specify the directory for your test mocks using the `path` parameter. This is resolved as a relative path from the directory containing your `apollo-codegen-config.json` file when using the CLI.
+
+> **Note:** When using this option, you are responsible for ensuring the generated test mocks are linked to your test target.
+>
+> Test mocks generated this way may also be manually embedded in a test utility module that is imported by your test target.
 
 ### Operation identifiers
 
-Providing a path for this property will generate a JSON document with all your operations and its computed identifier hash.
-
-<MultiCodeBlock>
+Providing a path for this property will generate a JSON document with all your operations and their computed identifier hashes. This document can be used to pre-register the identifiers for your operations with an Apollo Server instance for use with [Automatic Persisted Queries](./../fetching/apqs).
 
 ```json title="CLI Configuration JSON"
 {
@@ -392,8 +406,6 @@ Providing a path for this property will generate a JSON document with all your o
 	}
 }
 ```
-
-</MultiCodeBlock>
 
 ## Output options
 
@@ -440,9 +452,12 @@ The top-level properties are:
 let configuration = ApolloCodegenConfiguration(
 	// Other properties not shown
 	options: ApolloCodegenConfiguration.OutputOptions(
-		additionalInflectionRules: [.pluralization(
-			singularRegex: "animal",
-			replacementRegex: "animals")],
+		additionalInflectionRules: [
+			.pluralization(
+				singularRegex: "animal",
+				replacementRegex: "animals"
+			)
+		],
 		queryStringLiteralFormat: .multiline,
 		deprecatedEnumCases: .include,
 		schemaDocumentation: .include,
@@ -450,7 +465,8 @@ let configuration = ApolloCodegenConfiguration(
 		cocoapodsCompatibleImportStatements: false,
 		warningsOnDeprecatedUsage: .include,
 		conversionStrategies: ApolloCodegenConfiguration.ConversionStrategies(
-			enumCases: .camelCase),
+			enumCases: .camelCase
+		),
 		pruneGeneratedFiles: true)
 )
 ```
@@ -468,7 +484,7 @@ The current supported experimental features are:
 | Value | escription |
 | ----- | ----------- |
 | `clientControlledNullability` | If enabled, codegen will understand and parse Client Controlled Nullability. Read the [RFC](https://github.com/graphql/graphql-spec/issues/867) for more detail. |
-| `legacySafelistingCompatibleOperations` | If enabled, the generated operations will be transformed using a method that attempts to maintain compatibility with the legacy behavior from [`apollo-tooling`](https://github.dev/apollographql/apollo-tooling) for registering persisted operation to a safelist. *Note: Safelisting queries is a deprecated feature of Apollo Server that has reduced support for legacy use cases. This option may not work as intended in all situations.* |
+| `legacySafelistingCompatibleOperations` | If enabled, the generated operations will be transformed using a method that attempts to maintain compatibility with the legacy behavior from [`apollo-tooling`](https://github.dev/apollographql/apollo-tooling) for registering persisted operation to a safelist.<br/><br/>*Note: Safelisting queries is a deprecated feature of Apollo Server that has reduced support for legacy use cases. This option may not work as intended in all situations.* |
 
 <MultiCodeBlock>
 
@@ -484,7 +500,8 @@ let configuration = ApolloCodegenConfiguration(
 	// Other properties not shown
 	experimentalFeatures: ApolloCodegenConfiguration.ExperimentalFeatures(
 		clientControlledNullability: false,
-		legacySafelistingCompatibleOperations: false)
+		legacySafelistingCompatibleOperations: false
+	)
 )
 ```
 
@@ -557,7 +574,7 @@ The properties you will need to configure are:
 
 A GraphQL service supports introspection over its schema.
 
-> Note: Many production servers disable introspection for security reasons. If your introspection query is failing check that it is not disabled.
+> **Note:** Many production servers disable introspection for security reasons. If your introspection query is failing check that it is not disabled.
 
 The properties you will need to configure are:
 
