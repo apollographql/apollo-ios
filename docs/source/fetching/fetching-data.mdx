@@ -165,7 +165,7 @@ apollo.fetch(
 
 ## Fetching locally cached data
 
-Apollo iOS uses a [normalized cache](./../caching#controlling-normalization) to store your GraphQL response data locally. This allows you to retrieve operation data that has been previously fetched without waiting for an additional network request. You can configure how your fetch requests interact with the cache using cache policies.
+Apollo iOS uses a [normalized cache](./../caching/introduction#what-is-a-normalized-cache) to store your GraphQL response data locally. This allows you to retrieve operation data that has been previously fetched without waiting for an additional network request. You can configure how your fetch requests interact with the cache using cache policies.
 
 ### Cache policies
 
@@ -193,7 +193,7 @@ The cache polices which you can specify are:
 
 > If you're interested in returning cached data after a failed fetch, the current recommended approach is to use an `additionalErrorInterceptor` on your interceptor chain to examine if the error is one it makes sense to show old data for rather than something that needs to be passed on to the user, and then retrying with a `.returnCacheDataDontFetch` retry policy. An example of this setup can be found in the [Cache-dependent interceptor tests](https://github.com/apollographql/apollo-ios/blob/main/Tests/ApolloTests/Cache/CacheDependentInterceptorTests.swift).
 
-For more information on how result data is stored in the cache data or how to configure the normalized cache, see the [Caching documentation](./../caching).
+For more information on how result data is stored in the cache data or how to configure the normalized cache, see the [Caching documentation](./../caching/introduction).
 
 ## Using `GET` instead of `POST` for queries
 

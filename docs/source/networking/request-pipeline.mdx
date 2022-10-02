@@ -3,7 +3,7 @@ title: Advanced networking configuration
 description: Customizing the Apollo iOS Request Chain
 ---
 
-In Apollo iOS, the [`ApolloClient`](https://www.apollographql.com/docs/ios/docc/documentation/apollo/apolloclient) uses a [`NetworkTransport`](apollographql.com/docs/ios/docc/documentation/apollo/networktransport) object to fetch GraphQL queries from a remote GraphQL server.
+In Apollo iOS, the [`ApolloClient`](https://www.apollographql.com/docs/ios/docc/documentation/apollo/apolloclient) uses a [`NetworkTransport`](https://www.apollographql.com/docs/ios/docc/documentation/apollo/networktransport) object to fetch GraphQL queries from a remote GraphQL server.
 
 The default `NetworkTransport` is the [`RequestChainNetworkTransport`](https://www.apollographql.com/docs/ios/docc/documentation/apollo/requestchainnetworktransport). Appropriately, this network transport uses a structure called a **request chain** to process each operation in individual steps.
 
@@ -94,7 +94,7 @@ If you do create your own `InterceptorProvider`, you can use any of the built-in
 
 ### Built-in interceptors
 
-Apollo iOS provides a collection of built-in interceptors you can create in a [custom interceptor provider](#custom-interceptor-providers). You can also create a custom interceptor by defining a class that conforms to the [`ApolloInterceptor` protocol](https://github.com/apollographql/apollo-ios/blob/main/Sources/Apollo/ApolloInterceptor.swift).
+Apollo iOS provides a collection of built-in interceptors you can create in a [custom interceptor provider](#custom-interceptor-providers). You can also create a custom interceptor by defining a class that conforms to the [`ApolloInterceptor` protocol](https://www.apollographql.com/docs/ios/docc/documentation/apollo/apollointerceptor).
 
 > [See examples of custom interceptors](#example-interceptors)
 
