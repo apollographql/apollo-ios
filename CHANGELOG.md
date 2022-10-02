@@ -1,5 +1,18 @@
 # Change Log
 
+## v1.0.0
+
+**This is the first major version release of Apollo iOS! The primary goal of Apollo iOS 1.0 is to stabilize the API of the model layer and provide a foundation for future feature additions and evolution of the library.**
+
+In a nutshell, v1.0.0 brings:
+* A new code generation engine built entirely in Swift
+* Improvements to the generated models
+* Syntax and performance improvements across the entire library
+
+There is [documentation](https://www.apollographql.com/docs/ios) and a blog post coming soon. Feel free to ask questions by either [opening an issue on our GitHub repo](https://github.com/apollographql/apollo-ios/issues), or [joining the community](https://community.apollographql.com/tags/c/help/6/mobile).
+
+Thank you to all contributors who have helped us get to this first major release! ❤️
+
 ## v1.0.0-rc.1 - Release Candidate #1
 
 This is the first Release Candidate for Apollo iOS 1.0. The Release Candidate is a fully featured and code-complete representation of the final 1.0 version. This includes full feature parity with the 0.x.x releases.
