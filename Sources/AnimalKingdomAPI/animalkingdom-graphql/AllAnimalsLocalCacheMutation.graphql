@@ -1,4 +1,5 @@
-query AllAnimalsLocalCacheMutation @apollo_client_ios_localCacheMutation {
+query AllAnimalsLocalCacheMutation
+@apollo_client_ios_localCacheMutation {
   allAnimals {
     species
     skinCovering

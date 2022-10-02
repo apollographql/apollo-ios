@@ -8,7 +8,7 @@ The Codegen CLI has three primary commands:
 
 - [**Initialize**](#initialize): Initializes an `apollo-codegen-configuration.json` file that can be used to [configure how the CLI generates code](./codegen-configuration).
 - [**Fetch Schema**](#fetch-schema): Fetches your GraphQL schema and writes it to a file. The schema is required in order to run code generation.
-  - To learn how to configure schema fetching, see [Downloading a schema](./../downloading-schema).
+  - To learn how to configure schema fetching, see [Downloading a schema](./downloading-schema).
 - [**Generate**](#generate): Runs the code generation engine using the configuration in your `apollo-codegen-configuration.json` file.
 
 > For detailed usage documentation of these commands, see the [Usage](#usage) section.
@@ -136,7 +136,7 @@ The default configuration will:
 - Create a Swift Package for your generated schema with the `schema-name` provided.
 - Generate operation and fragment models relative to the `.graphql` files that define them.
 
-> For more information on configuring code generation, see [Code generation configuration](./codegen-configuration).
+> For more information on configuring code generation, see [configuration](./codegen-configuration).
 
 #### Command:
 
@@ -161,7 +161,9 @@ The default configuration will:
 
 Downloads a GraphQL schema from the Apollo Registry or GraphQL introspection and writes it to a file. The schema is required in order to run code generation.
 
-> For more information on schema fetching, see [Downloading a schema](./../downloading-schema).
+> For more information on schema fetching, see [Downloading a schema](./downloading-schema).
+
+> For more information on configuring code generation, see [configuration](./codegen-configuration).
 
 #### Command:
 
@@ -185,7 +187,7 @@ Downloads a GraphQL schema from the Apollo Registry or GraphQL introspection and
 
 Runs the code generation engine to generate Swift source code using the configuration in your `apollo-codegen-configuration.json` file.
 
-> For more information on configuring code generation, see [Code generation configuration](./codegen-configuration).
+> For more information on configuring code generation, see [configuration](./codegen-configuration).
 
 #### Command:
 

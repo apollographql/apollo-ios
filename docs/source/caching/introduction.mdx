@@ -1,0 +1,244 @@
+---
+title: Client-side caching
+---
+
+Apollo iOS supports client-side caching of GraphQL response data. Utilizing our caching mechanisms, your application can respond to GraphQL queries using locally cached data that has been previously fetched. This helps to reduce network traffic, which provides a number of benefits including:
+
+- Shorter loading times
+- Reduction of server load and cost
+- Less data usage for users of your application
+
+Apollo iOS uses a normalized cache that, when configured properly, acts as a source of truth for your graph, enabling your application to react to changes as they're fetched.
+
+The Apollo iOS library contains both a short-lived in-memory cache and a SQLite cache that persists cache data to disk.
+
+> Learn about using cache policies to configure how GraphQL operations interact with cache data by reading our documentation on [fetching locally cached data](./../fetching/fetching-data#fetching-locally-cached-data).
+
+## What is a normalized cache?
+
+In a GraphQL client, a normalized cache breaks each of your GraphQL operation responses into the individual objects it contains. Then, each object is cached as a *separate entry* based on its **cache key**. This means that if multiple responses include the _same_ object, that object can be de-duplicated into a single cache entry. This reduces the overall size of the cache and helps keep your cached data consistent and fresh.
+
+Because the normalized cache updates cache entries across all of your operations, data fetched by one operation can update objects fetched by another operation. This allows you to [watch your queries](./../fetching/queries#watching-queries) and react to changes across your entire application. You can use this to update your UI automatically or trigger other events when new data is available.
+
+### Normalizing responses
+
+In order to maintain a normalized cache, Apollo iOS processes response data of your GraphQL operations, identifying each object and creating new cache entries or merging data into existing cache entries.
+
+To understand how Apollo iOS does this, consider this example query:
+
+```graphql title="Query"
+query GetFavoriteBook {
+  favoriteBook { # Book object
+    id
+    title
+    author {     # Author object
+      id
+      name
+    }
+  }
+}
+```
+
+The `favoriteBook` field in this query returns a `Book` object, which in turn includes an `Author` object. An example response from the GraphQL server may look like this:
+
+```json title="Response"
+{
+  "favoriteBook": {
+    "id": "bk123",
+    "title": "Les Guerriers du silence",
+    "author": {
+      "id": "au456",
+      "name": "Pierre Bordage"
+    }
+  }
+}
+```
+
+A normalized cache does _not_ store this response directly. Instead, it breaks it up into indvidual cache entries. By default, these cache entries are identified by their path from the [root operation](https://spec.graphql.org/draft/#sec-Root-Operation-Types). Because this example is a query (rather than a mutation or subscription), the root has the name `QUERY_ROOT`.
+
+```json title="Cache Entries"
+"QUERY_ROOT": {
+  "favoriteBook": "-> #QUERY_ROOT.favoriteBook"
+}
+
+"QUERY_ROOT.favoriteBook": {
+  "id": "bk123",
+  "title": "Les guerriers du silence",
+  "author": "-> #QUERY_ROOT.favoriteBook.author"
+}
+
+"QUERY_ROOT.favoriteBook.author": {
+  "id": "au456",
+  "name": "Pierre Bordage"
+}
+```
+
+The `QUERY_ROOT` entry is always present if you've cached results from at least one query. This entry contains a reference for each top-level field you've included in any queries (e.g., `favoriteBook`).
+
+The `favoriteBook` entry has a `author` field containing the string `"-> #QUERY_ROOT.favoriteBook.author"`. The `-> #` indicates that this is a **reference** to another cache entry, in this case, the `QUERY_ROOT.favoriteBook.author` entry.
+
+Normalizing objects by their response path allows us to merge changes from other operations along the same response path.
+
+For example, if we defined another query that fetched additional fields on the `favoriteBook` object, they could be merged into the existing cache entry.
+
+<CodeColumns cols={2}>
+
+```graphql title="Query"
+query FavoriteBookYear {
+  favoriteBook { # Book object
+    id
+    yearPublished
+  }
+}
+```
+
+```json title="Response"
+{
+  "favoriteBook": {
+    "id": "bk123",
+    "yearPublished": 1993
+  }
+}
+```
+
+</CodeColumns>
+
+After merging this response into the cache, the `favoriteBook` entry would have the `yearPublished` field added to its existing data.
+
+```json title="Cache Entries"
+"QUERY_ROOT.favoriteBook": {
+  "id": "bk123",
+  "title": "Les guerriers du silence",
+  "author": "-> #QUERY_ROOT.favoriteBook.author",
+  "yearPublished": 1993
+}
+```
+
+The `favoriteBook` field can now be queried for its `title` and `yearPublished` in a new query, and the normalized cache could return a response from the local cache immediately without needed to send the query to the server.
+
+```graphql title="Query"
+query FavoriteBookTitleAndYear {
+  favoriteBook { # Book object
+    title
+    yearPublished
+  }
+}
+```
+
+### Normalizing objects by cache key
+
+> This section explains how cache keys are used to merge object data in the normalized cache. For information on how to configure your cache keys, see [Custom cache keys](./caching/cache-key-resolution).
+
+Normalizing response data by the response path helps us de-duplicate responses for the same fields, but it does not allow us to merge cache entries from different fields that return the same object.
+
+In this query, we fetch a `Book` object using the field at the path `bestFriend.favoriteBook`.
+
+<CodeColumns cols={2}>
+
+```graphql title="Query"
+query BestFriendsFavoriteBook {
+  bestFriend {
+    favoriteBook { # Book object
+      id
+      title
+      genre
+    }
+  }
+}
+```
+
+```json title="Response"
+{
+  "bestFriend" {
+    "favoriteBook": {
+      "id": "bk123",
+      "title": "Les guerriers du silence",
+      "genre": "SCIENCE_FICTION"
+    }
+  }
+}
+```
+
+</CodeColumns>
+
+When this response is merged into the cache, we have new cache entries added for `QUERY_ROOT.bestFriend` and `QUERY_ROOT.bestFriend.favoriteBook`.
+
+The response tells use that our `bestFriend` has the same `favoriteBook` as us! However, the data for same book is not de-duplicated in our cache entries.
+
+```json title="Cache Entries"
+"QUERY_ROOT.favoriteBook": {
+  "id": "bk123",
+  "title": "Les guerriers du silence",
+  "author": "-> #QUERY_ROOT.favoriteBook.author",
+  "yearPublished": 1993
+}
+
+"QUERY_ROOT.bestFriend": {
+  "favoriteBook": "-> #QUERY_ROOT.bestFriend.favoriteBook"
+}
+
+"QUERY_ROOT.bestFriend.favoriteBook": {
+  "id": "bk123",
+  "title": "Les guerriers du silence",
+  "genre": "SCIENCE_FICTION"
+}
+```
+
+If we tried to fetch a query with the field `favoriteBook.genre`, the cache would not find the `genre` field on the cache entry `QUERY_ROOT.favoriteBook`, so it would send the query to the server to fetch the duplicate data.
+
+In order to de-duplicate response data from different fields that return the same object, we need to configure the cache to recognize that they are the same object. We can do that by providing cache key configuration for the `Book` object.
+
+In this example, the `Book` object type has an `id` field that uniquely identifies it. Since our `favoriteBook` and `bestFriend.favoriteBook` cache entries have the same `id`, we know they represent the same `Book` object. We can configure the cache to use the `id` field as the cache ID for all `Book` objects. This will ensure the cache normalizes our cache entries correctly.
+
+To configure cache keys, we return a new `CacheKeyInfo` value from the `SchemaConfiguration.cacheKeyInfo(for type:,object:)` function.
+
+```swift title="SchemaConfiguration.swift"
+static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
+  switch type {
+  case MySchema.Objects.Book:
+    try? CacheKeyInfo(jsonValue: object["id"])
+
+  default: return nil
+  }
+}
+```
+
+With this set up, whenever the normalized cache writes response data for a `Book` object, it will use the `id` to construct a cache key, instead of the response path.
+
+To prevent cache key conflicts across different object types, the cache prepends the [`__typename`](https://spec.graphql.org/draft/#sec-Type-Name-Introspection) of the object to the provided cache ID followed by a colon (`:`).
+
+This means the cache key for our `Book` will now be `"Book:bk123"`.
+
+> For more information on using `CacheKeyInfo` to configure cache keys, see [Custom cache keys](./caching/cache-key-resolution).
+
+With cache key resolution configured for the `Book` type, the response data for the queries above would create a single, normalized `Book` object.
+
+```json title="Cache Entries"
+"QUERY_ROOT": {
+  "favoriteBook": "-> #Book:bk123"
+}
+
+"BOOK:bk123": {
+  "id": "bk123",
+  "title": "Les guerriers du silence",
+  "author": "-> #QUERY_ROOT.favoriteBook.author",
+  "yearPublished": 1993,
+  "genre": "SCIENCE_FICTION"
+}
+
+"QUERY_ROOT.bestFriend": {
+  "favoriteBook": "-> #Book:bk123"
+}
+```
+
+The cache entry for `BOOK:bk123` contains all of the fields fetched on the `Book` from all queries. Additionally, the `favoriteBook` and `bestFriend.favoriteBook` fields are a cache reference to the entry with the cache key `BOOK:bk123`.
+
+> To learn more about the normalization process, see our blog posts:
+> - [Demystifying Cache Normalization](https://www.apollographql.com/blog/apollo-client/caching/demystifying-cache-normalization).
+> - [GraphQL Concepts Visualized](https://medium.com/apollo-stack/the-concepts-of-graphql-bc68bd819be3)
+
+## Clearing cached data
+
+All caches can be cleared in their entirety by calling [`clear(callbackQueue:completion:)`](https://www.apollographql.com/docs/ios/docc/documentation/apollo/apollostore/clearcache(callbackqueue:completion:)) on your `ApolloStore`.
+
+> If you need to work more directly with the cache, check out [Direct cache access](./cache-transactions).

@@ -45,7 +45,7 @@ apollo.fetch(query: HeroNameQuery()) { result in
 
 To learn about defining operations that take arguments, see [Operation Arguments](./operation-arguments).
 
-## Typed operation results
+## Generated operation models
 
 An operation's results are returned as a hierarchy of immutable structs that match the structure of the operations's fields. These structs only include fields that are included in the operation (other schema fields are omitted).
 
@@ -165,7 +165,9 @@ apollo.fetch(
 
 ## Fetching locally cached data
 
-Apollo iOS uses a [normalized cache](./../caching#controlling-normalization) to store your GraphQL response data locally. This allows you to retrieve operation data that has been previously fetched without waiting for an additional network request.
+Apollo iOS uses a [normalized cache](./../caching#controlling-normalization) to store your GraphQL response data locally. This allows you to retrieve operation data that has been previously fetched without waiting for an additional network request. You can configure how your fetch requests interact with the cache using cache policies.
+
+### Cache policies
 
 `ApolloClient`'s `fetch(query:)` method takes an optional `cachePolicy` that allows you to specify when results should be fetched from the server, and when data should be loaded from the local cache.
 

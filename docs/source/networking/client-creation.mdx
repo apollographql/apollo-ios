@@ -1,0 +1,61 @@
+---
+title: Creating a client
+---
+
+Before you can execute GraphQL operations in your app, you need to initialize an [`ApolloClient`](https://www.apollographql.com/docs/ios/docc/documentation/apollo/apolloclient) instance.
+
+## Basic client creation
+
+For a basic client with a default configuration, you can initialize [`ApolloClient`](https://www.apollographql.com/docs/ios/docc/documentation/apollo/apolloclient) just by providing the `URL` to your GraphQL server.
+
+```swift
+let client = ApolloClient(url: URL(string: "http://localhost:4000/graphql")!)
+```
+
+The default client configuration uses:
+- An [`InMemoryNormalizedCache`](https://www.apollographql.com/docs/ios/docc/documentation/apollo/inmemorynormalizedcache) for [caching response data in-memory](./../caching/cache-setup#inmemorynormalizedcache).
+- A [`RequestChainNetworkTransport`](https://www.apollographql.com/docs/ios/docc/documentation/apollo/requestchainnetworktransport) configured to communicate with a spec-compliant GraphQL server over HTTP.
+- A [`DefaultInterceptorProvider`](https://www.apollographql.com/docs/ios/docc/documentation/apollo/defaultinterceptorprovider) that supports:
+  - Reading/writing response data to the normalized cache.
+  - Sending network requests using `URLSession`.
+  - Parsing GraphQL response data in JSON format
+  - [Automatic Persisted Queries](./../fetching/apqs).
+
+> For more information on the in-memory normalized cache, see its documentation in [Cache Setup](./../caching/cache-setup#inmemorynormalizedcache).
+>
+> To learn more about the request chain or interceptor providers, check out our [Advanced networking configuration documentation](./request-pipeline).
+
+## Custom client creation
+
+If you need to customize your networking client configuration use the designated initializer.
+
+[`ApolloClient`](https://www.apollographql.com/docs/ios/docc/documentation/apollo/apolloclient) is initialized with a `NetworkTransport` object and an `ApolloStore`.
+
+```swift
+public init(
+  networkTransport: NetworkTransport,
+  store: ApolloStore
+)
+```
+
+### Network Transport
+
+Apollo iOS provides the following classes that conform to the [`NetworkTransport` protocol](https://www.apollographql.com/docs/ios/docc/documentation/apollo/networktransport):
+
+| Class | Description |
+|-------|-------------|
+| [`RequestChainNetworkTransport`](https://www.apollographql.com/docs/ios/docc/documentation/apollo/requestchainnetworktransport) | Passes a request through a chain of interceptors that can interact with the request both before and after it's transmitted. Uses standard HTTP requests to communicate with the server. |
+| [`WebSocketTransport`](https://www.apollographql.com/docs/ios/docc/documentation/apollowebsocket/websockettransport) | Transmits _all_ GraphQL operations via WebSocket. Requires the `ApolloWebSocket` library. |
+| [`SplitNetworkTransport`](https://www.apollographql.com/docs/ios/docc/documentation/apollowebsocket/splitnetworktransport) | Transmits subscription operations via WebSocket and other operations via HTTP. Requires the `ApolloWebSocket` library. |
+
+> * For more information on `RequestChainNetworkTransport`, learn about [Advanced networking configuration](./request-pipeline).
+>
+> * For more information on `WebSocketTransport` and `SplitNetworkTransport`, see [Enabling subscription support](./../fetching/subscriptions#enabling-graphql-subscription-support).
+
+### Apollo Store
+
+The `ApolloStore` is the cache used for GraphQL response data. The default cache stores response data in-memory. This data is not persisted between application runs.
+
+To persist cache data on-disk or configure the cache further, you can provide a custom `ApolloStore`.
+
+> Learn more about customizing your cache with our [Caching documentation](./../caching/introduction).

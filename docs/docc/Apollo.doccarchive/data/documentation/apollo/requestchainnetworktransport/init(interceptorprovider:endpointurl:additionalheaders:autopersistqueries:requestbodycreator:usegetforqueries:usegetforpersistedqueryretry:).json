@@ -330,7 +330,7 @@
             {
               "inlineContent" : [
                 {
-                  "text" : "The interceptor provider to use when constructing chains for a request",
+                  "text" : "The interceptor provider to use when constructing a request chain",
                   "type" : "text"
                 }
               ],
@@ -344,7 +344,7 @@
             {
               "inlineContent" : [
                 {
-                  "text" : "The GraphQL endpoint URL to use.",
+                  "text" : "The GraphQL endpoint URL to use",
                   "type" : "text"
                 }
               ],

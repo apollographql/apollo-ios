@@ -1,0 +1,102 @@
+---
+title: Cache setup
+---
+
+All caches used by the `ApolloClient` must conform to the [`NormalizedCache` protocol](https://www.apollographql.com/docs/ios/docc/documentation/apollo/normalizedcache). This protocol provides normalized cache entries as serialized key value pairs called [`Records`](https://www.apollographql.com/docs/ios/docc/documentation/apollo/record).
+
+In addition to the [default cache implementations](#default-caches) provided by Apollo iOS, you can create your own cache, providing any custom storage implementation you like. Because the records provided to your `NormalizedCache` implementation have already been ["normalized"](./introduction#normalizing-responses) by Apollo iOS, you can focus your implementation on the storage of your normalized cache data.
+
+> If you are interested in creating a custom `NormalizedCache` implementation, start by reading the [API Reference for `NormalizedCache`](https://www.apollographql.com/docs/ios/docc/documentation/apollo/normalizedcache).
+
+Apollo iOS includes default implementations for two types of `NormalizedCache`:
+
+## `InMemoryNormalizedCache`
+
+**This is the default caching implementation used by the `ApolloClient`.**
+
+An in-memory cache stores normalized results directly in system memory while your application is running. Results are not persisted to disk. This means the cache is not saved when the application terminates.
+
+Because the cached data is stored directly in memory, it is faster to read and write records to the cache than a disk-based cache implementation.
+
+An in-memory cache is best at caching short-lived data. It is recommended for data that is expected to change frequently or is unlikely to be accessed again in the future.
+
+A few examples of this are:
+- Items in a newsfeed
+- Location-based data
+- Search results for a specific search term
+
+For data that is short-lived, the simplicity of having a clear cache at the beginning of each application run, combined with the improved performance, may make an `InMemoryNormalizedCache` a good choice.
+
+### Setup
+
+To use an `InMemoryNormalizedCache`, no additional work is necessary!
+
+`InMemoryNormalizedCache` is the default cache when initializing an `ApolloClient`. If you want to use an in-memory cache without modifications, all you have to do is instantiate an `ApolloClient` instance without passing a custom `ApolloStore` into the `store` parameter.
+
+If you find you need to instantiate the in-memory cache yourself, you can do so with one line:
+
+```swift
+let cache = InMemoryNormalizedCache()
+```
+
+## `SQLiteNormalizedCache`
+
+A SQLite cache writes out cache results to an on-disk [`SQLite`](https://www.sqlite.org/index.html) file.
+
+Storing cache results on-disk allows us to maintain the cache across application runs. However the file I/O required by each cache operation may slightly increase cache response time.
+
+As an added benefit, because this cache does not hold any results in memory, there is no risk of the cache using too much memory.
+
+An on-disk cache is best at caching long-lived data. It is recommended for data that is not expected to change as frequently as it is accessed; takes a long time to fetch; or should be accessible while offline.
+
+A few examples of this are:
+- User Settings/Profiles
+- Locally created user content
+- Data from background fetches
+
+For data that you want to persist between application runs, the `SQLiteNormalizedCache` may fit your needs.
+
+> **Note: Caching Sensitive Data**
+>
+> When persisting cache data to disk, be sure to consider if any sensitive data is being written to the cache. Cache data is stored in plain-text and can be retrieved from the device. You may need to sanitize your cache data or encrypt the cache file.
+
+### Setup
+
+import SPMSQLite from "./../../shared/sqlite-spm-panel.mdx"
+import CocoaPodsSQLite from "./../../shared/sqlite-cocoapods-panel.mdx"
+
+To use the `SQLiteNormalizedCache`, you need to add the `ApolloSQLite` sub-package to your project using your preferred package manager:
+
+<SPMSQLite />
+
+<CocoaPodsSQLite />
+
+Once `ApolloSQLite` is linked to your project, you can do the following:
+
+1. Set up a file URL for your `SQLite` file.
+2. Use that file URL to instantiate a `SQLiteNormalizedCache`.
+3. Instantiate an `ApolloStore` with your `SQLiteNormalizedCache`.
+4. Pass that `ApolloStore` into the initializer of `ApolloClient`:
+
+```swift
+// 1. Determine where you would like to store your SQLite file.
+//    A commonly used location is the user's Documents directory
+//    within your application's sandbox.
+let documentsPath = NSSearchPathForDirectoriesInDomains(
+    .documentDirectory,
+    .userDomainMask,
+    true
+).first!
+let documentsURL = URL(fileURLWithPath: documentsPath)
+let sqliteFileURL = documentsURL.appendingPathComponent("test_apollo_db.sqlite")
+
+// 2. Use that file URL to instantiate the SQLite cache:
+let sqliteCache = try SQLiteNormalizedCache(fileURL: sqliteFileURL)
+
+// 3. And then instantiate an instance of `ApolloStore` with the cache you've just created:
+let store = ApolloStore(cache: sqliteCache)
+
+// 4. Assuming you've set up your `networkTransport` instance elsewhere,
+// pass the store you just created into your `ApolloClient` initializer.
+let apolloClient = ApolloClient(networkTransport: networkTransport, store: store)
+```

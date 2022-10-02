@@ -25,7 +25,7 @@
       "type" : "codeVoice"
     },
     {
-      "text" : " for queries, for example to take advantage of a CDN.",
+      "text" : " for queries.",
       "type" : "text"
     }
   ],
@@ -113,6 +113,64 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "This can improve performance if your GraphQL server uses a CDN (Content Delivery Network)",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "to cache the results of queries that rarely change.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Mutation operations always use POST, even when this is ",
+              "type" : "text"
+            },
+            {
+              "code" : "false",
+              "type" : "codeVoice"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Defaults to ",
+              "type" : "text"
+            },
+            {
+              "code" : "false",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ".",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -236,7 +294,7 @@
       "type" : "codeVoice"
     },
     {
-      "text" : " for queries, for example to take advantage of a CDN.",
+      "text" : " for queries.",
       "type" : "text"
     }
   ],

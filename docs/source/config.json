@@ -18,8 +18,8 @@
     "Code Generation": {
       "Introduction": "/code-generation/introduction",
       "The Codegen CLI": "/code-generation/codegen-cli",
-      "Configuration": "/codegen-configuration",
-      "Downloading a Schema": "/downloading-schema",
+      "Configuration": "/code-generation/codegen-configuration",
+      "Downloading a Schema": "/code-generation/downloading-schema",
       "Running Code Generation in Swift Code": "/code-generation/run-codegen-in-swift-code"
     },
     "Fetching": {
@@ -33,11 +33,18 @@
       "Operation Arguments": "/fetching/operation-arguments",
       "Error Handling":  "/fetching/error-handling",
       "Type Conditions": "/fetching/type-conditions",
+      "Custom Scalars": "/custom-scalars",
       "Automatic Persisted Queries": "/fetching/apqs"
     },
-    "Creating a client": "/initialization",
-    "Custom Scalars": "/custom-scalars",
-    "Client-side caching": "/caching",
-    "Request pipeline (advanced)": "/request-pipeline"
+    "Caching": {
+      "Introduction": "/caching/introduction",
+      "Setup": "/caching/cache-setup",
+      "Direct Cache Access": "/caching/cache-transactions",
+      "Custom Cache Keys": "/caching/cache-key-resolution"
+    },
+    "Networking": {
+      "Creating a Client": "/networking/client-creation",
+      "Advanced Network Configuration": "/networking/request-pipeline"
+    }
   }
 }
