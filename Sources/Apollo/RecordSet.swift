@@ -1,5 +1,5 @@
 /// A set of cache records.
-public struct RecordSet {
+public struct RecordSet: Hashable {
   public private(set) var storage: [CacheKey: Record] = [:]
 
   public init<S: Sequence>(records: S) where S.Iterator.Element == Record {
@@ -59,7 +59,7 @@ public struct RecordSet {
       var changedKeys: Set<CacheKey> = Set()
 
       for (key, value) in record.fields {
-        if let oldValue = oldRecord.fields[key], JSONValueMatcher.equals(oldValue, value) {
+        if let oldValue = oldRecord.fields[key], oldValue == value {
           continue
         }
         oldRecord[key] = value
@@ -83,6 +83,12 @@ extension RecordSet: ExpressibleByDictionaryLiteral {
 extension RecordSet: CustomStringConvertible {
   public var description: String {
     return String(describing: Array(storage.values))
+  }
+}
+
+extension RecordSet: CustomDebugStringConvertible {
+  public var debugDescription: String {
+    return description
   }
 }
 

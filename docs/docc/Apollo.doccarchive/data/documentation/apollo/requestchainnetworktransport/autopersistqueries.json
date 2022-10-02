@@ -1,0 +1,242 @@
+{
+  "abstract" : [
+    {
+      "text" : "Set to ",
+      "type" : "text"
+    },
+    {
+      "code" : "true",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " if Automatic Persisted Queries should be used to send a query hash instead of the full query body by default.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/autoPersistQueries"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:6Apollo28RequestChainNetworkTransportC18autoPersistQueriesSbvp",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "let"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "autoPersistQueries"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:Sb",
+        "text" : "Bool"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Apollo"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Instance Property",
+    "symbolKind" : "property",
+    "title" : "autoPersistQueries"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "let"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "autoPersistQueries"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:Sb",
+              "text" : "Bool"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollo\/requestchainnetworktransport\/autopersistqueries"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Apollo/documentation/Apollo": {
+  "abstract" : [
+    {
+      "text" : "A Strongly typed, Swift-first, GraphQL client.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Apollo",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo"
+},
+"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport": {
+  "abstract" : [
+    {
+      "text" : "An implementation of ",
+      "type" : "text"
+    },
+    {
+      "code" : "NetworkTransport",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " which creates a ",
+      "type" : "text"
+    },
+    {
+      "code" : "RequestChain",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " object",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "for each item sent through it.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RequestChainNetworkTransport"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RequestChainNetworkTransport"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "RequestChainNetworkTransport",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/requestchainnetworktransport"
+},
+"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport/autoPersistQueries": {
+  "abstract" : [
+    {
+      "text" : "Set to ",
+      "type" : "text"
+    },
+    {
+      "code" : "true",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " if Automatic Persisted Queries should be used to send a query hash instead of the full query body by default.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "autoPersistQueries"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/autoPersistQueries",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "autoPersistQueries",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/requestchainnetworktransport\/autopersistqueries"
+}
+}
+}

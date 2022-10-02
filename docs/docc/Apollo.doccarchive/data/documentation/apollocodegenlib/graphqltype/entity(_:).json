@@ -1,0 +1,237 @@
+{
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLType"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLType\/entity(_:)"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:16ApolloCodegenLib11GraphQLTypeO6entityyAcA0D15QLCompositeTypeCcACmF",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "case"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "entity"
+      },
+      {
+        "kind" : "text",
+        "text" : "("
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:16ApolloCodegenLib20GraphQLCompositeTypeC",
+        "text" : "GraphQLCompositeType"
+      },
+      {
+        "kind" : "text",
+        "text" : ")"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "ApolloCodegenLib"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Case",
+    "symbolKind" : "case",
+    "title" : "GraphQLType.entity(_:)"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "case"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "entity"
+            },
+            {
+              "kind" : "text",
+              "text" : "("
+            },
+            {
+              "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLCompositeType",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:16ApolloCodegenLib20GraphQLCompositeTypeC",
+              "text" : "GraphQLCompositeType"
+            },
+            {
+              "kind" : "text",
+              "text" : ")"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollocodegenlib\/graphqltype\/entity(_:)"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib": {
+  "abstract" : [
+    {
+      "text" : "A robust code generation engine for GraphQL operations.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "ApolloCodegenLib",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLCompositeType": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLCompositeType"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLCompositeType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLCompositeType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphQLCompositeType",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/graphqlcompositetype"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLType": {
+  "abstract" : [
+    {
+      "text" : "A GraphQL type.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLType"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphQLType",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/graphqltype"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLType/entity(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "entity"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:16ApolloCodegenLib20GraphQLCompositeTypeC",
+      "text" : "GraphQLCompositeType"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLType\/entity(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "GraphQLType.entity(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/graphqltype\/entity(_:)"
+}
+}
+}

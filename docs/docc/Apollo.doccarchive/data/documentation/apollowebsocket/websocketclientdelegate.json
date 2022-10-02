@@ -1,0 +1,499 @@
+{
+  "abstract" : [
+    {
+      "text" : "The delegate for a ",
+      "type" : "text"
+    },
+    {
+      "code" : "WebSocketClient",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " to recieve notification of socket events.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketClientDelegate"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:15ApolloWebSocket0bC14ClientDelegateP",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "protocol"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "WebSocketClientDelegate"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "ApolloWebSocket"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "WebSocketClientDelegate"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Protocol",
+    "symbolKind" : "protocol",
+    "title" : "WebSocketClientDelegate"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "protocol"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "WebSocketClientDelegate"
+            },
+            {
+              "kind" : "text",
+              "text" : " : AnyObject"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforming Types",
+      "type" : "conformingTypes"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketClientDelegate\/websocketDidConnect(socket:)",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketClientDelegate\/websocketDidDisconnect(socket:error:)",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketClientDelegate\/websocketDidReceiveData(socket:data:)",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketClientDelegate\/websocketDidReceiveMessage(socket:text:)"
+      ],
+      "title" : "Instance Methods"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollowebsocket\/websocketclientdelegate"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"/documentation/apolloapi/graphqlsubscription": {
+  "identifier" : "\/documentation\/apolloapi\/graphqlsubscription",
+  "title" : "GraphQLSubscription",
+  "titleInlineContent" : [
+    {
+      "code" : "GraphQLSubscription",
+      "type" : "codeVoice"
+    }
+  ],
+  "type" : "link",
+  "url" : "\/documentation\/apolloapi\/graphqlsubscription"
+},
+"doc://ApolloWebSocket/documentation/ApolloWebSocket": {
+  "abstract" : [
+    {
+      "text" : "A web socket network transport implementation that provides support for ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "\/documentation\/apolloapi\/graphqlsubscription",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " operations over a web socket connection.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "ApolloWebSocket",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket"
+},
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketClientDelegate": {
+  "abstract" : [
+    {
+      "text" : "The delegate for a ",
+      "type" : "text"
+    },
+    {
+      "code" : "WebSocketClient",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " to recieve notification of socket events.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "WebSocketClientDelegate"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketClientDelegate",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "WebSocketClientDelegate"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "WebSocketClientDelegate",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/websocketclientdelegate"
+},
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketClientDelegate/websocketDidConnect(socket:)": {
+  "abstract" : [
+    {
+      "text" : "The websocket client has started a connection to the server.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "websocketDidConnect"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "socket"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:15ApolloWebSocket0bC6ClientP",
+      "text" : "WebSocketClient"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketClientDelegate\/websocketDidConnect(socket:)",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "websocketDidConnect(socket:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/websocketclientdelegate\/websocketdidconnect(socket:)"
+},
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketClientDelegate/websocketDidDisconnect(socket:error:)": {
+  "abstract" : [
+    {
+      "text" : "The websocket client has disconnected from the server.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "websocketDidDisconnect"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "socket"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:15ApolloWebSocket0bC6ClientP",
+      "text" : "WebSocketClient"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "error"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s5ErrorP",
+      "text" : "Error"
+    },
+    {
+      "kind" : "text",
+      "text" : "?)"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketClientDelegate\/websocketDidDisconnect(socket:error:)",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "websocketDidDisconnect(socket:error:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/websocketclientdelegate\/websocketdiddisconnect(socket:error:)"
+},
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketClientDelegate/websocketDidReceiveData(socket:data:)": {
+  "abstract" : [
+    {
+      "text" : "The websocket client received data from the server",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "websocketDidReceiveData"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "socket"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:15ApolloWebSocket0bC6ClientP",
+      "text" : "WebSocketClient"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "data"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation4DataV",
+      "text" : "Data"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketClientDelegate\/websocketDidReceiveData(socket:data:)",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "websocketDidReceiveData(socket:data:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/websocketclientdelegate\/websocketdidreceivedata(socket:data:)"
+},
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketClientDelegate/websocketDidReceiveMessage(socket:text:)": {
+  "abstract" : [
+    {
+      "text" : "The websocket client received message text from the server",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "websocketDidReceiveMessage"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "socket"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:15ApolloWebSocket0bC6ClientP",
+      "text" : "WebSocketClient"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "text"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketClientDelegate\/websocketDidReceiveMessage(socket:text:)",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "websocketDidReceiveMessage(socket:text:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/websocketclientdelegate\/websocketdidreceivemessage(socket:text:)"
+},
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport": {
+  "abstract" : [
+    {
+      "text" : "A network transport that uses web sockets requests to send GraphQL subscription operations to a server.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "WebSocketTransport"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "WebSocketTransport"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "WebSocketTransport",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/websockettransport"
+}
+}
+}

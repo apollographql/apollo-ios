@@ -1,0 +1,251 @@
+{
+  "abstract" : [
+    {
+      "text" : "An AST node.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ASTNode"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:16ApolloCodegenLib7ASTNodeC",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "class"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "ASTNode"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "ApolloCodegenLib"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "ASTNode"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Class",
+    "symbolKind" : "class",
+    "title" : "ASTNode"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "class"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "ASTNode"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/JavaScriptObject"
+      ],
+      "kind" : "relationships",
+      "title" : "Inherits From",
+      "type" : "inheritsFrom"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLDocument"
+      ],
+      "kind" : "relationships",
+      "title" : "Inherited By",
+      "type" : "inheritedBy"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/ApolloCodegenLib\/s28CustomDebugStringConvertibleP"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollocodegenlib\/astnode"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib": {
+  "abstract" : [
+    {
+      "text" : "A robust code generation engine for GraphQL operations.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "ApolloCodegenLib",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ASTNode": {
+  "abstract" : [
+    {
+      "text" : "An AST node.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ASTNode"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ASTNode",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ASTNode"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ASTNode",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/astnode"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLDocument": {
+  "abstract" : [
+    {
+      "text" : "A parsed GraphQL document.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLDocument"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLDocument",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLDocument"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphQLDocument",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/graphqldocument"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/JavaScriptObject": {
+  "abstract" : [
+    {
+      "text" : "A type that references an underlying JavaScript object.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "JavaScriptObject"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/JavaScriptObject",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "JavaScriptObject"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "JavaScriptObject",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/javascriptobject"
+},
+"doc://ApolloCodegenLib/s28CustomDebugStringConvertibleP": {
+  "identifier" : "doc:\/\/ApolloCodegenLib\/s28CustomDebugStringConvertibleP",
+  "title" : "Swift.CustomDebugStringConvertible",
+  "type" : "unresolvable"
+}
+}
+}

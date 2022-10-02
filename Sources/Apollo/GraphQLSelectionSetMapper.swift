@@ -1,27 +1,46 @@
-final class GraphQLSelectionSetMapper<SelectionSet: GraphQLSelectionSet>: GraphQLResultAccumulator {
-  func accept(scalar: JSONValue, info: GraphQLResolveInfo) throws -> Any? {
-    guard case .scalar(let decodable) = info.fields[0].type.namedType else { preconditionFailure() }
-    // This will convert a JSON value to the expected value type, which could be a custom scalar or an enum.
-    return try decodable.init(jsonValue: scalar)
+#if !COCOAPODS
+import ApolloAPI
+#endif
+
+/// An accumulator that converts executed data to the correct values to create a `SelectionSet`.
+final class GraphQLSelectionSetMapper<SelectionSet: AnySelectionSet>: GraphQLResultAccumulator {
+  func accept(scalar: JSONValue, info: FieldExecutionInfo) throws -> JSONValue? {
+    switch info.field.type.namedType {
+    case let .scalar(decodable as any JSONDecodable.Type),
+      let .customScalar(decodable as any JSONDecodable.Type):
+      // This will convert a JSON value to the expected value type,
+      // which could be a custom scalar or an enum.
+      return try decodable.init(_jsonValue: scalar)._asAnyHashable
+    default:
+      preconditionFailure()
+    }
   }
 
-  func acceptNullValue(info: GraphQLResolveInfo) -> Any? {
+  func acceptNullValue(info: FieldExecutionInfo) -> JSONValue? {
     return nil
   }
 
-  func accept(list: [Any?], info: GraphQLResolveInfo) -> Any? {
+  func accept(list: [JSONValue?], info: FieldExecutionInfo) -> JSONValue? {
     return list
   }
 
-  func accept(fieldEntry: Any?, info: GraphQLResolveInfo) -> (key: String, value: Any?) {
+  func accept(childObject: JSONObject, info: FieldExecutionInfo) throws -> JSONValue? {
+    return childObject
+  }
+
+  func accept(fieldEntry: JSONValue?, info: FieldExecutionInfo) -> (key: String, value: JSONValue)? {
+    guard let fieldEntry = fieldEntry else { return nil }
     return (info.responseKeyForField, fieldEntry)
   }
 
-  func accept(fieldEntries: [(key: String, value: Any?)], info: GraphQLResolveInfo) throws -> ResultMap {
-    return ResultMap(fieldEntries, uniquingKeysWith: { (_, last) in last })
+  func accept(
+    fieldEntries: [(key: String, value: JSONValue)],
+    info: ObjectExecutionInfo
+  ) throws -> JSONObject {
+    return .init(fieldEntries, uniquingKeysWith: { (_, last) in last })
   }
 
-  func finish(rootValue: ResultMap, info: GraphQLResolveInfo) -> SelectionSet {
-    return SelectionSet.init(unsafeResultMap: rootValue)
+  func finish(rootValue: JSONObject, info: ObjectExecutionInfo) -> SelectionSet {
+    return SelectionSet.init(data: DataDict(rootValue, variables: info.variables))
   }
 }

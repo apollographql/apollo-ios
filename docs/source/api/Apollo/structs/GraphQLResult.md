@@ -3,7 +3,7 @@
 # `GraphQLResult`
 
 ```swift
-public struct GraphQLResult<Data>
+public struct GraphQLResult<Data: RootSelectionSet>
 ```
 
 Represents the result of a GraphQL operation.
@@ -28,7 +28,7 @@ A list of errors, or `nil` if the operation completed without encountering any e
 ### `extensions`
 
 ```swift
-public let extensions: [String: Any]?
+public let extensions: [String: AnyHashable]?
 ```
 
 A dictionary which services can use however they see fit to provide additional information to clients.
@@ -46,7 +46,7 @@ Source of data
 
 ```swift
 public init(data: Data?,
-            extensions: [String: Any]?,
+            extensions: [String: AnyHashable]?,
             errors: [GraphQLError]?,
             source: Source,
             dependentKeys: Set<CacheKey>?)

@@ -1,13 +1,6 @@
-//
-//  BlindRetryingTestInterceptor.swift
-//  ApolloTests
-//
-//  Created by Ellen Shapiro on 8/19/20.
-//  Copyright © 2020 Apollo GraphQL. All rights reserved.
-//
-
 import Foundation
 import Apollo
+import ApolloAPI
 
 // An interceptor which blindly retries every time it receives a request. 
 class BlindRetryingTestInterceptor: ApolloInterceptor {

@@ -1,0 +1,624 @@
+{
+  "abstract" : [
+    {
+      "text" : "The output of the frontend compiler.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:16ApolloCodegenLib17CompilationResultC",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "class"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "CompilationResult"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "ApolloCodegenLib"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "CompilationResult"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Class",
+    "symbolKind" : "class",
+    "title" : "CompilationResult"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "class"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "CompilationResult"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/JavaScriptObject"
+      ],
+      "kind" : "relationships",
+      "title" : "Inherits From",
+      "type" : "inheritsFrom"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/ApolloCodegenLib\/s28CustomDebugStringConvertibleP"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/Argument",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/Directive",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/Field",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/FragmentDefinition",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/FragmentSpread",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/InlineFragment",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/OperationDefinition",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/SelectionSet",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/VariableDefinition"
+      ],
+      "title" : "Classes"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/InclusionCondition",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/OperationType",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/Selection"
+      ],
+      "title" : "Enumerations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollocodegenlib\/compilationresult"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib": {
+  "abstract" : [
+    {
+      "text" : "A robust code generation engine for GraphQL operations.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "ApolloCodegenLib",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CompilationResult": {
+  "abstract" : [
+    {
+      "text" : "The output of the frontend compiler.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CompilationResult"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CompilationResult"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CompilationResult",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/compilationresult"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CompilationResult/Argument": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Argument"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/Argument",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Argument"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CompilationResult.Argument",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/compilationresult\/argument"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CompilationResult/Directive": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Directive"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/Directive",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Directive"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CompilationResult.Directive",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/compilationresult\/directive"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CompilationResult/Field": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Field"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/Field",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Field"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CompilationResult.Field",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/compilationresult\/field"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CompilationResult/FragmentDefinition": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FragmentDefinition"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/FragmentDefinition",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FragmentDefinition"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CompilationResult.FragmentDefinition",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/compilationresult\/fragmentdefinition"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CompilationResult/FragmentSpread": {
+  "abstract" : [
+    {
+      "text" : "Represents an individual selection that includes a named fragment in a selection set.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "(ie. ",
+      "type" : "text"
+    },
+    {
+      "code" : "...FragmentName",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ")",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FragmentSpread"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/FragmentSpread",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FragmentSpread"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CompilationResult.FragmentSpread",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/compilationresult\/fragmentspread"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CompilationResult/InclusionCondition": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "InclusionCondition"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/InclusionCondition",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "InclusionCondition"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CompilationResult.InclusionCondition",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/compilationresult\/inclusioncondition"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CompilationResult/InlineFragment": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "InlineFragment"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/InlineFragment",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "InlineFragment"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CompilationResult.InlineFragment",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/compilationresult\/inlinefragment"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CompilationResult/OperationDefinition": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "OperationDefinition"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/OperationDefinition",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "OperationDefinition"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CompilationResult.OperationDefinition",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/compilationresult\/operationdefinition"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CompilationResult/OperationType": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "OperationType"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/OperationType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "OperationType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CompilationResult.OperationType",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/compilationresult\/operationtype"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CompilationResult/Selection": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Selection"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/Selection",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Selection"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CompilationResult.Selection",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/compilationresult\/selection"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CompilationResult/SelectionSet": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SelectionSet"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/SelectionSet",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SelectionSet"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CompilationResult.SelectionSet",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/compilationresult\/selectionset"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CompilationResult/VariableDefinition": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "VariableDefinition"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/VariableDefinition",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "VariableDefinition"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CompilationResult.VariableDefinition",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/compilationresult\/variabledefinition"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/JavaScriptObject": {
+  "abstract" : [
+    {
+      "text" : "A type that references an underlying JavaScript object.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "JavaScriptObject"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/JavaScriptObject",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "JavaScriptObject"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "JavaScriptObject",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/javascriptobject"
+},
+"doc://ApolloCodegenLib/s28CustomDebugStringConvertibleP": {
+  "identifier" : "doc:\/\/ApolloCodegenLib\/s28CustomDebugStringConvertibleP",
+  "title" : "Swift.CustomDebugStringConvertible",
+  "type" : "unresolvable"
+}
+}
+}

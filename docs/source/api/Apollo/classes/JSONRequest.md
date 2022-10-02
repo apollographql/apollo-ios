@@ -42,7 +42,7 @@ public var isPersistedQueryRetry = false
 ### `body`
 
 ```swift
-public var body: GraphQLMap
+public var body: JSONEncodableDictionary
 ```
 
 ### `serializationFormat`
@@ -51,27 +51,23 @@ public var body: GraphQLMap
 public let serializationFormat = JSONSerializationFormat.self
 ```
 
-### `sendOperationIdentifier`
-
-```swift
-open var sendOperationIdentifier: Bool
-```
-
 ## Methods
 ### `init(operation:graphQLEndpoint:contextIdentifier:clientName:clientVersion:additionalHeaders:cachePolicy:autoPersistQueries:useGETForQueries:useGETForPersistedQueryRetry:requestBodyCreator:)`
 
 ```swift
-public init(operation: Operation,
-            graphQLEndpoint: URL,
-            contextIdentifier: UUID? = nil,
-            clientName: String,
-            clientVersion: String,
-            additionalHeaders: [String: String] = [:],
-            cachePolicy: CachePolicy = .default,
-            autoPersistQueries: Bool = false,
-            useGETForQueries: Bool = false,
-            useGETForPersistedQueryRetry: Bool = false,
-            requestBodyCreator: RequestBodyCreator = ApolloRequestBodyCreator())
+public init(
+  operation: Operation,
+  graphQLEndpoint: URL,
+  contextIdentifier: UUID? = nil,
+  clientName: String,
+  clientVersion: String,
+  additionalHeaders: [String: String] = [:],
+  cachePolicy: CachePolicy = .default,
+  autoPersistQueries: Bool = false,
+  useGETForQueries: Bool = false,
+  useGETForPersistedQueryRetry: Bool = false,
+  requestBodyCreator: RequestBodyCreator = ApolloRequestBodyCreator()
+)
 ```
 
 Designated initializer
@@ -109,4 +105,16 @@ Designated initializer
 
 ```swift
 open override func toURLRequest() throws -> URLRequest
+```
+
+### `==(_:_:)`
+
+```swift
+public static func == (lhs: JSONRequest<Operation>, rhs: JSONRequest<Operation>) -> Bool
+```
+
+### `hash(into:)`
+
+```swift
+public override func hash(into hasher: inout Hasher)
 ```

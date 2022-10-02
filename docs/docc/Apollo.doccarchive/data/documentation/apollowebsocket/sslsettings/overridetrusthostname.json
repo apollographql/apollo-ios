@@ -1,0 +1,211 @@
+{
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLSettings"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLSettings\/overrideTrustHostname"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:15ApolloWebSocket11SSLSettingsV21overrideTrustHostnameSbvp",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "var"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "overrideTrustHostname"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:Sb",
+        "text" : "Bool"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "ApolloWebSocket"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Instance Property",
+    "symbolKind" : "property",
+    "title" : "overrideTrustHostname"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "var"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "overrideTrustHostname"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:Sb",
+              "text" : "Bool"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollowebsocket\/sslsettings\/overridetrusthostname"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"/documentation/apolloapi/graphqlsubscription": {
+  "identifier" : "\/documentation\/apolloapi\/graphqlsubscription",
+  "title" : "GraphQLSubscription",
+  "titleInlineContent" : [
+    {
+      "code" : "GraphQLSubscription",
+      "type" : "codeVoice"
+    }
+  ],
+  "type" : "link",
+  "url" : "\/documentation\/apolloapi\/graphqlsubscription"
+},
+"doc://ApolloWebSocket/documentation/ApolloWebSocket": {
+  "abstract" : [
+    {
+      "text" : "A web socket network transport implementation that provides support for ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "\/documentation\/apolloapi\/graphqlsubscription",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " operations over a web socket connection.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "ApolloWebSocket",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket"
+},
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SSLSettings": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SSLSettings"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLSettings",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SSLSettings"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SSLSettings",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/sslsettings"
+},
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SSLSettings/overrideTrustHostname": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "overrideTrustHostname"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLSettings\/overrideTrustHostname",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "overrideTrustHostname",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/sslsettings\/overridetrusthostname"
+}
+}
+}

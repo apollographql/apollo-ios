@@ -1,21 +1,19 @@
-import Apollo
-import ApolloTestSupport
-import StarWarsAPI
+@testable import Apollo
+import ApolloAPI
+import ApolloInternalTestHelpers
 import XCTest
+import Nimble
 
-final class ApolloClientOperationTests: XCTestCase, CacheDependentTesting, StoreLoading {
-  var cacheType: TestCacheProvider.Type { InMemoryTestCacheProvider.self }
+final class ApolloClientOperationTests: XCTestCase {
 
-  var cache: NormalizedCache!
-  var store: ApolloStore!
+  var store: MockStore!
   var server: MockGraphQLServer!
   var client: ApolloClient!
 
   override func setUpWithError() throws {
     try super.setUpWithError()
 
-    self.cache = try self.makeNormalizedCache()
-    self.store = ApolloStore(cache: cache)
+    self.store = MockStore()
     self.server = MockGraphQLServer()
     self.client = ApolloClient(
       networkTransport: MockNetworkTransport(server: self.server, store: self.store),
@@ -23,8 +21,7 @@ final class ApolloClientOperationTests: XCTestCase, CacheDependentTesting, Store
     )
   }
 
-  override func tearDownWithError() throws {
-    self.cache = nil
+  override func tearDownWithError() throws {    
     self.store = nil
     self.server = nil
     self.client = nil
@@ -32,11 +29,38 @@ final class ApolloClientOperationTests: XCTestCase, CacheDependentTesting, Store
     try super.tearDownWithError()
   }
 
-  func testPerformMutationRespectsPublishResultToStoreBoolean() throws {
-    let mutation = CreateReviewForEpisodeMutation(episode: .newhope, review: .init(stars: 3))
+  class MockStore: ApolloStore {
+    var publishedRecordSets: [RecordSet] = []
+
+    init() {
+      super.init(cache: NoCache())
+    }
+
+    override func publish(records: RecordSet, identifier: UUID? = nil, callbackQueue: DispatchQueue = .main, completion: ((Result<Void, Swift.Error>) -> Void)? = nil) {
+      publishedRecordSets.append(records)
+    }
+  }
+
+  func test__performMutation_givenPublishResultToStore_false_doesNotPublishResultsToStore() throws {
+    // given
+    class GivenSelectionSet: MockSelectionSet {
+      override class var __selections: [Selection] { [
+        .field("createReview", CreateReview.self,
+               arguments: ["episode": .variable("episode"), "review": .variable("review")])
+      ] }
+
+      class CreateReview: MockSelectionSet {
+        override class var __selections: [Selection] { [
+          .field("__typename", String.self),
+          .field("stars", Int.self),
+          .field("commentary", String?.self)
+        ] }
+      }
+    }
+    let mutation = MockMutation<GivenSelectionSet>()
     let resultObserver = self.makeResultObserver(for: mutation)
 
-    let serverRequestExpectation = self.server.expect(CreateReviewForEpisodeMutation.self) { _ in
+    let serverRequestExpectation = self.server.expect(MockMutation<GivenSelectionSet>.self) { _ in
       [
         "data": [
           "createReview": [
@@ -47,27 +71,18 @@ final class ApolloClientOperationTests: XCTestCase, CacheDependentTesting, Store
         ]
       ]
     }
-    let performResultFromServerExpectation = resultObserver.expectation(description: "Mutation was successful") { _ in }
 
-    self.client.perform(mutation: mutation, publishResultToStore: false, resultHandler: resultObserver.handler)
+    let performResultFromServerExpectation =
+      resultObserver.expectation(description: "Mutation was successful") { _ in }
 
-    self.loadFromStore(query: mutation) {
-      try XCTAssertFailureResult($0) { error in
-        switch error as? JSONDecodingError {
-        // expected case, nothing to do
-        case .missingValue:
-          break
+    // when
+    self.client.perform(mutation: mutation,
+                        publishResultToStore: false,
+                        resultHandler: resultObserver.handler)
 
-        // unexpected error, rethrow
-        case .none:
-          throw error
+    self.wait(for: [serverRequestExpectation, performResultFromServerExpectation], timeout: 0.2)
 
-        default:
-          XCTFail("Unexpected json error: \(error)")
-        }
-      }
-    }
-
-    self.wait(for: [serverRequestExpectation, performResultFromServerExpectation], timeout: Self.defaultWaitTimeout)
+    // then
+    expect(self.store.publishedRecordSets).to(beEmpty())
   }
 }

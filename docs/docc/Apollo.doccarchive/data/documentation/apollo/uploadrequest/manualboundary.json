@@ -1,0 +1,205 @@
+{
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/UploadRequest"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/UploadRequest\/manualBoundary"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:6Apollo13UploadRequestC14manualBoundarySSSgvp",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "let"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "manualBoundary"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:SS",
+        "text" : "String"
+      },
+      {
+        "kind" : "text",
+        "text" : "?"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Apollo"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Instance Property",
+    "symbolKind" : "property",
+    "title" : "manualBoundary"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "let"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "manualBoundary"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:SS",
+              "text" : "String"
+            },
+            {
+              "kind" : "text",
+              "text" : "?"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollo\/uploadrequest\/manualboundary"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Apollo/documentation/Apollo": {
+  "abstract" : [
+    {
+      "text" : "A Strongly typed, Swift-first, GraphQL client.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Apollo",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo"
+},
+"doc://Apollo/documentation/Apollo/UploadRequest": {
+  "abstract" : [
+    {
+      "text" : "A request class allowing for a multipart-upload request.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "UploadRequest"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/UploadRequest",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "UploadRequest"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "UploadRequest",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/uploadrequest"
+},
+"doc://Apollo/documentation/Apollo/UploadRequest/manualBoundary": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "manualBoundary"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/UploadRequest\/manualBoundary",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "manualBoundary",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/uploadrequest\/manualboundary"
+}
+}
+}

@@ -1,0 +1,636 @@
+{
+  "abstract" : [
+    {
+      "text" : "An protocol for a struct that represents a GraphQL Input Object.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputObject"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:9ApolloAPI11InputObjectP",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "protocol"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "InputObject"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "ApolloAPI"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "InputObject"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Protocol",
+    "symbolKind" : "protocol",
+    "title" : "InputObject"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "protocol"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "InputObject"
+            },
+            {
+              "kind" : "text",
+              "text" : " : "
+            },
+            {
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperationVariableValue",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:9ApolloAPI29GraphQLOperationVariableValueP",
+              "text" : "GraphQLOperationVariableValue"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONEncodable",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:9ApolloAPI13JSONEncodableP",
+              "text" : "JSONEncodable"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:SH",
+              "text" : "Hashable"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "See-Also",
+          "level" : 1,
+          "text" : "See Also",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "identifier" : "https:\/\/spec.graphql.org\/draft\/#sec-Input-Objects",
+              "isActive" : true,
+              "type" : "reference"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperationVariableValue",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONEncodable",
+        "doc:\/\/ApolloAPI\/SQ",
+        "doc:\/\/ApolloAPI\/SH"
+      ],
+      "kind" : "relationships",
+      "title" : "Inherits From",
+      "type" : "inheritsFrom"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "seeAlsoSections" : [
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Object",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Interface",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Union",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/EnumType"
+      ],
+      "title" : "Schema Types"
+    }
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputObject\/jsonEncodableValue"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputObject\/Equatable-Implementations",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputObject\/Hashable-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apolloapi\/inputobject"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"/documentation/apollo": {
+  "identifier" : "\/documentation\/apollo",
+  "title" : "Apollo",
+  "titleInlineContent" : [
+    {
+      "code" : "Apollo",
+      "type" : "codeVoice"
+    }
+  ],
+  "type" : "link",
+  "url" : "\/documentation\/apollo"
+},
+"/documentation/apollocodegenlib": {
+  "identifier" : "\/documentation\/apollocodegenlib",
+  "title" : "ApolloCodegenLib",
+  "titleInlineContent" : [
+    {
+      "code" : "ApolloCodegenLib",
+      "type" : "codeVoice"
+    }
+  ],
+  "type" : "link",
+  "url" : "\/documentation\/apollocodegenlib"
+},
+"doc://ApolloAPI/SH": {
+  "identifier" : "doc:\/\/ApolloAPI\/SH",
+  "title" : "Swift.Hashable",
+  "type" : "unresolvable"
+},
+"doc://ApolloAPI/SQ": {
+  "identifier" : "doc:\/\/ApolloAPI\/SQ",
+  "title" : "Swift.Equatable",
+  "type" : "unresolvable"
+},
+"doc://ApolloAPI/documentation/ApolloAPI": {
+  "abstract" : [
+    {
+      "text" : "The internal models shared by the ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "\/documentation\/apollo",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " client and the models generated by ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "\/documentation\/apollocodegenlib",
+      "isActive" : true,
+      "type" : "reference"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "ApolloAPI",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/EnumType": {
+  "abstract" : [
+    {
+      "text" : "A protocol that an enum in a generated GraphQL schema conforms to.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "EnumType"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/EnumType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "EnumType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "EnumType",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/enumtype"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLOperationVariableValue": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLOperationVariableValue"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperationVariableValue",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLOperationVariableValue"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphQLOperationVariableValue",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/graphqloperationvariablevalue"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/InputObject": {
+  "abstract" : [
+    {
+      "text" : "An protocol for a struct that represents a GraphQL Input Object.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "InputObject"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputObject",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "InputObject"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "InputObject",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/inputobject"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/InputObject/Equatable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputObject\/Equatable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Equatable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/inputobject\/equatable-implementations"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/InputObject/Hashable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputObject\/Hashable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Hashable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/inputobject\/hashable-implementations"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/InputObject/jsonEncodableValue": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "jsonEncodableValue"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI13JSONEncodableP",
+      "text" : "JSONEncodable"
+    },
+    {
+      "kind" : "text",
+      "text" : ")?"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputObject\/jsonEncodableValue",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "jsonEncodableValue",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/inputobject\/jsonencodablevalue"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/Interface": {
+  "abstract" : [
+    {
+      "text" : "Represents an ",
+      "type" : "text"
+    },
+    {
+      "code" : "interface",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " type in a generated GraphQL schema.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Interface"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Interface",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Interface"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Interface",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/interface"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/JSONEncodable": {
+  "abstract" : [
+    {
+      "text" : "A protocol for a type that can be converted into a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONValue",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "JSONEncodable"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONEncodable",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "JSONEncodable"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "JSONEncodable",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/jsonencodable"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/JSONValue": {
+  "abstract" : [
+    {
+      "text" : "Represents a value in a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONObject",
+      "isActive" : true,
+      "type" : "reference"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "JSONValue"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONValue",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "JSONValue"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "JSONValue",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/jsonvalue"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/Object": {
+  "abstract" : [
+    {
+      "text" : "Represents an object ",
+      "type" : "text"
+    },
+    {
+      "code" : "type",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " in a generated GraphQL schema.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Object"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Object",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Object"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Object",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/object"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/Union": {
+  "abstract" : [
+    {
+      "text" : "Represents a ",
+      "type" : "text"
+    },
+    {
+      "code" : "union",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " type in a generated GraphQL schema.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Union"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Union",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Union"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Union",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/union"
+},
+"https://spec.graphql.org/draft/#sec-Input-Objects": {
+  "identifier" : "https:\/\/spec.graphql.org\/draft\/#sec-Input-Objects",
+  "title" : "GraphQLSpec - Input Objects",
+  "titleInlineContent" : [
+    {
+      "text" : "GraphQLSpec - Input Objects",
+      "type" : "text"
+    }
+  ],
+  "type" : "link",
+  "url" : "https:\/\/spec.graphql.org\/draft\/#sec-Input-Objects"
+}
+}
+}

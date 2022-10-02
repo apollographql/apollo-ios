@@ -1,0 +1,323 @@
+{
+  "defaultImplementationsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransportDelegate\/webSocketTransportDidReconnect(_:)-7orv7"
+      ],
+      "title" : "WebSocketTransportDelegate Implementations"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransportDelegate"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransportDelegate\/webSocketTransportDidReconnect(_:)-43yds"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:15ApolloWebSocket0bC17TransportDelegateP03webcD12DidReconnectyyAA0bcD0CF",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "func"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "webSocketTransportDidReconnect"
+      },
+      {
+        "kind" : "text",
+        "text" : "("
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:15ApolloWebSocket0bC9TransportC",
+        "text" : "WebSocketTransport"
+      },
+      {
+        "kind" : "text",
+        "text" : ")"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "ApolloWebSocket"
+      }
+    ],
+    "required" : true,
+    "role" : "symbol",
+    "roleHeading" : "Instance Method",
+    "symbolKind" : "method",
+    "title" : "webSocketTransportDidReconnect(_:)"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "func"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "webSocketTransportDidReconnect"
+            },
+            {
+              "kind" : "text",
+              "text" : "("
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "_"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "internalParam",
+              "text" : "webSocketTransport"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:15ApolloWebSocket0bC9TransportC",
+              "text" : "WebSocketTransport"
+            },
+            {
+              "kind" : "text",
+              "text" : ")"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollowebsocket\/websockettransportdelegate\/websockettransportdidreconnect(_:)-43yds"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"/documentation/apolloapi/graphqlsubscription": {
+  "identifier" : "\/documentation\/apolloapi\/graphqlsubscription",
+  "title" : "GraphQLSubscription",
+  "titleInlineContent" : [
+    {
+      "code" : "GraphQLSubscription",
+      "type" : "codeVoice"
+    }
+  ],
+  "type" : "link",
+  "url" : "\/documentation\/apolloapi\/graphqlsubscription"
+},
+"doc://ApolloWebSocket/documentation/ApolloWebSocket": {
+  "abstract" : [
+    {
+      "text" : "A web socket network transport implementation that provides support for ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "\/documentation\/apolloapi\/graphqlsubscription",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " operations over a web socket connection.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "ApolloWebSocket",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket"
+},
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport": {
+  "abstract" : [
+    {
+      "text" : "A network transport that uses web sockets requests to send GraphQL subscription operations to a server.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "WebSocketTransport"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "WebSocketTransport"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "WebSocketTransport",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/websockettransport"
+},
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransportDelegate": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "WebSocketTransportDelegate"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransportDelegate",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "WebSocketTransportDelegate"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "WebSocketTransportDelegate",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/websockettransportdelegate"
+},
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransportDelegate/webSocketTransportDidReconnect(_:)-43yds": {
+  "abstract" : [
+
+  ],
+  "defaultImplementations" : 1,
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "webSocketTransportDidReconnect"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:15ApolloWebSocket0bC9TransportC",
+      "text" : "WebSocketTransport"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransportDelegate\/webSocketTransportDidReconnect(_:)-43yds",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "webSocketTransportDidReconnect(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/websockettransportdelegate\/websockettransportdidreconnect(_:)-43yds"
+},
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransportDelegate/webSocketTransportDidReconnect(_:)-7orv7": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "webSocketTransportDidReconnect"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:15ApolloWebSocket0bC9TransportC",
+      "text" : "WebSocketTransport"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransportDelegate\/webSocketTransportDidReconnect(_:)-7orv7",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "webSocketTransportDidReconnect(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/websockettransportdelegate\/websockettransportdidreconnect(_:)-7orv7"
+}
+}
+}

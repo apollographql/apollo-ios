@@ -3,7 +3,7 @@
 # `RecordSet`
 
 ```swift
-public struct RecordSet
+public struct RecordSet: Hashable
 ```
 
 A set of cache records.

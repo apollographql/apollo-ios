@@ -1,0 +1,334 @@
+{
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/TaskData"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/TaskData\/completionBlock"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:6Apollo8TaskDataC15completionBlockyys6ResultOy10Foundation0C0V_So17NSHTTPURLResponseCts5Error_pGcvp",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "let"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "completionBlock"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "c:@M@Apollo@objc(cs)URLSessionClient",
+        "text" : "URLSessionClient"
+      },
+      {
+        "kind" : "text",
+        "text" : "."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:6Apollo16URLSessionClientC10Completiona",
+        "text" : "Completion"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Apollo"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Instance Property",
+    "symbolKind" : "property",
+    "title" : "completionBlock"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "let"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "completionBlock"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "c:@M@Apollo@objc(cs)URLSessionClient",
+              "text" : "URLSessionClient"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/Completion",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:6Apollo16URLSessionClientC10Completiona",
+              "text" : "Completion"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollo\/taskdata\/completionblock"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Apollo/documentation/Apollo": {
+  "abstract" : [
+    {
+      "text" : "A Strongly typed, Swift-first, GraphQL client.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Apollo",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo"
+},
+"doc://Apollo/documentation/Apollo/TaskData": {
+  "abstract" : [
+    {
+      "text" : "A wrapper for data about a particular task handled by ",
+      "type" : "text"
+    },
+    {
+      "code" : "URLSessionClient",
+      "type" : "codeVoice"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "TaskData"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/TaskData",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "TaskData"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "TaskData",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/taskdata"
+},
+"doc://Apollo/documentation/Apollo/TaskData/completionBlock": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "completionBlock"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:@M@Apollo@objc(cs)URLSessionClient",
+      "text" : "URLSessionClient"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo16URLSessionClientC10Completiona",
+      "text" : "Completion"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/TaskData\/completionBlock",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "completionBlock",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/taskdata\/completionblock"
+},
+"doc://Apollo/documentation/Apollo/URLSessionClient": {
+  "abstract" : [
+    {
+      "text" : "A class to handle URL Session calls that will support background execution,",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "but still (mostly) use callbacks for its primary method of communication.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "URLSessionClient"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "URLSessionClient"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "URLSessionClient",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/urlsessionclient"
+},
+"doc://Apollo/documentation/Apollo/URLSessionClient/Completion": {
+  "abstract" : [
+    {
+      "text" : "A completion block returning a result. On ",
+      "type" : "text"
+    },
+    {
+      "code" : ".success",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " it will contain a tuple with non-nil ",
+      "type" : "text"
+    },
+    {
+      "code" : "Data",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " and its corresponding ",
+      "type" : "text"
+    },
+    {
+      "code" : "HTTPURLResponse",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ". On ",
+      "type" : "text"
+    },
+    {
+      "code" : ".failure",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " it will contain an error.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Completion"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/Completion",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Completion"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "URLSessionClient.Completion",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/urlsessionclient\/completion"
+}
+}
+}

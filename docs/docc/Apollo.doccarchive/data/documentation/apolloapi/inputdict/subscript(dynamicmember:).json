@@ -1,0 +1,372 @@
+{
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputDict"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputDict\/subscript(dynamicMember:)"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:9ApolloAPI9InputDictV13dynamicMemberxs12StaticStringV_tcAA29GraphQLOperationVariableValueRzluip",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "subscript"
+      },
+      {
+        "kind" : "text",
+        "text" : "<"
+      },
+      {
+        "kind" : "genericParameter",
+        "text" : "T"
+      },
+      {
+        "kind" : "text",
+        "text" : ">("
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "dynamicMember"
+      },
+      {
+        "kind" : "text",
+        "text" : " _: "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:s12StaticStringV",
+        "text" : "StaticString"
+      },
+      {
+        "kind" : "text",
+        "text" : ") -> "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "T"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "ApolloAPI"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Instance Subscript",
+    "symbolKind" : "subscript",
+    "title" : "subscript(dynamicMember:)"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "subscript"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "genericParameter",
+              "text" : "T"
+            },
+            {
+              "kind" : "text",
+              "text" : ">("
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "dynamicMember"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "internalParam",
+              "text" : "key"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:s12StaticStringV",
+              "text" : "StaticString"
+            },
+            {
+              "kind" : "text",
+              "text" : ") -> "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "T"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "where"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "T"
+            },
+            {
+              "kind" : "text",
+              "text" : " : "
+            },
+            {
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperationVariableValue",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:9ApolloAPI29GraphQLOperationVariableValueP",
+              "text" : "GraphQLOperationVariableValue"
+            },
+            {
+              "kind" : "text",
+              "text" : " { "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "get"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "set"
+            },
+            {
+              "kind" : "text",
+              "text" : " }"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apolloapi\/inputdict\/subscript(dynamicmember:)"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"/documentation/apollo": {
+  "identifier" : "\/documentation\/apollo",
+  "title" : "Apollo",
+  "titleInlineContent" : [
+    {
+      "code" : "Apollo",
+      "type" : "codeVoice"
+    }
+  ],
+  "type" : "link",
+  "url" : "\/documentation\/apollo"
+},
+"/documentation/apollocodegenlib": {
+  "identifier" : "\/documentation\/apollocodegenlib",
+  "title" : "ApolloCodegenLib",
+  "titleInlineContent" : [
+    {
+      "code" : "ApolloCodegenLib",
+      "type" : "codeVoice"
+    }
+  ],
+  "type" : "link",
+  "url" : "\/documentation\/apollocodegenlib"
+},
+"doc://ApolloAPI/documentation/ApolloAPI": {
+  "abstract" : [
+    {
+      "text" : "The internal models shared by the ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "\/documentation\/apollo",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " client and the models generated by ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "\/documentation\/apollocodegenlib",
+      "isActive" : true,
+      "type" : "reference"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "ApolloAPI",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLOperationVariableValue": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLOperationVariableValue"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperationVariableValue",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLOperationVariableValue"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphQLOperationVariableValue",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/graphqloperationvariablevalue"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/InputDict": {
+  "abstract" : [
+    {
+      "text" : "A structure that wraps the underlying data dictionary used by ",
+      "type" : "text"
+    },
+    {
+      "code" : "InputObject",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : "s.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "InputDict"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputDict",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "InputDict"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "InputDict",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/inputdict"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/InputDict/subscript(dynamicMember:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "subscript"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "dynamicMember"
+    },
+    {
+      "kind" : "text",
+      "text" : " _: "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s12StaticStringV",
+      "text" : "StaticString"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputDict\/subscript(dynamicMember:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "subscript(dynamicMember:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/inputdict\/subscript(dynamicmember:)"
+}
+}
+}

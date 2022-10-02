@@ -1,0 +1,379 @@
+{
+  "abstract" : [
+    {
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "ExpressibleByIntegerLiteral.init(integerLiteral:)",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/ExpressibleByIntegerLiteral-Implementations"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/init(integerLiteral:)"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "conformance" : {
+      "availabilityPrefix" : [
+        {
+          "text" : "Available when",
+          "type" : "text"
+        }
+      ],
+      "conformancePrefix" : [
+        {
+          "text" : "Conforms when",
+          "type" : "text"
+        }
+      ],
+      "constraints" : [
+        {
+          "code" : "Wrapped",
+          "type" : "codeVoice"
+        },
+        {
+          "text" : " conforms to ",
+          "type" : "text"
+        },
+        {
+          "code" : "ExpressibleByIntegerLiteral",
+          "type" : "codeVoice"
+        },
+        {
+          "text" : ".",
+          "type" : "text"
+        }
+      ]
+    },
+    "extendedModule" : "ApolloAPI",
+    "externalID" : "s:9ApolloAPI15GraphQLNullableOAAs27ExpressibleByIntegerLiteralRzlE07integerH0ACyxG0gH4TypeQz_tcfc",
+    "fragments" : [
+      {
+        "kind" : "identifier",
+        "text" : "init"
+      },
+      {
+        "kind" : "text",
+        "text" : "("
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "integerLiteral"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "Wrapped"
+      },
+      {
+        "kind" : "text",
+        "text" : "."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "IntegerLiteralType"
+      },
+      {
+        "kind" : "text",
+        "text" : ")"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "ApolloAPI"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Initializer",
+    "symbolKind" : "init",
+    "title" : "init(integerLiteral:)"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "init"
+            },
+            {
+              "kind" : "text",
+              "text" : "("
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "integerLiteral"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "internalParam",
+              "text" : "value"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Wrapped"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "IntegerLiteralType"
+            },
+            {
+              "kind" : "text",
+              "text" : ")"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apolloapi\/graphqlnullable\/init(integerliteral:)"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"/documentation/apollo": {
+  "identifier" : "\/documentation\/apollo",
+  "title" : "Apollo",
+  "titleInlineContent" : [
+    {
+      "code" : "Apollo",
+      "type" : "codeVoice"
+    }
+  ],
+  "type" : "link",
+  "url" : "\/documentation\/apollo"
+},
+"/documentation/apollocodegenlib": {
+  "identifier" : "\/documentation\/apollocodegenlib",
+  "title" : "ApolloCodegenLib",
+  "titleInlineContent" : [
+    {
+      "code" : "ApolloCodegenLib",
+      "type" : "codeVoice"
+    }
+  ],
+  "type" : "link",
+  "url" : "\/documentation\/apollocodegenlib"
+},
+"doc://ApolloAPI/documentation/ApolloAPI": {
+  "abstract" : [
+    {
+      "text" : "The internal models shared by the ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "\/documentation\/apollo",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " client and the models generated by ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "\/documentation\/apollocodegenlib",
+      "isActive" : true,
+      "type" : "reference"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "ApolloAPI",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLNullable": {
+  "abstract" : [
+    {
+      "text" : "Indicates the presence of a value, supporting both ",
+      "type" : "text"
+    },
+    {
+      "code" : "nil",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " and ",
+      "type" : "text"
+    },
+    {
+      "code" : "null",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " values.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLNullable"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLNullable"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphQLNullable",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/graphqlnullable"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLNullable/ExpressibleByIntegerLiteral-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/ExpressibleByIntegerLiteral-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "ExpressibleByIntegerLiteral Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/graphqlnullable\/expressiblebyintegerliteral-implementations"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLNullable/init(integerLiteral:)": {
+  "abstract" : [
+
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "Wrapped",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "ExpressibleByIntegerLiteral",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "integerLiteral"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Wrapped"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "IntegerLiteralType"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/init(integerLiteral:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(integerLiteral:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/graphqlnullable\/init(integerliteral:)"
+}
+}
+}

@@ -1,0 +1,272 @@
+{
+  "abstract" : [
+    {
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "LocalizedError.helpAnchor",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/GraphQLFileError",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/GraphQLFileError\/LocalizedError-Implementations"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/GraphQLFileError\/helpAnchor"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "extendedModule" : "Foundation",
+    "externalID" : "s:10Foundation14LocalizedErrorPAAE10helpAnchorSSSgvp::SYNTHESIZED::s:6Apollo11GraphQLFileV0bC5ErrorO",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "var"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "helpAnchor"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:SS",
+        "text" : "String"
+      },
+      {
+        "kind" : "text",
+        "text" : "?"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Apollo"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Instance Property",
+    "symbolKind" : "property",
+    "title" : "helpAnchor"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "var"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "helpAnchor"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:SS",
+              "text" : "String"
+            },
+            {
+              "kind" : "text",
+              "text" : "? { "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "get"
+            },
+            {
+              "kind" : "text",
+              "text" : " }"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollo\/graphqlfile\/graphqlfileerror\/helpanchor"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Apollo/documentation/Apollo": {
+  "abstract" : [
+    {
+      "text" : "A Strongly typed, Swift-first, GraphQL client.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Apollo",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo"
+},
+"doc://Apollo/documentation/Apollo/GraphQLFile": {
+  "abstract" : [
+    {
+      "text" : "A file which can be uploaded to a GraphQL server",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLFile"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLFile"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphQLFile",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/graphqlfile"
+},
+"doc://Apollo/documentation/Apollo/GraphQLFile/GraphQLFileError": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLFileError"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/GraphQLFileError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLFileError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphQLFile.GraphQLFileError",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/graphqlfile\/graphqlfileerror"
+},
+"doc://Apollo/documentation/Apollo/GraphQLFile/GraphQLFileError/LocalizedError-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/GraphQLFileError\/LocalizedError-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "LocalizedError Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/graphqlfile\/graphqlfileerror\/localizederror-implementations"
+},
+"doc://Apollo/documentation/Apollo/GraphQLFile/GraphQLFileError/helpAnchor": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "helpAnchor"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/GraphQLFileError\/helpAnchor",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "helpAnchor",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/graphqlfile\/graphqlfileerror\/helpanchor"
+}
+}
+}

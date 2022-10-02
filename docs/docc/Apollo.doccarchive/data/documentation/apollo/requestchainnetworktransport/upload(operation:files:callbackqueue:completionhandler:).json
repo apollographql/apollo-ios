@@ -1,0 +1,736 @@
+{
+  "abstract" : [
+    {
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "UploadingNetworkTransport.upload(operation:files:callbackQueue:completionHandler:)",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/UploadingNetworkTransport-Implementations"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/upload(operation:files:callbackQueue:completionHandler:)"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "extendedModule" : "Apollo",
+    "externalID" : "s:6Apollo28RequestChainNetworkTransportC6upload9operation5files13callbackQueue17completionHandlerAA11Cancellable_px_SayAA11GraphQLFileVGSo17OS_dispatch_queueCys6ResultOyAA0N8QLResultVy4DataQzGs5Error_pGct0A3API0N11QLOperationRzlF",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "func"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "upload"
+      },
+      {
+        "kind" : "text",
+        "text" : "<"
+      },
+      {
+        "kind" : "genericParameter",
+        "text" : "Operation"
+      },
+      {
+        "kind" : "text",
+        "text" : ">("
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "operation"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "Operation"
+      },
+      {
+        "kind" : "text",
+        "text" : ", "
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "files"
+      },
+      {
+        "kind" : "text",
+        "text" : ": ["
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:6Apollo11GraphQLFileV",
+        "text" : "GraphQLFile"
+      },
+      {
+        "kind" : "text",
+        "text" : "], "
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "callbackQueue"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "c:objc(cs)OS_dispatch_queue",
+        "text" : "DispatchQueue"
+      },
+      {
+        "kind" : "text",
+        "text" : ", "
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "completionHandler"
+      },
+      {
+        "kind" : "text",
+        "text" : ": ("
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:s6ResultO",
+        "text" : "Result"
+      },
+      {
+        "kind" : "text",
+        "text" : "<"
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:6Apollo13GraphQLResultV",
+        "text" : "GraphQLResult"
+      },
+      {
+        "kind" : "text",
+        "text" : "<"
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "Operation"
+      },
+      {
+        "kind" : "text",
+        "text" : "."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "Data"
+      },
+      {
+        "kind" : "text",
+        "text" : ">, "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:s5ErrorP",
+        "text" : "Error"
+      },
+      {
+        "kind" : "text",
+        "text" : ">) -> "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:s4Voida",
+        "text" : "Void"
+      },
+      {
+        "kind" : "text",
+        "text" : ") -> "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:6Apollo11CancellableP",
+        "text" : "Cancellable"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Apollo"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Instance Method",
+    "symbolKind" : "method",
+    "title" : "upload(operation:files:callbackQueue:completionHandler:)"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "func"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "upload"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "genericParameter",
+              "text" : "Operation"
+            },
+            {
+              "kind" : "text",
+              "text" : ">("
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "operation"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Operation"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "files"
+            },
+            {
+              "kind" : "text",
+              "text" : ": ["
+            },
+            {
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:6Apollo11GraphQLFileV",
+              "text" : "GraphQLFile"
+            },
+            {
+              "kind" : "text",
+              "text" : "], "
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "callbackQueue"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "c:objc(cs)OS_dispatch_queue",
+              "text" : "DispatchQueue"
+            },
+            {
+              "kind" : "text",
+              "text" : " = .main, "
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "completionHandler"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "@escaping"
+            },
+            {
+              "kind" : "text",
+              "text" : " ("
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:s6ResultO",
+              "text" : "Result"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResult",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:6Apollo13GraphQLResultV",
+              "text" : "GraphQLResult"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Operation"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Data"
+            },
+            {
+              "kind" : "text",
+              "text" : ">, "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:s5ErrorP",
+              "text" : "Error"
+            },
+            {
+              "kind" : "text",
+              "text" : ">) -> "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:s4Voida",
+              "text" : "Void"
+            },
+            {
+              "kind" : "text",
+              "text" : ") -> "
+            },
+            {
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/Cancellable",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:6Apollo11CancellableP",
+              "text" : "Cancellable"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "where"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Operation"
+            },
+            {
+              "kind" : "text",
+              "text" : " : "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP",
+              "text" : "GraphQLOperation"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollo\/requestchainnetworktransport\/upload(operation:files:callbackqueue:completionhandler:)"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Apollo/documentation/Apollo": {
+  "abstract" : [
+    {
+      "text" : "A Strongly typed, Swift-first, GraphQL client.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Apollo",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo"
+},
+"doc://Apollo/documentation/Apollo/Cancellable": {
+  "abstract" : [
+    {
+      "text" : "An object that can be used to cancel an in progress action.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Cancellable"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/Cancellable",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Cancellable"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Cancellable",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/cancellable"
+},
+"doc://Apollo/documentation/Apollo/GraphQLFile": {
+  "abstract" : [
+    {
+      "text" : "A file which can be uploaded to a GraphQL server",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLFile"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLFile"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphQLFile",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/graphqlfile"
+},
+"doc://Apollo/documentation/Apollo/GraphQLResult": {
+  "abstract" : [
+    {
+      "text" : "Represents the result of a GraphQL operation.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLResult"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResult",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLResult"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphQLResult",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/graphqlresult"
+},
+"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport": {
+  "abstract" : [
+    {
+      "text" : "An implementation of ",
+      "type" : "text"
+    },
+    {
+      "code" : "NetworkTransport",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " which creates a ",
+      "type" : "text"
+    },
+    {
+      "code" : "RequestChain",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " object",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "for each item sent through it.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RequestChainNetworkTransport"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RequestChainNetworkTransport"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "RequestChainNetworkTransport",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/requestchainnetworktransport"
+},
+"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport/UploadingNetworkTransport-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/UploadingNetworkTransport-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "UploadingNetworkTransport Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/requestchainnetworktransport\/uploadingnetworktransport-implementations"
+},
+"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport/upload(operation:files:callbackQueue:completionHandler:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "upload"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Operation"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "operation"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Operation"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "files"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo11GraphQLFileV",
+      "text" : "GraphQLFile"
+    },
+    {
+      "kind" : "text",
+      "text" : "], "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "callbackQueue"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:objc(cs)OS_dispatch_queue",
+      "text" : "DispatchQueue"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "completionHandler"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s6ResultO",
+      "text" : "Result"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo13GraphQLResultV",
+      "text" : "GraphQLResult"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Operation"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Data"
+    },
+    {
+      "kind" : "text",
+      "text" : ">, "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s5ErrorP",
+      "text" : "Error"
+    },
+    {
+      "kind" : "text",
+      "text" : ">) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s4Voida",
+      "text" : "Void"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo11CancellableP",
+      "text" : "Cancellable"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/upload(operation:files:callbackQueue:completionHandler:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "upload(operation:files:callbackQueue:completionHandler:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/requestchainnetworktransport\/upload(operation:files:callbackqueue:completionhandler:)"
+}
+}
+}

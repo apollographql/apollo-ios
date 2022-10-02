@@ -3,7 +3,7 @@
 # `ApolloSchemaDownloadConfiguration`
 
 ```swift
-public struct ApolloSchemaDownloadConfiguration
+public struct ApolloSchemaDownloadConfiguration: Equatable, Codable
 ```
 
 A configuration object that defines behavior for schema download.
@@ -23,7 +23,8 @@ How to download your schema. Supports the Apollo Registry and GraphQL Introspect
 public let downloadTimeout: Double
 ```
 
-The maximum time to wait before indicating that the download timed out, in seconds. Defaults to 30 seconds.
+The maximum time (in seconds) to wait before indicating that the download timed out.
+Defaults to 30 seconds.
 
 ### `headers`
 
@@ -33,40 +34,47 @@ public let headers: [HTTPHeader]
 
 Any additional headers to include when retrieving your schema. Defaults to nil.
 
-### `outputURL`
+### `outputPath`
 
 ```swift
-public let outputURL: URL
+public let outputPath: String
 ```
 
-The URL of the folder in which the downloaded schema should be written.
+The local path where the downloaded schema should be written to.
 
-## Methods
-### `init(using:timeout:headers:outputFolderURL:schemaFilename:)`
+### `outputFormat`
 
 ```swift
-public init(using downloadMethod: DownloadMethod,
-            timeout downloadTimeout: Double = 30.0,
-            headers: [HTTPHeader] = [],
-            outputFolderURL: URL,
-            schemaFilename: String = "schema")
+public var outputFormat: DownloadMethod.OutputFormat
+```
+
+## Methods
+### `init(using:timeout:headers:outputPath:)`
+
+```swift
+public init(
+  using downloadMethod: DownloadMethod,
+  timeout downloadTimeout: Double = 30.0,
+  headers: [HTTPHeader] = [],
+  outputPath: String
+)
 ```
 
 Designated Initializer
 
 - Parameters:
   - downloadMethod: How to download your schema.
-  - downloadTimeout: The maximum time to wait before indicating that the download timed out, in seconds. Defaults to 30 seconds.
-  - headers: [optional] Any additional headers to include when retrieving your schema. Defaults to nil
-  - outputFolderURL: The URL of the folder in which the downloaded schema should be written
-  - schemaFilename: The name, without an extension, for your schema file. Defaults to `"schema"
+  - downloadTimeout: The maximum time (in seconds) to wait before indicating that the
+  download timed out. Defaults to 30 seconds.
+  - headers: [optional] Any additional headers to include when retrieving your schema.
+  Defaults to nil
+  - outputPath: The local path where the downloaded schema should be written to.
 
 #### Parameters
 
 | Name | Description |
 | ---- | ----------- |
 | downloadMethod | How to download your schema. |
-| downloadTimeout | The maximum time to wait before indicating that the download timed out, in seconds. Defaults to 30 seconds. |
+| downloadTimeout | The maximum time (in seconds) to wait before indicating that the download timed out. Defaults to 30 seconds. |
 | headers | [optional] Any additional headers to include when retrieving your schema. Defaults to nil |
-| outputFolderURL | The URL of the folder in which the downloaded schema should be written |
-| schemaFilename | The name, without an extension, for your schema file. Defaults to `“schema” |
+| outputPath | The local path where the downloaded schema should be written to. |

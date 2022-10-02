@@ -2,8 +2,9 @@ import Foundation
 import Nimble
 import Apollo
 @testable import ApolloWebSocket
+import ApolloAPI
 
-public func equalMessage(payload: GraphQLMap? = nil, id: String? = nil, type: OperationMessage.Types) -> Predicate<String> {
+public func equalMessage(payload: JSONEncodableDictionary? = nil, id: String? = nil, type: OperationMessage.Types) -> Predicate<String> {
   return Predicate.define { actualExpression in
     guard let actualValue = try actualExpression.evaluate() else {
       return PredicateResult(

@@ -1,21 +1,25 @@
 import XCTest
-import ApolloTestSupport
-import ApolloCodegenTestSupport
+import ApolloInternalTestHelpers
+import ApolloCodegenInternalTestHelpers
 @testable import ApolloCodegenLib
 
 class DocumentParsingAndValidationTests: XCTestCase {
   
-  var codegenFrontend: ApolloCodegenFrontend!
+  var codegenFrontend: GraphQLJSFrontend!
   var schema: GraphQLSchema!
   
   override func setUpWithError() throws {
     try super.setUpWithError()
 
-    codegenFrontend = try ApolloCodegenFrontend()
-    
-    let introspectionResult = try String(contentsOf: XCTUnwrap(starWarsAPIBundle.url(forResource: "schema", withExtension: "json")))
-        
-    schema = try codegenFrontend.loadSchemaFromIntrospectionResult(introspectionResult)
+    codegenFrontend = try GraphQLJSFrontend()
+
+    let introspectionResult = try String(
+      contentsOf: ApolloCodegenInternalTestHelpers.Resources.StarWars.JSONSchema
+    )
+
+    schema = try codegenFrontend.loadSchema(
+      from: [try codegenFrontend.makeSource(introspectionResult, filePath: "schema.json")]
+    )
   }
 
   override func tearDown() {
@@ -76,7 +80,11 @@ class DocumentParsingAndValidationTests: XCTestCase {
     
     let document = try codegenFrontend.parseDocument(source)
     
-    let validationErrors = try codegenFrontend.validateDocument(schema: schema, document: document)
+    let validationErrors = try codegenFrontend.validateDocument(
+      schema: schema,
+      document: document,
+      options: .mock()
+    )
     
     XCTAssertEqual(validationErrors.map(\.message), [
       """
@@ -123,8 +131,13 @@ class DocumentParsingAndValidationTests: XCTestCase {
     let document = try codegenFrontend.mergeDocuments([document1, document2, document3])
     XCTAssertEqual(document.definitions.count, 3)
     
-    let validationErrors = try codegenFrontend.validateDocument(schema: schema, document: document)
-    XCTAssertEqual(validationErrors, [])
+    let validationErrors = try codegenFrontend.validateDocument(
+      schema: schema,
+      document: document,
+      options: .mock()
+    )
+
+    XCTAssertEqual(validationErrors.count, 0)
   }
   
   // Errors during validation may contain multiple source locations. In the case of a field conflict
@@ -153,7 +166,11 @@ class DocumentParsingAndValidationTests: XCTestCase {
     let document = try codegenFrontend.mergeDocuments([document1, document2])
     XCTAssertEqual(document.definitions.count, 2)
     
-    let validationErrors = try codegenFrontend.validateDocument(schema: schema, document: document)
+    let validationErrors = try codegenFrontend.validateDocument(
+      schema: schema,
+      document: document,
+      options: .mock()
+    )
     
     XCTAssertEqual(validationErrors.count, 1)
     let validationError = validationErrors[0]
@@ -171,5 +188,157 @@ class DocumentParsingAndValidationTests: XCTestCase {
     
     XCTAssertEqual(sourceLocations[1].filePath, "HeroNameFragment.graphql")
     XCTAssertEqual(sourceLocations[1].lineNumber, 2)
+  }
+
+  func test__validateDocument__givenFieldNameDisallowed_throwsError() throws {
+    let disallowedFields = ["__data", "fragments", "Fragments", "_"]
+
+    for field in disallowedFields {
+      let schema = try codegenFrontend.loadSchema(
+        from: [try codegenFrontend.makeSource(
+      """
+      type Query {
+        \(field): String!
+      }
+      """
+      , filePath: "schema.graphqls")])
+
+      let source = try codegenFrontend.makeSource("""
+      query TestQuery {
+        \(field)
+      }
+      """, filePath: "TestQuery.graphql")
+
+      let document = try codegenFrontend.parseDocument(source)
+
+      let validationErrors = try codegenFrontend.validateDocument(
+        schema: schema,
+        document: document,
+        options: .mock()
+      )
+
+      XCTAssertEqual(validationErrors.map(\.message), [
+      """
+      Field name "\(field)" is not allowed because it conflicts with generated \
+      object APIs. Please use an alias to change the field name.
+      """,
+      ])
+
+      XCTAssertEqual(document.filePath, "TestQuery.graphql")
+    }
+  }
+
+  func test__validateDocument__givenFieldNameIsSchemaName_throwsError() throws {
+    let disallowedFields = ["AnimalKingdomAPI", "animalKingdomAPI"]
+
+    for field in disallowedFields {
+      let schema = try codegenFrontend.loadSchema(
+        from: [try codegenFrontend.makeSource(
+      """
+      type Query {
+        \(field): String!
+      }
+      """
+      , filePath: "schema.graphqls")])
+
+      let source = try codegenFrontend.makeSource("""
+      query TestQuery {
+        \(field)
+      }
+      """, filePath: "TestQuery.graphql")
+
+      let document = try codegenFrontend.parseDocument(source)
+
+      let validationErrors = try codegenFrontend.validateDocument(
+        schema: schema,
+        document: document,
+        options: .mock(schemaName: "AnimalKingdomAPI")
+      )
+
+      XCTAssertEqual(validationErrors.map(\.message), [
+      """
+      Field name "\(field)" is not allowed because it conflicts with generated \
+      object APIs. Please use an alias to change the field name.
+      """,
+      ])
+
+      XCTAssertEqual(document.filePath, "TestQuery.graphql")
+    }
+  }
+
+  func test__validateDocument__givenInputParameterNameDisallowed_throwsError() throws {
+    let disallowedName = ["self", "Self", "_"]
+
+    for name in disallowedName {
+      let schema = try codegenFrontend.loadSchema(
+        from: [try codegenFrontend.makeSource(
+      """
+      type Query {
+        test(param: String!): String!
+      }
+      """
+      , filePath: "schema.graphqls")])
+
+      let source = try codegenFrontend.makeSource("""
+      query TestQuery($\(name): String!) {
+        test(param: $\(name))
+      }
+      """, filePath: "TestQuery.graphql")
+
+      let document = try codegenFrontend.parseDocument(source)
+
+      let validationErrors = try codegenFrontend.validateDocument(
+        schema: schema,
+        document: document,
+        options: .mock()
+      )
+
+      XCTAssertEqual(validationErrors.map(\.message), [
+      """
+      Input Parameter name "\(name)" is not allowed because it conflicts with generated \
+      object APIs.
+      """,
+      ])
+
+      XCTAssertEqual(document.filePath, "TestQuery.graphql")
+    }
+  }
+
+  func test__validateDocument__givenInputParameterNameIsSchemaName_throwsError() throws {
+    let disallowedName = ["AnimalKingdomAPI", "animalKingdomAPI"]
+
+    for name in disallowedName {
+      let schema = try codegenFrontend.loadSchema(
+        from: [try codegenFrontend.makeSource(
+      """
+      type Query {
+        test(param: String!): String!
+      }
+      """
+      , filePath: "schema.graphqls")])
+
+      let source = try codegenFrontend.makeSource("""
+      query TestQuery($\(name): String!) {
+        test(param: $\(name))
+      }
+      """, filePath: "TestQuery.graphql")
+
+      let document = try codegenFrontend.parseDocument(source)
+
+      let validationErrors = try codegenFrontend.validateDocument(
+        schema: schema,
+        document: document,
+        options: .mock(schemaName: "AnimalKingdomAPI")
+      )
+
+      XCTAssertEqual(validationErrors.map(\.message), [
+      """
+      Input Parameter name "\(name)" is not allowed because it conflicts with generated \
+      object APIs.
+      """,
+      ])
+
+      XCTAssertEqual(document.filePath, "TestQuery.graphql")
+    }
   }
 }

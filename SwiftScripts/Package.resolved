@@ -2,48 +2,12 @@
   "object": {
     "pins": [
       {
-        "package": "MarkdownGenerator",
-        "repositoryURL": "https://github.com/eneko/MarkdownGenerator.git",
+        "package": "InflectorKit",
+        "repositoryURL": "https://github.com/mattt/InflectorKit",
         "state": {
           "branch": null,
-          "revision": "1fc31be6b66245187c3f87f35d86b6aeac6dfe7f",
-          "version": "0.5.0"
-        }
-      },
-      {
-        "package": "ProcessRunner",
-        "repositoryURL": "https://github.com/eneko/ProcessRunner.git",
-        "state": {
-          "branch": null,
-          "revision": "bedc55797b206bff50f652ffad8269223320fee5",
-          "version": "1.1.0"
-        }
-      },
-      {
-        "package": "Rainbow",
-        "repositoryURL": "https://github.com/onevcat/Rainbow",
-        "state": {
-          "branch": null,
-          "revision": "626c3d4b6b55354b4af3aa309f998fae9b31a3d9",
-          "version": "3.2.0"
-        }
-      },
-      {
-        "package": "SourceDocs",
-        "repositoryURL": "https://github.com/eneko/SourceDocs.git",
-        "state": {
-          "branch": null,
-          "revision": "fb0e489e3a26c789aad3adbe43e2169f50f485e8",
-          "version": "2.0.1"
-        }
-      },
-      {
-        "package": "SourceKitten",
-        "repositoryURL": "https://github.com/jpsim/SourceKitten.git",
-        "state": {
-          "branch": null,
-          "revision": "817dfa6f2e09b0476f3a6c9dbc035991f02f0241",
-          "version": "0.32.0"
+          "revision": "d8cbcc04972690aaa5fc760a2b9ddb3e9f0decd7",
+          "version": "1.0.0"
         }
       },
       {
@@ -60,26 +24,26 @@
         "repositoryURL": "https://github.com/apple/swift-argument-parser.git",
         "state": {
           "branch": null,
-          "revision": "e394bf350e38cb100b6bc4172834770ede1b7232",
-          "version": "1.0.3"
+          "revision": "df9ee6676cd5b3bf5b330ec7568a5644f547201b",
+          "version": "1.1.3"
         }
       },
       {
-        "package": "SWXMLHash",
-        "repositoryURL": "https://github.com/drmohundro/SWXMLHash.git",
+        "package": "swift-collections",
+        "repositoryURL": "https://github.com/apple/swift-collections",
         "state": {
           "branch": null,
-          "revision": "6469881a3f30417c5bb02404ea4b69207f297592",
-          "version": "6.0.0"
+          "revision": "48254824bb4248676bf7ce56014ff57b142b77eb",
+          "version": "1.0.2"
         }
       },
       {
-        "package": "Yams",
-        "repositoryURL": "https://github.com/jpsim/Yams.git",
+        "package": "SwiftDocCPlugin",
+        "repositoryURL": "https://github.com/apple/swift-docc-plugin",
         "state": {
           "branch": null,
-          "revision": "9ff1cc9327586db4e0c8f46f064b6a82ec1566fa",
-          "version": "4.0.6"
+          "revision": "3303b164430d9a7055ba484c8ead67a52f7b74f6",
+          "version": "1.0.0"
         }
       }
     ]

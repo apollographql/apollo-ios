@@ -1,0 +1,362 @@
+{
+  "abstract" : [
+    {
+      "text" : "An object that can be used to cancel an in progress action.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Apollo\/documentation\/Apollo"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/Cancellable"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:6Apollo11CancellableP",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "protocol"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "Cancellable"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Apollo"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "Cancellable"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Protocol",
+    "symbolKind" : "protocol",
+    "title" : "Cancellable"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "protocol"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "Cancellable"
+            },
+            {
+              "kind" : "text",
+              "text" : " : AnyObject"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/Apollo\/documentation\/Apollo\/EmptyCancellable",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLQueryWatcher",
+        "doc:\/\/Apollo\/documentation\/Apollo\/NetworkFetchInterceptor",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforming Types",
+      "type" : "conformingTypes"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/Apollo\/documentation\/Apollo\/Cancellable\/cancel()"
+      ],
+      "title" : "Instance Methods"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollo\/cancellable"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Apollo/documentation/Apollo": {
+  "abstract" : [
+    {
+      "text" : "A Strongly typed, Swift-first, GraphQL client.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Apollo",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo"
+},
+"doc://Apollo/documentation/Apollo/Cancellable": {
+  "abstract" : [
+    {
+      "text" : "An object that can be used to cancel an in progress action.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Cancellable"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/Cancellable",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Cancellable"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Cancellable",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/cancellable"
+},
+"doc://Apollo/documentation/Apollo/Cancellable/cancel()": {
+  "abstract" : [
+    {
+      "text" : "Cancel an in progress action.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "cancel"
+    },
+    {
+      "kind" : "text",
+      "text" : "()"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/Cancellable\/cancel()",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "cancel()",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/cancellable\/cancel()"
+},
+"doc://Apollo/documentation/Apollo/EmptyCancellable": {
+  "abstract" : [
+    {
+      "text" : "A class to return when we need to bail out of something which still needs to return ",
+      "type" : "text"
+    },
+    {
+      "code" : "Cancellable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "EmptyCancellable"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/EmptyCancellable",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "EmptyCancellable"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "EmptyCancellable",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/emptycancellable"
+},
+"doc://Apollo/documentation/Apollo/GraphQLQueryWatcher": {
+  "abstract" : [
+    {
+      "text" : "A ",
+      "type" : "text"
+    },
+    {
+      "code" : "GraphQLQueryWatcher",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is responsible for watching the store, and calling the result handler with a new result whenever any of the data the previous result depends on changes.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLQueryWatcher"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLQueryWatcher",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLQueryWatcher"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphQLQueryWatcher",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/graphqlquerywatcher"
+},
+"doc://Apollo/documentation/Apollo/NetworkFetchInterceptor": {
+  "abstract" : [
+    {
+      "text" : "An interceptor which actually fetches data from the network.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NetworkFetchInterceptor"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/NetworkFetchInterceptor",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "NetworkFetchInterceptor"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NetworkFetchInterceptor",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/networkfetchinterceptor"
+},
+"doc://Apollo/documentation/Apollo/RequestChain": {
+  "abstract" : [
+    {
+      "text" : "A chain that allows a single network request to be created and executed.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RequestChain"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RequestChain"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "RequestChain",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/requestchain"
+}
+}
+}

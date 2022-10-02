@@ -1,0 +1,617 @@
+{
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResult"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResult\/init(data:extensions:errors:source:dependentKeys:)"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:6Apollo13GraphQLResultV4data10extensions6errors6source13dependentKeysACyxGxSg_SDySSs11AnyHashableVGSgSayAA0B7QLErrorVGSgAC6SourceOyx_GShySSGSgtcfc",
+    "fragments" : [
+      {
+        "kind" : "identifier",
+        "text" : "init"
+      },
+      {
+        "kind" : "text",
+        "text" : "("
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "data"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "Data"
+      },
+      {
+        "kind" : "text",
+        "text" : "?, "
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "extensions"
+      },
+      {
+        "kind" : "text",
+        "text" : ": ["
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:SS",
+        "text" : "String"
+      },
+      {
+        "kind" : "text",
+        "text" : " : "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:s11AnyHashableV",
+        "text" : "AnyHashable"
+      },
+      {
+        "kind" : "text",
+        "text" : "]?, "
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "errors"
+      },
+      {
+        "kind" : "text",
+        "text" : ": ["
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:6Apollo12GraphQLErrorV",
+        "text" : "GraphQLError"
+      },
+      {
+        "kind" : "text",
+        "text" : "]?, "
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "source"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:6Apollo13GraphQLResultV",
+        "text" : "GraphQLResult"
+      },
+      {
+        "kind" : "text",
+        "text" : "<"
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "Data"
+      },
+      {
+        "kind" : "text",
+        "text" : ">."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:6Apollo13GraphQLResultV6SourceO",
+        "text" : "Source"
+      },
+      {
+        "kind" : "text",
+        "text" : ", "
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "dependentKeys"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:Sh",
+        "text" : "Set"
+      },
+      {
+        "kind" : "text",
+        "text" : "<"
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:6Apollo8CacheKeya",
+        "text" : "CacheKey"
+      },
+      {
+        "kind" : "text",
+        "text" : ">?)"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Apollo"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Initializer",
+    "symbolKind" : "init",
+    "title" : "init(data:extensions:errors:source:dependentKeys:)"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "init"
+            },
+            {
+              "kind" : "text",
+              "text" : "("
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "data"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Data"
+            },
+            {
+              "kind" : "text",
+              "text" : "?, "
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "extensions"
+            },
+            {
+              "kind" : "text",
+              "text" : ": ["
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:SS",
+              "text" : "String"
+            },
+            {
+              "kind" : "text",
+              "text" : " : "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:s11AnyHashableV",
+              "text" : "AnyHashable"
+            },
+            {
+              "kind" : "text",
+              "text" : "]?, "
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "errors"
+            },
+            {
+              "kind" : "text",
+              "text" : ": ["
+            },
+            {
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLError",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:6Apollo12GraphQLErrorV",
+              "text" : "GraphQLError"
+            },
+            {
+              "kind" : "text",
+              "text" : "]?, "
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "source"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResult",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:6Apollo13GraphQLResultV",
+              "text" : "GraphQLResult"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Data"
+            },
+            {
+              "kind" : "text",
+              "text" : ">."
+            },
+            {
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResult\/Source-swift.enum",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:6Apollo13GraphQLResultV6SourceO",
+              "text" : "Source"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "dependentKeys"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:Sh",
+              "text" : "Set"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CacheKey",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:6Apollo8CacheKeya",
+              "text" : "CacheKey"
+            },
+            {
+              "kind" : "text",
+              "text" : ">?)"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollo\/graphqlresult\/init(data:extensions:errors:source:dependentkeys:)"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Apollo/documentation/Apollo": {
+  "abstract" : [
+    {
+      "text" : "A Strongly typed, Swift-first, GraphQL client.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Apollo",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo"
+},
+"doc://Apollo/documentation/Apollo/CacheKey": {
+  "abstract" : [
+    {
+      "text" : "A cache key for a record.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CacheKey"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CacheKey",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CacheKey"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CacheKey",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/cachekey"
+},
+"doc://Apollo/documentation/Apollo/GraphQLError": {
+  "abstract" : [
+    {
+      "text" : "Represents an error encountered during the execution of a GraphQL operation.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLError"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphQLError",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/graphqlerror"
+},
+"doc://Apollo/documentation/Apollo/GraphQLResult": {
+  "abstract" : [
+    {
+      "text" : "Represents the result of a GraphQL operation.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLResult"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResult",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLResult"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphQLResult",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/graphqlresult"
+},
+"doc://Apollo/documentation/Apollo/GraphQLResult/Source-swift.enum": {
+  "abstract" : [
+    {
+      "text" : "Represents source of data",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Source"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResult\/Source-swift.enum",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Source"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphQLResult.Source",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/graphqlresult\/source-swift.enum"
+},
+"doc://Apollo/documentation/Apollo/GraphQLResult/init(data:extensions:errors:source:dependentKeys:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "data"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Data"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "extensions"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s11AnyHashableV",
+      "text" : "AnyHashable"
+    },
+    {
+      "kind" : "text",
+      "text" : "]?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "errors"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo12GraphQLErrorV",
+      "text" : "GraphQLError"
+    },
+    {
+      "kind" : "text",
+      "text" : "]?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "source"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo13GraphQLResultV",
+      "text" : "GraphQLResult"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Data"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo13GraphQLResultV6SourceO",
+      "text" : "Source"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "dependentKeys"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sh",
+      "text" : "Set"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo8CacheKeya",
+      "text" : "CacheKey"
+    },
+    {
+      "kind" : "text",
+      "text" : ">?)"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResult\/init(data:extensions:errors:source:dependentKeys:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(data:extensions:errors:source:dependentKeys:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/graphqlresult\/init(data:extensions:errors:source:dependentkeys:)"
+}
+}
+}

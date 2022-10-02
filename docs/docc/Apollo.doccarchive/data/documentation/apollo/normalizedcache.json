@@ -1,0 +1,538 @@
+{
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Apollo\/documentation\/Apollo"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/NormalizedCache"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:6Apollo15NormalizedCacheP",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "protocol"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "NormalizedCache"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Apollo"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "NormalizedCache"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Protocol",
+    "symbolKind" : "protocol",
+    "title" : "NormalizedCache"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "protocol"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "NormalizedCache"
+            },
+            {
+              "kind" : "text",
+              "text" : " : AnyObject"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/Apollo\/documentation\/Apollo\/InMemoryNormalizedCache"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforming Types",
+      "type" : "conformingTypes"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/Apollo\/documentation\/Apollo\/NormalizedCache\/clear()",
+        "doc:\/\/Apollo\/documentation\/Apollo\/NormalizedCache\/loadRecords(forKeys:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/NormalizedCache\/merge(records:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/NormalizedCache\/removeRecord(for:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/NormalizedCache\/removeRecords(matching:)"
+      ],
+      "title" : "Instance Methods"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollo\/normalizedcache"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Apollo/documentation/Apollo": {
+  "abstract" : [
+    {
+      "text" : "A Strongly typed, Swift-first, GraphQL client.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Apollo",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo"
+},
+"doc://Apollo/documentation/Apollo/InMemoryNormalizedCache": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "InMemoryNormalizedCache"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/InMemoryNormalizedCache",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "InMemoryNormalizedCache"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "InMemoryNormalizedCache",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/inmemorynormalizedcache"
+},
+"doc://Apollo/documentation/Apollo/NormalizedCache": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NormalizedCache"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/NormalizedCache",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "NormalizedCache"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NormalizedCache",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/normalizedcache"
+},
+"doc://Apollo/documentation/Apollo/NormalizedCache/clear()": {
+  "abstract" : [
+    {
+      "text" : "Clears all records.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "clear"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/NormalizedCache\/clear()",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "clear()",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/normalizedcache\/clear()"
+},
+"doc://Apollo/documentation/Apollo/NormalizedCache/loadRecords(forKeys:)": {
+  "abstract" : [
+    {
+      "text" : "Loads records corresponding to the given keys.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "loadRecords"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "forKeys"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sh",
+      "text" : "Set"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo8CacheKeya",
+      "text" : "CacheKey"
+    },
+    {
+      "kind" : "text",
+      "text" : ">) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo8CacheKeya",
+      "text" : "CacheKey"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo6RecordV",
+      "text" : "Record"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/NormalizedCache\/loadRecords(forKeys:)",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "loadRecords(forKeys:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/normalizedcache\/loadrecords(forkeys:)"
+},
+"doc://Apollo/documentation/Apollo/NormalizedCache/merge(records:)": {
+  "abstract" : [
+    {
+      "text" : "Merges a set of records into the cache.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "merge"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "records"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo9RecordSetV",
+      "text" : "RecordSet"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sh",
+      "text" : "Set"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo8CacheKeya",
+      "text" : "CacheKey"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/NormalizedCache\/merge(records:)",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "merge(records:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/normalizedcache\/merge(records:)"
+},
+"doc://Apollo/documentation/Apollo/NormalizedCache/removeRecord(for:)": {
+  "abstract" : [
+    {
+      "text" : "Removes a record for the specified key. This method will only",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "remove whole records, not individual fields.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "removeRecord"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "for"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo8CacheKeya",
+      "text" : "CacheKey"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/NormalizedCache\/removeRecord(for:)",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "removeRecord(for:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/normalizedcache\/removerecord(for:)"
+},
+"doc://Apollo/documentation/Apollo/NormalizedCache/removeRecords(matching:)": {
+  "abstract" : [
+    {
+      "text" : "Removes records with keys that match the specified pattern. This method will only",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "remove whole records, it does not perform cascading deletes. This means only the",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "records with matched keys will be removed, and not any references to them. Key",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "matching is case-insensitive.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "removeRecords"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "matching"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo8CacheKeya",
+      "text" : "CacheKey"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/NormalizedCache\/removeRecords(matching:)",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "removeRecords(matching:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/normalizedcache\/removerecords(matching:)"
+}
+}
+}

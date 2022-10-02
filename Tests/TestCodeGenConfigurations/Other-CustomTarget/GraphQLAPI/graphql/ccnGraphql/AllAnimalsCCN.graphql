@@ -1,0 +1,8 @@
+query AllAnimalsCCN {
+  allAnimals {
+    height? {
+      feet?
+      inches!
+    }
+  }
+}

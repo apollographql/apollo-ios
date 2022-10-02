@@ -7,17 +7,18 @@
 //
 
 import XCTest
+import Nimble
+import ApolloInternalTestHelpers
 @testable import Apollo
-import StarWarsAPI
-import UploadAPI
+@testable import ApolloAPI
 
 class RequestBodyCreatorTests: XCTestCase {
-  private let customRequestBodyCreator = TestCustomRequestBodyCreator()
-  private let apolloRequestBodyCreator = ApolloRequestBodyCreator()
-  
-  func create<Operation: GraphQLOperation>(with creator: RequestBodyCreator, for query: Operation) -> GraphQLMap {
-    creator.requestBody(for: query,
-                        sendOperationIdentifiers: false,
+
+  func create<Operation: GraphQLOperation>(
+    with creator: RequestBodyCreator,
+    for operation: Operation
+  ) -> JSONEncodableDictionary {
+    creator.requestBody(for: operation,                        
                         sendQueryDocument: true,
                         autoPersistQuery: false)
   }
@@ -25,16 +26,76 @@ class RequestBodyCreatorTests: XCTestCase {
   // MARK: - Tests
   
   func testRequestBodyWithApolloRequestBodyCreator() {
-    let query = HeroNameQuery()
-    let req = self.create(with: apolloRequestBodyCreator, for: query)
+    // given
+    class GivenMockOperation: MockOperation<MockSelectionSet> {
+      override class var operationName: String { "Test Operation Name" }
+      override class var document: DocumentType { .notPersisted(definition: .init("Test Query Document")) }
+    }
 
-    XCTAssertEqual(query.queryDocument, req["query"] as? String)
+    let operation = GivenMockOperation()
+    operation.__variables = ["TestVar": 123]
+
+    let creator = ApolloRequestBodyCreator()
+
+    // when
+    let actual = self.create(with: creator, for: operation)
+
+    // then
+    expect(actual["operationName"]).to(equalJSONValue("Test Operation Name"))
+    expect(actual["variables"]).to(equalJSONValue(["TestVar": 123]))
+    expect(actual["query"]).to(equalJSONValue("Test Query Document"))
   }
 
   func testRequestBodyWithCustomRequestBodyCreator() {
-    let query = HeroNameQuery()
-    let req = self.create(with: customRequestBodyCreator, for: query)
+    // given
+    let creator = TestCustomRequestBodyCreator()
+    let expected = creator.stubbedRequestBody
 
-    XCTAssertEqual(query.queryDocument, req["test_query"] as? String)
+    // when
+    let actual = self.create(with: creator, for: MockQuery.mock())
+
+    // then
+    expect(actual).to(equalJSONValue(expected))
   }
+
+  func test_requestBody_withCustomScalarVariable_createsBodyWithEncodedJSONValueForVariable() {
+    // given
+    struct MockScalar: CustomScalarType, Hashable {
+      let data: String
+      init(_ data: String) {
+        self.data = data
+      }
+
+      init(_jsonValue value: JSONValue) throws {
+        data = value as! String
+      }
+
+      var _jsonValue: JSONValue { data }
+    }
+
+    class GivenMockOperation: MockOperation<MockSelectionSet> {
+      override class var operationName: String { "Test Operation Name" }
+      override class var document: DocumentType { .notPersisted(definition: .init("Test Query Document")) }
+    }
+
+    let operation = GivenMockOperation()
+    operation.__variables = ["TestVar": MockScalar("123")]
+
+    let creator = ApolloRequestBodyCreator()
+
+    // when
+    let actual = self.create(with: creator, for: operation)
+
+    // then
+    expect(actual["operationName"]).to(equalJSONValue("Test Operation Name"))
+    expect(actual["variables"]).to(equalJSONValue(["TestVar": "123"]))
+    expect(actual["query"]).to(equalJSONValue("Test Query Document"))
+  }
+
+  #warning("""
+TODO: Test generated input objects converted to variables correctly.
+- nil variable value
+- null variable value
+""")
 }
+

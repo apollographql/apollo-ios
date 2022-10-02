@@ -1,0 +1,393 @@
+{
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLSettings"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:15ApolloWebSocket11SSLSettingsV",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "struct"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "SSLSettings"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "ApolloWebSocket"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "SSLSettings"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Structure",
+    "symbolKind" : "struct",
+    "title" : "SSLSettings"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "struct"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "SSLSettings"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLSettings\/cipherSuites",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLSettings\/desiredTrustHostname",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLSettings\/disableCertValidation",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLSettings\/overrideTrustHostname",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLSettings\/sslClientCertificate",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLSettings\/useSSL"
+      ],
+      "title" : "Instance Properties"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollowebsocket\/sslsettings"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"/documentation/apolloapi/graphqlsubscription": {
+  "identifier" : "\/documentation\/apolloapi\/graphqlsubscription",
+  "title" : "GraphQLSubscription",
+  "titleInlineContent" : [
+    {
+      "code" : "GraphQLSubscription",
+      "type" : "codeVoice"
+    }
+  ],
+  "type" : "link",
+  "url" : "\/documentation\/apolloapi\/graphqlsubscription"
+},
+"doc://ApolloWebSocket/documentation/ApolloWebSocket": {
+  "abstract" : [
+    {
+      "text" : "A web socket network transport implementation that provides support for ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "\/documentation\/apolloapi\/graphqlsubscription",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " operations over a web socket connection.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "ApolloWebSocket",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket"
+},
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SSLSettings": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SSLSettings"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLSettings",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SSLSettings"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SSLSettings",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/sslsettings"
+},
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SSLSettings/cipherSuites": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "cipherSuites"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:@T@SSLCipherSuite",
+      "text" : "SSLCipherSuite"
+    },
+    {
+      "kind" : "text",
+      "text" : "]?"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLSettings\/cipherSuites",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "cipherSuites",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/sslsettings\/ciphersuites"
+},
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SSLSettings/desiredTrustHostname": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "desiredTrustHostname"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLSettings\/desiredTrustHostname",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "desiredTrustHostname",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/sslsettings\/desiredtrusthostname"
+},
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SSLSettings/disableCertValidation": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "disableCertValidation"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLSettings\/disableCertValidation",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "disableCertValidation",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/sslsettings\/disablecertvalidation"
+},
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SSLSettings/overrideTrustHostname": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "overrideTrustHostname"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLSettings\/overrideTrustHostname",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "overrideTrustHostname",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/sslsettings\/overridetrusthostname"
+},
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SSLSettings/sslClientCertificate": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "sslClientCertificate"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:15ApolloWebSocket20SSLClientCertificateC",
+      "text" : "SSLClientCertificate"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLSettings\/sslClientCertificate",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "sslClientCertificate",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/sslsettings\/sslclientcertificate"
+},
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SSLSettings/useSSL": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "useSSL"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLSettings\/useSSL",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "useSSL",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/sslsettings\/usessl"
+}
+}
+}

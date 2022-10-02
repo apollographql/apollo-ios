@@ -1,7 +1,8 @@
 import XCTest
 @testable import Apollo
-import ApolloTestSupport
+import ApolloInternalTestHelpers
 import StarWarsAPI
+import ApolloAPI
 
 class StarWarsServerAPQsGetMethodTests: StarWarsServerTests {
   override func setUp() {
@@ -69,25 +70,25 @@ class StarWarsServerTests: XCTestCase, CacheDependentTesting {
   // MARK: Queries
   
   func testHeroNameQuery() {
-    fetch(query: HeroNameQuery()) { data in
+    fetch(query: HeroNameQuery(episode: nil)) { data in
       XCTAssertEqual(data.hero?.name, "R2-D2")
     }
   }
   
   func testHeroNameQueryWithVariable() {
-    fetch(query: HeroNameQuery(episode: .empire)) { data in
+    fetch(query: HeroNameQuery(episode: .init(.empire))) { data in
       XCTAssertEqual(data.hero?.name, "Luke Skywalker")
     }
   }
   
   func testHeroAppearsInQuery() {
     fetch(query: HeroAppearsInQuery()) { data in
-      XCTAssertEqual(data.hero?.appearsIn, [.newhope, .empire, .jedi])
+      XCTAssertEqual(data.hero?.appearsIn, [.init(.newhope), .init(.empire), .init(.jedi)])
     }
   }
   
   func testHeroAndFriendsNamesQuery() {
-    fetch(query: HeroAndFriendsNamesQuery()) { data in
+    fetch(query: HeroAndFriendsNamesQuery(episode: nil)) { data in
       XCTAssertEqual(data.hero?.name, "R2-D2")
       let friendsNames = data.hero?.friends?.compactMap { $0?.name }
       XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
@@ -95,7 +96,7 @@ class StarWarsServerTests: XCTestCase, CacheDependentTesting {
   }
   
   func testHeroFriendsOfFriendsNamesQuery() {
-    fetch(query: HeroFriendsOfFriendsNamesQuery()) { data in
+    fetch(query: HeroFriendsOfFriendsNamesQuery(episode: nil)) { data in
       let friendsOfFirstFriendNames = data.hero?.friends?.first??.friends?.compactMap { $0?.name }
       XCTAssertEqual(friendsOfFirstFriendNames, ["Han Solo", "Leia Organa", "C-3PO", "R2-D2"])
     }
@@ -115,7 +116,7 @@ class StarWarsServerTests: XCTestCase, CacheDependentTesting {
   }
   
   func testHeroDetailsQueryDroid() {
-    fetch(query: HeroDetailsQuery()) { data in
+    fetch(query: HeroDetailsQuery(episode: nil)) { data in
       XCTAssertEqual(data.hero?.name, "R2-D2")
       
       guard let droid = data.hero?.asDroid else {
@@ -128,7 +129,7 @@ class StarWarsServerTests: XCTestCase, CacheDependentTesting {
   }
   
   func testHeroDetailsQueryHuman() {
-    fetch(query: HeroDetailsQuery(episode: .empire)) { data in
+    fetch(query: HeroDetailsQuery(episode: .init(.empire))) { data in
       XCTAssertEqual(data.hero?.name, "Luke Skywalker")
       
       guard let human = data.hero?.asHuman else {
@@ -141,7 +142,7 @@ class StarWarsServerTests: XCTestCase, CacheDependentTesting {
   }
   
   func testHeroDetailsWithFragmentQueryDroid() {
-    fetch(query: HeroDetailsWithFragmentQuery()) { data in
+    fetch(query: HeroDetailsWithFragmentQuery(episode: nil)) { data in
       XCTAssertEqual(data.hero?.fragments.heroDetails.name, "R2-D2")
       
       guard let droid = data.hero?.fragments.heroDetails.asDroid else {
@@ -154,7 +155,7 @@ class StarWarsServerTests: XCTestCase, CacheDependentTesting {
   }
   
   func testHeroDetailsWithFragmentQueryHuman() {
-    fetch(query: HeroDetailsWithFragmentQuery(episode: .empire)) { data in
+    fetch(query: HeroDetailsWithFragmentQuery(episode: .init(.empire))) { data in
       XCTAssertEqual(data.hero?.fragments.heroDetails.name, "Luke Skywalker")
       
       guard let human = data.hero?.fragments.heroDetails.asHuman else {
@@ -167,41 +168,41 @@ class StarWarsServerTests: XCTestCase, CacheDependentTesting {
   }
   
   func testDroidDetailsWithFragmentQueryDroid() {
-    fetch(query: DroidDetailsWithFragmentQuery()) { data in
-      XCTAssertEqual(data.hero?.fragments.droidDetails?.name, "R2-D2")
-      XCTAssertEqual(data.hero?.fragments.droidDetails?.primaryFunction, "Astromech")
+    fetch(query: DroidDetailsWithFragmentQuery(episode: nil)) { data in
+      XCTAssertEqual(data.hero?.asDroid?.name, "R2-D2")
+      XCTAssertEqual(data.hero?.asDroid?.primaryFunction, "Astromech")
     }
   }
   
   func testDroidDetailsWithFragmentQueryHuman() {
-    fetch(query: DroidDetailsWithFragmentQuery(episode: .empire)) { data in
-      XCTAssertNil(data.hero?.fragments.droidDetails)
+    fetch(query: DroidDetailsWithFragmentQuery(episode: .init(.empire))) { data in
+      XCTAssertNil(data.hero?.asDroid)
     }
   }
   
   
   func testHeroTypeDependentAliasedFieldDroid() {
-    fetch(query: HeroTypeDependentAliasedFieldQuery()) { data in
+    fetch(query: HeroTypeDependentAliasedFieldQuery(episode: nil)) { data in
       XCTAssertEqual(data.hero?.asDroid?.property, "Astromech")
       XCTAssertNil(data.hero?.asHuman?.property)
     }
   }
   
   func testHeroTypeDependentAliasedFieldHuman() {
-    fetch(query: HeroTypeDependentAliasedFieldQuery(episode: .empire)) { data in
+    fetch(query: HeroTypeDependentAliasedFieldQuery(episode: .init(.empire))) { data in
       XCTAssertEqual(data.hero?.asHuman?.property, "Tatooine")
       XCTAssertNil(data.hero?.asDroid?.property)
     }
   }
   
   func testHeroParentTypeDependentFieldDroid() {
-    fetch(query: HeroParentTypeDependentFieldQuery()) { data in
+    fetch(query: HeroParentTypeDependentFieldQuery(episode: nil)) { data in
       XCTAssertEqual(data.hero?.asDroid?.friends?.first??.asHuman?.height, 1.72)
     }
   }
   
   func testHeroParentTypeDependentFieldHuman() {
-    fetch(query: HeroParentTypeDependentFieldQuery(episode: .empire)) { data in
+    fetch(query: HeroParentTypeDependentFieldQuery(episode: .init(.empire))) { data in
       XCTAssertEqual(data.hero?.asHuman?.friends?.first??.asHuman?.height, 5.905512)
     }
   }
@@ -212,113 +213,121 @@ class StarWarsServerTests: XCTestCase, CacheDependentTesting {
       XCTAssertEqual(data.starship?.coordinates?[1], [3, 4])
     }
   }
-  
+
   // MARK: @skip / @include directives
-  
-  func testHeroNameConditionalExclusion() {
-    fetch(query: HeroNameConditionalExclusionQuery(skipName: false)) { data in
-      XCTAssertEqual(data.hero?.name, "R2-D2")
-    }
-    
-    fetch(query: HeroNameConditionalExclusionQuery(skipName: true)) { data in
-      XCTAssertNil(data.hero?.name)
-    }
-  }
-  
-  func testHeroNameConditionalInclusion() {
-    fetch(query: HeroNameConditionalInclusionQuery(includeName: true)) { data in
-      XCTAssertEqual(data.hero?.name, "R2-D2")
-    }
-    
-    fetch(query: HeroNameConditionalInclusionQuery(includeName: false)) { data in
-      XCTAssertNil(data.hero?.name)
-    }
-  }
-  
-  func testHeroNameConditionalBoth() {
-    fetch(query: HeroNameConditionalBothQuery(skipName: false, includeName: true)) { data in
-      XCTAssertEqual(data.hero?.name, "R2-D2")
-    }
-    
-    fetch(query: HeroNameConditionalBothQuery(skipName: true, includeName: true)) { data in
-      XCTAssertNil(data.hero?.name)
-    }
-    
-    fetch(query: HeroNameConditionalBothQuery(skipName: false, includeName: false)) { data in
-      XCTAssertNil(data.hero?.name)
-    }
-    
-    fetch(query: HeroNameConditionalBothQuery(skipName: true, includeName: false)) { data in
-      XCTAssertNil(data.hero?.name)
-    }
-  }
-  
-  func testHeroNameConditionalBothSeparate() {
-    fetch(query: HeroNameConditionalBothSeparateQuery(skipName: false, includeName: true)) { data in
-      XCTAssertEqual(data.hero?.name, "R2-D2")
-    }
-    
-    fetch(query: HeroNameConditionalBothSeparateQuery(skipName: true, includeName: true)) { data in
-      XCTAssertEqual(data.hero?.name, "R2-D2")
-    }
-    
-    fetch(query: HeroNameConditionalBothSeparateQuery(skipName: false, includeName: false)) { data in
-      XCTAssertEqual(data.hero?.name, "R2-D2")
-    }
-    
-    fetch(query: HeroNameConditionalBothSeparateQuery(skipName: true, includeName: false)) { data in
-      XCTAssertNil(data.hero?.name)
-    }
-  }
-  
-  func testHeroDetailsInlineConditionalInclusion() {
-    fetch(query: HeroDetailsInlineConditionalInclusionQuery(includeDetails: true)) { data in
-      XCTAssertEqual(data.hero?.name, "R2-D2")
-      XCTAssertEqual(data.hero?.appearsIn, [.newhope, .empire, .jedi])
-    }
-    
-    fetch(query: HeroDetailsInlineConditionalInclusionQuery(includeDetails: false)) { data in
-      XCTAssertNil(data.hero?.name)
-      XCTAssertNil(data.hero?.appearsIn)
-    }
-  }
-  
-  func testHeroDetailsFragmentConditionalInclusion() {
-    fetch(query: HeroDetailsFragmentConditionalInclusionQuery(includeDetails: true)) { data in
-      XCTAssertEqual(data.hero?.name, "R2-D2")
-      XCTAssertEqual(data.hero?.asDroid?.primaryFunction, "Astromech")
-    }
-    
-    fetch(query: HeroDetailsFragmentConditionalInclusionQuery(includeDetails: false)) { data in
-      XCTAssertNil(data.hero?.name)
-      XCTAssertNil(data.hero?.asDroid?.primaryFunction)
-    }
-  }
-  
-  func testHeroNameTypeSpecificConditionalInclusion() {
-    fetch(query: HeroNameTypeSpecificConditionalInclusionQuery(includeName: true)) { data in
-      XCTAssertEqual(data.hero?.name, "R2-D2")
-      XCTAssertEqual(data.hero?.asDroid?.name, "R2-D2")
-    }
-    
-    fetch(query: HeroNameTypeSpecificConditionalInclusionQuery(includeName: false)) { data in
-      XCTAssertEqual(data.hero?.name, "R2-D2")
-      XCTAssertEqual(data.hero?.asDroid?.name, "R2-D2")
-    }
-    
-    fetch(query: HeroNameTypeSpecificConditionalInclusionQuery(episode: .empire, includeName: true)) { data in
-      XCTAssertEqual(data.hero?.name, "Luke Skywalker")
-    }
-    
-    fetch(query: HeroNameTypeSpecificConditionalInclusionQuery(episode: .empire, includeName: false)) { data in
-      XCTAssertNil(data.hero?.name)
-    }
-  }
-  
+
+#warning("""
+TODO: This functionality is all tested by skip/include tests on
+GraphQLExecutor_SelectionSetMapper_FromResponse_Tests.
+We just need to test that the selection sets for these are generated correctly by codegen
+""")
+//  func testHeroNameConditionalExclusion() {
+//    fetch(query: HeroNameConditionalExclusionQuery(skipName: false)) { data in
+//      XCTAssertEqual(data.hero?.name, "R2-D2")
+//    }
+//
+//    fetch(query: HeroNameConditionalExclusionQuery(skipName: true)) { data in
+//      XCTAssertNil(data.hero?.name)
+//    }
+//  }
+//
+//  func testHeroNameConditionalInclusion() {
+//    fetch(query: HeroNameConditionalInclusionQuery(includeName: true)) { data in
+//      XCTAssertEqual(data.hero?.name, "R2-D2")
+//    }
+//
+//    fetch(query: HeroNameConditionalInclusionQuery(includeName: false)) { data in
+//      XCTAssertNil(data.hero?.name)
+//    }
+//  }
+//
+//  func testHeroNameConditionalBoth() {
+//    fetch(query: HeroNameConditionalBothQuery(skipName: false, includeName: true)) { data in
+//      XCTAssertEqual(data.hero?.name, "R2-D2")
+//    }
+//
+//    fetch(query: HeroNameConditionalBothQuery(skipName: true, includeName: true)) { data in
+//      XCTAssertNil(data.hero?.name)
+//    }
+//
+//    fetch(query: HeroNameConditionalBothQuery(skipName: false, includeName: false)) { data in
+//      XCTAssertNil(data.hero?.name)
+//    }
+//
+//    fetch(query: HeroNameConditionalBothQuery(skipName: true, includeName: false)) { data in
+//      XCTAssertNil(data.hero?.name)
+//    }
+//  }
+//
+//  func testHeroNameConditionalBothSeparate() {
+//    fetch(query: HeroNameConditionalBothSeparateQuery(skipName: false, includeName: true)) { data in
+//      XCTAssertEqual(data.hero?.name, "R2-D2")
+//    }
+//
+//    fetch(query: HeroNameConditionalBothSeparateQuery(skipName: true, includeName: true)) { data in
+//      XCTAssertEqual(data.hero?.name, "R2-D2")
+//    }
+//
+//    fetch(query: HeroNameConditionalBothSeparateQuery(skipName: false, includeName: false)) { data in
+//      XCTAssertEqual(data.hero?.name, "R2-D2")
+//    }
+//
+//    fetch(query: HeroNameConditionalBothSeparateQuery(skipName: true, includeName: false)) { data in
+//      XCTAssertNil(data.hero?.name)
+//    }
+//  }
+//
+//  func testHeroDetailsInlineConditionalInclusion() {
+//    fetch(query: HeroDetailsInlineConditionalInclusionQuery(includeDetails: true)) { data in
+//      XCTAssertEqual(data.hero?.name, "R2-D2")
+//      XCTAssertEqual(data.hero?.appearsIn, [.newhope, .empire, .jedi])
+//    }
+//
+//    fetch(query: HeroDetailsInlineConditionalInclusionQuery(includeDetails: false)) { data in
+//      XCTAssertNil(data.hero?.name)
+//      XCTAssertNil(data.hero?.appearsIn)
+//    }
+//  }
+//
+//  func testHeroDetailsFragmentConditionalInclusion() {
+//    fetch(query: HeroDetailsFragmentConditionalInclusionQuery(includeDetails: true)) { data in
+//      XCTAssertEqual(data.hero?.name, "R2-D2")
+//      XCTAssertEqual(data.hero?.asDroid?.primaryFunction, "Astromech")
+//    }
+//
+//    fetch(query: HeroDetailsFragmentConditionalInclusionQuery(includeDetails: false)) { data in
+//      XCTAssertNil(data.hero?.name)
+//      XCTAssertNil(data.hero?.asDroid?.primaryFunction)
+//    }
+//  }
+//
+//  func testHeroNameTypeSpecificConditionalInclusion() {
+//    fetch(query: HeroNameTypeSpecificConditionalInclusionQuery(includeName: true)) { data in
+//      XCTAssertEqual(data.hero?.name, "R2-D2")
+//      XCTAssertEqual(data.hero?.asDroid?.name, "R2-D2")
+//    }
+//
+//    fetch(query: HeroNameTypeSpecificConditionalInclusionQuery(includeName: false)) { data in
+//      XCTAssertEqual(data.hero?.name, "R2-D2")
+//      XCTAssertEqual(data.hero?.asDroid?.name, "R2-D2")
+//    }
+//
+//    fetch(query: HeroNameTypeSpecificConditionalInclusionQuery(episode: .empire, includeName: true)) { data in
+//      XCTAssertEqual(data.hero?.name, "Luke Skywalker")
+//    }
+//
+//    fetch(query: HeroNameTypeSpecificConditionalInclusionQuery(episode: .empire, includeName: false)) { data in
+//      XCTAssertNil(data.hero?.name)
+//    }
+//  }
+
   // MARK: Mutations
   
   func testCreateReviewForEpisode() {
-    perform(mutation: CreateReviewForEpisodeMutation(episode: .jedi, review: ReviewInput(stars: 5, commentary: "This is a great movie!"))) { data in
+    perform(mutation: CreateReviewForEpisodeMutation(
+      episode: .init(.jedi),
+      review: ReviewInput(stars: 5, commentary: "This is a great movie!"))
+    ) { data in
       XCTAssertEqual(data.createReview?.stars, 5)
       XCTAssertEqual(data.createReview?.commentary, "This is a great movie!")
     }

@@ -116,7 +116,7 @@ Next, just above the code for handling Segues, add code for starting and handlin
 // MARK: - Subscriptions
 
 private func startSubscription() {
-    activeSubscription = Network.shared.apollo.subscribe(subscription: TripsBookedSubscription()) { result in
+      activeSubscription = Network.shared.apollo.subscribe(subscription: TripsBookedSubscription()) { result in
         switch result {
         case .failure(let error):
             self.showAlert(title: "NetworkError",

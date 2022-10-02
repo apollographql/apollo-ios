@@ -1,0 +1,798 @@
+{
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:6Apollo0A5StoreC20ReadWriteTransactionC",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "class"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "ReadWriteTransaction"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Apollo"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "ReadWriteTransaction"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Class",
+    "symbolKind" : "class",
+    "title" : "ApolloStore.ReadWriteTransaction"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "final"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "class"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "ReadWriteTransaction"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/ReadTransaction"
+      ],
+      "kind" : "relationships",
+      "title" : "Inherits From",
+      "type" : "inheritsFrom"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction\/removeObject(for:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction\/removeObjects(matching:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction\/update(_:_:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction\/updateObject(ofType:withKey:variables:_:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction\/write(data:for:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction\/write(selectionSet:withKey:variables:)"
+      ],
+      "title" : "Instance Methods"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollo\/apollostore\/readwritetransaction"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Apollo/documentation/Apollo": {
+  "abstract" : [
+    {
+      "text" : "A Strongly typed, Swift-first, GraphQL client.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Apollo",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo"
+},
+"doc://Apollo/documentation/Apollo/ApolloStore": {
+  "abstract" : [
+    {
+      "text" : "The ",
+      "type" : "text"
+    },
+    {
+      "code" : "ApolloStore",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " class acts as a local cache for normalized GraphQL results.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ApolloStore"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ApolloStore"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ApolloStore",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/apollostore"
+},
+"doc://Apollo/documentation/Apollo/ApolloStore/ReadTransaction": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ReadTransaction"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/ReadTransaction",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ReadTransaction"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ApolloStore.ReadTransaction",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/apollostore\/readtransaction"
+},
+"doc://Apollo/documentation/Apollo/ApolloStore/ReadWriteTransaction": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ReadWriteTransaction"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ReadWriteTransaction"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ApolloStore.ReadWriteTransaction",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/apollostore\/readwritetransaction"
+},
+"doc://Apollo/documentation/Apollo/ApolloStore/ReadWriteTransaction/removeObject(for:)": {
+  "abstract" : [
+    {
+      "text" : "Removes the object for the specified cache key. Does not cascade",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "or allow removal of only certain fields. Does nothing if an object",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "does not exist for the given key.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "removeObject"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "for"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo8CacheKeya",
+      "text" : "CacheKey"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction\/removeObject(for:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "removeObject(for:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/apollostore\/readwritetransaction\/removeobject(for:)"
+},
+"doc://Apollo/documentation/Apollo/ApolloStore/ReadWriteTransaction/removeObjects(matching:)": {
+  "abstract" : [
+    {
+      "text" : "Removes records with keys that match the specified pattern. This method will only",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "remove whole records, it does not perform cascading deletes. This means only the",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "records with matched keys will be removed, and not any references to them. Key",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "matching is case-insensitive.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "removeObjects"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "matching"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo8CacheKeya",
+      "text" : "CacheKey"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction\/removeObjects(matching:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "removeObjects(matching:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/apollostore\/readwritetransaction\/removeobjects(matching:)"
+},
+"doc://Apollo/documentation/Apollo/ApolloStore/ReadWriteTransaction/update(_:_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "update"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "CacheMutation"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "CacheMutation"
+    },
+    {
+      "kind" : "text",
+      "text" : ", ("
+    },
+    {
+      "kind" : "keyword",
+      "text" : "inout"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "CacheMutation"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Data"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s4Voida",
+      "text" : "Void"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction\/update(_:_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "update(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/apollostore\/readwritetransaction\/update(_:_:)"
+},
+"doc://Apollo/documentation/Apollo/ApolloStore/ReadWriteTransaction/updateObject(ofType:withKey:variables:_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "updateObject"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "SelectionSet"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "ofType"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "SelectionSet"
+    },
+    {
+      "kind" : "text",
+      "text" : ".Type, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "withKey"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo8CacheKeya",
+      "text" : "CacheKey"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "variables"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI29GraphQLOperationVariableValueP",
+      "text" : "GraphQLOperationVariableValue"
+    },
+    {
+      "kind" : "text",
+      "text" : "]?, ("
+    },
+    {
+      "kind" : "keyword",
+      "text" : "inout"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "SelectionSet"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s4Voida",
+      "text" : "Void"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction\/updateObject(ofType:withKey:variables:_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "updateObject(ofType:withKey:variables:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/apollostore\/readwritetransaction\/updateobject(oftype:withkey:variables:_:)"
+},
+"doc://Apollo/documentation/Apollo/ApolloStore/ReadWriteTransaction/write(data:for:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "write"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "CacheMutation"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "data"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "CacheMutation"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Data"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "for"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "CacheMutation"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction\/write(data:for:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "write(data:for:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/apollostore\/readwritetransaction\/write(data:for:)"
+},
+"doc://Apollo/documentation/Apollo/ApolloStore/ReadWriteTransaction/write(selectionSet:withKey:variables:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "write"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "SelectionSet"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "selectionSet"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "SelectionSet"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "withKey"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo8CacheKeya",
+      "text" : "CacheKey"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "variables"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI29GraphQLOperationVariableValueP",
+      "text" : "GraphQLOperationVariableValue"
+    },
+    {
+      "kind" : "text",
+      "text" : "]?) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction\/write(selectionSet:withKey:variables:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "write(selectionSet:withKey:variables:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/apollostore\/readwritetransaction\/write(selectionset:withkey:variables:)"
+}
+}
+}

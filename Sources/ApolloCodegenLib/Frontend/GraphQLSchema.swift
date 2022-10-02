@@ -1,4 +1,5 @@
 import JavaScriptCore
+import OrderedCollections
 
 // These classes correspond directly to the ones in
 // https://github.com/graphql/graphql-js/tree/master/src/type
@@ -28,82 +29,181 @@ public class GraphQLSchema: JavaScriptObject {
   }
 }
 
-public class GraphQLNamedType: JavaScriptObject {
-  private(set) lazy var name: String = self["name"]
+public class GraphQLNamedType: JavaScriptObject, Hashable {
+  lazy var name: String = self["name"]
+
+  lazy var documentation: String? = self["description"]
+
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(name)
+  }
+
+  public static func ==(lhs: GraphQLNamedType, rhs: GraphQLNamedType) -> Bool {
+    return lhs.name == rhs.name
+  }
 }
 
 public class GraphQLScalarType: GraphQLNamedType {
-  private(set) lazy var description: String? = self["description"]
   
-  private(set) lazy var specifiedByURL: String? = self["specifiedByUrl"]
+  lazy var specifiedByURL: String? = self["specifiedByUrl"]
+
+  var isCustomScalar: Bool {
+    guard self.specifiedByURL == nil else { return true }
+
+    switch name {
+    case "String", "Int", "Float", "Boolean", "ID":
+      return false
+    default:
+      return true
+    }    
+  }
+
+  var isSwiftType: Bool {
+    switch name {
+    case "String", "Int", "Float", "Boolean":
+      return true
+    default:
+      return false
+    }
+  }
 }
 
 public class GraphQLEnumType: GraphQLNamedType {
-  private(set) lazy var description: String? = self["description"]
-  
-  private(set) lazy var values: [GraphQLEnumValue] = try! invokeMethod("getValues")
+  lazy var values: [GraphQLEnumValue] = try! invokeMethod("getValues")
 }
 
 public class GraphQLEnumValue: JavaScriptObject {
-  private(set) lazy var name: String = self["name"]
+
+  struct Name {
+    let value: String
+  }
+
+  lazy var name: Name = Name(value: self["name"])
   
-  private(set) lazy var description: String? = self["description"]
+  lazy var documentation: String? = self["description"]
     
-  private(set) lazy var deprecationReason: String? = self["deprecationReason"]
+  lazy var deprecationReason: String? = self["deprecationReason"]
+
+  var isDeprecated: Bool { deprecationReason != nil }
 }
 
+typealias GraphQLInputFieldDictionary = OrderedDictionary<String, GraphQLInputField>
+
 public class GraphQLInputObjectType: GraphQLNamedType {
-  private(set) lazy var description: String? = self["description"]
-  
-  private(set) lazy var fields: [String: GraphQLInputField] = try! invokeMethod("getFields")
+  lazy var fields: GraphQLInputFieldDictionary = try! invokeMethod("getFields")
 }
 
 public class GraphQLInputField: JavaScriptObject {
-  private(set) lazy var name: String = self["name"]
+  lazy var name: String = self["name"]
   
-  private(set) lazy var type: GraphQLType = self["type"]
+  lazy var type: GraphQLType = self["type"]
   
-  private(set) lazy var description: String? = self["description"]
+  lazy var documentation: String? = self["description"]
   
-  private(set) lazy var defaultValue: Any? = self["defaultValue"]
+  lazy var defaultValue: GraphQLValue? = {
+    let node: JavaScriptObject? = self["astNode"]
+    return node?["defaultValue"]
+  }()
     
-  private(set) lazy var deprecationReason: String? = self["deprecationReason"]
+  lazy var deprecationReason: String? = self["deprecationReason"]
 }
 
 public class GraphQLCompositeType: GraphQLNamedType {
+  public override var debugDescription: String {
+    "Type - \(name)"
+  }
 }
 
-public class GraphQLObjectType: GraphQLCompositeType {
-  private(set) lazy var description: String? = self["description"]
+protocol GraphQLInterfaceImplementingType: GraphQLCompositeType {
+  var interfaces: [GraphQLInterfaceType] { get }
+}
+
+extension GraphQLInterfaceImplementingType {
+  func implements(_ interface: GraphQLInterfaceType) -> Bool {
+    interfaces.contains(interface)
+  }
+}
+
+public class GraphQLObjectType: GraphQLCompositeType, GraphQLInterfaceImplementingType {
+  lazy var fields: [String: GraphQLField] = try! invokeMethod("getFields")
   
-  private(set) lazy var fields: [String: GraphQLField] = try! invokeMethod("getFields")
-  
-  private(set) lazy var interfaces: [GraphQLInterfaceType] = try! invokeMethod("getInterfaces")
+  lazy var interfaces: [GraphQLInterfaceType] = try! invokeMethod("getInterfaces")
+
+  public override var debugDescription: String {
+    "Object - \(name)"
+  }
 }
 
 public class GraphQLAbstractType: GraphQLCompositeType {
 }
 
-public class GraphQLInterfaceType: GraphQLAbstractType {
-  private(set) lazy var description: String? = self["description"]
+public class GraphQLInterfaceType: GraphQLAbstractType, GraphQLInterfaceImplementingType {  
+  lazy var deprecationReason: String? = self["deprecationReason"]
   
-  private(set) lazy var deprecationReason: String? = self["deprecationReason"]
+  lazy var fields: [String: GraphQLField] = try! invokeMethod("getFields")
   
-  private(set) lazy var fields: [String: GraphQLField] = try! invokeMethod("getFields")
-  
-  private(set) lazy var interfaces: [GraphQLInterfaceType] = try! invokeMethod("getInterfaces")
+  lazy var interfaces: [GraphQLInterfaceType] = try! invokeMethod("getInterfaces")
+
+  public override var debugDescription: String {
+    "Interface - \(name)"
+  }
 }
 
 public class GraphQLUnionType: GraphQLAbstractType {
-  private(set) lazy var types: [GraphQLObjectType] = try! invokeMethod("getTypes")
+  lazy var types: [GraphQLObjectType] = try! invokeMethod("getTypes")
+
+  public override var debugDescription: String {
+    "Union - \(name)"
+  }
 }
 
-public class GraphQLField: JavaScriptObject {
-  private(set) lazy var name: String = self["name"]
+public class GraphQLField: JavaScriptObject, Hashable {
+
+  lazy var name: String = self["name"]
   
-  private(set) lazy var type: GraphQLType = self["type"]
+  lazy var type: GraphQLType = self["type"]
+
+  lazy var arguments: [GraphQLFieldArgument] = self["args"]
   
-  private(set) lazy var description: String? = self["description"]
+  lazy var documentation: String? = self["description"]
   
-  private(set) lazy var deprecationReason: String? = self["deprecationReason"]
+  lazy var deprecationReason: String? = self["deprecationReason"]
+
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(name)
+    hasher.combine(type)
+    hasher.combine(arguments)
+  }
+
+  public static func == (lhs: GraphQLField, rhs: GraphQLField) -> Bool {
+    lhs.name == rhs.name &&
+    lhs.type == rhs.type &&
+    lhs.arguments == rhs.arguments
+  }
+
+  public override var debugDescription: String {
+    "\(name): \(type.debugDescription)"
+  }
+}
+
+public class GraphQLFieldArgument: JavaScriptObject, Hashable {
+
+  lazy var name: String = self["name"]
+
+  lazy var type: GraphQLType = self["type"]
+
+  lazy var documentation: String? = self["description"]
+
+  lazy var deprecationReason: String? = self["deprecationReason"]
+
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(name)
+    hasher.combine(type)
+  }
+
+  public static func == (lhs: GraphQLFieldArgument, rhs: GraphQLFieldArgument) -> Bool {
+    lhs.name == rhs.name &&
+    lhs.type == rhs.type
+  }
+  
 }

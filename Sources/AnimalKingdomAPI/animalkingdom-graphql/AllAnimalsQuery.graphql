@@ -1,0 +1,42 @@
+query AllAnimalsQuery {
+  allAnimals {
+    __typename
+    height {
+      feet
+      inches
+    }
+    ...HeightInMeters
+    ...WarmBloodedDetails
+    species
+    skinCovering
+    ... on Pet {
+      ...PetDetails
+      ...WarmBloodedDetails
+      ... on Animal {
+        height {
+          relativeSize
+          centimeters
+        }
+      }
+    }
+    ... on Cat {
+      isJellicle
+    }
+    ... on ClassroomPet {
+      ... on Bird {
+        wingspan
+      }
+    }
+    ... on Dog {
+      favoriteToy
+      birthdate
+    }
+    predators {
+      species
+      ... on WarmBlooded {
+        ...WarmBloodedDetails
+        laysEggs
+      }
+    }
+  }
+}

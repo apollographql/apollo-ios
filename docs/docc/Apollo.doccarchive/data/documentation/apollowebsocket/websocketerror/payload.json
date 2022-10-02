@@ -1,0 +1,243 @@
+{
+  "abstract" : [
+    {
+      "text" : "The payload of the response.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError\/payload"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:15ApolloWebSocket0bC5ErrorV7payloadSDySSs11AnyHashableVGSgvp",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "let"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "payload"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:9ApolloAPI10JSONObjecta",
+        "text" : "JSONObject"
+      },
+      {
+        "kind" : "text",
+        "text" : "?"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "ApolloWebSocket"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Instance Property",
+    "symbolKind" : "property",
+    "title" : "payload"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "let"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "payload"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:9ApolloAPI10JSONObjecta",
+              "text" : "JSONObject"
+            },
+            {
+              "kind" : "text",
+              "text" : "?"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollowebsocket\/websocketerror\/payload"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"/documentation/apolloapi/graphqlsubscription": {
+  "identifier" : "\/documentation\/apolloapi\/graphqlsubscription",
+  "title" : "GraphQLSubscription",
+  "titleInlineContent" : [
+    {
+      "code" : "GraphQLSubscription",
+      "type" : "codeVoice"
+    }
+  ],
+  "type" : "link",
+  "url" : "\/documentation\/apolloapi\/graphqlsubscription"
+},
+"doc://ApolloWebSocket/documentation/ApolloWebSocket": {
+  "abstract" : [
+    {
+      "text" : "A web socket network transport implementation that provides support for ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "\/documentation\/apolloapi\/graphqlsubscription",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " operations over a web socket connection.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "ApolloWebSocket",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket"
+},
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketError": {
+  "abstract" : [
+    {
+      "text" : "A structure for capturing problems and any associated errors from a ",
+      "type" : "text"
+    },
+    {
+      "code" : "WebSocketTransport",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "WebSocketError"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "WebSocketError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "WebSocketError",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/websocketerror"
+},
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketError/payload": {
+  "abstract" : [
+    {
+      "text" : "The payload of the response.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "payload"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI10JSONObjecta",
+      "text" : "JSONObject"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError\/payload",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "payload",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/websocketerror\/payload"
+}
+}
+}

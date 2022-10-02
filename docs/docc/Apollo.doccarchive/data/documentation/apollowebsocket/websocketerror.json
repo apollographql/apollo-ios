@@ -1,0 +1,460 @@
+{
+  "abstract" : [
+    {
+      "text" : "A structure for capturing problems and any associated errors from a ",
+      "type" : "text"
+    },
+    {
+      "code" : "WebSocketTransport",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:15ApolloWebSocket0bC5ErrorV",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "struct"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "WebSocketError"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "ApolloWebSocket"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "WebSocketError"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Structure",
+    "symbolKind" : "struct",
+    "title" : "WebSocketError"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "struct"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "WebSocketError"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/ApolloWebSocket\/10Foundation14LocalizedErrorP",
+        "doc:\/\/ApolloWebSocket\/s5ErrorP",
+        "doc:\/\/ApolloWebSocket\/s8SendableP"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError\/error",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError\/errorDescription-2e2i1",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError\/kind",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError\/payload"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError\/ErrorKind"
+      ],
+      "title" : "Enumerations"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError\/Error-Implementations",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError\/LocalizedError-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollowebsocket\/websocketerror"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"/documentation/apolloapi/graphqlsubscription": {
+  "identifier" : "\/documentation\/apolloapi\/graphqlsubscription",
+  "title" : "GraphQLSubscription",
+  "titleInlineContent" : [
+    {
+      "code" : "GraphQLSubscription",
+      "type" : "codeVoice"
+    }
+  ],
+  "type" : "link",
+  "url" : "\/documentation\/apolloapi\/graphqlsubscription"
+},
+"doc://ApolloWebSocket/10Foundation14LocalizedErrorP": {
+  "identifier" : "doc:\/\/ApolloWebSocket\/10Foundation14LocalizedErrorP",
+  "title" : "Foundation.LocalizedError",
+  "type" : "unresolvable"
+},
+"doc://ApolloWebSocket/documentation/ApolloWebSocket": {
+  "abstract" : [
+    {
+      "text" : "A web socket network transport implementation that provides support for ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "\/documentation\/apolloapi\/graphqlsubscription",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " operations over a web socket connection.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "ApolloWebSocket",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket"
+},
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketError": {
+  "abstract" : [
+    {
+      "text" : "A structure for capturing problems and any associated errors from a ",
+      "type" : "text"
+    },
+    {
+      "code" : "WebSocketTransport",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "WebSocketError"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "WebSocketError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "WebSocketError",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/websocketerror"
+},
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketError/Error-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError\/Error-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Error Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/websocketerror\/error-implementations"
+},
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketError/ErrorKind": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ErrorKind"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError\/ErrorKind",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ErrorKind"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "WebSocketError.ErrorKind",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/websocketerror\/errorkind"
+},
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketError/LocalizedError-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError\/LocalizedError-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "LocalizedError Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/websocketerror\/localizederror-implementations"
+},
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketError/error": {
+  "abstract" : [
+    {
+      "text" : "The underlying error, or nil if one was not returned",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "error"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s5ErrorP",
+      "text" : "Error"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError\/error",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "error",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/websocketerror\/error"
+},
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketError/errorDescription-2e2i1": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "errorDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError\/errorDescription-2e2i1",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "errorDescription",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/websocketerror\/errordescription-2e2i1"
+},
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketError/kind": {
+  "abstract" : [
+    {
+      "text" : "The kind of problem which occurred.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "kind"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:15ApolloWebSocket0bC5ErrorV",
+      "text" : "WebSocketError"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:15ApolloWebSocket0bC5ErrorV0D4KindO",
+      "text" : "ErrorKind"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError\/kind",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "kind",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/websocketerror\/kind"
+},
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketError/payload": {
+  "abstract" : [
+    {
+      "text" : "The payload of the response.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "payload"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI10JSONObjecta",
+      "text" : "JSONObject"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError\/payload",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "payload",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/websocketerror\/payload"
+},
+"doc://ApolloWebSocket/s5ErrorP": {
+  "identifier" : "doc:\/\/ApolloWebSocket\/s5ErrorP",
+  "title" : "Swift.Error",
+  "type" : "unresolvable"
+},
+"doc://ApolloWebSocket/s8SendableP": {
+  "identifier" : "doc:\/\/ApolloWebSocket\/s8SendableP",
+  "title" : "Swift.Sendable",
+  "type" : "unresolvable"
+}
+}
+}

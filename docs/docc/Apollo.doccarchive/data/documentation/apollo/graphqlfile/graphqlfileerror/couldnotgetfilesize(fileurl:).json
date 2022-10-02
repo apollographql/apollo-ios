@@ -1,0 +1,261 @@
+{
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/GraphQLFileError"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/GraphQLFileError\/couldNotGetFileSize(fileURL:)"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:6Apollo11GraphQLFileV0bC5ErrorO19couldNotGetFileSizeyAE10Foundation3URLV_tcAEmF",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "case"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "couldNotGetFileSize"
+      },
+      {
+        "kind" : "text",
+        "text" : "("
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "fileURL"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:10Foundation3URLV",
+        "text" : "URL"
+      },
+      {
+        "kind" : "text",
+        "text" : ")"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Apollo"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Case",
+    "symbolKind" : "case",
+    "title" : "GraphQLFile.GraphQLFileError.couldNotGetFileSize(fileURL:)"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "case"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "couldNotGetFileSize"
+            },
+            {
+              "kind" : "text",
+              "text" : "("
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "fileURL"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:10Foundation3URLV",
+              "text" : "URL"
+            },
+            {
+              "kind" : "text",
+              "text" : ")"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollo\/graphqlfile\/graphqlfileerror\/couldnotgetfilesize(fileurl:)"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Apollo/documentation/Apollo": {
+  "abstract" : [
+    {
+      "text" : "A Strongly typed, Swift-first, GraphQL client.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Apollo",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo"
+},
+"doc://Apollo/documentation/Apollo/GraphQLFile": {
+  "abstract" : [
+    {
+      "text" : "A file which can be uploaded to a GraphQL server",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLFile"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLFile"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphQLFile",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/graphqlfile"
+},
+"doc://Apollo/documentation/Apollo/GraphQLFile/GraphQLFileError": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLFileError"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/GraphQLFileError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLFileError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphQLFile.GraphQLFileError",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/graphqlfile\/graphqlfileerror"
+},
+"doc://Apollo/documentation/Apollo/GraphQLFile/GraphQLFileError/couldNotGetFileSize(fileURL:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "couldNotGetFileSize"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "fileURL"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/GraphQLFileError\/couldNotGetFileSize(fileURL:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "GraphQLFile.GraphQLFileError.couldNotGetFileSize(fileURL:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/graphqlfile\/graphqlfileerror\/couldnotgetfilesize(fileurl:)"
+}
+}
+}

@@ -1,34 +1,44 @@
 import Foundation
+#if !COCOAPODS
+import ApolloAPI
+#endif
 
 final class GraphQLResultNormalizer: GraphQLResultAccumulator {
   private var records: RecordSet = [:]
 
-  func accept(scalar: JSONValue, info: GraphQLResolveInfo) -> JSONValue {
+  func accept(scalar: JSONValue, info: FieldExecutionInfo) -> JSONValue {
     return scalar
   }
 
-  func acceptNullValue(info: GraphQLResolveInfo) -> JSONValue {
+  func acceptNullValue(info: FieldExecutionInfo) -> JSONValue {
     return NSNull()
   }
 
-  func accept(list: [JSONValue], info: GraphQLResolveInfo) -> JSONValue {
+  func accept(list: [JSONValue], info: FieldExecutionInfo) -> JSONValue {
     return list
   }
 
-  func accept(fieldEntry: JSONValue, info: GraphQLResolveInfo) -> (key: String, value: JSONValue) {
+  func accept(childObject: CacheReference, info: FieldExecutionInfo) throws -> JSONValue {
+    return childObject
+  }
+
+  func accept(fieldEntry: JSONValue, info: FieldExecutionInfo) -> (key: String, value: JSONValue)? {
     return (info.cacheKeyForField, fieldEntry)
   }
 
-  func accept(fieldEntries: [(key: String, value: JSONValue)], info: GraphQLResolveInfo) throws -> JSONValue {
+  func accept(
+    fieldEntries: [(key: String, value: JSONValue)],
+    info: ObjectExecutionInfo
+  ) throws -> CacheReference {
     let cachePath = info.cachePath.joined
 
     let object = JSONObject(fieldEntries, uniquingKeysWith: { (_, last) in last })
     records.merge(record: Record(key: cachePath, object))
     
-    return CacheReference(key: cachePath)
+    return CacheReference(cachePath)
   }
 
-  func finish(rootValue: JSONValue, info: GraphQLResolveInfo) throws -> RecordSet {
+  func finish(rootValue: CacheReference, info: ObjectExecutionInfo) throws -> RecordSet {
     return records
   }
 }

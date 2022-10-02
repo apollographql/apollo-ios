@@ -3,7 +3,7 @@
 # `HTTPRequest`
 
 ```swift
-open class HTTPRequest<Operation: GraphQLOperation>
+open class HTTPRequest<Operation: GraphQLOperation>: Hashable
 ```
 
 Encapsulation of all information about a request before it hits the network
@@ -110,3 +110,28 @@ Converts this object to a fully fleshed-out `URLRequest`
 
 - Throws: Any error in creating the request
 - Returns: The URL request, ready to send to your server.
+
+### `hash(into:)`
+
+```swift
+public func hash(into hasher: inout Hasher)
+```
+
+#### Parameters
+
+| Name | Description |
+| ---- | ----------- |
+| hasher | The hasher to use when combining the components of this instance. |
+
+### `==(_:_:)`
+
+```swift
+public static func == (lhs: HTTPRequest<Operation>, rhs: HTTPRequest<Operation>) -> Bool
+```
+
+#### Parameters
+
+| Name | Description |
+| ---- | ----------- |
+| lhs | A value to compare. |
+| rhs | Another value to compare. |

@@ -1,0 +1,175 @@
+{
+  "abstract" : [
+    {
+      "text" : "Return data from the cache if available, else return nil.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/CachePolicy"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/CachePolicy\/returnCacheDataDontFetch"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:6Apollo11CachePolicyO06returnB13DataDontFetchyA2CmF",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "case"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "returnCacheDataDontFetch"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Apollo"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Case",
+    "symbolKind" : "case",
+    "title" : "CachePolicy.returnCacheDataDontFetch"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "case"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "returnCacheDataDontFetch"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollo\/cachepolicy\/returncachedatadontfetch"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Apollo/documentation/Apollo": {
+  "abstract" : [
+    {
+      "text" : "A Strongly typed, Swift-first, GraphQL client.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Apollo",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo"
+},
+"doc://Apollo/documentation/Apollo/CachePolicy": {
+  "abstract" : [
+    {
+      "text" : "A cache policy that specifies whether results should be fetched from the server or loaded from the local cache.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CachePolicy"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CachePolicy",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CachePolicy"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CachePolicy",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/cachepolicy"
+},
+"doc://Apollo/documentation/Apollo/CachePolicy/returnCacheDataDontFetch": {
+  "abstract" : [
+    {
+      "text" : "Return data from the cache if available, else return nil.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "returnCacheDataDontFetch"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CachePolicy\/returnCacheDataDontFetch",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "CachePolicy.returnCacheDataDontFetch",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/cachepolicy\/returncachedatadontfetch"
+}
+}
+}

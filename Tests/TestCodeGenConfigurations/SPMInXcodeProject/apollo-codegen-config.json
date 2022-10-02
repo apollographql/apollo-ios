@@ -1,0 +1,50 @@
+{
+  "schemaName" : "AnimalKingdomAPI",
+  "options" : {
+    "schemaDocumentation" : "include",
+    "deprecatedEnumCases" : "include",
+    "apqs" : "disabled",
+    "cocoapodsCompatibleImportStatements": false,
+    "additionalInflectionRules" : [
+
+    ],
+    "conversionStrategies" : {
+      "enumCases" : "camelCase"
+    },
+    "pruneGeneratedFiles" : true,
+    "queryStringLiteralFormat" : "multiline",
+    "warningsOnDeprecatedUsage" : "include"
+  },
+  "input" : {
+    "operationSearchPaths" : [
+      "..\/..\/..\/Sources\/AnimalKingdomAPI\/animalkingdom-graphql\/**\/*.graphql"
+    ],
+    "schemaSearchPaths" : [
+      "..\/..\/..\/Sources\/AnimalKingdomAPI\/animalkingdom-graphql\/AnimalSchema.graphqls"
+    ]
+  },
+  "output" : {
+    "testMocks" : {
+      "swiftPackage" : {
+        "name": "TestMocks"
+      }
+    },
+    "schemaTypes" : {
+      "path" : ".\/",
+      "moduleType" : {
+        "swiftPackageManager" : {
+
+        }
+      }
+    },
+    "operations" : {
+      "inSchemaModule" : {
+
+      }
+    }
+  },
+  "experimentalFeatures" : {
+    "clientControlledNullability" : true,
+    "legacySafelistingCompatibleOperations": true
+  }
+}

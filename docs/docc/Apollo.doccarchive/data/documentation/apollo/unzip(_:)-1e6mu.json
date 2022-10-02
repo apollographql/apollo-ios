@@ -1,0 +1,375 @@
+{
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Apollo\/documentation\/Apollo"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/unzip(_:)-1e6mu"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:6Apollo5unzipySayxG_Sayq_GSayq0_GtSayxSg_q_Sgq0_SgtGr1_lF",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "func"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "unzip"
+      },
+      {
+        "kind" : "text",
+        "text" : "<"
+      },
+      {
+        "kind" : "genericParameter",
+        "text" : "Element1"
+      },
+      {
+        "kind" : "text",
+        "text" : ", "
+      },
+      {
+        "kind" : "genericParameter",
+        "text" : "Element2"
+      },
+      {
+        "kind" : "text",
+        "text" : ", "
+      },
+      {
+        "kind" : "genericParameter",
+        "text" : "Element3"
+      },
+      {
+        "kind" : "text",
+        "text" : ">([("
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "Element1"
+      },
+      {
+        "kind" : "text",
+        "text" : "?, "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "Element2"
+      },
+      {
+        "kind" : "text",
+        "text" : "?, "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "Element3"
+      },
+      {
+        "kind" : "text",
+        "text" : "?)]) -> (["
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "Element1"
+      },
+      {
+        "kind" : "text",
+        "text" : "], ["
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "Element2"
+      },
+      {
+        "kind" : "text",
+        "text" : "], ["
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "Element3"
+      },
+      {
+        "kind" : "text",
+        "text" : "])"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Apollo"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Function",
+    "symbolKind" : "func",
+    "title" : "unzip(_:)"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "func"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "unzip"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "genericParameter",
+              "text" : "Element1"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "kind" : "genericParameter",
+              "text" : "Element2"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "kind" : "genericParameter",
+              "text" : "Element3"
+            },
+            {
+              "kind" : "text",
+              "text" : ">("
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "_"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "internalParam",
+              "text" : "array"
+            },
+            {
+              "kind" : "text",
+              "text" : ": [("
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Element1"
+            },
+            {
+              "kind" : "text",
+              "text" : "?, "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Element2"
+            },
+            {
+              "kind" : "text",
+              "text" : "?, "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Element3"
+            },
+            {
+              "kind" : "text",
+              "text" : "?)]) -> (["
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Element1"
+            },
+            {
+              "kind" : "text",
+              "text" : "], ["
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Element2"
+            },
+            {
+              "kind" : "text",
+              "text" : "], ["
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Element3"
+            },
+            {
+              "kind" : "text",
+              "text" : "])"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollo\/unzip(_:)-1e6mu"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Apollo/documentation/Apollo": {
+  "abstract" : [
+    {
+      "text" : "A Strongly typed, Swift-first, GraphQL client.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Apollo",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo"
+},
+"doc://Apollo/documentation/Apollo/unzip(_:)-1e6mu": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "unzip"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Element1"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Element2"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Element3"
+    },
+    {
+      "kind" : "text",
+      "text" : ">([("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Element1"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Element2"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Element3"
+    },
+    {
+      "kind" : "text",
+      "text" : "?)]) -> (["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Element1"
+    },
+    {
+      "kind" : "text",
+      "text" : "], ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Element2"
+    },
+    {
+      "kind" : "text",
+      "text" : "], ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Element3"
+    },
+    {
+      "kind" : "text",
+      "text" : "])"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/unzip(_:)-1e6mu",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "unzip(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/unzip(_:)-1e6mu"
+}
+}
+}

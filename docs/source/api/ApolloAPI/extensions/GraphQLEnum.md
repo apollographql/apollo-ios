@@ -2,14 +2,27 @@
 
 # `GraphQLEnum`
 ```swift
-extension GraphQLEnum
+extension GraphQLEnum: CustomScalarType
+```
+
+## Properties
+### `jsonValue`
+
+```swift
+@inlinable public var jsonValue: AnyHashable
 ```
 
 ## Methods
+### `init(jsonValue:)`
+
+```swift
+@inlinable public init(jsonValue: JSONValue) throws
+```
+
 ### `==(_:_:)`
 
 ```swift
-public static func ==(lhs: GraphQLEnum<T>, rhs: GraphQLEnum<T>) -> Bool
+@inlinable public static func ==(lhs: GraphQLEnum<T>, rhs: GraphQLEnum<T>) -> Bool
 ```
 
 #### Parameters
@@ -22,11 +35,17 @@ public static func ==(lhs: GraphQLEnum<T>, rhs: GraphQLEnum<T>) -> Bool
 ### `==(_:_:)`
 
 ```swift
-public static func ==(lhs: GraphQLEnum<T>, rhs: T) -> Bool
+@inlinable public static func ==(lhs: GraphQLEnum<T>, rhs: T) -> Bool
 ```
 
 ### `!=(_:_:)`
 
 ```swift
-public static func !=(lhs: GraphQLEnum<T>, rhs: T) -> Bool
+@inlinable public static func !=(lhs: GraphQLEnum<T>, rhs: T) -> Bool
+```
+
+### `~=(_:_:)`
+
+```swift
+@inlinable public static func ~=(lhs: T, rhs: GraphQLEnum<T>) -> Bool
 ```

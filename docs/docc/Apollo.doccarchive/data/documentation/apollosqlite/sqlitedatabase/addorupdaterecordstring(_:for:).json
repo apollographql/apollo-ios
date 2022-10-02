@@ -1,0 +1,320 @@
+{
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite",
+        "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteDatabase"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteDatabase\/addOrUpdateRecordString(_:for:)"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:12ApolloSQLite0B8DatabaseP23addOrUpdateRecordString_3forySS_SStKF",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "func"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "addOrUpdateRecordString"
+      },
+      {
+        "kind" : "text",
+        "text" : "("
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:SS",
+        "text" : "String"
+      },
+      {
+        "kind" : "text",
+        "text" : ", "
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "for"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:6Apollo8CacheKeya",
+        "text" : "CacheKey"
+      },
+      {
+        "kind" : "text",
+        "text" : ") "
+      },
+      {
+        "kind" : "keyword",
+        "text" : "throws"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "ApolloSQLite"
+      }
+    ],
+    "required" : true,
+    "role" : "symbol",
+    "roleHeading" : "Instance Method",
+    "symbolKind" : "method",
+    "title" : "addOrUpdateRecordString(_:for:)"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "func"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "addOrUpdateRecordString"
+            },
+            {
+              "kind" : "text",
+              "text" : "("
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "_"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "internalParam",
+              "text" : "recordString"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:SS",
+              "text" : "String"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "for"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "internalParam",
+              "text" : "cacheKey"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:6Apollo8CacheKeya",
+              "text" : "CacheKey"
+            },
+            {
+              "kind" : "text",
+              "text" : ") "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "throws"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollosqlite\/sqlitedatabase\/addorupdaterecordstring(_:for:)"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"/documentation/apollo/normalizedcache": {
+  "identifier" : "\/documentation\/apollo\/normalizedcache",
+  "title" : "NormalizedCache",
+  "titleInlineContent" : [
+    {
+      "code" : "NormalizedCache",
+      "type" : "codeVoice"
+    }
+  ],
+  "type" : "link",
+  "url" : "\/documentation\/apollo\/normalizedcache"
+},
+"doc://ApolloSQLite/documentation/ApolloSQLite": {
+  "abstract" : [
+    {
+      "text" : "A ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "\/documentation\/apollo\/normalizedcache",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " implementation backed by a ",
+      "type" : "text"
+    },
+    {
+      "code" : "SQLite",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " database.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "ApolloSQLite",
+  "type" : "topic",
+  "url" : "\/documentation\/apollosqlite"
+},
+"doc://ApolloSQLite/documentation/ApolloSQLite/SQLiteDatabase": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SQLiteDatabase"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteDatabase",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SQLiteDatabase"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SQLiteDatabase",
+  "type" : "topic",
+  "url" : "\/documentation\/apollosqlite\/sqlitedatabase"
+},
+"doc://ApolloSQLite/documentation/ApolloSQLite/SQLiteDatabase/addOrUpdateRecordString(_:for:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "addOrUpdateRecordString"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "for"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo8CacheKeya",
+      "text" : "CacheKey"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteDatabase\/addOrUpdateRecordString(_:for:)",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "addOrUpdateRecordString(_:for:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollosqlite\/sqlitedatabase\/addorupdaterecordstring(_:for:)"
+}
+}
+}

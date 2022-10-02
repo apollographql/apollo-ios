@@ -12,6 +12,12 @@ extension RecordSet: ExpressibleByDictionaryLiteral
 public var description: String
 ```
 
+### `debugDescription`
+
+```swift
+public var debugDescription: String
+```
+
 ### `playgroundDescription`
 
 ```swift

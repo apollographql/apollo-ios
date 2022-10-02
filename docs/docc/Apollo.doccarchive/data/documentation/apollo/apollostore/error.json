@@ -1,0 +1,282 @@
+{
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/Error"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:6Apollo0A5StoreC5ErrorO",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "enum"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "Error"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Apollo"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "Error"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Enumeration",
+    "symbolKind" : "enum",
+    "title" : "ApolloStore.Error"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "enum"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "Error"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/Apollo\/SQ",
+        "doc:\/\/Apollo\/s5ErrorP",
+        "doc:\/\/Apollo\/SH",
+        "doc:\/\/Apollo\/s8SendableP"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/Error\/notWithinReadTransaction"
+      ],
+      "title" : "Enumeration Cases"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/Error\/Equatable-Implementations",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/Error\/Error-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollo\/apollostore\/error"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Apollo/SH": {
+  "identifier" : "doc:\/\/Apollo\/SH",
+  "title" : "Swift.Hashable",
+  "type" : "unresolvable"
+},
+"doc://Apollo/SQ": {
+  "identifier" : "doc:\/\/Apollo\/SQ",
+  "title" : "Swift.Equatable",
+  "type" : "unresolvable"
+},
+"doc://Apollo/documentation/Apollo": {
+  "abstract" : [
+    {
+      "text" : "A Strongly typed, Swift-first, GraphQL client.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Apollo",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo"
+},
+"doc://Apollo/documentation/Apollo/ApolloStore": {
+  "abstract" : [
+    {
+      "text" : "The ",
+      "type" : "text"
+    },
+    {
+      "code" : "ApolloStore",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " class acts as a local cache for normalized GraphQL results.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ApolloStore"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ApolloStore"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ApolloStore",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/apollostore"
+},
+"doc://Apollo/documentation/Apollo/ApolloStore/Error": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Error"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/Error",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Error"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ApolloStore.Error",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/apollostore\/error"
+},
+"doc://Apollo/documentation/Apollo/ApolloStore/Error/Equatable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/Error\/Equatable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Equatable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/apollostore\/error\/equatable-implementations"
+},
+"doc://Apollo/documentation/Apollo/ApolloStore/Error/Error-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/Error\/Error-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Error Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/apollostore\/error\/error-implementations"
+},
+"doc://Apollo/documentation/Apollo/ApolloStore/Error/notWithinReadTransaction": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "notWithinReadTransaction"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/Error\/notWithinReadTransaction",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "ApolloStore.Error.notWithinReadTransaction",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/apollostore\/error\/notwithinreadtransaction"
+},
+"doc://Apollo/s5ErrorP": {
+  "identifier" : "doc:\/\/Apollo\/s5ErrorP",
+  "title" : "Swift.Error",
+  "type" : "unresolvable"
+},
+"doc://Apollo/s8SendableP": {
+  "identifier" : "doc:\/\/Apollo\/s8SendableP",
+  "title" : "Swift.Sendable",
+  "type" : "unresolvable"
+}
+}
+}

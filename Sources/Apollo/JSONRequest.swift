@@ -1,4 +1,7 @@
 import Foundation
+#if !COCOAPODS
+import ApolloAPI
+#endif
 
 /// A request which sends JSON related to a GraphQL operation.
 open class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
@@ -14,8 +17,8 @@ open class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
     }
   }
 
-  private var _body: GraphQLMap?
-  public var body: GraphQLMap {
+  private var _body: JSONEncodableDictionary?
+  public var body: JSONEncodableDictionary {
       if _body == nil {
         _body = createBody()
       }
@@ -38,42 +41,42 @@ open class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
   ///   - useGETForQueries: `true` if Queries should use `GET` instead of `POST` for HTTP requests. Defaults to `false`.
   ///   - useGETForPersistedQueryRetry: `true` if when an Auto-Persisted query is retried, it should use `GET` instead of `POST` to send the query. Defaults to `false`.
   ///   - requestBodyCreator: An object conforming to the `RequestBodyCreator` protocol to assist with creating the request body. Defaults to the provided `ApolloRequestBodyCreator` implementation.
-  public init(operation: Operation,
-              graphQLEndpoint: URL,
-              contextIdentifier: UUID? = nil,
-              clientName: String,
-              clientVersion: String,
-              additionalHeaders: [String: String] = [:],
-              cachePolicy: CachePolicy = .default,
-              autoPersistQueries: Bool = false,
-              useGETForQueries: Bool = false,
-              useGETForPersistedQueryRetry: Bool = false,
-              requestBodyCreator: RequestBodyCreator = ApolloRequestBodyCreator()) {
+  public init(
+    operation: Operation,
+    graphQLEndpoint: URL,
+    contextIdentifier: UUID? = nil,
+    clientName: String,
+    clientVersion: String,
+    additionalHeaders: [String: String] = [:],
+    cachePolicy: CachePolicy = .default,
+    autoPersistQueries: Bool = false,
+    useGETForQueries: Bool = false,
+    useGETForPersistedQueryRetry: Bool = false,
+    requestBodyCreator: RequestBodyCreator = ApolloRequestBodyCreator()
+  ) {
     self.autoPersistQueries = autoPersistQueries
     self.useGETForQueries = useGETForQueries
     self.useGETForPersistedQueryRetry = useGETForPersistedQueryRetry
     self.requestBodyCreator = requestBodyCreator
-    
-    super.init(graphQLEndpoint: graphQLEndpoint,
-               operation: operation,
-               contextIdentifier: contextIdentifier,
-               contentType: "application/json",
-               clientName: clientName,
-               clientVersion: clientVersion,
-               additionalHeaders: additionalHeaders,
-               cachePolicy: cachePolicy)
+
+    super.init(
+      graphQLEndpoint: graphQLEndpoint,
+      operation: operation,
+      contextIdentifier: contextIdentifier,
+      contentType: "application/json",
+      clientName: clientName,
+      clientVersion: clientVersion,
+      additionalHeaders: additionalHeaders,
+      cachePolicy: cachePolicy
+    )
   }
-  
-  open var sendOperationIdentifier: Bool {
-    self.operation.operationIdentifier != nil
-  }
-  
+
   open override func toURLRequest() throws -> URLRequest {
     var request = try super.toURLRequest()
     let useGetMethod: Bool
     let body = self.body
     
-    switch operation.operationType {
+    switch Operation.operationType {
     case .query:
       if isPersistedQueryRetry {
         useGetMethod = self.useGETForPersistedQueryRetry
@@ -110,10 +113,10 @@ open class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
     return request
   }
 
-  private func createBody() -> GraphQLMap {
+  private func createBody() -> JSONEncodableDictionary {
     let sendQueryDocument: Bool
     let autoPersistQueries: Bool
-    switch operation.operationType {
+    switch Operation.operationType {
     case .query:
       if isPersistedQueryRetry {
         sendQueryDocument = true
@@ -135,11 +138,35 @@ open class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
       autoPersistQueries = false
     }
     
-    let body = self.requestBodyCreator.requestBody(for: operation,
-                                                      sendOperationIdentifiers: self.sendOperationIdentifier,
-                                                      sendQueryDocument: sendQueryDocument,
-                                                      autoPersistQuery: autoPersistQueries)
+    let body = self.requestBodyCreator.requestBody(
+      for: operation,
+      sendQueryDocument: sendQueryDocument,
+      autoPersistQuery: autoPersistQueries
+    )
     
     return body
   }
+
+  // MARK: - Equtable/Hashable Conformance
+
+  public static func == (lhs: JSONRequest<Operation>, rhs: JSONRequest<Operation>) -> Bool {
+    lhs as HTTPRequest<Operation> == rhs as HTTPRequest<Operation> &&
+    type(of: lhs.requestBodyCreator) == type(of: rhs.requestBodyCreator) &&
+    lhs.autoPersistQueries == rhs.autoPersistQueries &&
+    lhs.useGETForQueries == rhs.useGETForQueries &&
+    lhs.useGETForPersistedQueryRetry == rhs.useGETForPersistedQueryRetry &&
+    lhs.isPersistedQueryRetry == rhs.isPersistedQueryRetry &&
+    lhs.body._jsonObject == rhs.body._jsonObject
+  }
+
+  public override func hash(into hasher: inout Hasher) {
+    super.hash(into: &hasher)
+    hasher.combine("\(type(of: requestBodyCreator))")
+    hasher.combine(autoPersistQueries)
+    hasher.combine(useGETForQueries)
+    hasher.combine(useGETForPersistedQueryRetry)
+    hasher.combine(isPersistedQueryRetry)
+    hasher.combine(body._jsonObject)
+  }
+
 }

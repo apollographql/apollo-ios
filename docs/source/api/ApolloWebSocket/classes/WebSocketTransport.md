@@ -32,55 +32,31 @@ public var clientVersion: String
 - NOTE: Setting this won't override immediately if the socket is still connected, only on reconnection.
 
 ## Methods
-### `init(websocket:store:clientName:clientVersion:sendOperationIdentifiers:reconnect:reconnectionInterval:allowSendingDuplicates:connectOnInit:connectingPayload:requestBodyCreator:operationMessageIdCreator:)`
+### `init(websocket:store:config:)`
 
 ```swift
-public init(websocket: WebSocketClient,
-            store: ApolloStore? = nil,
-            clientName: String = WebSocketTransport.defaultClientName,
-            clientVersion: String = WebSocketTransport.defaultClientVersion,
-            sendOperationIdentifiers: Bool = false,
-            reconnect: Bool = true,
-            reconnectionInterval: TimeInterval = 0.5,
-            allowSendingDuplicates: Bool = true,
-            connectOnInit: Bool = true,
-            connectingPayload: GraphQLMap? = [:],
-            requestBodyCreator: RequestBodyCreator = ApolloRequestBodyCreator(),
-            operationMessageIdCreator: OperationMessageIdCreator = ApolloSequencedOperationMessageIdCreator())
+public init(
+  websocket: WebSocketClient,
+  store: ApolloStore? = nil,
+  config: Configuration = Configuration()
+)
 ```
 
 Designated initializer
 
 - Parameters:
   - websocket: The websocket client to use for creating a websocket connection.
-  - store: [optional] The `ApolloStore` used as a local cache. Defaults to `nil`.
-  - clientName: The client name to use for this client. Defaults to `Self.defaultClientName`
-  - clientVersion: The client version to use for this client. Defaults to `Self.defaultClientVersion`.
-  - sendOperationIdentifiers: Whether or not to send operation identifiers with operations. Defaults to false.
-  - reconnect: Whether to auto reconnect when websocket looses connection. Defaults to true.
-  - reconnectionInterval: How long to wait before attempting to reconnect. Defaults to half a second.
-  - allowSendingDuplicates: Allow sending duplicate messages. Important when reconnected. Defaults to true.
-  - connectOnInit: Whether the websocket connects immediately on creation. If false, remember to call `resumeWebSocketConnection()` to connect. Defaults to true.
-  - connectingPayload: [optional] The payload to send on connection. Defaults to an empty `GraphQLMap`.
-  - requestBodyCreator: The `RequestBodyCreator` to use when serializing requests. Defaults to an `ApolloRequestBodyCreator`.
-  - operationMessageIdCreator: The `OperationMessageIdCreator` used to generate a unique message identifier per request. Defaults to `ApolloSequencedOperationMessageIdCreator`.
+  - store: [optional] The `ApolloStore` used as a local cache.
+  - config: A `WebSocketTransport.Configuration` object with options for configuring the
+            web socket connection. Defaults to a configuration with default values.
 
 #### Parameters
 
 | Name | Description |
 | ---- | ----------- |
 | websocket | The websocket client to use for creating a websocket connection. |
-| store | [optional] The `ApolloStore` used as a local cache. Defaults to `nil`. |
-| clientName | The client name to use for this client. Defaults to `Self.defaultClientName` |
-| clientVersion | The client version to use for this client. Defaults to `Self.defaultClientVersion`. |
-| sendOperationIdentifiers | Whether or not to send operation identifiers with operations. Defaults to false. |
-| reconnect | Whether to auto reconnect when websocket looses connection. Defaults to true. |
-| reconnectionInterval | How long to wait before attempting to reconnect. Defaults to half a second. |
-| allowSendingDuplicates | Allow sending duplicate messages. Important when reconnected. Defaults to true. |
-| connectOnInit | Whether the websocket connects immediately on creation. If false, remember to call `resumeWebSocketConnection()` to connect. Defaults to true. |
-| connectingPayload | [optional] The payload to send on connection. Defaults to an empty `GraphQLMap`. |
-| requestBodyCreator | The `RequestBodyCreator` to use when serializing requests. Defaults to an `ApolloRequestBodyCreator`. |
-| operationMessageIdCreator | The `OperationMessageIdCreator` used to generate a unique message identifier per request. Defaults to `ApolloSequencedOperationMessageIdCreator`. |
+| store | [optional] The `ApolloStore` used as a local cache. |
+| config | A `WebSocketTransport.Configuration` object with options for configuring the web socket connection. Defaults to a configuration with default values. |
 
 ### `isConnected()`
 
@@ -127,7 +103,7 @@ public func updateHeaderValues(_ values: [String: String?], reconnectIfConnected
 ### `updateConnectingPayload(_:reconnectIfConnected:)`
 
 ```swift
-public func updateConnectingPayload(_ payload: GraphQLMap, reconnectIfConnected: Bool = true)
+public func updateConnectingPayload(_ payload: JSONEncodableDictionary, reconnectIfConnected: Bool = true)
 ```
 
 ### `pauseWebSocketConnection()`

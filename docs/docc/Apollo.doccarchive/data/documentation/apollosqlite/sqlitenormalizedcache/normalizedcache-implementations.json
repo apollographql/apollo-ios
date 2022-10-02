@@ -1,0 +1,431 @@
+{
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite",
+        "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteNormalizedCache"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteNormalizedCache\/NormalizedCache-Implementations"
+  },
+  "kind" : "article",
+  "metadata" : {
+    "modules" : [
+      {
+        "name" : "ApolloSQLite"
+      }
+    ],
+    "role" : "collectionGroup",
+    "title" : "NormalizedCache Implementations"
+  },
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteNormalizedCache\/clear()",
+        "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteNormalizedCache\/loadRecords(forKeys:)",
+        "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteNormalizedCache\/merge(records:)",
+        "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteNormalizedCache\/removeRecord(for:)",
+        "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteNormalizedCache\/removeRecords(matching:)"
+      ],
+      "title" : "Instance Methods"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollosqlite\/sqlitenormalizedcache\/normalizedcache-implementations"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"/documentation/apollo/normalizedcache": {
+  "identifier" : "\/documentation\/apollo\/normalizedcache",
+  "title" : "NormalizedCache",
+  "titleInlineContent" : [
+    {
+      "code" : "NormalizedCache",
+      "type" : "codeVoice"
+    }
+  ],
+  "type" : "link",
+  "url" : "\/documentation\/apollo\/normalizedcache"
+},
+"doc://ApolloSQLite/documentation/ApolloSQLite": {
+  "abstract" : [
+    {
+      "text" : "A ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "\/documentation\/apollo\/normalizedcache",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " implementation backed by a ",
+      "type" : "text"
+    },
+    {
+      "code" : "SQLite",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " database.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "ApolloSQLite",
+  "type" : "topic",
+  "url" : "\/documentation\/apollosqlite"
+},
+"doc://ApolloSQLite/documentation/ApolloSQLite/SQLiteNormalizedCache": {
+  "abstract" : [
+    {
+      "text" : "A ",
+      "type" : "text"
+    },
+    {
+      "code" : "NormalizedCache",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " implementation which uses a SQLite database to store data.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SQLiteNormalizedCache"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteNormalizedCache",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SQLiteNormalizedCache"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SQLiteNormalizedCache",
+  "type" : "topic",
+  "url" : "\/documentation\/apollosqlite\/sqlitenormalizedcache"
+},
+"doc://ApolloSQLite/documentation/ApolloSQLite/SQLiteNormalizedCache/clear()": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "clear"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteNormalizedCache\/clear()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "clear()",
+  "type" : "topic",
+  "url" : "\/documentation\/apollosqlite\/sqlitenormalizedcache\/clear()"
+},
+"doc://ApolloSQLite/documentation/ApolloSQLite/SQLiteNormalizedCache/loadRecords(forKeys:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "loadRecords"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "forKeys"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sh",
+      "text" : "Set"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo8CacheKeya",
+      "text" : "CacheKey"
+    },
+    {
+      "kind" : "text",
+      "text" : ">) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo8CacheKeya",
+      "text" : "CacheKey"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo6RecordV",
+      "text" : "Record"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteNormalizedCache\/loadRecords(forKeys:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "loadRecords(forKeys:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollosqlite\/sqlitenormalizedcache\/loadrecords(forkeys:)"
+},
+"doc://ApolloSQLite/documentation/ApolloSQLite/SQLiteNormalizedCache/merge(records:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "merge"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "records"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo9RecordSetV",
+      "text" : "RecordSet"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sh",
+      "text" : "Set"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo8CacheKeya",
+      "text" : "CacheKey"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteNormalizedCache\/merge(records:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "merge(records:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollosqlite\/sqlitenormalizedcache\/merge(records:)"
+},
+"doc://ApolloSQLite/documentation/ApolloSQLite/SQLiteNormalizedCache/removeRecord(for:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "removeRecord"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "for"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo8CacheKeya",
+      "text" : "CacheKey"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteNormalizedCache\/removeRecord(for:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "removeRecord(for:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollosqlite\/sqlitenormalizedcache\/removerecord(for:)"
+},
+"doc://ApolloSQLite/documentation/ApolloSQLite/SQLiteNormalizedCache/removeRecords(matching:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "removeRecords"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "matching"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo8CacheKeya",
+      "text" : "CacheKey"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteNormalizedCache\/removeRecords(matching:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "removeRecords(matching:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollosqlite\/sqlitenormalizedcache\/removerecords(matching:)"
+}
+}
+}

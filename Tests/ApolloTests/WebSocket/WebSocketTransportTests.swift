@@ -1,6 +1,7 @@
 import XCTest
 import Apollo
-import ApolloTestSupport
+import ApolloAPI
+import ApolloInternalTestHelpers
 @testable import ApolloWebSocket
 
 class WebSocketTransportTests: XCTestCase {
@@ -19,7 +20,7 @@ class WebSocketTransportTests: XCTestCase {
 
     self.webSocketTransport = WebSocketTransport(
       websocket: MockWebSocket(request: request, protocol: .graphql_ws),
-      store: ApolloStore()
+      store: ApolloStore()      
     )
 
     self.webSocketTransport.updateHeaderValues(["Authorization": "UpdatedToken"])
@@ -33,13 +34,15 @@ class WebSocketTransportTests: XCTestCase {
     self.webSocketTransport = WebSocketTransport(
       websocket: MockWebSocket(request: request, protocol: .graphql_ws),
       store: ApolloStore(),
-      connectingPayload: ["Authorization": "OldToken"]
+      config: .init(
+        connectingPayload: ["Authorization": "OldToken"]
+      )
     )
 
     let mockWebSocketDelegate = MockWebSocketDelegate()
 
     let mockWebSocket = self.webSocketTransport.websocket as? MockWebSocket
-    self.webSocketTransport.socketConnectionState.mutate { $0 = .connected }
+    self.webSocketTransport.$socketConnectionState.mutate { $0 = .connected }
     mockWebSocket?.delegate = mockWebSocketDelegate
 
     let exp = expectation(description: "Waiting for reconnect")
@@ -66,7 +69,9 @@ class WebSocketTransportTests: XCTestCase {
     self.webSocketTransport = WebSocketTransport(
       websocket: MockWebSocket(request: request, protocol: .graphql_ws),
       store: ApolloStore(),
-      connectingPayload: ["Authorization": "OldToken"]
+      config: .init(
+        connectingPayload: ["Authorization": "OldToken"]
+      )
     )
     self.webSocketTransport.closeConnection()
     self.webSocketTransport.updateConnectingPayload(["Authorization": "UpdatedToken"])

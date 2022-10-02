@@ -1,0 +1,455 @@
+{
+  "abstract" : [
+    {
+      "text" : "The ",
+      "type" : "text"
+    },
+    {
+      "code" : "ApolloClient",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " class implements the core API for Apollo by conforming to ",
+      "type" : "text"
+    },
+    {
+      "code" : "ApolloClientProtocol",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Apollo\/documentation\/Apollo"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:6Apollo0A6ClientC",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "class"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "ApolloClient"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Apollo"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "ApolloClient"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Class",
+    "symbolKind" : "class",
+    "title" : "ApolloClient"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "class"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "ApolloClient"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClientProtocol"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/init(networkTransport:store:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/init(url:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/store"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/ApolloClientError"
+      ],
+      "title" : "Enumerations"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/ApolloClientProtocol-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollo\/apolloclient"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Apollo/documentation/Apollo": {
+  "abstract" : [
+    {
+      "text" : "A Strongly typed, Swift-first, GraphQL client.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Apollo",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo"
+},
+"doc://Apollo/documentation/Apollo/ApolloClient": {
+  "abstract" : [
+    {
+      "text" : "The ",
+      "type" : "text"
+    },
+    {
+      "code" : "ApolloClient",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " class implements the core API for Apollo by conforming to ",
+      "type" : "text"
+    },
+    {
+      "code" : "ApolloClientProtocol",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ApolloClient"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ApolloClient"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ApolloClient",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/apolloclient"
+},
+"doc://Apollo/documentation/Apollo/ApolloClient/ApolloClientError": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ApolloClientError"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/ApolloClientError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ApolloClientError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ApolloClient.ApolloClientError",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/apolloclient\/apolloclienterror"
+},
+"doc://Apollo/documentation/Apollo/ApolloClient/ApolloClientProtocol-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/ApolloClientProtocol-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "ApolloClientProtocol Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/apolloclient\/apolloclientprotocol-implementations"
+},
+"doc://Apollo/documentation/Apollo/ApolloClient/init(networkTransport:store:)": {
+  "abstract" : [
+    {
+      "text" : "Creates a client with the specified network transport and store.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "networkTransport"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo16NetworkTransportP",
+      "text" : "NetworkTransport"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "store"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo0A5StoreC",
+      "text" : "ApolloStore"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/init(networkTransport:store:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(networkTransport:store:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/apolloclient\/init(networktransport:store:)"
+},
+"doc://Apollo/documentation/Apollo/ApolloClient/init(url:)": {
+  "abstract" : [
+    {
+      "text" : "Creates a client with a ",
+      "type" : "text"
+    },
+    {
+      "code" : "RequestChainNetworkTransport",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " connecting to the specified URL.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "convenience"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "url"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/init(url:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(url:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/apolloclient\/init(url:)"
+},
+"doc://Apollo/documentation/Apollo/ApolloClient/store": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "store"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo0A5StoreC",
+      "text" : "ApolloStore"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/store",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "store",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/apolloclient\/store"
+},
+"doc://Apollo/documentation/Apollo/ApolloClientProtocol": {
+  "abstract" : [
+    {
+      "text" : "The ",
+      "type" : "text"
+    },
+    {
+      "code" : "ApolloClientProtocol",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " provides the core API for Apollo. This API provides methods to fetch and watch queries, and to perform mutations.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ApolloClientProtocol"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClientProtocol",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ApolloClientProtocol"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ApolloClientProtocol",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/apolloclientprotocol"
+}
+}
+}

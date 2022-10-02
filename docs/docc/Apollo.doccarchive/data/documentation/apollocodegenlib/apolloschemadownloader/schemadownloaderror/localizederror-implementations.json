@@ -1,0 +1,291 @@
+{
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/LocalizedError-Implementations"
+  },
+  "kind" : "article",
+  "metadata" : {
+    "modules" : [
+      {
+        "name" : "ApolloCodegenLib"
+      }
+    ],
+    "role" : "collectionGroup",
+    "title" : "LocalizedError Implementations"
+  },
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/errorDescription-8dw0d",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/failureReason",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/helpAnchor",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/recoverySuggestion"
+      ],
+      "title" : "Instance Properties"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollocodegenlib\/apolloschemadownloader\/schemadownloaderror\/localizederror-implementations"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib": {
+  "abstract" : [
+    {
+      "text" : "A robust code generation engine for GraphQL operations.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "ApolloCodegenLib",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloSchemaDownloader": {
+  "abstract" : [
+    {
+      "text" : "A wrapper to facilitate downloading a GraphQL schema.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ApolloSchemaDownloader"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ApolloSchemaDownloader"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ApolloSchemaDownloader",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/apolloschemadownloader"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloSchemaDownloader/SchemaDownloadError": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SchemaDownloadError"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SchemaDownloadError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ApolloSchemaDownloader.SchemaDownloadError",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/apolloschemadownloader\/schemadownloaderror"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloSchemaDownloader/SchemaDownloadError/errorDescription-8dw0d": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "errorDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/errorDescription-8dw0d",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "errorDescription",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/apolloschemadownloader\/schemadownloaderror\/errordescription-8dw0d"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloSchemaDownloader/SchemaDownloadError/failureReason": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "failureReason"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/failureReason",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "failureReason",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/apolloschemadownloader\/schemadownloaderror\/failurereason"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloSchemaDownloader/SchemaDownloadError/helpAnchor": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "helpAnchor"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/helpAnchor",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "helpAnchor",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/apolloschemadownloader\/schemadownloaderror\/helpanchor"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloSchemaDownloader/SchemaDownloadError/recoverySuggestion": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "recoverySuggestion"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/recoverySuggestion",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "recoverySuggestion",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/apolloschemadownloader\/schemadownloaderror\/recoverysuggestion"
+}
+}
+}

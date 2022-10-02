@@ -1,7 +1,6 @@
 import XCTest
 @testable import Apollo
-import ApolloTestSupport
-import StarWarsAPI
+import ApolloInternalTestHelpers
 
 class DataLoaderTests: XCTestCase {
   func testSingleLoad() throws {

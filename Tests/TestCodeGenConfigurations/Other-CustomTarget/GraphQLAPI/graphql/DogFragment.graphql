@@ -1,0 +1,3 @@
+fragment DogFragment on Dog {
+  species
+}

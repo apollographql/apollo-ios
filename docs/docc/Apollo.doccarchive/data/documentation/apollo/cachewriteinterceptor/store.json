@@ -1,0 +1,252 @@
+{
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/CacheWriteInterceptor"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/CacheWriteInterceptor\/store"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:6Apollo21CacheWriteInterceptorV5storeAA0A5StoreCvp",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "let"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "store"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:6Apollo0A5StoreC",
+        "text" : "ApolloStore"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Apollo"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Instance Property",
+    "symbolKind" : "property",
+    "title" : "store"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "let"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "store"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:6Apollo0A5StoreC",
+              "text" : "ApolloStore"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollo\/cachewriteinterceptor\/store"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Apollo/documentation/Apollo": {
+  "abstract" : [
+    {
+      "text" : "A Strongly typed, Swift-first, GraphQL client.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Apollo",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo"
+},
+"doc://Apollo/documentation/Apollo/ApolloStore": {
+  "abstract" : [
+    {
+      "text" : "The ",
+      "type" : "text"
+    },
+    {
+      "code" : "ApolloStore",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " class acts as a local cache for normalized GraphQL results.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ApolloStore"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ApolloStore"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ApolloStore",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/apollostore"
+},
+"doc://Apollo/documentation/Apollo/CacheWriteInterceptor": {
+  "abstract" : [
+    {
+      "text" : "An interceptor which writes data to the cache, following the ",
+      "type" : "text"
+    },
+    {
+      "code" : "HTTPRequest",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : "’s ",
+      "type" : "text"
+    },
+    {
+      "code" : "cachePolicy",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CacheWriteInterceptor"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CacheWriteInterceptor",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CacheWriteInterceptor"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CacheWriteInterceptor",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/cachewriteinterceptor"
+},
+"doc://Apollo/documentation/Apollo/CacheWriteInterceptor/store": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "store"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo0A5StoreC",
+      "text" : "ApolloStore"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CacheWriteInterceptor\/store",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "store",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/cachewriteinterceptor\/store"
+}
+}
+}

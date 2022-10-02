@@ -120,7 +120,7 @@ Click the plus signs next to `success` and `message` to add those to your operat
 
 In the "Variables" section of Sandbox Explorer, add an array of identifiers. In this case, we'll use a single identifier to book one trip:
 
-```json:title=(Sandbox%20Explorer)
+```json title="(Sandbox Explorer)"
 {"bookTripsLaunchIds": ["25"]}
 ```
 
@@ -138,7 +138,7 @@ With a mutation written like this, you can book any number of trips you want at 
 
 Luckily, there's an easy way to update the mutation so it's required to only take a single object. First, update the name of your operation in Explorer to the singular `BookTrip` (and remove `Mutation` since that will be added for us by code generation). Next, update the mutationto take a single `$id`, then pass an array containing that `$id` to the `bookTrips` mutation:
 
-```graphql:title=(Sandbox%20Explorer)
+```graphql title="(Sandbox Explorer)"
 mutation BookTrip($id:ID!) {
   bookTrips(launchIds:[$id]) {
     success
@@ -151,7 +151,7 @@ This is helpful because the Swift code generation will now generate a method tha
 
 In the Variables section of Sandbox Explorer, update the JSON dictionary to use `id` as the key, and remove the array brackets from around the identifier:
 
-```json:title=(Sandbox%20Explorer)
+```json title="(Sandbox Explorer)"
 {"id": "25"}
 ```
 
@@ -235,7 +235,7 @@ Check off `success` and `message` again to add those properties to the list of o
 
 Again, Explorer's gotten a little verbose here, so update your operation's name and variables to be a little shorter:
 
-```graphql:title=(Sandbox%20Explorer)
+```graphql title="(Sandbox Explorer)"
 mutation CancelTrip($id: ID!) {
   cancelTrip(launchId: $id) {
     success
@@ -248,7 +248,7 @@ One key difference from `bookTrips` is that you're only allowed to cancel one tr
 
 In the Variables section of Sandbox Explorer, you can use the exact same JSON that you used for `BookTrip` (because it also used a single identifier called "id"):
 
-```json:title=(GraphiQL)
+```json title="(GraphiQL)"
 {"id": "25"}
 ```
 

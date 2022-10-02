@@ -1,4 +1,6 @@
-import Foundation
+#if !COCOAPODS
+import ApolloAPI
+#endif
 
 // MARK: - Basic protocol
 

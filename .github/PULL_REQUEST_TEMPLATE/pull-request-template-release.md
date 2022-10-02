@@ -12,10 +12,9 @@ Example: [0.48.0...main](https://github.com/apollographql/apollo-ios/compare/0.4
 #### Other things to do before a release - _these need to be automated by CI_
 - [ ] Validate that `main` builds with a test Swift Package Manager project.
 - [ ] Validate that `main` builds with a test CocoaPods project.
-- [ ] Validate that `main` builds with a test Carthage project (make sure to use `--use-xcframeworks`).
 
 #### Things to do as part of releasing
-- [ ] Add tag of format `major.minor.patch` to GitHub for SPM/Carthage.
+- [ ] Add tag of format `major.minor.patch` to GitHub.
 - [ ] Create a release on GitHub with the new tag, using the latest [`CHANGELOG.md`](https://github.com/apollographql/apollo-ios/blob/main/CHANGELOG.md) contents.
 - [ ] Run `pod trunk push Apollo.podspec` to publish to CocoaPods. You will need write permissions for this, please contact one of the [maintainers](https://github.com/apollographql/apollo-ios/blob/main/README.md#maintainers) if you need access to do this.
 - [ ] Announce the new version (Twitter, etc.)

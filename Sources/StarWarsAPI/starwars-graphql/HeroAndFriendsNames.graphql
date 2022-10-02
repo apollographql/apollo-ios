@@ -1,0 +1,39 @@
+query HeroAndFriendsNames($episode: Episode) {
+  hero(episode: $episode) {
+    name
+    friends {
+      name
+    }
+  }
+}
+
+query HeroAndFriendsNamesWithIDs($episode: Episode) {
+  hero(episode: $episode) {
+    id
+    name
+    friends {
+      id
+      name
+    }
+  }
+}
+
+query HeroAndFriendsIDs($episode: Episode) {
+  hero(episode: $episode) {
+    id
+    name
+    friends {
+      id
+    }
+  }
+}
+
+query HeroAndFriendsNamesWithIDForParentOnly($episode: Episode) {
+  hero(episode: $episode) {
+    id
+    name
+    friends {
+      name
+    }
+  }
+}

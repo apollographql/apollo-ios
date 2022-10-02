@@ -1,0 +1,388 @@
+{
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DataDict"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DataDict\/init(_:variables:)"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:9ApolloAPI8DataDictV_9variablesACSDySSs11AnyHashableVG_SDySSAA29GraphQLOperationVariableValue_pGSgtcfc",
+    "fragments" : [
+      {
+        "kind" : "identifier",
+        "text" : "init"
+      },
+      {
+        "kind" : "text",
+        "text" : "("
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:9ApolloAPI10JSONObjecta",
+        "text" : "JSONObject"
+      },
+      {
+        "kind" : "text",
+        "text" : ", "
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "variables"
+      },
+      {
+        "kind" : "text",
+        "text" : ": ["
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:SS",
+        "text" : "String"
+      },
+      {
+        "kind" : "text",
+        "text" : " : "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:9ApolloAPI29GraphQLOperationVariableValueP",
+        "text" : "GraphQLOperationVariableValue"
+      },
+      {
+        "kind" : "text",
+        "text" : "]?)"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "ApolloAPI"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Initializer",
+    "symbolKind" : "init",
+    "title" : "init(_:variables:)"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "init"
+            },
+            {
+              "kind" : "text",
+              "text" : "("
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "_"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "internalParam",
+              "text" : "data"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONObject",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:9ApolloAPI10JSONObjecta",
+              "text" : "JSONObject"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "variables"
+            },
+            {
+              "kind" : "text",
+              "text" : ": ["
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:SS",
+              "text" : "String"
+            },
+            {
+              "kind" : "text",
+              "text" : " : "
+            },
+            {
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperationVariableValue",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:9ApolloAPI29GraphQLOperationVariableValueP",
+              "text" : "GraphQLOperationVariableValue"
+            },
+            {
+              "kind" : "text",
+              "text" : "]?)"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apolloapi\/datadict\/init(_:variables:)"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"/documentation/apollo": {
+  "identifier" : "\/documentation\/apollo",
+  "title" : "Apollo",
+  "titleInlineContent" : [
+    {
+      "code" : "Apollo",
+      "type" : "codeVoice"
+    }
+  ],
+  "type" : "link",
+  "url" : "\/documentation\/apollo"
+},
+"/documentation/apollocodegenlib": {
+  "identifier" : "\/documentation\/apollocodegenlib",
+  "title" : "ApolloCodegenLib",
+  "titleInlineContent" : [
+    {
+      "code" : "ApolloCodegenLib",
+      "type" : "codeVoice"
+    }
+  ],
+  "type" : "link",
+  "url" : "\/documentation\/apollocodegenlib"
+},
+"doc://ApolloAPI/documentation/ApolloAPI": {
+  "abstract" : [
+    {
+      "text" : "The internal models shared by the ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "\/documentation\/apollo",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " client and the models generated by ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "\/documentation\/apollocodegenlib",
+      "isActive" : true,
+      "type" : "reference"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "ApolloAPI",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/DataDict": {
+  "abstract" : [
+    {
+      "text" : "A structure that wraps the underlying data dictionary used by ",
+      "type" : "text"
+    },
+    {
+      "code" : "SelectionSet",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : "s.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DataDict"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DataDict",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DataDict"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DataDict",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/datadict"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/DataDict/init(_:variables:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI10JSONObjecta",
+      "text" : "JSONObject"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "variables"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI29GraphQLOperationVariableValueP",
+      "text" : "GraphQLOperationVariableValue"
+    },
+    {
+      "kind" : "text",
+      "text" : "]?)"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DataDict\/init(_:variables:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(_:variables:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/datadict\/init(_:variables:)"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLOperationVariableValue": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLOperationVariableValue"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperationVariableValue",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLOperationVariableValue"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphQLOperationVariableValue",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/graphqloperationvariablevalue"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/JSONObject": {
+  "abstract" : [
+    {
+      "text" : "Represents a JSON Dictionary",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "JSONObject"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONObject",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "JSONObject"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "JSONObject",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/jsonobject"
+}
+}
+}

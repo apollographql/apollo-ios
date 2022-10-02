@@ -3,52 +3,70 @@ import ApolloAPI
 #endif
 import Foundation
 
-extension InputValue {
-  func evaluate(with variables: [String: JSONEncodable]?) throws -> JSONValue {
-    switch self {
-    case .scalar(let scalar as JSONEncodable):
-      return scalar.jsonValue
+extension Selection.Field {
+  public func cacheKey(with variables: GraphQLOperation.Variables?) throws -> String {
+    if let arguments = arguments,
+       case let argumentValues = try InputValue.evaluate(arguments, with: variables),
+       !argumentValues.isEmpty {
+      let argumentsKey = orderIndependentKey(for: argumentValues)
+      return "\(name)(\(argumentsKey))"
+    } else {
+      return name
+    }
+  }
 
-    case .scalar(let scalar):
-      throw GraphQLError("Scalar value \(scalar) is not JSONEncodable.")
-
-    case .variable(let name):
-      guard let value = variables?[name] else {
-        throw GraphQLError("Variable \(name) was not provided.")
+  private func orderIndependentKey(for object: JSONObject) -> String {
+    return object.sorted { $0.key < $1.key }.map {
+      switch $0.value {
+      case let object as JSONObject:
+        return "[\($0.key):\(orderIndependentKey(for: object))]"
+      case let array as [JSONObject]:
+        return "\($0.key):[\(array.map { orderIndependentKey(for: $0) }.joined(separator: ","))]"
+      case let array as [JSONValue]:
+        return "\($0.key):[\(array.map { String(describing: $0.base) }.joined(separator: ", "))]"
+      case is NSNull:
+        return "\($0.key):null"
+      default:
+        return "\($0.key):\($0.value.base)"
       }
-      return value.jsonValue
+    }.joined(separator: ",")
+  }
+}
 
-    case .list(let array):
-      return try evaluate(values: array, with: variables)
+extension InputValue {
+  private func evaluate(with variables: GraphQLOperation.Variables?) throws -> JSONValue? {
+    switch self {
+    case let .variable(name):
+      guard let value = variables?[name] else {
+        throw GraphQLError("Variable \"\(name)\" was not provided.")
+      }
+      return value._jsonEncodableValue?._jsonValue
 
-    case .object(let dictionary):
-      return try evaluate(values: dictionary, with: variables)
+    case let .scalar(value):
+      return value._jsonValue
 
-    case .none:
+    case let .list(array):
+      return try InputValue.evaluate(array, with: variables)
+
+    case let .object(dictionary):
+      return try InputValue.evaluate(dictionary, with: variables)
+
+    case .null:
       return NSNull()
     }
   }
 
-  private func evaluate(values: [InputValue], with variables: [String: JSONEncodable]?) throws -> JSONValue {
-    return try evaluate(values: values, with: variables) as [JSONValue]
+  fileprivate static func evaluate(
+    _ values: [InputValue],
+    with variables: GraphQLOperation.Variables?
+  ) throws -> [JSONValue] {
+    try values.compactMap { try $0.evaluate(with: variables) }
   }
 
-  private func evaluate(values: [InputValue], with variables: [String: JSONEncodable]?) throws -> [JSONValue] {
-    try values.map { try $0.evaluate(with: variables) }
-  }
-
-  private func evaluate(values: [String: InputValue], with variables: [String: JSONEncodable]?) throws -> JSONValue {
-    return try evaluate(values: values, with: variables) as JSONObject
-  }
-
-  private func evaluate(values: [String: InputValue], with variables: [String: JSONEncodable]?) throws -> JSONObject {
-    var jsonObject = JSONObject(minimumCapacity: values.count)
-    for (key, value) in values {
-      let evaluatedValue = try value.evaluate(with: variables)
-      if !(evaluatedValue is NSNull) {
-        jsonObject[key] = evaluatedValue
-      }
-    }
-    return jsonObject
+  fileprivate static func evaluate(
+    _ values: [String: InputValue],
+    with variables: GraphQLOperation.Variables?
+  ) throws -> JSONObject {
+    try values.compactMapValues { try $0.evaluate(with: variables) }
   }
 }

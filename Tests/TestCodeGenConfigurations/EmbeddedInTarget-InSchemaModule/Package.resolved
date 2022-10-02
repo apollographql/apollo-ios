@@ -1,0 +1,41 @@
+{
+  "pins" : [
+    {
+      "identity" : "inflectorkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/mattt/InflectorKit",
+      "state" : {
+        "revision" : "d8cbcc04972690aaa5fc760a2b9ddb3e9f0decd7",
+        "version" : "1.0.0"
+      }
+    },
+    {
+      "identity" : "sqlite.swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/stephencelis/SQLite.swift.git",
+      "state" : {
+        "revision" : "4d543d811ee644fa4cc4bfa0be996b4dd6ba0f54",
+        "version" : "0.13.3"
+      }
+    },
+    {
+      "identity" : "swift-argument-parser",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-argument-parser.git",
+      "state" : {
+        "revision" : "9f39744e025c7d377987f30b03770805dcb0bcd1",
+        "version" : "1.1.4"
+      }
+    },
+    {
+      "identity" : "swift-collections",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-collections",
+      "state" : {
+        "revision" : "48254824bb4248676bf7ce56014ff57b142b77eb",
+        "version" : "1.0.2"
+      }
+    }
+  ],
+  "version" : 2
+}

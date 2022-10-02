@@ -1,26 +1,34 @@
+#if !COCOAPODS
+import ApolloAPI
+#endif
+
 final class GraphQLDependencyTracker: GraphQLResultAccumulator {
   private var dependentKeys: Set<CacheKey> = Set()
 
-  func accept(scalar: JSONValue, info: GraphQLResolveInfo) {
+  func accept(scalar: JSONValue, info: FieldExecutionInfo) {
     dependentKeys.insert(info.cachePath.joined)
   }
 
-  func acceptNullValue(info: GraphQLResolveInfo) {
+  func acceptNullValue(info: FieldExecutionInfo) {
     dependentKeys.insert(info.cachePath.joined)
   }
 
-  func accept(list: [Void], info: GraphQLResolveInfo) {
+  func accept(list: [Void], info: FieldExecutionInfo) {
     dependentKeys.insert(info.cachePath.joined)
   }
 
-  func accept(fieldEntry: Void, info: GraphQLResolveInfo) {
+  func accept(childObject: Void, info: FieldExecutionInfo) {
+  }
+
+  func accept(fieldEntry: Void, info: FieldExecutionInfo) -> Void? {
     dependentKeys.insert(info.cachePath.joined)
+    return ()
   }
 
-  func accept(fieldEntries: [Void], info: GraphQLResolveInfo) {
+  func accept(fieldEntries: [Void], info: ObjectExecutionInfo) {
   }
 
-  func finish(rootValue: Void, info: GraphQLResolveInfo) -> Set<CacheKey> {
+  func finish(rootValue: Void, info: ObjectExecutionInfo) -> Set<CacheKey> {
     return dependentKeys
   }
 }

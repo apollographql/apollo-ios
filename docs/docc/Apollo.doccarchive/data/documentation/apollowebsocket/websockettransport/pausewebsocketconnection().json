@@ -1,0 +1,304 @@
+{
+  "abstract" : [
+    {
+      "text" : "Disconnects the websocket while setting the auto-reconnect value to false,",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "allowing purposeful disconnects that do not dump existing subscriptions.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "NOTE: You will receive an error on the subscription (should be a ",
+      "type" : "text"
+    },
+    {
+      "code" : "WebSocket.WSError",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " with code 1000) when the socket disconnects.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "ALSO NOTE: In case pauseWebSocketConnection is called when app is backgrounded, app might get suspended within 5 seconds. In case disconnect did not complete within that time, websocket won’t resume properly. That is why forceTimeout is set to 2 seconds.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "ALSO NOTE: To reconnect after calling this, you will need to call ",
+      "type" : "text"
+    },
+    {
+      "code" : "resumeWebSocketConnection",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/pauseWebSocketConnection()"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:15ApolloWebSocket0bC9TransportC05pausebC10ConnectionyyF",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "func"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "pauseWebSocketConnection"
+      },
+      {
+        "kind" : "text",
+        "text" : "()"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "ApolloWebSocket"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Instance Method",
+    "symbolKind" : "method",
+    "title" : "pauseWebSocketConnection()"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "func"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "pauseWebSocketConnection"
+            },
+            {
+              "kind" : "text",
+              "text" : "()"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollowebsocket\/websockettransport\/pausewebsocketconnection()"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"/documentation/apolloapi/graphqlsubscription": {
+  "identifier" : "\/documentation\/apolloapi\/graphqlsubscription",
+  "title" : "GraphQLSubscription",
+  "titleInlineContent" : [
+    {
+      "code" : "GraphQLSubscription",
+      "type" : "codeVoice"
+    }
+  ],
+  "type" : "link",
+  "url" : "\/documentation\/apolloapi\/graphqlsubscription"
+},
+"doc://ApolloWebSocket/documentation/ApolloWebSocket": {
+  "abstract" : [
+    {
+      "text" : "A web socket network transport implementation that provides support for ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "\/documentation\/apolloapi\/graphqlsubscription",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " operations over a web socket connection.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "ApolloWebSocket",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket"
+},
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport": {
+  "abstract" : [
+    {
+      "text" : "A network transport that uses web sockets requests to send GraphQL subscription operations to a server.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "WebSocketTransport"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "WebSocketTransport"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "WebSocketTransport",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/websockettransport"
+},
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport/pauseWebSocketConnection()": {
+  "abstract" : [
+    {
+      "text" : "Disconnects the websocket while setting the auto-reconnect value to false,",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "allowing purposeful disconnects that do not dump existing subscriptions.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "NOTE: You will receive an error on the subscription (should be a ",
+      "type" : "text"
+    },
+    {
+      "code" : "WebSocket.WSError",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " with code 1000) when the socket disconnects.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "ALSO NOTE: In case pauseWebSocketConnection is called when app is backgrounded, app might get suspended within 5 seconds. In case disconnect did not complete within that time, websocket won’t resume properly. That is why forceTimeout is set to 2 seconds.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "ALSO NOTE: To reconnect after calling this, you will need to call ",
+      "type" : "text"
+    },
+    {
+      "code" : "resumeWebSocketConnection",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "pauseWebSocketConnection"
+    },
+    {
+      "kind" : "text",
+      "text" : "()"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/pauseWebSocketConnection()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "pauseWebSocketConnection()",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/websockettransport\/pausewebsocketconnection()"
+}
+}
+}

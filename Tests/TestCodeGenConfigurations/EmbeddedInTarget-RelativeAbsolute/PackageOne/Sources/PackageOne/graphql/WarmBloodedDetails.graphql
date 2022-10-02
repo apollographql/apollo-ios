@@ -1,0 +1,4 @@
+fragment WarmBloodedDetails on WarmBlooded {
+  bodyTemperature
+  ...HeightInMeters  
+}

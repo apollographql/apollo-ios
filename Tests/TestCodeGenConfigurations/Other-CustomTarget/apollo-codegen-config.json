@@ -1,0 +1,50 @@
+{
+  "schemaName" : "GraphQLAPI",
+  "options" : {
+    "schemaDocumentation" : "include",
+    "deprecatedEnumCases" : "include",
+    "apqs" : "disabled",
+    "cocoapodsCompatibleImportStatements": false,
+    "additionalInflectionRules" : [
+
+    ],
+    "conversionStrategies" : {
+      "enumCases" : "camelCase"
+    },
+    "pruneGeneratedFiles" : true,
+    "queryStringLiteralFormat" : "multiline",
+    "warningsOnDeprecatedUsage" : "include"
+  },
+  "input" : {
+    "operationSearchPaths" : [
+      "GraphQLAPI/graphql/**\/*.graphql"
+    ],
+    "schemaSearchPaths" : [
+      "GraphQLAPI/graphql/AnimalSchema.graphqls"
+    ]
+  },
+  "output" : {
+    "testMocks" : {
+      "absolute" : {
+        "path": "TestMocks/"
+      }
+    },
+    "schemaTypes" : {
+      "path" : "GraphQLAPI/",
+      "moduleType" : {
+        "other" : {
+
+        }
+      }
+    },
+    "operations" : {
+      "inSchemaModule" : {
+
+      }
+    }
+  },
+  "experimentalFeatures" : {
+    "clientControlledNullability" : true,
+    "legacySafelistingCompatibleOperations": true
+  }
+}

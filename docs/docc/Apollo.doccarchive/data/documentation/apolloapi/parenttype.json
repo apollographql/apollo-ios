@@ -1,0 +1,545 @@
+{
+  "abstract" : [
+    {
+      "text" : "A protocol for a type that represents the ",
+      "type" : "text"
+    },
+    {
+      "code" : "__parentType",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " of a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ParentType"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:9ApolloAPI10ParentTypeP",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "protocol"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "ParentType"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "ApolloAPI"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "ParentType"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Protocol",
+    "symbolKind" : "protocol",
+    "title" : "ParentType"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "protocol"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "ParentType"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "A ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : "’s ",
+              "type" : "text"
+            },
+            {
+              "code" : "__parentType",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " is the type from the schema that the selection set is",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "selected against. This type can be an ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Object",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : ", ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Interface",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : ", or ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Union",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : ".",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Interface",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Object",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Union"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforming Types",
+      "type" : "conformingTypes"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ParentType\/canBeConverted(from:)"
+      ],
+      "title" : "Instance Methods"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apolloapi\/parenttype"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"/documentation/apollo": {
+  "identifier" : "\/documentation\/apollo",
+  "title" : "Apollo",
+  "titleInlineContent" : [
+    {
+      "code" : "Apollo",
+      "type" : "codeVoice"
+    }
+  ],
+  "type" : "link",
+  "url" : "\/documentation\/apollo"
+},
+"/documentation/apollocodegenlib": {
+  "identifier" : "\/documentation\/apollocodegenlib",
+  "title" : "ApolloCodegenLib",
+  "titleInlineContent" : [
+    {
+      "code" : "ApolloCodegenLib",
+      "type" : "codeVoice"
+    }
+  ],
+  "type" : "link",
+  "url" : "\/documentation\/apollocodegenlib"
+},
+"doc://ApolloAPI/documentation/ApolloAPI": {
+  "abstract" : [
+    {
+      "text" : "The internal models shared by the ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "\/documentation\/apollo",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " client and the models generated by ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "\/documentation\/apollocodegenlib",
+      "isActive" : true,
+      "type" : "reference"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "ApolloAPI",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/Interface": {
+  "abstract" : [
+    {
+      "text" : "Represents an ",
+      "type" : "text"
+    },
+    {
+      "code" : "interface",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " type in a generated GraphQL schema.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Interface"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Interface",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Interface"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Interface",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/interface"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/Object": {
+  "abstract" : [
+    {
+      "text" : "Represents an object ",
+      "type" : "text"
+    },
+    {
+      "code" : "type",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " in a generated GraphQL schema.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Object"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Object",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Object"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Object",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/object"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/ParentType": {
+  "abstract" : [
+    {
+      "text" : "A protocol for a type that represents the ",
+      "type" : "text"
+    },
+    {
+      "code" : "__parentType",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " of a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ParentType"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ParentType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ParentType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ParentType",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/parenttype"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/ParentType/canBeConverted(from:)": {
+  "abstract" : [
+    {
+      "text" : "A helper function to determine if an ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Object",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " of the given type can be converted to",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "the receiver type.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "canBeConverted"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "from"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI6ObjectV",
+      "text" : "Object"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ParentType\/canBeConverted(from:)",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "canBeConverted(from:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/parenttype\/canbeconverted(from:)"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/SelectionSet": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SelectionSet"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SelectionSet"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SelectionSet",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/selectionset"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/Union": {
+  "abstract" : [
+    {
+      "text" : "Represents a ",
+      "type" : "text"
+    },
+    {
+      "code" : "union",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " type in a generated GraphQL schema.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Union"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Union",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Union"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Union",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/union"
+}
+}
+}

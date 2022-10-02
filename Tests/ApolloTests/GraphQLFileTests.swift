@@ -1,15 +1,7 @@
-//
-//  GraphQLFileTests.swift
-//  ApolloTests
-//
-//  Created by Ellen Shapiro on 3/18/20.
-//  Copyright © 2020 Apollo GraphQL. All rights reserved.
-//
-
 import XCTest
 
 @testable import Apollo
-import ApolloTestSupport
+import ApolloInternalTestHelpers
 
 class GraphQLFileTests: XCTestCase {
   

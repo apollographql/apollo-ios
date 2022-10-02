@@ -7,19 +7,43 @@ public final class ReadWriteTransaction: ReadTransaction
 ```
 
 ## Methods
-### `update(query:_:)`
+### `update(_:_:)`
 
 ```swift
-public func update<Query: GraphQLQuery>(query: Query, _ body: (inout Query.Data) throws -> Void) throws
+public func update<CacheMutation: LocalCacheMutation>(
+  _ cacheMutation: CacheMutation,
+  _ body: (inout CacheMutation.Data) throws -> Void
+) throws
 ```
 
 ### `updateObject(ofType:withKey:variables:_:)`
 
 ```swift
-public func updateObject<SelectionSet: GraphQLSelectionSet>(ofType type: SelectionSet.Type,
-                                                            withKey key: CacheKey,
-                                                            variables: GraphQLMap? = nil,
-                                                            _ body: (inout SelectionSet) throws -> Void) throws
+public func updateObject<SelectionSet: ApolloAPI.MutableRootSelectionSet>(
+  ofType type: SelectionSet.Type,
+  withKey key: CacheKey,
+  variables: GraphQLOperation.Variables? = nil,
+  _ body: (inout SelectionSet) throws -> Void
+) throws
+```
+
+### `write(data:for:)`
+
+```swift
+public func write<CacheMutation: LocalCacheMutation>(
+  data: CacheMutation.Data,
+  for cacheMutation: CacheMutation
+) throws
+```
+
+### `write(selectionSet:withKey:variables:)`
+
+```swift
+public func write<SelectionSet: MutableRootSelectionSet>(
+  selectionSet: SelectionSet,
+  withKey key: CacheKey,
+  variables: GraphQLOperation.Variables? = nil
+) throws
 ```
 
 ### `removeObject(for:)`
@@ -66,17 +90,3 @@ It is recommended that this method be called in a background queue.
 | Name | Description |
 | ---- | ----------- |
 | pattern | The pattern that will be applied to find matching keys. |
-
-### `write(data:forQuery:)`
-
-```swift
-public func write<Query: GraphQLQuery>(data: Query.Data, forQuery query: Query) throws
-```
-
-### `write(object:withKey:variables:)`
-
-```swift
-public func write(object: GraphQLSelectionSet,
-                  withKey key: CacheKey,
-                  variables: GraphQLMap? = nil) throws
-```

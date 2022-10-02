@@ -30,7 +30,7 @@ class DefaultInterceptorProviderIntegrationTests: XCTestCase {
 
   func testLoading() {
     let expectation = self.expectation(description: "loaded with default client")
-    client.fetch(query: HeroNameQuery()) { result in
+    client.fetch(query: HeroNameQuery(episode: nil)) { result in
       switch result {
       case .success(let graphQLResult):
         XCTAssertEqual(graphQLResult.source, .server)
@@ -47,7 +47,7 @@ class DefaultInterceptorProviderIntegrationTests: XCTestCase {
 
   func testInitialLoadFromNetworkAndSecondaryLoadFromCache() {
     let initialLoadExpectation = self.expectation(description: "loaded with default client")
-    client.fetch(query: HeroNameQuery()) { result in
+    client.fetch(query: HeroNameQuery(episode: nil)) { result in
       switch result {
       case .success(let graphQLResult):
         XCTAssertEqual(graphQLResult.source, .server)
@@ -62,7 +62,7 @@ class DefaultInterceptorProviderIntegrationTests: XCTestCase {
     self.wait(for: [initialLoadExpectation], timeout: 10)
 
     let secondLoadExpectation = self.expectation(description: "loaded with default client")
-    client.fetch(query: HeroNameQuery()) { result in
+    client.fetch(query: HeroNameQuery(episode: nil)) { result in
       switch result {
       case .success(let graphQLResult):
         XCTAssertEqual(graphQLResult.source, .cache)

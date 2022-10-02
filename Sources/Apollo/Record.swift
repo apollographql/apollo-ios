@@ -2,10 +2,10 @@
 public typealias CacheKey = String
 
 /// A cache record.
-public struct Record {
+public struct Record: Hashable {
   public let key: CacheKey
 
-  public typealias Value = Any
+  public typealias Value = AnyHashable
   public typealias Fields = [CacheKey: Value]
   public private(set) var fields: Fields
 

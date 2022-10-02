@@ -2,7 +2,7 @@
 
 # `HTTPRequest`
 ```swift
-extension HTTPRequest: Equatable
+extension HTTPRequest: CustomDebugStringConvertible
 ```
 
 ## Properties
@@ -11,17 +11,3 @@ extension HTTPRequest: Equatable
 ```swift
 public var debugDescription: String
 ```
-
-## Methods
-### `==(_:_:)`
-
-```swift
-public static func == (lhs: HTTPRequest<Operation>, rhs: HTTPRequest<Operation>) -> Bool
-```
-
-#### Parameters
-
-| Name | Description |
-| ---- | ----------- |
-| lhs | A value to compare. |
-| rhs | Another value to compare. |

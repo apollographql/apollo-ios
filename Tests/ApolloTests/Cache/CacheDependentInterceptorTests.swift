@@ -1,15 +1,7 @@
-//
-//  CacheDependentInterceptorTests.swift
-//  ApolloCacheDependentTests
-//
-//  Created by Ellen Shapiro on 12/9/20.
-//  Copyright © 2020 Apollo GraphQL. All rights reserved.
-//
-
 import XCTest
 import Apollo
-import ApolloTestSupport
-import StarWarsAPI
+import ApolloAPI
+import ApolloInternalTestHelpers
 
 class CacheDependentInterceptorTests: XCTestCase, CacheDependentTesting {
   var cacheType: TestCacheProvider.Type {
@@ -34,9 +26,23 @@ class CacheDependentInterceptorTests: XCTestCase, CacheDependentTesting {
   }
   
   func testChangingCachePolicyInErrorInterceptorWorks() {
+    // given
+    class GivenSelectionSet: MockSelectionSet {
+      override class var __selections: [Selection] { [
+        .field("hero", Hero.self)
+      ]}
+
+      class Hero: MockSelectionSet {
+        override class var __selections: [Selection] {[
+          .field("__typename", String.self),
+          .field("name", String.self)
+        ]}
+      }
+    }
+
     // Set up initial cache state
     mergeRecordsIntoCache([
-      "QUERY_ROOT": ["hero": CacheReference(key: "hero")],
+      "QUERY_ROOT": ["hero": CacheReference("hero")],
       "hero": ["__typename": "Droid", "name": "R2-D2"]
     ])
     
@@ -94,7 +100,7 @@ class CacheDependentInterceptorTests: XCTestCase, CacheDependentTesting {
     let expectation = self.expectation(description: "Request sent")
     
     // Send the initial request ignoring cache data so it doesn't initially get the data from the cache,
-    _ = network.send(operation: HeroNameQuery(), cachePolicy: .fetchIgnoringCacheData) { result in
+    _ = network.send(operation: MockQuery<GivenSelectionSet>(), cachePolicy: .fetchIgnoringCacheData) { result in
       defer {
         expectation.fulfill()
       }
@@ -104,7 +110,7 @@ class CacheDependentInterceptorTests: XCTestCase, CacheDependentTesting {
       case .failure(let error):
         XCTFail("Unexpected error: \(error)")
       case .success(let graphQLResult):
-        guard let heroName = graphQLResult.data?.hero?.name else {
+        guard let heroName: String = graphQLResult.data?.hero?.name else {
           XCTFail("Could not access hero name from returned result")
           return
         }

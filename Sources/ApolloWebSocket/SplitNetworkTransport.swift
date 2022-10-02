@@ -1,6 +1,7 @@
 import Foundation
 #if !COCOAPODS
 import Apollo
+import ApolloAPI
 #endif
 
 /// A network transport that sends subscriptions using one `NetworkTransport` and other requests using another `NetworkTransport`. Ideal for sending subscriptions via a web socket but everything else via HTTP.
@@ -48,7 +49,7 @@ extension SplitNetworkTransport: NetworkTransport {
                                                 contextIdentifier: UUID? = nil,
                                                 callbackQueue: DispatchQueue = .main,
                                                 completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) -> Cancellable {
-    if operation.operationType == .subscription {
+    if Operation.operationType == .subscription {
       return webSocketNetworkTransport.send(operation: operation,
                                             cachePolicy: cachePolicy,
                                             contextIdentifier: contextIdentifier,

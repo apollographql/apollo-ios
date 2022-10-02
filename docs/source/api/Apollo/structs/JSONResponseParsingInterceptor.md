@@ -8,21 +8,12 @@ public struct JSONResponseParsingInterceptor: ApolloInterceptor
 
 An interceptor which parses JSON response data into a `GraphQLResult` and attaches it to the `HTTPResponse`.
 
-## Properties
-### `cacheKeyForObject`
-
-```swift
-public let cacheKeyForObject: CacheKeyForObject?
-```
-
 ## Methods
-### `init(cacheKeyForObject:)`
+### `init()`
 
 ```swift
-public init(cacheKeyForObject: CacheKeyForObject? = nil)
+public init()
 ```
-
-Designated Initializer
 
 ### `interceptAsync(chain:request:response:completion:)`
 

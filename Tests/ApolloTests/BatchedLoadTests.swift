@@ -1,7 +1,7 @@
 import XCTest
 @testable import Apollo
-import ApolloTestSupport
-import StarWarsAPI
+import ApolloAPI
+import ApolloInternalTestHelpers
 
 private final class MockBatchedNormalizedCache: NormalizedCache {
   private var records: RecordSet
@@ -27,7 +27,7 @@ private final class MockBatchedNormalizedCache: NormalizedCache {
     
     DispatchQueue.global().asyncAfter(deadline: .now() + .milliseconds(1)) {
       let records = keys.map { self.records[$0] }
-      DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
+      DispatchQueue.returnResultAsyncIfNeeded(on: callbackQueue,
                                                      action: completion,
                                                      result: .success(records))
     }
@@ -50,7 +50,7 @@ private final class MockBatchedNormalizedCache: NormalizedCache {
              completion: @escaping (Result<Set<CacheKey>, Error>) -> Void) {
     DispatchQueue.global().asyncAfter(deadline: .now() + .milliseconds(1)) {
       let changedKeys = self.records.merge(records: records)
-      DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
+      DispatchQueue.returnResultAsyncIfNeeded(on: callbackQueue,
                                                      action: completion,
                                                      result: .success(changedKeys))
     }
@@ -59,7 +59,7 @@ private final class MockBatchedNormalizedCache: NormalizedCache {
   func clear(callbackQueue: DispatchQueue?, completion: ((Result<Void, Error>) -> Void)?) {
     DispatchQueue.global().asyncAfter(deadline: .now() + .milliseconds(1)) {
       self.records.clear()
-      DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
+      DispatchQueue.returnResultAsyncIfNeeded(on: callbackQueue,
                                                      action: completion,
                                                      result: .success(()))
     }
@@ -72,27 +72,56 @@ private final class MockBatchedNormalizedCache: NormalizedCache {
 
 class BatchedLoadTests: XCTestCase {  
   func testListsAreLoadedInASingleBatch() {
+    // given
+    class GivenSelectionSet: MockSelectionSet {
+      override class var __selections: [Selection] {[
+        .field("hero", Hero.self)
+      ]}
+
+      var hero: Hero? { __data["hero"] }
+
+      class Hero: MockSelectionSet {
+        override class var __selections: [Selection] {[
+          .field("__typename", String.self),
+          .field("name", String.self),
+          .field("friends", [Friend]?.self),
+        ]}
+
+        var friends: [Friend]? { __data["friends"] }
+
+        class Friend: MockSelectionSet {
+          override class var __selections: [Selection] {[
+            .field("__typename", String.self),
+            .field("name", String.self),
+          ]}
+
+          var name: String { __data["name"] }
+        }
+      }
+    }
+
     var records = RecordSet()
     let drones = (1...100).map { number in
       Record(key: "Drone_\(number)", ["__typename": "Droid", "name": "Droid #\(number)"])
     }
     
-    records.insert(Record(key: "QUERY_ROOT", ["hero": CacheReference(key: "2001")]))
+    records.insert(Record(key: "QUERY_ROOT", ["hero": CacheReference("2001")]))
     records.insert(Record(key: "2001", [
       "name": "R2-D2",
       "__typename": "Droid",
-      "friends": drones.map { CacheReference(key: $0.key) }
+      "friends": drones.map { CacheReference($0.key) }
     ]))
     records.insert(contentsOf: drones)
     
     let cache = MockBatchedNormalizedCache(records: records)
     let store = ApolloStore(cache: cache)
     
-    let query = HeroAndFriendsNamesQuery()
-    
+    let query = MockQuery<GivenSelectionSet>()
+
+    // when
     let expectation = self.expectation(description: "Loading query from store")
-    
-    store.load(query: query) { result in
+
+    store.load(query) { result in
       defer {
         expectation.fulfill()
       }
@@ -114,20 +143,49 @@ class BatchedLoadTests: XCTestCase {
     }
     
     self.waitForExpectations(timeout: 1)
-    
+
+    // then
     XCTAssertEqual(cache.numberOfBatchLoads, 3)
   }
   
   func testParallelLoadsUseIndependentBatching() {
+    // given // given
+    class GivenSelectionSet: MockSelectionSet {
+      override class var __selections: [Selection] {[
+        .field("hero", Hero.self)
+      ]}
+
+      var hero: Hero? { __data["hero"] }
+
+      class Hero: MockSelectionSet {
+        override class var __selections: [Selection] {[
+          .field("__typename", String.self),
+          .field("name", String.self),
+          .field("friends", [Friend]?.self),
+        ]}
+
+        var friends: [Friend]? { __data["friends"] }
+
+        class Friend: MockSelectionSet {
+          override class var __selections: [Selection] {[
+            .field("__typename", String.self),
+            .field("name", String.self),
+          ]}
+
+          var name: String { __data["name"] }
+        }
+      }
+    }
+
     let records: RecordSet = [
-      "QUERY_ROOT": ["hero": CacheReference(key: "2001")],
+      "QUERY_ROOT": ["hero": CacheReference("2001")],
       "2001": [
         "name": "R2-D2",
         "__typename": "Droid",
         "friends": [
-          CacheReference(key: "1000"),
-          CacheReference(key: "1002"),
-          CacheReference(key: "1003")
+          CacheReference("1000"),
+          CacheReference("1002"),
+          CacheReference("1003")
         ]
       ],
       "1000": ["__typename": "Human", "name": "Luke Skywalker"],
@@ -138,12 +196,12 @@ class BatchedLoadTests: XCTestCase {
     let cache = MockBatchedNormalizedCache(records: records)
     let store = ApolloStore(cache: cache)
     
-    let query = HeroAndFriendsNamesQuery()
+    let query = MockQuery<GivenSelectionSet>()
     
     (1...10).forEach { number in
       let expectation = self.expectation(description: "Loading query #\(number) from store")
       
-      store.load(query: query) { result in
+      store.load(query) { result in
         defer {
           expectation.fulfill()
         }
@@ -158,7 +216,7 @@ class BatchedLoadTests: XCTestCase {
           
           }
           XCTAssertEqual(data.hero?.name, "R2-D2")
-          let friendsNames = data.hero?.friends?.compactMap { $0?.name }
+          let friendsNames = data.hero?.friends?.compactMap { $0.name }
           XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
         case .failure(let error):
           XCTFail("Unexpected error: \(error)")
@@ -167,7 +225,8 @@ class BatchedLoadTests: XCTestCase {
     }
     
     self.waitForExpectations(timeout: 1)
-    
+
+    // then
     XCTAssertEqual(cache.numberOfBatchLoads, 30)
   }
 }

@@ -3,7 +3,7 @@
 # `Record`
 
 ```swift
-public struct Record
+public struct Record: Hashable
 ```
 
 A cache record.

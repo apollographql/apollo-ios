@@ -1,0 +1,123 @@
+---
+title: Operation Arguments
+---
+
+GraphQL operations can define arguments as part of their definitions, the values of these arguments can be passed to field arguments or directive arguments (eg. `@skip` and `@include`).
+
+Apollo iOS generates type-safe initializers for your operation that accept your operation's arguments. These arguments can be [built-in scalar types](https://graphql.org/learn/schema/#scalar-types), [custom scalars](./../custom-scalars), [enums](./../enums), or [input objects](./../input-objects) defined in your schema.
+
+Let's say we define a GraphQL query named `HeroName` with an `episode` argument which is a custom `Episode` enum defined in our schema:
+
+```graphql title="HeroNameQuery.graphql"
+query HeroName($episode: Episode!) {
+  hero(episode: $episode) {
+    name
+  }
+}
+```
+
+Apollo iOS will generate a `HeroNameQuery` class with variables:
+
+```swift title="HeroNameQuery.graphql.swift"
+class HeroNameQuery: GraphQLQuery {
+  ...
+
+  var episode: Episode
+
+  init(episode: Episode) {
+    self.episode = episode
+  }
+}
+```
+Your `HeroNameQuery` will have a property for the `episode` variable, which will be passed to any field or directive arguments that use the `$episode` variable in the operation definition.
+
+This query object can be initialized and passed to `ApolloClient.fetch(query:)`:
+
+```swift
+apollo.fetch(query: HeroNameQuery(episode: .empire)) { result in
+  guard let data = try? result.get().data else { return }
+  print(data.hero.name) // Luke Skywalker
+}
+```
+
+## Working with nullable arguments
+
+When defining an operation argument with a nullable value, Apollo iOS will wrap the generated argument's type in a generic [`GraphQLNullable`](https://www.apollographql.com/docs/ios/docc/documentation/apolloapi/graphqlnullable) wrapper enum.
+
+According to [the GraphQL spec](http://spec.graphql.org/October2021/#sec-Null-Value), explicitly providing a `null` value for an input value to a field argument is semantically different from not providing a value at all (`nil`). This enum allows you to distinguish your input values between `null` and `nil`.
+
+If the `HeroName` query is defined with a nullable `episode` argument, the generated `HeroNameQuery` will have an `episode` field with the type `GraphQLNullable<Episode>`:
+
+
+```swift title="HeroNameQuery.graphql.swift"
+class HeroNameQuery: GraphQLQuery {
+  ...
+
+  var episode: GraphQLNullable<Episode>
+
+  init(episode: GraphQLNullable<Episode>) {
+    self.episode = episode
+  }
+}
+```
+
+The `HeroNameQuery` can be initialized with a `GraphQLNullable` value:
+
+<CodeColumns cols={3}>
+
+```swift title="Null value"
+.init(episode: .null)
+```
+
+```swift title="No value"
+.init(episode: .none)
+```
+
+```swift title=".some case"
+.init(episode: .some(.empire))
+```
+
+</CodeColumns>
+
+Or with an optional value using the [nil coalescing operator](https://www.apollographql.com/docs/ios/docc/documentation/apolloapi/__(_:_:)) to provide a fallback.
+
+```swift title=".some case"
+let optionalEpisode: Episode?
+
+.init(episode: optionalEpisode ?? .none)
+```
+For more usage information see the [`GraphQLNullable` documentation](https://www.apollographql.com/docs/ios/docc/documentation/apolloapi/graphqlnullable).
+
+## Default values
+
+When defining your operation's arguments, you may provide default values for the arguments. These default arguments will be included in your generated operation's initializer:
+
+<CodeColumns cols={2}>
+
+```graphql title="HeroNameQuery.graphql"
+query HeroName(
+  $episode: Episode! = .EMPIRE
+) {
+  hero(episode: $episode) {
+    name
+  }
+}
+```
+
+```swift title="HeroNameQuery.graphql.swift"
+class HeroNameQuery: GraphQLQuery {
+  ...
+
+  var episode: Episode
+
+  init(episode: Episode = .empire) {
+    self.episode = episode
+  }
+}
+```
+
+</CodeColumns>
+
+> **Note:** This only applies for operation arguments defined by the client.
+>
+> Default values for fields on [Input Objects](./../input-objects) are defined by the schema, and not generated.

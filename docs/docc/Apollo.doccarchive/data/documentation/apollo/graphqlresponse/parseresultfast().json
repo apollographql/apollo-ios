@@ -1,0 +1,373 @@
+{
+  "abstract" : [
+    {
+      "text" : "Parses a response into a ",
+      "type" : "text"
+    },
+    {
+      "code" : "GraphQLResult",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " for use without the cache. This parsing does not",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "create dependent keys or a ",
+      "type" : "text"
+    },
+    {
+      "code" : "RecordSet",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " for the cache.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResponse"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResponse\/parseResultFast()"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:6Apollo15GraphQLResponseC15parseResultFastAA0B8QLResultVyxGyKF",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "func"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "parseResultFast"
+      },
+      {
+        "kind" : "text",
+        "text" : "() "
+      },
+      {
+        "kind" : "keyword",
+        "text" : "throws"
+      },
+      {
+        "kind" : "text",
+        "text" : " -> "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:6Apollo13GraphQLResultV",
+        "text" : "GraphQLResult"
+      },
+      {
+        "kind" : "text",
+        "text" : "<"
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "Data"
+      },
+      {
+        "kind" : "text",
+        "text" : ">"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Apollo"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Instance Method",
+    "symbolKind" : "method",
+    "title" : "parseResultFast()"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "func"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "parseResultFast"
+            },
+            {
+              "kind" : "text",
+              "text" : "() "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "throws"
+            },
+            {
+              "kind" : "text",
+              "text" : " -> "
+            },
+            {
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResult",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:6Apollo13GraphQLResultV",
+              "text" : "GraphQLResult"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Data"
+            },
+            {
+              "kind" : "text",
+              "text" : ">"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "This is faster than ",
+              "type" : "text"
+            },
+            {
+              "code" : "parseResult()",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " and should be used when cache the response is not needed.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollo\/graphqlresponse\/parseresultfast()"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Apollo/documentation/Apollo": {
+  "abstract" : [
+    {
+      "text" : "A Strongly typed, Swift-first, GraphQL client.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Apollo",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo"
+},
+"doc://Apollo/documentation/Apollo/GraphQLResponse": {
+  "abstract" : [
+    {
+      "text" : "Represents a GraphQL response received from a server.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLResponse"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResponse",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLResponse"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphQLResponse",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/graphqlresponse"
+},
+"doc://Apollo/documentation/Apollo/GraphQLResponse/parseResultFast()": {
+  "abstract" : [
+    {
+      "text" : "Parses a response into a ",
+      "type" : "text"
+    },
+    {
+      "code" : "GraphQLResult",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " for use without the cache. This parsing does not",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "create dependent keys or a ",
+      "type" : "text"
+    },
+    {
+      "code" : "RecordSet",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " for the cache.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "parseResultFast"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo13GraphQLResultV",
+      "text" : "GraphQLResult"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Data"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResponse\/parseResultFast()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "parseResultFast()",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/graphqlresponse\/parseresultfast()"
+},
+"doc://Apollo/documentation/Apollo/GraphQLResult": {
+  "abstract" : [
+    {
+      "text" : "Represents the result of a GraphQL operation.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLResult"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResult",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLResult"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphQLResult",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/graphqlresult"
+}
+}
+}

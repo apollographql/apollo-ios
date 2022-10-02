@@ -1,4 +1,7 @@
 import Foundation
+#if !COCOAPODS
+import ApolloAPI
+#endif
 
 /// An interceptor to check the response code returned with a request.
 public struct ResponseCodeInterceptor: ApolloInterceptor {
@@ -40,7 +43,7 @@ public struct ResponseCodeInterceptor: ApolloInterceptor {
     completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
     
     
-    guard response?.httpResponse.apollo.isSuccessful == true else {
+    guard response?.httpResponse.isSuccessful == true else {
       let error = ResponseCodeError.invalidResponseCode(response: response?.httpResponse,
                                                         
                                                         rawData: response?.rawData)

@@ -1,0 +1,8 @@
+#include "../Shared/Workspace-Universal-Framework.xcconfig"
+
+APPLICATION_EXTENSION_API_ONLY = NO
+FRAMEWORK_SEARCH_PATHS = $(DEVELOPER_FRAMEWORKS_DIR) $(PLATFORM_DIR)/Developer/Library/Frameworks
+OTHER_LDFLAGS = -weak_framework XCTest
+
+/// Test Target Deployment Target
+MACOSX_DEPLOYMENT_TARGET = 11.0

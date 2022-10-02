@@ -1,7 +1,7 @@
 import Foundation
 
 /// A file which can be uploaded to a GraphQL server
-public struct GraphQLFile {
+public struct GraphQLFile: Hashable {
   public let fieldName: String
   public let originalName: String
   public let mimeType: String

@@ -1,0 +1,568 @@
+{
+  "abstract" : [
+    {
+      "text" : "A GraphQL type.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLType"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:16ApolloCodegenLib11GraphQLTypeO",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "enum"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "GraphQLType"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "ApolloCodegenLib"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "GraphQLType"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Enumeration",
+    "symbolKind" : "enum",
+    "title" : "GraphQLType"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "indirect"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "enum"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "GraphQLType"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/ApolloCodegenLib\/s28CustomDebugStringConvertibleP",
+        "doc:\/\/ApolloCodegenLib\/SQ",
+        "doc:\/\/ApolloCodegenLib\/SH"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLType\/entity(_:)",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLType\/enum(_:)",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLType\/inputObject(_:)",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLType\/list(_:)",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLType\/nonNull(_:)",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLType\/scalar(_:)"
+      ],
+      "title" : "Enumeration Cases"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLType\/innerType",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLType\/namedType",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLType\/typeReference"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLType\/CustomDebugStringConvertible-Implementations",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLType\/Equatable-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollocodegenlib\/graphqltype"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://ApolloCodegenLib/SH": {
+  "identifier" : "doc:\/\/ApolloCodegenLib\/SH",
+  "title" : "Swift.Hashable",
+  "type" : "unresolvable"
+},
+"doc://ApolloCodegenLib/SQ": {
+  "identifier" : "doc:\/\/ApolloCodegenLib\/SQ",
+  "title" : "Swift.Equatable",
+  "type" : "unresolvable"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib": {
+  "abstract" : [
+    {
+      "text" : "A robust code generation engine for GraphQL operations.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "ApolloCodegenLib",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLType": {
+  "abstract" : [
+    {
+      "text" : "A GraphQL type.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLType"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphQLType",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/graphqltype"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLType/CustomDebugStringConvertible-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLType\/CustomDebugStringConvertible-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "CustomDebugStringConvertible Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/graphqltype\/customdebugstringconvertible-implementations"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLType/Equatable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLType\/Equatable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Equatable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/graphqltype\/equatable-implementations"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLType/entity(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "entity"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:16ApolloCodegenLib20GraphQLCompositeTypeC",
+      "text" : "GraphQLCompositeType"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLType\/entity(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "GraphQLType.entity(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/graphqltype\/entity(_:)"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLType/enum(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "`enum`"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:16ApolloCodegenLib15GraphQLEnumTypeC",
+      "text" : "GraphQLEnumType"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLType\/enum(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "GraphQLType.enum(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/graphqltype\/enum(_:)"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLType/innerType": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "innerType"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:16ApolloCodegenLib11GraphQLTypeO",
+      "text" : "GraphQLType"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLType\/innerType",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "innerType",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/graphqltype\/innertype"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLType/inputObject(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "inputObject"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:16ApolloCodegenLib22GraphQLInputObjectTypeC",
+      "text" : "GraphQLInputObjectType"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLType\/inputObject(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "GraphQLType.inputObject(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/graphqltype\/inputobject(_:)"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLType/list(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "list"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:16ApolloCodegenLib11GraphQLTypeO",
+      "text" : "GraphQLType"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLType\/list(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "GraphQLType.list(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/graphqltype\/list(_:)"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLType/namedType": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "namedType"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:16ApolloCodegenLib16GraphQLNamedTypeC",
+      "text" : "GraphQLNamedType"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLType\/namedType",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "namedType",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/graphqltype\/namedtype"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLType/nonNull(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "nonNull"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:16ApolloCodegenLib11GraphQLTypeO",
+      "text" : "GraphQLType"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLType\/nonNull(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "GraphQLType.nonNull(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/graphqltype\/nonnull(_:)"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLType/scalar(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "scalar"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:16ApolloCodegenLib17GraphQLScalarTypeC",
+      "text" : "GraphQLScalarType"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLType\/scalar(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "GraphQLType.scalar(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/graphqltype\/scalar(_:)"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLType/typeReference": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "typeReference"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLType\/typeReference",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "typeReference",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/graphqltype\/typereference"
+},
+"doc://ApolloCodegenLib/s28CustomDebugStringConvertibleP": {
+  "identifier" : "doc:\/\/ApolloCodegenLib\/s28CustomDebugStringConvertibleP",
+  "title" : "Swift.CustomDebugStringConvertible",
+  "type" : "unresolvable"
+}
+}
+}

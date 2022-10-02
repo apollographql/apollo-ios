@@ -1,0 +1,342 @@
+{
+  "abstract" : [
+    {
+      "text" : "Adds the Apollo client headers for this instance of ",
+      "type" : "text"
+    },
+    {
+      "code" : "NetworkTransport",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " to the given request",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/NetworkTransport-Implementations"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/addApolloClientHeaders(to:)"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "extendedModule" : "Apollo",
+    "externalID" : "s:6Apollo16NetworkTransportPAAE03addA13ClientHeaders2toy10Foundation10URLRequestVz_tF::SYNTHESIZED::s:6Apollo28RequestChainNetworkTransportC",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "func"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "addApolloClientHeaders"
+      },
+      {
+        "kind" : "text",
+        "text" : "("
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "to"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "keyword",
+        "text" : "inout"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:10Foundation10URLRequestV",
+        "text" : "URLRequest"
+      },
+      {
+        "kind" : "text",
+        "text" : ")"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Apollo"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Instance Method",
+    "symbolKind" : "method",
+    "title" : "addApolloClientHeaders(to:)"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "func"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "addApolloClientHeaders"
+            },
+            {
+              "kind" : "text",
+              "text" : "("
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "to"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "internalParam",
+              "text" : "request"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "inout"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:10Foundation10URLRequestV",
+              "text" : "URLRequest"
+            },
+            {
+              "kind" : "text",
+              "text" : ")"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
+      "kind" : "parameters",
+      "parameters" : [
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "A mutable URLRequest to add the headers to.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "request"
+        }
+      ]
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollo\/requestchainnetworktransport\/addapolloclientheaders(to:)"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Apollo/documentation/Apollo": {
+  "abstract" : [
+    {
+      "text" : "A Strongly typed, Swift-first, GraphQL client.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Apollo",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo"
+},
+"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport": {
+  "abstract" : [
+    {
+      "text" : "An implementation of ",
+      "type" : "text"
+    },
+    {
+      "code" : "NetworkTransport",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " which creates a ",
+      "type" : "text"
+    },
+    {
+      "code" : "RequestChain",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " object",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "for each item sent through it.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RequestChainNetworkTransport"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RequestChainNetworkTransport"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "RequestChainNetworkTransport",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/requestchainnetworktransport"
+},
+"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport/NetworkTransport-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/NetworkTransport-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "NetworkTransport Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/requestchainnetworktransport\/networktransport-implementations"
+},
+"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport/addApolloClientHeaders(to:)": {
+  "abstract" : [
+    {
+      "text" : "Adds the Apollo client headers for this instance of ",
+      "type" : "text"
+    },
+    {
+      "code" : "NetworkTransport",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " to the given request",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "addApolloClientHeaders"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "to"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "inout"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation10URLRequestV",
+      "text" : "URLRequest"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/addApolloClientHeaders(to:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "addApolloClientHeaders(to:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/requestchainnetworktransport\/addapolloclientheaders(to:)"
+}
+}
+}

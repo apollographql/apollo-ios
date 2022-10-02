@@ -1,4 +1,7 @@
 import Foundation
+#if !COCOAPODS
+import ApolloAPI
+#endif
 
 /// An interceptor to enforce a maximum number of retries of any `HTTPRequest`
 public class MaxRetryInterceptor: ApolloInterceptor {
@@ -31,7 +34,7 @@ public class MaxRetryInterceptor: ApolloInterceptor {
     completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
     guard self.hitCount <= self.maxRetries else {
       let error = RetryError.hitMaxRetryCount(count: self.maxRetries,
-                                              operationName: request.operation.operationName)
+                                              operationName: Operation.operationName)
       chain.handleErrorAsync(error,
                              request: request,
                              response: response,

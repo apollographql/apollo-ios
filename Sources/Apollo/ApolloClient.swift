@@ -1,8 +1,11 @@
 import Foundation
 import Dispatch
+#if !COCOAPODS
+import ApolloAPI
+#endif
 
 /// A cache policy that specifies whether results should be fetched from the server or loaded from the local cache.
-public enum CachePolicy {
+public enum CachePolicy: Hashable {
   /// Return data from the cache if available, else fetch results from the server.
   case returnCacheDataElseFetch
   ///  Always fetch results from the server.
@@ -22,16 +25,16 @@ public enum CachePolicy {
 ///
 /// - Parameters:
 ///   - result: The result of a performed operation. Will have a `GraphQLResult` with any parsed data and any GraphQL errors on `success`, and an `Error` on `failure`.
-public typealias GraphQLResultHandler<Data> = (Result<GraphQLResult<Data>, Error>) -> Void
+public typealias GraphQLResultHandler<Data: RootSelectionSet> = (Result<GraphQLResult<Data>, Error>) -> Void
 
 /// The `ApolloClient` class implements the core API for Apollo by conforming to `ApolloClientProtocol`.
 public class ApolloClient {
 
   let networkTransport: NetworkTransport
 
-  public let store: ApolloStore // <- conformance to ApolloClientProtocol
+  public let store: ApolloStore
 
-  public enum ApolloClientError: Error, LocalizedError {
+  public enum ApolloClientError: Error, LocalizedError, Hashable {
     case noUploadTransport
 
     public var errorDescription: String? {
@@ -68,15 +71,6 @@ public class ApolloClient {
 // MARK: - ApolloClientProtocol conformance
 
 extension ApolloClient: ApolloClientProtocol {
-
-  public var cacheKeyForObject: CacheKeyForObject? {
-    get {
-      return self.store.cacheKeyForObject
-    }
-    set {
-      self.store.cacheKeyForObject = newValue
-    }
-  }
 
   public func clearCache(callbackQueue: DispatchQueue = .main,
                          completion: ((Result<Void, Error>) -> Void)? = nil) {

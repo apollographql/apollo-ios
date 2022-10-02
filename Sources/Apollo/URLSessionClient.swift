@@ -1,7 +1,4 @@
 import Foundation
-#if !COCOAPODS
-import ApolloUtils
-#endif
 
 /// A class to handle URL Session calls that will support background execution,
 /// but still (mostly) use callbacks for its primary method of communication.
@@ -42,15 +39,15 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
   /// A completion block returning a result. On `.success` it will contain a tuple with non-nil `Data` and its corresponding `HTTPURLResponse`. On `.failure` it will contain an error.
   public typealias Completion = (Result<(Data, HTTPURLResponse), Error>) -> Void
   
-  private var tasks = Atomic<[Int: TaskData]>([:])
+  @Atomic private var tasks: [Int: TaskData] = [:]
   
   /// The raw URLSession being used for this client
   open private(set) var session: URLSession!
   
-  private var hasBeenInvalidated = Atomic<Bool>(false)
+  @Atomic private var hasBeenInvalidated: Bool = false
   
   private var hasNotBeenInvalidated: Bool {
-    !self.hasBeenInvalidated.value
+    !self.hasBeenInvalidated
   }
   
   /// Designated initializer.
@@ -70,7 +67,7 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
   ///
   /// NOTE: This must be called from the `deinit` of anything holding onto this client in order to break a retain cycle with the delegate.
   public func invalidate() {
-    self.hasBeenInvalidated.mutate { $0 = true }
+    self.$hasBeenInvalidated.mutate { $0 = true }
     func cleanup() {
       self.session = nil
       self.clearAllTasks()
@@ -90,19 +87,19 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
   ///
   /// - Parameter identifier: The identifier of the task to clear.
   open func clear(task identifier: Int) {
-    self.tasks.mutate { _ = $0.removeValue(forKey: identifier) }
+    self.$tasks.mutate { _ = $0.removeValue(forKey: identifier) }
   }
   
   /// Clears underlying dictionaries of any data related to all tasks.
   ///
   /// Mostly useful for cleanup and/or after invalidation of the `URLSession`.
   open func clearAllTasks() {
-    guard self.tasks.value.apollo.isNotEmpty else {
+    guard !self.tasks.isEmpty else {
       // Nothing to clear
       return
     }
     
-    self.tasks.mutate { $0.removeAll() }
+    self.$tasks.mutate { $0.removeAll() }
   }
   
   /// The main method to perform a request.
@@ -126,7 +123,7 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
     let taskData = TaskData(rawCompletion: rawTaskCompletionHandler,
                             completionBlock: completion)
     
-    self.tasks.mutate { $0[task.taskIdentifier] = taskData }
+    self.$tasks.mutate { $0[task.taskIdentifier] = taskData }
     
     task.resume()
     
@@ -147,7 +144,7 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
   
   open func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?) {
     let finalError = error ?? URLSessionClientError.sessionBecameInvalidWithoutUnderlyingError
-    for task in self.tasks.value.values {
+    for task in self.tasks.values {
       task.completionBlock(.failure(finalError))
     }
     
@@ -193,7 +190,7 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
       self.clear(task: task.taskIdentifier)
     }
     
-    guard let taskData = self.tasks.value[task.taskIdentifier] else {
+    guard let taskData = self.tasks[task.taskIdentifier] else {
       // No completion blocks, the task has likely been cancelled. Bail out.
       return
     }
@@ -258,7 +255,7 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
       return
     }
     
-    self.tasks.mutate {
+    self.$tasks.mutate {
       guard let taskData = $0[dataTask.taskIdentifier] else {
         assertionFailure("No data found for task \(dataTask.taskIdentifier), cannot append received data")
         return
@@ -295,7 +292,7 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
       completionHandler(.allow)
     }
     
-    self.tasks.mutate {
+    self.$tasks.mutate {
       guard let taskData = $0[dataTask.taskIdentifier] else {
         return
       }

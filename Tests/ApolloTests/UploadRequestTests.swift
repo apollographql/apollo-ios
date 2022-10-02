@@ -1,8 +1,8 @@
 import XCTest
+import Nimble
 @testable import Apollo
-import ApolloTestSupport
+import ApolloInternalTestHelpers
 import UploadAPI
-import StarWarsAPI
 
 class UploadRequestTests: XCTestCase {
 
@@ -12,7 +12,7 @@ class UploadRequestTests: XCTestCase {
     super.setUp()
 
     client = {
-      let store = ApolloStore()
+      let store = ApolloStore.mock()
       let provider = DefaultInterceptorProvider(store: store)
       let transport = RequestChainNetworkTransport(interceptorProvider: provider,
                                                    endpointURL: URL(string: "http://www.test.com")!,
@@ -50,13 +50,13 @@ class UploadRequestTests: XCTestCase {
     XCTAssertEqual(urlRequest.allHTTPHeaderFields?["headerKey"], "headerValue")
     
     let formData = try uploadRequest.requestMultipartFormData()
-    let stringToCompare = try formData.toTestString()
+    let actual = try formData.toTestString()
     
     let expectedString = """
 --TEST.BOUNDARY
 Content-Disposition: form-data; name="operations"
 
-{"id":"c5d5919f77d9ba16a9689b6b0ad4b781cb05dc1dc4812623bf80f7c044c09533","operationName":"UploadOneFile","query":"mutation UploadOneFile($file: Upload!) {\\n  singleUpload(file: $file) {\\n    __typename\\n    id\\n    path\\n    filename\\n    mimetype\\n  }\\n}","variables":{"file":null}}
+{"operationName":"UploadOneFile","query":"mutation UploadOneFile($file: Upload!) {\\n  singleUpload(file: $file) {\\n    __typename\\n    id\\n    path\\n    filename\\n    mimetype\\n  }\\n}","variables":{"file":null}}
 --TEST.BOUNDARY
 Content-Disposition: form-data; name="map"
 
@@ -69,8 +69,7 @@ Alpha file content.
 
 --TEST.BOUNDARY--
 """
-    
-    XCTAssertEqual(stringToCompare, expectedString)
+    expect(actual).to(equal(expectedString))
   }
 
   func testMultipleFilesWithUploadRequest() throws {
@@ -99,13 +98,13 @@ Alpha file content.
     XCTAssertEqual(urlRequest.allHTTPHeaderFields?["headerKey"], "headerValue")
     
     let multipartData = try uploadRequest.requestMultipartFormData()
-    let stringToCompare = try multipartData.toTestString()
+    let actual = try multipartData.toTestString()
     
     let expectedString = """
 --TEST.BOUNDARY
 Content-Disposition: form-data; name="operations"
 
-{"id":"88858c283bb72f18c0049dc85b140e72a4046f469fa16a8bf4bcf01c11d8a2b7","operationName":"UploadMultipleFilesToTheSameParameter","query":"mutation UploadMultipleFilesToTheSameParameter($files: [Upload!]!) {\\n  multipleUpload(files: $files) {\\n    __typename\\n    id\\n    path\\n    filename\\n    mimetype\\n  }\\n}","variables":{"files":[null,null]}}
+{"operationName":"UploadMultipleFilesToTheSameParameter","query":"mutation UploadMultipleFilesToTheSameParameter($files: [Upload!]!) {\\n  multipleUpload(files: $files) {\\n    __typename\\n    id\\n    path\\n    filename\\n    mimetype\\n  }\\n}","variables":{"files":[null,null]}}
 --TEST.BOUNDARY
 Content-Disposition: form-data; name="map"
 
@@ -124,7 +123,7 @@ Bravo file content.
 
 --TEST.BOUNDARY--
 """
-    XCTAssertEqual(stringToCompare, expectedString)
+    expect(actual).to(equal(expectedString))
   }
 
   func testMultipleFilesWithMultipleFieldsWithUploadRequest() throws {
@@ -145,10 +144,14 @@ Bravo file content.
                                       originalName: "c.txt",
                                       mimeType: "text/plain",
                                       fileURL: charlieFileUrl)
-    
+
+    let operation = UploadMultipleFilesToDifferentParametersMutation(
+      singleFile: alphaFile.originalName,
+      multipleFiles: [betaFile, charlieFile].map { $0.originalName }
+    )
     let transport = try XCTUnwrap(self.client.networkTransport as? RequestChainNetworkTransport)
-    
-    let httpRequest = transport.constructUploadRequest(for: HeroNameQuery(),
+
+    let httpRequest = transport.constructUploadRequest(for: operation,
                                                        with: [alphaFile, betaFile, charlieFile],
                                                        manualBoundary: "TEST.BOUNDARY")
     let uploadRequest = try XCTUnwrap(httpRequest as? UploadRequest)
@@ -157,13 +160,13 @@ Bravo file content.
     XCTAssertEqual(urlRequest.allHTTPHeaderFields?["headerKey"], "headerValue")
     
     let multipartData = try uploadRequest.requestMultipartFormData()
-    let stringToCompare = try multipartData.toTestString()
+    let actual = try multipartData.toTestString()
     
     let expectedString = """
 --TEST.BOUNDARY
 Content-Disposition: form-data; name="operations"
 
-{"id":"f6e76545cd03aa21368d9969cb39447f6e836a16717823281803778e7805d671","operationName":"HeroName","query":"query HeroName($episode: Episode) {\\n  hero(episode: $episode) {\\n    __typename\\n    name\\n  }\\n}","variables":{"episode":null,\"secondField\":null,\"uploads\":null}}
+{"operationName":"UploadMultipleFilesToDifferentParameters","query":"mutation UploadMultipleFilesToDifferentParameters($singleFile: Upload!, $multipleFiles: [Upload!]!) {\\n  multipleParameterUpload(singleFile: $singleFile, multipleFiles: $multipleFiles) {\\n    __typename\\n    id\\n    path\\n    filename\\n    mimetype\\n  }\\n}","variables":{"multipleFiles":["b.txt","c.txt"],\"secondField\":null,"singleFile":"a.txt","uploads\":null}}
 --TEST.BOUNDARY
 Content-Disposition: form-data; name="map"
 
@@ -188,6 +191,6 @@ Bravo file content.
 
 --TEST.BOUNDARY--
 """
-    XCTAssertEqual(stringToCompare, expectedString)
+    expect(actual).to(equal(expectedString))
   }
 }

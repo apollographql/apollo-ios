@@ -1,19 +1,19 @@
 import Foundation
 #if !COCOAPODS
-import ApolloUtils
+import ApolloAPI
 #endif
 
 public struct GraphQLGETTransformer {
 
-  let body: GraphQLMap
+  let body: JSONEncodableDictionary
   let url: URL
 
-  /// A helper for transforming a GraphQLMap that can be sent with a `POST` request into a URL with query parameters for a `GET` request.
+  /// A helper for transforming a `JSONEncodableDictionary` that can be sent with a `POST` request into a URL with query parameters for a `GET` request.
   ///
   /// - Parameters:
-  ///   - body: The GraphQLMap to transform from the body of a `POST` request
+  ///   - body: The `JSONEncodableDictionary` to transform from the body of a `POST` request
   ///   - url: The base url to append the query to.
-  public init(body: GraphQLMap, url: URL) {
+  public init(body: JSONEncodableDictionary, url: URL) {
     self.body = body
     self.url = url
   }
@@ -30,8 +30,8 @@ public struct GraphQLGETTransformer {
 
     do {
       _ = try self.body.sorted(by: {$0.key < $1.key}).compactMap({ arg in
-        if let value = arg.value as? GraphQLMap {
-          let data = try JSONSerialization.sortedData(withJSONObject: value.jsonValue)
+        if let value = arg.value as? JSONEncodableDictionary {
+          let data = try JSONSerialization.sortedData(withJSONObject: value._jsonValue)
           if let string = String(data: data, encoding: .utf8) {
             queryItems.append(URLQueryItem(name: arg.key, value: string))
           }
@@ -45,7 +45,7 @@ public struct GraphQLGETTransformer {
       return nil
     }
 
-    if queryItems.apollo.isNotEmpty {
+    if !queryItems.isEmpty {
       components.queryItems = queryItems
     }
 
@@ -53,5 +53,19 @@ public struct GraphQLGETTransformer {
       components.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
     return components.url
+  }
+}
+
+// MARK: - Hashable Conformance
+
+extension GraphQLGETTransformer: Hashable {
+  public static func == (lhs: GraphQLGETTransformer, rhs: GraphQLGETTransformer) -> Bool {
+    lhs.body._jsonValue == rhs.body._jsonValue &&
+    lhs.url == rhs.url
+  }
+
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(body._jsonValue)
+    hasher.combine(url)
   }
 }

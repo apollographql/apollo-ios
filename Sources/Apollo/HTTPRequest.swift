@@ -1,7 +1,10 @@
 import Foundation
+#if !COCOAPODS
+import ApolloAPI
+#endif
 
 /// Encapsulation of all information about a request before it hits the network
-open class HTTPRequest<Operation: GraphQLOperation> {
+open class HTTPRequest<Operation: GraphQLOperation>: Hashable {
   
   /// The endpoint to make a GraphQL request to
   open var graphQLEndpoint: URL
@@ -53,9 +56,9 @@ open class HTTPRequest<Operation: GraphQLOperation> {
     // CSRF prevention enabled. See
     // https://www.apollographql.com/docs/apollo-server/security/cors/#preventing-cross-site-request-forgery-csrf
     // for details.
-    self.addHeader(name: "X-APOLLO-OPERATION-NAME", value: self.operation.operationName)
-    self.addHeader(name: "X-APOLLO-OPERATION-TYPE", value: String(describing: operation.operationType))
-    if let operationID = self.operation.operationIdentifier {
+    self.addHeader(name: "X-APOLLO-OPERATION-NAME", value: Operation.operationName)
+    self.addHeader(name: "X-APOLLO-OPERATION-TYPE", value: String(describing: Operation.operationType))
+    if let operationID = Operation.operationIdentifier {
       self.addHeader(name: "X-APOLLO-OPERATION-ID", value: operationID)
     }
     
@@ -84,16 +87,23 @@ open class HTTPRequest<Operation: GraphQLOperation> {
     
     return request
   }
-}
 
-extension HTTPRequest: Equatable {
-  
+  // MARK: - Hashable Conformance
+
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(graphQLEndpoint)
+    hasher.combine(operation)
+    hasher.combine(additionalHeaders)
+    hasher.combine(cachePolicy)
+    hasher.combine(contextIdentifier)
+  }
+
   public static func == (lhs: HTTPRequest<Operation>, rhs: HTTPRequest<Operation>) -> Bool {
-    lhs.graphQLEndpoint == rhs.graphQLEndpoint
-      && lhs.contextIdentifier == rhs.contextIdentifier
-      && lhs.additionalHeaders == rhs.additionalHeaders
-      && lhs.cachePolicy == rhs.cachePolicy
-      && lhs.operation.queryDocument == rhs.operation.queryDocument
+    lhs.graphQLEndpoint == rhs.graphQLEndpoint &&
+    lhs.operation == rhs.operation &&
+    lhs.additionalHeaders == rhs.additionalHeaders &&
+    lhs.cachePolicy == rhs.cachePolicy &&
+    lhs.contextIdentifier == rhs.contextIdentifier
   }
 }
 

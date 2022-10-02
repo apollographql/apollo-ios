@@ -3,17 +3,10 @@
 # `ApolloStore`
 
 ```swift
-public final class ApolloStore
+public class ApolloStore
 ```
 
 The `ApolloStore` class acts as a local cache for normalized GraphQL results.
-
-## Properties
-### `cacheKeyForObject`
-
-```swift
-public var cacheKeyForObject: CacheKeyForObject?
-```
 
 ## Methods
 ### `init(cache:)`
@@ -23,8 +16,9 @@ public init(cache: NormalizedCache = InMemoryNormalizedCache())
 ```
 
 Designated initializer
-
-- Parameter cache: An instance of `normalizedCache` to use to cache results. Defaults to an `InMemoryNormalizedCache`.
+- Parameters:
+  - cache: An instance of `normalizedCache` to use to cache results.
+           Defaults to an `InMemoryNormalizedCache`.
 
 #### Parameters
 
@@ -120,10 +114,10 @@ Performs an operation within a read-write transaction
 | callbackQueue | [optional] a callback queue to perform the action on. Will perform on the current queue if not provided. Defaults to nil. |
 | completion | [optional] a completion block to fire when the read-write transaction completes. Defaults to nil. |
 
-### `load(query:callbackQueue:resultHandler:)`
+### `load(_:callbackQueue:resultHandler:)`
 
 ```swift
-public func load<Operation: GraphQLOperation>(query: Operation, callbackQueue: DispatchQueue? = nil, resultHandler: @escaping GraphQLResultHandler<Operation.Data>)
+public func load<Operation: GraphQLOperation>(_ operation: Operation, callbackQueue: DispatchQueue? = nil, resultHandler: @escaping GraphQLResultHandler<Operation.Data>)
 ```
 
 Loads the results for the given query from the cache.

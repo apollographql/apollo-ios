@@ -1,25 +1,40 @@
 import XCTest
 @testable import Apollo
+import ApolloAPI
 @testable import ApolloSQLite
-import ApolloTestSupport
-import StarWarsAPI
+import ApolloInternalTestHelpers
 import SQLite
+import StarWarsAPI
 
 class CachePersistenceTests: XCTestCase {
 
   func testFetchAndPersist() throws {
-    let query = HeroNameQuery()
+    // given
+    class GivenSelectionSet: MockSelectionSet {
+      override class var __selections: [Selection] { [
+        .field("hero", Hero.self)
+      ]}
+
+      class Hero: MockSelectionSet {
+        override class var __selections: [Selection] {[
+          .field("__typename", String.self),
+          .field("name", String.self)
+        ]}
+      }
+    }
+
+    let query = MockQuery<GivenSelectionSet>()
     let sqliteFileURL = SQLiteTestCacheProvider.temporarySQLiteFileURL()
 
     try SQLiteTestCacheProvider.withCache(fileURL: sqliteFileURL) { (cache) in
       let store = ApolloStore(cache: cache)
-      
+
       let server = MockGraphQLServer()
       let networkTransport = MockNetworkTransport(server: server, store: store)
-      
+
       let client = ApolloClient(networkTransport: networkTransport, store: store)
-      
-      _ = server.expect(HeroNameQuery.self) { request in
+
+      _ = server.expect(MockQuery<GivenSelectionSet>.self) { request in
         [
           "data": [
             "hero": [
@@ -35,18 +50,20 @@ class CachePersistenceTests: XCTestCase {
 
       client.fetch(query: query, cachePolicy: .fetchIgnoringCacheData) { outerResult in
         defer { networkExpectation.fulfill() }
-        
+
         switch outerResult {
         case .failure(let error):
           XCTFail("Unexpected error: \(error)")
           return
         case .success(let graphQLResult):
           XCTAssertEqual(graphQLResult.data?.hero?.name, "Luke Skywalker")
+
           // Do another fetch from cache to ensure that data is cached before creating new cache
           client.fetch(query: query, cachePolicy: .returnCacheDataDontFetch) { innerResult in
             try! SQLiteTestCacheProvider.withCache(fileURL: sqliteFileURL) { cache in
               let newStore = ApolloStore(cache: cache)
               let newClient = ApolloClient(networkTransport: networkTransport, store: newStore)
+
               newClient.fetch(query: query, cachePolicy: .returnCacheDataDontFetch) { newClientResult in
                 defer { newCacheExpectation.fulfill() }
                 switch newClientResult {
@@ -61,13 +78,28 @@ class CachePersistenceTests: XCTestCase {
           }
         }
       }
-      
+
       self.waitForExpectations(timeout: 2, handler: nil)
     }
   }
 
   func testFetchAndPersistWithPeriodArguments() throws {
-    let query = SearchQuery(term: "Luke.Skywalker")
+    // given
+    class GivenSelectionSet: MockSelectionSet {
+      override class var __selections: [Selection] { [
+        .field("hero", Hero.self, arguments: ["text": .variable("term")])
+      ]}
+
+      class Hero: MockSelectionSet {
+        override class var __selections: [Selection] {[
+          .field("name", String.self)
+        ]}
+      }
+    }
+
+    let query = MockQuery<GivenSelectionSet>()
+    query.__variables = ["term": "Luke.Skywalker"]
+
     let sqliteFileURL = SQLiteTestCacheProvider.temporarySQLiteFileURL()
 
     try SQLiteTestCacheProvider.withCache(fileURL: sqliteFileURL) { (cache) in
@@ -78,19 +110,17 @@ class CachePersistenceTests: XCTestCase {
 
       let client = ApolloClient(networkTransport: networkTransport, store: store)
 
-      _ = server.expect(SearchQuery.self) { request in
+      _ = server.expect(MockQuery<GivenSelectionSet>.self) { request in
         [
           "data": [
-            "search": [
-              [
-                "id": "1000",
-                "name": "Luke Skywalker",
-                "__typename": "Human"
-              ]
+            "hero": [
+              "name": "Luke Skywalker",
+              "__typename": "Human"
             ]
           ]
         ]
       }
+
       let networkExpectation = self.expectation(description: "Fetching query from network")
       let newCacheExpectation = self.expectation(description: "Fetch query from new cache")
 
@@ -102,17 +132,19 @@ class CachePersistenceTests: XCTestCase {
           XCTFail("Unexpected error: \(error)")
           return
         case .success(let graphQLResult):
-          XCTAssertEqual(graphQLResult.data?.search?.first??.asHuman?.name, "Luke Skywalker")
+          XCTAssertEqual(graphQLResult.data?.hero?.name, "Luke Skywalker")
+
           // Do another fetch from cache to ensure that data is cached before creating new cache
           client.fetch(query: query, cachePolicy: .returnCacheDataDontFetch) { innerResult in
             try! SQLiteTestCacheProvider.withCache(fileURL: sqliteFileURL) { cache in
               let newStore = ApolloStore(cache: cache)
               let newClient = ApolloClient(networkTransport: networkTransport, store: newStore)
+
               newClient.fetch(query: query, cachePolicy: .returnCacheDataDontFetch) { newClientResult in
                 defer { newCacheExpectation.fulfill() }
                 switch newClientResult {
                 case .success(let newClientGraphQLResult):
-                  XCTAssertEqual(newClientGraphQLResult.data?.search?.first??.asHuman?.name, "Luke Skywalker")
+                  XCTAssertEqual(newClientGraphQLResult.data?.hero?.name, "Luke Skywalker")
                 case .failure(let error):
                   XCTFail("Unexpected error with new client: \(error)")
                 }
@@ -138,18 +170,32 @@ class CachePersistenceTests: XCTestCase {
   }
 
   func testClearCache() throws {
-    let query = HeroNameQuery()
+    // given
+    class GivenSelectionSet: MockSelectionSet {
+      override class var __selections: [Selection] { [
+        .field("hero", Hero.self)
+      ]}
+
+      class Hero: MockSelectionSet {
+        override class var __selections: [Selection] {[
+          .field("__typename", String.self),
+          .field("name", String.self)
+        ]}
+      }
+    }
+
+    let query = MockQuery<GivenSelectionSet>()
     let sqliteFileURL = SQLiteTestCacheProvider.temporarySQLiteFileURL()
 
     try SQLiteTestCacheProvider.withCache(fileURL: sqliteFileURL) { (cache) in
       let store = ApolloStore(cache: cache)
-      
+
       let server = MockGraphQLServer()
       let networkTransport = MockNetworkTransport(server: server, store: store)
-      
+
       let client = ApolloClient(networkTransport: networkTransport, store: store)
-      
-      _ = server.expect(HeroNameQuery.self) { request in
+
+      _ = server.expect(MockQuery<GivenSelectionSet>.self) { request in
         [
           "data": [
             "hero": [
@@ -166,14 +212,14 @@ class CachePersistenceTests: XCTestCase {
 
       client.fetch(query: query, cachePolicy: .fetchIgnoringCacheData) { outerResult in
         defer { networkExpectation.fulfill() }
-        
+
         switch outerResult {
         case .failure(let error):
           XCTFail("Unexpected failure: \(error)")
         case .success(let graphQLResult):
           XCTAssertEqual(graphQLResult.data?.hero?.name, "Luke Skywalker")
         }
-        
+
         client.clearCache(completion: { result in
           switch result {
           case .success:
@@ -186,7 +232,7 @@ class CachePersistenceTests: XCTestCase {
 
         client.fetch(query: query, cachePolicy: .returnCacheDataDontFetch) { innerResult in
           defer { emptyCacheExpectation.fulfill() }
-          
+
           switch innerResult {
           case .success:
             XCTFail("This should have returned an error")
@@ -209,4 +255,5 @@ class CachePersistenceTests: XCTestCase {
       self.waitForExpectations(timeout: 2, handler: nil)
     }
   }
+
 }

@@ -1,0 +1,418 @@
+{
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/Node"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:16ApolloCodegenLib10LinkedListV4NodeC",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "class"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "Node"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "ApolloCodegenLib"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "Node"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Class",
+    "symbolKind" : "class",
+    "title" : "LinkedList.Node"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "class"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "Node"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/ApolloCodegenLib\/s28CustomDebugStringConvertibleP",
+        "doc:\/\/ApolloCodegenLib\/SQ",
+        "doc:\/\/ApolloCodegenLib\/SH",
+        "doc:\/\/ApolloCodegenLib\/ST"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/Node\/next",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/Node\/previous",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/Node\/value"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/Node\/CustomDebugStringConvertible-Implementations",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/Node\/Equatable-Implementations",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/Node\/Hashable-Implementations",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/Node\/Sequence-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollocodegenlib\/linkedlist\/node"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://ApolloCodegenLib/SH": {
+  "identifier" : "doc:\/\/ApolloCodegenLib\/SH",
+  "title" : "Swift.Hashable",
+  "type" : "unresolvable"
+},
+"doc://ApolloCodegenLib/SQ": {
+  "identifier" : "doc:\/\/ApolloCodegenLib\/SQ",
+  "title" : "Swift.Equatable",
+  "type" : "unresolvable"
+},
+"doc://ApolloCodegenLib/ST": {
+  "identifier" : "doc:\/\/ApolloCodegenLib\/ST",
+  "title" : "Swift.Sequence",
+  "type" : "unresolvable"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib": {
+  "abstract" : [
+    {
+      "text" : "A robust code generation engine for GraphQL operations.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "ApolloCodegenLib",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/LinkedList": {
+  "abstract" : [
+    {
+      "text" : "A doubly linked list implementation.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "LinkedList"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "LinkedList"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "LinkedList",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/linkedlist"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/LinkedList/Node": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Node"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/Node",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Node"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "LinkedList.Node",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/linkedlist\/node"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/LinkedList/Node/CustomDebugStringConvertible-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/Node\/CustomDebugStringConvertible-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "CustomDebugStringConvertible Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/linkedlist\/node\/customdebugstringconvertible-implementations"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/LinkedList/Node/Equatable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/Node\/Equatable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Equatable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/linkedlist\/node\/equatable-implementations"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/LinkedList/Node/Hashable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/Node\/Hashable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Hashable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/linkedlist\/node\/hashable-implementations"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/LinkedList/Node/Sequence-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/Node\/Sequence-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Sequence Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/linkedlist\/node\/sequence-implementations"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/LinkedList/Node/next": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "next"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:16ApolloCodegenLib10LinkedListV",
+      "text" : "LinkedList"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:16ApolloCodegenLib10LinkedListV4NodeC",
+      "text" : "Node"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/Node\/next",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "next",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/linkedlist\/node\/next"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/LinkedList/Node/previous": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "previous"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:16ApolloCodegenLib10LinkedListV",
+      "text" : "LinkedList"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:16ApolloCodegenLib10LinkedListV4NodeC",
+      "text" : "Node"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/Node\/previous",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "previous",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/linkedlist\/node\/previous"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/LinkedList/Node/value": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "value"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/Node\/value",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "value",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/linkedlist\/node\/value"
+},
+"doc://ApolloCodegenLib/s28CustomDebugStringConvertibleP": {
+  "identifier" : "doc:\/\/ApolloCodegenLib\/s28CustomDebugStringConvertibleP",
+  "title" : "Swift.CustomDebugStringConvertible",
+  "type" : "unresolvable"
+}
+}
+}

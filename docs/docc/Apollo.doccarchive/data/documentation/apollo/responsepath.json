@@ -1,0 +1,856 @@
+{
+  "abstract" : [
+    {
+      "text" : "Represents a list of string components joined into a path using a reverse linked list.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Apollo\/documentation\/Apollo"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponsePath"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:6Apollo12ResponsePathV",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "struct"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "ResponsePath"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Apollo"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "ResponsePath"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Structure",
+    "symbolKind" : "struct",
+    "title" : "ResponsePath"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "struct"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "ResponsePath"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "A response path is stored as a linked list because using an array turned out to be",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "a performance bottleneck during decoding\/execution.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "In order to optimize for calculation of a path string, ",
+              "type" : "text"
+            },
+            {
+              "code" : "ResponsePath",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " does not allow insertion",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "of components in the middle or at the beginning of the path. Components may only be appended to",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "the end of an existing path.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/Apollo\/s23CustomStringConvertibleP",
+        "doc:\/\/Apollo\/SQ",
+        "doc:\/\/Apollo\/s25ExpressibleByArrayLiteralP",
+        "doc:\/\/Apollo\/SH"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/Apollo\/documentation\/Apollo\/ResponsePath\/+(_:_:)-33jrx",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ResponsePath\/+(_:_:)-4k3co",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ResponsePath\/+(_:_:)-4qdcw"
+      ],
+      "title" : "Operators"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/Apollo\/documentation\/Apollo\/ResponsePath\/init(_:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ResponsePath\/init(arrayLiteral:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/Apollo\/documentation\/Apollo\/ResponsePath\/isEmpty",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ResponsePath\/joined"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/Apollo\/documentation\/Apollo\/ResponsePath\/append(_:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ResponsePath\/appending(_:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ResponsePath\/toArray()"
+      ],
+      "title" : "Instance Methods"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/Apollo\/documentation\/Apollo\/ResponsePath\/Key"
+      ],
+      "title" : "Type Aliases"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/Apollo\/documentation\/Apollo\/ResponsePath\/CustomStringConvertible-Implementations",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ResponsePath\/Equatable-Implementations",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ResponsePath\/Hashable-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollo\/responsepath"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Apollo/SH": {
+  "identifier" : "doc:\/\/Apollo\/SH",
+  "title" : "Swift.Hashable",
+  "type" : "unresolvable"
+},
+"doc://Apollo/SQ": {
+  "identifier" : "doc:\/\/Apollo\/SQ",
+  "title" : "Swift.Equatable",
+  "type" : "unresolvable"
+},
+"doc://Apollo/documentation/Apollo": {
+  "abstract" : [
+    {
+      "text" : "A Strongly typed, Swift-first, GraphQL client.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Apollo",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo"
+},
+"doc://Apollo/documentation/Apollo/ResponsePath": {
+  "abstract" : [
+    {
+      "text" : "Represents a list of string components joined into a path using a reverse linked list.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ResponsePath"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponsePath",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ResponsePath"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ResponsePath",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/responsepath"
+},
+"doc://Apollo/documentation/Apollo/ResponsePath/+(_:_:)-33jrx": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "+"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo12ResponsePathV",
+      "text" : "ResponsePath"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo12ResponsePathV",
+      "text" : "ResponsePath"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponsePath\/+(_:_:)-33jrx",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "+(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/responsepath\/+(_:_:)-33jrx"
+},
+"doc://Apollo/documentation/Apollo/ResponsePath/+(_:_:)-4k3co": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "+"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo12ResponsePathV",
+      "text" : "ResponsePath"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo12ResponsePathV",
+      "text" : "ResponsePath"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo12ResponsePathV3Keya",
+      "text" : "Key"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo12ResponsePathV",
+      "text" : "ResponsePath"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponsePath\/+(_:_:)-4k3co",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "+(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/responsepath\/+(_:_:)-4k3co"
+},
+"doc://Apollo/documentation/Apollo/ResponsePath/+(_:_:)-4qdcw": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "+"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo12ResponsePathV",
+      "text" : "ResponsePath"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo12ResponsePathV",
+      "text" : "ResponsePath"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo12ResponsePathV",
+      "text" : "ResponsePath"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponsePath\/+(_:_:)-4qdcw",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "+(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/responsepath\/+(_:_:)-4qdcw"
+},
+"doc://Apollo/documentation/Apollo/ResponsePath/CustomStringConvertible-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponsePath\/CustomStringConvertible-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "CustomStringConvertible Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/responsepath\/customstringconvertible-implementations"
+},
+"doc://Apollo/documentation/Apollo/ResponsePath/Equatable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponsePath\/Equatable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Equatable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/responsepath\/equatable-implementations"
+},
+"doc://Apollo/documentation/Apollo/ResponsePath/Hashable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponsePath\/Hashable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Hashable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/responsepath\/hashable-implementations"
+},
+"doc://Apollo/documentation/Apollo/ResponsePath/Key": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Key"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponsePath\/Key",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Key"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ResponsePath.Key",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/responsepath\/key"
+},
+"doc://Apollo/documentation/Apollo/ResponsePath/append(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "append"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo12ResponsePathV",
+      "text" : "ResponsePath"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo12ResponsePathV3Keya",
+      "text" : "Key"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponsePath\/append(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "append(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/responsepath\/append(_:)"
+},
+"doc://Apollo/documentation/Apollo/ResponsePath/appending(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "appending"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo12ResponsePathV",
+      "text" : "ResponsePath"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo12ResponsePathV3Keya",
+      "text" : "Key"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo12ResponsePathV",
+      "text" : "ResponsePath"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponsePath\/appending(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "appending(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/responsepath\/appending(_:)"
+},
+"doc://Apollo/documentation/Apollo/ResponsePath/init(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo12ResponsePathV",
+      "text" : "ResponsePath"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo12ResponsePathV3Keya",
+      "text" : "Key"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponsePath\/init(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/responsepath\/init(_:)"
+},
+"doc://Apollo/documentation/Apollo/ResponsePath/init(arrayLiteral:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "arrayLiteral"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo12ResponsePathV",
+      "text" : "ResponsePath"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo12ResponsePathV3Keya",
+      "text" : "Key"
+    },
+    {
+      "kind" : "text",
+      "text" : "...)"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponsePath\/init(arrayLiteral:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(arrayLiteral:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/responsepath\/init(arrayliteral:)"
+},
+"doc://Apollo/documentation/Apollo/ResponsePath/isEmpty": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isEmpty"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponsePath\/isEmpty",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isEmpty",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/responsepath\/isempty"
+},
+"doc://Apollo/documentation/Apollo/ResponsePath/joined": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "joined"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponsePath\/joined",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "joined",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/responsepath\/joined"
+},
+"doc://Apollo/documentation/Apollo/ResponsePath/toArray()": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "toArray"
+    },
+    {
+      "kind" : "text",
+      "text" : "() -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponsePath\/toArray()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "toArray()",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/responsepath\/toarray()"
+},
+"doc://Apollo/s23CustomStringConvertibleP": {
+  "identifier" : "doc:\/\/Apollo\/s23CustomStringConvertibleP",
+  "title" : "Swift.CustomStringConvertible",
+  "type" : "unresolvable"
+},
+"doc://Apollo/s25ExpressibleByArrayLiteralP": {
+  "identifier" : "doc:\/\/Apollo\/s25ExpressibleByArrayLiteralP",
+  "title" : "Swift.ExpressibleByArrayLiteral",
+  "type" : "unresolvable"
+}
+}
+}

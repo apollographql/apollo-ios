@@ -1,6 +1,7 @@
 import XCTest
 import Apollo
-import ApolloTestSupport
+import ApolloAPI
+import ApolloInternalTestHelpers
 import StarWarsAPI
 
 class DefaultInterceptorProviderTests: XCTestCase {
@@ -30,13 +31,27 @@ class DefaultInterceptorProviderTests: XCTestCase {
     
     super.tearDown()
   }
-
+  
   func testLoading() {
-    let expectation = mockServer.expect(HeroNameQuery.self) { _ in
+    // given
+    class GivenSelectionSet: MockSelectionSet {
+      override class var __selections: [Selection] { [
+        .field("hero", Hero.self)
+      ]}
+
+      class Hero: MockSelectionSet {
+        override class var __selections: [Selection] {[
+          .field("__typename", String.self),
+          .field("name", String.self)
+        ]}
+      }
+    }
+
+    let expectation = mockServer.expect(MockQuery<GivenSelectionSet>.self) { _ in
       DefaultInterceptorProviderTests.mockData
     }
 
-    client.fetch(query: HeroNameQuery()) { result in
+    client.fetch(query: MockQuery<GivenSelectionSet>()) { result in
       switch result {
       case .success(let graphQLResult):
         XCTAssertEqual(graphQLResult.source, .server)
@@ -50,12 +65,26 @@ class DefaultInterceptorProviderTests: XCTestCase {
   }
 
   func testInitialLoadFromNetworkAndSecondaryLoadFromCache() {
-    let initialLoadExpectation = mockServer.expect(HeroNameQuery.self) { _ in
+    // given
+    class GivenSelectionSet: MockSelectionSet {
+      override class var __selections: [Selection] { [
+        .field("hero", Hero.self)
+      ]}
+
+      class Hero: MockSelectionSet {
+        override class var __selections: [Selection] {[
+          .field("__typename", String.self),
+          .field("name", String.self)
+        ]}
+      }
+    }
+
+    let initialLoadExpectation = mockServer.expect(MockQuery<GivenSelectionSet>.self) { _ in
       DefaultInterceptorProviderTests.mockData
     }
     initialLoadExpectation.assertForOverFulfill = false
 
-    client.fetch(query: HeroNameQuery()) { result in
+    client.fetch(query: MockQuery<GivenSelectionSet>()) { result in
       switch result {
       case .success(let graphQLResult):
         XCTAssertEqual(graphQLResult.source, .server)
@@ -69,7 +98,7 @@ class DefaultInterceptorProviderTests: XCTestCase {
 
     let secondLoadExpectation = self.expectation(description: "loaded with default client")
 
-    client.fetch(query: HeroNameQuery()) { result in
+    client.fetch(query: MockQuery<GivenSelectionSet>()) { result in
       switch result {
       case .success(let graphQLResult):
         XCTAssertEqual(graphQLResult.source, .cache)

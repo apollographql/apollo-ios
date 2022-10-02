@@ -1,93 +1,74 @@
 import XCTest
+import Nimble
 @testable import Apollo
-import ApolloTestSupport
-import StarWarsAPI
+import ApolloAPI
+import ApolloInternalTestHelpers
 
 class AutomaticPersistedQueriesTests: XCTestCase {
 
   private static let endpoint = TestURL.mockServer.url
-  
-  // MARK: - Helper Methods
-  
-  private func validatePostBody(with request: URLRequest,
-                                query: HeroNameQuery,
-                                queryDocument: Bool = false,
-                                persistedQuery: Bool = false,
-                                file: StaticString = #filePath,
-                                line: UInt = #line) throws {
-    
-    guard
-      let httpBody = request.httpBody,
-      let jsonBody = try? JSONSerializationFormat.deserialize(data: httpBody) as? JSONObject else {
-        XCTFail("httpBody invalid",
-                file: file,
-                line: line)
-        return
-    }
-    
-    let queryString = jsonBody["query"] as? String
-    if queryDocument {
-      XCTAssertEqual(queryString,
-                     query.queryDocument,
-                     file: file,
-                     line: line)
-    }
-    
-    if let variables = jsonBody["variables"] as? JSONObject {
-      XCTAssertEqual(variables["episode"] as? String,
-                     query.episode?.rawValue,
-                     file: file,
-                     line: line)
-    } else {
-      XCTFail("variables should not be nil",
-              file: file,
-              line: line)
-    }
-    
-    let ext = jsonBody["extensions"] as? JSONObject
-    if persistedQuery {
-      let ext = try XCTUnwrap(ext,
-                              "extensions json data should not be nil",
-                              file: file,
-                              line: line)
-      
-      let persistedQuery = try XCTUnwrap(ext["persistedQuery"] as? JSONObject,
-                                         "persistedQuery is missing",
-                                         file: file,
-                                         line: line)
-      
-      let version = try XCTUnwrap(persistedQuery["version"] as? Int,
-                                  "version is missing",
-                                  file: file,
-                                  line: line)
 
-      let sha256Hash = try XCTUnwrap(persistedQuery["sha256Hash"] as? String,
-                                     "sha256Hash is missing",
-                                     file: file,
-                                     line: line)
-      
-      XCTAssertEqual(version, 1,
-                     file: file,
-                     line: line)
-      XCTAssertEqual(sha256Hash,
-                     query.operationIdentifier,
-                     file: file,
-                     line: line)
-    } else {
-      XCTAssertNil(ext,
-                   "extensions should be nil",
-                   file: file,
-                   line: line)
+  // MARK: - Mocks
+  class HeroNameSelectionSet: MockSelectionSet {
+    override class var __selections: [Selection] {[
+      .field("hero", Hero.self, arguments: ["episode": .variable("episode")])
+    ]}
+
+    var hero: Hero? { __data["hero"] }
+
+    class Hero: MockSelectionSet {
+      override class var __selections: [Selection] {[
+        .field("__typename", String.self),
+        .field("name", String.self),
+      ]}
+
+      var name: String { __data["name"] }
     }
   }
 
-  private func validatePostBody(with request: URLRequest,
-                                mutation: CreateAwesomeReviewMutation,
+  fileprivate enum MockEnum: String, EnumType {
+    case NEWHOPE
+    case JEDI
+    case EMPIRE
+  }
+
+  fileprivate class MockHeroNameQuery: MockQuery<HeroNameSelectionSet> {
+    override class var document: DocumentType {
+      .automaticallyPersisted(
+        operationIdentifier: "f6e76545cd03aa21368d9969cb39447f6e836a16717823281803778e7805d671",
+        definition: .init("MockHeroNameQuery - Operation Definition"))
+    }
+
+    var episode: GraphQLNullable<MockEnum> {
+      didSet {
+        self.__variables = ["episode": episode]
+      }
+    }
+
+    init(episode: GraphQLNullable<MockEnum> = .none) {
+      self.episode = episode
+      super.init()
+      self.__variables = ["episode": episode]
+    }
+  }
+
+  fileprivate class APQMockMutation: MockMutation<MockSelectionSet> {
+    override class var document: DocumentType {
+      .automaticallyPersisted(
+      operationIdentifier: "4a1250de93ebcb5cad5870acf15001112bf27bb963e8709555b5ff67a1405374",
+      definition: .init("APQMockMutation - Operation Definition"))
+    }
+  }
+
+  // MARK: - Helper Methods
+  
+  private func validatePostBody<O: GraphQLOperation>(with request: URLRequest,
+                                operation: O,
                                 queryDocument: Bool = false,
                                 persistedQuery: Bool = false,
                                 file: StaticString = #filePath,
                                 line: UInt = #line) throws {
-
+    
     guard
       let httpBody = request.httpBody,
       let jsonBody = try? JSONSerializationFormat.deserialize(data: httpBody) as? JSONObject else {
@@ -96,27 +77,40 @@ class AutomaticPersistedQueriesTests: XCTestCase {
                 line: line)
         return
     }
-
+    
     let queryString = jsonBody["query"] as? String
     if queryDocument {
       XCTAssertEqual(queryString,
-                     mutation.queryDocument,
+                     O.definition?.queryDocument,
                      file: file,
                      line: line)
     }
-
+    
+    if let query = operation as? MockHeroNameQuery{
+      if let variables = jsonBody["variables"] as? JSONObject {
+        XCTAssertEqual(variables["episode"] as? String,
+                       query.episode.rawValue,
+                       file: file,
+                       line: line)
+      } else {
+        XCTFail("variables should not be nil",
+                file: file,
+                line: line)
+      }
+    }
+    
     let ext = jsonBody["extensions"] as? JSONObject
     if persistedQuery {
       let ext = try XCTUnwrap(ext,
                               "extensions json data should not be nil",
                               file: file,
                               line: line)
-
+      
       let persistedQuery = try XCTUnwrap(ext["persistedQuery"] as? JSONObject,
                                          "persistedQuery is missing",
                                          file: file,
                                          line: line)
-
+      
       let version = try XCTUnwrap(persistedQuery["version"] as? Int,
                                   "version is missing",
                                   file: file,
@@ -126,12 +120,12 @@ class AutomaticPersistedQueriesTests: XCTestCase {
                                      "sha256Hash is missing",
                                      file: file,
                                      line: line)
-
+      
       XCTAssertEqual(version, 1,
                      file: file,
                      line: line)
       XCTAssertEqual(sha256Hash,
-                     mutation.operationIdentifier,
+                     O.operationIdentifier,
                      file: file,
                      line: line)
     } else {
@@ -143,7 +137,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
   }
   
   private func validateUrlParams(with request: URLRequest,
-                                 query: HeroNameQuery,
+                                 query: MockHeroNameQuery,
                                  queryDocument: Bool = false,
                                  persistedQuery: Bool = false,
                                  file: StaticString = #filePath,
@@ -156,7 +150,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     let queryString = url.queryItemDictionary?["query"]
     if queryDocument {
       XCTAssertEqual(queryString,
-                     query.queryDocument,
+                     MockHeroNameQuery.definition?.queryDocument,
                      file: file,
                      line: line)
     } else {
@@ -167,16 +161,17 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     }
     
     if let variables = url.queryItemDictionary?["variables"] {
-      if let episode = query.episode {
-        XCTAssertEqual(variables,
-                       "{\"episode\":\"\(episode.rawValue)\"}",
-                       file: file,
-                       line: line)
-      } else {
-        XCTAssertEqual(variables,
-                       "{\"episode\":null}",
-                       file: file,
-                       line: line)
+      let expectation = expect(file: file, line: line, variables)
+      switch query.episode {
+      case let .some(episode):
+        expectation.to(equal("{\"episode\":\"\(episode.rawValue)\"}"))
+
+      case .none:
+        #warning("TODO: write test to test this case actually happens")
+        expectation.to(equal("{}"))
+
+      case .null:
+        expectation.to(equal("{\"episode\":null}"))
       }
     } else {
       XCTFail("variables should not be nil",
@@ -215,7 +210,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
       XCTAssertEqual(version, 1,
                      file: file,
                      line: line)
-      XCTAssertEqual(sha256Hash, query.operationIdentifier,
+      XCTAssertEqual(sha256Hash, MockHeroNameQuery.operationIdentifier,
                      file: file,
                      line: line)
     } else {
@@ -237,10 +232,10 @@ class AutomaticPersistedQueriesTests: XCTestCase {
                                                endpointURL: Self.endpoint)
     
     let expectation = self.expectation(description: "Query sent")
-    let query = HeroNameQuery()
+    let query = MockHeroNameQuery()
     var lastRequest: URLRequest?
     let _ = network.send(operation: query) { _ in
-      lastRequest = mockClient.lastRequest.value
+      lastRequest = mockClient.lastRequest
       expectation.fulfill()
     }
     self.wait(for: [expectation], timeout: 1)
@@ -251,7 +246,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     XCTAssertEqual(request.httpMethod, "POST")
     
     try self.validatePostBody(with: request,
-                              query: query,
+                              operation: query,
                               queryDocument: true)
   }
   
@@ -263,10 +258,10 @@ class AutomaticPersistedQueriesTests: XCTestCase {
                                                endpointURL: Self.endpoint)
     
     let expectation = self.expectation(description: "Query sent")
-    let query = HeroNameQuery(episode: .jedi)
+    let query = MockHeroNameQuery(episode: .some(.JEDI))
     var lastRequest: URLRequest?
     let _ = network.send(operation: query) { _ in
-      lastRequest = mockClient.lastRequest.value
+      lastRequest = mockClient.lastRequest
       expectation.fulfill()
     }
     self.wait(for: [expectation], timeout: 1)
@@ -276,7 +271,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     XCTAssertEqual(request.httpMethod, "POST")
     
     try validatePostBody(with: request,
-                         query: query,
+                         operation: query,
                          queryDocument: true)
   }
   
@@ -290,10 +285,10 @@ class AutomaticPersistedQueriesTests: XCTestCase {
                                                autoPersistQueries: true)
     
     let expectation = self.expectation(description: "Query sent")
-    let query = HeroNameQuery(episode: .empire)
+    let query = MockHeroNameQuery(episode: .some(.EMPIRE))
     var lastRequest: URLRequest?
     let _ = network.send(operation: query) { _ in
-      lastRequest = mockClient.lastRequest.value
+      lastRequest = mockClient.lastRequest
       expectation.fulfill()
     }
     self.wait(for: [expectation], timeout: 1)
@@ -304,7 +299,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     XCTAssertEqual(request.httpMethod, "POST")
     
     try self.validatePostBody(with: request,
-                              query: query,
+                              operation: query,
                               persistedQuery: true)
   }
   
@@ -317,10 +312,10 @@ class AutomaticPersistedQueriesTests: XCTestCase {
                                                autoPersistQueries: true)
     
     let expectation = self.expectation(description: "Mutation sent")
-    let mutation = CreateAwesomeReviewMutation()
+    let mutation = APQMockMutation()
     var lastRequest: URLRequest?
     let _ = network.send(operation: mutation) { _ in
-      lastRequest = mockClient.lastRequest.value
+      lastRequest = mockClient.lastRequest
       expectation.fulfill()
     }
     self.wait(for: [expectation], timeout: 1)
@@ -331,7 +326,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     XCTAssertEqual(request.httpMethod, "POST")
 
     try self.validatePostBody(with: request,
-                              mutation: mutation,
+                              operation: mutation,
                               persistedQuery: true)
   }
   
@@ -345,10 +340,10 @@ class AutomaticPersistedQueriesTests: XCTestCase {
                                                useGETForPersistedQueryRetry: true)
 
     let expectation = self.expectation(description: "Query sent")
-    let query = HeroNameQuery()
+    let query = MockHeroNameQuery()
     var lastRequest: URLRequest?
     let _ = network.send(operation: query) { _ in
-      lastRequest = mockClient.lastRequest.value
+      lastRequest = mockClient.lastRequest
       expectation.fulfill()
     }
     self.wait(for: [expectation], timeout: 1)
@@ -371,10 +366,10 @@ class AutomaticPersistedQueriesTests: XCTestCase {
                                                useGETForPersistedQueryRetry: true)
     
     let expectation = self.expectation(description: "Query sent")
-    let query = HeroNameQuery(episode: .empire)
+    let query = MockHeroNameQuery(episode: .some(.EMPIRE))
     var lastRequest: URLRequest?
     let _ = network.send(operation: query) { _ in
-      lastRequest = mockClient.lastRequest.value
+      lastRequest = mockClient.lastRequest
       expectation.fulfill()
     }
     self.wait(for: [expectation], timeout: 1)
@@ -399,10 +394,10 @@ class AutomaticPersistedQueriesTests: XCTestCase {
                                                useGETForQueries: true)
     
     let expectation = self.expectation(description: "Query sent")
-    let query = HeroNameQuery()
+    let query = MockHeroNameQuery()
     var lastRequest: URLRequest?
     let _ = network.send(operation: query) { _ in
-      lastRequest = mockClient.lastRequest.value
+      lastRequest = mockClient.lastRequest
       expectation.fulfill()
     }
     self.wait(for: [expectation], timeout: 1)
@@ -426,10 +421,10 @@ class AutomaticPersistedQueriesTests: XCTestCase {
                                                endpointURL: Self.endpoint)
     
     let expectation = self.expectation(description: "Query sent")
-    let query = HeroNameQuery()
+    let query = MockHeroNameQuery()
     var lastRequest: URLRequest?
     let _ = network.send(operation: query) { _ in
-      lastRequest = mockClient.lastRequest.value
+      lastRequest = mockClient.lastRequest
       expectation.fulfill()
     }
     self.wait(for: [expectation], timeout: 1)
@@ -440,7 +435,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     XCTAssertEqual(request.httpMethod, "POST")
     
     try self.validatePostBody(with: request,
-                              query: query,
+                              operation: query,
                               queryDocument: true)
   }
   
@@ -453,10 +448,10 @@ class AutomaticPersistedQueriesTests: XCTestCase {
                                                autoPersistQueries: true)
     
     let expectation = self.expectation(description: "Query sent")
-    let query = HeroNameQuery(episode: .empire)
+    let query = MockHeroNameQuery(episode: .some(.EMPIRE))
     var lastRequest: URLRequest?
     let _ = network.send(operation: query) { _ in
-      lastRequest = mockClient.lastRequest.value
+      lastRequest = mockClient.lastRequest
       expectation.fulfill()
     }
     self.wait(for: [expectation], timeout: 1)
@@ -467,7 +462,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     XCTAssertEqual(request.httpMethod, "POST")
     
     try self.validatePostBody(with: request,
-                              query: query,
+                              operation: query,
                               persistedQuery: true)
   }
   
@@ -481,10 +476,10 @@ class AutomaticPersistedQueriesTests: XCTestCase {
                                                useGETForQueries: true)
     
     let expectation = self.expectation(description: "Query sent")
-    let query = HeroNameQuery(episode: .empire)
+    let query = MockHeroNameQuery(episode: .some(.EMPIRE))
     var lastRequest: URLRequest?
     let _ = network.send(operation: query) { _ in
-      lastRequest = mockClient.lastRequest.value
+      lastRequest = mockClient.lastRequest
       expectation.fulfill()
     }
     self.wait(for: [expectation], timeout: 1)
@@ -509,10 +504,10 @@ class AutomaticPersistedQueriesTests: XCTestCase {
                                                useGETForPersistedQueryRetry: true)
     
     let expectation = self.expectation(description: "Query sent")
-    let query = HeroNameQuery(episode: .empire)
+    let query = MockHeroNameQuery(episode: .some(.EMPIRE))
     var lastRequest: URLRequest?
     let _ = network.send(operation: query) { _ in
-      lastRequest = mockClient.lastRequest.value
+      lastRequest = mockClient.lastRequest
       expectation.fulfill()
     }
     self.wait(for: [expectation], timeout: 2)
@@ -525,5 +520,80 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     try self.validateUrlParams(with: request,
                                query: query,
                                persistedQuery: true)
+  }
+
+  // MARK: Persisted Query Retrying Tests
+
+  func test__retryPersistedQuery__givenOperation_automaticallyPersisted_PersistedQueryNotFoundResponseError_retriesQueryWithFullDocument() throws {
+    // given
+    let mockClient = MockURLSessionClient()
+    let store = ApolloStore()
+    let provider = DefaultInterceptorProvider(client: mockClient, store: store)
+    let network = RequestChainNetworkTransport(interceptorProvider: provider,
+                                               endpointURL: Self.endpoint,
+                                               autoPersistQueries: true)
+
+    let query = MockHeroNameQuery(episode: .some(.EMPIRE))
+
+    mockClient.response = HTTPURLResponse(url: TestURL.mockServer.url,
+                                          statusCode: 200,
+                                          httpVersion: nil,
+                                          headerFields: nil)
+
+    mockClient.data = try JSONSerialization.data(
+      withJSONObject: ["errors": [["message": "PersistedQueryNotFound"]]]
+    )
+
+    // when
+    let _ = network.send(operation: query) { _ in }
+
+    // then
+    expect(mockClient.requestCount).toEventually(equal(2))
+  }
+
+  func test__retryPersistedQuery__givenOperation_persistedOperationsOnly_PersistedQueryNotFoundResponseError_doesNotRetryAndThrows_persistedQueryNotFoundForPersistedOnlyQuery_error() throws {
+    // given
+    class MockPersistedOnlyQuery: MockHeroNameQuery {
+      override class var document: DocumentType {
+        .persistedOperationsOnly(operationIdentifier: "12345")
+      }
+    }
+
+    let mockClient = MockURLSessionClient()
+    let store = ApolloStore()
+    let provider = DefaultInterceptorProvider(client: mockClient, store: store)
+    let network = RequestChainNetworkTransport(interceptorProvider: provider,
+                                               endpointURL: Self.endpoint,
+                                               autoPersistQueries: true)
+
+    let query = MockPersistedOnlyQuery(episode: .some(.EMPIRE))
+
+    mockClient.response = HTTPURLResponse(url: TestURL.mockServer.url,
+                                          statusCode: 200,
+                                          httpVersion: nil,
+                                          headerFields: nil)
+
+    mockClient.data = try JSONSerialization.data(
+      withJSONObject: ["errors": [["message": "PersistedQueryNotFound"]]]
+    )
+
+    let expectation = self.expectation(description: "Query failed")
+
+    // when
+    let _ = network.send(operation: query) { result in
+      // then
+      switch result {
+      case .success:
+        fail("Expected failure result")
+      case .failure(let error):
+        let expectedError = AutomaticPersistedQueryInterceptor.APQError
+          .persistedQueryNotFoundForPersistedOnlyQuery(operationName: "MockOperationName")
+        expect(error as? AutomaticPersistedQueryInterceptor.APQError).to(equal(expectedError))
+        
+        expectation.fulfill()
+      }
+    }
+
+    self.wait(for: [expectation], timeout: 2)
   }
 }

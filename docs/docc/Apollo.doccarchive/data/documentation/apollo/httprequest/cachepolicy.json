@@ -1,0 +1,253 @@
+{
+  "abstract" : [
+    {
+      "text" : "The ",
+      "type" : "text"
+    },
+    {
+      "code" : "CachePolicy",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " to use for this request.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Apollo\/documentation\/Apollo",
+        "doc:\/\/Apollo\/documentation\/Apollo\/HTTPRequest"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/HTTPRequest\/cachePolicy"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:6Apollo11HTTPRequestC11cachePolicyAA05CacheD0Ovp",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "var"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "cachePolicy"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:6Apollo11CachePolicyO",
+        "text" : "CachePolicy"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Apollo"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Instance Property",
+    "symbolKind" : "property",
+    "title" : "cachePolicy"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "var"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "cachePolicy"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CachePolicy",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:6Apollo11CachePolicyO",
+              "text" : "CachePolicy"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollo\/httprequest\/cachepolicy"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Apollo/documentation/Apollo": {
+  "abstract" : [
+    {
+      "text" : "A Strongly typed, Swift-first, GraphQL client.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Apollo",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo"
+},
+"doc://Apollo/documentation/Apollo/CachePolicy": {
+  "abstract" : [
+    {
+      "text" : "A cache policy that specifies whether results should be fetched from the server or loaded from the local cache.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CachePolicy"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CachePolicy",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CachePolicy"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CachePolicy",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/cachepolicy"
+},
+"doc://Apollo/documentation/Apollo/HTTPRequest": {
+  "abstract" : [
+    {
+      "text" : "Encapsulation of all information about a request before it hits the network",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "HTTPRequest"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/HTTPRequest",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "HTTPRequest"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "HTTPRequest",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/httprequest"
+},
+"doc://Apollo/documentation/Apollo/HTTPRequest/cachePolicy": {
+  "abstract" : [
+    {
+      "text" : "The ",
+      "type" : "text"
+    },
+    {
+      "code" : "CachePolicy",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " to use for this request.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "cachePolicy"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo11CachePolicyO",
+      "text" : "CachePolicy"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/HTTPRequest\/cachePolicy",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "cachePolicy",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/httprequest\/cachepolicy"
+}
+}
+}

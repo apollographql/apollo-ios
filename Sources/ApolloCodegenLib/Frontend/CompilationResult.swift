@@ -2,31 +2,67 @@ import JavaScriptCore
 
 /// The output of the frontend compiler.
 public class CompilationResult: JavaScriptObject {
-  private(set) lazy var operations: [OperationDefinition] = self["operations"]
-  
-  private(set) lazy var fragments: [FragmentDefinition] = self["fragments"]
+  private enum Constants {
+    static let LocalCacheMutationDirectiveName = "apollo_client_ios_localCacheMutation"
+  }
+  lazy var referencedTypes: [GraphQLNamedType] = self["referencedTypes"]
 
-  private(set) lazy var referencedTypes: [GraphQLNamedType] = self["referencedTypes"]
+  lazy var operations: [OperationDefinition] = self["operations"]
+
+  lazy var fragments: [FragmentDefinition] = self["fragments"]
+
+  lazy var schemaDocumentation: String? = self["schemaDocumentation"]
   
-  public class OperationDefinition: JavaScriptObject {
-    private(set) lazy var name: String = self["name"]
+  public class OperationDefinition: JavaScriptObject, Equatable {
+    lazy var name: String = self["name"]
     
-    private(set) lazy var operationType: OperationType = self["operationType"]
+    lazy var operationType: OperationType = self["operationType"]
     
-    private(set) lazy var variables: [VariableDefinition] = self["variables"]
+    lazy var variables: [VariableDefinition] = self["variables"]
     
-    private(set) lazy var rootType: GraphQLCompositeType = self["rootType"]
+    lazy var rootType: GraphQLCompositeType = self["rootType"]
     
-    private(set) lazy var selectionSet: SelectionSet = self["selectionSet"]
+    lazy var selectionSet: SelectionSet = self["selectionSet"]
+
+    lazy var directives: [Directive]? = self["directives"]
     
-    private(set) lazy var source: String = self["source"]
+    lazy var source: String = self["source"]
     
-    private(set) lazy var filePath: String = self["filePath"]
-    
-    var operationIdentifier: String {
-      // TODO: Compute this from source + referenced fragments
-      fatalError()
+    lazy var filePath: String = self["filePath"]
+
+    override public var debugDescription: String {
+      "\(name) on \(rootType.debugDescription)"
     }
+
+    public static func ==(lhs: OperationDefinition, rhs: OperationDefinition) -> Bool {
+      return lhs.name == rhs.name
+    }
+
+    lazy var isLocalCacheMutation: Bool = {
+      directives?.contains { $0.name == Constants.LocalCacheMutationDirectiveName } ?? false
+    }()
+
+    lazy var nameWithSuffix: String = {
+      func getSuffix() -> String {
+        if isLocalCacheMutation {
+          return "LocalCacheMutation"
+        }
+
+        switch operationType {
+          case .query: return "Query"
+          case .mutation: return "Mutation"
+          case .subscription: return "Subscription"
+        }
+      }
+
+      let suffix = getSuffix()
+
+      guard !name.hasSuffix(suffix) else {
+        return name
+      }
+
+      return name+suffix
+    }()
   }
   
   public enum OperationType: String, Equatable, JavaScriptValueDecodable {
@@ -35,9 +71,6 @@ public class CompilationResult: JavaScriptObject {
     case subscription
     
     init(_ jsValue: JSValue, bridge: JavaScriptBridge) {
-      // No way to use guard when delegating to a failable initializer directly, but since this is a value type
-      // we can initialize a local variable instead and assign it to `self` on success.
-      // See https://forums.swift.org/t/theres-no-way-to-channel-a-fail-able-initializer-to-a-throwing-one-is-there/19322
       let rawValue: String = .fromJSValue(jsValue, bridge: bridge)
       guard let operationType = Self(rawValue: rawValue) else {
         preconditionFailure("Unknown GraphQL operation type: \(rawValue)")
@@ -48,32 +81,121 @@ public class CompilationResult: JavaScriptObject {
   }
   
   public class VariableDefinition: JavaScriptObject {
-    private(set) lazy var name: String = self["name"]
+    lazy var name: String = self["name"]
     
-    private(set) lazy var type: GraphQLType = self["type"]
+    lazy var type: GraphQLType = self["type"]
     
-    private(set) lazy var defaultValue: GraphQLValue? = self["defaultValue"]
+    lazy var defaultValue: GraphQLValue? = self["defaultValue"]
   }
   
-  public class FragmentDefinition: JavaScriptObject {
-    private(set) lazy var name: String = self["name"]
+  public class FragmentDefinition: JavaScriptObject, Hashable {
+    lazy var name: String = self["name"]
     
-    private(set) lazy var type: GraphQLCompositeType = self["type"]
+    lazy var type: GraphQLCompositeType = self["typeCondition"]
     
-    private(set) lazy var selectionSet: SelectionSet = self["selectionSet"]
+    lazy var selectionSet: SelectionSet = self["selectionSet"]
     
-    private(set) lazy var source: String = self["source"]
+    lazy var source: String = self["source"]
     
-    private(set) lazy var filePath: String = self["filePath"]
+    lazy var filePath: String = self["filePath"]
+
+    lazy var directives: [Directive]? = self["directives"]
+
+    lazy var isLocalCacheMutation: Bool = {
+      directives?.contains { $0.name == Constants.LocalCacheMutationDirectiveName } ?? false
+    }()
+
+    public override var debugDescription: String {
+      "\(name) on \(type.debugDescription)"
+    }
+
+    public func hash(into hasher: inout Hasher) {
+      hasher.combine(name)
+    }
+
+    public static func ==(lhs: FragmentDefinition, rhs: FragmentDefinition) -> Bool {
+      return lhs.name == rhs.name
+    }
   }
   
-  public class SelectionSet: JavaScriptObject {
-    private(set) lazy var parentType: GraphQLCompositeType = self["parentType"]
+  public class SelectionSet: JavaScriptWrapper, Hashable, CustomDebugStringConvertible {
+    lazy var parentType: GraphQLCompositeType = self["parentType"]
     
-    private(set) lazy var selections: [Selection] = self["selections"]
+    lazy var selections: [Selection] = self["selections"]
+
+    required convenience init(
+      parentType: GraphQLCompositeType,
+      selections: [Selection] = []
+    ) {
+      self.init(nil)
+      self.parentType = parentType
+      self.selections = selections
+    }
+
+    public var debugDescription: String {
+      TemplateString("""
+      ... on \(parentType.debugDescription) {
+        \(selections.map(\.debugDescription), separator: "\n")
+      }
+      """).description
+    }
+
+    public func hash(into hasher: inout Hasher) {
+      hasher.combine(parentType)
+      hasher.combine(selections)
+    }
+
+    public static func ==(lhs: SelectionSet, rhs: SelectionSet) -> Bool {
+      return lhs.parentType == rhs.parentType &&
+      lhs.selections == rhs.selections
+    }
+  }
+
+  public class InlineFragment: JavaScriptObject, Hashable {
+    lazy var selectionSet: SelectionSet = self["selectionSet"]
+
+    lazy var inclusionConditions: [InclusionCondition]? = self["inclusionConditions"]
+
+    public override var debugDescription: String {
+      selectionSet.debugDescription
+    }
+
+    public func hash(into hasher: inout Hasher) {
+      hasher.combine(selectionSet)
+      hasher.combine(inclusionConditions)
+    }
+
+    public static func ==(lhs: InlineFragment, rhs: InlineFragment) -> Bool {
+      return lhs.selectionSet == rhs.selectionSet &&
+      lhs.inclusionConditions == rhs.inclusionConditions
+    }
+  }
+
+  /// Represents an individual selection that includes a named fragment in a selection set.
+  /// (ie. `...FragmentName`)
+  public class FragmentSpread: JavaScriptObject, Hashable {
+    lazy var fragment: FragmentDefinition = self["fragment"]
+
+    lazy var inclusionConditions: [InclusionCondition]? = self["inclusionConditions"]
+
+    lazy var directives: [Directive]? = self["directives"]
+
+    var parentType: GraphQLCompositeType { fragment.type }
+
+    public func hash(into hasher: inout Hasher) {
+      hasher.combine(fragment)
+      hasher.combine(inclusionConditions)
+      hasher.combine(directives)
+    }
+
+    public static func ==(lhs: FragmentSpread, rhs: FragmentSpread) -> Bool {
+      return lhs.fragment == rhs.fragment &&
+      lhs.inclusionConditions == rhs.inclusionConditions &&
+      lhs.directives == rhs.directives
+    }
   }
   
-  public enum Selection: JavaScriptValueDecodable {
+  public enum Selection: JavaScriptValueDecodable, CustomDebugStringConvertible, Hashable {
     case field(Field)
     case inlineFragment(InlineFragment)
     case fragmentSpread(FragmentSpread)
@@ -96,45 +218,181 @@ public class CompilationResult: JavaScriptObject {
           """)
       }
     }
+
+    var selectionSet: SelectionSet? {
+      switch self {
+      case let .field(field): return field.selectionSet
+      case let .inlineFragment(inlineFragment): return inlineFragment.selectionSet
+      case let .fragmentSpread(fragmentSpread): return fragmentSpread.fragment.selectionSet
+      }
+    }
+
+    public var debugDescription: String {
+      switch self {
+      case let .field(field):
+        return "field - " + field.debugDescription
+      case let .inlineFragment(fragment):
+        return "inlineFragment - " + fragment.debugDescription
+      case let .fragmentSpread(fragment):
+        return "fragment - " + fragment.debugDescription
+      }
+    }
   }
   
-  public class Field: JavaScriptObject {
-    private(set) lazy var name: String = self["name"]
+  public class Field: JavaScriptWrapper, Hashable, CustomDebugStringConvertible {
+    lazy var name: String = self["name"]!
     
-    private(set) lazy var alias: String? = self["alias"]
+    lazy var alias: String? = self["alias"]
     
     var responseKey: String {
       alias ?? name
     }
     
-    private(set) lazy var arguments: [Argument]? = self["arguments"]
+    lazy var type: GraphQLType = self["type"]!
+
+    lazy var arguments: [Argument]? = self["arguments"]
+
+    lazy var inclusionConditions: [InclusionCondition]? = self["inclusionConditions"]
+
+    lazy var directives: [Directive]? = self["directives"]
     
-    private(set) lazy var type: GraphQLType = self["type"]
+    lazy var selectionSet: SelectionSet? = self["selectionSet"]
     
-    private(set) lazy var selectionSet: SelectionSet? = self["selectionSet"]
-    
-    private(set) lazy var deprecationReason: String? = self["deprecationReason"]
+    lazy var deprecationReason: String? = self["deprecationReason"]
     
     var isDeprecated: Bool {
       return deprecationReason != nil
     }
     
-    private(set) lazy var description: String? = self["description"]
+    lazy var documentation: String? = self["description"]
+
+    required convenience init(
+      name: String,
+      alias: String? = nil,
+      arguments: [Argument]? = nil,
+      inclusionConditions: [InclusionCondition]? = nil,
+      directives: [Directive]? = nil,
+      type: GraphQLType,
+      selectionSet: SelectionSet? = nil,
+      deprecationReason: String? = nil,
+      documentation: String? = nil
+    ) {
+      self.init(nil)
+      self.name = name
+      self.alias = alias
+      self.type = type
+      self.arguments = arguments
+      self.inclusionConditions = inclusionConditions
+      self.directives = directives
+      self.selectionSet = selectionSet
+      self.deprecationReason = deprecationReason
+      self.documentation = documentation
+    }
+
+    public var debugDescription: String {
+      TemplateString("""
+      \(name): \(type.debugDescription)\(ifLet: directives, {
+          " \($0.map{"\($0.debugDescription)"}, separator: " ")"
+        })
+      """).description
+    }
+
+    public func hash(into hasher: inout Hasher) {
+      hasher.combine(name)
+      hasher.combine(alias)
+      hasher.combine(type)
+      hasher.combine(arguments)
+      hasher.combine(directives)
+      hasher.combine(selectionSet)
+    }
+
+    public static func ==(lhs: Field, rhs: Field) -> Bool {
+      return lhs.name == rhs.name &&
+      lhs.alias == rhs.alias &&
+      lhs.type == rhs.type &&
+      lhs.arguments == rhs.arguments &&
+      lhs.directives == rhs.directives &&
+      lhs.selectionSet == rhs.selectionSet
+    }
   }
   
-  public class Argument: JavaScriptObject {
-    private(set) lazy var name: String = self["name"]
-    
-    private(set) lazy var value: GraphQLValue = self["value"]
+  public class Argument: JavaScriptObject, Hashable {
+    lazy var name: String = self["name"]
+
+    lazy var type: GraphQLType = self["type"]
+
+    lazy var value: GraphQLValue = self["value"]
+
+    lazy var deprecationReason: String? = self["deprecationReason"]
+
+    public func hash(into hasher: inout Hasher) {
+      hasher.combine(name)
+      hasher.combine(type)
+      hasher.combine(value)
+    }
+
+    public static func ==(lhs: Argument, rhs: Argument) -> Bool {
+      return lhs.name == rhs.name &&
+      lhs.type == rhs.type &&
+      lhs.value == rhs.value
+    }
   }
-  
-  public class InlineFragment: JavaScriptObject {
-    private(set) lazy var typeCondition: GraphQLCompositeType? = self["typeCondition"]
-    
-    private(set) lazy var selectionSet: SelectionSet = self["selectionSet"]
+
+  public class Directive: JavaScriptObject, Hashable {
+    lazy var name: String = self["name"]
+
+    lazy var arguments: [Argument]? = self["arguments"]
+
+    public func hash(into hasher: inout Hasher) {
+      hasher.combine(name)
+      hasher.combine(arguments)
+    }
+
+    public static func == (lhs: Directive, rhs: Directive) -> Bool {
+      return lhs.name == rhs.name &&
+      lhs.arguments == rhs.arguments
+    }
+
+    public override var debugDescription: String {
+      TemplateString("""
+      "@\(name)\(ifLet: arguments, {
+        "(\($0.map { "\($0.name): \(String(describing: $0.value))" }, separator: ","))"
+        })
+      """).description
+    }
   }
-  
-  public class FragmentSpread: JavaScriptObject {
-    private(set) lazy var fragment: FragmentDefinition = self["fragment"]
+
+  public enum InclusionCondition: JavaScriptValueDecodable, Hashable {
+    case included
+    case skipped
+    case variable(String, isInverted: Bool)
+
+    init(_ jsValue: JSValue, bridge: JavaScriptBridge) {
+      if jsValue.isString, let value = jsValue.toString() {
+        switch value {
+        case "INCLUDED":
+          self = .included
+          return
+        case "SKIPPED":
+          self = .skipped
+          return
+        default:
+          preconditionFailure("Unrecognized value for include condition. Got \(value)")          
+        }
+      }
+
+      precondition(jsValue.isObject, "Expected JavaScript object but found: \(jsValue)")
+
+      self = .variable(jsValue["variable"].toString(), isInverted: jsValue["isInverted"].toBool())
+    }
+
+    static func include(if variable: String) -> Self {
+      .variable(variable, isInverted: false)
+    }
+
+    static func skip(if variable: String) -> Self {
+      .variable(variable, isInverted: true)
+    }
   }
+
 }

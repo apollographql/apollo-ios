@@ -90,3 +90,15 @@ This method follows the [GraphQL Multipart Request Spec](https://github.com/jayd
 
 - Throws: Any error arising from creating the form data
 - Returns: The created form data
+
+### `==(_:_:)`
+
+```swift
+public static func == (lhs: UploadRequest<Operation>, rhs: UploadRequest<Operation>) -> Bool
+```
+
+### `hash(into:)`
+
+```swift
+public override func hash(into hasher: inout Hasher)
+```

@@ -1,13 +1,13 @@
 import Foundation
+#if !COCOAPODS
+import ApolloAPI
+#endif
 
 /// The `ApolloClientProtocol` provides the core API for Apollo. This API provides methods to fetch and watch queries, and to perform mutations.
 public protocol ApolloClientProtocol: AnyObject {
 
   ///  A store used as a local cache.
   var store: ApolloStore { get }
-
-  /// A function that returns a cache key for a particular result object. If it returns `nil`, a default cache key based on the field path will be used.
-  var cacheKeyForObject: CacheKeyForObject? { get set }
 
   /// Clears the underlying cache.
   /// Be aware: In more complex setups, the same underlying cache can be used across multiple instances, so if you call this on one instance, it'll clear that cache across all instances which share that cache.

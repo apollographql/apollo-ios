@@ -1,35 +1,49 @@
 import Foundation
 import ApolloCodegenLib
+import TargetConfig
 
-// Grab the parent folder of this file on the filesystem
-let parentFolderOfScriptFile = FileFinder.findParentFolder()
+for target in Target.allCases {
 
-// Use that to calculate the source root
-let sourceRootURL = parentFolderOfScriptFile
+  guard let endpoint = target.serverEndpoint else {
+    continue
+  }
+
+  // Grab the parent folder of this file on the filesystem
+  let parentFolderOfScriptFile = FileFinder.findParentFolder()
+
+  // Use that to calculate the source root
+  let sourceRootURL = parentFolderOfScriptFile
     .deletingLastPathComponent() // Sources
     .deletingLastPathComponent() // SwiftScripts
     .deletingLastPathComponent() // apollo-ios
 
-let endpoint = URL(string: "http://localhost:4000/")!
+  let targetURL = target.targetRootURL(fromSourceRoot: sourceRootURL)
+  let outputURL = target.schemaURL(fromTargetRoot: targetURL)
 
-let output = sourceRootURL
-    .appendingPathComponent("Sources")
-    .appendingPathComponent("UploadAPI")
+  // Introspection download:
+  let configuration = ApolloSchemaDownloadConfiguration(
+    using: .introspection(endpointURL: endpoint, outputFormat: .SDL),
+    outputPath: outputURL.path
+  )
 
-// Introspection download:
-let configuration = ApolloSchemaDownloadConfiguration(using: .introspection(endpointURL: endpoint),
-                                                      outputFolderURL: output,
-                                                      schemaFilename: "schema")
+  do {
+    try ApolloSchemaDownloader.fetch(configuration: configuration)
+  } catch {
+    print(error)
+    continue
+  }
 
-// Registry download:
-//let registrySettings = ApolloSchemaDownloadConfiguration.DownloadMethod.RegistrySettings(apiKey: <#Replace Me For Testing#>,
-//                                                                                         graphID: "Apollo-Fullstack-8zo5jl")
-//
-//let configuration = ApolloSchemaDownloadConfiguration(using: .registry(registrySettings),
-//                                                      outputFolderURL: output)
+}
 
-do {
-    try ApolloSchemaDownloader.fetch(with: configuration)
-} catch {
-    exit(1)
+extension Target {
+
+  var serverEndpoint: URL? {
+    switch self {
+    case .upload: return URL(string: "http://localhost:4001/")!
+    case .starWars: return URL(string: "http://localhost:8080/graphql")!
+    case .subscription: return URL(string: "http://localhost:4000/graphql")!
+    default: return nil
+    }
+  }
+
 }

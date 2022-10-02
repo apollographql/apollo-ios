@@ -1,0 +1,25 @@
+{
+  "configurations" : [
+    {
+      "id" : "1B2237F0-C338-4FF4-89BB-5CF0A9F92F25",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:Apollo.xcodeproj",
+        "identifier" : "E6DC0ABD28B3AB890064A68F",
+        "name" : "CodegenCLITests"
+      }
+    }
+  ],
+  "version" : 1
+}

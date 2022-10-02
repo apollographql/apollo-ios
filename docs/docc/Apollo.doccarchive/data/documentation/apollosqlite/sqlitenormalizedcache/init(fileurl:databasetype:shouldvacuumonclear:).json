@@ -1,0 +1,473 @@
+{
+  "abstract" : [
+    {
+      "text" : "Designated initializer",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite",
+        "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteNormalizedCache"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteNormalizedCache\/init(fileURL:databaseType:shouldVacuumOnClear:)"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:12ApolloSQLite0B15NormalizedCacheC7fileURL12databaseType19shouldVacuumOnClearAC10Foundation0F0V_AA0B8Database_pXpSbtKcfc",
+    "fragments" : [
+      {
+        "kind" : "identifier",
+        "text" : "init"
+      },
+      {
+        "kind" : "text",
+        "text" : "("
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "fileURL"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:10Foundation3URLV",
+        "text" : "URL"
+      },
+      {
+        "kind" : "text",
+        "text" : ", "
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "databaseType"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:12ApolloSQLite0B8DatabaseP",
+        "text" : "SQLiteDatabase"
+      },
+      {
+        "kind" : "text",
+        "text" : ".Type, "
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "shouldVacuumOnClear"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:Sb",
+        "text" : "Bool"
+      },
+      {
+        "kind" : "text",
+        "text" : ") "
+      },
+      {
+        "kind" : "keyword",
+        "text" : "throws"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "ApolloSQLite"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Initializer",
+    "symbolKind" : "init",
+    "title" : "init(fileURL:databaseType:shouldVacuumOnClear:)"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "init"
+            },
+            {
+              "kind" : "text",
+              "text" : "("
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "fileURL"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:10Foundation3URLV",
+              "text" : "URL"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "databaseType"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteDatabase",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:12ApolloSQLite0B8DatabaseP",
+              "text" : "SQLiteDatabase"
+            },
+            {
+              "kind" : "text",
+              "text" : ".Type = SQLiteDotSwiftDatabase.self, "
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "shouldVacuumOnClear"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:Sb",
+              "text" : "Bool"
+            },
+            {
+              "kind" : "text",
+              "text" : " = false) "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "throws"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
+      "kind" : "parameters",
+      "parameters" : [
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "The file URL to use for your database.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "fileURL"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "If the database should also be ",
+                  "type" : "text"
+                },
+                {
+                  "code" : "VACCUM",
+                  "type" : "codeVoice"
+                },
+                {
+                  "text" : "ed on clear to remove all traces of info. Defaults to ",
+                  "type" : "text"
+                },
+                {
+                  "code" : "false",
+                  "type" : "codeVoice"
+                },
+                {
+                  "text" : " since this involves a performance hit, but this should be used if you are storing any Personally Identifiable Information in the cache.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "shouldVacuumOnClear"
+        }
+      ]
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "Any errors attempting to open or create the database.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "Throws",
+          "style" : "note",
+          "type" : "aside"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollosqlite\/sqlitenormalizedcache\/init(fileurl:databasetype:shouldvacuumonclear:)"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"/documentation/apollo/normalizedcache": {
+  "identifier" : "\/documentation\/apollo\/normalizedcache",
+  "title" : "NormalizedCache",
+  "titleInlineContent" : [
+    {
+      "code" : "NormalizedCache",
+      "type" : "codeVoice"
+    }
+  ],
+  "type" : "link",
+  "url" : "\/documentation\/apollo\/normalizedcache"
+},
+"doc://ApolloSQLite/documentation/ApolloSQLite": {
+  "abstract" : [
+    {
+      "text" : "A ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "\/documentation\/apollo\/normalizedcache",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " implementation backed by a ",
+      "type" : "text"
+    },
+    {
+      "code" : "SQLite",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " database.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "ApolloSQLite",
+  "type" : "topic",
+  "url" : "\/documentation\/apollosqlite"
+},
+"doc://ApolloSQLite/documentation/ApolloSQLite/SQLiteDatabase": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SQLiteDatabase"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteDatabase",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SQLiteDatabase"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SQLiteDatabase",
+  "type" : "topic",
+  "url" : "\/documentation\/apollosqlite\/sqlitedatabase"
+},
+"doc://ApolloSQLite/documentation/ApolloSQLite/SQLiteNormalizedCache": {
+  "abstract" : [
+    {
+      "text" : "A ",
+      "type" : "text"
+    },
+    {
+      "code" : "NormalizedCache",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " implementation which uses a SQLite database to store data.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SQLiteNormalizedCache"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteNormalizedCache",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SQLiteNormalizedCache"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SQLiteNormalizedCache",
+  "type" : "topic",
+  "url" : "\/documentation\/apollosqlite\/sqlitenormalizedcache"
+},
+"doc://ApolloSQLite/documentation/ApolloSQLite/SQLiteNormalizedCache/init(fileURL:databaseType:shouldVacuumOnClear:)": {
+  "abstract" : [
+    {
+      "text" : "Designated initializer",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "fileURL"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "databaseType"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:12ApolloSQLite0B8DatabaseP",
+      "text" : "SQLiteDatabase"
+    },
+    {
+      "kind" : "text",
+      "text" : ".Type, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "shouldVacuumOnClear"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloSQLite\/documentation\/ApolloSQLite\/SQLiteNormalizedCache\/init(fileURL:databaseType:shouldVacuumOnClear:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(fileURL:databaseType:shouldVacuumOnClear:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollosqlite\/sqlitenormalizedcache\/init(fileurl:databasetype:shouldvacuumonclear:)"
+}
+}
+}

@@ -1,4 +1,7 @@
 import Foundation
+#if !COCOAPODS
+import ApolloAPI
+#endif
 
 /// A network transport is responsible for sending GraphQL operations to a server.
 public protocol NetworkTransport: AnyObject {
@@ -55,11 +58,11 @@ public extension NetworkTransport {
   /// The default client version to use when setting up the `clientVersion` property.
   static var defaultClientVersion: String {
     var version = String()
-    if let shortVersion = Bundle.main.apollo.shortVersion {
+    if let shortVersion = Bundle.main.shortVersion {
       version.append(shortVersion)
     }
 
-    if let buildNumber = Bundle.main.apollo.buildNumber {
+    if let buildNumber = Bundle.main.buildNumber {
       if version.isEmpty {
         version.append(buildNumber)
       } else {

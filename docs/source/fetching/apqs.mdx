@@ -1,0 +1,52 @@
+---
+title: Automatic Persisted Queries
+---
+
+Apollo Server allows you to use a feature called [Automatic Persisted Queries](https://www.apollographql.com/docs/apollo-server/performance/apq/), or APQs, to avoiding sending the same large query documents over and over.
+
+> **Note:** APQs are an Apollo Server feature. They are not part of the GraphQL specification, and are only available when using Apollo iOS with an Apollo Server instance that has APQs enabled.
+
+Each query or mutation is identified by the SHA256 hash of its contents. If the hash can't be found by the server, it sends back an error indicating that it needs the full query. If it receives this specific error, Apollo iOS will automatically retry the operation with the full query document without you having to do anything.
+
+> **Note:** APQs are not supported over Websockets at this time. If you're interested in this feature, please open an [issue](https://github.com/apollographql/apollo-ios/issues/new/choose)!
+
+## Using APQs with Apollo iOS
+
+To enable APQs you must configure code generation and your `ApolloClient` correctly.
+
+### 1. Configure code generation to APQ compatible operations
+
+In order to use APQs, your operations must have SHA256 hash identifiers included in the generated operation objects. To configure code generation to include these identifiers, set the `ApolloCodegenConfiguration`'s `options.apqs` to `.automaticallyPersist`.
+
+To set this property in your `apollo-codegen-config.json` file, add set the `options.apqs` property in the JSON to `"automaticallyPersist"`:
+```json title="apollo-codegen-config.json"
+"options" {
+    "apqs": "automaticallyPersist"
+}
+ ```
+
+### 2. Enable APQs on your `ApolloClient`
+
+You must also initialize your `ApolloClient`, with a custom `NetworkTransport` that supports APQs.
+
+Initialize a `RequestChainNetworkTransport` with `autoPersistQueries` parameter set to `true` and an `interceptorProvider` that includes the `AutomaticPersistedQueryInterceptor` (such as `DefaultInterceptorProvider`).
+
+```swift
+let store = ApolloStore(cache: InMemoryNormalizedCache())
+let interceptorProvider = DefaultInterceptorProvider(store: store)
+let networkTransport = RequestChainNetworkTransport(
+    interceptorProvider: interceptorProvider,
+    endpointURL: URL(string: "http://localhost:4000/graphql")!
+)
+
+let client = ApolloClient(networkTransport: networkTransport, store: store)
+```
+For more information on configuring your `ApolloClient`, `NetworkTransport`, `InterceptorProvider`, and the request chain, see the [Request Pipeline](./../networking/request-pipeline) documentation.
+
+## Send APQs as `GET` requests
+
+By default, retries of queries will use `POST`.  In some cases, it may be required or preferred to retry persisted operation using a `GET` request (for example, when your queries are hitting a CDN that has better performance with `GET`).
+
+In order to use `GET` for persisted query retry requests, set the `useGETForPersistedQueryRetry` on your `RequestChainNetworkTransport` to `true`.
+
+Most users will want to leave this option as `false`.

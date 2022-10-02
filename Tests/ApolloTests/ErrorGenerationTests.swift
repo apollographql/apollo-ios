@@ -7,8 +7,10 @@
 //
 
 import Apollo
+@testable import ApolloAPI
+import ApolloInternalTestHelpers
+import Nimble
 import XCTest
-import StarWarsAPI
 
 class ErrorGenerationTests: XCTestCase {
   
@@ -53,10 +55,10 @@ class ErrorGenerationTests: XCTestCase {
                              "Couldn't create json data")
     let deserialized = try JSONSerializationFormat.deserialize(data: data)
     let jsonObject = try XCTUnwrap(deserialized as? JSONObject)
-    let response = GraphQLResponse(operation: HeroNameQuery(), body: jsonObject)
+    let response = GraphQLResponse(operation: MockQuery.mock(), body: jsonObject)
     let result = try response.parseResultFast()
     XCTAssertNotNil(result.data)
-    XCTAssertNil(result.data?.hero)
+    expect(result.data?.__data._data["hero"]).to(beNil())
     
     XCTAssertEqual(result.errors?.count, 1)
     let error = try XCTUnwrap(result.errors?.first)
@@ -94,10 +96,10 @@ class ErrorGenerationTests: XCTestCase {
                              "Couldn't create json data")
     let deserialized = try JSONSerializationFormat.deserialize(data: data)
     let jsonObject = try XCTUnwrap(deserialized as? JSONObject)
-    let response = GraphQLResponse(operation: HeroNameQuery(), body: jsonObject)
+    let response = GraphQLResponse(operation: MockQuery.mock(), body: jsonObject)
     let result = try response.parseResultFast()
     XCTAssertNotNil(result.data)
-    XCTAssertNil(result.data?.hero)
+    expect(result.data?.__data._data["hero"]).to(beNil())
     
     let errors = try XCTUnwrap(result.errors)
     

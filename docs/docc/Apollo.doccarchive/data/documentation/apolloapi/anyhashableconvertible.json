@@ -1,0 +1,660 @@
+{
+  "abstract" : [
+    {
+      "text" : "A helper protocol to enable ",
+      "type" : "text"
+    },
+    {
+      "code" : "AnyHashable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " conversion for types that do not have automatic",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "code" : "AnyHashable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " conversion implemented.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnyHashableConvertible"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:9ApolloAPI22AnyHashableConvertibleP",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "protocol"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "AnyHashableConvertible"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "ApolloAPI"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "AnyHashableConvertible"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Protocol",
+    "symbolKind" : "protocol",
+    "title" : "AnyHashableConvertible"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "protocol"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "AnyHashableConvertible"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "For most types that conform to ",
+              "type" : "text"
+            },
+            {
+              "code" : "Hashable",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ", Swift automatically wraps them in an ",
+              "type" : "text"
+            },
+            {
+              "code" : "AnyHashable",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "when they are cast to or stored in a property of the ",
+              "type" : "text"
+            },
+            {
+              "code" : "AnyHashable",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " type. This does not happen",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "automatically for containers with conditional ",
+              "type" : "text"
+            },
+            {
+              "code" : "Hashable",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " conformance such as",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "code" : "Optional",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ", ",
+              "type" : "text"
+            },
+            {
+              "code" : "Array",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ", and ",
+              "type" : "text"
+            },
+            {
+              "code" : "Dictionary",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ".",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnyScalarType",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CustomScalarType",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONDecodable",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ScalarType"
+      ],
+      "kind" : "relationships",
+      "title" : "Inherited By",
+      "type" : "inheritedBy"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforming Types",
+      "type" : "conformingTypes"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apolloapi\/anyhashableconvertible"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"/documentation/apollo": {
+  "identifier" : "\/documentation\/apollo",
+  "title" : "Apollo",
+  "titleInlineContent" : [
+    {
+      "code" : "Apollo",
+      "type" : "codeVoice"
+    }
+  ],
+  "type" : "link",
+  "url" : "\/documentation\/apollo"
+},
+"/documentation/apollocodegenlib": {
+  "identifier" : "\/documentation\/apollocodegenlib",
+  "title" : "ApolloCodegenLib",
+  "titleInlineContent" : [
+    {
+      "code" : "ApolloCodegenLib",
+      "type" : "codeVoice"
+    }
+  ],
+  "type" : "link",
+  "url" : "\/documentation\/apollocodegenlib"
+},
+"doc://ApolloAPI/documentation/ApolloAPI": {
+  "abstract" : [
+    {
+      "text" : "The internal models shared by the ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "\/documentation\/apollo",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " client and the models generated by ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "\/documentation\/apollocodegenlib",
+      "isActive" : true,
+      "type" : "reference"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "ApolloAPI",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/AnyHashableConvertible": {
+  "abstract" : [
+    {
+      "text" : "A helper protocol to enable ",
+      "type" : "text"
+    },
+    {
+      "code" : "AnyHashable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " conversion for types that do not have automatic",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "code" : "AnyHashable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " conversion implemented.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AnyHashableConvertible"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnyHashableConvertible",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AnyHashableConvertible"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AnyHashableConvertible",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/anyhashableconvertible"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/AnyScalarType": {
+  "abstract" : [
+    {
+      "text" : "An abstract protocol that a GraphQL “",
+      "type" : "text"
+    },
+    {
+      "code" : "scalar",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : "” type must conform to.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AnyScalarType"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnyScalarType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AnyScalarType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AnyScalarType",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/anyscalartype"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/CustomScalarType": {
+  "abstract" : [
+    {
+      "text" : "A protocol a custom GraphQL “",
+      "type" : "text"
+    },
+    {
+      "code" : "scalar",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : "” must conform to.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CustomScalarType"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CustomScalarType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CustomScalarType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CustomScalarType",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/customscalartype"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/EnumType": {
+  "abstract" : [
+    {
+      "text" : "A protocol that an enum in a generated GraphQL schema conforms to.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "EnumType"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/EnumType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "EnumType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "EnumType",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/enumtype"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLEnum": {
+  "abstract" : [
+    {
+      "text" : "A generic enum type that wraps an ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/EnumType",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " from a generated GraphQL schema.",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "T",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "EnumType",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLEnum"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLEnum"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphQLEnum",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/graphqlenum"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/JSONDecodable": {
+  "abstract" : [
+    {
+      "text" : "A protocol for a type that can be initialized from a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONValue",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "JSONDecodable"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONDecodable",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "JSONDecodable"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "JSONDecodable",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/jsondecodable"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/JSONValue": {
+  "abstract" : [
+    {
+      "text" : "Represents a value in a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONObject",
+      "isActive" : true,
+      "type" : "reference"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "JSONValue"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONValue",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "JSONValue"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "JSONValue",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/jsonvalue"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/ScalarType": {
+  "abstract" : [
+    {
+      "text" : "A protocol that represents any GraphQL “",
+      "type" : "text"
+    },
+    {
+      "code" : "scalar",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : "” defined in the GraphQL Specification.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ScalarType"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ScalarType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ScalarType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ScalarType",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/scalartype"
+}
+}
+}

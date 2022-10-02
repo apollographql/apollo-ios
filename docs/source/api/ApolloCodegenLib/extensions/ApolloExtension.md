@@ -2,157 +2,134 @@
 
 # `ApolloExtension`
 ```swift
-extension ApolloExtension where Base == FileManager
+extension ApolloExtension where Base: FileManager
 ```
 
 ## Methods
-### `fileExists(at:)`
+### `doesFileExist(atPath:)`
 
 ```swift
-public func fileExists(at path: String) -> Bool
+public func doesFileExist(atPath path: String) -> Bool
 ```
 
-Checks if a file exists (and is not a folder) at the given path
+Checks if the path exists and is a file, not a directory.
 
-- Parameter path: The path to check
-- Returns: `true` if there is something at the path and it is a file, not a folder.
+- Parameter path: The path to check.
+- Returns: `true` if there is something at the path and it is a file, not a directory.
 
 #### Parameters
 
 | Name | Description |
 | ---- | ----------- |
-| path | The path to check |
+| path | The path to check. |
 
-### `fileExists(at:)`
+### `doesDirectoryExist(atPath:)`
 
 ```swift
-public func fileExists(at url: URL) -> Bool
+public func doesDirectoryExist(atPath path: String) -> Bool
 ```
 
-Checks if a file exists (and is not a folder) at the given URL
+Checks if the path exists and is a directory, not a file.
 
-- Parameter url: The URL to check
-- Returns: `true` if there is something at the URL and it is a file, not a folder.
+- Parameter path: The path to check.
+- Returns: `true` if there is something at the path and it is a directory, not a file.
 
 #### Parameters
 
 | Name | Description |
 | ---- | ----------- |
-| url | The URL to check |
+| path | The path to check. |
 
-### `folderExists(at:)`
+### `deleteFile(atPath:)`
 
 ```swift
-public func folderExists(at path: String) -> Bool
+public func deleteFile(atPath path: String) throws
 ```
 
-Checks if a folder exists (and is not a file) at the given path.
+Verifies that a file exists at the path and then attempts to delete it. An error is thrown if the path is for a directory.
 
-- Parameter path: The path to check
-- Returns: `true` if there is something at the path and it is a folder, not a file.
+- Parameter path: The path of the file to delete.
 
 #### Parameters
 
 | Name | Description |
 | ---- | ----------- |
-| path | The path to check |
+| path | The path of the file to delete. |
 
-### `folderExists(at:)`
+### `deleteDirectory(atPath:)`
 
 ```swift
-public func folderExists(at url: URL) -> Bool
+public func deleteDirectory(atPath path: String) throws
 ```
 
-Checks if a folder exists (and is not a file) at the given URL.
+Verifies that a directory exists at the path and then attempts to delete it. An error is thrown if the path is for a file.
 
-- Parameter url: The URL to check
-- Returns: `true` if there is something at the URL and it is a folder, not a file.
+- Parameter path: The path of the directory to delete.
 
 #### Parameters
 
 | Name | Description |
 | ---- | ----------- |
-| url | The URL to check |
+| path | The path of the directory to delete. |
 
-### `deleteFolder(at:)`
+### `createFile(atPath:data:overwrite:)`
 
 ```swift
-public func deleteFolder(at url: URL) throws
+public func createFile(atPath path: String, data: Data? = nil, overwrite: Bool = true) throws
 ```
 
-Checks if a folder exists then attempts to delete it if it's there.
+Creates a file at the specified path and writes any given data to it. If a file already exists at `path`, this method overwrites the
+contents of that file if the current process has the appropriate privileges to do so.
 
-- Parameter url: The URL to delete the folder for
+- Parameters:
+  - path: Path to the file.
+  - data: [optional] Data to write to the file path.
+  - overwrite: Indicates if the contents of an existing file should be overwritten.
+      If `false` the function will exit without writing the file if it already exists.
+      This will not throw an error.
+      Defaults to `false.
 
 #### Parameters
 
 | Name | Description |
 | ---- | ----------- |
-| url | The URL to delete the folder for |
+| path | Path to the file. |
+| data | [optional] Data to write to the file path. |
+| overwrite | Indicates if the contents of an existing file should be overwritten. If `false` the function will exit without writing the file if it already exists. This will not throw an error. Defaults to `false. |
 
-### `deleteFile(at:)`
+### `createContainingDirectoryIfNeeded(forPath:)`
 
 ```swift
-public func deleteFile(at url: URL) throws
+public func createContainingDirectoryIfNeeded(forPath path: String) throws
 ```
 
-Checks if a file exists then attempts to delete it if it's there.
+Creates the containing directory (including all intermediate directories) for the given file URL if necessary. This method will not
+overwrite any existing directory.
 
-- Parameter url: The URL to delete the file for
+- Parameter fileURL: The URL of the file to create a containing directory for if necessary.
 
 #### Parameters
 
 | Name | Description |
 | ---- | ----------- |
-| url | The URL to delete the file for |
+| fileURL | The URL of the file to create a containing directory for if necessary. |
 
-### `createContainingFolderIfNeeded(for:)`
+### `createDirectoryIfNeeded(atPath:)`
 
 ```swift
-public func createContainingFolderIfNeeded(for fileURL: URL) throws
+public func createDirectoryIfNeeded(atPath path: String) throws
 ```
 
-Creates the containing folder (including all intermediate directories) for the given file URL if necessary.
+Creates the directory (including all intermediate directories) for the given URL if necessary. This method will not overwrite any
+existing directory.
 
-- Parameter fileURL: The URL of the file to create a containing folder for if necessary.
+- Parameter path: The path of the directory to create if necessary.
 
 #### Parameters
 
 | Name | Description |
 | ---- | ----------- |
-| fileURL | The URL of the file to create a containing folder for if necessary. |
-
-### `createFolderIfNeeded(at:)`
-
-```swift
-public func createFolderIfNeeded(at url: URL) throws
-```
-
-Creates the folder (including all intermediate directories) for the given URL if necessary.
-
-- Parameter url: The URL of the folder to create if necessary.
-
-#### Parameters
-
-| Name | Description |
-| ---- | ----------- |
-| url | The URL of the folder to create if necessary. |
-
-### `shasum(at:)`
-
-```swift
-public func shasum(at fileURL: URL) throws -> String
-```
-
-Calculates the SHASUM (ie, SHA256 hash) of the given file
-
-- Parameter fileURL: The file to calculate the SHASUM for.
-
-#### Parameters
-
-| Name | Description |
-| ---- | ----------- |
-| fileURL | The file to calculate the SHASUM for. |
+| path | The path of the directory to create if necessary. |
 
 ### `parentFolderURL()`
 

@@ -1,10 +1,13 @@
 ---
 title: Introduction to Apollo iOS
-sidebar_title: Introduction
-description: A strongly-typed, caching GraphQL client for iOS, written in Swift
+description: A strongly typed, Swift-first GraphQL client
 ---
 
-**Apollo iOS** is an [open-source](https://github.com/apollographql/apollo-ios) GraphQL client for native iOS apps, written in Swift. It enables you to execute queries and mutations against a GraphQL server and returns results as operation-specific Swift types.
+**Apollo iOS** is an [open-source](https://github.com/apollographql/apollo-ios) GraphQL client for native client applications, written in Swift.
+
+Apollo iOS executes queries and mutations against a GraphQL server and returns results as pre-generated, operation-specific Swift types. This means you don't have to deal with forming spec-compliant GraphQL requests, parsing JSON responses, or manually validating and type-casting response data.
+
+Apollo iOS also includes caching mechanisms that are designed specifically for GraphQL data, enabling you to execute your GraphQL queries against locally cached data directly.
 
 <p>
   <ButtonLink
@@ -21,24 +24,52 @@ description: A strongly-typed, caching GraphQL client for iOS, written in Swift
   </ButtonLink>
 </p>
 
-## Benefits
+## Key features
 
-### Strong typing with codegen
+Apollo iOS consists of three primary components:
 
-Thanks to strong typing in Apollo iOS, you don't need to deal with parsing JSON responses or passing around dictionaries of values that require manual casting. You also don't need to write model types yourself, because models are generated from the GraphQL operations your UI defines.
+* [Code generation](#code-generation)
+* A [normalized cache](#the-normalized-cache)
+* The [networking and GraphQL execution layer](#networking-and-graphql-execution)
 
-Because generated types are operation-specific, they include properties _only_ for the GraphQL fields included in their corresponding operation. This means you can rely on the Swift type checker to flag data access errors at compile time.
+When used together, these components dramatically improve the process of requesting, consuming, and persisting GraphQL data.
 
-Apollo's Xcode integration enables you to work with your UI code and corresponding GraphQL definitions side by side. It even validates your query documents, showing errors inline.
+### Code generation
 
-### Normalized caching
+Apollo iOS generates operation objects for your GraphQL operations, providing a type-safe way to construct operations and provide values for input variables in your Swift code.
 
-Apollo iOS normalizes operation results to build a client-side cache of your data, which is updated with every operation you execute. This means your UI is always internally consistent, and it can stay up to date with your backend with as few operation as possible.
+Each generated operation contains a set of robust, strongly-typed models for its response. These generated models help you access your GraphQL response data in a type-safe and flexible format. You don't need to deal with parsing JSON responses or passing around dictionaries of values that require manual casting. You also don't need to write model types yourself, because models are generated from the GraphQL operations you define.
 
-[Learn more about caching.](./caching/)
+Because generated response models are operation-specific, they include properties _only_ for the GraphQL fields included in their corresponding operation. This means you can rely on the Swift type checker to flag data access errors at compile time.
+
+In addition to operation-specific models, Apollo iOS generates models for your GraphQL _fragments_. Using these fragment models alongside the operation-specific models enables you to share common models across multiple GraphQL operations.
+
+Models are also generated for your schema's input types, enums, and custom scalars, all of which improve safety and speed when working with GraphQL data in pure Swift code.
+
+### The normalized cache
+
+Apollo iOS normalizes operation results to build a client-side cache of your data, which is updated with every operation you execute. Our normalized cache is built specificially with GraphQL in mind. It de-duplicates GraphQL response data, merging data from separate GraphQL operations into normalized objects so that it can stay up-to-date with your backend with as few operations as possible.
+
+The normalization of objects across operations means the cache acts as a source of truth for your graph, enabling your application to react to changes as they're fetched.
+
+To learn more about the normalization process, see our blog post [Demystifying Cache Normalization](https://www.apollographql.com/blog/apollo-client/caching/demystifying-cache-normalization).
+
+### Networking and GraphQL execution
+
+Apollo iOS provides a networking API that helps you execute GraphQL operations against any spec-compliant GraphQL server. The GraphQL execution pipeline automatically caches your response data in the normalized cache and returns the response data using your generated, type-safe operation models.
+
+Apollo iOS handles all the heavy lifting of networking with GraphQL, including:
+
+- Construction of spec-compliant GraphQL network requests
+- Checking for existing data in the normalized cache
+- Network transport execution
+- Parsing and validation of GraphQL network responses
+- Exposing GraphQL errors as type-safe Swift errors
+- Writing response data to the normalized cache
+- Mapping response data onto type-safe, generated operation models
 
 ## Related libraries
 
 [Apollo Kotlin](/kotlin/) is a GraphQL client for native Android apps written in Java and Kotlin. It offers Kotlin Multi-Platform integration as well.
 
-Apollo Client for JavaScript's [React integration](/react) works with [React Native](https://facebook.github.io/react-native/) on both iOS and Android.
+Apollo Client for JavaScript's [React integration](/react) also works with [React Native](https://facebook.github.io/react-native/) on both iOS and Android.

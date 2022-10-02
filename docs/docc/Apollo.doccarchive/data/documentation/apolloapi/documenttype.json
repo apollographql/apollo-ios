@@ -1,0 +1,566 @@
+{
+  "abstract" : [
+    {
+      "text" : "The means of providing the operation document that includes the definition of the operation",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "over network transport.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DocumentType"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:9ApolloAPI12DocumentTypeO",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "enum"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "DocumentType"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "ApolloAPI"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "DocumentType"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Enumeration",
+    "symbolKind" : "enum",
+    "title" : "DocumentType"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "enum"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "DocumentType"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "This data represents the ",
+              "type" : "text"
+            },
+            {
+              "code" : "Document",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " as defined in the GraphQL Spec.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "items" : [
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "See: ",
+                      "type" : "text"
+                    },
+                    {
+                      "identifier" : "https:\/\/spec.graphql.org\/draft\/#Document",
+                      "isActive" : true,
+                      "type" : "reference"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            }
+          ],
+          "type" : "unorderedList"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "The Apollo Code Generation Engine will generate the ",
+              "type" : "text"
+            },
+            {
+              "code" : "DocumentType",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " on each generated",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "code" : "GraphQLOperation",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ". You can change the type of ",
+              "type" : "text"
+            },
+            {
+              "code" : "DocumentType",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " generated in your",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "[code generation configuration](\/\/ TODO: ADD URL TO DOCUMENTATION HERE).",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DocumentType\/automaticallyPersisted(operationIdentifier:definition:)",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DocumentType\/notPersisted(definition:)",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DocumentType\/persistedOperationsOnly(operationIdentifier:)"
+      ],
+      "title" : "Enumeration Cases"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apolloapi\/documenttype"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"/documentation/apollo": {
+  "identifier" : "\/documentation\/apollo",
+  "title" : "Apollo",
+  "titleInlineContent" : [
+    {
+      "code" : "Apollo",
+      "type" : "codeVoice"
+    }
+  ],
+  "type" : "link",
+  "url" : "\/documentation\/apollo"
+},
+"/documentation/apollocodegenlib": {
+  "identifier" : "\/documentation\/apollocodegenlib",
+  "title" : "ApolloCodegenLib",
+  "titleInlineContent" : [
+    {
+      "code" : "ApolloCodegenLib",
+      "type" : "codeVoice"
+    }
+  ],
+  "type" : "link",
+  "url" : "\/documentation\/apollocodegenlib"
+},
+"doc://ApolloAPI/documentation/ApolloAPI": {
+  "abstract" : [
+    {
+      "text" : "The internal models shared by the ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "\/documentation\/apollo",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " client and the models generated by ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "\/documentation\/apollocodegenlib",
+      "isActive" : true,
+      "type" : "reference"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "ApolloAPI",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/DocumentType": {
+  "abstract" : [
+    {
+      "text" : "The means of providing the operation document that includes the definition of the operation",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "over network transport.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DocumentType"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DocumentType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DocumentType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DocumentType",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/documenttype"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/DocumentType/automaticallyPersisted(operationIdentifier:definition:)": {
+  "abstract" : [
+    {
+      "text" : "Automatically persists your operations using Apollo Server’s",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "https:\/\/www.apollographql.com\/docs\/apollo-server\/performance\/apq",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "automaticallyPersisted"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "operationIdentifier"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "definition"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI19OperationDefinitionV",
+      "text" : "OperationDefinition"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DocumentType\/automaticallyPersisted(operationIdentifier:definition:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "DocumentType.automaticallyPersisted(operationIdentifier:definition:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/documenttype\/automaticallypersisted(operationidentifier:definition:)"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/DocumentType/notPersisted(definition:)": {
+  "abstract" : [
+    {
+      "text" : "The traditional way of providing the operation ",
+      "type" : "text"
+    },
+    {
+      "code" : "Document",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "The ",
+      "type" : "text"
+    },
+    {
+      "code" : "Document",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is sent with every operation request.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "notPersisted"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "definition"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI19OperationDefinitionV",
+      "text" : "OperationDefinition"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DocumentType\/notPersisted(definition:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "DocumentType.notPersisted(definition:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/documenttype\/notpersisted(definition:)"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/DocumentType/persistedOperationsOnly(operationIdentifier:)": {
+  "abstract" : [
+    {
+      "text" : "Provides only the ",
+      "type" : "text"
+    },
+    {
+      "code" : "operationIdentifier",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " for operations that have been previously persisted",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "to an Apollo Server using",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "https:\/\/www.apollographql.com\/docs\/apollo-server\/performance\/apq",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "persistedOperationsOnly"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "operationIdentifier"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DocumentType\/persistedOperationsOnly(operationIdentifier:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "DocumentType.persistedOperationsOnly(operationIdentifier:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/documenttype\/persistedoperationsonly(operationidentifier:)"
+},
+"https://spec.graphql.org/draft/#Document": {
+  "identifier" : "https:\/\/spec.graphql.org\/draft\/#Document",
+  "title" : "GraphQLSpec - Document",
+  "titleInlineContent" : [
+    {
+      "text" : "GraphQLSpec - Document",
+      "type" : "text"
+    }
+  ],
+  "type" : "link",
+  "url" : "https:\/\/spec.graphql.org\/draft\/#Document"
+},
+"https://www.apollographql.com/docs/apollo-server/performance/apq": {
+  "identifier" : "https:\/\/www.apollographql.com\/docs\/apollo-server\/performance\/apq",
+  "title" : "APQs",
+  "titleInlineContent" : [
+    {
+      "text" : "APQs",
+      "type" : "text"
+    }
+  ],
+  "type" : "link",
+  "url" : "https:\/\/www.apollographql.com\/docs\/apollo-server\/performance\/apq"
+}
+}
+}

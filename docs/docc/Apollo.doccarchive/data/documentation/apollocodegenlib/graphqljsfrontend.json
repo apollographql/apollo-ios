@@ -1,0 +1,911 @@
+{
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:16ApolloCodegenLib17GraphQLJSFrontendC",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "class"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "GraphQLJSFrontend"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "ApolloCodegenLib"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "GraphQLJSFrontend"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Class",
+    "symbolKind" : "class",
+    "title" : "GraphQLJSFrontend"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "final"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "class"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "GraphQLJSFrontend"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/init()"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/compile(schema:document:experimentalLegacySafelistingCompatibleOperations:)",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/loadSchema(from:)",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/makeSource(_:filePath:)",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/makeSource(from:)",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/mergeDocuments(_:)",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/parseDocument(_:experimentalClientControlledNullability:)",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/parseDocument(from:experimentalClientControlledNullability:)",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/printSchemaAsSDL(schema:)",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/validateDocument(schema:document:options:)"
+      ],
+      "title" : "Instance Methods"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollocodegenlib\/graphqljsfrontend"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib": {
+  "abstract" : [
+    {
+      "text" : "A robust code generation engine for GraphQL operations.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "ApolloCodegenLib",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLJSFrontend": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLJSFrontend"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLJSFrontend"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphQLJSFrontend",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/graphqljsfrontend"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLJSFrontend/compile(schema:document:experimentalLegacySafelistingCompatibleOperations:)": {
+  "abstract" : [
+    {
+      "text" : "Compiles a GraphQL document into an intermediate representation that is more suitable for analysis and code generation.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "compile"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "schema"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:16ApolloCodegenLib13GraphQLSchemaC",
+      "text" : "GraphQLSchema"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "document"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:16ApolloCodegenLib15GraphQLDocumentC",
+      "text" : "GraphQLDocument"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "experimentalLegacySafelistingCompatibleOperations"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:16ApolloCodegenLib17CompilationResultC",
+      "text" : "CompilationResult"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/compile(schema:document:experimentalLegacySafelistingCompatibleOperations:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "compile(schema:document:experimentalLegacySafelistingCompatibleOperations:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/graphqljsfrontend\/compile(schema:document:experimentallegacysafelistingcompatibleoperations:)"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLJSFrontend/init()": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/init()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init()",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/graphqljsfrontend\/init()"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLJSFrontend/loadSchema(from:)": {
+  "abstract" : [
+    {
+      "text" : "Load a schema by parsing  an introspection result.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "loadSchema"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "from"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:16ApolloCodegenLib13GraphQLSourceC",
+      "text" : "GraphQLSource"
+    },
+    {
+      "kind" : "text",
+      "text" : "]) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:16ApolloCodegenLib13GraphQLSchemaC",
+      "text" : "GraphQLSchema"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/loadSchema(from:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "loadSchema(from:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/graphqljsfrontend\/loadschema(from:)"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLJSFrontend/makeSource(_:filePath:)": {
+  "abstract" : [
+    {
+      "text" : "Create a ",
+      "type" : "text"
+    },
+    {
+      "code" : "GraphQLSource",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " object from a string.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "makeSource"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "filePath"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:16ApolloCodegenLib13GraphQLSourceC",
+      "text" : "GraphQLSource"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/makeSource(_:filePath:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "makeSource(_:filePath:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/graphqljsfrontend\/makesource(_:filepath:)"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLJSFrontend/makeSource(from:)": {
+  "abstract" : [
+    {
+      "text" : "Create a ",
+      "type" : "text"
+    },
+    {
+      "code" : "GraphQLSource",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " object by reading from a file.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "makeSource"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "from"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:16ApolloCodegenLib13GraphQLSourceC",
+      "text" : "GraphQLSource"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/makeSource(from:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "makeSource(from:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/graphqljsfrontend\/makesource(from:)"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLJSFrontend/mergeDocuments(_:)": {
+  "abstract" : [
+    {
+      "text" : "Validation and compilation take a single document, but you can merge documents, and operations and fragments will remember their source.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "mergeDocuments"
+    },
+    {
+      "kind" : "text",
+      "text" : "(["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:16ApolloCodegenLib15GraphQLDocumentC",
+      "text" : "GraphQLDocument"
+    },
+    {
+      "kind" : "text",
+      "text" : "]) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:16ApolloCodegenLib15GraphQLDocumentC",
+      "text" : "GraphQLDocument"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/mergeDocuments(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "mergeDocuments(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/graphqljsfrontend\/mergedocuments(_:)"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLJSFrontend/parseDocument(_:experimentalClientControlledNullability:)": {
+  "abstract" : [
+    {
+      "text" : "Parses a GraphQL document from a source, returning a reference to the parsed AST that can be passed on to validation and compilation.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "Syntax errors will result in throwing a ",
+      "type" : "text"
+    },
+    {
+      "code" : "GraphQLError",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "parseDocument"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:16ApolloCodegenLib13GraphQLSourceC",
+      "text" : "GraphQLSource"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "experimentalClientControlledNullability"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:16ApolloCodegenLib15GraphQLDocumentC",
+      "text" : "GraphQLDocument"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/parseDocument(_:experimentalClientControlledNullability:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "parseDocument(_:experimentalClientControlledNullability:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/graphqljsfrontend\/parsedocument(_:experimentalclientcontrollednullability:)"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLJSFrontend/parseDocument(from:experimentalClientControlledNullability:)": {
+  "abstract" : [
+    {
+      "text" : "Parses a GraphQL document from a file, returning a reference to the parsed AST that can be passed on to validation and compilation.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "Syntax errors will result in throwing a ",
+      "type" : "text"
+    },
+    {
+      "code" : "GraphQLError",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "parseDocument"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "from"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "experimentalClientControlledNullability"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:16ApolloCodegenLib15GraphQLDocumentC",
+      "text" : "GraphQLDocument"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/parseDocument(from:experimentalClientControlledNullability:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "parseDocument(from:experimentalClientControlledNullability:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/graphqljsfrontend\/parsedocument(from:experimentalclientcontrollednullability:)"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLJSFrontend/printSchemaAsSDL(schema:)": {
+  "abstract" : [
+    {
+      "text" : "Take a loaded GQL schema and print it as SDL.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "printSchemaAsSDL"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "schema"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:16ApolloCodegenLib13GraphQLSchemaC",
+      "text" : "GraphQLSchema"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/printSchemaAsSDL(schema:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "printSchemaAsSDL(schema:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/graphqljsfrontend\/printschemaassdl(schema:)"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLJSFrontend/validateDocument(schema:document:options:)": {
+  "abstract" : [
+    {
+      "text" : "Validate a GraphQL document and return any validation errors as ",
+      "type" : "text"
+    },
+    {
+      "code" : "GraphQLError",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : "s.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "validateDocument"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "schema"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:16ApolloCodegenLib13GraphQLSchemaC",
+      "text" : "GraphQLSchema"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "document"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:16ApolloCodegenLib15GraphQLDocumentC",
+      "text" : "GraphQLDocument"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "options"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:16ApolloCodegenLib17ValidationOptionsV",
+      "text" : "ValidationOptions"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:16ApolloCodegenLib12GraphQLErrorC",
+      "text" : "GraphQLError"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/validateDocument(schema:document:options:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "validateDocument(schema:document:options:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/graphqljsfrontend\/validatedocument(schema:document:options:)"
+}
+}
+}

@@ -7,28 +7,16 @@
 //
 
 import Apollo
+import ApolloAPI
 
 struct TestCustomRequestBodyCreator: RequestBodyCreator {
+
+  var stubbedRequestBody: JSONEncodableDictionary = ["TestCustomRequestBodyCreator": "TestBodyValue"]
+
   func requestBody<Operation: GraphQLOperation>(
     for operation: Operation,
-    sendOperationIdentifiers: Bool,
-    sendQueryDocument: Bool, autoPersistQuery: Bool) -> GraphQLMap {
-    
-    var body: GraphQLMap = [
-      "test_variables": operation.variables,
-      "test_operationName": operation.operationName,
-    ]
-
-    if sendOperationIdentifiers {
-      guard let operationIdentifier = operation.operationIdentifier else {
-        preconditionFailure("To send operation identifiers, Apollo types must be generated with operationIdentifiers")
-      }
-
-      body["test_id"] = operationIdentifier
-    } else {
-      body["test_query"] = operation.queryDocument
-    }
-
-    return body
+    sendQueryDocument: Bool, autoPersistQuery: Bool
+  ) -> JSONEncodableDictionary {
+    stubbedRequestBody
   }
 }
