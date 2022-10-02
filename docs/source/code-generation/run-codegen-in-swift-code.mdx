@@ -2,177 +2,101 @@
 title: Running code generation in Swift code
 ---
 
-## UNDER CONSTRUCTION
+For most use cases, the Apollo iOS [Codegen CLI](./codegen-cli) is the recommended method for generating code and downloading your schema. The CLI uses the `ApolloCodegenLib` to execute these operation.
 
-- Run code generation as part of a larger development process
-- Write custom tooling
-- Fork the code gen library and customize the generated templates
+To enable advanced use, the `ApolloCodegenLib` can be included as a dependency of your own Swift projects. This enables you to use Swift scripting to perform operations that cannot be done with the CLI. Calling into the `ApolloCodegenLib` directly allows you to integrate Apollo into your development process however you would like.
 
-Apollo Client for iOS enables you to use Swift scripting to perform certain operations that otherwise require the command line.
+## Installing `ApolloCodegenLib`
 
-This document guides you through setting up a Swift Package Manager executable project using our template, and then using that project to:
+The `ApolloCodegenLib` is included as a product in the Apollo iOS SPM Package.
 
-- Download a schema
-- Generate Swift code for your model objects based on your schema and operations
+> At this time, `ApolloCodegenLib` only supports `macOS`. You cannot run code generation scripts on other platforms.
 
-The rest of this guide will help you set up a Swift Package Manager executable that will live alongside your main `xcodeproj` and which can be used either from your main `xcodeproj` or on its own to download a schema, generate code, or both.
-
-## Setup
-
-We've created a template of a Swift Package Manager Executable to speed things along.
-
-This project is provided as a template for an executable rather than a compiled executable to allow you to make changes to the executable relevant to your setup. This allows you to customize while still using Swift as much as possible and bash as little as possible, to preserve both type safety and readability.
-
-You can download the current version of the template from the [iOSCodegenTemplate Repository](https://github.com/apollographql/iOSCodegenTemplate/tree/1.0.0-alpha).
-
-When you unzip the downloaded repo, you'll see that there's a folder called **`ApolloCodegen`**.
-
-If you're using the default target structure for an Xcode project, your project's file structure will look essentially like this in Finder:
-
-```txt title="Sample Project Structure"
-MyProject                  // Source root
-├─ MyProject.xcodeproj
-├─ MyProject/              // Contains app target source files
-├─ MyLibraryTarget/        // Contains lib target source files
-├─ MyProjectTests/         // Contains test files
-```
-
-Drag the `ApolloCodegen` folder in **at the same level as your other targets** (in Finder, not in Xcode):
-
-```txt title="Sample Project Structure"
-MyProject                  // Source root
-├─ MyProject.xcodeproj
-├─ MyProject/              // Contains app target source files
-├─ MyLibraryTarget/        // Contains lib target source files
-├─ MyProjectTests/         // Contains test files
-├─ ApolloCodegen/          // Contains the swift scripting files you just downloaded and dragged in
-```
-
-Double-click `Package.swift` in the `ApolloCodegen` folder to open the executable's package in Xcode.
-
-**Important!** Since a particular version of code generation is tied to a particular version of the SDK, you need to make sure that the `dependencies` section of `Package.swift` is set to grab the same version of the `apollo-ios` library you're using in your main application:
+To use it within your own Swift project, just include it as a dependency.
 
 ```swift title="Package.swift"
-.package(name: "Apollo",
-         url: "https://github.com/apollographql/apollo-ios.git",
-         from: "1.0.0-alpha-1")
+.target(
+    name: "MyApp",
+    dependencies: [
+        .product(name: "ApolloCodegenLib", package: "apollo-ios"),
+    ]
+)
 ```
 
-Note that these instructions are updated along with newer versions of the library - if you're seeing something that doesn't compile, please check that you're on the most recent version of the SDK both in your app and in your Codegen project.
+> **Important:** Because code generation is tied to its usage in the Apollo iOS SDK, you make sure you are using the `ApolloCodegenLib` from the same version of the package as the application that uses your generated code.
 
-## A Tour Of The Template Project
+## Usage
 
-This section will walk you through the already-set up code in the template project. There are two files: `main.swift` and `FileStructure.swift`.
+Once you've installed the `ApolloCodegenLib` dependency in your project, you can use it to:
 
-### SwiftScript
+- [Installing `ApolloCodegenLib`](#installing-apollocodegenlib)
+- [Usage](#usage)
+  - [Running code generation](#running-code-generation)
+  - [Downloading a schema](#downloading-a-schema)
 
-This object uses the [Swift Argument Parser](https://github.com/apple/swift-argument-parser) to create an outer root command which can be run either from the command line if a binary is exported, or run directly by using `swift run` (recommended).
+### Running code generation
 
-There are sub-commands to run specific tasks - these are most often what you'll want to focus on, and where you'll need to make changes appropriate to your project's name and structure.
+To configure and run code generation using `ApolloCodegenLib`, create an [`ApolloCodegenConfiguration`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration), then pass it to `ApolloCodegen.build(with configuration:withRootURL:)` function.
 
-#### DownloadSchema
+By default, the Code Generation Engine will resolve all file paths in your `ApolloCodegenConfiguration` relative to the current working directory. The `rootURL` parameter can be used to provide a local file path URL of the root of the project that you want to run code generation on. This will resolve file paths in your configuration relative to the provided `rootURL`.
 
-This command will download a GraphQL schema. There are two pieces you definitely need to fill in:
+```swift
+import ApolloCodgenLib
 
-- The place you want to download your schema from. This is usually via introspection of your GraphQL endpoint, so the default is set to use this, you just need to replace the `localhost` URL with the URL of your GraphQL endpoint. If you've got it set up, you can also download your schema from the Apollo Schema Registry. You'll need to add your API Key and Graph ID for this, which you can get from Apollo Studio.
-- The name of the folder where you want the schema downloaded. If you've followed the template above, you'll want to place the schema in the folder where your target's code lives.
+let configuration = ApolloCodegenConfiguration(
+    schemaName: "MySchemaName",
+    input: ApolloCodegenConfiguration.FileInput(
+		schemaSearchPaths: ["**/*.graphqls"],
+		operationSearchPaths: ["**/*.graphql"]
+	),
+    output: ApolloCodegenConfiguration.FileOutput(
+		schemaTypes: ApolloCodegenConfiguration.SchemaTypesFileOutput(
+			path: "./generated/schema/",
+			moduleType: .swiftPackageManager
+        )
+		operations: .inSchemaModule,
+		testMocks: .none,
+	),
+    options: ApolloCodegenConfiguration.OutputOptions(
+		additionalInflectionRules: [
+			.pluralization(
+				singularRegex: "animal",
+				replacementRegex: "animals"
+			)
+		],
+		queryStringLiteralFormat: .multiline,
+		deprecatedEnumCases: .include,
+		schemaDocumentation: .include,
+		apqs: .disabled,
+		cocoapodsCompatibleImportStatements: false,
+		warningsOnDeprecatedUsage: .include,
+		conversionStrategies: ApolloCodegenConfiguration.ConversionStrategies(
+			enumCases: .camelCase
+		),
+		pruneGeneratedFiles: true
+	)
+)
 
-You can also use [options provided by the `ApolloSchemaDownloadConfiguration` object](https://www.apollographql.com/docs/ios/api/ApolloCodegenLib/structs/ApolloSchemaDownloadConfiguration/) to further configure how and where you want to download your schema.
-
-#### GenerateCode
-
-This command will take your downloaded schema and your local operations and combine them to generate code. Note that if you don't have a schema _or_ don't have any local operations, code generation will fail.
-
-You will need to replace one placeholder: The location of your target's root folder.
-
-## Running as a script
-
-To run the script using the command line, `cd` into the `ApolloCodegen` directory and run the following command:
-
+try! ApolloCodegen.build(with: configuration)
 ```
-swift run ApolloCodegen [subcommand]
-```
 
-This will build and run the executable, and then run the specified subcommand. The first build may take a minute since it will need to check out dependencies, but the Swift build system's caching will prevent any steps that haven't had changes  (including dependency fetching) from re-executing.
-
-If you don't provide a subcommand, a list of available subcommands will be printed.
+> For more information on the configuring code generation, see the [configuration documentation](./codegen-configuration).
 
 ### Downloading a schema
 
-Update the `downloadSchema` command to have the correct download method and download path within the Swift file. Then, from the command line, run:
+If you would like to download a GraphQL schema from you own Swift project, use the [`ApolloSchemaDownloader`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apolloschemadownloader).
 
-```
-swift run ApolloCodegen downloadSchema
-```
+The schema downloader can be configured with an [`ApolloSchemaDownloadConfiguration`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apolloschemadownloadconfiguration).
 
-If you're using the template code and following the sample project structure, the schema should download here:
+```swift
+import ApolloCodegenLib
 
-```txt title="Sample Project Structure"
-MyProject                  // SourceRoot
-├─ MyProject.xcodeproj
-├─ MyProject/              // Contains app target source files
-│  └─ schema.graphqls
-├─ MyLibraryTarget/        // Contains lib target source files
-├─ MyProjectTests/         // Contains test files
-├─ ApolloCodegen/          // Contains Swift Scripting files
+let configuration = ApolloSchemaDownloadConfiguration(
+    using: .introspection(endpointURL: endpoint, outputFormat: .SDL),
+    outputPath: outputURL.path
+)
+
+try! ApolloSchemaDownloader.fetch(configuration: configuration)
 ```
 
-Next, now that you have a schema, you need a GraphQL file with an operation in order to generate code.
-
-## Adding a `.graphql` file with an operation
-
-If you're not familiar with creating an operation in graphQL, please check out the [portion of our tutorial on executing your first query](https://www.apollographql.com/docs/ios/tutorial/tutorial-execute-query/). You can stop after the section about adding your query to Xcode.
-
-Make sure you've added the operation file to the project files, ideally at or above the level of the `schema.graphqls` (Otherwise, you'll need to manually pass the URL of your operation file to your code generation step):
-
-```txt title="Sample Project Structure"
-MyProject                  // SourceRoot
-├─ MyProject.xcodeproj
-├─ MyProject/              // Contains app target source files
-│  ├─ schema.graphqls
-│  └─ LaunchList.graphql
-├─ MyLibraryTarget/        // Contains lib target source files
-├─ MyProjectTests/         // Contains test files
-├─ ApolloCodegen/          // Contains Swift Scripting files
-```
-
-Here, for example, is what this looks like in a file for one of the queries in our [tutorial application](./tutorial/tutorial-introduction):
-
-<img alt="Launch list file" src="screenshot/graphql_file_launchlist.png" class="screenshot"/>
-
-**Note:** You do **not** need to add this file to your target in Xcode. Only the generated Swift code needs to be included in your target for it to work.
-
-## Running code generation from your main project
-
-Codegen should be set up to run from your main project when you build - this will allow any changes you've made to your graphQL files to be picked up and the code to be regenerated.
-
-This is best achieved with a Run Script Build Phase.
-
-1. Select the target in your project or workspace you want to run code generation, and go to the `Build Phases` tab.
-
-2. Create a new Run Script Build Phase by selecting the **+** button in the upper left-hand corner:
-   ![New run script build phase dialog](screenshot/new_run_script_phase.png)
-
-3. Update the build phase run script to `cd` into the folder where your executable's code lives, then run `swift run` (using `xcrun` so that you can ensure it runs with the correct SDK, no matter what type of project you're building):
-
-    ```
-    # Don't run this during index builds
-    if [ $ACTION = "indexbuild" ]; then exit 0; fi
-
-    cd "${SRCROOT}"/ApolloCodegen
-    xcrun -sdk macosx swift run ApolloCodegen generate
-
-    # propagate the xcrun call's return code to Xcode
-    exit $?
-
-    ```
-
-    >**Note**: If your package ever seems to have problems with caching, run `swift package clean` before `swift run` for a totally clean build. Do not do this by default, because it substantially increases build time.
-
-4. Build your target.
-
-Now, every time you build your project, this script gets called. Because Swift knows not to recompile everything unless something's changed, it should not have a significant impact on your build time.
-
-## Swift-specific troubleshooting
-
-If you encounter errors around `SecTaskLoadEntitlements` that result in an immediate exit of the script instead of showing the permission prompt, verify that all the folders you're looking for exist at the correct path. This error is often caused by a typo.
+> For more information on schema fetching, see [Downloading a schema](./downloading-schema).

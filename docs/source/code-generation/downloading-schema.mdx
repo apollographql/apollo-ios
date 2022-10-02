@@ -22,19 +22,19 @@ Please see the [documentation](https://www.apollographql.com/docs/studio/) for f
 
 ### 2. Codegen CLI
 
-The codegen CLI provides a convenient command-line tool for fetching a GraphQL schema and writing it to a file.
+The Codegen CLI provides a convenient command-line tool for fetching a GraphQL schema and writing it to a file.
 
-> See the documentation on the [`fetch-schema`](./codegen-cli#fetch-schema) command for details of how to use it.
+> See the documentation on the [`fetch-schema`](./codegen-cli#fetch-schema) command for details on how to use it.
 
 The codegen CLI also supports fetching a GraphQL schema as an initial step in the code generation process. This automates fetching the schema and ensures you are always using the most up-to-date schema.
 
-> See the documentation on the [`generate`](./codegen-cli#generate) command for details of how to use it.
+> See the documentation on the [`generate`](./codegen-cli#generate) command for details on how to use it.
 
 The Apollo schema registry and GraphQL introspection are both supported as methods for downloading.
 
 #### Apollo schema registry
 
-The Apollo schema registry serves as a central hub for managing your graph. At its core, the schema registry is a version control system for schemas. It stores a schema's change history, tracking the types and fields that were added, modified, and removed. In order to fetch a schema from the schema registry using the codegen CLI you will need credentials detailed in [configuration](./codegen-configuration#1-apollo-server-registry).
+The Apollo schema registry serves as a central hub for managing your graph. At its core, the schema registry is a version control system for schemas. It stores a schema's change history, tracking the types and fields that were added, modified, and removed. In order to fetch a schema from the schema registry using the codegen CLI you will need credentials detailed in [Schema download configuration](./codegen-configuration#1-apollo-server-registry).
 
 #### GraphQL introspection
 
@@ -42,4 +42,4 @@ GraphQL introspection enables you to query a GraphQL server for information abou
 
 > See the GraphQL spec for full details on the [introspection](https://spec.graphql.org/draft/#sec-Introspection) feature.
 
-> Note: Many production servers disable introspection for security reasons. If your introspection query is failing check that it is not disabled.
+> **Note:** Many production servers disable introspection for security reasons. If your introspection query is failing check that it is not disabled.
