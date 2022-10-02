@@ -16,7 +16,7 @@
 
 <p align="center">
   <a href="https://github.com/apple/swift">
-    <img src="https://img.shields.io/badge/Swift-5.0-orange.svg" alt="Swift 5 supported">
+    <img src="https://img.shields.io/badge/Swift-5.7-orange.svg" alt="Swift 5.7 supported">
   </a>
   <a href="https://swift.org/package-manager/">
     <img src="https://img.shields.io/badge/Swift_Package_Manager-compatible-orange?style=flat-square" alt="Swift Package Manager compatible">
@@ -38,11 +38,9 @@ This combination of models with value semantics, one way data flow, and automati
 
 ## Getting started
 
-If you are new to Apollo iOS there are two ways to get started:
-1. The [tutorial](https://www.apollographql.com/docs/ios/tutorial/tutorial-introduction/) which will guide you through building an iOS app using Swift and Apollo iOS.
-2. A [Playground](https://github.com/apollographql/apollo-client-swift-playground) covering the concepts of queries, mutations, subscriptions, SQLite caching and custom scalars.
+If you are new to Apollo iOS we recommend our [Getting Started](https://www.apollographql.com/docs/ios/get-started) guide.
 
-There is also [comprehensive documentation](https://www.apollographql.com/docs/ios/) including an [API reference](https://www.apollographql.com/docs/ios/api-reference/).
+There is also [comprehensive documentation](https://www.apollographql.com/docs/ios/) including an [API reference](https://www.apollographql.com/docs/ios/docc/documentation/index).
 
 ## Releases and changelog
 
