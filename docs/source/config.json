@@ -33,6 +33,7 @@
       "Operation Arguments": "/fetching/operation-arguments",
       "Error Handling":  "/fetching/error-handling",
       "Type Conditions": "/fetching/type-conditions",
+      "Custom Scalars": "/custom-scalars",
       "Automatic Persisted Queries": "/fetching/apqs"
     },
     "Caching": {
@@ -41,8 +42,9 @@
       "Direct Cache Access": "/caching/cache-transactions",
       "Custom Cache Keys": "/caching/cache-key-resolution"
     },
-    "Creating a Client": "/initialization",
-    "Custom Scalars": "/custom-scalars",
-    "Request Pipeline (advanced)": "/request-pipeline"
+    "Networking": {
+      "Creating a Client": "/networking/client-creation",
+      "Advanced Network Configuration": "/networking/request-pipeline"
+    }
   }
 }

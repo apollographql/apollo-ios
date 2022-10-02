@@ -15,11 +15,11 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheKeyInfo\/init(key:uniqueKeyGroupId:)"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheKeyInfo\/init(id:uniqueKeyGroup:)"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:9ApolloAPI12CacheKeyInfoV3key06uniqueD7GroupIdACSS_SSSgtcfc",
+    "externalID" : "s:9ApolloAPI12CacheKeyInfoV2id06uniqueD5GroupACSS_SSSgtcfc",
     "fragments" : [
       {
         "kind" : "identifier",
@@ -31,7 +31,7 @@
       },
       {
         "kind" : "externalParam",
-        "text" : "key"
+        "text" : "id"
       },
       {
         "kind" : "text",
@@ -48,7 +48,7 @@
       },
       {
         "kind" : "externalParam",
-        "text" : "uniqueKeyGroupId"
+        "text" : "uniqueKeyGroup"
       },
       {
         "kind" : "text",
@@ -72,7 +72,7 @@
     "role" : "symbol",
     "roleHeading" : "Initializer",
     "symbolKind" : "init",
-    "title" : "init(key:uniqueKeyGroupId:)"
+    "title" : "init(id:uniqueKeyGroup:)"
   },
   "primaryContentSections" : [
     {
@@ -95,7 +95,7 @@
             },
             {
               "kind" : "externalParam",
-              "text" : "key"
+              "text" : "id"
             },
             {
               "kind" : "text",
@@ -112,7 +112,7 @@
             },
             {
               "kind" : "externalParam",
-              "text" : "uniqueKeyGroupId"
+              "text" : "uniqueKeyGroup"
             },
             {
               "kind" : "text",
@@ -156,7 +156,7 @@
               "type" : "paragraph"
             }
           ],
-          "name" : "key"
+          "name" : "id"
         },
         {
           "content" : [
@@ -186,7 +186,7 @@
               "type" : "paragraph"
             }
           ],
-          "name" : "uniqueKeyGroupId"
+          "name" : "uniqueKeyGroup"
         }
       ]
     }
@@ -202,7 +202,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/apolloapi\/cachekeyinfo\/init(key:uniquekeygroupid:)"
+        "\/documentation\/apolloapi\/cachekeyinfo\/init(id:uniquekeygroup:)"
       ],
       "traits" : [
         {
@@ -316,7 +316,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/cachekeyinfo"
 },
-"doc://ApolloAPI/documentation/ApolloAPI/CacheKeyInfo/init(key:uniqueKeyGroupId:)": {
+"doc://ApolloAPI/documentation/ApolloAPI/CacheKeyInfo/init(id:uniqueKeyGroup:)": {
   "abstract" : [
     {
       "text" : "The Designated Initializer",
@@ -334,7 +334,7 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "key"
+      "text" : "id"
     },
     {
       "kind" : "text",
@@ -351,7 +351,7 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "uniqueKeyGroupId"
+      "text" : "uniqueKeyGroup"
     },
     {
       "kind" : "text",
@@ -367,12 +367,12 @@
       "text" : "?)"
     }
   ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheKeyInfo\/init(key:uniqueKeyGroupId:)",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheKeyInfo\/init(id:uniqueKeyGroup:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(key:uniqueKeyGroupId:)",
+  "title" : "init(id:uniqueKeyGroup:)",
   "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/cachekeyinfo\/init(key:uniquekeygroupid:)"
+  "url" : "\/documentation\/apolloapi\/cachekeyinfo\/init(id:uniquekeygroup:)"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/CacheReference": {
   "abstract" : [

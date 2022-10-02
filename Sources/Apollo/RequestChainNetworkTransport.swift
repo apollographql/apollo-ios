@@ -6,32 +6,47 @@ import ApolloAPI
 /// An implementation of `NetworkTransport` which creates a `RequestChain` object
 /// for each item sent through it.
 open class RequestChainNetworkTransport: NetworkTransport {
-  
+
+  /// The interceptor provider to use when constructing a request chain
   let interceptorProvider: InterceptorProvider
   
   /// The GraphQL endpoint URL to use.
   public let endpointURL: URL
-  
-  /// Any additional headers that should be automatically added to every request.
+
+  /// Any additional HTTP headers that should be added to **every** request, such as an API key or a language setting.
+  ///
+  /// If a header should only be added to _certain_ requests, or if its value might differ between requests,
+  /// you should add that header in an interceptor instead.
+  ///
+  /// Defaults to an empty dictionary.
   public private(set) var additionalHeaders: [String: String]
   
   /// Set to `true` if Automatic Persisted Queries should be used to send a query hash instead of the full query body by default.
   public let autoPersistQueries: Bool
   
-  /// Set to  `true` if you want to use `GET` instead of `POST` for queries, for example to take advantage of a CDN.
+  /// Set to  `true` if you want to use `GET` instead of `POST` for queries.
+  ///
+  /// This can improve performance if your GraphQL server uses a CDN (Content Delivery Network)
+  /// to cache the results of queries that rarely change.
+  ///
+  /// Mutation operations always use POST, even when this is `false`
+  ///
+  /// Defaults to `false`.
   public let useGETForQueries: Bool
   
   /// Set to `true` to use `GET` instead of `POST` for a retry of a persisted query.
   public let useGETForPersistedQueryRetry: Bool
   
-  /// The `RequestBodyCreator` object to use to build your `URLRequest`.
+  /// The `RequestBodyCreator` object used to build your `URLRequest`.
+  ///
+  /// Defaults to an ``ApolloRequestBodyCreator`` initialized with the default configuration.
   public var requestBodyCreator: RequestBodyCreator
   
   /// Designated initializer
   ///
   /// - Parameters:
-  ///   - interceptorProvider: The interceptor provider to use when constructing chains for a request
-  ///   - endpointURL: The GraphQL endpoint URL to use.
+  ///   - interceptorProvider: The interceptor provider to use when constructing a request chain
+  ///   - endpointURL: The GraphQL endpoint URL to use
   ///   - additionalHeaders: Any additional headers that should be automatically added to every request. Defaults to an empty dictionary.
   ///   - autoPersistQueries: Pass `true` if Automatic Persisted Queries should be used to send a query hash instead of the full query body by default. Defaults to `false`.
   ///   - requestBodyCreator: The `RequestBodyCreator` object to use to build your `URLRequest`. Defaults to the provided `ApolloRequestBodyCreator` implementation.

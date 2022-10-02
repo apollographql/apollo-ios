@@ -303,7 +303,20 @@
 "doc://Apollo/documentation/Apollo/RequestChainNetworkTransport/additionalHeaders": {
   "abstract" : [
     {
-      "text" : "Any additional headers that should be automatically added to every request.",
+      "text" : "Any additional HTTP headers that should be added to ",
+      "type" : "text"
+    },
+    {
+      "inlineContent" : [
+        {
+          "text" : "every",
+          "type" : "text"
+        }
+      ],
+      "type" : "strong"
+    },
+    {
+      "text" : " request, such as an API key or a language setting.",
       "type" : "text"
     }
   ],
@@ -877,7 +890,7 @@
       "type" : "codeVoice"
     },
     {
-      "text" : " object to use to build your ",
+      "text" : " object used to build your ",
       "type" : "text"
     },
     {
@@ -1176,7 +1189,7 @@
       "type" : "codeVoice"
     },
     {
-      "text" : " for queries, for example to take advantage of a CDN.",
+      "text" : " for queries.",
       "type" : "text"
     }
   ],
