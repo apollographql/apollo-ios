@@ -5433,6 +5433,53 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
   }
 
+
+  func test__render_fieldAccessors__givenWarningsOnDeprecatedUsage_include_hasDeprecatedField_withMultilineDocumentation_shouldGenerateWarningBelowDocumentationWithMultilineLiteral() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      "This field is a string."
+      string: String! @deprecated(reason: "Cause I\nsaid so!")
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        string
+      }
+    }
+    """
+
+    let expected = #"""
+      /// This field is a string.
+      @available(*, deprecated, message: """
+          Cause I
+          said so!
+          """)
+      public var string: String { __data["string"] }
+    """#
+
+    // when
+    try buildSubjectAndOperation(
+      schemaDocumentation: .include,
+      warningsOnDeprecatedUsage: .include
+    )
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
+  }
+
+
   func test__render_fieldAccessors__givenWarningsOnDeprecatedUsage_exclude_hasDeprecatedField_shouldNotGenerateWarning() throws {
     // given
     schemaSDL = """
