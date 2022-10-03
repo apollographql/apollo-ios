@@ -1,6 +1,6 @@
 # 🔮 Apollo iOS Roadmap
 
-**Last updated: Sept 2022**
+**Last updated: Oct 2022**
 
 For up to date release notes, refer to the project's [Change Log](https://github.com/apollographql/apollo-ios/blob/main/CHANGELOG.md).
 
@@ -13,15 +13,9 @@ For up to date release notes, refer to the project's [Change Log](https://github
 
 ---
 
-## 1.x - _Current_
+## 1.1 - _Current_
 
-This is the first major version release of Apollo iOS! The primary goal of Apollo iOS 1.0 is to stabilize the API of the model layer and provide a foundation for future feature additions and evolution of the library.
-
-These are the three guiding principles we aim for in each major release:
-
-- **Stability**: Achieve a stable foundation that can be trusted for years to come, maintaining backwards compatibility within major version releases.
-- **Completeness**: There are three main parts to the SDK: code generation, network fetching/parsing, and caching. These must provide enough functionality to be a good foundation for incremental improvements within major releases without requiring breaking changes.
-- **Clarity**: Everything must be clearly documented with as many working samples as possible.
+Release 1.1 will be a follow up to our major 1.0 release and will contain misc improvements now that 1.0 is GA. See Github [1.1 Milestone](https://github.com/apollographql/apol/milestones) for more details.
 
 ## 2.0
 
