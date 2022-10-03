@@ -14,27 +14,27 @@ To generate models, Apollo iOS requires two input sources:
 
 1. **A GraphQL schema**
 
- The **GraphQL schema** is a list of all of the types that are available and the fields you can query on those types. The schema can be thought of as a contract of what it's *possible* to ask for.
+The **GraphQL schema** is a list of all of the types that are available and the fields you can query on those types. The schema can be thought of as a contract of what it's _possible_ to ask for.
 
- A schema is provided by every GraphQL server. Tou can generally get your scheme from your server via an introspection query or from [Apollo Studio](https://www.apollographql.com/docs/studio/).
+A schema is provided by every GraphQL server. You can generally get your schema from your server via an introspection query or from [Apollo Studio](https://www.apollographql.com/docs/studio/).
 
- > Apollo iOS provides tools to help you obtain your GraphQL schema. See [Downloading a schema](./downloading-schema/) for more details.
+> Apollo iOS provides tools to help you obtain your GraphQL schema. See [Downloading a schema](./downloading-schema/) for more details.
 
 2. **A set of GraphQL operations and fragments**
 
-  A **GraphQL operation** defines an interaction with your schema. A GraphQL operation can be a query, a mutation, or a subscription. All operations define a set of fields from the types in your schema to fetch data for. The operation definition determines what the response your GraphQL server provides will include.
+A **GraphQL operation** defines an interaction with your schema. A GraphQL operation can be a query, a mutation, or a subscription. All operations define a set of fields from the types in your schema to fetch data for. The operation definition determines what the response your GraphQL server provides will include.
 
-  Your operation input sources can also include files that define [GraphQL fragments](./../fetching/fragments). These fragments can be referenced by your operation definitions.
+Your operation input sources can also include files that define [GraphQL fragments](./../fetching/fragments). These fragments can be referenced by your operation definitions.
 
-  In order for Apollo to generate useful models, **you must define at least one operation**. This tells us what data you would like to fetch.
+In order for Apollo to generate useful models, **you must define at least one operation**. This tells us what data you would like to fetch.
 
-  > For more information on GraphQL operation definitions see [Defining operations](../fetching/fetching-data#defining-operations).
+> For more information on GraphQL operation definitions see [Defining operations](../fetching/fetching-data#defining-operations).
 
-  All of the GraphQL operation files that you specify as input sources will be merged into a single GraphQL document. Fragments defined in one file are available across all operation input sources. *This means operation and fragment names must be unique across all input sources.*
+All of the GraphQL operation files that you specify as input sources will be merged into a single GraphQL document. Fragments defined in one file are available across all operation input sources. _This means operation and fragment names must be unique across all input sources._
 
 Apollo iOS combines the type information from your schema with your operation definitions to generate models. The schema provides the information needed to generate type-safe models, and your operations define the shape and structure of the generated models.
 
-The Apollo iOS Code Generation Engine parses your schema and operations and ensures that your operations are valid to be performed against the schema provided. It generates modesl that include all of the necessary information to create type-safe operations, send those operations as network requests, and parse the response data onto the type-safe response models.
+The Apollo iOS Code Generation Engine parses your schema and operations and ensures that your operations are valid to be performed against the schema provided. It generates models that include all of the necessary information to create type-safe operations, send those operations as network requests, and parse the response data onto the type-safe response models.
 
 The most basic way to think about this is the following equation:
 
