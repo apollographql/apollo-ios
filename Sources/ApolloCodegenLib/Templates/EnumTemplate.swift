@@ -32,9 +32,7 @@ struct EnumTemplate: TemplateRenderer {
 
     return """
     \(documentation: graphqlEnumValue.documentation, config: config)
-    \(ifLet: graphqlEnumValue.deprecationReason, where: config.options.warningsOnDeprecatedUsage == .include, {"""
-      @available(*, deprecated, message: \"\($0)\")
-      """})
+    \(deprecationReason: graphqlEnumValue.deprecationReason, config: config)
     \(caseDefinition(for: graphqlEnumValue))
     """
   }
