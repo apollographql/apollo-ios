@@ -427,6 +427,14 @@ class EnumTemplateTests: XCTestCase {
       @available(*, deprecated, message: "Deprecated for tests")
       case two = "TWO"
       case three = "THREE"
+
+      static var allCases: [TestEnum] {
+        [
+          .one,
+          .two,
+          .three
+        ]
+      }
     }
 
     """
@@ -523,6 +531,14 @@ class EnumTemplateTests: XCTestCase {
       case two = "TWO"
       @available(*, deprecated, message: "Deprecated for tests")
       case three = "THREE"
+
+      static var allCases: [TestEnum] {
+        [
+          .one,
+          .two,
+          .three
+        ]
+      }
     }
 
     """
