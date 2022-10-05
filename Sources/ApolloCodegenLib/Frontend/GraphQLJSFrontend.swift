@@ -2,19 +2,6 @@ import Foundation
 import JavaScriptCore
 
 public final class GraphQLJSFrontend {
-#if SWIFT_PACKAGE
-  private static let bundle = Bundle.module
-  private static let libraryURL = bundle.url(forResource: "ApolloCodegenFrontend.bundle",
-                                             withExtension: "js")!
-#else
-  private static let bundle = Bundle(for: GraphQLJSFrontend.self)
-  private static let libraryURL = bundle.url(forResource: "ApolloCodegenFrontend.bundle",
-                                             withExtension: "js",
-                                             subdirectory: "dist")!
-#endif
-
-  private static let librarySource = try! String.init(contentsOf: libraryURL)
-
   private let bridge: JavaScriptBridge
   private let library: JavaScriptObject
 
@@ -23,7 +10,7 @@ public final class GraphQLJSFrontend {
     self.bridge = bridge
 
     try bridge.throwingJavaScriptErrorIfNeeded {
-      bridge.context.evaluateScript(Self.librarySource, withSourceURL: Self.libraryURL)
+      bridge.context.evaluateScript(ApolloCodegenFrontendBundle)
     }
 
     self.library = bridge.fromJSValue(bridge.context.globalObject["ApolloCodegenFrontend"])
