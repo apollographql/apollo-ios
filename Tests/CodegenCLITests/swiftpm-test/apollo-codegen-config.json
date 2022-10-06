@@ -1,0 +1,29 @@
+{
+  "schemaName" : "NewTestSchema",
+  "input" : {
+    "operationSearchPaths" : [
+      "./graphql/**/*.graphql"
+    ],
+    "schemaSearchPaths" : [
+      "./graphql/**/*.graphqls"
+    ]
+  },
+  "output" : {
+    "testMocks" : {
+      "none" : {
+      }
+    },
+    "schemaTypes" : {
+      "path" : "./NewTestSchema",
+      "moduleType" : {
+        "embeddedInTarget" : {
+           "name": "NewTestSchema"
+        }
+      }
+    },
+    "operations" : {
+      "relative" : {
+      }
+    }
+  }
+}
