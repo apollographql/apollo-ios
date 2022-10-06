@@ -1,13 +1,22 @@
 import Foundation
 import PackagePlugin
 
-@main struct ApolloCodegenPluginGenerate: CommandPlugin {
-  func performCommand(context: PluginContext, arguments: [String]) async throws {
-    let process = Process()
-    process.executableURL = try context.codegenExecutable
-    process.arguments = ["generate"] + arguments
+@main struct ApolloCodegenPluginGenerate: CodegenCommand {
+  static var commandName: String = "generate"
+}
 
-    try process.run()
-    process.waitUntilExit()
+extension ApolloCodegenPluginGenerate: CommandPlugin {
+  func performCommand(context: PluginContext, arguments: [String]) async throws {
+    try performCommand(contextProvider: context, arguments: arguments)
   }
 }
+
+#if canImport(XcodeProjectPlugin)
+import XcodeProjectPlugin
+
+extension ApolloCodegenPluginGenerate: XcodeCommandPlugin {
+  func performCommand(context: XcodePluginContext, arguments: [String]) throws {
+    try performCommand(contextProvider: context, arguments: arguments)
+  }
+}
+#endif
