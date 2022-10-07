@@ -17,7 +17,7 @@
       "path" : "./NewTestSchema",
       "moduleType" : {
         "embeddedInTarget" : {
-           "name": "NewTestSchema"
+           "name": "swiftpm_test"
         }
       }
     },
