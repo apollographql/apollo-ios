@@ -9,15 +9,15 @@ public extension Selection {
   struct Conditions: Hashable {
     public let value: [[Condition]]
 
-    @inlinable public init(_ value: [[Condition]]) {
+    public init(_ value: [[Condition]]) {
       self.value = value
     }
 
-    @inlinable public init(_ conditions: [Condition]...) {
+    public init(_ conditions: [Condition]...) {
       self.value = Array(conditions)
     }
 
-    @inlinable public init(_ condition: Condition) {
+    public init(_ condition: Condition) {
       self.value = [[condition]]
     }
 
@@ -36,7 +36,7 @@ public extension Selection {
     public let variableName: String
     public let inverted: Bool
 
-    @inlinable public init(
+    public init(
       variableName: String,
       inverted: Bool
     ) {
@@ -44,7 +44,7 @@ public extension Selection {
       self.inverted = inverted;
     }
 
-    @inlinable public init(stringLiteral value: StringLiteralType) {
+    public init(stringLiteral value: StringLiteralType) {
       self.variableName = value
       self.inverted = false
     }

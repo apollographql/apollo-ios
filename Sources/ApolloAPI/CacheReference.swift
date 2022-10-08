@@ -61,7 +61,7 @@ public struct CacheReference: Hashable {
   ///
   /// - Parameters:
   ///   - key: The unique identifier for the referenced object.
-  @inlinable public init(_ key: String) {
+  public init(_ key: String) {
     self.key = key
   }
 

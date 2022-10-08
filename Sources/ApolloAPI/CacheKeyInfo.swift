@@ -111,7 +111,7 @@ public struct CacheKeyInfo {
   ///   - id: The unique cache key for the response object for the ``CacheKeyInfo``.
   ///   - uniqueKeyGroup: An optional identifier for a group of objects that should be grouped
   ///     together in the `NormalizedCache`.
-  @inlinable public init(id: String, uniqueKeyGroup: String? = nil) {
+  public init(id: String, uniqueKeyGroup: String? = nil) {
     self.id = id
     self.uniqueKeyGroup = uniqueKeyGroup
   }
