@@ -93,7 +93,7 @@ struct InputObjectTemplate: TemplateRenderer {
   ) -> TemplateString {
     TemplateString("""
     \(fields.map({
-      "\($1.name): \($1.renderInputValueType(includeDefault: true, config: config.config))"
+      "\($1.name.asInputParameterName): \($1.renderInputValueType(includeDefault: true, config: config.config))"
     }), separator: ",\n")
     """)
   }
@@ -102,7 +102,7 @@ struct InputObjectTemplate: TemplateRenderer {
     _ fields: GraphQLInputFieldDictionary
   ) -> TemplateString {
     TemplateString("""
-    \(fields.map({ "\"\($1.name)\": \($1.name)" }), separator: ",\n")
+    \(fields.map({ "\"\($1.name)\": \($1.name.asInputParameterName)" }), separator: ",\n")
     """)
   }
 
@@ -113,9 +113,9 @@ struct InputObjectTemplate: TemplateRenderer {
       where: config.options.warningsOnDeprecatedUsage == .include, {
         "@available(*, deprecated, message: \"\($0)\")"
       })
-    public var \(field.name): \(field.renderInputValueType(config: config.config)) {
-      get { __data.\(field.name) }
-      set { __data.\(field.name) = newValue }
+    public var \(field.name.asInputParameterName): \(field.renderInputValueType(config: config.config)) {
+      get { __data.\(field.name.asInputParameterName) }
+      set { __data.\(field.name.asInputParameterName) = newValue }
     }
     """
   }
