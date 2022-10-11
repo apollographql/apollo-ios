@@ -130,7 +130,7 @@ enum SwiftKeywords {
     "try",
   ]
 
-  static let InputParameterNamesToEscape: Set<String> = FieldAccessorNamesToEscape
+  fileprivate static let InputParameterNamesToEscape: Set<String> = FieldAccessorNamesToEscape
 
   fileprivate static let TestMockFieldNamesToEscape: Set<String> =
   FieldAccessorNamesToEscape.union([
