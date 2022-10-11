@@ -114,8 +114,8 @@ struct InputObjectTemplate: TemplateRenderer {
         "@available(*, deprecated, message: \"\($0)\")"
       })
     public var \(field.name.asInputParameterName): \(field.renderInputValueType(config: config.config)) {
-      get { __data.\(field.name) }
-      set { __data.\(field.name) = newValue }
+      get { __data.\(field.name.asInputParameterName) }
+      set { __data.\(field.name.asInputParameterName) = newValue }
     }
     """
   }

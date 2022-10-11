@@ -1240,4 +1240,629 @@ class InputObjectTemplateTests: XCTestCase {
     // then
     expect(rendered).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
+
+  // MARK: Reserved Keywords + Special Names
+
+  func test__render__givenFieldsUsingReservedNames__generatesPropertiesAndInitializerWithEscaping() throws {
+    // given
+    let fields = [
+      GraphQLInputField.mock(
+        "associatedtype",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "class",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "deinit",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "enum",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "extension",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "fileprivate",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "func",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "import",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "init",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "inout",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "internal",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "let",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "operator",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "private",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "precedencegroup",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "protocol",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "public",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "rethrows",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "static",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "struct",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "subscript",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "typealias",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "var",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "break",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "case",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "catch",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "continue",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "default",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "defer",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "do",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "else",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "fallthrough",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "guard",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "if",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "in",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "repeat",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "return",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "throw",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "switch",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "where",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "while",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "as",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "false",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "is",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "nil",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "self",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "super",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "throws",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "true",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "try",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      )
+    ]
+
+    buildSubject(fields: fields, config: .mock(schemaName: "TestSchema"))
+
+    let expected = """
+      public init(
+        `associatedtype`: String,
+        `class`: String,
+        `deinit`: String,
+        `enum`: String,
+        `extension`: String,
+        `fileprivate`: String,
+        `func`: String,
+        `import`: String,
+        `init`: String,
+        `inout`: String,
+        `internal`: String,
+        `let`: String,
+        `operator`: String,
+        `private`: String,
+        `precedencegroup`: String,
+        `protocol`: String,
+        `public`: String,
+        `rethrows`: String,
+        `static`: String,
+        `struct`: String,
+        `subscript`: String,
+        `typealias`: String,
+        `var`: String,
+        `break`: String,
+        `case`: String,
+        `catch`: String,
+        `continue`: String,
+        `default`: String,
+        `defer`: String,
+        `do`: String,
+        `else`: String,
+        `fallthrough`: String,
+        `guard`: String,
+        `if`: String,
+        `in`: String,
+        `repeat`: String,
+        `return`: String,
+        `throw`: String,
+        `switch`: String,
+        `where`: String,
+        `while`: String,
+        `as`: String,
+        `false`: String,
+        `is`: String,
+        `nil`: String,
+        `self`: String,
+        `super`: String,
+        `throws`: String,
+        `true`: String,
+        `try`: String
+      ) {
+        __data = InputDict([
+          "associatedtype": `associatedtype`,
+          "class": `class`,
+          "deinit": `deinit`,
+          "enum": `enum`,
+          "extension": `extension`,
+          "fileprivate": `fileprivate`,
+          "func": `func`,
+          "import": `import`,
+          "init": `init`,
+          "inout": `inout`,
+          "internal": `internal`,
+          "let": `let`,
+          "operator": `operator`,
+          "private": `private`,
+          "precedencegroup": `precedencegroup`,
+          "protocol": `protocol`,
+          "public": `public`,
+          "rethrows": `rethrows`,
+          "static": `static`,
+          "struct": `struct`,
+          "subscript": `subscript`,
+          "typealias": `typealias`,
+          "var": `var`,
+          "break": `break`,
+          "case": `case`,
+          "catch": `catch`,
+          "continue": `continue`,
+          "default": `default`,
+          "defer": `defer`,
+          "do": `do`,
+          "else": `else`,
+          "fallthrough": `fallthrough`,
+          "guard": `guard`,
+          "if": `if`,
+          "in": `in`,
+          "repeat": `repeat`,
+          "return": `return`,
+          "throw": `throw`,
+          "switch": `switch`,
+          "where": `where`,
+          "while": `while`,
+          "as": `as`,
+          "false": `false`,
+          "is": `is`,
+          "nil": `nil`,
+          "self": `self`,
+          "super": `super`,
+          "throws": `throws`,
+          "true": `true`,
+          "try": `try`
+        ])
+      }
+
+      public var `associatedtype`: String {
+        get { __data.`associatedtype` }
+        set { __data.`associatedtype` = newValue }
+      }
+
+      public var `class`: String {
+        get { __data.`class` }
+        set { __data.`class` = newValue }
+      }
+
+      public var `deinit`: String {
+        get { __data.`deinit` }
+        set { __data.`deinit` = newValue }
+      }
+
+      public var `enum`: String {
+        get { __data.`enum` }
+        set { __data.`enum` = newValue }
+      }
+
+      public var `extension`: String {
+        get { __data.`extension` }
+        set { __data.`extension` = newValue }
+      }
+
+      public var `fileprivate`: String {
+        get { __data.`fileprivate` }
+        set { __data.`fileprivate` = newValue }
+      }
+
+      public var `func`: String {
+        get { __data.`func` }
+        set { __data.`func` = newValue }
+      }
+
+      public var `import`: String {
+        get { __data.`import` }
+        set { __data.`import` = newValue }
+      }
+
+      public var `init`: String {
+        get { __data.`init` }
+        set { __data.`init` = newValue }
+      }
+
+      public var `inout`: String {
+        get { __data.`inout` }
+        set { __data.`inout` = newValue }
+      }
+
+      public var `internal`: String {
+        get { __data.`internal` }
+        set { __data.`internal` = newValue }
+      }
+
+      public var `let`: String {
+        get { __data.`let` }
+        set { __data.`let` = newValue }
+      }
+
+      public var `operator`: String {
+        get { __data.`operator` }
+        set { __data.`operator` = newValue }
+      }
+
+      public var `private`: String {
+        get { __data.`private` }
+        set { __data.`private` = newValue }
+      }
+
+      public var `precedencegroup`: String {
+        get { __data.`precedencegroup` }
+        set { __data.`precedencegroup` = newValue }
+      }
+
+      public var `protocol`: String {
+        get { __data.`protocol` }
+        set { __data.`protocol` = newValue }
+      }
+
+      public var `public`: String {
+        get { __data.`public` }
+        set { __data.`public` = newValue }
+      }
+
+      public var `rethrows`: String {
+        get { __data.`rethrows` }
+        set { __data.`rethrows` = newValue }
+      }
+
+      public var `static`: String {
+        get { __data.`static` }
+        set { __data.`static` = newValue }
+      }
+
+      public var `struct`: String {
+        get { __data.`struct` }
+        set { __data.`struct` = newValue }
+      }
+
+      public var `subscript`: String {
+        get { __data.`subscript` }
+        set { __data.`subscript` = newValue }
+      }
+
+      public var `typealias`: String {
+        get { __data.`typealias` }
+        set { __data.`typealias` = newValue }
+      }
+
+      public var `var`: String {
+        get { __data.`var` }
+        set { __data.`var` = newValue }
+      }
+
+      public var `break`: String {
+        get { __data.`break` }
+        set { __data.`break` = newValue }
+      }
+
+      public var `case`: String {
+        get { __data.`case` }
+        set { __data.`case` = newValue }
+      }
+
+      public var `catch`: String {
+        get { __data.`catch` }
+        set { __data.`catch` = newValue }
+      }
+
+      public var `continue`: String {
+        get { __data.`continue` }
+        set { __data.`continue` = newValue }
+      }
+
+      public var `default`: String {
+        get { __data.`default` }
+        set { __data.`default` = newValue }
+      }
+
+      public var `defer`: String {
+        get { __data.`defer` }
+        set { __data.`defer` = newValue }
+      }
+
+      public var `do`: String {
+        get { __data.`do` }
+        set { __data.`do` = newValue }
+      }
+
+      public var `else`: String {
+        get { __data.`else` }
+        set { __data.`else` = newValue }
+      }
+
+      public var `fallthrough`: String {
+        get { __data.`fallthrough` }
+        set { __data.`fallthrough` = newValue }
+      }
+
+      public var `guard`: String {
+        get { __data.`guard` }
+        set { __data.`guard` = newValue }
+      }
+
+      public var `if`: String {
+        get { __data.`if` }
+        set { __data.`if` = newValue }
+      }
+
+      public var `in`: String {
+        get { __data.`in` }
+        set { __data.`in` = newValue }
+      }
+
+      public var `repeat`: String {
+        get { __data.`repeat` }
+        set { __data.`repeat` = newValue }
+      }
+
+      public var `return`: String {
+        get { __data.`return` }
+        set { __data.`return` = newValue }
+      }
+
+      public var `throw`: String {
+        get { __data.`throw` }
+        set { __data.`throw` = newValue }
+      }
+
+      public var `switch`: String {
+        get { __data.`switch` }
+        set { __data.`switch` = newValue }
+      }
+
+      public var `where`: String {
+        get { __data.`where` }
+        set { __data.`where` = newValue }
+      }
+
+      public var `while`: String {
+        get { __data.`while` }
+        set { __data.`while` = newValue }
+      }
+
+      public var `as`: String {
+        get { __data.`as` }
+        set { __data.`as` = newValue }
+      }
+
+      public var `false`: String {
+        get { __data.`false` }
+        set { __data.`false` = newValue }
+      }
+
+      public var `is`: String {
+        get { __data.`is` }
+        set { __data.`is` = newValue }
+      }
+
+      public var `nil`: String {
+        get { __data.`nil` }
+        set { __data.`nil` = newValue }
+      }
+
+      public var `self`: String {
+        get { __data.`self` }
+        set { __data.`self` = newValue }
+      }
+
+      public var `super`: String {
+        get { __data.`super` }
+        set { __data.`super` = newValue }
+      }
+
+      public var `throws`: String {
+        get { __data.`throws` }
+        set { __data.`throws` = newValue }
+      }
+
+      public var `true`: String {
+        get { __data.`true` }
+        set { __data.`true` = newValue }
+      }
+
+      public var `try`: String {
+        get { __data.`try` }
+        set { __data.`try` = newValue }
+      }
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
+  }
+
 }
