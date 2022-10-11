@@ -11,6 +11,8 @@ public struct Initialize: ParsableCommand {
     abstract: "Initialize a new configuration with defaults."
   )
 
+  @OptionGroup var ignored: IgnoredOptions
+
   @Option(
     name: [.long, .customShort("n")],
     help: "Name used to scope the generated schema type files."

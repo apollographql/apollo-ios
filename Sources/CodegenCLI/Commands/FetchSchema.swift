@@ -12,6 +12,7 @@ public struct FetchSchema: ParsableCommand {
   )
 
   @OptionGroup var inputs: InputOptions
+  @OptionGroup var ignored: IgnoredOptions
 
   // MARK: - Implementation
 
