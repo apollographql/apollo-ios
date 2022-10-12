@@ -1354,6 +1354,7 @@
 		DE3C7B12260A6FC900D2F4FF /* FragmentProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FragmentProtocols.swift; sourceTree = "<group>"; };
 		DE3C7B14260A6FCA00D2F4FF /* GraphQLEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQLEnum.swift; sourceTree = "<group>"; };
 		DE3C7B15260A6FCA00D2F4FF /* ScalarTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScalarTypes.swift; sourceTree = "<group>"; };
+		DE3DAAA828F761CF003FB074 /* Apollo-Codegen-CITestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Apollo-Codegen-CITestPlan.xctestplan"; sourceTree = "<group>"; };
 		DE454BA628B40D52009DC80E /* SchemaConfigurationFileGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaConfigurationFileGeneratorTests.swift; sourceTree = "<group>"; };
 		DE454BA828B40DA8009DC80E /* SchemaConfigurationFileGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaConfigurationFileGenerator.swift; sourceTree = "<group>"; };
 		DE454BAA28B40E56009DC80E /* SchemaConfigurationTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaConfigurationTemplate.swift; sourceTree = "<group>"; };
@@ -2944,6 +2945,7 @@
 				DED45FB1261CDE7D0086EF63 /* Apollo-PerformanceTestPlan.xctestplan */,
 				DED45FB2261CDE980086EF63 /* Apollo-CITestPlan.xctestplan */,
 				DED45FB3261CDEC60086EF63 /* Apollo-CodegenTestPlan.xctestplan */,
+				DE3DAAA828F761CF003FB074 /* Apollo-Codegen-CITestPlan.xctestplan */,
 				E699DE9428B3C20E004ECF19 /* CodegenCLITestPlan.xctestplan */,
 			);
 			path = TestPlans;

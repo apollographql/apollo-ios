@@ -1,0 +1,28 @@
+{
+  "configurations" : [
+    {
+      "id" : "F1E4C88C-7215-4949-824F-A4A4256064C8",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "skippedTests" : [
+        "URLDownloaderTests\/testDownloader_withCorrectResponse_shouldNotThrow()"
+      ],
+      "target" : {
+        "containerPath" : "container:Apollo.xcodeproj",
+        "identifier" : "9BAEEBFB234BB8FD00808306",
+        "name" : "ApolloCodegenTests"
+      }
+    }
+  ],
+  "version" : 1
+}

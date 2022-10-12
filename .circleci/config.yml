@@ -208,7 +208,7 @@ jobs:
     environment:
       DESTINATION: platform=macOS,arch=x86_64
       CIRCLE_XCODE_SCHEME: ApolloCodegenLib
-      CIRCLE_XCODE_TEST_PLAN: Apollo-CodegenTestPlan
+      CIRCLE_XCODE_TEST_PLAN: Apollo-Codegen-CITestPlan
     steps:
       - common_test_setup
       - build_and_run_xcode_tests
