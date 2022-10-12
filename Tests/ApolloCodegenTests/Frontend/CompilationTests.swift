@@ -263,6 +263,51 @@ class CompilationTests: XCTestCase {
     // then
     expect(defaultValue).to(equal(GraphQLValue.list([])))
   }
+
+  func testCompile_inputObject_referencingEnumType_referencedTypesContainsInputObjectAndEnum() throws {
+    // given
+    schemaSDL = """
+    type Mutation {
+      mutateCar(input: ReportCarProblemInput!): Car!
+    }
+
+    enum CarProblem {
+      NO_FUEL
+    }
+
+    input ReportCarProblemInput {
+      carId: UUID!
+      problem: CarProblem!
+    }
+
+    scalar UUID
+
+    interface Car {
+      name: String!
+    }
+    """
+
+    document = """
+    mutation Test($input: ReportCarProblemInput!) {
+      mutateCar(input: $input) {
+        name
+      }
+    }
+    """
+
+    // when
+    let compilationResult = try compileFrontend()
+
+    let inputObject = compilationResult.referencedTypes
+      .first { $0.name == "ReportCarProblemInput"} as? GraphQLInputObjectType
+
+    let enumType = compilationResult.referencedTypes
+      .first { $0.name == "CarProblem"} as? GraphQLEnumType
+
+    // then
+    expect(inputObject).toNot(beNil())
+    expect(enumType).toNot(beNil())
+  }
 }
 
 fileprivate extension CompilationResult.SelectionSet {
