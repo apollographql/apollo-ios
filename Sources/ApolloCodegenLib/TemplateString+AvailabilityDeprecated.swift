@@ -12,14 +12,14 @@ extension TemplateString.StringInterpolation {
       return
     }
 
-    if deprecationReason.contains("\n") {
-      let indentedDeprecationReason = deprecationReason
-        .split(separator: "\n").map { "    \($0)" }.joined(separator: "\n")
+    let deprecationReasonLines = deprecationReason
+      .split(separator: "\n", omittingEmptySubsequences: false)
 
+    if deprecationReasonLines.count > 1 {
       appendInterpolation("""
         @available(*, deprecated, message: \"\"\"
-        \(indentedDeprecationReason)
-            \"\"\")
+          \(deprecationReasonLines.joinedAsLines(withIndent: "  "))
+          \"\"\")
         """)
     } else {
       appendInterpolation("""

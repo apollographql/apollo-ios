@@ -318,7 +318,7 @@ func +(lhs: String, rhs: TemplateString) -> TemplateString {
 
 // MARK: - Extensions
 
-fileprivate extension Array where Element == Substring {
+extension Array where Element == Substring {
   func joinedAsLines(withIndent indent: String) -> String {
     var iterator = self.makeIterator()
     var string = iterator.next()?.description ?? ""
@@ -333,7 +333,7 @@ fileprivate extension Array where Element == Substring {
     return string
   }
 
-  func joinedAsCommentLines(withLinePrefix prefix: String) -> String {
+  fileprivate func joinedAsCommentLines(withLinePrefix prefix: String) -> String {
     var string = ""
 
     func add(line: Substring) {
