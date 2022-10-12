@@ -377,7 +377,7 @@ class EnumTemplateTests: XCTestCase {
 
   // MARK: Deprecation Tests
 
-  func test__render__givenOption_deprecatedInclude_warningsExclude_whenDeprecation_shouldGenerateEnumCase_noAvailableAttribute() throws {
+  func test__render__givenOption_deprecatedInclude_warningsExclude_whenDeprecation_shouldGenerateEnumCase_withDeprecationComment() throws {
     // given / when
     buildSubject(
       values: [
@@ -394,6 +394,7 @@ class EnumTemplateTests: XCTestCase {
     let expected = """
     enum TestEnum: String, EnumType {
       case one = "ONE"
+      /// **Deprecated**: Deprecated for tests
       case two = "TWO"
       case three = "THREE"
     }
@@ -407,7 +408,7 @@ class EnumTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected))
   }
 
-  func test__render__givenOption_deprecatedInclude_warningsInclude_whenDeprecation_shouldGenerateEnumCase_withAvailableAttribute() throws {
+  func test__render__givenOption_deprecatedInclude_warningsInclude_whenDeprecation_shouldGenerateEnumCase_withDeprecationComment() throws {
     // given / when
     buildSubject(
       values: [
@@ -424,7 +425,7 @@ class EnumTemplateTests: XCTestCase {
     let expected = """
     enum TestEnum: String, EnumType {
       case one = "ONE"
-      @available(*, deprecated, message: "Deprecated for tests")
+      /// **Deprecated**: Deprecated for tests
       case two = "TWO"
       case three = "THREE"
     }
@@ -517,11 +518,12 @@ class EnumTemplateTests: XCTestCase {
     /// \(documentation)
     enum TestEnum: String, EnumType {
       /// Doc: One
-      @available(*, deprecated, message: "Deprecated for tests")
+      ///
+      /// **Deprecated**: Deprecated for tests
       case one = "ONE"
       /// Doc: Two
       case two = "TWO"
-      @available(*, deprecated, message: "Deprecated for tests")
+      /// **Deprecated**: Deprecated for tests
       case three = "THREE"
     }
 
@@ -555,9 +557,12 @@ class EnumTemplateTests: XCTestCase {
     /// \(documentation)
     enum TestEnum: String, EnumType {
       /// Doc: One
+      ///
+      /// **Deprecated**: Deprecated for tests
       case one = "ONE"
       /// Doc: Two
       case two = "TWO"
+      /// **Deprecated**: Deprecated for tests
       case three = "THREE"
     }
 
@@ -589,8 +594,10 @@ class EnumTemplateTests: XCTestCase {
 
     let expected = """
     enum TestEnum: String, EnumType {
+      /// **Deprecated**: Deprecated for tests
       case one = "ONE"
       case two = "TWO"
+      /// **Deprecated**: Deprecated for tests
       case three = "THREE"
     }
     

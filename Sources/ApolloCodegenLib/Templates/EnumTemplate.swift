@@ -30,9 +30,15 @@ struct EnumTemplate: TemplateRenderer {
       return nil
     }
 
+    let shouldRenderDocumentation = graphqlEnumValue.documentation != nil &&
+    config.options.schemaDocumentation == .include
+
     return """
-    \(documentation: graphqlEnumValue.documentation, config: config)
-    \(deprecationReason: graphqlEnumValue.deprecationReason, config: config)
+    \(if: shouldRenderDocumentation, "\(forceDocumentation: graphqlEnumValue.documentation)")
+    \(ifLet: graphqlEnumValue.deprecationReason, { """
+      \(if: shouldRenderDocumentation, "///")
+      \(forceDocumentation: "**Deprecated**: \($0)")
+      """ })
     \(caseDefinition(for: graphqlEnumValue))
     """
   }

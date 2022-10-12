@@ -271,7 +271,7 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
     }
 
     mutating func appendInterpolation(
-      documentation: String?
+      forceDocumentation documentation: String?
     ) {
       appendInterpolation(comment: documentation, withLinePrefix: "///")
     }
