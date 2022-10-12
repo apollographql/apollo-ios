@@ -5443,9 +5443,10 @@ class SelectionSetTemplateTests: XCTestCase {
 
     type Animal {
       "This field is a string."
-      string: String! @deprecated(reason: "Cause I\nsaid so!")
+      string: String! @deprecated(reason: "Cause I\\nsaid so!")
     }
-    """
+    """ // Escaping the backslash is required to allow the frontend to parse correctly this string.
+    // Removing the escape leads to a "unterminated string literal" error when parsing the schema.
 
     document = """
     query TestOperation {

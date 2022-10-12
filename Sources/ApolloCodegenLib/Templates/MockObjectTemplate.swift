@@ -43,10 +43,7 @@ struct MockObjectTemplate: TemplateRenderer {
       public struct MockFields {
         \(fields.map {
           TemplateString("""
-          \(ifLet: $0.deprecationReason,
-            where: config.options.warningsOnDeprecatedUsage == .include, {
-              "@available(*, deprecated, message: \"\($0)\")"
-            })
+          \(deprecationReason: $0.deprecationReason, config: config)
           @Field<\($0.type)>("\($0.responseKey)") public var \($0.propertyName)
           """)
         }, separator: "\n")
