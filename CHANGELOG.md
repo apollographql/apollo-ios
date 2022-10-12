@@ -1,5 +1,17 @@
 # Change Log
 
+## v1.0.1
+
+**Fixed - apollo-ios-cli code generation on CocoaPods installation:** All required resources for the CLI are now bundled correctly. This was an issue in CocoaPods installations where the `generate` command of `apollo-ios-cli` would result in a fatal error. [#2548](https://github.com/apollographql/apollo-ios/pull/2548) _Thank you to [@ilockett](https://github.com/ilockett) for reporting the issue._
+
+**Fixed - Xcode integration for Swift Package Plugins:** The SwiftPM plugins now support `XcodePluginContext` from Xcode 14 and accepts the additional command line options that Xcode sends. [#2554](https://github.com/apollographql/apollo-ios/pull/2554) _Thank you to [@SilverTab](https://github.com/SilverTab) for reporting the issue._
+
+**Fixed - Escaping input param names:** Input parameter names recognized as reserved words are now escaped to prevent build errors. [#2561](https://github.com/apollographql/apollo-ios/pull/2561) _Thank you to [@puls](https://github.com/puls) for the contribution._
+
+**Fixed - Multiline deprecation messages:** Deprecation messages that span multiple lines would previously result in build errors. [#2579](https://github.com/apollographql/apollo-ios/pull/2579) _Thank you to [@TizianoCoroneo](https://github.com/TizianoCoroneo) for the contribution._
+
+**Changed - Warnings for deprecated enums:** Deprecated enum cases are no longer annotated with the Swift `@available` attribute. They will now have comments indicating their deprecated status. [#2579](https://github.com/apollographql/apollo-ios/pull/2579)
+
 ## v1.0.0
 
 **This is the first major version release of Apollo iOS! The primary goal of Apollo iOS 1.0 is to stabilize the API of the model layer and provide a foundation for future feature additions and evolution of the library.**

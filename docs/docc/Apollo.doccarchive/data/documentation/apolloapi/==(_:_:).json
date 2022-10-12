@@ -13,7 +13,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:9ApolloAPI2eeoiySbAA11GraphQLEnumOyxGSg_xtAA8EnumTypeRzs12CaseIterableRzlF",
+    "externalID" : "s:9ApolloAPI2eeoiySbAA11GraphQLEnumOyxGSg_xtAA8EnumTypeRzlF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -195,23 +195,6 @@
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:9ApolloAPI8EnumTypeP",
               "text" : "EnumType"
-            },
-            {
-              "kind" : "text",
-              "text" : ", "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "text" : "T"
-            },
-            {
-              "kind" : "text",
-              "text" : " : "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:s12CaseIterableP",
-              "text" : "CaseIterable"
             }
           ]
         }

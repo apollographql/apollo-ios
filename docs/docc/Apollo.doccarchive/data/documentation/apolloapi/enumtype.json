@@ -98,6 +98,15 @@
             },
             {
               "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:s12CaseIterableP",
+              "text" : "CaseIterable"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:SY",
               "text" : "RawRepresentable"
             },
@@ -224,6 +233,7 @@
       "identifiers" : [
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperationVariableValue",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONEncodable",
+        "doc:\/\/ApolloAPI\/s12CaseIterableP",
         "doc:\/\/ApolloAPI\/SY"
       ],
       "kind" : "relationships",
@@ -702,6 +712,11 @@
   "title" : "Union",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/union"
+},
+"doc://ApolloAPI/s12CaseIterableP": {
+  "identifier" : "doc:\/\/ApolloAPI\/s12CaseIterableP",
+  "title" : "Swift.CaseIterable",
+  "type" : "unresolvable"
 },
 "https://spec.graphql.org/draft/#sec-Enums": {
   "identifier" : "https:\/\/spec.graphql.org\/draft\/#sec-Enums",
