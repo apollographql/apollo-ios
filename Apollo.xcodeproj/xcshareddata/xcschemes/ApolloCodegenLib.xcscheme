@@ -60,6 +60,9 @@
             reference = "container:Tests/TestPlans/Apollo-CodegenTestPlan.xctestplan"
             default = "YES">
          </TestPlanReference>
+         <TestPlanReference
+            reference = "container:Tests/TestPlans/Apollo-Codegen-CITestPlan.xctestplan">
+         </TestPlanReference>
       </TestPlans>
    </TestAction>
    <LaunchAction
