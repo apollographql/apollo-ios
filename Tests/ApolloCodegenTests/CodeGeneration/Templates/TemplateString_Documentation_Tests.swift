@@ -21,7 +21,7 @@ class TemplateString_Documentation_Tests: XCTestCase {
 
     // when
     let actual = TemplateString("""
-    \(documentation: documentation)
+    \(forceDocumentation: documentation)
     var test: String = "Test"
     """).description
 
@@ -40,7 +40,7 @@ class TemplateString_Documentation_Tests: XCTestCase {
 
     // when
     let actual = TemplateString("""
-      \(documentation: documentation)
+      \(forceDocumentation: documentation)
     var test: String = "Test"
     """).description
 
@@ -58,7 +58,7 @@ class TemplateString_Documentation_Tests: XCTestCase {
     // when
     let actual = TemplateString("""
     var testA: String = "TestA"
-    \(documentation: nil)
+    \(forceDocumentation: nil)
     var testB: String = "TestB"
     """).description
 
@@ -76,7 +76,7 @@ class TemplateString_Documentation_Tests: XCTestCase {
     // when
     let actual = TemplateString("""
     var testA: String = "TestA"
-    \(documentation: "")
+    \(forceDocumentation: "")
     var testB: String = "TestB"
     """).description
 
@@ -96,7 +96,7 @@ class TemplateString_Documentation_Tests: XCTestCase {
 
     // when
     let actual = TemplateString("""
-    \(documentation: documentation)
+    \(forceDocumentation: documentation)
     var test: String = "Test"
     """).description
 
@@ -119,7 +119,7 @@ class TemplateString_Documentation_Tests: XCTestCase {
 
     // when
     let actual = TemplateString("""
-    \(documentation: documentation)
+    \(forceDocumentation: documentation)
     var test: String = "Test"
     """).description
 
@@ -142,7 +142,7 @@ class TemplateString_Documentation_Tests: XCTestCase {
 
     // when
     let actual = TemplateString("""
-    \(documentation: documentation)
+    \(forceDocumentation: documentation)
     var test: String = "Test"
     """).description
 
@@ -167,7 +167,7 @@ class TemplateString_Documentation_Tests: XCTestCase {
 
     // when
     let actual = TemplateString("""
-    \(documentation: documentation)
+    \(forceDocumentation: documentation)
     var test: String = "Test"
     """).description
 

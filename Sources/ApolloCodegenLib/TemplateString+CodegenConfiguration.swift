@@ -9,7 +9,7 @@ extension TemplateString.StringInterpolation {
       return
     }
 
-    appendInterpolation(documentation: documentation)
+    appendInterpolation(forceDocumentation: documentation)
   }
 
 }

@@ -109,10 +109,7 @@ struct InputObjectTemplate: TemplateRenderer {
   private func FieldPropertyTemplate(_ field: GraphQLInputField) -> TemplateString {
     """
     \(documentation: field.documentation, config: config)
-    \(ifLet: field.deprecationReason,
-      where: config.options.warningsOnDeprecatedUsage == .include, {
-        "@available(*, deprecated, message: \"\($0)\")"
-      })
+    \(deprecationReason: field.deprecationReason, config: config)
     public var \(field.name.asInputParameterName): \(field.renderInputValueType(config: config.config)) {
       get { __data.\(field.name.asInputParameterName) }
       set { __data.\(field.name.asInputParameterName) = newValue }
