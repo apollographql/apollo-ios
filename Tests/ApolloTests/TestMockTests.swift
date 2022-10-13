@@ -129,6 +129,18 @@ class TestMockTests: XCTestCase {
     expect(mock.listOfOptionalObjects).to(equal([cat1, nil, cat2, nil]))
   }
 
+  func test__mock__setEnumField__fieldIsSet() throws {
+    // given
+    let mock = Mock<Dog>()
+
+    // when
+    mock.speciesType = .case(.canine)
+
+    // then
+    expect(mock._data["speciesType"] as? GraphQLEnum<Species>).to(equal(.case(.canine)))
+    expect(mock.speciesType).to(equal(.case(.canine)))
+  }
+
   func test__mock__setInterfaceField__fieldIsSet() throws {
     // given
     let mock = Mock<Dog>()
@@ -208,9 +220,9 @@ class TestMockTests: XCTestCase {
     expect(expected.isEqual(mock.listOfOptionalInterfaces as [AnyMock?]?)).to(beTrue())
   }
 
-  // MARK: JSONEncodable Tests
+  // MARK: SelectionSet Mock Data Conversion Tests
 
-  func test__jsonValue__givenObjectFieldSetToOtherObject__convertsObjectToJSONDict() throws {
+  func test___selectionSetMockData__givenObjectFieldSetToOtherObject__convertsObjectToDict() throws {
     // given
     let mock = Mock<Dog>()
     let height = Mock<Height>()
@@ -221,7 +233,7 @@ class TestMockTests: XCTestCase {
     mock.height = height
     mock.height?.yards = 3
 
-    let actual = mock._jsonObject
+    let actual = mock._selectionSetMockData
     let heightDict = actual["height"] as? JSONObject
 
     // then
@@ -229,6 +241,20 @@ class TestMockTests: XCTestCase {
     expect(heightDict?["meters"] as? Int).to(equal(1))
     expect(heightDict?["feet"] as? Int).to(equal(2))
     expect(heightDict?["yards"] as? Int).to(equal(3))
+  }
+
+  func test___selectionSetMockData__givenCustomScalarField__convertsObjectToDictWithCustomScalarIntact() throws {
+    // given
+    let mock = Mock<Dog>()
+    let customScalar = MockCustomScalar(value: 12)
+
+    // when
+    mock.customScalar = customScalar
+
+    let actual = mock._selectionSetMockData
+    let actualCustomScalar = actual["customScalar"] as? MockCustomScalar
+    // then
+    expect(actualCustomScalar?.value).to(equal(12))
   }
 
   // MARK: Hashable Tests
@@ -294,6 +320,8 @@ class Dog: MockObject {
   struct MockFields {
     @Field<String>("id") public var id
     @Field<String>("species") public var species
+    @Field<GraphQLEnum<Species>>("speciesType") public var speciesType
+    @Field<MockCustomScalar>("customScalar") public var customScalar
     @Field<Height>("height") public var height
     @Field<[String]>("listOfStrings") public var listOfStrings
     @Field<Animal>("bestFriend") public var bestFriend
@@ -317,6 +345,7 @@ class Cat: MockObject {
     @Field<Animal>("bestFriend") public var bestFriend
     @Field<[Animal]>("predators") public var predators
     @Field<String>("species") public var species
+    @Field<GraphQLEnum<Species>>("speciesType") public var speciesType
   }
 }
 
@@ -330,4 +359,23 @@ class Height: MockObject {
     @Field<Int>("yards") public var yards
     @Field<Int>("inches") public var inches
   }
+}
+
+enum Species: String, EnumType {
+  case canine
+  case feline
+}
+
+struct MockCustomScalar: CustomScalarType, Hashable {
+  let value: Int
+
+  init(value: Int) {
+    self.value = value
+  }
+
+  init(_jsonValue value: ApolloAPI.JSONValue) throws {
+    self.value = value as! Int
+  }
+
+  var _jsonValue: ApolloAPI.JSONValue { value }
 }

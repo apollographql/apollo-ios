@@ -4,9 +4,9 @@
 import Foundation
 
 @dynamicMemberLookup
-public class Mock<O: MockObject>: AnyMock, JSONEncodable, Hashable {
+public class Mock<O: MockObject>: AnyMock, Hashable {
 
-  public var _data: JSONEncodableDictionary
+  public var _data: [String: AnyHashable]
 
   public init() {
     _data = ["__typename": O.objectType.typename]
@@ -14,7 +14,7 @@ public class Mock<O: MockObject>: AnyMock, JSONEncodable, Hashable {
 
   public var __typename: String { _data["__typename"] as! String }
 
-  public subscript<T: AnyScalarType>(dynamicMember keyPath: KeyPath<O.MockFields, Field<T>>) -> T? {
+  public subscript<T: AnyScalarType & Hashable>(dynamicMember keyPath: KeyPath<O.MockFields, Field<T>>) -> T? {
     get {
       let field = O._mockFields[keyPath: keyPath]
       return _data[field.key.description] as? T
@@ -34,14 +34,24 @@ public class Mock<O: MockObject>: AnyMock, JSONEncodable, Hashable {
     }
     set {
       let field = O._mockFields[keyPath: keyPath]
-      _data[field.key.description] = (newValue as? (any JSONEncodable))
+      _data[field.key.description] = (newValue as? AnyHashable)
     }
   }
 
-  // MARK: JSONEncodable
+  public var _selectionSetMockData: JSONObject {
+    _data.compactMapValues {
+      switch $0 {
+      case let scalar as AnyScalarType:
+        return scalar._asAnyHashable
 
-  public var _jsonObject: JSONObject { _data._jsonObject }
-  public var _jsonValue: JSONValue { _jsonObject }
+      case let mock as AnyMock:
+        return mock._selectionSetMockData
+
+      default:
+        return nil
+      }
+    }
+  }
 
   // MARK: Hashable
 
@@ -50,7 +60,7 @@ public class Mock<O: MockObject>: AnyMock, JSONEncodable, Hashable {
   }
 
   public func hash(into hasher: inout Hasher) {
-    hasher.combine(_data._jsonValue)
+    hasher.combine(_data)
   }
 }
 
@@ -61,14 +71,14 @@ public extension SelectionSet {
     _ mock: any AnyMock,
     withVariables variables: GraphQLOperation.Variables? = nil
   ) -> Self {
-    Self.init(data: DataDict(mock._jsonObject, variables: variables))
+    Self.init(data: DataDict(mock._selectionSetMockData, variables: variables))
   }
 }
 
 // MARK: - Helper Protocols
 
-public protocol AnyMock: JSONEncodable {
-  var _jsonObject: JSONObject { get }
+public protocol AnyMock {
+  var _selectionSetMockData: JSONObject { get }
 }
 
 public protocol MockObject: MockFieldValue {
