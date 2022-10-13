@@ -38,13 +38,26 @@ public class Mock<O: MockObject>: AnyMock, Hashable {
     }
   }
 
+  public subscript<T: MockFieldValue>(
+    dynamicMember keyPath: KeyPath<O.MockFields, Field<Array<T>>>
+  ) -> [T.MockValueCollectionType.Element]? {
+    get {
+      let field = O._mockFields[keyPath: keyPath]
+      return _data[field.key.description] as? [T.MockValueCollectionType.Element]
+    }
+    set {
+      let field = O._mockFields[keyPath: keyPath]
+      _data[field.key.description] = newValue?._unsafelyConvertToMockValue()
+    }
+  }
+
   public var _selectionSetMockData: JSONObject {
     _data.compactMapValues {
       switch $0 {
       case let scalar as AnyScalarType:
         return scalar._asAnyHashable
 
-      case let mock as AnyMock:
+      case let mock as any AnyMock:
         return mock._selectionSetMockData
 
       default:
@@ -56,7 +69,7 @@ public class Mock<O: MockObject>: AnyMock, Hashable {
   // MARK: Hashable
 
   public static func ==(lhs: Mock<O>, rhs: Mock<O>) -> Bool {
-    NSDictionary(dictionary: lhs._data).isEqual(to: rhs._data)
+    lhs._data == rhs._data    
   }
 
   public func hash(into hasher: inout Hasher) {
@@ -68,7 +81,7 @@ public class Mock<O: MockObject>: AnyMock, Hashable {
 
 public extension SelectionSet {
   static func from(
-    _ mock: any AnyMock,
+    _ mock: AnyMock,
     withVariables variables: GraphQLOperation.Variables? = nil
   ) -> Self {
     Self.init(data: DataDict(mock._selectionSetMockData, variables: variables))
@@ -101,10 +114,27 @@ extension Union: MockFieldValue {
   public typealias MockValueCollectionType = Array<AnyMock>
 }
 
+extension Optional: MockFieldValue where Wrapped: MockFieldValue {
+  public typealias MockValueCollectionType = Array<Optional<Wrapped.MockValueCollectionType.Element>>
+}
+
 extension Array: MockFieldValue where Array.Element: MockFieldValue {
   public typealias MockValueCollectionType = Array<Element.MockValueCollectionType>
 }
 
-extension Optional: MockFieldValue where Wrapped: MockFieldValue {
-  public typealias MockValueCollectionType = Array<Optional<Wrapped.MockValueCollectionType.Element>>
+fileprivate extension Array {
+  func _unsafelyConvertToMockValue() -> [AnyHashable?] {
+    map { element in
+      switch element {
+      case let element as AnyHashable:
+        return element
+
+      case let innerArray as Array<Any>:
+        return innerArray._unsafelyConvertToMockValue()
+
+      default:
+        return nil
+      }
+    }
+  }
 }

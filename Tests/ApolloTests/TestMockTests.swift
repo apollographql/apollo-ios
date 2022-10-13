@@ -263,15 +263,26 @@ class TestMockTests: XCTestCase {
     // given
     let mock1 = Mock<Dog>()
     let mock2 = Mock<Dog>()
+    let mock3 = Mock<Dog>()
+    let mock4 = Mock<Dog>()
 
     mock1.id = "1"
+    mock1.listOfOptionalInterfaces = [nil, Mock<Cat>()]
+
     mock2.id = "2"
+    mock2.listOfOptionalInterfaces = [nil, Mock<Cat>()]
+
+    mock3.id = "1"
+    mock3.listOfOptionalInterfaces = [nil, Mock<Dog>()]
+
+    mock4.id = "1"
+    mock4.listOfOptionalInterfaces = [nil, Mock<Cat>()]
 
     // when
-    let mocks = Set([mock1, mock2])
+    let mocks = Set([mock1, mock2, mock3, mock4])
 
     // then
-    expect(mocks).to(equal(Set([mock1, mock2])))
+    expect(mocks).to(equal(Set([mock1, mock2, mock3])))
   }
 
 }
