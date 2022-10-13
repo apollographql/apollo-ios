@@ -20,7 +20,6 @@ class UnionTemplateTests: XCTestCase {
     config: ApolloCodegenConfiguration = .mock()
   ) {
     subject = UnionTemplate(
-      moduleName: "moduleAPI",
       graphqlUnion: GraphQLUnionType.mock(
         name,
         types: [
