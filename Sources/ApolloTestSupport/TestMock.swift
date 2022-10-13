@@ -52,17 +52,11 @@ public class Mock<O: MockObject>: AnyMock, Hashable {
   }
 
   public var _selectionSetMockData: JSONObject {
-    _data.compactMapValues {
-      switch $0 {
-      case let scalar as AnyScalarType:
-        return scalar._asAnyHashable
-
-      case let mock as any AnyMock:
+    _data.mapValues {
+      if let mock = $0 as? AnyMock {
         return mock._selectionSetMockData
-
-      default:
-        return nil
       }
+      return $0
     }
   }
 
