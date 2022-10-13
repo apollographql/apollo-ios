@@ -38,7 +38,7 @@ describe("mutation defined using ReportCarProblemInput", () => {
     const schemaJSON: string = readFileSync(join(__dirname, "./input-object-enum-test-schema.json"), 'utf-8')
     const schema: GraphQLSchema = loadSchemaFromSources([new Source(schemaJSON, "TestSchema.json", { line: 1, column: 1 })]);
 
-    it("should compile with referencedTypes inlcuding SpeciesInput and Species enum", () => {
+    it("should compile with referencedTypes including ReportCarProblemInput and CarProblem enum", () => {
       const compilationResult: CompilationResult = compileDocument(schema, document, false);
       const reportCarProblemInput: GraphQLInputObjectType = compilationResult.referencedTypes.find(function(element) {
         return element.name == 'ReportCarProblemInput'
