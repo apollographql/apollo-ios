@@ -51,6 +51,68 @@ class UnionTemplateTests: XCTestCase {
     expect(actual).to(endWith("\n)"))
   }
 
+  // MARK: CasingTests
+
+  func test_render_givenLowercaseSchemaName_generatesUsingCapitalizedSchemaName() throws {
+    // given
+    buildSubject(config: .mock(schemaName: "lowercased"))
+
+    let expected = """
+      possibleTypes: [
+        Lowercased.Objects.Cat.self,
+        Lowercased.Objects.Bird.self,
+        Lowercased.Objects.Rat.self,
+        Lowercased.Objects.PetRock.self
+      ]
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 3, ignoringExtraLines: true))
+  }
+
+  func test_render_givenUppercaseSchemaName_generatesUsingUppercaseSchemaName() throws {
+    // given
+    buildSubject(config: .mock(schemaName: "UPPER"))
+
+    let expected = """
+      possibleTypes: [
+        UPPER.Objects.Cat.self,
+        UPPER.Objects.Bird.self,
+        UPPER.Objects.Rat.self,
+        UPPER.Objects.PetRock.self
+      ]
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 3, ignoringExtraLines: true))
+  }
+
+  func test_render_givenCapitalizedSchemaName_generatesUsingCapitalizedSchemaName() throws {
+    // given
+    buildSubject(config: .mock(schemaName: "MySchema"))
+
+    let expected = """
+      possibleTypes: [
+        MySchema.Objects.Cat.self,
+        MySchema.Objects.Bird.self,
+        MySchema.Objects.Rat.self,
+        MySchema.Objects.PetRock.self
+      ]
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 3, ignoringExtraLines: true))
+  }
+
   // MARK: Enum Generation Tests
 
   func test_render_generatesSwiftEnumDefinition() throws {
