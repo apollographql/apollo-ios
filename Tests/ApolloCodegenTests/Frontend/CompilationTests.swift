@@ -263,6 +263,7 @@ class CompilationTests: XCTestCase {
     // then
     expect(defaultValue).to(equal(GraphQLValue.list([])))
   }
+
 }
 
 fileprivate extension CompilationResult.SelectionSet {

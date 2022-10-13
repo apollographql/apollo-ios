@@ -6,7 +6,7 @@ import {
 } from "../utilities";
 import {
   ArgumentNode,
-  ASTNode,  
+  ASTNode,
   DocumentNode,
   DirectiveNode,
   FragmentDefinitionNode,
@@ -16,7 +16,7 @@ import {
   GraphQLDirective,
   GraphQLError,
   GraphQLField,
-  GraphQLInputObjectType,  
+  GraphQLInputObjectType,
   GraphQLNamedType,
   GraphQLObjectType,
   GraphQLSchema,
@@ -97,12 +97,12 @@ export function compileToIR(
         addReferencedType(getNamedType(objectType))
       }
     }
-    
+
     if (isUnionType(type)) {
       const unionReferencedTypes = type.getTypes()
       for (type of unionReferencedTypes) {
         addReferencedType(getNamedType(type))
-      }      
+      }
     }
 
     if (isInputObjectType(type)) {
@@ -110,7 +110,7 @@ export function compileToIR(
     }
 
     if (isObjectType(type)) {
-      for (const interfaceType of type.getInterfaces()) {        
+      for (const interfaceType of type.getInterfaces()) {
         addReferencedType(getNamedType(interfaceType))
       }
     }
@@ -119,12 +119,10 @@ export function compileToIR(
   function addReferencedTypesFromInputObject(
     inputObject: GraphQLInputObjectType
   ) {
-    const fields = inputObject.astNode?.fields
-    if (fields) {
-      for (const field of fields) {
-        const type = typeFromAST(schema, field.type) as GraphQLType
-        addReferencedType(getNamedType(type))
-      }    
+    const fieldMap = inputObject.getFields()
+    for (const key in fieldMap) {
+      const field = fieldMap[key]
+      addReferencedType(getNamedType(field.type))
     }
   }
 
@@ -144,7 +142,7 @@ export function compileToIR(
   }
 
   function compileOperation(
-    operationDefinition: OperationDefinitionNode    
+    operationDefinition: OperationDefinitionNode
   ): ir.OperationDefinition {
     if (!operationDefinition.name) {
       throw new GraphQLError("Operations should be named", { nodes: operationDefinition });
@@ -242,7 +240,7 @@ export function compileToIR(
 
   function compileSelectionSet(
     selectionSetNode: SelectionSetNode,
-    parentType: GraphQLCompositeType    
+    parentType: GraphQLCompositeType
   ): ir.SelectionSet {
     return {
       parentType,
@@ -256,7 +254,7 @@ export function compileToIR(
 
   function compileSelection(
     selectionNode: SelectionNode,
-    parentType: GraphQLCompositeType    
+    parentType: GraphQLCompositeType
   ): ir.Selection | undefined {
     const [directives, inclusionConditions] = compileDirectives(selectionNode.directives) ?? [undefined, undefined];
 
@@ -280,7 +278,7 @@ export function compileToIR(
         addReferencedType(getNamedType(unwrappedFieldType));
 
         const { description, deprecationReason } = fieldDef;
-        const args: ir.Field["arguments"] = compileArguments(fieldDef, selectionNode.arguments);        
+        const args: ir.Field["arguments"] = compileArguments(fieldDef, selectionNode.arguments);
 
         let field: ir.Field = {
           kind: "Field",
@@ -319,7 +317,7 @@ export function compileToIR(
           ? (typeFromAST(schema, typeNode) as GraphQLCompositeType)
           : parentType;
 
-        addReferencedType(typeCondition);        
+        addReferencedType(typeCondition);
 
         return {
           kind: "InlineFragment",
@@ -332,7 +330,7 @@ export function compileToIR(
         };
       }
       case Kind.FRAGMENT_SPREAD: {
-        const fragmentName = selectionNode.name.value;                        
+        const fragmentName = selectionNode.name.value;
 
         const fragment = getFragment(fragmentName);
         if (!fragment) {
@@ -354,11 +352,11 @@ export function compileToIR(
   }
 
   function compileArguments(
-    ...args: 
+    ...args:
     [fieldDef: GraphQLField<any, any, any>, args?: ReadonlyArray<ArgumentNode>] |
     [directiveDef: GraphQLDirective, args?: ReadonlyArray<ArgumentNode>]
   ): ir.Argument[] | undefined {
-    const argDefs: ReadonlyArray<GraphQLArgument> = args[0].args      
+    const argDefs: ReadonlyArray<GraphQLArgument> = args[0].args
     return args[1] && args[1].length > 0
       ? args[1].map((arg) => {
         const name = arg.name.value;
@@ -394,7 +392,7 @@ export function compileToIR(
       for (const directive of directives) {
         const name = directive.name.value;
         const directiveDef = schema.getDirective(name)
-        
+
         if (!directiveDef) {
           throw new GraphQLError(
             `Cannot find directive "${name}".`,
@@ -407,10 +405,10 @@ export function compileToIR(
             name: name,
             arguments: compileArguments(directiveDef, directive.arguments)
           }
-        );   
+        );
 
         const condition = compileInclusionCondition(directive, directiveDef);
-        if (condition) { inclusionConditions.push(condition) };              
+        if (condition) { inclusionConditions.push(condition) };
       }
 
       return [
@@ -420,25 +418,25 @@ export function compileToIR(
 
     } else {
       return undefined;
-    }           
+    }
   }
 
   function compileInclusionCondition(
     directiveNode: DirectiveNode,
     directiveDef: GraphQLDirective
   ): ir.InclusionCondition | undefined {
-    if (directiveDef.name == "include" || directiveDef.name == "skip") {      
+    if (directiveDef.name == "include" || directiveDef.name == "skip") {
       const condition = directiveNode.arguments?.[0].value;
       const isInverted = directiveDef.name == "skip";
 
       switch (condition?.kind) {
         case Kind.BOOLEAN:
           if (isInverted) {
-            return condition.value ? "SKIPPED" : "INCLUDED";  
+            return condition.value ? "SKIPPED" : "INCLUDED";
           } else {
             return condition.value ? "INCLUDED" : "SKIPPED";
           }
-          
+
         case Kind.VARIABLE:
           return {
             variable: condition.name.value,
@@ -451,10 +449,10 @@ export function compileToIR(
             { nodes: directiveNode }
           );
           break;
-      }    
+      }
     } else {
       return undefined
-    }    
+    }
   }
 
 }
