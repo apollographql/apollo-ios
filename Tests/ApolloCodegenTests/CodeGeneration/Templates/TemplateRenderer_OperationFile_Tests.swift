@@ -333,4 +333,69 @@ class TemplateRenderer_OperationFile_Tests: XCTestCase {
       expect(actual).to(equalLineByLine(test.expectation, atLine: test.atLine))
     }
   }
+
+  // MARK: Casing Tests
+
+  func test__casing__givenSchemaNameLowercase_shouldGenerateCapitalizedNamespace() {
+    // given
+
+    let config = buildConfig(
+      moduleType: .embeddedInTarget(name: "MockApplication"),
+      schemaName: "testschema",
+      operations: .inSchemaModule)
+
+    let subject = buildSubject(config: config)
+
+    let expected = """
+    public extension Testschema {
+    """
+
+    // when
+    let actual = subject.render()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
+  }
+
+  func test__casing__givenSchemaNameUppercase_shouldGenerateUppercasedNamespace() {
+    // given
+
+    let config = buildConfig(
+      moduleType: .embeddedInTarget(name: "MockApplication"),
+      schemaName: "TESTSCHEMA",
+      operations: .inSchemaModule)
+
+    let subject = buildSubject(config: config)
+
+    let expected = """
+    public extension TESTSCHEMA {
+    """
+
+    // when
+    let actual = subject.render()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
+  }
+
+  func test__casing__givenSchemaNameCapitalized_shouldGenerateCapitalizedNamespace() {
+    // given
+
+    let config = buildConfig(
+      moduleType: .embeddedInTarget(name: "MockApplication"),
+      schemaName: "TestSchema",
+      operations: .inSchemaModule)
+
+    let subject = buildSubject(config: config)
+
+    let expected = """
+    public extension TestSchema {
+    """
+
+    // when
+    let actual = subject.render()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
+  }
 }

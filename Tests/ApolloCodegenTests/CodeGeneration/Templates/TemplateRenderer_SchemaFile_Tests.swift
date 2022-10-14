@@ -962,5 +962,125 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
     }
   }
 
+  // MARK: Casing Tests
 
+  func test__casing__givenSchemaNameLowercase_whenSchemaAndComponentNamespace_shouldGenerateCapitalizedNamespace() {
+    // given
+    let config = buildConfig(
+      moduleType: .embeddedInTarget(name: "MockApplication"),
+      schemaName: "testschema",
+      operations: .inSchemaModule)
+
+    let subject = buildSubject(config: config, targetFileType: .union)
+
+    // when
+    let actual = subject.render()
+
+    // then
+    let expected = """
+    public extension Testschema.Unions {
+    """
+
+    expect(actual).to(equalLineByLine(expected, atLine: 10, ignoringExtraLines: true))
+  }
+
+  func test__casing__givenSchemaNameUppercase_whenSchemaAndComponentNamespace_shouldGenerateUppercasedNamespace() {
+    // given
+    let config = buildConfig(
+      moduleType: .embeddedInTarget(name: "MockApplication"),
+      schemaName: "TESTSCHEMA",
+      operations: .inSchemaModule)
+
+    let subject = buildSubject(config: config, targetFileType: .union)
+
+    // when
+    let actual = subject.render()
+
+    // then
+    let expected = """
+    public extension TESTSCHEMA.Unions {
+    """
+
+    expect(actual).to(equalLineByLine(expected, atLine: 10, ignoringExtraLines: true))
+  }
+
+  func test__casing__givenSchemaNameCapitalized_whenSchemaAndComponentNamespace_shouldGenerateCapitalizedNamespace() {
+    // given
+    let config = buildConfig(
+      moduleType: .embeddedInTarget(name: "MockApplication"),
+      schemaName: "TestSchema",
+      operations: .inSchemaModule)
+
+    let subject = buildSubject(config: config, targetFileType: .union)
+
+    // when
+    let actual = subject.render()
+
+    // then
+    let expected = """
+    public extension TestSchema.Unions {
+    """
+
+    expect(actual).to(equalLineByLine(expected, atLine: 10, ignoringExtraLines: true))
+  }
+
+  func test__casing__givenSchemaNameLowercase_whenOnlySchemaNamespace_shouldGenerateCapitalizedNamespace() {
+    // given
+    let config = buildConfig(
+      moduleType: .embeddedInTarget(name: "MockApplication"),
+      schemaName: "testschema",
+      operations: .inSchemaModule)
+
+    let subject = buildSubject(config: config, targetFileType: .customScalar)
+
+    // when
+    let actual = subject.render()
+
+    // then
+    let expected = """
+    public extension Testschema {
+    """
+
+    expect(actual).to(equalLineByLine(expected, atLine: 10, ignoringExtraLines: true))
+  }
+
+  func test__casing__givenSchemaNameUppercase_whenOnlySchemaNamespace_shouldGenerateUppercasedNamespace() {
+    // given
+    let config = buildConfig(
+      moduleType: .embeddedInTarget(name: "MockApplication"),
+      schemaName: "TESTSCHEMA",
+      operations: .inSchemaModule)
+
+    let subject = buildSubject(config: config, targetFileType: .customScalar)
+
+    // when
+    let actual = subject.render()
+
+    // then
+    let expected = """
+    public extension TESTSCHEMA {
+    """
+
+    expect(actual).to(equalLineByLine(expected, atLine: 10, ignoringExtraLines: true))
+  }
+
+  func test__casing__givenSchemaNameCapitalized_whenOnlySchemaNamespace_shouldGenerateCapitalizedNamespace() {
+    // given
+    let config = buildConfig(
+      moduleType: .embeddedInTarget(name: "MockApplication"),
+      schemaName: "TestSchema",
+      operations: .inSchemaModule)
+
+    let subject = buildSubject(config: config, targetFileType: .customScalar)
+
+    // when
+    let actual = subject.render()
+
+    // then
+    let expected = """
+    public extension TestSchema {
+    """
+
+    expect(actual).to(equalLineByLine(expected, atLine: 10, ignoringExtraLines: true))
+  }
 }

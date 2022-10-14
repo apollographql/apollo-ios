@@ -89,11 +89,11 @@ extension TemplateRenderer {
       case (false, nil):
         return nil
       case (true, nil):
-        return config.schemaName
+        return config.schemaName.firstUppercased
       case let (false, .some(schemaTypeNamespace)):
         return schemaTypeNamespace
       case let (true, .some(schemaTypeNamespace)):
-        return "\(config.schemaName).\(schemaTypeNamespace)"
+        return "\(config.schemaName.firstUppercased).\(schemaTypeNamespace)"
       }
     }()
 
@@ -115,7 +115,7 @@ extension TemplateRenderer {
     \(ImportStatementTemplate.Operation.template(for: config))
 
     \(if: config.output.operations.isInModule && !config.output.schemaTypes.isInModule,
-      template.wrappedInNamespace(config.schemaName),
+      template.wrappedInNamespace(config.schemaName.firstUppercased),
     else:
       template)
     """
@@ -154,7 +154,7 @@ extension TemplateString {
   fileprivate func wrappedInNamespace(_ namespace: String) -> Self {
     TemplateString(
     """
-    public extension \(namespace.firstUppercased) {
+    public extension \(namespace) {
       \(self)
     }
     """
