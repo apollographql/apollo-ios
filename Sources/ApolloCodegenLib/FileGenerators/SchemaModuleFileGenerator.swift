@@ -22,7 +22,6 @@ struct SchemaModuleFileGenerator {
     case .swiftPackageManager:
       filePath = pathURL.appendingPathComponent("Package.swift").path
       rendered = SwiftPackageManagerModuleTemplate(
-        moduleName: config.schemaName,
         testMockConfig: config.output.testMocks,
         config: config
       ).render()

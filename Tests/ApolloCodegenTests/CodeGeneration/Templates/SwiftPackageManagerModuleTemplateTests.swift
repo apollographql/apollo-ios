@@ -13,12 +13,10 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
   // MARK: Helpers
 
   private func buildSubject(
-    moduleName: String = "testModule",
     testMockConfig: ApolloCodegenConfiguration.TestMockFileOutput = .none,
-    config: ApolloCodegenConfiguration = .mock()
+    config: ApolloCodegenConfiguration = .mock(schemaName: "TestModule")
   ) {
     subject = .init(
-      moduleName: moduleName,
       testMockConfig: testMockConfig,
       config: .init(config: config)
     )
@@ -62,13 +60,45 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
 
   // MARK: PackageDescription tests
 
-  func test__packageDescription__generatesPackageDefinition() {
+  func test__packageDescription__givenLowercaseSchemaName_generatesPackageDefinitionWithCapitalizedName() {
     // given
-    buildSubject()
+    buildSubject(config: .mock(schemaName: "module"))
 
     let expected = """
     let package = Package(
-      name: "TestModule",
+      name: "Module",
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 5, ignoringExtraLines: true))
+  }
+
+  func test__packageDescription__givenUppercaseSchemaName_generatesPackageDefinitionWithUppercasedName() {
+    // given
+    buildSubject(config: .mock(schemaName: "MODULE"))
+
+    let expected = """
+    let package = Package(
+      name: "MODULE",
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 5, ignoringExtraLines: true))
+  }
+
+  func test__packageDescription__givenCapitalizedSchemaName_generatesPackageDefinitionWithCapitalizedName() {
+    // given
+    buildSubject(config: .mock(schemaName: "NewModule"))
+
+    let expected = """
+    let package = Package(
+      name: "NewModule",
     """
 
     // when
@@ -98,13 +128,47 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
   }
 
-  func test__packageDescription__generatesProducts() {
+  func test__packageDescription__givenLowercasedSchemaName_generatesProductWithCapitalizedName() {
     // given
-    buildSubject()
+    buildSubject(config: .mock(schemaName: "newmodule"))
 
     let expected = """
       products: [
-        .library(name: "TestModule", targets: ["TestModule"]),
+        .library(name: "Newmodule", targets: ["Newmodule"]),
+      ],
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
+  }
+
+  func test__packageDescription__givenUppercasedSchemaName_generatesProductWithUppercasedName() {
+    // given
+    buildSubject(config: .mock(schemaName: "NEWMODULE"))
+
+    let expected = """
+      products: [
+        .library(name: "NEWMODULE", targets: ["NEWMODULE"]),
+      ],
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
+  }
+
+  func test__packageDescription__givenCapitalizedSchemaName_generatesProductWithCapitalizedName() {
+    // given
+    buildSubject(config: .mock(schemaName: "NewModule"))
+
+    let expected = """
+      products: [
+        .library(name: "NewModule", targets: ["NewModule"]),
       ],
     """
 
@@ -131,9 +195,55 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 16, ignoringExtraLines: true))
   }
 
-  func test__packageDescription__givenTestMockConfig_none_generatesTargets() {
+  func test__packageDescription__givenTestMockConfigNone_withLowercaseSchemaName_generatesTargetWithCapitalizedName() {
     // given
-    buildSubject()
+    buildSubject(config: .mock(schemaName: "testmodule"))
+
+    let expected = """
+      targets: [
+        .target(
+          name: "Testmodule",
+          dependencies: [
+            .product(name: "ApolloAPI", package: "apollo-ios"),
+          ],
+          path: "./Sources"
+        ),
+      ]
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 19, ignoringExtraLines: true))
+  }
+
+  func test__packageDescription__givenTestMockConfigNone_withUppercaseSchemaName_generatesTargetWithUppercasedName() {
+    // given
+    buildSubject(config: .mock(schemaName: "TEST"))
+
+    let expected = """
+      targets: [
+        .target(
+          name: "TEST",
+          dependencies: [
+            .product(name: "ApolloAPI", package: "apollo-ios"),
+          ],
+          path: "./Sources"
+        ),
+      ]
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 19, ignoringExtraLines: true))
+  }
+
+  func test__packageDescription__givenTestMockConfigNone_withCapitalizedSchemaName_generatesTargetWithCapitalizedName() {
+    // given
+    buildSubject(config: .mock(schemaName: "TestModule"))
 
     let expected = """
       targets: [
@@ -237,6 +347,57 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 19, ignoringExtraLines: true))
+  }
+
+  func test__packageDescription__givenTestMockConfig_withLowercaseSchemaName_generatesTestMockTargetWithCapitalizedTargetDependency() {
+    // given
+    buildSubject(
+      testMockConfig: .swiftPackage(targetName: "CustomMocks"),
+      config: .mock(schemaName: "testmodule"))
+
+    let expected = """
+            .target(name: "Testmodule"),
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 31, ignoringExtraLines: true))
+  }
+
+  func test__packageDescription__givenTestMockConfig_withUppercaseSchemaName_generatesTestMockTargetWithUppercaseTargetDependency() {
+    // given
+    buildSubject(
+      testMockConfig: .swiftPackage(targetName: "CustomMocks"),
+      config: .mock(schemaName: "MODULE"))
+
+    let expected = """
+            .target(name: "MODULE"),
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 31, ignoringExtraLines: true))
+  }
+
+  func test__packageDescription__givenTestMockConfig_withCapitalizedSchemaName_generatesTestMockTargetWithCapitalizedTargetDependency() {
+    // given
+    buildSubject(
+      testMockConfig: .swiftPackage(targetName: "CustomMocks"),
+      config: .mock(schemaName: "MyModule"))
+
+    let expected = """
+            .target(name: "MyModule"),
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 31, ignoringExtraLines: true))
   }
 
 }
