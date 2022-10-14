@@ -188,17 +188,12 @@ struct HeaderCommentTemplate {
 
 /// Provides the format to import Swift modules required by the template type.
 struct ImportStatementTemplate {
-  static func ApolloAPIImportTargetName(
-    for config: ApolloCodegen.ConfigurationContext
-  ) -> String {
-    config.options.cocoapodsCompatibleImportStatements ? "Apollo" : "ApolloAPI"
-  }
 
   enum SchemaType {
     static func template(
       for config: ApolloCodegen.ConfigurationContext
     ) -> String {
-      "import \(ImportStatementTemplate.ApolloAPIImportTargetName(for: config))"
+      "import \(config.ApolloAPITargetName)"
     }
   }
 
@@ -206,7 +201,7 @@ struct ImportStatementTemplate {
     static func template(
       for config: ApolloCodegen.ConfigurationContext
     ) -> TemplateString {
-      let apolloAPITargetName = ImportStatementTemplate.ApolloAPIImportTargetName(for: config)
+      let apolloAPITargetName = config.ApolloAPITargetName
       return """
       import \(apolloAPITargetName)
       @_exported import enum \(apolloAPITargetName).GraphQLEnum

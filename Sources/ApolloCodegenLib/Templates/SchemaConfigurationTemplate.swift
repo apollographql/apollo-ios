@@ -21,7 +21,7 @@ struct SchemaConfigurationTemplate: TemplateRenderer {
   var template: TemplateString {
     """
     \(embeddedAccessControlModifier)enum SchemaConfiguration: \
-    \(ImportStatementTemplate.ApolloAPIImportTargetName(for:config)).SchemaConfiguration {
+    \(config.ApolloAPITargetName).SchemaConfiguration {
       \(embeddedAccessControlModifier)\
     static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
         // Implement this function to configure cache key resolution for your schema types.

@@ -39,8 +39,8 @@ struct SchemaMetadataTemplate: TemplateRenderer {
 
     \(documentation: schema.documentation, config: config)
     \(embeddedAccessControlModifier)\
-    enum SchemaMetadata: \(apolloAPITargetName).SchemaMetadata {
-      public static let configuration: \(apolloAPITargetName).SchemaConfiguration.Type = SchemaConfiguration.self
+    enum SchemaMetadata: \(config.ApolloAPITargetName).SchemaMetadata {
+      public static let configuration: \(config.ApolloAPITargetName).SchemaConfiguration.Type = SchemaConfiguration.self
 
       \(objectTypeFunction)
     }
@@ -75,27 +75,24 @@ struct SchemaMetadataTemplate: TemplateRenderer {
     return protocolDefinition(prefix: "\(schemaName)_", schemaName: schemaName)
   }
 
-  let apolloAPITargetName: String
-
   init(schema: IR.Schema, config: ApolloCodegen.ConfigurationContext) {
     self.schema = schema
     self.schemaName = schema.name.firstUppercased
     self.config = config
-    self.apolloAPITargetName = ImportStatementTemplate.ApolloAPIImportTargetName(for: config)
   }
 
   private func protocolDefinition(prefix: String?, schemaName: String) -> TemplateString {
     return TemplateString("""
-      public protocol \(prefix ?? "")SelectionSet: \(apolloAPITargetName).SelectionSet & \(apolloAPITargetName).RootSelectionSet
+      public protocol \(prefix ?? "")SelectionSet: \(config.ApolloAPITargetName).SelectionSet & \(config.ApolloAPITargetName).RootSelectionSet
       where Schema == \(schemaName).SchemaMetadata {}
 
-      public protocol \(prefix ?? "")InlineFragment: \(apolloAPITargetName).SelectionSet & \(apolloAPITargetName).InlineFragment
+      public protocol \(prefix ?? "")InlineFragment: \(config.ApolloAPITargetName).SelectionSet & \(config.ApolloAPITargetName).InlineFragment
       where Schema == \(schemaName).SchemaMetadata {}
 
-      public protocol \(prefix ?? "")MutableSelectionSet: \(apolloAPITargetName).MutableRootSelectionSet
+      public protocol \(prefix ?? "")MutableSelectionSet: \(config.ApolloAPITargetName).MutableRootSelectionSet
       where Schema == \(schemaName).SchemaMetadata {}
 
-      public protocol \(prefix ?? "")MutableInlineFragment: \(apolloAPITargetName).MutableSelectionSet & \(apolloAPITargetName).InlineFragment
+      public protocol \(prefix ?? "")MutableInlineFragment: \(config.ApolloAPITargetName).MutableSelectionSet & \(config.ApolloAPITargetName).InlineFragment
       where Schema == \(schemaName).SchemaMetadata {}
       """
     )
