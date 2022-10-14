@@ -31,7 +31,6 @@ struct SchemaModuleFileGenerator {
       filePath = pathURL
         .appendingPathComponent("\(config.schemaName.firstUppercased).graphql.swift").path
       rendered = SchemaModuleNamespaceTemplate(
-        namespace: config.schemaName,
         config: config
         ).render()
 
