@@ -38,13 +38,61 @@ class SchemaModuleFileGeneratorTests: XCTestCase {
     expect(self.mockFileManager.allClosuresCalled).to(beTrue())
   }
 
-  func test__generate__givenModuleType_none_shouldGenerateNamespaceFile() throws {
+  func test__generate__givenModuleTypeEmbeddedInTarget_lowercaseSchemaName_shouldGenerateNamespaceFileWithCapitalizedName() throws {
     // given
-    let fileURL = rootURL.appendingPathComponent("ModuleTestSchema.graphql.swift")
+    let fileURL = rootURL.appendingPathComponent("Schema.graphql.swift")
 
     let configuration = ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration.mock(
       .embeddedInTarget(name: "MockApplication"),
-      schemaName: "ModuleTestSchema",
+      schemaName: "schema",
+      to: rootURL.path
+    ))
+
+    mockFileManager.mock(closure: .createFile({ path, data, attributes in
+      // then
+      expect(path).to(equal(fileURL.path))
+
+      return true
+    }))
+
+    // when
+    try SchemaModuleFileGenerator.generate(configuration, fileManager: mockFileManager)
+
+    // then
+    expect(self.mockFileManager.allClosuresCalled).to(beTrue())
+  }
+
+  func test__generate__givenModuleTypeEmbeddedInTarget_uppercaseSchemaName_shouldGenerateNamespaceFileWithUppercaseName() throws {
+    // given
+    let fileURL = rootURL.appendingPathComponent("SCHEMA.graphql.swift")
+
+    let configuration = ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration.mock(
+      .embeddedInTarget(name: "MockApplication"),
+      schemaName: "SCHEMA",
+      to: rootURL.path
+    ))
+
+    mockFileManager.mock(closure: .createFile({ path, data, attributes in
+      // then
+      expect(path).to(equal(fileURL.path))
+
+      return true
+    }))
+
+    // when
+    try SchemaModuleFileGenerator.generate(configuration, fileManager: mockFileManager)
+
+    // then
+    expect(self.mockFileManager.allClosuresCalled).to(beTrue())
+  }
+
+  func test__generate__givenModuleTypeEmbeddedInTarget_capitalizedSchemaName_shouldGenerateNamespaceFileWithCapitalizedName() throws {
+    // given
+    let fileURL = rootURL.appendingPathComponent("MySchema.graphql.swift")
+
+    let configuration = ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration.mock(
+      .embeddedInTarget(name: "MockApplication"),
+      schemaName: "MySchema",
       to: rootURL.path
     ))
 
