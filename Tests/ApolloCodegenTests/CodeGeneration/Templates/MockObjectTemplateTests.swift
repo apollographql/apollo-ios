@@ -20,12 +20,14 @@ class MockObjectTemplateTests: XCTestCase {
   private func buildSubject(
     name: String = "Dog",
     interfaces: [GraphQLInterfaceType] = [],
+    schemaName: String = "TestSchema",
     moduleType: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType = .swiftPackageManager,
     warningsOnDeprecatedUsage: ApolloCodegenConfiguration.Composition = .exclude
   ) {
     let config = ApolloCodegenConfiguration.mock(
       moduleType,
-      options: .init(warningsOnDeprecatedUsage: warningsOnDeprecatedUsage)      
+      options: .init(warningsOnDeprecatedUsage: warningsOnDeprecatedUsage),
+      schemaName: schemaName
     )
     ir = IR.mock(compilationResult: .mock())
 
@@ -71,9 +73,9 @@ class MockObjectTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
-  // MARK: Class Definition Tests
+  // MARK: Casing Tests
 
-  func test_render_givenSchemaTypeWithLowercaseName_generatesExtensionCorrectlyCased() {
+  func test_render_givenSchemaTypeWithLowercaseName_generatesCapitalizedClassName() {
     // given
     buildSubject(name: "dog")
 
@@ -94,6 +96,51 @@ class MockObjectTemplateTests: XCTestCase {
 
     // then
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test_render_givenSchemaNameLowercased_generatesCapitalizedSchemaNameReferences() {
+    // given
+    buildSubject(schemaName: "lowercased")
+
+    let expected = """
+      public static let objectType: Object = Lowercased.Objects.Dog
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 2, ignoringExtraLines: true))
+  }
+
+  func test_render_givenSchemaNameUppercased_generatesCapitalizedSchemaNameReferences() {
+    // given
+    buildSubject(schemaName: "UPPER")
+
+    let expected = """
+      public static let objectType: Object = UPPER.Objects.Dog
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 2, ignoringExtraLines: true))
+  }
+
+  func test_render_givenSchemaNameCapitalized_generatesCapitalizedSchemaNameReferences() {
+    // given
+    buildSubject(schemaName: "MySchema")
+
+    let expected = """
+      public static let objectType: Object = MySchema.Objects.Dog
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 2, ignoringExtraLines: true))
   }
 
   // MARK: Mock Field Tests
