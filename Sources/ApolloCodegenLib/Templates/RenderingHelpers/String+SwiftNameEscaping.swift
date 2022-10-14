@@ -48,6 +48,7 @@ enum SwiftKeywords {
   static let SelectionSetTypeNamesToSuffix: Set<String> = [
     "Any",
     "DataDict",
+    "DocumentType",
     "Fragments",
     "FragmentContainer",
     "ParentType",

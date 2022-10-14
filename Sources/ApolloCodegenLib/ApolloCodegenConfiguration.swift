@@ -649,6 +649,10 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     public static let schemaDownloadConfiguration: ApolloSchemaDownloadConfiguration? = nil
   }
 
+  // MARK: - Helper Properties
+  
+  let ApolloAPITargetName: String
+
   // MARK: Initializers
 
   /// Designated initializer.
@@ -673,6 +677,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     self.options = options
     self.experimentalFeatures = experimentalFeatures
     self.schemaDownloadConfiguration = schemaDownloadConfiguration
+    self.ApolloAPITargetName = options.cocoapodsCompatibleImportStatements ? "Apollo" : "ApolloAPI"
   }
 
   // MARK: Codable
@@ -688,25 +693,23 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
 
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
-
-    schemaName = try values.decode(String.self, forKey: .schemaName)
-    input = try values.decode(FileInput.self, forKey: .input)
-    output = try values.decode(FileOutput.self, forKey: .output)
-
-    options = try values.decodeIfPresent(
-      OutputOptions.self,
-      forKey: .options
-    ) ?? Default.options
-
-    experimentalFeatures = try values.decodeIfPresent(
-      ExperimentalFeatures.self,
-      forKey: .experimentalFeatures
-    ) ?? Default.experimentalFeatures
-
-    schemaDownloadConfiguration = try values.decodeIfPresent(
-      ApolloSchemaDownloadConfiguration.self,
-      forKey: .schemaDownloadConfiguration
-    ) ?? Default.schemaDownloadConfiguration
+    self.init(
+      schemaName: try values.decode(String.self, forKey: .schemaName),
+      input: try values.decode(FileInput.self, forKey: .input),
+      output: try values.decode(FileOutput.self, forKey: .output),
+      options: try values.decodeIfPresent(
+        OutputOptions.self,
+        forKey: .options
+      ) ?? Default.options,
+      experimentalFeatures: try values.decodeIfPresent(
+        ExperimentalFeatures.self,
+        forKey: .experimentalFeatures
+      ) ?? Default.experimentalFeatures,
+      schemaDownloadConfiguration: try values.decodeIfPresent(
+        ApolloSchemaDownloadConfiguration.self,
+        forKey: .schemaDownloadConfiguration
+      ) ?? Default.schemaDownloadConfiguration
+    )
   }
 }
 

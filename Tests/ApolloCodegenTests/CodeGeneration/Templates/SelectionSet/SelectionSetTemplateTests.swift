@@ -900,6 +900,7 @@ class SelectionSetTemplateTests: XCTestCase {
       self: Animal!
       parentType: Animal!
       dataDict: Animal!
+      documentType: Animal!
       selection: Animal!
       schema: Animal!
       fragmentContainer: Animal!
@@ -926,6 +927,9 @@ class SelectionSetTemplateTests: XCTestCase {
           species
         }
         dataDict {
+          species
+        }
+        documentType {
           species
         }
         selection {
@@ -973,6 +977,7 @@ class SelectionSetTemplateTests: XCTestCase {
         .field("self", Self_SelectionSet.self),
         .field("parentType", ParentType_SelectionSet.self),
         .field("dataDict", DataDict_SelectionSet.self),
+        .field("documentType", DocumentType_SelectionSet.self),
         .field("selection", Selection_SelectionSet.self),
         .field("schema", Schema_SelectionSet.self),
         .field("fragmentContainer", FragmentContainer_SelectionSet.self),
