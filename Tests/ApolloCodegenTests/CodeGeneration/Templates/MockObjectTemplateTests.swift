@@ -98,7 +98,7 @@ class MockObjectTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
-  func test_render_givenSchemaNameLowercased_generatesCapitalizedSchemaNameReferences() {
+  func test_render_givenLowercasedSchemaName_generatesFirstUppercasedSchemaNameReferences() {
     // given
     buildSubject(schemaName: "lowercased")
 
@@ -113,7 +113,7 @@ class MockObjectTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 2, ignoringExtraLines: true))
   }
 
-  func test_render_givenSchemaNameUppercased_generatesCapitalizedSchemaNameReferences() {
+  func test_render_givenUppercasedSchemaName_generatesCapitalizedSchemaNameReferences() {
     // given
     buildSubject(schemaName: "UPPER")
 
@@ -128,7 +128,7 @@ class MockObjectTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 2, ignoringExtraLines: true))
   }
 
-  func test_render_givenSchemaNameCapitalized_generatesCapitalizedSchemaNameReferences() {
+  func test_render_givenCapitalizedSchemaName_generatesCapitalizedSchemaNameReferences() {
     // given
     buildSubject(schemaName: "MySchema")
 

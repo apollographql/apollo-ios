@@ -336,7 +336,7 @@ class TemplateRenderer_OperationFile_Tests: XCTestCase {
 
   // MARK: Casing Tests
 
-  func test__casing__givenSchemaNameLowercase_shouldGenerateCapitalizedNamespace() {
+  func test__casing__givenLowercasedSchemaName_shouldGenerateFirstUppercasedNamespace() {
     // given
 
     let config = buildConfig(
@@ -357,7 +357,7 @@ class TemplateRenderer_OperationFile_Tests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
   }
 
-  func test__casing__givenSchemaNameUppercase_shouldGenerateUppercasedNamespace() {
+  func test__casing__givenUppercasedSchemaName_shouldGenerateUppercasedNamespace() {
     // given
 
     let config = buildConfig(
@@ -378,7 +378,7 @@ class TemplateRenderer_OperationFile_Tests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
   }
 
-  func test__casing__givenSchemaNameCapitalized_shouldGenerateCapitalizedNamespace() {
+  func test__casing__givenCapitalizedSchemaName_shouldGenerateCapitalizedNamespace() {
     // given
 
     let config = buildConfig(

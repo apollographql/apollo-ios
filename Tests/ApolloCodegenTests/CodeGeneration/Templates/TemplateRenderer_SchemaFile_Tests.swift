@@ -964,7 +964,7 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
 
   // MARK: Casing Tests
 
-  func test__casing__givenSchemaNameLowercase_whenSchemaAndComponentNamespace_shouldGenerateCapitalizedNamespace() {
+  func test__casing__givenLowercasedSchemaName_whenSchemaAndComponentNamespace_shouldGenerateFirstUppercasedNamespace() {
     // given
     let config = buildConfig(
       moduleType: .embeddedInTarget(name: "MockApplication"),
@@ -984,7 +984,7 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 10, ignoringExtraLines: true))
   }
 
-  func test__casing__givenSchemaNameUppercase_whenSchemaAndComponentNamespace_shouldGenerateUppercasedNamespace() {
+  func test__casing__givenUppercasedSchemaName_whenSchemaAndComponentNamespace_shouldGenerateUppercasedNamespace() {
     // given
     let config = buildConfig(
       moduleType: .embeddedInTarget(name: "MockApplication"),
@@ -1004,7 +1004,7 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 10, ignoringExtraLines: true))
   }
 
-  func test__casing__givenSchemaNameCapitalized_whenSchemaAndComponentNamespace_shouldGenerateCapitalizedNamespace() {
+  func test__casing__givenCapitalizedSchemaName_whenSchemaAndComponentNamespace_shouldGenerateCapitalizedNamespace() {
     // given
     let config = buildConfig(
       moduleType: .embeddedInTarget(name: "MockApplication"),
@@ -1024,7 +1024,7 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 10, ignoringExtraLines: true))
   }
 
-  func test__casing__givenSchemaNameLowercase_whenOnlySchemaNamespace_shouldGenerateCapitalizedNamespace() {
+  func test__casing__givenLowercasedSchemaName_whenOnlySchemaNamespace_shouldGenerateFirstUppercasedNamespace() {
     // given
     let config = buildConfig(
       moduleType: .embeddedInTarget(name: "MockApplication"),
@@ -1044,7 +1044,7 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 10, ignoringExtraLines: true))
   }
 
-  func test__casing__givenSchemaNameUppercase_whenOnlySchemaNamespace_shouldGenerateUppercasedNamespace() {
+  func test__casing__givenUppercasedSchemaName_whenOnlySchemaNamespace_shouldGenerateUppercasedNamespace() {
     // given
     let config = buildConfig(
       moduleType: .embeddedInTarget(name: "MockApplication"),
@@ -1064,7 +1064,7 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 10, ignoringExtraLines: true))
   }
 
-  func test__casing__givenSchemaNameCapitalized_whenOnlySchemaNamespace_shouldGenerateCapitalizedNamespace() {
+  func test__casing__givenCapitalizedSchemaName_whenOnlySchemaNamespace_shouldGenerateCapitalizedNamespace() {
     // given
     let config = buildConfig(
       moduleType: .embeddedInTarget(name: "MockApplication"),
