@@ -3,8 +3,6 @@ import Foundation
 /// Provides the format to convert a [GraphQL Union](https://spec.graphql.org/draft/#sec-Unions)
 /// into Swift code.
 struct UnionTemplate: TemplateRenderer {
-  /// Module name.
-  let moduleName: String
   /// IR representation of source [GraphQL Union](https://spec.graphql.org/draft/#sec-Unions).
   let graphqlUnion: GraphQLUnionType
 

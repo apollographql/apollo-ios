@@ -3,8 +3,6 @@ import Foundation
 /// Provides the format to define a Swift Package Manager module in Swift code. The output must
 /// conform to the [configuration definition of a Swift package](https://docs.swift.org/package-manager/PackageDescription/PackageDescription.html#).
 struct SwiftPackageManagerModuleTemplate: TemplateRenderer {
-  /// Module name used to name the generated package.
-  let moduleName: String
 
   let testMockConfig: ApolloCodegenConfiguration.TestMockFileOutput
 
@@ -15,7 +13,7 @@ struct SwiftPackageManagerModuleTemplate: TemplateRenderer {
   let config: ApolloCodegen.ConfigurationContext
 
   var template: TemplateString {
-    let casedModuleName = moduleName.firstUppercased
+    let casedSchemaName = config.schemaName.firstUppercased
 
     return TemplateString("""
     // swift-tools-version:5.3
@@ -23,7 +21,7 @@ struct SwiftPackageManagerModuleTemplate: TemplateRenderer {
     import PackageDescription
 
     let package = Package(
-      name: "\(casedModuleName)",
+      name: "\(casedSchemaName)",
       platforms: [
         .iOS(.v12),
         .macOS(.v10_14),
@@ -31,14 +29,14 @@ struct SwiftPackageManagerModuleTemplate: TemplateRenderer {
         .watchOS(.v5),
       ],
       products: [
-        .library(name: "\(casedModuleName)", targets: ["\(casedModuleName)"]),
+        .library(name: "\(casedSchemaName)", targets: ["\(casedSchemaName)"]),
       ],
       dependencies: [
         .package(url: "https://github.com/apollographql/apollo-ios.git", from: "1.0.0"),
       ],
       targets: [
         .target(
-          name: "\(casedModuleName)",
+          name: "\(casedSchemaName)",
           dependencies: [
             .product(name: "ApolloAPI", package: "apollo-ios"),
           ],
@@ -49,7 +47,7 @@ struct SwiftPackageManagerModuleTemplate: TemplateRenderer {
           name: "\($0.targetName)",
           dependencies: [
             .product(name: "ApolloTestSupport", package: "apollo-ios"),
-            .target(name: "\(casedModuleName)"),
+            .target(name: "\(casedSchemaName)"),
           ],
           path: "\($0.path)"
         ),
@@ -68,7 +66,7 @@ struct SwiftPackageManagerModuleTemplate: TemplateRenderer {
       if let targetName = targetName {
         return (targetName.firstUppercased, "./\(targetName.firstUppercased)")
       } else {
-        return ("\(moduleName.firstUppercased)TestMocks", "./TestMocks")
+        return ("\(config.schemaName.firstUppercased)TestMocks", "./TestMocks")
       }
     }
   }

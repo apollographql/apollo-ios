@@ -16,7 +16,6 @@ class UnionFileGeneratorTests: XCTestCase {
   private func buildSubject() {
     subject = UnionFileGenerator(
       graphqlUnion: graphqlUnion,
-      schemaName: "MockSchema",
       config: ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration.mock())
     )
   }

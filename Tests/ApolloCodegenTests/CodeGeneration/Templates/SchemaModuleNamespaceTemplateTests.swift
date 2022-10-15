@@ -5,19 +5,52 @@ import ApolloInternalTestHelpers
 
 class SchemaModuleNamespaceTemplateTests: XCTestCase {
 
-  // MARK: Definition Tests
+  // MARK: Casing Tests
 
-  func test__boilerplate__generatesPublicEnumCorectlyCased() throws {
+  func test__render__givenLowercaseSchemaName_generatesCapitalizedPublicEnum() throws {
     // given
     let expected = """
-    public enum NamespacedModule { }
+    public enum Schema { }
     
     """
 
     // when
     let subject = SchemaModuleNamespaceTemplate(
-      namespace: "namespacedModule",
-      config: .init(config: .mock())
+      config: .init(config: .mock(schemaName: "schema"))
+    )
+    let actual = subject.template.description
+
+    // then
+    expect(actual).to(equalLineByLine(expected))
+  }
+
+  func test__render__givenUppercaseSchemaName_generatesUppercasedPublicEnum() throws {
+    // given
+    let expected = """
+    public enum SCHEMA { }
+
+    """
+
+    // when
+    let subject = SchemaModuleNamespaceTemplate(
+      config: .init(config: .mock(schemaName: "SCHEMA"))
+    )
+    let actual = subject.template.description
+
+    // then
+    expect(actual).to(equalLineByLine(expected))
+  }
+
+  func test__render__givenCapitalizedSchemaName_generatesCapitalizedPublicEnum() throws {
+    // given
+    let expected = """
+    public enum MySchema { }
+
+    """
+
+    // when
+    let subject = SchemaModuleNamespaceTemplate(
+      config: .init(config: .mock(schemaName: "MySchema"))
     )
     let actual = subject.template.description
 

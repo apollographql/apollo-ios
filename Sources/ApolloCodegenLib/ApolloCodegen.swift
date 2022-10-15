@@ -251,7 +251,6 @@ public class ApolloCodegen {
       try autoreleasepool {
         try UnionFileGenerator(
           graphqlUnion: graphQLUnion,
-          schemaName: config.schemaName,
           config: config
         ).generate(
           forConfig: config,

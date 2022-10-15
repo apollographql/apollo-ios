@@ -26,18 +26,21 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
 
   // MARK: - Helpers
 
-  func buildSubjectAndOperation(named operationName: String = "TestOperation") throws {
+  func buildSubjectAndOperation(
+    schemaName: String = "TestSchema",
+    named operationName: String = "TestOperation"
+  ) throws {
     ir = try .mock(schema: schemaSDL, document: document)
     let operationDefinition = try XCTUnwrap(ir.compilationResult[operation: operationName])
     operation = ir.build(operation: operationDefinition)
     subject = SelectionSetTemplate(
       schema: ir.schema,
       mutable: true,
-      config: .init(config: .mock())
+      config: .init(config: .mock(schemaName: schemaName))
     )
   }
 
-  // MARK: - Tests
+  // MARK: - Declaration Tests
 
   func test__renderForOperation__rendersDeclarationAsMutableSelectionSet() throws {
     // given
@@ -154,6 +157,8 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 17, ignoringExtraLines: true))
   }
+
+  // MARK: - Accessor Tests
 
   func test__render_dataDict__rendersDataDictAsVar() throws {
     // given
@@ -407,5 +412,229 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 20, ignoringExtraLines: true))
+  }
+
+  // MARK: - Casing Tests
+
+  func test__casingForMutableSelectionSet__givenLowercasedSchemaName_generatesFirstUppercasedNamespace() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        species
+      }
+    }
+    """
+
+    // when
+    try buildSubjectAndOperation(schemaName: "myschema")
+    let actual = subject.render(for: operation)
+
+    // then
+    let expected = """
+    public struct Data: Myschema.MutableSelectionSet {
+    """
+
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test__casingForMutableSelectionSet__givenUppercasedSchemaName_generatesUppercasedNamespace() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        species
+      }
+    }
+    """
+
+    // when
+    try buildSubjectAndOperation(schemaName: "MYSCHEMA")
+    let actual = subject.render(for: operation)
+
+    // then
+    let expected = """
+    public struct Data: MYSCHEMA.MutableSelectionSet {
+    """
+
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test__casingForMutableSelectionSet__givenCapitalizedSchemaName_generatesCapitalizedNamespace() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation @apollo_client_ios_localCacheMutation {
+      allAnimals {
+        species
+      }
+    }
+    """
+
+    // when
+    try buildSubjectAndOperation(schemaName: "MySchema")
+    let actual = subject.render(for: operation)
+
+    // then
+    let expected = """
+    public struct Data: MySchema.MutableSelectionSet {
+    """
+
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test__casingForMutableInlineFragment__givenLowercasedSchemaName_generatesFirstUppercasedNamespace() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+
+    type Dog {
+      name: String!
+    }
+    """
+
+    document = """
+    query TestOperation @apollo_client_ios_localCacheMutation {
+      allAnimals {
+        ... on Dog {
+          name
+        }
+      }
+    }
+    """
+
+    // when
+    try buildSubjectAndOperation(schemaName: "myschema")
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    let expected = """
+      public struct AsDog: Myschema.MutableInlineFragment {
+    """
+
+    expect(actual).to(equalLineByLine(expected, atLine: 17, ignoringExtraLines: true))
+  }
+
+  func test__casingForMutableInlineFragment__givenUppercasedSchemaName_generatesUppercasedNamespace() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+
+    type Dog {
+      name: String!
+    }
+    """
+
+    document = """
+    query TestOperation @apollo_client_ios_localCacheMutation {
+      allAnimals {
+        ... on Dog {
+          name
+        }
+      }
+    }
+    """
+
+    // when
+    try buildSubjectAndOperation(schemaName: "MYSCHEMA")
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    let expected = """
+      public struct AsDog: MYSCHEMA.MutableInlineFragment {
+    """
+
+    expect(actual).to(equalLineByLine(expected, atLine: 17, ignoringExtraLines: true))
+  }
+
+  func test__casingForMutableInlineFragment__givenCapitalizedSchemaName_generatesCapitalizedNamespace() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+
+    type Dog {
+      name: String!
+    }
+    """
+
+    document = """
+    query TestOperation @apollo_client_ios_localCacheMutation {
+      allAnimals {
+        ... on Dog {
+          name
+        }
+      }
+    }
+    """
+
+    // when
+    try buildSubjectAndOperation(schemaName: "MySchema")
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    let expected = """
+      public struct AsDog: MySchema.MutableInlineFragment {
+    """
+
+    expect(actual).to(equalLineByLine(expected, atLine: 17, ignoringExtraLines: true))
   }
 }

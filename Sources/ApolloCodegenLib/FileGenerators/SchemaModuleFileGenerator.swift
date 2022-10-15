@@ -22,15 +22,14 @@ struct SchemaModuleFileGenerator {
     case .swiftPackageManager:
       filePath = pathURL.appendingPathComponent("Package.swift").path
       rendered = SwiftPackageManagerModuleTemplate(
-        moduleName: config.schemaName,
         testMockConfig: config.output.testMocks,
         config: config
       ).render()
 
     case .embeddedInTarget:
-      filePath = pathURL.appendingPathComponent("\(config.schemaName).graphql.swift").path
+      filePath = pathURL
+        .appendingPathComponent("\(config.schemaName.firstUppercased).graphql.swift").path
       rendered = SchemaModuleNamespaceTemplate(
-        namespace: config.schemaName,
         config: config
         ).render()
 

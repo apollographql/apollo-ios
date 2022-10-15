@@ -1865,4 +1865,260 @@ class InputObjectTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
   }
 
+  // MARK: Casing Tests
+
+  func test__casing__givenSchemaNameLowercased_nonListField_generatesWithFirstUppercasedNamespace() throws {
+    // given
+    let fields: [GraphQLInputField] = [
+      GraphQLInputField.mock(
+        "enumField",
+        type: .enum(.mock(name: "EnumValue")),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "inputField",
+        type: .inputObject(.mock(
+          "InnerInputObject",
+          fields: [
+            GraphQLInputField.mock("innerStringField", type: .scalar(.string()), defaultValue: nil)
+          ]
+        )),
+        defaultValue: nil
+      )
+    ]
+
+    buildSubject(
+      fields: fields,
+      config: .mock(schemaName: "testschema", output: .mock(
+        moduleType: .swiftPackageManager,
+        operations: .relative(subpath: nil)))
+    )
+
+    let expected = """
+      public init(
+        enumField: GraphQLNullable<GraphQLEnum<Testschema.EnumValue>> = nil,
+        inputField: GraphQLNullable<Testschema.InnerInputObject> = nil
+      ) {
+        __data = InputDict([
+          "enumField": enumField,
+          "inputField": inputField
+        ])
+      }
+
+      public var enumField: GraphQLNullable<GraphQLEnum<Testschema.EnumValue>> {
+        get { __data.enumField }
+        set { __data.enumField = newValue }
+      }
+
+      public var inputField: GraphQLNullable<Testschema.InnerInputObject> {
+        get { __data.inputField }
+        set { __data.inputField = newValue }
+      }
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
+  }
+
+  func test__casing__givenUppercasedSchemaName_nonListField_generatesWithUppercasedNamespace() throws {
+    // given
+    let fields: [GraphQLInputField] = [
+      GraphQLInputField.mock(
+        "enumField",
+        type: .enum(.mock(name: "EnumValue")),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "inputField",
+        type: .inputObject(.mock(
+          "InnerInputObject",
+          fields: [
+            GraphQLInputField.mock("innerStringField", type: .scalar(.string()), defaultValue: nil)
+          ]
+        )),
+        defaultValue: nil
+      )
+    ]
+
+    buildSubject(
+      fields: fields,
+      config: .mock(schemaName: "TESTSCHEMA", output: .mock(
+        moduleType: .swiftPackageManager,
+        operations: .relative(subpath: nil)))
+    )
+
+    let expected = """
+      public init(
+        enumField: GraphQLNullable<GraphQLEnum<TESTSCHEMA.EnumValue>> = nil,
+        inputField: GraphQLNullable<TESTSCHEMA.InnerInputObject> = nil
+      ) {
+        __data = InputDict([
+          "enumField": enumField,
+          "inputField": inputField
+        ])
+      }
+
+      public var enumField: GraphQLNullable<GraphQLEnum<TESTSCHEMA.EnumValue>> {
+        get { __data.enumField }
+        set { __data.enumField = newValue }
+      }
+
+      public var inputField: GraphQLNullable<TESTSCHEMA.InnerInputObject> {
+        get { __data.inputField }
+        set { __data.inputField = newValue }
+      }
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
+  }
+
+  func test__casing__givenCapitalizedSchemaName_nonListField_generatesWithCapitalizedNamespace() throws {
+    // given
+    let fields: [GraphQLInputField] = [
+      GraphQLInputField.mock(
+        "enumField",
+        type: .enum(.mock(name: "EnumValue")),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
+        "inputField",
+        type: .inputObject(.mock(
+          "InnerInputObject",
+          fields: [
+            GraphQLInputField.mock("innerStringField", type: .scalar(.string()), defaultValue: nil)
+          ]
+        )),
+        defaultValue: nil
+      )
+    ]
+
+    buildSubject(
+      fields: fields,
+      config: .mock(schemaName: "TestSchema", output: .mock(
+        moduleType: .swiftPackageManager,
+        operations: .relative(subpath: nil)))
+    )
+
+    let expected = """
+      public init(
+        enumField: GraphQLNullable<GraphQLEnum<TestSchema.EnumValue>> = nil,
+        inputField: GraphQLNullable<TestSchema.InnerInputObject> = nil
+      ) {
+        __data = InputDict([
+          "enumField": enumField,
+          "inputField": inputField
+        ])
+      }
+
+      public var enumField: GraphQLNullable<GraphQLEnum<TestSchema.EnumValue>> {
+        get { __data.enumField }
+        set { __data.enumField = newValue }
+      }
+
+      public var inputField: GraphQLNullable<TestSchema.InnerInputObject> {
+        get { __data.inputField }
+        set { __data.inputField = newValue }
+      }
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
+  }
+
+  func test__casing__givenLowercasedSchemaName_listField_generatesWithFirstUppercasedNamespace() throws {
+    // given
+    buildSubject(
+      fields: [GraphQLInputField.mock(
+        "nullableListNullableItem",
+        type: .list(.enum(.mock(name: "EnumValue"))),
+        defaultValue: nil)],
+      config: .mock(schemaName: "testschema")
+    )
+
+    let expected = """
+      public init(
+        nullableListNullableItem: GraphQLNullable<[GraphQLEnum<Testschema.EnumValue>?]> = nil
+      ) {
+        __data = InputDict([
+          "nullableListNullableItem": nullableListNullableItem
+        ])
+      }
+
+      public var nullableListNullableItem: GraphQLNullable<[GraphQLEnum<Testschema.EnumValue>?]> {
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
+  }
+
+  func test__casing__givenUppercasedSchemaName_listField_generatesWithUppercasedNamespace() throws {
+    // given
+    buildSubject(
+      fields: [GraphQLInputField.mock(
+        "nullableListNullableItem",
+        type: .list(.enum(.mock(name: "EnumValue"))),
+        defaultValue: nil)],
+      config: .mock(schemaName: "TESTSCHEMA")
+    )
+
+    let expected = """
+      public init(
+        nullableListNullableItem: GraphQLNullable<[GraphQLEnum<TESTSCHEMA.EnumValue>?]> = nil
+      ) {
+        __data = InputDict([
+          "nullableListNullableItem": nullableListNullableItem
+        ])
+      }
+
+      public var nullableListNullableItem: GraphQLNullable<[GraphQLEnum<TESTSCHEMA.EnumValue>?]> {
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
+  }
+
+  func test__casing__givenCapitalizedSchemaName_listField_generatesWithCapitalizedNamespace() throws {
+    // given
+    buildSubject(
+      fields: [GraphQLInputField.mock(
+        "nullableListNullableItem",
+        type: .list(.enum(.mock(name: "EnumValue"))),
+        defaultValue: nil)],
+      config: .mock(schemaName: "TestSchema")
+    )
+
+    let expected = """
+      public init(
+        nullableListNullableItem: GraphQLNullable<[GraphQLEnum<TestSchema.EnumValue>?]> = nil
+      ) {
+        __data = InputDict([
+          "nullableListNullableItem": nullableListNullableItem
+        ])
+      }
+
+      public var nullableListNullableItem: GraphQLNullable<[GraphQLEnum<TestSchema.EnumValue>?]> {
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
+  }
 }

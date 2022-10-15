@@ -4,13 +4,10 @@ import Foundation
 struct UnionFileGenerator: FileGenerator {
   /// Source GraphQL union.
   let graphqlUnion: GraphQLUnionType
-  /// Schema name
-  let schemaName: String
   /// Shared codegen configuration.
   let config: ApolloCodegen.ConfigurationContext
 
   var template: TemplateRenderer { UnionTemplate(
-    moduleName: schemaName,
     graphqlUnion: graphqlUnion,
     config: config
   ) }

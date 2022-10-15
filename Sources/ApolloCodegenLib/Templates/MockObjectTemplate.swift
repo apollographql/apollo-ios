@@ -36,7 +36,7 @@ struct MockObjectTemplate: TemplateRenderer {
 
     return """
     public class \(objectName): MockObject {
-      public static let objectType: Object = \(config.schemaName).Objects.\(objectName)
+      public static let objectType: Object = \(config.schemaName.firstUppercased).Objects.\(objectName)
       public static let _mockFields = MockFields()
       public typealias MockValueCollectionType = Array<Mock<\(objectName)>>
 
