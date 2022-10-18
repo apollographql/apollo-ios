@@ -15,6 +15,7 @@ public class ApolloCodegen {
     case graphQLSourceValidationFailure(atLines: [String])
     case testMocksInvalidSwiftPackageConfiguration
     case inputSearchPathInvalid(path: String)
+    case schemaNameConflict(name: String)
 
     public var errorDescription: String? {
       switch self {
@@ -24,6 +25,8 @@ public class ApolloCodegen {
         return "Schema Types must be generated with module type 'swiftPackageManager' to generate a swift package for test mocks."
       case let .inputSearchPathInvalid(path):
         return "Input search path '\(path)' is invalid. Input search paths must include a file extension component. (eg. '.graphql')"
+      case let .schemaNameConflict(name):
+        return "Schema name \(name) conflicts with a GraphQL schema type. Please choose a difference schema name."
       }
     }
   }
@@ -47,16 +50,18 @@ public class ApolloCodegen {
     rootURL: URL? = nil,
     fileManager: ApolloFileManager = .default
   ) throws {
+
     let configContext = ConfigurationContext(
       config: configuration,
       rootURL: rootURL
     )
+
     let compilationResult = try compileGraphQLResult(
       configContext,
       experimentalFeatures: configuration.experimentalFeatures
     )
 
-    try validate(config: configContext)
+    try validate(config: configContext, compilationResult: compilationResult)
 
     let ir = IR(
       schemaName: configContext.schemaName,
@@ -107,7 +112,7 @@ public class ApolloCodegen {
   }
 
   /// Performs validation against deterministic errors that will cause code generation to fail.
-  static func validate(config: ConfigurationContext) throws {
+  static func validate(config: ConfigurationContext, compilationResult: CompilationResult) throws {
     if case .swiftPackage = config.output.testMocks,
         config.output.schemaTypes.moduleType != .swiftPackageManager {
       throw Error.testMocksInvalidSwiftPackageConfiguration
@@ -119,11 +124,26 @@ public class ApolloCodegen {
     for searchPath in config.input.operationSearchPaths {
       try validate(inputSearchPath: searchPath)
     }
+
+    try validate(schemaName: config.schemaName, compilationResult: compilationResult)
   }
 
   static private func validate(inputSearchPath: String) throws {
     guard inputSearchPath.contains(".") && !inputSearchPath.hasSuffix(".") else {
       throw Error.inputSearchPathInvalid(path: inputSearchPath)
+    }
+  }
+
+  static private func validate(schemaName: String, compilationResult: CompilationResult) throws {
+    guard
+      !compilationResult.referencedTypes.contains(where: { namedType in
+        namedType.swiftName == schemaName.firstUppercased
+      }),
+      !compilationResult.fragments.contains(where: { fragmentDefinition in
+        fragmentDefinition.name == schemaName.firstUppercased
+      })
+    else {
+      throw Error.schemaNameConflict(name: schemaName)
     }
   }
 
