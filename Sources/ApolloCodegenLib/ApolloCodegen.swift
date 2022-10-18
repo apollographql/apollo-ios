@@ -26,7 +26,7 @@ public class ApolloCodegen {
       case let .inputSearchPathInvalid(path):
         return "Input search path '\(path)' is invalid. Input search paths must include a file extension component. (eg. '.graphql')"
       case let .schemaNameConflict(name):
-        return "Schema name \(name) conflicts with a GraphQL schema type. Please choose a difference schema name."
+        return "Schema name \(name) conflicts with name of a type in your GraphQL schema. Please choose a different schema name. Suggestions: \(name)Schema, \(name)GraphQL, \(name)API"
       }
     }
   }
