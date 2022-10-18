@@ -56,6 +56,9 @@ public class Mock<O: MockObject>: AnyMock, Hashable {
       if let mock = $0 as? AnyMock {
         return mock._selectionSetMockData
       }
+      if let mockArray = $0 as? [AnyMock?] {
+        return mockArray.map(\.?._selectionSetMockData)
+      }
       return $0
     }
   }
