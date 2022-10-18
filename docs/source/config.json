@@ -2,7 +2,7 @@
   "title": "Client (iOS)",
   "version": "1.0",
   "algoliaFilters": [
-    "docset:ios"
+    "docset:apollo-ios"
   ],
   "sidebar": {
     "Introduction": "/",
