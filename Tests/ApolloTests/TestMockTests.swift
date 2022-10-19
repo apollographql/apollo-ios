@@ -243,6 +243,40 @@ class TestMockTests: XCTestCase {
     expect(heightDict?["yards"] as? Int).to(equal(3))
   }
 
+  func test___selectionSetMockData__givenListOfObjectsFieldSet__convertsObjectsToDict() throws {
+    // given
+    let mock = Mock<Dog>()
+    let cat = Mock<Cat>()
+
+    // when
+    cat.id = "10"
+    mock.listOfObjects = [cat]
+
+    let actual = mock._selectionSetMockData
+    let listDict = actual["listOfObjects"] as? [JSONObject]
+
+    // then
+    expect(listDict).toNot(beNil())
+    expect(listDict?[0]["id"] as? String).to(equal("10"))
+  }
+
+  func test___selectionSetMockData__givenOptionalListOfObjectsFieldSet__convertsObjectsToDict() throws {
+    // given
+    let mock = Mock<Dog>()
+    let cat = Mock<Cat>()
+
+    // when
+    cat.id = "10"
+    mock.listOfOptionalObjects = [cat, nil]
+
+    let actual = mock._selectionSetMockData
+    let listDict = actual["listOfOptionalObjects"] as? [JSONObject?]
+
+    // then
+    expect(listDict).toNot(beNil())
+    expect(listDict?[0]?["id"] as? String).to(equal("10"))
+  }
+
   func test___selectionSetMockData__givenCustomScalarField__convertsObjectToDictWithCustomScalarIntact() throws {
     // given
     let mock = Mock<Dog>()
