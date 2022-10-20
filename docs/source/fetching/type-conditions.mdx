@@ -23,6 +23,7 @@ type Droid implements Character {
   name: String!
   primaryFunction: String!
 }
+```
 
 Since both the `Human` and `Droid` types implement the `Character` interface, they can both be converted into the abstract type `Character`. That means the result of a field of the `Character` type (ie. `hero`), the can be either a `Human` or a `Droid`. When we query the `hero` field, the server doesn't return a response object of the `Character` type, it returns either a concrete type that implements the `Character` interface. In this case, that is either a `Human` or a `Droid`.
 
