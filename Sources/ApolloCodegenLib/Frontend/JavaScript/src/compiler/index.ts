@@ -297,14 +297,14 @@ export function compileToIR(
           directives: directives,
         };
 
-        function validateFieldName(node: FieldNode, disallowedNames?: Array<string>) {
-          if (disallowedNames) {
+        function validateFieldName(node: FieldNode, disallowedNames?: Array<string>, schemaName?: string) {
+          if (disallowedNames && schemaName) {
             const responseKey = (node.alias ?? node.name).value
             const responseKeyFirstLowercase = responseKey.charAt(0).toLowerCase() + responseKey.slice(1)
 
             if (disallowedNames?.includes(responseKeyFirstLowercase)) {
               throw new GraphQLError(
-                `Schema name "${responseKeyFirstLowercase}" conflicts with name of a generated object API. Please choose a different schema name. Suggestions: "${responseKeyFirstLowercase}Schema", "${responseKeyFirstLowercase}GraphQL", "${responseKeyFirstLowercase}API"`,
+                `Schema name "${schemaName}" conflicts with name of a generated object API. Please choose a different schema name. Suggestions: "${schemaName}Schema", "${schemaName}GraphQL", "${schemaName}API"`,
                 { nodes: node }
               );
             }
@@ -312,9 +312,9 @@ export function compileToIR(
         }
 
         if (isListType(fieldType) || (isNonNullType(fieldType) && isListType(fieldType.ofType))) {
-          validateFieldName(selectionNode, validationOptions.disallowedEntityListFieldNames)
+          validateFieldName(selectionNode, validationOptions.disallowedEntityListFieldNames, validationOptions.schemaName)
         } else if (isCompositeType(unwrappedFieldType)) {
-          validateFieldName(selectionNode, validationOptions.disallowedEntityFieldNames)
+          validateFieldName(selectionNode, validationOptions.disallowedEntityFieldNames, validationOptions.schemaName)
         }
 
         if (isCompositeType(unwrappedFieldType)) {

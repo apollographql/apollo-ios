@@ -3,12 +3,15 @@ import JavaScriptCore
 
 public struct ValidationOptions {
 
+  let schemaName: String
   let disallowedScalarFieldNames: Set<String>
   let disallowedEntityFieldNames: Set<String>
   let disallowedEntityListFieldNames: Set<String>
   let disallowedInputParameterNames: Set<String>
 
   init(config: ApolloCodegen.ConfigurationContext) {
+    self.schemaName = config.schemaName
+
     self.disallowedScalarFieldNames = SwiftKeywords.DisallowedFieldNames
 
     self.disallowedEntityFieldNames = [config.schemaName.firstLowercased]
@@ -21,7 +24,7 @@ public struct ValidationOptions {
     case pluralizedSchemaName:
       self.disallowedEntityListFieldNames = [singularizedSchemaName.firstLowercased]
     default:
-      fatalError("Could not derive singular/plural of schema name \(config.schemaName)")
+      fatalError("Could not derive singular/plural of schema name '\(config.schemaName)'")
     }
 
     self.disallowedInputParameterNames =
@@ -31,6 +34,11 @@ public struct ValidationOptions {
   public class Bridged: JavaScriptObject {
     convenience init(from options: ValidationOptions, bridge: JavaScriptBridge) {
       let jsValue = JSValue(newObjectIn: bridge.context)
+
+      jsValue?.setValue(
+        JSValue(object: options.schemaName, in: bridge.context),
+        forProperty: "schemaName"
+      )
 
       jsValue?.setValue(
         JSValue(object: Array(options.disallowedScalarFieldNames), in: bridge.context),

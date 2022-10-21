@@ -12,6 +12,7 @@ import {
 const specifiedRulesToBeRemoved: [ValidationRule] = [NoUnusedFragmentsRule];
 
 export interface ValidationOptions {
+  schemaName?: string
   disallowedScalarFieldNames?: Array<string>
   disallowedEntityFieldNames?: Array<string>
   disallowedEntityListFieldNames?: Array<string>

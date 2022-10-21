@@ -422,7 +422,7 @@ class CompilationTests: XCTestCase {
     // then
     XCTAssertThrowsError(try compileFrontend(schemaName: "predator")) { error in
       XCTAssertTrue((error as! ApolloCodegenLib.JavaScriptError).description.contains("""
-        Schema name "predators" conflicts with name of a generated object API. \
+        Schema name "predator" conflicts with name of a generated object API. \
         Please choose a different schema name.
         """
       ))
@@ -463,7 +463,7 @@ class CompilationTests: XCTestCase {
     // then
     XCTAssertThrowsError(try compileFrontend(schemaName: "predator")) { error in
       XCTAssertTrue((error as! ApolloCodegenLib.JavaScriptError).description.contains("""
-        Schema name "predators" conflicts with name of a generated object API. \
+        Schema name "predator" conflicts with name of a generated object API. \
         Please choose a different schema name.
         """
       ))
