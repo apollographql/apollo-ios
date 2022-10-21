@@ -92,9 +92,9 @@ export function mergeDocuments(documents: DocumentNode[]): DocumentNode {
 export function validateDocument(
   schema: GraphQLSchema,
   document: DocumentNode,
-  options: ValidationOptions,
+  validationOptions: ValidationOptions,
 ): readonly GraphQLError[] {
-  return validate(schema, document, defaultValidationRules(options));
+  return validate(schema, document, defaultValidationRules(validationOptions));
 }
 
 export function compileDocument(

@@ -157,10 +157,12 @@ public class ApolloCodegen {
     let graphQLSchema = try createSchema(config, frontend)
     let operationsDocument = try createOperationsDocument(config, frontend, experimentalFeatures)
 
+    let validationOptions = ValidationOptions(config: config)
+
     let graphqlErrors = try frontend.validateDocument(
       schema: graphQLSchema,
       document: operationsDocument,
-      options: ValidationOptions(config: config.config)
+      validationOptions: validationOptions
     )
 
     guard graphqlErrors.isEmpty else {

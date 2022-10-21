@@ -88,13 +88,13 @@ public final class GraphQLJSFrontend {
   public func validateDocument(
     schema: GraphQLSchema,
     document: GraphQLDocument,
-    options: ValidationOptions
+    validationOptions: ValidationOptions
   ) throws -> [GraphQLError] {
     return try library.call(
       "validateDocument",
       with: schema,
       document,
-      ValidationOptions.Bridged(from: options, bridge: self.bridge)
+      ValidationOptions.Bridged(from: validationOptions, bridge: self.bridge)
     )
   }
 
