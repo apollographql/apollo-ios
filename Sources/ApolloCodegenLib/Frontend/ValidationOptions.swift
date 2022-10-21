@@ -4,13 +4,13 @@ import JavaScriptCore
 public struct ValidationOptions {
 
   struct DisallowedFieldNames {
-    let scalar: Set<String>
+    let allFields: Set<String>
     let entity: Set<String>
     let entityList: Set<String>
 
     var asDictionary: Dictionary<String, Array<String>> {
       return [
-        "scalar": Array(scalar),
+        "allFields": Array(allFields),
         "entity": Array(entity),
         "entityList": Array(entityList)
       ]
@@ -37,7 +37,7 @@ public struct ValidationOptions {
     }
 
     self.disallowedFieldNames = DisallowedFieldNames(
-      scalar: SwiftKeywords.DisallowedFieldNames,
+      allFields: SwiftKeywords.DisallowedFieldNames,
       entity: [config.schemaName.firstLowercased],
       entityList: disallowedEntityListFieldNames
     )

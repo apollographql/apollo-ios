@@ -12,7 +12,7 @@ import {
 const specifiedRulesToBeRemoved: [ValidationRule] = [NoUnusedFragmentsRule];
 
 export interface DisallowedFieldNames {
-  scalar?: Array<string>
+  allFields?: Array<string>
   entity?: Array<string>
   entityList?: Array<string>
 }
@@ -24,7 +24,7 @@ export interface ValidationOptions {
 }
 
 export function defaultValidationRules(options: ValidationOptions): ValidationRule[] {
-  const disallowedFieldNamesRule = ApolloIOSDisallowedFieldNames(options.disallowedFieldNames?.scalar)
+  const disallowedFieldNamesRule = ApolloIOSDisallowedFieldNames(options.disallowedFieldNames?.allFields)
   const disallowedInputParameterNamesRule = ApolloIOSDisallowedInputParameterNames(options.disallowedInputParameterNames)
   return [
     NoAnonymousQueries,

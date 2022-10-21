@@ -1,7 +1,7 @@
 import { DisallowedFieldNames, ValidationOptions } from "../validationRules";
 
 const disallowedFieldNames: DisallowedFieldNames = {
-  scalar: [],
+  allFields: [],
   entity: [],
   entityList: []
 }
