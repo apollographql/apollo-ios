@@ -1,8 +1,13 @@
-import { ValidationOptions } from "../validationRules";
+import { DisallowedFieldNames, ValidationOptions } from "../validationRules";
+
+const disallowedFieldNames: DisallowedFieldNames = {
+  scalar: [],
+  entity: [],
+  entityList: []
+}
 
 export const emptyValidationOptions: ValidationOptions = {
-  disallowedScalarFieldNames: [],
-  disallowedEntityFieldNames: [],
-  disallowedEntityListFieldNames: [],
+  schemaName: "TestSchema",
+  disallowedFieldNames: disallowedFieldNames,
   disallowedInputParameterNames: [],
 };
