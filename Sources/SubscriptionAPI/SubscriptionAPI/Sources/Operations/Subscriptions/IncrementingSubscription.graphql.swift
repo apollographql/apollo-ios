@@ -1,9 +1,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import ApolloAPI
-@_exported import enum ApolloAPI.GraphQLEnum
-@_exported import enum ApolloAPI.GraphQLNullable
+@_exported import ApolloAPI
 
 public class IncrementingSubscription: GraphQLSubscription {
   public static let operationName: String = "Incrementing"

@@ -11,7 +11,7 @@ public class Human: MockObject {
 
   public struct MockFields {
     @Field<Int>("bodyTemperature") public var bodyTemperature
-    @Field<Actor>("firstName") public var firstName
+    @Field<String>("firstName") public var firstName
     @Field<Height>("height") public var height
     @Field<Bool>("laysEggs") public var laysEggs
     @Field<[Animal]>("predators") public var predators
@@ -23,45 +23,7 @@ public class Human: MockObject {
 public extension Mock where O == Human {
   convenience init(
     bodyTemperature: Int? = nil,
-    firstName: Mock<Actor>? = nil,
-    height: Mock<Height>? = nil,
-    laysEggs: Bool? = nil,
-    predators: [AnyMock]? = nil,
-    skinCovering: GraphQLEnum<MySchemaModule.SkinCovering>? = nil,
-    species: String? = nil
-  ) {
-    self.init()
-    self.bodyTemperature = bodyTemperature
-    self.firstName = firstName
-    self.height = height
-    self.laysEggs = laysEggs
-    self.predators = predators
-    self.skinCovering = skinCovering
-    self.species = species
-  }
-}
-
-
-public class Actor: MockObject {
-  public static let objectType: Object = MySchemaModule.Objects.Human
-  public static let _mockFields = MockFields()
-  public typealias MockValueCollectionType = Array<Mock<Human>>
-
-  public struct MockFields {
-    @Field<Int>("bodyTemperature") public var bodyTemperature
-    @Field<Actor>("firstName") public var firstName
-    @Field<Height>("height") public var height
-    @Field<Bool>("laysEggs") public var laysEggs
-    @Field<[Animal]>("predators") public var predators
-    @Field<GraphQLEnum<MySchemaModule.SkinCovering>>("skinCovering") public var skinCovering
-    @Field<String>("species") public var species
-  }
-}
-
-public extension Mock where O == Actor {
-  convenience init(
-    bodyTemperature: Int? = nil,
-    firstName: Mock<Actor? = nil,
+    firstName: String? = nil,
     height: Mock<Height>? = nil,
     laysEggs: Bool? = nil,
     predators: [AnyMock]? = nil,
