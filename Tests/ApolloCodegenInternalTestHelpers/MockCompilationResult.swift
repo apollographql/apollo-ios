@@ -5,6 +5,8 @@ public extension CompilationResult {
   class func mock() -> Self {
     let mock = Self.emptyMockObject()
     mock.referencedTypes = []
+    mock.fragments = []
+    mock.operations = []
     return mock
   }
 

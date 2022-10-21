@@ -88,13 +88,13 @@ public final class GraphQLJSFrontend {
   public func validateDocument(
     schema: GraphQLSchema,
     document: GraphQLDocument,
-    options: ValidationOptions
+    validationOptions: ValidationOptions
   ) throws -> [GraphQLError] {
     return try library.call(
       "validateDocument",
       with: schema,
       document,
-      ValidationOptions.Bridged(from: options, bridge: self.bridge)
+      ValidationOptions.Bridged(from: validationOptions, bridge: self.bridge)
     )
   }
 
@@ -102,11 +102,15 @@ public final class GraphQLJSFrontend {
   public func compile(
     schema: GraphQLSchema,
     document: GraphQLDocument,
-    experimentalLegacySafelistingCompatibleOperations: Bool = false
+    experimentalLegacySafelistingCompatibleOperations: Bool = false,
+    validationOptions: ValidationOptions
   ) throws -> CompilationResult {
     return try library.call(
       "compileDocument",
-      with: schema, document, experimentalLegacySafelistingCompatibleOperations
+      with: schema,
+      document,
+      experimentalLegacySafelistingCompatibleOperations,
+      ValidationOptions.Bridged(from: validationOptions, bridge: self.bridge)
     )
   }
 }

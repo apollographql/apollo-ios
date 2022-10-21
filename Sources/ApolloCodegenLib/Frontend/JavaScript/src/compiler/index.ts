@@ -31,11 +31,15 @@ import {
   SelectionSetNode,
   typeFromAST,
   isObjectType,
-  isInterfaceType
+  isInterfaceType,
+  isListType,
+  isNonNullType,
+  FieldNode,
 } from "graphql";
 import * as ir from "./ir";
 import { valueFromValueNode } from "./values";
 import { applyRequiredStatus } from "graphql/utilities/applyRequiredStatus";
+import { ValidationOptions } from "../validationRules";
 
 function filePathForNode(node: ASTNode): string | undefined {
   return node.loc?.source?.name;
@@ -51,7 +55,8 @@ export interface CompilationResult {
 export function compileToIR(
   schema: GraphQLSchema,
   document: DocumentNode,
-  legacySafelistingCompatibleOperations: boolean
+  legacySafelistingCompatibleOperations: boolean,
+  validationOptions: ValidationOptions
 ): CompilationResult {
   // Collect fragment definition nodes upfront so we can compile these as we encounter them.
   const fragmentNodeMap = new Map<String, FragmentDefinitionNode>();
@@ -291,6 +296,26 @@ export function compileToIR(
           deprecationReason: deprecationReason || undefined,
           directives: directives,
         };
+
+        function validateFieldName(node: FieldNode, disallowedNames?: Array<string>, schemaName?: string) {
+          if (disallowedNames && schemaName) {
+            const responseKey = (node.alias ?? node.name).value
+            const responseKeyFirstLowercase = responseKey.charAt(0).toLowerCase() + responseKey.slice(1)
+
+            if (disallowedNames?.includes(responseKeyFirstLowercase)) {
+              throw new GraphQLError(
+                `Schema name "${schemaName}" conflicts with name of a generated object API. Please choose a different schema name. Suggestions: "${schemaName}Schema", "${schemaName}GraphQL", "${schemaName}API"`,
+                { nodes: node }
+              );
+            }
+          }
+        }
+
+        if (isListType(fieldType) || (isNonNullType(fieldType) && isListType(fieldType.ofType))) {
+          validateFieldName(selectionNode, validationOptions.disallowedFieldNames?.entityList, validationOptions.schemaName)
+        } else if (isCompositeType(unwrappedFieldType)) {
+          validateFieldName(selectionNode, validationOptions.disallowedFieldNames?.entity, validationOptions.schemaName)
+        }
 
         if (isCompositeType(unwrappedFieldType)) {
           const selectionSetNode = selectionNode.selectionSet;

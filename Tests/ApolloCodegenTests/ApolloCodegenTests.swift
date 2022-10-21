@@ -1829,7 +1829,7 @@ class ApolloCodegenTests: XCTestCase {
     expect(self.testFileManager.doesFileExist(atPath: testInTestMocksFolderUserFile)).to(beTrue())
   }
 
-  // MARK: Validation Tests
+  // MARK: Validation Tests (test mock module type)
 
   func test_validation_givenTestMockConfiguration_asSwiftPackage_withSchemaTypesModule_asEmbeddedInTarget_shouldThrow() throws {
     // given
@@ -1842,7 +1842,7 @@ class ApolloCodegenTests: XCTestCase {
     ), rootURL: nil)
 
     // then
-    expect(try ApolloCodegen.validate(config: configContext))
+    expect(try ApolloCodegen.validate(config: configContext, compilationResult: .mock()))
       .to(throwError(ApolloCodegen.Error.testMocksInvalidSwiftPackageConfiguration))
   }
 
@@ -1857,7 +1857,7 @@ class ApolloCodegenTests: XCTestCase {
     ), rootURL: nil)
 
     // then
-    expect(try ApolloCodegen.validate(config: configContext))
+    expect(try ApolloCodegen.validate(config: configContext, compilationResult: .mock()))
       .to(throwError(ApolloCodegen.Error.testMocksInvalidSwiftPackageConfiguration))
   }
 
@@ -1868,9 +1868,11 @@ class ApolloCodegenTests: XCTestCase {
     ), rootURL: nil)
 
     // then
-    expect(try ApolloCodegen.validate(config: configContext))
+    expect(try ApolloCodegen.validate(config: configContext, compilationResult: .mock()))
       .notTo(throwError())
   }
+
+  // MARK: Validation Tests (search paths)
 
   func test_validation_givenOperationSearchPathWithoutFileExtensionComponent_shouldThrow() throws {
     // given
@@ -1879,7 +1881,7 @@ class ApolloCodegenTests: XCTestCase {
     ), rootURL: nil)
 
     // then
-    expect(try ApolloCodegen.validate(config: configContext))
+    expect(try ApolloCodegen.validate(config: configContext, compilationResult: .mock()))
       .to(throwError(ApolloCodegen.Error.inputSearchPathInvalid(path: "operations/*")))
   }
 
@@ -1890,7 +1892,7 @@ class ApolloCodegenTests: XCTestCase {
     ), rootURL: nil)
 
     // then
-    expect(try ApolloCodegen.validate(config: configContext))
+    expect(try ApolloCodegen.validate(config: configContext, compilationResult: .mock()))
       .to(throwError(ApolloCodegen.Error.inputSearchPathInvalid(path: "operations/*.")))
   }
 
@@ -1901,7 +1903,7 @@ class ApolloCodegenTests: XCTestCase {
     ), rootURL: nil)
 
     // then
-    expect(try ApolloCodegen.validate(config: configContext))
+    expect(try ApolloCodegen.validate(config: configContext, compilationResult: .mock()))
       .to(throwError(ApolloCodegen.Error.inputSearchPathInvalid(path: "schema/*")))
   }
 
@@ -1912,8 +1914,172 @@ class ApolloCodegenTests: XCTestCase {
     ), rootURL: nil)
 
     // then
-    expect(try ApolloCodegen.validate(config: configContext))
+    expect(try ApolloCodegen.validate(config: configContext, compilationResult: .mock()))
       .to(throwError(ApolloCodegen.Error.inputSearchPathInvalid(path: "schema/*.")))
+  }
+
+  // MARK: Validation Tests (conflicting schema name)
+
+  let conflictingSchemaNames = ["rocket", "Rocket"]
+
+  func test__validation__givenSchemaName_matchingObjectName_shouldThrow() throws {
+    // given
+    let object = GraphQLObjectType.mock("Rocket")
+    let compilationResult = CompilationResult.mock()
+
+    compilationResult.referencedTypes.append(object)
+
+    // then
+    for name in conflictingSchemaNames {
+      let configContext = ApolloCodegen.ConfigurationContext(config: .mock(
+        schemaName: name
+      ), rootURL: nil)
+
+      expect(try ApolloCodegen.validate(config: configContext, compilationResult: compilationResult))
+        .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaName)))
+    }
+  }
+
+  func test__validation__givenSchemaName_matchingInterfaceName_shouldThrow() throws {
+    // given
+    let interface = GraphQLInterfaceType.mock("Rocket")
+    let compilationResult = CompilationResult.mock()
+
+    compilationResult.referencedTypes.append(interface)
+
+    // then
+    for name in conflictingSchemaNames {
+      let configContext = ApolloCodegen.ConfigurationContext(config: .mock(
+        schemaName: name
+      ), rootURL: nil)
+
+      expect(try ApolloCodegen.validate(config: configContext, compilationResult: compilationResult))
+        .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaName)))
+    }
+  }
+
+  func test__validation__givenSchemaName_matchingUnionName_shouldThrow() throws {
+    // given
+    let union = GraphQLUnionType.mock("Rocket")
+    let compilationResult = CompilationResult.mock()
+
+    compilationResult.referencedTypes.append(union)
+
+    // then
+    for name in conflictingSchemaNames {
+      let configContext = ApolloCodegen.ConfigurationContext(config: .mock(
+        schemaName: name
+      ), rootURL: nil)
+
+      expect(try ApolloCodegen.validate(config: configContext, compilationResult: compilationResult))
+        .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaName)))
+    }
+  }
+
+  func test__validation__givenSchemaName_matchingEnumName_shouldThrow() throws {
+    // given
+    let `enum` = GraphQLEnumType.mock(name: "Rocket", values: ["one", "two"])
+    let compilationResult = CompilationResult.mock()
+
+    compilationResult.referencedTypes.append(`enum`)
+
+    // then
+    for name in conflictingSchemaNames {
+      let configContext = ApolloCodegen.ConfigurationContext(config: .mock(
+        schemaName: name
+      ), rootURL: nil)
+
+      expect(try ApolloCodegen.validate(config: configContext, compilationResult: compilationResult))
+        .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaName)))
+    }
+  }
+
+  func test__validation__givenSchemaName_matchingInputObjectName_shouldThrow() throws {
+    // given
+    let inputObject = GraphQLInputObjectType.mock("Rocket")
+    let compilationResult = CompilationResult.mock()
+
+    compilationResult.referencedTypes.append(inputObject)
+
+    // then
+    for name in conflictingSchemaNames {
+      let configContext = ApolloCodegen.ConfigurationContext(config: .mock(
+        schemaName: name
+      ), rootURL: nil)
+
+      expect(try ApolloCodegen.validate(config: configContext, compilationResult: compilationResult))
+        .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaName)))
+    }
+  }
+
+  func test__validation__givenSchemaName_matchingCustomScalarName_shouldThrow() throws {
+    // given
+    let customScalar = GraphQLScalarType.mock(name: "Rocket")
+    let compilationResult = CompilationResult.mock()
+
+    compilationResult.referencedTypes.append(customScalar)
+
+    // then
+    for name in conflictingSchemaNames {
+      let configContext = ApolloCodegen.ConfigurationContext(config: .mock(
+        schemaName: name
+      ), rootURL: nil)
+
+      expect(try ApolloCodegen.validate(config: configContext, compilationResult: compilationResult))
+        .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaName)))
+    }
+  }
+
+  func test__validation__givenSchemaName_matchingFragmentDefinitionName_shouldThrow() throws {
+    // given
+    let fragmentDefinition = CompilationResult.FragmentDefinition.mock(
+      "Rocket",
+      type: .mock("MockType"))
+    let compilationResult = CompilationResult.mock()
+
+    compilationResult.fragments.append(fragmentDefinition)
+
+    // then
+    for name in conflictingSchemaNames {
+      let configContext = ApolloCodegen.ConfigurationContext(config: .mock(
+        schemaName: name
+      ), rootURL: nil)
+
+      expect(try ApolloCodegen.validate(config: configContext, compilationResult: compilationResult))
+        .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaName)))
+    }
+  }
+
+  func test__validation__givenUniqueSchemaName_shouldNotThrow() throws {
+    // given
+    let object = GraphQLObjectType.mock("MockObject")
+    let interface = GraphQLInterfaceType.mock("MockInterface")
+    let union = GraphQLUnionType.mock("MockUnion")
+    let `enum` = GraphQLEnumType.mock(name: "MockEnum", values: ["one", "two"])
+    let inputObject = GraphQLInputObjectType.mock("MockInputObject")
+    let customScalar = GraphQLScalarType.mock(name: "MockCustomScalar")
+    let fragmentDefinition = CompilationResult.FragmentDefinition.mock(
+      "MockFragmentDefinition",
+      type: .mock("MockType"))
+    let compilationResult = CompilationResult.mock()
+
+    compilationResult.referencedTypes.append(contentsOf: [
+      object,
+      interface,
+      union,
+      `enum`,
+      inputObject,
+      customScalar
+    ])
+    compilationResult.fragments.append(fragmentDefinition)
+
+    // then
+    let configContext = ApolloCodegen.ConfigurationContext(config: .mock(
+      schemaName: "MySchema"
+    ), rootURL: nil)
+
+    expect(try ApolloCodegen.validate(config: configContext, compilationResult: compilationResult))
+      .notTo(throwError())
   }
 
 }

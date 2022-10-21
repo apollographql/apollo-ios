@@ -4,8 +4,10 @@ import Foundation
 extension ValidationOptions {
 
   public static func mock(schemaName: String = "TestSchema") -> Self {
-    let config = ApolloCodegenConfiguration.mock(schemaName: schemaName)
-    return ValidationOptions(config: config)
+    let context = ApolloCodegen.ConfigurationContext(
+      config: ApolloCodegenConfiguration.mock(schemaName: schemaName))
+
+    return ValidationOptions(config: context)
   }
 
 }

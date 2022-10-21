@@ -3,12 +3,44 @@ import JavaScriptCore
 
 public struct ValidationOptions {
 
-  let disallowedFieldNames: Set<String>
+  struct DisallowedFieldNames {
+    let allFields: Set<String>
+    let entity: Set<String>
+    let entityList: Set<String>
+
+    var asDictionary: Dictionary<String, Array<String>> {
+      return [
+        "allFields": Array(allFields),
+        "entity": Array(entity),
+        "entityList": Array(entityList)
+      ]
+    }
+  }
+
+  let schemaName: String
+  let disallowedFieldNames: DisallowedFieldNames
   let disallowedInputParameterNames: Set<String>
 
-  init(config: ApolloCodegenConfiguration) {
-    self.disallowedFieldNames =
-    SwiftKeywords.DisallowedFieldNames.union([config.schemaName.firstLowercased])
+  init(config: ApolloCodegen.ConfigurationContext) {
+    self.schemaName = config.schemaName
+
+    let singularizedSchemaName = config.pluralizer.singularize(config.schemaName)
+    let pluralizedSchemaName = config.pluralizer.pluralize(config.schemaName)
+    let disallowedEntityListFieldNames: Set<String>
+    switch (config.schemaName) {
+    case singularizedSchemaName:
+      disallowedEntityListFieldNames = [pluralizedSchemaName.firstLowercased]
+    case pluralizedSchemaName:
+      disallowedEntityListFieldNames = [singularizedSchemaName.firstLowercased]
+    default:
+      fatalError("Could not derive singular/plural of schema name '\(config.schemaName)'")
+    }
+
+    self.disallowedFieldNames = DisallowedFieldNames(
+      allFields: SwiftKeywords.DisallowedFieldNames,
+      entity: [config.schemaName.firstLowercased],
+      entityList: disallowedEntityListFieldNames
+    )
 
     self.disallowedInputParameterNames =
     SwiftKeywords.DisallowedInputParameterNames.union([config.schemaName.firstLowercased])
@@ -17,8 +49,14 @@ public struct ValidationOptions {
   public class Bridged: JavaScriptObject {
     convenience init(from options: ValidationOptions, bridge: JavaScriptBridge) {
       let jsValue = JSValue(newObjectIn: bridge.context)
+
       jsValue?.setValue(
-        JSValue(object: Array(options.disallowedFieldNames), in: bridge.context),
+        JSValue(object: options.schemaName, in: bridge.context),
+        forProperty: "schemaName"
+      )
+
+      jsValue?.setValue(
+        JSValue(object: options.disallowedFieldNames.asDictionary, in: bridge.context),
         forProperty: "disallowedFieldNames"
       )
 

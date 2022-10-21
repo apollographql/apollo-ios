@@ -16,6 +16,7 @@ import {
   GraphQLSchema,
   DocumentNode
 } from "graphql";
+import { emptyValidationOptions } from "../__testUtils__/validationHelpers";
 
 describe("given schema", () => {
   const schemaSDL: string = `
@@ -48,7 +49,7 @@ describe("given schema", () => {
     );
 
     it("should compile inline fragment with inclusion condition", () => {
-      const compilationResult: CompilationResult = compileDocument(schema, document, false);
+      const compilationResult: CompilationResult = compileDocument(schema, document, false, emptyValidationOptions);
       const operation = compilationResult.operations[0];
       const allAnimals = operation.selectionSet.selections[0] as Field;
       const inlineFragment = allAnimals?.selectionSet?.selections?.[0] as InlineFragment;

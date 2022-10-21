@@ -12,6 +12,7 @@ import {
   GraphQLSchema,
   DocumentNode
 } from "graphql";
+import { emptyValidationOptions } from "../__testUtils__/validationHelpers";
 
 describe("given schema", () => {
   const schemaSDL: string = 
@@ -47,7 +48,7 @@ interface Pet {
     );
 
     describe("compile document", () => {
-      const compilationResult: CompilationResult = compileDocument(schema, document, false);
+      const compilationResult: CompilationResult = compileDocument(schema, document, false, emptyValidationOptions);
 
       it("operation definition should have source including __typename field.", () => {
         const operation = compilationResult.operations[0];
@@ -68,7 +69,7 @@ interface Pet {
     });
 
     describe("compile document for legacy compatible safelisting", () => {
-      const compilationResult: CompilationResult = compileDocument(schema, document, true);
+      const compilationResult: CompilationResult = compileDocument(schema, document, true, emptyValidationOptions);
 
       it("operation definition should have source including __typename field in each selection set.", () => {
         const operation = compilationResult.operations[0];
@@ -109,7 +110,7 @@ interface Pet {
     );
 
     it("operation definition should have source including __typename field with no directives.", () => {
-      const compilationResult: CompilationResult = compileDocument(schema, document, false);
+      const compilationResult: CompilationResult = compileDocument(schema, document, false, emptyValidationOptions);
       const operation = compilationResult.operations[0];
 
       const expected: string = 
@@ -144,7 +145,7 @@ interface Pet {
     );
 
     it("operation definition should have source not including local cache mutation directive.", () => {
-      const compilationResult: CompilationResult = compileDocument(schema, document, false);
+      const compilationResult: CompilationResult = compileDocument(schema, document, false, emptyValidationOptions);
       const operation = compilationResult.operations[0];
 
       const expected: string = 
@@ -174,7 +175,7 @@ interface Pet {
     );
 
     it("fragment definition should have source including __typename field.", () => {
-      const compilationResult: CompilationResult = compileDocument(schema, document, false);
+      const compilationResult: CompilationResult = compileDocument(schema, document, false, emptyValidationOptions);
       const fragment = compilationResult.fragments[0];
 
       const expected: string = 
