@@ -15,11 +15,11 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/compile(schema:document:experimentalLegacySafelistingCompatibleOperations:)"
+    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/compile(schema:document:experimentalLegacySafelistingCompatibleOperations:validationOptions:)"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:16ApolloCodegenLib17GraphQLJSFrontendC7compile6schema8document49experimentalLegacySafelistingCompatibleOperationsAA17CompilationResultCAA0D8QLSchemaC_AA0D10QLDocumentCSbtKF",
+    "externalID" : "s:16ApolloCodegenLib17GraphQLJSFrontendC7compile6schema8document49experimentalLegacySafelistingCompatibleOperations17validationOptionsAA17CompilationResultCAA0D8QLSchemaC_AA0D10QLDocumentCSbAA010ValidationO0VtKF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -86,6 +86,23 @@
       },
       {
         "kind" : "text",
+        "text" : ", "
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "validationOptions"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:16ApolloCodegenLib17ValidationOptionsV",
+        "text" : "ValidationOptions"
+      },
+      {
+        "kind" : "text",
         "text" : ") "
       },
       {
@@ -110,7 +127,7 @@
     "role" : "symbol",
     "roleHeading" : "Instance Method",
     "symbolKind" : "method",
-    "title" : "compile(schema:document:experimentalLegacySafelistingCompatibleOperations:)"
+    "title" : "compile(schema:document:experimentalLegacySafelistingCompatibleOperations:validationOptions:)"
   },
   "primaryContentSections" : [
     {
@@ -190,7 +207,25 @@
             },
             {
               "kind" : "text",
-              "text" : " = false) "
+              "text" : " = false, "
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "validationOptions"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ValidationOptions",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:16ApolloCodegenLib17ValidationOptionsV",
+              "text" : "ValidationOptions"
+            },
+            {
+              "kind" : "text",
+              "text" : ") "
             },
             {
               "kind" : "keyword",
@@ -223,7 +258,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/apollocodegenlib\/graphqljsfrontend\/compile(schema:document:experimentallegacysafelistingcompatibleoperations:)"
+        "\/documentation\/apollocodegenlib\/graphqljsfrontend\/compile(schema:document:experimentallegacysafelistingcompatibleoperations:validationoptions:)"
       ],
       "traits" : [
         {
@@ -347,7 +382,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/graphqljsfrontend"
 },
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLJSFrontend/compile(schema:document:experimentalLegacySafelistingCompatibleOperations:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLJSFrontend/compile(schema:document:experimentalLegacySafelistingCompatibleOperations:validationOptions:)": {
   "abstract" : [
     {
       "text" : "Compiles a GraphQL document into an intermediate representation that is more suitable for analysis and code generation.",
@@ -420,6 +455,23 @@
     },
     {
       "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "validationOptions"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:16ApolloCodegenLib17ValidationOptionsV",
+      "text" : "ValidationOptions"
+    },
+    {
+      "kind" : "text",
       "text" : ") "
     },
     {
@@ -436,12 +488,12 @@
       "text" : "CompilationResult"
     }
   ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/compile(schema:document:experimentalLegacySafelistingCompatibleOperations:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/compile(schema:document:experimentalLegacySafelistingCompatibleOperations:validationOptions:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "compile(schema:document:experimentalLegacySafelistingCompatibleOperations:)",
+  "title" : "compile(schema:document:experimentalLegacySafelistingCompatibleOperations:validationOptions:)",
   "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/graphqljsfrontend\/compile(schema:document:experimentallegacysafelistingcompatibleoperations:)"
+  "url" : "\/documentation\/apollocodegenlib\/graphqljsfrontend\/compile(schema:document:experimentallegacysafelistingcompatibleoperations:validationoptions:)"
 },
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLSchema": {
   "abstract" : [
@@ -476,6 +528,37 @@
   "title" : "GraphQLSchema",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/graphqlschema"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ValidationOptions": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ValidationOptions"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ValidationOptions",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ValidationOptions"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ValidationOptions",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/validationoptions"
 }
 }
 }

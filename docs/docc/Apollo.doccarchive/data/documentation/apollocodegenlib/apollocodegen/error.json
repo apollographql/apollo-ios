@@ -104,6 +104,7 @@
       "identifiers" : [
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegen\/Error\/graphQLSourceValidationFailure(atLines:)",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegen\/Error\/inputSearchPathInvalid(path:)",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegen\/Error\/schemaNameConflict(name:)",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegen\/Error\/testMocksInvalidSwiftPackageConfiguration"
       ],
       "title" : "Enumeration Cases"
@@ -378,6 +379,52 @@
   "title" : "ApolloCodegen.Error.inputSearchPathInvalid(path:)",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apollocodegen\/error\/inputsearchpathinvalid(path:)"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegen/Error/schemaNameConflict(name:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "schemaNameConflict"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "name"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegen\/Error\/schemaNameConflict(name:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "ApolloCodegen.Error.schemaNameConflict(name:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/apollocodegen\/error\/schemanameconflict(name:)"
 },
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegen/Error/testMocksInvalidSwiftPackageConfiguration": {
   "abstract" : [
