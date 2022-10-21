@@ -60,7 +60,7 @@ class CompilationTests: XCTestCase {
 
   // MARK: - Tests
   
-  func testCompileSingleQuery() throws {
+  func test__compile__givenSingleQuery() throws {
     // given
     try useStarWarsSchema()
 
@@ -101,7 +101,7 @@ class CompilationTests: XCTestCase {
                             ["Human", "Droid", "Query", "Episode", "Character", "String"])
   }
 
-  func testCompileSingleQueryCCN() throws {
+  func test__compile__givenSingleQuery_withClientControlledNullability() throws {
     // given
     try useStarWarsSchema()
 
@@ -145,7 +145,7 @@ class CompilationTests: XCTestCase {
                             ["ID", "Query", "Human", "Droid", "String", "Float", "Episode", "Character"])
   }
 
-  func testCompile_givenOperationWithRecognizedDirective_hasDirective() throws {
+  func test__compile__givenOperationWithRecognizedDirective_hasDirective() throws {
     schemaSDL = """
     type Query {
       allAnimals: [Animal!]
@@ -179,7 +179,7 @@ class CompilationTests: XCTestCase {
 
   /// Tests that we automatically add the local cache mutation directive to the schema
   /// during codegen.
-  func testCompile_givenSchemaSDL_queryWithLocalCacheMutationDirective_notInSchema_hasDirective() throws {
+  func test__compile__givenSchemaSDL_queryWithLocalCacheMutationDirective_notInSchema_hasDirective() throws {
     schemaSDL = """
     type Query {
       allAnimals: [Animal!]
@@ -211,7 +211,7 @@ class CompilationTests: XCTestCase {
 
   /// Tests that we automatically add the local cache mutation directive to the schema
   /// during codegen.
-  func testCompile_givenSchemaJSON_queryWithLocalCacheMutationDirective_notInSchema_hasDirective() throws {
+  func test__compile__givenSchemaJSON_queryWithLocalCacheMutationDirective_notInSchema_hasDirective() throws {
     try useStarWarsSchema()
 
     document = """
@@ -235,7 +235,7 @@ class CompilationTests: XCTestCase {
     expect(operation.directives).to(equal(expectedDirectives))
   }
 
-  func testCompile_inputObject_withListFieldWithDefaultValueEmptyArray() throws {
+  func test__compile__givenInputObject_withListFieldWithDefaultValueEmptyArray() throws {
     // given
     schemaSDL = """
     type Query {
