@@ -203,9 +203,7 @@ struct ImportStatementTemplate {
     ) -> TemplateString {
       let apolloAPITargetName = config.ApolloAPITargetName
       return """
-      import \(apolloAPITargetName)
-      @_exported import enum \(apolloAPITargetName).GraphQLEnum
-      @_exported import enum \(apolloAPITargetName).GraphQLNullable
+      @_exported import \(apolloAPITargetName)
       \(if: config.output.operations != .inSchemaModule, "import \(config.schemaModuleName)")
       """
     }

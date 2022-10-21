@@ -65,24 +65,18 @@ class TemplateRenderer_OperationFile_Tests: XCTestCase {
   func test__renderTargetOperationFile__givenAllSchemaTypesOperationsCombinations_conditionallyIncludeImportStatements() {
     // given
     let expectedAPI = """
-    import ApolloAPI
-    @_exported import enum ApolloAPI.GraphQLEnum
-    @_exported import enum ApolloAPI.GraphQLNullable
+    @_exported import ApolloAPI
 
     """
 
     let expectedAPIAndSchema = """
-    import ApolloAPI
-    @_exported import enum ApolloAPI.GraphQLEnum
-    @_exported import enum ApolloAPI.GraphQLNullable
+    @_exported import ApolloAPI
     import TestSchema
 
     """
 
     let expectedAPIAndTarget = """
-    import ApolloAPI
-    @_exported import enum ApolloAPI.GraphQLEnum
-    @_exported import enum ApolloAPI.GraphQLNullable
+    @_exported import ApolloAPI
     import MockApplication
 
     """
@@ -154,24 +148,18 @@ class TemplateRenderer_OperationFile_Tests: XCTestCase {
   func test__renderTargetOperationFile__given_cocoapodsCompatibleImportStatements_true_allSchemaTypesOperationsCombinations_conditionallyIncludeImportStatements() {
     // given
     let expectedAPI = """
-    import Apollo
-    @_exported import enum Apollo.GraphQLEnum
-    @_exported import enum Apollo.GraphQLNullable
+    @_exported import Apollo
 
     """
 
     let expectedAPIAndSchema = """
-    import Apollo
-    @_exported import enum Apollo.GraphQLEnum
-    @_exported import enum Apollo.GraphQLNullable
+    @_exported import Apollo
     import TestSchema
 
     """
 
     let expectedAPIAndTarget = """
-    import Apollo
-    @_exported import enum Apollo.GraphQLEnum
-    @_exported import enum Apollo.GraphQLNullable
+    @_exported import Apollo
     import MockApplication
 
     """
@@ -270,55 +258,55 @@ class TemplateRenderer_OperationFile_Tests: XCTestCase {
         schemaTypes: .swiftPackageManager,
         operations: .relative(subpath: nil),
         expectation: expectedNoNamespace,
-        atLine: 9
+        atLine: 7
       ),
       (
         schemaTypes: .swiftPackageManager,
         operations: .absolute(path: "path"),
         expectation: expectedNoNamespace,
-        atLine: 9
+        atLine: 7
       ),
       (
         schemaTypes: .swiftPackageManager,
         operations: .inSchemaModule,
         expectation: expectedNoNamespace,
-        atLine: 8
+        atLine: 6
       ),
       (
         schemaTypes: .other,
         operations: .relative(subpath: nil),
         expectation: expectedNoNamespace,
-        atLine: 9
+        atLine: 7
       ),
       (
         schemaTypes: .other,
         operations: .absolute(path: "path"),
         expectation: expectedNoNamespace,
-        atLine: 9
+        atLine: 7
       ),
       (
         schemaTypes: .other,
         operations: .inSchemaModule,
         expectation: expectedNoNamespace,
-        atLine: 8
+        atLine: 6
       ),
       (
         schemaTypes: .embeddedInTarget(name: "MockApplication"),
         operations: .relative(subpath: nil),
         expectation: expectedNoNamespace,
-        atLine: 9
+        atLine: 7
       ),
       (
         schemaTypes: .embeddedInTarget(name: "MockApplication"),
         operations: .absolute(path: "path"),
         expectation: expectedNoNamespace,
-        atLine: 9
+        atLine: 7
       ),
       (
         schemaTypes: .embeddedInTarget(name: "MockApplication"),
         operations: .inSchemaModule,
         expectation: expectedNamespace,
-        atLine: 8
+        atLine: 6
       )
     ]
 
@@ -354,7 +342,7 @@ class TemplateRenderer_OperationFile_Tests: XCTestCase {
     let actual = subject.render()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
   }
 
   func test__casing__givenUppercasedSchemaName_shouldGenerateUppercasedNamespace() {
@@ -375,7 +363,7 @@ class TemplateRenderer_OperationFile_Tests: XCTestCase {
     let actual = subject.render()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
   }
 
   func test__casing__givenCapitalizedSchemaName_shouldGenerateCapitalizedNamespace() {
@@ -396,6 +384,6 @@ class TemplateRenderer_OperationFile_Tests: XCTestCase {
     let actual = subject.render()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
   }
 }
