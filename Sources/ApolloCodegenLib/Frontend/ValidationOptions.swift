@@ -13,8 +13,16 @@ public struct ValidationOptions {
 
     self.disallowedEntityFieldNames = [config.schemaName.firstLowercased]
 
+    let singularizedSchemaName = config.pluralizer.singularize(config.schemaName)
     let pluralizedSchemaName = config.pluralizer.pluralize(config.schemaName)
-    self.disallowedEntityListFieldNames = [pluralizedSchemaName.firstLowercased]
+    switch (config.schemaName) {
+    case singularizedSchemaName:
+      self.disallowedEntityListFieldNames = [pluralizedSchemaName.firstLowercased]
+    case pluralizedSchemaName:
+      self.disallowedEntityListFieldNames = [singularizedSchemaName.firstLowercased]
+    default:
+      fatalError("Could not derive singular/plural of schema name \(config.schemaName)")
+    }
 
     self.disallowedInputParameterNames =
     SwiftKeywords.DisallowedInputParameterNames.union([config.schemaName.firstLowercased])

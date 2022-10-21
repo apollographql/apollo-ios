@@ -470,7 +470,7 @@ class CompilationTests: XCTestCase {
     }
   }
 
-  func test__compile__givenPluralizedSchemaName_matchingPluralizedNullableListFieldName_shouldThrow() throws {
+  func test__compile__givenPluralizedSchemaName_matchingPluralizedNullableListFieldName_shouldNotThrow() throws {
     // given
     schemaSDL = """
     type Query {
@@ -502,16 +502,10 @@ class CompilationTests: XCTestCase {
     """
 
     // then
-    XCTAssertThrowsError(try compileFrontend(schemaName: "predators")) { error in
-      XCTAssertTrue((error as! ApolloCodegenLib.JavaScriptError).description.contains("""
-        Schema name "predators" conflicts with name of a generated object API. \
-        Please choose a different schema name.
-        """
-      ))
-    }
+    XCTAssertNoThrow(try compileFrontend(schemaName: "predators"))
   }
 
-  func test__compile__givenPluralizedSchemaName_matchingPluralizedNonNullListFieldName_shouldThrow() throws {
+  func test__compile__givenPluralizedSchemaName_matchingPluralizedNonNullListFieldName_shouldNotThrow() throws {
     // given
     schemaSDL = """
     type Query {
@@ -543,13 +537,7 @@ class CompilationTests: XCTestCase {
     """
 
     // then
-    XCTAssertThrowsError(try compileFrontend(schemaName: "predators")) { error in
-      XCTAssertTrue((error as! ApolloCodegenLib.JavaScriptError).description.contains("""
-        Schema name "predators" conflicts with name of a generated object API. \
-        Please choose a different schema name.
-        """
-      ))
-    }
+    XCTAssertNoThrow(try compileFrontend(schemaName: "predators"))
   }
 
 }
