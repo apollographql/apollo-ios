@@ -3,29 +3,44 @@ import JavaScriptCore
 
 public struct ValidationOptions {
 
+  struct DisallowedFieldNames {
+    let scalar: Set<String>
+    let entity: Set<String>
+    let entityList: Set<String>
+
+    var asDictionary: Dictionary<String, Array<String>> {
+      return [
+        "scalar": Array(scalar),
+        "entity": Array(entity),
+        "entityList": Array(entityList)
+      ]
+    }
+  }
+
   let schemaName: String
-  let disallowedScalarFieldNames: Set<String>
-  let disallowedEntityFieldNames: Set<String>
-  let disallowedEntityListFieldNames: Set<String>
+  let disallowedFieldNames: DisallowedFieldNames
   let disallowedInputParameterNames: Set<String>
 
   init(config: ApolloCodegen.ConfigurationContext) {
     self.schemaName = config.schemaName
 
-    self.disallowedScalarFieldNames = SwiftKeywords.DisallowedFieldNames
-
-    self.disallowedEntityFieldNames = [config.schemaName.firstLowercased]
-
     let singularizedSchemaName = config.pluralizer.singularize(config.schemaName)
     let pluralizedSchemaName = config.pluralizer.pluralize(config.schemaName)
+    let disallowedEntityListFieldNames: Set<String>
     switch (config.schemaName) {
     case singularizedSchemaName:
-      self.disallowedEntityListFieldNames = [pluralizedSchemaName.firstLowercased]
+      disallowedEntityListFieldNames = [pluralizedSchemaName.firstLowercased]
     case pluralizedSchemaName:
-      self.disallowedEntityListFieldNames = [singularizedSchemaName.firstLowercased]
+      disallowedEntityListFieldNames = [singularizedSchemaName.firstLowercased]
     default:
       fatalError("Could not derive singular/plural of schema name '\(config.schemaName)'")
     }
+
+    self.disallowedFieldNames = DisallowedFieldNames(
+      scalar: SwiftKeywords.DisallowedFieldNames,
+      entity: [config.schemaName.firstLowercased],
+      entityList: disallowedEntityListFieldNames
+    )
 
     self.disallowedInputParameterNames =
     SwiftKeywords.DisallowedInputParameterNames.union([config.schemaName.firstLowercased])
@@ -41,18 +56,8 @@ public struct ValidationOptions {
       )
 
       jsValue?.setValue(
-        JSValue(object: Array(options.disallowedScalarFieldNames), in: bridge.context),
-        forProperty: "disallowedScalarFieldNames"
-      )
-
-      jsValue?.setValue(
-        JSValue(object: Array(options.disallowedEntityFieldNames), in: bridge.context),
-        forProperty: "disallowedEntityFieldNames"
-      )
-
-      jsValue?.setValue(
-        JSValue(object: Array(options.disallowedEntityListFieldNames), in: bridge.context),
-        forProperty: "disallowedEntityListFieldNames"
+        JSValue(object: options.disallowedFieldNames.asDictionary, in: bridge.context),
+        forProperty: "disallowedFieldNames"
       )
 
       jsValue?.setValue(

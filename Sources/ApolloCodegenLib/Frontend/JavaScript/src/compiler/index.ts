@@ -312,9 +312,9 @@ export function compileToIR(
         }
 
         if (isListType(fieldType) || (isNonNullType(fieldType) && isListType(fieldType.ofType))) {
-          validateFieldName(selectionNode, validationOptions.disallowedEntityListFieldNames, validationOptions.schemaName)
+          validateFieldName(selectionNode, validationOptions.disallowedFieldNames?.entityList, validationOptions.schemaName)
         } else if (isCompositeType(unwrappedFieldType)) {
-          validateFieldName(selectionNode, validationOptions.disallowedEntityFieldNames, validationOptions.schemaName)
+          validateFieldName(selectionNode, validationOptions.disallowedFieldNames?.entity, validationOptions.schemaName)
         }
 
         if (isCompositeType(unwrappedFieldType)) {
