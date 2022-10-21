@@ -3,12 +3,18 @@ import JavaScriptCore
 
 public struct ValidationOptions {
 
-  let disallowedFieldNames: Set<String>
+  let disallowedScalarFieldNames: Set<String>
+  let disallowedEntityFieldNames: Set<String>
+  let disallowedEntityListFieldNames: Set<String>
   let disallowedInputParameterNames: Set<String>
 
-  init(config: ApolloCodegenConfiguration) {
-    self.disallowedFieldNames =
-    SwiftKeywords.DisallowedFieldNames.union([config.schemaName.firstLowercased])
+  init(config: ApolloCodegen.ConfigurationContext) {
+    self.disallowedScalarFieldNames = SwiftKeywords.DisallowedFieldNames
+
+    self.disallowedEntityFieldNames = [config.schemaName.firstLowercased]
+
+    let pluralizedSchemaName = config.pluralizer.pluralize(config.schemaName)
+    self.disallowedEntityListFieldNames = [pluralizedSchemaName.firstLowercased]
 
     self.disallowedInputParameterNames =
     SwiftKeywords.DisallowedInputParameterNames.union([config.schemaName.firstLowercased])
@@ -17,9 +23,20 @@ public struct ValidationOptions {
   public class Bridged: JavaScriptObject {
     convenience init(from options: ValidationOptions, bridge: JavaScriptBridge) {
       let jsValue = JSValue(newObjectIn: bridge.context)
+
       jsValue?.setValue(
-        JSValue(object: Array(options.disallowedFieldNames), in: bridge.context),
-        forProperty: "disallowedFieldNames"
+        JSValue(object: Array(options.disallowedScalarFieldNames), in: bridge.context),
+        forProperty: "disallowedScalarFieldNames"
+      )
+
+      jsValue?.setValue(
+        JSValue(object: Array(options.disallowedEntityFieldNames), in: bridge.context),
+        forProperty: "disallowedEntityFieldNames"
+      )
+
+      jsValue?.setValue(
+        JSValue(object: Array(options.disallowedEntityListFieldNames), in: bridge.context),
+        forProperty: "disallowedEntityListFieldNames"
       )
 
       jsValue?.setValue(

@@ -12,6 +12,7 @@ import {
   DocumentNode,
   GraphQLEnumType,
 } from "graphql";
+import { emptyValidationOptions } from "../__testUtils__/validationHelpers";
 
 describe("given schema", () => {
   const schemaSDL: string = `
@@ -49,7 +50,7 @@ describe("given schema", () => {
     );
 
     it("should compile enum values with deprecation reason", () => {
-      const compilationResult: CompilationResult = compileDocument(schema, document, false);
+      const compilationResult: CompilationResult = compileDocument(schema, document, false, emptyValidationOptions);
       const speciesEnum: GraphQLEnumType = compilationResult.referencedTypes.find(function(element) {
         return element.name == 'Species'
       }) as GraphQLEnumType

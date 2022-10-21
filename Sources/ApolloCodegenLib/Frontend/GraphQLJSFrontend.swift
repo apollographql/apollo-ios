@@ -102,11 +102,15 @@ public final class GraphQLJSFrontend {
   public func compile(
     schema: GraphQLSchema,
     document: GraphQLDocument,
-    experimentalLegacySafelistingCompatibleOperations: Bool = false
+    experimentalLegacySafelistingCompatibleOperations: Bool = false,
+    validationOptions: ValidationOptions
   ) throws -> CompilationResult {
     return try library.call(
       "compileDocument",
-      with: schema, document, experimentalLegacySafelistingCompatibleOperations
+      with: schema,
+      document,
+      experimentalLegacySafelistingCompatibleOperations,
+      ValidationOptions.Bridged(from: validationOptions, bridge: self.bridge)
     )
   }
 }

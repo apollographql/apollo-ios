@@ -43,7 +43,11 @@ final class AnimalKingdomIRCreationTests: XCTestCase {
 
   override func setUp() {
     super.setUp()
-    compilationResult = try! Self.frontend.compile(schema: Self.schema, document: Self.operationDocuments())
+    compilationResult = try! Self.frontend.compile(
+      schema: Self.schema,
+      document: Self.operationDocuments(),
+      validationOptions: ValidationOptions(config: .init(config: .mock()))
+    )
   }
 
   override func tearDown() {
@@ -991,10 +995,17 @@ final class AnimalKingdomIRCreationTests: XCTestCase {
 
   func test__mergedSelections_AllAnimalsQuery_AllAnimal_AsClassroomPet_AsBird_Height__isCorrect_CCN() throws {
     // given
+    let enableCCN = true
+
     compilationResult = try! Self.frontend.compile(
       schema: Self.schema,
       document: Self.operationCCNDocuments(
-        experimentalClientControlledNullability: true
+        experimentalClientControlledNullability: enableCCN
+      ),
+      validationOptions: ValidationOptions(
+        config: .init(
+          config: .mock(experimentalFeatures: .init(clientControlledNullability: enableCCN))
+        )
       )
     )
     let operation = compilationResult.operations.first { $0.name == "AllAnimalsCCN" }

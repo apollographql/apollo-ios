@@ -31,19 +31,27 @@ class CompilationTests: XCTestCase {
     )
   }
 
-  func compileFrontend(enableCCN: Bool = false) throws -> CompilationResult {
+  func compileFrontend(
+    schemaName: String = "TestSchema",
+    enableCCN: Bool = false
+  ) throws -> CompilationResult {
     let frontend = try GraphQLJSFrontend()
+    let config = ApolloCodegen.ConfigurationContext(config: .mock(
+      schemaName: schemaName,
+      experimentalFeatures: .init(clientControlledNullability: enableCCN)
+    ))
+
     if let schemaSDL = schemaSDL {
       return try frontend.compile(
         schema: schemaSDL,
         document: document,
-        enableCCN: enableCCN
+        config: config
       )
     } else if let schemaJSON = schemaJSON {
       return try frontend.compile(
         schemaJSON: schemaJSON,
         document: document,
-        enableCCN: enableCCN
+        config: config
       )
     } else {
       throw TestError("No Schema!")
@@ -262,6 +270,286 @@ class CompilationTests: XCTestCase {
 
     // then
     expect(defaultValue).to(equal(GraphQLValue.list([])))
+  }
+
+  func test__compile__givenUniqueSchemaName_shouldNotThrow() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      animal(favourite: String!): Animal
+    }
+
+    interface Animal {
+      id: ID!
+      species: String!
+      height: Height!
+      predators: [Animal!]
+      nonNullPredators: [Animal!]!
+    }
+
+    type Height {
+      centimeters: Int!
+      inches: Int!
+    }
+    """
+
+    document = """
+    query FavouriteAnimal($favourite: String!) {
+      animal(favourite: $favourite) {
+        id
+        species
+        height {
+          centimeters
+        }
+        predators {
+          species
+        }
+        nonNullPredators {
+          species
+        }
+      }
+    }
+    """
+
+    // then
+    XCTAssertNoThrow(try compileFrontend(schemaName: "MySchema"))
+  }
+
+  func test__compile__givenSchemaName_matchingScalarFieldAndInputValueName_shouldNotThrow() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      animal(species: String!): Animal
+    }
+
+    interface Animal {
+      id: ID!
+      species: String!
+      height: Height!
+      predators: [Animal!]
+    }
+
+    type Height {
+      centimeters: Int!
+      inches: Int!
+    }
+    """
+
+    document = """
+    query FavouriteAnimal($species: String!) {
+      animal(species: $species) {
+        species
+      }
+    }
+    """
+
+    // then
+    XCTAssertNoThrow(try compileFrontend(schemaName: "species"))
+  }
+
+  func test__compile__givenSchemaName_matchingEntityFieldName_shouldThrow() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      animal(favourite: String!): Animal
+    }
+
+    interface Animal {
+      id: ID!
+      species: String!
+      height: Height!
+      predators: [Animal!]
+    }
+
+    type Height {
+      centimeters: Int!
+      inches: Int!
+    }
+    """
+
+    document = """
+    query FavouriteAnimal($favourite: String!) {
+      animal(favourite: $favourite) {
+        species
+        height {
+          centimeters
+        }
+      }
+    }
+    """
+
+    // then
+    XCTAssertThrowsError(try compileFrontend(schemaName: "height")) { error in
+      XCTAssertTrue((error as! ApolloCodegenLib.JavaScriptError).description.contains("""
+        Schema name "height" conflicts with name of a generated object API. \
+        Please choose a different schema name.
+        """
+      ))
+    }
+  }
+
+  func test__compile__givenSingularSchemaName_matchingPluralizedNullableListFieldName_shouldThrow() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      animal(favourite: String!): Animal
+    }
+
+    interface Animal {
+      id: ID!
+      species: String!
+      height: Height!
+      predators: [Animal!]
+    }
+
+    type Height {
+      centimeters: Int!
+      inches: Int!
+    }
+    """
+
+    document = """
+    query FavouriteAnimal($favourite: String!) {
+      animal(favourite: $favourite) {
+        species
+        predators {
+          species
+        }
+      }
+    }
+    """
+
+    // then
+    XCTAssertThrowsError(try compileFrontend(schemaName: "predator")) { error in
+      XCTAssertTrue((error as! ApolloCodegenLib.JavaScriptError).description.contains("""
+        Schema name "predators" conflicts with name of a generated object API. \
+        Please choose a different schema name.
+        """
+      ))
+    }
+  }
+
+  func test__compile__givenSingularSchemaName_matchingPluralizedNonNullListFieldName_shouldThrow() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      animal(favourite: String!): Animal
+    }
+
+    interface Animal {
+      id: ID!
+      species: String!
+      height: Height!
+      predators: [Animal!]!
+    }
+
+    type Height {
+      centimeters: Int!
+      inches: Int!
+    }
+    """
+
+    document = """
+    query FavouriteAnimal($favourite: String!) {
+      animal(favourite: $favourite) {
+        species
+        predators {
+          species
+        }
+      }
+    }
+    """
+
+    // then
+    XCTAssertThrowsError(try compileFrontend(schemaName: "predator")) { error in
+      XCTAssertTrue((error as! ApolloCodegenLib.JavaScriptError).description.contains("""
+        Schema name "predators" conflicts with name of a generated object API. \
+        Please choose a different schema name.
+        """
+      ))
+    }
+  }
+
+  func test__compile__givenPluralizedSchemaName_matchingPluralizedNullableListFieldName_shouldThrow() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      animal(favourite: String!): Animal
+    }
+
+    interface Animal {
+      id: ID!
+      species: String!
+      height: Height!
+      predators: [Animal!]
+    }
+
+    type Height {
+      centimeters: Int!
+      inches: Int!
+    }
+    """
+
+    document = """
+    query FavouriteAnimal($favourite: String!) {
+      animal(favourite: $favourite) {
+        species
+        predators {
+          species
+        }
+      }
+    }
+    """
+
+    // then
+    XCTAssertThrowsError(try compileFrontend(schemaName: "predators")) { error in
+      XCTAssertTrue((error as! ApolloCodegenLib.JavaScriptError).description.contains("""
+        Schema name "predators" conflicts with name of a generated object API. \
+        Please choose a different schema name.
+        """
+      ))
+    }
+  }
+
+  func test__compile__givenPluralizedSchemaName_matchingPluralizedNonNullListFieldName_shouldThrow() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      animal(favourite: String!): Animal
+    }
+
+    interface Animal {
+      id: ID!
+      species: String!
+      height: Height!
+      predators: [Animal!]!
+    }
+
+    type Height {
+      centimeters: Int!
+      inches: Int!
+    }
+    """
+
+    document = """
+    query FavouriteAnimal($favourite: String!) {
+      animal(favourite: $favourite) {
+        species
+        predators {
+          species
+        }
+      }
+    }
+    """
+
+    // then
+    XCTAssertThrowsError(try compileFrontend(schemaName: "predators")) { error in
+      XCTAssertTrue((error as! ApolloCodegenLib.JavaScriptError).description.contains("""
+        Schema name "predators" conflicts with name of a generated object API. \
+        Please choose a different schema name.
+        """
+      ))
+    }
   }
 
 }

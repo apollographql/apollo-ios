@@ -174,7 +174,8 @@ public class ApolloCodegen {
     return try frontend.compile(
       schema: graphQLSchema,
       document: operationsDocument,
-      experimentalLegacySafelistingCompatibleOperations: experimentalFeatures.legacySafelistingCompatibleOperations
+      experimentalLegacySafelistingCompatibleOperations: experimentalFeatures.legacySafelistingCompatibleOperations,
+      validationOptions: validationOptions
     )
   }
 

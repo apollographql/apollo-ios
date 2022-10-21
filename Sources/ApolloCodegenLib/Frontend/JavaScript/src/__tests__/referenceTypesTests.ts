@@ -19,6 +19,7 @@ import {
 import {
   join
 } from 'path';
+import { emptyValidationOptions } from "../__testUtils__/validationHelpers";
 
 describe("mutation defined using ReportCarProblemInput", () => {
   const documentString: string = `
@@ -39,7 +40,7 @@ describe("mutation defined using ReportCarProblemInput", () => {
     const schema: GraphQLSchema = loadSchemaFromSources([new Source(schemaJSON, "TestSchema.json", { line: 1, column: 1 })]);
 
     it("should compile with referencedTypes including ReportCarProblemInput and CarProblem enum", () => {
-      const compilationResult: CompilationResult = compileDocument(schema, document, false);
+      const compilationResult: CompilationResult = compileDocument(schema, document, false, emptyValidationOptions);
       const reportCarProblemInput: GraphQLInputObjectType = compilationResult.referencedTypes.find(function(element) {
         return element.name == 'ReportCarProblemInput'
       }) as GraphQLInputObjectType
@@ -78,7 +79,7 @@ describe("mutation defined using ReportCarProblemInput", () => {
     const schema: GraphQLSchema = loadSchemaFromSources([new Source(schemaSDL, "Test Schema", { line: 1, column: 1 })]);
 
     it("should compile with referencedTypes inlcuding InputObject and enum", () => {
-      const compilationResult: CompilationResult = compileDocument(schema, document, false);
+      const compilationResult: CompilationResult = compileDocument(schema, document, false, emptyValidationOptions);
       const reportCarProblemInput: GraphQLInputObjectType = compilationResult.referencedTypes.find(function(element) {
         return element.name == 'ReportCarProblemInput'
       }) as GraphQLInputObjectType
