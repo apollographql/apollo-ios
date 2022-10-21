@@ -1,16 +1,23 @@
 # Change Log
 
+## v1.0.2
+
+- **Fixed - Not generating code for subtypes only used as input to mutations:** If you are using a JSON format schema that was fetched via GraphQL introspection code generation will now generate all referenced subtypes. [#2583](https://github.com/apollographql/apollo-ios/pull/2583) _Thank you to [@vrutberg](https://github.com/vrutberg) for reporting the issue._
+- **Fixed - When using the test mock, touching a `GraphQLEnum` property will cause a crash:** JSON Encoding the mocks into the `SelectionSet.DataDict` was causing `CustomScalar` values to get encoded into their JSON values. The mock data is now converted into the correct format for the `SelectionSet.DataDict`. [#2584](https://github.com/apollographql/apollo-ios/pull/2584) _Thank you to [@asapo](https://github.com/asapo) for reporting the issue._
+- **Fixed - Add namespace for ApolloAPI types in generated code:** The Apollo `DocumentType` enum is now correctly namespaced in generated code. [#2585](https://github.com/apollographql/apollo-ios/pull/2585) _Thank you to [@matijakregarGH](https://github.com/matijakregarGH) for reporting the issue._
+- **Fixed - Problems with schema name in generated code:**
+  - Schema name is now correctly cased for generated code namespacing. [#2586](https://github.com/apollographql/apollo-ios/pull/2586) _Thank you to [@pchmelar](https://github.com/pchmelar) for reporting the issue._
+  - The schema name is now not allowed to match any referenced schema type, entity field, or entity list field names. [#2589](https://github.com/apollographql/apollo-ios/pull/2589)
+- **Fixed - Test mocks crash when touching array of objects:** Test mock list of objects is now correctly converted into selection set data. [#2591](https://github.com/apollographql/apollo-ios/pull/2591) _Thank you to [@konomae](https://github.com/konomae) for reporting the issue._
+- **Fixed: `GraphQLNullable` nil coalescing:** @exported import statements now ensure that the operator overload is imported when using the generated models. [#2600](https://github.com/apollographql/apollo-ios/pull/2600) _Thank you to bassrock for reporting the issue._
+
 ## v1.0.1
 
-**Fixed - apollo-ios-cli code generation on CocoaPods installation:** All required resources for the CLI are now bundled correctly. This was an issue in CocoaPods installations where the `generate` command of `apollo-ios-cli` would result in a fatal error. [#2548](https://github.com/apollographql/apollo-ios/pull/2548) _Thank you to [@ilockett](https://github.com/ilockett) for reporting the issue._
-
-**Fixed - Xcode integration for Swift Package Plugins:** The SwiftPM plugins now support `XcodePluginContext` from Xcode 14 and accepts the additional command line options that Xcode sends. [#2554](https://github.com/apollographql/apollo-ios/pull/2554) _Thank you to [@SilverTab](https://github.com/SilverTab) for reporting the issue._
-
-**Fixed - Escaping input param names:** Input parameter names recognized as reserved words are now escaped to prevent build errors. [#2561](https://github.com/apollographql/apollo-ios/pull/2561) _Thank you to [@puls](https://github.com/puls) for the contribution._
-
-**Fixed - Multiline deprecation messages:** Deprecation messages that span multiple lines would previously result in build errors. [#2579](https://github.com/apollographql/apollo-ios/pull/2579) _Thank you to [@TizianoCoroneo](https://github.com/TizianoCoroneo) for the contribution._
-
-**Changed - Warnings for deprecated enums:** Deprecated enum cases are no longer annotated with the Swift `@available` attribute. They will now have comments indicating their deprecated status. [#2579](https://github.com/apollographql/apollo-ios/pull/2579)
+- **Fixed - apollo-ios-cli code generation on CocoaPods installation:** All required resources for the CLI are now bundled correctly. This was an issue in CocoaPods installations where the `generate` command of `apollo-ios-cli` would result in a fatal error. [#2548](https://github.com/apollographql/apollo-ios/pull/2548) _Thank you to [@ilockett](https://github.com/ilockett) for reporting the issue._
+- **Fixed - Xcode integration for Swift Package Plugins:** The SwiftPM plugins now support `XcodePluginContext` from Xcode 14 and accepts the additional command line options that Xcode sends. [#2554](https://github.com/apollographql/apollo-ios/pull/2554) _Thank you to [@SilverTab](https://github.com/SilverTab) for reporting the issue._
+- **Fixed - Escaping input param names:** Input parameter names recognized as reserved words are now escaped to prevent build errors. [#2561](https://github.com/apollographql/apollo-ios/pull/2561) _Thank you to [@puls](https://github.com/puls) for the contribution._
+- **Fixed - Multiline deprecation messages:** Deprecation messages that span multiple lines would previously result in build errors. [#2579](https://github.com/apollographql/apollo-ios/pull/2579) _Thank you to [@TizianoCoroneo](https://github.com/TizianoCoroneo) for the contribution._  
+- **Changed - Warnings for deprecated enums:** Deprecated enum cases are no longer annotated with the Swift `@available` attribute. They will now have comments indicating their deprecated status. [#2579](https://github.com/apollographql/apollo-ios/pull/2579)
 
 ## v1.0.0
 
