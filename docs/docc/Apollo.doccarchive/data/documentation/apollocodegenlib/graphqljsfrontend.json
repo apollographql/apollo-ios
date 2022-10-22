@@ -97,7 +97,7 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/compile(schema:document:experimentalLegacySafelistingCompatibleOperations:)",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/compile(schema:document:experimentalLegacySafelistingCompatibleOperations:validationOptions:)",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/loadSchema(from:)",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/makeSource(_:filePath:)",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/makeSource(from:)",
@@ -105,7 +105,7 @@
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/parseDocument(_:experimentalClientControlledNullability:)",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/parseDocument(from:experimentalClientControlledNullability:)",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/printSchemaAsSDL(schema:)",
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/validateDocument(schema:document:options:)"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/validateDocument(schema:document:validationOptions:)"
       ],
       "title" : "Instance Methods"
     }
@@ -169,7 +169,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/graphqljsfrontend"
 },
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLJSFrontend/compile(schema:document:experimentalLegacySafelistingCompatibleOperations:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLJSFrontend/compile(schema:document:experimentalLegacySafelistingCompatibleOperations:validationOptions:)": {
   "abstract" : [
     {
       "text" : "Compiles a GraphQL document into an intermediate representation that is more suitable for analysis and code generation.",
@@ -242,6 +242,23 @@
     },
     {
       "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "validationOptions"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:16ApolloCodegenLib17ValidationOptionsV",
+      "text" : "ValidationOptions"
+    },
+    {
+      "kind" : "text",
       "text" : ") "
     },
     {
@@ -258,12 +275,12 @@
       "text" : "CompilationResult"
     }
   ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/compile(schema:document:experimentalLegacySafelistingCompatibleOperations:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/compile(schema:document:experimentalLegacySafelistingCompatibleOperations:validationOptions:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "compile(schema:document:experimentalLegacySafelistingCompatibleOperations:)",
+  "title" : "compile(schema:document:experimentalLegacySafelistingCompatibleOperations:validationOptions:)",
   "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/graphqljsfrontend\/compile(schema:document:experimentallegacysafelistingcompatibleoperations:)"
+  "url" : "\/documentation\/apollocodegenlib\/graphqljsfrontend\/compile(schema:document:experimentallegacysafelistingcompatibleoperations:validationoptions:)"
 },
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLJSFrontend/init()": {
   "abstract" : [
@@ -799,7 +816,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/graphqljsfrontend\/printschemaassdl(schema:)"
 },
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLJSFrontend/validateDocument(schema:document:options:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLJSFrontend/validateDocument(schema:document:validationOptions:)": {
   "abstract" : [
     {
       "text" : "Validate a GraphQL document and return any validation errors as ",
@@ -867,7 +884,7 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "options"
+      "text" : "validationOptions"
     },
     {
       "kind" : "text",
@@ -900,12 +917,12 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/validateDocument(schema:document:options:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/validateDocument(schema:document:validationOptions:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "validateDocument(schema:document:options:)",
+  "title" : "validateDocument(schema:document:validationOptions:)",
   "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/graphqljsfrontend\/validatedocument(schema:document:options:)"
+  "url" : "\/documentation\/apollocodegenlib\/graphqljsfrontend\/validatedocument(schema:document:validationoptions:)"
 }
 }
 }

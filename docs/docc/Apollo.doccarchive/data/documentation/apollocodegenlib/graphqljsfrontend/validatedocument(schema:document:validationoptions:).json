@@ -23,11 +23,11 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/validateDocument(schema:document:options:)"
+    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/validateDocument(schema:document:validationOptions:)"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:16ApolloCodegenLib17GraphQLJSFrontendC16validateDocument6schema8document7optionsSayAA0D7QLErrorCGAA0D8QLSchemaC_AA0D10QLDocumentCAA17ValidationOptionsVtKF",
+    "externalID" : "s:16ApolloCodegenLib17GraphQLJSFrontendC16validateDocument6schema8document17validationOptionsSayAA0D7QLErrorCGAA0D8QLSchemaC_AA0D10QLDocumentCAA010ValidationK0VtKF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -81,7 +81,7 @@
       },
       {
         "kind" : "externalParam",
-        "text" : "options"
+        "text" : "validationOptions"
       },
       {
         "kind" : "text",
@@ -122,7 +122,7 @@
     "role" : "symbol",
     "roleHeading" : "Instance Method",
     "symbolKind" : "method",
-    "title" : "validateDocument(schema:document:options:)"
+    "title" : "validateDocument(schema:document:validationOptions:)"
   },
   "primaryContentSections" : [
     {
@@ -189,7 +189,7 @@
             },
             {
               "kind" : "externalParam",
-              "text" : "options"
+              "text" : "validationOptions"
             },
             {
               "kind" : "text",
@@ -240,7 +240,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/apollocodegenlib\/graphqljsfrontend\/validatedocument(schema:document:options:)"
+        "\/documentation\/apollocodegenlib\/graphqljsfrontend\/validatedocument(schema:document:validationoptions:)"
       ],
       "traits" : [
         {
@@ -401,7 +401,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/graphqljsfrontend"
 },
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLJSFrontend/validateDocument(schema:document:options:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLJSFrontend/validateDocument(schema:document:validationOptions:)": {
   "abstract" : [
     {
       "text" : "Validate a GraphQL document and return any validation errors as ",
@@ -469,7 +469,7 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "options"
+      "text" : "validationOptions"
     },
     {
       "kind" : "text",
@@ -502,12 +502,12 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/validateDocument(schema:document:options:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLJSFrontend\/validateDocument(schema:document:validationOptions:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "validateDocument(schema:document:options:)",
+  "title" : "validateDocument(schema:document:validationOptions:)",
   "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/graphqljsfrontend\/validatedocument(schema:document:options:)"
+  "url" : "\/documentation\/apollocodegenlib\/graphqljsfrontend\/validatedocument(schema:document:validationoptions:)"
 },
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLSchema": {
   "abstract" : [
