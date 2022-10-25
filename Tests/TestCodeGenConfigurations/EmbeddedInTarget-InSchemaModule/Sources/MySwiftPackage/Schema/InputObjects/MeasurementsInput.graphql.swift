@@ -35,19 +35,19 @@ public extension MyGraphQLSchema {
     }
 
     public var height: Double {
-      get { __data.height }
-      set { __data.height = newValue }
+      get { __data[dynamicMember: "height"] }
+      set { __data[dynamicMember: "height"] = newValue }
     }
 
     public var weight: Double {
-      get { __data.weight }
-      set { __data.weight = newValue }
+      get { __data[dynamicMember: "weight"] }
+      set { __data[dynamicMember: "weight"] = newValue }
     }
 
     @available(*, deprecated, message: "No longer valid.")
     public var wingspan: GraphQLNullable<Double> {
-      get { __data.wingspan }
-      set { __data.wingspan = newValue }
+      get { __data[dynamicMember: "wingspan"] }
+      set { __data[dynamicMember: "wingspan"] = newValue }
     }
   }
 
