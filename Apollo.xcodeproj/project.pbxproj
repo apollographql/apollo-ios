@@ -759,7 +759,6 @@
 		E68D824527A1D8A60040A46F /* ObjectTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64F7EC227A1243A0059C021 /* ObjectTemplateTests.swift */; };
 		E68D824727A228A80040A46F /* SchemaModuleFileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68D824627A228A80040A46F /* SchemaModuleFileGenerator.swift */; };
 		E6908E55282694630054682B /* ApolloCodegenConfigurationCodableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6908E54282694630054682B /* ApolloCodegenConfigurationCodableTests.swift */; };
-		E6936F182908FCEF0089054C /* InputDictTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6936F172908FCEE0089054C /* InputDictTests.swift */; };
 		E69BEDA52798B86D00000D10 /* InputObjectTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69BEDA42798B86D00000D10 /* InputObjectTemplate.swift */; };
 		E69BEDA72798B89600000D10 /* InputObjectTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69BEDA62798B89600000D10 /* InputObjectTemplateTests.swift */; };
 		E6A6866427F63AEF008A1D13 /* FileGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A6866327F63AEF008A1D13 /* FileGeneratorTests.swift */; };
@@ -1896,7 +1895,6 @@
 		E687B3F328B39A9100A9551C /* Apollo-Target-CodegenCLI.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-CodegenCLI.xcconfig"; sourceTree = "<group>"; };
 		E68D824627A228A80040A46F /* SchemaModuleFileGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaModuleFileGenerator.swift; sourceTree = "<group>"; };
 		E6908E54282694630054682B /* ApolloCodegenConfigurationCodableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloCodegenConfigurationCodableTests.swift; sourceTree = "<group>"; };
-		E6936F172908FCEE0089054C /* InputDictTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputDictTests.swift; sourceTree = "<group>"; };
 		E699DE9428B3C20E004ECF19 /* CodegenCLITestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = CodegenCLITestPlan.xctestplan; sourceTree = "<group>"; };
 		E69BEDA42798B86D00000D10 /* InputObjectTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputObjectTemplate.swift; sourceTree = "<group>"; };
 		E69BEDA62798B89600000D10 /* InputObjectTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputObjectTemplateTests.swift; sourceTree = "<group>"; };
@@ -2625,7 +2623,6 @@
 				9B95EDBF22CAA0AF00702BB2 /* GETTransformerTests.swift */,
 				9B21FD742422C29D00998B5C /* GraphQLFileTests.swift */,
 				9FF90A6A1DDDEB420034C3B6 /* GraphQLMapEncodingTests.swift */,
-				E6936F172908FCEE0089054C /* InputDictTests.swift */,
 				E86D8E03214B32DA0028EFE1 /* JSONTests.swift */,
 				9BF6C95225194EA5000D5B93 /* MultipartFormDataTests.swift */,
 				9F91CF8E1F6C0DB2008DD0BE /* MutatingResultsTests.swift */,
@@ -5411,7 +5408,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5BB2C0232380836100774170 /* VersionNumberTests.swift in Sources */,
-				E6936F182908FCEF0089054C /* InputDictTests.swift in Sources */,
 				DED45EC3261BA0ED0086EF63 /* WebSocketTransportTests.swift in Sources */,
 				9B78C71E2326E86E000C8C32 /* ErrorGenerationTests.swift in Sources */,
 				DED45EC7261BA0ED0086EF63 /* WebSocketTests.swift in Sources */,
