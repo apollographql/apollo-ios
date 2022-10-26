@@ -171,8 +171,8 @@ class InputObjectTemplateTests: XCTestCase {
       }
 
       public var field: GraphQLNullable<String> {
-        get { __data[dynamicMember: "field"] }
-        set { __data[dynamicMember: "field"] = newValue }
+        get { __data["field"] }
+        set { __data["field"] = newValue }
       }
     }
     
@@ -285,58 +285,58 @@ class InputObjectTemplateTests: XCTestCase {
       }
 
       public var stringField: GraphQLNullable<String> {
-        get { __data[dynamicMember: "stringField"] }
-        set { __data[dynamicMember: "stringField"] = newValue }
+        get { __data["stringField"] }
+        set { __data["stringField"] = newValue }
       }
 
       public var intField: GraphQLNullable<Int> {
-        get { __data[dynamicMember: "intField"] }
-        set { __data[dynamicMember: "intField"] = newValue }
+        get { __data["intField"] }
+        set { __data["intField"] = newValue }
       }
 
       public var boolField: GraphQLNullable<Bool> {
-        get { __data[dynamicMember: "boolField"] }
-        set { __data[dynamicMember: "boolField"] = newValue }
+        get { __data["boolField"] }
+        set { __data["boolField"] = newValue }
       }
 
       public var floatField: GraphQLNullable<Double> {
-        get { __data[dynamicMember: "floatField"] }
-        set { __data[dynamicMember: "floatField"] = newValue }
+        get { __data["floatField"] }
+        set { __data["floatField"] = newValue }
       }
 
       public var customScalarField: GraphQLNullable<TestSchema.CustomScalar> {
-        get { __data[dynamicMember: "customScalarField"] }
-        set { __data[dynamicMember: "customScalarField"] = newValue }
+        get { __data["customScalarField"] }
+        set { __data["customScalarField"] = newValue }
       }
 
       public var lowercaseCustomScalarField: GraphQLNullable<TestSchema.LowercaseCustomScalar> {
-        get { __data[dynamicMember: "lowercaseCustomScalarField"] }
-        set { __data[dynamicMember: "lowercaseCustomScalarField"] = newValue }
+        get { __data["lowercaseCustomScalarField"] }
+        set { __data["lowercaseCustomScalarField"] = newValue }
       }
 
       public var enumField: GraphQLNullable<GraphQLEnum<TestSchema.EnumType>> {
-        get { __data[dynamicMember: "enumField"] }
-        set { __data[dynamicMember: "enumField"] = newValue }
+        get { __data["enumField"] }
+        set { __data["enumField"] = newValue }
       }
 
       public var lowercaseEnumField: GraphQLNullable<GraphQLEnum<TestSchema.LowercaseEnumType>> {
-        get { __data[dynamicMember: "lowercaseEnumField"] }
-        set { __data[dynamicMember: "lowercaseEnumField"] = newValue }
+        get { __data["lowercaseEnumField"] }
+        set { __data["lowercaseEnumField"] = newValue }
       }
 
       public var inputField: GraphQLNullable<TestSchema.InnerInputObject> {
-        get { __data[dynamicMember: "inputField"] }
-        set { __data[dynamicMember: "inputField"] = newValue }
+        get { __data["inputField"] }
+        set { __data["inputField"] = newValue }
       }
 
       public var lowercaseInputField: GraphQLNullable<TestSchema.LowercaseInnerInputObject> {
-        get { __data[dynamicMember: "lowercaseInputField"] }
-        set { __data[dynamicMember: "lowercaseInputField"] = newValue }
+        get { __data["lowercaseInputField"] }
+        set { __data["lowercaseInputField"] = newValue }
       }
 
       public var listField: GraphQLNullable<[String?]> {
-        get { __data[dynamicMember: "listField"] }
-        set { __data[dynamicMember: "listField"] = newValue }
+        get { __data["listField"] }
+        set { __data["listField"] = newValue }
       }
     """
 
@@ -379,13 +379,13 @@ class InputObjectTemplateTests: XCTestCase {
       }
 
       public var enumField: GraphQLNullable<GraphQLEnum<EnumValue>> {
-        get { __data[dynamicMember: "enumField"] }
-        set { __data[dynamicMember: "enumField"] = newValue }
+        get { __data["enumField"] }
+        set { __data["enumField"] = newValue }
       }
 
       public var inputField: GraphQLNullable<InnerInputObject> {
-        get { __data[dynamicMember: "inputField"] }
-        set { __data[dynamicMember: "inputField"] = newValue }
+        get { __data["inputField"] }
+        set { __data["inputField"] = newValue }
       }
     """
 
@@ -401,13 +401,13 @@ class InputObjectTemplateTests: XCTestCase {
       }
 
       public var enumField: GraphQLNullable<GraphQLEnum<TestSchema.EnumValue>> {
-        get { __data[dynamicMember: "enumField"] }
-        set { __data[dynamicMember: "enumField"] = newValue }
+        get { __data["enumField"] }
+        set { __data["enumField"] = newValue }
       }
 
       public var inputField: GraphQLNullable<TestSchema.InnerInputObject> {
-        get { __data[dynamicMember: "inputField"] }
-        set { __data[dynamicMember: "inputField"] = newValue }
+        get { __data["inputField"] }
+        set { __data["inputField"] = newValue }
       }
     """
 
@@ -1142,24 +1142,24 @@ class InputObjectTemplateTests: XCTestCase {
 
       @available(*, deprecated, message: "Not used anymore!")
       public var fieldOne: String {
-        get { __data[dynamicMember: "fieldOne"] }
-        set { __data[dynamicMember: "fieldOne"] = newValue }
+        get { __data["fieldOne"] }
+        set { __data["fieldOne"] = newValue }
       }
 
       public var fieldTwo: String {
-        get { __data[dynamicMember: "fieldTwo"] }
-        set { __data[dynamicMember: "fieldTwo"] = newValue }
+        get { __data["fieldTwo"] }
+        set { __data["fieldTwo"] = newValue }
       }
 
       public var fieldThree: String {
-        get { __data[dynamicMember: "fieldThree"] }
-        set { __data[dynamicMember: "fieldThree"] = newValue }
+        get { __data["fieldThree"] }
+        set { __data["fieldThree"] = newValue }
       }
 
       @available(*, deprecated, message: "Stop using this field!")
       public var fieldFour: String {
-        get { __data[dynamicMember: "fieldFour"] }
-        set { __data[dynamicMember: "fieldFour"] = newValue }
+        get { __data["fieldFour"] }
+        set { __data["fieldFour"] = newValue }
       }
     """
 
@@ -1219,18 +1219,18 @@ class InputObjectTemplateTests: XCTestCase {
       }
 
       public var fieldOne: String {
-        get { __data[dynamicMember: "fieldOne"] }
-        set { __data[dynamicMember: "fieldOne"] = newValue }
+        get { __data["fieldOne"] }
+        set { __data["fieldOne"] = newValue }
       }
 
       public var fieldTwo: String {
-        get { __data[dynamicMember: "fieldTwo"] }
-        set { __data[dynamicMember: "fieldTwo"] = newValue }
+        get { __data["fieldTwo"] }
+        set { __data["fieldTwo"] = newValue }
       }
 
       public var fieldThree: String {
-        get { __data[dynamicMember: "fieldThree"] }
-        set { __data[dynamicMember: "fieldThree"] = newValue }
+        get { __data["fieldThree"] }
+        set { __data["fieldThree"] = newValue }
       }
     """
 
@@ -1608,253 +1608,253 @@ class InputObjectTemplateTests: XCTestCase {
       }
 
       public var `associatedtype`: String {
-        get { __data[dynamicMember: "`associatedtype`"] }
-        set { __data[dynamicMember: "`associatedtype`"] = newValue }
+        get { __data["`associatedtype`"] }
+        set { __data["`associatedtype`"] = newValue }
       }
 
       public var `class`: String {
-        get { __data[dynamicMember: "`class`"] }
-        set { __data[dynamicMember: "`class`"] = newValue }
+        get { __data["`class`"] }
+        set { __data["`class`"] = newValue }
       }
 
       public var `deinit`: String {
-        get { __data[dynamicMember: "`deinit`"] }
-        set { __data[dynamicMember: "`deinit`"] = newValue }
+        get { __data["`deinit`"] }
+        set { __data["`deinit`"] = newValue }
       }
 
       public var `enum`: String {
-        get { __data[dynamicMember: "`enum`"] }
-        set { __data[dynamicMember: "`enum`"] = newValue }
+        get { __data["`enum`"] }
+        set { __data["`enum`"] = newValue }
       }
 
       public var `extension`: String {
-        get { __data[dynamicMember: "`extension`"] }
-        set { __data[dynamicMember: "`extension`"] = newValue }
+        get { __data["`extension`"] }
+        set { __data["`extension`"] = newValue }
       }
 
       public var `fileprivate`: String {
-        get { __data[dynamicMember: "`fileprivate`"] }
-        set { __data[dynamicMember: "`fileprivate`"] = newValue }
+        get { __data["`fileprivate`"] }
+        set { __data["`fileprivate`"] = newValue }
       }
 
       public var `func`: String {
-        get { __data[dynamicMember: "`func`"] }
-        set { __data[dynamicMember: "`func`"] = newValue }
+        get { __data["`func`"] }
+        set { __data["`func`"] = newValue }
       }
 
       public var `import`: String {
-        get { __data[dynamicMember: "`import`"] }
-        set { __data[dynamicMember: "`import`"] = newValue }
+        get { __data["`import`"] }
+        set { __data["`import`"] = newValue }
       }
 
       public var `init`: String {
-        get { __data[dynamicMember: "`init`"] }
-        set { __data[dynamicMember: "`init`"] = newValue }
+        get { __data["`init`"] }
+        set { __data["`init`"] = newValue }
       }
 
       public var `inout`: String {
-        get { __data[dynamicMember: "`inout`"] }
-        set { __data[dynamicMember: "`inout`"] = newValue }
+        get { __data["`inout`"] }
+        set { __data["`inout`"] = newValue }
       }
 
       public var `internal`: String {
-        get { __data[dynamicMember: "`internal`"] }
-        set { __data[dynamicMember: "`internal`"] = newValue }
+        get { __data["`internal`"] }
+        set { __data["`internal`"] = newValue }
       }
 
       public var `let`: String {
-        get { __data[dynamicMember: "`let`"] }
-        set { __data[dynamicMember: "`let`"] = newValue }
+        get { __data["`let`"] }
+        set { __data["`let`"] = newValue }
       }
 
       public var `operator`: String {
-        get { __data[dynamicMember: "`operator`"] }
-        set { __data[dynamicMember: "`operator`"] = newValue }
+        get { __data["`operator`"] }
+        set { __data["`operator`"] = newValue }
       }
 
       public var `private`: String {
-        get { __data[dynamicMember: "`private`"] }
-        set { __data[dynamicMember: "`private`"] = newValue }
+        get { __data["`private`"] }
+        set { __data["`private`"] = newValue }
       }
 
       public var `precedencegroup`: String {
-        get { __data[dynamicMember: "`precedencegroup`"] }
-        set { __data[dynamicMember: "`precedencegroup`"] = newValue }
+        get { __data["`precedencegroup`"] }
+        set { __data["`precedencegroup`"] = newValue }
       }
 
       public var `protocol`: String {
-        get { __data[dynamicMember: "`protocol`"] }
-        set { __data[dynamicMember: "`protocol`"] = newValue }
+        get { __data["`protocol`"] }
+        set { __data["`protocol`"] = newValue }
       }
 
       public var `public`: String {
-        get { __data[dynamicMember: "`public`"] }
-        set { __data[dynamicMember: "`public`"] = newValue }
+        get { __data["`public`"] }
+        set { __data["`public`"] = newValue }
       }
 
       public var `rethrows`: String {
-        get { __data[dynamicMember: "`rethrows`"] }
-        set { __data[dynamicMember: "`rethrows`"] = newValue }
+        get { __data["`rethrows`"] }
+        set { __data["`rethrows`"] = newValue }
       }
 
       public var `static`: String {
-        get { __data[dynamicMember: "`static`"] }
-        set { __data[dynamicMember: "`static`"] = newValue }
+        get { __data["`static`"] }
+        set { __data["`static`"] = newValue }
       }
 
       public var `struct`: String {
-        get { __data[dynamicMember: "`struct`"] }
-        set { __data[dynamicMember: "`struct`"] = newValue }
+        get { __data["`struct`"] }
+        set { __data["`struct`"] = newValue }
       }
 
       public var `subscript`: String {
-        get { __data[dynamicMember: "`subscript`"] }
-        set { __data[dynamicMember: "`subscript`"] = newValue }
+        get { __data["`subscript`"] }
+        set { __data["`subscript`"] = newValue }
       }
 
       public var `typealias`: String {
-        get { __data[dynamicMember: "`typealias`"] }
-        set { __data[dynamicMember: "`typealias`"] = newValue }
+        get { __data["`typealias`"] }
+        set { __data["`typealias`"] = newValue }
       }
 
       public var `var`: String {
-        get { __data[dynamicMember: "`var`"] }
-        set { __data[dynamicMember: "`var`"] = newValue }
+        get { __data["`var`"] }
+        set { __data["`var`"] = newValue }
       }
 
       public var `break`: String {
-        get { __data[dynamicMember: "`break`"] }
-        set { __data[dynamicMember: "`break`"] = newValue }
+        get { __data["`break`"] }
+        set { __data["`break`"] = newValue }
       }
 
       public var `case`: String {
-        get { __data[dynamicMember: "`case`"] }
-        set { __data[dynamicMember: "`case`"] = newValue }
+        get { __data["`case`"] }
+        set { __data["`case`"] = newValue }
       }
 
       public var `catch`: String {
-        get { __data[dynamicMember: "`catch`"] }
-        set { __data[dynamicMember: "`catch`"] = newValue }
+        get { __data["`catch`"] }
+        set { __data["`catch`"] = newValue }
       }
 
       public var `continue`: String {
-        get { __data[dynamicMember: "`continue`"] }
-        set { __data[dynamicMember: "`continue`"] = newValue }
+        get { __data["`continue`"] }
+        set { __data["`continue`"] = newValue }
       }
 
       public var `default`: String {
-        get { __data[dynamicMember: "`default`"] }
-        set { __data[dynamicMember: "`default`"] = newValue }
+        get { __data["`default`"] }
+        set { __data["`default`"] = newValue }
       }
 
       public var `defer`: String {
-        get { __data[dynamicMember: "`defer`"] }
-        set { __data[dynamicMember: "`defer`"] = newValue }
+        get { __data["`defer`"] }
+        set { __data["`defer`"] = newValue }
       }
 
       public var `do`: String {
-        get { __data[dynamicMember: "`do`"] }
-        set { __data[dynamicMember: "`do`"] = newValue }
+        get { __data["`do`"] }
+        set { __data["`do`"] = newValue }
       }
 
       public var `else`: String {
-        get { __data[dynamicMember: "`else`"] }
-        set { __data[dynamicMember: "`else`"] = newValue }
+        get { __data["`else`"] }
+        set { __data["`else`"] = newValue }
       }
 
       public var `fallthrough`: String {
-        get { __data[dynamicMember: "`fallthrough`"] }
-        set { __data[dynamicMember: "`fallthrough`"] = newValue }
+        get { __data["`fallthrough`"] }
+        set { __data["`fallthrough`"] = newValue }
       }
 
       public var `guard`: String {
-        get { __data[dynamicMember: "`guard`"] }
-        set { __data[dynamicMember: "`guard`"] = newValue }
+        get { __data["`guard`"] }
+        set { __data["`guard`"] = newValue }
       }
 
       public var `if`: String {
-        get { __data[dynamicMember: "`if`"] }
-        set { __data[dynamicMember: "`if`"] = newValue }
+        get { __data["`if`"] }
+        set { __data["`if`"] = newValue }
       }
 
       public var `in`: String {
-        get { __data[dynamicMember: "`in`"] }
-        set { __data[dynamicMember: "`in`"] = newValue }
+        get { __data["`in`"] }
+        set { __data["`in`"] = newValue }
       }
 
       public var `repeat`: String {
-        get { __data[dynamicMember: "`repeat`"] }
-        set { __data[dynamicMember: "`repeat`"] = newValue }
+        get { __data["`repeat`"] }
+        set { __data["`repeat`"] = newValue }
       }
 
       public var `return`: String {
-        get { __data[dynamicMember: "`return`"] }
-        set { __data[dynamicMember: "`return`"] = newValue }
+        get { __data["`return`"] }
+        set { __data["`return`"] = newValue }
       }
 
       public var `throw`: String {
-        get { __data[dynamicMember: "`throw`"] }
-        set { __data[dynamicMember: "`throw`"] = newValue }
+        get { __data["`throw`"] }
+        set { __data["`throw`"] = newValue }
       }
 
       public var `switch`: String {
-        get { __data[dynamicMember: "`switch`"] }
-        set { __data[dynamicMember: "`switch`"] = newValue }
+        get { __data["`switch`"] }
+        set { __data["`switch`"] = newValue }
       }
 
       public var `where`: String {
-        get { __data[dynamicMember: "`where`"] }
-        set { __data[dynamicMember: "`where`"] = newValue }
+        get { __data["`where`"] }
+        set { __data["`where`"] = newValue }
       }
 
       public var `while`: String {
-        get { __data[dynamicMember: "`while`"] }
-        set { __data[dynamicMember: "`while`"] = newValue }
+        get { __data["`while`"] }
+        set { __data["`while`"] = newValue }
       }
 
       public var `as`: String {
-        get { __data[dynamicMember: "`as`"] }
-        set { __data[dynamicMember: "`as`"] = newValue }
+        get { __data["`as`"] }
+        set { __data["`as`"] = newValue }
       }
 
       public var `false`: String {
-        get { __data[dynamicMember: "`false`"] }
-        set { __data[dynamicMember: "`false`"] = newValue }
+        get { __data["`false`"] }
+        set { __data["`false`"] = newValue }
       }
 
       public var `is`: String {
-        get { __data[dynamicMember: "`is`"] }
-        set { __data[dynamicMember: "`is`"] = newValue }
+        get { __data["`is`"] }
+        set { __data["`is`"] = newValue }
       }
 
       public var `nil`: String {
-        get { __data[dynamicMember: "`nil`"] }
-        set { __data[dynamicMember: "`nil`"] = newValue }
+        get { __data["`nil`"] }
+        set { __data["`nil`"] = newValue }
       }
 
       public var `self`: String {
-        get { __data[dynamicMember: "`self`"] }
-        set { __data[dynamicMember: "`self`"] = newValue }
+        get { __data["`self`"] }
+        set { __data["`self`"] = newValue }
       }
 
       public var `super`: String {
-        get { __data[dynamicMember: "`super`"] }
-        set { __data[dynamicMember: "`super`"] = newValue }
+        get { __data["`super`"] }
+        set { __data["`super`"] = newValue }
       }
 
       public var `throws`: String {
-        get { __data[dynamicMember: "`throws`"] }
-        set { __data[dynamicMember: "`throws`"] = newValue }
+        get { __data["`throws`"] }
+        set { __data["`throws`"] = newValue }
       }
 
       public var `true`: String {
-        get { __data[dynamicMember: "`true`"] }
-        set { __data[dynamicMember: "`true`"] = newValue }
+        get { __data["`true`"] }
+        set { __data["`true`"] = newValue }
       }
 
       public var `try`: String {
-        get { __data[dynamicMember: "`try`"] }
-        set { __data[dynamicMember: "`try`"] = newValue }
+        get { __data["`try`"] }
+        set { __data["`try`"] = newValue }
       }
     """
 
@@ -1906,13 +1906,13 @@ class InputObjectTemplateTests: XCTestCase {
       }
 
       public var enumField: GraphQLNullable<GraphQLEnum<Testschema.EnumValue>> {
-        get { __data[dynamicMember: "enumField"] }
-        set { __data[dynamicMember: "enumField"] = newValue }
+        get { __data["enumField"] }
+        set { __data["enumField"] = newValue }
       }
 
       public var inputField: GraphQLNullable<Testschema.InnerInputObject> {
-        get { __data[dynamicMember: "inputField"] }
-        set { __data[dynamicMember: "inputField"] = newValue }
+        get { __data["inputField"] }
+        set { __data["inputField"] = newValue }
       }
     """
 
@@ -1962,13 +1962,13 @@ class InputObjectTemplateTests: XCTestCase {
       }
 
       public var enumField: GraphQLNullable<GraphQLEnum<TESTSCHEMA.EnumValue>> {
-        get { __data[dynamicMember: "enumField"] }
-        set { __data[dynamicMember: "enumField"] = newValue }
+        get { __data["enumField"] }
+        set { __data["enumField"] = newValue }
       }
 
       public var inputField: GraphQLNullable<TESTSCHEMA.InnerInputObject> {
-        get { __data[dynamicMember: "inputField"] }
-        set { __data[dynamicMember: "inputField"] = newValue }
+        get { __data["inputField"] }
+        set { __data["inputField"] = newValue }
       }
     """
 
@@ -2018,13 +2018,13 @@ class InputObjectTemplateTests: XCTestCase {
       }
 
       public var enumField: GraphQLNullable<GraphQLEnum<TestSchema.EnumValue>> {
-        get { __data[dynamicMember: "enumField"] }
-        set { __data[dynamicMember: "enumField"] = newValue }
+        get { __data["enumField"] }
+        set { __data["enumField"] = newValue }
       }
 
       public var inputField: GraphQLNullable<TestSchema.InnerInputObject> {
-        get { __data[dynamicMember: "inputField"] }
-        set { __data[dynamicMember: "inputField"] = newValue }
+        get { __data["inputField"] }
+        set { __data["inputField"] = newValue }
       }
     """
 
@@ -2035,7 +2035,7 @@ class InputObjectTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
   }
 
-  func test__casing__givenLowercasedSchemaName_listField_generatesWithFirstUppercasedzNamespace() throws {
+  func test__casing__givenLowercasedSchemaName_listField_generatesWithFirstUppercasedNamespace() throws {
     // given
     buildSubject(
       fields: [GraphQLInputField.mock(

@@ -20,7 +20,6 @@ extension InputObject {
 }
 
 /// A structure that wraps the underlying data dictionary used by `InputObject`s.
-@dynamicMemberLookup
 public struct InputDict: GraphQLOperationVariableValue, Hashable {
 
   private var data: [String: GraphQLOperationVariableValue]
@@ -31,9 +30,9 @@ public struct InputDict: GraphQLOperationVariableValue, Hashable {
 
   public var _jsonEncodableValue: (any JSONEncodable)? { data._jsonEncodableObject }
 
-  public subscript<T: GraphQLOperationVariableValue>(dynamicMember key: StaticString) -> T {
-    get { data[key.description] as! T }
-    set { data[key.description] = newValue }
+  public subscript<T: GraphQLOperationVariableValue>(key: String) -> T {
+    get { data[key] as! T }
+    set { data[key] = newValue }
   }
 
   public static func == (lhs: InputDict, rhs: InputDict) -> Bool {

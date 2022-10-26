@@ -30,34 +30,34 @@ public extension MyGraphQLSchema {
     }
 
     public var ownerID: ID {
-      get { __data[dynamicMember: "ownerID"] }
-      set { __data[dynamicMember: "ownerID"] = newValue }
+      get { __data["ownerID"] }
+      set { __data["ownerID"] = newValue }
     }
 
     public var petID: ID {
-      get { __data[dynamicMember: "petID"] }
-      set { __data[dynamicMember: "petID"] = newValue }
+      get { __data["petID"] }
+      set { __data["petID"] = newValue }
     }
 
     /// The given name the pet is called by its human.
     public var humanName: GraphQLNullable<String> {
-      get { __data[dynamicMember: "humanName"] }
-      set { __data[dynamicMember: "humanName"] = newValue }
+      get { __data["humanName"] }
+      set { __data["humanName"] = newValue }
     }
 
     public var favoriteToy: String {
-      get { __data[dynamicMember: "favoriteToy"] }
-      set { __data[dynamicMember: "favoriteToy"] = newValue }
+      get { __data["favoriteToy"] }
+      set { __data["favoriteToy"] = newValue }
     }
 
     public var isSpayedOrNeutered: Bool? {
-      get { __data[dynamicMember: "isSpayedOrNeutered"] }
-      set { __data[dynamicMember: "isSpayedOrNeutered"] = newValue }
+      get { __data["isSpayedOrNeutered"] }
+      set { __data["isSpayedOrNeutered"] = newValue }
     }
 
     public var measurements: GraphQLNullable<MeasurementsInput> {
-      get { __data[dynamicMember: "measurements"] }
-      set { __data[dynamicMember: "measurements"] = newValue }
+      get { __data["measurements"] }
+      set { __data["measurements"] = newValue }
     }
   }
 

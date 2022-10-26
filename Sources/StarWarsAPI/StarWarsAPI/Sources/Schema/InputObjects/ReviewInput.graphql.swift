@@ -25,19 +25,19 @@ public struct ReviewInput: InputObject {
 
   /// 0-5 stars
   public var stars: Int {
-    get { __data[dynamicMember: "stars"] }
-    set { __data[dynamicMember: "stars"] = newValue }
+    get { __data["stars"] }
+    set { __data["stars"] = newValue }
   }
 
   /// Comment about the movie, optional
   public var commentary: GraphQLNullable<String> {
-    get { __data[dynamicMember: "commentary"] }
-    set { __data[dynamicMember: "commentary"] = newValue }
+    get { __data["commentary"] }
+    set { __data["commentary"] = newValue }
   }
 
   /// Favorite color, optional
   public var favorite_color: GraphQLNullable<ColorInput> {
-    get { __data[dynamicMember: "favorite_color"] }
-    set { __data[dynamicMember: "favorite_color"] = newValue }
+    get { __data["favorite_color"] }
+    set { __data["favorite_color"] = newValue }
   }
 }

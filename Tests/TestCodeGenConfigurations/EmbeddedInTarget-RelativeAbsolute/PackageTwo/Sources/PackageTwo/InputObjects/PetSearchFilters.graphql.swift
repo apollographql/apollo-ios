@@ -24,18 +24,18 @@ public extension MySchemaModule {
     }
 
     public var species: [String] {
-      get { __data[dynamicMember: "species"] }
-      set { __data[dynamicMember: "species"] = newValue }
+      get { __data["species"] }
+      set { __data["species"] = newValue }
     }
 
     public var size: GraphQLNullable<GraphQLEnum<MySchemaModule.RelativeSize>> {
-      get { __data[dynamicMember: "size"] }
-      set { __data[dynamicMember: "size"] = newValue }
+      get { __data["size"] }
+      set { __data["size"] = newValue }
     }
 
     public var measurements: GraphQLNullable<MySchemaModule.MeasurementsInput> {
-      get { __data[dynamicMember: "measurements"] }
-      set { __data[dynamicMember: "measurements"] = newValue }
+      get { __data["measurements"] }
+      set { __data["measurements"] = newValue }
     }
   }
 

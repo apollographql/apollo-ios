@@ -24,17 +24,17 @@ public struct ColorInput: InputObject {
   }
 
   public var red: Int {
-    get { __data[dynamicMember: "red"] }
-    set { __data[dynamicMember: "red"] = newValue }
+    get { __data["red"] }
+    set { __data["red"] = newValue }
   }
 
   public var green: Int {
-    get { __data[dynamicMember: "green"] }
-    set { __data[dynamicMember: "green"] = newValue }
+    get { __data["green"] }
+    set { __data["green"] = newValue }
   }
 
   public var blue: Int {
-    get { __data[dynamicMember: "blue"] }
-    set { __data[dynamicMember: "blue"] = newValue }
+    get { __data["blue"] }
+    set { __data["blue"] = newValue }
   }
 }
