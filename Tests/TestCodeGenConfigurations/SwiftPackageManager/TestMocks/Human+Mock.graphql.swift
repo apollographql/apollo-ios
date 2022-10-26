@@ -12,6 +12,7 @@ public class Human: MockObject {
   public struct MockFields {
     @Field<Int>("bodyTemperature") public var bodyTemperature
     @Field<String>("firstName") public var firstName
+    @Field<String>("hash") public var hash
     @Field<Height>("height") public var height
     @Field<ID>("id") public var id
     @Field<Bool>("laysEggs") public var laysEggs
@@ -25,6 +26,7 @@ public extension Mock where O == Human {
   convenience init(
     bodyTemperature: Int? = nil,
     firstName: String? = nil,
+    hash: String? = nil,
     height: Mock<Height>? = nil,
     id: ID? = nil,
     laysEggs: Bool? = nil,
@@ -35,6 +37,7 @@ public extension Mock where O == Human {
     self.init()
     self.bodyTemperature = bodyTemperature
     self.firstName = firstName
+    self.hash = hash
     self.height = height
     self.id = id
     self.laysEggs = laysEggs

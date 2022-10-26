@@ -11,6 +11,7 @@ public class Fish: MockObject {
 
   public struct MockFields {
     @Field<String>("favoriteToy") public var favoriteToy
+    @Field<String>("hash") public var hash
     @Field<Height>("height") public var height
     @Field<String>("humanName") public var humanName
     @Field<ID>("id") public var id
@@ -24,6 +25,7 @@ public class Fish: MockObject {
 public extension Mock where O == Fish {
   convenience init(
     favoriteToy: String? = nil,
+    hash: String? = nil,
     height: Mock<Height>? = nil,
     humanName: String? = nil,
     id: ID? = nil,
@@ -34,6 +36,7 @@ public extension Mock where O == Fish {
   ) {
     self.init()
     self.favoriteToy = favoriteToy
+    self.hash = hash
     self.height = height
     self.humanName = humanName
     self.id = id

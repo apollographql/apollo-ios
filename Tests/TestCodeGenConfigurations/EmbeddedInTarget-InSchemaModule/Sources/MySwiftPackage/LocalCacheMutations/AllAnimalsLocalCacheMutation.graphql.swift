@@ -32,11 +32,16 @@ public extension MyGraphQLSchema {
 
         public static var __parentType: ParentType { MyGraphQLSchema.Interfaces.Animal }
         public static var __selections: [Selection] { [
+          .field("hash", String?.self),
           .field("species", String.self),
           .field("skinCovering", GraphQLEnum<SkinCovering>?.self),
           .inlineFragment(AsBird.self),
         ] }
 
+        public var hash: String? {
+          get { __data["hash"] }
+          set { __data["hash"] = newValue }
+        }
         public var species: String {
           get { __data["species"] }
           set { __data["species"] = newValue }
@@ -66,6 +71,10 @@ public extension MyGraphQLSchema {
           public var wingspan: Double {
             get { __data["wingspan"] }
             set { __data["wingspan"] = newValue }
+          }
+          public var hash: String? {
+            get { __data["hash"] }
+            set { __data["hash"] = newValue }
           }
           public var species: String {
             get { __data["species"] }

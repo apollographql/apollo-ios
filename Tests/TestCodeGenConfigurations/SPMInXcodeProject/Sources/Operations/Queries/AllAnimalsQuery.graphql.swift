@@ -18,6 +18,7 @@ public class AllAnimalsQuery: GraphQLQuery {
           }
           ...HeightInMeters
           ...WarmBloodedDetails
+          hash
           species
           skinCovering
           ... on Pet {
@@ -87,6 +88,7 @@ public class AllAnimalsQuery: GraphQLQuery {
       public static var __parentType: ParentType { AnimalKingdomAPI.Interfaces.Animal }
       public static var __selections: [Selection] { [
         .field("height", Height.self),
+        .field("hash", String?.self),
         .field("species", String.self),
         .field("skinCovering", GraphQLEnum<SkinCovering>?.self),
         .field("predators", [Predator].self),
@@ -99,6 +101,7 @@ public class AllAnimalsQuery: GraphQLQuery {
       ] }
 
       public var height: Height { __data["height"] }
+      public var hash: String? { __data["hash"] }
       public var species: String { __data["species"] }
       public var skinCovering: GraphQLEnum<SkinCovering>? { __data["skinCovering"] }
       public var predators: [Predator] { __data["predators"] }
@@ -192,6 +195,7 @@ public class AllAnimalsQuery: GraphQLQuery {
         ] }
 
         public var height: Height { __data["height"] }
+        public var hash: String? { __data["hash"] }
         public var species: String { __data["species"] }
         public var skinCovering: GraphQLEnum<SkinCovering>? { __data["skinCovering"] }
         public var predators: [Predator] { __data["predators"] }
@@ -235,6 +239,7 @@ public class AllAnimalsQuery: GraphQLQuery {
         ] }
 
         public var height: Height { __data["height"] }
+        public var hash: String? { __data["hash"] }
         public var species: String { __data["species"] }
         public var skinCovering: GraphQLEnum<SkinCovering>? { __data["skinCovering"] }
         public var predators: [Predator] { __data["predators"] }
@@ -285,6 +290,7 @@ public class AllAnimalsQuery: GraphQLQuery {
           ] }
 
           public var height: Height { __data["height"] }
+          public var hash: String? { __data["hash"] }
           public var species: String { __data["species"] }
           public var skinCovering: GraphQLEnum<SkinCovering>? { __data["skinCovering"] }
           public var predators: [Predator] { __data["predators"] }
@@ -334,6 +340,7 @@ public class AllAnimalsQuery: GraphQLQuery {
 
         public var isJellicle: Bool { __data["isJellicle"] }
         public var height: Height { __data["height"] }
+        public var hash: String? { __data["hash"] }
         public var species: String { __data["species"] }
         public var skinCovering: GraphQLEnum<SkinCovering>? { __data["skinCovering"] }
         public var predators: [Predator] { __data["predators"] }
@@ -381,6 +388,7 @@ public class AllAnimalsQuery: GraphQLQuery {
         ] }
 
         public var height: Height { __data["height"] }
+        public var hash: String? { __data["hash"] }
         public var species: String { __data["species"] }
         public var skinCovering: GraphQLEnum<SkinCovering>? { __data["skinCovering"] }
         public var predators: [Predator] { __data["predators"] }
@@ -422,6 +430,7 @@ public class AllAnimalsQuery: GraphQLQuery {
 
           public var wingspan: Double { __data["wingspan"] }
           public var height: Height { __data["height"] }
+          public var hash: String? { __data["hash"] }
           public var species: String { __data["species"] }
           public var skinCovering: GraphQLEnum<SkinCovering>? { __data["skinCovering"] }
           public var predators: [Predator] { __data["predators"] }
@@ -473,6 +482,7 @@ public class AllAnimalsQuery: GraphQLQuery {
         public var favoriteToy: String { __data["favoriteToy"] }
         public var birthdate: CustomDate? { __data["birthdate"] }
         public var height: Height { __data["height"] }
+        public var hash: String? { __data["hash"] }
         public var species: String { __data["species"] }
         public var skinCovering: GraphQLEnum<SkinCovering>? { __data["skinCovering"] }
         public var predators: [Predator] { __data["predators"] }

@@ -11,6 +11,7 @@ public class Rat: MockObject {
 
   public struct MockFields {
     @Field<String>("favoriteToy") public var favoriteToy
+    @Field<String>("hash") public var hash
     @Field<Height>("height") public var height
     @Field<String>("humanName") public var humanName
     @Field<MyGraphQLSchema.ID>("id") public var id
@@ -24,6 +25,7 @@ public class Rat: MockObject {
 public extension Mock where O == Rat {
   convenience init(
     favoriteToy: String? = nil,
+    hash: String? = nil,
     height: Mock<Height>? = nil,
     humanName: String? = nil,
     id: MyGraphQLSchema.ID? = nil,
@@ -34,6 +36,7 @@ public extension Mock where O == Rat {
   ) {
     self.init()
     self.favoriteToy = favoriteToy
+    self.hash = hash
     self.height = height
     self.humanName = humanName
     self.id = id

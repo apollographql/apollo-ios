@@ -10,6 +10,7 @@ public class Crocodile: MockObject {
   public typealias MockValueCollectionType = Array<Mock<Crocodile>>
 
   public struct MockFields {
+    @Field<String>("hash") public var hash
     @Field<Height>("height") public var height
     @Field<MyGraphQLSchema.ID>("id") public var id
     @Field<[Animal]>("predators") public var predators
@@ -20,6 +21,7 @@ public class Crocodile: MockObject {
 
 public extension Mock where O == Crocodile {
   convenience init(
+    hash: String? = nil,
     height: Mock<Height>? = nil,
     id: MyGraphQLSchema.ID? = nil,
     predators: [AnyMock]? = nil,
@@ -27,6 +29,7 @@ public extension Mock where O == Crocodile {
     species: String? = nil
   ) {
     self.init()
+    self.hash = hash
     self.height = height
     self.id = id
     self.predators = predators

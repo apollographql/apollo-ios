@@ -12,6 +12,7 @@ public class Cat: MockObject {
   public struct MockFields {
     @Field<Int>("bodyTemperature") public var bodyTemperature
     @Field<String>("favoriteToy") public var favoriteToy
+    @Field<String>("hash") public var hash
     @Field<Height>("height") public var height
     @Field<String>("humanName") public var humanName
     @Field<MyGraphQLSchema.ID>("id") public var id
@@ -28,6 +29,7 @@ public extension Mock where O == Cat {
   convenience init(
     bodyTemperature: Int? = nil,
     favoriteToy: String? = nil,
+    hash: String? = nil,
     height: Mock<Height>? = nil,
     humanName: String? = nil,
     id: MyGraphQLSchema.ID? = nil,
@@ -41,6 +43,7 @@ public extension Mock where O == Cat {
     self.init()
     self.bodyTemperature = bodyTemperature
     self.favoriteToy = favoriteToy
+    self.hash = hash
     self.height = height
     self.humanName = humanName
     self.id = id
