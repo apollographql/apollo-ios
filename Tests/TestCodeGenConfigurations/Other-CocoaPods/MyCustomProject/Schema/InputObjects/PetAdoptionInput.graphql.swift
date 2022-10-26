@@ -29,33 +29,33 @@ public struct PetAdoptionInput: InputObject {
   }
 
   public var ownerID: ID {
-    get { __data.ownerID }
-    set { __data.ownerID = newValue }
+    get { __data["ownerID"] }
+    set { __data["ownerID"] = newValue }
   }
 
   public var petID: ID {
-    get { __data.petID }
-    set { __data.petID = newValue }
+    get { __data["petID"] }
+    set { __data["petID"] = newValue }
   }
 
   /// The given name the pet is called by its human.
   public var humanName: GraphQLNullable<String> {
-    get { __data.humanName }
-    set { __data.humanName = newValue }
+    get { __data["humanName"] }
+    set { __data["humanName"] = newValue }
   }
 
   public var favoriteToy: String {
-    get { __data.favoriteToy }
-    set { __data.favoriteToy = newValue }
+    get { __data["favoriteToy"] }
+    set { __data["favoriteToy"] = newValue }
   }
 
   public var isSpayedOrNeutered: Bool? {
-    get { __data.isSpayedOrNeutered }
-    set { __data.isSpayedOrNeutered = newValue }
+    get { __data["isSpayedOrNeutered"] }
+    set { __data["isSpayedOrNeutered"] = newValue }
   }
 
   public var measurements: GraphQLNullable<MeasurementsInput> {
-    get { __data.measurements }
-    set { __data.measurements = newValue }
+    get { __data["measurements"] }
+    set { __data["measurements"] = newValue }
   }
 }

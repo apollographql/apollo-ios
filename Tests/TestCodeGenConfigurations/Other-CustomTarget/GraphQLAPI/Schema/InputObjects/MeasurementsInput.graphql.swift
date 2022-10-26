@@ -34,18 +34,18 @@ public struct MeasurementsInput: InputObject {
   }
 
   public var height: Double {
-    get { __data.height }
-    set { __data.height = newValue }
+    get { __data["height"] }
+    set { __data["height"] = newValue }
   }
 
   public var weight: Double {
-    get { __data.weight }
-    set { __data.weight = newValue }
+    get { __data["weight"] }
+    set { __data["weight"] = newValue }
   }
 
   @available(*, deprecated, message: "No longer valid.")
   public var wingspan: GraphQLNullable<Double> {
-    get { __data.wingspan }
-    set { __data.wingspan = newValue }
+    get { __data["wingspan"] }
+    set { __data["wingspan"] = newValue }
   }
 }

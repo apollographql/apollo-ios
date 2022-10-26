@@ -171,8 +171,8 @@ class InputObjectTemplateTests: XCTestCase {
       }
 
       public var field: GraphQLNullable<String> {
-        get { __data.field }
-        set { __data.field = newValue }
+        get { __data["field"] }
+        set { __data["field"] = newValue }
       }
     }
     
@@ -285,58 +285,58 @@ class InputObjectTemplateTests: XCTestCase {
       }
 
       public var stringField: GraphQLNullable<String> {
-        get { __data.stringField }
-        set { __data.stringField = newValue }
+        get { __data["stringField"] }
+        set { __data["stringField"] = newValue }
       }
 
       public var intField: GraphQLNullable<Int> {
-        get { __data.intField }
-        set { __data.intField = newValue }
+        get { __data["intField"] }
+        set { __data["intField"] = newValue }
       }
 
       public var boolField: GraphQLNullable<Bool> {
-        get { __data.boolField }
-        set { __data.boolField = newValue }
+        get { __data["boolField"] }
+        set { __data["boolField"] = newValue }
       }
 
       public var floatField: GraphQLNullable<Double> {
-        get { __data.floatField }
-        set { __data.floatField = newValue }
+        get { __data["floatField"] }
+        set { __data["floatField"] = newValue }
       }
 
       public var customScalarField: GraphQLNullable<TestSchema.CustomScalar> {
-        get { __data.customScalarField }
-        set { __data.customScalarField = newValue }
+        get { __data["customScalarField"] }
+        set { __data["customScalarField"] = newValue }
       }
 
       public var lowercaseCustomScalarField: GraphQLNullable<TestSchema.LowercaseCustomScalar> {
-        get { __data.lowercaseCustomScalarField }
-        set { __data.lowercaseCustomScalarField = newValue }
+        get { __data["lowercaseCustomScalarField"] }
+        set { __data["lowercaseCustomScalarField"] = newValue }
       }
 
       public var enumField: GraphQLNullable<GraphQLEnum<TestSchema.EnumType>> {
-        get { __data.enumField }
-        set { __data.enumField = newValue }
+        get { __data["enumField"] }
+        set { __data["enumField"] = newValue }
       }
 
       public var lowercaseEnumField: GraphQLNullable<GraphQLEnum<TestSchema.LowercaseEnumType>> {
-        get { __data.lowercaseEnumField }
-        set { __data.lowercaseEnumField = newValue }
+        get { __data["lowercaseEnumField"] }
+        set { __data["lowercaseEnumField"] = newValue }
       }
 
       public var inputField: GraphQLNullable<TestSchema.InnerInputObject> {
-        get { __data.inputField }
-        set { __data.inputField = newValue }
+        get { __data["inputField"] }
+        set { __data["inputField"] = newValue }
       }
 
       public var lowercaseInputField: GraphQLNullable<TestSchema.LowercaseInnerInputObject> {
-        get { __data.lowercaseInputField }
-        set { __data.lowercaseInputField = newValue }
+        get { __data["lowercaseInputField"] }
+        set { __data["lowercaseInputField"] = newValue }
       }
 
       public var listField: GraphQLNullable<[String?]> {
-        get { __data.listField }
-        set { __data.listField = newValue }
+        get { __data["listField"] }
+        set { __data["listField"] = newValue }
       }
     """
 
@@ -379,13 +379,13 @@ class InputObjectTemplateTests: XCTestCase {
       }
 
       public var enumField: GraphQLNullable<GraphQLEnum<EnumValue>> {
-        get { __data.enumField }
-        set { __data.enumField = newValue }
+        get { __data["enumField"] }
+        set { __data["enumField"] = newValue }
       }
 
       public var inputField: GraphQLNullable<InnerInputObject> {
-        get { __data.inputField }
-        set { __data.inputField = newValue }
+        get { __data["inputField"] }
+        set { __data["inputField"] = newValue }
       }
     """
 
@@ -401,13 +401,13 @@ class InputObjectTemplateTests: XCTestCase {
       }
 
       public var enumField: GraphQLNullable<GraphQLEnum<TestSchema.EnumValue>> {
-        get { __data.enumField }
-        set { __data.enumField = newValue }
+        get { __data["enumField"] }
+        set { __data["enumField"] = newValue }
       }
 
       public var inputField: GraphQLNullable<TestSchema.InnerInputObject> {
-        get { __data.inputField }
-        set { __data.inputField = newValue }
+        get { __data["inputField"] }
+        set { __data["inputField"] = newValue }
       }
     """
 
@@ -1142,24 +1142,24 @@ class InputObjectTemplateTests: XCTestCase {
 
       @available(*, deprecated, message: "Not used anymore!")
       public var fieldOne: String {
-        get { __data.fieldOne }
-        set { __data.fieldOne = newValue }
+        get { __data["fieldOne"] }
+        set { __data["fieldOne"] = newValue }
       }
 
       public var fieldTwo: String {
-        get { __data.fieldTwo }
-        set { __data.fieldTwo = newValue }
+        get { __data["fieldTwo"] }
+        set { __data["fieldTwo"] = newValue }
       }
 
       public var fieldThree: String {
-        get { __data.fieldThree }
-        set { __data.fieldThree = newValue }
+        get { __data["fieldThree"] }
+        set { __data["fieldThree"] = newValue }
       }
 
       @available(*, deprecated, message: "Stop using this field!")
       public var fieldFour: String {
-        get { __data.fieldFour }
-        set { __data.fieldFour = newValue }
+        get { __data["fieldFour"] }
+        set { __data["fieldFour"] = newValue }
       }
     """
 
@@ -1219,18 +1219,18 @@ class InputObjectTemplateTests: XCTestCase {
       }
 
       public var fieldOne: String {
-        get { __data.fieldOne }
-        set { __data.fieldOne = newValue }
+        get { __data["fieldOne"] }
+        set { __data["fieldOne"] = newValue }
       }
 
       public var fieldTwo: String {
-        get { __data.fieldTwo }
-        set { __data.fieldTwo = newValue }
+        get { __data["fieldTwo"] }
+        set { __data["fieldTwo"] = newValue }
       }
 
       public var fieldThree: String {
-        get { __data.fieldThree }
-        set { __data.fieldThree = newValue }
+        get { __data["fieldThree"] }
+        set { __data["fieldThree"] = newValue }
       }
     """
 
@@ -1608,253 +1608,253 @@ class InputObjectTemplateTests: XCTestCase {
       }
 
       public var `associatedtype`: String {
-        get { __data.`associatedtype` }
-        set { __data.`associatedtype` = newValue }
+        get { __data["`associatedtype`"] }
+        set { __data["`associatedtype`"] = newValue }
       }
 
       public var `class`: String {
-        get { __data.`class` }
-        set { __data.`class` = newValue }
+        get { __data["`class`"] }
+        set { __data["`class`"] = newValue }
       }
 
       public var `deinit`: String {
-        get { __data.`deinit` }
-        set { __data.`deinit` = newValue }
+        get { __data["`deinit`"] }
+        set { __data["`deinit`"] = newValue }
       }
 
       public var `enum`: String {
-        get { __data.`enum` }
-        set { __data.`enum` = newValue }
+        get { __data["`enum`"] }
+        set { __data["`enum`"] = newValue }
       }
 
       public var `extension`: String {
-        get { __data.`extension` }
-        set { __data.`extension` = newValue }
+        get { __data["`extension`"] }
+        set { __data["`extension`"] = newValue }
       }
 
       public var `fileprivate`: String {
-        get { __data.`fileprivate` }
-        set { __data.`fileprivate` = newValue }
+        get { __data["`fileprivate`"] }
+        set { __data["`fileprivate`"] = newValue }
       }
 
       public var `func`: String {
-        get { __data.`func` }
-        set { __data.`func` = newValue }
+        get { __data["`func`"] }
+        set { __data["`func`"] = newValue }
       }
 
       public var `import`: String {
-        get { __data.`import` }
-        set { __data.`import` = newValue }
+        get { __data["`import`"] }
+        set { __data["`import`"] = newValue }
       }
 
       public var `init`: String {
-        get { __data.`init` }
-        set { __data.`init` = newValue }
+        get { __data["`init`"] }
+        set { __data["`init`"] = newValue }
       }
 
       public var `inout`: String {
-        get { __data.`inout` }
-        set { __data.`inout` = newValue }
+        get { __data["`inout`"] }
+        set { __data["`inout`"] = newValue }
       }
 
       public var `internal`: String {
-        get { __data.`internal` }
-        set { __data.`internal` = newValue }
+        get { __data["`internal`"] }
+        set { __data["`internal`"] = newValue }
       }
 
       public var `let`: String {
-        get { __data.`let` }
-        set { __data.`let` = newValue }
+        get { __data["`let`"] }
+        set { __data["`let`"] = newValue }
       }
 
       public var `operator`: String {
-        get { __data.`operator` }
-        set { __data.`operator` = newValue }
+        get { __data["`operator`"] }
+        set { __data["`operator`"] = newValue }
       }
 
       public var `private`: String {
-        get { __data.`private` }
-        set { __data.`private` = newValue }
+        get { __data["`private`"] }
+        set { __data["`private`"] = newValue }
       }
 
       public var `precedencegroup`: String {
-        get { __data.`precedencegroup` }
-        set { __data.`precedencegroup` = newValue }
+        get { __data["`precedencegroup`"] }
+        set { __data["`precedencegroup`"] = newValue }
       }
 
       public var `protocol`: String {
-        get { __data.`protocol` }
-        set { __data.`protocol` = newValue }
+        get { __data["`protocol`"] }
+        set { __data["`protocol`"] = newValue }
       }
 
       public var `public`: String {
-        get { __data.`public` }
-        set { __data.`public` = newValue }
+        get { __data["`public`"] }
+        set { __data["`public`"] = newValue }
       }
 
       public var `rethrows`: String {
-        get { __data.`rethrows` }
-        set { __data.`rethrows` = newValue }
+        get { __data["`rethrows`"] }
+        set { __data["`rethrows`"] = newValue }
       }
 
       public var `static`: String {
-        get { __data.`static` }
-        set { __data.`static` = newValue }
+        get { __data["`static`"] }
+        set { __data["`static`"] = newValue }
       }
 
       public var `struct`: String {
-        get { __data.`struct` }
-        set { __data.`struct` = newValue }
+        get { __data["`struct`"] }
+        set { __data["`struct`"] = newValue }
       }
 
       public var `subscript`: String {
-        get { __data.`subscript` }
-        set { __data.`subscript` = newValue }
+        get { __data["`subscript`"] }
+        set { __data["`subscript`"] = newValue }
       }
 
       public var `typealias`: String {
-        get { __data.`typealias` }
-        set { __data.`typealias` = newValue }
+        get { __data["`typealias`"] }
+        set { __data["`typealias`"] = newValue }
       }
 
       public var `var`: String {
-        get { __data.`var` }
-        set { __data.`var` = newValue }
+        get { __data["`var`"] }
+        set { __data["`var`"] = newValue }
       }
 
       public var `break`: String {
-        get { __data.`break` }
-        set { __data.`break` = newValue }
+        get { __data["`break`"] }
+        set { __data["`break`"] = newValue }
       }
 
       public var `case`: String {
-        get { __data.`case` }
-        set { __data.`case` = newValue }
+        get { __data["`case`"] }
+        set { __data["`case`"] = newValue }
       }
 
       public var `catch`: String {
-        get { __data.`catch` }
-        set { __data.`catch` = newValue }
+        get { __data["`catch`"] }
+        set { __data["`catch`"] = newValue }
       }
 
       public var `continue`: String {
-        get { __data.`continue` }
-        set { __data.`continue` = newValue }
+        get { __data["`continue`"] }
+        set { __data["`continue`"] = newValue }
       }
 
       public var `default`: String {
-        get { __data.`default` }
-        set { __data.`default` = newValue }
+        get { __data["`default`"] }
+        set { __data["`default`"] = newValue }
       }
 
       public var `defer`: String {
-        get { __data.`defer` }
-        set { __data.`defer` = newValue }
+        get { __data["`defer`"] }
+        set { __data["`defer`"] = newValue }
       }
 
       public var `do`: String {
-        get { __data.`do` }
-        set { __data.`do` = newValue }
+        get { __data["`do`"] }
+        set { __data["`do`"] = newValue }
       }
 
       public var `else`: String {
-        get { __data.`else` }
-        set { __data.`else` = newValue }
+        get { __data["`else`"] }
+        set { __data["`else`"] = newValue }
       }
 
       public var `fallthrough`: String {
-        get { __data.`fallthrough` }
-        set { __data.`fallthrough` = newValue }
+        get { __data["`fallthrough`"] }
+        set { __data["`fallthrough`"] = newValue }
       }
 
       public var `guard`: String {
-        get { __data.`guard` }
-        set { __data.`guard` = newValue }
+        get { __data["`guard`"] }
+        set { __data["`guard`"] = newValue }
       }
 
       public var `if`: String {
-        get { __data.`if` }
-        set { __data.`if` = newValue }
+        get { __data["`if`"] }
+        set { __data["`if`"] = newValue }
       }
 
       public var `in`: String {
-        get { __data.`in` }
-        set { __data.`in` = newValue }
+        get { __data["`in`"] }
+        set { __data["`in`"] = newValue }
       }
 
       public var `repeat`: String {
-        get { __data.`repeat` }
-        set { __data.`repeat` = newValue }
+        get { __data["`repeat`"] }
+        set { __data["`repeat`"] = newValue }
       }
 
       public var `return`: String {
-        get { __data.`return` }
-        set { __data.`return` = newValue }
+        get { __data["`return`"] }
+        set { __data["`return`"] = newValue }
       }
 
       public var `throw`: String {
-        get { __data.`throw` }
-        set { __data.`throw` = newValue }
+        get { __data["`throw`"] }
+        set { __data["`throw`"] = newValue }
       }
 
       public var `switch`: String {
-        get { __data.`switch` }
-        set { __data.`switch` = newValue }
+        get { __data["`switch`"] }
+        set { __data["`switch`"] = newValue }
       }
 
       public var `where`: String {
-        get { __data.`where` }
-        set { __data.`where` = newValue }
+        get { __data["`where`"] }
+        set { __data["`where`"] = newValue }
       }
 
       public var `while`: String {
-        get { __data.`while` }
-        set { __data.`while` = newValue }
+        get { __data["`while`"] }
+        set { __data["`while`"] = newValue }
       }
 
       public var `as`: String {
-        get { __data.`as` }
-        set { __data.`as` = newValue }
+        get { __data["`as`"] }
+        set { __data["`as`"] = newValue }
       }
 
       public var `false`: String {
-        get { __data.`false` }
-        set { __data.`false` = newValue }
+        get { __data["`false`"] }
+        set { __data["`false`"] = newValue }
       }
 
       public var `is`: String {
-        get { __data.`is` }
-        set { __data.`is` = newValue }
+        get { __data["`is`"] }
+        set { __data["`is`"] = newValue }
       }
 
       public var `nil`: String {
-        get { __data.`nil` }
-        set { __data.`nil` = newValue }
+        get { __data["`nil`"] }
+        set { __data["`nil`"] = newValue }
       }
 
       public var `self`: String {
-        get { __data.`self` }
-        set { __data.`self` = newValue }
+        get { __data["`self`"] }
+        set { __data["`self`"] = newValue }
       }
 
       public var `super`: String {
-        get { __data.`super` }
-        set { __data.`super` = newValue }
+        get { __data["`super`"] }
+        set { __data["`super`"] = newValue }
       }
 
       public var `throws`: String {
-        get { __data.`throws` }
-        set { __data.`throws` = newValue }
+        get { __data["`throws`"] }
+        set { __data["`throws`"] = newValue }
       }
 
       public var `true`: String {
-        get { __data.`true` }
-        set { __data.`true` = newValue }
+        get { __data["`true`"] }
+        set { __data["`true`"] = newValue }
       }
 
       public var `try`: String {
-        get { __data.`try` }
-        set { __data.`try` = newValue }
+        get { __data["`try`"] }
+        set { __data["`try`"] = newValue }
       }
     """
 
@@ -1906,13 +1906,13 @@ class InputObjectTemplateTests: XCTestCase {
       }
 
       public var enumField: GraphQLNullable<GraphQLEnum<Testschema.EnumValue>> {
-        get { __data.enumField }
-        set { __data.enumField = newValue }
+        get { __data["enumField"] }
+        set { __data["enumField"] = newValue }
       }
 
       public var inputField: GraphQLNullable<Testschema.InnerInputObject> {
-        get { __data.inputField }
-        set { __data.inputField = newValue }
+        get { __data["inputField"] }
+        set { __data["inputField"] = newValue }
       }
     """
 
@@ -1962,13 +1962,13 @@ class InputObjectTemplateTests: XCTestCase {
       }
 
       public var enumField: GraphQLNullable<GraphQLEnum<TESTSCHEMA.EnumValue>> {
-        get { __data.enumField }
-        set { __data.enumField = newValue }
+        get { __data["enumField"] }
+        set { __data["enumField"] = newValue }
       }
 
       public var inputField: GraphQLNullable<TESTSCHEMA.InnerInputObject> {
-        get { __data.inputField }
-        set { __data.inputField = newValue }
+        get { __data["inputField"] }
+        set { __data["inputField"] = newValue }
       }
     """
 
@@ -2018,13 +2018,13 @@ class InputObjectTemplateTests: XCTestCase {
       }
 
       public var enumField: GraphQLNullable<GraphQLEnum<TestSchema.EnumValue>> {
-        get { __data.enumField }
-        set { __data.enumField = newValue }
+        get { __data["enumField"] }
+        set { __data["enumField"] = newValue }
       }
 
       public var inputField: GraphQLNullable<TestSchema.InnerInputObject> {
-        get { __data.inputField }
-        set { __data.inputField = newValue }
+        get { __data["inputField"] }
+        set { __data["inputField"] = newValue }
       }
     """
 

@@ -23,17 +23,17 @@ public struct PetSearchFilters: InputObject {
   }
 
   public var species: [String] {
-    get { __data.species }
-    set { __data.species = newValue }
+    get { __data["species"] }
+    set { __data["species"] = newValue }
   }
 
   public var size: GraphQLNullable<GraphQLEnum<RelativeSize>> {
-    get { __data.size }
-    set { __data.size = newValue }
+    get { __data["size"] }
+    set { __data["size"] = newValue }
   }
 
   public var measurements: GraphQLNullable<MeasurementsInput> {
-    get { __data.measurements }
-    set { __data.measurements = newValue }
+    get { __data["measurements"] }
+    set { __data["measurements"] = newValue }
   }
 }
