@@ -7,7 +7,6 @@ query AllAnimalsQuery {
     }
     ...HeightInMeters
     ...WarmBloodedDetails
-    hash
     species
     skinCovering
     ... on Pet {

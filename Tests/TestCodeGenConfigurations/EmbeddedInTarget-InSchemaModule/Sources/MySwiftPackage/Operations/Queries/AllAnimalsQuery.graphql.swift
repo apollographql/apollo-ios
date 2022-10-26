@@ -19,7 +19,6 @@ public extension MyGraphQLSchema {
             }
             ...HeightInMeters
             ...WarmBloodedDetails
-            hash
             species
             skinCovering
             ... on Pet {
@@ -89,7 +88,6 @@ public extension MyGraphQLSchema {
         public static var __parentType: ParentType { MyGraphQLSchema.Interfaces.Animal }
         public static var __selections: [Selection] { [
           .field("height", Height.self),
-          .field("hash", String?.self),
           .field("species", String.self),
           .field("skinCovering", GraphQLEnum<SkinCovering>?.self),
           .field("predators", [Predator].self),
@@ -102,7 +100,6 @@ public extension MyGraphQLSchema {
         ] }
 
         public var height: Height { __data["height"] }
-        public var hash: String? { __data["hash"] }
         public var species: String { __data["species"] }
         public var skinCovering: GraphQLEnum<SkinCovering>? { __data["skinCovering"] }
         public var predators: [Predator] { __data["predators"] }
@@ -196,7 +193,6 @@ public extension MyGraphQLSchema {
           ] }
 
           public var height: Height { __data["height"] }
-          public var hash: String? { __data["hash"] }
           public var species: String { __data["species"] }
           public var skinCovering: GraphQLEnum<SkinCovering>? { __data["skinCovering"] }
           public var predators: [Predator] { __data["predators"] }
@@ -240,7 +236,6 @@ public extension MyGraphQLSchema {
           ] }
 
           public var height: Height { __data["height"] }
-          public var hash: String? { __data["hash"] }
           public var species: String { __data["species"] }
           public var skinCovering: GraphQLEnum<SkinCovering>? { __data["skinCovering"] }
           public var predators: [Predator] { __data["predators"] }
@@ -291,7 +286,6 @@ public extension MyGraphQLSchema {
             ] }
 
             public var height: Height { __data["height"] }
-            public var hash: String? { __data["hash"] }
             public var species: String { __data["species"] }
             public var skinCovering: GraphQLEnum<SkinCovering>? { __data["skinCovering"] }
             public var predators: [Predator] { __data["predators"] }
@@ -341,7 +335,6 @@ public extension MyGraphQLSchema {
 
           public var isJellicle: Bool { __data["isJellicle"] }
           public var height: Height { __data["height"] }
-          public var hash: String? { __data["hash"] }
           public var species: String { __data["species"] }
           public var skinCovering: GraphQLEnum<SkinCovering>? { __data["skinCovering"] }
           public var predators: [Predator] { __data["predators"] }
@@ -389,7 +382,6 @@ public extension MyGraphQLSchema {
           ] }
 
           public var height: Height { __data["height"] }
-          public var hash: String? { __data["hash"] }
           public var species: String { __data["species"] }
           public var skinCovering: GraphQLEnum<SkinCovering>? { __data["skinCovering"] }
           public var predators: [Predator] { __data["predators"] }
@@ -431,7 +423,6 @@ public extension MyGraphQLSchema {
 
             public var wingspan: Double { __data["wingspan"] }
             public var height: Height { __data["height"] }
-            public var hash: String? { __data["hash"] }
             public var species: String { __data["species"] }
             public var skinCovering: GraphQLEnum<SkinCovering>? { __data["skinCovering"] }
             public var predators: [Predator] { __data["predators"] }
@@ -483,7 +474,6 @@ public extension MyGraphQLSchema {
           public var favoriteToy: String { __data["favoriteToy"] }
           public var birthdate: CustomDate? { __data["birthdate"] }
           public var height: Height { __data["height"] }
-          public var hash: String? { __data["hash"] }
           public var species: String { __data["species"] }
           public var skinCovering: GraphQLEnum<SkinCovering>? { __data["skinCovering"] }
           public var predators: [Predator] { __data["predators"] }

@@ -105,8 +105,6 @@ final class AnimalKingdomIRCreationTests: XCTestCase {
       fields: [
         .mock("height",
               type: .nonNull(.entity(GraphQLObjectType.mock("Height")))),
-        .mock("hash",
-              type: .scalar(GraphQLScalarType.string())),
         .mock("species",
               type: .nonNull(.scalar(GraphQLScalarType.string()))),
         .mock("skinCovering",
@@ -357,8 +355,6 @@ final class AnimalKingdomIRCreationTests: XCTestCase {
       fields: [
         .mock("height",
               type: .nonNull(.entity(GraphQLObjectType.mock("Height")))),
-        .mock("hash",
-              type: .scalar(GraphQLScalarType.string())),
         .mock("species",
               type: .nonNull(.scalar(GraphQLScalarType.string()))),
         .mock("skinCovering",
@@ -474,8 +470,6 @@ final class AnimalKingdomIRCreationTests: XCTestCase {
 
     expected = (
       fields: [
-        .mock("hash",
-              type: .scalar(GraphQLScalarType.string())),
         .mock("species",
               type: .nonNull(.scalar(GraphQLScalarType.string()))),
         .mock("skinCovering",
@@ -604,8 +598,6 @@ final class AnimalKingdomIRCreationTests: XCTestCase {
       fields: [
         .mock("height",
               type: .nonNull(.entity(GraphQLObjectType.mock("Height")))),
-        .mock("hash",
-              type: .scalar(GraphQLScalarType.string())),
         .mock("species",
               type: .nonNull(.scalar(GraphQLScalarType.string()))),
         .mock("skinCovering",
@@ -730,8 +722,6 @@ final class AnimalKingdomIRCreationTests: XCTestCase {
       fields: [
         .mock("height",
               type: .nonNull(.entity(GraphQLObjectType.mock("Height")))),
-        .mock("hash",
-              type: .scalar(GraphQLScalarType.string())),
         .mock("species",
               type: .nonNull(.scalar(GraphQLScalarType.string()))),
         .mock("skinCovering",
@@ -856,8 +846,6 @@ final class AnimalKingdomIRCreationTests: XCTestCase {
       fields: [
         .mock("height",
               type: .nonNull(.entity(GraphQLObjectType.mock("Height")))),
-        .mock("hash",
-              type: .scalar(GraphQLScalarType.string())),
         .mock("species",
               type: .nonNull(.scalar(GraphQLScalarType.string()))),
         .mock("skinCovering",
@@ -921,8 +909,6 @@ final class AnimalKingdomIRCreationTests: XCTestCase {
       fields: [
         .mock("height",
               type: .nonNull(.entity(GraphQLObjectType.mock("Height")))),
-        .mock("hash",
-              type: .scalar(GraphQLScalarType.string())),
         .mock("species",
               type: .nonNull(.scalar(GraphQLScalarType.string()))),
         .mock("skinCovering",

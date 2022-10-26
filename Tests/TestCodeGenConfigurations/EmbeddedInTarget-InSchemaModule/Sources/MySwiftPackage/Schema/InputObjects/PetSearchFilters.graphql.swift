@@ -12,22 +12,15 @@ public extension MyGraphQLSchema {
     }
 
     public init(
-      hash: GraphQLNullable<String> = nil,
       species: [String],
       size: GraphQLNullable<GraphQLEnum<RelativeSize>> = nil,
       measurements: GraphQLNullable<MeasurementsInput> = nil
     ) {
       __data = InputDict([
-        "hash": hash,
         "species": species,
         "size": size,
         "measurements": measurements
       ])
-    }
-
-    public var hash: GraphQLNullable<String> {
-      get { __data["hash"] }
-      set { __data["hash"] = newValue }
     }
 
     public var species: [String] {

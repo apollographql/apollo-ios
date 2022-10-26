@@ -27,7 +27,6 @@ input MeasurementsInput {
 }
 
 input PetSearchFilters {
-  hash: String
   species: [String!]!
   size: RelativeSize
   measurements: MeasurementsInput
@@ -35,7 +34,6 @@ input PetSearchFilters {
 
 interface Animal {
   id: ID!
-  hash: String
   species: String!
   height: Height!
   predators: [Animal!]!

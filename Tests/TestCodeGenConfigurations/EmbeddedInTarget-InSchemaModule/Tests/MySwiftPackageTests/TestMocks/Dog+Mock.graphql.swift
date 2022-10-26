@@ -13,7 +13,6 @@ public class Dog: MockObject {
     @Field<MyGraphQLSchema.CustomDate>("birthdate") public var birthdate
     @Field<Int>("bodyTemperature") public var bodyTemperature
     @Field<String>("favoriteToy") public var favoriteToy
-    @Field<String>("hash") public var hash
     @Field<Height>("height") public var height
     @Field<String>("humanName") public var humanName
     @Field<MyGraphQLSchema.ID>("id") public var id
@@ -30,7 +29,6 @@ public extension Mock where O == Dog {
     birthdate: MyGraphQLSchema.CustomDate? = nil,
     bodyTemperature: Int? = nil,
     favoriteToy: String? = nil,
-    hash: String? = nil,
     height: Mock<Height>? = nil,
     humanName: String? = nil,
     id: MyGraphQLSchema.ID? = nil,
@@ -44,7 +42,6 @@ public extension Mock where O == Dog {
     self.birthdate = birthdate
     self.bodyTemperature = bodyTemperature
     self.favoriteToy = favoriteToy
-    self.hash = hash
     self.height = height
     self.humanName = humanName
     self.id = id
