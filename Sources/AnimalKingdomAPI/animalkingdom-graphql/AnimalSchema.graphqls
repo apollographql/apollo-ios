@@ -35,6 +35,7 @@ input PetSearchFilters {
 
 interface Animal {
   id: ID!
+  hash: String
   species: String!
   height: Height!
   predators: [Animal!]!
