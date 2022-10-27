@@ -4,7 +4,7 @@ public struct DataDict: Hashable {
   public var _data: JSONObject
   public let _variables: GraphQLOperation.Variables?
 
-  @inlinable public init(
+  public init(
     _ data: JSONObject,
     variables: GraphQLOperation.Variables?
   ) {

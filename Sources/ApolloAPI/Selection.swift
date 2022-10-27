@@ -20,7 +20,7 @@ public enum Selection {
       return alias ?? name
     }
 
-    @inlinable public init(
+    public init(
       _ name: String,
       alias: String? = nil,
       type: OutputType,

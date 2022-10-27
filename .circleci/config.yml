@@ -146,6 +146,21 @@ jobs:
       - run:
           command: swift build
 
+  XCFramework_Build:
+    macos:
+      xcode: << pipeline.parameters.xcode_version >>
+    steps:
+      - common_test_setup
+      - run:
+          name: Build XCArchive (iOS Simulator)
+          command: xcodebuild archive -configuration Release -project "Apollo.xcodeproj" -scheme "Apollo" -destination 'generic/platform=iOS Simulator' -archivePath "./build/iphonesimulator.xcarchive" SKIP_INSTALL=NO BUILD_LIBRARY_FOR_DISTRIBUTION=YES
+      - run:
+          name: Build XCArchive (iOS)
+          command: xcodebuild archive -configuration Release -project "Apollo.xcodeproj" -scheme "Apollo" -destination 'generic/platform=iOS' -archivePath "./build/iphoneos.xcarchive" SKIP_INSTALL=NO BUILD_LIBRARY_FOR_DISTRIBUTION=YES
+      - run:
+          name: Build XCFramework
+          command: xcodebuild -create-xcframework -output ./build/Apollo.xcframework -framework ./build/iphonesimulator.xcarchive/Products/@rpath/Apollo.framework -framework ./build/iphoneos.xcarchive/Products/@rpath/Apollo.framework
+
   IntegrationTests_macOS_current:
     macos:
       xcode: << pipeline.parameters.xcode_version >>
@@ -242,6 +257,8 @@ workflows:
     jobs:
       - Swift_Build:
           name: Build as Swift package
+      - XCFramework_Build:
+          name: Build XCFramework
       - IntegrationTests_macOS_current:
           name: Apollo Integration Tests - macOS << pipeline.parameters.macos_version >>
       - macOS_current:
