@@ -57,6 +57,7 @@
 		DE3512B328E25CE1000F1E52 /* AllAnimalsQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE35128B28E25CE1000F1E52 /* AllAnimalsQuery.graphql.swift */; };
 		DE3512B428E25CE1000F1E52 /* AllAnimalsIncludeSkipQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE35128C28E25CE1000F1E52 /* AllAnimalsIncludeSkipQuery.graphql.swift */; };
 		DE3512B528E25CE1000F1E52 /* PetSearchQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE35128D28E25CE1000F1E52 /* PetSearchQuery.graphql.swift */; };
+		E6B13119290A56F50059C9B0 /* PetSearchLocalCacheMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B13118290A56F50059C9B0 /* PetSearchLocalCacheMutation.graphql.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -135,6 +136,7 @@
 		DE35128B28E25CE1000F1E52 /* AllAnimalsQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllAnimalsQuery.graphql.swift; sourceTree = "<group>"; };
 		DE35128C28E25CE1000F1E52 /* AllAnimalsIncludeSkipQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllAnimalsIncludeSkipQuery.graphql.swift; sourceTree = "<group>"; };
 		DE35128D28E25CE1000F1E52 /* PetSearchQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetSearchQuery.graphql.swift; sourceTree = "<group>"; };
+		E6B13118290A56F50059C9B0 /* PetSearchLocalCacheMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetSearchLocalCacheMutation.graphql.swift; sourceTree = "<group>"; };
 		F5DEBE445719BEA0FEF902CF /* Pods-MyCustomProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyCustomProject.release.xcconfig"; path = "Target Support Files/Pods-MyCustomProject/Pods-MyCustomProject.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -255,6 +257,7 @@
 		DE35125A28E25CE1000F1E52 /* LocalCacheMutations */ = {
 			isa = PBXGroup;
 			children = (
+				E6B13118290A56F50059C9B0 /* PetSearchLocalCacheMutation.graphql.swift */,
 				DE35125B28E25CE1000F1E52 /* PetDetailsMutation.graphql.swift */,
 				DE35125C28E25CE1000F1E52 /* AllAnimalsLocalCacheMutation.graphql.swift */,
 			);
@@ -624,6 +627,7 @@
 			files = (
 				DE3512A428E25CE1000F1E52 /* HousePet.graphql.swift in Sources */,
 				DE35129C28E25CE1000F1E52 /* Fish.graphql.swift in Sources */,
+				E6B13119290A56F50059C9B0 /* PetSearchLocalCacheMutation.graphql.swift in Sources */,
 				DE3512B128E25CE1000F1E52 /* ClassroomPetsQuery.graphql.swift in Sources */,
 				DE35129828E25CE1000F1E52 /* Height.graphql.swift in Sources */,
 				DE3512A228E25CE1000F1E52 /* MeasurementsInput.graphql.swift in Sources */,
