@@ -191,7 +191,7 @@ public struct Glob {
       globfree(&globT)
     }
 
-    CodegenLogger.log("Matching \(pattern)", logLevel: .debug)
+    CodegenLogger.log("Evaluating \(pattern)", logLevel: .debug)
 
     let response = glob(pattern, flags, nil, &globT)
 
