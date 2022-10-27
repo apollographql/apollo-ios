@@ -40,14 +40,15 @@ extension OperationTemplateRenderer {
   }
 
   func VariableAccessors(
-    _ variables: [CompilationResult.VariableDefinition]
+    _ variables: [CompilationResult.VariableDefinition],
+    graphQLOperation: Bool = true
   ) -> TemplateString {
     guard !variables.isEmpty else {
       return ""
     }
 
     return """
-      public var __variables: Variables? { [\(list: variables.map { "\"\($0.name)\": \($0.name.asInputParameterName)"})] }
+      public var __variables: \(if: !graphQLOperation, "GraphQLOperation.")Variables? { [\(list: variables.map { "\"\($0.name)\": \($0.name.asInputParameterName)"})] }
       """
   }
 
