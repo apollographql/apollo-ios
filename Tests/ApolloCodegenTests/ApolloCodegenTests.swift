@@ -600,6 +600,7 @@ class ApolloCodegenTests: XCTestCase {
 
       directoryURL.appendingPathComponent("Sources/LocalCacheMutations/AllAnimalsLocalCacheMutation.graphql.swift").path,
       directoryURL.appendingPathComponent("Sources/LocalCacheMutations/PetDetailsMutation.graphql.swift").path,
+      directoryURL.appendingPathComponent("Sources/LocalCacheMutations/PetSearchLocalCacheMutation.graphql.swift").path,
 
       directoryURL.appendingPathComponent("Package.swift").path,
     ]
@@ -698,6 +699,7 @@ class ApolloCodegenTests: XCTestCase {
 
       operationsOutputURL.appendingPathComponent("LocalCacheMutations/AllAnimalsLocalCacheMutation.graphql.swift").path,
       operationsOutputURL.appendingPathComponent("LocalCacheMutations/PetDetailsMutation.graphql.swift").path,
+      operationsOutputURL.appendingPathComponent("LocalCacheMutations/PetSearchLocalCacheMutation.graphql.swift").path,
 
       directoryURL.appendingPathComponent("Package.swift").path,
     ]
@@ -799,6 +801,7 @@ class ApolloCodegenTests: XCTestCase {
 
       directoryURL.appendingPathComponent("Sources/LocalCacheMutations/AllAnimalsLocalCacheMutation.graphql.swift").path,
       directoryURL.appendingPathComponent("Sources/LocalCacheMutations/PetDetailsMutation.graphql.swift").path,
+      directoryURL.appendingPathComponent("Sources/LocalCacheMutations/PetSearchLocalCacheMutation.graphql.swift").path,
 
       directoryURL.appendingPathComponent("Package.swift").path,
     ]
@@ -972,6 +975,7 @@ class ApolloCodegenTests: XCTestCase {
 
       directoryURL.appendingPathComponent("RelativePath/Sources/LocalCacheMutations/AllAnimalsLocalCacheMutation.graphql.swift").path,
       directoryURL.appendingPathComponent("RelativePath/Sources/LocalCacheMutations/PetDetailsMutation.graphql.swift").path,
+      directoryURL.appendingPathComponent("RelativePath/Sources/LocalCacheMutations/PetSearchLocalCacheMutation.graphql.swift").path,
 
       directoryURL.appendingPathComponent("RelativePath/Package.swift").path,
     ]
@@ -1073,6 +1077,7 @@ class ApolloCodegenTests: XCTestCase {
 
       directoryURL.appendingPathComponent("RelativeOperations/LocalCacheMutations/AllAnimalsLocalCacheMutation.graphql.swift").path,
       directoryURL.appendingPathComponent("RelativeOperations/LocalCacheMutations/PetDetailsMutation.graphql.swift").path,
+      directoryURL.appendingPathComponent("RelativeOperations/LocalCacheMutations/PetSearchLocalCacheMutation.graphql.swift").path,
 
       directoryURL.appendingPathComponent("RelativePath/Package.swift").path,
     ]
