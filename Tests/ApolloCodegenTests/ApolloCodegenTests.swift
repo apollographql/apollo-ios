@@ -5,7 +5,6 @@ import Nimble
 
 class ApolloCodegenTests: XCTestCase {
   private var directoryURL: URL!
-
   private var testFileManager: ApolloFileManager!
 
   override func setUpWithError() throws {
@@ -281,19 +280,6 @@ class ApolloCodegenTests: XCTestCase {
     })
   }
 
-  func test_compileResults_givenSchema_withNoOperations_shouldReturnEmpty() throws {
-    // given
-    let schemaPath = createFile(containing: schemaData, named: "schema.graphqls")
-
-    let config = ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration.mock(input: .init(
-      schemaPath: schemaPath,
-      operationSearchPaths: [directoryURL.appendingPathComponent("*.graphql").path]
-    )), rootURL: nil)
-
-    // then
-    expect(try ApolloCodegen.compileGraphQLResult(config).operations).to(beEmpty())
-  }
-
   func test_compileResults_givenRelativeSchemaSearchPath_relativeToRootURL_shouldReturnSchemaRelativeToRoot() throws {
     // given
     createFile(
@@ -519,6 +505,77 @@ class ApolloCodegenTests: XCTestCase {
 
     // then
     expect(try ApolloCodegen.compileGraphQLResult(config)).to(throwError())
+  }
+
+  func test__compileResults__givenSchemaSearchPath_withNoMatches_throwsError() throws {
+    // given
+    let config = ApolloCodegen.ConfigurationContext(config: .mock(
+      input: .init(schemaPath: directoryURL.appendingPathComponent("file_does_not_exist").path)))
+
+    // then
+    expect(try ApolloCodegen.compileGraphQLResult(config))
+      .to(throwError(ApolloCodegen.Error.cannotLoadSchema))
+  }
+
+  func test__compileResults__givenSchemaSearchPaths_withMixedMatches_doesNotThrowError() throws {
+    // given
+    let schemaPath = createFile(containing: schemaData, named: "schema.graphqls")
+
+    let operationPath = createOperationFile(
+      type: .query,
+      named: "TestQuery",
+      filename: "TestQuery.graphql"
+    )
+
+    let config = ApolloCodegen.ConfigurationContext(config: .mock(
+      input: .init(
+        schemaSearchPaths: [
+          schemaPath,
+          directoryURL.appendingPathComponent("file_does_not_exist").path
+        ],
+        operationSearchPaths: [operationPath]
+      )))
+
+    // then
+    expect(try ApolloCodegen.compileGraphQLResult(config))
+      .notTo(throwError())
+  }
+
+  func test__compileResults__givenOperationSearchPath_withNoMatches_throwsError() throws {
+    // given
+    let schemaPath = createFile(containing: schemaData, named: "schema.graphqls")
+
+    let config = ApolloCodegen.ConfigurationContext(config: .mock(
+      input: .init(
+        schemaPath: schemaPath,
+        operationSearchPaths: [directoryURL.appendingPathComponent("file_does_not_exist").path])))
+
+    // then
+    expect(try ApolloCodegen.compileGraphQLResult(config))
+      .to(throwError(ApolloCodegen.Error.cannotLoadOperations))
+  }
+
+  func test__compileResults__givenOperationSearchPaths_withMixedMatches_doesNotThrowError() throws {
+    // given
+    let schemaPath = createFile(containing: schemaData, named: "schema.graphqls")
+
+    let operationPath = createOperationFile(
+      type: .query,
+      named: "TestQuery",
+      filename: "TestQuery.graphql"
+    )
+
+    let config = ApolloCodegen.ConfigurationContext(config: .mock(
+      input: .init(
+        schemaPath: schemaPath,
+        operationSearchPaths: [
+          operationPath,
+          directoryURL.appendingPathComponent("file_does_not_exist").path
+        ])))
+
+    // then
+    expect(try ApolloCodegen.compileGraphQLResult(config))
+      .notTo(throwError())
   }
 
   // MARK: File Generator Tests
@@ -1108,6 +1165,12 @@ class ApolloCodegenTests: XCTestCase {
     // given
     createFile(containing: schemaData, named: "schema.graphqls")
 
+    createOperationFile(
+      type: .query,
+      named: "TestQuery",
+      filename: "TestQuery.graphql"
+    )
+
     let testFile = createFile(
       filename: "TestGeneratedA.graphql.swift",
       inDirectory: "SchemaModule"
@@ -1146,6 +1209,12 @@ class ApolloCodegenTests: XCTestCase {
   func test__fileDeletion__givenGeneratedFilesExist_InSchemaModuleDirectory_deletesOnlyGeneratedFiles() throws {
     // given
     createFile(containing: schemaData, named: "schema.graphqls")
+
+    createOperationFile(
+      type: .query,
+      named: "TestQuery",
+      filename: "TestQuery.graphql"
+    )
 
     let testFile = createFile(
       filename: "TestGeneratedA.graphql.swift",
@@ -1203,6 +1272,12 @@ class ApolloCodegenTests: XCTestCase {
     let absolutePath = "OperationPath"
     createFile(containing: schemaData, named: "schema.graphqls")
 
+    createOperationFile(
+      type: .query,
+      named: "TestQuery",
+      filename: "TestQuery.graphql"
+    )
+
     let testFile = createFile(
       filename: "TestGeneratedA.graphql.swift",
       inDirectory: absolutePath
@@ -1247,6 +1322,13 @@ class ApolloCodegenTests: XCTestCase {
   func test__fileDeletion__givenGeneratedFilesExist_InOperationRelativeDirectories_deletesOnlyRelativeGeneratedFilesInOperationSearchPaths() throws {
     // given
     createFile(containing: schemaData, named: "schema.graphqls")
+
+    createOperationFile(
+      type: .query,
+      named: "TestQuery",
+      filename: "TestQuery.graphql",
+      inDirectory: "code"
+    )
 
     let testGeneratedFileInRootPath = createFile(
       filename: "TestGeneratedA.graphql.swift",
@@ -1314,6 +1396,12 @@ class ApolloCodegenTests: XCTestCase {
   func test__fileDeletion__givenGeneratedFilesExist_InOperationRelativeDirectories_operationSearchPathWithoutDirectories_deletesOnlyRelativeGeneratedFilesInOperationSearchPaths() throws {
     // given
     createFile(containing: schemaData, named: "schema.graphqls")
+
+    createOperationFile(
+      type: .query,
+      named: "TestQuery",
+      filename: "code.graphql"
+    )
 
     let testGeneratedFileInRootPath = createFile(
       filename: "TestGeneratedA.graphql.swift",
@@ -1483,6 +1571,12 @@ class ApolloCodegenTests: XCTestCase {
   func test__fileDeletion__givenGeneratedFilesExist_InOperationRelativeDirectoriesWithSubPath_operationSearchPathWithNoDirectories_deletesOnlyRelativeGeneratedFilesInOperationSearchPaths() throws {
     // given
     createFile(containing: schemaData, named: "schema.graphqls")
+
+    createOperationFile(
+      type: .query,
+      named: "TestQuery",
+      filename: "code.graphql"
+    )
 
     let testGeneratedFileInRootPath = createFile(
       filename: "TestGeneratedA.graphql.swift",
@@ -1689,6 +1783,12 @@ class ApolloCodegenTests: XCTestCase {
     let absolutePath = "TestMocksPath"
     createFile(containing: schemaData, named: "schema.graphqls")
 
+    createOperationFile(
+      type: .query,
+      named: "TestQuery",
+      filename: "TestQuery.graphql"
+    )
+
     let testFile = createFile(
       filename: "TestGeneratedA.graphql.swift",
       inDirectory: absolutePath
@@ -1734,6 +1834,12 @@ class ApolloCodegenTests: XCTestCase {
   func test__fileDeletion__givenGeneratedTestMockFilesExist_InSwiftPackageDirectory_deletesOnlyGeneratedFiles() throws {
     // given
     createFile(containing: schemaData, named: "schema.graphqls")
+
+    createOperationFile(
+      type: .query,
+      named: "TestQuery",
+      filename: "TestQuery.graphql"
+    )
 
     let testInTestMocksFolderFile = createFile(
       filename: "TestGeneratedD.graphql.swift",
@@ -1786,6 +1892,12 @@ class ApolloCodegenTests: XCTestCase {
     // given
     let testMockTargetName = "ApolloTestTarget"
     createFile(containing: schemaData, named: "schema.graphqls")
+
+    createOperationFile(
+      type: .query,
+      named: "TestQuery",
+      filename: "TestQuery.graphql"
+    )
 
     let testInTestMocksFolderFile = createFile(
       filename: "TestGeneratedD.graphql.swift",
@@ -1847,7 +1959,7 @@ class ApolloCodegenTests: XCTestCase {
     ), rootURL: nil)
 
     // then
-    expect(try ApolloCodegen.validate(config: configContext, compilationResult: .mock()))
+    expect(try ApolloCodegen.validate(config: configContext))
       .to(throwError(ApolloCodegen.Error.testMocksInvalidSwiftPackageConfiguration))
   }
 
@@ -1862,7 +1974,7 @@ class ApolloCodegenTests: XCTestCase {
     ), rootURL: nil)
 
     // then
-    expect(try ApolloCodegen.validate(config: configContext, compilationResult: .mock()))
+    expect(try ApolloCodegen.validate(config: configContext))
       .to(throwError(ApolloCodegen.Error.testMocksInvalidSwiftPackageConfiguration))
   }
 
@@ -1873,7 +1985,7 @@ class ApolloCodegenTests: XCTestCase {
     ), rootURL: nil)
 
     // then
-    expect(try ApolloCodegen.validate(config: configContext, compilationResult: .mock()))
+    expect(try ApolloCodegen.validate(config: configContext))
       .notTo(throwError())
   }
 
@@ -1886,7 +1998,7 @@ class ApolloCodegenTests: XCTestCase {
     ), rootURL: nil)
 
     // then
-    expect(try ApolloCodegen.validate(config: configContext, compilationResult: .mock()))
+    expect(try ApolloCodegen.validate(config: configContext))
       .to(throwError(ApolloCodegen.Error.inputSearchPathInvalid(path: "operations/*")))
   }
 
@@ -1897,7 +2009,7 @@ class ApolloCodegenTests: XCTestCase {
     ), rootURL: nil)
 
     // then
-    expect(try ApolloCodegen.validate(config: configContext, compilationResult: .mock()))
+    expect(try ApolloCodegen.validate(config: configContext))
       .to(throwError(ApolloCodegen.Error.inputSearchPathInvalid(path: "operations/*.")))
   }
 
@@ -1908,7 +2020,7 @@ class ApolloCodegenTests: XCTestCase {
     ), rootURL: nil)
 
     // then
-    expect(try ApolloCodegen.validate(config: configContext, compilationResult: .mock()))
+    expect(try ApolloCodegen.validate(config: configContext))
       .to(throwError(ApolloCodegen.Error.inputSearchPathInvalid(path: "schema/*")))
   }
 
@@ -1919,7 +2031,7 @@ class ApolloCodegenTests: XCTestCase {
     ), rootURL: nil)
 
     // then
-    expect(try ApolloCodegen.validate(config: configContext, compilationResult: .mock()))
+    expect(try ApolloCodegen.validate(config: configContext))
       .to(throwError(ApolloCodegen.Error.inputSearchPathInvalid(path: "schema/*.")))
   }
 
@@ -1940,8 +2052,10 @@ class ApolloCodegenTests: XCTestCase {
         schemaName: name
       ), rootURL: nil)
 
-      expect(try ApolloCodegen.validate(config: configContext, compilationResult: compilationResult))
-        .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaName)))
+      expect(try ApolloCodegen.validate(
+        schemaName: configContext.schemaName,
+        compilationResult: compilationResult))
+      .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaName)))
     }
   }
 
@@ -1958,8 +2072,10 @@ class ApolloCodegenTests: XCTestCase {
         schemaName: name
       ), rootURL: nil)
 
-      expect(try ApolloCodegen.validate(config: configContext, compilationResult: compilationResult))
-        .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaName)))
+      expect(try ApolloCodegen.validate(
+        schemaName: configContext.schemaName,
+        compilationResult: compilationResult))
+      .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaName)))
     }
   }
 
@@ -1976,8 +2092,10 @@ class ApolloCodegenTests: XCTestCase {
         schemaName: name
       ), rootURL: nil)
 
-      expect(try ApolloCodegen.validate(config: configContext, compilationResult: compilationResult))
-        .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaName)))
+      expect(try ApolloCodegen.validate(
+        schemaName: configContext.schemaName,
+        compilationResult: compilationResult))
+      .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaName)))
     }
   }
 
@@ -1994,8 +2112,10 @@ class ApolloCodegenTests: XCTestCase {
         schemaName: name
       ), rootURL: nil)
 
-      expect(try ApolloCodegen.validate(config: configContext, compilationResult: compilationResult))
-        .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaName)))
+      expect(try ApolloCodegen.validate(
+        schemaName: configContext.schemaName,
+        compilationResult: compilationResult))
+      .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaName)))
     }
   }
 
@@ -2012,8 +2132,10 @@ class ApolloCodegenTests: XCTestCase {
         schemaName: name
       ), rootURL: nil)
 
-      expect(try ApolloCodegen.validate(config: configContext, compilationResult: compilationResult))
-        .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaName)))
+      expect(try ApolloCodegen.validate(
+        schemaName: configContext.schemaName,
+        compilationResult: compilationResult))
+      .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaName)))
     }
   }
 
@@ -2030,8 +2152,10 @@ class ApolloCodegenTests: XCTestCase {
         schemaName: name
       ), rootURL: nil)
 
-      expect(try ApolloCodegen.validate(config: configContext, compilationResult: compilationResult))
-        .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaName)))
+      expect(try ApolloCodegen.validate(
+        schemaName: configContext.schemaName,
+        compilationResult: compilationResult))
+      .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaName)))
     }
   }
 
@@ -2050,8 +2174,10 @@ class ApolloCodegenTests: XCTestCase {
         schemaName: name
       ), rootURL: nil)
 
-      expect(try ApolloCodegen.validate(config: configContext, compilationResult: compilationResult))
-        .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaName)))
+      expect(try ApolloCodegen.validate(
+        schemaName: configContext.schemaName,
+        compilationResult: compilationResult))
+      .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaName)))
     }
   }
 
@@ -2083,8 +2209,10 @@ class ApolloCodegenTests: XCTestCase {
       schemaName: "MySchema"
     ), rootURL: nil)
 
-    expect(try ApolloCodegen.validate(config: configContext, compilationResult: compilationResult))
-      .notTo(throwError())
+    expect(try ApolloCodegen.validate(
+      schemaName: configContext.schemaName,
+      compilationResult: compilationResult))
+    .notTo(throwError())
   }
 
 }

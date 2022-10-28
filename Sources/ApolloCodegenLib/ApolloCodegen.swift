@@ -16,6 +16,8 @@ public class ApolloCodegen {
     case testMocksInvalidSwiftPackageConfiguration
     case inputSearchPathInvalid(path: String)
     case schemaNameConflict(name: String)
+    case cannotLoadSchema
+    case cannotLoadOperations
 
     public var errorDescription: String? {
       switch self {
@@ -27,6 +29,10 @@ public class ApolloCodegen {
         return "Input search path '\(path)' is invalid. Input search paths must include a file extension component. (eg. '.graphql')"
       case let .schemaNameConflict(name):
         return "Schema name \(name) conflicts with name of a type in your GraphQL schema. Please choose a different schema name. Suggestions: \(name)Schema, \(name)GraphQL, \(name)API"
+      case .cannotLoadSchema:
+        return "A GraphQL schema could not be found. Please verify the schema search paths."
+      case .cannotLoadOperations:
+        return "No GraphQL operations could be found. Please verify the operation search paths."
       }
     }
   }
@@ -56,12 +62,14 @@ public class ApolloCodegen {
       rootURL: rootURL
     )
 
+    try validate(config: configContext)
+
     let compilationResult = try compileGraphQLResult(
       configContext,
       experimentalFeatures: configuration.experimentalFeatures
     )
 
-    try validate(config: configContext, compilationResult: compilationResult)
+    try validate(schemaName: configContext.schemaName, compilationResult: compilationResult)
 
     let ir = IR(
       schemaName: configContext.schemaName,
@@ -112,7 +120,7 @@ public class ApolloCodegen {
   }
 
   /// Performs validation against deterministic errors that will cause code generation to fail.
-  static func validate(config: ConfigurationContext, compilationResult: CompilationResult) throws {
+  static func validate(config: ConfigurationContext) throws {
     if case .swiftPackage = config.output.testMocks,
         config.output.schemaTypes.moduleType != .swiftPackageManager {
       throw Error.testMocksInvalidSwiftPackageConfiguration
@@ -124,8 +132,6 @@ public class ApolloCodegen {
     for searchPath in config.input.operationSearchPaths {
       try validate(inputSearchPath: searchPath)
     }
-
-    try validate(schemaName: config.schemaName, compilationResult: compilationResult)
   }
 
   static private func validate(inputSearchPath: String) throws {
@@ -134,7 +140,7 @@ public class ApolloCodegen {
     }
   }
 
-  static private func validate(schemaName: String, compilationResult: CompilationResult) throws {
+  static func validate(schemaName: String, compilationResult: CompilationResult) throws {
     guard
       !compilationResult.referencedTypes.contains(where: { namedType in
         namedType.swiftName == schemaName.firstUppercased
@@ -153,10 +159,8 @@ public class ApolloCodegen {
     experimentalFeatures: ApolloCodegenConfiguration.ExperimentalFeatures = .init()
   ) throws -> CompilationResult {
     let frontend = try GraphQLJSFrontend()
-
     let graphQLSchema = try createSchema(config, frontend)
     let operationsDocument = try createOperationsDocument(config, frontend, experimentalFeatures)
-
     let validationOptions = ValidationOptions(config: config)
 
     let graphqlErrors = try frontend.validateDocument(
@@ -184,6 +188,11 @@ public class ApolloCodegen {
     _ frontend: GraphQLJSFrontend
   ) throws -> GraphQLSchema {
     let matches = try Glob(config.input.schemaSearchPaths, relativeTo: config.rootURL).match()
+
+    guard !matches.isEmpty else {
+      throw Error.cannotLoadSchema
+    }
+
     let sources = try matches.map { try frontend.makeSource(from: URL(fileURLWithPath: $0)) }
     return try frontend.loadSchema(from: sources)
   }
@@ -194,6 +203,11 @@ public class ApolloCodegen {
     _ experimentalFeatures: ApolloCodegenConfiguration.ExperimentalFeatures
   ) throws -> GraphQLDocument {
     let matches = try Glob(config.input.operationSearchPaths, relativeTo: config.rootURL).match()
+
+    guard !matches.isEmpty else {
+      throw Error.cannotLoadOperations
+    }
+
     let documents = try matches.map({ path in
       return try frontend.parseDocument(
         from: URL(fileURLWithPath: path),

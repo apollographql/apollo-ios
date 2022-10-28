@@ -97,12 +97,12 @@ commands:
           command: pod install --verbose
           name: CocoaPods - Install
       - run:
-          working_directory: Tests/CodegenCLITests/pod-install-test/Pods/Apollo/
-          command: ./apollo-ios-cli init --schema-name NewTestSchema
+          working_directory: Tests/CodegenCLITests/pod-install-test/
+          command: ./Pods/Apollo/apollo-ios-cli init --schema-name NewTestSchema
           name: CocoaPods - CLI Test (init)
       - run:
-          working_directory: Tests/CodegenCLITests/pod-install-test/Pods/Apollo/
-          command: ./apollo-ios-cli generate
+          working_directory: Tests/CodegenCLITests/pod-install-test/
+          command: ./Pods/Apollo/apollo-ios-cli generate
           name: CocoaPods - CLI Test (generate)
   swiftpm_plugin_test:
     steps:
