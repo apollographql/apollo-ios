@@ -526,16 +526,21 @@ class ApolloCodegenTests: XCTestCase {
 
   func test__compileResults__givenSchemaSearchPaths_withMixedMatches_doesNotThrowError() throws {
     // given
-    let validSchemaPath = ApolloCodegenInternalTestHelpers.Resources.AnimalKingdom.Schema.path
-    let validOperationPath = ApolloCodegenInternalTestHelpers.Resources.AnimalKingdom.GraphQLOperations.first!.path
+    let schemaPath = createFile(containing: schemaData, named: "schema.graphqls")
+
+    let operationPath = createOperationFile(
+      type: .query,
+      named: "TestQuery",
+      filename: "TestQuery.graphql"
+    )
 
     let config = ApolloCodegen.ConfigurationContext(config: .mock(
       input: .init(
         schemaSearchPaths: [
-          validSchemaPath,
+          schemaPath,
           directoryURL.appendingPathComponent("file_does_not_exist").path
         ],
-        operationSearchPaths: [validOperationPath]
+        operationSearchPaths: [operationPath]
       )))
 
     // then
@@ -545,7 +550,7 @@ class ApolloCodegenTests: XCTestCase {
 
   func test__compileResults__givenOperationSearchPath_withNoMatches_throwsError() throws {
     // given
-    let schemaPath = ApolloCodegenInternalTestHelpers.Resources.AnimalKingdom.Schema.path
+    let schemaPath = createFile(containing: schemaData, named: "schema.graphqls")
 
     let config = ApolloCodegen.ConfigurationContext(config: .mock(
       input: .init(
@@ -559,14 +564,19 @@ class ApolloCodegenTests: XCTestCase {
 
   func test__compileResults__givenOperationSearchPaths_withMixedMatches_doesNotThrowError() throws {
     // given
-    let schemaPath = ApolloCodegenInternalTestHelpers.Resources.AnimalKingdom.Schema.path
-    let validOperationPath = ApolloCodegenInternalTestHelpers.Resources.AnimalKingdom.GraphQLOperations.first!.path
+    let schemaPath = createFile(containing: schemaData, named: "schema.graphqls")
+
+    let operationPath = createOperationFile(
+      type: .query,
+      named: "TestQuery",
+      filename: "TestQuery.graphql"
+    )
 
     let config = ApolloCodegen.ConfigurationContext(config: .mock(
       input: .init(
         schemaPath: schemaPath,
         operationSearchPaths: [
-          validOperationPath,
+          operationPath,
           directoryURL.appendingPathComponent("file_does_not_exist").path
         ])))
 
