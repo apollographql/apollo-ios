@@ -6,26 +6,19 @@ import Nimble
 class ApolloCodegenTests: XCTestCase {
   private var directoryURL: URL!
   private var testFileManager: ApolloFileManager!
-  private var mockFileManager: MockApolloFileManager!
 
   override func setUpWithError() throws {
-    try super.setUpWithError()
-
     directoryURL = CodegenTestHelper.outputFolderURL()
       .appendingPathComponent("Codegen")
       .appendingPathComponent(UUID().uuidString)
     testFileManager = ApolloFileManager(base: FileManager.default)
     try testFileManager.createDirectoryIfNeeded(atPath: directoryURL.path)
-    mockFileManager = MockApolloFileManager(strict: false)
   }
 
   override func tearDownWithError() throws {
     try cleanTestOutput()
     directoryURL = nil
     testFileManager = nil
-    mockFileManager = nil
-
-    try super.tearDownWithError()
   }
 
   // MARK: Helpers
