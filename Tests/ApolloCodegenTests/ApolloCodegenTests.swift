@@ -12,7 +12,9 @@ class ApolloCodegenTests: XCTestCase {
       .appendingPathComponent("Codegen")
       .appendingPathComponent(UUID().uuidString)
     testFileManager = ApolloFileManager(base: FileManager.default)
+
     try testFileManager.createDirectoryIfNeeded(atPath: directoryURL.path)
+    testFileManager.base.changeCurrentDirectoryPath(directoryURL.path)
   }
 
   override func tearDownWithError() throws {
@@ -2213,6 +2215,76 @@ class ApolloCodegenTests: XCTestCase {
       schemaName: configContext.schemaName,
       compilationResult: compilationResult))
     .notTo(throwError())
+  }
+
+  // Glob Exclusion Tests
+
+  func test__match__givenFilesInExcludedPaths_shouldNotReturnExcludedPaths() throws {
+    // given
+    createFile(filename: "included.file")
+
+    createFile(filename: "excludedBuildFolder.file", inDirectory: ".build")
+    createFile(filename: "excludedBuildSubfolderOne.file", inDirectory: ".build/subfolder")
+    createFile(filename: "excludedBuildSubfolderTwo.file", inDirectory: ".build/subfolder/two")
+    createFile(filename: "excludedNestedOneBuildFolder.file", inDirectory: "nested/.build")
+    createFile(filename: "excludedNestedTwoBuildFolder.file", inDirectory: "nested/two/.build")
+
+    createFile(filename: "excludedSwiftpmFolder.file", inDirectory: ".swiftpm")
+    createFile(filename: "excludedSwiftpmSubfolderOne.file", inDirectory: ".swiftpm/subfolder")
+    createFile(filename: "excludedSwiftpmSubfolderTwo.file", inDirectory: ".swiftpm/subfolder/two")
+    createFile(filename: "excludedNestedOneSwiftpmFolder.file", inDirectory: "nested/.swiftpm")
+    createFile(filename: "excludedNestedTwoSwiftpmFolder.file", inDirectory: "nested/two/.swiftpm")
+
+    createFile(filename: "excludedPodsFolder.file", inDirectory: ".Pods")
+    createFile(filename: "excludedPodsSubfolderOne.file", inDirectory: ".Pods/subfolder")
+    createFile(filename: "excludedPodsSubfolderTwo.file", inDirectory: ".Pods/subfolder/two")
+    createFile(filename: "excludedNestedOnePodsFolder.file", inDirectory: "nested/.Pods")
+    createFile(filename: "excludedNestedTwoPodsFolder.file", inDirectory: "nested/two/.Pods")
+
+    // when
+    let matches = try ApolloCodegen.match(
+      searchPaths: ["\(directoryURL.path)/**/*.file"],
+      relativeTo: nil)
+
+    // then
+    expect(matches.count).to(equal(1))
+    expect(matches.contains(where: { $0.contains(".build") })).to(beFalse())
+    expect(matches.contains(where: { $0.contains(".swiftpm") })).to(beFalse())
+    expect(matches.contains(where: { $0.contains(".Pods") })).to(beFalse())
+  }
+
+  func test__match__givenFilesInExcludedPaths_usingRelativeDirectory_shouldNotReturnExcludedPaths() throws {
+    // given
+    createFile(filename: "included.file")
+
+    createFile(filename: "excludedBuildFolder.file", inDirectory: ".build")
+    createFile(filename: "excludedBuildSubfolderOne.file", inDirectory: ".build/subfolder")
+    createFile(filename: "excludedBuildSubfolderTwo.file", inDirectory: ".build/subfolder/two")
+    createFile(filename: "excludedNestedOneBuildFolder.file", inDirectory: "nested/.build")
+    createFile(filename: "excludedNestedTwoBuildFolder.file", inDirectory: "nested/two/.build")
+
+    createFile(filename: "excludedSwiftpmFolder.file", inDirectory: ".swiftpm")
+    createFile(filename: "excludedSwiftpmSubfolderOne.file", inDirectory: ".swiftpm/subfolder")
+    createFile(filename: "excludedSwiftpmSubfolderTwo.file", inDirectory: ".swiftpm/subfolder/two")
+    createFile(filename: "excludedNestedOneSwiftpmFolder.file", inDirectory: "nested/.swiftpm")
+    createFile(filename: "excludedNestedTwoSwiftpmFolder.file", inDirectory: "nested/two/.swiftpm")
+
+    createFile(filename: "excludedPodsFolder.file", inDirectory: ".Pods")
+    createFile(filename: "excludedPodsSubfolderOne.file", inDirectory: ".Pods/subfolder")
+    createFile(filename: "excludedPodsSubfolderTwo.file", inDirectory: ".Pods/subfolder/two")
+    createFile(filename: "excludedNestedOnePodsFolder.file", inDirectory: "nested/.Pods")
+    createFile(filename: "excludedNestedTwoPodsFolder.file", inDirectory: "nested/two/.Pods")
+
+    // when
+    let matches = try ApolloCodegen.match(
+      searchPaths: ["**/*.file"],
+      relativeTo: directoryURL)
+
+    // then
+    expect(matches.count).to(equal(1))
+    expect(matches.contains(where: { $0.contains(".build") })).to(beFalse())
+    expect(matches.contains(where: { $0.contains(".swiftpm") })).to(beFalse())
+    expect(matches.contains(where: { $0.contains(".Pods") })).to(beFalse())
   }
 
 }

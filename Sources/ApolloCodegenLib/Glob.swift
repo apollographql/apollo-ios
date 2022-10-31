@@ -70,8 +70,8 @@ public struct Glob {
   /// Executes the pattern match on the underlying file system.
   ///
   /// - Returns: A set of matched file paths.
-  func match() throws -> OrderedSet<String> {
-    let expandedPatterns = try expand(self.patterns)
+  func match(excludingDirectories excluded: [String]? = nil) throws -> OrderedSet<String> {
+    let expandedPatterns = try expand(self.patterns, excludingDirectories: excluded)
 
     var includeMatches: [String] = []
     var excludeMatches: [String] = []
@@ -91,7 +91,10 @@ public struct Glob {
   }
 
   /// Separates a comma-delimited string into paths, expanding any globstars and removes duplicates.
-  private func expand(_ patterns: [String]) throws -> OrderedSet<String> {
+  private func expand(
+    _ patterns: [String],
+    excludingDirectories excluded: [String]?
+  ) throws -> OrderedSet<String> {
     var paths: OrderedSet<String> = []
     for pattern in patterns {
       if pattern.containsExclude && !pattern.isExclude {
@@ -101,14 +104,18 @@ public struct Glob {
         throw MatchError.invalidExclude(path: pattern)
       }
 
-      paths.formUnion(try expandGlobstar(pattern))
+      paths.formUnion(try expand(pattern, excludingDirectories: excluded))
     }
 
     return paths
   }
 
-  /// Expands the globstar (`**`) to find all directory paths to search for the match pattern and removes duplicates.
-  private func expandGlobstar(_ pattern: String) throws -> OrderedSet<String> {
+  /// Expands `pattern` including any globstar character (`**`) to find all directory paths to
+  /// search for the match pattern and removes duplicates.
+  private func expand(
+    _ pattern: String,
+    excludingDirectories excluded: [String]?
+  ) throws -> OrderedSet<String> {
     guard pattern.includesGlobstar else {
       return [URL(fileURLWithPath: pattern, relativeTo: rootURL).path]
     }
@@ -157,11 +164,17 @@ public struct Glob {
 
       if let enumeratorError = enumeratorError { throw enumeratorError }
 
+      var excludedSet: Set<String> = []
+      if let excluded = excluded {
+        excludedSet = Set<String>(excluded)
+      }
+
       for case (let url as URL) in enumerator {
         guard
           let resourceValues = try? url.resourceValues(forKeys: Set(resourceKeys)),
           let isDirectory = resourceValues.isDirectory,
-          isDirectory == true
+          isDirectory == true,
+          excludedSet.intersection(url.pathComponents).isEmpty
         else { continue }
 
         directories.append(url)

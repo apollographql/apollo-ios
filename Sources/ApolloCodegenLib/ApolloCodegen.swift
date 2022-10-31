@@ -183,11 +183,14 @@ public class ApolloCodegen {
     )
   }
 
-  private static func createSchema(
+  static func createSchema(
     _ config: ConfigurationContext,
     _ frontend: GraphQLJSFrontend
   ) throws -> GraphQLSchema {
-    let matches = try Glob(config.input.schemaSearchPaths, relativeTo: config.rootURL).match()
+
+    let matches = try match(
+      searchPaths: config.input.schemaSearchPaths,
+      relativeTo: config.rootURL)
 
     guard !matches.isEmpty else {
       throw Error.cannotLoadSchema
@@ -197,12 +200,15 @@ public class ApolloCodegen {
     return try frontend.loadSchema(from: sources)
   }
 
-  private static func createOperationsDocument(
+  static func createOperationsDocument(
     _ config: ConfigurationContext,
     _ frontend: GraphQLJSFrontend,
     _ experimentalFeatures: ApolloCodegenConfiguration.ExperimentalFeatures
   ) throws -> GraphQLDocument {
-    let matches = try Glob(config.input.operationSearchPaths, relativeTo: config.rootURL).match()
+
+    let matches = try match(
+      searchPaths: config.input.operationSearchPaths,
+      relativeTo: config.rootURL)
 
     guard !matches.isEmpty else {
       throw Error.cannotLoadOperations
@@ -215,6 +221,16 @@ public class ApolloCodegen {
       )
     })
     return try frontend.mergeDocuments(documents)
+  }
+
+  static func match(searchPaths: [String], relativeTo relativeURL: URL?) throws -> OrderedSet<String> {
+    let excludedDirectories = [
+      ".build",
+      ".swiftpm",
+      ".Pods"]
+
+    return try Glob(searchPaths, relativeTo: relativeURL)
+      .match(excludingDirectories: excludedDirectories)
   }
 
   /// Generates Swift files for the compiled schema, ir and configured output structure.
