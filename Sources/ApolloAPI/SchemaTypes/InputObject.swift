@@ -30,7 +30,7 @@ public struct InputDict: GraphQLOperationVariableValue, Hashable {
 
   public var _jsonEncodableValue: (any JSONEncodable)? { data._jsonEncodableObject }
 
-  public subscript<T: GraphQLOperationVariableValue>(key: String) -> T {
+  public subscript<T: GraphQLOperationVariableValue>(_ key: String) -> T {
     get { data[key] as! T }
     set { data[key] = newValue }
   }
