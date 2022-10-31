@@ -584,4 +584,25 @@ class GlobTests: XCTestCase {
     ]))
   }
 
+  func test_match_givenExcludedDirectories_shouldNotMatchExcludedFiles() throws {
+    // given
+    let pattern = baseURL.appendingPathComponent("**/file.xyz").path
+
+    // when
+    try create(files: [
+      baseURL.appendingPathComponent("file.xyz").path,
+      baseURL.appendingPathComponent("nested/file.xyz").path,
+      baseURL.appendingPathComponent("nested/two/file.xyz").path,
+      baseURL.appendingPathComponent("DoNotInclude/file.xyz").path,
+      baseURL.appendingPathComponent("nested/DoNotInclude/file.xyz").path
+    ])
+
+    // then
+    expect(try Glob([pattern]).match(excludingDirectories: ["DoNotInclude"])).to(equal([
+      baseURL.appendingPathComponent("file.xyz").path,
+      baseURL.appendingPathComponent("nested/file.xyz").path,
+      baseURL.appendingPathComponent("nested/two/file.xyz").path
+    ]))
+  }
+
 }
