@@ -4,7 +4,7 @@ import Nimble
 import ApolloCodegenInternalTestHelpers
 
 class GlobTests: XCTestCase {
-  let baseURL = CodegenTestHelper.outputFolderURL().appendingPathComponent("Glob")
+  var baseURL: URL!
   let fileManager = ApolloFileManager.default
 
   // MARK: Setup
@@ -12,6 +12,7 @@ class GlobTests: XCTestCase {
   override func setUpWithError() throws {
     try super.setUpWithError()
 
+    baseURL = CodegenTestHelper.outputFolderURL().appendingPathComponent("Glob/\(UUID().uuidString)")
     try fileManager.createDirectoryIfNeeded(atPath: baseURL.path)
   }
 
