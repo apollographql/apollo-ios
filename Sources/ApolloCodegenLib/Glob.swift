@@ -136,7 +136,7 @@ public struct Glob {
       }
     }()
 
-    var directories: [String] = [searchURL.path] // include searching the globstar root directory
+    var directories: [URL] = [searchURL] // include searching the globstar root directory
 
     do {
       let resourceKeys: [URLResourceKey] = [.isDirectoryKey]
@@ -164,7 +164,7 @@ public struct Glob {
           isDirectory == true
         else { continue }
 
-        directories.append(url.path)
+        directories.append(url)
       }
 
     } catch(let error) {
@@ -172,7 +172,7 @@ public struct Glob {
     }
 
     return OrderedSet<String>(directories.compactMap({ directory in
-      var path = URL(fileURLWithPath: directory).appendingPathComponent(lastPart).standardizedFileURL.path
+      var path = directory.appendingPathComponent(lastPart).standardizedFileURL.path
       if isExclude {
         path.insert("!", at: path.startIndex)
       }
