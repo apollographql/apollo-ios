@@ -62,7 +62,8 @@ public struct ApolloSchemaDownloader {
         introspection: endpointURL,
         httpMethod: httpMethod,
         includeDeprecatedInputValues: includeDeprecatedInputValues,
-        configuration: configuration
+        configuration: configuration,
+        withRootURL: rootURL
       )
 
     case .apolloRegistry(let settings):
@@ -91,6 +92,27 @@ public struct ApolloSchemaDownloader {
     request.httpBody = bodyData
 
     return request
+  }
+
+  static func write(
+    _ string: String,
+    path: String,
+    rootURL: URL?,
+    fileManager: ApolloFileManager = .default
+  ) throws {
+
+    let outputURL: URL
+    if let rootURL = rootURL {
+      outputURL = URL(fileURLWithPath: path, relativeTo: rootURL)
+    } else {
+      outputURL = URL(fileURLWithPath: path).standardizedFileURL
+    }
+
+    guard let data = string.data(using: .utf8) else {
+      throw SchemaDownloadError.couldNotCreateSDLDataToWrite(schema: string)
+    }
+
+    try fileManager.createFile(atPath: outputURL.path, data: data, overwrite: true)
   }
 
   // MARK: - Schema Registry
@@ -206,12 +228,7 @@ public struct ApolloSchemaDownloader {
       throw SchemaDownloadError.couldNotExtractSDLFromRegistryJSON
     }
 
-    guard let sdlData = sdlSchema.data(using: .utf8) else {
-      throw SchemaDownloadError.couldNotCreateSDLDataToWrite(schema: sdlSchema)
-    }
-
-    let outputURL = URL(fileURLWithPath: configuration.outputPath, relativeTo: rootURL)
-    try sdlData.write(to: outputURL)
+    try write(sdlSchema, path: configuration.outputPath, rootURL: rootURL)
   }
 
   // MARK: - Schema Introspection
@@ -321,7 +338,8 @@ public struct ApolloSchemaDownloader {
     introspection endpoint: URL,
     httpMethod: ApolloSchemaDownloadConfiguration.DownloadMethod.HTTPMethod,
     includeDeprecatedInputValues: Bool,
-    configuration: ApolloSchemaDownloadConfiguration
+    configuration: ApolloSchemaDownloadConfiguration,
+    withRootURL: URL?
   ) throws {
 
     CodegenLogger.log("Downloading schema via introspection from \(endpoint)", logLevel: .debug)
@@ -335,11 +353,11 @@ public struct ApolloSchemaDownloader {
 
     let jsonOutputURL: URL = {
       switch configuration.outputFormat {
-      case .SDL: return URL(fileURLWithPath: configuration.outputPath)
+      case .SDL: return URL(fileURLWithPath: configuration.outputPath, relativeTo: withRootURL)
           .parentFolderURL()
           .appendingPathComponent("introspection_response.json")
 
-      case .JSON: return URL(fileURLWithPath: configuration.outputPath)
+      case .JSON: return URL(fileURLWithPath: configuration.outputPath, relativeTo: withRootURL)
       }
     }()
 
@@ -353,7 +371,8 @@ public struct ApolloSchemaDownloader {
     if configuration.outputFormat == .SDL {
       try convertFromIntrospectionJSONToSDLFile(
         jsonFileURL: jsonOutputURL,
-        configuration: configuration
+        configuration: configuration,
+        withRootURL: withRootURL
       )
     }
     
@@ -403,7 +422,8 @@ public struct ApolloSchemaDownloader {
 
   static func convertFromIntrospectionJSONToSDLFile(
     jsonFileURL: URL,
-    configuration: ApolloSchemaDownloadConfiguration
+    configuration: ApolloSchemaDownloadConfiguration,
+    withRootURL rootURL: URL?
   ) throws {
 
     defer {
@@ -427,12 +447,7 @@ public struct ApolloSchemaDownloader {
       throw SchemaDownloadError.couldNotConvertIntrospectionJSONToSDL(underlying: error)
     }
 
-    let outputURL = URL(fileURLWithPath: configuration.outputPath)
-    try sdlSchema.write(
-      to: outputURL,
-      atomically: true,
-      encoding: .utf8
-    )
+    try write(sdlSchema, path: configuration.outputPath, rootURL: rootURL)
   }
 }
 #endif
