@@ -4,7 +4,7 @@ import Nimble
 import ApolloCodegenInternalTestHelpers
 
 class GlobTests: XCTestCase {
-  let baseURL = CodegenTestHelper.outputFolderURL().appendingPathComponent("Glob")
+  var baseURL: URL!
   let fileManager = ApolloFileManager.default
 
   // MARK: Setup
@@ -12,6 +12,7 @@ class GlobTests: XCTestCase {
   override func setUpWithError() throws {
     try super.setUpWithError()
 
+    baseURL = CodegenTestHelper.outputFolderURL().appendingPathComponent("Glob/\(UUID().uuidString)")
     try fileManager.createDirectoryIfNeeded(atPath: baseURL.path)
   }
 
@@ -65,7 +66,7 @@ class GlobTests: XCTestCase {
     ])
 
     // then
-    expect(Glob([pattern]).match).to(equal([
+    expect(try Glob([pattern]).match()).to(equal([
       baseURL.appendingPathComponent("file.one").path
     ]))
   }
@@ -83,7 +84,7 @@ class GlobTests: XCTestCase {
     ])
 
     // then
-    expect(Glob([pattern]).match).to(equal([
+    expect(try Glob([pattern]).match()).to(equal([
       baseURL.appendingPathComponent("file.two").path,
       baseURL.appendingPathComponent("file.one").path,
     ]))
@@ -102,7 +103,7 @@ class GlobTests: XCTestCase {
     ])
 
     // then
-    expect(Glob([pattern]).match).to(equal([
+    expect(try Glob([pattern]).match()).to(equal([
       baseURL.appendingPathComponent("file.one").path
     ]))
   }
@@ -120,7 +121,7 @@ class GlobTests: XCTestCase {
     ])
 
     // then
-    expect(Glob([pattern]).match).to(equal([
+    expect(try Glob([pattern]).match()).to(equal([
       baseURL.appendingPathComponent("other/file.oye").path,
       baseURL.appendingPathComponent("other/file.one").path,
     ]))
@@ -143,7 +144,7 @@ class GlobTests: XCTestCase {
     ])
 
     // then
-    expect(Glob(pattern).match).to(equal([
+    expect(try Glob(pattern).match()).to(equal([
       baseURL.appendingPathComponent("a/file.one").path
     ]))
   }
@@ -168,7 +169,7 @@ class GlobTests: XCTestCase {
     ])
 
     // then
-    expect(Glob(pattern).match).to(equal([
+    expect(try Glob(pattern).match()).to(equal([
       baseURL.appendingPathComponent("a/file.one").path,
       baseURL.appendingPathComponent("other/file.oye").path,
       baseURL.appendingPathComponent("other/file.one").path,
@@ -192,7 +193,7 @@ class GlobTests: XCTestCase {
     ])
 
     // then
-    expect(Glob(pattern).match).to(equal([
+    expect(try Glob(pattern).match()).to(equal([
       baseURL.appendingPathComponent("a/file.one").path
     ]))
   }
@@ -214,7 +215,7 @@ class GlobTests: XCTestCase {
     ])
 
     // then
-    expect(Glob(pattern).match).to(equal([
+    expect(try Glob(pattern).match()).to(equal([
       baseURL.appendingPathComponent("a/file.one").path,
       baseURL.appendingPathComponent("other/file.oye").path,
       baseURL.appendingPathComponent("other/file.one").path,
@@ -233,7 +234,7 @@ class GlobTests: XCTestCase {
     ])
 
     // then
-    expect(Glob([pattern]).match).to(equal([
+    expect(try Glob([pattern]).match()).to(equal([
       baseURL.appendingPathComponent("file.one").path
     ]))
   }
@@ -256,7 +257,7 @@ class GlobTests: XCTestCase {
     ])
 
     // then
-    expect(Glob(pattern).match).to(equal([
+    expect(try Glob(pattern).match()).to(equal([
       baseURL.appendingPathComponent("file.two").path,
       baseURL.appendingPathComponent("file.one").path,
       baseURL.appendingPathComponent("other/file.oye").path,
@@ -277,7 +278,7 @@ class GlobTests: XCTestCase {
     ])
 
     // then
-    expect(Glob([pattern]).match).to(equal([
+    expect(try Glob([pattern]).match()).to(equal([
       baseURL.appendingPathComponent("a/b/c/d/e/f/file.one").path
     ]))
   }
@@ -296,7 +297,7 @@ class GlobTests: XCTestCase {
     ])
 
     // then
-    expect(Glob([pattern]).match).to(equal([
+    expect(try Glob([pattern]).match()).to(equal([
       baseURL.appendingPathComponent("a/b/c/d/file.one").path,
       baseURL.appendingPathComponent("a/b/c/d/e/f/file.two").path,
       baseURL.appendingPathComponent("a/b/c/d/e/f/file.one").path,
@@ -316,7 +317,7 @@ class GlobTests: XCTestCase {
     ])
 
     // then
-    expect(Glob([pattern]).match).to(equal([
+    expect(try Glob([pattern]).match()).to(equal([
       baseURL.appendingPathComponent("a/b/c/d/e/f/file.one").path
     ]))
   }
@@ -335,7 +336,7 @@ class GlobTests: XCTestCase {
     ])
 
     // then
-    expect(Glob([pattern]).match).to(equal([
+    expect(try Glob([pattern]).match()).to(equal([
       baseURL.appendingPathComponent("a/b/c/d/file.two").path,
       baseURL.appendingPathComponent("a/b/c/d/e/f/file.two").path,
       baseURL.appendingPathComponent("a/b/c/d/e/f/file.one").path,
@@ -347,7 +348,7 @@ class GlobTests: XCTestCase {
     let pattern = baseURL.appendingPathComponent("a/b/c/d/**/!file.swift").path
 
     // then
-    expect(Glob([pattern]).match).to(throwError(Glob.MatchError.invalidExclude(path: pattern)))
+    expect(try Glob([pattern]).match()).to(throwError(Glob.MatchError.invalidExclude(path: pattern)))
   }
 
   func test_match_givenGlobstarPattern_usingPathExclude_whenMultipleMatch_shouldExclude() throws {
@@ -367,7 +368,7 @@ class GlobTests: XCTestCase {
     ])
 
     // then
-    expect(Glob(pattern).match).to(equal([
+    expect(try Glob(pattern).match()).to(equal([
       baseURL.appendingPathComponent("a/b/c/d/e/f/file.ext").path,
       baseURL.appendingPathComponent("a/b/c/d/e/f/file.one").path,
     ]))
@@ -393,7 +394,7 @@ class GlobTests: XCTestCase {
     ])
 
     // then
-    expect(Glob(pattern).match).to(equal([
+    expect(try Glob(pattern).match()).to(equal([
       baseURL.appendingPathComponent("file.one").path,
       baseURL.appendingPathComponent("other/file.one").path,
       baseURL.appendingPathComponent("a/file.one").path,
@@ -423,7 +424,7 @@ class GlobTests: XCTestCase {
     ])
 
     // then
-    expect(Glob(pattern).match).to(equal([
+    expect(try Glob(pattern).match()).to(equal([
       baseURL.appendingPathComponent("a/file.one").path,
       baseURL.appendingPathComponent("a/b/file.one").path,
       baseURL.appendingPathComponent("a/b/c/file.one").path,
@@ -451,7 +452,7 @@ class GlobTests: XCTestCase {
     ])
 
     // then
-    expect(Glob(pattern).match).to(equal([
+    expect(try Glob(pattern).match()).to(equal([
       baseURL.appendingPathComponent("file.one").path,
       baseURL.appendingPathComponent("other/file.one").path,
       baseURL.appendingPathComponent("a/file.one").path,
@@ -481,7 +482,7 @@ class GlobTests: XCTestCase {
     ])
 
     // then
-    expect(Glob(pattern, relativeTo: rootURL).match).to(equal([
+    expect(try Glob(pattern, relativeTo: rootURL).match()).to(equal([
       baseURL.appendingPathComponent("a/file.one").path,
       baseURL.appendingPathComponent("a/b/file.one").path,
       baseURL.appendingPathComponent("a/b/c/file.one").path,
@@ -509,7 +510,7 @@ class GlobTests: XCTestCase {
     ])
 
     // then
-    expect(Glob(pattern, relativeTo: rootURL).match).to(equal([
+    expect(try Glob(pattern, relativeTo: rootURL).match()).to(equal([
       baseURL.appendingPathComponent("a/file.one").path,
       baseURL.appendingPathComponent("a/b/file.one").path,
       baseURL.appendingPathComponent("a/b/c/file.one").path,
@@ -530,7 +531,7 @@ class GlobTests: XCTestCase {
     ])
 
     // then
-    expect(Glob(pattern, relativeTo: rootURL).match).to(equal([
+    expect(try Glob(pattern, relativeTo: rootURL).match()).to(equal([
       baseURL.appendingPathComponent("file.one").path,
     ]))
   }
@@ -556,7 +557,7 @@ class GlobTests: XCTestCase {
     ])
 
     // then
-    expect(Glob(pattern, relativeTo: rootURL).match).to(equal([
+    expect(try Glob(pattern, relativeTo: rootURL).match()).to(equal([
       baseURL.appendingPathComponent("file.one").path,
       baseURL.appendingPathComponent("other/file.one").path,
       baseURL.appendingPathComponent("a/file.one").path,
@@ -579,8 +580,29 @@ class GlobTests: XCTestCase {
     ])
 
     // then
-    expect(Glob([pattern]).match).to(equal([
+    expect(try Glob([pattern]).match()).to(equal([
       baseURL.appendingPathComponent("other/file.xyz").path
+    ]))
+  }
+
+  func test_match_givenExcludedDirectories_shouldNotMatchExcludedFiles() throws {
+    // given
+    let pattern = baseURL.appendingPathComponent("**/file.xyz").path
+
+    // when
+    try create(files: [
+      baseURL.appendingPathComponent("file.xyz").path,
+      baseURL.appendingPathComponent("nested/file.xyz").path,
+      baseURL.appendingPathComponent("nested/two/file.xyz").path,
+      baseURL.appendingPathComponent("DoNotInclude/file.xyz").path,
+      baseURL.appendingPathComponent("nested/DoNotInclude/file.xyz").path
+    ])
+
+    // then
+    expect(try Glob([pattern]).match(excludingDirectories: ["DoNotInclude"])).to(equal([
+      baseURL.appendingPathComponent("file.xyz").path,
+      baseURL.appendingPathComponent("nested/file.xyz").path,
+      baseURL.appendingPathComponent("nested/two/file.xyz").path
     ]))
   }
 
