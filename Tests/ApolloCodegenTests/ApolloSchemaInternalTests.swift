@@ -4,6 +4,10 @@ import ApolloCodegenInternalTestHelpers
 @testable import ApolloCodegenLib
 
 class ApolloSchemaInternalTests: XCTestCase {
+  let mockFileManager = MockApolloFileManager(strict: true)
+
+  // MARK: Conversion Tests
+
   func testFormatConversion_givenIntrospectionJSON_shouldOutputValidSDL() throws {
     let bundle = Bundle(for: type(of: self))
     guard let jsonURL = bundle.url(forResource: "introspection_response", withExtension: "json") else {
@@ -16,7 +20,11 @@ class ApolloSchemaInternalTests: XCTestCase {
       outputPath: CodegenTestHelper.schemaOutputURL().path
     )
 
-    try ApolloSchemaDownloader.convertFromIntrospectionJSONToSDLFile(jsonFileURL: jsonURL, configuration: configuration)
+    try ApolloSchemaDownloader.convertFromIntrospectionJSONToSDLFile(
+      jsonFileURL: jsonURL,
+      configuration: configuration,
+      withRootURL: nil
+    )
     XCTAssertTrue(ApolloFileManager.default.doesFileExist(atPath: configuration.outputPath))
 
     let frontend = try GraphQLJSFrontend()
@@ -29,6 +37,8 @@ class ApolloSchemaInternalTests: XCTestCase {
     let postType = try schema.getType(named: "Post")
     XCTAssertEqual(postType?.name, "Post")
   }
+
+  // MARK: Request Tests
 
   func testRequest_givenIntrospectionGETDownload_shouldOutputGETRequest() throws {
     let url = ApolloInternalTestHelpers.TestURL.mockServer.url
@@ -144,5 +154,101 @@ class ApolloSchemaInternalTests: XCTestCase {
     let bodyData = try JSONSerialization.data(withJSONObject: requestBody, options: [.sortedKeys])
 
     XCTAssertEqual(request.httpBody, bodyData)
+  }
+
+  // MARK: Path Tests
+
+  func test__write__givenRelativePath_noRootURL_shouldUseRelativePath() throws {
+    // given
+    let path = "./subfolder/output.test"
+
+    mockFileManager.base.changeCurrentDirectoryPath(CodegenTestHelper.outputFolderURL().path)
+
+    mockFileManager.mock(closure: .fileExists({ path, isDirectory in
+      return false
+    }))
+
+    mockFileManager.mock(closure: .createDirectory({ path, intermediateDirectories, attributes in
+      // no-op
+    }))
+
+    mockFileManager.mock(closure: .createFile({ path, data, attributes in
+      let expected = CodegenTestHelper.outputFolderURL()
+        .appendingPathComponent("subfolder/output.test").path
+
+      // then
+      XCTAssertEqual(path, expected)
+
+      return true
+    }))
+
+    // when
+    try ApolloSchemaDownloader.write(
+      "Test File",
+      path: path,
+      rootURL: nil,
+      fileManager: mockFileManager)
+  }
+
+  func test__write__givenAbsolutePath_noRootURL_shouldUseAbsolutePath() throws {
+    // given
+    let path = "/absolute/path/subfolder/output.test"
+
+    mockFileManager.base.changeCurrentDirectoryPath(CodegenTestHelper.outputFolderURL().path)
+
+    mockFileManager.mock(closure: .fileExists({ path, isDirectory in
+      return false
+    }))
+
+    mockFileManager.mock(closure: .createDirectory({ path, intermediateDirectories, attributes in
+      // no-op
+    }))
+
+    mockFileManager.mock(closure: .createFile({ path, data, attributes in
+      let expected = "/absolute/path/subfolder/output.test"
+
+      // then
+      XCTAssertEqual(path, expected)
+
+      return true
+    }))
+
+    // when
+    try ApolloSchemaDownloader.write(
+      "Test File",
+      path: path,
+      rootURL: nil,
+      fileManager: mockFileManager)
+  }
+
+  func test__write__givenPath_withRootURL_shouldExtendRootURL() throws {
+    // given
+    let path = "output.test"
+
+    mockFileManager.base.changeCurrentDirectoryPath(CodegenTestHelper.outputFolderURL().path)
+
+    mockFileManager.mock(closure: .fileExists({ path, isDirectory in
+      return false
+    }))
+
+    mockFileManager.mock(closure: .createDirectory({ path, intermediateDirectories, attributes in
+      // no-op
+    }))
+
+    mockFileManager.mock(closure: .createFile({ path, data, attributes in
+      let expected = "/rootURL/path/output.test"
+
+      // then
+      XCTAssertEqual(path, expected)
+
+      return true
+    }))
+
+    // when
+    try ApolloSchemaDownloader.write(
+      "Test File",
+      path: path,
+      rootURL: URL(fileURLWithPath: "/rootURL/path/"),
+      fileManager: mockFileManager)
   }
 }

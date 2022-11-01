@@ -94,6 +94,27 @@ public struct ApolloSchemaDownloader {
     return request
   }
 
+  static func write(
+    _ string: String,
+    path: String,
+    rootURL: URL?,
+    fileManager: ApolloFileManager = .default
+  ) throws {
+
+    let outputURL: URL
+    if let rootURL = rootURL {
+      outputURL = URL(fileURLWithPath: path, relativeTo: rootURL)
+    } else {
+      outputURL = URL(fileURLWithPath: path).standardizedFileURL
+    }
+
+    guard let data = string.data(using: .utf8) else {
+      throw SchemaDownloadError.couldNotCreateSDLDataToWrite(schema: string)
+    }
+
+    try fileManager.createFile(atPath: outputURL.path, data: data, overwrite: true)
+  }
+
   // MARK: - Schema Registry
 
   static let RegistryEndpoint = URL(string: "https://graphql.api.apollographql.com/api/graphql")!
@@ -207,12 +228,7 @@ public struct ApolloSchemaDownloader {
       throw SchemaDownloadError.couldNotExtractSDLFromRegistryJSON
     }
 
-    guard let sdlData = sdlSchema.data(using: .utf8) else {
-      throw SchemaDownloadError.couldNotCreateSDLDataToWrite(schema: sdlSchema)
-    }
-
-    let outputURL = URL(fileURLWithPath: configuration.outputPath, relativeTo: rootURL)
-    try sdlData.write(to: outputURL)
+    try write(sdlSchema, path: configuration.outputPath, rootURL: rootURL)
   }
 
   // MARK: - Schema Introspection
@@ -431,12 +447,7 @@ public struct ApolloSchemaDownloader {
       throw SchemaDownloadError.couldNotConvertIntrospectionJSONToSDL(underlying: error)
     }
 
-    let outputURL = URL(fileURLWithPath: configuration.outputPath, relativeTo: rootURL)
-    try sdlSchema.write(
-      to: outputURL,
-      atomically: true,
-      encoding: .utf8
-    )
+    try write(sdlSchema, path: configuration.outputPath, rootURL: rootURL)
   }
 }
 #endif
