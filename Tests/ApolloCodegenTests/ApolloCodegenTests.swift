@@ -2217,9 +2217,9 @@ class ApolloCodegenTests: XCTestCase {
     .notTo(throwError())
   }
 
-  // Glob Exclusion Tests
+  // Special-folder Exclusion Tests
 
-  func test__match__givenFilesInExcludedPaths_shouldNotReturnExcludedPaths() throws {
+  func test__match__givenFilesInSpecialExcludedPaths_shouldNotReturnExcludedPaths() throws {
     // given
     createFile(filename: "included.file")
 
@@ -2253,7 +2253,7 @@ class ApolloCodegenTests: XCTestCase {
     expect(matches.contains(where: { $0.contains(".Pods") })).to(beFalse())
   }
 
-  func test__match__givenFilesInExcludedPaths_usingRelativeDirectory_shouldNotReturnExcludedPaths() throws {
+  func test__match__givenFilesInSpecialExcludedPaths_usingRelativeDirectory_shouldNotReturnExcludedPaths() throws {
     // given
     createFile(filename: "included.file")
 
