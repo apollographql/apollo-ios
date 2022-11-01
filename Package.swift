@@ -92,7 +92,6 @@ let package = Package(
       name: "apollo-ios-cli",
       dependencies: [
         "CodegenCLI",
-        .product(name: "ArgumentParser", package: "swift-argument-parser"),
       ],
       exclude: [
         "README.md",
