@@ -1,25 +1,16 @@
 #### Diff
-Example: [0.48.0...main](https://github.com/apollographql/apollo-ios/compare/0.48.0...main).
+[1.0.2...main](https://github.com/apollographql/apollo-ios/compare/1.0.2...main). _Change this to show the diff since the last version._
 
 #### Relevant changes:
-* _List the highlight changes_
+* _List the highlight PRs_
 
 #### Things to do in this PR
 - [ ] Update the version in [`Configuration/Shared/Project-Version.xcconfig`](https://github.com/apollographql/apollo-ios/blob/main/Configuration/Shared/Project-Version.xcconfig).
-- [ ] Update [`CHANGELOG.md`](https://github.com/apollographql/apollo-ios/blob/main/CHANGELOG.md) with all relevant changes since the prior version. Please include PR numbers and mention contributors for external PR submissions.
-- [ ] Run the Documentation Generator as noted in [`api-reference.md`](https://github.com/apollographql/apollo-ios/blob/main/docs/source/api-reference.md) to re-generate documentation from source for all included libraries.
-
-#### Other things to do before a release - _these need to be automated by CI_
-- [ ] Validate that `main` builds with a test Swift Package Manager project.
-- [ ] Validate that `main` builds with a test CocoaPods project.
+- [ ] Update [`CHANGELOG.md`](https://github.com/apollographql/apollo-ios/blob/main/CHANGELOG.md) with all relevant changes since the prior version. _Please include PR numbers and mention contributors for external PR submissions._
+- [ ] Run the Documentation Generator as noted in [`api-reference.md`](https://github.com/apollographql/apollo-ios/blob/main/docs/source/api-reference.md) to re-generate documentation from source for all included libraries. _Make sure you are on HEAD of the parent branch otherwise the documentation generator will not catch all changes, rebase this PR if needed._
 
 #### Things to do as part of releasing
 - [ ] Add tag of format `major.minor.patch` to GitHub.
 - [ ] Create a release on GitHub with the new tag, using the latest [`CHANGELOG.md`](https://github.com/apollographql/apollo-ios/blob/main/CHANGELOG.md) contents.
-- [ ] Run `pod trunk push Apollo.podspec` to publish to CocoaPods. You will need write permissions for this, please contact one of the [maintainers](https://github.com/apollographql/apollo-ios/blob/main/README.md#maintainers) if you need access to do this.
+- [ ] Run `pod trunk push Apollo.podspec` to publish to CocoaPods. _You will need write permissions for this, please contact one of the [maintainers](https://github.com/apollographql/apollo-ios/blob/main/README.md#maintainers) if you need access to do this._
 - [ ] Announce the new version (Twitter, etc.)
-
-#### Things to do after release - _these need to be automated by CI_
-- [ ] Update to the new version of apollo-ios in the [sample application](https://github.com/apollographql/iOSTutorial).
-- [ ] Update to the new version of apollo-ios in the [codegen template](https://github.com/apollographql/iOSCodegenTemplate).
-- [ ] Make sure all [playground pages](https://github.com/apollographql/apollo-client-swift-playground) still execute.
