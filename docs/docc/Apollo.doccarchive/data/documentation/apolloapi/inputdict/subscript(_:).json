@@ -9,11 +9,11 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputDict\/subscript(dynamicMember:)"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputDict\/subscript(_:)"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:9ApolloAPI9InputDictV13dynamicMemberxs12StaticStringV_tcAA29GraphQLOperationVariableValueRzluip",
+    "externalID" : "s:9ApolloAPI9InputDictVyxSScAA29GraphQLOperationVariableValueRzluip",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -32,17 +32,9 @@
         "text" : ">("
       },
       {
-        "kind" : "externalParam",
-        "text" : "dynamicMember"
-      },
-      {
-        "kind" : "text",
-        "text" : " _: "
-      },
-      {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:s12StaticStringV",
-        "text" : "StaticString"
+        "preciseIdentifier" : "s:SS",
+        "text" : "String"
       },
       {
         "kind" : "text",
@@ -61,7 +53,7 @@
     "role" : "symbol",
     "roleHeading" : "Instance Subscript",
     "symbolKind" : "subscript",
-    "title" : "subscript(dynamicMember:)"
+    "title" : "subscript(_:)"
   },
   "primaryContentSections" : [
     {
@@ -91,14 +83,6 @@
               "text" : ">("
             },
             {
-              "kind" : "externalParam",
-              "text" : "dynamicMember"
-            },
-            {
-              "kind" : "text",
-              "text" : " "
-            },
-            {
               "kind" : "internalParam",
               "text" : "key"
             },
@@ -108,8 +92,8 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:s12StaticStringV",
-              "text" : "StaticString"
+              "preciseIdentifier" : "s:SS",
+              "text" : "String"
             },
             {
               "kind" : "text",
@@ -182,7 +166,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/apolloapi\/inputdict\/subscript(dynamicmember:)"
+        "\/documentation\/apolloapi\/inputdict\/subscript(_:)"
       ],
       "traits" : [
         {
@@ -318,7 +302,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/inputdict"
 },
-"doc://ApolloAPI/documentation/ApolloAPI/InputDict/subscript(dynamicMember:)": {
+"doc://ApolloAPI/documentation/ApolloAPI/InputDict/subscript(_:)": {
   "abstract" : [
 
   ],
@@ -340,17 +324,9 @@
       "text" : ">("
     },
     {
-      "kind" : "externalParam",
-      "text" : "dynamicMember"
-    },
-    {
-      "kind" : "text",
-      "text" : " _: "
-    },
-    {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:s12StaticStringV",
-      "text" : "StaticString"
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
     },
     {
       "kind" : "text",
@@ -361,12 +337,12 @@
       "text" : "T"
     }
   ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputDict\/subscript(dynamicMember:)",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputDict\/subscript(_:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "subscript(dynamicMember:)",
+  "title" : "subscript(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/inputdict\/subscript(dynamicmember:)"
+  "url" : "\/documentation\/apolloapi\/inputdict\/subscript(_:)"
 }
 }
 }
