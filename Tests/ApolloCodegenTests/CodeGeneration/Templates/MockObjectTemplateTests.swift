@@ -527,6 +527,25 @@ class MockObjectTemplateTests: XCTestCase {
       ignoringExtraLines: false)
     )
   }
+  
+  func test_render_givenSchemaTypeWithoutFields_doesNotgenerateConvenienceInitializer() {
+    // given
+    buildSubject(moduleType: .swiftPackageManager)
+
+    let expected = """
+    }
+    
+    """
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(
+      expected,
+      atLine: 8 + self.subject.graphqlObject.fields.count,
+      ignoringExtraLines: false)
+    )
+  }
 
   func test_render_givenFieldsWithSwiftReservedKeyworkNames_generatesConvenienceInitializerParamatersEscapedWithBackticksAndInternalNames() {
     // given

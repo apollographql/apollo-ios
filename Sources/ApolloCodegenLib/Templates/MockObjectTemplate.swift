@@ -49,17 +49,21 @@ struct MockObjectTemplate: TemplateRenderer {
         }, separator: "\n")
       }
     }
-
-    public extension Mock where O == \(objectName) {
-      convenience init(
-        \(fields.map { """
-          \($0.propertyName)\(ifLet: $0.initializerParameterName, {" \($0)"}): \($0.mockType)? = nil
-          """ }, separator: ",\n")
-      ) {
-        self.init()
-        \(fields.map { "self.\($0.propertyName) = \($0.initializerParameterName ?? $0.propertyName)" }, separator: "\n")
+    \(!fields.isEmpty ?
+      TemplateString("""
+      
+      public extension Mock where O == \(objectName) {
+        convenience init(
+          \(fields.map { """
+            \($0.propertyName)\(ifLet: $0.initializerParameterName, {" \($0)"}): \($0.mockType)? = nil
+            """ }, separator: ",\n")
+        ) {
+          self.init()
+          \(fields.map { "self.\($0.propertyName) = \($0.initializerParameterName ?? $0.propertyName)" }, separator: "\n")
+        }
       }
-    }
+      """) : TemplateString(stringLiteral: "")
+    )
     
     """
   }
