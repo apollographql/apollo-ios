@@ -334,7 +334,7 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
     let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 19, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 20, ignoringExtraLines: true))
   }
   
   func test__packageDescription__givenTestMockConfig_swiftPackage_withTargetName_generatesProduct() {
@@ -383,7 +383,7 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
     let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 19, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 20, ignoringExtraLines: true))
   }
 
   func test__packageDescription__givenTestMockConfig_withLowercaseSchemaName_generatesTestMockTargetWithCapitalizedTargetDependency() {
@@ -400,7 +400,7 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
     let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 31, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 32, ignoringExtraLines: true))
   }
 
   func test__packageDescription__givenTestMockConfig_withUppercaseSchemaName_generatesTestMockTargetWithUppercaseTargetDependency() {
@@ -417,7 +417,7 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
     let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 31, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 32, ignoringExtraLines: true))
   }
 
   func test__packageDescription__givenTestMockConfig_withCapitalizedSchemaName_generatesTestMockTargetWithCapitalizedTargetDependency() {
@@ -434,7 +434,7 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
     let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 31, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 32, ignoringExtraLines: true))
   }
 
 }
