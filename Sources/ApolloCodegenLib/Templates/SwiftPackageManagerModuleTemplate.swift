@@ -30,6 +30,9 @@ struct SwiftPackageManagerModuleTemplate: TemplateRenderer {
       ],
       products: [
         .library(name: "\(casedSchemaName)", targets: ["\(casedSchemaName)"]),
+        \(ifLet: testMockTarget(), { """
+        .library(name: "\($0.targetName)", targets: ["\($0.targetName)"]),
+        """})
       ],
       dependencies: [
         .package(url: "https://github.com/apollographql/apollo-ios.git", from: "1.0.0"),
