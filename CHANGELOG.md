@@ -1,5 +1,14 @@
 # Change Log
 
+## v1.0.3
+
+- **Fixed - Generated code produces compile error when accessing `data` dictionary in the `InputDict` struct if the name of the accessed property is `hash`:** Dyanamic Member Lookup has been removed from `InputDict` to prevent potential name clashes. [#2607](https://github.com/apollographql/apollo-ios/pull/2607)
+- **Fixed - XCFramework archive builds:** `@inlinable` has been removed from parts of `ApolloAPI` that were preventing xcframework builds with the `BUILD_LIBRARY_FOR_DISTRIBUTION` build setting. [#2613](https://github.com/apollographql/apollo-ios/pull/2613)
+- **Fixed - `Variables` type in local cache mutations is not properly namespaced:** The `Variables` type in `LocalCacheMutation` now has the required prefix of `GraphQLOperation` to build successfully. [#2615](https://github.com/apollographql/apollo-ios/pull/2615)
+- **Fixed - Return error if no matches to schema or operation search paths:** When a schema file could not be found errors were emitted but they were not indicative of the underlying problem. There is now validation to ensure that at least one match of the schema/operation search paths is found otherwise an error is thrown. [#2618](https://github.com/apollographql/apollo-ios/pull/2618)
+- **Fixed - File generation should ignore the `.build`/`.swiftpm`/`.Pods` folders:** If code generation was executed from a path where subfolders contained the apollo-ios repo, it would find internal test schemas and fail. These special folders are now ignored. [#2628](https://github.com/apollographql/apollo-ios/pull/2628)
+- **Fixed - Download schema relative to root URL:** Even though a root URL could be provided it was not being used in all schema download logic to output the downloaded schema file to the correct locaiton. This is now fixed. [#2609](https://github.com/apollographql/apollo-ios/pull/2609) _Thanks to [@Anteo95](https://github.com/Anteo95) for the contribution._
+
 ## v1.0.2
 
 - **Fixed - Not generating code for subtypes only used as input to mutations:** If you are using a JSON format schema that was fetched via GraphQL introspection code generation will now generate all referenced subtypes. [#2583](https://github.com/apollographql/apollo-ios/pull/2583) _Thank you to [@vrutberg](https://github.com/vrutberg) for reporting the issue._
