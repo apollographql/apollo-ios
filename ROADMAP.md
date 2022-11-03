@@ -15,7 +15,7 @@ For up to date release notes, refer to the project's [Change Log](https://github
 
 ## 1.1 - _Current_
 
-Release 1.1 will be a follow up to our major 1.0 release and will contain misc improvements now that 1.0 is GA. See Github [1.1 Milestone](https://github.com/apollographql/apol/milestones) for more details.
+Release 1.1 will be a follow up to our major 1.0 release and will contain misc improvements now that 1.0 is GA. See Github [1.1 Milestone](https://github.com/apollographql/apollo-ios/milestone/64) for more details.
 
 ## 2.0
 
