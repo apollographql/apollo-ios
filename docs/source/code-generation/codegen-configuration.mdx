@@ -524,6 +524,72 @@ The properties to configure the schema download are:
 | `headers` | Any additional headers to include when retrieving your schema. This is useful when the schema download requires authentication. |
 | `outputPath` | The local path where the downloaded schema should be written to. |
 
+### Download method
+
+There are two supported sources for fetching a GraphQL schema:
+
+#### 1. Apollo server registry
+
+The Apollo schema registry serves as a central hub for managing your graph.
+
+The properties you will need to configure are:
+
+| Property Name | Description |
+| ------------- | ----------- |
+| `apiKey` | API key to use when retrieving your schema from the Apollo Registry. |
+| `graphID` | Identifier of the graph to fetch. Can be found in Apollo Studio. |
+| `variant` | Variant of the graph in the registry. |
+
+<MultiCodeBlock>
+
+```json title="CLI Configuration JSON"
+"schemaDownloadConfiguration": {
+	"downloadMethod": {
+		"apolloRegistry": {
+			"_0": {
+				"graphID": "your-graphid",
+				"apiKey": "your-api-key",
+				"variant": "current"
+			}
+		}
+	},
+	"downloadTimeout": 60,
+	"headers": [],
+	"outputPath": "./graphql/"
+}
+```
+
+```swift title="Swift Codegen Setup"
+let configuration = ApolloCodegenConfiguration(
+  // Other properties not shown
+  schemaDownloadConfiguration: ApolloSchemaDownloadConfiguration(
+    using: .apolloRegistry(.init(
+      apiKey: "your-api-key",
+      graphID: "your-graphid",
+      variant: "current")),
+    timeout: 60.0,
+    headers: [],
+    outputPath: "./graphql/")
+)
+```
+
+</MultiCodeBlock>
+
+#### 2. [GraphQL introspection](https://spec.graphql.org/draft/#sec-Introspection)
+
+A GraphQL service supports introspection over its schema.
+
+> **Note:** Many production servers disable introspection for security reasons. If your introspection query is failing check that it is not disabled.
+
+The properties you will need to configure are:
+
+| Property Name | Description |
+| ------------- | ----------- |
+| `endpointURL` | URL of the GraphQL introspection service. |
+| `httpMethod` | HTTP request method. |
+| `outputFormat` | Output format for the downloaded schema. |
+| `includeDeprecatedInputValues` | Specify whether input values annotated with the built-in `@deprecated` directive should be included in the fetched schema. |
+
 <MultiCodeBlock>
 
 ```json title="CLI Configuration JSON"
@@ -557,36 +623,5 @@ let configuration = ApolloCodegenConfiguration(
 ```
 
 </MultiCodeBlock>
-
-### Download method
-
-There are two supported sources for fetching a GraphQL schema:
-
-#### 1. Apollo server registry
-
-The Apollo schema registry serves as a central hub for managing your graph.
-
-The properties you will need to configure are:
-
-| Property Name | Description |
-| ------------- | ----------- |
-| `apiKey` | API key to use when retrieving your schema from the Apollo Registry. |
-| `graphID` | Identifier of the graph to fetch. Can be found in Apollo Studio. |
-| `variant` | Variant of the graph in the registry. |
-
-#### 2. [GraphQL introspection](https://spec.graphql.org/draft/#sec-Introspection)
-
-A GraphQL service supports introspection over its schema.
-
-> **Note:** Many production servers disable introspection for security reasons. If your introspection query is failing check that it is not disabled.
-
-The properties you will need to configure are:
-
-| Property Name | Description |
-| ------------- | ----------- |
-| `endpointURL` | URL of the GraphQL introspection service. |
-| `httpMethod` | HTTP request method. |
-| `outputFormat` | Output format for the downloaded schema. |
-| `includeDeprecatedInputValues` | Specify whether input values annotated with the built-in `@deprecated` directive should be included in the fetched schema. |
 
 For more details, see the section on [downloading a schema](./downloading-schema).
