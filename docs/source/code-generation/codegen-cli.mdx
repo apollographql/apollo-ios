@@ -1,5 +1,5 @@
 ---
-title: The Codegen CLI
+title: The codegen CLI
 ---
 
 The Codegen CLI provides a command line tool that streamlines the process of running code generation. The CLI can be ran manually from Terminal (or any other shell program) or can be called into from bash scripts.
@@ -107,7 +107,13 @@ This will compile the Codegen CLI in release mode for you.
 
 The Codegen CLI executable will now be located in your `apollo-ios` clone at `.build/release/apollo-ios-cli`.
 
-You can run the CLI from there, move it to another location, or add it to your shell's `$PATH`.
+Before running code gen we recommend you move the `apollo-ios-cli` executable to the root directory. or add it to your shell's `$PATH`.
+
+To run the code gen executable, run:
+
+```bash
+./apollo-ios-cli
+```
 
 </ExpansionPanelListItem>
 
@@ -132,7 +138,7 @@ The Apollo iOS Codegen CLI is a command like utility for Apollo iOS code generat
 
 | Command | Description |
 | ------ | ----------- |
-| `init`         | Initialize a new configuration with defaults. |
+| `init`         | A prerequisite step to initialize a new configuration with defaults. |
 | `generate`     | Generate Swift source code based on a code generation configuration. |
 | `fetch-schema` | Download a GraphQL schema from the Apollo Registry or GraphQL introspection. |
 
