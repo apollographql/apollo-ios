@@ -1,0 +1,290 @@
+---
+title: Get started with Apollo iOS codegen
+---
+
+Hello! 👋 This short tutorial walks through the basic cocepts of code generation in Apollo iOS Client. It's intended to introduce you the core capabilities of code generation and will walk you
+through the manual process to generate code using a test schema and a test operation. For more details on code generation please refer to the Code Generation documentation.
+
+## Step 1: Setup
+
+To start this tutorial first clone the [Apollo iOS project](https://github.com/apollographql/apollo-ios) from GitHub, in a terminal run:
+
+```bash
+git clone https://github.com/apollographql/apollo-ios.git
+```
+
+## Step 2: Download a test GraphQL schema
+
+ View the [StarWars GraphQL API](https://studio.apollographql.com/public/star-wars-swapi/home?variant=current) in Apollo Studio. We'll be using the [SDL public example](https://studio.apollographql.com/public/star-wars-swapi/schema/sdl?variant=current) as a test schema.
+
+<img class="screenshot" src="../screenshot/studio-starwarsapi-download.png" alt="Where to download a schema from Apollo Studio" />
+
+ On the right-hand side in Apollo Studio you can see the drop-down allowing downloads of either `JSON` or `Raw` SDL. For this tutorial select `Raw` which results in the downloading of a GraphQL Schema Definition file called: `star-wars-swapi@current.graphql`.
+
+## Step 3: Move the SDL file into your project
+
+In the root directory of the `apollo-ios` clone, add a directory called `codegen-test` and move the downloaded `star-wars-swapi@current.graphql` file into this directory.
+
+Rename the file to `star-wars-swapi@current.graphqls`.
+
+
+## Step 4: Create a test GraphQL operations file
+
+You'll also need to create a basic operations file to complete the codgen process.
+
+We'll be using the [allFilms Query operation](https://studio.apollographql.com/public/star-wars-swapi/explorer?variant=current) as an example.
+
+Copy the entire query you see in Apollo Studio and create a new file called `star-wars-swapi@current.graphql` in the `codegen-test` directory and paste this query into the file.
+
+```graphql
+
+query Query {
+  allFilms {
+    films {
+      title
+      director
+      releaseDate
+      speciesConnection {
+        species {
+          name
+          classification
+          homeworld {
+            name
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+## Step 4: Compile the Codegen CLI
+
+In the root directory of the `apollo-ios` project there is a `makefile` which includes a `build-cli` rule that can be used to compile the CLI. From the root of your `apollo-ios` clone, in a terminal run:
+
+```bash
+make build-cli
+```
+
+This will compile the Codegen CLI in release mode for you. The Codegen CLI executable will now be located in your `apollo-ios` clone at `.build/release/apollo-ios-cli`.
+
+
+## Step 5: Move the CLI executable
+
+Go to `.build/release/apollo-ios-cli` and move the `apollo-ios-cli` executable file to your `codegen-test` directory. This will put the CLI in the same directory as your schema and operation file for testing purposes.
+
+## Step 6: Initialize a new configuration
+
+Switch to the the `codegen-test` directory, and in a terminal run:
+
+```bash
+./apollo-ios-cli init --schema-name TestSchema
+```
+
+This will execute the initialization process to create an `apollo-codegen-configuration.json` file with default values.  The file should look like this:
+
+```json
+{
+  "schemaName" : "TestSchema",
+  "input" : {
+    "operationSearchPaths" : [
+      "**/*.graphql"
+    ],
+    "schemaSearchPaths" : [
+      "**/*.graphqls"
+    ]
+  },
+  "output" : {
+    "testMocks" : {
+      "none" : {
+      }
+    },
+    "schemaTypes" : {
+      "path" : "./Root",
+      "moduleType" : {
+        "swiftPackageManager" : {
+        }
+      }
+    },
+    "operations" : {
+      "relative" : {
+      }
+    }
+  }
+}
+
+```
+
+### Step 7: Generate code
+
+Now you are ready to generate some code!  Within the `codegen-test` directory in a terminal run,
+
+```bash
+./apollo-ios-cli generate --path apollo-codegen-config.json
+```
+
+you should see a new file created in the `codegen-test` directory called `Query.graphql.swift` that looks like this:
+
+<ExpansionPanel title="Swift Generated Code">
+
+```swift
+
+// @generated
+// This file was automatically generated and should not be edited.
+
+@_exported import ApolloAPI
+import TestSchema
+
+public class Query: GraphQLQuery {
+  public static let operationName: String = "Query"
+  public static let document: DocumentType = .notPersisted(
+    definition: .init(
+      """
+      query Query {
+        allFilms {
+          __typename
+          films {
+            __typename
+            title
+            director
+            releaseDate
+            speciesConnection {
+              __typename
+              species {
+                __typename
+                name
+                classification
+                homeworld {
+                  __typename
+                  name
+                }
+              }
+            }
+          }
+        }
+      }
+      """
+    ))
+
+  public init() {}
+
+  public struct Data: TestSchema.SelectionSet {
+    public let __data: DataDict
+    public init(data: DataDict) { __data = data }
+
+    public static var __parentType: ParentType { TestSchema.Objects.Root }
+    public static var __selections: [Selection] { [
+      .field("allFilms", AllFilms?.self),
+    ] }
+
+    public var allFilms: AllFilms? { __data["allFilms"] }
+
+    /// AllFilms
+    ///
+    /// Parent Type: `FilmsConnection`
+    public struct AllFilms: TestSchema.SelectionSet {
+      public let __data: DataDict
+      public init(data: DataDict) { __data = data }
+
+      public static var __parentType: ParentType { TestSchema.Objects.FilmsConnection }
+      public static var __selections: [Selection] { [
+        .field("films", [Film?]?.self),
+      ] }
+
+      /// A list of all of the objects returned in the connection. This is a convenience
+      /// field provided for quickly exploring the API; rather than querying for
+      /// "{ edges { node } }" when no edge data is needed, this field can be be used
+      /// instead. Note that when clients like Relay need to fetch the "cursor" field on
+      /// the edge to enable efficient pagination, this shortcut cannot be used, and the
+      /// full "{ edges { node } }" version should be used instead.
+      public var films: [Film?]? { __data["films"] }
+
+      /// AllFilms.Film
+      ///
+      /// Parent Type: `Film`
+      public struct Film: TestSchema.SelectionSet {
+        public let __data: DataDict
+        public init(data: DataDict) { __data = data }
+
+        public static var __parentType: ParentType { TestSchema.Objects.Film }
+        public static var __selections: [Selection] { [
+          .field("title", String?.self),
+          .field("director", String?.self),
+          .field("releaseDate", String?.self),
+          .field("speciesConnection", SpeciesConnection?.self),
+        ] }
+
+        /// The title of this film.
+        public var title: String? { __data["title"] }
+        /// The name of the director of this film.
+        public var director: String? { __data["director"] }
+        /// The ISO 8601 date format of film release at original creator country.
+        public var releaseDate: String? { __data["releaseDate"] }
+        public var speciesConnection: SpeciesConnection? { __data["speciesConnection"] }
+
+        /// AllFilms.Film.SpeciesConnection
+        ///
+        /// Parent Type: `FilmSpeciesConnection`
+        public struct SpeciesConnection: TestSchema.SelectionSet {
+          public let __data: DataDict
+          public init(data: DataDict) { __data = data }
+
+          public static var __parentType: ParentType { TestSchema.Objects.FilmSpeciesConnection }
+          public static var __selections: [Selection] { [
+            .field("species", [Specy?]?.self),
+          ] }
+
+          /// A list of all of the objects returned in the connection. This is a convenience
+          /// field provided for quickly exploring the API; rather than querying for
+          /// "{ edges { node } }" when no edge data is needed, this field can be be used
+          /// instead. Note that when clients like Relay need to fetch the "cursor" field on
+          /// the edge to enable efficient pagination, this shortcut cannot be used, and the
+          /// full "{ edges { node } }" version should be used instead.
+          public var species: [Specy?]? { __data["species"] }
+
+          /// AllFilms.Film.SpeciesConnection.Specy
+          ///
+          /// Parent Type: `Species`
+          public struct Specy: TestSchema.SelectionSet {
+            public let __data: DataDict
+            public init(data: DataDict) { __data = data }
+
+            public static var __parentType: ParentType { TestSchema.Objects.Species }
+            public static var __selections: [Selection] { [
+              .field("name", String?.self),
+              .field("classification", String?.self),
+              .field("homeworld", Homeworld?.self),
+            ] }
+
+            /// The name of this species.
+            public var name: String? { __data["name"] }
+            /// The classification of this species, such as "mammal" or "reptile".
+            public var classification: String? { __data["classification"] }
+            /// A planet that this species originates from.
+            public var homeworld: Homeworld? { __data["homeworld"] }
+
+            /// AllFilms.Film.SpeciesConnection.Specy.Homeworld
+            ///
+            /// Parent Type: `Planet`
+            public struct Homeworld: TestSchema.SelectionSet {
+              public let __data: DataDict
+              public init(data: DataDict) { __data = data }
+
+              public static var __parentType: ParentType { TestSchema.Objects.Planet }
+              public static var __selections: [Selection] { [
+                .field("name", String?.self),
+              ] }
+
+              /// The name of this planet.
+              public var name: String? { __data["name"] }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+</ExpansionPanel>
+
+
