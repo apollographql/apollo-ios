@@ -7,7 +7,7 @@ through the manual process to generate code using a test schema and a test opera
 
 ## Step 1: Setup
 
-To start this tutorial first clone the [Apollo iOS project](https://github.com/apollographql/apollo-ios) from GitHub, in a terminal run:
+To start this tutorial first clone the [Apollo iOS project](https://github.com/apollographql/apollo-ios) from GitHub, in a Terminal run:
 
 ```bash
 git clone https://github.com/apollographql/apollo-ios.git
@@ -60,7 +60,7 @@ query Query {
 
 ## Step 4: Compile the Codegen CLI
 
-In the root directory of the `apollo-ios` project there is a `makefile` which includes a `build-cli` rule that can be used to compile the CLI. From the root of your `apollo-ios` clone, in a terminal run:
+In the root directory of the `apollo-ios` project there is a `makefile` which includes a `build-cli` rule that can be used to compile the CLI. From the root of your `apollo-ios` clone, in a Terminal run:
 
 ```bash
 make build-cli
@@ -75,7 +75,7 @@ Go to `.build/release/apollo-ios-cli` and move the `apollo-ios-cli` executable f
 
 ## Step 6: Initialize a new configuration
 
-Switch to the the `codegen-test` directory, and in a terminal run:
+Switch to the the `codegen-test` directory, and in a Terminal run:
 
 ```bash
 ./apollo-ios-cli init --schema-name TestSchema
@@ -117,7 +117,7 @@ This will execute the initialization process to create an `apollo-codegen-config
 
 ### Step 7: Generate code
 
-Now you are ready to generate some code!  Within the `codegen-test` directory in a terminal run,
+Now you are ready to generate some code!  Within the `codegen-test` directory in a Terminal run,
 
 ```bash
 ./apollo-ios-cli generate --path apollo-codegen-config.json
@@ -286,5 +286,8 @@ public class Query: GraphQLQuery {
 }
 ```
 </ExpansionPanel>
+
+And that is it! You can also review all the additional generated files in the `codegen-test` to get a deeper understanding of how code generation works in the Apollo iOS client.
+
 
 
