@@ -15,49 +15,9 @@ The Codegen CLI has three primary commands:
 
 ## Installation
 
-When Apollo iOS is included as a dependency through Swift Package Manager (SPM) or Cocoapods, the CLI is built and packaged with the depedency automatically. This ensures you always have a valid version of the CLI for the version of Apollo iOS you are using and you never have to worry about installation or updates.
+When Apollo iOS is included as a dependency through Cocoapods the CLI is built and packaged with the dependency automatically. This ensures you always have a valid version of the CLI for the version of Apollo iOS you are using and you never have to worry about installation or updates.
 
-Each package manager deploys the Codegen CLI using different methods. To learn how to run the Codegen CLI with your chosen package manager, open the appropriate section:
-
-<ExpansionPanel title="Swift Package Manager - Xcode">
-
-When using Swift packages through Xcode, Apollo iOS exposes the Codegen CLI as SPM plugins which are available from the Xcode menu.
-
-After adding the Apollo iOS package as a dependency for your Xcode project, right-click on your project and at the bottom of the menu you will find an 'Apollo' labeled group of menu items that are the plugin commands. Clicking on any of these will present another screen where you are able to add any custom arguments.
-
-<img class="screenshot" src="../screenshot/xcode_menu_plugins.png" alt="Where to find the SPM plugin commands in Xcode" />
-
-See [Usage](#usage) for a list of all commands and their options.
-
-</ExpansionPanel>
-
-<ExpansionPanel title="Swift Package Manager - Package.swift file">
-
-When using Swift Package Manager, Apollo iOS exposes the Codegen CLI as an SPM plugin. This means you can run the Codegen CLI using the `swift package` command.
-
-After installing the Apollo iOS package, you can run the Codegen CLI from the directory of your `Package.swift` file:
-
-```bash
-swift package --allow-writing-to-package-directory ${Command Name} -${Command Arguments}
-```
-
-> **Plugin Permissions**
->
-> SPM Plugins require permission to write files to your project directory. Each time you run these commands, you will be prompted to give the plugin permission. To bypass this prompt, we recommend including the `--allow-writing-to-package-directory` flag.
->
-> This is a flag passed to the `swift package` command, so it must be provided *before* the name of the command.
->
-> Using `--allow-writing-to-package-directory` is especially necessary when running the CLI from a non-interactive environment, such as a CI pipeline.
-
-In SPM, each CLI command is exposed as an individual plugin. To avoid naming conflicts with other SPM plugins, the commands have an `apollo`-prefixed command name. To call each command replace `${Command Name}` with the name of the command plugin you want to run:
-
-| Command | Plugin Command Name |
-| ------- | ----------- |
-| [Initialize](#initialize) | `apollo-initialize-codegen-config` |
-| [Fetch Schema](#fetch-schema) | `apollo-fetch-schema` |
-| [Generate](#generate) | `apollo-generate` |
-
-</ExpansionPanel>
+To learn how to run the Codegen CLI with your chosen package manager, open the appropriate section:
 
 <ExpansionPanel title="CocoaPods">
 
@@ -138,10 +98,6 @@ The default configuration will:
 
 `apollo-ios-cli init [--schema-name <schema-name>]`
 
-**SPM Plugin Command:**
-
-`swift package --allow-writing-to-package-directory apollo-initialize-codegen-config [--schema-name <schema-name>]`
-
 #### Options:
 
 | Option     | Description |
@@ -163,10 +119,6 @@ Downloads a GraphQL schema from the Apollo Registry or GraphQL introspection and
 
 `apollo-ios-cli fetch-schema [--path <path>] [--string <string>]`
 
-**SPM Plugin Command:**
-
-`swift package --allow-writing-to-package-directory apollo-fetch-schema [--path <path>] [--string <string>]`
-
 #### Options:
 
 | Option     | Description |
@@ -186,10 +138,6 @@ Runs the code generation engine to generate Swift source code using the configur
 #### Command:
 
 `apollo-ios-cli generate [--path <path>] [--string <string>]`
-
-**SPM Plugin Command:**
-
-`swift package --allow-writing-to-package-directory apollo-generate [--path <path>] [--string <string>]`
 
 #### Options:
 
