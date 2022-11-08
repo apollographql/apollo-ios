@@ -64,10 +64,10 @@ If you'd like to contribute, please refer to the [Apollo Contributor Guide](http
 
 ## Maintainers
 
-- [@AnthonyMDev](https://github.com/AnthonyMDev) (Apollo)
-- [@calvincestari](https://github.com/calvincestari) (Apollo)
-- [@bignimbus](https://github.com/bignimbus) (Apollo)
-- [@jpvajda](https://github.com/jpvajda) (Apollo)
+- [@AnthonyMDev](https://github.com/AnthonyMDev)
+- [@calvincestari](https://github.com/calvincestari)
+- [@bignimbus](https://github.com/bignimbus)
+- [@jpvajda](https://github.com/jpvajda)
 
 ## Who is Apollo?
 
