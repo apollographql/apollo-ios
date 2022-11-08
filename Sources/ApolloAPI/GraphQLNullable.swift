@@ -263,6 +263,7 @@ public extension GraphQLNullable {
 /// let optionalString: String?
 /// let query = MyQuery(myVar: optionalString ?? .none)
 /// ```
+@_disfavoredOverload
 @inlinable public func ??<T>(lhs: T?, rhs: GraphQLNullable<T>) -> GraphQLNullable<T> {
   if let lhs = lhs {
     return .some(lhs)
