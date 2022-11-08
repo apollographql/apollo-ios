@@ -1,6 +1,6 @@
 # 🔮 Apollo iOS Roadmap
 
-**Last updated: Oct 2022**
+**Last updated: Nov 2022**
 
 For up to date release notes, refer to the project's [Change Log](https://github.com/apollographql/apollo-ios/blob/main/CHANGELOG.md).
 
@@ -13,9 +13,17 @@ For up to date release notes, refer to the project's [Change Log](https://github
 
 ---
 
-## 1.1 - _Current_
+## 1.x.x releases
 
-Release 1.1 will be a follow up to our major 1.0 release and will contain misc improvements now that 1.0 is GA. See Github [1.1 Milestone](https://github.com/apollographql/apollo-ios/milestone/64) for more details.
+We are releasing a series of patch releases to introduce improvements to our 1.0 release. please see our [GitHub Milestones](https://github.com/apollographql/apollo-ios/milestones) for more details.
+
+## 1.1
+
+Release 1.1 will be the next minor release and will contain misc improvements now that 1.0 is GA. See Github [1.1 Milestone](https://github.com/apollographql/apollo-ios/milestone/64) for more details.
+
+## 1.2
+
+TBD
 
 ## 2.0
 
