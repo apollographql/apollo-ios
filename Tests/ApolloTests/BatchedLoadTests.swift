@@ -6,14 +6,14 @@ import ApolloInternalTestHelpers
 private final class MockBatchedNormalizedCache: NormalizedCache {
   private var records: RecordSet
   
-  var numberOfBatchLoads: Int32 = 0
+  @Atomic var numberOfBatchLoads: Int32 = 0
   
   init(records: RecordSet) {
     self.records = records
   }
   
   public func loadRecords(forKeys keys: Set<CacheKey>) throws -> [CacheKey: Record] {
-    OSAtomicIncrement32(&numberOfBatchLoads)
+    $numberOfBatchLoads.increment()
 
     return keys.reduce(into: [:]) { results, key in
       results[key] = records[key]
@@ -23,7 +23,7 @@ private final class MockBatchedNormalizedCache: NormalizedCache {
   func loadRecords(forKeys keys: [CacheKey],
                    callbackQueue: DispatchQueue?,
                    completion: @escaping (Result<[Record?], Error>) -> Void) {
-    OSAtomicIncrement32(&numberOfBatchLoads)
+    $numberOfBatchLoads.increment()
     
     DispatchQueue.global().asyncAfter(deadline: .now() + .milliseconds(1)) {
       let records = keys.map { self.records[$0] }

@@ -63,14 +63,7 @@ protocol URLSessionDataTaskMockProtocol {
   init()
 }
 
-private final class URLSessionDataTaskMock: URLSessionDataTask, URLSessionDataTaskMockProtocol{
-
-  // This override is to supress the deprecation warning on macOS 10.15+.
-  // This deprecated method needs to be used for unit test mocking purposes only.
-  @available(macOS, deprecated: 10.15)
-  override init() {
-    super.init()
-  }
+private final class URLSessionDataTaskMock: URLSessionDataTask, URLSessionDataTaskMockProtocol {
 
   override func resume() {
     // No-op

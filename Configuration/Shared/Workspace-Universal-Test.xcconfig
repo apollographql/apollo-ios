@@ -1,2 +1,2 @@
 #include "Workspace-Universal-Target.xcconfig"
-#include "Workspace-Target-Test.xcconfig"
+#include "../Shared/Workspace-Test-Deployment-Targets.xcconfig"

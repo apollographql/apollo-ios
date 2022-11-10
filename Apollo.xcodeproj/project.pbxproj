@@ -642,6 +642,7 @@
 		DEAFB787270652D100BE02F3 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = DEAFB786270652D100BE02F3 /* OrderedCollections */; };
 		DEB05B48289C3B4000170299 /* MockInterfacesFileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEB05B47289C3B4000170299 /* MockInterfacesFileGenerator.swift */; };
 		DEB05B4A289C3EC300170299 /* MockInterfacesTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEB05B49289C3EC300170299 /* MockInterfacesTemplate.swift */; };
+		DEC2EA8A291D5E2E0088D3BB /* TestIsolatedFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC2EA89291D5E2E0088D3BB /* TestIsolatedFileManager.swift */; };
 		DECD46D0262F64D000924527 /* StarWarsApolloSchemaDownloaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECD46CF262F64D000924527 /* StarWarsApolloSchemaDownloaderTests.swift */; };
 		DECD46FB262F659500924527 /* ApolloCodegenLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B7B6F47233C26D100F32205 /* ApolloCodegenLib.framework */; };
 		DECD4736262F668500924527 /* UploadAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B2DFBB624E1FA0D00ED3AE6 /* UploadAPI.framework */; };
@@ -1801,6 +1802,8 @@
 		DEAFB78227064F6900BE02F3 /* MockGraphQLType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGraphQLType.swift; sourceTree = "<group>"; };
 		DEB05B47289C3B4000170299 /* MockInterfacesFileGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockInterfacesFileGenerator.swift; sourceTree = "<group>"; };
 		DEB05B49289C3EC300170299 /* MockInterfacesTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockInterfacesTemplate.swift; sourceTree = "<group>"; };
+		DEC2EA89291D5E2E0088D3BB /* TestIsolatedFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestIsolatedFileManager.swift; sourceTree = "<group>"; };
+		DEC2EA8C291D9C960088D3BB /* Workspace-Test-Deployment-Targets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Workspace-Test-Deployment-Targets.xcconfig"; sourceTree = "<group>"; };
 		DECD46CF262F64D000924527 /* StarWarsApolloSchemaDownloaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarWarsApolloSchemaDownloaderTests.swift; sourceTree = "<group>"; };
 		DECD490B262F81BF00924527 /* ApolloCodegenInternalTestHelpers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ApolloCodegenInternalTestHelpers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DECD490D262F81BF00924527 /* ApolloCodegenInternalTestHelpers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApolloCodegenInternalTestHelpers.h; sourceTree = "<group>"; };
@@ -2426,6 +2429,7 @@
 				9F68F9F025415827004F26D0 /* XCTestCase+Helpers.swift */,
 				DE12B2D6273B204B003371CC /* TestError.swift */,
 				9B2061162591B3550020D1E0 /* Resources */,
+				DEC2EA89291D5E2E0088D3BB /* TestIsolatedFileManager.swift */,
 			);
 			name = ApolloInternalTestHelpers;
 			path = Tests/ApolloInternalTestHelpers;
@@ -3683,6 +3687,7 @@
 			children = (
 				DE6B15FA26152D210068D642 /* Workspace-Target-Application.xcconfig */,
 				DE6B15FB26152D210068D642 /* Workspace-Deployment-Targets.xcconfig */,
+				DEC2EA8C291D9C960088D3BB /* Workspace-Test-Deployment-Targets.xcconfig */,
 				DE6B15FC26152D210068D642 /* Workspace-Analysis.xcconfig */,
 				DE6B15FD26152D210068D642 /* Project-Release.xcconfig */,
 				DE6B15FE26152D210068D642 /* Workspace-Debug.xcconfig */,
@@ -5091,6 +5096,7 @@
 				9FBE0D4025407B64002ED0B1 /* AsyncResultObserver.swift in Sources */,
 				9F3910272549741400AF54A6 /* MockGraphQLServer.swift in Sources */,
 				DE71FDC22853C4C8005FA9CC /* MockLocalCacheMutation.swift in Sources */,
+				DEC2EA8A291D5E2E0088D3BB /* TestIsolatedFileManager.swift in Sources */,
 				DED45E6B261B9EAC0086EF63 /* SQLiteTestCacheProvider.swift in Sources */,
 				DE5EB9C226EFCBD40004176A /* MockApolloStore.swift in Sources */,
 				9BEEDC2B24E61995001D1294 /* TestURLs.swift in Sources */,

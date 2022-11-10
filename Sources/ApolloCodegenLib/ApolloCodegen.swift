@@ -190,7 +190,8 @@ public class ApolloCodegen {
 
     let matches = try match(
       searchPaths: config.input.schemaSearchPaths,
-      relativeTo: config.rootURL)
+      relativeTo: config.rootURL
+    )
 
     guard !matches.isEmpty else {
       throw Error.cannotLoadSchema

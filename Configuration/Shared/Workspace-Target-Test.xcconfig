@@ -1,8 +1,7 @@
+#include "Workspace-Universal-Test.xcconfig"
+
 // Packaging
 WRAPPER_EXTENSION = xctest
 
 // Disable some known troublesome warnings for the test target, as -Weverything without these exceptions causes errors when importing XCTest
 WARNING_CFLAGS = $(inherited) -Wno-documentation-unknown-command -Wno-incomplete-module -Wno-disabled-macro-expansion -Wno-shadow
-
-/// Test Target Deployment Target
-MACOSX_DEPLOYMENT_TARGET = 11.0
