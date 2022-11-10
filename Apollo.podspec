@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
   s.summary = "A GraphQL client for iOS, written in Swift."
   s.source = { :git => 'https://github.com/apollographql/apollo-ios.git', :tag => s.version }
   s.requires_arc = true
-  s.swift_version = '5.0'
+  s.swift_version = '5.6'
   s.default_subspecs = 'Core'
   s.ios.deployment_target = '12.0'
   s.osx.deployment_target = '10.14'
