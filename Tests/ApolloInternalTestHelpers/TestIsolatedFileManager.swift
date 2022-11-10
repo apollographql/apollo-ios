@@ -114,7 +114,7 @@ public extension XCTestCase {
 
   private func computeTestTempDirectoryURL() -> URL {
     let directoryURL: URL
-    if #available(macOS 13.0, *) {
+    if #available(macOS 13.0, iOS 16.0, tvOS 16.0, *) {
       directoryURL = URL(filePath: NSTemporaryDirectory(), directoryHint: .isDirectory)
     } else {
       directoryURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)

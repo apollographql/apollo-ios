@@ -206,8 +206,7 @@ public struct Glob {
 
     CodegenLogger.log("Evaluating \(pattern)", logLevel: .debug)
 
-    let encodedPattern = pattern
-    let response = glob(encodedPattern, flags, nil, &globT)
+    let response = glob(pattern, flags, nil, &globT)
 
     switch response {
     case 0: break // SUCCESS
