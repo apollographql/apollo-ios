@@ -11,4 +11,3 @@ WARNING_CFLAGS[sdk=watchos*] = $(inherited) -DAPI_TO_BE_DEPRECATED=5_0
 
 // macOS-specific default settings
 COMBINE_HIDPI_IMAGES[sdk=macosx*] = YES
-

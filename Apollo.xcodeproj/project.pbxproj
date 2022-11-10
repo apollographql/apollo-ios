@@ -1803,6 +1803,7 @@
 		DEB05B47289C3B4000170299 /* MockInterfacesFileGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockInterfacesFileGenerator.swift; sourceTree = "<group>"; };
 		DEB05B49289C3EC300170299 /* MockInterfacesTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockInterfacesTemplate.swift; sourceTree = "<group>"; };
 		DEC2EA89291D5E2E0088D3BB /* TestIsolatedFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestIsolatedFileManager.swift; sourceTree = "<group>"; };
+		DEC2EA8C291D9C960088D3BB /* Workspace-Test-Deployment-Targets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Workspace-Test-Deployment-Targets.xcconfig"; sourceTree = "<group>"; };
 		DECD46CF262F64D000924527 /* StarWarsApolloSchemaDownloaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarWarsApolloSchemaDownloaderTests.swift; sourceTree = "<group>"; };
 		DECD490B262F81BF00924527 /* ApolloCodegenInternalTestHelpers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ApolloCodegenInternalTestHelpers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DECD490D262F81BF00924527 /* ApolloCodegenInternalTestHelpers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApolloCodegenInternalTestHelpers.h; sourceTree = "<group>"; };
@@ -3686,6 +3687,7 @@
 			children = (
 				DE6B15FA26152D210068D642 /* Workspace-Target-Application.xcconfig */,
 				DE6B15FB26152D210068D642 /* Workspace-Deployment-Targets.xcconfig */,
+				DEC2EA8C291D9C960088D3BB /* Workspace-Test-Deployment-Targets.xcconfig */,
 				DE6B15FC26152D210068D642 /* Workspace-Analysis.xcconfig */,
 				DE6B15FD26152D210068D642 /* Project-Release.xcconfig */,
 				DE6B15FE26152D210068D642 /* Workspace-Debug.xcconfig */,
