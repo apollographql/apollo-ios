@@ -2,8 +2,8 @@
 title: Get started with Apollo iOS codegen
 ---
 
-This short tutorial guides you through the basic concepts of code generation using the Apollo iOS client. It's intended to introduce you the core capabilities of code generation and will walk you
-through the manual process to generate code using a GraphQL schema and operation. For more details on code generation please refer to the Code Generation documentation.
+Hello! 👋 This short tutorial walks through the basic cocepts of code generation in Apollo iOS Client. It's intended to introduce you the core capabilities of code generation and will walk you
+through the manual process to generate code using a test schema and a test operation. For more details on code generation please refer to the [Code Generation documentation](./introduction)
 
 ## Step 1: Setup
 
@@ -33,7 +33,8 @@ Rename the file extension from `.graphql` to `.graphqls`. Note the `s` on the en
 
 You'll also need to create a GraphQL operation file because the code generation engine requires both a schema and at least one operation to generate code.
 
-We'll be using the [allFilms Query operation](https://studio.apollographql.com/public/star-wars-swapi/explorer?variant=current) as an example.
+We'll be using the [allFilms Query operation](https://studio.apollographql.com/public/star-wars-swapi/explorer?variant=current) as an example. After clicking this link, you can
+open GraphQL Explorer and view the query by clicking the Explorer icon in the side menu.
 
 Copy the query text below and create a new file named `star-wars-swapi@current.graphql` in the `codegen-test` directory. Paste this query into the new file.
 
