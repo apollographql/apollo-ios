@@ -12,5 +12,5 @@
 #### Things to do as part of releasing
 - [ ] Add tag of format `major.minor.patch` to GitHub.
 - [ ] Create a release on GitHub with the new tag, using the latest [`CHANGELOG.md`](https://github.com/apollographql/apollo-ios/blob/main/CHANGELOG.md) contents.
+- [ ] Attach CLI binary to the GitHub release. _Use the `make build-cli` command._
 - [ ] Run `pod trunk push Apollo.podspec` to publish to CocoaPods. _You will need write permissions for this, please contact one of the [maintainers](https://github.com/apollographql/apollo-ios/blob/main/README.md#maintainers) if you need access to do this._
-- [ ] Announce the new version (Twitter, etc.)
