@@ -1,4 +1,4 @@
-#include "../Shared/Workspace-Test-Deployment-Targets.xcconfig"
+#include "Workspace-Universal-Test.xcconfig"
 
 // Packaging
 WRAPPER_EXTENSION = xctest
