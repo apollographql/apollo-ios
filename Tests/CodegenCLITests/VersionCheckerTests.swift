@@ -61,7 +61,7 @@ class VersionCheckerTests: XCTestCase {
     {
       "pins": [
         {
-          "identity": "apollo",
+          "identity": "apollo-ios",
           "kind" : "remoteSourceControl",
           "location": "https://github.com/apollographql/apollo-ios.git",
           "state": {

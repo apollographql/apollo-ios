@@ -19,7 +19,7 @@ enum VersionChecker {
       let packageResolvedJSON = try JSONSerialization.jsonObject(
         with: packageResolvedData
       ) as? [String: Any],
-      let apolloVersion = getApolloVersion(fromPackageResolvedJSON: packageResolvedJSON)
+      let apolloVersion = try PackageResolveModel(json: packageResolvedJSON).getApolloVersion()
     else {
       return .noApolloVersionFound
     }
@@ -32,62 +32,65 @@ enum VersionChecker {
     }
   }
 
-  private static func getApolloVersion(fromPackageResolvedJSON json: [String: Any]) -> String? {
-    typealias Object = [String: Any]
-    typealias ObjectList = [[String: Any]]
+}
 
-    let packageList = (json["object"] as? Object)?["pins"] as? ObjectList ?? json["pins"] as? ObjectList
+struct PackageResolveModel {
+  typealias Object = [String: Any]
+  typealias ObjectList = [[String: Any]]
 
-    guard
-      let apolloPackage = packageList?.first(where: {
-        $0["package"] as? String == "Apollo"
-      }),
-      let apolloVersion = (apolloPackage["state"] as? Object)?["version"] as? String
+  let fileFormat: FileFormatVersion
+  let json: Object
+
+  init(json: Object) throws {
+    guard let version = json["version"] as? Int else {
+      throw Error(errorDescription: "Invalid 'Package.resolve' file")
+    }
+    guard let fileFormat = FileFormatVersion(rawValue: version) else {
+      throw Error(errorDescription: """
+      Package.resolve file version unsupported!
+      Please create an issue at: https://github.com/apollographql/apollo-ios
+      """)
+    }
+
+    self.fileFormat = fileFormat
+    self.json = json
+  }
+
+  func getApolloVersion() -> String? {
+    guard let packageList = fileFormat.getPackageList(fromPackageResolvedJSON: json),
+          let apolloPackage = packageList.first(where: {
+            let packageName = fileFormat.packageName(forPackage: $0)
+            return packageName == "Apollo" || packageName == "apollo-ios"
+          })
     else {
       return nil
     }
-
-    return apolloVersion
+    return (apolloPackage["state"] as? Object)?["version"] as? String
   }
 
-  enum PackageResolveFileFormat {
-    case v1
-    case v2
+  enum FileFormatVersion: Int {
+    case v1 = 1
+    case v2 = 2
 
-    func getApolloVersion(fromPackageResolvedJSON json: [String: Any]) -> String? {
+    func getPackageList(fromPackageResolvedJSON json: [String: Any]) -> ObjectList? {
       switch self {
       case .v1:
-        let packageList = (json["object"] as? Object)?["pins"] as? ObjectList
-
-        guard
-          let apolloPackage = packageList?.first(where: {
-            guard let packageName = $0["package"] as? String else { return false }
-            packageName == "Apollo" || packageName == "apollo"
-          }),
-          let apolloVersion = (apolloPackage["state"] as? Object)?["version"] as? String
-        else {
-          return nil
-        }
-
-        return apolloVersion
+        return (json["object"] as? Object)?["pins"] as? ObjectList
 
       case .v2:
-        let packageList = (json["object"] as? Object)?["pins"] as? ObjectList
+        return json["pins"] as? ObjectList
+      }
+    }
 
-        guard
-          let apolloPackage = packageList?.first(where: {
-            $0["package"] as? String == "Apollo"
-          }),
-          let apolloVersion = (apolloPackage["state"] as? Object)?["version"] as? String
-        else {
-          return nil
-        }
+    func packageName(forPackage package: Object) -> String? {
+      switch self {
+      case .v1:
+        return package["package"] as? String
 
-        return apolloVersion
+      case .v2:
+        return package["identity"] as? String
       }
     }
   }
 
 }
-
-struct PackageResolveFile
