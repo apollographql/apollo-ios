@@ -24,7 +24,7 @@ public struct Generate: ParsableCommand {
   public init() { }
 
   public func run() throws {
-    print(try! VersionChecker.verifyCLIVersionMatchesApolloVersion())
+//    print(try! VersionChecker.verifyCLIVersionMatchesApolloVersion())
     try _run()
   }
 
