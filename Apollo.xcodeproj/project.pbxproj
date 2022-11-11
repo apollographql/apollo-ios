@@ -646,6 +646,8 @@
 		DEB05B48289C3B4000170299 /* MockInterfacesFileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEB05B47289C3B4000170299 /* MockInterfacesFileGenerator.swift */; };
 		DEB05B4A289C3EC300170299 /* MockInterfacesTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEB05B49289C3EC300170299 /* MockInterfacesTemplate.swift */; };
 		DEC2EA8A291D5E2E0088D3BB /* TestIsolatedFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC2EA89291D5E2E0088D3BB /* TestIsolatedFileManager.swift */; };
+		DEC2EA90291ED0F20088D3BB /* ApolloInternalTestHelpers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F8A95781EC0FC1200304A2D /* ApolloInternalTestHelpers.framework */; };
+		DEC2EA93291ED3910088D3BB /* Apollo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FC750441D2A532C00458D91 /* Apollo.framework */; };
 		DECD46D0262F64D000924527 /* StarWarsApolloSchemaDownloaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECD46CF262F64D000924527 /* StarWarsApolloSchemaDownloaderTests.swift */; };
 		DECD46FB262F659500924527 /* ApolloCodegenLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B7B6F47233C26D100F32205 /* ApolloCodegenLib.framework */; };
 		DECD4736262F668500924527 /* UploadAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B2DFBB624E1FA0D00ED3AE6 /* UploadAPI.framework */; };
@@ -948,6 +950,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = DE9CEAB328299E8500959AF9;
 			remoteInfo = ApolloTestSupport;
+		};
+		DEC2EA8E291ED0DE0088D3BB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9FC7503B1D2A532C00458D91 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9F8A95771EC0FC1200304A2D;
+			remoteInfo = ApolloInternalTestHelpers;
+		};
+		DEC2EA91291ED3890088D3BB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9FC7503B1D2A532C00458D91 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9FC750431D2A532C00458D91;
+			remoteInfo = Apollo;
 		};
 		DECD46F9262F659100924527 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -2123,6 +2139,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DEC2EA93291ED3910088D3BB /* Apollo.framework in Frameworks */,
+				DEC2EA90291ED0F20088D3BB /* ApolloInternalTestHelpers.framework in Frameworks */,
 				E6DC0AC228B3AB890064A68F /* CodegenCLI.framework in Frameworks */,
 				E6DC0AE228B3AC7E0064A68F /* Nimble in Frameworks */,
 			);
@@ -4584,6 +4602,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				DEC2EA92291ED3890088D3BB /* PBXTargetDependency */,
+				DEC2EA8F291ED0DE0088D3BB /* PBXTargetDependency */,
 				E6DC0AC428B3AB890064A68F /* PBXTargetDependency */,
 			);
 			name = CodegenCLITests;
@@ -5859,6 +5879,16 @@
 			isa = PBXTargetDependency;
 			target = DE9CEAB328299E8500959AF9 /* ApolloTestSupport */;
 			targetProxy = DE9CEAE72829A3C100959AF9 /* PBXContainerItemProxy */;
+		};
+		DEC2EA8F291ED0DE0088D3BB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9F8A95771EC0FC1200304A2D /* ApolloInternalTestHelpers */;
+			targetProxy = DEC2EA8E291ED0DE0088D3BB /* PBXContainerItemProxy */;
+		};
+		DEC2EA92291ED3890088D3BB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9FC750431D2A532C00458D91 /* Apollo */;
+			targetProxy = DEC2EA91291ED3890088D3BB /* PBXContainerItemProxy */;
 		};
 		DECD46FA262F659100924527 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
