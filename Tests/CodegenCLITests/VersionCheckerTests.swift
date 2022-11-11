@@ -35,7 +35,7 @@ class VersionCheckerTests: XCTestCase {
     fileManager = nil
   }
 
-  private func packageResolvedFileBody(withApolloVersion version: String) -> String {
+  private func version1PackageResolvedFileBody(apolloVersion version: String) -> String {
     return """
     {
       "object": {
@@ -56,6 +56,25 @@ class VersionCheckerTests: XCTestCase {
     """
   }
 
+  private func version2PackageResolvedFileBody(apolloVersion version: String) -> String {
+    return """
+    {
+      "pins": [
+        {
+          "identity": "apollo",
+          "kind" : "remoteSourceControl",
+          "location": "https://github.com/apollographql/apollo-ios.git",
+          "state": {
+            "revision": "5349afb4e9d098776cc44280258edd5f2ae571ed",
+            "version": "\(version)"
+          }
+        }
+      ],
+      "version": 2
+    }
+    """
+  }
+
   // MARK: - Tests
 
   func test__matchCLIVersionToApolloVersion__givenNoPackageResolvedFileInProject_returnsNoApolloVersionFound() throws {
@@ -68,10 +87,10 @@ class VersionCheckerTests: XCTestCase {
     expect(result).to(equal(.noApolloVersionFound))
   }
 
-  func test__matchCLIVersionToApolloVersion__givenPackageResolvedFileInProjectRoot_hasMatchingVersion_returns_versionMatch() throws {
+  func test__matchCLIVersionToApolloVersion__givenPackageResolvedFileInProjectRoot_withVersion1FileFormat_hasMatchingVersion_returns_versionMatch() throws {
     // given
     try fileManager.createFile(
-      body: packageResolvedFileBody(withApolloVersion: Constants.CLIVersion),
+      body: version1PackageResolvedFileBody(apolloVersion: Constants.CLIVersion),
       named: "Package.resolved"
     )
 
@@ -84,11 +103,44 @@ class VersionCheckerTests: XCTestCase {
     expect(result).to(equal(.versionMatch))
   }
 
-  func test__matchCLIVersionToApolloVersion__givenPackageResolvedFileInProjectRoot_hasNonMatchingVersion_returns_versionMismatch() throws {
+  func test__matchCLIVersionToApolloVersion__givenPackageResolvedFileInProjectRoot_withVersion1FileFormat_hasNonMatchingVersion_returns_versionMismatch() throws {
     // given
     let apolloVersion = "1.0.0.test-1"
     try fileManager.createFile(
-      body: packageResolvedFileBody(withApolloVersion: apolloVersion),
+      body: version1PackageResolvedFileBody(apolloVersion: apolloVersion),
+      named: "Package.resolved"
+    )
+
+    // when
+    let result = try VersionChecker.matchCLIVersionToApolloVersion(
+      projectRootURL: fileManager.directoryURL
+    )
+
+    // then
+    expect(result).to(equal(.versionMismatch(cliVersion: Constants.CLIVersion, apolloVersion: apolloVersion)))
+  }
+
+  func test__matchCLIVersionToApolloVersion__givenPackageResolvedFileInProjectRoot_withVersion2FileFormat_hasMatchingVersion_returns_versionMatch() throws {
+    // given
+    try fileManager.createFile(
+      body: version2PackageResolvedFileBody(apolloVersion: Constants.CLIVersion),
+      named: "Package.resolved"
+    )
+
+    // when
+    let result = try VersionChecker.matchCLIVersionToApolloVersion(
+      projectRootURL: fileManager.directoryURL
+    )
+
+    // then
+    expect(result).to(equal(.versionMatch))
+  }
+
+  func test__matchCLIVersionToApolloVersion__givenPackageResolvedFileInProjectRoot_withVersion2FileFormat_hasNonMatchingVersion_returns_versionMismatch() throws {
+    // given
+    let apolloVersion = "1.0.0.test-1"
+    try fileManager.createFile(
+      body: version2PackageResolvedFileBody(apolloVersion: apolloVersion),
       named: "Package.resolved"
     )
 
