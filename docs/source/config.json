@@ -17,6 +17,7 @@
     },
     "Code Generation": {
       "Introduction": "/code-generation/introduction",
+      "Getting Started": "/code-generation/codegen-getting-started",
       "The Codegen CLI": "/code-generation/codegen-cli",
       "Configuration": "/code-generation/codegen-configuration",
       "Downloading a Schema": "/code-generation/downloading-schema",
