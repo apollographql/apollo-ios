@@ -71,53 +71,31 @@ After installing the Apollo iOS pod, you can run the Codegen CLI from the direct
 
 </ExpansionPanel>
 
-<ExpansionPanel title="Manual Installation">
+<ExpansionPanel title="Pre-built Binary">
 
-If you are not using SPM or Cocoapods to install Apollo iOS, you'll need to compile the CLI manually.
+Each [release](https://github.com/apollographql/apollo-ios/releases) of Apollo iOS in GitHub has a pre-built CLI binary attached. This binary can be downloaded and moved to any local directory that is convenient for you.
 
-<ExpansionPanelList>
-
-<ExpansionPanelListItem>
-
-#### Clone the Apollo iOS git repository
+After downloading the binary, you can run the Codegen CLI from the directory where it is located:
 
 ```bash
-git clone https://github.com/apollographql/apollo-ios.git
+./apollo-ios-cli ${Command Name} -${Command Arguments}
 ```
 
-</ExpansionPanelListItem>
+</ExpansionPanel>
 
-<ExpansionPanelListItem>
+<ExpansionPanel title="Build it Yourself">
 
-#### Compile the Codegen CLI
-
-The Apollo iOS git repository's `makefile` includes a `build-cli` rule that can be used to compile the CLI. From the root of your `apollo-ios` clone, run:
+If you are not using SPM or Cocoapods, and do not want to use the pre-built CLI binary, you can compile the CLI manually. Once you've cloned the Apollo iOS git repo, use Terminal to go into that cloned directory and run the following command:
 
 ```bash
 make build-cli
 ```
 
-This will compile the Codegen CLI in release mode for you.
-
-</ExpansionPanelListItem>
-
-<ExpansionPanelListItem>
-
-#### Run the Codegen CLI
-
-The Codegen CLI executable will now be located in your `apollo-ios` clone at `.build/release/apollo-ios-cli`.
-
-You can run the CLI from this directory, move it to another location, or add it to your shell's `$PATH`.
-
-To run the code gen executable, run:
+This will compile the Codegen CLI which you will find at `.build/release/apollo-ios-cli`. You can run the CLI from this directory, move it to another location, or add it to your shell's `$PATH`.
 
 ```bash
-./apollo-ios-cli
+./.build/release/apollo-ios-cli ${Command Name} -${Command Arguments}
 ```
-
-</ExpansionPanelListItem>
-
-</ExpansionPanelList>
 
 </ExpansionPanel>
 
