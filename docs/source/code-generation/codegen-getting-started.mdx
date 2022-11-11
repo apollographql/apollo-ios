@@ -2,16 +2,11 @@
 title: Get started with Apollo iOS codegen
 ---
 
-Hello! 👋 This short tutorial walks through the basic cocepts of code generation in Apollo iOS Client. It's intended to introduce you the core capabilities of code generation and will walk you
-through the manual process to generate code using a test schema and a test operation. For more details on code generation please refer to the [Code Generation documentation](./introduction)
+This short tutorial guides you through the basic concepts of code generation using the Apollo iOS client. It's intended to introduce you the core capabilities of code generation and will walk you through the manual process to generate code using a GraphQL schema and operation. For more details on code generation please refer to the [Code generation documentation](./introduction)
 
 ## Step 1: Setup
 
-To start this tutorial first clone the [Apollo iOS project](https://github.com/apollographql/apollo-ios) from GitHub. Open Terminal and run the command:
-
-```bash
-git clone https://github.com/apollographql/apollo-ios.git
-```
+To start this tutorial, first create a new directory to work in. Then use Terminal to go into that new directory.
 
 ## Step 2: Download a GraphQL schema
 
@@ -19,24 +14,23 @@ We'll be using the [StarWars GraphQL API](https://studio.apollographql.com/publi
 
 <img class="screenshot" src="../screenshot/studio-starwarsapi-download.png" alt="Where to download a schema from Apollo Studio" />
 
-On the right-hand side in Apollo Studio find the drop-down to download the schema, shown in the above screenshot. Apollo Studio supports both `JSON` or `Raw` formats. For this tutorial select `Raw` which downloads the GraphQL schema in the Schema Definition Language (SDL) format. Clicking `Raw` will download a file named `star-wars-swapi@current.graphql`.
+On the right-hand side in Apollo Studio find the drop-down to download the schema, shown in the above screenshot. Apollo Studio supports both `JSON` or `Raw` formats. For this tutorial select `Raw` which downloads the GraphQL schema in the Schema Definition Language (SDL) format.
+
+Clicking `Raw` will download a file named `star-wars-swapi@current.graphql`.
 
 ## Step 3: Move the downloaded schema into your project
 
-In the root directory of the `apollo-ios` clone, add a directory called `codegen-test` and move the downloaded `star-wars-swapi@current.graphql` file into this directory.
+Download or move the already downloaded `star-wars-swapi@current.graphql` file into the directory you created in [Step 1](#step-1-setup).
 
 Rename the file extension from `.graphql` to `.graphqls`. Note the `s` on the end signifying a GraphQL schema file.
-
-
 
 ## Step 4: Create a GraphQL operation
 
 You'll also need to create a GraphQL operation file because the code generation engine requires both a schema and at least one operation to generate code.
 
-We'll be using the [allFilms Query operation](https://studio.apollographql.com/public/star-wars-swapi/explorer?variant=current) as an example. After clicking this link, you can
-open GraphQL Explorer and view the query by clicking the Explorer icon in the side menu.
+We'll be using the [allFilms Query operation](https://studio.apollographql.com/public/star-wars-swapi/explorer?variant=current) as an example. Clicking this link will open Explorer in Apollo Studio where you can select the fields you would like to be fetched. Alternatively, the query text below already has fields selected.
 
-Copy the query text below and create a new file named `star-wars-swapi@current.graphql` in the `codegen-test` directory. Paste this query into the new file.
+Copy the query text and create a new file named `AllFilmsQuery.graphql` in the directory you created in [Step 1](#step-1-setup). Paste this query into the new file.
 
 ```graphql
 
@@ -60,24 +54,17 @@ query Query {
 }
 ```
 
-## Step 4: Compile the Codegen CLI
+## Step 5: Download the CLI
 
-In the root directory of the `apollo-ios` project there is a `makefile` which includes a `build-cli` rule that can be used to compile the CLI. From the root of your `apollo-ios` clone, in a Terminal run:
+Browse to the list of [Apollo iOS releases](https://github.com/apollographql/apollo-ios/releases) in GitHub and find the latest release. In the Assets list for each release will be a pre-built CLI binary.
 
-```bash
-make build-cli
-```
+Download or move the already downloaded CLI binary file into the directory you created in [Step 1](#step-1-setup).
 
-This will compile the Codegen CLI in release mode for you. The Codegen CLI executable will now be located in your `apollo-ios` clone at `.build/release/apollo-ios-cli`.
-
-
-## Step 5: Move the CLI executable
-
-Go to `.build/release/apollo-ios-cli` and move the `apollo-ios-cli` executable file to your `codegen-test` directory. This will put the CLI in the same directory as your schema and operation file for testing purposes.
+> For more information on the different ways to install the CLI, see the [codegen CLI](./codegen-cli#installation) documentation.
 
 ## Step 6: Create a codegen configuration
 
-Switch to the the `codegen-test` directory, and in a Terminal run:
+Run the following command:
 
 ```bash
 ./apollo-ios-cli init --schema-name StarWarsAPI
@@ -119,13 +106,13 @@ The CLI will create a configuration file named `apollo-codegen-configuration.jso
 
 ### Step 7: Generate code
 
-Now you are ready to generate some code!  Within the `codegen-test` directory in Terminal run,
+Now you are ready to generate some code! Run the following command:
 
 ```bash
 ./apollo-ios-cli generate
 ```
 
-you should see a new file created in the `codegen-test` directory called `Query.graphql.swift` that looks similar to this:
+you should see a new file created named `Query.graphql.swift`, that looks similar to this:
 
 <ExpansionPanel title="Generated Code">
 
@@ -135,7 +122,7 @@ you should see a new file created in the `codegen-test` directory called `Query.
 // This file was automatically generated and should not be edited.
 
 @_exported import ApolloAPI
-import TestSchema
+import StarWarsAPI
 
 public class Query: GraphQLQuery {
   public static let operationName: String = "Query"
@@ -170,11 +157,11 @@ public class Query: GraphQLQuery {
 
   public init() {}
 
-  public struct Data: TestSchema.SelectionSet {
+  public struct Data: StarWarsAPI.SelectionSet {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { TestSchema.Objects.Root }
+    public static var __parentType: ParentType { StarWarsAPI.Objects.Root }
     public static var __selections: [Selection] { [
       .field("allFilms", AllFilms?.self),
     ] }
@@ -184,11 +171,11 @@ public class Query: GraphQLQuery {
     /// AllFilms
     ///
     /// Parent Type: `FilmsConnection`
-    public struct AllFilms: TestSchema.SelectionSet {
+    public struct AllFilms: StarWarsAPI.SelectionSet {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { TestSchema.Objects.FilmsConnection }
+      public static var __parentType: ParentType { StarWarsAPI.Objects.FilmsConnection }
       public static var __selections: [Selection] { [
         .field("films", [Film?]?.self),
       ] }
@@ -204,11 +191,11 @@ public class Query: GraphQLQuery {
       /// AllFilms.Film
       ///
       /// Parent Type: `Film`
-      public struct Film: TestSchema.SelectionSet {
+      public struct Film: StarWarsAPI.SelectionSet {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { TestSchema.Objects.Film }
+        public static var __parentType: ParentType { StarWarsAPI.Objects.Film }
         public static var __selections: [Selection] { [
           .field("title", String?.self),
           .field("director", String?.self),
@@ -227,11 +214,11 @@ public class Query: GraphQLQuery {
         /// AllFilms.Film.SpeciesConnection
         ///
         /// Parent Type: `FilmSpeciesConnection`
-        public struct SpeciesConnection: TestSchema.SelectionSet {
+        public struct SpeciesConnection: StarWarsAPI.SelectionSet {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public static var __parentType: ParentType { TestSchema.Objects.FilmSpeciesConnection }
+          public static var __parentType: ParentType { StarWarsAPI.Objects.FilmSpeciesConnection }
           public static var __selections: [Selection] { [
             .field("species", [Specy?]?.self),
           ] }
@@ -247,11 +234,11 @@ public class Query: GraphQLQuery {
           /// AllFilms.Film.SpeciesConnection.Specy
           ///
           /// Parent Type: `Species`
-          public struct Specy: TestSchema.SelectionSet {
+          public struct Specy: StarWarsAPI.SelectionSet {
             public let __data: DataDict
             public init(data: DataDict) { __data = data }
 
-            public static var __parentType: ParentType { TestSchema.Objects.Species }
+            public static var __parentType: ParentType { StarWarsAPI.Objects.Species }
             public static var __selections: [Selection] { [
               .field("name", String?.self),
               .field("classification", String?.self),
@@ -268,11 +255,11 @@ public class Query: GraphQLQuery {
             /// AllFilms.Film.SpeciesConnection.Specy.Homeworld
             ///
             /// Parent Type: `Planet`
-            public struct Homeworld: TestSchema.SelectionSet {
+            public struct Homeworld: StarWarsAPI.SelectionSet {
               public let __data: DataDict
               public init(data: DataDict) { __data = data }
 
-              public static var __parentType: ParentType { TestSchema.Objects.Planet }
+              public static var __parentType: ParentType { StarWarsAPI.Objects.Planet }
               public static var __selections: [Selection] { [
                 .field("name", String?.self),
               ] }
@@ -289,7 +276,4 @@ public class Query: GraphQLQuery {
 ```
 </ExpansionPanel>
 
-And that is it! You can also review all the additional generated files in the `codegen-test` to get a deeper understanding of how code generation works in the Apollo iOS client.
-
-
-
+And that is it! You can also review all the additional generated files to get a deeper understanding of how code generation works using the Apollo iOS client.
