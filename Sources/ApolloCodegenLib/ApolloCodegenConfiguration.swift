@@ -169,7 +169,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
 
     /// Default property values
     public struct Default {
-      public static let operations: OperationsFileOutput = .relative(subpath: nil)
+      public static let operations: OperationsFileOutput = .inSchemaModule
       public static let testMocks: TestMockFileOutput = .none
       public static let operationIdentifiersPath: String? = nil
     }

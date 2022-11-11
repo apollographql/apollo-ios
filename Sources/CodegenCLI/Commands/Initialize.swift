@@ -159,7 +159,7 @@ extension ApolloCodegenConfiguration {
           }
         },
         "operations" : {
-          "relative" : {
+          "inSchemaModule" : {
           }
         }
       }
