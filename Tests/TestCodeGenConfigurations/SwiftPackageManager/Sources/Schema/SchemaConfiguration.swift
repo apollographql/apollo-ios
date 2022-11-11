@@ -15,7 +15,5 @@ public enum SchemaConfiguration: ApolloAPI.SchemaConfiguration {
     default:
       return nil
     }
-    // Implement this function to configure cache key resolution for your schema types.
-    return nil
   }
 }

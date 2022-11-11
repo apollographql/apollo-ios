@@ -16,7 +16,7 @@ struct SwiftPackageManagerModuleTemplate: TemplateRenderer {
     let casedSchemaName = config.schemaName.firstUppercased
 
     return TemplateString("""
-    // swift-tools-version:5.3
+    // swift-tools-version:5.6
 
     import PackageDescription
 
