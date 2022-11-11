@@ -1,5 +1,6 @@
 import XCTest
 import Nimble
+import ApolloInternalTestHelpers
 @testable import CodegenCLI
 import ArgumentParser
 import ApolloCodegenLib
@@ -445,4 +446,106 @@ class GenerateTests: XCTestCase {
     // then
     expect(level).toEventually(equal(.debug))
   }
+
+  // MARK: Version Checking Tests
+
+  func test__generate__givenCLIVersionMismatch_shouldThrowVersionMismatchError() throws {
+    // given
+    let mockConfiguration = ApolloCodegenConfiguration.mock()
+
+    let jsonString = String(
+      data: try! JSONEncoder().encode(mockConfiguration),
+      encoding: .utf8
+    )!
+
+    let options = [
+      "--string=\(jsonString)",
+      "--verbose"
+    ]
+
+    MockApolloCodegen.buildHandler = { configuration in }
+    MockApolloSchemaDownloader.fetchHandler = { configuration in }
+
+    try self.testIsolatedFileManager().createFile(
+      body: """
+        {
+          "pins": [
+            {
+              "identity": "apollo-ios",
+              "kind" : "remoteSourceControl",
+              "location": "https://github.com/apollographql/apollo-ios.git",
+              "state": {
+                "revision": "5349afb4e9d098776cc44280258edd5f2ae571ed",
+                "version": "1.0.0-test.123"
+              }
+            }
+          ],
+          "version": 2
+        }
+        """,
+      named: "Package.resolved"
+    )
+
+    // when
+    let command = try parse(options)
+
+    // then
+    expect(
+      try command._run(
+        codegenProvider: MockApolloCodegen.self,
+        schemaDownloadProvider: MockApolloSchemaDownloader.self
+      )
+    ).to(throwError())
+  }
+
+  func test__generate__givenCLIVersionMismatch_withIgnoreVersionMismatchArgument_shouldNotThrowVersionMismatchError() throws {
+    // given
+    let mockConfiguration = ApolloCodegenConfiguration.mock()
+
+    let jsonString = String(
+      data: try! JSONEncoder().encode(mockConfiguration),
+      encoding: .utf8
+    )!
+
+    let options = [
+      "--string=\(jsonString)",
+      "--verbose",
+      "--ignore-version-mismatch"
+    ]
+
+    MockApolloCodegen.buildHandler = { configuration in }
+    MockApolloSchemaDownloader.fetchHandler = { configuration in }
+
+    try self.testIsolatedFileManager().createFile(
+      body: """
+        {
+          "pins": [
+            {
+              "identity": "apollo-ios",
+              "kind" : "remoteSourceControl",
+              "location": "https://github.com/apollographql/apollo-ios.git",
+              "state": {
+                "revision": "5349afb4e9d098776cc44280258edd5f2ae571ed",
+                "version": "1.0.0-test.123"
+              }
+            }
+          ],
+          "version": 2
+        }
+        """,
+      named: "Package.resolved"
+    )
+
+    // when
+    let command = try parse(options)
+
+    // then
+    expect(
+      try command._run(
+        codegenProvider: MockApolloCodegen.self,
+        schemaDownloadProvider: MockApolloSchemaDownloader.self
+      )
+    ).toNot(throwError())
+  }
+
 }

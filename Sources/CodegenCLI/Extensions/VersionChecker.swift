@@ -36,7 +36,7 @@ enum VersionChecker {
       } else {
         path = Package_resolved
       }
-      
+
       return fileManager.base.contents(atPath: path)
     }
 
@@ -81,7 +81,6 @@ enum VersionChecker {
     return nil
   }
 
-
 }
 
 struct PackageResolvedModel {
@@ -94,7 +93,10 @@ struct PackageResolvedModel {
 
   init(json: Object) throws {
     guard let version = json["version"] as? Int else {
-      throw Error(errorDescription: "Invalid 'Package.resolve' file")
+      throw Error(errorDescription: """
+      Invalid 'Package.resolve' file.
+      Please create an issue at: https://github.com/apollographql/apollo-ios
+      """)
     }
     guard let fileFormat = FileFormatVersion(rawValue: version) else {
       throw Error(errorDescription: """

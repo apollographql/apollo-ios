@@ -205,7 +205,6 @@
 		DE296BA527A07C37004F571F /* MockMergedSelections.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE296BA427A07C37004F571F /* MockMergedSelections.swift */; };
 		DE2A20E829032E1F008ADE48 /* VersionChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2A20E729032E1F008ADE48 /* VersionChecker.swift */; };
 		DE2A20ED29033ABE008ADE48 /* VersionCheckerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2A20EC29033ABE008ADE48 /* VersionCheckerTests.swift */; };
-		DE2A20EF29033D60008ADE48 /* CodegenCLICommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2A20EE29033D60008ADE48 /* CodegenCLICommand.swift */; };
 		DE2FCF1D26E806710057EA67 /* SchemaConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2FCF1C26E806710057EA67 /* SchemaConfiguration.swift */; };
 		DE2FCF2726E8083A0057EA67 /* Union.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2FCF2326E8083A0057EA67 /* Union.swift */; };
 		DE2FCF2826E8083A0057EA67 /* Interface.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2FCF2426E8083A0057EA67 /* Interface.swift */; };
@@ -1360,7 +1359,6 @@
 		DE2A20EA29033147008ADE48 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		DE2A20EB29033147008ADE48 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		DE2A20EC29033ABE008ADE48 /* VersionCheckerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VersionCheckerTests.swift; path = Tests/CodegenCLITests/VersionCheckerTests.swift; sourceTree = SOURCE_ROOT; };
-		DE2A20EE29033D60008ADE48 /* CodegenCLICommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CodegenCLICommand.swift; path = Sources/CodegenCLI/Commands/CodegenCLICommand.swift; sourceTree = SOURCE_ROOT; };
 		DE2FCF1C26E806710057EA67 /* SchemaConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchemaConfiguration.swift; sourceTree = "<group>"; };
 		DE2FCF2326E8083A0057EA67 /* Union.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Union.swift; sourceTree = "<group>"; };
 		DE2FCF2426E8083A0057EA67 /* Interface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interface.swift; sourceTree = "<group>"; };
@@ -4001,7 +3999,6 @@
 				E687B3D428B398E600A9551C /* FetchSchema.swift */,
 				E687B3D528B398E600A9551C /* Initialize.swift */,
 				E687B3D628B398E600A9551C /* Generate.swift */,
-				DE2A20EE29033D60008ADE48 /* CodegenCLICommand.swift */,
 			);
 			path = Commands;
 			sourceTree = "<group>";
@@ -5742,7 +5739,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE2A20EF29033D60008ADE48 /* CodegenCLICommand.swift in Sources */,
 				E687B3E328B398E600A9551C /* FetchSchema.swift in Sources */,
 				E687B3DC28B398E600A9551C /* Constants.swift in Sources */,
 				E687B3E528B398E600A9551C /* Generate.swift in Sources */,
