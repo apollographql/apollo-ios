@@ -548,4 +548,33 @@ class GenerateTests: XCTestCase {
     ).toNot(throwError())
   }
 
+  func test__generate__givenNoPackageResolvedFile__shouldNotThrowVersionMismatchError() throws {
+    // given
+    let mockConfiguration = ApolloCodegenConfiguration.mock()
+
+    let jsonString = String(
+      data: try! JSONEncoder().encode(mockConfiguration),
+      encoding: .utf8
+    )!
+
+    let options = [
+      "--string=\(jsonString)",
+      "--verbose"
+    ]
+
+    MockApolloCodegen.buildHandler = { configuration in }
+    MockApolloSchemaDownloader.fetchHandler = { configuration in }
+
+    // when
+    let command = try parse(options)
+
+    // then
+    expect(
+      try command._run(
+        codegenProvider: MockApolloCodegen.self,
+        schemaDownloadProvider: MockApolloSchemaDownloader.self
+      )
+    ).toNot(throwError())
+  }
+
 }

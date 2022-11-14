@@ -21,7 +21,7 @@ public struct Generate: ParsableCommand {
 
   @Flag(
     name: .long,
-    help: "Ignore Apollo version mismatch errors. This may lead to incompatible generated objects."
+    help: "Ignore Apollo version mismatch errors. Warning: This may lead to incompatible generated objects."
   )
   var ignoreVersionMismatch: Bool = false
 
@@ -85,7 +85,7 @@ public struct Generate: ParsableCommand {
         throw Error(errorDescription: """
           Error: \(errorMessage)
 
-          To ignore this error and run the CLI anyways, use the argument: --ignore-version-mismatch.
+          To ignore this error during code generation, use the argument: --ignore-version-mismatch.
           """)
       }
     }
