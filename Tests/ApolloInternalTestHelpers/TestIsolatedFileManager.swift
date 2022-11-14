@@ -4,6 +4,10 @@ import XCTest
 /// A test helper object that manages creation and deletion of files in a temporary directory
 /// that ensures test isolation.
 ///
+/// **Creating a `TestIsolatedFileManager` sets the current working directory for the
+/// current process to it's `directoryURL`.** After the test finishes, the current working
+/// directory is reset to its previous value.
+///
 /// All files and directories created by this class will be automatically deleted upon test
 /// completion prior to the test case's `tearDown()` function being called.
 ///
@@ -13,6 +17,7 @@ public class TestIsolatedFileManager {
 
   public let directoryURL: URL
   public let fileManager: FileManager
+  private let previousWorkingDirectory: String
 
   /// The paths for the files written to by the ``ApolloFileManager``.
   public private(set) var writtenFiles: Set<String> = []
@@ -22,9 +27,12 @@ public class TestIsolatedFileManager {
     self.fileManager = fileManager
 
     try fileManager.createDirectory(at: directoryURL, withIntermediateDirectories: true)
+    previousWorkingDirectory = fileManager.currentDirectoryPath
+    fileManager.changeCurrentDirectoryPath(directoryURL.path)
   }
 
   func cleanUp() throws {
+    fileManager.changeCurrentDirectoryPath(previousWorkingDirectory)
     try fileManager.removeItem(at: directoryURL)
   }
 
@@ -97,6 +105,11 @@ public class TestIsolatedFileManager {
 
 public extension XCTestCase {
 
+  /// Creates a `TestIsolatedFileManager` for the current test.
+  ///
+  /// **Creating a `TestIsolatedFileManager` sets the current working directory for the
+  /// current process to it's `directoryURL`.** After the test finishes, the current working
+  /// directory is reset to its previous value.
   func testIsolatedFileManager(
     with fileManager: FileManager = .default
   ) throws -> TestIsolatedFileManager {

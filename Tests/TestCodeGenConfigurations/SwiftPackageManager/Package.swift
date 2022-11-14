@@ -1,4 +1,4 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.6
 
 import PackageDescription
 
@@ -12,6 +12,7 @@ let package = Package(
   ],
   products: [
     .library(name: "GraphQLSchemaName", targets: ["GraphQLSchemaName"]),
+    .library(name: "GraphQLSchemaNameTestMocks", targets: ["GraphQLSchemaNameTestMocks"]),
   ],
   dependencies: [
     .package(url: "https://github.com/apollographql/apollo-ios.git", from: "1.0.0"),

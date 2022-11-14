@@ -6,7 +6,7 @@ struct Apollo_iOS_CLI: ParsableCommand {
   static var configuration = CommandConfiguration(
     commandName: "apollo-ios-cli",
     abstract: "A command line utility for Apollo iOS code generation.",
-    version: "1.0.3",
+    version: CodegenCLI.Constants.CLIVersion,
     subcommands: [
       CodegenCLI.Initialize.self,
       CodegenCLI.Generate.self,
