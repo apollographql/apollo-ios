@@ -1,6 +1,8 @@
 ---
-title: The codegen CLI
+title: The Codegen CLI
 ---
+
+import SPMInstallCLI from "../../shared/spm-install-cli.mdx"
 
 The Codegen CLI provides a command line tool that streamlines the process of running code generation. The CLI can be ran manually from Terminal (or any other shell program) or can be called into from bash scripts.
 
@@ -15,9 +17,15 @@ The Codegen CLI has three primary commands:
 
 ## Installation
 
-When Apollo iOS is included as a dependency through Cocoapods the CLI is built and packaged with the dependency automatically. This ensures you always have a valid version of the CLI for the version of Apollo iOS you are using and you never have to worry about installation or updates.
+When Apollo iOS is included as a dependency through Swift Package Manager (SPM) or Cocoapods, the CLI is built and packaged with the dependency automatically. This ensures you always have a valid version of the CLI for the version of Apollo iOS you are using and you never have to worry about installation or updates.
 
 To learn how to run the Codegen CLI with your chosen package manager, open the appropriate section:
+
+<ExpansionPanel title="Swift Package Manager - Xcode">
+
+<SPMInstallCLI />
+
+</ExpansionPanel>
 
 <ExpansionPanel title="CocoaPods">
 
