@@ -102,5 +102,17 @@ let package = Package(
       exclude: [
         "Info.plist",
       ]),
+    .plugin(
+      name: "InstallCLI",
+      capability: .command(
+        intent: .custom(
+          verb: "apollo-cli-install",
+          description: "Installs the Apollo iOS Command line interface."),
+        permissions: [
+          .writeToPackageDirectory(reason: "Creates a symbolic link to the CLI executable in your project directory.")
+        ]),
+      dependencies: [
+        "apollo-ios-cli"
+      ])
   ]
 )
