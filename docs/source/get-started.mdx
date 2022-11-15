@@ -26,13 +26,17 @@ You can add Apollo iOS into your project using Swift Package Manager or CocoaPod
 
 ## 2. Add a schema file to your target directory
 
-For Apollo iOS to generate models for your GraphQL operations, you need a local copy of your GraphQL server's schema. See [Downloading a schema](./code-generation/downloading-schema) for more details.
+For Apollo iOS to generate models for your GraphQL operations, you need a local copy of your GraphQL server's schema.
+
+> See [Downloading a schema](./code-generation/downloading-schema) for more details.
 
 ## 3. Create `.graphql` files for your GraphQL operations
 
 Apollo iOS generates code from the GraphQL queries and mutations defined in your target's files. To use Apollo iOS, you'll need to define at least one operation GraphQL operation.
 
 GraphQL operation and fragment definitions traditionally have the file extension `.graphql`. The generated models will have the file extension `.graphql.swift`.
+
+> See [Defining operations](./fetching/fetching-data#defining-operations) for more details.
 
 ## 4. Setup and run code generation
 
@@ -63,6 +67,8 @@ import Apollo
 let apolloClient = ApolloClient(url: URL(string: "http://localhost:4000/graphql")!)
 ```
 
+> See [Creating a client](./networking/client-creation) for more details.
+
 ## 6. Fetch a query
 
 `ApolloClient` can fetch your generated operation definitions, and return the response as a type-safe generated data model.
@@ -85,3 +91,5 @@ apolloClient.fetch(query: HeroNameQuery) { result in
   print(data.hero.name) // Luke Skywalker
 }
 ```
+
+> See [Fetching data](./fetching/fetching-data) for more details.
