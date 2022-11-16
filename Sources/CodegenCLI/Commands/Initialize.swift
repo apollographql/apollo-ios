@@ -90,7 +90,7 @@ public struct Initialize: ParsableCommand {
     let encoded = try ApolloCodegenConfiguration
       .minimalJSON(
         schemaName: schemaName,
-        moduleType: moduleType.rawValue,
+        moduleType: moduleType,
         targetName: targetName
       ).asData()
 
@@ -156,7 +156,7 @@ public struct Initialize: ParsableCommand {
 extension ApolloCodegenConfiguration {
   static func minimalJSON(
     schemaName: String,
-    moduleType: String,
+    moduleType: ModuleTypeExpressibleByArgument,
     targetName: String?
   ) -> String {
     #if COCOAPODS
@@ -179,7 +179,7 @@ extension ApolloCodegenConfiguration {
   static func minimalJSON(
     schemaName: String,
     supportCocoaPods: Bool,
-    moduleType: String,
+    moduleType: ModuleTypeExpressibleByArgument,
     targetName: String?
   ) -> String {
     let cocoaPodsOption = supportCocoaPods ? """

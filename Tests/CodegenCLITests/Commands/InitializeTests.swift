@@ -340,7 +340,7 @@ class InitializeTests: XCTestCase {
       expect(data?.asString).to(equal(
         ApolloCodegenConfiguration.minimalJSON(
           schemaName: "MockSchema",
-          moduleType: ModuleTypeExpressibleByArgument.swiftPackageManager.rawValue,
+          moduleType: ModuleTypeExpressibleByArgument.swiftPackageManager,
           targetName: nil
         )
       ))
@@ -410,7 +410,7 @@ class InitializeTests: XCTestCase {
       expect(data?.asString).to(equal(
         ApolloCodegenConfiguration.minimalJSON(
           schemaName: "MockSchema",
-          moduleType: ModuleTypeExpressibleByArgument.swiftPackageManager.rawValue,
+          moduleType: ModuleTypeExpressibleByArgument.swiftPackageManager,
           targetName: nil
         )
       ))
@@ -443,7 +443,7 @@ class InitializeTests: XCTestCase {
     expect(output).to(equal(
       ApolloCodegenConfiguration.minimalJSON(
         schemaName: "MockSchema",
-        moduleType: ModuleTypeExpressibleByArgument.swiftPackageManager.rawValue,
+        moduleType: ModuleTypeExpressibleByArgument.swiftPackageManager,
         targetName: nil
       )
     ))
@@ -469,10 +469,58 @@ class InitializeTests: XCTestCase {
     expect(output).to(equal(
       ApolloCodegenConfiguration.minimalJSON(
         schemaName: "MockSchema",
-        moduleType: ModuleTypeExpressibleByArgument.swiftPackageManager.rawValue,
+        moduleType: ModuleTypeExpressibleByArgument.swiftPackageManager,
         targetName: nil
       )
     ))
+  }
+
+  // MARK: - ModuleType Conversion Tests
+
+  func test__moduleType__givenModuleTypeExpressibleByArgument_embeddedInTarget_shouldEqualSchemaTypesFileOutputModuleType_embeddedInTarget() throws {
+    // given
+    let encoded = try ApolloCodegenConfiguration.minimalJSON(
+      schemaName: "MockSchema",
+      supportCocoaPods: false,
+      moduleType: ModuleTypeExpressibleByArgument.embeddedInTarget,
+      targetName: "MyTarget"
+    ).asData()
+
+    // then
+    let decoded = try JSONDecoder().decode(ApolloCodegenConfiguration.self, from: encoded)
+
+    expect(decoded.output.schemaTypes.moduleType)
+      .to(equal(.embeddedInTarget(name: "MyTarget")))
+  }
+
+  func test__moduleType__givenModuleTypeExpressibleByArgument_swiftPackageManager_shouldEqualSchemaTypesFileOutputModuleType_swiftPackageManager() throws {
+    // given
+    let encoded = try ApolloCodegenConfiguration.minimalJSON(
+      schemaName: "MockSchema",
+      supportCocoaPods: false,
+      moduleType: ModuleTypeExpressibleByArgument.swiftPackageManager,
+      targetName: nil
+    ).asData()
+
+    // then
+    let decoded = try JSONDecoder().decode(ApolloCodegenConfiguration.self, from: encoded)
+
+    expect(decoded.output.schemaTypes.moduleType).to(equal(.swiftPackageManager))
+  }
+
+  func test__moduleType__givenModuleTypeExpressibleByArgument_other_shouldEqualSchemaTypesFileOutputModuleType_other() throws {
+    // given
+    let encoded = try ApolloCodegenConfiguration.minimalJSON(
+      schemaName: "MockSchema",
+      supportCocoaPods: false,
+      moduleType: ModuleTypeExpressibleByArgument.other,
+      targetName: nil
+    ).asData()
+
+    // then
+    let decoded = try JSONDecoder().decode(ApolloCodegenConfiguration.self, from: encoded)
+
+    expect(decoded.output.schemaTypes.moduleType).to(equal(.other))
   }
 
   // MARK: - minimalJSON Tests
@@ -482,7 +530,7 @@ class InitializeTests: XCTestCase {
     let encoded = try ApolloCodegenConfiguration.minimalJSON(
       schemaName: "MockSchema",
       supportCocoaPods: false,
-      moduleType: ModuleTypeExpressibleByArgument.swiftPackageManager.rawValue,
+      moduleType: ModuleTypeExpressibleByArgument.swiftPackageManager,
       targetName: nil
     ).asData()
 
@@ -498,7 +546,7 @@ class InitializeTests: XCTestCase {
     let encoded = try ApolloCodegenConfiguration.minimalJSON(
       schemaName: "MockSchema",
       supportCocoaPods: true,
-      moduleType: ModuleTypeExpressibleByArgument.swiftPackageManager.rawValue,
+      moduleType: ModuleTypeExpressibleByArgument.swiftPackageManager,
       targetName: nil
     ).asData()
 
