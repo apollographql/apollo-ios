@@ -226,8 +226,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
   public struct SchemaTypesFileOutput: Codable, Equatable {
     /// Local path where the generated schema types files should be stored.
     public let path: String
-    /// Automation to ease the integration of the generated schema types file with compatible
-    /// dependency managers.
+    /// How to package the schema types for dependency management.
     public let moduleType: ModuleType
 
     /// Designated initializer.

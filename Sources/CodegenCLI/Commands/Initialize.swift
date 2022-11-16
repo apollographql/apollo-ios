@@ -15,7 +15,26 @@ public struct Initialize: ParsableCommand {
     name: [.long, .customShort("n")],
     help: "Name used to scope the generated schema type files."
   )
-  var schemaName: String = ""
+  var schemaName: String
+
+  @Option(
+    name: [.long, .customShort("m")],
+    help: """
+      How to package the schema types for dependency management. Possible types: \
+      \(ModuleTypeExpressibleByArgument.allValueStrings.joined(separator: ", ")).
+      """
+  )
+  var moduleType: ModuleTypeExpressibleByArgument
+
+  @Option(
+    name: [.long, .customShort("t")],
+    help: """
+      Name of the target in which the schema types files will be manually embedded. This is \
+      required for the \"embeddedInTarget\" module type and will be ignored for all other module \
+      types.
+      """
+  )
+  var targetName: String? = nil
 
   @Option(
     name: .shortAndLong,
@@ -45,8 +64,21 @@ public struct Initialize: ParsableCommand {
   public init() { }
 
   public func validate() throws {
-    guard !schemaName.isEmpty else {
-      throw ValidationError("Schema name is missing, use the --schema-name option to specify.")
+    guard !schemaName.trimmingCharacters(in: .whitespaces).isEmpty else {
+      throw ValidationError("--schema-name value cannot be empty.")
+    }
+
+    let targetNameValiationError = ValidationError("""
+      Target name is required when using \"embeddedInTarget\" module type. Use --target-name \
+      to specify.
+      """
+    )
+
+    switch (moduleType, targetName?.isEmpty) {
+    case (.embeddedInTarget, nil), (.embeddedInTarget, true):
+      throw targetNameValiationError
+    default:
+      break;
     }
   }
 
@@ -56,8 +88,11 @@ public struct Initialize: ParsableCommand {
 
   func _run(fileManager: ApolloFileManager = .default, output: OutputClosure? = nil) throws {
     let encoded = try ApolloCodegenConfiguration
-      .minimalJSON(schemaName: schemaName)
-      .asData()
+      .minimalJSON(
+        schemaName: schemaName,
+        moduleType: moduleType.rawValue,
+        targetName: targetName
+      ).asData()
 
     if print {
       try print(data: encoded, output: output)
@@ -119,21 +154,49 @@ public struct Initialize: ParsableCommand {
 // MARK: - Internal extensions
 
 extension ApolloCodegenConfiguration {
-  static func minimalJSON(schemaName: String) -> String {
+  static func minimalJSON(
+    schemaName: String,
+    moduleType: String,
+    targetName: String?
+  ) -> String {
     #if COCOAPODS
-      minimalJSON(schemaName: schemaName, supportCocoaPods: true)
+      minimalJSON(
+        schemaName: schemaName,
+        supportCocoaPods: true,
+        moduleType: moduleType,
+        targetName: targetName
+      )
     #else
-      minimalJSON(schemaName: schemaName, supportCocoaPods: false)
+      minimalJSON(
+        schemaName: schemaName,
+        supportCocoaPods: false,
+        moduleType: moduleType,
+        targetName: targetName
+      )
     #endif
   }
 
-  static func minimalJSON(schemaName: String, supportCocoaPods: Bool) -> String {
+  static func minimalJSON(
+    schemaName: String,
+    supportCocoaPods: Bool,
+    moduleType: String,
+    targetName: String?
+  ) -> String {
     let cocoaPodsOption = supportCocoaPods ? """
 
         "options" : {
           "cocoapodsCompatibleImportStatements" : true
         },
       """ : ""
+
+    let moduleTarget: String = {
+      guard let targetName = targetName else { return "}" }
+
+      return """
+          "name" : "\(targetName)"
+                }
+        """
+    }()
 
     return """
     {
@@ -154,8 +217,8 @@ extension ApolloCodegenConfiguration {
         "schemaTypes" : {
           "path" : "./\(schemaName)",
           "moduleType" : {
-            \(supportCocoaPods ? "\"other\"" : "\"swiftPackageManager\"") : {
-            }
+            "\(moduleType)" : {
+            \(moduleTarget)
           }
         },
         "operations" : {
@@ -166,4 +229,13 @@ extension ApolloCodegenConfiguration {
     }
     """
   }
+}
+
+/// A custom enum that matches ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType, but
+/// specifically without associated values so that it can conform to ExpressibleByArgument and be
+/// parsed from the command line.
+enum ModuleTypeExpressibleByArgument: String, ExpressibleByArgument, CaseIterable {
+  case embeddedInTarget
+  case swiftPackageManager
+  case other
 }

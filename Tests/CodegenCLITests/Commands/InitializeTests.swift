@@ -7,7 +7,10 @@ import ApolloCodegenLib
 class InitializeTests: XCTestCase {
 
   var mockFileManager: MockApolloFileManager!
-  let baseOptions = ["--schema-name=MockSchema"]
+  let requiredOptions = [
+    "--schema-name=MockSchema",
+    "--module-type=swiftPackageManager",
+  ]
 
   override func setUp() {
     super.setUp()
@@ -30,14 +33,32 @@ class InitializeTests: XCTestCase {
   // MARK: - Parsing Tests
 
   func test__parsing__givenParameters_none_shouldThrow() throws {
-    expect { try self.parse([]) }.to(throwUserValidationError(
-      ValidationError("Schema name is missing, use the --schema-name option to specify.")
-    ))
+    expect { try self.parse([]) }.to(throwError())
+  }
+
+  func test__parsing__givenParameters_missingSchemaName_shouldThrow() throws {
+    // given
+    let options = [
+      "--module-type=swiftPackageManager",
+    ]
+
+    // when
+    expect { try self.parse(options) }.to(throwError())
+  }
+
+  func test__parsing__givenParameters_missingModuleType_shouldThrow() throws {
+    // given
+    let options = [
+      "--schema-name=MySchemaName",
+    ]
+
+    // when
+    expect { try self.parse(options) }.to(throwError())
   }
 
   func test__parsing__givenParameters_required_shouldUseDefaults() throws {
     // when
-    let command = try parse(baseOptions)
+    let command = try parse(requiredOptions)
 
     // then
     expect(command.path).to(equal(Constants.defaultFilePath))
@@ -48,7 +69,8 @@ class InitializeTests: XCTestCase {
   func test__parsing__givenParameters_schemaNameLongformat_shouldParse() throws {
     // given
     let options = [
-      "--schema-name=LongFormatSchemaName"
+      "--schema-name=LongFormatSchemaName",
+      "--module-type=swiftPackageManager",
     ]
 
     // when
@@ -61,7 +83,8 @@ class InitializeTests: XCTestCase {
   func test__parsing__givenParameters_schemaNameShortFormat_shouldParse() throws {
     // given
     let options = [
-      "-n=ShortFormatSchemaName"
+      "-n=ShortFormatSchemaName",
+      "--module-type=swiftPackageManager",
     ]
 
     // when
@@ -71,11 +94,69 @@ class InitializeTests: XCTestCase {
     expect(command.schemaName).to(equal("ShortFormatSchemaName"))
   }
 
+  func test__parsing__givenParameters_moduleNameLongFormat_shouldParse() throws {
+    // given
+    let options = [
+      "--schema-name=MySchemaName",
+      "--module-type=swiftPackageManager",
+    ]
+
+    // when
+    let command = try parse(options)
+
+    // then
+    expect(command.moduleType).to(equal(.swiftPackageManager))
+  }
+
+  func test__parsing__givenParameters_moduleNameShortFormat_shouldParse() throws {
+    // given
+    let options = [
+      "--schema-name=MySchemaName",
+      "-m=swiftPackageManager",
+    ]
+
+    // when
+    let command = try parse(options)
+
+    // then
+    expect(command.moduleType).to(equal(.swiftPackageManager))
+  }
+
+  func test__parsing__givenParameters_targetNameLongFormat_shouldParse() throws {
+    // given
+    let options = [
+      "--schema-name=MySchemaName",
+      "--module-type=embeddedInTarget",
+      "--target-name=LongFormatTargetName",
+    ]
+
+    // when
+    let command = try parse(options)
+
+    // then
+    expect(command.targetName).to(equal("LongFormatTargetName"))
+  }
+
+  func test__parsing__givenParameters_targetNameShortFormat_shouldParse() throws {
+    // given
+    let options = [
+      "--schema-name=MySchemaName",
+      "--module-type=embeddedInTarget",
+      "-t=ShortFormatTargetName",
+    ]
+
+    // when
+    let command = try parse(options)
+
+    // then
+    expect(command.targetName).to(equal("ShortFormatTargetName"))
+  }
+
   func test__parsing__givenParameters_pathLongFormat_shouldParse() throws {
     // given
     let path = "./configuration.json"
 
-    let options = baseOptions + [
+    let options = requiredOptions + [
       "--path=\(path)"
     ]
 
@@ -90,7 +171,7 @@ class InitializeTests: XCTestCase {
     // given
     let path = "./configuration.json"
 
-    let options = baseOptions + [
+    let options = requiredOptions + [
       "-p=\(path)"
     ]
 
@@ -103,7 +184,7 @@ class InitializeTests: XCTestCase {
 
   func test__parsing__givenParameters_overwriteLongFormat_shouldParse() throws {
     // given
-    let options = baseOptions + [
+    let options = requiredOptions + [
       "--overwrite"
     ]
 
@@ -116,7 +197,7 @@ class InitializeTests: XCTestCase {
 
   func test__parsing__givenParameters_overwriteShortFormat_shouldParse() throws {
     // given
-    let options = baseOptions + [
+    let options = requiredOptions + [
       "-w"
     ]
 
@@ -129,7 +210,7 @@ class InitializeTests: XCTestCase {
 
   func test__parsing__givenParameters_printLongFormat_shouldParse() throws {
     // given
-    let options = baseOptions + [
+    let options = requiredOptions + [
       "--print"
     ]
 
@@ -142,7 +223,7 @@ class InitializeTests: XCTestCase {
 
   func test__parsing__givenParameters_printShortFormat_shouldParse() throws {
     // given
-    let options = baseOptions + [
+    let options = requiredOptions + [
       "-s"
     ]
 
@@ -155,7 +236,7 @@ class InitializeTests: XCTestCase {
 
   func test__parsing__givenParameters_unknown_shouldThrow() throws {
     // given
-    let options = baseOptions + [
+    let options = requiredOptions + [
       "--unknown"
     ]
 
@@ -164,14 +245,80 @@ class InitializeTests: XCTestCase {
       .to(throwUnknownOptionError())
   }
 
+  // MARK: - Validation Tests
+
+  func test__validation__givenWhitespaceSchemaName_shouldThrowValidationError() throws {
+    // given
+    let options = [
+      "--schema-name= ",
+      "--module-type=swiftPackageManager",
+    ]
+
+    // then
+    expect { try self.parse(options) }.to(throwUserValidationError(
+      ValidationError("--schema-name value cannot be empty.")
+    ))
+  }
+
+  func test__validation__givenModuleType_embeddedInTarget_withNoTargetName_shouldThrowValidationError() throws {
+    // given
+    let options = [
+      "--schema-name=MySchemaName",
+      "--module-type=embeddedInTarget",
+    ]
+
+    // then
+    expect { try self.parse(options) }.to(throwUserValidationError(
+      ValidationError("""
+        Target name is required when using \"embeddedInTarget\" module type. Use --target-name \
+        to specify.
+        """
+      )
+    ))
+  }
+
+  func test__validation__givenModuleType_embeddedInTarget_withTargetName_shouldNotThrow() throws {
+    // given
+    let options = [
+      "--schema-name=MySchemaName",
+      "--module-type=embeddedInTarget",
+      "--target-name=MyTarget",
+    ]
+
+    // then
+    expect { try self.parse(options) }.notTo(throwError())
+  }
+
+  func test__validation__givenModuleType_swiftPackageManager_withNoTargetName_shouldNotThrow() throws {
+    // given
+    let options = [
+      "--schema-name=MySchemaName",
+      "--module-type=swiftPackageManager",
+    ]
+
+    // then
+    expect { try self.parse(options) }.notTo(throwError())
+  }
+
+  func test__validation__givenModuleType_other_withNoTargetName_shouldNotThrow() throws {
+    // given
+    let options = [
+      "--schema-name=MySchemaName",
+      "--module-type=other",
+    ]
+
+    // then
+    expect { try self.parse(options) }.notTo(throwError())
+  }
+
   // MARK: - Output Tests
 
   func test__output__givenParameters_pathCustom_overwriteDefault_whenNoExistingFile_shouldWriteToPath() throws {
     // given
     let outputPath = "./path/to/output.file"
 
-    let options = baseOptions + [
-      "--path=\(outputPath)"
+    let options = requiredOptions + [
+      "--path=\(outputPath)",
     ]
 
     let subject = try parse(options)
@@ -191,7 +338,12 @@ class InitializeTests: XCTestCase {
 
       expect(actualPath).to(equal(expectedPath))
       expect(data?.asString).to(equal(
-        ApolloCodegenConfiguration.minimalJSON(schemaName: "MockSchema")))
+        ApolloCodegenConfiguration.minimalJSON(
+          schemaName: "MockSchema",
+          moduleType: ModuleTypeExpressibleByArgument.swiftPackageManager.rawValue,
+          targetName: nil
+        )
+      ))
 
       return true
     }))
@@ -206,7 +358,7 @@ class InitializeTests: XCTestCase {
     // given
     let outputPath = "./path/to/output.file"
 
-    let options = baseOptions + [
+    let options = requiredOptions + [
       "--path=\(outputPath)"
     ]
 
@@ -234,7 +386,7 @@ class InitializeTests: XCTestCase {
     // given
     let outputPath = "./path/to/output.file"
 
-    let options = baseOptions + [
+    let options = requiredOptions + [
       "--path=\(outputPath)",
       "--overwrite"
     ]
@@ -256,7 +408,11 @@ class InitializeTests: XCTestCase {
 
       expect(actualPath).to(equal(expectedPath))
       expect(data?.asString).to(equal(
-        ApolloCodegenConfiguration.minimalJSON(schemaName: "MockSchema")
+        ApolloCodegenConfiguration.minimalJSON(
+          schemaName: "MockSchema",
+          moduleType: ModuleTypeExpressibleByArgument.swiftPackageManager.rawValue,
+          targetName: nil
+        )
       ))
 
       return true
@@ -270,7 +426,7 @@ class InitializeTests: XCTestCase {
 
   func test__output__givenParameters_printTrue_shouldPrintToStandardOutput() throws {
     // given
-    let options = baseOptions + [
+    let options = requiredOptions + [
       "--print"
     ]
 
@@ -284,12 +440,18 @@ class InitializeTests: XCTestCase {
 
     // then
     expect(output).toEventuallyNot(beNil())
-    expect(output).to(equal(ApolloCodegenConfiguration.minimalJSON(schemaName: "MockSchema")))
+    expect(output).to(equal(
+      ApolloCodegenConfiguration.minimalJSON(
+        schemaName: "MockSchema",
+        moduleType: ModuleTypeExpressibleByArgument.swiftPackageManager.rawValue,
+        targetName: nil
+      )
+    ))
   }
 
   func test__output__givenParameters_bothPathAndPrint_shouldPrintToStandardOutput() throws {
     // given
-    let options = baseOptions + [
+    let options = requiredOptions + [
       "--path=./path/to/file",
       "--print"
     ]
@@ -304,7 +466,13 @@ class InitializeTests: XCTestCase {
 
     // then
     expect(output).toEventuallyNot(beNil())
-    expect(output).to(equal(ApolloCodegenConfiguration.minimalJSON(schemaName: "MockSchema")))
+    expect(output).to(equal(
+      ApolloCodegenConfiguration.minimalJSON(
+        schemaName: "MockSchema",
+        moduleType: ModuleTypeExpressibleByArgument.swiftPackageManager.rawValue,
+        targetName: nil
+      )
+    ))
   }
 
   // MARK: - minimalJSON Tests
@@ -313,7 +481,9 @@ class InitializeTests: XCTestCase {
     // given
     let encoded = try ApolloCodegenConfiguration.minimalJSON(
       schemaName: "MockSchema",
-      supportCocoaPods: false
+      supportCocoaPods: false,
+      moduleType: ModuleTypeExpressibleByArgument.swiftPackageManager.rawValue,
+      targetName: nil
     ).asData()
 
     // then
@@ -323,24 +493,13 @@ class InitializeTests: XCTestCase {
     expect(decoded.unsafelyUnwrapped.options.cocoapodsCompatibleImportStatements).to(beFalse())
   }
 
-  func test__decoding__givenMinimalJSON_cocoapodsIncompatible_shouldUseCorrectDefaults() throws {
-    // given
-    let encoded = try ApolloCodegenConfiguration.minimalJSON(
-      schemaName: "MockSchema",
-      supportCocoaPods: false
-    ).asData()
-
-    // then
-    let decoded = try JSONDecoder().decode(ApolloCodegenConfiguration.self, from: encoded)
-
-    expect(decoded.output.schemaTypes.moduleType).to(equal(.swiftPackageManager))
-  }
-
   func test__decoding__givenMinimalJSON_cocoapodsCompatible_shouldNotThrow() throws {
     // given
     let encoded = try ApolloCodegenConfiguration.minimalJSON(
       schemaName: "MockSchema",
-      supportCocoaPods: true
+      supportCocoaPods: true,
+      moduleType: ModuleTypeExpressibleByArgument.swiftPackageManager.rawValue,
+      targetName: nil
     ).asData()
 
     // then
@@ -348,19 +507,6 @@ class InitializeTests: XCTestCase {
     expect(decoded = try JSONDecoder().decode(ApolloCodegenConfiguration.self, from: encoded))
       .notTo(throwError())
     expect(decoded.unsafelyUnwrapped.options.cocoapodsCompatibleImportStatements).to(beTrue())
-  }
-
-  func test__decoding__givenMinimalJSON_cocoapodsCompatible_shouldUseCorrectDefaults() throws {
-    // given
-    let encoded = try ApolloCodegenConfiguration.minimalJSON(
-      schemaName: "MockSchema",
-      supportCocoaPods: true
-    ).asData()
-
-    // then
-    let decoded = try JSONDecoder().decode(ApolloCodegenConfiguration.self, from: encoded)
-
-    expect(decoded.output.schemaTypes.moduleType).to(equal(.other))
   }
 }
 
