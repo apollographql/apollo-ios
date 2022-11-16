@@ -20,9 +20,6 @@ let package = Package(
     .library(name: "ApolloWebSocket", targets: ["ApolloWebSocket"]),
     .library(name: "ApolloTestSupport", targets: ["ApolloTestSupport"]),
     .executable(name: "apollo-ios-cli", targets: ["apollo-ios-cli"]),
-    .plugin(name: "ApolloCodegenPlugin-Initialize", targets: ["ApolloCodegenPlugin-Initialize"]),
-    .plugin(name: "ApolloCodegenPlugin-Fetch", targets: ["ApolloCodegenPlugin-Fetch"]),
-    .plugin(name: "ApolloCodegenPlugin-Generate", targets: ["ApolloCodegenPlugin-Generate"]),
   ],
   dependencies: [
     .package(
@@ -106,40 +103,16 @@ let package = Package(
         "Info.plist",
       ]),
     .plugin(
-      name: "ApolloCodegenPlugin-Initialize",
+      name: "InstallCLI",
       capability: .command(
         intent: .custom(
-          verb: "apollo-initialize-codegen-config",
-          description: "Initialize a new code generation configuration with defaults."),
+          verb: "apollo-cli-install",
+          description: "Installs the Apollo iOS Command line interface."),
         permissions: [
-          .writeToPackageDirectory(reason: "Adds a codegen JSON configuration file.")
+          .writeToPackageDirectory(reason: "Creates a symbolic link to the CLI executable in your project directory.")
         ]),
       dependencies: [
         "apollo-ios-cli"
-      ]),
-    .plugin(
-      name: "ApolloCodegenPlugin-Fetch",
-      capability: .command(
-        intent: .custom(
-          verb: "apollo-fetch-schema",
-          description: "Download a GraphQL schema from the Apollo Registry or via GraphQL introspection."),
-        permissions: [
-          .writeToPackageDirectory(reason: "Downloads the GraphQL schema to a file.")
-        ]),
-      dependencies: [
-        "apollo-ios-cli"
-      ]),
-    .plugin(
-      name: "ApolloCodegenPlugin-Generate",
-      capability: .command(
-        intent: .custom(
-          verb: "apollo-generate",
-          description: "Generate Swift code for the configured GraphQL schema and operations."),
-        permissions: [
-          .writeToPackageDirectory(reason: "Generates Swift files for the schema and operations.")
-        ]),
-      dependencies: [
-        "apollo-ios-cli"
-      ]),
+      ])
   ]
 )

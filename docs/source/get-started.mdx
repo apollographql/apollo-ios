@@ -5,8 +5,8 @@ sidebar_title: Get Started
 
 import SPMXcodeInstallationPanel from "../shared/spm-xcode-installation-panel.mdx"
 import SPMPackageInstallationPanel from "../shared/spm-package-installation-panel.mdx"
-import SPMSetupCodegenPanel from "../shared/spm-setup-codegen-panel.mdx"
 import PodsInstallationPanel from "../shared/pods-installation-panel.mdx"
+import SPMSetupCodegenPanel from "../shared/spm-setup-codegen-panel.mdx"
 import PodsSetupCodegenPanel from "../shared/pods-setup-codegen-panel.mdx"
 
 Follow the steps below to add Apollo iOS to your app:
@@ -26,13 +26,17 @@ You can add Apollo iOS into your project using Swift Package Manager or CocoaPod
 
 ## 2. Add a schema file to your target directory
 
-For Apollo iOS to generate models for your GraphQL operations, you need a local copy of your GraphQL server's schema. See [Downloading a schema](./code-generation/downloading-schema) for more details.
+For Apollo iOS to generate models for your GraphQL operations, you need a local copy of your GraphQL server's schema.
+
+> See [Downloading a schema](./code-generation/downloading-schema) for more details.
 
 ## 3. Create `.graphql` files for your GraphQL operations
 
 Apollo iOS generates code from the GraphQL queries and mutations defined in your target's files. To use Apollo iOS, you'll need to define at least one operation GraphQL operation.
 
 GraphQL operation and fragment definitions traditionally have the file extension `.graphql`. The generated models will have the file extension `.graphql.swift`.
+
+> See [Defining operations](./fetching/fetching-data#defining-operations) for more details.
 
 ## 4. Setup and run code generation
 
@@ -46,11 +50,11 @@ The easiest way to do this is with the Codegen CLI provided with Apollo iOS.
 >
 > To use Apollo's code generation and schema downloader from within any Swift script or library, check out [Running code generation in Swift code](./code-generation/run-codegen-in-swift-code).
 
-<a name="spm-run-codegen" />
-<SPMSetupCodegenPanel />
-
-<a name="pods-run-codegen" />
+<a name="pods-setup-codegen" />
 <PodsSetupCodegenPanel />
+
+<a name="spm-setup-codegen" />
+<SPMSetupCodegenPanel />
 
 ## 5. Create an `ApolloClient`
 
@@ -62,6 +66,8 @@ import Apollo
 
 let apolloClient = ApolloClient(url: URL(string: "http://localhost:4000/graphql")!)
 ```
+
+> See [Creating a client](./networking/client-creation) for more details.
 
 ## 6. Fetch a query
 
@@ -85,3 +91,5 @@ apolloClient.fetch(query: HeroNameQuery) { result in
   print(data.hero.name) // Luke Skywalker
 }
 ```
+
+> See [Fetching data](./fetching/fetching-data) for more details.
