@@ -724,7 +724,6 @@
 		E6203346284F252A00A291D1 /* MockUnionsFileGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6203345284F252A00A291D1 /* MockUnionsFileGeneratorTests.swift */; };
 		E6203348284F25DF00A291D1 /* MockUnionsTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6203347284F25DF00A291D1 /* MockUnionsTemplateTests.swift */; };
 		E623FD2A2797A6F4008B4CED /* InterfaceTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E623FD292797A6F4008B4CED /* InterfaceTemplate.swift */; };
-		E639F20528F0A8FA00441FF4 /* IgnoredOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E639F20428F0A8FA00441FF4 /* IgnoredOptions.swift */; };
 		E63F0C0328EE0F2A009069EA /* ApolloCodegenFrontendBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63F0C0028EE099A009069EA /* ApolloCodegenFrontendBundle.swift */; };
 		E64F226D28B8B3FE0011292F /* LogLevelSetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64F226C28B8B3FE0011292F /* LogLevelSetter.swift */; };
 		E64F227128B8BEE10011292F /* MockLogLevelSetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64F227028B8BEE10011292F /* MockLogLevelSetter.swift */; };
@@ -1882,7 +1881,6 @@
 		E6203347284F25DF00A291D1 /* MockUnionsTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUnionsTemplateTests.swift; sourceTree = "<group>"; };
 		E623FD292797A6F4008B4CED /* InterfaceTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterfaceTemplate.swift; sourceTree = "<group>"; };
 		E623FD2B2797A700008B4CED /* InterfaceTemplateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterfaceTemplateTests.swift; sourceTree = "<group>"; };
-		E639F20428F0A8FA00441FF4 /* IgnoredOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IgnoredOptions.swift; sourceTree = "<group>"; };
 		E63F0C0028EE099A009069EA /* ApolloCodegenFrontendBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloCodegenFrontendBundle.swift; sourceTree = "<group>"; };
 		E64F226C28B8B3FE0011292F /* LogLevelSetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogLevelSetter.swift; sourceTree = "<group>"; };
 		E64F227028B8BEE10011292F /* MockLogLevelSetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockLogLevelSetter.swift; sourceTree = "<group>"; };
@@ -3977,7 +3975,6 @@
 			isa = PBXGroup;
 			children = (
 				E687B3CC28B398E600A9551C /* InputOptions.swift */,
-				E639F20428F0A8FA00441FF4 /* IgnoredOptions.swift */,
 			);
 			path = OptionGroups;
 			sourceTree = "<group>";
@@ -5749,7 +5746,6 @@
 				E687B3E828B398E600A9551C /* SchemaDownloadProvider.swift in Sources */,
 				E64F226D28B8B3FE0011292F /* LogLevelSetter.swift in Sources */,
 				E687B3E428B398E600A9551C /* Initialize.swift in Sources */,
-				E639F20528F0A8FA00441FF4 /* IgnoredOptions.swift in Sources */,
 				E687B3E128B398E600A9551C /* String+Data.swift in Sources */,
 				E687B3DD28B398E600A9551C /* InputOptions.swift in Sources */,
 				E687B3E728B398E600A9551C /* CodegenProvider.swift in Sources */,

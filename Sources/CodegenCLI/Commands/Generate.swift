@@ -11,7 +11,6 @@ public struct Generate: ParsableCommand {
   )
 
   @OptionGroup var inputs: InputOptions
-  @OptionGroup var ignored: IgnoredOptions
 
   @Flag(
     name: .shortAndLong,
