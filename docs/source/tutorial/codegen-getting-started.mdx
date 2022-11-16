@@ -67,7 +67,7 @@ Download and unzip this file then move the `apollo-ios-cli` binary file into the
 Run the following command:
 
 ```bash
-./apollo-ios-cli init --schema-name StarWarsAPI
+./apollo-ios-cli init --schema-name StarWarsAPI --module-type swiftPackageManager
 ```
 
 The CLI will create a configuration file named `apollo-codegen-configuration.json`, pre-filled with default values.  The file should look similar to this:
@@ -89,14 +89,14 @@ The CLI will create a configuration file named `apollo-codegen-configuration.jso
       }
     },
     "schemaTypes" : {
-      "path" : "./Root",
+      "path" : "./StarWarsAPI",
       "moduleType" : {
         "swiftPackageManager" : {
         }
       }
     },
     "operations" : {
-      "relative" : {
+      "inSchemaModule" : {
       }
     }
   }

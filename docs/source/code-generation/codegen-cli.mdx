@@ -104,13 +104,15 @@ The default configuration will:
 
 #### Command:
 
-`apollo-ios-cli init [--schema-name <schema-name>]`
+`apollo-ios-cli init [--schema-name <schema name>] [--module-type <module type>] [--target-name <target name>]`
 
 #### Options:
 
 | Option     | Description |
 | ---------- | ----------- |
-| `schema-name`       | **[Required]** The name you would like to be used as the namespace for your generated schema files. |
+| `--schema-name`     | **[Required]** The name you would like to be used as the namespace for your generated schema files. |
+| `--module-type`     | **[Required]** How to package the schema types for dependency management. Possible types are `embeddedInTarget`, `swiftPackageManager`, `other`. |
+| `--target-name`     | Name of the target in which the schema types files will be manually embedded.<br/><br/>*Note: This is required for the "embeddedInTarget" module type and will be ignored for all other module types.* |
 | `-p, --path <path>` | Write the configuration to a file at the path. (default: `./apollo-codegen-config.json`) |
 | `-w, --overwrite`   | Overwrite any file at `--path`. If init is called without `--overwrite` and a config file already exists at `--path`, the command will fail. |
 | `-s, --print`       | Print the configuration to stdout. |

@@ -12,10 +12,11 @@ The Codegen CLI is located in your project at `Pods/Apollo/apollo-ios-cli`
 The Codegen CLI uses a JSON file to configure the code generation engine. Use the Codegen CLI `init` command to create this file with default values. From the directory of your `Podfile`, run:
 
 ```bash
-./Pods/Apollo/apollo-ios-cli init --schema-name ${MySchemaName}
+./Pods/Apollo/apollo-ios-cli init --schema-name ${MySchemaName} --module-type other
 ```
 
-`${MySchemaName}` should be the name you want for the namespace of your generated schema files.
+* `${MySchemaName}` should be the name you want for the namespace of your generated schema files.
+* `other` is the module type to use when your dependency manager for Apollo iOS is CocoaPods.
 
 This will create an `apollo-codegen-config.json` file with the default values.
 
