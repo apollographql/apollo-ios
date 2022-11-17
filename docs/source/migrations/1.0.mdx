@@ -1,0 +1,39 @@
+---
+title: Apollo iOS 1.0 migration guide
+description: From 0.x to 1.0
+---
+
+Apollo iOS 1.0 provides a stable API that uses modern Swift language conventions and features. Among other improvements, it features:
+
+- New generated models that improve readability and functionality while reducing generated code size in most cases
+- New code generation tooling that is written in pure Swift code
+- Support for using generated models in multi-module projects
+- Type-safe APIs for cache key resolution
+
+Because most of the library's core concepts are unchanged, the migration to 1.0 from the legacy 0.x versions of Apollo iOS should not require serious rewrites in most cases. This page describes the most important changes, along with how to migrate an existing project from Apollo iOS 0.x to 1.0.
+
+## Step-by-step instructions
+
+To begin your migration to Apollo iOS 1.0 you'll need to:
+
+- [Update your dependency to Apollo iOS version 1.0.](#1-update-to-apollo-ios-10)
+- [Install and configure the codegen engine.](#2-install-and-configure-the-codegen-engine)
+- [Replace your generated models.](#3-replace-your-generated-models)
+- [Refactor your code to use the new APIs.](#4-refactor-your-code)
+
+Much of the migration process involves the new code generation mechanism, which is detailed in this step-by-step guide. It will walk you through this process, explaining how to remove deprecated pieces of the legacy 0.x version along the way.
+
+Below the step-by-step instructions, you will find explanations of each breaking API change in Apollo iOS 1.0.
+
+### 1. Update to Apollo iOS 1.0
+
+### 2. Install and configure the codegen engine
+
+### 3. Replace your generated models
+
+### 4. Refactor your code
+
+. While all projects will need to follow this process, depending on your usage, you will likely need to
+Most of the APIs for creating an `ApolloClient` and performing network requests are unchanged,
+
+, many APIs have been improved.
