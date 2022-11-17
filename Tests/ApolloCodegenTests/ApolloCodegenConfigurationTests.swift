@@ -70,7 +70,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
 
     // then
     expect(output.operationIdentifiersPath).to(beNil())
-    expect(output.operations).to(equal(.relative(subpath: nil)))
+    expect(output.operations).to(equal(.inSchemaModule))
   }
 
   func test__initializer__givenMinimalApolloCodegenConfiguration_buildsCorrectDefaults() {

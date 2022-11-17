@@ -98,7 +98,7 @@ commands:
           name: CocoaPods - Install
       - run:
           working_directory: Tests/CodegenCLITests/pod-install-test/
-          command: ./Pods/Apollo/apollo-ios-cli init --schema-name NewTestSchema
+          command: ./Pods/Apollo/apollo-ios-cli init --schema-name NewTestSchema --module-type other
           name: CocoaPods - CLI Test (init)
       - run:
           working_directory: Tests/CodegenCLITests/pod-install-test/

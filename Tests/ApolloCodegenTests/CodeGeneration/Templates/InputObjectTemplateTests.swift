@@ -261,12 +261,12 @@ class InputObjectTemplateTests: XCTestCase {
         intField: GraphQLNullable<Int> = nil,
         boolField: GraphQLNullable<Bool> = nil,
         floatField: GraphQLNullable<Double> = nil,
-        customScalarField: GraphQLNullable<TestSchema.CustomScalar> = nil,
-        lowercaseCustomScalarField: GraphQLNullable<TestSchema.LowercaseCustomScalar> = nil,
-        enumField: GraphQLNullable<GraphQLEnum<TestSchema.EnumType>> = nil,
-        lowercaseEnumField: GraphQLNullable<GraphQLEnum<TestSchema.LowercaseEnumType>> = nil,
-        inputField: GraphQLNullable<TestSchema.InnerInputObject> = nil,
-        lowercaseInputField: GraphQLNullable<TestSchema.LowercaseInnerInputObject> = nil,
+        customScalarField: GraphQLNullable<CustomScalar> = nil,
+        lowercaseCustomScalarField: GraphQLNullable<LowercaseCustomScalar> = nil,
+        enumField: GraphQLNullable<GraphQLEnum<EnumType>> = nil,
+        lowercaseEnumField: GraphQLNullable<GraphQLEnum<LowercaseEnumType>> = nil,
+        inputField: GraphQLNullable<InnerInputObject> = nil,
+        lowercaseInputField: GraphQLNullable<LowercaseInnerInputObject> = nil,
         listField: GraphQLNullable<[String?]> = nil
       ) {
         __data = InputDict([
@@ -304,32 +304,32 @@ class InputObjectTemplateTests: XCTestCase {
         set { __data["floatField"] = newValue }
       }
 
-      public var customScalarField: GraphQLNullable<TestSchema.CustomScalar> {
+      public var customScalarField: GraphQLNullable<CustomScalar> {
         get { __data["customScalarField"] }
         set { __data["customScalarField"] = newValue }
       }
 
-      public var lowercaseCustomScalarField: GraphQLNullable<TestSchema.LowercaseCustomScalar> {
+      public var lowercaseCustomScalarField: GraphQLNullable<LowercaseCustomScalar> {
         get { __data["lowercaseCustomScalarField"] }
         set { __data["lowercaseCustomScalarField"] = newValue }
       }
 
-      public var enumField: GraphQLNullable<GraphQLEnum<TestSchema.EnumType>> {
+      public var enumField: GraphQLNullable<GraphQLEnum<EnumType>> {
         get { __data["enumField"] }
         set { __data["enumField"] = newValue }
       }
 
-      public var lowercaseEnumField: GraphQLNullable<GraphQLEnum<TestSchema.LowercaseEnumType>> {
+      public var lowercaseEnumField: GraphQLNullable<GraphQLEnum<LowercaseEnumType>> {
         get { __data["lowercaseEnumField"] }
         set { __data["lowercaseEnumField"] = newValue }
       }
 
-      public var inputField: GraphQLNullable<TestSchema.InnerInputObject> {
+      public var inputField: GraphQLNullable<InnerInputObject> {
         get { __data["inputField"] }
         set { __data["inputField"] = newValue }
       }
 
-      public var lowercaseInputField: GraphQLNullable<TestSchema.LowercaseInnerInputObject> {
+      public var lowercaseInputField: GraphQLNullable<LowercaseInnerInputObject> {
         get { __data["lowercaseInputField"] }
         set { __data["lowercaseInputField"] = newValue }
       }
@@ -749,21 +749,22 @@ class InputObjectTemplateTests: XCTestCase {
   func test__render__given_NullableListOfNullableEnum_NoDefault__generates_NullableParameter_OptionalItem_InitializerNilDefault() throws {
     // given
     buildSubject(fields: [
-      GraphQLInputField.mock("nullableListNullableItem",
-                             type: .list(.enum(.mock(name: "EnumValue"))),
-                             defaultValue: nil)
+      GraphQLInputField.mock(
+        "nullableListNullableItem",
+        type: .list(.enum(.mock(name: "EnumValue"))),
+        defaultValue: nil)
     ])
 
     let expected = """
       public init(
-        nullableListNullableItem: GraphQLNullable<[GraphQLEnum<TestSchema.EnumValue>?]> = nil
+        nullableListNullableItem: GraphQLNullable<[GraphQLEnum<EnumValue>?]> = nil
       ) {
         __data = InputDict([
           "nullableListNullableItem": nullableListNullableItem
         ])
       }
 
-      public var nullableListNullableItem: GraphQLNullable<[GraphQLEnum<TestSchema.EnumValue>?]> {
+      public var nullableListNullableItem: GraphQLNullable<[GraphQLEnum<EnumValue>?]> {
     """
 
     // when
@@ -2042,7 +2043,10 @@ class InputObjectTemplateTests: XCTestCase {
         "nullableListNullableItem",
         type: .list(.enum(.mock(name: "EnumValue"))),
         defaultValue: nil)],
-      config: .mock(schemaName: "testschema")
+      config: .mock(
+        schemaName: "testschema",
+        output: .mock(operations: .relative(subpath: nil))
+      )
     )
 
     let expected = """
@@ -2071,7 +2075,10 @@ class InputObjectTemplateTests: XCTestCase {
         "nullableListNullableItem",
         type: .list(.enum(.mock(name: "EnumValue"))),
         defaultValue: nil)],
-      config: .mock(schemaName: "TESTSCHEMA")
+      config: .mock(
+        schemaName: "TESTSCHEMA",
+        output: .mock(operations: .relative(subpath: nil))
+      )
     )
 
     let expected = """
@@ -2100,7 +2107,10 @@ class InputObjectTemplateTests: XCTestCase {
         "nullableListNullableItem",
         type: .list(.enum(.mock(name: "EnumValue"))),
         defaultValue: nil)],
-      config: .mock(schemaName: "TestSchema")
+      config: .mock(
+        schemaName: "TestSchema",
+        output: .mock(operations: .relative(subpath: nil))
+      )
     )
 
     let expected = """

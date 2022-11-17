@@ -19,10 +19,11 @@ import SPMInstallCLI from "../shared/spm-install-cli.mdx"
 The Codegen CLI uses a JSON file to configure the code generation engine. Use the Codegen CLI `init` command to create this file with default values. From your project's root directory, run:
 
 ```bash
-./apollo-ios-cli init --schema-name ${MySchemaName}
+./apollo-ios-cli init --schema-name ${MySchemaName} --module-type swiftPackageManager
 ```
 
-`${MySchemaName}` should be the name you want for the namespace of your generated schema files.
+* `${MySchemaName}` should be the name you want for the namespace of your generated schema files.
+* `embeddedInTarget` or `swiftPackageManager` are both suitable module types to use when your dependency manager for Apollo iOS is Swift Package Manager.
 
 This will create an `apollo-codegen-config.json` file with the default values.
 

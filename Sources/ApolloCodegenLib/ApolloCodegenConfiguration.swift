@@ -169,7 +169,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
 
     /// Default property values
     public struct Default {
-      public static let operations: OperationsFileOutput = .relative(subpath: nil)
+      public static let operations: OperationsFileOutput = .inSchemaModule
       public static let testMocks: TestMockFileOutput = .none
       public static let operationIdentifiersPath: String? = nil
     }
@@ -179,7 +179,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     /// - Parameters:
     ///  - schemaTypes: The local path structure for the generated schema types files.
     ///  - operations: The local path structure for the generated operation object files.
-    ///  Defaults to `.relative` with a `subpath` of `nil`.
+    ///  Defaults to `.inSchemaModule`.
     ///  - testMocks: The local path structure for the test mock operation object files.
     ///  If `.none`, test mocks will not be generated. Defaults to `.none`.
     ///  - operationIdentifiersPath: An absolute location to an operation id JSON map file.
@@ -226,8 +226,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
   public struct SchemaTypesFileOutput: Codable, Equatable {
     /// Local path where the generated schema types files should be stored.
     public let path: String
-    /// Automation to ease the integration of the generated schema types file with compatible
-    /// dependency managers.
+    /// How to package the schema types for dependency management.
     public let moduleType: ModuleType
 
     /// Designated initializer.

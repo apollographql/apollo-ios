@@ -6627,8 +6627,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-argument-parser.git";
 			requirement = {
-				kind = upToNextMinorVersion;
-				minimumVersion = 1.1.3;
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.0;
 			};
 		};
 		E6E4209026A7DF4200B82624 /* XCRemoteSwiftPackageReference "InflectorKit" */ = {
