@@ -179,7 +179,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     /// - Parameters:
     ///  - schemaTypes: The local path structure for the generated schema types files.
     ///  - operations: The local path structure for the generated operation object files.
-    ///  Defaults to `.relative` with a `subpath` of `nil`.
+    ///  Defaults to `.inSchemaModule`.
     ///  - testMocks: The local path structure for the test mock operation object files.
     ///  If `.none`, test mocks will not be generated. Defaults to `.none`.
     ///  - operationIdentifiersPath: An absolute location to an operation id JSON map file.
