@@ -68,15 +68,13 @@ public struct Initialize: ParsableCommand {
       throw ValidationError("--schema-name value cannot be empty.")
     }
 
-    let targetNameValiationError = ValidationError("""
-      Target name is required when using \"embeddedInTarget\" module type. Use --target-name \
-      to specify.
-      """
-    )
-
     switch (moduleType, targetName?.isEmpty) {
     case (.embeddedInTarget, nil), (.embeddedInTarget, true):
-      throw targetNameValiationError
+      throw ValidationError("""
+        Target name is required when using \"embeddedInTarget\" module type. Use --target-name \
+        to specify.
+        """
+      )
     default:
       break;
     }
