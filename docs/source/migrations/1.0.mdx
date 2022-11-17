@@ -27,6 +27,29 @@ Below the step-by-step instructions, you will find explanations of each breaking
 
 ### 1. Update to Apollo iOS 1.0
 
+The first step in the migration is to update your dependency to the latest version. Apollo iOS can be included as a package using Swift Package Manager (SPM) or Cocoapods.
+
+In order to receive bug fixes and new features, we recommend including `1.0` up to the next major release.
+
+<CodeColumns cols={2}>
+
+```swift title="Package.swift"
+.package(
+    url: "https://github.com/apollographql/apollo-ios.git",
+    .upToNextMajor(from: "1.0.0")
+),
+```
+
+```ruby title="Podfile"
+pod 'Apollo' ~> '1.0'
+```
+
+</CodeColumns>
+
+# TODO: Add step on target linking w/ link to target-linking docs.
+
+> **Note:** Apollo iOS 1.0 supports being built as a dynamic `.xcframework` or as a static library. While our documentation does not provide step-by-step instructions on this process, building and including Apollo iOS 1.0 as a pre-compiled binary with a build tool such as Carthage or Buck is possible.
+
 ### 2. Install and configure the codegen engine
 
 ### 3. Replace your generated models
