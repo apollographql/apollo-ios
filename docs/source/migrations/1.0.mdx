@@ -3,6 +3,8 @@ title: Apollo iOS 1.0 migration guide
 description: From 0.x to 1.0
 ---
 
+import SetupCodegen from "../../shared/setup-codegen/combined.mdx"
+
 Apollo iOS 1.0 provides a stable API that uses modern Swift language conventions and features. Among other improvements, it features:
 
 - New generated models that improve readability and functionality while reducing generated code size in most cases
@@ -16,10 +18,10 @@ Because most of the library's core concepts are unchanged, the migration to 1.0 
 
 To begin your migration to Apollo iOS 1.0 you'll need to:
 
-- [Update your dependency to Apollo iOS version 1.0.](#1-update-to-apollo-ios-10)
-- [Install and configure the codegen engine.](#2-install-and-configure-the-codegen-engine)
-- [Replace your generated models.](#3-replace-your-generated-models)
-- [Refactor your code to use the new APIs.](#4-refactor-your-code)
+- [Update your dependency to Apollo iOS version 1.0](#1-update-to-apollo-ios-10)
+- [Setup code generation](#2-setup-code-generation)
+- [Replace your generated models](#3-replace-your-generated-models)
+- [Refactor your code to use the new APIs](#4-refactor-your-code)
 
 Much of the migration process involves the new code generation mechanism, which is detailed in this step-by-step guide. It will walk you through this process, explaining how to remove deprecated pieces of the legacy 0.x version along the way.
 
@@ -46,13 +48,27 @@ pod 'Apollo' ~> '1.0'
 
 </CodeColumns>
 
-# TODO: Add step on target linking w/ link to target-linking docs.
+### TODO: Add step on target linking w/ link to target-linking docs.
 
 > **Note:** Apollo iOS 1.0 supports being built as a dynamic `.xcframework` or as a static library. While our documentation does not provide step-by-step instructions on this process, building and including Apollo iOS 1.0 as a pre-compiled binary with a build tool such as Carthage or Buck is possible.
 
-### 2. Install and configure the codegen engine
+### 2. Setup code generation
 
-Apollo iOS 1.0 includes a new code generation engine, written in 100% Swift code, to replace the legacy `apollo-tooling` code generation. To
+Apollo iOS 1.0 includes a new code generation engine, written in 100% Swift code, to replace the legacy `apollo-tooling` code generation. To use 1.0, you will need to install the new code generation engine and remove the old engine.
+
+The recommended way to use the new code generation engine is through the Apollo Codegen CLI. For advanced usage, you can run code generation in a Swift script.
+
+#### Codegen CLI setup
+
+For CLI setup instructions, select the method you are using to include `Apollo`.
+
+<SetupCodegen />
+
+#### Swift scripts setup
+
+If you are [running code generation using a Swift script](./../code-generation/run-codegen-in-swift-code), update your swift script to use the version of `ApolloCodgenLib` matching your `Apollo` version.
+
+Then, update your `ApolloCodegenConfiguration` in your script with the new configuration values. All configuration options can be found in the [Codegen configuration documentation](./../code-generation/codegen-configuration).
 
 ### 3. Replace your generated models
 
