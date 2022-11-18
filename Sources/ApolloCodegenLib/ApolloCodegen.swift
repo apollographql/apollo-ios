@@ -18,21 +18,35 @@ public class ApolloCodegen {
     case schemaNameConflict(name: String)
     case cannotLoadSchema
     case cannotLoadOperations
+    case invalidConfiguration(message: String)
 
     public var errorDescription: String? {
       switch self {
       case let .graphQLSourceValidationFailure(lines):
-        return "An error occured during validation of the GraphQL schema or operations! Check \(lines)"
+        return """
+          An error occured during validation of the GraphQL schema or operations! Check \(lines)
+          """
       case .testMocksInvalidSwiftPackageConfiguration:
-        return "Schema Types must be generated with module type 'swiftPackageManager' to generate a swift package for test mocks."
+        return """
+          Schema Types must be generated with module type 'swiftPackageManager' to generate a \
+          swift package for test mocks.
+          """
       case let .inputSearchPathInvalid(path):
-        return "Input search path '\(path)' is invalid. Input search paths must include a file extension component. (eg. '.graphql')"
+        return """
+          Input search path '\(path)' is invalid. Input search paths must include a file \
+          extension component. (eg. '.graphql')
+          """
       case let .schemaNameConflict(name):
-        return "Schema name \(name) conflicts with name of a type in your GraphQL schema. Please choose a different schema name. Suggestions: \(name)Schema, \(name)GraphQL, \(name)API"
+        return """
+          Schema name \(name) conflicts with name of a type in your GraphQL schema. Please \
+          choose a different schema name. Suggestions: \(name)Schema, \(name)GraphQL, \(name)API
+          """
       case .cannotLoadSchema:
         return "A GraphQL schema could not be found. Please verify the schema search paths."
       case .cannotLoadOperations:
         return "No GraphQL operations could be found. Please verify the operation search paths."
+      case let .invalidConfiguration(message):
+        return "The codegen configuration has conflicting values: \(message)"
       }
     }
   }
@@ -124,6 +138,15 @@ public class ApolloCodegen {
     if case .swiftPackage = config.output.testMocks,
         config.output.schemaTypes.moduleType != .swiftPackageManager {
       throw Error.testMocksInvalidSwiftPackageConfiguration
+    }
+
+    if case .swiftPackageManager = config.output.schemaTypes.moduleType,
+       config.options.cocoapodsCompatibleImportStatements == true {
+      throw Error.invalidConfiguration(message: """
+        cocoapodsCompatibleImportStatements cannot be set to 'true' when the output schema types \
+        module type is Swift Package Manager. Change the cocoapodsCompatibleImportStatements \
+        value to 'false', or choose a different module type, to resolve the conflict.
+        """)
     }
 
     for searchPath in config.input.schemaSearchPaths {
