@@ -5,7 +5,7 @@
 
 public class HeroParentTypeDependentFieldQuery: GraphQLQuery {
   public static let operationName: String = "HeroParentTypeDependentField"
-  public static let document: DocumentType = .automaticallyPersisted(
+  public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
     operationIdentifier: "39eb41b5a9477c36fa529c23d6f0de6ebcc0312daf5bdcfe208d5baec752dc5b",
     definition: .init(
       """

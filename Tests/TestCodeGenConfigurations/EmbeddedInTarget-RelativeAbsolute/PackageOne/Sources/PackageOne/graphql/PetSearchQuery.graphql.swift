@@ -6,7 +6,7 @@ import PackageTwo
 
 class PetSearchQuery: GraphQLQuery {
   public static let operationName: String = "PetSearch"
-  public static let document: DocumentType = .notPersisted(
+  public static let document: ApolloAPI.DocumentType = .notPersisted(
     definition: .init(
       """
       query PetSearch($filters: PetSearchFilters = {species: ["Dog", "Cat"], size: SMALL, measurements: {height: 10.5, weight: 5.0}}) {

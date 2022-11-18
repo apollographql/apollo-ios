@@ -6,7 +6,7 @@
 public extension MyGraphQLSchema {
   class PetAdoptionMutation: GraphQLMutation {
     public static let operationName: String = "PetAdoptionMutation"
-    public static let document: DocumentType = .notPersisted(
+    public static let document: ApolloAPI.DocumentType = .notPersisted(
       definition: .init(
         """
         mutation PetAdoptionMutation($input: PetAdoptionInput!) {

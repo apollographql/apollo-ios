@@ -5,7 +5,7 @@
 
 public class HeroAndFriendsNamesWithIDsQuery: GraphQLQuery {
   public static let operationName: String = "HeroAndFriendsNamesWithIDs"
-  public static let document: DocumentType = .automaticallyPersisted(
+  public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
     operationIdentifier: "8e4ca76c63660898cfd5a3845e3709027750b5f0151c7f9be65759b869c5486d",
     definition: .init(
       """
