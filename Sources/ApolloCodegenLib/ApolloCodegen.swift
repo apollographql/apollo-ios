@@ -145,7 +145,7 @@ public class ApolloCodegen {
       throw Error.invalidConfiguration(message: """
         cocoapodsCompatibleImportStatements cannot be set to 'true' when the output schema types \
         module type is Swift Package Manager. Change the cocoapodsCompatibleImportStatements \
-        value to 'false' to resolve the conflict, or choose a different module type.
+        value to 'false', or choose a different module type, to resolve the conflict.
         """)
     }
 
