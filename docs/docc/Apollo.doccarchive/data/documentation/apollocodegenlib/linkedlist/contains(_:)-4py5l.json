@@ -5,7 +5,7 @@
       "type" : "text"
     },
     {
-      "code" : "Sequence.contains(_:)",
+      "code" : "Collection.contains(_:)",
       "type" : "codeVoice"
     },
     {
@@ -18,13 +18,13 @@
       [
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList",
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/Sequence-Implementations"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/Collection-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/contains(_:)"
+    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/contains(_:)-4py5l"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -61,7 +61,7 @@
       ]
     },
     "extendedModule" : "Swift",
-    "externalID" : "s:STsSQ7ElementRpzrlE8containsySbABF::SYNTHESIZED::s:16ApolloCodegenLib10LinkedListV",
+    "externalID" : "s:Sl17_StringProcessingSQ7ElementRpzrlE8containsySbqd__SlRd__ABQyd__ACRSlF::SYNTHESIZED::s:16ApolloCodegenLib10LinkedListV",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -77,19 +77,19 @@
       },
       {
         "kind" : "text",
-        "text" : "("
+        "text" : "<"
       },
       {
-        "kind" : "typeIdentifier",
-        "text" : "Self"
+        "kind" : "genericParameter",
+        "text" : "C"
       },
       {
         "kind" : "text",
-        "text" : "."
+        "text" : ">("
       },
       {
         "kind" : "typeIdentifier",
-        "text" : "Element"
+        "text" : "C"
       },
       {
         "kind" : "text",
@@ -104,6 +104,36 @@
     "modules" : [
       {
         "name" : "ApolloCodegenLib"
+      }
+    ],
+    "platforms" : [
+      {
+        "beta" : false,
+        "deprecated" : false,
+        "introducedAt" : "16.0",
+        "name" : "iOS",
+        "unavailable" : false
+      },
+      {
+        "beta" : false,
+        "deprecated" : false,
+        "introducedAt" : "13.0",
+        "name" : "macOS",
+        "unavailable" : false
+      },
+      {
+        "beta" : false,
+        "deprecated" : false,
+        "introducedAt" : "16.0",
+        "name" : "tvOS",
+        "unavailable" : false
+      },
+      {
+        "beta" : false,
+        "deprecated" : false,
+        "introducedAt" : "9.0",
+        "name" : "watchOS",
+        "unavailable" : false
       }
     ],
     "role" : "symbol",
@@ -136,7 +166,15 @@
             },
             {
               "kind" : "text",
-              "text" : "("
+              "text" : "<"
+            },
+            {
+              "kind" : "genericParameter",
+              "text" : "C"
+            },
+            {
+              "kind" : "text",
+              "text" : ">("
             },
             {
               "kind" : "externalParam",
@@ -148,11 +186,53 @@
             },
             {
               "kind" : "internalParam",
-              "text" : "element"
+              "text" : "other"
             },
             {
               "kind" : "text",
               "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "C"
+            },
+            {
+              "kind" : "text",
+              "text" : ") -> "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:Sb",
+              "text" : "Bool"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "where"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "C"
+            },
+            {
+              "kind" : "text",
+              "text" : " : "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:Sl",
+              "text" : "Collection"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
             },
             {
               "kind" : "typeIdentifier",
@@ -168,12 +248,19 @@
             },
             {
               "kind" : "text",
-              "text" : ") -> "
+              "text" : " == "
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:Sb",
-              "text" : "Bool"
+              "text" : "C"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Element"
             }
           ]
         }
@@ -192,7 +279,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/apollocodegenlib\/linkedlist\/contains(_:)"
+        "\/documentation\/apollocodegenlib\/linkedlist\/contains(_:)-4py5l"
       ],
       "traits" : [
         {
@@ -251,18 +338,18 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/linkedlist"
 },
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/LinkedList/Sequence-Implementations": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/LinkedList/Collection-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/Sequence-Implementations",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/Collection-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
-  "title" : "Sequence Implementations",
+  "title" : "Collection Implementations",
   "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/linkedlist\/sequence-implementations"
+  "url" : "\/documentation\/apollocodegenlib\/linkedlist\/collection-implementations"
 },
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/LinkedList/contains(_:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/LinkedList/contains(_:)-4py5l": {
   "abstract" : [
 
   ],
@@ -313,19 +400,19 @@
     },
     {
       "kind" : "text",
-      "text" : "("
+      "text" : "<"
     },
     {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
+      "kind" : "genericParameter",
+      "text" : "C"
     },
     {
       "kind" : "text",
-      "text" : "."
+      "text" : ">("
     },
     {
       "kind" : "typeIdentifier",
-      "text" : "Element"
+      "text" : "C"
     },
     {
       "kind" : "text",
@@ -337,12 +424,12 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/contains(_:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/contains(_:)-4py5l",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "contains(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/linkedlist\/contains(_:)"
+  "url" : "\/documentation\/apollocodegenlib\/linkedlist\/contains(_:)-4py5l"
 }
 }
 }
