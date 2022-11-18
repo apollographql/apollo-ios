@@ -20,7 +20,7 @@ To begin your migration to Apollo iOS 1.0 you'll need to:
 
 - [Update your dependency to Apollo iOS version 1.0](#1-update-to-apollo-ios-10)
 - [Setup code generation](#2-setup-code-generation)
-- [Replace your generated models](#3-replace-your-generated-models)
+- [Replace the code generation build phase](#3-replace-the-code-generation-build-phase)
 - [Refactor your code to use the new APIs](#4-refactor-your-code)
 
 Much of the migration process involves the new code generation mechanism, which is detailed in this step-by-step guide. It will walk you through this process, explaining how to remove deprecated pieces of the legacy 0.x version along the way.
@@ -62,6 +62,8 @@ The recommended way to use the new code generation engine is through the Apollo 
 
 For CLI setup instructions, select the method you are using to include `Apollo`.
 
+### TODO: Improve configuration setup to explain module types
+
 <SetupCodegen />
 
 #### Swift scripts setup
@@ -70,11 +72,65 @@ If you are [running code generation using a Swift script](./../code-generation/r
 
 Then, update your `ApolloCodegenConfiguration` in your script with the new configuration values. All configuration options can be found in the [Codegen configuration documentation](./../code-generation/codegen-configuration).
 
-### 3. Replace your generated models
+### 3. Replace the code generation build phase
+
+Running Apollo's code generation as an Xcode build phase is no longer recommended. Generated files only change when you modify your `.graphql` operation definitions, which usually happens infrequently. Running code generation on every build causes increased build times and a slower development process. Instead, we recommend that you run code generation manually using the CLI when you modify your `graphql` files.
+
+If you would like to continue running code generation on each build, you can update your build script to run the CLI `generate` command.
 
 ### 4. Refactor your code
 
-. While all projects will need to follow this process, depending on your usage, you will likely need to
-Most of the APIs for creating an `ApolloClient` and performing network requests are unchanged,
+Apollo iOS 1.0 was designed to make the migration require as few changes to your code as possible, however there are a number of breaking changes that will require you to refactor some of your code.
 
-, many APIs have been improved.
+Below you will find explanations of each of the breaking API changes and tips on how to address them while migrating to 1.0.
+
+## Breaking Changes
+
+### Custom Scalars
+
+### Cache key configuration
+
+In the 0.x version of Apollo iOS, you could configure the computation of cache keys for the normalized cache by providing a `cacheKeyForObject` block to the `ApolloClient`. In 1.0, this is replaced by a type-safe API in the `SchemaConfiguration.swift` file that is generated alongside your generated schema types.
+
+To migrate your cache key configuration code, refactor your `cacheKeyForObject` implementation into the `SchemaConfiguration.swift` file's [`cacheKeyInfo(for type:object:)`](https://www.apollographql.com/docs/ios/docc/documentation/apolloapi/schemaconfiguration/cachekeyinfo(for:object:)) function. In this function you will return a `CacheKeyInfo` struct, rather than a cache key `String`.
+
+In 0.x, it was recommended that you prefix your cache keys with the `__typename` of the object to prevent key conflicts. In 1.0, this is done automatically for you. If you want to group cache keys for objects of different types together (by a common interface type, for example), you can set the `uniqueKeyGroup` property of the `CacheKeyInfo` you return.
+
+> For a detailed explanation of the new cache key configuration APIs, read the [cache key resolution documentation](./../caching/cache-key-resolution).
+
+Given a `cacheKeyForObject` block:
+
+```swift
+client.cacheKeyForObject = {
+    guard let typename = $0["__typename"] as? String,
+        let id = $0["id"] as? String else {
+            return nil
+        }
+
+    return "\(typename):\(id)"
+}
+```
+
+You can migrate this to the new [`cacheKeyInfo(for type:object:)`](https://www.apollographql.com/docs/ios/docc/documentation/apolloapi/schemaconfiguration/cachekeyinfo(for:object:)) function like so:
+
+```swift
+public extension MySchema {
+  static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
+    guard let id = object["id"] as? String else {
+        return nil
+    }
+
+    return CacheKeyInfo(id: id)
+  }
+}
+```
+
+Or using the [JSON value convenience initializer](./../caching/cache-key-resolution#json-value-convenience-initializer) like so:
+
+```swift
+public extension MySchema {
+  static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
+    return try? CacheKeyInfo(jsonValue: object["id"])
+  }
+}
+```
