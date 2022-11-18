@@ -106,6 +106,7 @@
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegen\/Error\/cannotLoadSchema",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegen\/Error\/graphQLSourceValidationFailure(atLines:)",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegen\/Error\/inputSearchPathInvalid(path:)",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegen\/Error\/invalidConfiguration(message:)",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegen\/Error\/schemaNameConflict(name:)",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegen\/Error\/testMocksInvalidSwiftPackageConfiguration"
       ],
@@ -431,6 +432,52 @@
   "title" : "ApolloCodegen.Error.inputSearchPathInvalid(path:)",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apollocodegen\/error\/inputsearchpathinvalid(path:)"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegen/Error/invalidConfiguration(message:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "invalidConfiguration"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "message"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegen\/Error\/invalidConfiguration(message:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "ApolloCodegen.Error.invalidConfiguration(message:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/apollocodegen\/error\/invalidconfiguration(message:)"
 },
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegen/Error/schemaNameConflict(name:)": {
   "abstract" : [

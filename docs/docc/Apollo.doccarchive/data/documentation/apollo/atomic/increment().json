@@ -54,11 +54,11 @@
           "type" : "codeVoice"
         },
         {
-          "text" : " is ",
+          "text" : " conforms to ",
           "type" : "text"
         },
         {
-          "code" : "Int",
+          "code" : "Numeric",
           "type" : "codeVoice"
         },
         {
@@ -68,7 +68,7 @@
       ]
     },
     "extendedModule" : "Apollo",
-    "externalID" : "s:6Apollo6AtomicCAASiRszlE9incrementSiyF",
+    "externalID" : "s:6Apollo6AtomicCAASjRzlE9incrementxyF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -262,11 +262,11 @@
         "type" : "codeVoice"
       },
       {
-        "text" : " is ",
+        "text" : " conforms to ",
         "type" : "text"
       },
       {
-        "code" : "Int",
+        "code" : "Numeric",
         "type" : "codeVoice"
       },
       {

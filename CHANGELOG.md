@@ -1,5 +1,22 @@
 # Change Log
 
+## v1.0.4
+
+#### Fixed
+- **Fixed - Convenience initializer for mock objects without fields:** When mock objects did not have any fields a convenience initializer would still be generated causing infinite recursion during initialization. [#2634](https://github.com/apollographql/apollo-ios/pull/2634) _Thank you to [@Gois](https://github.com/Gois) for the contribution!_
+- **Fixed - Ambiguous use of operator '??':** When the nil coalescing operator was used on variables without a type the compiler could not determine which one to use. [#2650](https://github.com/apollographql/apollo-ios/pull/2650). _Thanks to [@skreberem](https://github.com/skreberem) for raising the issue._
+- **Fixed - Generate library for test mock target:** Previous versions would generate the SPM target for test mocks but not a library to properly import it into your unit tests. [#2638](https://github.com/apollographql/apollo-ios/pull/2638) _Thank you to [@Gois](https://github.com/Gois) for the contribution!_
+- **Fixed - Podspec Swift version mismatched with SPM package version:** The Swift version is now the same between the two dependency managers. [#2657](https://github.com/apollographql/apollo-ios/pull/2657)
+- **Fixed - Conflicting configuration values:** There is now an error during code generation when the given configuration has conflicting values that cannot be fulfilled. [#2677](https://github.com/apollographql/apollo-ios/pull/2677)
+- **Fixed - `DocumentType` namespacing:** The correct module namespacing is now used for `DocumentType` in generated operation code. [#2679](https://github.com/apollographql/apollo-ios/pull/2679)
+
+#### New
+- **New - CLI version checker:** This ensures that the version of the CLI being used to generate Swift code is the same as the version of the Apollo iOS dependency being used. [#2562](https://github.com/apollographql/apollo-ios/issues/2562)
+
+#### Changed
+- **Changed - Removed SPM plug-ins:** The SPM plug-ins for the CLI commands `init`, `fetch-schema`, and `generate` have been removed. There is a new plug-in to install the CLI and the CLI commands should be used from the command line instead. [#2649](https://github.com/apollographql/apollo-ios/pull/2649)
+- **Changed - CLI defaults:** The updated default for the output of operation files is now `.inSchemaModule`, and the `init` command now requires a module type to be specified when creating a configuration file. [#2673](https://github.com/apollographql/apollo-ios/pull/2673)
+
 ## v1.0.3
 
 - **Fixed - Generated code produces compile error when accessing `data` dictionary in the `InputDict` struct if the name of the accessed property is `hash`:** Dyanamic Member Lookup has been removed from `InputDict` to prevent potential name clashes. [#2607](https://github.com/apollographql/apollo-ios/pull/2607)

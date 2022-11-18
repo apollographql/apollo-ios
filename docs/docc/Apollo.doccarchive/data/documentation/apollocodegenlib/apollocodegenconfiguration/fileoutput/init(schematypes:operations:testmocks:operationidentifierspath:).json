@@ -301,23 +301,7 @@
                       "type" : "text"
                     },
                     {
-                      "code" : ".relative",
-                      "type" : "codeVoice"
-                    },
-                    {
-                      "text" : " with a ",
-                      "type" : "text"
-                    },
-                    {
-                      "code" : "subpath",
-                      "type" : "codeVoice"
-                    },
-                    {
-                      "text" : " of ",
-                      "type" : "text"
-                    },
-                    {
-                      "code" : "nil",
+                      "code" : ".inSchemaModule",
                       "type" : "codeVoice"
                     },
                     {
