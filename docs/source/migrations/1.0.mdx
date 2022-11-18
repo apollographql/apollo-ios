@@ -14,6 +14,34 @@ Apollo iOS 1.0 provides a stable API that uses modern Swift language conventions
 
 Because most of the library's core concepts are unchanged, the migration to 1.0 from the legacy 0.x versions of Apollo iOS should not require serious rewrites in most cases. This page describes the most important changes, along with how to migrate an existing project from Apollo iOS 0.x to 1.0.
 
+## Key changes
+
+### Generated schema module
+
+In addition to generating models for your GraphQL operation definitions, the 0.x version generated models for the input objects and enums referenced from your schema.
+
+Apollo iOS 1.0 expands on this, generating a whole module that contains models and metadata for your GraphQL schema and its type definitions.
+In addition to your input objects and enum types, this module contains:
+- Types for the objects, interfaces, and unions referenced
+- Editable definitions for your custom scalars
+- An editable`SchemaConfiguration.swift` file
+- Metadata used by the Apollo GraphQL executor
+
+To prevent naming conflicts with other types in your project, the schema types are contained in their own namespace.
+This namespace can be generated as a stand-alone module, which can be imported by your project, or as a caseless namespace enum which can be embedded in your application target.
+
+### Multi-module support
+
+Apollo iOS 1.0 was designed to support complex applications composed of multiple modules as well as monolithic application targets.
+
+To support multi-module projects, the [generated schema module](#generated-schema-module) contains all of the schema's shared types and metadata. This allows your generated operation models to be located anywhere you would like in your project structure, as long as they are linked to the schema module.
+
+The code generation engine provides flexible configuration options that aims to make code generation work seamlessly for any project structure you prefer.
+
+> **Before performing the migration to Apollo iOS 1.0, you should consider your project structure and decide how you would like to include your generated schema module and operation models.**
+>
+> TODO: For more info see module type guide
+
 ## Step-by-step instructions
 
 To begin your migration to Apollo iOS 1.0 you'll need to:
@@ -84,9 +112,13 @@ Apollo iOS 1.0 was designed to make the migration require as few changes to your
 
 Below you will find explanations of each of the breaking API changes and tips on how to address them while migrating to 1.0.
 
-## Breaking Changes
+## Breaking changes
 
-### Custom Scalars
+### Custom scalars
+
+The way we handle the definitions for custom scalars has changed in 1.0. If you have defined any custom scalar types or used the `--passthroughCustomScalars` code generation option, you will need to migrate your custom scalars.
+
+In the 0.x version of Apollo iOS, custom scalars in your schema were exposed as a `String` type field by default. If you used the `--passthroughCustomScalars` option, the name of the scalar would be used in your generated models and the
 
 ### Cache key configuration
 
