@@ -6,7 +6,7 @@
 public extension MyGraphQLSchema {
   class ClassroomPetsCCNQuery: GraphQLQuery {
     public static let operationName: String = "ClassroomPetsCCN"
-    public static let document: DocumentType = .notPersisted(
+    public static let document: ApolloAPI.DocumentType = .notPersisted(
       definition: .init(
         """
         query ClassroomPetsCCN {

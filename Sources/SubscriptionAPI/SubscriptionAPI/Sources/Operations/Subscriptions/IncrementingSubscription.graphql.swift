@@ -5,7 +5,7 @@
 
 public class IncrementingSubscription: GraphQLSubscription {
   public static let operationName: String = "Incrementing"
-  public static let document: DocumentType = .notPersisted(
+  public static let document: ApolloAPI.DocumentType = .notPersisted(
     definition: .init(
       """
       subscription Incrementing {

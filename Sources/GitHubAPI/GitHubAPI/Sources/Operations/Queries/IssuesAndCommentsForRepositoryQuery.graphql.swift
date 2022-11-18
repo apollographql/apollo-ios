@@ -5,7 +5,7 @@
 
 public class IssuesAndCommentsForRepositoryQuery: GraphQLQuery {
   public static let operationName: String = "IssuesAndCommentsForRepository"
-  public static let document: DocumentType = .notPersisted(
+  public static let document: ApolloAPI.DocumentType = .notPersisted(
     definition: .init(
       """
       query IssuesAndCommentsForRepository {

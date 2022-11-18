@@ -5,7 +5,7 @@
 
 public class UploadMultipleFilesToDifferentParametersMutation: GraphQLMutation {
   public static let operationName: String = "UploadMultipleFilesToDifferentParameters"
-  public static let document: DocumentType = .notPersisted(
+  public static let document: ApolloAPI.DocumentType = .notPersisted(
     definition: .init(
       """
       mutation UploadMultipleFilesToDifferentParameters($singleFile: Upload!, $multipleFiles: [Upload!]!) {

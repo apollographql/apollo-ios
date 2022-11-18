@@ -20,8 +20,7 @@ struct OperationDefinitionTemplate: OperationTemplateRenderer {
         operation.definition,
         identifier: operation.operationIdentifier,
         fragments: operation.referencedFragments,
-        apq: config.options.apqs,
-        queryStringLiteralFormat: config.options.queryStringLiteralFormat
+        config: config
       ))
 
       \(section: VariableProperties(operation.definition.variables))
@@ -49,20 +48,19 @@ struct OperationDefinitionTemplate: OperationTemplateRenderer {
       _ operation: CompilationResult.OperationDefinition,
       identifier: @autoclosure () -> String,
       fragments: OrderedSet<IR.NamedFragment>,
-      apq: ApolloCodegenConfiguration.APQConfig,
-      queryStringLiteralFormat: ApolloCodegenConfiguration.QueryStringLiteralFormat
+      config: ApolloCodegen.ConfigurationContext
     ) -> TemplateString {
       let includeFragments = !fragments.isEmpty
-      let includeDefinition = apq != .persistedOperationsOnly
+      let includeDefinition = config.options.apqs != .persistedOperationsOnly
 
       return TemplateString("""
-      public static let document: DocumentType = .\(apq.rendered)(
-      \(if: apq != .disabled, """
+      public static let document: \(config.ApolloAPITargetName).DocumentType = .\(config.options.apqs.rendered)(
+      \(if: config.options.apqs != .disabled, """
         operationIdentifier: \"\(identifier())\"\(if: includeDefinition, ",")
       """)
       \(if: includeDefinition, """
         definition: .init(
-          \(operation.source.formatted(for: queryStringLiteralFormat))\(if: includeFragments, ",")
+          \(operation.source.formatted(for: config.options.queryStringLiteralFormat))\(if: includeFragments, ",")
           \(if: includeFragments,
                             "fragments: [\(fragments.map { "\($0.name.firstUppercased).self" }, separator: ", ")]")
         ))

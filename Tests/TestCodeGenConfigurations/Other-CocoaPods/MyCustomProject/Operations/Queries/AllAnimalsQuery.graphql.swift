@@ -5,7 +5,7 @@
 
 public class AllAnimalsQuery: GraphQLQuery {
   public static let operationName: String = "AllAnimalsQuery"
-  public static let document: DocumentType = .notPersisted(
+  public static let document: Apollo.DocumentType = .notPersisted(
     definition: .init(
       """
       query AllAnimalsQuery {
