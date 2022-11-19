@@ -118,7 +118,54 @@ Below you will find explanations of each of the breaking API changes and tips on
 
 The way we handle the definitions for custom scalars has changed in 1.0. If you have defined any custom scalar types or used the `--passthroughCustomScalars` code generation option, you will need to migrate your custom scalars.
 
-In the 0.x version of Apollo iOS, custom scalars in your schema were exposed as a `String` type field by default. If you used the `--passthroughCustomScalars` option, the name of the scalar would be used in your generated models and the
+In the 0.x version of Apollo iOS, custom scalars in your schema were exposed as a `String` type fields by default. If you used the `--passthroughCustomScalars` option, the name of the custom scalar would be used in your generated models. You were responsible for for defining types for passed through custom scalars.
+
+In 1.0, operation models always use the custom scalar definitions and default `typealias` definitions are generated for all of your referenced custom scalars. These custom scalar definitions are located in your schema module.
+The default implementation of all custom scalars is a `typealias` to `String`.
+
+The generated custom scalar definition files can be edited, and your changes will not be overwritten when code is generated in the future. To migrate a custom scalar type to 1.0:
+- Include the type in your schema module
+- Make the type conform to the [`CustomScalarType`](https://www.apollographql.com/docs/ios/docc/documentation/apolloapi/customscalartype) protocol
+- Change the `typealias` to point to the new type
+  - Or if the type has the exact name of your custom scalar, remove the `typealias`
+
+> For a detailed explanation on defining custom scalars, read the [custom scalars documentation](./../fetching/../custom-scalars).
+
+#### Example
+
+Given a schema defining `scalar Coordinate` that is referenced in your GraphQL operations, the `Coordinate` custom scalar will be generated:
+
+```swift title="MySchema/CustomScalars/UUID.swift"
+public extension MySchema {
+  typealias Coordinate = String
+}
+```
+
+A custom scalar with the name `Coordinate` could replace the `typealias` like so:
+
+```swift title="MySchema/CustomScalars/UUID.swift"
+public extension MySchema {
+  struct Coordinate: CustomScalarType {
+    let x: Int
+    let y: Int
+
+    public init (_jsonValue value: JSONValue) throws {
+        guard let value = value as? String,
+            let coordinates = value.components(separatedBy: ",").compactMap({ Int($0) }),
+            coordinates.count == 2 else {
+            throw JSONDecodingError.couldNotConvert(value: value, to: Coordinate.self)
+        }
+
+        self.x = coordinates[0]
+        self.y = coordinates[1]
+    }
+
+    public var _jsonValue: JSONValue {
+        "\(x),\(y)"
+    }
+  }
+}
+```
 
 ### Cache key configuration
 
@@ -129,6 +176,8 @@ To migrate your cache key configuration code, refactor your `cacheKeyForObject` 
 In 0.x, it was recommended that you prefix your cache keys with the `__typename` of the object to prevent key conflicts. In 1.0, this is done automatically for you. If you want to group cache keys for objects of different types together (by a common interface type, for example), you can set the `uniqueKeyGroup` property of the `CacheKeyInfo` you return.
 
 > For a detailed explanation of the new cache key configuration APIs, read the [cache key resolution documentation](./../caching/cache-key-resolution).
+
+#### Example
 
 Given a `cacheKeyForObject` block:
 
