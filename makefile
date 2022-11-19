@@ -14,6 +14,9 @@ build:
 build-cli:
 	swift build --product apollo-ios-cli -c release
 
+build-cli-universal:
+	swift build --product apollo-ios-cli -c release --arch arm64 --arch x86_64
+
 build-cli-for-cocoapods:
 	swift build --product apollo-ios-cli -c release -Xswiftc -DCOCOAPODS
 
