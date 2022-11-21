@@ -20,6 +20,7 @@ let package = Package(
     .library(name: "ApolloWebSocket", targets: ["ApolloWebSocket"]),
     .library(name: "ApolloTestSupport", targets: ["ApolloTestSupport"]),
     .executable(name: "apollo-ios-cli", targets: ["apollo-ios-cli"]),
+    .plugin(name: "InstallCLI", targets: ["Install CLI"]),
   ],
   dependencies: [
     .package(
@@ -103,7 +104,7 @@ let package = Package(
         "Info.plist",
       ]),
     .plugin(
-      name: "InstallCLI",
+      name: "Install CLI",
       capability: .command(
         intent: .custom(
           verb: "apollo-cli-install",
@@ -113,6 +114,7 @@ let package = Package(
         ]),
       dependencies: [
         "apollo-ios-cli"
-      ])
+      ],
+      path: "Plugins/InstallCLI"),
   ]
 )
