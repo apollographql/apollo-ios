@@ -1,5 +1,10 @@
 # Change Log
 
+## v1.0.5
+
+#### Fixed
+- **Fixed - Missing SPM plug-in:** The missing Swift Package product has been added and the `Install CLI` plug-in is now available from the SPM command line and the Xcode project menu. [#2683](https://github.com/apollographql/apollo-ios/pull/2683)
+
 ## v1.0.4
 
 #### Fixed
