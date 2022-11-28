@@ -258,3 +258,69 @@ store.withinReadWriteTransaction({ transaction in
 })
 ```
 </CodeColumns>
+
+### Nullable Input Values
+
+According to [the GraphQL spec](http://spec.graphql.org/October2021/#sec-Null-Value), explicitly providing a `null` value for an input value to a field argument is semantically different from not providing a value at all (`nil`). This enum allows you to distinguish your input values between `null` and `nil`.
+
+In order to distinguish between `null` and `nil` the 0.x version generated optional input values as double optional value types (`??`, or `Optional<Optional<Value>>`). This caused confusion for many users and did not express the intention of the APIs clearly. In 1.0, we have replaced the use of double optional values with a new [`GraphQLNullable`](https://www.apollographql.com/docs/ios/docc/documentation/apolloapi/graphqlnullable) wrapper enum type.
+
+This new type requires you to explicitly indicate the value or nullability behavior of your input values. This applies to nullable input arguments on your operation definitions and nullable properties on input objects. While this API is slightly more verbose, it provides more clarity and requires you to explicitly express your intent for handling nullable values. This provides you with more expressive and reduced bugs caused by unexpected behavior.
+
+> For a more examples and best practices using `GraphQLNullable`, read the [working with nullable arguments documentation](./../fetching/operation-arguments#working-with-nullable-arguments).
+
+#### Example
+
+When passing a value to a nullable input parameter, you will need to wrap the value in a `GraphQLNullable`.
+
+<CodeColumns>
+
+```swift title="0.x"
+MyQuery(input: "Value")
+```
+
+```swift title="1.0"
+MyQuery(input: .some("Value"))
+```
+
+</CodeColumns>
+
+To provide a `null` or `nil` value, use `.null`, or `.none` respectively.
+
+<CodeColumns>
+
+```swift title="0.x"
+/// A `nil` double optional value translates to omission of the value.
+MyQuery(input: nil)
+
+/// An optional containing a `nil` value translates to an `null` value.
+MyQuery(input: .some(nil))
+```
+
+```swift title="1.0"
+/// A `GraphQLNullable.none` value translates to omission of the value.
+MyQuery(input: .none)
+
+/// A `GraphQLNullable.null` value translates to an `null` value.
+MyQuery(input: .null)
+```
+
+</CodeColumns>
+
+When passing an optional value to a nullable input value, you will now need to explicitly provide the fallback value if your value is `nil`.
+
+<CodeColumns>
+
+```swift title="0.x"
+var optionalInput: String?  = nil
+
+MyQuery(input: optionalInput)
+```
+
+```swift title="1.0"
+var optionalInput: String?  = nil
+
+MyQuery(input: optionalInput ?? .null)
+```
+
+</CodeColumns>
