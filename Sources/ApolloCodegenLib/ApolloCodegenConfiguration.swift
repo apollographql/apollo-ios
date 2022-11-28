@@ -286,7 +286,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     /// Generated test mock files will be located in the specified path.
     /// No module will be created for the generated test mocks.
     ///
-    ///- Note: Generated files must be manually added to your test target. Test mocks generated
+    /// - Note: Generated files must be manually added to your test target. Test mocks generated
     /// this way may also be manually embedded in a test utility module that is imported by your
     /// test target.
     case absolute(path: String)
