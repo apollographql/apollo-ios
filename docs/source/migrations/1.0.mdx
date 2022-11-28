@@ -4,6 +4,7 @@ description: From 0.x to 1.0
 ---
 
 import SetupCodegen from "../../shared/setup-codegen/combined.mdx"
+import SeperateLocalCacheMutationsNote from "../../shared/seperate-local-cache-mutation-note.mdx"
 
 Apollo iOS 1.0 provides a stable API that uses modern Swift language conventions and features. Among other improvements, it features:
 
@@ -65,8 +66,8 @@ In order to receive bug fixes and new features, we recommend including `1.0` up 
 
 ```swift title="Package.swift"
 .package(
-    url: "https://github.com/apollographql/apollo-ios.git",
-    .upToNextMajor(from: "1.0.0")
+  url: "https://github.com/apollographql/apollo-ios.git",
+  .upToNextMajor(from: "1.0.0")
 ),
 ```
 
@@ -150,18 +151,18 @@ public extension MySchema {
     let y: Int
 
     public init (_jsonValue value: JSONValue) throws {
-        guard let value = value as? String,
-            let coordinates = value.components(separatedBy: ",").compactMap({ Int($0) }),
-            coordinates.count == 2 else {
-            throw JSONDecodingError.couldNotConvert(value: value, to: Coordinate.self)
-        }
+      guard let value = value as? String,
+        let coordinates = value.components(separatedBy: ",").compactMap({ Int($0) }),
+        coordinates.count == 2 else {
+        throw JSONDecodingError.couldNotConvert(value: value, to: Coordinate.self)
+      }
 
-        self.x = coordinates[0]
-        self.y = coordinates[1]
+      self.x = coordinates[0]
+      self.y = coordinates[1]
     }
 
     public var _jsonValue: JSONValue {
-        "\(x),\(y)"
+      "\(x),\(y)"
     }
   }
 }
@@ -183,12 +184,12 @@ Given a `cacheKeyForObject` block:
 
 ```swift
 client.cacheKeyForObject = {
-    guard let typename = $0["__typename"] as? String,
-        let id = $0["id"] as? String else {
-            return nil
-        }
+  guard let typename = $0["__typename"] as? String,
+    let id = $0["id"] as? String else {
+      return nil
+    }
 
-    return "\(typename):\(id)"
+  return "\(typename):\(id)"
 }
 ```
 
@@ -198,7 +199,7 @@ You can migrate this to the new [`cacheKeyInfo(for type:object:)`](https://www.a
 public extension MySchema {
   static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
     guard let id = object["id"] as? String else {
-        return nil
+      return nil
     }
 
     return CacheKeyInfo(id: id)
@@ -215,3 +216,45 @@ public extension MySchema {
   }
 }
 ```
+
+### Local Cache Mutations
+
+In the 0.x version, you could directly make changes to data in the local cache using any of your generated operation or fragment models. While the APIs for direct cache access have not change significantly, the generated model objects are now immutable by default. You can still read cache data directly using all of your generated models, but in order to mutate cache data, you will now need to define seperate [local cache mutation](./../caching/cache-transactions#defining-local-cache-mutations) operations or fragments.
+
+You can define a local cache mutation model by applying the `@apollo_client_ios_localCacheMutation` directive to any GraphQL operation or fragment definition.
+
+> For a detailed explanation of the new local cache mutation APIs, read the [direct cache access documentation](./../caching/cache-transactions).
+
+<SeperateLocalCacheMutationsNote />
+
+#### Example
+
+Given this operation and from the 0.x version and a write transaction to update the local cache:
+
+<CodeColumns>
+
+```graphql
+query UserDetails {
+  user {
+    id
+    name
+    posts {
+      id
+      body
+    }
+  }
+}
+```
+
+```swift
+store.withinReadWriteTransaction({ transaction in
+  let cacheMutation = UserDetailsQuery()
+
+  let newPost = UserDetailsQuery.Data.Posts(id: "789, body: "This is a new post!")
+
+  try transaction.update(cacheMutation) { (data: inout UserDetailsQuery.Data) in
+    data.user.posts.append(newPost)
+  }
+})
+```
+</CodeColumns>
