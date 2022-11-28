@@ -3,11 +3,13 @@ title: Getting Started with Apollo iOS
 sidebar_title: Get Started
 ---
 
+import SPMInstallCLI from "../shared/cli-install/spm.mdx"
+import SPMXcodeInstallCLI from "../shared/cli-install/spm-xcode.mdx"
+import PodsInstallCLI from "../shared/cli-install/pods.mdx"
 import SPMXcodeInstallationPanel from "../shared/spm-xcode-installation-panel.mdx"
 import SPMPackageInstallationPanel from "../shared/spm-package-installation-panel.mdx"
 import PodsInstallationPanel from "../shared/pods-installation-panel.mdx"
-import SPMSetupCodegenPanel from "../shared/spm-setup-codegen-panel.mdx"
-import PodsSetupCodegenPanel from "../shared/pods-setup-codegen-panel.mdx"
+import SetupCodegenPanel from "../shared/setup-codegen-panel.mdx"
 
 Follow the steps below to add Apollo iOS to your app:
 
@@ -50,11 +52,26 @@ The easiest way to do this is with the Codegen CLI provided with Apollo iOS.
 >
 > To use Apollo's code generation and schema downloader from within any Swift script or library, check out [Running code generation in Swift code](./code-generation/run-codegen-in-swift-code).
 
-<a name="pods-setup-codegen" />
-<PodsSetupCodegenPanel />
-
 <a name="spm-setup-codegen" />
-<SPMSetupCodegenPanel />
+<ExpansionPanel title="SPM with Package.swift">
+
+<SetupCodegenPanel cliPath="./apollo-ios-cli" installComponent={<SPMInstallCLI />} />
+
+</ExpansionPanel>
+
+<a name="spm-xcode-setup-codegen" />
+<ExpansionPanel title="SPM with Xcode Project">
+
+<SetupCodegenPanel cliPath="./apollo-ios-cli" installComponent={<SPMXcodeInstallCLI />} />
+
+</ExpansionPanel>
+
+<a name="pods-setup-codegen" />
+<ExpansionPanel title="Cocoapods">
+
+<SetupCodegenPanel cliPath="./Pods/Apollo/apollo-ios-cli" installComponent={<PodsInstallCLI />} />
+
+</ExpansionPanel>
 
 ## 5. Create an `ApolloClient`
 
