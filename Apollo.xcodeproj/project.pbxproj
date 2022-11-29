@@ -30,7 +30,6 @@
 		9B260C0A245A532500562176 /* JSONResponseParsingInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B260C09245A532500562176 /* JSONResponseParsingInterceptor.swift */; };
 		9B2B66F42513FAFE00B53ABF /* CancellationHandlingInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B2B66F32513FAFE00B53ABF /* CancellationHandlingInterceptor.swift */; };
 		9B2DFBBF24E1FA1A00ED3AE6 /* Apollo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FC750441D2A532C00458D91 /* Apollo.framework */; };
-		9B2DFBC724E1FA4800ED3AE6 /* UploadAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B2DFBC524E1FA3E00ED3AE6 /* UploadAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9B2DFBCD24E201A800ED3AE6 /* UploadAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B2DFBB624E1FA0D00ED3AE6 /* UploadAPI.framework */; };
 		9B47518D2575AA850001FB87 /* Pluralizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B47516D2575AA690001FB87 /* Pluralizer.swift */; };
 		9B4751AD2575B5070001FB87 /* PluralizerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4751AC2575B5070001FB87 /* PluralizerTests.swift */; };
@@ -85,7 +84,6 @@
 		9BCF0CE423FC9CA50031D2A2 /* MockURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BCF0CDD23FC9CA50031D2A2 /* MockURLSession.swift */; };
 		9BCF0CE523FC9CA50031D2A2 /* MockNetworkTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BCF0CDF23FC9CA50031D2A2 /* MockNetworkTransport.swift */; };
 		9BCF0CE623FC9D7B0031D2A2 /* ApolloInternalTestHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 9BCF0CDA23FC9CA50031D2A2 /* ApolloInternalTestHelpers.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9BCF0D0123FC9F060031D2A2 /* StarWarsAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 9BCF0CF123FC9F060031D2A2 /* StarWarsAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9BDE43D122C6655300FD7C7F /* Cancellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BDE43D022C6655200FD7C7F /* Cancellable.swift */; };
 		9BDE43DF22C6708600FD7C7F /* GraphQLHTTPRequestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BDE43DE22C6708600FD7C7F /* GraphQLHTTPRequestError.swift */; };
 		9BE071AD2368D08700FA5952 /* Collection+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE071AC2368D08700FA5952 /* Collection+Helpers.swift */; };
@@ -213,7 +211,6 @@
 		DE2FCF4926E94D150057EA67 /* TestMockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2FCF4826E94D150057EA67 /* TestMockTests.swift */; };
 		DE3484622746FF8F0065B77E /* IR+OperationBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3484612746FF8F0065B77E /* IR+OperationBuilder.swift */; };
 		DE363CB327640FBA001EC05B /* GraphQLJSFrontend+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE363CB227640FBA001EC05B /* GraphQLJSFrontend+TestHelpers.swift */; };
-		DE3C7B4A260A73D800D2F4FF /* AnimalKingdomAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = DE3C79A9260A6ACD00D2F4FF /* AnimalKingdomAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DE454BA728B40D52009DC80E /* SchemaConfigurationFileGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE454BA628B40D52009DC80E /* SchemaConfigurationFileGeneratorTests.swift */; };
 		DE454BA928B40DA8009DC80E /* SchemaConfigurationFileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE454BA828B40DA8009DC80E /* SchemaConfigurationFileGenerator.swift */; };
 		DE454BAB28B40E56009DC80E /* SchemaConfigurationTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE454BAA28B40E56009DC80E /* SchemaConfigurationTemplate.swift */; };
@@ -626,7 +623,6 @@
 		DE9C04AD26EAAE5400EC35E7 /* JSONStandardTypeConversions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F27D4631D40379500715680 /* JSONStandardTypeConversions.swift */; };
 		DE9C04AF26EAAEE800EC35E7 /* CacheReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9C04AE26EAAEE800EC35E7 /* CacheReference.swift */; };
 		DE9C04B226EAB02C00EC35E7 /* JSONDecodingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9C04B026EAAFF900EC35E7 /* JSONDecodingError.swift */; };
-		DE9CEAE028299F1100959AF9 /* ApolloTestSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = DE9CEADF28299F0A00959AF9 /* ApolloTestSupport.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DE9CEAE42829A01C00959AF9 /* ApolloAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE058621266978A100265760 /* ApolloAPI.framework */; };
 		DE9CEAE62829A2FE00959AF9 /* TestMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9CEAE52829A2FE00959AF9 /* TestMock.swift */; };
 		DE9CEAE92829A3C800959AF9 /* ApolloTestSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE9CEADC28299E8500959AF9 /* ApolloTestSupport.framework */; };
@@ -741,7 +737,6 @@
 		E66935312803F2B0004E1FFC /* CustomScalarFileGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66935302803F2B0004E1FFC /* CustomScalarFileGeneratorTests.swift */; };
 		E66935332804AFE5004E1FFC /* IRCustomScalarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66935322804AFE5004E1FFC /* IRCustomScalarTests.swift */; };
 		E66B8342280936B3001B3F2D /* OperationMessageMatchers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66B8341280936B3001B3F2D /* OperationMessageMatchers.swift */; };
-		E66B836928093D7C001B3F2D /* SubscriptionAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = E66B836828093D7C001B3F2D /* SubscriptionAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E66F8897276C136B0000BDA8 /* ObjectFileGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66F8896276C136B0000BDA8 /* ObjectFileGeneratorTests.swift */; };
 		E66F8899276C15580000BDA8 /* ObjectFileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66F8898276C15580000BDA8 /* ObjectFileGenerator.swift */; };
 		E674DB41274C0A9B009BB90E /* Glob.swift in Sources */ = {isa = PBXBuildFile; fileRef = E674DB40274C0A9B009BB90E /* Glob.swift */; };
@@ -784,7 +779,6 @@
 		E6C9849327929EBE009481BE /* EnumTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C9849227929EBE009481BE /* EnumTemplate.swift */; };
 		E6C9849527929FED009481BE /* EnumTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C9849427929FED009481BE /* EnumTemplateTests.swift */; };
 		E6CD6F4B2887202900DC9F3F /* CacheKeyResolutionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CD6F4A2887202900DC9F3F /* CacheKeyResolutionTests.swift */; };
-		E6D08CA528897E5F00D21B13 /* GitHubAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = E6D08CA428897E5F00D21B13 /* GitHubAPI.h */; };
 		E6D79AB826E9D59C0094434A /* URLDownloaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D79AB626E97D0D0094434A /* URLDownloaderTests.swift */; };
 		E6D90D07278FA595009CAC5D /* InputObjectFileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D90D06278FA595009CAC5D /* InputObjectFileGenerator.swift */; };
 		E6D90D09278FA5C3009CAC5D /* InputObjectFileGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D90D08278FA5C3009CAC5D /* InputObjectFileGeneratorTests.swift */; };
@@ -1136,7 +1130,6 @@
 		9B260C09245A532500562176 /* JSONResponseParsingInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONResponseParsingInterceptor.swift; sourceTree = "<group>"; };
 		9B2B66F32513FAFE00B53ABF /* CancellationHandlingInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancellationHandlingInterceptor.swift; sourceTree = "<group>"; };
 		9B2DFBB624E1FA0D00ED3AE6 /* UploadAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UploadAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9B2DFBC524E1FA3E00ED3AE6 /* UploadAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UploadAPI.h; sourceTree = "<group>"; };
 		9B2DFBC624E1FA3E00ED3AE6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9B2DFBC824E1FA7E00ED3AE6 /* Apollo-Target-UploadAPI.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-UploadAPI.xcconfig"; sourceTree = "<group>"; };
 		9B2DFBCA24E2016800ED3AE6 /* UploadAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UploadAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1223,7 +1216,6 @@
 		9BCF0CDD23FC9CA50031D2A2 /* MockURLSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockURLSession.swift; sourceTree = "<group>"; };
 		9BCF0CDE23FC9CA50031D2A2 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9BCF0CDF23FC9CA50031D2A2 /* MockNetworkTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockNetworkTransport.swift; sourceTree = "<group>"; };
-		9BCF0CF123FC9F060031D2A2 /* StarWarsAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StarWarsAPI.h; sourceTree = "<group>"; };
 		9BCF0CFF23FC9F060031D2A2 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9BDE43D022C6655200FD7C7F /* Cancellable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cancellable.swift; sourceTree = "<group>"; };
 		9BDE43DE22C6708600FD7C7F /* GraphQLHTTPRequestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLHTTPRequestError.swift; sourceTree = "<group>"; };
@@ -1372,7 +1364,6 @@
 		DE2FCF4826E94D150057EA67 /* TestMockTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestMockTests.swift; sourceTree = "<group>"; };
 		DE3484612746FF8F0065B77E /* IR+OperationBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IR+OperationBuilder.swift"; sourceTree = "<group>"; };
 		DE363CB227640FBA001EC05B /* GraphQLJSFrontend+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraphQLJSFrontend+TestHelpers.swift"; sourceTree = "<group>"; };
-		DE3C79A9260A6ACD00D2F4FF /* AnimalKingdomAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnimalKingdomAPI.h; sourceTree = "<group>"; };
 		DE3C79AA260A6ACD00D2F4FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DE3C7A11260A6B9800D2F4FF /* AnimalKingdomAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AnimalKingdomAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE3C7B10260A6FC900D2F4FF /* SelectionSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionSet.swift; sourceTree = "<group>"; };
@@ -1807,7 +1798,6 @@
 		DE9C04AE26EAAEE800EC35E7 /* CacheReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheReference.swift; sourceTree = "<group>"; };
 		DE9C04B026EAAFF900EC35E7 /* JSONDecodingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDecodingError.swift; sourceTree = "<group>"; };
 		DE9CEADC28299E8500959AF9 /* ApolloTestSupport.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ApolloTestSupport.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DE9CEADF28299F0A00959AF9 /* ApolloTestSupport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApolloTestSupport.h; sourceTree = "<group>"; };
 		DE9CEAE128299F6900959AF9 /* Apollo-Target-TestSupport.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-TestSupport.xcconfig"; sourceTree = "<group>"; };
 		DE9CEAE52829A2FE00959AF9 /* TestMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestMock.swift; sourceTree = "<group>"; };
 		DE9CEAED282C207F00959AF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1899,7 +1889,6 @@
 		E66935322804AFE5004E1FFC /* IRCustomScalarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IRCustomScalarTests.swift; sourceTree = "<group>"; };
 		E66B8341280936B3001B3F2D /* OperationMessageMatchers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperationMessageMatchers.swift; sourceTree = "<group>"; };
 		E66B836628093D7C001B3F2D /* SubscriptionAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SubscriptionAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E66B836828093D7C001B3F2D /* SubscriptionAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SubscriptionAPI.h; sourceTree = "<group>"; };
 		E66F8896276C136B0000BDA8 /* ObjectFileGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectFileGeneratorTests.swift; sourceTree = "<group>"; };
 		E66F8898276C15580000BDA8 /* ObjectFileGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectFileGenerator.swift; sourceTree = "<group>"; };
 		E674DB40274C0A9B009BB90E /* Glob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Glob.swift; sourceTree = "<group>"; };
@@ -1939,7 +1928,6 @@
 		E6C9849427929FED009481BE /* EnumTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumTemplateTests.swift; sourceTree = "<group>"; };
 		E6CD6F4A2887202900DC9F3F /* CacheKeyResolutionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheKeyResolutionTests.swift; sourceTree = "<group>"; };
 		E6D08AD128897B9B00D21B13 /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
-		E6D08CA428897E5F00D21B13 /* GitHubAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GitHubAPI.h; sourceTree = "<group>"; };
 		E6D79AB626E97D0D0094434A /* URLDownloaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLDownloaderTests.swift; sourceTree = "<group>"; };
 		E6D79AB926EC05290094434A /* MockNetworkSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkSession.swift; sourceTree = "<group>"; };
 		E6D90D06278FA595009CAC5D /* InputObjectFileGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputObjectFileGenerator.swift; sourceTree = "<group>"; };
@@ -2291,7 +2279,6 @@
 				9B20614A2591B3700020D1E0 /* graphql */,
 				DE63894A28D3D62400559697 /* Operations */,
 				DE63894F28D3D62400559697 /* Schema */,
-				9B2DFBC524E1FA3E00ED3AE6 /* UploadAPI.h */,
 				9B2DFBC624E1FA3E00ED3AE6 /* Info.plist */,
 			);
 			name = UploadAPI;
@@ -2460,7 +2447,6 @@
 		9BCF0CE923FC9F060031D2A2 /* StarWarsAPI */ = {
 			isa = PBXGroup;
 			children = (
-				9BCF0CF123FC9F060031D2A2 /* StarWarsAPI.h */,
 				DE63895F28D3D63700559697 /* Sources */,
 				DECFEFE3286A3C8800DBE83C /* starwars-graphql */,
 				9BCF0CFF23FC9F060031D2A2 /* Info.plist */,
@@ -2506,7 +2492,6 @@
 		9BDF200723FDC37600153E2B /* GitHubAPI */ = {
 			isa = PBXGroup;
 			children = (
-				E6D08CA428897E5F00D21B13 /* GitHubAPI.h */,
 				DE6389F328D3D64400559697 /* Sources */,
 				9B2061662591B3A50020D1E0 /* graphql */,
 				9BDF201223FDC37600153E2B /* Info.plist */,
@@ -2961,7 +2946,6 @@
 			children = (
 				DE6388E028D3BFBA00559697 /* Sources */,
 				96F32D3A27CCD16B00F3383C /* animalkingdom-graphql */,
-				DE3C79A9260A6ACD00D2F4FF /* AnimalKingdomAPI.h */,
 				DE3C79AA260A6ACD00D2F4FF /* Info.plist */,
 				DE223C23271F335D004A0148 /* Resources.swift */,
 			);
@@ -3776,7 +3760,6 @@
 			isa = PBXGroup;
 			children = (
 				DE9CEAED282C207F00959AF9 /* Info.plist */,
-				DE9CEADF28299F0A00959AF9 /* ApolloTestSupport.h */,
 				DE9CEAE52829A2FE00959AF9 /* TestMock.swift */,
 				DE2FCF2626E8083A0057EA67 /* Field.swift */,
 			);
@@ -3915,7 +3898,6 @@
 				DE63893D28D3D60600559697 /* Sources */,
 				E6180AA028093EB7004EC2A3 /* graphql */,
 				E6180A9E28093EB7004EC2A3 /* Info.plist */,
-				E66B836828093D7C001B3F2D /* SubscriptionAPI.h */,
 			);
 			name = SubscriptionAPI;
 			path = Sources/SubscriptionAPI;
@@ -4091,7 +4073,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9B2DFBC724E1FA4800ED3AE6 /* UploadAPI.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4128,7 +4109,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E6D08CA528897E5F00D21B13 /* GitHubAPI.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4144,7 +4124,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9BCF0D0123FC9F060031D2A2 /* StarWarsAPI.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4159,7 +4138,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE3C7B4A260A73D800D2F4FF /* AnimalKingdomAPI.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4167,7 +4145,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE9CEAE028299F1100959AF9 /* ApolloTestSupport.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4183,7 +4160,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E66B836928093D7C001B3F2D /* SubscriptionAPI.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
