@@ -25,10 +25,10 @@ let package = Package(
   dependencies: [
     .package(
       url: "https://github.com/stephencelis/SQLite.swift.git",
-      .upToNextMinor(from: "0.13.1")),
+      .upToNextMajor(from: "0.13.1")),
     .package(
       url: "https://github.com/mattt/InflectorKit",
-      .upToNextMinor(from: "1.0.0")),
+      .upToNextMajor(from: "1.0.0")),
     .package(
       url: "https://github.com/apple/swift-collections",
       .upToNextMajor(from: "1.0.0")),
