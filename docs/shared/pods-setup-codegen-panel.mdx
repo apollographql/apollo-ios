@@ -16,7 +16,7 @@ The Codegen CLI uses a JSON file to configure the code generation engine. Use th
 ```
 
 * `${MySchemaName}` should be the name you want for the namespace of your generated schema files.
-* `embeddedInTarget` or `other` are both suitable module types to use when your dependency manager for Apollo iOS is CocoaPods.
+* `embeddedInTarget` or `other` are both suitable module types to use when your dependency manager for Apollo iOS is CocoaPods. If you use the `embeddedInTarget` module type you will need to also supply a target name using the `--target-name` command line option.
 
 This will create an `apollo-codegen-config.json` file with the default values.
 
@@ -31,7 +31,7 @@ The default configuration will:
 - Find all GraphQL schema files ending with the file extension `.graphqls` within your project directory.
 - Find all GraphQL operation and fragment definition files ending with the file extension `.graphql` within your project directory.
 - Generate Swift code for the schema types in a directory with the `schema-name` provided.
-- Generate Swift code for the operation and fragment models relative to the `.graphql` files that define them.
+- Generate Swift code for the operation and fragment models in a subfolder within the schema types output location.
 
 </ExpansionPanelListItem>
 <ExpansionPanelListItem>
@@ -51,11 +51,7 @@ Your generated files will be created with the file extension `.graphql.swift`.
 
 #### Add the generated schema and operation files to your target
 
-By default, a directory containing your generated schema files will be located in a directory with the `schema-name` you provided; your generated operation and fragment files will be in the same location as the `.graphql` files they are defined by.
-
-When using Cocoapods, you will need to manually add the generated files to your target.
-
-> **Note:** Because adding generated files to your Xcode targets must be done manually each time you generate new files, we highly recommend defining your project targets with SPM. For more information see the documentation for [Code Generation Confiugration](./codegen-configuration).
+By default, a directory containing your generated schema files will be located in a directory with the `schema-name` you provided; your generated operation and fragment files will be in a subfolder in that same directory.
 
 </ExpansionPanelListItem>
 </ExpansionPanelList>
