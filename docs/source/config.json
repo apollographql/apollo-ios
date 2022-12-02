@@ -8,6 +8,7 @@
     "Introduction": "/",
     "Get Started": "/get-started",
     "Migrating to v1.0": "/migrations/1.0",
+    "Project Configuration": "/project-configuration",
     "Tutorial": {
       "Code Generation": "/tutorial/codegen-getting-started"
     },
@@ -23,7 +24,6 @@
       "Introduction": "/code-generation/introduction",
       "The Codegen CLI": "/code-generation/codegen-cli",
       "Configuration": "/code-generation/codegen-configuration",
-      "Multi-module Support": "/code-generation/multi-module-support",
       "Downloading a Schema": "/code-generation/downloading-schema",
       "Running Code Generation in Swift Code": "/code-generation/run-codegen-in-swift-code"
     },
