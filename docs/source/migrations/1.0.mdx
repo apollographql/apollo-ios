@@ -233,13 +233,13 @@ You can define a local cache mutation model by applying the `@apollo_client_ios_
 
 #### Example
 
-Given this operation and from the 0.x version and a write transaction to update the local cache:
+Given an operation and write transaction from the 0.x version:
 
 <CodeColumns>
 
 ```graphql
 query UserDetails {
-  user {
+  loggedInUser {
     id
     name
     posts {
@@ -254,13 +254,45 @@ query UserDetails {
 store.withinReadWriteTransaction({ transaction in
   let cacheMutation = UserDetailsQuery()
 
-  let newPost = UserDetailsQuery.Data.Posts(id: "789, body: "This is a new post!")
+  let newPost = UserDetailsQuery.Data.LoggedInUser.Post(id: "789, body: "This is a new post!")
 
   try transaction.update(cacheMutation) { (data: inout UserDetailsQuery.Data) in
-    data.user.posts.append(newPost)
+    data.loggedInUser.posts.append(newPost)
   }
 })
 ```
+</CodeColumns>
+
+You can migrate this to a new `LocalCacheMutation` like so:
+
+<CodeColumns>
+
+```graphql
+query AddUserPostLocalCacheMutation @apollo_client_ios_localCacheMutation {
+  loggedInUser {
+    posts {
+      id
+      body
+    }
+  }
+}
+```
+
+```swift
+store.withinReadWriteTransaction({ transaction in
+  let cacheMutation = AddUserPostLocalCacheMutation()
+
+  let newPost = AddUserPostLocalCacheMutation.Data.LoggedInUser.Post(data: DataDict(
+    ["__typename": "Post", "id": "789", "body": "This is a new post!"],
+    variables: nil
+  ))
+
+  try transaction.update(cacheMutation) { (data: inout AddUserPostLocalCacheMutation.Data) in
+    data.loggedInUser.posts.append(newPost)
+  }
+})
+```
+
 </CodeColumns>
 
 ### Nullable Input Values
