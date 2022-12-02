@@ -35,64 +35,257 @@ All GraphQL operations depend upon the types in their corresponding GraphQL sche
 
 These are the libraries that compose the Apollo iOS package:
 
+<table class="api-ref">
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th>Usage</th>
+    </tr>
+  </thead>
+
+<tbody>
+<tr>
+<td colspan="2">
+
 #### `Apollo`
 
-- **Summary:**
-  - The core Apollo client library.
-  - Includes the networking and caching APIs, including `ApolloClient` and `ApolloStore`.
-- **Usage:**
-  - Any targets that need to access these core components directly should be linked against `Apollo`.
+</td>
+</tr>
+
+<tr>
+<td>
+
+The core Apollo client library.
+
+Includes the networking and caching APIs, including `ApolloClient` and `ApolloStore`.
+
+</td>
+<td>
+
+Any targets that need to access these core components directly should be linked against `Apollo`.
+
+</td>
+</tr>
+<tr>
+<td colspan="2">
 
 #### `ApolloAPI`
 
-- **Summary:**
-  - Includes the common components that are used by the generated models for your project
-- **Usage:**
-  - Any targets that include your generated models should be linked to `ApolloAPI`.
-  - The `Apollo` library has a dependency on this target, so any target that links to `Apollo` does not need to link to  `ApolloAPI` directly.
-  - Because the generated models export the `ApolloAPI` library's interface, targets that consume generated models but do not contain them do not need to link to `ApolloAPI` directly.
+</td>
+</tr>
+
+<tr>
+<td>
+
+Includes the common components that are used by the generated models for your project.
+
+</td>
+<td>
+
+Any targets that include your generated models should be linked to `ApolloAPI`.
+
+The `Apollo` library has a dependency on this target, so any target that links to `Apollo` does not need to link to  `ApolloAPI` directly.
+
+Because the generated models export the `ApolloAPI` library's interface, targets that consume generated models but do not contain them do not need to link to `ApolloAPI` directly.
+
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
 
 #### `ApolloSQLite`
 
-- **Summary:**
-  - Provides a `NormalizedCache` implementation backed by a `SQLite` database
-  - Use this library if you would like to persist cache data across application lifecycles.
-    - See the [`SQLiteNormalizedCache` documentation](./caching/cache-setup#sqlitenormalizedcache) for more information on setting up a persistent SQLite cache.
-- **Usage:**
-  - This library only needs to be linked to your targets that configure the `SQLiteNormalizedCache` and pass it to the `ApolloStore`.
+</td>
+</tr>
+
+<tr>
+<td>
+
+Provides a `NormalizedCache` implementation backed by a `SQLite` database
+
+Use this library if you would like to persist cache data across application lifecycles.
+> See the [`SQLiteNormalizedCache` documentation](./caching/cache-setup#sqlitenormalizedcache) for more information on setting up a persistent SQLite cache.
+
+</td>
+<td>
+
+This library only needs to be linked to your targets that configure the `SQLiteNormalizedCache` and pass it to the `ApolloStore`.
+
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
 
 #### `ApolloWebSocket`
 
-- **Summary:**
-  - Provides a web socket transport implementation used to support `GraphQLSubscription` operations
-  - If your project uses GraphQL subscriptions, you must include this library.
-    - See the [Enabling GraphQL subscription support documentation](./fetching/subscriptions#enabling-graphql-subscription-support) for more information on setting up a web socket transport.
-- **Usage:**
-  - This library only needs to be linked to your targets that configure the `WebSocketTransport` and pass it to the `ApolloClient`.
+</td>
+</tr>
+
+<tr>
+<td>
+
+Provides a web socket transport implementation used to support `GraphQLSubscription` operations
+
+If your project uses GraphQL subscriptions, you must include this library.
+
+> See the [Enabling GraphQL subscription support documentation](./fetching/subscriptions#enabling-graphql-subscription-support) for more information on setting up a web socket transport.
+
+</td>
+<td>
+
+This library only needs to be linked to your targets that configure the `WebSocketTransport` and pass it to the `ApolloClient`.
+
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
 
 #### `ApolloTestSupport`
 
-- **Summary:**
-  - Includes the APIs for creating test mocks for your generated models
-- **Usage:**
-  - Link this library to *unit test targets* that need to create mocks of generated models.
+</td>
+</tr>
+
+<tr>
+<td>
+
+Includes the APIs for creating test mocks for your generated models
+
+</td>
+<td>
+
+Link this library to *unit test targets* that need to create mocks of generated models.
+
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
 
 #### `ApolloCodegenLib`
 
-- **Summary:**
-  - Includes the code generation engine used to generate your GraphQL models
-  - Use this library if you want to run the code generation engine from your own Swift executable targets.
-    - For most projects, it is recommended to use the Codegen CLI instead of using `ApolloCodegenLib` directly.
-- **Usage:**
-  - Link this library to development tools that want to use the Apollo code generation engine.
-  - Only supports macOS
-  - **`ApolloCodegenLib` should not be linked to your application targets.**
+</td>
+</tr>
+
+<tr>
+<td>
+
+Includes the code generation engine used to generate your GraphQL models
+
+Use this library if you want to run the code generation engine from your own Swift executable targets.
+
+> For most projects, it is recommended to use the Codegen CLI instead of using `ApolloCodegenLib` directly.
+
+</td>
+<td>
+
+Link this library to development tools that want to use the Apollo code generation engine. This library only supports macOS.
+
+> **Note: `ApolloCodegenLib` should not be linked to your application targets.**
+
+</td>
+</tr>
+
+</tbody>
+</table>
 
 ## Configuring your project
 
 When including Apollo iOS in a new project, it's important to decide how you will structure your project, and where your generated GraphQL models fit in that project. Your GraphQL models can be included in your main application target, spread out across many modules, or exposed as an independent module that can be used by multiple applications. Depending on the needs and constraints of your project, you will need to configure the code generation engine and link to the Apollo iOS libraries differently.
 
-This section will
+For the most common use cases, there are two primary decisions to be made about your project structure:
+
+> For more specific customization, read about the configuration options below.
+
+** 1. Will your application consist of a single application target or multiple modules?**
+
+<table>
+<thead>
+    <tr>
+      <th>Apollo iOS Targets</th>
+      <th>Code Generation</th>
+    </tr>
+</thead>
+
+<tbody>
+<tr>
+<td colspan="2">
+
+#### Single Target
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+- Link your target to the `Apollo` library.
+    - Optionally, link to `ApolloSQLite` and/or `ApolloWebSocket` to enable their functionality.
+
+</td>
+<td>
+
+- Configure the code generation option `output.schemaTypes.moduleType` to `.embeddedInTarget(name:)` to generate the schema types in a namespace that you can include in your application target.
+
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+
+#### Multi-module
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+- Link `Apollo` to the modules that configure or use the networking and caching APIs.
+    - Optionally, link `ApolloSQLite` and/or `ApolloWebSocket` to the module that sets up your `ApolloClient` to enable their functionality.
+- Link `ApolloAPI` to the modules that only include generated models.
+- Optionally, link `ApolloTestSupport` to your unit test target to create mocks of your generated models.
+
+</td>
+<td>
+
+- Configure the code generation option `output.schemaTypes.moduleType` to `.swiftPackageManager` or `.other` to generate the schema types as a seperate module that can be linked to your application modules.
+
+</td>
+</tr>
+
+</tbody>
+</table>
+
+> #### **Important: `ApolloCodegenLib` should not be linked to your application targets.**
+> It only supports macOS and should only be linked to by development tools that want to use the Apollo code generation engine.
+> For most projects, it is recommended to use the Codegen CLI instead of using `ApolloCodegenLib` directly.
+
+> **Note for Cocoapods users:**
+>
+> Cocoapods combines subspecs into a single target. This means that:
+> - `ApolloAPI` will be merged into the `Apollo` target.
+> - If the `ApolloSQLite` and `ApolloWebSocket` subspecs are used, they will also be merged into the `Apollo` target.
+
+** 2. Where should your generated operations models be located?**
+
+By default, the operation models will be generated in a sub-folder of the directory where your schema is generated. All of your operation models will be included in the schema module, or namespace if using `embeddedInTarget(name:)`.
+
+Alternatively, you can configure code generation to generate operation models relative to the `.graphql` files that define them. This allows you to customize the location of your operation models and setup your project to suit your specific needs. You can co-locate models with the feature code that uses them; generate your models into different modules within in your project; organize them based on feature areas; or any other structure you would like.
+
+Lastly, you can generate all of your operations into a single specified directory, which can be manually included in your project however you see fit.
+
+
+
+
+
+
+There are three options for where to generated your operation models:
+- By default, the operation models will be generated in a sub-folder of the directory where your schema is generated. If your schema types are packaged as a shared module, all of your operation models will be included in the schema module.
+
+-----
 
 // TODO Schema types - config
 
