@@ -44,11 +44,12 @@ To support multi-module projects, the [generated schema module](#generated-schem
 
 The code generation engine provides flexible configuration options that aims to make code generation work seamlessly for any project structure you prefer.
 
-> **Before performing the migration to Apollo iOS 1.0, you should consider your project structure and decide how you would like to include your generated schema module and operation models.**
->
-> TODO: For more info see module type guide
 
 ## Step-by-step instructions
+
+> **Before performing the migration to Apollo iOS 1.0, you should consider your project structure and decide how you would like to include your generated schema module and operation models.**
+>
+> To learn about how you can best integrate Apollo iOS to suit your project's needs, see our [Project configuration documentation](./project-configuration).
 
 To begin your migration to Apollo iOS 1.0 you'll need to:
 
@@ -67,6 +68,8 @@ The first step in the migration is to update your dependency to the latest versi
 
 In order to receive bug fixes and new features, we recommend including `1.0` up to the next major release.
 
+> To see what modules are provided by the Apollo iOS SDK and determine which modules you need to include in your project, see our [SDK components documentation](./project-configuration#apollo-ios-sdk-components).
+
 <CodeColumns cols={2}>
 
 ```swift title="Package.swift"
@@ -82,8 +85,6 @@ pod 'Apollo' ~> '1.0'
 
 </CodeColumns>
 
-### TODO: Add step on target linking w/ link to target-linking docs.
-
 > **Note:** Apollo iOS 1.0 supports being built as a dynamic `.xcframework` or as a static library. While our documentation does not provide step-by-step instructions on this process, building and including Apollo iOS 1.0 as a pre-compiled binary with a build tool such as Carthage or Buck is possible.
 
 ### 2. Setup code generation
@@ -95,8 +96,6 @@ The recommended way to use the new code generation engine is through the Apollo 
 #### Codegen CLI setup
 
 For CLI setup instructions, select the method you are using to include `Apollo`.
-
-### TODO: Improve configuration setup to explain module types
 
 <SetupCodegen />
 

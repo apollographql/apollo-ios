@@ -6,20 +6,20 @@ import SetupCodegenPanel from "./single-panel.mdx"
 <a name="spm-setup-codegen" />
 <ExpansionPanel title="SPM with Package.swift">
 
-<SetupCodegenPanel cliPath="./apollo-ios-cli" installComponent={<SPMInstallCLI />} />
+<SetupCodegenPanel cliPath="./apollo-ios-cli" moduleTypeOption="`.swiftPackageManager`" installComponent={<SPMInstallCLI />} />
 
 </ExpansionPanel>
 
 <a name="spm-xcode-setup-codegen" />
 <ExpansionPanel title="SPM with Xcode Project">
 
-<SetupCodegenPanel cliPath="./apollo-ios-cli" installComponent={<SPMXcodeInstallCLI />} />
+<SetupCodegenPanel cliPath="./apollo-ios-cli" moduleTypeOption="`.swiftPackageManager`" installComponent={<SPMXcodeInstallCLI />} />
 
 </ExpansionPanel>
 
 <a name="pods-setup-codegen" />
 <ExpansionPanel title="Cocoapods">
 
-<SetupCodegenPanel cliPath="./Pods/Apollo/apollo-ios-cli" installComponent={<PodsInstallCLI />} />
+<SetupCodegenPanel cliPath="./Pods/Apollo/apollo-ios-cli" moduleTypeOption="`.other`" installComponent={<PodsInstallCLI />} />
 
 </ExpansionPanel>
