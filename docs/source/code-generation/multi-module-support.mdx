@@ -31,6 +31,108 @@ All GraphQL operations depend upon the types in their corresponding GraphQL sche
 
 // TODO
 
+## Configuring your project
+
+When including Apollo iOS in a new project, it's important to decide how you will structure your project, and where your generated GraphQL models fit in that project. Your GraphQL models can be included in your main application target, spread out across many modules, or exposed as an independent module that can be used by multiple applications. Depending on the needs and constraints of your project, you will need to configure the code generation engine and link to the Apollo iOS libraries differently.
+
+There are three primary decisions to be made about your project structure:
+
+> For more specific customization, read about the configuration options below.
+
+### Single target vs multi-module
+
+> ** 1. Will your application consist of a single application target or multiple modules?**
+
+Depending on the size and complexity of your project, it may be built as a single, monolithic application target, or be composed of multiple modules.
+
+For a monolithic application you can simply link your application target to the `Apollo` library. You may optionally, link to `ApolloSQLite` and/or `ApolloWebSocket` to enable their functionality.
+
+To include the Apollo iOS SDK in a project with multiple modules:
+
+- Link `Apollo` to the modules that configure or use the networking and caching APIs.
+    - Optionally, link `ApolloSQLite` and/or `ApolloWebSocket` to the module that sets up your `ApolloClient` to enable their functionality.
+- Link `ApolloAPI` to the modules that only include generated models.
+
+You may also optionally, link `ApolloTestSupport` to your unit test target to create mocks of your generated models.
+
+> For more information about the libraries that make up the Apollo iOS SDK, see the [Apollo iOS SDK components section](#apollo-ios-sdk-components).
+
+> #### **Important: `ApolloCodegenLib` should not be linked to your application targets.**
+> It only supports macOS and should only be linked to by development tools that want to use the Apollo code generation engine.
+> For most projects, it is recommended to use the Codegen CLI instead of using `ApolloCodegenLib` directly.
+
+### Schema types module
+
+> ** 2. How would you like to include your generated schema types?**
+
+The generated schema types can be included in your project by embedding them directly in your application target, or as a seperate module you include. This is configured through the [`output.schemaTypes`](./codegen-configuration#schema-types) property of your codegen configuration. When setting up codegen for the first time, you will need to specify a path for the location of the generated module, and choose a module type to configure how the schema types module will be linked to your project.
+
+For most projects, we recommend creating a seperate schema module. This makes it possible to share your generated models across modules as your project grows. For simple, single target applications, you may choose to embed your schema types in your target
+
+> For more information on configuring your schema types output see the [`output.schemaTypes` configuration documentation](./codegen-configuration#schema-types).
+
+#### Creating a schema module
+
+This will allow you to link the schema module to each of your other modules that include or consume your generated operation models. The code generation engine can automate the creation of the schema types module for Swift Package Manager and is flexible enough to support manual configuration for projects with customized dependency needs.
+
+Use the `.swiftPackageManager` or `.other` options to generate schema types that can be included as their own module.
+
+> Most dependency managers like SPM and Cocoapods can automatically include your generated files in the module's directory. This means when generated files are added or removed from the generated module, they will be linked to your project automatically.
+
+#### Embedded in your application
+
+You may also include your schema types directly in a target that you have created.
+
+For this you should use [`ModuleType.embeddedInTarget(name: String)`](./codegen-configuration#embedded-in-target) for the [`output.schemaTypes.moduleType`](./codegen-configuration#module-type) property. The generated schema types will be enclosed in a caseless namespace enum to prevent naming conflicts with types you may already have defined in your target.
+
+> By using this option you are responsible for manually adding the generated files to your chosen target. When new generated files are created, or old ones are deleted, you will need to manually add/remove them from your target's "Compile Sources" build phase.
+
+### Operation model generation
+
+> ** 3. Where should your generated operations models be located?**
+
+The next choice is to consider how operation models are used in your project. This is configured through the [`output.operations`](./codegen-configuration#operations) property of your codegen configuration.
+
+Your operation models can be included in your project in the way that makes the most sense for your needs. The only requirement is that your operation models need to have access to your schema types and to the `ApolloAPI` target to compile.
+
+Generally, this decision falls into two categories:
+
+#### Confined models
+
+If you would like to organize your generated models by specific feature areas or modules within your project, use the [`OperationsFileOutput.relative(subpath: String?)`](./codegen-configuration#relative-operations-output) value for the [`output.operations`](./codegen-configuration#operations) property. The operation models will be generated relative to the `.graphql` files that define them.
+
+This gives you the most flexibility and control over your operation models, as they can be generated anywhere in your project structure by organizing your `.graphql` operation definitions. With relative paths you can:
+- Co-locate models with the feature code that uses them
+- Include your models into different modules within in your project
+- Organize them based on feature areas
+- Or any other structure you would like
+
+> When including your operation models in a multi-module project, you will need to ensure that any modules which include your operation models link to both your schema types module and the `ApolloAPI` library.
+
+#### Shared models
+
+You can also share your generated operation models across modules in your project either by including them within the shared schema types module, or by manually including them in another shared module.
+
+##### Bundled with schema types
+
+For most small projects, this is the most straightforward way of including your operation models. The operation models will be located in a sub-folder of the directory where your schema types are generated.
+
+For this option use the [`.inSchemaModule`](./codegen-configuration#operations-in-the-schema-module) option for the [`output.operations`](./codegen-configuration#operations) property.
+
+**If you are using a schema module**, the operation models will be included in the module, which can be imported by other modules in your project.
+
+**If you are embedding your schema in another target**, the operations will also be included in the generated schema namespace that you include in your application target.
+
+##### Absolute path
+
+To generate your operation models into a single, specified directory, use the [`.absolute(path:)`](./codegen-configuration#absolute-operations-output) option. These can then be manually included in your project however you see fit.
+
+If you choose to generate the operation models in to an absolute path, you are you responsible for any module creation in order to link the generated files with the rest of your project. You will need to ensure that any targets which include your operation models link to both your schema types module and the `ApolloAPI` library.
+
+### Supporting other configurations
+
+There are many different possible combinations for a modular architecture and we've only shared examples of the most common configurations. Apollo iOS has many different options to support flexible configurations of the schema types and operation models. Please take the time to familiarize yourself with the [codegen configuration](./codegen-configuration) and we're confident you can find a combination to suit your project needs.
+
 ## Apollo iOS SDK components
 
 These are the libraries that compose the Apollo iOS package:
@@ -191,182 +293,8 @@ Link this library to development tools that want to use the Apollo code generati
 </tbody>
 </table>
 
-## Configuring your project
-
-When including Apollo iOS in a new project, it's important to decide how you will structure your project, and where your generated GraphQL models fit in that project. Your GraphQL models can be included in your main application target, spread out across many modules, or exposed as an independent module that can be used by multiple applications. Depending on the needs and constraints of your project, you will need to configure the code generation engine and link to the Apollo iOS libraries differently.
-
-For the most common use cases, there are two primary decisions to be made about your project structure:
-
-> For more specific customization, read about the configuration options below.
-
-** 1. Will your application consist of a single application target or multiple modules?**
-
-<table>
-<thead>
-    <tr>
-      <th>Apollo iOS Targets</th>
-      <th>Code Generation</th>
-    </tr>
-</thead>
-
-<tbody>
-<tr>
-<td colspan="2">
-
-#### Single Target
-
-</td>
-</tr>
-
-<tr>
-<td>
-
-- Link your target to the `Apollo` library.
-    - Optionally, link to `ApolloSQLite` and/or `ApolloWebSocket` to enable their functionality.
-
-</td>
-<td>
-
-- Configure the code generation option `output.schemaTypes.moduleType` to `.embeddedInTarget(name:)` to generate the schema types in a namespace that you can include in your application target.
-
-</td>
-</tr>
-
-<tr>
-<td colspan="2">
-
-#### Multi-module
-
-</td>
-</tr>
-
-<tr>
-<td>
-
-- Link `Apollo` to the modules that configure or use the networking and caching APIs.
-    - Optionally, link `ApolloSQLite` and/or `ApolloWebSocket` to the module that sets up your `ApolloClient` to enable their functionality.
-- Link `ApolloAPI` to the modules that only include generated models.
-- Optionally, link `ApolloTestSupport` to your unit test target to create mocks of your generated models.
-
-</td>
-<td>
-
-- Configure the code generation option `output.schemaTypes.moduleType` to `.swiftPackageManager` or `.other` to generate the schema types as a seperate module that can be linked to your application modules.
-
-</td>
-</tr>
-
-</tbody>
-</table>
-
-> #### **Important: `ApolloCodegenLib` should not be linked to your application targets.**
-> It only supports macOS and should only be linked to by development tools that want to use the Apollo code generation engine.
-> For most projects, it is recommended to use the Codegen CLI instead of using `ApolloCodegenLib` directly.
-
 > **Note for Cocoapods users:**
 >
 > Cocoapods combines subspecs into a single target. This means that:
 > - `ApolloAPI` will be merged into the `Apollo` target.
 > - If the `ApolloSQLite` and `ApolloWebSocket` subspecs are used, they will also be merged into the `Apollo` target.
-
-** 2. Where should your generated operations models be located?**
-
-By default, the operation models will be generated in a sub-folder of the directory where your schema is generated. All of your operation models will be included in the schema module, or namespace if using `embeddedInTarget(name:)`.
-
-Alternatively, you can configure code generation to generate operation models relative to the `.graphql` files that define them. This allows you to customize the location of your operation models and setup your project to suit your specific needs. You can co-locate models with the feature code that uses them; generate your models into different modules within in your project; organize them based on feature areas; or any other structure you would like.
-
-Lastly, you can generate all of your operations into a single specified directory, which can be manually included in your project however you see fit.
-
-
-
-
-
-
-There are three options for where to generated your operation models:
-- By default, the operation models will be generated in a sub-folder of the directory where your schema is generated. If your schema types are packaged as a shared module, all of your operation models will be included in the schema module.
-
------
-
-// TODO Schema types - config
-
-Your operation models need to have access to these schema types to compile. this can be done by including them in the same module, or by creating a shared module that contains your schema types and linking your operation models against it. The code generation engine can automate the creation of the schema types module for certain dependency managers and is flexible enough to support manual configuration for projects with customized dependency needs.
-
-> Note: Apollo iOS supports the Swift Package Manager and CocoaPods dependency managers. If your project uses Carthage you will need to manually build the xcframework and integrate that into your project.
-
-The schema types module is configured through the [`output.schemaTypes`](./codegen-configuration#schema-types) property. You will need to specify a path for the location of the generated module, and choose a module type to configure how the schema types module will be linked to your project.
-
-> Note: It is important to consider your project structure and how you would like to integrate the generated code before choosing a module type.
-
-See the [example configurations](#example-configurations) below for some common configurations.
-
-//. ## Operation models
-
-These can be generated into the schema types module, generated into other existing modules, or they can be completely separated to support custom configurations. The difference in each of the configurations is how they are linked and exposed to the rest of your project.
-
-> To learn more about GraphQL operations, check out [Defining operations](../fetching/fetching-data#defining-operations).
-
-// ## Test mocks
-
-It is recommended that test mock objects should always be contained within their own module.
-
-The code generation engine can automate the creation of the module when [Swift Package Manager](/codegen-configuration#test-mocks-in-a-swift-package) is used as the module type for the shared schema types module. This will result in another product being defined in the `Package.swift` file which can be declared as a dependency for your test targets.
-
-When another dependency manager is used to link Apollo iOS to your project you are responsible for the creation of the module and linking it with your project. For this configuration you will need to use the [`TestMockFileOutput.absolute(path: String)`](./codegen-configuration#absolute-test-mocks-output) value for the [`output.testMocks`](./codegen-configuration#test-mocks) property.
-
-> To learn more about using test mocks to mock your operation models, see the [Test mocks documentation](../testing/test-mocks).
-
-## Example configurations
-
-### Single target
-
-This is the simplest form of project architecture and will result in a configuration without any generated module. By using this option you're declaring that you will manually add the generated files to your application target.
-
-For this you should use [`ModuleType.embeddedInTarget(name: String)`](./codegen-configuration#embedded-in-target) for the [`output.schemaTypes.moduleType`](./codegen-configuration#module-type) property. The generated schema types will be placed into their respective subfolders and all the generated schema types will be enclosed in a caseless namespace enum to prevent naming conflicts with types you may already have defined in your target.
-
-Since there is only one target you can use any of the [`OperationsFileOutput`](/codegen-configuration#operations) values. The only difference will be where the generated files are placed.
-
-### Multiple modules using Swift Package Manager
-
-This configuration is suitable when you are using Swift Package Manager as the dependency manager to link Apollo iOS to your project.
-
-For this you should use [`ModuleType.swiftPackageManager`](./codegen-configuration#swift-package-manager) for the [`output.schemaTypes.moduleType`](./codegen-configuration#module-type) property. The generated schema types will be placed into their respective subfolders and the code generation engine will automate the creation of a Swift package. The generated `Package.swift` file will define the module which can be added to your project, linking the shared schema types module with the rest of your code.
-
-The next choice is to consider how operation models are used in your project.
-
-#### Confined models
-
-If the generated operation models are used only within specific modules, then you will want to use the [`OperationsFileOutput.relative(subpath: String?)`](./codegen-configuration#relative-operations-output) value for the [`output.operations`](./codegen-configuration#operations) property. This will locate the generated operation models relative to the GraphQL operation definition file within each respective module.
-
-#### Shared models
-
-If the generated operation models are shared between modules then you have the choice of including them within the shared schema types module or at another location of your choice but without any module automation.
-
-Including the operation models in the shared schema types module is configured by using the [`OperationsFileOutput.inSchemaModule`](./codegen-configuration#operations-in-the-schema-module) value for the [`output.operations`](./codegen-configuration#operations) property. The benefit of this configuration is that the SPM module definition will be automated and there is little that you need to do in order to use the generated operation models.
-
-If you choose to generate the operation models in another location, you are declaring that you will be responsible for any module creation in order to link the generated files with the rest of your project. The generated operation model files will include an `import` statement to the shared schema types module. For this configuration you will need to use the [`OperationsFileOutput.absolute(path: String)`](./codegen-configuration#absolute-operations-output) value for the [`output.operations`](./codegen-configuration#operations) property.
-
-### Multiple modules using CocoaPods
-
-This configuration is suitable when you are using CocoaPods as the dependency manager to link Apollo iOS to your project.
-
-For this you should use [`ModuleType.other`](./codegen-configuration#other-schema-module-types) for the [`output.schemaTypes.moduleType`](./codegen-configuration#module-type) property. The generated schema types will be placed into their respective subfolders but the code generation engine will not automate the creation of the pod. You are responsible for the creation of the shared schema types [podspec](https://guides.cocoapods.org/syntax/podspec.html) which declares the CocoaPods pod to the rest of your project.
-
-The next choice is to consider how operation models are used in your project.
-
-> Note: The [`OutputOptions.cocoapodsCompatibleImportStatements`](./codegen-configuration#output-options) configuration property is specific to the CocoaPods dependency manager and will generate import statements that are compatible with including Apollo via Cocoapods.
-
-#### Confined models
-
-If the generated operation models are used only within specific modules, then you will want to use the [`OperationsFileOutput.relative(subpath: String?)`](./codegen-configuration#relative-operations-output) value for the [`output.operations`](./codegen-configuration#operations) property. This will locate the generated operation models relative to the GraphQL operation definition file within each respective module.
-
-#### Shared models
-
-If the generated operation models are shared between modules then you have the choice of including them within the shared schema types module or at another location of your choice.
-
-Including the operation models in the shared schema types module is configured by using the [`OperationsFileOutput.inSchemaModule`](./codegen-configuration#operations-in-the-schema-module) value for the [`output.operations`](./codegen-configuration#operations) property. The benefit of this configuration is that the operation models will be exposed along with the shared schema types and there is little that you need to do in order to use the generated operation models.
-
-If you choose to generate the operation models in another location, you are declaring that you will be responsible for any module creation in order to link the generated files with the rest of your project. The generated operation model files will include an `import` statement to the shared schema types module. For this configuration you will need to use the [`OperationsFileOutput.absolute(path: String)`](./codegen-configuration#absolute-operations-output) value for the [`output.operations`](./codegen-configuration#operations) property.
-
-### Supporting other configurations
-
-There are many different possible combinations for a modular architecture and we've only shared examples of the most common configurations. Apollo iOS has many different options to support flexible configurations of the schema types and operation models. Please take the time to familiarize yourself with the [codegen configuration](./codegen-configuration) and we're confident you can find a combination to suit your project needs.
