@@ -133,7 +133,7 @@ extension MySchema {
 
 The `GeoPoint` struct conforms to both `CustomScalarType` and `Hashable`. You must explicitly declare the conformance to `Hashable`, which inherits `Equatable` conformance. Because Swift can synthesize the `Hashable` and `Equatable` conformancs here, you do not need to implement them.
 
-The `init(_jsonValue:)` initializer casts the `JSONValue` as a `String` and seperates it into two coordinates. It converts those coordinates using `Float(_jsonValue:)` which is provided by Apollo. Each of the [built-in scalar types](https://graphql.org/learn/schema/#scalar-types) has JSON serialization support that you can use within your custom scalar implementations.
+The `init(_jsonValue:)` initializer casts the `JSONValue` as a `String` and separates it into two coordinates. It converts those coordinates using `Float(_jsonValue:)` which is provided by Apollo. Each of the [built-in scalar types](https://graphql.org/learn/schema/#scalar-types) has JSON serialization support that you can use within your custom scalar implementations.
 
 To ensure consistency of the serialized JSON, the `_jsonValue` function ensures that the coordinates are formatted with a single decimal point using `String(format:,_:)`.
 

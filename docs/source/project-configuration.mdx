@@ -29,7 +29,7 @@ All GraphQL operations depend upon the types in their corresponding GraphQL sche
 
 #### Test mocks
 
-Apollo iOS provides the ability to generate test mocks objects for use in your test targets. The mocks enable creation of operation models for your tests.
+Apollo iOS provides the ability to generate test mock objects for use in your test targets. The mocks enable creation of operation models for your tests.
 
 For more information on setting up and using test mocks, see our [test mocks documentation](./testing/test-mocks)
 
@@ -59,7 +59,8 @@ You may also optionally, link `ApolloTestSupport` to your unit test target to cr
 
 > For more information about the libraries that make up the Apollo iOS SDK, see the [Apollo iOS SDK components section](#apollo-ios-sdk-components).
 
-> #### **Important: `ApolloCodegenLib` should not be linked to your application targets.**
+> <h4>Important: `ApolloCodegenLib` should not be linked to your application targets.</h4>
+>
 > It only supports macOS and should only be linked to by development tools that want to use the Apollo code generation engine.
 > For most projects, it is recommended to use the Codegen CLI instead of using `ApolloCodegenLib` directly.
 
@@ -67,9 +68,9 @@ You may also optionally, link `ApolloTestSupport` to your unit test target to cr
 
 > ** 2. How would you like to include your generated schema types?**
 
-The generated schema types can be included in your project by embedding them directly in your application target, or as a seperate module you include. This is configured through the [`output.schemaTypes`](./code-generation/codegen-configuration#schema-types) property of your codegen configuration. When setting up codegen for the first time, you will need to specify a path for the location of the generated module, and choose a module type to configure how the schema types module will be linked to your project.
+The generated schema types can be included in your project by embedding them directly in your application target, or as a separate module you include. This is configured through the [`output.schemaTypes`](./code-generation/codegen-configuration#schema-types) property of your codegen configuration. When setting up codegen for the first time, you will need to specify a path for the location of the generated module, and choose a module type to configure how the schema types module will be linked to your project.
 
-For most projects, we recommend creating a seperate schema module. This makes it possible to share your generated models across modules as your project grows. For simple, single target applications, you may choose to embed your schema types in your target
+For most projects, we recommend creating a separate schema module. This makes it possible to share your generated models across modules as your project grows. For simple, single target applications, you may choose to embed your schema types in your target
 
 > For more information on configuring your schema types output see the [`output.schemaTypes` configuration documentation](./code-generation/codegen-configuration#schema-types).
 

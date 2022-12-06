@@ -1,6 +1,6 @@
-> #### Seperating Cache Mutations from Network Operations
+> #### Separating Cache Mutations from Network Operations
 >
-> The generated models for queries defined as cache mutations will conform to `LocalCacheMutation`, but not `GraphQLQuery`. This means they cannot be sent as query operations to your server using an `ApolloClient`. Because network response data is immutable and cache mutation models are mutable, you must use seperate models.
+> The generated models for queries defined as cache mutations will conform to `LocalCacheMutation`, but not `GraphQLQuery`. This means they cannot be sent as query operations to your server using an `ApolloClient`. Because network response data is immutable and cache mutation models are mutable, you must use separate models.
 >
 > Because mutable data requires a lot more generated code, generating mutable models for all operations would nearly double the size of the generated operations. Additionally, if the models were mutable, mutating them outside of a `ReadWriteTransaction` would not persist any changes to the cache. By maintaining immutable models, we avoid any confusion this could cause.
 >

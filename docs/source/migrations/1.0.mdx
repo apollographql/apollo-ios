@@ -4,7 +4,7 @@ description: From 0.x to 1.0
 ---
 
 import SetupCodegen from "../../shared/setup-codegen/combined.mdx"
-import SeperateLocalCacheMutationsNote from "../../shared/seperate-local-cache-mutation-note.mdx"
+import SeparateLocalCacheMutationsNote from "../../shared/separate-local-cache-mutation-note.mdx"
 
 Apollo iOS 1.0 provides a stable API that uses modern Swift language conventions and features. Among other improvements, it features:
 
@@ -223,13 +223,13 @@ public extension MySchema {
 
 ### Local Cache Mutations
 
-In the 0.x version, you could directly make changes to data in the local cache using any of your generated operation or fragment models. While the APIs for direct cache access have not change significantly, the generated model objects are now immutable by default. You can still read cache data directly using all of your generated models, but in order to mutate cache data, you will now need to define seperate [local cache mutation](./../caching/cache-transactions#defining-local-cache-mutations) operations or fragments.
+In the 0.x version, you could directly make changes to data in the local cache using any of your generated operation or fragment models. While the APIs for direct cache access have not change significantly, the generated model objects are now immutable by default. You can still read cache data directly using all of your generated models, but in order to mutate cache data, you will now need to define separate [local cache mutation](./../caching/cache-transactions#defining-local-cache-mutations) operations or fragments.
 
 You can define a local cache mutation model by applying the `@apollo_client_ios_localCacheMutation` directive to any GraphQL operation or fragment definition.
 
 > For a detailed explanation of the new local cache mutation APIs, read the [direct cache access documentation](./../caching/cache-transactions).
 
-<SeperateLocalCacheMutationsNote />
+<SeparateLocalCacheMutationsNote />
 
 #### Example
 

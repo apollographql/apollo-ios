@@ -2,7 +2,7 @@
 title: Direct cache access
 ---
 
-import SeperateLocalCacheMutationsNote from "../../shared/seperate-local-cache-mutation-note.mdx"
+import SeparateLocalCacheMutationsNote from "../../shared/separate-local-cache-mutation-note.mdx"
 
 Apollo iOS provides the ability to directly read and update the cache as needed using type-safe generated operation models. This provides a strongly-typed interface for accessing your cache data in pure Swift code.
 
@@ -75,7 +75,7 @@ fragment MutableHeroDetails on Hero
 
 The generated models for your mutations will have mutable fields (`var` instead of `let`). Generating both getters and setters for fields on the mutable models means that they are larger than immutable generated models.
 
-<SeperateLocalCacheMutationsNote />
+<SeparateLocalCacheMutationsNote />
 
 ### Writing local cache mutations to the cache
 
