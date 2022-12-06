@@ -148,7 +148,7 @@ The properties to configure `output.schemaTypes` are:
 | Property Name | Description |
 | ------------- | ----------- |
 | `path` | A file path where the generated schema types should be output.<br/><br/>Relative to your project root |
-| [`moduleType`](#moduleType) | How generated schema types will be linked to your project. |
+| [`moduleType`](#module-type) | How generated schema types will be linked to your project. |
 
 #### Module type
 
@@ -166,21 +166,21 @@ The possible values for `moduleType` are:
 
 | Value | Description |
 | ----- | ----------- |
-| [`embeddedInTarget(name:)`](#embedded-in-target) | Indicates that you would like to include the generated models directly in your application target. |
+| [`embeddedInTarget(name:)`](#embedded-in-target) | Indicates that you would like to include the generated module directly in your application target. |
 | [`swiftPackageManager`](#swift-package-manager)  | Creates a schema module as an SPM package that can be included in your project. |
-| [`other`](#other-schema-module-types) 		   | Indicates that you would like to define a schema module using manually. |
+| [`other`](#other-schema-module-types) 		   | Indicates that you would like to manually define a schema module using a third party package manager (such as Cocoapods). |
 
 #### Embedded in target
 
 **`ModuleType.embeddedInTarget(name: String)`**
 
-This option indicates that you would like to include the generated models directly in your application target.
+This option indicates that you would like to include the generated module directly in your application target.
 
 The `name` parameter must specify the name of the target the schema types will be included in. This will be used to generate `import` statements for generated operations.
 
 No module will be created for the schema types. Instead, generated schema types will be enclosed in a [caseless namespace `enum`](https://www.swiftbysundell.com/articles/powerful-ways-to-use-swift-enums/#namespaces-and-non-initializable-types).
 
-When creating a single target application, this option allows you to include Apollo iOS's generated models directly in your application target.
+When creating a single target application, this option allows you to include Apollo iOS's generated module directly in your application target.
 
 > **Note:** When using this `moduleType`, you are responsible for ensuring the generated files are linked to your application target.
 
