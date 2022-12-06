@@ -106,7 +106,7 @@ fileprivate extension String {
         """
 
     case .singleLine:
-      return "\"\(components(separatedBy: .newlines).joined(separator: ""))\""
+      return "#\"\(components(separatedBy: .newlines).joined(separator: ""))\"#"
     }
   }
 }

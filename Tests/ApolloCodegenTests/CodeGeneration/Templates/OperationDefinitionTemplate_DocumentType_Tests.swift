@@ -33,6 +33,8 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     ).description
   }
 
+  // MARK: Query string formatting tests
+
   func test__generate__givenMultilineFormat_generatesWithOperationDefinition_asMultiline() throws {
     // given
     definition.source =
@@ -85,7 +87,65 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     """
     public static let document: ApolloAPI.DocumentType = .notPersisted(
       definition: .init(
-        "query NameQuery {  name}"
+        #"query NameQuery {  name}"#
+      ))
+    """
+    expect(actual).to(equalLineByLine(expected))
+  }
+
+  func test__generate__givenMultilineFormat_withInLineQuotes_generatesWithOperationDefinitionAsMultiline_withInlineQuotes() throws {
+    // given
+    definition.source =
+    """
+    query NameQuery($filter: String = "MyName") {
+      name
+    }
+    """
+    config = .mock(options: .init(
+      queryStringLiteralFormat: .multiline,
+      apqs: .disabled
+    ))
+
+    // when
+    let actual = try renderDocumentType()
+
+    // then
+    let expected =
+    """
+    public static let document: ApolloAPI.DocumentType = .notPersisted(
+      definition: .init(
+        ""\"
+        query NameQuery($filter: String = "MyName") {
+          name
+        }
+        ""\"
+      ))
+    """
+    expect(actual).to(equalLineByLine(expected))
+  }
+
+  func test__generate__givenSingleLineFormat_withInLineQuotes_generatesWithOperationDefinitionAsSingleLine_withInLineQuotes() throws {
+    // given
+    definition.source =
+    """
+    query NameQuery($filter: String = "MyName") {
+      name
+    }
+    """
+    config = .mock(options: .init(
+      queryStringLiteralFormat: .singleLine,
+      apqs: .disabled
+    ))
+
+    // when
+    let actual = try renderDocumentType()
+
+    // then
+    let expected =
+    """
+    public static let document: ApolloAPI.DocumentType = .notPersisted(
+      definition: .init(
+        #"query NameQuery($filter: String = "MyName") {  name}"#
       ))
     """
     expect(actual).to(equalLineByLine(expected))
@@ -154,7 +214,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     """
     public static let document: ApolloAPI.DocumentType = .notPersisted(
       definition: .init(
-        "query NameQuery {  ...NameFragment}",
+        #"query NameQuery {  ...NameFragment}"#,
         fragments: [NameFragment.self]
       ))
     """
@@ -187,7 +247,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     """
     public static let document: ApolloAPI.DocumentType = .notPersisted(
       definition: .init(
-        "query NameQuery {  ...nameFragment}",
+        #"query NameQuery {  ...nameFragment}"#,
         fragments: [NameFragment.self]
       ))
     """
@@ -277,7 +337,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     """
     public static let document: ApolloAPI.DocumentType = .notPersisted(
       definition: .init(
-        "query NameQuery {  ...Fragment1  ...Fragment2  ...Fragment3  ...Fragment4  ...FragmentWithLongName1234123412341234123412341234}",
+        #"query NameQuery {  ...Fragment1  ...Fragment2  ...Fragment3  ...Fragment4  ...FragmentWithLongName1234123412341234123412341234}"#,
         fragments: [Fragment1.self, Fragment2.self, Fragment3.self, Fragment4.self, FragmentWithLongName1234123412341234123412341234.self]
       ))
     """
@@ -345,6 +405,8 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     """
     expect(actual).to(equalLineByLine(expected))
   }
+
+  // MARK: Namespacing tests
 
   func test__generate__givenCocoapodsCompatibleImportStatements_true_shouldUseCorrectNamespace() throws {
     // given
