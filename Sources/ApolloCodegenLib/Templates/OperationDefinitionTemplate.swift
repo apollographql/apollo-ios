@@ -100,13 +100,13 @@ fileprivate extension String {
     switch format {
     case .multiline:
       return """
-        ""\"
+        #""\"
         \(self)
-        ""\"
+        ""\"#
         """
 
     case .singleLine:
-      return "\"\(components(separatedBy: .newlines).joined(separator: ""))\""
+      return "#\"\(components(separatedBy: .newlines).joined(separator: ""))\"#"
     }
   }
 }
