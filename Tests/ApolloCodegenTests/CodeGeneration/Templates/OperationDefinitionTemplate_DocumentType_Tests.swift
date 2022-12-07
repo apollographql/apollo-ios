@@ -56,11 +56,11 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     """
     public static let document: ApolloAPI.DocumentType = .notPersisted(
       definition: .init(
-        ""\"
+        #""\"
         query NameQuery {
           name
         }
-        ""\"
+        ""\"#
       ))
     """
     expect(actual).to(equalLineByLine(expected))
@@ -114,11 +114,11 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     """
     public static let document: ApolloAPI.DocumentType = .notPersisted(
       definition: .init(
-        ""\"
+        #""\"
         query NameQuery($filter: String = "MyName") {
           name
         }
-        ""\"
+        ""\"#
       ))
     """
     expect(actual).to(equalLineByLine(expected))
@@ -177,11 +177,11 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     """
     public static let document: ApolloAPI.DocumentType = .notPersisted(
       definition: .init(
-        ""\"
+        #""\"
         query NameQuery {
           ...NameFragment
         }
-        ""\",
+        ""\"#,
         fragments: [NameFragment.self]
       ))
     """
@@ -288,7 +288,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     """
     public static let document: ApolloAPI.DocumentType = .notPersisted(
       definition: .init(
-        ""\"
+        #""\"
         query NameQuery {
           ...Fragment1
           ...Fragment2
@@ -296,7 +296,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
           ...Fragment4
           ...FragmentWithLongName1234123412341234123412341234
         }
-        ""\",
+        ""\"#,
         fragments: [Fragment1.self, Fragment2.self, Fragment3.self, Fragment4.self, FragmentWithLongName1234123412341234123412341234.self]
       ))
     """
@@ -368,11 +368,11 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
       operationIdentifier: "1ec89997a185c50bacc5f62ad41f27f3070f4a950d72e4a1510a4c64160812d5",
       definition: .init(
-        ""\"
+        #""\"
         query NameQuery {
           name
         }
-        ""\"
+        ""\"#
       ))
     """
     expect(actual).to(equalLineByLine(expected))

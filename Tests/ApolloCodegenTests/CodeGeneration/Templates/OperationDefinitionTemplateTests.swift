@@ -250,7 +250,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
       public static let operationName: String = "lowercaseOperation"
       public static let document: ApolloAPI.DocumentType = .notPersisted(
         definition: .init(
-          \"\"\"
+          #\"\"\"
           query lowercaseOperation($variable: String = "TestVar") {
     """
 
