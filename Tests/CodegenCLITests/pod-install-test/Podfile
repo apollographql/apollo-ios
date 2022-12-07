@@ -6,5 +6,5 @@ target 'pod-install-test' do
   use_frameworks!
 
   # Pods for codegen-cli-issue
-  pod 'Apollo', :git => 'https://github.com/apollographql/apollo-ios.git', :branch => '$ENV['CIRCLE_BRANCH']/head'
+  pod 'Apollo', :git => 'https://github.com/apollographql/apollo-ios.git', :branch => "#{ENV['CIRCLE_BRANCH']}/head"
 end
