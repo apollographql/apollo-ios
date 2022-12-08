@@ -92,15 +92,17 @@ commands:
           working_directory: Sources/ApolloCodegenLib/Frontend/JavaScript/
   cocoapods_install_test:
     steps:
-      - run: |
-        echo "CIRCLE_BRANCH: ${CIRCLE_BRANCH}"
-        echo "CIRCLE_BUILD_URL: ${CIRCLE_BUILD_URL}"
-        echo "CIRCLE_PR_REPONAME: ${CIRCLE_PR_REPONAME}"
-        echo "CIRCLE_PR_USERNAME: ${CIRCLE_PR_USERNAME}"
-        echo "CIRCLE_PROJECT_REPONAME: ${CIRCLE_PROJECT_REPONAME}"
-        echo "CIRCLE_PROJECT_USERNAME: ${CIRCLE_PROJECT_USERNAME}"
-        echo "CIRCLE_PULL_REQUEST: ${CIRCLE_PULL_REQUEST}"
-        echo "CIRCLE_REPOSITORY_URL: ${CIRCLE_REPOSITORY_URL}"
+      - run:
+          command: |
+            echo "CIRCLE_BRANCH: ${CIRCLE_BRANCH}"
+            echo "CIRCLE_BUILD_URL: ${CIRCLE_BUILD_URL}"
+            echo "CIRCLE_PR_REPONAME: ${CIRCLE_PR_REPONAME}"
+            echo "CIRCLE_PR_USERNAME: ${CIRCLE_PR_USERNAME}"
+            echo "CIRCLE_PROJECT_REPONAME: ${CIRCLE_PROJECT_REPONAME}"
+            echo "CIRCLE_PROJECT_USERNAME: ${CIRCLE_PROJECT_USERNAME}"
+            echo "CIRCLE_PULL_REQUEST: ${CIRCLE_PULL_REQUEST}"
+            echo "CIRCLE_REPOSITORY_URL: ${CIRCLE_REPOSITORY_URL}"
+          name: Dump environment variables
       - run:
           working_directory: Tests/CodegenCLITests/pod-install-test/
           command: pod install --verbose
