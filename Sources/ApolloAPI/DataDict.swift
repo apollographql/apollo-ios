@@ -1,3 +1,5 @@
+import Foundation
+
 /// A structure that wraps the underlying data dictionary used by `SelectionSet`s.
 public struct DataDict: Hashable {
 
@@ -61,7 +63,7 @@ extension AnySelectionSet {
 
 extension Optional: SelectionSetEntityValue where Wrapped: SelectionSetEntityValue {
   @inlinable public init(fieldData: AnyHashable?, variables: GraphQLOperation.Variables?) {
-    guard case let .some(fieldData) = fieldData else {
+    guard case let .some(fieldData) = fieldData, !(fieldData is NSNull) else {
       self = .none
       return
     }
