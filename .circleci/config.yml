@@ -92,7 +92,7 @@ commands:
           working_directory: Sources/ApolloCodegenLib/Frontend/JavaScript/
   cocoapods_install_test:
     steps:
-    - run: |
+      - run: |
         echo "CIRCLE_BRANCH: ${CIRCLE_BRANCH}"
         echo "CIRCLE_BUILD_URL: ${CIRCLE_BUILD_URL}"
         echo "CIRCLE_PR_REPONAME: ${CIRCLE_PR_REPONAME}"
