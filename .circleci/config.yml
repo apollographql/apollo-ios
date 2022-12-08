@@ -93,6 +93,22 @@ commands:
   cocoapods_install_test:
     steps:
       - run:
+          command: |
+            echo "CIRCLE_BRANCH: ${CIRCLE_BRANCH}"
+            echo "CIRCLE_BUILD_NUM: ${CIRCLE_BUILD_NUM}"
+            echo "CIRCLE_BUILD_URL: ${CIRCLE_BUILD_URL}"
+            echo "CIRCLE_JOB: ${CIRCLE_JOB}"
+            echo "CIRCLE_PR_NUMBER: ${CIRCLE_PR_NUMBER}"
+            echo "CIRCLE_PR_REPONAME: ${CIRCLE_PR_REPONAME}"
+            echo "CIRCLE_PR_USERNAME: ${CIRCLE_PR_USERNAME}"
+            echo "CIRCLE_PROJECT_REPONAME: ${CIRCLE_PROJECT_REPONAME}"
+            echo "CIRCLE_PROJECT_USERNAME: ${CIRCLE_PROJECT_USERNAME}"
+            echo "CIRCLE_PULL_REQUEST: ${CIRCLE_PULL_REQUEST}"
+            echo "CIRCLE_REPOSITORY_URL: ${CIRCLE_REPOSITORY_URL}"
+            echo "CIRCLE_SHA1: ${CIRCLE_SHA1}"
+            echo "CIRCLE_WORKING_DIRECTORY: ${CIRCLE_WORKING_DIRECTORY}"
+          name: Dump environment variables
+      - run:
           working_directory: Tests/CodegenCLITests/pod-install-test/
           command: pod install --verbose
           name: CocoaPods - Install
@@ -230,7 +246,7 @@ jobs:
       - common_test_setup
       - build_and_run_xcode_tests
   
-  CodegenIntegration_macOS_current:
+  CocoaPodsIntegration_macOS_current:
     macos:
       xcode: << pipeline.parameters.xcode_version >>
     environment:
@@ -262,5 +278,5 @@ workflows:
           name: Codegen Lib Unit Tests - macOS << pipeline.parameters.macos_version >>
       - CodegenCLI_macOS_current:
           name: Codegen CLI Unit Tests - macOS << pipeline.parameters.macos_version >>
-      - CodegenIntegration_macOS_current:
-          name: Codegen CLI Integration Tests - macOS << pipeline.parameters.macos_version >>
+      - CocoaPodsIntegration_macOS_current:
+          name: CocoaPods Integration Tests - macOS << pipeline.parameters.macos_version >>
