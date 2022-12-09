@@ -8,67 +8,66 @@ import SeparateLocalCacheMutationsNote from "../../shared/separate-local-cache-m
 
 Apollo iOS 1.0 provides a stable API that uses modern Swift language conventions and features. Among other improvements, it features:
 
-- New generated models that improve readability and functionality while reducing generated code size in most cases
-- New code generation tooling that is written in pure Swift code
+- New generated models that improve readability and functionality while reducing generated code size
+- New code generation tooling written in pure Swift code
 - Support for using generated models in multi-module projects
 - Type-safe APIs for cache key resolution
 
-Because most of the library's core concepts are unchanged, the migration to 1.0 from the legacy 0.x versions of Apollo iOS should not require serious rewrites in most cases. This page describes the most important changes, along with how to migrate an existing project from Apollo iOS 0.x to 1.0.
+Because most of the library's core concepts are unchanged, the migration to 1.0 from the legacy 0.x versions of Apollo iOS shouldn't require much work. This page describes the most important changes, along with guidance on how to migrate an existing project from Apollo iOS 0.x to 1.0.
 
-> **To start your migration to Apollo iOS 1.0:**
-> - You should first read about the [key changes](#key-changes) highlighted below.
-> - Then, follow the [step-by-step instructions](#step-by-step-instructions).
-> - Lastly, use the [breaking changes](#breaking-changes) section to help you resolve any remaining build errors in your code.
+> **To start migrating to Apollo iOS 1.0:**
+> - Read about the [key changes](#key-changes)
+> - Follow the [step-by-step instructions](#step-by-step-instructions)
+> - Use the [breaking changes](#breaking-changes) section to resolve remaining build errors
 
 ## Key changes
 
 ### Generated schema module
 
-In addition to generating models for your GraphQL operation definitions, the 0.x version generated models for the input objects and enums referenced from your schema.
+The 0.x version of Apollo iOS generates models for your GraphQL operation definitions and the input objects and enums referenced in your schema.
 
 Apollo iOS 1.0 expands on this, generating a whole module that contains models and metadata for your GraphQL schema and its type definitions.
+
 In addition to your input objects and enum types, this module contains:
-- Types for the objects, interfaces, and unions referenced
+- Types for your  objects, interfaces, and unions 
 - Editable definitions for your custom scalars
 - An editable `SchemaConfiguration.swift` file
-- Metadata used by the Apollo GraphQL executor
+- Metadata for the Apollo GraphQL executor
 
-To prevent naming conflicts with other types in your project, the schema types are contained in their own namespace.
-This namespace can be generated as a stand-alone module, which can be imported by your project, or as a caseless namespace enum which can be embedded in your application target.
+To prevent naming conflicts, schema types are contained in their own namespace. You can generate this namespace as a stand-alone module, imported by your project, or as a caseless namespace enum that you can embed in your target application.
 
 ### Multi-module support
 
-Apollo iOS 1.0 was designed to support complex applications composed of multiple modules as well as monolithic application targets.
+Apollo iOS 1.0 is designed to support both complex applications composed of multiple modules and monolithic application targets.
 
-To support multi-module projects, the [generated schema module](#generated-schema-module) contains all of the schema's shared types and metadata. This allows your generated operation models to be located anywhere you would like in your project structure, as long as they are linked to the schema module.
+To support multi-module projects, the [generated schema module](#generated-schema-module) contains _all_ of your schema's shared types and metadata. This enables your generated operation models to be located anywhere in your project structure, as long as they are linked to the schema module.
 
-The code generation engine provides flexible configuration options that aims to make code generation work seamlessly for any project structure you prefer.
-
+The code generation engine provides flexible configuration options that aim to make code generation work seamlessly for any project structure.
 
 ## Step-by-step instructions
 
-> **Before performing the migration to Apollo iOS 1.0, you should consider your project structure and decide how you would like to include your generated schema module and operation models.**
+> **Before performing the migration to Apollo iOS 1.0, consider your project structure and decide how you'd like to include your generated schema module and operation models.**
 >
-> To learn about how you can best integrate Apollo iOS to suit your project's needs, see our [Project configuration documentation](./project-configuration).
+> To learn how to configure Apollo iOS for your project structure, see [Project configuration](../project-configuration).
 
-To begin your migration to Apollo iOS 1.0 you'll need to:
+To migrate to Apollo iOS 1.0, you'll need to:
 
 - [Update your dependency to Apollo iOS version 1.0](#1-update-to-apollo-ios-10)
 - [Setup code generation](#2-setup-code-generation)
 - [Replace the code generation build phase](#3-replace-the-code-generation-build-phase)
-- [Refactor your code to use the new APIs](#4-refactor-your-code)
+- [Refactor your code to use new APIs](#4-refactor-your-code)
 
-Much of the migration process involves the new code generation mechanism, which is detailed in this step-by-step guide. It will walk you through this process, explaining how to remove deprecated pieces of the legacy 0.x version along the way.
+Much of the migration process involves the new code generation mechanism, which is detailed in this step-by-step guide. 
 
-Below the step-by-step instructions, you will find explanations of each breaking API change in Apollo iOS 1.0.
+As you go through this process, we'll explain how to remove deprecated pieces of the legacy 0.x version along the way. Each of the following steps also includes explanations for the breaking API changes in Apollo iOS 1.0.
 
 ### 1. Update to Apollo iOS 1.0
 
-The first step in the migration is to update your dependency to the latest version. Apollo iOS can be included as a package using Swift Package Manager (SPM) or Cocoapods.
+The first step is to update your Apollo iOS dependency to the latest version. You can include Apollo iOS as a package using Swift Package Manager (SPM) or Cocoapods.
 
 In order to receive bug fixes and new features, we recommend including `1.0` up to the next major release.
 
-> To see what modules are provided by the Apollo iOS SDK and determine which modules you need to include in your project, see our [SDK components documentation](./project-configuration#apollo-ios-sdk-components).
+> To see the modules provided by the Apollo iOS SDK, and determine which modules you need in your project, see [SDK components](./project-configuration#apollo-ios-sdk-components).
 
 <CodeColumns cols={2}>
 
@@ -85,13 +84,13 @@ pod 'Apollo' ~> '1.0'
 
 </CodeColumns>
 
-> **Note:** Apollo iOS 1.0 supports being built as a dynamic `.xcframework` or as a static library. While our documentation does not provide step-by-step instructions on this process, building and including Apollo iOS 1.0 as a pre-compiled binary with a build tool such as Carthage or Buck is possible.
+> **Note:** Apollo iOS 1.0 supports being built as a dynamic `.xcframework` or as a static library. You can build and include Apollo iOS 1.0 as a pre-compiled binary with a build tool such as Carthage or Buck, but we don't currently document this.
 
-### 2. Setup code generation
+### 2. Set up code generation
 
-Apollo iOS 1.0 includes a new code generation engine, written in 100% Swift code, to replace the legacy `apollo-tooling` code generation. To use 1.0, you will need to install the new code generation engine and remove the old engine.
+Apollo iOS 1.0 includes a new code generation engine, written in 100% Swift code, replacing the legacy `apollo-tooling`. To use 1.0, you must install the new code generation engine and remove the old one.
 
-The recommended way to use the new code generation engine is through the Apollo Codegen CLI. For advanced usage, you can run code generation in a Swift script.
+We recommend running the new code generation engine using the Apollo Codegen CLI. You can also run code generation in a Swift script for more advanced usage.
 
 #### Codegen CLI setup
 
@@ -103,7 +102,7 @@ For CLI setup instructions, select the method you are using to include `Apollo`.
 
 If you are [running code generation using a Swift script](./../code-generation/run-codegen-in-swift-code), update your swift script to use the version of `ApolloCodgenLib` matching your `Apollo` version.
 
-Then, update your `ApolloCodegenConfiguration` in your script with the new configuration values. All configuration options can be found in the [Codegen configuration documentation](./../code-generation/codegen-configuration).
+Then, update the `ApolloCodegenConfiguration` in your script with the new configuration values. See [Codegen configuration](./../code-generation/codegen-configuration) for the list of configuration options.
 
 ### 3. Replace the code generation build phase
 
