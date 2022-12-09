@@ -54,6 +54,39 @@ class SelectionSetTests: XCTestCase {
     // then
     expect(actual.name).to(beNil())
   }
+  
+  func test__selection_givenOptionalField_supportsNullValue__returnsNil() {
+    // given
+    class Hero: MockSelectionSet, SelectionSet {
+      typealias Schema = MockSchemaMetadata
+
+      override class var __selections: [Selection] {[
+        .field("__typename", String.self),
+        .field("friend", Friend?.self)
+      ]}
+
+      var friend: Friend? { __data["friend"] }
+
+      class Friend: MockSelectionSet, SelectionSet {
+        typealias Schema = MockSchemaMetadata
+
+        override class var __selections: [Selection] {[
+          .field("__typename", String.self),
+        ]}
+      }
+    }
+    
+    let object: JSONObject = [
+      "__typename": "Human",
+      "friend": NSNull()
+    ]
+
+    // when
+    let actual = Hero(data: DataDict(object, variables: nil))
+
+    // then
+    expect(actual.friend).to(beNil())
+  }
 
   // MARK: Scalar - Nested Array Tests
 
