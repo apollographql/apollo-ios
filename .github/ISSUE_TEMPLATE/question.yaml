@@ -1,14 +1,20 @@
 name: Question
-description: Got a general question about the project?
+description: Ask a general question about the project
 labels: [ "question" ]
 body:
   - type: markdown
     attributes:
       value: |
         Please search the existing resources before asking your question:
-        - [`CHANGELOG`](https://github.com/apollographql/apollo-ios/blob/main/CHANGELOG.md)
+        - [`CHANGELOG.md`](https://github.com/apollographql/apollo-ios/blob/main/CHANGELOG.md)
         - [Documentation](https://www.apollographql.com/docs/ios)
         - [GitHub issues](https://github.com/apollographql/apollo-ios/issues)
         - [StackOverflow](https://stackoverflow.com/questions/tagged/apollo-ios)
 
-        If none of the above have an answer for you, we have [community forums](https://community.apollographql.com/tag/mobile) where our users can ask and answer questions. Questions are welcome but avoid duplicating issues and discussions. If you'd like a GitHub issue to be reopened, please leave a message on the issue.
+        If none of the above have an answer for you, we have [community forums](https://community.apollographql.com/tag/mobile) where our users can ask and answer questions. Please avoid duplicating issues and discussions. If you'd like a GitHub issue to be reopened, please leave a message on the issue.
+  - type: textarea
+    attributes:
+      label: Question
+      placeholder: Please reconsider using this template and use the community forums instead.
+    validations:
+      required: true
