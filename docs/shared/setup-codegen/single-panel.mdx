@@ -14,9 +14,9 @@ import {CodeBlock, CodeBlockProps} from "@apollo/chakra-helpers"
 
 #### Initialize the code generation configuration
 
-The Codegen CLI uses a JSON file to configure the code generation engine. Use the Codegen CLI `init` command to create this file with default values.
+The Codegen CLI uses a JSON file to configure the code generation engine. You can use the Codegen CLI's `init` command to create this file with default values.
 
-From your project's root directory, run:
+From your project's root directory, run the following command with your customized values:
 
 <CodeBlock
   code={props.cliPath + " init --schema-name ${MySchemaName} --module-type ${ModuleType}"}
@@ -24,27 +24,27 @@ From your project's root directory, run:
   showLineNumbers='true'
 />
 
-- `${MySchemaName}` should be the name you want for the namespace of your generated schema files.
-- `${ModuleType}` is used to configure how your generated schema types will be included in your project.
-  > This is an important decision that must be made prior to configuring code generation. To determine the right option for your project, check our our [project configuration documentation](/project-configuration).
+- `${MySchemaName}` is your choice of name for the namespace of your generated schema files.
+- `${ModuleType}` configures how your generated schema types are included in your project.
+  > This is a crucial decision to make **before configuring code generation**. To determine the right option for your project, see [Project Configuration](../project-configuration).
   >
   > To get started quickly, you can use the `.embeddedInTarget` option.
-  > If you use this option you will need to also supply a target name using the `--target-name` command line option.
+  > Using `.embeddedInTarget`, you must supply a target name using the `--target-name` command line option.
 
-This will create an `apollo-codegen-config.json` file with the default values.
+Running this command creates an `apollo-codegen-config.json` file.
 
 </ExpansionPanelListItem>
 <ExpansionPanelListItem>
 
 #### Configure code generation options
 
-Open the `apollo-codegen-config.json` file to configure code generation for your project.
+Open your `apollo-codegen-config.json` file to start configuring code generation for your project.
 
-The default configuration will:
-- Find all GraphQL schema files ending with the file extension `.graphqls` within your project directory.
-- Find all GraphQL operation and fragment definition files ending with the file extension `.graphql` within your project directory.
-- Generate Swift code for the schema types in a directory with the `schema-name` provided.
-- Generate Swift code for the operation and fragment models in a subfolder within the schema types output location.
+The default configuration:
+- Finds all GraphQL schema files ending with `.graphqls`
+- Finds all GraphQL operation and fragment definition files ending with `.graphql`
+- Generates Swift code for your schema types in a directory with the provided `MySchemaName`
+- Generates Swift code for your operation and fragment models in a subfolder within the same directory
 
 </ExpansionPanelListItem>
 <ExpansionPanelListItem>
@@ -59,18 +59,20 @@ From your project's root directory, run:
   showLineNumbers='true'
 />
 
-Your generated files will be created with the file extension `.graphql.swift`.
+The code generation engine creates your files with the extension `.graphql.swift`.
 
 </ExpansionPanelListItem>
 <ExpansionPanelListItem>
 
 #### Add the generated schema and operation files to your target
 
-By default, a directory containing your generated schema files will be located in a directory with the `schema-name` you provided; your generated operation and fragment files will be in a subfolder in that same directory.
+By default, a directory containing your generated schema files is within a directory with the schema name you provided (i.e., `MySchemaName`). Your generated operation and fragment files are in a subfolder within the same directory.
 
-If your target is created in an Xcode project or workspace, you will need to manually add the generated files to your target.
+If you created your target in an Xcode project or workspace, you'll need to manually add the generated files to your target.
 
-> **Note:** Because adding generated files to your Xcode targets must be done manually each time you generate new files, we highly recommend defining your project targets with SPM. Alternatively, you can generate your operations into the package that includes your schema files. For more information see the documentation for [Code Generation Configuration](./../../code-generation/codegen-configuration).
+> **Note:** Adding generated files to your Xcode targets must be done manually *each time* you generate new files. This is why we instead  recommend defining your project targets with SPM.
+>
+> Alternatively, you can generate your operations into the package that includes your schema files. For more information, see [Code Generation Configuration](../code-generation/codegen-configuration).
 
 </ExpansionPanelListItem>
 </ExpansionPanelList>

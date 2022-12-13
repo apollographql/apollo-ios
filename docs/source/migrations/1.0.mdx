@@ -378,19 +378,21 @@ MyQuery(input: optionalInput ?? .null)
 
 ### Mocking operation models for testing
 
-In the 0.x version, you could use the create mocks of your generated operation models by using the generated initializers on your models or initialize them directly with JSON data. Both methods were error-prone, cumbersome, and fragile.
+In the 0.x version of Apollo iOS, you could create mocks of your generated operation models by using each model's generated initializers or by initializing them directly with JSON data. Both methods were error-prone, cumbersome, and fragile.
 
-Apollo iOS 1.0 provides new functionality for generated test mocks based on your schema types. These test mocks make creating mocks of your operation models more readable and type-safe. This also removes the need for the large number of generated initializers for different models types.
+Apollo iOS 1.0 provides a new way to generate test mocks based on your schema types. Begin by adding [`output.testMocks`](./../code-generation/codegen-configuration#test-mocks) to your code generation configuration, then link your generated test mocks to your unit test target. 
 
-To generate test mocks, add the [`output.testMocks`](./../code-generation/codegen-configuration#test-mocks) value to your code generation configuration, then link your generated test mocks to your unit test target.
+Instead of creating a model using a type's generated initializer, you create a test mock of the schema type for the underlying object. Using the test mock, you can set values for relevant fields and initialize your operation model.
 
-Instead of creating a model using the generated initializer for a type, create a test mock of the schema type for the underlying object, set values for the relevant fields, and then initialize your operation model using the test mock. If you would like to continue to initialize your operation models with JSON data, this is still possible, but the initializer has changed slightly. See the [JSON initializer example](#test-mocks-from-json-data) below for more information.
+Apollo iOS 1.0's new test mocks are more comprehensible and type-safe. They also remove the need for generated initializers for different model types.
 
-> For more details on generating and using test mocks, read our [test mocks documentation](./../testing/test-mocks).
+Note, you can continue initializing your operation models with JSON data, but the initializer has changed slightly. For more information, [See JSON initializer](#test-mocks-from-json-data).
+
+> For more details, see [Test Mocks](./../testing/test-mocks).
 
 #### Examples
 
-Given a `Hero` interface type that can be either a `Human` or `Droid` type and the following operation definition:
+Given a `Hero` interface type that can be either a `Human` or `Droid` type, and the following operation definition:
 
 ```graphql
 query HeroDetails {
@@ -406,7 +408,7 @@ query HeroDetails {
 }
 ```
 
-The 0.x version would generated initializers for each type on the `HeroDetails.Data.Hero` model:
+The 0.x version of Apollo iOS generates initializers for each type on the `HeroDetails.Data.Hero` model:
 
 ```swift
 struct Hero {
@@ -420,7 +422,7 @@ struct Hero {
 }
 ```
 
-These initializers are not generated in 1.0. Instead, initialize either a `Mock<Human>`, or a `Mock<Droid>`:
+These initializers are not generated in Apollo iOS 1.0. Instead, you can initialize either a `Mock<Human>`, or a `Mock<Droid>`:
 
 ```swift
 let mockHuman = Mock<Human>()
@@ -441,7 +443,7 @@ let droidHero = HeroDetails.Data.Hero(from: mockDroid)
 
 ##### Test mocks from JSON Data
 
-If you want to continue to initalize your models using JSON data directly, change your initializers to initialize your model using the `init(data: DataDict)` initalizer. You will also need to ensure that your JSON data is a `[String: AnyHashable]` dictionary.
+If you want to continue initializing your models using JSON data directly, you can update your initializers to create your model using the `init(data: DataDict)` initializer. You must also ensure that your JSON data is a `[String: AnyHashable]` dictionary.
 
 <CodeColumns>
 
