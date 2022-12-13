@@ -1,0 +1,26 @@
+name: Add newly opened issues to Prometheus Project
+on:
+  issues:
+    types:
+      - opened
+      
+jobs:
+  add-to-project:
+    name: Add issue to project
+    runs-on: ubuntu-latest
+    steps:
+    - name: Add to project
+      uses: actions/add-to-project@v0.4.0
+      with:
+        project-url: https://github.com/orgs/apollographql/projects/21
+        github-token: ${{ secrets.PROMETHEUS_PROJECT_ACCESS_SECRET }}
+    - name: Set project variables
+      if: ${{ success() }}
+      uses: austenstone/project-update@v1
+      with:
+        project-number: 21
+        item-id: ${{ github.event.number }}
+        github-token: ${{ secrets.PROMETHEUS_PROJECT_ACCESS_SECRET }}
+        organization: apollographql
+        fields: Status,Project
+        fields-value: Triage,Client (Swift)
