@@ -15,13 +15,12 @@ class SchemaMetadataTemplateTests: XCTestCase {
   // MARK: Helpers
 
   private func buildSubject(
-    name: String = "testSchema",
     referencedTypes: IR.Schema.ReferencedTypes = .init([]),
     documentation: String? = nil,
     config: ApolloCodegenConfiguration = ApolloCodegenConfiguration.mock()
   ) {
     subject = SchemaMetadataTemplate(
-      schema: IR.Schema(name: name, referencedTypes: referencedTypes, documentation: documentation),
+      schema: IR.Schema(referencedTypes: referencedTypes, documentation: documentation),
       config: ApolloCodegen.ConfigurationContext(config: config)
     )
   }
@@ -87,8 +86,10 @@ class SchemaMetadataTemplateTests: XCTestCase {
   func test__render__givenModuleEmbeddedInTarget_shouldGenerateDetachedProtocols_withTypealias_withCorrectCasing_noPublicModifier() {
     // given
     buildSubject(
-      name: "aName",
-      config: .mock(.embeddedInTarget(name: "CustomTarget"))
+      config: .mock(
+        .embeddedInTarget(name: "CustomTarget"),
+        schemaName: "aName"
+      )
     )
 
     let expectedTemplate = """
@@ -130,8 +131,10 @@ class SchemaMetadataTemplateTests: XCTestCase {
   func test__render__givenModuleSwiftPackageManager_shouldGenerateEmbeddedProtocols_noTypealias_withCorrectCasing_withPublicModifier() {
     // given
     buildSubject(
-      name: "aName",
-      config: .mock(.swiftPackageManager)
+      config: .mock(
+        .swiftPackageManager,
+        schemaName: "aName"
+      )
     )
 
     let expectedTemplate = """
@@ -162,8 +165,10 @@ class SchemaMetadataTemplateTests: XCTestCase {
   func test__render__givenModuleOther_shouldGenerateEmbeddedProtocols_noTypealias_withCorrectCasing_withPublicModifier() {
     // given
     buildSubject(
-      name: "aName",
-      config: .mock(.other)
+      config: .mock(
+        .other,
+        schemaName: "aName"
+      )
     )
 
     let expectedTemplate = """
@@ -194,8 +199,11 @@ class SchemaMetadataTemplateTests: XCTestCase {
   func test__render__given_cocoapodsCompatibleImportStatements_true_shouldGenerateEmbeddedProtocols_withApolloTargetName() {
     // given
     buildSubject(
-      name: "aName",
-      config: .mock(.other, options: .init(cocoapodsCompatibleImportStatements: true))
+      config: .mock(
+        .other,
+        options: .init(cocoapodsCompatibleImportStatements: true),
+        schemaName: "aName"
+      )
     )
 
     let expectedTemplate = """
@@ -292,12 +300,12 @@ class SchemaMetadataTemplateTests: XCTestCase {
   func test__render__givenWithReferencedObjects_generatesObjectTypeFunctionCorrectlyCased() {
     // given
     buildSubject(
-      name: "objectSchema",
       referencedTypes: .init([
         GraphQLObjectType.mock("objA"),
         GraphQLObjectType.mock("objB"),
         GraphQLObjectType.mock("objC"),
-      ])
+      ]),
+      config: .mock(schemaName: "objectSchema")
     )
 
     let expected = """
@@ -323,7 +331,6 @@ class SchemaMetadataTemplateTests: XCTestCase {
   func test__render__givenWithReferencedOtherTypes_generatesObjectTypeNotIncludingNonObjectTypesFunction() {
     // given
     buildSubject(
-      name: "ObjectSchema",
       referencedTypes: .init([
         GraphQLObjectType.mock("ObjectA"),
         GraphQLInterfaceType.mock("InterfaceB"),
@@ -331,7 +338,8 @@ class SchemaMetadataTemplateTests: XCTestCase {
         GraphQLScalarType.mock(name: "ScalarD"),
         GraphQLEnumType.mock(name: "EnumE"),
         GraphQLInputObjectType.mock("InputObjectC"),
-      ])
+      ]),
+      config: .mock(schemaName: "ObjectSchema")
     )
 
     let expected = """
@@ -355,7 +363,6 @@ class SchemaMetadataTemplateTests: XCTestCase {
   func test__render__rendersTypeNamespaceEnums() {
     // given
     buildSubject(
-      name: "ObjectSchema",
       referencedTypes: .init([
         GraphQLObjectType.mock("ObjectA"),
         GraphQLInterfaceType.mock("InterfaceB"),
@@ -363,7 +370,8 @@ class SchemaMetadataTemplateTests: XCTestCase {
         GraphQLScalarType.mock(name: "ScalarD"),
         GraphQLEnumType.mock(name: "EnumE"),
         GraphQLInputObjectType.mock("InputObjectC"),
-      ])
+      ]),
+      config: .mock(schemaName: "ObjectSchema")
     )
 
     let expected = """
@@ -383,7 +391,6 @@ class SchemaMetadataTemplateTests: XCTestCase {
   func test__render__givenModuleSwiftPackageManager_rendersTypeNamespaceEnumsAsPublic() {
     // given
     buildSubject(
-      name: "ObjectSchema",
       referencedTypes: .init([
         GraphQLObjectType.mock("ObjectA"),
         GraphQLInterfaceType.mock("InterfaceB"),
@@ -392,7 +399,10 @@ class SchemaMetadataTemplateTests: XCTestCase {
         GraphQLEnumType.mock(name: "EnumE"),
         GraphQLInputObjectType.mock("InputObjectC"),
       ]),
-      config: .mock(.swiftPackageManager)
+      config: .mock(
+        .swiftPackageManager,
+        schemaName: "ObjectSchema"
+      )
     )
 
     let expected = """

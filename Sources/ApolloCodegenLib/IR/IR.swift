@@ -11,10 +11,9 @@ class IR {
 
   var builtFragments: [String: NamedFragment] = [:]
 
-  init(schemaName: String, compilationResult: CompilationResult) {
+  init(compilationResult: CompilationResult) {
     self.compilationResult = compilationResult
     self.schema = Schema(
-      name: schemaName,
       referencedTypes: .init(compilationResult.referencedTypes),
       documentation: compilationResult.schemaDocumentation
     )

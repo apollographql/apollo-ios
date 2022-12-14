@@ -7,7 +7,6 @@ extension IR {
     let documentation: String?
 
     init(
-      name: String,
       referencedTypes: IR.Schema.ReferencedTypes,
       documentation: String? = nil
     ) {

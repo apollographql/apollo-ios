@@ -85,10 +85,7 @@ public class ApolloCodegen {
 
     try validate(schemaName: configContext.schemaName, compilationResult: compilationResult)
 
-    let ir = IR(
-      schemaName: configContext.schemaName,
-      compilationResult: compilationResult
-    )
+    let ir = IR(compilationResult: compilationResult)
 
     var existingGeneratedFilePaths = configuration.options.pruneGeneratedFiles ?
     try findExistingGeneratedFilePaths(
