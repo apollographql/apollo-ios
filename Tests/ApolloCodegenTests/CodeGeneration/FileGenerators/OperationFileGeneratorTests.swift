@@ -45,7 +45,7 @@ class OperationFileGeneratorTests: XCTestCase {
 
     let config = ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration.mock())
     
-    subject = OperationFileGenerator(irOperation: irOperation, schema: ir.schema, config: config)
+    subject = OperationFileGenerator(irOperation: irOperation, config: config)
   }
 
   // MARK: Property Tests

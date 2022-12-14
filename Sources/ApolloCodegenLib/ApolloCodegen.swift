@@ -85,10 +85,7 @@ public class ApolloCodegen {
 
     try validate(schemaName: configContext.schemaName, compilationResult: compilationResult)
 
-    let ir = IR(
-      schemaName: configContext.schemaName,
-      compilationResult: compilationResult
-    )
+    let ir = IR(compilationResult: compilationResult)
 
     var existingGeneratedFilePaths = configuration.options.pruneGeneratedFiles ?
     try findExistingGeneratedFilePaths(
@@ -267,7 +264,7 @@ public class ApolloCodegen {
     for fragment in compilationResult.fragments {
       try autoreleasepool {
         let irFragment = ir.build(fragment: fragment)
-        try FragmentFileGenerator(irFragment: irFragment, schema: ir.schema, config: config)
+        try FragmentFileGenerator(irFragment: irFragment, config: config)
           .generate(forConfig: config, fileManager: fileManager)
       }
     }
@@ -277,7 +274,7 @@ public class ApolloCodegen {
     for operation in compilationResult.operations {
       try autoreleasepool {
         let irOperation = ir.build(operation: operation)
-        try OperationFileGenerator(irOperation: irOperation, schema: ir.schema, config: config)
+        try OperationFileGenerator(irOperation: irOperation, config: config)
           .generate(forConfig: config, fileManager: fileManager)
 
         operationIDsFileGenerator?.collectOperationIdentifier(irOperation)
@@ -340,7 +337,6 @@ public class ApolloCodegen {
       try autoreleasepool {
         try InputObjectFileGenerator(
           graphqlInputObject: graphQLInputObject,
-          schema: ir.schema,
           config: config
         ).generate(
           forConfig: config,
@@ -375,7 +371,7 @@ public class ApolloCodegen {
 
     try SchemaMetadataFileGenerator(schema: ir.schema, config: config)
       .generate(forConfig: config, fileManager: fileManager)
-    try SchemaConfigurationFileGenerator(schema: ir.schema, config: config)
+    try SchemaConfigurationFileGenerator(config: config)
       .generate(forConfig: config, fileManager: fileManager)
 
     try SchemaModuleFileGenerator.generate(config, fileManager: fileManager)

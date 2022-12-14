@@ -18,11 +18,8 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
     configOutput: ApolloCodegenConfiguration.FileOutput = .mock(),
     options: ApolloCodegenConfiguration.OutputOptions = .init()
   ) {
-    let schema = IR.Schema(name: "TestSchema", referencedTypes: .init([]))
-
     template = OperationDefinitionTemplate(
       operation: .mock(),
-      schema: schema,
       config: .init(config: .mock(output: configOutput, options: options))
     )
   }

@@ -664,10 +664,7 @@ class ApolloCodegenTests: XCTestCase {
     // when
     let compilationResult = try ApolloCodegen.compileGraphQLResult(config)
 
-    let ir = IR(
-      schemaName: config.schemaName,
-      compilationResult: compilationResult
-    )
+    let ir = IR(compilationResult: compilationResult)
 
     try ApolloCodegen.generateFiles(
       compilationResult: compilationResult,
@@ -763,10 +760,7 @@ class ApolloCodegenTests: XCTestCase {
     // when
     let compilationResult = try ApolloCodegen.compileGraphQLResult(config)
 
-    let ir = IR(
-      schemaName: config.schemaName,
-      compilationResult: compilationResult
-    )
+    let ir = IR(compilationResult: compilationResult)
 
     try ApolloCodegen.generateFiles(
       compilationResult: compilationResult,
@@ -868,10 +862,7 @@ class ApolloCodegenTests: XCTestCase {
       experimentalFeatures: .init(clientControlledNullability: true)
     )
 
-    let ir = IR(
-      schemaName: config.schemaName,
-      compilationResult: compilationResult
-    )
+    let ir = IR(compilationResult: compilationResult)
 
     try ApolloCodegen.generateFiles(
       compilationResult: compilationResult,
@@ -935,10 +926,7 @@ class ApolloCodegenTests: XCTestCase {
       experimentalFeatures: .init(clientControlledNullability: true)
     )
 
-    let ir = IR(
-      schemaName: config.schemaName,
-      compilationResult: compilationResult
-    )
+    let ir = IR(compilationResult: compilationResult)
 
     try ApolloCodegen.generateFiles(
       compilationResult: compilationResult,
@@ -1039,10 +1027,7 @@ class ApolloCodegenTests: XCTestCase {
     // when
     let compilationResult = try ApolloCodegen.compileGraphQLResult(config)
 
-    let ir = IR(
-      schemaName: config.schemaName,
-      compilationResult: compilationResult
-    )
+    let ir = IR(compilationResult: compilationResult)
 
     try ApolloCodegen.generateFiles(
       compilationResult: compilationResult,
@@ -1141,10 +1126,7 @@ class ApolloCodegenTests: XCTestCase {
     // when
     let compilationResult = try ApolloCodegen.compileGraphQLResult(config)
 
-    let ir = IR(
-      schemaName: config.schemaName,
-      compilationResult: compilationResult
-    )
+    let ir = IR(compilationResult: compilationResult)
 
     try ApolloCodegen.generateFiles(
       compilationResult: compilationResult,

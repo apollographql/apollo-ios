@@ -17,14 +17,12 @@ class InputObjectTemplateTests: XCTestCase {
     documentation: String? = nil,
     config: ApolloCodegenConfiguration = .mock()
   ) {
-    let schema = IR.Schema(name: "TestSchema", referencedTypes: .init([]))
     subject = InputObjectTemplate(
       graphqlInputObject: GraphQLInputObjectType.mock(
         name,
         fields: fields,
         documentation: documentation
       ),
-      schema: schema,
       config: ApolloCodegen.ConfigurationContext(config: config)
     )
   }

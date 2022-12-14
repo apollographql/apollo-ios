@@ -4,14 +4,11 @@ import Foundation
 struct FragmentFileGenerator: FileGenerator {
   /// Source IR fragment.
   let irFragment: IR.NamedFragment
-  /// Source IR schema.
-  let schema: IR.Schema
   /// Shared codegen configuration.
   let config: ApolloCodegen.ConfigurationContext
   
   var template: TemplateRenderer { FragmentTemplate(
     fragment: irFragment,
-    schema: schema,
     config: config
   ) }
   var target: FileTarget { .fragment(irFragment.definition) }
