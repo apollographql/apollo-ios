@@ -417,4 +417,47 @@ class FragmentTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))
   }
 
+  // MARK: Casing
+
+  func test__casing__givenLowercasedSchemaName_generatesWithFirstUppercasedNamespace() throws {
+    // given
+    try buildSubjectAndFragment(config: .mock(schemaName: "mySchema"))
+
+    // then
+    let expected = """
+      struct TestFragment: MySchema.SelectionSet, Fragment {
+      """
+
+    let actual = renderSubject()
+
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test__casing__givenUppercasedSchemaName_generatesWithUppercasedNamespace() throws {
+    // given
+    try buildSubjectAndFragment(config: .mock(schemaName: "MY_SCHEMA"))
+
+    // then
+    let expected = """
+      struct TestFragment: MY_SCHEMA.SelectionSet, Fragment {
+      """
+
+    let actual = renderSubject()
+
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test__casing__givenCapitalizedSchemaName_generatesWithCapitalizedNamespace() throws {
+    // given
+    try buildSubjectAndFragment(config: .mock(schemaName: "MySchema"))
+
+    // then
+    let expected = """
+      struct TestFragment: MySchema.SelectionSet, Fragment {
+      """
+
+    let actual = renderSubject()
+
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
 }
