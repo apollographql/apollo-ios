@@ -19,7 +19,6 @@ class SchemaConfigurationTemplateTests: XCTestCase {
     config: ApolloCodegenConfiguration = ApolloCodegenConfiguration.mock(.swiftPackageManager)
   ) {
     subject = SchemaConfigurationTemplate(
-      schema: IR.Schema(name: name, referencedTypes: .init([])),
       config: ApolloCodegen.ConfigurationContext(config: config)
     )
   }

@@ -13,11 +13,9 @@ class InputObjectFileGeneratorTests: XCTestCase {
 
   // MARK: Test Helpers
 
-  private func buildSubject() {
-    let schema = IR.Schema(name: "TestSchema", referencedTypes: .init([]))    
+  private func buildSubject() { 
     subject = InputObjectFileGenerator(
       graphqlInputObject: graphqlInputObject,
-      schema: schema,
       config: ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration.mock())
     )
   }

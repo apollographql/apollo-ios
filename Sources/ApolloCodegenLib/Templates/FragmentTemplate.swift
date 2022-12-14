@@ -5,8 +5,6 @@ import Foundation
 struct FragmentTemplate: TemplateRenderer {
   /// IR representation of source [GraphQL Fragment](https://spec.graphql.org/draft/#sec-Language.Fragments).
   let fragment: IR.NamedFragment
-  /// IR representation of source GraphQL schema.
-  let schema: IR.Schema
 
   let config: ApolloCodegen.ConfigurationContext
 
@@ -23,7 +21,6 @@ struct FragmentTemplate: TemplateRenderer {
         ""\" }
 
       \(SelectionSetTemplate(
-        schema: schema,
         mutable: isMutable,
         config: config
       ).BodyTemplate(fragment.rootField.selectionSet))

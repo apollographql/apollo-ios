@@ -5,8 +5,6 @@ import Foundation
 struct InputObjectTemplate: TemplateRenderer {
   /// IR representation of source [GraphQL Input Object](https://spec.graphql.org/draft/#sec-Input-Objects).
   let graphqlInputObject: GraphQLInputObjectType
-  /// IR representation of a GraphQL schema.
-  let schema: IR.Schema
 
   let config: ApolloCodegen.ConfigurationContext
 

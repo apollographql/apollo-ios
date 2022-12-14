@@ -4,8 +4,6 @@ import Foundation
 struct OperationFileGenerator: FileGenerator {
   /// Source IR operation.
   let irOperation: IR.Operation
-  /// Source IR schema.
-  let schema: IR.Schema
   /// Shared codegen configuration
   let config: ApolloCodegen.ConfigurationContext
   
@@ -13,12 +11,10 @@ struct OperationFileGenerator: FileGenerator {
     irOperation.definition.isLocalCacheMutation ?
     LocalCacheMutationDefinitionTemplate(
       operation: irOperation,
-      schema: schema,
       config: config
     ) :
     OperationDefinitionTemplate(
       operation: irOperation,
-      schema: schema,
       config: config
     )
   }

@@ -46,7 +46,6 @@ class SelectionSetTemplateTests: XCTestCase {
       )
     )
     subject = SelectionSetTemplate(
-      schema: ir.schema,
       config: ApolloCodegen.ConfigurationContext(config: config)
     )
   }

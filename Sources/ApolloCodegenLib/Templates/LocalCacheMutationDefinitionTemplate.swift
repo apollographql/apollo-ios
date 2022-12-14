@@ -3,8 +3,6 @@ import OrderedCollections
 struct LocalCacheMutationDefinitionTemplate: OperationTemplateRenderer {
   /// IR representation of source [GraphQL Operation](https://spec.graphql.org/draft/#sec-Language.Operations).
   let operation: IR.Operation
-  /// IR representation of source GraphQL schema.
-  let schema: IR.Schema
 
   let config: ApolloCodegen.ConfigurationContext
 
@@ -23,7 +21,7 @@ struct LocalCacheMutationDefinitionTemplate: OperationTemplateRenderer {
 
       \(section: VariableAccessors(operation.definition.variables, graphQLOperation: false))
 
-      \(SelectionSetTemplate(schema: schema, mutable: true, config: config).render(for: operation))
+      \(SelectionSetTemplate(mutable: true, config: config).render(for: operation))
     }
     
     """)

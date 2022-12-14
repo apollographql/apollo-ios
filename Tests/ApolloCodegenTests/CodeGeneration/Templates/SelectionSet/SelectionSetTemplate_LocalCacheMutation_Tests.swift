@@ -34,7 +34,6 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
     let operationDefinition = try XCTUnwrap(ir.compilationResult[operation: operationName])
     operation = ir.build(operation: operationDefinition)
     subject = SelectionSetTemplate(
-      schema: ir.schema,
       mutable: true,
       config: .init(config: .mock(schemaName: schemaName))
     )
