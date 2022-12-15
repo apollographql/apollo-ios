@@ -433,6 +433,78 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     }
   }
 
+  func test_updateCacheMutationWithOptionalField_updateNestedField_updatesObjects() throws {
+    // given
+    struct GivenSelectionSet: MockMutableRootSelectionSet {
+      public var __data: DataDict = DataDict([:], variables: nil)
+      init(data: DataDict) { __data = data }
+
+      static var __selections: [Selection] { [
+        .field("hero", Hero.self)
+      ]}
+
+      var hero: Hero {
+        get { __data["hero"] }
+        set { __data["hero"] = newValue }
+      }
+
+      struct Hero: MockMutableRootSelectionSet {
+        public var __data: DataDict = DataDict([:], variables: nil)
+        init(data: DataDict) { __data = data }
+
+        static var __selections: [Selection] { [
+          .field("name", String.self),
+          .field("nickname", String?.self)
+        ]}
+
+        var name: String {
+          get { __data["name"] }
+          set { __data["name"] = newValue }
+        }
+
+        var nickname: String? {
+          get { __data["nickname"] }
+          set { __data["nickname"] = newValue }
+        }
+      }
+    }
+
+    let cacheMutation = MockLocalCacheMutation<GivenSelectionSet>()
+
+    mergeRecordsIntoCache([
+      "QUERY_ROOT": ["hero": CacheReference("QUERY_ROOT.hero")],
+      "QUERY_ROOT.hero": ["__typename": "Droid", "name": "R2-D2", "nickname": NSNull()]
+    ])
+
+    runActivity("update mutation") { _ in
+      let updateCompletedExpectation = expectation(description: "Update completed")
+
+      store.withinReadWriteTransaction({ transaction in
+        try transaction.update(cacheMutation) { data in
+          data.hero.name = "Artoo"
+        }
+      }, completion: { result in
+        defer { updateCompletedExpectation.fulfill() }        
+        XCTAssertSuccessResult(result)
+      })
+
+      self.wait(for: [updateCompletedExpectation], timeout: Self.defaultWaitTimeout)
+    }
+
+    let query = MockQuery<GivenSelectionSet>()
+
+    loadFromStore(operation: query) { result in
+      try XCTAssertSuccessResult(result) { graphQLResult in
+        XCTAssertEqual(graphQLResult.source, .cache)
+        XCTAssertNil(graphQLResult.errors)
+
+        let data = try XCTUnwrap(graphQLResult.data)
+        XCTAssertEqual(data.hero.name, "Artoo")
+        XCTAssertNil(data.hero.nickname)
+      }
+    }
+  }
+
   func test_updateCacheMutation_givenMutationOperation_updateNestedField_updatesObjectAtMutationRoot() throws {
     // given
     struct GivenSelectionSet: MockMutableRootSelectionSet {
