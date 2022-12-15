@@ -11,10 +11,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
 
   private static let executor: GraphQLExecutor = {
     let executor = GraphQLExecutor { object, info in
-      guard let value = object[info.responseKeyForField] else {
-        throw JSONDecodingError.missingValue
-      }
-      return value
+      return object[info.responseKeyForField]
     }
     executor.shouldComputeCachePath = false
     return executor

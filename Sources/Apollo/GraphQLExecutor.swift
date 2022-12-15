@@ -3,13 +3,8 @@ import Foundation
 import ApolloAPI
 #endif
 
-/// A field resolver is responsible for resolving a value for a field from a JSON object.
-///
-/// Because the field resolver should have context on the source of JSON object, it is responsible
-/// for knowing how to handle missing fields. It must either return a valid value or throw an error.
-/// If the object has no value for the field, the resolver can return `NSNull` or throw a
-/// `JSONDecodingError`.
-typealias GraphQLFieldResolver = (_ object: JSONObject, _ info: FieldExecutionInfo) throws -> JSONValue
+/// A field resolver is responsible for resolving a value for a field.
+typealias GraphQLFieldResolver = (_ object: JSONObject, _ info: FieldExecutionInfo) -> JSONValue?
 
 /// A reference resolver is responsible for resolving an object based on its key. These references are
 /// used in normalized records, and data for these objects has to be loaded from the cache for execution to continue.
@@ -313,7 +308,10 @@ final class GraphQLExecutor {
     }
 
     return PossiblyDeferred {
-      try fieldResolver(object, fieldInfo)
+      guard let value = fieldResolver(object, fieldInfo) else {
+        throw JSONDecodingError.missingValue
+      }
+      return value
     }.flatMap {
       return self.complete(fields: fieldInfo,
                            withValue: $0,

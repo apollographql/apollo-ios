@@ -184,17 +184,14 @@ public class ApolloStore {
     fileprivate let cache: NormalizedCache
 
     fileprivate lazy var loader: DataLoader<CacheKey, Record> = DataLoader(self.cache.loadRecords)
-    fileprivate lazy var readExecutor = GraphQLExecutor { object, info in
-      guard let value = object[info.cacheKeyForField] else {
-        throw JSONDecodingError.missingValue
+    fileprivate lazy var executor = GraphQLExecutor { object, info in
+        return object[info.cacheKeyForField]
+      } resolveReference: { [weak self] reference in
+        guard let self = self else {
+          return .immediate(.failure(ApolloStore.Error.notWithinReadTransaction))
+        }
+        return self.loadObject(forKey: reference.key)
       }
-      return value
-    } resolveReference: { [weak self] reference in
-      guard let self = self else {
-        return .immediate(.failure(ApolloStore.Error.notWithinReadTransaction))
-      }
-      return self.loadObject(forKey: reference.key)
-    }
 
     fileprivate init(store: ApolloStore) {
       self.cache = store.cache
@@ -229,7 +226,7 @@ public class ApolloStore {
     ) throws -> Accumulator.FinalResult {
       let object = try loadObject(forKey: key).get()
 
-      return try readExecutor.execute(
+      return try executor.execute(
         selectionSet: type,
         on: object,
         withRootCacheReference: CacheReference(key),
@@ -296,13 +293,7 @@ public class ApolloStore {
     ) throws {
       let normalizer = GraphQLResultNormalizer()
       let executor = GraphQLExecutor { object, info in
-        guard let value = object[info.responseKeyForField] else {
-          guard info.field.type.isNullable else {
-            throw JSONDecodingError.missingValue
-          }
-          return NSNull()
-        }
-        return value
+        return object[info.responseKeyForField]
       }
 
       let records = try executor.execute(

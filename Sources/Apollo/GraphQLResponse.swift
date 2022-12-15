@@ -41,10 +41,7 @@ public final class GraphQLResponse<Data: RootSelectionSet> {
     }
 
     let executor = GraphQLExecutor { object, info in
-      guard let value = object[info.responseKeyForField] else {
-        throw JSONDecodingError.missingValue
-      }
-      return value
+      return object[info.responseKeyForField]
     }
 
     executor.shouldComputeCachePath = computeCachePaths
