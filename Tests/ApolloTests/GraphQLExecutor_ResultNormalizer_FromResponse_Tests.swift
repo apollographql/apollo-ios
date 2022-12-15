@@ -9,7 +9,10 @@ class GraphQLExecutor_ResultNormalizer_FromResponse_Tests: XCTestCase {
 
   private static let executor: GraphQLExecutor = {
     let executor = GraphQLExecutor { object, info in
-      return object[info.responseKeyForField]
+      guard let value = object[info.responseKeyForField] else {
+        throw JSONDecodingError.missingValue
+      }
+      return value
     }
 
     executor.shouldComputeCachePath = true
