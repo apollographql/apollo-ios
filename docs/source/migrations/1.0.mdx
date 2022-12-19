@@ -36,11 +36,11 @@ In addition to your input objects and enum types, this module contains:
 - An editable `SchemaConfiguration.swift` file.
 - Metadata for the Apollo GraphQL executor.
 
-Schema types are contained in their own namespace to prevent naming conflicts. You can generate this namespace as a stand-alone module, imported by your project, or as a caseless namespace enum that you can embed in your target application.
+Schema types are contained in their own namespace to prevent naming conflicts. You can generate this namespace as a stand-alone module, imported by your project, or as a caseless namespace enum that you can embed in your application target.
 
 ### Multi-module support
 
-Apollo iOS 1.0 can support complex applications composed of multiple modules _and_ monolithic application targets.
+Apollo iOS 1.0 can support complex applications composed of multiple modules _or_ monolithic application targets.
 
 The [generated schema module](#generated-schema-module) supports multi-module projects by containing all of a schema's shared types and metadata. This enables you to move generated operation models anywhere within your project structure (as long as they are linked to the schema module).
 
@@ -54,7 +54,7 @@ Apollo iOS's code generation engine provides flexible configuration options that
 
 To migrate to Apollo iOS 1.0, you'll do the following:
 1. [Update your Apollo iOS dependency](#1-update-to-apollo-ios-10)
-2. [Setup code generation](#2-setup-code-generation)
+2. [Setup code generation](#2-set-up-code-generation)
 3. [Replace the code generation build phase](#3-replace-the-code-generation-build-phase)
 4. [Refactor your code to use new APIs](#4-refactor-your-code)
 
@@ -89,7 +89,7 @@ pod 'Apollo' ~> '1.0'
 
 ### Step 2: Set up code generation
 
-Apollo iOS 1.0 includes a new code generation engine, written in pure Swift code, replacing the legacy `apollo-tooling`. To use 1.0, you must install the new code generation engine and remove the old one.
+Apollo iOS 1.0 includes a new code generation engine, written in pure Swift code, replacing the legacy `apollo-tooling` library. To use 1.0, you must install the new code generation engine and remove the old one.
 
 We recommend running the new code generation engine using the Apollo Codegen CLI. You can also run code generation in a Swift script for more advanced usage.
 
@@ -125,8 +125,6 @@ Below are explanations for each [breaking change](#breaking-changes) that Apollo
 
 ### Custom scalars
 
-> If you _didn't_ define any custom scalar types or use the `--passthroughCustomScalars` code generation option, you can skip this step. 
-
 In the 0.x version of Apollo iOS, your schema's custom scalars are exposed as a `String` type field by default. If you used the `--passthroughCustomScalars` option, your generated models included the name of the custom scalar. You were responsible for defining the types passed through to your custom scalars.
 
 In Apollo iOS 1.0, operation models use custom scalar definitions, and by default, Apollo iOS generates `typealias` definitions for all referenced custom scalars. These definitions are within your schema module. The default implementation of all custom scalars is a `typealias` to `String`.
@@ -137,7 +135,7 @@ To migrate a custom scalar type to Apollo iOS 1.0, do the following:
 - Include the type in your schema module.
 - Ensure the type conforms to the [`CustomScalarType`](https://www.apollographql.com/docs/ios/docc/documentation/apolloapi/customscalartype) protocol.
 - Point the `typealias` definition to the new type.
-  - Or, if the type has the exact name of your custom scalar, remove `typealias`.
+  - Or, if the type has the exact name of your custom scalar, remove the `typealias` definition.
 
 > For more details on defining custom scalars, see [Custom Scalars](../custom-scalars).
 
@@ -274,7 +272,7 @@ store.withinReadWriteTransaction({ transaction in
 ```
 </CodeColumns>
 
-In Apollo iOS 1.0, you can rewrite this to using a new `LocalCacheMutation`:
+In Apollo iOS 1.0, you can rewrite this using a new `LocalCacheMutation`:
 
 <CodeColumns>
 
@@ -318,7 +316,7 @@ This new type requires you to indicate your input fields' value or nullability b
 
 While this API is slightly more verbose, it provides clarity and reduced bugs caused by unexpected behavior.
 
-> For a more examples and best practices using `GraphQLNullable`, see [Working with nullable arguments](./../fetching/operation-arguments#working-with-nullable-arguments).
+> For more examples and best practices using `GraphQLNullable`, see [Working with nullable arguments](./../fetching/operation-arguments#working-with-nullable-arguments).
 
 #### Example
 
