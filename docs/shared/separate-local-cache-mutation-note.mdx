@@ -4,6 +4,6 @@
 >
 > Fundamentally, this is because cache mutation models are *mutable*, whereas network response data is *immutable*. Cache mutations are designed to access and mutate only the data necessary. 
 >
-> If our cache mutation models were mutable, mutating them outside of a `ReadWriteTransaction` wouldn't persist any changes to the cache. Additionally, mutable data requires more generated code, and making mutable models for every operation could increase your total operation count twofold. By maintaining immutable models, we avoid this confusion and keep our operation count low.
+> If our cache mutation models were mutable, mutating them outside of a `ReadWriteTransaction` wouldn't persist any changes to the cache. Additionally, mutable data models require nearly double the generated code. By maintaining immutable models, we avoid this confusion and reduce our generated code.
 >
 > Avoid creating mutable versions of entire query operations. Instead, define mutable fragments or queries to mutate only the fields necessary.
