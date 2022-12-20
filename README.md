@@ -67,7 +67,6 @@ If you'd like to contribute, please refer to the [Apollo Contributor Guide](http
 - [@AnthonyMDev](https://github.com/AnthonyMDev)
 - [@calvincestari](https://github.com/calvincestari)
 - [@bignimbus](https://github.com/bignimbus)
-- [@jpvajda](https://github.com/jpvajda)
 
 ## Who is Apollo?
 
