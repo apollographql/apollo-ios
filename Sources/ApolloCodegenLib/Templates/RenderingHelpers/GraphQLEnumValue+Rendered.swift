@@ -24,19 +24,51 @@ extension GraphQLEnumValue.Name {
   }
 
   private func convertToCamelCase(_ value: String) -> String {
-    if value.allSatisfy({ $0.isUppercase }) {
-      // For `UPPERCASE`. e.g) UPPER -> upper, STARWARS -> starwards
-      return value.lowercased()
+    // Find the first non-underscore character
+    guard let firstNonUnderscore = value.firstIndex(where: { $0 != "_" }) else {
+      return value
     }
-    if value.contains("_") {
-      // For `snake_case`. e.g) snake_case -> snakeCase, UPPER_SNAKE_CASE -> upperSnakeCase
-      return value.split(separator: "_").enumerated().map { $0.offset == 0 ? $0.element.lowercased() : $0.element.capitalized }.joined()
+
+    // Find the last non-underscore character
+    var lastNonUnderscore = value.index(before: value.endIndex)
+    while lastNonUnderscore > firstNonUnderscore && value[lastNonUnderscore] == "_" {
+      value.formIndex(before: &lastNonUnderscore)
     }
-    if let firstChar = value.first, firstChar.isUppercase {
-      // For `UpperCamelCase`. e.g) UpperCamelCase -> upperCamelCase
-      return [firstChar.lowercased(), String(value.suffix(from: value.index(value.startIndex, offsetBy: 1)))].joined()
+
+    // Cater for leading and trailing underscore characters
+    let valueRange = firstNonUnderscore...lastNonUnderscore
+    let leadingUnderscoreRange = value.startIndex..<firstNonUnderscore
+    let trailingUnderscoreRange = value.index(after: lastNonUnderscore)..<value.endIndex
+
+    // Split inner string into 'words'
+    let components = value[valueRange].split(separator: "_")
+    let joinedString: String
+    if components.count == 1 {
+      // No underscore character found
+      if value.allSatisfy({ $0.isUppercase }) {
+        joinedString = String(value[valueRange]).lowercased()
+      } else {
+        joinedString = String(value[valueRange]).firstLowercased
+      }
+    } else {
+      joinedString = ([components[0].lowercased()] + components[1...].map { $0.capitalized }).joined()
     }
-    return value
+
+    // Do a cheap isEmpty check before creating and appending potentially empty strings
+    let result: String
+    if (leadingUnderscoreRange.isEmpty && trailingUnderscoreRange.isEmpty) {
+      result = joinedString
+    } else if (!leadingUnderscoreRange.isEmpty && !trailingUnderscoreRange.isEmpty) {
+      // Both leading and trailing underscores
+      result = String(value[leadingUnderscoreRange]) + joinedString + String(value[trailingUnderscoreRange])
+    } else if (!leadingUnderscoreRange.isEmpty) {
+      // Just leading
+      result = String(value[leadingUnderscoreRange]) + joinedString
+    } else {
+      // Just trailing
+      result = joinedString + String(value[trailingUnderscoreRange])
+    }
+    return result
   }
 
 }
