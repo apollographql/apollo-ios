@@ -23,6 +23,13 @@ extension GraphQLEnumValue.Name {
     }
   }
 
+  /// Convert to `camelCase` from `snake_case`, `UpperCamelCase`, or `UPPERCASE`.
+  ///
+  /// 1. Returns a first lowercased string
+  /// 1. Capitalizes the word starting after each `_`
+  /// 2. Removes all inner `_`
+  /// 3. Preserves leading and trailing `_`
+  /// 4. Converts an all uppercase string into all lowercase
   private func convertToCamelCase(_ value: String) -> String {
     // The source for this function is from the JSONDecoder implementation in Swift Foundation,
     // licensed under Apache License v2.0 with Runtime Library Exception. Modifications were made
