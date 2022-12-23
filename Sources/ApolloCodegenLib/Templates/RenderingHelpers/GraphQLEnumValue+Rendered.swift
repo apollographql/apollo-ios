@@ -24,6 +24,12 @@ extension GraphQLEnumValue.Name {
   }
 
   private func convertToCamelCase(_ value: String) -> String {
+    // The source for this function is from the JSONDecoder implementation in Swift Foundation,
+    // licensed under Apache License v2.0 with Runtime Library Exception. Modifications were made
+    // to the return when no underscore characters are found.
+    //
+    // See https://github.com/apple/swift-corelibs-foundation/blob/main/Sources/Foundation/JSONDecoder.swift
+
     // Find the first non-underscore character
     guard let firstNonUnderscore = value.firstIndex(where: { $0 != "_" }) else {
       return value
