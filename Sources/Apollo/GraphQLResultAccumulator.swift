@@ -10,6 +10,7 @@ protocol GraphQLResultAccumulator: AnyObject {
 
   func accept(scalar: JSONValue, info: FieldExecutionInfo) throws -> PartialResult
   func acceptNullValue(info: FieldExecutionInfo) throws -> PartialResult
+  func acceptMissingValue(info: FieldExecutionInfo) throws -> PartialResult
   func accept(list: [PartialResult], info: FieldExecutionInfo) throws -> PartialResult
   func accept(childObject: ObjectResult, info: FieldExecutionInfo) throws -> PartialResult
 

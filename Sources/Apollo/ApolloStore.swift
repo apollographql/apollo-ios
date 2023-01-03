@@ -101,9 +101,11 @@ public class ApolloStore {
   ///   - body: The body of the operation to perform.
   ///   - callbackQueue: [optional] The callback queue to use to perform the completion block on. Will perform on the current queue if not provided. Defaults to nil.
   ///   - completion: [optional] The completion block to perform when the read transaction completes. Defaults to nil.
-  public func withinReadTransaction<T>(_ body: @escaping (ReadTransaction) throws -> T,
-                                       callbackQueue: DispatchQueue? = nil,
-                                       completion: ((Result<T, Swift.Error>) -> Void)? = nil) {
+  public func withinReadTransaction<T>(
+    _ body: @escaping (ReadTransaction) throws -> T,
+    callbackQueue: DispatchQueue? = nil,
+    completion: ((Result<T, Swift.Error>) -> Void)? = nil
+  ) {
     self.queue.async {
       do {
         let returnValue = try body(ReadTransaction(store: self))
@@ -129,9 +131,11 @@ public class ApolloStore {
   ///   - body: The body of the operation to perform
   ///   - callbackQueue: [optional] a callback queue to perform the action on. Will perform on the current queue if not provided. Defaults to nil.
   ///   - completion: [optional] a completion block to fire when the read-write transaction completes. Defaults to nil.
-  public func withinReadWriteTransaction<T>(_ body: @escaping (ReadWriteTransaction) throws -> T,
-                                            callbackQueue: DispatchQueue? = nil,
-                                            completion: ((Result<T, Swift.Error>) -> Void)? = nil) {
+  public func withinReadWriteTransaction<T>(
+    _ body: @escaping (ReadWriteTransaction) throws -> T,
+    callbackQueue: DispatchQueue? = nil,
+    completion: ((Result<T, Swift.Error>) -> Void)? = nil
+  ) {
     self.queue.async(flags: .barrier) {
       do {
         let returnValue = try body(ReadWriteTransaction(store: self))
@@ -156,13 +160,17 @@ public class ApolloStore {
   /// - Parameters:
   ///   - query: The query to load results for
   ///   - resultHandler: The completion handler to execute on success or error
-  public func load<Operation: GraphQLOperation>(_ operation: Operation, callbackQueue: DispatchQueue? = nil, resultHandler: @escaping GraphQLResultHandler<Operation.Data>) {
+  public func load<Operation: GraphQLOperation>(
+    _ operation: Operation,
+    callbackQueue: DispatchQueue? = nil,
+    resultHandler: @escaping GraphQLResultHandler<Operation.Data>
+  ) {
     withinReadTransaction({ transaction in
       let (data, dependentKeys) = try transaction.readObject(
         ofType: Operation.Data.self,
         withKey: CacheReference.rootCacheReference(for: Operation.operationType).key,
         variables: operation.__variables,
-        accumulator: zip(GraphQLSelectionSetMapper<Operation.Data>(stripNullValues: true),
+        accumulator: zip(GraphQLSelectionSetMapper<Operation.Data>(),
                          GraphQLDependencyTracker())
       )
       
@@ -184,14 +192,14 @@ public class ApolloStore {
     fileprivate let cache: NormalizedCache
 
     fileprivate lazy var loader: DataLoader<CacheKey, Record> = DataLoader(self.cache.loadRecords)
-    fileprivate lazy var readExecutor = GraphQLExecutor { object, info in
-        return object[info.cacheKeyForField]
-      } resolveReference: { [weak self] reference in
-        guard let self = self else {
-          return .immediate(.failure(ApolloStore.Error.notWithinReadTransaction))
-        }
-        return self.loadObject(forKey: reference.key)
+    fileprivate lazy var executor = GraphQLExecutor { object, info in
+      return object[info.cacheKeyForField]
+    } resolveReference: { [weak self] reference in
+      guard let self = self else {
+        return .immediate(.failure(ApolloStore.Error.notWithinReadTransaction))
       }
+      return self.loadObject(forKey: reference.key)
+    }
 
     fileprivate init(store: ApolloStore) {
       self.cache = store.cache
@@ -214,7 +222,7 @@ public class ApolloStore {
         ofType: type,
         withKey: key,
         variables: variables,
-        accumulator: GraphQLSelectionSetMapper<SelectionSet>(stripNullValues: true)
+        accumulator: GraphQLSelectionSetMapper<SelectionSet>()
       )
     }
 
@@ -226,7 +234,7 @@ public class ApolloStore {
     ) throws -> Accumulator.FinalResult {
       let object = try loadObject(forKey: key).get()
 
-      return try readExecutor.execute(
+      return try executor.execute(
         selectionSet: type,
         on: object,
         withRootCacheReference: CacheReference(key),
@@ -235,7 +243,7 @@ public class ApolloStore {
       )
     }
     
-    private final func loadObject(forKey key: CacheKey) -> PossiblyDeferred<JSONObject> {
+    fileprivate final func loadObject(forKey key: CacheKey) -> PossiblyDeferred<JSONObject> {
       self.loader[key].map { record in
         guard let record = record else { throw JSONDecodingError.missingValue }
         return record.fields
@@ -270,9 +278,16 @@ public class ApolloStore {
       variables: GraphQLOperation.Variables? = nil,
       _ body: (inout SelectionSet) throws -> Void
     ) throws {
-      var object = try readObject(ofType: type,
-                                  withKey: key,
-                                  variables: variables)
+      var object = try readObject(
+        ofType: type,
+        withKey: key,
+        variables: variables,
+        accumulator: GraphQLSelectionSetMapper<SelectionSet>(
+          stripNullValues: false,
+          allowMissingValuesForOptionalFields: true
+        )
+      )
+
       try body(&object)
       try write(selectionSet: object, withKey: key, variables: variables)
     }

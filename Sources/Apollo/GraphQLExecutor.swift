@@ -308,10 +308,7 @@ final class GraphQLExecutor {
     }
 
     return PossiblyDeferred {
-      guard let value = fieldResolver(object, fieldInfo) else {
-        throw JSONDecodingError.missingValue
-      }
-      return value
+      fieldResolver(object, fieldInfo)
     }.flatMap {
       return self.complete(fields: fieldInfo,
                            withValue: $0,
@@ -329,7 +326,7 @@ final class GraphQLExecutor {
 
   private func complete<Accumulator: GraphQLResultAccumulator>(
     fields fieldInfo: FieldExecutionInfo,
-    withValue value: JSONValue,
+    withValue value: JSONValue?,
     accumulator: Accumulator
   ) -> PossiblyDeferred<Accumulator.PartialResult> {
     complete(fields: fieldInfo,
@@ -343,15 +340,20 @@ final class GraphQLExecutor {
   /// continues recursively.
   private func complete<Accumulator: GraphQLResultAccumulator>(
     fields fieldInfo: FieldExecutionInfo,
-    withValue value: JSONValue,
+    withValue value: JSONValue?,
     asType returnType: Selection.Field.OutputType,
     accumulator: Accumulator
   ) -> PossiblyDeferred<Accumulator.PartialResult> {
+    guard let value else {
+      return PossiblyDeferred { try accumulator.acceptMissingValue(info: fieldInfo) }
+    }
+
     if value is NSNull && returnType.isNullable {
       return PossiblyDeferred { try accumulator.acceptNullValue(info: fieldInfo) }
     }
 
     switch returnType {
+      // TODO: Should this be part of the accumulators?
     case .nonNull where value is NSNull:
         return .immediate(.failure(JSONDecodingError.nullValue))
 

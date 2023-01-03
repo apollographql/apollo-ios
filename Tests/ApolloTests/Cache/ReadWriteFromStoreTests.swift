@@ -510,7 +510,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
   /// While reading an optional field to execute a cache mutation, this is fine, but while reading the
   /// omitted optional field to execute a fetch from the cache onto a immutable selection set for a
   /// operation, this should throw a missing value error, indicating the cache miss.
-  func test_updateCacheMutationWithOptionalField_omittingOptionalField_updateNestedField_updatesObjectsMaintainingNilValue_throwsMissingVValueErrorOnRead() throws {
+  func test_updateCacheMutationWithOptionalField_omittingOptionalField_updateNestedField_updatesObjectsMaintainingNilValue_throwsMissingValueErrorOnRead() throws {
     // given
     struct GivenSelectionSet: MockMutableRootSelectionSet {
       public var __data: DataDict = DataDict([:], variables: nil)

@@ -6,9 +6,14 @@ import ApolloAPI
 final class GraphQLSelectionSetMapper<SelectionSet: AnySelectionSet>: GraphQLResultAccumulator {
 
   let stripNullValues: Bool
+  let allowMissingValuesForOptionalFields: Bool
 
-  init(stripNullValues: Bool) {
+  init(
+    stripNullValues: Bool = true,
+    allowMissingValuesForOptionalFields: Bool = false
+  ) {
     self.stripNullValues = stripNullValues
+    self.allowMissingValuesForOptionalFields = allowMissingValuesForOptionalFields
   }
 
   func accept(scalar: JSONValue, info: FieldExecutionInfo) throws -> JSONValue? {
@@ -25,6 +30,14 @@ final class GraphQLSelectionSetMapper<SelectionSet: AnySelectionSet>: GraphQLRes
 
   func acceptNullValue(info: FieldExecutionInfo) -> JSONValue? {
     return stripNullValues ? nil : NSNull()
+  }
+
+  func acceptMissingValue(info: FieldExecutionInfo) throws -> JSONValue? {
+    // TODO: only on optional field
+    guard allowMissingValuesForOptionalFields else {
+      throw JSONDecodingError.missingValue
+    }
+    return nil
   }
 
   func accept(list: [JSONValue?], info: FieldExecutionInfo) -> JSONValue? {
