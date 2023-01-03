@@ -125,6 +125,7 @@ class EnumTemplateTests: XCTestCase {
         ("_one_two_three_", nil, nil),
         ("camelCased", nil, nil),
         ("UpperCamelCase", nil, nil),
+        ("BEFORE2023", nil, nil),
 
         // Escaped keywords
         ("associatedtype", nil, nil),
@@ -196,6 +197,7 @@ class EnumTemplateTests: XCTestCase {
       case _oneTwoThree_ = "_one_two_three_"
       case camelCased = "camelCased"
       case upperCamelCase = "UpperCamelCase"
+      case before2023 = "BEFORE2023"
       case `associatedtype` = "associatedtype"
       case `class` = "class"
       case `deinit` = "deinit"
@@ -274,6 +276,7 @@ class EnumTemplateTests: XCTestCase {
         ("_one_two_three_", nil, nil),
         ("camelCased", nil, nil),
         ("UpperCamelCase", nil, nil),
+        ("BEFORE2023", nil, nil),
 
         // Escaped keywords
         ("associatedtype", nil, nil),
@@ -345,6 +348,7 @@ class EnumTemplateTests: XCTestCase {
       case _one_two_three_
       case camelCased
       case UpperCamelCase
+      case BEFORE2023
       case `associatedtype`
       case `class`
       case `deinit`

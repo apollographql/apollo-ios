@@ -57,11 +57,10 @@ extension GraphQLEnumValue.Name {
     let components = value[valueRange].split(separator: "_")
     let joinedString: String
     if components.count == 1 {
-      // No underscore character found
-      if value.allSatisfy({ $0.isUppercase }) {
-        joinedString = String(value[valueRange]).lowercased()
-      } else {
+      if value.firstIndex(where: { $0.isLowercase }) != nil {
         joinedString = String(value[valueRange]).firstLowercased
+      } else {
+        joinedString = String(value[valueRange]).lowercased()
       }
     } else {
       joinedString = ([components[0].lowercased()] + components[1...].map { $0.capitalized }).joined()
