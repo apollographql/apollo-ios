@@ -433,7 +433,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     }
   }
 
-  func test_updateCacheMutationWithOptionalField_updateNestedField_updatesObjects() throws {
+  func test_updateCacheMutationWithOptionalField_containingNull_updateNestedField_updatesObjectsMaintainingNullValue() throws {
     // given
     struct GivenSelectionSet: MockMutableRootSelectionSet {
       public var __data: DataDict = DataDict([:], variables: nil)
@@ -502,6 +502,76 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
         XCTAssertEqual(data.hero.name, "Artoo")
         XCTAssertNil(data.hero.nickname)
       }
+    }
+  }
+
+  /// The 'nickname' field is currently a cache miss, as it has never been fetched. We want to be able
+  /// to successfully mutate the 'name' field, but the 'nickname' field should still be a cache miss.
+  /// While reading an optional field to execute a cache mutation, this is fine, but while reading the
+  /// omitted optional field to execute a fetch from the cache onto a immutable selection set for a
+  /// operation, this should throw a missing value error, indicating the cache miss.
+  func test_updateCacheMutationWithOptionalField_omittingOptionalField_updateNestedField_updatesObjectsMaintainingNilValue_throwsMissingVValueErrorOnRead() throws {
+    // given
+    struct GivenSelectionSet: MockMutableRootSelectionSet {
+      public var __data: DataDict = DataDict([:], variables: nil)
+      init(data: DataDict) { __data = data }
+
+      static var __selections: [Selection] { [
+        .field("hero", Hero.self)
+      ]}
+
+      var hero: Hero {
+        get { __data["hero"] }
+        set { __data["hero"] = newValue }
+      }
+
+      struct Hero: MockMutableRootSelectionSet {
+        public var __data: DataDict = DataDict([:], variables: nil)
+        init(data: DataDict) { __data = data }
+
+        static var __selections: [Selection] { [
+          .field("name", String.self),
+          .field("nickname", String?.self)
+        ]}
+
+        var name: String {
+          get { __data["name"] }
+          set { __data["name"] = newValue }
+        }
+
+        var nickname: String? {
+          get { __data["nickname"] }
+          set { __data["nickname"] = newValue }
+        }
+      }
+    }
+
+    let cacheMutation = MockLocalCacheMutation<GivenSelectionSet>()
+
+    mergeRecordsIntoCache([
+      "QUERY_ROOT": ["hero": CacheReference("QUERY_ROOT.hero")],
+      "QUERY_ROOT.hero": ["__typename": "Droid", "name": "R2-D2"]
+    ])
+
+    runActivity("update mutation") { _ in
+      let updateCompletedExpectation = expectation(description: "Update completed")
+
+      store.withinReadWriteTransaction({ transaction in
+        try transaction.update(cacheMutation) { data in
+          data.hero.name = "Artoo"
+        }
+      }, completion: { result in
+        defer { updateCompletedExpectation.fulfill() }
+        XCTAssertSuccessResult(result)
+      })
+
+      self.wait(for: [updateCompletedExpectation], timeout: Self.defaultWaitTimeout)
+    }
+
+    let query = MockQuery<GivenSelectionSet>()
+
+    loadFromStore(operation: query) { result in
+      expectJSONMissingValueError(result, atPath: ["hero", "nickname"])
     }
   }
 
@@ -1907,8 +1977,8 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
 // MARK: Helpers
 
-fileprivate func expectJSONMissingValueError(
-  _ result: Result<(), Error>,
+fileprivate func expectJSONMissingValueError<T>(
+  _ result: Result<T, Error>,
   atPath path: ResponsePath,
   file: FileString = #file, line: UInt = #line
 ) {

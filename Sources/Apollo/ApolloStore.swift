@@ -162,7 +162,7 @@ public class ApolloStore {
         ofType: Operation.Data.self,
         withKey: CacheReference.rootCacheReference(for: Operation.operationType).key,
         variables: operation.__variables,
-        accumulator: zip(GraphQLSelectionSetMapper<Operation.Data>(),
+        accumulator: zip(GraphQLSelectionSetMapper<Operation.Data>(stripNullValues: true),
                          GraphQLDependencyTracker())
       )
       
@@ -184,7 +184,7 @@ public class ApolloStore {
     fileprivate let cache: NormalizedCache
 
     fileprivate lazy var loader: DataLoader<CacheKey, Record> = DataLoader(self.cache.loadRecords)
-    fileprivate lazy var executor = GraphQLExecutor { object, info in
+    fileprivate lazy var readExecutor = GraphQLExecutor { object, info in
         return object[info.cacheKeyForField]
       } resolveReference: { [weak self] reference in
         guard let self = self else {
@@ -214,7 +214,7 @@ public class ApolloStore {
         ofType: type,
         withKey: key,
         variables: variables,
-        accumulator: GraphQLSelectionSetMapper<SelectionSet>()
+        accumulator: GraphQLSelectionSetMapper<SelectionSet>(stripNullValues: true)
       )
     }
 
@@ -226,7 +226,7 @@ public class ApolloStore {
     ) throws -> Accumulator.FinalResult {
       let object = try loadObject(forKey: key).get()
 
-      return try executor.execute(
+      return try readExecutor.execute(
         selectionSet: type,
         on: object,
         withRootCacheReference: CacheReference(key),
