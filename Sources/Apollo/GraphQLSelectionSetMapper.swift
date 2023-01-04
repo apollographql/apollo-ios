@@ -2,6 +2,8 @@
 import ApolloAPI
 #endif
 
+import Foundation
+
 /// An accumulator that converts executed data to the correct values to create a `SelectionSet`.
 final class GraphQLSelectionSetMapper<SelectionSet: AnySelectionSet>: GraphQLResultAccumulator {
 
@@ -32,7 +34,7 @@ final class GraphQLSelectionSetMapper<SelectionSet: AnySelectionSet>: GraphQLRes
     return stripNullValues ? nil : NSNull()
   }
 
-  func acceptMissingValue(info: FieldExecutionInfo) throws -> JSONValue? {  
+  func acceptMissingValue(info: FieldExecutionInfo) throws -> JSONValue? {
     guard allowMissingValuesForOptionalFields && info.field.type.isNullable else {
       throw JSONDecodingError.missingValue
     }
