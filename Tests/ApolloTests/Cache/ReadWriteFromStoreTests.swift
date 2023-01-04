@@ -575,6 +575,65 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     }
   }
 
+  func test_updateCacheMutationWithNonNullField_withNilValue_updateNestedField_throwsMissingValueOnInitialReadForUpdate() throws {
+    // given
+    struct GivenSelectionSet: MockMutableRootSelectionSet {
+      public var __data: DataDict = DataDict([:], variables: nil)
+      init(data: DataDict) { __data = data }
+
+      static var __selections: [Selection] { [
+        .field("hero", Hero.self)
+      ]}
+
+      var hero: Hero {
+        get { __data["hero"] }
+        set { __data["hero"] = newValue }
+      }
+
+      struct Hero: MockMutableRootSelectionSet {
+        public var __data: DataDict = DataDict([:], variables: nil)
+        init(data: DataDict) { __data = data }
+
+        static var __selections: [Selection] { [
+          .field("name", String.self),
+          .field("nickname", String.self)
+        ]}
+
+        var name: String {
+          get { __data["name"] }
+          set { __data["name"] = newValue }
+        }
+
+        var nickname: String {
+          get { __data["nickname"] }
+          set { __data["nickname"] = newValue }
+        }
+      }
+    }
+
+    let cacheMutation = MockLocalCacheMutation<GivenSelectionSet>()
+
+    mergeRecordsIntoCache([
+      "QUERY_ROOT": ["hero": CacheReference("QUERY_ROOT.hero")],
+      "QUERY_ROOT.hero": ["__typename": "Droid", "name": "R2-D2"]
+    ])
+
+    runActivity("update mutation") { _ in
+      let updateCompletedExpectation = expectation(description: "Update completed")
+
+      store.withinReadWriteTransaction({ transaction in
+        try transaction.update(cacheMutation) { data in
+          data.hero.name = "Artoo"
+        }
+      }, completion: { result in
+        defer { updateCompletedExpectation.fulfill() }
+        expectJSONMissingValueError(result, atPath: ["hero", "nickname"])
+      })
+
+      self.wait(for: [updateCompletedExpectation], timeout: Self.defaultWaitTimeout)
+    }
+  }
+
   func test_updateCacheMutation_givenMutationOperation_updateNestedField_updatesObjectAtMutationRoot() throws {
     // given
     struct GivenSelectionSet: MockMutableRootSelectionSet {
@@ -1311,7 +1370,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
         .field("hero", Hero.self)
       ]}
 
-      var hero: Hero? {
+      var hero: Hero {
         get { __data["hero"] }
         set { __data["hero"] = newValue }
       }
@@ -1321,7 +1380,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
         init(data: DataDict) { __data = data }
 
         static var __selections: [Selection] { [
-          .field("name", String.self)
+          .field("name", String?.self)
         ]}
 
         var name: String? {
@@ -1335,7 +1394,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     let writeCompletedExpectation = expectation(description: "Write completed")
 
     store.withinReadWriteTransaction({ transaction in
-      let data = GivenSelectionSet(data: DataDict([:], variables: nil))
+      let data = GivenSelectionSet(data: DataDict(["hero": "name"], variables: nil))
       let cacheMutation = MockLocalCacheMutation<GivenSelectionSet>()
       try transaction.write(data: data, for: cacheMutation)
     }, completion: { result in
@@ -1344,7 +1403,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       XCTAssertFailureResult(result) { error in
         if let error = error as? GraphQLExecutionError {
           XCTAssertEqual(error.path, ["hero"])
-          XCTAssertMatch(error.underlying, JSONDecodingError.missingValue)
+          XCTAssertMatch(error.underlying, JSONDecodingError.wrongType)
         } else {
           XCTFail("Unexpected error: \(error)")
         }

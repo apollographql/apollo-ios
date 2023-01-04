@@ -52,6 +52,11 @@ final class Zip2Accumulator<Accumulator1: GraphQLResultAccumulator, Accumulator2
             try accumulator2.acceptNullValue(info: info))
   }
 
+  func acceptMissingValue(info: FieldExecutionInfo) throws -> PartialResult {
+    return (try accumulator1.acceptMissingValue(info: info),
+            try accumulator2.acceptMissingValue(info: info))
+  }
+
   func accept(list: [PartialResult], info: FieldExecutionInfo) throws -> PartialResult {
     let (list1, list2) = unzip(list)
     return (try accumulator1.accept(list: list1, info: info),
@@ -109,6 +114,12 @@ final class Zip3Accumulator<Accumulator1: GraphQLResultAccumulator, Accumulator2
     return (try accumulator1.acceptNullValue(info: info),
             try accumulator2.acceptNullValue(info: info),
             try accumulator3.acceptNullValue(info: info))
+  }
+
+  func acceptMissingValue(info: FieldExecutionInfo) throws -> PartialResult {
+    return (try accumulator1.acceptMissingValue(info: info),
+            try accumulator2.acceptMissingValue(info: info),
+            try accumulator3.acceptMissingValue(info: info))
   }
 
   func accept(list: [PartialResult], info: FieldExecutionInfo) throws -> PartialResult {

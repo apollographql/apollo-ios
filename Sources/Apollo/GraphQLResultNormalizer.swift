@@ -6,23 +6,28 @@ import ApolloAPI
 final class GraphQLResultNormalizer: GraphQLResultAccumulator {
   private var records: RecordSet = [:]
 
-  func accept(scalar: JSONValue, info: FieldExecutionInfo) -> JSONValue {
+  func accept(scalar: JSONValue, info: FieldExecutionInfo) -> JSONValue? {
     return scalar
   }
 
-  func acceptNullValue(info: FieldExecutionInfo) -> JSONValue {
+  func acceptNullValue(info: FieldExecutionInfo) -> JSONValue? {
     return NSNull()
   }
 
-  func accept(list: [JSONValue], info: FieldExecutionInfo) -> JSONValue {
+  func acceptMissingValue(info: FieldExecutionInfo) -> JSONValue? {
+    return nil
+  }
+
+  func accept(list: [JSONValue?], info: FieldExecutionInfo) -> JSONValue? {
     return list
   }
 
-  func accept(childObject: CacheReference, info: FieldExecutionInfo) throws -> JSONValue {
+  func accept(childObject: CacheReference, info: FieldExecutionInfo) -> JSONValue? {
     return childObject
   }
 
-  func accept(fieldEntry: JSONValue, info: FieldExecutionInfo) -> (key: String, value: JSONValue)? {
+  func accept(fieldEntry: JSONValue?, info: FieldExecutionInfo) -> (key: String, value: JSONValue)? {
+    guard let fieldEntry else { return nil }
     return (info.cacheKeyForField, fieldEntry)
   }
 

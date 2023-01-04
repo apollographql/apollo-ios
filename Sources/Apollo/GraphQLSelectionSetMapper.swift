@@ -32,9 +32,8 @@ final class GraphQLSelectionSetMapper<SelectionSet: AnySelectionSet>: GraphQLRes
     return stripNullValues ? nil : NSNull()
   }
 
-  func acceptMissingValue(info: FieldExecutionInfo) throws -> JSONValue? {
-    // TODO: only on optional field
-    guard allowMissingValuesForOptionalFields else {
+  func acceptMissingValue(info: FieldExecutionInfo) throws -> JSONValue? {  
+    guard allowMissingValuesForOptionalFields && info.field.type.isNullable else {
       throw JSONDecodingError.missingValue
     }
     return nil

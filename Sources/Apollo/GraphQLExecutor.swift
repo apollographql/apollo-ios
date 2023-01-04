@@ -353,7 +353,6 @@ final class GraphQLExecutor {
     }
 
     switch returnType {
-      // TODO: Should this be part of the accumulators?
     case .nonNull where value is NSNull:
         return .immediate(.failure(JSONDecodingError.nullValue))
 
