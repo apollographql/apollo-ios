@@ -110,14 +110,24 @@ class EnumTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
-  func test_render_givenCaseConversionStrategy_camelCase_generatesSwiftEnum_convertedToCamelCase() {
+  func test_render_givenOption_caseConversionStrategy_camelCase_generatesSwiftEnumValues_convertedToCamelCase() {
     // given
     buildSubject(
       name: "casedEnum",
       values: [
-        ("lower", nil, nil),
-        ("UPPER", nil, nil),
+        // Mixed case
+        ("lowercase", nil, nil),
+        ("UPPERCASE", nil, nil),
         ("Capitalized", nil, nil),
+        ("snake_case", nil, nil),
+        ("UPPER_SNAKE_CASE", nil, nil),
+        ("_1", nil, nil),
+        ("_one_two_three_", nil, nil),
+        ("camelCased", nil, nil),
+        ("UpperCamelCase", nil, nil),
+        ("BEFORE2023", nil, nil),
+
+        // Escaped keywords
         ("associatedtype", nil, nil),
         ("class", nil, nil),
         ("deinit", nil, nil),
@@ -170,14 +180,24 @@ class EnumTemplateTests: XCTestCase {
         ("throws", nil, nil),
         ("true", nil, nil),
         ("try", nil, nil),
-      ]
+      ],
+      config: .mock(
+        options: .init(conversionStrategies: .init(enumCases: .camelCase))
+      )
     )
 
     let expected = """
     enum CasedEnum: String, EnumType {
-      case lower = "lower"
-      case upper = "UPPER"
+      case lowercase = "lowercase"
+      case uppercase = "UPPERCASE"
       case capitalized = "Capitalized"
+      case snakeCase = "snake_case"
+      case upperSnakeCase = "UPPER_SNAKE_CASE"
+      case _1 = "_1"
+      case _oneTwoThree_ = "_one_two_three_"
+      case camelCased = "camelCased"
+      case upperCamelCase = "UpperCamelCase"
+      case before2023 = "BEFORE2023"
       case `associatedtype` = "associatedtype"
       case `class` = "class"
       case `deinit` = "deinit"
@@ -241,14 +261,24 @@ class EnumTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected))
   }
 
-  func test_render_givenSchemaEnum_noneConveersionStrategies_generatesSwiftEnumRespectingValueCasing() throws {
+  func test_render_givenOption_caseConversionStrategy_none_generatesSwiftEnumValues_respectingSchemaValueCasing() throws {
     // given
     buildSubject(
       name: "casedEnum",
       values: [
-        ("lower", nil, nil),
-        ("UPPER", nil, nil),
+        // Mixed case
+        ("lowercase", nil, nil),
+        ("UPPERCASE", nil, nil),
         ("Capitalized", nil, nil),
+        ("snake_case", nil, nil),
+        ("UPPER_SNAKE_CASE", nil, nil),
+        ("_1", nil, nil),
+        ("_one_two_three_", nil, nil),
+        ("camelCased", nil, nil),
+        ("UpperCamelCase", nil, nil),
+        ("BEFORE2023", nil, nil),
+
+        // Escaped keywords
         ("associatedtype", nil, nil),
         ("class", nil, nil),
         ("deinit", nil, nil),
@@ -309,9 +339,16 @@ class EnumTemplateTests: XCTestCase {
 
     let expected = """
     enum CasedEnum: String, EnumType {
-      case lower
-      case UPPER
+      case lowercase
+      case UPPERCASE
       case Capitalized
+      case snake_case
+      case UPPER_SNAKE_CASE
+      case _1
+      case _one_two_three_
+      case camelCased
+      case UpperCamelCase
+      case BEFORE2023
       case `associatedtype`
       case `class`
       case `deinit`

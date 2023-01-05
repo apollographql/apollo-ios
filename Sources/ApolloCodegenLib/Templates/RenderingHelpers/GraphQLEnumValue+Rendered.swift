@@ -23,20 +23,23 @@ extension GraphQLEnumValue.Name {
     }
   }
 
+  /// Convert to `camelCase` from a number of different `snake_case` variants.
+  ///
+  /// All inner `_` characters will be removed, each 'word' will be capitalized, returning a final
+  /// firstLowercased string while preserving original leading and trailing `_` characters.
   private func convertToCamelCase(_ value: String) -> String {
-    if value.allSatisfy({ $0.isUppercase }) {
-      // For `UPPERCASE`. e.g) UPPER -> upper, STARWARS -> starwards
-      return value.lowercased()
+    guard value.firstIndex(of: "_") != nil else {
+      if value.firstIndex(where: { $0.isLowercase }) != nil {
+        return value.firstLowercased
+      } else {
+        return value.lowercased()
+      }
     }
-    if value.contains("_") {
-      // For `snake_case`. e.g) snake_case -> snakeCase, UPPER_SNAKE_CASE -> upperSnakeCase
-      return value.split(separator: "_").enumerated().map { $0.offset == 0 ? $0.element.lowercased() : $0.element.capitalized }.joined()
-    }
-    if let firstChar = value.first, firstChar.isUppercase {
-      // For `UpperCamelCase`. e.g) UpperCamelCase -> upperCamelCase
-      return [firstChar.lowercased(), String(value.suffix(from: value.index(value.startIndex, offsetBy: 1)))].joined()
-    }
-    return value
+
+    return value.components(separatedBy: "_")
+      .map({ $0.isEmpty ? "_" : $0.capitalized })
+      .joined()
+      .firstLowercased
   }
 
 }
