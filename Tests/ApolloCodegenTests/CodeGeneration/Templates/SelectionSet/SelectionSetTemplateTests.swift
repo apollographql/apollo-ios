@@ -31,7 +31,8 @@ class SelectionSetTemplateTests: XCTestCase {
     configOutput: ApolloCodegenConfiguration.FileOutput = .mock(),
     inflectionRules: [ApolloCodegenLib.InflectionRule] = [],
     schemaDocumentation: ApolloCodegenConfiguration.Composition = .exclude,
-    warningsOnDeprecatedUsage: ApolloCodegenConfiguration.Composition = .exclude
+    warningsOnDeprecatedUsage: ApolloCodegenConfiguration.Composition = .exclude,
+    cocoapodsImportStatements: Bool = false
   ) throws {
     ir = try .mock(schema: schemaSDL, document: document)
     let operationDefinition = try XCTUnwrap(ir.compilationResult[operation: operationName])
@@ -42,6 +43,7 @@ class SelectionSetTemplateTests: XCTestCase {
       options: .init(
         additionalInflectionRules: inflectionRules,
         schemaDocumentation: schemaDocumentation,
+        cocoapodsCompatibleImportStatements: cocoapodsImportStatements,
         warningsOnDeprecatedUsage: warningsOnDeprecatedUsage
       )
     )
@@ -108,7 +110,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var __parentType: ParentType { TestSchema.Objects.Animal }
+      public static var __parentType: ApolloAPI.ParentType { TestSchema.Objects.Animal }
     """
 
     // when
@@ -145,7 +147,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var __parentType: ParentType { TestSchema.Interfaces.Animal }
+      public static var __parentType: ApolloAPI.ParentType { TestSchema.Interfaces.Animal }
     """
 
     // when
@@ -185,7 +187,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var __parentType: ParentType { TestSchema.Unions.Animal }
+      public static var __parentType: ApolloAPI.ParentType { TestSchema.Unions.Animal }
     """
 
     // when
@@ -200,7 +202,85 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
   }
 
+  func test__render_parentType__givenCocoapodsImportStatements_true_rendersParentTypeWithApolloNamespace() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Dog {
+      species: String!
+    }
+
+    union Animal = Dog
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        ... on Dog {
+          species
+        }
+      }
+    }
+    """
+
+    let expected = """
+      public static var __parentType: Apollo.ParentType { TestSchema.Unions.Animal }
+    """
+
+    // when
+    try buildSubjectAndOperation(cocoapodsImportStatements: true)
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
+  }
+
   // MARK: - Selections
+
+  func test__render_selections__givenCocoapodsImportStatements_true_rendersSelectionsWithApolloNamespace() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      FieldName: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        FieldName
+      }
+    }
+    """
+
+    let expected = """
+      public static var __selections: [Apollo.Selection] { [
+        .field("FieldName", String.self),
+      ] }
+    """
+
+    // when
+    try buildSubjectAndOperation(cocoapodsImportStatements: true)
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
+  }
 
   func test__render_selections__givenNilDirectSelections_doesNotRenderSelections() throws {
     // given
@@ -238,7 +318,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var __parentType: ParentType { TestSchema.Objects.Nested }
+      public static var __parentType: ApolloAPI.ParentType { TestSchema.Objects.Nested }
     
     """
 
@@ -325,7 +405,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var __selections: [Selection] { [
+      public static var __selections: [ApolloAPI.Selection] { [
         .field("string", String.self),
         .field("string_optional", String?.self),
         .field("int", Int.self),
@@ -397,7 +477,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expectedWithNamespace = """
-      public static var __selections: [Selection] { [
+      public static var __selections: [ApolloAPI.Selection] { [
         .field("custom", TestSchema.Custom.self),
         .field("custom_optional", TestSchema.Custom?.self),
         .field("custom_required_list", [TestSchema.Custom].self),
@@ -407,7 +487,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expectedNoNamespace = """
-      public static var __selections: [Selection] { [
+      public static var __selections: [ApolloAPI.Selection] { [
         .field("custom", Custom.self),
         .field("custom_optional", Custom?.self),
         .field("custom_required_list", [Custom].self),
@@ -479,7 +559,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expectedNoNamespace = """
-      public static var __selections: [Selection] { [
+      public static var __selections: [ApolloAPI.Selection] { [
         .field("testEnum", GraphQLEnum<TestEnum>.self),
         .field("testEnumOptional", GraphQLEnum<TestEnumOptional>?.self),
         .field("lowercaseEnum", GraphQLEnum<LowercaseEnum>.self),
@@ -487,7 +567,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expectedWithNamespace = """
-      public static var __selections: [Selection] { [
+      public static var __selections: [ApolloAPI.Selection] { [
         .field("testEnum", GraphQLEnum<TestSchema.TestEnum>.self),
         .field("testEnumOptional", GraphQLEnum<TestSchema.TestEnumOptional>?.self),
         .field("lowercaseEnum", GraphQLEnum<TestSchema.LowercaseEnum>.self),
@@ -541,7 +621,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var __selections: [Selection] { [
+      public static var __selections: [ApolloAPI.Selection] { [
         .field("FieldName", String.self),
       ] }
     """
@@ -579,7 +659,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var __selections: [Selection] { [
+      public static var __selections: [ApolloAPI.Selection] { [
         .field("string", alias: "aliased", String.self),
       ] }
     """
@@ -628,7 +708,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var __selections: [Selection] { [
+      public static var __selections: [ApolloAPI.Selection] { [
         .field("predator", Predator.self),
         .field("lowercaseType", LowercaseType.self),
       ] }
@@ -773,7 +853,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var __selections: [Selection] { [
+      public static var __selections: [ApolloAPI.Selection] { [
         .field("associatedtype", String.self),
         .field("class", String.self),
         .field("deinit", String.self),
@@ -870,7 +950,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var __selections: [Selection] { [
+      public static var __selections: [ApolloAPI.Selection] { [
         .field("_oneUnderscore", _OneUnderscore.self),
         .field("__twoUnderscore", __TwoUnderscore.self),
       ] }
@@ -972,7 +1052,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var __selections: [Selection] { [
+      public static var __selections: [ApolloAPI.Selection] { [
         .field("self", Self_SelectionSet.self),
         .field("parentType", ParentType_SelectionSet.self),
         .field("dataDict", DataDict_SelectionSet.self),
@@ -1027,7 +1107,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var __selections: [Selection] { [
+      public static var __selections: [ApolloAPI.Selection] { [
         .field("string", alias: "aliased", String.self, arguments: ["variable": 3]),
       ] }
     """
@@ -1065,7 +1145,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var __selections: [Selection] { [
+      public static var __selections: [ApolloAPI.Selection] { [
         .field("string", alias: "aliased", String.self, arguments: ["variable": .null]),
       ] }
     """
@@ -1103,7 +1183,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var __selections: [Selection] { [
+      public static var __selections: [ApolloAPI.Selection] { [
         .field("string", alias: "aliased", String.self, arguments: ["variable": .variable("var")]),
       ] }
     """
@@ -1172,7 +1252,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var __selections: [Selection] { [
+      public static var __selections: [ApolloAPI.Selection] { [
         .field("string", alias: "aliased", String.self, arguments: ["input": [
           "string": "ABCD",
           "int": 3,
@@ -1236,7 +1316,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var __selections: [Selection] { [
+      public static var __selections: [ApolloAPI.Selection] { [
         .inlineFragment(AsPet.self),
         .inlineFragment(AsLowercaseInterface.self),
       ] }
@@ -1287,7 +1367,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var __selections: [Selection] { [
+      public static var __selections: [ApolloAPI.Selection] { [
         .fragment(FragmentA.self),
         .fragment(LowercaseFragment.self),
       ] }
@@ -1328,7 +1408,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var __selections: [Selection] { [
+      public static var __selections: [ApolloAPI.Selection] { [
         .include(if: "a", .field("fieldName", String.self)),
       ] }
     """
@@ -1366,7 +1446,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var __selections: [Selection] { [
+      public static var __selections: [ApolloAPI.Selection] { [
         .include(if: !"b", .field("fieldName", String.self)),
       ] }
     """
@@ -1404,7 +1484,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var __selections: [Selection] { [
+      public static var __selections: [ApolloAPI.Selection] { [
         .include(if: !"b" && "a", .field("fieldName", String.self)),
       ] }
     """
@@ -1445,7 +1525,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var __selections: [Selection] { [
+      public static var __selections: [ApolloAPI.Selection] { [
         .include(if: (!"b" && "a") || !"c" || ("d" && !"e") || "f", .field("fieldName", String.self)),
       ] }
     """
@@ -1497,7 +1577,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var __selections: [Selection] { [
+      public static var __selections: [ApolloAPI.Selection] { [
         .include(if: "a", [
           .field("fieldA", String.self),
           .field("fieldB", String.self),
@@ -1550,7 +1630,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var __selections: [Selection] { [
+      public static var __selections: [ApolloAPI.Selection] { [
         .include(if: "a", .inlineFragment(AsPet.self)),
       ] }
     """
@@ -1594,7 +1674,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var __selections: [Selection] { [
+      public static var __selections: [ApolloAPI.Selection] { [
         .include(if: "a", .inlineFragment(IfA.self)),
       ] }
     """
@@ -1642,7 +1722,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var __selections: [Selection] { [
+      public static var __selections: [ApolloAPI.Selection] { [
         .fragment(FragmentA.self),
       ] }
     """
@@ -4458,8 +4538,8 @@ class SelectionSetTemplateTests: XCTestCase {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { TestSchema.Objects.Badge }
-        public static var __selections: [Selection] { [
+        public static var __parentType: ApolloAPI.ParentType { TestSchema.Objects.Badge }
+        public static var __selections: [ApolloAPI.Selection] { [
           .field("a", String?.self),
         ] }
 
@@ -4471,8 +4551,8 @@ class SelectionSetTemplateTests: XCTestCase {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { TestSchema.Objects.ProductBadge }
-        public static var __selections: [Selection] { [
+        public static var __parentType: ApolloAPI.ParentType { TestSchema.Objects.ProductBadge }
+        public static var __selections: [ApolloAPI.Selection] { [
           .field("b", String?.self),
         ] }
 
@@ -4532,8 +4612,8 @@ class SelectionSetTemplateTests: XCTestCase {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { TestSchema.Objects.Badge }
-        public static var __selections: [Selection] { [
+        public static var __parentType: ApolloAPI.ParentType { TestSchema.Objects.Badge }
+        public static var __selections: [ApolloAPI.Selection] { [
           .field("a", String?.self),
         ] }
 
@@ -4545,8 +4625,8 @@ class SelectionSetTemplateTests: XCTestCase {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { TestSchema.Objects.ProductBadge }
-        public static var __selections: [Selection] { [
+        public static var __parentType: ApolloAPI.ParentType { TestSchema.Objects.ProductBadge }
+        public static var __selections: [ApolloAPI.Selection] { [
           .field("b", String?.self),
         ] }
 
@@ -5592,7 +5672,7 @@ class SelectionSetTemplateTests: XCTestCase {
 
     let expected = """
       #warning("Argument 'species' of field 'friend' is deprecated. Reason: 'Who cares?'")
-      public static var __selections: [Selection] { [
+      public static var __selections: [ApolloAPI.Selection] { [
         .field("friend", Friend?.self, arguments: [
           "name": .variable("name"),
           "species": .variable("species")
@@ -5638,7 +5718,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var __selections: [Selection] { [
+      public static var __selections: [ApolloAPI.Selection] { [
         .field("friend", Friend?.self, arguments: [
           "name": .variable("name"),
           "species": .variable("species")
@@ -5689,7 +5769,7 @@ class SelectionSetTemplateTests: XCTestCase {
     let expected = """
       #warning("Argument 'name' of field 'friend' is deprecated. Reason: 'Someone broke it.'"),
       #warning("Argument 'species' of field 'friend' is deprecated. Reason: 'Who cares?'")
-      public static var __selections: [Selection] { [
+      public static var __selections: [ApolloAPI.Selection] { [
         .field("friend", Friend?.self, arguments: [
           "name": .variable("name"),
           "species": .variable("species")
@@ -5738,7 +5818,7 @@ class SelectionSetTemplateTests: XCTestCase {
     let expected = """
       #warning("Argument 'name' of field 'friend' is deprecated. Reason: 'Someone broke it.'"),
       #warning("Argument 'species' of field 'species' is deprecated. Reason: 'Redundant'")
-      public static var __selections: [Selection] { [
+      public static var __selections: [ApolloAPI.Selection] { [
         .field("friend", Friend?.self, arguments: ["name": .variable("name")]),
         .field("species", String?.self, arguments: ["species": .variable("species")]),
       ] }
