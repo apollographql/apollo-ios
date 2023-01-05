@@ -8,14 +8,14 @@ public class HeroDetailsFragmentConditionalInclusionQuery: GraphQLQuery {
   public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
     operationIdentifier: "b0fa7927ff93b4a579c3460fb04d093072d34c8018e41197c7e080aeeec5e19b",
     definition: .init(
-      """
+      #"""
       query HeroDetailsFragmentConditionalInclusion($includeDetails: Boolean!) {
         hero {
           __typename
           ...HeroDetails @include(if: $includeDetails)
         }
       }
-      """,
+      """#,
       fragments: [HeroDetails.self]
     ))
 
@@ -31,8 +31,8 @@ public class HeroDetailsFragmentConditionalInclusionQuery: GraphQLQuery {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { StarWarsAPI.Objects.Query }
-    public static var __selections: [Selection] { [
+    public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Query }
+    public static var __selections: [ApolloAPI.Selection] { [
       .field("hero", Hero?.self),
     ] }
 
@@ -45,8 +45,8 @@ public class HeroDetailsFragmentConditionalInclusionQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { StarWarsAPI.Interfaces.Character }
-      public static var __selections: [Selection] { [
+      public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
+      public static var __selections: [ApolloAPI.Selection] { [
         .include(if: "includeDetails", .fragment(HeroDetails.self)),
       ] }
 
@@ -66,7 +66,7 @@ public class HeroDetailsFragmentConditionalInclusionQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { StarWarsAPI.Interfaces.Character }
+        public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
 
         /// The name of the character
         public var name: String { __data["name"] }

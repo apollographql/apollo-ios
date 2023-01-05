@@ -8,7 +8,7 @@ public class HeroNameAndAppearsInQuery: GraphQLQuery {
   public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
     operationIdentifier: "f714414a2002404f9943490c8cc9c1a7b8ecac3ca229fa5a326186b43c1385ce",
     definition: .init(
-      """
+      #"""
       query HeroNameAndAppearsIn($episode: Episode) {
         hero(episode: $episode) {
           __typename
@@ -16,7 +16,7 @@ public class HeroNameAndAppearsInQuery: GraphQLQuery {
           appearsIn
         }
       }
-      """
+      """#
     ))
 
   public var episode: GraphQLNullable<GraphQLEnum<Episode>>
@@ -31,8 +31,8 @@ public class HeroNameAndAppearsInQuery: GraphQLQuery {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { StarWarsAPI.Objects.Query }
-    public static var __selections: [Selection] { [
+    public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Query }
+    public static var __selections: [ApolloAPI.Selection] { [
       .field("hero", Hero?.self, arguments: ["episode": .variable("episode")]),
     ] }
 
@@ -45,8 +45,8 @@ public class HeroNameAndAppearsInQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { StarWarsAPI.Interfaces.Character }
-      public static var __selections: [Selection] { [
+      public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
+      public static var __selections: [ApolloAPI.Selection] { [
         .field("name", String.self),
         .field("appearsIn", [GraphQLEnum<Episode>?].self),
       ] }

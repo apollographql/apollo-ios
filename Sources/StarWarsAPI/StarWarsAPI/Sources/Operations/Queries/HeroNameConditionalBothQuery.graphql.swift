@@ -8,14 +8,14 @@ public class HeroNameConditionalBothQuery: GraphQLQuery {
   public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
     operationIdentifier: "66f4dc124b6374b1912b22a2a208e34a4b1997349402a372b95bcfafc7884064",
     definition: .init(
-      """
+      #"""
       query HeroNameConditionalBoth($skipName: Boolean!, $includeName: Boolean!) {
         hero {
           __typename
           name @skip(if: $skipName) @include(if: $includeName)
         }
       }
-      """
+      """#
     ))
 
   public var skipName: Bool
@@ -38,8 +38,8 @@ public class HeroNameConditionalBothQuery: GraphQLQuery {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { StarWarsAPI.Objects.Query }
-    public static var __selections: [Selection] { [
+    public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Query }
+    public static var __selections: [ApolloAPI.Selection] { [
       .field("hero", Hero?.self),
     ] }
 
@@ -52,8 +52,8 @@ public class HeroNameConditionalBothQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { StarWarsAPI.Interfaces.Character }
-      public static var __selections: [Selection] { [
+      public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
+      public static var __selections: [ApolloAPI.Selection] { [
         .include(if: !"skipName" && "includeName", .field("name", String.self)),
       ] }
 

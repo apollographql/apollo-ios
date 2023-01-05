@@ -8,7 +8,7 @@ public class TwoHeroesQuery: GraphQLQuery {
   public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
     operationIdentifier: "b868fa9c48f19b8151c08c09f46831e3b9cd09f5c617d328647de785244b52bb",
     definition: .init(
-      """
+      #"""
       query TwoHeroes {
         r2: hero {
           __typename
@@ -19,7 +19,7 @@ public class TwoHeroesQuery: GraphQLQuery {
           name
         }
       }
-      """
+      """#
     ))
 
   public init() {}
@@ -28,8 +28,8 @@ public class TwoHeroesQuery: GraphQLQuery {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { StarWarsAPI.Objects.Query }
-    public static var __selections: [Selection] { [
+    public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Query }
+    public static var __selections: [ApolloAPI.Selection] { [
       .field("hero", alias: "r2", R2?.self),
       .field("hero", alias: "luke", Luke?.self, arguments: ["episode": "EMPIRE"]),
     ] }
@@ -44,8 +44,8 @@ public class TwoHeroesQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { StarWarsAPI.Interfaces.Character }
-      public static var __selections: [Selection] { [
+      public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
+      public static var __selections: [ApolloAPI.Selection] { [
         .field("name", String.self),
       ] }
 
@@ -60,8 +60,8 @@ public class TwoHeroesQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { StarWarsAPI.Interfaces.Character }
-      public static var __selections: [Selection] { [
+      public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
+      public static var __selections: [ApolloAPI.Selection] { [
         .field("name", String.self),
       ] }
 

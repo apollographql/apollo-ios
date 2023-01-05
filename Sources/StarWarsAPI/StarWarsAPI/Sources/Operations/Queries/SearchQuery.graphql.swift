@@ -8,7 +8,7 @@ public class SearchQuery: GraphQLQuery {
   public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
     operationIdentifier: "477b77c476899915498a56ae7bb835667b1e875cb94f6daa7f75e05018be2c3a",
     definition: .init(
-      """
+      #"""
       query Search($term: String) {
         search(text: $term) {
           __typename
@@ -29,7 +29,7 @@ public class SearchQuery: GraphQLQuery {
           }
         }
       }
-      """
+      """#
     ))
 
   public var term: GraphQLNullable<String>
@@ -44,8 +44,8 @@ public class SearchQuery: GraphQLQuery {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { StarWarsAPI.Objects.Query }
-    public static var __selections: [Selection] { [
+    public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Query }
+    public static var __selections: [ApolloAPI.Selection] { [
       .field("search", [Search?]?.self, arguments: ["text": .variable("term")]),
     ] }
 
@@ -58,8 +58,8 @@ public class SearchQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { StarWarsAPI.Unions.SearchResult }
-      public static var __selections: [Selection] { [
+      public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Unions.SearchResult }
+      public static var __selections: [ApolloAPI.Selection] { [
         .inlineFragment(AsHuman.self),
         .inlineFragment(AsDroid.self),
         .inlineFragment(AsStarship.self),
@@ -76,8 +76,8 @@ public class SearchQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { StarWarsAPI.Objects.Human }
-        public static var __selections: [Selection] { [
+        public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Human }
+        public static var __selections: [ApolloAPI.Selection] { [
           .field("id", ID.self),
           .field("name", String.self),
         ] }
@@ -95,8 +95,8 @@ public class SearchQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { StarWarsAPI.Objects.Droid }
-        public static var __selections: [Selection] { [
+        public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Droid }
+        public static var __selections: [ApolloAPI.Selection] { [
           .field("id", ID.self),
           .field("name", String.self),
         ] }
@@ -114,8 +114,8 @@ public class SearchQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { StarWarsAPI.Objects.Starship }
-        public static var __selections: [Selection] { [
+        public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Starship }
+        public static var __selections: [ApolloAPI.Selection] { [
           .field("id", ID.self),
           .field("name", String.self),
         ] }

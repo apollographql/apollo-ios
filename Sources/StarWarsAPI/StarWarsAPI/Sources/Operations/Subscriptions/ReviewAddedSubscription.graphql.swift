@@ -8,7 +8,7 @@ public class ReviewAddedSubscription: GraphQLSubscription {
   public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
     operationIdentifier: "38644c5e7cf4fd506b91d2e7010cabf84e63dfcd33cf1deb443b4b32b55e2cbe",
     definition: .init(
-      """
+      #"""
       subscription ReviewAdded($episode: Episode) {
         reviewAdded(episode: $episode) {
           __typename
@@ -17,7 +17,7 @@ public class ReviewAddedSubscription: GraphQLSubscription {
           commentary
         }
       }
-      """
+      """#
     ))
 
   public var episode: GraphQLNullable<GraphQLEnum<Episode>>
@@ -32,8 +32,8 @@ public class ReviewAddedSubscription: GraphQLSubscription {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { StarWarsAPI.Objects.Subscription }
-    public static var __selections: [Selection] { [
+    public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Subscription }
+    public static var __selections: [ApolloAPI.Selection] { [
       .field("reviewAdded", ReviewAdded?.self, arguments: ["episode": .variable("episode")]),
     ] }
 
@@ -46,8 +46,8 @@ public class ReviewAddedSubscription: GraphQLSubscription {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { StarWarsAPI.Objects.Review }
-      public static var __selections: [Selection] { [
+      public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Review }
+      public static var __selections: [ApolloAPI.Selection] { [
         .field("episode", GraphQLEnum<Episode>?.self),
         .field("stars", Int.self),
         .field("commentary", String?.self),
