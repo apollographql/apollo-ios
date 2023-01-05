@@ -13,6 +13,10 @@ final class GraphQLDependencyTracker: GraphQLResultAccumulator {
     dependentKeys.insert(info.cachePath.joined)
   }
 
+  func acceptMissingValue(info: FieldExecutionInfo) throws -> () {
+    dependentKeys.insert(info.cachePath.joined)
+  }
+
   func accept(list: [Void], info: FieldExecutionInfo) {
     dependentKeys.insert(info.cachePath.joined)
   }

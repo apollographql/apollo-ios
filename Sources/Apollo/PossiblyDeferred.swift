@@ -69,7 +69,7 @@ enum PossiblyDeferred<Value> {
     }
   }
   
-  /// Returns a new possibly deferred  result, mapping any success value using the given
+  /// Returns a new possibly deferred result, mapping any success value using the given
   /// transformation and unwrapping the produced result.
   ///
   /// Use this method to avoid a nested result when your transformation
