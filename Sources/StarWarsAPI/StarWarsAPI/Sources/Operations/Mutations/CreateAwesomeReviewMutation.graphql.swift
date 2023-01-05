@@ -8,7 +8,7 @@ public class CreateAwesomeReviewMutation: GraphQLMutation {
   public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
     operationIdentifier: "4a1250de93ebcb5cad5870acf15001112bf27bb963e8709555b5ff67a1405374",
     definition: .init(
-      """
+      #"""
       mutation CreateAwesomeReview {
         createReview(episode: JEDI, review: {stars: 10, commentary: "This is awesome!"}) {
           __typename
@@ -16,7 +16,7 @@ public class CreateAwesomeReviewMutation: GraphQLMutation {
           commentary
         }
       }
-      """
+      """#
     ))
 
   public init() {}
@@ -25,8 +25,8 @@ public class CreateAwesomeReviewMutation: GraphQLMutation {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { StarWarsAPI.Objects.Mutation }
-    public static var __selections: [Selection] { [
+    public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Mutation }
+    public static var __selections: [ApolloAPI.Selection] { [
       .field("createReview", CreateReview?.self, arguments: [
         "episode": "JEDI",
         "review": [
@@ -45,8 +45,8 @@ public class CreateAwesomeReviewMutation: GraphQLMutation {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { StarWarsAPI.Objects.Review }
-      public static var __selections: [Selection] { [
+      public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Review }
+      public static var __selections: [ApolloAPI.Selection] { [
         .field("stars", Int.self),
         .field("commentary", String?.self),
       ] }

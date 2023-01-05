@@ -8,14 +8,14 @@ public class HeroAppearsInWithFragmentQuery: GraphQLQuery {
   public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
     operationIdentifier: "1756158bd7736d58db45a48d74a724fa1b6fdac735376df8afac8318ba5431fb",
     definition: .init(
-      """
+      #"""
       query HeroAppearsInWithFragment($episode: Episode) {
         hero(episode: $episode) {
           __typename
           ...CharacterAppearsIn
         }
       }
-      """,
+      """#,
       fragments: [CharacterAppearsIn.self]
     ))
 
@@ -31,8 +31,8 @@ public class HeroAppearsInWithFragmentQuery: GraphQLQuery {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { StarWarsAPI.Objects.Query }
-    public static var __selections: [Selection] { [
+    public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Query }
+    public static var __selections: [ApolloAPI.Selection] { [
       .field("hero", Hero?.self, arguments: ["episode": .variable("episode")]),
     ] }
 
@@ -45,8 +45,8 @@ public class HeroAppearsInWithFragmentQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { StarWarsAPI.Interfaces.Character }
-      public static var __selections: [Selection] { [
+      public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
+      public static var __selections: [ApolloAPI.Selection] { [
         .fragment(CharacterAppearsIn.self),
       ] }
 

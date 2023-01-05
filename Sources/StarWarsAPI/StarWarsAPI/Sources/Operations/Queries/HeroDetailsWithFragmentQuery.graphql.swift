@@ -8,14 +8,14 @@ public class HeroDetailsWithFragmentQuery: GraphQLQuery {
   public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
     operationIdentifier: "b55bd9d56d1b5972345412b6adb88ceb64d6086c8051d2588d8ab701f0ee7c2f",
     definition: .init(
-      """
+      #"""
       query HeroDetailsWithFragment($episode: Episode) {
         hero(episode: $episode) {
           __typename
           ...HeroDetails
         }
       }
-      """,
+      """#,
       fragments: [HeroDetails.self]
     ))
 
@@ -31,8 +31,8 @@ public class HeroDetailsWithFragmentQuery: GraphQLQuery {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { StarWarsAPI.Objects.Query }
-    public static var __selections: [Selection] { [
+    public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Query }
+    public static var __selections: [ApolloAPI.Selection] { [
       .field("hero", Hero?.self, arguments: ["episode": .variable("episode")]),
     ] }
 
@@ -45,8 +45,8 @@ public class HeroDetailsWithFragmentQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { StarWarsAPI.Interfaces.Character }
-      public static var __selections: [Selection] { [
+      public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
+      public static var __selections: [ApolloAPI.Selection] { [
         .fragment(HeroDetails.self),
       ] }
 
@@ -70,7 +70,7 @@ public class HeroDetailsWithFragmentQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { StarWarsAPI.Objects.Human }
+        public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Human }
 
         /// The name of the character
         public var name: String { __data["name"] }
@@ -92,7 +92,7 @@ public class HeroDetailsWithFragmentQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { StarWarsAPI.Objects.Droid }
+        public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Droid }
 
         /// The name of the character
         public var name: String { __data["name"] }

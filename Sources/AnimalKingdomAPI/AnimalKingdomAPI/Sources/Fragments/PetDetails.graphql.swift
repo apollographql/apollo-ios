@@ -19,8 +19,8 @@ public struct PetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
   public let __data: DataDict
   public init(data: DataDict) { __data = data }
 
-  public static var __parentType: ParentType { AnimalKingdomAPI.Interfaces.Pet }
-  public static var __selections: [Selection] { [
+  public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Interfaces.Pet }
+  public static var __selections: [ApolloAPI.Selection] { [
     .field("humanName", String?.self),
     .field("favoriteToy", String.self),
     .field("owner", Owner?.self),
@@ -37,8 +37,8 @@ public struct PetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { AnimalKingdomAPI.Objects.Human }
-    public static var __selections: [Selection] { [
+    public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Objects.Human }
+    public static var __selections: [ApolloAPI.Selection] { [
       .field("firstName", String.self),
     ] }
 

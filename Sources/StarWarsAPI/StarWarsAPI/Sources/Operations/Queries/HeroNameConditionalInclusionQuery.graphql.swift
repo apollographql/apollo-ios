@@ -8,14 +8,14 @@ public class HeroNameConditionalInclusionQuery: GraphQLQuery {
   public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
     operationIdentifier: "338081aea3acc83d04af0741ecf0da1ec2ee8e6468a88383476b681015905ef8",
     definition: .init(
-      """
+      #"""
       query HeroNameConditionalInclusion($includeName: Boolean!) {
         hero {
           __typename
           name @include(if: $includeName)
         }
       }
-      """
+      """#
     ))
 
   public var includeName: Bool
@@ -30,8 +30,8 @@ public class HeroNameConditionalInclusionQuery: GraphQLQuery {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { StarWarsAPI.Objects.Query }
-    public static var __selections: [Selection] { [
+    public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Query }
+    public static var __selections: [ApolloAPI.Selection] { [
       .field("hero", Hero?.self),
     ] }
 
@@ -44,8 +44,8 @@ public class HeroNameConditionalInclusionQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { StarWarsAPI.Interfaces.Character }
-      public static var __selections: [Selection] { [
+      public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
+      public static var __selections: [ApolloAPI.Selection] { [
         .include(if: "includeName", .field("name", String.self)),
       ] }
 

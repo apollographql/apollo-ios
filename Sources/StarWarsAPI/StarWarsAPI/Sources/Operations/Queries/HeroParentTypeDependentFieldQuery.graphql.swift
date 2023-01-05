@@ -8,7 +8,7 @@ public class HeroParentTypeDependentFieldQuery: GraphQLQuery {
   public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
     operationIdentifier: "39eb41b5a9477c36fa529c23d6f0de6ebcc0312daf5bdcfe208d5baec752dc5b",
     definition: .init(
-      """
+      #"""
       query HeroParentTypeDependentField($episode: Episode) {
         hero(episode: $episode) {
           __typename
@@ -37,7 +37,7 @@ public class HeroParentTypeDependentFieldQuery: GraphQLQuery {
           }
         }
       }
-      """
+      """#
     ))
 
   public var episode: GraphQLNullable<GraphQLEnum<Episode>>
@@ -52,8 +52,8 @@ public class HeroParentTypeDependentFieldQuery: GraphQLQuery {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { StarWarsAPI.Objects.Query }
-    public static var __selections: [Selection] { [
+    public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Query }
+    public static var __selections: [ApolloAPI.Selection] { [
       .field("hero", Hero?.self, arguments: ["episode": .variable("episode")]),
     ] }
 
@@ -66,8 +66,8 @@ public class HeroParentTypeDependentFieldQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { StarWarsAPI.Interfaces.Character }
-      public static var __selections: [Selection] { [
+      public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
+      public static var __selections: [ApolloAPI.Selection] { [
         .field("name", String.self),
         .inlineFragment(AsHuman.self),
         .inlineFragment(AsDroid.self),
@@ -86,8 +86,8 @@ public class HeroParentTypeDependentFieldQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { StarWarsAPI.Objects.Human }
-        public static var __selections: [Selection] { [
+        public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Human }
+        public static var __selections: [ApolloAPI.Selection] { [
           .field("friends", [Friend?]?.self),
         ] }
 
@@ -103,8 +103,8 @@ public class HeroParentTypeDependentFieldQuery: GraphQLQuery {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public static var __parentType: ParentType { StarWarsAPI.Interfaces.Character }
-          public static var __selections: [Selection] { [
+          public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
+          public static var __selections: [ApolloAPI.Selection] { [
             .field("name", String.self),
             .inlineFragment(AsHuman.self),
           ] }
@@ -121,8 +121,8 @@ public class HeroParentTypeDependentFieldQuery: GraphQLQuery {
             public let __data: DataDict
             public init(data: DataDict) { __data = data }
 
-            public static var __parentType: ParentType { StarWarsAPI.Objects.Human }
-            public static var __selections: [Selection] { [
+            public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Human }
+            public static var __selections: [ApolloAPI.Selection] { [
               .field("height", Double?.self, arguments: ["unit": "FOOT"]),
             ] }
 
@@ -141,8 +141,8 @@ public class HeroParentTypeDependentFieldQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { StarWarsAPI.Objects.Droid }
-        public static var __selections: [Selection] { [
+        public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Droid }
+        public static var __selections: [ApolloAPI.Selection] { [
           .field("friends", [Friend?]?.self),
         ] }
 
@@ -158,8 +158,8 @@ public class HeroParentTypeDependentFieldQuery: GraphQLQuery {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public static var __parentType: ParentType { StarWarsAPI.Interfaces.Character }
-          public static var __selections: [Selection] { [
+          public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
+          public static var __selections: [ApolloAPI.Selection] { [
             .field("name", String.self),
             .inlineFragment(AsHuman.self),
           ] }
@@ -176,8 +176,8 @@ public class HeroParentTypeDependentFieldQuery: GraphQLQuery {
             public let __data: DataDict
             public init(data: DataDict) { __data = data }
 
-            public static var __parentType: ParentType { StarWarsAPI.Objects.Human }
-            public static var __selections: [Selection] { [
+            public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Human }
+            public static var __selections: [ApolloAPI.Selection] { [
               .field("height", Double?.self, arguments: ["unit": "METER"]),
             ] }
 

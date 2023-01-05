@@ -8,7 +8,7 @@ public class StarshipQuery: GraphQLQuery {
   public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
     operationIdentifier: "a3734516185da9919e3e66d74fe92b60d65292a1943dc54913f7332637dfdd2a",
     definition: .init(
-      """
+      #"""
       query Starship {
         starship(id: 3000) {
           __typename
@@ -16,7 +16,7 @@ public class StarshipQuery: GraphQLQuery {
           coordinates
         }
       }
-      """
+      """#
     ))
 
   public init() {}
@@ -25,8 +25,8 @@ public class StarshipQuery: GraphQLQuery {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { StarWarsAPI.Objects.Query }
-    public static var __selections: [Selection] { [
+    public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Query }
+    public static var __selections: [ApolloAPI.Selection] { [
       .field("starship", Starship?.self, arguments: ["id": 3000]),
     ] }
 
@@ -39,8 +39,8 @@ public class StarshipQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { StarWarsAPI.Objects.Starship }
-      public static var __selections: [Selection] { [
+      public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Starship }
+      public static var __selections: [ApolloAPI.Selection] { [
         .field("name", String.self),
         .field("coordinates", [[Double]]?.self),
       ] }

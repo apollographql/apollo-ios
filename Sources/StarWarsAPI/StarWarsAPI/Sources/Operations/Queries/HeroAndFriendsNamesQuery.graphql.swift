@@ -8,7 +8,7 @@ public class HeroAndFriendsNamesQuery: GraphQLQuery {
   public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
     operationIdentifier: "fe3f21394eb861aa515c4d582e645469045793c9cbbeca4b5d4ce4d7dd617556",
     definition: .init(
-      """
+      #"""
       query HeroAndFriendsNames($episode: Episode) {
         hero(episode: $episode) {
           __typename
@@ -19,7 +19,7 @@ public class HeroAndFriendsNamesQuery: GraphQLQuery {
           }
         }
       }
-      """
+      """#
     ))
 
   public var episode: GraphQLNullable<GraphQLEnum<Episode>>
@@ -34,8 +34,8 @@ public class HeroAndFriendsNamesQuery: GraphQLQuery {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { StarWarsAPI.Objects.Query }
-    public static var __selections: [Selection] { [
+    public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Query }
+    public static var __selections: [ApolloAPI.Selection] { [
       .field("hero", Hero?.self, arguments: ["episode": .variable("episode")]),
     ] }
 
@@ -48,8 +48,8 @@ public class HeroAndFriendsNamesQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { StarWarsAPI.Interfaces.Character }
-      public static var __selections: [Selection] { [
+      public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
+      public static var __selections: [ApolloAPI.Selection] { [
         .field("name", String.self),
         .field("friends", [Friend?]?.self),
       ] }
@@ -66,8 +66,8 @@ public class HeroAndFriendsNamesQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { StarWarsAPI.Interfaces.Character }
-        public static var __selections: [Selection] { [
+        public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
+        public static var __selections: [ApolloAPI.Selection] { [
           .field("name", String.self),
         ] }
 
