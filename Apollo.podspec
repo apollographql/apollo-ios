@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name = 'Apollo'
   s.version = `scripts/get-version.sh`
-  s.author = 'Meteor Development Group'
+  s.author = 'Apollo GraphQL'
   s.homepage = 'https://github.com/apollographql/apollo-ios'
   s.license = { :type => 'MIT', :file => 'LICENSE' }
   s.summary = "A GraphQL client for iOS, written in Swift."
