@@ -2169,10 +2169,8 @@ class ApolloCodegenTests: XCTestCase {
       ), rootURL: nil)
 
       // then
-      expect(try ApolloCodegen.validate(
-        schemaName: configContext.schemaName,
-        compilationResult: CompilationResult.mock()))
-      .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaName)))
+      expect(try ApolloCodegen.validate(config: configContext))
+        .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaName)))
     }
   }
 

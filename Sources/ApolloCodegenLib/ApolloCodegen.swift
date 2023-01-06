@@ -132,6 +132,12 @@ public class ApolloCodegen {
 
   /// Performs validation against deterministic errors that will cause code generation to fail.
   static func validate(config: ConfigurationContext) throws {
+    guard
+      !SwiftKeywords.DisallowedSchemaNamespaceNames.contains(config.schemaName.lowercased())
+    else {
+      throw Error.schemaNameConflict(name: config.schemaName)
+    }
+
     if case .swiftPackage = config.output.testMocks,
         config.output.schemaTypes.moduleType != .swiftPackageManager {
       throw Error.testMocksInvalidSwiftPackageConfiguration
@@ -162,7 +168,6 @@ public class ApolloCodegen {
 
   static func validate(schemaName: String, compilationResult: CompilationResult) throws {
     guard
-      !SwiftKeywords.DisallowedSchemaNamespaceNames.contains(schemaName.lowercased()),
       !compilationResult.referencedTypes.contains(where: { namedType in
         namedType.swiftName == schemaName.firstUppercased
       }),
