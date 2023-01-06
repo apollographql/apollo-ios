@@ -2158,6 +2158,24 @@ class ApolloCodegenTests: XCTestCase {
     }
   }
 
+  func test__validation__givenSchemaName_matchingDisallowedSchemaNamespaceName_shouldThrow() throws {
+    // given
+    let disallowedNames = ["schema", "Schema", "ApolloAPI", "apolloapi"]
+
+    // when
+    for name in disallowedNames {
+      let configContext = ApolloCodegen.ConfigurationContext(config: .mock(
+        schemaName: name
+      ), rootURL: nil)
+
+      // then
+      expect(try ApolloCodegen.validate(
+        schemaName: configContext.schemaName,
+        compilationResult: CompilationResult.mock()))
+      .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaName)))
+    }
+  }
+
   func test__validation__givenUniqueSchemaName_shouldNotThrow() throws {
     // given
     let object = GraphQLObjectType.mock("MockObject")

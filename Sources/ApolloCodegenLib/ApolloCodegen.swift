@@ -38,8 +38,8 @@ public class ApolloCodegen {
           """
       case let .schemaNameConflict(name):
         return """
-          Schema name \(name) conflicts with name of a type in your GraphQL schema. Please \
-          choose a different schema name. Suggestions: \(name)Schema, \(name)GraphQL, \(name)API
+          Schema name '\(name)' conflicts with name of a type in the generated code. Please choose \
+          a different schema name. Suggestions: \(name)Schema, \(name)GraphQL, \(name)API.
           """
       case .cannotLoadSchema:
         return "A GraphQL schema could not be found. Please verify the schema search paths."
@@ -162,6 +162,7 @@ public class ApolloCodegen {
 
   static func validate(schemaName: String, compilationResult: CompilationResult) throws {
     guard
+      !SwiftKeywords.DisallowedSchemaNamespaceNames.contains(schemaName.lowercased()),
       !compilationResult.referencedTypes.contains(where: { namedType in
         namedType.swiftName == schemaName.firstUppercased
       }),

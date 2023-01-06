@@ -45,6 +45,10 @@ enum SwiftKeywords {
     "self", "_"
   ]
 
+  static let DisallowedSchemaNamespaceNames: Set<String> = [
+    "schema", "apolloapi"
+  ]
+
   static let SelectionSetTypeNamesToSuffix: Set<String> = [
     "Any",
     "DataDict",
