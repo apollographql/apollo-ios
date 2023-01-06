@@ -46,7 +46,7 @@ enum SwiftKeywords {
   ]
 
   static let DisallowedSchemaNamespaceNames: Set<String> = [
-    "schema"
+    "schema", "apolloapi"
   ]
 
   static let SelectionSetTypeNamesToSuffix: Set<String> = [

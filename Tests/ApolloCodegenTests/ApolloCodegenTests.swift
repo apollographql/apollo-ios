@@ -2160,7 +2160,7 @@ class ApolloCodegenTests: XCTestCase {
 
   func test__validation__givenSchemaName_matchingDisallowedSchemaNamespaceName_shouldThrow() throws {
     // given
-    let disallowedNames = ["schema", "Schema"]
+    let disallowedNames = ["schema", "Schema", "ApolloAPI", "apolloapi"]
 
     // when
     for name in disallowedNames {
