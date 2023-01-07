@@ -86,11 +86,11 @@ public struct Initialize: ParsableCommand {
 
   func _run(fileManager: ApolloFileManager = .default, output: OutputClosure? = nil) throws {
     let encoded = try ApolloCodegenConfiguration
-      .minimalJSON(
-        schemaName: schemaName,
-        moduleType: moduleType,
-        targetName: targetName
-      ).asData()
+      .minimalJSON(schemaName: schemaName, moduleType: moduleType, targetName: targetName)
+      .asData()
+
+    let decoded = try JSONDecoder().decode(ApolloCodegenConfiguration.self, from: encoded)
+    try ApolloCodegen._validate(config: decoded)
 
     if print {
       try print(data: encoded, output: output)
