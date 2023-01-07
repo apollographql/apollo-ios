@@ -1940,7 +1940,7 @@ class ApolloCodegenTests: XCTestCase {
     ), rootURL: nil)
 
     // then
-    expect(try ApolloCodegen.validate(config: configContext))
+    expect(try ApolloCodegen.validate(context: configContext))
       .to(throwError(ApolloCodegen.Error.testMocksInvalidSwiftPackageConfiguration))
   }
 
@@ -1955,7 +1955,7 @@ class ApolloCodegenTests: XCTestCase {
     ), rootURL: nil)
 
     // then
-    expect(try ApolloCodegen.validate(config: configContext))
+    expect(try ApolloCodegen.validate(context: configContext))
       .to(throwError(ApolloCodegen.Error.testMocksInvalidSwiftPackageConfiguration))
   }
 
@@ -1966,7 +1966,7 @@ class ApolloCodegenTests: XCTestCase {
     ), rootURL: nil)
 
     // then
-    expect(try ApolloCodegen.validate(config: configContext))
+    expect(try ApolloCodegen.validate(context: configContext))
       .notTo(throwError())
   }
 
@@ -1977,7 +1977,7 @@ class ApolloCodegenTests: XCTestCase {
     ), rootURL: nil)
 
     // then
-    expect(try ApolloCodegen.validate(config: configContext))
+    expect(try ApolloCodegen.validate(context: configContext))
       .to(throwError(ApolloCodegen.Error.inputSearchPathInvalid(path: "operations/*")))
   }
 
@@ -1988,7 +1988,7 @@ class ApolloCodegenTests: XCTestCase {
     ), rootURL: nil)
 
     // then
-    expect(try ApolloCodegen.validate(config: configContext))
+    expect(try ApolloCodegen.validate(context: configContext))
       .to(throwError(ApolloCodegen.Error.inputSearchPathInvalid(path: "operations/*.")))
   }
 
@@ -1999,7 +1999,7 @@ class ApolloCodegenTests: XCTestCase {
     ), rootURL: nil)
 
     // then
-    expect(try ApolloCodegen.validate(config: configContext))
+    expect(try ApolloCodegen.validate(context: configContext))
       .to(throwError(ApolloCodegen.Error.inputSearchPathInvalid(path: "schema/*")))
   }
 
@@ -2010,7 +2010,7 @@ class ApolloCodegenTests: XCTestCase {
     ), rootURL: nil)
 
     // then
-    expect(try ApolloCodegen.validate(config: configContext))
+    expect(try ApolloCodegen.validate(context: configContext))
       .to(throwError(ApolloCodegen.Error.inputSearchPathInvalid(path: "schema/*.")))
   }
 
@@ -2030,7 +2030,7 @@ class ApolloCodegenTests: XCTestCase {
       ), rootURL: nil)
 
       expect(try ApolloCodegen.validate(
-        schemaName: configContext.schemaName,
+        context: configContext,
         compilationResult: compilationResult))
       .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaName)))
     }
@@ -2050,7 +2050,7 @@ class ApolloCodegenTests: XCTestCase {
       ), rootURL: nil)
 
       expect(try ApolloCodegen.validate(
-        schemaName: configContext.schemaName,
+        context: configContext,
         compilationResult: compilationResult))
       .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaName)))
     }
@@ -2070,7 +2070,7 @@ class ApolloCodegenTests: XCTestCase {
       ), rootURL: nil)
 
       expect(try ApolloCodegen.validate(
-        schemaName: configContext.schemaName,
+        context: configContext,
         compilationResult: compilationResult))
       .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaName)))
     }
@@ -2090,7 +2090,7 @@ class ApolloCodegenTests: XCTestCase {
       ), rootURL: nil)
 
       expect(try ApolloCodegen.validate(
-        schemaName: configContext.schemaName,
+        context: configContext,
         compilationResult: compilationResult))
       .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaName)))
     }
@@ -2110,7 +2110,7 @@ class ApolloCodegenTests: XCTestCase {
       ), rootURL: nil)
 
       expect(try ApolloCodegen.validate(
-        schemaName: configContext.schemaName,
+        context: configContext,
         compilationResult: compilationResult))
       .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaName)))
     }
@@ -2130,7 +2130,7 @@ class ApolloCodegenTests: XCTestCase {
       ), rootURL: nil)
 
       expect(try ApolloCodegen.validate(
-        schemaName: configContext.schemaName,
+        context: configContext,
         compilationResult: compilationResult))
       .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaName)))
     }
@@ -2152,7 +2152,7 @@ class ApolloCodegenTests: XCTestCase {
       ), rootURL: nil)
 
       expect(try ApolloCodegen.validate(
-        schemaName: configContext.schemaName,
+        context: configContext,
         compilationResult: compilationResult))
       .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaName)))
     }
@@ -2169,7 +2169,7 @@ class ApolloCodegenTests: XCTestCase {
       ), rootURL: nil)
 
       // then
-      expect(try ApolloCodegen.validate(config: configContext))
+      expect(try ApolloCodegen.validate(context: configContext))
         .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaName)))
     }
   }
@@ -2203,7 +2203,7 @@ class ApolloCodegenTests: XCTestCase {
     ), rootURL: nil)
 
     expect(try ApolloCodegen.validate(
-      schemaName: configContext.schemaName,
+      context: configContext,
       compilationResult: compilationResult))
     .notTo(throwError())
   }
@@ -2216,7 +2216,7 @@ class ApolloCodegenTests: XCTestCase {
     ))
 
     // then
-    expect(try ApolloCodegen.validate(config: configContext))
+    expect(try ApolloCodegen.validate(context: configContext))
       .to(throwError(ApolloCodegen.Error.invalidConfiguration(message: """
         cocoapodsCompatibleImportStatements cannot be set to 'true' when the output schema types \
         module type is Swift Package Manager. Change the cocoapodsCompatibleImportStatements \
@@ -2232,7 +2232,7 @@ class ApolloCodegenTests: XCTestCase {
     ))
 
     // then
-    expect(try ApolloCodegen.validate(config: configContext)).notTo(throwError())
+    expect(try ApolloCodegen.validate(context: configContext)).notTo(throwError())
   }
 
   func test__validation__givenSchemaTypesModule_embeddedInTarget_withCocoapodsCompatibleImportStatements_true_shouldNotThrow() throws {
@@ -2243,7 +2243,7 @@ class ApolloCodegenTests: XCTestCase {
     ))
 
     // then
-    expect(try ApolloCodegen.validate(config: configContext)).notTo(throwError())
+    expect(try ApolloCodegen.validate(context: configContext)).notTo(throwError())
   }
 
   func test__validation__givenSchemaTypesModule_other_withCocoapodsCompatibleImportStatements_true_shouldNotThrow() throws {
@@ -2254,7 +2254,7 @@ class ApolloCodegenTests: XCTestCase {
     ))
 
     // then
-    expect(try ApolloCodegen.validate(config: configContext)).notTo(throwError())
+    expect(try ApolloCodegen.validate(context: configContext)).notTo(throwError())
   }
 
   // MARK: Path Match Exclusion Tests

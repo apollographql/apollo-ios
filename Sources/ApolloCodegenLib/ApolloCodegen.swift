@@ -76,14 +76,14 @@ public class ApolloCodegen {
       rootURL: rootURL
     )
 
-    try validate(config: configContext)
+    try validate(context: configContext)
 
     let compilationResult = try compileGraphQLResult(
       configContext,
       experimentalFeatures: configuration.experimentalFeatures
     )
 
-    try validate(schemaName: configContext.schemaName, compilationResult: compilationResult)
+    try validate(context: configContext, compilationResult: compilationResult)
 
     let ir = IR(compilationResult: compilationResult)
 
@@ -130,21 +130,29 @@ public class ApolloCodegen {
     }
   }
 
+
   /// Performs validation against deterministic errors that will cause code generation to fail.
-  static func validate(config: ConfigurationContext) throws {
+  ///
+  /// - Parameter config: Code generation configuration settings.
+  public static func validate(config: ApolloCodegenConfiguration) throws {
+    try validate(context: ConfigurationContext(config: config))
+  }
+
+  /// Performs validation against deterministic errors that will cause code generation to fail.
+  static func validate(context: ConfigurationContext) throws {
     guard
-      !SwiftKeywords.DisallowedSchemaNamespaceNames.contains(config.schemaName.lowercased())
+      !SwiftKeywords.DisallowedSchemaNamespaceNames.contains(context.schemaName.lowercased())
     else {
-      throw Error.schemaNameConflict(name: config.schemaName)
+      throw Error.schemaNameConflict(name: context.schemaName)
     }
 
-    if case .swiftPackage = config.output.testMocks,
-        config.output.schemaTypes.moduleType != .swiftPackageManager {
+    if case .swiftPackage = context.output.testMocks,
+        context.output.schemaTypes.moduleType != .swiftPackageManager {
       throw Error.testMocksInvalidSwiftPackageConfiguration
     }
 
-    if case .swiftPackageManager = config.output.schemaTypes.moduleType,
-       config.options.cocoapodsCompatibleImportStatements == true {
+    if case .swiftPackageManager = context.output.schemaTypes.moduleType,
+       context.options.cocoapodsCompatibleImportStatements == true {
       throw Error.invalidConfiguration(message: """
         cocoapodsCompatibleImportStatements cannot be set to 'true' when the output schema types \
         module type is Swift Package Manager. Change the cocoapodsCompatibleImportStatements \
@@ -152,10 +160,10 @@ public class ApolloCodegen {
         """)
     }
 
-    for searchPath in config.input.schemaSearchPaths {
+    for searchPath in context.input.schemaSearchPaths {
       try validate(inputSearchPath: searchPath)
     }
-    for searchPath in config.input.operationSearchPaths {
+    for searchPath in context.input.operationSearchPaths {
       try validate(inputSearchPath: searchPath)
     }
   }
@@ -166,16 +174,18 @@ public class ApolloCodegen {
     }
   }
 
-  static func validate(schemaName: String, compilationResult: CompilationResult) throws {
+  /// Validates the configuration context against the GraphQL compilation result, checking for
+  /// configuration errors that are dependent on the schema and operations.
+  static func validate(context: ConfigurationContext, compilationResult: CompilationResult) throws {
     guard
       !compilationResult.referencedTypes.contains(where: { namedType in
-        namedType.swiftName == schemaName.firstUppercased
+        namedType.swiftName == context.schemaName.firstUppercased
       }),
       !compilationResult.fragments.contains(where: { fragmentDefinition in
-        fragmentDefinition.name == schemaName.firstUppercased
+        fragmentDefinition.name == context.schemaName.firstUppercased
       })
     else {
-      throw Error.schemaNameConflict(name: schemaName)
+      throw Error.schemaNameConflict(name: context.schemaName)
     }
   }
 
