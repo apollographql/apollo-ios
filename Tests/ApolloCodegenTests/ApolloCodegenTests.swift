@@ -1931,86 +1931,86 @@ class ApolloCodegenTests: XCTestCase {
 
   func test_validation_givenTestMockConfiguration_asSwiftPackage_withSchemaTypesModule_asEmbeddedInTarget_shouldThrow() throws {
     // given
-    let configContext = ApolloCodegen.ConfigurationContext(config: .mock(
+    let config = ApolloCodegenConfiguration.mock(
       input: .init(schemaPath: "path"),
       output: .mock(
         moduleType: .embeddedInTarget(name: "ModuleTarget"),
         testMocks: .swiftPackage(targetName: nil)
       )
-    ), rootURL: nil)
+    )
 
     // then
-    expect(try ApolloCodegen.validate(context: configContext))
+    expect(try ApolloCodegen._validate(config: config))
       .to(throwError(ApolloCodegen.Error.testMocksInvalidSwiftPackageConfiguration))
   }
 
   func test_validation_givenTestMockConfiguration_asSwiftPackage_withSchemaTypesModule_asOther_shouldThrow() throws {
     // given
-    let configContext = ApolloCodegen.ConfigurationContext(config: .mock(
+    let config = ApolloCodegenConfiguration.mock(
       input: .init(schemaPath: "path"),
       output: .mock(
         moduleType: .other,
         testMocks: .swiftPackage(targetName: nil)
       )
-    ), rootURL: nil)
+    )
 
     // then
-    expect(try ApolloCodegen.validate(context: configContext))
+    expect(try ApolloCodegen._validate(config: config))
       .to(throwError(ApolloCodegen.Error.testMocksInvalidSwiftPackageConfiguration))
   }
 
   func test_validation_givenTestMockConfiguration_asSwiftPackage_withSchemaTypesModule_asSwiftPackage_shouldNotThrow() throws {
     // given
-    let configContext = ApolloCodegen.ConfigurationContext(config: .mock(
+    let config = ApolloCodegenConfiguration.mock(
       input: .init(schemaPath: "path.graphqls")
-    ), rootURL: nil)
+    )
 
     // then
-    expect(try ApolloCodegen.validate(context: configContext))
+    expect(try ApolloCodegen._validate(config: config))
       .notTo(throwError())
   }
 
   func test_validation_givenOperationSearchPathWithoutFileExtensionComponent_shouldThrow() throws {
     // given
-    let configContext = ApolloCodegen.ConfigurationContext(config: .mock(
+    let config = ApolloCodegenConfiguration.mock(
       input: .init(schemaPath: "path.graphqls", operationSearchPaths: ["operations/*"])
-    ), rootURL: nil)
+    )
 
     // then
-    expect(try ApolloCodegen.validate(context: configContext))
+    expect(try ApolloCodegen._validate(config: config))
       .to(throwError(ApolloCodegen.Error.inputSearchPathInvalid(path: "operations/*")))
   }
 
   func test_validation_givenOperationSearchPathEndingInPeriod_shouldThrow() throws {
     // given
-    let configContext = ApolloCodegen.ConfigurationContext(config: .mock(
+    let config = ApolloCodegenConfiguration.mock(
       input: .init(schemaPath: "path.graphqls", operationSearchPaths: ["operations/*."])
-    ), rootURL: nil)
+    )
 
     // then
-    expect(try ApolloCodegen.validate(context: configContext))
+    expect(try ApolloCodegen._validate(config: config))
       .to(throwError(ApolloCodegen.Error.inputSearchPathInvalid(path: "operations/*.")))
   }
 
   func test_validation_givenSchemaSearchPathWithoutFileExtensionComponent_shouldThrow() throws {
     // given
-    let configContext = ApolloCodegen.ConfigurationContext(config: .mock(
+    let config = ApolloCodegenConfiguration.mock(
       input: .init(schemaSearchPaths: ["schema/*"])
-    ), rootURL: nil)
+    )
 
     // then
-    expect(try ApolloCodegen.validate(context: configContext))
+    expect(try ApolloCodegen._validate(config: config))
       .to(throwError(ApolloCodegen.Error.inputSearchPathInvalid(path: "schema/*")))
   }
 
   func test_validation_givenSchemaSearchPathEndingInPeriod_shouldThrow() throws {
     // given
-    let configContext = ApolloCodegen.ConfigurationContext(config: .mock(
+    let config = ApolloCodegenConfiguration.mock(
       input: .init(schemaSearchPaths: ["schema/*."])
-    ), rootURL: nil)
+    )
 
     // then
-    expect(try ApolloCodegen.validate(context: configContext))
+    expect(try ApolloCodegen._validate(config: config))
       .to(throwError(ApolloCodegen.Error.inputSearchPathInvalid(path: "schema/*.")))
   }
 
@@ -2164,13 +2164,11 @@ class ApolloCodegenTests: XCTestCase {
 
     // when
     for name in disallowedNames {
-      let configContext = ApolloCodegen.ConfigurationContext(config: .mock(
-        schemaName: name
-      ), rootURL: nil)
+      let config = ApolloCodegenConfiguration.mock(schemaName: name)
 
       // then
-      expect(try ApolloCodegen.validate(context: configContext))
-        .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaName)))
+      expect(try ApolloCodegen._validate(config: config))
+        .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: config.schemaName)))
     }
   }
 
@@ -2210,13 +2208,13 @@ class ApolloCodegenTests: XCTestCase {
 
   func test__validation__givenSchemaTypesModule_swiftPackageManager_withCocoapodsCompatibleImportStatements_true_shouldThrow() throws {
     // given
-    let configContext = ApolloCodegen.ConfigurationContext(config: .mock(
+    let config = ApolloCodegenConfiguration.mock(
       .swiftPackageManager,
       options: .init(cocoapodsCompatibleImportStatements: true)
-    ))
+    )
 
     // then
-    expect(try ApolloCodegen.validate(context: configContext))
+    expect(try ApolloCodegen._validate(config: config))
       .to(throwError(ApolloCodegen.Error.invalidConfiguration(message: """
         cocoapodsCompatibleImportStatements cannot be set to 'true' when the output schema types \
         module type is Swift Package Manager. Change the cocoapodsCompatibleImportStatements \
@@ -2226,35 +2224,35 @@ class ApolloCodegenTests: XCTestCase {
 
   func test__validation__givenSchemaTypesModule_swiftPackageManager_withCocoapodsCompatibleImportStatements_false_shouldNotThrow() throws {
     // given
-    let configContext = ApolloCodegen.ConfigurationContext(config: .mock(
+    let config = ApolloCodegenConfiguration.mock(
       .swiftPackageManager,
       options: .init(cocoapodsCompatibleImportStatements: false)
-    ))
+    )
 
     // then
-    expect(try ApolloCodegen.validate(context: configContext)).notTo(throwError())
+    expect(try ApolloCodegen._validate(config: config)).notTo(throwError())
   }
 
   func test__validation__givenSchemaTypesModule_embeddedInTarget_withCocoapodsCompatibleImportStatements_true_shouldNotThrow() throws {
     // given
-    let configContext = ApolloCodegen.ConfigurationContext(config: .mock(
+    let config = ApolloCodegenConfiguration.mock(
       .embeddedInTarget(name: "TestTarget"),
       options: .init(cocoapodsCompatibleImportStatements: true)
-    ))
+    )
 
     // then
-    expect(try ApolloCodegen.validate(context: configContext)).notTo(throwError())
+    expect(try ApolloCodegen._validate(config: config)).notTo(throwError())
   }
 
   func test__validation__givenSchemaTypesModule_other_withCocoapodsCompatibleImportStatements_true_shouldNotThrow() throws {
     // given
-    let configContext = ApolloCodegen.ConfigurationContext(config: .mock(
+    let config = ApolloCodegenConfiguration.mock(
       .other,
       options: .init(cocoapodsCompatibleImportStatements: true)
-    ))
+    )
 
     // then
-    expect(try ApolloCodegen.validate(context: configContext)).notTo(throwError())
+    expect(try ApolloCodegen._validate(config: config)).notTo(throwError())
   }
 
   // MARK: Path Match Exclusion Tests

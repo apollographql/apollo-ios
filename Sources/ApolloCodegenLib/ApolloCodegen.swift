@@ -130,16 +130,16 @@ public class ApolloCodegen {
     }
   }
 
-
-  /// Performs validation against deterministic errors that will cause code generation to fail.
+  /// Validates the configuration against deterministic errors that will cause code generation to
+  /// fail. This validation step does not take into account schema and operation specific types, it
+  /// is only a static analysis of the configuration.
   ///
   /// - Parameter config: Code generation configuration settings.
-  public static func validate(config: ApolloCodegenConfiguration) throws {
+  public static func _validate(config: ApolloCodegenConfiguration) throws {
     try validate(context: ConfigurationContext(config: config))
   }
 
-  /// Performs validation against deterministic errors that will cause code generation to fail.
-  static func validate(context: ConfigurationContext) throws {
+  static private func validate(context: ConfigurationContext) throws {
     guard
       !SwiftKeywords.DisallowedSchemaNamespaceNames.contains(context.schemaName.lowercased())
     else {
