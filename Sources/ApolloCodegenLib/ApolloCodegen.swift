@@ -19,6 +19,7 @@ public class ApolloCodegen {
     case cannotLoadSchema
     case cannotLoadOperations
     case invalidConfiguration(message: String)
+    case invalidSchemaName(_ name: String, message: String)
 
     public var errorDescription: String? {
       switch self {
@@ -47,6 +48,8 @@ public class ApolloCodegen {
         return "No GraphQL operations could be found. Please verify the operation search paths."
       case let .invalidConfiguration(message):
         return "The codegen configuration has conflicting values: \(message)"
+      case let .invalidSchemaName(name, message):
+        return "The schema name `\(name)` is invalid: \(message)"
       }
     }
   }
@@ -140,6 +143,16 @@ public class ApolloCodegen {
   }
 
   static private func validate(context: ConfigurationContext) throws {
+    guard
+      !context.schemaName.trimmingCharacters(in: .whitespaces).isEmpty,
+      !context.schemaName.contains(where: { $0.isWhitespace })
+    else {
+      throw Error.invalidSchemaName(context.schemaName, message: """
+        Cannot be empty nor contain spaces. If your schema name has spaces consider replacing them \
+        with the underscore character.
+        """)
+    }
+
     guard
       !SwiftKeywords.DisallowedSchemaNamespaceNames.contains(context.schemaName.lowercased())
     else {

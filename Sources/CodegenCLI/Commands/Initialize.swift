@@ -64,10 +64,6 @@ public struct Initialize: ParsableCommand {
   public init() { }
 
   public func validate() throws {
-    guard !schemaName.trimmingCharacters(in: .whitespaces).isEmpty else {
-      throw ValidationError("--schema-name value cannot be empty.")
-    }
-
     switch (moduleType, targetName?.isEmpty) {
     case (.embeddedInTarget, nil), (.embeddedInTarget, true):
       throw ValidationError("""

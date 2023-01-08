@@ -44,17 +44,30 @@ class InitializeTests: XCTestCase {
 
   // MARK: - Validation Tests
 
-  func test__validation__givenWhitespaceSchemaName_shouldThrowValidationError() throws {
+  func test__validation__givenWhitespaceOnlySchemaName_shouldThrowError() throws {
     // given
     let options = [
       "--schema-name= ",
       "--module-type=swiftPackageManager",
     ]
 
+    let subject = try self.parse(options)
+
     // then
-    expect { try self.parse(options) }.to(throwUserValidationError(
-      ValidationError("--schema-name value cannot be empty.")
-    ))
+    expect(try subject._run()).to(throwError())
+  }
+
+  func test__validation__givenSchemaNameContainingWhitespace_shouldThrowError() throws {
+    // given
+    let options = [
+      "--schema-name=\"My Schema\"",
+      "--module-type=swiftPackageManager",
+    ]
+
+    let subject = try self.parse(options)
+
+    // then
+    expect(try subject._run()).to(throwError())
   }
 
   func test__validation__givenModuleType_embeddedInTarget_withNoTargetName_shouldThrowValidationError() throws {

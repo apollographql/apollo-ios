@@ -2172,6 +2172,30 @@ class ApolloCodegenTests: XCTestCase {
     }
   }
 
+  func test__validation__givenEmptySchemaName_shouldThrow() throws {
+    let config = ApolloCodegenConfiguration.mock(schemaName: "")
+
+    // then
+    expect(try ApolloCodegen._validate(config: config))
+      .to(throwError(ApolloCodegen.Error.invalidSchemaName("", message: "")))
+  }
+
+  func test__validation__givenWhitespaceOnlySchemaName_shouldThrow() throws {
+    let config = ApolloCodegenConfiguration.mock(schemaName: " ")
+
+    // then
+    expect(try ApolloCodegen._validate(config: config))
+      .to(throwError(ApolloCodegen.Error.invalidSchemaName(" ", message: "")))
+  }
+
+  func test__validation__givenSchemaNameContainingWhitespace_shouldThrow() throws {
+    let config = ApolloCodegenConfiguration.mock(schemaName: "My Schema")
+
+    // then
+    expect(try ApolloCodegen._validate(config: config))
+      .to(throwError(ApolloCodegen.Error.invalidSchemaName("My Schema", message: "")))
+  }
+
   func test__validation__givenUniqueSchemaName_shouldNotThrow() throws {
     // given
     let object = GraphQLObjectType.mock("MockObject")
