@@ -44,50 +44,12 @@ extension GraphQLType {
     replacingNamedTypeWith newTypeName: String? = nil,
     config: ApolloCodegenConfiguration
   ) -> String {
-
-    lazy var schemaModuleName: String = {
-      !config.output.operations.isInModule ? "\(config.schemaName.firstUppercased)." : ""
-    }()
-
-    switch self {
-    case let .entity(type as GraphQLNamedType):
-      let typeName = newTypeName ?? type.swiftName.firstUppercased
-      return containedInNonNull ? typeName : "\(typeName)?"
-
-    case let .inputObject(type as GraphQLNamedType):
-      let typeName = newTypeName ?? type.swiftName.firstUppercased
-      return TemplateString("\(schemaModuleName)\(typeName)\(if: !containedInNonNull, "?")").description
-
-    case let .scalar(type):
-      let typeName = newTypeName ?? type.swiftName.firstUppercased
-
-      return TemplateString(
-        "\(if: !type.isSwiftType, "\(schemaModuleName)")\(typeName)\(if: !containedInNonNull, "?")"
-      ).description
-
-    case let .enum(type as GraphQLNamedType):
-      let typeName = newTypeName ?? type.name.firstUppercased
-      let enumType = "GraphQLEnum<\(schemaModuleName)\(typeName)>"
-
-      return containedInNonNull ? enumType : "\(enumType)?"
-
-    case let .nonNull(ofType):
-      return ofType.renderedAsSelectionSetField(
-        containedInNonNull: true,
-        replacingNamedTypeWith: newTypeName,
-        config: config
-      )
-
-    case let .list(ofType):
-      let rendered = ofType.renderedAsSelectionSetField(
-        containedInNonNull: false,
-        replacingNamedTypeWith: newTypeName,
-        config: config
-      )
-      let inner = "[\(rendered)]"
-
-      return containedInNonNull ? inner : "\(inner)?"
-    }
+    renderType(
+      in: .selectionSetField(),
+      containedInNonNull: containedInNonNull,
+      replacingNamedTypeWith: newTypeName,
+      config: config
+    )
   }
 
   // MARK: Mock Object Field
@@ -146,21 +108,63 @@ extension GraphQLType {
     config: ApolloCodegenConfiguration
   ) -> String {
     switch self {
-    case .entity:
-      preconditionFailure("Entities cannot be used as input values")
-
-    case .enum, .scalar, .inputObject:
-      let typeName = self.renderedAsSelectionSetField(containedInNonNull: true, config: config)
-      return inNullable ? "GraphQLNullable<\(typeName)>" : typeName
-
     case let .nonNull(ofType):
       return ofType.renderAsInputValue(inNullable: false, config: config)
 
     case let .list(ofType):
-      let typeName = "[\(ofType.renderedAsSelectionSetField(containedInNonNull: false, config: config))]"
+      let typeName = "[\(ofType.renderType(in: .inputValue, config: config))]"
+      return inNullable ? "GraphQLNullable<\(typeName)>" : typeName
+
+    default:
+      let typeName = renderType(in: .inputValue, containedInNonNull: true, config: config)
       return inNullable ? "GraphQLNullable<\(typeName)>" : typeName
     }
   }
+
+  // MARK: - Render Type
+
+  private func renderType(
+    in context: RenderContext,
+    containedInNonNull: Bool = false,
+    replacingNamedTypeWith newTypeName: String? = nil,
+    config: ApolloCodegenConfiguration
+  ) -> String {
+    switch self {
+    case
+        .entity(let type as GraphQLNamedType),
+        .scalar(let type as GraphQLNamedType),
+        .enum(let type as GraphQLNamedType),
+        .inputObject(let type as GraphQLNamedType):
+
+      let typeName = type.qualifiedRootTypeName(
+        in: context,
+        replacingNamedTypeWith: newTypeName,
+        config: config
+      ).wrappedInGraphQLEnum(ifIsEnumType: self)
+
+      return containedInNonNull ? typeName : "\(typeName)?"
+
+    case let .nonNull(ofType):
+      return ofType.renderType(
+        in: context,
+        containedInNonNull: true,
+        replacingNamedTypeWith: newTypeName,
+        config: config
+      )
+
+    case let .list(ofType):
+      let rendered = ofType.renderType(
+        in: context,
+        containedInNonNull: false,
+        replacingNamedTypeWith: newTypeName,
+        config: config
+      )
+      let inner = "[\(rendered)]"
+
+      return containedInNonNull ? inner : "\(inner)?"
+    }
+  }
+
 }
 
 extension GraphQLNamedType {
@@ -172,5 +176,48 @@ extension GraphQLNamedType {
     }
 
     return swiftName
+  }
+
+  fileprivate func qualifiedRootTypeName(
+    in context: GraphQLType.RenderContext,
+    replacingNamedTypeWith newTypeName: String? = nil,
+    config: ApolloCodegenConfiguration
+  ) -> String {
+    lazy var typeName = { newTypeName ?? self.swiftName.firstUppercased }()
+
+    lazy var schemaModuleName: String = {
+      switch self {
+      case is GraphQLCompositeType:
+        return ""
+
+      case let scalar as GraphQLScalarType where scalar.isSwiftType:
+        return ""
+
+      default:
+        switch context {
+        case .testMockField, .inputValue:
+          if !config.output.operations.isInModule {
+            fallthrough
+          } else {
+            return ""
+          }
+
+        case .selectionSetField:
+          return "\(config.schemaName.firstUppercased)."
+        }
+      }
+    }()
+
+    return "\(schemaModuleName)\(typeName)"
+  }
+}
+
+fileprivate extension String {
+  func wrappedInGraphQLEnum(ifIsEnumType type: GraphQLType) -> String {
+    if case .enum = type {
+      return "GraphQLEnum<\(self)>"
+    } else {
+      return self
+    }
   }
 }
