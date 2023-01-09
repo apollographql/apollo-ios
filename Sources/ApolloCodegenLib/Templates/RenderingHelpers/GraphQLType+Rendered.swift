@@ -59,46 +59,12 @@ extension GraphQLType {
     replacingNamedTypeWith newTypeName: String? = nil,
     config: ApolloCodegenConfiguration
   ) -> String {
-
-    lazy var schemaModuleName: String = {
-      !config.output.schemaTypes.isInModule ? "\(config.schemaName.firstUppercased)." : ""
-    }()
-
-    switch self {
-    case let .entity(type as GraphQLNamedType), let .inputObject(type as GraphQLNamedType):
-      let typeName = newTypeName ?? type.testMockFieldTypeName.firstUppercased
-      return TemplateString("\(typeName)\(if: !containedInNonNull, "?")").description
-
-    case let .scalar(type):
-      let typeName = newTypeName ?? type.swiftName.firstUppercased
-
-      return TemplateString(
-        "\(if: !type.isSwiftType, "\(schemaModuleName)")\(typeName)\(if: !containedInNonNull, "?")"
-      ).description
-
-    case let .enum(type as GraphQLNamedType):
-      let typeName = newTypeName ?? type.name.firstUppercased
-      let enumType = "GraphQLEnum<\(schemaModuleName)\(typeName)>"
-
-      return containedInNonNull ? enumType : "\(enumType)?"
-
-    case let .nonNull(ofType):
-      return ofType.renderedAsTestMockField(
-        containedInNonNull: true,
-        replacingNamedTypeWith: newTypeName,
-        config: config
-      )
-
-    case let .list(ofType):
-      let rendered = ofType.renderedAsTestMockField(
-        containedInNonNull: false,
-        replacingNamedTypeWith: newTypeName,
-        config: config
-      )
-      let inner = "[\(rendered)]"
-
-      return containedInNonNull ? inner : "\(inner)?"
-    }
+    renderType(
+      in: .testMockField(),
+      containedInNonNull: containedInNonNull,
+      replacingNamedTypeWith: newTypeName,
+      config: config
+    )
   }
 
   // MARK: Input Value
@@ -183,9 +149,16 @@ extension GraphQLNamedType {
     replacingNamedTypeWith newTypeName: String? = nil,
     config: ApolloCodegenConfiguration
   ) -> String {
-    lazy var typeName = { newTypeName ?? self.swiftName.firstUppercased }()
 
-    lazy var schemaModuleName: String = {
+    let typeName: String = {
+      if case .testMockField = context {
+        return newTypeName ?? testMockFieldTypeName.firstUppercased
+      } else {
+        return newTypeName ?? self.swiftName.firstUppercased
+      }
+    }()
+
+    let schemaModuleName: String = {
       switch self {
       case is GraphQLCompositeType:
         return ""
