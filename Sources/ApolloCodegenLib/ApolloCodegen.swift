@@ -144,7 +144,7 @@ public class ApolloCodegen {
 
   static private func validate(context: ConfigurationContext) throws {
     guard
-      !context.schemaName.trimmingCharacters(in: .whitespaces).isEmpty,
+      !context.schemaName.isEmpty,
       !context.schemaName.contains(where: { $0.isWhitespace })
     else {
       throw Error.invalidSchemaName(context.schemaName, message: """
