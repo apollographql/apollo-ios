@@ -1,8 +1,8 @@
 # 🔮 Apollo iOS Roadmap
 
-**Last updated: Dec 2022**
+**Last updated: Jan 2023**
 
-For up to date release notes, refer to the project's [Change Log](https://github.com/apollographql/apollo-ios/blob/main/CHANGELOG.md).
+For up to date release notes, refer to the project's [Changelog](https://github.com/apollographql/apollo-ios/blob/main/CHANGELOG.md).
 
 > **Please note:** This is an approximation of **larger effort** work planned for the next 6 - 12 months. It does not cover all new functionality that will be added, and nothing here is set in stone. Also note that each of these releases, and several patch releases in-between, will include bug fixes (based on issue triaging) and community submitted PR's.
 
@@ -13,17 +13,31 @@ For up to date release notes, refer to the project's [Change Log](https://github
 
 ---
 
-## 1.x.x releases
+## 1.x.x patch releases
 
-We are releasing a series of patch releases to introduce improvements to our 1.0 release. please see our [GitHub Milestones](https://github.com/apollographql/apollo-ios/milestones) for more details.
+Please see our [patch releases milestone](https://github.com/apollographql/apollo-ios/milestone/70) for more information about the fixes and enhancements we plan to ship in the near future.
 
-## 1.1
+## 1.1: Generated operation model creation
 
-Release 1.1 will be the next minor release and will contain misc improvements now that 1.0 is GA. See Github [1.1 Milestone](https://github.com/apollographql/apollo-ios/milestone/64) for more details.
+See Github [1.1 Milestone](https://github.com/apollographql/apollo-ios/milestone/64) for more details.
 
-## 1.2
+- The ability to initialize fragment (and maybe selection set) models in a type-safe way
+- Initialize mutable selection sets to add to the cache via local cache mutations (Currently you can only mutate fields on existing entities)
+- Create API for clearing individual fields on entities from the cache in local cache mutations.
 
-Release 1.2 will focus on code gen performance and hoisted/shared types, as well code gen configuration options. See Github [1.2 Milestone](https://github.com/apollographql/apollo-ios/milestone/67) for more details.
+## 1.2: Reduce generated schema types
+
+See Github [1.2 Milestone](https://github.com/apollographql/apollo-ios/milestone/67) for more details.
+
+- Right now we are naively generating schema types that we don't always need. A smarter algorithm can reduce generated code for certain large schemas that are currently having every type in their schema generated
+- Create configuration for manually indicating schema types you would like to have schema types and TestMocks generated for
+
+## 1.3: Improve fragment merging and code generation performance
+
+- Add configuration for disabling merging of fragment fields
+- Recognize when multiple selection set types will end up being identical and use a shared model object with typealiases to reduce generated code
+- Fix retain cycles and memory issues causing code generation to take very long on certain large, complex schemas with deeply nested fragment composition
+- Optimize code generation performance by parallelizing computation and rendering of files
 
 ## 2.0
 
