@@ -79,14 +79,14 @@ public class ApolloCodegen {
       rootURL: rootURL
     )
 
-    try validate(context: configContext)
+    try validate(configContext)
 
     let compilationResult = try compileGraphQLResult(
       configContext,
       experimentalFeatures: configuration.experimentalFeatures
     )
 
-    try validate(context: configContext, compilationResult: compilationResult)
+    try validate(configContext, with: compilationResult)
 
     let ir = IR(compilationResult: compilationResult)
 
@@ -139,10 +139,10 @@ public class ApolloCodegen {
   ///
   /// - Parameter config: Code generation configuration settings.
   public static func _validate(config: ApolloCodegenConfiguration) throws {
-    try validate(context: ConfigurationContext(config: config))
+    try validate(ConfigurationContext(config: config))
   }
 
-  static private func validate(context: ConfigurationContext) throws {
+  static private func validate(_ context: ConfigurationContext) throws {
     guard
       !context.schemaName.isEmpty,
       !context.schemaName.contains(where: { $0.isWhitespace })
@@ -189,7 +189,7 @@ public class ApolloCodegen {
 
   /// Validates the configuration context against the GraphQL compilation result, checking for
   /// configuration errors that are dependent on the schema and operations.
-  static func validate(context: ConfigurationContext, compilationResult: CompilationResult) throws {
+  static func validate(_ context: ConfigurationContext, with compilationResult: CompilationResult) throws {
     guard
       !compilationResult.referencedTypes.contains(where: { namedType in
         namedType.swiftName == context.schemaName.firstUppercased

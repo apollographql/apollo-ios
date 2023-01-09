@@ -2029,9 +2029,7 @@ class ApolloCodegenTests: XCTestCase {
         schemaName: name
       ), rootURL: nil)
 
-      expect(try ApolloCodegen.validate(
-        context: configContext,
-        compilationResult: compilationResult))
+      expect(try ApolloCodegen.validate(configContext, with: compilationResult))
       .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaName)))
     }
   }
@@ -2049,9 +2047,7 @@ class ApolloCodegenTests: XCTestCase {
         schemaName: name
       ), rootURL: nil)
 
-      expect(try ApolloCodegen.validate(
-        context: configContext,
-        compilationResult: compilationResult))
+      expect(try ApolloCodegen.validate(configContext, with: compilationResult))
       .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaName)))
     }
   }
@@ -2069,9 +2065,7 @@ class ApolloCodegenTests: XCTestCase {
         schemaName: name
       ), rootURL: nil)
 
-      expect(try ApolloCodegen.validate(
-        context: configContext,
-        compilationResult: compilationResult))
+      expect(try ApolloCodegen.validate(configContext, with: compilationResult))
       .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaName)))
     }
   }
@@ -2089,9 +2083,7 @@ class ApolloCodegenTests: XCTestCase {
         schemaName: name
       ), rootURL: nil)
 
-      expect(try ApolloCodegen.validate(
-        context: configContext,
-        compilationResult: compilationResult))
+      expect(try ApolloCodegen.validate(configContext, with: compilationResult))
       .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaName)))
     }
   }
@@ -2109,9 +2101,7 @@ class ApolloCodegenTests: XCTestCase {
         schemaName: name
       ), rootURL: nil)
 
-      expect(try ApolloCodegen.validate(
-        context: configContext,
-        compilationResult: compilationResult))
+      expect(try ApolloCodegen.validate(configContext, with: compilationResult))
       .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaName)))
     }
   }
@@ -2129,9 +2119,7 @@ class ApolloCodegenTests: XCTestCase {
         schemaName: name
       ), rootURL: nil)
 
-      expect(try ApolloCodegen.validate(
-        context: configContext,
-        compilationResult: compilationResult))
+      expect(try ApolloCodegen.validate(configContext, with: compilationResult))
       .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaName)))
     }
   }
@@ -2151,9 +2139,7 @@ class ApolloCodegenTests: XCTestCase {
         schemaName: name
       ), rootURL: nil)
 
-      expect(try ApolloCodegen.validate(
-        context: configContext,
-        compilationResult: compilationResult))
+      expect(try ApolloCodegen.validate(configContext, with: compilationResult))
       .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaName)))
     }
   }
@@ -2224,9 +2210,7 @@ class ApolloCodegenTests: XCTestCase {
       schemaName: "MySchema"
     ), rootURL: nil)
 
-    expect(try ApolloCodegen.validate(
-      context: configContext,
-      compilationResult: compilationResult))
+    expect(try ApolloCodegen.validate(configContext, with: compilationResult))
     .notTo(throwError())
   }
 
