@@ -168,14 +168,14 @@ extension GraphQLNamedType {
 
       default:
         switch context {
-        case .testMockField, .inputValue:
+        case .inputValue:
           if !config.output.operations.isInModule {
             fallthrough
           } else {
             return ""
           }
 
-        case .selectionSetField:
+        case .selectionSetField, .testMockField:
           return "\(config.schemaName.firstUppercased)."
         }
       }
