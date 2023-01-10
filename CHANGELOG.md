@@ -1,5 +1,21 @@
 # Change Log
 
+## v1.0.6
+
+### Fixed
+- **Quotes in operation identifiers are not escaped ([#2671](https://github.com/apollographql/apollo-ios/issues/2671)):** Query strings are now enclosed within extended delimiters to allow inclusion of special characters such as quotation marks. [#2701](https://github.com/apollographql/apollo-ios/pull/2701) - _Thank you to [@StarLard](https://github.com/StarLard) for raising the issue._
+- **Cannot find type `graphQLSchema` in scope ([#2705](https://github.com/apollographql/apollo-ios/issues/2705)):** Generated fragments now use the correct schema namespace casing. [#2730](https://github.com/apollographql/apollo-ios/pull/2730) - _Thank you to [@iAmericanBoy](https://github.com/iAmericanBoy) for raising the issue._
+- **Updating a local cache mutation with an optional field fails with a `ApolloAPI.JSONDecodingError.missingValue` error ([#2697](https://github.com/apollographql/apollo-ios/issues/2697)):** Cache mutations will now allow incomplete data to be written to the cache without expecting all fields to be set. Please note that cache manipulation is an advanced feature and you should be aware of how the data written will affect network requests and cache policies. [#2751](https://github.com/apollographql/apollo-ios/pull/2751) - _Thank you to [@amseddi](https://github.com/amseddi) for raising the issue._
+- **`GraphQLEnum` value camel case conversion strategy ([#2640](https://github.com/apollographql/apollo-ios/issues/2640)), ([#2749](https://github.com/apollographql/apollo-ios/issues/2749)):** The camel case conversion logic for GraphQL enums has been improved to handle a wider range of edge cases that were causing invalid Swift code generation. [#2745](https://github.com/apollographql/apollo-ios/pull/2745) - _Thank you to [@ddanielczyk](https://github.com/ddanielczyk) and [@hispanico94](https://github.com/hispanico94) for raising the issues._
+- **Naming collision with `Selection` type from apollo ([#2708](https://github.com/apollographql/apollo-ios/issues/2708)):** `ParentType` and `Selection` types in generated selection sets now use a fully qualified namespace to prevent typename conflicts. [#2754](https://github.com/apollographql/apollo-ios/pull/2754) - _Thank you to [@tahirmt](https://github.com/tahirmt) for raising the issue._
+- **Namespace collision when using "Schema" for `schemaName` ([#2664](https://github.com/apollographql/apollo-ios/issues/2664)):** Certain strings are now disallowed for use as the schema namespace. [#2755](https://github.com/apollographql/apollo-ios/pull/2755) - _Thank you to [@StarLard](https://github.com/StarLard) for raising the issue._
+- **Naming collision with fragments and scalars ([#2691](https://github.com/apollographql/apollo-ios/issues/2691)):** Shared referenced schema types will always use the fully qualified names as the types of fields in selections sets. This prevents collisions with names of other generated selection sets for entity type fields whose names are the same as a referenced schema type. [#2757](https://github.com/apollographql/apollo-ios/pull/2757) - _Thank you to [@scottasoutherland](https://github.com/scottasoutherland) for raising the issue._
+- **Naming collision with `DocumentType` in generated mock code ([#2719](https://github.com/apollographql/apollo-ios/issues/2719)):** All shared referenced schema types within test mocks now use a fully qualified named type. [#2762](https://github.com/apollographql/apollo-ios/pull/2762) - _Thank you to [@dafurman](https://github.com/dafurman) for raising the issue._
+- **Schema/Target/Module name with spaces in it breaks generated code ([#2653](https://github.com/apollographql/apollo-ios/issues/2653)):** Spaces are no longer allowed in the schema namespace. Additional validation has been added to the CLI commands to provide the correct error response. [#2760](https://github.com/apollographql/apollo-ios/pull/2760) - _Thank you to [@Narayane](https://github.com/Narayane) for raising the issue._
+
+### Changed
+- **Raised minimum required tooling versions:** Swift 5.7 and Xcode 14 are now the minimum required versions to build Apollo iOS and the generated code. [#2695](https://github.com/apollographql/apollo-ios/pull/2695)
+
 ## v1.0.5
 
 #### Fixed
