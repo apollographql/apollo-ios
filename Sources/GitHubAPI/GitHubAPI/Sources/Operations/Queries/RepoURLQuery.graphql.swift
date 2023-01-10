@@ -43,11 +43,11 @@ public class RepoURLQuery: GraphQLQuery {
 
       public static var __parentType: ApolloAPI.ParentType { GitHubAPI.Objects.Repository }
       public static var __selections: [ApolloAPI.Selection] { [
-        .field("url", URI.self),
+        .field("url", GitHubAPI.URI.self),
       ] }
 
       /// The HTTP URL for this repository
-      public var url: URI { __data["url"] }
+      public var url: GitHubAPI.URI { __data["url"] }
     }
   }
 }

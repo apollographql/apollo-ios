@@ -51,13 +51,13 @@ public class HeroAndFriendsNamesWithIDForParentOnlyQuery: GraphQLQuery {
 
       public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
       public static var __selections: [ApolloAPI.Selection] { [
-        .field("id", ID.self),
+        .field("id", StarWarsAPI.ID.self),
         .field("name", String.self),
         .field("friends", [Friend?]?.self),
       ] }
 
       /// The ID of the character
-      public var id: ID { __data["id"] }
+      public var id: StarWarsAPI.ID { __data["id"] }
       /// The name of the character
       public var name: String { __data["name"] }
       /// The friends of the character, or an empty list if they have none

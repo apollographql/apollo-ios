@@ -39,8 +39,8 @@ struct ClassroomPetDetails: MySchemaModule.SelectionSet, Fragment {
   public let __data: DataDict
   public init(data: DataDict) { __data = data }
 
-  public static var __parentType: ParentType { MySchemaModule.Unions.ClassroomPet }
-  public static var __selections: [Selection] { [
+  public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Unions.ClassroomPet }
+  public static var __selections: [ApolloAPI.Selection] { [
     .inlineFragment(AsAnimal.self),
     .inlineFragment(AsPet.self),
     .inlineFragment(AsWarmBlooded.self),
@@ -63,8 +63,8 @@ struct ClassroomPetDetails: MySchemaModule.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { MySchemaModule.Interfaces.Animal }
-    public static var __selections: [Selection] { [
+    public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Interfaces.Animal }
+    public static var __selections: [ApolloAPI.Selection] { [
       .field("species", String.self),
     ] }
 
@@ -78,8 +78,8 @@ struct ClassroomPetDetails: MySchemaModule.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { MySchemaModule.Interfaces.Pet }
-    public static var __selections: [Selection] { [
+    public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Interfaces.Pet }
+    public static var __selections: [ApolloAPI.Selection] { [
       .field("humanName", String?.self),
     ] }
 
@@ -93,8 +93,8 @@ struct ClassroomPetDetails: MySchemaModule.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { MySchemaModule.Interfaces.WarmBlooded }
-    public static var __selections: [Selection] { [
+    public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Interfaces.WarmBlooded }
+    public static var __selections: [ApolloAPI.Selection] { [
       .field("laysEggs", Bool.self),
     ] }
 
@@ -109,8 +109,8 @@ struct ClassroomPetDetails: MySchemaModule.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { MySchemaModule.Objects.Cat }
-    public static var __selections: [Selection] { [
+    public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Objects.Cat }
+    public static var __selections: [ApolloAPI.Selection] { [
       .field("bodyTemperature", Int.self),
       .field("isJellicle", Bool.self),
     ] }
@@ -129,8 +129,8 @@ struct ClassroomPetDetails: MySchemaModule.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { MySchemaModule.Objects.Bird }
-    public static var __selections: [Selection] { [
+    public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Objects.Bird }
+    public static var __selections: [ApolloAPI.Selection] { [
       .field("wingspan", Double.self),
     ] }
 
@@ -147,8 +147,8 @@ struct ClassroomPetDetails: MySchemaModule.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { MySchemaModule.Objects.PetRock }
-    public static var __selections: [Selection] { [
+    public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Objects.PetRock }
+    public static var __selections: [ApolloAPI.Selection] { [
       .field("favoriteToy", String.self),
     ] }
 

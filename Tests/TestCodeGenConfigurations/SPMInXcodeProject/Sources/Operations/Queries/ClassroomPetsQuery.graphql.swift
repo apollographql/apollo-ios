@@ -7,14 +7,14 @@ public class ClassroomPetsQuery: GraphQLQuery {
   public static let operationName: String = "ClassroomPets"
   public static let document: ApolloAPI.DocumentType = .notPersisted(
     definition: .init(
-      """
+      #"""
       query ClassroomPets {
         classroomPets {
           __typename
           ...ClassroomPetDetails
         }
       }
-      """,
+      """#,
       fragments: [ClassroomPetDetails.self]
     ))
 
@@ -24,8 +24,8 @@ public class ClassroomPetsQuery: GraphQLQuery {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { AnimalKingdomAPI.Objects.Query }
-    public static var __selections: [Selection] { [
+    public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Objects.Query }
+    public static var __selections: [ApolloAPI.Selection] { [
       .field("classroomPets", [ClassroomPet?]?.self),
     ] }
 
@@ -38,8 +38,8 @@ public class ClassroomPetsQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { AnimalKingdomAPI.Unions.ClassroomPet }
-      public static var __selections: [Selection] { [
+      public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Unions.ClassroomPet }
+      public static var __selections: [ApolloAPI.Selection] { [
         .fragment(ClassroomPetDetails.self),
       ] }
 
@@ -64,7 +64,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { AnimalKingdomAPI.Interfaces.Animal }
+        public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Interfaces.Animal }
 
         public var species: String { __data["species"] }
 
@@ -83,7 +83,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { AnimalKingdomAPI.Interfaces.Pet }
+        public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Interfaces.Pet }
 
         public var humanName: String? { __data["humanName"] }
 
@@ -102,7 +102,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { AnimalKingdomAPI.Interfaces.WarmBlooded }
+        public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Interfaces.WarmBlooded }
 
         public var species: String { __data["species"] }
         public var laysEggs: Bool { __data["laysEggs"] }
@@ -122,7 +122,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { AnimalKingdomAPI.Objects.Cat }
+        public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Objects.Cat }
 
         public var species: String { __data["species"] }
         public var humanName: String? { __data["humanName"] }
@@ -145,7 +145,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { AnimalKingdomAPI.Objects.Bird }
+        public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Objects.Bird }
 
         public var species: String { __data["species"] }
         public var humanName: String? { __data["humanName"] }
@@ -167,7 +167,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { AnimalKingdomAPI.Objects.PetRock }
+        public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Objects.PetRock }
 
         public var humanName: String? { __data["humanName"] }
         public var favoriteToy: String { __data["favoriteToy"] }

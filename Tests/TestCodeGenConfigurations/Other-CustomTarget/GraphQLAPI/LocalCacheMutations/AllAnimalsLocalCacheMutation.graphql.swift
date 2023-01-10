@@ -12,8 +12,8 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
     public var __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { GraphQLAPI.Objects.Query }
-    public static var __selections: [Selection] { [
+    public static var __parentType: ApolloAPI.ParentType { GraphQLAPI.Objects.Query }
+    public static var __selections: [ApolloAPI.Selection] { [
       .field("allAnimals", [AllAnimal].self),
     ] }
 
@@ -29,10 +29,10 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
       public var __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { GraphQLAPI.Interfaces.Animal }
-      public static var __selections: [Selection] { [
+      public static var __parentType: ApolloAPI.ParentType { GraphQLAPI.Interfaces.Animal }
+      public static var __selections: [ApolloAPI.Selection] { [
         .field("species", String.self),
-        .field("skinCovering", GraphQLEnum<SkinCovering>?.self),
+        .field("skinCovering", GraphQLEnum<GraphQLAPI.SkinCovering>?.self),
         .inlineFragment(AsBird.self),
       ] }
 
@@ -40,7 +40,7 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
         get { __data["species"] }
         set { __data["species"] = newValue }
       }
-      public var skinCovering: GraphQLEnum<SkinCovering>? {
+      public var skinCovering: GraphQLEnum<GraphQLAPI.SkinCovering>? {
         get { __data["skinCovering"] }
         set { __data["skinCovering"] = newValue }
       }
@@ -57,8 +57,8 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
         public var __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { GraphQLAPI.Objects.Bird }
-        public static var __selections: [Selection] { [
+        public static var __parentType: ApolloAPI.ParentType { GraphQLAPI.Objects.Bird }
+        public static var __selections: [ApolloAPI.Selection] { [
           .field("wingspan", Double.self),
         ] }
 
@@ -70,7 +70,7 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
           get { __data["species"] }
           set { __data["species"] = newValue }
         }
-        public var skinCovering: GraphQLEnum<SkinCovering>? {
+        public var skinCovering: GraphQLEnum<GraphQLAPI.SkinCovering>? {
           get { __data["skinCovering"] }
           set { __data["skinCovering"] = newValue }
         }

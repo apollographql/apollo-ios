@@ -48,13 +48,13 @@ public class ReviewAddedSubscription: GraphQLSubscription {
 
       public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Review }
       public static var __selections: [ApolloAPI.Selection] { [
-        .field("episode", GraphQLEnum<Episode>?.self),
+        .field("episode", GraphQLEnum<StarWarsAPI.Episode>?.self),
         .field("stars", Int.self),
         .field("commentary", String?.self),
       ] }
 
       /// The movie
-      public var episode: GraphQLEnum<Episode>? { __data["episode"] }
+      public var episode: GraphQLEnum<StarWarsAPI.Episode>? { __data["episode"] }
       /// The number of stars this review gave, 1-5
       public var stars: Int { __data["stars"] }
       /// Comment about the movie

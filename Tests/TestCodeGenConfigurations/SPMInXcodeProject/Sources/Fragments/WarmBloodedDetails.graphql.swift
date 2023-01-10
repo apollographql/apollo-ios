@@ -15,8 +15,8 @@ public struct WarmBloodedDetails: AnimalKingdomAPI.SelectionSet, Fragment {
   public let __data: DataDict
   public init(data: DataDict) { __data = data }
 
-  public static var __parentType: ParentType { AnimalKingdomAPI.Interfaces.WarmBlooded }
-  public static var __selections: [Selection] { [
+  public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Interfaces.WarmBlooded }
+  public static var __selections: [ApolloAPI.Selection] { [
     .field("bodyTemperature", Int.self),
     .fragment(HeightInMeters.self),
   ] }

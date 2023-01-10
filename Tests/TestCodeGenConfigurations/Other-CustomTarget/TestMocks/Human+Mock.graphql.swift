@@ -15,7 +15,7 @@ public class Human: MockObject {
     @Field<Height>("height") public var height
     @Field<Bool>("laysEggs") public var laysEggs
     @Field<[Animal]>("predators") public var predators
-    @Field<GraphQLEnum<SkinCovering>>("skinCovering") public var skinCovering
+    @Field<GraphQLEnum<GraphQLAPI.SkinCovering>>("skinCovering") public var skinCovering
     @Field<String>("species") public var species
   }
 }
@@ -27,7 +27,7 @@ public extension Mock where O == Human {
     height: Mock<Height>? = nil,
     laysEggs: Bool? = nil,
     predators: [AnyMock]? = nil,
-    skinCovering: GraphQLEnum<SkinCovering>? = nil,
+    skinCovering: GraphQLEnum<GraphQLAPI.SkinCovering>? = nil,
     species: String? = nil
   ) {
     self.init()

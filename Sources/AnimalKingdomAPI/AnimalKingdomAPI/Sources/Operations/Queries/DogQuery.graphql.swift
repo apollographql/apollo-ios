@@ -43,11 +43,11 @@ public class DogQuery: GraphQLQuery {
 
       public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Interfaces.Animal }
       public static var __selections: [ApolloAPI.Selection] { [
-        .field("id", ID.self),
+        .field("id", AnimalKingdomAPI.ID.self),
         .inlineFragment(AsDog.self),
       ] }
 
-      public var id: ID { __data["id"] }
+      public var id: AnimalKingdomAPI.ID { __data["id"] }
 
       public var asDog: AsDog? { _asInlineFragment() }
 
@@ -63,7 +63,7 @@ public class DogQuery: GraphQLQuery {
           .fragment(DogFragment.self),
         ] }
 
-        public var id: ID { __data["id"] }
+        public var id: AnimalKingdomAPI.ID { __data["id"] }
         public var species: String { __data["species"] }
 
         public struct Fragments: FragmentContainer {

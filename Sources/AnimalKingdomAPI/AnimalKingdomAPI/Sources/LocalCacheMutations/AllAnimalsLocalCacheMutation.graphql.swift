@@ -32,7 +32,7 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
       public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Interfaces.Animal }
       public static var __selections: [ApolloAPI.Selection] { [
         .field("species", String.self),
-        .field("skinCovering", GraphQLEnum<SkinCovering>?.self),
+        .field("skinCovering", GraphQLEnum<AnimalKingdomAPI.SkinCovering>?.self),
         .inlineFragment(AsBird.self),
       ] }
 
@@ -40,7 +40,7 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
         get { __data["species"] }
         set { __data["species"] = newValue }
       }
-      public var skinCovering: GraphQLEnum<SkinCovering>? {
+      public var skinCovering: GraphQLEnum<AnimalKingdomAPI.SkinCovering>? {
         get { __data["skinCovering"] }
         set { __data["skinCovering"] = newValue }
       }
@@ -70,7 +70,7 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
           get { __data["species"] }
           set { __data["species"] = newValue }
         }
-        public var skinCovering: GraphQLEnum<SkinCovering>? {
+        public var skinCovering: GraphQLEnum<AnimalKingdomAPI.SkinCovering>? {
           get { __data["skinCovering"] }
           set { __data["skinCovering"] = newValue }
         }

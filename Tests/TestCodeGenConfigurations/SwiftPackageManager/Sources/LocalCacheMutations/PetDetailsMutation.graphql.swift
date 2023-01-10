@@ -17,8 +17,8 @@ public struct PetDetailsMutation: GraphQLSchemaName.MutableSelectionSet, Fragmen
   public var __data: DataDict
   public init(data: DataDict) { __data = data }
 
-  public static var __parentType: ParentType { GraphQLSchemaName.Interfaces.Pet }
-  public static var __selections: [Selection] { [
+  public static var __parentType: ApolloAPI.ParentType { GraphQLSchemaName.Interfaces.Pet }
+  public static var __selections: [ApolloAPI.Selection] { [
     .field("owner", Owner?.self),
   ] }
 
@@ -34,8 +34,8 @@ public struct PetDetailsMutation: GraphQLSchemaName.MutableSelectionSet, Fragmen
     public var __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { GraphQLSchemaName.Objects.Human }
-    public static var __selections: [Selection] { [
+    public static var __parentType: ApolloAPI.ParentType { GraphQLSchemaName.Objects.Human }
+    public static var __selections: [ApolloAPI.Selection] { [
       .field("firstName", String.self),
     ] }
 
