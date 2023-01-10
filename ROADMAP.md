@@ -17,6 +17,10 @@ For up to date release notes, refer to the project's [Changelog](https://github.
 
 Please see our [patch releases milestone](https://github.com/apollographql/apollo-ios/milestone/70) for more information about the fixes and enhancements we plan to ship in the near future.
 
+## 1.x: `@defer` support
+
+The `@defer` directive enables your queries to receive data for specific fields asynchronously. This is helpful whenever some fields in a query take much longer to resolve than others.  [Apollo Kotlin](https://www.apollographql.com/docs/kotlin/fetching/defer/) and [Apollo Client (web)](https://www.apollographql.com/docs/react/data/defer/) currently support this syntax, so if you're interested in learning more check out their documentation.
+
 ## 1.1: Generated operation model creation
 
 See Github [1.1 Milestone](https://github.com/apollographql/apollo-ios/milestone/64) for more details.
@@ -64,8 +68,6 @@ This major release is still in pre-planning, more details will come in the futur
 ## Future
 
 These are subject to change and anything that dramatically changes APIs or breaks backwards compatibility with versions will be reserved for the next major version.
-
-- **@defer directive support**: the @defer directive enables your queries to receive data for specific fields asynchronously. This is helpful whenever some fields in a query take much longer to resolve than the others.
 
 - **Wrapper libraries**: A very highly voted suggestion in our fall 2019 developer survey was wrapper libraries for concurrency helpers like RxSwift, Combine, PromiseKit, etc.
   - Note that we are **not** locked into any particular set of other dependencies to support yet, but we anticipate these will be wrappers in a separate repository that have Apollo as a dependency. As individual wrappers move into nearer-term work, we'll outline which specific ones we'll be supporting.
