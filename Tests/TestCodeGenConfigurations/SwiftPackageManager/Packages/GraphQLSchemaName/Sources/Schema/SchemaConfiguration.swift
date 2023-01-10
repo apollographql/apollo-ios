@@ -9,11 +9,7 @@ import ApolloAPI
 
 public enum SchemaConfiguration: ApolloAPI.SchemaConfiguration {
   public static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
-    switch type {
-      case GraphQLSchemaName.Objects.Dog:
-      return nil
-    default:
-      return nil
-    }
+    // Implement this function to configure cache key resolution for your schema types.
+    return nil
   }
 }

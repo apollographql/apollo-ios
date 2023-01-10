@@ -6,5 +6,6 @@
 // code generation execution.
 
 import ApolloAPI
+import Foundation
 
 public typealias CustomDate = String
