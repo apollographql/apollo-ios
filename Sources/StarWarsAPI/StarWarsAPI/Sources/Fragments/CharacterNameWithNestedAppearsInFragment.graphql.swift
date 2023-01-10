@@ -24,7 +24,7 @@ public struct CharacterNameWithNestedAppearsInFragment: StarWarsAPI.SelectionSet
   /// The name of the character
   public var name: String { __data["name"] }
   /// The movies this character appears in
-  public var appearsIn: [GraphQLEnum<Episode>?] { __data["appearsIn"] }
+  public var appearsIn: [GraphQLEnum<StarWarsAPI.Episode>?] { __data["appearsIn"] }
 
   public struct Fragments: FragmentContainer {
     public let __data: DataDict

@@ -29,8 +29,8 @@ public class PetSearchLocalCacheMutation: LocalCacheMutation {
     public var __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { MyCustomProject.Objects.Query }
-    public static var __selections: [Selection] { [
+    public static var __parentType: Apollo.ParentType { MyCustomProject.Objects.Query }
+    public static var __selections: [Apollo.Selection] { [
       .field("pets", [Pet].self, arguments: ["filters": .variable("filters")]),
     ] }
 
@@ -46,13 +46,13 @@ public class PetSearchLocalCacheMutation: LocalCacheMutation {
       public var __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { MyCustomProject.Interfaces.Pet }
-      public static var __selections: [Selection] { [
-        .field("id", ID.self),
+      public static var __parentType: Apollo.ParentType { MyCustomProject.Interfaces.Pet }
+      public static var __selections: [Apollo.Selection] { [
+        .field("id", MyCustomProject.ID.self),
         .field("humanName", String?.self),
       ] }
 
-      public var id: ID {
+      public var id: MyCustomProject.ID {
         get { __data["id"] }
         set { __data["id"] = newValue }
       }

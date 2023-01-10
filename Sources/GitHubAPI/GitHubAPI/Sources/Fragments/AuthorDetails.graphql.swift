@@ -39,11 +39,11 @@ public struct AuthorDetails: GitHubAPI.SelectionSet, Fragment {
 
     public static var __parentType: ApolloAPI.ParentType { GitHubAPI.Objects.User }
     public static var __selections: [ApolloAPI.Selection] { [
-      .field("id", ID.self),
+      .field("id", GitHubAPI.ID.self),
       .field("name", String?.self),
     ] }
 
-    public var id: ID { __data["id"] }
+    public var id: GitHubAPI.ID { __data["id"] }
     /// The user's public profile name.
     public var name: String? { __data["name"] }
     /// The username of the actor.

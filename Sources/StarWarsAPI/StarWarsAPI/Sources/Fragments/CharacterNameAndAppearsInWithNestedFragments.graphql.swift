@@ -20,7 +20,7 @@ public struct CharacterNameAndAppearsInWithNestedFragments: StarWarsAPI.Selectio
   ] }
 
   /// The movies this character appears in
-  public var appearsIn: [GraphQLEnum<Episode>?] { __data["appearsIn"] }
+  public var appearsIn: [GraphQLEnum<StarWarsAPI.Episode>?] { __data["appearsIn"] }
   /// The name of the character
   public var name: String { __data["name"] }
 

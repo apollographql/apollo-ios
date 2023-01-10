@@ -14,7 +14,7 @@ public class Height: MockObject {
     @Field<Int>("feet") public var feet
     @Field<Int>("inches") public var inches
     @Field<Int>("meters") public var meters
-    @Field<GraphQLEnum<RelativeSize>>("relativeSize") public var relativeSize
+    @Field<GraphQLEnum<MyCustomProject.RelativeSize>>("relativeSize") public var relativeSize
   }
 }
 
@@ -24,7 +24,7 @@ public extension Mock where O == Height {
     feet: Int? = nil,
     inches: Int? = nil,
     meters: Int? = nil,
-    relativeSize: GraphQLEnum<RelativeSize>? = nil
+    relativeSize: GraphQLEnum<MyCustomProject.RelativeSize>? = nil
   ) {
     self.init()
     self.centimeters = centimeters

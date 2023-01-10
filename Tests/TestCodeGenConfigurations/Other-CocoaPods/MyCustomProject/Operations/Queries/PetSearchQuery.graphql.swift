@@ -7,7 +7,7 @@ public class PetSearchQuery: GraphQLQuery {
   public static let operationName: String = "PetSearch"
   public static let document: Apollo.DocumentType = .notPersisted(
     definition: .init(
-      """
+      #"""
       query PetSearch($filters: PetSearchFilters = {species: ["Dog", "Cat"], size: SMALL, measurements: {height: 10.5, weight: 5.0}}) {
         pets(filters: $filters) {
           __typename
@@ -15,7 +15,7 @@ public class PetSearchQuery: GraphQLQuery {
           humanName
         }
       }
-      """
+      """#
     ))
 
   public var filters: GraphQLNullable<PetSearchFilters>
@@ -41,8 +41,8 @@ public class PetSearchQuery: GraphQLQuery {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { MyCustomProject.Objects.Query }
-    public static var __selections: [Selection] { [
+    public static var __parentType: Apollo.ParentType { MyCustomProject.Objects.Query }
+    public static var __selections: [Apollo.Selection] { [
       .field("pets", [Pet].self, arguments: ["filters": .variable("filters")]),
     ] }
 
@@ -55,13 +55,13 @@ public class PetSearchQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { MyCustomProject.Interfaces.Pet }
-      public static var __selections: [Selection] { [
-        .field("id", ID.self),
+      public static var __parentType: Apollo.ParentType { MyCustomProject.Interfaces.Pet }
+      public static var __selections: [Apollo.Selection] { [
+        .field("id", MyCustomProject.ID.self),
         .field("humanName", String?.self),
       ] }
 
-      public var id: ID { __data["id"] }
+      public var id: MyCustomProject.ID { __data["id"] }
       public var humanName: String? { __data["humanName"] }
     }
   }

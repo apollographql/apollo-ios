@@ -29,8 +29,8 @@ public class PetSearchLocalCacheMutation: LocalCacheMutation {
     public var __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { GraphQLSchemaName.Objects.Query }
-    public static var __selections: [Selection] { [
+    public static var __parentType: ApolloAPI.ParentType { GraphQLSchemaName.Objects.Query }
+    public static var __selections: [ApolloAPI.Selection] { [
       .field("pets", [Pet].self, arguments: ["filters": .variable("filters")]),
     ] }
 
@@ -46,13 +46,13 @@ public class PetSearchLocalCacheMutation: LocalCacheMutation {
       public var __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { GraphQLSchemaName.Interfaces.Pet }
-      public static var __selections: [Selection] { [
-        .field("id", ID.self),
+      public static var __parentType: ApolloAPI.ParentType { GraphQLSchemaName.Interfaces.Pet }
+      public static var __selections: [ApolloAPI.Selection] { [
+        .field("id", GraphQLSchemaName.ID.self),
         .field("humanName", String?.self),
       ] }
 
-      public var id: ID {
+      public var id: GraphQLSchemaName.ID {
         get { __data["id"] }
         set { __data["id"] = newValue }
       }

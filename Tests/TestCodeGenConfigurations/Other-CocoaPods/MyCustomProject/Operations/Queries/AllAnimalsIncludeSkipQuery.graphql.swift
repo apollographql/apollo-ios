@@ -7,7 +7,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
   public static let operationName: String = "AllAnimalsIncludeSkipQuery"
   public static let document: Apollo.DocumentType = .notPersisted(
     definition: .init(
-      """
+      #"""
       query AllAnimalsIncludeSkipQuery($includeSpecies: Boolean!, $skipHeightInMeters: Boolean!, $getCat: Boolean!, $getWarmBlooded: Boolean!, $varA: Boolean!) {
         allAnimals {
           __typename
@@ -50,7 +50,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           }
         }
       }
-      """,
+      """#,
       fragments: [HeightInMeters.self, WarmBloodedDetails.self, PetDetails.self]
     ))
 
@@ -86,8 +86,8 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { MyCustomProject.Objects.Query }
-    public static var __selections: [Selection] { [
+    public static var __parentType: Apollo.ParentType { MyCustomProject.Objects.Query }
+    public static var __selections: [Apollo.Selection] { [
       .field("allAnimals", [AllAnimal].self),
     ] }
 
@@ -100,10 +100,10 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { MyCustomProject.Interfaces.Animal }
-      public static var __selections: [Selection] { [
+      public static var __parentType: Apollo.ParentType { MyCustomProject.Interfaces.Animal }
+      public static var __selections: [Apollo.Selection] { [
         .field("height", Height.self),
-        .field("skinCovering", GraphQLEnum<SkinCovering>?.self),
+        .field("skinCovering", GraphQLEnum<MyCustomProject.SkinCovering>?.self),
         .field("predators", [Predator].self),
         .inlineFragment(AsPet.self),
         .inlineFragment(AsClassroomPet.self),
@@ -115,7 +115,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
 
       public var height: Height { __data["height"] }
       public var species: String? { __data["species"] }
-      public var skinCovering: GraphQLEnum<SkinCovering>? { __data["skinCovering"] }
+      public var skinCovering: GraphQLEnum<MyCustomProject.SkinCovering>? { __data["skinCovering"] }
       public var predators: [Predator] { __data["predators"] }
 
       public var asWarmBlooded: AsWarmBlooded? { _asInlineFragment(if: "getWarmBlooded") }
@@ -138,8 +138,8 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { MyCustomProject.Objects.Height }
-        public static var __selections: [Selection] { [
+        public static var __parentType: Apollo.ParentType { MyCustomProject.Objects.Height }
+        public static var __selections: [Apollo.Selection] { [
           .field("feet", Int.self),
           .field("inches", Int?.self),
         ] }
@@ -156,8 +156,8 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { MyCustomProject.Interfaces.Animal }
-        public static var __selections: [Selection] { [
+        public static var __parentType: Apollo.ParentType { MyCustomProject.Interfaces.Animal }
+        public static var __selections: [Apollo.Selection] { [
           .include(if: "includeSpecies", .field("species", String.self)),
           .include(if: "getWarmBlooded", .inlineFragment(AsWarmBlooded.self)),
         ] }
@@ -173,8 +173,8 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public static var __parentType: ParentType { MyCustomProject.Interfaces.WarmBlooded }
-          public static var __selections: [Selection] { [
+          public static var __parentType: Apollo.ParentType { MyCustomProject.Interfaces.WarmBlooded }
+          public static var __selections: [Apollo.Selection] { [
             .field("species", String.self),
             .fragment(WarmBloodedDetails.self),
             .field("laysEggs", Bool.self),
@@ -202,14 +202,14 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { MyCustomProject.Interfaces.WarmBlooded }
-        public static var __selections: [Selection] { [
+        public static var __parentType: Apollo.ParentType { MyCustomProject.Interfaces.WarmBlooded }
+        public static var __selections: [Apollo.Selection] { [
           .fragment(WarmBloodedDetails.self),
         ] }
 
         public var height: Height { __data["height"] }
         public var species: String? { __data["species"] }
-        public var skinCovering: GraphQLEnum<SkinCovering>? { __data["skinCovering"] }
+        public var skinCovering: GraphQLEnum<MyCustomProject.SkinCovering>? { __data["skinCovering"] }
         public var predators: [Predator] { __data["predators"] }
         public var bodyTemperature: Int { __data["bodyTemperature"] }
 
@@ -230,7 +230,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public static var __parentType: ParentType { MyCustomProject.Objects.Height }
+          public static var __parentType: Apollo.ParentType { MyCustomProject.Objects.Height }
 
           public var feet: Int { __data["feet"] }
           public var inches: Int? { __data["inches"] }
@@ -244,11 +244,11 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public static var __parentType: ParentType { MyCustomProject.Interfaces.WarmBlooded }
+          public static var __parentType: Apollo.ParentType { MyCustomProject.Interfaces.WarmBlooded }
 
           public var height: Height { __data["height"] }
           public var species: String? { __data["species"] }
-          public var skinCovering: GraphQLEnum<SkinCovering>? { __data["skinCovering"] }
+          public var skinCovering: GraphQLEnum<MyCustomProject.SkinCovering>? { __data["skinCovering"] }
           public var predators: [Predator] { __data["predators"] }
           public var bodyTemperature: Int { __data["bodyTemperature"] }
 
@@ -267,7 +267,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
             public let __data: DataDict
             public init(data: DataDict) { __data = data }
 
-            public static var __parentType: ParentType { MyCustomProject.Objects.Height }
+            public static var __parentType: Apollo.ParentType { MyCustomProject.Objects.Height }
 
             public var feet: Int { __data["feet"] }
             public var inches: Int? { __data["inches"] }
@@ -283,8 +283,8 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { MyCustomProject.Interfaces.Pet }
-        public static var __selections: [Selection] { [
+        public static var __parentType: Apollo.ParentType { MyCustomProject.Interfaces.Pet }
+        public static var __selections: [Apollo.Selection] { [
           .field("height", Height.self),
           .inlineFragment(AsWarmBlooded.self),
           .fragment(PetDetails.self),
@@ -292,7 +292,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
 
         public var height: Height { __data["height"] }
         public var species: String? { __data["species"] }
-        public var skinCovering: GraphQLEnum<SkinCovering>? { __data["skinCovering"] }
+        public var skinCovering: GraphQLEnum<MyCustomProject.SkinCovering>? { __data["skinCovering"] }
         public var predators: [Predator] { __data["predators"] }
         public var humanName: String? { __data["humanName"] }
         public var favoriteToy: String { __data["favoriteToy"] }
@@ -315,15 +315,15 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public static var __parentType: ParentType { MyCustomProject.Objects.Height }
-          public static var __selections: [Selection] { [
+          public static var __parentType: Apollo.ParentType { MyCustomProject.Objects.Height }
+          public static var __selections: [Apollo.Selection] { [
             .include(if: "varA", [
-              .field("relativeSize", GraphQLEnum<RelativeSize>.self),
+              .field("relativeSize", GraphQLEnum<MyCustomProject.RelativeSize>.self),
               .field("centimeters", Double.self),
             ]),
           ] }
 
-          public var relativeSize: GraphQLEnum<RelativeSize>? { __data["relativeSize"] }
+          public var relativeSize: GraphQLEnum<MyCustomProject.RelativeSize>? { __data["relativeSize"] }
           public var centimeters: Double? { __data["centimeters"] }
           public var feet: Int { __data["feet"] }
           public var inches: Int? { __data["inches"] }
@@ -337,14 +337,14 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public static var __parentType: ParentType { MyCustomProject.Interfaces.WarmBlooded }
-          public static var __selections: [Selection] { [
+          public static var __parentType: Apollo.ParentType { MyCustomProject.Interfaces.WarmBlooded }
+          public static var __selections: [Apollo.Selection] { [
             .fragment(WarmBloodedDetails.self),
           ] }
 
           public var height: Height { __data["height"] }
           public var species: String? { __data["species"] }
-          public var skinCovering: GraphQLEnum<SkinCovering>? { __data["skinCovering"] }
+          public var skinCovering: GraphQLEnum<MyCustomProject.SkinCovering>? { __data["skinCovering"] }
           public var predators: [Predator] { __data["predators"] }
           public var humanName: String? { __data["humanName"] }
           public var favoriteToy: String { __data["favoriteToy"] }
@@ -367,12 +367,12 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
             public let __data: DataDict
             public init(data: DataDict) { __data = data }
 
-            public static var __parentType: ParentType { MyCustomProject.Objects.Height }
+            public static var __parentType: Apollo.ParentType { MyCustomProject.Objects.Height }
 
             public var feet: Int { __data["feet"] }
             public var inches: Int? { __data["inches"] }
             public var meters: Int { __data["meters"] }
-            public var relativeSize: GraphQLEnum<RelativeSize>? { __data["relativeSize"] }
+            public var relativeSize: GraphQLEnum<MyCustomProject.RelativeSize>? { __data["relativeSize"] }
             public var centimeters: Double? { __data["centimeters"] }
           }
         }
@@ -385,15 +385,15 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { MyCustomProject.Objects.Cat }
-        public static var __selections: [Selection] { [
+        public static var __parentType: Apollo.ParentType { MyCustomProject.Objects.Cat }
+        public static var __selections: [Apollo.Selection] { [
           .field("isJellicle", Bool.self),
         ] }
 
         public var isJellicle: Bool { __data["isJellicle"] }
         public var height: Height { __data["height"] }
         public var species: String? { __data["species"] }
-        public var skinCovering: GraphQLEnum<SkinCovering>? { __data["skinCovering"] }
+        public var skinCovering: GraphQLEnum<MyCustomProject.SkinCovering>? { __data["skinCovering"] }
         public var predators: [Predator] { __data["predators"] }
         public var humanName: String? { __data["humanName"] }
         public var favoriteToy: String { __data["favoriteToy"] }
@@ -416,12 +416,12 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public static var __parentType: ParentType { MyCustomProject.Objects.Height }
+          public static var __parentType: Apollo.ParentType { MyCustomProject.Objects.Height }
 
           public var feet: Int { __data["feet"] }
           public var inches: Int? { __data["inches"] }
           public var meters: Int { __data["meters"] }
-          public var relativeSize: GraphQLEnum<RelativeSize>? { __data["relativeSize"] }
+          public var relativeSize: GraphQLEnum<MyCustomProject.RelativeSize>? { __data["relativeSize"] }
           public var centimeters: Double? { __data["centimeters"] }
         }
       }
@@ -433,14 +433,14 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { MyCustomProject.Unions.ClassroomPet }
-        public static var __selections: [Selection] { [
+        public static var __parentType: Apollo.ParentType { MyCustomProject.Unions.ClassroomPet }
+        public static var __selections: [Apollo.Selection] { [
           .inlineFragment(AsBird.self),
         ] }
 
         public var height: Height { __data["height"] }
         public var species: String? { __data["species"] }
-        public var skinCovering: GraphQLEnum<SkinCovering>? { __data["skinCovering"] }
+        public var skinCovering: GraphQLEnum<MyCustomProject.SkinCovering>? { __data["skinCovering"] }
         public var predators: [Predator] { __data["predators"] }
 
         public var asBird: AsBird? { _asInlineFragment() }
@@ -459,7 +459,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public static var __parentType: ParentType { MyCustomProject.Objects.Height }
+          public static var __parentType: Apollo.ParentType { MyCustomProject.Objects.Height }
 
           public var feet: Int { __data["feet"] }
           public var inches: Int? { __data["inches"] }
@@ -473,15 +473,15 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public static var __parentType: ParentType { MyCustomProject.Objects.Bird }
-          public static var __selections: [Selection] { [
+          public static var __parentType: Apollo.ParentType { MyCustomProject.Objects.Bird }
+          public static var __selections: [Apollo.Selection] { [
             .field("wingspan", Double.self),
           ] }
 
           public var wingspan: Double { __data["wingspan"] }
           public var height: Height { __data["height"] }
           public var species: String? { __data["species"] }
-          public var skinCovering: GraphQLEnum<SkinCovering>? { __data["skinCovering"] }
+          public var skinCovering: GraphQLEnum<MyCustomProject.SkinCovering>? { __data["skinCovering"] }
           public var predators: [Predator] { __data["predators"] }
           public var humanName: String? { __data["humanName"] }
           public var favoriteToy: String { __data["favoriteToy"] }
@@ -504,12 +504,12 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
             public let __data: DataDict
             public init(data: DataDict) { __data = data }
 
-            public static var __parentType: ParentType { MyCustomProject.Objects.Height }
+            public static var __parentType: Apollo.ParentType { MyCustomProject.Objects.Height }
 
             public var feet: Int { __data["feet"] }
             public var inches: Int? { __data["inches"] }
             public var meters: Int { __data["meters"] }
-            public var relativeSize: GraphQLEnum<RelativeSize>? { __data["relativeSize"] }
+            public var relativeSize: GraphQLEnum<MyCustomProject.RelativeSize>? { __data["relativeSize"] }
             public var centimeters: Double? { __data["centimeters"] }
           }
         }
@@ -521,11 +521,11 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { MyCustomProject.Interfaces.Animal }
+        public static var __parentType: Apollo.ParentType { MyCustomProject.Interfaces.Animal }
 
         public var height: Height { __data["height"] }
         public var species: String? { __data["species"] }
-        public var skinCovering: GraphQLEnum<SkinCovering>? { __data["skinCovering"] }
+        public var skinCovering: GraphQLEnum<MyCustomProject.SkinCovering>? { __data["skinCovering"] }
         public var predators: [Predator] { __data["predators"] }
 
         public struct Fragments: FragmentContainer {
@@ -542,7 +542,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public static var __parentType: ParentType { MyCustomProject.Objects.Height }
+          public static var __parentType: Apollo.ParentType { MyCustomProject.Objects.Height }
 
           public var feet: Int { __data["feet"] }
           public var inches: Int? { __data["inches"] }

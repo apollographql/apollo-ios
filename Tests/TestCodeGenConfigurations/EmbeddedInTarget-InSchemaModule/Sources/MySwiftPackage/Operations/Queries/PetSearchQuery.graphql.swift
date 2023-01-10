@@ -8,7 +8,7 @@ public extension MyGraphQLSchema {
     public static let operationName: String = "PetSearch"
     public static let document: ApolloAPI.DocumentType = .notPersisted(
       definition: .init(
-        """
+        #"""
         query PetSearch($filters: PetSearchFilters = {species: ["Dog", "Cat"], size: SMALL, measurements: {height: 10.5, weight: 5.0}}) {
           pets(filters: $filters) {
             __typename
@@ -16,7 +16,7 @@ public extension MyGraphQLSchema {
             humanName
           }
         }
-        """
+        """#
       ))
 
     public var filters: GraphQLNullable<PetSearchFilters>
@@ -42,8 +42,8 @@ public extension MyGraphQLSchema {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { MyGraphQLSchema.Objects.Query }
-      public static var __selections: [Selection] { [
+      public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Objects.Query }
+      public static var __selections: [ApolloAPI.Selection] { [
         .field("pets", [Pet].self, arguments: ["filters": .variable("filters")]),
       ] }
 
@@ -56,13 +56,13 @@ public extension MyGraphQLSchema {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { MyGraphQLSchema.Interfaces.Pet }
-        public static var __selections: [Selection] { [
-          .field("id", ID.self),
+        public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Interfaces.Pet }
+        public static var __selections: [ApolloAPI.Selection] { [
+          .field("id", MyGraphQLSchema.ID.self),
           .field("humanName", String?.self),
         ] }
 
-        public var id: ID { __data["id"] }
+        public var id: MyGraphQLSchema.ID { __data["id"] }
         public var humanName: String? { __data["humanName"] }
       }
     }

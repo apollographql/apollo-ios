@@ -17,8 +17,8 @@ public struct HeightInMeters: GraphQLSchemaName.SelectionSet, Fragment {
   public let __data: DataDict
   public init(data: DataDict) { __data = data }
 
-  public static var __parentType: ParentType { GraphQLSchemaName.Interfaces.Animal }
-  public static var __selections: [Selection] { [
+  public static var __parentType: ApolloAPI.ParentType { GraphQLSchemaName.Interfaces.Animal }
+  public static var __selections: [ApolloAPI.Selection] { [
     .field("height", Height.self),
   ] }
 
@@ -31,8 +31,8 @@ public struct HeightInMeters: GraphQLSchemaName.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { GraphQLSchemaName.Objects.Height }
-    public static var __selections: [Selection] { [
+    public static var __parentType: ApolloAPI.ParentType { GraphQLSchemaName.Objects.Height }
+    public static var __selections: [ApolloAPI.Selection] { [
       .field("meters", Int.self),
     ] }
 

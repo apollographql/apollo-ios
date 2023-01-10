@@ -51,7 +51,7 @@ public class HeroAppearsInWithFragmentQuery: GraphQLQuery {
       ] }
 
       /// The movies this character appears in
-      public var appearsIn: [GraphQLEnum<Episode>?] { __data["appearsIn"] }
+      public var appearsIn: [GraphQLEnum<StarWarsAPI.Episode>?] { __data["appearsIn"] }
 
       public struct Fragments: FragmentContainer {
         public let __data: DataDict

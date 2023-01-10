@@ -12,7 +12,7 @@ public class PetRock: MockObject {
   public struct MockFields {
     @Field<String>("favoriteToy") public var favoriteToy
     @Field<String>("humanName") public var humanName
-    @Field<ID>("id") public var id
+    @Field<GraphQLSchemaName.ID>("id") public var id
     @Field<Human>("owner") public var owner
   }
 }
@@ -21,7 +21,7 @@ public extension Mock where O == PetRock {
   convenience init(
     favoriteToy: String? = nil,
     humanName: String? = nil,
-    id: ID? = nil,
+    id: GraphQLSchemaName.ID? = nil,
     owner: Mock<Human>? = nil
   ) {
     self.init()

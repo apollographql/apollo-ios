@@ -58,11 +58,11 @@ public struct CharacterNameWithInlineFragment: StarWarsAPI.SelectionSet, Fragmen
 
       public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
       public static var __selections: [ApolloAPI.Selection] { [
-        .field("appearsIn", [GraphQLEnum<Episode>?].self),
+        .field("appearsIn", [GraphQLEnum<StarWarsAPI.Episode>?].self),
       ] }
 
       /// The movies this character appears in
-      public var appearsIn: [GraphQLEnum<Episode>?] { __data["appearsIn"] }
+      public var appearsIn: [GraphQLEnum<StarWarsAPI.Episode>?] { __data["appearsIn"] }
       /// The name of the character
       public var name: String { __data["name"] }
     }

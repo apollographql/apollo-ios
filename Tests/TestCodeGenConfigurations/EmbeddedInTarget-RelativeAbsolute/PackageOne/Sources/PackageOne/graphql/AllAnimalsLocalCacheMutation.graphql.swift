@@ -13,8 +13,8 @@ class AllAnimalsLocalCacheMutation: LocalCacheMutation {
     public var __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { MySchemaModule.Objects.Query }
-    public static var __selections: [Selection] { [
+    public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Objects.Query }
+    public static var __selections: [ApolloAPI.Selection] { [
       .field("allAnimals", [AllAnimal].self),
     ] }
 
@@ -30,8 +30,8 @@ class AllAnimalsLocalCacheMutation: LocalCacheMutation {
       public var __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { MySchemaModule.Interfaces.Animal }
-      public static var __selections: [Selection] { [
+      public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Interfaces.Animal }
+      public static var __selections: [ApolloAPI.Selection] { [
         .field("species", String.self),
         .field("skinCovering", GraphQLEnum<MySchemaModule.SkinCovering>?.self),
         .inlineFragment(AsBird.self),
@@ -58,8 +58,8 @@ class AllAnimalsLocalCacheMutation: LocalCacheMutation {
         public var __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { MySchemaModule.Objects.Bird }
-        public static var __selections: [Selection] { [
+        public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Objects.Bird }
+        public static var __selections: [ApolloAPI.Selection] { [
           .field("wingspan", Double.self),
         ] }
 

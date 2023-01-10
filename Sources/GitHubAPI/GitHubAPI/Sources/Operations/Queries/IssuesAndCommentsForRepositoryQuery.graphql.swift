@@ -150,7 +150,7 @@ public class IssuesAndCommentsForRepositoryQuery: GraphQLQuery {
 
               /// The username of the actor.
               public var login: String { __data["login"] }
-              public var id: ID { __data["id"] }
+              public var id: GitHubAPI.ID { __data["id"] }
               /// The user's public profile name.
               public var name: String? { __data["name"] }
 
@@ -231,7 +231,7 @@ public class IssuesAndCommentsForRepositoryQuery: GraphQLQuery {
 
                   /// The username of the actor.
                   public var login: String { __data["login"] }
-                  public var id: ID { __data["id"] }
+                  public var id: GitHubAPI.ID { __data["id"] }
                   /// The user's public profile name.
                   public var name: String? { __data["name"] }
 

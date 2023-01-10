@@ -48,11 +48,11 @@ public class PetSearchLocalCacheMutation: LocalCacheMutation {
 
       public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Interfaces.Pet }
       public static var __selections: [ApolloAPI.Selection] { [
-        .field("id", ID.self),
+        .field("id", AnimalKingdomAPI.ID.self),
         .field("humanName", String?.self),
       ] }
 
-      public var id: ID {
+      public var id: AnimalKingdomAPI.ID {
         get { __data["id"] }
         set { __data["id"] = newValue }
       }

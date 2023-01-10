@@ -15,8 +15,8 @@ struct DogFragment: MySchemaModule.SelectionSet, Fragment {
   public let __data: DataDict
   public init(data: DataDict) { __data = data }
 
-  public static var __parentType: ParentType { MySchemaModule.Objects.Dog }
-  public static var __selections: [Selection] { [
+  public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Objects.Dog }
+  public static var __selections: [ApolloAPI.Selection] { [
     .field("species", String.self),
   ] }
 

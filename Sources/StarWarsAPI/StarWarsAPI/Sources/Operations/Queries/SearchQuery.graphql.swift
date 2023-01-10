@@ -78,12 +78,12 @@ public class SearchQuery: GraphQLQuery {
 
         public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Human }
         public static var __selections: [ApolloAPI.Selection] { [
-          .field("id", ID.self),
+          .field("id", StarWarsAPI.ID.self),
           .field("name", String.self),
         ] }
 
         /// The ID of the human
-        public var id: ID { __data["id"] }
+        public var id: StarWarsAPI.ID { __data["id"] }
         /// What this human calls themselves
         public var name: String { __data["name"] }
       }
@@ -97,12 +97,12 @@ public class SearchQuery: GraphQLQuery {
 
         public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Droid }
         public static var __selections: [ApolloAPI.Selection] { [
-          .field("id", ID.self),
+          .field("id", StarWarsAPI.ID.self),
           .field("name", String.self),
         ] }
 
         /// The ID of the droid
-        public var id: ID { __data["id"] }
+        public var id: StarWarsAPI.ID { __data["id"] }
         /// What others call this droid
         public var name: String { __data["name"] }
       }
@@ -116,12 +116,12 @@ public class SearchQuery: GraphQLQuery {
 
         public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Starship }
         public static var __selections: [ApolloAPI.Selection] { [
-          .field("id", ID.self),
+          .field("id", StarWarsAPI.ID.self),
           .field("name", String.self),
         ] }
 
         /// The ID of the starship
-        public var id: ID { __data["id"] }
+        public var id: StarWarsAPI.ID { __data["id"] }
         /// The name of the starship
         public var name: String { __data["name"] }
       }

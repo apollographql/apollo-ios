@@ -13,10 +13,10 @@ public class Fish: MockObject {
     @Field<String>("favoriteToy") public var favoriteToy
     @Field<Height>("height") public var height
     @Field<String>("humanName") public var humanName
-    @Field<ID>("id") public var id
+    @Field<MyCustomProject.ID>("id") public var id
     @Field<Human>("owner") public var owner
     @Field<[Animal]>("predators") public var predators
-    @Field<GraphQLEnum<SkinCovering>>("skinCovering") public var skinCovering
+    @Field<GraphQLEnum<MyCustomProject.SkinCovering>>("skinCovering") public var skinCovering
     @Field<String>("species") public var species
   }
 }
@@ -26,10 +26,10 @@ public extension Mock where O == Fish {
     favoriteToy: String? = nil,
     height: Mock<Height>? = nil,
     humanName: String? = nil,
-    id: ID? = nil,
+    id: MyCustomProject.ID? = nil,
     owner: Mock<Human>? = nil,
     predators: [AnyMock]? = nil,
-    skinCovering: GraphQLEnum<SkinCovering>? = nil,
+    skinCovering: GraphQLEnum<MyCustomProject.SkinCovering>? = nil,
     species: String? = nil
   ) {
     self.init()

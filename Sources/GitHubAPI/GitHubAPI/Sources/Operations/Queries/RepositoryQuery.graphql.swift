@@ -100,14 +100,14 @@ public class RepositoryQuery: GraphQLQuery {
           public static var __parentType: ApolloAPI.ParentType { GitHubAPI.Objects.Issue }
           public static var __selections: [ApolloAPI.Selection] { [
             .field("body", String.self),
-            .field("url", URI.self),
+            .field("url", GitHubAPI.URI.self),
             .field("author", Author?.self),
           ] }
 
           /// Identifies the body of the issue.
           public var body: String { __data["body"] }
           /// The URL to this resource.
-          public var url: URI { __data["url"] }
+          public var url: GitHubAPI.URI { __data["url"] }
           /// The actor who authored the comment.
           public var author: Author? { __data["author"] }
           /// Can user react to this subject
@@ -122,11 +122,11 @@ public class RepositoryQuery: GraphQLQuery {
 
             public static var __parentType: ApolloAPI.ParentType { GitHubAPI.Interfaces.Actor }
             public static var __selections: [ApolloAPI.Selection] { [
-              .field("avatarUrl", URI.self),
+              .field("avatarUrl", GitHubAPI.URI.self),
             ] }
 
             /// A URL pointing to the actor's public avatar.
-            public var avatarUrl: URI { __data["avatarUrl"] }
+            public var avatarUrl: GitHubAPI.URI { __data["avatarUrl"] }
             /// The username of the actor.
             public var login: String { __data["login"] }
           }

@@ -8,14 +8,14 @@ class ClassroomPetsCCNQuery: GraphQLQuery {
   public static let operationName: String = "ClassroomPetsCCN"
   public static let document: ApolloAPI.DocumentType = .notPersisted(
     definition: .init(
-      """
+      #"""
       query ClassroomPetsCCN {
         classroomPets[!]? {
           __typename
           ...ClassroomPetDetailsCCN
         }
       }
-      """,
+      """#,
       fragments: [ClassroomPetDetailsCCN.self]
     ))
 
@@ -25,8 +25,8 @@ class ClassroomPetsCCNQuery: GraphQLQuery {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { MySchemaModule.Objects.Query }
-    public static var __selections: [Selection] { [
+    public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Objects.Query }
+    public static var __selections: [ApolloAPI.Selection] { [
       .field("classroomPets", [ClassroomPet]?.self),
     ] }
 
@@ -39,8 +39,8 @@ class ClassroomPetsCCNQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { MySchemaModule.Unions.ClassroomPet }
-      public static var __selections: [Selection] { [
+      public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Unions.ClassroomPet }
+      public static var __selections: [ApolloAPI.Selection] { [
         .fragment(ClassroomPetDetailsCCN.self),
       ] }
 
@@ -60,7 +60,7 @@ class ClassroomPetsCCNQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { MySchemaModule.Interfaces.Animal }
+        public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Interfaces.Animal }
 
         public var height: ClassroomPetDetailsCCN.AsAnimal.Height { __data["height"] }
 
