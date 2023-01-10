@@ -64,10 +64,3 @@ These are the major initiatives planned for 3.0/3.x:
   - Cache metadata. Ability to add per-field metadata if needed, to allow for TTL and time-based invalidation, etc.
 
 This major release is still in pre-planning, more details will come in the future.
-
-## Future
-
-These are subject to change and anything that dramatically changes APIs or breaks backwards compatibility with versions will be reserved for the next major version.
-
-- **Wrapper libraries**: A very highly voted suggestion in our fall 2019 developer survey was wrapper libraries for concurrency helpers like RxSwift, Combine, PromiseKit, etc.
-  - Note that we are **not** locked into any particular set of other dependencies to support yet, but we anticipate these will be wrappers in a separate repository that have Apollo as a dependency. As individual wrappers move into nearer-term work, we'll outline which specific ones we'll be supporting.
