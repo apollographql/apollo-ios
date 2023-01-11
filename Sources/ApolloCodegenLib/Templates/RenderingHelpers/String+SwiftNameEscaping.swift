@@ -66,7 +66,8 @@ enum SwiftKeywords {
     "Float",
     "Double",
     "ID",
-    "Type"
+    "Type",
+    "_",
   ]
 
   /// When an interface or union named "Actor" is used as the type for a field on a test mock,
