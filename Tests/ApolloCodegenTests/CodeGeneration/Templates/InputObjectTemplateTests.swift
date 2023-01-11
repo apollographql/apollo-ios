@@ -1494,7 +1494,12 @@ class InputObjectTemplateTests: XCTestCase {
         "try",
         type: .nonNull(.string()),
         defaultValue: nil
-      )
+      ),
+      GraphQLInputField.mock(
+        "_",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
     ]
 
     buildSubject(fields: fields, config: .mock(schemaName: "TestSchema"))
@@ -1550,7 +1555,8 @@ class InputObjectTemplateTests: XCTestCase {
         `super`: String,
         `throws`: String,
         `true`: String,
-        `try`: String
+        `try`: String,
+        `_`: String
       ) {
         __data = InputDict([
           "associatedtype": `associatedtype`,
@@ -1602,7 +1608,8 @@ class InputObjectTemplateTests: XCTestCase {
           "super": `super`,
           "throws": `throws`,
           "true": `true`,
-          "try": `try`
+          "try": `try`,
+          "_": `_`
         ])
       }
 
@@ -1854,6 +1861,11 @@ class InputObjectTemplateTests: XCTestCase {
       public var `try`: String {
         get { __data["`try`"] }
         set { __data["`try`"] = newValue }
+      }
+
+      public var `_`: String {
+        get { __data["`_`"] }
+        set { __data["`_`"] = newValue }
       }
     """
 
