@@ -471,6 +471,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
       $fallthrough: String
       $false: String
       $fileprivate: String
+      $for: String
       $func: String
       $guard: String
       $if: String
@@ -529,6 +530,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
       public var `fallthrough`: GraphQLNullable<String>
       public var `false`: GraphQLNullable<String>
       public var `fileprivate`: GraphQLNullable<String>
+      public var `for`: GraphQLNullable<String>
       public var `func`: GraphQLNullable<String>
       public var `guard`: GraphQLNullable<String>
       public var `if`: GraphQLNullable<String>
@@ -580,6 +582,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
         `fallthrough`: GraphQLNullable<String>,
         `false`: GraphQLNullable<String>,
         `fileprivate`: GraphQLNullable<String>,
+        `for`: GraphQLNullable<String>,
         `func`: GraphQLNullable<String>,
         `guard`: GraphQLNullable<String>,
         `if`: GraphQLNullable<String>,
@@ -630,6 +633,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
         self.`fallthrough` = `fallthrough`
         self.`false` = `false`
         self.`fileprivate` = `fileprivate`
+        self.`for` = `for`
         self.`func` = `func`
         self.`guard` = `guard`
         self.`if` = `if`
@@ -682,6 +686,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
         "fallthrough": `fallthrough`,
         "false": `false`,
         "fileprivate": `fileprivate`,
+        "for": `for`,
         "func": `func`,
         "guard": `guard`,
         "if": `if`,

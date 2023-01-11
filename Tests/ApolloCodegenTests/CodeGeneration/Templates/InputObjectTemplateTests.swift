@@ -1406,6 +1406,11 @@ class InputObjectTemplateTests: XCTestCase {
         defaultValue: nil
       ),
       GraphQLInputField.mock(
+        "for",
+        type: .nonNull(.string()),
+        defaultValue: nil
+      ),
+      GraphQLInputField.mock(
         "guard",
         type: .nonNull(.string()),
         defaultValue: nil
@@ -1533,6 +1538,7 @@ class InputObjectTemplateTests: XCTestCase {
         `do`: String,
         `else`: String,
         `fallthrough`: String,
+        `for`: String,
         `guard`: String,
         `if`: String,
         `in`: String,
@@ -1585,6 +1591,7 @@ class InputObjectTemplateTests: XCTestCase {
           "do": `do`,
           "else": `else`,
           "fallthrough": `fallthrough`,
+          "for": `for`,
           "guard": `guard`,
           "if": `if`,
           "in": `in`,
@@ -1764,6 +1771,11 @@ class InputObjectTemplateTests: XCTestCase {
       public var `fallthrough`: String {
         get { __data["`fallthrough`"] }
         set { __data["`fallthrough`"] = newValue }
+      }
+
+      public var `for`: String {
+        get { __data["`for`"] }
+        set { __data["`for`"] = newValue }
       }
 
       public var `guard`: String {
