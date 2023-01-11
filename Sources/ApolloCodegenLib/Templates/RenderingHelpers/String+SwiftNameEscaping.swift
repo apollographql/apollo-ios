@@ -114,6 +114,7 @@ enum SwiftKeywords {
     "do",
     "else",
     "fallthrough",
+    "for",
     "guard",
     "if",
     "in",
