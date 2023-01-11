@@ -38,7 +38,7 @@ extension String {
 enum SwiftKeywords {
 
   static let DisallowedFieldNames: Set<String> = [
-    "__data", "fragments", "_"
+    "__data", "fragments"
   ]
 
   static let DisallowedInputParameterNames: Set<String> = [
@@ -133,6 +133,7 @@ enum SwiftKeywords {
     "throws",
     "true",
     "try",
+    "_",
   ]
 
   fileprivate static let InputParameterNamesToEscape: Set<String> = FieldAccessorNamesToEscape
