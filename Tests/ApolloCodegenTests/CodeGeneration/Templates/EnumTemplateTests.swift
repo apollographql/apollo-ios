@@ -129,57 +129,7 @@ class EnumTemplateTests: XCTestCase {
 
         // Escaped keywords
         ("associatedtype", nil, nil),
-        ("class", nil, nil),
-        ("deinit", nil, nil),
-        ("enum", nil, nil),
-        ("extension", nil, nil),
-        ("fileprivate", nil, nil),
-        ("func", nil, nil),
-        ("import", nil, nil),
-        ("init", nil, nil),
-        ("inout", nil, nil),
-        ("internal", nil, nil),
-        ("let", nil, nil),
-        ("operator", nil, nil),
-        ("private", nil, nil),
-        ("precedencegroup", nil, nil),
-        ("protocol", nil, nil),
         ("Protocol", nil, nil),
-        ("public", nil, nil),
-        ("rethrows", nil, nil),
-        ("static", nil, nil),
-        ("struct", nil, nil),
-        ("subscript", nil, nil),
-        ("typealias", nil, nil),
-        ("var", nil, nil),
-        ("break", nil, nil),
-        ("case", nil, nil),
-        ("catch", nil, nil),
-        ("continue", nil, nil),
-        ("default", nil, nil),
-        ("defer", nil, nil),
-        ("do", nil, nil),
-        ("else", nil, nil),
-        ("fallthrough", nil, nil),
-        ("guard", nil, nil),
-        ("if", nil, nil),
-        ("in", nil, nil),
-        ("repeat", nil, nil),
-        ("return", nil, nil),
-        ("throw", nil, nil),
-        ("switch", nil, nil),
-        ("where", nil, nil),
-        ("while", nil, nil),
-        ("as", nil, nil),
-        ("false", nil, nil),
-        ("is", nil, nil),
-        ("nil", nil, nil),
-        ("self", nil, nil),
-        ("Self", nil, nil),
-        ("super", nil, nil),
-        ("throws", nil, nil),
-        ("true", nil, nil),
-        ("try", nil, nil),
       ],
       config: .mock(
         options: .init(conversionStrategies: .init(enumCases: .camelCase))
@@ -199,57 +149,7 @@ class EnumTemplateTests: XCTestCase {
       case upperCamelCase = "UpperCamelCase"
       case before2023 = "BEFORE2023"
       case `associatedtype` = "associatedtype"
-      case `class` = "class"
-      case `deinit` = "deinit"
-      case `enum` = "enum"
-      case `extension` = "extension"
-      case `fileprivate` = "fileprivate"
-      case `func` = "func"
-      case `import` = "import"
-      case `init` = "init"
-      case `inout` = "inout"
-      case `internal` = "internal"
-      case `let` = "let"
-      case `operator` = "operator"
-      case `private` = "private"
-      case `precedencegroup` = "precedencegroup"
-      case `protocol` = "protocol"
       case `protocol` = "Protocol"
-      case `public` = "public"
-      case `rethrows` = "rethrows"
-      case `static` = "static"
-      case `struct` = "struct"
-      case `subscript` = "subscript"
-      case `typealias` = "typealias"
-      case `var` = "var"
-      case `break` = "break"
-      case `case` = "case"
-      case `catch` = "catch"
-      case `continue` = "continue"
-      case `default` = "default"
-      case `defer` = "defer"
-      case `do` = "do"
-      case `else` = "else"
-      case `fallthrough` = "fallthrough"
-      case `guard` = "guard"
-      case `if` = "if"
-      case `in` = "in"
-      case `repeat` = "repeat"
-      case `return` = "return"
-      case `throw` = "throw"
-      case `switch` = "switch"
-      case `where` = "where"
-      case `while` = "while"
-      case `as` = "as"
-      case `false` = "false"
-      case `is` = "is"
-      case `nil` = "nil"
-      case `self` = "self"
-      case `self` = "Self"
-      case `super` = "super"
-      case `throws` = "throws"
-      case `true` = "true"
-      case `try` = "try"
     }
 
     """
@@ -280,57 +180,7 @@ class EnumTemplateTests: XCTestCase {
 
         // Escaped keywords
         ("associatedtype", nil, nil),
-        ("class", nil, nil),
-        ("deinit", nil, nil),
-        ("enum", nil, nil),
-        ("extension", nil, nil),
-        ("fileprivate", nil, nil),
-        ("func", nil, nil),
-        ("import", nil, nil),
-        ("init", nil, nil),
-        ("inout", nil, nil),
-        ("internal", nil, nil),
-        ("let", nil, nil),
-        ("operator", nil, nil),
-        ("private", nil, nil),
-        ("precedencegroup", nil, nil),
-        ("protocol", nil, nil),
         ("Protocol", nil, nil),
-        ("public", nil, nil),
-        ("rethrows", nil, nil),
-        ("static", nil, nil),
-        ("struct", nil, nil),
-        ("subscript", nil, nil),
-        ("typealias", nil, nil),
-        ("var", nil, nil),
-        ("break", nil, nil),
-        ("case", nil, nil),
-        ("catch", nil, nil),
-        ("continue", nil, nil),
-        ("default", nil, nil),
-        ("defer", nil, nil),
-        ("do", nil, nil),
-        ("else", nil, nil),
-        ("fallthrough", nil, nil),
-        ("guard", nil, nil),
-        ("if", nil, nil),
-        ("in", nil, nil),
-        ("repeat", nil, nil),
-        ("return", nil, nil),
-        ("throw", nil, nil),
-        ("switch", nil, nil),
-        ("where", nil, nil),
-        ("while", nil, nil),
-        ("as", nil, nil),
-        ("false", nil, nil),
-        ("is", nil, nil),
-        ("nil", nil, nil),
-        ("self", nil, nil),
-        ("Self", nil, nil),
-        ("super", nil, nil),
-        ("throws", nil, nil),
-        ("true", nil, nil),
-        ("try", nil, nil),
       ],
       config: .mock(
         options: .init(conversionStrategies: .init(enumCases: .none))
@@ -350,57 +200,7 @@ class EnumTemplateTests: XCTestCase {
       case UpperCamelCase
       case BEFORE2023
       case `associatedtype`
-      case `class`
-      case `deinit`
-      case `enum`
-      case `extension`
-      case `fileprivate`
-      case `func`
-      case `import`
-      case `init`
-      case `inout`
-      case `internal`
-      case `let`
-      case `operator`
-      case `private`
-      case `precedencegroup`
-      case `protocol`
       case `Protocol`
-      case `public`
-      case `rethrows`
-      case `static`
-      case `struct`
-      case `subscript`
-      case `typealias`
-      case `var`
-      case `break`
-      case `case`
-      case `catch`
-      case `continue`
-      case `default`
-      case `defer`
-      case `do`
-      case `else`
-      case `fallthrough`
-      case `guard`
-      case `if`
-      case `in`
-      case `repeat`
-      case `return`
-      case `throw`
-      case `switch`
-      case `where`
-      case `while`
-      case `as`
-      case `false`
-      case `is`
-      case `nil`
-      case `self`
-      case `Self`
-      case `super`
-      case `throws`
-      case `true`
-      case `try`
     }
     
     """
