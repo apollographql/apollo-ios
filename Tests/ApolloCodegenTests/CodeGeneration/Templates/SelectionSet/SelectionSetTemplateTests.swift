@@ -978,6 +978,7 @@ class SelectionSetTemplateTests: XCTestCase {
       protocol: Animal!
       type: Animal!
       species: String!
+      _: Animal!
     }
     """
 
@@ -1032,6 +1033,9 @@ class SelectionSetTemplateTests: XCTestCase {
         type {
           species
         }
+        _ {
+          species
+        }
       }
     }
     """
@@ -1054,6 +1058,7 @@ class SelectionSetTemplateTests: XCTestCase {
         .field("any", Any_SelectionSet.self),
         .field("protocol", Protocol_SelectionSet.self),
         .field("type", Type_SelectionSet.self),
+        .field("_", __SelectionSet.self),
       ] }
     """
 

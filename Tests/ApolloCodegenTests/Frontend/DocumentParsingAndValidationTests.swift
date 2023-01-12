@@ -191,7 +191,7 @@ class DocumentParsingAndValidationTests: XCTestCase {
   }
 
   func test__validateDocument__givenFieldNameDisallowed_throwsError() throws {
-    let disallowedFields = ["__data", "fragments", "Fragments", "_"]
+    let disallowedFields = ["__data", "fragments", "Fragments"]
 
     for field in disallowedFields {
       let schema = try codegenFrontend.loadSchema(
