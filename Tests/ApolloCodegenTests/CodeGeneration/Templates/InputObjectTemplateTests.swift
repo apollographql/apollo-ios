@@ -1876,8 +1876,8 @@ class InputObjectTemplateTests: XCTestCase {
       }
 
       public var `_`: String {
-        get { __data["`_`"] }
-        set { __data["`_`"] = newValue }
+        get { __data["_"] }
+        set { __data["_"] = newValue }
       }
     """
 
