@@ -271,9 +271,7 @@ extension IR {
       typeInfo: SelectionSet.TypeInfo
     ) {
       self.directSelections = directSelections
-      self.typeInfo = typeInfo
-
-      createConditionalSelectionSetsForConditionalFragmentSpreads(in: directSelections)
+      self.typeInfo = typeInfo      
     }
 
     private func createConditionalSelectionSetsForConditionalFragmentSpreads(

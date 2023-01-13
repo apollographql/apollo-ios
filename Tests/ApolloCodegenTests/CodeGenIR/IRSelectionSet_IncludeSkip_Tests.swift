@@ -1806,6 +1806,77 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
     expect(allAnimals?[if: "a"]).to(shallowlyMatch(expected_allAnimal_ifA))
   }
 
+  func test__selections__givenIncludeIfVariable_onNamedFragmentOfDifferentType_createsTypeCaseSelectionWithInclusionCondition_typeCaseDoesNotContainAdditionalInlineFragmentForInclusionCondition() throws {
+    // given
+    schemaSDL = """
+     type Query {
+       allAnimals: [Animal!]
+     }
+
+     interface Animal {
+       a: String!
+       friend: Animal!
+     }
+
+     type Dog implements Animal {
+      a: String!
+      friend: Animal!
+     }
+     """
+
+    document = """
+     query Test($a: Boolean!) {
+       allAnimals {
+         ...FragmentA @include(if: $a)
+       }
+     }
+
+     fragment FragmentA on Dog {
+       a
+     }
+     """
+
+    // when
+    try buildSubjectRootField()
+
+    let Interface_Animal = try XCTUnwrap(schema[interface: "Animal"])
+    let Object_Dog = try XCTUnwrap(schema[object: "Dog"])
+    let FragmentA = try XCTUnwrap(ir.compilationResult[fragment: "FragmentA"])
+
+    let allAnimals = self.subject[field: "allAnimals"]
+
+    let expected_allAnimal = SelectionSetMatcher(
+      parentType: Interface_Animal,
+      inclusionConditions: nil,
+      directSelections: [
+        .inlineFragment(parentType: Object_Dog,
+                              inclusionConditions: [.include(if: "a")])
+      ],
+      mergedSelections: [
+      ],
+      mergedSources: []
+    )
+
+    let expected_allAnimal_asDog = try SelectionSetMatcher(
+      parentType: Object_Dog,
+      inclusionConditions: [.include(if: "a")],
+      directSelections: [
+        .fragmentSpread(FragmentA, inclusionConditions: [.include(if: "a")]),
+      ],
+      mergedSelections: [
+        .field("a", type: .nonNull(.scalar(.string()))),
+      ],
+      mergedSources: [
+        .mock(allAnimals?[as: "Dog", if: "a"]?[fragment: "FragmentA"]),
+      ]
+    )
+
+    // then
+    expect(allAnimals?.selectionSet).to(shallowlyMatch(expected_allAnimal))
+
+    expect(allAnimals?[as: "Dog", if: "a"]).to(shallowlyMatch(expected_allAnimal_asDog))
+  }
+
   func test__selections__givenDuplicateIncludeIfVariable_onNamedFragment_createsSelectionWithDeduplicatedInclusionCondition() throws {
     // given
     schemaSDL = """
