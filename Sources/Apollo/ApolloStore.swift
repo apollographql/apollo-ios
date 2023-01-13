@@ -306,7 +306,7 @@ public class ApolloStore {
       withKey key: CacheKey,
       variables: GraphQLOperation.Variables? = nil
     ) throws {
-      let normalizer = GraphQLResultNormalizer()
+      let normalizer = ResultNormalizerFactory.selectionSetDataNormalizer()
       let executor = GraphQLExecutor { object, info in
         return object[info.responseKeyForField]
       }

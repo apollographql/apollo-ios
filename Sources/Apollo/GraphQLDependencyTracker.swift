@@ -9,6 +9,10 @@ final class GraphQLDependencyTracker: GraphQLResultAccumulator {
     dependentKeys.insert(info.cachePath.joined)
   }
 
+  func accept(customScalar: JSONValue, info: FieldExecutionInfo) {
+    dependentKeys.insert(info.cachePath.joined)
+  }
+
   func acceptNullValue(info: FieldExecutionInfo) {
     dependentKeys.insert(info.cachePath.joined)
   }

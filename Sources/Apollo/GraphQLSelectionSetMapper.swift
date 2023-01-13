@@ -20,11 +20,21 @@ final class GraphQLSelectionSetMapper<SelectionSet: AnySelectionSet>: GraphQLRes
 
   func accept(scalar: JSONValue, info: FieldExecutionInfo) throws -> JSONValue? {
     switch info.field.type.namedType {
-    case let .scalar(decodable as any JSONDecodable.Type),
-      let .customScalar(decodable as any JSONDecodable.Type):
+    case let .scalar(decodable as any JSONDecodable.Type):
       // This will convert a JSON value to the expected value type,
       // which could be a custom scalar or an enum.
       return try decodable.init(_jsonValue: scalar)._asAnyHashable
+    default:
+      preconditionFailure()
+    }
+  }
+
+  func accept(customScalar: JSONValue, info: FieldExecutionInfo) throws -> JSONValue? {
+    switch info.field.type.namedType {
+    case let .customScalar(decodable as any JSONDecodable.Type):
+      // This will convert a JSON value to the expected value type,
+      // which could be a custom scalar or an enum.
+      return try decodable.init(_jsonValue: customScalar)._asAnyHashable
     default:
       preconditionFailure()
     }

@@ -26,7 +26,7 @@ class GraphQLExecutor_ResultNormalizer_FromResponse_Tests: XCTestCase {
       on: object,
       withRootCacheReference: CacheReference.RootQuery,
       variables: variables,
-      accumulator: GraphQLResultNormalizer()
+      accumulator: ResultNormalizerFactory.networkResponseDataNormalizer()
     )
   }
 
