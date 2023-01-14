@@ -362,8 +362,11 @@ final class GraphQLExecutor {
                       asType: innerType,
                       accumulator: accumulator)
 
-    case .scalar, .customScalar:
+    case .scalar:
       return PossiblyDeferred { try accumulator.accept(scalar: value, info: fieldInfo) }
+
+    case .customScalar:
+      return PossiblyDeferred { try accumulator.accept(customScalar: value, info: fieldInfo) }
 
     case .list(let innerType):
       guard let array = value as? [JSONValue] else {

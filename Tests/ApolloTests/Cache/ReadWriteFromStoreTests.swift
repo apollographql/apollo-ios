@@ -484,7 +484,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
           data.hero.name = "Artoo"
         }
       }, completion: { result in
-        defer { updateCompletedExpectation.fulfill() }        
+        defer { updateCompletedExpectation.fulfill() }
         XCTAssertSuccessResult(result)
       })
 
@@ -1291,6 +1291,75 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       }
 
       self.wait(for: [readCompletedExpectation], timeout: Self.defaultWaitTimeout)
+    }
+  }
+
+  func test_updateCacheMutation_givenEnumField_enumFieldIsSerializedAndCanBeRead() throws {
+    // given
+    enum HeroType: String, EnumType {
+      case droid
+    }
+
+    struct GivenSelectionSet: MockMutableRootSelectionSet {
+      public var __data: DataDict = DataDict([:], variables: nil)
+      init(data: DataDict) { __data = data }
+
+      static var __selections: [Selection] { [
+        .field("hero", Hero.self)
+      ]}
+
+      var hero: Hero {
+        get { __data["hero"] }
+        set { __data["hero"] = newValue }
+      }
+
+      struct Hero: MockMutableRootSelectionSet {
+        public var __data: DataDict = DataDict([:], variables: nil)
+        init(data: DataDict) { __data = data }
+
+        static var __selections: [Selection] { [
+          .field("type", GraphQLEnum<HeroType>.self)
+        ]}
+
+        var type: GraphQLEnum<HeroType> {
+          get { __data["type"] }
+          set { __data["type"] = newValue }
+        }
+      }
+    }
+
+    let cacheMutation = MockLocalCacheMutation<GivenSelectionSet>()
+
+    mergeRecordsIntoCache([
+      "QUERY_ROOT": ["hero": CacheReference("QUERY_ROOT.hero")],
+      "QUERY_ROOT.hero": ["__typename": "Droid", "type": "droid"]
+    ])
+
+    runActivity("update mutation") { _ in
+      let updateCompletedExpectation = expectation(description: "Update completed")
+
+      store.withinReadWriteTransaction({ transaction in
+        try transaction.update(cacheMutation) { data in
+          // noop
+        }
+      }, completion: { result in
+        defer { updateCompletedExpectation.fulfill() }
+        XCTAssertSuccessResult(result)
+      })
+
+      self.wait(for: [updateCompletedExpectation], timeout: Self.defaultWaitTimeout)
+    }
+
+    let query = MockQuery<GivenSelectionSet>()
+
+    loadFromStore(operation: query) { result in
+      try XCTAssertSuccessResult(result) { graphQLResult in
+        XCTAssertEqual(graphQLResult.source, .cache)
+        XCTAssertNil(graphQLResult.errors)
+
+        let data = try XCTUnwrap(graphQLResult.data)
+        XCTAssertEqual(data.hero.type, .case(.droid))
+      }
     }
   }
 
