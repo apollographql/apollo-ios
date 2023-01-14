@@ -398,7 +398,7 @@ extension IR.EntitySelectionTree {
       with: fragment.inclusionConditions,
       withNodeRootType: nodeRootType.value,
       using: entityStorage
-    )
+    )    
   }
 
 }
@@ -448,13 +448,6 @@ extension IR.EntitySelectionTree.EnclosingEntityNode {
       withNodeRootType: nodeRootType,
       using: entityStorage
     )
-
-    if let otherConditions = rootNode.scopeConditions {
-      for (otherCondition, otherNode) in otherConditions {
-        let conditionNode = self.scopeConditionNode(for: otherCondition)
-        conditionNode.mergeIn(otherNode, from: fragment, using: entityStorage)
-      }
-    }
   }
 
   fileprivate func mergeIn(
@@ -463,12 +456,14 @@ extension IR.EntitySelectionTree.EnclosingEntityNode {
     withNodeRootType nodeRootType: GraphQLCompositeType,
     using entityStorage: IR.RootFieldEntityStorage
   ) {
+    let fragmentType = fragment.typeInfo.parentType
+    let rootTypesMatch = nodeRootType == fragmentType
+    let nextEntityNode = rootTypesMatch ?
+    self : self.scopeConditionNode(for: IR.ScopeCondition(type: fragmentType))
+
     switch rootNode.child {
     case let .enclosingEntity(otherNextNode):
-      let fragmentType = fragment.typeInfo.parentType
-      let nextNode = nodeRootType == fragmentType ?
-      self.childAsEnclosingEntityNode() :
-      self.scopeConditionNode(for: IR.ScopeCondition(type: fragmentType)).childAsEnclosingEntityNode()
+      let nextNode = nextEntityNode.childAsEnclosingEntityNode()
 
       nextNode.mergeIn(
         otherNextNode,
@@ -477,9 +472,9 @@ extension IR.EntitySelectionTree.EnclosingEntityNode {
       )
 
     case let .fieldScope(otherNextNode):
-      let nextNode = self.childAsFieldScopeNode(scope: IR.ScopeCondition(type: nodeRootType))
+      let fieldNode = nextEntityNode.childAsFieldScopeNode(scope: IR.ScopeCondition(type: nodeRootType))
 
-      nextNode.mergeIn(
+      fieldNode.mergeIn(
         fragmentRootFieldNode: otherNextNode,
         from: fragment,
         withScopePath: fragment.typeInfo.scopePath.last.value.scopePath.head,
@@ -488,6 +483,13 @@ extension IR.EntitySelectionTree.EnclosingEntityNode {
 
     case .none:
       break
+    }
+
+    if let otherConditions = rootNode.scopeConditions {
+      for (otherCondition, otherNode) in otherConditions {
+        let conditionNode = nextEntityNode.scopeConditionNode(for: otherCondition)
+        conditionNode.mergeIn(otherNode, from: fragment, using: entityStorage)
+      }
     }
   }
 
