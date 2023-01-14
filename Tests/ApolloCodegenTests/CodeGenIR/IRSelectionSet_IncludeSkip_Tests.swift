@@ -2481,6 +2481,176 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
       .to(shallowlyMatch(expected_allAnimals_ifB_child))
   }
 
+  func test__selections__givenNonNullFieldMergedFromNestedEntityInNamedFragmentWithIncludeCondition_TODO() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      child: Child!
+    }
+
+    interface WarmBlooded implements Animal {
+      child: Child!
+    }
+
+    type Child {
+      a: String!
+      b: String!
+      c: String!
+    }
+    """
+
+    document = """
+    query TestOperation($b: Boolean!, $c: Boolean!) {
+      allAnimals {
+        child {
+          a
+        }
+        ...ChildFragment @skip(if: $b)
+        ...FragmentContainingChildFragment @include(if: $c)
+      }
+    }
+
+    fragment ChildFragment on Animal {
+      child {
+        b
+      }
+    }
+
+    fragment FragmentContainingChildFragment on WarmBlooded {
+       ...ChildFragment
+    }
+    """
+
+    // when
+    try buildSubjectRootField()
+
+    let allAnimals = try XCTUnwrap(
+      self.subject[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let allAnimals_child = try XCTUnwrap(
+      allAnimals[field: "child"] as? IR.EntityField
+    )
+
+    let Interface_Animal = try XCTUnwrap(schema[interface: "Animal"])
+    let Object_Child = try XCTUnwrap(schema[object: "Child"])
+    let ChildFragment = try XCTUnwrap(allAnimals[fragment: "ChildFragment"])
+    let FragmentContainingChildFragment = try XCTUnwrap(
+      allAnimals[as: "WarmBlooded", if: "c"]?[fragment: "FragmentContainingChildFragment"]
+    )
+
+//    let expected_allAnimals = SelectionSetMatcher(
+//      parentType: Interface_Animal,
+//      inclusionConditions: nil,
+//      directSelections: [
+//        .field("child", type: .nonNull(.entity(Object_Child))),
+//        .fragmentSpread(ChildFragment.definition,
+//                        inclusionConditions: [.skip(if: "b")]),
+//        .fragmentSpread(FragmentContainingChildFragment.definition,
+//                        inclusionConditions: [.include(if: "c")])
+//      ],
+//      mergedSelections: [
+//        .inlineFragment(parentType: Interface_Animal,
+//                        inclusionConditions: [.skip(if: "b")]),
+//        .inlineFragment(parentType: Interface_Animal,
+//                        inclusionConditions: [.include(if: "c")])
+//      ],
+//      mergedSources: []
+//    )
+
+    let expected_allAnimals_child = SelectionSetMatcher(
+      parentType: Object_Child,
+      inclusionConditions: nil,
+      directSelections: [
+        .field("a", type: .nonNull(.scalar(.string())))        
+      ],
+      mergedSelections: [],
+      mergedSources: []
+    )
+
+//    let expected_allAnimals_ifB = try SelectionSetMatcher(
+//      parentType: Interface_Animal,
+//      inclusionConditions: [.skip(if: "b")],
+//      directSelections: nil,
+//      mergedSelections: [
+//        .field("child", type: .nonNull(.entity(Object_Child))),
+//        .fragmentSpread(ChildFragment.definition,
+//                        inclusionConditions: [.skip(if: "b")]),
+//        .fragmentSpread(FragmentContainingChildFragment.definition,
+//                        inclusionConditions: [.include(if: "c")])
+//      ],
+//      mergedSources: [
+//        .mock(allAnimals),
+//        .mock(for: ChildFragment.fragment.rootField,
+//              from: ChildFragment),
+//      ]
+//    )
+//
+//    let expected_allAnimals_ifB_child = try SelectionSetMatcher(
+//      parentType: Object_Child,
+//      inclusionConditions: nil,
+//      directSelections: nil,
+//      mergedSelections: [
+//        .field("a", type: .nonNull(.scalar(.string()))),
+//        .field("b", type: .nonNull(.scalar(.string()))),
+//      ],
+//      mergedSources: [
+//        .mock(allAnimals[field: "child"]),
+//        .mock(for: ChildFragment.fragment[field: "child"],
+//              from: ChildFragment),
+//      ]
+//    )
+//
+//
+//    let expected_allAnimals_ifC = try SelectionSetMatcher(
+//      parentType: Interface_Animal,
+//      inclusionConditions: [.include(if: "c")],
+//      directSelections: nil,
+//      mergedSelections: [
+//        .field("child", type: .nonNull(.entity(Object_Child))),
+//        .fragmentSpread(ChildFragment.definition),
+//        .fragmentSpread(FragmentContainingChildFragment.definition,
+//                        inclusionConditions: [.include(if: "c")]),
+//      ],
+//      mergedSources: [
+//        .mock(allAnimals),
+//        .mock(for: FragmentContainingChildFragment.fragment.rootField,
+//              from: FragmentContainingChildFragment),
+//        .mock(for: ChildFragment.fragment.rootField,
+//              from: ChildFragment),
+//      ]
+//    )
+//
+//    let expected_allAnimals_ifC_child = try SelectionSetMatcher(
+//      parentType: Object_Child,
+//      inclusionConditions: nil,
+//      directSelections: nil,
+//      mergedSelections: [
+//        .field("a", type: .nonNull(.scalar(.string()))),
+//        .field("b", type: .nonNull(.scalar(.string()))),
+//      ],
+//      mergedSources: [
+//        .mock(allAnimals[field: "child"]),
+//        .mock(for: ChildFragment.fragment[field: "child"],
+//              from: ChildFragment),
+//      ]
+//    )
+
+    // then
+//    expect(allAnimals.selectionSet).to(shallowlyMatch(expected_allAnimals))
+    expect(allAnimals_child.selectionSet).to(shallowlyMatch(expected_allAnimals_child))
+//    expect(allAnimals[if: !"b"]).to(shallowlyMatch(expected_allAnimals_ifB))
+//    expect(allAnimals[if: !"b"]?[field: "child"]?.selectionSet)
+//      .to(shallowlyMatch(expected_allAnimals_ifB_child))
+//    expect(allAnimals[if: "c"]).to(shallowlyMatch(expected_allAnimals_ifC))
+//    expect(allAnimals[if: "c"]?[field: "child"]?.selectionSet)
+//      .to(shallowlyMatch(expected_allAnimals_ifC_child))
+  }
+
   // MARK: - Group By Inclusion Conditions
 
   func test__groupedByInclusionConditions__groupsInclusionConditionsCorrectly() throws {
