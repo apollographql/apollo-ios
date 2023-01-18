@@ -76,7 +76,7 @@ extension Array: SelectionSetEntityValue where Element: SelectionSetEntityValue 
     guard let fieldData = fieldData as? [AnyHashable?] else {
       fatalError("\(Self.self) expected list of data for entity.")
     }
-    self = fieldData.map { Element.init(fieldData:$0, variables: variables) }
+    self = fieldData.map { Element.init(fieldData:$0?.base as? AnyHashable, variables: variables) }
   }
 
   @inlinable public var _fieldData: AnyHashable { map(\._fieldData) }
