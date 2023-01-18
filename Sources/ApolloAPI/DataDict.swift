@@ -13,7 +13,7 @@ public struct DataDict: Hashable {
   }
 
   @inlinable public subscript<T: AnyScalarType & Hashable>(_ key: String) -> T {
-    get { _data[key] as! T }
+    get { _data[key]?.base as! T }
     set { _data[key] = newValue }
     _modify {
       var value = _data[key] as! T
