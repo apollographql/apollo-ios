@@ -43,23 +43,23 @@ class JSONTests: XCTestCase {
   
   func testJSONDictionaryEncodingAndDecoding() throws {
     let jsonString = """
-{
-  "a_dict": {
-    "a_bool": true,
-    "another_dict" : {
-      "a_double": 23.1,
-      "an_int": 8,
-      "a_string": "LOL wat"
-    },
-    "an_array": [
-      "one",
-      "two",
-      "three"
-    ],
-    "a_null": null
-  }
-}
-"""
+      {
+        "a_dict": {
+          "a_bool": true,
+          "another_dict" : {
+            "a_double": 23.1,
+            "an_int": 8,
+            "a_string": "LOL wat"
+          },
+          "an_array": [
+            "one",
+            "two",
+            "three"
+          ],
+          "a_null": null
+        }
+      }
+      """
     let data = try XCTUnwrap(jsonString.data(using: .utf8))
     let json = try JSONSerializationFormat.deserialize(data: data)
     XCTAssertNotNil(json)
@@ -72,12 +72,12 @@ class JSONTests: XCTestCase {
     
     let stringFromReserialized = try XCTUnwrap(String(bytes: reserialized, encoding: .utf8))
     XCTAssertEqual(stringFromReserialized, """
-{"a_dict":{"a_bool":true,"a_null":null,"an_array":["one","two","three"],"another_dict":{"a_double":23.100000000000001,"a_string":"LOL wat","an_int":8}}}
-""")
+      {"a_dict":{"a_bool":true,"a_null":null,"an_array":["one","two","three"],"another_dict":{"a_double":23.100000000000001,"a_string":"LOL wat","an_int":8}}}
+      """)
   }
 
   func testEncodingNSNullDoesNotCrash() throws {
-    let nsNull = ["aWeirdNull": NSNull()]
+    let nsNull: JSONObject = ["aWeirdNull": NSNull()]
     let serialized = try JSONSerializationFormat.serialize(value: nsNull)
     let stringFromSerialized = try XCTUnwrap(String(data: serialized, encoding: .utf8))
 
