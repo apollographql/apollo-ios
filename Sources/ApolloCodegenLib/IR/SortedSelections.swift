@@ -274,20 +274,6 @@ extension IR {
       self.typeInfo = typeInfo      
     }
 
-    private func createConditionalSelectionSetsForConditionalFragmentSpreads(
-      in directSelections: DirectSelections.ReadOnly?
-    ) {
-      directSelections?.fragments.values.forEach { fragment in
-        if let anyOfConditions = fragment.inclusionConditions {
-          for conditions in anyOfConditions.elements {
-            createShallowlyMergedInlineFragmentIfNeeded(
-              with: ScopeCondition(conditions: conditions)
-            )
-          }
-        }
-      }
-    }
-
     func mergeIn(_ selections: EntityTreeScopeSelections, from source: MergedSource) {
       @IsEverTrue var didMergeAnySelections: Bool
 
