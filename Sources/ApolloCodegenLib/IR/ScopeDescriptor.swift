@@ -7,7 +7,13 @@ extension IR {
     let type: GraphQLCompositeType?
     let conditions: InclusionConditions?
 
-    init(type: GraphQLCompositeType? = nil, conditions: InclusionConditions? = nil) {
+    init(type: GraphQLCompositeType, conditions: InclusionConditions? = nil) {
+      self.type = type
+      self.conditions = conditions
+    }
+
+    @_disfavoredOverload
+    init(type: GraphQLCompositeType? = nil, conditions: InclusionConditions) {
       self.type = type
       self.conditions = conditions
     }
@@ -49,7 +55,7 @@ extension IR {
     ///   }
     /// }
     /// ```
-    /// The typePath for the `SelectionSet` that includes field `fieldOnABC` would be:
+    /// The scopePath for the `SelectionSet` that includes field `fieldOnABC` would be:
     /// `[A, B, C]`.
     let scopePath: LinkedList<ScopeCondition>
 
