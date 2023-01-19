@@ -132,7 +132,7 @@ extension IR {
       addSelections(from: selectionSet, to: target, atTypePath: typeInfo)
 
       typeInfo.entity.selectionTree.mergeIn(
-        selections: target,
+        selections: target.readOnlyView,
         with: typeInfo
       )
     }

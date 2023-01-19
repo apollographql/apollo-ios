@@ -7,13 +7,7 @@ extension IR {
     let type: GraphQLCompositeType?
     let conditions: InclusionConditions?
 
-    init(type: GraphQLCompositeType, conditions: InclusionConditions? = nil) {
-      self.type = type
-      self.conditions = conditions
-    }
-
-    @_disfavoredOverload
-    init(type: GraphQLCompositeType? = nil, conditions: InclusionConditions) {
+    init(type: GraphQLCompositeType? = nil, conditions: InclusionConditions? = nil) {
       self.type = type
       self.conditions = conditions
     }

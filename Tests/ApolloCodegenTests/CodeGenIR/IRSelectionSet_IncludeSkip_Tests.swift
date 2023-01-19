@@ -2536,6 +2536,8 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
       allAnimals[field: "child"] as? IR.EntityField
     )
 
+    let allAnimals_asWarmBloodedIfC = allAnimals[as: "WarmBlooded", if: "c"]
+
     let Interface_Animal = try XCTUnwrap(schema[interface: "Animal"])
     let Interface_WarmBlooded = try XCTUnwrap(schema[interface: "WarmBlooded"])
     let Object_Child = try XCTUnwrap(schema[object: "Child"])
@@ -2639,7 +2641,7 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
     expect(allAnimals[if: !"b"]).to(shallowlyMatch(expected_allAnimals_ifB))
     expect(allAnimals[if: !"b"]?[field: "child"]?.selectionSet)
       .to(shallowlyMatch(expected_allAnimals_ifB_child))
-    expect(allAnimals[as: "WarmBlooded", if: "c"]).to(shallowlyMatch(expected_allAnimals_ifWarmBloodedAndC))
+    expect(allAnimals_asWarmBloodedIfC).to(shallowlyMatch(expected_allAnimals_ifWarmBloodedAndC))
     expect(allAnimals[as: "WarmBlooded", if: "c"]?[field: "child"]?.selectionSet)
       .to(shallowlyMatch(expected_allAnimals_ifWarmBloodedAndC_child))
   }
