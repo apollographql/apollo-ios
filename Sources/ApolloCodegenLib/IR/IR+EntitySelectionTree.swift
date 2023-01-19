@@ -357,7 +357,7 @@ extension IR {
     var debugDescription: String {
       """
       Fields: \(fields.values.elements)
-      Fragments: \(fragments.values.elements.map(\.definition.name))
+      Fragments: \(fragments.values.elements.debugDescription)
       """
     }
   }
@@ -635,11 +635,10 @@ extension IR.EntitySelectionTree: CustomDebugStringConvertible {
 extension IR.EntitySelectionTree.EnclosingEntityNode: CustomDebugStringConvertible {
   var debugDescription: String {
     TemplateString("""
-    {
-      child:
-        \(child?.debugDescription ?? "nil")
+    Entity Node: {
+      child: \(child?.debugDescription ?? "nil")
       conditionalScopes:
-        \(scopeConditions?.debugDescription ?? "[]")
+      \(scopeConditions?.description ?? "[]")
     }
     """).description
   }
@@ -648,11 +647,11 @@ extension IR.EntitySelectionTree.EnclosingEntityNode: CustomDebugStringConvertib
 extension IR.EntitySelectionTree.FieldScopeNode: CustomDebugStringConvertible {
   var debugDescription: String {
     TemplateString("""
-    {
-      selections:
-        \(selections.debugDescription)
+    Field Node: {
+      \(scope.debugDescription)
+      selections: \(selections.description)
       conditionalScopes:
-        \(scopeConditions?.debugDescription ?? "[]")
+      \(scopeConditions?.description ?? "[]")
     }
     """).description
   }

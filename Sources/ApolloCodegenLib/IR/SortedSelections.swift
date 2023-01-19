@@ -271,7 +271,7 @@ extension IR {
       typeInfo: SelectionSet.TypeInfo
     ) {
       self.directSelections = directSelections
-      self.typeInfo = typeInfo      
+      self.typeInfo = typeInfo
     }
 
     func mergeIn(_ selections: EntityTreeScopeSelections, from source: MergedSource) {
