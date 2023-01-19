@@ -85,7 +85,7 @@ class JSONTests: XCTestCase {
   }
 
   func testEncodingOptionalNSNullDoesNotCrash() throws {
-    let optionalNSNull = ["aWeirdNull": Optional.some(NSNull())]
+    let optionalNSNull: JSONObject = ["aWeirdNull": Optional.some(NSNull())]
     let serialized = try JSONSerializationFormat.serialize(value: optionalNSNull as JSONObject)
     let stringFromSerialized = try XCTUnwrap(String(data: serialized, encoding: .utf8))
 
@@ -93,7 +93,7 @@ class JSONTests: XCTestCase {
   }
 
   func testEncodingDoubleOptionalsDoesNotCrash() throws {
-    let doubleOptional = ["aWeirdNull": Optional.some(Optional<Int>.none)]
+    let doubleOptional: JSONObject = ["aWeirdNull": Optional.some(Optional<Int>.none)]
     let serialized = try JSONSerializationFormat.serialize(value: doubleOptional as JSONObject)
     let stringFromSerialized = try XCTUnwrap(String(data: serialized, encoding: .utf8))
 
