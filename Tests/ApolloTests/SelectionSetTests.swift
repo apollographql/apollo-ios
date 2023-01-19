@@ -31,7 +31,7 @@ class SelectionSetTests: XCTestCase {
     expect(actual.name).to(equal("Johnny Tsunami"))
   }
 
-  func test__selection_givenOptionalField_givenNilValue__returnsNil() {
+  func test__selection_givenOptionalField_missingValue__returnsNil() {
     // given
     class Hero: MockSelectionSet, SelectionSet {
       typealias Schema = MockSchemaMetadata
@@ -46,6 +46,31 @@ class SelectionSetTests: XCTestCase {
 
     let object: JSONObject = [
       "__typename": "Human"
+    ]
+
+    // when
+    let actual = Hero(data: DataDict(object, variables: nil))
+
+    // then
+    expect(actual.name).to(beNil())
+  }
+
+  func test__selection_givenOptionalField_givenNilValue__returnsNil() {
+    // given
+    class Hero: MockSelectionSet, SelectionSet {
+      typealias Schema = MockSchemaMetadata
+
+      override class var __selections: [Selection] {[
+        .field("__typename", String.self),
+        .field("name", String?.self)
+      ]}
+
+      var name: String? { __data["name"] }
+    }
+
+    let object: JSONObject = [
+      "__typename": "Human",
+      "name": String?.none
     ]
 
     // when
