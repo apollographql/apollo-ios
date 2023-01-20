@@ -9,12 +9,12 @@ public indirect enum InputValue {
   /// For enum input values, the enum cases's `rawValue` as a `String` should be used.
   case scalar(any ScalarType)
 
-  /// A variable input value to be evaluated using the operation's
-  /// ``GraphQLOperation/variables-swift.property-4o32c`` dictionary at runtime.
+  /// A variable input value to be evaluated using the operation's variables dictionary at runtime.
+  /// See ``GraphQLOperation``.
   ///
   /// `.variable` should only be used as the value for an argument in a ``Selection/Field``.
-  /// A `.variable` value should not be included in an operation's
-  /// ``GraphQLOperation/variables-swift.property-4o32c`` dictionary.
+  /// A `.variable` value should not be included in an operation's variables dictionary. See
+  /// ``GraphQLOperation``.
   case variable(String)
 
   /// A GraphQL "`List`" input value.
