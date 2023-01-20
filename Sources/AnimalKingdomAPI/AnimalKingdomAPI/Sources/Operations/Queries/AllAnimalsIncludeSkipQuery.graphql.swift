@@ -146,7 +146,6 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
 
         public var feet: Int { __data["feet"] }
         public var inches: Int? { __data["inches"] }
-        public var meters: Int { __data["meters"] }
       }
 
       /// AllAnimal.Predator
@@ -287,7 +286,6 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public var centimeters: Double? { __data["centimeters"] }
           public var feet: Int { __data["feet"] }
           public var inches: Int? { __data["inches"] }
-          public var meters: Int { __data["meters"] }
         }
 
         /// AllAnimal.AsPet.AsWarmBlooded
@@ -331,9 +329,9 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
 
             public var feet: Int { __data["feet"] }
             public var inches: Int? { __data["inches"] }
-            public var meters: Int { __data["meters"] }
             public var relativeSize: GraphQLEnum<AnimalKingdomAPI.RelativeSize>? { __data["relativeSize"] }
             public var centimeters: Double? { __data["centimeters"] }
+            public var meters: Int { __data["meters"] }
           }
         }
       }
@@ -380,9 +378,9 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
 
           public var feet: Int { __data["feet"] }
           public var inches: Int? { __data["inches"] }
-          public var meters: Int { __data["meters"] }
           public var relativeSize: GraphQLEnum<AnimalKingdomAPI.RelativeSize>? { __data["relativeSize"] }
           public var centimeters: Double? { __data["centimeters"] }
+          public var meters: Int { __data["meters"] }
         }
       }
 
@@ -410,20 +408,6 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public init(data: DataDict) { __data = data }
 
           public var heightInMeters: HeightInMeters? { _toFragment(if: !"skipHeightInMeters") }
-        }
-
-        /// AllAnimal.AsClassroomPet.Height
-        ///
-        /// Parent Type: `Height`
-        public struct Height: AnimalKingdomAPI.SelectionSet {
-          public let __data: DataDict
-          public init(data: DataDict) { __data = data }
-
-          public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Objects.Height }
-
-          public var feet: Int { __data["feet"] }
-          public var inches: Int? { __data["inches"] }
-          public var meters: Int { __data["meters"] }
         }
 
         /// AllAnimal.AsClassroomPet.AsBird
@@ -468,9 +452,9 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
 
             public var feet: Int { __data["feet"] }
             public var inches: Int? { __data["inches"] }
-            public var meters: Int { __data["meters"] }
             public var relativeSize: GraphQLEnum<AnimalKingdomAPI.RelativeSize>? { __data["relativeSize"] }
             public var centimeters: Double? { __data["centimeters"] }
+            public var meters: Int { __data["meters"] }
           }
         }
       }
