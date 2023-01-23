@@ -49,7 +49,7 @@ extension IR {
     ///   }
     /// }
     /// ```
-    /// The typePath for the `SelectionSet` that includes field `fieldOnABC` would be:
+    /// The scopePath for the `SelectionSet` that includes field `fieldOnABC` would be:
     /// `[A, B, C]`.
     let scopePath: LinkedList<ScopeCondition>
 
