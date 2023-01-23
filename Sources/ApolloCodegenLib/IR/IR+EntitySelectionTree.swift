@@ -13,11 +13,11 @@ extension IR {
   /// that will be selected for a given `SelectionSet`'s type scope.
   class EntitySelectionTree {
     let rootTypePath: LinkedList<GraphQLCompositeType>
-    let rootNode: EnclosingEntityNode
+    let rootNode: EntityNode
 
     init(rootTypePath: LinkedList<GraphQLCompositeType>) {
       self.rootTypePath = rootTypePath
-      self.rootNode = EnclosingEntityNode(rootTypePath: rootTypePath)
+      self.rootNode = EntityNode(rootTypePath: rootTypePath)
     }
 
     // MARK: - Merge Selection Sets Into Tree
@@ -51,9 +51,9 @@ extension IR {
     fileprivate static func findOrCreateNode(
       atEnclosingEntityScope currentEntityScope: LinkedList<ScopeDescriptor>.Node,
       withEntityScopePath currentEntityConditionPath: LinkedList<ScopeCondition>.Node,
-      from node: EnclosingEntityNode,
+      from node: EntityNode,
       withRootTypePath currentRootTypePathNode: LinkedList<GraphQLCompositeType>.Node
-    ) -> EnclosingEntityNode {
+    ) -> EntityNode {
       guard let nextEntityTypePath = currentRootTypePathNode.next else {
         // Advance to field node in current entity & type case
         return Self.findOrCreateNode(
@@ -65,7 +65,7 @@ extension IR {
       guard let nextConditionPathForCurrentEntity = currentEntityConditionPath.next else {
         // Advance to next entity
         guard let nextEntityScope = currentEntityScope.next else { fatalError() }
-        let nextEntityNode = node.childAsEnclosingEntityNode()
+        let nextEntityNode = node.childAsEntityNode()
 
         return findOrCreateNode(
           atEnclosingEntityScope: nextEntityScope,
@@ -91,8 +91,8 @@ extension IR {
 
     private static func findOrCreateNode(
       withConditionScopePath selectionsScopePath: LinkedList<ScopeCondition>.Node,
-      from node: EnclosingEntityNode
-    ) -> EnclosingEntityNode {
+      from node: EntityNode
+    ) -> EntityNode {
       guard let nextConditionInScopePath = selectionsScopePath.next else {
         // Last condition in field scope path
         let selectionsCondition = selectionsScopePath.value
@@ -117,10 +117,10 @@ extension IR {
       rootNode.mergeSelections(matchingScopePath: rootTypePath, into: selections)
     }
 
-    class EnclosingEntityNode {
+    class EntityNode {
       typealias Selections = OrderedDictionary<MergedSelections.MergedSource, EntityTreeScopeSelections>
       enum Child {
-        case enclosingEntity(EnclosingEntityNode)
+        case entity(EntityNode)
         case selections(Selections)
       }
 
@@ -128,7 +128,7 @@ extension IR {
       let type: GraphQLCompositeType
       let scope: ScopeCondition
       private(set) var child: Child?
-      var scopeConditions: OrderedDictionary<ScopeCondition, EnclosingEntityNode>?
+      var scopeConditions: OrderedDictionary<ScopeCondition, EntityNode>?
 
       fileprivate convenience init(rootTypePath: LinkedList<GraphQLCompositeType>) {
         self.init(typeNode: rootTypePath.head)
@@ -140,7 +140,7 @@ extension IR {
         self.rootTypePathNode = typeNode
 
         if let nextNode = typeNode.next {
-          child = .enclosingEntity(EnclosingEntityNode(typeNode: nextNode))
+          child = .entity(EntityNode(typeNode: nextNode))
         } else {
           child = .selections([:])
         }
@@ -182,7 +182,7 @@ extension IR {
         var entitySelections: Selections
 
         switch child {
-        case .enclosingEntity:
+        case .entity:
           fatalError(
             "Selection Merging Error. Please create an issue on Github to report this."
           )
@@ -203,7 +203,7 @@ extension IR {
         into targetSelections: IR.MergedSelections
       ) {
         switch child {
-        case let .enclosingEntity(entityNode):
+        case let .entity(entityNode):
           guard let nextScopePathNode = scopePathNode.next else { return }
           entityNode.mergeSelections(matchingScopePath: nextScopePathNode, into: targetSelections)
 
@@ -235,9 +235,9 @@ extension IR {
         }
       }
 
-      fileprivate func childAsEnclosingEntityNode() -> EnclosingEntityNode {
+      fileprivate func childAsEntityNode() -> EntityNode {
         switch child {
-        case let .enclosingEntity(node):
+        case let .entity(node):
           return node
 
         case .selections:
@@ -246,24 +246,24 @@ extension IR {
           )
 
         case .none:
-          let node = EnclosingEntityNode(typeNode: self.rootTypePathNode.next!)
-          self.child = .enclosingEntity(node)
+          let node = EntityNode(typeNode: self.rootTypePathNode.next!)
+          self.child = .entity(node)
           return node
         }
       }
 
-      fileprivate func scopeConditionNode(for condition: ScopeCondition) -> EnclosingEntityNode {
+      fileprivate func scopeConditionNode(for condition: ScopeCondition) -> EntityNode {
         let nodeCondition = ScopeCondition(
           type: condition.type == self.type ? nil : condition.type,
           conditions: condition.conditions
         )
 
-        func createNode() -> EnclosingEntityNode {
+        func createNode() -> EntityNode {
           // When initializing as a conditional scope node, if the `scope` does not have a
           // type condition, we should inherit the parent node's type.
           let nodeType = nodeCondition.type ?? self.type
 
-          return EnclosingEntityNode(
+          return EntityNode(
             scope: nodeCondition,
             type: nodeType,
             rootTypePathNode: self.rootTypePathNode
@@ -360,10 +360,10 @@ extension IR.EntitySelectionTree {
 
     precondition(diffToRoot >= 0, "Cannot merge in tree shallower than current tree.")
 
-    var rootEntityToStartMerge: EnclosingEntityNode = rootNode
+    var rootEntityToStartMerge: EntityNode = rootNode
 
     for _ in 0..<diffToRoot {
-      rootEntityToStartMerge = rootEntityToStartMerge.childAsEnclosingEntityNode()
+      rootEntityToStartMerge = rootEntityToStartMerge.childAsEntityNode()
     }
 
     rootEntityToStartMerge.mergeIn(
@@ -376,12 +376,12 @@ extension IR.EntitySelectionTree {
 
 }
 
-extension IR.EntitySelectionTree.EnclosingEntityNode {
+extension IR.EntitySelectionTree.EntityNode {
 
   private func findOrCreate(
     fromFragmentScopeNode fragmentNode: LinkedList<IR.ScopeCondition>.Node,
-    from rootNode: IR.EntitySelectionTree.EnclosingEntityNode
-  ) -> IR.EntitySelectionTree.EnclosingEntityNode {
+    from rootNode: IR.EntitySelectionTree.EntityNode
+  ) -> IR.EntitySelectionTree.EntityNode {
     guard let nextFragmentNode = fragmentNode.next else {
       return rootNode
     }
@@ -432,13 +432,13 @@ extension IR.EntitySelectionTree.EnclosingEntityNode {
   }
 
   fileprivate func mergeIn(
-    _ otherNode: IR.EntitySelectionTree.EnclosingEntityNode,
+    _ otherNode: IR.EntitySelectionTree.EntityNode,
     from fragment: IR.FragmentSpread,
     using entityStorage: IR.RootFieldEntityStorage
   ) {
     switch otherNode.child {
-    case let .enclosingEntity(otherNextNode):
-      let nextNode = self.childAsEnclosingEntityNode()
+    case let .entity(otherNextNode):
+      let nextNode = self.childAsEntityNode()
       nextNode.mergeIn(
         otherNextNode,
         from: fragment,
@@ -536,7 +536,7 @@ extension IR.EntitySelectionTree: CustomDebugStringConvertible {
   }
 }
 
-extension IR.EntitySelectionTree.EnclosingEntityNode: CustomDebugStringConvertible {
+extension IR.EntitySelectionTree.EntityNode: CustomDebugStringConvertible {
   var debugDescription: String {
     TemplateString("""
     \(scope.debugDescription) {
@@ -547,9 +547,9 @@ extension IR.EntitySelectionTree.EnclosingEntityNode: CustomDebugStringConvertib
   }
 }
 
-extension IR.EntitySelectionTree.EnclosingEntityNode.Child: CustomDebugStringConvertible {
+extension IR.EntitySelectionTree.EntityNode.Child: CustomDebugStringConvertible {
   var debugDescription: String {
-    func debugDescription(for selections: IR.EntitySelectionTree.EnclosingEntityNode.Selections) -> String {
+    func debugDescription(for selections: IR.EntitySelectionTree.EntityNode.Selections) -> String {
       TemplateString("""
       [
       \(selections.map {
@@ -563,7 +563,7 @@ extension IR.EntitySelectionTree.EnclosingEntityNode.Child: CustomDebugStringCon
     }
 
     switch self {
-    case let .enclosingEntity(node):
+    case let .entity(node):
       return "child: \(node.debugDescription)"
 
     case let .selections(selections):
