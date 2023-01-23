@@ -152,7 +152,6 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
 
         public var feet: Int { __data["feet"] }
         public var inches: Int? { __data["inches"] }
-        public var meters: Int { __data["meters"] }
       }
 
       /// AllAnimal.Predator
@@ -219,8 +218,6 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         public var predators: [Predator] { __data["predators"] }
         public var bodyTemperature: Int { __data["bodyTemperature"] }
 
-        public var ifGetWarmBlooded: IfGetWarmBlooded? { _asInlineFragment(if: "getWarmBlooded") }
-
         public struct Fragments: FragmentContainer {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
@@ -241,44 +238,6 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public var feet: Int { __data["feet"] }
           public var inches: Int? { __data["inches"] }
           public var meters: Int { __data["meters"] }
-        }
-
-        /// AllAnimal.AsWarmBlooded.IfGetWarmBlooded
-        ///
-        /// Parent Type: `WarmBlooded`
-        public struct IfGetWarmBlooded: GraphQLAPI.InlineFragment {
-          public let __data: DataDict
-          public init(data: DataDict) { __data = data }
-
-          public static var __parentType: ApolloAPI.ParentType { GraphQLAPI.Interfaces.WarmBlooded }
-
-          public var height: Height { __data["height"] }
-          public var species: String? { __data["species"] }
-          public var skinCovering: GraphQLEnum<GraphQLAPI.SkinCovering>? { __data["skinCovering"] }
-          public var predators: [Predator] { __data["predators"] }
-          public var bodyTemperature: Int { __data["bodyTemperature"] }
-
-          public struct Fragments: FragmentContainer {
-            public let __data: DataDict
-            public init(data: DataDict) { __data = data }
-
-            public var heightInMeters: HeightInMeters { _toFragment() }
-            public var warmBloodedDetails: WarmBloodedDetails { _toFragment() }
-          }
-
-          /// AllAnimal.AsWarmBlooded.IfGetWarmBlooded.Height
-          ///
-          /// Parent Type: `Height`
-          public struct Height: GraphQLAPI.SelectionSet {
-            public let __data: DataDict
-            public init(data: DataDict) { __data = data }
-
-            public static var __parentType: ApolloAPI.ParentType { GraphQLAPI.Objects.Height }
-
-            public var feet: Int { __data["feet"] }
-            public var inches: Int? { __data["inches"] }
-            public var meters: Int { __data["meters"] }
-          }
         }
       }
 
@@ -333,7 +292,6 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public var centimeters: Double? { __data["centimeters"] }
           public var feet: Int { __data["feet"] }
           public var inches: Int? { __data["inches"] }
-          public var meters: Int { __data["meters"] }
         }
 
         /// AllAnimal.AsPet.AsWarmBlooded
@@ -377,9 +335,9 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
 
             public var feet: Int { __data["feet"] }
             public var inches: Int? { __data["inches"] }
-            public var meters: Int { __data["meters"] }
             public var relativeSize: GraphQLEnum<GraphQLAPI.RelativeSize>? { __data["relativeSize"] }
             public var centimeters: Double? { __data["centimeters"] }
+            public var meters: Int { __data["meters"] }
           }
         }
       }
@@ -426,9 +384,9 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
 
           public var feet: Int { __data["feet"] }
           public var inches: Int? { __data["inches"] }
-          public var meters: Int { __data["meters"] }
           public var relativeSize: GraphQLEnum<GraphQLAPI.RelativeSize>? { __data["relativeSize"] }
           public var centimeters: Double? { __data["centimeters"] }
+          public var meters: Int { __data["meters"] }
         }
       }
 
@@ -456,20 +414,6 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public init(data: DataDict) { __data = data }
 
           public var heightInMeters: HeightInMeters? { _toFragment(if: !"skipHeightInMeters") }
-        }
-
-        /// AllAnimal.AsClassroomPet.Height
-        ///
-        /// Parent Type: `Height`
-        public struct Height: GraphQLAPI.SelectionSet {
-          public let __data: DataDict
-          public init(data: DataDict) { __data = data }
-
-          public static var __parentType: ApolloAPI.ParentType { GraphQLAPI.Objects.Height }
-
-          public var feet: Int { __data["feet"] }
-          public var inches: Int? { __data["inches"] }
-          public var meters: Int { __data["meters"] }
         }
 
         /// AllAnimal.AsClassroomPet.AsBird
@@ -514,9 +458,9 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
 
             public var feet: Int { __data["feet"] }
             public var inches: Int? { __data["inches"] }
-            public var meters: Int { __data["meters"] }
             public var relativeSize: GraphQLEnum<GraphQLAPI.RelativeSize>? { __data["relativeSize"] }
             public var centimeters: Double? { __data["centimeters"] }
+            public var meters: Int { __data["meters"] }
           }
         }
       }
