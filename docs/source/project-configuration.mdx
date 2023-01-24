@@ -95,7 +95,7 @@ You can also include schema types directly in a target that you created.
 
 To do this, use [`ModuleType.embeddedInTarget(name: String)`](./code-generation/codegen-configuration#embedded-in-target) as the value of the [`output.schemaTypes.moduleType`](./code-generation/codegen-configuration#module-type) property. The generated schema types are then enclosed in a caseless namespace enum to prevent naming conflicts with types you already defined in your target.
 
-> This option makes you responsible for **manually** adding generated files to your chosen target. When the code generation engine creates or removes files, you'll need to manually add or remove them from your target's "Compile Sources" build phase.
+> This option makes you responsible for **manually** adding generated files to your chosen target. When the code generation engine creates or removes files, you'll need to manually add or remove them from Xcode's project navigator.
 
 ### Operation model generation
 
