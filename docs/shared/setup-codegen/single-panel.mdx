@@ -26,7 +26,7 @@ From your project's root directory, run the following command with your customiz
 
 - `${MySchemaName}` provides a name for the namespace of your generated schema files.
 - `${ModuleType}` configures how your generated schema types are included in your project.
-  > This is a crucial decision to make **before configuring code generation**. To determine the right option for your project, see [Project Configuration](../project-configuration).
+  > This is a crucial decision to make **before configuring code generation**. To determine the right option for your project, see [Project Configuration](/ios/project-configuration).
   >
   > To get started quickly, you can use the `.embeddedInTarget` option.
   > Using `.embeddedInTarget`, you must supply a target name using the `--target-name` command line option.
@@ -72,8 +72,6 @@ By default, a directory containing your generated schema files is within a direc
 If you created your target in an Xcode project or workspace, you'll need to manually add the generated files to your target.
 
 > **Note:** Because adding generated files to your Xcode targets must be done manually each time you generate new files, we highly recommend defining your project targets with SPM. Alternatively, you can generate your operations into the package that includes your schema files. For more information see the documentation for [Code Generation Configuration](/ios/code-generation/codegen-configuration).
->
-> Alternatively, you can generate your operations into the package that includes your schema files. For more information, see [Code Generation Configuration](../code-generation/codegen-configuration).
 
 </ExpansionPanelListItem>
 </ExpansionPanelList>
