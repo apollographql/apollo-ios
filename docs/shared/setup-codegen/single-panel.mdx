@@ -40,11 +40,12 @@ Running this command creates an `apollo-codegen-config.json` file.
 
 Open your `apollo-codegen-config.json` file to start configuring code generation for your project.
 
-The default configuration:
-- Finds all GraphQL schema files ending with `.graphqls`
-- Finds all GraphQL operation and fragment definition files ending with `.graphql`
-- Generates Swift code for your schema types in a directory with the provided `MySchemaName`
-- Generates Swift code for your operation and fragment models in a subfolder within the same directory
+The default configuration will:
+
+- Find all GraphQL schema files ending with the file extension `.graphqls` within your project directory.
+- Find all GraphQL operation and fragment definition files ending with the file extension `.graphql` within your project directory.
+- Generate Swift code for the schema types in a directory with the `schema-name` provided.
+- Generate Swift code for the operation and fragment models in a subfolder within the schema types output location.
 
 </ExpansionPanelListItem>
 <ExpansionPanelListItem>
@@ -70,7 +71,7 @@ By default, a directory containing your generated schema files is within a direc
 
 If you created your target in an Xcode project or workspace, you'll need to manually add the generated files to your target.
 
-> **Note:** Adding generated files to your Xcode targets must be done manually *each time* you generate new files. This is why we instead recommend defining your project targets with SPM.
+> **Note:** Because adding generated files to your Xcode targets must be done manually each time you generate new files, we highly recommend defining your project targets with SPM. Alternatively, you can generate your operations into the package that includes your schema files. For more information see the documentation for [Code Generation Configuration](/ios/code-generation/codegen-configuration).
 >
 > Alternatively, you can generate your operations into the package that includes your schema files. For more information, see [Code Generation Configuration](../code-generation/codegen-configuration).
 

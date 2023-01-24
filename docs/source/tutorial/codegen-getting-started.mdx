@@ -2,15 +2,22 @@
 title: Get started with Apollo iOS codegen
 ---
 
-This short tutorial guides you through the basic concepts of code generation using the Apollo iOS client. It's intended to introduce you the core capabilities of code generation and will walk you through the manual process to generate code using a GraphQL schema and operation. For more details on code generation please refer to the [Code generation documentation](./introduction)
+This short tutorial guides you through the basic concepts of generating Swift code with Apollo iOS. We'll introduce you the core capabilities of code generation, and walk through the process of generating Swift code using a GraphQL schema and GraphQL operations. 
 
-## Step 1: Setup
+> For more in-depth details, see [Code generation](../code-generation/introduction).
 
-To start this tutorial, first create a new directory to work in. Then use Terminal to go into that new directory.
+## Step 1: Project Setup
+
+Start by creating a new directory, and navigating into it:
+
+```shell
+mkdir ios-code-gen-example
+cd ios-code-gen-example
+```
 
 ## Step 2: Download a GraphQL schema
 
-We'll be using the [StarWars GraphQL API](https://studio.apollographql.com/public/star-wars-swapi/home?variant=current) in this guide. Use Apollo Studio to [view the schema](https://studio.apollographql.com/public/star-wars-swapi/schema/sdl?variant=current).
+We'll use the [StarWars GraphQL API](https://studio.apollographql.com/public/star-wars-swapi/home?variant=current) for this example. You can check this schema out using [Apollo Studio](https://studio.apollographql.com/public/star-wars-swapi/schema/sdl?variant=current).
 
 <img class="screenshot" src="../screenshot/studio-starwarsapi-download.png" alt="Where to download a schema from Apollo Studio" />
 
@@ -33,7 +40,6 @@ We'll be using the [allFilms Query operation](https://studio.apollographql.com/p
 Copy the query text and create a new file named `AllFilmsQuery.graphql` in the directory you created in [Step 1](#step-1-setup). Paste this query into the new file.
 
 ```graphql
-
 query Query {
   allFilms {
     films {
@@ -60,7 +66,7 @@ Browse to the list of [Apollo iOS releases](https://github.com/apollographql/apo
 
 Download and unzip this file then move the `apollo-ios-cli` binary file into the directory you created in [Step 1](#step-1-setup).
 
-> For more information on the different ways to install the CLI, see the [codegen CLI](./codegen-cli#installation) documentation.
+> For more information on the different ways to install the CLI, see the [codegen CLI](../code-generation/codegen-cli#installation) documentation.
 
 ## Step 6: Create a codegen configuration
 
@@ -70,38 +76,30 @@ Run the following command:
 ./apollo-ios-cli init --schema-name StarWarsAPI --module-type swiftPackageManager
 ```
 
-The CLI will create a configuration file named `apollo-codegen-configuration.json`, pre-filled with default values.  The file should look similar to this:
+The CLI will create a configuration file named `apollo-codegen-configuration.json`, pre-filled with default values. The file should look similar to this:
 
 ```json
 {
-  "schemaName" : "StarWarsAPI",
-  "input" : {
-    "operationSearchPaths" : [
-      "**/*.graphql"
-    ],
-    "schemaSearchPaths" : [
-      "**/*.graphqls"
-    ]
+  "schemaName": "StarWarsAPI",
+  "input": {
+    "operationSearchPaths": ["**/*.graphql"],
+    "schemaSearchPaths": ["**/*.graphqls"]
   },
-  "output" : {
-    "testMocks" : {
-      "none" : {
+  "output": {
+    "testMocks": {
+      "none": {}
+    },
+    "schemaTypes": {
+      "path": "./StarWarsAPI",
+      "moduleType": {
+        "swiftPackageManager": {}
       }
     },
-    "schemaTypes" : {
-      "path" : "./StarWarsAPI",
-      "moduleType" : {
-        "swiftPackageManager" : {
-        }
-      }
-    },
-    "operations" : {
-      "inSchemaModule" : {
-      }
+    "operations": {
+      "inSchemaModule": {}
     }
   }
 }
-
 ```
 
 ### Step 7: Generate code
@@ -274,6 +272,7 @@ public class Query: GraphQLQuery {
   }
 }
 ```
+
 </ExpansionPanel>
 
-And that is it! You can also review all the additional generated files to get a deeper understanding of how code generation works using the Apollo iOS client.
+And that's it! You can also review all the additional generated files to get a deeper understanding of how code generation works using the Apollo iOS client.
