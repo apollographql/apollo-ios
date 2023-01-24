@@ -8,7 +8,7 @@ public class HeroDetailsInlineConditionalInclusionQuery: GraphQLQuery {
   public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
     operationIdentifier: "3091d9d3f1d2374e2f835ce05d332e50b3fe61502d73213b9aa511f0f94f091c",
     definition: .init(
-      """
+      #"""
       query HeroDetailsInlineConditionalInclusion($includeDetails: Boolean!) {
         hero {
           __typename
@@ -19,7 +19,7 @@ public class HeroDetailsInlineConditionalInclusionQuery: GraphQLQuery {
           }
         }
       }
-      """
+      """#
     ))
 
   public var includeDetails: Bool
@@ -34,8 +34,8 @@ public class HeroDetailsInlineConditionalInclusionQuery: GraphQLQuery {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { StarWarsAPI.Objects.Query }
-    public static var __selections: [Selection] { [
+    public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Query }
+    public static var __selections: [ApolloAPI.Selection] { [
       .field("hero", Hero?.self),
     ] }
 
@@ -48,8 +48,8 @@ public class HeroDetailsInlineConditionalInclusionQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { StarWarsAPI.Interfaces.Character }
-      public static var __selections: [Selection] { [
+      public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
+      public static var __selections: [ApolloAPI.Selection] { [
         .include(if: "includeDetails", .inlineFragment(IfIncludeDetails.self)),
       ] }
 
@@ -62,16 +62,16 @@ public class HeroDetailsInlineConditionalInclusionQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { StarWarsAPI.Interfaces.Character }
-        public static var __selections: [Selection] { [
+        public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
+        public static var __selections: [ApolloAPI.Selection] { [
           .field("name", String.self),
-          .field("appearsIn", [GraphQLEnum<Episode>?].self),
+          .field("appearsIn", [GraphQLEnum<StarWarsAPI.Episode>?].self),
         ] }
 
         /// The name of the character
         public var name: String { __data["name"] }
         /// The movies this character appears in
-        public var appearsIn: [GraphQLEnum<Episode>?] { __data["appearsIn"] }
+        public var appearsIn: [GraphQLEnum<StarWarsAPI.Episode>?] { __data["appearsIn"] }
       }
     }
   }

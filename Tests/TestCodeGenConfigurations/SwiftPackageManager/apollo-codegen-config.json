@@ -30,7 +30,7 @@
       }
     },
     "schemaTypes" : {
-      "path" : ".\/",
+      "path" : "./Packages/GraphQLSchemaName",
       "moduleType" : {
         "swiftPackageManager" : {
 

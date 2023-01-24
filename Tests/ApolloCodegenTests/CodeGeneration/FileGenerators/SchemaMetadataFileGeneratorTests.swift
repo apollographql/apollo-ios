@@ -3,7 +3,7 @@ import Nimble
 @testable import ApolloCodegenLib
 
 class SchemaMetadataFileGeneratorTests: XCTestCase {
-  let irSchema = IR.Schema(name: "MockSchema", referencedTypes: .init([]))
+  let irSchema = IR.Schema(referencedTypes: .init([]))
 
   var subject: SchemaMetadataFileGenerator!
 

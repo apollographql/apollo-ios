@@ -49,7 +49,7 @@ extension IR {
     schemaName: String = "TestSchema",
     compilationResult: CompilationResult
   ) -> IR {
-    return IR(schemaName: schemaName, compilationResult: compilationResult)
+    return IR(compilationResult: compilationResult)
   }
 
 }

@@ -41,7 +41,7 @@ public class Atomic<T> {
 
 public extension Atomic where T : Numeric {
 
-  /// Increments the wrapped `Int` atomically, adding +1 to the ``value``.
+  /// Increments the wrapped `Int` atomically, adding +1 to the value.
   @discardableResult
   func increment() -> T {
     lock.lock()

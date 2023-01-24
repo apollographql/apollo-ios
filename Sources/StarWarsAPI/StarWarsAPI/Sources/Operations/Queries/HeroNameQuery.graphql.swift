@@ -8,14 +8,14 @@ public class HeroNameQuery: GraphQLQuery {
   public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
     operationIdentifier: "f6e76545cd03aa21368d9969cb39447f6e836a16717823281803778e7805d671",
     definition: .init(
-      """
+      #"""
       query HeroName($episode: Episode) {
         hero(episode: $episode) {
           __typename
           name
         }
       }
-      """
+      """#
     ))
 
   public var episode: GraphQLNullable<GraphQLEnum<Episode>>
@@ -30,8 +30,8 @@ public class HeroNameQuery: GraphQLQuery {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { StarWarsAPI.Objects.Query }
-    public static var __selections: [Selection] { [
+    public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Query }
+    public static var __selections: [ApolloAPI.Selection] { [
       .field("hero", Hero?.self, arguments: ["episode": .variable("episode")]),
     ] }
 
@@ -44,8 +44,8 @@ public class HeroNameQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { StarWarsAPI.Interfaces.Character }
-      public static var __selections: [Selection] { [
+      public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
+      public static var __selections: [ApolloAPI.Selection] { [
         .field("name", String.self),
       ] }
 

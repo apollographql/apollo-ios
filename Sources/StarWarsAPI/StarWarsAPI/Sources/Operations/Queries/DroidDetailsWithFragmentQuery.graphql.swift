@@ -8,14 +8,14 @@ public class DroidDetailsWithFragmentQuery: GraphQLQuery {
   public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
     operationIdentifier: "7277e97563e911ac8f5c91d401028d218aae41f38df014d7fa0b037bb2a2e739",
     definition: .init(
-      """
+      #"""
       query DroidDetailsWithFragment($episode: Episode) {
         hero(episode: $episode) {
           __typename
           ...DroidDetails
         }
       }
-      """,
+      """#,
       fragments: [DroidDetails.self]
     ))
 
@@ -31,8 +31,8 @@ public class DroidDetailsWithFragmentQuery: GraphQLQuery {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { StarWarsAPI.Objects.Query }
-    public static var __selections: [Selection] { [
+    public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Query }
+    public static var __selections: [ApolloAPI.Selection] { [
       .field("hero", Hero?.self, arguments: ["episode": .variable("episode")]),
     ] }
 
@@ -45,8 +45,8 @@ public class DroidDetailsWithFragmentQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { StarWarsAPI.Interfaces.Character }
-      public static var __selections: [Selection] { [
+      public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
+      public static var __selections: [ApolloAPI.Selection] { [
         .inlineFragment(AsDroid.self),
       ] }
 
@@ -59,8 +59,8 @@ public class DroidDetailsWithFragmentQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { StarWarsAPI.Objects.Droid }
-        public static var __selections: [Selection] { [
+        public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Droid }
+        public static var __selections: [ApolloAPI.Selection] { [
           .fragment(DroidDetails.self),
         ] }
 

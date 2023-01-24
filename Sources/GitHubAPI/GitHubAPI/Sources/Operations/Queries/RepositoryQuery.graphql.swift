@@ -7,7 +7,7 @@ public class RepositoryQuery: GraphQLQuery {
   public static let operationName: String = "Repository"
   public static let document: ApolloAPI.DocumentType = .notPersisted(
     definition: .init(
-      """
+      #"""
       query Repository {
         repository(owner: "apollographql", name: "apollo-ios") {
           __typename
@@ -39,7 +39,7 @@ public class RepositoryQuery: GraphQLQuery {
           }
         }
       }
-      """
+      """#
     ))
 
   public init() {}
@@ -48,8 +48,8 @@ public class RepositoryQuery: GraphQLQuery {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { GitHubAPI.Objects.Query }
-    public static var __selections: [Selection] { [
+    public static var __parentType: ApolloAPI.ParentType { GitHubAPI.Objects.Query }
+    public static var __selections: [ApolloAPI.Selection] { [
       .field("repository", Repository?.self, arguments: [
         "owner": "apollographql",
         "name": "apollo-ios"
@@ -66,8 +66,8 @@ public class RepositoryQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { GitHubAPI.Objects.Repository }
-      public static var __selections: [Selection] { [
+      public static var __parentType: ApolloAPI.ParentType { GitHubAPI.Objects.Repository }
+      public static var __selections: [ApolloAPI.Selection] { [
         .field("issueOrPullRequest", IssueOrPullRequest?.self, arguments: ["number": 13]),
       ] }
 
@@ -81,8 +81,8 @@ public class RepositoryQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { GitHubAPI.Unions.IssueOrPullRequest }
-        public static var __selections: [Selection] { [
+        public static var __parentType: ApolloAPI.ParentType { GitHubAPI.Unions.IssueOrPullRequest }
+        public static var __selections: [ApolloAPI.Selection] { [
           .inlineFragment(AsIssue.self),
           .inlineFragment(AsReactable.self),
         ] }
@@ -97,17 +97,17 @@ public class RepositoryQuery: GraphQLQuery {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public static var __parentType: ParentType { GitHubAPI.Objects.Issue }
-          public static var __selections: [Selection] { [
+          public static var __parentType: ApolloAPI.ParentType { GitHubAPI.Objects.Issue }
+          public static var __selections: [ApolloAPI.Selection] { [
             .field("body", String.self),
-            .field("url", URI.self),
+            .field("url", GitHubAPI.URI.self),
             .field("author", Author?.self),
           ] }
 
           /// Identifies the body of the issue.
           public var body: String { __data["body"] }
           /// The URL to this resource.
-          public var url: URI { __data["url"] }
+          public var url: GitHubAPI.URI { __data["url"] }
           /// The actor who authored the comment.
           public var author: Author? { __data["author"] }
           /// Can user react to this subject
@@ -120,13 +120,13 @@ public class RepositoryQuery: GraphQLQuery {
             public let __data: DataDict
             public init(data: DataDict) { __data = data }
 
-            public static var __parentType: ParentType { GitHubAPI.Interfaces.Actor }
-            public static var __selections: [Selection] { [
-              .field("avatarUrl", URI.self),
+            public static var __parentType: ApolloAPI.ParentType { GitHubAPI.Interfaces.Actor }
+            public static var __selections: [ApolloAPI.Selection] { [
+              .field("avatarUrl", GitHubAPI.URI.self),
             ] }
 
             /// A URL pointing to the actor's public avatar.
-            public var avatarUrl: URI { __data["avatarUrl"] }
+            public var avatarUrl: GitHubAPI.URI { __data["avatarUrl"] }
             /// The username of the actor.
             public var login: String { __data["login"] }
           }
@@ -139,8 +139,8 @@ public class RepositoryQuery: GraphQLQuery {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public static var __parentType: ParentType { GitHubAPI.Interfaces.Reactable }
-          public static var __selections: [Selection] { [
+          public static var __parentType: ApolloAPI.ParentType { GitHubAPI.Interfaces.Reactable }
+          public static var __selections: [ApolloAPI.Selection] { [
             .field("viewerCanReact", Bool.self),
             .inlineFragment(AsComment.self),
           ] }
@@ -157,8 +157,8 @@ public class RepositoryQuery: GraphQLQuery {
             public let __data: DataDict
             public init(data: DataDict) { __data = data }
 
-            public static var __parentType: ParentType { GitHubAPI.Interfaces.Comment }
-            public static var __selections: [Selection] { [
+            public static var __parentType: ApolloAPI.ParentType { GitHubAPI.Interfaces.Comment }
+            public static var __selections: [ApolloAPI.Selection] { [
               .field("author", Author?.self),
             ] }
 
@@ -174,8 +174,8 @@ public class RepositoryQuery: GraphQLQuery {
               public let __data: DataDict
               public init(data: DataDict) { __data = data }
 
-              public static var __parentType: ParentType { GitHubAPI.Interfaces.Actor }
-              public static var __selections: [Selection] { [
+              public static var __parentType: ApolloAPI.ParentType { GitHubAPI.Interfaces.Actor }
+              public static var __selections: [ApolloAPI.Selection] { [
                 .field("login", String.self),
               ] }
 

@@ -1,8 +1,6 @@
 /// Protocol for a `TemplateRenderer` that renders an operation definition template.
 /// This protocol provides rendering helper functions for common template elements.
-protocol OperationTemplateRenderer: TemplateRenderer {
-  var schema: IR.Schema { get }
-}
+protocol OperationTemplateRenderer: TemplateRenderer { }
 
 extension OperationTemplateRenderer {
   func Initializer(

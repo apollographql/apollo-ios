@@ -7,14 +7,14 @@ public class RepoURLQuery: GraphQLQuery {
   public static let operationName: String = "RepoURL"
   public static let document: ApolloAPI.DocumentType = .notPersisted(
     definition: .init(
-      """
+      #"""
       query RepoURL {
         repository(owner: "apollographql", name: "apollo-ios") {
           __typename
           url
         }
       }
-      """
+      """#
     ))
 
   public init() {}
@@ -23,8 +23,8 @@ public class RepoURLQuery: GraphQLQuery {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { GitHubAPI.Objects.Query }
-    public static var __selections: [Selection] { [
+    public static var __parentType: ApolloAPI.ParentType { GitHubAPI.Objects.Query }
+    public static var __selections: [ApolloAPI.Selection] { [
       .field("repository", Repository?.self, arguments: [
         "owner": "apollographql",
         "name": "apollo-ios"
@@ -41,13 +41,13 @@ public class RepoURLQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { GitHubAPI.Objects.Repository }
-      public static var __selections: [Selection] { [
-        .field("url", URI.self),
+      public static var __parentType: ApolloAPI.ParentType { GitHubAPI.Objects.Repository }
+      public static var __selections: [ApolloAPI.Selection] { [
+        .field("url", GitHubAPI.URI.self),
       ] }
 
       /// The HTTP URL for this repository
-      public var url: URI { __data["url"] }
+      public var url: GitHubAPI.URI { __data["url"] }
     }
   }
 }

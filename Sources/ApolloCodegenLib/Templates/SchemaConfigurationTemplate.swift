@@ -2,9 +2,6 @@ import Foundation
 
 /// Renders the Cache Key Resolution extension for a generated schema.
 struct SchemaConfigurationTemplate: TemplateRenderer {
-
-  /// Source IR schema.
-  let schema: IR.Schema
   /// Shared codegen configuration
   let config: ApolloCodegen.ConfigurationContext
 

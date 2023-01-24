@@ -13,7 +13,7 @@ struct InstallCLIPluginCommand: CommandPlugin {
     let task = Process()
     task.standardInput = nil
     task.environment = ProcessInfo.processInfo.environment
-    task.arguments = ["-c", "ln -f -s \(from.string) \(to.string)"]
+    task.arguments = ["-c", "ln -f -s '\(from.string)' '\(to.string)'"]
     task.executableURL = URL(fileURLWithPath: "/bin/zsh")
     try task.run()
     task.waitUntilExit()

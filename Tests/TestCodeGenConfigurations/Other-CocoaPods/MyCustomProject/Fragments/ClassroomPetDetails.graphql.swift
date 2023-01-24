@@ -32,8 +32,8 @@ public struct ClassroomPetDetails: MyCustomProject.SelectionSet, Fragment {
   public let __data: DataDict
   public init(data: DataDict) { __data = data }
 
-  public static var __parentType: ParentType { MyCustomProject.Unions.ClassroomPet }
-  public static var __selections: [Selection] { [
+  public static var __parentType: Apollo.ParentType { MyCustomProject.Unions.ClassroomPet }
+  public static var __selections: [Apollo.Selection] { [
     .inlineFragment(AsAnimal.self),
     .inlineFragment(AsPet.self),
     .inlineFragment(AsWarmBlooded.self),
@@ -56,8 +56,8 @@ public struct ClassroomPetDetails: MyCustomProject.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { MyCustomProject.Interfaces.Animal }
-    public static var __selections: [Selection] { [
+    public static var __parentType: Apollo.ParentType { MyCustomProject.Interfaces.Animal }
+    public static var __selections: [Apollo.Selection] { [
       .field("species", String.self),
     ] }
 
@@ -71,8 +71,8 @@ public struct ClassroomPetDetails: MyCustomProject.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { MyCustomProject.Interfaces.Pet }
-    public static var __selections: [Selection] { [
+    public static var __parentType: Apollo.ParentType { MyCustomProject.Interfaces.Pet }
+    public static var __selections: [Apollo.Selection] { [
       .field("humanName", String?.self),
     ] }
 
@@ -86,8 +86,8 @@ public struct ClassroomPetDetails: MyCustomProject.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { MyCustomProject.Interfaces.WarmBlooded }
-    public static var __selections: [Selection] { [
+    public static var __parentType: Apollo.ParentType { MyCustomProject.Interfaces.WarmBlooded }
+    public static var __selections: [Apollo.Selection] { [
       .field("laysEggs", Bool.self),
     ] }
 
@@ -102,8 +102,8 @@ public struct ClassroomPetDetails: MyCustomProject.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { MyCustomProject.Objects.Cat }
-    public static var __selections: [Selection] { [
+    public static var __parentType: Apollo.ParentType { MyCustomProject.Objects.Cat }
+    public static var __selections: [Apollo.Selection] { [
       .field("bodyTemperature", Int.self),
       .field("isJellicle", Bool.self),
     ] }
@@ -122,8 +122,8 @@ public struct ClassroomPetDetails: MyCustomProject.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { MyCustomProject.Objects.Bird }
-    public static var __selections: [Selection] { [
+    public static var __parentType: Apollo.ParentType { MyCustomProject.Objects.Bird }
+    public static var __selections: [Apollo.Selection] { [
       .field("wingspan", Double.self),
     ] }
 
@@ -140,8 +140,8 @@ public struct ClassroomPetDetails: MyCustomProject.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { MyCustomProject.Objects.PetRock }
-    public static var __selections: [Selection] { [
+    public static var __parentType: Apollo.ParentType { MyCustomProject.Objects.PetRock }
+    public static var __selections: [Apollo.Selection] { [
       .field("favoriteToy", String.self),
     ] }
 

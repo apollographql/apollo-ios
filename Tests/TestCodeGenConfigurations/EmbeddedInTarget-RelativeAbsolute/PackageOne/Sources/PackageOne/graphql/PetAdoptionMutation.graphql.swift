@@ -8,7 +8,7 @@ class PetAdoptionMutation: GraphQLMutation {
   public static let operationName: String = "PetAdoptionMutation"
   public static let document: ApolloAPI.DocumentType = .notPersisted(
     definition: .init(
-      """
+      #"""
       mutation PetAdoptionMutation($input: PetAdoptionInput!) {
         adoptPet(input: $input) {
           __typename
@@ -16,7 +16,7 @@ class PetAdoptionMutation: GraphQLMutation {
           humanName
         }
       }
-      """
+      """#
     ))
 
   public var input: MySchemaModule.PetAdoptionInput
@@ -31,8 +31,8 @@ class PetAdoptionMutation: GraphQLMutation {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { MySchemaModule.Objects.Mutation }
-    public static var __selections: [Selection] { [
+    public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Objects.Mutation }
+    public static var __selections: [ApolloAPI.Selection] { [
       .field("adoptPet", AdoptPet.self, arguments: ["input": .variable("input")]),
     ] }
 
@@ -45,8 +45,8 @@ class PetAdoptionMutation: GraphQLMutation {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { MySchemaModule.Interfaces.Pet }
-      public static var __selections: [Selection] { [
+      public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Interfaces.Pet }
+      public static var __selections: [ApolloAPI.Selection] { [
         .field("id", MySchemaModule.ID.self),
         .field("humanName", String?.self),
       ] }

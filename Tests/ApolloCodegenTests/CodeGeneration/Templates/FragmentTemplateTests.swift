@@ -52,7 +52,6 @@ class FragmentTemplateTests: XCTestCase {
     fragment = ir.build(fragment: fragmentDefinition)
     subject = FragmentTemplate(
       fragment: fragment,
-      schema: ir.schema,
       config: ApolloCodegen.ConfigurationContext(config: config)
     )
   }
@@ -212,7 +211,7 @@ class FragmentTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var __parentType: ParentType { TestSchema.Objects.Animal }
+      public static var __parentType: ApolloAPI.ParentType { TestSchema.Objects.Animal }
     """
 
     // when
@@ -242,7 +241,7 @@ class FragmentTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var __parentType: ParentType { TestSchema.Interfaces.Animal }
+      public static var __parentType: ApolloAPI.ParentType { TestSchema.Interfaces.Animal }
     """
 
     // when
@@ -276,7 +275,7 @@ class FragmentTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var __parentType: ParentType { TestSchema.Unions.Animal }
+      public static var __parentType: ApolloAPI.ParentType { TestSchema.Unions.Animal }
     """
 
     // when
@@ -308,8 +307,8 @@ class FragmentTemplateTests: XCTestCase {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { TestSchema.Objects.Animal }
-      public static var __selections: [Selection] { [
+      public static var __parentType: ApolloAPI.ParentType { TestSchema.Objects.Animal }
+      public static var __selections: [ApolloAPI.Selection] { [
       ] }
     }
 
@@ -397,8 +396,8 @@ class FragmentTemplateTests: XCTestCase {
       public var __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { TestSchema.Objects.Query }
-      public static var __selections: [Selection] { [
+      public static var __parentType: ApolloAPI.ParentType { TestSchema.Objects.Query }
+      public static var __selections: [ApolloAPI.Selection] { [
         .field("allAnimals", [AllAnimal]?.self),
       ] }
 
@@ -417,4 +416,47 @@ class FragmentTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))
   }
 
+  // MARK: Casing
+
+  func test__casing__givenLowercasedSchemaName_generatesWithFirstUppercasedNamespace() throws {
+    // given
+    try buildSubjectAndFragment(config: .mock(schemaName: "mySchema"))
+
+    // then
+    let expected = """
+      struct TestFragment: MySchema.SelectionSet, Fragment {
+      """
+
+    let actual = renderSubject()
+
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test__casing__givenUppercasedSchemaName_generatesWithUppercasedNamespace() throws {
+    // given
+    try buildSubjectAndFragment(config: .mock(schemaName: "MY_SCHEMA"))
+
+    // then
+    let expected = """
+      struct TestFragment: MY_SCHEMA.SelectionSet, Fragment {
+      """
+
+    let actual = renderSubject()
+
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test__casing__givenCapitalizedSchemaName_generatesWithCapitalizedNamespace() throws {
+    // given
+    try buildSubjectAndFragment(config: .mock(schemaName: "MySchema"))
+
+    // then
+    let expected = """
+      struct TestFragment: MySchema.SelectionSet, Fragment {
+      """
+
+    let actual = renderSubject()
+
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
 }

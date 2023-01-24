@@ -5,13 +5,11 @@ import Foundation
 struct InputObjectFileGenerator: FileGenerator {
   /// Source GraphQL input object.
   let graphqlInputObject: GraphQLInputObjectType
-  /// IR representation of a GraphQL schema.
-  let schema: IR.Schema
   /// Shared codegen configuration.
   let config: ApolloCodegen.ConfigurationContext
 
   var template: TemplateRenderer {
-    InputObjectTemplate(graphqlInputObject: graphqlInputObject, schema: schema, config: config)
+    InputObjectTemplate(graphqlInputObject: graphqlInputObject, config: config)
   }
   var target: FileTarget { .inputObject }
   var fileName: String { graphqlInputObject.name }

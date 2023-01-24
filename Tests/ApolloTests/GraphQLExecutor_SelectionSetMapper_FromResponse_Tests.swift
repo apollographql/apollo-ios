@@ -26,7 +26,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
       selectionSet: selectionSet,
       on: object,      
       variables: variables,
-      accumulator: GraphQLSelectionSetMapper<T>()
+      accumulator: GraphQLSelectionSetMapper<T>(stripNullValues: true)
     )
   }
 

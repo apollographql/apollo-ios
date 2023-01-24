@@ -7,14 +7,14 @@ public class DogQuery: GraphQLQuery {
   public static let operationName: String = "DogQuery"
   public static let document: ApolloAPI.DocumentType = .notPersisted(
     definition: .init(
-      """
+      #"""
       query DogQuery {
         dog {
           __typename
           ...DogFragment
         }
       }
-      """,
+      """#,
       fragments: [DogFragment.self]
     ))
 
@@ -24,8 +24,8 @@ public class DogQuery: GraphQLQuery {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { GraphQLAPI.Objects.Query }
-    public static var __selections: [Selection] { [
+    public static var __parentType: ApolloAPI.ParentType { GraphQLAPI.Objects.Query }
+    public static var __selections: [ApolloAPI.Selection] { [
       .field("dog", Dog.self),
     ] }
 
@@ -38,8 +38,8 @@ public class DogQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { GraphQLAPI.Objects.Dog }
-      public static var __selections: [Selection] { [
+      public static var __parentType: ApolloAPI.ParentType { GraphQLAPI.Objects.Dog }
+      public static var __selections: [ApolloAPI.Selection] { [
         .fragment(DogFragment.self),
       ] }
 

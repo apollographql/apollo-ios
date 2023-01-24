@@ -8,14 +8,14 @@ public extension MyGraphQLSchema {
     public static let operationName: String = "ClassroomPets"
     public static let document: ApolloAPI.DocumentType = .notPersisted(
       definition: .init(
-        """
+        #"""
         query ClassroomPets {
           classroomPets {
             __typename
             ...ClassroomPetDetails
           }
         }
-        """,
+        """#,
         fragments: [ClassroomPetDetails.self]
       ))
 
@@ -25,8 +25,8 @@ public extension MyGraphQLSchema {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { MyGraphQLSchema.Objects.Query }
-      public static var __selections: [Selection] { [
+      public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Objects.Query }
+      public static var __selections: [ApolloAPI.Selection] { [
         .field("classroomPets", [ClassroomPet?]?.self),
       ] }
 
@@ -39,8 +39,8 @@ public extension MyGraphQLSchema {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { MyGraphQLSchema.Unions.ClassroomPet }
-        public static var __selections: [Selection] { [
+        public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Unions.ClassroomPet }
+        public static var __selections: [ApolloAPI.Selection] { [
           .fragment(ClassroomPetDetails.self),
         ] }
 
@@ -65,7 +65,7 @@ public extension MyGraphQLSchema {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public static var __parentType: ParentType { MyGraphQLSchema.Interfaces.Animal }
+          public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Interfaces.Animal }
 
           public var species: String { __data["species"] }
 
@@ -84,7 +84,7 @@ public extension MyGraphQLSchema {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public static var __parentType: ParentType { MyGraphQLSchema.Interfaces.Pet }
+          public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Interfaces.Pet }
 
           public var humanName: String? { __data["humanName"] }
 
@@ -103,7 +103,7 @@ public extension MyGraphQLSchema {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public static var __parentType: ParentType { MyGraphQLSchema.Interfaces.WarmBlooded }
+          public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Interfaces.WarmBlooded }
 
           public var species: String { __data["species"] }
           public var laysEggs: Bool { __data["laysEggs"] }
@@ -123,7 +123,7 @@ public extension MyGraphQLSchema {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public static var __parentType: ParentType { MyGraphQLSchema.Objects.Cat }
+          public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Objects.Cat }
 
           public var species: String { __data["species"] }
           public var humanName: String? { __data["humanName"] }
@@ -146,7 +146,7 @@ public extension MyGraphQLSchema {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public static var __parentType: ParentType { MyGraphQLSchema.Objects.Bird }
+          public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Objects.Bird }
 
           public var species: String { __data["species"] }
           public var humanName: String? { __data["humanName"] }
@@ -168,7 +168,7 @@ public extension MyGraphQLSchema {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public static var __parentType: ParentType { MyGraphQLSchema.Objects.PetRock }
+          public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Objects.PetRock }
 
           public var humanName: String? { __data["humanName"] }
           public var favoriteToy: String { __data["favoriteToy"] }

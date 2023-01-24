@@ -8,7 +8,7 @@ public class HumanQuery: GraphQLQuery {
   public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
     operationIdentifier: "b37eb69b82fd52358321e49453769750983be1c286744dbf415735d7bcf12f1e",
     definition: .init(
-      """
+      #"""
       query Human($id: ID!) {
         human(id: $id) {
           __typename
@@ -16,7 +16,7 @@ public class HumanQuery: GraphQLQuery {
           mass
         }
       }
-      """
+      """#
     ))
 
   public var id: ID
@@ -31,8 +31,8 @@ public class HumanQuery: GraphQLQuery {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { StarWarsAPI.Objects.Query }
-    public static var __selections: [Selection] { [
+    public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Query }
+    public static var __selections: [ApolloAPI.Selection] { [
       .field("human", Human?.self, arguments: ["id": .variable("id")]),
     ] }
 
@@ -45,8 +45,8 @@ public class HumanQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { StarWarsAPI.Objects.Human }
-      public static var __selections: [Selection] { [
+      public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Human }
+      public static var __selections: [ApolloAPI.Selection] { [
         .field("name", String.self),
         .field("mass", Double?.self),
       ] }

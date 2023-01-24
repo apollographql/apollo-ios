@@ -19,6 +19,7 @@ public class ApolloCodegen {
     case cannotLoadSchema
     case cannotLoadOperations
     case invalidConfiguration(message: String)
+    case invalidSchemaName(_ name: String, message: String)
 
     public var errorDescription: String? {
       switch self {
@@ -38,8 +39,8 @@ public class ApolloCodegen {
           """
       case let .schemaNameConflict(name):
         return """
-          Schema name \(name) conflicts with name of a type in your GraphQL schema. Please \
-          choose a different schema name. Suggestions: \(name)Schema, \(name)GraphQL, \(name)API
+          Schema name '\(name)' conflicts with name of a type in the generated code. Please choose \
+          a different schema name. Suggestions: \(name)Schema, \(name)GraphQL, \(name)API.
           """
       case .cannotLoadSchema:
         return "A GraphQL schema could not be found. Please verify the schema search paths."
@@ -47,6 +48,8 @@ public class ApolloCodegen {
         return "No GraphQL operations could be found. Please verify the operation search paths."
       case let .invalidConfiguration(message):
         return "The codegen configuration has conflicting values: \(message)"
+      case let .invalidSchemaName(name, message):
+        return "The schema name `\(name)` is invalid: \(message)"
       }
     }
   }
@@ -76,19 +79,16 @@ public class ApolloCodegen {
       rootURL: rootURL
     )
 
-    try validate(config: configContext)
+    try validate(configContext)
 
     let compilationResult = try compileGraphQLResult(
       configContext,
       experimentalFeatures: configuration.experimentalFeatures
     )
 
-    try validate(schemaName: configContext.schemaName, compilationResult: compilationResult)
+    try validate(configContext, with: compilationResult)
 
-    let ir = IR(
-      schemaName: configContext.schemaName,
-      compilationResult: compilationResult
-    )
+    let ir = IR(compilationResult: compilationResult)
 
     var existingGeneratedFilePaths = configuration.options.pruneGeneratedFiles ?
     try findExistingGeneratedFilePaths(
@@ -133,15 +133,39 @@ public class ApolloCodegen {
     }
   }
 
-  /// Performs validation against deterministic errors that will cause code generation to fail.
-  static func validate(config: ConfigurationContext) throws {
-    if case .swiftPackage = config.output.testMocks,
-        config.output.schemaTypes.moduleType != .swiftPackageManager {
+  /// Validates the configuration against deterministic errors that will cause code generation to
+  /// fail. This validation step does not take into account schema and operation specific types, it
+  /// is only a static analysis of the configuration.
+  ///
+  /// - Parameter config: Code generation configuration settings.
+  public static func _validate(config: ApolloCodegenConfiguration) throws {
+    try validate(ConfigurationContext(config: config))
+  }
+
+  static private func validate(_ context: ConfigurationContext) throws {
+    guard
+      !context.schemaName.isEmpty,
+      !context.schemaName.contains(where: { $0.isWhitespace })
+    else {
+      throw Error.invalidSchemaName(context.schemaName, message: """
+        Cannot be empty nor contain spaces. If your schema name has spaces consider replacing them \
+        with the underscore character.
+        """)
+    }
+
+    guard
+      !SwiftKeywords.DisallowedSchemaNamespaceNames.contains(context.schemaName.lowercased())
+    else {
+      throw Error.schemaNameConflict(name: context.schemaName)
+    }
+
+    if case .swiftPackage = context.output.testMocks,
+        context.output.schemaTypes.moduleType != .swiftPackageManager {
       throw Error.testMocksInvalidSwiftPackageConfiguration
     }
 
-    if case .swiftPackageManager = config.output.schemaTypes.moduleType,
-       config.options.cocoapodsCompatibleImportStatements == true {
+    if case .swiftPackageManager = context.output.schemaTypes.moduleType,
+       context.options.cocoapodsCompatibleImportStatements == true {
       throw Error.invalidConfiguration(message: """
         cocoapodsCompatibleImportStatements cannot be set to 'true' when the output schema types \
         module type is Swift Package Manager. Change the cocoapodsCompatibleImportStatements \
@@ -149,10 +173,10 @@ public class ApolloCodegen {
         """)
     }
 
-    for searchPath in config.input.schemaSearchPaths {
+    for searchPath in context.input.schemaSearchPaths {
       try validate(inputSearchPath: searchPath)
     }
-    for searchPath in config.input.operationSearchPaths {
+    for searchPath in context.input.operationSearchPaths {
       try validate(inputSearchPath: searchPath)
     }
   }
@@ -163,16 +187,18 @@ public class ApolloCodegen {
     }
   }
 
-  static func validate(schemaName: String, compilationResult: CompilationResult) throws {
+  /// Validates the configuration context against the GraphQL compilation result, checking for
+  /// configuration errors that are dependent on the schema and operations.
+  static func validate(_ context: ConfigurationContext, with compilationResult: CompilationResult) throws {
     guard
       !compilationResult.referencedTypes.contains(where: { namedType in
-        namedType.swiftName == schemaName.firstUppercased
+        namedType.swiftName == context.schemaName.firstUppercased
       }),
       !compilationResult.fragments.contains(where: { fragmentDefinition in
-        fragmentDefinition.name == schemaName.firstUppercased
+        fragmentDefinition.name == context.schemaName.firstUppercased
       })
     else {
-      throw Error.schemaNameConflict(name: schemaName)
+      throw Error.schemaNameConflict(name: context.schemaName)
     }
   }
 
@@ -267,7 +293,7 @@ public class ApolloCodegen {
     for fragment in compilationResult.fragments {
       try autoreleasepool {
         let irFragment = ir.build(fragment: fragment)
-        try FragmentFileGenerator(irFragment: irFragment, schema: ir.schema, config: config)
+        try FragmentFileGenerator(irFragment: irFragment, config: config)
           .generate(forConfig: config, fileManager: fileManager)
       }
     }
@@ -277,7 +303,7 @@ public class ApolloCodegen {
     for operation in compilationResult.operations {
       try autoreleasepool {
         let irOperation = ir.build(operation: operation)
-        try OperationFileGenerator(irOperation: irOperation, schema: ir.schema, config: config)
+        try OperationFileGenerator(irOperation: irOperation, config: config)
           .generate(forConfig: config, fileManager: fileManager)
 
         operationIDsFileGenerator?.collectOperationIdentifier(irOperation)
@@ -340,7 +366,6 @@ public class ApolloCodegen {
       try autoreleasepool {
         try InputObjectFileGenerator(
           graphqlInputObject: graphQLInputObject,
-          schema: ir.schema,
           config: config
         ).generate(
           forConfig: config,
@@ -375,7 +400,7 @@ public class ApolloCodegen {
 
     try SchemaMetadataFileGenerator(schema: ir.schema, config: config)
       .generate(forConfig: config, fileManager: fileManager)
-    try SchemaConfigurationFileGenerator(schema: ir.schema, config: config)
+    try SchemaConfigurationFileGenerator(config: config)
       .generate(forConfig: config, fileManager: fileManager)
 
     try SchemaModuleFileGenerator.generate(config, fileManager: fileManager)

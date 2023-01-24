@@ -8,7 +8,7 @@ public class HeroNameTypeSpecificConditionalInclusionQuery: GraphQLQuery {
   public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
     operationIdentifier: "76aecc75265295818d3990000b17e32d5524ca85a4bc159ae8a3f8ec7ce91cc3",
     definition: .init(
-      """
+      #"""
       query HeroNameTypeSpecificConditionalInclusion($episode: Episode, $includeName: Boolean!) {
         hero(episode: $episode) {
           __typename
@@ -19,7 +19,7 @@ public class HeroNameTypeSpecificConditionalInclusionQuery: GraphQLQuery {
           }
         }
       }
-      """
+      """#
     ))
 
   public var episode: GraphQLNullable<GraphQLEnum<Episode>>
@@ -42,8 +42,8 @@ public class HeroNameTypeSpecificConditionalInclusionQuery: GraphQLQuery {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { StarWarsAPI.Objects.Query }
-    public static var __selections: [Selection] { [
+    public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Query }
+    public static var __selections: [ApolloAPI.Selection] { [
       .field("hero", Hero?.self, arguments: ["episode": .variable("episode")]),
     ] }
 
@@ -56,8 +56,8 @@ public class HeroNameTypeSpecificConditionalInclusionQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { StarWarsAPI.Interfaces.Character }
-      public static var __selections: [Selection] { [
+      public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
+      public static var __selections: [ApolloAPI.Selection] { [
         .inlineFragment(AsDroid.self),
         .include(if: "includeName", .field("name", String.self)),
       ] }
@@ -74,8 +74,8 @@ public class HeroNameTypeSpecificConditionalInclusionQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { StarWarsAPI.Objects.Droid }
-        public static var __selections: [Selection] { [
+        public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Droid }
+        public static var __selections: [ApolloAPI.Selection] { [
           .field("name", String.self),
         ] }
 

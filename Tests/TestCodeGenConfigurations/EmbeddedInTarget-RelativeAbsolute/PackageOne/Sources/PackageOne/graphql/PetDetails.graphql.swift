@@ -20,8 +20,8 @@ struct PetDetails: MySchemaModule.SelectionSet, Fragment {
   public let __data: DataDict
   public init(data: DataDict) { __data = data }
 
-  public static var __parentType: ParentType { MySchemaModule.Interfaces.Pet }
-  public static var __selections: [Selection] { [
+  public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Interfaces.Pet }
+  public static var __selections: [ApolloAPI.Selection] { [
     .field("humanName", String?.self),
     .field("favoriteToy", String.self),
     .field("owner", Owner?.self),
@@ -38,8 +38,8 @@ struct PetDetails: MySchemaModule.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { MySchemaModule.Objects.Human }
-    public static var __selections: [Selection] { [
+    public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Objects.Human }
+    public static var __selections: [ApolloAPI.Selection] { [
       .field("firstName", String.self),
     ] }
 

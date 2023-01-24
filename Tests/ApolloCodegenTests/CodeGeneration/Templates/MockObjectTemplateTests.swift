@@ -170,7 +170,7 @@ class MockObjectTemplateTests: XCTestCase {
 
     let expected = """
       public struct MockFields {
-        @Field<CustomScalar>("customScalar") public var customScalar
+        @Field<TestSchema.CustomScalar>("customScalar") public var customScalar
         @Field<Cat>("object") public var object
         @Field<[Cat]>("objectList") public var objectList
         @Field<[[Cat]]>("objectNestedList") public var objectNestedList
@@ -207,8 +207,8 @@ class MockObjectTemplateTests: XCTestCase {
 
     let expected = """
       public struct MockFields {
-        @Field<CustomScalar>("customScalar") public var customScalar
-        @Field<GraphQLEnum<EnumType>>("enumType") public var enumType
+        @Field<TestSchema.CustomScalar>("customScalar") public var customScalar
+        @Field<GraphQLEnum<TestSchema.EnumType>>("enumType") public var enumType
         @Field<Cat>("object") public var object
       }
     """
@@ -257,6 +257,7 @@ class MockObjectTemplateTests: XCTestCase {
       "do": .mock("do", type: .nonNull(.string())),
       "else": .mock("else", type: .nonNull(.string())),
       "fallthrough": .mock("fallthrough", type: .nonNull(.string())),
+      "for": .mock("for", type: .nonNull(.string())),
       "guard": .mock("guard", type: .nonNull(.string())),
       "if": .mock("if", type: .nonNull(.string())),
       "in": .mock("in", type: .nonNull(.string())),
@@ -310,6 +311,7 @@ class MockObjectTemplateTests: XCTestCase {
         @Field<String>("fallthrough") public var `fallthrough`
         @Field<String>("false") public var `false`
         @Field<String>("fileprivate") public var `fileprivate`
+        @Field<String>("for") public var `for`
         @Field<String>("func") public var `func`
         @Field<String>("guard") public var `guard`
         @Field<String>("if") public var `if`
@@ -467,6 +469,7 @@ class MockObjectTemplateTests: XCTestCase {
       "unionList": .mock("unionList", type: .list(.nonNull(Pet))),
       "unionNestedList": .mock("unionNestedList", type: .list(.nonNull(.list(.nonNull(Pet))))),
       "unionOptionalList": .mock("unionOptionalList", type: .list(Pet)),
+      "enumType": .mock("enumType", type: .enum(.mock(name: "enumType"))),
     ]
 
     ir.fieldCollector.add(
@@ -481,7 +484,8 @@ class MockObjectTemplateTests: XCTestCase {
 
     public extension Mock where O == Dog {
       convenience init(
-        customScalar: CustomScalar? = nil,
+        customScalar: TestSchema.CustomScalar? = nil,
+        enumType: GraphQLEnum<TestSchema.EnumType>? = nil,
         interface: AnyMock? = nil,
         interfaceList: [AnyMock]? = nil,
         interfaceNestedList: [[AnyMock]]? = nil,
@@ -499,6 +503,7 @@ class MockObjectTemplateTests: XCTestCase {
       ) {
         self.init()
         self.customScalar = customScalar
+        self.enumType = enumType
         self.interface = interface
         self.interfaceList = interfaceList
         self.interfaceNestedList = interfaceNestedList
@@ -585,6 +590,7 @@ class MockObjectTemplateTests: XCTestCase {
       "do": .mock("do", type: .nonNull(.string())),
       "else": .mock("else", type: .nonNull(.string())),
       "fallthrough": .mock("fallthrough", type: .nonNull(.string())),
+      "for": .mock("for", type: .nonNull(.string())),
       "guard": .mock("guard", type: .nonNull(.string())),
       "if": .mock("if", type: .nonNull(.string())),
       "in": .mock("in", type: .nonNull(.string())),
@@ -641,6 +647,7 @@ class MockObjectTemplateTests: XCTestCase {
         `fallthrough`: String? = nil,
         `false`: String? = nil,
         `fileprivate`: String? = nil,
+        `for`: String? = nil,
         `func`: String? = nil,
         `guard`: String? = nil,
         `if`: String? = nil,
@@ -697,6 +704,7 @@ class MockObjectTemplateTests: XCTestCase {
         self.`fallthrough` = `fallthrough`
         self.`false` = `false`
         self.`fileprivate` = `fileprivate`
+        self.`for` = `for`
         self.`func` = `func`
         self.`guard` = `guard`
         self.`if` = `if`

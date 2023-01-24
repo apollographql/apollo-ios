@@ -1,0 +1,14 @@
+type Query {
+  event: Event!
+}
+
+type Event {
+  title: Text!
+  text: EventText!
+}
+
+type EventText {
+  body: Text!
+}
+
+scalar Text

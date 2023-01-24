@@ -8,7 +8,7 @@ public class HeroFriendsOfFriendsNamesQuery: GraphQLQuery {
   public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
     operationIdentifier: "37cd5626048e7243716ffda9e56503939dd189772124a1c21b0e0b87e69aae01",
     definition: .init(
-      """
+      #"""
       query HeroFriendsOfFriendsNames($episode: Episode) {
         hero(episode: $episode) {
           __typename
@@ -22,7 +22,7 @@ public class HeroFriendsOfFriendsNamesQuery: GraphQLQuery {
           }
         }
       }
-      """
+      """#
     ))
 
   public var episode: GraphQLNullable<GraphQLEnum<Episode>>
@@ -37,8 +37,8 @@ public class HeroFriendsOfFriendsNamesQuery: GraphQLQuery {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { StarWarsAPI.Objects.Query }
-    public static var __selections: [Selection] { [
+    public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Query }
+    public static var __selections: [ApolloAPI.Selection] { [
       .field("hero", Hero?.self, arguments: ["episode": .variable("episode")]),
     ] }
 
@@ -51,8 +51,8 @@ public class HeroFriendsOfFriendsNamesQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { StarWarsAPI.Interfaces.Character }
-      public static var __selections: [Selection] { [
+      public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
+      public static var __selections: [ApolloAPI.Selection] { [
         .field("friends", [Friend?]?.self),
       ] }
 
@@ -66,14 +66,14 @@ public class HeroFriendsOfFriendsNamesQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { StarWarsAPI.Interfaces.Character }
-        public static var __selections: [Selection] { [
-          .field("id", ID.self),
+        public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
+        public static var __selections: [ApolloAPI.Selection] { [
+          .field("id", StarWarsAPI.ID.self),
           .field("friends", [Friend?]?.self),
         ] }
 
         /// The ID of the character
-        public var id: ID { __data["id"] }
+        public var id: StarWarsAPI.ID { __data["id"] }
         /// The friends of the character, or an empty list if they have none
         public var friends: [Friend?]? { __data["friends"] }
 
@@ -84,8 +84,8 @@ public class HeroFriendsOfFriendsNamesQuery: GraphQLQuery {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public static var __parentType: ParentType { StarWarsAPI.Interfaces.Character }
-          public static var __selections: [Selection] { [
+          public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
+          public static var __selections: [ApolloAPI.Selection] { [
             .field("name", String.self),
           ] }
 

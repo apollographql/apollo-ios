@@ -18,8 +18,8 @@ public struct CharacterNameAndDroidAppearsIn: StarWarsAPI.SelectionSet, Fragment
   public let __data: DataDict
   public init(data: DataDict) { __data = data }
 
-  public static var __parentType: ParentType { StarWarsAPI.Interfaces.Character }
-  public static var __selections: [Selection] { [
+  public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
+  public static var __selections: [ApolloAPI.Selection] { [
     .field("name", String.self),
     .inlineFragment(AsDroid.self),
   ] }
@@ -36,13 +36,13 @@ public struct CharacterNameAndDroidAppearsIn: StarWarsAPI.SelectionSet, Fragment
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { StarWarsAPI.Objects.Droid }
-    public static var __selections: [Selection] { [
-      .field("appearsIn", [GraphQLEnum<Episode>?].self),
+    public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Droid }
+    public static var __selections: [ApolloAPI.Selection] { [
+      .field("appearsIn", [GraphQLEnum<StarWarsAPI.Episode>?].self),
     ] }
 
     /// The movies this droid appears in
-    public var appearsIn: [GraphQLEnum<Episode>?] { __data["appearsIn"] }
+    public var appearsIn: [GraphQLEnum<StarWarsAPI.Episode>?] { __data["appearsIn"] }
     /// The name of the character
     public var name: String { __data["name"] }
   }

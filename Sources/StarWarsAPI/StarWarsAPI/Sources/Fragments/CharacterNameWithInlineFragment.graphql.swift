@@ -25,8 +25,8 @@ public struct CharacterNameWithInlineFragment: StarWarsAPI.SelectionSet, Fragmen
   public let __data: DataDict
   public init(data: DataDict) { __data = data }
 
-  public static var __parentType: ParentType { StarWarsAPI.Interfaces.Character }
-  public static var __selections: [Selection] { [
+  public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
+  public static var __selections: [ApolloAPI.Selection] { [
     .inlineFragment(AsHuman.self),
     .inlineFragment(AsDroid.self),
   ] }
@@ -41,8 +41,8 @@ public struct CharacterNameWithInlineFragment: StarWarsAPI.SelectionSet, Fragmen
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { StarWarsAPI.Objects.Human }
-    public static var __selections: [Selection] { [
+    public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Human }
+    public static var __selections: [ApolloAPI.Selection] { [
       .field("friends", [Friend?]?.self),
     ] }
 
@@ -56,15 +56,13 @@ public struct CharacterNameWithInlineFragment: StarWarsAPI.SelectionSet, Fragmen
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { StarWarsAPI.Interfaces.Character }
-      public static var __selections: [Selection] { [
-        .field("appearsIn", [GraphQLEnum<Episode>?].self),
+      public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
+      public static var __selections: [ApolloAPI.Selection] { [
+        .field("appearsIn", [GraphQLEnum<StarWarsAPI.Episode>?].self),
       ] }
 
       /// The movies this character appears in
-      public var appearsIn: [GraphQLEnum<Episode>?] { __data["appearsIn"] }
-      /// The name of the character
-      public var name: String { __data["name"] }
+      public var appearsIn: [GraphQLEnum<StarWarsAPI.Episode>?] { __data["appearsIn"] }
     }
   }
 
@@ -75,8 +73,8 @@ public struct CharacterNameWithInlineFragment: StarWarsAPI.SelectionSet, Fragmen
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { StarWarsAPI.Objects.Droid }
-    public static var __selections: [Selection] { [
+    public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Droid }
+    public static var __selections: [ApolloAPI.Selection] { [
       .fragment(CharacterName.self),
       .fragment(FriendsNames.self),
     ] }

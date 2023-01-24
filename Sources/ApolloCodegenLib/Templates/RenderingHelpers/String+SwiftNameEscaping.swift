@@ -38,11 +38,15 @@ extension String {
 enum SwiftKeywords {
 
   static let DisallowedFieldNames: Set<String> = [
-    "__data", "fragments", "_"
+    "__data", "fragments"
   ]
 
   static let DisallowedInputParameterNames: Set<String> = [
     "self", "_"
+  ]
+
+  static let DisallowedSchemaNamespaceNames: Set<String> = [
+    "schema", "apolloapi"
   ]
 
   static let SelectionSetTypeNamesToSuffix: Set<String> = [
@@ -62,7 +66,8 @@ enum SwiftKeywords {
     "Float",
     "Double",
     "ID",
-    "Type"
+    "Type",
+    "_",
   ]
 
   /// When an interface or union named "Actor" is used as the type for a field on a test mock,
@@ -110,6 +115,7 @@ enum SwiftKeywords {
     "do",
     "else",
     "fallthrough",
+    "for",
     "guard",
     "if",
     "in",
@@ -129,6 +135,7 @@ enum SwiftKeywords {
     "throws",
     "true",
     "try",
+    "_",
   ]
 
   fileprivate static let InputParameterNamesToEscape: Set<String> = FieldAccessorNamesToEscape

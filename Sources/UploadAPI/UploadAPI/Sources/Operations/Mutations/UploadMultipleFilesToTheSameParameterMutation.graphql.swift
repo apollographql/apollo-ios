@@ -7,7 +7,7 @@ public class UploadMultipleFilesToTheSameParameterMutation: GraphQLMutation {
   public static let operationName: String = "UploadMultipleFilesToTheSameParameter"
   public static let document: ApolloAPI.DocumentType = .notPersisted(
     definition: .init(
-      """
+      #"""
       mutation UploadMultipleFilesToTheSameParameter($files: [Upload!]!) {
         multipleUpload(files: $files) {
           __typename
@@ -17,7 +17,7 @@ public class UploadMultipleFilesToTheSameParameterMutation: GraphQLMutation {
           mimetype
         }
       }
-      """
+      """#
     ))
 
   public var files: [Upload]
@@ -32,8 +32,8 @@ public class UploadMultipleFilesToTheSameParameterMutation: GraphQLMutation {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { UploadAPI.Objects.Mutation }
-    public static var __selections: [Selection] { [
+    public static var __parentType: ApolloAPI.ParentType { UploadAPI.Objects.Mutation }
+    public static var __selections: [ApolloAPI.Selection] { [
       .field("multipleUpload", [MultipleUpload].self, arguments: ["files": .variable("files")]),
     ] }
 
@@ -46,15 +46,15 @@ public class UploadMultipleFilesToTheSameParameterMutation: GraphQLMutation {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { UploadAPI.Objects.File }
-      public static var __selections: [Selection] { [
-        .field("id", ID.self),
+      public static var __parentType: ApolloAPI.ParentType { UploadAPI.Objects.File }
+      public static var __selections: [ApolloAPI.Selection] { [
+        .field("id", UploadAPI.ID.self),
         .field("path", String.self),
         .field("filename", String.self),
         .field("mimetype", String.self),
       ] }
 
-      public var id: ID { __data["id"] }
+      public var id: UploadAPI.ID { __data["id"] }
       public var path: String { __data["path"] }
       public var filename: String { __data["filename"] }
       public var mimetype: String { __data["mimetype"] }

@@ -7,11 +7,11 @@ public class IncrementingSubscription: GraphQLSubscription {
   public static let operationName: String = "Incrementing"
   public static let document: ApolloAPI.DocumentType = .notPersisted(
     definition: .init(
-      """
+      #"""
       subscription Incrementing {
         numberIncremented
       }
-      """
+      """#
     ))
 
   public init() {}
@@ -20,8 +20,8 @@ public class IncrementingSubscription: GraphQLSubscription {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { SubscriptionAPI.Objects.Subscription }
-    public static var __selections: [Selection] { [
+    public static var __parentType: ApolloAPI.ParentType { SubscriptionAPI.Objects.Subscription }
+    public static var __selections: [ApolloAPI.Selection] { [
       .field("numberIncremented", Int?.self),
     ] }
 

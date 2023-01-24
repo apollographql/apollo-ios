@@ -2,22 +2,19 @@ import InflectorKit
 
 struct SelectionSetTemplate {
 
-  let schema: IR.Schema
   let isMutable: Bool
   let config: ApolloCodegen.ConfigurationContext
 
   private let nameCache: SelectionSetNameCache
 
   init(
-    schema: IR.Schema,
     mutable: Bool = false,
     config: ApolloCodegen.ConfigurationContext
   ) {
-    self.schema = schema
     self.isMutable = mutable
     self.config = config
 
-    self.nameCache = SelectionSetNameCache(schema: schema, config: config)
+    self.nameCache = SelectionSetNameCache(config: config)
   }
 
   // MARK: - Operation
@@ -118,7 +115,7 @@ struct SelectionSetTemplate {
 
   private func ParentTypeTemplate(_ type: GraphQLCompositeType) -> String {
     """
-    public static var __parentType: ParentType { \
+    public static var __parentType: \(config.ApolloAPITargetName).ParentType { \
     \(config.schemaName.firstUppercased).\(type.schemaTypesNamespace).\(type.name.firstUppercased) }
     """
   }
@@ -134,7 +131,7 @@ struct SelectionSetTemplate {
     config.options.warningsOnDeprecatedUsage == .include ? [] : nil
 
     let selectionsTemplate = TemplateString("""
-    public static var __selections: [Selection] { [
+    public static var __selections: [\(config.ApolloAPITargetName).Selection] { [
       \(renderedSelections(groupedSelections.unconditionalSelections, &deprecatedArguments), terminator: ",")
       \(groupedSelections.inclusionConditionGroups.map {
         renderedConditionalSelectionGroup($0, $1, in: scope, &deprecatedArguments)
@@ -416,11 +413,9 @@ struct SelectionSetTemplate {
 fileprivate class SelectionSetNameCache {
   private var generatedSelectionSetNames: [ObjectIdentifier: String] = [:]
 
-  unowned let schema: IR.Schema
   let config: ApolloCodegen.ConfigurationContext
 
-  init(schema: IR.Schema, config: ApolloCodegen.ConfigurationContext) {
-    self.schema = schema
+  init(config: ApolloCodegen.ConfigurationContext) {
     self.config = config
   }
 

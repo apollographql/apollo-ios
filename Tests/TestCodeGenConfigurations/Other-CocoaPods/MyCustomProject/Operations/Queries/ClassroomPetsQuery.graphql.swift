@@ -7,14 +7,14 @@ public class ClassroomPetsQuery: GraphQLQuery {
   public static let operationName: String = "ClassroomPets"
   public static let document: Apollo.DocumentType = .notPersisted(
     definition: .init(
-      """
+      #"""
       query ClassroomPets {
         classroomPets {
           __typename
           ...ClassroomPetDetails
         }
       }
-      """,
+      """#,
       fragments: [ClassroomPetDetails.self]
     ))
 
@@ -24,8 +24,8 @@ public class ClassroomPetsQuery: GraphQLQuery {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { MyCustomProject.Objects.Query }
-    public static var __selections: [Selection] { [
+    public static var __parentType: Apollo.ParentType { MyCustomProject.Objects.Query }
+    public static var __selections: [Apollo.Selection] { [
       .field("classroomPets", [ClassroomPet?]?.self),
     ] }
 
@@ -38,8 +38,8 @@ public class ClassroomPetsQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { MyCustomProject.Unions.ClassroomPet }
-      public static var __selections: [Selection] { [
+      public static var __parentType: Apollo.ParentType { MyCustomProject.Unions.ClassroomPet }
+      public static var __selections: [Apollo.Selection] { [
         .fragment(ClassroomPetDetails.self),
       ] }
 
@@ -64,7 +64,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { MyCustomProject.Interfaces.Animal }
+        public static var __parentType: Apollo.ParentType { MyCustomProject.Interfaces.Animal }
 
         public var species: String { __data["species"] }
 
@@ -83,7 +83,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { MyCustomProject.Interfaces.Pet }
+        public static var __parentType: Apollo.ParentType { MyCustomProject.Interfaces.Pet }
 
         public var humanName: String? { __data["humanName"] }
 
@@ -102,7 +102,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { MyCustomProject.Interfaces.WarmBlooded }
+        public static var __parentType: Apollo.ParentType { MyCustomProject.Interfaces.WarmBlooded }
 
         public var species: String { __data["species"] }
         public var laysEggs: Bool { __data["laysEggs"] }
@@ -122,7 +122,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { MyCustomProject.Objects.Cat }
+        public static var __parentType: Apollo.ParentType { MyCustomProject.Objects.Cat }
 
         public var species: String { __data["species"] }
         public var humanName: String? { __data["humanName"] }
@@ -145,7 +145,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { MyCustomProject.Objects.Bird }
+        public static var __parentType: Apollo.ParentType { MyCustomProject.Objects.Bird }
 
         public var species: String { __data["species"] }
         public var humanName: String? { __data["humanName"] }
@@ -167,7 +167,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { MyCustomProject.Objects.PetRock }
+        public static var __parentType: Apollo.ParentType { MyCustomProject.Objects.PetRock }
 
         public var humanName: String? { __data["humanName"] }
         public var favoriteToy: String { __data["favoriteToy"] }

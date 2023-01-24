@@ -23,7 +23,7 @@ public final class GraphQLResponse<Data: RootSelectionSet> {
   public func parseResult() throws -> (GraphQLResult<Data>, RecordSet?) {
     let accumulator = zip(
       GraphQLSelectionSetMapper<Data>(),
-      GraphQLResultNormalizer(),
+      ResultNormalizerFactory.networkResponseDataNormalizer(),
       GraphQLDependencyTracker()
     )
 

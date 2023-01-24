@@ -8,7 +8,7 @@ public class HeroNameConditionalBothSeparateQuery: GraphQLQuery {
   public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
     operationIdentifier: "d0f9e9205cdc09320035662f528a177654d3275b0bf94cf0e259a65fde33e7e5",
     definition: .init(
-      """
+      #"""
       query HeroNameConditionalBothSeparate($skipName: Boolean!, $includeName: Boolean!) {
         hero {
           __typename
@@ -16,7 +16,7 @@ public class HeroNameConditionalBothSeparateQuery: GraphQLQuery {
           name @include(if: $includeName)
         }
       }
-      """
+      """#
     ))
 
   public var skipName: Bool
@@ -39,8 +39,8 @@ public class HeroNameConditionalBothSeparateQuery: GraphQLQuery {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { StarWarsAPI.Objects.Query }
-    public static var __selections: [Selection] { [
+    public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Query }
+    public static var __selections: [ApolloAPI.Selection] { [
       .field("hero", Hero?.self),
     ] }
 
@@ -53,8 +53,8 @@ public class HeroNameConditionalBothSeparateQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { StarWarsAPI.Interfaces.Character }
-      public static var __selections: [Selection] { [
+      public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
+      public static var __selections: [ApolloAPI.Selection] { [
         .include(if: !"skipName" || "includeName", .field("name", String.self)),
       ] }
 

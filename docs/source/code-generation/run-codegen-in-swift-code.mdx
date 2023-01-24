@@ -41,7 +41,7 @@ To configure and run code generation using `ApolloCodegenLib`, create an [`Apoll
 By default, the Code Generation Engine will resolve all file paths in your `ApolloCodegenConfiguration` relative to the current working directory. The `rootURL` parameter can be used to provide a local file path URL of the root of the project that you want to run code generation on. This will resolve file paths in your configuration relative to the provided `rootURL`.
 
 ```swift
-import ApolloCodgenLib
+import ApolloCodegenLib
 
 let configuration = ApolloCodegenConfiguration(
     schemaName: "MySchemaName",
@@ -53,9 +53,9 @@ let configuration = ApolloCodegenConfiguration(
 		schemaTypes: ApolloCodegenConfiguration.SchemaTypesFileOutput(
 			path: "./generated/schema/",
 			moduleType: .swiftPackageManager
-        )
+        ),
 		operations: .inSchemaModule,
-		testMocks: .none,
+		testMocks: .none
 	),
     options: ApolloCodegenConfiguration.OutputOptions(
 		additionalInflectionRules: [

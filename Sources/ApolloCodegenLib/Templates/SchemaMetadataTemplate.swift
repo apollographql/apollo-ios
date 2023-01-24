@@ -77,7 +77,7 @@ struct SchemaMetadataTemplate: TemplateRenderer {
 
   init(schema: IR.Schema, config: ApolloCodegen.ConfigurationContext) {
     self.schema = schema
-    self.schemaName = schema.name.firstUppercased
+    self.schemaName = config.schemaName.firstUppercased
     self.config = config
   }
 

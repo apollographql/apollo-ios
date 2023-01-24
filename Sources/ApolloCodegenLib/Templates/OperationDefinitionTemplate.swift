@@ -5,8 +5,6 @@ import OrderedCollections
 struct OperationDefinitionTemplate: OperationTemplateRenderer {
   /// IR representation of source [GraphQL Operation](https://spec.graphql.org/draft/#sec-Language.Operations).
   let operation: IR.Operation
-  /// IR representation of source GraphQL schema.
-  let schema: IR.Schema
 
   let config: ApolloCodegen.ConfigurationContext
 
@@ -29,7 +27,7 @@ struct OperationDefinitionTemplate: OperationTemplateRenderer {
 
       \(section: VariableAccessors(operation.definition.variables))
 
-      \(SelectionSetTemplate(schema: schema, config: config).render(for: operation))
+      \(SelectionSetTemplate(config: config).render(for: operation))
     }
 
     """)

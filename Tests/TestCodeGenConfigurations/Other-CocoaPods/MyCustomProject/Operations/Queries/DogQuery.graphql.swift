@@ -7,7 +7,7 @@ public class DogQuery: GraphQLQuery {
   public static let operationName: String = "DogQuery"
   public static let document: Apollo.DocumentType = .notPersisted(
     definition: .init(
-      """
+      #"""
       query DogQuery {
         allAnimals {
           __typename
@@ -17,7 +17,7 @@ public class DogQuery: GraphQLQuery {
           }
         }
       }
-      """,
+      """#,
       fragments: [DogFragment.self]
     ))
 
@@ -27,8 +27,8 @@ public class DogQuery: GraphQLQuery {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
-    public static var __parentType: ParentType { MyCustomProject.Objects.Query }
-    public static var __selections: [Selection] { [
+    public static var __parentType: Apollo.ParentType { MyCustomProject.Objects.Query }
+    public static var __selections: [Apollo.Selection] { [
       .field("allAnimals", [AllAnimal].self),
     ] }
 
@@ -41,13 +41,13 @@ public class DogQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
-      public static var __parentType: ParentType { MyCustomProject.Interfaces.Animal }
-      public static var __selections: [Selection] { [
-        .field("id", ID.self),
+      public static var __parentType: Apollo.ParentType { MyCustomProject.Interfaces.Animal }
+      public static var __selections: [Apollo.Selection] { [
+        .field("id", MyCustomProject.ID.self),
         .inlineFragment(AsDog.self),
       ] }
 
-      public var id: ID { __data["id"] }
+      public var id: MyCustomProject.ID { __data["id"] }
 
       public var asDog: AsDog? { _asInlineFragment() }
 
@@ -58,12 +58,12 @@ public class DogQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
-        public static var __parentType: ParentType { MyCustomProject.Objects.Dog }
-        public static var __selections: [Selection] { [
+        public static var __parentType: Apollo.ParentType { MyCustomProject.Objects.Dog }
+        public static var __selections: [Apollo.Selection] { [
           .fragment(DogFragment.self),
         ] }
 
-        public var id: ID { __data["id"] }
+        public var id: MyCustomProject.ID { __data["id"] }
         public var species: String { __data["species"] }
 
         public struct Fragments: FragmentContainer {
