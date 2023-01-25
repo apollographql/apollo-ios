@@ -930,6 +930,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
   // MARK: - Boolean Conditions
 
   // MARK: Include
+
   func test__booleanCondition_include_singleField__givenVariableIsTrue_getsValueForConditionalField() throws {
     // given
     class GivenSelectionSet: MockSelectionSet {
@@ -956,6 +957,40 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     }
     let object: JSONObject = ["name": "Luke Skywalker"]
     let variables = ["variable": false]
+
+    // when
+    let data = try readValues(GivenSelectionSet.self, from: object, variables: variables)
+
+    // then
+    expect(data.name).to(beNil())
+  }
+
+  func test__booleanCondition_include_singleField__givenGraphQLNullableVariableIsTrue_getsValueForConditionalField() throws {
+    // given
+    class GivenSelectionSet: MockSelectionSet {
+      override class var __selections: [Selection] {[
+        .include(if: "variable", .field("name", String.self))
+      ]}
+    }
+    let object: JSONObject = ["name": "Luke Skywalker"]
+    let variables = ["variable": GraphQLNullable<Bool>(true)]
+
+    // when
+    let data = try readValues(GivenSelectionSet.self, from: object, variables: variables)
+
+    // then
+    expect(data.name).to(equal("Luke Skywalker"))
+  }
+
+  func test__booleanCondition_include_singleField__givenGraphQLNullableVariableIsFalse_doesNotGetsValueForConditionalField() throws {
+    // given
+    class GivenSelectionSet: MockSelectionSet {
+      override class var __selections: [Selection] {[
+        .include(if: "variable", .field("name", String.self))
+      ]}
+    }
+    let object: JSONObject = ["name": "Luke Skywalker"]
+    let variables = ["variable": GraphQLNullable<Bool>(false)]
 
     // when
     let data = try readValues(GivenSelectionSet.self, from: object, variables: variables)
@@ -1302,6 +1337,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
   }
 
   // MARK: Skip
+
   func test__booleanCondition_skip_singleField__givenVariableIsFalse_getsValueForConditionalField() throws {
     // given
     class GivenSelectionSet: MockSelectionSet {
@@ -1328,6 +1364,40 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     }
     let object: JSONObject = ["name": "Luke Skywalker"]
     let variables = ["variable": true]
+
+    // when
+    let data = try readValues(GivenSelectionSet.self, from: object, variables: variables)
+
+    // then
+    expect(data.name).to(beNil())
+  }
+
+  func test__booleanCondition_skip_singleField__givenGraphQLNullableVariableIsFalse_getsValueForConditionalField() throws {
+    // given
+    class GivenSelectionSet: MockSelectionSet {
+      override class var __selections: [Selection] {[
+        .include(if: !"variable", .field("name", String.self))
+      ]}
+    }
+    let object: JSONObject = ["name": "Luke Skywalker"]
+    let variables = ["variable": GraphQLNullable<Bool>(false)]
+
+    // when
+    let data = try readValues(GivenSelectionSet.self, from: object, variables: variables)
+
+    // then
+    expect(data.name).to(equal("Luke Skywalker"))
+  }
+
+  func test__booleanCondition_skip_singleField__givenGraphQLNullableVariableIsTrue_doesNotGetsValueForConditionalField() throws {
+    // given
+    class GivenSelectionSet: MockSelectionSet {
+      override class var __selections: [Selection] {[
+        .include(if: !"variable", .field("name", String.self))
+      ]}
+    }
+    let object: JSONObject = ["name": "Luke Skywalker"]
+    let variables = ["variable": GraphQLNullable<Bool>(true)]
 
     // when
     let data = try readValues(GivenSelectionSet.self, from: object, variables: variables)
