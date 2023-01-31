@@ -96,6 +96,16 @@ public class AllAnimalsQuery: GraphQLQuery {
       public var skinCovering: GraphQLEnum<AnimalKingdomAPI.SkinCovering>? { __data["skinCovering"] }
       public var predators: [Predator] { __data["predators"] }
 
+//      init(
+//        __typename: String,
+//        height: Height,
+//        species: String,
+//        skinCovering: GraphQLEnum<AnimalKingdomAPI.SkinCovering>?,
+//        predators: [Predator]
+//      ) {
+//
+//      }
+
       public var asWarmBlooded: AsWarmBlooded? { _asInlineFragment() }
       public var asPet: AsPet? { _asInlineFragment() }
       public var asCat: AsCat? { _asInlineFragment() }
@@ -189,6 +199,23 @@ public class AllAnimalsQuery: GraphQLQuery {
         public var skinCovering: GraphQLEnum<AnimalKingdomAPI.SkinCovering>? { __data["skinCovering"] }
         public var predators: [Predator] { __data["predators"] }
         public var bodyTemperature: Int { __data["bodyTemperature"] }
+
+//        init(
+//          __typename: String,
+//          height: Height,
+//          species: String,
+//          skinCovering: GraphQLEnum<AnimalKingdomAPI.SkinCovering>?,
+//          predators: [Predator],
+//          bodyTemperature: Int
+//        ) {
+//          let object = Object(
+//            typename: __typename,
+//            implementedInterfaces: [
+//              AnimalKingdomAPI.Interfaces.Animal,
+//              AnimalKingdomAPI.Interfaces.WarmBlooded
+//            ]
+//          )
+//        }
 
         public struct Fragments: FragmentContainer {
           public let __data: DataDict
@@ -334,6 +361,15 @@ public class AllAnimalsQuery: GraphQLQuery {
         public var humanName: String? { __data["humanName"] }
         public var favoriteToy: String { __data["favoriteToy"] }
         public var owner: PetDetails.Owner? { __data["owner"] }
+
+//        init(
+//          height: Height,
+//          species: String,
+//          skinCovering: GraphQLEnum<AnimalKingdomAPI.SkinCovering>?,
+//          predators: [Predator]
+//        ) {
+//
+//        }
 
         public struct Fragments: FragmentContainer {
           public let __data: DataDict

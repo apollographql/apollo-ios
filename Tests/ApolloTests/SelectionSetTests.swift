@@ -8,7 +8,7 @@ class SelectionSetTests: XCTestCase {
 
   func test__selection_givenOptionalField_givenValue__returnsValue() {
     // given
-    class Hero: MockSelectionSet, SelectionSet {
+    class Hero: MockSelectionSet {
       typealias Schema = MockSchemaMetadata
 
       override class var __selections: [Selection] {[
@@ -25,7 +25,7 @@ class SelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = Hero(data: DataDict(object, variables: nil))
+    let actual = Hero(unsafeData: object)
 
     // then
     expect(actual.name).to(equal("Johnny Tsunami"))
@@ -33,7 +33,7 @@ class SelectionSetTests: XCTestCase {
 
   func test__selection_givenOptionalField_missingValue__returnsNil() {
     // given
-    class Hero: MockSelectionSet, SelectionSet {
+    class Hero: MockSelectionSet {
       typealias Schema = MockSchemaMetadata
 
       override class var __selections: [Selection] {[
@@ -49,7 +49,7 @@ class SelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = Hero(data: DataDict(object, variables: nil))
+    let actual = Hero(unsafeData: object)
 
     // then
     expect(actual.name).to(beNil())
@@ -57,7 +57,7 @@ class SelectionSetTests: XCTestCase {
 
   func test__selection_givenOptionalField_givenNilValue__returnsNil() {
     // given
-    class Hero: MockSelectionSet, SelectionSet {
+    class Hero: MockSelectionSet {
       typealias Schema = MockSchemaMetadata
 
       override class var __selections: [Selection] {[
@@ -74,7 +74,7 @@ class SelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = Hero(data: DataDict(object, variables: nil))
+    let actual = Hero(unsafeData: object)
 
     // then
     expect(actual.name).to(beNil())
@@ -84,7 +84,7 @@ class SelectionSetTests: XCTestCase {
 
   func test__selection__nestedArrayOfScalar_nonNull_givenValue__returnsValue() {
     // given
-    class Hero: MockSelectionSet, SelectionSet {
+    class Hero: MockSelectionSet {
       typealias Schema = MockSchemaMetadata
 
       override class var __selections: [Selection] {[
@@ -101,7 +101,7 @@ class SelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = Hero(data: DataDict(object, variables: nil))
+    let actual = Hero(unsafeData: object)
 
     // then
     expect(actual.nestedList).to(equal([["A"]]))
@@ -111,7 +111,7 @@ class SelectionSetTests: XCTestCase {
 
   func test__selection_givenRequiredEntityField_givenValue__returnsValue() {
     // given
-    class Hero: MockSelectionSet, SelectionSet {
+    class Hero: MockSelectionSet {
       typealias Schema = MockSchemaMetadata
 
       override class var __selections: [Selection] {[
@@ -121,7 +121,7 @@ class SelectionSetTests: XCTestCase {
 
       var friend: Friend { __data["friend"] }
 
-      class Friend: MockSelectionSet, SelectionSet {
+      class Friend: MockSelectionSet {
         typealias Schema = MockSchemaMetadata
 
         override class var __selections: [Selection] {[
@@ -137,10 +137,10 @@ class SelectionSetTests: XCTestCase {
       "friend": friendData
     ]
 
-    let expected = Hero.Friend(data: DataDict(friendData, variables: nil))
+    let expected = Hero.Friend(unsafeData: friendData)
 
     // when
-    let actual = Hero(data: DataDict(object, variables: nil))
+    let actual = Hero(unsafeData: object)
 
     // then
     expect(actual.friend).to(equal(expected))
@@ -148,7 +148,7 @@ class SelectionSetTests: XCTestCase {
 
   func test__selection_givenOptionalEntityField_givenValue__returnsValue() {
     // given
-    class Hero: MockSelectionSet, SelectionSet {
+    class Hero: MockSelectionSet {
       typealias Schema = MockSchemaMetadata
 
       override class var __selections: [Selection] {[
@@ -166,10 +166,10 @@ class SelectionSetTests: XCTestCase {
       "friend": friendData
     ]
 
-    let expected = Hero(data: DataDict(friendData, variables: nil))
+    let expected = Hero(unsafeData: friendData, variables: nil)
 
     // when
-    let actual = Hero(data: DataDict(object, variables: nil))
+    let actual = Hero(unsafeData: object)
 
     // then
     expect(actual.friend).to(equal(expected))
@@ -177,7 +177,7 @@ class SelectionSetTests: XCTestCase {
 
   func test__selection_givenOptionalEntityField_givenNilValue__returnsNil() {
     // given
-    class Hero: MockSelectionSet, SelectionSet {
+    class Hero: MockSelectionSet {
       typealias Schema = MockSchemaMetadata
 
       override class var __selections: [Selection] {[
@@ -193,7 +193,7 @@ class SelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = Hero(data: DataDict(object, variables: nil))
+    let actual = Hero(unsafeData: object)
 
     // then
     expect(actual.friend).to(beNil())
@@ -203,7 +203,7 @@ class SelectionSetTests: XCTestCase {
 
   func test__selection__arrayOfEntity_nonNull_givenValue__returnsValue() {
     // given
-    class Hero: MockSelectionSet, SelectionSet {
+    class Hero: MockSelectionSet {
       typealias Schema = MockSchemaMetadata
 
       override class var __selections: [Selection] {[
@@ -224,16 +224,16 @@ class SelectionSetTests: XCTestCase {
       ]
     ]
 
-    let expected = Hero(data: DataDict(
+    let expected = Hero(unsafeData:
       [
         "__typename": "Human",
         "friends": []
       ],
       variables: nil
-    ))
+    )
 
     // when
-    let actual = Hero(data: DataDict(object, variables: nil))
+    let actual = Hero(unsafeData: object)
 
     // then
     expect(actual.friends).to(equal([expected]))
@@ -241,7 +241,7 @@ class SelectionSetTests: XCTestCase {
 
   func test__selection__arrayOfEntity_nullableEntity_givenValue__returnsValue() {
     // given
-    class Hero: MockSelectionSet, SelectionSet {
+    class Hero: MockSelectionSet {
       typealias Schema = MockSchemaMetadata
 
       override class var __selections: [Selection] {[
@@ -262,16 +262,16 @@ class SelectionSetTests: XCTestCase {
       ]
     ]
 
-    let expected = Hero(data: DataDict(
+    let expected = Hero(unsafeData:
       [
         "__typename": "Human",
         "friends": []
       ],
       variables: nil
-    ))
+    )
 
     // when
-    let actual = Hero(data: DataDict(object, variables: nil))
+    let actual = Hero(unsafeData: object)
 
     // then
     expect(actual.friends).to(equal([expected]))
@@ -279,7 +279,7 @@ class SelectionSetTests: XCTestCase {
 
   func test__selection__arrayOfEntity_nullableEntity_givenNilValueInList__returnsArrayWithNil() {
     // given
-    class Hero: MockSelectionSet, SelectionSet {
+    class Hero: MockSelectionSet {
       typealias Schema = MockSchemaMetadata
 
       override class var __selections: [Selection] {[
@@ -299,16 +299,16 @@ class SelectionSetTests: XCTestCase {
       ]
     ]
 
-    let expected = Hero(data: DataDict(
+    let expected = Hero(unsafeData:
       [
         "__typename": "Human",
         "friends": []
       ],
       variables: nil
-    ))
+    )
 
     // when
-    let actual = Hero(data: DataDict(object, variables: nil))
+    let actual = Hero(unsafeData: object)
 
     // then
     expect(actual.friends).to(equal([Hero?.none, expected, Hero?.none]))
@@ -316,7 +316,7 @@ class SelectionSetTests: XCTestCase {
 
   func test__selection__arrayOfEntity_nullableList_givenValue__returnsValue() {
     // given
-    class Hero: MockSelectionSet, SelectionSet {
+    class Hero: MockSelectionSet {
       typealias Schema = MockSchemaMetadata
 
       override class var __selections: [Selection] {[
@@ -337,16 +337,16 @@ class SelectionSetTests: XCTestCase {
       ]
     ]
 
-    let expected = Hero(data: DataDict(
+    let expected = Hero(unsafeData:
       [
         "__typename": "Human",
         "friends": []
       ],
       variables: nil
-    ))
+    )
 
     // when
-    let actual = Hero(data: DataDict(object, variables: nil))
+    let actual = Hero(unsafeData: object)
 
     // then
     expect(actual.friends).to(equal([expected]))
@@ -354,7 +354,7 @@ class SelectionSetTests: XCTestCase {
 
   func test__selection__arrayOfEntity_nullableList_givenNoListValue__returnsNil() {
     // given
-    class Hero: MockSelectionSet, SelectionSet {
+    class Hero: MockSelectionSet {
       typealias Schema = MockSchemaMetadata
 
       override class var __selections: [Selection] {[
@@ -370,7 +370,7 @@ class SelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = Hero(data: DataDict(object, variables: nil))
+    let actual = Hero(unsafeData: object)
 
     // then
     expect(actual.friends).to(beNil())
@@ -380,7 +380,7 @@ class SelectionSetTests: XCTestCase {
 
   func test__selection__nestedArrayOfEntity_nonNull_givenValue__returnsValue() {
     // given
-    class Hero: MockSelectionSet, SelectionSet {
+    class Hero: MockSelectionSet {
       typealias Schema = MockSchemaMetadata
 
       override class var __selections: [Selection] {[
@@ -401,16 +401,16 @@ class SelectionSetTests: XCTestCase {
       ]]
     ]
 
-    let expected = Hero(data: DataDict(
+    let expected = Hero(unsafeData:
       [
         "__typename": "Human",
         "nestedList": [[]]
       ],
       variables: nil
-    ))
+    )
 
     // when
-    let actual = Hero(data: DataDict(object, variables: nil))
+    let actual = Hero(unsafeData: object)
 
     // then
     expect(actual.nestedList).to(equal([[expected]]))
@@ -418,7 +418,7 @@ class SelectionSetTests: XCTestCase {
 
   func test__selection__nestedArrayOfEntity_nullableInnerList_givenValue__returnsValue() {
     // given
-    class Hero: MockSelectionSet, SelectionSet {
+    class Hero: MockSelectionSet {
       typealias Schema = MockSchemaMetadata
 
       override class var __selections: [Selection] {[
@@ -439,16 +439,16 @@ class SelectionSetTests: XCTestCase {
       ]]
     ]
 
-    let expected = Hero(data: DataDict(
+    let expected = Hero(unsafeData:
       [
         "__typename": "Human",
         "nestedList": [[]]
       ],
       variables: nil
-    ))
+    )
 
     // when
-    let actual = Hero(data: DataDict(object, variables: nil))
+    let actual = Hero(unsafeData: object)
 
     // then
     expect(actual.nestedList).to(equal([[expected]]))
@@ -456,7 +456,7 @@ class SelectionSetTests: XCTestCase {
 
   func test__selection__nestedArrayOfEntity_nullableInnerList_givenNilValues__returnsListWithNils() {
     // given
-    class Hero: MockSelectionSet, SelectionSet {
+    class Hero: MockSelectionSet {
       typealias Schema = MockSchemaMetadata
 
       override class var __selections: [Selection] {[
@@ -481,10 +481,10 @@ class SelectionSetTests: XCTestCase {
       ]
     ]
 
-    let expectedItem = Hero(data: DataDict(nestedObjectData, variables: nil))
+    let expectedItem = Hero(unsafeData: nestedObjectData, variables: nil)
 
     // when
-    let actual = Hero(data: DataDict(object, variables: nil))
+    let actual = Hero(unsafeData: object)
 
     // then
     expect(actual.nestedList).to(equal([[Hero]?.none, [expectedItem], [Hero]?.none]))
@@ -492,7 +492,7 @@ class SelectionSetTests: XCTestCase {
 
   func test__selection__nestedArrayOfEntity_nullableEntity_givenValue__returnsValue() {
     // given
-    class Hero: MockSelectionSet, SelectionSet {
+    class Hero: MockSelectionSet {
       typealias Schema = MockSchemaMetadata
 
       override class var __selections: [Selection] {[
@@ -513,16 +513,16 @@ class SelectionSetTests: XCTestCase {
       ]]
     ]
 
-    let expected = Hero(data: DataDict(
+    let expected = Hero(unsafeData:
       [
         "__typename": "Human",
         "nestedList": [[]]
       ],
       variables: nil
-    ))
+    )
 
     // when
-    let actual = Hero(data: DataDict(object, variables: nil))
+    let actual = Hero(unsafeData: object)
 
     // then
     expect(actual.nestedList).to(equal([[expected]]))
@@ -530,7 +530,7 @@ class SelectionSetTests: XCTestCase {
 
   func test__selection__nestedArrayOfEntity_nullableOuterList_givenValue__returnsValue() {
     // given
-    class Hero: MockSelectionSet, SelectionSet {
+    class Hero: MockSelectionSet {
       typealias Schema = MockSchemaMetadata
 
       override class var __selections: [Selection] {[
@@ -551,16 +551,16 @@ class SelectionSetTests: XCTestCase {
       ]]
     ]
 
-    let expected = Hero(data: DataDict(
+    let expected = Hero(unsafeData:
       [
         "__typename": "Human",
         "nestedList": [[]]
       ],
       variables: nil
-    ))
+    )
 
     // when
-    let actual = Hero(data: DataDict(object, variables: nil))
+    let actual = Hero(unsafeData: object)
 
     // then
     expect(actual.nestedList).to(equal([[expected]]))
@@ -583,7 +583,7 @@ class SelectionSetTests: XCTestCase {
       }
     }
 
-    class Hero: MockSelectionSet, SelectionSet {
+    class Hero: MockSelectionSet {
       typealias Schema = MockSchemaMetadata
 
       override class var __selections: [Selection] {[
@@ -595,7 +595,7 @@ class SelectionSetTests: XCTestCase {
       var asHuman: AsHuman? { _asInlineFragment() }
       var asDroid: AsDroid? { _asInlineFragment() }
 
-      class AsHuman: MockTypeCase, SelectionSet {
+      class AsHuman: MockTypeCase {
         typealias Schema = MockSchemaMetadata
 
         override class var __parentType: ParentType { Types.Human }
@@ -604,7 +604,7 @@ class SelectionSetTests: XCTestCase {
         ]}
       }
 
-      class AsDroid: MockTypeCase, SelectionSet {
+      class AsDroid: MockTypeCase {
         typealias Schema = MockSchemaMetadata
 
         override class var __parentType: ParentType { Types.Droid }
@@ -620,7 +620,7 @@ class SelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = Hero(data: DataDict(object, variables: nil))
+    let actual = Hero(unsafeData: object)
 
     // then
     expect(actual.asHuman).to(beNil())
@@ -641,7 +641,7 @@ class SelectionSetTests: XCTestCase {
       }
     }
 
-    class Hero: MockSelectionSet, SelectionSet {
+    class Hero: MockSelectionSet {
       typealias Schema = MockSchemaMetadata
 
       override class var __selections: [Selection] {[
@@ -651,7 +651,7 @@ class SelectionSetTests: XCTestCase {
 
       var asHumanoid: AsHumanoid? { _asInlineFragment() }
 
-      class AsHumanoid: MockTypeCase, SelectionSet {
+      class AsHumanoid: MockTypeCase {
         typealias Schema = MockSchemaMetadata
 
         override class var __parentType: ParentType { Types.Humanoid }
@@ -668,7 +668,7 @@ class SelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = Hero(data: DataDict(object, variables: nil))
+    let actual = Hero(unsafeData: object)
 
     // then
     expect(actual.asHumanoid).toNot(beNil())
@@ -688,7 +688,7 @@ class SelectionSetTests: XCTestCase {
       }
     }
 
-    class Hero: MockSelectionSet, SelectionSet {
+    class Hero: MockSelectionSet {
       typealias Schema = MockSchemaMetadata
 
       override class var __selections: [Selection] {[
@@ -698,7 +698,7 @@ class SelectionSetTests: XCTestCase {
 
       var asHumanoid: AsHumanoid? { _asInlineFragment() }
 
-      class AsHumanoid: MockTypeCase, SelectionSet {
+      class AsHumanoid: MockTypeCase {
         typealias Schema = MockSchemaMetadata
 
         override class var __parentType: ParentType { Types.Humanoid }
@@ -715,7 +715,7 @@ class SelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = Hero(data: DataDict(object, variables: nil))
+    let actual = Hero(unsafeData: object)
 
     // then
     expect(actual.asHumanoid).to(beNil())
@@ -735,7 +735,7 @@ class SelectionSetTests: XCTestCase {
       }
     }
 
-    class Hero: MockSelectionSet, SelectionSet {
+    class Hero: MockSelectionSet {
       typealias Schema = MockSchemaMetadata
 
       override class var __selections: [Selection] {[
@@ -745,7 +745,7 @@ class SelectionSetTests: XCTestCase {
 
       var asCharacter: AsCharacter? { _asInlineFragment() }
 
-      class AsCharacter: MockTypeCase, SelectionSet {
+      class AsCharacter: MockTypeCase {
         typealias Schema = MockSchemaMetadata
 
         override class var __parentType: ParentType { Types.Character }
@@ -761,7 +761,7 @@ class SelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = Hero(data: DataDict(object, variables: nil))
+    let actual = Hero(unsafeData: object)
 
     // then
     expect(actual.asCharacter).toNot(beNil())
@@ -781,7 +781,7 @@ class SelectionSetTests: XCTestCase {
       }
     }
 
-    class Hero: MockSelectionSet, SelectionSet {
+    class Hero: MockSelectionSet {
       typealias Schema = MockSchemaMetadata
 
       override class var __selections: [Selection] {[
@@ -791,7 +791,7 @@ class SelectionSetTests: XCTestCase {
 
       var asCharacter: AsCharacter? { _asInlineFragment() }
 
-      class AsCharacter: MockTypeCase, SelectionSet {
+      class AsCharacter: MockTypeCase {
         typealias Schema = MockSchemaMetadata
 
         override class var __parentType: ParentType { Types.Character }
@@ -807,7 +807,7 @@ class SelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = Hero(data: DataDict(object, variables: nil))
+    let actual = Hero(unsafeData: object)
 
     // then
     expect(actual.asCharacter).to(beNil())
@@ -819,7 +819,7 @@ class SelectionSetTests: XCTestCase {
     // given
     class GivenFragment: MockFragment { }
 
-    class Hero: MockSelectionSet, SelectionSet {
+    class Hero: AbstractMockSelectionSet<Hero.Fragments> {
       typealias Schema = MockSchemaMetadata
 
       override class var __selections: [Selection] {[
@@ -841,7 +841,7 @@ class SelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = Hero(data: DataDict(object, variables: ["includeFragment": true]))
+    let actual = Hero(unsafeData: object, variables: ["includeFragment": true])
 
     // then
     expect(actual.fragments.givenFragment).toNot(beNil())
@@ -851,7 +851,7 @@ class SelectionSetTests: XCTestCase {
     // given
     class GivenFragment: MockFragment { }
 
-    class Hero: MockSelectionSet, SelectionSet {
+    class Hero: AbstractMockSelectionSet<Hero.Fragments> {
       typealias Schema = MockSchemaMetadata
 
       override class var __selections: [Selection] {[
@@ -873,7 +873,7 @@ class SelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = Hero(data: DataDict(object, variables: ["includeFragment": false]))
+    let actual = Hero(unsafeData: object, variables: ["includeFragment": false])
 
     // then
     expect(actual.fragments.givenFragment).to(beNil())

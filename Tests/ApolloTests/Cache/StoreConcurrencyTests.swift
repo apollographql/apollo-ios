@@ -142,7 +142,7 @@ class StoreConcurrencyTests: XCTestCase, CacheDependentTesting {
   func testConcurrentUpdatesInitiatedFromMainThread() throws {
     /// given
     struct GivenSelectionSet: MockMutableRootSelectionSet {
-      public var __data: DataDict = DataDict([:], variables: nil)
+      public var __data: DataDict = .empty()
       init(data: DataDict) { __data = data }
 
       static var __selections: [Selection] { [
@@ -155,7 +155,7 @@ class StoreConcurrencyTests: XCTestCase, CacheDependentTesting {
       }
 
       struct Hero: MockMutableRootSelectionSet {
-        public var __data: DataDict = DataDict([:], variables: nil)
+        public var __data: DataDict = .empty()
         init(data: DataDict) { __data = data }
 
         static var __selections: [Selection] { [
@@ -180,7 +180,7 @@ class StoreConcurrencyTests: XCTestCase, CacheDependentTesting {
         }
 
         struct Friend: MockMutableRootSelectionSet {
-          public var __data: DataDict = DataDict([:], variables: nil)
+          public var __data: DataDict = .empty()
           init(data: DataDict) { __data = data }
 
           static var __selections: [Selection] { [
@@ -266,7 +266,7 @@ class StoreConcurrencyTests: XCTestCase, CacheDependentTesting {
   func testConcurrentUpdatesInitiatedFromBackgroundThreads() throws {
     /// given
     struct GivenSelectionSet: MockMutableRootSelectionSet {
-      public var __data: DataDict = DataDict([:], variables: nil)
+      public var __data: DataDict = .empty()
       init(data: DataDict) { __data = data }
 
       static var __selections: [Selection] { [
@@ -279,7 +279,7 @@ class StoreConcurrencyTests: XCTestCase, CacheDependentTesting {
       }
 
       struct Hero: MockMutableRootSelectionSet {
-        public var __data: DataDict = DataDict([:], variables: nil)
+        public var __data: DataDict = .empty()
         init(data: DataDict) { __data = data }
 
         static var __selections: [Selection] { [
@@ -304,7 +304,7 @@ class StoreConcurrencyTests: XCTestCase, CacheDependentTesting {
         }
 
         struct Friend: MockMutableRootSelectionSet {
-          public var __data: DataDict = DataDict([:], variables: nil)
+          public var __data: DataDict = .empty()
           init(data: DataDict) { __data = data }
 
           static var __selections: [Selection] { [

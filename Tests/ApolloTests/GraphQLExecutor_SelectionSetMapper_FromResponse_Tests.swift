@@ -823,14 +823,14 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
       static let MockChildObject = Object(typename: "MockChildObject", implementedInterfaces: [])
     }
 
-    class GivenSelectionSet: MockSelectionSet, SelectionSet {
+    class GivenSelectionSet: MockSelectionSet {
       typealias Schema = MockSchemaMetadata
       override class var __parentType: ParentType { Object.mock }
       override class var __selections: [Selection] {[
         .field("child", Child.self),
       ]}
 
-      class Child: MockSelectionSet, SelectionSet {
+      class Child: MockSelectionSet {
         typealias Schema = MockSchemaMetadata
 
         override class var __parentType: ParentType { Types.MockChildObject }
@@ -893,7 +893,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
       }
     }
 
-    class GivenSelectionSet: MockSelectionSet, SelectionSet {
+    class GivenSelectionSet: AbstractMockSelectionSet<GivenSelectionSet.Fragments> {
       typealias Schema = MockSchemaMetadata
 
       override class var __parentType: ParentType { Types.MockChildObject }

@@ -35,7 +35,7 @@ public enum Selection {
     public indirect enum OutputType {
       case scalar(any ScalarType.Type)
       case customScalar(any CustomScalarType.Type)
-      case object(RootSelectionSet.Type)
+      case object(any RootSelectionSet.Type)
       case nonNull(OutputType)
       case list(OutputType)
 
