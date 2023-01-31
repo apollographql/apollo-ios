@@ -1,5 +1,5 @@
 #if !COCOAPODS
-@_exported import ApolloAPI
+@_exported @testable import ApolloAPI
 #endif
 import Foundation
 

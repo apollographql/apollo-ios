@@ -5,8 +5,7 @@ public struct DataDict: Hashable {
   public let _objectType: Object?
   public let _variables: GraphQLOperation.Variables?
 
-  #warning("TODO try making init internal")
-  public init(
+  @usableFromInline init(
     _ data: JSONObject,
     objectType: Object?,
     variables: GraphQLOperation.Variables?
