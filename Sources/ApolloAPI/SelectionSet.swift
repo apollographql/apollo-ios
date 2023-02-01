@@ -1,29 +1,3 @@
-// MARK: - Type Erased SelectionSets
-
-public protocol AnySelectionSet {
-  static var __schema: SchemaMetadata.Type { get }
-
-  static var __selections: [Selection] { get }
-
-  /// The GraphQL type for the `SelectionSet`.
-  ///
-  /// This may be a concrete type (`Object`) or an abstract type (`Interface`, or `Union`).
-  static var __parentType: ParentType { get }
-
-  /// The data of the underlying GraphQL object represented by generated selection set.
-  var __data: DataDict { get }
-
-  /// Designated Initializer
-  /// 
-  /// - Parameter data: The data of the underlying GraphQL object represented by generated
-  /// selection set.
-  init(data: DataDict)
-}
-
-public extension AnySelectionSet {
-  static var __selections: [Selection] { [] }
-}
-
 /// A selection set that represents the root selections on its `__parentType`. Nested selection
 /// sets for type cases are not `RootSelectionSet`s.
 ///
@@ -51,21 +25,37 @@ public protocol RootSelectionSet: SelectionSet, OutputTypeConvertible { }
 /// from the fragment's parent `RootSelectionSet` that will be selected. This includes fields from
 /// the parent selection set, as well as any other child selections sets that are compatible with
 /// the `InlineFragment`'s `__parentType` and the operation's inclusion condition.
-public protocol InlineFragment: AnySelectionSet { }
+public protocol InlineFragment: SelectionSet { }
 
 // MARK: - SelectionSet
-public protocol SelectionSet: AnySelectionSet, SelectionSetEntityValue, Hashable {
+public protocol SelectionSet: SelectionSetEntityValue, Hashable {
   associatedtype Schema: SchemaMetadata
 
   /// A type representing all of the fragments the `SelectionSet` can be converted to.
   /// Defaults to a stub type with no fragments.
   /// A `SelectionSet` with fragments should provide a type that conforms to `FragmentContainer`
   associatedtype Fragments = NoFragments
+
+  static var __selections: [Selection] { get }
+
+  /// The GraphQL type for the `SelectionSet`.
+  ///
+  /// This may be a concrete type (`Object`) or an abstract type (`Interface`, or `Union`).
+  static var __parentType: ParentType { get }
+
+  /// The data of the underlying GraphQL object represented by generated selection set.
+  var __data: DataDict { get }
+
+  /// Designated Initializer
+  ///
+  /// - Parameter data: The data of the underlying GraphQL object represented by generated
+  /// selection set.
+  init(data: DataDict)
 }
 
-extension SelectionSet {
+extension SelectionSet {  
 
-  @inlinable public static var __schema: SchemaMetadata.Type { Schema.self }
+  @inlinable public static var __selections: [Selection] { [] }
 
   @inlinable public var __objectType: Object? { __data._objectType }
 

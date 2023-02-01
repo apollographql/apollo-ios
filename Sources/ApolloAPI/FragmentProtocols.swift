@@ -4,7 +4,7 @@
 ///
 /// A ``SelectionSet`` can be converted to any ``Fragment`` included in it's
 /// `Fragments` object via its ``SelectionSet/fragments-swift.property`` property.
-public protocol Fragment: AnySelectionSet {
+public protocol Fragment: SelectionSet {
   /// The definition of the fragment in GraphQL syntax.
   static var fragmentDefinition: StaticString { get }
 }

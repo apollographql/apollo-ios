@@ -4,9 +4,9 @@ public enum Selection {
   /// A single field selection.
   case field(Field)
   /// A fragment spread of a named fragment definition.
-  case fragment(Fragment.Type)
+  case fragment(any Fragment.Type)
   /// An inline fragment with a child selection set nested in a parent selection set.
-  case inlineFragment(InlineFragment.Type)
+  case inlineFragment(any InlineFragment.Type)
   /// A group of selections that have `@include/@skip` directives.
   case conditional(Conditions, [Selection])
 

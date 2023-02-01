@@ -181,7 +181,7 @@ final class GraphQLExecutor {
     accumulator: Accumulator
   ) throws -> Accumulator.FinalResult {
     let info = ObjectExecutionInfo(variables: variables,
-                                   schema: selectionSet.__schema,
+                                   schema: SelectionSet.Schema.self,
                                    withRootCacheReference: root)
 
     let rootValue = execute(selections: selectionSet.__selections,
