@@ -200,23 +200,6 @@ public class AllAnimalsQuery: GraphQLQuery {
         public var predators: [Predator] { __data["predators"] }
         public var bodyTemperature: Int { __data["bodyTemperature"] }
 
-//        init(
-//          __typename: String,
-//          height: Height,
-//          species: String,
-//          skinCovering: GraphQLEnum<AnimalKingdomAPI.SkinCovering>?,
-//          predators: [Predator],
-//          bodyTemperature: Int
-//        ) {
-//          let object = Object(
-//            typename: __typename,
-//            implementedInterfaces: [
-//              AnimalKingdomAPI.Interfaces.Animal,
-//              AnimalKingdomAPI.Interfaces.WarmBlooded
-//            ]
-//          )
-//        }
-
         public struct Fragments: FragmentContainer {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
@@ -361,15 +344,6 @@ public class AllAnimalsQuery: GraphQLQuery {
         public var humanName: String? { __data["humanName"] }
         public var favoriteToy: String { __data["favoriteToy"] }
         public var owner: PetDetails.Owner? { __data["owner"] }
-
-//        init(
-//          height: Height,
-//          species: String,
-//          skinCovering: GraphQLEnum<AnimalKingdomAPI.SkinCovering>?,
-//          predators: [Predator]
-//        ) {
-//
-//        }
 
         public struct Fragments: FragmentContainer {
           public let __data: DataDict
