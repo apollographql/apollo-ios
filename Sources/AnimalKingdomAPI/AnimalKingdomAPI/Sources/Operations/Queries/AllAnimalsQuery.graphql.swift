@@ -96,16 +96,6 @@ public class AllAnimalsQuery: GraphQLQuery {
       public var skinCovering: GraphQLEnum<AnimalKingdomAPI.SkinCovering>? { __data["skinCovering"] }
       public var predators: [Predator] { __data["predators"] }
 
-//      init(
-//        __typename: String,
-//        height: Height,
-//        species: String,
-//        skinCovering: GraphQLEnum<AnimalKingdomAPI.SkinCovering>?,
-//        predators: [Predator]
-//      ) {
-//
-//      }
-
       public var asWarmBlooded: AsWarmBlooded? { _asInlineFragment() }
       public var asPet: AsPet? { _asInlineFragment() }
       public var asCat: AsCat? { _asInlineFragment() }
