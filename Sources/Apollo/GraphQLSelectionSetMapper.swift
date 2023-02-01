@@ -5,7 +5,7 @@ import ApolloAPI
 import Foundation
 
 /// An accumulator that converts executed data to the correct values to create a `SelectionSet`.
-final class GraphQLSelectionSetMapper<SelectionSet: AnySelectionSet>: GraphQLResultAccumulator {
+final class GraphQLSelectionSetMapper<T: SelectionSet>: GraphQLResultAccumulator {
 
   let stripNullValues: Bool
   let allowMissingValuesForOptionalFields: Bool
@@ -71,7 +71,7 @@ final class GraphQLSelectionSetMapper<SelectionSet: AnySelectionSet>: GraphQLRes
     return .init(fieldEntries, uniquingKeysWith: { (_, last) in last })
   }
 
-  func finish(rootValue: JSONObject, info: ObjectExecutionInfo) -> SelectionSet {
-    return SelectionSet.init(data: DataDict(rootValue, variables: info.variables))
+  func finish(rootValue: JSONObject, info: ObjectExecutionInfo) -> T {
+    return T.init(unsafeData: rootValue, variables: info.variables)
   }
 }

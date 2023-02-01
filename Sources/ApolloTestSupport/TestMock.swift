@@ -1,5 +1,5 @@
 #if !COCOAPODS
-@_exported import ApolloAPI
+@_exported @testable import ApolloAPI
 #endif
 import Foundation
 
@@ -77,11 +77,15 @@ public class Mock<O: MockObject>: AnyMock, Hashable {
 // MARK: - Selection Set Conversion
 
 public extension SelectionSet {
-  static func from(
-    _ mock: AnyMock,
+  static func from<O: MockObject>(
+    _ mock: Mock<O>,
     withVariables variables: GraphQLOperation.Variables? = nil
   ) -> Self {
-    Self.init(data: DataDict(mock._selectionSetMockData, variables: variables))
+    Self.init(data: DataDict(
+      mock._selectionSetMockData,
+      objectType: O.objectType,
+      variables: variables)
+    )
   }
 }
 

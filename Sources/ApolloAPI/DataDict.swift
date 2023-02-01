@@ -2,13 +2,16 @@
 public struct DataDict: Hashable {
 
   public var _data: JSONObject
+  public let _objectType: Object?
   public let _variables: GraphQLOperation.Variables?
 
-  public init(
+  @usableFromInline init(
     _ data: JSONObject,
+    objectType: Object?,
     variables: GraphQLOperation.Variables?
   ) {
     self._data = data
+    self._objectType = objectType
     self._variables = variables
   }
 
@@ -23,10 +26,10 @@ public struct DataDict: Hashable {
   }
   
   @inlinable public subscript<T: SelectionSetEntityValue>(_ key: String) -> T {
-    get { T.init(fieldData: _data[key], variables: _variables) }
+    get { T.init(_fieldData: _data[key], variables: _variables) }
     set { _data[key] = newValue._fieldData }
     _modify {
-      var value = T.init(fieldData: _data[key], variables: _variables)
+      var value = T.init(_fieldData: _data[key], variables: _variables)
       defer { _data[key] = value._fieldData }
       yield &value
     }
@@ -44,39 +47,48 @@ public struct DataDict: Hashable {
 }
 
 public protocol SelectionSetEntityValue {
-  init(fieldData: AnyHashable?, variables: GraphQLOperation.Variables?)
+  /// - Warning: This function is not supported for external use.
+  /// Unsupported usage may result in unintended consequences including crashes.
+  init(_fieldData: AnyHashable?, variables: GraphQLOperation.Variables?)
   var _fieldData: AnyHashable { get }
 }
 
-extension AnySelectionSet {
-  @inlinable public init(fieldData: AnyHashable?, variables: GraphQLOperation.Variables?) {
-    guard let fieldData = fieldData as? JSONObject else {
+extension SelectionSet {
+  /// - Warning: This function is not supported for external use.
+  /// Unsupported usage may result in unintended consequences including crashes.
+  @inlinable public init(_fieldData data: AnyHashable?, variables: GraphQLOperation.Variables?) {
+    guard let data = data as? JSONObject else {
       fatalError("\(Self.self) expected data for entity.")
     }
-    self.init(data: DataDict(fieldData, variables: variables))
+
+    self.init(unsafeData: data, variables: variables)
   }
 
   @inlinable public var _fieldData: AnyHashable { __data._data }
 }
 
 extension Optional: SelectionSetEntityValue where Wrapped: SelectionSetEntityValue {
-  @inlinable public init(fieldData: AnyHashable?, variables: GraphQLOperation.Variables?) {
-    guard case let .some(fieldData) = fieldData else {
+  /// - Warning: This function is not supported for external use.
+  /// Unsupported usage may result in unintended consequences including crashes.
+  @inlinable public init(_fieldData data: AnyHashable?, variables: GraphQLOperation.Variables?) {
+    guard case let .some(data) = data else {
       self = .none
       return
     }
-    self = .some(Wrapped.init(fieldData: fieldData, variables: variables))
+    self = .some(Wrapped.init(_fieldData: data, variables: variables))
   }
 
   @inlinable public var _fieldData: AnyHashable { map(\._fieldData) }
 }
 
 extension Array: SelectionSetEntityValue where Element: SelectionSetEntityValue {
-  @inlinable public init(fieldData: AnyHashable?, variables: GraphQLOperation.Variables?) {
-    guard let fieldData = fieldData as? [AnyHashable?] else {
+  /// - Warning: This function is not supported for external use.
+  /// Unsupported usage may result in unintended consequences including crashes.
+  @inlinable public init(_fieldData data: AnyHashable?, variables: GraphQLOperation.Variables?) {
+    guard let data = data as? [AnyHashable?] else {
       fatalError("\(Self.self) expected list of data for entity.")
     }
-    self = fieldData.map { Element.init(fieldData:$0?.base as? AnyHashable, variables: variables) }
+    self = data.map { Element.init(_fieldData:$0?.base as? AnyHashable, variables: variables) }
   }
 
   @inlinable public var _fieldData: AnyHashable { map(\._fieldData) }

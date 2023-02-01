@@ -1,29 +1,3 @@
-// MARK: - Type Erased SelectionSets
-
-public protocol AnySelectionSet: SelectionSetEntityValue {
-  static var __schema: SchemaMetadata.Type { get }
-
-  static var __selections: [Selection] { get }
-
-  /// The GraphQL type for the `SelectionSet`.
-  ///
-  /// This may be a concrete type (`Object`) or an abstract type (`Interface`, or `Union`).
-  static var __parentType: ParentType { get }
-
-  /// The data of the underlying GraphQL object represented by generated selection set.
-  var __data: DataDict { get }
-
-  /// Designated Initializer
-  /// 
-  /// - Parameter data: The data of the underlying GraphQL object represented by generated
-  /// selection set.
-  init(data: DataDict)
-}
-
-public extension AnySelectionSet {
-  static var __selections: [Selection] { [] }
-}
-
 /// A selection set that represents the root selections on its `__parentType`. Nested selection
 /// sets for type cases are not `RootSelectionSet`s.
 ///
@@ -38,7 +12,7 @@ public extension AnySelectionSet {
 /// This is why only a `RootSelectionSet` can be executed by a `GraphQLExecutor`. Executing a
 /// non-root selection set would result in fields from the root selection set not being collected
 /// into the `ResponseDict` for the `SelectionSet`'s data.
-public protocol RootSelectionSet: AnySelectionSet, OutputTypeConvertible { }
+public protocol RootSelectionSet: SelectionSet, OutputTypeConvertible { }
 
 /// A selection set that represents an inline fragment nested inside a `RootSelectionSet`.
 ///
@@ -51,23 +25,39 @@ public protocol RootSelectionSet: AnySelectionSet, OutputTypeConvertible { }
 /// from the fragment's parent `RootSelectionSet` that will be selected. This includes fields from
 /// the parent selection set, as well as any other child selections sets that are compatible with
 /// the `InlineFragment`'s `__parentType` and the operation's inclusion condition.
-public protocol InlineFragment: AnySelectionSet { }
+public protocol InlineFragment: SelectionSet { }
 
 // MARK: - SelectionSet
-public protocol SelectionSet: AnySelectionSet, Hashable {
+public protocol SelectionSet: SelectionSetEntityValue, Hashable {
   associatedtype Schema: SchemaMetadata
 
   /// A type representing all of the fragments the `SelectionSet` can be converted to.
   /// Defaults to a stub type with no fragments.
   /// A `SelectionSet` with fragments should provide a type that conforms to `FragmentContainer`
   associatedtype Fragments = NoFragments
+
+  static var __selections: [Selection] { get }
+
+  /// The GraphQL type for the `SelectionSet`.
+  ///
+  /// This may be a concrete type (`Object`) or an abstract type (`Interface`, or `Union`).
+  static var __parentType: ParentType { get }
+
+  /// The data of the underlying GraphQL object represented by generated selection set.
+  var __data: DataDict { get }
+
+  /// Designated Initializer
+  ///
+  /// - Parameter data: The data of the underlying GraphQL object represented by generated
+  /// selection set.
+  init(data: DataDict)
 }
 
-extension SelectionSet {
+extension SelectionSet {  
 
-  @inlinable public static var __schema: SchemaMetadata.Type { Schema.self }
+  @inlinable public static var __selections: [Selection] { [] }
 
-  @usableFromInline var __objectType: Object? { Schema.objectType(forTypename: __typename) }
+  @inlinable public var __objectType: Object? { __data._objectType }
 
   @inlinable public var __typename: String { __data["__typename"] }
 
@@ -104,6 +94,35 @@ extension SelectionSet {
     if condition: Selection.Condition
   ) -> T? where T.Schema == Schema {
     _asInlineFragment(if: Selection.Conditions(condition))
+  }
+
+  /// Initializes the `SelectionSet` **unsafely** with an unsafe result data dictionary.
+  ///
+  /// - Warning: This method is unsafe and improper use may result in unintended consequences
+  /// including crashes. The `unsafeData` should mirror the result data returned by a
+  /// `GraphQLSelectionSetMapper` after completion of GraphQL Execution.
+  ///
+  /// This is not identical to the JSON response from a GraphQL network request. The data should be
+  /// normalized and custom scalars should be converted to their concrete types.
+  ///
+  /// To create a `SelectionSet` from data representing a JSON format GraphQL network response
+  /// directly, create a `GraphQLResponse` object and call `parseResultFast()`.
+  @inlinable public init(
+    unsafeData data: [String: AnyHashable],
+    variables: GraphQLOperation.Variables? = nil
+  ) {
+    let objectType: Object?
+    if let typename = data["__typename"] as? String {
+      objectType = Schema.objectType(forTypename: typename)
+    } else {
+      objectType = nil
+    }
+
+    self.init(data: DataDict(
+      data,
+      objectType: objectType,
+      variables: variables
+    ))
   }
 
   @inlinable public func hash(into hasher: inout Hasher) {

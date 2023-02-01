@@ -16,8 +16,8 @@ class GraphQLExecutor_ResultNormalizer_FromResponse_Tests: XCTestCase {
     return executor
   }()
 
-  private func normalizeRecords(
-    _ selectionSet: RootSelectionSet.Type,
+  private func normalizeRecords<S: RootSelectionSet>(
+    _ selectionSet: S.Type,
     with variables: GraphQLOperation.Variables? = nil,
     from object: JSONObject
   ) throws -> RecordSet {

@@ -170,15 +170,18 @@ final class GraphQLExecutor {
 
   // MARK: - Execution
 
-  func execute<Accumulator: GraphQLResultAccumulator>(
-    selectionSet: RootSelectionSet.Type,
+  func execute<
+    Accumulator: GraphQLResultAccumulator,
+    SelectionSet: RootSelectionSet
+  >(
+    selectionSet: SelectionSet.Type,
     on data: JSONObject,
     withRootCacheReference root: CacheReference? = nil,
     variables: GraphQLOperation.Variables? = nil,
     accumulator: Accumulator
   ) throws -> Accumulator.FinalResult {
     let info = ObjectExecutionInfo(variables: variables,
-                                   schema: selectionSet.__schema,
+                                   schema: SelectionSet.Schema.self,
                                    withRootCacheReference: root)
 
     let rootValue = execute(selections: selectionSet.__selections,
