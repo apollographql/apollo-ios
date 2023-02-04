@@ -115,9 +115,12 @@ public struct ApolloSchemaDownloadConfiguration: Equatable, Codable {
     }
 
   }
-  
+
+  /// An HTTP header that will be sent in the schema download request.
   public struct HTTPHeader: Equatable, CustomDebugStringConvertible, Codable {
+    /// The name of the header field. HTTP header field names are case insensitive.
     let key: String
+    /// The value for the header field.
     let value: String
     
     public var debugDescription: String {
@@ -130,6 +133,9 @@ public struct ApolloSchemaDownloadConfiguration: Equatable, Codable {
     }
   }
 
+  /// Dictionary used to extract header fields without needing the HTTPHeader "key" and "value" keys.
+  private typealias HTTPHeaderDictionary = [String: String]
+
   // MARK: - Properties
 
   /// How to download your schema. Supports the Apollo Registry and GraphQL Introspection methods.
@@ -137,7 +143,7 @@ public struct ApolloSchemaDownloadConfiguration: Equatable, Codable {
   /// The maximum time (in seconds) to wait before indicating that the download timed out.
   /// Defaults to 30 seconds.
   public let downloadTimeout: Double
-  /// Any additional headers to include when retrieving your schema. Defaults to nil.
+  /// Any additional HTTP headers to include when retrieving your schema. Defaults to nil.
   public let headers: [HTTPHeader]
   /// The local path where the downloaded schema should be written to.
   public let outputPath: String
@@ -155,7 +161,7 @@ public struct ApolloSchemaDownloadConfiguration: Equatable, Codable {
   ///   - downloadMethod: How to download your schema.
   ///   - downloadTimeout: The maximum time (in seconds) to wait before indicating that the
   ///   download timed out. Defaults to 30 seconds.
-  ///   - headers: [optional] Any additional headers to include when retrieving your schema.
+  ///   - headers: [optional] Any additional HTTP headers to include when retrieving your schema.
   ///   Defaults to nil
   ///   - outputPath: The local path where the downloaded schema should be written to.
   public init(
@@ -190,10 +196,34 @@ public struct ApolloSchemaDownloadConfiguration: Equatable, Codable {
       forKey: .downloadTimeout
     ) ?? Default.downloadTimeout
 
-    self.headers = try container.decodeIfPresent(
-      [HTTPHeader].self,
-      forKey: .headers
-    ) ?? Default.headers
+    self.headers = try Self.decode(headers: container) ?? Default.headers
+  }
+
+  private static func decode(
+    headers container: KeyedDecodingContainer<CodingKeys>
+  ) throws -> [HTTPHeader]? {
+
+    do {
+      let headers = try container.decodeIfPresent(
+        [HTTPHeader].self,
+        forKey: .headers
+      )
+      return headers
+
+    } catch {
+      do {
+        let headers = try container.decodeIfPresent(
+          HTTPHeaderDictionary.self,
+          forKey: .headers
+        )
+        return headers?
+          .sorted(by: { $0.key < $1.key })
+          .map({ HTTPHeader(key: $0, value: $1) })
+
+      } catch {
+        return nil
+      }
+    }
   }
 
   public var outputFormat: DownloadMethod.OutputFormat {
