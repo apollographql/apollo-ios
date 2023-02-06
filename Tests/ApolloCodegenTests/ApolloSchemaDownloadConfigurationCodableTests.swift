@@ -74,7 +74,7 @@ class ApolloSchemaDownloadConfigurationCodableTests: XCTestCase {
     expect(actual).to(equal(expected))
   }
 
-  func test__decodeApolloSchemaDownloadConfiguration__givenAllParameters_withHTTPHeadersAsArrayOfDictionaries_shouldReturnStruct() throws {
+  func test__decodeApolloSchemaDownloadConfiguration__givenAllParameters_withHTTPHeadersAsArrayOfStructs_shouldReturnStruct() throws {
     // given
     let subject = """
       {
