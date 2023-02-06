@@ -21,7 +21,7 @@ class ApolloSchemaDownloadConfigurationCodableTests: XCTestCase {
 
   // MARK: - ApolloSchemaDownloadConfiguration Tests
 
-  func test__encodeApolloSchemaDownloadConfiguration__givenAllParameters_shouldReturnJSON_withHTTPHeadersAsArrayOfDictionaries() throws {
+  func test__encodeApolloSchemaDownloadConfiguration__givenAllParameters_shouldReturnJSON_withHTTPHeadersAsArrayOfStructs() throws {
     // given
     let subject = ApolloSchemaDownloadConfiguration(
       using: .introspection(
