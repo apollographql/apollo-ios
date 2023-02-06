@@ -87,6 +87,6 @@ open class MockTypeCase: MockSelectionSet, InlineFragment { }
 
 extension DataDict {
   public static func empty() -> DataDict {
-    DataDict([:], objectType: nil, variables: nil)
+    DataDict(objectType: nil, data: [:], variables: nil)
   }
 }

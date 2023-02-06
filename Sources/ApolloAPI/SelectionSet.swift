@@ -119,8 +119,8 @@ extension SelectionSet {
     }
 
     self.init(data: DataDict(
-      data,
       objectType: objectType,
+      data: data,
       variables: variables
     ))
   }
