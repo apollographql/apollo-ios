@@ -314,6 +314,8 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     public let deprecatedEnumCases: Composition
     /// Whether schema documentation is added to the generated files.
     public let schemaDocumentation: Composition
+    /// Which generated selection sets should include generated initializers.
+    public let selectionSetInitializers: SelectionSetInitializers
     /// Whether the generated operations should use Automatic Persisted Queries.
     ///
     /// See `APQConfig` for more information on Automatic Persisted Queries.
@@ -361,6 +363,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       public static let queryStringLiteralFormat: QueryStringLiteralFormat = .multiline
       public static let deprecatedEnumCases: Composition = .include
       public static let schemaDocumentation: Composition = .include
+      public static let selectionSetInitializers: SelectionSetInitializers = [.localCacheMutations]
       public static let apqs: APQConfig = .disabled
       public static let cocoapodsCompatibleImportStatements: Bool = false
       public static let warningsOnDeprecatedUsage: Composition = .include
@@ -377,6 +380,8 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     ///  included in each generated operation object.
     ///  - deprecatedEnumCases: How deprecated enum cases from the schema should be handled.
     ///  - schemaDocumentation: Whether schema documentation is added to the generated files.
+    ///  - selectionSetInitializers: Which generated selection sets should include
+    ///    generated initializers.
     ///  - apqs: Whether the generated operations should use Automatic Persisted Queries.
     ///  - cocoapodsCompatibleImportStatements: Generate import statements that are compatible with
     ///    including `Apollo` via Cocoapods.
@@ -391,6 +396,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       queryStringLiteralFormat: QueryStringLiteralFormat = Default.queryStringLiteralFormat,
       deprecatedEnumCases: Composition = Default.deprecatedEnumCases,
       schemaDocumentation: Composition = Default.schemaDocumentation,
+      selectionSetInitializers: SelectionSetInitializers = Default.selectionSetInitializers,
       apqs: APQConfig = Default.apqs,
       cocoapodsCompatibleImportStatements: Bool = Default.cocoapodsCompatibleImportStatements,
       warningsOnDeprecatedUsage: Composition = Default.warningsOnDeprecatedUsage,
@@ -401,6 +407,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       self.queryStringLiteralFormat = queryStringLiteralFormat
       self.deprecatedEnumCases = deprecatedEnumCases
       self.schemaDocumentation = schemaDocumentation
+      self.selectionSetInitializers = selectionSetInitializers
       self.apqs = apqs
       self.cocoapodsCompatibleImportStatements = cocoapodsCompatibleImportStatements
       self.warningsOnDeprecatedUsage = warningsOnDeprecatedUsage
@@ -415,6 +422,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       case queryStringLiteralFormat
       case deprecatedEnumCases
       case schemaDocumentation
+      case selectionSetInitializers
       case apqs
       case cocoapodsCompatibleImportStatements
       case warningsOnDeprecatedUsage
@@ -444,6 +452,11 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
         Composition.self,
         forKey: .schemaDocumentation
       ) ?? Default.schemaDocumentation
+
+      selectionSetInitializers = try values.decodeIfPresent(
+        SelectionSetInitializers.self,
+        forKey: .selectionSetInitializers
+      ) ?? Default.selectionSetInitializers
 
       apqs = try values.decodeIfPresent(
         APQConfig.self,
@@ -553,6 +566,42 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     /// If the server does not recognize the `operationIdentifier`, the operation will fail. This
     /// method should only be used if you are manually persisting your queries to an Apollo Server.
     case persistedOperationsOnly
+  }
+
+  #warning("TODO: Document")
+  #warning("Implement and test custom codable")
+  public struct SelectionSetInitializers: Codable, Equatable, ExpressibleByArrayLiteral {
+    private var options: SelectionSetInitializers.Options
+    private var definitions: Set<String>
+
+    public static let namedFragments: SelectionSetInitializers = .init(.namedFragments)
+    public static let localCacheMutations: SelectionSetInitializers = .init(.localCacheMutations)
+    public static let operations: SelectionSetInitializers = .init(.operations)
+
+    public static func operation(named: String) -> SelectionSetInitializers {
+      .init(definitionName: named)
+    }
+
+    public static func fragment(named: String) -> SelectionSetInitializers {
+      .init(definitionName: named)
+    }
+
+    public mutating func insert(_ member: SelectionSetInitializers) {
+      self.options = self.options.union(member.options)
+      self.definitions = self.definitions.union(member.definitions)
+    }
+
+    public init(arrayLiteral elements: SelectionSetInitializers...) {
+      guard var options = elements.first else {
+        self.options = []
+        self.definitions = []
+        return
+      }
+      for element in elements.suffix(from: 1) {
+        options.insert(element)
+      }
+      self = options
+    }
   }
 
   public struct ExperimentalFeatures: Codable, Equatable {
@@ -733,3 +782,30 @@ extension ApolloCodegenConfiguration.OperationsFileOutput {
     }
   }
 }
+
+extension ApolloCodegenConfiguration.SelectionSetInitializers {
+  private struct Options: OptionSet, Codable, Equatable {
+    let rawValue: Int
+    static let localCacheMutations = Options(rawValue: 1 << 0)
+    static let namedFragments      = Options(rawValue: 1 << 1)
+    static let operations          = Options(rawValue: 1 << 2)
+  }
+
+  private init(_ options: Options) {
+    self.options = options
+    self.definitions = []
+  }
+
+  private init(definitionName: String) {
+    self.options = []
+    self.definitions = [definitionName]
+  }
+}
+
+#warning("TODO: Delete")
+let initConfig: ApolloCodegenConfiguration.SelectionSetInitializers = [
+  .namedFragments,
+  .localCacheMutations,
+  .operation(named: "AllAnimalsQuery"),
+  .fragment(named: "PetDetails")
+]
