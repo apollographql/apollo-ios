@@ -783,6 +783,7 @@ extension ApolloCodegenConfiguration.OperationsFileOutput {
   }
 }
 
+// MARK: - SelectionSetInitializers - Private Implementation
 extension ApolloCodegenConfiguration.SelectionSetInitializers {
   private struct Options: OptionSet, Codable, Equatable {
     let rawValue: Int

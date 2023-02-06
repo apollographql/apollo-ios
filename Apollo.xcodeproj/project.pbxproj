@@ -185,6 +185,7 @@
 		DE100B202887415D00BE11C2 /* Documentation.docc in Sources */ = {isa = PBXBuildFile; fileRef = DE100B1F2887415D00BE11C2 /* Documentation.docc */; };
 		DE12B2D7273B204B003371CC /* TestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE12B2D6273B204B003371CC /* TestError.swift */; };
 		DE12B2D9273C4338003371CC /* MockIRSubscripts.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE12B2D8273C4338003371CC /* MockIRSubscripts.swift */; };
+		DE1696D4298C51CF00345E1A /* SelectionSetTemplate_Initializers_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1696D3298C51CF00345E1A /* SelectionSetTemplate_Initializers_Tests.swift */; };
 		DE181A2C26C5C0CB000C0B9C /* WebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE181A2B26C5C0CB000C0B9C /* WebSocket.swift */; };
 		DE181A2E26C5C299000C0B9C /* SSLClientCertificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE181A2D26C5C299000C0B9C /* SSLClientCertificate.swift */; };
 		DE181A3026C5C38E000C0B9C /* SSLSecurity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE181A2F26C5C38E000C0B9C /* SSLSecurity.swift */; };
@@ -1328,6 +1329,7 @@
 		DE100B1F2887415D00BE11C2 /* Documentation.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Documentation.docc; sourceTree = "<group>"; };
 		DE12B2D6273B204B003371CC /* TestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestError.swift; sourceTree = "<group>"; };
 		DE12B2D8273C4338003371CC /* MockIRSubscripts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockIRSubscripts.swift; sourceTree = "<group>"; };
+		DE1696D3298C51CF00345E1A /* SelectionSetTemplate_Initializers_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionSetTemplate_Initializers_Tests.swift; sourceTree = "<group>"; };
 		DE181A2B26C5C0CB000C0B9C /* WebSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocket.swift; sourceTree = "<group>"; };
 		DE181A2D26C5C299000C0B9C /* SSLClientCertificate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSLClientCertificate.swift; sourceTree = "<group>"; };
 		DE181A2F26C5C38E000C0B9C /* SSLSecurity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSLSecurity.swift; sourceTree = "<group>"; };
@@ -2814,6 +2816,7 @@
 			children = (
 				DE296536279B3B8200BF9B49 /* SelectionSetTemplateTests.swift */,
 				DE71FDC32853D681005FA9CC /* SelectionSetTemplate_LocalCacheMutation_Tests.swift */,
+				DE1696D3298C51CF00345E1A /* SelectionSetTemplate_Initializers_Tests.swift */,
 				DE296538279B3B8200BF9B49 /* SelectionSetTemplate_RenderOperation_Tests.swift */,
 			);
 			path = SelectionSet;
@@ -5070,6 +5073,7 @@
 				E6EFDD0B27E8328E00B17FE5 /* TemplateRenderer_SchemaFile_Tests.swift in Sources */,
 				E6A6866627F63BDC008A1D13 /* FileGenerator_ResolvePath_Tests.swift in Sources */,
 				9F62DF8E2590539A00E6E808 /* SchemaIntrospectionTests.swift in Sources */,
+				DE1696D4298C51CF00345E1A /* SelectionSetTemplate_Initializers_Tests.swift in Sources */,
 				DE71FDC42853D681005FA9CC /* SelectionSetTemplate_LocalCacheMutation_Tests.swift in Sources */,
 				E6D90D0D278FFE35009CAC5D /* SchemaMetadataFileGeneratorTests.swift in Sources */,
 				E6B42D0B27A4746800A3BD58 /* SchemaModuleFileGeneratorTests.swift in Sources */,

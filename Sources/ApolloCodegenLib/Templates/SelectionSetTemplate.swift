@@ -100,6 +100,8 @@ struct SelectionSetTemplate {
 
     \(section: FragmentAccessorsTemplate(selections, in: scope))
 
+    \(section: InitializerTemplate(selections))
+
     \(section: ChildEntityFieldSelectionSets(selections))
 
     \(section: ChildTypeCaseSelectionSets(selections))
@@ -380,6 +382,22 @@ struct SelectionSetTemplate {
     \(ifLet: inclusionConditions, {
       "if: \($0.conditionVariableExpression)"
     }))
+    """
+  }
+
+  // MARK: - SelectionSet Initializer
+
+  private func InitializerTemplate(_ selections: IR.SelectionSet.Selections) -> TemplateString {
+    return """
+    public init(
+      species: String
+    ) {
+      self.init(data: DataDict(
+        objectType: AnimalKingdomAPI.Objects.Cat,
+        data: ["species": species],
+        variables: nil
+      ))
+    }
     """
   }
 
