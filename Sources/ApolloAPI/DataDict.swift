@@ -8,7 +8,7 @@ public struct DataDict: Hashable {
   @inlinable public init(
     objectType: Object?,
     data: JSONObject,
-    variables: GraphQLOperation.Variables?
+    variables: GraphQLOperation.Variables? = nil
   ) {
     self._data = data
     self._objectType = objectType

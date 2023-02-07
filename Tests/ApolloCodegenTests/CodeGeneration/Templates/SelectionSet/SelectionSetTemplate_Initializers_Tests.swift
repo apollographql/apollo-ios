@@ -42,22 +42,127 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
     )
   }
 
-  private func buildFragmentTemplate(
-    named fragmentName: String = "TestFragment"
-  ) throws -> FragmentTemplate {
-    ir = try .mock(schema: schemaSDL, document: document)
-    let fragmentDefinition = try XCTUnwrap(ir.compilationResult[fragment: fragmentName])
-    let fragment = ir.build(fragment: fragmentDefinition)
-    let config = ApolloCodegenConfiguration.mock(
-      schemaName: "TestSchema",
-      options: .init(
-        selectionSetInitializers: [.all]
-      )
-    )
-    return FragmentTemplate(fragment: fragment, config: .init(config: config))
-  }
+//  private func buildFragmentTemplate(
+//    named fragmentName: String = "TestFragment"
+//  ) throws -> FragmentTemplate {
+//    ir = try .mock(schema: schemaSDL, document: document)
+//    let fragmentDefinition = try XCTUnwrap(ir.compilationResult[fragment: fragmentName])
+//    let fragment = ir.build(fragment: fragmentDefinition)
+//    let config = ApolloCodegenConfiguration.mock(
+//      schemaName: "TestSchema",
+//      options: .init(
+//        selectionSetInitializers: [.all]
+//      )
+//    )
+//    return FragmentTemplate(fragment: fragment, config: .init(config: config))
+//  }
 
   // MARK: - Tests
+
+  // MARK: Object Type Tests
+
+  func test__render_givenSelectionSetOnObjectType_parametersDoNotIncludeTypenameFieldAndObjectTypeIsRenderedDirectly() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        species
+      }
+    }
+    """
+
+    let expected =
+    """
+      public init(
+        species: String
+      ) {
+        let objectType = TestSchema.Objects.Animal
+        self.init(data: DataDict(
+          objectType: objectType,
+          data: [
+            "__typename": objectType.typename,
+            "species": species
+        ]))
+      }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
+  }
+
+  func test__render_givenSelectionSetOnInterfaceType_parametersIncludeTypenameFieldAndObjectTypeIsRenderedWithInterfaceIncluded() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        species
+      }
+    }
+    """
+
+    let expected =
+    """
+      public init(
+        __typename: String,
+        species: String
+      ) {
+        let objectType = ApolloAPI.Object(
+          typename: __typename,
+          implementedInterfaces: [
+            TestSchema.Interfaces.Animal
+        ])
+        self.init(data: DataDict(
+          objectType: objectType,
+          data: [
+            "__typename": objectType.typename,
+            "species": species
+        ]))
+      }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
+  }
+
+  // MARK: Selection Tests
 
   func test__render_given_scalarFieldSelections_rendersInitializer() throws {
       // given
@@ -154,9 +259,11 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
           nestedList_optional_optional_required: [[String]?]? = nil,
           nestedList_optional_optional_optional: [[String?]?]? = nil
         ) {
+          let objectType = TestSchema.Objects.Animal
           self.init(data: DataDict(
-            objectType: AnimalKingdomAPI.Objects.Cat,
+            objectType: objectType,
             data: [
+              "__typename": objectType.typename,
               "string": string,
               "string_optional": string_optional,
               "int": int,
@@ -181,9 +288,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
               "nestedList_optional_required_optional": nestedList_optional_required_optional,
               "nestedList_optional_optional_required": nestedList_optional_optional_required,
               "nestedList_optional_optional_optional": nestedList_optional_optional_optional
-            ],
-            variables: nil
-          ))
+          ]))
         }
       """
 

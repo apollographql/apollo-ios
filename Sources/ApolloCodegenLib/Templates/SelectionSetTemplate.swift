@@ -103,7 +103,7 @@ struct SelectionSetTemplate {
 
     \(section: FragmentAccessorsTemplate(selections, in: scope))
 
-    \(section: "\(if: generateInitializers, InitializerTemplate(selections))")
+    \(section: "\(if: generateInitializers, InitializerTemplate(selectionSet))")
 
     \(section: ChildEntityFieldSelectionSets(selections))
 
@@ -121,8 +121,12 @@ struct SelectionSetTemplate {
   private func ParentTypeTemplate(_ type: GraphQLCompositeType) -> String {
     """
     public static var __parentType: \(config.ApolloAPITargetName).ParentType { \
-    \(config.schemaName.firstUppercased).\(type.schemaTypesNamespace).\(type.name.firstUppercased) }
+    \(GeneratedTypeReference(type)) }
     """
+  }
+
+  private func GeneratedTypeReference(_ type: GraphQLCompositeType) -> TemplateString {
+    "\(config.schemaName.firstUppercased).\(type.schemaTypesNamespace).\(type.name.firstUppercased)"
   }
 
   // MARK: - Selections
@@ -390,16 +394,20 @@ struct SelectionSetTemplate {
 
   // MARK: - SelectionSet Initializer
 
-  private func InitializerTemplate(_ selections: IR.SelectionSet.Selections) -> TemplateString {
+  private func InitializerTemplate(_ selectionSet: IR.SelectionSet) -> TemplateString {
+    let isConcreteType = selectionSet.parentType is GraphQLObjectType
+
     return """
     public init(
-      \(InitializerSelectionParametersTemplate(selections))
+      \(if: !isConcreteType, "__typename: String,")
+      \(InitializerSelectionParametersTemplate(selectionSet.selections))
     ) {
+      \(InitializerObjectType(selectionSet))
       self.init(data: DataDict(
-        objectType: AnimalKingdomAPI.Objects.Cat,
-        data: \(InitializerDataDictTemplate(selections)),
-        variables: nil
-      ))
+        objectType: objectType,
+        data: [
+          \(InitializerDataDictTemplate(selectionSet.selections))
+      ]))
     }
     """
   }
@@ -425,15 +433,32 @@ struct SelectionSetTemplate {
     """
   }
 
+  private func InitializerObjectType(_ selectionSet: IR.SelectionSet) -> TemplateString {
+    let isConcreteType = selectionSet.parentType is GraphQLObjectType
+
+    return """
+    let objectType = \
+    \(if: isConcreteType,
+      GeneratedTypeReference(selectionSet.parentType),
+      else: """
+      \(config.ApolloAPITargetName).Object(
+        typename: __typename,
+        implementedInterfaces: [
+          TestSchema.Interfaces.Animal
+      ])
+      """
+    )
+    """
+  }
+
   private func InitializerDataDictTemplate(
     _ selections: IR.SelectionSet.Selections
   ) -> TemplateString {
     return TemplateString("""
-    [
-      \(ifLet: selections.direct, {
-        "\($0.fields.values.map(InitializerDataDictFieldTemplate(_:)))"
-      })
-    ]
+    "__typename": objectType.typename,
+    \(ifLet: selections.direct, {
+      "\($0.fields.values.map(InitializerDataDictFieldTemplate(_:)))"
+    })
     """
     )
   }
