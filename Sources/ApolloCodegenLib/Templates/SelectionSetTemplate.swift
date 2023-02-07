@@ -3,15 +3,18 @@ import InflectorKit
 struct SelectionSetTemplate {
 
   let isMutable: Bool
+  let generateInitializers: Bool
   let config: ApolloCodegen.ConfigurationContext
 
   private let nameCache: SelectionSetNameCache
 
   init(
     mutable: Bool = false,
+    generateInitializers: Bool,
     config: ApolloCodegen.ConfigurationContext
   ) {
     self.isMutable = mutable
+    self.generateInitializers = generateInitializers
     self.config = config
 
     self.nameCache = SelectionSetNameCache(config: config)
@@ -100,7 +103,7 @@ struct SelectionSetTemplate {
 
     \(section: FragmentAccessorsTemplate(selections, in: scope))
 
-    \(section: InitializerTemplate(selections))
+    \(section: "\(if: generateInitializers, InitializerTemplate(selections))")
 
     \(section: ChildEntityFieldSelectionSets(selections))
 
@@ -390,14 +393,56 @@ struct SelectionSetTemplate {
   private func InitializerTemplate(_ selections: IR.SelectionSet.Selections) -> TemplateString {
     return """
     public init(
-      species: String
+      \(InitializerSelectionParametersTemplate(selections))
     ) {
       self.init(data: DataDict(
         objectType: AnimalKingdomAPI.Objects.Cat,
-        data: ["species": species],
+        data: \(InitializerDataDictTemplate(selections)),
         variables: nil
       ))
     }
+    """
+  }
+
+  private func InitializerSelectionParametersTemplate(
+    _ selections: IR.SelectionSet.Selections
+  ) -> TemplateString {
+    return TemplateString("""
+    \(ifLet: selections.direct, {
+      "\($0.fields.values.map(InitializerParameterTemplate(_:)))"
+    })
+    """
+    )
+  }
+
+  private func InitializerParameterTemplate(
+    _ field: IR.Field
+  ) -> TemplateString {
+    """
+    \(field.name.asInputParameterName): \
+    \(field.type.rendered(as: .selectionSetField(), config: config.config))\
+    \(if: field.type.isNullable, " = nil")
+    """
+  }
+
+  private func InitializerDataDictTemplate(
+    _ selections: IR.SelectionSet.Selections
+  ) -> TemplateString {
+    return TemplateString("""
+    [
+      \(ifLet: selections.direct, {
+        "\($0.fields.values.map(InitializerDataDictFieldTemplate(_:)))"
+      })
+    ]
+    """
+    )
+  }
+
+  private func InitializerDataDictFieldTemplate(
+    _ field: IR.Field
+  ) -> TemplateString {
+    """
+    "\(field.responseKey)": \(field.name.asInputParameterName)
     """
   }
 

@@ -77,6 +77,20 @@ public class AllAnimalsQuery: GraphQLQuery {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
+      public init(
+        height: Height,
+        species: String
+      ) {
+        self.init(data: DataDict(
+          objectType: AnimalKingdomAPI.Objects.Cat,
+          data: [
+            "height": height,
+            "species": species
+          ],
+          variables: nil
+        ))
+      }
+
       public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Interfaces.Animal }
       public static var __selections: [ApolloAPI.Selection] { [
         .field("height", Height.self),

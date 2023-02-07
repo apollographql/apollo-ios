@@ -577,6 +577,9 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     public static let namedFragments: SelectionSetInitializers = .init(.namedFragments)
     public static let localCacheMutations: SelectionSetInitializers = .init(.localCacheMutations)
     public static let operations: SelectionSetInitializers = .init(.operations)
+    public static let all: SelectionSetInitializers = [
+      .namedFragments, .localCacheMutations, .operations
+    ]
 
     public static func operation(named: String) -> SelectionSetInitializers {
       .init(definitionName: named)
@@ -584,11 +587,6 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
 
     public static func fragment(named: String) -> SelectionSetInitializers {
       .init(definitionName: named)
-    }
-
-    public mutating func insert(_ member: SelectionSetInitializers) {
-      self.options = self.options.union(member.options)
-      self.definitions = self.definitions.union(member.definitions)
     }
 
     public init(arrayLiteral elements: SelectionSetInitializers...) {
@@ -601,6 +599,11 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
         options.insert(element)
       }
       self = options
+    }
+
+    public mutating func insert(_ member: SelectionSetInitializers) {
+      self.options = self.options.union(member.options)
+      self.definitions = self.definitions.union(member.definitions)
     }
   }
 
@@ -783,9 +786,21 @@ extension ApolloCodegenConfiguration.OperationsFileOutput {
   }
 }
 
+extension ApolloCodegenConfiguration.OutputOptions {
+  /// Determine whether the operations files are output to the schema types module.
+  func shouldGenerateSelectionSetInitializers(for operation: IR.Operation) -> Bool {
+    if operation.definition.isLocalCacheMutation &&
+        selectionSetInitializers.contains(.localCacheMutations) {
+      return true
+    }
+
+    return selectionSetInitializers.contains(definitionNamed: operation.definition.name)
+  }
+}
+
 // MARK: - SelectionSetInitializers - Private Implementation
 extension ApolloCodegenConfiguration.SelectionSetInitializers {
-  private struct Options: OptionSet, Codable, Equatable {
+  struct Options: OptionSet, Codable, Equatable {
     let rawValue: Int
     static let localCacheMutations = Options(rawValue: 1 << 0)
     static let namedFragments      = Options(rawValue: 1 << 1)
@@ -800,6 +815,14 @@ extension ApolloCodegenConfiguration.SelectionSetInitializers {
   private init(definitionName: String) {
     self.options = []
     self.definitions = [definitionName]
+  }
+
+  func contains(_ options: Self.Options) -> Bool {
+    self.options.contains(options)
+  }
+
+  func contains(definitionNamed definitionName: String) -> Bool {
+    self.definitions.contains(definitionName)
   }
 }
 

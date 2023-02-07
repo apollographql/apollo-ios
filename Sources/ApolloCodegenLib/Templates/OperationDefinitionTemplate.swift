@@ -27,7 +27,10 @@ struct OperationDefinitionTemplate: OperationTemplateRenderer {
 
       \(section: VariableAccessors(operation.definition.variables))
 
-      \(SelectionSetTemplate(config: config).render(for: operation))
+      \(SelectionSetTemplate(
+          generateInitializers: false,
+          config: config
+      ).render(for: operation))
     }
 
     """)

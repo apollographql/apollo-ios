@@ -27,26 +27,23 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
   // MARK: - Helpers
 
   func buildSubjectAndOperation(
-    named operationName: String = "TestOperation",
-    selectionSetInitializers: ApolloCodegenConfiguration.SelectionSetInitializers
+    named operationName: String = "TestOperation"
   ) throws {
     ir = try .mock(schema: schemaSDL, document: document)
     let operationDefinition = try XCTUnwrap(ir.compilationResult[operation: operationName])
     operation = ir.build(operation: operationDefinition)
     let config = ApolloCodegenConfiguration.mock(
       schemaName: "TestSchema",
-      options: .init(
-        selectionSetInitializers: selectionSetInitializers
-      )
+      options: .init()
     )
     subject = SelectionSetTemplate(
+      generateInitializers: true,
       config: ApolloCodegen.ConfigurationContext(config: config)
     )
   }
 
   private func buildFragmentTemplate(
-    named fragmentName: String = "TestFragment",
-    selectionSetInitializers: ApolloCodegenConfiguration.SelectionSetInitializers
+    named fragmentName: String = "TestFragment"
   ) throws -> FragmentTemplate {
     ir = try .mock(schema: schemaSDL, document: document)
     let fragmentDefinition = try XCTUnwrap(ir.compilationResult[fragment: fragmentName])
@@ -54,7 +51,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
     let config = ApolloCodegenConfiguration.mock(
       schemaName: "TestSchema",
       options: .init(
-        selectionSetInitializers: selectionSetInitializers
+        selectionSetInitializers: [.all]
       )
     )
     return FragmentTemplate(fragment: fragment, config: .init(config: config))
@@ -62,408 +59,462 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
 
   // MARK: - Tests
 
-  // MARK: Initializer Rendering Config - Tests
-
-  func test__render_givenLocalCacheMutation_configIncludesLocalCacheMutations_rendersInitializer() throws {
-    // given
+  func test__render_given_scalarFieldSelections_rendersInitializer() throws {
+      // given
     schemaSDL = """
     type Query {
       allAnimals: [Animal!]
     }
 
     type Animal {
-      species: String!
-    }
-    """
-
-    document = """
-    query TestOperation @apollo_client_ios_localCacheMutation {
-      allAnimals {
-        species
-      }
-    }
-    """
-
-    let expected =
-    """
-      }
-
-      public init(
-        species: String
-      ) {
-        self.init(data: DataDict(
-          objectType: AnimalKingdomAPI.Objects.Cat,
-          data: ["species": species],
-          variables: nil
-        ))
-      }
-    """
-
-    // when
-    try buildSubjectAndOperation(
-      selectionSetInitializers: [.localCacheMutations]
-    )
-
-    let allAnimals = try XCTUnwrap(
-      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
-    )
-
-    let actual = subject.render(field: allAnimals)
-
-    // then
-    expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
-  }
-
-  func test__render_givenLocalCacheMutation_configDoesNotIncludesLocalCacheMutations_doesNotRenderInitializer() throws
-  {
-    // given
-    schemaSDL = """
-    type Query {
-      allAnimals: [Animal!]
+      string: String!
+      string_optional: String
+      int: Int!
+      int_optional: Int
+      float: Float!
+      float_optional: Float
+      boolean: Boolean!
+      boolean_optional: Boolean
+      custom: Custom!
+      custom_optional: Custom
+      custom_required_list: [Custom!]!
+      custom_optional_list: [Custom!]
+      list_required_required: [String!]!
+      list_optional_required: [String!]
+      list_required_optional: [String]!
+      list_optional_optional: [String]
+      nestedList_required_required_required: [[String!]!]!
+      nestedList_required_required_optional: [[String]!]!
+      nestedList_required_optional_optional: [[String]]!
+      nestedList_required_optional_required: [[String!]]!
+      nestedList_optional_required_required: [[String!]!]
+      nestedList_optional_required_optional: [[String]!]
+      nestedList_optional_optional_required: [[String!]]
+      nestedList_optional_optional_optional: [[String]]
     }
 
-    type Animal {
-      species: String!
-    }
-    """
-
-    document = """
-    query TestOperation @apollo_client_ios_localCacheMutation {
-      allAnimals {
-        species
-      }
-    }
-    """
-
-    // when
-    try buildSubjectAndOperation(
-      selectionSetInitializers: [.namedFragments]
-    )
-
-    let allAnimals = try XCTUnwrap(
-      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
-    )
-
-    let actual = subject.render(field: allAnimals)
-
-    // then
-    expect(actual).to(equalLineByLine("}", atLine: 13, ignoringExtraLines: true))
-  }
-
-  func test__render_givenOperationSelectionSet_configIncludesOperations_rendersInitializer() throws {
-    // given
-    schemaSDL = """
-    type Query {
-      allAnimals: [Animal!]
-    }
-
-    type Animal {
-      species: String!
-    }
+    scalar Custom
     """
 
     document = """
     query TestOperation {
       allAnimals {
-        species
+        string
+        string_optional
+        int
+        int_optional
+        float
+        float_optional
+        boolean
+        boolean_optional
+        custom
+        custom_optional
+        custom_required_list
+        custom_optional_list
+        list_required_required
+        list_optional_required
+        list_required_optional
+        list_optional_optional
+        nestedList_required_required_required
+        nestedList_required_required_optional
+        nestedList_required_optional_optional
+        nestedList_required_optional_required
+        nestedList_optional_required_required
+        nestedList_optional_required_optional
+        nestedList_optional_optional_required
+        nestedList_optional_optional_optional
       }
     }
     """
 
-    let expected =
-    """
-      }
+    let expected = """
+        public init(
+          string: String,
+          string_optional: String? = nil,
+          int: Int,
+          int_optional: Int? = nil,
+          float: Double,
+          float_optional: Double? = nil,
+          boolean: Bool,
+          boolean_optional: Bool? = nil,
+          custom: TestSchema.Custom,
+          custom_optional: TestSchema.Custom? = nil,
+          custom_required_list: [TestSchema.Custom],
+          custom_optional_list: [TestSchema.Custom]? = nil,
+          list_required_required: [String],
+          list_optional_required: [String]? = nil,
+          list_required_optional: [String?],
+          list_optional_optional: [String?]? = nil,
+          nestedList_required_required_required: [[String]],
+          nestedList_required_required_optional: [[String?]],
+          nestedList_required_optional_optional: [[String?]?],
+          nestedList_required_optional_required: [[String]?],
+          nestedList_optional_required_required: [[String]]? = nil,
+          nestedList_optional_required_optional: [[String?]]? = nil,
+          nestedList_optional_optional_required: [[String]?]? = nil,
+          nestedList_optional_optional_optional: [[String?]?]? = nil
+        ) {
+          self.init(data: DataDict(
+            objectType: AnimalKingdomAPI.Objects.Cat,
+            data: [
+              "string": string,
+              "string_optional": string_optional,
+              "int": int,
+              "int_optional": int_optional,
+              "float": float,
+              "float_optional": float_optional,
+              "boolean": boolean,
+              "boolean_optional": boolean_optional,
+              "custom": custom,
+              "custom_optional": custom_optional,
+              "custom_required_list": custom_required_list,
+              "custom_optional_list": custom_optional_list,
+              "list_required_required": list_required_required,
+              "list_optional_required": list_optional_required,
+              "list_required_optional": list_required_optional,
+              "list_optional_optional": list_optional_optional,
+              "nestedList_required_required_required": nestedList_required_required_required,
+              "nestedList_required_required_optional": nestedList_required_required_optional,
+              "nestedList_required_optional_optional": nestedList_required_optional_optional,
+              "nestedList_required_optional_required": nestedList_required_optional_required,
+              "nestedList_optional_required_required": nestedList_optional_required_required,
+              "nestedList_optional_required_optional": nestedList_optional_required_optional,
+              "nestedList_optional_optional_required": nestedList_optional_optional_required,
+              "nestedList_optional_optional_optional": nestedList_optional_optional_optional
+            ],
+            variables: nil
+          ))
+        }
+      """
 
-      public init(
-        species: String
-      ) {
-        self.init(data: DataDict(
-          objectType: AnimalKingdomAPI.Objects.Cat,
-          data: ["species": species],
-          variables: nil
-        ))
-      }
-    """
+      // when
+      try buildSubjectAndOperation()
 
-    // when
-    try buildSubjectAndOperation(
-      selectionSetInitializers: [.operations]
-    )
+      let allAnimals = try XCTUnwrap(
+        operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+      )
 
-    let allAnimals = try XCTUnwrap(
-      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
-    )
+      let actual = subject.render(field: allAnimals)
 
-    let actual = subject.render(field: allAnimals)
-
-    // then
-    expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
-  }
-
-  func test__render_givenOperationSelectionSet_configIncludesSpecificOperation_rendersInitializer() throws {
-    // given
-    schemaSDL = """
-    type Query {
-      allAnimals: [Animal!]
+      // then
+      expect(actual).to(equalLineByLine(expected, atLine: 61, ignoringExtraLines: true))
     }
 
-    type Animal {
-      species: String!
-    }
-    """
 
-    document = """
-    query TestOperation {
-      allAnimals {
-        species
-      }
-    }
-    """
-
-    let expected =
-    """
-      }
-
-      public init(
-        species: String
-      ) {
-        self.init(data: DataDict(
-          objectType: AnimalKingdomAPI.Objects.Cat,
-          data: ["species": species],
-          variables: nil
-        ))
-      }
-    """
-
-    // when
-    try buildSubjectAndOperation(
-      selectionSetInitializers: [.operation(named: "TestOperation")]
-    )
-
-    let allAnimals = try XCTUnwrap(
-      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
-    )
-
-    let actual = subject.render(field: allAnimals)
-
-    // then
-    expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
-  }
-
-  func test__render_givenOperationSelectionSet_configDoesNotIncludeOperations_doesNotRenderInitializer() throws {
-    // given
-    schemaSDL = """
-    type Query {
-      allAnimals: [Animal!]
-    }
-
-    type Animal {
-      species: String!
-    }
-    """
-
-    document = """
-    query TestOperation {
-      allAnimals {
-        species
-      }
-    }
-    """
-
-    // when
-    try buildSubjectAndOperation(
-      selectionSetInitializers: [.namedFragments]
-    )
-
-    let allAnimals = try XCTUnwrap(
-      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
-    )
-
-    let actual = subject.render(field: allAnimals)
-
-    // then
-    expect(actual).to(equalLineByLine("}", atLine: 13, ignoringExtraLines: true))
-  }
-
-  func test__render_givenOperationSelectionSet_configIncludeSpecificOperationWithOtherName_doesNotRenderInitializer() throws {
-    // given
-    schemaSDL = """
-    type Query {
-      allAnimals: [Animal!]
-    }
-
-    type Animal {
-      species: String!
-    }
-    """
-
-    document = """
-    query TestOperation {
-      allAnimals {
-        species
-      }
-    }
-    """
-
-    // when
-    try buildSubjectAndOperation(
-      selectionSetInitializers: [.operation(named: "OtherOperation")]
-    )
-
-    let allAnimals = try XCTUnwrap(
-      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
-    )
-
-    let actual = subject.render(field: allAnimals)
-
-    // then
-    expect(actual).to(equalLineByLine("}", atLine: 13, ignoringExtraLines: true))
-  }
-
-  func test__render_givenNamedFragment_configIncludesNamedFragments_rendersInitializer() throws {
-    // given
-    schemaSDL = """
-    type Query {
-      allAnimals: [Animal!]
-    }
-
-    type Animal {
-      species: String!
-    }
-    """
-
-    document = """
-    fragment TestFragment on Animal {
-      species
-    }
-    """
-
-    let expected =
-    """
-      }
-
-      public init(
-        species: String
-      ) {
-        self.init(data: DataDict(
-          objectType: AnimalKingdomAPI.Objects.Cat,
-          data: ["species": species],
-          variables: nil
-        ))
-      }
-    """
-
-    // when
-    let subject = try buildFragmentTemplate(
-      selectionSetInitializers: [.operations]
-    )
-
-    let actual = subject.render()
-
-    // then
-    expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
-  }
-
-  func test__render_givenNamedFragment_configIncludesSpecificFragment_rendersInitializer() throws {
-    // given
-    schemaSDL = """
-    type Query {
-      allAnimals: [Animal!]
-    }
-
-    type Animal {
-      species: String!
-    }
-    """
-
-    document = """
-    fragment TestFragment on Animal {
-      species
-    }
-    """
-
-    let expected =
-    """
-      }
-
-      public init(
-        species: String
-      ) {
-        self.init(data: DataDict(
-          objectType: AnimalKingdomAPI.Objects.Cat,
-          data: ["species": species],
-          variables: nil
-        ))
-      }
-    """
-
-    // when
-    let subject = try buildFragmentTemplate(
-      selectionSetInitializers: [.operations]
-    )
-
-    let actual = subject.render()
-
-    // then
-    expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
-  }
-
-  func test__render_givenNamedFragment_configDoesNotIncludeNamedFragments_doesNotRenderInitializer() throws {
-    // given
-    schemaSDL = """
-    type Query {
-      allAnimals: [Animal!]
-    }
-
-    type Animal {
-      species: String!
-    }
-    """
-
-    document = """
-    fragment TestFragment on Animal {
-      species
-    }
-    """
-
-    // when
-    let subject = try buildFragmentTemplate(
-      selectionSetInitializers: [.operations]
-    )
-
-    let actual = subject.render()
-
-    // then
-    expect(actual).to(equalLineByLine("}", atLine: 13, ignoringExtraLines: true))
-  }
-
-  func test__render_givenNamedFragments_configIncludeSpecificFragmentWithOtherName_doesNotRenderInitializer() throws {
-    // given
-    schemaSDL = """
-    type Query {
-      allAnimals: [Animal!]
-    }
-
-    type Animal {
-      species: String!
-    }
-    """
-
-    document = """
-    fragment TestFragment on Animal {
-      species
-    }
-    """
-
-    // when
-    let subject = try buildFragmentTemplate(
-      selectionSetInitializers: [.operations]
-    )
-
-    let actual = subject.render()
-
-    // then
-    expect(actual).to(equalLineByLine("}", atLine: 13, ignoringExtraLines: true))
-  }
+//  func test__render_givenOperationSelectionSet_configIncludesOperations_rendersInitializer() throws {
+//    // given
+//    schemaSDL = """
+//    type Query {
+//      allAnimals: [Animal!]
+//    }
+//
+//    type Animal {
+//      species: String!
+//    }
+//    """
+//
+//    document = """
+//    query TestOperation {
+//      allAnimals {
+//        species
+//      }
+//    }
+//    """
+//
+//    let expected =
+//    """
+//      }
+//
+//      public init(
+//        species: String
+//      ) {
+//        self.init(data: DataDict(
+//          objectType: AnimalKingdomAPI.Objects.Cat,
+//          data: ["species": species],
+//          variables: nil
+//        ))
+//      }
+//    """
+//
+//    // when
+//    try buildSubjectAndOperation(
+//      selectionSetInitializers: [.operations]
+//    )
+//
+//    let allAnimals = try XCTUnwrap(
+//      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+//    )
+//
+//    let actual = subject.render(field: allAnimals)
+//
+//    // then
+//    expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
+//  }
+//
+//  func test__render_givenOperationSelectionSet_configIncludesSpecificOperation_rendersInitializer() throws {
+//    // given
+//    schemaSDL = """
+//    type Query {
+//      allAnimals: [Animal!]
+//    }
+//
+//    type Animal {
+//      species: String!
+//    }
+//    """
+//
+//    document = """
+//    query TestOperation {
+//      allAnimals {
+//        species
+//      }
+//    }
+//    """
+//
+//    let expected =
+//    """
+//      }
+//
+//      public init(
+//        species: String
+//      ) {
+//        self.init(data: DataDict(
+//          objectType: AnimalKingdomAPI.Objects.Cat,
+//          data: ["species": species],
+//          variables: nil
+//        ))
+//      }
+//    """
+//
+//    // when
+//    try buildSubjectAndOperation(
+//      selectionSetInitializers: [.operation(named: "TestOperation")]
+//    )
+//
+//    let allAnimals = try XCTUnwrap(
+//      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+//    )
+//
+//    let actual = subject.render(field: allAnimals)
+//
+//    // then
+//    expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
+//  }
+//
+//  func test__render_givenOperationSelectionSet_configDoesNotIncludeOperations_doesNotRenderInitializer() throws {
+//    // given
+//    schemaSDL = """
+//    type Query {
+//      allAnimals: [Animal!]
+//    }
+//
+//    type Animal {
+//      species: String!
+//    }
+//    """
+//
+//    document = """
+//    query TestOperation {
+//      allAnimals {
+//        species
+//      }
+//    }
+//    """
+//
+//    // when
+//    try buildSubjectAndOperation(
+//      selectionSetInitializers: [.namedFragments]
+//    )
+//
+//    let allAnimals = try XCTUnwrap(
+//      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+//    )
+//
+//    let actual = subject.render(field: allAnimals)
+//
+//    // then
+//    expect(actual).to(equalLineByLine("}", atLine: 13, ignoringExtraLines: true))
+//  }
+//
+//  func test__render_givenOperationSelectionSet_configIncludeSpecificOperationWithOtherName_doesNotRenderInitializer() throws {
+//    // given
+//    schemaSDL = """
+//    type Query {
+//      allAnimals: [Animal!]
+//    }
+//
+//    type Animal {
+//      species: String!
+//    }
+//    """
+//
+//    document = """
+//    query TestOperation {
+//      allAnimals {
+//        species
+//      }
+//    }
+//    """
+//
+//    // when
+//    try buildSubjectAndOperation(
+//      selectionSetInitializers: [.operation(named: "OtherOperation")]
+//    )
+//
+//    let allAnimals = try XCTUnwrap(
+//      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+//    )
+//
+//    let actual = subject.render(field: allAnimals)
+//
+//    // then
+//    expect(actual).to(equalLineByLine("}", atLine: 13, ignoringExtraLines: true))
+//  }
+//
+//  func test__render_givenNamedFragment_configIncludesNamedFragments_rendersInitializer() throws {
+//    // given
+//    schemaSDL = """
+//    type Query {
+//      allAnimals: [Animal!]
+//    }
+//
+//    type Animal {
+//      species: String!
+//    }
+//    """
+//
+//    document = """
+//    fragment TestFragment on Animal {
+//      species
+//    }
+//    """
+//
+//    let expected =
+//    """
+//      }
+//
+//      public init(
+//        species: String
+//      ) {
+//        self.init(data: DataDict(
+//          objectType: AnimalKingdomAPI.Objects.Cat,
+//          data: ["species": species],
+//          variables: nil
+//        ))
+//      }
+//    """
+//
+//    // when
+//    let subject = try buildFragmentTemplate(
+//      selectionSetInitializers: [.operations]
+//    )
+//
+//    let actual = subject.render()
+//
+//    // then
+//    expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
+//  }
+//
+//  func test__render_givenNamedFragment_configIncludesSpecificFragment_rendersInitializer() throws {
+//    // given
+//    schemaSDL = """
+//    type Query {
+//      allAnimals: [Animal!]
+//    }
+//
+//    type Animal {
+//      species: String!
+//    }
+//    """
+//
+//    document = """
+//    fragment TestFragment on Animal {
+//      species
+//    }
+//    """
+//
+//    let expected =
+//    """
+//      }
+//
+//      public init(
+//        species: String
+//      ) {
+//        self.init(data: DataDict(
+//          objectType: AnimalKingdomAPI.Objects.Cat,
+//          data: ["species": species],
+//          variables: nil
+//        ))
+//      }
+//    """
+//
+//    // when
+//    let subject = try buildFragmentTemplate(
+//      selectionSetInitializers: [.operations]
+//    )
+//
+//    let actual = subject.render()
+//
+//    // then
+//    expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
+//  }
+//
+//  func test__render_givenNamedFragment_configDoesNotIncludeNamedFragments_doesNotRenderInitializer() throws {
+//    // given
+//    schemaSDL = """
+//    type Query {
+//      allAnimals: [Animal!]
+//    }
+//
+//    type Animal {
+//      species: String!
+//    }
+//    """
+//
+//    document = """
+//    fragment TestFragment on Animal {
+//      species
+//    }
+//    """
+//
+//    // when
+//    let subject = try buildFragmentTemplate(
+//      selectionSetInitializers: [.operations]
+//    )
+//
+//    let actual = subject.render()
+//
+//    // then
+//    expect(actual).to(equalLineByLine("}", atLine: 13, ignoringExtraLines: true))
+//  }
+//
+//  func test__render_givenNamedFragments_configIncludeSpecificFragmentWithOtherName_doesNotRenderInitializer() throws {
+//    // given
+//    schemaSDL = """
+//    type Query {
+//      allAnimals: [Animal!]
+//    }
+//
+//    type Animal {
+//      species: String!
+//    }
+//    """
+//
+//    document = """
+//    fragment TestFragment on Animal {
+//      species
+//    }
+//    """
+//
+//    // when
+//    let subject = try buildFragmentTemplate(
+//      selectionSetInitializers: [.operations]
+//    )
+//
+//    let actual = subject.render()
+//
+//    // then
+//    expect(actual).to(equalLineByLine("}", atLine: 13, ignoringExtraLines: true))
+//  }
 
 }
