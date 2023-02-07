@@ -435,6 +435,8 @@ struct SelectionSetTemplate {
 
   private func InitializerObjectType(_ selectionSet: IR.SelectionSet) -> TemplateString {
     let isConcreteType = selectionSet.parentType is GraphQLObjectType
+    let implementedInterfaces = selectionSet.scope.matchingTypes
+      .filter({ $0 is GraphQLInterfaceType })
 
     return """
     let objectType = \
@@ -444,7 +446,7 @@ struct SelectionSetTemplate {
       \(config.ApolloAPITargetName).Object(
         typename: __typename,
         implementedInterfaces: [
-          TestSchema.Interfaces.Animal
+          \(implementedInterfaces.map(GeneratedTypeReference(_:)))
       ])
       """
     )

@@ -162,6 +162,73 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
   }
 
+  func test__render_givenNestedTypeCaseSelectionSetOnInterfaceTypeNotInheritingFromParentInterface_objectTypeIncludesAllInterfacesInScope() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+
+    interface Pet {
+      species: String!
+    }
+
+    interface WarmBlooded {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        ... on Pet {
+          ... on WarmBlooded {
+            species
+          }
+        }
+      }
+    }
+    """
+
+    let expected =
+    """
+      public init(
+        __typename: String,
+        species: String
+      ) {
+        let objectType = ApolloAPI.Object(
+          typename: __typename,
+          implementedInterfaces: [
+            TestSchema.Interfaces.Animal,
+            TestSchema.Interfaces.Pet,
+            TestSchema.Interfaces.WarmBlooded
+        ])
+        self.init(data: DataDict(
+          objectType: objectType,
+          data: [
+            "__typename": objectType.typename,
+            "species": species
+        ]))
+      }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let allAnimals_asPet_asWarmBlooded = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"]?[as: "Pet"]?[as: "WarmBlooded"]
+    )
+
+    let actual = subject.render(inlineFragment: allAnimals_asPet_asWarmBlooded)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
+  }
+
   // MARK: Selection Tests
 
   func test__render_given_scalarFieldSelections_rendersInitializer() throws {
