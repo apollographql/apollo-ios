@@ -33,7 +33,7 @@ class SelectionSetTemplateTests: XCTestCase {
     schemaDocumentation: ApolloCodegenConfiguration.Composition = .exclude,
     warningsOnDeprecatedUsage: ApolloCodegenConfiguration.Composition = .exclude,
     cocoapodsImportStatements: Bool = false,
-    mergeInFieldsFromFragmentSpreads: Bool = true
+    fragmentMergingStrategy: ApolloCodegenConfiguration.OutputOptions.FragmentMergingStrategy = .mergeAllFragmentSpreads
   ) throws {
     ir = try .mock(schema: schemaSDL, document: document)
     let operationDefinition = try XCTUnwrap(ir.compilationResult[operation: operationName])
@@ -46,7 +46,7 @@ class SelectionSetTemplateTests: XCTestCase {
         schemaDocumentation: schemaDocumentation,
         cocoapodsCompatibleImportStatements: cocoapodsImportStatements,
         warningsOnDeprecatedUsage: warningsOnDeprecatedUsage,
-        mergeInFieldsFromFragmentSpreads: mergeInFieldsFromFragmentSpreads
+        fragmentMergingStrategy: fragmentMergingStrategy
       )
     ))
     let mockTemplateRenderer = MockTemplateRenderer(
@@ -1487,7 +1487,7 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
   }
 
-  func test__render_selections__givenMergeInFieldsFromFragmentSpreads_rendersBody() throws {
+  func test__render_selections__givenFragmentMergingStrategy_mergeAll_rendersBody() throws {
     // given
     schemaSDL = """
     type Query {
@@ -1541,7 +1541,7 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
   }
 
-  func test__render_selections__givenMergeInFieldsFromFragmentSpreads_false_rendersBody() throws {
+  func test__render_selections__givenFragmentMergingStrategy_mergeNone_rendersBody() throws {
     // given
     schemaSDL = """
     type Query {
@@ -1581,7 +1581,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     // when
-    try buildSubjectAndOperation(mergeInFieldsFromFragmentSpreads: false)
+    try buildSubjectAndOperation(fragmentMergingStrategy: .mergeNone)
     let allAnimals = try XCTUnwrap(
       operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
     )

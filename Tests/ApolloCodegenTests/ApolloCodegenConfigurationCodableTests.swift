@@ -50,7 +50,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
           warningsOnDeprecatedUsage: .exclude,
           conversionStrategies:.init(enumCases: .none),
           pruneGeneratedFiles: false,
-          mergeInFieldsFromFragmentSpreads: false
+          fragmentMergingStrategy: .mergeNone
         ),
         experimentalFeatures: .init(
           clientControlledNullability: true,
@@ -89,7 +89,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
             "enumCases" : "none"
           },
           "deprecatedEnumCases" : "exclude",
-          "mergeInFieldsFromFragmentSpreads" : false,
+          "fragmentMergingStrategy" : "mergeNone",
           "pruneGeneratedFiles" : false,
           "queryStringLiteralFormat" : "singleLine",
           "schemaDocumentation" : "exclude",
