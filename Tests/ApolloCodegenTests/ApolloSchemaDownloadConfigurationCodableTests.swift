@@ -21,22 +21,27 @@ class ApolloSchemaDownloadConfigurationCodableTests: XCTestCase {
 
   // MARK: - ApolloSchemaDownloadConfiguration Tests
 
-  enum MockApolloSchemaDownloadConfiguration {
-    static var decodedStruct: ApolloSchemaDownloadConfiguration {
-      .init(
-        using: .introspection(
-          endpointURL: URL(string: "http://server.com")!,
-          httpMethod: .POST,
-          outputFormat: .SDL,
-          includeDeprecatedInputValues: true),
-        timeout: 120,
-        headers: [],
-        outputPath: "ServerSchema.graphqls"
-      )
-    }
+  func test__encodeApolloSchemaDownloadConfiguration__givenAllParameters_shouldReturnJSON_withHTTPHeadersAsArrayOfStructs() throws {
+    // given
+    let subject = ApolloSchemaDownloadConfiguration(
+      using: .introspection(
+        endpointURL: URL(string: "http://server.com")!,
+        httpMethod: .POST,
+        outputFormat: .SDL,
+        includeDeprecatedInputValues: true),
+      timeout: 120,
+      headers: [
+        .init(key: "Accept-Encoding", value: "gzip"),
+        .init(key: "Authorization", value: "Bearer <token>")
+      ],
+      outputPath: "ServerSchema.graphqls"
+    )
 
-    static var encodedJSON: String {
-      """
+    // when
+    let encodedJSON = try testJSONEncoder.encode(subject)
+    let actual = encodedJSON.asString
+
+    let expected = """
       {
         "downloadMethod" : {
           "introspection" : {
@@ -52,35 +57,125 @@ class ApolloSchemaDownloadConfigurationCodableTests: XCTestCase {
         },
         "downloadTimeout" : 120,
         "headers" : [
-
+          {
+            "key" : "Accept-Encoding",
+            "value" : "gzip"
+          },
+          {
+            "key" : "Authorization",
+            "value" : "Bearer <token>"
+          }
         ],
         "outputPath" : "ServerSchema.graphqls"
       }
       """
-    }
-  }
-
-  func test__encodeApolloSchemaDownloadConfiguration__givenAllParameters_shouldReturnJSON() throws {
-    // given
-    let subject = MockApolloSchemaDownloadConfiguration.decodedStruct
-
-    // when
-    let encodedJSON = try testJSONEncoder.encode(subject)
-    let actual = encodedJSON.asString
 
     // then
-    expect(actual).to(equal(MockApolloSchemaDownloadConfiguration.encodedJSON))
+    expect(actual).to(equal(expected))
   }
 
-  func test__decodeApolloSchemaDownloadConfiguration__givenAllParameters_shouldReturnStruct() throws {
+  func test__decodeApolloSchemaDownloadConfiguration__givenAllParameters_withHTTPHeadersAsArrayOfStructs_shouldReturnStruct() throws {
     // given
-    let subject = MockApolloSchemaDownloadConfiguration.encodedJSON.asData
+    let subject = """
+      {
+        "downloadMethod" : {
+          "introspection" : {
+            "endpointURL" : "http://server.com",
+            "httpMethod" : {
+              "POST" : {
+
+              }
+            },
+            "includeDeprecatedInputValues" : true,
+            "outputFormat" : "SDL"
+          }
+        },
+        "downloadTimeout" : 120,
+        "headers" : [
+          {
+            "key" : "Accept-Encoding",
+            "value" : "gzip"
+          },
+          {
+            "key" : "Authorization",
+            "value" : "Bearer <token>"
+          }
+        ],
+        "outputPath" : "ServerSchema.graphqls"
+      }
+      """
 
     // when
-    let actual = try JSONDecoder().decode(ApolloSchemaDownloadConfiguration.self, from: subject)
+    let actual = try JSONDecoder().decode(
+      ApolloSchemaDownloadConfiguration.self,
+      from: subject.asData
+    )
+
+    let expected = ApolloSchemaDownloadConfiguration(
+      using: .introspection(
+        endpointURL: URL(string: "http://server.com")!,
+        httpMethod: .POST,
+        outputFormat: .SDL,
+        includeDeprecatedInputValues: true),
+      timeout: 120,
+      headers: [
+        .init(key: "Accept-Encoding", value: "gzip"),
+        .init(key: "Authorization", value: "Bearer <token>")
+      ],
+      outputPath: "ServerSchema.graphqls"
+    )
 
     // then
-    expect(actual).to(equal(MockApolloSchemaDownloadConfiguration.decodedStruct))
+    expect(actual).to(equal(expected))
+  }
+
+  func test__decodeApolloSchemaDownloadConfiguration__givenAllParameters_withHTTPHeadersAsDictionary_shouldReturnStruct() throws {
+    // given
+    let subject = """
+      {
+        "downloadMethod" : {
+          "introspection" : {
+            "endpointURL" : "http://server.com",
+            "httpMethod" : {
+              "POST" : {
+
+              }
+            },
+            "includeDeprecatedInputValues" : true,
+            "outputFormat" : "SDL"
+          }
+        },
+        "downloadTimeout" : 120,
+        "headers" : {
+          "Accept-Encoding" : "gzip",
+          "Authorization" : "Bearer <token>"
+        },
+        "outputPath" : "ServerSchema.graphqls"
+      }
+      """
+
+    // when
+    let actual = try JSONDecoder().decode(
+      ApolloSchemaDownloadConfiguration.self,
+      from: subject.asData
+    )
+
+    let expected = ApolloSchemaDownloadConfiguration(
+      using: .introspection(
+        endpointURL: URL(string: "http://server.com")!,
+        httpMethod: .POST,
+        outputFormat: .SDL,
+        includeDeprecatedInputValues: true),
+      timeout: 120,
+      headers: [
+        .init(key: "Accept-Encoding", value: "gzip"),
+        .init(key: "Authorization", value: "Bearer <token>")
+      ],
+      outputPath: "ServerSchema.graphqls"
+    )
+
+    // then
+    expect(actual).to(equal(expected))
   }
 
   func test__decodeApolloSchemaDownloadConfiguration__givenOnlyRequiredParameters_shouldReturnStruct() throws {
