@@ -74,7 +74,7 @@ XCTAssertEqual(model.hero.friends[1].name, "C-3PO")
 
 To generate test mocks along side your schema types and operation models, configure your code generation configuration to include them as described in [code generation configuration -  Test mocks](./../code-generation/codegen-configuration#test-mocks).
 
-Once you've generated test mocks and linked them to your unit test target, just import your `ApolloTestSupport` in your unit tests to start using them.
+Once you've generated test mocks and linked them to your unit test target, you will need to import `ApolloTestSupport` in your unit tests to start using them.
 
 ```swift
 import MyTestMocksTarget
