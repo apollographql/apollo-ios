@@ -1,5 +1,19 @@
 # Change Log
 
+## v1.0.7
+
+### Fixed
+- **Couldn't build when using some reserved words in a schema ([#2765](https://github.com/apollographql/apollo-ios/issues/2765)):** `for` has been added to the list of reserved keywords that are escaped with backticks when used in schema types and operations. [#2772](https://github.com/apollographql/apollo-ios/pull/2772) - _Thank you to [@torycons](https://github.com/torycons) for raising the issue._
+- **Subscript GraphQL variable from dictionary crash when Swift modifier used as key ([#2759](https://github.com/apollographql/apollo-ios/issues/2759)):** Backticks have been removed from subscript keys of input objects. [#2773](https://github.com/apollographql/apollo-ios/pull/2773) - _Thank you to [@SzymonMatysik](https://github.com/SzymonMatysik) for raising the issue._
+- **Unnamed fields in schema results in broken generated Swift code ([#2753](https://github.com/apollographql/apollo-ios/issues/2753)):** The `_` character can be used as a GraphQL field name. [#2769](https://github.com/apollographql/apollo-ios/pull/2769) - _Thank you to [@neakor](https://github.com/neakor) for raising the issue._
+- **LocalCacheMutation with an enum field fails ([#2775](https://github.com/apollographql/apollo-ios/issues/2775)):** When writing selection set data back into the cache, custom scalars are now re-encoded back into their `_jsonValue`. [#2778](https://github.com/apollographql/apollo-ios/pull/2778) - _Thank you to [@dabby-wombo](https://github.com/dabby-wombo) for raising the issue._
+- **DataDict subscript function crashes on iOS 14.4 and under ([#2668](https://github.com/apollographql/apollo-ios/issues/2668)):** `AnyHashable` conversions when accessing `DataDict` properties now perform checks on the base type. [#2784](https://github.com/apollographql/apollo-ios/pull/2784) - _Thank you to [@bdunay3](https://github.com/bdunay3) for raising the issue._
+- **`@include` directive based on variable with default value drops the included data ([#2690](https://github.com/apollographql/apollo-ios/issues/2690)):** The GraphQL executor will now correctly evaluation `GraphQLNullable` conditional variables. [#2794](https://github.com/apollographql/apollo-ios/pull/2794) - _Thank you to [@klanchman](https://github.com/klanchman) for raising the issue._
+- **Interfaces implemented by schema root are not generated ([#2756](https://github.com/apollographql/apollo-ios/issues/2756)):** Interfaces references on the root type Query, Mutation or Subscription are now included in the schema module. [#2816](https://github.com/apollographql/apollo-ios/pull/2816) - _Thank you to [@litso](https://github.com/litso) for raising the issue._
+
+### Changed
+- **HTTP headers format in schema download configuration JSON ([#2661](https://github.com/apollographql/apollo-ios/issues/2661)):** `HTTPHeaders` in the `ApolloSchemaDownloadConfiguration` section of the codegen configuration JSON file can now be specified using the more intuitive format `{ "Authorization": "<token>"}`. [#2811](https://github.com/apollographql/apollo-ios/pull/2811) - _Thank you to [@nikitrivedii](https://github.com/nikitrivedii) for raising the issue._
+
 ## v1.0.6
 
 ### Fixed
