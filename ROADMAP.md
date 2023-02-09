@@ -1,6 +1,6 @@
 # 🔮 Apollo iOS Roadmap
 
-**Last updated: 2023-01-30**
+**Last updated: 2023-02-09**
 
 For up to date release notes, refer to the project's [Changelog](https://github.com/apollographql/apollo-ios/blob/main/CHANGELOG.md).
 
@@ -43,7 +43,7 @@ _Approximate Date: 2023-03-30_
 
 ## [1.3: Reduce generated schema types](https://github.com/apollographql/apollo-ios/milestone/71)
 
-_Approximate Date: 2023-04-27_
+_Approximate Date: Late April 2023
 
 - Right now we are naively generating schema types that we don't always need. A smarter algorithm can reduce generated code for certain large schemas that are currently having every type in their schema generated
 - Create configuration for manually indicating schema types you would like to have schema types and TestMocks generated for
@@ -56,7 +56,7 @@ These are the major initiatives planned for 2.0/2.x:
 
 - **Networking Stack Improvements**: The goal is to simplify and stabilise the networking stack.
   - The [updated network stack](https://github.com/apollographql/apollo-ios/issues/1340) solved a number of long standing issues with the old barebones NetworkTransport but still has limitations and is complicated to use. Adopting patterns that have proven useful for the web client, such as Apollo Link, will provide more flexibility and give developers full control over the steps that are invoked to satisfy requests.
-  - We would love to bring some of the new Swift concurrency features, such as async/await, to Apollo iOS but that depends on the Swift team's work for backwards deployment of the concurrency library. It may involve Apollo iOS dropping support for macOS 10.14 and iOS 12.
+  - We will support some of the new Swift concurrency features, such as async/await, in Apollo iOS. It may involve Apollo iOS dropping support for macOS 10.14 and iOS 12.
 
 ## 3.0
 
