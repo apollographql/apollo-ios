@@ -288,7 +288,10 @@
 },
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloSchemaDownloadConfiguration/HTTPHeader": {
   "abstract" : [
-
+    {
+      "text" : "An HTTP header that will be sent in the schema download request.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
