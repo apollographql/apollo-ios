@@ -100,11 +100,12 @@
               "type" : "text"
             },
             {
-              "code" : "JSONDecodable\/init(jsonValue:)",
-              "type" : "codeVoice"
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONDecodable",
+              "isActive" : true,
+              "type" : "reference"
             },
             {
-              "text" : " fails.",
+              "text" : " initialization fails.",
               "type" : "text"
             },
             {

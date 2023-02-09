@@ -300,7 +300,7 @@
             {
               "inlineContent" : [
                 {
-                  "text" : "[optional] Any additional headers to include when retrieving your schema.",
+                  "text" : "[optional] Any additional HTTP headers to include when retrieving your schema.",
                   "type" : "text"
                 },
                 {
@@ -440,7 +440,10 @@
 },
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloSchemaDownloadConfiguration/HTTPHeader": {
   "abstract" : [
-
+    {
+      "text" : "An HTTP header that will be sent in the schema download request.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
