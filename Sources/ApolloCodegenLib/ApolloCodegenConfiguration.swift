@@ -796,6 +796,18 @@ extension ApolloCodegenConfiguration.OutputOptions {
 
     return selectionSetInitializers.contains(definitionNamed: operation.definition.name)
   }
+
+  /// Determine whether the operations files are output to the schema types module.
+  func shouldGenerateSelectionSetInitializers(for fragment: IR.NamedFragment) -> Bool {
+    if selectionSetInitializers.contains(.namedFragments) { return true }
+
+    if fragment.definition.isLocalCacheMutation &&
+        selectionSetInitializers.contains(.localCacheMutations) {
+      return true
+    }
+
+    return selectionSetInitializers.contains(definitionNamed: fragment.definition.name)
+  }
 }
 
 // MARK: - SelectionSetInitializers - Private Implementation
