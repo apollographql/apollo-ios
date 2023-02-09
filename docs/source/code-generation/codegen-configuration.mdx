@@ -556,7 +556,10 @@ The properties you will need to configure are:
 		}
 	},
 	"downloadTimeout": 60,
-	"headers": [],
+	"headers": {
+		"Accept-Encoding" : "gzip",
+		"Authorization" : "Bearer <token>"
+	},
 	"outputPath": "./graphql/"
 }
 ```
@@ -570,7 +573,10 @@ let configuration = ApolloCodegenConfiguration(
       graphID: "your-graphid",
       variant: "current")),
     timeout: 60.0,
-    headers: [],
+    headers: [
+      .init(key: "Accept-Encoding", value: "gzip"),
+      .init(key: "Authorization", value: "Bearer <token>")
+    ],
     outputPath: "./graphql/")
 )
 ```
