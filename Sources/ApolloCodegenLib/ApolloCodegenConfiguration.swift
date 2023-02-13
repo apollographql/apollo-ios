@@ -789,12 +789,16 @@ extension ApolloCodegenConfiguration.OperationsFileOutput {
 extension ApolloCodegenConfiguration.OutputOptions {
   /// Determine whether the operations files are output to the schema types module.
   func shouldGenerateSelectionSetInitializers(for operation: IR.Operation) -> Bool {
-    if operation.definition.isLocalCacheMutation &&
-        selectionSetInitializers.contains(.localCacheMutations) {
+    switch operation.definition.isLocalCacheMutation {
+    case true where selectionSetInitializers.contains(.localCacheMutations):
       return true
-    }
 
-    return selectionSetInitializers.contains(definitionNamed: operation.definition.name)
+    case false where selectionSetInitializers.contains(.operations):
+      return true
+
+    default:
+      return selectionSetInitializers.contains(definitionNamed: operation.definition.name)
+    }
   }
 
   /// Determine whether the operations files are output to the schema types module.
