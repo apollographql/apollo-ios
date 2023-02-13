@@ -840,12 +840,48 @@ extension ApolloCodegenConfiguration.SelectionSetInitializers {
   func contains(definitionNamed definitionName: String) -> Bool {
     self.definitions.contains(definitionName)
   }
-}
 
-#warning("TODO: Delete")
-let initConfig: ApolloCodegenConfiguration.SelectionSetInitializers = [
-  .namedFragments,
-  .localCacheMutations,
-  .operation(named: "AllAnimalsQuery"),
-  .fragment(named: "PetDetails")
-]
+  // MARK: Codable
+
+  enum CodingKeys: CodingKey {
+    case operations
+    case namedFragments
+    case localCacheMutations
+  }
+
+  public init(from decoder: Decoder) throws {
+    let values = try decoder.container(keyedBy: CodingKeys.self)
+    var options: Options = []
+    var definitions:
+
+    func decode(option: @autoclosure () -> Options, forKey key: CodingKeys) {
+      if let value = try? values.decode(Bool.self, forKey: key), value {
+        options.insert(option())
+      }
+    }
+
+    decode(option: .operations, forKey: .operations)
+    decode(option: .namedFragments, forKey: .namedFragments)
+    decode(option: .localCacheMutations, forKey: .localCacheMutations)
+
+    self.options = options
+    self.definitions =
+  }
+
+  public func encode(to encoder: Encoder) throws {
+    var container = encoder.container(keyedBy: CodingKeys.self)
+
+    if options.contains(.operations) {
+      try container.encode(true, forKey: .operations)
+    }
+
+    if options.contains(.namedFragments) {
+      try container.encode(true, forKey: .namedFragments)
+    }
+
+    if options.contains(.localCacheMutations) {
+      try container.encode(true, forKey: .localCacheMutations)
+    }
+  }
+
+}
