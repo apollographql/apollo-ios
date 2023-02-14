@@ -569,7 +569,6 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
   }
 
   #warning("TODO: Document")
-  #warning("Implement and test custom codable")
   public struct SelectionSetInitializers: Codable, Equatable, ExpressibleByArrayLiteral {
     private var options: SelectionSetInitializers.Options
     private var definitions: Set<String>
@@ -847,40 +846,44 @@ extension ApolloCodegenConfiguration.SelectionSetInitializers {
     case operations
     case namedFragments
     case localCacheMutations
+    case definitionsNamed
   }
 
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
     var options: Options = []
-    var definitions:
 
-    func decode(option: @autoclosure () -> Options, forKey key: CodingKeys) {
-      if let value = try? values.decode(Bool.self, forKey: key), value {
+    func decode(option: @autoclosure () -> Options, forKey key: CodingKeys) throws {
+      if let value = try values.decodeIfPresent(Bool.self, forKey: key), value {
         options.insert(option())
       }
     }
 
-    decode(option: .operations, forKey: .operations)
-    decode(option: .namedFragments, forKey: .namedFragments)
-    decode(option: .localCacheMutations, forKey: .localCacheMutations)
+    try decode(option: .operations, forKey: .operations)
+    try decode(option: .namedFragments, forKey: .namedFragments)
+    try decode(option: .localCacheMutations, forKey: .localCacheMutations)
 
     self.options = options
-    self.definitions =
+    self.definitions = try values.decodeIfPresent(
+      Set<String>.self,
+      forKey: .definitionsNamed) ?? []
   }
 
   public func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
 
-    if options.contains(.operations) {
-      try container.encode(true, forKey: .operations)
+    func encodeIfPresent(option: Options, forKey key: CodingKeys) throws {
+      if options.contains(option) {
+        try container.encode(true, forKey: key)
+      }
     }
 
-    if options.contains(.namedFragments) {
-      try container.encode(true, forKey: .namedFragments)
-    }
+    try encodeIfPresent(option: .operations, forKey: .operations)
+    try encodeIfPresent(option: .namedFragments, forKey: .namedFragments)
+    try encodeIfPresent(option: .localCacheMutations, forKey: .localCacheMutations)
 
-    if options.contains(.localCacheMutations) {
-      try container.encode(true, forKey: .localCacheMutations)
+    if !definitions.isEmpty {
+      try container.encode(definitions.sorted(), forKey: .definitionsNamed)
     }
   }
 

@@ -547,19 +547,21 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
     expect(decoded).to(equal(.all))
   }
 
-  func test__encode_selectionSetInitializers__givenOperations_asList_shouldReturnObjectString() throws {
+  func test__encode_selectionSetInitializers__givenDefinitionList_shouldReturnObjectString() throws {
     // given
     let subject: ApolloCodegenConfiguration.SelectionSetInitializers = [
+      .namedFragments,
       .operation(named: "Operation1"),
       .operation(named: "Operation2")
     ]
 
     let expected = """
     {
-      "operations" : [
+      "definitionsNamed" : [
         "Operation1",
         "Operation2"
-      ]
+      ],
+      "namedFragments" : true
     }
     """
 
@@ -574,7 +576,8 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
     // given
     let subject = """
     {
-      "operations" : [
+      "namedFragments" : true,
+      "definitionsNamed" : [
         "Operation1",
         "Operation2"
       ]
@@ -582,6 +585,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
     """.asData
 
     let expected: ApolloCodegenConfiguration.SelectionSetInitializers = [
+      .namedFragments,
       .operation(named: "Operation1"),
       .operation(named: "Operation2")
     ]
