@@ -4,17 +4,17 @@ import Nimble
 import ApolloCodegenInternalTestHelpers
 
 class SelectionSetTemplate_Initializers_Tests: XCTestCase {
-
+  
   var schemaSDL: String!
   var document: String!
   var ir: IR!
   var operation: IR.Operation!
   var subject: SelectionSetTemplate!
-
+  
   override func setUp() {
     super.setUp()
   }
-
+  
   override func tearDown() {
     schemaSDL = nil
     document = nil
@@ -23,9 +23,9 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
     subject = nil
     super.tearDown()
   }
-
+  
   // MARK: - Helpers
-
+  
   func buildSubjectAndOperation(
     named operationName: String = "TestOperation"
   ) throws {
@@ -41,23 +41,23 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
       config: ApolloCodegen.ConfigurationContext(config: config)
     )
   }
-
+  
   // MARK: - Tests
-
+  
   // MARK: Object Type Tests
-
+  
   func test__render_givenSelectionSetOnObjectType_parametersDoNotIncludeTypenameFieldAndObjectTypeIsRenderedDirectly() throws {
     // given
     schemaSDL = """
     type Query {
       allAnimals: [Animal!]
     }
-
+    
     type Animal {
       species: String!
     }
     """
-
+    
     document = """
     query TestOperation {
       allAnimals {
@@ -65,7 +65,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
       }
     }
     """
-
+    
     let expected =
     """
       public init(
@@ -80,32 +80,32 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
         ]))
       }
     """
-
+    
     // when
     try buildSubjectAndOperation()
-
+    
     let allAnimals = try XCTUnwrap(
       operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
     )
-
+    
     let actual = subject.render(field: allAnimals)
-
+    
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
   }
-
+  
   func test__render_givenSelectionSetOnInterfaceType_parametersIncludeTypenameFieldAndObjectTypeIsRenderedWithInterfaceIncluded() throws {
     // given
     schemaSDL = """
     type Query {
       allAnimals: [Animal!]
     }
-
+    
     interface Animal {
       species: String!
     }
     """
-
+    
     document = """
     query TestOperation {
       allAnimals {
@@ -113,7 +113,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
       }
     }
     """
-
+    
     let expected =
     """
       public init(
@@ -133,40 +133,40 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
         ]))
       }
     """
-
+    
     // when
     try buildSubjectAndOperation()
-
+    
     let allAnimals = try XCTUnwrap(
       operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
     )
-
+    
     let actual = subject.render(field: allAnimals)
-
+    
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
   }
-
+  
   func test__render_givenNestedTypeCaseSelectionSetOnInterfaceTypeNotInheritingFromParentInterface_objectTypeIncludesAllInterfacesInScope() throws {
     // given
     schemaSDL = """
     type Query {
       allAnimals: [Animal!]
     }
-
+    
     interface Animal {
       species: String!
     }
-
+    
     interface Pet {
       species: String!
     }
-
+    
     interface WarmBlooded {
       species: String!
     }
     """
-
+    
     document = """
     query TestOperation {
       allAnimals {
@@ -178,7 +178,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
       }
     }
     """
-
+    
     let expected =
     """
       public init(
@@ -200,29 +200,29 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
         ]))
       }
     """
-
+    
     // when
     try buildSubjectAndOperation()
-
+    
     let allAnimals_asPet_asWarmBlooded = try XCTUnwrap(
       operation[field: "query"]?[field: "allAnimals"]?[as: "Pet"]?[as: "WarmBlooded"]
     )
-
+    
     let actual = subject.render(inlineFragment: allAnimals_asPet_asWarmBlooded)
-
+    
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
   }
-
+  
   // MARK: Selection Tests
-
+  
   func test__render_given_scalarFieldSelections_rendersInitializer() throws {
-      // given
+    // given
     schemaSDL = """
     type Query {
       allAnimals: [Animal!]
     }
-
+    
     type Animal {
       string: String!
       string_optional: String
@@ -249,10 +249,10 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
       nestedList_optional_optional_required: [[String!]]
       nestedList_optional_optional_optional: [[String]]
     }
-
+    
     scalar Custom
     """
-
+    
     document = """
     query TestOperation {
       allAnimals {
@@ -283,7 +283,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
       }
     }
     """
-
+    
     let expected = """
         public init(
           string: String,
@@ -343,18 +343,180 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
           ]))
         }
       """
+    
+    // when
+    try buildSubjectAndOperation()
+    
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+    
+    let actual = subject.render(field: allAnimals)
+    
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 61, ignoringExtraLines: true))
+  }
 
-      // when
-      try buildSubjectAndOperation()
-
-      let allAnimals = try XCTUnwrap(
-        operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
-      )
-
-      let actual = subject.render(field: allAnimals)
-
-      // then
-      expect(actual).to(equalLineByLine(expected, atLine: 61, ignoringExtraLines: true))
+  func test__render_given_fieldWithAlias_rendersInitializer() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
     }
 
+    type Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        aliased: species
+      }
+    }
+    """
+
+    let expected = """
+        public init(
+          aliased: String
+        ) {
+          let objectType = TestSchema.Objects.Animal
+          self.init(data: DataDict(
+            objectType: objectType,
+            data: [
+              "__typename": objectType.typename,
+              "aliased": aliased
+          ]))
+        }
+      """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
+  }
+  
+  func test__render_given_entityFieldSelection_rendersInitializer() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      species: String!
+      friend: Animal!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        friend {
+          species
+        }
+      }
+    }
+    """
+
+    let expected = """
+        public init(
+          friend: Friend
+        ) {
+          let objectType = TestSchema.Objects.Animal
+          self.init(data: DataDict(
+            objectType: objectType,
+            data: [
+              "__typename": objectType.typename,
+              "friend": friend.__data._data
+          ]))
+        }
+      """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
+  }
+
+  func test__render_given_mergedSelection_rendersInitializer() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+      age: Int!
+    }
+
+    interface Pet implements Animal {
+      species: String!
+      age: Int!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        age
+        ... on Pet {
+          species
+        }
+      }
+    }
+    """
+
+    let expected =
+    """
+      public init(
+        __typename: String,
+        species: String,
+        age: Int
+      ) {
+        let objectType = ApolloAPI.Object(
+          typename: __typename,
+          implementedInterfaces: [
+            TestSchema.Interfaces.Animal,
+            TestSchema.Interfaces.Pet
+        ])
+        self.init(data: DataDict(
+          objectType: objectType,
+          data: [
+            "__typename": objectType.typename,
+            "species": species,
+            "age": age
+        ]))
+      }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let allAnimals_asPet = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"]?[as: "Pet"]
+    )
+
+    let actual = subject.render(inlineFragment: allAnimals_asPet)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 16, ignoringExtraLines: true))
+  }
+  
 }

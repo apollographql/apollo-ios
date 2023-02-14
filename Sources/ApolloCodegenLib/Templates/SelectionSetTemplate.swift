@@ -418,7 +418,12 @@ struct SelectionSetTemplate {
     return TemplateString("""
     \(ifLet: selections.direct, {
       "\($0.fields.values.map(InitializerParameterTemplate(_:)))"
-    })
+    })\
+    \(ifLet: selections.merged.fields.values,
+      where: { !$0.isEmpty }, { """
+      ,
+      \($0.map(InitializerParameterTemplate(_:)))
+      """ })
     """
     )
   }
@@ -427,8 +432,7 @@ struct SelectionSetTemplate {
     _ field: IR.Field
   ) -> TemplateString {
     """
-    \(field.name.asInputParameterName): \
-    \(field.type.rendered(as: .selectionSetField(), config: config.config))\
+    \(field.responseKey.asInputParameterName): \(typeName(for: field))\
     \(if: field.type.isNullable, " = nil")
     """
   }
@@ -460,7 +464,12 @@ struct SelectionSetTemplate {
     "__typename": objectType.typename,
     \(ifLet: selections.direct, {
       "\($0.fields.values.map(InitializerDataDictFieldTemplate(_:)))"
-    })
+    })\
+    \(ifLet: selections.merged.fields.values,
+      where: { !$0.isEmpty }, { """
+      ,
+      \($0.map(InitializerDataDictFieldTemplate(_:)))
+      """ })
     """
     )
   }
@@ -469,7 +478,8 @@ struct SelectionSetTemplate {
     _ field: IR.Field
   ) -> TemplateString {
     """
-    "\(field.responseKey)": \(field.name.asInputParameterName)
+    "\(field.responseKey)": \(field.responseKey.asInputParameterName)\
+    \(if: field is IR.EntityField, ".__data._data")
     """
   }
 

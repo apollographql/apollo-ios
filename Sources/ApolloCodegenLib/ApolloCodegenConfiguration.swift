@@ -568,7 +568,8 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     case persistedOperationsOnly
   }
 
-  #warning("TODO: Document")
+  #warning("TODO: Inline Documentation")
+  #warning("TODO: Usage Docs")
   public struct SelectionSetInitializers: Codable, Equatable, ExpressibleByArrayLiteral {
     private var options: SelectionSetInitializers.Options
     private var definitions: Set<String>
