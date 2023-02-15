@@ -65,7 +65,7 @@ let mock = Mock<Query>(
     )
 )
 
-let model = HeroAndFriendsQuery.Data(from: mock)
+let model = HeroAndFriendsQuery.Data.from(mock)
 
 XCTAssertEqual(model.hero.friends[1].name, "C-3PO")
 ```
