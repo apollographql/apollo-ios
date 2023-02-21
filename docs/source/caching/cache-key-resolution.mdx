@@ -72,8 +72,8 @@ To configure how cache keys are computed from a response object, you can create 
 
 If your schema provides a common unique identifier across many of your objects types, you may want to use that field as the **cache ID** by default.
 
-```swift
-public extension MySchema {
+```swift title="SchemaConfiguration.swift"
+public enum SchemaConfiguration: ApolloAPI.SchemaConfiguration {
   static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
     guard let id = object["id"] as? String else {
         return nil
@@ -92,8 +92,8 @@ Alternatively, you can use the [`init(jsonValue:uniqueKeyGroup:)`](https://www.a
 
 If you want to return `nil` when the value does not exist, you can use `try?`.
 
-```swift
-public extension MySchema {
+```swift title="SchemaConfiguration.swift"
+public enum SchemaConfiguration: ApolloAPI.SchemaConfiguration {
   static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
     return try? CacheKeyInfo(jsonValue: object["id"])
   }
@@ -106,8 +106,8 @@ If you would like to specify **cache IDs** differently for different types of ob
 
 For an object of the type `Dog` with a unique key represented by an `id` field, you may implement cache key resolution as:
 
-```swift
-public extension MySchema {
+```swift title="SchemaConfiguration.swift"
+public enum SchemaConfiguration: ApolloAPI.SchemaConfiguration {
   static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
     switch type {
     case Objects.Dog:
@@ -128,8 +128,8 @@ The generated schema metadata includes `Interfaces` and `Unions` types that cont
 
 For example, for a schema with `Dog` and `Cat` types that implement `interface Pet`, you may implement cache key resolution as:
 
-```swift
-public extension MySchema {
+```swift title="SchemaConfiguration.swift"
+public enum SchemaConfiguration: ApolloAPI.SchemaConfiguration {
   static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
     if type.implements(Interfaces.Pet) {
       return try? CacheKeyInfo(jsonValue: object["id"])
@@ -142,8 +142,8 @@ public extension MySchema {
 
 To instead configure cache key resolution based on a `union` type, use the union's [`possibleTypes`](https://www.apollographql.com/docs/ios/docc/documentation/apolloapi/union/possibletypes) property.
 
-```swift
-public extension MySchema {
+```swift title="SchemaConfiguration.swift"
+public enum SchemaConfiguration: ApolloAPI.SchemaConfiguration {
   static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
     if Unions.ClassroomPets.possibleTypes.contains(type) {
       return try? CacheKeyInfo(jsonValue: object["id"])
@@ -162,8 +162,8 @@ If your **cache IDs** values are guaranteed to be unique across a number of diff
 
 For example, if all objects that implement `interface Animal` will have unique **cache IDs**, whether they are `Dog`, `Cat`, or any other type that implements `Animal`, they can share a `uniqueKeyGroup`.
 
-```swift
-public extension MySchema {
+```swift title="SchemaConfiguration.swift"
+public enum SchemaConfiguration: ApolloAPI.SchemaConfiguration {
   static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
     if type.implements(Interfaces.Pet) {
       return try? CacheKeyInfo(
