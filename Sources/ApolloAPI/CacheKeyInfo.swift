@@ -12,7 +12,7 @@
 /// For an object of the type `Dog` with a unique id represented by an `id` field, you may
 /// implement cache key resolution with:
 /// ```swift
-/// public extension MySchema {
+/// enum SchemaConfiguration: ApolloAPI.SchemaConfiguration {
 ///   static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
 ///     switch type {
 ///     case Objects.Dog:
@@ -31,7 +31,7 @@
 /// For example, for a schema with `Dog` and `Cat` ``Object`` types that implement a `Pet`
 /// ``Interface``, you may implement cache key resolution with:
 /// ```swift
-/// public extension MySchema {
+/// enum SchemaConfiguration: ApolloAPI.SchemaConfiguration {
 ///   static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
 ///     if type.implements(Interfaces.Pet) {
 ///       return try? CacheKeyInfo(jsonValue: object["id"])
@@ -47,7 +47,7 @@
 /// ``Interface``, you may want to group them together in the cache. See ``uniqueKeyGroup`` for
 /// more information on the benefits of grouping cached objects.
 /// ```swift
-/// public extension MySchema {
+/// enum SchemaConfiguration: ApolloAPI.SchemaConfiguration {
 ///   static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
 ///     if type.implements(Interfaces.Pet) {
 ///       return try? CacheKeyInfo(jsonValue: object["id"], uniqueKeyGroup: Interfaces.Pet.name)
