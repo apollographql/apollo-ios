@@ -339,7 +339,9 @@ struct SelectionSetTemplate {
       \(ifLet: selections.direct?.fragments.values, {
         "\($0.map { FragmentAccessorTemplate($0, in: scope) }, separator: "\n")"
         })
-      \(selections.merged.fragments.values.map { FragmentAccessorTemplate($0, in: scope) }, separator: "\n")
+      \(selections.merged.fragments.values.map {
+          FragmentAccessorTemplate($0, in: scope)
+        }, separator: "\n")
     }
     """
   }
