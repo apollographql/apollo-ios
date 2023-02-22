@@ -54,7 +54,7 @@ The `favoriteBook` field in this query returns a `Book` object, which in turn in
 }
 ```
 
-A normalized cache does _not_ store this response directly. Instead, it breaks it up into indvidual cache entries. By default, these cache entries are identified by their path from the [root operation](https://spec.graphql.org/draft/#sec-Root-Operation-Types). Because this example is a query (rather than a mutation or subscription), the root has the name `QUERY_ROOT`.
+A normalized cache does _not_ store this response directly. Instead, it breaks it up into individual cache entries. By default, these cache entries are identified by their path from the [root operation](https://spec.graphql.org/draft/#sec-Root-Operation-Types). Because this example is a query (rather than a mutation or subscription), the root has the name `QUERY_ROOT`.
 
 ```json title="Cache Entries"
 "QUERY_ROOT": {
@@ -196,7 +196,7 @@ To configure cache keys, we return a new `CacheKeyInfo` value from the `SchemaCo
 static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
   switch type {
   case MySchema.Objects.Book:
-    try? CacheKeyInfo(jsonValue: object["id"])
+    return try? CacheKeyInfo(jsonValue: object["id"])
 
   default: return nil
   }
