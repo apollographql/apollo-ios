@@ -1,5 +1,6 @@
 #if !COCOAPODS
 import ApolloAPI
+@_spi(ApolloInternal) import ApolloAPI
 #endif
 
 import Foundation

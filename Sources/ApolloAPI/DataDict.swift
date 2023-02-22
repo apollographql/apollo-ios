@@ -3,7 +3,9 @@ public struct DataDict: Hashable {
 
   public var _data: JSONObject
   public let _variables: GraphQLOperation.Variables?
+  @_spi(ApolloInternal) public let _fulfilledFragments: Set<String> = []
 
+  @_spi(ApolloInternal)
   public init(
     _ data: JSONObject,
     variables: GraphQLOperation.Variables?
@@ -49,7 +51,7 @@ public protocol SelectionSetEntityValue {
 }
 
 extension AnySelectionSet {
-  @inlinable public init(fieldData: AnyHashable?, variables: GraphQLOperation.Variables?) {
+  @_spi(ApolloInternal) @inlinable public init(fieldData: AnyHashable?, variables: GraphQLOperation.Variables?) {
     guard let fieldData = fieldData as? JSONObject else {
       fatalError("\(Self.self) expected data for entity.")
     }

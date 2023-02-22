@@ -2,6 +2,7 @@
 // This file was automatically generated and should not be edited.
 
 @_exported import ApolloAPI
+@_spi(ApolloInternal) import ApolloAPI
 import PackageTwo
 
 struct PetDetails: MySchemaModule.SelectionSet, Fragment {

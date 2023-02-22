@@ -204,6 +204,7 @@ struct ImportStatementTemplate {
       let apolloAPITargetName = config.ApolloAPITargetName
       return """
       @_exported import \(apolloAPITargetName)
+      @_spi(ApolloInternal) import \(apolloAPITargetName)
       \(if: config.output.operations != .inSchemaModule, "import \(config.schemaModuleName)")
       """
     }

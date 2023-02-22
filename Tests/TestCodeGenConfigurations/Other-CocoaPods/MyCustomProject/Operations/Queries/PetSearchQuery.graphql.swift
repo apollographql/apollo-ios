@@ -2,6 +2,7 @@
 // This file was automatically generated and should not be edited.
 
 @_exported import Apollo
+@_spi(ApolloInternal) import Apollo
 
 public class PetSearchQuery: GraphQLQuery {
   public static let operationName: String = "PetSearch"

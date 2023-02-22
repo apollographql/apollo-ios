@@ -2,6 +2,7 @@
 // This file was automatically generated and should not be edited.
 
 @_exported import ApolloAPI
+@_spi(ApolloInternal) import ApolloAPI
 
 public struct DogFragment: GraphQLAPI.SelectionSet, Fragment {
   public static var fragmentDefinition: StaticString { """

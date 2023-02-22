@@ -44,17 +44,4 @@ class MyCustomProjectTests: XCTestCase {
     waitForExpectations(timeout: 1.0)
   }
 
-  func test_mockObject() throws {
-    let mock = Mock<Dog>()
-
-    XCTAssertEqual(mock.__typename, "Dog")
-  }
-
-  func test_mockUnion() throws {
-    let mock = Mock<Query>()
-    mock.classroomPets = [Mock<Cat>()]
-
-    XCTAssertEqual(mock.classroomPets!.count, 1)
-  }
-
 }

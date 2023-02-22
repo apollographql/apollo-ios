@@ -2,6 +2,7 @@
 // This file was automatically generated and should not be edited.
 
 @_exported import ApolloAPI
+@_spi(ApolloInternal) import ApolloAPI
 
 public struct PetDetailsMutation: GraphQLAPI.MutableSelectionSet, Fragment {
   public static var fragmentDefinition: StaticString { """

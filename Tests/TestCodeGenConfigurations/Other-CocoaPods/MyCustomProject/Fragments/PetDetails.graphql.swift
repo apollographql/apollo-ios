@@ -2,6 +2,7 @@
 // This file was automatically generated and should not be edited.
 
 @_exported import Apollo
+@_spi(ApolloInternal) import Apollo
 
 public struct PetDetails: MyCustomProject.SelectionSet, Fragment {
   public static var fragmentDefinition: StaticString { """
