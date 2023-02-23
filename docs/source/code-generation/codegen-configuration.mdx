@@ -25,7 +25,7 @@ There are a number of base configuration properties, each representing a specifi
 
 ## Schema name
 
-**`schemaName: String`**
+**[`schemaName: String`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/schemaname)**
 
 This option defines the name of your schema module or namespace.
 
@@ -39,7 +39,7 @@ You can configure how you would like to include your schema types in your projec
 
 ## File input
 
-**`input: FileInput`**
+**[`input: FileInput`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/input)**
 
 The code generation engine requires a GraphQL schema and at least one operation to be able to generate Swift code. Read the introductory section on [GraphQL source files](./introduction#graphql-source-files) for more information.
 
@@ -47,8 +47,8 @@ The properties to configure `input` are:
 
 | Property Name | Description |
 | ------------- | ----------- |
-| `schemaSearchPaths` | An array of path matching pattern strings used to find GraphQL schema files. [Schema extension](https://spec.graphql.org/draft/#sec-Schema-Extension) files can be included in these search paths.<br/><br/>*Note: JSON format schema files must have the `.json` file extension.* |
-| `operationSearchPaths` | An array of path matching pattern strings used to find GraphQL operation files. |
+| [`schemaSearchPaths`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/fileinput/schemasearchpaths) | An array of path matching pattern strings used to find GraphQL schema files. [Schema extension](https://spec.graphql.org/draft/#sec-Schema-Extension) files can be included in these search paths.<br/><br/>*Note: JSON format schema files must have the `.json` file extension.* |
+| [`operationSearchPaths`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/fileinput/operationsearchpaths) | An array of path matching pattern strings used to find GraphQL operation files. |
 
 <MultiCodeBlock>
 
@@ -87,9 +87,9 @@ Each path matching pattern can include the following characters:
 
 ## File output
 
-**`output: FileOutput`**
+**[`output: FileOutput`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/output)**
 
-The `FileOutput` options are used to configure which files are generated and their output locations.
+The [`FileOutput`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/fileoutput) options are used to configure which files are generated and their output locations.
 
 The properties to configure `output` are:
 
@@ -139,7 +139,7 @@ let configuration = ApolloCodegenConfiguration(
 
 ### Schema types
 
-**`output.schemaTypes: SchemaTypesFileOutput`**
+**[`output.schemaTypes: SchemaTypesFileOutput`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/fileoutput/schematypes)**
 
 Schema types are common to all generated operation models and are required for the generated Swift code to compile.
 
@@ -147,16 +147,16 @@ The properties to configure `output.schemaTypes` are:
 
 | Property Name | Description |
 | ------------- | ----------- |
-| `path` | A file path where the generated schema types should be output.<br/><br/>Relative to your project root |
+| [`path`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/schematypesfileoutput/path) | A file path where the generated schema types should be output.<br/><br/>Relative to your project root |
 | [`moduleType`](#module-type) | How generated schema types will be linked to your project. |
 
 #### Module type
 
-**`output.schemaTypes.moduleType: ModuleType`**
+**[`output.schemaTypes.moduleType: ModuleType`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/schematypesfileoutput/moduletype-swift.property)**
 
-Use the `moduleType` value to configure how your schema types are linked to your project. The Code Generation Engine uses this to determine the structure of the generated files, including `import` statements.
+Use the [`ModuleType`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/schematypesfileoutput/moduletype-swift.enum) value to configure how your schema types are linked to your project. The Code Generation Engine uses this to determine the structure of the generated files, including `import` statements.
 
-For single target applications, `embeddedInTarget(name:)` can be used.
+For single target applications, [`embeddedInTarget(name:)`](#embedded-in-target) can be used.
 
 For multi-module projects, it is recommended that the schema types be created in a separate module to help with separation of concerns. If using Swift Package Manager, the `swiftPackageManager` option can help automate module creation.
 
@@ -172,7 +172,7 @@ The possible values for `moduleType` are:
 
 #### Embedded in target
 
-**`ModuleType.embeddedInTarget(name: String)`**
+**[`ModuleType.embeddedInTarget(name: String)`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/schematypesfileoutput/moduletype-swift.enum/embeddedintarget(name:))**
 
 This option indicates that you would like to include the generated module directly in your application target.
 
@@ -182,7 +182,7 @@ No module will be created for the schema types. Instead, generated schema types 
 
 When creating a single target application, this option allows you to include Apollo iOS's generated module directly in your application target.
 
-> **Note:** When using this `moduleType`, you are responsible for ensuring the generated files are linked to your application target.
+> **Note:** When using this module type, you are responsible for ensuring the generated files are linked to your application target.
 
 <MultiCodeBlock>
 
@@ -216,7 +216,7 @@ let configuration = ApolloCodegenConfiguration(
 
 #### Swift package manager
 
-**`ModuleType.swiftPackageManager`**
+**[`ModuleType.swiftPackageManager`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/schematypesfileoutput/moduletype-swift.enum/swiftpackagemanager)**
 
 This option automates the creation of an SPM package for your schema types. This generates a `Package.swift` file that is suitable for linking the generated schema types files to your project using Swift Package Manager.
 
@@ -260,7 +260,7 @@ let configuration = ApolloCodegenConfiguration(
 
 #### Other schema module types
 
-**`ModuleType.other`**
+**[`ModuleType.other`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/schematypesfileoutput/moduletype-swift.enum/other)**
 
 This option should be used when you would like to define a schema module using another package management system, such as CocoaPods, or manually creating Xcode targets.
 
@@ -300,7 +300,7 @@ let configuration = ApolloCodegenConfiguration(
 
 ### Operations
 
-Operation files are generated from all the GraphQL operation definitions matched by your configuration's `operationSearchPaths`. Each operation (query, mutation, or subscription) and fragment definition will be created in a separate file.
+Operation files are generated from all the GraphQL operation definitions matched by your configuration's [`operationSearchPaths`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/fileinput/operationsearchpaths). Each operation (query, mutation, or subscription) and fragment definition will be created in a separate file.
 
 > To learn more about GraphQL operations, check out [Defining operations](../fetching/fetching-data#defining-operations)
 
@@ -314,7 +314,7 @@ The `output.operations` property value determines the location of the generated 
 
 #### Operations in the schema module
 
-**`OperationsFileOutput.inSchemaModule`**
+**[`OperationsFileOutput.inSchemaModule`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/operationsfileoutput/inschemamodule)**
 
 This option includes the generated operation models in the same module as your schema types.
 
@@ -324,7 +324,7 @@ This means the output location or your operation models is determined by the [`o
 
 #### Relative operations output
 
-**`OperationsFileOutput.relative(subpath: String?)`**
+**[`OperationsFileOutput.relative(subpath: String?)`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/operationsfileoutput/relative(subpath:))**
 
 This option outputs your generated operation models relative to their GraphQL definition (`.graphql` files).
 
@@ -347,7 +347,7 @@ An optional `subpath` parameter can be provided to generate operation models in 
 
 #### Absolute operations output
 
-**`OperationsFileOutput.absolute(path: String)`**
+**[`OperationsFileOutput.absolute(path: String)`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/operationsfileoutput/absolute(path:))**
 
 This option outputs all of your generated operation models in a single directory.
 
@@ -355,7 +355,7 @@ Specify the directory for your operation models using the `path` parameter. This
 
 ### Test mocks
 
-**`output.testMocks: TestMockFileOutput`**
+**[`output.testMocks: TestMockFileOutput`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/testmockfileoutput)**
 
 Test mock objects can be created for your operation models, to configure whether test mocks are generated and how they are added to your project, use this option.
 
@@ -365,13 +365,13 @@ The `output.testMocks` option can be configured with the following values:
 
 | Value | Description |
 | ----- | ----------- |
-| `none` | Test mocks will not be generated. |
+| [`none`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/testmockfileoutput/none) | Test mocks will not be generated. |
 | [`swiftPackage(targetName:)`](#test-mocks-in-a-swift-package) | Test mock files will be generated and included in a target defined in an SPM package. |
 | [`absolute(path:)`](#absolute-test-mocks-output) | Test mock files will be generated at the specified path. |
 
 #### Test mocks in a Swift Package
 
-**`TestMockFileOutput.swiftPackage(targetName: String?)`**
+**[`TestMockFileOutput.swiftPackage(targetName: String?)`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/testmockfileoutput/swiftpackage(targetname:))**
 
 This option generates test mock files and defines a target in the schema modules generated `Package.swift` file that is suitable for linking the test mock files to your test target using Swift Package Manager.
 
@@ -381,7 +381,7 @@ The name of the test mock target can be specified with the `targetName` paramete
 
 #### Absolute test mocks output
 
-**`TestMockFileOutput.absolute(path: String)`**
+**[`TestMockFileOutput.absolute(path: String)`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/testmockfileoutput/absolute(path:))**
 
 This option outputs all of your generated test mocks in a single directory.
 
@@ -420,15 +420,15 @@ The top-level properties are:
 
 | Property Name | Description |
 | ------------- | ----------- |
-| `additionalInflectionRules` | Any non-default rules for pluralization or singularization of type names. |
-| `queryStringLiteralFormat` | Formatting of the GraphQL query string literal that is included in each generated operation object. |
-| `deprecatedEnumCases` | Annotate generated Swift enums with the Swift `@available` attribute for GraphQL enum cases annotated with the built-in [`@deprecated` directive](https://spec.graphql.org/draft/#sec--deprecated). |
-| `schemaDocumentation` | Include or exclude [schema documentation](https://spec.graphql.org/draft/#sec-Descriptions) in the generated files. |
-| `apqs` | Whether the generated operations should use Automatic Persisted Queries. |
-| `cocoapodsCompatibleImportStatements` | Generate import statements that are compatible with including `Apollo` via Cocoapods. |
-| `warningsOnDeprecatedUsage` | Annotate generated Swift code with the Swift `@available` attribute and `@deprecated` argument for parts of the GraphQL schema annotated with the built-in [`@deprecated` directive](https://spec.graphql.org/draft/#sec--deprecated). |
-| `conversionStrategies` | Rules for how to convert the names of values from the schema in generated code. |
-| `pruneGeneratedFiles` | Whether unused generated files will be automatically deleted. |
+| [`additionalInflectionRules`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/outputoptions/additionalinflectionrules) | Any non-default rules for pluralization or singularization of type names. |
+| [`queryStringLiteralFormat`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/outputoptions/querystringliteralformat) | Formatting of the GraphQL query string literal that is included in each generated operation object. |
+| [`deprecatedEnumCases`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/outputoptions/deprecatedenumcases) | Annotate generated Swift enums with the Swift `@available` attribute for GraphQL enum cases annotated with the built-in [`@deprecated` directive](https://spec.graphql.org/draft/#sec--deprecated). |
+| [`schemaDocumentation`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/outputoptions/schemadocumentation) | Include or exclude [schema documentation](https://spec.graphql.org/draft/#sec-Descriptions) in the generated files. |
+| [`apqs`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/outputoptions/apqs) | Whether the generated operations should use Automatic Persisted Queries. |
+| [`cocoapodsCompatibleImportStatements`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/outputoptions/cocoapodscompatibleimportstatements) | Generate import statements that are compatible with including `Apollo` via Cocoapods. |
+| [`warningsOnDeprecatedUsage`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/outputoptions/warningsondeprecatedusage) | Annotate generated Swift code with the Swift `@available` attribute and `@deprecated` argument for parts of the GraphQL schema annotated with the built-in [`@deprecated` directive](https://spec.graphql.org/draft/#sec--deprecated). |
+| [`conversionStrategies`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/outputoptions/conversionstrategies) | Rules for how to convert the names of values from the schema in generated code. |
+| [`pruneGeneratedFiles`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/outputoptions/prunegeneratedfiles) | Whether unused generated files will be automatically deleted. |
 
 <MultiCodeBlock>
 
@@ -489,8 +489,8 @@ The current supported experimental features are:
 
 | Value | escription |
 | ----- | ----------- |
-| `clientControlledNullability` | If enabled, codegen will understand and parse Client Controlled Nullability. Read the [RFC](https://github.com/graphql/graphql-spec/issues/867) for more detail. |
-| `legacySafelistingCompatibleOperations` | If enabled, the generated operations will be transformed using a method that attempts to maintain compatibility with the legacy behavior from [`apollo-tooling`](https://github.dev/apollographql/apollo-tooling) for registering persisted operation to a safelist.<br/><br/>*Note: Safelisting queries is a deprecated feature of Apollo Server that has reduced support for legacy use cases. This option may not work as intended in all situations.* |
+| [`clientControlledNullability`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/experimentalfeatures-swift.struct/clientcontrollednullability) | If enabled, codegen will understand and parse Client Controlled Nullability. Read the [RFC](https://github.com/graphql/graphql-spec/issues/867) for more detail. |
+| [`legacySafelistingCompatibleOperations`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/experimentalfeatures-swift.struct/legacysafelistingcompatibleoperations) | If enabled, the generated operations will be transformed using a method that attempts to maintain compatibility with the legacy behavior from [`apollo-tooling`](https://github.dev/apollographql/apollo-tooling) for registering persisted operation to a safelist.<br/><br/>*Note: Safelisting queries is a deprecated feature of Apollo Server that has reduced support for legacy use cases. This option may not work as intended in all situations.* |
 
 <MultiCodeBlock>
 
@@ -521,10 +521,10 @@ The properties to configure the schema download are:
 
 | Property Name | Description |
 | ------------- | ----------- |
-| `downloadMethod` | How to download the schema. |
-| `downloadTimeout` | The maximum time (in seconds) to wait before indicating that the download timed out. |
-| `headers` | Any additional headers to include when retrieving your schema. This is useful when the schema download requires authentication. |
-| `outputPath` | The local path where the downloaded schema should be written to. |
+| [`downloadMethod`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apolloschemadownloadconfiguration/downloadmethod-swift.property) | How to download the schema. |
+| [`downloadTimeout`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apolloschemadownloadconfiguration/downloadtimeout) | The maximum time (in seconds) to wait before indicating that the download timed out. |
+| [`headers`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apolloschemadownloadconfiguration/headers) | Any additional headers to include when retrieving your schema. This is useful when the schema download requires authentication. |
+| [`outputPath`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apolloschemadownloadconfiguration/outputpath) | The local path where the downloaded schema should be written to. |
 
 ### Download method
 
@@ -538,9 +538,9 @@ The properties you will need to configure are:
 
 | Property Name | Description |
 | ------------- | ----------- |
-| `apiKey` | API key to use when retrieving your schema from the Apollo Registry. |
-| `graphID` | Identifier of the graph to fetch. Can be found in Apollo Studio. |
-| `variant` | Variant of the graph in the registry. |
+| [`apiKey`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apolloschemadownloadconfiguration/downloadmethod-swift.enum/apolloregistrysettings/apikey) | API key to use when retrieving your schema from the Apollo Registry. |
+| [`graphID`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apolloschemadownloadconfiguration/downloadmethod-swift.enum/apolloregistrysettings/graphid) | Identifier of the graph to fetch. Can be found in Apollo Studio. |
+| [`variant`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apolloschemadownloadconfiguration/downloadmethod-swift.enum/apolloregistrysettings/variant) | Variant of the graph in the registry. |
 
 <MultiCodeBlock>
 
@@ -556,7 +556,10 @@ The properties you will need to configure are:
 		}
 	},
 	"downloadTimeout": 60,
-	"headers": [],
+	"headers": {
+		"Accept-Encoding" : "gzip",
+		"Authorization" : "Bearer <token>"
+	},
 	"outputPath": "./graphql/"
 }
 ```
@@ -570,7 +573,10 @@ let configuration = ApolloCodegenConfiguration(
       graphID: "your-graphid",
       variant: "current")),
     timeout: 60.0,
-    headers: [],
+    headers: [
+      .init(key: "Accept-Encoding", value: "gzip"),
+      .init(key: "Authorization", value: "Bearer <token>")
+    ],
     outputPath: "./graphql/")
 )
 ```
@@ -587,10 +593,10 @@ The properties you will need to configure are:
 
 | Property Name | Description |
 | ------------- | ----------- |
-| `endpointURL` | URL of the GraphQL introspection service. |
-| `httpMethod` | HTTP request method. |
-| `outputFormat` | Output format for the downloaded schema. |
-| `includeDeprecatedInputValues` | Specify whether input values annotated with the built-in `@deprecated` directive should be included in the fetched schema. |
+| [`endpointURL`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apolloschemadownloadconfiguration/downloadmethod-swift.enum/introspection(endpointurl:httpmethod:outputformat:includedeprecatedinputvalues:)) | URL of the GraphQL introspection service. |
+| [`httpMethod`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apolloschemadownloadconfiguration/downloadmethod-swift.enum/httpmethod) | HTTP request method. |
+| [`outputFormat`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apolloschemadownloadconfiguration/downloadmethod-swift.enum/outputformat) | Output format for the downloaded schema. |
+| [`includeDeprecatedInputValues`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apolloschemadownloadconfiguration/downloadmethod-swift.enum/introspection(endpointurl:httpmethod:outputformat:includedeprecatedinputvalues:)) | Specify whether input values annotated with the built-in `@deprecated` directive should be included in the fetched schema. |
 
 <MultiCodeBlock>
 

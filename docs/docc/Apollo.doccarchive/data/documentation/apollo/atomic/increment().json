@@ -9,15 +9,7 @@
       "type" : "codeVoice"
     },
     {
-      "text" : " atomically, adding +1 to the ",
-      "type" : "text"
-    },
-    {
-      "code" : "value",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ".",
+      "text" : " atomically, adding +1 to the value.",
       "type" : "text"
     }
   ],
@@ -231,15 +223,7 @@
       "type" : "codeVoice"
     },
     {
-      "text" : " atomically, adding +1 to the ",
-      "type" : "text"
-    },
-    {
-      "code" : "value",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ".",
+      "text" : " atomically, adding +1 to the value.",
       "type" : "text"
     }
   ],

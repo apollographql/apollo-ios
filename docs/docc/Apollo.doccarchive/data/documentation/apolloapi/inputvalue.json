@@ -256,6 +256,37 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLOperation": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLOperation"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLOperation"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphQLOperation",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/graphqloperation"
+},
 "doc://ApolloAPI/documentation/ApolloAPI/InputValue": {
   "abstract" : [
     {
@@ -653,7 +684,7 @@
 "doc://ApolloAPI/documentation/ApolloAPI/InputValue/variable(_:)": {
   "abstract" : [
     {
-      "text" : "A variable input value to be evaluated using the operation’s",
+      "text" : "A variable input value to be evaluated using the operation’s variables dictionary at runtime.",
       "type" : "text"
     },
     {
@@ -661,11 +692,16 @@
       "type" : "text"
     },
     {
-      "code" : "GraphQLOperation\/variables-swift.property-4o32c",
-      "type" : "codeVoice"
+      "text" : "See ",
+      "type" : "text"
     },
     {
-      "text" : " dictionary at runtime.",
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],

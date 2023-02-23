@@ -50,7 +50,7 @@ Apollo iOS's code generation engine provides flexible configuration options that
 
 > **Before migrating to Apollo iOS 1.0, you should consider your project structure and decide how you want to include your generated schema module and operation models.**
 >
-> To learn about how you can best integrate Apollo iOS to suit your project's needs, see our [Project configuration documentation](./project-configuration).
+> To learn about how you can best integrate Apollo iOS to suit your project's needs, see our [Project configuration documentation](../project-configuration).
 
 To migrate to Apollo iOS 1.0, you'll do the following:
 1. [Update your Apollo iOS dependency](#1-update-to-apollo-ios-10)
@@ -109,7 +109,7 @@ Then, update the `ApolloCodegenConfiguration` in your script with the new config
 
 > We no longer recommend running Apollo's code generation as an Xcode build phase.
 
-Your generated files change whenever you modify your `.graphql` operation definitions (which happens infrequently). Running code generation on every build increases build times and slows development. 
+Your generated files change whenever you modify your `.graphql` operation definitions (which happens infrequently). Running code generation on every build increases build times and slows development.
 
 Instead, we recommend running code generation **manually (using the CLI)** whenever you modify your `.graphql` files.
 
@@ -129,7 +129,7 @@ In the 0.x version of Apollo iOS, your schema's custom scalars are exposed as a 
 
 In Apollo iOS 1.0, operation models use custom scalar definitions, and by default, Apollo iOS generates `typealias` definitions for all referenced custom scalars. These definitions are within your schema module. The default implementation of all custom scalars is a `typealias` to `String`.
 
-> Custom scalar files are generated once. This means you can edit them, and subsequent code generation executions won't overwrite your changes. 
+> Custom scalar files are generated once. This means you can edit them, and subsequent code generation executions won't overwrite your changes.
 
 To migrate a custom scalar type to Apollo iOS 1.0, do the following:
 - Include the type in your schema module.
@@ -177,13 +177,13 @@ public extension MySchema {
 
 ### Cache key configuration
 
-In the 0.x version of Apollo iOS, you could configure the computation of cache keys for the normalized cache by providing a `cacheKeyForObject` block to `ApolloClient`. 
+In the 0.x version of Apollo iOS, you could configure the computation of cache keys for the normalized cache by providing a `cacheKeyForObject` block to `ApolloClient`.
 
 In Apollo iOS 1.0, we replace this with a type-safe API in the `SchemaConfiguration.swift` file, which Apollo iOS generates alongside the generated schema types.
 
 To migrate your cache key configuration code, refactor your `cacheKeyForObject` implementation into the `SchemaConfiguration.swift` file's [`cacheKeyInfo(for type:object:)`](https://www.apollographql.com/docs/ios/docc/documentation/apolloapi/schemaconfiguration/cachekeyinfo(for:object:)) function. This function needs to return a `CacheKeyInfo` struct (instead of a cache key `String`).
 
-In 0.x, we recommended that you prefix your cache keys with the `__typename` of the object to prevent key conflicts. 
+In 0.x, we recommended that you prefix your cache keys with the `__typename` of the object to prevent key conflicts.
 
 Apollo iOS 1.0 does this automatically. If you want to group cache keys for objects of different types (e.g., by a common interface type), you can set the `uniqueKeyGroup` property of the `CacheKeyInfo` you return.
 
@@ -206,8 +206,8 @@ client.cacheKeyForObject = {
 
 You can migrate this to the new [`cacheKeyInfo(for type:object:)`](https://www.apollographql.com/docs/ios/docc/documentation/apolloapi/schemaconfiguration/cachekeyinfo(for:object:)) function like so:
 
-```swift
-public extension MySchema {
+```swift title="SchemaConfiguration.swift"
+public enum SchemaConfiguration: ApolloAPI.SchemaConfiguration {
   static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
     guard let id = object["id"] as? String else {
       return nil
@@ -220,8 +220,8 @@ public extension MySchema {
 
 Or you can use the [JSON value convenience initializer](./../caching/cache-key-resolution#json-value-convenience-initializer), like so:
 
-```swift
-public extension MySchema {
+```swift title="SchemaConfiguration.swift"
+public enum SchemaConfiguration: ApolloAPI.SchemaConfiguration {
   static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
     return try? CacheKeyInfo(jsonValue: object["id"])
   }
@@ -230,7 +230,7 @@ public extension MySchema {
 
 ### Local Cache Mutations
 
-In the 0.x version of Apollo iOS, you could directly change data in the local cache using any of your generated operation or fragment models. 
+In the 0.x version of Apollo iOS, you could directly change data in the local cache using any of your generated operation or fragment models.
 
 The APIs for direct cache access have mostly stayed the same but generated model objects are now **immutable by default**. You can still _read_ cache data directly using your generated models, but to mutate cache data, you now need to define separate [local cache mutation](./../caching/cache-transactions#defining-local-cache-mutations) operations or fragments.
 
@@ -308,7 +308,7 @@ store.withinReadWriteTransaction({ transaction in
 
 According to [the GraphQL spec](http://spec.graphql.org/October2021/#sec-Null-Value), explicitly providing `null` as the value for an input field is semantically different from not providing a value (`nil`).
 
-To distinguish between `null` and `nil`, the 0.x version of Apollo iOS generated optional input values as double optional value types (`??`, or `Optional<Optional<Value>>`). This was confusing for many users and didn't clearly express the intention of the API. 
+To distinguish between `null` and `nil`, the 0.x version of Apollo iOS generated optional input values as double optional value types (`??`, or `Optional<Optional<Value>>`). This was confusing for many users and didn't clearly express the intention of the API.
 
 In Apollo iOS 1.0, we replaced the double optional values with a new [`GraphQLNullable`](https://www.apollographql.com/docs/ios/docc/documentation/apolloapi/graphqlnullable) wrapper enum type.
 
@@ -378,7 +378,7 @@ MyQuery(input: optionalInput ?? .null)
 
 In the 0.x version of Apollo iOS, you could create mocks of your generated operation models by using each model's generated initializers or by initializing them directly with JSON data. Both methods were error-prone, cumbersome, and fragile.
 
-Apollo iOS 1.0 provides a new way to generate test mocks based on your schema types. Begin by adding [`output.testMocks`](./../code-generation/codegen-configuration#test-mocks) to your code generation configuration, then link your generated test mocks to your unit test target. 
+Apollo iOS 1.0 provides a new way to generate test mocks based on your schema types. Begin by adding [`output.testMocks`](./../code-generation/codegen-configuration#test-mocks) to your code generation configuration, then link your generated test mocks to your unit test target.
 
 Instead of creating a model using a type's generated initializer, you create a test mock of the schema type for the underlying object. Using the test mock, you can set values for relevant fields and initialize your operation model.
 

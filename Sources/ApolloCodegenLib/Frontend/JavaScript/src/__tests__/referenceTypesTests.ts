@@ -12,6 +12,7 @@ import {
   DocumentNode,
   GraphQLEnumType,
   GraphQLInputObjectType,
+  GraphQLInterfaceType,
 } from "graphql";
 import {
   readFileSync
@@ -89,6 +90,42 @@ describe("mutation defined using ReportCarProblemInput", () => {
 
       expect(reportCarProblemInput).not.toBeUndefined()
       expect(carProblemEnum).not.toBeUndefined()
+    });
+  });
+});
+
+describe("query with selections", () => {
+  const documentString: string = `
+  query fetchMyString {
+    missingInterfaceString
+  }
+  `;
+
+  const document: DocumentNode = parseOperationDocument(
+    new Source(documentString, "Test Query", { line: 1, column: 1 }),
+    false
+  );
+
+  describe("given interface on root query", () => {
+    const schemaSDL: string = `
+    interface MissingInterface {
+      missingInterfaceString: String!
+    }
+
+    type Query implements MissingInterface {
+      missingInterfaceString: String!
+    }
+    `;
+
+    const schema: GraphQLSchema = loadSchemaFromSources([new Source(schemaSDL, "Test Schema", { line: 1, column: 1 })]);
+
+    it("should compile with referencedTypes including interface", () => {
+      const compilationResult: CompilationResult = compileDocument(schema, document, false, emptyValidationOptions);
+      const validInterface: GraphQLInterfaceType = compilationResult.referencedTypes.find(function(element) {
+        return element.name == 'MissingInterface'
+      }) as GraphQLInterfaceType
+
+      expect(validInterface).not.toBeUndefined()
     });
   });
 });
