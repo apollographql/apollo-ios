@@ -1,6 +1,6 @@
 # 🔮 Apollo iOS Roadmap
 
-**Last updated: 2023-02-09**
+**Last updated: 2023-02-23**
 
 For up to date release notes, refer to the project's [Changelog](https://github.com/apollographql/apollo-ios/blob/main/CHANGELOG.md).
 
@@ -17,16 +17,11 @@ For up to date release notes, refer to the project's [Changelog](https://github.
 
 Please see our [patch releases milestone](https://github.com/apollographql/apollo-ios/milestone/70) for more information about the fixes and enhancements we plan to ship in the near future.  Anything labeled [`planned-next`](https://github.com/apollographql/apollo-ios/labels/planned-next) is slated for the next patch release.  1.0.7 is likely going to be our last patch for 1.0.
 
-## 1.x: `@defer` support
-
-_Approximate Date: TBD_
-
-The `@defer` directive enables your queries to receive data for specific fields asynchronously. This is helpful whenever some fields in a query take much longer to resolve than others.  [Apollo Kotlin](https://www.apollographql.com/docs/kotlin/fetching/defer/) and [Apollo Client (web)](https://www.apollographql.com/docs/react/data/defer/) currently support this syntax, so if you're interested in learning more check out their documentation.  Apollo iOS will release support for this directive in a `1.x` minor version.  More details TBD.
-
 ## [1.1: Generated operation model creation](https://github.com/apollographql/apollo-ios/milestone/64)
 
-_Approximate Date: 2023-02-21_
+_Approximate Date: 2023-03-17_
 
+- We plan to release alpha and beta versions in advance for community feedback 👀
 - The ability to initialize fragment (and maybe selection set) models in a type-safe way
 - Initialize mutable selection sets to add to the cache via local cache mutations (Currently you can only mutate fields on existing entities)
 - Create API for clearing individual fields on entities from the cache in local cache mutations.
@@ -34,16 +29,22 @@ _Approximate Date: 2023-02-21_
 
 ## [1.2: Improve fragment merging and code generation performance](https://github.com/apollographql/apollo-ios/milestone/67)
 
-_Approximate Date: 2023-03-30_
+_Approximate Date: 20203-04-07_
 
 - Add configuration for disabling merging of fragment fields
 - Recognize when multiple selection set types will end up being identical and use a shared model object with typealiases to reduce generated code
 - Fix retain cycles and memory issues causing code generation to take very long on certain large, complex schemas with deeply nested fragment composition
 - Optimize code generation performance by parallelizing computation and rendering of files
 
+## 1.x: `@defer` support
+
+_Approximate Date: Early April 2023_
+
+The `@defer` directive enables your queries to receive data for specific fields asynchronously. This is helpful whenever some fields in a query take much longer to resolve than others.  [Apollo Kotlin](https://www.apollographql.com/docs/kotlin/fetching/defer/) and [Apollo Client (web)](https://www.apollographql.com/docs/react/data/defer/) currently support this syntax, so if you're interested in learning more check out their documentation.  Apollo iOS will release support for this directive in a `1.x` minor version.  More details TBD.
+
 ## [1.3: Reduce generated schema types](https://github.com/apollographql/apollo-ios/milestone/71)
 
-_Approximate Date: Late April 2023
+_Approximate Date: Late April 2023_
 
 - Right now we are naively generating schema types that we don't always need. A smarter algorithm can reduce generated code for certain large schemas that are currently having every type in their schema generated
 - Create configuration for manually indicating schema types you would like to have schema types and TestMocks generated for
