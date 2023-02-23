@@ -454,6 +454,57 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
   }
 
+  func test__render_given_entityFieldSelection_nullable_rendersInitializer() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      species: String!
+      friend: Animal
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        friend {
+          species
+        }
+      }
+    }
+    """
+
+    let expected = """
+        public init(
+          friend: Friend? = nil
+        ) {
+          let objectType = TestSchema.Objects.Animal
+          self.init(data: DataDict(
+            objectType: objectType,
+            data: [
+              "__typename": objectType.typename,
+              "friend": friend?.__data._data
+          ]))
+        }
+      """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
+  }
+
+
   func test__render_given_mergedSelection_rendersInitializer() throws {
     // given
     schemaSDL = """
