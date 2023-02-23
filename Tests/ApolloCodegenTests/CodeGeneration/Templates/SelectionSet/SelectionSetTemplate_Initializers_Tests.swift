@@ -518,5 +518,80 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 16, ignoringExtraLines: true))
   }
-  
+
+  func test__render_given_mergedOnly_SelectionSet_rendersInitializer() throws {
+    // given
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      height: Height
+    }
+
+    interface Pet implements Animal {
+      height: Height
+    }
+
+    type Cat implements Animal & Pet {
+      breed: String!
+      height: Height
+    }
+
+    type Height {
+      feet: Int
+      inches: Int
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        height {
+          inches
+        }
+        ... on Pet {
+          height {
+            feet
+          }
+        }
+        ... on Cat {
+          breed
+        }
+      }
+    }
+    """
+
+    let expected =
+    """
+      public init(
+        inches: Int? = nil,
+        feet: Int? = nil
+      ) {
+        let objectType = TestSchema.Objects.Height
+        self.init(data: DataDict(
+          objectType: objectType,
+          data: [
+            "__typename": objectType.typename,
+            "inches": inches,
+            "feet": feet
+        ]))
+      }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let asCat_height = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"]?[as: "Cat"]?[field: "height"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: asCat_height)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
+  }
+
 }

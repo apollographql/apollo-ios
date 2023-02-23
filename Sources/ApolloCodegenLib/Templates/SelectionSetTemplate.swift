@@ -1,4 +1,5 @@
 import InflectorKit
+import OrderedCollections
 
 struct SelectionSetTemplate {
 
@@ -417,15 +418,10 @@ struct SelectionSetTemplate {
   private func InitializerSelectionParametersTemplate(
     _ selections: IR.SelectionSet.Selections
   ) -> TemplateString {
+    let iterator = IR.SelectionSet.Selections.FieldIterator(selections: selections)
+
     return TemplateString("""
-    \(ifLet: selections.direct, {
-      "\($0.fields.values.map(InitializerParameterTemplate(_:)))"
-    })\
-    \(ifLet: selections.merged.fields.values,
-      where: { !$0.isEmpty }, { """
-      ,
-      \($0.map(InitializerParameterTemplate(_:)))
-      """ })
+    \(IteratorSequence(iterator).map(InitializerParameterTemplate(_:)))
     """
     )
   }
@@ -462,16 +458,11 @@ struct SelectionSetTemplate {
   private func InitializerDataDictTemplate(
     _ selections: IR.SelectionSet.Selections
   ) -> TemplateString {
+    let iterator = IR.SelectionSet.Selections.FieldIterator(selections: selections)
+
     return TemplateString("""
     "__typename": objectType.typename,
-    \(ifLet: selections.direct, {
-      "\($0.fields.values.map(InitializerDataDictFieldTemplate(_:)))"
-    })\
-    \(ifLet: selections.merged.fields.values,
-      where: { !$0.isEmpty }, { """
-      ,
-      \($0.map(InitializerDataDictFieldTemplate(_:)))
-      """ })
+    \(IteratorSequence(iterator).map(InitializerDataDictFieldTemplate(_:)))
     """
     )
   }
@@ -796,3 +787,20 @@ fileprivate extension IR.Field {
   }
 }
 
+extension IR.SelectionSet.Selections {
+  fileprivate struct FieldIterator: IteratorProtocol {
+    let selections: IR.SelectionSet.Selections
+    private var directIterator: IndexingIterator<OrderedDictionary<String, IR.Field>.Values>?
+    private var mergedIterator: IndexingIterator<OrderedDictionary<String, IR.Field>.Values>
+
+    init(selections: IR.SelectionSet.Selections) {
+      self.selections = selections
+      self.directIterator = self.selections.direct?.fields.values.makeIterator()
+      self.mergedIterator = self.selections.merged.fields.values.makeIterator()
+    }
+
+    mutating func next() -> IR.Field? {
+      directIterator?.next() ?? mergedIterator.next()
+    }
+  }
+}
