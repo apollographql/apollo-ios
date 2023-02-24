@@ -436,10 +436,60 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
             objectType: objectType,
             data: [
               "__typename": objectType.typename,
-              "friend": friend.__data._data
+              "friend": friend._fieldData
           ]))
         }
       """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
+  }
+
+  func test__render_given_entityFieldListSelection_rendersInitializer() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      species: String!
+      friends: [Animal!]!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        friends {
+          species
+        }
+      }
+    }
+    """
+
+    let expected = #"""
+        public init(
+          friends: [Friend]
+        ) {
+          let objectType = TestSchema.Objects.Animal
+          self.init(data: DataDict(
+            objectType: objectType,
+            data: [
+              "__typename": objectType.typename,
+              "friends": friends._fieldData
+          ]))
+        }
+      """#
 
     // when
     try buildSubjectAndOperation()
@@ -486,7 +536,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
             objectType: objectType,
             data: [
               "__typename": objectType.typename,
-              "friend": friend?.__data._data
+              "friend": friend._fieldData
           ]))
         }
       """

@@ -472,7 +472,7 @@ struct SelectionSetTemplate {
   ) -> TemplateString {
     """
     "\(field.responseKey)": \(field.responseKey.asInputParameterName)\
-    \(if: field is IR.EntityField, "\(if: field.type.isNullable, "?").__data._data")
+    \(if: field is IR.EntityField, "._fieldData")
     """
   }
 
