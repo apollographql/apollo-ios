@@ -34,6 +34,18 @@ public class DogQuery: GraphQLQuery {
 
     public var allAnimals: [AllAnimal] { __data["allAnimals"] }
 
+    public init(
+      allAnimals: [AllAnimal]
+    ) {
+      let objectType = AnimalKingdomAPI.Objects.Query
+      self.init(data: DataDict(
+        objectType: objectType,
+        data: [
+          "__typename": objectType.typename,
+          "allAnimals": allAnimals._fieldData
+      ]))
+    }
+
     /// AllAnimal
     ///
     /// Parent Type: `Animal`
@@ -50,6 +62,23 @@ public class DogQuery: GraphQLQuery {
       public var id: AnimalKingdomAPI.ID { __data["id"] }
 
       public var asDog: AsDog? { _asInlineFragment() }
+
+      public init(
+        __typename: String,
+        id: AnimalKingdomAPI.ID
+      ) {
+        let objectType = ApolloAPI.Object(
+          typename: __typename,
+          implementedInterfaces: [
+            AnimalKingdomAPI.Interfaces.Animal
+        ])
+        self.init(data: DataDict(
+          objectType: objectType,
+          data: [
+            "__typename": objectType.typename,
+            "id": id
+        ]))
+      }
 
       /// AllAnimal.AsDog
       ///
@@ -71,6 +100,20 @@ public class DogQuery: GraphQLQuery {
           public init(data: DataDict) { __data = data }
 
           public var dogFragment: DogFragment { _toFragment() }
+        }
+
+        public init(
+          id: AnimalKingdomAPI.ID,
+          species: String
+        ) {
+          let objectType = AnimalKingdomAPI.Objects.Dog
+          self.init(data: DataDict(
+            objectType: objectType,
+            data: [
+              "__typename": objectType.typename,
+              "id": id,
+              "species": species
+          ]))
         }
       }
     }

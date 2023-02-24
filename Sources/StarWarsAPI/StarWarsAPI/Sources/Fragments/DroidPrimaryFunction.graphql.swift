@@ -21,4 +21,16 @@ public struct DroidPrimaryFunction: StarWarsAPI.SelectionSet, Fragment {
 
   /// This droid's primary function
   public var primaryFunction: String? { __data["primaryFunction"] }
+
+  public init(
+    primaryFunction: String? = nil
+  ) {
+    let objectType = StarWarsAPI.Objects.Droid
+    self.init(data: DataDict(
+      objectType: objectType,
+      data: [
+        "__typename": objectType.typename,
+        "primaryFunction": primaryFunction
+    ]))
+  }
 }

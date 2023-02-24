@@ -37,6 +37,18 @@ public class PetAdoptionMutation: GraphQLMutation {
 
     public var adoptPet: AdoptPet { __data["adoptPet"] }
 
+    public init(
+      adoptPet: AdoptPet
+    ) {
+      let objectType = AnimalKingdomAPI.Objects.Mutation
+      self.init(data: DataDict(
+        objectType: objectType,
+        data: [
+          "__typename": objectType.typename,
+          "adoptPet": adoptPet._fieldData
+      ]))
+    }
+
     /// AdoptPet
     ///
     /// Parent Type: `Pet`
@@ -52,6 +64,25 @@ public class PetAdoptionMutation: GraphQLMutation {
 
       public var id: AnimalKingdomAPI.ID { __data["id"] }
       public var humanName: String? { __data["humanName"] }
+
+      public init(
+        __typename: String,
+        id: AnimalKingdomAPI.ID,
+        humanName: String? = nil
+      ) {
+        let objectType = ApolloAPI.Object(
+          typename: __typename,
+          implementedInterfaces: [
+            AnimalKingdomAPI.Interfaces.Pet
+        ])
+        self.init(data: DataDict(
+          objectType: objectType,
+          data: [
+            "__typename": objectType.typename,
+            "id": id,
+            "humanName": humanName
+        ]))
+      }
     }
   }
 }

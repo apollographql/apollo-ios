@@ -37,6 +37,20 @@ public class TwoHeroesQuery: GraphQLQuery {
     public var r2: R2? { __data["r2"] }
     public var luke: Luke? { __data["luke"] }
 
+    public init(
+      r2: R2? = nil,
+      luke: Luke? = nil
+    ) {
+      let objectType = StarWarsAPI.Objects.Query
+      self.init(data: DataDict(
+        objectType: objectType,
+        data: [
+          "__typename": objectType.typename,
+          "r2": r2._fieldData,
+          "luke": luke._fieldData
+      ]))
+    }
+
     /// R2
     ///
     /// Parent Type: `Character`
@@ -51,6 +65,23 @@ public class TwoHeroesQuery: GraphQLQuery {
 
       /// The name of the character
       public var name: String { __data["name"] }
+
+      public init(
+        __typename: String,
+        name: String
+      ) {
+        let objectType = ApolloAPI.Object(
+          typename: __typename,
+          implementedInterfaces: [
+            StarWarsAPI.Interfaces.Character
+        ])
+        self.init(data: DataDict(
+          objectType: objectType,
+          data: [
+            "__typename": objectType.typename,
+            "name": name
+        ]))
+      }
     }
 
     /// Luke
@@ -67,6 +98,23 @@ public class TwoHeroesQuery: GraphQLQuery {
 
       /// The name of the character
       public var name: String { __data["name"] }
+
+      public init(
+        __typename: String,
+        name: String
+      ) {
+        let objectType = ApolloAPI.Object(
+          typename: __typename,
+          implementedInterfaces: [
+            StarWarsAPI.Interfaces.Character
+        ])
+        self.init(data: DataDict(
+          objectType: objectType,
+          data: [
+            "__typename": objectType.typename,
+            "name": name
+        ]))
+      }
     }
   }
 }

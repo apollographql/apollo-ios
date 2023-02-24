@@ -39,6 +39,18 @@ public class HeroNameWithFragmentAndIDQuery: GraphQLQuery {
 
     public var hero: Hero? { __data["hero"] }
 
+    public init(
+      hero: Hero? = nil
+    ) {
+      let objectType = StarWarsAPI.Objects.Query
+      self.init(data: DataDict(
+        objectType: objectType,
+        data: [
+          "__typename": objectType.typename,
+          "hero": hero._fieldData
+      ]))
+    }
+
     /// Hero
     ///
     /// Parent Type: `Character`
@@ -62,6 +74,25 @@ public class HeroNameWithFragmentAndIDQuery: GraphQLQuery {
         public init(data: DataDict) { __data = data }
 
         public var characterName: CharacterName { _toFragment() }
+      }
+
+      public init(
+        __typename: String,
+        id: StarWarsAPI.ID,
+        name: String
+      ) {
+        let objectType = ApolloAPI.Object(
+          typename: __typename,
+          implementedInterfaces: [
+            StarWarsAPI.Interfaces.Character
+        ])
+        self.init(data: DataDict(
+          objectType: objectType,
+          data: [
+            "__typename": objectType.typename,
+            "id": id,
+            "name": name
+        ]))
       }
     }
   }

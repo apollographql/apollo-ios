@@ -31,6 +31,18 @@ public class HeroAppearsInQuery: GraphQLQuery {
 
     public var hero: Hero? { __data["hero"] }
 
+    public init(
+      hero: Hero? = nil
+    ) {
+      let objectType = StarWarsAPI.Objects.Query
+      self.init(data: DataDict(
+        objectType: objectType,
+        data: [
+          "__typename": objectType.typename,
+          "hero": hero._fieldData
+      ]))
+    }
+
     /// Hero
     ///
     /// Parent Type: `Character`
@@ -45,6 +57,23 @@ public class HeroAppearsInQuery: GraphQLQuery {
 
       /// The movies this character appears in
       public var appearsIn: [GraphQLEnum<StarWarsAPI.Episode>?] { __data["appearsIn"] }
+
+      public init(
+        __typename: String,
+        appearsIn: [GraphQLEnum<StarWarsAPI.Episode>?]
+      ) {
+        let objectType = ApolloAPI.Object(
+          typename: __typename,
+          implementedInterfaces: [
+            StarWarsAPI.Interfaces.Character
+        ])
+        self.init(data: DataDict(
+          objectType: objectType,
+          data: [
+            "__typename": objectType.typename,
+            "appearsIn": appearsIn
+        ]))
+      }
     }
   }
 }

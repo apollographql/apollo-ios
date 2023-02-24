@@ -38,6 +38,18 @@ public class HeroNameAndAppearsInWithFragmentQuery: GraphQLQuery {
 
     public var hero: Hero? { __data["hero"] }
 
+    public init(
+      hero: Hero? = nil
+    ) {
+      let objectType = StarWarsAPI.Objects.Query
+      self.init(data: DataDict(
+        objectType: objectType,
+        data: [
+          "__typename": objectType.typename,
+          "hero": hero._fieldData
+      ]))
+    }
+
     /// Hero
     ///
     /// Parent Type: `Character`
@@ -60,6 +72,25 @@ public class HeroNameAndAppearsInWithFragmentQuery: GraphQLQuery {
         public init(data: DataDict) { __data = data }
 
         public var characterNameAndAppearsIn: CharacterNameAndAppearsIn { _toFragment() }
+      }
+
+      public init(
+        __typename: String,
+        name: String,
+        appearsIn: [GraphQLEnum<StarWarsAPI.Episode>?]
+      ) {
+        let objectType = ApolloAPI.Object(
+          typename: __typename,
+          implementedInterfaces: [
+            StarWarsAPI.Interfaces.Character
+        ])
+        self.init(data: DataDict(
+          objectType: objectType,
+          data: [
+            "__typename": objectType.typename,
+            "name": name,
+            "appearsIn": appearsIn
+        ]))
       }
     }
   }

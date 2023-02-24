@@ -41,6 +41,18 @@ public class HeroAndFriendsNamesQuery: GraphQLQuery {
 
     public var hero: Hero? { __data["hero"] }
 
+    public init(
+      hero: Hero? = nil
+    ) {
+      let objectType = StarWarsAPI.Objects.Query
+      self.init(data: DataDict(
+        objectType: objectType,
+        data: [
+          "__typename": objectType.typename,
+          "hero": hero._fieldData
+      ]))
+    }
+
     /// Hero
     ///
     /// Parent Type: `Character`
@@ -59,6 +71,25 @@ public class HeroAndFriendsNamesQuery: GraphQLQuery {
       /// The friends of the character, or an empty list if they have none
       public var friends: [Friend?]? { __data["friends"] }
 
+      public init(
+        __typename: String,
+        name: String,
+        friends: [Friend?]? = nil
+      ) {
+        let objectType = ApolloAPI.Object(
+          typename: __typename,
+          implementedInterfaces: [
+            StarWarsAPI.Interfaces.Character
+        ])
+        self.init(data: DataDict(
+          objectType: objectType,
+          data: [
+            "__typename": objectType.typename,
+            "name": name,
+            "friends": friends._fieldData
+        ]))
+      }
+
       /// Hero.Friend
       ///
       /// Parent Type: `Character`
@@ -73,6 +104,23 @@ public class HeroAndFriendsNamesQuery: GraphQLQuery {
 
         /// The name of the character
         public var name: String { __data["name"] }
+
+        public init(
+          __typename: String,
+          name: String
+        ) {
+          let objectType = ApolloAPI.Object(
+            typename: __typename,
+            implementedInterfaces: [
+              StarWarsAPI.Interfaces.Character
+          ])
+          self.init(data: DataDict(
+            objectType: objectType,
+            data: [
+              "__typename": objectType.typename,
+              "name": name
+          ]))
+        }
       }
     }
   }

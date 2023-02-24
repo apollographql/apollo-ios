@@ -35,6 +35,23 @@ public struct HeroDetails: StarWarsAPI.SelectionSet, Fragment {
   public var asHuman: AsHuman? { _asInlineFragment() }
   public var asDroid: AsDroid? { _asInlineFragment() }
 
+  public init(
+    __typename: String,
+    name: String
+  ) {
+    let objectType = ApolloAPI.Object(
+      typename: __typename,
+      implementedInterfaces: [
+        StarWarsAPI.Interfaces.Character
+    ])
+    self.init(data: DataDict(
+      objectType: objectType,
+      data: [
+        "__typename": objectType.typename,
+        "name": name
+    ]))
+  }
+
   /// AsHuman
   ///
   /// Parent Type: `Human`
@@ -51,6 +68,20 @@ public struct HeroDetails: StarWarsAPI.SelectionSet, Fragment {
     public var height: Double? { __data["height"] }
     /// The name of the character
     public var name: String { __data["name"] }
+
+    public init(
+      height: Double? = nil,
+      name: String
+    ) {
+      let objectType = StarWarsAPI.Objects.Human
+      self.init(data: DataDict(
+        objectType: objectType,
+        data: [
+          "__typename": objectType.typename,
+          "height": height,
+          "name": name
+      ]))
+    }
   }
 
   /// AsDroid
@@ -69,5 +100,19 @@ public struct HeroDetails: StarWarsAPI.SelectionSet, Fragment {
     public var primaryFunction: String? { __data["primaryFunction"] }
     /// The name of the character
     public var name: String { __data["name"] }
+
+    public init(
+      primaryFunction: String? = nil,
+      name: String
+    ) {
+      let objectType = StarWarsAPI.Objects.Droid
+      self.init(data: DataDict(
+        objectType: objectType,
+        data: [
+          "__typename": objectType.typename,
+          "primaryFunction": primaryFunction,
+          "name": name
+      ]))
+    }
   }
 }

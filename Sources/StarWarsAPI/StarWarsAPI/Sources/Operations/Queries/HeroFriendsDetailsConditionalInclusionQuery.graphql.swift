@@ -44,6 +44,18 @@ public class HeroFriendsDetailsConditionalInclusionQuery: GraphQLQuery {
 
     public var hero: Hero? { __data["hero"] }
 
+    public init(
+      hero: Hero? = nil
+    ) {
+      let objectType = StarWarsAPI.Objects.Query
+      self.init(data: DataDict(
+        objectType: objectType,
+        data: [
+          "__typename": objectType.typename,
+          "hero": hero._fieldData
+      ]))
+    }
+
     /// Hero
     ///
     /// Parent Type: `Character`
@@ -58,6 +70,23 @@ public class HeroFriendsDetailsConditionalInclusionQuery: GraphQLQuery {
 
       /// The friends of the character, or an empty list if they have none
       public var friends: [Friend?]? { __data["friends"] }
+
+      public init(
+        __typename: String,
+        friends: [Friend?]? = nil
+      ) {
+        let objectType = ApolloAPI.Object(
+          typename: __typename,
+          implementedInterfaces: [
+            StarWarsAPI.Interfaces.Character
+        ])
+        self.init(data: DataDict(
+          objectType: objectType,
+          data: [
+            "__typename": objectType.typename,
+            "friends": friends._fieldData
+        ]))
+      }
 
       /// Hero.Friend
       ///
@@ -77,6 +106,23 @@ public class HeroFriendsDetailsConditionalInclusionQuery: GraphQLQuery {
 
         public var asDroid: AsDroid? { _asInlineFragment() }
 
+        public init(
+          __typename: String,
+          name: String
+        ) {
+          let objectType = ApolloAPI.Object(
+            typename: __typename,
+            implementedInterfaces: [
+              StarWarsAPI.Interfaces.Character
+          ])
+          self.init(data: DataDict(
+            objectType: objectType,
+            data: [
+              "__typename": objectType.typename,
+              "name": name
+          ]))
+        }
+
         /// Hero.Friend.AsDroid
         ///
         /// Parent Type: `Droid`
@@ -93,6 +139,20 @@ public class HeroFriendsDetailsConditionalInclusionQuery: GraphQLQuery {
           public var primaryFunction: String? { __data["primaryFunction"] }
           /// The name of the character
           public var name: String { __data["name"] }
+
+          public init(
+            primaryFunction: String? = nil,
+            name: String
+          ) {
+            let objectType = StarWarsAPI.Objects.Droid
+            self.init(data: DataDict(
+              objectType: objectType,
+              data: [
+                "__typename": objectType.typename,
+                "primaryFunction": primaryFunction,
+                "name": name
+            ]))
+          }
         }
       }
     }

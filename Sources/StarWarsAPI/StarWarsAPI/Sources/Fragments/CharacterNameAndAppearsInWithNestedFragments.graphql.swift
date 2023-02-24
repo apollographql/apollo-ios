@@ -31,4 +31,23 @@ public struct CharacterNameAndAppearsInWithNestedFragments: StarWarsAPI.Selectio
     public var characterNameWithNestedAppearsInFragment: CharacterNameWithNestedAppearsInFragment { _toFragment() }
     public var characterAppearsIn: CharacterAppearsIn { _toFragment() }
   }
+
+  public init(
+    __typename: String,
+    appearsIn: [GraphQLEnum<StarWarsAPI.Episode>?],
+    name: String
+  ) {
+    let objectType = ApolloAPI.Object(
+      typename: __typename,
+      implementedInterfaces: [
+        StarWarsAPI.Interfaces.Character
+    ])
+    self.init(data: DataDict(
+      objectType: objectType,
+      data: [
+        "__typename": objectType.typename,
+        "appearsIn": appearsIn,
+        "name": name
+    ]))
+  }
 }

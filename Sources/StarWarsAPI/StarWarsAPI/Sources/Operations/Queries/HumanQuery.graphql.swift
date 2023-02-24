@@ -38,6 +38,18 @@ public class HumanQuery: GraphQLQuery {
 
     public var human: Human? { __data["human"] }
 
+    public init(
+      human: Human? = nil
+    ) {
+      let objectType = StarWarsAPI.Objects.Query
+      self.init(data: DataDict(
+        objectType: objectType,
+        data: [
+          "__typename": objectType.typename,
+          "human": human._fieldData
+      ]))
+    }
+
     /// Human
     ///
     /// Parent Type: `Human`
@@ -55,6 +67,20 @@ public class HumanQuery: GraphQLQuery {
       public var name: String { __data["name"] }
       /// Mass in kilograms, or null if unknown
       public var mass: Double? { __data["mass"] }
+
+      public init(
+        name: String,
+        mass: Double? = nil
+      ) {
+        let objectType = StarWarsAPI.Objects.Human
+        self.init(data: DataDict(
+          objectType: objectType,
+          data: [
+            "__typename": objectType.typename,
+            "name": name,
+            "mass": mass
+        ]))
+      }
     }
   }
 }

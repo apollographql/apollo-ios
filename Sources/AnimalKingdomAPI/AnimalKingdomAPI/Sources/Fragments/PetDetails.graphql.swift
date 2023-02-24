@@ -30,6 +30,27 @@ public struct PetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
   public var favoriteToy: String { __data["favoriteToy"] }
   public var owner: Owner? { __data["owner"] }
 
+  public init(
+    __typename: String,
+    humanName: String? = nil,
+    favoriteToy: String,
+    owner: Owner? = nil
+  ) {
+    let objectType = ApolloAPI.Object(
+      typename: __typename,
+      implementedInterfaces: [
+        AnimalKingdomAPI.Interfaces.Pet
+    ])
+    self.init(data: DataDict(
+      objectType: objectType,
+      data: [
+        "__typename": objectType.typename,
+        "humanName": humanName,
+        "favoriteToy": favoriteToy,
+        "owner": owner._fieldData
+    ]))
+  }
+
   /// Owner
   ///
   /// Parent Type: `Human`
@@ -43,5 +64,17 @@ public struct PetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
     ] }
 
     public var firstName: String { __data["firstName"] }
+
+    public init(
+      firstName: String
+    ) {
+      let objectType = AnimalKingdomAPI.Objects.Human
+      self.init(data: DataDict(
+        objectType: objectType,
+        data: [
+          "__typename": objectType.typename,
+          "firstName": firstName
+      ]))
+    }
   }
 }

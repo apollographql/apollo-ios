@@ -26,6 +26,20 @@ public struct ClassroomPetDetailsCCN: AnimalKingdomAPI.SelectionSet, Fragment {
 
   public var asAnimal: AsAnimal? { _asInlineFragment() }
 
+  public init(
+    __typename: String
+  ) {
+    let objectType = ApolloAPI.Object(
+      typename: __typename,
+      implementedInterfaces: [
+    ])
+    self.init(data: DataDict(
+      objectType: objectType,
+      data: [
+        "__typename": objectType.typename,
+    ]))
+  }
+
   /// AsAnimal
   ///
   /// Parent Type: `Animal`
@@ -40,6 +54,23 @@ public struct ClassroomPetDetailsCCN: AnimalKingdomAPI.SelectionSet, Fragment {
 
     public var height: Height { __data["height"] }
 
+    public init(
+      __typename: String,
+      height: Height
+    ) {
+      let objectType = ApolloAPI.Object(
+        typename: __typename,
+        implementedInterfaces: [
+          AnimalKingdomAPI.Interfaces.Animal
+      ])
+      self.init(data: DataDict(
+        objectType: objectType,
+        data: [
+          "__typename": objectType.typename,
+          "height": height._fieldData
+      ]))
+    }
+
     /// AsAnimal.Height
     ///
     /// Parent Type: `Height`
@@ -53,6 +84,18 @@ public struct ClassroomPetDetailsCCN: AnimalKingdomAPI.SelectionSet, Fragment {
       ] }
 
       public var inches: Int { __data["inches"] }
+
+      public init(
+        inches: Int
+      ) {
+        let objectType = AnimalKingdomAPI.Objects.Height
+        self.init(data: DataDict(
+          objectType: objectType,
+          data: [
+            "__typename": objectType.typename,
+            "inches": inches
+        ]))
+      }
     }
   }
 }

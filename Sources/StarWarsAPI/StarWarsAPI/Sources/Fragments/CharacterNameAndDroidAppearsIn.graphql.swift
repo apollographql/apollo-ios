@@ -29,6 +29,23 @@ public struct CharacterNameAndDroidAppearsIn: StarWarsAPI.SelectionSet, Fragment
 
   public var asDroid: AsDroid? { _asInlineFragment() }
 
+  public init(
+    __typename: String,
+    name: String
+  ) {
+    let objectType = ApolloAPI.Object(
+      typename: __typename,
+      implementedInterfaces: [
+        StarWarsAPI.Interfaces.Character
+    ])
+    self.init(data: DataDict(
+      objectType: objectType,
+      data: [
+        "__typename": objectType.typename,
+        "name": name
+    ]))
+  }
+
   /// AsDroid
   ///
   /// Parent Type: `Droid`
@@ -45,5 +62,19 @@ public struct CharacterNameAndDroidAppearsIn: StarWarsAPI.SelectionSet, Fragment
     public var appearsIn: [GraphQLEnum<StarWarsAPI.Episode>?] { __data["appearsIn"] }
     /// The name of the character
     public var name: String { __data["name"] }
+
+    public init(
+      appearsIn: [GraphQLEnum<StarWarsAPI.Episode>?],
+      name: String
+    ) {
+      let objectType = StarWarsAPI.Objects.Droid
+      self.init(data: DataDict(
+        objectType: objectType,
+        data: [
+          "__typename": objectType.typename,
+          "appearsIn": appearsIn,
+          "name": name
+      ]))
+    }
   }
 }

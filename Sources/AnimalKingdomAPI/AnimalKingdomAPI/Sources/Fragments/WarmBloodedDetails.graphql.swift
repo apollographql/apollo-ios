@@ -30,4 +30,24 @@ public struct WarmBloodedDetails: AnimalKingdomAPI.SelectionSet, Fragment {
 
     public var heightInMeters: HeightInMeters { _toFragment() }
   }
+
+  public init(
+    __typename: String,
+    bodyTemperature: Int,
+    height: HeightInMeters.Height
+  ) {
+    let objectType = ApolloAPI.Object(
+      typename: __typename,
+      implementedInterfaces: [
+        AnimalKingdomAPI.Interfaces.WarmBlooded,
+        AnimalKingdomAPI.Interfaces.Animal
+    ])
+    self.init(data: DataDict(
+      objectType: objectType,
+      data: [
+        "__typename": objectType.typename,
+        "bodyTemperature": bodyTemperature,
+        "height": height._fieldData
+    ]))
+  }
 }

@@ -44,6 +44,18 @@ public class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
 
     public var hero: Hero? { __data["hero"] }
 
+    public init(
+      hero: Hero? = nil
+    ) {
+      let objectType = StarWarsAPI.Objects.Query
+      self.init(data: DataDict(
+        objectType: objectType,
+        data: [
+          "__typename": objectType.typename,
+          "hero": hero._fieldData
+      ]))
+    }
+
     /// Hero
     ///
     /// Parent Type: `Character`
@@ -60,6 +72,21 @@ public class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
       public var asHuman: AsHuman? { _asInlineFragment() }
       public var asDroid: AsDroid? { _asInlineFragment() }
 
+      public init(
+        __typename: String
+      ) {
+        let objectType = ApolloAPI.Object(
+          typename: __typename,
+          implementedInterfaces: [
+            StarWarsAPI.Interfaces.Character
+        ])
+        self.init(data: DataDict(
+          objectType: objectType,
+          data: [
+            "__typename": objectType.typename,
+        ]))
+      }
+
       /// Hero.AsHuman
       ///
       /// Parent Type: `Human`
@@ -74,6 +101,18 @@ public class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
 
         /// The home planet of the human, or null if unknown
         public var property: String? { __data["property"] }
+
+        public init(
+          property: String? = nil
+        ) {
+          let objectType = StarWarsAPI.Objects.Human
+          self.init(data: DataDict(
+            objectType: objectType,
+            data: [
+              "__typename": objectType.typename,
+              "property": property
+          ]))
+        }
       }
 
       /// Hero.AsDroid
@@ -90,6 +129,18 @@ public class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
 
         /// This droid's primary function
         public var property: String? { __data["property"] }
+
+        public init(
+          property: String? = nil
+        ) {
+          let objectType = StarWarsAPI.Objects.Droid
+          self.init(data: DataDict(
+            objectType: objectType,
+            data: [
+              "__typename": objectType.typename,
+              "property": property
+          ]))
+        }
       }
     }
   }

@@ -31,6 +31,18 @@ public class ClassroomPetsCCNQuery: GraphQLQuery {
 
     public var classroomPets: [ClassroomPet]? { __data["classroomPets"] }
 
+    public init(
+      classroomPets: [ClassroomPet]? = nil
+    ) {
+      let objectType = AnimalKingdomAPI.Objects.Query
+      self.init(data: DataDict(
+        objectType: objectType,
+        data: [
+          "__typename": objectType.typename,
+          "classroomPets": classroomPets._fieldData
+      ]))
+    }
+
     /// ClassroomPet
     ///
     /// Parent Type: `ClassroomPet`
@@ -52,6 +64,20 @@ public class ClassroomPetsCCNQuery: GraphQLQuery {
         public var classroomPetDetailsCCN: ClassroomPetDetailsCCN { _toFragment() }
       }
 
+      public init(
+        __typename: String
+      ) {
+        let objectType = ApolloAPI.Object(
+          typename: __typename,
+          implementedInterfaces: [
+        ])
+        self.init(data: DataDict(
+          objectType: objectType,
+          data: [
+            "__typename": objectType.typename,
+        ]))
+      }
+
       /// ClassroomPet.AsAnimal
       ///
       /// Parent Type: `Animal`
@@ -68,6 +94,23 @@ public class ClassroomPetsCCNQuery: GraphQLQuery {
           public init(data: DataDict) { __data = data }
 
           public var classroomPetDetailsCCN: ClassroomPetDetailsCCN { _toFragment() }
+        }
+
+        public init(
+          __typename: String,
+          height: ClassroomPetDetailsCCN.AsAnimal.Height
+        ) {
+          let objectType = ApolloAPI.Object(
+            typename: __typename,
+            implementedInterfaces: [
+              AnimalKingdomAPI.Interfaces.Animal
+          ])
+          self.init(data: DataDict(
+            objectType: objectType,
+            data: [
+              "__typename": objectType.typename,
+              "height": height._fieldData
+          ]))
         }
       }
     }

@@ -48,6 +48,18 @@ public class PetSearchQuery: GraphQLQuery {
 
     public var pets: [Pet] { __data["pets"] }
 
+    public init(
+      pets: [Pet]
+    ) {
+      let objectType = AnimalKingdomAPI.Objects.Query
+      self.init(data: DataDict(
+        objectType: objectType,
+        data: [
+          "__typename": objectType.typename,
+          "pets": pets._fieldData
+      ]))
+    }
+
     /// Pet
     ///
     /// Parent Type: `Pet`
@@ -63,6 +75,25 @@ public class PetSearchQuery: GraphQLQuery {
 
       public var id: AnimalKingdomAPI.ID { __data["id"] }
       public var humanName: String? { __data["humanName"] }
+
+      public init(
+        __typename: String,
+        id: AnimalKingdomAPI.ID,
+        humanName: String? = nil
+      ) {
+        let objectType = ApolloAPI.Object(
+          typename: __typename,
+          implementedInterfaces: [
+            AnimalKingdomAPI.Interfaces.Pet
+        ])
+        self.init(data: DataDict(
+          objectType: objectType,
+          data: [
+            "__typename": objectType.typename,
+            "id": id,
+            "humanName": humanName
+        ]))
+      }
     }
   }
 }

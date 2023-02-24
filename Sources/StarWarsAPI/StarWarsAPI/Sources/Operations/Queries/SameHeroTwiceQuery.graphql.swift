@@ -37,6 +37,20 @@ public class SameHeroTwiceQuery: GraphQLQuery {
     public var hero: Hero? { __data["hero"] }
     public var r2: R2? { __data["r2"] }
 
+    public init(
+      hero: Hero? = nil,
+      r2: R2? = nil
+    ) {
+      let objectType = StarWarsAPI.Objects.Query
+      self.init(data: DataDict(
+        objectType: objectType,
+        data: [
+          "__typename": objectType.typename,
+          "hero": hero._fieldData,
+          "r2": r2._fieldData
+      ]))
+    }
+
     /// Hero
     ///
     /// Parent Type: `Character`
@@ -51,6 +65,23 @@ public class SameHeroTwiceQuery: GraphQLQuery {
 
       /// The name of the character
       public var name: String { __data["name"] }
+
+      public init(
+        __typename: String,
+        name: String
+      ) {
+        let objectType = ApolloAPI.Object(
+          typename: __typename,
+          implementedInterfaces: [
+            StarWarsAPI.Interfaces.Character
+        ])
+        self.init(data: DataDict(
+          objectType: objectType,
+          data: [
+            "__typename": objectType.typename,
+            "name": name
+        ]))
+      }
     }
 
     /// R2
@@ -67,6 +98,23 @@ public class SameHeroTwiceQuery: GraphQLQuery {
 
       /// The movies this character appears in
       public var appearsIn: [GraphQLEnum<StarWarsAPI.Episode>?] { __data["appearsIn"] }
+
+      public init(
+        __typename: String,
+        appearsIn: [GraphQLEnum<StarWarsAPI.Episode>?]
+      ) {
+        let objectType = ApolloAPI.Object(
+          typename: __typename,
+          implementedInterfaces: [
+            StarWarsAPI.Interfaces.Character
+        ])
+        self.init(data: DataDict(
+          objectType: objectType,
+          data: [
+            "__typename": objectType.typename,
+            "appearsIn": appearsIn
+        ]))
+      }
     }
   }
 }
