@@ -454,6 +454,66 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
   }
 
+  func test__render_given_abstractEntityFieldSelectionWithNoFields_rendersInitializer() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+      friend: Animal!
+    }
+
+    type Cat implements Animal {
+      species: String!
+      friend: Animal!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        ... on Cat {
+          friend {
+            species
+          }
+        }
+      }
+    }
+    """
+
+    let expected = """
+        public init(
+          __typename: String
+        ) {
+          let objectType = ApolloAPI.Object(
+            typename: __typename,
+            implementedInterfaces: [
+              TestSchema.Interfaces.Animal
+          ])
+          self.init(data: DataDict(
+            objectType: objectType,
+            data: [
+              "__typename": objectType.typename,
+          ]))
+        }
+      """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
+  }
+
   func test__render_given_entityFieldListSelection_rendersInitializer() throws {
     // given
     schemaSDL = """

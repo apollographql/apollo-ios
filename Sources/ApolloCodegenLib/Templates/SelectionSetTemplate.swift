@@ -398,12 +398,9 @@ struct SelectionSetTemplate {
   // MARK: - SelectionSet Initializer
 
   private func InitializerTemplate(_ selectionSet: IR.SelectionSet) -> TemplateString {
-    let isConcreteType = selectionSet.parentType is GraphQLObjectType
-
     return """
     public init(
-      \(if: !isConcreteType, "__typename: String,")
-      \(InitializerSelectionParametersTemplate(selectionSet.selections))
+      \(InitializerSelectionParametersTemplate(selectionSet))
     ) {
       \(InitializerObjectType(selectionSet))
       self.init(data: DataDict(
@@ -416,12 +413,14 @@ struct SelectionSetTemplate {
   }
 
   private func InitializerSelectionParametersTemplate(
-    _ selections: IR.SelectionSet.Selections
+    _ selectionSet: IR.SelectionSet
   ) -> TemplateString {
-    let iterator = IR.SelectionSet.Selections.FieldIterator(selections: selections)
+    let isConcreteType = selectionSet.parentType is GraphQLObjectType
+    let allFields = IR.SelectionSet.Selections.FieldIterator(selections: selectionSet.selections)
 
     return TemplateString("""
-    \(IteratorSequence(iterator).map(InitializerParameterTemplate(_:)))
+    \(if: !isConcreteType, "__typename: String\(if: !allFields.isEmpty, ",")")
+    \(IteratorSequence(allFields).map(InitializerParameterTemplate(_:)))
     """
     )
   }
@@ -458,11 +457,11 @@ struct SelectionSetTemplate {
   private func InitializerDataDictTemplate(
     _ selections: IR.SelectionSet.Selections
   ) -> TemplateString {
-    let iterator = IR.SelectionSet.Selections.FieldIterator(selections: selections)
+    let allFields = IR.SelectionSet.Selections.FieldIterator(selections: selections)
 
     return TemplateString("""
     "__typename": objectType.typename,
-    \(IteratorSequence(iterator).map(InitializerDataDictFieldTemplate(_:)))
+    \(IteratorSequence(allFields).map(InitializerDataDictFieldTemplate(_:)))
     """
     )
   }
@@ -792,6 +791,10 @@ extension IR.SelectionSet.Selections {
     let selections: IR.SelectionSet.Selections
     private var directIterator: IndexingIterator<OrderedDictionary<String, IR.Field>.Values>?
     private var mergedIterator: IndexingIterator<OrderedDictionary<String, IR.Field>.Values>
+
+    var isEmpty: Bool {
+      return (selections.direct?.fields.isEmpty ?? true) && selections.merged.fields.isEmpty
+    }
 
     init(selections: IR.SelectionSet.Selections) {
       self.selections = selections
