@@ -22,7 +22,7 @@ public class RequestChain: Cancellable {
   
   private let interceptors: [ApolloInterceptor]
   private var currentIndex: Int
-  private var callbackQueue: DispatchQueue 
+  private var callbackQueue: DispatchQueue
   @Atomic public var isCancelled: Bool = false
   
   /// Something which allows additional error handling to occur when some kind of error has happened.
