@@ -154,7 +154,7 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
       terminator: String? = nil
     ) where T: Collection, T.Element: CustomStringConvertible {
       let shouldWrapInNewlines = list.count > 1
-      if shouldWrapInNewlines { appendLiteral("\n  ") }
+      if shouldWrapInNewlines { appendInterpolation("\n  ") }
       appendInterpolation(list, separator: separator, terminator: terminator)
       if shouldWrapInNewlines { appendInterpolation("\n") }
     }

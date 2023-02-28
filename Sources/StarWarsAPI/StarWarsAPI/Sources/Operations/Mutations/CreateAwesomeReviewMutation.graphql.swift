@@ -38,6 +38,18 @@ public class CreateAwesomeReviewMutation: GraphQLMutation {
 
     public var createReview: CreateReview? { __data["createReview"] }
 
+    public init(
+      createReview: CreateReview? = nil
+    ) {
+      let objectType = StarWarsAPI.Objects.Mutation
+      self.init(data: DataDict(
+        objectType: objectType,
+        data: [
+          "__typename": objectType.typename,
+          "createReview": createReview._fieldData
+      ]))
+    }
+
     /// CreateReview
     ///
     /// Parent Type: `Review`
@@ -55,6 +67,20 @@ public class CreateAwesomeReviewMutation: GraphQLMutation {
       public var stars: Int { __data["stars"] }
       /// Comment about the movie
       public var commentary: String? { __data["commentary"] }
+
+      public init(
+        stars: Int,
+        commentary: String? = nil
+      ) {
+        let objectType = StarWarsAPI.Objects.Review
+        self.init(data: DataDict(
+          objectType: objectType,
+          data: [
+            "__typename": objectType.typename,
+            "stars": stars,
+            "commentary": commentary
+        ]))
+      }
     }
   }
 }

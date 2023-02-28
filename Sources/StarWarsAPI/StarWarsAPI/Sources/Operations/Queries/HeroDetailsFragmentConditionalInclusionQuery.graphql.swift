@@ -38,6 +38,18 @@ public class HeroDetailsFragmentConditionalInclusionQuery: GraphQLQuery {
 
     public var hero: Hero? { __data["hero"] }
 
+    public init(
+      hero: Hero? = nil
+    ) {
+      let objectType = StarWarsAPI.Objects.Query
+      self.init(data: DataDict(
+        objectType: objectType,
+        data: [
+          "__typename": objectType.typename,
+          "hero": hero._fieldData
+      ]))
+    }
+
     /// Hero
     ///
     /// Parent Type: `Character`
@@ -59,6 +71,21 @@ public class HeroDetailsFragmentConditionalInclusionQuery: GraphQLQuery {
         public var heroDetails: HeroDetails? { _toFragment(if: "includeDetails") }
       }
 
+      public init(
+        __typename: String
+      ) {
+        let objectType = ApolloAPI.Object(
+          typename: __typename,
+          implementedInterfaces: [
+            StarWarsAPI.Interfaces.Character
+        ])
+        self.init(data: DataDict(
+          objectType: objectType,
+          data: [
+            "__typename": objectType.typename,
+        ]))
+      }
+
       /// Hero.IfIncludeDetails
       ///
       /// Parent Type: `Character`
@@ -76,6 +103,23 @@ public class HeroDetailsFragmentConditionalInclusionQuery: GraphQLQuery {
           public init(data: DataDict) { __data = data }
 
           public var heroDetails: HeroDetails { _toFragment() }
+        }
+
+        public init(
+          __typename: String,
+          name: String
+        ) {
+          let objectType = ApolloAPI.Object(
+            typename: __typename,
+            implementedInterfaces: [
+              StarWarsAPI.Interfaces.Character
+          ])
+          self.init(data: DataDict(
+            objectType: objectType,
+            data: [
+              "__typename": objectType.typename,
+              "name": name
+          ]))
         }
       }
     }

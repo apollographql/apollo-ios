@@ -121,8 +121,15 @@ public enum Target: CaseIterable {
 
   public func options() -> ApolloCodegenConfiguration.OutputOptions {
     switch self {
-    case .starWars: return .init(schemaDocumentation: .include, apqs: .automaticallyPersist)
-    case .animalKingdom: return .init(schemaDocumentation: .include)
+    case .starWars: return .init(
+      schemaDocumentation: .include,
+      selectionSetInitializers: .all,
+      apqs: .automaticallyPersist
+    )
+    case .animalKingdom: return .init(
+      schemaDocumentation: .include,
+      selectionSetInitializers: .all
+    )
     default: return .init()
     }
   }

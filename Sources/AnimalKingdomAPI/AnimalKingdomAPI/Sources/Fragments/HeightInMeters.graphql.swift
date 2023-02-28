@@ -24,6 +24,23 @@ public struct HeightInMeters: AnimalKingdomAPI.SelectionSet, Fragment {
 
   public var height: Height { __data["height"] }
 
+  public init(
+    __typename: String,
+    height: Height
+  ) {
+    let objectType = ApolloAPI.Object(
+      typename: __typename,
+      implementedInterfaces: [
+        AnimalKingdomAPI.Interfaces.Animal
+    ])
+    self.init(data: DataDict(
+      objectType: objectType,
+      data: [
+        "__typename": objectType.typename,
+        "height": height._fieldData
+    ]))
+  }
+
   /// Height
   ///
   /// Parent Type: `Height`
@@ -37,5 +54,17 @@ public struct HeightInMeters: AnimalKingdomAPI.SelectionSet, Fragment {
     ] }
 
     public var meters: Int { __data["meters"] }
+
+    public init(
+      meters: Int
+    ) {
+      let objectType = AnimalKingdomAPI.Objects.Height
+      self.init(data: DataDict(
+        objectType: objectType,
+        data: [
+          "__typename": objectType.typename,
+          "meters": meters
+      ]))
+    }
   }
 }

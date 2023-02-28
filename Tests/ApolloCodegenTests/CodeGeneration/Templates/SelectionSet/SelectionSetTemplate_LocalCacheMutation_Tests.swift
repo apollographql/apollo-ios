@@ -35,6 +35,7 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
     operation = ir.build(operation: operationDefinition)
     subject = SelectionSetTemplate(
       mutable: true,
+      generateInitializers: false,
       config: .init(config: .mock(schemaName: schemaName))
     )
   }

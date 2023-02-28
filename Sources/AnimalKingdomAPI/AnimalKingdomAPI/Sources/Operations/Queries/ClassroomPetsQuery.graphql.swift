@@ -31,6 +31,18 @@ public class ClassroomPetsQuery: GraphQLQuery {
 
     public var classroomPets: [ClassroomPet?]? { __data["classroomPets"] }
 
+    public init(
+      classroomPets: [ClassroomPet?]? = nil
+    ) {
+      let objectType = AnimalKingdomAPI.Objects.Query
+      self.init(data: DataDict(
+        objectType: objectType,
+        data: [
+          "__typename": objectType.typename,
+          "classroomPets": classroomPets._fieldData
+      ]))
+    }
+
     /// ClassroomPet
     ///
     /// Parent Type: `ClassroomPet`
@@ -57,6 +69,20 @@ public class ClassroomPetsQuery: GraphQLQuery {
         public var classroomPetDetails: ClassroomPetDetails { _toFragment() }
       }
 
+      public init(
+        __typename: String
+      ) {
+        let objectType = ApolloAPI.Object(
+          typename: __typename,
+          implementedInterfaces: [
+        ])
+        self.init(data: DataDict(
+          objectType: objectType,
+          data: [
+            "__typename": objectType.typename,
+        ]))
+      }
+
       /// ClassroomPet.AsAnimal
       ///
       /// Parent Type: `Animal`
@@ -73,6 +99,23 @@ public class ClassroomPetsQuery: GraphQLQuery {
           public init(data: DataDict) { __data = data }
 
           public var classroomPetDetails: ClassroomPetDetails { _toFragment() }
+        }
+
+        public init(
+          __typename: String,
+          species: String
+        ) {
+          let objectType = ApolloAPI.Object(
+            typename: __typename,
+            implementedInterfaces: [
+              AnimalKingdomAPI.Interfaces.Animal
+          ])
+          self.init(data: DataDict(
+            objectType: objectType,
+            data: [
+              "__typename": objectType.typename,
+              "species": species
+          ]))
         }
       }
 
@@ -93,6 +136,23 @@ public class ClassroomPetsQuery: GraphQLQuery {
 
           public var classroomPetDetails: ClassroomPetDetails { _toFragment() }
         }
+
+        public init(
+          __typename: String,
+          humanName: String? = nil
+        ) {
+          let objectType = ApolloAPI.Object(
+            typename: __typename,
+            implementedInterfaces: [
+              AnimalKingdomAPI.Interfaces.Pet
+          ])
+          self.init(data: DataDict(
+            objectType: objectType,
+            data: [
+              "__typename": objectType.typename,
+              "humanName": humanName
+          ]))
+        }
       }
 
       /// ClassroomPet.AsWarmBlooded
@@ -112,6 +172,26 @@ public class ClassroomPetsQuery: GraphQLQuery {
           public init(data: DataDict) { __data = data }
 
           public var classroomPetDetails: ClassroomPetDetails { _toFragment() }
+        }
+
+        public init(
+          __typename: String,
+          species: String,
+          laysEggs: Bool
+        ) {
+          let objectType = ApolloAPI.Object(
+            typename: __typename,
+            implementedInterfaces: [
+              AnimalKingdomAPI.Interfaces.WarmBlooded,
+              AnimalKingdomAPI.Interfaces.Animal
+          ])
+          self.init(data: DataDict(
+            objectType: objectType,
+            data: [
+              "__typename": objectType.typename,
+              "species": species,
+              "laysEggs": laysEggs
+          ]))
         }
       }
 
@@ -136,6 +216,26 @@ public class ClassroomPetsQuery: GraphQLQuery {
 
           public var classroomPetDetails: ClassroomPetDetails { _toFragment() }
         }
+
+        public init(
+          species: String,
+          humanName: String? = nil,
+          laysEggs: Bool,
+          bodyTemperature: Int,
+          isJellicle: Bool
+        ) {
+          let objectType = AnimalKingdomAPI.Objects.Cat
+          self.init(data: DataDict(
+            objectType: objectType,
+            data: [
+              "__typename": objectType.typename,
+              "species": species,
+              "humanName": humanName,
+              "laysEggs": laysEggs,
+              "bodyTemperature": bodyTemperature,
+              "isJellicle": isJellicle
+          ]))
+        }
       }
 
       /// ClassroomPet.AsBird
@@ -158,6 +258,24 @@ public class ClassroomPetsQuery: GraphQLQuery {
 
           public var classroomPetDetails: ClassroomPetDetails { _toFragment() }
         }
+
+        public init(
+          species: String,
+          humanName: String? = nil,
+          laysEggs: Bool,
+          wingspan: Double
+        ) {
+          let objectType = AnimalKingdomAPI.Objects.Bird
+          self.init(data: DataDict(
+            objectType: objectType,
+            data: [
+              "__typename": objectType.typename,
+              "species": species,
+              "humanName": humanName,
+              "laysEggs": laysEggs,
+              "wingspan": wingspan
+          ]))
+        }
       }
 
       /// ClassroomPet.AsPetRock
@@ -177,6 +295,20 @@ public class ClassroomPetsQuery: GraphQLQuery {
           public init(data: DataDict) { __data = data }
 
           public var classroomPetDetails: ClassroomPetDetails { _toFragment() }
+        }
+
+        public init(
+          humanName: String? = nil,
+          favoriteToy: String
+        ) {
+          let objectType = AnimalKingdomAPI.Objects.PetRock
+          self.init(data: DataDict(
+            objectType: objectType,
+            data: [
+              "__typename": objectType.typename,
+              "humanName": humanName,
+              "favoriteToy": favoriteToy
+          ]))
         }
       }
     }

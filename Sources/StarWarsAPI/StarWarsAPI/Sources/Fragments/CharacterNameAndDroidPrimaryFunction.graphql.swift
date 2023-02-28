@@ -33,6 +33,23 @@ public struct CharacterNameAndDroidPrimaryFunction: StarWarsAPI.SelectionSet, Fr
     public var characterName: CharacterName { _toFragment() }
   }
 
+  public init(
+    __typename: String,
+    name: String
+  ) {
+    let objectType = ApolloAPI.Object(
+      typename: __typename,
+      implementedInterfaces: [
+        StarWarsAPI.Interfaces.Character
+    ])
+    self.init(data: DataDict(
+      objectType: objectType,
+      data: [
+        "__typename": objectType.typename,
+        "name": name
+    ]))
+  }
+
   /// AsDroid
   ///
   /// Parent Type: `Droid`
@@ -56,6 +73,20 @@ public struct CharacterNameAndDroidPrimaryFunction: StarWarsAPI.SelectionSet, Fr
 
       public var droidPrimaryFunction: DroidPrimaryFunction { _toFragment() }
       public var characterName: CharacterName { _toFragment() }
+    }
+
+    public init(
+      name: String,
+      primaryFunction: String? = nil
+    ) {
+      let objectType = StarWarsAPI.Objects.Droid
+      self.init(data: DataDict(
+        objectType: objectType,
+        data: [
+          "__typename": objectType.typename,
+          "name": name,
+          "primaryFunction": primaryFunction
+      ]))
     }
   }
 }

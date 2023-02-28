@@ -32,6 +32,18 @@ public class StarshipQuery: GraphQLQuery {
 
     public var starship: Starship? { __data["starship"] }
 
+    public init(
+      starship: Starship? = nil
+    ) {
+      let objectType = StarWarsAPI.Objects.Query
+      self.init(data: DataDict(
+        objectType: objectType,
+        data: [
+          "__typename": objectType.typename,
+          "starship": starship._fieldData
+      ]))
+    }
+
     /// Starship
     ///
     /// Parent Type: `Starship`
@@ -48,6 +60,20 @@ public class StarshipQuery: GraphQLQuery {
       /// The name of the starship
       public var name: String { __data["name"] }
       public var coordinates: [[Double]]? { __data["coordinates"] }
+
+      public init(
+        name: String,
+        coordinates: [[Double]]? = nil
+      ) {
+        let objectType = StarWarsAPI.Objects.Starship
+        self.init(data: DataDict(
+          objectType: objectType,
+          data: [
+            "__typename": objectType.typename,
+            "name": name,
+            "coordinates": coordinates
+        ]))
+      }
     }
   }
 }

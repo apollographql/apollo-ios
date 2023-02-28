@@ -22,6 +22,7 @@ struct FragmentTemplate: TemplateRenderer {
 
       \(SelectionSetTemplate(
         mutable: isMutable,
+        generateInitializers: config.options.shouldGenerateSelectionSetInitializers(for: fragment),
         config: config
       ).BodyTemplate(fragment.rootField.selectionSet))
     }

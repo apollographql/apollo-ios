@@ -20,4 +20,16 @@ public struct DogFragment: AnimalKingdomAPI.SelectionSet, Fragment {
   ] }
 
   public var species: String { __data["species"] }
+
+  public init(
+    species: String
+  ) {
+    let objectType = AnimalKingdomAPI.Objects.Dog
+    self.init(data: DataDict(
+      objectType: objectType,
+      data: [
+        "__typename": objectType.typename,
+        "species": species
+    ]))
+  }
 }

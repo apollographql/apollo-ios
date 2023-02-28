@@ -48,6 +48,18 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
 
     public var hero: Hero? { __data["hero"] }
 
+    public init(
+      hero: Hero? = nil
+    ) {
+      let objectType = StarWarsAPI.Objects.Query
+      self.init(data: DataDict(
+        objectType: objectType,
+        data: [
+          "__typename": objectType.typename,
+          "hero": hero._fieldData
+      ]))
+    }
+
     /// Hero
     ///
     /// Parent Type: `Character`
@@ -62,6 +74,23 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
 
       /// The friends of the character, or an empty list if they have none
       public var friends: [Friend?]? { __data["friends"] }
+
+      public init(
+        __typename: String,
+        friends: [Friend?]? = nil
+      ) {
+        let objectType = ApolloAPI.Object(
+          typename: __typename,
+          implementedInterfaces: [
+            StarWarsAPI.Interfaces.Character
+        ])
+        self.init(data: DataDict(
+          objectType: objectType,
+          data: [
+            "__typename": objectType.typename,
+            "friends": friends._fieldData
+        ]))
+      }
 
       /// Hero.Friend
       ///
@@ -82,6 +111,23 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
         public var ifIncludeFriendsDetails: IfIncludeFriendsDetails? { _asInlineFragment(if: "includeFriendsDetails") }
         public var asDroid: AsDroid? { _asInlineFragment() }
 
+        public init(
+          __typename: String,
+          name: String
+        ) {
+          let objectType = ApolloAPI.Object(
+            typename: __typename,
+            implementedInterfaces: [
+              StarWarsAPI.Interfaces.Character
+          ])
+          self.init(data: DataDict(
+            objectType: objectType,
+            data: [
+              "__typename": objectType.typename,
+              "name": name
+          ]))
+        }
+
         /// Hero.Friend.IfIncludeFriendsDetails
         ///
         /// Parent Type: `Character`
@@ -100,6 +146,23 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
 
           public var asDroid: AsDroid? { _asInlineFragment() }
 
+          public init(
+            __typename: String,
+            name: String
+          ) {
+            let objectType = ApolloAPI.Object(
+              typename: __typename,
+              implementedInterfaces: [
+                StarWarsAPI.Interfaces.Character
+            ])
+            self.init(data: DataDict(
+              objectType: objectType,
+              data: [
+                "__typename": objectType.typename,
+                "name": name
+            ]))
+          }
+
           /// Hero.Friend.AsDroid
           ///
           /// Parent Type: `Droid`
@@ -116,6 +179,20 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
             public var primaryFunction: String? { __data["primaryFunction"] }
             /// The name of the character
             public var name: String { __data["name"] }
+
+            public init(
+              primaryFunction: String? = nil,
+              name: String
+            ) {
+              let objectType = StarWarsAPI.Objects.Droid
+              self.init(data: DataDict(
+                objectType: objectType,
+                data: [
+                  "__typename": objectType.typename,
+                  "primaryFunction": primaryFunction,
+                  "name": name
+              ]))
+            }
           }
         }
         /// Hero.Friend.AsDroid
@@ -131,6 +208,20 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
           public var name: String { __data["name"] }
           /// This droid's primary function
           public var primaryFunction: String? { __data["primaryFunction"] }
+
+          public init(
+            name: String,
+            primaryFunction: String? = nil
+          ) {
+            let objectType = StarWarsAPI.Objects.Droid
+            self.init(data: DataDict(
+              objectType: objectType,
+              data: [
+                "__typename": objectType.typename,
+                "name": name,
+                "primaryFunction": primaryFunction
+            ]))
+          }
         }
       }
     }

@@ -34,6 +34,21 @@ public struct CharacterNameWithInlineFragment: StarWarsAPI.SelectionSet, Fragmen
   public var asHuman: AsHuman? { _asInlineFragment() }
   public var asDroid: AsDroid? { _asInlineFragment() }
 
+  public init(
+    __typename: String
+  ) {
+    let objectType = ApolloAPI.Object(
+      typename: __typename,
+      implementedInterfaces: [
+        StarWarsAPI.Interfaces.Character
+    ])
+    self.init(data: DataDict(
+      objectType: objectType,
+      data: [
+        "__typename": objectType.typename,
+    ]))
+  }
+
   /// AsHuman
   ///
   /// Parent Type: `Human`
@@ -49,6 +64,18 @@ public struct CharacterNameWithInlineFragment: StarWarsAPI.SelectionSet, Fragmen
     /// This human's friends, or an empty list if they have none
     public var friends: [Friend?]? { __data["friends"] }
 
+    public init(
+      friends: [Friend?]? = nil
+    ) {
+      let objectType = StarWarsAPI.Objects.Human
+      self.init(data: DataDict(
+        objectType: objectType,
+        data: [
+          "__typename": objectType.typename,
+          "friends": friends._fieldData
+      ]))
+    }
+
     /// AsHuman.Friend
     ///
     /// Parent Type: `Character`
@@ -63,6 +90,23 @@ public struct CharacterNameWithInlineFragment: StarWarsAPI.SelectionSet, Fragmen
 
       /// The movies this character appears in
       public var appearsIn: [GraphQLEnum<StarWarsAPI.Episode>?] { __data["appearsIn"] }
+
+      public init(
+        __typename: String,
+        appearsIn: [GraphQLEnum<StarWarsAPI.Episode>?]
+      ) {
+        let objectType = ApolloAPI.Object(
+          typename: __typename,
+          implementedInterfaces: [
+            StarWarsAPI.Interfaces.Character
+        ])
+        self.init(data: DataDict(
+          objectType: objectType,
+          data: [
+            "__typename": objectType.typename,
+            "appearsIn": appearsIn
+        ]))
+      }
     }
   }
 
@@ -90,6 +134,20 @@ public struct CharacterNameWithInlineFragment: StarWarsAPI.SelectionSet, Fragmen
 
       public var characterName: CharacterName { _toFragment() }
       public var friendsNames: FriendsNames { _toFragment() }
+    }
+
+    public init(
+      name: String,
+      friends: [FriendsNames.Friend?]? = nil
+    ) {
+      let objectType = StarWarsAPI.Objects.Droid
+      self.init(data: DataDict(
+        objectType: objectType,
+        data: [
+          "__typename": objectType.typename,
+          "name": name,
+          "friends": friends._fieldData
+      ]))
     }
   }
 }

@@ -91,6 +91,9 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
           "pruneGeneratedFiles" : false,
           "queryStringLiteralFormat" : "singleLine",
           "schemaDocumentation" : "exclude",
+          "selectionSetInitializers" : {
+            "localCacheMutations" : true
+          },
           "warningsOnDeprecatedUsage" : "exclude"
         },
         "output" : {
@@ -342,6 +345,259 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
     expect(
       try JSONDecoder().decode(ApolloCodegenConfiguration.Composition.self, from: subject)
     ).to(throwError())
+  }
+
+  // MARK: - Selection Set Initializers Tests
+
+  func test__encode_selectionSetInitializers__givenOperations_shouldReturnObjectString() throws {
+    // given
+    let subject: ApolloCodegenConfiguration.SelectionSetInitializers = [.operations]
+
+    let expected = """
+    {
+      "operations" : true
+    }
+    """
+
+    // when
+    let actual = try testJSONEncoder.encode(subject).asString
+
+    // then
+    expect(actual).to(equal(expected))
+  }
+
+  func test__decode_selectionSetInitializers__givenOperations_shouldReturnOptions() throws {
+    // given
+    let subject = """
+    {
+      "operations": true
+    }
+    """.asData
+
+    // when
+    let decoded = try JSONDecoder().decode(
+      ApolloCodegenConfiguration.SelectionSetInitializers.self,
+      from: subject
+    )
+
+    // then
+    expect(decoded).to(equal(.operations))
+  }
+
+  func test__decode_selectionSetInitializers__givenOperations_false_shouldReturnEmptyOptions() throws {
+    // given
+    let subject = """
+    {
+      "operations": false
+    }
+    """.asData
+
+    // when
+    let decoded = try JSONDecoder().decode(
+      ApolloCodegenConfiguration.SelectionSetInitializers.self,
+      from: subject
+    )
+
+    // then
+    expect(decoded).to(equal([]))
+  }
+
+  func test__encode_selectionSetInitializers__givenNamedFragments_shouldReturnObjectString() throws {
+    // given
+    let subject: ApolloCodegenConfiguration.SelectionSetInitializers = [.namedFragments]
+
+    let expected = """
+    {
+      "namedFragments" : true
+    }
+    """
+
+    // when
+    let actual = try testJSONEncoder.encode(subject).asString
+
+    // then
+    expect(actual).to(equal(expected))
+  }
+
+  func test__decode_selectionSetInitializers__givenNamedFragments_shouldReturnOptions() throws {
+    // given
+    let subject = """
+    {
+      "namedFragments": true
+    }
+    """.asData
+
+    // when
+    let decoded = try JSONDecoder().decode(
+      ApolloCodegenConfiguration.SelectionSetInitializers.self,
+      from: subject
+    )
+
+    // then
+    expect(decoded).to(equal(.namedFragments))
+  }
+
+  func test__decode_selectionSetInitializers__givenNamedFragments_false_shouldReturnEmptyOptions() throws {
+    // given
+    let subject = """
+    {
+      "namedFragments": false
+    }
+    """.asData
+
+    // when
+    let decoded = try JSONDecoder().decode(
+      ApolloCodegenConfiguration.SelectionSetInitializers.self,
+      from: subject
+    )
+
+    // then
+    expect(decoded).to(equal([]))
+  }
+
+  func test__encode_selectionSetInitializers__givenLocalCacheMutations_shouldReturnObjectString() throws {
+    // given
+    let subject: ApolloCodegenConfiguration.SelectionSetInitializers = [.localCacheMutations]
+
+    let expected = """
+    {
+      "localCacheMutations" : true
+    }
+    """
+
+    // when
+    let actual = try testJSONEncoder.encode(subject).asString
+
+    // then
+    expect(actual).to(equal(expected))
+  }
+
+  func test__decode_selectionSetInitializers__givenLocalCacheMutations_shouldReturnOptions() throws {
+    // given
+    let subject = """
+    {
+      "localCacheMutations": true
+    }
+    """.asData
+
+    // when
+    let decoded = try JSONDecoder().decode(
+      ApolloCodegenConfiguration.SelectionSetInitializers.self,
+      from: subject
+    )
+
+    // then
+    expect(decoded).to(equal(.localCacheMutations))
+  }
+
+  func test__decode_selectionSetInitializers__givenLocalCacheMutations_false_shouldReturnEmptyOptions() throws {
+    // given
+    let subject = """
+    {
+      "localCacheMutations": false
+    }
+    """.asData
+
+    // when
+    let decoded = try JSONDecoder().decode(
+      ApolloCodegenConfiguration.SelectionSetInitializers.self,
+      from: subject
+    )
+
+    // then
+    expect(decoded).to(equal([]))
+  }
+
+  func test__encode_selectionSetInitializers__givenAll_shouldReturnObjectString() throws {
+    // given
+    let subject: ApolloCodegenConfiguration.SelectionSetInitializers = .all
+
+    let expected = """
+    {
+      "localCacheMutations" : true,
+      "namedFragments" : true,
+      "operations" : true
+    }
+    """
+
+    // when
+    let actual = try testJSONEncoder.encode(subject).asString
+
+    // then
+    expect(actual).to(equal(expected))
+  }
+
+  func test__decode_selectionSetInitializers__givenAll_shouldReturnObjectString() throws {
+    // given
+    let subject = """
+    {
+      "operations" : true,
+      "namedFragments" : true,
+      "localCacheMutations" : true
+    }
+    """.asData
+
+    // when
+    let decoded = try JSONDecoder().decode(
+      ApolloCodegenConfiguration.SelectionSetInitializers.self,
+      from: subject
+    )
+
+    // then
+    expect(decoded).to(equal(.all))
+  }
+
+  func test__encode_selectionSetInitializers__givenDefinitionList_shouldReturnObjectString() throws {
+    // given
+    let subject: ApolloCodegenConfiguration.SelectionSetInitializers = [
+      .namedFragments,
+      .operation(named: "Operation1"),
+      .operation(named: "Operation2")
+    ]
+
+    let expected = """
+    {
+      "definitionsNamed" : [
+        "Operation1",
+        "Operation2"
+      ],
+      "namedFragments" : true
+    }
+    """
+
+    // when
+    let actual = try testJSONEncoder.encode(subject).asString
+
+    // then
+    expect(actual).to(equal(expected))
+  }
+
+  func test__decode_selectionSetInitializers__givenOperations_asList_shouldReturnOptions() throws {
+    // given
+    let subject = """
+    {
+      "namedFragments" : true,
+      "definitionsNamed" : [
+        "Operation1",
+        "Operation2"
+      ]
+    }
+    """.asData
+
+    let expected: ApolloCodegenConfiguration.SelectionSetInitializers = [
+      .namedFragments,
+      .operation(named: "Operation1"),
+      .operation(named: "Operation2")
+    ]
+
+    // when
+    let decoded = try JSONDecoder().decode(
+      ApolloCodegenConfiguration.SelectionSetInitializers.self,
+      from: subject
+    )
+
+    // then
+    expect(decoded).to(equal(expected))
   }
 
   // MARK: - APQConfig Tests

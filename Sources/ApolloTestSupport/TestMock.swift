@@ -82,8 +82,8 @@ public extension SelectionSet {
     withVariables variables: GraphQLOperation.Variables? = nil
   ) -> Self {
     Self.init(data: DataDict(
-      mock._selectionSetMockData,
       objectType: O.objectType,
+      data: mock._selectionSetMockData,
       variables: variables)
     )
   }

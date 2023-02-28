@@ -21,4 +21,16 @@ public struct HumanHeightWithVariable: StarWarsAPI.SelectionSet, Fragment {
 
   /// Height in the preferred unit, default is meters
   public var height: Double? { __data["height"] }
+
+  public init(
+    height: Double? = nil
+  ) {
+    let objectType = StarWarsAPI.Objects.Human
+    self.init(data: DataDict(
+      objectType: objectType,
+      data: [
+        "__typename": objectType.typename,
+        "height": height
+    ]))
+  }
 }

@@ -321,7 +321,204 @@ class FragmentTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected))
   }
 
-  /// MARK: - Local Cache Mutation Tests
+  // MARK: - Initializer Tests
+
+  func test__render_givenInitializerConfigIncludesNamedFragments_rendersInitializer() throws {
+    // given
+    schemaSDL = """
+      type Query {
+        allAnimals: [Animal!]
+      }
+
+      type Animal {
+        species: String!
+      }
+      """
+
+    document = """
+      fragment TestFragment on Animal {
+        species
+      }
+      """
+
+    let expected =
+      """
+        public init(
+          species: String
+        ) {
+          let objectType = TestSchema.Objects.Animal
+          self.init(data: DataDict(
+            objectType: objectType,
+            data: [
+              "__typename": objectType.typename,
+              "species": species
+          ]))
+        }
+      """
+
+    // when
+    try buildSubjectAndFragment(
+      config: .mock(options: .init(
+        selectionSetInitializers: [.namedFragments]
+      )))
+
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 19, ignoringExtraLines: true))
+  }
+
+  func test__render_givenNamedFragment_configIncludesSpecificFragment_rendersInitializer() throws {
+    // given
+    schemaSDL = """
+      type Query {
+        allAnimals: [Animal!]
+      }
+
+      type Animal {
+        species: String!
+      }
+      """
+
+    document = """
+      fragment TestFragment on Animal {
+        species
+      }
+      """
+
+    let expected =
+      """
+        public init(
+          species: String
+        ) {
+          let objectType = TestSchema.Objects.Animal
+          self.init(data: DataDict(
+            objectType: objectType,
+            data: [
+              "__typename": objectType.typename,
+              "species": species
+          ]))
+        }
+      """
+
+    // when
+    try buildSubjectAndFragment(
+      config: .mock(options: .init(
+        selectionSetInitializers: [.fragment(named: "TestFragment")]
+      )))
+
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 19, ignoringExtraLines: true))
+  }
+
+  func test__render_givenNamedFragment_configDoesNotIncludeNamedFragments_doesNotRenderInitializer() throws {
+    // given
+    schemaSDL = """
+      type Query {
+        allAnimals: [Animal!]
+      }
+
+      type Animal {
+        species: String!
+      }
+      """
+
+    document = """
+      fragment TestFragment on Animal {
+        species
+      }
+      """
+
+    // when
+    try buildSubjectAndFragment(
+      config: .mock(options: .init(
+        selectionSetInitializers: [.operations]
+      )))
+
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine("}", atLine: 18, ignoringExtraLines: true))
+  }
+
+  func test__render_givenNamedFragments_configIncludeSpecificFragmentWithOtherName_doesNotRenderInitializer() throws {
+    // given
+    schemaSDL = """
+      type Query {
+        allAnimals: [Animal!]
+      }
+
+      type Animal {
+        species: String!
+      }
+      """
+
+    document = """
+      fragment TestFragment on Animal {
+        species
+      }
+      """
+
+    // when
+    try buildSubjectAndFragment(
+      config: .mock(options: .init(
+        selectionSetInitializers: [.fragment(named: "OtherFragment")]
+      )))
+
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine("}", atLine: 18, ignoringExtraLines: true))
+  }
+
+  func test__render_givenNamedFragments_asLocalCacheMutation_configIncludeLocalCacheMutations_rendersInitializer() throws {
+    // given
+    schemaSDL = """
+      type Query {
+        allAnimals: [Animal!]
+      }
+
+      type Animal {
+        species: String!
+      }
+      """
+
+    document = """
+      fragment TestFragment on Animal @apollo_client_ios_localCacheMutation {
+        species
+      }
+      """
+
+    let expected =
+      """
+        public init(
+          species: String
+        ) {
+          let objectType = TestSchema.Objects.Animal
+          self.init(data: DataDict(
+            objectType: objectType,
+            data: [
+              "__typename": objectType.typename,
+              "species": species
+          ]))
+        }
+      """
+
+    // when
+    try buildSubjectAndFragment(
+      config: .mock(options: .init(
+        selectionSetInitializers: [.localCacheMutations]
+      )))
+
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 22, ignoringExtraLines: true))
+  }
+
+  // MARK: - Local Cache Mutation Tests
   func test__render__givenFragment__asLocalCacheMutation_generatesFragmentDeclarationDefinitionAsMutableSelectionSetAndBoilerplate() throws {
     // given
     document = """

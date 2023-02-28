@@ -59,6 +59,18 @@ public class HeroParentTypeDependentFieldQuery: GraphQLQuery {
 
     public var hero: Hero? { __data["hero"] }
 
+    public init(
+      hero: Hero? = nil
+    ) {
+      let objectType = StarWarsAPI.Objects.Query
+      self.init(data: DataDict(
+        objectType: objectType,
+        data: [
+          "__typename": objectType.typename,
+          "hero": hero._fieldData
+      ]))
+    }
+
     /// Hero
     ///
     /// Parent Type: `Character`
@@ -79,6 +91,23 @@ public class HeroParentTypeDependentFieldQuery: GraphQLQuery {
       public var asHuman: AsHuman? { _asInlineFragment() }
       public var asDroid: AsDroid? { _asInlineFragment() }
 
+      public init(
+        __typename: String,
+        name: String
+      ) {
+        let objectType = ApolloAPI.Object(
+          typename: __typename,
+          implementedInterfaces: [
+            StarWarsAPI.Interfaces.Character
+        ])
+        self.init(data: DataDict(
+          objectType: objectType,
+          data: [
+            "__typename": objectType.typename,
+            "name": name
+        ]))
+      }
+
       /// Hero.AsHuman
       ///
       /// Parent Type: `Human`
@@ -95,6 +124,20 @@ public class HeroParentTypeDependentFieldQuery: GraphQLQuery {
         public var friends: [Friend?]? { __data["friends"] }
         /// The name of the character
         public var name: String { __data["name"] }
+
+        public init(
+          friends: [Friend?]? = nil,
+          name: String
+        ) {
+          let objectType = StarWarsAPI.Objects.Human
+          self.init(data: DataDict(
+            objectType: objectType,
+            data: [
+              "__typename": objectType.typename,
+              "friends": friends._fieldData,
+              "name": name
+          ]))
+        }
 
         /// Hero.AsHuman.Friend
         ///
@@ -114,6 +157,23 @@ public class HeroParentTypeDependentFieldQuery: GraphQLQuery {
 
           public var asHuman: AsHuman? { _asInlineFragment() }
 
+          public init(
+            __typename: String,
+            name: String
+          ) {
+            let objectType = ApolloAPI.Object(
+              typename: __typename,
+              implementedInterfaces: [
+                StarWarsAPI.Interfaces.Character
+            ])
+            self.init(data: DataDict(
+              objectType: objectType,
+              data: [
+                "__typename": objectType.typename,
+                "name": name
+            ]))
+          }
+
           /// Hero.AsHuman.Friend.AsHuman
           ///
           /// Parent Type: `Human`
@@ -130,6 +190,20 @@ public class HeroParentTypeDependentFieldQuery: GraphQLQuery {
             public var height: Double? { __data["height"] }
             /// The name of the character
             public var name: String { __data["name"] }
+
+            public init(
+              height: Double? = nil,
+              name: String
+            ) {
+              let objectType = StarWarsAPI.Objects.Human
+              self.init(data: DataDict(
+                objectType: objectType,
+                data: [
+                  "__typename": objectType.typename,
+                  "height": height,
+                  "name": name
+              ]))
+            }
           }
         }
       }
@@ -151,6 +225,20 @@ public class HeroParentTypeDependentFieldQuery: GraphQLQuery {
         /// The name of the character
         public var name: String { __data["name"] }
 
+        public init(
+          friends: [Friend?]? = nil,
+          name: String
+        ) {
+          let objectType = StarWarsAPI.Objects.Droid
+          self.init(data: DataDict(
+            objectType: objectType,
+            data: [
+              "__typename": objectType.typename,
+              "friends": friends._fieldData,
+              "name": name
+          ]))
+        }
+
         /// Hero.AsDroid.Friend
         ///
         /// Parent Type: `Character`
@@ -169,6 +257,23 @@ public class HeroParentTypeDependentFieldQuery: GraphQLQuery {
 
           public var asHuman: AsHuman? { _asInlineFragment() }
 
+          public init(
+            __typename: String,
+            name: String
+          ) {
+            let objectType = ApolloAPI.Object(
+              typename: __typename,
+              implementedInterfaces: [
+                StarWarsAPI.Interfaces.Character
+            ])
+            self.init(data: DataDict(
+              objectType: objectType,
+              data: [
+                "__typename": objectType.typename,
+                "name": name
+            ]))
+          }
+
           /// Hero.AsDroid.Friend.AsHuman
           ///
           /// Parent Type: `Human`
@@ -185,6 +290,20 @@ public class HeroParentTypeDependentFieldQuery: GraphQLQuery {
             public var height: Double? { __data["height"] }
             /// The name of the character
             public var name: String { __data["name"] }
+
+            public init(
+              height: Double? = nil,
+              name: String
+            ) {
+              let objectType = StarWarsAPI.Objects.Human
+              self.init(data: DataDict(
+                objectType: objectType,
+                data: [
+                  "__typename": objectType.typename,
+                  "height": height,
+                  "name": name
+              ]))
+            }
           }
         }
       }

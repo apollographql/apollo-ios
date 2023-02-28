@@ -49,6 +49,20 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
   public var asBird: AsBird? { _asInlineFragment() }
   public var asPetRock: AsPetRock? { _asInlineFragment() }
 
+  public init(
+    __typename: String
+  ) {
+    let objectType = ApolloAPI.Object(
+      typename: __typename,
+      implementedInterfaces: [
+    ])
+    self.init(data: DataDict(
+      objectType: objectType,
+      data: [
+        "__typename": objectType.typename,
+    ]))
+  }
+
   /// AsAnimal
   ///
   /// Parent Type: `Animal`
@@ -62,6 +76,23 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
     ] }
 
     public var species: String { __data["species"] }
+
+    public init(
+      __typename: String,
+      species: String
+    ) {
+      let objectType = ApolloAPI.Object(
+        typename: __typename,
+        implementedInterfaces: [
+          AnimalKingdomAPI.Interfaces.Animal
+      ])
+      self.init(data: DataDict(
+        objectType: objectType,
+        data: [
+          "__typename": objectType.typename,
+          "species": species
+      ]))
+    }
   }
 
   /// AsPet
@@ -77,6 +108,23 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
     ] }
 
     public var humanName: String? { __data["humanName"] }
+
+    public init(
+      __typename: String,
+      humanName: String? = nil
+    ) {
+      let objectType = ApolloAPI.Object(
+        typename: __typename,
+        implementedInterfaces: [
+          AnimalKingdomAPI.Interfaces.Pet
+      ])
+      self.init(data: DataDict(
+        objectType: objectType,
+        data: [
+          "__typename": objectType.typename,
+          "humanName": humanName
+      ]))
+    }
   }
 
   /// AsWarmBlooded
@@ -93,6 +141,26 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
 
     public var laysEggs: Bool { __data["laysEggs"] }
     public var species: String { __data["species"] }
+
+    public init(
+      __typename: String,
+      laysEggs: Bool,
+      species: String
+    ) {
+      let objectType = ApolloAPI.Object(
+        typename: __typename,
+        implementedInterfaces: [
+          AnimalKingdomAPI.Interfaces.WarmBlooded,
+          AnimalKingdomAPI.Interfaces.Animal
+      ])
+      self.init(data: DataDict(
+        objectType: objectType,
+        data: [
+          "__typename": objectType.typename,
+          "laysEggs": laysEggs,
+          "species": species
+      ]))
+    }
   }
 
   /// AsCat
@@ -113,6 +181,26 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
     public var species: String { __data["species"] }
     public var humanName: String? { __data["humanName"] }
     public var laysEggs: Bool { __data["laysEggs"] }
+
+    public init(
+      bodyTemperature: Int,
+      isJellicle: Bool,
+      species: String,
+      humanName: String? = nil,
+      laysEggs: Bool
+    ) {
+      let objectType = AnimalKingdomAPI.Objects.Cat
+      self.init(data: DataDict(
+        objectType: objectType,
+        data: [
+          "__typename": objectType.typename,
+          "bodyTemperature": bodyTemperature,
+          "isJellicle": isJellicle,
+          "species": species,
+          "humanName": humanName,
+          "laysEggs": laysEggs
+      ]))
+    }
   }
 
   /// AsBird
@@ -131,6 +219,24 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
     public var species: String { __data["species"] }
     public var humanName: String? { __data["humanName"] }
     public var laysEggs: Bool { __data["laysEggs"] }
+
+    public init(
+      wingspan: Double,
+      species: String,
+      humanName: String? = nil,
+      laysEggs: Bool
+    ) {
+      let objectType = AnimalKingdomAPI.Objects.Bird
+      self.init(data: DataDict(
+        objectType: objectType,
+        data: [
+          "__typename": objectType.typename,
+          "wingspan": wingspan,
+          "species": species,
+          "humanName": humanName,
+          "laysEggs": laysEggs
+      ]))
+    }
   }
 
   /// AsPetRock
@@ -147,5 +253,19 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
 
     public var favoriteToy: String { __data["favoriteToy"] }
     public var humanName: String? { __data["humanName"] }
+
+    public init(
+      favoriteToy: String,
+      humanName: String? = nil
+    ) {
+      let objectType = AnimalKingdomAPI.Objects.PetRock
+      self.init(data: DataDict(
+        objectType: objectType,
+        data: [
+          "__typename": objectType.typename,
+          "favoriteToy": favoriteToy,
+          "humanName": humanName
+      ]))
+    }
   }
 }

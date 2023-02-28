@@ -21,7 +21,11 @@ struct LocalCacheMutationDefinitionTemplate: OperationTemplateRenderer {
 
       \(section: VariableAccessors(operation.definition.variables, graphQLOperation: false))
 
-      \(SelectionSetTemplate(mutable: true, config: config).render(for: operation))
+      \(SelectionSetTemplate(
+          mutable: true,
+          generateInitializers: config.options.shouldGenerateSelectionSetInitializers(for: operation),
+          config: config
+      ).render(for: operation))
     }
     
     """)

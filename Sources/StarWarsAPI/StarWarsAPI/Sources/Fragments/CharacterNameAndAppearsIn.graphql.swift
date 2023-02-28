@@ -25,4 +25,23 @@ public struct CharacterNameAndAppearsIn: StarWarsAPI.SelectionSet, Fragment {
   public var name: String { __data["name"] }
   /// The movies this character appears in
   public var appearsIn: [GraphQLEnum<StarWarsAPI.Episode>?] { __data["appearsIn"] }
+
+  public init(
+    __typename: String,
+    name: String,
+    appearsIn: [GraphQLEnum<StarWarsAPI.Episode>?]
+  ) {
+    let objectType = ApolloAPI.Object(
+      typename: __typename,
+      implementedInterfaces: [
+        StarWarsAPI.Interfaces.Character
+    ])
+    self.init(data: DataDict(
+      objectType: objectType,
+      data: [
+        "__typename": objectType.typename,
+        "name": name,
+        "appearsIn": appearsIn
+    ]))
+  }
 }

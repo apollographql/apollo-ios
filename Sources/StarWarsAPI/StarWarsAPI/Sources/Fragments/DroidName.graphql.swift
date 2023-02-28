@@ -21,4 +21,16 @@ public struct DroidName: StarWarsAPI.SelectionSet, Fragment {
 
   /// What others call this droid
   public var name: String { __data["name"] }
+
+  public init(
+    name: String
+  ) {
+    let objectType = StarWarsAPI.Objects.Droid
+    self.init(data: DataDict(
+      objectType: objectType,
+      data: [
+        "__typename": objectType.typename,
+        "name": name
+    ]))
+  }
 }

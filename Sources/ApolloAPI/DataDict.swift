@@ -1,14 +1,14 @@
 /// A structure that wraps the underlying data dictionary used by `SelectionSet`s.
 public struct DataDict: Hashable {
 
-  public var _data: JSONObject
   public let _objectType: Object?
+  public var _data: JSONObject
   public let _variables: GraphQLOperation.Variables?
 
-  @usableFromInline init(
-    _ data: JSONObject,
+  public init(
     objectType: Object?,
-    variables: GraphQLOperation.Variables?
+    data: JSONObject,
+    variables: GraphQLOperation.Variables? = nil
   ) {
     self._data = data
     self._objectType = objectType

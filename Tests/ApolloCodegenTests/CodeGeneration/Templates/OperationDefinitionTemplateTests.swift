@@ -262,6 +262,167 @@ class OperationDefinitionTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
+  // MARK: - Selection Set Initializers
+
+    func test__generate_givenOperationSelectionSet_configIncludesOperations_rendersInitializer() throws {
+      // given
+      schemaSDL = """
+      type Query {
+        allAnimals: [Animal!]
+      }
+
+      type Animal {
+        species: String!
+      }
+      """
+
+      document = """
+      query TestOperation {
+        allAnimals {
+          species
+        }
+      }
+      """
+
+      let expected =
+      """
+            public init(
+              species: String
+            ) {
+              let objectType = TestSchema.Objects.Animal
+              self.init(data: DataDict(
+                objectType: objectType,
+                data: [
+                  "__typename": objectType.typename,
+                  "species": species
+              ]))
+            }
+      """
+
+      config = .mock(options: .init(selectionSetInitializers: [.operations]))
+
+      // when
+      try buildSubjectAndOperation()
+
+      let actual = renderSubject()
+
+      // then
+      expect(actual).to(equalLineByLine(expected, atLine: 54, ignoringExtraLines: true))
+    }
+
+    func test__generate_givenOperationSelectionSet_configIncludesSpecificOperation_rendersInitializer() throws {
+      // given
+      schemaSDL = """
+      type Query {
+        allAnimals: [Animal!]
+      }
+
+      type Animal {
+        species: String!
+      }
+      """
+
+      document = """
+      query TestOperation {
+        allAnimals {
+          species
+        }
+      }
+      """
+
+      let expected =
+      """
+            public init(
+              species: String
+            ) {
+              let objectType = TestSchema.Objects.Animal
+              self.init(data: DataDict(
+                objectType: objectType,
+                data: [
+                  "__typename": objectType.typename,
+                  "species": species
+              ]))
+            }
+      """
+
+      config = .mock(options: .init(selectionSetInitializers: [
+        .operation(named: "TestOperation")
+      ]))
+
+      // when
+      try buildSubjectAndOperation()
+
+      let actual = renderSubject()
+
+      // then
+      expect(actual).to(equalLineByLine(expected, atLine: 54, ignoringExtraLines: true))
+    }
+
+    func test__render_givenOperationSelectionSet_configDoesNotIncludeOperations_doesNotRenderInitializer() throws {
+      // given
+      schemaSDL = """
+      type Query {
+        allAnimals: [Animal!]
+      }
+
+      type Animal {
+        species: String!
+      }
+      """
+
+      document = """
+      query TestOperation {
+        allAnimals {
+          species
+        }
+      }
+      """
+
+      config = .mock(options: .init(selectionSetInitializers: [.namedFragments]))
+
+      // when
+      try buildSubjectAndOperation()
+
+      let actual = renderSubject()
+
+      // then
+      expect(actual).to(equalLineByLine("    }", atLine: 41, ignoringExtraLines: true))
+    }
+
+    func test__render_givenOperationSelectionSet_configIncludeSpecificOperationWithOtherName_doesNotRenderInitializer() throws {
+      // given
+      schemaSDL = """
+      type Query {
+        allAnimals: [Animal!]
+      }
+
+      type Animal {
+        species: String!
+      }
+      """
+
+      document = """
+      query TestOperation {
+        allAnimals {
+          species
+        }
+      }
+      """
+
+      config = .mock(options: .init(selectionSetInitializers: [
+        .operation(named: "OtherOperation")
+      ]))
+
+      // when
+      try buildSubjectAndOperation()
+
+      let actual = renderSubject()
+
+      // then
+      expect(actual).to(equalLineByLine("    }", atLine: 41, ignoringExtraLines: true))
+    }
+
+
   // MARK: - Variables
 
    func test__generate__givenQueryWithScalarVariable_generatesQueryOperationWithVariable() throws {

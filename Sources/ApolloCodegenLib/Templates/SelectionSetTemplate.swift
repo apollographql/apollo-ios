@@ -1,17 +1,21 @@
 import InflectorKit
+import OrderedCollections
 
 struct SelectionSetTemplate {
 
   let isMutable: Bool
+  let generateInitializers: Bool
   let config: ApolloCodegen.ConfigurationContext
 
   private let nameCache: SelectionSetNameCache
 
   init(
     mutable: Bool = false,
+    generateInitializers: Bool,
     config: ApolloCodegen.ConfigurationContext
   ) {
     self.isMutable = mutable
+    self.generateInitializers = generateInitializers
     self.config = config
 
     self.nameCache = SelectionSetNameCache(config: config)
@@ -100,6 +104,8 @@ struct SelectionSetTemplate {
 
     \(section: FragmentAccessorsTemplate(selections, in: scope))
 
+    \(section: "\(if: generateInitializers, InitializerTemplate(selectionSet))")
+
     \(section: ChildEntityFieldSelectionSets(selections))
 
     \(section: ChildTypeCaseSelectionSets(selections))
@@ -116,8 +122,12 @@ struct SelectionSetTemplate {
   private func ParentTypeTemplate(_ type: GraphQLCompositeType) -> String {
     """
     public static var __parentType: \(config.ApolloAPITargetName).ParentType { \
-    \(config.schemaName.firstUppercased).\(type.schemaTypesNamespace).\(type.name.firstUppercased) }
+    \(GeneratedTypeReference(type)) }
     """
+  }
+
+  private func GeneratedTypeReference(_ type: GraphQLCompositeType) -> TemplateString {
+    "\(config.schemaName.firstUppercased).\(type.schemaTypesNamespace).\(type.name.firstUppercased)"
   }
 
   // MARK: - Selections
@@ -330,7 +340,9 @@ struct SelectionSetTemplate {
       \(ifLet: selections.direct?.fragments.values, {
         "\($0.map { FragmentAccessorTemplate($0, in: scope) }, separator: "\n")"
         })
-      \(selections.merged.fragments.values.map { FragmentAccessorTemplate($0, in: scope) }, separator: "\n")
+      \(selections.merged.fragments.values.map {
+          FragmentAccessorTemplate($0, in: scope)
+        }, separator: "\n")
     }
     """
   }
@@ -380,6 +392,86 @@ struct SelectionSetTemplate {
     \(ifLet: inclusionConditions, {
       "if: \($0.conditionVariableExpression)"
     }))
+    """
+  }
+
+  // MARK: - SelectionSet Initializer
+
+  private func InitializerTemplate(_ selectionSet: IR.SelectionSet) -> TemplateString {
+    return """
+    public init(
+      \(InitializerSelectionParametersTemplate(selectionSet))
+    ) {
+      \(InitializerObjectType(selectionSet))
+      self.init(data: DataDict(
+        objectType: objectType,
+        data: [
+          \(InitializerDataDictTemplate(selectionSet.selections))
+      ]))
+    }
+    """
+  }
+
+  private func InitializerSelectionParametersTemplate(
+    _ selectionSet: IR.SelectionSet
+  ) -> TemplateString {
+    let isConcreteType = selectionSet.parentType is GraphQLObjectType
+    let allFields = IR.SelectionSet.Selections.FieldIterator(selections: selectionSet.selections)
+
+    return TemplateString("""
+    \(if: !isConcreteType, "__typename: String\(if: !allFields.isEmpty, ",")")
+    \(IteratorSequence(allFields).map(InitializerParameterTemplate(_:)))
+    """
+    )
+  }
+
+  private func InitializerParameterTemplate(
+    _ field: IR.Field
+  ) -> TemplateString {
+    """
+    \(field.responseKey.asInputParameterName): \(typeName(for: field))\
+    \(if: field.type.isNullable, " = nil")
+    """
+  }
+
+  private func InitializerObjectType(_ selectionSet: IR.SelectionSet) -> TemplateString {
+    let isConcreteType = selectionSet.parentType is GraphQLObjectType
+    let implementedInterfaces = selectionSet.scope.matchingTypes
+      .filter({ $0 is GraphQLInterfaceType })
+
+    return """
+    let objectType = \
+    \(if: isConcreteType,
+      GeneratedTypeReference(selectionSet.parentType),
+      else: """
+      \(config.ApolloAPITargetName).Object(
+        typename: __typename,
+        implementedInterfaces: [
+          \(implementedInterfaces.map(GeneratedTypeReference(_:)))
+      ])
+      """
+    )
+    """
+  }
+
+  private func InitializerDataDictTemplate(
+    _ selections: IR.SelectionSet.Selections
+  ) -> TemplateString {
+    let allFields = IR.SelectionSet.Selections.FieldIterator(selections: selections)
+
+    return TemplateString("""
+    "__typename": objectType.typename,
+    \(IteratorSequence(allFields).map(InitializerDataDictFieldTemplate(_:)))
+    """
+    )
+  }
+
+  private func InitializerDataDictFieldTemplate(
+    _ field: IR.Field
+  ) -> TemplateString {
+    """
+    "\(field.responseKey)": \(field.responseKey.asInputParameterName)\
+    \(if: field is IR.EntityField, "._fieldData")
     """
   }
 
@@ -694,3 +786,24 @@ fileprivate extension IR.Field {
   }
 }
 
+extension IR.SelectionSet.Selections {
+  fileprivate struct FieldIterator: IteratorProtocol {
+    let selections: IR.SelectionSet.Selections
+    private var directIterator: IndexingIterator<OrderedDictionary<String, IR.Field>.Values>?
+    private var mergedIterator: IndexingIterator<OrderedDictionary<String, IR.Field>.Values>
+
+    var isEmpty: Bool {
+      return (selections.direct?.fields.isEmpty ?? true) && selections.merged.fields.isEmpty
+    }
+
+    init(selections: IR.SelectionSet.Selections) {
+      self.selections = selections
+      self.directIterator = self.selections.direct?.fields.values.makeIterator()
+      self.mergedIterator = self.selections.merged.fields.values.makeIterator()
+    }
+
+    mutating func next() -> IR.Field? {
+      directIterator?.next() ?? mergedIterator.next()
+    }
+  }
+}

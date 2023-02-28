@@ -33,4 +33,18 @@ public struct DroidNameAndPrimaryFunction: StarWarsAPI.SelectionSet, Fragment {
     public var characterName: CharacterName { _toFragment() }
     public var droidPrimaryFunction: DroidPrimaryFunction { _toFragment() }
   }
+
+  public init(
+    primaryFunction: String? = nil,
+    name: String
+  ) {
+    let objectType = StarWarsAPI.Objects.Droid
+    self.init(data: DataDict(
+      objectType: objectType,
+      data: [
+        "__typename": objectType.typename,
+        "primaryFunction": primaryFunction,
+        "name": name
+    ]))
+  }
 }
