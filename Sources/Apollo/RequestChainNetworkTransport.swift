@@ -113,6 +113,11 @@ open class RequestChainNetworkTransport: NetworkTransport {
     let request = self.constructRequest(for: operation,
                                         cachePolicy: cachePolicy,
                                         contextIdentifier: contextIdentifier)
+
+      if Operation.operationType == .subscription {
+        request.addHeader(name: "Accept", value: "application/json, multipart/mixed; boundary=\"graphql\"")
+        request.addHeader(name: "Connection", value: "keep-alive")
+      }
     
     chain.kickoff(request: request, completion: completionHandler)
     return chain
