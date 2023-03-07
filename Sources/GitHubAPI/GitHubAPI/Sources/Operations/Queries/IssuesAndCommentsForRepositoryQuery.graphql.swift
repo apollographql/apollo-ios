@@ -146,7 +146,7 @@ public class IssuesAndCommentsForRepositoryQuery: GraphQLQuery {
               public let __data: DataDict
               public init(data: DataDict) { __data = data }
 
-              public typealias RootEntityType = Author
+              public typealias RootEntityType = Repository.Issues.Node.Author
               public static var __parentType: ApolloAPI.ParentType { GitHubAPI.Objects.User }
 
               /// The username of the actor.
@@ -228,7 +228,7 @@ public class IssuesAndCommentsForRepositoryQuery: GraphQLQuery {
                   public let __data: DataDict
                   public init(data: DataDict) { __data = data }
 
-                  public typealias RootEntityType = Author
+                  public typealias RootEntityType = Repository.Issues.Node.Comments.Node.Author
                   public static var __parentType: ApolloAPI.ParentType { GitHubAPI.Objects.User }
 
                   /// The username of the actor.

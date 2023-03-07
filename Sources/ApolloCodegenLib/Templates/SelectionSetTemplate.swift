@@ -122,12 +122,13 @@ struct SelectionSetTemplate {
 
   private func RootEntityTypealias(_ selectionSet: IR.SelectionSet) -> TemplateString {
     guard !selectionSet.isEntityRoot else { return "" }
-    let rootEntityName = selectionSet
-      .entity
-      .fieldPath
-      .last
-      .value
-      .formattedSelectionSetName(with: config.pluralizer)
+    let rootEntityName = SelectionSetNameGenerator.generatedSelectionSetName(
+      from: selectionSet.scopePath.head,
+      to: selectionSet.scopePath.last.value.scopePath.head,
+      withFieldPath: selectionSet.entity.fieldPath.head,
+      removingFirst: selectionSet.scopePath.head.value.type.isRootFieldType,
+      pluralizer: config.pluralizer
+    )
     return """
     public typealias RootEntityType = \(rootEntityName)
     """
@@ -692,26 +693,38 @@ fileprivate struct SelectionSetNameGenerator {
 
   static func generatedSelectionSetName(
     from typePathNode: LinkedList<IR.ScopeDescriptor>.Node,
+    to endingNode: LinkedList<IR.ScopeCondition>.Node? = nil,
     withFieldPath fieldPathNode: IR.Entity.FieldPath.Node,
     removingFirst: Bool = false,
     pluralizer: Pluralizer
   ) -> String {
     var currentTypePathNode = Optional(typePathNode)
     var currentFieldPathNode = Optional(fieldPathNode)
-    var fieldPathIndex = 0
 
     var components: [String] = []
 
-    repeat {
+    iterateEntityScopes: repeat {
       let fieldName = currentFieldPathNode.unsafelyUnwrapped.value
         .formattedSelectionSetName(with: pluralizer)
       components.append(fieldName)
 
-      if let conditionNodes = currentTypePathNode.unsafelyUnwrapped.value.scopePath.head.next {
-        ConditionPath.add(conditionNodes, to: &components)
+      var currentConditionNode = Optional(currentTypePathNode.unsafelyUnwrapped.value.scopePath.head)
+      guard currentConditionNode !== endingNode else {
+        break iterateEntityScopes
       }
 
-      fieldPathIndex += 1
+      currentConditionNode = currentTypePathNode.unsafelyUnwrapped.value.scopePath.head.next
+      iterateConditionScopes: while currentConditionNode !== nil {
+        let node = currentConditionNode.unsafelyUnwrapped
+
+        components.append(node.value.selectionSetNameComponent)
+        guard node !== endingNode else {
+          break iterateEntityScopes
+        }
+
+        currentConditionNode = node.next
+      }
+
       currentTypePathNode = currentTypePathNode.unsafelyUnwrapped.next
       currentFieldPathNode = currentFieldPathNode.unsafelyUnwrapped.next
     } while currentTypePathNode !== nil
@@ -724,15 +737,6 @@ fileprivate struct SelectionSetNameGenerator {
   fileprivate struct ConditionPath {
     static func path(for conditions: LinkedList<IR.ScopeCondition>.Node) -> String {
       conditions.map(\.selectionSetNameComponent).joined(separator: ".")
-    }
-
-    static func add(
-      _ conditionNodes: LinkedList<IR.ScopeCondition>.Node,
-      to components: inout [String]
-    ) {
-      for condition in conditionNodes {
-        components.append(condition.selectionSetNameComponent)
-      }
     }
   }
 }

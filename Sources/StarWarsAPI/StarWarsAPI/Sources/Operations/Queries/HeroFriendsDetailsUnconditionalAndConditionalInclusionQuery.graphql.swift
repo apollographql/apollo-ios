@@ -135,7 +135,7 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public typealias RootEntityType = Friend
+          public typealias RootEntityType = Hero.Friend
           public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
           public static var __selections: [ApolloAPI.Selection] { [
             .field("name", String.self),
@@ -171,7 +171,7 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
             public let __data: DataDict
             public init(data: DataDict) { __data = data }
 
-            public typealias RootEntityType = Friend
+            public typealias RootEntityType = Hero.Friend
             public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Droid }
             public static var __selections: [ApolloAPI.Selection] { [
               .field("primaryFunction", String?.self),
@@ -204,7 +204,7 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public typealias RootEntityType = Friend
+          public typealias RootEntityType = Hero.Friend
           public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Droid }
 
           /// The name of the character

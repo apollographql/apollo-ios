@@ -182,7 +182,7 @@ public class HeroParentTypeDependentFieldQuery: GraphQLQuery {
             public let __data: DataDict
             public init(data: DataDict) { __data = data }
 
-            public typealias RootEntityType = Friend
+            public typealias RootEntityType = Hero.AsHuman.Friend
             public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Human }
             public static var __selections: [ApolloAPI.Selection] { [
               .field("height", Double?.self, arguments: ["unit": "FOOT"]),
@@ -284,7 +284,7 @@ public class HeroParentTypeDependentFieldQuery: GraphQLQuery {
             public let __data: DataDict
             public init(data: DataDict) { __data = data }
 
-            public typealias RootEntityType = Friend
+            public typealias RootEntityType = Hero.AsDroid.Friend
             public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Human }
             public static var __selections: [ApolloAPI.Selection] { [
               .field("height", Double?.self, arguments: ["unit": "METER"]),

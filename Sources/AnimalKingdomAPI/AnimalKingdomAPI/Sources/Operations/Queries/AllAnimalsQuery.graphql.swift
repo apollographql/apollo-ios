@@ -47,6 +47,10 @@ public class AllAnimalsQuery: GraphQLQuery {
             __typename
             species
             ... on WarmBlooded {
+              predators {
+                __typename
+                species
+              }
               ...WarmBloodedDetails
               laysEggs
             }
@@ -219,13 +223,15 @@ public class AllAnimalsQuery: GraphQLQuery {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public typealias RootEntityType = Predator
+          public typealias RootEntityType = AllAnimal.Predator
           public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Interfaces.WarmBlooded }
           public static var __selections: [ApolloAPI.Selection] { [
+            .field("predators", [Predator].self),
             .field("laysEggs", Bool.self),
             .fragment(WarmBloodedDetails.self),
           ] }
 
+          public var predators: [Predator] { __data["predators"] }
           public var laysEggs: Bool { __data["laysEggs"] }
           public var species: String { __data["species"] }
           public var bodyTemperature: Int { __data["bodyTemperature"] }
@@ -241,6 +247,7 @@ public class AllAnimalsQuery: GraphQLQuery {
 
           public init(
             __typename: String,
+            predators: [Predator],
             laysEggs: Bool,
             species: String,
             bodyTemperature: Int,
@@ -256,11 +263,44 @@ public class AllAnimalsQuery: GraphQLQuery {
               objectType: objectType,
               data: [
                 "__typename": objectType.typename,
+                "predators": predators._fieldData,
                 "laysEggs": laysEggs,
                 "species": species,
                 "bodyTemperature": bodyTemperature,
                 "height": height._fieldData
             ]))
+          }
+
+          /// AllAnimal.Predator.AsWarmBlooded.Predator
+          ///
+          /// Parent Type: `Animal`
+          public struct Predator: AnimalKingdomAPI.SelectionSet {
+            public let __data: DataDict
+            public init(data: DataDict) { __data = data }
+
+            public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Interfaces.Animal }
+            public static var __selections: [ApolloAPI.Selection] { [
+              .field("species", String.self),
+            ] }
+
+            public var species: String { __data["species"] }
+
+            public init(
+              __typename: String,
+              species: String
+            ) {
+              let objectType = ApolloAPI.Object(
+                typename: __typename,
+                implementedInterfaces: [
+                  AnimalKingdomAPI.Interfaces.Animal
+              ])
+              self.init(data: DataDict(
+                objectType: objectType,
+                data: [
+                  "__typename": objectType.typename,
+                  "species": species
+              ]))
+            }
           }
         }
       }
