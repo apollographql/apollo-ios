@@ -142,7 +142,7 @@ extension SelectionSet where Fragments: FragmentContainer {
 }
 
 extension InlineFragment {
-  public var asRootEntityType: RootEntityType {
+  @inlinable public var asRootEntityType: RootEntityType {
     RootEntityType.init(data: __data)
   }
 }
