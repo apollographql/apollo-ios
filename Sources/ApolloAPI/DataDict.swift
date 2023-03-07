@@ -1,13 +1,26 @@
-/// A structure that wraps the underlying data dictionary used by `SelectionSet`s.
+/// A structure that wraps the underlying data used by ``SelectionSet``s.
 public struct DataDict: Hashable {
+  #warning("TODO: Finish documentation here")
+  /// A type representing the underlying data for a `SelectionSet`.
+  ///
+  /// - Warning: This is not identical to the JSON response from a GraphQL network request.
+  /// The data should be normalized for consumption by a ``SelectionSet``. This means:
+  ///   1. Values for entity fields are represented by ``DataDict`` values
+  ///   2. Custom scalars are serialized and converted to their concrete types.
+  ///   3. Inclusion conditions and type conditions **TODO**
+  ///
+  /// The process of converting a JSON response into ``SelectionSetData`` is done by using a
+  /// `GraphQLExecutor` with a`GraphQLSelectionSetMapper`. This can be performed manually
+  /// by using **TODO**.
+  public typealias SelectionSetData = [String: AnyHashable]
 
   public let _objectType: Object?
-  public var _data: JSONObject
+  public var _data: SelectionSetData
   public let _variables: GraphQLOperation.Variables?
 
   public init(
     objectType: Object?,
-    data: JSONObject,
+    data: SelectionSetData,
     variables: GraphQLOperation.Variables? = nil
   ) {
     self._data = data
@@ -26,10 +39,10 @@ public struct DataDict: Hashable {
   }
   
   @inlinable public subscript<T: SelectionSetEntityValue>(_ key: String) -> T {
-    get { T.init(_fieldData: _data[key], variables: _variables) }
+    get { T.init(_fieldData: _data[key]) }
     set { _data[key] = newValue._fieldData }
     _modify {
-      var value = T.init(_fieldData: _data[key], variables: _variables)
+      var value = T.init(_fieldData: _data[key])
       defer { _data[key] = value._fieldData }
       yield &value
     }
@@ -49,33 +62,37 @@ public struct DataDict: Hashable {
 public protocol SelectionSetEntityValue {
   /// - Warning: This function is not supported for external use.
   /// Unsupported usage may result in unintended consequences including crashes.
-  init(_fieldData: AnyHashable?, variables: GraphQLOperation.Variables?)
+  ///
+  /// The `_fieldData` should be the underlying `DataDict` for an entity value.
+  /// This is represented as `AnyHashable` because for `Optional` and `Array` you will have an
+  /// `Optional<DataDict>` and `[DataDict]` respectively.
+  init(_fieldData: AnyHashable?)
   var _fieldData: AnyHashable { get }
 }
 
 extension SelectionSet {
   /// - Warning: This function is not supported for external use.
   /// Unsupported usage may result in unintended consequences including crashes.
-  @inlinable public init(_fieldData data: AnyHashable?, variables: GraphQLOperation.Variables?) {
-    guard let data = data as? JSONObject else {
-      fatalError("\(Self.self) expected data for entity.")
+  @inlinable public init(_fieldData data: AnyHashable?) {
+    guard let data = data as? DataDict else {
+      fatalError("\(Self.self) expected DataDict for entity, got \(type(of: data)).")
     }
 
-    self.init(unsafeData: data, variables: variables)
+    self.init(_dataDict: data)
   }
 
-  @inlinable public var _fieldData: AnyHashable { __data._data }
+  @inlinable public var _fieldData: AnyHashable { __data }
 }
 
 extension Optional: SelectionSetEntityValue where Wrapped: SelectionSetEntityValue {
   /// - Warning: This function is not supported for external use.
   /// Unsupported usage may result in unintended consequences including crashes.
-  @inlinable public init(_fieldData data: AnyHashable?, variables: GraphQLOperation.Variables?) {
+  @inlinable public init(_fieldData data: AnyHashable?) {
     guard case let .some(data) = data else {
       self = .none
       return
     }
-    self = .some(Wrapped.init(_fieldData: data, variables: variables))
+    self = .some(Wrapped.init(_fieldData: data))
   }
 
   @inlinable public var _fieldData: AnyHashable { map(\._fieldData) }
@@ -84,11 +101,11 @@ extension Optional: SelectionSetEntityValue where Wrapped: SelectionSetEntityVal
 extension Array: SelectionSetEntityValue where Element: SelectionSetEntityValue {
   /// - Warning: This function is not supported for external use.
   /// Unsupported usage may result in unintended consequences including crashes.
-  @inlinable public init(_fieldData data: AnyHashable?, variables: GraphQLOperation.Variables?) {
+  @inlinable public init(_fieldData data: AnyHashable?) {
     guard let data = data as? [AnyHashable?] else {
       fatalError("\(Self.self) expected list of data for entity.")
     }
-    self = data.map { Element.init(_fieldData:$0?.base as? AnyHashable, variables: variables) }
+    self = data.map { Element.init(_fieldData:$0?.base as? AnyHashable) }
   }
 
   @inlinable public var _fieldData: AnyHashable { map(\._fieldData) }

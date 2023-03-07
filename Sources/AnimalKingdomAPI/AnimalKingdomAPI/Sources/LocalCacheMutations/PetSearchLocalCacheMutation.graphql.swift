@@ -27,7 +27,7 @@ public class PetSearchLocalCacheMutation: LocalCacheMutation {
 
   public struct Data: AnimalKingdomAPI.MutableSelectionSet {
     public var __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Objects.Query }
     public static var __selections: [ApolloAPI.Selection] { [
@@ -43,7 +43,7 @@ public class PetSearchLocalCacheMutation: LocalCacheMutation {
       pets: [Pet]
     ) {
       let objectType = AnimalKingdomAPI.Objects.Query
-      self.init(data: DataDict(
+      self.init(_dataDict: DataDict(
         objectType: objectType,
         data: [
           "__typename": objectType.typename,
@@ -56,7 +56,7 @@ public class PetSearchLocalCacheMutation: LocalCacheMutation {
     /// Parent Type: `Pet`
     public struct Pet: AnimalKingdomAPI.MutableSelectionSet {
       public var __data: DataDict
-      public init(data: DataDict) { __data = data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Interfaces.Pet }
       public static var __selections: [ApolloAPI.Selection] { [
@@ -83,7 +83,7 @@ public class PetSearchLocalCacheMutation: LocalCacheMutation {
           implementedInterfaces: [
             AnimalKingdomAPI.Interfaces.Pet
         ])
-        self.init(data: DataDict(
+        self.init(_dataDict: DataDict(
           objectType: objectType,
           data: [
             "__typename": objectType.typename,

@@ -25,7 +25,7 @@ public class AllAnimalsCCNQuery: GraphQLQuery {
 
   public struct Data: AnimalKingdomAPI.SelectionSet {
     public let __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Objects.Query }
     public static var __selections: [ApolloAPI.Selection] { [
@@ -38,7 +38,7 @@ public class AllAnimalsCCNQuery: GraphQLQuery {
       allAnimals: [AllAnimal]
     ) {
       let objectType = AnimalKingdomAPI.Objects.Query
-      self.init(data: DataDict(
+      self.init(_dataDict: DataDict(
         objectType: objectType,
         data: [
           "__typename": objectType.typename,
@@ -51,7 +51,7 @@ public class AllAnimalsCCNQuery: GraphQLQuery {
     /// Parent Type: `Animal`
     public struct AllAnimal: AnimalKingdomAPI.SelectionSet {
       public let __data: DataDict
-      public init(data: DataDict) { __data = data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Interfaces.Animal }
       public static var __selections: [ApolloAPI.Selection] { [
@@ -69,7 +69,7 @@ public class AllAnimalsCCNQuery: GraphQLQuery {
           implementedInterfaces: [
             AnimalKingdomAPI.Interfaces.Animal
         ])
-        self.init(data: DataDict(
+        self.init(_dataDict: DataDict(
           objectType: objectType,
           data: [
             "__typename": objectType.typename,
@@ -82,7 +82,7 @@ public class AllAnimalsCCNQuery: GraphQLQuery {
       /// Parent Type: `Height`
       public struct Height: AnimalKingdomAPI.SelectionSet {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_dataDict: DataDict) { __data = _dataDict }
 
         public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Objects.Height }
         public static var __selections: [ApolloAPI.Selection] { [
@@ -98,7 +98,7 @@ public class AllAnimalsCCNQuery: GraphQLQuery {
           inches: Int
         ) {
           let objectType = AnimalKingdomAPI.Objects.Height
-          self.init(data: DataDict(
+          self.init(_dataDict: DataDict(
             objectType: objectType,
             data: [
               "__typename": objectType.typename,

@@ -52,7 +52,7 @@ public protocol SelectionSet: SelectionSetEntityValue, Hashable {
   ///
   /// - Parameter data: The data of the underlying GraphQL object represented by generated
   /// selection set.
-  init(data: DataDict)
+  init(_dataDict: DataDict)
 }
 
 extension SelectionSet {  
@@ -72,18 +72,20 @@ extension SelectionSet {
   @inlinable public func _asInlineFragment<T: SelectionSet>(
     if conditions: Selection.Conditions? = nil
   ) -> T? where T.Schema == Schema {
+    let child: T? = _asType()
+
     guard let conditions = conditions else {
-      return _asType()
+      return child
     }
 
-    return conditions.evaluate(with: __data._variables) ? _asType() : nil
+    return conditions.evaluate(with: child?.__data._variables) ? child : nil
   }
 
   @usableFromInline func _asType<T: SelectionSet>() -> T? where T.Schema == Schema {
     guard let __objectType = __objectType,
           T.__parentType.canBeConverted(from: __objectType) else { return nil }
 
-    return T.init(data: __data)
+    return T.init(_dataDict: __data)
   }
 
   @inlinable public func _asInlineFragment<T: SelectionSet>(
@@ -120,7 +122,7 @@ extension SelectionSet {
       objectType = nil
     }
 
-    self.init(data: DataDict(
+    self.init(_dataDict: DataDict(
       objectType: objectType,
       data: data,
       variables: variables
@@ -143,6 +145,6 @@ extension SelectionSet where Fragments: FragmentContainer {
 
 extension InlineFragment {
   @inlinable public var asRootEntityType: RootEntityType {
-    RootEntityType.init(data: __data)
+    RootEntityType.init(_dataDict: __data)
   }
 }

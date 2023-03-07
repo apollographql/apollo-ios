@@ -39,7 +39,7 @@ public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
 
   public struct Data: StarWarsAPI.SelectionSet {
     public let __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Query }
     public static var __selections: [ApolloAPI.Selection] { [
@@ -52,7 +52,7 @@ public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
       hero: Hero? = nil
     ) {
       let objectType = StarWarsAPI.Objects.Query
-      self.init(data: DataDict(
+      self.init(_dataDict: DataDict(
         objectType: objectType,
         data: [
           "__typename": objectType.typename,
@@ -65,7 +65,7 @@ public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
     /// Parent Type: `Character`
     public struct Hero: StarWarsAPI.SelectionSet {
       public let __data: DataDict
-      public init(data: DataDict) { __data = data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
       public static var __selections: [ApolloAPI.Selection] { [
@@ -87,7 +87,7 @@ public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
           implementedInterfaces: [
             StarWarsAPI.Interfaces.Character
         ])
-        self.init(data: DataDict(
+        self.init(_dataDict: DataDict(
           objectType: objectType,
           data: [
             "__typename": objectType.typename,
@@ -100,7 +100,7 @@ public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
       /// Parent Type: `Character`
       public struct Friend: StarWarsAPI.SelectionSet {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_dataDict: DataDict) { __data = _dataDict }
 
         public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
         public static var __selections: [ApolloAPI.Selection] { [
@@ -126,7 +126,7 @@ public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
             implementedInterfaces: [
               StarWarsAPI.Interfaces.Character
           ])
-          self.init(data: DataDict(
+          self.init(_dataDict: DataDict(
             objectType: objectType,
             data: [
               "__typename": objectType.typename,
@@ -140,7 +140,7 @@ public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
       /// Parent Type: `Droid`
       public struct AsDroid: StarWarsAPI.InlineFragment {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_dataDict: DataDict) { __data = _dataDict }
 
         public typealias RootEntityType = Hero
         public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Droid }
@@ -155,7 +155,7 @@ public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
           friends: [Friend?]? = nil
         ) {
           let objectType = StarWarsAPI.Objects.Droid
-          self.init(data: DataDict(
+          self.init(_dataDict: DataDict(
             objectType: objectType,
             data: [
               "__typename": objectType.typename,
@@ -168,7 +168,7 @@ public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
         /// Parent Type: `Character`
         public struct Friend: StarWarsAPI.SelectionSet {
           public let __data: DataDict
-          public init(data: DataDict) { __data = data }
+          public init(_dataDict: DataDict) { __data = _dataDict }
 
           public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
           public static var __selections: [ApolloAPI.Selection] { [
@@ -194,7 +194,7 @@ public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
               implementedInterfaces: [
                 StarWarsAPI.Interfaces.Character
             ])
-            self.init(data: DataDict(
+            self.init(_dataDict: DataDict(
               objectType: objectType,
               data: [
                 "__typename": objectType.typename,

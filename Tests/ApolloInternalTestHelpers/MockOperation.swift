@@ -54,8 +54,8 @@ open class AbstractMockSelectionSet<F>: RootSelectionSet, Hashable {
 
   public var __data: DataDict = .empty()
 
-  public required init(data: DataDict) {
-    self.__data = data
+  public required init(_dataDict: DataDict) {
+    self.__data = _dataDict
   }
 
   public subscript<T: AnyScalarType & Hashable>(dynamicMember key: String) -> T? {

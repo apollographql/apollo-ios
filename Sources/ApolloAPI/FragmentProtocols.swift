@@ -72,7 +72,7 @@ extension FragmentContainer {
   }
 
   @usableFromInline func _convertToFragment<T: Fragment>()-> T {
-    return T.init(data: __data)
+    return T.init(_dataDict: __data)
   }
 
   /// Converts a ``SelectionSet`` to a ``Fragment`` given a generic fragment type if the given

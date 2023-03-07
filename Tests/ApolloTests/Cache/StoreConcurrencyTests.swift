@@ -143,7 +143,7 @@ class StoreConcurrencyTests: XCTestCase, CacheDependentTesting {
     /// given
     struct GivenSelectionSet: MockMutableRootSelectionSet {
       public var __data: DataDict = .empty()
-      init(data: DataDict) { __data = data }
+      init(_dataDict: DataDict) { __data = _dataDict }
 
       static var __selections: [Selection] { [
         .field("hero", Hero.self)
@@ -156,7 +156,7 @@ class StoreConcurrencyTests: XCTestCase, CacheDependentTesting {
 
       struct Hero: MockMutableRootSelectionSet {
         public var __data: DataDict = .empty()
-        init(data: DataDict) { __data = data }
+        init(_dataDict: DataDict) { __data = _dataDict }
 
         static var __selections: [Selection] { [
           .field("id", String.self),
@@ -181,7 +181,7 @@ class StoreConcurrencyTests: XCTestCase, CacheDependentTesting {
 
         struct Friend: MockMutableRootSelectionSet {
           public var __data: DataDict = .empty()
-          init(data: DataDict) { __data = data }
+          init(_dataDict: DataDict) { __data = _dataDict }
 
           static var __selections: [Selection] { [
             .field("id", String.self),
@@ -267,7 +267,7 @@ class StoreConcurrencyTests: XCTestCase, CacheDependentTesting {
     /// given
     struct GivenSelectionSet: MockMutableRootSelectionSet {
       public var __data: DataDict = .empty()
-      init(data: DataDict) { __data = data }
+      init(_dataDict: DataDict) { __data = _dataDict }
 
       static var __selections: [Selection] { [
         .field("hero", Hero.self)
@@ -280,7 +280,7 @@ class StoreConcurrencyTests: XCTestCase, CacheDependentTesting {
 
       struct Hero: MockMutableRootSelectionSet {
         public var __data: DataDict = .empty()
-        init(data: DataDict) { __data = data }
+        init(_dataDict: DataDict) { __data = _dataDict }
 
         static var __selections: [Selection] { [
           .field("id", String.self),
@@ -305,7 +305,7 @@ class StoreConcurrencyTests: XCTestCase, CacheDependentTesting {
 
         struct Friend: MockMutableRootSelectionSet {
           public var __data: DataDict = .empty()
-          init(data: DataDict) { __data = data }
+          init(_dataDict: DataDict) { __data = _dataDict }
 
           static var __selections: [Selection] { [
             .field("id", String.self),

@@ -15,7 +15,7 @@ public struct HeightInMeters: AnimalKingdomAPI.SelectionSet, Fragment {
     """ }
 
   public let __data: DataDict
-  public init(data: DataDict) { __data = data }
+  public init(_dataDict: DataDict) { __data = _dataDict }
 
   public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Interfaces.Animal }
   public static var __selections: [ApolloAPI.Selection] { [
@@ -33,7 +33,7 @@ public struct HeightInMeters: AnimalKingdomAPI.SelectionSet, Fragment {
       implementedInterfaces: [
         AnimalKingdomAPI.Interfaces.Animal
     ])
-    self.init(data: DataDict(
+    self.init(_dataDict: DataDict(
       objectType: objectType,
       data: [
         "__typename": objectType.typename,
@@ -46,7 +46,7 @@ public struct HeightInMeters: AnimalKingdomAPI.SelectionSet, Fragment {
   /// Parent Type: `Height`
   public struct Height: AnimalKingdomAPI.SelectionSet {
     public let __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Objects.Height }
     public static var __selections: [ApolloAPI.Selection] { [
@@ -59,7 +59,7 @@ public struct HeightInMeters: AnimalKingdomAPI.SelectionSet, Fragment {
       meters: Int
     ) {
       let objectType = AnimalKingdomAPI.Objects.Height
-      self.init(data: DataDict(
+      self.init(_dataDict: DataDict(
         objectType: objectType,
         data: [
           "__typename": objectType.typename,

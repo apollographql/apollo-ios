@@ -29,7 +29,7 @@ public extension MockMutableRootSelectionSet {
   static var __parentType: ParentType { Object.mock }
 
   init() {
-    self.init(data: .empty())
+    self.init(_dataDict: .empty())
   }
 }
 

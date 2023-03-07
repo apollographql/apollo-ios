@@ -224,12 +224,12 @@ class SelectionSetTests: XCTestCase {
       ]
     ]
 
-    let expected = Hero(unsafeData:
-                          [
-                            "__typename": "Human",
-                            "friends": []
-                          ],
-                        variables: nil
+    let expected = Hero(
+      unsafeData: [
+        "__typename": "Human",
+        "friends": []
+      ],
+      variables: nil
     )
 
     // when
@@ -922,7 +922,7 @@ class SelectionSetTests: XCTestCase {
             typename: __typename,
             implementedInterfaces: [Types.Animal]
           )
-          self.init(data: DataDict(
+          self.init(_dataDict: DataDict(
             objectType: objectType,
             data: [
               "__typename": objectType.typename,
@@ -970,7 +970,7 @@ class SelectionSetTests: XCTestCase {
         hero: Hero
       ) {
         let objectType = Types.Query
-        self.init(data: DataDict(
+        self.init(_dataDict: DataDict(
           objectType: objectType,
           data: [
             "__typename": objectType.typename,
@@ -1006,7 +1006,7 @@ class SelectionSetTests: XCTestCase {
               typename: __typename,
               implementedInterfaces: [Types.Animal]
             )
-            self.init(data: DataDict(
+            self.init(_dataDict: DataDict(
               objectType: objectType,
               data: [
                 "__typename": objectType.typename,
@@ -1064,7 +1064,7 @@ class SelectionSetTests: XCTestCase {
           name: String
         ) {
           let objectType = Types.Human
-          self.init(data: DataDict(
+          self.init(_dataDict: DataDict(
             objectType: objectType,
             data: [
               "__typename": objectType.typename,
@@ -1121,7 +1121,7 @@ class SelectionSetTests: XCTestCase {
           name: String
         ) {
           let objectType = Types.Human
-          self.init(data: DataDict(
+          self.init(_dataDict: DataDict(
             objectType: objectType,
             data: [
               "__typename": objectType.typename,
@@ -1175,7 +1175,7 @@ class SelectionSetTests: XCTestCase {
         hero: Hero
       ) {
         let objectType = Types.Query
-        self.init(data: DataDict(
+        self.init(_dataDict: DataDict(
           objectType: objectType,
           data: [
             "__typename": objectType.typename,
@@ -1208,7 +1208,7 @@ class SelectionSetTests: XCTestCase {
             name: String
           ) {
             let objectType = Types.Human
-            self.init(data: DataDict(
+            self.init(_dataDict: DataDict(
               objectType: objectType,
               data: [
                 "__typename": objectType.typename,
@@ -1226,7 +1226,7 @@ class SelectionSetTests: XCTestCase {
           ]}
           convenience init() {
             let objectType = Types.Human
-            self.init(data: DataDict(
+            self.init(_dataDict: DataDict(
               objectType: objectType,
               data: [
                 "__typename": objectType.typename
@@ -1242,8 +1242,8 @@ class SelectionSetTests: XCTestCase {
     let actual = Data(hero: .IfA(name: "Han Solo").asRootEntityType)
 
     // then
-    expect(actual.ifA).toNot(beNil())
-    expect(actual.ifB).to(beNil())
+    expect(actual.hero.ifA).toNot(beNil())
+    expect(actual.hero.ifB).to(beNil())
   }
 
   func test__selectionInitializer_givenInitMultipleTypesWithConflictingInclusionConditions__canConvertToAllConditionalTypes() {
@@ -1281,7 +1281,7 @@ class SelectionSetTests: XCTestCase {
           name: String
         ) {
           let objectType = Types.Human
-          self.init(data: DataDict(
+          self.init(_dataDict: DataDict(
             objectType: objectType,
             data: [
               "__typename": objectType.typename,
