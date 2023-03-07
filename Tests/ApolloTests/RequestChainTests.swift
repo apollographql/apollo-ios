@@ -1,5 +1,5 @@
 import XCTest
-import Apollo
+@testable import Apollo
 import ApolloAPI
 import ApolloInternalTestHelpers
 
@@ -25,7 +25,7 @@ class RequestChainTests: XCTestCase {
         XCTFail("This should not have succeeded")
       case .failure(let error):
         switch error {
-        case RequestChain.ChainError.noInterceptors:
+        case InterceptorRequestChain.ChainError.noInterceptors:
           // This is what we want.
           break
         default:
