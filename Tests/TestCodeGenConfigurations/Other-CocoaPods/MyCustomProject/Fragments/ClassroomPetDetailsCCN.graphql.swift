@@ -33,6 +33,7 @@ public struct ClassroomPetDetailsCCN: MyCustomProject.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
+    public typealias RootEntityType = ClassroomPetDetailsCCN
     public static var __parentType: Apollo.ParentType { MyCustomProject.Interfaces.Animal }
     public static var __selections: [Apollo.Selection] { [
       .field("height", Height.self),

@@ -58,6 +58,7 @@ public class DogQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
+        public typealias RootEntityType = AllAnimal
         public static var __parentType: Apollo.ParentType { MyCustomProject.Objects.Dog }
         public static var __selections: [Apollo.Selection] { [
           .fragment(DogFragment.self),

@@ -28,6 +28,23 @@ struct PetDetailsMutation: MySchemaModule.MutableSelectionSet, Fragment {
     set { __data["owner"] = newValue }
   }
 
+  public init(
+    __typename: String,
+    owner: Owner? = nil
+  ) {
+    let objectType = ApolloAPI.Object(
+      typename: __typename,
+      implementedInterfaces: [
+        MySchemaModule.Interfaces.Pet
+    ])
+    self.init(data: DataDict(
+      objectType: objectType,
+      data: [
+        "__typename": objectType.typename,
+        "owner": owner._fieldData
+    ]))
+  }
+
   /// Owner
   ///
   /// Parent Type: `Human`
@@ -43,6 +60,18 @@ struct PetDetailsMutation: MySchemaModule.MutableSelectionSet, Fragment {
     public var firstName: String {
       get { __data["firstName"] }
       set { __data["firstName"] = newValue }
+    }
+
+    public init(
+      firstName: String
+    ) {
+      let objectType = MySchemaModule.Objects.Human
+      self.init(data: DataDict(
+        objectType: objectType,
+        data: [
+          "__typename": objectType.typename,
+          "firstName": firstName
+      ]))
     }
   }
 }

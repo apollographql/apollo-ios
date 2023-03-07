@@ -55,6 +55,10 @@ public extension MyGraphQLSchema {
               species
               ... on WarmBlooded {
                 __typename
+                predators {
+                  __typename
+                  species
+                }
                 ...WarmBloodedDetails
                 laysEggs
               }
@@ -159,12 +163,15 @@ public extension MyGraphQLSchema {
             public let __data: DataDict
             public init(data: DataDict) { __data = data }
 
+            public typealias RootEntityType = AllAnimal.Predator
             public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Interfaces.WarmBlooded }
             public static var __selections: [ApolloAPI.Selection] { [
+              .field("predators", [Predator].self),
               .field("laysEggs", Bool.self),
               .fragment(WarmBloodedDetails.self),
             ] }
 
+            public var predators: [Predator] { __data["predators"] }
             public var laysEggs: Bool { __data["laysEggs"] }
             public var species: String { __data["species"] }
             public var bodyTemperature: Int { __data["bodyTemperature"] }
@@ -177,6 +184,21 @@ public extension MyGraphQLSchema {
               public var warmBloodedDetails: WarmBloodedDetails { _toFragment() }
               public var heightInMeters: HeightInMeters { _toFragment() }
             }
+
+            /// AllAnimal.Predator.AsWarmBlooded.Predator
+            ///
+            /// Parent Type: `Animal`
+            public struct Predator: MyGraphQLSchema.SelectionSet {
+              public let __data: DataDict
+              public init(data: DataDict) { __data = data }
+
+              public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Interfaces.Animal }
+              public static var __selections: [ApolloAPI.Selection] { [
+                .field("species", String.self),
+              ] }
+
+              public var species: String { __data["species"] }
+            }
           }
         }
 
@@ -187,6 +209,7 @@ public extension MyGraphQLSchema {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
+          public typealias RootEntityType = AllAnimal
           public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Interfaces.WarmBlooded }
           public static var __selections: [ApolloAPI.Selection] { [
             .fragment(WarmBloodedDetails.self),
@@ -228,6 +251,7 @@ public extension MyGraphQLSchema {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
+          public typealias RootEntityType = AllAnimal
           public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Interfaces.Pet }
           public static var __selections: [ApolloAPI.Selection] { [
             .field("height", Height.self),
@@ -280,6 +304,7 @@ public extension MyGraphQLSchema {
             public let __data: DataDict
             public init(data: DataDict) { __data = data }
 
+            public typealias RootEntityType = AllAnimal
             public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Interfaces.WarmBlooded }
             public static var __selections: [ApolloAPI.Selection] { [
               .fragment(WarmBloodedDetails.self),
@@ -328,6 +353,7 @@ public extension MyGraphQLSchema {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
+          public typealias RootEntityType = AllAnimal
           public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Objects.Cat }
           public static var __selections: [ApolloAPI.Selection] { [
             .field("isJellicle", Bool.self),
@@ -376,6 +402,7 @@ public extension MyGraphQLSchema {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
+          public typealias RootEntityType = AllAnimal
           public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Unions.ClassroomPet }
           public static var __selections: [ApolloAPI.Selection] { [
             .inlineFragment(AsBird.self),
@@ -416,6 +443,7 @@ public extension MyGraphQLSchema {
             public let __data: DataDict
             public init(data: DataDict) { __data = data }
 
+            public typealias RootEntityType = AllAnimal
             public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Objects.Bird }
             public static var __selections: [ApolloAPI.Selection] { [
               .field("wingspan", Double.self),
@@ -465,6 +493,7 @@ public extension MyGraphQLSchema {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
+          public typealias RootEntityType = AllAnimal
           public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Objects.Dog }
           public static var __selections: [ApolloAPI.Selection] { [
             .field("favoriteToy", String.self),

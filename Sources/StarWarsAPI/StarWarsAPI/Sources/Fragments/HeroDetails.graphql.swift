@@ -59,6 +59,7 @@ public struct HeroDetails: StarWarsAPI.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
+    public typealias RootEntityType = HeroDetails
     public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Human }
     public static var __selections: [ApolloAPI.Selection] { [
       .field("height", Double?.self),
@@ -91,6 +92,7 @@ public struct HeroDetails: StarWarsAPI.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
+    public typealias RootEntityType = HeroDetails
     public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Droid }
     public static var __selections: [ApolloAPI.Selection] { [
       .field("primaryFunction", String?.self),

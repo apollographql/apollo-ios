@@ -23,6 +23,18 @@ class AllAnimalsLocalCacheMutation: LocalCacheMutation {
       set { __data["allAnimals"] = newValue }
     }
 
+    public init(
+      allAnimals: [AllAnimal]
+    ) {
+      let objectType = MySchemaModule.Objects.Query
+      self.init(data: DataDict(
+        objectType: objectType,
+        data: [
+          "__typename": objectType.typename,
+          "allAnimals": allAnimals._fieldData
+      ]))
+    }
+
     /// AllAnimal
     ///
     /// Parent Type: `Animal`
@@ -51,6 +63,25 @@ class AllAnimalsLocalCacheMutation: LocalCacheMutation {
         set { if let newData = newValue?.__data._data { __data._data = newData }}
       }
 
+      public init(
+        __typename: String,
+        species: String,
+        skinCovering: GraphQLEnum<MySchemaModule.SkinCovering>? = nil
+      ) {
+        let objectType = ApolloAPI.Object(
+          typename: __typename,
+          implementedInterfaces: [
+            MySchemaModule.Interfaces.Animal
+        ])
+        self.init(data: DataDict(
+          objectType: objectType,
+          data: [
+            "__typename": objectType.typename,
+            "species": species,
+            "skinCovering": skinCovering
+        ]))
+      }
+
       /// AllAnimal.AsBird
       ///
       /// Parent Type: `Bird`
@@ -58,6 +89,7 @@ class AllAnimalsLocalCacheMutation: LocalCacheMutation {
         public var __data: DataDict
         public init(data: DataDict) { __data = data }
 
+        public typealias RootEntityType = AllAnimal
         public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Objects.Bird }
         public static var __selections: [ApolloAPI.Selection] { [
           .field("wingspan", Double.self),
@@ -74,6 +106,22 @@ class AllAnimalsLocalCacheMutation: LocalCacheMutation {
         public var skinCovering: GraphQLEnum<MySchemaModule.SkinCovering>? {
           get { __data["skinCovering"] }
           set { __data["skinCovering"] = newValue }
+        }
+
+        public init(
+          wingspan: Double,
+          species: String,
+          skinCovering: GraphQLEnum<MySchemaModule.SkinCovering>? = nil
+        ) {
+          let objectType = MySchemaModule.Objects.Bird
+          self.init(data: DataDict(
+            objectType: objectType,
+            data: [
+              "__typename": objectType.typename,
+              "wingspan": wingspan,
+              "species": species,
+              "skinCovering": skinCovering
+          ]))
         }
       }
     }

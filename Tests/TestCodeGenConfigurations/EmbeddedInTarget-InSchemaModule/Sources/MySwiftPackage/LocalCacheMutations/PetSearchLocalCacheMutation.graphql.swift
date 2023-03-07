@@ -40,6 +40,18 @@ public extension MyGraphQLSchema {
         set { __data["pets"] = newValue }
       }
 
+      public init(
+        pets: [Pet]
+      ) {
+        let objectType = MyGraphQLSchema.Objects.Query
+        self.init(data: DataDict(
+          objectType: objectType,
+          data: [
+            "__typename": objectType.typename,
+            "pets": pets._fieldData
+        ]))
+      }
+
       /// Pet
       ///
       /// Parent Type: `Pet`
@@ -60,6 +72,25 @@ public extension MyGraphQLSchema {
         public var humanName: String? {
           get { __data["humanName"] }
           set { __data["humanName"] = newValue }
+        }
+
+        public init(
+          __typename: String,
+          id: MyGraphQLSchema.ID,
+          humanName: String? = nil
+        ) {
+          let objectType = ApolloAPI.Object(
+            typename: __typename,
+            implementedInterfaces: [
+              MyGraphQLSchema.Interfaces.Pet
+          ])
+          self.init(data: DataDict(
+            objectType: objectType,
+            data: [
+              "__typename": objectType.typename,
+              "id": id,
+              "humanName": humanName
+          ]))
         }
       }
     }

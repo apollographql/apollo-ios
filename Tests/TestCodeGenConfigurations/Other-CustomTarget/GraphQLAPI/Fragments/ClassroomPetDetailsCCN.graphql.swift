@@ -34,6 +34,7 @@ public struct ClassroomPetDetailsCCN: GraphQLAPI.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
+    public typealias RootEntityType = ClassroomPetDetailsCCN
     public static var __parentType: ApolloAPI.ParentType { GraphQLAPI.Interfaces.Animal }
     public static var __selections: [ApolloAPI.Selection] { [
       .field("height", Height.self),

@@ -64,6 +64,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
+        public typealias RootEntityType = ClassroomPet
         public static var __parentType: Apollo.ParentType { MyCustomProject.Interfaces.Animal }
 
         public var species: String { __data["species"] }
@@ -83,6 +84,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
+        public typealias RootEntityType = ClassroomPet
         public static var __parentType: Apollo.ParentType { MyCustomProject.Interfaces.Pet }
 
         public var humanName: String? { __data["humanName"] }
@@ -102,6 +104,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
+        public typealias RootEntityType = ClassroomPet
         public static var __parentType: Apollo.ParentType { MyCustomProject.Interfaces.WarmBlooded }
 
         public var species: String { __data["species"] }
@@ -122,6 +125,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
+        public typealias RootEntityType = ClassroomPet
         public static var __parentType: Apollo.ParentType { MyCustomProject.Objects.Cat }
 
         public var species: String { __data["species"] }
@@ -145,6 +149,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
+        public typealias RootEntityType = ClassroomPet
         public static var __parentType: Apollo.ParentType { MyCustomProject.Objects.Bird }
 
         public var species: String { __data["species"] }
@@ -167,6 +172,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
+        public typealias RootEntityType = ClassroomPet
         public static var __parentType: Apollo.ParentType { MyCustomProject.Objects.PetRock }
 
         public var humanName: String? { __data["humanName"] }

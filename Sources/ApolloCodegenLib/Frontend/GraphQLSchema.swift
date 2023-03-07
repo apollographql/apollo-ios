@@ -112,6 +112,10 @@ public class GraphQLCompositeType: GraphQLNamedType {
   public override var debugDescription: String {
     "Type - \(name)"
   }
+
+  var isRootFieldType: Bool {
+    ["Query", "Mutation", "Subscription"].contains(name)
+  }
 }
 
 protocol GraphQLInterfaceImplementingType: GraphQLCompositeType {

@@ -63,6 +63,7 @@ public extension MyGraphQLSchema {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
+      public typealias RootEntityType = ClassroomPetDetails
       public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Interfaces.Animal }
       public static var __selections: [ApolloAPI.Selection] { [
         .field("species", String.self),
@@ -78,6 +79,7 @@ public extension MyGraphQLSchema {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
+      public typealias RootEntityType = ClassroomPetDetails
       public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Interfaces.Pet }
       public static var __selections: [ApolloAPI.Selection] { [
         .field("humanName", String?.self),
@@ -93,6 +95,7 @@ public extension MyGraphQLSchema {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
+      public typealias RootEntityType = ClassroomPetDetails
       public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Interfaces.WarmBlooded }
       public static var __selections: [ApolloAPI.Selection] { [
         .field("laysEggs", Bool.self),
@@ -109,6 +112,7 @@ public extension MyGraphQLSchema {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
+      public typealias RootEntityType = ClassroomPetDetails
       public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Objects.Cat }
       public static var __selections: [ApolloAPI.Selection] { [
         .field("bodyTemperature", Int.self),
@@ -129,6 +133,7 @@ public extension MyGraphQLSchema {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
+      public typealias RootEntityType = ClassroomPetDetails
       public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Objects.Bird }
       public static var __selections: [ApolloAPI.Selection] { [
         .field("wingspan", Double.self),
@@ -147,6 +152,7 @@ public extension MyGraphQLSchema {
       public let __data: DataDict
       public init(data: DataDict) { __data = data }
 
+      public typealias RootEntityType = ClassroomPetDetails
       public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Objects.PetRock }
       public static var __selections: [ApolloAPI.Selection] { [
         .field("favoriteToy", String.self),

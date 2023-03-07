@@ -35,6 +35,7 @@ struct ClassroomPetDetailsCCN: MySchemaModule.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
+    public typealias RootEntityType = ClassroomPetDetailsCCN
     public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Interfaces.Animal }
     public static var __selections: [ApolloAPI.Selection] { [
       .field("height", Height.self),

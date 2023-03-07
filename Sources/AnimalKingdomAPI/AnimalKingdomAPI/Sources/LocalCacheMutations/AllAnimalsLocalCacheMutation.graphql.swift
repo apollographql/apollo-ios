@@ -88,6 +88,7 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
         public var __data: DataDict
         public init(data: DataDict) { __data = data }
 
+        public typealias RootEntityType = AllAnimal
         public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Objects.Bird }
         public static var __selections: [ApolloAPI.Selection] { [
           .field("wingspan", Double.self),

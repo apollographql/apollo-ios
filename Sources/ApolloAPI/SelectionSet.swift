@@ -25,7 +25,9 @@ public protocol RootSelectionSet: SelectionSet, OutputTypeConvertible { }
 /// from the fragment's parent `RootSelectionSet` that will be selected. This includes fields from
 /// the parent selection set, as well as any other child selections sets that are compatible with
 /// the `InlineFragment`'s `__parentType` and the operation's inclusion condition.
-public protocol InlineFragment: SelectionSet { }
+public protocol InlineFragment: SelectionSet {
+  associatedtype RootEntityType: RootSelectionSet
+}
 
 // MARK: - SelectionSet
 public protocol SelectionSet: SelectionSetEntityValue, Hashable {
@@ -137,4 +139,10 @@ extension SelectionSet {
 extension SelectionSet where Fragments: FragmentContainer {
   /// Contains accessors for all of the fragments the `SelectionSet` can be converted to.
   public var fragments: Fragments { Fragments(data: __data) }
+}
+
+extension InlineFragment {
+  @inlinable public var asRootEntityType: RootEntityType {
+    RootEntityType.init(data: __data)
+  }
 }

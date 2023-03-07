@@ -62,6 +62,7 @@ public struct ClassroomPetDetails: GraphQLAPI.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
+    public typealias RootEntityType = ClassroomPetDetails
     public static var __parentType: ApolloAPI.ParentType { GraphQLAPI.Interfaces.Animal }
     public static var __selections: [ApolloAPI.Selection] { [
       .field("species", String.self),
@@ -77,6 +78,7 @@ public struct ClassroomPetDetails: GraphQLAPI.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
+    public typealias RootEntityType = ClassroomPetDetails
     public static var __parentType: ApolloAPI.ParentType { GraphQLAPI.Interfaces.Pet }
     public static var __selections: [ApolloAPI.Selection] { [
       .field("humanName", String?.self),
@@ -92,6 +94,7 @@ public struct ClassroomPetDetails: GraphQLAPI.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
+    public typealias RootEntityType = ClassroomPetDetails
     public static var __parentType: ApolloAPI.ParentType { GraphQLAPI.Interfaces.WarmBlooded }
     public static var __selections: [ApolloAPI.Selection] { [
       .field("laysEggs", Bool.self),
@@ -108,6 +111,7 @@ public struct ClassroomPetDetails: GraphQLAPI.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
+    public typealias RootEntityType = ClassroomPetDetails
     public static var __parentType: ApolloAPI.ParentType { GraphQLAPI.Objects.Cat }
     public static var __selections: [ApolloAPI.Selection] { [
       .field("bodyTemperature", Int.self),
@@ -128,6 +132,7 @@ public struct ClassroomPetDetails: GraphQLAPI.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
+    public typealias RootEntityType = ClassroomPetDetails
     public static var __parentType: ApolloAPI.ParentType { GraphQLAPI.Objects.Bird }
     public static var __selections: [ApolloAPI.Selection] { [
       .field("wingspan", Double.self),
@@ -146,6 +151,7 @@ public struct ClassroomPetDetails: GraphQLAPI.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
+    public typealias RootEntityType = ClassroomPetDetails
     public static var __parentType: ApolloAPI.ParentType { GraphQLAPI.Objects.PetRock }
     public static var __selections: [ApolloAPI.Selection] { [
       .field("favoriteToy", String.self),

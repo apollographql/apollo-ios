@@ -70,6 +70,7 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
+    public typealias RootEntityType = ClassroomPetDetails
     public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Interfaces.Animal }
     public static var __selections: [ApolloAPI.Selection] { [
       .field("species", String.self),
@@ -102,6 +103,7 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
+    public typealias RootEntityType = ClassroomPetDetails
     public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Interfaces.Pet }
     public static var __selections: [ApolloAPI.Selection] { [
       .field("humanName", String?.self),
@@ -134,6 +136,7 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
+    public typealias RootEntityType = ClassroomPetDetails
     public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Interfaces.WarmBlooded }
     public static var __selections: [ApolloAPI.Selection] { [
       .field("laysEggs", Bool.self),
@@ -170,6 +173,7 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
+    public typealias RootEntityType = ClassroomPetDetails
     public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Objects.Cat }
     public static var __selections: [ApolloAPI.Selection] { [
       .field("bodyTemperature", Int.self),
@@ -210,6 +214,7 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
+    public typealias RootEntityType = ClassroomPetDetails
     public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Objects.Bird }
     public static var __selections: [ApolloAPI.Selection] { [
       .field("wingspan", Double.self),
@@ -246,6 +251,7 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
+    public typealias RootEntityType = ClassroomPetDetails
     public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Objects.PetRock }
     public static var __selections: [ApolloAPI.Selection] { [
       .field("favoriteToy", String.self),

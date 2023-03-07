@@ -47,6 +47,10 @@ public class AllAnimalsQuery: GraphQLQuery {
             __typename
             species
             ... on WarmBlooded {
+              predators {
+                __typename
+                species
+              }
               ...WarmBloodedDetails
               laysEggs
             }
@@ -151,12 +155,15 @@ public class AllAnimalsQuery: GraphQLQuery {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
+          public typealias RootEntityType = AllAnimal.Predator
           public static var __parentType: Apollo.ParentType { MyCustomProject.Interfaces.WarmBlooded }
           public static var __selections: [Apollo.Selection] { [
+            .field("predators", [Predator].self),
             .field("laysEggs", Bool.self),
             .fragment(WarmBloodedDetails.self),
           ] }
 
+          public var predators: [Predator] { __data["predators"] }
           public var laysEggs: Bool { __data["laysEggs"] }
           public var species: String { __data["species"] }
           public var bodyTemperature: Int { __data["bodyTemperature"] }
@@ -169,6 +176,21 @@ public class AllAnimalsQuery: GraphQLQuery {
             public var warmBloodedDetails: WarmBloodedDetails { _toFragment() }
             public var heightInMeters: HeightInMeters { _toFragment() }
           }
+
+          /// AllAnimal.Predator.AsWarmBlooded.Predator
+          ///
+          /// Parent Type: `Animal`
+          public struct Predator: MyCustomProject.SelectionSet {
+            public let __data: DataDict
+            public init(data: DataDict) { __data = data }
+
+            public static var __parentType: Apollo.ParentType { MyCustomProject.Interfaces.Animal }
+            public static var __selections: [Apollo.Selection] { [
+              .field("species", String.self),
+            ] }
+
+            public var species: String { __data["species"] }
+          }
         }
       }
 
@@ -179,6 +201,7 @@ public class AllAnimalsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
+        public typealias RootEntityType = AllAnimal
         public static var __parentType: Apollo.ParentType { MyCustomProject.Interfaces.WarmBlooded }
         public static var __selections: [Apollo.Selection] { [
           .fragment(WarmBloodedDetails.self),
@@ -220,6 +243,7 @@ public class AllAnimalsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
+        public typealias RootEntityType = AllAnimal
         public static var __parentType: Apollo.ParentType { MyCustomProject.Interfaces.Pet }
         public static var __selections: [Apollo.Selection] { [
           .field("height", Height.self),
@@ -272,6 +296,7 @@ public class AllAnimalsQuery: GraphQLQuery {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
+          public typealias RootEntityType = AllAnimal
           public static var __parentType: Apollo.ParentType { MyCustomProject.Interfaces.WarmBlooded }
           public static var __selections: [Apollo.Selection] { [
             .fragment(WarmBloodedDetails.self),
@@ -320,6 +345,7 @@ public class AllAnimalsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
+        public typealias RootEntityType = AllAnimal
         public static var __parentType: Apollo.ParentType { MyCustomProject.Objects.Cat }
         public static var __selections: [Apollo.Selection] { [
           .field("isJellicle", Bool.self),
@@ -368,6 +394,7 @@ public class AllAnimalsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
+        public typealias RootEntityType = AllAnimal
         public static var __parentType: Apollo.ParentType { MyCustomProject.Unions.ClassroomPet }
         public static var __selections: [Apollo.Selection] { [
           .inlineFragment(AsBird.self),
@@ -408,6 +435,7 @@ public class AllAnimalsQuery: GraphQLQuery {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
+          public typealias RootEntityType = AllAnimal
           public static var __parentType: Apollo.ParentType { MyCustomProject.Objects.Bird }
           public static var __selections: [Apollo.Selection] { [
             .field("wingspan", Double.self),
@@ -457,6 +485,7 @@ public class AllAnimalsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
+        public typealias RootEntityType = AllAnimal
         public static var __parentType: Apollo.ParentType { MyCustomProject.Objects.Dog }
         public static var __selections: [Apollo.Selection] { [
           .field("favoriteToy", String.self),

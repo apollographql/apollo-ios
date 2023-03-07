@@ -53,6 +53,7 @@ public struct CharacterNameAndDroidAppearsIn: StarWarsAPI.SelectionSet, Fragment
     public let __data: DataDict
     public init(data: DataDict) { __data = data }
 
+    public typealias RootEntityType = CharacterNameAndDroidAppearsIn
     public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Droid }
     public static var __selections: [ApolloAPI.Selection] { [
       .field("appearsIn", [GraphQLEnum<StarWarsAPI.Episode>?].self),

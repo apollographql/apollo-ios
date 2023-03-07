@@ -27,6 +27,23 @@ public struct PetDetailsMutation: GraphQLAPI.MutableSelectionSet, Fragment {
     set { __data["owner"] = newValue }
   }
 
+  public init(
+    __typename: String,
+    owner: Owner? = nil
+  ) {
+    let objectType = ApolloAPI.Object(
+      typename: __typename,
+      implementedInterfaces: [
+        GraphQLAPI.Interfaces.Pet
+    ])
+    self.init(data: DataDict(
+      objectType: objectType,
+      data: [
+        "__typename": objectType.typename,
+        "owner": owner._fieldData
+    ]))
+  }
+
   /// Owner
   ///
   /// Parent Type: `Human`
@@ -42,6 +59,18 @@ public struct PetDetailsMutation: GraphQLAPI.MutableSelectionSet, Fragment {
     public var firstName: String {
       get { __data["firstName"] }
       set { __data["firstName"] = newValue }
+    }
+
+    public init(
+      firstName: String
+    ) {
+      let objectType = GraphQLAPI.Objects.Human
+      self.init(data: DataDict(
+        objectType: objectType,
+        data: [
+          "__typename": objectType.typename,
+          "firstName": firstName
+      ]))
     }
   }
 }

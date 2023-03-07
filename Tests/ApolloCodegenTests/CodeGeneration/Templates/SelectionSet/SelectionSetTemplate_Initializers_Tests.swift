@@ -211,7 +211,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
     let actual = subject.render(inlineFragment: allAnimals_asPet_asWarmBlooded)
     
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 16, ignoringExtraLines: true))
   }
   
   // MARK: Selection Tests
@@ -677,7 +677,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
     let actual = subject.render(inlineFragment: allAnimals_asPet)
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 16, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 17, ignoringExtraLines: true))
   }
 
   func test__render_given_mergedOnly_SelectionSet_rendersInitializer() throws {

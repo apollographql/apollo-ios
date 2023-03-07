@@ -22,6 +22,18 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
       set { __data["allAnimals"] = newValue }
     }
 
+    public init(
+      allAnimals: [AllAnimal]
+    ) {
+      let objectType = MyCustomProject.Objects.Query
+      self.init(data: DataDict(
+        objectType: objectType,
+        data: [
+          "__typename": objectType.typename,
+          "allAnimals": allAnimals._fieldData
+      ]))
+    }
+
     /// AllAnimal
     ///
     /// Parent Type: `Animal`
@@ -50,6 +62,25 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
         set { if let newData = newValue?.__data._data { __data._data = newData }}
       }
 
+      public init(
+        __typename: String,
+        species: String,
+        skinCovering: GraphQLEnum<MyCustomProject.SkinCovering>? = nil
+      ) {
+        let objectType = Apollo.Object(
+          typename: __typename,
+          implementedInterfaces: [
+            MyCustomProject.Interfaces.Animal
+        ])
+        self.init(data: DataDict(
+          objectType: objectType,
+          data: [
+            "__typename": objectType.typename,
+            "species": species,
+            "skinCovering": skinCovering
+        ]))
+      }
+
       /// AllAnimal.AsBird
       ///
       /// Parent Type: `Bird`
@@ -57,6 +88,7 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
         public var __data: DataDict
         public init(data: DataDict) { __data = data }
 
+        public typealias RootEntityType = AllAnimal
         public static var __parentType: Apollo.ParentType { MyCustomProject.Objects.Bird }
         public static var __selections: [Apollo.Selection] { [
           .field("wingspan", Double.self),
@@ -73,6 +105,22 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
         public var skinCovering: GraphQLEnum<MyCustomProject.SkinCovering>? {
           get { __data["skinCovering"] }
           set { __data["skinCovering"] = newValue }
+        }
+
+        public init(
+          wingspan: Double,
+          species: String,
+          skinCovering: GraphQLEnum<MyCustomProject.SkinCovering>? = nil
+        ) {
+          let objectType = MyCustomProject.Objects.Bird
+          self.init(data: DataDict(
+            objectType: objectType,
+            data: [
+              "__typename": objectType.typename,
+              "wingspan": wingspan,
+              "species": species,
+              "skinCovering": skinCovering
+          ]))
         }
       }
     }
