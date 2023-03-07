@@ -5390,6 +5390,59 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 1, ignoringExtraLines: true))
   }
 
+  func test__render_nestedTypeCaseWithNameConflictingWithChild__rendersRootEntityType() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+      predators: [Animal!]
+    }
+
+    interface Pet {
+      name: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        predators {
+           ... on Pet {
+            name
+          }
+          predators {
+            species
+          }
+        }
+      }
+    }
+    """
+
+    let expected = """
+    /// AllAnimal.Predator.AsPet
+    public struct AsPet: TestSchema.InlineFragment {
+      public let __data: DataDict
+      public init(data: DataDict) { __data = data }
+
+      public typealias RootEntityType = AllAnimal.Predator
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let predators_asPet = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"]?[field: "predators"]?[as: "Pet"]
+    )
+
+    let actual = subject.render(inlineFragment: predators_asPet)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 1, ignoringExtraLines: true))
+  }
+
   // MARK: - Documentation Tests
 
   func test__render_nestedSelectionSet__givenSchemaDocumentation_include_hasDocumentation_shouldGenerateDocumentationComment() throws {

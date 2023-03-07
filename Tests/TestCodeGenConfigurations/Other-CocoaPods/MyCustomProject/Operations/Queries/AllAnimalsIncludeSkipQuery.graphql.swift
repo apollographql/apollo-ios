@@ -172,7 +172,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public typealias RootEntityType = Predator
+          public typealias RootEntityType = AllAnimal.Predator
           public static var __parentType: Apollo.ParentType { MyCustomProject.Interfaces.WarmBlooded }
           public static var __selections: [Apollo.Selection] { [
             .field("species", String.self),

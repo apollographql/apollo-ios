@@ -159,7 +159,7 @@ class AllAnimalsQuery: GraphQLQuery {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
-          public typealias RootEntityType = Predator
+          public typealias RootEntityType = AllAnimal.Predator
           public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Interfaces.WarmBlooded }
           public static var __selections: [ApolloAPI.Selection] { [
             .field("laysEggs", Bool.self),
