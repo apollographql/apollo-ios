@@ -100,35 +100,6 @@ extension SelectionSet {
     _asInlineFragment(if: Selection.Conditions(condition))
   }
 
-  /// Initializes the `SelectionSet` **unsafely** with an unsafe result data dictionary.
-  ///
-  /// - Warning: This method is unsafe and improper use may result in unintended consequences
-  /// including crashes. The `unsafeData` should mirror the result data returned by a
-  /// `GraphQLSelectionSetMapper` after completion of GraphQL Execution.
-  ///
-  /// This is not identical to the JSON response from a GraphQL network request. The data should be
-  /// normalized and custom scalars should be converted to their concrete types.
-  ///
-  /// To create a `SelectionSet` from data representing a JSON format GraphQL network response
-  /// directly, create a `GraphQLResponse` object and call `parseResultFast()`.
-  @inlinable public init(
-    unsafeData data: [String: AnyHashable],
-    variables: GraphQLOperation.Variables? = nil
-  ) {
-    let objectType: Object?
-    if let typename = data["__typename"] as? String {
-      objectType = Schema.objectType(forTypename: typename)
-    } else {
-      objectType = nil
-    }
-
-    self.init(_dataDict: DataDict(
-      objectType: objectType,
-      data: data,
-      variables: variables
-    ))
-  }
-
   @inlinable public func hash(into hasher: inout Hasher) {
     hasher.combine(__data)
   }

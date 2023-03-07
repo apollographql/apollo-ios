@@ -1402,7 +1402,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       let updateCompletedExpectation = expectation(description: "Update completed")
 
       store.withinReadWriteTransaction({ transaction in
-        let data = GivenSelectionSet(unsafeData:
+        let data = try! GivenSelectionSet(data:
           ["hero": [
             "__typename": "Droid",
             "name": "Artoo"
@@ -1468,7 +1468,11 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     let writeCompletedExpectation = expectation(description: "Write completed")
 
     store.withinReadWriteTransaction({ transaction in
-      let data = GivenSelectionSet(unsafeData: ["hero": "name"], variables: nil)
+      let data = GivenSelectionSet(
+        _dataDict: .init(
+          objectType: Object(typename: "Hero", implementedInterfaces: []),
+          data: ["hero": "name"]
+        ))
       let cacheMutation = MockLocalCacheMutation<GivenSelectionSet>()
       try transaction.write(data: data, for: cacheMutation)
     }, completion: { result in
@@ -1523,7 +1527,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       let updateCompletedExpectation = expectation(description: "Update completed")
 
       store.withinReadWriteTransaction({ transaction in
-        let fragment = GivenFragment(unsafeData:
+        let fragment = try! GivenFragment(data:
           ["hero": [
             "__typename": "Droid",
             "name": "Artoo"

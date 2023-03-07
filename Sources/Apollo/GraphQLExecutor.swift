@@ -164,10 +164,6 @@ final class GraphQLExecutor {
     self.resolveReference = resolveReference
   }
 
-  private func runtimeType(of object: JSONObject) -> String? {
-    return object["__typename"] as? String
-  }
-
   // MARK: - Execution
 
   func execute<
@@ -418,6 +414,11 @@ final class GraphQLExecutor {
                         asType: returnType,
                         accumulator: accumulator)
         }
+
+      case let dataDict as ApolloAPI.DataDict:
+        return executeChildSelections(forObjectTypeFields: fieldInfo,
+                                      onChildObject: dataDict._data,
+                                      accumulator: accumulator)
 
       case let object as JSONObject:
         return executeChildSelections(forObjectTypeFields: fieldInfo,

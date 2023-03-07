@@ -1079,8 +1079,8 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       let writeToStoreExpectation = expectation(description: "Initial Data written to store")
 
       client.store.withinReadWriteTransaction({ transaction in
-        let data = HeroAndFriendsNamesSelectionSet(
-          unsafeData:
+        let data = try! HeroAndFriendsNamesSelectionSet(
+          data:
             [
               "hero": [
                 "id": "2001",

@@ -25,7 +25,7 @@ class SelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = Hero(unsafeData: object)
+    let actual = try! Hero(data: object)
 
     // then
     expect(actual.name).to(equal("Johnny Tsunami"))
@@ -49,7 +49,7 @@ class SelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = Hero(unsafeData: object)
+    let actual = try! Hero(data: object)
 
     // then
     expect(actual.name).to(beNil())
@@ -74,7 +74,7 @@ class SelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = Hero(unsafeData: object)
+    let actual = try! Hero(data: object)
 
     // then
     expect(actual.name).to(beNil())
@@ -101,7 +101,7 @@ class SelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = Hero(unsafeData: object)
+    let actual = try! Hero(data: object)
 
     // then
     expect(actual.nestedList).to(equal([["A"]]))
@@ -137,10 +137,10 @@ class SelectionSetTests: XCTestCase {
       "friend": friendData
     ]
 
-    let expected = Hero.Friend(unsafeData: friendData)
+    let expected = try! Hero.Friend(data: friendData)
 
     // when
-    let actual = Hero(unsafeData: object)
+    let actual = try! Hero(data: object)
 
     // then
     expect(actual.friend).to(equal(expected))
@@ -166,10 +166,10 @@ class SelectionSetTests: XCTestCase {
       "friend": friendData
     ]
 
-    let expected = Hero(unsafeData: friendData, variables: nil)
+    let expected = try! Hero(data: friendData, variables: nil)
 
     // when
-    let actual = Hero(unsafeData: object)
+    let actual = try! Hero(data: object)
 
     // then
     expect(actual.friend).to(equal(expected))
@@ -193,7 +193,7 @@ class SelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = Hero(unsafeData: object)
+    let actual = try! Hero(data: object)
 
     // then
     expect(actual.friend).to(beNil())
@@ -224,8 +224,8 @@ class SelectionSetTests: XCTestCase {
       ]
     ]
 
-    let expected = Hero(
-      unsafeData: [
+    let expected = try! Hero(
+      data: [
         "__typename": "Human",
         "friends": []
       ],
@@ -233,7 +233,7 @@ class SelectionSetTests: XCTestCase {
     )
 
     // when
-    let actual = Hero(unsafeData: object)
+    let actual = try! Hero(data: object)
 
     // then
     expect(actual.friends).to(equal([expected]))
@@ -262,16 +262,16 @@ class SelectionSetTests: XCTestCase {
       ]
     ]
 
-    let expected = Hero(unsafeData:
-                          [
-                            "__typename": "Human",
-                            "friends": []
-                          ],
-                        variables: nil
+    let expected = try! Hero(
+      data: [
+        "__typename": "Human",
+        "friends": []
+      ],
+      variables: nil
     )
 
     // when
-    let actual = Hero(unsafeData: object)
+    let actual = try! Hero(data: object)
 
     // then
     expect(actual.friends).to(equal([expected]))
@@ -299,16 +299,16 @@ class SelectionSetTests: XCTestCase {
       ]
     ]
 
-    let expected = Hero(unsafeData:
-                          [
-                            "__typename": "Human",
-                            "friends": []
-                          ],
-                        variables: nil
+    let expected = try! Hero(
+      data: [
+        "__typename": "Human",
+        "friends": []
+      ],
+      variables: nil
     )
 
     // when
-    let actual = Hero(unsafeData: object)
+    let actual = try! Hero(data: object)
 
     // then
     expect(actual.friends).to(equal([Hero?.none, expected, Hero?.none]))
@@ -337,16 +337,16 @@ class SelectionSetTests: XCTestCase {
       ]
     ]
 
-    let expected = Hero(unsafeData:
-                          [
-                            "__typename": "Human",
-                            "friends": []
-                          ],
-                        variables: nil
+    let expected = try! Hero(
+      data: [
+        "__typename": "Human",
+        "friends": []
+      ],
+      variables: nil
     )
 
     // when
-    let actual = Hero(unsafeData: object)
+    let actual = try! Hero(data: object)
 
     // then
     expect(actual.friends).to(equal([expected]))
@@ -370,7 +370,7 @@ class SelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = Hero(unsafeData: object)
+    let actual = try! Hero(data: object)
 
     // then
     expect(actual.friends).to(beNil())
@@ -401,16 +401,16 @@ class SelectionSetTests: XCTestCase {
       ]]
     ]
 
-    let expected = Hero(unsafeData:
-                          [
-                            "__typename": "Human",
-                            "nestedList": [[]]
-                          ],
-                        variables: nil
+    let expected = try! Hero(
+      data: [
+        "__typename": "Human",
+        "nestedList": [[]]
+      ],
+      variables: nil
     )
 
     // when
-    let actual = Hero(unsafeData: object)
+    let actual = try! Hero(data: object)
 
     // then
     expect(actual.nestedList).to(equal([[expected]]))
@@ -439,16 +439,16 @@ class SelectionSetTests: XCTestCase {
       ]]
     ]
 
-    let expected = Hero(unsafeData:
-                          [
-                            "__typename": "Human",
-                            "nestedList": [[]]
-                          ],
-                        variables: nil
+    let expected = try! Hero(
+      data: [
+        "__typename": "Human",
+        "nestedList": [[]]
+      ],
+      variables: nil
     )
 
     // when
-    let actual = Hero(unsafeData: object)
+    let actual = try! Hero(data: object)
 
     // then
     expect(actual.nestedList).to(equal([[expected]]))
@@ -481,10 +481,10 @@ class SelectionSetTests: XCTestCase {
       ]
     ]
 
-    let expectedItem = Hero(unsafeData: nestedObjectData, variables: nil)
+    let expectedItem = try! Hero(data: nestedObjectData, variables: nil)
 
     // when
-    let actual = Hero(unsafeData: object)
+    let actual = try! Hero(data: object)
 
     // then
     expect(actual.nestedList).to(equal([[Hero]?.none, [expectedItem], [Hero]?.none]))
@@ -512,17 +512,17 @@ class SelectionSetTests: XCTestCase {
         ]
       ]]
     ]
-
-    let expected = Hero(unsafeData:
-                          [
-                            "__typename": "Human",
-                            "nestedList": [[]]
-                          ],
-                        variables: nil
+    
+    let expected = try! Hero(
+      data: [
+        "__typename": "Human",
+        "nestedList": [[]]
+      ],
+      variables: nil
     )
 
     // when
-    let actual = Hero(unsafeData: object)
+    let actual = try! Hero(data: object)
 
     // then
     expect(actual.nestedList).to(equal([[expected]]))
@@ -551,16 +551,16 @@ class SelectionSetTests: XCTestCase {
       ]]
     ]
 
-    let expected = Hero(unsafeData:
-                          [
-                            "__typename": "Human",
-                            "nestedList": [[]]
-                          ],
-                        variables: nil
+    let expected = try! Hero(
+      data: [
+        "__typename": "Human",
+        "nestedList": [[]]
+      ],
+      variables: nil
     )
 
     // when
-    let actual = Hero(unsafeData: object)
+    let actual = try! Hero(data: object)
 
     // then
     expect(actual.nestedList).to(equal([[expected]]))
@@ -600,7 +600,7 @@ class SelectionSetTests: XCTestCase {
 
         override class var __parentType: ParentType { Types.Human }
         override class var __selections: [Selection] {[
-          .field("name", String.self)
+          .field("name", String?.self)
         ]}
       }
 
@@ -609,7 +609,7 @@ class SelectionSetTests: XCTestCase {
 
         override class var __parentType: ParentType { Types.Droid }
         override class var __selections: [Selection] {[
-          .field("primaryFunction", String.self)
+          .field("primaryFunction", String?.self)
         ]}
       }
     }
@@ -620,7 +620,7 @@ class SelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = Hero(unsafeData: object)
+    let actual = try! Hero(data: object)
 
     // then
     expect(actual.asHuman).to(beNil())
@@ -668,7 +668,7 @@ class SelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = Hero(unsafeData: object)
+    let actual = try! Hero(data: object)
 
     // then
     expect(actual.asHumanoid).toNot(beNil())
@@ -715,7 +715,7 @@ class SelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = Hero(unsafeData: object)
+    let actual = try! Hero(data: object)
 
     // then
     expect(actual.asHumanoid).to(beNil())
@@ -761,7 +761,7 @@ class SelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = Hero(unsafeData: object)
+    let actual = try! Hero(data: object)
 
     // then
     expect(actual.asCharacter).toNot(beNil())
@@ -807,7 +807,7 @@ class SelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = Hero(unsafeData: object)
+    let actual = try! Hero(data: object)
 
     // then
     expect(actual.asCharacter).to(beNil())
@@ -841,7 +841,7 @@ class SelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = Hero(unsafeData: object, variables: ["includeFragment": true])
+    let actual = try! Hero(data: object, variables: ["includeFragment": true])
 
     // then
     expect(actual.fragments.givenFragment).toNot(beNil())
@@ -873,7 +873,7 @@ class SelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = Hero(unsafeData: object, variables: ["includeFragment": false])
+    let actual = try! Hero(data: object, variables: ["includeFragment": false])
 
     // then
     expect(actual.fragments.givenFragment).to(beNil())
