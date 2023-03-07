@@ -87,6 +87,10 @@ open class MockTypeCase: MockSelectionSet, InlineFragment {
   public typealias RootEntityType = MockSelectionSet
 }
 
+open class ConcreteMockTypeCase<T: MockSelectionSet>: MockSelectionSet, InlineFragment {
+  public typealias RootEntityType = T
+}
+
 extension DataDict {
   public static func empty() -> DataDict {
     DataDict(objectType: nil, data: [:], variables: nil)
