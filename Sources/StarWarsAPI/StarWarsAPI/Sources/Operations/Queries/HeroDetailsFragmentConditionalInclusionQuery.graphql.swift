@@ -93,6 +93,7 @@ public class HeroDetailsFragmentConditionalInclusionQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
+        public typealias RootEntityType = Hero
         public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
 
         /// The name of the character

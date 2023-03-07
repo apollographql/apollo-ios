@@ -845,6 +845,8 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
         struct AsDroid: MockMutableInlineFragment {
           public var __data: DataDict = .empty()
+
+          public typealias RootEntityType = Hero
           static let __parentType: ParentType = Types.Droid
           init(data: DataDict) { __data = data }
 
@@ -933,6 +935,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
       struct AsDroid: MockMutableInlineFragment {
         public var __data: DataDict = .empty()
+        public typealias RootEntityType = GivenFragment
         static let __parentType: ParentType = Types.Droid
         init(data: DataDict) { __data = data }
 
@@ -1064,6 +1067,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
       struct AsDroid: MockMutableInlineFragment {
         public var __data: DataDict = .empty()
+        public typealias RootEntityType = GivenFragment
         static let __parentType: ParentType = Types.Droid
         init(data: DataDict) { __data = data }
 
@@ -1113,6 +1117,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
         struct AsDroid: MockMutableInlineFragment {
           public var __data: DataDict = .empty()
+          public typealias RootEntityType = GivenFragment
           static let __parentType: ParentType = Types.Droid
           init(data: DataDict) { __data = data }
 

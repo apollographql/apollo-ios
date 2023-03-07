@@ -95,6 +95,7 @@ struct SelectionSetTemplate {
     return """
     \(DataFieldAndInitializerTemplate())
 
+    \(RootEntityTypealias(selectionSet))
     \(ParentTypeTemplate(selectionSet.parentType))
     \(ifLet: selections.direct?.groupedByInclusionCondition, { SelectionsTemplate($0, in: scope) })
 
@@ -116,6 +117,19 @@ struct SelectionSetTemplate {
     """
     public \(isMutable ? "var" : "let") __data: DataDict
     public init(data: DataDict) { __data = data }
+    """
+  }
+
+  private func RootEntityTypealias(_ selectionSet: IR.SelectionSet) -> TemplateString {
+    guard !selectionSet.isEntityRoot else { return "" }
+    let rootEntityName = selectionSet
+      .entity
+      .fieldPath
+      .last
+      .value
+      .formattedSelectionSetName(with: config.pluralizer)
+    return """
+    public typealias RootEntityType = \(rootEntityName)
     """
   }
 

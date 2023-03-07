@@ -99,6 +99,7 @@ public class HeroDetailsWithFragmentQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
+        public typealias RootEntityType = Hero
         public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Human }
 
         /// The name of the character
@@ -135,6 +136,7 @@ public class HeroDetailsWithFragmentQuery: GraphQLQuery {
         public let __data: DataDict
         public init(data: DataDict) { __data = data }
 
+        public typealias RootEntityType = Hero
         public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Droid }
 
         /// The name of the character

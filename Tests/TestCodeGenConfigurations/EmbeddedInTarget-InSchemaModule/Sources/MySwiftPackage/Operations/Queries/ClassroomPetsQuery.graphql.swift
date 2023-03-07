@@ -65,6 +65,7 @@ public extension MyGraphQLSchema {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
+          public typealias RootEntityType = ClassroomPet
           public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Interfaces.Animal }
 
           public var species: String { __data["species"] }
@@ -84,6 +85,7 @@ public extension MyGraphQLSchema {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
+          public typealias RootEntityType = ClassroomPet
           public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Interfaces.Pet }
 
           public var humanName: String? { __data["humanName"] }
@@ -103,6 +105,7 @@ public extension MyGraphQLSchema {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
+          public typealias RootEntityType = ClassroomPet
           public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Interfaces.WarmBlooded }
 
           public var species: String { __data["species"] }
@@ -123,6 +126,7 @@ public extension MyGraphQLSchema {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
+          public typealias RootEntityType = ClassroomPet
           public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Objects.Cat }
 
           public var species: String { __data["species"] }
@@ -146,6 +150,7 @@ public extension MyGraphQLSchema {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
+          public typealias RootEntityType = ClassroomPet
           public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Objects.Bird }
 
           public var species: String { __data["species"] }
@@ -168,6 +173,7 @@ public extension MyGraphQLSchema {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
+          public typealias RootEntityType = ClassroomPet
           public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Objects.PetRock }
 
           public var humanName: String? { __data["humanName"] }

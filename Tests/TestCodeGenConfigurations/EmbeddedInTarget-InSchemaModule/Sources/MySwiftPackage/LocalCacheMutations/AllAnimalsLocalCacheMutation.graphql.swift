@@ -23,6 +23,18 @@ public extension MyGraphQLSchema {
         set { __data["allAnimals"] = newValue }
       }
 
+      public init(
+        allAnimals: [AllAnimal]
+      ) {
+        let objectType = MyGraphQLSchema.Objects.Query
+        self.init(data: DataDict(
+          objectType: objectType,
+          data: [
+            "__typename": objectType.typename,
+            "allAnimals": allAnimals._fieldData
+        ]))
+      }
+
       /// AllAnimal
       ///
       /// Parent Type: `Animal`
@@ -51,6 +63,25 @@ public extension MyGraphQLSchema {
           set { if let newData = newValue?.__data._data { __data._data = newData }}
         }
 
+        public init(
+          __typename: String,
+          species: String,
+          skinCovering: GraphQLEnum<MyGraphQLSchema.SkinCovering>? = nil
+        ) {
+          let objectType = ApolloAPI.Object(
+            typename: __typename,
+            implementedInterfaces: [
+              MyGraphQLSchema.Interfaces.Animal
+          ])
+          self.init(data: DataDict(
+            objectType: objectType,
+            data: [
+              "__typename": objectType.typename,
+              "species": species,
+              "skinCovering": skinCovering
+          ]))
+        }
+
         /// AllAnimal.AsBird
         ///
         /// Parent Type: `Bird`
@@ -58,6 +89,7 @@ public extension MyGraphQLSchema {
           public var __data: DataDict
           public init(data: DataDict) { __data = data }
 
+          public typealias RootEntityType = AllAnimal
           public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Objects.Bird }
           public static var __selections: [ApolloAPI.Selection] { [
             .field("wingspan", Double.self),
@@ -74,6 +106,22 @@ public extension MyGraphQLSchema {
           public var skinCovering: GraphQLEnum<MyGraphQLSchema.SkinCovering>? {
             get { __data["skinCovering"] }
             set { __data["skinCovering"] = newValue }
+          }
+
+          public init(
+            wingspan: Double,
+            species: String,
+            skinCovering: GraphQLEnum<MyGraphQLSchema.SkinCovering>? = nil
+          ) {
+            let objectType = MyGraphQLSchema.Objects.Bird
+            self.init(data: DataDict(
+              objectType: objectType,
+              data: [
+                "__typename": objectType.typename,
+                "wingspan": wingspan,
+                "species": species,
+                "skinCovering": skinCovering
+            ]))
           }
         }
       }

@@ -39,6 +39,18 @@ public class PetSearchLocalCacheMutation: LocalCacheMutation {
       set { __data["pets"] = newValue }
     }
 
+    public init(
+      pets: [Pet]
+    ) {
+      let objectType = MyCustomProject.Objects.Query
+      self.init(data: DataDict(
+        objectType: objectType,
+        data: [
+          "__typename": objectType.typename,
+          "pets": pets._fieldData
+      ]))
+    }
+
     /// Pet
     ///
     /// Parent Type: `Pet`
@@ -59,6 +71,25 @@ public class PetSearchLocalCacheMutation: LocalCacheMutation {
       public var humanName: String? {
         get { __data["humanName"] }
         set { __data["humanName"] = newValue }
+      }
+
+      public init(
+        __typename: String,
+        id: MyCustomProject.ID,
+        humanName: String? = nil
+      ) {
+        let objectType = Apollo.Object(
+          typename: __typename,
+          implementedInterfaces: [
+            MyCustomProject.Interfaces.Pet
+        ])
+        self.init(data: DataDict(
+          objectType: objectType,
+          data: [
+            "__typename": objectType.typename,
+            "id": id,
+            "humanName": humanName
+        ]))
       }
     }
   }

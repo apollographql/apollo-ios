@@ -83,7 +83,9 @@ open class MockFragment: MockSelectionSet, Fragment {
   open class var fragmentDefinition: StaticString { "" }
 }
 
-open class MockTypeCase: MockSelectionSet, InlineFragment { }
+open class MockTypeCase: MockSelectionSet, InlineFragment {
+  public typealias RootEntityType = MockSelectionSet
+}
 
 extension DataDict {
   public static func empty() -> DataDict {

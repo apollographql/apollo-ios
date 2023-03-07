@@ -60,6 +60,7 @@ public extension MyGraphQLSchema {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
+          public typealias RootEntityType = ClassroomPet
           public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Interfaces.Animal }
 
           public var height: ClassroomPetDetailsCCN.AsAnimal.Height { __data["height"] }

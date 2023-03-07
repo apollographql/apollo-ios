@@ -97,6 +97,7 @@ public class RepositoryQuery: GraphQLQuery {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
+          public typealias RootEntityType = IssueOrPullRequest
           public static var __parentType: ApolloAPI.ParentType { GitHubAPI.Objects.Issue }
           public static var __selections: [ApolloAPI.Selection] { [
             .field("body", String.self),
@@ -139,6 +140,7 @@ public class RepositoryQuery: GraphQLQuery {
           public let __data: DataDict
           public init(data: DataDict) { __data = data }
 
+          public typealias RootEntityType = IssueOrPullRequest
           public static var __parentType: ApolloAPI.ParentType { GitHubAPI.Interfaces.Reactable }
           public static var __selections: [ApolloAPI.Selection] { [
             .field("viewerCanReact", Bool.self),
@@ -157,6 +159,7 @@ public class RepositoryQuery: GraphQLQuery {
             public let __data: DataDict
             public init(data: DataDict) { __data = data }
 
+            public typealias RootEntityType = IssueOrPullRequest
             public static var __parentType: ApolloAPI.ParentType { GitHubAPI.Interfaces.Comment }
             public static var __selections: [ApolloAPI.Selection] { [
               .field("author", Author?.self),
