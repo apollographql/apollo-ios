@@ -96,7 +96,7 @@ class ResponseCodeInterceptorTests: XCTestCase {
         XCTFail("This should not have succeeded")
       case .failure(let error):
         switch error {
-        case ResponseCodeInterceptor.ResponseCodeError.invalidResponseCode(response: let response, let rawData, _):
+        case ResponseCodeInterceptor.ResponseCodeError.invalidResponseCode(response: let response, let rawData, let jsonObject):
           XCTAssertEqual(response?.statusCode, 401)
 
           guard
@@ -107,6 +107,10 @@ class ResponseCodeInterceptorTests: XCTestCase {
           }
 
           XCTAssertEqual(dataString, "{\"data\":{\"hero\":{\"__typename\":\"Human\",\"name\":\"Luke Skywalker\"}}}")
+          XCTAssertEqual(
+            jsonObject,
+            ["data": ["hero": ["__typename": "Human","name": "Luke Skywalker"]]]
+          )
         default:
           XCTFail("Unexpected error type: \(error.localizedDescription)")
         }
