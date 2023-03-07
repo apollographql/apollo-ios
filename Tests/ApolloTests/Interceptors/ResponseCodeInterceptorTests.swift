@@ -96,7 +96,7 @@ class ResponseCodeInterceptorTests: XCTestCase {
         XCTFail("This should not have succeeded")
       case .failure(let error):
         switch error {
-        case ResponseCodeInterceptor.ResponseCodeError.invalidResponseCode(response: let response, let rawData):
+        case ResponseCodeInterceptor.ResponseCodeError.invalidResponseCode(response: let response, let rawData, _):
           XCTAssertEqual(response?.statusCode, 401)
 
           guard

@@ -7,11 +7,11 @@ import ApolloAPI
 public struct ResponseCodeInterceptor: ApolloInterceptor {
   
   public enum ResponseCodeError: Error, LocalizedError {
-    case invalidResponseCode(response: HTTPURLResponse?, rawData: Data?)
+    case invalidResponseCode(response: HTTPURLResponse?, rawData: Data?, jsonObject: JSONObject?)
     
     public var errorDescription: String? {
       switch self {
-      case .invalidResponseCode(let response, let rawData):
+      case .invalidResponseCode(let response, let rawData, _):
         var errorStrings = [String]()
         if let code = response?.statusCode {
           errorStrings.append("Received a \(code) error.")
@@ -41,22 +41,27 @@ public struct ResponseCodeInterceptor: ApolloInterceptor {
     request: HTTPRequest<Operation>,
     response: HTTPResponse<Operation>?,
     completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
-    
-    
-    guard response?.httpResponse.isSuccessful == true else {
-      let error = ResponseCodeError.invalidResponseCode(response: response?.httpResponse,
-                                                        
-                                                        rawData: response?.rawData)
+      guard response?.httpResponse.isSuccessful == true else {
+        var jsonObject: JSONObject?
+        if let data = response?.rawData {
+          jsonObject = try? JSONSerialization.jsonObject(with: data) as? JSONObject
+        }
+        
+        let error = ResponseCodeError.invalidResponseCode(
+          response: response?.httpResponse,
+          rawData: response?.rawData,
+          jsonObject: jsonObject
+        )
+        
+        chain.handleErrorAsync(error,
+                               request: request,
+                               response: response,
+                               completion: completion)
+        return
+      }
       
-      chain.handleErrorAsync(error,
-                             request: request,
-                             response: response,
-                             completion: completion)
-      return
-    }
-    
-    chain.proceedAsync(request: request,
-                       response: response,
-                       completion: completion)
+      chain.proceedAsync(request: request,
+                         response: response,
+                         completion: completion)
   }
 }

@@ -124,7 +124,7 @@ class CacheDependentInterceptorTests: XCTestCase, CacheDependentTesting {
         return
       }
       switch handledError {
-      case ResponseCodeInterceptor.ResponseCodeError.invalidResponseCode(let response, _):
+      case ResponseCodeInterceptor.ResponseCodeError.invalidResponseCode(let response, _, _):
         XCTAssertEqual(response?.statusCode, 401)
       default:
         XCTFail("Unexpected error on the additional error handler: \(handledError)")
