@@ -1,6 +1,6 @@
 # 🔮 Apollo iOS Roadmap
 
-**Last updated: 2023-02-23**
+**Last updated: 2023-03-08**
 
 For up to date release notes, refer to the project's [Changelog](https://github.com/apollographql/apollo-ios/blob/main/CHANGELOG.md).
 
@@ -19,9 +19,8 @@ Please see our [patch releases milestone](https://github.com/apollographql/apoll
 
 ## [1.1: Generated operation model creation](https://github.com/apollographql/apollo-ios/milestone/64)
 
-_Approximate Date: 2023-03-17_
+_Approximate Date: 2023-03-24 (2023-03-17 Beta)_
 
-- We plan to release alpha and beta versions in advance for community feedback 👀
 - The ability to initialize fragment (and maybe selection set) models in a type-safe way
 - Initialize mutable selection sets to add to the cache via local cache mutations (Currently you can only mutate fields on existing entities)
 - Create API for clearing individual fields on entities from the cache in local cache mutations.
@@ -29,7 +28,7 @@ _Approximate Date: 2023-03-17_
 
 ## [1.2: Improve fragment merging and code generation performance](https://github.com/apollographql/apollo-ios/milestone/67)
 
-_Approximate Date: 20203-04-07_
+_Approximate Date: 20203-04-14_
 
 - Add configuration for disabling merging of fragment fields
 - Recognize when multiple selection set types will end up being identical and use a shared model object with typealiases to reduce generated code
