@@ -31,6 +31,8 @@ class TemplateRenderer_OperationFile_Tests: XCTestCase {
     // given
     let expected = """
     // @generated
+    // swift-format-ignore-file
+    // swiftlint:disable all
     // This file was automatically generated and should not be edited.
 
     """
@@ -141,7 +143,7 @@ class TemplateRenderer_OperationFile_Tests: XCTestCase {
       let actual = subject.render()
 
       // then
-      expect(actual).to(equalLineByLine(test.expectation, atLine: 4, ignoringExtraLines: true))
+      expect(actual).to(equalLineByLine(test.expectation, atLine: 6, ignoringExtraLines: true))
     }
   }
 
@@ -228,7 +230,7 @@ class TemplateRenderer_OperationFile_Tests: XCTestCase {
       let actual = subject.render()
 
       // then
-      expect(actual).to(equalLineByLine(test.expectation, atLine: 4, ignoringExtraLines: true))
+      expect(actual).to(equalLineByLine(test.expectation, atLine: 6, ignoringExtraLines: true))
     }
   }
 
@@ -258,55 +260,55 @@ class TemplateRenderer_OperationFile_Tests: XCTestCase {
         schemaTypes: .swiftPackageManager,
         operations: .relative(subpath: nil),
         expectation: expectedNoNamespace,
-        atLine: 7
+        atLine: 9
       ),
       (
         schemaTypes: .swiftPackageManager,
         operations: .absolute(path: "path"),
         expectation: expectedNoNamespace,
-        atLine: 7
+        atLine: 9
       ),
       (
         schemaTypes: .swiftPackageManager,
         operations: .inSchemaModule,
         expectation: expectedNoNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .other,
         operations: .relative(subpath: nil),
         expectation: expectedNoNamespace,
-        atLine: 7
+        atLine: 9
       ),
       (
         schemaTypes: .other,
         operations: .absolute(path: "path"),
         expectation: expectedNoNamespace,
-        atLine: 7
+        atLine: 9
       ),
       (
         schemaTypes: .other,
         operations: .inSchemaModule,
         expectation: expectedNoNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .embeddedInTarget(name: "MockApplication"),
         operations: .relative(subpath: nil),
         expectation: expectedNoNamespace,
-        atLine: 7
+        atLine: 9
       ),
       (
         schemaTypes: .embeddedInTarget(name: "MockApplication"),
         operations: .absolute(path: "path"),
         expectation: expectedNoNamespace,
-        atLine: 7
+        atLine: 9
       ),
       (
         schemaTypes: .embeddedInTarget(name: "MockApplication"),
         operations: .inSchemaModule,
         expectation: expectedNamespace,
-        atLine: 6
+        atLine: 8
       )
     ]
 
@@ -342,7 +344,7 @@ class TemplateRenderer_OperationFile_Tests: XCTestCase {
     let actual = subject.render()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
   }
 
   func test__casing__givenUppercasedSchemaName_shouldGenerateUppercasedNamespace() {
@@ -363,7 +365,7 @@ class TemplateRenderer_OperationFile_Tests: XCTestCase {
     let actual = subject.render()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
   }
 
   func test__casing__givenCapitalizedSchemaName_shouldGenerateCapitalizedNamespace() {
@@ -384,6 +386,6 @@ class TemplateRenderer_OperationFile_Tests: XCTestCase {
     let actual = subject.render()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
   }
 }

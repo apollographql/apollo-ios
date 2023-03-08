@@ -31,6 +31,8 @@ class TemplateRenderer_TestMockFile_Tests: XCTestCase {
     // given
     let expected = """
     // @generated
+    // swift-format-ignore-file
+    // swiftlint:disable all
     // This file was automatically generated and should not be edited.
 
     """
@@ -129,7 +131,7 @@ class TemplateRenderer_TestMockFile_Tests: XCTestCase {
       let actual = subject.render()
 
       // then
-      expect(actual).to(equalLineByLine(expected, atLine: 4, ignoringExtraLines: true))
+      expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
     }
   }
 
@@ -151,6 +153,6 @@ class TemplateRenderer_TestMockFile_Tests: XCTestCase {
     let actual = subject.render()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 4, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
   }
 }

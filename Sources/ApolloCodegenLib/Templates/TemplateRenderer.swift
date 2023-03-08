@@ -169,6 +169,8 @@ struct HeaderCommentTemplate {
   static let template: StaticString =
     """
     // @generated
+    // swift-format-ignore-file
+    // swiftlint:disable all
     // This file was automatically generated and should not be edited.
     """
 

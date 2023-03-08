@@ -37,6 +37,8 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
     // given
     let expected = """
     // @generated
+    // swift-format-ignore-file
+    // swiftlint:disable all
     // This file was automatically generated and should not be edited.
 
     """
@@ -125,7 +127,7 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
       let actual = subject.render()
 
       // then
-      expect(actual).to(equalLineByLine(expected, atLine: 4, ignoringExtraLines: true))
+      expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
     }
   }
 
@@ -190,7 +192,7 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
       let actual = subject.render()
 
       // then
-      expect(actual).to(equalLineByLine(expected, atLine: 4, ignoringExtraLines: true))
+      expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
     }
   }
 
@@ -228,55 +230,55 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
         schemaTypes: .swiftPackageManager,
         operations: .relative(subpath: nil),
         expectation: expectedNoNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .swiftPackageManager,
         operations: .absolute(path: "path"),
         expectation: expectedNoNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .swiftPackageManager,
         operations: .inSchemaModule,
         expectation: expectedNoNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .other,
         operations: .relative(subpath: nil),
         expectation: expectedNoNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .other,
         operations: .absolute(path: "path"),
         expectation: expectedNoNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .other,
         operations: .inSchemaModule,
         expectation: expectedNoNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .embeddedInTarget(name: "MockApplication"),
         operations: .relative(subpath: nil),
         expectation: expectedNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .embeddedInTarget(name: "MockApplication"),
         operations: .absolute(path: "path"),
         expectation: expectedNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .embeddedInTarget(name: "MockApplication"),
         operations: .inSchemaModule,
         expectation: expectedNamespace,
-        atLine: 6
+        atLine: 8
       )
     ]
 
@@ -302,47 +304,47 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
       (
         schemaTypes: .swiftPackageManager,
         operations: .relative(subpath: nil),
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .swiftPackageManager,
         operations: .absolute(path: "path"),
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .swiftPackageManager,
         operations: .inSchemaModule,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .other,
         operations: .relative(subpath: nil),
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .other,
         operations: .absolute(path: "path"),
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .other,
         operations: .inSchemaModule,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .embeddedInTarget(name: "MockApplication"),
         operations: .relative(subpath: nil),
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .embeddedInTarget(name: "MockApplication"),
         operations: .absolute(path: "path"),
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .embeddedInTarget(name: "MockApplication"),
         operations: .inSchemaModule,
-        atLine: 6
+        atLine: 8
       )
     ]
 
@@ -402,55 +404,55 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
         schemaTypes: .swiftPackageManager,
         operations: .relative(subpath: nil),
         expectation: expectedNoNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .swiftPackageManager,
         operations: .absolute(path: "path"),
         expectation: expectedNoNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .swiftPackageManager,
         operations: .inSchemaModule,
         expectation: expectedNoNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .other,
         operations: .relative(subpath: nil),
         expectation: expectedNoNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .other,
         operations: .absolute(path: "path"),
         expectation: expectedNoNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .other,
         operations: .inSchemaModule,
         expectation: expectedNoNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .embeddedInTarget(name: "MockApplication"),
         operations: .relative(subpath: nil),
         expectation: expectedNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .embeddedInTarget(name: "MockApplication"),
         operations: .absolute(path: "path"),
         expectation: expectedNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .embeddedInTarget(name: "MockApplication"),
         operations: .inSchemaModule,
         expectation: expectedNamespace,
-        atLine: 6
+        atLine: 8
       )
     ]
 
@@ -500,55 +502,55 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
         schemaTypes: .swiftPackageManager,
         operations: .relative(subpath: nil),
         expectation: expectedNoNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .swiftPackageManager,
         operations: .absolute(path: "path"),
         expectation: expectedNoNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .swiftPackageManager,
         operations: .inSchemaModule,
         expectation: expectedNoNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .other,
         operations: .relative(subpath: nil),
         expectation: expectedNoNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .other,
         operations: .absolute(path: "path"),
         expectation: expectedNoNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .other,
         operations: .inSchemaModule,
         expectation: expectedNoNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .embeddedInTarget(name: "MockApplication"),
         operations: .relative(subpath: nil),
         expectation: expectedNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .embeddedInTarget(name: "MockApplication"),
         operations: .absolute(path: "path"),
         expectation: expectedNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .embeddedInTarget(name: "MockApplication"),
         operations: .inSchemaModule,
         expectation: expectedNamespace,
-        atLine: 6
+        atLine: 8
       )
     ]
 
@@ -598,55 +600,55 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
         schemaTypes: .swiftPackageManager,
         operations: .relative(subpath: nil),
         expectation: expectedNoNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .swiftPackageManager,
         operations: .absolute(path: "path"),
         expectation: expectedNoNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .swiftPackageManager,
         operations: .inSchemaModule,
         expectation: expectedNoNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .other,
         operations: .relative(subpath: nil),
         expectation: expectedNoNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .other,
         operations: .absolute(path: "path"),
         expectation: expectedNoNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .other,
         operations: .inSchemaModule,
         expectation: expectedNoNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .embeddedInTarget(name: "MockApplication"),
         operations: .relative(subpath: nil),
         expectation: expectedNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .embeddedInTarget(name: "MockApplication"),
         operations: .absolute(path: "path"),
         expectation: expectedNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .embeddedInTarget(name: "MockApplication"),
         operations: .inSchemaModule,
         expectation: expectedNamespace,
-        atLine: 6
+        atLine: 8
       )
     ]
 
@@ -698,55 +700,55 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
         schemaTypes: .swiftPackageManager,
         operations: .relative(subpath: nil),
         expectation: expectedNoNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .swiftPackageManager,
         operations: .absolute(path: "path"),
         expectation: expectedNoNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .swiftPackageManager,
         operations: .inSchemaModule,
         expectation: expectedNoNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .other,
         operations: .relative(subpath: nil),
         expectation: expectedNoNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .other,
         operations: .absolute(path: "path"),
         expectation: expectedNoNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .other,
         operations: .inSchemaModule,
         expectation: expectedNoNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .embeddedInTarget(name: "MockApplication"),
         operations: .relative(subpath: nil),
         expectation: expectedNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .embeddedInTarget(name: "MockApplication"),
         operations: .absolute(path: "path"),
         expectation: expectedNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .embeddedInTarget(name: "MockApplication"),
         operations: .inSchemaModule,
         expectation: expectedNamespace,
-        atLine: 6
+        atLine: 8
       )
     ]
 
@@ -798,55 +800,55 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
         schemaTypes: .swiftPackageManager,
         operations: .relative(subpath: nil),
         expectation: expectedNoNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .swiftPackageManager,
         operations: .absolute(path: "path"),
         expectation: expectedNoNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .swiftPackageManager,
         operations: .inSchemaModule,
         expectation: expectedNoNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .other,
         operations: .relative(subpath: nil),
         expectation: expectedNoNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .other,
         operations: .absolute(path: "path"),
         expectation: expectedNoNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .other,
         operations: .inSchemaModule,
         expectation: expectedNoNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .embeddedInTarget(name: "MockApplication"),
         operations: .relative(subpath: nil),
         expectation: expectedNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .embeddedInTarget(name: "MockApplication"),
         operations: .absolute(path: "path"),
         expectation: expectedNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .embeddedInTarget(name: "MockApplication"),
         operations: .inSchemaModule,
         expectation: expectedNamespace,
-        atLine: 6
+        atLine: 8
       )
     ]
 
@@ -898,55 +900,55 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
         schemaTypes: .swiftPackageManager,
         operations: .relative(subpath: nil),
         expectation: expectedNoNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .swiftPackageManager,
         operations: .absolute(path: "path"),
         expectation: expectedNoNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .swiftPackageManager,
         operations: .inSchemaModule,
         expectation: expectedNoNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .other,
         operations: .relative(subpath: nil),
         expectation: expectedNoNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .other,
         operations: .absolute(path: "path"),
         expectation: expectedNoNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .other,
         operations: .inSchemaModule,
         expectation: expectedNoNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .embeddedInTarget(name: "MockApplication"),
         operations: .relative(subpath: nil),
         expectation: expectedNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .embeddedInTarget(name: "MockApplication"),
         operations: .absolute(path: "path"),
         expectation: expectedNamespace,
-        atLine: 6
+        atLine: 8
       ),
       (
         schemaTypes: .embeddedInTarget(name: "MockApplication"),
         operations: .inSchemaModule,
         expectation: expectedNamespace,
-        atLine: 6
+        atLine: 8
       )
     ]
 
@@ -981,7 +983,7 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
     public extension Testschema.Unions {
     """
 
-    expect(actual).to(equalLineByLine(expected, atLine: 10, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))
   }
 
   func test__casing__givenUppercasedSchemaName_whenSchemaAndComponentNamespace_shouldGenerateUppercasedNamespace() {
@@ -1001,7 +1003,7 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
     public extension TESTSCHEMA.Unions {
     """
 
-    expect(actual).to(equalLineByLine(expected, atLine: 10, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))
   }
 
   func test__casing__givenCapitalizedSchemaName_whenSchemaAndComponentNamespace_shouldGenerateCapitalizedNamespace() {
@@ -1021,7 +1023,7 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
     public extension TestSchema.Unions {
     """
 
-    expect(actual).to(equalLineByLine(expected, atLine: 10, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))
   }
 
   func test__casing__givenLowercasedSchemaName_whenOnlySchemaNamespace_shouldGenerateFirstUppercasedNamespace() {
@@ -1041,7 +1043,7 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
     public extension Testschema {
     """
 
-    expect(actual).to(equalLineByLine(expected, atLine: 10, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))
   }
 
   func test__casing__givenUppercasedSchemaName_whenOnlySchemaNamespace_shouldGenerateUppercasedNamespace() {
@@ -1061,7 +1063,7 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
     public extension TESTSCHEMA {
     """
 
-    expect(actual).to(equalLineByLine(expected, atLine: 10, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))
   }
 
   func test__casing__givenCapitalizedSchemaName_whenOnlySchemaNamespace_shouldGenerateCapitalizedNamespace() {
@@ -1081,6 +1083,6 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
     public extension TestSchema {
     """
 
-    expect(actual).to(equalLineByLine(expected, atLine: 10, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))
   }
 }
