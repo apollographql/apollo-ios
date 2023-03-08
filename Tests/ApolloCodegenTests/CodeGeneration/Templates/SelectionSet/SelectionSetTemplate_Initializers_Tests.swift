@@ -755,4 +755,247 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
   }
 
+  // MARK: - Include/Skip Tests
+
+  func test__render_given_inlineFragmentWithInclusionCondition_rendersInitializerWithVariables() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      species: String!
+      friend: Animal!
+      name: String!
+    }
+    """
+
+    document = """
+    query TestOperation($a: Boolean!) {
+      allAnimals {
+        ... @include(if: $a) {
+          name
+        }
+        friend {
+          species
+        }
+      }
+    }
+    """
+
+    let expected = """
+        public init(
+          name: String,
+          friend: Friend
+        ) {
+          let objectType = TestSchema.Objects.Animal
+          self.init(data: DataDict(
+            objectType: objectType,
+            data: [
+              "__typename": objectType.typename,
+              "name": name,
+              "friend": friend._fieldData
+            ],
+            variables: [
+              "a": true
+          ]))
+        }
+      """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"]?[if: "a"]
+    )
+
+    let actual = subject.render(inlineFragment: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 17, ignoringExtraLines: true))
+  }
+
+  func test__render_given_inlineFragmentWithMultipleInclusionConditions_rendersInitializerWithVariables() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      species: String!
+      friend: Animal!
+      name: String!
+    }
+    """
+
+    document = """
+    query TestOperation($a: Boolean!, $b: Boolean!) {
+      allAnimals {
+        ... @include(if: $a) @skip(if: $b) {
+          name
+        }
+        friend {
+          species
+        }
+      }
+    }
+    """
+
+    let expected = """
+        public init(
+          name: String,
+          friend: Friend
+        ) {
+          let objectType = TestSchema.Objects.Animal
+          self.init(data: DataDict(
+            objectType: objectType,
+            data: [
+              "__typename": objectType.typename,
+              "name": name,
+              "friend": friend._fieldData
+            ],
+            variables: [
+              "a": true,
+              "b": false
+          ]))
+        }
+      """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"]?[if: "a" && !"b"]
+    )
+
+    let actual = subject.render(inlineFragment: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 17, ignoringExtraLines: true))
+  }
+
+  func test__render_given_inlineFragmentWithNestedInclusionConditions_rendersInitializerWithVariables() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      species: String!
+      friend: Animal!
+      name: String!
+    }
+    """
+
+    document = """
+    query TestOperation($a: Boolean!, $b: Boolean!) {
+      allAnimals {
+        ... @include(if: $a) {
+          ... @skip(if: $b) {
+            name
+          }
+        }
+        friend {
+          species
+        }
+      }
+    }
+    """
+
+    let expected = """
+        public init(
+          name: String,
+          friend: Friend
+        ) {
+          let objectType = TestSchema.Objects.Animal
+          self.init(data: DataDict(
+            objectType: objectType,
+            data: [
+              "__typename": objectType.typename,
+              "name": name,
+              "friend": friend._fieldData
+            ],
+            variables: [
+              "a": true,
+              "b": false
+          ]))
+        }
+      """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"]?[if: "a"]?[if: !"b"]
+    )
+
+    let actual = subject.render(inlineFragment: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 17, ignoringExtraLines: true))
+  }
+
+  func test__render_given_inlineFragmentWithInclusionConditionNestedInEntityWithOtherInclusionCondition_rendersInitializerWithVariables() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      species: String!
+      friend: Animal!
+      name: String!
+    }
+    """
+
+    document = """
+    query TestOperation($a: Boolean!, $b: Boolean!) {
+      allAnimals {
+        ... @include(if: $a) {
+          friend {
+            ... @skip(if: $b) {
+              name
+            }
+            species
+          }
+        }
+      }
+    }
+    """
+
+    let expected = """
+        public init(
+          name: String,
+          species: String
+        ) {
+          let objectType = TestSchema.Objects.Animal
+          self.init(data: DataDict(
+            objectType: objectType,
+            data: [
+              "__typename": objectType.typename,
+              "name": name,
+              "species": species
+            ],
+            variables: [
+              "b": false
+          ]))
+        }
+      """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let allAnimals_friend = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"]?[if: "a"]?[field: "friend"]?[if: !"b"]
+    )
+
+    let actual = subject.render(inlineFragment: allAnimals_friend)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 17, ignoringExtraLines: true))
+  }
 }
