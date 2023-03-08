@@ -33,7 +33,6 @@ _Approximate Date: 20203-04-14_
 - Add configuration for disabling merging of fragment fields
 - Recognize when multiple selection set types will end up being identical and use a shared model object with typealiases to reduce generated code
 - Fix retain cycles and memory issues causing code generation to take very long on certain large, complex schemas with deeply nested fragment composition
-- Optimize code generation performance by parallelizing computation and rendering of files
 
 ## 1.x: `@defer` support
 
