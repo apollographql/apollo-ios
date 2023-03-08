@@ -31,10 +31,11 @@ final public class InterceptorRequestChain: Cancellable, RequestChain {
     }
   }
   
-  private let interceptors: [ApolloInterceptor]
-  private var currentIndex: Int
+  private var interceptors: [ApolloInterceptorReentrantWrapper]
   private var callbackQueue: DispatchQueue
   @Atomic public var isCancelled: Bool = false
+
+  private var managedSelf: Unmanaged<InterceptorRequestChain>!
   
   /// Something which allows additional error handling to occur when some kind of error has happened.
   public var additionalErrorHandler: ApolloErrorInterceptor?
@@ -46,9 +47,14 @@ final public class InterceptorRequestChain: Cancellable, RequestChain {
   ///   - callbackQueue: The `DispatchQueue` to call back on when an error or result occurs. Defaults to `.main`.
   public init(interceptors: [ApolloInterceptor],
               callbackQueue: DispatchQueue = .main) {
-    self.interceptors = interceptors
+    self.interceptors = []
     self.callbackQueue = callbackQueue
-    self.currentIndex = 0
+
+    managedSelf = Unmanaged<InterceptorRequestChain>.passRetained(self)
+
+    self.interceptors = interceptors.enumerated().map { (index, interceptor) in
+      ApolloInterceptorReentrantWrapper(interceptor: interceptor, requestChain: managedSelf, index: index)
+    }
   }
   
   /// Kicks off the request from the beginning of the interceptor array.
@@ -59,7 +65,6 @@ final public class InterceptorRequestChain: Cancellable, RequestChain {
   public func kickoff<Operation: GraphQLOperation>(
     request: HTTPRequest<Operation>,
     completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
-    assert(self.currentIndex == 0, "The interceptor index should be zero when calling this method")
 
     guard let firstInterceptor = self.interceptors.first else {
       handleErrorAsync(ChainError.noInterceptors,
@@ -85,16 +90,32 @@ final public class InterceptorRequestChain: Cancellable, RequestChain {
     request: HTTPRequest<Operation>,
     response: HTTPResponse<Operation>?,
     completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
+
+      // Empty implementation, proceedAsync(request:response:completion:interceptor:) should be
+      // used instead.
+  }
+
+  /// Proceeds to the next interceptor in the array.
+  ///
+  /// - Parameters:
+  ///   - request: The in-progress request object
+  ///   - response: [optional] The in-progress response object, if received yet
+  ///   - completion: The completion closure to call when data has been processed and should be returned to the UI.
+  func proceedAsync<Operation: GraphQLOperation>(
+    request: HTTPRequest<Operation>,
+    response: HTTPResponse<Operation>?,
+    completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void,
+    interceptor: ApolloInterceptorReentrantWrapper
+  ) {
     guard !self.isCancelled else {
       // Do not proceed, this chain has been cancelled.
       return
     }
-    
-    let nextIndex = self.currentIndex + 1
+
+    let nextIndex = interceptor.index + 1
     if self.interceptors.indices.contains(nextIndex) {
-      self.currentIndex = nextIndex
-      let interceptor = self.interceptors[self.currentIndex]
-      
+      let interceptor = self.interceptors[nextIndex]
+
       interceptor.interceptAsync(chain: self,
                                  request: request,
                                  response: response,
@@ -105,6 +126,10 @@ final public class InterceptorRequestChain: Cancellable, RequestChain {
         self.returnValueAsync(for: request,
                               value: result,
                               completion: completion)
+
+        if Operation.operationType != .subscription {
+          self.managedSelf.release()
+        }
       } else {
         // We got to the end of the chain and no parsed response is there, there needs to be more processing.
         self.handleErrorAsync(ChainError.invalidIndex(chain: self, index: nextIndex),
@@ -126,10 +151,10 @@ final public class InterceptorRequestChain: Cancellable, RequestChain {
     
     // If an interceptor adheres to `Cancellable`, it should have its in-flight work cancelled as well.
     for interceptor in self.interceptors {
-      if let cancellableInterceptor = interceptor as? Cancellable {
-        cancellableInterceptor.cancel()
-      }
+      interceptor.cancel()
     }
+
+    self.managedSelf.release()
   }
   
   /// Restarts the request starting from the first interceptor.
@@ -145,8 +170,7 @@ final public class InterceptorRequestChain: Cancellable, RequestChain {
       // Don't retry something that's been cancelled.
       return
     }
-    
-    self.currentIndex = 0
+
     self.kickoff(request: request, completion: completion)
   }
   
