@@ -1200,22 +1200,61 @@ class SelectionSetTests: XCTestCase {
           typealias Schema = MockSchemaMetadata
           override class var __parentType: ParentType { Types.Human }
           override class var __selections: [Selection] {[
-            .field("name", String.self)
+            .field("name", String.self),
+            .include(if: !"c", .field("friend", Friend.self))
           ]}
           var name: String { __data["name"] }
+          var friend: Friend { __data["friend"] }
 
           convenience init(
-            name: String
+            name: String,
+            friend: Friend? = nil
           ) {
             let objectType = Types.Human
             self.init(_dataDict: DataDict(
               objectType: objectType,
               data: [
                 "__typename": objectType.typename,
-                "name": name
+                "name": name,
+                "friend": friend._fieldData
               ],
               variables: ["a": true]
             ))
+          }
+
+          class Friend: MockSelectionSet {
+            typealias Schema = MockSchemaMetadata
+
+            override class var __parentType: ParentType { Types.Human }
+            override class var __selections: [Selection] {[
+              .include(if: "a", .inlineFragment(IfA.self)),
+              .include(if: "b", .inlineFragment(IfB.self))
+            ]}
+
+            var ifNotC: IfNotC? { _asInlineFragment(if: !"c") }
+
+            class IfNotC: ConcreteMockTypeCase<Friend> {
+              typealias Schema = MockSchemaMetadata
+              override class var __parentType: ParentType { Types.Human }
+              override class var __selections: [Selection] {[
+                .field("name", String.self)
+              ]}
+              var name: String { __data["name"] }
+
+              convenience init(
+                name: String
+              ) {
+                let objectType = Types.Human
+                self.init(_dataDict: DataDict(
+                  objectType: objectType,
+                  data: [
+                    "__typename": objectType.typename,
+                    "name": name
+                  ],
+                  variables: ["c": false]
+                ))
+              }
+            }
           }
         }
 
@@ -1239,10 +1278,16 @@ class SelectionSetTests: XCTestCase {
     }
 
     // when
-    let actual = Data(hero: .IfA(name: "Han Solo").asRootEntityType)
+    let actual = Data(
+      hero: .IfA(
+        name: "Han Solo",
+        friend: Data.Hero.IfA.Friend.IfNotC(name: "Leia Organa").asRootEntityType
+      ).asRootEntityType
+    )
 
     // then
     expect(actual.hero.ifA).toNot(beNil())
+    expect(actual.hero.ifA?.friend.ifNotC).toNot(beNil())
     expect(actual.hero.ifB).to(beNil())
   }
 
