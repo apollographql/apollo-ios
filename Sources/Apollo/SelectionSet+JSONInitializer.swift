@@ -6,18 +6,16 @@ import ApolloAPI
 
 extension RootSelectionSet {
 
-#warning("TODO: Update documentation here")
-  /// Initializes the `SelectionSet` **unsafely** with an unsafe result data dictionary.
+  /// Initializes a `SelectionSet` with a raw JSON response object.
   ///
-  /// - Warning: This method is unsafe and improper use may result in unintended consequences
-  /// including crashes. The `unsafeData` should mirror the result data returned by a
-  /// `GraphQLSelectionSetMapper` after completion of GraphQL Execution.
+  /// The process of converting a JSON response into `SelectionSetData` is done by using a
+  /// `GraphQLExecutor` with a`GraphQLSelectionSetMapper` to parse, validate, and transform
+  /// the JSON response data into the format expected by `SelectionSet`.
   ///
-  /// This is not identical to the JSON response from a GraphQL network request. The data should be
-  /// normalized and custom scalars should be converted to their concrete types.
-  ///
-  /// To create a `SelectionSet` from data representing a JSON format GraphQL network response
-  /// directly, create a `GraphQLResponse` object and call `parseResultFast()`.
+  /// - Parameters:
+  ///   - data: A dictionary representing a JSON response object for a GraphQL object.
+  ///   - variables: [Optional] The operation variables that would be used to obtain
+  ///                the given JSON response data.
   public init(
     data: JSONObject,
     variables: GraphQLOperation.Variables? = nil

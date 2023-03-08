@@ -1,17 +1,21 @@
 /// A structure that wraps the underlying data used by ``SelectionSet``s.
-public struct DataDict: Hashable {
-  #warning("TODO: Finish documentation here")
+public struct DataDict: Hashable {  
   /// A type representing the underlying data for a `SelectionSet`.
   ///
   /// - Warning: This is not identical to the JSON response from a GraphQL network request.
   /// The data should be normalized for consumption by a ``SelectionSet``. This means:
-  ///   1. Values for entity fields are represented by ``DataDict`` values
-  ///   2. Custom scalars are serialized and converted to their concrete types.
-  ///   3. Inclusion conditions and type conditions **TODO**
+  ///
+  /// * Values for entity fields are represented by ``DataDict`` values
+  /// * Custom scalars are serialized and converted to their concrete types.
+  /// * The `implementedInterfaces` used for fulfilling type conditions are
+  ///   on the `_objectType` of the `DataDict`.
+  /// * The variables used for fulfilling inclusion conditions are included
+  ///   in the `_variables` of the `DataDict`.
   ///
   /// The process of converting a JSON response into ``SelectionSetData`` is done by using a
   /// `GraphQLExecutor` with a`GraphQLSelectionSetMapper`. This can be performed manually
-  /// by using **TODO**.
+  /// by using `SelectionSet.init(data: JSONObject, variables: GraphQLOperation.Variables?)` in
+  /// the `Apollo` library.
   public typealias SelectionSetData = [String: AnyHashable]
 
   public let _objectType: Object?
