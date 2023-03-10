@@ -42,7 +42,7 @@ public class SearchQuery: GraphQLQuery {
 
   public struct Data: StarWarsAPI.SelectionSet {
     public let __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Query }
     public static var __selections: [ApolloAPI.Selection] { [
@@ -55,7 +55,7 @@ public class SearchQuery: GraphQLQuery {
       search: [Search?]? = nil
     ) {
       let objectType = StarWarsAPI.Objects.Query
-      self.init(data: DataDict(
+      self.init(_dataDict: DataDict(
         objectType: objectType,
         data: [
           "__typename": objectType.typename,
@@ -68,7 +68,7 @@ public class SearchQuery: GraphQLQuery {
     /// Parent Type: `SearchResult`
     public struct Search: StarWarsAPI.SelectionSet {
       public let __data: DataDict
-      public init(data: DataDict) { __data = data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Unions.SearchResult }
       public static var __selections: [ApolloAPI.Selection] { [
@@ -88,7 +88,7 @@ public class SearchQuery: GraphQLQuery {
           typename: __typename,
           implementedInterfaces: [
         ])
-        self.init(data: DataDict(
+        self.init(_dataDict: DataDict(
           objectType: objectType,
           data: [
             "__typename": objectType.typename,
@@ -100,7 +100,7 @@ public class SearchQuery: GraphQLQuery {
       /// Parent Type: `Human`
       public struct AsHuman: StarWarsAPI.InlineFragment {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_dataDict: DataDict) { __data = _dataDict }
 
         public typealias RootEntityType = Search
         public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Human }
@@ -119,7 +119,7 @@ public class SearchQuery: GraphQLQuery {
           name: String
         ) {
           let objectType = StarWarsAPI.Objects.Human
-          self.init(data: DataDict(
+          self.init(_dataDict: DataDict(
             objectType: objectType,
             data: [
               "__typename": objectType.typename,
@@ -134,7 +134,7 @@ public class SearchQuery: GraphQLQuery {
       /// Parent Type: `Droid`
       public struct AsDroid: StarWarsAPI.InlineFragment {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_dataDict: DataDict) { __data = _dataDict }
 
         public typealias RootEntityType = Search
         public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Droid }
@@ -153,7 +153,7 @@ public class SearchQuery: GraphQLQuery {
           name: String
         ) {
           let objectType = StarWarsAPI.Objects.Droid
-          self.init(data: DataDict(
+          self.init(_dataDict: DataDict(
             objectType: objectType,
             data: [
               "__typename": objectType.typename,
@@ -168,7 +168,7 @@ public class SearchQuery: GraphQLQuery {
       /// Parent Type: `Starship`
       public struct AsStarship: StarWarsAPI.InlineFragment {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_dataDict: DataDict) { __data = _dataDict }
 
         public typealias RootEntityType = Search
         public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Starship }
@@ -187,7 +187,7 @@ public class SearchQuery: GraphQLQuery {
           name: String
         ) {
           let objectType = StarWarsAPI.Objects.Starship
-          self.init(data: DataDict(
+          self.init(_dataDict: DataDict(
             objectType: objectType,
             data: [
               "__typename": objectType.typename,

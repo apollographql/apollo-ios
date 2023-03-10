@@ -13,7 +13,7 @@ public struct CharacterNameAndDroidPrimaryFunction: StarWarsAPI.SelectionSet, Fr
     """ }
 
   public let __data: DataDict
-  public init(data: DataDict) { __data = data }
+  public init(_dataDict: DataDict) { __data = _dataDict }
 
   public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
   public static var __selections: [ApolloAPI.Selection] { [
@@ -42,7 +42,7 @@ public struct CharacterNameAndDroidPrimaryFunction: StarWarsAPI.SelectionSet, Fr
       implementedInterfaces: [
         StarWarsAPI.Interfaces.Character
     ])
-    self.init(data: DataDict(
+    self.init(_dataDict: DataDict(
       objectType: objectType,
       data: [
         "__typename": objectType.typename,
@@ -55,7 +55,7 @@ public struct CharacterNameAndDroidPrimaryFunction: StarWarsAPI.SelectionSet, Fr
   /// Parent Type: `Droid`
   public struct AsDroid: StarWarsAPI.InlineFragment {
     public let __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public typealias RootEntityType = CharacterNameAndDroidPrimaryFunction
     public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Droid }
@@ -81,7 +81,7 @@ public struct CharacterNameAndDroidPrimaryFunction: StarWarsAPI.SelectionSet, Fr
       primaryFunction: String? = nil
     ) {
       let objectType = StarWarsAPI.Objects.Droid
-      self.init(data: DataDict(
+      self.init(_dataDict: DataDict(
         objectType: objectType,
         data: [
           "__typename": objectType.typename,

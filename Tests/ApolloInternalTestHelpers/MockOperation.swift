@@ -54,8 +54,8 @@ open class AbstractMockSelectionSet<F>: RootSelectionSet, Hashable {
 
   public var __data: DataDict = .empty()
 
-  public required init(data: DataDict) {
-    self.__data = data
+  public required init(_dataDict: DataDict) {
+    self.__data = _dataDict
   }
 
   public subscript<T: AnyScalarType & Hashable>(dynamicMember key: String) -> T? {
@@ -85,6 +85,10 @@ open class MockFragment: MockSelectionSet, Fragment {
 
 open class MockTypeCase: MockSelectionSet, InlineFragment {
   public typealias RootEntityType = MockSelectionSet
+}
+
+open class ConcreteMockTypeCase<T: MockSelectionSet>: MockSelectionSet, InlineFragment {
+  public typealias RootEntityType = T
 }
 
 extension DataDict {

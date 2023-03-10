@@ -15,7 +15,7 @@ public struct PetDetailsMutation: AnimalKingdomAPI.MutableSelectionSet, Fragment
     """ }
 
   public var __data: DataDict
-  public init(data: DataDict) { __data = data }
+  public init(_dataDict: DataDict) { __data = _dataDict }
 
   public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Interfaces.Pet }
   public static var __selections: [ApolloAPI.Selection] { [
@@ -36,7 +36,7 @@ public struct PetDetailsMutation: AnimalKingdomAPI.MutableSelectionSet, Fragment
       implementedInterfaces: [
         AnimalKingdomAPI.Interfaces.Pet
     ])
-    self.init(data: DataDict(
+    self.init(_dataDict: DataDict(
       objectType: objectType,
       data: [
         "__typename": objectType.typename,
@@ -49,7 +49,7 @@ public struct PetDetailsMutation: AnimalKingdomAPI.MutableSelectionSet, Fragment
   /// Parent Type: `Human`
   public struct Owner: AnimalKingdomAPI.MutableSelectionSet {
     public var __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Objects.Human }
     public static var __selections: [ApolloAPI.Selection] { [
@@ -65,7 +65,7 @@ public struct PetDetailsMutation: AnimalKingdomAPI.MutableSelectionSet, Fragment
       firstName: String
     ) {
       let objectType = AnimalKingdomAPI.Objects.Human
-      self.init(data: DataDict(
+      self.init(_dataDict: DataDict(
         objectType: objectType,
         data: [
           "__typename": objectType.typename,

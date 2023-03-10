@@ -25,7 +25,7 @@ class SelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = Hero(unsafeData: object)
+    let actual = try! Hero(data: object)
 
     // then
     expect(actual.name).to(equal("Johnny Tsunami"))
@@ -49,7 +49,7 @@ class SelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = Hero(unsafeData: object)
+    let actual = try! Hero(data: object)
 
     // then
     expect(actual.name).to(beNil())
@@ -74,7 +74,7 @@ class SelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = Hero(unsafeData: object)
+    let actual = try! Hero(data: object)
 
     // then
     expect(actual.name).to(beNil())
@@ -101,7 +101,7 @@ class SelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = Hero(unsafeData: object)
+    let actual = try! Hero(data: object)
 
     // then
     expect(actual.nestedList).to(equal([["A"]]))
@@ -137,10 +137,10 @@ class SelectionSetTests: XCTestCase {
       "friend": friendData
     ]
 
-    let expected = Hero.Friend(unsafeData: friendData)
+    let expected = try! Hero.Friend(data: friendData)
 
     // when
-    let actual = Hero(unsafeData: object)
+    let actual = try! Hero(data: object)
 
     // then
     expect(actual.friend).to(equal(expected))
@@ -166,10 +166,10 @@ class SelectionSetTests: XCTestCase {
       "friend": friendData
     ]
 
-    let expected = Hero(unsafeData: friendData, variables: nil)
+    let expected = try! Hero(data: friendData, variables: nil)
 
     // when
-    let actual = Hero(unsafeData: object)
+    let actual = try! Hero(data: object)
 
     // then
     expect(actual.friend).to(equal(expected))
@@ -193,7 +193,7 @@ class SelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = Hero(unsafeData: object)
+    let actual = try! Hero(data: object)
 
     // then
     expect(actual.friend).to(beNil())
@@ -224,8 +224,8 @@ class SelectionSetTests: XCTestCase {
       ]
     ]
 
-    let expected = Hero(unsafeData:
-      [
+    let expected = try! Hero(
+      data: [
         "__typename": "Human",
         "friends": []
       ],
@@ -233,7 +233,7 @@ class SelectionSetTests: XCTestCase {
     )
 
     // when
-    let actual = Hero(unsafeData: object)
+    let actual = try! Hero(data: object)
 
     // then
     expect(actual.friends).to(equal([expected]))
@@ -262,8 +262,8 @@ class SelectionSetTests: XCTestCase {
       ]
     ]
 
-    let expected = Hero(unsafeData:
-      [
+    let expected = try! Hero(
+      data: [
         "__typename": "Human",
         "friends": []
       ],
@@ -271,7 +271,7 @@ class SelectionSetTests: XCTestCase {
     )
 
     // when
-    let actual = Hero(unsafeData: object)
+    let actual = try! Hero(data: object)
 
     // then
     expect(actual.friends).to(equal([expected]))
@@ -299,8 +299,8 @@ class SelectionSetTests: XCTestCase {
       ]
     ]
 
-    let expected = Hero(unsafeData:
-      [
+    let expected = try! Hero(
+      data: [
         "__typename": "Human",
         "friends": []
       ],
@@ -308,7 +308,7 @@ class SelectionSetTests: XCTestCase {
     )
 
     // when
-    let actual = Hero(unsafeData: object)
+    let actual = try! Hero(data: object)
 
     // then
     expect(actual.friends).to(equal([Hero?.none, expected, Hero?.none]))
@@ -337,8 +337,8 @@ class SelectionSetTests: XCTestCase {
       ]
     ]
 
-    let expected = Hero(unsafeData:
-      [
+    let expected = try! Hero(
+      data: [
         "__typename": "Human",
         "friends": []
       ],
@@ -346,7 +346,7 @@ class SelectionSetTests: XCTestCase {
     )
 
     // when
-    let actual = Hero(unsafeData: object)
+    let actual = try! Hero(data: object)
 
     // then
     expect(actual.friends).to(equal([expected]))
@@ -370,7 +370,7 @@ class SelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = Hero(unsafeData: object)
+    let actual = try! Hero(data: object)
 
     // then
     expect(actual.friends).to(beNil())
@@ -401,8 +401,8 @@ class SelectionSetTests: XCTestCase {
       ]]
     ]
 
-    let expected = Hero(unsafeData:
-      [
+    let expected = try! Hero(
+      data: [
         "__typename": "Human",
         "nestedList": [[]]
       ],
@@ -410,7 +410,7 @@ class SelectionSetTests: XCTestCase {
     )
 
     // when
-    let actual = Hero(unsafeData: object)
+    let actual = try! Hero(data: object)
 
     // then
     expect(actual.nestedList).to(equal([[expected]]))
@@ -439,8 +439,8 @@ class SelectionSetTests: XCTestCase {
       ]]
     ]
 
-    let expected = Hero(unsafeData:
-      [
+    let expected = try! Hero(
+      data: [
         "__typename": "Human",
         "nestedList": [[]]
       ],
@@ -448,7 +448,7 @@ class SelectionSetTests: XCTestCase {
     )
 
     // when
-    let actual = Hero(unsafeData: object)
+    let actual = try! Hero(data: object)
 
     // then
     expect(actual.nestedList).to(equal([[expected]]))
@@ -481,10 +481,10 @@ class SelectionSetTests: XCTestCase {
       ]
     ]
 
-    let expectedItem = Hero(unsafeData: nestedObjectData, variables: nil)
+    let expectedItem = try! Hero(data: nestedObjectData, variables: nil)
 
     // when
-    let actual = Hero(unsafeData: object)
+    let actual = try! Hero(data: object)
 
     // then
     expect(actual.nestedList).to(equal([[Hero]?.none, [expectedItem], [Hero]?.none]))
@@ -512,9 +512,9 @@ class SelectionSetTests: XCTestCase {
         ]
       ]]
     ]
-
-    let expected = Hero(unsafeData:
-      [
+    
+    let expected = try! Hero(
+      data: [
         "__typename": "Human",
         "nestedList": [[]]
       ],
@@ -522,7 +522,7 @@ class SelectionSetTests: XCTestCase {
     )
 
     // when
-    let actual = Hero(unsafeData: object)
+    let actual = try! Hero(data: object)
 
     // then
     expect(actual.nestedList).to(equal([[expected]]))
@@ -551,8 +551,8 @@ class SelectionSetTests: XCTestCase {
       ]]
     ]
 
-    let expected = Hero(unsafeData:
-      [
+    let expected = try! Hero(
+      data: [
         "__typename": "Human",
         "nestedList": [[]]
       ],
@@ -560,11 +560,11 @@ class SelectionSetTests: XCTestCase {
     )
 
     // when
-    let actual = Hero(unsafeData: object)
+    let actual = try! Hero(data: object)
 
     // then
     expect(actual.nestedList).to(equal([[expected]]))
-  }  
+  }
 
   // MARK: TypeCase Conversion Tests
 
@@ -600,7 +600,7 @@ class SelectionSetTests: XCTestCase {
 
         override class var __parentType: ParentType { Types.Human }
         override class var __selections: [Selection] {[
-          .field("name", String.self)
+          .field("name", String?.self)
         ]}
       }
 
@@ -609,7 +609,7 @@ class SelectionSetTests: XCTestCase {
 
         override class var __parentType: ParentType { Types.Droid }
         override class var __selections: [Selection] {[
-          .field("primaryFunction", String.self)
+          .field("primaryFunction", String?.self)
         ]}
       }
     }
@@ -620,7 +620,7 @@ class SelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = Hero(unsafeData: object)
+    let actual = try! Hero(data: object)
 
     // then
     expect(actual.asHuman).to(beNil())
@@ -668,7 +668,7 @@ class SelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = Hero(unsafeData: object)
+    let actual = try! Hero(data: object)
 
     // then
     expect(actual.asHumanoid).toNot(beNil())
@@ -715,7 +715,7 @@ class SelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = Hero(unsafeData: object)
+    let actual = try! Hero(data: object)
 
     // then
     expect(actual.asHumanoid).to(beNil())
@@ -761,7 +761,7 @@ class SelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = Hero(unsafeData: object)
+    let actual = try! Hero(data: object)
 
     // then
     expect(actual.asCharacter).toNot(beNil())
@@ -807,7 +807,7 @@ class SelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = Hero(unsafeData: object)
+    let actual = try! Hero(data: object)
 
     // then
     expect(actual.asCharacter).to(beNil())
@@ -841,7 +841,7 @@ class SelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = Hero(unsafeData: object, variables: ["includeFragment": true])
+    let actual = try! Hero(data: object, variables: ["includeFragment": true])
 
     // then
     expect(actual.fragments.givenFragment).toNot(beNil())
@@ -873,10 +873,476 @@ class SelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = Hero(unsafeData: object, variables: ["includeFragment": false])
+    let actual = try! Hero(data: object, variables: ["includeFragment": false])
 
     // then
     expect(actual.fragments.givenFragment).to(beNil())
   }
 
+  // MARK: - Initializer Tests
+
+  func test__selectionInitializer_givenInitTypeWithTypeCondition__canConvertToConditionalType() {
+    // given
+    struct Types {
+      static let Animal = Interface(name: "Animal")
+      static let Human = Object(typename: "Human", implementedInterfaces: [Animal])
+    }
+
+    MockSchemaMetadata.stub_objectTypeForTypeName = {
+      switch $0 {
+      case "Human": return Types.Human
+      default: XCTFail(); return nil
+      }
+    }
+
+    class Hero: MockSelectionSet {
+      typealias Schema = MockSchemaMetadata
+
+      override class var __parentType: ParentType { Types.Human }
+      override class var __selections: [Selection] {[
+        .inlineFragment(AsAnimal.self)
+      ]}
+
+      var asAnimal: AsAnimal? { _asInlineFragment() }
+
+      class AsAnimal: ConcreteMockTypeCase<Hero> {
+        typealias Schema = MockSchemaMetadata
+
+        override class var __parentType: ParentType { Types.Animal }
+        override class var __selections: [Selection] {[
+          .field("name", String.self)
+        ]}
+        var name: String { __data["name"] }
+
+        convenience init(
+          __typename: String,
+          name: String
+        ) {
+          let objectType = Object(
+            typename: __typename,
+            implementedInterfaces: [Types.Animal]
+          )
+          self.init(_dataDict: DataDict(
+            objectType: objectType,
+            data: [
+              "__typename": objectType.typename,
+              "name": name
+            ]
+          ))
+        }
+      }
+
+    }
+
+    // when
+    let actual = Hero.AsAnimal(__typename: "Droid", name: "Artoo").asRootEntityType
+
+    // then
+    expect(actual.asAnimal?.name).to(equal("Artoo"))
+  }
+
+  func test__selectionInitializer_givenInitNestedTypeWithTypeCondition__canConvertToConditionalType() {
+    // given
+    struct Types {
+      static let Query = Object(typename: "Query", implementedInterfaces: [])
+      static let Animal = Interface(name: "Animal")
+      static let Human = Object(typename: "Human", implementedInterfaces: [Animal])
+    }
+
+    MockSchemaMetadata.stub_objectTypeForTypeName = {
+      switch $0 {
+      case "Human": return Types.Human
+      default: XCTFail(); return nil
+      }
+    }
+
+    class Data: MockSelectionSet {
+      typealias Schema = MockSchemaMetadata
+
+      override class var __parentType: ParentType { Types.Query }
+      override class var __selections: [Selection] {[
+        .field("hero", Hero.self)
+      ]}
+
+      public var hero: Hero { __data["hero"] }
+
+      convenience init(
+        hero: Hero
+      ) {
+        let objectType = Types.Query
+        self.init(_dataDict: DataDict(
+          objectType: objectType,
+          data: [
+            "__typename": objectType.typename,
+            "hero": hero._fieldData
+          ]
+        ))
+      }
+
+      class Hero: MockSelectionSet {
+        typealias Schema = MockSchemaMetadata
+
+        override class var __parentType: ParentType { Types.Human }
+        override class var __selections: [Selection] {[
+          .inlineFragment(AsAnimal.self)
+        ]}
+
+        var asAnimal: AsAnimal? { _asInlineFragment() }
+
+        class AsAnimal: ConcreteMockTypeCase<Hero> {
+          typealias Schema = MockSchemaMetadata
+
+          override class var __parentType: ParentType { Types.Animal }
+          override class var __selections: [Selection] {[
+            .field("name", String.self)
+          ]}
+          var name: String { __data["name"] }
+
+          convenience init(
+            __typename: String,
+            name: String
+          ) {
+            let objectType = Object(
+              typename: __typename,
+              implementedInterfaces: [Types.Animal]
+            )
+            self.init(_dataDict: DataDict(
+              objectType: objectType,
+              data: [
+                "__typename": objectType.typename,
+                "name": name
+              ]
+            ))
+          }
+        }
+      }
+    }
+
+    // when
+    let actual = Data(
+      hero: .AsAnimal(__typename: "Droid", name: "Artoo").asRootEntityType
+    )
+
+    // then
+    expect(actual.hero.asAnimal?.name).to(equal("Artoo"))
+  }
+
+  func test__selectionInitializer_givenInitTypeWithInclusionCondition__canConvertToConditionalType() {
+    // given
+    struct Types {
+      static let Human = Object(typename: "Human", implementedInterfaces: [])
+    }
+
+    MockSchemaMetadata.stub_objectTypeForTypeName = {
+      switch $0 {
+      case "Human": return Types.Human
+      default: XCTFail(); return nil
+      }
+    }
+
+    class Hero: MockSelectionSet {
+      typealias Schema = MockSchemaMetadata
+
+      override class var __parentType: ParentType { Types.Human }
+      override class var __selections: [Selection] {[
+        .include(if: "a", .inlineFragment(IfA.self))
+      ]}
+
+      var ifA: IfA? { _asInlineFragment(if: "a") }
+
+      class IfA: ConcreteMockTypeCase<Hero> {
+        typealias Schema = MockSchemaMetadata
+
+        typealias RootEntityType = Hero
+        override class var __parentType: ParentType { Types.Human }
+        override class var __selections: [Selection] {[
+          .field("name", String.self)
+        ]}
+        var name: String { __data["name"] }
+
+        convenience init(
+          name: String
+        ) {
+          let objectType = Types.Human
+          self.init(_dataDict: DataDict(
+            objectType: objectType,
+            data: [
+              "__typename": objectType.typename,
+              "name": name
+            ],
+            variables: ["a": true]
+          ))
+        }
+      }
+
+    }
+
+    // when
+    let actual = Hero.IfA(name: "Han Solo").asRootEntityType
+
+    // then
+    expect(actual.ifA?.name).to(equal("Han Solo"))
+  }
+
+  func test__selectionInitializer_givenInitTypeWithInclusionCondition__cannotConvertToOtherConditionalType() {
+    // given
+    struct Types {
+      static let Human = Object(typename: "Human", implementedInterfaces: [])
+    }
+
+    MockSchemaMetadata.stub_objectTypeForTypeName = {
+      switch $0 {
+      case "Human": return Types.Human
+      default: XCTFail(); return nil
+      }
+    }
+
+    class Hero: MockSelectionSet {
+      typealias Schema = MockSchemaMetadata
+
+      override class var __parentType: ParentType { Types.Human }
+      override class var __selections: [Selection] {[
+        .include(if: "a", .inlineFragment(IfA.self)),
+        .include(if: "b", .inlineFragment(IfB.self))
+      ]}
+
+      var ifA: IfA? { _asInlineFragment(if: "a") }
+      var ifB: IfB? { _asInlineFragment(if: "b") }
+
+      class IfA: ConcreteMockTypeCase<Hero> {
+        typealias Schema = MockSchemaMetadata
+        override class var __parentType: ParentType { Types.Human }
+        override class var __selections: [Selection] {[
+          .field("name", String.self)
+        ]}
+        var name: String { __data["name"] }
+
+        convenience init(
+          name: String
+        ) {
+          let objectType = Types.Human
+          self.init(_dataDict: DataDict(
+            objectType: objectType,
+            data: [
+              "__typename": objectType.typename,
+              "name": name
+            ],
+            variables: ["a": true]
+          ))
+        }
+      }
+      class IfB: ConcreteMockTypeCase<Hero> {
+        typealias Schema = MockSchemaMetadata
+        override class var __parentType: ParentType { Types.Human }
+        override class var __selections: [Selection] {[
+        ]}
+      }
+    }
+
+    // when
+    let actual = Hero.IfA(name: "Han Solo").asRootEntityType
+
+    // then
+    expect(actual.ifA).toNot(beNil())
+    expect(actual.ifB).to(beNil())
+  }
+
+  func test__selectionInitializer_givenInitNestedTypeWithInclusionCondition__cannotConvertToOtherConditionalType() {
+    // given
+    struct Types {
+      static let Human = Object(typename: "Human", implementedInterfaces: [])
+      static let Query = Object(typename: "Query", implementedInterfaces: [])
+    }
+
+    MockSchemaMetadata.stub_objectTypeForTypeName = {
+      switch $0 {
+      case "Human": return Types.Human
+      default: XCTFail(); return nil
+      }
+    }
+
+    class Data: MockSelectionSet {
+      typealias Schema = MockSchemaMetadata
+
+      override class var __parentType: ParentType { Types.Query }
+      override class var __selections: [Selection] {[
+        .field("hero", Hero.self)
+      ]}
+
+      public var hero: Hero { __data["hero"] }
+
+      convenience init(
+        hero: Hero
+      ) {
+        let objectType = Types.Query
+        self.init(_dataDict: DataDict(
+          objectType: objectType,
+          data: [
+            "__typename": objectType.typename,
+            "hero": hero._fieldData
+          ]
+        ))
+      }
+
+      class Hero: MockSelectionSet {
+        typealias Schema = MockSchemaMetadata
+
+        override class var __parentType: ParentType { Types.Human }
+        override class var __selections: [Selection] {[
+          .include(if: "a", .inlineFragment(IfA.self)),
+          .include(if: "b", .inlineFragment(IfB.self))
+        ]}
+
+        var ifA: IfA? { _asInlineFragment(if: "a") }
+        var ifB: IfB? { _asInlineFragment(if: "b") }
+
+        class IfA: ConcreteMockTypeCase<Hero> {
+          typealias Schema = MockSchemaMetadata
+          override class var __parentType: ParentType { Types.Human }
+          override class var __selections: [Selection] {[
+            .field("name", String.self),
+            .include(if: !"c", .field("friend", Friend.self))
+          ]}
+          var name: String { __data["name"] }
+          var friend: Friend { __data["friend"] }
+
+          convenience init(
+            name: String,
+            friend: Friend? = nil
+          ) {
+            let objectType = Types.Human
+            self.init(_dataDict: DataDict(
+              objectType: objectType,
+              data: [
+                "__typename": objectType.typename,
+                "name": name,
+                "friend": friend._fieldData
+              ],
+              variables: ["a": true]
+            ))
+          }
+
+          class Friend: MockSelectionSet {
+            typealias Schema = MockSchemaMetadata
+
+            override class var __parentType: ParentType { Types.Human }
+            override class var __selections: [Selection] {[
+              .include(if: "a", .inlineFragment(IfA.self)),
+              .include(if: "b", .inlineFragment(IfB.self))
+            ]}
+
+            var ifNotC: IfNotC? { _asInlineFragment(if: !"c") }
+
+            class IfNotC: ConcreteMockTypeCase<Friend> {
+              typealias Schema = MockSchemaMetadata
+              override class var __parentType: ParentType { Types.Human }
+              override class var __selections: [Selection] {[
+                .field("name", String.self)
+              ]}
+              var name: String { __data["name"] }
+
+              convenience init(
+                name: String
+              ) {
+                let objectType = Types.Human
+                self.init(_dataDict: DataDict(
+                  objectType: objectType,
+                  data: [
+                    "__typename": objectType.typename,
+                    "name": name
+                  ],
+                  variables: ["c": false]
+                ))
+              }
+            }
+          }
+        }
+
+        class IfB: ConcreteMockTypeCase<Hero> {
+          typealias Schema = MockSchemaMetadata
+          override class var __parentType: ParentType { Types.Human }
+          override class var __selections: [Selection] {[
+          ]}
+          convenience init() {
+            let objectType = Types.Human
+            self.init(_dataDict: DataDict(
+              objectType: objectType,
+              data: [
+                "__typename": objectType.typename
+              ],
+              variables: ["b": true]
+            ))
+          }
+        }
+      }
+    }
+
+    // when
+    let actual = Data(
+      hero: .IfA(
+        name: "Han Solo",
+        friend: Data.Hero.IfA.Friend.IfNotC(name: "Leia Organa").asRootEntityType
+      ).asRootEntityType
+    )
+
+    // then
+    expect(actual.hero.ifA).toNot(beNil())
+    expect(actual.hero.ifA?.friend.ifNotC).toNot(beNil())
+    expect(actual.hero.ifB).to(beNil())
+  }
+
+  func test__selectionInitializer_givenInitMultipleTypesWithConflictingInclusionConditions__canConvertToAllConditionalTypes() {
+    // given
+    struct Types {
+      static let Human = Object(typename: "Human", implementedInterfaces: [])
+    }
+
+    MockSchemaMetadata.stub_objectTypeForTypeName = {
+      switch $0 {
+      case "Human": return Types.Human
+      default: XCTFail(); return nil
+      }
+    }
+
+    class Hero: MockSelectionSet {
+      typealias Schema = MockSchemaMetadata
+
+      override class var __parentType: ParentType { Types.Human }
+      override class var __selections: [Selection] {[
+        .include(if: "a", .inlineFragment(IfA.self))
+      ]}
+
+      var ifA: IfA? { _asInlineFragment(if: "a") }
+
+      class IfA: ConcreteMockTypeCase<Hero> {
+        typealias Schema = MockSchemaMetadata
+        override class var __parentType: ParentType { Types.Human }
+        override class var __selections: [Selection] {[
+          .field("name", String.self)
+        ]}
+        var name: String { __data["name"] }
+
+        convenience init(
+          name: String
+        ) {
+          let objectType = Types.Human
+          self.init(_dataDict: DataDict(
+            objectType: objectType,
+            data: [
+              "__typename": objectType.typename,
+              "name": name
+            ],
+            variables: ["a": true]
+          ))
+        }
+      }
+
+    }
+
+    // when
+    let actual = Hero.IfA(name: "Han Solo").asRootEntityType
+
+    // then
+    expect(actual.ifA?.name).to(equal("Han Solo"))
+  }
 }

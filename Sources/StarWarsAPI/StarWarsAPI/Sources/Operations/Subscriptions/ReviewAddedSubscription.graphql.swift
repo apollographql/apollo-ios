@@ -30,7 +30,7 @@ public class ReviewAddedSubscription: GraphQLSubscription {
 
   public struct Data: StarWarsAPI.SelectionSet {
     public let __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Subscription }
     public static var __selections: [ApolloAPI.Selection] { [
@@ -43,7 +43,7 @@ public class ReviewAddedSubscription: GraphQLSubscription {
       reviewAdded: ReviewAdded? = nil
     ) {
       let objectType = StarWarsAPI.Objects.Subscription
-      self.init(data: DataDict(
+      self.init(_dataDict: DataDict(
         objectType: objectType,
         data: [
           "__typename": objectType.typename,
@@ -56,7 +56,7 @@ public class ReviewAddedSubscription: GraphQLSubscription {
     /// Parent Type: `Review`
     public struct ReviewAdded: StarWarsAPI.SelectionSet {
       public let __data: DataDict
-      public init(data: DataDict) { __data = data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Review }
       public static var __selections: [ApolloAPI.Selection] { [
@@ -78,7 +78,7 @@ public class ReviewAddedSubscription: GraphQLSubscription {
         commentary: String? = nil
       ) {
         let objectType = StarWarsAPI.Objects.Review
-        self.init(data: DataDict(
+        self.init(_dataDict: DataDict(
           objectType: objectType,
           data: [
             "__typename": objectType.typename,

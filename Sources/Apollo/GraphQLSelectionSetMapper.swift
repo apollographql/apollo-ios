@@ -18,7 +18,7 @@ final class GraphQLSelectionSetMapper<T: SelectionSet>: GraphQLResultAccumulator
     self.allowMissingValuesForOptionalFields = allowMissingValuesForOptionalFields
   }
 
-  func accept(scalar: JSONValue, info: FieldExecutionInfo) throws -> JSONValue? {
+  func accept(scalar: AnyHashable, info: FieldExecutionInfo) throws -> AnyHashable? {
     switch info.field.type.namedType {
     case let .scalar(decodable as any JSONDecodable.Type):
       // This will convert a JSON value to the expected value type,
@@ -29,7 +29,7 @@ final class GraphQLSelectionSetMapper<T: SelectionSet>: GraphQLResultAccumulator
     }
   }
 
-  func accept(customScalar: JSONValue, info: FieldExecutionInfo) throws -> JSONValue? {
+  func accept(customScalar: AnyHashable, info: FieldExecutionInfo) throws -> AnyHashable? {
     switch info.field.type.namedType {
     case let .customScalar(decodable as any JSONDecodable.Type):
       // This will convert a JSON value to the expected value type,
@@ -40,38 +40,50 @@ final class GraphQLSelectionSetMapper<T: SelectionSet>: GraphQLResultAccumulator
     }
   }
 
-  func acceptNullValue(info: FieldExecutionInfo) -> JSONValue? {
+  func acceptNullValue(info: FieldExecutionInfo) -> AnyHashable? {
     return stripNullValues ? nil : NSNull()
   }
 
-  func acceptMissingValue(info: FieldExecutionInfo) throws -> JSONValue? {
+  func acceptMissingValue(info: FieldExecutionInfo) throws -> AnyHashable? {
     guard allowMissingValuesForOptionalFields && info.field.type.isNullable else {
       throw JSONDecodingError.missingValue
     }
     return nil
   }
 
-  func accept(list: [JSONValue?], info: FieldExecutionInfo) -> JSONValue? {
+  func accept(list: [AnyHashable?], info: FieldExecutionInfo) -> AnyHashable? {
     return list
   }
 
-  func accept(childObject: JSONObject, info: FieldExecutionInfo) throws -> JSONValue? {
+  func accept(childObject: DataDict, info: FieldExecutionInfo) throws -> AnyHashable? {
     return childObject
   }
 
-  func accept(fieldEntry: JSONValue?, info: FieldExecutionInfo) -> (key: String, value: JSONValue)? {
+  func accept(fieldEntry: AnyHashable?, info: FieldExecutionInfo) -> (key: String, value: AnyHashable)? {
     guard let fieldEntry = fieldEntry else { return nil }
     return (info.responseKeyForField, fieldEntry)
   }
 
   func accept(
-    fieldEntries: [(key: String, value: JSONValue)],
+    fieldEntries: [(key: String, value: AnyHashable)],
     info: ObjectExecutionInfo
-  ) throws -> JSONObject {
-    return .init(fieldEntries, uniquingKeysWith: { (_, last) in last })
+  ) throws -> DataDict {
+    let data = JSONObject.init(fieldEntries, uniquingKeysWith: { (_, last) in last })
+    return DataDict(
+      objectType: runtimeObjectType(for: data),
+      data: data,
+      variables: info.variables
+    )
   }
 
-  func finish(rootValue: JSONObject, info: ObjectExecutionInfo) -> T {
-    return T.init(unsafeData: rootValue, variables: info.variables)
+  private func runtimeObjectType(for json: JSONObject) -> Object? {
+    guard let __typename = json["__typename"] as? String else {
+      return nil
+    }
+    return T.Schema.objectType(forTypename: __typename)
+  }
+
+  func finish(rootValue: DataDict, info: ObjectExecutionInfo) -> T {
+    return T.init(_dataDict: rootValue)
   }
 }
