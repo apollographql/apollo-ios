@@ -1393,13 +1393,13 @@ class SelectionSetTests: XCTestCase {
     expect(actual.__data._data.keys.contains("name")).to(beTrue())
 
     guard let nameValue = actual.__data._data["name"] else {
-      fail("name should be Optional.some(Optional.none), got nil.")
+      fail("name should be Optional.some(Optional.none)")
       return
     }
     expect(nameValue).to(beNil())
 
     guard let nameValue = nameValue as? String? else {
-      fail()
+      fail("name should be Optional.some(Optional.none).")
       return
     }
     expect(nameValue).to(beNil())
