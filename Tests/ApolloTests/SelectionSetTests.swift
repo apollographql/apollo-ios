@@ -1345,4 +1345,64 @@ class SelectionSetTests: XCTestCase {
     // then
     expect(actual.ifA?.name).to(equal("Han Solo"))
   }
+
+  // MARK: Initializer - Optional Field Tests
+
+  func test__selectionInitializer_givenOptionalField__fieldIsPresentWithOptionalNilValue() {
+    // given
+    struct Types {
+      static let Human = Object(typename: "Human", implementedInterfaces: [])
+    }
+
+    MockSchemaMetadata.stub_objectTypeForTypeName = {
+      switch $0 {
+      case "Human": return Types.Human
+      default: XCTFail(); return nil
+      }
+    }
+
+    class Hero: MockSelectionSet {
+      typealias Schema = MockSchemaMetadata
+
+      override class var __parentType: ParentType { Types.Human }
+      override class var __selections: [Selection] {[
+        .field("name", String?.self)
+      ]}
+
+      var name: String? { __data["name"] }
+
+      convenience init(
+        name: String? = nil
+      ) {
+        let objectType = Types.Human
+        self.init(_dataDict: DataDict(
+          objectType: objectType,
+          data: [
+            "__typename": objectType.typename,
+            "name": name
+          ]
+        ))
+      }
+    }
+
+    // when
+    let actual = Hero(name: nil)
+
+    // then
+    expect(actual.name).to(beNil())
+    expect(actual.__data._data.keys.contains("name")).to(beTrue())
+
+    guard let nameValue = actual.__data._data["name"] else {
+      fail("name should be Optional.some(Optional.none), got nil.")
+      return
+    }
+    expect(nameValue).to(beNil())
+
+    guard let nameValue = nameValue as? String? else {
+      fail()
+      return
+    }
+    expect(nameValue).to(beNil())
+  }
+
 }
