@@ -103,6 +103,8 @@ final public class InterceptorRequestChain: Cancellable, RequestChain {
   ///   - response: [optional] The in-progress response object, if received yet
   ///   - completion: The completion closure to call when data has been processed and should be
   ///   returned to the UI.
+  ///   - interceptor: The interceptor that has completed processing and is ready to pass control
+  ///   on to the next interceptor in the chain.
   func proceedAsync<Operation: GraphQLOperation>(
     request: HTTPRequest<Operation>,
     response: HTTPResponse<Operation>?,

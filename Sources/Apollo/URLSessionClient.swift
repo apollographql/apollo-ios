@@ -16,6 +16,8 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
     case dataForRequestNotFound(request: URLRequest?)
     case networkError(data: Data, response: HTTPURLResponse?, underlying: Error)
     case sessionInvalidated
+    case missingMultipartBoundary
+    case cannotParseBoundaryData
     
     public var errorDescription: String? {
       switch self {
@@ -29,6 +31,10 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
         return "A network error occurred: \(underlyingError.localizedDescription)"
       case .sessionInvalidated:
         return "Attempting to create a new request after the session has been invalidated!"
+      case .missingMultipartBoundary:
+        return "A multipart HTTP response was received without specifying a boundary!"
+      case .cannotParseBoundaryData:
+        return "Cannot parse the multipart boundary data!"
       }
     }
   }
@@ -247,21 +253,47 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
   
   // MARK: - URLSessionDataDelegate
   
-  open func urlSession(_ session: URLSession,
-                       dataTask: URLSessionDataTask,
-                       didReceive data: Data) {
+  open func urlSession(
+    _ session: URLSession,
+    dataTask: URLSessionDataTask,
+    didReceive data: Data
+  ) {
     guard dataTask.state != .canceling else {
       // Task is in the process of cancelling, don't bother handling its data.
       return
     }
-    
-    self.$tasks.mutate {
-      guard let taskData = $0[dataTask.taskIdentifier] else {
-        assertionFailure("No data found for task \(dataTask.taskIdentifier), cannot append received data")
+
+    guard let taskData = self.tasks[dataTask.taskIdentifier] else {
+      assertionFailure("No data found for task \(dataTask.taskIdentifier), cannot append received data")
+      return
+    }
+
+    taskData.append(additionalData: data)
+
+    if let httpResponse = dataTask.response as? HTTPURLResponse, httpResponse.isMultipart {
+      guard let boundaryString = httpResponse.multipartBoundary else {
+        taskData.completionBlock(.failure(URLSessionClientError.missingMultipartBoundary))
         return
       }
-      
-      taskData.append(additionalData: data)
+
+      let boundaryMarker = "--\(boundaryString)"
+      guard
+        let dataString = String(data: taskData.data, encoding: .utf8)?.trimmingCharacters(in: .newlines),
+        let lastBoundaryIndex = dataString.range(of: boundaryMarker, options: .backwards)?.upperBound,
+        let boundaryData = dataString.prefix(upTo: lastBoundaryIndex).data(using: .utf8)
+      else {
+        taskData.completionBlock(.failure(URLSessionClientError.cannotParseBoundaryData))
+        return
+      }
+
+      let remainingData = dataString.suffix(from: lastBoundaryIndex).data(using: .utf8)
+      taskData.reset(data: remainingData)
+
+      if let rawCompletion = taskData.rawCompletion {
+        rawCompletion(boundaryData, httpResponse, nil)
+      }
+
+      taskData.completionBlock(.success((boundaryData, httpResponse)))
     }
   }
   

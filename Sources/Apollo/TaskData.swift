@@ -17,6 +17,15 @@ public class TaskData {
   func append(additionalData: Data) {
     self.data.append(additionalData)
   }
+
+  func reset(data: Data?) {
+    guard let data, !data.isEmpty else {
+      self.data = Data()
+      return
+    }
+
+    self.data = data
+  }
   
   func responseReceived(response: URLResponse) {
     if let httpResponse = response as? HTTPURLResponse {
