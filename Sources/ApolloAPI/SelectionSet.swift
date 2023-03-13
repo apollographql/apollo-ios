@@ -45,12 +45,16 @@ public protocol SelectionSet: Hashable {
   /// This may be a concrete type (`Object`) or an abstract type (`Interface`, or `Union`).
   static var __parentType: ParentType { get }
 
-  /// The data of the underlying GraphQL object represented by generated selection set.
+  /// The data of the underlying GraphQL object represented by the generated selection set.
   var __data: DataDict { get }
 
   /// Designated Initializer
   ///
-  /// - Parameter data: The data of the underlying GraphQL object represented by generated
+  /// - Warning: This initializer is not supported for public use. It should only be used by the
+  /// `GraphQLSelectionSetMapper`, which is guaranteed by the GraphQL compiler to be safe.
+  /// Unsupported usage may result in unintended consequences including crashes.
+  ///
+  /// - Parameter data: The data of the underlying GraphQL object represented by the generated
   /// selection set.
   init(_dataDict: DataDict)
 }
