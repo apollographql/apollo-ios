@@ -1491,6 +1491,73 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     self.wait(for: [writeCompletedExpectation], timeout: Self.defaultWaitTimeout)
   }
 
+  func test_writeDataForCacheMutation_givenNilValueForOptionalField_writesFieldWithNilValue() throws {
+    // given
+    struct GivenSelectionSet: MockMutableRootSelectionSet {
+      public var __data: DataDict = .empty()
+      init(_dataDict: DataDict) { __data = _dataDict }
+
+      static var __selections: [Selection] { [
+        .field("hero", Hero.self)
+      ]}
+
+      var hero: Hero {
+        get { __data["hero"] }
+        set { __data["hero"] = newValue }
+      }
+
+      struct Hero: MockMutableRootSelectionSet {
+        public var __data: DataDict = .empty()
+        init(_dataDict: DataDict) { __data = _dataDict }
+
+        static var __selections: [Selection] { [
+          .field("name", String?.self)
+        ]}
+
+        var name: String? {
+          get { __data["name"] }
+          set { __data["name"] = newValue }
+        }
+      }
+    }
+
+    // when
+    let writeCompletedExpectation = expectation(description: "Write completed")
+
+    store.withinReadWriteTransaction({ transaction in
+      let data = GivenSelectionSet(
+        _dataDict: .init(
+          objectType: Object(typename: "Hero", implementedInterfaces: []),
+          data: ["hero": [
+            "__typename": "Hero",
+            "name": Optional<String>.none
+          ]]
+        ))
+      let cacheMutation = MockLocalCacheMutation<GivenSelectionSet>()
+      try transaction.write(data: data, for: cacheMutation)
+    }, completion: { result in
+      defer { writeCompletedExpectation.fulfill() }
+      XCTAssertSuccessResult(result)
+    })
+
+    self.wait(for: [writeCompletedExpectation], timeout: Self.defaultWaitTimeout)
+
+    let readCompletedExpectation = expectation(description: "Read completed")
+
+    store.withinReadTransaction({ transaction in
+      let query = MockQuery<GivenSelectionSet>()
+      let resultData = try transaction.read(query: query)
+
+      expect(resultData.hero.name).to(beNil())
+
+    }, completion: { result in
+      defer { readCompletedExpectation.fulfill() }
+      XCTAssertSuccessResult(result)
+    })
+
+    self.wait(for: [readCompletedExpectation], timeout: Self.defaultWaitTimeout)
+  }
+
   func test_writeDataForSelectionSet_givenFragment_updateNestedField_updatesObject() throws {
     // given
     struct GivenFragment: MockMutableRootSelectionSet, Fragment {
