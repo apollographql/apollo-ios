@@ -115,7 +115,7 @@ open class RequestChainNetworkTransport: NetworkTransport {
                                         contextIdentifier: contextIdentifier)
 
       if Operation.operationType == .subscription {
-        request.addHeader(name: "Accept", value: "application/json, multipart/mixed; boundary=\"graphql\"")
+        request.addHeader(name: "Accept", value: "multipart/mixed; boundary=\"graphql\"; subscriptionSpec=1.0, application/json")
         request.addHeader(name: "Connection", value: "keep-alive")
       }
     
