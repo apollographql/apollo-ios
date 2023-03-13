@@ -12,7 +12,7 @@
 /// This is why only a `RootSelectionSet` can be executed by a `GraphQLExecutor`. Executing a
 /// non-root selection set would result in fields from the root selection set not being collected
 /// into the `ResponseDict` for the `SelectionSet`'s data.
-public protocol RootSelectionSet: SelectionSet, OutputTypeConvertible { }
+public protocol RootSelectionSet: SelectionSet, SelectionSetEntityValue, OutputTypeConvertible { }
 
 /// A selection set that represents an inline fragment nested inside a `RootSelectionSet`.
 ///
@@ -30,7 +30,7 @@ public protocol InlineFragment: SelectionSet {
 }
 
 // MARK: - SelectionSet
-public protocol SelectionSet: SelectionSetEntityValue, Hashable {
+public protocol SelectionSet: Hashable {
   associatedtype Schema: SchemaMetadata
 
   /// A type representing all of the fragments the `SelectionSet` can be converted to.
