@@ -38,7 +38,9 @@ public class NetworkFetchInterceptor: ApolloInterceptor, Cancellable {
       }
       
       defer {
-        self.$currentTask.mutate { $0 = nil }
+        if Operation.operationType != .subscription {
+          self.$currentTask.mutate { $0 = nil }
+        }
       }
       
       guard !chain.isCancelled else {
