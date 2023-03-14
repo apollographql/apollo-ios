@@ -1527,11 +1527,14 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     store.withinReadWriteTransaction({ transaction in
       let data = GivenSelectionSet(
         _dataDict: .init(
-          objectType: Object(typename: "Hero", implementedInterfaces: []),
-          data: ["hero": [
-            "__typename": "Hero",
-            "name": Optional<String>.none
-          ]]
+          objectType: Object(typename: "Query", implementedInterfaces: []),
+          data: ["hero": DataDict(
+            objectType: Object(typename: "Hero", implementedInterfaces: []),
+            data: [
+              "__typename": "Hero",
+              "name": Optional<String>.none
+            ]
+          )]
         ))
       let cacheMutation = MockLocalCacheMutation<GivenSelectionSet>()
       try transaction.write(data: data, for: cacheMutation)
