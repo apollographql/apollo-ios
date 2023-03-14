@@ -762,6 +762,7 @@
 		E69BEDA72798B89600000D10 /* InputObjectTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69BEDA62798B89600000D10 /* InputObjectTemplateTests.swift */; };
 		E69F436C29B81182006FF548 /* InterceptorRequestChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69F436B29B81182006FF548 /* InterceptorRequestChain.swift */; };
 		E69F436E29B812FC006FF548 /* ApolloInterceptorReentrantWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69F436D29B812FC006FF548 /* ApolloInterceptorReentrantWrapper.swift */; };
+		E69F437229BBD958006FF548 /* MultipartResponseParsingInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69F437129BBD958006FF548 /* MultipartResponseParsingInterceptor.swift */; };
 		E6A6866427F63AEF008A1D13 /* FileGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A6866327F63AEF008A1D13 /* FileGeneratorTests.swift */; };
 		E6A6866627F63BDC008A1D13 /* FileGenerator_ResolvePath_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A6866527F63BDC008A1D13 /* FileGenerator_ResolvePath_Tests.swift */; };
 		E6AAA732286BC58200F4659D /* OperationIdentifiersFileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AAA731286BC58200F4659D /* OperationIdentifiersFileGenerator.swift */; };
@@ -1914,6 +1915,7 @@
 		E69BEDA62798B89600000D10 /* InputObjectTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputObjectTemplateTests.swift; sourceTree = "<group>"; };
 		E69F436B29B81182006FF548 /* InterceptorRequestChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterceptorRequestChain.swift; sourceTree = "<group>"; };
 		E69F436D29B812FC006FF548 /* ApolloInterceptorReentrantWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloInterceptorReentrantWrapper.swift; sourceTree = "<group>"; };
+		E69F437129BBD958006FF548 /* MultipartResponseParsingInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartResponseParsingInterceptor.swift; sourceTree = "<group>"; };
 		E6A6866327F63AEF008A1D13 /* FileGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileGeneratorTests.swift; sourceTree = "<group>"; };
 		E6A6866527F63BDC008A1D13 /* FileGenerator_ResolvePath_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileGenerator_ResolvePath_Tests.swift; sourceTree = "<group>"; };
 		E6AAA731286BC58200F4659D /* OperationIdentifiersFileGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationIdentifiersFileGenerator.swift; sourceTree = "<group>"; };
@@ -2401,6 +2403,7 @@
 				9B260BFA245A031900562176 /* NetworkFetchInterceptor.swift */,
 				9B260BF8245A030100562176 /* ResponseCodeInterceptor.swift */,
 				9B260C09245A532500562176 /* JSONResponseParsingInterceptor.swift */,
+				E69F437129BBD958006FF548 /* MultipartResponseParsingInterceptor.swift */,
 				9B9BBAF424DB4F890021C30F /* AutomaticPersistedQueryInterceptor.swift */,
 				9BC742AD24CFB6450029282C /* CacheWriteInterceptor.swift */,
 			);
@@ -5375,6 +5378,7 @@
 				9B96500C24BE7239003C29C0 /* CacheReadInterceptor.swift in Sources */,
 				DE0586392669985000265760 /* Dictionary+Helpers.swift in Sources */,
 				DE4B1E572891D2F40058D1F6 /* Atomic.swift in Sources */,
+				E69F437229BBD958006FF548 /* MultipartResponseParsingInterceptor.swift in Sources */,
 				9F295E381E277B2A00A24949 /* GraphQLResultNormalizer.swift in Sources */,
 				DED5B355286CCAFF00AE6BFF /* ResponsePath.swift in Sources */,
 				9F8E0BE325668559000D9FA5 /* PossiblyDeferred.swift in Sources */,

@@ -35,6 +35,7 @@ open class DefaultInterceptorProvider: InterceptorProvider {
         CacheReadInterceptor(store: self.store),
         NetworkFetchInterceptor(client: self.client),
         ResponseCodeInterceptor(),
+        MultipartResponseParsingInterceptor(),
         JSONResponseParsingInterceptor(),
         AutomaticPersistedQueryInterceptor(),
         CacheWriteInterceptor(store: self.store),
