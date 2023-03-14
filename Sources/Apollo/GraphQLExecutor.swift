@@ -19,7 +19,7 @@ struct ObjectExecutionInfo {
   private(set) var responsePath: ResponsePath = []
   private(set) var cachePath: ResponsePath = []
 
-  fileprivate init(
+  init(
     variables: GraphQLOperation.Variables?,
     schema: SchemaMetadata.Type,
     responsePath: ResponsePath,
@@ -31,7 +31,7 @@ struct ObjectExecutionInfo {
     self.cachePath = cachePath
   }
 
-  fileprivate init(
+  init(
     variables: GraphQLOperation.Variables?,
     schema: SchemaMetadata.Type,
     withRootCacheReference root: CacheReference? = nil
@@ -46,6 +46,15 @@ struct ObjectExecutionInfo {
   fileprivate mutating func resetCachePath(toRootCacheReference root: CacheReference) {
     cachePath = [root.key]
   }
+
+  func runtimeObjectType(
+    for json: JSONObject
+  ) -> Object? {
+    guard let __typename = json["__typename"] as? String else {
+      return nil
+    }
+    return schema.objectType(forTypename: __typename)
+  }
 }
 
 /// Stores the information for executing a field and all duplicate fields on the same selection set.
@@ -54,7 +63,7 @@ struct ObjectExecutionInfo {
 /// arguments and are of the same type, so we only need to resolve one field.
 struct FieldExecutionInfo {
   let field: Selection.Field
-  fileprivate let parentInfo: ObjectExecutionInfo
+  let parentInfo: ObjectExecutionInfo
 
   var mergedFields: [Selection.Field]
 
@@ -64,7 +73,7 @@ struct FieldExecutionInfo {
   var cachePath: ResponsePath = []
   private(set) var cacheKeyForField: String = ""
 
-  fileprivate init(
+  init(
     field: Selection.Field,
     parentInfo: ObjectExecutionInfo
   ) {
@@ -106,26 +115,6 @@ struct FieldExecutionInfo {
   }
 }
 
-fileprivate struct FieldSelectionGrouping: Sequence {
-  private var fieldInfoList: [String: FieldExecutionInfo] = [:]
-
-  var count: Int { fieldInfoList.count }
-
-  mutating func append(field: Selection.Field, withInfo info: ObjectExecutionInfo) {
-    let fieldKey = field.responseKey
-    if var fieldInfo = fieldInfoList[fieldKey] {
-      fieldInfo.mergedFields.append(field)
-      fieldInfoList[fieldKey] = fieldInfo
-    } else {
-      fieldInfoList[fieldKey] = FieldExecutionInfo(field: field, parentInfo: info)
-    }
-  }
-
-  func makeIterator() -> Dictionary<String, FieldExecutionInfo>.Iterator {
-    fieldInfoList.makeIterator()
-  }
-}
-
 /// An error which has occurred during GraphQL execution.
 public struct GraphQLExecutionError: Error, LocalizedError {
   let path: ResponsePath
@@ -148,9 +137,10 @@ public struct GraphQLExecutionError: Error, LocalizedError {
 /// The methods in this class closely follow the
 /// [execution algorithm described in the GraphQL specification]
 /// (http://spec.graphql.org/draft/#sec-Execution)
-final class GraphQLExecutor {
+final class GraphQLExecutor<FieldCollector: FieldSelectionCollector> {
   private let fieldResolver: GraphQLFieldResolver
   private let resolveReference: ReferenceResolver?
+  private let fieldCollector: FieldCollector
 
   var shouldComputeCachePath = true
 
@@ -158,10 +148,12 @@ final class GraphQLExecutor {
   /// If provided, it will also resolve references by calling the reference resolver.
   init(
     resolver: @escaping GraphQLFieldResolver,
-    resolveReference: ReferenceResolver? = nil
+    resolveReference: ReferenceResolver? = nil,
+    fieldCollector: FieldCollector = DefaultFieldSelectionCollector()
   ) {
     self.fieldResolver = resolver
     self.resolveReference = resolveReference
+    self.fieldCollector = fieldCollector
   }
 
   // MARK: - Execution
@@ -216,6 +208,12 @@ final class GraphQLExecutor {
     }
   }
 
+  /// Groups fields that share the same response key for simultaneous resolution.
+  ///
+  /// Before execution, the selection set is converted to a grouped field set.
+  /// Each entry in the grouped field set is a list of fields that share a response key.
+  /// This ensures all fields with the same response key (alias or field name) included via
+  /// referenced fragments are executed at the same time.
   private func groupFields(
     _ selections: [Selection],
     on object: JSONObject,
@@ -227,64 +225,11 @@ final class GraphQLExecutor {
     if !info.responsePath.isEmpty {
       grouping.append(field: .init("__typename", type: .scalar(String.self)), withInfo: info)
     }
-    try groupFields(selections,
-                    for: object,
-                    into: &grouping,
-                    info: info)
+    try fieldCollector.collectFields(from: selections,
+                                     into: &grouping,
+                                     for: object,
+                                     info: info)
     return grouping
-  }
-
-  /// Groups fields that share the same response key for simultaneous resolution.
-  ///
-  /// Before execution, the selection set is converted to a grouped field set.
-  /// Each entry in the grouped field set is a list of fields that share a response key.
-  /// This ensures all fields with the same response key (alias or field name) included via
-  /// referenced fragments are executed at the same time.
-  private func groupFields(
-    _ selections: [Selection],
-    for object: JSONObject,
-    into groupedFields: inout FieldSelectionGrouping,
-    info: ObjectExecutionInfo
-  ) throws {
-    for selection in selections {
-      switch selection {
-      case let .field(field):
-        groupedFields.append(field: field, withInfo: info)
-
-      case let .conditional(conditions, selections):
-        if conditions.evaluate(with: info.variables) {
-          try groupFields(selections,
-                          for: object,
-                          into: &groupedFields,
-                          info: info)
-        }
-
-      case let .fragment(fragment):
-        try groupFields(fragment.__selections,
-                        for: object,
-                        into: &groupedFields,
-                        info: info)
-
-      case let .inlineFragment(typeCase):
-        if let runtimeType = runtimeObjectType(for: object, schema: info.schema),
-           typeCase.__parentType.canBeConverted(from: runtimeType) {
-          try groupFields(typeCase.__selections,
-                          for: object,
-                          into: &groupedFields,
-                          info: info)
-        }
-      }
-    }
-  }
-
-  private func runtimeObjectType(
-    for json: JSONObject,
-    schema: SchemaMetadata.Type
-  ) -> Object? {
-    guard let __typename = json["__typename"] as? String else {
-      return nil
-    }
-    return schema.objectType(forTypename: __typename)
   }
 
   /// Each field requested in the grouped field set that is defined on the selected objectType will
