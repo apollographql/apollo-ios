@@ -316,7 +316,9 @@ public class ApolloStore {
       variables: GraphQLOperation.Variables? = nil
     ) throws {
       let normalizer = ResultNormalizerFactory.selectionSetDataNormalizer()
-      let executor = GraphQLExecutor { object, info in
+      let executor = GraphQLExecutor(
+        fieldCollector: CustomCacheDataWritingFieldSelectionCollector()
+      ) { object, info in
         return object[info.responseKeyForField]
       }
 

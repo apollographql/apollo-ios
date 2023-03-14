@@ -147,13 +147,13 @@ final class GraphQLExecutor<FieldCollector: FieldSelectionCollector> {
   /// Creates a GraphQLExecutor that resolves field values by calling the provided resolver.
   /// If provided, it will also resolve references by calling the reference resolver.
   init(
+    fieldCollector: FieldCollector = DefaultFieldSelectionCollector(),
     resolver: @escaping GraphQLFieldResolver,
-    resolveReference: ReferenceResolver? = nil,
-    fieldCollector: FieldCollector = DefaultFieldSelectionCollector()
+    resolveReference: ReferenceResolver? = nil
   ) {
+    self.fieldCollector = fieldCollector
     self.fieldResolver = resolver
     self.resolveReference = resolveReference
-    self.fieldCollector = fieldCollector
   }
 
   // MARK: - Execution
