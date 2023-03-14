@@ -301,7 +301,16 @@ public class ApolloStore {
                 variables: cacheMutation.__variables)
     }
 
-    public func write<SelectionSet: MutableRootSelectionSet>(
+    public func write<Operation: GraphQLOperation>(
+      data: Operation.Data,
+      for operation: Operation
+    ) throws {
+      try write(selectionSet: data,
+                withKey: CacheReference.rootCacheReference(for: Operation.operationType).key,
+                variables: operation.__variables)
+    }
+
+    public func write<SelectionSet: RootSelectionSet>(
       selectionSet: SelectionSet,
       withKey key: CacheKey,
       variables: GraphQLOperation.Variables? = nil
