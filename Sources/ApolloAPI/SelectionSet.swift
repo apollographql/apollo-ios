@@ -12,7 +12,7 @@
 /// This is why only a `RootSelectionSet` can be executed by a `GraphQLExecutor`. Executing a
 /// non-root selection set would result in fields from the root selection set not being collected
 /// into the `ResponseDict` for the `SelectionSet`'s data.
-public protocol RootSelectionSet: SelectionSet, OutputTypeConvertible { }
+public protocol RootSelectionSet: SelectionSet, SelectionSetEntityValue, OutputTypeConvertible { }
 
 /// A selection set that represents an inline fragment nested inside a `RootSelectionSet`.
 ///
@@ -30,7 +30,7 @@ public protocol InlineFragment: SelectionSet {
 }
 
 // MARK: - SelectionSet
-public protocol SelectionSet: SelectionSetEntityValue, Hashable {
+public protocol SelectionSet: Hashable {
   associatedtype Schema: SchemaMetadata
 
   /// A type representing all of the fragments the `SelectionSet` can be converted to.
@@ -45,12 +45,16 @@ public protocol SelectionSet: SelectionSetEntityValue, Hashable {
   /// This may be a concrete type (`Object`) or an abstract type (`Interface`, or `Union`).
   static var __parentType: ParentType { get }
 
-  /// The data of the underlying GraphQL object represented by generated selection set.
+  /// The data of the underlying GraphQL object represented by the generated selection set.
   var __data: DataDict { get }
 
   /// Designated Initializer
   ///
-  /// - Parameter data: The data of the underlying GraphQL object represented by generated
+  /// - Warning: This initializer is not supported for public use. It should only be used by the
+  /// `GraphQLSelectionSetMapper`, which is guaranteed by the GraphQL compiler to be safe.
+  /// Unsupported usage may result in unintended consequences including crashes.
+  ///
+  /// - Parameter data: The data of the underlying GraphQL object represented by the generated
   /// selection set.
   init(_dataDict: DataDict)
 }

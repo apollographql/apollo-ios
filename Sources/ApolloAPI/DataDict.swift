@@ -74,7 +74,7 @@ public protocol SelectionSetEntityValue {
   var _fieldData: AnyHashable { get }
 }
 
-extension SelectionSet {
+extension RootSelectionSet {
   /// - Warning: This function is not supported for external use.
   /// Unsupported usage may result in unintended consequences including crashes.
   @inlinable public init(_fieldData data: AnyHashable?) {
