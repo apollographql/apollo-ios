@@ -207,4 +207,106 @@ class RequestChainTests: XCTestCase {
       XCTFail("Error interceptor did not receive an error!")
     }
   }
+
+  // MARK: Multipart subscription tests
+  
+  struct CallbackInterceptor: ApolloInterceptor {
+    let callback: (URLRequest) -> (Void)
+
+    init(_ callback: @escaping (URLRequest) -> (Void)) {
+      self.callback = callback
+    }
+
+    func interceptAsync<Operation>(
+      chain: RequestChain,
+      request: HTTPRequest<Operation>,
+      response: HTTPResponse<Operation>?,
+      completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>
+    ) -> Void) {
+      callback(try! request.toURLRequest())
+    }
+  }
+
+  struct MockInterceptorProvider: InterceptorProvider {
+    let interceptors: [ApolloInterceptor]
+
+    init(_ interceptors: [ApolloInterceptor]) {
+      self.interceptors = interceptors
+    }
+
+    func interceptors<Operation>(for operation: Operation) -> [ApolloInterceptor] {
+      self.interceptors
+    }
+  }
+
+  func test__request__givenSubscription_shouldAddMultipartAcceptHeader() {
+    let expectation = self.expectation(description: "Request header verified")
+
+    let interceptor = CallbackInterceptor { request in
+      guard let header = request.allHTTPHeaderFields?["Accept"] else {
+        XCTFail()
+        return
+      }
+
+      XCTAssertEqual(header, "multipart/mixed; boundary=\"graphql\"; subscriptionSpec=1.0, application/json")
+      expectation.fulfill()
+    }
+
+    let transport = RequestChainNetworkTransport(
+      interceptorProvider: MockInterceptorProvider([interceptor]),
+      endpointURL: URL(string: "https://apollographql.com")!
+    )
+
+    _ = transport.send(operation: MockSubscription.mock()) { result in
+      // noop
+    }
+
+    wait(for: [expectation], timeout: 1)
+  }
+
+  func test__request__givenQuery_shouldNotAddMultipartAcceptHeader() {
+    let expectation = self.expectation(description: "Request header verified")
+
+    let interceptor = CallbackInterceptor { request in
+      if let header = request.allHTTPHeaderFields?["Accept"] {
+        XCTAssertFalse(header.contains("multipart/mixed"))
+      }
+
+      expectation.fulfill()
+    }
+
+    let transport = RequestChainNetworkTransport(
+      interceptorProvider: MockInterceptorProvider([interceptor]),
+      endpointURL: URL(string: "https://apollographql.com")!
+    )
+
+    _ = transport.send(operation: MockQuery.mock()) { result in
+      // noop
+    }
+
+    wait(for: [expectation], timeout: 1)
+  }
+
+  func test__request__givenMutation_shouldNotAddMultipartAcceptHeader() {
+    let expectation = self.expectation(description: "Request header verified")
+
+    let interceptor = CallbackInterceptor { request in
+      if let header = request.allHTTPHeaderFields?["Accept"] {
+        XCTAssertFalse(header.contains("multipart/mixed"))
+      }
+
+      expectation.fulfill()
+    }
+
+    let transport = RequestChainNetworkTransport(
+      interceptorProvider: MockInterceptorProvider([interceptor]),
+      endpointURL: URL(string: "https://apollographql.com")!
+    )
+
+    _ = transport.send(operation: MockMutation.mock()) { result in
+      // noop
+    }
+
+    wait(for: [expectation], timeout: 1)
+  }
 }
