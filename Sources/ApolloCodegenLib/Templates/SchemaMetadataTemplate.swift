@@ -35,7 +35,7 @@ struct SchemaMetadataTemplate: TemplateRenderer {
       \(embeddedAccessControlModifier)\
       typealias MutableInlineFragment = \(schemaNamespace)_MutableInlineFragment
       """),
-    else: protocolDefinition(prefix: nil, schemaName: schemaNamespace))
+    else: protocolDefinition(prefix: nil, schemaNamespace: schemaNamespace))
 
     \(documentation: schema.documentation, config: config)
     \(embeddedAccessControlModifier)\
@@ -72,7 +72,7 @@ struct SchemaMetadataTemplate: TemplateRenderer {
   var detachedTemplate: TemplateString? {
     guard !config.output.schemaTypes.isInModule else { return nil }
 
-    return protocolDefinition(prefix: "\(schemaNamespace)_", schemaName: schemaNamespace)
+    return protocolDefinition(prefix: "\(schemaNamespace)_", schemaNamespace: schemaNamespace)
   }
 
   init(schema: IR.Schema, config: ApolloCodegen.ConfigurationContext) {
@@ -81,7 +81,7 @@ struct SchemaMetadataTemplate: TemplateRenderer {
     self.config = config
   }
 
-  private func protocolDefinition(prefix: String?, schemaName: String) -> TemplateString {
+  private func protocolDefinition(prefix: String?, schemaNamespace: String) -> TemplateString {
     return TemplateString("""
       public protocol \(prefix ?? "")SelectionSet: \(config.ApolloAPITargetName).SelectionSet & \(config.ApolloAPITargetName).RootSelectionSet
       where Schema == \(schemaNamespace).SchemaMetadata {}

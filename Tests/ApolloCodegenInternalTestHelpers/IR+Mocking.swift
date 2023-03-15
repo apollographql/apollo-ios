@@ -46,7 +46,7 @@ extension IR {
   }
 
   public static func mock(
-    schemaName: String = "TestSchema",
+    schemaNamespace: String = "TestSchema",
     compilationResult: CompilationResult
   ) -> IR {
     return IR(compilationResult: compilationResult)

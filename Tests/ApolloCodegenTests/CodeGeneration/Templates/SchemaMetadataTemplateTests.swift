@@ -88,7 +88,7 @@ class SchemaMetadataTemplateTests: XCTestCase {
     buildSubject(
       config: .mock(
         .embeddedInTarget(name: "CustomTarget"),
-        schemaName: "aName"
+        schemaNamespace: "aName"
       )
     )
 
@@ -133,7 +133,7 @@ class SchemaMetadataTemplateTests: XCTestCase {
     buildSubject(
       config: .mock(
         .swiftPackageManager,
-        schemaName: "aName"
+        schemaNamespace: "aName"
       )
     )
 
@@ -167,7 +167,7 @@ class SchemaMetadataTemplateTests: XCTestCase {
     buildSubject(
       config: .mock(
         .other,
-        schemaName: "aName"
+        schemaNamespace: "aName"
       )
     )
 
@@ -202,7 +202,7 @@ class SchemaMetadataTemplateTests: XCTestCase {
       config: .mock(
         .other,
         options: .init(cocoapodsCompatibleImportStatements: true),
-        schemaName: "aName"
+        schemaNamespace: "aName"
       )
     )
 
@@ -305,7 +305,7 @@ class SchemaMetadataTemplateTests: XCTestCase {
         GraphQLObjectType.mock("objB"),
         GraphQLObjectType.mock("objC"),
       ]),
-      config: .mock(schemaName: "objectSchema")
+      config: .mock(schemaNamespace: "objectSchema")
     )
 
     let expected = """
@@ -339,7 +339,7 @@ class SchemaMetadataTemplateTests: XCTestCase {
         GraphQLEnumType.mock(name: "EnumE"),
         GraphQLInputObjectType.mock("InputObjectC"),
       ]),
-      config: .mock(schemaName: "ObjectSchema")
+      config: .mock(schemaNamespace: "ObjectSchema")
     )
 
     let expected = """
@@ -371,7 +371,7 @@ class SchemaMetadataTemplateTests: XCTestCase {
         GraphQLEnumType.mock(name: "EnumE"),
         GraphQLInputObjectType.mock("InputObjectC"),
       ]),
-      config: .mock(schemaName: "ObjectSchema")
+      config: .mock(schemaNamespace: "ObjectSchema")
     )
 
     let expected = """
@@ -401,7 +401,7 @@ class SchemaMetadataTemplateTests: XCTestCase {
       ]),
       config: .mock(
         .swiftPackageManager,
-        schemaName: "ObjectSchema"
+        schemaNamespace: "ObjectSchema"
       )
     )
 

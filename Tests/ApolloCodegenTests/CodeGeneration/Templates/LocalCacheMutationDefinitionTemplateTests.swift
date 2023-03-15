@@ -454,7 +454,7 @@ class LocalCacheMutationDefinitionTemplateTests: XCTestCase {
     """
 
     config = ApolloCodegenConfiguration.mock(
-      schemaName: "TestSchema",
+      schemaNamespace: "TestSchema",
       options: .init(
         selectionSetInitializers: [.localCacheMutations]
       )
@@ -497,7 +497,7 @@ class LocalCacheMutationDefinitionTemplateTests: XCTestCase {
     """
 
     config = ApolloCodegenConfiguration.mock(
-      schemaName: "TestSchema",
+      schemaNamespace: "TestSchema",
       options: .init(
         selectionSetInitializers: [.operation(named: "TestOperation")]
       )
@@ -534,7 +534,7 @@ class LocalCacheMutationDefinitionTemplateTests: XCTestCase {
     """
 
     config = ApolloCodegenConfiguration.mock(
-      schemaName: "TestSchema",
+      schemaNamespace: "TestSchema",
       options: .init(
         selectionSetInitializers: [.namedFragments]
       )

@@ -20,14 +20,14 @@ class MockObjectTemplateTests: XCTestCase {
   private func buildSubject(
     name: String = "Dog",
     interfaces: [GraphQLInterfaceType] = [],
-    schemaName: String = "TestSchema",
+    schemaNamespace: String = "TestSchema",
     moduleType: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType = .swiftPackageManager,
     warningsOnDeprecatedUsage: ApolloCodegenConfiguration.Composition = .exclude
   ) {
     let config = ApolloCodegenConfiguration.mock(
       moduleType,
       options: .init(warningsOnDeprecatedUsage: warningsOnDeprecatedUsage),
-      schemaName: schemaName
+      schemaNamespace: schemaNamespace
     )
     ir = IR.mock(compilationResult: .mock())
 
@@ -100,7 +100,7 @@ class MockObjectTemplateTests: XCTestCase {
 
   func test_render_givenLowercasedSchemaName_generatesFirstUppercasedSchemaNameReferences() {
     // given
-    buildSubject(schemaName: "lowercased")
+    buildSubject(schemaNamespace: "lowercased")
 
     let expected = """
       public static let objectType: Object = Lowercased.Objects.Dog
@@ -115,7 +115,7 @@ class MockObjectTemplateTests: XCTestCase {
 
   func test_render_givenUppercasedSchemaName_generatesCapitalizedSchemaNameReferences() {
     // given
-    buildSubject(schemaName: "UPPER")
+    buildSubject(schemaNamespace: "UPPER")
 
     let expected = """
       public static let objectType: Object = UPPER.Objects.Dog
@@ -130,7 +130,7 @@ class MockObjectTemplateTests: XCTestCase {
 
   func test_render_givenCapitalizedSchemaName_generatesCapitalizedSchemaNameReferences() {
     // given
-    buildSubject(schemaName: "MySchema")
+    buildSubject(schemaNamespace: "MySchema")
 
     let expected = """
       public static let objectType: Object = MySchema.Objects.Dog

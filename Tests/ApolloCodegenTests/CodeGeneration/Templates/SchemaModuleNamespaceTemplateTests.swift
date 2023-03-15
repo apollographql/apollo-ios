@@ -16,7 +16,7 @@ class SchemaModuleNamespaceTemplateTests: XCTestCase {
 
     // when
     let subject = SchemaModuleNamespaceTemplate(
-      config: .init(config: .mock(schemaName: "schema"))
+      config: .init(config: .mock(schemaNamespace: "schema"))
     )
     let actual = subject.template.description
 
@@ -33,7 +33,7 @@ class SchemaModuleNamespaceTemplateTests: XCTestCase {
 
     // when
     let subject = SchemaModuleNamespaceTemplate(
-      config: .init(config: .mock(schemaName: "SCHEMA"))
+      config: .init(config: .mock(schemaNamespace: "SCHEMA"))
     )
     let actual = subject.template.description
 
@@ -50,7 +50,7 @@ class SchemaModuleNamespaceTemplateTests: XCTestCase {
 
     // when
     let subject = SchemaModuleNamespaceTemplate(
-      config: .init(config: .mock(schemaName: "MySchema"))
+      config: .init(config: .mock(schemaNamespace: "MySchema"))
     )
     let actual = subject.template.description
 

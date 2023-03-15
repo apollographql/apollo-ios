@@ -587,7 +587,7 @@ class ApolloCodegenTests: XCTestCase {
       .appendingPathComponent("*.graphql").path
 
     let config = ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration.mock(
-      schemaName: "AnimalKingdomAPI",
+      schemaNamespace: "AnimalKingdomAPI",
       input: .init(
         schemaPath: schemaPath,
         operationSearchPaths: [operationsPath]
@@ -688,7 +688,7 @@ class ApolloCodegenTests: XCTestCase {
     let operationsOutputURL = directoryURL.appendingPathComponent("AbsoluteSources")
 
     let config = ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration.mock(
-      schemaName: "AnimalKingdomAPI",
+      schemaNamespace: "AnimalKingdomAPI",
       input: .init(
         schemaPath: schemaPath,
         operationSearchPaths: [operationsPath]
@@ -950,7 +950,7 @@ class ApolloCodegenTests: XCTestCase {
       .appendingPathComponent("*.graphql").path
 
     let config = ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration.mock(
-      schemaName: "AnimalKingdomAPI",
+      schemaNamespace: "AnimalKingdomAPI",
       input: .init(
         schemaPath: schemaPath,
         operationSearchPaths: [operationsPath]
@@ -1049,7 +1049,7 @@ class ApolloCodegenTests: XCTestCase {
       .appendingPathComponent("*.graphql").path
 
     let config = ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration.mock(
-      schemaName: "AnimalKingdomAPI",
+      schemaNamespace: "AnimalKingdomAPI",
       input: .init(
         schemaPath: schemaPath,
         operationSearchPaths: [operationsPath]
@@ -1846,7 +1846,7 @@ class ApolloCodegenTests: XCTestCase {
 
     // when
     let config = ApolloCodegenConfiguration.mock(
-      schemaName: "TestSchema",
+      schemaNamespace: "TestSchema",
       input: .init(
         schemaSearchPaths: ["schema*.graphqls"],
         operationSearchPaths: ["*.graphql"]
@@ -1904,7 +1904,7 @@ class ApolloCodegenTests: XCTestCase {
 
     // when
     let config = ApolloCodegenConfiguration.mock(
-      schemaName: "TestSchema",
+      schemaNamespace: "TestSchema",
       input: .init(
         schemaSearchPaths: ["schema*.graphqls"],
         operationSearchPaths: ["*.graphql"]
@@ -2026,7 +2026,7 @@ class ApolloCodegenTests: XCTestCase {
     // then
     for name in conflictingSchemaNames {
       let configContext = ApolloCodegen.ConfigurationContext(config: .mock(
-        schemaName: name
+        schemaNamespace: name
       ), rootURL: nil)
 
       expect(try ApolloCodegen.validate(configContext, with: compilationResult))
@@ -2044,7 +2044,7 @@ class ApolloCodegenTests: XCTestCase {
     // then
     for name in conflictingSchemaNames {
       let configContext = ApolloCodegen.ConfigurationContext(config: .mock(
-        schemaName: name
+        schemaNamespace: name
       ), rootURL: nil)
 
       expect(try ApolloCodegen.validate(configContext, with: compilationResult))
@@ -2062,7 +2062,7 @@ class ApolloCodegenTests: XCTestCase {
     // then
     for name in conflictingSchemaNames {
       let configContext = ApolloCodegen.ConfigurationContext(config: .mock(
-        schemaName: name
+        schemaNamespace: name
       ), rootURL: nil)
 
       expect(try ApolloCodegen.validate(configContext, with: compilationResult))
@@ -2080,7 +2080,7 @@ class ApolloCodegenTests: XCTestCase {
     // then
     for name in conflictingSchemaNames {
       let configContext = ApolloCodegen.ConfigurationContext(config: .mock(
-        schemaName: name
+        schemaNamespace: name
       ), rootURL: nil)
 
       expect(try ApolloCodegen.validate(configContext, with: compilationResult))
@@ -2098,7 +2098,7 @@ class ApolloCodegenTests: XCTestCase {
     // then
     for name in conflictingSchemaNames {
       let configContext = ApolloCodegen.ConfigurationContext(config: .mock(
-        schemaName: name
+        schemaNamespace: name
       ), rootURL: nil)
 
       expect(try ApolloCodegen.validate(configContext, with: compilationResult))
@@ -2116,7 +2116,7 @@ class ApolloCodegenTests: XCTestCase {
     // then
     for name in conflictingSchemaNames {
       let configContext = ApolloCodegen.ConfigurationContext(config: .mock(
-        schemaName: name
+        schemaNamespace: name
       ), rootURL: nil)
 
       expect(try ApolloCodegen.validate(configContext, with: compilationResult))
@@ -2136,7 +2136,7 @@ class ApolloCodegenTests: XCTestCase {
     // then
     for name in conflictingSchemaNames {
       let configContext = ApolloCodegen.ConfigurationContext(config: .mock(
-        schemaName: name
+        schemaNamespace: name
       ), rootURL: nil)
 
       expect(try ApolloCodegen.validate(configContext, with: compilationResult))
@@ -2150,7 +2150,7 @@ class ApolloCodegenTests: XCTestCase {
 
     // when
     for name in disallowedNames {
-      let config = ApolloCodegenConfiguration.mock(schemaName: name)
+      let config = ApolloCodegenConfiguration.mock(schemaNamespace: name)
 
       // then
       expect(try ApolloCodegen._validate(config: config))
@@ -2159,7 +2159,7 @@ class ApolloCodegenTests: XCTestCase {
   }
 
   func test__validation__givenEmptySchemaName_shouldThrow() throws {
-    let config = ApolloCodegenConfiguration.mock(schemaName: "")
+    let config = ApolloCodegenConfiguration.mock(schemaNamespace: "")
 
     // then
     expect(try ApolloCodegen._validate(config: config))
@@ -2167,7 +2167,7 @@ class ApolloCodegenTests: XCTestCase {
   }
 
   func test__validation__givenWhitespaceOnlySchemaName_shouldThrow() throws {
-    let config = ApolloCodegenConfiguration.mock(schemaName: " ")
+    let config = ApolloCodegenConfiguration.mock(schemaNamespace: " ")
 
     // then
     expect(try ApolloCodegen._validate(config: config))
@@ -2175,7 +2175,7 @@ class ApolloCodegenTests: XCTestCase {
   }
 
   func test__validation__givenSchemaNameContainingWhitespace_shouldThrow() throws {
-    let config = ApolloCodegenConfiguration.mock(schemaName: "My Schema")
+    let config = ApolloCodegenConfiguration.mock(schemaNamespace: "My Schema")
 
     // then
     expect(try ApolloCodegen._validate(config: config))
@@ -2207,7 +2207,7 @@ class ApolloCodegenTests: XCTestCase {
 
     // then
     let configContext = ApolloCodegen.ConfigurationContext(config: .mock(
-      schemaName: "MySchema"
+      schemaNamespace: "MySchema"
     ), rootURL: nil)
 
     expect(try ApolloCodegen.validate(configContext, with: compilationResult))
