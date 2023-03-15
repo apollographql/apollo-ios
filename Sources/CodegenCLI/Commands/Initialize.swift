@@ -12,10 +12,10 @@ public struct Initialize: ParsableCommand {
   )
 
   @Option(
-    name: [.long, .customShort("n")],
+    name: [.long, .customShort("n"), .customLong("schema-name")],
     help: "Name used to scope the generated schema type files."
   )
-  var schemaName: String
+  var schemaNamespace: String
 
   @Option(
     name: [.long, .customShort("m")],
@@ -82,7 +82,7 @@ public struct Initialize: ParsableCommand {
 
   func _run(fileManager: ApolloFileManager = .default, output: OutputClosure? = nil) throws {
     let encoded = try ApolloCodegenConfiguration
-      .minimalJSON(schemaName: schemaName, moduleType: moduleType, targetName: targetName)
+      .minimalJSON(schemaNamespace: schemaNamespace, moduleType: moduleType, targetName: targetName)
       .asData()
 
     let decoded = try JSONDecoder().decode(ApolloCodegenConfiguration.self, from: encoded)
@@ -149,20 +149,20 @@ public struct Initialize: ParsableCommand {
 
 extension ApolloCodegenConfiguration {
   static func minimalJSON(
-    schemaName: String,
+    schemaNamespace: String,
     moduleType: ModuleTypeExpressibleByArgument,
     targetName: String?
   ) -> String {
     #if COCOAPODS
       minimalJSON(
-        schemaName: schemaName,
+        schemaNamespace: schemaNamespace,
         supportCocoaPods: true,
         moduleType: moduleType,
         targetName: targetName
       )
     #else
       minimalJSON(
-        schemaName: schemaName,
+        schemaNamespace: schemaNamespace,
         supportCocoaPods: false,
         moduleType: moduleType,
         targetName: targetName
@@ -171,7 +171,7 @@ extension ApolloCodegenConfiguration {
   }
 
   static func minimalJSON(
-    schemaName: String,
+    schemaNamespace: String,
     supportCocoaPods: Bool,
     moduleType: ModuleTypeExpressibleByArgument,
     targetName: String?
@@ -194,7 +194,7 @@ extension ApolloCodegenConfiguration {
 
     return """
     {
-      "schemaName" : "\(schemaName)",\(cocoaPodsOption)
+      "schemaNamespace" : "\(schemaNamespace)",\(cocoaPodsOption)
       "input" : {
         "operationSearchPaths" : [
           "**/*.graphql"
@@ -209,7 +209,7 @@ extension ApolloCodegenConfiguration {
           }
         },
         "schemaTypes" : {
-          "path" : "./\(schemaName)",
+          "path" : "./\(schemaNamespace)",
           "moduleType" : {
             "\(moduleType)" : {
             \(moduleTarget)

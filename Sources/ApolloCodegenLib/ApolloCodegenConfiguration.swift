@@ -780,6 +780,10 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     try container.encode(self.output, forKey: .output)
     try container.encode(self.options, forKey: .options)
     try container.encode(experimentalFeatures, forKey: .experimentalFeatures)
+
+    if let schemaDownloadConfiguration {
+      try container.encode(schemaDownloadConfiguration, forKey: .schemaDownloadConfiguration)
+    }
   }
 
   public init(from decoder: Decoder) throws {
