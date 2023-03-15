@@ -12,10 +12,20 @@ public struct Initialize: ParsableCommand {
   )
 
   @Option(
-    name: [.long, .customShort("n"), .customLong("schema-name")],
+    name: [.long],
+    help: "DEPRECATED - Use --schema-namespace instead."
+  )
+  // When removing this property also do:
+  // - remove the initialization value for schemaNamespace
+  // - remove schemaName validation in validate()
+  // - remove mutating keyword from validate() signature
+  var schemaName: String?
+
+  @Option(
+    name: [.long, .customShort("n")],
     help: "Name used to scope the generated schema type files."
   )
-  var schemaNamespace: String
+  var schemaNamespace: String = ""
 
   @Option(
     name: [.long, .customShort("m")],
@@ -63,7 +73,7 @@ public struct Initialize: ParsableCommand {
 
   public init() { }
 
-  public func validate() throws {
+  public mutating func validate() throws {
     switch (moduleType, targetName?.isEmpty) {
     case (.embeddedInTarget, nil), (.embeddedInTarget, true):
       throw ValidationError("""
@@ -73,6 +83,19 @@ public struct Initialize: ParsableCommand {
       )
     default:
       break;
+    }
+
+    if let schemaName {
+      Swift.print("Warning: --schema-name is deprecated, please use --schema-namespace instead.")
+
+      if !schemaNamespace.isEmpty {
+        throw ValidationError("""
+          Cannot specify both --schema-name and --schema-namespace. Please only use \
+          --schema-namespace".
+          """)
+      }
+
+      schemaNamespace = schemaName
     }
   }
 
