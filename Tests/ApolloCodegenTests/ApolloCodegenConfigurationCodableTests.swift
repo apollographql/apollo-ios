@@ -22,7 +22,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
   enum MockApolloCodegenConfiguration {
     static var decodedStruct: ApolloCodegenConfiguration {
       .init(
-        schemaName: "SerializedSchema",
+        schemaNamespace: "SerializedSchema",
         input: .init(
           schemaPath: "/path/to/schema.graphqls",
           operationSearchPaths: [
@@ -117,7 +117,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
             }
           }
         },
-        "schemaName" : "SerializedSchema"
+        "schemaNamespace" : "SerializedSchema"
       }
       """      
     }
@@ -178,12 +178,12 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
             }
           }
         },
-        "schemaName" : "SerializedSchema"
+        "schemaNamespace" : "SerializedSchema"
       }
       """.asData
 
     let expected = ApolloCodegenConfiguration.init(
-      schemaName: "SerializedSchema",
+      schemaNamespace: "SerializedSchema",
       input: .init(
         schemaSearchPaths: ["/path/to/schema.graphqls"],
         operationSearchPaths: ["/search/path/**/*.graphql"]

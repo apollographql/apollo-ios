@@ -70,7 +70,7 @@ struct SelectionSetTemplate {
       selectionSetTypeName = "MutableInlineFragment"
     }
 
-    return "\(config.schemaName.firstUppercased).\(selectionSetTypeName)"
+    return "\(config.schemaNamespace.firstUppercased).\(selectionSetTypeName)"
   }
 
   // MARK: - Selection Set Name Documentation
@@ -142,7 +142,7 @@ struct SelectionSetTemplate {
   }
 
   private func GeneratedTypeReference(_ type: GraphQLCompositeType) -> TemplateString {
-    "\(config.schemaName.firstUppercased).\(type.schemaTypesNamespace).\(type.name.firstUppercased)"
+    "\(config.schemaNamespace.firstUppercased).\(type.schemaTypesNamespace).\(type.name.firstUppercased)"
   }
 
   // MARK: - Selections

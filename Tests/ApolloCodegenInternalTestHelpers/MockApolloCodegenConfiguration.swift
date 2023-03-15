@@ -17,7 +17,7 @@ extension ApolloCodegenConfiguration {
     experimentalFeatures: ExperimentalFeatures = .init()
   ) -> Self {
     .init(
-      schemaName: schemaName,
+      schemaNamespace: schemaName,
       input: input,
       output: output,
       options: options,
@@ -32,7 +32,7 @@ extension ApolloCodegenConfiguration {
     to path: String = "MockModulePath"
   ) -> Self {
     .init(
-      schemaName: schemaName,
+      schemaNamespace: schemaName,
       input: .init(
         schemaPath: "schema.graphqls",
         operationSearchPaths: ["*.graphql"]

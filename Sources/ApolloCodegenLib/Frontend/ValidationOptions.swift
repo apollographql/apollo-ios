@@ -22,28 +22,28 @@ public struct ValidationOptions {
   let disallowedInputParameterNames: Set<String>
 
   init(config: ApolloCodegen.ConfigurationContext) {
-    self.schemaName = config.schemaName
+    self.schemaName = config.schemaNamespace
 
-    let singularizedSchemaName = config.pluralizer.singularize(config.schemaName)
-    let pluralizedSchemaName = config.pluralizer.pluralize(config.schemaName)
+    let singularizedSchemaName = config.pluralizer.singularize(config.schemaNamespace)
+    let pluralizedSchemaName = config.pluralizer.pluralize(config.schemaNamespace)
     let disallowedEntityListFieldNames: Set<String>
-    switch (config.schemaName) {
+    switch (config.schemaNamespace) {
     case singularizedSchemaName:
       disallowedEntityListFieldNames = [pluralizedSchemaName.firstLowercased]
     case pluralizedSchemaName:
       disallowedEntityListFieldNames = [singularizedSchemaName.firstLowercased]
     default:
-      fatalError("Could not derive singular/plural of schema name '\(config.schemaName)'")
+      fatalError("Could not derive singular/plural of schema name '\(config.schemaNamespace)'")
     }
 
     self.disallowedFieldNames = DisallowedFieldNames(
       allFields: SwiftKeywords.DisallowedFieldNames,
-      entity: [config.schemaName.firstLowercased],
+      entity: [config.schemaNamespace.firstLowercased],
       entityList: disallowedEntityListFieldNames
     )
 
     self.disallowedInputParameterNames =
-    SwiftKeywords.DisallowedInputParameterNames.union([config.schemaName.firstLowercased])
+    SwiftKeywords.DisallowedInputParameterNames.union([config.schemaNamespace.firstLowercased])
   }
 
   public class Bridged: JavaScriptObject {

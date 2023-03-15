@@ -782,7 +782,7 @@ class ApolloCodegenTests: XCTestCase {
       .appendingPathComponent("**/*.graphql").path
 
     let config =  ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration(
-      schemaName: "AnimalKingdomAPI",
+      schemaNamespace: "AnimalKingdomAPI",
       input: .init(schemaPath: schemaPath, operationSearchPaths: [operationsPath]),
       output: .mock(
         moduleType: .swiftPackageManager,
@@ -884,7 +884,7 @@ class ApolloCodegenTests: XCTestCase {
       .appendingPathComponent("**/*.graphql").path
 
     let config =  ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration(
-      schemaName: "AnimalKingdomAPI",
+      schemaNamespace: "AnimalKingdomAPI",
       input: .init(schemaPath: schemaPath, operationSearchPaths: [operationsPath]),
       output: .init(
         schemaTypes: .init(path: directoryURL.path,
@@ -2030,7 +2030,7 @@ class ApolloCodegenTests: XCTestCase {
       ), rootURL: nil)
 
       expect(try ApolloCodegen.validate(configContext, with: compilationResult))
-      .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaName)))
+        .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaNamespace)))
     }
   }
 
@@ -2048,7 +2048,7 @@ class ApolloCodegenTests: XCTestCase {
       ), rootURL: nil)
 
       expect(try ApolloCodegen.validate(configContext, with: compilationResult))
-      .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaName)))
+        .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaNamespace)))
     }
   }
 
@@ -2066,7 +2066,7 @@ class ApolloCodegenTests: XCTestCase {
       ), rootURL: nil)
 
       expect(try ApolloCodegen.validate(configContext, with: compilationResult))
-      .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaName)))
+        .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaNamespace)))
     }
   }
 
@@ -2084,7 +2084,7 @@ class ApolloCodegenTests: XCTestCase {
       ), rootURL: nil)
 
       expect(try ApolloCodegen.validate(configContext, with: compilationResult))
-      .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaName)))
+        .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaNamespace)))
     }
   }
 
@@ -2102,7 +2102,7 @@ class ApolloCodegenTests: XCTestCase {
       ), rootURL: nil)
 
       expect(try ApolloCodegen.validate(configContext, with: compilationResult))
-      .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaName)))
+        .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaNamespace)))
     }
   }
 
@@ -2120,7 +2120,7 @@ class ApolloCodegenTests: XCTestCase {
       ), rootURL: nil)
 
       expect(try ApolloCodegen.validate(configContext, with: compilationResult))
-      .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaName)))
+        .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaNamespace)))
     }
   }
 
@@ -2140,7 +2140,7 @@ class ApolloCodegenTests: XCTestCase {
       ), rootURL: nil)
 
       expect(try ApolloCodegen.validate(configContext, with: compilationResult))
-      .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaName)))
+        .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: configContext.schemaNamespace)))
     }
   }
 
@@ -2154,7 +2154,7 @@ class ApolloCodegenTests: XCTestCase {
 
       // then
       expect(try ApolloCodegen._validate(config: config))
-        .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: config.schemaName)))
+        .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: config.schemaNamespace)))
     }
   }
 
