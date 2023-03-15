@@ -17,21 +17,21 @@ public struct ValidationOptions {
     }
   }
 
-  let schemaName: String
+  let schemaNamespace: String
   let disallowedFieldNames: DisallowedFieldNames
   let disallowedInputParameterNames: Set<String>
 
   init(config: ApolloCodegen.ConfigurationContext) {
-    self.schemaName = config.schemaNamespace
+    self.schemaNamespace = config.schemaNamespace
 
-    let singularizedSchemaName = config.pluralizer.singularize(config.schemaNamespace)
-    let pluralizedSchemaName = config.pluralizer.pluralize(config.schemaNamespace)
+    let singularizedSchemaNamespace = config.pluralizer.singularize(config.schemaNamespace)
+    let pluralizedSchemaNamespace = config.pluralizer.pluralize(config.schemaNamespace)
     let disallowedEntityListFieldNames: Set<String>
     switch (config.schemaNamespace) {
-    case singularizedSchemaName:
-      disallowedEntityListFieldNames = [pluralizedSchemaName.firstLowercased]
-    case pluralizedSchemaName:
-      disallowedEntityListFieldNames = [singularizedSchemaName.firstLowercased]
+    case singularizedSchemaNamespace:
+      disallowedEntityListFieldNames = [pluralizedSchemaNamespace.firstLowercased]
+    case pluralizedSchemaNamespace:
+      disallowedEntityListFieldNames = [singularizedSchemaNamespace.firstLowercased]
     default:
       fatalError("Could not derive singular/plural of schema name '\(config.schemaNamespace)'")
     }
@@ -51,8 +51,8 @@ public struct ValidationOptions {
       let jsValue = JSValue(newObjectIn: bridge.context)
 
       jsValue?.setValue(
-        JSValue(object: options.schemaName, in: bridge.context),
-        forProperty: "schemaName"
+        JSValue(object: options.schemaNamespace, in: bridge.context),
+        forProperty: "schemaNamespace"
       )
 
       jsValue?.setValue(
