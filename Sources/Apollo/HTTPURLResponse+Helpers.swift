@@ -19,13 +19,13 @@ extension HTTPURLResponse {
     let marker = "boundary="
     let markerLength = marker.count
 
-    for directive in contentType.components(separatedBy: ";") {
+    for component in contentType.components(separatedBy: ";") {
+      let directive = component.trimmingCharacters(in: .whitespaces)
       if directive.prefix(markerLength) == marker {
         if let markerEndIndex = directive.firstIndex(of: "=") {
-          let startIndex = directive.index(markerEndIndex, offsetBy: 2)
-          let endIndex = directive.index(before: directive.endIndex)
+          let startIndex = directive.index(markerEndIndex, offsetBy: 1)
 
-          return String(directive[startIndex..<endIndex])
+          return String(directive[startIndex...])
         }
       }
     }
