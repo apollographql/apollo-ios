@@ -41,7 +41,7 @@ Generated test mock files will be included in a target defined in the generated
 test target using Swift Package Manager.
 
 The name of the test mock target can be specified with the `targetName` value.
-If no target name is provided, the target name defaults to "\(schemaName)TestMocks".
+If no target name is provided, the target name defaults to "\(schemaNamespace)TestMocks".
 
 - Note: This requires your `SchemaTypesFileOutput.ModuleType` to be `.swiftPackageManager`.
 If this option is provided without the `.swiftPackageManager` module type, code generation
