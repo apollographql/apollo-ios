@@ -8,7 +8,7 @@ struct SchemaMetadataTemplate: TemplateRenderer {
 
   let config: ApolloCodegen.ConfigurationContext
 
-  let schemaName: String
+  let schemaNamespace: String
 
   let target: TemplateTarget = .schemaFile(type: .schemaMetadata)
 
@@ -24,18 +24,18 @@ struct SchemaMetadataTemplate: TemplateRenderer {
     \(if: !config.output.schemaTypes.isInModule,
       TemplateString("""
       \(embeddedAccessControlModifier)\
-      typealias SelectionSet = \(schemaName)_SelectionSet
+      typealias SelectionSet = \(schemaNamespace)_SelectionSet
 
       \(embeddedAccessControlModifier)\
-      typealias InlineFragment = \(schemaName)_InlineFragment
+      typealias InlineFragment = \(schemaNamespace)_InlineFragment
 
       \(embeddedAccessControlModifier)\
-      typealias MutableSelectionSet = \(schemaName)_MutableSelectionSet
+      typealias MutableSelectionSet = \(schemaNamespace)_MutableSelectionSet
 
       \(embeddedAccessControlModifier)\
-      typealias MutableInlineFragment = \(schemaName)_MutableInlineFragment
+      typealias MutableInlineFragment = \(schemaNamespace)_MutableInlineFragment
       """),
-    else: protocolDefinition(prefix: nil, schemaName: schemaName))
+    else: protocolDefinition(prefix: nil, schemaNamespace: schemaNamespace))
 
     \(documentation: schema.documentation, config: config)
     \(embeddedAccessControlModifier)\
@@ -61,7 +61,7 @@ struct SchemaMetadataTemplate: TemplateRenderer {
     public static func objectType(forTypename typename: String) -> Object? {
       switch typename {
       \(schema.referencedTypes.objects.map {
-        "case \"\($0.name)\": return \(schemaName).Objects.\($0.name.firstUppercased)"
+        "case \"\($0.name)\": return \(schemaNamespace).Objects.\($0.name.firstUppercased)"
       }, separator: "\n")
       default: return nil
       }
@@ -72,28 +72,28 @@ struct SchemaMetadataTemplate: TemplateRenderer {
   var detachedTemplate: TemplateString? {
     guard !config.output.schemaTypes.isInModule else { return nil }
 
-    return protocolDefinition(prefix: "\(schemaName)_", schemaName: schemaName)
+    return protocolDefinition(prefix: "\(schemaNamespace)_", schemaNamespace: schemaNamespace)
   }
 
   init(schema: IR.Schema, config: ApolloCodegen.ConfigurationContext) {
     self.schema = schema
-    self.schemaName = config.schemaName.firstUppercased
+    self.schemaNamespace = config.schemaNamespace.firstUppercased
     self.config = config
   }
 
-  private func protocolDefinition(prefix: String?, schemaName: String) -> TemplateString {
+  private func protocolDefinition(prefix: String?, schemaNamespace: String) -> TemplateString {
     return TemplateString("""
       public protocol \(prefix ?? "")SelectionSet: \(config.ApolloAPITargetName).SelectionSet & \(config.ApolloAPITargetName).RootSelectionSet
-      where Schema == \(schemaName).SchemaMetadata {}
+      where Schema == \(schemaNamespace).SchemaMetadata {}
 
       public protocol \(prefix ?? "")InlineFragment: \(config.ApolloAPITargetName).SelectionSet & \(config.ApolloAPITargetName).InlineFragment
-      where Schema == \(schemaName).SchemaMetadata {}
+      where Schema == \(schemaNamespace).SchemaMetadata {}
 
       public protocol \(prefix ?? "")MutableSelectionSet: \(config.ApolloAPITargetName).MutableRootSelectionSet
-      where Schema == \(schemaName).SchemaMetadata {}
+      where Schema == \(schemaNamespace).SchemaMetadata {}
 
       public protocol \(prefix ?? "")MutableInlineFragment: \(config.ApolloAPITargetName).MutableSelectionSet & \(config.ApolloAPITargetName).InlineFragment
-      where Schema == \(schemaName).SchemaMetadata {}
+      where Schema == \(schemaNamespace).SchemaMetadata {}
       """
     )
   }

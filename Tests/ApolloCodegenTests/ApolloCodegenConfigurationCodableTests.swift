@@ -22,7 +22,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
   enum MockApolloCodegenConfiguration {
     static var decodedStruct: ApolloCodegenConfiguration {
       .init(
-        schemaName: "SerializedSchema",
+        schemaNamespace: "SerializedSchema",
         input: .init(
           schemaPath: "/path/to/schema.graphqls",
           operationSearchPaths: [
@@ -117,7 +117,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
             }
           }
         },
-        "schemaName" : "SerializedSchema"
+        "schemaNamespace" : "SerializedSchema"
       }
       """      
     }
@@ -178,12 +178,71 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
             }
           }
         },
+        "schemaNamespace" : "SerializedSchema"
+      }
+      """.asData
+
+    let expected = ApolloCodegenConfiguration.init(
+      schemaNamespace: "SerializedSchema",
+      input: .init(
+        schemaSearchPaths: ["/path/to/schema.graphqls"],
+        operationSearchPaths: ["/search/path/**/*.graphql"]
+      ),
+      output: .init(
+        schemaTypes: .init(
+          path: "/output/path",
+          moduleType: .embeddedInTarget(name: "SomeTarget")
+        ),
+        operations: .absolute(path: "/absolute/path"),
+        testMocks: .swiftPackage(targetName: "SchemaTestMocks")
+      )
+    )
+
+    // when
+    let actual = try JSONDecoder().decode(ApolloCodegenConfiguration.self, from: subject)
+
+    // then
+    expect(actual).to(equal(expected))
+  }
+
+  func test__decodeApolloCodegenConfiguration__givenOnlyRequiredParameters_withDeprecatedSchemaNameProperty_shouldReturnStruct() throws {
+    // given
+    let subject = """
+      {
+        "input" : {
+          "operationSearchPaths" : [
+            "/search/path/**/*.graphql"
+          ],
+          "schemaSearchPaths" : [
+            "/path/to/schema.graphqls"
+          ]
+        },
+        "output" : {
+          "operations" : {
+            "absolute" : {
+              "path" : "/absolute/path"
+            }
+          },
+          "schemaTypes" : {
+            "moduleType" : {
+              "embeddedInTarget" : {
+                "name" : "SomeTarget"
+              }
+            },
+            "path" : "/output/path"
+          },
+          "testMocks" : {
+            "swiftPackage" : {
+              "targetName" : "SchemaTestMocks"
+            }
+          }
+        },
         "schemaName" : "SerializedSchema"
       }
       """.asData
 
     let expected = ApolloCodegenConfiguration.init(
-      schemaName: "SerializedSchema",
+      schemaNamespace: "SerializedSchema",
       input: .init(
         schemaSearchPaths: ["/path/to/schema.graphqls"],
         operationSearchPaths: ["/search/path/**/*.graphql"]

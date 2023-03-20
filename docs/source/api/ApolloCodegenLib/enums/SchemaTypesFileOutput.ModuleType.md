@@ -19,8 +19,8 @@ Generated schema types will be manually embedded in a target with the specified 
 No module will be created for the generated schema types.
 
 - Note: Generated files must be manually added to your application target. The generated
-schema types files will be namespaced with the value of your configuration's `schemaName`
-to prevent naming conflicts.
+schema types files will be namespaced with the value of your configuration's 
+`schemaNamespace` to prevent naming conflicts.
 
 ### `swiftPackageManager`
 
@@ -39,7 +39,7 @@ case other
 
 No module will be created for the generated types and you are required to create the
 module to support your preferred dependency manager. You must specify the name of the
-module you will create in the `schemaName` property as this will be used in `import`
+module you will create in the `schemaNamespace` property as this will be used in `import`
 statements of generated operation files.
 
 Use this option for dependency managers, such as CocoaPods or Carthage. Example usage

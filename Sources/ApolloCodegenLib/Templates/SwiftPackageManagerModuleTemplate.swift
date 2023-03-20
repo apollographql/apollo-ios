@@ -13,7 +13,7 @@ struct SwiftPackageManagerModuleTemplate: TemplateRenderer {
   let config: ApolloCodegen.ConfigurationContext
 
   var template: TemplateString {
-    let casedSchemaName = config.schemaName.firstUppercased
+    let casedSchemaNamespace = config.schemaNamespace.firstUppercased
 
     return TemplateString("""
     // swift-tools-version:5.7
@@ -21,7 +21,7 @@ struct SwiftPackageManagerModuleTemplate: TemplateRenderer {
     import PackageDescription
 
     let package = Package(
-      name: "\(casedSchemaName)",
+      name: "\(casedSchemaNamespace)",
       platforms: [
         .iOS(.v12),
         .macOS(.v10_14),
@@ -29,7 +29,7 @@ struct SwiftPackageManagerModuleTemplate: TemplateRenderer {
         .watchOS(.v5),
       ],
       products: [
-        .library(name: "\(casedSchemaName)", targets: ["\(casedSchemaName)"]),
+        .library(name: "\(casedSchemaNamespace)", targets: ["\(casedSchemaNamespace)"]),
         \(ifLet: testMockTarget(), { """
         .library(name: "\($0.targetName)", targets: ["\($0.targetName)"]),
         """})
@@ -39,7 +39,7 @@ struct SwiftPackageManagerModuleTemplate: TemplateRenderer {
       ],
       targets: [
         .target(
-          name: "\(casedSchemaName)",
+          name: "\(casedSchemaNamespace)",
           dependencies: [
             .product(name: "ApolloAPI", package: "apollo-ios"),
           ],
@@ -50,7 +50,7 @@ struct SwiftPackageManagerModuleTemplate: TemplateRenderer {
           name: "\($0.targetName)",
           dependencies: [
             .product(name: "ApolloTestSupport", package: "apollo-ios"),
-            .target(name: "\(casedSchemaName)"),
+            .target(name: "\(casedSchemaNamespace)"),
           ],
           path: "\($0.path)"
         ),
@@ -69,7 +69,7 @@ struct SwiftPackageManagerModuleTemplate: TemplateRenderer {
       if let targetName = targetName {
         return (targetName.firstUppercased, "./\(targetName.firstUppercased)")
       } else {
-        return ("\(config.schemaName.firstUppercased)TestMocks", "./TestMocks")
+        return ("\(config.schemaNamespace.firstUppercased)TestMocks", "./TestMocks")
       }
     }
   }

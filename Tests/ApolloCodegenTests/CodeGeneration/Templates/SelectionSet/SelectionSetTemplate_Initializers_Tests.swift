@@ -33,7 +33,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
     let operationDefinition = try XCTUnwrap(ir.compilationResult[operation: operationName])
     operation = ir.build(operation: operationDefinition)
     let config = ApolloCodegenConfiguration.mock(
-      schemaName: "TestSchema",
+      schemaNamespace: "TestSchema",
       options: .init()
     )
     subject = SelectionSetTemplate(

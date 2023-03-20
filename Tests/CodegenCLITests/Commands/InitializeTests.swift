@@ -8,7 +8,7 @@ class InitializeTests: XCTestCase {
 
   var mockFileManager: MockApolloFileManager!
   let requiredOptions = [
-    "--schema-name=MockSchema",
+    "--schema-namespace=MockSchema",
     "--module-type=swiftPackageManager",
   ]
 
@@ -47,7 +47,7 @@ class InitializeTests: XCTestCase {
   func test__validation__givenWhitespaceOnlySchemaName_shouldThrowError() throws {
     // given
     let options = [
-      "--schema-name= ",
+      "--schema-namespace= ",
       "--module-type=swiftPackageManager",
     ]
 
@@ -60,7 +60,7 @@ class InitializeTests: XCTestCase {
   func test__validation__givenSchemaNameContainingWhitespace_shouldThrowError() throws {
     // given
     let options = [
-      "--schema-name=\"My Schema\"",
+      "--schema-namespace=\"My Schema\"",
       "--module-type=swiftPackageManager",
     ]
 
@@ -73,7 +73,7 @@ class InitializeTests: XCTestCase {
   func test__validation__givenModuleType_embeddedInTarget_withNoTargetName_shouldThrowValidationError() throws {
     // given
     let options = [
-      "--schema-name=MySchemaName",
+      "--schema-namespace=MySchemaName",
       "--module-type=embeddedInTarget",
     ]
 
@@ -90,7 +90,7 @@ class InitializeTests: XCTestCase {
   func test__validation__givenModuleType_embeddedInTarget_withTargetName_shouldNotThrow() throws {
     // given
     let options = [
-      "--schema-name=MySchemaName",
+      "--schema-namespace=MySchemaName",
       "--module-type=embeddedInTarget",
       "--target-name=MyTarget",
     ]
@@ -102,7 +102,7 @@ class InitializeTests: XCTestCase {
   func test__validation__givenModuleType_swiftPackageManager_withNoTargetName_shouldNotThrow() throws {
     // given
     let options = [
-      "--schema-name=MySchemaName",
+      "--schema-namespace=MySchemaName",
       "--module-type=swiftPackageManager",
     ]
 
@@ -113,12 +113,30 @@ class InitializeTests: XCTestCase {
   func test__validation__givenModuleType_other_withNoTargetName_shouldNotThrow() throws {
     // given
     let options = [
-      "--schema-name=MySchemaName",
+      "--schema-namespace=MySchemaName",
       "--module-type=other",
     ]
 
     // then
     expect { try self.parse(options) }.notTo(throwError())
+  }
+
+  func test__validation__givenBothSchemaNamespaceOptions_shouldThrow() throws {
+    // given
+    let options = [
+      "--schema-name=MySchemaName1",
+      "--schema-namespace=MySchemaName2",
+      "--module-type=other",
+    ]
+
+    // then
+    expect { try self.parse(options) }.to(throwUserValidationError(
+      ValidationError("""
+        Cannot specify both --schema-name and --schema-namespace. Please only use \
+        --schema-namespace".
+        """
+      )
+    ))
   }
 
   // MARK: - Output Tests
@@ -149,7 +167,7 @@ class InitializeTests: XCTestCase {
       expect(actualPath).to(equal(expectedPath))
       expect(data?.asString).to(equal(
         ApolloCodegenConfiguration.minimalJSON(
-          schemaName: "MockSchema",
+          schemaNamespace: "MockSchema",
           moduleType: ModuleTypeExpressibleByArgument.swiftPackageManager,
           targetName: nil
         )
@@ -219,7 +237,7 @@ class InitializeTests: XCTestCase {
       expect(actualPath).to(equal(expectedPath))
       expect(data?.asString).to(equal(
         ApolloCodegenConfiguration.minimalJSON(
-          schemaName: "MockSchema",
+          schemaNamespace: "MockSchema",
           moduleType: ModuleTypeExpressibleByArgument.swiftPackageManager,
           targetName: nil
         )
@@ -252,7 +270,7 @@ class InitializeTests: XCTestCase {
     expect(output).toEventuallyNot(beNil())
     expect(output).to(equal(
       ApolloCodegenConfiguration.minimalJSON(
-        schemaName: "MockSchema",
+        schemaNamespace: "MockSchema",
         moduleType: ModuleTypeExpressibleByArgument.swiftPackageManager,
         targetName: nil
       )
@@ -278,7 +296,7 @@ class InitializeTests: XCTestCase {
     expect(output).toEventuallyNot(beNil())
     expect(output).to(equal(
       ApolloCodegenConfiguration.minimalJSON(
-        schemaName: "MockSchema",
+        schemaNamespace: "MockSchema",
         moduleType: ModuleTypeExpressibleByArgument.swiftPackageManager,
         targetName: nil
       )
@@ -290,7 +308,7 @@ class InitializeTests: XCTestCase {
   func test__moduleType__givenModuleTypeExpressibleByArgument_embeddedInTarget_shouldEqualSchemaTypesFileOutputModuleType_embeddedInTarget() throws {
     // given
     let encoded = try ApolloCodegenConfiguration.minimalJSON(
-      schemaName: "MockSchema",
+      schemaNamespace: "MockSchema",
       supportCocoaPods: false,
       moduleType: ModuleTypeExpressibleByArgument.embeddedInTarget,
       targetName: "MyTarget"
@@ -306,7 +324,7 @@ class InitializeTests: XCTestCase {
   func test__moduleType__givenModuleTypeExpressibleByArgument_swiftPackageManager_shouldEqualSchemaTypesFileOutputModuleType_swiftPackageManager() throws {
     // given
     let encoded = try ApolloCodegenConfiguration.minimalJSON(
-      schemaName: "MockSchema",
+      schemaNamespace: "MockSchema",
       supportCocoaPods: false,
       moduleType: ModuleTypeExpressibleByArgument.swiftPackageManager,
       targetName: nil
@@ -321,7 +339,7 @@ class InitializeTests: XCTestCase {
   func test__moduleType__givenModuleTypeExpressibleByArgument_other_shouldEqualSchemaTypesFileOutputModuleType_other() throws {
     // given
     let encoded = try ApolloCodegenConfiguration.minimalJSON(
-      schemaName: "MockSchema",
+      schemaNamespace: "MockSchema",
       supportCocoaPods: false,
       moduleType: ModuleTypeExpressibleByArgument.other,
       targetName: nil
@@ -338,7 +356,7 @@ class InitializeTests: XCTestCase {
   func test__decoding__givenMinimalJSON_cocoapodsIncompatible_shouldNotThrow() throws {
     // given
     let encoded = try ApolloCodegenConfiguration.minimalJSON(
-      schemaName: "MockSchema",
+      schemaNamespace: "MockSchema",
       supportCocoaPods: false,
       moduleType: ModuleTypeExpressibleByArgument.swiftPackageManager,
       targetName: nil
@@ -354,7 +372,7 @@ class InitializeTests: XCTestCase {
   func test__decoding__givenMinimalJSON_cocoapodsCompatible_shouldNotThrow() throws {
     // given
     let encoded = try ApolloCodegenConfiguration.minimalJSON(
-      schemaName: "MockSchema",
+      schemaNamespace: "MockSchema",
       supportCocoaPods: true,
       moduleType: ModuleTypeExpressibleByArgument.swiftPackageManager,
       targetName: nil

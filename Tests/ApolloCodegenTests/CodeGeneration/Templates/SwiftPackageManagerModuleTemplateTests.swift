@@ -14,7 +14,7 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
 
   private func buildSubject(
     testMockConfig: ApolloCodegenConfiguration.TestMockFileOutput = .none,
-    config: ApolloCodegenConfiguration = .mock(schemaName: "TestModule")
+    config: ApolloCodegenConfiguration = .mock(schemaNamespace: "TestModule")
   ) {
     subject = .init(
       testMockConfig: testMockConfig,
@@ -62,7 +62,7 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
 
   func test__packageDescription__givenLowercaseSchemaName_generatesPackageDefinitionWithCapitalizedName() {
     // given
-    buildSubject(config: .mock(schemaName: "module"))
+    buildSubject(config: .mock(schemaNamespace: "module"))
 
     let expected = """
     let package = Package(
@@ -78,7 +78,7 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
 
   func test__packageDescription__givenUppercaseSchemaName_generatesPackageDefinitionWithUppercasedName() {
     // given
-    buildSubject(config: .mock(schemaName: "MODULE"))
+    buildSubject(config: .mock(schemaNamespace: "MODULE"))
 
     let expected = """
     let package = Package(
@@ -94,7 +94,7 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
 
   func test__packageDescription__givenCapitalizedSchemaName_generatesPackageDefinitionWithCapitalizedName() {
     // given
-    buildSubject(config: .mock(schemaName: "NewModule"))
+    buildSubject(config: .mock(schemaNamespace: "NewModule"))
 
     let expected = """
     let package = Package(
@@ -130,7 +130,7 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
 
   func test__packageDescription__givenLowercasedSchemaName_generatesProductWithCapitalizedName() {
     // given
-    buildSubject(config: .mock(schemaName: "newmodule"))
+    buildSubject(config: .mock(schemaNamespace: "newmodule"))
 
     let expected = """
       products: [
@@ -147,7 +147,7 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
 
   func test__packageDescription__givenUppercasedSchemaName_generatesProductWithUppercasedName() {
     // given
-    buildSubject(config: .mock(schemaName: "NEWMODULE"))
+    buildSubject(config: .mock(schemaNamespace: "NEWMODULE"))
 
     let expected = """
       products: [
@@ -164,7 +164,7 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
 
   func test__packageDescription__givenCapitalizedSchemaName_generatesProductWithCapitalizedName() {
     // given
-    buildSubject(config: .mock(schemaName: "NewModule"))
+    buildSubject(config: .mock(schemaNamespace: "NewModule"))
 
     let expected = """
       products: [
@@ -197,7 +197,7 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
 
   func test__packageDescription__givenTestMockConfigNone_withLowercaseSchemaName_generatesTargetWithCapitalizedName() {
     // given
-    buildSubject(config: .mock(schemaName: "testmodule"))
+    buildSubject(config: .mock(schemaNamespace: "testmodule"))
 
     let expected = """
       targets: [
@@ -220,7 +220,7 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
 
   func test__packageDescription__givenTestMockConfigNone_withUppercaseSchemaName_generatesTargetWithUppercasedName() {
     // given
-    buildSubject(config: .mock(schemaName: "TEST"))
+    buildSubject(config: .mock(schemaNamespace: "TEST"))
 
     let expected = """
       targets: [
@@ -243,7 +243,7 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
 
   func test__packageDescription__givenTestMockConfigNone_withCapitalizedSchemaName_generatesTargetWithCapitalizedName() {
     // given
-    buildSubject(config: .mock(schemaName: "TestModule"))
+    buildSubject(config: .mock(schemaNamespace: "TestModule"))
 
     let expected = """
       targets: [
@@ -390,7 +390,7 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
     // given
     buildSubject(
       testMockConfig: .swiftPackage(targetName: "CustomMocks"),
-      config: .mock(schemaName: "testmodule"))
+      config: .mock(schemaNamespace: "testmodule"))
 
     let expected = """
             .target(name: "Testmodule"),
@@ -407,7 +407,7 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
     // given
     buildSubject(
       testMockConfig: .swiftPackage(targetName: "CustomMocks"),
-      config: .mock(schemaName: "MODULE"))
+      config: .mock(schemaNamespace: "MODULE"))
 
     let expected = """
             .target(name: "MODULE"),
@@ -424,7 +424,7 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
     // given
     buildSubject(
       testMockConfig: .swiftPackage(targetName: "CustomMocks"),
-      config: .mock(schemaName: "MyModule"))
+      config: .mock(schemaNamespace: "MyModule"))
 
     let expected = """
             .target(name: "MyModule"),

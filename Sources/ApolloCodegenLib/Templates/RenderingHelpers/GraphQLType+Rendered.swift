@@ -176,7 +176,7 @@ extension GraphQLNamedType {
           }
 
         case .selectionSetField, .testMockField:
-          return "\(config.schemaName.firstUppercased)."
+          return "\(config.schemaNamespace.firstUppercased)."
         }
       }
     }()

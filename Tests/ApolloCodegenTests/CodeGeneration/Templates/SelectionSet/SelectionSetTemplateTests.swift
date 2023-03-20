@@ -38,7 +38,7 @@ class SelectionSetTemplateTests: XCTestCase {
     let operationDefinition = try XCTUnwrap(ir.compilationResult[operation: operationName])
     operation = ir.build(operation: operationDefinition)
     let config = ApolloCodegenConfiguration.mock(
-      schemaName: "TestSchema",
+      schemaNamespace: "TestSchema",
       output: configOutput,
       options: .init(
         additionalInflectionRules: inflectionRules,

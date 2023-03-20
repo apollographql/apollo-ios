@@ -89,11 +89,11 @@ extension TemplateRenderer {
       case (false, nil):
         return nil
       case (true, nil):
-        return config.schemaName.firstUppercased
+        return config.schemaNamespace.firstUppercased
       case let (false, .some(schemaTypeNamespace)):
         return schemaTypeNamespace
       case let (true, .some(schemaTypeNamespace)):
-        return "\(config.schemaName.firstUppercased).\(schemaTypeNamespace)"
+        return "\(config.schemaNamespace.firstUppercased).\(schemaTypeNamespace)"
       }
     }()
 
@@ -115,7 +115,7 @@ extension TemplateRenderer {
     \(ImportStatementTemplate.Operation.template(for: config))
 
     \(if: config.output.operations.isInModule && !config.output.schemaTypes.isInModule,
-      template.wrappedInNamespace(config.schemaName.firstUppercased),
+      template.wrappedInNamespace(config.schemaNamespace.firstUppercased),
     else:
       template)
     """
@@ -223,7 +223,7 @@ fileprivate extension ApolloCodegenConfiguration {
   var schemaModuleName: String {
     switch output.schemaTypes.moduleType {
     case let .embeddedInTarget(targetName): return targetName
-    case .swiftPackageManager, .other: return schemaName.firstUppercased
+    case .swiftPackageManager, .other: return schemaNamespace.firstUppercased
     }
   }
 }

@@ -12,10 +12,20 @@ public struct Initialize: ParsableCommand {
   )
 
   @Option(
+    name: [.long],
+    help: "DEPRECATED - Use --schema-namespace instead."
+  )
+  // When removing this property also do:
+  // - remove the initialization value for schemaNamespace
+  // - remove schemaName validation in validate()
+  // - remove mutating keyword from validate() signature
+  var schemaName: String?
+
+  @Option(
     name: [.long, .customShort("n")],
     help: "Name used to scope the generated schema type files."
   )
-  var schemaName: String
+  var schemaNamespace: String = ""
 
   @Option(
     name: [.long, .customShort("m")],
@@ -63,7 +73,7 @@ public struct Initialize: ParsableCommand {
 
   public init() { }
 
-  public func validate() throws {
+  public mutating func validate() throws {
     switch (moduleType, targetName?.isEmpty) {
     case (.embeddedInTarget, nil), (.embeddedInTarget, true):
       throw ValidationError("""
@@ -74,6 +84,19 @@ public struct Initialize: ParsableCommand {
     default:
       break;
     }
+
+    if let schemaName {
+      Swift.print("Warning: --schema-name is deprecated, please use --schema-namespace instead.")
+
+      if !schemaNamespace.isEmpty {
+        throw ValidationError("""
+          Cannot specify both --schema-name and --schema-namespace. Please only use \
+          --schema-namespace".
+          """)
+      }
+
+      schemaNamespace = schemaName
+    }
   }
 
   public func run() throws {
@@ -82,7 +105,7 @@ public struct Initialize: ParsableCommand {
 
   func _run(fileManager: ApolloFileManager = .default, output: OutputClosure? = nil) throws {
     let encoded = try ApolloCodegenConfiguration
-      .minimalJSON(schemaName: schemaName, moduleType: moduleType, targetName: targetName)
+      .minimalJSON(schemaNamespace: schemaNamespace, moduleType: moduleType, targetName: targetName)
       .asData()
 
     let decoded = try JSONDecoder().decode(ApolloCodegenConfiguration.self, from: encoded)
@@ -149,20 +172,20 @@ public struct Initialize: ParsableCommand {
 
 extension ApolloCodegenConfiguration {
   static func minimalJSON(
-    schemaName: String,
+    schemaNamespace: String,
     moduleType: ModuleTypeExpressibleByArgument,
     targetName: String?
   ) -> String {
     #if COCOAPODS
       minimalJSON(
-        schemaName: schemaName,
+        schemaNamespace: schemaNamespace,
         supportCocoaPods: true,
         moduleType: moduleType,
         targetName: targetName
       )
     #else
       minimalJSON(
-        schemaName: schemaName,
+        schemaNamespace: schemaNamespace,
         supportCocoaPods: false,
         moduleType: moduleType,
         targetName: targetName
@@ -171,7 +194,7 @@ extension ApolloCodegenConfiguration {
   }
 
   static func minimalJSON(
-    schemaName: String,
+    schemaNamespace: String,
     supportCocoaPods: Bool,
     moduleType: ModuleTypeExpressibleByArgument,
     targetName: String?
@@ -194,7 +217,7 @@ extension ApolloCodegenConfiguration {
 
     return """
     {
-      "schemaName" : "\(schemaName)",\(cocoaPodsOption)
+      "schemaNamespace" : "\(schemaNamespace)",\(cocoaPodsOption)
       "input" : {
         "operationSearchPaths" : [
           "**/*.graphql"
@@ -209,7 +232,7 @@ extension ApolloCodegenConfiguration {
           }
         },
         "schemaTypes" : {
-          "path" : "./\(schemaName)",
+          "path" : "./\(schemaNamespace)",
           "moduleType" : {
             "\(moduleType)" : {
             \(moduleTarget)

@@ -248,15 +248,15 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       /// No module will be created for the generated schema types.
       ///
       /// - Note: Generated files must be manually added to your application target. The generated
-      /// schema types files will be namespaced with the value of your configuration's `schemaName`
-      /// to prevent naming conflicts.
+      /// schema types files will be namespaced with the value of your configuration's
+      /// `schemaNamespace` to prevent naming conflicts.
       case embeddedInTarget(name: String)
       /// Generates a `Package.swift` file that is suitable for linking the generated schema types
       /// files to your project using Swift Package Manager.
       case swiftPackageManager
       /// No module will be created for the generated types and you are required to create the
       /// module to support your preferred dependency manager. You must specify the name of the
-      /// module you will create in the `schemaName` property as this will be used in `import`
+      /// module you will create in the `schemaNamespace` property as this will be used in `import`
       /// statements of generated operation files.
       ///
       /// Use this option for dependency managers, such as CocoaPods. Example usage would be to 
@@ -295,7 +295,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     /// test target using Swift Package Manager.
     ///
     /// The name of the test mock target can be specified with the `targetName` value.
-    /// If no target name is provided, the target name defaults to "\(schemaName)TestMocks".
+    /// If no target name is provided, the target name defaults to "\(schemaNamespace)TestMocks".
     ///
     /// - Note: This requires your `SchemaTypesFileOutput.ModuleType` to be `.swiftPackageManager`.
     /// If this option is provided without the `.swiftPackageManager` module type, code generation
@@ -679,7 +679,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
   // MARK: - Properties
 
   /// Name used to scope the generated schema type files.
-  public let schemaName: String
+  public let schemaNamespace: String
   /// The input files required for code generation.
   public let input: FileInput
   /// The paths and files output by code generation.
@@ -709,20 +709,20 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
   /// Designated initializer.
   ///
   /// - Parameters:
-  ///  - schemaName: Name used to scope the generated schema type files.
+  ///  - schemaNamespace: Name used to scope the generated schema type files.
   ///  - input: The input files required for code generation.
   ///  - output: The paths and files output by code generation.
   ///  - options: Rules and options to customize the generated code.
   ///  - experimentalFeatures: Allows users to enable experimental features.
   public init(
-    schemaName: String,
+    schemaNamespace: String,
     input: FileInput,
     output: FileOutput,
     options: OutputOptions = Default.options,
     experimentalFeatures: ExperimentalFeatures = Default.experimentalFeatures,
     schemaDownloadConfiguration: ApolloSchemaDownloadConfiguration? = Default.schemaDownloadConfiguration
   ) {
-    self.schemaName = schemaName
+    self.schemaNamespace = schemaNamespace
     self.input = input
     self.output = output
     self.options = options
@@ -735,6 +735,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
 
   enum CodingKeys: CodingKey {
     case schemaName
+    case schemaNamespace
     case input
     case output
     case options
@@ -742,10 +743,42 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     case schemaDownloadConfiguration
   }
 
+  public func encode(to encoder: Encoder) throws {
+    var container = encoder.container(keyedBy: CodingKeys.self)
+
+    try container.encode(self.schemaNamespace, forKey: .schemaNamespace)
+    try container.encode(self.input, forKey: .input)
+    try container.encode(self.output, forKey: .output)
+    try container.encode(self.options, forKey: .options)
+    try container.encode(experimentalFeatures, forKey: .experimentalFeatures)
+
+    if let schemaDownloadConfiguration {
+      try container.encode(schemaDownloadConfiguration, forKey: .schemaDownloadConfiguration)
+    }
+  }
+
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
+
+    func getSchemaNamespaceValue() throws -> String {
+      if let value = try values.decodeIfPresent(String.self, forKey: .schemaNamespace) {
+        return value
+      }
+      if let value = try values.decodeIfPresent(String.self, forKey: .schemaName) {
+        return value
+      }
+
+      throw DecodingError.keyNotFound(
+        CodingKeys.schemaNamespace,
+        .init(
+          codingPath: [CodingKeys.schemaNamespace],
+          debugDescription: "Cannot find value for 'schemaNamespace' key"
+        )
+      )
+    }
+
     self.init(
-      schemaName: try values.decode(String.self, forKey: .schemaName),
+      schemaNamespace: try getSchemaNamespaceValue(),
       input: try values.decode(FileInput.self, forKey: .input),
       output: try values.decode(FileOutput.self, forKey: .output),
       options: try values.decodeIfPresent(
@@ -887,5 +920,39 @@ extension ApolloCodegenConfiguration.SelectionSetInitializers {
       try container.encode(definitions.sorted(), forKey: .definitionsNamed)
     }
   }
+}
 
+// MARK: - Deprecations
+
+extension ApolloCodegenConfiguration {
+  /// Name used to scope the generated schema type files.
+  @available(*, deprecated, renamed: "schemaNamespace")
+  public var schemaName: String { schemaNamespace }
+
+  /// Deprecated initializer - use `init(schemaNamespace:input:output:options:experimentalFeatures:schemaDownloadConfiguration:)`
+  /// instead.
+  ///
+  /// - Parameters:
+  ///  - schemaName: Name used to scope the generated schema type files.
+  ///  - input: The input files required for code generation.
+  ///  - output: The paths and files output by code generation.
+  ///  - options: Rules and options to customize the generated code.
+  ///  - experimentalFeatures: Allows users to enable experimental features.
+  @available(*, deprecated, renamed: "init(schemaNamespace:input:output:options:experimentalFeatures:schemaDownloadConfiguration:)")
+  public init(
+    schemaName: String,
+    input: FileInput,
+    output: FileOutput,
+    options: OutputOptions = Default.options,
+    experimentalFeatures: ExperimentalFeatures = Default.experimentalFeatures,
+    schemaDownloadConfiguration: ApolloSchemaDownloadConfiguration? = Default.schemaDownloadConfiguration
+  ) {
+    self.init(
+      schemaNamespace: schemaName,
+      input: input,
+      output: output,
+      options: options,
+      experimentalFeatures: experimentalFeatures,
+      schemaDownloadConfiguration: schemaDownloadConfiguration)
+  }
 }

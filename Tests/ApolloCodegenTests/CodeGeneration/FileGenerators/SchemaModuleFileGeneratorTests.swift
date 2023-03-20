@@ -44,7 +44,7 @@ class SchemaModuleFileGeneratorTests: XCTestCase {
 
     let configuration = ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration.mock(
       .embeddedInTarget(name: "MockApplication"),
-      schemaName: "schema",
+      schemaNamespace: "schema",
       to: rootURL.path
     ))
 
@@ -68,7 +68,7 @@ class SchemaModuleFileGeneratorTests: XCTestCase {
 
     let configuration = ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration.mock(
       .embeddedInTarget(name: "MockApplication"),
-      schemaName: "SCHEMA",
+      schemaNamespace: "SCHEMA",
       to: rootURL.path
     ))
 
@@ -92,7 +92,7 @@ class SchemaModuleFileGeneratorTests: XCTestCase {
 
     let configuration = ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration.mock(
       .embeddedInTarget(name: "MockApplication"),
-      schemaName: "MySchema",
+      schemaNamespace: "MySchema",
       to: rootURL.path
     ))
 

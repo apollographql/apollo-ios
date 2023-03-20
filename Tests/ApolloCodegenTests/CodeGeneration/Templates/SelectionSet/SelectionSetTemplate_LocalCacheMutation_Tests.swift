@@ -27,7 +27,7 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
   // MARK: - Helpers
 
   func buildSubjectAndOperation(
-    schemaName: String = "TestSchema",
+    schemaNamespace: String = "TestSchema",
     named operationName: String = "TestOperation"
   ) throws {
     ir = try .mock(schema: schemaSDL, document: document)
@@ -36,7 +36,7 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
     subject = SelectionSetTemplate(
       mutable: true,
       generateInitializers: false,
-      config: .init(config: .mock(schemaName: schemaName))
+      config: .init(config: .mock(schemaNamespace: schemaNamespace))
     )
   }
 
@@ -437,7 +437,7 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
     """
 
     // when
-    try buildSubjectAndOperation(schemaName: "myschema")
+    try buildSubjectAndOperation(schemaNamespace: "myschema")
     let actual = subject.render(for: operation)
 
     // then
@@ -469,7 +469,7 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
     """
 
     // when
-    try buildSubjectAndOperation(schemaName: "MYSCHEMA")
+    try buildSubjectAndOperation(schemaNamespace: "MYSCHEMA")
     let actual = subject.render(for: operation)
 
     // then
@@ -501,7 +501,7 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
     """
 
     // when
-    try buildSubjectAndOperation(schemaName: "MySchema")
+    try buildSubjectAndOperation(schemaNamespace: "MySchema")
     let actual = subject.render(for: operation)
 
     // then
@@ -539,7 +539,7 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
     """
 
     // when
-    try buildSubjectAndOperation(schemaName: "myschema")
+    try buildSubjectAndOperation(schemaNamespace: "myschema")
     let allAnimals = try XCTUnwrap(
       operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
     )
@@ -581,7 +581,7 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
     """
 
     // when
-    try buildSubjectAndOperation(schemaName: "MYSCHEMA")
+    try buildSubjectAndOperation(schemaNamespace: "MYSCHEMA")
     let allAnimals = try XCTUnwrap(
       operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
     )
@@ -623,7 +623,7 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
     """
 
     // when
-    try buildSubjectAndOperation(schemaName: "MySchema")
+    try buildSubjectAndOperation(schemaNamespace: "MySchema")
     let allAnimals = try XCTUnwrap(
       operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
     )

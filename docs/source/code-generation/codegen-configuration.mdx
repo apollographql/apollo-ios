@@ -16,16 +16,16 @@ There are a number of base configuration properties, each representing a specifi
 
 | Property Name | Description |
 | ------------- | ----------- |
-| [`schemaName`](#schema-name) | Namespace used to scope the generated schema types. |
+| [`schemaNamespace`](#schema-namespace) | Namespace used to scope the generated schema types. |
 | [`input`](#file-input) | Search patterns that will be used to locate the schema and operation definition files. |
 | [`output`](#file-output) | Location and structure of the generated files and modules. |
 | [`options`](#output-options) | Rules and options to customize the generated code. |
 | [`experimentalFeatures`](#experimental-features) | Used to enable experimental features.<br/>*Note: These features could change at any time and are not guaranteed to always be available.* |
 | [`schemaDownloadConfiguration`](#schema-download-configuration) | Configuration to fetch a GraphQL schema before generation. |
 
-## Schema name
+## Schema namespace
 
-**[`schemaName: String`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/schemaname)**
+**[`schemaNamespace: String`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/schemanamespace)**
 
 This option defines the name of your schema module or namespace.
 
@@ -220,7 +220,7 @@ let configuration = ApolloCodegenConfiguration(
 
 This option automates the creation of an SPM package for your schema types. This generates a `Package.swift` file that is suitable for linking the generated schema types files to your project using Swift Package Manager.
 
-The schema types will be contained in a stand-alone module with the [`schemaName`](#schema-name) provided. Other targets in your application that contain generated operation models must have a dependency on this target.
+The schema types will be contained in a stand-alone module with the [`schemaNamespace`](#schema-namespace) provided. Other targets in your application that contain generated operation models must have a dependency on this target.
 
 For multi-module projects using Swift Package Manager, this is the recommended configuration option.
 
@@ -268,7 +268,7 @@ This option should be used when you would like to define a schema module using a
 
 Using this option, you are required to create a target for your schema module using your preferred package manager.
 
-> **Note:** The name of the target for your schema module must be the [`schemaName`](#schema-name) provided in your configuration, as this will be used in the `import` statements of generated operation files.
+> **Note:** The name of the target for your schema module must be the [`schemaNamespace`](#schema-namespace) provided in your configuration, as this will be used in the `import` statements of generated operation files.
 
 <MultiCodeBlock>
 
@@ -375,7 +375,7 @@ The `output.testMocks` option can be configured with the following values:
 
 This option generates test mock files and defines a target in the schema modules generated `Package.swift` file that is suitable for linking the test mock files to your test target using Swift Package Manager.
 
-The name of the test mock target can be specified with the `targetName` parameter. If no `targetName` is provided, the target name defaults to `"${schemaName}TestMocks"`.
+The name of the test mock target can be specified with the `targetName` parameter. If no `targetName` is provided, the target name defaults to `"${schemaNamespace}TestMocks"`.
 
 > **Note:** Using this option requires your [`output.schemaTypes.moduleType`](#module-type) to be [`.swiftPackageManager`](#swift-package-manager). If this option is provided without the `.swiftPackageManager` module type, code generation will fail.
 
