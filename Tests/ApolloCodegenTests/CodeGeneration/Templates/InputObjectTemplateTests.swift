@@ -251,7 +251,7 @@ class InputObjectTemplateTests: XCTestCase {
         type: .list(.scalar(.string())),
         defaultValue: nil
       )
-    ], config: .mock(schemaName: "TestSchema"))
+    ], config: .mock(schemaNamespace: "TestSchema"))
 
     let expected = """
       public init(
@@ -1507,7 +1507,7 @@ class InputObjectTemplateTests: XCTestCase {
       ),
     ]
 
-    buildSubject(fields: fields, config: .mock(schemaName: "TestSchema"))
+    buildSubject(fields: fields, config: .mock(schemaNamespace: "TestSchema"))
 
     let expected = """
       public init(
@@ -1912,7 +1912,7 @@ class InputObjectTemplateTests: XCTestCase {
 
     buildSubject(
       fields: fields,
-      config: .mock(schemaName: "testschema", output: .mock(
+      config: .mock(schemaNamespace: "testschema", output: .mock(
         moduleType: .swiftPackageManager,
         operations: .relative(subpath: nil)))
     )
@@ -1968,7 +1968,7 @@ class InputObjectTemplateTests: XCTestCase {
 
     buildSubject(
       fields: fields,
-      config: .mock(schemaName: "TESTSCHEMA", output: .mock(
+      config: .mock(schemaNamespace: "TESTSCHEMA", output: .mock(
         moduleType: .swiftPackageManager,
         operations: .relative(subpath: nil)))
     )
@@ -2024,7 +2024,7 @@ class InputObjectTemplateTests: XCTestCase {
 
     buildSubject(
       fields: fields,
-      config: .mock(schemaName: "TestSchema", output: .mock(
+      config: .mock(schemaNamespace: "TestSchema", output: .mock(
         moduleType: .swiftPackageManager,
         operations: .relative(subpath: nil)))
     )
@@ -2066,7 +2066,7 @@ class InputObjectTemplateTests: XCTestCase {
         type: .list(.enum(.mock(name: "EnumValue"))),
         defaultValue: nil)],
       config: .mock(
-        schemaName: "testschema",
+        schemaNamespace: "testschema",
         output: .mock(operations: .relative(subpath: nil))
       )
     )
@@ -2098,7 +2098,7 @@ class InputObjectTemplateTests: XCTestCase {
         type: .list(.enum(.mock(name: "EnumValue"))),
         defaultValue: nil)],
       config: .mock(
-        schemaName: "TESTSCHEMA",
+        schemaNamespace: "TESTSCHEMA",
         output: .mock(operations: .relative(subpath: nil))
       )
     )
@@ -2130,7 +2130,7 @@ class InputObjectTemplateTests: XCTestCase {
         type: .list(.enum(.mock(name: "EnumValue"))),
         defaultValue: nil)],
       config: .mock(
-        schemaName: "TestSchema",
+        schemaNamespace: "TestSchema",
         output: .mock(operations: .relative(subpath: nil))
       )
     )

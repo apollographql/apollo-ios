@@ -55,7 +55,7 @@ class UnionTemplateTests: XCTestCase {
 
   func test_render_givenLowercaseSchemaName_generatesUsingCapitalizedSchemaName() throws {
     // given
-    buildSubject(config: .mock(schemaName: "lowercased"))
+    buildSubject(config: .mock(schemaNamespace: "lowercased"))
 
     let expected = """
       possibleTypes: [
@@ -75,7 +75,7 @@ class UnionTemplateTests: XCTestCase {
 
   func test_render_givenUppercaseSchemaName_generatesUsingUppercaseSchemaName() throws {
     // given
-    buildSubject(config: .mock(schemaName: "UPPER"))
+    buildSubject(config: .mock(schemaNamespace: "UPPER"))
 
     let expected = """
       possibleTypes: [
@@ -95,7 +95,7 @@ class UnionTemplateTests: XCTestCase {
 
   func test_render_givenCapitalizedSchemaName_generatesUsingCapitalizedSchemaName() throws {
     // given
-    buildSubject(config: .mock(schemaName: "MySchema"))
+    buildSubject(config: .mock(schemaNamespace: "MySchema"))
 
     let expected = """
       possibleTypes: [

@@ -617,7 +617,7 @@ class FragmentTemplateTests: XCTestCase {
 
   func test__casing__givenLowercasedSchemaName_generatesWithFirstUppercasedNamespace() throws {
     // given
-    try buildSubjectAndFragment(config: .mock(schemaName: "mySchema"))
+    try buildSubjectAndFragment(config: .mock(schemaNamespace: "mySchema"))
 
     // then
     let expected = """
@@ -631,7 +631,7 @@ class FragmentTemplateTests: XCTestCase {
 
   func test__casing__givenUppercasedSchemaName_generatesWithUppercasedNamespace() throws {
     // given
-    try buildSubjectAndFragment(config: .mock(schemaName: "MY_SCHEMA"))
+    try buildSubjectAndFragment(config: .mock(schemaNamespace: "MY_SCHEMA"))
 
     // then
     let expected = """
@@ -645,7 +645,7 @@ class FragmentTemplateTests: XCTestCase {
 
   func test__casing__givenCapitalizedSchemaName_generatesWithCapitalizedNamespace() throws {
     // given
-    try buildSubjectAndFragment(config: .mock(schemaName: "MySchema"))
+    try buildSubjectAndFragment(config: .mock(schemaNamespace: "MySchema"))
 
     // then
     let expected = """

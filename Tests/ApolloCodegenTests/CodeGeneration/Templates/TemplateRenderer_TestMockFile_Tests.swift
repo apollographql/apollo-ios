@@ -9,12 +9,12 @@ class TemplateRenderer_TestMockFile_Tests: XCTestCase {
 
   private func buildConfig(
     moduleType: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType,
-    schemaName: String = "testSchema",
+    schemaNamespace: String = "testSchema",
     operations: ApolloCodegenConfiguration.OperationsFileOutput,
     cocoapodsCompatibleImportStatements: Bool = false
   ) -> ApolloCodegenConfiguration {
     ApolloCodegenConfiguration.mock(
-      schemaName: schemaName,
+      schemaNamespace: schemaNamespace,
       input: .init(schemaPath: "MockInputPath", operationSearchPaths: []),
       output: .mock(moduleType: moduleType, operations: operations),
       options: .init(cocoapodsCompatibleImportStatements: cocoapodsCompatibleImportStatements)
