@@ -679,8 +679,6 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
   // MARK: - Properties
 
   /// Name used to scope the generated schema type files.
-  @available(*, deprecated, renamed: "schemaNamespace")
-  public var schemaName: String { schemaNamespace }
   public let schemaNamespace: String
   /// The input files required for code generation.
   public let input: FileInput
@@ -707,33 +705,6 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
   let ApolloAPITargetName: String
 
   // MARK: Initializers
-
-  /// Deprecated initializer - use `init(schemaNamespace:input:output:options:experimentalFeatures:schemaDownloadConfiguration:)`
-  /// instead.
-  ///
-  /// - Parameters:
-  ///  - schemaName: Name used to scope the generated schema type files.
-  ///  - input: The input files required for code generation.
-  ///  - output: The paths and files output by code generation.
-  ///  - options: Rules and options to customize the generated code.
-  ///  - experimentalFeatures: Allows users to enable experimental features.
-  @available(*, deprecated, renamed: "init(schemaNamespace:input:output:options:experimentalFeatures:schemaDownloadConfiguration:)")
-  public init(
-    schemaName: String,
-    input: FileInput,
-    output: FileOutput,
-    options: OutputOptions = Default.options,
-    experimentalFeatures: ExperimentalFeatures = Default.experimentalFeatures,
-    schemaDownloadConfiguration: ApolloSchemaDownloadConfiguration? = Default.schemaDownloadConfiguration
-  ) {
-    self.init(
-      schemaNamespace: schemaName,
-      input: input,
-      output: output,
-      options: options,
-      experimentalFeatures: experimentalFeatures,
-      schemaDownloadConfiguration: schemaDownloadConfiguration)
-  }
 
   /// Designated initializer.
   ///
@@ -949,5 +920,39 @@ extension ApolloCodegenConfiguration.SelectionSetInitializers {
       try container.encode(definitions.sorted(), forKey: .definitionsNamed)
     }
   }
+}
 
+// MARK: - Deprecations
+
+extension ApolloCodegenConfiguration {
+  /// Name used to scope the generated schema type files.
+  @available(*, deprecated, renamed: "schemaNamespace")
+  public var schemaName: String { schemaNamespace }
+
+  /// Deprecated initializer - use `init(schemaNamespace:input:output:options:experimentalFeatures:schemaDownloadConfiguration:)`
+  /// instead.
+  ///
+  /// - Parameters:
+  ///  - schemaName: Name used to scope the generated schema type files.
+  ///  - input: The input files required for code generation.
+  ///  - output: The paths and files output by code generation.
+  ///  - options: Rules and options to customize the generated code.
+  ///  - experimentalFeatures: Allows users to enable experimental features.
+  @available(*, deprecated, renamed: "init(schemaNamespace:input:output:options:experimentalFeatures:schemaDownloadConfiguration:)")
+  public init(
+    schemaName: String,
+    input: FileInput,
+    output: FileOutput,
+    options: OutputOptions = Default.options,
+    experimentalFeatures: ExperimentalFeatures = Default.experimentalFeatures,
+    schemaDownloadConfiguration: ApolloSchemaDownloadConfiguration? = Default.schemaDownloadConfiguration
+  ) {
+    self.init(
+      schemaNamespace: schemaName,
+      input: input,
+      output: output,
+      options: options,
+      experimentalFeatures: experimentalFeatures,
+      schemaDownloadConfiguration: schemaDownloadConfiguration)
+  }
 }
