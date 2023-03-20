@@ -360,7 +360,7 @@ final class GraphQLExecutor<FieldCollector: FieldSelectionCollector> {
                         accumulator: accumulator)
         }
 
-      case let dataDict as ApolloAPI.DataDict:
+      case let dataDict as DataDict:
         return executeChildSelections(forObjectTypeFields: fieldInfo,
                                       onChildObject: dataDict._data,
                                       accumulator: accumulator)
