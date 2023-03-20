@@ -1882,27 +1882,16 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
     }, completion: { result in
       defer { writeCompletedExpectation.fulfill() }
+      let heroKey = "QUERY_ROOT.hero"
+      let records = try? self.cache.loadRecords(forKeys: [heroKey])
+      let heroRecord = records?[heroKey]
+
+      expect(heroRecord?.fields["name"] as? String).to(equal("Han Solo"))
       XCTAssertSuccessResult(result)
     })
 
     self.wait(for: [writeCompletedExpectation], timeout: Self.defaultWaitTimeout)
-
-    let readCompletedExpectation = expectation(description: "Read completed")
-
-    store.withinReadTransaction({ transaction in
-      let query = MockQuery<Data>()
-      let resultData = try transaction.read(query: query)
-
-      expect(resultData.hero.asCharacter?.name).to(equal("Han Solo"))
-
-    }, completion: { result in
-      defer { readCompletedExpectation.fulfill() }
-      XCTAssertSuccessResult(result)
-    })
-
-    self.wait(for: [readCompletedExpectation], timeout: Self.defaultWaitTimeout)
   }
-
 
   func test_updateObjectWithKey_readAfterUpdateWithinSameTransaction_hasUpdatedValue() throws {
     // given
