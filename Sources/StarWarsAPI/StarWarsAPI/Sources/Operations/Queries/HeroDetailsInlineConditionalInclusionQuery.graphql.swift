@@ -63,7 +63,7 @@ public class HeroDetailsInlineConditionalInclusionQuery: GraphQLQuery {
         .include(if: "includeDetails", .inlineFragment(IfIncludeDetails.self)),
       ] }
 
-      public var ifIncludeDetails: IfIncludeDetails? { _asInlineFragment(if: "includeDetails") }
+      public var ifIncludeDetails: IfIncludeDetails? { _asInlineFragment() }
 
       public init(
         __typename: String

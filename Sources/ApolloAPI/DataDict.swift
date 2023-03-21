@@ -7,10 +7,9 @@ public struct DataDict: Hashable {
   ///
   /// * Values for entity fields are represented by ``DataDict`` values
   /// * Custom scalars are serialized and converted to their concrete types.
-  /// * The `implementedInterfaces` used for fulfilling type conditions are
-  ///   on the `_objectType` of the `DataDict`.
-  /// * The variables used for fulfilling inclusion conditions are included
-  ///   in the `_variables` of the `DataDict`.
+  /// * The `_data` dictionary includes a key `"_fulfilled"` that contains a `Set<ObjectIdentifier>`
+  ///   containing all of the fragments that have been fulfilled for the object represented by
+  ///   the `DataDict`.
   ///
   /// The process of converting a JSON response into ``SelectionSetData`` is done by using a
   /// `GraphQLExecutor` with a`GraphQLSelectionSetMapper`. This can be performed manually
@@ -21,7 +20,7 @@ public struct DataDict: Hashable {
   public var _data: SelectionSetData
 
   public init(data: SelectionSetData) {
-    self._data = data    
+    self._data = data
   }
 
   @inlinable public subscript<T: AnyScalarType & Hashable>(_ key: String) -> T {

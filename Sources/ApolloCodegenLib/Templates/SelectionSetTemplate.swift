@@ -321,21 +321,12 @@ struct SelectionSetTemplate {
     \(if: isMutable,
       """
 
-        get { \(InlineFragmentGetter(inlineFragment)) }
+        get { _asInlineFragment() }
         set { if let newData = newValue?.__data._data { __data._data = newData }}
       }
       """,
-      else: " \(InlineFragmentGetter(inlineFragment)) }"
+      else: " _asInlineFragment() }"
     )
-    """
-  }
-
-  private func InlineFragmentGetter(_ inlineFragment: IR.SelectionSet) -> TemplateString {
-    """
-    _asInlineFragment\
-    (\(ifLet: inlineFragment.inclusionConditions, {
-      "if: \($0.conditionVariableExpression())"
-    }))
     """
   }
 
@@ -372,18 +363,13 @@ struct SelectionSetTemplate {
     let isOptional = fragment.inclusionConditions != nil &&
     !scope.matches(fragment.inclusionConditions.unsafelyUnwrapped)
 
-    let getter = FragmentGetter(
-      fragment,
-      if: isOptional ? fragment.inclusionConditions.unsafelyUnwrapped : nil
-    )
-
     return """
     public var \(propertyName): \(typeName)\
     \(if: isOptional, "?") {\
     \(if: isMutable,
       """
 
-        get { \(getter) }
+        get { _toFragment() }
         _modify { var f = \(propertyName); yield &f; \(
           if: isOptional,
             "if let newData = f?.__data { __data = newData }",
@@ -393,20 +379,8 @@ struct SelectionSetTemplate {
         set { preconditionFailure() }
       }
       """,
-      else: " \(getter) }"
+      else: " _toFragment() }"
     )
-    """
-  }
-
-  private func FragmentGetter(
-    _ fragment: IR.FragmentSpread,
-    if inclusionConditions: AnyOf<IR.InclusionConditions>?
-  ) -> TemplateString {
-    """
-    _toFragment(\
-    \(ifLet: inclusionConditions, {
-      "if: \($0.conditionVariableExpression)"
-    }))
     """
   }
 

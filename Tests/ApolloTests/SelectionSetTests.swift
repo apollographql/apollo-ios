@@ -831,7 +831,7 @@ class SelectionSetTests: XCTestCase {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public var givenFragment: GivenFragment? { _toFragment(if: "includeFragment") }
+        public var givenFragment: GivenFragment? { _toFragment() }
       }
     }
 
@@ -863,7 +863,7 @@ class SelectionSetTests: XCTestCase {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public var givenFragment: GivenFragment? { _toFragment(if: "includeFragment") }
+        public var givenFragment: GivenFragment? { _toFragment() }
       }
     }
 
@@ -1041,7 +1041,7 @@ class SelectionSetTests: XCTestCase {
         .include(if: "a", .inlineFragment(IfA.self))
       ]}
 
-      var ifA: IfA? { _asInlineFragment(if: "a") }
+      var ifA: IfA? { _asInlineFragment() }
 
       class IfA: ConcreteMockTypeCase<Hero> {
         typealias Schema = MockSchemaMetadata
@@ -1095,8 +1095,8 @@ class SelectionSetTests: XCTestCase {
         .include(if: "b", .inlineFragment(IfB.self))
       ]}
 
-      var ifA: IfA? { _asInlineFragment(if: "a") }
-      var ifB: IfB? { _asInlineFragment(if: "b") }
+      var ifA: IfA? { _asInlineFragment() }
+      var ifB: IfB? { _asInlineFragment() }
 
       class IfA: ConcreteMockTypeCase<Hero> {
         typealias Schema = MockSchemaMetadata
@@ -1176,8 +1176,8 @@ class SelectionSetTests: XCTestCase {
           .include(if: "b", .inlineFragment(IfB.self))
         ]}
 
-        var ifA: IfA? { _asInlineFragment(if: "a") }
-        var ifB: IfB? { _asInlineFragment(if: "b") }
+        var ifA: IfA? { _asInlineFragment() }
+        var ifB: IfB? { _asInlineFragment() }
 
         class IfA: ConcreteMockTypeCase<Hero> {
           typealias Schema = MockSchemaMetadata
@@ -1209,7 +1209,7 @@ class SelectionSetTests: XCTestCase {
               .include(if: !"c", .inlineFragment(IfNotC.self))
             ]}
 
-            var ifNotC: IfNotC? { _asInlineFragment(if: !"c") }
+            var ifNotC: IfNotC? { _asInlineFragment() }
 
             class IfNotC: ConcreteMockTypeCase<Friend> {
               typealias Schema = MockSchemaMetadata
@@ -1282,7 +1282,7 @@ class SelectionSetTests: XCTestCase {
         .include(if: "a", .inlineFragment(IfA.self))
       ]}
 
-      var ifA: IfA? { _asInlineFragment(if: "a") }
+      var ifA: IfA? { _asInlineFragment() }
 
       class IfA: ConcreteMockTypeCase<Hero> {
         typealias Schema = MockSchemaMetadata

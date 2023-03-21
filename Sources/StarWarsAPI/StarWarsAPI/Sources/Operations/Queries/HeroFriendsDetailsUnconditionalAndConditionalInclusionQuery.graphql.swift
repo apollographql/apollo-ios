@@ -104,7 +104,7 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
         /// The name of the character
         public var name: String { __data["name"] }
 
-        public var ifIncludeFriendsDetails: IfIncludeFriendsDetails? { _asInlineFragment(if: "includeFriendsDetails") }
+        public var ifIncludeFriendsDetails: IfIncludeFriendsDetails? { _asInlineFragment() }
         public var asDroid: AsDroid? { _asInlineFragment() }
 
         public init(

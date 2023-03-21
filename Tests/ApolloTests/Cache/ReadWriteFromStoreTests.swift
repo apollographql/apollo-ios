@@ -1668,8 +1668,8 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
           .include(if: "b", .inlineFragment(IfB.self))
         ]}
 
-        var ifA: IfA? { _asInlineFragment(if: "a") }
-        var ifB: IfB? { _asInlineFragment(if: "b") }
+        var ifA: IfA? { _asInlineFragment() }
+        var ifB: IfB? { _asInlineFragment() }
 
         class IfA: ConcreteMockTypeCase<Hero> {
           typealias Schema = MockSchemaMetadata

@@ -60,13 +60,13 @@ public class HeroDetailsFragmentConditionalInclusionQuery: GraphQLQuery {
         .include(if: "includeDetails", .fragment(HeroDetails.self)),
       ] }
 
-      public var ifIncludeDetails: IfIncludeDetails? { _asInlineFragment(if: "includeDetails") }
+      public var ifIncludeDetails: IfIncludeDetails? { _asInlineFragment() }
 
       public struct Fragments: FragmentContainer {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public var heroDetails: HeroDetails? { _toFragment(if: "includeDetails") }
+        public var heroDetails: HeroDetails? { _toFragment() }
       }
 
       public init(
