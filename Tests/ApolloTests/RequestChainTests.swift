@@ -264,6 +264,36 @@ class RequestChainTests: XCTestCase {
     wait(for: [expectation], timeout: 1)
   }
 
+  func test__request__givenSubscription_whenTransportInitializedWithAdditionalHeaders_shouldOverwriteOnlyAcceptHeader() {
+    let expectation = self.expectation(description: "Request header verified")
+
+    let interceptor = CallbackInterceptor { request in
+      guard let header = request.allHTTPHeaderFields?["Accept"] else {
+        XCTFail()
+        return
+      }
+
+      XCTAssertEqual(header, "multipart/mixed; boundary=\"graphql\"; subscriptionSpec=1.0, application/json")
+      XCTAssertNotNil(request.allHTTPHeaderFields?["Random"])
+      expectation.fulfill()
+    }
+
+    let transport = RequestChainNetworkTransport(
+      interceptorProvider: MockInterceptorProvider([interceptor]),
+      endpointURL: URL(string: "https://apollographql.com")!,
+      additionalHeaders: [
+        "Accept": "multipart/mixed",
+        "Random": "still-here"
+      ]
+    )
+
+    _ = transport.send(operation: MockSubscription.mock()) { result in
+      // noop
+    }
+
+    wait(for: [expectation], timeout: 1)
+  }
+
   func test__request__givenQuery_shouldNotAddMultipartAcceptHeader() {
     let expectation = self.expectation(description: "Request header verified")
 
