@@ -35,7 +35,7 @@ public class HeroFriendsDetailsConditionalInclusionQuery: GraphQLQuery {
 
   public struct Data: StarWarsAPI.SelectionSet {
     public let __data: DataDict
-    public init(_data: DataDict) { __data = data }
+    public init(_data: DataDict) { __data = _data }
 
     public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Query }
     public static var __selections: [ApolloAPI.Selection] { [
@@ -61,7 +61,7 @@ public class HeroFriendsDetailsConditionalInclusionQuery: GraphQLQuery {
     /// Parent Type: `Character`
     public struct Hero: StarWarsAPI.SelectionSet {
       public let __data: DataDict
-      public init(_data: DataDict) { __data = data }
+      public init(_data: DataDict) { __data = _data }
 
       public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
       public static var __selections: [ApolloAPI.Selection] { [
@@ -93,7 +93,7 @@ public class HeroFriendsDetailsConditionalInclusionQuery: GraphQLQuery {
       /// Parent Type: `Character`
       public struct Friend: StarWarsAPI.SelectionSet {
         public let __data: DataDict
-        public init(_data: DataDict) { __data = data }
+        public init(_data: DataDict) { __data = _data }
 
         public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
         public static var __selections: [ApolloAPI.Selection] { [
@@ -131,7 +131,7 @@ public class HeroFriendsDetailsConditionalInclusionQuery: GraphQLQuery {
         /// Parent Type: `Droid`
         public struct AsDroid: StarWarsAPI.InlineFragment {
           public let __data: DataDict
-          public init(_data: DataDict) { __data = data }
+          public init(_data: DataDict) { __data = _data }
 
           public typealias RootEntityType = Hero.Friend
           public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Droid }

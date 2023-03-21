@@ -16,7 +16,7 @@ struct PetDetailsMutation: MySchemaModule.MutableSelectionSet, Fragment {
     """ }
 
   public var __data: DataDict
-  public init(_data: DataDict) { __data = data }
+  public init(_data: DataDict) { __data = _data }
 
   public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Interfaces.Pet }
   public static var __selections: [ApolloAPI.Selection] { [
@@ -50,7 +50,7 @@ struct PetDetailsMutation: MySchemaModule.MutableSelectionSet, Fragment {
   /// Parent Type: `Human`
   public struct Owner: MySchemaModule.MutableSelectionSet {
     public var __data: DataDict
-    public init(_data: DataDict) { __data = data }
+    public init(_data: DataDict) { __data = _data }
 
     public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Objects.Human }
     public static var __selections: [ApolloAPI.Selection] { [

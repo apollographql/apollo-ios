@@ -18,7 +18,7 @@ public struct ClassroomPetDetailsCCN: GraphQLAPI.SelectionSet, Fragment {
     """ }
 
   public let __data: DataDict
-  public init(_data: DataDict) { __data = data }
+  public init(_data: DataDict) { __data = _data }
 
   public static var __parentType: ApolloAPI.ParentType { GraphQLAPI.Unions.ClassroomPet }
   public static var __selections: [ApolloAPI.Selection] { [
@@ -32,7 +32,7 @@ public struct ClassroomPetDetailsCCN: GraphQLAPI.SelectionSet, Fragment {
   /// Parent Type: `Animal`
   public struct AsAnimal: GraphQLAPI.InlineFragment {
     public let __data: DataDict
-    public init(_data: DataDict) { __data = data }
+    public init(_data: DataDict) { __data = _data }
 
     public typealias RootEntityType = ClassroomPetDetailsCCN
     public static var __parentType: ApolloAPI.ParentType { GraphQLAPI.Interfaces.Animal }
@@ -47,7 +47,7 @@ public struct ClassroomPetDetailsCCN: GraphQLAPI.SelectionSet, Fragment {
     /// Parent Type: `Height`
     public struct Height: GraphQLAPI.SelectionSet {
       public let __data: DataDict
-      public init(_data: DataDict) { __data = data }
+      public init(_data: DataDict) { __data = _data }
 
       public static var __parentType: ApolloAPI.ParentType { GraphQLAPI.Objects.Height }
       public static var __selections: [ApolloAPI.Selection] { [

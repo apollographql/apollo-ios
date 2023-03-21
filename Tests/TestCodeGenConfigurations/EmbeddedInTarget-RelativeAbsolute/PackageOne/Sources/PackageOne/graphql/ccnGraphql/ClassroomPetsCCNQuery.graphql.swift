@@ -23,7 +23,7 @@ class ClassroomPetsCCNQuery: GraphQLQuery {
 
   public struct Data: MySchemaModule.SelectionSet {
     public let __data: DataDict
-    public init(_data: DataDict) { __data = data }
+    public init(_data: DataDict) { __data = _data }
 
     public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Objects.Query }
     public static var __selections: [ApolloAPI.Selection] { [
@@ -37,7 +37,7 @@ class ClassroomPetsCCNQuery: GraphQLQuery {
     /// Parent Type: `ClassroomPet`
     public struct ClassroomPet: MySchemaModule.SelectionSet {
       public let __data: DataDict
-      public init(_data: DataDict) { __data = data }
+      public init(_data: DataDict) { __data = _data }
 
       public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Unions.ClassroomPet }
       public static var __selections: [ApolloAPI.Selection] { [
@@ -48,7 +48,7 @@ class ClassroomPetsCCNQuery: GraphQLQuery {
 
       public struct Fragments: FragmentContainer {
         public let __data: DataDict
-        public init(_data: DataDict) { __data = data }
+        public init(_data: DataDict) { __data = _data }
 
         public var classroomPetDetailsCCN: ClassroomPetDetailsCCN { _toFragment() }
       }
@@ -58,7 +58,7 @@ class ClassroomPetsCCNQuery: GraphQLQuery {
       /// Parent Type: `Animal`
       public struct AsAnimal: MySchemaModule.InlineFragment {
         public let __data: DataDict
-        public init(_data: DataDict) { __data = data }
+        public init(_data: DataDict) { __data = _data }
 
         public typealias RootEntityType = ClassroomPet
         public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Interfaces.Animal }
@@ -67,7 +67,7 @@ class ClassroomPetsCCNQuery: GraphQLQuery {
 
         public struct Fragments: FragmentContainer {
           public let __data: DataDict
-          public init(_data: DataDict) { __data = data }
+          public init(_data: DataDict) { __data = _data }
 
           public var classroomPetDetailsCCN: ClassroomPetDetailsCCN { _toFragment() }
         }

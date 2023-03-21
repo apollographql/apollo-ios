@@ -37,7 +37,7 @@ public class CreateReviewForEpisodeMutation: GraphQLMutation {
 
   public struct Data: StarWarsAPI.SelectionSet {
     public let __data: DataDict
-    public init(_data: DataDict) { __data = data }
+    public init(_data: DataDict) { __data = _data }
 
     public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Mutation }
     public static var __selections: [ApolloAPI.Selection] { [
@@ -66,7 +66,7 @@ public class CreateReviewForEpisodeMutation: GraphQLMutation {
     /// Parent Type: `Review`
     public struct CreateReview: StarWarsAPI.SelectionSet {
       public let __data: DataDict
-      public init(_data: DataDict) { __data = data }
+      public init(_data: DataDict) { __data = _data }
 
       public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Review }
       public static var __selections: [ApolloAPI.Selection] { [

@@ -19,7 +19,7 @@ public extension MyGraphQLSchema {
       """ }
 
     public let __data: DataDict
-    public init(_data: DataDict) { __data = data }
+    public init(_data: DataDict) { __data = _data }
 
     public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Unions.ClassroomPet }
     public static var __selections: [ApolloAPI.Selection] { [
@@ -33,7 +33,7 @@ public extension MyGraphQLSchema {
     /// Parent Type: `Animal`
     public struct AsAnimal: MyGraphQLSchema.InlineFragment {
       public let __data: DataDict
-      public init(_data: DataDict) { __data = data }
+      public init(_data: DataDict) { __data = _data }
 
       public typealias RootEntityType = ClassroomPetDetailsCCN
       public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Interfaces.Animal }
@@ -48,7 +48,7 @@ public extension MyGraphQLSchema {
       /// Parent Type: `Height`
       public struct Height: MyGraphQLSchema.SelectionSet {
         public let __data: DataDict
-        public init(_data: DataDict) { __data = data }
+        public init(_data: DataDict) { __data = _data }
 
         public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Objects.Height }
         public static var __selections: [ApolloAPI.Selection] { [

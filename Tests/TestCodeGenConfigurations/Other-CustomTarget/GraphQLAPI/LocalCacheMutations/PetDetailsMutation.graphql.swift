@@ -15,7 +15,7 @@ public struct PetDetailsMutation: GraphQLAPI.MutableSelectionSet, Fragment {
     """ }
 
   public var __data: DataDict
-  public init(_data: DataDict) { __data = data }
+  public init(_data: DataDict) { __data = _data }
 
   public static var __parentType: ApolloAPI.ParentType { GraphQLAPI.Interfaces.Pet }
   public static var __selections: [ApolloAPI.Selection] { [
@@ -49,7 +49,7 @@ public struct PetDetailsMutation: GraphQLAPI.MutableSelectionSet, Fragment {
   /// Parent Type: `Human`
   public struct Owner: GraphQLAPI.MutableSelectionSet {
     public var __data: DataDict
-    public init(_data: DataDict) { __data = data }
+    public init(_data: DataDict) { __data = _data }
 
     public static var __parentType: ApolloAPI.ParentType { GraphQLAPI.Objects.Human }
     public static var __selections: [ApolloAPI.Selection] { [

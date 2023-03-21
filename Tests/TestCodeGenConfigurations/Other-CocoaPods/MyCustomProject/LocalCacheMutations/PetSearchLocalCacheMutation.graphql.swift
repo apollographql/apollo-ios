@@ -27,7 +27,7 @@ public class PetSearchLocalCacheMutation: LocalCacheMutation {
 
   public struct Data: MyCustomProject.MutableSelectionSet {
     public var __data: DataDict
-    public init(_data: DataDict) { __data = data }
+    public init(_data: DataDict) { __data = _data }
 
     public static var __parentType: Apollo.ParentType { MyCustomProject.Objects.Query }
     public static var __selections: [Apollo.Selection] { [
@@ -56,7 +56,7 @@ public class PetSearchLocalCacheMutation: LocalCacheMutation {
     /// Parent Type: `Pet`
     public struct Pet: MyCustomProject.MutableSelectionSet {
       public var __data: DataDict
-      public init(_data: DataDict) { __data = data }
+      public init(_data: DataDict) { __data = _data }
 
       public static var __parentType: Apollo.ParentType { MyCustomProject.Interfaces.Pet }
       public static var __selections: [Apollo.Selection] { [

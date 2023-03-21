@@ -116,7 +116,7 @@ struct SelectionSetTemplate {
   private func DataFieldAndInitializerTemplate() -> String {
     """
     public \(isMutable ? "var" : "let") __data: DataDict
-    public init(_data: DataDict) { __data = data }
+    public init(_data: DataDict) { __data = _data }
     """
   }
 

@@ -12,7 +12,7 @@ public struct HumanHeightWithVariable: StarWarsAPI.SelectionSet, Fragment {
     """ }
 
   public let __data: DataDict
-  public init(_data: DataDict) { __data = data }
+  public init(_data: DataDict) { __data = _data }
 
   public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Human }
   public static var __selections: [ApolloAPI.Selection] { [

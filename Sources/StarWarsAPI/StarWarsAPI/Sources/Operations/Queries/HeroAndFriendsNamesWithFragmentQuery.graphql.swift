@@ -30,7 +30,7 @@ public class HeroAndFriendsNamesWithFragmentQuery: GraphQLQuery {
 
   public struct Data: StarWarsAPI.SelectionSet {
     public let __data: DataDict
-    public init(_data: DataDict) { __data = data }
+    public init(_data: DataDict) { __data = _data }
 
     public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Query }
     public static var __selections: [ApolloAPI.Selection] { [
@@ -56,7 +56,7 @@ public class HeroAndFriendsNamesWithFragmentQuery: GraphQLQuery {
     /// Parent Type: `Character`
     public struct Hero: StarWarsAPI.SelectionSet {
       public let __data: DataDict
-      public init(_data: DataDict) { __data = data }
+      public init(_data: DataDict) { __data = _data }
 
       public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
       public static var __selections: [ApolloAPI.Selection] { [
@@ -71,7 +71,7 @@ public class HeroAndFriendsNamesWithFragmentQuery: GraphQLQuery {
 
       public struct Fragments: FragmentContainer {
         public let __data: DataDict
-        public init(_data: DataDict) { __data = data }
+        public init(_data: DataDict) { __data = _data }
 
         public var friendsNames: FriendsNames { _toFragment() }
       }

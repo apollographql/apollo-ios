@@ -78,7 +78,7 @@ class FragmentTemplateTests: XCTestCase {
         ""\" }
 
       public let __data: DataDict
-      public init(_data: DataDict) { __data = data }
+      public init(_data: DataDict) { __data = _data }
     """
 
     // when
@@ -305,7 +305,7 @@ class FragmentTemplateTests: XCTestCase {
         ""\" }
 
       public let __data: DataDict
-      public init(_data: DataDict) { __data = data }
+      public init(_data: DataDict) { __data = _data }
 
       public static var __parentType: ApolloAPI.ParentType { TestSchema.Objects.Animal }
       public static var __selections: [ApolloAPI.Selection] { [
@@ -591,7 +591,7 @@ class FragmentTemplateTests: XCTestCase {
     let expected =
     """
       public var __data: DataDict
-      public init(_data: DataDict) { __data = data }
+      public init(_data: DataDict) { __data = _data }
 
       public static var __parentType: ApolloAPI.ParentType { TestSchema.Objects.Query }
       public static var __selections: [ApolloAPI.Selection] { [

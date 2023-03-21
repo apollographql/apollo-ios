@@ -17,7 +17,7 @@ public struct AuthorDetails: GitHubAPI.SelectionSet, Fragment {
     """ }
 
   public let __data: DataDict
-  public init(_data: DataDict) { __data = data }
+  public init(_data: DataDict) { __data = _data }
 
   public static var __parentType: ApolloAPI.ParentType { GitHubAPI.Interfaces.Actor }
   public static var __selections: [ApolloAPI.Selection] { [
@@ -35,7 +35,7 @@ public struct AuthorDetails: GitHubAPI.SelectionSet, Fragment {
   /// Parent Type: `User`
   public struct AsUser: GitHubAPI.InlineFragment {
     public let __data: DataDict
-    public init(_data: DataDict) { __data = data }
+    public init(_data: DataDict) { __data = _data }
 
     public typealias RootEntityType = AuthorDetails
     public static var __parentType: ApolloAPI.ParentType { GitHubAPI.Objects.User }
