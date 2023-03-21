@@ -1403,11 +1403,11 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
       store.withinReadWriteTransaction({ transaction in
         let data = try! GivenSelectionSet(data:
-          ["hero": [
-            "__typename": "Droid",
-            "name": "Artoo"
-          ]],
-          variables: nil
+                                            ["hero": [
+                                              "__typename": "Droid",
+                                              "name": "Artoo"
+                                            ]],
+                                          variables: nil
         )
         let cacheMutation = MockLocalCacheMutationFromMutation<GivenSelectionSet>()
 
@@ -1470,7 +1470,6 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     store.withinReadWriteTransaction({ transaction in
       let data = GivenSelectionSet(
         _dataDict: .init(
-          objectType: Object(typename: "Hero", implementedInterfaces: []),
           data: ["hero": "name"]
         ))
       let cacheMutation = MockLocalCacheMutation<GivenSelectionSet>()
@@ -1527,9 +1526,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     store.withinReadWriteTransaction({ transaction in
       let data = GivenSelectionSet(
         _dataDict: .init(
-          objectType: Object(typename: "Query", implementedInterfaces: []),
           data: ["hero": DataDict(
-            objectType: Object(typename: "Hero", implementedInterfaces: []),
             data: [
               "__typename": "Hero",
               "name": Optional<String>.none
@@ -1598,11 +1595,11 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
       store.withinReadWriteTransaction({ transaction in
         let fragment = try! GivenFragment(data:
-          ["hero": [
-            "__typename": "Droid",
-            "name": "Artoo"
-          ]],
-          variables: nil
+                                            ["hero": [
+                                              "__typename": "Droid",
+                                              "name": "Artoo"
+                                            ]],
+                                          variables: nil
         )
 
         try transaction.write(selectionSet: fragment, withKey: CacheReference.RootQuery.key)
@@ -1656,13 +1653,10 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
         hero: Hero
       ) {
         let objectType = Types.Query
-        self.init(_dataDict: DataDict(
-          objectType: objectType,
-          data: [
-            "__typename": objectType.typename,
-            "hero": hero._fieldData
-          ]
-        ))
+        self.init(_dataDict: DataDict(data: [
+          "__typename": objectType.typename,
+          "hero": hero._fieldData
+        ]))
       }
 
       class Hero: MockSelectionSet {
@@ -1695,14 +1689,12 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
             other: String? = nil
           ) {
             let objectType = Types.Human
-            self.init(_dataDict: DataDict(
-              objectType: objectType,
-              data: [
-                "__typename": objectType.typename,
-                "name": name,
-                "friend": friend._fieldData,
-                "other": other
-              ]))
+            self.init(_dataDict: DataDict(data: [
+              "__typename": objectType.typename,
+              "name": name,
+              "friend": friend._fieldData,
+              "other": other
+            ]))
           }
 
           class Friend: MockSelectionSet {
@@ -1719,13 +1711,10 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
               name: String
             ) {
               let objectType = Types.Human
-              self.init(_dataDict: DataDict(
-                objectType: objectType,
-                data: [
-                  "__typename": objectType.typename,
-                  "name": name
-                ]
-              ))
+              self.init(_dataDict: DataDict(data: [
+                "__typename": objectType.typename,
+                "name": name
+              ]))
             }
 
           }
@@ -1738,11 +1727,9 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
           ]}
           convenience init() {
             let objectType = Types.Human
-            self.init(_dataDict: DataDict(
-              objectType: objectType,
-              data: [
-                "__typename": objectType.typename
-              ]))
+            self.init(_dataDict: DataDict(data: [
+              "__typename": objectType.typename
+            ]))
           }
         }
       }
@@ -1818,12 +1805,10 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       ) {
         let objectType = Types.Query
         self.init(_dataDict: DataDict(
-          objectType: objectType,
           data: [
             "__typename": objectType.typename,
             "hero": hero._fieldData
-          ]
-        ))
+          ]))
       }
 
       class Hero: MockSelectionSet {
@@ -1851,13 +1836,10 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
           ) {
             let objectType = Object(typename: __typename,
                                     implementedInterfaces: [Types.Character])
-            self.init(_dataDict: DataDict(
-              objectType: objectType,
-              data: [
-                "__typename": objectType.typename,
-                "name": name
-              ]
-            ))
+            self.init(_dataDict: DataDict(data: [
+              "__typename": objectType.typename,
+              "name": name
+            ]))
           }
         }
       }

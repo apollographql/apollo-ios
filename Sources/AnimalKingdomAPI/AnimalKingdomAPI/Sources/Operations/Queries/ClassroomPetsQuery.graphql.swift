@@ -35,12 +35,10 @@ public class ClassroomPetsQuery: GraphQLQuery {
       classroomPets: [ClassroomPet?]? = nil
     ) {
       let objectType = AnimalKingdomAPI.Objects.Query
-      self.init(_dataDict: DataDict(
-        objectType: objectType,
-        data: [
+      self.init(_dataDict: DataDict(data: [
           "__typename": objectType.typename,
           "classroomPets": classroomPets._fieldData
-      ]))
+        ]))
     }
 
     /// ClassroomPet
@@ -76,11 +74,9 @@ public class ClassroomPetsQuery: GraphQLQuery {
           typename: __typename,
           implementedInterfaces: [
         ])
-        self.init(_dataDict: DataDict(
-          objectType: objectType,
-          data: [
+        self.init(_dataDict: DataDict(data: [
             "__typename": objectType.typename,
-        ]))
+          ]))
       }
 
       /// ClassroomPet.AsAnimal
@@ -111,12 +107,10 @@ public class ClassroomPetsQuery: GraphQLQuery {
             implementedInterfaces: [
               AnimalKingdomAPI.Interfaces.Animal
           ])
-          self.init(_dataDict: DataDict(
-            objectType: objectType,
-            data: [
+          self.init(_dataDict: DataDict(data: [
               "__typename": objectType.typename,
               "species": species
-          ]))
+            ]))
         }
       }
 
@@ -148,12 +142,10 @@ public class ClassroomPetsQuery: GraphQLQuery {
             implementedInterfaces: [
               AnimalKingdomAPI.Interfaces.Pet
           ])
-          self.init(_dataDict: DataDict(
-            objectType: objectType,
-            data: [
+          self.init(_dataDict: DataDict(data: [
               "__typename": objectType.typename,
               "humanName": humanName
-          ]))
+            ]))
         }
       }
 
@@ -188,13 +180,11 @@ public class ClassroomPetsQuery: GraphQLQuery {
               AnimalKingdomAPI.Interfaces.WarmBlooded,
               AnimalKingdomAPI.Interfaces.Animal
           ])
-          self.init(_dataDict: DataDict(
-            objectType: objectType,
-            data: [
+          self.init(_dataDict: DataDict(data: [
               "__typename": objectType.typename,
               "species": species,
               "laysEggs": laysEggs
-          ]))
+            ]))
         }
       }
 
@@ -229,16 +219,14 @@ public class ClassroomPetsQuery: GraphQLQuery {
           isJellicle: Bool
         ) {
           let objectType = AnimalKingdomAPI.Objects.Cat
-          self.init(_dataDict: DataDict(
-            objectType: objectType,
-            data: [
+          self.init(_dataDict: DataDict(data: [
               "__typename": objectType.typename,
               "species": species,
               "humanName": humanName,
               "laysEggs": laysEggs,
               "bodyTemperature": bodyTemperature,
               "isJellicle": isJellicle
-          ]))
+            ]))
         }
       }
 
@@ -271,15 +259,13 @@ public class ClassroomPetsQuery: GraphQLQuery {
           wingspan: Double
         ) {
           let objectType = AnimalKingdomAPI.Objects.Bird
-          self.init(_dataDict: DataDict(
-            objectType: objectType,
-            data: [
+          self.init(_dataDict: DataDict(data: [
               "__typename": objectType.typename,
               "species": species,
               "humanName": humanName,
               "laysEggs": laysEggs,
               "wingspan": wingspan
-          ]))
+            ]))
         }
       }
 
@@ -308,13 +294,11 @@ public class ClassroomPetsQuery: GraphQLQuery {
           favoriteToy: String
         ) {
           let objectType = AnimalKingdomAPI.Objects.PetRock
-          self.init(_dataDict: DataDict(
-            objectType: objectType,
-            data: [
+          self.init(_dataDict: DataDict(data: [
               "__typename": objectType.typename,
               "humanName": humanName,
               "favoriteToy": favoriteToy
-          ]))
+            ]))
         }
       }
     }

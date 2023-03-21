@@ -42,12 +42,10 @@ public struct CharacterNameAndDroidPrimaryFunction: StarWarsAPI.SelectionSet, Fr
       implementedInterfaces: [
         StarWarsAPI.Interfaces.Character
     ])
-    self.init(_dataDict: DataDict(
-      objectType: objectType,
-      data: [
+    self.init(_dataDict: DataDict(data: [
         "__typename": objectType.typename,
         "name": name
-    ]))
+      ]))
   }
 
   /// AsDroid
@@ -81,13 +79,11 @@ public struct CharacterNameAndDroidPrimaryFunction: StarWarsAPI.SelectionSet, Fr
       primaryFunction: String? = nil
     ) {
       let objectType = StarWarsAPI.Objects.Droid
-      self.init(_dataDict: DataDict(
-        objectType: objectType,
-        data: [
+      self.init(_dataDict: DataDict(data: [
           "__typename": objectType.typename,
           "name": name,
           "primaryFunction": primaryFunction
-      ]))
+        ]))
     }
   }
 }

@@ -42,12 +42,10 @@ public class DroidDetailsWithFragmentQuery: GraphQLQuery {
       hero: Hero? = nil
     ) {
       let objectType = StarWarsAPI.Objects.Query
-      self.init(_dataDict: DataDict(
-        objectType: objectType,
-        data: [
+      self.init(_dataDict: DataDict(data: [
           "__typename": objectType.typename,
           "hero": hero._fieldData
-      ]))
+        ]))
     }
 
     /// Hero
@@ -72,11 +70,9 @@ public class DroidDetailsWithFragmentQuery: GraphQLQuery {
           implementedInterfaces: [
             StarWarsAPI.Interfaces.Character
         ])
-        self.init(_dataDict: DataDict(
-          objectType: objectType,
-          data: [
+        self.init(_dataDict: DataDict(data: [
             "__typename": objectType.typename,
-        ]))
+          ]))
       }
 
       /// Hero.AsDroid
@@ -109,13 +105,11 @@ public class DroidDetailsWithFragmentQuery: GraphQLQuery {
           primaryFunction: String? = nil
         ) {
           let objectType = StarWarsAPI.Objects.Droid
-          self.init(_dataDict: DataDict(
-            objectType: objectType,
-            data: [
+          self.init(_dataDict: DataDict(data: [
               "__typename": objectType.typename,
               "name": name,
               "primaryFunction": primaryFunction
-          ]))
+            ]))
         }
       }
     }

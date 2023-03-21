@@ -418,9 +418,7 @@ struct SelectionSetTemplate {
       \(InitializerSelectionParametersTemplate(selectionSet))
     ) {
       \(InitializerObjectType(selectionSet))
-      self.init(_dataDict: DataDict(
-        objectType: objectType,
-        data: [
+      self.init(_dataDict: DataDict(data: [
           \(InitializerDataDictTemplate(selectionSet.selections))
         ]))
     }

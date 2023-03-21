@@ -45,12 +45,10 @@ public class HeroDetailsInlineConditionalInclusionQuery: GraphQLQuery {
       hero: Hero? = nil
     ) {
       let objectType = StarWarsAPI.Objects.Query
-      self.init(_dataDict: DataDict(
-        objectType: objectType,
-        data: [
+      self.init(_dataDict: DataDict(data: [
           "__typename": objectType.typename,
           "hero": hero._fieldData
-      ]))
+        ]))
     }
 
     /// Hero
@@ -75,11 +73,9 @@ public class HeroDetailsInlineConditionalInclusionQuery: GraphQLQuery {
           implementedInterfaces: [
             StarWarsAPI.Interfaces.Character
         ])
-        self.init(_dataDict: DataDict(
-          objectType: objectType,
-          data: [
+        self.init(_dataDict: DataDict(data: [
             "__typename": objectType.typename,
-        ]))
+          ]))
       }
 
       /// Hero.IfIncludeDetails
@@ -111,13 +107,11 @@ public class HeroDetailsInlineConditionalInclusionQuery: GraphQLQuery {
             implementedInterfaces: [
               StarWarsAPI.Interfaces.Character
           ])
-          self.init(_dataDict: DataDict(
-            objectType: objectType,
-            data: [
+          self.init(_dataDict: DataDict(data: [
               "__typename": objectType.typename,
               "name": name,
               "appearsIn": appearsIn
-          ]))
+            ]))
         }
       }
     }

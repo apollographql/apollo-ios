@@ -43,12 +43,10 @@ public class ReviewAddedSubscription: GraphQLSubscription {
       reviewAdded: ReviewAdded? = nil
     ) {
       let objectType = StarWarsAPI.Objects.Subscription
-      self.init(_dataDict: DataDict(
-        objectType: objectType,
-        data: [
+      self.init(_dataDict: DataDict(data: [
           "__typename": objectType.typename,
           "reviewAdded": reviewAdded._fieldData
-      ]))
+        ]))
     }
 
     /// ReviewAdded
@@ -78,14 +76,12 @@ public class ReviewAddedSubscription: GraphQLSubscription {
         commentary: String? = nil
       ) {
         let objectType = StarWarsAPI.Objects.Review
-        self.init(_dataDict: DataDict(
-          objectType: objectType,
-          data: [
+        self.init(_dataDict: DataDict(data: [
             "__typename": objectType.typename,
             "episode": episode,
             "stars": stars,
             "commentary": commentary
-        ]))
+          ]))
       }
     }
   }

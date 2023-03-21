@@ -78,7 +78,7 @@ public class Mock<O: MockObject>: AnyMock, Hashable {
 
 public extension SelectionSet {
 #warning("""
-Variables are not used here anymore, and fulfilled fragments are not calculated.
+ObjectType and Variables are not used here anymore, and fulfilled fragments are not calculated.
 Probably should use the init(data) initializer?
 Make sure there are tests for the type/include conversions with test mocks
 """)
@@ -87,7 +87,6 @@ Make sure there are tests for the type/include conversions with test mocks
     withVariables variables: GraphQLOperation.Variables? = nil
   ) -> Self {
     Self.init(_dataDict: DataDict(
-      objectType: O.objectType,
       data: mock._selectionSetMockData
     ))
   }

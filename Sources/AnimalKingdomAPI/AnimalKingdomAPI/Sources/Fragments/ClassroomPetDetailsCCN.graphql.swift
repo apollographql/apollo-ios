@@ -33,11 +33,9 @@ public struct ClassroomPetDetailsCCN: AnimalKingdomAPI.SelectionSet, Fragment {
       typename: __typename,
       implementedInterfaces: [
     ])
-    self.init(_dataDict: DataDict(
-      objectType: objectType,
-      data: [
+    self.init(_dataDict: DataDict(data: [
         "__typename": objectType.typename,
-    ]))
+      ]))
   }
 
   /// AsAnimal
@@ -64,12 +62,10 @@ public struct ClassroomPetDetailsCCN: AnimalKingdomAPI.SelectionSet, Fragment {
         implementedInterfaces: [
           AnimalKingdomAPI.Interfaces.Animal
       ])
-      self.init(_dataDict: DataDict(
-        objectType: objectType,
-        data: [
+      self.init(_dataDict: DataDict(data: [
           "__typename": objectType.typename,
           "height": height._fieldData
-      ]))
+        ]))
     }
 
     /// AsAnimal.Height
@@ -90,12 +86,10 @@ public struct ClassroomPetDetailsCCN: AnimalKingdomAPI.SelectionSet, Fragment {
         inches: Int
       ) {
         let objectType = AnimalKingdomAPI.Objects.Height
-        self.init(_dataDict: DataDict(
-          objectType: objectType,
-          data: [
+        self.init(_dataDict: DataDict(data: [
             "__typename": objectType.typename,
             "inches": inches
-        ]))
+          ]))
       }
     }
   }

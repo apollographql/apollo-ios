@@ -41,14 +41,12 @@ public struct PetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
       implementedInterfaces: [
         AnimalKingdomAPI.Interfaces.Pet
     ])
-    self.init(_dataDict: DataDict(
-      objectType: objectType,
-      data: [
+    self.init(_dataDict: DataDict(data: [
         "__typename": objectType.typename,
         "humanName": humanName,
         "favoriteToy": favoriteToy,
         "owner": owner._fieldData
-    ]))
+      ]))
   }
 
   /// Owner
@@ -69,12 +67,10 @@ public struct PetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
       firstName: String
     ) {
       let objectType = AnimalKingdomAPI.Objects.Human
-      self.init(_dataDict: DataDict(
-        objectType: objectType,
-        data: [
+      self.init(_dataDict: DataDict(data: [
           "__typename": objectType.typename,
           "firstName": firstName
-      ]))
+        ]))
     }
   }
 }

@@ -42,11 +42,9 @@ public struct CharacterNameWithInlineFragment: StarWarsAPI.SelectionSet, Fragmen
       implementedInterfaces: [
         StarWarsAPI.Interfaces.Character
     ])
-    self.init(_dataDict: DataDict(
-      objectType: objectType,
-      data: [
+    self.init(_dataDict: DataDict(data: [
         "__typename": objectType.typename,
-    ]))
+      ]))
   }
 
   /// AsHuman
@@ -69,12 +67,10 @@ public struct CharacterNameWithInlineFragment: StarWarsAPI.SelectionSet, Fragmen
       friends: [Friend?]? = nil
     ) {
       let objectType = StarWarsAPI.Objects.Human
-      self.init(_dataDict: DataDict(
-        objectType: objectType,
-        data: [
+      self.init(_dataDict: DataDict(data: [
           "__typename": objectType.typename,
           "friends": friends._fieldData
-      ]))
+        ]))
     }
 
     /// AsHuman.Friend
@@ -101,12 +97,10 @@ public struct CharacterNameWithInlineFragment: StarWarsAPI.SelectionSet, Fragmen
           implementedInterfaces: [
             StarWarsAPI.Interfaces.Character
         ])
-        self.init(_dataDict: DataDict(
-          objectType: objectType,
-          data: [
+        self.init(_dataDict: DataDict(data: [
             "__typename": objectType.typename,
             "appearsIn": appearsIn
-        ]))
+          ]))
       }
     }
   }
@@ -143,13 +137,11 @@ public struct CharacterNameWithInlineFragment: StarWarsAPI.SelectionSet, Fragmen
       friends: [FriendsNames.Friend?]? = nil
     ) {
       let objectType = StarWarsAPI.Objects.Droid
-      self.init(_dataDict: DataDict(
-        objectType: objectType,
-        data: [
+      self.init(_dataDict: DataDict(data: [
           "__typename": objectType.typename,
           "name": name,
           "friends": friends._fieldData
-      ]))
+        ]))
     }
   }
 }

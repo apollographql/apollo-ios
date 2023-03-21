@@ -70,17 +70,7 @@ final class GraphQLSelectionSetMapper<T: SelectionSet>: GraphQLResultAccumulator
   ) throws -> DataDict {
     var data = JSONObject.init(fieldEntries, uniquingKeysWith: { (_, last) in last })
     data["__fulfilled"] = info.fulfilledFragments
-    return DataDict(
-      objectType: runtimeObjectType(for: data),
-      data: data      
-    )
-  }
-
-  private func runtimeObjectType(for json: JSONObject) -> Object? {
-    guard let __typename = json["__typename"] as? String else {
-      return nil
-    }
-    return T.Schema.objectType(forTypename: __typename)
+    return DataDict(data: data)
   }
 
   func finish(rootValue: DataDict, info: ObjectExecutionInfo) -> T {

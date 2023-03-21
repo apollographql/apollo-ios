@@ -38,12 +38,10 @@ public struct CharacterNameAndDroidAppearsIn: StarWarsAPI.SelectionSet, Fragment
       implementedInterfaces: [
         StarWarsAPI.Interfaces.Character
     ])
-    self.init(_dataDict: DataDict(
-      objectType: objectType,
-      data: [
+    self.init(_dataDict: DataDict(data: [
         "__typename": objectType.typename,
         "name": name
-    ]))
+      ]))
   }
 
   /// AsDroid
@@ -69,13 +67,11 @@ public struct CharacterNameAndDroidAppearsIn: StarWarsAPI.SelectionSet, Fragment
       name: String
     ) {
       let objectType = StarWarsAPI.Objects.Droid
-      self.init(_dataDict: DataDict(
-        objectType: objectType,
-        data: [
+      self.init(_dataDict: DataDict(data: [
           "__typename": objectType.typename,
           "appearsIn": appearsIn,
           "name": name
-      ]))
+        ]))
     }
   }
 }

@@ -38,12 +38,10 @@ public class DogQuery: GraphQLQuery {
       allAnimals: [AllAnimal]
     ) {
       let objectType = AnimalKingdomAPI.Objects.Query
-      self.init(_dataDict: DataDict(
-        objectType: objectType,
-        data: [
+      self.init(_dataDict: DataDict(data: [
           "__typename": objectType.typename,
           "allAnimals": allAnimals._fieldData
-      ]))
+        ]))
     }
 
     /// AllAnimal
@@ -72,12 +70,10 @@ public class DogQuery: GraphQLQuery {
           implementedInterfaces: [
             AnimalKingdomAPI.Interfaces.Animal
         ])
-        self.init(_dataDict: DataDict(
-          objectType: objectType,
-          data: [
+        self.init(_dataDict: DataDict(data: [
             "__typename": objectType.typename,
             "id": id
-        ]))
+          ]))
       }
 
       /// AllAnimal.AsDog
@@ -108,13 +104,11 @@ public class DogQuery: GraphQLQuery {
           species: String
         ) {
           let objectType = AnimalKingdomAPI.Objects.Dog
-          self.init(_dataDict: DataDict(
-            objectType: objectType,
-            data: [
+          self.init(_dataDict: DataDict(data: [
               "__typename": objectType.typename,
               "id": id,
               "species": species
-          ]))
+            ]))
         }
       }
     }

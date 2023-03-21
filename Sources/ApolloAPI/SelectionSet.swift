@@ -63,7 +63,8 @@ extension SelectionSet {
 
   @inlinable public static var __selections: [Selection] { [] }
 
-  @inlinable public var __objectType: Object? { __data._objectType }
+  #warning("TODO: delete?")
+//  @inlinable public var __objectType: Object? { Schema.objectType(forTypename: __typename) }
 
   @inlinable public var __typename: String { __data["__typename"] }
 

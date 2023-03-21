@@ -26,12 +26,10 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
       allAnimals: [AllAnimal]
     ) {
       let objectType = AnimalKingdomAPI.Objects.Query
-      self.init(_dataDict: DataDict(
-        objectType: objectType,
-        data: [
+      self.init(_dataDict: DataDict(data: [
           "__typename": objectType.typename,
           "allAnimals": allAnimals._fieldData
-      ]))
+        ]))
     }
 
     /// AllAnimal
@@ -72,13 +70,11 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
           implementedInterfaces: [
             AnimalKingdomAPI.Interfaces.Animal
         ])
-        self.init(_dataDict: DataDict(
-          objectType: objectType,
-          data: [
+        self.init(_dataDict: DataDict(data: [
             "__typename": objectType.typename,
             "species": species,
             "skinCovering": skinCovering
-        ]))
+          ]))
       }
 
       /// AllAnimal.AsBird
@@ -113,14 +109,12 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
           skinCovering: GraphQLEnum<AnimalKingdomAPI.SkinCovering>? = nil
         ) {
           let objectType = AnimalKingdomAPI.Objects.Bird
-          self.init(_dataDict: DataDict(
-            objectType: objectType,
-            data: [
+          self.init(_dataDict: DataDict(data: [
               "__typename": objectType.typename,
               "wingspan": wingspan,
               "species": species,
               "skinCovering": skinCovering
-          ]))
+            ]))
         }
       }
     }

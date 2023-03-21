@@ -55,12 +55,10 @@ public class SearchQuery: GraphQLQuery {
       search: [Search?]? = nil
     ) {
       let objectType = StarWarsAPI.Objects.Query
-      self.init(_dataDict: DataDict(
-        objectType: objectType,
-        data: [
+      self.init(_dataDict: DataDict(data: [
           "__typename": objectType.typename,
           "search": search._fieldData
-      ]))
+        ]))
     }
 
     /// Search
@@ -88,11 +86,9 @@ public class SearchQuery: GraphQLQuery {
           typename: __typename,
           implementedInterfaces: [
         ])
-        self.init(_dataDict: DataDict(
-          objectType: objectType,
-          data: [
+        self.init(_dataDict: DataDict(data: [
             "__typename": objectType.typename,
-        ]))
+          ]))
       }
 
       /// Search.AsHuman
@@ -119,13 +115,11 @@ public class SearchQuery: GraphQLQuery {
           name: String
         ) {
           let objectType = StarWarsAPI.Objects.Human
-          self.init(_dataDict: DataDict(
-            objectType: objectType,
-            data: [
+          self.init(_dataDict: DataDict(data: [
               "__typename": objectType.typename,
               "id": id,
               "name": name
-          ]))
+            ]))
         }
       }
 
@@ -153,13 +147,11 @@ public class SearchQuery: GraphQLQuery {
           name: String
         ) {
           let objectType = StarWarsAPI.Objects.Droid
-          self.init(_dataDict: DataDict(
-            objectType: objectType,
-            data: [
+          self.init(_dataDict: DataDict(data: [
               "__typename": objectType.typename,
               "id": id,
               "name": name
-          ]))
+            ]))
         }
       }
 
@@ -187,13 +179,11 @@ public class SearchQuery: GraphQLQuery {
           name: String
         ) {
           let objectType = StarWarsAPI.Objects.Starship
-          self.init(_dataDict: DataDict(
-            objectType: objectType,
-            data: [
+          self.init(_dataDict: DataDict(data: [
               "__typename": objectType.typename,
               "id": id,
               "name": name
-          ]))
+            ]))
         }
       }
     }

@@ -56,11 +56,9 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
       typename: __typename,
       implementedInterfaces: [
     ])
-    self.init(_dataDict: DataDict(
-      objectType: objectType,
-      data: [
+    self.init(_dataDict: DataDict(data: [
         "__typename": objectType.typename,
-    ]))
+      ]))
   }
 
   /// AsAnimal
@@ -87,12 +85,10 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
         implementedInterfaces: [
           AnimalKingdomAPI.Interfaces.Animal
       ])
-      self.init(_dataDict: DataDict(
-        objectType: objectType,
-        data: [
+      self.init(_dataDict: DataDict(data: [
           "__typename": objectType.typename,
           "species": species
-      ]))
+        ]))
     }
   }
 
@@ -120,12 +116,10 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
         implementedInterfaces: [
           AnimalKingdomAPI.Interfaces.Pet
       ])
-      self.init(_dataDict: DataDict(
-        objectType: objectType,
-        data: [
+      self.init(_dataDict: DataDict(data: [
           "__typename": objectType.typename,
           "humanName": humanName
-      ]))
+        ]))
     }
   }
 
@@ -156,13 +150,11 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
           AnimalKingdomAPI.Interfaces.WarmBlooded,
           AnimalKingdomAPI.Interfaces.Animal
       ])
-      self.init(_dataDict: DataDict(
-        objectType: objectType,
-        data: [
+      self.init(_dataDict: DataDict(data: [
           "__typename": objectType.typename,
           "laysEggs": laysEggs,
           "species": species
-      ]))
+        ]))
     }
   }
 
@@ -194,16 +186,14 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
       laysEggs: Bool
     ) {
       let objectType = AnimalKingdomAPI.Objects.Cat
-      self.init(_dataDict: DataDict(
-        objectType: objectType,
-        data: [
+      self.init(_dataDict: DataDict(data: [
           "__typename": objectType.typename,
           "bodyTemperature": bodyTemperature,
           "isJellicle": isJellicle,
           "species": species,
           "humanName": humanName,
           "laysEggs": laysEggs
-      ]))
+        ]))
     }
   }
 
@@ -232,15 +222,13 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
       laysEggs: Bool
     ) {
       let objectType = AnimalKingdomAPI.Objects.Bird
-      self.init(_dataDict: DataDict(
-        objectType: objectType,
-        data: [
+      self.init(_dataDict: DataDict(data: [
           "__typename": objectType.typename,
           "wingspan": wingspan,
           "species": species,
           "humanName": humanName,
           "laysEggs": laysEggs
-      ]))
+        ]))
     }
   }
 
@@ -265,13 +253,11 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
       humanName: String? = nil
     ) {
       let objectType = AnimalKingdomAPI.Objects.PetRock
-      self.init(_dataDict: DataDict(
-        objectType: objectType,
-        data: [
+      self.init(_dataDict: DataDict(data: [
           "__typename": objectType.typename,
           "favoriteToy": favoriteToy,
           "humanName": humanName
-      ]))
+        ]))
     }
   }
 }

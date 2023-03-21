@@ -31,11 +31,9 @@ public struct CharacterAppearsIn: StarWarsAPI.SelectionSet, Fragment {
       implementedInterfaces: [
         StarWarsAPI.Interfaces.Character
     ])
-    self.init(_dataDict: DataDict(
-      objectType: objectType,
-      data: [
+    self.init(_dataDict: DataDict(data: [
         "__typename": objectType.typename,
         "appearsIn": appearsIn
-    ]))
+      ]))
   }
 }

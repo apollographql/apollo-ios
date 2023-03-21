@@ -42,13 +42,11 @@ public class TwoHeroesQuery: GraphQLQuery {
       luke: Luke? = nil
     ) {
       let objectType = StarWarsAPI.Objects.Query
-      self.init(_dataDict: DataDict(
-        objectType: objectType,
-        data: [
+      self.init(_dataDict: DataDict(data: [
           "__typename": objectType.typename,
           "r2": r2._fieldData,
           "luke": luke._fieldData
-      ]))
+        ]))
     }
 
     /// R2
@@ -75,12 +73,10 @@ public class TwoHeroesQuery: GraphQLQuery {
           implementedInterfaces: [
             StarWarsAPI.Interfaces.Character
         ])
-        self.init(_dataDict: DataDict(
-          objectType: objectType,
-          data: [
+        self.init(_dataDict: DataDict(data: [
             "__typename": objectType.typename,
             "name": name
-        ]))
+          ]))
       }
     }
 
@@ -108,12 +104,10 @@ public class TwoHeroesQuery: GraphQLQuery {
           implementedInterfaces: [
             StarWarsAPI.Interfaces.Character
         ])
-        self.init(_dataDict: DataDict(
-          objectType: objectType,
-          data: [
+        self.init(_dataDict: DataDict(data: [
             "__typename": objectType.typename,
             "name": name
-        ]))
+          ]))
       }
     }
   }

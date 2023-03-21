@@ -52,12 +52,10 @@ public class PetSearchQuery: GraphQLQuery {
       pets: [Pet]
     ) {
       let objectType = AnimalKingdomAPI.Objects.Query
-      self.init(_dataDict: DataDict(
-        objectType: objectType,
-        data: [
+      self.init(_dataDict: DataDict(data: [
           "__typename": objectType.typename,
           "pets": pets._fieldData
-      ]))
+        ]))
     }
 
     /// Pet
@@ -86,13 +84,11 @@ public class PetSearchQuery: GraphQLQuery {
           implementedInterfaces: [
             AnimalKingdomAPI.Interfaces.Pet
         ])
-        self.init(_dataDict: DataDict(
-          objectType: objectType,
-          data: [
+        self.init(_dataDict: DataDict(data: [
             "__typename": objectType.typename,
             "id": id,
             "humanName": humanName
-        ]))
+          ]))
       }
     }
   }

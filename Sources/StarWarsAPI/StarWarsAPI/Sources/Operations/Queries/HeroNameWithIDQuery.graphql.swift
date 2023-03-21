@@ -42,12 +42,10 @@ public class HeroNameWithIDQuery: GraphQLQuery {
       hero: Hero? = nil
     ) {
       let objectType = StarWarsAPI.Objects.Query
-      self.init(_dataDict: DataDict(
-        objectType: objectType,
-        data: [
+      self.init(_dataDict: DataDict(data: [
           "__typename": objectType.typename,
           "hero": hero._fieldData
-      ]))
+        ]))
     }
 
     /// Hero
@@ -78,13 +76,11 @@ public class HeroNameWithIDQuery: GraphQLQuery {
           implementedInterfaces: [
             StarWarsAPI.Interfaces.Character
         ])
-        self.init(_dataDict: DataDict(
-          objectType: objectType,
-          data: [
+        self.init(_dataDict: DataDict(data: [
             "__typename": objectType.typename,
             "id": id,
             "name": name
-        ]))
+          ]))
       }
     }
   }

@@ -48,12 +48,10 @@ public class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
       hero: Hero? = nil
     ) {
       let objectType = StarWarsAPI.Objects.Query
-      self.init(_dataDict: DataDict(
-        objectType: objectType,
-        data: [
+      self.init(_dataDict: DataDict(data: [
           "__typename": objectType.typename,
           "hero": hero._fieldData
-      ]))
+        ]))
     }
 
     /// Hero
@@ -80,11 +78,9 @@ public class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
           implementedInterfaces: [
             StarWarsAPI.Interfaces.Character
         ])
-        self.init(_dataDict: DataDict(
-          objectType: objectType,
-          data: [
+        self.init(_dataDict: DataDict(data: [
             "__typename": objectType.typename,
-        ]))
+          ]))
       }
 
       /// Hero.AsHuman
@@ -107,12 +103,10 @@ public class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
           property: String? = nil
         ) {
           let objectType = StarWarsAPI.Objects.Human
-          self.init(_dataDict: DataDict(
-            objectType: objectType,
-            data: [
+          self.init(_dataDict: DataDict(data: [
               "__typename": objectType.typename,
               "property": property
-          ]))
+            ]))
         }
       }
 
@@ -136,12 +130,10 @@ public class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
           property: String? = nil
         ) {
           let objectType = StarWarsAPI.Objects.Droid
-          self.init(_dataDict: DataDict(
-            objectType: objectType,
-            data: [
+          self.init(_dataDict: DataDict(data: [
               "__typename": objectType.typename,
               "property": property
-          ]))
+            ]))
         }
       }
     }

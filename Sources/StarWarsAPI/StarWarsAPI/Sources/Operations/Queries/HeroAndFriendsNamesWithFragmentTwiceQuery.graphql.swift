@@ -52,12 +52,10 @@ public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
       hero: Hero? = nil
     ) {
       let objectType = StarWarsAPI.Objects.Query
-      self.init(_dataDict: DataDict(
-        objectType: objectType,
-        data: [
+      self.init(_dataDict: DataDict(data: [
           "__typename": objectType.typename,
           "hero": hero._fieldData
-      ]))
+        ]))
     }
 
     /// Hero
@@ -87,12 +85,10 @@ public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
           implementedInterfaces: [
             StarWarsAPI.Interfaces.Character
         ])
-        self.init(_dataDict: DataDict(
-          objectType: objectType,
-          data: [
+        self.init(_dataDict: DataDict(data: [
             "__typename": objectType.typename,
             "friends": friends._fieldData
-        ]))
+          ]))
       }
 
       /// Hero.Friend
@@ -126,12 +122,10 @@ public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
             implementedInterfaces: [
               StarWarsAPI.Interfaces.Character
           ])
-          self.init(_dataDict: DataDict(
-            objectType: objectType,
-            data: [
+          self.init(_dataDict: DataDict(data: [
               "__typename": objectType.typename,
               "name": name
-          ]))
+            ]))
         }
       }
 
@@ -155,12 +149,10 @@ public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
           friends: [Friend?]? = nil
         ) {
           let objectType = StarWarsAPI.Objects.Droid
-          self.init(_dataDict: DataDict(
-            objectType: objectType,
-            data: [
+          self.init(_dataDict: DataDict(data: [
               "__typename": objectType.typename,
               "friends": friends._fieldData
-          ]))
+            ]))
         }
 
         /// Hero.AsDroid.Friend
@@ -194,12 +186,10 @@ public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
               implementedInterfaces: [
                 StarWarsAPI.Interfaces.Character
             ])
-            self.init(_dataDict: DataDict(
-              objectType: objectType,
-              data: [
+            self.init(_dataDict: DataDict(data: [
                 "__typename": objectType.typename,
                 "name": name
-            ]))
+              ]))
           }
         }
       }

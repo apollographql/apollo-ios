@@ -38,12 +38,10 @@ public class AllAnimalsCCNQuery: GraphQLQuery {
       allAnimals: [AllAnimal]
     ) {
       let objectType = AnimalKingdomAPI.Objects.Query
-      self.init(_dataDict: DataDict(
-        objectType: objectType,
-        data: [
+      self.init(_dataDict: DataDict(data: [
           "__typename": objectType.typename,
           "allAnimals": allAnimals._fieldData
-      ]))
+        ]))
     }
 
     /// AllAnimal
@@ -69,12 +67,10 @@ public class AllAnimalsCCNQuery: GraphQLQuery {
           implementedInterfaces: [
             AnimalKingdomAPI.Interfaces.Animal
         ])
-        self.init(_dataDict: DataDict(
-          objectType: objectType,
-          data: [
+        self.init(_dataDict: DataDict(data: [
             "__typename": objectType.typename,
             "height": height._fieldData
-        ]))
+          ]))
       }
 
       /// AllAnimal.Height
@@ -98,13 +94,11 @@ public class AllAnimalsCCNQuery: GraphQLQuery {
           inches: Int
         ) {
           let objectType = AnimalKingdomAPI.Objects.Height
-          self.init(_dataDict: DataDict(
-            objectType: objectType,
-            data: [
+          self.init(_dataDict: DataDict(data: [
               "__typename": objectType.typename,
               "feet": feet,
               "inches": inches
-          ]))
+            ]))
         }
       }
     }

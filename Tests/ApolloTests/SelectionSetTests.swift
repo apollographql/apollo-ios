@@ -923,7 +923,6 @@ class SelectionSetTests: XCTestCase {
             implementedInterfaces: [Types.Animal]
           )
           self.init(_dataDict: DataDict(
-            objectType: objectType,
             data: [
               "__typename": objectType.typename,
               "name": name
@@ -970,13 +969,10 @@ class SelectionSetTests: XCTestCase {
         hero: Hero
       ) {
         let objectType = Types.Query
-        self.init(_dataDict: DataDict(
-          objectType: objectType,
-          data: [
-            "__typename": objectType.typename,
-            "hero": hero._fieldData
-          ]
-        ))
+        self.init(_dataDict: DataDict(data: [
+          "__typename": objectType.typename,
+          "hero": hero._fieldData
+        ]))
       }
 
       class Hero: MockSelectionSet {
@@ -1006,13 +1002,10 @@ class SelectionSetTests: XCTestCase {
               typename: __typename,
               implementedInterfaces: [Types.Animal]
             )
-            self.init(_dataDict: DataDict(
-              objectType: objectType,
-              data: [
-                "__typename": objectType.typename,
-                "name": name
-              ]
-            ))
+            self.init(_dataDict: DataDict(data: [
+              "__typename": objectType.typename,
+              "name": name
+            ]))
           }
         }
       }
@@ -1064,12 +1057,10 @@ class SelectionSetTests: XCTestCase {
           name: String
         ) {
           let objectType = Types.Human
-          self.init(_dataDict: DataDict(
-            objectType: objectType,
-            data: [
-              "__typename": objectType.typename,
-              "name": name
-            ]))
+          self.init(_dataDict: DataDict(data: [
+            "__typename": objectType.typename,
+            "name": name
+          ]))
         }
       }
 
@@ -1119,12 +1110,10 @@ class SelectionSetTests: XCTestCase {
           name: String
         ) {
           let objectType = Types.Human
-          self.init(_dataDict: DataDict(
-            objectType: objectType,
-            data: [
-              "__typename": objectType.typename,
-              "name": name
-            ]))
+          self.init(_dataDict: DataDict(data: [
+            "__typename": objectType.typename,
+            "name": name
+          ]))
         }
       }
       class IfB: ConcreteMockTypeCase<Hero> {
@@ -1171,13 +1160,11 @@ class SelectionSetTests: XCTestCase {
         hero: Hero
       ) {
         let objectType = Types.Query
-        self.init(_dataDict: DataDict(
-          objectType: objectType,
-          data: [
-            "__typename": objectType.typename,
-            "hero": hero._fieldData
-          ]
-        ))
+        self.init(_dataDict: DataDict(data: [
+          "__typename": objectType.typename,
+          "hero": hero._fieldData
+        ]
+                                     ))
       }
 
       class Hero: MockSelectionSet {
@@ -1207,13 +1194,11 @@ class SelectionSetTests: XCTestCase {
             friend: Friend? = nil
           ) {
             let objectType = Types.Human
-            self.init(_dataDict: DataDict(
-              objectType: objectType,
-              data: [
-                "__typename": objectType.typename,
-                "name": name,
-                "friend": friend._fieldData
-              ]))
+            self.init(_dataDict: DataDict(data: [
+              "__typename": objectType.typename,
+              "name": name,
+              "friend": friend._fieldData
+            ]))
           }
 
           class Friend: MockSelectionSet {
@@ -1238,12 +1223,10 @@ class SelectionSetTests: XCTestCase {
                 name: String
               ) {
                 let objectType = Types.Human
-                self.init(_dataDict: DataDict(
-                  objectType: objectType,
-                  data: [
-                    "__typename": objectType.typename,
-                    "name": name
-                  ]))
+                self.init(_dataDict: DataDict(data: [
+                  "__typename": objectType.typename,
+                  "name": name
+                ]))
               }
             }
           }
@@ -1252,15 +1235,13 @@ class SelectionSetTests: XCTestCase {
         class IfB: ConcreteMockTypeCase<Hero> {
           typealias Schema = MockSchemaMetadata
           override class var __parentType: ParentType { Types.Human }
-          override class var __selections: [Selection] {[
-          ]}
+          override class var __selections: [Selection] {[]}
+
           convenience init() {
             let objectType = Types.Human
-            self.init(_dataDict: DataDict(
-              objectType: objectType,
-              data: [
-                "__typename": objectType.typename
-              ]))
+            self.init(_dataDict: DataDict(data: [
+              "__typename": objectType.typename
+            ]))
           }
         }
       }
@@ -1315,12 +1296,10 @@ class SelectionSetTests: XCTestCase {
           name: String
         ) {
           let objectType = Types.Human
-          self.init(_dataDict: DataDict(
-            objectType: objectType,
-            data: [
-              "__typename": objectType.typename,
-              "name": name
-            ]))
+          self.init(_dataDict: DataDict(data: [
+            "__typename": objectType.typename,
+            "name": name
+          ]))
         }
       }
 
@@ -1362,13 +1341,10 @@ class SelectionSetTests: XCTestCase {
         name: String? = nil
       ) {
         let objectType = Types.Human
-        self.init(_dataDict: DataDict(
-          objectType: objectType,
-          data: [
-            "__typename": objectType.typename,
-            "name": name
-          ]
-        ))
+        self.init(_dataDict: DataDict(data: [
+          "__typename": objectType.typename,
+          "name": name
+        ]))
       }
     }
 

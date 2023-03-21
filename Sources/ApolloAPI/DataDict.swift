@@ -18,15 +18,10 @@ public struct DataDict: Hashable {
   /// the `Apollo` library.
   public typealias SelectionSetData = [String: AnyHashable]
 
-  public let _objectType: Object?
   public var _data: SelectionSetData
 
-  public init(
-    objectType: Object?,
-    data: SelectionSetData
-  ) {
-    self._data = data
-    self._objectType = objectType
+  public init(data: SelectionSetData) {
+    self._data = data    
   }
 
   @inlinable public subscript<T: AnyScalarType & Hashable>(_ key: String) -> T {

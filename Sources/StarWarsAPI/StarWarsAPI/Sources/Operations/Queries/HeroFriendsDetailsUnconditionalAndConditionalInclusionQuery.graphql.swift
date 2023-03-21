@@ -52,12 +52,10 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
       hero: Hero? = nil
     ) {
       let objectType = StarWarsAPI.Objects.Query
-      self.init(_dataDict: DataDict(
-        objectType: objectType,
-        data: [
+      self.init(_dataDict: DataDict(data: [
           "__typename": objectType.typename,
           "hero": hero._fieldData
-      ]))
+        ]))
     }
 
     /// Hero
@@ -84,12 +82,10 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
           implementedInterfaces: [
             StarWarsAPI.Interfaces.Character
         ])
-        self.init(_dataDict: DataDict(
-          objectType: objectType,
-          data: [
+        self.init(_dataDict: DataDict(data: [
             "__typename": objectType.typename,
             "friends": friends._fieldData
-        ]))
+          ]))
       }
 
       /// Hero.Friend
@@ -120,12 +116,10 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
             implementedInterfaces: [
               StarWarsAPI.Interfaces.Character
           ])
-          self.init(_dataDict: DataDict(
-            objectType: objectType,
-            data: [
+          self.init(_dataDict: DataDict(data: [
               "__typename": objectType.typename,
               "name": name
-          ]))
+            ]))
         }
 
         /// Hero.Friend.IfIncludeFriendsDetails
@@ -156,12 +150,10 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
               implementedInterfaces: [
                 StarWarsAPI.Interfaces.Character
             ])
-            self.init(_dataDict: DataDict(
-              objectType: objectType,
-              data: [
+            self.init(_dataDict: DataDict(data: [
                 "__typename": objectType.typename,
                 "name": name
-            ]))
+              ]))
           }
 
           /// Hero.Friend.AsDroid
@@ -187,13 +179,11 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
               name: String
             ) {
               let objectType = StarWarsAPI.Objects.Droid
-              self.init(_dataDict: DataDict(
-                objectType: objectType,
-                data: [
+              self.init(_dataDict: DataDict(data: [
                   "__typename": objectType.typename,
                   "primaryFunction": primaryFunction,
                   "name": name
-              ]))
+                ]))
             }
           }
         }
@@ -217,13 +207,11 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
             primaryFunction: String? = nil
           ) {
             let objectType = StarWarsAPI.Objects.Droid
-            self.init(_dataDict: DataDict(
-              objectType: objectType,
-              data: [
+            self.init(_dataDict: DataDict(data: [
                 "__typename": objectType.typename,
                 "name": name,
                 "primaryFunction": primaryFunction
-            ]))
+              ]))
           }
         }
       }

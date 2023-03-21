@@ -42,12 +42,10 @@ public struct WarmBloodedDetails: AnimalKingdomAPI.SelectionSet, Fragment {
         AnimalKingdomAPI.Interfaces.WarmBlooded,
         AnimalKingdomAPI.Interfaces.Animal
     ])
-    self.init(_dataDict: DataDict(
-      objectType: objectType,
-      data: [
+    self.init(_dataDict: DataDict(data: [
         "__typename": objectType.typename,
         "bodyTemperature": bodyTemperature,
         "height": height._fieldData
-    ]))
+      ]))
   }
 }

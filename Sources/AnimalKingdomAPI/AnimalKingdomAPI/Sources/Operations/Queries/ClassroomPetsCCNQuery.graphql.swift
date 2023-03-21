@@ -35,12 +35,10 @@ public class ClassroomPetsCCNQuery: GraphQLQuery {
       classroomPets: [ClassroomPet]? = nil
     ) {
       let objectType = AnimalKingdomAPI.Objects.Query
-      self.init(_dataDict: DataDict(
-        objectType: objectType,
-        data: [
+      self.init(_dataDict: DataDict(data: [
           "__typename": objectType.typename,
           "classroomPets": classroomPets._fieldData
-      ]))
+        ]))
     }
 
     /// ClassroomPet
@@ -71,11 +69,9 @@ public class ClassroomPetsCCNQuery: GraphQLQuery {
           typename: __typename,
           implementedInterfaces: [
         ])
-        self.init(_dataDict: DataDict(
-          objectType: objectType,
-          data: [
+        self.init(_dataDict: DataDict(data: [
             "__typename": objectType.typename,
-        ]))
+          ]))
       }
 
       /// ClassroomPet.AsAnimal
@@ -106,12 +102,10 @@ public class ClassroomPetsCCNQuery: GraphQLQuery {
             implementedInterfaces: [
               AnimalKingdomAPI.Interfaces.Animal
           ])
-          self.init(_dataDict: DataDict(
-            objectType: objectType,
-            data: [
+          self.init(_dataDict: DataDict(data: [
               "__typename": objectType.typename,
               "height": height._fieldData
-          ]))
+            ]))
         }
       }
     }

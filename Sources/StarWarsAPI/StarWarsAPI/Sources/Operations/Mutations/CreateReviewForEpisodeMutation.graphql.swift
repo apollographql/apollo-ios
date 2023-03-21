@@ -53,12 +53,10 @@ public class CreateReviewForEpisodeMutation: GraphQLMutation {
       createReview: CreateReview? = nil
     ) {
       let objectType = StarWarsAPI.Objects.Mutation
-      self.init(_dataDict: DataDict(
-        objectType: objectType,
-        data: [
+      self.init(_dataDict: DataDict(data: [
           "__typename": objectType.typename,
           "createReview": createReview._fieldData
-      ]))
+        ]))
     }
 
     /// CreateReview
@@ -84,13 +82,11 @@ public class CreateReviewForEpisodeMutation: GraphQLMutation {
         commentary: String? = nil
       ) {
         let objectType = StarWarsAPI.Objects.Review
-        self.init(_dataDict: DataDict(
-          objectType: objectType,
-          data: [
+        self.init(_dataDict: DataDict(data: [
             "__typename": objectType.typename,
             "stars": stars,
             "commentary": commentary
-        ]))
+          ]))
       }
     }
   }
