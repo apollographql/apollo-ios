@@ -35,7 +35,7 @@ public class ClassroomPetsCCNQuery: GraphQLQuery {
       classroomPets: [ClassroomPet]? = nil
     ) {
       let objectType = AnimalKingdomAPI.Objects.Query
-      self.init(data: DataDict(
+      self.init(_dataDict: DataDict(
         objectType: objectType,
         data: [
           "__typename": objectType.typename,
@@ -71,7 +71,7 @@ public class ClassroomPetsCCNQuery: GraphQLQuery {
           typename: __typename,
           implementedInterfaces: [
         ])
-        self.init(data: DataDict(
+        self.init(_dataDict: DataDict(
           objectType: objectType,
           data: [
             "__typename": objectType.typename,
@@ -106,7 +106,7 @@ public class ClassroomPetsCCNQuery: GraphQLQuery {
             implementedInterfaces: [
               AnimalKingdomAPI.Interfaces.Animal
           ])
-          self.init(data: DataDict(
+          self.init(_dataDict: DataDict(
             objectType: objectType,
             data: [
               "__typename": objectType.typename,

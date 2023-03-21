@@ -26,7 +26,7 @@ public struct HumanHeightWithVariable: StarWarsAPI.SelectionSet, Fragment {
     height: Double? = nil
   ) {
     let objectType = StarWarsAPI.Objects.Human
-    self.init(data: DataDict(
+    self.init(_dataDict: DataDict(
       objectType: objectType,
       data: [
         "__typename": objectType.typename,

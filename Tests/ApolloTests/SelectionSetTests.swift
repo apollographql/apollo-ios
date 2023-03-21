@@ -829,7 +829,7 @@ class SelectionSetTests: XCTestCase {
 
       public struct Fragments: FragmentContainer {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_dataDict: DataDict) { __data = _dataDict }
 
         public var givenFragment: GivenFragment? { _toFragment(if: "includeFragment") }
       }
@@ -861,7 +861,7 @@ class SelectionSetTests: XCTestCase {
 
       public struct Fragments: FragmentContainer {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_dataDict: DataDict) { __data = _dataDict }
 
         public var givenFragment: GivenFragment? { _toFragment(if: "includeFragment") }
       }

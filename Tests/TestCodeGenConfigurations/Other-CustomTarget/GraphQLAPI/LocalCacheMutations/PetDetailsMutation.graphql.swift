@@ -36,7 +36,7 @@ public struct PetDetailsMutation: GraphQLAPI.MutableSelectionSet, Fragment {
       implementedInterfaces: [
         GraphQLAPI.Interfaces.Pet
     ])
-    self.init(data: DataDict(
+    self.init(_dataDict: DataDict(
       objectType: objectType,
       data: [
         "__typename": objectType.typename,
@@ -65,7 +65,7 @@ public struct PetDetailsMutation: GraphQLAPI.MutableSelectionSet, Fragment {
       firstName: String
     ) {
       let objectType = GraphQLAPI.Objects.Human
-      self.init(data: DataDict(
+      self.init(_dataDict: DataDict(
         objectType: objectType,
         data: [
           "__typename": objectType.typename,

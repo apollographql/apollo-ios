@@ -38,7 +38,7 @@ public class DogQuery: GraphQLQuery {
       allAnimals: [AllAnimal]
     ) {
       let objectType = AnimalKingdomAPI.Objects.Query
-      self.init(data: DataDict(
+      self.init(_dataDict: DataDict(
         objectType: objectType,
         data: [
           "__typename": objectType.typename,
@@ -72,7 +72,7 @@ public class DogQuery: GraphQLQuery {
           implementedInterfaces: [
             AnimalKingdomAPI.Interfaces.Animal
         ])
-        self.init(data: DataDict(
+        self.init(_dataDict: DataDict(
           objectType: objectType,
           data: [
             "__typename": objectType.typename,
@@ -108,7 +108,7 @@ public class DogQuery: GraphQLQuery {
           species: String
         ) {
           let objectType = AnimalKingdomAPI.Objects.Dog
-          self.init(data: DataDict(
+          self.init(_dataDict: DataDict(
             objectType: objectType,
             data: [
               "__typename": objectType.typename,

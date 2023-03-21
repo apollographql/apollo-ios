@@ -43,7 +43,7 @@ public class PetSearchLocalCacheMutation: LocalCacheMutation {
       pets: [Pet]
     ) {
       let objectType = AnimalKingdomAPI.Objects.Query
-      self.init(data: DataDict(
+      self.init(_dataDict: DataDict(
         objectType: objectType,
         data: [
           "__typename": objectType.typename,
@@ -83,7 +83,7 @@ public class PetSearchLocalCacheMutation: LocalCacheMutation {
           implementedInterfaces: [
             AnimalKingdomAPI.Interfaces.Pet
         ])
-        self.init(data: DataDict(
+        self.init(_dataDict: DataDict(
           objectType: objectType,
           data: [
             "__typename": objectType.typename,

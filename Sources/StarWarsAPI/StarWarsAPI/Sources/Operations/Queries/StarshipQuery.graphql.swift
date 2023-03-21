@@ -36,7 +36,7 @@ public class StarshipQuery: GraphQLQuery {
       starship: Starship? = nil
     ) {
       let objectType = StarWarsAPI.Objects.Query
-      self.init(data: DataDict(
+      self.init(_dataDict: DataDict(
         objectType: objectType,
         data: [
           "__typename": objectType.typename,
@@ -66,7 +66,7 @@ public class StarshipQuery: GraphQLQuery {
         coordinates: [[Double]]? = nil
       ) {
         let objectType = StarWarsAPI.Objects.Starship
-        self.init(data: DataDict(
+        self.init(_dataDict: DataDict(
           objectType: objectType,
           data: [
             "__typename": objectType.typename,

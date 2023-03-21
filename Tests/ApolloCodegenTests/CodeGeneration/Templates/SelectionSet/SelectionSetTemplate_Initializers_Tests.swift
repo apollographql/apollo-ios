@@ -72,7 +72,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
         species: String
       ) {
         let objectType = TestSchema.Objects.Animal
-        self.init(data: DataDict(
+        self.init(_dataDict: DataDict(
           objectType: objectType,
           data: [
             "__typename": objectType.typename,
@@ -125,7 +125,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
           implementedInterfaces: [
             TestSchema.Interfaces.Animal
         ])
-        self.init(data: DataDict(
+        self.init(_dataDict: DataDict(
           objectType: objectType,
           data: [
             "__typename": objectType.typename,
@@ -192,7 +192,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
             TestSchema.Interfaces.Pet,
             TestSchema.Interfaces.WarmBlooded
         ])
-        self.init(data: DataDict(
+        self.init(_dataDict: DataDict(
           objectType: objectType,
           data: [
             "__typename": objectType.typename,
@@ -312,7 +312,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
           nestedList_optional_optional_optional: [[String?]?]? = nil
         ) {
           let objectType = TestSchema.Objects.Animal
-          self.init(data: DataDict(
+          self.init(_dataDict: DataDict(
             objectType: objectType,
             data: [
               "__typename": objectType.typename,
@@ -382,7 +382,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
           aliased: String
         ) {
           let objectType = TestSchema.Objects.Animal
-          self.init(data: DataDict(
+          self.init(_dataDict: DataDict(
             objectType: objectType,
             data: [
               "__typename": objectType.typename,
@@ -432,7 +432,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
           friend: Friend
         ) {
           let objectType = TestSchema.Objects.Animal
-          self.init(data: DataDict(
+          self.init(_dataDict: DataDict(
             objectType: objectType,
             data: [
               "__typename": objectType.typename,
@@ -493,7 +493,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
             implementedInterfaces: [
               TestSchema.Interfaces.Animal
           ])
-          self.init(data: DataDict(
+          self.init(_dataDict: DataDict(
             objectType: objectType,
             data: [
               "__typename": objectType.typename,
@@ -542,7 +542,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
           friends: [Friend]
         ) {
           let objectType = TestSchema.Objects.Animal
-          self.init(data: DataDict(
+          self.init(_dataDict: DataDict(
             objectType: objectType,
             data: [
               "__typename": objectType.typename,
@@ -592,7 +592,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
           friend: Friend? = nil
         ) {
           let objectType = TestSchema.Objects.Animal
-          self.init(data: DataDict(
+          self.init(_dataDict: DataDict(
             objectType: objectType,
             data: [
               "__typename": objectType.typename,
@@ -657,7 +657,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
             TestSchema.Interfaces.Animal,
             TestSchema.Interfaces.Pet
         ])
-        self.init(data: DataDict(
+        self.init(_dataDict: DataDict(
           objectType: objectType,
           data: [
             "__typename": objectType.typename,
@@ -732,7 +732,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
         feet: Int? = nil
       ) {
         let objectType = TestSchema.Objects.Height
-        self.init(data: DataDict(
+        self.init(_dataDict: DataDict(
           objectType: objectType,
           data: [
             "__typename": objectType.typename,
@@ -790,7 +790,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
           friend: Friend
         ) {
           let objectType = TestSchema.Objects.Animal
-          self.init(data: DataDict(
+          self.init(_dataDict: DataDict(
             objectType: objectType,
             data: [
               "__typename": objectType.typename,
@@ -849,7 +849,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
           friend: Friend
         ) {
           let objectType = TestSchema.Objects.Animal
-          self.init(data: DataDict(
+          self.init(_dataDict: DataDict(
             objectType: objectType,
             data: [
               "__typename": objectType.typename,
@@ -911,7 +911,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
           friend: Friend
         ) {
           let objectType = TestSchema.Objects.Animal
-          self.init(data: DataDict(
+          self.init(_dataDict: DataDict(
             objectType: objectType,
             data: [
               "__typename": objectType.typename,
@@ -973,7 +973,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
           species: String
         ) {
           let objectType = TestSchema.Objects.Animal
-          self.init(data: DataDict(
+          self.init(_dataDict: DataDict(
             objectType: objectType,
             data: [
               "__typename": objectType.typename,

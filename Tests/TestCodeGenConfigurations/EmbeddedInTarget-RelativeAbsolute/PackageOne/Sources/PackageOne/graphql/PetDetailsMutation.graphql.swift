@@ -37,7 +37,7 @@ struct PetDetailsMutation: MySchemaModule.MutableSelectionSet, Fragment {
       implementedInterfaces: [
         MySchemaModule.Interfaces.Pet
     ])
-    self.init(data: DataDict(
+    self.init(_dataDict: DataDict(
       objectType: objectType,
       data: [
         "__typename": objectType.typename,
@@ -66,7 +66,7 @@ struct PetDetailsMutation: MySchemaModule.MutableSelectionSet, Fragment {
       firstName: String
     ) {
       let objectType = MySchemaModule.Objects.Human
-      self.init(data: DataDict(
+      self.init(_dataDict: DataDict(
         objectType: objectType,
         data: [
           "__typename": objectType.typename,

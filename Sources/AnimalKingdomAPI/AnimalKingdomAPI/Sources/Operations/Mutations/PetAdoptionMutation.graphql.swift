@@ -41,7 +41,7 @@ public class PetAdoptionMutation: GraphQLMutation {
       adoptPet: AdoptPet
     ) {
       let objectType = AnimalKingdomAPI.Objects.Mutation
-      self.init(data: DataDict(
+      self.init(_dataDict: DataDict(
         objectType: objectType,
         data: [
           "__typename": objectType.typename,
@@ -75,7 +75,7 @@ public class PetAdoptionMutation: GraphQLMutation {
           implementedInterfaces: [
             AnimalKingdomAPI.Interfaces.Pet
         ])
-        self.init(data: DataDict(
+        self.init(_dataDict: DataDict(
           objectType: objectType,
           data: [
             "__typename": objectType.typename,

@@ -42,7 +42,7 @@ public struct CharacterNameAndDroidPrimaryFunction: StarWarsAPI.SelectionSet, Fr
       implementedInterfaces: [
         StarWarsAPI.Interfaces.Character
     ])
-    self.init(data: DataDict(
+    self.init(_dataDict: DataDict(
       objectType: objectType,
       data: [
         "__typename": objectType.typename,
@@ -81,7 +81,7 @@ public struct CharacterNameAndDroidPrimaryFunction: StarWarsAPI.SelectionSet, Fr
       primaryFunction: String? = nil
     ) {
       let objectType = StarWarsAPI.Objects.Droid
-      self.init(data: DataDict(
+      self.init(_dataDict: DataDict(
         objectType: objectType,
         data: [
           "__typename": objectType.typename,

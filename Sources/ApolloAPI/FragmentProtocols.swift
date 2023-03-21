@@ -54,8 +54,8 @@ public protocol FragmentContainer {
   var __data: DataDict { get }
 
   /// Designated Initializer
-  /// - Parameter data: The data of the underlying GraphQL object represented by the parent ``SelectionSet``
-  init(data: DataDict)
+  /// - Parameter dataDict: The data of the underlying GraphQL object represented by the parent ``SelectionSet``
+  init(_dataDict: DataDict)
 }
 
 extension FragmentContainer {

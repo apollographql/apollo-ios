@@ -42,7 +42,7 @@ public struct CharacterNameWithInlineFragment: StarWarsAPI.SelectionSet, Fragmen
       implementedInterfaces: [
         StarWarsAPI.Interfaces.Character
     ])
-    self.init(data: DataDict(
+    self.init(_dataDict: DataDict(
       objectType: objectType,
       data: [
         "__typename": objectType.typename,
@@ -69,7 +69,7 @@ public struct CharacterNameWithInlineFragment: StarWarsAPI.SelectionSet, Fragmen
       friends: [Friend?]? = nil
     ) {
       let objectType = StarWarsAPI.Objects.Human
-      self.init(data: DataDict(
+      self.init(_dataDict: DataDict(
         objectType: objectType,
         data: [
           "__typename": objectType.typename,
@@ -101,7 +101,7 @@ public struct CharacterNameWithInlineFragment: StarWarsAPI.SelectionSet, Fragmen
           implementedInterfaces: [
             StarWarsAPI.Interfaces.Character
         ])
-        self.init(data: DataDict(
+        self.init(_dataDict: DataDict(
           objectType: objectType,
           data: [
             "__typename": objectType.typename,
@@ -143,7 +143,7 @@ public struct CharacterNameWithInlineFragment: StarWarsAPI.SelectionSet, Fragmen
       friends: [FriendsNames.Friend?]? = nil
     ) {
       let objectType = StarWarsAPI.Objects.Droid
-      self.init(data: DataDict(
+      self.init(_dataDict: DataDict(
         objectType: objectType,
         data: [
           "__typename": objectType.typename,

@@ -347,7 +347,7 @@ class FragmentTemplateTests: XCTestCase {
           species: String
         ) {
           let objectType = TestSchema.Objects.Animal
-          self.init(data: DataDict(
+          self.init(_dataDict: DataDict(
             objectType: objectType,
             data: [
               "__typename": objectType.typename,
@@ -392,7 +392,7 @@ class FragmentTemplateTests: XCTestCase {
           species: String
         ) {
           let objectType = TestSchema.Objects.Animal
-          self.init(data: DataDict(
+          self.init(_dataDict: DataDict(
             objectType: objectType,
             data: [
               "__typename": objectType.typename,
@@ -497,7 +497,7 @@ class FragmentTemplateTests: XCTestCase {
           species: String
         ) {
           let objectType = TestSchema.Objects.Animal
-          self.init(data: DataDict(
+          self.init(_dataDict: DataDict(
             objectType: objectType,
             data: [
               "__typename": objectType.typename,

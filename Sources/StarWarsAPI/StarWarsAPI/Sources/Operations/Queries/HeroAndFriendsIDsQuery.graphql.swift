@@ -46,7 +46,7 @@ public class HeroAndFriendsIDsQuery: GraphQLQuery {
       hero: Hero? = nil
     ) {
       let objectType = StarWarsAPI.Objects.Query
-      self.init(data: DataDict(
+      self.init(_dataDict: DataDict(
         objectType: objectType,
         data: [
           "__typename": objectType.typename,
@@ -86,7 +86,7 @@ public class HeroAndFriendsIDsQuery: GraphQLQuery {
           implementedInterfaces: [
             StarWarsAPI.Interfaces.Character
         ])
-        self.init(data: DataDict(
+        self.init(_dataDict: DataDict(
           objectType: objectType,
           data: [
             "__typename": objectType.typename,
@@ -120,7 +120,7 @@ public class HeroAndFriendsIDsQuery: GraphQLQuery {
             implementedInterfaces: [
               StarWarsAPI.Interfaces.Character
           ])
-          self.init(data: DataDict(
+          self.init(_dataDict: DataDict(
             objectType: objectType,
             data: [
               "__typename": objectType.typename,

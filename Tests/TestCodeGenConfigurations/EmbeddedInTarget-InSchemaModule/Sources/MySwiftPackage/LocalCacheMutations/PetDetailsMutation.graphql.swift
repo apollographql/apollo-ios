@@ -37,7 +37,7 @@ public extension MyGraphQLSchema {
         implementedInterfaces: [
           MyGraphQLSchema.Interfaces.Pet
       ])
-      self.init(data: DataDict(
+      self.init(_dataDict: DataDict(
         objectType: objectType,
         data: [
           "__typename": objectType.typename,
@@ -66,7 +66,7 @@ public extension MyGraphQLSchema {
         firstName: String
       ) {
         let objectType = MyGraphQLSchema.Objects.Human
-        self.init(data: DataDict(
+        self.init(_dataDict: DataDict(
           objectType: objectType,
           data: [
             "__typename": objectType.typename,

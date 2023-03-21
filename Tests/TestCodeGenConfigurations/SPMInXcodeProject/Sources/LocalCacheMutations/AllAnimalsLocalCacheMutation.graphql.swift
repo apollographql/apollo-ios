@@ -26,7 +26,7 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
       allAnimals: [AllAnimal]
     ) {
       let objectType = AnimalKingdomAPI.Objects.Query
-      self.init(data: DataDict(
+      self.init(_dataDict: DataDict(
         objectType: objectType,
         data: [
           "__typename": objectType.typename,
@@ -72,7 +72,7 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
           implementedInterfaces: [
             AnimalKingdomAPI.Interfaces.Animal
         ])
-        self.init(data: DataDict(
+        self.init(_dataDict: DataDict(
           objectType: objectType,
           data: [
             "__typename": objectType.typename,
@@ -113,7 +113,7 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
           skinCovering: GraphQLEnum<AnimalKingdomAPI.SkinCovering>? = nil
         ) {
           let objectType = AnimalKingdomAPI.Objects.Bird
-          self.init(data: DataDict(
+          self.init(_dataDict: DataDict(
             objectType: objectType,
             data: [
               "__typename": objectType.typename,

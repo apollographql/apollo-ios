@@ -905,7 +905,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
         let __data: DataDict
         var childFragment: GivenFragment { _toFragment() }
 
-        init(data: DataDict) { __data = data }
+        init(_dataDict: DataDict) { __data = _dataDict }
       }
     }
 

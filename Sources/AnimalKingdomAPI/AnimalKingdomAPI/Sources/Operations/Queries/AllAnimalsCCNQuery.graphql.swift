@@ -38,7 +38,7 @@ public class AllAnimalsCCNQuery: GraphQLQuery {
       allAnimals: [AllAnimal]
     ) {
       let objectType = AnimalKingdomAPI.Objects.Query
-      self.init(data: DataDict(
+      self.init(_dataDict: DataDict(
         objectType: objectType,
         data: [
           "__typename": objectType.typename,
@@ -69,7 +69,7 @@ public class AllAnimalsCCNQuery: GraphQLQuery {
           implementedInterfaces: [
             AnimalKingdomAPI.Interfaces.Animal
         ])
-        self.init(data: DataDict(
+        self.init(_dataDict: DataDict(
           objectType: objectType,
           data: [
             "__typename": objectType.typename,
@@ -98,7 +98,7 @@ public class AllAnimalsCCNQuery: GraphQLQuery {
           inches: Int
         ) {
           let objectType = AnimalKingdomAPI.Objects.Height
-          self.init(data: DataDict(
+          self.init(_dataDict: DataDict(
             objectType: objectType,
             data: [
               "__typename": objectType.typename,

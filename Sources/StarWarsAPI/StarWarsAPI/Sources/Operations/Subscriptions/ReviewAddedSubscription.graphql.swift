@@ -43,7 +43,7 @@ public class ReviewAddedSubscription: GraphQLSubscription {
       reviewAdded: ReviewAdded? = nil
     ) {
       let objectType = StarWarsAPI.Objects.Subscription
-      self.init(data: DataDict(
+      self.init(_dataDict: DataDict(
         objectType: objectType,
         data: [
           "__typename": objectType.typename,
@@ -78,7 +78,7 @@ public class ReviewAddedSubscription: GraphQLSubscription {
         commentary: String? = nil
       ) {
         let objectType = StarWarsAPI.Objects.Review
-        self.init(data: DataDict(
+        self.init(_dataDict: DataDict(
           objectType: objectType,
           data: [
             "__typename": objectType.typename,

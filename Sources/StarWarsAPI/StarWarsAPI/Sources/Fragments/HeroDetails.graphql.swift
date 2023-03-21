@@ -44,7 +44,7 @@ public struct HeroDetails: StarWarsAPI.SelectionSet, Fragment {
       implementedInterfaces: [
         StarWarsAPI.Interfaces.Character
     ])
-    self.init(data: DataDict(
+    self.init(_dataDict: DataDict(
       objectType: objectType,
       data: [
         "__typename": objectType.typename,
@@ -75,7 +75,7 @@ public struct HeroDetails: StarWarsAPI.SelectionSet, Fragment {
       name: String
     ) {
       let objectType = StarWarsAPI.Objects.Human
-      self.init(data: DataDict(
+      self.init(_dataDict: DataDict(
         objectType: objectType,
         data: [
           "__typename": objectType.typename,
@@ -108,7 +108,7 @@ public struct HeroDetails: StarWarsAPI.SelectionSet, Fragment {
       name: String
     ) {
       let objectType = StarWarsAPI.Objects.Droid
-      self.init(data: DataDict(
+      self.init(_dataDict: DataDict(
         objectType: objectType,
         data: [
           "__typename": objectType.typename,

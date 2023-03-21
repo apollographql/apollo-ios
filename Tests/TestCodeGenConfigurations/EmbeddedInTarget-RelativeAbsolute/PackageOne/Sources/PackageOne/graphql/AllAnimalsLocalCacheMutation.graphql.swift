@@ -27,7 +27,7 @@ class AllAnimalsLocalCacheMutation: LocalCacheMutation {
       allAnimals: [AllAnimal]
     ) {
       let objectType = MySchemaModule.Objects.Query
-      self.init(data: DataDict(
+      self.init(_dataDict: DataDict(
         objectType: objectType,
         data: [
           "__typename": objectType.typename,
@@ -73,7 +73,7 @@ class AllAnimalsLocalCacheMutation: LocalCacheMutation {
           implementedInterfaces: [
             MySchemaModule.Interfaces.Animal
         ])
-        self.init(data: DataDict(
+        self.init(_dataDict: DataDict(
           objectType: objectType,
           data: [
             "__typename": objectType.typename,
@@ -114,7 +114,7 @@ class AllAnimalsLocalCacheMutation: LocalCacheMutation {
           skinCovering: GraphQLEnum<MySchemaModule.SkinCovering>? = nil
         ) {
           let objectType = MySchemaModule.Objects.Bird
-          self.init(data: DataDict(
+          self.init(_dataDict: DataDict(
             objectType: objectType,
             data: [
               "__typename": objectType.typename,

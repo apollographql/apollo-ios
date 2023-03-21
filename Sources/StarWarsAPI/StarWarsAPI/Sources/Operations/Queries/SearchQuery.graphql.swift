@@ -55,7 +55,7 @@ public class SearchQuery: GraphQLQuery {
       search: [Search?]? = nil
     ) {
       let objectType = StarWarsAPI.Objects.Query
-      self.init(data: DataDict(
+      self.init(_dataDict: DataDict(
         objectType: objectType,
         data: [
           "__typename": objectType.typename,
@@ -88,7 +88,7 @@ public class SearchQuery: GraphQLQuery {
           typename: __typename,
           implementedInterfaces: [
         ])
-        self.init(data: DataDict(
+        self.init(_dataDict: DataDict(
           objectType: objectType,
           data: [
             "__typename": objectType.typename,
@@ -119,7 +119,7 @@ public class SearchQuery: GraphQLQuery {
           name: String
         ) {
           let objectType = StarWarsAPI.Objects.Human
-          self.init(data: DataDict(
+          self.init(_dataDict: DataDict(
             objectType: objectType,
             data: [
               "__typename": objectType.typename,
@@ -153,7 +153,7 @@ public class SearchQuery: GraphQLQuery {
           name: String
         ) {
           let objectType = StarWarsAPI.Objects.Droid
-          self.init(data: DataDict(
+          self.init(_dataDict: DataDict(
             objectType: objectType,
             data: [
               "__typename": objectType.typename,
@@ -187,7 +187,7 @@ public class SearchQuery: GraphQLQuery {
           name: String
         ) {
           let objectType = StarWarsAPI.Objects.Starship
-          self.init(data: DataDict(
+          self.init(_dataDict: DataDict(
             objectType: objectType,
             data: [
               "__typename": objectType.typename,

@@ -980,7 +980,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
         struct Fragments: FragmentContainer {
           var __data: DataDict
-          init(data: DataDict) { self.__data = data }
+          init(_dataDict: DataDict) { __data = _dataDict }
 
           var givenFragment: GivenFragment {
             get { _toFragment() }
@@ -1133,7 +1133,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
         struct Fragments: FragmentContainer {
           var __data: DataDict
-          init(data: DataDict) { self.__data = data }
+          init(_dataDict: DataDict) { __data = _dataDict }
 
           var givenFragment: GivenFragment? {
             get { _toFragment() }

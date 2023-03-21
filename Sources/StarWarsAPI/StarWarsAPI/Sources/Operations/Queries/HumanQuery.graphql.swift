@@ -42,7 +42,7 @@ public class HumanQuery: GraphQLQuery {
       human: Human? = nil
     ) {
       let objectType = StarWarsAPI.Objects.Query
-      self.init(data: DataDict(
+      self.init(_dataDict: DataDict(
         objectType: objectType,
         data: [
           "__typename": objectType.typename,
@@ -73,7 +73,7 @@ public class HumanQuery: GraphQLQuery {
         mass: Double? = nil
       ) {
         let objectType = StarWarsAPI.Objects.Human
-        self.init(data: DataDict(
+        self.init(_dataDict: DataDict(
           objectType: objectType,
           data: [
             "__typename": objectType.typename,

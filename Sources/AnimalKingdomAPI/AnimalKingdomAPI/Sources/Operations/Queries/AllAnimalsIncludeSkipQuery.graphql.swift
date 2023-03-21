@@ -97,7 +97,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
       allAnimals: [AllAnimal]
     ) {
       let objectType = AnimalKingdomAPI.Objects.Query
-      self.init(data: DataDict(
+      self.init(_dataDict: DataDict(
         objectType: objectType,
         data: [
           "__typename": objectType.typename,
@@ -155,7 +155,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           implementedInterfaces: [
             AnimalKingdomAPI.Interfaces.Animal
         ])
-        self.init(data: DataDict(
+        self.init(_dataDict: DataDict(
           objectType: objectType,
           data: [
             "__typename": objectType.typename,
@@ -187,7 +187,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           inches: Int? = nil
         ) {
           let objectType = AnimalKingdomAPI.Objects.Height
-          self.init(data: DataDict(
+          self.init(_dataDict: DataDict(
             objectType: objectType,
             data: [
               "__typename": objectType.typename,
@@ -223,7 +223,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
             implementedInterfaces: [
               AnimalKingdomAPI.Interfaces.Animal
           ])
-          self.init(data: DataDict(
+          self.init(_dataDict: DataDict(
             objectType: objectType,
             data: [
               "__typename": objectType.typename,
@@ -272,7 +272,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
                 AnimalKingdomAPI.Interfaces.Animal,
                 AnimalKingdomAPI.Interfaces.WarmBlooded
             ])
-            self.init(data: DataDict(
+            self.init(_dataDict: DataDict(
               objectType: objectType,
               data: [
                 "__typename": objectType.typename,
@@ -329,7 +329,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
               AnimalKingdomAPI.Interfaces.Animal,
               AnimalKingdomAPI.Interfaces.WarmBlooded
           ])
-          self.init(data: DataDict(
+          self.init(_dataDict: DataDict(
             objectType: objectType,
             data: [
               "__typename": objectType.typename,
@@ -363,7 +363,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
             meters: Int
           ) {
             let objectType = AnimalKingdomAPI.Objects.Height
-            self.init(data: DataDict(
+            self.init(_dataDict: DataDict(
               objectType: objectType,
               data: [
                 "__typename": objectType.typename,
@@ -424,7 +424,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
               AnimalKingdomAPI.Interfaces.Animal,
               AnimalKingdomAPI.Interfaces.Pet
           ])
-          self.init(data: DataDict(
+          self.init(_dataDict: DataDict(
             objectType: objectType,
             data: [
               "__typename": objectType.typename,
@@ -465,7 +465,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
             inches: Int? = nil
           ) {
             let objectType = AnimalKingdomAPI.Objects.Height
-            self.init(data: DataDict(
+            self.init(_dataDict: DataDict(
               objectType: objectType,
               data: [
                 "__typename": objectType.typename,
@@ -526,7 +526,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
                 AnimalKingdomAPI.Interfaces.Pet,
                 AnimalKingdomAPI.Interfaces.WarmBlooded
             ])
-            self.init(data: DataDict(
+            self.init(_dataDict: DataDict(
               objectType: objectType,
               data: [
                 "__typename": objectType.typename,
@@ -564,7 +564,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
               meters: Int
             ) {
               let objectType = AnimalKingdomAPI.Objects.Height
-              self.init(data: DataDict(
+              self.init(_dataDict: DataDict(
                 objectType: objectType,
                 data: [
                   "__typename": objectType.typename,
@@ -623,7 +623,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           bodyTemperature: Int
         ) {
           let objectType = AnimalKingdomAPI.Objects.Cat
-          self.init(data: DataDict(
+          self.init(_dataDict: DataDict(
             objectType: objectType,
             data: [
               "__typename": objectType.typename,
@@ -665,7 +665,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
             meters: Int
           ) {
             let objectType = AnimalKingdomAPI.Objects.Height
-            self.init(data: DataDict(
+            self.init(_dataDict: DataDict(
               objectType: objectType,
               data: [
                 "__typename": objectType.typename,
@@ -718,7 +718,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
             implementedInterfaces: [
               AnimalKingdomAPI.Interfaces.Animal
           ])
-          self.init(data: DataDict(
+          self.init(_dataDict: DataDict(
             objectType: objectType,
             data: [
               "__typename": objectType.typename,
@@ -773,7 +773,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
             bodyTemperature: Int
           ) {
             let objectType = AnimalKingdomAPI.Objects.Bird
-            self.init(data: DataDict(
+            self.init(_dataDict: DataDict(
               objectType: objectType,
               data: [
                 "__typename": objectType.typename,
@@ -812,7 +812,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
               meters: Int
             ) {
               let objectType = AnimalKingdomAPI.Objects.Height
-              self.init(data: DataDict(
+              self.init(_dataDict: DataDict(
                 objectType: objectType,
                 data: [
                   "__typename": objectType.typename,
@@ -860,7 +860,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
             implementedInterfaces: [
               AnimalKingdomAPI.Interfaces.Animal
           ])
-          self.init(data: DataDict(
+          self.init(_dataDict: DataDict(
             objectType: objectType,
             data: [
               "__typename": objectType.typename,
@@ -893,7 +893,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
             meters: Int
           ) {
             let objectType = AnimalKingdomAPI.Objects.Height
-            self.init(data: DataDict(
+            self.init(_dataDict: DataDict(
               objectType: objectType,
               data: [
                 "__typename": objectType.typename,

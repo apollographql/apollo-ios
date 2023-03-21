@@ -43,7 +43,7 @@ public struct CharacterNameWithNestedAppearsInFragment: StarWarsAPI.SelectionSet
       implementedInterfaces: [
         StarWarsAPI.Interfaces.Character
     ])
-    self.init(data: DataDict(
+    self.init(_dataDict: DataDict(
       objectType: objectType,
       data: [
         "__typename": objectType.typename,

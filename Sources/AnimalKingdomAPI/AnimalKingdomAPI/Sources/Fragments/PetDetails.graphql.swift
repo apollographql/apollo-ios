@@ -41,7 +41,7 @@ public struct PetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
       implementedInterfaces: [
         AnimalKingdomAPI.Interfaces.Pet
     ])
-    self.init(data: DataDict(
+    self.init(_dataDict: DataDict(
       objectType: objectType,
       data: [
         "__typename": objectType.typename,
@@ -69,7 +69,7 @@ public struct PetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
       firstName: String
     ) {
       let objectType = AnimalKingdomAPI.Objects.Human
-      self.init(data: DataDict(
+      self.init(_dataDict: DataDict(
         objectType: objectType,
         data: [
           "__typename": objectType.typename,

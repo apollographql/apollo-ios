@@ -26,7 +26,7 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
       allAnimals: [AllAnimal]
     ) {
       let objectType = GraphQLAPI.Objects.Query
-      self.init(data: DataDict(
+      self.init(_dataDict: DataDict(
         objectType: objectType,
         data: [
           "__typename": objectType.typename,
@@ -72,7 +72,7 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
           implementedInterfaces: [
             GraphQLAPI.Interfaces.Animal
         ])
-        self.init(data: DataDict(
+        self.init(_dataDict: DataDict(
           objectType: objectType,
           data: [
             "__typename": objectType.typename,
@@ -113,7 +113,7 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
           skinCovering: GraphQLEnum<GraphQLAPI.SkinCovering>? = nil
         ) {
           let objectType = GraphQLAPI.Objects.Bird
-          self.init(data: DataDict(
+          self.init(_dataDict: DataDict(
             objectType: objectType,
             data: [
               "__typename": objectType.typename,

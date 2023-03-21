@@ -35,7 +35,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
       classroomPets: [ClassroomPet?]? = nil
     ) {
       let objectType = AnimalKingdomAPI.Objects.Query
-      self.init(data: DataDict(
+      self.init(_dataDict: DataDict(
         objectType: objectType,
         data: [
           "__typename": objectType.typename,
@@ -76,7 +76,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
           typename: __typename,
           implementedInterfaces: [
         ])
-        self.init(data: DataDict(
+        self.init(_dataDict: DataDict(
           objectType: objectType,
           data: [
             "__typename": objectType.typename,
@@ -111,7 +111,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
             implementedInterfaces: [
               AnimalKingdomAPI.Interfaces.Animal
           ])
-          self.init(data: DataDict(
+          self.init(_dataDict: DataDict(
             objectType: objectType,
             data: [
               "__typename": objectType.typename,
@@ -148,7 +148,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
             implementedInterfaces: [
               AnimalKingdomAPI.Interfaces.Pet
           ])
-          self.init(data: DataDict(
+          self.init(_dataDict: DataDict(
             objectType: objectType,
             data: [
               "__typename": objectType.typename,
@@ -188,7 +188,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
               AnimalKingdomAPI.Interfaces.WarmBlooded,
               AnimalKingdomAPI.Interfaces.Animal
           ])
-          self.init(data: DataDict(
+          self.init(_dataDict: DataDict(
             objectType: objectType,
             data: [
               "__typename": objectType.typename,
@@ -229,7 +229,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
           isJellicle: Bool
         ) {
           let objectType = AnimalKingdomAPI.Objects.Cat
-          self.init(data: DataDict(
+          self.init(_dataDict: DataDict(
             objectType: objectType,
             data: [
               "__typename": objectType.typename,
@@ -271,7 +271,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
           wingspan: Double
         ) {
           let objectType = AnimalKingdomAPI.Objects.Bird
-          self.init(data: DataDict(
+          self.init(_dataDict: DataDict(
             objectType: objectType,
             data: [
               "__typename": objectType.typename,
@@ -308,7 +308,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
           favoriteToy: String
         ) {
           let objectType = AnimalKingdomAPI.Objects.PetRock
-          self.init(data: DataDict(
+          self.init(_dataDict: DataDict(
             objectType: objectType,
             data: [
               "__typename": objectType.typename,

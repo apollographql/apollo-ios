@@ -52,7 +52,7 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
       hero: Hero? = nil
     ) {
       let objectType = StarWarsAPI.Objects.Query
-      self.init(data: DataDict(
+      self.init(_dataDict: DataDict(
         objectType: objectType,
         data: [
           "__typename": objectType.typename,
@@ -84,7 +84,7 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
           implementedInterfaces: [
             StarWarsAPI.Interfaces.Character
         ])
-        self.init(data: DataDict(
+        self.init(_dataDict: DataDict(
           objectType: objectType,
           data: [
             "__typename": objectType.typename,
@@ -120,7 +120,7 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
             implementedInterfaces: [
               StarWarsAPI.Interfaces.Character
           ])
-          self.init(data: DataDict(
+          self.init(_dataDict: DataDict(
             objectType: objectType,
             data: [
               "__typename": objectType.typename,
@@ -156,7 +156,7 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
               implementedInterfaces: [
                 StarWarsAPI.Interfaces.Character
             ])
-            self.init(data: DataDict(
+            self.init(_dataDict: DataDict(
               objectType: objectType,
               data: [
                 "__typename": objectType.typename,
@@ -190,7 +190,7 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
               name: String
             ) {
               let objectType = StarWarsAPI.Objects.Droid
-              self.init(data: DataDict(
+              self.init(_dataDict: DataDict(
                 objectType: objectType,
                 data: [
                   "__typename": objectType.typename,
@@ -223,7 +223,7 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
             primaryFunction: String? = nil
           ) {
             let objectType = StarWarsAPI.Objects.Droid
-            self.init(data: DataDict(
+            self.init(_dataDict: DataDict(
               objectType: objectType,
               data: [
                 "__typename": objectType.typename,

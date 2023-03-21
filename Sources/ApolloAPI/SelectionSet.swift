@@ -54,7 +54,7 @@ public protocol SelectionSet: Hashable {
   /// `GraphQLSelectionSetMapper`, which is guaranteed by the GraphQL compiler to be safe.
   /// Unsupported usage may result in unintended consequences including crashes.
   ///
-  /// - Parameter data: The data of the underlying GraphQL object represented by the generated
+  /// - Parameter dataDict: The data of the underlying GraphQL object represented by the generated
   /// selection set.
   init(_dataDict: DataDict)
 }
@@ -115,7 +115,7 @@ extension SelectionSet {
 
 extension SelectionSet where Fragments: FragmentContainer {
   /// Contains accessors for all of the fragments the `SelectionSet` can be converted to.
-  public var fragments: Fragments { Fragments(data: __data) }
+  public var fragments: Fragments { Fragments(_dataDict: __data) }
 }
 
 extension InlineFragment {
