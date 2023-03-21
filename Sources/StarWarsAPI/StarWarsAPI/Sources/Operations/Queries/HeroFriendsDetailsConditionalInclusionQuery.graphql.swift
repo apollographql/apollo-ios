@@ -120,9 +120,6 @@ public class HeroFriendsDetailsConditionalInclusionQuery: GraphQLQuery {
             data: [
               "__typename": objectType.typename,
               "name": name
-            ],
-            variables: [
-              "includeFriendsDetails": true
           ]))
         }
 
@@ -155,9 +152,6 @@ public class HeroFriendsDetailsConditionalInclusionQuery: GraphQLQuery {
                 "__typename": objectType.typename,
                 "primaryFunction": primaryFunction,
                 "name": name
-              ],
-              variables: [
-                "includeFriendsDetails": true
             ]))
           }
         }

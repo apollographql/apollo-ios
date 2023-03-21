@@ -81,12 +81,6 @@ extension SelectionSet {
     return T.init(_dataDict: __data)
   }
 
-  @usableFromInline func _asType<T: SelectionSet>() -> T? where T.Schema == Schema {
-    guard let fulfilledFragments = __data._data["__fulfilled"] as? Set<ObjectIdentifier>, fulfilledFragments.contains(ObjectIdentifier(T.self)) else { return nil }
-
-    return T.init(_dataDict: __data)
-  }
-
   @inlinable public func _asInlineFragment<T: SelectionSet>(
     if conditions: [Selection.Condition]
   ) -> T? where T.Schema == Schema {

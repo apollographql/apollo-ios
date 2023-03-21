@@ -93,6 +93,6 @@ open class ConcreteMockTypeCase<T: MockSelectionSet>: MockSelectionSet, InlineFr
 
 extension DataDict {
   public static func empty() -> DataDict {
-    DataDict(objectType: nil, data: [:], variables: nil)
+    DataDict(objectType: nil, data: [:])
   }
 }

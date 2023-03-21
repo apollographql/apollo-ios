@@ -91,11 +91,14 @@ extension FragmentContainer {
   @inlinable public func _toFragment<T: Fragment>(
     if conditions: Selection.Conditions? = nil
   ) -> T? {
-    guard let conditions = conditions else {
-      return _convertToFragment()
-    }
+    guard __data.fragmentIsFulfilled(T.self) else { return nil }
 
-    return conditions.evaluate(with: __data._variables) ? _convertToFragment() : nil
+    return T.init(_dataDict: __data)
+//    guard let conditions = conditions else {
+//      return _convertToFragment()
+//    }
+//
+//    return conditions.evaluate(with: __data._variables) ? _convertToFragment() : nil
   }
 
   /// Converts a ``SelectionSet`` to a ``Fragment`` given a generic fragment type if the given

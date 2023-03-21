@@ -19,6 +19,11 @@ struct ObjectExecutionInfo {
   let schema: SchemaMetadata.Type
   private(set) var responsePath: ResponsePath = []
   private(set) var cachePath: ResponsePath = []
+  #warning("TODO: IF this is only inline fragments not named fragments. Should we rename it?")
+  #warning("""
+Can we optimize by only doing conditional fragments?
+No. The code generator already reduces out any inline fragments with no conditions (that will always fulfill), so this is already optimized.
+""")
   fileprivate(set) var fulfilledFragments: Set<ObjectIdentifier>
 
   fileprivate init(
@@ -290,6 +295,8 @@ final class GraphQLExecutor {
         }
 
       case let .fragment(fragment):
+#warning("TODO: Can we optimize to only add conditional fragments?")
+        groupedFields.addFulfilledFragment(fragment)
         try groupFields(fragment.__selections,
                         for: object,
                         into: &groupedFields,

@@ -20,16 +20,13 @@ public struct DataDict: Hashable {
 
   public let _objectType: Object?
   public var _data: SelectionSetData
-  public let _variables: GraphQLOperation.Variables?
 
   public init(
     objectType: Object?,
-    data: SelectionSetData,
-    variables: GraphQLOperation.Variables? = nil
+    data: SelectionSetData
   ) {
     self._data = data
     self._objectType = objectType
-    self._variables = variables
   }
 
   @inlinable public subscript<T: AnyScalarType & Hashable>(_ key: String) -> T {
@@ -54,12 +51,17 @@ public struct DataDict: Hashable {
 
   @inlinable public func hash(into hasher: inout Hasher) {
     hasher.combine(_data)
-    hasher.combine(_variables?._jsonEncodableValue?._jsonValue)
   }
 
   @inlinable public static func ==(lhs: DataDict, rhs: DataDict) -> Bool {
-    lhs._data == rhs._data &&
-    lhs._variables?._jsonEncodableValue?._jsonValue == rhs._variables?._jsonEncodableValue?._jsonValue
+    lhs._data == rhs._data
+  }
+
+  @usableFromInline func fragmentIsFulfilled<T: SelectionSet>(_ type: T.Type) -> Bool {
+    guard let fulfilledFragments = _data["__fulfilled"] as? Set<ObjectIdentifier> else {
+      return false
+    }
+    return fulfilledFragments.contains(ObjectIdentifier(T.self))
   }
 }
 

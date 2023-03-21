@@ -1702,9 +1702,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
                 "name": name,
                 "friend": friend._fieldData,
                 "other": other
-              ],
-              variables: ["a": true]
-            ))
+              ]))
           }
 
           class Friend: MockSelectionSet {
@@ -1744,9 +1742,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
               objectType: objectType,
               data: [
                 "__typename": objectType.typename
-              ],
-              variables: ["b": true]
-            ))
+              ]))
           }
         }
       }

@@ -117,9 +117,6 @@ public class HeroDetailsInlineConditionalInclusionQuery: GraphQLQuery {
               "__typename": objectType.typename,
               "name": name,
               "appearsIn": appearsIn
-            ],
-            variables: [
-              "includeDetails": true
           ]))
         }
       }

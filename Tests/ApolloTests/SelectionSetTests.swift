@@ -1069,9 +1069,7 @@ class SelectionSetTests: XCTestCase {
             data: [
               "__typename": objectType.typename,
               "name": name
-            ],
-            variables: ["a": true]
-          ))
+            ]))
         }
       }
 
@@ -1126,9 +1124,7 @@ class SelectionSetTests: XCTestCase {
             data: [
               "__typename": objectType.typename,
               "name": name
-            ],
-            variables: ["a": true]
-          ))
+            ]))
         }
       }
       class IfB: ConcreteMockTypeCase<Hero> {
@@ -1217,9 +1213,7 @@ class SelectionSetTests: XCTestCase {
                 "__typename": objectType.typename,
                 "name": name,
                 "friend": friend._fieldData
-              ],
-              variables: ["a": true]
-            ))
+              ]))
           }
 
           class Friend: MockSelectionSet {
@@ -1249,9 +1243,7 @@ class SelectionSetTests: XCTestCase {
                   data: [
                     "__typename": objectType.typename,
                     "name": name
-                  ],
-                  variables: ["c": false]
-                ))
+                  ]))
               }
             }
           }
@@ -1268,9 +1260,7 @@ class SelectionSetTests: XCTestCase {
               objectType: objectType,
               data: [
                 "__typename": objectType.typename
-              ],
-              variables: ["b": true]
-            ))
+              ]))
           }
         }
       }
@@ -1330,9 +1320,7 @@ class SelectionSetTests: XCTestCase {
             data: [
               "__typename": objectType.typename,
               "name": name
-            ],
-            variables: ["a": true]
-          ))
+            ]))
         }
       }
 

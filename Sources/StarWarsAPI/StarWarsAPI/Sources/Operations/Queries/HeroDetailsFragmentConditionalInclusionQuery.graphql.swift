@@ -120,9 +120,6 @@ public class HeroDetailsFragmentConditionalInclusionQuery: GraphQLQuery {
             data: [
               "__typename": objectType.typename,
               "name": name
-            ],
-            variables: [
-              "includeDetails": true
           ]))
         }
       }

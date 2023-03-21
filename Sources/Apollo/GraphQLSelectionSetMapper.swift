@@ -72,8 +72,7 @@ final class GraphQLSelectionSetMapper<T: SelectionSet>: GraphQLResultAccumulator
     data["__fulfilled"] = info.fulfilledFragments
     return DataDict(
       objectType: runtimeObjectType(for: data),
-      data: data,
-      variables: info.variables
+      data: data      
     )
   }
 

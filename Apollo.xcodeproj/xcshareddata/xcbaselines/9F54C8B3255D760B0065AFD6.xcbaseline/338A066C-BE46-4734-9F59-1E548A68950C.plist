@@ -27,6 +27,19 @@
 				</dict>
 			</dict>
 		</dict>
+		<key>SelectionSetInitializerPerformanceTests</key>
+		<dict>
+			<key>testPerformance_selectionSetInitialization_concreteObjectTypeCaseWithMultipleFulfilledFragments()</key>
+			<dict>
+				<key>com.apple.XCTPerformanceMetric_WallClockTime</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.055900</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>Local Baseline</string>
+				</dict>
+			</dict>
+		</dict>
 		<key>TypeCaseConversionPerformanceTests</key>
 		<dict>
 			<key>testPerformance_typeConversion_checkTypeConformsToInterface()</key>

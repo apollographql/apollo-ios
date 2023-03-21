@@ -280,9 +280,6 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
                 "laysEggs": laysEggs,
                 "bodyTemperature": bodyTemperature,
                 "height": height._fieldData
-              ],
-              variables: [
-                "getWarmBlooded": true
             ]))
           }
         }
@@ -338,9 +335,6 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
               "skinCovering": skinCovering,
               "predators": predators._fieldData,
               "bodyTemperature": bodyTemperature
-            ],
-            variables: [
-              "getWarmBlooded": true
           ]))
         }
 
@@ -636,9 +630,6 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
               "favoriteToy": favoriteToy,
               "owner": owner._fieldData,
               "bodyTemperature": bodyTemperature
-            ],
-            variables: [
-              "getCat": true
           ]))
         }
 
@@ -867,14 +858,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
               "height": height._fieldData,
               "species": species,
               "skinCovering": skinCovering,
-              "predators": predators._fieldData,
-              "__fulfilled": Set([
-                ObjectIdentifier(AllAnimal.self),
-                ObjectIdentifier(Self.self)
-              ])
-            ],
-            variables: [
-              "skipHeightInMeters": false
+              "predators": predators._fieldData
           ]))
         }
 

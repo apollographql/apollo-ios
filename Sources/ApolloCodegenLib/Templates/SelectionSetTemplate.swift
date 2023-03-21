@@ -422,13 +422,7 @@ struct SelectionSetTemplate {
         objectType: objectType,
         data: [
           \(InitializerDataDictTemplate(selectionSet.selections))
-        \(ifLet: selectionSet.typeInfo.scope.matchingConditions, { conditions in
-        """
-        ],
-        variables: [
-          \(conditions.map { "\"\($0.variable)\": \((!$0.isInverted).description)"})
-        """})
-      ]))
+        ]))
     }
     """
   }

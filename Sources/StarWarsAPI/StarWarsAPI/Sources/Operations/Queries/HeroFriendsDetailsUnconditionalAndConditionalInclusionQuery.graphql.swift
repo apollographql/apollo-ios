@@ -161,9 +161,6 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
               data: [
                 "__typename": objectType.typename,
                 "name": name
-              ],
-              variables: [
-                "includeFriendsDetails": true
             ]))
           }
 
@@ -196,9 +193,6 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
                   "__typename": objectType.typename,
                   "primaryFunction": primaryFunction,
                   "name": name
-                ],
-                variables: [
-                  "includeFriendsDetails": true
               ]))
             }
           }
