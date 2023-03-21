@@ -926,7 +926,13 @@ public class AllAnimalsQuery: GraphQLQuery {
               "predators": predators._fieldData,
               "bodyTemperature": bodyTemperature,
               "humanName": humanName,
-              "owner": owner._fieldData
+              "owner": owner._fieldData,
+              "__fulfilled": Set([
+                ObjectIdentifier(AllAnimal.self),
+                ObjectIdentifier(AllAnimal.AsPet.self),
+                ObjectIdentifier(AllAnimal.AsWarmBlooded.self),
+                ObjectIdentifier(AllAnimal.AsDog.self)
+              ])
           ]))
         }
 

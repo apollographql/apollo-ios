@@ -63,12 +63,13 @@ final class GraphQLSelectionSetMapper<T: SelectionSet>: GraphQLResultAccumulator
     guard let fieldEntry = fieldEntry else { return nil }
     return (info.responseKeyForField, fieldEntry)
   }
-
+ 
   func accept(
     fieldEntries: [(key: String, value: AnyHashable)],
     info: ObjectExecutionInfo
   ) throws -> DataDict {
-    let data = JSONObject.init(fieldEntries, uniquingKeysWith: { (_, last) in last })
+    var data = JSONObject.init(fieldEntries, uniquingKeysWith: { (_, last) in last })
+    data["__fulfilled"] = info.fulfilledFragments
     return DataDict(
       objectType: runtimeObjectType(for: data),
       data: data,

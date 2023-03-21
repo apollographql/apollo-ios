@@ -867,7 +867,11 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
               "height": height._fieldData,
               "species": species,
               "skinCovering": skinCovering,
-              "predators": predators._fieldData
+              "predators": predators._fieldData,
+              "__fulfilled": Set([
+                ObjectIdentifier(AllAnimal.self),
+                ObjectIdentifier(Self.self)
+              ])
             ],
             variables: [
               "skipHeightInMeters": false

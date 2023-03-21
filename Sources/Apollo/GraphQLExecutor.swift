@@ -14,33 +14,41 @@ typealias GraphQLFieldResolver = (_ object: JSONObject, _ info: FieldExecutionIn
 typealias ReferenceResolver = (CacheReference) -> PossiblyDeferred<JSONObject>
 
 struct ObjectExecutionInfo {
+  let rootType: any RootSelectionSet.Type
   let variables: GraphQLOperation.Variables?
   let schema: SchemaMetadata.Type
   private(set) var responsePath: ResponsePath = []
   private(set) var cachePath: ResponsePath = []
+  fileprivate(set) var fulfilledFragments: Set<ObjectIdentifier>
 
   fileprivate init(
+    rootType: any RootSelectionSet.Type,
     variables: GraphQLOperation.Variables?,
     schema: SchemaMetadata.Type,
     responsePath: ResponsePath,
     cachePath: ResponsePath
   ) {
+    self.rootType = rootType
     self.variables = variables
     self.schema = schema
     self.responsePath = responsePath
     self.cachePath = cachePath
+    self.fulfilledFragments = [ObjectIdentifier(rootType)]
   }
 
   fileprivate init(
+    rootType: any RootSelectionSet.Type,
     variables: GraphQLOperation.Variables?,
     schema: SchemaMetadata.Type,
     withRootCacheReference root: CacheReference? = nil
   ) {
+    self.rootType = rootType
     self.variables = variables
     self.schema = schema
     if let root = root {
       cachePath = [root.key]
     }
+    self.fulfilledFragments = [ObjectIdentifier(rootType)]
   }
 
   fileprivate mutating func resetCachePath(toRootCacheReference root: CacheReference) {
@@ -98,16 +106,26 @@ struct FieldExecutionInfo {
   }
 
   /// Returns the `ExecutionInfo` that should be used for executing the child selections.
-  fileprivate func executionInfoForChildSelections() -> ObjectExecutionInfo {
-    return ObjectExecutionInfo(variables: parentInfo.variables,
-                               schema: parentInfo.schema,
-                               responsePath: responsePath,
-                               cachePath: cachePath)
+  fileprivate func executionInfoForChildSelections(
+    withRootType rootType: any RootSelectionSet.Type
+  ) -> ObjectExecutionInfo {
+    return ObjectExecutionInfo(
+      rootType: rootType,
+      variables: parentInfo.variables,
+      schema: parentInfo.schema,
+      responsePath: responsePath,
+      cachePath: cachePath
+    )
   }
 }
 
 fileprivate struct FieldSelectionGrouping: Sequence {
   private var fieldInfoList: [String: FieldExecutionInfo] = [:]
+  private(set) var fulfilledFragments: Set<ObjectIdentifier> = []
+
+  init(info: ObjectExecutionInfo) {
+    self.fulfilledFragments = info.fulfilledFragments
+  }
 
   var count: Int { fieldInfoList.count }
 
@@ -119,6 +137,10 @@ fileprivate struct FieldSelectionGrouping: Sequence {
     } else {
       fieldInfoList[fieldKey] = FieldExecutionInfo(field: field, parentInfo: info)
     }
+  }
+
+  mutating func addFulfilledFragment<T: SelectionSet>(_ type: T.Type) {
+    fulfilledFragments.insert(ObjectIdentifier(type))
   }
 
   func makeIterator() -> Dictionary<String, FieldExecutionInfo>.Iterator {
@@ -176,14 +198,19 @@ final class GraphQLExecutor {
     variables: GraphQLOperation.Variables? = nil,
     accumulator: Accumulator
   ) throws -> Accumulator.FinalResult {
-    let info = ObjectExecutionInfo(variables: variables,
-                                   schema: SelectionSet.Schema.self,
-                                   withRootCacheReference: root)
+    let info = ObjectExecutionInfo(
+      rootType: SelectionSet.self,
+      variables: variables,
+      schema: SelectionSet.Schema.self,
+      withRootCacheReference: root
+    )
 
-    let rootValue = execute(selections: selectionSet.__selections,
-                            on: data,
-                            info: info,
-                            accumulator: accumulator)
+    let rootValue = execute(
+      selections: selectionSet.__selections,
+      on: data,
+      info: info,
+      accumulator: accumulator
+    )
 
     return try accumulator.finish(rootValue: try rootValue.get(), info: info)
   }
@@ -207,6 +234,9 @@ final class GraphQLExecutor {
         fieldEntries.append(fieldEntry)
       }
 
+      var info = info
+      info.fulfilledFragments = groupedFields.fulfilledFragments
+
       return compactLazilyEvaluateAll(fieldEntries).map {
         try accumulator.accept(fieldEntries: $0, info: info)
       }
@@ -221,7 +251,7 @@ final class GraphQLExecutor {
     on object: JSONObject,
     info: ObjectExecutionInfo
   ) throws -> FieldSelectionGrouping {
-    var grouping = FieldSelectionGrouping()
+    var grouping = FieldSelectionGrouping(info: info)
 
     // Add __typename field to all selection sets other than the root of the operation.
     if !info.responsePath.isEmpty {
@@ -268,6 +298,7 @@ final class GraphQLExecutor {
       case let .inlineFragment(typeCase):
         if let runtimeType = runtimeObjectType(for: object, schema: info.schema),
            typeCase.__parentType.canBeConverted(from: runtimeType) {
+          groupedFields.addFulfilledFragment(typeCase)
           try groupFields(typeCase.__selections,
                           for: object,
                           into: &groupedFields,
@@ -401,7 +432,7 @@ final class GraphQLExecutor {
       return lazilyEvaluateAll(completedArray).map {
         try accumulator.accept(list: $0, info: fieldInfo)
       }
-    case .object:
+    case let .object(rootSelectionSetType):
       switch value {
       case let reference as CacheReference:
         guard let resolveReference = resolveReference else {
@@ -417,11 +448,13 @@ final class GraphQLExecutor {
 
       case let dataDict as DataDict:
         return executeChildSelections(forObjectTypeFields: fieldInfo,
+                                      withRootType: rootSelectionSetType,
                                       onChildObject: dataDict._data,
                                       accumulator: accumulator)
 
       case let object as JSONObject:
         return executeChildSelections(forObjectTypeFields: fieldInfo,
+                                      withRootType: rootSelectionSetType,
                                       onChildObject: object,
                                       accumulator: accumulator)
 
@@ -433,11 +466,14 @@ final class GraphQLExecutor {
 
   private func executeChildSelections<Accumulator: GraphQLResultAccumulator>(
     forObjectTypeFields fieldInfo: FieldExecutionInfo,
+    withRootType rootSelectionSetType: any RootSelectionSet.Type,
     onChildObject object: JSONObject,
     accumulator: Accumulator
   ) -> PossiblyDeferred<Accumulator.PartialResult> {
     let selections = fieldInfo.computeChildSelections()
-    var childExecutionInfo = fieldInfo.executionInfoForChildSelections()
+    var childExecutionInfo = fieldInfo.executionInfoForChildSelections(
+      withRootType: rootSelectionSetType
+    )
 
     // If the object has it's own cache key, reset the cache path to the key,
     // rather than using the inherited cache path from the parent field.
