@@ -40,7 +40,7 @@ class PetSearchQuery: GraphQLQuery {
 
   public struct Data: MySchemaModule.SelectionSet {
     public let __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_data: DataDict) { __data = data }
 
     public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Objects.Query }
     public static var __selections: [ApolloAPI.Selection] { [
@@ -54,7 +54,7 @@ class PetSearchQuery: GraphQLQuery {
     /// Parent Type: `Pet`
     public struct Pet: MySchemaModule.SelectionSet {
       public let __data: DataDict
-      public init(data: DataDict) { __data = data }
+      public init(_data: DataDict) { __data = data }
 
       public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Interfaces.Pet }
       public static var __selections: [ApolloAPI.Selection] { [

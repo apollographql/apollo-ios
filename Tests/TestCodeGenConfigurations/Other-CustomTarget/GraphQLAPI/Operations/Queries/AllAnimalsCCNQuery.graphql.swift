@@ -25,7 +25,7 @@ public class AllAnimalsCCNQuery: GraphQLQuery {
 
   public struct Data: GraphQLAPI.SelectionSet {
     public let __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_data: DataDict) { __data = data }
 
     public static var __parentType: ApolloAPI.ParentType { GraphQLAPI.Objects.Query }
     public static var __selections: [ApolloAPI.Selection] { [
@@ -39,7 +39,7 @@ public class AllAnimalsCCNQuery: GraphQLQuery {
     /// Parent Type: `Animal`
     public struct AllAnimal: GraphQLAPI.SelectionSet {
       public let __data: DataDict
-      public init(data: DataDict) { __data = data }
+      public init(_data: DataDict) { __data = data }
 
       public static var __parentType: ApolloAPI.ParentType { GraphQLAPI.Interfaces.Animal }
       public static var __selections: [ApolloAPI.Selection] { [
@@ -53,7 +53,7 @@ public class AllAnimalsCCNQuery: GraphQLQuery {
       /// Parent Type: `Height`
       public struct Height: GraphQLAPI.SelectionSet {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_data: DataDict) { __data = data }
 
         public static var __parentType: ApolloAPI.ParentType { GraphQLAPI.Objects.Height }
         public static var __selections: [ApolloAPI.Selection] { [

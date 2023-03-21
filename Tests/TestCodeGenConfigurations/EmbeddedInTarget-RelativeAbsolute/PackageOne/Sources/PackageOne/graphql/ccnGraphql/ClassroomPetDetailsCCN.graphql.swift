@@ -19,7 +19,7 @@ struct ClassroomPetDetailsCCN: MySchemaModule.SelectionSet, Fragment {
     """ }
 
   public let __data: DataDict
-  public init(data: DataDict) { __data = data }
+  public init(_data: DataDict) { __data = data }
 
   public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Unions.ClassroomPet }
   public static var __selections: [ApolloAPI.Selection] { [
@@ -33,7 +33,7 @@ struct ClassroomPetDetailsCCN: MySchemaModule.SelectionSet, Fragment {
   /// Parent Type: `Animal`
   public struct AsAnimal: MySchemaModule.InlineFragment {
     public let __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_data: DataDict) { __data = data }
 
     public typealias RootEntityType = ClassroomPetDetailsCCN
     public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Interfaces.Animal }
@@ -48,7 +48,7 @@ struct ClassroomPetDetailsCCN: MySchemaModule.SelectionSet, Fragment {
     /// Parent Type: `Height`
     public struct Height: MySchemaModule.SelectionSet {
       public let __data: DataDict
-      public init(data: DataDict) { __data = data }
+      public init(_data: DataDict) { __data = data }
 
       public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Objects.Height }
       public static var __selections: [ApolloAPI.Selection] { [

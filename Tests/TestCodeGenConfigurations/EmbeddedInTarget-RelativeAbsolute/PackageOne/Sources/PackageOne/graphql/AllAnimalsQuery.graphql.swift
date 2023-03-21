@@ -69,7 +69,7 @@ class AllAnimalsQuery: GraphQLQuery {
 
   public struct Data: MySchemaModule.SelectionSet {
     public let __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_data: DataDict) { __data = data }
 
     public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Objects.Query }
     public static var __selections: [ApolloAPI.Selection] { [
@@ -83,7 +83,7 @@ class AllAnimalsQuery: GraphQLQuery {
     /// Parent Type: `Animal`
     public struct AllAnimal: MySchemaModule.SelectionSet {
       public let __data: DataDict
-      public init(data: DataDict) { __data = data }
+      public init(_data: DataDict) { __data = data }
 
       public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Interfaces.Animal }
       public static var __selections: [ApolloAPI.Selection] { [
@@ -112,7 +112,7 @@ class AllAnimalsQuery: GraphQLQuery {
 
       public struct Fragments: FragmentContainer {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_data: DataDict) { __data = data }
 
         public var heightInMeters: HeightInMeters { _toFragment() }
       }
@@ -122,7 +122,7 @@ class AllAnimalsQuery: GraphQLQuery {
       /// Parent Type: `Height`
       public struct Height: MySchemaModule.SelectionSet {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_data: DataDict) { __data = data }
 
         public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Objects.Height }
         public static var __selections: [ApolloAPI.Selection] { [
@@ -140,7 +140,7 @@ class AllAnimalsQuery: GraphQLQuery {
       /// Parent Type: `Animal`
       public struct Predator: MySchemaModule.SelectionSet {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_data: DataDict) { __data = data }
 
         public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Interfaces.Animal }
         public static var __selections: [ApolloAPI.Selection] { [
@@ -157,7 +157,7 @@ class AllAnimalsQuery: GraphQLQuery {
         /// Parent Type: `WarmBlooded`
         public struct AsWarmBlooded: MySchemaModule.InlineFragment {
           public let __data: DataDict
-          public init(data: DataDict) { __data = data }
+          public init(_data: DataDict) { __data = data }
 
           public typealias RootEntityType = AllAnimal.Predator
           public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Interfaces.WarmBlooded }
@@ -173,7 +173,7 @@ class AllAnimalsQuery: GraphQLQuery {
 
           public struct Fragments: FragmentContainer {
             public let __data: DataDict
-            public init(data: DataDict) { __data = data }
+            public init(_data: DataDict) { __data = data }
 
             public var warmBloodedDetails: WarmBloodedDetails { _toFragment() }
             public var heightInMeters: HeightInMeters { _toFragment() }
@@ -186,7 +186,7 @@ class AllAnimalsQuery: GraphQLQuery {
       /// Parent Type: `WarmBlooded`
       public struct AsWarmBlooded: MySchemaModule.InlineFragment {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_data: DataDict) { __data = data }
 
         public typealias RootEntityType = AllAnimal
         public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Interfaces.WarmBlooded }
@@ -202,7 +202,7 @@ class AllAnimalsQuery: GraphQLQuery {
 
         public struct Fragments: FragmentContainer {
           public let __data: DataDict
-          public init(data: DataDict) { __data = data }
+          public init(_data: DataDict) { __data = data }
 
           public var warmBloodedDetails: WarmBloodedDetails { _toFragment() }
           public var heightInMeters: HeightInMeters { _toFragment() }
@@ -213,7 +213,7 @@ class AllAnimalsQuery: GraphQLQuery {
         /// Parent Type: `Height`
         public struct Height: MySchemaModule.SelectionSet {
           public let __data: DataDict
-          public init(data: DataDict) { __data = data }
+          public init(_data: DataDict) { __data = data }
 
           public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Objects.Height }
 
@@ -228,7 +228,7 @@ class AllAnimalsQuery: GraphQLQuery {
       /// Parent Type: `Pet`
       public struct AsPet: MySchemaModule.InlineFragment {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_data: DataDict) { __data = data }
 
         public typealias RootEntityType = AllAnimal
         public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Interfaces.Pet }
@@ -250,7 +250,7 @@ class AllAnimalsQuery: GraphQLQuery {
 
         public struct Fragments: FragmentContainer {
           public let __data: DataDict
-          public init(data: DataDict) { __data = data }
+          public init(_data: DataDict) { __data = data }
 
           public var petDetails: PetDetails { _toFragment() }
           public var heightInMeters: HeightInMeters { _toFragment() }
@@ -261,7 +261,7 @@ class AllAnimalsQuery: GraphQLQuery {
         /// Parent Type: `Height`
         public struct Height: MySchemaModule.SelectionSet {
           public let __data: DataDict
-          public init(data: DataDict) { __data = data }
+          public init(_data: DataDict) { __data = data }
 
           public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Objects.Height }
           public static var __selections: [ApolloAPI.Selection] { [
@@ -281,7 +281,7 @@ class AllAnimalsQuery: GraphQLQuery {
         /// Parent Type: `WarmBlooded`
         public struct AsWarmBlooded: MySchemaModule.InlineFragment {
           public let __data: DataDict
-          public init(data: DataDict) { __data = data }
+          public init(_data: DataDict) { __data = data }
 
           public typealias RootEntityType = AllAnimal
           public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Interfaces.WarmBlooded }
@@ -300,7 +300,7 @@ class AllAnimalsQuery: GraphQLQuery {
 
           public struct Fragments: FragmentContainer {
             public let __data: DataDict
-            public init(data: DataDict) { __data = data }
+            public init(_data: DataDict) { __data = data }
 
             public var warmBloodedDetails: WarmBloodedDetails { _toFragment() }
             public var heightInMeters: HeightInMeters { _toFragment() }
@@ -312,7 +312,7 @@ class AllAnimalsQuery: GraphQLQuery {
           /// Parent Type: `Height`
           public struct Height: MySchemaModule.SelectionSet {
             public let __data: DataDict
-            public init(data: DataDict) { __data = data }
+            public init(_data: DataDict) { __data = data }
 
             public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Objects.Height }
 
@@ -330,7 +330,7 @@ class AllAnimalsQuery: GraphQLQuery {
       /// Parent Type: `Cat`
       public struct AsCat: MySchemaModule.InlineFragment {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_data: DataDict) { __data = data }
 
         public typealias RootEntityType = AllAnimal
         public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Objects.Cat }
@@ -350,7 +350,7 @@ class AllAnimalsQuery: GraphQLQuery {
 
         public struct Fragments: FragmentContainer {
           public let __data: DataDict
-          public init(data: DataDict) { __data = data }
+          public init(_data: DataDict) { __data = data }
 
           public var heightInMeters: HeightInMeters { _toFragment() }
           public var warmBloodedDetails: WarmBloodedDetails { _toFragment() }
@@ -362,7 +362,7 @@ class AllAnimalsQuery: GraphQLQuery {
         /// Parent Type: `Height`
         public struct Height: MySchemaModule.SelectionSet {
           public let __data: DataDict
-          public init(data: DataDict) { __data = data }
+          public init(_data: DataDict) { __data = data }
 
           public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Objects.Height }
 
@@ -379,7 +379,7 @@ class AllAnimalsQuery: GraphQLQuery {
       /// Parent Type: `ClassroomPet`
       public struct AsClassroomPet: MySchemaModule.InlineFragment {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_data: DataDict) { __data = data }
 
         public typealias RootEntityType = AllAnimal
         public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Unions.ClassroomPet }
@@ -396,7 +396,7 @@ class AllAnimalsQuery: GraphQLQuery {
 
         public struct Fragments: FragmentContainer {
           public let __data: DataDict
-          public init(data: DataDict) { __data = data }
+          public init(_data: DataDict) { __data = data }
 
           public var heightInMeters: HeightInMeters { _toFragment() }
         }
@@ -406,7 +406,7 @@ class AllAnimalsQuery: GraphQLQuery {
         /// Parent Type: `Height`
         public struct Height: MySchemaModule.SelectionSet {
           public let __data: DataDict
-          public init(data: DataDict) { __data = data }
+          public init(_data: DataDict) { __data = data }
 
           public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Objects.Height }
 
@@ -420,7 +420,7 @@ class AllAnimalsQuery: GraphQLQuery {
         /// Parent Type: `Bird`
         public struct AsBird: MySchemaModule.InlineFragment {
           public let __data: DataDict
-          public init(data: DataDict) { __data = data }
+          public init(_data: DataDict) { __data = data }
 
           public typealias RootEntityType = AllAnimal
           public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Objects.Bird }
@@ -440,7 +440,7 @@ class AllAnimalsQuery: GraphQLQuery {
 
           public struct Fragments: FragmentContainer {
             public let __data: DataDict
-            public init(data: DataDict) { __data = data }
+            public init(_data: DataDict) { __data = data }
 
             public var heightInMeters: HeightInMeters { _toFragment() }
             public var warmBloodedDetails: WarmBloodedDetails { _toFragment() }
@@ -452,7 +452,7 @@ class AllAnimalsQuery: GraphQLQuery {
           /// Parent Type: `Height`
           public struct Height: MySchemaModule.SelectionSet {
             public let __data: DataDict
-            public init(data: DataDict) { __data = data }
+            public init(_data: DataDict) { __data = data }
 
             public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Objects.Height }
 
@@ -470,7 +470,7 @@ class AllAnimalsQuery: GraphQLQuery {
       /// Parent Type: `Dog`
       public struct AsDog: MySchemaModule.InlineFragment {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_data: DataDict) { __data = data }
 
         public typealias RootEntityType = AllAnimal
         public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Objects.Dog }
@@ -491,7 +491,7 @@ class AllAnimalsQuery: GraphQLQuery {
 
         public struct Fragments: FragmentContainer {
           public let __data: DataDict
-          public init(data: DataDict) { __data = data }
+          public init(_data: DataDict) { __data = data }
 
           public var heightInMeters: HeightInMeters { _toFragment() }
           public var warmBloodedDetails: WarmBloodedDetails { _toFragment() }
@@ -503,7 +503,7 @@ class AllAnimalsQuery: GraphQLQuery {
         /// Parent Type: `Height`
         public struct Height: MySchemaModule.SelectionSet {
           public let __data: DataDict
-          public init(data: DataDict) { __data = data }
+          public init(_data: DataDict) { __data = data }
 
           public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Objects.Height }
 

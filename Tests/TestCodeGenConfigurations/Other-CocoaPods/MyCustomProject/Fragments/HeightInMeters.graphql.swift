@@ -15,7 +15,7 @@ public struct HeightInMeters: MyCustomProject.SelectionSet, Fragment {
     """ }
 
   public let __data: DataDict
-  public init(data: DataDict) { __data = data }
+  public init(_data: DataDict) { __data = data }
 
   public static var __parentType: Apollo.ParentType { MyCustomProject.Interfaces.Animal }
   public static var __selections: [Apollo.Selection] { [
@@ -29,7 +29,7 @@ public struct HeightInMeters: MyCustomProject.SelectionSet, Fragment {
   /// Parent Type: `Height`
   public struct Height: MyCustomProject.SelectionSet {
     public let __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_data: DataDict) { __data = data }
 
     public static var __parentType: Apollo.ParentType { MyCustomProject.Objects.Height }
     public static var __selections: [Apollo.Selection] { [

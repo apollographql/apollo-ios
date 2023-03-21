@@ -15,7 +15,7 @@ public struct HeightInMeters: GraphQLAPI.SelectionSet, Fragment {
     """ }
 
   public let __data: DataDict
-  public init(data: DataDict) { __data = data }
+  public init(_data: DataDict) { __data = data }
 
   public static var __parentType: ApolloAPI.ParentType { GraphQLAPI.Interfaces.Animal }
   public static var __selections: [ApolloAPI.Selection] { [
@@ -29,7 +29,7 @@ public struct HeightInMeters: GraphQLAPI.SelectionSet, Fragment {
   /// Parent Type: `Height`
   public struct Height: GraphQLAPI.SelectionSet {
     public let __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_data: DataDict) { __data = data }
 
     public static var __parentType: ApolloAPI.ParentType { GraphQLAPI.Objects.Height }
     public static var __selections: [ApolloAPI.Selection] { [

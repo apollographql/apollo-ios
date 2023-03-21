@@ -36,7 +36,7 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
     """ }
 
   public let __data: DataDict
-  public init(data: DataDict) { __data = data }
+  public init(_data: DataDict) { __data = data }
 
   public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Unions.ClassroomPet }
   public static var __selections: [ApolloAPI.Selection] { [
@@ -60,7 +60,7 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
   /// Parent Type: `Animal`
   public struct AsAnimal: AnimalKingdomAPI.InlineFragment {
     public let __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_data: DataDict) { __data = data }
 
     public typealias RootEntityType = ClassroomPetDetails
     public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Interfaces.Animal }
@@ -76,7 +76,7 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
   /// Parent Type: `Pet`
   public struct AsPet: AnimalKingdomAPI.InlineFragment {
     public let __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_data: DataDict) { __data = data }
 
     public typealias RootEntityType = ClassroomPetDetails
     public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Interfaces.Pet }
@@ -92,7 +92,7 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
   /// Parent Type: `WarmBlooded`
   public struct AsWarmBlooded: AnimalKingdomAPI.InlineFragment {
     public let __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_data: DataDict) { __data = data }
 
     public typealias RootEntityType = ClassroomPetDetails
     public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Interfaces.WarmBlooded }
@@ -109,7 +109,7 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
   /// Parent Type: `Cat`
   public struct AsCat: AnimalKingdomAPI.InlineFragment {
     public let __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_data: DataDict) { __data = data }
 
     public typealias RootEntityType = ClassroomPetDetails
     public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Objects.Cat }
@@ -130,7 +130,7 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
   /// Parent Type: `Bird`
   public struct AsBird: AnimalKingdomAPI.InlineFragment {
     public let __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_data: DataDict) { __data = data }
 
     public typealias RootEntityType = ClassroomPetDetails
     public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Objects.Bird }
@@ -149,7 +149,7 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
   /// Parent Type: `PetRock`
   public struct AsPetRock: AnimalKingdomAPI.InlineFragment {
     public let __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_data: DataDict) { __data = data }
 
     public typealias RootEntityType = ClassroomPetDetails
     public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Objects.PetRock }

@@ -13,7 +13,7 @@ public struct CharacterNameAndDroidPrimaryFunction: StarWarsAPI.SelectionSet, Fr
     """ }
 
   public let __data: DataDict
-  public init(_dataDict: DataDict) { __data = _dataDict }
+  public init(_data: DataDict) { __data = data }
 
   public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
   public static var __selections: [ApolloAPI.Selection] { [
@@ -28,7 +28,7 @@ public struct CharacterNameAndDroidPrimaryFunction: StarWarsAPI.SelectionSet, Fr
 
   public struct Fragments: FragmentContainer {
     public let __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_data: DataDict) { __data = data }
 
     public var characterName: CharacterName { _toFragment() }
   }
@@ -42,7 +42,7 @@ public struct CharacterNameAndDroidPrimaryFunction: StarWarsAPI.SelectionSet, Fr
       implementedInterfaces: [
         StarWarsAPI.Interfaces.Character
     ])
-    self.init(_dataDict: DataDict(
+    self.init(data: DataDict(
       objectType: objectType,
       data: [
         "__typename": objectType.typename,
@@ -55,7 +55,7 @@ public struct CharacterNameAndDroidPrimaryFunction: StarWarsAPI.SelectionSet, Fr
   /// Parent Type: `Droid`
   public struct AsDroid: StarWarsAPI.InlineFragment {
     public let __data: DataDict
-    public init(_dataDict: DataDict) { __data = _dataDict }
+    public init(_data: DataDict) { __data = data }
 
     public typealias RootEntityType = CharacterNameAndDroidPrimaryFunction
     public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Droid }
@@ -70,7 +70,7 @@ public struct CharacterNameAndDroidPrimaryFunction: StarWarsAPI.SelectionSet, Fr
 
     public struct Fragments: FragmentContainer {
       public let __data: DataDict
-      public init(data: DataDict) { __data = data }
+      public init(_data: DataDict) { __data = data }
 
       public var droidPrimaryFunction: DroidPrimaryFunction { _toFragment() }
       public var characterName: CharacterName { _toFragment() }
@@ -81,7 +81,7 @@ public struct CharacterNameAndDroidPrimaryFunction: StarWarsAPI.SelectionSet, Fr
       primaryFunction: String? = nil
     ) {
       let objectType = StarWarsAPI.Objects.Droid
-      self.init(_dataDict: DataDict(
+      self.init(data: DataDict(
         objectType: objectType,
         data: [
           "__typename": objectType.typename,

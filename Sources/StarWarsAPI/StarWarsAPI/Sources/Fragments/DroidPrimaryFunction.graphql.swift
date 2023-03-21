@@ -12,7 +12,7 @@ public struct DroidPrimaryFunction: StarWarsAPI.SelectionSet, Fragment {
     """ }
 
   public let __data: DataDict
-  public init(_dataDict: DataDict) { __data = _dataDict }
+  public init(_data: DataDict) { __data = data }
 
   public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Droid }
   public static var __selections: [ApolloAPI.Selection] { [
@@ -26,7 +26,7 @@ public struct DroidPrimaryFunction: StarWarsAPI.SelectionSet, Fragment {
     primaryFunction: String? = nil
   ) {
     let objectType = StarWarsAPI.Objects.Droid
-    self.init(_dataDict: DataDict(
+    self.init(data: DataDict(
       objectType: objectType,
       data: [
         "__typename": objectType.typename,

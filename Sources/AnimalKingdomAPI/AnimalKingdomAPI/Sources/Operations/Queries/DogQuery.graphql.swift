@@ -25,7 +25,7 @@ public class DogQuery: GraphQLQuery {
 
   public struct Data: AnimalKingdomAPI.SelectionSet {
     public let __data: DataDict
-    public init(_dataDict: DataDict) { __data = _dataDict }
+    public init(_data: DataDict) { __data = data }
 
     public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Objects.Query }
     public static var __selections: [ApolloAPI.Selection] { [
@@ -38,7 +38,7 @@ public class DogQuery: GraphQLQuery {
       allAnimals: [AllAnimal]
     ) {
       let objectType = AnimalKingdomAPI.Objects.Query
-      self.init(_dataDict: DataDict(
+      self.init(data: DataDict(
         objectType: objectType,
         data: [
           "__typename": objectType.typename,
@@ -51,7 +51,7 @@ public class DogQuery: GraphQLQuery {
     /// Parent Type: `Animal`
     public struct AllAnimal: AnimalKingdomAPI.SelectionSet {
       public let __data: DataDict
-      public init(_dataDict: DataDict) { __data = _dataDict }
+      public init(_data: DataDict) { __data = data }
 
       public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Interfaces.Animal }
       public static var __selections: [ApolloAPI.Selection] { [
@@ -72,7 +72,7 @@ public class DogQuery: GraphQLQuery {
           implementedInterfaces: [
             AnimalKingdomAPI.Interfaces.Animal
         ])
-        self.init(_dataDict: DataDict(
+        self.init(data: DataDict(
           objectType: objectType,
           data: [
             "__typename": objectType.typename,
@@ -85,7 +85,7 @@ public class DogQuery: GraphQLQuery {
       /// Parent Type: `Dog`
       public struct AsDog: AnimalKingdomAPI.InlineFragment {
         public let __data: DataDict
-        public init(_dataDict: DataDict) { __data = _dataDict }
+        public init(_data: DataDict) { __data = data }
 
         public typealias RootEntityType = AllAnimal
         public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Objects.Dog }
@@ -98,7 +98,7 @@ public class DogQuery: GraphQLQuery {
 
         public struct Fragments: FragmentContainer {
           public let __data: DataDict
-          public init(data: DataDict) { __data = data }
+          public init(_data: DataDict) { __data = data }
 
           public var dogFragment: DogFragment { _toFragment() }
         }
@@ -108,7 +108,7 @@ public class DogQuery: GraphQLQuery {
           species: String
         ) {
           let objectType = AnimalKingdomAPI.Objects.Dog
-          self.init(_dataDict: DataDict(
+          self.init(data: DataDict(
             objectType: objectType,
             data: [
               "__typename": objectType.typename,

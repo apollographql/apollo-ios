@@ -14,7 +14,7 @@ struct WarmBloodedDetails: MySchemaModule.SelectionSet, Fragment {
     """ }
 
   public let __data: DataDict
-  public init(data: DataDict) { __data = data }
+  public init(_data: DataDict) { __data = data }
 
   public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Interfaces.WarmBlooded }
   public static var __selections: [ApolloAPI.Selection] { [
@@ -27,7 +27,7 @@ struct WarmBloodedDetails: MySchemaModule.SelectionSet, Fragment {
 
   public struct Fragments: FragmentContainer {
     public let __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_data: DataDict) { __data = data }
 
     public var heightInMeters: HeightInMeters { _toFragment() }
   }

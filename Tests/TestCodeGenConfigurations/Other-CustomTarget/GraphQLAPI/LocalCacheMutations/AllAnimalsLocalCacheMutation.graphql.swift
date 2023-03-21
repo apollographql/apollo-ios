@@ -10,7 +10,7 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
 
   public struct Data: GraphQLAPI.MutableSelectionSet {
     public var __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_data: DataDict) { __data = data }
 
     public static var __parentType: ApolloAPI.ParentType { GraphQLAPI.Objects.Query }
     public static var __selections: [ApolloAPI.Selection] { [
@@ -39,7 +39,7 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
     /// Parent Type: `Animal`
     public struct AllAnimal: GraphQLAPI.MutableSelectionSet {
       public var __data: DataDict
-      public init(data: DataDict) { __data = data }
+      public init(_data: DataDict) { __data = data }
 
       public static var __parentType: ApolloAPI.ParentType { GraphQLAPI.Interfaces.Animal }
       public static var __selections: [ApolloAPI.Selection] { [
@@ -86,7 +86,7 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
       /// Parent Type: `Bird`
       public struct AsBird: GraphQLAPI.MutableInlineFragment {
         public var __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_data: DataDict) { __data = data }
 
         public typealias RootEntityType = AllAnimal
         public static var __parentType: ApolloAPI.ParentType { GraphQLAPI.Objects.Bird }

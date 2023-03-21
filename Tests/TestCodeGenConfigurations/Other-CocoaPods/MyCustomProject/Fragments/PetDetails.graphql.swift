@@ -17,7 +17,7 @@ public struct PetDetails: MyCustomProject.SelectionSet, Fragment {
     """ }
 
   public let __data: DataDict
-  public init(data: DataDict) { __data = data }
+  public init(_data: DataDict) { __data = data }
 
   public static var __parentType: Apollo.ParentType { MyCustomProject.Interfaces.Pet }
   public static var __selections: [Apollo.Selection] { [
@@ -35,7 +35,7 @@ public struct PetDetails: MyCustomProject.SelectionSet, Fragment {
   /// Parent Type: `Human`
   public struct Owner: MyCustomProject.SelectionSet {
     public let __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_data: DataDict) { __data = data }
 
     public static var __parentType: Apollo.ParentType { MyCustomProject.Objects.Human }
     public static var __selections: [Apollo.Selection] { [

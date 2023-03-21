@@ -30,7 +30,7 @@ public class UploadMultipleFilesToTheSameParameterMutation: GraphQLMutation {
 
   public struct Data: UploadAPI.SelectionSet {
     public let __data: DataDict
-    public init(_dataDict: DataDict) { __data = _dataDict }
+    public init(_data: DataDict) { __data = data }
 
     public static var __parentType: ApolloAPI.ParentType { UploadAPI.Objects.Mutation }
     public static var __selections: [ApolloAPI.Selection] { [
@@ -44,7 +44,7 @@ public class UploadMultipleFilesToTheSameParameterMutation: GraphQLMutation {
     /// Parent Type: `File`
     public struct MultipleUpload: UploadAPI.SelectionSet {
       public let __data: DataDict
-      public init(_dataDict: DataDict) { __data = _dataDict }
+      public init(_data: DataDict) { __data = data }
 
       public static var __parentType: ApolloAPI.ParentType { UploadAPI.Objects.File }
       public static var __selections: [ApolloAPI.Selection] { [

@@ -4037,7 +4037,7 @@ class SelectionSetTemplateTests: XCTestCase {
     let expected = """
       public struct Fragments: FragmentContainer {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_data: DataDict) { __data = data }
 
         public var fragmentA: FragmentA { _toFragment() }
         public var lowercaseFragment: LowercaseFragment { _toFragment() }
@@ -4096,7 +4096,7 @@ class SelectionSetTemplateTests: XCTestCase {
     let expected = """
       public struct Fragments: FragmentContainer {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_data: DataDict) { __data = data }
 
         public var fragmentA: FragmentA { _toFragment() }
       }
@@ -4149,7 +4149,7 @@ class SelectionSetTemplateTests: XCTestCase {
     let expected = """
       public struct Fragments: FragmentContainer {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_data: DataDict) { __data = data }
 
         public var fragmentA: FragmentA? { _toFragment(if: "a") }
         public var lowercaseFragment: LowercaseFragment { _toFragment() }
@@ -4196,7 +4196,7 @@ class SelectionSetTemplateTests: XCTestCase {
     let expected = """
       public struct Fragments: FragmentContainer {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_data: DataDict) { __data = data }
 
         public var fragmentA: FragmentA { _toFragment() }
       }
@@ -4242,7 +4242,7 @@ class SelectionSetTemplateTests: XCTestCase {
     let expected = """
       public struct Fragments: FragmentContainer {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_data: DataDict) { __data = data }
 
         public var fragmentA: FragmentA? { _toFragment(if: "a" && "b") }
       }
@@ -4288,7 +4288,7 @@ class SelectionSetTemplateTests: XCTestCase {
     let expected = """
       public struct Fragments: FragmentContainer {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_data: DataDict) { __data = data }
 
         public var fragmentA: FragmentA { _toFragment() }
       }
@@ -4516,7 +4516,7 @@ class SelectionSetTemplateTests: XCTestCase {
       /// Badge
       public struct Badge: TestSchema.SelectionSet {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_data: DataDict) { __data = data }
 
         public static var __parentType: ApolloAPI.ParentType { TestSchema.Objects.Badge }
         public static var __selections: [ApolloAPI.Selection] { [
@@ -4529,7 +4529,7 @@ class SelectionSetTemplateTests: XCTestCase {
       /// Badges
       public struct Badges: TestSchema.SelectionSet {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_data: DataDict) { __data = data }
 
         public static var __parentType: ApolloAPI.ParentType { TestSchema.Objects.ProductBadge }
         public static var __selections: [ApolloAPI.Selection] { [
@@ -4590,7 +4590,7 @@ class SelectionSetTemplateTests: XCTestCase {
       /// Badge
       public struct Badge: TestSchema.SelectionSet {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_data: DataDict) { __data = data }
 
         public static var __parentType: ApolloAPI.ParentType { TestSchema.Objects.Badge }
         public static var __selections: [ApolloAPI.Selection] { [
@@ -4603,7 +4603,7 @@ class SelectionSetTemplateTests: XCTestCase {
       /// Badges
       public struct Badges: TestSchema.SelectionSet {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_data: DataDict) { __data = data }
 
         public static var __parentType: ApolloAPI.ParentType { TestSchema.Objects.ProductBadge }
         public static var __selections: [ApolloAPI.Selection] { [
@@ -4743,7 +4743,7 @@ class SelectionSetTemplateTests: XCTestCase {
 
       public struct Fragments: FragmentContainer {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_data: DataDict) { __data = data }
 
         public var predatorDetails: PredatorDetails { _toFragment() }
       }
@@ -4794,7 +4794,7 @@ class SelectionSetTemplateTests: XCTestCase {
 
       public struct Fragments: FragmentContainer {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_data: DataDict) { __data = data }
 
         public var predatorDetails: PredatorDetails { _toFragment() }
       }
@@ -4878,7 +4878,7 @@ class SelectionSetTemplateTests: XCTestCase {
 
       public struct Fragments: FragmentContainer {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_data: DataDict) { __data = data }
 
         public var warmBloodedDetails: WarmBloodedDetails { _toFragment() }
         public var heightInMeters: HeightInMeters { _toFragment() }
@@ -5319,7 +5319,7 @@ class SelectionSetTemplateTests: XCTestCase {
     /// AllAnimal.AsPet
     public struct AsPet: TestSchema.InlineFragment {
       public let __data: DataDict
-      public init(data: DataDict) { __data = data }
+      public init(_data: DataDict) { __data = data }
 
       public typealias RootEntityType = AllAnimal
     """
@@ -5373,7 +5373,7 @@ class SelectionSetTemplateTests: XCTestCase {
     /// AllAnimal.AsWarmBlooded.AsPet
     public struct AsPet: TestSchema.InlineFragment {
       public let __data: DataDict
-      public init(data: DataDict) { __data = data }
+      public init(_data: DataDict) { __data = data }
 
       public typealias RootEntityType = AllAnimal
     """
@@ -5426,7 +5426,7 @@ class SelectionSetTemplateTests: XCTestCase {
     /// AllAnimal.Predator.AsPet
     public struct AsPet: TestSchema.InlineFragment {
       public let __data: DataDict
-      public init(data: DataDict) { __data = data }
+      public init(_data: DataDict) { __data = data }
 
       public typealias RootEntityType = AllAnimal.Predator
     """
