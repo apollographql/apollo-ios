@@ -1201,7 +1201,7 @@ class SelectionSetTests: XCTestCase {
           override class var __parentType: ParentType { Types.Human }
           override class var __selections: [Selection] {[
             .field("name", String.self),
-            .include(if: !"c", .field("friend", Friend.self))
+            .field("friend", Friend.self)
           ]}
           var name: String { __data["name"] }
           var friend: Friend { __data["friend"] }
@@ -1227,8 +1227,7 @@ class SelectionSetTests: XCTestCase {
 
             override class var __parentType: ParentType { Types.Human }
             override class var __selections: [Selection] {[
-              .include(if: "a", .inlineFragment(IfA.self)),
-              .include(if: "b", .inlineFragment(IfB.self))
+              .include(if: !"c", .inlineFragment(IfNotC.self))
             ]}
 
             var ifNotC: IfNotC? { _asInlineFragment(if: !"c") }
