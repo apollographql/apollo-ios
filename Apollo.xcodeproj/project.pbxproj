@@ -619,6 +619,9 @@
 		DE7C183E272A154400727031 /* IR.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7C183D272A154400727031 /* IR.swift */; };
 		DE80003428B5608E00C827BD /* SchemaMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE80003328B5608E00C827BD /* SchemaMetadata.swift */; };
 		DE903E1329B7E6D300A74415 /* SelectionSet+JSONInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE903E1229B7E6D300A74415 /* SelectionSet+JSONInitializer.swift */; };
+		DE903E1929CA20FC00A74415 /* TypeCaseConversionPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE903E1829CA20FC00A74415 /* TypeCaseConversionPerformanceTests.swift */; };
+		DE903E1D29CA23B200A74415 /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = DE903E1C29CA23B200A74415 /* Nimble */; };
+		DE903E1E29CA25A600A74415 /* AnimalKingdomAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE3C7A11260A6B9800D2F4FF /* AnimalKingdomAPI.framework */; };
 		DE90FDBA27FE405F0084CC79 /* Selection+Conditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE90FDB927FE405F0084CC79 /* Selection+Conditions.swift */; };
 		DE9C04AC26EAAE4400EC35E7 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC4B91F1D2A6F8D0046A641 /* JSON.swift */; };
 		DE9C04AD26EAAE5400EC35E7 /* JSONStandardTypeConversions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F27D4631D40379500715680 /* JSONStandardTypeConversions.swift */; };
@@ -922,6 +925,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = DE058606266978A100265760;
 			remoteInfo = ApolloAPI;
+		};
+		DE903E1F29CA25AA00A74415 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9FC7503B1D2A532C00458D91 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DE3C7A00260A6B9800D2F4FF;
+			remoteInfo = AnimalKingdomAPI;
 		};
 		DE90FCE627FCC71E0084CC79 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1789,6 +1799,7 @@
 		DE7C183D272A154400727031 /* IR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IR.swift; sourceTree = "<group>"; };
 		DE80003328B5608E00C827BD /* SchemaMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaMetadata.swift; sourceTree = "<group>"; };
 		DE903E1229B7E6D300A74415 /* SelectionSet+JSONInitializer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SelectionSet+JSONInitializer.swift"; sourceTree = "<group>"; };
+		DE903E1829CA20FC00A74415 /* TypeCaseConversionPerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeCaseConversionPerformanceTests.swift; sourceTree = "<group>"; };
 		DE90FDB927FE405F0084CC79 /* Selection+Conditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Selection+Conditions.swift"; sourceTree = "<group>"; };
 		DE9C04AE26EAAEE800EC35E7 /* CacheReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheReference.swift; sourceTree = "<group>"; };
 		DE9C04B026EAAFF900EC35E7 /* JSONDecodingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDecodingError.swift; sourceTree = "<group>"; };
@@ -2004,7 +2015,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE903E1E29CA25A600A74415 /* AnimalKingdomAPI.framework in Frameworks */,
 				9F54C90F255D79C80065AFD6 /* ApolloInternalTestHelpers.framework in Frameworks */,
+				DE903E1D29CA23B200A74415 /* Nimble in Frameworks */,
 				9F54C910255D79C80065AFD6 /* GitHubAPI.framework in Frameworks */,
 				9F54C8B9255D760B0065AFD6 /* Apollo.framework in Frameworks */,
 			);
@@ -2525,6 +2538,7 @@
 			children = (
 				9FD151B9255D7FAB003BDAAA /* Responses */,
 				9F54C8B6255D760B0065AFD6 /* ParsingPerformanceTests.swift */,
+				DE903E1829CA20FC00A74415 /* TypeCaseConversionPerformanceTests.swift */,
 				9F54C8B8255D760B0065AFD6 /* Info.plist */,
 			);
 			path = ApolloPerformanceTests;
@@ -4250,11 +4264,16 @@
 			buildRules = (
 			);
 			dependencies = (
+				DE903E2029CA25AA00A74415 /* PBXTargetDependency */,
+				DE903E1B29CA23AA00A74415 /* PBXTargetDependency */,
 				9F54C8DF255D76810065AFD6 /* PBXTargetDependency */,
 				9F54C8E1255D76810065AFD6 /* PBXTargetDependency */,
 				9F54C8BB255D760B0065AFD6 /* PBXTargetDependency */,
 			);
 			name = ApolloPerformanceTests;
+			packageProductDependencies = (
+				DE903E1C29CA23B200A74415 /* Nimble */,
+			);
 			productName = ApolloPerformanceTests;
 			productReference = 9F54C8B4255D760B0065AFD6 /* ApolloPerformanceTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -5050,6 +5069,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE903E1929CA20FC00A74415 /* TypeCaseConversionPerformanceTests.swift in Sources */,
 				9F54C8B7255D760B0065AFD6 /* ParsingPerformanceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5790,6 +5810,15 @@
 			isa = PBXTargetDependency;
 			target = DE058606266978A100265760 /* ApolloAPI */;
 			targetProxy = DE6D083427BDAB9E009F5F33 /* PBXContainerItemProxy */;
+		};
+		DE903E1B29CA23AA00A74415 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = DE903E1A29CA23AA00A74415 /* Nimble */;
+		};
+		DE903E2029CA25AA00A74415 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DE3C7A00260A6B9800D2F4FF /* AnimalKingdomAPI */;
+			targetProxy = DE903E1F29CA25AA00A74415 /* PBXContainerItemProxy */;
 		};
 		DE90FCE727FCC71E0084CC79 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -6587,6 +6616,15 @@
 			productName = SQLite;
 		};
 		DE5EB9C426EFD4D10004176A /* Nimble */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DE5EB9C326EFD4D10004176A /* XCRemoteSwiftPackageReference "Nimble" */;
+			productName = Nimble;
+		};
+		DE903E1A29CA23AA00A74415 /* Nimble */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Nimble;
+		};
+		DE903E1C29CA23B200A74415 /* Nimble */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = DE5EB9C326EFD4D10004176A /* XCRemoteSwiftPackageReference "Nimble" */;
 			productName = Nimble;
