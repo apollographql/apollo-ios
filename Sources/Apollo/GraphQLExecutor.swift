@@ -228,6 +228,8 @@ final class GraphQLExecutor {
   ) -> PossiblyDeferred<Accumulator.ObjectResult> {
     do {
       let groupedFields = try groupFields(selections, on: object, info: info)
+      var info = info
+      info.fulfilledFragments = groupedFields.fulfilledFragments
 
       var fieldEntries: [PossiblyDeferred<Accumulator.FieldEntry?>] = []
       fieldEntries.reserveCapacity(groupedFields.count)
@@ -239,8 +241,6 @@ final class GraphQLExecutor {
         fieldEntries.append(fieldEntry)
       }
 
-      var info = info
-      info.fulfilledFragments = groupedFields.fulfilledFragments
 
       return compactLazilyEvaluateAll(fieldEntries).map {
         try accumulator.accept(fieldEntries: $0, info: info)

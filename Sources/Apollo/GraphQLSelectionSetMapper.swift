@@ -68,7 +68,7 @@ final class GraphQLSelectionSetMapper<T: SelectionSet>: GraphQLResultAccumulator
     fieldEntries: [(key: String, value: AnyHashable)],
     info: ObjectExecutionInfo
   ) throws -> DataDict {
-    var data = JSONObject.init(fieldEntries, uniquingKeysWith: { (_, last) in last })
+    var data = DataDict.SelectionSetData.init(fieldEntries, uniquingKeysWith: { (_, last) in last })
     data["__fulfilled"] = info.fulfilledFragments
     return DataDict(data: data)
   }
