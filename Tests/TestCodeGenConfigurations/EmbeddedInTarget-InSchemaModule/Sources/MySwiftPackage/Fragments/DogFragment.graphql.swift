@@ -13,7 +13,7 @@ public extension MyGraphQLSchema {
       """ }
 
     public let __data: DataDict
-    public init(_data: DataDict) { __data = _data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Objects.Dog }
     public static var __selections: [ApolloAPI.Selection] { [

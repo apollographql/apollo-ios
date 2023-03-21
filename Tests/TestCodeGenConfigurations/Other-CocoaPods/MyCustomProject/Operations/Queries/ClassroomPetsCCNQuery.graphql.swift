@@ -22,7 +22,7 @@ public class ClassroomPetsCCNQuery: GraphQLQuery {
 
   public struct Data: MyCustomProject.SelectionSet {
     public let __data: DataDict
-    public init(_data: DataDict) { __data = _data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public static var __parentType: Apollo.ParentType { MyCustomProject.Objects.Query }
     public static var __selections: [Apollo.Selection] { [
@@ -36,7 +36,7 @@ public class ClassroomPetsCCNQuery: GraphQLQuery {
     /// Parent Type: `ClassroomPet`
     public struct ClassroomPet: MyCustomProject.SelectionSet {
       public let __data: DataDict
-      public init(_data: DataDict) { __data = _data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: Apollo.ParentType { MyCustomProject.Unions.ClassroomPet }
       public static var __selections: [Apollo.Selection] { [
@@ -47,7 +47,7 @@ public class ClassroomPetsCCNQuery: GraphQLQuery {
 
       public struct Fragments: FragmentContainer {
         public let __data: DataDict
-        public init(_data: DataDict) { __data = _data }
+        public init(_dataDict: DataDict) { __data = _dataDict }
 
         public var classroomPetDetailsCCN: ClassroomPetDetailsCCN { _toFragment() }
       }
@@ -57,7 +57,7 @@ public class ClassroomPetsCCNQuery: GraphQLQuery {
       /// Parent Type: `Animal`
       public struct AsAnimal: MyCustomProject.InlineFragment {
         public let __data: DataDict
-        public init(_data: DataDict) { __data = _data }
+        public init(_dataDict: DataDict) { __data = _dataDict }
 
         public typealias RootEntityType = ClassroomPet
         public static var __parentType: Apollo.ParentType { MyCustomProject.Interfaces.Animal }
@@ -66,7 +66,7 @@ public class ClassroomPetsCCNQuery: GraphQLQuery {
 
         public struct Fragments: FragmentContainer {
           public let __data: DataDict
-          public init(_data: DataDict) { __data = _data }
+          public init(_dataDict: DataDict) { __data = _dataDict }
 
           public var classroomPetDetailsCCN: ClassroomPetDetailsCCN { _toFragment() }
         }

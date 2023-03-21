@@ -23,7 +23,7 @@ public extension MyGraphQLSchema {
 
     public struct Data: MyGraphQLSchema.SelectionSet {
       public let __data: DataDict
-      public init(_data: DataDict) { __data = _data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Objects.Query }
       public static var __selections: [ApolloAPI.Selection] { [
@@ -37,7 +37,7 @@ public extension MyGraphQLSchema {
       /// Parent Type: `ClassroomPet`
       public struct ClassroomPet: MyGraphQLSchema.SelectionSet {
         public let __data: DataDict
-        public init(_data: DataDict) { __data = _data }
+        public init(_dataDict: DataDict) { __data = _dataDict }
 
         public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Unions.ClassroomPet }
         public static var __selections: [ApolloAPI.Selection] { [
@@ -53,7 +53,7 @@ public extension MyGraphQLSchema {
 
         public struct Fragments: FragmentContainer {
           public let __data: DataDict
-          public init(_data: DataDict) { __data = _data }
+          public init(_dataDict: DataDict) { __data = _dataDict }
 
           public var classroomPetDetails: ClassroomPetDetails { _toFragment() }
         }
@@ -63,7 +63,7 @@ public extension MyGraphQLSchema {
         /// Parent Type: `Animal`
         public struct AsAnimal: MyGraphQLSchema.InlineFragment {
           public let __data: DataDict
-          public init(_data: DataDict) { __data = _data }
+          public init(_dataDict: DataDict) { __data = _dataDict }
 
           public typealias RootEntityType = ClassroomPet
           public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Interfaces.Animal }
@@ -72,7 +72,7 @@ public extension MyGraphQLSchema {
 
           public struct Fragments: FragmentContainer {
             public let __data: DataDict
-            public init(_data: DataDict) { __data = _data }
+            public init(_dataDict: DataDict) { __data = _dataDict }
 
             public var classroomPetDetails: ClassroomPetDetails { _toFragment() }
           }
@@ -83,7 +83,7 @@ public extension MyGraphQLSchema {
         /// Parent Type: `Pet`
         public struct AsPet: MyGraphQLSchema.InlineFragment {
           public let __data: DataDict
-          public init(_data: DataDict) { __data = _data }
+          public init(_dataDict: DataDict) { __data = _dataDict }
 
           public typealias RootEntityType = ClassroomPet
           public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Interfaces.Pet }
@@ -92,7 +92,7 @@ public extension MyGraphQLSchema {
 
           public struct Fragments: FragmentContainer {
             public let __data: DataDict
-            public init(_data: DataDict) { __data = _data }
+            public init(_dataDict: DataDict) { __data = _dataDict }
 
             public var classroomPetDetails: ClassroomPetDetails { _toFragment() }
           }
@@ -103,7 +103,7 @@ public extension MyGraphQLSchema {
         /// Parent Type: `WarmBlooded`
         public struct AsWarmBlooded: MyGraphQLSchema.InlineFragment {
           public let __data: DataDict
-          public init(_data: DataDict) { __data = _data }
+          public init(_dataDict: DataDict) { __data = _dataDict }
 
           public typealias RootEntityType = ClassroomPet
           public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Interfaces.WarmBlooded }
@@ -113,7 +113,7 @@ public extension MyGraphQLSchema {
 
           public struct Fragments: FragmentContainer {
             public let __data: DataDict
-            public init(_data: DataDict) { __data = _data }
+            public init(_dataDict: DataDict) { __data = _dataDict }
 
             public var classroomPetDetails: ClassroomPetDetails { _toFragment() }
           }
@@ -124,7 +124,7 @@ public extension MyGraphQLSchema {
         /// Parent Type: `Cat`
         public struct AsCat: MyGraphQLSchema.InlineFragment {
           public let __data: DataDict
-          public init(_data: DataDict) { __data = _data }
+          public init(_dataDict: DataDict) { __data = _dataDict }
 
           public typealias RootEntityType = ClassroomPet
           public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Objects.Cat }
@@ -137,7 +137,7 @@ public extension MyGraphQLSchema {
 
           public struct Fragments: FragmentContainer {
             public let __data: DataDict
-            public init(_data: DataDict) { __data = _data }
+            public init(_dataDict: DataDict) { __data = _dataDict }
 
             public var classroomPetDetails: ClassroomPetDetails { _toFragment() }
           }
@@ -148,7 +148,7 @@ public extension MyGraphQLSchema {
         /// Parent Type: `Bird`
         public struct AsBird: MyGraphQLSchema.InlineFragment {
           public let __data: DataDict
-          public init(_data: DataDict) { __data = _data }
+          public init(_dataDict: DataDict) { __data = _dataDict }
 
           public typealias RootEntityType = ClassroomPet
           public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Objects.Bird }
@@ -160,7 +160,7 @@ public extension MyGraphQLSchema {
 
           public struct Fragments: FragmentContainer {
             public let __data: DataDict
-            public init(_data: DataDict) { __data = _data }
+            public init(_dataDict: DataDict) { __data = _dataDict }
 
             public var classroomPetDetails: ClassroomPetDetails { _toFragment() }
           }
@@ -171,7 +171,7 @@ public extension MyGraphQLSchema {
         /// Parent Type: `PetRock`
         public struct AsPetRock: MyGraphQLSchema.InlineFragment {
           public let __data: DataDict
-          public init(_data: DataDict) { __data = _data }
+          public init(_dataDict: DataDict) { __data = _dataDict }
 
           public typealias RootEntityType = ClassroomPet
           public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Objects.PetRock }
@@ -181,7 +181,7 @@ public extension MyGraphQLSchema {
 
           public struct Fragments: FragmentContainer {
             public let __data: DataDict
-            public init(_data: DataDict) { __data = _data }
+            public init(_dataDict: DataDict) { __data = _dataDict }
 
             public var classroomPetDetails: ClassroomPetDetails { _toFragment() }
           }

@@ -14,7 +14,7 @@ public extension MyGraphQLSchema {
       """ }
 
     public let __data: DataDict
-    public init(_data: DataDict) { __data = _data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Interfaces.WarmBlooded }
     public static var __selections: [ApolloAPI.Selection] { [
@@ -27,7 +27,7 @@ public extension MyGraphQLSchema {
 
     public struct Fragments: FragmentContainer {
       public let __data: DataDict
-      public init(_data: DataDict) { __data = _data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public var heightInMeters: HeightInMeters { _toFragment() }
     }

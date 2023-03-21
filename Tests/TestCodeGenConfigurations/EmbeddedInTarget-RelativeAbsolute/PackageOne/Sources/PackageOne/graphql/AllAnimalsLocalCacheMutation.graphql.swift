@@ -11,7 +11,7 @@ class AllAnimalsLocalCacheMutation: LocalCacheMutation {
 
   public struct Data: MySchemaModule.MutableSelectionSet {
     public var __data: DataDict
-    public init(_data: DataDict) { __data = _data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Objects.Query }
     public static var __selections: [ApolloAPI.Selection] { [
@@ -40,7 +40,7 @@ class AllAnimalsLocalCacheMutation: LocalCacheMutation {
     /// Parent Type: `Animal`
     public struct AllAnimal: MySchemaModule.MutableSelectionSet {
       public var __data: DataDict
-      public init(_data: DataDict) { __data = _data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Interfaces.Animal }
       public static var __selections: [ApolloAPI.Selection] { [
@@ -87,7 +87,7 @@ class AllAnimalsLocalCacheMutation: LocalCacheMutation {
       /// Parent Type: `Bird`
       public struct AsBird: MySchemaModule.MutableInlineFragment {
         public var __data: DataDict
-        public init(_data: DataDict) { __data = _data }
+        public init(_dataDict: DataDict) { __data = _dataDict }
 
         public typealias RootEntityType = AllAnimal
         public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Objects.Bird }

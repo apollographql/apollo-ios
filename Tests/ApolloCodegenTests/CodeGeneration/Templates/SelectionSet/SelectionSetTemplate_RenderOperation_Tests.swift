@@ -61,7 +61,7 @@ class SelectionSetTemplate_RenderOperation_Tests: XCTestCase {
     let expected = """
     public struct Data: TestSchema.SelectionSet {
       public let __data: DataDict
-      public init(_data: DataDict) { __data = _data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: ApolloAPI.ParentType { TestSchema.Objects.Query }
     """

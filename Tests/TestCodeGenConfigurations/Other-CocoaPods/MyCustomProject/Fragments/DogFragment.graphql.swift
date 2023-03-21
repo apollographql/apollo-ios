@@ -12,7 +12,7 @@ public struct DogFragment: MyCustomProject.SelectionSet, Fragment {
     """ }
 
   public let __data: DataDict
-  public init(_data: DataDict) { __data = _data }
+  public init(_dataDict: DataDict) { __data = _dataDict }
 
   public static var __parentType: Apollo.ParentType { MyCustomProject.Objects.Dog }
   public static var __selections: [Apollo.Selection] { [

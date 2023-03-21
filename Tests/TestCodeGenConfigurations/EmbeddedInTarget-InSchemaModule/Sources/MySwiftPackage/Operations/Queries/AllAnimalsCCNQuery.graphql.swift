@@ -26,7 +26,7 @@ public extension MyGraphQLSchema {
 
     public struct Data: MyGraphQLSchema.SelectionSet {
       public let __data: DataDict
-      public init(_data: DataDict) { __data = _data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Objects.Query }
       public static var __selections: [ApolloAPI.Selection] { [
@@ -40,7 +40,7 @@ public extension MyGraphQLSchema {
       /// Parent Type: `Animal`
       public struct AllAnimal: MyGraphQLSchema.SelectionSet {
         public let __data: DataDict
-        public init(_data: DataDict) { __data = _data }
+        public init(_dataDict: DataDict) { __data = _dataDict }
 
         public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Interfaces.Animal }
         public static var __selections: [ApolloAPI.Selection] { [
@@ -54,7 +54,7 @@ public extension MyGraphQLSchema {
         /// Parent Type: `Height`
         public struct Height: MyGraphQLSchema.SelectionSet {
           public let __data: DataDict
-          public init(_data: DataDict) { __data = _data }
+          public init(_dataDict: DataDict) { __data = _dataDict }
 
           public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Objects.Height }
           public static var __selections: [ApolloAPI.Selection] { [

@@ -182,7 +182,7 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
 
     let expected = """
       public var __data: DataDict
-      public init(_data: DataDict) { __data = _data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
     """
 
     // when
@@ -225,7 +225,7 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
     let expected = """
       public struct Fragments: FragmentContainer {
         public var __data: DataDict
-        public init(_data: DataDict) { __data = _data }
+        public init(_dataDict: DataDict) { __data = _dataDict }
     """
 
     // when

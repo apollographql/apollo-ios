@@ -29,7 +29,7 @@ class PetAdoptionMutation: GraphQLMutation {
 
   public struct Data: MySchemaModule.SelectionSet {
     public let __data: DataDict
-    public init(_data: DataDict) { __data = _data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Objects.Mutation }
     public static var __selections: [ApolloAPI.Selection] { [
@@ -43,7 +43,7 @@ class PetAdoptionMutation: GraphQLMutation {
     /// Parent Type: `Pet`
     public struct AdoptPet: MySchemaModule.SelectionSet {
       public let __data: DataDict
-      public init(_data: DataDict) { __data = _data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Interfaces.Pet }
       public static var __selections: [ApolloAPI.Selection] { [

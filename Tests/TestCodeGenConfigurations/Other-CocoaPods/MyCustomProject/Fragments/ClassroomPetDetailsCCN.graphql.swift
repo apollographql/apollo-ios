@@ -17,7 +17,7 @@ public struct ClassroomPetDetailsCCN: MyCustomProject.SelectionSet, Fragment {
     """ }
 
   public let __data: DataDict
-  public init(_data: DataDict) { __data = _data }
+  public init(_dataDict: DataDict) { __data = _dataDict }
 
   public static var __parentType: Apollo.ParentType { MyCustomProject.Unions.ClassroomPet }
   public static var __selections: [Apollo.Selection] { [
@@ -31,7 +31,7 @@ public struct ClassroomPetDetailsCCN: MyCustomProject.SelectionSet, Fragment {
   /// Parent Type: `Animal`
   public struct AsAnimal: MyCustomProject.InlineFragment {
     public let __data: DataDict
-    public init(_data: DataDict) { __data = _data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public typealias RootEntityType = ClassroomPetDetailsCCN
     public static var __parentType: Apollo.ParentType { MyCustomProject.Interfaces.Animal }
@@ -46,7 +46,7 @@ public struct ClassroomPetDetailsCCN: MyCustomProject.SelectionSet, Fragment {
     /// Parent Type: `Height`
     public struct Height: MyCustomProject.SelectionSet {
       public let __data: DataDict
-      public init(_data: DataDict) { __data = _data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: Apollo.ParentType { MyCustomProject.Objects.Height }
       public static var __selections: [Apollo.Selection] { [
