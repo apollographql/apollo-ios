@@ -45,7 +45,6 @@ public struct ResponseCodeInterceptor: ApolloInterceptor {
     
     guard response?.httpResponse.isSuccessful == true else {
       let error = ResponseCodeError.invalidResponseCode(response: response?.httpResponse,
-                                                        
                                                         rawData: response?.rawData)
       
       chain.handleErrorAsync(error,
