@@ -28,7 +28,7 @@ public extension MyGraphQLSchema {
 
     public struct Data: MyGraphQLSchema.MutableSelectionSet {
       public var __data: DataDict
-      public init(_data: DataDict) { __data = data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Objects.Query }
       public static var __selections: [ApolloAPI.Selection] { [
@@ -43,12 +43,12 @@ public extension MyGraphQLSchema {
       public init(
         pets: [Pet]
       ) {
-        let objectType = MyGraphQLSchema.Objects.Query
-        self.init(data: DataDict(
-          objectType: objectType,
-          data: [
-            "__typename": objectType.typename,
-            "pets": pets._fieldData
+        self.init(_dataDict: DataDict(data: [
+          "__typename": MyGraphQLSchema.Objects.Query.typename,
+          "pets": pets._fieldData,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
         ]))
       }
 
@@ -57,7 +57,7 @@ public extension MyGraphQLSchema {
       /// Parent Type: `Pet`
       public struct Pet: MyGraphQLSchema.MutableSelectionSet {
         public var __data: DataDict
-        public init(_data: DataDict) { __data = data }
+        public init(_dataDict: DataDict) { __data = _dataDict }
 
         public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Interfaces.Pet }
         public static var __selections: [ApolloAPI.Selection] { [
@@ -79,17 +79,13 @@ public extension MyGraphQLSchema {
           id: MyGraphQLSchema.ID,
           humanName: String? = nil
         ) {
-          let objectType = ApolloAPI.Object(
-            typename: __typename,
-            implementedInterfaces: [
-              MyGraphQLSchema.Interfaces.Pet
-          ])
-          self.init(data: DataDict(
-            objectType: objectType,
-            data: [
-              "__typename": objectType.typename,
-              "id": id,
-              "humanName": humanName
+          self.init(_dataDict: DataDict(data: [
+            "__typename": __typename,
+            "id": id,
+            "humanName": humanName,
+            "__fulfilled": Set([
+              ObjectIdentifier(Self.self)
+            ])
           ]))
         }
       }

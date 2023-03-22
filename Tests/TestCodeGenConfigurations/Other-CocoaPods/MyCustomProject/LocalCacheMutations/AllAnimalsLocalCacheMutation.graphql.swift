@@ -10,7 +10,7 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
 
   public struct Data: MyCustomProject.MutableSelectionSet {
     public var __data: DataDict
-    public init(_data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public static var __parentType: Apollo.ParentType { MyCustomProject.Objects.Query }
     public static var __selections: [Apollo.Selection] { [
@@ -25,12 +25,12 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
     public init(
       allAnimals: [AllAnimal]
     ) {
-      let objectType = MyCustomProject.Objects.Query
-      self.init(data: DataDict(
-        objectType: objectType,
-        data: [
-          "__typename": objectType.typename,
-          "allAnimals": allAnimals._fieldData
+      self.init(_dataDict: DataDict(data: [
+        "__typename": MyCustomProject.Objects.Query.typename,
+        "allAnimals": allAnimals._fieldData,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self)
+        ])
       ]))
     }
 
@@ -39,7 +39,7 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
     /// Parent Type: `Animal`
     public struct AllAnimal: MyCustomProject.MutableSelectionSet {
       public var __data: DataDict
-      public init(_data: DataDict) { __data = data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: Apollo.ParentType { MyCustomProject.Interfaces.Animal }
       public static var __selections: [Apollo.Selection] { [
@@ -67,17 +67,13 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
         species: String,
         skinCovering: GraphQLEnum<MyCustomProject.SkinCovering>? = nil
       ) {
-        let objectType = Apollo.Object(
-          typename: __typename,
-          implementedInterfaces: [
-            MyCustomProject.Interfaces.Animal
-        ])
-        self.init(data: DataDict(
-          objectType: objectType,
-          data: [
-            "__typename": objectType.typename,
-            "species": species,
-            "skinCovering": skinCovering
+        self.init(_dataDict: DataDict(data: [
+          "__typename": __typename,
+          "species": species,
+          "skinCovering": skinCovering,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
         ]))
       }
 
@@ -86,7 +82,7 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
       /// Parent Type: `Bird`
       public struct AsBird: MyCustomProject.MutableInlineFragment {
         public var __data: DataDict
-        public init(_data: DataDict) { __data = data }
+        public init(_dataDict: DataDict) { __data = _dataDict }
 
         public typealias RootEntityType = AllAnimal
         public static var __parentType: Apollo.ParentType { MyCustomProject.Objects.Bird }
@@ -112,14 +108,15 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
           species: String,
           skinCovering: GraphQLEnum<MyCustomProject.SkinCovering>? = nil
         ) {
-          let objectType = MyCustomProject.Objects.Bird
-          self.init(data: DataDict(
-            objectType: objectType,
-            data: [
-              "__typename": objectType.typename,
-              "wingspan": wingspan,
-              "species": species,
-              "skinCovering": skinCovering
+          self.init(_dataDict: DataDict(data: [
+            "__typename": MyCustomProject.Objects.Bird.typename,
+            "wingspan": wingspan,
+            "species": species,
+            "skinCovering": skinCovering,
+            "__fulfilled": Set([
+              ObjectIdentifier(Self.self),
+              ObjectIdentifier(AllAnimal.self)
+            ])
           ]))
         }
       }

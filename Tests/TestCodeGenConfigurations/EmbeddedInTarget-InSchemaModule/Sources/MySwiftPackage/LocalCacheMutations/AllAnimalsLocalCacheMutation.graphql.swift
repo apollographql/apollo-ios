@@ -11,7 +11,7 @@ public extension MyGraphQLSchema {
 
     public struct Data: MyGraphQLSchema.MutableSelectionSet {
       public var __data: DataDict
-      public init(_data: DataDict) { __data = data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Objects.Query }
       public static var __selections: [ApolloAPI.Selection] { [
@@ -26,12 +26,12 @@ public extension MyGraphQLSchema {
       public init(
         allAnimals: [AllAnimal]
       ) {
-        let objectType = MyGraphQLSchema.Objects.Query
-        self.init(data: DataDict(
-          objectType: objectType,
-          data: [
-            "__typename": objectType.typename,
-            "allAnimals": allAnimals._fieldData
+        self.init(_dataDict: DataDict(data: [
+          "__typename": MyGraphQLSchema.Objects.Query.typename,
+          "allAnimals": allAnimals._fieldData,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
         ]))
       }
 
@@ -40,7 +40,7 @@ public extension MyGraphQLSchema {
       /// Parent Type: `Animal`
       public struct AllAnimal: MyGraphQLSchema.MutableSelectionSet {
         public var __data: DataDict
-        public init(_data: DataDict) { __data = data }
+        public init(_dataDict: DataDict) { __data = _dataDict }
 
         public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Interfaces.Animal }
         public static var __selections: [ApolloAPI.Selection] { [
@@ -68,17 +68,13 @@ public extension MyGraphQLSchema {
           species: String,
           skinCovering: GraphQLEnum<MyGraphQLSchema.SkinCovering>? = nil
         ) {
-          let objectType = ApolloAPI.Object(
-            typename: __typename,
-            implementedInterfaces: [
-              MyGraphQLSchema.Interfaces.Animal
-          ])
-          self.init(data: DataDict(
-            objectType: objectType,
-            data: [
-              "__typename": objectType.typename,
-              "species": species,
-              "skinCovering": skinCovering
+          self.init(_dataDict: DataDict(data: [
+            "__typename": __typename,
+            "species": species,
+            "skinCovering": skinCovering,
+            "__fulfilled": Set([
+              ObjectIdentifier(Self.self)
+            ])
           ]))
         }
 
@@ -87,7 +83,7 @@ public extension MyGraphQLSchema {
         /// Parent Type: `Bird`
         public struct AsBird: MyGraphQLSchema.MutableInlineFragment {
           public var __data: DataDict
-          public init(_data: DataDict) { __data = data }
+          public init(_dataDict: DataDict) { __data = _dataDict }
 
           public typealias RootEntityType = AllAnimal
           public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Objects.Bird }
@@ -113,14 +109,15 @@ public extension MyGraphQLSchema {
             species: String,
             skinCovering: GraphQLEnum<MyGraphQLSchema.SkinCovering>? = nil
           ) {
-            let objectType = MyGraphQLSchema.Objects.Bird
-            self.init(data: DataDict(
-              objectType: objectType,
-              data: [
-                "__typename": objectType.typename,
-                "wingspan": wingspan,
-                "species": species,
-                "skinCovering": skinCovering
+            self.init(_dataDict: DataDict(data: [
+              "__typename": MyGraphQLSchema.Objects.Bird.typename,
+              "wingspan": wingspan,
+              "species": species,
+              "skinCovering": skinCovering,
+              "__fulfilled": Set([
+                ObjectIdentifier(Self.self),
+                ObjectIdentifier(AllAnimal.self)
+              ])
             ]))
           }
         }

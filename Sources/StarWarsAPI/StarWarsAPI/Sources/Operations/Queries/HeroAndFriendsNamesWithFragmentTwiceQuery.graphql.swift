@@ -39,7 +39,7 @@ public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
 
   public struct Data: StarWarsAPI.SelectionSet {
     public let __data: DataDict
-    public init(_data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Query }
     public static var __selections: [ApolloAPI.Selection] { [
@@ -51,12 +51,12 @@ public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
     public init(
       hero: Hero? = nil
     ) {
-      let objectType = StarWarsAPI.Objects.Query
-      self.init(data: DataDict(
-        objectType: objectType,
-        data: [
-          "__typename": objectType.typename,
-          "hero": hero._fieldData
+      self.init(_dataDict: DataDict(data: [
+        "__typename": StarWarsAPI.Objects.Query.typename,
+        "hero": hero._fieldData,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self)
+        ])
       ]))
     }
 
@@ -65,7 +65,7 @@ public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
     /// Parent Type: `Character`
     public struct Hero: StarWarsAPI.SelectionSet {
       public let __data: DataDict
-      public init(_data: DataDict) { __data = data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
       public static var __selections: [ApolloAPI.Selection] { [
@@ -82,16 +82,12 @@ public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
         __typename: String,
         friends: [Friend?]? = nil
       ) {
-        let objectType = ApolloAPI.Object(
-          typename: __typename,
-          implementedInterfaces: [
-            StarWarsAPI.Interfaces.Character
-        ])
-        self.init(data: DataDict(
-          objectType: objectType,
-          data: [
-            "__typename": objectType.typename,
-            "friends": friends._fieldData
+        self.init(_dataDict: DataDict(data: [
+          "__typename": __typename,
+          "friends": friends._fieldData,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
         ]))
       }
 
@@ -100,7 +96,7 @@ public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
       /// Parent Type: `Character`
       public struct Friend: StarWarsAPI.SelectionSet {
         public let __data: DataDict
-        public init(_data: DataDict) { __data = data }
+        public init(_dataDict: DataDict) { __data = _dataDict }
 
         public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
         public static var __selections: [ApolloAPI.Selection] { [
@@ -112,7 +108,7 @@ public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
 
         public struct Fragments: FragmentContainer {
           public let __data: DataDict
-          public init(_data: DataDict) { __data = data }
+          public init(_dataDict: DataDict) { __data = _dataDict }
 
           public var characterName: CharacterName { _toFragment() }
         }
@@ -121,16 +117,13 @@ public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
           __typename: String,
           name: String
         ) {
-          let objectType = ApolloAPI.Object(
-            typename: __typename,
-            implementedInterfaces: [
-              StarWarsAPI.Interfaces.Character
-          ])
-          self.init(data: DataDict(
-            objectType: objectType,
-            data: [
-              "__typename": objectType.typename,
-              "name": name
+          self.init(_dataDict: DataDict(data: [
+            "__typename": __typename,
+            "name": name,
+            "__fulfilled": Set([
+              ObjectIdentifier(Self.self),
+              ObjectIdentifier(CharacterName.self)
+            ])
           ]))
         }
       }
@@ -140,7 +133,7 @@ public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
       /// Parent Type: `Droid`
       public struct AsDroid: StarWarsAPI.InlineFragment {
         public let __data: DataDict
-        public init(_data: DataDict) { __data = data }
+        public init(_dataDict: DataDict) { __data = _dataDict }
 
         public typealias RootEntityType = Hero
         public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Droid }
@@ -154,12 +147,13 @@ public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
         public init(
           friends: [Friend?]? = nil
         ) {
-          let objectType = StarWarsAPI.Objects.Droid
-          self.init(data: DataDict(
-            objectType: objectType,
-            data: [
-              "__typename": objectType.typename,
-              "friends": friends._fieldData
+          self.init(_dataDict: DataDict(data: [
+            "__typename": StarWarsAPI.Objects.Droid.typename,
+            "friends": friends._fieldData,
+            "__fulfilled": Set([
+              ObjectIdentifier(Self.self),
+              ObjectIdentifier(Hero.self)
+            ])
           ]))
         }
 
@@ -168,7 +162,7 @@ public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
         /// Parent Type: `Character`
         public struct Friend: StarWarsAPI.SelectionSet {
           public let __data: DataDict
-          public init(_data: DataDict) { __data = data }
+          public init(_dataDict: DataDict) { __data = _dataDict }
 
           public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
           public static var __selections: [ApolloAPI.Selection] { [
@@ -180,7 +174,7 @@ public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
 
           public struct Fragments: FragmentContainer {
             public let __data: DataDict
-            public init(_data: DataDict) { __data = data }
+            public init(_dataDict: DataDict) { __data = _dataDict }
 
             public var characterName: CharacterName { _toFragment() }
           }
@@ -189,16 +183,13 @@ public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
             __typename: String,
             name: String
           ) {
-            let objectType = ApolloAPI.Object(
-              typename: __typename,
-              implementedInterfaces: [
-                StarWarsAPI.Interfaces.Character
-            ])
-            self.init(data: DataDict(
-              objectType: objectType,
-              data: [
-                "__typename": objectType.typename,
-                "name": name
+            self.init(_dataDict: DataDict(data: [
+              "__typename": __typename,
+              "name": name,
+              "__fulfilled": Set([
+                ObjectIdentifier(Self.self),
+                ObjectIdentifier(CharacterName.self)
+              ])
             ]))
           }
         }

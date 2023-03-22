@@ -78,7 +78,7 @@ class FragmentTemplateTests: XCTestCase {
         ""\" }
 
       public let __data: DataDict
-      public init(_data: DataDict) { __data = data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
     """
 
     // when
@@ -305,7 +305,7 @@ class FragmentTemplateTests: XCTestCase {
         ""\" }
 
       public let __data: DataDict
-      public init(_data: DataDict) { __data = data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: ApolloAPI.ParentType { TestSchema.Objects.Animal }
       public static var __selections: [ApolloAPI.Selection] { [
@@ -346,12 +346,12 @@ class FragmentTemplateTests: XCTestCase {
         public init(
           species: String
         ) {
-          let objectType = TestSchema.Objects.Animal
-          self.init(data: DataDict(
-            objectType: objectType,
-            data: [
-              "__typename": objectType.typename,
-              "species": species
+          self.init(_dataDict: DataDict(data: [
+            "__typename": TestSchema.Objects.Animal.typename,
+            "species": species,
+            "__fulfilled": Set([
+              ObjectIdentifier(Self.self)
+            ])
           ]))
         }
       """
@@ -391,12 +391,12 @@ class FragmentTemplateTests: XCTestCase {
         public init(
           species: String
         ) {
-          let objectType = TestSchema.Objects.Animal
-          self.init(data: DataDict(
-            objectType: objectType,
-            data: [
-              "__typename": objectType.typename,
-              "species": species
+          self.init(_dataDict: DataDict(data: [
+            "__typename": TestSchema.Objects.Animal.typename,
+            "species": species,
+            "__fulfilled": Set([
+              ObjectIdentifier(Self.self)
+            ])
           ]))
         }
       """
@@ -496,12 +496,12 @@ class FragmentTemplateTests: XCTestCase {
         public init(
           species: String
         ) {
-          let objectType = TestSchema.Objects.Animal
-          self.init(data: DataDict(
-            objectType: objectType,
-            data: [
-              "__typename": objectType.typename,
-              "species": species
+          self.init(_dataDict: DataDict(data: [
+            "__typename": TestSchema.Objects.Animal.typename,
+            "species": species,
+            "__fulfilled": Set([
+              ObjectIdentifier(Self.self)
+            ])
           ]))
         }
       """
@@ -591,7 +591,7 @@ class FragmentTemplateTests: XCTestCase {
     let expected =
     """
       public var __data: DataDict
-      public init(_data: DataDict) { __data = data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: ApolloAPI.ParentType { TestSchema.Objects.Query }
       public static var __selections: [ApolloAPI.Selection] { [

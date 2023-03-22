@@ -30,7 +30,7 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
     """ }
 
   public let __data: DataDict
-  public init(_data: DataDict) { __data = data }
+  public init(_dataDict: DataDict) { __data = _dataDict }
 
   public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Unions.ClassroomPet }
   public static var __selections: [ApolloAPI.Selection] { [
@@ -52,14 +52,11 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
   public init(
     __typename: String
   ) {
-    let objectType = ApolloAPI.Object(
-      typename: __typename,
-      implementedInterfaces: [
-    ])
-    self.init(data: DataDict(
-      objectType: objectType,
-      data: [
-        "__typename": objectType.typename,
+    self.init(_dataDict: DataDict(data: [
+      "__typename": __typename,
+      "__fulfilled": Set([
+        ObjectIdentifier(Self.self)
+      ])
     ]))
   }
 
@@ -68,7 +65,7 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
   /// Parent Type: `Animal`
   public struct AsAnimal: AnimalKingdomAPI.InlineFragment {
     public let __data: DataDict
-    public init(_data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public typealias RootEntityType = ClassroomPetDetails
     public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Interfaces.Animal }
@@ -82,16 +79,13 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
       __typename: String,
       species: String
     ) {
-      let objectType = ApolloAPI.Object(
-        typename: __typename,
-        implementedInterfaces: [
-          AnimalKingdomAPI.Interfaces.Animal
-      ])
-      self.init(data: DataDict(
-        objectType: objectType,
-        data: [
-          "__typename": objectType.typename,
-          "species": species
+      self.init(_dataDict: DataDict(data: [
+        "__typename": __typename,
+        "species": species,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self),
+          ObjectIdentifier(ClassroomPetDetails.self)
+        ])
       ]))
     }
   }
@@ -101,7 +95,7 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
   /// Parent Type: `Pet`
   public struct AsPet: AnimalKingdomAPI.InlineFragment {
     public let __data: DataDict
-    public init(_data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public typealias RootEntityType = ClassroomPetDetails
     public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Interfaces.Pet }
@@ -115,16 +109,13 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
       __typename: String,
       humanName: String? = nil
     ) {
-      let objectType = ApolloAPI.Object(
-        typename: __typename,
-        implementedInterfaces: [
-          AnimalKingdomAPI.Interfaces.Pet
-      ])
-      self.init(data: DataDict(
-        objectType: objectType,
-        data: [
-          "__typename": objectType.typename,
-          "humanName": humanName
+      self.init(_dataDict: DataDict(data: [
+        "__typename": __typename,
+        "humanName": humanName,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self),
+          ObjectIdentifier(ClassroomPetDetails.self)
+        ])
       ]))
     }
   }
@@ -134,7 +125,7 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
   /// Parent Type: `WarmBlooded`
   public struct AsWarmBlooded: AnimalKingdomAPI.InlineFragment {
     public let __data: DataDict
-    public init(_data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public typealias RootEntityType = ClassroomPetDetails
     public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Interfaces.WarmBlooded }
@@ -150,18 +141,14 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
       laysEggs: Bool,
       species: String
     ) {
-      let objectType = ApolloAPI.Object(
-        typename: __typename,
-        implementedInterfaces: [
-          AnimalKingdomAPI.Interfaces.WarmBlooded,
-          AnimalKingdomAPI.Interfaces.Animal
-      ])
-      self.init(data: DataDict(
-        objectType: objectType,
-        data: [
-          "__typename": objectType.typename,
-          "laysEggs": laysEggs,
-          "species": species
+      self.init(_dataDict: DataDict(data: [
+        "__typename": __typename,
+        "laysEggs": laysEggs,
+        "species": species,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self),
+          ObjectIdentifier(ClassroomPetDetails.self)
+        ])
       ]))
     }
   }
@@ -171,7 +158,7 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
   /// Parent Type: `Cat`
   public struct AsCat: AnimalKingdomAPI.InlineFragment {
     public let __data: DataDict
-    public init(_data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public typealias RootEntityType = ClassroomPetDetails
     public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Objects.Cat }
@@ -193,16 +180,17 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
       humanName: String? = nil,
       laysEggs: Bool
     ) {
-      let objectType = AnimalKingdomAPI.Objects.Cat
-      self.init(data: DataDict(
-        objectType: objectType,
-        data: [
-          "__typename": objectType.typename,
-          "bodyTemperature": bodyTemperature,
-          "isJellicle": isJellicle,
-          "species": species,
-          "humanName": humanName,
-          "laysEggs": laysEggs
+      self.init(_dataDict: DataDict(data: [
+        "__typename": AnimalKingdomAPI.Objects.Cat.typename,
+        "bodyTemperature": bodyTemperature,
+        "isJellicle": isJellicle,
+        "species": species,
+        "humanName": humanName,
+        "laysEggs": laysEggs,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self),
+          ObjectIdentifier(ClassroomPetDetails.self)
+        ])
       ]))
     }
   }
@@ -212,7 +200,7 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
   /// Parent Type: `Bird`
   public struct AsBird: AnimalKingdomAPI.InlineFragment {
     public let __data: DataDict
-    public init(_data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public typealias RootEntityType = ClassroomPetDetails
     public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Objects.Bird }
@@ -231,15 +219,16 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
       humanName: String? = nil,
       laysEggs: Bool
     ) {
-      let objectType = AnimalKingdomAPI.Objects.Bird
-      self.init(data: DataDict(
-        objectType: objectType,
-        data: [
-          "__typename": objectType.typename,
-          "wingspan": wingspan,
-          "species": species,
-          "humanName": humanName,
-          "laysEggs": laysEggs
+      self.init(_dataDict: DataDict(data: [
+        "__typename": AnimalKingdomAPI.Objects.Bird.typename,
+        "wingspan": wingspan,
+        "species": species,
+        "humanName": humanName,
+        "laysEggs": laysEggs,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self),
+          ObjectIdentifier(ClassroomPetDetails.self)
+        ])
       ]))
     }
   }
@@ -249,7 +238,7 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
   /// Parent Type: `PetRock`
   public struct AsPetRock: AnimalKingdomAPI.InlineFragment {
     public let __data: DataDict
-    public init(_data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public typealias RootEntityType = ClassroomPetDetails
     public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Objects.PetRock }
@@ -264,13 +253,14 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
       favoriteToy: String,
       humanName: String? = nil
     ) {
-      let objectType = AnimalKingdomAPI.Objects.PetRock
-      self.init(data: DataDict(
-        objectType: objectType,
-        data: [
-          "__typename": objectType.typename,
-          "favoriteToy": favoriteToy,
-          "humanName": humanName
+      self.init(_dataDict: DataDict(data: [
+        "__typename": AnimalKingdomAPI.Objects.PetRock.typename,
+        "favoriteToy": favoriteToy,
+        "humanName": humanName,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self),
+          ObjectIdentifier(ClassroomPetDetails.self)
+        ])
       ]))
     }
   }

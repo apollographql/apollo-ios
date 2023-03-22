@@ -30,7 +30,7 @@ public class ReviewAddedSubscription: GraphQLSubscription {
 
   public struct Data: StarWarsAPI.SelectionSet {
     public let __data: DataDict
-    public init(_data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Subscription }
     public static var __selections: [ApolloAPI.Selection] { [
@@ -42,12 +42,12 @@ public class ReviewAddedSubscription: GraphQLSubscription {
     public init(
       reviewAdded: ReviewAdded? = nil
     ) {
-      let objectType = StarWarsAPI.Objects.Subscription
-      self.init(data: DataDict(
-        objectType: objectType,
-        data: [
-          "__typename": objectType.typename,
-          "reviewAdded": reviewAdded._fieldData
+      self.init(_dataDict: DataDict(data: [
+        "__typename": StarWarsAPI.Objects.Subscription.typename,
+        "reviewAdded": reviewAdded._fieldData,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self)
+        ])
       ]))
     }
 
@@ -56,7 +56,7 @@ public class ReviewAddedSubscription: GraphQLSubscription {
     /// Parent Type: `Review`
     public struct ReviewAdded: StarWarsAPI.SelectionSet {
       public let __data: DataDict
-      public init(_data: DataDict) { __data = data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Review }
       public static var __selections: [ApolloAPI.Selection] { [
@@ -77,14 +77,14 @@ public class ReviewAddedSubscription: GraphQLSubscription {
         stars: Int,
         commentary: String? = nil
       ) {
-        let objectType = StarWarsAPI.Objects.Review
-        self.init(data: DataDict(
-          objectType: objectType,
-          data: [
-            "__typename": objectType.typename,
-            "episode": episode,
-            "stars": stars,
-            "commentary": commentary
+        self.init(_dataDict: DataDict(data: [
+          "__typename": StarWarsAPI.Objects.Review.typename,
+          "episode": episode,
+          "stars": stars,
+          "commentary": commentary,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
         ]))
       }
     }

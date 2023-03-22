@@ -289,12 +289,12 @@ class OperationDefinitionTemplateTests: XCTestCase {
             public init(
               species: String
             ) {
-              let objectType = TestSchema.Objects.Animal
-              self.init(data: DataDict(
-                objectType: objectType,
-                data: [
-                  "__typename": objectType.typename,
-                  "species": species
+              self.init(_dataDict: DataDict(data: [
+                "__typename": TestSchema.Objects.Animal.typename,
+                "species": species,
+                "__fulfilled": Set([
+                  ObjectIdentifier(Self.self)
+                ])
               ]))
             }
       """
@@ -335,12 +335,12 @@ class OperationDefinitionTemplateTests: XCTestCase {
             public init(
               species: String
             ) {
-              let objectType = TestSchema.Objects.Animal
-              self.init(data: DataDict(
-                objectType: objectType,
-                data: [
-                  "__typename": objectType.typename,
-                  "species": species
+              self.init(_dataDict: DataDict(data: [
+                "__typename": TestSchema.Objects.Animal.typename,
+                "species": species,
+                "__fulfilled": Set([
+                  ObjectIdentifier(Self.self)
+                ])
               ]))
             }
       """

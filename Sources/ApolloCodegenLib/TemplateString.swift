@@ -175,6 +175,21 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
       if shouldWrapInNewlines { appendInterpolation("\n") }
     }
 
+    // MARK: While
+
+    mutating func appendInterpolation(
+      while whileBlock: @autoclosure () -> Bool,
+      _ template: () -> TemplateString,
+      separator: String = ",\n",
+      terminator: String? = nil
+    ) {
+      var list: [TemplateString] = []
+      while whileBlock() {
+        list.append(template())
+      }
+      self.appendInterpolation(list, separator: separator, terminator: terminator)
+    }
+
     // MARK: If
 
     mutating func appendInterpolation(

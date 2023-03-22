@@ -28,7 +28,7 @@ public class PetAdoptionMutation: GraphQLMutation {
 
   public struct Data: AnimalKingdomAPI.SelectionSet {
     public let __data: DataDict
-    public init(_data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Objects.Mutation }
     public static var __selections: [ApolloAPI.Selection] { [
@@ -40,12 +40,12 @@ public class PetAdoptionMutation: GraphQLMutation {
     public init(
       adoptPet: AdoptPet
     ) {
-      let objectType = AnimalKingdomAPI.Objects.Mutation
-      self.init(data: DataDict(
-        objectType: objectType,
-        data: [
-          "__typename": objectType.typename,
-          "adoptPet": adoptPet._fieldData
+      self.init(_dataDict: DataDict(data: [
+        "__typename": AnimalKingdomAPI.Objects.Mutation.typename,
+        "adoptPet": adoptPet._fieldData,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self)
+        ])
       ]))
     }
 
@@ -54,7 +54,7 @@ public class PetAdoptionMutation: GraphQLMutation {
     /// Parent Type: `Pet`
     public struct AdoptPet: AnimalKingdomAPI.SelectionSet {
       public let __data: DataDict
-      public init(_data: DataDict) { __data = data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Interfaces.Pet }
       public static var __selections: [ApolloAPI.Selection] { [
@@ -70,17 +70,13 @@ public class PetAdoptionMutation: GraphQLMutation {
         id: AnimalKingdomAPI.ID,
         humanName: String? = nil
       ) {
-        let objectType = ApolloAPI.Object(
-          typename: __typename,
-          implementedInterfaces: [
-            AnimalKingdomAPI.Interfaces.Pet
-        ])
-        self.init(data: DataDict(
-          objectType: objectType,
-          data: [
-            "__typename": objectType.typename,
-            "id": id,
-            "humanName": humanName
+        self.init(_dataDict: DataDict(data: [
+          "__typename": __typename,
+          "id": id,
+          "humanName": humanName,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
         ]))
       }
     }

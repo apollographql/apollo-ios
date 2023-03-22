@@ -980,7 +980,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
         struct Fragments: FragmentContainer {
           var __data: DataDict
-          init(data: DataDict) { self.__data = data }
+          init(_dataDict: DataDict) { __data = _dataDict }
 
           var givenFragment: GivenFragment {
             get { _toFragment() }
@@ -1133,7 +1133,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
         struct Fragments: FragmentContainer {
           var __data: DataDict
-          init(data: DataDict) { self.__data = data }
+          init(_dataDict: DataDict) { __data = _dataDict }
 
           var givenFragment: GivenFragment? {
             get { _toFragment() }
@@ -1403,11 +1403,11 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
       store.withinReadWriteTransaction({ transaction in
         let data = try! GivenSelectionSet(data:
-          ["hero": [
-            "__typename": "Droid",
-            "name": "Artoo"
-          ]],
-          variables: nil
+                                            ["hero": [
+                                              "__typename": "Droid",
+                                              "name": "Artoo"
+                                            ]],
+                                          variables: nil
         )
         let cacheMutation = MockLocalCacheMutationFromMutation<GivenSelectionSet>()
 
@@ -1470,7 +1470,6 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     store.withinReadWriteTransaction({ transaction in
       let data = GivenSelectionSet(
         _dataDict: .init(
-          objectType: Object(typename: "Hero", implementedInterfaces: []),
           data: ["hero": "name"]
         ))
       let cacheMutation = MockLocalCacheMutation<GivenSelectionSet>()
@@ -1527,9 +1526,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     store.withinReadWriteTransaction({ transaction in
       let data = GivenSelectionSet(
         _dataDict: .init(
-          objectType: Object(typename: "Query", implementedInterfaces: []),
           data: ["hero": DataDict(
-            objectType: Object(typename: "Hero", implementedInterfaces: []),
             data: [
               "__typename": "Hero",
               "name": Optional<String>.none
@@ -1598,11 +1595,11 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
       store.withinReadWriteTransaction({ transaction in
         let fragment = try! GivenFragment(data:
-          ["hero": [
-            "__typename": "Droid",
-            "name": "Artoo"
-          ]],
-          variables: nil
+                                            ["hero": [
+                                              "__typename": "Droid",
+                                              "name": "Artoo"
+                                            ]],
+                                          variables: nil
         )
 
         try transaction.write(selectionSet: fragment, withKey: CacheReference.RootQuery.key)
@@ -1655,14 +1652,13 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       convenience init(
         hero: Hero
       ) {
-        let objectType = Types.Query
-        self.init(_dataDict: DataDict(
-          objectType: objectType,
-          data: [
-            "__typename": objectType.typename,
-            "hero": hero._fieldData
-          ]
-        ))
+        self.init(_dataDict: DataDict(data: [
+          "__typename": Types.Query.typename,
+          "hero": hero._fieldData,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
+        ]))
       }
 
       class Hero: MockSelectionSet {
@@ -1674,8 +1670,8 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
           .include(if: "b", .inlineFragment(IfB.self))
         ]}
 
-        var ifA: IfA? { _asInlineFragment(if: "a") }
-        var ifB: IfB? { _asInlineFragment(if: "b") }
+        var ifA: IfA? { _asInlineFragment() }
+        var ifB: IfB? { _asInlineFragment() }
 
         class IfA: ConcreteMockTypeCase<Hero> {
           typealias Schema = MockSchemaMetadata
@@ -1694,17 +1690,16 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
             friend: Friend? = nil,
             other: String? = nil
           ) {
-            let objectType = Types.Human
-            self.init(_dataDict: DataDict(
-              objectType: objectType,
-              data: [
-                "__typename": objectType.typename,
-                "name": name,
-                "friend": friend._fieldData,
-                "other": other
-              ],
-              variables: ["a": true]
-            ))
+            self.init(_dataDict: DataDict(data: [
+              "__typename": Types.Human.typename,
+              "name": name,
+              "friend": friend._fieldData,
+              "other": other,
+              "__fulfilled": Set([
+                ObjectIdentifier(Hero.self),
+                ObjectIdentifier(Self.self)
+              ])
+            ]))
           }
 
           class Friend: MockSelectionSet {
@@ -1720,14 +1715,13 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
             convenience init(
               name: String
             ) {
-              let objectType = Types.Human
-              self.init(_dataDict: DataDict(
-                objectType: objectType,
-                data: [
-                  "__typename": objectType.typename,
-                  "name": name
-                ]
-              ))
+              self.init(_dataDict: DataDict(data: [
+                "__typename": Types.Human.typename,
+                "name": name,
+                "__fulfilled": Set([
+                  ObjectIdentifier(Friend.self),
+                ])
+              ]))
             }
 
           }
@@ -1739,14 +1733,13 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
           override class var __selections: [Selection] {[
           ]}
           convenience init() {
-            let objectType = Types.Human
-            self.init(_dataDict: DataDict(
-              objectType: objectType,
-              data: [
-                "__typename": objectType.typename
-              ],
-              variables: ["b": true]
-            ))
+            self.init(_dataDict: DataDict(data: [
+              "__typename": Types.Human.typename,
+              "__fulfilled": Set([
+                ObjectIdentifier(Hero.self),
+                ObjectIdentifier(Self.self)
+              ])
+            ]))
           }
         }
       }
@@ -1820,14 +1813,10 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       convenience init(
         hero: Hero
       ) {
-        let objectType = Types.Query
-        self.init(_dataDict: DataDict(
-          objectType: objectType,
-          data: [
-            "__typename": objectType.typename,
-            "hero": hero._fieldData
-          ]
-        ))
+        self.init(_dataDict: DataDict(data: [
+          "__typename": Types.Query.typename,
+          "hero": hero._fieldData
+        ]))
       }
 
       class Hero: MockSelectionSet {
@@ -1853,15 +1842,10 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
             __typename: String,
             name: String
           ) {
-            let objectType = Object(typename: __typename,
-                                    implementedInterfaces: [Types.Character])
-            self.init(_dataDict: DataDict(
-              objectType: objectType,
-              data: [
-                "__typename": objectType.typename,
-                "name": name
-              ]
-            ))
+            self.init(_dataDict: DataDict(data: [
+              "__typename": __typename,
+              "name": name
+            ]))
           }
         }
       }

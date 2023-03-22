@@ -15,7 +15,7 @@ public struct HeightInMeters: AnimalKingdomAPI.SelectionSet, Fragment {
     """ }
 
   public let __data: DataDict
-  public init(_data: DataDict) { __data = data }
+  public init(_dataDict: DataDict) { __data = _dataDict }
 
   public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Interfaces.Animal }
   public static var __selections: [ApolloAPI.Selection] { [
@@ -28,16 +28,12 @@ public struct HeightInMeters: AnimalKingdomAPI.SelectionSet, Fragment {
     __typename: String,
     height: Height
   ) {
-    let objectType = ApolloAPI.Object(
-      typename: __typename,
-      implementedInterfaces: [
-        AnimalKingdomAPI.Interfaces.Animal
-    ])
-    self.init(data: DataDict(
-      objectType: objectType,
-      data: [
-        "__typename": objectType.typename,
-        "height": height._fieldData
+    self.init(_dataDict: DataDict(data: [
+      "__typename": __typename,
+      "height": height._fieldData,
+      "__fulfilled": Set([
+        ObjectIdentifier(Self.self)
+      ])
     ]))
   }
 
@@ -46,7 +42,7 @@ public struct HeightInMeters: AnimalKingdomAPI.SelectionSet, Fragment {
   /// Parent Type: `Height`
   public struct Height: AnimalKingdomAPI.SelectionSet {
     public let __data: DataDict
-    public init(_data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Objects.Height }
     public static var __selections: [ApolloAPI.Selection] { [
@@ -58,12 +54,12 @@ public struct HeightInMeters: AnimalKingdomAPI.SelectionSet, Fragment {
     public init(
       meters: Int
     ) {
-      let objectType = AnimalKingdomAPI.Objects.Height
-      self.init(data: DataDict(
-        objectType: objectType,
-        data: [
-          "__typename": objectType.typename,
-          "meters": meters
+      self.init(_dataDict: DataDict(data: [
+        "__typename": AnimalKingdomAPI.Objects.Height.typename,
+        "meters": meters,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self)
+        ])
       ]))
     }
   }

@@ -13,7 +13,7 @@ public struct CharacterNameWithNestedAppearsInFragment: StarWarsAPI.SelectionSet
     """ }
 
   public let __data: DataDict
-  public init(_data: DataDict) { __data = data }
+  public init(_dataDict: DataDict) { __data = _dataDict }
 
   public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
   public static var __selections: [ApolloAPI.Selection] { [
@@ -28,7 +28,7 @@ public struct CharacterNameWithNestedAppearsInFragment: StarWarsAPI.SelectionSet
 
   public struct Fragments: FragmentContainer {
     public let __data: DataDict
-    public init(_data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public var characterAppearsIn: CharacterAppearsIn { _toFragment() }
   }
@@ -38,17 +38,14 @@ public struct CharacterNameWithNestedAppearsInFragment: StarWarsAPI.SelectionSet
     name: String,
     appearsIn: [GraphQLEnum<StarWarsAPI.Episode>?]
   ) {
-    let objectType = ApolloAPI.Object(
-      typename: __typename,
-      implementedInterfaces: [
-        StarWarsAPI.Interfaces.Character
-    ])
-    self.init(data: DataDict(
-      objectType: objectType,
-      data: [
-        "__typename": objectType.typename,
-        "name": name,
-        "appearsIn": appearsIn
+    self.init(_dataDict: DataDict(data: [
+      "__typename": __typename,
+      "name": name,
+      "appearsIn": appearsIn,
+      "__fulfilled": Set([
+        ObjectIdentifier(Self.self),
+        ObjectIdentifier(CharacterAppearsIn.self)
+      ])
     ]))
   }
 }

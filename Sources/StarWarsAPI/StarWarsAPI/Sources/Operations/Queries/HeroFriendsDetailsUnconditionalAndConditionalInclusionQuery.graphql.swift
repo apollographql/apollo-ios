@@ -39,7 +39,7 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
 
   public struct Data: StarWarsAPI.SelectionSet {
     public let __data: DataDict
-    public init(_data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Query }
     public static var __selections: [ApolloAPI.Selection] { [
@@ -51,12 +51,12 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
     public init(
       hero: Hero? = nil
     ) {
-      let objectType = StarWarsAPI.Objects.Query
-      self.init(data: DataDict(
-        objectType: objectType,
-        data: [
-          "__typename": objectType.typename,
-          "hero": hero._fieldData
+      self.init(_dataDict: DataDict(data: [
+        "__typename": StarWarsAPI.Objects.Query.typename,
+        "hero": hero._fieldData,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self)
+        ])
       ]))
     }
 
@@ -65,7 +65,7 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
     /// Parent Type: `Character`
     public struct Hero: StarWarsAPI.SelectionSet {
       public let __data: DataDict
-      public init(_data: DataDict) { __data = data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
       public static var __selections: [ApolloAPI.Selection] { [
@@ -79,16 +79,12 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
         __typename: String,
         friends: [Friend?]? = nil
       ) {
-        let objectType = ApolloAPI.Object(
-          typename: __typename,
-          implementedInterfaces: [
-            StarWarsAPI.Interfaces.Character
-        ])
-        self.init(data: DataDict(
-          objectType: objectType,
-          data: [
-            "__typename": objectType.typename,
-            "friends": friends._fieldData
+        self.init(_dataDict: DataDict(data: [
+          "__typename": __typename,
+          "friends": friends._fieldData,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
         ]))
       }
 
@@ -97,7 +93,7 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
       /// Parent Type: `Character`
       public struct Friend: StarWarsAPI.SelectionSet {
         public let __data: DataDict
-        public init(_data: DataDict) { __data = data }
+        public init(_dataDict: DataDict) { __data = _dataDict }
 
         public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
         public static var __selections: [ApolloAPI.Selection] { [
@@ -108,23 +104,19 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
         /// The name of the character
         public var name: String { __data["name"] }
 
-        public var ifIncludeFriendsDetails: IfIncludeFriendsDetails? { _asInlineFragment(if: "includeFriendsDetails") }
+        public var ifIncludeFriendsDetails: IfIncludeFriendsDetails? { _asInlineFragment() }
         public var asDroid: AsDroid? { _asInlineFragment() }
 
         public init(
           __typename: String,
           name: String
         ) {
-          let objectType = ApolloAPI.Object(
-            typename: __typename,
-            implementedInterfaces: [
-              StarWarsAPI.Interfaces.Character
-          ])
-          self.init(data: DataDict(
-            objectType: objectType,
-            data: [
-              "__typename": objectType.typename,
-              "name": name
+          self.init(_dataDict: DataDict(data: [
+            "__typename": __typename,
+            "name": name,
+            "__fulfilled": Set([
+              ObjectIdentifier(Self.self)
+            ])
           ]))
         }
 
@@ -133,7 +125,7 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
         /// Parent Type: `Character`
         public struct IfIncludeFriendsDetails: StarWarsAPI.InlineFragment {
           public let __data: DataDict
-          public init(_data: DataDict) { __data = data }
+          public init(_dataDict: DataDict) { __data = _dataDict }
 
           public typealias RootEntityType = Hero.Friend
           public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
@@ -151,19 +143,13 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
             __typename: String,
             name: String
           ) {
-            let objectType = ApolloAPI.Object(
-              typename: __typename,
-              implementedInterfaces: [
-                StarWarsAPI.Interfaces.Character
-            ])
-            self.init(data: DataDict(
-              objectType: objectType,
-              data: [
-                "__typename": objectType.typename,
-                "name": name
-              ],
-              variables: [
-                "includeFriendsDetails": true
+            self.init(_dataDict: DataDict(data: [
+              "__typename": __typename,
+              "name": name,
+              "__fulfilled": Set([
+                ObjectIdentifier(Self.self),
+                ObjectIdentifier(Hero.Friend.self)
+              ])
             ]))
           }
 
@@ -172,7 +158,7 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
           /// Parent Type: `Droid`
           public struct AsDroid: StarWarsAPI.InlineFragment {
             public let __data: DataDict
-            public init(_data: DataDict) { __data = data }
+            public init(_dataDict: DataDict) { __data = _dataDict }
 
             public typealias RootEntityType = Hero.Friend
             public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Droid }
@@ -189,16 +175,14 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
               primaryFunction: String? = nil,
               name: String
             ) {
-              let objectType = StarWarsAPI.Objects.Droid
-              self.init(data: DataDict(
-                objectType: objectType,
-                data: [
-                  "__typename": objectType.typename,
-                  "primaryFunction": primaryFunction,
-                  "name": name
-                ],
-                variables: [
-                  "includeFriendsDetails": true
+              self.init(_dataDict: DataDict(data: [
+                "__typename": StarWarsAPI.Objects.Droid.typename,
+                "primaryFunction": primaryFunction,
+                "name": name,
+                "__fulfilled": Set([
+                  ObjectIdentifier(Self.self),
+                  ObjectIdentifier(Hero.Friend.self)
+                ])
               ]))
             }
           }
@@ -208,7 +192,7 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
         /// Parent Type: `Droid`
         public struct AsDroid: StarWarsAPI.InlineFragment {
           public let __data: DataDict
-          public init(_data: DataDict) { __data = data }
+          public init(_dataDict: DataDict) { __data = _dataDict }
 
           public typealias RootEntityType = Hero.Friend
           public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Droid }
@@ -222,13 +206,14 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
             name: String,
             primaryFunction: String? = nil
           ) {
-            let objectType = StarWarsAPI.Objects.Droid
-            self.init(data: DataDict(
-              objectType: objectType,
-              data: [
-                "__typename": objectType.typename,
-                "name": name,
-                "primaryFunction": primaryFunction
+            self.init(_dataDict: DataDict(data: [
+              "__typename": StarWarsAPI.Objects.Droid.typename,
+              "name": name,
+              "primaryFunction": primaryFunction,
+              "__fulfilled": Set([
+                ObjectIdentifier(Self.self),
+                ObjectIdentifier(Hero.Friend.self)
+              ])
             ]))
           }
         }

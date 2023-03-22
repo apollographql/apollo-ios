@@ -22,7 +22,7 @@ public class DogQuery: GraphQLQuery {
 
   public struct Data: GraphQLAPI.SelectionSet {
     public let __data: DataDict
-    public init(_data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public static var __parentType: ApolloAPI.ParentType { GraphQLAPI.Objects.Query }
     public static var __selections: [ApolloAPI.Selection] { [
@@ -36,7 +36,7 @@ public class DogQuery: GraphQLQuery {
     /// Parent Type: `Dog`
     public struct Dog: GraphQLAPI.SelectionSet {
       public let __data: DataDict
-      public init(_data: DataDict) { __data = data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: ApolloAPI.ParentType { GraphQLAPI.Objects.Dog }
       public static var __selections: [ApolloAPI.Selection] { [
@@ -47,7 +47,7 @@ public class DogQuery: GraphQLQuery {
 
       public struct Fragments: FragmentContainer {
         public let __data: DataDict
-        public init(_data: DataDict) { __data = data }
+        public init(_dataDict: DataDict) { __data = _dataDict }
 
         public var dogFragment: DogFragment { _toFragment() }
       }

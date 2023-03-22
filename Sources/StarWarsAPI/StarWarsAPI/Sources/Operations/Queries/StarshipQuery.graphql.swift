@@ -23,7 +23,7 @@ public class StarshipQuery: GraphQLQuery {
 
   public struct Data: StarWarsAPI.SelectionSet {
     public let __data: DataDict
-    public init(_data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Query }
     public static var __selections: [ApolloAPI.Selection] { [
@@ -35,12 +35,12 @@ public class StarshipQuery: GraphQLQuery {
     public init(
       starship: Starship? = nil
     ) {
-      let objectType = StarWarsAPI.Objects.Query
-      self.init(data: DataDict(
-        objectType: objectType,
-        data: [
-          "__typename": objectType.typename,
-          "starship": starship._fieldData
+      self.init(_dataDict: DataDict(data: [
+        "__typename": StarWarsAPI.Objects.Query.typename,
+        "starship": starship._fieldData,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self)
+        ])
       ]))
     }
 
@@ -49,7 +49,7 @@ public class StarshipQuery: GraphQLQuery {
     /// Parent Type: `Starship`
     public struct Starship: StarWarsAPI.SelectionSet {
       public let __data: DataDict
-      public init(_data: DataDict) { __data = data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Starship }
       public static var __selections: [ApolloAPI.Selection] { [
@@ -65,13 +65,13 @@ public class StarshipQuery: GraphQLQuery {
         name: String,
         coordinates: [[Double]]? = nil
       ) {
-        let objectType = StarWarsAPI.Objects.Starship
-        self.init(data: DataDict(
-          objectType: objectType,
-          data: [
-            "__typename": objectType.typename,
-            "name": name,
-            "coordinates": coordinates
+        self.init(_dataDict: DataDict(data: [
+          "__typename": StarWarsAPI.Objects.Starship.typename,
+          "name": name,
+          "coordinates": coordinates,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
         ]))
       }
     }

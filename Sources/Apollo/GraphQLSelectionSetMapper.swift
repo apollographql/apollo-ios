@@ -63,24 +63,14 @@ final class GraphQLSelectionSetMapper<T: SelectionSet>: GraphQLResultAccumulator
     guard let fieldEntry = fieldEntry else { return nil }
     return (info.responseKeyForField, fieldEntry)
   }
-
+ 
   func accept(
     fieldEntries: [(key: String, value: AnyHashable)],
     info: ObjectExecutionInfo
   ) throws -> DataDict {
-    let data = JSONObject.init(fieldEntries, uniquingKeysWith: { (_, last) in last })
-    return DataDict(
-      objectType: runtimeObjectType(for: data),
-      data: data,
-      variables: info.variables
-    )
-  }
-
-  private func runtimeObjectType(for json: JSONObject) -> Object? {
-    guard let __typename = json["__typename"] as? String else {
-      return nil
-    }
-    return T.Schema.objectType(forTypename: __typename)
+    var data = DataDict.SelectionSetData.init(fieldEntries, uniquingKeysWith: { (_, last) in last })
+    data["__fulfilled"] = info.fulfilledFragments
+    return DataDict(data: data)
   }
 
   func finish(rootValue: DataDict, info: ObjectExecutionInfo) -> T {

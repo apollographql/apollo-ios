@@ -77,15 +77,18 @@ public class Mock<O: MockObject>: AnyMock, Hashable {
 // MARK: - Selection Set Conversion
 
 public extension SelectionSet {
+#warning("""
+TODO: ObjectType and Variables are not used here anymore, and fulfilled fragments are not calculated.
+Probably should use the init(data:) initializer?
+Make sure there are tests for the type/include conversions with test mocks
+""")
   static func from<O: MockObject>(
     _ mock: Mock<O>,
     withVariables variables: GraphQLOperation.Variables? = nil
   ) -> Self {
     Self.init(_dataDict: DataDict(
-      objectType: O.objectType,
-      data: mock._selectionSetMockData,
-      variables: variables)
-    )
+      data: mock._selectionSetMockData
+    ))
   }
 }
 

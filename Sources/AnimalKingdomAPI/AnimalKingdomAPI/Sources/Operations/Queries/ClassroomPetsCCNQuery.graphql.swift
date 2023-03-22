@@ -22,7 +22,7 @@ public class ClassroomPetsCCNQuery: GraphQLQuery {
 
   public struct Data: AnimalKingdomAPI.SelectionSet {
     public let __data: DataDict
-    public init(_data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Objects.Query }
     public static var __selections: [ApolloAPI.Selection] { [
@@ -34,12 +34,12 @@ public class ClassroomPetsCCNQuery: GraphQLQuery {
     public init(
       classroomPets: [ClassroomPet]? = nil
     ) {
-      let objectType = AnimalKingdomAPI.Objects.Query
-      self.init(data: DataDict(
-        objectType: objectType,
-        data: [
-          "__typename": objectType.typename,
-          "classroomPets": classroomPets._fieldData
+      self.init(_dataDict: DataDict(data: [
+        "__typename": AnimalKingdomAPI.Objects.Query.typename,
+        "classroomPets": classroomPets._fieldData,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self)
+        ])
       ]))
     }
 
@@ -48,7 +48,7 @@ public class ClassroomPetsCCNQuery: GraphQLQuery {
     /// Parent Type: `ClassroomPet`
     public struct ClassroomPet: AnimalKingdomAPI.SelectionSet {
       public let __data: DataDict
-      public init(_data: DataDict) { __data = data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Unions.ClassroomPet }
       public static var __selections: [ApolloAPI.Selection] { [
@@ -59,7 +59,7 @@ public class ClassroomPetsCCNQuery: GraphQLQuery {
 
       public struct Fragments: FragmentContainer {
         public let __data: DataDict
-        public init(_data: DataDict) { __data = data }
+        public init(_dataDict: DataDict) { __data = _dataDict }
 
         public var classroomPetDetailsCCN: ClassroomPetDetailsCCN { _toFragment() }
       }
@@ -67,14 +67,12 @@ public class ClassroomPetsCCNQuery: GraphQLQuery {
       public init(
         __typename: String
       ) {
-        let objectType = ApolloAPI.Object(
-          typename: __typename,
-          implementedInterfaces: [
-        ])
-        self.init(data: DataDict(
-          objectType: objectType,
-          data: [
-            "__typename": objectType.typename,
+        self.init(_dataDict: DataDict(data: [
+          "__typename": __typename,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self),
+            ObjectIdentifier(ClassroomPetDetailsCCN.self)
+          ])
         ]))
       }
 
@@ -83,7 +81,7 @@ public class ClassroomPetsCCNQuery: GraphQLQuery {
       /// Parent Type: `Animal`
       public struct AsAnimal: AnimalKingdomAPI.InlineFragment {
         public let __data: DataDict
-        public init(_data: DataDict) { __data = data }
+        public init(_dataDict: DataDict) { __data = _dataDict }
 
         public typealias RootEntityType = ClassroomPet
         public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Interfaces.Animal }
@@ -92,7 +90,7 @@ public class ClassroomPetsCCNQuery: GraphQLQuery {
 
         public struct Fragments: FragmentContainer {
           public let __data: DataDict
-          public init(_data: DataDict) { __data = data }
+          public init(_dataDict: DataDict) { __data = _dataDict }
 
           public var classroomPetDetailsCCN: ClassroomPetDetailsCCN { _toFragment() }
         }
@@ -101,16 +99,14 @@ public class ClassroomPetsCCNQuery: GraphQLQuery {
           __typename: String,
           height: ClassroomPetDetailsCCN.AsAnimal.Height
         ) {
-          let objectType = ApolloAPI.Object(
-            typename: __typename,
-            implementedInterfaces: [
-              AnimalKingdomAPI.Interfaces.Animal
-          ])
-          self.init(data: DataDict(
-            objectType: objectType,
-            data: [
-              "__typename": objectType.typename,
-              "height": height._fieldData
+          self.init(_dataDict: DataDict(data: [
+            "__typename": __typename,
+            "height": height._fieldData,
+            "__fulfilled": Set([
+              ObjectIdentifier(Self.self),
+              ObjectIdentifier(ClassroomPet.self),
+              ObjectIdentifier(ClassroomPetDetailsCCN.self)
+            ])
           ]))
         }
       }

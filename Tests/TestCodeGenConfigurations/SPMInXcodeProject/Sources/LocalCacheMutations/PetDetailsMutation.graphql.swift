@@ -15,7 +15,7 @@ public struct PetDetailsMutation: AnimalKingdomAPI.MutableSelectionSet, Fragment
     """ }
 
   public var __data: DataDict
-  public init(_data: DataDict) { __data = data }
+  public init(_dataDict: DataDict) { __data = _dataDict }
 
   public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Interfaces.Pet }
   public static var __selections: [ApolloAPI.Selection] { [
@@ -31,16 +31,12 @@ public struct PetDetailsMutation: AnimalKingdomAPI.MutableSelectionSet, Fragment
     __typename: String,
     owner: Owner? = nil
   ) {
-    let objectType = ApolloAPI.Object(
-      typename: __typename,
-      implementedInterfaces: [
-        AnimalKingdomAPI.Interfaces.Pet
-    ])
-    self.init(data: DataDict(
-      objectType: objectType,
-      data: [
-        "__typename": objectType.typename,
-        "owner": owner._fieldData
+    self.init(_dataDict: DataDict(data: [
+      "__typename": __typename,
+      "owner": owner._fieldData,
+      "__fulfilled": Set([
+        ObjectIdentifier(Self.self)
+      ])
     ]))
   }
 
@@ -49,7 +45,7 @@ public struct PetDetailsMutation: AnimalKingdomAPI.MutableSelectionSet, Fragment
   /// Parent Type: `Human`
   public struct Owner: AnimalKingdomAPI.MutableSelectionSet {
     public var __data: DataDict
-    public init(_data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Objects.Human }
     public static var __selections: [ApolloAPI.Selection] { [
@@ -64,12 +60,12 @@ public struct PetDetailsMutation: AnimalKingdomAPI.MutableSelectionSet, Fragment
     public init(
       firstName: String
     ) {
-      let objectType = AnimalKingdomAPI.Objects.Human
-      self.init(data: DataDict(
-        objectType: objectType,
-        data: [
-          "__typename": objectType.typename,
-          "firstName": firstName
+      self.init(_dataDict: DataDict(data: [
+        "__typename": AnimalKingdomAPI.Objects.Human.typename,
+        "firstName": firstName,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self)
+        ])
       ]))
     }
   }

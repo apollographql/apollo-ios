@@ -5,6 +5,11 @@ import ApolloAPI
 
 struct FieldSelectionGrouping: Sequence {
   private var fieldInfoList: [String: FieldExecutionInfo] = [:]
+  private(set) var fulfilledFragments: Set<ObjectIdentifier> = []
+
+  init(info: ObjectExecutionInfo) {
+    self.fulfilledFragments = info.fulfilledFragments
+  }
 
   var count: Int { fieldInfoList.count }
 
@@ -18,6 +23,10 @@ struct FieldSelectionGrouping: Sequence {
     }
   }
 
+  mutating func addFulfilledFragment<T: SelectionSet>(_ type: T.Type) {
+    fulfilledFragments.insert(ObjectIdentifier(type))
+  }
+
   func makeIterator() -> Dictionary<String, FieldExecutionInfo>.Iterator {
     fieldInfoList.makeIterator()
   }
@@ -25,6 +34,12 @@ struct FieldSelectionGrouping: Sequence {
 
 protocol FieldSelectionCollector {
 
+  /// Groups fields that share the same response key for simultaneous resolution.
+  ///
+  /// Before execution, the selection set is converted to a grouped field set.
+  /// Each entry in the grouped field set is a list of fields that share a response key.
+  /// This ensures all fields with the same response key (alias or field name) included via
+  /// referenced fragments are executed at the same time.
   func collectFields(
     from selections: [Selection],
     into groupedFields: inout FieldSelectionGrouping,
@@ -55,6 +70,7 @@ struct DefaultFieldSelectionCollector: FieldSelectionCollector {
         }
 
       case let .fragment(fragment):
+        groupedFields.addFulfilledFragment(fragment)
         try collectFields(from: fragment.__selections,
                           into: &groupedFields,
                           for: object,
@@ -63,6 +79,7 @@ struct DefaultFieldSelectionCollector: FieldSelectionCollector {
       case let .inlineFragment(typeCase):
         if let runtimeType = info.runtimeObjectType(for: object),
            typeCase.__parentType.canBeConverted(from: runtimeType) {
+          groupedFields.addFulfilledFragment(typeCase)
           try collectFields(from: typeCase.__selections,
                             into: &groupedFields,
                             for: object,

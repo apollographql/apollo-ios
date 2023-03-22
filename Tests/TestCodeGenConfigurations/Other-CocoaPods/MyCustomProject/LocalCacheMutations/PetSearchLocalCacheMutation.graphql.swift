@@ -27,7 +27,7 @@ public class PetSearchLocalCacheMutation: LocalCacheMutation {
 
   public struct Data: MyCustomProject.MutableSelectionSet {
     public var __data: DataDict
-    public init(_data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public static var __parentType: Apollo.ParentType { MyCustomProject.Objects.Query }
     public static var __selections: [Apollo.Selection] { [
@@ -42,12 +42,12 @@ public class PetSearchLocalCacheMutation: LocalCacheMutation {
     public init(
       pets: [Pet]
     ) {
-      let objectType = MyCustomProject.Objects.Query
-      self.init(data: DataDict(
-        objectType: objectType,
-        data: [
-          "__typename": objectType.typename,
-          "pets": pets._fieldData
+      self.init(_dataDict: DataDict(data: [
+        "__typename": MyCustomProject.Objects.Query.typename,
+        "pets": pets._fieldData,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self)
+        ])
       ]))
     }
 
@@ -56,7 +56,7 @@ public class PetSearchLocalCacheMutation: LocalCacheMutation {
     /// Parent Type: `Pet`
     public struct Pet: MyCustomProject.MutableSelectionSet {
       public var __data: DataDict
-      public init(_data: DataDict) { __data = data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: Apollo.ParentType { MyCustomProject.Interfaces.Pet }
       public static var __selections: [Apollo.Selection] { [
@@ -78,17 +78,13 @@ public class PetSearchLocalCacheMutation: LocalCacheMutation {
         id: MyCustomProject.ID,
         humanName: String? = nil
       ) {
-        let objectType = Apollo.Object(
-          typename: __typename,
-          implementedInterfaces: [
-            MyCustomProject.Interfaces.Pet
-        ])
-        self.init(data: DataDict(
-          objectType: objectType,
-          data: [
-            "__typename": objectType.typename,
-            "id": id,
-            "humanName": humanName
+        self.init(_dataDict: DataDict(data: [
+          "__typename": __typename,
+          "id": id,
+          "humanName": humanName,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
         ]))
       }
     }

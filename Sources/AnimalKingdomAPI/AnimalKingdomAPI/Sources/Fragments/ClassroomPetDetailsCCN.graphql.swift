@@ -17,7 +17,7 @@ public struct ClassroomPetDetailsCCN: AnimalKingdomAPI.SelectionSet, Fragment {
     """ }
 
   public let __data: DataDict
-  public init(_data: DataDict) { __data = data }
+  public init(_dataDict: DataDict) { __data = _dataDict }
 
   public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Unions.ClassroomPet }
   public static var __selections: [ApolloAPI.Selection] { [
@@ -29,14 +29,11 @@ public struct ClassroomPetDetailsCCN: AnimalKingdomAPI.SelectionSet, Fragment {
   public init(
     __typename: String
   ) {
-    let objectType = ApolloAPI.Object(
-      typename: __typename,
-      implementedInterfaces: [
-    ])
-    self.init(data: DataDict(
-      objectType: objectType,
-      data: [
-        "__typename": objectType.typename,
+    self.init(_dataDict: DataDict(data: [
+      "__typename": __typename,
+      "__fulfilled": Set([
+        ObjectIdentifier(Self.self)
+      ])
     ]))
   }
 
@@ -45,7 +42,7 @@ public struct ClassroomPetDetailsCCN: AnimalKingdomAPI.SelectionSet, Fragment {
   /// Parent Type: `Animal`
   public struct AsAnimal: AnimalKingdomAPI.InlineFragment {
     public let __data: DataDict
-    public init(_data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public typealias RootEntityType = ClassroomPetDetailsCCN
     public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Interfaces.Animal }
@@ -59,16 +56,13 @@ public struct ClassroomPetDetailsCCN: AnimalKingdomAPI.SelectionSet, Fragment {
       __typename: String,
       height: Height
     ) {
-      let objectType = ApolloAPI.Object(
-        typename: __typename,
-        implementedInterfaces: [
-          AnimalKingdomAPI.Interfaces.Animal
-      ])
-      self.init(data: DataDict(
-        objectType: objectType,
-        data: [
-          "__typename": objectType.typename,
-          "height": height._fieldData
+      self.init(_dataDict: DataDict(data: [
+        "__typename": __typename,
+        "height": height._fieldData,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self),
+          ObjectIdentifier(ClassroomPetDetailsCCN.self)
+        ])
       ]))
     }
 
@@ -77,7 +71,7 @@ public struct ClassroomPetDetailsCCN: AnimalKingdomAPI.SelectionSet, Fragment {
     /// Parent Type: `Height`
     public struct Height: AnimalKingdomAPI.SelectionSet {
       public let __data: DataDict
-      public init(_data: DataDict) { __data = data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Objects.Height }
       public static var __selections: [ApolloAPI.Selection] { [
@@ -89,12 +83,12 @@ public struct ClassroomPetDetailsCCN: AnimalKingdomAPI.SelectionSet, Fragment {
       public init(
         inches: Int
       ) {
-        let objectType = AnimalKingdomAPI.Objects.Height
-        self.init(data: DataDict(
-          objectType: objectType,
-          data: [
-            "__typename": objectType.typename,
-            "inches": inches
+        self.init(_dataDict: DataDict(data: [
+          "__typename": AnimalKingdomAPI.Objects.Height.typename,
+          "inches": inches,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
         ]))
       }
     }

@@ -16,7 +16,7 @@ public struct CharacterNameAndDroidAppearsIn: StarWarsAPI.SelectionSet, Fragment
     """ }
 
   public let __data: DataDict
-  public init(_data: DataDict) { __data = data }
+  public init(_dataDict: DataDict) { __data = _dataDict }
 
   public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
   public static var __selections: [ApolloAPI.Selection] { [
@@ -33,16 +33,12 @@ public struct CharacterNameAndDroidAppearsIn: StarWarsAPI.SelectionSet, Fragment
     __typename: String,
     name: String
   ) {
-    let objectType = ApolloAPI.Object(
-      typename: __typename,
-      implementedInterfaces: [
-        StarWarsAPI.Interfaces.Character
-    ])
-    self.init(data: DataDict(
-      objectType: objectType,
-      data: [
-        "__typename": objectType.typename,
-        "name": name
+    self.init(_dataDict: DataDict(data: [
+      "__typename": __typename,
+      "name": name,
+      "__fulfilled": Set([
+        ObjectIdentifier(Self.self)
+      ])
     ]))
   }
 
@@ -51,7 +47,7 @@ public struct CharacterNameAndDroidAppearsIn: StarWarsAPI.SelectionSet, Fragment
   /// Parent Type: `Droid`
   public struct AsDroid: StarWarsAPI.InlineFragment {
     public let __data: DataDict
-    public init(_data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public typealias RootEntityType = CharacterNameAndDroidAppearsIn
     public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Droid }
@@ -68,13 +64,14 @@ public struct CharacterNameAndDroidAppearsIn: StarWarsAPI.SelectionSet, Fragment
       appearsIn: [GraphQLEnum<StarWarsAPI.Episode>?],
       name: String
     ) {
-      let objectType = StarWarsAPI.Objects.Droid
-      self.init(data: DataDict(
-        objectType: objectType,
-        data: [
-          "__typename": objectType.typename,
-          "appearsIn": appearsIn,
-          "name": name
+      self.init(_dataDict: DataDict(data: [
+        "__typename": StarWarsAPI.Objects.Droid.typename,
+        "appearsIn": appearsIn,
+        "name": name,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self),
+          ObjectIdentifier(CharacterNameAndDroidAppearsIn.self)
+        ])
       ]))
     }
   }

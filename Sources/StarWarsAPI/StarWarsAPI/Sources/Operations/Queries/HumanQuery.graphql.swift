@@ -29,7 +29,7 @@ public class HumanQuery: GraphQLQuery {
 
   public struct Data: StarWarsAPI.SelectionSet {
     public let __data: DataDict
-    public init(_data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Query }
     public static var __selections: [ApolloAPI.Selection] { [
@@ -41,12 +41,12 @@ public class HumanQuery: GraphQLQuery {
     public init(
       human: Human? = nil
     ) {
-      let objectType = StarWarsAPI.Objects.Query
-      self.init(data: DataDict(
-        objectType: objectType,
-        data: [
-          "__typename": objectType.typename,
-          "human": human._fieldData
+      self.init(_dataDict: DataDict(data: [
+        "__typename": StarWarsAPI.Objects.Query.typename,
+        "human": human._fieldData,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self)
+        ])
       ]))
     }
 
@@ -55,7 +55,7 @@ public class HumanQuery: GraphQLQuery {
     /// Parent Type: `Human`
     public struct Human: StarWarsAPI.SelectionSet {
       public let __data: DataDict
-      public init(_data: DataDict) { __data = data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Human }
       public static var __selections: [ApolloAPI.Selection] { [
@@ -72,13 +72,13 @@ public class HumanQuery: GraphQLQuery {
         name: String,
         mass: Double? = nil
       ) {
-        let objectType = StarWarsAPI.Objects.Human
-        self.init(data: DataDict(
-          objectType: objectType,
-          data: [
-            "__typename": objectType.typename,
-            "name": name,
-            "mass": mass
+        self.init(_dataDict: DataDict(data: [
+          "__typename": StarWarsAPI.Objects.Human.typename,
+          "name": name,
+          "mass": mass,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
         ]))
       }
     }

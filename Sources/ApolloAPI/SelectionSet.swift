@@ -54,7 +54,7 @@ public protocol SelectionSet: Hashable {
   /// `GraphQLSelectionSetMapper`, which is guaranteed by the GraphQL compiler to be safe.
   /// Unsupported usage may result in unintended consequences including crashes.
   ///
-  /// - Parameter data: The data of the underlying GraphQL object represented by the generated
+  /// - Parameter dataDict: The data of the underlying GraphQL object represented by the generated
   /// selection set.
   init(_dataDict: DataDict)
 }
@@ -63,7 +63,7 @@ extension SelectionSet {
 
   @inlinable public static var __selections: [Selection] { [] }
 
-  @inlinable public var __objectType: Object? { __data._objectType }
+  @inlinable public var __objectType: Object? { Schema.objectType(forTypename: __typename) }
 
   @inlinable public var __typename: String { __data["__typename"] }
 
@@ -73,35 +73,9 @@ extension SelectionSet {
   /// - Warning: This function is not supported for use outside of generated call sites.
   /// Generated call sites are guaranteed by the GraphQL compiler to be safe.
   /// Unsupported usage may result in unintended consequences including crashes.
-  @inlinable public func _asInlineFragment<T: SelectionSet>(
-    if conditions: Selection.Conditions? = nil
-  ) -> T? where T.Schema == Schema {
-    let child: T? = _asType()
-
-    guard let conditions = conditions else {
-      return child
-    }
-
-    return conditions.evaluate(with: child?.__data._variables) ? child : nil
-  }
-
-  @usableFromInline func _asType<T: SelectionSet>() -> T? where T.Schema == Schema {
-    guard let __objectType = __objectType,
-          T.__parentType.canBeConverted(from: __objectType) else { return nil }
-
+  @inlinable public func _asInlineFragment<T: SelectionSet>() -> T? {
+    guard __data.fragmentIsFulfilled(T.self) else { return nil }
     return T.init(_dataDict: __data)
-  }
-
-  @inlinable public func _asInlineFragment<T: SelectionSet>(
-    if conditions: [Selection.Condition]
-  ) -> T? where T.Schema == Schema {
-    _asInlineFragment(if: Selection.Conditions([conditions]))
-  }
-
-  @inlinable public func _asInlineFragment<T: SelectionSet>(
-    if condition: Selection.Condition
-  ) -> T? where T.Schema == Schema {
-    _asInlineFragment(if: Selection.Conditions(condition))
   }
 
   @inlinable public func hash(into hasher: inout Hasher) {
@@ -115,7 +89,7 @@ extension SelectionSet {
 
 extension SelectionSet where Fragments: FragmentContainer {
   /// Contains accessors for all of the fragments the `SelectionSet` can be converted to.
-  public var fragments: Fragments { Fragments(data: __data) }
+  public var fragments: Fragments { Fragments(_dataDict: __data) }
 }
 
 extension InlineFragment {
