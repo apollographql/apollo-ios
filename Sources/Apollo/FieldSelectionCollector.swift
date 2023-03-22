@@ -138,6 +138,7 @@ struct CustomCacheDataWritingFieldSelectionCollector: FieldSelectionCollector {
                           asConditionalFields: true)
 
       case let .fragment(fragment):
+        groupedFields.addFulfilledFragment(fragment)
         try collectFields(from: fragment.__selections,
                           into: &groupedFields,
                           for: object,
@@ -147,6 +148,7 @@ struct CustomCacheDataWritingFieldSelectionCollector: FieldSelectionCollector {
       case let .inlineFragment(typeCase):
         if let runtimeType = info.runtimeObjectType(for: object),
            typeCase.__parentType.canBeConverted(from: runtimeType) {
+          groupedFields.addFulfilledFragment(typeCase)
           try collectFields(from: typeCase.__selections,
                             into: &groupedFields,
                             for: object,
