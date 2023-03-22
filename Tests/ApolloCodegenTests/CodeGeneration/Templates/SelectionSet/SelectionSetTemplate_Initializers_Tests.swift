@@ -143,7 +143,72 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
   }
 
-  #warning("TODO: Write tests that union type cases are included in initializer.")
+  func test__render_givenSelectionSetOnUnionType_parametersIncludeFulfilledFragmentsWithUnion() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+
+    type Dog {
+      name: String!
+    }
+
+    type Cat {
+      species: String!
+    }
+
+    union AnimalUnion = Dog | Cat
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        species
+        ... on AnimalUnion {
+          ... on Dog {
+            name
+          }
+        }
+      }
+    }
+    """
+
+    let expected =
+    """
+      public init(
+        name: String,
+        species: String
+      ) {
+        self.init(_dataDict: DataDict(data: [
+          "__typename": TestSchema.Objects.Dog.typename,
+          "name": name,
+          "species": species,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self),
+            ObjectIdentifier(AllAnimal.self),
+            ObjectIdentifier(AllAnimal.AsAnimalUnion.self)
+          ])
+        ]))
+      }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let allAnimals_asAnimalUnion_asDog = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"]?[as: "AnimalUnion"]?[as: "Dog"]
+    )
+
+    let actual = subject.render(inlineFragment: allAnimals_asAnimalUnion_asDog)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 17, ignoringExtraLines: true))
+  }
 
   func test__render_givenNestedTypeCaseSelectionSetOnInterfaceTypeNotInheritingFromParentInterface_fulfilledFragmentsIncludesAllTypeCasesInScope() throws {
     // given
